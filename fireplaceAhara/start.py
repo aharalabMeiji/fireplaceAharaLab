@@ -11,6 +11,7 @@ from fireplace.game import Game
 from fireplace.player import Player
 from agent_Ahara import AharaRandom
 from agent_Ahara import Original_random
+from agent_Ahara import HumanInput
 from fireplace.utils import random_draft
 
 
@@ -20,11 +21,11 @@ def setup_play_game():
 	for k in range(1):
 		Count1=0
 		Count2=0
-		name1="Player1"
+		name1="Human"
 		name2="Ahara"
 		class1 = CardClass.HUNTER
 		class2 = CardClass.MAGE
-		for i in range(10):
+		for i in range(1):
 			winner = my_play_one_game(name1,name2,class1, class2)
 			print("winner is %r"%winner)
 			if winner == name1:
@@ -77,6 +78,9 @@ def my_play_turn(game: ".game.Game") -> ".game.Game":
 	elif player.name=="Ahara":
 		# ここにAIのコードを記入
 		AharaRandom(game)
+	elif player.name=="Human":
+		# ここにAIのコードを記入
+		HumanInput(game)
 	else:
 		Original_random(game)
 	game.end_turn()
