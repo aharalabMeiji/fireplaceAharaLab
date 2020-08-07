@@ -24,10 +24,11 @@ def setup_play_game():
 		Count2=0
 		for i in range(10):
 			print(random.randint(1,6), end=',') 
-		name1="Kazakus"
+		name1="Ahara1"
+		#name1="Kazakus"
 		name2="Rhokdelar"
 		class1 = CardClass.HUNTER
-		class2 = CardClass.HUNTER
+		class2 = CardClass.MAGE
 		for i in range(25):
 			winner = my_play_one_game(name1,name2,class1, class2)
 			print("winner is %r"%winner)
@@ -60,7 +61,8 @@ def my_play_one_game(name1,name2,class1, class2) -> ".game.Game":
 #	my_setup_game()
 #
 def my_setup_game(name1,name2,class1,class2) -> ".game.Game":
-	exclude = ['CFM_672','CFM_621']
+	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076']
+	#LOE_076:Sir Finley Mrrgglton
 	deck1 = random_draft(class1,exclude)
 	deck2 = random_draft(class2,exclude)
 	player1 = Player(name1, deck1, class1.default_hero)
