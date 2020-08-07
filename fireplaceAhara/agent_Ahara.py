@@ -111,8 +111,8 @@ def HumanInput(game):
 					if character.can_attack(target):
 						myH=character.health
 						hisA=target.atk
-						if myH > hisA:
-							myCandidate.append([character,"attacks",target])
+						#if myH > hisA:
+						myCandidate.append([character,"attacks",target])
 		print("Your turn:%d/%d mana"%(player.mana,player.max_mana))
 		print("[0] ターンを終了する")
 		myCount = 1
