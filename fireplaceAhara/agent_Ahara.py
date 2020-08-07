@@ -1,12 +1,12 @@
 import random
-from typing import List
+import numpy as np
 import copy
 from fireplace.exceptions import GameOver, InvalidAction
 from fireplace.card import CardType
-import numpy as np
-from agent_Maya import Action,ActionValue
-from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
 from fireplace.logging import log
+from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
+from typing import List
+from utils import Action, ActionValue
 
 def AharaRandom(game: ".game.Game"):
 	player = game.current_player

@@ -14,7 +14,9 @@ from agent_Ahara import AharaStep1
 from agent_Ahara import Original_random
 from agent_Ahara import HumanInput
 from fireplace.utils import random_draft
-
+import fireplace.actions
+import fireplace.entity
+import fireplace.card
 
 sys.path.append("..")
 
@@ -75,7 +77,10 @@ def my_play_turn(game: ".game.Game") -> ".game.Game":
 	if player.name=="Player1" or player.name=="Player2":
 		# ここにAIのコードを記入
 		Original_random(game)
-		#Maya_MCTS(game)#マヤ氏の作品
+		#
+	elif player.name=="Maya":
+		# ここにAIのコードを記入
+		Maya_MCTS(game)#マヤ氏の作品
 	elif player.name=="Ahara":
 		# ここにAIのコードを記入
 		AharaRandom(game)
