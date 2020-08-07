@@ -134,27 +134,27 @@ def executeAction(game,action):
 			theCard.attack(theTarget)
 	return game
 
-def AharaStep1(game: ".game.Game"):
-	myWeight=[1,-1,1,1,1,-1,-1,-1,1,1]
+def AharaStep1(game: ".game.Game", weight):
+	myWeight=weight
 	myCandidate = getActionCandidates(game)
 	myChoices = []
 	maxScore=0
 	maxChoice = None
-	print(">>>>>>>>>>>>>>>>>>>")
+	#print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
 		tmpGame = executeAction(tmpGame, myChoice)
 		tmpGame = AharaRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
 		score = getStageScore(tmpGame,myWeight)
-		print("-------------------")
-		print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
-		print("-------------------")
+		#print("-------------------")
+		#print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
+		#print("-------------------")
 		if score > maxScore:
 			maxScore = score
 			myChoices = [myChoice]
 		elif score == maxScore:
 			myChoices.append(myChoice)
-	print("<<<<<<<<<<<<<<<<<<<")
+	#print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
 		game = executeAction(game, random.choice(myChoices))
 	return AharaRandom(game)

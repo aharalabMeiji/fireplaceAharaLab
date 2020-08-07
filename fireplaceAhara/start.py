@@ -14,9 +14,7 @@ from agent_Ahara import AharaStep1
 from agent_Ahara import Original_random
 from agent_Ahara import HumanInput
 from fireplace.utils import random_draft
-import fireplace.actions
-import fireplace.entity
-import fireplace.card
+
 
 sys.path.append("..")
 
@@ -24,10 +22,12 @@ def setup_play_game():
 	for k in range(1):
 		Count1=0
 		Count2=0
-		name1="Ahara1"
-		name2="Ahara"
+		for i in range(10):
+			print(random.randint(1,6), end=',') 
+		name1="Kazakus"
+		name2="Rhokdelar"
 		class1 = CardClass.HUNTER
-		class2 = CardClass.PRIEST
+		class2 = CardClass.HUNTER
 		for i in range(25):
 			winner = my_play_one_game(name1,name2,class1, class2)
 			print("winner is %r"%winner)
@@ -72,12 +72,10 @@ def my_setup_game(name1,name2,class1,class2) -> ".game.Game":
 	return game
 def my_play_turn(game: ".game.Game") -> ".game.Game":
 	player = game.current_player
-	print("%r starts their turn."%player.name);
-	# gameのディープコピーを生成
+	#print("%r starts their turn."%player.name);
 	if player.name=="Player1" or player.name=="Player2":
 		# ここにAIのコードを記入
 		Original_random(game)
-		#
 	elif player.name=="Maya":
 		# ここにAIのコードを記入
 		Maya_MCTS(game)#マヤ氏の作品
@@ -86,7 +84,13 @@ def my_play_turn(game: ".game.Game") -> ".game.Game":
 		AharaRandom(game)
 	elif player.name=="Ahara1":
 		# ここにAIのコードを記入
-		AharaStep1(game)
+		AharaStep1(game,[1,-1,1,1,1,-1,-1,-1,1,1])
+	elif player.name=="Kazakus":
+		# ここにAIのコードを記入
+		AharaStep1(game,[1,-2,5,2,6,-3,-2,-5,4,5])
+	elif player.name=="Rhokdelar":
+		# ここにAIのコードを記入
+		AharaStep1(game,[5,-4,5,2,3,-6,-2,-5,2,1])
 	elif player.name=="Human":
 		# ここにAIのコードを記入
 		HumanInput(game)
