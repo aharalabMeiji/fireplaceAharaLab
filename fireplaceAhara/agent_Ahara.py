@@ -1,11 +1,15 @@
 import random
 from typing import List
 import copy
-from fireplace.exceptions import GameOver
+from fireplace.exceptions import GameOver, InvalidAction
 from fireplace.card import CardType
+import numpy as np
+from agent_Maya import Action,ActionValue
+from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
+from fireplace.logging import log
 
 def AharaRandom(game: ".game.Game"):
-	player = game.current_player	
+	player = game.current_player
 	while True:
 		myCandidate = []
 		for card in player.hand:
@@ -41,18 +45,119 @@ def AharaRandom(game: ".game.Game"):
 								myCandidate.append([character,target])
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
-				myChoice[0].attack(myChoice[1])
+				try:
+					myChoice[0].attack(myChoice[1])
+				except InvalidAction:
+					print("(Ahara)%s cannot attack %s"%(myChoice[0],myChoice[1]))
+					continue
 				continue
 			else:
-				break
-def get_score_stage(game):
+				return game
+def getStageScore(game,weight):
 	me = game.current_player
 	he = game.current_player.opponent
 	myHero = me.hero
 	hisHero = he.hero
 	myHeroH = myHero.health
 	hisHeroH = hisHero.health
-	return myHeroH - hisHeroH
+	myCharH = 0
+	myCharN = 0
+	myTauntCharH = 0
+	for char in me.characters:
+		myCharH += char.health
+		myCharN += 1
+		#GameTag.TAUNT
+		if '挑発' in char.data.description:
+			myTauntCharH += char.health
+	hisCharH = 0
+	hisCharN = 0
+	hisTauntCharH = 0
+	for char in he.characters:
+		hisCharH += char.health
+		hisCharN += 1
+		#GameTag.TAUNT
+		if '挑発' in char.data.description:
+			hisTauntCharH += char.health
+	myMinionCardH = 0
+	mySpellCardN = 0
+	for card in me.hand:
+		if card.type == CardType.MINION:
+			myMinionCardH += card.health
+		if card.type == CardType.SPELL:
+			mySpellCardN += 1
+	myVector=[myHeroH, hisHeroH, myCharN, myCharH, myTauntCharH, hisCharN, hisCharH, hisTauntCharH, myMinionCardH, mySpellCardN]
+	return np.dot(weight,myVector)
+def getActionCandidates(game):
+	player = game.current_player
+	myCandidate = []
+	for card in player.hand:
+		if card.is_playable():
+			target = None
+			if card.must_choose_one:
+				card = random.choice(card.choose_cards)
+			if card.requires_target():
+				for target in card.targets:
+					myCandidate.append(Action(card, 'play', target))
+			else:
+				myCandidate.append(Action(card, 'play', None))
+	for character in player.characters:
+		if character.can_attack():
+			for target in character.targets:
+				if character.can_attack(target):
+					myH=character.health
+					hisA=target.atk
+					if myH > hisA:
+						myCandidate.append(Action(character, 'attack', target))
+	return myCandidate
+def executeAction(game,action):
+	player=game.current_player
+	theCard=None
+	theTarget=None
+	if action.type=="play":
+		for card in player.hand:
+			if card==action.card:
+				theCard=card
+				if action.target != None:
+					for target in theCard.targets:
+						if target==action.target:
+							theTarget=target
+		theCard.play(target=theTarget)
+	elif action.type=="attack":
+		for character in player.characters:
+			if character.can_attack():
+				if character==action.card:
+					theCard=character
+					for target in theCard.targets:
+						if target==action.target:	
+							theTarget=target
+		if theCard.can_attack(theTarget):
+			theCard.attack(theTarget)
+	return game
+
+def AharaStep1(game: ".game.Game"):
+	myWeight=[1,-1,1,1,1,-1,-1,-1,1,1]
+	myCandidate = getActionCandidates(game)
+	myChoices = []
+	maxScore=0
+	maxChoice = None
+	print(">>>>>>>>>>>>>>>>>>>")
+	for myChoice in myCandidate:
+		tmpGame = copy.deepcopy(game)
+		tmpGame = executeAction(tmpGame, myChoice)
+		tmpGame = AharaRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
+		score = getStageScore(tmpGame,myWeight)
+		print("-------------------")
+		print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
+		print("-------------------")
+		if score > maxScore:
+			maxScore = score
+			myChoices = [myChoice]
+		elif score == maxScore:
+			myChoices.append(myChoice)
+	print("<<<<<<<<<<<<<<<<<<<")
+	if len(myChoices)>0:
+		game = executeAction(game, random.choice(myChoices))
+	return AharaRandom(game)
 def Original_random(game: ".game.Game"):
 	player = game.current_player
 	while True:
@@ -71,12 +176,21 @@ def Original_random(game: ".game.Game"):
 					try:
 						player.choice.choose(choice)
 					except AttributeError:
+						print("player cannot choose card %r" % (choice))
 						continue
 					continue
 		# Randomly attack with whatever can attack
 		for character in player.characters:
 			if character.can_attack():
-				character.attack(random.choice(character.targets))
+				target = random.choice(character.targets)
+				try:
+					character.attack(target)
+				except AttributeError:
+					print("(Player1)Attribute error when %s cannot attack %s"%(character,target))
+					continue
+				except InvalidAction:
+					print("(Player1)%s cannot attack %s"%(character,target))
+					continue
 		break
 def HumanInput(game):
 	player = game.current_player
