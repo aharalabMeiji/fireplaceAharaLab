@@ -6,7 +6,8 @@ from fireplace.card import CardType
 from fireplace.logging import log
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
 from typing import List
-from utils import Action, ActionValue
+from utils import myAction, myActionValue
+from fireplace.actions import Action
 
 def AharaRandom(game: ".game.Game"):
 	player = game.current_player
@@ -28,10 +29,11 @@ def AharaRandom(game: ".game.Game"):
 			if player.choice:
 				choice = random.choice(player.choice.cards)
 				print("Choosing card %r" % (choice))
-				try:
-					player.choice.choose(choice)
-				except AttributeError:
-					continue
+				#try:
+				player.choice.choose(choice)
+				#except AttributeError:
+				#	print("AttributeError:%s"%player.choice.cards)
+				#	continue
 				continue
 		else:
 			myCandidate = []# Randomly attack with whatever can attack
@@ -97,9 +99,9 @@ def getActionCandidates(game):
 				card = random.choice(card.choose_cards)
 			if card.requires_target():
 				for target in card.targets:
-					myCandidate.append(Action(card, 'play', target))
+					myCandidate.append(myAction(card, 'play', target))
 			else:
-				myCandidate.append(Action(card, 'play', None))
+				myCandidate.append(myAction(card, 'play', None))
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
@@ -107,7 +109,7 @@ def getActionCandidates(game):
 					myH=character.health
 					hisA=target.atk
 					if myH > hisA:
-						myCandidate.append(Action(character, 'attack', target))
+						myCandidate.append(myAction(character, 'attack', target))
 	return myCandidate
 def executeAction(game,action):
 	player=game.current_player

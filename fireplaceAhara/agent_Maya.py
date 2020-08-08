@@ -13,7 +13,7 @@ import time#
 import sys
 from fireplace.exceptions import GameOver
 import csv
-from utils import Action, ActionValue, Node
+from utils import myAction, myActionValue, Node
 
 def Maya_MCTS(game: ".game.Game"):
 	while True:
@@ -148,22 +148,22 @@ def get_valid_actions(game):
 			target=None
 			if card.requires_target():
 				for t in card.targets:
-					actions.append(Action(card,"play",t))
+					actions.append(myAction(card,"play",t))
 					pass
 				pass
 			else:
-				actions.append(Action(card,"play",target))
+				actions.append(myAction(card,"play",target))
 			pass
 		pass
 	for character in myPlayer.characters:
 		if character.can_attack():
 			for t in character.targets :
-				actions.append(Action(character,"attack",t))
+				actions.append(myAction(character,"attack",t))
 				pass
 			pass
 		pass
 	pass
-	actions.append(Action(None,"do_nothing",None))
+	actions.append(myAction(None,"do_nothing",None))
 	return actions
 def try_primitive_montecarlo_simulation(game,max_trial):
 	copyGame=copy.deepcopy(game)
@@ -233,7 +233,7 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 			result=currentNode.simulate()
 			currentNode.backPropagate(result)
 			pass
-		visitScores=list(map(lambda node:ActionValue(node.move,node.visits),root.childNodes))
+		visitScores=list(map(lambda node:myActionValue(node.move,node.visits),root.childNodes))
 		totalScores=addActionValues(totalScores,visitScores)
 		print("totalScores")
 		for item in totalScores:

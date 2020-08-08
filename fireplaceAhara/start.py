@@ -24,11 +24,11 @@ def setup_play_game():
 		Count2=0
 		for i in range(10):
 			print(random.randint(1,6), end=',') 
-		name1="Ahara1"
+		name1="Rhokdelar"
+		name2="Ahara1"
 		#name1="Kazakus"
-		name2="Rhokdelar"
-		class1 = CardClass.HUNTER
-		class2 = CardClass.MAGE
+		class1 = CardClass.WARLOCK
+		class2 = CardClass.SHAMAN
 		for i in range(25):
 			winner = my_play_one_game(name1,name2,class1, class2)
 			print("winner is %r"%winner)

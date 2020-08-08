@@ -1,7 +1,7 @@
-class Action(object):
-	"""docstring for Action"""
+class myAction(object):
+	"""docstring for myAction"""
 	def __init__(self, _card,_type,_target=None):
-		super(Action, self).__init__()
+		super(myAction, self).__init__()
 		self.card=_card
 		self.type=_type
 		self.target=_target
@@ -13,10 +13,10 @@ class Action(object):
 	def __eq__(self,obj):
 		return str(self)==str(obj)
 		pass
-class ActionValue(object):
-	"""docstring for ActionValue"""
+class myActionValue(object):
+	"""docstring for myActionValue"""
 	def __init__(self, _action,_score):
-		super(ActionValue, self).__init__()
+		super(myActionValue, self).__init__()
 		self.action = _action
 		self.score=_score
 		
