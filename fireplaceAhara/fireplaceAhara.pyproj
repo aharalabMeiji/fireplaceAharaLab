@@ -26,8 +26,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="agent_Ahara.py" />
+    <Compile Include="agent_Genzo.py" />
     <Compile Include="agent_Maya.py" />
+    <Compile Include="Genzo.py" />
     <Compile Include="start.py" />
     <Compile Include="utils.py" />
   </ItemGroup>

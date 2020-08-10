@@ -9,7 +9,7 @@ from typing import List
 from utils import myAction, myActionValue
 from fireplace.actions import Action
 
-def AharaRandom(game: ".game.Game"):
+def GenzoRandom(game: ".game.Game"):
 	player = game.current_player
 	while True:
 		myCandidate = []
@@ -29,11 +29,15 @@ def AharaRandom(game: ".game.Game"):
 			if player.choice:
 				choice = random.choice(player.choice.cards)
 				print("Choosing card %r" % (choice))
-				#try:
-				player.choice.choose(choice)
-				#except AttributeError:
-				#	print("AttributeError:%s"%player.choice.cards)
-				#	continue
+				myChoiceStr = str(choice)
+				if 'RandomCardPicker' in str(choice):
+					#myCardID =  random.choice(choice.find_cards())
+					#myCard = Card(myCardID)
+					#myCard.controller = player
+					#myCard.zone = Zone.HAND
+					player.choice = None
+				else :
+					player.choice.choose(choice)
 				continue
 		else:
 			myCandidate = []# Randomly attack with whatever can attack
@@ -50,7 +54,7 @@ def AharaRandom(game: ".game.Game"):
 				try:
 					myChoice[0].attack(myChoice[1])
 				except InvalidAction:
-					print("(Ahara)%s cannot attack %s"%(myChoice[0],myChoice[1]))
+					print("(Genzo)%s cannot attack %s"%(myChoice[0],myChoice[1]))
 					continue
 				continue
 			else:
@@ -69,7 +73,7 @@ def getStageScore(game,weight):
 		myCharH += char.health
 		myCharN += 1
 		#GameTag.TAUNT
-		if '挑発' in char.data.description:
+		if char.taunt:
 			myTauntCharH += char.health
 	hisCharH = 0
 	hisCharN = 0
@@ -78,7 +82,7 @@ def getStageScore(game,weight):
 		hisCharH += char.health
 		hisCharN += 1
 		#GameTag.TAUNT
-		if '挑発' in char.data.description:
+		if char.taunt:
 			hisTauntCharH += char.health
 	myMinionCardH = 0
 	mySpellCardN = 0
@@ -87,8 +91,18 @@ def getStageScore(game,weight):
 			myMinionCardH += card.health
 		if card.type == CardType.SPELL:
 			mySpellCardN += 1
-	myVector=[myHeroH, hisHeroH, myCharN, myCharH, myTauntCharH, hisCharN, hisCharH, hisTauntCharH, myMinionCardH, mySpellCardN]
-	return np.dot(weight,myVector)
+	score = 0
+	score += weight.mHH * myHeroH
+	score += weight.hHH * hisHeroH
+	score += weight.mCN * myCharN
+	score += weight.mCH * myCharH
+	score += weight.mTCH * myTauntCharH
+	score += weight.hCN * hisCharN
+	score += weight.hCH * hisCharH
+	score += weight.hTCH * hisTauntCharH
+	score += weight.mMCH * myMinionCardH
+	score += weight.mSCN * mySpellCardN
+	return score
 def getActionCandidates(game):
 	player = game.current_player
 	myCandidate = []
@@ -136,8 +150,8 @@ def executeAction(game,action):
 			theCard.attack(theTarget)
 	return game
 
-def AharaStep1(game: ".game.Game", weight):
-	myWeight=weight
+def GenzoStep1(game: ".game.Game", myW):
+	myWeight=myW
 	myCandidate = getActionCandidates(game)
 	myChoices = []
 	maxScore=0
@@ -146,7 +160,7 @@ def AharaStep1(game: ".game.Game", weight):
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
 		tmpGame = executeAction(tmpGame, myChoice)
-		tmpGame = AharaRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
+		tmpGame = GenzoRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
 		score = getStageScore(tmpGame,myWeight)
 		#print("-------------------")
 		#print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
@@ -159,7 +173,23 @@ def AharaStep1(game: ".game.Game", weight):
 	#print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
 		game = executeAction(game, random.choice(myChoices))
-	return AharaRandom(game)
+		player = game.current_player
+		if player.choice:# ここは戦略に入っていない。
+			choice = random.choice(player.choice.cards)
+			print("Choosing card %r" % (choice))
+			myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				#myCardID =  random.choice(choice.find_cards())
+				#myCard = Card(myCardID)
+				#myCard.controller = player
+				#myCard.zone = Zone.HAND
+				player.choice = None
+			else :
+				player.choice.choose(choice)
+	return GenzoRandom(game)
+#
+#   Original random
+#
 def Original_random(game: ".game.Game"):
 	player = game.current_player
 	while True:
@@ -175,11 +205,15 @@ def Original_random(game: ".game.Game"):
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					print("Choosing card %r" % (choice))
-					try:
+					myChoiceStr = str(choice)
+					if 'RandomCardPicker' in str(choice):
+						#myCardID =  random.choice(choice.find_cards())
+						#myCard = Card(myCardID)
+						#myCard.controller = player
+						#myCard.zone = Zone.HAND
+						player.choice = None
+					else :
 						player.choice.choose(choice)
-					except AttributeError:
-						print("player cannot choose card %r" % (choice))
-						continue
 					continue
 		# Randomly attack with whatever can attack
 		for character in player.characters:
