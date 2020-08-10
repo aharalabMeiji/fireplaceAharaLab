@@ -20,8 +20,8 @@ sys.path.append("..")
 
 def setup_play_game():
 	#Genzos=[]
-	Original=Genzo(GenzoWeight(1,1,1,1,1,1,1,1,1,1),"Original", CardClass.HUNTER, CardClass.HUNTER)
-	Rhokdelar=Genzo(GenzoWeight(1,2,5,2,6,3,2,5,4,5),"Rhokdelar", CardClass.SHAMAN, CardClass.HUNTER)
+	Original=Genzo(GenzoWeight(1,1,1,1,1,1,1,1,1,1),"Original", CardClass.SHAMAN, CardClass.HUNTER)
+	Rhokdelar=Genzo(GenzoWeight(1,2,5,2,6,3,2,5,4,5),"Rhokdelar", CardClass.HUNTER, CardClass.HUNTER)
 	Human=Genzo(GenzoWeight(1,2,3,4,5,6,7,8,9,1),"Human", CardClass.SHAMAN, CardClass.HUNTER)
 	#Genzos.append(Original)
 	#Genzos.append(Rhokdelar)
@@ -68,35 +68,36 @@ def my_play_one_game(P1,P2) -> ".game.Game":
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
-	try:
-		while True:		
-			player = game.current_player
-			#print("%r starts their turn."%player.name);
-			if player.name=="Player1" or player.name=="Player2":
-				Original_random(game)
-			elif player.name=="Maya":
-				Maya_MCTS(game)#マヤ氏の作品
-			elif player.name=="Genzo":
-				GenzoRandom(game)
-			elif player.name=="Human":
-				HumanInput(game)
-			elif player.name==P1.name:
-				GenzoStep1(game,P1.weight)
-			elif player.name==P2.name:
-				GenzoStep1(game,P2.weight)
-			else:
-				Original_random(game)
+	while True:		
+		player = game.current_player
+		#print("%r starts their turn."%player.name);
+		if player.name=="Player1" or player.name=="Player2":
+			Original_random(game)
+		elif player.name=="Maya":
+			Maya_MCTS(game)#マヤ氏の作品
+		elif player.name=="Genzo":
+			GenzoRandom(game)
+		elif player.name=="Human":
+			HumanInput(game)
+		elif player.name==P1.name:
+			game = GenzoStep1(game,P1.weight)
+		elif player.name==P2.name:
+			game = GenzoStep1(game,P2.weight)
+		else:
+			Original_random(game)
+		
+		if game.state==State.COMPLETE:
+			if game.current_player.playstate == PlayState.WON:
+				return game.current_player.name
+			if game.current_player.playstate == PlayState.LOST:
+				return game.current_player.opponent.name
+			if game.current_player.opponent.playstate == PlayState.LOST:## no need
+				return game.current_player.name
+			if game.current_player.opponent.playstate == PlayState.WON:## no need
+				return game.current_player.opponent.name
+			return 'DRAW'
+		else:
 			game.end_turn()
-	except GameOver as inst:
-		if game.current_player.playstate == PlayState.WON:
-			return game.current_player.name
-		if game.current_player.playstate == PlayState.LOST:
-			return game.current_player.opponent.name
-		if game.current_player.opponent.playstate == PlayState.LOST:## no need
-			return game.current_player.name
-		if game.current_player.opponent.playstate == PlayState.WON:## no need
-			return game.current_player.opponent.name
-	return 'DRAW'
 #
 #		main()
 #

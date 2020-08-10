@@ -25,7 +25,8 @@ def GenzoRandom(game: ".game.Game"):
 					myCandidate.append([card,None])
 		if len(myCandidate) > 0:
 			myChoice = random.choice(myCandidate)
-			myChoice[0].play(target=myChoice[1])
+			if myChoice[0].is_playable():
+				myChoice[0].play(target=myChoice[1])
 			if player.choice:
 				choice = random.choice(player.choice.cards)
 				print("Choosing card %r" % (choice))
@@ -51,12 +52,8 @@ def GenzoRandom(game: ".game.Game"):
 								myCandidate.append([character,target])
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
-				try:
+				if myChoice[0].can_attack():
 					myChoice[0].attack(myChoice[1])
-				except InvalidAction:
-					print("(Genzo)%s cannot attack %s"%(myChoice[0],myChoice[1]))
-					continue
-				continue
 			else:
 				return game
 def getStageScore(game,weight):
@@ -131,13 +128,15 @@ def executeAction(game,action):
 	theTarget=None
 	if action.type=="play":
 		for card in player.hand:
-			if card==action.card:
+			if card==action.card and card.is_playable():
 				theCard=card
 				if action.target != None:
 					for target in theCard.targets:
 						if target==action.target:
 							theTarget=target
-		theCard.play(target=theTarget)
+							theCard.play(target=theTarget)
+				else:
+					theCard.play(target=None)
 	elif action.type=="attack":
 		for character in player.characters:
 			if character.can_attack():
@@ -146,8 +145,8 @@ def executeAction(game,action):
 					for target in theCard.targets:
 						if target==action.target:	
 							theTarget=target
-		if theCard.can_attack(theTarget):
-			theCard.attack(theTarget)
+							if theCard.can_attack(theTarget):
+								theCard.attack(theTarget)
 	return game
 
 def GenzoStep1(game: ".game.Game", myW):
@@ -159,9 +158,12 @@ def GenzoStep1(game: ".game.Game", myW):
 	#print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
-		tmpGame = executeAction(tmpGame, myChoice)
-		tmpGame = GenzoRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
-		score = getStageScore(tmpGame,myWeight)
+		try:
+			tmpGame = executeAction(tmpGame, myChoice)
+			tmpGame = GenzoRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
+			score = getStageScore(tmpGame,myWeight)
+		except GameOver:
+			score = 1000
 		#print("-------------------")
 		#print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
 		#print("-------------------")
@@ -172,7 +174,10 @@ def GenzoStep1(game: ".game.Game", myW):
 			myChoices.append(myChoice)
 	#print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
-		game = executeAction(game, random.choice(myChoices))
+		try:
+			game = executeAction(game, random.choice(myChoices))
+		except GameOver:
+			return game
 		player = game.current_player
 		if player.choice:# ここは戦略に入っていない。
 			choice = random.choice(player.choice.cards)
@@ -186,7 +191,14 @@ def GenzoStep1(game: ".game.Game", myW):
 				player.choice = None
 			else :
 				player.choice.choose(choice)
-	return GenzoRandom(game)
+		try:
+			GenzoRandom(game)
+			return game
+		except:
+			return game
+	else:
+		return game
+
 #
 #   Original random
 #
