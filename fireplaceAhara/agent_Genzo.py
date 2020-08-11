@@ -8,16 +8,21 @@ from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag
 from typing import List
 from utils import myAction, myActionValue
 from fireplace.actions import Action
+from fireplace.card import Card
+from fireplace.game import Game
+from enum import IntEnum
 
-def GenzoRandom(game: ".game.Game"):
-	player = game.current_player
-	while True:
+def GenzoRandom(thisgame: ".game.Game"):
+	player = thisgame.current_player
+	loopCount=0
+	while loopCount<20:
+		loopCount+=1
 		myCandidate = []
 		for card in player.hand:
 			if card.is_playable():
 				target = None
 				if card.must_choose_one:
-					card = random.choice(card.choose_cards)
+					card = random.choice(card.choose_cards)#ここに相当する部分の戦略なし
 				if card.requires_target():
 					for target in card.targets:
 						myCandidate.append([card, target])
@@ -25,17 +30,19 @@ def GenzoRandom(game: ".game.Game"):
 					myCandidate.append([card,None])
 		if len(myCandidate) > 0:
 			myChoice = random.choice(myCandidate)
-			if myChoice[0].is_playable():
-				myChoice[0].play(target=myChoice[1])
+			if executePlay(myChoice[0], myChoice[1])==ExceptionPlay.GAMEOVER:
+				return ExceptionPlay.GAMEOVER
 			if player.choice:
 				choice = random.choice(player.choice.cards)
-				print("Choosing card %r" % (choice))
+				#print("Choosing card %r" % (choice))
 				myChoiceStr = str(choice)
 				if 'RandomCardPicker' in str(choice):
-					#myCardID =  random.choice(choice.find_cards())
-					#myCard = Card(myCardID)
-					#myCard.controller = player
-					#myCard.zone = Zone.HAND
+					myCardID =  random.choice(choice.find_cards())
+					myCard = Card(myCardID)
+					myCard.controller = player#?
+					myCard.draw()
+					#player.hand.append(myCard)#?
+					#myCard.zone = Zone.HAND#?
 					player.choice = None
 				else :
 					player.choice.choose(choice)
@@ -52,10 +59,10 @@ def GenzoRandom(game: ".game.Game"):
 								myCandidate.append([character,target])
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
-				if myChoice[0].can_attack():
-					myChoice[0].attack(myChoice[1])
+				if executeAttack(myChoice[0], myChoice[1])==ExceptionPlay.GAMEOVER:
+					return ExceptionPlay.GAMEOVER
 			else:
-				return game
+				return ExceptionPlay.VALID
 def getStageScore(game,weight):
 	me = game.current_player
 	he = game.current_player.opponent
@@ -100,19 +107,46 @@ def getStageScore(game,weight):
 	score += weight.mMCH * myMinionCardH
 	score += weight.mSCN * mySpellCardN
 	return score
-def getActionCandidates(game):
-	player = game.current_player
+def executePlay(card,target=None):
+	if not card.is_playable():
+		return ExceptionPlay.INVALID
+	if target != None and target != card.targets:
+		return ExceptionPlay.INVALID
+	try:
+		card.play(target=target)
+	except GameOver:
+		return ExceptionPlay.GAMEOVER
+	return ExceptionPlay.VALID
+def executeAttack(card,target):
+	if not card.can_attack(target):
+		return ExceptionPlay.INVALID
+	try:
+		card.attack(target)
+	except GameOver:
+		return ExceptionPlay.GAMEOVER
+	return ExceptionPlay.VALID
+class ExceptionPlay(IntEnum):
+	VALID=0
+	GAMEOVER=1
+	INVALID=2
+#
+##  getActionCandidates
+##
+def getActionCandidates(mygame):
+	player = mygame.current_player
 	myCandidate = []
 	for card in player.hand:
 		if card.is_playable():
 			target = None
 			if card.must_choose_one:
-				card = random.choice(card.choose_cards)
+				card = random.choice(card.choose_cards)#ここでカードが入れ替わるときの対応をしていない
 			if card.requires_target():
 				for target in card.targets:
-					myCandidate.append(myAction(card, 'play', target))
+					if card.is_playable():
+						myCandidate.append(myAction(card, 'play', target))
 			else:
-				myCandidate.append(myAction(card, 'play', None))
+				if card.is_playable():
+					myCandidate.append(myAction(card, 'play', None))
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
@@ -122,32 +156,33 @@ def getActionCandidates(game):
 					if myH > hisA:
 						myCandidate.append(myAction(character, 'attack', target))
 	return myCandidate
+#
+#  executeAction
+#
 def executeAction(game,action):
 	player=game.current_player
 	theCard=None
 	theTarget=None
 	if action.type=="play":
 		for card in player.hand:
-			if card==action.card and card.is_playable():
+			if card==action.card:
 				theCard=card
 				if action.target != None:
 					for target in theCard.targets:
 						if target==action.target:
 							theTarget=target
-							theCard.play(target=theTarget)
+							return executePlay(theCard,theTarget)
 				else:
-					theCard.play(target=None)
+					return executePlay(theCard)
 	elif action.type=="attack":
 		for character in player.characters:
-			if character.can_attack():
-				if character==action.card:
-					theCard=character
-					for target in theCard.targets:
-						if target==action.target:	
-							theTarget=target
-							if theCard.can_attack(theTarget):
-								theCard.attack(theTarget)
-	return game
+			if character==action.card:
+				theCard=character
+				for target in theCard.targets:
+					if target==action.target:	
+						theTarget=target
+						return executeAttack(theCard,theTarget)
+	return ExceptionPlay.INVALID
 
 def GenzoStep1(game: ".game.Game", myW):
 	myWeight=myW
@@ -158,12 +193,13 @@ def GenzoStep1(game: ".game.Game", myW):
 	#print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
-		try:
-			tmpGame = executeAction(tmpGame, myChoice)
-			tmpGame = GenzoRandom(tmpGame)#たぶん代入は不要、ここをもっと賢くしてもよい
-			score = getStageScore(tmpGame,myWeight)
-		except GameOver:
-			score = 1000
+		if executeAction(tmpGame, myChoice)==ExceptionPlay.GAMEOVER:
+			score=100000
+		else:
+			if GenzoRandom(tmpGame)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+				score=100000
+			else:
+				score = getStageScore(tmpGame,myWeight)
 		#print("-------------------")
 		#print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
 		#print("-------------------")
@@ -174,31 +210,27 @@ def GenzoStep1(game: ".game.Game", myW):
 			myChoices.append(myChoice)
 	#print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
-		try:
-			game = executeAction(game, random.choice(myChoices))
-		except GameOver:
-			return game
+		ret = executeAction(game, random.choice(myChoices))
+		if ret==ExceptionPlay.GAMEOVER:
+			return ExceptionPlay.GAMEOVER
+		if ret==ExceptionPlay.INVALID:
+			return ExceptionPlay.INVALID
 		player = game.current_player
 		if player.choice:# ここは戦略に入っていない。
 			choice = random.choice(player.choice.cards)
 			print("Choosing card %r" % (choice))
 			myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
-				#myCardID =  random.choice(choice.find_cards())
-				#myCard = Card(myCardID)
-				#myCard.controller = player
-				#myCard.zone = Zone.HAND
+				myCardID =  random.choice(choice.find_cards())
+				myCard = Card(myCardID)
+				myCard.controller = player#?
+				myCard.draw()
 				player.choice = None
 			else :
 				player.choice.choose(choice)
-		try:
-			GenzoRandom(game)
-			return game
-		except:
-			return game
+		return GenzoRandom(game)
 	else:
-		return game
-
+		return ExceptionPlay.VALID
 #
 #   Original random
 #
@@ -213,16 +245,16 @@ def Original_random(game: ".game.Game"):
 				if card.requires_target():
 					target = random.choice(card.targets)
 				print("Playing %r on %r" % (card, target))
-				card.play(target=target)
+				executePlay(card,target)
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					print("Choosing card %r" % (choice))
 					myChoiceStr = str(choice)
 					if 'RandomCardPicker' in str(choice):
-						#myCardID =  random.choice(choice.find_cards())
-						#myCard = Card(myCardID)
-						#myCard.controller = player
-						#myCard.zone = Zone.HAND
+						myCardID =  random.choice(choice.find_cards())
+						myCard = Card(myCardID)
+						myCard.controller = player#?
+						myCard.draw()
 						player.choice = None
 					else :
 						player.choice.choose(choice)
@@ -231,14 +263,7 @@ def Original_random(game: ".game.Game"):
 		for character in player.characters:
 			if character.can_attack():
 				target = random.choice(character.targets)
-				try:
-					character.attack(target)
-				except AttributeError:
-					print("(Player1)Attribute error when %s cannot attack %s"%(character,target))
-					continue
-				except InvalidAction:
-					print("(Player1)%s cannot attack %s"%(character,target))
-					continue
+				executeAttack(character, target)
 		break
 def HumanInput(game):
 	player = game.current_player
@@ -301,15 +326,20 @@ def HumanInput(game):
 		if inputNum>0 and inputNum<=len(myCandidate):
 			myChoice = myCandidate[inputNum-1]
 			if myChoice[1]=="plays":
-				myChoice[0].play(target=myChoice[2])
+				executePlay(myChoice[0], myChoice[2])
 			elif myChoice[1]=="attacks":
-				myChoice[0].attack(myChoice[2])
+				executeAttack(myChoice[0], myChoice[2])
 			if player.choice:
 				choice = random.choice(player.choice.cards)
 				print("Choosing card %r" % (choice))
-				try:
+				myChoiceStr = str(choice)
+				if 'RandomCardPicker' in str(choice):
+					myCardID =  random.choice(choice.find_cards())
+					myCard = Card(myCardID)
+					myCard.controller = player#?
+					myCard.draw()
+					player.choice = None
+				else :
 					player.choice.choose(choice)
-				except AttributeError:
-					continue
 				continue
 

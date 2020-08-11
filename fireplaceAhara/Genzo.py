@@ -2,12 +2,13 @@ class Genzo(object):
 	"""
 	Situation Vector with evolutionary calculation 
 	"""
-	def __init__(self, _weight,_name,_myClass,_hisClass):
+	def __init__(self, _weight,_name,_myClass,_hisClass,_rating):
 		super(Genzo, self).__init__()
 		self.weight=_weight
 		self.name=_name
 		self.myClass=_myClass
 		self.hisClass=_hisClass
+		self.rating=_rating
 
 	def __str__(self):
 		return "name:weight".format(name=self.name,weight=str(self.weight))
@@ -32,7 +33,17 @@ class GenzoWeight(object):
 		self.mSCN = mySpellCardN
 
 	def __str__(self):
-		return "something"
+		myText =  ''+str(self.mHH)+','
+		myText += str(-self.hHH)+','
+		myText += str(self.mCN)+','
+		myText += str(self.mCH)+','
+		myText += str(self.mTCH)+','
+		myText += str(-self.hCN)+','
+		myText += str(-self.hCH)+','
+		myText += str(-self.hTCH)+','
+		myText += str(self.mMCH)+','
+		myText += str(self.mSCN)
+		return myText
 
 	def __eq__(self,obj):
 		return self.mHH==obj.mHH and self.hHH==obj.hHH and self.mCN==obj.mCN and self.mCH==obj.mCH and self.mTCH==obj.mTCH and self.hCN==obj.hCN and self.hCH==obj.hCH and self.hTCH==obj.hTCH and self.mMCH==obj.mMCH and self.mSCN==obj.mSCN 
