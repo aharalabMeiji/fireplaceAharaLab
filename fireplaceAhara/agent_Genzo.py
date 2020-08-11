@@ -88,24 +88,66 @@ def getStageScore(game,weight):
 		#GameTag.TAUNT
 		if char.taunt:
 			hisTauntCharH += char.health
-	myMinionCardH = 0
-	mySpellCardN = 0
+	MinionCH = 0
+	SpellCN = 0
+	BattleCryCN = 0#雄叫び
+	ChargeCN = 0#突撃
+	WinduryCN = 0#疾風
+	TauntCN = 0#挑発
+	DamageCN = 0#ダメージ
+	GainCN = 0#獲得#回復
+	SummonCN = 0#召喚
+	LifeStealCN = 0#生命奪取
+	GiveCN = 0#付与
+	VanillaCN = 0#バニラカード
 	for card in me.hand:
+		des = card.data.description
 		if card.type == CardType.MINION:
-			myMinionCardH += card.health
+			MinionCH += card.health
 		if card.type == CardType.SPELL:
-			mySpellCardN += 1
+			SpellCN += 1
+		if '雄叫び' in des:
+			BattleCryCN += 1
+		if '突撃' in des:
+			ChargeCN += 1
+		if '疾風' in des:
+			WinduryCN += 1
+		if '挑発' in des:
+			TauntCN += 1
+		if 'ダメージ' in des:
+			DamageCN += 1
+		if '獲得' in des:
+			GainCN+=1
+		if '召喚' in des:
+			SummonCN+=1
+		if '生命奪取' in des:
+			LifeStealCN+=1
+		if '付与' in des:
+			GiveCN+=1
+		if len(des)<3:
+			VanillaCN+=1
 	score = 0
-	score += weight.mHH * myHeroH
-	score += weight.hHH * hisHeroH
-	score += weight.mCN * myCharN
-	score += weight.mCH * myCharH
-	score += weight.mTCH * myTauntCharH
-	score += weight.hCN * hisCharN
-	score += weight.hCH * hisCharH
-	score += weight.hTCH * hisTauntCharH
-	score += weight.mMCH * myMinionCardH
-	score += weight.mSCN * mySpellCardN
+	score += weight.myHeroH * myHeroH
+	score += weight.hisHeroH * hisHeroH
+	score += weight.myCharN * myCharN
+	score += weight.myCharH * myCharH
+	score += weight.myTauntCharH * myTauntCharH
+	score += weight.hisCharN * hisCharN
+	score += weight.hisCharH * hisCharH
+	score += weight.hisTauntCharH * hisTauntCharH
+	score += weight.MinionCH * MinionCH
+	score += weight.SpellCN * SpellCN
+	score += weight.BattleCryCN*BattleCryCN
+	score += weight.ChargeCN*ChargeCN
+	score += weight.WinduryCN*WinduryCN
+	score += weight.TauntCN*TauntCN
+	score += weight.DamageCN*DamageCN
+	score += weight.GainCN*GainCN
+	score += weight.SummonCN*SummonCN
+	score += weight.LifeStealCN*LifeStealCN
+	score += weight.GiveCN*GiveCN
+	score += weight.VanillaCN*VanillaCN
+	#score += weight.
 	return score
 def executePlay(card,target=None):
 	if not card.is_playable():
@@ -206,6 +248,8 @@ def GenzoStep1(game: ".game.Game", myW):
 		if score > maxScore:
 			maxScore = score
 			myChoices = [myChoice]
+			if score==100000:
+				break
 		elif score == maxScore:
 			myChoices.append(myChoice)
 	#print("<<<<<<<<<<<<<<<<<<<")

@@ -32,8 +32,8 @@ def setup_play_game():
 		if class1*10+class2 == int(div[1]):
 			name=div[0]
 			rating=int(div[2])
-			weight=GenzoWeight(int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]))
-			thisAgent = Genzo(weight, name,class1, class2,rating)
+			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
+			thisAgent = Genzo(GenzoWeight(weight), name, class1, class2,rating)
 			GenzosX.append(thisAgent)
 	test_data.close()
 	test_data = open(filename21, "r")
@@ -42,21 +42,22 @@ def setup_play_game():
 		if class2*10+class1 == int(div[1]):
 			name=div[0]
 			rating=int(div[2])
-			weight=GenzoWeight(int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]))
-			thisAgent = Genzo(weight, name, class2, class1, rating)
+			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
+			thisAgent = Genzo(GenzoWeight(weight), name, class2, class1, rating)
 			GenzosY.append(thisAgent)
 	test_data.close()
-	newName="CatrinaMuerte"#毎回、何か自分で工夫する
-	#,Tak Nozwhisker,Togwaggle,Walking Fountain,Fel Lord Betrug,Jumbo Imp,Boom Reaver,Elysiana
-	newWeight=createNewWeight()#新作
+	newName="DarkPeddler"#毎回、何か自分で工夫する
+	#,Mrrgglton,VoodooDoll,DarkPeddler,MadameLazul,Lucentbark,Nozari,CatrinaMuerte,,
+	#Tak Nozwhisker,,Walking Fountain,Fel Lord Betrug,Jumbo Imp,Boom Reaver,Elysiana
+	#newWeight=createNewWeight()#新作
 	#newWeight=NearExsiting()#既存のものの変形
-	newAgent=Genzo(newWeight,newName,class1,class2,100)
-	GenzosX.append(newAgent)
-	newAgent=Genzo(newWeight,newName,class2,class1,100)
-	GenzosY.append(newAgent)
+	#newAgent=Genzo(newWeight,newName,class1,class2,1000)
+	#GenzosX.append(newAgent)
+	#newAgent=Genzo(newWeight,newName,class2,class1,1000)
+	#GenzosY.append(newAgent)
 
-	Human=Genzo(GenzoWeight(1,2,3,4,5,6,7,8,9,1),"Human", CardClass.SHAMAN, CardClass.HUNTER,100)
-	for k in range(20):
+	#Human=Genzo(GenzoWeight(1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0),"Human", CardClass.SHAMAN, CardClass.HUNTER,1000)
+	for k in range(100):
 		Count1=0
 		Count2=0
 		CountDraw=0
@@ -73,20 +74,22 @@ def setup_play_game():
 				CountDraw+=1
 		print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
 		print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
-		print(" Draw: %d"%CountDraw)
+		#print(" Draw: %d"%CountDraw)
 
 		import math
 		# rating
-		diff=math.exp((P1.rating-P2.rating)*0.02)# レーティングが50違うとe倍の実力差
-		e12=diff/(1+diff)
-		e21=1/1+diff
-		K=2
-		newRating1 = P1.rating+round((Count1*e21-Count2*e12)*K)
-		newRating2 = P2.rating+round((Count2*e12-Count1*e21)*K)
+		diff=math.exp(float(P1.rating-P2.rating)*0.01)# レーティングが100違うとe倍の実力差
+		e12=diff/(1.0+diff)
+		e21=1.0/(1.0+diff)
+		K=2.0
+		newRating1 = P1.rating+round((e21*Count1-e12*Count2)*K)
+		newRating2 = P2.rating+round((e12*Count2-e21*Count1)*K)
 		if newRating1<1:
 			newRating1=1;
 		if newRating2<1:
 			newRating2=1;
+		print(" %r (%r) rating: %d->%d"%(P1.name, P1.myClass, P1.rating, newRating1))
+		print(" %r (%r) rating: %d->%d"%(P2.name, P2.myClass, P2.rating, newRating2))
 		P1.rating=newRating1
 		P2.rating=newRating2
 		#class1=class2のときはratingをそろえる作業が入る。
@@ -104,7 +107,10 @@ def setup_play_game():
 #  createNewWeight()
 #
 def createNewWeight():
-	return GenzoWeight(random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9),random.randint(1,9))
+	weight=[]
+	for i in range(20):
+		weight.append(random.randint(1,9))
+	return GenzoWeight(weight)
 #
 #	my_setup_game()
 #
@@ -164,7 +170,19 @@ def my_play_one_game(P1,P2) -> ".game.Game":
 				return game.current_player.opponent.name
 			return 'DRAW'
 		else:
-			game.end_turn()
+			try:
+				game.end_turn()
+			except GameOver:#まれにおこる
+				print("game.state %r"%(game.state))
+				if game.current_player.playstate == PlayState.WON:
+					return game.current_player.name
+				if game.current_player.playstate == PlayState.LOST:
+					return game.current_player.opponent.name
+				if game.current_player.opponent.playstate == PlayState.LOST:## no need
+					return game.current_player.name
+				if game.current_player.opponent.playstate == PlayState.WON:## no need
+					return game.current_player.opponent.name
+				return 'DRAW'
 #
 #		main()
 #

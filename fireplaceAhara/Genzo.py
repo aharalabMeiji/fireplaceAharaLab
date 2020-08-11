@@ -20,29 +20,54 @@ class GenzoWeight(object):
 	"""
 	Weight for Genzo agent
 	"""
-	def __init__(self,myHeroH=1, hisHeroH=1, myCharN=1, myCharH=1, myTauntCharH=1, hisCharN=1, hisCharH=1, hisTauntCharH=1, myMinionCardH=1, mySpellCardN=1):
-		self.mHH = myHeroH
-		self.hHH = -hisHeroH
-		self.mCN = myCharN
-		self.mCH = myCharH
-		self.mTCH = myTauntCharH
-		self.hCN = -hisCharN
-		self.hCH = -hisCharH
-		self.hTCH = -hisTauntCharH
-		self.mMCH = myMinionCardH
-		self.mSCN = mySpellCardN
+	def __init__(self, w):
+		self.myHeroH = w[0]
+		self.hisHeroH = -w[1]
+		self.myCharN = w[2]
+		self.myCharH = w[3]
+		self.myTauntCharH = w[4]
+		self.hisCharN = -w[5]
+		self.hisCharH = -w[6]
+		self.hisTauntCharH = -w[7]
+		self.MinionCH = w[8]
+		self.SpellCN = w[9]
+		self.BattleCryCN = -w[10]#雄叫び
+		self.ChargeCN = -w[11]#突撃
+		self.WinduryCN = -w[12]#疾風
+		self.TauntCN = -w[13]#挑発
+		self.DamageCN = -w[14]#ダメージ
+		self.GainCN = -w[15]#獲得#回復
+		self.SummonCN = -w[16]#召喚
+		self.LifeStealCN = -w[17]#生命奪取
+		self.GiveCN = -w[18]#付与
+		self.VanillaCN = -w[19]#バニラカード
+#		#self. = -AddCopyCardN#追加
+#		#self. = -DiscoverCardN#発見
+#		#self. = -SilenceCardN#沈黙
+#		#self. = -SpellBurstCardN#魔法活性
+#		#self. = -OutCastCardN#異端
 
 	def __str__(self):
-		myText =  ''+str(self.mHH)+','
-		myText += str(-self.hHH)+','
-		myText += str(self.mCN)+','
-		myText += str(self.mCH)+','
-		myText += str(self.mTCH)+','
-		myText += str(-self.hCN)+','
-		myText += str(-self.hCH)+','
-		myText += str(-self.hTCH)+','
-		myText += str(self.mMCH)+','
-		myText += str(self.mSCN)
+		myText =  ''+str(self.myHeroH)+','
+		myText += str(-self.hisHeroH)+','
+		myText += str(self.myCharN)+','
+		myText += str(self.myCharH)+','
+		myText += str(self.myTauntCharH)+','
+		myText += str(-self.hisCharN)+','
+		myText += str(-self.hisCharH)+','
+		myText += str(-self.hisTauntCharH)+','
+		myText += str(self.MinionCH)+','
+		myText += str(self.SpellCN)+','
+		myText += str(-self.BattleCryCN)+','
+		myText += str(-self.ChargeCN)+','
+		myText += str(-self.WinduryCN)+','
+		myText += str(-self.TauntCN)+','
+		myText += str(-self.DamageCN)+','
+		myText += str(-self.GainCN)+','
+		myText += str(-self.SummonCN)+','
+		myText += str(-self.LifeStealCN)+','
+		myText += str(-self.GiveCN)+','
+		myText += str(-self.VanillaCN)
 		return myText
 
 	def __eq__(self,obj):
