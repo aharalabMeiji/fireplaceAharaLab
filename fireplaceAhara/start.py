@@ -19,14 +19,10 @@ from Genzo import Genzo,GenzoWeight
 
 sys.path.append("..")
 
-def setup_play_game():
+def set_up_one_game_with_human():#人vsCOM
 	GenzosX=[]
-	GenzosY=[]
-	class1 = CardClass.HUNTER#3
-	class2 = CardClass.MAGE#4
-	filename12 = "test_data"+str(int(class1))+str(int(class2))+".txt"
-	filename21 = "test_data"+str(int(class2))+str(int(class1))+".txt"
-	test_data = open(filename12, "r")
+	filename = 'test_data34.txt'
+	test_data = open(filename, "r")
 	for line in test_data:
 		div = line.split(',')
 		if class1*10+class2 == int(div[1]):
@@ -36,34 +32,75 @@ def setup_play_game():
 			thisAgent = Genzo(GenzoWeight(weight), name, class1, class2,rating)
 			GenzosX.append(thisAgent)
 	test_data.close()
+	comAgent = random.choice(GenzosX)
+	Human=Genzo(GenzoWeight(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),"Human", comAgent.hisClass, comAgentmyClass,1000)
+	winner = my_play_one_game(P1,P2)
+	print("winner is %r"%winner)
+	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
+	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
+
+def setup_play_game(createMorph=0, creatNew=0, player1isNew=0, player2isNew=0, loopNumber=10):#リーグ戦
+	GenzosX=[]
+	GenzosY=[]
+	class1 = CardClass.HUNTER#3
+	class2 = CardClass.MAGE#4
+	filename12 = "test_data"+str(int(class1))+str(int(class2))+".csv"
+	filename21 = "test_data"+str(int(class2))+str(int(class1))+".csv"
+	test_data = open(filename12, "r")
+	for line in test_data:
+		div = line.split(',')
+		if class1*10+class2 == int(div[1]):
+			name=div[0]+'X'
+			rating=int(div[2])
+			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),\
+				int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),\
+				int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),\
+				int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
+			thisAgent = Genzo(GenzoWeight(weight), name, class1, class2,rating)
+			GenzosX.append(thisAgent)
+	test_data.close()
 	test_data = open(filename21, "r")
 	for line in test_data:
 		div = line.split(',')
 		if class2*10+class1 == int(div[1]):
-			name=div[0]
+			name=div[0]+'Y'
 			rating=int(div[2])
-			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
+			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),\
+				int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),\
+				int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),\
+				int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
 			thisAgent = Genzo(GenzoWeight(weight), name, class2, class1, rating)
 			GenzosY.append(thisAgent)
 	test_data.close()
-	newName="DarkPeddler"#毎回、何か自分で工夫する
-	#,Mrrgglton,VoodooDoll,DarkPeddler,MadameLazul,Lucentbark,Nozari,CatrinaMuerte,,
-	#Tak Nozwhisker,,Walking Fountain,Fel Lord Betrug,Jumbo Imp,Boom Reaver,Elysiana
-	#newWeight=createNewWeight()#新作
-	#newWeight=NearExsiting()#既存のものの変形
-	#newAgent=Genzo(newWeight,newName,class1,class2,1000)
-	#GenzosX.append(newAgent)
-	#newAgent=Genzo(newWeight,newName,class2,class1,1000)
-	#GenzosY.append(newAgent)
+	newName="JumboImp"#毎回、何か自分で工夫する
+	#,,VoodooDoll,,Lucentbark,Nozari,CatrinaMuerte,,
+	#TakNozwhisker,,WalkingFountain,FelLordBetrug,,BoomReaver,Elysiana
+	#終わったもの：DarkPeddler,Mrrgglton,MadameLazul
+	if creatNew==1:
+		newWeight = createNewWeight(0)#0:new agent
+	if createMorph==1:
+		newWeight = createNewWeight(1,GenzosX)#0:1:morphed agent
+	if creatNew==1 or createMorph==1:
+		newAgent=Genzo(newWeight, newName+'X', class1, class2, 1000)
+		GenzosX.append(newAgent)
+		mewAgent=Genzo(newWeight, newName+'Y', class2, class1, 1000)
+		GenzosY.append(mewAgent)
 
 	#Human=Genzo(GenzoWeight(1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0),"Human", CardClass.SHAMAN, CardClass.HUNTER,1000)
-	for k in range(100):
+	for k in range(loopNumber):
 		Count1=0
 		Count2=0
 		CountDraw=0
-		P1=random.choice(GenzosX)
-		P2=random.choice(GenzosY)
-		for i in range(10):
+		if player1isNew==0:
+			P1=random.choice(GenzosX)#full random
+		else:
+			P1=GenzosX[-1]#last one
+		if player2isNew==0:
+			P2=random.choice(GenzosY)#full random
+		else :
+			P2=GenzosY[-1]#last one
+		
+		for i in range(19):
 			winner = my_play_one_game(P1,P2)
 			print("winner is %r"%winner)
 			if winner == P1.name:
@@ -72,8 +109,8 @@ def setup_play_game():
 				Count2+=1
 			else:
 				CountDraw+=1
-		print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
-		print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
+		#print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
+		#print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
 		#print(" Draw: %d"%CountDraw)
 
 		import math
@@ -88,29 +125,35 @@ def setup_play_game():
 			newRating1=1;
 		if newRating2<1:
 			newRating2=1;
-		print(" %r (%r) rating: %d->%d"%(P1.name, P1.myClass, P1.rating, newRating1))
-		print(" %r (%r) rating: %d->%d"%(P2.name, P2.myClass, P2.rating, newRating2))
+		print(" %r (%r) wins: %d, rating: %d->%d"%(P1.name, P1.myClass, Count1, P1.rating, newRating1))
+		print(" %r (%r) wins: %d, rating: %d->%d"%(P2.name, P2.myClass, Count2, P2.rating, newRating2))
 		P1.rating=newRating1
 		P2.rating=newRating2
 		#class1=class2のときはratingをそろえる作業が入る。
 		with open(filename12, mode='w') as f:
 			for P in GenzosX:
-				text = P.name+','+str(int(class1))+str(int(class2))+','+str(P.rating)+','
+				text = (P.name[:-1])+','+str(int(class1))+str(int(class2))+','+str(P.rating)+','
 				text += str(P.weight)+'\n'
 				f.write(text)
 		with open(filename21, mode='w') as f:
 			for P in GenzosY:
-				text = P.name+','+str(int(class2))+str(int(class1))+','+str(P.rating)+','
+				text = (P.name[:-1])+','+str(int(class2))+str(int(class1))+','+str(P.rating)+','
 				text += str(P.weight)+'\n'
 				f.write(text)
 #
 #  createNewWeight()
 #
-def createNewWeight():
-	weight=[]
-	for i in range(20):
-		weight.append(random.randint(1,9))
-	return GenzoWeight(weight)
+def createNewWeight(option,GenzosX=None):
+	if option==0:
+		weight=[]
+		for i in range(20):
+			weight.append(random.randint(1,9))
+		return GenzoWeight(weight)
+	else:
+		#既存のものの変形
+		originalAgent = random.choice(GenzosX)
+		newWeight = originalAgent.weight.deepcopyAndPerturb()
+		return newWeight
 #
 #	my_setup_game()
 #
@@ -159,44 +202,24 @@ def my_play_one_game(P1,P2) -> ".game.Game":
 			Original_random(game)
 		if player.choice!=None:#不要なはずだが、ねんのため
 			player.choice=None
+		if game.state!=State.COMPLETE:
+			try:
+				game.end_turn()
+			except GameOver:#まれにおこる
+				gameover=0
 		if game.state==State.COMPLETE:
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
 				return game.current_player.opponent.name
-			if game.current_player.opponent.playstate == PlayState.LOST:## no need
-				return game.current_player.name
-			if game.current_player.opponent.playstate == PlayState.WON:## no need
-				return game.current_player.opponent.name
 			return 'DRAW'
-		else:
-			try:
-				game.end_turn()
-			except GameOver:#まれにおこる
-				print("game.state %r"%(game.state))
-				if game.current_player.playstate == PlayState.WON:
-					return game.current_player.name
-				if game.current_player.playstate == PlayState.LOST:
-					return game.current_player.opponent.name
-				if game.current_player.opponent.playstate == PlayState.LOST:## no need
-					return game.current_player.name
-				if game.current_player.opponent.playstate == PlayState.WON:## no need
-					return game.current_player.opponent.name
-				return 'DRAW'
 #
 #		main()
 #
 def main():
 	cards.db.initialize()
-	if len(sys.argv) > 1:
-		numgames = sys.argv[1]
-		if not numgames.isdigit():
-			sys.stderr.write("Usage: %s [NUMGAMES]\n" % (sys.argv[0]))
-			exit(1)
-		for i in range(int(numgames)):
-			setup_play_game()
-	else:
-		setup_play_game()
+	setup_play_game(player1isNew=1,loopNumber=10)#リーグ戦
+	#set_up_one_game_with_human():#人vsCOM
 
 class Evaluation(object):
 	"""docstring for Evaluation"""

@@ -70,36 +70,36 @@ def getStageScore(game,weight):
 	hisHero = he.hero
 	myHeroH = myHero.health
 	hisHeroH = hisHero.health
+	myCharA = 0
 	myCharH = 0
-	myCharN = 0
 	myTauntCharH = 0
 	for char in me.characters:
+		myCharA += char.atk
 		myCharH += char.health
-		myCharN += 1
 		#GameTag.TAUNT
 		if char.taunt:
 			myTauntCharH += char.health
+	hisCharA = 0
 	hisCharH = 0
-	hisCharN = 0
 	hisTauntCharH = 0
 	for char in he.characters:
+		hisCharA += char.atk
 		hisCharH += char.health
-		hisCharN += 1
 		#GameTag.TAUNT
 		if char.taunt:
 			hisTauntCharH += char.health
-	MinionCH = 0
-	SpellCN = 0
-	BattleCryCN = 0#雄叫び
-	ChargeCN = 0#突撃
-	WinduryCN = 0#疾風
-	TauntCN = 0#挑発
-	DamageCN = 0#ダメージ
-	GainCN = 0#獲得#回復
-	SummonCN = 0#召喚
-	LifeStealCN = 0#生命奪取
-	GiveCN = 0#付与
-	VanillaCN = 0#バニラカード
+	MinionCH = 0#手持ちのミニョンカードのHPの総和
+	SpellCN = 0#手持ちのスペルカードの枚数
+	BattleCryCN = 0#雄叫びカードの枚数
+	ChargeCN = 0#突撃カードの枚数
+	WinduryCN = 0#疾風カードの枚数
+	TauntCN = 0#挑発カードの枚数
+	DamageCN = 0#ダメージカードの枚数
+	GainCN = 0#獲得#回復カードの枚数
+	SummonCN = 0#召喚カードの枚数
+	LifeStealCN = 0#生命奪取カードの枚数
+	GiveCN = 0#付与カードの枚数
+	VanillaCN = 0#バニラカードの枚数
 	for card in me.hand:
 		des = card.data.description
 		if card.type == CardType.MINION:
@@ -129,10 +129,10 @@ def getStageScore(game,weight):
 	score = 0
 	score += weight.myHeroH * myHeroH
 	score += weight.hisHeroH * hisHeroH
-	score += weight.myCharN * myCharN
+	score += weight.myCharA * myCharA
 	score += weight.myCharH * myCharH
 	score += weight.myTauntCharH * myTauntCharH
-	score += weight.hisCharN * hisCharN
+	score += weight.hisCharA * hisCharA
 	score += weight.hisCharH * hisCharH
 	score += weight.hisTauntCharH * hisTauntCharH
 	score += weight.MinionCH * MinionCH
@@ -230,7 +230,7 @@ def GenzoStep1(game: ".game.Game", myW):
 	myWeight=myW
 	myCandidate = getActionCandidates(game)
 	myChoices = []
-	maxScore=0
+	maxScore=-100000
 	maxChoice = None
 	#print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
@@ -262,7 +262,7 @@ def GenzoStep1(game: ".game.Game", myW):
 		player = game.current_player
 		if player.choice:# ここは戦略に入っていない。
 			choice = random.choice(player.choice.cards)
-			print("Choosing card %r" % (choice))
+			#print("Choosing card %r" % (choice))
 			myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())
