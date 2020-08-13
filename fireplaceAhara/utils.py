@@ -67,6 +67,17 @@ class Node(object):
 		self.score=_score
 		pass
 
+	
+class Evaluation(object):
+	"""docstring for Evaluation"""
+	def __init__(self, deck,score):
+		super(Evaluation, self).__init__()
+		self.deck = deck
+		self.score=score
+	def getScore(self):
+		return self.score
+		pass		
+
 
 
 
