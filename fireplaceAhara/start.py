@@ -21,35 +21,38 @@ sys.path.append("..")
 
 def set_up_one_game_with_human():#人vsCOM
 	GenzosX=[]
-	filename = 'test_data34.txt'
+	class1 = CardClass.HUNTER#3
+	class2 = CardClass.MAGE#4
+	filename = "test_data"+str(int(class1))+str(int(class2))+".csv"
 	test_data = open(filename, "r")
 	for line in test_data:
 		div = line.split(',')
-		if class1*10+class2 == int(div[1]):
+		if div[0]!="name" and class1*10+class2 == int(div[1]):
 			name=div[0]
 			rating=int(div[2])
 			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
 			thisAgent = Genzo(GenzoWeight(weight), name, class1, class2,rating)
 			GenzosX.append(thisAgent)
 	test_data.close()
-	comAgent = random.choice(GenzosX)
-	Human=Genzo(GenzoWeight(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),"Human", comAgent.hisClass, comAgentmyClass,1000)
+	P1 = random.choice(GenzosX)
+	P2=Genzo(GenzoWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"Human", class2, class1,1000)
 	winner = my_play_one_game(P1,P2)
 	print("winner is %r"%winner)
 	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
 	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
 
-def setup_play_game(createMorph=0, creatNew=0, player1isNew=0, player2isNew=0, loopNumber=10):#リーグ戦
+def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, loopNumber=10):#リーグ戦
 	GenzosX=[]
 	GenzosY=[]
 	class1 = CardClass.HUNTER#3
-	class2 = CardClass.MAGE#4
+	#class2 = CardClass.MAGE#4
+	class2 = CardClass.PALADIN#5
 	filename12 = "test_data"+str(int(class1))+str(int(class2))+".csv"
 	filename21 = "test_data"+str(int(class2))+str(int(class1))+".csv"
 	test_data = open(filename12, "r")
 	for line in test_data:
 		div = line.split(',')
-		if class1*10+class2 == int(div[1]):
+		if div[0]!="name" and class1*10+class2 == int(div[1]):
 			name=div[0]+'X'
 			rating=int(div[2])
 			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),\
@@ -62,7 +65,7 @@ def setup_play_game(createMorph=0, creatNew=0, player1isNew=0, player2isNew=0, l
 	test_data = open(filename21, "r")
 	for line in test_data:
 		div = line.split(',')
-		if class2*10+class1 == int(div[1]):
+		if div[0]!="name" and class2*10+class1 == int(div[1]):
 			name=div[0]+'Y'
 			rating=int(div[2])
 			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),\
@@ -76,11 +79,11 @@ def setup_play_game(createMorph=0, creatNew=0, player1isNew=0, player2isNew=0, l
 	#,,VoodooDoll,,Lucentbark,Nozari,CatrinaMuerte,,
 	#TakNozwhisker,,WalkingFountain,FelLordBetrug,,BoomReaver,Elysiana
 	#終わったもの：DarkPeddler,Mrrgglton,MadameLazul
-	if creatNew==1:
+	if createNew==1:
 		newWeight = createNewWeight(0)#0:new agent
 	if createMorph==1:
 		newWeight = createNewWeight(1,GenzosX)#0:1:morphed agent
-	if creatNew==1 or createMorph==1:
+	if createNew==1 or createMorph==1:
 		newAgent=Genzo(newWeight, newName+'X', class1, class2, 1000)
 		GenzosX.append(newAgent)
 		mewAgent=Genzo(newWeight, newName+'Y', class2, class1, 1000)
@@ -99,7 +102,7 @@ def setup_play_game(createMorph=0, creatNew=0, player1isNew=0, player2isNew=0, l
 			P2=random.choice(GenzosY)#full random
 		else :
 			P2=GenzosY[-1]#last one
-		
+		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 		for i in range(19):
 			winner = my_play_one_game(P1,P2)
 			print("winner is %r"%winner)
@@ -131,11 +134,13 @@ def setup_play_game(createMorph=0, creatNew=0, player1isNew=0, player2isNew=0, l
 		P2.rating=newRating2
 		#class1=class2のときはratingをそろえる作業が入る。
 		with open(filename12, mode='w') as f:
+			f.write("name,class,rating\n")
 			for P in GenzosX:
 				text = (P.name[:-1])+','+str(int(class1))+str(int(class2))+','+str(P.rating)+','
 				text += str(P.weight)+'\n'
 				f.write(text)
 		with open(filename21, mode='w') as f:
+			f.write("name,class,rating\n")
 			for P in GenzosY:
 				text = (P.name[:-1])+','+str(int(class2))+str(int(class1))+','+str(P.rating)+','
 				text += str(P.weight)+'\n'
@@ -218,8 +223,8 @@ def my_play_one_game(P1,P2) -> ".game.Game":
 #
 def main():
 	cards.db.initialize()
-	setup_play_game(player1isNew=1,loopNumber=10)#リーグ戦
-	#set_up_one_game_with_human():#人vsCOM
+	setup_play_game(loopNumber=5,player1isNew=1,)#リーグ戦
+	#set_up_one_game_with_human()#人vsCOM
 
 class Evaluation(object):
 	"""docstring for Evaluation"""
