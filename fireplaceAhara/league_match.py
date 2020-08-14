@@ -19,7 +19,7 @@ from Genzo import Genzo,GenzoWeight
 def set_up_one_game_with_human():#人vsCOM
 	GenzosX=[]
 	class1 = CardClass.HUNTER#3
-	class2 = CardClass.MAGE#4
+	class2 = CardClass.PALADIN#5
 	filename = "test_data"+str(int(class1))+str(int(class2))+".csv"
 	test_data = open(filename, "r")
 	for line in test_data:
