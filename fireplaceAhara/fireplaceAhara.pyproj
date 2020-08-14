@@ -245,6 +245,9 @@
     <Compile Include="fireplace\__init__.py" />
     <Compile Include="Genzo.py" />
     <Compile Include="league_match.py" />
+    <Compile Include="agent_Hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="start.py" />
     <Compile Include="utils.py" />
   </ItemGroup>

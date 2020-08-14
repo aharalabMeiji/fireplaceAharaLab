@@ -15,5 +15,7 @@ def main():
 	#leagueMatch.set_up_one_game_with_human()#人vsCOM
 	#start_card_pair_investigation()
 
+
+	pass
 if __name__ == "__main__":
 	main()

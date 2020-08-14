@@ -161,8 +161,9 @@ def createNewWeight(option,GenzosX=None):
 #	my_setup_game()
 #
 def my_setup_game(P1,P2) -> ".game.Game":
-	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076']
+	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
 	#LOE_076:Sir Finley Mrrgglton
+	#'BT_490'魔力喰い、ターゲットの扱いにエラーがあるので除外。
 	deck1 = random_draft(P1.myClass,exclude)
 	deck2 = random_draft(P2.myClass,exclude)
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)

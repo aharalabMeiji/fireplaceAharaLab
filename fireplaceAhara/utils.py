@@ -78,6 +78,83 @@ class Evaluation(object):
 		return self.score
 		pass		
 
+class StatusWeight(object):
+	"""
+	Status Weight for my agent
+	"""
+	def __init__(self, w: list):#正の数からなる長さ＊＊＊のlist
+		self.myHeroH = w[0]#自ヒーローのHP
+		self.hisHeroH = -w[1]#相手ヒーローのHP
+		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和
+		self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和
+		self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和
+		self.hisCharA = -w[5]#相手のフィールドにあるミニョンの攻撃力の総和
+		self.hisCharH = -w[6]#相手のフィールドにあるミニョンのHPの総和
+		self.hisTauntCharH = -w[7]#相手のフィールドにある挑発ミニョンのHPの総和
+		self.MinionCH = w[8]#手持ちのミニョンのカードのHPの総和
+		self.SpellCN = w[9]#手持ちの呪文のカードの枚数
 
 
+	def __str__(self):
+		myText =  ''+str(self.myHeroH)+','
+		myText += str(-self.hisHeroH)+','
+		myText += str(self.myCharA)+','
+		myText += str(self.myCharH)+','
+		myText += str(self.myTauntCharH)+','
+		myText += str(-self.hisCharA)+','
+		myText += str(-self.hisCharH)+','
+		myText += str(-self.hisTauntCharH)+','
+		myText += str(-self.MinionCH)+','
+		myText += str(self.SpellCN)
+		return myText
 
+	def __eq__(self,obj):
+		return self.myHeroH==obj.myHeroH and self.hisHeroH==obj.hisHeroH and \
+			self.myCharA==obj.myCharA and self.myCharH==obj.myCharH and self.myTauntCharH==obj.myTauntCharH and \
+			self.hisCharA==obj.hisCharA and self.hisCharH==obj.hisCharH and self.hisTauntCharH==obj.hisTauntCharH and \
+			self.MinionCH==obj.MinionCH and self.SpellCN==obj.SpellCN 
+
+	def deepcopy(self):
+		import random
+		wgt = [self.myHeroH,-self.hisHeroH,self.myCharA,self.myCharH,\
+		self.myTauntCharH,-self.hisCharA,-self.hisCharH,-self.hisTauntCharH,\
+		self.MinionCH,self.SpellCN]
+		return StatusWeight(wgt)
+
+	def deepcopyAndPerturb(self):
+		import random
+		wgt = [self.myHeroH,-self.hisHeroH,self.myCharA,self.myCharH,\
+		self.myTauntCharH,-self.hisCharA,-self.hisCharH,-self.hisTauntCharH,\
+		self.MinionCH,self.SpellCN]
+		plus = random.randint(0,9)
+		wgt[plus] += 1
+		minus = random.randint(0,9)
+		wgt[minus] -= 1
+		if wgt[minus]<1 :
+			wgt[minus]=1
+		plus = random.randint(0,9)
+		wgt[plus] += 1
+		minus = random.randint(0,9)
+		wgt[minus] -= 1
+		if wgt[minus]<1 :
+			wgt[minus]=1
+		plus = random.randint(0,9)
+		wgt[plus] += 1
+		minus = random.randint(0,9)
+		wgt[minus] -= 1
+		if wgt[minus]<1 :
+			wgt[minus]=1
+		return StatusWeight(wgt)
+
+#class StanderdStrategy(IntEnum):
+#	
+#	standard strategy
+#	
+#	INVALID = 0
+#	ATTACKxMINION = 1
+#	ATTACKxSPELL = 2
+#	HEALxMINION = 3
+#	HEALxHERO = 4
+#	BLOCKxHERO = 5
+#	STRENGTHENxMINION = 6
+#	pass
