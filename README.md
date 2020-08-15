@@ -37,10 +37,14 @@ C:\Users\----\AppData\Local\Programs\Python\Python38\Scripts
 >	#set_up_one_game_with_human()#人vsCOM
 >	#investigate_card_pair()
 >	#find_card_pair(1)
-* setup_play_game()#リーグ戦を行う（準備として、test_data**.csvを準備する必要がある。**は二桁の数字で、対象とするカードクラスの番号（3:HUNTER,4:MAGE,...）を二つ並べていれる）
+* setup_play_game()#リーグ戦を行う（準備として、test_data--.csvを準備する必要がある。--は二桁の数字で、対象とするカードクラスの番号（3:HUNTER,4:MAGE,...）を二つ並べていれる）
+
 createNew=1：新規プレーヤーを追加する
+
 createMorph=1：新規プレーヤー（現存プレーヤーを少し変更したもの）を追加する
+
 player1isNew=1:プレーヤ1として、最後に追加したプレーヤを指名する
+
 player2isNew=1:プレーヤ2として、最後に追加したプレーヤを指名する
 * set_up_one_game_with_human()#人vs.COMで対戦を行う
 * investigate_card_pair()#特定の2枚のカードのシナジーを調べる
