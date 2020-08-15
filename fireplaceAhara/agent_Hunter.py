@@ -27,9 +27,10 @@ def agent_Hunter_random(game: Game):
 		if len(myCandidates) == 0:
 			return
 		else:
-			for candidate in myCandidate:
-				candidate.clearScore()
-				candidate.preCondition()
+			#for candidate in myCandidates:
+			#	candidate.clearScore()
+			#	candidate.setStrategy()
+			#	#candidate.preCondition()
 
 			myChoice = random.choice(myCandidates)
 			executeAction(game, myChoice)

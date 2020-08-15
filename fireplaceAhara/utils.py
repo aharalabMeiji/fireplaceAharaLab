@@ -1,5 +1,6 @@
 from hearthstone.enums import BlockType,CardType 
 from enum import IntEnum
+from fireplace.game import Game
 
 class myAction(object):
 	"""docstring for myAction"""
@@ -114,7 +115,58 @@ class Candidate(object):
 		pass
 	def clearScore(self):
 		self.score = 0
-
+	def setStrategy(self):
+		"""
+			FREE = 0
+			HITATTACKxMINION = 1
+			HITATTACKxHERO = 1
+			SPELLATTACKxMINION = 2
+			SPELLATTACKxHERO = 2
+			HEROPOWERxHERO
+			HEALxMINION = 3
+			HEALxHERO = 4
+			DEFNEDxHERO = 5
+			STRENGTHENxMINION = 6
+			IMPROVExSTATUS = 7
+		"""
+		if minionAttackMinion():
+			strategy=StandardStrategy.HITATTACKxMINION
+		if spellAttackMinion():
+			strategy=StandardStrategy.SPELLATTACKxMINION
+		if spellAttackHero():
+			strategy=StandardStrategy.SPELLATTACKxHERO
+		if healMinion():
+			strategy=StandardStrategy.HEALxMINION
+		strategy=StandardStrategy.FREE
+		pass
+	def minionAttackMinion(self):
+		if self.target!=None:
+			if self.card.type == CardType.MINION and \
+			   self.target.type == CardType.MINION and \
+			   self.type==BlockType.ATTACK:
+				return True
+		return False
+	def minionAttackHero(self):
+		if self.target!=None:
+			if self.card.type == CardType.MINION and \
+			   self.target.type == CardType.HERO and \
+			   self.type==BlockType.ATTACK:
+				return True
+		return False
+	def spellAttackMinion(self):
+		if self.target!=None:
+			if self.card.type == CardType.SPELL and \
+			   self.target.type == CardType.MINION and \
+			   self.type==BlockType.PLAY:
+				return True
+		return False
+	def spellAttackHero(self):
+		if self.target!=None:
+			if self.card.type == CardType.SPELL and \
+			   self.target.type == CardType.HERO and \
+			   self.type==BlockType.PLAY:
+				return True
+		return False
 #
 ##  getActionCandidates : utils version
 ##
@@ -122,6 +174,9 @@ def getCandidates(mygame):
 	"""　"""
 	player = mygame.current_player
 	myCandidate = []
+	card = player.hero.power#HUNTER: 不抜の一矢
+	if card.is_playable():
+		myCandidate.append(Candidate(card, _type=BlockType.PLAY))
 	for card in player.hand:
 		if card.is_playable():
 			if card.must_choose_one:
@@ -154,7 +209,10 @@ def executeAction(mygame,action: Candidate):
 	"""　"""
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
-
+	if action.type==BlockType.PLAY:
+		print("%r : %s plays %s"%(player,action.card, action.target))
+	if action.type==BlockType.ATTACK:
+		print("%r : %s attacks %s"%(player,action.card, action.target))
 	theCard=None
 	theCard2=None
 	theTarget=None
