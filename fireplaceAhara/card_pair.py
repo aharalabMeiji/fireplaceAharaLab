@@ -81,7 +81,7 @@ def investigate_card_pair( onlyresult=0):
 			count2 += 1
 	print("%d : %d"%(count1, count2))
 
-def find_card_pair( onlyresult=0):
+def find_card_pair(onlyresult=1):
 	card_class = CardClass.HUNTER
 	allCards=get_all_cards(card_class,costMax=2)
 	vanillas = get_all_vanillas(allCards)
