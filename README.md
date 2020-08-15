@@ -13,7 +13,7 @@ C:\Users\----\AppData\Local\Programs\Python\Python38\Scripts
 * fireplaceAharaをダウンロードして、start.pyを実行すれば動きます。プレーヤーを変更したい場合には、start.pyを編集してください。VisualStudio用のプロジェクトを準備済みです。
 * プレーヤは自由に増やせます。
 
-#マストではないが、チューンアップしておいたほうがよい項目
+# マストではないが、チューンアップしておいたほうがよい項目
 * カード名を日本語表示にする方法
 > #fireplace.cards.__init__.py line 95
 > 	def initialize(self, locale="jaJP"):
@@ -29,7 +29,7 @@ C:\Users\----\AppData\Local\Programs\Python\Python38\Scripts
 >	#fireplace.logging.py line 18
 >		#logger.addHandler(ch)
 
-#start.py周りの説明
+# start.py周りの説明
 >def main():
 >	from fireplace import cards
 >	cards.db.initialize()
