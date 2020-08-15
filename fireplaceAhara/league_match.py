@@ -12,8 +12,10 @@ from agent_Genzo import GenzoRandom
 from agent_Genzo import GenzoStep1
 from agent_Genzo import Original_random
 from agent_Genzo import HumanInput
+from agent_Hunter import agent_Hunter_random
 from fireplace.utils import random_draft
 from Genzo import Genzo,GenzoWeight 
+from utils import myAction, myActionValue, ExceptionPlay, StandardStrategy
 
 
 def set_up_one_game_with_human():#人vsCOM
@@ -32,11 +34,22 @@ def set_up_one_game_with_human():#人vsCOM
 			GenzosX.append(thisAgent)
 	test_data.close()
 	P1 = random.choice(GenzosX)
-	P2=Genzo(GenzoWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"Human", class2, class1,1000)
+	P2 = Genzo(GenzoWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"Human", class2, class1,1000)
 	winner = my_play_one_game(P1,P2)
 	print("winner is %r"%winner)
 	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
 	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
+
+def set_up_one_game_hunter_vs_human():#人vsHunter
+	class1 = CardClass.HUNTER#3 COM 
+	class2 = CardClass.MAGE#4 HUMAN
+	P1 = Genzo(GenzoWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"HunterRandom", class1, class2,1000)
+	P2 = Genzo(GenzoWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"Human", class2, class1,1000)
+	winner = my_play_one_game(P1,P2)
+	print("winner is %r"%winner)
+	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
+	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
+
 
 def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, loopNumber=100):#リーグ戦
 	GenzosX=[]
@@ -199,6 +212,8 @@ def my_play_one_game(P1,P2) -> ".game.Game":
 			GenzoRandom(game)
 		elif player.name=="Human":
 			HumanInput(game)
+		elif player.name=="HunterRandom":
+			agent_Hunter_random(game)
 		elif player.name==P1.name:
 			GenzoStep1(game,P1.weight)
 		elif player.name==P2.name:

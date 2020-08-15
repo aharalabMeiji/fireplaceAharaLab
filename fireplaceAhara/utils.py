@@ -1,3 +1,6 @@
+from hearthstone.enums import BlockType,CardType 
+from enum import IntEnum
+
 class myAction(object):
 	"""docstring for myAction"""
 	def __init__(self, _card,_type,_target=None):
@@ -78,11 +81,123 @@ class Evaluation(object):
 		return self.score
 		pass		
 
+class StandardStrategy(IntEnum):
+	"""	standard strategy """
+	FREE = 0
+	HITATTACKxMINION = 1
+	SPELLATTACKxMINION = 2
+	HEALxMINION = 3
+	HEALxHERO = 4
+	DEFNEDxHERO = 5
+	STRENGTHENxMINION = 6
+	pass
+
+class Candidate(object):
+	"""　"""
+	def __init__(self, _card, _card2=None, _type=BlockType.PLAY, _target=None, _score=0, _strategy=StandardStrategy.FREE):
+		#super(myAction, self).__init__()
+		self.card=_card
+		self.card2=_card2
+		self.type=_type
+		self.target=_target
+		self.score=_score
+		self.strategy = _strategy
+		self.notes=''
+		pass
+
+	def __str__(self):
+		return "{card}->{type}(target={target})".format(card=self.card,type=self.type,target=self.target)
+		pass
+
+	def __eq__(self,obj):
+		return str(self)==str(obj)
+		pass
+	def clearScore(self):
+		self.score = 0
+
+#
+##  getActionCandidates : utils version
+##
+def getCandidates(mygame):
+	"""　"""
+	player = mygame.current_player
+	myCandidate = []
+	for card in player.hand:
+		if card.is_playable():
+			if card.must_choose_one:
+				for card2 in card.choose_cards:
+					if card2.is_playable():
+						if card2.requires_target():
+							for target in card.targets:
+								myCandidate.append(Candidate(card, _card2=card2, _type=BlockType.PLAY, _target=target))
+						else:
+							myCandidate.append(Candidate(card, _card2=card2, _type=BlockType.PLAY, _target=None))
+			else:# card2=None
+				if card.requires_target():
+					for target in card.targets:
+						myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+				else:
+					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+	for character in player.characters:
+		if character.can_attack():
+			for target in character.targets:
+				if character.can_attack(target):
+					myH=character.health
+					hisA=target.atk
+					if myH > hisA:
+						myCandidate.append(Candidate(character, _type=BlockType.ATTACK, _target=target))
+	return myCandidate
+#
+#  executeAction
+#
+def executeAction(mygame,action: Candidate):
+	"""　"""
+	player=mygame.current_player
+	thisEntities= mygame.entities + mygame.hands
+
+	theCard=None
+	theCard2=None
+	theTarget=None
+
+	for entity in thisEntities:
+		if entity ==action.card:
+			theCard=entity
+		if entity == action.card2:
+			theCard2=entity
+		if entity == action.target:
+			theTarget=entity
+
+	if action.type==BlockType.PLAY:
+		if not theCard.is_playable():
+			return ExceptionPlay.INVALID
+		if theTarget != None and theTarget not in theCard.targets:
+			return ExceptionPlay.INVALID
+		try:
+			theCard.play(target=theTarget)
+			return ExceptionPlay.VALID
+		except GameOver:
+			return ExceptionPlay.GAMEOVER
+	if action.type==BlockType.ATTACK:
+		if not theCard.can_attack(theTarget):
+			return ExceptionPlay.INVALID
+		try:
+			theCard.attack(theTarget)
+			return ExceptionPlay.VALID
+		except GameOver:
+			return ExceptionPlay.GAMEOVER
+	return ExceptionPlay.INVALID
+
+class ExceptionPlay(IntEnum):
+	""" """
+	VALID=0
+	GAMEOVER=1
+	INVALID=2
+
 class StatusWeight(object):
 	"""
 	Status Weight for my agent
 	"""
-	def __init__(self, w: list):#正の数からなる長さ＊＊＊のlist
+	def __init__(self, w: list=[0,0,0,0,0,0,0,0,0,0]):#正の数からなる長さ＊＊＊のlist
 		self.myHeroH = w[0]#自ヒーローのHP
 		self.hisHeroH = -w[1]#相手ヒーローのHP
 		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和
@@ -146,15 +261,32 @@ class StatusWeight(object):
 			wgt[minus]=1
 		return StatusWeight(wgt)
 
-#class StanderdStrategy(IntEnum):
-#	
-#	standard strategy
-#	
-#	INVALID = 0
-#	ATTACKxMINION = 1
-#	ATTACKxSPELL = 2
-#	HEALxMINION = 3
-#	HEALxHERO = 4
-#	BLOCKxHERO = 5
-#	STRENGTHENxMINION = 6
-#	pass
+	def get_status(self, game: Game):
+		my = game.current_player
+		his = game.current_player.opponent
+		self.myHeroH = my.hero.health
+		self.hisHeroH = his.hero.health
+		self.myCharA = 0
+		self.myCharH = 0
+		self.myTauntCharH = 0
+		for char in my.characters:
+			self.myCharA += char.atk
+			self.myCharH += char.health
+			if char.taunt:
+				self.myTauntCharH += char.health
+		self.hisCharA = 0
+		self.hisCharH = 0
+		self.hisTauntCharH = 0
+		for char in his.characters:
+			self.hisCharA += char.atk
+			self.hisCharH += char.health
+			if char.taunt:
+				self.hisTauntCharH += char.health
+		self.MinionCH = 0#手持ちのミニョンカードのHPの総和
+		self.SpellCN = 0#手持ちのスペルカードの枚数
+		for card in my.hand:
+			if card.type == CardType.MINION:
+				self.MinionCH += card.health
+			if card.type == CardType.SPELL:
+				self.SpellCN += 1
+

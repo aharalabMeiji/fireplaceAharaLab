@@ -6,7 +6,7 @@ from fireplace.card import CardType
 from fireplace.logging import log
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
 from typing import List
-from utils import myAction, myActionValue
+from utils import myAction, myActionValue, ExceptionPlay, StandardStrategy
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
@@ -152,7 +152,7 @@ def getStageScore(game,weight):
 def executePlay(card,target=None):
 	if not card.is_playable():
 		return ExceptionPlay.INVALID
-	if target != None and target != card.targets:
+	if target != None and target not in card.targets:
 		return ExceptionPlay.INVALID
 	try:
 		card.play(target=target)
@@ -167,12 +167,8 @@ def executeAttack(card,target):
 	except GameOver:
 		return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.VALID
-class ExceptionPlay(IntEnum):
-	VALID=0
-	GAMEOVER=1
-	INVALID=2
 #
-##  getActionCandidates
+##  getActionCandidates Genzo version
 ##
 def getActionCandidates(mygame):
 	player = mygame.current_player

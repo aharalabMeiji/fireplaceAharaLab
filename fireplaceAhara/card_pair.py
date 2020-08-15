@@ -82,7 +82,7 @@ def investigate_card_pair( onlyresult=0):
 	print("%d : %d"%(count1, count2))
 
 def find_card_pair(onlyresult=1):
-	card_class = CardClass.HUNTER
+	card_class = CardClass.MAGE#カードクラスを設定することは必須
 	allCards=get_all_cards(card_class,costMax=2)
 	vanillas = get_all_vanillas(allCards)
 	nonVanillas = get_all_non_vanillas(allCards)
@@ -97,7 +97,7 @@ def find_card_pair(onlyresult=1):
 		#ヒーローパワーを消す、というのもよいかも。
 		nonvanillaName1 = random.choice(nonVanillas)
 		nonvanilla1=nonvanillaName1.id
-		nonvanillaName2 = random.choice(spells)#
+		nonvanillaName2 = random.choice(spells)#この呪文によって、まえのカードが活かされるかどうか
 		nonvanilla2=nonvanillaName2.id
 
 		print(" specific cards : %r%r"%(nonvanillaName1, nonvanillaName2))
