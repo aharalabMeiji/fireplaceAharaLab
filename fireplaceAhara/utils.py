@@ -122,7 +122,6 @@ class Candidate(object):
 			HITATTACKxHERO = 1
 			SPELLATTACKxMINION = 2
 			SPELLATTACKxHERO = 2
-			HEROPOWERxHERO
 			HEALxMINION = 3
 			HEALxHERO = 4
 			DEFNEDxHERO = 5
@@ -131,12 +130,15 @@ class Candidate(object):
 		"""
 		if minionAttackMinion():
 			strategy=StandardStrategy.HITATTACKxMINION
+		if minionAttackHero():
+			strategy=StandardStrategy.HITATTACKxHERO
 		if spellAttackMinion():
 			strategy=StandardStrategy.SPELLATTACKxMINION
 		if spellAttackHero():
 			strategy=StandardStrategy.SPELLATTACKxHERO
 		if healMinion():
 			strategy=StandardStrategy.HEALxMINION
+		#if defendHero():#HUNTERにはない。
 		strategy=StandardStrategy.FREE
 		pass
 	def minionAttackMinion(self):
@@ -167,6 +169,14 @@ class Candidate(object):
 			   self.type==BlockType.PLAY:
 				return True
 		return False
+	def healMinion():
+		if self.target!=None and \
+		self.target.type == CardType.MINION and\
+		self.target.controller == self.card.controller and\
+		self.type==BlockType.PLAY:# + healing condition
+			return True
+		return False
+
 #
 ##  getActionCandidates : utils version
 ##
