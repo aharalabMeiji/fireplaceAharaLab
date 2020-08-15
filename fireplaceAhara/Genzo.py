@@ -30,8 +30,8 @@ class GenzoWeight(object):
 		self.hisCharA = -w[5]#相手のフィールドにあるミニョンの攻撃力の総和
 		self.hisCharH = -w[6]#相手のフィールドにあるミニョンのHPの総和
 		self.hisTauntCharH = -w[7]#相手のフィールドにある挑発ミニョンのHPの総和
-		self.MinionCH = w[8]#手持ちのミニョンのカードのHPの総和
-		self.SpellCN = w[9]#手持ちの呪文のカードの枚数
+		self.MinionCH = -w[8]#手持ちのミニョンのカードのHPの総和
+		self.SpellCN = -w[9]#手持ちの呪文のカードの枚数
 		self.BattleCryCN = -w[10]#雄叫びカードの枚数
 		self.ChargeCN = -w[11]#突撃カードの枚数
 		self.WinduryCN = -w[12]#疾風カードの枚数
@@ -53,8 +53,8 @@ class GenzoWeight(object):
 		myText += str(-self.hisCharH)+','
 		myText += str(-self.hisTauntCharH)+','
 		myText += str(-self.MinionCH)+','
-		myText += str(self.SpellCN)+','
-		myText += str(self.BattleCryCN)+','
+		myText += str(-self.SpellCN)+','
+		myText += str(-self.BattleCryCN)+','
 		myText += str(-self.ChargeCN)+','
 		myText += str(-self.WinduryCN)+','
 		myText += str(-self.TauntCN)+','

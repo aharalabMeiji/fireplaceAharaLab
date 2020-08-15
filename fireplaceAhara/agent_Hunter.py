@@ -1,10 +1,38 @@
 from agent_Genzo import getActionCandidates
 from enum import IntEnum
+import random
+import numpy as np
+import copy
+from fireplace.exceptions import GameOver, InvalidAction
+from fireplace.card import CardType
+from fireplace.logging import log
+from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
+from typing import List
+from utils import myAction, myActionValue
+from fireplace.actions import Action
+from fireplace.card import Card
+from fireplace.game import Game
 
-def agent_Hunter(game,weight):
+def agent_Hunter(game: Game,weight):
     #ハンター前提
-    myCandidate = getActionCandidates(game)
+    myCandidates =  getEstimatedActionCandidates(game)    
     pass
+
+def getEstimatedActionCandidates(game: Game):
+    myCandidate = getActionCandidates(game)
+    myEstimation = []
+    for myChoice in myCandidate:
+        if myChoice.type=="play":
+            #特記事項別にscoreを追加する。
+            description = myChoice.card.description
+            if "体力" in description and "回復" in description:
+                #if some minion or the hero loses his health
+                #then it has optional score
+                pass
+            if "挑発" in description:
+                #if big minion is on the field
+                #then this choice is positive
+                pass
 
 class HunterLocalStrategy(IntEnum):
     悪魔の相棒=1

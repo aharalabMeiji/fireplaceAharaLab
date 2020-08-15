@@ -38,7 +38,7 @@ def set_up_one_game_with_human():#人vsCOM
 	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
 	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
 
-def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, loopNumber=10):#リーグ戦
+def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, loopNumber=100):#リーグ戦
 	GenzosX=[]
 	GenzosY=[]
 	class1 = CardClass.HUNTER#3
@@ -74,7 +74,7 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 	test_data.close()
 	newName="JumboImp"#毎回、何か自分で工夫する
 	#,,VoodooDoll,,Lucentbark,Nozari,CatrinaMuerte,,
-	#TakNozwhisker,,WalkingFountain,FelLordBetrug,,BoomReaver,Elysiana
+	#TakNozwhisker,,WalkingFountain,
 	#終わったもの：DarkPeddler,Mrrgglton,MadameLazul
 	if createNew==1:
 		newWeight = createNewWeight(0)#0:new agent
