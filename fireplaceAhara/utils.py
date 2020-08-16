@@ -184,9 +184,9 @@ def getCandidates(mygame):
 	"""　"""
 	player = mygame.current_player
 	myCandidate = []
-	card = player.hero.power#HUNTER: 不抜の一矢
-	if card.is_playable():
-		myCandidate.append(Candidate(card, _type=BlockType.PLAY))
+	#card = player.hero.power#HUNTER: 不抜の一矢
+	#if card.is_playable():
+	#	myCandidate.append(Candidate(card, _type=BlockType.PLAY))
 	for card in player.hand:
 		if card.is_playable():
 			if card.must_choose_one:
@@ -219,10 +219,7 @@ def executeAction(mygame,action: Candidate):
 	"""　"""
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
-	if action.type==BlockType.PLAY:
-		print("%r : %s plays %s"%(player,action.card, action.target))
-	if action.type==BlockType.ATTACK:
-		print("%r : %s attacks %s"%(player,action.card, action.target))
+	print("%s %s"%(player,str(action)))
 	theCard=None
 	theCard2=None
 	theTarget=None
@@ -275,7 +272,7 @@ class StatusWeight(object):
 		self.hisCharH = -w[6]#相手のフィールドにあるミニョンのHPの総和
 		self.hisTauntCharH = -w[7]#相手のフィールドにある挑発ミニョンのHPの総和
 		self.MinionCH = w[8]#手持ちのミニョンのカードのHPの総和
-		self.SpellCN = w[9]#手持ちの呪文のカードの枚数
+		self.SpellCN = w[9]#手持ちの呪文のカードの枚数.
 
 
 	def __str__(self):

@@ -8,7 +8,7 @@ from fireplace.card import CardType
 from fireplace.logging import log
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
 from typing import List
-from utils import Candidate, getCandidates, executeAction, ExceptionPlay
+from utils import Candidate, getCandidates, executeAction, ExceptionPlay, StatusWeight
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
@@ -27,12 +27,13 @@ def agent_Hunter_random(game: Game):
 		if len(myCandidates) == 0:
 			return
 		else:
-			#for candidate in myCandidates:
-			#	candidate.clearScore()
-			#	candidate.setStrategy()
-			#	#candidate.preCondition()
+			# For each candidate, calculate scores
+			for candidate in myCandidates:
+				tmpGame = copy.deepcopy(game)
+				getEstimatedActionCandidates(tmpGame, candidate)
 
 			myChoice = random.choice(myCandidates)
+			#myChoice = bestChoice(myCandidates)
 			executeAction(game, myChoice)
 			if player.choice:
 				choice = random.choice(player.choice.cards)
@@ -49,22 +50,37 @@ def agent_Hunter_random(game: Game):
 				continue
 
 
-def getEstimatedActionCandidates(game: Game):
-	myCandidate = getActionCandidates(game)
+def getEstimatedActionCandidates(game: Game, candidate: Candidate):
 	myEstimation = []
-	for myChoice in myCandidate:
-		if myChoice.type=="play":
-			#特記事項別にscoreを追加する。HUNTERだと意外とつまらない？
-			description = myChoice.card.description
-			if "体力" in description and "回復" in description:
-				#if some minion or the hero loses his health
-				#then it has optional score
-				pass
-			if "挑発" in description:
-				#if big minion is on the field
-				#then this choice is positive
-				pass
+	candidate.clearScore()
+	preCondition = StatusWeight()
+	preCondition.get_status(game)
 
+	result = executeAction(tmpGame, candidate)
+
+	if result==ExceptionPlay.GAMEOVER:
+		candidate.score = 10000
+		return
+	elif result==ExceptionPlay.INVALID:
+		candidate.score = -10000
+		return
+
+	postCondition=StatusWeight()
+	postCondition.get_status(game)
+
+	if candidate.type==BlockType.PLAY:
+		#特記事項別にscoreを追加する。HUNTERだと意外とつまらない？
+		description = myChoice.card.description
+		if "体力" in description and "回復" in description:
+			#if some minion or the hero loses his health
+			#then it has optional score
+			pass
+		if "挑発" in description:
+			#if big minion is on the field
+			#then this choice is positive
+			pass
+	if candidate.type==BlockType.ATTACK:
+		pass
 class HunterLocalStrategy(IntEnum):
 	悪魔の相棒=1
 	エースハンタークリーン=2
