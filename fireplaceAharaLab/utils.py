@@ -258,33 +258,33 @@ class ExceptionPlay(IntEnum):
 	GAMEOVER=1
 	INVALID=2
 
-class StatusWeight(object):
+class StrategyWeight(object):
 	"""
 	Status Weight for my agent
 	"""
 	def __init__(self, w: list=[0,0,0,0,0,0,0,0,0,0]):#正の数からなる長さ＊＊＊のlist
-		self.myHeroH = w[0]#自ヒーローのHP
-		self.hisHeroH = -w[1]#相手ヒーローのHP
-		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和
-		self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和
-		self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和
-		self.hisCharA = -w[5]#相手のフィールドにあるミニョンの攻撃力の総和
-		self.hisCharH = -w[6]#相手のフィールドにあるミニョンのHPの総和
-		self.hisTauntCharH = -w[7]#相手のフィールドにある挑発ミニョンのHPの総和
-		self.MinionCH = w[8]#手持ちのミニョンのカードのHPの総和
-		self.SpellCN = w[9]#手持ちの呪文のカードの枚数.
+		self.myHeroH = w[0]#自ヒーローのHPの増え具合
+		self.hisHeroH = w[1]#相手ヒーローのHPの減り具合
+		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
+		self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
+		self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
+		self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
+		self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
+		self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPを減らす
+		self.MinionCH = w[8]#手持ちのミニョンを優先する
+		self.SpellCN = w[9]#手持ちの呪文を優先する.
 
 
 	def __str__(self):
 		myText =  ''+str(self.myHeroH)+','
-		myText += str(-self.hisHeroH)+','
+		myText += str(self.hisHeroH)+','
 		myText += str(self.myCharA)+','
 		myText += str(self.myCharH)+','
 		myText += str(self.myTauntCharH)+','
-		myText += str(-self.hisCharA)+','
-		myText += str(-self.hisCharH)+','
-		myText += str(-self.hisTauntCharH)+','
-		myText += str(-self.MinionCH)+','
+		myText += str(self.hisCharA)+','
+		myText += str(self.hisCharH)+','
+		myText += str(self.hisTauntCharH)+','
+		myText += str(self.MinionCH)+','
 		myText += str(self.SpellCN)
 		return myText
 
