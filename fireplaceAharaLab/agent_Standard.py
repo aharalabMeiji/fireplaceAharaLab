@@ -12,7 +12,7 @@ from fireplace.card import Card
 from fireplace.game import Game
 from enum import IntEnum
 
-def GenzoRandom(thisgame: ".game.Game"):
+def StandardRandom(thisgame: ".game.Game"):
 	player = thisgame.current_player
 	loopCount=0
 	while loopCount<20:
@@ -41,8 +41,6 @@ def GenzoRandom(thisgame: ".game.Game"):
 					myCard = Card(myCardID)
 					myCard.controller = player#?
 					myCard.draw()
-					#player.hand.append(myCard)#?
-					#myCard.zone = Zone.HAND#?
 					player.choice = None
 				else :
 					player.choice.choose(choice)
@@ -168,7 +166,7 @@ def executeAttack(card,target):
 		return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.VALID
 #
-##  getActionCandidates Genzo version
+##  getActionCandidates Standard version
 ##
 def getActionCandidates(mygame):
 	player = mygame.current_player
@@ -222,7 +220,7 @@ def executeAction(game,action):
 						return executeAttack(theCard,theTarget)
 	return ExceptionPlay.INVALID
 
-def GenzoStep1(game: ".game.Game", myW):
+def StandardStep1(game: ".game.Game", myW):
 	myWeight=myW
 	myCandidate = getActionCandidates(game)
 	myChoices = []
@@ -234,7 +232,7 @@ def GenzoStep1(game: ".game.Game", myW):
 		if executeAction(tmpGame, myChoice)==ExceptionPlay.GAMEOVER:
 			score=100000
 		else:
-			if GenzoRandom(tmpGame)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+			if StandardRandom(tmpGame)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
 				score=100000
 			else:
 				score = getStageScore(tmpGame,myWeight)
@@ -268,7 +266,7 @@ def GenzoStep1(game: ".game.Game", myW):
 				player.choice = None
 			else :
 				player.choice.choose(choice)
-		return GenzoRandom(game)
+		return StandardRandom(game)
 	else:
 		return ExceptionPlay.VALID
 #
@@ -383,12 +381,12 @@ def HumanInput(game):
 					player.choice.choose(choice)
 				continue
 
-class Genzo(object):
+class Standard(object):
 	"""
 	Situation Vector with evolutionary calculation 
 	"""
 	def __init__(self, _weight, _name, _myClass, _hisClass, _rating):
-		super(Genzo, self).__init__()
+		super(Standard, self).__init__()
 		self.weight=_weight
 		self.name=_name
 		self.myClass=_myClass
@@ -401,9 +399,9 @@ class Genzo(object):
 	def __eq__(self,obj):
 		return str(self)==str(obj)
 
-class GenzoWeight(object):
+class StandardWeight(object):
 	"""
-	Weight for Genzo agent
+	Weight for Standard agent
 	"""
 	def __init__(self, w):
 		self.myHeroH = w[0]#自ヒーローのHPを増やす
@@ -461,21 +459,21 @@ class GenzoWeight(object):
 		self.BattleCryCN,self.ChargeCN,self.WinduryCN,self.TauntCN,\
 		self.DamageCN,self.GainCN,self.SummonCN,self.LifeStealCN,\
 		self.GiveCN,self.VanillaCN]
-		return GenzoWeight(wgt)
+		return StandardWeight(wgt)
 
 	def deepcopyAndPerturb(self):
 		import random
-		wgt = [self.myHeroH,-self.hisHeroH,self.myCharA,self.myCharH,\
-		self.myTauntCharH,-self.hisCharA,-self.hisCharH,-self.hisTauntCharH,\
+		wgt = [self.myHeroH,self.hisHeroH,self.myCharA,self.myCharH,\
+		self.myTauntCharH,self.hisCharA,self.hisCharH,self.hisTauntCharH,\
 		self.MinionCH,self.SpellCN,\
-		-self.BattleCryCN,-self.ChargeCN,-self.WinduryCN,-self.TauntCN,\
-		-self.DamageCN,-self.GainCN,-self.SummonCN,-self.LifeStealCN,\
-		-self.GiveCN,-self.VanillaCN]
+		self.BattleCryCN,self.ChargeCN,self.WinduryCN,self.TauntCN,\
+		self.DamageCN,self.GainCN,self.SummonCN,self.LifeStealCN,\
+		self.GiveCN,self.VanillaCN]
 		plus = random.randint(0,19)
 		wgt[plus] += 3
 		minus = random.randint(0,19)
 		wgt[minus] -= 3
 		if wgt[minus]<1 :
 			wgt[minus]=1
-		return GenzoWeight(wgt)
+		return StandardWeight(wgt)
 

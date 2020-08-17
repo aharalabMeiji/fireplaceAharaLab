@@ -237,7 +237,6 @@
     <Compile Include="fireplaceAharaLab\fireplace\targeting.py" />
     <Compile Include="fireplaceAharaLab\fireplace\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\__init__.py" />
-    <Compile Include="fireplaceAharaLab\Genzo.py" />
     <Compile Include="fireplaceAharaLab\league_match.py" />
     <Compile Include="fireplaceAharaLab\start.py" />
     <Compile Include="fireplaceAharaLab\utils.py" />
