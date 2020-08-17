@@ -1,29 +1,40 @@
-## fireplaceAharaLab
+# fireplaceAharaLab
 
 This is an application on a AI-platform fireplace for Hearthstone.
 This needs python 3.8, hearthstone 5.23.4, and fireplace 0.1.
 
 # 日本語による説明
+
 * python 3.8 for x64 をインストールします。
+
 * pip install hearthstone でhearthstone と hearthstone-dataをインストールします。
+
 * fireplaceをgithubからダウンロードして、cmdでそのフォルダを開き、pip install . を実行します。\
 （ただし、pipにパスが通っていることが必要。通常であれば、\
 C:\Users\----\AppData\Local\Programs\Python\Python38\Scripts\
 にパスが通っていれば大丈夫。）
+
 * fireplaceAharaをダウンロードして、VisualStudio用のプロジェクトからstart.pyを実行すれば動きます。
+
 * 作業内を変更したい場合には、start.pyを編集してください。。
 
 # マストではないが、チューンアップしておいたほうがよい項目
+
 * カード名を日本語表示にする方法
-> #fireplace.cards.\_\_init\_\_.py line 95\
-> def initialize(self, locale="jaJP"):
+
+    #fireplace.cards.\_\_init\_\_.py line 95\
+    def initialize(self, locale="jaJP"):
+
 * ゲンゾーまわりのトラブル（3枚カードを引かせる、という動作中に、playerとcardの混同が起きる。現バージョンではInvalidPlayフラグ対象。）
-> #fireplace.actions.py ll.900-905\
-> def do(self, source, target, amount):\
->	if target not in target.game.players:\
-> #raise InvalidAction("%r is not a player" % target)\
-> target = target.controller#add this line\
-> difference = max(0, amount - len(target.hand))
+
+    #fireplace.actions.py ll.900-905\
+        def do(self, source, target, amount):\
+
+           if target not in target.game.players:\
+                #raise InvalidAction("%r is not a player" % target)\
+                target = target.controller#add this line\
+            difference = max(0, amount - len(target.hand))
+
 * fireplace.actions.py のline 1047まわり、MorphのtargetがNoneで呼び出されることがまれにある。（[魔力喰い]でなぜか起こる）対応不明
 * ログ表示をやめる方法
 >	#fireplace.logging.py line 18\
