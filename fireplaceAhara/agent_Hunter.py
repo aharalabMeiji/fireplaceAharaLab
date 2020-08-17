@@ -69,7 +69,7 @@ def getEstimatedActionCandidates(game: Game, candidate: Candidate):
 	postCondition.get_status(game)
 
 	if candidate.type==BlockType.PLAY:
-		#特記事項別にscoreを追加する。カードごとに場合分けする？HUNTERだと意外とつまらない？
+		#特記事項別にscoreを追加する。HUNTERだと意外とつまらない？
 		description = myChoice.card.description
 		if "体力" in description and "回復" in description:
 			#if some minion or the hero loses his health
