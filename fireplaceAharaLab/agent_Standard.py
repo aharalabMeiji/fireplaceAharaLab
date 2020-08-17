@@ -12,7 +12,7 @@ from fireplace.card import Card
 from fireplace.game import Game
 from enum import IntEnum
 
-def StandardRandom(thisgame: ".game.Game"):
+def StandardRandom(thisgame: ".game.Game", debugLog=False):
 	player = thisgame.current_player
 	loopCount=0
 	while loopCount<20:
@@ -30,6 +30,8 @@ def StandardRandom(thisgame: ".game.Game"):
 					myCandidate.append([card,None])
 		if len(myCandidate) > 0:
 			myChoice = random.choice(myCandidate)
+			if debugLog:
+				print("{card}->{type}(target={target})".format(card=myChoice[0],type="play",target=myChoice[1]))
 			if executePlay(myChoice[0], myChoice[1])==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
 			if player.choice:
@@ -57,6 +59,8 @@ def StandardRandom(thisgame: ".game.Game"):
 								myCandidate.append([character,target])
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
+				if debugLog:
+					print("{card}->{type}(target={target})".format(card=myChoice[0],type="attack",target=myChoice[1]))
 				if executeAttack(myChoice[0], myChoice[1])==ExceptionPlay.GAMEOVER:
 					return ExceptionPlay.GAMEOVER
 			else:
@@ -306,13 +310,14 @@ def executeAction(game,action):
 						return executeAttack(theCard,theTarget)
 	return ExceptionPlay.INVALID
 
-def StandardStep1(game: ".game.Game", myW):
+def StandardStep1(game: ".game.Game", myW, debugLog=False):
 	myWeight=myW
 	myCandidate = getActionCandidates(game)
 	myChoices = []
 	maxScore=-100000
 	maxChoice = None
-	print(">>>>>>>>>>>>>>>>>>>")
+	if debugLog:
+		print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
 		if executeAction(tmpGame, myChoice)==ExceptionPlay.GAMEOVER:
@@ -322,9 +327,8 @@ def StandardStep1(game: ".game.Game", myW):
 				score=100000
 			else:
 				score = getStageScore(tmpGame,myWeight)
-		#print("-------------------")
-		print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
-		#print("-------------------")
+		if debugLog:
+			print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
 		if score > maxScore:
 			maxScore = score
 			myChoices = [myChoice]
@@ -332,10 +336,12 @@ def StandardStep1(game: ".game.Game", myW):
 				break
 		elif score == maxScore:
 			myChoices.append(myChoice)
-	print("<<<<<<<<<<<<<<<<<<<")
+	if debugLog:
+		print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
 		myChoice = random.choice(myChoices)
-		print(str(myChoice))
+		if debugLog:
+			print(str(myChoice))
 		ret = executeAction(game, myChoice)
 		if ret==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
@@ -354,7 +360,7 @@ def StandardStep1(game: ".game.Game", myW):
 				player.choice = None
 			else :
 				player.choice.choose(choice)
-		return StandardRandom(game)
+		return StandardRandom(game, debugLog)
 	else:
 		return ExceptionPlay.VALID
 #

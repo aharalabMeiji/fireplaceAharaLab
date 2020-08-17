@@ -52,6 +52,7 @@ def set_up_one_game_hunter_vs_human():#人vsHunter
 
 
 def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, loopNumber=100):#リーグ戦
+	debugLog=True
 	StandardsX=[]
 	StandardsY=[]
 	class1 = CardClass.HUNTER#3
@@ -114,7 +115,7 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 			P2=StandardsY[-1]#last one
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 		for i in range(19):
-			winner = my_play_one_game(P1,P2)
+			winner = my_play_one_game(P1,P2,debugLog)
 			print("winner is %r"%winner)
 			if winner == P1.name:
 				Count1+=1
@@ -190,7 +191,7 @@ def my_setup_game(P1,P2) -> ".game.Game":
 #
 #	my_play_one_game()
 #
-def my_play_one_game(P1,P2) -> ".game.Game":
+def my_play_one_game(P1,P2,debugLog=False) -> ".game.Game":
 	game = my_setup_game(P1,P2)
 	for player in game.players:
 		#print("Can mulligan %r" % (player.choice.cards))
@@ -209,15 +210,15 @@ def my_play_one_game(P1,P2) -> ".game.Game":
 		elif player.name=="Maya":
 			Maya_MCTS(game)#マヤ氏の作品
 		elif player.name=="Standard":
-			StandardRandom(game)
+			StandardRandom(game,debugLog)
 		elif player.name=="Human":
 			HumanInput(game)
 		elif player.name=="HunterRandom":
 			agent_Hunter_random(game)
 		elif player.name==P1.name:
-			StandardStep1(game,P1.weight)
+			StandardStep1(game,P1.weight,debugLog)
 		elif player.name==P2.name:
-			StandardStep1(game,P2.weight)
+			StandardStep1(game,P2.weight,debugLog)
 		else:
 			Original_random(game)
 		if player.choice!=None:#不要なはずだが、ねんのため
