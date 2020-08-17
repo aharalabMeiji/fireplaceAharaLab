@@ -17,7 +17,6 @@ def investigate_card_pair( onlyresult=0):
 	count1=0
 	count2=0
 
-	#hearthstone_data/CardDefs.XML の 246910行の 30 -> 10にする必要がある。（ヒーローの初期HP変更)
 	#ヒーローパワーを消す、というのもよいかも。
 	#良いカードペアを漠然と探す旅に出る？
 	nonvanilla1 = 'EX1_045'#random.choice(nonVanillas).id#自分で指定してもよい
@@ -50,6 +49,9 @@ def investigate_card_pair( onlyresult=0):
 			mull_count = random.randint(0, len(player.choice.cards))
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 			player.choice.choose(*cards_to_mulligan)
+		game.player1.hero.max_health=10
+		game.player2.hero.max_health=10
+
 		turnNumber=0
 		print("Turn ",end=':')
 		while True:
@@ -126,6 +128,8 @@ def find_card_pair(onlyresult=1):
 				mull_count = random.randint(0, len(player.choice.cards))
 				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 				player.choice.choose(*cards_to_mulligan)
+			game.player1.hero.max_health=10
+			game.player2.hero.max_health=10
 			turnNumber=0
 			if onlyresult==0:
 				print("Turn ",end=':')
