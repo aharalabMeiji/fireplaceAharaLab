@@ -11,8 +11,8 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	#setup_play_game(createNew=1)#リーグ戦
-	set_up_one_game_with_human()#人vsCOM
+	setup_play_game(createNew=1)#リーグ戦
+	#set_up_one_game_with_human()#人vsCOM
 	#set_up_one_game_hunter_vs_human()#人vsHunter
 	#investigate_card_pair()
 	#find_card_pair(1)
