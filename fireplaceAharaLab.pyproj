@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1e377a21-d4f6-430f-a1fd-3d2fee5e1464}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>fireplaceAharaLab\start.py</StartupFile>
+    <SearchPath>fireplaceAharaLab\</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="fireplaceAharaLab\agent_Genzo.py" />
+    <Compile Include="fireplaceAharaLab\agent_Hunter.py" />
+    <Compile Include="fireplaceAharaLab\agent_Maya.py" />
+    <Compile Include="fireplaceAharaLab\card_pair.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\card.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\adventure.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\brawl.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\collectible.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\boomsday\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\banana_brawl.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\blingbrawl.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\clash_of_the_minions.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\decks_assemble.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\gift_exchange.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\ktraf.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\masked_ball.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\mechwar.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\miniature_warfare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\pick_your_fate.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\southshore_tarren_mill.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\underdog_rules.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\unite_against_mechazod.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\whos_the_boss.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\custom\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\debug\all.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\debug\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\game\all.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\game\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\kazakus_potions.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\spare_parts.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\gvg\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\initiate\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\initiate\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\karazhan\collectible.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\karazhan\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\kobolds\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\league\adventure.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\league\collectible.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\league\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\adventure.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\collectible.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\upgraded_hero_powers.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tutorial\all.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\tutorial\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\ungoro\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\witchwood\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\neutral_epic.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\neutral_legendary.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\neutral_rare.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\toxins.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\wog\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\copy.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\evaluator.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\hijack.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\lazynum.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\random_picker.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\selector.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\switch.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\dsl\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\entity.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\enums.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\events.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\exceptions.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\game.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\logging.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\managers.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\player.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\rules.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\targeting.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\utils.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\__init__.py" />
+    <Compile Include="fireplaceAharaLab\Genzo.py" />
+    <Compile Include="fireplaceAharaLab\league_match.py" />
+    <Compile Include="fireplaceAharaLab\start.py" />
+    <Compile Include="fireplaceAharaLab\utils.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fireplaceAharaLab\obj\Any CPU\Debug\fireplaceAhara.pyproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="fireplaceAharaLab" />
+    <Folder Include="fireplaceAharaLab\fireplace" />
+    <Folder Include="fireplaceAharaLab\fireplace\brawls" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\aoo" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\blackrock" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\boomsday" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\brawl" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\classic" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\custom" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\debug" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\game" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\gangs" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\gvg" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\icecrown" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\initiate" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\karazhan" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\kobolds" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\league" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\naxxramas" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\tgt" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\tutorial" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\ungoro" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\witchwood" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\wog" />
+    <Folder Include="fireplaceAharaLab\fireplace\dsl" />
+    <Folder Include="fireplaceAharaLab\obj\" />
+    <Folder Include="fireplaceAharaLab\obj\Any CPU\" />
+    <Folder Include="fireplaceAharaLab\obj\Any CPU\Debug" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
