@@ -1,12 +1,12 @@
 from hearthstone.enums import CardClass,CardType,PlayState, Zone,State
 from fireplace.utils import random_draft
 import random
-from agent_Genzo import GenzoRandom,GenzoStep1
+from agent_Standard import StandardRandom,StandardStep1
 from fireplace.game import Game
 from fireplace.player import Player
 import copy
 from fireplace.exceptions import GameOver
-from Genzo import Genzo,GenzoWeight 
+from agent_Standard import Standard,StandardWeight 
 
 def investigate_card_pair( onlyresult=0):
 	card_class = CardClass.HUNTER
@@ -57,8 +57,8 @@ def investigate_card_pair( onlyresult=0):
 			print(turnNumber,end=":")
 			#if turnNumber==8:
 				#print("(%d : %d)"%(game.player1.hero.health,game.player2.hero.health),end=" ")
-			#GenzoRandom(game)#ここはもう少し賢くする
-			GenzoStep1(game,GenzoWeight([5,5,1,1,1,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
+			#StandardRandom(game)#ここはもう少し賢くする
+			StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
 			if game.state!=State.COMPLETE:
 				try:
 					game.end_turn()
@@ -135,8 +135,8 @@ def find_card_pair(onlyresult=1):
 					print(turnNumber,end=":")
 				#if turnNumber==8:
 				#print("(%d : %d)"%(game.player1.hero.health,game.player2.hero.health),end=" ")
-				#GenzoRandom(game)#ここはもう少し賢くする
-				GenzoStep1(game,GenzoWeight([5,5,1,1,1,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
+				#StandardRandom(game)#ここはもう少し賢くする
+				StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
 				if game.state!=State.COMPLETE:
 					try:
 						game.end_turn()

@@ -1,4 +1,3 @@
-from agent_Genzo import getActionCandidates
 from enum import IntEnum
 import random
 import numpy as np

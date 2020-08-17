@@ -126,25 +126,25 @@ def getStageScore(game,weight):
 			VanillaCN+=1
 	score = 0
 	score += weight.myHeroH * myHeroH
-	score += weight.hisHeroH * hisHeroH
+	score -= weight.hisHeroH * hisHeroH
 	score += weight.myCharA * myCharA
 	score += weight.myCharH * myCharH
 	score += weight.myTauntCharH * myTauntCharH
-	score += weight.hisCharA * hisCharA
-	score += weight.hisCharH * hisCharH
-	score += weight.hisTauntCharH * hisTauntCharH
-	score += weight.MinionCH * MinionCH
-	score += weight.SpellCN * SpellCN
-	score += weight.BattleCryCN*BattleCryCN
-	score += weight.ChargeCN*ChargeCN
-	score += weight.WinduryCN*WinduryCN
-	score += weight.TauntCN*TauntCN
-	score += weight.DamageCN*DamageCN
-	score += weight.GainCN*GainCN
-	score += weight.SummonCN*SummonCN
-	score += weight.LifeStealCN*LifeStealCN
-	score += weight.GiveCN*GiveCN
-	score += weight.VanillaCN*VanillaCN
+	score -= weight.hisCharA * hisCharA
+	score -= weight.hisCharH * hisCharH
+	score -= weight.hisTauntCharH * hisTauntCharH
+	score -= weight.MinionCH * MinionCH
+	score -= weight.SpellCN * SpellCN
+	score -= weight.BattleCryCN*BattleCryCN
+	score -= weight.ChargeCN*ChargeCN
+	score -= weight.WinduryCN*WinduryCN
+	score -= weight.TauntCN*TauntCN
+	score -= weight.DamageCN*DamageCN
+	score -= weight.GainCN*GainCN
+	score -= weight.SummonCN*SummonCN
+	score -= weight.LifeStealCN*LifeStealCN
+	score -= weight.GiveCN*GiveCN
+	score -= weight.VanillaCN*VanillaCN
 	#score += weight.
 	return score
 def executePlay(card,target=None):
@@ -226,7 +226,7 @@ def StandardStep1(game: ".game.Game", myW):
 	myChoices = []
 	maxScore=-100000
 	maxChoice = None
-	#print(">>>>>>>>>>>>>>>>>>>")
+	print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
 		if executeAction(tmpGame, myChoice)==ExceptionPlay.GAMEOVER:
@@ -236,9 +236,9 @@ def StandardStep1(game: ".game.Game", myW):
 				score=100000
 			else:
 				score = getStageScore(tmpGame,myWeight)
-		#print("-------------------")
-		#print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
-		#print("-------------------")
+		print("-------------------")
+		print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
+		print("-------------------")
 		if score > maxScore:
 			maxScore = score
 			myChoices = [myChoice]
@@ -246,7 +246,7 @@ def StandardStep1(game: ".game.Game", myW):
 				break
 		elif score == maxScore:
 			myChoices.append(myChoice)
-	#print("<<<<<<<<<<<<<<<<<<<")
+	print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
 		ret = executeAction(game, random.choice(myChoices))
 		if ret==ExceptionPlay.GAMEOVER:

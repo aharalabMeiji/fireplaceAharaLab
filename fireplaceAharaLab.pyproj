@@ -19,7 +19,7 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="fireplaceAharaLab\agent_Genzo.py" />
+    <Compile Include="fireplaceAharaLab\agent_Standard.py" />
     <Compile Include="fireplaceAharaLab\agent_Hunter.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
