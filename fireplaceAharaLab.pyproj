@@ -243,6 +243,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fireplaceAharaLab\obj\Any CPU\Debug\fireplaceAhara.pyproj.FileListAbsolute.txt" />
+    <Content Include="fireplaceAharaLab\test_data34.csv" />
+    <Content Include="fireplaceAharaLab\test_data35.csv" />
+    <Content Include="fireplaceAharaLab\test_data43.csv" />
+    <Content Include="fireplaceAharaLab\test_data53.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fireplaceAharaLab" />
