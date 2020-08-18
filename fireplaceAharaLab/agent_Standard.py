@@ -151,7 +151,7 @@ def getStageScore(game,weight):
 	score -= weight.VanillaCN*VanillaCN
 	#score += weight.
 	return score
-def getStageScore2(game,weight):#ここに新しいものをつくる
+def getStageScore2(oldgame: Game,newgame: Game):#Step2用の評価関数 ベクトルを返す
 	me = game.current_player
 	he = game.current_player.opponent
 	myHero = me.hero

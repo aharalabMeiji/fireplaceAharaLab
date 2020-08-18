@@ -60,7 +60,7 @@ def investigate_card_pair( onlyresult=0):
 			#if turnNumber==8:
 				#print("(%d : %d)"%(game.player1.hero.health,game.player2.hero.health),end=" ")
 			#StandardRandom(game)#ここはもう少し賢くする
-			StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
+			StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
 			if game.state!=State.COMPLETE:
 				try:
 					game.end_turn()
