@@ -23,22 +23,42 @@ def getStageScore2(oldgame: Game,newgame: Game):#Step2用の評価関数 ベク�
 	newMy = newgame.current_player
 	newHis = newMy.opponent
 	MyHeroDiff = newMy.Hero.health - oldMy.Hero.health
-	Vec[Standard2ID.MyHeroHUpUp]=(1,0)[MyHeroDiff>=3]
-	Vec[Standard2ID.MyHeroHUp]=(1,0)[0<MyHeroDiff and MyHeroDiff<=3]
+	Vec.append((1,0)[MyHeroDiff>=3])# 0 
+	Vec.append((1,0)[0<MyHeroDiff and MyHeroDiff<=3])# 1
 	
 	HisHeroDiff = oldHis.Hero.health - newHis.Hero.health
-	Vec[Standard2ID.HisHeroHDownDown]=(1,0)[HisHeroDiff>=3]
-	Vec[Standard2ID.HisHeroHDown]=(1,0)[0<HisHeroDiff and HisHeroDiff<=3]
+	Vec.append((1,0)[HisHeroDiff>=3])# 2 HisHeroHealthDownDown
+	Vec.append((1,0)[0<HisHeroDiff and HisHeroDiff<=3])# 3 HisHeroHealthDown
 
 	myCharA = 0
 	myCharH = 0
-	myTauntCharH = 0
-	for char in me.characters:
+	myCharN = 0
+	myTauntA = 0
+	myTauntH = 0
+	myTauntN = 0
+	for char in newMy.characters:
 		myCharA += char.atk
 		myCharH += char.health
-		#GameTag.TAUNT
+		myCharN += 1
 		if char.taunt:
-			myTauntCharH += char.health
+			myTauntA += char.atk
+			myTauntH += char.health
+			myTauntN += 1
+	for char in oldMy.characters:
+		myCharA -= char.atk
+		myCharH -= char.health
+		myCharN -= 1
+		if char.taunt:
+			myTauntA -= char.atk
+			myTauntH -= char.health
+			myTauntN -= 1
+	Vec.appen((1,0)[myCharA>0])
+	Vec.appen((1,0)[myCharH>0])
+	Vec.appen((1,0)[myCharN>0])
+	Vec.appen((1,0)[myTauntA>0])
+	Vec.appen((1,0)[myTauntH>0])
+	Vec.appen((1,0)[myTauntN>0])
+
 	hisCharA = 0
 	hisCharH = 0
 	hisTauntCharH = 0
@@ -166,38 +186,38 @@ def StandardStep2(game: ".game.Game", myW, debugLog=False):
 
 class Standard2ID(IntEnum):
 	MyHeroHUpUp=0#w[0]#自ヒーローのHPをたくさん増やす
-	MyHeroHUp#w[1]#自ヒーローのHPをすこし増やす
-	HisHeroHDownDown#w[2]#相手ヒーローのHPをたくさん減らす
-	HisHeroHDown	#w[3]#相手ヒーローのHPをすこし減らす
-	MyMinionAUp	#w[4]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
-	MyTauntAUp	#self.myCharH = w[3]#自分のフィールドにある挑発ミニョンの攻撃力の総和を増やす
-	MyMinionHUp	#self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
-	MyTauntHUp	#self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
-	HisMinionADown	#self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
-	HisTauntADown	#self.hisCharA = w[5]#相手のフィールドにある挑発ミニョンの攻撃力の総和を減らす
-	HisMinionHDown	#self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
-	HisTauntHDown	#self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPの総和を減らす
-	PlayMinion	#self.MinionCH = w[8]#手持ちのミニョンのカードを使う
-	PlaySpell	#self.SpellCN = w[9]#手持ちの呪文のカードを使う
-	PlayWeapon	#self.MinionCH = w[8]#手持ちの武器のカードを使う
-	PlayBattlecry	#self.BattleCryCN = w[10]#雄叫びカードを使う
-	PlayCharge	#self.ChargeCN = w[11]#突撃カードを使う
-	PlayWindury	#self.WinduryCN = w[12]#疾風カードを使う
-	PlayTaunt	#self.TauntCN = w[13]#挑発カードを使う
-	PlayDamage	#self.DamageCN = w[14]#ダメージカードを使う
-	PlayGain	#self.GainCN = w[15]#獲得#回復カードを使う
-	PlaySummon	#self.SummonCN = w[16]#召喚カードを使う
-	PlayLifesteal	#self.LifeStealCN = w[17]#生命奪取カードを使う
-	PlayGive	#self.GiveCN = w[18]#付与カードを使う
-	PlayDeathrattle#断末魔カードを使う
-	PlaySilence#沈黙(カードを使う
-	PlaySecret# 秘策(カードを使う
-	PlayDiscover#発見()カードを使う
-	PlayDivineShield#聖なる盾(カードを使う
-	PlayStealth#隠れ身(カードを使う
-	PlayAttackVanilla	#self.VanillaCN = w[19]#攻撃力の強いバニラカードを使う
-	PlayHealthVanilla	#self.VanillaCN = w[19]#体力の大きいバニラカードを使う
-	PlaySmallVanilla	#self.VanillaCN = w[19]#体力の小さいバニラカードを使う
+	MyHeroHUp=1#w[1]#自ヒーローのHPをすこし増やす
+#	HisHeroHDownDown#w[2]#相手ヒーローのHPをたくさん減らす
+#	HisHeroHDown	#w[3]#相手ヒーローのHPをすこし減らす
+#	MyMinionAUp	#w[4]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
+#	MyTauntAUp	#self.myCharH = w[3]#自分のフィールドにある挑発ミニョンの攻撃力の総和を増やす
+#	MyMinionHUp	#self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
+#	MyTauntHUp	#self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
+#	HisMinionADown	#self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
+#	HisTauntADown	#self.hisCharA = w[5]#相手のフィールドにある挑発ミニョンの攻撃力の総和を減らす
+#	HisMinionHDown	#self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
+#	HisTauntHDown	#self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPの総和を減らす
+#	PlayMinion	#self.MinionCH = w[8]#手持ちのミニョンのカードを使う
+#	PlaySpell	#self.SpellCN = w[9]#手持ちの呪文のカードを使う
+#	PlayWeapon	#self.MinionCH = w[8]#手持ちの武器のカードを使う
+#	PlayBattlecry	#self.BattleCryCN = w[10]#雄叫びカードを使う
+#	PlayCharge	#self.ChargeCN = w[11]#突撃カードを使う
+#	PlayWindury	#self.WinduryCN = w[12]#疾風カードを使う
+#	PlayTaunt	#self.TauntCN = w[13]#挑発カードを使う
+#	PlayDamage	#self.DamageCN = w[14]#ダメージカードを使う
+#	PlayGain	#self.GainCN = w[15]#獲得#回復カードを使う
+#	PlaySummon	#self.SummonCN = w[16]#召喚カードを使う
+#	PlayLifesteal	#self.LifeStealCN = w[17]#生命奪取カードを使う
+#	PlayGive	#self.GiveCN = w[18]#付与カードを使う
+#	PlayDeathrattle#断末魔カードを使う
+#	PlaySilence#沈黙(カードを使う
+#	PlaySecret# 秘策(カードを使う
+#	PlayDiscover#発見()カードを使う
+#	PlayDivineShield#聖なる盾(カードを使う
+#	PlayStealth#隠れ身(カードを使う
+#	PlayAttackVanilla	#self.VanillaCN = w[19]#攻撃力の強いバニラカードを使う
+#	PlayHealthVanilla	#self.VanillaCN = w[19]#体力の大きいバニラカードを使う
+#	PlaySmallVanilla	#self.VanillaCN = w[19]#体力の小さいバニラカードを使う
 	pass
 class Standard2Weight(object):
 	"""
