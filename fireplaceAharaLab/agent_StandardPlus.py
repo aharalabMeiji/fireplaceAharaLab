@@ -17,12 +17,19 @@ from enum import IntEnum
 from agent_Standard import StandardRandom,executeAction, getActionCandidates
 
 def getStageScore2(oldgame: Game,newgame: Game):#Step2用の評価関数 ベクトルを返す
-	me = game.current_player
-	he = game.current_player.opponent
-	myHero = me.hero
-	hisHero = he.hero
-	myHeroH = myHero.health
-	hisHeroH = hisHero.health
+	Vec = []
+	oldMy = oldgame.current_player
+	oldHis = oldMy.opponent
+	newMy = newgame.current_player
+	newHis = newMy.opponent
+	MyHeroDiff = newMy.Hero.health - oldMy.Hero.health
+	Vec[Standard2ID.MyHeroHUpUp]=(1,0)[MyHeroDiff>=3]
+	Vec[Standard2ID.MyHeroHUp]=(1,0)[0<MyHeroDiff and MyHeroDiff<=3]
+	
+	HisHeroDiff = oldHis.Hero.health - newHis.Hero.health
+	Vec[Standard2ID.HisHeroHDownDown]=(1,0)[HisHeroDiff>=3]
+	Vec[Standard2ID.HisHeroHDown]=(1,0)[0<HisHeroDiff and HisHeroDiff<=3]
+
 	myCharA = 0
 	myCharH = 0
 	myTauntCharH = 0
@@ -157,31 +164,47 @@ def StandardStep2(game: ".game.Game", myW, debugLog=False):
 	else:
 		return ExceptionPlay.VALID
 
+class Standard2ID(IntEnum):
+	MyHeroHUpUp=0#w[0]#自ヒーローのHPをたくさん増やす
+	MyHeroHUp#w[1]#自ヒーローのHPをすこし増やす
+	HisHeroHDownDown#w[2]#相手ヒーローのHPをたくさん減らす
+	HisHeroHDown	#w[3]#相手ヒーローのHPをすこし減らす
+	MyMinionAUp	#w[4]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
+	MyTauntAUp	#self.myCharH = w[3]#自分のフィールドにある挑発ミニョンの攻撃力の総和を増やす
+	MyMinionHUp	#self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
+	MyTauntHUp	#self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
+	HisMinionADown	#self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
+	HisTauntADown	#self.hisCharA = w[5]#相手のフィールドにある挑発ミニョンの攻撃力の総和を減らす
+	HisMinionHDown	#self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
+	HisTauntHDown	#self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPの総和を減らす
+	PlayMinion	#self.MinionCH = w[8]#手持ちのミニョンのカードを使う
+	PlaySpell	#self.SpellCN = w[9]#手持ちの呪文のカードを使う
+	PlayWeapon	#self.MinionCH = w[8]#手持ちの武器のカードを使う
+	PlayBattlecry	#self.BattleCryCN = w[10]#雄叫びカードを使う
+	PlayCharge	#self.ChargeCN = w[11]#突撃カードを使う
+	PlayWindury	#self.WinduryCN = w[12]#疾風カードを使う
+	PlayTaunt	#self.TauntCN = w[13]#挑発カードを使う
+	PlayDamage	#self.DamageCN = w[14]#ダメージカードを使う
+	PlayGain	#self.GainCN = w[15]#獲得#回復カードを使う
+	PlaySummon	#self.SummonCN = w[16]#召喚カードを使う
+	PlayLifesteal	#self.LifeStealCN = w[17]#生命奪取カードを使う
+	PlayGive	#self.GiveCN = w[18]#付与カードを使う
+	PlayDeathrattle#断末魔カードを使う
+	PlaySilence#沈黙(カードを使う
+	PlaySecret# 秘策(カードを使う
+	PlayDiscover#発見()カードを使う
+	PlayDivineShield#聖なる盾(カードを使う
+	PlayStealth#隠れ身(カードを使う
+	PlayAttackVanilla	#self.VanillaCN = w[19]#攻撃力の強いバニラカードを使う
+	PlayHealthVanilla	#self.VanillaCN = w[19]#体力の大きいバニラカードを使う
+	PlaySmallVanilla	#self.VanillaCN = w[19]#体力の小さいバニラカードを使う
+	pass
 class Standard2Weight(object):
 	"""
 	Weight for Standard agent
 	"""
-	def __init__(self, w):
-		self.myHeroH = w[0]#自ヒーローのHPを増やす
-		self.hisHeroH = w[1]#相手ヒーローのHPを減らす
-		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
-		self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
-		self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
-		self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
-		self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
-		self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPの総和を減らす
-		self.MinionCH = w[8]#手持ちのミニョンのカードを使う
-		self.SpellCN = w[9]#手持ちの呪文のカードを使う
-		self.BattleCryCN = w[10]#雄叫びカードを使う
-		self.ChargeCN = w[11]#突撃カードを使う
-		self.WinduryCN = w[12]#疾風カードを使う
-		self.TauntCN = w[13]#挑発カードを使う
-		self.DamageCN = w[14]#ダメージカードを使う
-		self.GainCN = w[15]#獲得#回復カードを使う
-		self.SummonCN = w[16]#召喚カードを使う
-		self.LifeStealCN = w[17]#生命奪取カードを使う
-		self.GiveCN = w[18]#付与カードを使う
-		self.VanillaCN = w[19]#バニラカードを使う
+	def __init__(self, w: list):
+		self.w = w
 
 	def __str__(self):
 		myText = str(self.myHeroH)+','
