@@ -22,7 +22,7 @@ def investigate_card_pair( onlyresult=0):
 	nonvanilla1 = 'EX1_045'#random.choice(nonVanillas).id#自分で指定してもよい
 	nonvanilla2 = 'EX1_332'#random.choice(nonVanillas).id#
 	#古代の番人：EX1_045:攻撃できない。
-	#沈黙:EX1_332:ミニオン1体を&lt;b&gt;沈黙&lt;/b&gt;させる
+	#沈黙:EX1_332:ミニオン1体を沈黙させる
 
 	print(" specific cards : %r%r"%(nonvanilla1, nonvanilla2))
 	for repeat in range(50):
@@ -49,7 +49,7 @@ def investigate_card_pair( onlyresult=0):
 			mull_count = random.randint(0, len(player.choice.cards))
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 			player.choice.choose(*cards_to_mulligan)
-		game.player1.hero.max_health=10
+		game.player1.hero.max_health=10# ヒーローのHPは10
 		game.player2.hero.max_health=10
 
 		turnNumber=0
@@ -57,10 +57,8 @@ def investigate_card_pair( onlyresult=0):
 		while True:
 			turnNumber+=1
 			print(turnNumber,end=":")
-			#if turnNumber==8:
-				#print("(%d : %d)"%(game.player1.hero.health,game.player2.hero.health),end=" ")
-			#StandardRandom(game)#ここはもう少し賢くする
-			StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
+			StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]), debugLog=False)
+			#ここはもう少し賢い人にやってほしい
 			if game.state!=State.COMPLETE:
 				try:
 					game.end_turn()
@@ -95,7 +93,6 @@ def find_card_pair(onlyresult=1):
 		count1=0
 		count2=0
 
-		#hearthstone_data/CardDefs.XML の 246910行の 30 -> 10にする必要がある。（ヒーローの初期HP変更)
 		#ヒーローパワーを消す、というのもよいかも。
 		nonvanillaName1 = random.choice(nonVanillas)
 		nonvanilla1=nonvanillaName1.id
@@ -137,8 +134,6 @@ def find_card_pair(onlyresult=1):
 				turnNumber+=1
 				if onlyresult==0:
 					print(turnNumber,end=":")
-				#if turnNumber==8:
-				#print("(%d : %d)"%(game.player1.hero.health,game.player2.hero.health),end=" ")
 				#StandardRandom(game)#ここはもう少し賢くする
 				StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
 				if game.state!=State.COMPLETE:

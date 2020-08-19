@@ -7,7 +7,7 @@ from fireplace.card import CardType
 from fireplace.logging import log
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
 from typing import List
-from utils import Candidate, getCandidates, executeAction, ExceptionPlay, StrategyWeight
+from utils import Candidate, getCandidates, executeAction, ExceptionPlay
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game

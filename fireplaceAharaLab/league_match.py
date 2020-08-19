@@ -10,53 +10,18 @@ from fireplace.player import Player
 from enum import IntEnum
 from agent_Standard import StandardRandom
 from agent_Standard import StandardStep1
-from agent_Standard import Original_random
-from agent_Standard import HumanInput
 from agent_Standard import Standard,StandardWeight 
 from agent_Hunter import agent_Hunter_random
 from fireplace.utils import random_draft
-from utils import myAction, myActionValue, ExceptionPlay, StandardStrategy
+from utils import myAction, myActionValue, ExceptionPlay
 
+from utils import Agent,play_set_of_games,play_one_game
 
-def set_up_one_game_with_human():#人vsCOM
-	StandardsX=[]
-	class1 = CardClass.HUNTER#3
-	class2 = CardClass.PALADIN#5
-	filename = "test_data"+str(int(class1))+str(int(class2))+".csv"
-	test_data = open(filename, "r")
-	for line in test_data:
-		div = line.split(',')
-		if div[0]!="name" and class1*10+class2 == int(div[1]):
-			name=div[0]
-			rating=int(div[2])
-			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
-			thisAgent = Standard(StandardWeight(weight), name, class1, class2,rating)
-			StandardsX.append(thisAgent)
-	test_data.close()
-	P1 = random.choice(StandardsX)
-	P2 = Standard(StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"Human", class2, class1,1000)
-	winner = my_play_one_game(P1,P2)
-	print("winner is %r"%winner)
-	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
-	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
-
-def set_up_one_game_hunter_vs_human():#人vsHunter
-	class1 = CardClass.HUNTER#3 COM 
-	class2 = CardClass.MAGE#4 HUMAN
-	P1 = Standard(StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"HunterRandom", class1, class2,1000)
-	P2 = Standard(StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),"Human", class2, class1,1000)
-	winner = my_play_one_game(P1,P2)
-	print("winner is %r"%winner)
-	print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
-	print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
-
-
-def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, loopNumber=100):#リーグ戦
+def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matchNumber=100):#リーグ戦
 	debugLog=True
 	StandardsX=[]
 	StandardsY=[]
 	class1 = CardClass.HUNTER#3
-	#class2 = CardClass.MAGE#4
 	class2 = CardClass.PALADIN#5
 	filename12 = "test_data"+str(int(class1))+str(int(class2))+".csv"
 	filename21 = "test_data"+str(int(class2))+str(int(class1))+".csv"
@@ -70,7 +35,9 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 				int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),\
 				int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),\
 				int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
-			thisAgent = Standard(StandardWeight(weight), name, class1, class2,rating)
+			thisAgent = Agent(name, StandardStep1,\
+						myOption=StandardWeight(weight),\
+					    myClass=class1, rating=rating)
 			StandardsX.append(thisAgent)
 	test_data.close()
 	test_data = open(filename21, "r")
@@ -83,25 +50,26 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 				int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),\
 				int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),\
 				int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
-			thisAgent = Standard(StandardWeight(weight), name, class2, class1, rating)
+			thisAgent = Agent(name, StandardStep1,\
+						myOption=StandardWeight(weight),\
+					    myClass=class2, rating=rating)
 			StandardsY.append(thisAgent)
 	test_data.close()
-	newName="JumboImp"#毎回、何か自分で工夫する
-	#,,VoodooDoll,,Lucentbark,Nozari,CatrinaMuerte,,
+	newName="VoodooDoll"#毎回、何か自分で工夫する
+	# Lucentbark,Nozari,CatrinaMuerte,,
 	#TakNozwhisker,,WalkingFountain,
-	#終わったもの：DarkPeddler,Mrrgglton,MadameLazul
+	#終わったもの：DarkPeddler,Mrrgglton,MadameLazul,JamboImp
 	if createNew==1:
 		newWeight = createNewWeight(0)#0:new agent
 	if createMorph==1:
 		newWeight = createNewWeight(1,StandardsX)#0:1:morphed agent
 	if createNew==1 or createMorph==1:
-		newAgent=Standard(newWeight, newName+'X', class1, class2, 1000)
+		newAgent=Agent(newWeight, newName+'X', class1, class2, 1000)
 		StandardsX.append(newAgent)
 		mewAgent=Standard(newWeight, newName+'Y', class2, class1, 1000)
 		StandardsY.append(mewAgent)
 
-	#Human=Standard(StandardWeight(1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0),"Human", CardClass.SHAMAN, CardClass.HUNTER,1000)
-	for k in range(loopNumber):
+	for k in range(matchNumber):
 		Count1=0
 		Count2=0
 		CountDraw=0
@@ -115,7 +83,7 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 			P2=StandardsY[-1]#last one
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 		for i in range(19):
-			winner = my_play_one_game(P1,P2,debugLog)
+			winner = play_one_game(P1,P2,debugLog=debugLog)
 			print("winner is %r"%winner)
 			if winner == P1.name:
 				Count1+=1
@@ -123,10 +91,6 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 				Count2+=1
 			else:
 				CountDraw+=1
-		#print(" %r (%r) wins: %r"%(P1.name, P1.myClass, Count1))
-		#print(" %r (%r) wins: %r"%(P2.name, P2.myClass, Count2))
-		#print(" Draw: %d"%CountDraw)
-
 		import math
 		# rating
 		diff=math.exp(float(P1.rating-P2.rating)*0.01)# レーティングが100違うとe倍の実力差
@@ -148,13 +112,13 @@ def setup_play_game(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, 
 			f.write("name,class,rating\n")
 			for P in StandardsX:
 				text = (P.name[:-1])+','+str(int(class1))+str(int(class2))+','+str(P.rating)+','
-				text += str(P.weight)+'\n'
+				text += str(P.option)+'\n'
 				f.write(text)
 		with open(filename21, mode='w') as f:
 			f.write("name,class,rating\n")
 			for P in StandardsY:
 				text = (P.name[:-1])+','+str(int(class2))+str(int(class1))+','+str(P.rating)+','
-				text += str(P.weight)+'\n'
+				text += str(P.option)+'\n'
 				f.write(text)
 #
 #  createNewWeight()
@@ -174,69 +138,17 @@ def createNewWeight(option,StandardsX=None):
 #
 #	my_setup_game()
 #
-def my_setup_game(P1,P2) -> ".game.Game":
-	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
-	#LOE_076:Sir Finley Mrrgglton
-	#'BT_490'魔力喰い、ターゲットの扱いにエラーがあるので除外。
-	deck1 = random_draft(P1.myClass,exclude)
-	deck2 = random_draft(P2.myClass,exclude)
-	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
-	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
-
-	game = Game(players=(player1, player2))
-	game.start()
-
-	return game
-
+#def my_setup_game(P1,P2) -> ".game.Game":
+#	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
+#	#LOE_076:Sir Finley Mrrgglton
+#	#'BT_490'魔力喰い、ターゲットの扱いにエラーがあるので除外。
+#	deck1 = random_draft(P1.myClass,exclude)
+#	deck2 = random_draft(P2.myClass,exclude)
+#	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
+#	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 #
-#	my_play_one_game()
+#	game = Game(players=(player1, player2))
+#	game.start()
 #
-def my_play_one_game(P1,P2,debugLog=False) -> ".game.Game":
-	game = my_setup_game(P1,P2)
-	for player in game.players:
-		#print("Can mulligan %r" % (player.choice.cards))
-		mull_count = random.randint(0, len(player.choice.cards))
-		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-		player.choice.choose(*cards_to_mulligan)
-	turnNumber=0
-	print("Turn ",end='--')
-	while True:	
-		turnNumber+=1
-		print("%d"%turnNumber,end=':')
-		player = game.current_player
-		#print("%r starts their turn."%player.name);
-		if player.name=="Player1" or player.name=="Player2":
-			Original_random(game)
-		elif player.name=="Maya":
-			Maya_MCTS(game)#マヤ氏の作品
-		elif player.name=="Standard":
-			StandardRandom(game,debugLog)
-		elif player.name=="Human":
-			HumanInput(game)
-		elif player.name=="HunterRandom":
-			agent_Hunter_random(game)
-		elif player.name==P1.name:
-			StandardStep1(game,P1.weight,debugLog)
-		elif player.name==P2.name:
-			StandardStep1(game,P2.weight,debugLog)
-		else:
-			Original_random(game)
-		if player.choice!=None:#不要なはずだが、ねんのため
-			player.choice=None
-		if game.state!=State.COMPLETE:
-			try:
-				game.end_turn()
-			except GameOver:#まれにおこる
-				gameover=0
-		if game.state==State.COMPLETE:
-			if game.current_player.playstate == PlayState.WON:
-				return game.current_player.name
-			if game.current_player.playstate == PlayState.LOST:
-				return game.current_player.opponent.name
-			return 'DRAW'
-
-
-
-
-
+#	return game
 

@@ -6,7 +6,7 @@ from fireplace.card import CardType
 from fireplace.logging import log
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
 from typing import List
-from utils import myAction, myActionValue, ExceptionPlay, StandardStrategy
+from utils import myAction, myActionValue, ExceptionPlay
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
@@ -25,7 +25,7 @@ def StandardRandom(thisgame: ".game.Game", debugLog=False):
 					card = random.choice(card.choose_cards)#ここに相当する部分の戦略なし
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append([card, target])
+						myCandidate.append([card, target])#Candidateを用いた表記へ変更したい
 				else:
 					myCandidate.append([card,None])
 		if len(myCandidate) > 0:
@@ -224,8 +224,11 @@ def executeAction(game,action):
 						return executeAttack(theCard,theTarget)
 	return ExceptionPlay.INVALID
 
-def StandardStep1(game: ".game.Game", myW, debugLog=False):
-	myWeight=myW
+def StandardStep1(game: ".game.Game", option=None, debugLog=False):
+	if option==None:
+		print ("StandardStep1 needs an option")
+		return ExceptionPlay.INVALID
+	myWeight=option
 	myCandidate = getActionCandidates(game)
 	myChoices = []
 	maxScore=-100000
@@ -315,7 +318,7 @@ def HumanInput(game):
 	player = game.current_player
 	while True:
 		myCandidate = []
-		print("HAND:")
+		print("========My HAND======")
 		for card in player.hand:
 			print(card, end=' : ')
 			if card.data.type == CardType.MINION:
@@ -328,14 +331,14 @@ def HumanInput(game):
 					card = random.choice(card.choose_cards)
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append([card,"plays", target])
+						myCandidate.append([card,"plays", target])#Candidateを使った表記に書き直したい
 				else:
 					myCandidate.append([card,"plays",None])
-		print("OPPONENT'S PLAY:")
+		print("========OPPONENT'S PLAYGROUND======")
 		for character in player.opponent.characters:
 			print(character, end=':')
 			print("(%d/%d)"%(character.atk,character.health))
-		print("PLAY:")
+		print("========MY PLAYGROUND======")
 		for character in player.characters:
 			print(character, end=':')
 			print("(%d/%d)"%(character.atk,character.health))
@@ -346,7 +349,7 @@ def HumanInput(game):
 						hisA=target.atk
 						#if myH > hisA:
 						myCandidate.append([character,"attacks",target])
-		print("Your turn:%d/%d mana"%(player.mana,player.max_mana))
+		print("Your turn : %d/%d mana"%(player.mana,player.max_mana))
 		print("[0] ターンを終了する")
 		myCount = 1
 		for myChoice in myCandidate:
@@ -457,6 +460,8 @@ class StandardWeight(object):
 		return myText
 
 	def __eq__(self,obj):
+		if obj==None:
+			return False
 		return self.name==obj.name 
 
 	def deepcopy(self):

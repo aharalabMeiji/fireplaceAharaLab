@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-from league_match import set_up_one_game_with_human,setup_play_game,set_up_one_game_hunter_vs_human
 import sys
-from card_pair import investigate_card_pair, find_card_pair
 
 sys.path.append("..")
 
@@ -11,9 +9,27 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	#setup_play_game(loopNumber=1)#リーグ戦
-	set_up_one_game_with_human()#人vsStep1
-	#set_up_one_game_hunter_vs_human()#人vsHunter
+	from utils import Agent,play_set_of_games
+	from hearthstone.enums import CardClass
+	Human=Agent("Human",None,myClass=CardClass.MAGE)
+	StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
+	
+	## Maya=Agent("Maya",None)
+
+	# StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
+	#from agent_Standard import StandardStep1,StandardWeight
+	#StandardPlayer=Agent("GhostCat", StandardStep1,\
+	#   myOption=StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),\
+	#   myClass=CardClass.WARRIOR)# StandardStep1(game, option, debugLog) が　呼び出すべき関数名
+
+	#ゲームプレイ
+	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
+
+	##StandardStep1のリーグ戦
+	#from league_match import play_league
+	#play_league(matchNumber=1)
+
+	#from card_pair import investigate_card_pair, find_card_pair
 	#investigate_card_pair()
 	#find_card_pair(1)
 
