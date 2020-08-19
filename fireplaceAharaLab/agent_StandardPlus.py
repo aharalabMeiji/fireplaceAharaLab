@@ -277,3 +277,64 @@ class Standard2Weight(object):
 		if wgt[minus]<1 :
 			wgt[minus]=1
 		return StandardWeight(wgt)
+
+
+#	def setStrategy(self):#
+#		"""
+#			FREE = 0
+#			HITATTACKxMINION = 1
+#			HITATTACKxHERO = 1
+#			SPELLATTACKxMINION = 2
+#			SPELLATTACKxHERO = 2
+#			HEALxMINION = 3
+#			HEALxHERO = 4
+#			DEFNEDxHERO = 5
+#			STRENGTHENxMINION = 6
+#			IMPROVExSTATUS = 7
+#		"""
+#		if minionAttackMinion():
+#			strategy=StandardStrategy.HITATTACKxMINION
+#		if minionAttackHero():
+#			strategy=StandardStrategy.HITATTACKxHERO
+#		if spellAttackMinion():
+#			strategy=StandardStrategy.SPELLATTACKxMINION
+#		if spellAttackHero():
+#			strategy=StandardStrategy.SPELLATTACKxHERO
+#		if healMinion():
+#			strategy=StandardStrategy.HEALxMINION
+#		#if defendHero():#HUNTERにはない。
+#		strategy=StandardStrategy.FREE
+#		pass
+#	def minionAttackMinion(self):
+#		if self.target!=None:
+#			if self.card.type == CardType.MINION and \
+#			   self.target.type == CardType.MINION and \
+#			   self.type==BlockType.ATTACK:
+#				return True
+#		return False
+#	def minionAttackHero(self):
+#		if self.target!=None:
+#			if self.card.type == CardType.MINION and \
+#			   self.target.type == CardType.HERO and \
+#			   self.type==BlockType.ATTACK:
+#				return True
+##		if self.target!=None:
+#			if self.card.type == CardType.SPELL and \
+#			   self.target.type == CardType.MINION and \
+#			   self.type==BlockType.PLAY:
+#				return True
+#		return False
+#	def spellAttackHero(self):
+#		if self.target!=None:
+#			if self.card.type == CardType.SPELL and \
+#			   self.target.type == CardType.HERO and \
+#			   self.type==BlockType.PLAY:
+#				return True
+#		return False
+#	def healMinion():
+#		if self.target!=None and \
+#		self.target.type == CardType.MINION and\
+#		self.target.controller == self.card.controller and\
+#		self.type==BlockType.PLAY:# + healing condition
+#			return True
+#		return False
