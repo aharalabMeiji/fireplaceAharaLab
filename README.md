@@ -51,23 +51,52 @@ This needs python 3.8, hearthstone 5.23.4, and fireplace 0.1.
 # start.py周りの説明
 
     def main():
-        from fireplace import cards
-        cards.db.initialize()
-        setup_play_game(createNew=1)#リーグ戦を行う。
-        #set_up_one_game_with_human()#人vsCOM
-        #investigate_card_pair()
-        #find_card_pair(1)
 
-* setup_play_game()#リーグ戦を行う
+カード情報を読み込む
 
-> 準備として、test_data--.csvを準備する必要がある。--は二桁の数字で、対象とするカードクラスの番号（3:HUNTER,4:MAGE,...）を二つ並べていれる
-> createNew=1：新規プレーヤーを追加する\
-> createMorph=1：新規プレーヤー（現存プレーヤーを少し変更したもの）を追加する\
-> player1isNew=1:プレーヤ1として、最後に追加したプレーヤを指名する\
-> player2isNew=1:プレーヤ2として、最後に追加したプレーヤを指名する
+    from fireplace import cards
+    cards.db.initialize()
 
-* set_up_one_game_with_human()#人vs.COMで対戦を行う
+典型的なエージェント
 
-* investigate_card_pair()#特定の2枚のカードのシナジーを調べる
+    from utils import Agent,play_set_of_games
+    from hearthstone.enums import CardClass
+    Human=Agent("Human",None,myClass=CardClass.MAGE)
+    StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
+    Maya=Agent("Maya",None)
 
-* find_card_pair(1)#漠然とシナジーのあるカードを探索する（(1)は結果のみの表示のためのフラグ
+オプションつきのオリジナルエージェントも呼び出すことができる\
+これはagent_Standard.pyにStandardStep1(game, option, debugLog)という関数を準備すると、次の式で呼び出すことができる。\
+myClassは省略可\
+StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
+
+    from agent_Standard import StandardStep1,StandardWeight
+     StandardPlayer=Agent("GhostCat", StandardStep1,\
+         myOption=StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),\
+         myClass=CardClass.WARRIOR)
+
+ゲームを呼び出す関数。gameNumber回ゲームをする１セットを呼び出す。\
+Human, StandardRandomのところにエージェントの変数を入れればよい。\
+プレーの内容を表示させたいときにはdebugLog=Tureにする
+
+    #ゲームプレイ
+    play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
+StandardStep1のリーグ戦\
+パラメータをcsvファイルに保存しておいて、そのエージェントたちを対戦させる。以下はオプション\
+createNew=1：新規プレーヤーを追加する\
+createMorph=1：新規プレーヤー（現存プレーヤーを少し変更したもの）を追加する\
+player1isNew=1:プレーヤ1として、最後に追加したプレーヤを指名する\
+player2isNew=1:プレーヤ2として、最後に追加したプレーヤを指名する
+
+    #StandardStep1のリーグ戦
+    from league_match import play_league
+    play_league(matchNumber=1)
+
+特定の2枚が並んでいるときのシナジーを確かめる関数（プレーヤーはMCTSのほうがいいようだ。）
+
+    from card_pair import investigate_card_pair, find_card_pair
+    investigate_card_pair()
+
+並んでデッキに入っているとシナジーが発生するような2枚を漠然と探す関数
+
+    find_card_pair(1)
