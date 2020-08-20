@@ -33,19 +33,6 @@ https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/
 >     def initialize(self, locale="jaJP"):
 >
 
-* ゲンゾーまわりのトラブル
-
-> 3枚カードを引かせる、という動作中に、playerとcardの混同が起きる。現バージョンではInvalidPlayフラグ対象。\
-> ファイルfireplace.actions.py のll.900-905あたり
->
->     def do(self, source, target, amount):
->         if target not in target.game.players:
->             #raise InvalidAction("%r is not a player" % target)
->             target = target.controller#add this line\
->         difference = max(0, amount - len(target.hand))
-
-* fireplace.actions.py のline 1047まわり、MorphのtargetがNoneで呼び出されることがまれにある。（[魔力喰い]でなぜか起こる）対応不明
-
 * ログ表示をやめる方法
 
 > ファイルfireplace.logging.py の　line 18あたり
@@ -78,6 +65,15 @@ StandardStep1 のように、オプション付きのオリジナルエージェ
      StandardPlayer=Agent("GhostCat", StandardStep1,\
          myOption=StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),\
          myClass=CardClass.WARRIOR)
+
+言葉で戦術を表して、それらを並べることによってエージェントを作る、という企画をやってみた。道具を豊富にすれば結構面白そう。というか、エージェントを作って、これより強くなければ仕方ないというかwww
+
+    from agent_word_strategy import WS, agent_word_strategy
+	WSplayer = Agent("WS", agent_word_strategy,\
+		myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー],\
+		myClass=CardClass.PRIEST)
+
+
 
 ゲームを呼び出す関数。gameNumber回ゲームをする１セットを呼び出す。\
 Human, StandardRandomのところにエージェントの変数を入れればよい。\
