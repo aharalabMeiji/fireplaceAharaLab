@@ -241,6 +241,9 @@
     <Compile Include="fireplaceAharaLab\agent_StandardPlus.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\agent_word_strategy.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\start.py" />
     <Compile Include="fireplaceAharaLab\utils.py" />
   </ItemGroup>

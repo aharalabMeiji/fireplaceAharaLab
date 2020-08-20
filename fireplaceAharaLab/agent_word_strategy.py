@@ -1,8 +1,10 @@
 #agent_word_strategy
 
-from enum import IntEnum, CardType
-from utils import ExceptionPlay,Candidate
+from enum import IntEnum
+from hearthstone.enums import CardType,BlockType
+from utils import ExceptionPlay,Candidate, executeAction
 import random
+import copy
 
 class WS(IntEnum):
 	""" プレーを言葉で説明　"""
@@ -11,7 +13,7 @@ class WS(IntEnum):
 	ミニョンで敵ヒーローの体力を削る=2
 	自ヒーローの体力を回復する=3
 	最初の2巡は小物を出す=4
-	大物が出ているならば挑発を出す=5
+	ミニオンが出ているならば挑発を出す=5
 	コストの小さいミニョンを出す=6
 	pass
 
@@ -29,6 +31,7 @@ def agent_word_strategy(game, option=[WS.ランダムにプレー], debugLog=Tru
 	return ExceptionPlay.VALID
 
 def execute_word_strategy(game, ws, debugLog):
+	player=game.current_player
 	if ws==WS.ランダムにプレー:
 		myCandidate = []
 		for card in player.hand:
@@ -38,9 +41,9 @@ def execute_word_strategy(game, ws, debugLog):
 					card = random.choice(card.choose_cards)
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:
-					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		for character in player.characters:
 			if character.can_attack():
 				for target in character.targets:
@@ -48,10 +51,10 @@ def execute_word_strategy(game, ws, debugLog):
 						myH=character.health
 						hisA=target.atk
 						if myH >= hisA:
-							myCandidate.append(Candidate(character, _type=BlockType.ATTACK, _target=None))
+							myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
 		if len(myCandidate) > 0:
 			myChoice = random.choice(myCandidate)
-			exc = executePlay(game, myChoice)
+			exc = executeAction(game, random.choice(myCandidate))
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -65,14 +68,15 @@ def execute_word_strategy(game, ws, debugLog):
 			if card.type==CardType.SPELL and card.is_playable():
 				if card.requires_target():
 					for target in card.targets:
-						if '沈黙' in card.name and is_vanilla(target):#現状ではつかえてしまうため
+						if '沈黙' in card.data.name and is_vanilla(target):#現状ではつかえてしまうため
 							pass
 						else:
-							myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+							myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:
-					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		if len(myCandidate)>0:
-			exc = executeAction(game, random.choice(muCandidate))
+			print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate))
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -86,12 +90,13 @@ def execute_word_strategy(game, ws, debugLog):
 		for character in player.characters:
 			if character.can_attack(player.opponent.hero):
 				if character.atk>max_atk:
-					myCandidate=[Candidate(character, _type=BlockType.ATTACK, _target=player.opponent.hero)]
+					myCandidate=[Candidate(character, type=BlockType.ATTACK, target=player.opponent.hero)]
 					max_atk = character.atk
 				elif character.atk==max_atk:
-					myCandidate.append(Candidate(character, _type=BlockType.ATTACK, _target=player.opponent.hero))
+					myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=player.opponent.hero))
 		if len(myCandidate)>0:
-			exc = executeAction(game, random.choice(muCandidate))
+			print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate))
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -106,18 +111,19 @@ def execute_word_strategy(game, ws, debugLog):
 			if card.is_playable():
 				if card.requires_target():
 					for target in card.targets:
-						pre_candidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+						pre_candidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:
-					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+					pre_candidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		myCandidate=[]
 		if len(pre_candidate)>0:
 			for myChoice in pre_candidate:
-				tmpgame = deepcopy(game)
-				executeAction(tmpgame,myChoice)
+				tmpgame = copy.deepcopy(game)
+				executeAction(tmpgame,myChoice,debugLog=False)
 				if tmpgame.current_player.hero.health > currentHeroHealth:
 					myCandidate.append(myChoice)
 		if len(myCandidate)>0:
-			exc = executeAction(game, random.choice(muCandidate))
+			print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate))
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -132,11 +138,12 @@ def execute_word_strategy(game, ws, debugLog):
 				if card.type==CardType.MINION and card.is_playable():
 					if card.requires_target():
 						for target in card.targets:
-							myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+							myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 					else:
-						myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 			if len(myCandidate)>0:
-				exc = executeAction(game, random.choice(muCandidate))
+				print("%r"%str(ws))
+				exc = executeAction(game, random.choice(myCandidate))
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
 					return False,ExceptionPlay.GAMEOVER
@@ -146,7 +153,7 @@ def execute_word_strategy(game, ws, debugLog):
 		else:
 			return False,ExceptionPlay.VALID
 		pass
-	elif ws==WS.大物が出ているならば挑発を出す:
+	elif ws==WS.ミニオンが出ているならば挑発を出す:
 		player=game.current_player
 		totalHealth=0
 		totalAttack=0
@@ -157,14 +164,15 @@ def execute_word_strategy(game, ws, debugLog):
 			return False,ExceptionPlay.VALID
 		myCandidate = []
 		for card in player.hand:
-			if card.taunt and card.is_playable():
+			if card.type==CardType.MINION and card.taunt and card.is_playable():
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:
-					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		if len(myCandidate)>0:
-			exc = executeAction(game, random.choice(muCandidate))
+			print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate))
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -179,11 +187,12 @@ def execute_word_strategy(game, ws, debugLog):
 			if card.type==CardType.MINION and card.is_playable() and card.cost<3:
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:
-					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		if len(myCandidate)>0:
-			exc = executeAction(game, random.choice(muCandidate))
+			print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate))
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER

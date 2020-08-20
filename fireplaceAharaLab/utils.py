@@ -1,6 +1,7 @@
 from hearthstone.enums import BlockType, CardType ,PlayState, State
 from enum import IntEnum
 from fireplace.game import Game
+from fireplace.exceptions import GameOver
 
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
@@ -186,7 +187,7 @@ class Candidate(object):
 		pass
 
 	def __str__(self):
-		return "{card}->{type}(target={target})".format(card=self.card,type=self.type,target=self.target)
+		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
 		pass
 
 	def __eq__(self,obj):
@@ -210,15 +211,15 @@ def getCandidates(mygame):
 					if card2.is_playable():
 						if card2.requires_target():
 							for target in card.targets:
-								myCandidate.append(Candidate(card, _card2=card2, _type=BlockType.PLAY, _target=target))
+								myCandidate.append(Candidate(card, _card2=card2, type=BlockType.PLAY, target=target))
 						else:
-							myCandidate.append(Candidate(card, _card2=card2, _type=BlockType.PLAY, _target=None))
+							myCandidate.append(Candidate(card, _card2=card2, type=BlockType.PLAY, target=None))
 			else:# card2=None
-				if card.requires_target():
+				if card.requirestarget():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=target))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:
-					myCandidate.append(Candidate(card, _type=BlockType.PLAY, _target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
@@ -226,16 +227,17 @@ def getCandidates(mygame):
 					myH=character.health
 					hisA=target.atk
 					if myH > hisA:
-						myCandidate.append(Candidate(character, _type=BlockType.ATTACK, _target=target))
+						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
 	return myCandidate
 #
 #  executeAction
 #
-def executeAction(mygame,action: Candidate):
+def executeAction(mygame,action: Candidate, debugLog=True):
 	"""　"""
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
-	print("%s %s"%(player,str(action)))
+	if debugLog:
+		print("%s %s"%(player,str(action)))
 	theCard=None
 	theCard2=None
 	theTarget=None
@@ -261,6 +263,8 @@ def executeAction(mygame,action: Candidate):
 	if action.type==BlockType.ATTACK:
 		if not theCard.can_attack(theTarget):
 			return ExceptionPlay.INVALID
+		if theTarget==None:
+			return ExceptionPlay.VALID
 		try:
 			theCard.attack(theTarget)
 			return ExceptionPlay.VALID
