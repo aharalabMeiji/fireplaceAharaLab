@@ -243,16 +243,19 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 	theTarget=None
 
 	for entity in thisEntities:
-		if entity ==action.card:
-			theCard=entity
+		if entity==action.card:
+			if action.type==BlockType.PLAY:
+				if entity.is_playable():
+					theCard=entity
+			elif action.type==BlockType.ATTACK:
+				if entity.can_attack():
+					theCard=entity
 		if entity == action.card2:
 			theCard2=entity
 		if entity == action.target:
 			theTarget=entity
 
 	if action.type==BlockType.PLAY:
-		if not theCard.is_playable():
-			return ExceptionPlay.INVALID
 		if theTarget != None and theTarget not in theCard.targets:
 			return ExceptionPlay.INVALID
 		try:
