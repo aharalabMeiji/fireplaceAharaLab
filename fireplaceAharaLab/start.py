@@ -22,9 +22,14 @@ def main():
 	#   myOption=StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),\
 	#   myClass=CardClass.WARRIOR)# StandardStep1(game, option, debugLog) が　呼び出すべき関数名
 
+	#from agent_word_strategy import WS, agent_word_strategy
+	#WSplayer = Agent("WS", agent_word_strategy,\
+	#	myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー],\
+	#	myClass=CardClass.PRIEST)
+
 	#ゲームプレイ
 	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
-
+	
 	##StandardStep1のリーグ戦
 	#from league_match import play_league
 	#play_league(matchNumber=1)
