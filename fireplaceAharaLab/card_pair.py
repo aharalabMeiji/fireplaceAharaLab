@@ -6,7 +6,7 @@ from fireplace.game import Game
 from fireplace.player import Player
 import copy
 from fireplace.exceptions import GameOver
-from agent_Standard import Standard,StandardWeight 
+from utils import Agent
 
 def investigate_card_pair( onlyresult=0):
 	card_class = CardClass.HUNTER
@@ -57,7 +57,12 @@ def investigate_card_pair( onlyresult=0):
 		while True:
 			turnNumber+=1
 			print(turnNumber,end=":")
-			StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]), debugLog=False)
+			weight=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+			weight[0]=weight[1]=5
+			weight[26]=10
+			weight[2]=weight[3]=weight[6]=weight[7]=5
+			weight[10]=weight[11]=weight[12]=weight[13]=5
+			StandardStep1(game,weight, debugLog=False)
 			#ここはもう少し賢い人にやってほしい
 			if game.state!=State.COMPLETE:
 				try:
@@ -135,7 +140,12 @@ def find_card_pair(onlyresult=1):
 				if onlyresult==0:
 					print(turnNumber,end=":")
 				#StandardRandom(game)#ここはもう少し賢くする
-				StandardStep1(game,StandardWeight([5,5,1,1,1,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0]))#ここはもう少し賢くする
+				weight=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+				weight[0]=weight[1]=5
+				weight[26]=10
+				weight[2]=weight[3]=weight[6]=weight[7]=5
+				weight[10]=weight[11]=weight[12]=weight[13]=5
+				StandardStep1(game,weight, debugLog=False)
 				if game.state!=State.COMPLETE:
 					try:
 						game.end_turn()

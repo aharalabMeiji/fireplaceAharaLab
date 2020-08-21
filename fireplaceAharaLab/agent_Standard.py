@@ -318,18 +318,7 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
-def weight_deepcopy_and_perturb(self):
-	import random
-	wgt=[]
-	for i in range(len(weight)):
-		wgt.append(weight[i])
-	plus = random.randint(0,len(weight)-1)
-	wgt[plus] += 3
-	minus = random.randint(0,len(weight)-1)
-	wgt[minus] -= 3
-	if wgt[minus]<1 :
-		wgt[minus]=1
-	return wgt
+
 
 
 

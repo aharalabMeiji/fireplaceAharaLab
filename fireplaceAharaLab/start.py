@@ -17,12 +17,12 @@ def main():
 	## Maya=Agent("Maya",None)
 
 	# StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
-	from agent_Standard import StandardStep1
-	import random
-	opt = []
-	for i in range(34):
-		opt.append(random.randint(1,10))
-	StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
+	#from agent_Standard import StandardStep1
+	#import random
+	#opt = []
+	#for i in range(34):
+	#	opt.append(random.randint(1,10))
+	#StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
 
 	#from agent_word_strategy import WS, agent_word_strategy
 	#WSplayer = Agent("WS", agent_word_strategy,\

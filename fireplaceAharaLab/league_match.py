@@ -10,15 +10,12 @@ from fireplace.player import Player
 from enum import IntEnum
 from agent_Standard import StandardRandom
 from agent_Standard import StandardStep1
-from agent_Standard import Standard,StandardWeight 
 from agent_Hunter import agent_Hunter_random
 from fireplace.utils import random_draft
 from utils import myAction, myActionValue, ExceptionPlay
-
 from utils import Agent,play_set_of_games,play_one_game
 
 def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matchNumber=100):#リーグ戦
-	debugLog=True
 	StandardsX=[]
 	StandardsY=[]
 	class1 = CardClass.HUNTER#3
@@ -31,13 +28,10 @@ def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matc
 		if div[0]!="name" and class1*10+class2 == int(div[1]):
 			name=div[0]+'X'
 			rating=int(div[2])
-			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),\
-				int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),\
-				int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),\
-				int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
-			thisAgent = Agent(name, StandardStep1,\
-						myOption=StandardWeight(weight),\
-					    myClass=class1, rating=rating)
+			weight=[]
+			for i in range(34):
+				weight.append(int(div[3+i]))
+			thisAgent = Agent(name, StandardStep1,myOption=weight,myClass=class1, rating=rating)
 			StandardsX.append(thisAgent)
 	test_data.close()
 	test_data = open(filename21, "r")
@@ -46,13 +40,10 @@ def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matc
 		if div[0]!="name" and class2*10+class1 == int(div[1]):
 			name=div[0]+'Y'
 			rating=int(div[2])
-			weight=[int(div[3]),int(div[4]),int(div[5]),int(div[6]),int(div[7]),\
-				int(div[8]),int(div[9]),int(div[10]),int(div[11]),int(div[12]),\
-				int(div[13]),int(div[14]),int(div[15]),int(div[16]),int(div[17]),\
-				int(div[18]),int(div[19]),int(div[20]),int(div[21]),int(div[22])]
-			thisAgent = Agent(name, StandardStep1,\
-						myOption=StandardWeight(weight),\
-					    myClass=class2, rating=rating)
+			weight=[]
+			for i in range(34):
+				weight.append(int(div[3+i]))
+			thisAgent = Agent(name, StandardStep1,myOption=weight,myClass=class2, rating=rating)
 			StandardsY.append(thisAgent)
 	test_data.close()
 	newName="VoodooDoll"#毎回、何か自分で工夫する
@@ -64,10 +55,10 @@ def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matc
 	if createMorph==1:
 		newWeight = createNewWeight(1,StandardsX)#0:1:morphed agent
 	if createNew==1 or createMorph==1:
-		newAgent=Agent(newWeight, newName+'X', class1, class2, 1000)
+		newAgent=Agent(newName+'X', StandardStep1, myOption=newWeight, myClass=class1, rating=1000)
 		StandardsX.append(newAgent)
-		mewAgent=Standard(newWeight, newName+'Y', class2, class1, 1000)
-		StandardsY.append(mewAgent)
+		newAgent=Agent(newName+'Y', StandardStep1, myOption=newWeight, myClass=class2, rating=1000)
+		StandardsY.append(newAgent)
 
 	for k in range(matchNumber):
 		Count1=0
@@ -83,7 +74,7 @@ def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matc
 			P2=StandardsY[-1]#last one
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 		for i in range(19):
-			winner = play_one_game(P1,P2,debugLog=debugLog)
+			winner = play_one_game(P1,P2,debugLog=False)
 			print("winner is %r"%winner)
 			if winner == P1.name:
 				Count1+=1
@@ -112,13 +103,17 @@ def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matc
 			f.write("name,class,rating\n")
 			for P in StandardsX:
 				text = (P.name[:-1])+','+str(int(class1))+str(int(class2))+','+str(P.rating)+','
-				text += str(P.option)+'\n'
+				for i in range(34):
+					text += str(P.option[i])+','
+				text += "\n"
 				f.write(text)
 		with open(filename21, mode='w') as f:
 			f.write("name,class,rating\n")
 			for P in StandardsY:
 				text = (P.name[:-1])+','+str(int(class2))+str(int(class1))+','+str(P.rating)+','
-				text += str(P.option)+'\n'
+				for i in range(34):
+					text += str(P.option[i])+','
+				text += "\n"
 				f.write(text)
 #
 #  createNewWeight()
@@ -126,29 +121,12 @@ def play_league(createMorph=0, createNew=0, player1isNew=0, player2isNew=0, matc
 def createNewWeight(option,StandardsX=None):
 	if option==0:
 		weight=[]
-		for i in range(20):
+		for i in range(34):
 			weight.append(random.randint(1,9))
-		return StandardWeight(weight)
+		return weight
 	else:
 		#既存のものの変形
 		originalAgent = random.choice(StandardsX)
-		newWeight = originalAgent.weight.deepcopyAndPerturb()
+		newWeight = weight_deepcopy_and_perturb(originalAgent.weight)
 		return newWeight
-
-#
-#	my_setup_game()
-#
-#def my_setup_game(P1,P2) -> ".game.Game":
-#	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
-#	#LOE_076:Sir Finley Mrrgglton
-#	#'BT_490'魔力喰い、ターゲットの扱いにエラーがあるので除外。
-#	deck1 = random_draft(P1.myClass,exclude)
-#	deck2 = random_draft(P2.myClass,exclude)
-#	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
-#	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
-#
-#	game = Game(players=(player1, player2))
-#	game.start()
-#
-#	return game
 
