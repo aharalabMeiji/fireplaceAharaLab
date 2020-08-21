@@ -215,7 +215,7 @@ def getCandidates(mygame):
 						else:
 							myCandidate.append(Candidate(card, _card2=card2, type=BlockType.PLAY, target=None))
 			else:# card2=None
-				if card.requirestarget():
+				if card.requires_target():
 					for target in card.targets:
 						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
 				else:

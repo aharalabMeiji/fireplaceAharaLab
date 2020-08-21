@@ -1,12 +1,9 @@
 import random
 import numpy as np
 import copy
-from fireplace.exceptions import GameOver, InvalidAction
-from fireplace.card import CardType
-from fireplace.logging import log
-from hearthstone.enums import CardClass, CardType,PlayState, Zone,State, GameTag#
-from typing import List
-from utils import myAction, myActionValue, ExceptionPlay
+from fireplace.exceptions import GameOver
+from hearthstone.enums import CardType, BlockType#
+from utils import ExceptionPlay, Candidate, executeAction, getCandidates
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
@@ -17,219 +14,159 @@ def StandardRandom(thisgame: ".game.Game", debugLog=False):
 	loopCount=0
 	while loopCount<20:
 		loopCount+=1
-		myCandidate = []
-		for card in player.hand:
-			if card.is_playable():
-				target = None
-				if card.must_choose_one:
-					card = random.choice(card.choose_cards)#ここに相当する部分の戦略なし
-				if card.requires_target():
-					for target in card.targets:
-						myCandidate.append([card, target])#Candidateを用いた表記へ変更したい
-				else:
-					myCandidate.append([card,None])
-		if len(myCandidate) > 0:
+		myCandidate = getCandidates(thisgame)
+		if len(myCandidate)>0:
 			myChoice = random.choice(myCandidate)
-			if debugLog:
-				print("{card}->{type}(target={target})".format(card=myChoice[0],type="play",target=myChoice[1]))
-			if executePlay(myChoice[0], myChoice[1])==ExceptionPlay.GAMEOVER:
+			exc = executeAction(thisgame, myChoice, debugLog)
+			postAction(player)
+			if exc==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
-			if player.choice:
-				choice = random.choice(player.choice.cards)
-				#print("Choosing card %r" % (choice))
-				myChoiceStr = str(choice)
-				if 'RandomCardPicker' in str(choice):
-					myCardID =  random.choice(choice.find_cards())
-					myCard = Card(myCardID)
-					myCard.controller = player#?
-					myCard.draw()
-					player.choice = None
-				else :
-					player.choice.choose(choice)
-				continue
-		else:
-			myCandidate = []# Randomly attack with whatever can attack
-			for character in player.characters:
-				if character.can_attack():
-					for target in character.targets:
-						if character.can_attack(target):
-							myH=character.health
-							hisA=target.atk
-							if myH > hisA:
-								myCandidate.append([character,target])
-			if len(myCandidate)>0:
-				myChoice = random.choice(myCandidate)
-				if debugLog:
-					print("{card}->{type}(target={target})".format(card=myChoice[0],type="attack",target=myChoice[1]))
-				if executeAttack(myChoice[0], myChoice[1])==ExceptionPlay.GAMEOVER:
-					return ExceptionPlay.GAMEOVER
 			else:
-				return ExceptionPlay.VALID
+				continue
+		return ExceptionPlay.VALID
+
+def postAction(player):
+	if player.choice:
+		choice = random.choice(player.choice.cards)
+		#print("Choosing card %r" % (choice))
+		myChoiceStr = str(choice)
+		if 'RandomCardPicker' in str(choice):
+			myCardID =  random.choice(choice.find_cards())
+			myCard = Card(myCardID)
+			myCard.controller = player#?
+			myCard.draw()
+			player.choice = None
+		else :
+			player.choice.choose(choice)
+
+
 def getStageScore(game,weight):
+	cardPerPoint=0.3
+	w_length=34
+	w=[]
+	for i in range(w_length):
+		w.append(0)
 	me = game.current_player
 	he = game.current_player.opponent
 	myHero = me.hero
 	hisHero = he.hero
-	myHeroH = myHero.health
-	hisHeroH = hisHero.health
-	myCharA = 0
-	myCharH = 0
-	myTauntCharH = 0
+	#w[0]=myHeroH
+	w[0] = myHero.health
+	#w[1]=hisHeroH
+	w[1] = hisHero.health
+	#w[2]=myCharA = 0
+	#w[3]=myCharH = 0
+	#w[4]=myTauntCharA = 0
+	#w[5]=myTauntCharH = 0
 	for char in me.characters:
-		myCharA += char.atk
-		myCharH += char.health
-		#GameTag.TAUNT
+		w[2] += char.atk
+		w[3] += char.health
 		if char.taunt:
-			myTauntCharH += char.health
-	hisCharA = 0
-	hisCharH = 0
-	hisTauntCharH = 0
+			w[4] += char.atk
+			w[5] += char.health
+	#w[6]=hisCharA = 0
+	#w[7]=hisCharH = 0
+	#w[8]=hisTauntCharA = 0
+	#w[9]=hisTauntCharH = 0
 	for char in he.characters:
-		hisCharA += char.atk
-		hisCharH += char.health
-		#GameTag.TAUNT
+		w[6] += char.atk
+		w[7] += char.health
 		if char.taunt:
-			hisTauntCharH += char.health
-	MinionCH = 0#手持ちのミニョンカードのHPの総和
-	SpellCN = 0#手持ちのスペルカードの枚数
-	BattleCryCN = 0#雄叫びカードの枚数
-	ChargeCN = 0#突撃カードの枚数
-	WinduryCN = 0#疾風カードの枚数
-	TauntCN = 0#挑発カードの枚数
-	DamageCN = 0#ダメージカードの枚数
-	GainCN = 0#獲得#回復カードの枚数
-	SummonCN = 0#召喚カードの枚数
-	LifeStealCN = 0#生命奪取カードの枚数
-	GiveCN = 0#付与カードの枚数
-	VanillaCN = 0#バニラカードの枚数
+			w[8] += char.atk
+			w[9] += char.health
+	#w[10]=MinionCH = 0#手持ちのミニョンカードのHPの総和
+	#w[11]=PlayableMinionCH = 0#手持ちのミニョンカードのHPの総和
+	#w[12]=MinionCN = 0#手持ちのミニョンカードの枚数
+	#w[13]=PlayableMinionCN = 0#手持ちのミニョンカードの枚数
+	#w[14]=SpellCN = 0#手持ちのスペルカードの枚数
+	#w[15]=PlayableSpellCN = 0#手持ちのスペルカードの枚数
+	for card in me.hand:
+		if card.type == CardType.MINION:
+			w[10] += card.health
+			w[12] += 1
+			if card.is_playable():
+				w[11] += card.health
+				w[13] += 1
+		if card.type == CardType.SPELL:
+			w[14] += 1
+			if card.is_playable():
+				w[15] += 1
+	#w[16]=BattleCryCN = 0	#雄叫びカードの枚数
+	#w[17]=ChargeCN = 0	#突撃カードの枚数
+	#w[18]=WinduryCN = 0	#疾風カードの枚数
+	#w[19]=TauntCN = 0	#挑発カードの枚数
+	#w[20]=DamageCN = 0	#ダメージカードの枚数
+	#w[21]=GainCN = 0	#獲得#回復カードの枚数
+	#w[22]=SummonCN = 0	#召喚カードの枚数
+	#w[23]=LifeStealCN = 0	#生命奪取カードの枚数
+	#w[24]=GiveCN = 0	 #付与カードの枚数
+	#w[25]=DeathrattleCN = 0 #断末魔カードの枚数
+	#w[26]=SilenceCN = 0	#沈黙カードの枚数
+	#w[27]=SecretCN = 0	# 秘策カードの枚数
+	#w[28]=DiscoverCN = 0	#発見カードの枚数
+	#w[29]=DivineShieldCN = 0	#聖なる盾カードの枚数
+	#w[30]=StealthCN = 0	#隠れ身カードの枚数
+	#w[31]=AttackVanillaCN=0	#攻撃力の強いバニラカードを使う
+	#w[32]=HealthVanillaCN=0	#体力の大きいバニラカードを使う
+	#w[33]=SmallVanillaCN=0	#体力の小さいバニラカードを使う
 	for card in me.hand:
 		des = card.data.description
-		if card.type == CardType.MINION:
-			MinionCH += card.health
-		if card.type == CardType.SPELL:
-			SpellCN += 1
 		if '雄叫び' in des:
-			BattleCryCN += 1
+			w[16] += 1
 		if '突撃' in des:
-			ChargeCN += 1
+			w[17] += 1
 		if '疾風' in des:
-			WinduryCN += 1
+			w[18] += 1
 		if '挑発' in des:
-			TauntCN += 1
+			w[19] += 1
 		if 'ダメージ' in des:
-			DamageCN += 1
-		if '獲得' in des:
-			GainCN+=1
+			w[20] += 1
+		if '獲得' in des or '回復' in des:
+			w[21] +=1
 		if '召喚' in des:
-			SummonCN+=1
+			w[22] +=1
 		if '生命奪取' in des:
-			LifeStealCN+=1
+			w[23] +=1
 		if '付与' in des:
-			GiveCN+=1
-		if len(des)<3:
-			VanillaCN+=1
-	score = 0
-	score += weight.myHeroH * myHeroH
-	score -= weight.hisHeroH * hisHeroH
-	score += weight.myCharA * myCharA
-	score += weight.myCharH * myCharH
-	score += weight.myTauntCharH * myTauntCharH
-	score -= weight.hisCharA * hisCharA
-	score -= weight.hisCharH * hisCharH
-	score -= weight.hisTauntCharH * hisTauntCharH
-	score -= weight.MinionCH * MinionCH
-	score -= weight.SpellCN * SpellCN
-	score -= weight.BattleCryCN*BattleCryCN
-	score -= weight.ChargeCN*ChargeCN
-	score -= weight.WinduryCN*WinduryCN
-	score -= weight.TauntCN*TauntCN
-	score -= weight.DamageCN*DamageCN
-	score -= weight.GainCN*GainCN
-	score -= weight.SummonCN*SummonCN
-	score -= weight.LifeStealCN*LifeStealCN
-	score -= weight.GiveCN*GiveCN
-	score -= weight.VanillaCN*VanillaCN
-	#score += weight.
+			w[24] +=1
+		if '断末魔' in des:
+			w[25] +=1 #断末魔カードを使う
+		if '沈黙' in des:
+			w[26] +=1	#沈黙カードを使う
+		if '秘策' in des:
+			w[27] +=1	# 秘策カードを使う
+		if '発見' in des:
+			w[28] +=1	#発見カードを使う
+		if '聖なる盾' in des:
+			w[29] +=1	#聖なる盾カードを使う
+		if '隠れ身' in des:
+			w[30] +=1	#隠れ身カードを使う
+		if len(des)<3: #バニラ
+			if card.atk>2:
+				w[31] += 1	#攻撃力の強いバニラカードを使う
+			if card.health>2:
+				w[32] += 1	#体力の大きいバニラカードを使う
+			if card.health<4:
+				w[33] += 1	#体力の小さいバニラカードを使う
+	score = 0.0
+	for i in range(w_length):
+		const=-1
+		if i in [0,2,3,4,5]:
+			const=1
+		if i <12:
+			const *= cardPerPoint
+		wgt=0
+		if len(weight)>i:
+			wgt = weight[i]
+		score += w[i]*wgt*const
 	return score
-def executePlay(card,target=None):
-	if not card.is_playable():
-		return ExceptionPlay.INVALID
-	if target != None and target not in card.targets:
-		return ExceptionPlay.INVALID
-	try:
-		card.play(target=target)
-	except GameOver:
-		return ExceptionPlay.GAMEOVER
-	return ExceptionPlay.VALID
-def executeAttack(card,target):
-	if not card.can_attack(target):
-		return ExceptionPlay.INVALID
-	try:
-		card.attack(target)
-	except GameOver:
-		return ExceptionPlay.GAMEOVER
-	return ExceptionPlay.VALID
-#
-##  getActionCandidates Standard version
-##
-def getActionCandidates(mygame):
-	player = mygame.current_player
-	myCandidate = []
-	for card in player.hand:
-		if card.is_playable():
-			target = None
-			if card.must_choose_one:
-				card = random.choice(card.choose_cards)#ここでカードが入れ替わるときの対応をしていない
-			if card.requires_target():
-				for target in card.targets:
-					if card.is_playable():
-						myCandidate.append(myAction(card, 'play', target))
-			else:
-				if card.is_playable():
-					myCandidate.append(myAction(card, 'play', None))
-	for character in player.characters:
-		if character.can_attack():
-			for target in character.targets:
-				if character.can_attack(target):
-					myH=character.health
-					hisA=target.atk
-					if myH > hisA:
-						myCandidate.append(myAction(character, 'attack', target))
-	return myCandidate
-#
-#  executeAction
-#
-def executeAction(game,action):
-	player=game.current_player
-	theCard=None
-	theTarget=None
-	if action.type=="play":
-		for card in player.hand:
-			if card==action.card:
-				theCard=card
-				if action.target != None:
-					for target in theCard.targets:
-						if target==action.target:
-							theTarget=target
-							return executePlay(theCard,theTarget)
-				else:
-					return executePlay(theCard)
-	elif action.type=="attack":
-		for character in player.characters:
-			if character==action.card:
-				theCard=character
-				for target in theCard.targets:
-					if target==action.target:	
-						theTarget=target
-						return executeAttack(theCard,theTarget)
-	return ExceptionPlay.INVALID
 
-def StandardStep1(game: ".game.Game", option=None, debugLog=False):
+def StandardStep1(game: ".game.Game", option=None, debugLog=True):
 	if option==None:
 		print ("StandardStep1 needs an option")
 		return ExceptionPlay.INVALID
 	myWeight=option
-	myCandidate = getActionCandidates(game)
+	myCandidate = getCandidates(game)
 	myChoices = []
 	maxScore=-100000
 	maxChoice = None
@@ -237,15 +174,15 @@ def StandardStep1(game: ".game.Game", option=None, debugLog=False):
 		print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
-		if executeAction(tmpGame, myChoice)==ExceptionPlay.GAMEOVER:
+		if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 			score=100000
 		else:
-			if StandardRandom(tmpGame)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+			if StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
 				score=100000
 			else:
 				score = getStageScore(tmpGame,myWeight)
 		if debugLog:
-			print("%s %s %s %d"%(myChoice.card,myChoice.type,myChoice.target,score))
+			print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
 		if score > maxScore:
 			maxScore = score
 			myChoices = [myChoice]
@@ -257,27 +194,14 @@ def StandardStep1(game: ".game.Game", option=None, debugLog=False):
 		print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
 		myChoice = random.choice(myChoices)
-		if debugLog:
-			print(str(myChoice))
-		ret = executeAction(game, myChoice)
+		ret = executeAction(game, myChoice,debugLog=True)
 		if ret==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
 		if ret==ExceptionPlay.INVALID:
 			return ExceptionPlay.INVALID
 		player = game.current_player
-		if player.choice:# ここは戦略に入っていない。
-			choice = random.choice(player.choice.cards)
-			#print("Choosing card %r" % (choice))
-			myChoiceStr = str(choice)
-			if 'RandomCardPicker' in str(choice):
-				myCardID =  random.choice(choice.find_cards())
-				myCard = Card(myCardID)
-				myCard.controller = player#?
-				myCard.draw()
-				player.choice = None
-			else :
-				player.choice.choose(choice)
-		return StandardRandom(game, debugLog)
+		postAction(player)
+		return StandardStep1(game, option=myWeight, debugLog=debugLog)
 	else:
 		return ExceptionPlay.VALID
 #
@@ -320,52 +244,61 @@ def HumanInput(game):
 		myCandidate = []
 		print("========My HAND======")
 		for card in player.hand:
-			print(card, end=' : ')
+			print("%s"%card, end='   : ')
 			if card.data.type == CardType.MINION:
-				print("%d(%d/%d)%s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','')))
+				print("%2d(%2d/%2d)%s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','')))
 			elif card.data.type == CardType.SPELL:
-				print("%d : %s"%(card.data.cost, card.data.description.replace('\n','')))
+				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','')))
 			if card.is_playable():
-				target = None
 				if card.must_choose_one:
-					card = random.choice(card.choose_cards)
-				if card.requires_target():
-					for target in card.targets:
-						myCandidate.append([card,"plays", target])#Candidateを使った表記に書き直したい
-				else:
-					myCandidate.append([card,"plays",None])
+					for card2 in card.choose_cards:
+						if card2.is_playable():
+							if card2.requires_target():
+								for target in card2.targets:
+									myCandidate.append(Candidate(card, card2=card2, type=ActionType.PLAY, target=target))
+							else:
+								myCandidate.append(Candidate(card, card2=card2, type=ActionType.PLAY, target=None))
+				else:# card2=None
+					if card.requires_target():
+						for target in card.targets:
+							myCandidate.append(Candidate(card, type=ActionType.PLAY, target=target))
+					else:
+						myCandidate.append(Candidate(card, type=ActionType.PLAY, target=None))
 		print("========OPPONENT'S PLAYGROUND======")
 		for character in player.opponent.characters:
-			print(character, end=':')
-			print("(%d/%d)"%(character.atk,character.health))
+			print("%s"%character, end='   : ')
+			print("(%2d/%2d)"%(character.atk,character.health))
 		print("========MY PLAYGROUND======")
 		for character in player.characters:
-			print(character, end=':')
-			print("(%d/%d)"%(character.atk,character.health))
+			print("%s"%character, end='   : ')
+			print("(%2d/%2d)"%(character.atk,character.health))
 			if character.can_attack():
 				for target in character.targets:
 					if character.can_attack(target):
 						myH=character.health
 						hisA=target.atk
 						#if myH > hisA:
-						myCandidate.append([character,"attacks",target])
-		print("Your turn : %d/%d mana"%(player.mana,player.max_mana))
+						myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target))
+		print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 		print("[0] ターンを終了する")
 		myCount = 1
 		for myChoice in myCandidate:
 			print('[%d]'%myCount, end=' ')
-			myCard = myChoice[0]
-			print(myCard, end=' ')
+			myCard = myChoice.card
+			print("%s"%myCard, end='  ')
 			if myCard.data.type==CardType.MINION:
-				print('%d(%d/%d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
+				print('%2d(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 			elif myCard.data.type==CardType.SPELL:
-				print('%r'%(myCard.data.description.replace('\n','')), end=' ')
-			myCard = myChoice[2]
-			print('%s'%myChoice[1], end=' ')
-			if myCard != None:
-				print(myCard, end=' ')
-				if myCard.data.type==CardType.MINION:
-					print('(%d/%d)'%(myCard.atk,myCard.health), end=' ')
+				print('%2d %s'%(myCard.cost, myCard.data.description.replace('\n','')), end=' ')
+			if myChoice.type == ActionType.PLAY:
+				print(' play', end=' ')
+			if myChoice.type == ActionType.ATTACK:
+				print(' attack', end=' ')
+			targetCard = myChoice.target
+			if targetCard != None:
+				print("%s"%targetCard, end=' ')
+				if targetCard.data.type==CardType.MINION:
+					print('(%2d/%2d)'%(targetCard.atk,targetCard.health), end=' ')
 			myCount += 1
 			print('')
 		str = input()
@@ -374,227 +307,52 @@ def HumanInput(game):
 			break;
 		if inputNum>0 and inputNum<=len(myCandidate):
 			myChoice = myCandidate[inputNum-1]
-			if myChoice[1]=="plays":
-				executePlay(myChoice[0], myChoice[2])
-			elif myChoice[1]=="attacks":
-				executeAttack(myChoice[0], myChoice[2])
-			if player.choice:
-				choice = random.choice(player.choice.cards)
-				print("Choosing card %r" % (choice))
-				myChoiceStr = str(choice)
-				if 'RandomCardPicker' in str(choice):
-					myCardID =  random.choice(choice.find_cards())
-					myCard = Card(myCardID)
-					myCard.controller = player#?
-					myCard.draw()
-					player.choice = None
-				else :
-					player.choice.choose(choice)
-				continue
+			executeAction(game, myChoice)
+			postAction(player)
 
-class Standard(object):
-	"""
-	Situation Vector with evolutionary calculation 
-	"""
-	def __init__(self, _weight, _name, _myClass, _hisClass, _rating):
-		super(Standard, self).__init__()
-		self.weight=_weight
-		self.name=_name
-		self.myClass=_myClass
-		self.hisClass=_hisClass
-		self.rating=_rating
 
-	def __str__(self):
-		return "%s(%s)<%s>"%(self.name,self.myClass,str(self.weight))
 
-	def __eq__(self,obj):
-		return str(self)==str(obj)
+def weight_deepcopy(weight):
+	wgt=[]
+	for i in range(len(weight)):
+		wgt.append(weight[i])
+	return wgt
 
-class StandardWeight(object):
-	"""
-	Weight for Standard agent
-	"""
-	def __init__(self, w):
-		self.myHeroH = w[0]#自ヒーローのHPを増やす
-		self.hisHeroH = w[1]#相手ヒーローのHPを減らす
-		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
-		self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
-		self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
-		self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
-		self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
-		self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPの総和を減らす
-		self.MinionCH = w[8]#手持ちのミニョンのカードを使う
-		self.SpellCN = w[9]#手持ちの呪文のカードを使う
-		self.BattleCryCN = w[10]#雄叫びカードを使う
-		self.ChargeCN = w[11]#突撃カードを使う
-		self.WinduryCN = w[12]#疾風カードを使う
-		self.TauntCN = w[13]#挑発カードを使う
-		self.DamageCN = w[14]#ダメージカードを使う
-		self.GainCN = w[15]#獲得#回復カードを使う
-		self.SummonCN = w[16]#召喚カードを使う
-		self.LifeStealCN = w[17]#生命奪取カードを使う
-		self.GiveCN = w[18]#付与カードを使う
-		self.VanillaCN = w[19]#バニラカードを使う
+def weight_deepcopy_and_perturb(self):
+	import random
+	wgt=[]
+	for i in range(len(weight)):
+		wgt.append(weight[i])
+	plus = random.randint(0,len(weight)-1)
+	wgt[plus] += 3
+	minus = random.randint(0,len(weight)-1)
+	wgt[minus] -= 3
+	if wgt[minus]<1 :
+		wgt[minus]=1
+	return wgt
+
+
+
+
+class BigDeck:
+	MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
+		'BOT_038','BOT_309','BOT_309','BOT_907','BOT_907',\
+		'BOT_033','BOT_033','DAL_604','DAL_604','BOT_251',\
+		'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
+		'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
+		'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
+
+class ActionType(IntEnum):
+	ATTACK=1
+	PLAY=7
+	PASS=3
 
 	def __str__(self):
-		myText = str(self.myHeroH)+','
-		myText += str(self.hisHeroH)+','
-		myText += str(self.myCharA)+','
-		myText += str(self.myCharH)+','
-		myText += str(self.myTauntCharH)+','
-		myText += str(self.hisCharA)+','
-		myText += str(self.hisCharH)+','
-		myText += str(self.hisTauntCharH)+','
-		myText += str(self.MinionCH)+','
-		myText += str(self.SpellCN)+','
-		myText += str(self.BattleCryCN)+','
-		myText += str(self.ChargeCN)+','
-		myText += str(self.WinduryCN)+','
-		myText += str(self.TauntCN)+','
-		myText += str(self.DamageCN)+','
-		myText += str(self.GainCN)+','
-		myText += str(self.SummonCN)+','
-		myText += str(self.LifeStealCN)+','
-		myText += str(self.GiveCN)+','
-		myText += str(self.VanillaCN)
-		return myText
-
-	def __eq__(self,obj):
-		if obj==None:
-			return False
-		return self.name==obj.name 
-
-	def deepcopy(self):
-		import random
-		wgt = [self.myHeroH,self.hisHeroH,self.myCharA,self.myCharH,\
-		self.myTauntCharH,self.hisCharA,self.hisCharH,self.hisTauntCharH,\
-		self.MinionCH,self.SpellCN,\
-		self.BattleCryCN,self.ChargeCN,self.WinduryCN,self.TauntCN,\
-		self.DamageCN,self.GainCN,self.SummonCN,self.LifeStealCN,\
-		self.GiveCN,self.VanillaCN]
-		return StandardWeight(wgt)
-
-	def deepcopyAndPerturb(self):
-		import random
-		wgt = [self.myHeroH,self.hisHeroH,self.myCharA,self.myCharH,\
-		self.myTauntCharH,self.hisCharA,self.hisCharH,self.hisTauntCharH,\
-		self.MinionCH,self.SpellCN,\
-		self.BattleCryCN,self.ChargeCN,self.WinduryCN,self.TauntCN,\
-		self.DamageCN,self.GainCN,self.SummonCN,self.LifeStealCN,\
-		self.GiveCN,self.VanillaCN]
-		plus = random.randint(0,19)
-		wgt[plus] += 3
-		minus = random.randint(0,19)
-		wgt[minus] -= 3
-		if wgt[minus]<1 :
-			wgt[minus]=1
-		return StandardWeight(wgt)
-
-class StandardStrategy(IntEnum):
-	"""	standard strategy """
-	FREE = 0
-	HITATTACKxMINION = 1
-	SPELLATTACKxMINION = 2
-	HEALxMINION = 3
-	HEALxHERO = 4
-	DEFNEDxHERO = 5
-	STRENGTHENxMINION = 6
-	pass
-
-
-class StrategyWeight(object):
-	"""
-	Status Weight for my agent
-	"""
-	def __init__(self, w: list=[0,0,0,0,0,0,0,0,0,0]):#正の数からなる長さ＊＊＊のlist
-		self.myHeroH = w[0]#自ヒーローのHPの増え具合
-		self.hisHeroH = w[1]#相手ヒーローのHPの減り具合
-		self.myCharA = w[2]#自分のフィールドにあるミニョンの攻撃力の総和を増やす
-		self.myCharH = w[3]#自分のフィールドにあるミニョンのHPの総和を増やす
-		self.myTauntCharH = w[4]#自分のフィールドにある挑発ミニョンのHPの総和を増やす
-		self.hisCharA = w[5]#相手のフィールドにあるミニョンの攻撃力の総和を減らす
-		self.hisCharH = w[6]#相手のフィールドにあるミニョンのHPの総和を減らす
-		self.hisTauntCharH = w[7]#相手のフィールドにある挑発ミニョンのHPを減らす
-		self.MinionCH = w[8]#手持ちのミニョンを優先する
-		self.SpellCN = w[9]#手持ちの呪文を優先する.
-
-
-	def __str__(self):
-		myText =  ''+str(self.myHeroH)+','
-		myText += str(self.hisHeroH)+','
-		myText += str(self.myCharA)+','
-		myText += str(self.myCharH)+','
-		myText += str(self.myTauntCharH)+','
-		myText += str(self.hisCharA)+','
-		myText += str(self.hisCharH)+','
-		myText += str(self.hisTauntCharH)+','
-		myText += str(self.MinionCH)+','
-		myText += str(self.SpellCN)
-		return myText
-
-	def __eq__(self,obj):
-		return self.myHeroH==obj.myHeroH and self.hisHeroH==obj.hisHeroH and \
-			self.myCharA==obj.myCharA and self.myCharH==obj.myCharH and self.myTauntCharH==obj.myTauntCharH and \
-			self.hisCharA==obj.hisCharA and self.hisCharH==obj.hisCharH and self.hisTauntCharH==obj.hisTauntCharH and \
-			self.MinionCH==obj.MinionCH and self.SpellCN==obj.SpellCN 
-
-	def deepcopy(self):
-		import random
-		wgt = [self.myHeroH,-self.hisHeroH,self.myCharA,self.myCharH,\
-		self.myTauntCharH,-self.hisCharA,-self.hisCharH,-self.hisTauntCharH,\
-		self.MinionCH,self.SpellCN]
-		return StatusWeight(wgt)
-
-	def deepcopyAndPerturb(self):
-		import random
-		wgt = [self.myHeroH,-self.hisHeroH,self.myCharA,self.myCharH,\
-		self.myTauntCharH,-self.hisCharA,-self.hisCharH,-self.hisTauntCharH,\
-		self.MinionCH,self.SpellCN]
-		plus = random.randint(0,9)
-		wgt[plus] += 1
-		minus = random.randint(0,9)
-		wgt[minus] -= 1
-		if wgt[minus]<1 :
-			wgt[minus]=1
-		plus = random.randint(0,9)
-		wgt[plus] += 1
-		minus = random.randint(0,9)
-		wgt[minus] -= 1
-		if wgt[minus]<1 :
-			wgt[minus]=1
-		plus = random.randint(0,9)
-		wgt[plus] += 1
-		minus = random.randint(0,9)
-		wgt[minus] -= 1
-		if wgt[minus]<1 :
-			wgt[minus]=1
-		return StatusWeight(wgt)
-
-	def get_status(self, game: Game):
-		my = game.current_player
-		his = game.current_player.opponent
-		self.myHeroH = my.hero.health
-		self.hisHeroH = his.hero.health
-		self.myCharA = 0
-		self.myCharH = 0
-		self.myTauntCharH = 0
-		for char in my.characters:
-			self.myCharA += char.atk
-			self.myCharH += char.health
-			if char.taunt:
-				self.myTauntCharH += char.health
-		self.hisCharA = 0
-		self.hisCharH = 0
-		self.hisTauntCharH = 0
-		for char in his.characters:
-			self.hisCharA += char.atk
-			self.hisCharH += char.health
-			if char.taunt:
-				self.hisTauntCharH += char.health
-		self.MinionCH = 0#手持ちのミニョンカードのHPの総和
-		self.SpellCN = 0#手持ちのスペルカードの枚数
-		for card in my.hand:
-			if card.type == CardType.MINION:
-				self.MinionCH += card.health
-			if card.type == CardType.SPELL:
-				self.SpellCN += 1
+		if self==1:
+			return "ATTACK"
+		if self==7:
+			return "PLAY"
+		if self==3:
+			return "PASS"
+		else:
+			return ""

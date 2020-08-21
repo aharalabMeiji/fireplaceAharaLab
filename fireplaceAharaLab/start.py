@@ -17,10 +17,12 @@ def main():
 	## Maya=Agent("Maya",None)
 
 	# StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
-	#from agent_Standard import StandardStep1,StandardWeight
-	#StandardPlayer=Agent("GhostCat", StandardStep1,\
-	#   myOption=StandardWeight([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]),\
-	#   myClass=CardClass.WARRIOR)# StandardStep1(game, option, debugLog) が　呼び出すべき関数名
+	from agent_Standard import StandardStep1
+	import random
+	opt = []
+	for i in range(34):
+		opt.append(random.randint(1,10))
+	StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
 
 	#from agent_word_strategy import WS, agent_word_strategy
 	#WSplayer = Agent("WS", agent_word_strategy,\
@@ -28,7 +30,7 @@ def main():
 	#	myClass=CardClass.PRIEST)
 
 	#ゲームプレイ
-	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
+	play_set_of_games(Human, StandardPlayer, gameNumber=1, debugLog=True) 
 	
 	##StandardStep1のリーグ戦
 	#from league_match import play_league
