@@ -36,10 +36,10 @@ def investigate_card_pair( onlyresult=0):
 		deck1.append(nonvanilla2)
 		for i in range(8-position):#デッキは10枚
 			deck1.append(random.choice(vanillas).id)
-		player1 = Player("Player1", deck1, card_class.default_hero)
+		player1 = Player("AAAA", deck1, card_class.default_hero)
 		deck2 = copy.deepcopy(deck1)
 		random.shuffle(deck2)
-		player2 = Player("Player2", deck2, card_class.default_hero)
+		player2 = Player("BBBB", deck2, card_class.default_hero)
 		#set a game
 		game = Game(players=(player1, player2))
 		game.start()
@@ -63,6 +63,7 @@ def investigate_card_pair( onlyresult=0):
 			weight[2]=weight[3]=weight[6]=weight[7]=5
 			weight[10]=weight[11]=weight[12]=weight[13]=5
 			StandardStep1(game,weight, debugLog=False)
+			#StandardRandom(game,debugLog=True)
 			#ここはもう少し賢い人にやってほしい
 			if game.state!=State.COMPLETE:
 				try:
@@ -80,9 +81,9 @@ def investigate_card_pair( onlyresult=0):
 					winner = "DRAW"
 					break
 		print("%s won."%winner)
-		if winner=="Player1":
+		if winner=="AAAA":
 			count1 += 1
-		elif winner=="Player2":
+		elif winner=="BBBB":
 			count2 += 1
 	print("%d : %d"%(count1, count2))
 
