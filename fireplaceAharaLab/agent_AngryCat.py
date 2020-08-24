@@ -15,7 +15,7 @@ from agent_Standard import postAction
 def getHisWorth(thisGame: Game):
 	Vec = []
 	His = thisGame.current_player.opponent
-	Vec.append(His.hero.health)
+	Vec.append(His.hero.health*2)
 	hisCharA = 0
 	hisCharH = 0
 	hisTauntCharH = 0
