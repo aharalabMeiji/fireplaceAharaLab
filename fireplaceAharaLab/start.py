@@ -36,10 +36,10 @@ def main():
 	#from league_match import play_league
 	#play_league(matchNumber=1)
 
-	from card_pair import investigate_card_pair, find_card_pair
-	investigate_card_pair()
+	#from card_pair import investigate_card_pair, find_card_pair
+	#investigate_card_pair()
 	#find_card_pair(1)
-
+	print("test_branch_yamadamaya")
 
 	pass
 if __name__ == "__main__":
