@@ -46,9 +46,12 @@ def getHisWorth(thisGame: Game):
 def getDiffHisWorth(thisGame: Game, myChoice: Candidate):
 	oldVec = getHisWorth(thisGame)
 	newGame = copy.deepcopy(thisGame)
-	executeAction(newgame,myChoice, debugLog=False)
+	executeAction(newGame,myChoice, debugLog=False)
 	newVec = getHisWorth(newGame)
-	return newVec-oldVec
+	answer=[]
+	for i in range (len(oldVec)):
+		answer.append(newVec[i]-oldVec[i])
+	return answer
 
 def getNegativity(Vec):
 	hisMin=10
@@ -69,31 +72,31 @@ def AngryCatAI(thisGame: Game, option=[], debugLog=True):
 		if len(myCandidates)==0:
 			return
 		else:
+			myChoice1=myChoice2=myChoice3=[]
+			M1=M2=M3=0
 			for myChoice in myCandidates:
 				hisMin, myPositive, myBigPositive = getNegativity(getDiffHisWorth(thisGame, myChoice)) 
 				myMax = -hisMin
-				myChoice1=myChoice2=myChoice3=[]
-				M1=M2=M3=0
 				if M1<myMax:
 					M1=myMax
 					myChoice1=[myChoice]
-				elif M1==myMax:
+				elif M1>0 and M1==myMax:
 					myChoice1.append(myChoice)
 				if M2<myPositive:
 					M2=myPositive
 					myChoice2=[myChoice]
-				elif M2==myPositive:
+				elif M2>0 and M2==myPositive:
 					myChoice2.append(myChoice)
 				if M3<myBigPositive:
 					M3=myBigPositive
 					myChoice3=[myChoice]
-				elif M3==myBigPositive:
+				elif M3>0 and M3==myBigPositive:
 					myChoice3.append(myChoice)
 			myChoices = myChoice1+myChoice2+myChoice3
 			if len(myChoices)==0:
 				return
 			else:
 				myChoice = random.choice(myChoices)
-				executeAction(thisGame, myChoice, debugLog=False)
+				executeAction(thisGame, myChoice, debugLog=True)
 				postAction(thisGame.current_player)
 
