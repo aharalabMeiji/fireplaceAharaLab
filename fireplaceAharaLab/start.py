@@ -9,7 +9,7 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	from utils import Agent,play_set_of_games
+	from utils import Agent,play_set_of_games,play_MechaHunterGames
 	from hearthstone.enums import CardClass
 	Human=Agent("Human",None,myClass=CardClass.MAGE)
 	StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
@@ -29,9 +29,11 @@ def main():
 	#	myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー],\
 	#	myClass=CardClass.PRIEST)
 
+
 	#ゲームプレイ
 	play_set_of_games(Human, StandardPlayer, gameNumber=1, debugLog=True) 
-	
+	#play_MechaHunterGames(WSplayer, StandardPlayer, gameNumber=1, debugLog=True)
+
 	##StandardStep1のリーグ戦
 	#from league_match import play_league
 	#play_league(matchNumber=1)
