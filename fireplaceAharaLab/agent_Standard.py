@@ -9,7 +9,7 @@ from fireplace.card import Card
 from fireplace.game import Game
 from enum import IntEnum
 
-def StandardRandom(thisgame: ".game.Game", debugLog=False):
+def StandardRandom(thisgame: ".game.Game", option=[], debugLog=False):
 	player = thisgame.current_player
 	loopCount=0
 	while loopCount<20:

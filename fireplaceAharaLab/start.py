@@ -34,12 +34,12 @@ def main():
 	play_set_of_games(Human, StandardPlayer, gameNumber=1, debugLog=True) 
 	#play_MechaHunterGames(WSplayer, StandardPlayer, gameNumber=1, debugLog=True)
 
-	##StandardStep1のリーグ戦
+  ##StandardStep1のリーグ戦
 	#from league_match import play_league
 	#play_league(matchNumber=1)
 
-	#from card_pair import investigate_card_pair, find_card_pair
-	#investigate_card_pair()
+	from card_pair import investigate_card_pair, find_card_pair
+	investigate_card_pair()
 	#find_card_pair(1)
 
 

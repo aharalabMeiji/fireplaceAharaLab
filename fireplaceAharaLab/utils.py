@@ -256,25 +256,48 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
 		print("%s %s"%(player,str(action)))
-	theCard=None
-	theCard2=None
-	theTarget=None
-
-	for entity in thisEntities:
-		if entity==action.card:
-			if action.type==BlockType.PLAY:
-				if entity.is_playable():
-					theCard=entity
-			elif action.type==BlockType.ATTACK:
-				if entity.can_attack():
-					theCard=entity
-		if entity == action.card2:
-			theCard2=entity
-		if entity == action.target:
-			theTarget=entity
-
+	theCard=theTarget=None
+	#print(id(action.card.game))
+	#print(id(mygame))
+	if action.card.game==mygame:
+		theCard=action.card
+	if action.card2!=None and action.card2.game==mygame:
+		theCard2=None
+	if action.target!=None and action.card.game==mygame:
+		theTarget=action.target
+	if theCard!=None and ((action.target==None and theTarget==None) or (action.target!=None and theTarget!=None)):
+		pass
+	else:
+		for card in player.hand:
+			if card.is_playable() and card==action.card:
+				theCard = card
+				if theCard.must_choose_one:
+					for card2 in card.choose_cards:
+						if card2.is_playable() and card2==action.card2:
+							theCard2 = card2
+							if theCard2.requires_target():
+								for target in theCard2.targets:
+									if target==action.target:
+										theTarget=target
+							else:
+								pass
+				else:# card2=None
+					if theCard.requires_target():
+						for target in theCard.targets:
+							if target==action.target:
+								theTarget=target
+					else:
+						pass
+		for character in player.characters:
+			if character.can_attack() and character==action.card:
+				theCard = character
+				for target in character.targets:
+					if character.can_attack(target) and target==action.target:
+						theTarget = target
 	if action.type==BlockType.PLAY:
-		if theTarget != None and theTarget not in theCard.targets:
+		if (theTarget != None and theTarget not in theCard.targets):
+			return ExceptionPlay.INVALID
+		if not theCard.is_playable():
 			return ExceptionPlay.INVALID
 		try:
 			theCard.play(target=theTarget)
