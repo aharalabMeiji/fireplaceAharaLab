@@ -323,13 +323,6 @@ def weight_deepcopy(weight):
 
 
 
-class BigDeck:
-	MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
-		'BOT_038','BOT_309','BOT_309','BOT_907','BOT_907',\
-		'BOT_033','BOT_033','DAL_604','DAL_604','BOT_251',\
-		'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
-		'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
-		'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
 
 class ActionType(IntEnum):
 	ATTACK=1
