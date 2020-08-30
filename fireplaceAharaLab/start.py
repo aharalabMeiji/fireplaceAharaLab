@@ -29,17 +29,20 @@ def main():
 	#	myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー],\
 	#	myClass=CardClass.PRIEST)
 
+	from agent_AngryCat import AngryCatAI
+	AngryCatPlayer = Agent("AngryCat", AngryCatAI, myClass=CardClass.PRIEST)
+
 
 	#ゲームプレイ
-	play_set_of_games(Human, StandardPlayer, gameNumber=1, debugLog=True) 
+	play_set_of_games(Human, AngryCatPlayer, gameNumber=1, debugLog=True) 
 	#play_MechaHunterGames(WSplayer, StandardPlayer, gameNumber=1, debugLog=True)
 
   ##StandardStep1のリーグ戦
 	#from league_match import play_league
 	#play_league(matchNumber=1)
 
-	from card_pair import investigate_card_pair, find_card_pair
-	investigate_card_pair()
+	#from card_pair import investigate_card_pair, find_card_pair
+	#investigate_card_pair()
 	#find_card_pair(1)
 
 

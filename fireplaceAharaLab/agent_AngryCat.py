@@ -15,7 +15,7 @@ from agent_Standard import postAction
 def getHisWorth(thisGame: Game):
 	Vec = []
 	His = thisGame.current_player.opponent
-	Vec.append(His.hero.health*2)
+	Vec.append(His.hero.health)
 	hisCharA = 0
 	hisCharH = 0
 	hisTauntCharH = 0
@@ -41,7 +41,7 @@ def getHisWorth(thisGame: Game):
 	Vec.append(myCharA)
 	Vec.append(myCharH)
 	Vec.append(myTauntCharH)
-	return Vec
+	return Vec# of length 7
 
 def getDiffHisWorth(thisGame: Game, myChoice: Candidate):
 	oldVec = getHisWorth(thisGame)
@@ -66,7 +66,47 @@ def getNegativity(Vec):
 			hisMin = Vec[i]
 	return hisMin, hisNegative, hisBigNegative
 
-def AngryCatAI(thisGame: Game, option=[], debugLog=True):
+def myDot(Vec1, Vec2):
+	myLen = (len(Vec1), len(Vec2))[len(Vec1)<len(Vec2)]
+	answer = 0
+	for n in range(myLen):
+		answer -= (Vec1[n]*Vec2[n])
+	return answer
+
+def AngryCatAI(thisGame: Game, option=[2,1,1,1,1,1,1], debugLog=True):
+	while True:
+		myCandidates = getCandidates(thisGame)
+		if len(myCandidates)==0:
+			return
+		else:
+			for myChoice in myCandidates:
+				myChoice.score = getDiffHisWorth(thisGame, myChoice)
+			myChoice = myChoiceAngryCat(thisGame, myCandidates, option)
+			if myChoice==None:
+				return
+			else:
+				executeAction(thisGame, myChoice, debugLog=True)
+				postAction(thisGame.current_player)
+
+def myChoiceAngryCat(thisGame, myCandidates, option):
+	""" 
+	thisGame: Game
+	myCandidates: list of Candidates
+	option: list
+	"""
+	# modify option by thisGame
+
+	ret = None
+	score = 0
+	random.shuffle(myCandidates)
+	for myChoice in myCandidates:
+		thisScore = myDot(myChoice.score, option)
+		if score < thisScore:
+			score = thisScore
+			ret = myChoice
+	return ret
+
+def AngryCatAIold(thisGame: Game, option=[], debugLog=True):
 	while True:
 		myCandidates = getCandidates(thisGame)
 		if len(myCandidates)==0:
@@ -99,4 +139,3 @@ def AngryCatAI(thisGame: Game, option=[], debugLog=True):
 				myChoice = random.choice(myChoices)
 				executeAction(thisGame, myChoice, debugLog=True)
 				postAction(thisGame.current_player)
-
