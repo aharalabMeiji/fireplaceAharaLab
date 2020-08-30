@@ -229,9 +229,9 @@ def getCandidates(mygame):
 					if card2.is_playable():
 						if card2.requires_target():
 							for target in card.targets:
-								myCandidate.append(Candidate(card, _card2=card2, type=BlockType.PLAY, target=target))
+								myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target))
 						else:
-							myCandidate.append(Candidate(card, _card2=card2, type=BlockType.PLAY, target=None))
+							myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=None))
 			else:# card2=None
 				if card.requires_target():
 					for target in card.targets:
