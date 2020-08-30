@@ -60,20 +60,24 @@ def getStageScore(game,weight):
 	#w[5]=myTauntCharH = 0
 	for char in me.characters:
 		w[2] += char.atk
-		w[3] += char.health
 		if char.taunt:
 			w[4] += char.atk
-			w[5] += char.health
+		if char.type == CardType.MINION:
+			w[3] += char.health
+			if char.taunt:
+				w[5] += char.health
 	#w[6]=hisCharA = 0
 	#w[7]=hisCharH = 0
 	#w[8]=hisTauntCharA = 0
 	#w[9]=hisTauntCharH = 0
 	for char in he.characters:
 		w[6] += char.atk
-		w[7] += char.health
 		if char.taunt:
 			w[8] += char.atk
-			w[9] += char.health
+		if char.type == CardType.MINION:
+			w[7] += char.health
+			if char.taunt:
+				w[9] += char.health
 	#w[10]=MinionCH = 0#手持ちのミニョンカードのHPの総和
 	#w[11]=PlayableMinionCH = 0#手持ちのミニョンカードのHPの総和
 	#w[12]=MinionCN = 0#手持ちのミニョンカードの枚数
@@ -144,9 +148,9 @@ def getStageScore(game,weight):
 		if len(des)<3: #バニラ
 			if card.atk>2:
 				w[31] += 1	#攻撃力の強いバニラカードを使う
-			if card.health>2:
+			if card.type == CardType.MINION and card.health>2:
 				w[32] += 1	#体力の大きいバニラカードを使う
-			if card.health<4:
+			if card.type == CardType.MINION and card.health<4:
 				w[33] += 1	#体力の小さいバニラカードを使う
 	score = 0.0
 	for i in range(w_length):
@@ -249,6 +253,8 @@ def HumanInput(game):
 				print("%2d(%2d/%2d)%s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','')))
 			elif card.data.type == CardType.SPELL:
 				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','')))
+			elif card.data.type == CardType.WEAPON:
+				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','')))
 			if card.is_playable():
 				if card.must_choose_one:
 					for card2 in card.choose_cards:
@@ -267,15 +273,15 @@ def HumanInput(game):
 		print("========OPPONENT'S PLAYGROUND======")
 		for character in player.opponent.characters:
 			print("%s"%character, end='   : ')
-			print("(%2d/%2d)"%(character.atk,character.health))
+			print("(%2d/%2d)"%(character.atk,character.data.health))
 		print("========MY PLAYGROUND======")
 		for character in player.characters:
 			print("%s"%character, end='   : ')
-			print("(%2d/%2d)"%(character.atk,character.health))
+			print("(%2d/%2d)"%(character.atk,character.data.health))
 			if character.can_attack():
 				for target in character.targets:
 					if character.can_attack(target):
-						myH=character.health
+						myH=character.data.health
 						hisA=target.atk
 						#if myH > hisA:
 						myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target))
@@ -289,6 +295,8 @@ def HumanInput(game):
 			if myCard.data.type==CardType.MINION:
 				print('%2d(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 			elif myCard.data.type==CardType.SPELL:
+				print('%2d %s'%(myCard.cost, myCard.data.description.replace('\n','')), end=' ')
+			elif myCard.data.type==CardType.WEAPON:
 				print('%2d %s'%(myCard.cost, myCard.data.description.replace('\n','')), end=' ')
 			if myChoice.type == ActionType.PLAY:
 				print(' play', end=' ')
