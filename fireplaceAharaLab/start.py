@@ -16,13 +16,13 @@ def main():
 	
 	## Maya=Agent("Maya",None)
 
-	# StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
-	#from agent_Standard import StandardStep1
-	#import random
-	#opt = []
-	#for i in range(34):
-	#	opt.append(random.randint(1,10))
-	#StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
+	#StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
+	from agent_Standard import StandardStep1
+	import random
+	opt = []
+	for i in range(34):
+		opt.append(random.randint(1,10))
+	StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
 
 	#from agent_word_strategy import WS, agent_word_strategy
 	#WSplayer = Agent("WS", agent_word_strategy,\
@@ -34,7 +34,9 @@ def main():
 
 
 	#ゲームプレイ
-	play_set_of_games(Human, AngryCatPlayer, gameNumber=1, debugLog=True) 
+	play_set_of_games(StandardPlayer, AngryCatPlayer, gameNumber=15, debugLog=False) 
+	for i in range(34):
+		print ("%d"%opt[i],end=',')
 	#play_MechaHunterGames(WSplayer, StandardPlayer, gameNumber=1, debugLog=True)
 
   ##StandardStep1のリーグ戦

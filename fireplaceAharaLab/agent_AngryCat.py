@@ -4,12 +4,12 @@ import random
 import numpy as np
 import copy
 from fireplace.exceptions import GameOver
-from hearthstone.enums import CardClass#
+from hearthstone.enums import CardClass, CardType#
 from utils import Candidate, ExceptionPlay, getCandidates, executeAction
 from fireplace.game import Game
 from enum import IntEnum
 
-from agent_Standard import postAction
+from agent_Standard import postAction, StandardRandom
 
 
 def getHisWorth(thisGame: Game):
@@ -21,10 +21,10 @@ def getHisWorth(thisGame: Game):
 	hisTauntCharH = 0
 	for char in His.characters:
 		hisCharA += char.atk
-		hisCharH += char.health
-		#GameTag.TAUNT
-		if char.taunt:
-			hisTauntCharH += char.health
+		if char.type==CardType.MINION:
+			hisCharH += char.health
+			if char.taunt:
+				hisTauntCharH += char.health
 	Vec.append(hisCharA)
 	Vec.append(hisCharH)
 	Vec.append(hisTauntCharH)
@@ -34,10 +34,11 @@ def getHisWorth(thisGame: Game):
 	myTauntCharH = hisTauntCharH
 	for char in My.characters:
 		myCharA -= char.atk
-		myCharH -= char.health
-		#GameTag.TAUNT
-		if char.taunt:
-			myTauntCharH -= char.health
+		if char.type==CardType.MINION:
+			myCharH -= char.health
+			#GameTag.TAUNT
+			if char.taunt:
+				myTauntCharH -= char.health
 	Vec.append(myCharA)
 	Vec.append(myCharH)
 	Vec.append(myTauntCharH)
@@ -46,7 +47,8 @@ def getHisWorth(thisGame: Game):
 def getDiffHisWorth(thisGame: Game, myChoice: Candidate):
 	oldVec = getHisWorth(thisGame)
 	newGame = copy.deepcopy(thisGame)
-	executeAction(newGame,myChoice, debugLog=False)
+	executeAction(newGame, myChoice, debugLog=False)
+	#StandardRandom(newGame)	# simulating until turn-end
 	newVec = getHisWorth(newGame)
 	answer=[]
 	for i in range (len(oldVec)):
@@ -81,14 +83,14 @@ def AngryCatAI(thisGame: Game, option=[2,1,1,1,1,1,1], debugLog=True):
 		else:
 			for myChoice in myCandidates:
 				myChoice.score = getDiffHisWorth(thisGame, myChoice)
-			myChoice = myChoiceAngryCat(thisGame, myCandidates, option)
+			myChoice = myChoiceAngryCat(thisGame, myCandidates)
 			if myChoice==None:
 				return
 			else:
 				executeAction(thisGame, myChoice, debugLog=True)
 				postAction(thisGame.current_player)
 
-def myChoiceAngryCat(thisGame, myCandidates, option):
+def myChoiceAngryCat(thisGame, myCandidates, option=[2,1,1,1,1,1,1]):
 	""" 
 	thisGame: Game
 	myCandidates: list of Candidates
@@ -139,3 +141,6 @@ def AngryCatAIold(thisGame: Game, option=[], debugLog=True):
 				myChoice = random.choice(myChoices)
 				executeAction(thisGame, myChoice, debugLog=True)
 				postAction(thisGame.current_player)
+
+
+				#CardClass.WARRIOR 8,6,3,7,8,3,8,1,5,4,5,10,5,5,7,9,5,1,8,10,1,5,2,8,6,3,3,10,10,2,8,8,3,5,

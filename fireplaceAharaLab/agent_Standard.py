@@ -60,20 +60,24 @@ def getStageScore(game,weight):
 	#w[5]=myTauntCharH = 0
 	for char in me.characters:
 		w[2] += char.atk
-		w[3] += char.health
 		if char.taunt:
 			w[4] += char.atk
-			w[5] += char.health
+		if char.type==CardType.MINION:
+			w[3] += char.health
+			if char.taunt:
+				w[5] += char.health
 	#w[6]=hisCharA = 0
 	#w[7]=hisCharH = 0
 	#w[8]=hisTauntCharA = 0
 	#w[9]=hisTauntCharH = 0
 	for char in he.characters:
 		w[6] += char.atk
-		w[7] += char.health
 		if char.taunt:
 			w[8] += char.atk
-			w[9] += char.health
+		if char.type==CardType.MINION:
+			w[7] += char.health
+			if char.taunt:
+				w[9] += char.health
 	#w[10]=MinionCH = 0#手持ちのミニョンカードのHPの総和
 	#w[11]=PlayableMinionCH = 0#手持ちのミニョンカードのHPの総和
 	#w[12]=MinionCN = 0#手持ちのミニョンカードの枚数
@@ -144,9 +148,9 @@ def getStageScore(game,weight):
 		if len(des)<3: #バニラ
 			if card.atk>2:
 				w[31] += 1	#攻撃力の強いバニラカードを使う
-			if card.health>2:
+			if card.type==CardType.MINION and card.health>2:
 				w[32] += 1	#体力の大きいバニラカードを使う
-			if card.health<4:
+			if card.type==CardType.MINION and card.health<4:
 				w[33] += 1	#体力の小さいバニラカードを使う
 	score = 0.0
 	for i in range(w_length):
