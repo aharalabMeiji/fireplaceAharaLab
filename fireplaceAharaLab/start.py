@@ -39,7 +39,7 @@ def main():
 	#from card_pair import investigate_card_pair, find_card_pair
 	#investigate_card_pair()
 	#find_card_pair(1)
-	print("test_branch_yamadamaya")
+	#print("test_branch_yamadamaya")
 
 	pass
 if __name__ == "__main__":
