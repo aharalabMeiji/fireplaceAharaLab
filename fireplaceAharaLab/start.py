@@ -16,35 +16,30 @@ def main():
 	
 	## Maya=Agent("Maya",None)
 
-	#StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
-	from agent_Standard import StandardStep1
-	import random
-	opt = []
-	for i in range(34):
-		opt.append(random.randint(1,10))
-	StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
+	# StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
+	#from agent_Standard import StandardStep1
+	#import random
+	#opt = []
+	#for i in range(34):
+	#	opt.append(random.randint(1,10))
+	#StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
 
 	#from agent_word_strategy import WS, agent_word_strategy
 	#WSplayer = Agent("WS", agent_word_strategy,\
 	#	myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー],\
 	#	myClass=CardClass.PRIEST)
 
-	from agent_AngryCat import AngryCatAI
-	AngryCatPlayer = Agent("AngryCat", AngryCatAI, myClass=CardClass.PRIEST)
-
 
 	#ゲームプレイ
-	play_set_of_games(StandardPlayer, AngryCatPlayer, gameNumber=15, debugLog=False) 
-	for i in range(34):
-		print ("%d"%opt[i],end=',')
+	play_set_of_games(Human, StandardPlayer, gameNumber=1, debugLog=True) 
 	#play_MechaHunterGames(WSplayer, StandardPlayer, gameNumber=1, debugLog=True)
 
   ##StandardStep1のリーグ戦
 	#from league_match import play_league
 	#play_league(matchNumber=1)
 
-	#from card_pair import investigate_card_pair, find_card_pair
-	#investigate_card_pair()
+	from card_pair import investigate_card_pair, find_card_pair
+	investigate_card_pair()
 	#find_card_pair(1)
 
 
