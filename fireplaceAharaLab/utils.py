@@ -269,7 +269,7 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 		pass
 	else:
 		for card in player.hand:
-			if card.is_playable() and card==action.card:
+			if card.is_playable() and card==action.card and card.controller.name==action.card.controller.name:
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
@@ -277,22 +277,22 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 							theCard2 = card2
 							if theCard2.requires_target():
 								for target in theCard2.targets:
-									if target==action.target:
+									if target==action.target and target.controller.name==action.target.controller.name:
 										theTarget=target
 							else:
 								pass
 				else:# card2=None
 					if theCard.requires_target():
 						for target in theCard.targets:
-							if target==action.target:
+							if target==action.target and target.controller.name == action.target.controller.name:
 								theTarget=target
 					else:
 						pass
 		for character in player.characters:
-			if character.can_attack() and character==action.card:
+			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
 				theCard = character
 				for target in character.targets:
-					if character.can_attack(target) and target==action.target:
+					if character.can_attack(target) and target==action.target and target.controller.name==action.target.controller.name:
 						theTarget = target
 	if action.type==BlockType.PLAY:
 		if (theTarget != None and theTarget not in theCard.targets):
