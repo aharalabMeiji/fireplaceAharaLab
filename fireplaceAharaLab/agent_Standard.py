@@ -273,15 +273,15 @@ def HumanInput(game):
 		print("========OPPONENT'S PLAYGROUND======")
 		for character in player.opponent.characters:
 			print("%s"%character, end='   : ')
-			print("(%2d/%2d)"%(character.atk,character.data.health))
+			print("(%2d/%2d)"%(character.atk,character.health))
 		print("========MY PLAYGROUND======")
 		for character in player.characters:
 			print("%s"%character, end='   : ')
-			print("(%2d/%2d)"%(character.atk,character.data.health))
+			print("(%2d/%2d)"%(character.atk,character.health))
 			if character.can_attack():
 				for target in character.targets:
 					if character.can_attack(target):
-						myH=character.data.health
+						myH=character.health
 						hisA=target.atk
 						#if myH > hisA:
 						myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target))
