@@ -31,7 +31,7 @@ def main():
 
 
 	#ゲームプレイ
-	play_set_of_games(Human, StandardPlayer, gameNumber=1, debugLog=True) 
+	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
 	#play_MechaHunterGames(WSplayer, StandardPlayer, gameNumber=1, debugLog=True)
 
   ##StandardStep1のリーグ戦
