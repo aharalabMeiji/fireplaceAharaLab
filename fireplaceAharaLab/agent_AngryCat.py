@@ -87,7 +87,7 @@ def AngryCatAI(thisGame: Game, option=[2,1,1,1,1,1,1], debugLog=True):
 			if myChoice==None:
 				return
 			else:
-				executeAction(thisGame, myChoice, debugLog=True)
+				executeAction(thisGame, myChoice, debugLog=debugLog)
 				postAction(thisGame.current_player)
 
 def myChoiceAngryCat(thisGame, myCandidates, option=[2,1,1,1,1,1,1]):

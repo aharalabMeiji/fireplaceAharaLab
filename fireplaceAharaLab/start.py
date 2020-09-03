@@ -23,7 +23,9 @@ def main():
 	#opt = []
 	#for i in range(34):
 	#	opt.append(random.randint(1,10))
-	#StandardPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
+	#GhostCatPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
+	#あそび
+	#PIPlayer=Agent("Pi", StandardStep1,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8],myClass=CardClass.PRIEST)
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
 	#from agent_word_strategy import WS, agent_word_strategy
@@ -40,9 +42,9 @@ def main():
 	#ハンター縛りのデッキ（メカハンター）による対戦
 	#play_MechaHunterGames(StandardPlayer, AngryCatPlayer, gameNumber=1, debugLog=True)
 
-	##StandardStep1のリーグ戦
-	#from league_match import play_league
-	#play_league(matchNumber=1)
+	#総当たり戦
+	#from competition import play_round_robin_competition
+	#play_round_robin_competition([StandardRandom,PIPlayer,AngryCatPlayer],matchNumber=5)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair
