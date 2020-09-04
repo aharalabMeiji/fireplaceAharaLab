@@ -97,7 +97,7 @@ def simulate_random_game(game,trial=1)->"int":
 				hoge=simulate_random_turn(hoge)
 				pass
 		except GameOver:
-			if hoge.current_player.name=="Player1" and hoge.current_player.playstate==PlayState.WON:
+			if hoge.current_player.name=="Maya" and hoge.current_player.playstate==PlayState.WON:
 				retVal+=1
 				pass
 			pass
@@ -214,7 +214,7 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 				except GameOver as inst:
 					mes,winner=inst.args
 					newChild=Node(None,expandingAction,currentNode,[])
-					if winner=="Player1":
+					if winner=="Maya":
 						newChild.setScore(1)
 						pass
 					else:

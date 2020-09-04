@@ -2,7 +2,7 @@ from hearthstone.enums import CardClass,BlockType, CardType ,PlayState, State
 from enum import IntEnum
 from fireplace.game import Game
 from fireplace.exceptions import GameOver
-
+import copy
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
 	def __init__(self, _card,_type,_target=None):
