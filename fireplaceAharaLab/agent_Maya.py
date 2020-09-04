@@ -97,7 +97,7 @@ def simulate_random_game(game,trial=1)->"int":
 				hoge=simulate_random_turn(hoge)
 				pass
 		except GameOver:
-			if hoge.current_player.name=="Player1" and hoge.current_player.playstate==PlayState.WON:
+			if hoge.current_player.name=="Maya" and hoge.current_player.playstate==PlayState.WON:
 				retVal+=1
 				pass
 			pass
@@ -174,7 +174,8 @@ def try_primitive_montecarlo_simulation(game,max_trial):
 	print(scores)
 	return actions[scores.index(max(scores))]
 def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
-	from fireplace.deck import Deck
+	from fireplace.deck import Deck,CardList
+	from fireplace.utils import random_draft
 
 	copyGame=copy.deepcopy(game)
 	myPlayer=copyGame.current_player
@@ -187,7 +188,7 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 		pass
 	for i in range(_numOfTree):
 		#random_sampling
-		d=random_draft(CardClass.HUNTER)
+		d=random_draft(enemy.hero)
 		enemy.hand=CardList()
 		enemy.deck=Deck()
 		for item in d:
@@ -214,7 +215,7 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 				except GameOver as inst:
 					mes,winner=inst.args
 					newChild=Node(None,expandingAction,currentNode,[])
-					if winner=="Player1":
+					if winner=="Maya":
 						newChild.setScore(1)
 						pass
 					else:
