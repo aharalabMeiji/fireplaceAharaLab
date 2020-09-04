@@ -96,7 +96,7 @@ class Agent(object):
 		pass
 
 	def __str__(self):
-		return self.myName
+		return self.name
 
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True):
 	from fireplace.utils import random_draft
