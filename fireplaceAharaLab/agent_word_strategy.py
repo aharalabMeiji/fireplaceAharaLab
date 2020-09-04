@@ -5,6 +5,7 @@ from hearthstone.enums import CardType,BlockType
 from utils import ExceptionPlay,Candidate, executeAction
 import random
 import copy
+from agent_Standard import postAction
 
 class WS(IntEnum):
 	""" プレーを言葉で説明　"""
@@ -31,6 +32,7 @@ def agent_word_strategy(game, option=[WS.ランダムにプレー], debugLog=Tru
 	return ExceptionPlay.VALID
 
 def execute_word_strategy(game, ws, debugLog):
+	debug = False
 	player=game.current_player
 	if ws==WS.ランダムにプレー:
 		myCandidate = []
@@ -54,7 +56,7 @@ def execute_word_strategy(game, ws, debugLog):
 							myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
 		if len(myCandidate) > 0:
 			myChoice = random.choice(myCandidate)
-			exc = executeAction(game, random.choice(myCandidate))
+			exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -75,8 +77,9 @@ def execute_word_strategy(game, ws, debugLog):
 				else:
 					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		if len(myCandidate)>0:
-			print("%r"%str(ws))
-			exc = executeAction(game, random.choice(myCandidate))
+			if debug:
+				print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -95,8 +98,9 @@ def execute_word_strategy(game, ws, debugLog):
 				elif character.atk==max_atk:
 					myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=player.opponent.hero))
 		if len(myCandidate)>0:
-			print("%r"%str(ws))
-			exc = executeAction(game, random.choice(myCandidate))
+			if debug:
+				print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -122,8 +126,9 @@ def execute_word_strategy(game, ws, debugLog):
 				if tmpgame.current_player.hero.health > currentHeroHealth:
 					myCandidate.append(myChoice)
 		if len(myCandidate)>0:
-			print("%r"%str(ws))
-			exc = executeAction(game, random.choice(myCandidate))
+			if debug:
+				print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -142,8 +147,9 @@ def execute_word_strategy(game, ws, debugLog):
 					else:
 						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 			if len(myCandidate)>0:
-				print("%r"%str(ws))
-				exc = executeAction(game, random.choice(myCandidate))
+				if debug:
+					print("%r"%str(ws))
+				exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
 					return False,ExceptionPlay.GAMEOVER
@@ -171,8 +177,9 @@ def execute_word_strategy(game, ws, debugLog):
 				else:
 					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		if len(myCandidate)>0:
-			print("%r"%str(ws))
-			exc = executeAction(game, random.choice(myCandidate))
+			if debug:
+				print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -191,8 +198,9 @@ def execute_word_strategy(game, ws, debugLog):
 				else:
 					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
 		if len(myCandidate)>0:
-			print("%r"%str(ws))
-			exc = executeAction(game, random.choice(myCandidate))
+			if debug:
+				print("%r"%str(ws))
+			exc = executeAction(game, random.choice(myCandidate),debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return False,ExceptionPlay.GAMEOVER
@@ -204,16 +212,16 @@ def execute_word_strategy(game, ws, debugLog):
 def is_vanilla(cls):
 	return len(cls.data.description)<3
 
-def postAction(player):
-	if player.choice:
-		choice = random.choice(player.choice.cards)
-		#print("Choosing card %r" % (choice))
-		myChoiceStr = str(choice)
-		if 'RandomCardPicker' in str(choice):
-			myCardID =  random.choice(choice.find_cards())
-			myCard = Card(myCardID)
-			myCard.controller = player#?
-			myCard.draw()
-			player.choice = None
-		else :
-			player.choice.choose(choice)
+#def postAction(player):
+#	if player.choice:
+#		choice = random.choice(player.choice.cards)
+#		#print("Choosing card %r" % (choice))
+#		myChoiceStr = str(choice)
+#		if 'RandomCardPicker' in str(choice):
+#			myCardID =  random.choice(choice.find_cards())
+#			myCard = Card(myCardID)
+#			myCard.controller = player#?
+#			myCard.draw()
+#			player.choice = None
+#		else :
+#			player.choice.choose(choice)
