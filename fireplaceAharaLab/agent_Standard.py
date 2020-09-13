@@ -17,7 +17,7 @@ def StandardRandom(thisgame: ".game.Game", option=[], debugLog=False):
 		myCandidate = getCandidates(thisgame)
 		if len(myCandidate)>0:
 			myChoice = random.choice(myCandidate)
-			exc = executeAction(thisgame, myChoice, debugLog)
+			exc = executeAction(thisgame, myChoice, debugLog=debugLog)
 			postAction(player)
 			if exc==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
@@ -166,6 +166,7 @@ def getStageScore(game,weight):
 	return score
 
 def StandardStep1(game: ".game.Game", option=None, debugLog=True):
+	debug=False
 	if option==None:
 		print ("StandardStep1 needs an option")
 		return ExceptionPlay.INVALID
@@ -174,7 +175,7 @@ def StandardStep1(game: ".game.Game", option=None, debugLog=True):
 	myChoices = []
 	maxScore=-100000
 	maxChoice = None
-	if debugLog:
+	if debug:
 		print(">>>>>>>>>>>>>>>>>>>")
 	for myChoice in myCandidate:
 		tmpGame = copy.deepcopy(game)
@@ -185,7 +186,7 @@ def StandardStep1(game: ".game.Game", option=None, debugLog=True):
 				score=100000
 			else:
 				score = getStageScore(tmpGame,myWeight)
-		if debugLog:
+		if debug:
 			print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
 		if score > maxScore:
 			maxScore = score
@@ -194,11 +195,11 @@ def StandardStep1(game: ".game.Game", option=None, debugLog=True):
 				break
 		elif score == maxScore:
 			myChoices.append(myChoice)
-	if debugLog:
+	if debug:
 		print("<<<<<<<<<<<<<<<<<<<")
 	if len(myChoices)>0:
 		myChoice = random.choice(myChoices)
-		ret = executeAction(game, myChoice,debugLog=True)
+		ret = executeAction(game, myChoice,debugLog=debugLog)
 		if ret==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
 		if ret==ExceptionPlay.INVALID:
