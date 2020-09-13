@@ -12,50 +12,26 @@ from hearthstone.enums import CardClass, CardType,PlayState, Zone,State#
 import time#
 import sys
 from fireplace.exceptions import GameOver
+from fireplace.utils import random_draft,CardList
+from fireplace.deck import Deck
 import csv
-from utils import myAction, myActionValue, Node
+from utils import myAction, myActionValue, Node,getCandidates,executeAction
 
 def Maya_MCTS(game: ".game.Game"):
 	while True:
 		copyTree=copy.deepcopy(game)
+		player=copyTree.current_player
 		print("--------------------simulate start!!----------------")
-		action=try_montecarlo_tree_search(copyTree,2000);
+		action=try_montecarlo_tree_search(copyTree,100);
 		print("--------------------simulate end!!------------------")
-		print(action.card)
-		print(action.type)
-		print(action.target)
+		print(action)
 		# iterate over our hand and play whatever is playable
-		if action.type=="play":
-			for item in player.hand:
-				if item==action.card:
-					if item.requires_target():
-						for target in item.targets:
-							item.play(target)
-							break
-							pass
-						pass
-					else:
-						item.play()
-						break
-					pass
-				pass
-			pass
-		elif action.type=="attack":
-			for character in player.characters:
-				if character==action.card and character.can_attack():
-					for target in character.targets:
-						if target==action.target and character.can_attack(target):
-							character.attack(target)
-							break;
-							pass
-						pass
-					pass
-					break
-				pass
-			pass
+		exc=executeAction(game, action)
+		if exc==ExceptionPlay.GAMEOVER:
+			return ExceptionPlay.GAMEOVER
 		else:
-			break
-			pass
+			continue
+	return ExceptionPlay.VALID
 	pass
 
 
@@ -91,88 +67,18 @@ def simulate_random_turn(game: ".game.Game"):
 def simulate_random_game(game,trial=1)->"int":
 	retVal=0
 	for i in range(trial):
-		hoge=copy.deepcopy(game)
+		simulating_game=copy.deepcopy(game)
 		try:
 			while True:
-				hoge=simulate_random_turn(hoge)
+				simulating_game=simulate_random_turn(simulating_game)
 				pass
 		except GameOver:
-			if hoge.current_player.name=="Maya" and hoge.current_player.playstate==PlayState.WON:
+			if simulating_game.current_player.name=="Maya" and simulating_game.current_player.playstate==PlayState.WON:
 				retVal+=1
 				pass
 			pass
 	return retVal
 	pass
-def execute_action(game,action):
-	g=copy.deepcopy(game)
-	turnplayer=g.current_player
-	c=None
-	target=None
-	if action.type=="play":
-		for item in turnplayer.hand:
-			if item==action.card:
-				c=item
-				if action.target is not None:
-					for t in card.targets:
-						if t==action.target:
-							target=t
-						pass
-					pass
-				pass
-			pass
-		pass
-		c.play(target=target)
-	elif action.type=="attack":
-		for item in turnplayer.characters:
-			if item==action.card and item.can_attack():
-				c=item
-				for t in item.targets:
-					if t==action.target:
-						target=t
-					pass
-				pass
-			pass
-		pass
-		if c.can_attack(target):
-			c.attack(target)
-			pass
-	else:
-		g.end_turn()
-	return g
-def get_valid_actions(game):
-	copyGame=copy.deepcopy(game)
-	myPlayer=copyGame.current_player
-	actions=[]
-	for card in myPlayer.hand:
-		if card.is_playable():
-			target=None
-			if card.requires_target():
-				for t in card.targets:
-					actions.append(myAction(card,"play",t))
-					pass
-				pass
-			else:
-				actions.append(myAction(card,"play",target))
-			pass
-		pass
-	for character in myPlayer.characters:
-		if character.can_attack():
-			for t in character.targets :
-				actions.append(myAction(character,"attack",t))
-				pass
-			pass
-		pass
-	pass
-	actions.append(myAction(None,"do_nothing",None))
-	return actions
-def try_primitive_montecarlo_simulation(game,max_trial):
-	copyGame=copy.deepcopy(game)
-	myPlayer=copyGame.current_player
-	actions=get_valid_actions(copyGame)
-	nextBoards=list(map(lambda a:execute_action(copyGame,a),actions))
-	scores=list(map(lambda b:simulate_random_game(b,max_trial),nextBoards))
-	print(scores)
-	return actions[scores.index(max(scores))]
 def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 	from fireplace.deck import Deck
 
@@ -180,10 +86,10 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 	myPlayer=copyGame.current_player
 	enemy=myPlayer.opponent
 	handNum=len(enemy.hand)
-	actions=get_valid_actions(copyGame)
+	candidates=getCandidates(copyGame)
 	totalScores=[]
-	if len(actions)==1:
-		return actions[0]
+	if len(candidates)==1:
+		return candidates[0]
 		pass
 	for i in range(_numOfTree):
 		#random_sampling
@@ -194,7 +100,7 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 			enemy.card(item,zone=Zone.DECK)
 			pass
 		enemy.draw(count=handNum)
-		root=Node(copyGame,None,None,actions)
+		root=Node(copyGame,None,None,candidates)
 		for k in range(int(max_trial/_numOfTree)):
 			currentNode=root
 			print("----------")
@@ -251,19 +157,6 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 	#time.sleep(5)
 	return retAction
 	pass
-def addActionValues(original,additional):
-	if len(original)==0:
-		return copy.deepcopy(additional)
-		pass
-	retList=copy.deepcopy(original)
-	for item in retList:
-		for add in additional:
-			if item.action==add.action:
-				item.score+=add.score
-				pass
-			pass
-		pass
-	return retList
 def get_cardList(card_class:CardClass,exclude=[]):
 	from fireplace import cards
 
@@ -286,23 +179,3 @@ def get_cardList(card_class:CardClass,exclude=[]):
 		collection.append(cls)
 	pass
 	return collection
-def develop_deck_addopting_specific_cards(_cards,_collection):
-	"""
-	Return a deck of 30 random cards for the \a card_class
-	"""
-	from fireplace import cards
-	from fireplace.deck import Deck
-
-	retDeck = []
-	collection = []
-	# hero = card_class.default_hero
-	for item in _cards:
-		retDeck.append(item.id)
-		pass
-	while len(retDeck) < Deck.MAX_CARDS:
-		card = random.choice(_collection)
-		if retDeck.count(card.id) < card.max_count_in_deck:
-			retDeck.append(card.id)
-
-	return retDeck
-	pass
