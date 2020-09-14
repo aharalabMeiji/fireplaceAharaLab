@@ -15,7 +15,7 @@ from fireplace.exceptions import GameOver
 from fireplace.utils import random_draft,CardList
 from fireplace.deck import Deck
 import csv
-from utils import ExceptionPlay, myAction, myActionValue, Node,getCandidates,executeAction
+from utils import ExceptionPlay, myAction, myActionValue,getCandidates,executeAction
 
 def Maya_MCTS(game: ".game.Game"):
 	while True:
@@ -23,15 +23,18 @@ def Maya_MCTS(game: ".game.Game"):
 		player=copyTree.current_player
 		print("--------------------simulate start!!----------------")
 		#探索編
-		action=try_montecarlo_tree_search(copyTree,100);
-		print("--------------------simulate end!!------------------")
-		print(action)
-		if action is None:
+		candidates=getCandidates(copyTree)
+		print("getCandidates")
+		if len(candidates)==0:
+			print("len(candidates)==0")
 			return ExceptionPlay.VALID
 			pass
+		takingAction=try_montecarlo_tree_search(copyTree,candidates,100);
+		print("--------------------simulate end!!------------------")
+		print(takingAction)
 		# iterate over our hand and play whatever is playable
 		#多分executeActionで大丈夫だろ
-		exc=executeAction(game, action)
+		exc=executeAction(game, takingAction)
 		postAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
@@ -111,20 +114,18 @@ def simulate_random_game(game,trial=1)->"int":
 			pass
 	return retVal
 	pass
-def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
+def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=10):
 	from fireplace.deck import Deck
-
-	copyGame=copy.deepcopy(game)
+	copyGame=copy.deepcopy(_game)
 	myPlayer=copyGame.current_player
 	enemy=myPlayer.opponent
 	handNum=len(enemy.hand)
-	candidates=getCandidates(copyGame)
 	totalScores=[]
-	if len(candidates)==0:
-		return None
+	if len(_candidates)==0:
+		return
 		pass
-	if len(candidates)==1:
-		return candidates[0]
+	if len(_candidates)==1:
+		return _candidates[0]
 		pass
 	for i in range(_numOfTree):
 		#シミュレーション下準備
@@ -137,8 +138,8 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 			pass
 		enemy.draw(count=handNum)
 		#ゲーム木展開
-		root=Node(copyGame,None,None,candidates)
-		for k in range(int(max_trial/_numOfTree)):
+		root=Node(copyGame,None,None,_candidates)
+		for k in range(_trialPerTree):
 			currentNode=root
 			print("----------")
 			print("dig tree...")
@@ -157,7 +158,6 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 					currentNode=currentNode.expandChild(expandingAction)
 				except GameOver:
 					#今gameoverに勝者の情報は入っていないので注意して
-					mes,winner=inst.args
 					newChild=Node(None,expandingAction,currentNode,[])
 					if winner=="Maya":
 						newChild.setScore(1)
@@ -218,3 +218,50 @@ def get_cardList(card_class:CardClass,exclude=[]):
 		collection.append(cls)
 	pass
 	return collection
+class Node(object):
+	"""docstring for Node"""
+	def __init__(self, gameTree,move,parent,_candidates):
+		super(Node, self).__init__()
+		self.gameTree=gameTree
+		self.move=move
+		self.parent=parent
+		self.childNodes=[]
+		self.wins=0
+		self.visits=0
+		self.untriedMoves=copy.deepcopy(_candidates)
+		self.score=0
+	def selectChild(self):
+		import math#
+		self.totalVisit=self.visits
+		self.values=list(map(lambda node:node.wins/node.visits+math.sqrt(2*math.log(self.totalVisit)/node.visits),self.childNodes))
+		retNode=self.childNodes[self.values.index(max(self.values))]
+		return retNode
+		pass
+	def expandChild(self,action):
+		self.expandedTree=executeAction(self.gameTree,action)
+		postAction(self.gameTree.current_player)
+		child=Node(self.expandedTree,action,self,getCandidates(self.expandedTree))
+		self.childNodes.append(child)
+		return child
+	def choose_expanding_action(self):
+		index=int(random.random()*len(self.untriedMoves))
+		return self.untriedMoves.pop(index)		
+		pass
+	def simulate(self):
+		return simulate_random_game(self.gameTree)
+		pass
+	def backPropagate(self,result=None):
+		self.addVal=self.score
+		if result is not None:
+			self.addVal=result
+			pass
+		self.wins+=self.addVal
+		self.visits+=1;
+		if self.parent is None:
+			pass
+		else:
+			self.parent.backPropagate(self.addVal)
+		pass
+	def setScore(self,_score):
+		self.score=_score
+		pass
