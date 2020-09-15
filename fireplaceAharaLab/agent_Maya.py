@@ -11,6 +11,7 @@ import copy
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State#
 import time#
 import sys
+from fireplace.card import Card
 from fireplace.exceptions import GameOver
 from fireplace.utils import random_draft,CardList
 from fireplace.deck import Deck
@@ -71,45 +72,49 @@ def addActionValues(original,additional):
 	return retList
 	pass
 def simulate_random_turn(game: ".game.Game"):
+	#申し訳ないがちょっとだけ賢い可能性がある
 	player = game.current_player
 	while True:
 		#getCandidate使った方が早くないか？
 		# iterate over our hand and play whatever is playable
-		for card in player.hand:
-			if card.is_playable() and random.random() < 0.5:
-				target = None
-				if card.must_choose_one:
-					card = random.choice(card.choose_cards)
-				if card.requires_target():
-					target = random.choice(card.targets)
-				print("Playing %r on %r" % (card, target))
-				card.play(target=target)
-				if player.choice:
-					choice = random.choice(player.choice.cards)
-					print("Choosing card %r" % (choice))
-					player.choice.choose(choice)
+		simCandidates=getCandidates(game)
+		index=int(random.random()*(len(simCandidates)+1))
+		print("index==")
+		print(index)
+		if index==len(simCandidates):
+			pass
+		else:
+			exc=executeAction(game,simCandidates[index])
+			postAction(player)
+			if exc==ExceptionPlay.GAMEOVER:
+				return ExceptionPlay.GAMEOVER
+			else:
 				continue
-		# Randomly attack with whatever can attack
-		for character in player.characters:
-			if character.can_attack():
-				character.attack(random.choice(character.targets))
-
-		break
-
-	game.end_turn()
-	return game
+				pass
+		game.end_turn();
+		return ExceptionPlay.VALID
 def simulate_random_game(game,trial=1)->"int":
 	retVal=0
 	for i in range(trial):
 		simulating_game=copy.deepcopy(game)
-		try:
-			while True:
-				simulating_game=simulate_random_turn(simulating_game)
-				pass
-		except GameOver:
-			if simulating_game.current_player.name=="Maya" and simulating_game.current_player.playstate==PlayState.WON:
-				retVal+=1
-				pass
+		winner=""
+		while True:
+			gameState=simulate_random_turn(simulating_game)
+			if simulating_game.state==State.COMPLETE:
+				if simulating_game.current_player.playstate == PlayState.WON:
+					winner=simulating_game.current_player.name
+					break;
+					pass
+				if simulating_game.current_player.playstate == PlayState.LOST:
+					winner=simulating_game.opponent.name
+					break;
+					pass
+				winner="DRAW"
+				break;
+		if winner=="Maya":
+			retVal+=1
+		elif winner=="DRAW":
+			retVal+=0.5
 			pass
 	return retVal
 	pass
