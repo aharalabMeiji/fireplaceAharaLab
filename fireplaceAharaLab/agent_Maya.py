@@ -72,9 +72,8 @@ def addActionValues(original,additional):
 	pass
 def simulate_random_turn(game: ".game.Game"):
 	player = game.current_player
-	# gameのディープコピーを生成
-	# 全ての選択肢に対して探索をすることから始める
 	while True:
+		#getCandidate使った方が早くないか？
 		# iterate over our hand and play whatever is playable
 		for card in player.hand:
 			if card.is_playable() and random.random() < 0.5:
@@ -139,6 +138,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 		enemy.draw(count=handNum)
 		#ゲーム木展開
 		root=Node(copyGame,None,None,_candidates)
+		print(_candidates)
 		for k in range(_trialPerTree):
 			currentNode=root
 			print("----------")
@@ -174,7 +174,6 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 				continue
 				pass
 			print("is it ended?")
-			print("random simulation start!")
 			result=simulate_random_game(currentNode.gameTree)
 			currentNode.backPropagate(result)
 			pass
@@ -228,7 +227,7 @@ class Node(object):
 		self.childNodes=[]
 		self.wins=0
 		self.visits=0
-		self.untriedMoves=copy.deepcopy(_candidates)
+		self.untriedMoves=_candidates
 		self.score=0
 	def selectChild(self):
 		import math#
@@ -238,10 +237,12 @@ class Node(object):
 		return retNode
 		pass
 	def expandChild(self,action):
-		self.expandedTree=executeAction(self.gameTree,action)
+		self.originalGame=copy.deepcopy(self.gameTree)
+		executeAction(self.gameTree,action)
 		postAction(self.gameTree.current_player)
-		child=Node(self.expandedTree,action,self,getCandidates(self.expandedTree))
+		child=Node(self.gameTree,action,self,getCandidates(self.gameTree))
 		self.childNodes.append(child)
+		self.gameTree=self.originalGame
 		return child
 	def choose_expanding_action(self):
 		index=int(random.random()*len(self.untriedMoves))
