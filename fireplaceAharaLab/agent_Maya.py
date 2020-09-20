@@ -30,7 +30,7 @@ def Maya_MCTS(game: ".game.Game"):
 			print("len(candidates)==0")
 			return ExceptionPlay.VALID
 			pass
-		takingAction=try_montecarlo_tree_search(copyTree,candidates,100);
+		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=1000);
 		print("--------------------simulate end!!------------------")
 		print(takingAction)
 		# iterate over our hand and play whatever is playable
@@ -79,8 +79,6 @@ def simulate_random_turn(game: ".game.Game"):
 		# iterate over our hand and play whatever is playable
 		simCandidates=getCandidates(game)
 		index=int(random.random()*(len(simCandidates)+1))
-		print("index==")
-		print(index)
 		if index==len(simCandidates):
 			pass
 		else:
