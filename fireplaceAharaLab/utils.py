@@ -218,7 +218,7 @@ class Candidate(object):
 #
 ##  getActionCandidates : utils version
 ##
-def getCandidates(mygame):
+def getCandidates(mygame,_getAllCandidates=False):
 	"""　"""
 	player = mygame.current_player
 	myCandidate = []
@@ -244,14 +244,23 @@ def getCandidates(mygame):
 				if character.can_attack(target):
 					myH=character.health
 					hisA=target.atk
-					if myH > hisA:
+					if (myH > hisA) or _getAllCandidates:
 						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
+	if _getAllCandidates:
+		#この選択肢は「何もしない」選択肢ですが、
+		#ターンを終了することはできないので、
+		#エージェントの方でターンを終了してあげてください
+		myCandidate.append(Candidate(None,type=None))
+		pass
 	return myCandidate
 #
 #  executeAction
 #
 def executeAction(mygame,action: Candidate, debugLog=True):
 	"""　"""
+	if action.type is None:
+		return ExceptionPlay.VALID
+		pass
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
