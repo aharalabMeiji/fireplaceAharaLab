@@ -12,7 +12,7 @@ def main():
 	from utils import Agent,play_set_of_games,play_MechaHunterGames
 	from hearthstone.enums import CardClass
 	Human=Agent("Human",None,myClass=CardClass.MAGE)
-	StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
+	StandardRandom=Agent("Maya",None) # Classを指定しないとHUNTER
 	
 	# モンテカルロによる読み切り
 	## Maya=Agent("Maya",None)

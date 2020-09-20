@@ -11,181 +11,126 @@ import copy
 from hearthstone.enums import CardClass, CardType,PlayState, Zone,State#
 import time#
 import sys
+from fireplace.card import Card
 from fireplace.exceptions import GameOver
+from fireplace.utils import random_draft,CardList
+from fireplace.deck import Deck
 import csv
-from utils import myAction, myActionValue, Node
+from utils import ExceptionPlay, myAction, myActionValue,getCandidates,executeAction
 
 def Maya_MCTS(game: ".game.Game"):
 	while True:
 		copyTree=copy.deepcopy(game)
+		player=copyTree.current_player
 		print("--------------------simulate start!!----------------")
-		action=try_montecarlo_tree_search(copyTree,2000);
+		#探索編
+		candidates=getCandidates(copyTree)
+		print("getCandidates")
+		if len(candidates)==0:
+			print("len(candidates)==0")
+			return ExceptionPlay.VALID
+			pass
+		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=1000);
 		print("--------------------simulate end!!------------------")
-		print(action.card)
-		print(action.type)
-		print(action.target)
+		print(takingAction)
 		# iterate over our hand and play whatever is playable
-		if action.type=="play":
-			for item in player.hand:
-				if item==action.card:
-					if item.requires_target():
-						for target in item.targets:
-							item.play(target)
-							break
-							pass
-						pass
-					else:
-						item.play()
-						break
-					pass
+		#多分executeActionで大丈夫だろ
+		exc=executeAction(game, takingAction)
+		postAction(player)
+		if exc==ExceptionPlay.GAMEOVER:
+			return ExceptionPlay.GAMEOVER
+		else:
+			continue
+	return ExceptionPlay.VALID
+	pass
+def postAction(player):
+	if player.choice:
+		choice = random.choice(player.choice.cards)
+		#print("Choosing card %r" % (choice))
+		myChoiceStr = str(choice)
+		if 'RandomCardPicker' in str(choice):
+			myCardID =  random.choice(choice.find_cards())
+			myCard = Card(myCardID)
+			myCard.controller = player#?
+			myCard.draw()
+			player.choice = None
+		else :
+			player.choice.choose(choice)
+
+def addActionValues(original,additional):
+	if len(original)==0:
+		return copy.deepcopy(additional)
+		pass
+	retList=copy.deepcopy(original)
+	for item in retList:
+		for add in additional:
+			if item.action==add.action:
+				item.score+=add.score
 				pass
 			pass
-		elif action.type=="attack":
-			for character in player.characters:
-				if character==action.card and character.can_attack():
-					for target in character.targets:
-						if target==action.target and character.can_attack(target):
-							character.attack(target)
-							break;
-							pass
-						pass
-					pass
-					break
-				pass
+		pass
+	return retList
+	pass
+def simulate_random_turn(game: ".game.Game"):
+	#申し訳ないがちょっとだけ賢い可能性がある
+	player = game.current_player
+	while True:
+		#getCandidate使った方が早くないか？
+		# iterate over our hand and play whatever is playable
+		simCandidates=getCandidates(game)
+		index=int(random.random()*(len(simCandidates)+1))
+		if index==len(simCandidates):
 			pass
 		else:
-			break
-			pass
-	pass
-
-
-def simulate_random_turn(game: ".game.Game"):
-	player = game.current_player
-	# gameのディープコピーを生成
-	# 全ての選択肢に対して探索をすることから始める
-	while True:
-		# iterate over our hand and play whatever is playable
-		for card in player.hand:
-			if card.is_playable() and random.random() < 0.5:
-				target = None
-				if card.must_choose_one:
-					card = random.choice(card.choose_cards)
-				if card.requires_target():
-					target = random.choice(card.targets)
-				print("Playing %r on %r" % (card, target))
-				card.play(target=target)
-				if player.choice:
-					choice = random.choice(player.choice.cards)
-					print("Choosing card %r" % (choice))
-					player.choice.choose(choice)
+			exc=executeAction(game,simCandidates[index])
+			postAction(player)
+			if exc==ExceptionPlay.GAMEOVER:
+				return ExceptionPlay.GAMEOVER
+			else:
 				continue
-		# Randomly attack with whatever can attack
-		for character in player.characters:
-			if character.can_attack():
-				character.attack(random.choice(character.targets))
-
-		break
-
-	game.end_turn()
-	return game
+				pass
+		game.end_turn();
+		return ExceptionPlay.VALID
 def simulate_random_game(game,trial=1)->"int":
 	retVal=0
 	for i in range(trial):
-		hoge=copy.deepcopy(game)
-		try:
-			while True:
-				hoge=simulate_random_turn(hoge)
-				pass
-		except GameOver:
-			if hoge.current_player.name=="Player1" and hoge.current_player.playstate==PlayState.WON:
-				retVal+=1
-				pass
+		simulating_game=copy.deepcopy(game)
+		winner=""
+		while True:
+			gameState=simulate_random_turn(simulating_game)
+			if simulating_game.state==State.COMPLETE:
+				if simulating_game.current_player.playstate == PlayState.WON:
+					winner=simulating_game.current_player.name
+					break;
+					pass
+				if simulating_game.current_player.playstate == PlayState.LOST:
+					winner=simulating_game.opponent.name
+					break;
+					pass
+				winner="DRAW"
+				break;
+		if winner=="Maya":
+			retVal+=1
+		elif winner=="DRAW":
+			retVal+=0.5
 			pass
 	return retVal
 	pass
-def execute_action(game,action):
-	g=copy.deepcopy(game)
-	turnplayer=g.current_player
-	c=None
-	target=None
-	if action.type=="play":
-		for item in turnplayer.hand:
-			if item==action.card:
-				c=item
-				if action.target is not None:
-					for t in card.targets:
-						if t==action.target:
-							target=t
-						pass
-					pass
-				pass
-			pass
-		pass
-		c.play(target=target)
-	elif action.type=="attack":
-		for item in turnplayer.characters:
-			if item==action.card and item.can_attack():
-				c=item
-				for t in item.targets:
-					if t==action.target:
-						target=t
-					pass
-				pass
-			pass
-		pass
-		if c.can_attack(target):
-			c.attack(target)
-			pass
-	else:
-		g.end_turn()
-	return g
-def get_valid_actions(game):
-	copyGame=copy.deepcopy(game)
-	myPlayer=copyGame.current_player
-	actions=[]
-	for card in myPlayer.hand:
-		if card.is_playable():
-			target=None
-			if card.requires_target():
-				for t in card.targets:
-					actions.append(myAction(card,"play",t))
-					pass
-				pass
-			else:
-				actions.append(myAction(card,"play",target))
-			pass
-		pass
-	for character in myPlayer.characters:
-		if character.can_attack():
-			for t in character.targets :
-				actions.append(myAction(character,"attack",t))
-				pass
-			pass
-		pass
-	pass
-	actions.append(myAction(None,"do_nothing",None))
-	return actions
-def try_primitive_montecarlo_simulation(game,max_trial):
-	copyGame=copy.deepcopy(game)
-	myPlayer=copyGame.current_player
-	actions=get_valid_actions(copyGame)
-	nextBoards=list(map(lambda a:execute_action(copyGame,a),actions))
-	scores=list(map(lambda b:simulate_random_game(b,max_trial),nextBoards))
-	print(scores)
-	return actions[scores.index(max(scores))]
-def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
+def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=10):
 	from fireplace.deck import Deck
-
-	copyGame=copy.deepcopy(game)
+	copyGame=copy.deepcopy(_game)
 	myPlayer=copyGame.current_player
 	enemy=myPlayer.opponent
 	handNum=len(enemy.hand)
-	actions=get_valid_actions(copyGame)
 	totalScores=[]
-	if len(actions)==1:
-		return actions[0]
+	if len(_candidates)==0:
+		return
+		pass
+	if len(_candidates)==1:
+		return _candidates[0]
 		pass
 	for i in range(_numOfTree):
+		#シミュレーション下準備
 		#random_sampling
 		d=random_draft(enemy.hero)
 		enemy.hand=CardList()
@@ -194,8 +139,10 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 			enemy.card(item,zone=Zone.DECK)
 			pass
 		enemy.draw(count=handNum)
-		root=Node(copyGame,None,None,actions)
-		for k in range(int(max_trial/_numOfTree)):
+		#ゲーム木展開
+		root=Node(copyGame,None,None,_candidates)
+		print(_candidates)
+		for k in range(_trialPerTree):
 			currentNode=root
 			print("----------")
 			print("dig tree...")
@@ -207,12 +154,13 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 			print("digged!!")
 			print("expand child...")
 			if len(currentNode.untriedMoves)!=0:
+				#まだ探索してない枝がある
 				print("expanding...")
 				expandingAction=currentNode.choose_expanding_action()
 				try:
 					currentNode=currentNode.expandChild(expandingAction)
-				except GameOver as inst:
-					mes,winner=inst.args
+				except GameOver:
+					#今gameoverに勝者の情報は入っていないので注意して
 					newChild=Node(None,expandingAction,currentNode,[])
 					if winner=="Maya":
 						newChild.setScore(1)
@@ -229,8 +177,7 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 				continue
 				pass
 			print("is it ended?")
-			print("random simulation start!")
-			result=currentNode.simulate()
+			result=simulate_random_game(currentNode.gameTree)
 			currentNode.backPropagate(result)
 			pass
 		visitScores=list(map(lambda node:myActionValue(node.move,node.visits),root.childNodes))
@@ -251,19 +198,6 @@ def try_montecarlo_tree_search(game,max_trial,_numOfTree=10):
 	#time.sleep(5)
 	return retAction
 	pass
-def addActionValues(original,additional):
-	if len(original)==0:
-		return copy.deepcopy(additional)
-		pass
-	retList=copy.deepcopy(original)
-	for item in retList:
-		for add in additional:
-			if item.action==add.action:
-				item.score+=add.score
-				pass
-			pass
-		pass
-	return retList
 def get_cardList(card_class:CardClass,exclude=[]):
 	from fireplace import cards
 
@@ -286,23 +220,52 @@ def get_cardList(card_class:CardClass,exclude=[]):
 		collection.append(cls)
 	pass
 	return collection
-def develop_deck_addopting_specific_cards(_cards,_collection):
-	"""
-	Return a deck of 30 random cards for the \a card_class
-	"""
-	from fireplace import cards
-	from fireplace.deck import Deck
-
-	retDeck = []
-	collection = []
-	# hero = card_class.default_hero
-	for item in _cards:
-		retDeck.append(item.id)
+class Node(object):
+	"""docstring for Node"""
+	def __init__(self, gameTree,move,parent,_candidates):
+		super(Node, self).__init__()
+		self.gameTree=gameTree
+		self.move=move
+		self.parent=parent
+		self.childNodes=[]
+		self.wins=0
+		self.visits=0
+		self.untriedMoves=_candidates
+		self.score=0
+	def selectChild(self):
+		import math#
+		self.totalVisit=self.visits
+		self.values=list(map(lambda node:node.wins/node.visits+math.sqrt(2*math.log(self.totalVisit)/node.visits),self.childNodes))
+		retNode=self.childNodes[self.values.index(max(self.values))]
+		return retNode
 		pass
-	while len(retDeck) < Deck.MAX_CARDS:
-		card = random.choice(_collection)
-		if retDeck.count(card.id) < card.max_count_in_deck:
-			retDeck.append(card.id)
-
-	return retDeck
-	pass
+	def expandChild(self,action):
+		self.originalGame=copy.deepcopy(self.gameTree)
+		executeAction(self.gameTree,action)
+		postAction(self.gameTree.current_player)
+		child=Node(self.gameTree,action,self,getCandidates(self.gameTree))
+		self.childNodes.append(child)
+		self.gameTree=self.originalGame
+		return child
+	def choose_expanding_action(self):
+		index=int(random.random()*len(self.untriedMoves))
+		return self.untriedMoves.pop(index)		
+		pass
+	def simulate(self):
+		return simulate_random_game(self.gameTree)
+		pass
+	def backPropagate(self,result=None):
+		self.addVal=self.score
+		if result is not None:
+			self.addVal=result
+			pass
+		self.wins+=self.addVal
+		self.visits+=1;
+		if self.parent is None:
+			pass
+		else:
+			self.parent.backPropagate(self.addVal)
+		pass
+	def setScore(self,_score):
+		self.score=_score
+		pass
