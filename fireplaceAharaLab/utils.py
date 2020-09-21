@@ -218,7 +218,7 @@ class Candidate(object):
 #
 ##  getActionCandidates : utils version
 ##
-def getCandidates(mygame,_getAllCandidates=False):
+def getCandidates(mygame,_smartCombat=False,_includeTurnEnd=False):
 	"""　"""
 	player = mygame.current_player
 	myCandidate = []
@@ -244,13 +244,13 @@ def getCandidates(mygame,_getAllCandidates=False):
 				if character.can_attack(target):
 					myH=character.health
 					hisA=target.atk
-					if (myH > hisA) or _getAllCandidates:
+					if (myH > hisA) or (_smartCombat==False):
 						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
-	if _getAllCandidates:
+	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
 		#エージェントの方でターンを終了してあげてください
-		myCandidate.append(Candidate(None,type=None))
+		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND))
 		pass
 	return myCandidate
 #
@@ -258,8 +258,8 @@ def getCandidates(mygame,_getAllCandidates=False):
 #
 def executeAction(mygame,action: Candidate, debugLog=True):
 	"""　"""
-	if action.type is None:
-		return ExceptionPlay.VALID
+	if action.type ==ExceptionPlay.TURNEND:
+		return ExceptionPlay.TURNEND
 		pass
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
@@ -330,6 +330,7 @@ class ExceptionPlay(IntEnum):
 	VALID=0
 	GAMEOVER=1
 	INVALID=2
+	TURNEND=3
 
 def weight_deepcopy_and_perturb(weight):
 	import random
@@ -351,3 +352,16 @@ class BigDeck:
 		'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
 		'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
 		'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
+def postAction(player):
+	if player.choice:
+		choice = random.choice(player.choice.cards)
+		#print("Choosing card %r" % (choice))
+		myChoiceStr = str(choice)
+		if 'RandomCardPicker' in str(choice):
+			myCardID =  random.choice(choice.find_cards())
+			myCard = Card(myCardID)
+			myCard.controller = player#?
+			myCard.draw()
+			player.choice = None
+		else :
+			player.choice.choose(choice)
