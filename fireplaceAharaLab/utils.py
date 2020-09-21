@@ -218,7 +218,7 @@ class Candidate(object):
 #
 ##  getActionCandidates : utils version
 ##
-def getCandidates(mygame,_smartCombat=False,_includeTurnEnd=False):
+def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	"""　"""
 	player = mygame.current_player
 	myCandidate = []
@@ -244,7 +244,7 @@ def getCandidates(mygame,_smartCombat=False,_includeTurnEnd=False):
 				if character.can_attack(target):
 					myH=character.health
 					hisA=target.atk
-					if (myH > hisA) or (_smartCombat==False):
+					if (myH > hisA) or (not _smartCombat):
 						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
