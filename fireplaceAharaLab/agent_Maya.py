@@ -24,17 +24,20 @@ def Maya_MCTS(game: ".game.Game"):
 		player=copyTree.current_player
 		print("--------------------simulate start!!----------------")
 		#探索編
-		candidates=getCandidates(copyTree)
+		candidates=getCandidates(copyTree,_getAllCandidates=True)
 		print("getCandidates")
-		if len(candidates)==0:
-			print("len(candidates)==0")
+		if len(candidates)==1:
+			print("len(candidates)==1")
 			return ExceptionPlay.VALID
 			pass
-		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=1000);
+		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=10);
 		print("--------------------simulate end!!------------------")
 		print(takingAction)
 		# iterate over our hand and play whatever is playable
 		#多分executeActionで大丈夫だろ
+		if takingAction.type ==ExceptionPlay.TURNEND:
+			return ExceptionPlay.VALID
+			pass
 		exc=executeAction(game, takingAction)
 		postAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
@@ -77,20 +80,22 @@ def simulate_random_turn(game: ".game.Game"):
 	while True:
 		#getCandidate使った方が早くないか？
 		# iterate over our hand and play whatever is playable
-		simCandidates=getCandidates(game)
-		index=int(random.random()*(len(simCandidates)+1))
-		if index==len(simCandidates):
-			pass
-		else:
-			exc=executeAction(game,simCandidates[index])
-			postAction(player)
-			if exc==ExceptionPlay.GAMEOVER:
-				return ExceptionPlay.GAMEOVER
-			else:
-				continue
+		simCandidates=getCandidates(game,_getAllCandidates=True)
+		index=int(random.random()*len(simCandidates))
+		if simCandidates[index].type is None:
+			try:
+				game.end_turn();
+				return ExceptionPlay.VALID
 				pass
-		game.end_turn();
-		return ExceptionPlay.VALID
+			except GameOver as over:
+				return ExceptionPlay.INVALID
+		exc=executeAction(game,simCandidates[index])
+		postAction(player)
+		if exc==ExceptionPlay.GAMEOVER:
+			return ExceptionPlay.GAMEOVER
+		else:
+			continue
+			pass
 def simulate_random_game(game,trial=1)->"int":
 	retVal=0
 	for i in range(trial):
@@ -99,16 +104,13 @@ def simulate_random_game(game,trial=1)->"int":
 		while True:
 			gameState=simulate_random_turn(simulating_game)
 			if simulating_game.state==State.COMPLETE:
-				if simulating_game.current_player.playstate == PlayState.WON:
-					winner=simulating_game.current_player.name
-					break;
-					pass
-				if simulating_game.current_player.playstate == PlayState.LOST:
-					winner=simulating_game.opponent.name
-					break;
-					pass
-				winner="DRAW"
+				winner=judgeWinner(simulating_game)
 				break;
+			if gameState==ExceptionPlay.INVALID:
+				print("gameState==ExceptionPlay.INVALID")
+				winner=judgeWinner(simulating_game)
+				break;
+				pass
 		if winner=="Maya":
 			retVal+=1
 		elif winner=="DRAW":
@@ -116,12 +118,8 @@ def simulate_random_game(game,trial=1)->"int":
 			pass
 	return retVal
 	pass
-def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=10):
+def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=2):
 	from fireplace.deck import Deck
-	copyGame=copy.deepcopy(_game)
-	myPlayer=copyGame.current_player
-	enemy=myPlayer.opponent
-	handNum=len(enemy.hand)
 	totalScores=[]
 	if len(_candidates)==0:
 		return
@@ -132,6 +130,10 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 	for i in range(_numOfTree):
 		#シミュレーション下準備
 		#random_sampling
+		copyGame=copy.deepcopy(_game)
+		myPlayer=copyGame.current_player
+		enemy=myPlayer.opponent
+		handNum=len(enemy.hand)
 		d=random_draft(enemy.hero)
 		enemy.hand=CardList()
 		enemy.deck=Deck()
@@ -141,46 +143,20 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 		enemy.draw(count=handNum)
 		#ゲーム木展開
 		root=Node(copyGame,None,None,_candidates)
-		print(_candidates)
 		for k in range(_trialPerTree):
-			currentNode=root
-			print("----------")
-			print("dig tree...")
-			while len(currentNode.untriedMoves)==0 and len(currentNode.childNodes)!=0:
-				currentNode=currentNode.selectChild()
-				print(currentNode.move)
-				print("->")
-				pass
-			print("digged!!")
-			print("expand child...")
-			if len(currentNode.untriedMoves)!=0:
-				#まだ探索してない枝がある
-				print("expanding...")
-				expandingAction=currentNode.choose_expanding_action()
-				try:
-					currentNode=currentNode.expandChild(expandingAction)
-				except GameOver:
-					#今gameoverに勝者の情報は入っていないので注意して
-					newChild=Node(None,expandingAction,currentNode,[])
-					if winner=="Maya":
-						newChild.setScore(1)
-						pass
-					else:
-						newChild.setScore(0)
-					currentNode.childNodes.append(newChild)
-					newChild.backPropagate()
-					continue
-				print("done")
-				pass
-			else:
-				currentNode.backPropagate()
-				continue
-				pass
-			print("is it ended?")
-			result=simulate_random_game(currentNode.gameTree)
-			currentNode.backPropagate(result)
-			pass
+			current_node = root;
+			while len(current_node.untriedMoves) == 0 and len(current_node.childNodes) != 0:
+				current_node = current_node.selectChild();
+			if len(current_node.untriedMoves) != 0:
+				expanding_action=current_node.choose_expanding_action()
+				current_node = current_node.expandChild(expanding_action);
+			result = current_node.simulate();
+			current_node.backPropagate(result);
+		print("childNodes")
+		print(root.childNodes)
 		visitScores=list(map(lambda node:myActionValue(node.move,node.visits),root.childNodes))
+		print(visitScores)
+		print(totalScores)
 		totalScores=addActionValues(totalScores,visitScores)
 		print("totalScores")
 		for item in totalScores:
@@ -220,6 +196,13 @@ def get_cardList(card_class:CardClass,exclude=[]):
 		collection.append(cls)
 	pass
 	return collection
+def judgeWinner(game):
+	if game.current_player.playstate == PlayState.WON:
+		return game.current_player.name
+	if game.current_player.playstate == PlayState.LOST:
+		return game.current_player.opponent.name
+	return 'DRAW'
+	pass
 class Node(object):
 	"""docstring for Node"""
 	def __init__(self, gameTree,move,parent,_candidates):
@@ -240,19 +223,34 @@ class Node(object):
 		return retNode
 		pass
 	def expandChild(self,action):
-		self.originalGame=copy.deepcopy(self.gameTree)
-		executeAction(self.gameTree,action)
-		postAction(self.gameTree.current_player)
-		child=Node(self.gameTree,action,self,getCandidates(self.gameTree))
+		print("expandChild-----------------------------")
+		print(action)
+		self.expandingGame=copy.deepcopy(self.gameTree)
+		exc=executeAction(self.expandingGame,action)
+		postAction(self.expandingGame.current_player)
+		if exc==ExceptionPlay.GAMEOVER:
+			print("the game has been ended.")
+			child=Node(self.expandingGame,action,self,[])
+			self.childNodes.append(child)
+			return child
+			pass
+		elif action.type ==ExceptionPlay.TURNEND:
+			self.expandingGame.end_turn()
+			pass
+		child=Node(self.expandingGame,action,self,getCandidates(self.expandingGame,_getAllCandidates=True))
 		self.childNodes.append(child)
-		self.gameTree=self.originalGame
 		return child
 	def choose_expanding_action(self):
 		index=int(random.random()*len(self.untriedMoves))
 		return self.untriedMoves.pop(index)		
 		pass
 	def simulate(self):
-		return simulate_random_game(self.gameTree)
+		if self.gameTree.state==State.COMPLETE:
+			self.score=judgeWinner(self.gameTree)
+			pass
+		else:
+			self.score=simulate_random_game(self.gameTree)
+		return self.score
 		pass
 	def backPropagate(self,result=None):
 		self.addVal=self.score
@@ -265,7 +263,4 @@ class Node(object):
 			pass
 		else:
 			self.parent.backPropagate(self.addVal)
-		pass
-	def setScore(self,_score):
-		self.score=_score
 		pass
