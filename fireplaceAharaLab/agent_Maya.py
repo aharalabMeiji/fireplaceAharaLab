@@ -35,7 +35,7 @@ def Maya_MCTS(game: ".game.Game"):
 		print(takingAction)
 		# iterate over our hand and play whatever is playable
 		#多分executeActionで大丈夫だろ
-		if takingAction.type is None:
+		if takingAction.type ==ExceptionPlay.TURNEND:
 			return ExceptionPlay.VALID
 			pass
 		exc=executeAction(game, takingAction)
@@ -83,7 +83,6 @@ def simulate_random_turn(game: ".game.Game"):
 		simCandidates=getCandidates(game,_getAllCandidates=True)
 		index=int(random.random()*len(simCandidates))
 		if simCandidates[index].type is None:
-			print("turn end")
 			try:
 				game.end_turn();
 				return ExceptionPlay.VALID
@@ -226,21 +225,20 @@ class Node(object):
 	def expandChild(self,action):
 		print("expandChild-----------------------------")
 		print(action)
-		self.originalGame=copy.deepcopy(self.gameTree)
-		executeAction(self.gameTree,action)
-		postAction(self.gameTree.current_player)
-		if self.gameTree.state==State.COMPLETE:
-			child=Node(self.gameTree,action,self,[])
+		self.expandingGame=copy.deepcopy(self.gameTree)
+		exc=executeAction(self.expandingGame,action)
+		postAction(self.expandingGame.current_player)
+		if exc==ExceptionPlay.GAMEOVER:
+			print("the game has been ended.")
+			child=Node(self.expandingGame,action,self,[])
 			self.childNodes.append(child)
-			self.gameTree=self.originalGame
 			return child
 			pass
-		elif action.type is None:
-			self.gameTree.end_turn()
+		elif action.type ==ExceptionPlay.TURNEND:
+			self.expandingGame.end_turn()
 			pass
-		child=Node(self.gameTree,action,self,getCandidates(self.gameTree,_getAllCandidates=True))
+		child=Node(self.expandingGame,action,self,getCandidates(self.expandingGame,_getAllCandidates=True))
 		self.childNodes.append(child)
-		self.gameTree=self.originalGame
 		return child
 	def choose_expanding_action(self):
 		index=int(random.random()*len(self.untriedMoves))
