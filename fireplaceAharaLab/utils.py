@@ -249,8 +249,7 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	if player.hero.power.is_usable():
 		if len(player.hero.power.targets)>0:
 			for target in player.hero.power.targets:
-				if player.hero.power.is_usable(target):
-					myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
 	if _includeTurnEnd:
