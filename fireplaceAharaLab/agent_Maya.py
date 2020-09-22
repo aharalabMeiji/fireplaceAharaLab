@@ -150,18 +150,13 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 				current_node = current_node.expandChild(expanding_action);
 			result = current_node.simulate();
 			current_node.backPropagate(result);
-		print("childNodes")
-		print(root.childNodes)
 		visitScores=list(map(lambda node:myActionValue(node.move,node.visits),root.childNodes))
-		print(visitScores)
-		print(totalScores)
 		totalScores=addActionValues(totalScores,visitScores)
 		print("totalScores")
 		for item in totalScores:
 			print(item.action)
 			print("-->{score}".format(score=item.score))
 			pass
-		time.sleep(5)
 	maxScore=max(list(map(lambda actionValue:actionValue.score,totalScores)))
 	retAction=0
 	for item in totalScores:
