@@ -246,6 +246,13 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
 						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
+	if player.hero.power.is_usable():
+		if len(player.hero.power.targets)>0:
+			for target in player.hero.power.targets:
+				if player.hero.power.is_usable(target):
+					myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+		else:
+			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
@@ -303,6 +310,10 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 				for target in character.targets:
 					if character.can_attack(target) and target==action.target and target.controller.name==action.target.controller.name:
 						theTarget = target
+		if player.hero.power==action.card:
+			if player.hero.power.is_usable():
+				theCard = player.hero.power
+				theTarget = action.target
 	if action.type==BlockType.PLAY:
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
@@ -323,6 +334,17 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 			return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
+	if action.type==BlockType.POWER:
+		if not theCard.is_usable():
+			return ExceptionPlay.INVALID
+		try:
+			if theCard.requires_target():
+				theCard.use(target=theTarget)
+			else:
+				theCard.use()
+			return ExceptionPlay.VALID
+		except GameOver:
+			return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.INVALID
 
 class ExceptionPlay(IntEnum):
@@ -330,7 +352,7 @@ class ExceptionPlay(IntEnum):
 	VALID=0
 	GAMEOVER=1
 	INVALID=2
-	TURNEND=3
+	TURNEND=4
 
 def weight_deepcopy_and_perturb(weight):
 	import random
