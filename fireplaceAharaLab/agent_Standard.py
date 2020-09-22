@@ -286,6 +286,15 @@ def HumanInput(game):
 						hisA=target.atk
 						#if myH > hisA:
 						myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target))
+		if player.hero.power.is_usable():
+			print("%s"%player.hero.power, end='   : ')
+			print("%s"%player.hero.power.data.description.replace('\n',''))
+			if len(player.hero.power.targets)>0:
+				for target in player.hero.power.targets:
+					if player.hero.power.is_usable():
+						myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+			else:
+				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
 		print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 		print("[0] ターンを終了する")
 		myCount = 1
@@ -303,6 +312,8 @@ def HumanInput(game):
 				print(' play', end=' ')
 			if myChoice.type == ActionType.ATTACK:
 				print(' attack', end=' ')
+			if myChoice.type == ActionType.POWER:
+				print(' power', end=' ')
 			targetCard = myChoice.target
 			if targetCard != None:
 				print("%s"%targetCard, end=' ')
@@ -336,7 +347,9 @@ def weight_deepcopy(weight):
 class ActionType(IntEnum):
 	ATTACK=1
 	PLAY=7
-	PASS=3
+	POWER=3
+	PASS=4
+
 
 	def __str__(self):
 		if self==1:
