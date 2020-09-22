@@ -139,28 +139,13 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 		enemy.draw(count=handNum)
 		#ゲーム木展開
 		#あとでcandidatesをpopするからそのまま使うと_candidatesは空説
-		root=Node(copyGame,None,None,_candidates)
+		cand=copy.deepcopy(_candidates)
+		root=Node(copyGame,None,None,cand)
 		for k in range(_trialPerTree):
 			current_node = root;
-			if i>0:
-				for item in _candidates:
-					print(item)
-					pass
-				for item in current_node.untriedMoves:
-					print(item)
-					pass
-				time.sleep(5)
 			while len(current_node.untriedMoves) == 0 and len(current_node.childNodes) != 0:
-				if i>0:
-					print("digging...")
-					time.sleep(1)
-					pass
 				current_node = current_node.selectChild();
 			if len(current_node.untriedMoves) != 0:
-				if i>0:
-					print("expanding!!!!!!!!")
-					time.sleep(5)
-					pass
 				expanding_action=current_node.choose_expanding_action()
 				current_node = current_node.expandChild(expanding_action);
 			result = current_node.simulate();
@@ -176,6 +161,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=
 			print(item.action)
 			print("-->{score}".format(score=item.score))
 			pass
+		time.sleep(5)
 	maxScore=max(list(map(lambda actionValue:actionValue.score,totalScores)))
 	retAction=0
 	for item in totalScores:
