@@ -30,7 +30,7 @@ def Maya_MCTS(game: ".game.Game"):
 			print("len(candidates)==1")
 			return ExceptionPlay.VALID
 			pass
-		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=10);
+		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=100);
 		print("--------------------simulate end!!------------------")
 		print(takingAction)
 		# iterate over our hand and play whatever is playable
@@ -114,7 +114,7 @@ def simulate_random_game(game,trial=1)->"int":
 			pass
 	return retVal
 	pass
-def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=10,_numOfTree=2):
+def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=100,_numOfTree=2):
 	from fireplace.deck import Deck
 	copyGame=copy.deepcopy(_game)
 	myPlayer=copyGame.current_player
