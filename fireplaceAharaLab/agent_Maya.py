@@ -20,17 +20,15 @@ from utils import ExceptionPlay, myAction, myActionValue,getCandidates,executeAc
 
 def Maya_MCTS(game: ".game.Game"):
 	while True:
-		copyTree=copy.deepcopy(game)
-		player=copyTree.current_player
+		player=game.current_player
 		print("--------------------simulate start!!----------------")
 		#探索編
-		candidates=getCandidates(copyTree,_includeTurnEnd=True)
-		print("getCandidates")
+		candidates=getCandidates(game,_includeTurnEnd=True)
 		if len(candidates)==1:
 			print("len(candidates)==1")
 			return ExceptionPlay.VALID
 			pass
-		takingAction=try_montecarlo_tree_search(copyTree,candidates,_trialPerTree=100);
+		takingAction=try_montecarlo_tree_search(game,candidates);
 		print("--------------------simulate end!!------------------")
 		print(takingAction)
 		# iterate over our hand and play whatever is playable
@@ -98,7 +96,11 @@ def simulate_random_game(game,trial=1)->"int":
 		simulating_game=copy.deepcopy(game)
 		winner=""
 		while True:
-			gameState=simulate_random_turn(simulating_game)
+			try:
+				gameState=simulate_random_turn(simulating_game)
+			except GameOver as e:
+				winner=judgeWinner(simulating_game)
+				break;
 			if simulating_game.state==State.COMPLETE:
 				winner=judgeWinner(simulating_game)
 				break;
@@ -114,7 +116,7 @@ def simulate_random_game(game,trial=1)->"int":
 			pass
 	return retVal
 	pass
-def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=100,_numOfTree=2):
+def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=50,_numOfTree=10):
 	from fireplace.deck import Deck
 	copyGame=copy.deepcopy(_game)
 	myPlayer=copyGame.current_player
@@ -130,7 +132,8 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=100,_numOfTree
 	for i in range(_numOfTree):
 		#シミュレーション下準備
 		#random_sampling
-		d=random_draft(enemy.hero)
+		exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
+		d=random_draft(enemy.hero,exclude)
 		enemy.hand=CardList()
 		enemy.deck=Deck()
 		for item in d:
@@ -139,7 +142,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=100,_numOfTree
 		enemy.draw(count=handNum)
 		#ゲーム木展開
 		#あとでcandidatesをpopするからそのまま使うと_candidatesは空説
-		cand=copy.deepcopy(_candidates)
+		cand=getCandidates(copyGame,_includeTurnEnd=True)
 		root=Node(copyGame,None,None,cand)
 		for k in range(_trialPerTree):
 			current_node = root;
@@ -165,6 +168,11 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=100,_numOfTree
 			pass
 		pass
 	print(retAction)
+	for item in _candidates:
+		if item==retAction:
+			retAction=item;
+			pass
+		pass
 	#time.sleep(5)
 	return retAction
 	pass
@@ -217,10 +225,17 @@ class Node(object):
 		return retNode
 		pass
 	def expandChild(self,action):
-		print("expandChild-----------------------------")
+		print("---------------------expandChild-----------------------------")
 		print(action)
 		self.expandingGame=copy.deepcopy(self.gameTree)
-		exc=executeAction(self.expandingGame,action)
+		simcand=getCandidates(self.expandingGame,_includeTurnEnd=True)
+		myPolicy=""
+		for item in simcand:
+			if item==action:
+				myPolicy=item
+				pass
+			pass
+		exc=executeAction(self.expandingGame,myPolicy)
 		postAction(self.expandingGame.current_player)
 		if exc==ExceptionPlay.GAMEOVER:
 			print("the game has been ended.")
