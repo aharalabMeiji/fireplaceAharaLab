@@ -13,12 +13,42 @@ class SCH_617:
 
 SCH_617e = buff(+1, +1)
 
-class SCH_312:
-	""" ツアーガイド
-		&lt;b&gt;雄叫び:&lt;/b&gt;自分が次に使うヒーローパワーのコストは（0）
-	"""
-	play = Buff(CONTROLLER, "SCH_312e")
 
-class SCH_312e:
-	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: SET(0)})
-	events = Play(CONTROLLER, SPELL).on(Destroy(SELF))	##再考を要する
+class DRG_253:
+	""" ドワーフの狙撃手
+	[x]自分のヒーローパワーはミニオンを対象にできる。
+	""" 
+	update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})##意味が分からん
+
+class SCH_600:
+	""" 悪魔の相棒 
+	 ランダムな悪魔の相棒を1体召喚する。 """
+	play = Summon(CONTROLLER, RANDOM(["SCH_600t1", "SCH_600t2", "SCH_600t3"]))##内容確認
+
+class SCH_600t1:
+	pass
+class SCH_600t2:
+	pass
+class SCH_600t3:
+	""" [x]自身を除く味方のミニオンは攻撃力+1を得る。 """
+	update = Refresh(FRIENDLY_MINIONS - SELF, "SCH_600t3e")
+
+SCH_600t3e =buff(atk=+1)
+
+class DRG_252:
+	""" フェーズ・ストーカー 
+	[x]自分がヒーローパワーを使用した後自分のデッキから&lt;b&gt;秘策&lt;/b&gt;を1つ準備する。 """
+	play = Play(CONTROLLER,HERO_POWER).after(Summon(CONTROLLER, FRIENDLY_DECK + SECRET))
+	pass
+
+class EX1_611:
+	""" 感圧板 
+	&lt;b&gt;秘策:&lt;/b&gt;相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。 """
+	secret =  Play(OPPONENT, SPELL).after(Destroy(RANDOM_ENEMY_MINION))
+	pass
+
+class DRG_256:
+	""" ドラゴンベイン 
+	[x]自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。 """
+	play = Play(CONTROLLER, HERO_POWER).after(Hit(RANDOM_ENEMY_CHARACTER, 5))
+	pass
