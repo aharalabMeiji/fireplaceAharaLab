@@ -181,7 +181,7 @@ def play_MechaHunterGames(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
 	Count2 = 0
 	
 	for i in range(gameNumber):
-		winner = play_one_game(P1,P2,deck1=BigDeck.MechaHunter, deck2=BigDeck.MechaHunter,debugLog=debugLog)
+		winner = play_one_game(P1,P2,deck1=BigDeck.faceHunter, deck2=BigDeck.faceHunter,debugLog=debugLog)
 		print("winner is %r"%winner)
 		if winner == P1.name:
 			Count1+=1
@@ -373,6 +373,11 @@ class BigDeck:
 		'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
 		'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
 		'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
+	faceHunter = [\
+		'SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
+		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
+		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
+		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
 def postAction(player):
 	if player.choice:
 		choice = random.choice(player.choice.cards)
