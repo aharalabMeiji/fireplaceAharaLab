@@ -23,7 +23,10 @@ class DRG_253:
 class SCH_600:
 	""" 悪魔の相棒 
 	 ランダムな悪魔の相棒を1体召喚する。 """
-	play = Summon(CONTROLLER, RANDOM(["SCH_600t1", "SCH_600t2", "SCH_600t3"]))##内容確認
+	#play = Summon(CONTROLLER, "SCH_600t1")#, "SCH_600t2", "SCH_600t3"}))##内容確認
+	def play(self):
+		friend_demon = random.choice("SCH_600t1", "SCH_600t2", "SCH_600t3")
+		yield Summon(CONTROLLER, friend_demon)
 
 class SCH_600t1:
 	pass
@@ -33,12 +36,12 @@ class SCH_600t3:
 	""" [x]自身を除く味方のミニオンは攻撃力+1を得る。 """
 	update = Refresh(FRIENDLY_MINIONS - SELF, "SCH_600t3e")
 
-SCH_600t3e =buff(atk=+1)
+SCH_600t3e = buff(atk=+1)
 
 class DRG_252:
 	""" フェーズ・ストーカー 
 	[x]自分がヒーローパワーを使用した後自分のデッキから&lt;b&gt;秘策&lt;/b&gt;を1つ準備する。 """
-	play = Play(CONTROLLER,HERO_POWER).after(Summon(CONTROLLER, FRIENDLY_DECK + SECRET))
+	play = Activate(CONTROLLER, HERO_POWER).after(Play(CONTROLLER, FRIENDLY_DECK + SECRET))
 	pass
 
 class EX1_611:
@@ -50,5 +53,5 @@ class EX1_611:
 class DRG_256:
 	""" ドラゴンベイン 
 	[x]自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。 """
-	play = Play(CONTROLLER, HERO_POWER).after(Hit(RANDOM_ENEMY_CHARACTER, 5))
+	play = Activate(CONTROLLER, HERO_POWER).after(Hit(RANDOM_ENEMY_CHARACTER, 5))
 	pass

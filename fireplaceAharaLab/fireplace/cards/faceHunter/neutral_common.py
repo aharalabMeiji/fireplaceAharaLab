@@ -1,14 +1,14 @@
 from ..utils import *
 
 class SCH_312:
-	""" ツアーガイド
+	""" School Tour ツアーガイド
 		&lt;b&gt;雄叫び:&lt;/b&gt;自分が次に使うヒーローパワーのコストは（0）
 	"""
-	play = Buff(CONTROLLER, "SCH_312e")
+	play = Buff(FRIENDLY_HERO_POWER, "SCH_312e")
 
 class SCH_312e:
-	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: SET(0)})
-	events = Play(FRIENDLY_HERO_POWER).on(Destroy(SELF))##使い終わったあとに元に戻らない
+	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: -2})
+	events = OWN_TURN_END.on(Destroy(SELF))
 
 class SCH_231:
 	"""図太い徒弟
