@@ -45,7 +45,7 @@ def Maya_MCTS(game: ".game.Game"):
 	return ExceptionPlay.VALID
 	pass
 def postAction(player):
-	if player.choice:
+	while player.choice:
 		choice = random.choice(player.choice.cards)
 		#print("Choosing card %r" % (choice))
 		myChoiceStr = str(choice)
@@ -57,7 +57,6 @@ def postAction(player):
 			player.choice = None
 		else :
 			player.choice.choose(choice)
-
 def addActionValues(original,additional):
 	if len(original)==0:
 		return copy.deepcopy(additional)
@@ -99,6 +98,9 @@ def simulate_random_game(game,trial=1)->"int":
 			try:
 				gameState=simulate_random_turn(simulating_game)
 			except GameOver as e:
+				print("exception")
+				print(simulating_game.current_player.name)
+				print(simulating_game.current_player.playstate)
 				winner=judgeWinner(simulating_game)
 				break;
 			if simulating_game.state==State.COMPLETE:
@@ -225,8 +227,6 @@ class Node(object):
 		return retNode
 		pass
 	def expandChild(self,action):
-		print("---------------------expandChild-----------------------------")
-		print(action)
 		self.expandingGame=copy.deepcopy(self.gameTree)
 		simcand=getCandidates(self.expandingGame,_includeTurnEnd=True)
 		myPolicy=""
