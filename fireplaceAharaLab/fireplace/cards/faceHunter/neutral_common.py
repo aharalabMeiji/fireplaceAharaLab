@@ -4,25 +4,28 @@ class SCH_312:
 	""" School Tour ツアーガイド
 		&lt;b&gt;雄叫び:&lt;/b&gt;自分が次に使うヒーローパワーのコストは（0）
 	"""
-	play = Buff(FRIENDLY_HERO_POWER, "SCH_312e")
+	play = Buff(CONTROLLER, "SCH_312e")
 
 class SCH_312e:
-	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: -2})
-	events = OWN_TURN_END.on(Destroy(SELF))
+	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: SET(0)})
+	events = Activate(CONTROLLER, HERO_POWER).on(Destroy(SELF))
+
+
+
 
 class SCH_231:
 	"""図太い徒弟
 	[x]&lt;b&gt;魔法活性:&lt;/b&gt;攻撃力+2を獲得する。
 	"""
-	play = Play(CONTROLLER,SPELL).on(Buff(SELF, "SCH_617e"))##魔法の部分が未チェック
+	play = Play(CONTROLLER,SPELL).on(Buff(SELF, "SCH_231e"))##魔法の部分が未チェック
 	pass
 
-SCH_231e = buff(atk=+2)#この書き方でよいか？
+SCH_231e = buff(+2,0)#この書き方でよいか？
 
 class SCH_142:
 	""" 貪欲な読書家 
 	[x]自分のターンの終了時手札が3枚になるまでカードを引く。 """
-	OWN_TURN_END.on(DrawUntil(CONTROLLER,3))##チェックまだ
+	events = OWN_TURN_END.on(DrawUntil(CONTROLLER,3))##チェックまだ
 	pass
 
 class SCH_428:

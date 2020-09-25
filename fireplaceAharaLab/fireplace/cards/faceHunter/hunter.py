@@ -2,7 +2,7 @@ from ..utils import *
 
 class SCH_133:
 	""" Wolpertinger """
-	play = Summon(CONTROLLER, "SCH_133")
+	play = Summon(CONTROLLER, Copy(SELF))
 
 class SCH_617:
 	"""  カワイイ侵入者 """
@@ -18,14 +18,16 @@ class DRG_253:
 	""" ドワーフの狙撃手
 	[x]自分のヒーローパワーはミニオンを対象にできる。
 	""" 
-	update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})##意味が分からん
+	update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})#STADY_SHOT=不抜の一矢
+	#むしろ、別カードにMorphする処理のほうが適切と思われる。
+	#検証不能
 
 class SCH_600:
 	""" 悪魔の相棒 
 	 ランダムな悪魔の相棒を1体召喚する。 """
 	#play = Summon(CONTROLLER, "SCH_600t1")#, "SCH_600t2", "SCH_600t3"}))##内容確認
 	def play(self):
-		friend_demon = random.choice("SCH_600t1", "SCH_600t2", "SCH_600t3")
+		friend_demon = random.choice(["SCH_600t1", "SCH_600t2", "SCH_600t3"])
 		yield Summon(CONTROLLER, friend_demon)
 
 class SCH_600t1:
@@ -53,5 +55,5 @@ class EX1_611:
 class DRG_256:
 	""" ドラゴンベイン 
 	[x]自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。 """
-	play = Activate(CONTROLLER, HERO_POWER).after(Hit(RANDOM_ENEMY_CHARACTER, 5))
+	events = Activate(CONTROLLER, HERO_POWER).after(Hit(RANDOM_ENEMY_CHARACTER, 5))
 	pass

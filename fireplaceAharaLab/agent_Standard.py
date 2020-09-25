@@ -251,11 +251,11 @@ def HumanInput(game):
 		for card in player.hand:
 			print("%s"%card, end='   : ')
 			if card.data.type == CardType.MINION:
-				print("%2d(%2d/%2d)%s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','')))
+				print("%2d(%2d/%2d)%s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			elif card.data.type == CardType.SPELL:
-				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','')))
+				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			elif card.data.type == CardType.WEAPON:
-				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','')))
+				print("%2d(%2d/%2d) : %s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			if card.is_playable():
 				if card.must_choose_one:
 					for card2 in card.choose_cards:
@@ -274,11 +274,13 @@ def HumanInput(game):
 		print("========OPPONENT'S PLAYGROUND======")
 		for character in player.opponent.characters:
 			print("%s"%character, end='   : ')
-			print("(%2d/%2d)"%(character.atk,character.health))
+			print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+			print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 		print("========MY PLAYGROUND======")
 		for character in player.characters:
 			print("%s"%character, end='   : ')
-			print("(%2d/%2d)"%(character.atk,character.health))
+			print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+			print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			if character.can_attack():
 				for target in character.targets:
 					if character.can_attack(target):
@@ -288,13 +290,18 @@ def HumanInput(game):
 						myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target))
 		if player.hero.power.is_usable():
 			print("%s"%player.hero.power, end='   : ')
-			print("%s"%player.hero.power.data.description.replace('\n',''))
-			if len(player.hero.power.targets)>0:
+			print("<%2d>"%player.hero.power.cost, end=' ')
+			print("%s"%player.hero.power.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']'))
+			if player.hero.power.requires_target():
 				for target in player.hero.power.targets:
 					if player.hero.power.is_usable():
 						myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
 			else:
 				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
+		print("========MY SECRETS======")
+		for card in player.secrets:
+			print("%s"%card, end='   : ')
+			print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 		print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 		print("[0] ターンを終了する")
 		myCount = 1
@@ -303,17 +310,17 @@ def HumanInput(game):
 			myCard = myChoice.card
 			print("%s"%myCard, end='  ')
 			if myCard.data.type==CardType.MINION:
-				print('%2d(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
+				print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 			elif myCard.data.type==CardType.SPELL:
-				print('%2d %s'%(myCard.cost, myCard.data.description.replace('\n','')), end=' ')
+				print('<%2d> %s'%(myCard.cost, myCard.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')), end=' ')
 			elif myCard.data.type==CardType.WEAPON:
-				print('%2d %s'%(myCard.cost, myCard.data.description.replace('\n','')), end=' ')
+				print('<%2d> %s'%(myCard.cost, myCard.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')), end=' ')
 			if myChoice.type == ActionType.PLAY:
 				print(' play', end=' ')
 			if myChoice.type == ActionType.ATTACK:
 				print(' attack', end=' ')
 			if myChoice.type == ActionType.POWER:
-				print(' power', end=' ')
+				print('<%2d> power'%(myCard.cost), end=' ')
 			targetCard = myChoice.target
 			if targetCard != None:
 				print("%s"%targetCard, end=' ')
