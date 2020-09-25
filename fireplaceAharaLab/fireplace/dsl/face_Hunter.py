@@ -11,6 +11,7 @@ from fireplace.utils import random_draft
 
 
 # Token minions
+# ああああああああああ
 ANIMATED_STATUE = "LOEA04_27"
 GOLDSHIRE_FOOTMAN = "CS1_042"
 TARGET_DUMMY = "GVG_093"
