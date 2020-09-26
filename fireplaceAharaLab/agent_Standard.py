@@ -243,7 +243,7 @@ def Original_random(game: ".game.Game"):
 				target = random.choice(character.targets)
 				executeAttack(character, target)
 		break
-def HumanInput(game):
+def HumanInput(game,option=None, debugLog=True):
 	player = game.current_player
 	while True:
 		myCandidate = []
@@ -251,11 +251,11 @@ def HumanInput(game):
 		for card in player.hand:
 			print("%s"%card, end='   : ')
 			if card.data.type == CardType.MINION:
-				print("%2d(%2d/%2d)%s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			elif card.data.type == CardType.SPELL:
-				print("%2d : %s"%(card.data.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			elif card.data.type == CardType.WEAPON:
-				print("%2d(%2d/%2d) : %s"%(card.data.cost, card.data.atk, card.data.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			if card.is_playable():
 				if card.must_choose_one:
 					for card2 in card.choose_cards:

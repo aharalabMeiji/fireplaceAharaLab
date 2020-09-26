@@ -11,7 +11,7 @@ class SCH_617:
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "SCH_617e"), Summon(CONTROLLER, "SCH_617t"),Give(CONTROLLER, "SCH_617t")
 
-SCH_617e = buff(+1, +1)
+SCH_617e = buff(1, 1)
 
 
 class DRG_253:
@@ -36,24 +36,26 @@ class SCH_600t2:
 	pass
 class SCH_600t3:
 	""" [x]自身を除く味方のミニオンは攻撃力+1を得る。 """
-	update = Refresh(FRIENDLY_MINIONS - SELF, "SCH_600t3e")
+	update = Buff(FRIENDLY_MINIONS - SELF, "SCH_600t3e")
 
-SCH_600t3e = buff(atk=+1)
+SCH_600t3e = buff(1,0)
 
 class DRG_252:
 	""" フェーズ・ストーカー 
 	[x]自分がヒーローパワーを使用した後自分のデッキから&lt;b&gt;秘策&lt;/b&gt;を1つ準備する。 """
-	play = Activate(CONTROLLER, HERO_POWER).after(Play(CONTROLLER, FRIENDLY_DECK + SECRET))
+	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 	pass
 
-class EX1_611:
+
+class ULD_152:
 	""" 感圧板 
 	&lt;b&gt;秘策:&lt;/b&gt;相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。 """
-	secret =  Play(OPPONENT, SPELL).after(Destroy(RANDOM_ENEMY_MINION))
+	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
+
 	pass
 
 class DRG_256:
 	""" ドラゴンベイン 
 	[x]自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。 """
-	events = Activate(CONTROLLER, HERO_POWER).after(Hit(RANDOM_ENEMY_CHARACTER, 5))
+	play = Activate(CONTROLLER, HERO_POWER).on(Hit(RANDOM_ENEMY_CHARACTER, 5))
 	pass

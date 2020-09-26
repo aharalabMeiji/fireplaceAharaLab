@@ -17,7 +17,7 @@ class SCH_231:
 	"""図太い徒弟
 	[x]&lt;b&gt;魔法活性:&lt;/b&gt;攻撃力+2を獲得する。
 	"""
-	play = Play(CONTROLLER,SPELL).on(Buff(SELF, "SCH_231e"))##魔法の部分が未チェック
+	play = Play(CONTROLLER,SPELL).on(Buff(SELF, "SCH_231e"))##魔法の部分が未チェックOWN_SPELL_PLAY?
 	pass
 
 SCH_231e = buff(+2,0)#この書き方でよいか？
