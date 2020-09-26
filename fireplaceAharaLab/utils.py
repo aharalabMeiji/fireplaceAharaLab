@@ -181,7 +181,7 @@ def play_MechaHunterGames(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
 	Count2 = 0
 	
 	for i in range(gameNumber):
-		winner = play_one_game(P1,P2,deck1=BigDeck.faceHunter, deck2=BigDeck.faceHunter,debugLog=debugLog)
+		winner = play_one_game(P1,P2,deck1=BigDeck.MechaHunter, deck2=BigDeck.MechaHunter,debugLog=debugLog)
 		print("winner is %r"%winner)
 		if winner == P1.name:
 			Count1+=1

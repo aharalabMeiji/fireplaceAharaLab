@@ -11,8 +11,8 @@ def main():
 	cards.db.initialize()
 	from utils import Agent,play_set_of_games,play_MechaHunterGames,play_one_game,BigDeck
 	from hearthstone.enums import CardClass
-	Human=Agent("Human",None,myClass=CardClass.HUNTER)
-	StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
+	Human=Agent("Human",None,myClass=CardClass.MAGE)
+	StandardRandom=Agent("Maya",None) # Classを指定しないとHUNTER
 	
 	# モンテカルロによる読み切り
 	## Maya=Agent("Maya",None)
@@ -38,9 +38,9 @@ def main():
 	#AngryCatPlayer = Agent("AngryCat", AngryCatAI)
 
 	#ゲームプレイ
-	play_one_game(Human, StandardRandom, deck1=BigDeck.faceHunter, deck2=[], debugLog=True) 
+	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
 	#ハンター縛りのデッキ（メカハンター）による対戦
-	#play_MechaHunterGames(Human, StandardRandom, gameNumber=1, debugLog=True)
+	#play_MechaHunterGames(StandardPlayer, AngryCatPlayer, gameNumber=1, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
