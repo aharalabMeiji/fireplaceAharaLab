@@ -271,13 +271,13 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
 		print("%s %s"%(player,str(action)))
-	theCard=theTarget=None
+	theCard=theTarget=theCard2=None
 	#print(id(action.card.game))
 	#print(id(mygame))
 	if action.card.game==mygame:
 		theCard=action.card
 	if action.card2!=None and action.card2.game==mygame:
-		theCard2=None
+		theCard2=action.card2
 	if action.target!=None and action.card.game==mygame:
 		theTarget=action.target
 	if theCard!=None and ((action.target==None and theTarget==None) or (action.target!=None and theTarget!=None)):
@@ -319,7 +319,7 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 		if not theCard.is_playable():
 			return ExceptionPlay.INVALID
 		try:
-			theCard.play(target=theTarget)
+			theCard.play(target=theTarget,choose=theCard2)
 			return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
