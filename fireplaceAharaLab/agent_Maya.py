@@ -255,7 +255,14 @@ class Node(object):
 		pass
 	def simulate(self):
 		if self.gameTree.state==State.COMPLETE:
-			self.score=judgeWinner(self.gameTree)
+			self.winnerName=judgeWinner(self.gameTree)
+			if self.winnerName=="Maya":
+				self.score=1
+				pass
+			elif self.winnerName=="DRAW":
+				self.score=0.5
+			else:
+				self.score=0
 			pass
 		else:
 			self.score=simulate_random_game(self.gameTree)
