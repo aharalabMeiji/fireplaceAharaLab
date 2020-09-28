@@ -10,8 +10,23 @@ from fireplace.player import Player
 from fireplace.utils import random_draft
 
 
+
+# 追加したミニオン
+Freezing_Trap = "EX1_611"
+Pack_Tactics = "BT_203"
+Eaglehorn_Bow = "EX1_536"
+Kill_Command = "EX1_539"
+Animal = "NEW1_031"
+Adorable_Infestation = "SCH_617"
+Tour_Guide = "SCH_312"
+Intrepid_Initiate = "SCH_231"
+Demon_Companion = "SCH_600"
+Phase_Stalker = "DRG_252"
+Pressure_Plate = "ULD_152"
+Voracious_Reader = "SCH_142"
+Dragonbane = "DRG_256" 
+
 # Token minions
-# ああああああああああ
 ANIMATED_STATUE = "LOEA04_27"
 GOLDSHIRE_FOOTMAN = "CS1_042"
 TARGET_DUMMY = "GVG_093"
