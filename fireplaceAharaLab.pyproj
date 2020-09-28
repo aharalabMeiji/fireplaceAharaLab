@@ -84,6 +84,15 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\custom\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\debug\all.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\debug\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\neutral_common.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\game\all.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\game\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\druid.py" />
@@ -275,6 +284,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\kobolds" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\league" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\naxxramas" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tgt" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tutorial" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\ungoro" />

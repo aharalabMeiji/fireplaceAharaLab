@@ -9,7 +9,7 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	from utils import Agent,play_set_of_games,play_MechaHunterGames
+	from utils import Agent,play_set_of_games,play_MechaHunterGames,play_one_game,BigDeck
 	from hearthstone.enums import CardClass
 	Human=Agent("Human",None,myClass=CardClass.MAGE)
 	StandardRandom=Agent("Maya",None) # Classを指定しないとHUNTER
