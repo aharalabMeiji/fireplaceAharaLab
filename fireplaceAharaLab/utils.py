@@ -391,3 +391,44 @@ def postAction(player):
 			player.choice = None
 		else :
 			player.choice.choose(choice)
+
+def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
+	"""
+	Return a deck of 30 random cards for the \a card_class
+	"""
+	from fireplace import cards
+	from fireplace.deck import Deck
+	import random
+	import os.path
+	from pkgutil import iter_modules
+	from importlib import import_module
+
+	deck = []
+	collection = []
+	# hero = card_class.default_hero
+
+	cards_module = os.path.join(os.path.dirname(__file__), "fireplace\\cards")
+	CARD_SETS = [cs for _, cs, ispkg in iter_modules([cards_module]) if ispkg]
+	for card in cards.db.keys():
+		if card in exclude:
+			continue
+		cls = cards.db[card]
+		if not cls.collectible:
+			continue
+		if cls.type == CardType.HERO:
+			# Heroes are collectible...
+			continue
+		if cls.card_class and cls.card_class not in [card_class, CardClass.NEUTRAL]:
+			# Play with more possibilities
+			continue
+		for cardset in CARD_SETS:
+			module = import_module("fireplace.cards.%s" % (cardset))
+			if hasattr(module, card):
+				collection.append(cls)
+
+	while len(deck) < Deck.MAX_CARDS:
+		card = random.choice(collection)
+		if deck.count(card.id) < card.max_count_in_deck:
+			deck.append(card.id)
+
+	return deck
