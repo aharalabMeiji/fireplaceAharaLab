@@ -9,10 +9,10 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	from utils import Agent,play_set_of_games,play_MechaHunterGames
+	#from utils import Agent,play_set_of_games,play_MechaHunterGames
 	from hearthstone.enums import CardClass
-	Human=Agent("Human",None,myClass=CardClass.MAGE)
-	StandardRandom=Agent("Maya",None) # Classを指定しないとHUNTER
+	#Human=Agent("Human",None,myClass=CardClass.MAGE)
+	#StandardRandom=Agent("Maya",None) # Classを指定しないとHUNTER
 	
 	# モンテカルロによる読み切り
 	## Maya=Agent("Maya",None)
@@ -38,7 +38,7 @@ def main():
 	#AngryCatPlayer = Agent("AngryCat", AngryCatAI)
 
 	#ゲームプレイ
-	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
+	#play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
 	#ハンター縛りのデッキ（メカハンター）による対戦
 	#play_MechaHunterGames(StandardPlayer, AngryCatPlayer, gameNumber=1, debugLog=True)
 
@@ -47,8 +47,13 @@ def main():
 	#play_round_robin_competition([StandardRandom,PIPlayer,AngryCatPlayer],matchNumber=5)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
-	#from card_pair import investigate_card_pair, find_card_pair
+	from card_pair import investigate_card_pair, find_card_pair,get_all_spells,get_all_cards
 	#investigate_card_pair()
+	allCards=get_all_cards(CardClass.PRIEST)
+	spells=get_all_spells(allCards)
+	for item in spells:
+		print(item,item.description.replace('\n',''))
+		pass
 	#シナジーのあるカードの組を漠然と探す
 	#find_card_pair(1)
 	#print("test_branch_yamadamaya")
