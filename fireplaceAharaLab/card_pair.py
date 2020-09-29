@@ -9,7 +9,8 @@ from fireplace.exceptions import GameOver
 from utils import Agent
 
 def investigate_card_pair( onlyresult=0):
-	card_class = CardClass.HUNTER
+	from agent_Maya import Maya_MCTS
+	card_class = CardClass.PRIEST
 	allCards=get_all_cards(card_class)
 	vanillas = get_all_vanillas(allCards)
 	nonVanillas = get_all_non_vanillas(allCards)
@@ -25,7 +26,7 @@ def investigate_card_pair( onlyresult=0):
 	#沈黙:EX1_332:ミニオン1体を沈黙させる
 
 	print(" specific cards : %r%r"%(nonvanilla1, nonvanilla2))
-	for repeat in range(50):
+	for repeat in range(10):
 		print("    GAME %d"%repeat,end="  -> ")
 		#set decks and players
 		deck1=[]
@@ -36,10 +37,10 @@ def investigate_card_pair( onlyresult=0):
 		deck1.append(nonvanilla2)
 		for i in range(8-position):#デッキは10枚
 			deck1.append(random.choice(vanillas).id)
-		player1 = Player("AAAA", deck1, card_class.default_hero)
+		player1 = Player("Maya", deck1, card_class.default_hero)
 		deck2 = copy.deepcopy(deck1)
 		random.shuffle(deck2)
-		player2 = Player("BBBB", deck2, card_class.default_hero)
+		player2 = Player("Maya_comparing", deck2, card_class.default_hero)
 		#set a game
 		game = Game(players=(player1, player2))
 		game.start()
@@ -55,35 +56,29 @@ def investigate_card_pair( onlyresult=0):
 		turnNumber=0
 		print("Turn ",end=':')
 		while True:
-			turnNumber+=1
-			print(turnNumber,end=":")
-			weight=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-			weight[0]=weight[1]=5
-			weight[26]=10
-			weight[2]=weight[3]=weight[6]=weight[7]=5
-			weight[10]=weight[11]=weight[12]=weight[13]=5
-			StandardStep1(game,weight, debugLog=False)
-			#StandardRandom(game,debugLog=True)
+			player = game.current_player
+			Maya_MCTS(game,_name=player.name)#マヤ氏の作品
 			#ここはもう少し賢い人にやってほしい
+			if player.choice!=None:
+				player.choice=None#論理的にはおこらないが、ときどきおこる
 			if game.state!=State.COMPLETE:
 				try:
 					game.end_turn()
 				except GameOver:#まれにおこる
-					pass
-			else:
+					gameover=0
+			if game.state==State.COMPLETE:#ゲーム終了フラグが立っていたら
 				if game.current_player.playstate == PlayState.WON:
-					winner = game.current_player.name
+					winner= game.current_player.name
 					break
-				elif game.current_player.playstate == PlayState.LOST:
-					winner = game.current_player.opponent.name
+				if game.current_player.playstate == PlayState.LOST:
+					winner= game.current_player.opponent.name
 					break
-				else:
-					winner = "DRAW"
-					break
+				winner= 'DRAW'
+				break
 		print("%s won."%winner)
-		if winner=="AAAA":
+		if winner=="Maya":
 			count1 += 1
-		elif winner=="BBBB":
+		elif winner=="Maya_comparing":
 			count2 += 1
 	print("%d : %d"%(count1, count2))
 

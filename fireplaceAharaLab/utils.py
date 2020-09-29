@@ -130,7 +130,9 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		player = game.current_player
 		#print("%r starts their turn."%player.name);
 		if player.name=="Maya":
-			Maya_MCTS(game)#マヤ氏の作品
+			Maya_MCTS(game,_name="Maya")#マヤ氏の作品
+		elif player.name=="Maya_comparing":
+			Maya_MCTS(game,_name=player.name)
 		elif player.name=="Standard":
 			StandardRandom(game, debugLog=debugLog)#公式のランダムより、もう少しキチンとしたランダムプレーエージェント
 		elif player.name=="Human":
