@@ -38,7 +38,7 @@ def Maya_MCTS(game: ".game.Game",_name="Default"):
 		if takingAction.type ==ExceptionPlay.TURNEND:
 			return ExceptionPlay.VALID
 			pass
-		exc=executeAction(game, takingAction)
+		exc=executeAction(game, takingAction,debugLog=False)
 		postAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
@@ -84,7 +84,7 @@ def simulate_random_turn(game: ".game.Game"):
 		if simCandidates[index].type ==ExceptionPlay.TURNEND:
 			game.end_turn();
 			return ExceptionPlay.VALID
-		exc=executeAction(game,simCandidates[index])
+		exc=executeAction(game,simCandidates[index],debugLog=False)
 		postAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
@@ -144,7 +144,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=50,_numOfTree=
 		enemy.hand=CardList()
 		enemy.deck=Deck()
 		for item in d:
-			enemy.card(item,zone=Zone.DECK)
+			enemy.card(item.id,zone=Zone.DECK)
 			pass
 		enemy.draw(count=handNum)
 		#ゲーム木展開
@@ -180,7 +180,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=50,_numOfTree=
 			retAction=item;
 			pass
 		pass
-	#time.sleep(5)
+	time.sleep(5)
 	return retAction
 	pass
 def get_cardList(card_class:CardClass,exclude=[]):

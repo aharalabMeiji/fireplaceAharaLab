@@ -7,7 +7,8 @@ from fireplace.player import Player
 import copy
 from fireplace.exceptions import GameOver
 from utils import Agent
-
+import sys
+import datetime
 def investigate_card_pair( onlyresult=0):
 	from agent_Maya import Maya_MCTS
 	card_class = CardClass.PRIEST
@@ -80,6 +81,8 @@ def investigate_card_pair( onlyresult=0):
 			count1 += 1
 		elif winner=="Maya_comparing":
 			count2 += 1
+		print(datetime.datetime.now())
+		sys.exit()
 	print("%d : %d"%(count1, count2))
 
 def find_card_pair(onlyresult=1):

@@ -220,7 +220,7 @@ class Candidate(object):
 #
 ##  getActionCandidates : utils version
 ##
-def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
+def getCandidates(mygame,_getHeroPower=True,_smartCombat=True,_includeTurnEnd=False):
 	"""　"""
 	player = mygame.current_player
 	myCandidate = []
@@ -248,12 +248,13 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
 						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
-	if player.hero.power.is_usable():
-		if len(player.hero.power.targets)>0:
-			for target in player.hero.power.targets:
-				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
-		else:
-			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
+	if _getHeroPower:
+		if player.hero.power.is_usable():
+			if len(player.hero.power.targets)>0:
+				for target in player.hero.power.targets:
+					myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+			else:
+				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
