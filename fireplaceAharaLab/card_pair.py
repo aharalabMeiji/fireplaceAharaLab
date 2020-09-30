@@ -11,6 +11,7 @@ import sys
 import datetime
 def investigate_card_pair( onlyresult=0):
 	from agent_Maya import Maya_MCTS
+	from agent_Standard import StandardRandom, HumanInput, Original_random 
 	card_class = CardClass.PRIEST
 	allCards=get_all_cards(card_class)
 	vanillas = get_all_vanillas(allCards)
@@ -38,7 +39,7 @@ def investigate_card_pair( onlyresult=0):
 		deck1.append(nonvanilla2)
 		for i in range(8-position):#デッキは10枚
 			deck1.append(random.choice(vanillas).id)
-		player1 = Player("Maya", deck1, card_class.default_hero)
+		player1 = Player("Human", deck1, card_class.default_hero,_combos=[nonvanilla1,nonvanilla2])
 		deck2 = copy.deepcopy(deck1)
 		random.shuffle(deck2)
 		player2 = Player("Maya_comparing", deck2, card_class.default_hero)
@@ -46,11 +47,11 @@ def investigate_card_pair( onlyresult=0):
 		game = Game(players=(player1, player2))
 		game.start()
 
-		for player in game.players:
+		"""for player in game.players:
 			#print("Can mulligan %r" % (player.choice.cards))
 			mull_count = random.randint(0, len(player.choice.cards))
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-			player.choice.choose(*cards_to_mulligan)
+			player.choice.choose(*cards_to_mulligan)"""
 		game.player1.hero.max_health=10# ヒーローのHPは10
 		game.player2.hero.max_health=10
 
@@ -58,7 +59,11 @@ def investigate_card_pair( onlyresult=0):
 		print("Turn ",end=':')
 		while True:
 			player = game.current_player
-			Maya_MCTS(game,_name=player.name)#マヤ氏の作品
+			if player.name=="Human":
+				HumanInput(game);
+				pass
+			else:
+				Maya_MCTS(game,_name=player.name)#マヤ氏の作品
 			#ここはもう少し賢い人にやってほしい
 			if player.choice!=None:
 				player.choice=None#論理的にはおこらないが、ときどきおこる

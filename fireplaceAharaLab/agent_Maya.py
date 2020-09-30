@@ -25,12 +25,12 @@ def Maya_MCTS(game: ".game.Game",_name="Default"):
 		player=game.current_player
 		print("--------------------simulate start!!----------------")
 		#探索編
-		candidates=getCandidates(game,_includeTurnEnd=True)
+		candidates=getCandidates(game,_getHeroPower=False,_includeTurnEnd=True)
 		if len(candidates)==1:
 			print("len(candidates)==1")
 			return ExceptionPlay.VALID
 			pass
-		takingAction=try_montecarlo_tree_search(game,candidates);
+		takingAction=try_montecarlo_tree_search(game,candidates,_name=_name);
 		print("--------------------simulate end!!------------------")
 		print(takingAction)
 		# iterate over our hand and play whatever is playable
@@ -79,7 +79,7 @@ def simulate_random_turn(game: ".game.Game"):
 	while True:
 		#getCandidate使った方が早くないか？
 		# iterate over our hand and play whatever is playable
-		simCandidates=getCandidates(game,_includeTurnEnd=True)
+		simCandidates=getCandidates(game,_getHeroPower=False,_includeTurnEnd=True)
 		index=int(random.random()*len(simCandidates))
 		if simCandidates[index].type ==ExceptionPlay.TURNEND:
 			game.end_turn();
@@ -101,8 +101,6 @@ def simulate_random_game(game,trial=1,_name="Default")->"int":
 				gameState=simulate_random_turn(simulating_game)
 			except GameOver as e:
 				print("exception")
-				print(simulating_game.current_player.name)
-				print(simulating_game.current_player.playstate)
 				winner=judgeWinner(simulating_game)
 				break;
 			if simulating_game.state==State.COMPLETE:
@@ -149,7 +147,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=50,_numOfTree=
 		enemy.draw(count=handNum)
 		#ゲーム木展開
 		#あとでcandidatesをpopするからそのまま使うと_candidatesは空説
-		cand=getCandidates(copyGame,_includeTurnEnd=True)
+		cand=getCandidates(copyGame,_getHeroPower=False,_includeTurnEnd=True)
 		root=Node(copyGame,None,None,cand,_name=_name)
 		for k in range(_trialPerTree):
 			current_node = root;
@@ -234,14 +232,14 @@ class Node(object):
 		pass
 	def expandChild(self,action):
 		self.expandingGame=copy.deepcopy(self.gameTree)
-		simcand=getCandidates(self.expandingGame,_includeTurnEnd=True)
+		simcand=getCandidates(self.expandingGame,_getHeroPower=False,_includeTurnEnd=True)
 		myPolicy=""
 		for item in simcand:
 			if item==action:
 				myPolicy=item
 				pass
 			pass
-		exc=executeAction(self.expandingGame,myPolicy)
+		exc=executeAction(self.expandingGame,myPolicy,debugLog=False)
 		postAction(self.expandingGame.current_player)
 		if exc==ExceptionPlay.GAMEOVER:
 			print("the game has been ended.")
@@ -252,7 +250,7 @@ class Node(object):
 		elif action.type ==ExceptionPlay.TURNEND:
 			self.expandingGame.end_turn()
 			pass
-		child=Node(self.expandingGame,action,self,getCandidates(self.expandingGame,_includeTurnEnd=True),_name=self.name)
+		child=Node(self.expandingGame,action,self,getCandidates(self.expandingGame,_getHeroPower=False,_includeTurnEnd=True),_name=self.name)
 		self.childNodes.append(child)
 		return child
 	def choose_expanding_action(self):
@@ -271,7 +269,7 @@ class Node(object):
 				self.score=0
 			pass
 		else:
-			self.score=simulate_random_game(self.gameTree)
+			self.score=simulate_random_game(self.gameTree,_name=self.name)
 		return self.score
 		pass
 	def backPropagate(self,result=None):

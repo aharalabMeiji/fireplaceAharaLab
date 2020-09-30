@@ -29,7 +29,7 @@ class Player(Entity, TargetableByAuras):
 	murlocs_cost_health = slot_property("murlocs_cost_health")
 	type = CardType.PLAYER
 
-	def __init__(self, name, deck, hero):
+	def __init__(self, name, deck, hero,_combos=[]):
 		self.starting_deck = deck
 		self.starting_hero = hero
 		self.data = None
@@ -67,6 +67,7 @@ class Player(Entity, TargetableByAuras):
 		self.times_spell_played_this_game = 0
 		self.times_secret_played_this_game = 0
 		self.cthun = None
+		self.combos=_combos
 
 	def __str__(self):
 		return self.name
@@ -170,15 +171,21 @@ class Player(Entity, TargetableByAuras):
 
 	def prepare_for_game(self):
 		self.summon(self.starting_hero)
+		for item in self.combos:
+			self.starting_deck.remove(item)
+			pass
+		insertIndex=random.randint(0,len(self.starting_deck)-1)
+		self.starting_deck[insertIndex:insertIndex]=self.combos
 		for id in self.starting_deck:
 			self.card(id, zone=Zone.DECK)
-		self.shuffle_deck()
+
+		# Draw initial hand (but not any more than what we have in the deck)
 		self.cthun = self.card("OG_280")
 		self.playstate = PlayState.PLAYING
 
 		# Draw initial hand (but not any more than what we have in the deck)
 		hand_size = min(len(self.deck), self.start_hand_size)
-		starting_hand = random.sample(self.deck, hand_size)
+		starting_hand = self.deck[-hand_size:-1 ]
 		# It's faster to move cards directly to the hand instead of drawing
 		for card in starting_hand:
 			card.zone = Zone.HAND

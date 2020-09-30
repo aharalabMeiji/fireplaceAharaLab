@@ -388,5 +388,5 @@ class MulliganRules:
 		self.begin_turn(self.player1)
 
 
-class Game(MulliganRules, CoinRules, BaseGame):
+class Game( CoinRules, BaseGame):
 	pass

@@ -222,6 +222,9 @@ class Candidate(object):
 ##
 def getCandidates(mygame,_getHeroPower=True,_smartCombat=True,_includeTurnEnd=False):
 	"""　"""
+	def get_unique_list(seq):
+		seen = []
+		return [x for x in seq if x not in seen and not seen.append(x)]
 	player = mygame.current_player
 	myCandidate = []
 	for card in player.hand:
@@ -261,7 +264,8 @@ def getCandidates(mygame,_getHeroPower=True,_smartCombat=True,_includeTurnEnd=Fa
 		#エージェントの方でターンを終了してあげてください
 		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND))
 		pass
-	return myCandidate
+
+	return get_unique_list(myCandidate)
 #
 #  executeAction
 #
