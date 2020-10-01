@@ -23,16 +23,16 @@ from card_pair import get_all_cards,get_all_vanillas
 def Maya_MCTS(game: ".game.Game",_name="Default"):
 	while True:
 		player=game.current_player
-		print("--------------------simulate start!!----------------")
+		#print("--------------------simulate start!!----------------")
 		#探索編
 		candidates=getCandidates(game,_getHeroPower=False,_includeTurnEnd=True)
 		if len(candidates)==1:
-			print("len(candidates)==1")
+			#print("len(candidates)==1")
 			return ExceptionPlay.VALID
 			pass
 		takingAction=try_montecarlo_tree_search(game,candidates,_name=_name);
-		print("--------------------simulate end!!------------------")
-		print(takingAction)
+		#print("--------------------simulate end!!------------------")
+		print(_name,takingAction)
 		# iterate over our hand and play whatever is playable
 		#多分executeActionで大丈夫だろ
 		if takingAction.type ==ExceptionPlay.TURNEND:
@@ -100,7 +100,6 @@ def simulate_random_game(game,trial=1,_name="Default")->"int":
 			try:
 				gameState=simulate_random_turn(simulating_game)
 			except GameOver as e:
-				print("exception")
 				winner=judgeWinner(simulating_game)
 				break;
 			if simulating_game.state==State.COMPLETE:
@@ -160,11 +159,11 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=50,_numOfTree=
 			current_node.backPropagate(result);
 		visitScores=list(map(lambda node:myActionValue(node.move,node.visits),root.childNodes))
 		totalScores=addActionValues(totalScores,visitScores)
-		print("totalScores")
-		for item in totalScores:
-			print(item.action)
-			print("-->{score}".format(score=item.score))
-			pass
+		#print("totalScores")
+		#for item in totalScores:
+			#print(item.action)
+			#print("-->{score}".format(score=item.score))
+		#	pass
 	maxScore=max(list(map(lambda actionValue:actionValue.score,totalScores)))
 	retAction=0
 	for item in totalScores:
@@ -172,7 +171,7 @@ def try_montecarlo_tree_search(_game,_candidates=[],_trialPerTree=50,_numOfTree=
 			retAction=item.action
 			pass
 		pass
-	print(retAction)
+	#print(retAction)
 	for item in _candidates:
 		if item==retAction:
 			retAction=item;
@@ -242,7 +241,6 @@ class Node(object):
 		exc=executeAction(self.expandingGame,myPolicy,debugLog=False)
 		postAction(self.expandingGame.current_player)
 		if exc==ExceptionPlay.GAMEOVER:
-			print("the game has been ended.")
 			child=Node(self.expandingGame,action,self,[],_name=self.name)
 			self.childNodes.append(child)
 			return child
