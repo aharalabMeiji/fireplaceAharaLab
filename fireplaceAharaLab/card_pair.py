@@ -28,71 +28,65 @@ def investigate_card_pair( onlyresult=0):
 	#沈黙:EX1_332:ミニオン1体を沈黙させる
 
 	print(" specific cards : %r%r"%(nonvanilla1, nonvanilla2))
-	for section in range(1,10):
-		for repeat in range(50):
-			print("    GAME %d"%repeat,end="  -> ")
-			#set decks and players
-			deck1=[]
-			position=random.randint(1,7)
-			for i in range(position):
-				deck1.append((random.choice(vanillas)).id)
-			deck1.append(nonvanilla1)
-			deck1.append(nonvanilla2)
-			for i in range(8-position):#デッキは10枚
-				deck1.append(random.choice(vanillas).id)
-			player1 = Player("Maya", deck1, card_class.default_hero,_combos=[nonvanilla2,nonvanilla1])
-			deck2 = copy.deepcopy(deck1)
-			random.shuffle(deck2)
-			player2 = Player("Maya_comparing", deck2, card_class.default_hero)
-			#set a game
-			game = Game(players=(player1, player2))
-			game.start()
-
-			"""for player in game.players:
-				#print("Can mulligan %r" % (player.choice.cards))
-				mull_count = random.randint(0, len(player.choice.cards))
-				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-				player.choice.choose(*cards_to_mulligan)"""
-			game.player1.hero.max_health=10# ヒーローのHPは10
-			game.player2.hero.max_health=10
-
-			turnNumber=0
-			print("Turn ",end=':')
-			while True:
-				player = game.current_player
-				if player.name=="Human":
-					HumanInput(game);
-					pass
-				else:
-					Maya_MCTS(game,_name=player.name)#マヤ氏の作品
-				#ここはもう少し賢い人にやってほしい
-				if player.choice!=None:
-					player.choice=None#論理的にはおこらないが、ときどきおこる
-				if game.state!=State.COMPLETE:
-					try:
-						game.end_turn()
-					except GameOver:#まれにおこる
-						gameover=0
-				if game.state==State.COMPLETE:#ゲーム終了フラグが立っていたら
-					if game.current_player.playstate == PlayState.WON:
-						winner= game.current_player.name
-						break
-					if game.current_player.playstate == PlayState.LOST:
-						winner= game.current_player.opponent.name
-						break
-					winner= 'DRAW'
+	for repeat in range(50):
+		print("    GAME %d"%repeat,end="  -> ")
+		#set decks and players
+		deck1=[]
+		position=random.randint(1,7)
+		for i in range(position):
+			deck1.append((random.choice(vanillas)).id)
+		deck1.append(nonvanilla1)
+		deck1.append(nonvanilla2)
+		for i in range(8-position):#デッキは10枚
+			deck1.append(random.choice(vanillas).id)
+		player1 = Player("Maya", deck1, card_class.default_hero,_combos=[nonvanilla2,nonvanilla1])
+		deck2 = copy.deepcopy(deck1)
+		random.shuffle(deck2)
+		player2 = Player("Maya_comparing", deck2, card_class.default_hero)
+		#set a game
+		game = Game(players=(player1, player2))
+		game.start()
+		"""for player in game.players:
+		#print("Can mulligan %r" % (player.choice.cards))
+		mull_count = random.randint(0, len(player.choice.cards))
+		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+		player.choice.choose(*cards_to_mulligan)"""
+		game.player1.hero.max_health=10# ヒーローのHPは10
+		game.player2.hero.max_health=10
+		turnNumber=0
+		print("Turn ",end=':')
+		while True:
+			player = game.current_player
+			if player.name=="Human":
+				HumanInput(game);
+				pass
+			else:
+				Maya_MCTS(game,_name=player.name)#マヤ氏の作品
+			#ここはもう少し賢い人にやってほしい
+			if player.choice!=None:
+				player.choice=None#論理的にはおこらないが、ときどきおこる
+			if game.state!=State.COMPLETE:
+				try:
+					game.end_turn()
+				except GameOver:#まれにおこる
+					gameover=0
+			if game.state==State.COMPLETE:#ゲーム終了フラグが立っていたら
+				if game.current_player.playstate == PlayState.WON:
+					winner= game.current_player.name
 					break
-			print("%s won."%winner)
-			if winner=="Maya":
-				count1 += 1
-			elif winner=="Maya_comparing":
-				count2 += 1
-			print(datetime.datetime.now())
-		print("%d : %d"%(count1, count2))
-		col1="section"+str(section)
-		with open('../../result.csv','a') as f:
-			writer = csv.writer(f)
-			writer.writerow([col1,count1,count2])
+				if game.current_player.playstate == PlayState.LOST:
+					winner= game.current_player.opponent.name
+					break
+				winner= 'DRAW'
+				break
+		print("%s won."%winner)
+		if winner=="Maya":
+			count1 += 1
+		elif winner=="Maya_comparing":
+			count2 += 1
+		print(datetime.datetime.now())
+	print("%d : %d"%(count1, count2))
+	return [count1,count2]
 
 def find_card_pair(onlyresult=1):
 	card_class = CardClass.MAGE#カードクラスを設定することは必須
@@ -102,7 +96,7 @@ def find_card_pair(onlyresult=1):
 	spells = get_all_spells(allCards)
 
 	#良いカードペアを漠然と探す旅に出る2枚は呪文カードしばり
-	for matchNumber in range(10):
+	for matchNumber in range(1):
 		count1=0
 		count2=0
 

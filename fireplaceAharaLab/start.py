@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-
+from concurrent.futures import ThreadPoolExecutor
 sys.path.append("..")
 
 #
@@ -49,7 +49,19 @@ def main():
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	from card_pair import investigate_card_pair, find_card_pair,get_all_spells,get_all_cards
-	investigate_card_pair()
+	try:
+		with ThreadPoolExecutor(max_workers=10) as executor:
+			x = range(10)
+			res = executor.map(	investigate_card_pair, x)
+			pass
+	except KeyboardInterrupt :
+		print("KeyboardInterrupt")
+		sys.exit()
+		pass
+
+	for item in list(res):
+		print(item)
+		pass
 	#シナジーのあるカードの組を漠然と探す
 	#find_card_pair(1)
 	#print("test_branch_yamadamaya")
