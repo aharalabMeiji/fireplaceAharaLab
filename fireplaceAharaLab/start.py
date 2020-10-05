@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 import sys
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 sys.path.append("..")
-
+import os
 #
 #		main()
 #
 def main():
 	from fireplace import cards
-	cards.db.initialize()
+	#cards.db.initialize()
 	from utils import Agent,play_set_of_games,play_MechaHunterGames
 	from hearthstone.enums import CardClass
 	#Human=Agent("Human",None,myClass=CardClass.MAGE)
 	#StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
-	
 	# モンテカルロによる読み切り
 	Maya=Agent("Maya",CardClass.PRIEST)
 	Comparing=Agent("Maya_comparing",CardClass.PRIEST)
@@ -48,15 +47,12 @@ def main():
 	#play_round_robin_competition([StandardRandom,PIPlayer,AngryCatPlayer],matchNumber=5)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
-	from card_pair import investigate_card_pair, find_card_pair,get_all_spells,get_all_cards
-	try:
-		with ThreadPoolExecutor(max_workers=10) as executor:
-			x = range(10)
-			res = executor.map(	investigate_card_pair, x)
-			pass
-	except KeyboardInterrupt :
-		print("KeyboardInterrupt")
-		sys.exit()
+	from card_pair import investigate_card_pair,get_all_cards
+	nonvanilla1 = 'EX1_045'#random.choice(nonVanillas).id#自分で指定してもよい
+	nonvanilla2 = 'EX1_332'#random.choice(nonVanillas).id#
+	with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+		x=range(10)
+		res = executor.map(investigate_card_pair, x)
 		pass
 
 	for item in list(res):

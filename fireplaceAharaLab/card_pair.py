@@ -12,14 +12,14 @@ def investigate_card_pair( onlyresult=0):
 	import csv
 	from agent_Maya import Maya_MCTS
 	from agent_Standard import StandardRandom, HumanInput, Original_random 
+	from fireplace import cards
+	cards.db.initialize()
 	card_class = CardClass.PRIEST
 	allCards=get_all_cards(card_class)
 	vanillas = get_all_vanillas(allCards)
 	nonVanillas = get_all_non_vanillas(allCards)
-
 	count1=0
 	count2=0
-
 	#ヒーローパワーを消す、というのもよいかも。
 	#良いカードペアを漠然と探す旅に出る？
 	nonvanilla1 = 'EX1_045'#random.choice(nonVanillas).id#自分で指定してもよい
