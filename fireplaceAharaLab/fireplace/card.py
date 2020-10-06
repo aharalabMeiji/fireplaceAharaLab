@@ -39,7 +39,7 @@ class BaseCard(BaseEntity):
 		super().__init__()
 		self.requirements = data.requirements.copy()
 		self.id = data.id
-		self.controller = None
+		self.controller = None # 使ったプレイヤーが入る
 		self.choose = None
 		self.parent_card = None
 		self.aura = False
