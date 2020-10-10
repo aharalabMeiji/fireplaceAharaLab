@@ -36,16 +36,17 @@ def main():
 	#takasho001=takasho001Agent("Takasho",takasho001Agent.takashoAI)
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
-	#WordStrategy = WordStrategyAgent("WS", WordStrategyAgent.agent_word_strategy\
-	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
-	#	,myClass=CardClass.PRIEST)
+	from agent_word_strategy import WordStrategyAgent
+	WordStrategy = WordStrategyAgent("WS", WordStrategyAgent.agent_word_strategy\
+		,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
+		,myClass=CardClass.PRIEST)
 
 	#AngryCat ： シンプルに選択するアルゴリズム
-	from agent_AngryCat import AngryCatAgent
-	AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
+	#from agent_AngryCat import AngryCatAgent
+	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Random, AngryCat, gameNumber=50, debugLog=True)
+	play_set_of_games(WordStrategy, Random, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦
 	#from utils import BigDeck
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
