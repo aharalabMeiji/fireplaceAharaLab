@@ -132,10 +132,10 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		#	Maya_MCTS(game)#マヤ氏の作品 -> 他の人のフォーマットにそろえてください。
 		if player.name==P1.name:
 			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P1.func(game, option=P1.option, debugLog=debugLog)
+			P1.func(game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
 			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P2.func(game, option=P2.option, debugLog=debugLog)
+			P2.func(game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#公式のランダム
 		#ターンエンドの処理ここから
@@ -174,13 +174,14 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 
 class Candidate(object):
 	"""　アクションの候補手のクラス　"""
-	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, score=0):
+	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
 		#super(myAction, self).__init__()
+		self.turn=turn
 		self.card = card
 		self.card2 = card2
 		self.type = type
 		self.target = target
-		self.score = score
+		self.score = 0
 		self.notes = ''
 		pass
 
@@ -199,10 +200,10 @@ class GameWithLog(Game):
 	def __init__(self, players):
 		super().__init__(players=players)
 		self.__myLog__=[]
-	def add_log(self, player, choice: Candidate):
-		self.__myLog__.append([agent, choice])
+	def add_log(self, choice: Candidate):
+		self.__myLog__.append(choice)
 	def get_log(self):
-		return __myLog__
+		return self.__myLog__
 #
 #  getCandidates
 #
@@ -220,15 +221,15 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					if card2.is_playable():
 						if card2.requires_target():
 							for target in card.targets:
-								myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target))
+								myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target, turn=mygame.turn))
 						else:
-							myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=None))
+							myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=None, turn=mygame.turn))
 			else:# card2=None
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target, turn=mygame.turn))
 				else:
-					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None, turn=mygame.turn))
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
@@ -236,18 +237,18 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					myH=character.health
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
-						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
+						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target, turn=mygame.turn))
 	if player.hero.power.is_usable():
 		if len(player.hero.power.targets)>0:
 			for target in player.hero.power.targets:
-				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
-			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
+			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
 		#エージェントの方でターンを終了してあげてください
-		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND))
+		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
 		pass
 	return myCandidate
 #
@@ -255,7 +256,7 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 #
 def executeAction(mygame, action: Candidate, debugLog=True):
 	"""　Candidate型のアクションを実行する　"""
-	mygame.addLog(mygame.currentplayer, action)
+	mygame.add_log(action)
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
@@ -412,3 +413,13 @@ def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 			deck.append(card.id)
 
 	return deck
+
+def getTurnLog(gameLog, turnN):
+	""" gameLogから特定のターンの情報を引き出す """
+	if len(gameLog)<=0:
+		return []
+	ret = []
+	for i in range(len(gameLog)):
+		if gameLog[i].turn == turnN:
+			ret.append(gameLog[i])
+	return ret

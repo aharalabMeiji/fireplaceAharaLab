@@ -36,7 +36,7 @@ class StandardVectorAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
-	def StandardStep1(game: ".game.Game", option=None, gameLog=[], debugLog=True):
+	def StandardStep1(game, option=None, gameLog=[], debugLog=True):		
 		debug=False
 		if option==None:
 			print ("StandardStep1 needs an option")
@@ -53,10 +53,11 @@ class StandardVectorAgent(Agent):
 			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:
-				if StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+
+				if StandardAgent.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
 					score=100000
 				else:
-					score = getStageScore(tmpGame,myWeight)
+					score = StandardVectorAgent.getStageScore(tmpGame,myWeight)
 			if debug:
 				print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
 			if score > maxScore:
@@ -77,10 +78,10 @@ class StandardVectorAgent(Agent):
 				return ExceptionPlay.INVALID
 			player = game.current_player
 			postAction(player)
-			return StandardStep1(game, option=myWeight, debugLog=debugLog)
+			return StandardVectorAgent.StandardStep1(game, option=myWeight, debugLog=debugLog)
 		else:
 			return ExceptionPlay.VALID
-	def getStageScore(game,weight):
+	def getStageScore(game, weight):
 		cardPerPoint=0.3
 		w_length=34
 		w=[]
@@ -244,7 +245,7 @@ class HumanAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
-	def HumanInput(game,option=None, gameLog=[], debugLog=True):
+	def HumanInput(game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
 		while True:
 			myCandidate = []
@@ -263,15 +264,15 @@ class HumanAgent(Agent):
 							if card2.is_playable():
 								if card2.requires_target():
 									for target in card2.targets:
-										myCandidate.append(Candidate(card, card2=card2, type=ActionType.PLAY, target=target))
+										myCandidate.append(Candidate(card, card2=card2, type=ActionType.PLAY, target=target, turn=game.turn))
 								else:
-									myCandidate.append(Candidate(card, card2=card2, type=ActionType.PLAY, target=None))
+									myCandidate.append(Candidate(card, card2=card2, type=ActionType.PLAY, target=None, turn=game.turn))
 					else:# card2=None
 						if card.requires_target():
 							for target in card.targets:
-								myCandidate.append(Candidate(card, type=ActionType.PLAY, target=target))
+								myCandidate.append(Candidate(card, type=ActionType.PLAY, target=target, turn=game.turn))
 						else:
-							myCandidate.append(Candidate(card, type=ActionType.PLAY, target=None))
+							myCandidate.append(Candidate(card, type=ActionType.PLAY, target=None, turn=game.turn))
 			print("========OPPONENT'S PLAYGROUND======")
 			for character in player.opponent.characters:
 				print("%s"%character, end='   : ')
@@ -288,7 +289,7 @@ class HumanAgent(Agent):
 							myH=character.health
 							hisA=target.atk
 							#if myH > hisA:
-							myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target))
+							myCandidate.append(Candidate(character, type=ActionType.ATTACK, target=target, turn=game.turn))
 			if player.hero.power.is_usable():
 				print("%s"%player.hero.power, end='   : ')
 				print("<%2d>"%player.hero.power.cost, end=' ')
@@ -296,9 +297,9 @@ class HumanAgent(Agent):
 				if player.hero.power.requires_target():
 					for target in player.hero.power.targets:
 						if player.hero.power.is_usable():
-							myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+							myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=game.turn))
 				else:
-					myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
+					myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=game.turn))
 			print("========MY SECRETS======")
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
@@ -323,8 +324,8 @@ class HumanAgent(Agent):
 				if myChoice.type == ActionType.POWER:
 					print('<%2d> power'%(myCard.cost), end=' ')
 				targetCard = myChoice.target
-				if targetCard != None:
-					print("%s"%targetCard, end=' ')
+				if targetCard!=None:
+					print("%s(%s)"%(targetCard, targetCard.controller.name), end=' ')
 					if targetCard.data.type==CardType.MINION:
 						print('(%2d/%2d)'%(targetCard.atk,targetCard.health), end=' ')
 				myCount += 1

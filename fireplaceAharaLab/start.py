@@ -20,12 +20,20 @@ def main():
 	#ランダムプレーヤー
 	Random=StandardAgent("Standard",StandardAgent.StandardRandom) 			
 	#ベクトルプレーヤー
-	#Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
-	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-	#	,myClass=CardClass.PRIEST) 		
+	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.PRIEST) 		
 
-	# モンテカルロによる読み切り
+	# Maya : モンテカルロによる読み切り
 	#Maya=Agent("Maya",Maya_MCTS)
+
+	# Miyaryo
+	#from agent_miyaryo import miyaryoAgent
+	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
+
+	# Takasho001
+	#from agent_takasho001 import takasho001Agent
+	#takasho001=takasho001Agent("Takasho",takasho001Agent.takashoAI)
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
 	#WordStrategy = WordStrategyAgent("WS", WordStrategyAgent.agent_word_strategy\
@@ -37,9 +45,9 @@ def main():
 	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, Random, gameNumber=1, debugLog=True)
+	play_set_of_games(Human, Vector, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦
-	from utils import BigDeck
+	#from utils import BigDeck
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 
 	#総当たり戦
