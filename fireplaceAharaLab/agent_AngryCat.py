@@ -10,7 +10,10 @@ from fireplace.game import Game
 from enum import IntEnum
 
 
-class AngeryCatAgent(Agent):
+class AngryCatAgent(Agent):
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
+		super().__init__(myName, myFunction, myOption, myClass, rating )
+	
 	def getHisWorth(thisGame: Game):
 		Vec = []
 		His = thisGame.current_player.opponent
@@ -44,28 +47,15 @@ class AngeryCatAgent(Agent):
 		return Vec# of length 7
 
 	def getDiffHisWorth(thisGame: Game, myChoice: Candidate):
-		oldVec = getHisWorth(thisGame)
+		oldVec = AngryCatAgent.getHisWorth(thisGame)
 		newGame = copy.deepcopy(thisGame)
 		executeAction(newGame, myChoice, debugLog=False)
 		#StandardRandom(newGame)	# simulating until turn-end
-		newVec = getHisWorth(newGame)
+		newVec = AngryCatAgent.getHisWorth(newGame)
 		answer=[]
 		for i in range (len(oldVec)):
 			answer.append(newVec[i]-oldVec[i])
 		return answer
-
-	def getNegativity(Vec):
-		hisMin=10
-		hisNegative=0
-		hisBigNegative=0
-		for i in range(len(Vec)):
-			if Vec[i]<0:
-				hisNegative += 1
-			if Vec[i]<-2:
-				hisBigNegative += 1
-			if Vec[i]<hisMin:
-				hisMin = Vec[i]
-		return hisMin, hisNegative, hisBigNegative
 
 	def myDot(Vec1, Vec2):#これだけのためにnumpyを呼び出すのはナンなので
 		myLen = (len(Vec1), len(Vec2))[len(Vec1)<len(Vec2)]
@@ -81,8 +71,8 @@ class AngeryCatAgent(Agent):
 				return
 			else:
 				for myChoice in myCandidates:
-					myChoice.score = getDiffHisWorth(thisGame, myChoice)
-				myChoice = myChoiceAngryCat(thisGame, myCandidates)
+					myChoice.score = AngryCatAgent.getDiffHisWorth(thisGame, myChoice)
+				myChoice = AngryCatAgent.myChoiceAngryCat(thisGame, myCandidates)
 				if myChoice==None:
 					return
 				else:
@@ -99,7 +89,7 @@ class AngeryCatAgent(Agent):
 		score = 0
 		random.shuffle(myCandidates)
 		for myChoice in myCandidates:
-			thisScore = myDot(myChoice.score, option)
+			thisScore =  AngryCatAgent.myDot(myChoice.score, option)
 			if score < thisScore:
 				score = thisScore
 				ret = myChoice

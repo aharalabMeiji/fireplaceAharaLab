@@ -1,6 +1,7 @@
 from hearthstone.enums import CardClass,BlockType, CardType ,PlayState, State
 from enum import IntEnum
 from fireplace.game import Game
+from fireplace.card import Card
 from fireplace.exceptions import GameOver
 import copy
 import random
@@ -133,10 +134,10 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		#	Maya_MCTS(game)#マヤ氏の作品 -> 他の人のフォーマットにそろえてください。
 		if player.name==P1.name:
 			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
+			P1.func(game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
 			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
+			P2.func(game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#公式のランダム
 		#ターンエンドの処理ここから
