@@ -114,7 +114,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 
-	game = Game(players=(player1, player2))
+	game = GameWithLog(players=(player1, player2))
 	game.start()
 
 	for player in game.players:
@@ -194,6 +194,15 @@ class Candidate(object):
 	def clearScore(self):
 		self.score = 0
 
+class GameWithLog(Game):
+	""" ゲーム進行のログを管理する  """
+	def __init__(self, players):
+		super().__init__(players=players)
+		self.__myLog__=[]
+	def add_log(self, player, choice: Candidate):
+		self.__myLog__.append([agent, choice])
+	def get_log(self):
+		return __myLog__
 #
 #  getCandidates
 #
@@ -244,8 +253,9 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 #
 #  executeAction
 #
-def executeAction(mygame,action: Candidate, debugLog=True):
+def executeAction(mygame, action: Candidate, debugLog=True):
 	"""　Candidate型のアクションを実行する　"""
+	mygame.addLog(mygame.currentplayer, action)
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
@@ -334,19 +344,6 @@ class ExceptionPlay(IntEnum):
 	GAMEOVER=1
 	INVALID=2
 	TURNEND=4
-
-#def weight_deepcopy_and_perturb(weight):
-#	import random
-#	wgt=[]
-#	for i in range(len(weight)):
-#		wgt.append(weight[i])
-#	plus = random.randint(0,len(weight)-1)
-#	wgt[plus] += 3
-#	minus = random.randint(0,len(weight)-1)
-#	wgt[minus] -= 3
-#	if wgt[minus]<1 :
-#		wgt[minus]=1
-#	return wgt
 
 class BigDeck:
 	#MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
