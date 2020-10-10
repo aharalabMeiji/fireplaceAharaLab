@@ -1,26 +1,26 @@
 import random
-import numpy as np
 import copy
 from fireplace.exceptions import GameOver, InvalidAction
 from fireplace.logging import log
 from hearthstone.enums import  CardType, BlockType, Race#
 from typing import List
-from utils import Candidate, getCandidates, executeAction, postAction, ExceptionPlay
+from utils import *
 from fireplace.card import Card
 from fireplace.game import Game
-from agent_Standard import StandardRandom
 
 
 class HunterCatAgent(Agent):
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
+		super().__init__(myName, myFunction, myOption, myClass, rating )
 	def HunterCatLoadData():
 		pass
 
 	def HunterCatSaveLog():
 		pass
 
-	def HunterCatAI(game, option=[], debugLog=False):
+	def HunterCatAI(game, option=[], gameLog=[], debugLog=False):
 		if game.turn<2:
-			HunterCatLoadData()
+			HunterCatAgent.HunterCatLoadData()
 		while True:
 			player = game.current_player
 			myCandidates = getCandidates(game,_smartCombat=True,_includeTurnEnd=True)
@@ -46,8 +46,7 @@ class HunterCatAgent(Agent):
 						#ターンの最後までプレーする
 						#ここをもっと賢くしてもよい
 						#複数回行って平均を取ってもよい
-						#result=StandardRandom(tmpGame,debugLog=False)
-				scoreVector = HunterCatScore(tmpGame)
+				scoreVector = HunterCatAgent.HunterCatScore(tmpGame)
 				myChoice.score=scoreVector.getScore()
 				#if debugLog:
 				#	print("%s %s %s"%(myChoice.card,myChoice.type,myChoice.target),end='')
@@ -60,16 +59,16 @@ class HunterCatAgent(Agent):
 			#if debugLog:
 			#	print( '--------------------------')
 			if len(myCandidates)>0:
-				myChoice = HunterCatChoice(myCandidates, player, debugLog=debugLog)
+				myChoice = HunterCatAgent.HunterCatChoice(myCandidates, player, debugLog=debugLog)
 				if myChoice.card==None:
-					HunterCatSaveLog()
+					HunterCatAgent.HunterCatSaveLog()
 					#if debugLog:
 					#	print( '--------------------------')
 					return
 				executeAction(game, myChoice, debugLog=debugLog)
 				postAction(player)
 			else:
-				HunterCatSaveLog()
+				HunterCatAgent.HunterCatSaveLog()
 				#if debugLog:
 				#	print( '--------------------------')
 				return
@@ -215,253 +214,253 @@ class HunterCatAgent(Agent):
 				- self.paraC*self.hisCharN
 
 
-	#### True or False ####
+#### True or False ####
 
-	def onMinion(player):
-		for card in player.field:
-			if card.type==CardType.MINION:
-				return True
-		return False
-
-	def onBeast(player):
-		for card in player.field:
-			if card.race == Race.BEAST:
-				return True
-		return False
-
-	def haveSecret(player):
-		for card in player.hand:
-			if '秘策:' in card.data.description:
-				return True
-		return False
-
-	def haveNoMinion(player):
-		for card in player.field:
-			if card.type==CardType.MINION:
-				return False
-		return True
-
-	def haveSpell(player):
-		for card in player.hand:
-			if card.type==CardType.SPELL:
-				return True
-		return False
-
-	def haveOvercostCard(player,cost):
-		myCost = cost
-		for card in player.hand:
-			#if card.is_playable() and card.cost==myCost:
-			#	return False
-			if card.cost==myCost+1:
-				return True
-		return False
-
-	def hasHeroPowerMerrit(player):
-		for card in player.field:
-			if '自分がヒーローパワーを使用した後' in card.data.description.replace('\n',''):
-				return True
-		return False
-
-	def heHasMinion(player):
-		opponent=player.opponent
-		for card in player.field:
-			if card.type==CardType.MINION:
-				return True
-		return False
-
-	def haveCard(player, a, b):
-		NoC=len(player.hand)
-		if NoC>=a and NoC<=b:
+def onMinion(player):
+	for card in player.field:
+		if card.type==CardType.MINION:
 			return True
-		return False
+	return False
+
+def onBeast(player):
+	for card in player.field:
+		if card.race == Race.BEAST:
+			return True
+	return False
+
+def haveSecret(player):
+	for card in player.hand:
+		if '秘策:' in card.data.description:
+			return True
+	return False
+
+def haveNoMinion(player):
+	for card in player.field:
+		if card.type==CardType.MINION:
+			return False
+	return True
+
+def haveSpell(player):
+	for card in player.hand:
+		if card.type==CardType.SPELL:
+			return True
+	return False
+
+def haveOvercostCard(player,cost):
+	myCost = cost
+	for card in player.hand:
+		#if card.is_playable() and card.cost==myCost:
+		#	return False
+		if card.cost==myCost+1:
+			return True
+	return False
+
+def hasHeroPowerMerrit(player):
+	for card in player.field:
+		if '自分がヒーローパワーを使用した後' in card.data.description.replace('\n',''):
+			return True
+	return False
+
+def heHasMinion(player):
+	opponent=player.opponent
+	for card in player.field:
+		if card.type==CardType.MINION:
+			return True
+	return False
+
+def haveCard(player, a, b):
+	NoC=len(player.hand)
+	if NoC>=a and NoC<=b:
+		return True
+	return False
 
 
 
-	### 0 or 1 or 2 ###
+### 0 or 1 or 2 ###
 
-	def handCardNumber(player):
-		return len(player.hand)
-
-
-	def needBeast(player,cost):
-		for card in player.hand:
-			if card.type==CardType.MINION and card.race==Race.BEAST:
-				if card.cost<=player.mana-player.used_mana-cost:
-					return 2
-				return 1
-		return 0
-
-	def needSpell(player, cost):
-		for card in player.hand:
-			if card.type==CardType.SPELL:
-				if card.cost<=player.mana-player.used_mana-cost:
-					return 2
-				return 1
-		return 0
-
-	def needSecret(player, cost):
-		for card in player.hand:
-			if '秘策:' in card.data.description:
-				if card.cost<=player.mana-player.used_mana-cost:
-					return 2
-				return 1
-		return 0
-
-	def needHeropower(player, cost):
-		card = player.hero.power
-		if card.cost<=player.mana-player.used_mana-cost:
-			return 2
-		return 0
+def handCardNumber(player):
+	return len(player.hand)
 
 
-	def HunterCat_CardStatus(ID):
-		if ID==None:
-			return "0:0:0:0:None:0:0:0:"
-		cls = Card(ID)
-		ret = str(cls.cost)+":"
-		if cls.type==CardType.MINION:
-			ret += str(cls.atk)+":"
-			ret += str(cls.health)+":"
-			ret += "MINION:" 
-		elif cls.type==CardType.SPELL:
-			ret += "0:"
-			ret += "0:"
-			ret += "SPELL:" 
-		elif cls.type==CardType.WEAPON:
-			ret += str(cls.atk)+":"
-			ret += "0:"
-			ret += "WEAPON:" 
-		elif cls.type==CardType.HERO_POWER:
-			ret += "0:"
-			ret += "0:"
-			ret += "HERO_POWER:" 
-		else:
-			ret += "0:"
-			ret += "0:"
-			ret += "NONE:"
-		if ID  == 'SCH_617':
-			ret += 'help+summon+drawCard:'#type
-			ret += 'onMinion(player):'#must condition
-			ret += 'onMinion(player):'#condition for better
-			ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
-			#カワイイ侵入者 : ミニオン1体に+1/+1を付与する。1/1の仔を1体召喚する。仔1体を自分の手札に追加する。
-		elif ID  == 'SCH_312':
-			ret += 'help:'#type
-			ret += 'False:'#must condition
-			ret += 'player.mana-player.used_mana<2:'#condition for better
-			ret += 'needHeropower(player,'+str(cls.cost)+'):'#condition in turn
-			#ツアーガイド : 雄叫び:自分が次に使うヒーローパワーのコストは（0）。
-		elif ID  == 'DRG_253':
-			ret += 'help:'#type
-			ret += 'False:'#must condition
-			ret += 'heHasMinion(player):'#condition for better
-			ret += '0:'#condition in turn
-			#ドワーフの狙撃手 : 自分のヒーローパワーはミニオンを対象にできる。
-		elif ID  == 'SCH_133':
-			ret += 'summon:'#type
-			ret += 'True:'#must condition
-			ret += 'haveNoMinion(player) or 1<'+str(cls.atk)+':'#condition for better
-			ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
-			#ヴォルパーティンガー : 雄叫び:このミニオンの__コピーを1体召喚する。
-		elif ID  == 'SCH_231':
-			ret += 'help:'#type
-			ret += 'False:'#must condition
-			ret += 'haveSpell(player):'#condition for better
-			ret += 'needSpell(player, '+str(cls.cost)+'):'#condition in turn
-			#図太い徒弟 : 魔法活性:攻撃力+2を獲得する。
-		elif ID  == 'SCH_600':
-			ret += 'summon:'#type
-			ret += 'True:'#must condition
-			ret += 'True:'#condition for better
-			ret += '0:'#condition in turn
-			#悪魔の相棒 : ランダムな悪魔の相棒を1体召喚する。
-		elif ID  == 'BT_213':
-			ret += 'drawCard:'#type
-			ret += 'False:'#must condition
-			ret += 'False:'#condition for better
-			ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
-			#クズ拾いの工夫 : ___獣を1体引く。それに+2/+2を付与する。
-		elif ID  == 'DRG_252':
-			ret += 'secret:'#type
-			ret += 'False:'#must condition
-			ret += 'False:'#condition for better
-			ret += 'needHeropower(player,'+str(cls.cost)+') or needBeast(player,'+str(cls.cost)+'):'#condition in turn
-			#フェーズ・ストーカー : 自分がヒーローパワーを使用した後自分のデッキから秘策を1つ準備する。
-		elif ID  == 'EX1_611':
-			ret += 'secret+defence:'#type
-			ret += 'False:'#must condition
-			ret += 'heHasMinion(player):'#condition for better
-			ret += '0:'#condition in turn
-			#凍結の罠 : 秘策: 敵のミニオンが攻撃した時そのミニオンは持ち主の手札に戻る。そのミニオンのコストは（2）増える。
-		elif ID  == 'ULD_152':
-			ret += 'secret+damage:'#type
-			ret += 'False:'#must condition
-			ret += 'heHasMinion(player):'#condition for better
-			ret += '0:'#condition in turn
-			#感圧板 : 秘策:相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。
-		elif ID  == 'EX1_610':
-			ret += 'secret+damage:'#type
-			ret += 'heHasMinion(player):'#must condition
-			ret += 'heHasMinion(player):'#condition for better
-			ret += '0:'#condition in turn
-			#爆発の罠 : 秘策: 自分のヒーローが攻撃された時、全ての敵に$2ダメージを与える。
-		elif ID  == 'BT_203':
-			ret += 'secret+summon:'#type
-			ret += 'True:'#must condition
-			ret += 'haveNoMinion(player):'#condition for better
-			ret += '0:'#condition in turn
-			#群れの戦術 : 秘策:味方のミニオンが攻撃された時3/3のコピーを1体召喚する。
-		elif ID  == 'SCH_142':
-			ret += 'drawCard:'#type
-			ret += 'False:'#must condition
-			ret += 'haveCard(player,1,3):'#condition for better
-			ret += '0:'#condition in turn
-			#貪欲な読書家 : 自分のターンの終了時手札が3枚になるまでカードを引く。
-		elif ID  == 'EX1_536':
-			ret += 'help:'#type
-			ret += 'False:'#must condition
-			ret += 'haveSecret(player):'#condition for better
-			ret += 'needSecret(player,'+str(cls.cost)+'):'#condition in turn
-			#イーグルホーン・ボウ : 味方の秘策が発動する度耐久度+1を獲得する。
-		elif ID  == 'EX1_539':
-			ret += 'damage:'#type
-			ret += 'False:'#must condition
-			ret += 'onBeast(player):'#condition for better
-			ret += '0:'#condition in turn
-			#殺しの命令 : $3ダメージを与える。味方に獣がいる場合は代わりに$5ダメージを与える。
-		elif ID  == 'NEW1_031':
-			ret += 'summon:'#type
-			ret += 'False:'#must condition
-			ret += 'False:'#condition for better
-			ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
-			#獣の相棒 : ランダムな獣の相棒を1体召喚する。
-		elif ID  == 'DRG_256':
-			ret += 'damage:'#type
-			ret += 'True:'#must condition
-			ret += 'heHasMinion(player):'#condition for better
-			ret += 'needHeropower(player,'+str(cls.cost)+'):'#condition in turn
-			#ドラゴンベイン : 自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。
-		elif ID  == 'SCH_428':
-			ret += 'drawCard:'#type
-			ret += 'False:'#must condition
-			ret += 'False:'#condition for better
-			ret += '0:'#condition in turn
-			#伝承守護者ポルケルト : 雄叫び:自分のデッキのカードをコストが高い順に並べ替える。
-		elif ID == 'GAME_005':
-			ret += 'help:'#type
-			ret += 'haveOvercostCard(player,'+str(cls.cost)+'):'#must condition
-			ret += 'False:'#condition for better
-			ret += '0:'#condition in turn
-			#コイン
-		elif ID == 'HERO_05bp':
-			ret += 'help:'#type
-			ret += 'hasHeroPowerMerrit(player):'#must condition
-			ret += 'False:'#condition for better
-			ret += '0:'#condition in turn
-			# ヒーローパワー　敵のヒーローに\n$2ダメージを\n与える。
-		else:
-			ret += 'None:'#type
-			ret += 'False:'#must condition
-			ret += 'False:'#condition for better
-			ret += '0:'#condition in turn
-		return ret
+def needBeast(player,cost):
+	for card in player.hand:
+		if card.type==CardType.MINION and card.race==Race.BEAST:
+			if card.cost<=player.mana-player.used_mana-cost:
+				return 2
+			return 1
+	return 0
+
+def needSpell(player, cost):
+	for card in player.hand:
+		if card.type==CardType.SPELL:
+			if card.cost<=player.mana-player.used_mana-cost:
+				return 2
+			return 1
+	return 0
+
+def needSecret(player, cost):
+	for card in player.hand:
+		if '秘策:' in card.data.description:
+			if card.cost<=player.mana-player.used_mana-cost:
+				return 2
+			return 1
+	return 0
+
+def needHeropower(player, cost):
+	card = player.hero.power
+	if card.cost<=player.mana-player.used_mana-cost:
+		return 2
+	return 0
+
+
+def HunterCat_CardStatus(ID):
+	if ID==None:
+		return "0:0:0:0:None:0:0:0:"
+	cls = Card(ID)
+	ret = str(cls.cost)+":"
+	if cls.type==CardType.MINION:
+		ret += str(cls.atk)+":"
+		ret += str(cls.health)+":"
+		ret += "MINION:" 
+	elif cls.type==CardType.SPELL:
+		ret += "0:"
+		ret += "0:"
+		ret += "SPELL:" 
+	elif cls.type==CardType.WEAPON:
+		ret += str(cls.atk)+":"
+		ret += "0:"
+		ret += "WEAPON:" 
+	elif cls.type==CardType.HERO_POWER:
+		ret += "0:"
+		ret += "0:"
+		ret += "HERO_POWER:" 
+	else:
+		ret += "0:"
+		ret += "0:"
+		ret += "NONE:"
+	if ID  == 'SCH_617':
+		ret += 'help+summon+drawCard:'#type
+		ret += 'onMinion(player):'#must condition
+		ret += 'onMinion(player):'#condition for better
+		ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
+		#カワイイ侵入者 : ミニオン1体に+1/+1を付与する。1/1の仔を1体召喚する。仔1体を自分の手札に追加する。
+	elif ID  == 'SCH_312':
+		ret += 'help:'#type
+		ret += 'False:'#must condition
+		ret += 'player.mana-player.used_mana<2:'#condition for better
+		ret += 'needHeropower(player,'+str(cls.cost)+'):'#condition in turn
+		#ツアーガイド : 雄叫び:自分が次に使うヒーローパワーのコストは（0）。
+	elif ID  == 'DRG_253':
+		ret += 'help:'#type
+		ret += 'False:'#must condition
+		ret += 'heHasMinion(player):'#condition for better
+		ret += '0:'#condition in turn
+		#ドワーフの狙撃手 : 自分のヒーローパワーはミニオンを対象にできる。
+	elif ID  == 'SCH_133':
+		ret += 'summon:'#type
+		ret += 'True:'#must condition
+		ret += 'haveNoMinion(player) or 1<'+str(cls.atk)+':'#condition for better
+		ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
+		#ヴォルパーティンガー : 雄叫び:このミニオンの__コピーを1体召喚する。
+	elif ID  == 'SCH_231':
+		ret += 'help:'#type
+		ret += 'False:'#must condition
+		ret += 'haveSpell(player):'#condition for better
+		ret += 'needSpell(player, '+str(cls.cost)+'):'#condition in turn
+		#図太い徒弟 : 魔法活性:攻撃力+2を獲得する。
+	elif ID  == 'SCH_600':
+		ret += 'summon:'#type
+		ret += 'True:'#must condition
+		ret += 'True:'#condition for better
+		ret += '0:'#condition in turn
+		#悪魔の相棒 : ランダムな悪魔の相棒を1体召喚する。
+	elif ID  == 'BT_213':
+		ret += 'drawCard:'#type
+		ret += 'False:'#must condition
+		ret += 'False:'#condition for better
+		ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
+		#クズ拾いの工夫 : ___獣を1体引く。それに+2/+2を付与する。
+	elif ID  == 'DRG_252':
+		ret += 'secret:'#type
+		ret += 'False:'#must condition
+		ret += 'False:'#condition for better
+		ret += 'needHeropower(player,'+str(cls.cost)+') or needBeast(player,'+str(cls.cost)+'):'#condition in turn
+		#フェーズ・ストーカー : 自分がヒーローパワーを使用した後自分のデッキから秘策を1つ準備する。
+	elif ID  == 'EX1_611':
+		ret += 'secret+defence:'#type
+		ret += 'False:'#must condition
+		ret += 'heHasMinion(player):'#condition for better
+		ret += '0:'#condition in turn
+		#凍結の罠 : 秘策: 敵のミニオンが攻撃した時そのミニオンは持ち主の手札に戻る。そのミニオンのコストは（2）増える。
+	elif ID  == 'ULD_152':
+		ret += 'secret+damage:'#type
+		ret += 'False:'#must condition
+		ret += 'heHasMinion(player):'#condition for better
+		ret += '0:'#condition in turn
+		#感圧板 : 秘策:相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。
+	elif ID  == 'EX1_610':
+		ret += 'secret+damage:'#type
+		ret += 'heHasMinion(player):'#must condition
+		ret += 'heHasMinion(player):'#condition for better
+		ret += '0:'#condition in turn
+		#爆発の罠 : 秘策: 自分のヒーローが攻撃された時、全ての敵に$2ダメージを与える。
+	elif ID  == 'BT_203':
+		ret += 'secret+summon:'#type
+		ret += 'True:'#must condition
+		ret += 'haveNoMinion(player):'#condition for better
+		ret += '0:'#condition in turn
+		#群れの戦術 : 秘策:味方のミニオンが攻撃された時3/3のコピーを1体召喚する。
+	elif ID  == 'SCH_142':
+		ret += 'drawCard:'#type
+		ret += 'False:'#must condition
+		ret += 'haveCard(player,1,3):'#condition for better
+		ret += '0:'#condition in turn
+		#貪欲な読書家 : 自分のターンの終了時手札が3枚になるまでカードを引く。
+	elif ID  == 'EX1_536':
+		ret += 'help:'#type
+		ret += 'False:'#must condition
+		ret += 'haveSecret(player):'#condition for better
+		ret += 'needSecret(player,'+str(cls.cost)+'):'#condition in turn
+		#イーグルホーン・ボウ : 味方の秘策が発動する度耐久度+1を獲得する。
+	elif ID  == 'EX1_539':
+		ret += 'damage:'#type
+		ret += 'False:'#must condition
+		ret += 'onBeast(player):'#condition for better
+		ret += '0:'#condition in turn
+		#殺しの命令 : $3ダメージを与える。味方に獣がいる場合は代わりに$5ダメージを与える。
+	elif ID  == 'NEW1_031':
+		ret += 'summon:'#type
+		ret += 'False:'#must condition
+		ret += 'False:'#condition for better
+		ret += 'needBeast(player,'+str(cls.cost)+'):'#condition in turn
+		#獣の相棒 : ランダムな獣の相棒を1体召喚する。
+	elif ID  == 'DRG_256':
+		ret += 'damage:'#type
+		ret += 'True:'#must condition
+		ret += 'heHasMinion(player):'#condition for better
+		ret += 'needHeropower(player,'+str(cls.cost)+'):'#condition in turn
+		#ドラゴンベイン : 自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。
+	elif ID  == 'SCH_428':
+		ret += 'drawCard:'#type
+		ret += 'False:'#must condition
+		ret += 'False:'#condition for better
+		ret += '0:'#condition in turn
+		#伝承守護者ポルケルト : 雄叫び:自分のデッキのカードをコストが高い順に並べ替える。
+	elif ID == 'GAME_005':
+		ret += 'help:'#type
+		ret += 'haveOvercostCard(player,'+str(cls.cost)+'):'#must condition
+		ret += 'False:'#condition for better
+		ret += '0:'#condition in turn
+		#コイン
+	elif ID == 'HERO_05bp':
+		ret += 'help:'#type
+		ret += 'hasHeroPowerMerrit(player):'#must condition
+		ret += 'False:'#condition for better
+		ret += '0:'#condition in turn
+		# ヒーローパワー　敵のヒーローに\n$2ダメージを\n与える。
+	else:
+		ret += 'None:'#type
+		ret += 'False:'#must condition
+		ret += 'False:'#condition for better
+		ret += '0:'#condition in turn
+	return ret
