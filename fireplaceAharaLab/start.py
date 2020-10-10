@@ -45,7 +45,7 @@ def main():
 	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, Vector, gameNumber=1, debugLog=True)
+	play_set_of_games(Random, Vector, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
 	#from utils import BigDeck
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)

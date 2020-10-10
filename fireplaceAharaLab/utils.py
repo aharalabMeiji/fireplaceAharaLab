@@ -3,6 +3,7 @@ from enum import IntEnum
 from fireplace.game import Game
 from fireplace.exceptions import GameOver
 import copy
+import random
 
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
@@ -132,10 +133,10 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		#	Maya_MCTS(game)#マヤ氏の作品 -> 他の人のフォーマットにそろえてください。
 		if player.name==P1.name:
 			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P1.func(game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
+			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
 			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P2.func(game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
+			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#公式のランダム
 		#ターンエンドの処理ここから
@@ -305,7 +306,9 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		if player.hero.power==action.card:
 			if player.hero.power.is_usable():
 				theCard = player.hero.power
-				theTarget = action.target
+				for target in theCard.targets:
+					if target==action.target and target.controller.name==action.target.controller.name:
+						theTarget = target
 	if action.type==BlockType.PLAY:
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
