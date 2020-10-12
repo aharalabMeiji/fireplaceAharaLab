@@ -12,7 +12,8 @@ def main():
 	from utils import Agent,play_set_of_games,play_MechaHunterGames
 	from hearthstone.enums import CardClass
 	Human=Agent("Human",None,myClass=CardClass.MAGE)
-	StandardRandom=Agent("Maya",None) # Classを指定しないとHUNTER
+	StandardRandom=Agent("Standard",None) # Classを指定しないとHUNTER
+	MiyaUCT=Agent("Miya",None)
 	
 	# モンテカルロによる読み切り
 	## Maya=Agent("Maya",None)
@@ -38,7 +39,7 @@ def main():
 	#AngryCatPlayer = Agent("AngryCat", AngryCatAI)
 
 	#ゲームプレイ
-	play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
+	play_set_of_games(MiyaUCT, StandardRandom, gameNumber=1, debugLog=True) 
 	#ハンター縛りのデッキ（メカハンター）による対戦
 	#play_MechaHunterGames(StandardPlayer, AngryCatPlayer, gameNumber=1, debugLog=True)
 

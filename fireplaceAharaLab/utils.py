@@ -3,6 +3,9 @@ from enum import IntEnum
 from fireplace.game import Game
 from fireplace.exceptions import GameOver
 import copy
+import random
+from fireplace.card import Card
+
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
 	def __init__(self, _card,_type,_target=None):
@@ -44,9 +47,22 @@ class Node(object):
 		retNode=self.childNodes[self.values.index(max(self.values))]
 		return retNode
 		pass
-	def expandChild(self,action):
-		self.expandedTree=executeAction(self.gameTree,action)
-		child=Node(self.expandedTree,action,self,getCandidates(self.expandedTree))
+	def expandChild(self,action):#maya氏改訂版
+		print("expandChild-----------------------------")
+		print(action)
+		self.expandingGame=copy.deepcopy(self.gameTree)
+		exc=executeAction(self.expandingGame,action)
+		postAction(self.expandingGame.current_player)
+		if exc==ExceptionPlay.GAMEOVER:
+			print("the game has been ended.")
+			child=Node(self.expandingGame,action,self,[])
+			self.childNodes.append(child)
+			return child
+			pass
+		elif action.type ==ExceptionPlay.TURNEND:
+			self.expandingGame.end_turn()
+			pass
+		child=Node(self.expandingGame,action,self,getCandidates(self.expandingGame,_smartCombat=False))
 		self.childNodes.append(child)
 		return child
 	def choose_expanding_action(self):
@@ -98,7 +114,7 @@ class Agent(object):
 	def __str__(self):
 		return self.name
 
-def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True):
+def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=10, debugLog=True):
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
 	import random
@@ -127,12 +143,15 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	while True:	
 		from agent_Standard import StandardRandom, HumanInput, Original_random 
 		from agent_Maya import Maya_MCTS
+		from agent_Miyaryo import Miya_UCT
 		player = game.current_player
 		#print("%r starts their turn."%player.name);
 		if player.name=="Maya":
 			Maya_MCTS(game)#マヤ氏の作品
 		elif player.name=="Standard":
 			StandardRandom(game, debugLog=debugLog)#公式のランダムより、もう少しキチンとしたランダムプレーエージェント
+		elif player.name=="Miya":#宮氏の作品（まだ模倣）
+			Miya_UCT(game)
 		elif player.name=="Human":
 			HumanInput(game)#人がプレーするときはこれ
 		elif player.name==P1.name:

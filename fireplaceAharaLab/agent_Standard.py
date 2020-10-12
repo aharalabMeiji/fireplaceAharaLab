@@ -23,6 +23,7 @@ def StandardRandom(thisgame: ".game.Game", option=[], debugLog=False):
 				return ExceptionPlay.GAMEOVER
 			else:
 				continue
+		print("ターンエンド")
 		return ExceptionPlay.VALID
 
 def postAction(player):
