@@ -26,6 +26,8 @@ def investigate_card_pair( onlyresult=0):
 	nonvanilla2 = 'EX1_332'#random.choice(nonVanillas).id#
 	#古代の番人：EX1_045:攻撃できない。
 	#沈黙:EX1_332:ミニオン1体を沈黙させる
+	#盾持ち:EX1_405:挑発
+	#内なる炎:CS1_129:ミニオン1体の攻撃力を体力と同じにする
 
 	print(" specific cards : %r%r"%(nonvanilla1, nonvanilla2))
 	for repeat in range(50):
@@ -39,7 +41,8 @@ def investigate_card_pair( onlyresult=0):
 		deck1.append(nonvanilla2)
 		for i in range(8-position):#デッキは10枚
 			deck1.append(random.choice(vanillas).id)
-		player1 = Player("Maya", deck1, card_class.default_hero,_combos=[nonvanilla2,nonvanilla1])
+		#_combosの中身は後ろから引かれる
+		player1 = Player("Maya", deck1, card_class.default_hero,_combos=[nonvanilla1,nonvanilla2])
 		deck2 = copy.deepcopy(deck1)
 		random.shuffle(deck2)
 		player2 = Player("Maya_comparing", deck2, card_class.default_hero)
