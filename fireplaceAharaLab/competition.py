@@ -16,7 +16,7 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 				agent2.name += "2"
 			print("Start %s vs. %s"%(agent1.name, agent2.name))
 			for repeat in range(matchNumber):
-				winner = play_one_game(agent1,agent2,debugLog=False)
+				winner = play_one_game(agent1,agent2,BigDeck.faceHunter, BigDeck.faceHunter,debugLog=False)
 				print("winner is %r"%winner)
 				if winner == agent1.name:
 					ScoreWin[i]+=1
