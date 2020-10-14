@@ -175,10 +175,7 @@ def play_set_of_games(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
 def play_MechaHunterGames(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
 	testHunter = ['EX1_611','BT_203','EX1_536','EX1_539','NEW1_031',\
 		'SCH_617','SCH_312','SCH_231','SCH_600','DRG_252',\
-		'ULD_152','SCH_142','DRG_256','DAL_604','BOT_251',\
-		'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
-		'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
-		'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
+		'ULD_152','SCH_142','DRG_256','DAL_604','BOT_251']
 	if P1.myClass != CardClass.HUNTER or P2.myClass != CardClass.HUNTER:
 		print("In MechaHunterGames, Player is expected to be of HUNTER.")
 	if debugLog:

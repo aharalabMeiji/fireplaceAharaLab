@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-########コミットしないで！！！！！！！！！########
 import sys
 
 sys.path.append("..")
@@ -19,6 +18,7 @@ def main():
 	StandardRandom1=Agent("Standard1",StandardRandom) # Classを指定しないとHUNTER
 	StandardRandom2=Agent("Standard2",StandardRandom)
 	from agent_AngryCat import AngryCatAI
+	from agent_takasho001 import takasho001AI
 	takashoAgent = Agent("takasho",takasho001AI)
 	
 	# モンテカルロによる読み切り
@@ -48,7 +48,7 @@ def main():
 	#play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
 	#ハンター縛りのデッキ（メカハンター）による対戦
 	
-	play_MechaHunterGames(StandardRandom1,takashoAgent, gameNumber=2, debugLog=True)
+	play_MechaHunterGames(StandardRandom1, takashoAgent, gameNumber=2, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
