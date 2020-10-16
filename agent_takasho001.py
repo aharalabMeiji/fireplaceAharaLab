@@ -22,6 +22,8 @@ def takasho001AI(thisGame: Game,option = [],debugLog=True):
 				executeAction(thisGame,choice)
 				postAction(player)
 				break
+			if myChoice.type ==ExceptionPlay.TURNEND:#何もしないを選択したとき
+				return
 		count +=1
-		if count >10:
+		if count >100:
 			return
