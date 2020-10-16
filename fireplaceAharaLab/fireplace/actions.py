@@ -342,6 +342,14 @@ class Choice(GameAction):
 			cards = cards.eval(source.game, source)
 		elif isinstance(cards, LazyValue):
 			cards = cards.evaluate(source)
+		elif isinstance(cards, list):
+			eval_cards = []
+			for card in cards:
+				if isinstance(card, LazyValue):
+					eval_cards.append(card.evaluate(source)[0])
+				else:
+					eval_cards.append(card)
+			cards = eval_cards
 
 		return player, cards
 
@@ -900,8 +908,7 @@ class DrawUntil(TargetedAction):
 
 	def do(self, source, target, amount):
 		if target not in target.game.players:
-			#raise InvalidAction("%r is not a player" % target)
-			target = target.controller#add this line
+			raise InvalidAction("%r is not a player" % target)
 		difference = max(0, amount - len(target.hand))
 		if difference > 0:
 			return source.game.queue_actions(source, [Draw(target) * difference])

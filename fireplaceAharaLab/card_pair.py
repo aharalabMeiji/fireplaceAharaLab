@@ -62,7 +62,7 @@ def investigate_card_pair( onlyresult=0):
 			weight[26]=10
 			weight[2]=weight[3]=weight[6]=weight[7]=5
 			weight[10]=weight[11]=weight[12]=weight[13]=5
-			StandardStep1(game,weight, debugLog=False)
+			StandardStep1(game, debugLog=False)
 			#StandardRandom(game,debugLog=True)
 			#ここはもう少し賢い人にやってほしい
 			if game.state!=State.COMPLETE:
@@ -146,7 +146,7 @@ def find_card_pair(onlyresult=1):
 				weight[26]=10
 				weight[2]=weight[3]=weight[6]=weight[7]=5
 				weight[10]=weight[11]=weight[12]=weight[13]=5
-				StandardStep1(game,weight, debugLog=False)
+				StandardStep1(game, debugLog=False)
 				if game.state!=State.COMPLETE:
 					try:
 						game.end_turn()
