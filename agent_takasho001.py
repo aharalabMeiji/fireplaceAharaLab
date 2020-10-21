@@ -13,17 +13,32 @@ from agent_Standard import postAction, StandardRandom
 
 # とりあえず殴れるときに殴る形
 def takasho001AI(thisGame: Game,option = [],debugLog=True):
-	count = 0
+
 	player=thisGame.current_player
+	min = 30
 	while True:
-		myCandidates = getCandidates(thisGame)
-		for choice in myCandidates:
-			if choice.type==BlockType.PLAY and choice.card.type==CardType.MINION:
-				executeAction(thisGame,choice)
-				postAction(player)
-				break
-			if myChoice.type ==ExceptionPlay.TURNEND:#何もしないを選択したとき
-				return
-		count +=1
-		if count >100:
+		myCandidates = getCandidates(thisGame,_includeTurnEnd=False)
+		if len(myCandidates) == 0:
 			return
+		for choice in myCandidates:
+			tmpGame = copy.deepcopy(thisGame)
+			#if choice.type==BlockType.PLAY and choice.card.type==CardType.MINION:
+			executeAction(tmpGame,choice,debugLog=False)
+			postAction(player)
+			choice.score = tmpGame.current_player.opponent.hero.health
+		
+		
+		myChoice = None
+		for choice in myCandidates:
+			if min >= choice.score:
+				min = choice.score
+				myChoice = choice
+				print(min)
+		executeAction(thisGame,myChoice,debugLog=True)
+		postAction(player)
+		if thisGame.current_player.opponent.hero.health ==0:
+			print("かち！")
+			return
+		#if choice.type ==ExceptionPlay.TURNEND:#何もしないを選択したとき
+		#	return
+

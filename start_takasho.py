@@ -49,7 +49,7 @@ def main():
 	#play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
 	#ハンター縛りのデッキ（メカハンター）による対戦
 	
-	play_MechaHunterGames(Human, StandardRandom1, gameNumber=2, debugLog=True)
+	play_MechaHunterGames(takashoAgent, StandardRandom1, gameNumber=1, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
