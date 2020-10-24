@@ -18,7 +18,7 @@ class HunterCatAgent(Agent):
 	def HunterCatSaveLog():
 		pass
 
-	def HunterCatAI(game, option=[], gameLog=[], debugLog=False):
+	def HunterCatAI(self, game, option=[], gameLog=[], debugLog=False):
 		if game.turn<2:
 			HunterCatAgent.HunterCatLoadData()
 		while True:
