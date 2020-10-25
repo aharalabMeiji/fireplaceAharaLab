@@ -1,8 +1,11 @@
 from hearthstone.enums import CardClass,BlockType, CardType ,PlayState, State
 from enum import IntEnum
 from fireplace.game import Game
+from fireplace.card import Card
 from fireplace.exceptions import GameOver
 import copy
+import random
+
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
 	def __init__(self, _card,_type,_target=None):
@@ -86,8 +89,7 @@ class Evaluation(object):
 
 class Agent(object):
 	""" """
-	from hearthstone.enums import CardClass
-	def __init__(self, myName: str, myFunction, myOption: list=[], myClass: CardClass =CardClass.HUNTER, rating = 1000 ):
+	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating):
 		self.name = myName
 		self.func = myFunction
 		self.option = myOption
@@ -99,6 +101,7 @@ class Agent(object):
 		return self.name
 
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True):
+	""" 1回ゲームを行う。 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
 	import random
@@ -107,17 +110,17 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	# 'LOE_076' : Sir Finley Mrrgglton
 	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。
 	if len(deck1)==0:
-		deck1 = random_draft(P1.myClass,exclude)#ランダムなデッキ
+		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
-		deck2 = random_draft(P2.myClass,exclude)#ランダムなデッキ
+		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 
-	game = Game(players=(player1, player2))
+	game = GameWithLog(players=(player1, player2))
 	game.start()
 
 	for player in game.players:
-		#print("Can mulligan %r" % (player.choice.cards))
+		#mulliganの試合前処理（デッキは撹拌される）
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
@@ -125,43 +128,42 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
 	while True:	
-		from agent_Standard import StandardRandom, HumanInput, Original_random 
-		from agent_Maya import Maya_MCTS
+		#エージェントの処理ここから
 		player = game.current_player
-		#print("%r starts their turn."%player.name);
-		if player.name=="Maya":
-			Maya_MCTS(game)#マヤ氏の作品
-		elif player.name=="Standard":
-			StandardRandom(game, debugLog=debugLog)#公式のランダムより、もう少しキチンとしたランダムプレーエージェント
-		elif player.name=="Human":
-			HumanInput(game)#人がプレーするときはこれ
-		elif player.name==P1.name:
-			P1.func(game, option=P1.option, debugLog=debugLog)#P1.funcには引数option, debugLogを作ってください
+		#if player.name=="Maya":
+		#	Maya_MCTS(game)#マヤ氏の作品 -> 他の人のフォーマットにそろえてください。
+		if player.name==P1.name:
+			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
+			P1.func(game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
-			P2.func(game, option=P2.option, debugLog=debugLog)#P2.funcには引数option, debugLogを作ってください
+			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
+			P2.func(game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#公式のランダム
+		#ターンエンドの処理ここから
 		if player.choice!=None:
-			player.choice=None#論理的にはおこらないが、ときどきおこる
+			player.choice=None#論理的にはおこらないが、agentのミスによりときどきおこる
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
 			except GameOver:#まれにおこる
 				gameover=0
-		if game.state==State.COMPLETE:#ゲーム終了フラグが立っていたら
+		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
+		if game.state==State.COMPLETE:
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
 				return game.current_player.opponent.name
-			return 'DRAW'
+			return 'DRAW'#まず起こらないが、ねんのため。
 
-def play_set_of_games(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
+def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True):
+	""" 決まった回数の試合を行い、勝敗数を表示する """
 	if debugLog:
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 	Count1 = 0
 	Count2 = 0
 	for i in range(gameNumber):
-		winner = play_one_game(P1,P2,debugLog=debugLog)
+		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog)
 		if debugLog:
 			print("winner is %r"%winner)
 		if winner == P1.name:
@@ -172,35 +174,16 @@ def play_set_of_games(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
 	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
 
-def play_MechaHunterGames(P1: Agent, P2: Agent, gameNumber=15, debugLog=True):
-	if P1.myClass != CardClass.HUNTER or P2.myClass != CardClass.HUNTER:
-		print("In MechaHunterGames, Player is expected to be of HUNTER.")
-	if debugLog:
-		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
-	Count1 = 0
-	Count2 = 0
-	
-	for i in range(gameNumber):
-		winner = play_one_game(P1,P2,deck1=BigDeck.MechaHunter, deck2=BigDeck.MechaHunter,debugLog=debugLog)
-		print("winner is %r"%winner)
-		if winner == P1.name:
-			Count1+=1
-		elif winner == P2.name:
-			Count2+=1
-	print(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
-	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
-	print(" Draw: %d"%(gameNumber-Count1-Count2))
-
-
 class Candidate(object):
-	"""　"""
-	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, score=0):
+	"""　アクションの候補手のクラス　"""
+	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
 		#super(myAction, self).__init__()
+		self.turn=turn
 		self.card = card
 		self.card2 = card2
 		self.type = type
 		self.target = target
-		self.score = score
+		self.score = 0
 		self.notes = ''
 		pass
 
@@ -214,12 +197,23 @@ class Candidate(object):
 	def clearScore(self):
 		self.score = 0
 
-
+class GameWithLog(Game):
+	""" ゲーム進行のログを管理する  """
+	def __init__(self, players):
+		super().__init__(players=players)
+		self.__myLog__=[]
+	def add_log(self, choice: Candidate):
+		self.__myLog__.append(choice)
+	def get_log(self):
+		return self.__myLog__
 #
-##  getActionCandidates : utils version
-##
+#  getCandidates
+#
 def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
-	"""　"""
+	"""　アクションの候補をすべてリスト化して返す　
+	_smartCombat=True,　スマートコンバットなもののみをリストアップする
+	_includeTurnEnd=False　「何もしない」というアクションを候補に入れない
+	"""
 	player = mygame.current_player
 	myCandidate = []
 	for card in player.hand:
@@ -229,15 +223,15 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					if card2.is_playable():
 						if card2.requires_target():
 							for target in card.targets:
-								myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target))
+								myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target, turn=mygame.turn))
 						else:
-							myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=None))
+							myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=None, turn=mygame.turn))
 			else:# card2=None
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target))
+						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target, turn=mygame.turn))
 				else:
-					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None))
+					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None, turn=mygame.turn))
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
@@ -245,25 +239,26 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					myH=character.health
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
-						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target))
+						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target, turn=mygame.turn))
 	if player.hero.power.is_usable():
 		if len(player.hero.power.targets)>0:
 			for target in player.hero.power.targets:
-				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target))
+				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
-			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None))
+			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
 		#エージェントの方でターンを終了してあげてください
-		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND))
+		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
 		pass
 	return myCandidate
 #
 #  executeAction
 #
-def executeAction(mygame,action: Candidate, debugLog=True):
-	"""　"""
+def executeAction(mygame, action: Candidate, debugLog=True):
+	"""　Candidate型のアクションを実行する　"""
+	mygame.add_log(action)
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
@@ -312,7 +307,9 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 		if player.hero.power==action.card:
 			if player.hero.power.is_usable():
 				theCard = player.hero.power
-				theTarget = action.target
+				for target in theCard.targets:
+					if target==action.target and target.controller.name==action.target.controller.name:
+						theTarget = target
 	if action.type==BlockType.PLAY:
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
@@ -347,37 +344,25 @@ def executeAction(mygame,action: Candidate, debugLog=True):
 	return ExceptionPlay.INVALID
 
 class ExceptionPlay(IntEnum):
-	""" """
+	""" ゲームの例外処理に使うフラグ　"""
 	VALID=0
 	GAMEOVER=1
 	INVALID=2
 	TURNEND=4
 
-def weight_deepcopy_and_perturb(weight):
-	import random
-	wgt=[]
-	for i in range(len(weight)):
-		wgt.append(weight[i])
-	plus = random.randint(0,len(weight)-1)
-	wgt[plus] += 3
-	minus = random.randint(0,len(weight)-1)
-	wgt[minus] -= 3
-	if wgt[minus]<1 :
-		wgt[minus]=1
-	return wgt
-
 class BigDeck:
-	MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
-		'BOT_038','BOT_309','BOT_309','BOT_907','BOT_907',\
-		'BOT_033','BOT_033','DAL_604','DAL_604','BOT_251',\
-		'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
-		'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
-		'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
+	#MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
+	#	'BOT_038','BOT_309','BOT_309','BOT_907','BOT_907',\
+	#	'BOT_033','BOT_033','DAL_604','DAL_604','BOT_251',\
+	#	'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
+	#	'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
+	#	'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
 	faceHunter = [\
 		'SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
+
 def postAction(player):
 	if player.choice:
 		choice = random.choice(player.choice.cards)
@@ -394,7 +379,7 @@ def postAction(player):
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""
-	Return a deck of 30 random cards for the \a card_class
+	カードクラスに従って「効果が実装されているカード」でランダムデッキを作る
 	"""
 	from fireplace import cards
 	from fireplace.deck import Deck
@@ -432,3 +417,13 @@ def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 			deck.append(card.id)
 
 	return deck
+
+def getTurnLog(gameLog, turnN):
+	""" gameLogから特定のターンの情報を引き出す """
+	if len(gameLog)<=0:
+		return []
+	ret = []
+	for i in range(len(gameLog)):
+		if gameLog[i].turn == turnN:
+			ret.append(gameLog[i])
+	return ret
