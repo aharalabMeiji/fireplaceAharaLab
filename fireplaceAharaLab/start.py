@@ -46,13 +46,13 @@ def main():
 	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#HunterCat : faceHunter専用のエージェント
-	from agent_HunterCat import HunterCatAgent
-	HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
+	#from agent_HunterCat import HunterCatAgent
+	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, HunterCat, gameNumber=1, debugLog=True)
+	play_set_of_games(Human, Random, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
