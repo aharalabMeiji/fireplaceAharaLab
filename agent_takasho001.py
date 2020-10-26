@@ -12,24 +12,6 @@ from enum import IntEnum
 from agent_Standard import postAction, StandardRandom
 
 
-<<<<<<< HEAD
-
-
-
-class agent_takasho(Agent):    
-     def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-          super().__init__(myName, myFunction, myOption, myClass, rating )
-     def agent_takasho001(game: Game, option=[], gameLog=[], debugLog=False):
-          while True:
-			  myCandidates = getCandidates(Game)
-               for choice in myCandidates:
-				   if choice.type==BlockType.ATTACK and choice.target==player.opponent.hero:
-					   executeAction(choice)
-					   postAction(player)
-					   break
-					else:
-						return
-=======
 # とりあえず殴れるときに殴る形
 def takasho001AI(thisGame: Game,option = [],debugLog=True):
 
@@ -61,4 +43,3 @@ def takasho001AI(thisGame: Game,option = [],debugLog=True):
 		#if choice.type ==ExceptionPlay.TURNEND:#何もしないを選択したとき
 		#	return
 
->>>>>>> 183098521aabb8043ad4dfba77b19b13119a636e
