@@ -23,7 +23,7 @@ class WordStrategyAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 
-	def agent_word_strategy(game, option=[WS.ランダムにプレー], gameLog=[], debugLog=True):
+	def agent_word_strategy(self, game, option=[WS.ランダムにプレー], gameLog=[], debugLog=True):
 		Loop=True
 		while Loop:
 			Loop=False
