@@ -3,7 +3,7 @@ import numpy as np
 import copy
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType
-from utils import ExceptionPlay, executeAction, getCandidates, postAction, myActionValue
+from utils import *
 from hearthstone.enums import CardClass, CardType, PlayState, Zone, State
 from fireplace.actions import Action
 from fireplace.card import Card
@@ -12,12 +12,166 @@ from fireplace.utils import random_draft, CardList
 from enum import IntEnum
 from fireplace.deck import Deck
 
+
 exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
+
+
+class MiyaryoAgent(Agent):
+
+    def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000):
+        super().__init__(myName, myFunction, myOption, myClass, rating)
+
+    def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
+        player = game.current_player
+
+        while True:
+            tmpGame = copy.deepcopy(game)
+            myCandidate = getCandidates(
+                tmpGame, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
+
+            sScore = self.getBoardScore(tmpGame)
+
+            if len(myCandidate) <= 1:  # 何もしないを選択した時
+                myChoice = random.choice(myCandidate)  # ランダムに一つ選ぶ
+                if myChoice.type == ExceptionPlay.TURNEND:
+                    return
+                return ExceptionPlay.INVALID
+            else:
+                eScore = primitiveMonte(tmpGame, myCandidate)
+                mychoice = mp.argmax(eScore)
+                if myCandidate[mychoice].type == ExceptionPlay.TURNEND:
+                    print("error")
+                    return
+                executeAction(game, myCandidate[mychoice])
+                postAction(player)
+        return ExceptionPlay.VALID
+
+    def primitiveMonte(_game: Game, _candidates: list):
+        retScore = []
+        player = _game.current_player
+        for i in range(len(_candidates)):
+            canScore = []
+            for j in range(20):
+                tmpGame = copy.deepcopy(_game)
+                executeAction(tmpGame, _candidates[i])
+                postAction(player)
+                while True:
+                    tmpCandidates = getCandidates(
+                        tmpGame, _smartCombat=False, _includeTurnEnd=True)
+                    index = int(random.random()*len(tmpCandidates))
+                    if tmpCandidates[index].type == ExceptionPlay.TURNEND:
+                        break
+                    else:
+                        executeAction(tmpGame, tmpCandidates[index])
+                        postAction(player)
+                canScore.append(getBoardScore(tmpGame))
+            retScore.append(sum(canScore)/len(canScore))
+        return retScore
+
+    def getBoardScore(_game: Game):
+        me = _game.current_player
+        he = _game.current_player.opponent
+        vLength = 34  # ベクトルの長さ
+        v = [0] * vLength
+        v[0] = me.hero.health
+        v[1] = he.hero.health
+        for char in me.characters:
+            if char.type == CardType.MINION:
+                v[2] += char.attack
+                v[3] += char.health
+                if char.taunt:
+                    v[4] += char.health
+                # if char.battlecry:
+                if char.deathrattle:
+                    v[5] += 1
+                # if char.discover:
+                if char.divine_shield:
+                    v[6] += 1
+                # if char.dormant:
+                # if char.echo:
+                if char.forgetful:
+                    v[7] += 1
+                if char.immune:
+                    v[8] += 1
+                if char.inspire:
+                    v[9] += 1
+                if char.lifesteel:
+                    v[10] += 1
+                # if char.magnetic:
+                # if char.outcast:
+                if char.overkill:
+                    v[11] += 1
+                # if char.overload:
+                if char.poisonous:
+                    v[12] += 1
+                if char.reborn:
+                    v[13] += 1
+                # if char.rush:
+                if char.spell_damage:  # int
+                    v[14] += char.spell_damage
+                # if char.spellburst:
+                if char.windfury:      # 追加攻撃回数(int)
+                    v[15] += char.windfury
+        for char in he.characters:
+            if char.type == CardType.MINION:
+                v[16] += char.attack
+                v[17] += char.health
+                if char.taunt:
+                    v[18] += char.health
+                # if char.battlecry:
+                if char.deathrattle:
+                    v[19] += 1
+                # if char.discover:
+                if char.divine_shield:
+                    v[20] += 1
+                # if char.dormant:
+                # if char.echo:
+                if char.forgetful:
+                    v[21] += 1
+                if char.immune:
+                    v[22] += 1
+                if char.inspire:
+                    v[23] += 1
+                if char.lifesteel:
+                    v[24] += 1
+                # if char.magnetic:
+                # if char.outcast:
+                if char.overkill:
+                    v[25] += 1
+                # if char.overload:
+                if char.poisonous:
+                    v[26] += 1
+                if char.reborn:
+                    v[27] += 1
+                # if char.rush:
+                if char.spell_damage:  # int
+                    v[28] += char.spell_damage
+                # if char.spellburst:
+                if char.windfury:      # 追加攻撃回数(int)
+                    v[29] += char.windfury*char.attack
+        v[30] = me.hero.attack
+        v[31] = he.hero.attack
+        v[32] = len(me.hand)
+        v[33] = len(he.hand)
+        w = [1]*vLength
+        for i in range(vLength):
+            if i in [1, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31, 33]:
+                w[i] *= -1
+        w[7] *= -1
+        w[21] *= -1
+        w[8] *= 0
+        w[22] *= 0
+        w[32] *= 0.5
+        w[33] *= 0.5
+        score = 0
+        for i in range(vLength):
+            score += v[i]*w[i]
+        return score
 
 
 def Miya_UCT(game: ".game.Game", option=[], debugLog=True):
     while True:
-        player=game.current_player
+        player = game.current_player
         print("%s TurnStart" % player)
         copyTree = copy.deepcopy(game)
         player = copyTree.current_player
@@ -87,8 +241,8 @@ def tryUCT(_game, _candidates=[], _trialPerTree=10, _numOfTree=2):
         # print(root.childNodes)
         visitScores = list(map(lambda node: myActionValue(
             node.move, node.visits), root.childNodes))
-        #print(visitScores)
-        #print(totalScores)
+        # print(visitScores)
+        # print(totalScores)
         totalScores = addActionValues(totalScores, visitScores)
         print("totalScores")
         for item in totalScores:

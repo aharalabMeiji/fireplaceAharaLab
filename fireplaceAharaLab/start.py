@@ -28,8 +28,10 @@ def main():
 	#Maya=Agent("Maya",Maya_MCTS)
 
 	# Miyaryo
-	#from agent_miyaryo import miyaryoAgent
-	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
+	from agent_Miyaryo import MiyaryoAgent
+	Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
+	from agent_Test import TestAgent
+	Test=TestAgent("Test",TestAgent.TestAI)
 
 	# Takasho001
 	#from agent_takasho001 import takasho001Agent
@@ -52,7 +54,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, Random, gameNumber=1, debugLog=True)
+	play_set_of_games(Random, Miyaryo, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
