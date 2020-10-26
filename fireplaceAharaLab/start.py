@@ -25,7 +25,8 @@ def main():
 	#	,myClass=CardClass.HUNTER) 		
 
 	# Maya : モンテカルロによる読み切り
-	#Maya=Agent("Maya",Maya_MCTS)
+	#from agent_Maya import agent_Maya
+	#Maya=agent_Maya("Maya",agent_Maya.agent_MayaAI)
 
 	# Miyaryo
 	#from agent_miyaryo import miyaryoAgent

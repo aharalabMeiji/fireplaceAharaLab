@@ -16,8 +16,22 @@ from fireplace.exceptions import GameOver
 from fireplace.utils import random_draft,CardList
 from fireplace.deck import Deck
 import csv
-from utils import ExceptionPlay, myAction, myActionValue,getCandidates,executeAction
-
+from utils import *
+class agent_Maya(Agent):
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
+		super().__init__(myName, myFunction, myOption, myClass, rating )
+	def agent_MayaAI(self, game: Game, option=[], gameLog=[], debugLog=False):
+		player = game.current_player
+		while True:
+			myCandidate = getCandidates(game)#実行できることがらをリストで取得
+			if len(myCandidate)>0:
+				myChoice = random.choice(myCandidate)#ランダムに一つ選ぶ
+			if myChoice.type ==ExceptionPlay.TURNEND:#何もしないを選択したとき
+				return
+			executeAction(game, myChoice, debugLog=debugLog)#選択したものを実行
+			postAction(player)#後処理
+			else:
+				return
 def Maya_MCTS(game: ".game.Game"):
 	while True:
 		player=game.current_player
@@ -37,14 +51,14 @@ def Maya_MCTS(game: ".game.Game"):
 			return ExceptionPlay.VALID
 			pass
 		exc=executeAction(game, takingAction)
-		postAction(player)
+		myPostAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
 		else:
 			continue
 	return ExceptionPlay.VALID
 	pass
-def postAction(player):
+def myPostAction(player):
 	while player.choice:
 		choice = random.choice(player.choice.cards)
 		#print("Choosing card %r" % (choice))
@@ -83,7 +97,7 @@ def simulate_random_turn(game: ".game.Game"):
 			game.end_turn();
 			return ExceptionPlay.VALID
 		exc=executeAction(game,simCandidates[index])
-		postAction(player)
+		myPostAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
 		else:
@@ -236,7 +250,7 @@ class Node(object):
 				pass
 			pass
 		exc=executeAction(self.expandingGame,myPolicy)
-		postAction(self.expandingGame.current_player)
+		myPostAction(self.expandingGame.current_player)
 		if exc==ExceptionPlay.GAMEOVER:
 			print("the game has been ended.")
 			child=Node(self.expandingGame,action,self,[])
