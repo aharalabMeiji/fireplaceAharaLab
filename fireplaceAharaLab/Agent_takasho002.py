@@ -1,18 +1,42 @@
 import random
 from utils import *
      
-class takasho002(Agent):    
+import random
+from utils import *
+     
+class takashoAgent(Agent):    
      def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
           super().__init__(myName, myFunction, myOption, myClass, rating )
-     def agent_takasho002(self, game: Game, option=[], gameLog=[], debugLog=False):
+     def takasho002AI(self, game: GameWithLog, option=[], gameLog=[], debugLog=False):
          player = game.current_player
+         min = 30
          while True:
-              myCandidate = getCandidates(game)#é¿çsÇ≈Ç´ÇÈÇ±Ç∆Ç™ÇÁÇÉäÉXÉgÇ≈éÊìæ
+              myCandidate = getCandidates(game)#ÂÆüË°å„Åß„Åç„Çã„Åì„Å®„Åå„Çâ„Çí„É™„Çπ„Éà„ÅßÂèñÂæó
               if len(myCandidate)>0:
-                   myChoice = random.choice(myCandidate)#ÉâÉìÉ_ÉÄÇ…àÍÇ¬ëIÇ‘
-                   if myChoice.type ==ExceptionPlay.TURNEND:#âΩÇ‡ÇµÇ»Ç¢ÇëIëÇµÇΩÇ∆Ç´
-                       return
-                   executeAction(game, myChoice, debugLog=debugLog)#ëIëÇµÇΩÇ‡ÇÃÇé¿çs
-                   postAction(player)#å„èàóù
+                  sum = 0
+                  for card in game.current_player.opponent.field:
+                      sum = sum + card.atk
+                  print(sum)
+                  if sum >= 7: #Áõ∏Êâã„ÅÆÁõ§Èù¢„ÅÆÊâìÁÇπË®àÁÆó
+                      print("„ÇÑ„Å∞„ÅÑ„Çè„Çà")
+
+                  for choice in myCandidate:
+                       tmpGame = copy.deepcopy(game)
+                       #if choice.type==BlockType.PLAY and choice.card.type==CardType.MINION:
+                       executeAction(tmpGame,choice,debugLog=False)
+                       postAction(player)
+                       choice.score = game.current_player.opponent.hero.health
+                  myChoice = None
+                  
+                  for choice in myCandidate:
+                      if min >= choice.score:
+                          min = choice.score
+                          myChoice = choice
+                  executeAction(game,myChoice,debugLog=True)
+                  postAction(player)
+                  if game.current_player.opponent.hero.health ==0:
+                      print("„Åã„Å°ÔºÅ")
+                      return
+
               else:
                    return

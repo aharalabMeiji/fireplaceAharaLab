@@ -1,6 +1,12 @@
 #!/usr/bin/env python
-
 import sys
+from hearthstone.enums import *
+from utils import *
+from agent_Standard import *
+from agent_Maya import *
+from agent_word_strategy import *
+from agent_AngryCat import *
+from agent_takasho002 import *
 
 sys.path.append("..")
 
@@ -10,50 +16,54 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	from utils import Agent,play_set_of_games
-	from test_competition import play_MechaHunterGames
-	from hearthstone.enums import CardClass
-	from agent_Standard import StandardRandom
-	Human=Agent("Human",None,myClass=CardClass.MAGE)
-	StandardRandom1=Agent("Standard1",StandardRandom) # Classを指定しないとHUNTER
-	StandardRandom2=Agent("Standard2",StandardRandom)
+	#人間手入力
+	Human=HumanAgent("Human",HumanAgent.HumanInput)
+	#ランダムプレーヤー
+	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
+	#ベクトルプレーヤー。意外と強い。この人とサシで勝負して勝てるくらいが一応の目安。
+	#Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+	#	,myClass=CardClass.HUNTER) 		
 
-	from agent_AngryCat import AngryCatAI
-	from agent_takasho001 import takasho001AI
-	takashoAgent = Agent("takasho",takasho001AI)
+	# Maya : モンテカルロによる読み切り
+	#Maya=Agent("Maya",Maya_MCTS)
+
+	# Miyaryo
+	#from agent_miyaryo import miyaryoAgent
+	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
+
+	# Takasho001
+	#from agent_takasho001 import takasho001Agent
+	#takasho001=takasho001Agent("Takasho",takasho001Agent.takashoAI)
 	
-	# モンテカルロによる読み切り
-	## Maya=Agent("Maya",None)
+	# takasho002
 
-	# Standardなベクトル評価のエージェント34次元の重みベクトルをオプションとして入力する
-	#from agent_Standard import StandardStep1
-	#import random
-	#opt = []
-	#for i in range(34):
-	#	opt.append(random.randint(1,10))
-	#GhostCatPlayer=Agent("GhostCat", StandardStep1,myOption=opt,myClass=CardClass.WARRIOR)
-	#あそび
-	#PIPlayer=Agent("Pi", StandardStep1,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8],myClass=CardClass.PRIEST)
+	takasho002=takashoAgent("agent_takasho002",takashoAgent.takasho002AI)
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
-	#from agent_word_strategy import WS, agent_word_strategy
-	#WSplayer = Agent("WS", agent_word_strategy,\
-	#	myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー],\
-	#	myClass=CardClass.PRIEST)
+	#from agent_word_strategy import WordStrategyAgent
+	#WordStrategy = WordStrategyAgent("WS", WordStrategyAgent.agent_word_strategy\
+	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
+	#	,myClass=CardClass.PRIEST)
 
-	#AngryCat by Ahara 無駄な行為を選択肢から排除するアルゴリズム
-	#from agent_AngryCat import AngryCatAI
-	#AngryCatPlayer = Agent("AngryCat", AngryCatAI)
+	#AngryCat ： シンプルに選択するアルゴリズム
+	#from agent_AngryCat import AngryCatAgent
+	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
-	#ゲームプレイ
-	#play_set_of_games(Human, StandardRandom, gameNumber=1, debugLog=True) 
-	#ハンター縛りのデッキ（メカハンター）による対戦
-	
-	play_MechaHunterGames(takashoAgent, StandardRandom1, gameNumber=1, debugLog=True)
+	#HunterCat : faceHunter専用のエージェント
+	#from agent_HunterCat import HunterCatAgent
+	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
+
+	####################################################################
+
+	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
+	play_set_of_games(takasho002, Random, gameNumber=1, debugLog=True)
+	#デッキを固定しての対戦
+	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
-	#play_round_robin_competition([StandardRandom,PIPlayer,AngryCatPlayer],matchNumber=5)
+	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair
