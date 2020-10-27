@@ -1,5 +1,4 @@
 import random
-import numpy as np
 import copy
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType, CardClass#
@@ -15,7 +14,7 @@ class StandardAgent(Agent):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
 
-	def StandardRandom(thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
 		while loopCount<20:
@@ -35,8 +34,9 @@ class StandardAgent(Agent):
 class StandardVectorAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
+		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
 		pass
-	def StandardStep1(game, option=None, gameLog=[], debugLog=True):	
+	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
 		debug=False
 		if option==None:
 			print ("StandardStep1 needs an option")
@@ -54,10 +54,10 @@ class StandardVectorAgent(Agent):
 				score=100000
 			else:
 
-				if StandardAgent.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+				if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
 					score=100000
 				else:
-					score = StandardVectorAgent.getStageScore(tmpGame,myWeight)
+					score = self.getStageScore(tmpGame,myWeight)
 			if debug:
 				print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
 			if score > maxScore:
@@ -78,10 +78,10 @@ class StandardVectorAgent(Agent):
 				return ExceptionPlay.INVALID
 			player = game.current_player
 			postAction(player)
-			return StandardVectorAgent.StandardStep1(game, option=myWeight, debugLog=debugLog)
+			return self.StandardStep1(game, option=myWeight, debugLog=debugLog)
 		else:
 			return ExceptionPlay.VALID
-	def getStageScore(game, weight):
+	def getStageScore(self,game, weight):
 		cardPerPoint=0.3
 		w_length=34
 		w=[]
@@ -245,7 +245,7 @@ class HumanAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
-	def HumanInput(game, option=None, gameLog=[], debugLog=True):
+	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
 		while True:
 			myCandidate = []

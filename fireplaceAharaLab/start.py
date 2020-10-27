@@ -18,11 +18,11 @@ def main():
 	#人間手入力
 	Human=HumanAgent("Human",HumanAgent.HumanInput)
 	#ランダムプレーヤー
-	Random=StandardAgent("Standard",StandardAgent.StandardRandom) 
+	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。この人とサシで勝負して勝てるくらいが一応の目安。
-	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
-		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER) 		
+	#Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+	#	,myClass=CardClass.HUNTER) 		
 
 	# Maya : モンテカルロによる読み切り
 	#Maya=Agent("Maya",Maya_MCTS)
@@ -60,7 +60,7 @@ def main():
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
-	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=9)
+	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair

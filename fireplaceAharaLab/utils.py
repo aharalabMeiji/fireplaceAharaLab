@@ -182,14 +182,12 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
-		#if player.name=="Maya":
-		#	Maya_MCTS(game)#マヤ氏の作品 -> 他の人のフォーマットにそろえてください。
 		if player.name==P1.name:
-			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P1.func(game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
+			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
+			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
-			#Agent.funcには引数 game, option, gameLog, debugLogを作ってください
-			P2.func(game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
+			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
+			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#公式のランダム
 		#ターンエンドの処理ここから

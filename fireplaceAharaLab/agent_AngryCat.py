@@ -1,7 +1,6 @@
 #StandardStep2
 
 import random
-import numpy as np
 import copy
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardClass, CardType#
@@ -64,7 +63,7 @@ class AngryCatAgent(Agent):
 			answer -= (Vec1[n]*Vec2[n])
 		return answer
 
-	def AngryCatAI(thisGame: Game, option=[], gameLog=[], debugLog=True):
+	def AngryCatAI(self, thisGame: Game, option=[], gameLog=[], debugLog=True):
 		while True:
 			myCandidates = getCandidates(thisGame)
 			if len(myCandidates)==0:
