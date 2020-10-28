@@ -22,6 +22,7 @@ class MiyaryoAgent(Agent):
         super().__init__(myName, myFunction, myOption, myClass, rating)
 
     def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
+        print("turn %d" % game.turn)
         player = game.current_player
 
         while True:
@@ -37,23 +38,23 @@ class MiyaryoAgent(Agent):
                     return
                 return ExceptionPlay.INVALID
             else:
-                eScore = primitiveMonte(tmpGame, myCandidate)
-                mychoice = mp.argmax(eScore)
+                eScore = self.primitiveMonte(tmpGame, myCandidate)
+                mychoice = np.argmax(eScore)
                 if myCandidate[mychoice].type == ExceptionPlay.TURNEND:
-                    print("error")
+                    print("あえてターンエンド")
                     return
                 executeAction(game, myCandidate[mychoice])
                 postAction(player)
         return ExceptionPlay.VALID
 
-    def primitiveMonte(_game: Game, _candidates: list):
+    def primitiveMonte(self, _game: Game, _candidates: list):
         retScore = []
         player = _game.current_player
         for i in range(len(_candidates)):
             canScore = []
-            for j in range(20):
+            for j in range(5):
                 tmpGame = copy.deepcopy(_game)
-                executeAction(tmpGame, _candidates[i])
+                executeAction(tmpGame, _candidates[i],debugLog=False)
                 postAction(player)
                 while True:
                     tmpCandidates = getCandidates(
@@ -62,13 +63,13 @@ class MiyaryoAgent(Agent):
                     if tmpCandidates[index].type == ExceptionPlay.TURNEND:
                         break
                     else:
-                        executeAction(tmpGame, tmpCandidates[index])
+                        executeAction(tmpGame, tmpCandidates[index],debugLog=False)
                         postAction(player)
-                canScore.append(getBoardScore(tmpGame))
+                canScore.append(self.getBoardScore(tmpGame))
             retScore.append(sum(canScore)/len(canScore))
         return retScore
 
-    def getBoardScore(_game: Game):
+    def getBoardScore(self, _game: Game):
         me = _game.current_player
         he = _game.current_player.opponent
         vLength = 34  # ベクトルの長さ
@@ -77,80 +78,80 @@ class MiyaryoAgent(Agent):
         v[1] = he.hero.health
         for char in me.characters:
             if char.type == CardType.MINION:
-                v[2] += char.attack
+                v[2] += char.atk
                 v[3] += char.health
-                if char.taunt:
+                if getattr(char, 'taunt', 0):
                     v[4] += char.health
                 # if char.battlecry:
-                if char.deathrattle:
+                if getattr(char, 'deathrattles', 0):
                     v[5] += 1
                 # if char.discover:
-                if char.divine_shield:
+                if getattr(char, 'divine_shield', 0):
                     v[6] += 1
                 # if char.dormant:
                 # if char.echo:
-                if char.forgetful:
+                if getattr(char, 'forgetful', 0):
                     v[7] += 1
-                if char.immune:
+                if getattr(char, 'immune', 0):
                     v[8] += 1
-                if char.inspire:
+                if getattr(char, 'has_inspire', 0):
                     v[9] += 1
-                if char.lifesteel:
+                if getattr(char, 'lifesteal', 0):
                     v[10] += 1
                 # if char.magnetic:
                 # if char.outcast:
-                if char.overkill:
+                if getattr(char, 'overkill', 0):
                     v[11] += 1
                 # if char.overload:
-                if char.poisonous:
+                if getattr(char, 'poisonous', 0):
                     v[12] += 1
-                if char.reborn:
+                if getattr(char, 'reborn', 0):
                     v[13] += 1
                 # if char.rush:
-                if char.spell_damage:  # int
+                if getattr(char, 'spell_damage', 0): # int
                     v[14] += char.spell_damage
                 # if char.spellburst:
-                if char.windfury:      # 追加攻撃回数(int)
+                if getattr(char, 'windfury', 0):     # 追加攻撃回数(int)
                     v[15] += char.windfury
         for char in he.characters:
             if char.type == CardType.MINION:
-                v[16] += char.attack
+                v[16] += char.atk
                 v[17] += char.health
-                if char.taunt:
+                if getattr(char, 'taunt', 0):
                     v[18] += char.health
                 # if char.battlecry:
-                if char.deathrattle:
+                if getattr(char, 'deathrattles', 0):
                     v[19] += 1
                 # if char.discover:
-                if char.divine_shield:
+                if getattr(char, 'divine_shield', 0):
                     v[20] += 1
                 # if char.dormant:
                 # if char.echo:
-                if char.forgetful:
+                if getattr(char, 'forgetful', 0):
                     v[21] += 1
-                if char.immune:
+                if getattr(char, 'immune', 0):
                     v[22] += 1
-                if char.inspire:
+                if getattr(char, 'has_inspire', 0):
                     v[23] += 1
-                if char.lifesteel:
+                if getattr(char, 'lifesteal', 0):
                     v[24] += 1
                 # if char.magnetic:
                 # if char.outcast:
-                if char.overkill:
+                if getattr(char, 'overkill', 0):
                     v[25] += 1
                 # if char.overload:
-                if char.poisonous:
+                if getattr(char, 'poisonous', 0):
                     v[26] += 1
-                if char.reborn:
+                if getattr(char, 'reborn', 0):
                     v[27] += 1
                 # if char.rush:
-                if char.spell_damage:  # int
+                if getattr(char, 'spell_damage', 0): # int
                     v[28] += char.spell_damage
                 # if char.spellburst:
-                if char.windfury:      # 追加攻撃回数(int)
-                    v[29] += char.windfury*char.attack
-        v[30] = me.hero.attack
-        v[31] = he.hero.attack
+                if getattr(char, 'windfury', 0):     # 追加攻撃回数(int)
+                    v[29] += char.windfury*char.atk
+        v[30] = me.hero.atk
+        v[31] = he.hero.atk
         v[32] = len(me.hand)
         v[33] = len(he.hand)
         w = [1]*vLength
