@@ -18,6 +18,9 @@ exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 
 class MiyaryoAgent(Agent):
 
+    vLength = 34  # ベクトルの長さ
+    w=[1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 1, -1, 0.5, -0.5]
+
     def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000):
         super().__init__(myName, myFunction, myOption, myClass, rating)
 
@@ -72,8 +75,7 @@ class MiyaryoAgent(Agent):
     def getBoardScore(self, _game: Game):
         me = _game.current_player
         he = _game.current_player.opponent
-        vLength = 34  # ベクトルの長さ
-        v = [0] * vLength
+        v = [0] * self.vLength
         v[0] = me.hero.health
         v[1] = he.hero.health
         for char in me.characters:
@@ -154,20 +156,7 @@ class MiyaryoAgent(Agent):
         v[31] = he.hero.atk
         v[32] = len(me.hand)
         v[33] = len(he.hand)
-        w = [1]*vLength
-        for i in range(vLength):
-            if i in [1, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31, 33]:
-                w[i] *= -1
-        w[7] *= -1
-        w[21] *= -1
-        w[8] *= 0
-        w[22] *= 0
-        w[32] *= 0.5
-        w[33] *= 0.5
-        score = 0
-        for i in range(vLength):
-            score += v[i]*w[i]
-        return score
+        return v
 
 
 def Miya_UCT(game: ".game.Game", option=[], debugLog=True):
