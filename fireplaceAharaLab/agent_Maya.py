@@ -18,7 +18,7 @@ from utils import *
 class agent_Maya(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
-	def agent_MayaAI(self, game: Game, option=[self.myName], gameLog=[], debugLog=False):
+	def agent_MayaAI(self, game: Game, option=[], gameLog=[], debugLog=False):
 		while True:
 			self.currentPlayer=game.current_player
 			print("--------------------simulate start!!----------------")
@@ -28,7 +28,7 @@ class agent_Maya(Agent):
 				print("len(self.candidates)==1")
 				return ExceptionPlay.VALID
 				pass
-			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_name=option[0]);
+			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=2);
 			print("--------------------simulate end!!------------------")
 			print(self.takingAction)
 			# iterate over our hand and play whatever is playable
@@ -58,7 +58,7 @@ class agent_Maya(Agent):
 			else :
 				player.choice.choose(self.choice)
 			pass
-	def try_montecarlo_tree_search(self,_candidates=[],_trialPerTree=50,_numOfTree=10,_name="Default"):
+	def try_montecarlo_tree_search(self,_game,_candidates=[],_trialPerTree=50,_numOfTree=10):
 		from fireplace.deck import Deck
 		self.copyGame=copy.deepcopy(_game)
 		self.myPlayer=self.copyGame.current_player
@@ -85,7 +85,7 @@ class agent_Maya(Agent):
 			#ゲーム木展開
 			#あとでcandidatesをpopするからそのまま使うと_candidatesは空説
 			self.currentCandidate=getCandidates(self.copyGame,_includeTurnEnd=True)
-			self.root=Node(self.copyGame,None,None,self.currentCandidate,_name=_name)
+			self.root=Node(self.copyGame,None,None,self.currentCandidate,_name=self.name)
 			for tree in range(_trialPerTree):
 				self.current_node = self.root;
 				while len(self.current_node.untriedMoves) == 0 and len(self.current_node.childNodes) != 0:
@@ -93,7 +93,7 @@ class agent_Maya(Agent):
 				if len(self.current_node.untriedMoves) != 0:
 					self.expanding_action=self.current_node.choose_expanding_action()
 					self.current_node = self.current_node.expandChild(self.expanding_action);
-				self.result = current_node.simulate();
+				self.result = self.current_node.simulate();
 				self.current_node.backPropagate(self.result);
 			self.visitScores=list(map(lambda node:myActionValue(node.move,node.visits),self.root.childNodes))
 			self.totalScores=self.addActionValues(self.totalScores,self.visitScores)
@@ -117,6 +117,20 @@ class agent_Maya(Agent):
 			pass
 		#time.sleep(5)
 		return self.retAction
+		pass
+	def addActionValues(self,original,additional=[]):
+		if len(original)==0:
+			return additional			
+		if len(original)!=len(additional):
+			print("different length in addActionValues")
+			print("len(original)=",len(original))
+			print("len(additional)=",len(additional))
+			return
+		self.addedValues=[]
+		for i,item in enumerate(additional):
+			self.addedValues.append(myActionValue(item.action,item.score+original[i].score))
+			pass
+		return self.addedValues
 		pass
 def get_cardList(card_class:CardClass,exclude=[]):
 	from fireplace import cards
@@ -169,8 +183,8 @@ class Node(object):
 				self.myPolicy=item
 				pass
 			pass
-		self.exc=executeAction(self.expandingGame,self.myPolicy)
-		self.myPostAction(self.expandingGame.current_player)
+		self.exc=executeAction(self.expandingGame,self.myPolicy,debugLog=False)
+		postAction(self.expandingGame.current_player)
 		try:
 			if self.exc==ExceptionPlay.GAMEOVER:
 				print("the game has been ended.")
@@ -206,7 +220,7 @@ class Node(object):
 				self.score=0
 			pass
 		else:
-			self.score=self.simulate_random_game(self.gameTree,_name=self.name)
+			self.score=self.simulate_random_game(self.gameTree)
 		return self.score
 		pass
 	def backPropagate(self,result=None):
@@ -223,17 +237,17 @@ class Node(object):
 		pass
 	def simulate_random_turn(self,game: ".game.Game"):
 		#申し訳ないがちょっとだけ賢い可能性がある
-		self.player= = game.current_player
+		self.player= game.current_player
 		while True:
 			#getCandidate使った方が早くないか？
 			# iterate over our hand and play whatever is playable
 			self.simCandidates=getCandidates(game,_includeTurnEnd=True)
 			self.index=int(random.random()*len(self.simCandidates))
-			if simCandidates[index].type ==ExceptionPlay.TURNEND:
+			if self.simCandidates[self.index].type ==ExceptionPlay.TURNEND:
 				game.end_turn();
 				return ExceptionPlay.VALID
-			self.exc=executeAction(game,self.simCandidates[self.index])
-			self.myPostAction(self.player)
+			self.exc=executeAction(game,self.simCandidates[self.index],debugLog=False)
+			postAction(self.player)
 			if self.exc==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
 			else:
@@ -260,6 +274,8 @@ class Node(object):
 				self.winner=self.judgeWinner(self.simulating_game)
 				break;
 				pass
+		print("self.winner,self.name=")
+		print(self.winner,self.name)
 		if self.winner==self.name:
 			self.retVal+=1
 		elif self.winner=="DRAW":
