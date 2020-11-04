@@ -13,25 +13,30 @@ class takashoAgent(Agent):
          while True:
               myCandidate = getCandidates(game)#実行できることがらをリストで取得
               if len(myCandidate)>0:
-                  sum = 0
-                  for card in game.current_player.opponent.field:
-                      sum = sum + card.atk
+                  sum = sumFieldCardatc(game)
                   print(sum)
-                  if sum >= 7: #相手の盤面の打点計算
-                      print("やばいわよ")
-
+                  
                   for choice in myCandidate:
                        tmpGame = copy.deepcopy(game)
                        #if choice.type==BlockType.PLAY and choice.card.type==CardType.MINION:
                        executeAction(tmpGame,choice,debugLog=False)
                        postAction(player)
                        choice.score = game.current_player.opponent.hero.health
+                       choice.minionHelth = game.current_player.opponent.field.card.atk
                   myChoice = None
                   
-                  for choice in myCandidate:
-                      if min >= choice.score:
-                          min = choice.score
-                          myChoice = choice
+                  if sum >= 7: #相手の盤面の打点計算
+                      print("やばいわよ")
+                      #打点を抑えるようにプレイ
+                      for choice in myCandidate:
+                        if sum > choice.minionHelth:
+                            myChoice = choice
+
+                  else:
+                    for choice in myCandidate:
+                        if min >= choice.score:
+                            min = choice.score
+                            myChoice = choice
                   executeAction(game,myChoice,debugLog=True)
                   postAction(player)
                   if game.current_player.opponent.hero.health ==0:
@@ -40,3 +45,7 @@ class takashoAgent(Agent):
 
               else:
                    return
+     def sumFieldCardatc(game):
+         for card in game.current_player.opponent.field:
+             sum = sum + card.atk
+         return sum

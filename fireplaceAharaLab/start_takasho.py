@@ -6,7 +6,7 @@ from agent_Standard import *
 from agent_Maya import *
 from agent_word_strategy import *
 from agent_AngryCat import *
-from agent_takasho002 import *
+from Agent_takasho002 import *
 
 sys.path.append("..")
 
