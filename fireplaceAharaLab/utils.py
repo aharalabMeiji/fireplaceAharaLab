@@ -182,6 +182,7 @@ class Candidate(object):
 		self.type = type
 		self.target = target
 		self.score = 0
+		self.minionHealth = 0
 		self.notes = ''
 		pass
 
@@ -194,6 +195,7 @@ class Candidate(object):
 		pass
 	def clearScore(self):
 		self.score = 0
+
 
 class GameWithLog(Game):
 	""" ゲーム進行のログを管理する  """
