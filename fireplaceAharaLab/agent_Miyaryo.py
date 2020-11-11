@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import copy
+import time
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType
 from utils import *
@@ -13,13 +14,15 @@ from enum import IntEnum
 from fireplace.deck import Deck
 
 
+
 exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 
 
 class MiyaryoAgent(Agent):
 
     vLength = 34  # ベクトルの長さ
-    w=[1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 1, -1, 0.5, -0.5]
+    w=np.array([1, -2, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 1, -1, 0.5, -0.5])
+    lethal = False
 
     def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000):
         super().__init__(myName, myFunction, myOption, myClass, rating)
@@ -27,13 +30,14 @@ class MiyaryoAgent(Agent):
     def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
         print("turn %d" % game.turn)
         player = game.current_player
+        self.lethal = False
 
         while True:
+            start = time.time()
             tmpGame = copy.deepcopy(game)
+            print(f"elapsed_time:{time.time()-start}")
             myCandidate = getCandidates(
                 tmpGame, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
-
-            sScore = self.getBoardScore(tmpGame)
 
             if len(myCandidate) <= 1:  # 何もしないを選択した時
                 myChoice = random.choice(myCandidate)  # ランダムに一つ選ぶ
@@ -41,24 +45,36 @@ class MiyaryoAgent(Agent):
                     return
                 return ExceptionPlay.INVALID
             else:
-                eScore = self.primitiveMonte(tmpGame, myCandidate)
-                mychoice = np.argmax(eScore)
+                finalScores = self.primitiveMonte(tmpGame, myCandidate)
+                if isinstance(finalScores, int):
+                    mychoice = finalScores
+                    self.lethal = True
+                else:
+                    mychoice = np.argmax(finalScores)
                 if myCandidate[mychoice].type == ExceptionPlay.TURNEND:
                     print("あえてターンエンド")
-                    return
+                    return ExceptionPlay.VALID
                 executeAction(game, myCandidate[mychoice])
                 postAction(player)
+                if self.lethal == True:
+                    return ExceptionPlay.VALID
         return ExceptionPlay.VALID
 
     def primitiveMonte(self, _game: Game, _candidates: list):
-        retScore = []
+        retScore = np.empty(0)
         player = _game.current_player
+        beforeScore = self.getBoardScore(_game)
         for i in range(len(_candidates)):
-            canScore = []
+            canScore = np.empty((0,34))
             for j in range(5):
+                if _candidates[i].type == ExceptionPlay.TURNEND:
+                    canScore = np.append(canScore, [beforeScore], axis = 0)
+                    continue
                 tmpGame = copy.deepcopy(_game)
                 executeAction(tmpGame, _candidates[i],debugLog=False)
                 postAction(player)
+                if tmpGame.current_player.opponent.hero.health <= 0:
+                    return i
                 while True:
                     tmpCandidates = getCandidates(
                         tmpGame, _smartCombat=False, _includeTurnEnd=True)
@@ -68,14 +84,31 @@ class MiyaryoAgent(Agent):
                     else:
                         executeAction(tmpGame, tmpCandidates[index],debugLog=False)
                         postAction(player)
-                canScore.append(self.getBoardScore(tmpGame))
-            retScore.append(sum(canScore)/len(canScore))
+                canScore = np.append(canScore, [self.getBoardScore(tmpGame)], axis = 0)
+            calcedScore = self.calcScore(beforeScore, np.mean(canScore, axis = 0), self.lethal)
+            print(f"_{i}_{_candidates[i]}", end = '')
+            print(f'--> {calcedScore:.3f}')
+            retScore = np.append(retScore, calcedScore)
         return retScore
+        pass
+
+    def calcScore(self, _before, _after, _lethal):
+        # if(len(_before) != len(_after)):
+        #     print("ERROR")
+        #     return 0
+        tmpW = np.copy(self.w)
+        print(f"before{_before}")
+        print(f"after{_after}")
+        print(f"w{tmpW}")
+        retScore = np.sum((_after - _before) * tmpW)
+        return retScore
+        pass
+
 
     def getBoardScore(self, _game: Game):
         me = _game.current_player
         he = _game.current_player.opponent
-        v = [0] * self.vLength
+        v = np.zeros(self.vLength)
         v[0] = me.hero.health
         v[1] = he.hero.health
         for char in me.characters:
@@ -157,6 +190,32 @@ class MiyaryoAgent(Agent):
         v[32] = len(me.hand)
         v[33] = len(he.hand)
         return v
+        pass
+
+    def checkLethal(self, _game):
+        totalAttack = 0
+        totalTauntHealth = 0
+        me = _game.current_player
+        he = _game.current_player.opponent
+        for char in me.characters:
+            if char.can_attack():
+                totalAttack += char.atk
+        for char in he.characters:
+            if char.taunt:
+                totalTauntHealth += char.health
+        if totalAttack - he.hero.health - totalTauntHealth >= 0:
+            return True
+        else:
+            return False
+        pass
+
+
+
+        
+                
+                
+
+        
 
 
 def Miya_UCT(game: ".game.Game", option=[], debugLog=True):
