@@ -6,6 +6,7 @@ from agent_Standard import *
 from agent_Maya import *
 from agent_word_strategy import *
 from agent_AngryCat import *
+import cProfile
 
 sys.path.append("..")
 
@@ -54,7 +55,12 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Vector, Test, gameNumber=1, debugLog=True)
+	pr = cProfile.Profile()
+	pr.enable()
+	play_set_of_games(Vector, Miyaryo, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
+	pr.disable()
+	pr.print_stats()
+	# cProfile.run('play_set_of_games(Vector, Miyaryo, gameNumber=1, debugLog=True)',"profiling-by-api.stats")
 	#デッキを固定しての対戦
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 

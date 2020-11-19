@@ -72,7 +72,6 @@ class StandardVectorAgent(Agent):
 		if len(myChoices)>0:
 			myChoice = random.choice(myChoices)
 			ret = executeAction(game, myChoice,debugLog=debugLog)
-			print("Vector %s" % myChoice)
 			if ret==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
 			if ret==ExceptionPlay.INVALID:

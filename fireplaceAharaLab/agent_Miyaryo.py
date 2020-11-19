@@ -2,6 +2,8 @@ import random
 import numpy as np
 import copy
 import time
+import cProfile
+import gc
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType
 from utils import *
@@ -20,8 +22,8 @@ exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 
 class MiyaryoAgent(Agent):
 
-    vLength = 34  # ベクトルの長さ
-    w=np.array([1, -2, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 1, -1, 0.5, -0.5])
+    vLength = 36  # ベクトルの長さ
+    w=np.array([1, -2, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 1, -1, 0.5, -0.5])
     lethal = False
 
     def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000):
@@ -56,6 +58,8 @@ class MiyaryoAgent(Agent):
                     return ExceptionPlay.VALID
                 executeAction(game, myCandidate[mychoice])
                 postAction(player)
+                del tmpGame
+                gc.collect()
                 if self.lethal == True:
                     return ExceptionPlay.VALID
         return ExceptionPlay.VALID
@@ -65,7 +69,7 @@ class MiyaryoAgent(Agent):
         player = _game.current_player
         beforeScore = self.getBoardScore(_game)
         for i in range(len(_candidates)):
-            canScore = np.empty((0,34))
+            canScore = np.empty((0,self.vLength))
             for j in range(5):
                 if _candidates[i].type == ExceptionPlay.TURNEND:
                     canScore = np.append(canScore, [beforeScore], axis = 0)
@@ -85,6 +89,8 @@ class MiyaryoAgent(Agent):
                         executeAction(tmpGame, tmpCandidates[index],debugLog=False)
                         postAction(player)
                 canScore = np.append(canScore, [self.getBoardScore(tmpGame)], axis = 0)
+                del tmpGame
+                gc.collect()
             calcedScore = self.calcScore(beforeScore, np.mean(canScore, axis = 0), self.lethal)
             print(f"_{i}_{_candidates[i]}", end = '')
             print(f'--> {calcedScore:.3f}')
@@ -185,10 +191,20 @@ class MiyaryoAgent(Agent):
                 # if char.spellburst:
                 if getattr(char, 'windfury', 0):     # 追加攻撃回数(int)
                     v[29] += char.windfury*char.atk
-        v[30] = me.hero.atk
-        v[31] = he.hero.atk
-        v[32] = len(me.hand)
-        v[33] = len(he.hand)
+        for char in me.characters:
+            if char.type == CardType.MINION:
+                des = char.data.description
+                if '[x]' in des and not ':' in des:
+                    v[30] += char.health
+        for char in he.characters:
+            if char.type == CardType.MINION:
+                des = char.data.description
+                if '[x]' in des and not ':' in des:
+                    v[31] += char.health
+        v[32] = me.hero.atk
+        v[33] = he.hero.atk
+        v[34] = len(me.hand)
+        v[35] = len(he.hand)
         return v
         pass
 

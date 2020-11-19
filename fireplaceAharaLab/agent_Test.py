@@ -20,13 +20,13 @@ class TestAgent(Agent):
         player = game.current_player
         while True:
             start = time.time()
-            tmpGame = pickle.loads(pickle.dumps(game, -1))
+            # tmpGame = pickle.loads(pickle.dumps(game, -1))
             print(f"elapsed_time:{time.time()-start}")
-            # tmpGame = copy.deepcopy(game)
+            tmpGame = copy.deepcopy(game)
             myCandidate = getCandidates(game)#実行できることがらをリストで取得
             if len(myCandidate)>0: # and game.turn >= 3:
-                # myChoice = myCandidate[len(myCandidate)-1]
-                myChoice = random.choice(myCandidate)#ランダムに一つ選ぶ
+                myChoice = myCandidate[len(myCandidate)-1]
+                # myChoice = random.choice(myCandidate)#ランダムに一つ選ぶ
                 if myChoice.type ==ExceptionPlay.TURNEND:#何もしないを選択したとき
                     return
                 executeAction(game, myChoice, debugLog=debugLog)#選択したものを実行
