@@ -15,7 +15,7 @@ class takashoAgent(Agent):
               myCandidate = getCandidates(game)#実行できることがらをリストで取得
               if len(myCandidate)>0:
                   sum = self.sumFieldCardatc(game)
-                  print(sum)
+                 # print(sum)
                   
                   for choice in myCandidate:
                        tmpGame = copy.deepcopy(game)
@@ -29,12 +29,12 @@ class takashoAgent(Agent):
                   if game.current_player.opponent.hero.health ==0:
                       print("かち！")
                       return                  
-                  if sum >= 10: #相手の盤面の打点計算
-                      print("やばいわよ")
+                  #if sum >= 10: #相手の盤面の打点計算
+                   #   print("やばいわよ")
                       #打点を抑えるようにプレイ
-                      for choice in myCandidate:
-                        if sum > choice.score[1]:
-                            myChoice = choice
+                    #  for choice in myCandidate:
+                     #   if sum > choice.score[1]:
+                      #      myChoice = choice
                   else:
                     for choice in myCandidate:
                         if min >= choice.score[0]:
