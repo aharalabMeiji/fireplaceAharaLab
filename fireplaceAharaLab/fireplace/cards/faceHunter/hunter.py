@@ -1,22 +1,22 @@
 from ..utils import *
 
-class SCH_133:
-	""" Wolpertinger 
-	雄叫び: このミニオンの   コピーを1体召喚する。"""
-	play = Summon(CONTROLLER, Copy(SELF))
+#class SCH_133:
+#	""" Wolpertinger 
+#	雄叫び: このミニオンの   コピーを1体召喚する。"""
+#	play = Summon(CONTROLLER, Copy(SELF))
 
-class SCH_617:
-	"""  カワイイ侵入者 
-	ミニオン1体に +1/+1を付与する。 1/1の仔を1体召喚する。 仔1体を自分の 手札に追加する。"""
-	requirements = {
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "SCH_617e"), Summon(CONTROLLER, "SCH_617t"),Give(CONTROLLER, "SCH_617t")
+#class SCH_617:
+#	"""  カワイイ侵入者 
+#	ミニオン1体に +1/+1を付与する。 1/1の仔を1体召喚する。 仔1体を自分の 手札に追加する。"""
+#	requirements = {
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Buff(TARGET, "SCH_617e"), Summon(CONTROLLER, "SCH_617t"),Give(CONTROLLER, "SCH_617t")
 
-SCH_617e = buff(1, 1)
+#SCH_617e = buff(1, 1)
 
-class SCH_617t:
-	pass
+#class SCH_617t:
+#	pass
 
 
 class DRG_253:
@@ -27,29 +27,29 @@ class DRG_253:
 	#むしろ、別カードにMorphする処理のほうが適切と思われる。
 	#検証不能
 
-class SCH_600:
-	""" 悪魔の相棒 
-	 ランダムな悪魔の相棒を1体召喚する。 """
-	#play = Summon(CONTROLLER, "SCH_600t1")#, "SCH_600t2", "SCH_600t3"}))##内容確認
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["SCH_600t1", "SCH_600t2", "SCH_600t3"]
-	play = Summon(CONTROLLER, RandomEntourage())
-	#def play(self):
-	#	friend_demon = random.choice(["SCH_600t1", "SCH_600t2", "SCH_600t3"])
-	#	yield Summon(CONTROLLER, friend_demon)
+#class SCH_600:
+#	""" 悪魔の相棒 
+#	 ランダムな悪魔の相棒を1体召喚する。 """
+#	#play = Summon(CONTROLLER, "SCH_600t1")#, "SCH_600t2", "SCH_600t3"}))##内容確認
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	entourage = ["SCH_600t1", "SCH_600t2", "SCH_600t3"]
+#	play = Summon(CONTROLLER, RandomEntourage())
+#	#def play(self):
+#	#	friend_demon = random.choice(["SCH_600t1", "SCH_600t2", "SCH_600t3"])
+#	#	yield Summon(CONTROLLER, friend_demon)
 
-class SCH_600t1:
-	""" フハァー """
-	pass
-class SCH_600t2:
-	""" シーミャ """
-	pass
-class SCH_600t3:
-	""" オレック
-	[x]自身を除く味方のミニオンは攻撃力+1を得る。 """
-	update = Refresh(FRIENDLY_MINIONS - SELF, buff="SCH_600t3e")
+#class SCH_600t1:
+#	""" フハァー """
+#	pass
+#class SCH_600t2:
+#	""" シーミャ """
+#	pass
+#class SCH_600t3:
+#	""" オレック
+#	[x]自身を除く味方のミニオンは攻撃力+1を得る。 """
+#	update = Refresh(FRIENDLY_MINIONS - SELF, buff="SCH_600t3e")
 
-SCH_600t3e = buff(1,0)
+#SCH_600t3e = buff(1,0)
 
 class DRG_252:
 	""" フェーズ・ストーカー 
