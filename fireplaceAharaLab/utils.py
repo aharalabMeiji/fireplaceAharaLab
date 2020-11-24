@@ -128,7 +128,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
 	#特定のカードを引かせたい場合。
-	extraCard = Card('SCH_162')
+	extraCard = Card('SCH_300')
 	extraCard.controller = player1#?
 	extraCard.draw()
 	extraCard = Card('EX1_029')

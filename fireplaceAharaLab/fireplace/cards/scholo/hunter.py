@@ -28,21 +28,21 @@ class SCH_279:
 	)#検証待ち
 	pass
 
-class SCH_300:
+class SCH_300:#OK
 	##Carrion Studies SCH_300
 	#Discover a Deathrattle minion. Your next one costs (1) less.
-	play = DISCOVER(RandomMinion(deathrattle=True)).then(#発見OK
+	play = DISCOVER(RandomMinion(deathrattle=True)).then(
 	   Buff(CONTROLLER, "SCH_300e")
-	   )#SCH_300e呼び出しOK, 
+	   )
 	pass
 class SCH_300e:
 	#Carrion Studies
 	#Your next [Deathrattle] minion costs (1) less.
-	update = Refresh(FRIENDLY_HAND + DEATHRATTLE, buff="SCH_300e2")#これが動かない。
-	#events = Play(CONTROLLER, DEATHRATTLE).on(Destroy(SELF))#検証待ち
+	update = Refresh(DEATHRATTLE, {GameTag.COST: -1})#OK
+	events = Play(CONTROLLER, DEATHRATTLE).on(Destroy(SELF))#OK
 	pass
 
-SCH_300e2 = buff(cost=-1)
+SCH_300e2 = buff(cost=-1)#使っていない
 	#Studying Carrion 
 	#Costs (1) less.
 
