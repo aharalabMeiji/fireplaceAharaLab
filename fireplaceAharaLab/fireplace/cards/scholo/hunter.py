@@ -32,8 +32,7 @@ class SCH_300:
 	##Carrion Studies SCH_300
 	#Discover a Deathrattle minion. Your next one costs (1) less.
 	play = DISCOVER(RandomMinion(deathrattle=True)).then(#発見OK
-	   Buff(CONTROLLER, "SCH_300e"),
-	   Buff(Discover.TARGET, "SCH_300e2")
+	   Buff(CONTROLLER, "SCH_300e")
 	   )#SCH_300e呼び出しOK, 
 	pass
 class SCH_300e:
