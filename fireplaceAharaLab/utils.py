@@ -127,6 +127,14 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
+	#特定のカードを引かせたい場合。
+	extraCard = Card('SCH_162')
+	extraCard.controller = player1#?
+	extraCard.draw()
+	extraCard = Card('EX1_029')
+	extraCard.controller = player1#?
+	extraCard.draw()
+	player1.max_mana=6
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -360,7 +368,7 @@ class BigDeck:
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
-
+	
 def postAction(player):
 	if player.choice:
 		choice = random.choice(player.choice.cards)

@@ -164,7 +164,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\collectible.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\hunter.py" />

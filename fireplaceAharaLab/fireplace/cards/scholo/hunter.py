@@ -5,39 +5,52 @@ class SCH_133:
 ##Wolpertinger <-done  SCH_133
 	""" Wolpertinger 
 	雄叫び: このミニオンの   コピーを1体召喚する。"""
-	play = Summon(CONTROLLER, Copy(SELF))
+	play = Summon(CONTROLLER, ExactCopy(SELF))
 
 class SCH_239:
 	##Krolusk Barkstripper SCH_239
 	#魔法活性:	ランダムな敵のミニオン1体を破壊する。
-	play = Buff(CONTROLLER, "SCH_239o")
-	pass
-class SCH_239o:
-	events = OWN_SPELL_PLAY.on(Destroy(RANDOM_ENEMY_MINION), Destroy(SELF))#検証待ち
+	play = OWN_SPELL_PLAY.on(Destroy(RANDOM_ENEMY_MINION))#OK
 	pass
 
 class SCH_244:
 	##Teacher's Pet  SCH_244
 	#挑発、断末魔:	#ランダムなコスト3の	#___獣1体を召喚する。
-	deathrattle = Summon(CONTROLLER, RandomBeast(cost=3))#検証待ち
+	deathrattle = Summon(CONTROLLER, RandomBeast(cost=3))#OK
 	pass
 
 class SCH_279:
 	## Trueaim Crescent SCH_279 
 	##自分のヒーローが	##ミニオンを攻撃した後	##味方のミニオン全てが	##_____同じ標的を攻撃する。
-	events = Attack(FRIENDLY_HERO,ENEMY_MINIONS).on(Attack(FRIENDLY_MINIONS, Attack.DEFENDER))#検証待ち
+	events = Attack(FRIENDLY_HERO,ENEMY_MINIONS).after(#この行OK
+		ExtraAttack(FRIENDLY_MINIONS)
+		#Hit(Attack.DEFENDER,1)#この行、実現できていない。
+	)#検証待ち
 	pass
 
 class SCH_300:
 	##Carrion Studies SCH_300
-	#断末魔:ミニオンを1体 発見する。#自分が次に使用する	断末魔 ミニオンのコストが（1）減る。
-
+	#Discover a Deathrattle minion. Your next one costs (1) less.
+	play = DISCOVER(RandomMinion(deathrattle=True)).then(#発見OK
+	   Buff(CONTROLLER, "SCH_300e"),
+	   Buff(Discover.TARGET, "SCH_300e2")
+	   )#SCH_300e呼び出しOK, 
 	pass
+class SCH_300e:
+	#Carrion Studies
+	#Your next [Deathrattle] minion costs (1) less.
+	update = Refresh(FRIENDLY_HAND + DEATHRATTLE, buff="SCH_300e2")#これが動かない。
+	#events = Play(CONTROLLER, DEATHRATTLE).on(Destroy(SELF))#検証待ち
+	pass
+
+SCH_300e2 = buff(cost=-1)
+	#Studying Carrion 
+	#Costs (1) less.
 
 class SCH_340:
 	##Bloated Python SCH_340
 	#断末魔:#4/4の	#「つかえてたヘビ使い」	#を1体召喚する。
-	deathrattle = Summon(CONTROLLER, "SCH_340t")#検証待ち
+	deathrattle = Summon(CONTROLLER, "SCH_340t")#OK
 	pass
 class SCH_340t:
 	#Hapless Handler
@@ -46,20 +59,18 @@ class SCH_340t:
 class SCH_538:
 	##Ace Hunter Kreen SCH_538
 	#自身を除く味方の	#キャラクターは	#攻撃する際に 無敵 を得る。
-	update = Refresh(FRIENDLY_MINIONS,{GameTag.IMMUNE: True})#検証待ち
+	update = Refresh(FRIENDLY_MINIONS-SELF,{GameTag.IMMUNE: True})#OK
 	pass
 
 class SCH_539:
 	##Professor Slate  SCH_539
 	#自分の呪文は	# 猛毒 を持つ。(これを持つカードからダメージを受けたミニオンは、残り体力に関わらず破壊される。)
-	update = Refresh(IN_PLAY + SPELL, {GameTag.POISONOUS: True})#検証待ち
+	update = Refresh(IN_PLAY + SPELL, {GameTag.POISONOUS: True})#検証不能、バグはない。
 	pass
 
 class SCH_600:
-	## Demon Companion <-done SCH_600
-	""" 悪魔の相棒 
-	 ランダムな悪魔の相棒を1体召喚する。 """
-	#play = Summon(CONTROLLER, "SCH_600t1")#, "SCH_600t2", "SCH_600t3"}))##内容確認
+	## Demon Companion SCH_600
+	""" 悪魔の相棒 	 ランダムな悪魔の相棒を1体召喚する。 """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	entourage = ["SCH_600t1", "SCH_600t2", "SCH_600t3"]
 	play = Summon(CONTROLLER, RandomEntourage())
@@ -86,34 +97,36 @@ class SCH_604:
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET,2), Hit(TARGET,Count(FRIENDLY_MINIONS + BEAST))
+	play = Hit(TARGET,2), Hit(TARGET,Count(FRIENDLY_MINIONS + BEAST))#一つ目OK、二つ目検証待ち
 	pass
 
 class SCH_607:
 ##Shan'do Wildclaw SCH_607
 # 選択:  自分のデッキの獣#全てに+1/+1を付与する。
 #または、味方の獣1体の#コピーに変身する。
-	#play = GenericChoice(CONTROLLER,"SCH_607a","SCH_607b");
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0 }
+	choose = ("SCH_607a", "SCH_607b")#確認できず。
+	play =ChooseBoth(CONTROLLER) & Morph(SELF, RANDOM(FRIENDLY_MINIONS+BEAST));#確認できず。
 	pass
 
 class SCH_607a:
-	update = Refresh(FRIENDLY_DECK+BEAST,buff="SCH_607e")
+	#Transfiguration
+	update = Refresh(FRIENDLY_DECK+BEAST,buff="SCH_607e")#検証待ち
 	pass
 
 class SCH_607b:
-	play = Morph(SELF, RANDOM(FRIENDLY_MINIONS+BEAST))
+	#Rile the Herd
+	play = Morph(SELF, RANDOM(FRIENDLY_MINIONS+BEAST))#検証待ち
 	pass
 
 SCH_607e = buff(1,1);
 
 
 class SCH_610:
-	pass
-##Guardian Animals SCH_610
-#自分のデッキから
-#コスト（5）以下の獣を
-#2体召喚する。それらに
-# 急襲 を付与する。
+	##Guardian Animals SCH_610
+	#自分のデッキから	#コスト（5）以下の獣を	#2体召喚する。それらに	# 急襲 を付与する。
+	play = Summon(FRIENDLY_MINIONS + BEAST).on(Buff(Summon.TARGET, buff(rush=True))), Summon(FRIENDLY_MINIONS + BEAST).on(Buff(Summon.TARGET, buff(rush=True)))#検証待ち
+	pass#確認できず。
 
 class SCH_617:
 	##Adorable Infestation <-done SCH_617
@@ -130,10 +143,11 @@ class SCH_617t:
 	pass
 
 class SCH_618:
-##Blood Herald SCH_618
-#このカードが手札に
-#ある間、味方のミニオン
-#が死ぬ度に+1/+1を
-#獲得する。
+	##Blood Herald SCH_618
+	#このカードが手札に#ある間、味方のミニオン#が死ぬ度に+1/+1を#獲得する。
+	class Hand:
+		events = Death(FRIENDLY + MINION).on(Buff(SELF, "SCH_618e"))#OK
 	pass
+
+SCH_618e = buff(1, 1)
 
