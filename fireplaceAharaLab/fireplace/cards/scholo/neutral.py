@@ -62,25 +62,25 @@ class SCH_199:#????????????????????????????????????????????? havent
 	#This has different effects based on which game board you're on.
 	pass
 class SCH_199t:
-	#ストームウィンド(時計台)　スタンダード
+	#Stormwind,　Standard
 	#Divine Shield 
 	pass
 class SCH_199t2:
-	# オーグリマー(煙突つき鍛冶場) スタンダード######################### no-checked
+	# Orgrimmar, Standard######################### no-checked
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Deal 2 damage.
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
 	play = Hit(TARGET,2)
 	pass
 class SCH_199t3:
-	#パンダリア(銅鑼)スタンダード######################### no-checked
+	#Pandaria, Standard######################### no-checked
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly minion +1/+2.
 	play = Buff(FRIENDLY_MINIONS,"SCH_199t3e")
 	pass
 SCH_199t3e=buff(1,2)
 #Mark of the Pandaren
 class SCH_199t4:
-	#ストラングルソーン(滝)スタンダード######################### no-checked
+	#Stranglethorn, Standard######################### no-checked
 	#&lt;b&gt;Stealth&lt;/b&gt; &lt;b&gt;Poisonous&lt;/b&gt;
 	pass
 class SCH_199t5:
@@ -94,7 +94,6 @@ class SCH_199t8:
 class SCH_199t9:
 	pass
 class SCH_199t10:
-	#旧神のささやき(触手の生えた時計台) ワイルド
 	pass
 class SCH_199t11:
 	pass
@@ -113,29 +112,29 @@ class SCH_199t17:
 class SCH_199t18:
 	pass
 class SCH_199t19:
-	#爆誕！悪党同盟(悪党同盟のワゴン) スタンダード######################### no-checked
+	#Rise of Shadows, Standard######################### no-checked
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand.
 	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
 	play = Draw(CONTROLLER, RandomEntourage())
 	pass
 class SCH_199t20:
-	#突撃！探検同盟(石像の折れた脚)　スタンダード
+	#Saviors of Uldum,　Standard
 	#Reborn
 	pass
 class SCH_199t21:################################################### no checked
-	# 激闘！ドラゴン大決戦(巨大な背骨) スタンダード
+	# Descent of Dragons Standard
 	#&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon.
 	play = DISCOVER(RandomDragon())
 	pass
 class SCH_199t22:################################################### no checked
-	#灰に舞う降魔の狩人(壊れたロボット) スタンダード
+	#Ashes of Outland, Standard
 	##&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. When this awakens, deal 3 damage to two random enemy minions.
 	dormant = 2
 	awaken = Hit(RANDOM_ENEMY_MINION,3) * 2
 	pass
 class SCH_199t23:
-	#魔法学院スクロマンス(地下への階段) スタンダード
+	#Scholomance Academy, Standard
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a Dual Class card to your hand.
 	# dual class card <=> hasattr(self, "multi_class_group")==True
 	#play = ForceDraw(RANDOM_MULTI_CLASS_GROUP) 
@@ -143,11 +142,11 @@ class SCH_199t23:
 class SCH_199t24:
 	pass
 class SCH_199t25:
-	#突撃！探検同盟(風車) スタンダード
+	#Saviors of Uldum, Standard
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Add an &lt;b&gt;Uldum&lt;/b&gt; Plague spell to your hand.
 	pass
 class SCH_199t26:################################################### no checked
-	#ダークムーン・フェアへの招待状 スタンダード
+	#Madness at the Darkmoon Faire, Standard
 	#&lt;b&gt;Corrupt:&lt;/b&gt; Gain +2/+2.
 	play = Buff(CONTROLLER, "SCH_199t26")
 	pass
@@ -208,7 +207,7 @@ class SCH_248:################################################### no checked
 	play = Hit(TARGET, 1), OWN_SPELL_PLAY.on(Bounce(SELF))
 	pass
 
-class SCH_259:
+class SCH_259:################################################### no checked
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
 	#play = OWN_TURN_BEGIN.on(GenericChoice())
@@ -218,13 +217,13 @@ class SCH_259t:
 	"""	A New Fate """
 	#Draw a different card.
 
-class SCH_283:
+class SCH_283:################################################### no checked
 	""" Manafeeder Panthara"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; If you've used your Hero Power this turn, draw a card.
 	#play = HERO_POWER_USED & ForceDraw(FRIENDLY) ???????????????????????????????
 	pass
 
-class SCH_311:
+class SCH_311:################################################### no checked
 	""" Animated Broomstick"""
 	pass
 
@@ -270,7 +269,7 @@ class SCH_605:#done
 	play = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), Attr(SELF, GameTag.ATK))) 
 	pass
 
-class SCH_707:
+class SCH_707:################################################### no checked
 	""" Fishy Flyer"""
 	#&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_4/3 Ghost with &lt;b&gt;Rush&lt;/b&gt; to_your hand.
 	deathrattle = Draw(CONTROLLER,"SCH_707t")
@@ -280,7 +279,7 @@ class SCH_707t:
 	# Rush
 	pass
 
-class SCH_708:
+class SCH_708:################################################### no checked
 	""" Sneaky Delinquent"""
 	#&lt;b&gt;Stealth&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a 3/1 Ghost with &lt;b&gt;Stealth&lt;/b&gt; to your hand.
 	deathrattle = Draw(CONTROLLER,"SCH_708t")
@@ -289,7 +288,7 @@ class SCH_708t:
 	"""Spectral Delinquent"""
 	#Stealth
 
-class SCH_709:
+class SCH_709:################################################### no checked
 	""" Smug Senior"""
 	#&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_5/7 Ghost with &lt;b&gt;Taunt&lt;/b&gt; to_your hand.
 	deathrattle = Draw(CONTROLLER,"SCH_709t")
@@ -299,7 +298,7 @@ class SCH_709t:
 	#Taunt
 	pass
 
-class SCH_710:
+class SCH_710:################################################### no checked
 	""" Ogremancer"""
 	#[x]Whenever your opponent casts a spell, summon a 2/2 Skeleton with &lt;b&gt;Taunt&lt;/b&gt;.
 	secret = Play(ENEMY,SPELL).after(Summon(CONTROLLER,"SCH_710t"))
@@ -309,13 +308,13 @@ class SCH_710t:
 	#Taunt
 	pass
 
-class SCH_711:
+class SCH_711:################################################### no checked
 	""" Plagued Protodrake"""
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random 7-Cost minion.
 	deathrattle = Summon(CONTROLLER, RandomMinion(cost=7))
 	pass
 
-class SCH_713:
+class SCH_713:################################################### no checked
 	""" Cult Neophyte (Rare)"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's spells cost (1) more next_turn.
 	events = OWN_TURN_BEGIN.on( Buff(CONTROLLER, "SCH_713e"))
@@ -325,7 +324,8 @@ class SCH_713e:
 	#Spoiled!
 SCH_713e2=buff(cost=1)
 	#Spoiling
-class SCH_714:
+
+class SCH_714:################################################### no checked
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
@@ -333,7 +333,7 @@ class SCH_714:
 class SCH_714e:
 	pass
 
-class SCH_717:
+class SCH_717:################################################### no checked
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
 	events = Draw(OPPONENT).on(Give(CONTROLLER, ExactCopy(Draw.CARD)))
