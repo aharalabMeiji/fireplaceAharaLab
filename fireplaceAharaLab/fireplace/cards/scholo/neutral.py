@@ -236,7 +236,7 @@ class SCH_312e:
 	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: SET(0)})
 	events = Activate(CONTROLLER, HERO_POWER).on(Destroy(SELF))
 
-class SCH_313:##########################################
+class SCH_313:#done
 	""" Wretched Tutor"""
 	#&lt;b&gt;Spellburst:&lt;/b&gt; Deal 2 damage to all other minions.
 	play = OWN_SPELL_PLAY.on(Hit(ALL_MINIONS-SELF,2))
@@ -250,25 +250,24 @@ class SCH_428:#done
 		pass
 	pass
 
-class SCH_530:#??????????????????????
+class SCH_530:#done
 	""" Sorcerous Substitute"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; If you have &lt;b&gt;Spell Damage&lt;/b&gt;, summon a copy of this.
-	#play = Find(FRIENDLY_HAND + SPELLPOWER) & Summon(CONTROLLER, ExactCopy(SELF))
+	#play = Find(FRIENDLY_HAND + MINION + SPELLPOWER) & Summon(CONTROLLER, ExactCopy(RANDOM(FRIENDLY_HAND + MINION + SPELLPOWER)))
+	import random 
 	def play(self):
 		find = []
 		for card in self.controller.hand:
-			if card.spellpower==1:
+			if card.type==CardType.MINION and card.spellpower>0:
 				find.append(card)
-		if count(find)>0:
-			yield Summon(CONTROLLER, find[0].id)
+		if len(find)>0:
+			yield Summon(CONTROLLER, random.choice(find).id)
 	pass
 
-class SCH_605:###########################################################
+class SCH_605:#done
 	""" Lake Thresher"""
 	#Also damages the minions next to whomever this attacks.
-	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
-			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
-	play = Hit(TARGET | TARGET_ADJACENT,Attr(SELF, GameTag.ATK))
+	play = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), Attr(SELF, GameTag.ATK))) 
 	pass
 
 class SCH_707:
