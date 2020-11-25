@@ -225,62 +225,96 @@ class SCH_311:
 
 class SCH_312:#done
 	""" Tour Guide"""
-	#	&lt;b&gt;雄叫び:&lt;/b&gt;自分が次に使うヒーローパワーのコストは（0）
+	#	&lt;b&gt;Battlecry:&lt;/b&gt; Your next Hero Power costs (0).
 	play = Buff(CONTROLLER, "SCH_312e")
 class SCH_312e:
 	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: SET(0)})
 	events = Activate(CONTROLLER, HERO_POWER).on(Destroy(SELF))
 
-class SCH_313:
+class SCH_313:##########################################
 	""" Wretched Tutor"""
+	#&lt;b&gt;Spellburst:&lt;/b&gt; Deal 2 damage to all other minions.
+	play = OWN_SPELL_PLAY.on(Hit(ALL_MINIONS-SELF,2))
 	pass
 
 class SCH_428:#done
 	""" Lorekeeper Polkelt (Legendary)"""
-	#[x]雄叫び:自分のデッキのカードをコストが高い順に並べ替える。 
+	#[x]&lt;b&gt;Battlecry:&lt;/b&gt; Reorder your deck from the highest Cost card to the lowest Cost card. 
 	def play(self):
 		self.controller.deck.sort(key=lambda x:x.cost)
 		pass
 	pass
 
-class SCH_530:
+class SCH_530:#??????????????????????
 	""" Sorcerous Substitute"""
+	#&lt;b&gt;Battlecry:&lt;/b&gt; If you have &lt;b&gt;Spell Damage&lt;/b&gt;, summon a copy of this.
+	#play = (have_spell_damage).on(Summon(CONTROLLER, ExactCopy(SELF)))
 	pass
 
 class SCH_605:
 	""" Lake Thresher"""
+	#Also damages the minions next to whomever this attacks.
 	pass
 
 class SCH_707:
 	""" Fishy Flyer"""
+	#&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_4/3 Ghost with &lt;b&gt;Rush&lt;/b&gt; to_your hand.
+	pass
+class SCH_707t:
+	"""Spectral Flyer"""
+	# vanilla
 	pass
 
 class SCH_708:
 	""" Sneaky Delinquent"""
+	#&lt;b&gt;Stealth&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a 3/1 Ghost with &lt;b&gt;Stealth&lt;/b&gt; to your hand.
 	pass
+class SCH_708t:
+	"""Spectral Delinquent"""
+	#Stealth
 
 class SCH_709:
 	""" Smug Senior"""
+	#&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_5/7 Ghost with &lt;b&gt;Taunt&lt;/b&gt; to_your hand.
+	pass
+class SCH_709t:
+	"""Spectral Senior"""
+	#Taunt
 	pass
 
 class SCH_710:
 	""" Ogremancer"""
+	#[x]Whenever your opponent casts a spell, summon a 2/2 Skeleton with &lt;b&gt;Taunt&lt;/b&gt;.
+	pass
+class SCH_710t:
+	"""Risen Skeleton"""
+	#Taunt
 	pass
 
 class SCH_711:
 	""" Plagued Protodrake"""
+	#&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random 7-Cost minion.
 	pass
 
 class SCH_713:
 	""" Cult Neophyte (Rare)"""
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's spells cost (1) more next_turn.
 	pass
-
+SCH_713e=buff(cost=1)
+	#Spoiled!
+SCH_713e2=buff(0,0)
+	#Spoiling
 class SCH_714:
 	""" Educated Elekk (epic)"""
+	#[x]Whenever a spell is played, this minion remembers it.
+	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	pass
+class SCH_714e:
 	pass
 
 class SCH_717:
 	""" Keymaster Alabaster"""
+	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
 	pass
 
 
