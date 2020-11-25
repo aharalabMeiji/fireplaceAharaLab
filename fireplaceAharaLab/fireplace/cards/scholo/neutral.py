@@ -253,7 +253,14 @@ class SCH_428:#done
 class SCH_530:#??????????????????????
 	""" Sorcerous Substitute"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; If you have &lt;b&gt;Spell Damage&lt;/b&gt;, summon a copy of this.
-	play = Find(FRIENDLY_HAND + SPELLPOWER) & Summon(CONTROLLER, ExactCopy(SELF))
+	#play = Find(FRIENDLY_HAND + SPELLPOWER) & Summon(CONTROLLER, ExactCopy(SELF))
+	def play(self):
+		find = []
+		for card in self.controller.hand:
+			if card.spellpower==1:
+				find.append(card)
+		if count(find)>0:
+			yield Summon(CONTROLLER, find[0].id)
 	pass
 
 class SCH_605:###########################################################
