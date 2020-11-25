@@ -58,7 +58,7 @@ class SCH_162t:
 	# Vanilla
 	pass
 
-class SCH_199:
+class SCH_199:#????????????????????????????????????????????? havent
 	""" Transfer Student (Epic)"""
 	#This has different effects based on which game board you're on.
 	pass
@@ -251,9 +251,12 @@ class SCH_530:#??????????????????????
 	#play = (have_spell_damage).on(Summon(CONTROLLER, ExactCopy(SELF)))
 	pass
 
-class SCH_605:
+class SCH_605:###########################################################
 	""" Lake Thresher"""
 	#Also damages the minions next to whomever this attacks.
+	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
+			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
+	play = Hit(TARGET, Attr(SELF, GameTag.ATK)), Hit(next(TARGET),Attr(SELF, GameTag.ATK))
 	pass
 
 class SCH_707:
