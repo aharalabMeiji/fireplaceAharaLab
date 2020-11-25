@@ -96,7 +96,7 @@ class SCH_604:
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET,2), Hit(TARGET,Count(FRIENDLY_MINIONS + BEAST))#一つ目OK、二つ目検証待ち
+	play = Hit(TARGET,2), Hit(TARGET,1) * Count(FRIENDLY_MINIONS + BEAST)#OK
 	pass
 
 class SCH_607:

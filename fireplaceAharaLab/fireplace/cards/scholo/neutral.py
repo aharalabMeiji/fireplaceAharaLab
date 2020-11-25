@@ -2,8 +2,7 @@ from ..utils import *
 
 class SCH_142:#done
 	""" Voracious Reader (rare) """
-	#貪欲な読書家 
-	#[x]自分のターンの終了時手札が3枚になるまでカードを引く。 """
+	#At the end of your turn, draw until you have 3 cards.
 	events = OWN_TURN_END.on(DrawUntil(CONTROLLER,3))#
 	pass
 
@@ -34,7 +33,7 @@ class SCH_157:#done
 	play = Play(CONTROLLER, SPELL).on(CastSpell(RandomSpell(cost=Attr(Play.CARD, GameTag.COST))))
 	pass
 
-class SCH_160:##done
+class SCH_160:#done
 	""" Wandmaker"""
 	#Battlecry: Add a 1-Cost spell from your class(HUNTER) to_your hand.
 	play = Give(CONTROLLER, RandomSpell(cost=1, card_class=FRIENDLY_CLASS))
@@ -154,21 +153,26 @@ class SCH_199t26:################################################### no checked
 	pass
 SCH_199t26t = buff(2,2)
 
-class SCH_224:################################################### no checked
+class SCH_224:#OK
 	# &lt;b&gt;Spellburst:&lt;/b&gt; If the spell destroys any minions, summon them.
 	""" Headmaster Kel'Thuzad (Legendary)"""
-	play = OWN_SPELL_PLAY.on(Buff(CONTROLLER,"SCH_224e3"))
+	play = Buff(CONTROLLER,"SCH_224e3")
 	pass
-class SCH_224e3:################################################### no checked
+class SCH_224e3:#OK
 	#Kel'thuzad's Call
-	events = Dead(TARGET) & (Summon(CONTROLLER, Copy(TARGET)))
+	events = OWN_SPELL_PLAY.after(
+		Dead(ALL_MINIONS + Play.CARD) & (# Dead -> return bool
+			Summon(CONTROLLER, "SCH_224t"),
+			Destroy(SELF)
+		)
+	)
 	pass
 class SCH_224t:
 	#Mr. Bigglesworth
 	#Vanilla
 	pass
 
-class SCH_230:################################################### no checked
+class SCH_230:#OK
 	""" Onyx Magescribe"""
 	# &lt;b&gt;Spellburst:&lt;/b&gt; Add 2 random spells from your class to_your hand.
 	play = OWN_SPELL_PLAY.on(
@@ -176,23 +180,24 @@ class SCH_230:################################################### no checked
 	)
 	pass
 
-class SCH_231:#done
-	"""図太い徒弟 [x]&lt;b&gt;魔法活性:&lt;/b&gt;攻撃力+2を獲得する。	"""
+class SCH_231:#OK
+	"""Intrepid Initiate  &lt;b&gt;Spellburst:&lt;/b&gt; Gain +2_Attack."""
 	play = OWN_SPELL_PLAY.on(Buff(SELF, "SCH_231e"))#
 	pass
 SCH_231e = buff(2,0)
 
-class SCH_232:################################################### no checked
+class SCH_232:#OK
 	""" Crimson Hothead"""
 	#&lt;b&gt;Spellburst:&lt;/b&gt; Gain +1 Attack and &lt;b&gt;Taunt&lt;/b&gt;.
 	play = OWN_SPELL_PLAY.on(Buff(SELF, "SCH_232e"))#
 	pass
 SCH_232e = buff(1, 0, taunt=True)
 
-class SCH_245:################################################### no checked
+class SCH_245:#OK
 	""" Steward of Scrolls"""
 	#&lt;b&gt;Spell Damage +1&lt;/b&gt;&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a spell.
-	play = Discover(RandomSpell())
+	play = DISCOVER(RandomSpell())
+	# 'spellpower=1' has already coded.
 	pass
 
 class SCH_248:################################################### no checked
@@ -206,7 +211,7 @@ class SCH_248:################################################### no checked
 class SCH_259:
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
-	#play = OWN_TURN_BEGIN.on(GenericChoice()	)
+	#play = OWN_TURN_BEGIN.on(GenericChoice())
 	#??????????????????????????????????????????????
 	pass
 class SCH_259t:
@@ -248,7 +253,7 @@ class SCH_428:#done
 class SCH_530:#??????????????????????
 	""" Sorcerous Substitute"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; If you have &lt;b&gt;Spell Damage&lt;/b&gt;, summon a copy of this.
-	#play = (have_spell_damage).on(Summon(CONTROLLER, ExactCopy(SELF)))
+	play = Find(FRIENDLY_HAND + SPELLPOWER) & Summon(CONTROLLER, ExactCopy(SELF))
 	pass
 
 class SCH_605:###########################################################
@@ -256,7 +261,7 @@ class SCH_605:###########################################################
 	#Also damages the minions next to whomever this attacks.
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
-	play = Hit(TARGET, Attr(SELF, GameTag.ATK)), Hit(next(TARGET),Attr(SELF, GameTag.ATK))
+	play = Hit(TARGET | TARGET_ADJACENT,Attr(SELF, GameTag.ATK))
 	pass
 
 class SCH_707:
@@ -307,10 +312,10 @@ class SCH_711:
 class SCH_713:
 	""" Cult Neophyte (Rare)"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's spells cost (1) more next_turn.
-	events = NEXT_TURN & Buff(CONTROLLER, "SCH_713e")
+	events = OWN_TURN_BEGIN.on( Buff(CONTROLLER, "SCH_713e"))
 	pass
 class SCH_713e:
-	play = Buff(ENEMY_HAND + SPELL, "SCH_713e2")
+	update = Refresh(ENEMY_HAND + SPELL, buff="SCH_713e2")
 	#Spoiled!
 SCH_713e2=buff(cost=1)
 	#Spoiling
@@ -325,7 +330,7 @@ class SCH_714e:
 class SCH_717:
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
-	secret = 
+	events = Draw(OPPONENT).on(Give(CONTROLLER, ExactCopy(Draw.CARD)))
 	pass
 
 
