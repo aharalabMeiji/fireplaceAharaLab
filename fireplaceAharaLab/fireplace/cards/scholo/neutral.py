@@ -262,15 +262,17 @@ class SCH_605:###########################################################
 class SCH_707:
 	""" Fishy Flyer"""
 	#&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_4/3 Ghost with &lt;b&gt;Rush&lt;/b&gt; to_your hand.
+	deathrattle = Draw(CONTROLLER,"SCH_707t")
 	pass
 class SCH_707t:
 	"""Spectral Flyer"""
-	# vanilla
+	# Rush
 	pass
 
 class SCH_708:
 	""" Sneaky Delinquent"""
 	#&lt;b&gt;Stealth&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a 3/1 Ghost with &lt;b&gt;Stealth&lt;/b&gt; to your hand.
+	deathrattle = Draw(CONTROLLER,"SCH_708t")
 	pass
 class SCH_708t:
 	"""Spectral Delinquent"""
@@ -279,6 +281,7 @@ class SCH_708t:
 class SCH_709:
 	""" Smug Senior"""
 	#&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_5/7 Ghost with &lt;b&gt;Taunt&lt;/b&gt; to_your hand.
+	deathrattle = Draw(CONTROLLER,"SCH_709t")
 	pass
 class SCH_709t:
 	"""Spectral Senior"""
@@ -288,6 +291,7 @@ class SCH_709t:
 class SCH_710:
 	""" Ogremancer"""
 	#[x]Whenever your opponent casts a spell, summon a 2/2 Skeleton with &lt;b&gt;Taunt&lt;/b&gt;.
+	secret = Play(ENEMY,SPELL).after(Summon(CONTROLLER,"SCH_710t"))
 	pass
 class SCH_710t:
 	"""Risen Skeleton"""
@@ -297,15 +301,18 @@ class SCH_710t:
 class SCH_711:
 	""" Plagued Protodrake"""
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random 7-Cost minion.
+	deathrattle = Summon(CONTROLLER, RandomMinion(cost=7))
 	pass
 
 class SCH_713:
 	""" Cult Neophyte (Rare)"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's spells cost (1) more next_turn.
+	events = NEXT_TURN & Buff(CONTROLLER, "SCH_713e")
 	pass
-SCH_713e=buff(cost=1)
+class SCH_713e:
+	play = Buff(ENEMY_HAND + SPELL, "SCH_713e2")
 	#Spoiled!
-SCH_713e2=buff(0,0)
+SCH_713e2=buff(cost=1)
 	#Spoiling
 class SCH_714:
 	""" Educated Elekk (epic)"""
@@ -318,6 +325,7 @@ class SCH_714e:
 class SCH_717:
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
+	secret = 
 	pass
 
 
