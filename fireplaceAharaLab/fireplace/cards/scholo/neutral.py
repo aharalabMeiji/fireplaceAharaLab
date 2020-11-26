@@ -177,11 +177,14 @@ class SCH_230:#OK
 	play = OWN_SPELL_PLAY.on(
 		ForceDraw(RandomSpell(card_class=FRIENDLY_CLASS)) * 2
 	)
+	#spellburst = ForceDraw(RandomSpell(card_class=FRIENDLY_CLASS)) * 2,
 	pass
 
 class SCH_231:#OK
-	"""Intrepid Initiate  &lt;b&gt;Spellburst:&lt;/b&gt; Gain +2_Attack."""
+	"""Intrepid Initiate """
+    #&lt;b&gt;Spellburst:&lt;/b&gt; Gain +2_Attack.
 	play = OWN_SPELL_PLAY.on(Buff(SELF, "SCH_231e"))#
+	#spellburst = Buff(SELF, "SCH_231e")
 	pass
 SCH_231e = buff(2,0)
 
@@ -199,7 +202,7 @@ class SCH_245:#OK
 	# 'spellpower=1' has already coded.
 	pass
 
-class SCH_248:################################################### no checked
+class SCH_248:#OK
 	""" Pen Flinger"""
 	# &lt;b&gt;Battlecry:&lt;/b&gt; Deal 1 damage. &lt;b&gt;Spellburst:&lt;/b&gt; Return this to_your hand.
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
@@ -207,10 +210,9 @@ class SCH_248:################################################### no checked
 	play = Hit(TARGET, 1), OWN_SPELL_PLAY.on(Bounce(SELF))
 	pass
 
-class SCH_259:################################################### no checked
+class SCH_259:################################################### impossible
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
-	#play = OWN_TURN_BEGIN.on(GenericChoice())
 	#??????????????????????????????????????????????
 	pass
 class SCH_259t:
@@ -220,7 +222,10 @@ class SCH_259t:
 class SCH_283:################################################### no checked
 	""" Manafeeder Panthara"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; If you've used your Hero Power this turn, draw a card.
-	#play = HERO_POWER_USED & ForceDraw(FRIENDLY) ???????????????????????????????
+	#play = HERO_POWER_USED & ForceDraw(FRIENDLY) 
+	def play(self):
+		if self.controller.hero.power.is_usable()==False:
+			yield  Draw(CONTROLLER)
 	pass
 
 class SCH_311:################################################### no checked
@@ -329,8 +334,20 @@ class SCH_714:################################################### no checked
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	#spell_history_SCH_714=[]
+	#def __init__(self):
+	#	spell_history_SCH_714=[]
+	#def events(self):
+	#	spell_play = Play(CONTROLLER,SPELL)
+	#	if spell_play:
+	#		spell_history_SCH_714.append(Play.PLAYER.index)
+	#def deathrattle(self):
+	#	for card in spell_history_SCH_714:
+	#		yield Shuffle(CONTROLLER, card.id)
 	pass
 class SCH_714e:
+	"""Educated"""
+	#Remembering spell.
 	pass
 
 class SCH_717:################################################### no checked

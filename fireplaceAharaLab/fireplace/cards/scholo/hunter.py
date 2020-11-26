@@ -105,17 +105,19 @@ class SCH_607:
 #または、味方の獣1体の#コピーに変身する。
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0 }
 	choose = ("SCH_607a", "SCH_607b")#確認できず。
-	play =ChooseBoth(CONTROLLER) & Morph(SELF, RANDOM(FRIENDLY_MINIONS+BEAST));#確認できず。
+	play =ChooseBoth(CONTROLLER) & Morph(SELF, RANDOM(FRIENDLY+BEAST));#OK
 	pass
 
 class SCH_607a:
 	#Transfiguration
-	update = Refresh(FRIENDLY_DECK+BEAST,buff="SCH_607e")#検証待ち
+	play = Buff(FRIENDLY_DECK+BEAST,"SCH_607e")#OK
+	#update = Refresh(FRIENDLY_DECK+BEAST,buff="SCH_607e")#
 	pass
 
 class SCH_607b:
 	#Rile the Herd
-	play = Morph(SELF, RANDOM(FRIENDLY_MINIONS+BEAST))#検証待ち
+	#play = Buff(FRIENDLY_MINIONS,buff="SCH_607e")
+	play = Morph(SELF, RANDOM(FRIENDLY+BEAST))#OK
 	pass
 
 SCH_607e = buff(1,1);
