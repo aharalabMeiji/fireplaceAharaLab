@@ -269,39 +269,39 @@ class SCH_605:#done
 	play = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), Attr(SELF, GameTag.ATK))) 
 	pass
 
-class SCH_707:################################################### no checked
+class SCH_707:#done
 	""" Fishy Flyer"""
 	#&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_4/3 Ghost with &lt;b&gt;Rush&lt;/b&gt; to_your hand.
-	deathrattle = Draw(CONTROLLER,"SCH_707t")
+	deathrattle = Give(CONTROLLER,"SCH_707t")
 	pass
 class SCH_707t:
 	"""Spectral Flyer"""
 	# Rush
 	pass
 
-class SCH_708:################################################### no checked
+class SCH_708:#done
 	""" Sneaky Delinquent"""
 	#&lt;b&gt;Stealth&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a 3/1 Ghost with &lt;b&gt;Stealth&lt;/b&gt; to your hand.
-	deathrattle = Draw(CONTROLLER,"SCH_708t")
+	deathrattle = Give(CONTROLLER,"SCH_708t")
 	pass
 class SCH_708t:
 	"""Spectral Delinquent"""
 	#Stealth
 
-class SCH_709:################################################### no checked
+class SCH_709:#done
 	""" Smug Senior"""
 	#&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_5/7 Ghost with &lt;b&gt;Taunt&lt;/b&gt; to_your hand.
-	deathrattle = Draw(CONTROLLER,"SCH_709t")
+	deathrattle = Give(CONTROLLER,"SCH_709t")
 	pass
 class SCH_709t:
 	"""Spectral Senior"""
 	#Taunt
 	pass
 
-class SCH_710:################################################### no checked
+class SCH_710:#done
 	""" Ogremancer"""
 	#[x]Whenever your opponent casts a spell, summon a 2/2 Skeleton with &lt;b&gt;Taunt&lt;/b&gt;.
-	secret = Play(ENEMY,SPELL).after(Summon(CONTROLLER,"SCH_710t"))
+	events = Play(ENEMY,SPELL).on(Summon(CONTROLLER,"SCH_710t"))
 	pass
 class SCH_710t:
 	"""Risen Skeleton"""
