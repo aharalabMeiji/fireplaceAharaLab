@@ -131,7 +131,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	extraCard = Card('SCH_607')
 	extraCard.controller = player1#?
 	extraCard.draw()
-	extraCard = Card('SCH_283')
+	extraCard = Card('SCH_311')
 	extraCard.controller = player1#?
 	extraCard.draw()
 	player1.max_mana=6

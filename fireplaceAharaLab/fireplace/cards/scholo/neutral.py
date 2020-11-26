@@ -219,7 +219,7 @@ class SCH_259t:
 	"""	A New Fate """
 	#Draw a different card.
 
-class SCH_283:################################################### no checked
+class SCH_283:#OK
 	""" Manafeeder Panthara"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; If you've used your Hero Power this turn, draw a card.
 	#play = HERO_POWER_USED & ForceDraw(FRIENDLY) 
@@ -228,11 +228,13 @@ class SCH_283:################################################### no checked
 			yield  Draw(CONTROLLER)
 	pass
 
-class SCH_311:################################################### no checked
+class SCH_311:#OK
 	""" Animated Broomstick"""
+	#&lt;b&gt;Rush&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Give your other minions &lt;b&gt;Rush&lt;/b&gt;.
+	update = Refresh(FRIENDLY_MINIONS - SELF, {GameTag.RUSH: 1})
 	pass
 
-class SCH_312:#done
+class SCH_312:#OK
 	""" Tour Guide"""
 	#	&lt;b&gt;Battlecry:&lt;/b&gt; Your next Hero Power costs (0).
 	play = Buff(CONTROLLER, "SCH_312e")
