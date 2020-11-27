@@ -31,14 +31,21 @@ class SCH_350:
 class SCH_353:
 	"""Cram Session	Rare"""
 	#Draw $1 |4(card, cards) &lt;i&gt;(improved by &lt;b&gt;Spell Damage&lt;/b&gt;)&lt;/i&gt;.
+	play = Draw(CONTROLLER)
 
 class SCH_537:
 	"""Trick Totem	Rare"""
 	#At the end of your turn, cast a random spell that costs (3) or less.
+	events = TURN_END.on(
+		CastSpell(RandomSpell(cost=3))
+	) 
 
 class SCH_348:
 	"""Combustion	Epic"""
 	#[x]Deal $4 damage to a minion. Any excess damages both neighbors. 
+	requirements={PlayReq.REQ_ENEMY_TARGET: 0,
+			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
+	events = Attack(TARGET).on ()
 
 class SCH_241:
 	"""Firebrand	Common"""
