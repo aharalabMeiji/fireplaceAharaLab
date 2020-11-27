@@ -346,13 +346,10 @@ class SCH_717:################################################### incomplete
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
 	events = Draw(OPPONENT).on(
-		Give(CONTROLLER, Copy(Draw.CARD)),
+		Give(CONTROLLER, Copy(Draw.CARD))
 		#Buff(Give.CARD,"SCH_714e")# rental
 	)
 	#update = Refresh(Give.CARD, {GameTag.COST: SET(1)})
 	pass
-
-
-
 
 
