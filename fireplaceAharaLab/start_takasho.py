@@ -21,7 +21,7 @@ def main():
 	#ランダムプレーヤー
 	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。この人とサシで勝負して勝てるくらいが一応の目安。
-	#Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1)
 	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 	#	,myClass=CardClass.HUNTER) 		
 
@@ -47,19 +47,19 @@ def main():
 	#	,myClass=CardClass.PRIEST)
 
 	#AngryCat ： シンプルに選択するアルゴリズム
-	#from agent_AngryCat import AngryCatAgent
-	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
+	from agent_AngryCat import AngryCatAgent
+	AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#HunterCat : faceHunter専用のエージェント
-	#from agent_HunterCat import HunterCatAgent
-	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
+	from agent_HunterCat import HunterCatAgent
+	HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
+	#play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
-	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+	play_set_of_games(takasho002,HunterCat, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=3, debugLog=False)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition

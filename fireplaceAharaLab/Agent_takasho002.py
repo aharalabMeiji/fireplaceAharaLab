@@ -11,6 +11,7 @@ class takashoAgent(Agent):
          player = game.current_player
          min = 30
          sum = 0
+         enemyFace = 0
          while True:
               myCandidate = getCandidates(game)#実行できることがらをリストで取得
               if len(myCandidate)>0:
@@ -25,9 +26,12 @@ class takashoAgent(Agent):
                        choice.score = [game.current_player.opponent.hero.health,self.sumFieldCardatc(tmpGame)]
                        #choice.minionHealth = self.sumFieldCardatc(tmpGame)
                   myChoice = None
-
-                  if game.current_player.opponent.hero.health ==0:
-                      print("かち！")
+                  #print(choice.score[0])
+                  if game.current_player.opponent.hero.health <=0:
+                      if(game.turn %2 == 0):
+                          print("先行勝ち!")
+                      else:
+                          print("後手勝ち！")
                       return                  
                   #if sum >= 10: #相手の盤面の打点計算
                    #   print("やばいわよ")
@@ -37,12 +41,12 @@ class takashoAgent(Agent):
                       #      myChoice = choice
                   else:
                     for choice in myCandidate:
-                        if min >= choice.score[0]:
-                            min = choice.score[0]
+                        if min > choice.score[enemyFace]:
+                            min = choice.score[enemyFace]
                             myChoice = choice
-                  if myChoice == None:
-                      return
-                  executeAction(game,myChoice,debugLog=True)
+                    if myChoice == None: ##相手の顔を減らせないとき
+                        myChoice = random.choice(myCandidate)
+                  executeAction(game,myChoice,debugLog=False)
                   postAction(player)
               else:
                    return
@@ -57,3 +61,5 @@ class candidateKeisho(Candidate):
     def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
         super().__init__(self, card, card2, type, target, turn)
         minionAtc = 0
+
+
