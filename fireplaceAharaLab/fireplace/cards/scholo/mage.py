@@ -36,20 +36,20 @@ class SCH_353:
 class SCH_537:
 	"""Trick Totem	Rare"""
 	#At the end of your turn, cast a random spell that costs (3) or less.
-	events = TURN_END.on(
-		CastSpell(RandomSpell(cost=3))
-	) 
+	events = OWN_TURN_END.on(CastSpell(RandomSpell(cost=3))) 
 
 class SCH_348:
 	"""Combustion	Epic"""
 	#[x]Deal $4 damage to a minion. Any excess damages both neighbors. 
-	requirements={PlayReq.REQ_ENEMY_TARGET: 0,
-			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
-	events = Attack(TARGET).on ()
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 4), Hit(TARGET_ADJACENT, 4-0)
 
 class SCH_241:
 	"""Firebrand	Common"""
 	#&lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt; Deal 4 damage randomly split among all_enemy minions.
+	play = OWN_SPELL_PLAY.on(
+		Hit(RANDOM(ENEMY_MINIONS),1) * 4
+		)
 
 class SCH_352:
 	"""Potion of Illusion	Epic"""
