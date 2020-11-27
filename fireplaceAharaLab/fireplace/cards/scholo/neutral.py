@@ -57,7 +57,7 @@ class SCH_162t:
 	# Vanilla
 	pass
 
-class SCH_199:#????????????????????????????????????????????? havent
+class SCH_199:#????????????????????????????????????????????? maybe impossible in fireplace?
 	""" Transfer Student (Epic)"""
 	#This has different effects based on which game board you're on.
 	pass
@@ -315,47 +315,41 @@ class SCH_710t:
 	#Taunt
 	pass
 
-class SCH_711:################################################### no checked
+class SCH_711:#OK
 	""" Plagued Protodrake"""
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random 7-Cost minion.
 	deathrattle = Summon(CONTROLLER, RandomMinion(cost=7))
 	pass
 
-class SCH_713:################################################### no checked
+class SCH_713:#OK
 	""" Cult Neophyte (Rare)"""
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's spells cost (1) more next_turn.
-	events = OWN_TURN_BEGIN.on( Buff(CONTROLLER, "SCH_713e"))
+	play = OWN_TURN_END.on( Buff(CONTROLLER, "SCH_713e"))
 	pass
 class SCH_713e:
 	update = Refresh(ENEMY_HAND + SPELL, buff="SCH_713e2")
 	#Spoiled!
-SCH_713e2=buff(cost=1)
+SCH_713e2 = buff(cost=1)
 	#Spoiling
 
-class SCH_714:################################################### no checked
+class SCH_714:########################### maybe imposssible without fixing action.py
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
-	#spell_history_SCH_714=[]
-	#def __init__(self):
-	#	spell_history_SCH_714=[]
-	#def events(self):
-	#	spell_play = Play(CONTROLLER,SPELL)
-	#	if spell_play:
-	#		spell_history_SCH_714.append(Play.PLAYER.index)
-	#def deathrattle(self):
-	#	for card in spell_history_SCH_714:
-	#		yield Shuffle(CONTROLLER, card.id)
 	pass
-class SCH_714e:
-	"""Educated"""
-	#Remembering spell.
-	pass
+SCH_714e = buff(cost=-1)
+	#"""Educated"""
+	#Remembering spell
+	#pass
 
-class SCH_717:################################################### no checked
+class SCH_717:################################################### incomplete
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
-	events = Draw(OPPONENT).on(Give(CONTROLLER, ExactCopy(Draw.CARD)))
+	events = Draw(OPPONENT).on(
+		Give(CONTROLLER, Copy(Draw.CARD)),
+		#Buff(Give.CARD,"SCH_714e")# rental
+	)
+	#update = Refresh(Give.CARD, {GameTag.COST: SET(1)})
 	pass
 
 
