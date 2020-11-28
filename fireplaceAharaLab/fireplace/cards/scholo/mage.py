@@ -54,19 +54,42 @@ class SCH_241:
 class SCH_352:
 	"""Potion of Illusion	Epic"""
 	#Add 1/1 copies of your minions to your hand. They cost (1).
-class SCH_352e:
-	"""Potion of Illusion"""
-	cost = 1
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0}
+	play = Buff(TARGET, "SCH_352e"), Give(CONTROLLER, Copy(TARGET))
+SCH_352e = buff(1,1,cost = 1)
+"""Potion of Illusion"""
 
-class SCH_351:
+
+class SCH_351:#???????????????????????????????????????????
 	"""Jandice Barov	Legendary"""
 	#[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two random 5-Cost minions. Secretly pick one that dies _when it takes damage.
+	play = (Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351a")),(Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351b"))
+	pass
+class SCH_351a:
+	"""This is an Illusion."""
+class SCH_351b:
+	"""This is not an Illusion."""
+class SCH_351e:
+	"""Illusion"""
+	##This might be an illusion that dies when it takes damage."""
+class SCH_351e2:
+	"""Illusion"""
+	##This might be an illusion that dies when it takes damage."""
+
 class SCH_400:
 	"""Mozaki, Master Duelist	Legendary"""
 	#After you cast a spell, gain &lt;b&gt;Spell Damage +1&lt;/b&gt;.
+	play = OWN_SPELL_PLAY.after(Buff(SELF,"SCH_400e2")
+		)
+SCH_400e2 = buff(spellpower=1)
+"""Magic Master"""
+
 class SCH_273:
 	"""Ras Frostwhisper	Legendary"""
 	#At the end of your turn, deal $1 damage to all enemies &lt;i&gt;(improved by &lt;b&gt;Spell Damage&lt;/b&gt;)&lt;/i&gt;.
+	play = OWN_TURN_END.on(Hit(ENEMY_MINIONS, 1))
+
 class SCH_243:
 	"""Wyrm Weaver	Rare"""
 	#&lt;b&gt;Spellburst:&lt;/b&gt; Summon two 1/3 Mana Wyrms.
+	play = OWN_SPELL_PLAY.on(Summon(CONTROLLER,"NEW1_012"))
