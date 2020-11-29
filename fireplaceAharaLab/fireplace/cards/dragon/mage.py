@@ -6,7 +6,8 @@ from ..utils import *
 class DRG_106:
 	"""Arcane Breath
 	Deal $2 damage to a minion. If you're holding a Dragon, &lt;b&gt;Discover&lt;/b&gt; a spell."""
-
+	requirements = {PlayReq.REQ_MINION_TARGET: 0}
+	play = Hit(TARGET, 2), HOLDING_DRAGON & Discover(CONTROLLER, SPELL)
 	pass 
 
 class DRG_324:
@@ -15,6 +16,12 @@ class DRG_324:
 	Elemental 2 turns in a row.
 	&lt;b&gt;Reward:&lt;/b&gt; Draw 3 spells
 	from your deck."""
+	################################## no sidequest?
+	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="2"/>
+	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="395"/>
+	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
+
+	
 
 class DRG_323:
 	"""Learn Draconic
@@ -22,17 +29,25 @@ class DRG_323:
 	8 Mana on spells.
 	&lt;b&gt;Reward:&lt;/b&gt; Summon a
 	6/6 Dragon."""
-
+	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="8"/>
+	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="55282"/>
+	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
+	
+class DRG_323t:# 55282
+	"""Draconic Emissary
+	vanilla """
 
 class DRG_107:
 	"""Violet Spellwing
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add an 'Arcane Missiles' spell to_your hand."""
-
+	deathrattle = Give(CONTROLLER, "EX1_277")
 
 class DRG_104:
 	"""Chenvaala
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
 
+class DRG_104t2:
+	pass
 
 class DRG_102:
 	"""Azure Explorer

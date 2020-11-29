@@ -19,11 +19,11 @@ from ..utils import *
 #	pass
 
 
-class DRG_253:
-	""" ドワーフの狙撃手
-	[x]自分のヒーローパワーはミニオンを対象にできる。
-	""" 
-	update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})#STADY_SHOT=不抜の一矢
+#class DRG_253:
+#	""" ドワーフの狙撃手
+#	[x]自分のヒーローパワーはミニオンを対象にできる。
+#	""" 
+	#update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})#STADY_SHOT=不抜の一矢
 	#むしろ、別カードにMorphする処理のほうが適切と思われる。
 	#検証不能
 
@@ -51,11 +51,11 @@ class DRG_253:
 
 #SCH_600t3e = buff(1,0)
 
-class DRG_252:
-	""" フェーズ・ストーカー 
-	[x]自分がヒーローパワーを使用した後自分のデッキから&lt;b&gt;秘策&lt;/b&gt;を1つ準備する。 """
-	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
-	pass
+#class DRG_252:
+#	""" フェーズ・ストーカー 
+#	[x]自分がヒーローパワーを使用した後自分のデッキから&lt;b&gt;秘策&lt;/b&gt;を1つ準備する。 """
+#	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
+#	pass
 
 
 class ULD_152:
@@ -65,8 +65,8 @@ class ULD_152:
 
 	pass
 
-class DRG_256:
-	""" ドラゴンベイン 
-	[x]自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。 """
-	play = Activate(CONTROLLER, HERO_POWER).on(Hit(RANDOM_ENEMY_CHARACTER, 5))
-	pass
+#class DRG_256:
+#	""" ドラゴンベイン 
+#	[x]自分がヒーローパワーを使用した後ランダムな敵1体に___5ダメージを与える。 """
+#	play = Activate(CONTROLLER, HERO_POWER).on(Hit(RANDOM_ENEMY_CHARACTER, 5))
+#	pass
