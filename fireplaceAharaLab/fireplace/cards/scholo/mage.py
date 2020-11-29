@@ -1,5 +1,7 @@
 from ..utils import *
 
+################# NO CHECKED ##################
+
 class SCH_509:
 	"""Brain Freeze	Rare"""
 	#&lt;b&gt;Freeze&lt;/b&gt; a minion. &lt;b&gt;Combo:&lt;/b&gt; Also deal $3 damage to it.	
@@ -11,7 +13,7 @@ class SCH_509:
 class SCH_235:
 	"""Devolving Missiles	Epic"""
 	#[x]Shoot three missiles at random enemy minions that transform them into ones that cost (1) less.
-	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}
+	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 0}
 	play = Morph(ENEMY_MINIONS, RandomMinion(cost= COST(Morph.CARD)-1)) * 3
 
 class SCH_310:
@@ -63,18 +65,25 @@ SCH_352e = buff(1,1,cost = 1)
 class SCH_351:#???????????????????????????????????????????
 	"""Jandice Barov	Legendary"""
 	#[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two random 5-Cost minions. Secretly pick one that dies _when it takes damage.
-	play = (Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351a")),(Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351b"))
+	import random
+	def play(self):
+		#cards=["SCH_351a","SCH_351b"]
+		#random.shaffle(cards)
+		yield (Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351a"))
+		yield (Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351b"))
 	pass
 class SCH_351a:
 	"""This is an Illusion."""
+	play = Buff(OWNER, "SCH_351e")
 class SCH_351b:
 	"""This is not an Illusion."""
+	play = Buff(OWNER, "SCH_351e2")
 class SCH_351e:
 	"""Illusion"""
-	##This might be an illusion that dies when it takes damage."""
 class SCH_351e2:
 	"""Illusion"""
 	##This might be an illusion that dies when it takes damage."""
+	play = Damage(SELF).on(Destroy(OWNER))## Damage(OWNER)?
 
 class SCH_400:
 	"""Mozaki, Master Duelist	Legendary"""

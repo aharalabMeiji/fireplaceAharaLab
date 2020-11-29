@@ -84,6 +84,13 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\custom\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\debug\all.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\debug\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\hunter.py">
       <SubType>Code</SubType>
     </Compile>
@@ -140,6 +147,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\initiate\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\galakrond\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\initiate\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\karazhan\collectible.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\karazhan\__init__.py" />
@@ -163,6 +171,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\adventure.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\collectible.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\galakrond\all.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\mage.py">
       <SubType>Code</SubType>
@@ -287,6 +298,8 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\league" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\naxxramas" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\galakrond\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\dragon\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tgt" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tutorial" />
