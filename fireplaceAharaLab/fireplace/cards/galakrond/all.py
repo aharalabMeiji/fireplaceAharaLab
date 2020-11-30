@@ -2,6 +2,7 @@ from ..utils import *
 
 ####### galakrond #######
 
+##################### no checked
 
 ##hunter##
 
@@ -37,13 +38,76 @@ class YOD_007:##########################################   impossible now
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you played
 	an Elemental last turn,
 	summon a copy of this."""
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN: 0}## not implemented
-	#play = Summon( who? )
+	#requirements = {PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN: 0}## not implemented
+	#play = PLASY_ELEMENTAL_LAST_TURN. on(Summon( CONTROLLER, RandomLastTurnElemental() ))
 
 class YOD_009:
 	"""The Amazing Reno
 	&lt;b&gt;Battlecry:&lt;/b&gt; Make all minions disappear. &lt;i&gt;*Poof!*&lt;/i&gt;"""
 	play = Destroy(ALL_MINIONS)
+
+class YOD_030:
+	"""Licensed Adventurer
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you control
+	a &lt;b&gt;Quest&lt;/b&gt;, add a Coin
+	to your hand."""
+	# no way to access quest
+	play = Give(CONTROLLER, THE_COIN)
+class YOD_028:
+	"""Skydiving Instructor
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a
+	1-Cost minion from
+	your deck."""
+	play = Summon(CONTROLLER, RandomMinion(cost=1))
+class YOD_006:
+	"""Escaped Manasaber
+	[x]&lt;b&gt;Stealth&lt;/b&gt;
+	Whenever this attacks,
+	gain 1 Mana Crystal
+	this turn only."""
+	play = Attack(SELF,ALL_MINIONS).on(ManaThisTurn(CONTROLLER,1))
+class YOD_032:
+	"""Frenzied Felwing
+	Costs (1) less for each damage dealt to your opponent this turn."""
+	play = Buff(FRIENDLY_MINIONS, "YOD_032e")
+class YOD_032e:
+	play =Buff(OWNER, buff=buff(cost=-1))
+	events = Attack(OWNER, ENEMY_MINIONS | ENEMY_HERO).on(Destroy(SELF))
+class YOD_035:
+	"""Grand Lackey Erkh
+	After you play a &lt;b&gt;Lackey&lt;/b&gt;, add a &lt;b&gt;Lackey&lt;/b&gt; to your hand."""
+	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
+	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
+	play = Play(CONTROLLER, entourage).after(Give(CONTROLLER, RandomEntourage()))
+class YOD_038:
+	"""Sky Gen'ral Kragg
+	[x]&lt;b&gt;Taunt&lt;/b&gt;
+	&lt;b&gt;Battlecry:&lt;/b&gt; If you've played a
+	&lt;b&gt;Quest&lt;/b&gt; this game, summon a
+	4/2 Parrot with &lt;b&gt;Rush&lt;/b&gt;."""
+	#     no quest controll
+	play = Summon(CONTROLLER, "YOD_038t")
+class YOD_038t:
+	""" Sharkbait """
+	pass
+class YOD_033:
+	"""Boompistol Bully
+	&lt;b&gt;Battlecry:&lt;/b&gt; Enemy &lt;b&gt;Battlecry&lt;/b&gt;_cards cost (5)_more next turn."""
+	play = (OWN_TURN_END.on(Buff(ENEMY_MINIONS+BATTLECRY, "YOD_033e")),
+		OWN_TURN_BEGIN.on(Destroy("YOD_033e")) )
+YOD_033e = buff(cost = 5)
+class YOD_029:
+	"""Hailbringer
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two 1/1
+	Ice Shards that &lt;b&gt;Freeze&lt;/b&gt;."""
+	play = Summon(CONTROLLER, "YOD_029t") * 2
+class YOD_029t:
+	"""Ice Shard
+	&lt;b&gt;Freeze&lt;/b&gt; any character damaged by this minion."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0}
+	play = Freeze(TARGET)
+
+
 
 #others##
 #Boom Squad
@@ -52,7 +116,6 @@ class YOD_009:
 #Risky Skipper
 #Air Raid
 #Explosive Evolution
-#Licensed Adventurer
 #Rising Winds
 #Shotbot
 #Skyvateer
@@ -62,14 +125,7 @@ class YOD_009:
 #Bomb Wrangler
 #Chaos Gazer
 #Dark Prophecy
-#Skydiving Instructor
-#Escaped Manasaber
-#Frenzied Felwing
-#Grand Lackey Erkh
-#Sky Gen'ral Kragg
 #The Fist of Ra-den
-#Boompistol Bully
-#Hailbringer
 #Scalelord
 #Shadow Sculptor
 #Aeon Reaver
