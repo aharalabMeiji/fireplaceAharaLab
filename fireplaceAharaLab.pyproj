@@ -259,6 +259,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\wog\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\wog\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\card_aharalab.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\copy.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\evaluator.py" />

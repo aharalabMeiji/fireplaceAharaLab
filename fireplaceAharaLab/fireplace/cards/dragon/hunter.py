@@ -75,4 +75,4 @@ class DRG_256:
 class DRG_095:
 	"""Veranus
 	&lt;b&gt;Battlecry:&lt;/b&gt; Change the Health of all enemy minions to 1"""
-	play = 
+	#play = 

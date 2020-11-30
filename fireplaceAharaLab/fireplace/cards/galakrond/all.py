@@ -52,7 +52,7 @@ class YOD_030:
 	a &lt;b&gt;Quest&lt;/b&gt;, add a Coin
 	to your hand."""
 	# no way to access quest
-	play = Give(CONTROLLER, THE_COIN)
+	play = Give(CONTROLLER, "GAME_005")
 class YOD_028:
 	"""Skydiving Instructor
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a
