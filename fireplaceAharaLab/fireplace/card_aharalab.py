@@ -1,10 +1,13 @@
 from .card import Spell
+from hearthstone.enums import CardType, MultiClassGroup, PlayReq, PlayState, \
+	Race, Rarity, Step, Zone
 
 class Sidequest(Spell):
+	sidequestCounter=0
 	@property
 	def events(self):
 		ret = super().events
-		if self.zone == Zone.SECRET and not self.exhausted:
+		if self.zone == Zone.SECRET:
 			ret += self.data.scripts.secret
 		return ret
 

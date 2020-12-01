@@ -28,6 +28,9 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
+	from .card_aharalab import Sidequest###################added
+	if subclass is Spell and data.sidequest:##############added
+		subclass = Sidequest##############################added
 	return subclass(data)
 
 

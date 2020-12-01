@@ -1,4 +1,5 @@
 from ..utils import *
+from ...actions_aharalab import *
 
 ####### hunter in dragon #######
 
@@ -11,8 +12,14 @@ class DRG_251:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
+	def __init__(self):
+		self.sidequestCounter=0
+	secret = Summon(CONTROLLER, MINION).on(BuffCounter(SELF,1)),
+	CounterIf(SELF, 3).on(Summon(CONTROLLER,"DRG_251t"))
 	pass 
-
+class DRG_251t:
+	""" Gryphon
+	Rush """
 class DRG_253:
 	"""Dwarven Sharpshooter
 	Your Hero Power can target_minions."""
