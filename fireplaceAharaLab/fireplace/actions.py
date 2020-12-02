@@ -1596,3 +1596,32 @@ class SidequestCounter(TargetedAction):
 			destroyaction.trigger(source)
 		elif target.sidequestCounter>amount:# in case that targetaction is the same as gameaction
 			destroyaction.trigger(source)
+
+###SCH_714
+class EducatedElekkMemory(TargetedAction):
+	"""
+	"""
+	HOST = ActionArg()# spell card just played
+	TARGET = ActionArg()# spell card just played
+	def do(self,source,target,card):
+		log.info("%s remember the card: %s",target,card)
+		target._spell_list.append(card)
+
+class EducatedElekkDeathrattle(TargetedAction):
+	"""
+	"""
+	def do(self,source,target):
+		log.info("%s Deathrattle",target)
+		for card in target._spell_list:
+			Shuffle(target.controller, card).trigger(source)
+
+class SetCurrentCost(TargetedAction):
+	"""
+	Sets the current health of the character target to \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+
+	def do(self, source, target, amount):
+		log.info("Setting current cost on %r to %i", target, amount)
+		target.cost = amount

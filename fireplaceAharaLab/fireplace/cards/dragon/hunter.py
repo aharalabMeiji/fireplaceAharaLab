@@ -11,11 +11,9 @@ class DRG_251:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
-	def __init__(self):####################################### need last test
-		self.sidequestCounter=0
 	events = (
-		Summon(CONTROLLER, MINION + EnumSelector(GameTag.RUSH)).on(
-			SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_251t"))
+		Summon(CONTROLLER, MINION + EnumSelector(GameTag.RUSH)).on(# the code is correct, but 'RUSH' is not effective
+			SidequestCounter(SELF,1,Summon(CONTROLLER,"DRG_251t"))
 		)
 	)
 	pass 

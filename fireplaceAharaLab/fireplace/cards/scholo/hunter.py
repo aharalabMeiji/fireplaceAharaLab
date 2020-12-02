@@ -2,29 +2,29 @@ from ..utils import *
 
 
 class SCH_133:
-##Wolpertinger <-done  SCH_133
+##Wolpertinger <-done 
 	""" Wolpertinger 
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a copy of this."""
 	play = Summon(CONTROLLER, ExactCopy(SELF))
 
-class SCH_239:
+class SCH_239:#OK
 	##Krolusk Barkstripper SCH_239
 	#&lt;b&gt;Spellburst:&lt;/b&gt; Destroy a random enemy minion.
-	play = OWN_SPELL_PLAY.on(Destroy(RANDOM_ENEMY_MINION))#OK
+	play = OWN_SPELL_PLAY.on(Destroy(RANDOM_ENEMY_MINION))
 	pass
 
-class SCH_244:
+class SCH_244:#OK
 	##Teacher's Pet  SCH_244
 	#[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random 3-Cost Beast.
-	deathrattle = Summon(CONTROLLER, RandomBeast(cost=3))#OK
+	deathrattle = Summon(CONTROLLER, RandomBeast(cost=3))
 	pass
 
 class SCH_279:####################incomplete
 	## Trueaim Crescent SCH_279 
 	##After your Hero attacks a minion, your minions attack it too.
 	events = Attack(FRIENDLY_HERO,ENEMY_MINIONS).after(#OK for this line
-		ExtraAttack(FRIENDLY_MINIONS)
-		#Hit(Attack.DEFENDER,1)#この行、実現できていない。
+		Hit(Attack.DEFENDER,1) * Count(FRIENDLY_MINIONS)
+		#Retarget(FRIENDLY_MINIONS, Attack.DEFENDER)
 	)#検証待ち
 	pass
 
@@ -46,10 +46,10 @@ SCH_300e2 = buff(cost=-1)
 	#Studying Carrion 
 	#Costs (1) less.
 
-class SCH_340:
+class SCH_340:#OK
 	##Bloated Python SCH_340
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 4/4 Hapless Handler.
-	deathrattle = Summon(CONTROLLER, "SCH_340t")#OK
+	deathrattle = Summon(CONTROLLER, "SCH_340t")
 	pass
 class SCH_340t:
 	#Hapless Handler
@@ -67,15 +67,12 @@ class SCH_539:
 	update = Refresh(IN_PLAY + SPELL, {GameTag.POISONOUS: True})# is it OK???????
 	pass
 
-class SCH_600:
+class SCH_600:#OK
 	## Demon Companion SCH_600
 	""" Summon a random Demon Companion. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	entourage = ["SCH_600t1", "SCH_600t2", "SCH_600t3"]
 	play = Summon(CONTROLLER, RandomEntourage())
-	#def play(self):
-	#	friend_demon = random.choice(["SCH_600t1", "SCH_600t2", "SCH_600t3"])
-	#	yield Summon(CONTROLLER, friend_demon)
 
 class SCH_600t1:
 	""" Reffuh """
@@ -90,16 +87,16 @@ class SCH_600t3:
 
 SCH_600t3e = buff(1,0)
 
-class SCH_604:
+class SCH_604:#OK
 	##Overwhelm SCH_604
 	#Deal $2 damage to a minion. Deal one more damage for each Beast you control.
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET,2), Hit(TARGET,1) * Count(FRIENDLY_MINIONS + BEAST)#OK
+	play = Hit(TARGET,2), Hit(TARGET,1) * Count(FRIENDLY_MINIONS + BEAST)
 	pass
 
-class SCH_607:
+class SCH_607:#OK
 	##Shan'do Wildclaw SCH_607
 	# [x]&lt;b&gt;Choose One -&lt;/b&gt; Give Beasts in your deck +1/+1; or Transform into a copy of a friendly Beast.
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0 }
@@ -125,8 +122,8 @@ SCH_607e = buff(1,1);
 class SCH_610:
 	##Guardian Animals SCH_610
 	#Summon two Beasts that cost (5) or less from your deck. Give_them &lt;b&gt;Rush&lt;/b&gt;.
-	play = Summon(FRIENDLY_MINIONS + BEAST).on(Buff(Summon.TARGET, buff(rush=True))), Summon(FRIENDLY_MINIONS + BEAST).on(Buff(Summon.TARGET, buff(rush=True)))#検証待ち
-	pass#確認できず。
+	play = Summon(RANDOM(FRIENDLY_DECK + BEAST)).on(Buff(Summon.TARGET, buff(rush=True))), Summon(RANDOM(FRIENDLY_DECK + BEAST)).on(Buff(Summon.TARGET, buff(rush=True)))#検証待ち
+	pass#does not work
 
 class SCH_617:
 	##Adorable Infestation <-done SCH_617

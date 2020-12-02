@@ -657,6 +657,7 @@ class Minion(Character):
 	has_inspire = boolean_property("has_inspire")
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
+	_spell_list = []############################### a h a r a l a b ################## SCH_717
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",

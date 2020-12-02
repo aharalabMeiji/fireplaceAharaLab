@@ -21,7 +21,7 @@ class SCH_146:#done
 	#Your minions have &quot;Can't be targeted by spells or Hero Powers.&quot;
 	play = Buff(CONTROLLER, "SCH_146e")
 	pass
-class SCH_146e:
+class SCH_146e:################# cannot be verified
 	"""Protected"""
 	#Can't be targeted by spells or Hero Powers.
 	update = Refresh(FRIENDLY_MINIONS, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: 1}), Refresh(FRIENDLY_MINIONS, {GameTag.CANT_BE_TARGETED_BY_SPELLS: 1}) 
@@ -83,34 +83,6 @@ class SCH_199t4:
 	#Stranglethorn, Standard######################### no-checked
 	#&lt;b&gt;Stealth&lt;/b&gt; &lt;b&gt;Poisonous&lt;/b&gt;
 	pass
-class SCH_199t5:
-	pass
-class SCH_199t6:
-	pass
-class SCH_199t7:
-	pass
-class SCH_199t8:
-	pass
-class SCH_199t9:
-	pass
-class SCH_199t10:
-	pass
-class SCH_199t11:
-	pass
-class SCH_199t12:
-	pass
-class SCH_199t13:
-	pass
-class SCH_199t14:
-	pass
-class SCH_199t15:
-	pass
-class SCH_199t16:
-	pass
-class SCH_199t17:
-	pass
-class SCH_199t18:
-	pass
 class SCH_199t19:
 	#Rise of Shadows, Standard######################### no-checked
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand.
@@ -138,8 +110,6 @@ class SCH_199t23:
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a Dual Class card to your hand.
 	# dual class card <=> hasattr(self, "multi_class_group")==True
 	#play = ForceDraw(RANDOM_MULTI_CLASS_GROUP) 
-	pass
-class SCH_199t24:
 	pass
 class SCH_199t25:
 	#Saviors of Uldum, Standard
@@ -214,6 +184,9 @@ class SCH_259:################################################### impossible
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
 	#??????????????????????????????????????????????
+	events = Draw(CONTROLLER).on(
+		GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"])
+	)
 	pass
 class SCH_259t:
 	"""	A New Fate """
@@ -332,10 +305,12 @@ class SCH_713e:
 SCH_713e2 = buff(cost=1)
 	#Spoiling
 
-class SCH_714:########################### maybe imposssible without fixing action.py
+class SCH_714:# maybe OK!!
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
 	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	events = OWN_SPELL_PLAY.on(EducatedElekkMemory(SELF, Play.CARD))
+	deathrattle = EducatedElekkDeathrattle(SELF)
 	pass
 SCH_714e = buff(cost=-1)
 	#"""Educated"""
@@ -346,8 +321,8 @@ class SCH_717:################################################### incomplete
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
 	events = Draw(OPPONENT).on(
-		Give(CONTROLLER, Copy(Draw.CARD))
-		#Buff(Give.CARD,"SCH_714e")# rental
+		Give(CONTROLLER, ExactCopy(Draw.CARD)),
+		SetCurrentCost(Give.CARD,1)
 	)
 	#update = Refresh(Give.CARD, {GameTag.COST: SET(1)})
 	pass
