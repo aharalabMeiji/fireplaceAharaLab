@@ -24,9 +24,6 @@
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\actions_aharalab.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
     <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
@@ -262,9 +259,6 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\wog\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\wog\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\card_aharalab.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\copy.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\evaluator.py" />

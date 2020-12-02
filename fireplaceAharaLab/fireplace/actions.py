@@ -140,9 +140,6 @@ class Action(metaclass=ActionMeta):
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				log.info("%r triggers off %r from %r", entity, self, source)
 				entity.trigger_event(source, event, args)
-			if isinstance(entity, Sidequest) and isinstance(event.trigger, CounterIf):
-				log.info("%r triggers off %r from %r", entity, self, source)
-				entity.trigger_event(source, event, args)
 	def broadcast(self, source, at, *args):
 		for entity in source.game.entities:
 			self._broadcast(entity, source, at, *args)
@@ -1576,3 +1573,26 @@ class Awaken(TargetedAction):
 		target.turns_in_play = 0
 		if target.get_actions("awaken"):
 			source.game.trigger(target, target.get_actions("awaken"), event_args=None)
+
+
+
+
+#######  a h a r a l a b  ############
+#
+class SidequestCounter(TargetedAction):
+	"""
+	
+	"""
+	TARGET = ActionArg()# sidequest card
+	AMOUNT = IntArg() #max of call
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, amount, targetaction):
+		log.info("Setting Counter on %r is added by %i, %r", target, amount, targetaction)
+		target.sidequestCounter += 1
+		destroyaction = Destroy(target)
+		if target.sidequestCounter== amount:
+			i=0
+			targetaction.trigger(source)
+			destroyaction.trigger(source)
+		elif target.sidequestCounter>amount:# in case that targetaction is the same as gameaction
+			destroyaction.trigger(source)

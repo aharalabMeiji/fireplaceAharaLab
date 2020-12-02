@@ -1,5 +1,4 @@
 from ..utils import *
-from ...actions_aharalab import *
 
 ####### hunter in dragon #######
 
@@ -12,10 +11,13 @@ class DRG_251:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
-	def __init__(self):
+	def __init__(self):####################################### need last test
 		self.sidequestCounter=0
-	secret = Summon(CONTROLLER, MINION).on(BuffCounter(SELF,1)),
-	CounterIf(SELF, 3).on(Summon(CONTROLLER,"DRG_251t"))
+	events = (
+		Summon(CONTROLLER, MINION + EnumSelector(GameTag.RUSH)).on(
+			SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_251t"))
+		)
+	)
 	pass 
 class DRG_251t:
 	""" Gryphon
