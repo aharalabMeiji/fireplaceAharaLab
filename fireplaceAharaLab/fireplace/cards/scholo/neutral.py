@@ -322,9 +322,8 @@ class SCH_717:################################################### incomplete
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
 	events = Draw(OPPONENT).on(
 		Give(CONTROLLER, ExactCopy(Draw.CARD)),
-		SetCurrentCost(Give.CARD,1)
+		SetCurrentCost(Give.CARD,1)#The original card's stats is rewritten.  WHY?
 	)
-	#update = Refresh(Give.CARD, {GameTag.COST: SET(1)})
 	pass
 
 

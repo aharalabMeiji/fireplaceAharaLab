@@ -1589,13 +1589,25 @@ class SidequestCounter(TargetedAction):
 	def do(self, source, target, amount, targetaction):
 		log.info("Setting Counter on %r is added by %i, %r", target, amount, targetaction)
 		target.sidequestCounter += 1
-		destroyaction = Destroy(target)
 		if target.sidequestCounter== amount:
 			i=0
 			targetaction.trigger(source)
-			destroyaction.trigger(source)
+			Destroy(target).trigger(source)
 		elif target.sidequestCounter>amount:# in case that targetaction is the same as gameaction
-			destroyaction.trigger(source)
+			Destroy(target).trigger(source)
+
+class SidequestManaCounter(TargetedAction):
+	TARGET = ActionArg()# sidequest card
+	CARD = ActionArg()# spell card
+	AMOUNT = IntArg() #max of mana
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, card, amount, targetaction):
+		log.info("Setting Counter on %r is added by %i, %r", target, amount, targetaction)
+		target.sidequestCounter += card.cost
+		if target.sidequestCounter>= amount:
+			i=0
+			targetaction.trigger(source)## take care of an infinite loop!
+			Destroy(target).trigger(source)
 
 ###SCH_714
 class EducatedElekkMemory(TargetedAction):
@@ -1621,7 +1633,6 @@ class SetCurrentCost(TargetedAction):
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
-
 	def do(self, source, target, amount):
 		log.info("Setting current cost on %r to %i", target, amount)
 		target.cost = amount

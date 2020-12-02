@@ -13,7 +13,7 @@ class DRG_251:
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
 	events = (
 		Summon(CONTROLLER, MINION + EnumSelector(GameTag.RUSH)).on(# the code is correct, but 'RUSH' is not effective
-			SidequestCounter(SELF,1,Summon(CONTROLLER,"DRG_251t"))
+			SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_251t"))
 		)
 	)
 	pass 
