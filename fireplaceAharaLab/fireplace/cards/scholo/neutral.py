@@ -317,12 +317,14 @@ SCH_714e = buff(cost=-1)
 	#Remembering spell
 	#pass
 
-class SCH_717:################################################### incomplete
+class SCH_717:##complete
 	""" Keymaster Alabaster"""
 	#[x]Whenever your opponent _draws a card, add a copy to_ _your hand that costs (1).
 	events = Draw(OPPONENT).on(
-		Give(CONTROLLER, ExactCopy(Draw.CARD)),
-		SetCurrentCost(Give.CARD,1)#The original card's stats is rewritten.  WHY?
+		###failure
+		#Give(CONTROLLER, Copy(Draw.CARD)),
+		#SetCurrentCost(Give.CARD,1)#The original card's stats is rewritten.  WHY?
+		Give(CONTROLLER, CopyCostA(Draw.CARD,1))
 	)
 	pass
 

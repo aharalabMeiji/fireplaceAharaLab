@@ -19,7 +19,7 @@ class DRG_324:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="2"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="395"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
-	event = Play(CONTROLLER, ELEMENTAL).on(
+	event = Play(CONTROLLER, EnumSelector(Race.MECHANICAL)).on(
 		SidequestCounter(SELF,2,Draw(CONTROLLER,FRIENDLY_DECK+SPELL)*2) ## no implementation of 'in a row'.
 		)
 	
@@ -64,7 +64,7 @@ class DRG_270:
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding
 	a Dragon, &lt;b&gt;Discover&lt;/b&gt; an
 	 upgraded Mage spell."""
-	play = HOLDING_DRAGON | Discover(CONTROLLER, RandomSpell(card_class=CardType.mage, upgraded=True))
+	play = HOLDING_DRAGON | Discover(CONTROLLER, RandomSpell(card_class=CardClass.MAGE, upgrade_counter=1))#####   need process of 'Upgrade()'?
 
 class DRG_321:
 	"""Rolling Fireball

@@ -1636,3 +1636,14 @@ class SetCurrentCost(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting current cost on %r to %i", target, amount)
 		target.cost = amount
+
+from .dsl.copy import Copy
+class CopyCostA(Copy):
+	def __init__(self, selector, amount, id=None):
+		self.id = id
+		self.selector = selector
+		self.amount = amount
+	def copy(self, source, entity):
+		ret = super().copy(source, entity)
+		ret.cost=self.amount
+		return ret
