@@ -126,9 +126,8 @@ class SCH_610:
 	pass#does not work
 
 class SCH_617:
-	##Adorable Infestation <-done SCH_617
-	"""  カワイイ侵入者 
-	ミニオン1体に +1/+1を付与する。 1/1の仔を1体召喚する。 仔1体を自分の 手札に追加する。"""
+	"""Adorable Infestation 
+	Give a minion +1/+1. Summon a 1/1 Cub. Add a Cub to your hand."""
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
@@ -140,8 +139,8 @@ class SCH_617t:
 	pass
 
 class SCH_618:
-	##Blood Herald SCH_618
-	#このカードが手札に#ある間、味方のミニオン#が死ぬ度に+1/+1を#獲得する。
+	"""Blood Herald
+	Whenever a friendly minion dies while this is in your hand, gain +1/+1."""
 	class Hand:
 		events = Death(FRIENDLY + MINION).on(Buff(SELF, "SCH_618e"))#OK
 	pass

@@ -50,7 +50,7 @@ class DRG_104:##
 	"""Chenvaala
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
 	events = (
-		OWN_SPELL_PLAY.on(SidequestCounterInTurn(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
+		OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
 		OWN_TURN_END.on(SidequestCounterClear(SELF))
 	)	
 

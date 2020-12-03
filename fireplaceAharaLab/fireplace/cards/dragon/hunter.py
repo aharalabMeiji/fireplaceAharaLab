@@ -63,7 +63,7 @@ class DRG_010:
 	"""Diving Gryphon
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw a &lt;b&gt;Rush&lt;/b&gt; minion_from_your_deck."""
-	play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + RUSH))
+	play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + EnumSelector(GameTag.RUSH)))
 
 class DRG_254:
 	"""Primordial Explorer
