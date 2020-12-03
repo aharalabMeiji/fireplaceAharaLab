@@ -1596,6 +1596,11 @@ class SidequestCounter(TargetedAction):
 		elif target.sidequestCounter>amount:# in case that targetaction is the same as gameaction
 			Destroy(target).trigger(source)
 
+class SidequestCounterClear(TargetedAction):
+	TARGET = ActionArg()# sidequest card
+	def do(self, source, targe):
+		target.sidequestCounter = 0
+
 class SidequestManaCounter(TargetedAction):
 	TARGET = ActionArg()# sidequest card
 	CARD = ActionArg()# spell card
@@ -1647,3 +1652,20 @@ class CopyCostA(Copy):
 		ret = super().copy(source, entity)
 		ret.cost=self.amount
 		return ret
+
+class HitAndExcess(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		target_health=target.health
+		if target_health>=amount:
+			Hit(target,amount).trigger(source)
+		else:
+			Hit(target, target_health).trigger(source)
+			if LEFT_OF(target) and not RIGHT_OF(target):
+				Hit(LEFT_OF(target), amount-target_health).trigger(source)
+			elif not LEFT_OF(target) and RIGHT_OF(target):
+				Hit(RIGHT_OF(target), amount-target_health).trigger(source)
+			elif LEFT_OF(target) and RIGHT_OF(target):
+				Hit(RIGHT_OF(target), math.floor((amount-target_health)/2)).trigger(source)
+				Hit(RIGHT_OF(target), math.ciel((amount-target_health)/2)).trigger(source)

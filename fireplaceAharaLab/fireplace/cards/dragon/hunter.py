@@ -20,6 +20,7 @@ class DRG_251:
 class DRG_251t:
 	""" Gryphon
 	Rush """
+
 class DRG_253:
 	"""Dwarven Sharpshooter
 	Your Hero Power can target_minions."""
@@ -37,6 +38,8 @@ class DRG_255:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="41127"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
+	events = Activate(CONTROLLER).on(
+		SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_255t2")*3)) 
 class DRG_255t2:
 	"""Leper Gnome
 	"""
@@ -56,23 +59,23 @@ class DRG_252:
 	from your deck."""
 	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 
-
 class DRG_010:
 	"""Diving Gryphon
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw a &lt;b&gt;Rush&lt;/b&gt; minion_from_your_deck."""
-
+	play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + RUSH))
 
 class DRG_254:
 	"""Primordial Explorer
 	&lt;b&gt;Poisonous&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
+	play = Discover(CONTROLLER, DRAGON)
 
-
-class DRG_007:
+class DRG_007:########################################### ????????????????
 	"""Stormhammer
 	Doesn't lose Durability while you control a_Dragon."""
-
+	play = Find(FRIENDLY_MINIONS+DRAGON) & Buff(SELF,"DRG_007e")
+DRG_007e = buff()# fixing 'durability=health'
 
 class DRG_256:
 	"""Dragonbane
@@ -82,4 +85,4 @@ class DRG_256:
 class DRG_095:
 	"""Veranus
 	&lt;b&gt;Battlecry:&lt;/b&gt; Change the Health of all enemy minions to 1"""
-	#play = 
+	play = SetCurrentHealth(ENEMY_MINIONS,1) 

@@ -46,11 +46,18 @@ class DRG_107:
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add an 'Arcane Missiles' spell to_your hand."""
 	deathrattle = Give(CONTROLLER, "EX1_277")
 
-class DRG_104:############################################################
+class DRG_104:##
 	"""Chenvaala
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
+	events = (
+		OWN_SPELL_PLAY.on(SidequestCounterInTurn(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
+		OWN_TURN_END.on(SidequestCounterClear(SELF))
+	)	
+
 
 class DRG_104t2:
+	"""Snow Elemental
+	vanilla """
 	pass
 
 class DRG_102:
@@ -72,15 +79,20 @@ class DRG_321:
 	the left or right."""
 	requirements = { PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 8)#######################################
+	play = HitAndExcess(TARGET, 8)
 
 
 class DRG_322:
 	"""Dragoncaster
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Dragon, your next spell this turn costs (0)."""
+	play = HOLDING_DRAGON | Buff(CONTROLLER, "DRG_322e")
+class DRG_322e:
+	""" Draconic Magic
+	"""
+	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.COST: SET(0)})
+	events = Play(CONTROLLER, SPELL).on(Destroy(SELF))
 
-
-class DRG_109:
+class DRG_109:#############################################
 	"""Mana Giant
 	[x]Costs (1) less for each
 	card you've played this
