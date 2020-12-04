@@ -1622,14 +1622,14 @@ class EducatedElekkMemory(TargetedAction):
 	TARGET = ActionArg()# spell card just played
 	def do(self,source,target,card):
 		log.info("%s remember the card: %s",target,card)
-		target._spell_list.append(card)
+		target._tmp_buffer1_.append(card)
 
 class EducatedElekkDeathrattle(TargetedAction):
 	"""
 	"""
 	def do(self,source,target):
 		log.info("%s Deathrattle",target)
-		for card in target._spell_list:
+		for card in target._tmp_buffer1_:
 			Shuffle(target.controller, card).trigger(source)
 
 class SetCurrentCost(TargetedAction):
@@ -1653,7 +1653,7 @@ class CopyCostA(Copy):
 		ret.cost=self.amount
 		return ret
 
-class HitAndExcess(TargetedAction):
+class HitAndExcess(TargetedAction):#DRG_321
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
@@ -1669,3 +1669,26 @@ class HitAndExcess(TargetedAction):
 			elif LEFT_OF(target) and RIGHT_OF(target):
 				Hit(RIGHT_OF(target), math.floor((amount-target_health)/2)).trigger(source)
 				Hit(RIGHT_OF(target), math.ciel((amount-target_health)/2)).trigger(source)
+
+class HoldinHatch(TargetedAction):#DRG_086
+	TARGET = ActionArg()#player
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		self._tmp_buffer_=card
+		card.zone = Zone.SECRET
+		pass
+
+class OpenHatch(TargetedAction):#DRG_086
+	TARGET = ActionArg()#player
+	def do(self, source, target):
+		Summon(CONTROLLER, _tmp_buffer_).trigger(source)
+		pass
+
+class DestroyArmor(TargetedAction):
+	"""
+	Destroy targets armor.
+	"""
+	TARGET = ActionArg()
+	def do(self, source, target):
+		target.armor = 0
+		self.broadcast(source, EventListener.ON, target, amount)
