@@ -1587,19 +1587,19 @@ class SidequestCounter(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		log.info("Setting Counter on %r is added by %i, %r", target, amount, targetaction)
-		target.sidequestCounter += 1
-		if target.sidequestCounter== amount:
+		log.info("Setting Counter on %r -> %i, %r", target, (target._tmp_int1_+1), targetaction)
+		target._tmp_int1_ += 1
+		if target._tmp_int1_== amount:
 			i=0
 			targetaction.trigger(source)
 			Destroy(target).trigger(source)
-		elif target.sidequestCounter>amount:# in case that targetaction is the same as gameaction
+		elif target._tmp_int1_>amount:# in case that targetaction is the same as gameaction
 			Destroy(target).trigger(source)
 
 class SidequestCounterClear(TargetedAction):
 	TARGET = ActionArg()# sidequest card
-	def do(self, source, targe):
-		target.sidequestCounter = 0
+	def do(self, source, target):
+		target._tmp_int1_ = 0
 
 class SidequestManaCounter(TargetedAction):
 	TARGET = ActionArg()# sidequest card
@@ -1607,9 +1607,9 @@ class SidequestManaCounter(TargetedAction):
 	AMOUNT = IntArg() #max of mana
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, card, amount, targetaction):
-		log.info("Setting Counter on %r is added by %i, %r", target, amount, targetaction)
-		target.sidequestCounter += card.cost
-		if target.sidequestCounter>= amount:
+		log.info("Setting Counter on %r is added by %d->%d, %r", target, card.cost, (target._tmp_int1_+card.cost), targetaction)
+		target._tmp_int1_ += card.cost
+		if target._tmp_int1_>= amount:
 			i=0
 			targetaction.trigger(source)## take care of an infinite loop!
 			Destroy(target).trigger(source)
@@ -1622,14 +1622,14 @@ class EducatedElekkMemory(TargetedAction):
 	TARGET = ActionArg()# spell card just played
 	def do(self,source,target,card):
 		log.info("%s remember the card: %s",target,card)
-		target._tmp_buffer1_.append(card)
+		target._tmp_list1_.append(card)
 
 class EducatedElekkDeathrattle(TargetedAction):
 	"""
 	"""
 	def do(self,source,target):
 		log.info("%s Deathrattle",target)
-		for card in target._tmp_buffer1_:
+		for card in target._tmp_list1_:
 			Shuffle(target.controller, card).trigger(source)
 
 class SetCurrentCost(TargetedAction):
@@ -1674,14 +1674,14 @@ class HoldinHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
 	CARD = ActionArg()
 	def do(self, source, target, card):
-		self._tmp_buffer_=card
+		self._tmp_list1_=card
 		card.zone = Zone.SECRET
 		pass
 
 class OpenHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
 	def do(self, source, target):
-		Summon(CONTROLLER, _tmp_buffer_).trigger(source)
+		Summon(CONTROLLER, _tmp_list1_).trigger(source)
 		pass
 
 class DestroyArmor(TargetedAction):
@@ -1692,3 +1692,30 @@ class DestroyArmor(TargetedAction):
 	def do(self, source, target):
 		target.armor = 0
 		self.broadcast(source, EventListener.ON, target, amount)
+
+class TentacledMenace(TargetedAction):#DRG_084
+	TARGET = ActionArg()# controller
+	OTHER = ActionArg()# oponent
+	def do(self, source, target, other):
+		draw1 = Draw(target)
+		draw1.trigger(source)
+		card1 = draw1.CARD
+		draw2 = Draw(other)
+		draw2.trigger(source)
+		card2 = draw2.CARD
+		card1.cost, card2.cast = card2.cost, card1.cast
+
+class UtgardeGrapplesniper(TargetedAction):#DRG_077
+	TARGET = ActionArg()# controller
+	OTHER = ActionArg()# oponent
+	def do(self, source, target, other):
+		draw1 = Draw(target)
+		draw1.trigger(source)
+		card1 = draw1.CARD
+		if card1.race ==Race.DRAGON:
+			Play(target, card1).trigger(source)
+		draw2 = Draw(other)
+		draw2.trigger(source)
+		card2 = draw2.CARD
+		if card1.race ==Race.DRAGON:
+			Play(other, card1).trigger(source)

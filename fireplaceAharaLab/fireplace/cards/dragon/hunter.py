@@ -2,7 +2,7 @@ from ..utils import *
 
 ####### hunter in dragon #######
 
-class DRG_251:
+class DRG_251:#OK
 	"""Clear the Way
 	[x]&lt;b&gt;Sidequest:&lt;/b&gt; Summon
 	3 &lt;b&gt;Rush&lt;/b&gt; minions.
@@ -21,7 +21,7 @@ class DRG_251t:
 	""" Gryphon
 	Rush """
 
-class DRG_253:
+class DRG_253:#####################################  may be valid, but might not be implemented
 	"""Dwarven Sharpshooter
 	Your Hero Power can target_minions."""
 	update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})
@@ -29,7 +29,7 @@ class DRG_253:
 	#play = RefreshHeroPower("HERO_08bp")
 	#events = Death(SELF).after(RefreshHeroPower(FRIENDLY_HERO_POWER))
 
-class DRG_255:
+class DRG_255:#OK
 	"""Toxic Reinforcements
 	[x]&lt;b&gt;Sidequest:&lt;/b&gt; Use your Hero
 	Power three times.
@@ -44,45 +44,46 @@ class DRG_255t2:
 	"""Leper Gnome
 	"""
 	pass
-class DRG_006:
+class DRG_006:#OK
 	"""Corrosive Breath
 	[x]Deal $3 damage to a
 	minion. If you're holding
 	a Dragon, it also hits
 	the enemy hero."""
+	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET,3), HOLDING_DRAGON & Hit(ENEMY_HERO,3)
 
-class DRG_252:
+class DRG_252:#OK
 	"""Phase Stalker
 	[x]After you use your Hero
 	Power, cast a &lt;b&gt;Secret&lt;/b&gt;
 	from your deck."""
 	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 
-class DRG_010:
+class DRG_010:#OK
 	"""Diving Gryphon
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw a &lt;b&gt;Rush&lt;/b&gt; minion_from_your_deck."""
 	play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + EnumSelector(GameTag.RUSH)))
 
-class DRG_254:
+class DRG_254:#OK
 	"""Primordial Explorer
 	&lt;b&gt;Poisonous&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
-	play = Discover(CONTROLLER, DRAGON)
+	play = DISCOVER(RandomDragon())
 
-class DRG_007:########################################### ????????????????
+class DRG_007:#OK
 	"""Stormhammer
 	Doesn't lose Durability while you control a_Dragon."""
-	play = Find(FRIENDLY_MINIONS+DRAGON) & Buff(SELF,"DRG_007e")
-DRG_007e = buff()# fixing 'durability=health'
+	play = HOLDING_DRAGON & Attack(FRIENDLY_HERO, ENEMY).on(Buff(FRIENDLY_WEAPON,"DRG_007e"))
+DRG_007e = buff(health=+1)# fixing 'durability=health'
 
-class DRG_256:
+class DRG_256:#OK
 	"""Dragonbane
 	After you use your Hero Power, deal 5 damage to a random enemy."""
 	play = Activate(CONTROLLER, HERO_POWER).on(Hit(RANDOM_ENEMY_CHARACTER, 5))
 
-class DRG_095:
+class DRG_095:#OK
 	"""Veranus
 	&lt;b&gt;Battlecry:&lt;/b&gt; Change the Health of all enemy minions to 1"""
 	play = SetCurrentHealth(ENEMY_MINIONS,1) 

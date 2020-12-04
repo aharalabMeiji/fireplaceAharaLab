@@ -276,12 +276,24 @@ class HumanAgent(Agent):
 			print("========OPPONENT'S PLAYGROUND======")
 			for character in player.opponent.characters:
 				print("%s"%character, end='   : ')
-				print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+				if character == player.opponent.hero:
+					if player.opponent.weapon:
+						print("(%2d/%2d/%2d+%d)"%(character.atk,player.opponent.weapon.durability,character.health,character.armor), end=" ")
+					else:
+						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
+				else :
+					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
 				print("%s"%character, end='   : ')
-				print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+				if character == player.hero:
+					if player.weapon:
+						print("(%2d/%2d/%2d+%d)"%(character.atk,player.weapon.durability,character.health,character.armor), end=" ")
+					else:
+						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
+				else :
+					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
 					for target in character.targets:

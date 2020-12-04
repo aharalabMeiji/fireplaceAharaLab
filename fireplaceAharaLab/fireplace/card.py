@@ -149,6 +149,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
+	_tmp_list1_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
+	_tmp_list2_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
+	_tmp_int1_ = 0############################### a h a r a l a b ################## SCH_717, DRG_086
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -657,8 +660,6 @@ class Minion(Character):
 	has_inspire = boolean_property("has_inspire")
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
-	_tmp_buffer1_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
-	_tmp_buffer2_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
@@ -995,7 +996,7 @@ class HeroPower(PlayableCard):
 	############ a h a r a l a b ################
 
 class Sidequest(Spell):
-	sidequestCounter=0
+	_tmp_int1_=0
 	@property
 	def events(self):
 		ret = super().events

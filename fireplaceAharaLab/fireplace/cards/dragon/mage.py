@@ -3,14 +3,14 @@ from ..utils import *
 ####### mage in dragon #######
 
 
-class DRG_106:
+class DRG_106:#OK
 	"""Arcane Breath
 	Deal $2 damage to a minion. If you're holding a Dragon, &lt;b&gt;Discover&lt;/b&gt; a spell."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0}
-	play = Hit(TARGET, 2), HOLDING_DRAGON & Discover(CONTROLLER, SPELL)
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 2), HOLDING_DRAGON & Discover(CONTROLLER, RandomSpell())
 	pass 
 
-class DRG_324:
+class DRG_324:#OK
 	"""Elemental Allies
 	[x]&lt;b&gt;Sidequest:&lt;/b&gt; Play an
 	Elemental 2 turns in a row.
@@ -19,12 +19,12 @@ class DRG_324:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="2"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="395"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
-	event = Play(CONTROLLER, EnumSelector(Race.MECHANICAL)).on(
-		SidequestCounter(SELF,2,Draw(CONTROLLER,FRIENDLY_DECK+SPELL)*2) ## no implementation of 'in a row'.
+	events = Play(CONTROLLER, EnumSelector(Race.ELEMENTAL)).on(
+		SidequestCounter(SELF,2,ForceDraw(RANDOM(FRIENDLY_DECK+SPELL))*3) ## no implementation of 'in a row'.
 		)
 	
 
-class DRG_323:
+class DRG_323:#OK
 	"""Learn Draconic
 	[x]&lt;b&gt;Sidequest:&lt;/b&gt; Spend
 	8 Mana on spells.
@@ -33,7 +33,7 @@ class DRG_323:
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="8"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="55282"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
-	event = Play(CONTROLLER,SPELL).on(
+	events = Play(CONTROLLER,SPELL).on(
 		SidequestManaCounter(SELF, Play.CARD,8,Summon(CONTROLLER,"DRG_323t"))
 		)
 	
@@ -41,7 +41,7 @@ class DRG_323t:# 55282
 	"""Draconic Emissary
 	vanilla """
 
-class DRG_107:
+class DRG_107:#OK
 	"""Violet Spellwing
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add an 'Arcane Missiles' spell to_your hand."""
 	deathrattle = Give(CONTROLLER, "EX1_277")
@@ -49,12 +49,8 @@ class DRG_107:
 class DRG_104:##
 	"""Chenvaala
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
-	events = (
-		OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
-		OWN_TURN_END.on(SidequestCounterClear(SELF))
-	)	
-
-
+	events = OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2")))\
+	,OWN_TURN_END.on(SidequestCounterClear(SELF))
 class DRG_104t2:
 	"""Snow Elemental
 	vanilla """
@@ -64,7 +60,7 @@ class DRG_102:
 	"""Azure Explorer
 	&lt;b&gt;Spell Damage +2&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
-	play = Discover(CONTROLLER, DRAGON)
+	play = DISCOVER(RandomDragon())
 
 class DRG_270:
 	"""Malygos, Aspect of Magic
