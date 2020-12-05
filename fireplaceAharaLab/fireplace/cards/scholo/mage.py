@@ -44,7 +44,7 @@ class SCH_348:
 	"""Combustion	Epic"""
 	#[x]Deal $4 damage to a minion. Any excess damages both neighbors. 
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 4), Hit(TARGET_ADJACENT, 4-0)
+	play = HitAndExcess(TARGET, 4)
 
 class SCH_241:
 	"""Firebrand	Common"""

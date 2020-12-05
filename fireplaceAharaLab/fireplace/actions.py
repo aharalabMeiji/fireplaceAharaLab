@@ -1654,7 +1654,7 @@ class CopyCostA(Copy):
 		ret.cost=self.amount
 		return ret
 
-class HitAndExcess(TargetedAction):#DRG_321
+class HitAndExcess(TargetedAction):#DRG_321 #SCH_348
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
@@ -1663,9 +1663,23 @@ class HitAndExcess(TargetedAction):#DRG_321
 		target_health=target.health
 		if target_health>=amount:
 			Hit(target,amount).trigger(source)
-		else:
-			Hit(target, target_health).trigger(source)
-			Hit(ADJACENT(target), floor((amount-target_health)/2)).trigger(source)
+			return
+		Hit(target,target_health).trigger(source)
+		player = target.controller
+		field = player.field
+		len_field = len(field)
+		fieldID=0
+		for i in range(len(field)):
+			if field[i].entity_id == target.entity_id:
+				fieldID=i
+				break
+		if 0<fieldID and fieldID<len_field-1: 
+			Hit(field[fieldID-1], floor((amount-target_health)/2)).trigger(source)
+			Hit(field[fieldID+1], floor((amount-target_health)/2)).trigger(source)
+		if 0==fieldID and fieldID<len_field-1: 
+			Hit(field[fieldID+1], amount-target_health).trigger(source)
+		if 0<fieldID and fieldID==len_field-1: 
+			Hit(field[fieldID-1], amount-target_health).trigger(source)
 
 class HoldinHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
