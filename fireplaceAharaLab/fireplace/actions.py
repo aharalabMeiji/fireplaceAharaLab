@@ -1599,6 +1599,7 @@ class SidequestCounter(TargetedAction):
 class SidequestCounterClear(TargetedAction):
 	TARGET = ActionArg()# sidequest card
 	def do(self, source, target):
+		log.info("Setting Counter on %r to be 0", target)
 		target._tmp_int1_ = 0
 
 class SidequestManaCounter(TargetedAction):
@@ -1657,18 +1658,14 @@ class HitAndExcess(TargetedAction):#DRG_321
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
+		from .dsl.selector import ADJACENT
+		from math import floor
 		target_health=target.health
 		if target_health>=amount:
 			Hit(target,amount).trigger(source)
 		else:
 			Hit(target, target_health).trigger(source)
-			if LEFT_OF(target) and not RIGHT_OF(target):
-				Hit(LEFT_OF(target), amount-target_health).trigger(source)
-			elif not LEFT_OF(target) and RIGHT_OF(target):
-				Hit(RIGHT_OF(target), amount-target_health).trigger(source)
-			elif LEFT_OF(target) and RIGHT_OF(target):
-				Hit(RIGHT_OF(target), math.floor((amount-target_health)/2)).trigger(source)
-				Hit(RIGHT_OF(target), math.ciel((amount-target_health)/2)).trigger(source)
+			Hit(ADJACENT(target), floor((amount-target_health)/2)).trigger(source)
 
 class HoldinHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player

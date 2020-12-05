@@ -46,28 +46,80 @@ class DRG_107:#OK
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add an 'Arcane Missiles' spell to_your hand."""
 	deathrattle = Give(CONTROLLER, "EX1_277")
 
-class DRG_104:##
+class DRG_104:#OK
 	"""Chenvaala
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
-	events = OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2")))\
-	,OWN_TURN_END.on(SidequestCounterClear(SELF))
+	events = [OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
+	OWN_TURN_END.on(SidequestCounterClear(SELF))]
+
 class DRG_104t2:
 	"""Snow Elemental
 	vanilla """
 	pass
 
-class DRG_102:
+class DRG_102:#OK
 	"""Azure Explorer
 	&lt;b&gt;Spell Damage +2&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
 	play = DISCOVER(RandomDragon())
 
-class DRG_270:
+class DRG_270:#OK
 	"""Malygos, Aspect of Magic
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding
 	a Dragon, &lt;b&gt;Discover&lt;/b&gt; an
-	 upgraded Mage spell."""
-	play = HOLDING_DRAGON | Discover(CONTROLLER, RandomSpell(card_class=CardClass.MAGE, upgrade_counter=1))#####   need process of 'Upgrade()'?
+	upgraded Mage spell."""
+	entourage = ["DRG_270t1","DRG_270t2","DRG_270t4","DRG_270t5","DRG_270t6","DRG_270t7","DRG_270t8","DRG_270t9","DRG_270t11"]
+	play = HOLDING_DRAGON & Discover(CONTROLLER, RandomEntourage())
+class DRG_270t1:#OK
+	""" Malygos's Intellect
+	Draw 4 cards."""
+	play = Draw(CONTROLLER) * 4
+	pass
+class DRG_270t2:#OK
+	""" Malygos's Tome
+	Add 3 random Mage spells to your hand."""
+	play = Give(CONTROLLER, RandomSpell()) * 3
+	pass
+class DRG_270t4:#OK
+	""" Malygos's Explosion
+	Deal $2 damage to all enemy minions."""
+	play = Hit(ENEMY_MINIONS,2)
+	pass
+class DRG_270t5:#OK
+	""" Malygos's Nova
+	&lt;b&gt;Freeze&lt;/b&gt; all enemy minions."""
+	play = Freeze(ENEMY_MINIONS)
+	pass
+class DRG_270t6:#OK
+	""" Malygos's Polymorph
+	Transform a minion into a 1/1 Sheep."""
+	play = Morph(RANDOM(ENEMY_MINIONS),"DRG_270t6t")
+	pass
+class DRG_270t6t:
+	"""Malygos's Sheep 
+	vanilla"""
+class DRG_270t7:#OK
+	""" Malygos's Flamestrike
+	Deal $8 damage to all enemy minions."""
+	play = Hit(ENEMY_MINIONS, 8)
+	pass
+class DRG_270t8:#OK
+	""" Malygos's Frostbolt
+	Deal $3 damage to a_character and &lt;b&gt;Freeze&lt;/b&gt; it."""
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 3), Freeze(TARGET)
+	pass
+class DRG_270t9:#OK
+	""" Malygos's Fireball
+	Deal $8 damage."""
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 8)
+	pass
+class DRG_270t11:#OK
+	""" Malygos's Missiles
+	Deal $6 damage randomly split among all enemies."""
+	play = Hit(RANDOM(ENEMY_CHARACTERS), 1) * 6
+	pass
 
 class DRG_321:
 	"""Rolling Fireball
@@ -81,7 +133,7 @@ class DRG_321:
 class DRG_322:
 	"""Dragoncaster
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Dragon, your next spell this turn costs (0)."""
-	play = HOLDING_DRAGON | Buff(CONTROLLER, "DRG_322e")
+	play = HOLDING_DRAGON & Buff(CONTROLLER, "DRG_322e")
 class DRG_322e:
 	""" Draconic Magic
 	"""
