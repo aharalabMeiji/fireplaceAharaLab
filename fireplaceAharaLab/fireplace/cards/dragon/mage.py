@@ -121,7 +121,7 @@ class DRG_270t11:#OK
 	play = Hit(RANDOM(ENEMY_CHARACTERS), 1) * 6
 	pass
 
-class DRG_321:
+class DRG_321:#OK
 	"""Rolling Fireball
 	Deal $8 damage to a minion. Any excess damage continues to
 	the left or right."""
@@ -130,7 +130,7 @@ class DRG_321:
 	play = HitAndExcess(TARGET, 8)
 
 
-class DRG_322:
+class DRG_322:#OK
 	"""Dragoncaster
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Dragon, your next spell this turn costs (0)."""
 	play = HOLDING_DRAGON & Buff(CONTROLLER, "DRG_322e")

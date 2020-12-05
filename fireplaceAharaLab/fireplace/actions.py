@@ -1730,3 +1730,19 @@ class UtgardeGrapplesniper(TargetedAction):#DRG_077
 		card2 = draw2.CARD
 		if card1.race ==Race.DRAGON:
 			Play(other, card1).trigger(source)
+
+class SwapController(TargetedAction):
+	TARGET = ActionArg()# controller's heropower
+	OTHER = ActionArg()# oponent's heropower
+	def do(self, source,target,other):
+		if isinstance(target,list):
+			target = target[0]
+		if isinstance(other,list):
+			other = other[0]
+		target_controller=target.controller
+		other_controller=other.controller
+		target_controller.hero.power = other
+		other_controller.hero.power = target
+		target.controller = other_controller
+		other.controller = target_controller
+		log.info("%s and %s swap their controllers.",target, other)

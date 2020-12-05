@@ -2,57 +2,57 @@ from ..utils import *
 
 ####### newtral in dragon #######
 
-class DRG_239:
+class DRG_239:#OK
 	"""Blazing Battlemage	Common
 	Weaponized an ancient technique once used to slice cold butter."""
 
-class DRG_078:
+class DRG_078:#OK
 	"""Depth Charge	Rare
 	At the start of your turn, deal 5 damage to ALL_minions."""
 	events = OWN_TURN_BEGIN.on(Hit(ALL_MINIONS,5))
 
-class DRG_057:
+class DRG_057:#OK
 	"""Hot Air Balloon	Common
 	At the start of your turn, gain +1 Health."""
 	events = OWN_TURN_BEGIN.on(Heal(SELF,1))
 
-class DRG_070:
+class DRG_070:#OK
 	"""Dragon Breeder	Rare
 	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Dragon. Add a copy of it to_your hand."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Play(CONTROLLER,FRIENDLY_MINIONS+DRAGON).on( Give(CONTROLLER, Copy(TARGET)) )#########if target is dragon...#########
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_TARGET_WITH_RACE: Race.DRAGON}
+	play = Give(CONTROLLER, Copy(TARGET)) 
 
-class DRG_066:
+class DRG_066:#OK
 	"""Evasive Chimaera	Common
 	&lt;b&gt;Poisonous&lt;/b&gt;
 	Can't be targeted by spells or Hero Powers."""
 	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: 1}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: 1}) 
 
-class DRG_401:
+class DRG_401:#OK
 	"""Grizzled Wizard	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Swap Hero Powers with your opponent until your next turn."""
-	play = Swap(FRIENDLY_HERO_POWER, ENEMY_HERO_POWER)
-	events = OWN_TURN_BEGIN.on(Swap(FRIENDLY_HERO_POWER, ENEMY_HERO_POWER))
+	play = SwapController(FRIENDLY_HERO_POWER, ENEMY_HERO_POWER)
+	events = OWN_TURN_BEGIN.on(SwapController(FRIENDLY_HERO_POWER, ENEMY_HERO_POWER))
 
-class DRG_056:
+class DRG_056:#OK
 	"""Parachute Brigand	Common
 	[x]After you play a Pirate,
 	summon this minion
 	from your hand."""
-	play = Play(CONTROLLER, PIRATE).after(Summon(CONTROLLER,Play.CARD))
+	play = Play(CONTROLLER, PIRATE).after(Summon(CONTROLLER,Copy(Play.CARD)))
 
-class DRG_049:
+class DRG_049:#OK
 	"""Tasty Flyfish	Common
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Give a Dragon in your hand +2/+2."""
 	deathrattle = Buff(RANDOM(FRIENDLY + IN_HAND + DRAGON),"DRG_049e")
 DRG_049e = buff(2,2)
 
-class DRG_092:
+class DRG_092:#OK
 	"""Transmogrifier	Epic
 	Whenever you draw a card, transform it into a random &lt;b&gt;Legendary&lt;/b&gt; minion."""
 	events = Draw(CONTROLLER).on(Morph(Draw.CARD, RANDOM(LEGENDARY)))
 
-class DRG_062:
+class DRG_062:#OK
 	"""Wyrmrest Purifier	Epic
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Transform all
 	Neutral cards in your deck
@@ -60,13 +60,15 @@ class DRG_062:
 	your class."""
 	play = Morph(IN_DECK+EnumSelector(CardClass.NEUTRAL),RandomCard(card_class=Attr(FRIENDLY_HERO, GameTag.CLASS)))
 
-class DRG_403:
+class DRG_403:################################################################
 	"""Blowtorch Saboteur	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's next Hero Power costs (3)."""
-	play = Buff(ENEMY_HERO_POWER,{GameTag.COST: SET(3)})
-DRG_403e=buff(cost=1)
+	play = Buff(ENEMY_HERO_POWER,"DRG_403e")
+class DRG_403e:
+	update  = Refresh(OWNER, {GameTag.COST:SET(3)})
+	events = Activate(OPPONENT, ENEMY_HERO_POWER).after(Destroy(SELF))
 
-class DRG_088:
+class DRG_088:#OK
 	"""Dread Raven	Epic
 	Has +3 Attack for each other Dread Raven you_control."""
 	play = Buff(SELF, "DRG_088e") * Count(FRIENDLY_MINIONS + ID("DRG_088") - SELF)
