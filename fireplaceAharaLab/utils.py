@@ -3,6 +3,7 @@ from enum import IntEnum
 from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.exceptions import GameOver
+from fireplace.actions import *
 import copy
 import random
 
@@ -368,9 +369,10 @@ def postAction(player):
 		myChoiceStr = str(choice)
 		if 'RandomCardPicker' in str(choice):
 			myCardID =  random.choice(choice.find_cards())
-			myCard = Card(myCardID)
-			myCard.controller = player#?
-			myCard.draw()
+			#myCard = Card(myCardID)
+			#myCard.controller = player#?
+			#myCard.draw()
+			Give(player1,myCardID).trigger(player1)
 			player.choice = None
 		else :
 			player.choice.choose(choice)
