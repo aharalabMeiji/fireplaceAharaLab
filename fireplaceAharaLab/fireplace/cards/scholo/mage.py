@@ -14,7 +14,7 @@ class SCH_235:
 	"""Devolving Missiles	Epic"""
 	#[x]Shoot three missiles at random enemy minions that transform them into ones that cost (1) less.
 	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 0}
-	play = Morph(ENEMY_MINIONS, RandomMinion(cost= COST(Morph.CARD)-1)) * 3
+	play = Evolve(ENEMY_MINIONS, -1) * 3
 
 class SCH_310:
 	"""Lab Partner	Common"""
@@ -62,15 +62,19 @@ SCH_352e = buff(1,1,cost = 1)
 """Potion of Illusion"""
 
 
-class SCH_351:#???????????????????????????????????????????
+class SCH_351:#OK
 	"""Jandice Barov	Legendary"""
 	#[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two random 5-Cost minions. Secretly pick one that dies _when it takes damage.
 	import random
 	def play(self):
-		#cards=["SCH_351a","SCH_351b"]
-		#random.shaffle(cards)
-		yield (Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351a"))
-		yield (Summon(RandomMinion(cost=5)), Buff(Summon.CARD, "SCH_351b"))
+		enchantments=["SCH_351e","SCH_351e2"]
+		random.shuffle(enchantments)
+		cards = Summon(CONTROLLER, RandomMinion(cost=5)).trigger(self)
+		card1=cards[0][0]
+		Buff(card1, enchantments[0]).trigger(self)
+		cards = Summon(CONTROLLER, RandomMinion(cost=5)).trigger(self)
+		card2=cards[0][0]
+		Buff(card2, enchantments[1]).trigger(self)
 	pass
 class SCH_351a:
 	"""This is an Illusion."""
@@ -83,7 +87,7 @@ class SCH_351e:
 class SCH_351e2:
 	"""Illusion"""
 	##This might be an illusion that dies when it takes damage."""
-	play = Damage(SELF).on(Destroy(OWNER))## Damage(OWNER)?
+	events = Damage(OWNER).on(Destroy(OWNER))## Damage(OWNER)?
 
 class SCH_400:
 	"""Mozaki, Master Duelist	Legendary"""
