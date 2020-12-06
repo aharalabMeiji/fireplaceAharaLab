@@ -60,13 +60,13 @@ class DRG_062:#OK
 	your class."""
 	play = Morph(IN_DECK+EnumSelector(CardClass.NEUTRAL),RandomCard(card_class=Attr(FRIENDLY_HERO, GameTag.CLASS)))
 
-class DRG_403:################################################################
+class DRG_403:#OK
 	"""Blowtorch Saboteur	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's next Hero Power costs (3)."""
-	play = Buff(ENEMY_HERO_POWER,"DRG_403e")
+	play = Buff(CONTROLLER,"DRG_403e")
 class DRG_403e:
-	update  = Refresh(OWNER, {GameTag.COST:SET(3)})
-	events = Activate(OPPONENT, ENEMY_HERO_POWER).after(Destroy(SELF))
+	update = Refresh(ENEMY_HERO_POWER, {GameTag.COST:SET(3)})
+	events = Activate(OPPONENT, HERO_POWER).on(Destroy(SELF))
 
 class DRG_088:#OK
 	"""Dread Raven	Epic
@@ -76,30 +76,30 @@ DRG_088e = buff(3,0)
 """Conspiracy of Ravens	Epic
 Has +3 Attack for each other Dread Raven you_control."""
 
-class DRG_060:
+class DRG_060:#OK
 	"""Fire Hawk	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; Gain +1 Attack for each card in your opponent's hand."""
 	play = Buff(SELF, "DRG_060e") * Count(ENEMY_HAND)
 DRG_060e = buff(1,0)
 
-class DRG_059:
+class DRG_059:#OK
 	"""Goboglide Tech	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you control a_Mech, gain +1/+1 and_&lt;b&gt;Rush&lt;/b&gt;."""
 	play = Find(FRIENDLY_MINIONS + MECH) & Buff(SELF,"DRG_059e")
 DRG_059e=buff(1,1,rush=True)
 
-class DRG_068:
+class DRG_068:##################### no way to check this
 	"""Living Dragonbreath	Common
 	Your minions can't be_&lt;b&gt;Frozen&lt;/b&gt;."""
-	update = Refresh(SELF, {GameTag.CANT_BE_FROZEN: 1})# 
+	update = Refresh(FRIENDLY_MINIONS, {GameTag.CANT_BE_FROZEN: 1})# 
 
-class DRG_081:
+class DRG_081:#OK
 	"""Scalerider	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Dragon, deal 2 damage."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}	
 	play = HOLDING_DRAGON | Hit(TARGET, 2) 
 
-class DRG_071:
+class DRG_071:#OK
 	"""Bad Luck Albatross	Rare
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle two 1/1 Albatross into your opponent's deck."""
 	deathrattle = Shuffle(OPPONENT, "DRG_071t") * 2
