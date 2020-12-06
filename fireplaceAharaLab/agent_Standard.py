@@ -343,7 +343,10 @@ class HumanAgent(Agent):
 				myCount += 1
 				print('')
 			str = input()
-			inputNum = int(str)
+			try:
+				inputNum = int(str)
+			except ValueError:
+				inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
