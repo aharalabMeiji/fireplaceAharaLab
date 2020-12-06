@@ -26,7 +26,7 @@ class DRG_066:#OK
 	"""Evasive Chimaera	Common
 	&lt;b&gt;Poisonous&lt;/b&gt;
 	Can't be targeted by spells or Hero Powers."""
-	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: 1}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: 1}) 
+	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True}) 
 
 class DRG_401:#OK
 	"""Grizzled Wizard	Epic
@@ -106,53 +106,54 @@ class DRG_071:#OK
 class DRG_071t:
 	pass
 
-class DRG_050:
+class DRG_050:########################### pass
 	"""Devoted Maniac	Common
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Invoke&lt;/b&gt; Galakrond."""
 	#play = InvokeGarakrond(CONTROLLER)
 
-class DRG_063:
+class DRG_063:#OK
 	"""Dragonmaw Poacher	Rare
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your opponent controls a Dragon, gain +4/+4 and &lt;b&gt;Rush&lt;/b&gt;."""
-	play = Find(OPPONENT, DRAGON) & Give(CONTROLLER, "DRG_063e")
-class DRG_063e:
-	""" Poaching """
-	#vanilla
+	play = Find(ENEMY_MINIONS + DRAGON) & Buff(SELF, "DRG_063e")
+DRG_063e = buff(4,4,rush=True)
+""" Poaching """
+	
 
-class DRG_073:
+class DRG_073:#OK
 	"""Evasive Feywing	Common
 	Can't be targeted by spells or Hero Powers."""
-	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: 1}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: 1})
+	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
 
-class DRG_257:
+class DRG_257:#OK
 	"""Frizz Kindleroost	Legendary
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of Dragons in your deck by_(2)."""
-	play = Buff(IN_DECK + DRAGON, "DRG_257e")
-DRG_257e = buff(cost=-2)
+	play = Buff(FRIENDLY_DECK + DRAGON, "DRG_257e3")
+DRG_257e3 = buff(cost=-2)
 
-class DRG_065:
+class DRG_065:#OK
 	"""Hippogryph	Common
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Taunt&lt;/b&gt;"""
 
-class DRG_055:
+class DRG_055:#OK
 	"""Hoard Pillager	Rare
 	&lt;b&gt;Battlecry:&lt;/b&gt; Equip one of your destroyed weapons."""
-	play = Play(CONTROLLER, RANDOM(FRIENDLY_WEAPON+KILLED))
+	play = Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + WEAPON)))
 
-class DRG_067:
+class DRG_067:#OK
 	"""Troll Batrider	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 3 damage to a random enemy minion."""
 	play = Hit(RANDOM(ENEMY_MINIONS), 3)
 
-class DRG_058:
+class DRG_058:#OK
 	"""Wing Commander	Common
 	Has +2 Attack for each Dragon in your hand."""
-	update = Refresh(FRIENDLY_HAND+DRAGON, "DRG_058e")
+	play = Buff(SELF, "DRG_058e") * Count(FRIENDLY_HAND + DRAGON)
 DRG_058e = buff(2,0)
+"""Commanding"""
 
-class DRG_064:
+class DRG_064:#OK
 	"""Zul'Drak Ritualist	Rare
 	[x]&lt;b&gt;Taunt&lt;/b&gt;
 	 &lt;b&gt;Battlecry:&lt;/b&gt; Summon three
@@ -160,12 +161,12 @@ class DRG_064:
 	for your opponent."""
 	play = Summon(OPPONENT, RandomMinion(cost=3))*3
 
-class DRG_054:
+class DRG_054:#OK
 	"""Big Ol' Whelp	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw a card."""
 	play = Draw(CONTROLLER)
 
-class DRG_086:
+class DRG_086:############################ check this  later
 	"""Chromatic Egg	Epic
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Secretly &lt;b&gt;Discover&lt;/b&gt;
 	a Dragon to hatch into.
@@ -177,17 +178,19 @@ class DRG_086e:
 	""" What's in the Egg?"""
 	pass
 
-class DRG_075:
+class DRG_075:#OK
 	"""Cobalt Spellkin	Rare
 	&lt;b&gt;Battlecry:&lt;/b&gt; Add two 1-Cost spells from your class to_your hand."""
 	play = Give(CONTROLLER, RandomSpell(cost=1,card_class=Attr(FRIENDLY_HERO, GameTag.CLASS)))*2
 
-class DRG_076:
+class DRG_076:#OK
 	"""Faceless Corruptor	Rare
 	[x]&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Battlecry:&lt;/b&gt; Transform
 	one of your minions into
 	a copy of this."""
-	reqirements = {PlayReq.REQ_FRIENDLY_TARGET: 0}
+	requirements = {
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Morph(TARGET, ExactCopy(SELF))
 
 class DRG_082:
@@ -228,7 +231,7 @@ class DRG_079:
 	"""Evasive Wyrm	Common
 	&lt;b&gt;Divine Shield&lt;/b&gt;, &lt;b&gt;Rush&lt;/b&gt;
 	Can't be targeted by spells or Hero Powers."""
-	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: 1}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: 1})
+	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
 
 
 class DRG_061:
@@ -252,8 +255,7 @@ class DRG_310:
 	"""Evasive Drakonid	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
 	Can't be targeted by spells or Hero Powers."""
-	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: 1})
-
+	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
 class DRG_091:
 	"""Shu'ma	Legendary
 	At the end of your turn,
