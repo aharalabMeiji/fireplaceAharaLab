@@ -15,6 +15,11 @@ from fireplace.exceptions import GameOver
 from fireplace.utils import random_draft,CardList
 from fireplace.deck import Deck
 from utils import *
+from concurrent.futures import ProcessPoolExecutor
+#	with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+#		x=range(10)
+#		res = executor.map(investigate_card_pair, x)
+#		pass
 class agent_Maya(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
@@ -28,7 +33,11 @@ class agent_Maya(Agent):
 				print("len(self.candidates)==1")
 				return ExceptionPlay.VALID
 				pass
-			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=2);
+			with ProcessPoolExecutor(max_workers=4) as executor:
+				x=range(10)
+				res=executor.map(self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=10),x)
+			index=int(random.random()*len(res))
+			self.takingAction=res[index]
 			print("--------------------simulate end!!------------------")
 			print(self.takingAction)
 			# iterate over our hand and play whatever is playable
@@ -60,6 +69,12 @@ class agent_Maya(Agent):
 			pass
 	def try_montecarlo_tree_search(self,_game,_candidates=[],_trialPerTree=50,_numOfTree=10):
 		from fireplace.deck import Deck
+		print(type(_game))
+		print(type(_candidates))
+		print(len(_candidates))
+		print(_trialPerTree)
+		print(_numOfTree)
+		print("let's start!")
 		self.copyGame=copy.deepcopy(_game)
 		self.myPlayer=self.copyGame.current_player
 		self.enemy=self.myPlayer.opponent
