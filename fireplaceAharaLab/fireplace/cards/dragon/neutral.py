@@ -198,43 +198,43 @@ class DRG_082:
 	&lt;b&gt;Battlecry:&lt;/b&gt; Steal your opponent's weapon."""
 	play = Steal(ENEMY_WEAPON, CONTROLLER)
 
-class DRG_069:
+class DRG_069:#OK
 	"""Platebreaker	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; Destroy your opponent's Armor."""
 	play = DestroyArmor(OPPONENT)
 
-class DRG_242:
+class DRG_242:###########################################
 	"""Shield of Galakrond	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Invoke&lt;/b&gt; Galakrond."""
 	#play = InvokeGarakrond(CONTROLLER)
 
-class DRG_072:
+class DRG_072:#OK
 	"""Skyfin	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Dragon, summon 2 random Murlocs."""
 	play = HOLDING_DRAGON & Summon(CONTROLLER,RandomMurloc())*2
 
-class DRG_084:
+class DRG_084:#OK
 	"""Tentacled Menace	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Each player draws a card. Swap their_Costs."""
 	play = TentacledMenace(CONTROLLER,OPPONENT)
 
-class DRG_074:
+class DRG_074:#OK
 	"""Camouflaged Dirigible	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give your other Mechs &lt;b&gt;Stealth&lt;/b&gt; until your_next turn."""
-	play = Buff(CONTROLLER, "DRG_074e")
+	play = Buff(FRIENDLY_MINIONS + MECH - SELF, "DRG_074e")
 class DRG_074e:
-	play = Stealth(FRIENDLY_MINIONS+MECH)  
-	events = OWN_TURN_BEGIN.on(Destroy(SELF))
+	tags = {GameTag.STEALTH: True}
+	events = OWN_TURN_BEGIN.on(Unstealth(OWNER), Destroy(SELF))
 
-class DRG_079:
+class DRG_079:#OK
 	"""Evasive Wyrm	Common
 	&lt;b&gt;Divine Shield&lt;/b&gt;, &lt;b&gt;Rush&lt;/b&gt;
 	Can't be targeted by spells or Hero Powers."""
 	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
 
 
-class DRG_061:
+class DRG_061:#OK
 	"""Gyrocopter	Common
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Windfury&lt;/b&gt;"""
@@ -244,47 +244,64 @@ class DRG_099:##################################
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Draw Galakrond.
 	If you're already Galakrond,
 	unleash a Devastation."""  # change hero to "DRGA_BOSS_24h"?
+	#powered_up = Find(EnumSelector("DRGA_BOSS_24h"))
+	#play = -powered_up & Give(CONTROLLER, "DRGA_BOSS_24h")#, powered_up & RefreshHeroPower(CONTROLLER, "DRGA_BOSS_28p")
 
-
-class DRG_077:
+class DRG_077:#OK
 	"""Utgarde Grapplesniper	Rare
 	&lt;b&gt;Battlecry:&lt;/b&gt; Both players draw a card. If it's a Dragon, summon it."""
-	play = UtgardeGrapplesniper(CONTROLLER,OPPONENT)
+	def play(self):
+		target = self.controller
+		draw1 = Draw(target)
+		cards1 = draw1.trigger(self)
+		card1 = cards1[0][0]
+		if card1.type == CardType.MINION and card1.race == Race.DRAGON:
+			Summon(target, card1).trigger(self)
+		other = target.opponent
+		draw2 = Draw(other)
+		cards2 = draw2.trigger(self)
+		card2 = cards2[0][0]
+		if card2.type == CardType.MINION and card2.race == Race.DRAGON:
+			Summon(other, card2).trigger(self)		
 
-class DRG_310:
+class DRG_310:#OK
 	"""Evasive Drakonid	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
 	Can't be targeted by spells or Hero Powers."""
 	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
-class DRG_091:
+
+class DRG_091:#OK
 	"""Shu'ma	Legendary
 	At the end of your turn,
 	fill your board with 1/1_Tentacles."""
-	play = Summon(CONTROLLER,"DRG_091t") * 7
+	play = OWN_TURN_END.on(Summon(CONTROLLER,"DRG_091t") * 7)
 class DRG_091t:
 	""" Tentacles"""
 	#vanilla
 
-class DRG_213:
+class DRG_213:#OK
 	"""Twin Tyrant	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 4 damage to two random enemy minions."""
 	play = Hit(RANDOM(ENEMY_MINIONS),4) * 2
 
-class DRG_089:
+class DRG_089:########################################
 	"""Dragonqueen Alexstrasza	Legendary
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has
 	no duplicates, add 2 other
 	random Dragons to your
 	hand. They cost (1)."""
-	powered_up = -FindDuplicates(FRIENDLY_DECK)
+	powered_up = FindDuplicates(FRIENDLY_DECK)
 	play = powered_up & Buff(CONTROLLER, "DRG_089e")
 class DRG_089e:
 	"""A Queen's Discount"""
-	play = Give(CONTROLLER, RANDOM(DRAGON)).on(Refresh(Give.CARD, {GameTag.COST: 1})),Give(CONTROLLER, RANDOM(DRAGON)).on(Refresh(Give.CARD, {GameTag.COST: 1}))
+	play = Give(CONTROLLER, RANDOM(DRAGON)).on(Refresh(Give.CARD, {GameTag.COST: 1})) * 2
 
 class DRG_402:
 	"""Sathrovarr	Legendary
 	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly minion. Add a copy of it to_your hand, deck, and battlefield."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY}
+	requirements = {
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_FRIENDLY_TARGET: 0,
+		PlayReq.REQ_TARGET_TO_PLAY: 0}}
 	play= Give(CONTROLLER, Copy(TARGET)),Shuffle(CONTROLLER,Copy(TARGET)), Summon(CONTROLLER,Copy(TARGET))
 

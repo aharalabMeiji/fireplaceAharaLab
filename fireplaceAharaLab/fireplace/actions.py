@@ -1709,27 +1709,15 @@ class TentacledMenace(TargetedAction):#DRG_084
 	OTHER = ActionArg()# oponent
 	def do(self, source, target, other):
 		draw1 = Draw(target)
-		draw1.trigger(source)
-		card1 = draw1.CARD
-		draw2 = Draw(other)
-		draw2.trigger(source)
-		card2 = draw2.CARD
-		card1.cost, card2.cast = card2.cost, card1.cast
+		cards1 = draw1.trigger(source)
+		card1 = cards1[0][0]
+		draw2 = Draw(other[0])
+		cards2 = draw2.trigger(source)
+		card2 = cards2[0][0]
+		card1.cost, card2.cost = card2.cost, card1.cost
+		log.info("Draw cards and change their costs.")
 
-class UtgardeGrapplesniper(TargetedAction):#DRG_077
-	TARGET = ActionArg()# controller
-	OTHER = ActionArg()# oponent
-	def do(self, source, target, other):
-		draw1 = Draw(target)
-		draw1.trigger(source)
-		card1 = draw1.CARD
-		if card1.race ==Race.DRAGON:
-			Play(target, card1).trigger(source)
-		draw2 = Draw(other)
-		draw2.trigger(source)
-		card2 = draw2.CARD
-		if card1.race ==Race.DRAGON:
-			Play(other, card1).trigger(source)
+
 
 class SwapController(TargetedAction):
 	TARGET = ActionArg()# controller's heropower

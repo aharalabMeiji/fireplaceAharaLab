@@ -129,13 +129,14 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
 	#特定のカードを引かせたい場合。
-	Give(player1,'DRG_076').trigger(player1)
-	#Give(player1,'SCH_232').trigger(player1)
+	Give(player1,'DRG_089').trigger(player1)
+	Give(player1,'DRG_402').trigger(player1)
+	#Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
-
+	#Give(player1,'EX1_006').trigger(player1)#MECH
 	#Give(player2,'DRG_403').trigger(player2)
 	#特定のマナ数から始めたいとき
-	player1.max_mana=7
+	player1.max_mana=10
 	player2.max_mana=7
 	while True:	
 		#エージェントの処理ここから
