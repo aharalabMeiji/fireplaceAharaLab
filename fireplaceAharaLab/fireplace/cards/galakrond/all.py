@@ -39,7 +39,7 @@ class YOD_007:##########################################   impossible now
 	an Elemental last turn,
 	summon a copy of this."""
 	#requirements = {PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN: 0}## not implemented
-	#play = PLASY_ELEMENTAL_LAST_TURN. on(Summon( CONTROLLER, RandomLastTurnElemental() ))
+	#play = PLAY_ELEMENTAL_LAST_TURN. on(Summon( CONTROLLER, RandomLastTurnElemental() ))
 
 class YOD_009:
 	"""The Amazing Reno

@@ -302,6 +302,6 @@ class DRG_402:
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_FRIENDLY_TARGET: 0,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}}
+		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play= Give(CONTROLLER, Copy(TARGET)),Shuffle(CONTROLLER,Copy(TARGET)), Summon(CONTROLLER,Copy(TARGET))
 
