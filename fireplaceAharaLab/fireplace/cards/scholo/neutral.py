@@ -243,10 +243,10 @@ class SCH_530:#done
 			yield Summon(CONTROLLER, random.choice(find).id)
 	pass
 
-class SCH_605:#done
+class SCH_605:#OK
 	""" Lake Thresher"""
 	#Also damages the minions next to whomever this attacks.
-	play = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), Attr(SELF, GameTag.ATK))) 
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 
 class SCH_707:#done

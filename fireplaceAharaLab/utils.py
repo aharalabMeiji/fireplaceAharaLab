@@ -129,8 +129,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
 	#特定のカードを引かせたい場合。
-	Give(player1,'DRG_089').trigger(player1)
-	Give(player1,'DRG_402').trigger(player1)
+	Give(player1,'SCH_605').trigger(player1)
+	Give(player1,'ULD_212').trigger(player1)
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
 	#Give(player1,'EX1_006').trigger(player1)#MECH

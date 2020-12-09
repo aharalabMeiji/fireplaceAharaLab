@@ -21,13 +21,13 @@ class ULD_155p:
 
 class ULD_152:
 	"""Pressure Plate	Common
-	"""
+	&lt;b&gt;Secret:&lt;/b&gt; After your opponent casts a spell, destroy a random enemy_minion."""
 	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
 
-class ULD_152:
+class ULD_430:
 	"""Desert Spear	Common
-	&lt;b&gt;Secret:&lt;/b&gt; After your opponent casts a spell, destroy a random enemy_minion."""
-	secret = Play(OPPONENT, SPELL).then(Destroy(RANDOM(ENEMY_MINIONS)))
+	After your hero attacks, summon a 1/1 Locust with &lt;b&gt;Rush&lt;/b&gt;."""
+	play = Attack(FRIENDLY_HERO, ENEMY_MINIONS | ENEMY_HERO).on(Summon(CONTROLLER, "ULD_430t"))
 
 class ULD_429:
 	"""Hunter's Pack	Common
@@ -44,7 +44,7 @@ class ULD_154:
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you control
 	a &lt;b&gt;Secret&lt;/b&gt;, summon two
 	2/2 Hyenas."""
-	play = Find(FRIENDLY_SECRET) & Summon(CONTROLLER, "ULD_154t") * 2
+	play = Find(FRIENDLY_SECRETS) & Summon(CONTROLLER, "ULD_154t") * 2
 class ULD_154t:
 	""" Hyena
 	Vanilla """
@@ -60,10 +60,10 @@ class ULD_713:
 	Summon seven 1/1 Locusts with &lt;b&gt;Rush&lt;/b&gt;."""
 	play = Summon(CONTROLLER, "ULD_430t") * 7
 
-class ULD_212:
+class ULD_212:#OK
 	"""Wild Bloodstinger	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a minion from your opponent's hand. Attack it."""
-	play = Summon(OPPONENT, RANDOM(ENEMY_HAND + MINION)), Damage(Summon.CARD, Attr(Summon.CARD, GameTag.ATK))
+	play = Summon(OPPONENT, RANDOM(ENEMY_HAND + MINION)).then( RegularAttack(SELF, Summon.CARD))
 
 class ULD_156:
 	"""Dinotamer Brann	Legendary

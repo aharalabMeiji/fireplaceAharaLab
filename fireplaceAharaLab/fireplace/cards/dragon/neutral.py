@@ -290,11 +290,11 @@ class DRG_089:########################################
 	no duplicates, add 2 other
 	random Dragons to your
 	hand. They cost (1)."""
-	powered_up = FindDuplicates(FRIENDLY_DECK)
+	powered_up = -FindDuplicates(FRIENDLY_DECK)
 	play = powered_up & Buff(CONTROLLER, "DRG_089e")
 class DRG_089e:
 	"""A Queen's Discount"""
-	play = Give(CONTROLLER, RANDOM(DRAGON)).on(Refresh(Give.CARD, {GameTag.COST: 1})) * 2
+	play = Give(CONTROLLER, RANDOM(DRAGON)).then(Refresh(Give.CARD, {GameTag.COST: 1})), Give(CONTROLLER, RANDOM(DRAGON)).then(Refresh(Give.CARD, {GameTag.COST: 1}))
 
 class DRG_402:
 	"""Sathrovarr	Legendary

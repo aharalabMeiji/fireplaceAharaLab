@@ -1734,3 +1734,13 @@ class SwapController(TargetedAction):
 		target.controller = other_controller
 		other.controller = target_controller
 		log.info("%s and %s swap their controllers.",target, other)
+
+class RegularAttack(TargetedAction):
+	TARGET = ActionArg()#ATTACKER
+	OTHER = ActionArg()#DEFFENDER
+	def do(self, source, target, other):
+		if not isinstance(other,list):
+			other = [other]
+		for card in other:
+			if target.can_attack(card):
+				Hit(card, target.atk).trigger(source)

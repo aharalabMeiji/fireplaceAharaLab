@@ -58,12 +58,12 @@ from ..utils import *
 #	pass
 
 
-class ULD_152:
-	#""" 感圧板 
-	#&lt;b&gt;秘策:&lt;/b&gt;相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。 """
-	#secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
+#class ULD_152:
+#	#""" 感圧板 
+#	#&lt;b&gt;秘策:&lt;/b&gt;相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。 """
+#	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
 
-	#pass
+#	#pass
 
 #class DRG_256:
 #	""" ドラゴンベイン 
