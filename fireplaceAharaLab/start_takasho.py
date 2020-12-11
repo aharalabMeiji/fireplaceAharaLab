@@ -38,7 +38,9 @@ def main():
 	
 	# takasho002
 
+	takasho001=takashoAgent("agent_takasho001",takashoAgent.takasho002AI)
 	takasho002=takashoAgent("agent_takasho002",takashoAgent.takasho002AI)
+
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
 	#from agent_word_strategy import WordStrategyAgent
@@ -59,7 +61,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
-	play_set_of_games(takasho002,HunterCat, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=3, debugLog=False)
+	play_set_of_games(takasho001,takasho002, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=3, debugLog=False)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition

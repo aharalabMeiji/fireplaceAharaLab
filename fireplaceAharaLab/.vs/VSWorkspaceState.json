@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\fireplace",
+    "\\obj",
+    "\\obj\\Any CPU",
+    "\\obj\\Any CPU\\Debug"
   ],
-  "SelectedNode": "\\agent_takasho002.py",
+  "SelectedNode": "\\fireplace\\game.py",
   "PreviewInSolutionExplorer": false
 }

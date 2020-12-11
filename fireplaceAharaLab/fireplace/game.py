@@ -350,15 +350,15 @@ class BaseGame(Entity):
 		player.draw()
 		self.manager.step(self.next_step, Step.MAIN_END)
 
-
 class CoinRules:
 	"""
 	Randomly determines the starting player when the Game starts.
 	The second player gets "The Coin" (GAME_005).
 	"""
 	def pick_first_player(self):
-		winner = random.choice(self.players)
+		winner = self.players[0]#random.choice(self.players)
 		self.log("Tossing the coin... %s wins!", winner)
+		print(winner)
 		return winner, winner.opponent
 
 	def begin_turn(self, player):
