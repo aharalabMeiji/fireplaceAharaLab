@@ -10,8 +10,12 @@ class YOD_005:
 	"""Fresh Scent
 	&lt;b&gt;Twinspell&lt;/b&gt;Give a Beast +2/+2."""
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Find(TARGET + BEAST) & Buff(TARGET, "YOD_005e")
+	play = Find(TARGET + BEAST) & Buff(TARGET, "YOD_005e"), Give(CONTROLLER,"YOD_005ts")
 YOD_005e = buff(2,2)
+class YOD_005ts:
+	"""Fresh Scent"""
+	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Find(TARGET + BEAST) & Buff(TARGET, "YOD_005e")
 
 
 class YOD_004:
