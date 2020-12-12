@@ -128,16 +128,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	#特定のカードを引かせたい場合。
-	Give(player1,'SCH_605').trigger(player1)
-	Give(player1,'ULD_212').trigger(player1)
-	#Give(player1,'SCH_301').trigger(player1)#weapon
-	#Give(player1,'SCH_232').trigger(player1)#DRAGON
-	#Give(player1,'EX1_006').trigger(player1)#MECH
-	#Give(player2,'DRG_403').trigger(player2)
-	#特定のマナ数から始めたいとき
-	player1.max_mana=10
-	player2.max_mana=7
+	PresetHands(player1, player2)
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -436,3 +427,27 @@ def getTurnLog(gameLog, turnN):
 		if gameLog[i].turn == turnN:
 			ret.append(gameLog[i])
 	return ret
+
+
+from fireplace.dsl.selector import *
+def PresetHands(player1, player2): 
+	#特定のカードを引かせたい場合。
+	#Give(player1,'BT_733').trigger(player1)#target
+	#Give(player1,'ULD_212').trigger(player1)#assistant
+	#Give(player1,'SCH_301').trigger(player1)#weapon
+	#Give(player1,'SCH_232').trigger(player1)#DRAGON
+	#Give(player1,'EX1_006').trigger(player1)#MECH
+	#Give(player1,'SCH_133').trigger(player1)#beast
+	Give(player2,'BT_008').trigger(player2)#target
+	#Give(player2,'DRG_403').trigger(player2)
+	#特定のマナ数から始めたいとき
+	player1.max_mana=10
+	player2.max_mana=3
+	#特定のプレイから始めたいとき
+	PresetPlay(player2, 'BT_008')# play Wolpertinger
+
+
+def PresetPlay(player, cardID):
+	for card in player.hand:
+		if card.id == cardID and card.is_playable():
+			card.play(target=None)

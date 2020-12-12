@@ -233,7 +233,6 @@ class DRG_079:#OK
 	Can't be targeted by spells or Hero Powers."""
 	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
 
-
 class DRG_061:#OK
 	"""Gyrocopter	Common
 	&lt;b&gt;Rush&lt;/b&gt;

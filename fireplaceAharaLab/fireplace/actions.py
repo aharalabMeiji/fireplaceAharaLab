@@ -1615,24 +1615,6 @@ class SidequestManaCounter(TargetedAction):
 			targetaction.trigger(source)## take care of an infinite loop!
 			Destroy(target).trigger(source)
 
-###SCH_714
-class EducatedElekkMemory(TargetedAction):
-	"""
-	"""
-	HOST = ActionArg()# spell card just played
-	TARGET = ActionArg()# spell card just played
-	def do(self,source,target,card):
-		log.info("%s remember the card: %s",target,card)
-		target._tmp_list1_.append(card)
-
-class EducatedElekkDeathrattle(TargetedAction):
-	"""
-	"""
-	def do(self,source,target):
-		log.info("%s Deathrattle",target)
-		for card in target._tmp_list1_:
-			Shuffle(target.controller, card).trigger(source)
-
 class SetCurrentCost(TargetedAction):
 	"""
 	Sets the current health of the character target to \a amount.
@@ -1704,20 +1686,6 @@ class DestroyArmor(TargetedAction):
 		target.armor = 0
 		self.broadcast(source, EventListener.ON, target, amount)
 
-class TentacledMenace(TargetedAction):#DRG_084
-	TARGET = ActionArg()# controller
-	OTHER = ActionArg()# oponent
-	def do(self, source, target, other):
-		draw1 = Draw(target)
-		cards1 = draw1.trigger(source)
-		card1 = cards1[0][0]
-		draw2 = Draw(other[0])
-		cards2 = draw2.trigger(source)
-		card2 = cards2[0][0]
-		card1.cost, card2.cost = card2.cost, card1.cost
-		log.info("Draw cards and change their costs.")
-
-
 
 class SwapController(TargetedAction):
 	TARGET = ActionArg()# controller's heropower
@@ -1744,3 +1712,39 @@ class RegularAttack(TargetedAction):
 		for card in other:
 			if target.can_attack(card):
 				Hit(card, target.atk).trigger(source)
+
+###SCH_714
+class EducatedElekkMemory(TargetedAction):
+	""" Educated Elekk (epic)"""
+	#[x]Whenever a spell is played, this minion remembers it.
+	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	HOST = ActionArg()# spell card just played
+	TARGET = ActionArg()# spell card just played
+	def do(self,source,target,card):
+		log.info("%s remember the card: %s",target,card)
+		target._tmp_list1_.append(card)
+
+class EducatedElekkDeathrattle(TargetedAction):
+	""" Educated Elekk (epic)"""
+	#[x]Whenever a spell is played, this minion remembers it.
+	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	def do(self,source,target):
+		log.info("%s Deathrattle",target)
+		for card in target._tmp_list1_:
+			Shuffle(target.controller, card).trigger(source)
+
+class TentacledMenace(TargetedAction):#DRG_084
+	"""Tentacled Menace	Epic
+	&lt;b&gt;Battlecry:&lt;/b&gt; Each player draws a card. Swap their_Costs."""
+	TARGET = ActionArg()# controller
+	OTHER = ActionArg()# oponent
+	def do(self, source, target, other):
+		draw1 = Draw(target)
+		cards1 = draw1.trigger(source)
+		card1 = cards1[0][0]
+		draw2 = Draw(other[0])
+		cards2 = draw2.trigger(source)
+		card2 = cards2[0][0]
+		card1.cost, card2.cost = card2.cost, card1.cost
+		log.info("Draw cards and change their costs.")
+
