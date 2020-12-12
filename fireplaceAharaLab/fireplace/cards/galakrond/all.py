@@ -6,7 +6,7 @@ from ..utils import *
 
 ##hunter##
 
-class YOD_005:
+class YOD_005:#OK
 	"""Fresh Scent
 	&lt;b&gt;Twinspell&lt;/b&gt;Give a Beast +2/+2."""
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
@@ -17,13 +17,12 @@ class YOD_005ts:
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Find(TARGET + BEAST) & Buff(TARGET, "YOD_005e")
 
-
-class YOD_004:
+class YOD_004:################################################
 	"""Chopshop Copter
 	After a friendly Mech dies, add a random Mech to your hand."""
 	events = Death(FRIENDLY_MINIONS + MECH).on(Give(CONTROLLER, RandomMech()))
 
-class YOD_036:
+class YOD_036:#OK
 	"""Rotnest Drake
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding
 	a Dragon, destroy a random
@@ -32,18 +31,34 @@ class YOD_036:
 	play = powered_up & Destroy(RANDOM_ENEMY_MINION)
 
 ## mage ##
-class YOD_008:
+class YOD_008:#OK
 	"""Arcane Amplifier
 	Your Hero Power deals 2_extra damage."""
-	update = RefreshHeroPower( {GameTag.ATK: 2})#??????
+	#<Tag enumID="217" name="DEATHRATTLE" type="Int" value="1"/>
+	tags = {
+		GameTag.DEATHRATTLE: 1,
+	}
+	play = Summon(CONTROLLER, "HERO_08bp2")
+	deathrattle = Summon(CONTROLLER, "HERO_08bp")
+class HERO_08bp2:
+	"""Fireblast 2 (Jaina Proudmoore)"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Hit(TARGET, 2)
 
-class YOD_007:##########################################   impossible now
+class YOD_007:#OK
 	"""Animated Avalanche
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you played
 	an Elemental last turn,
 	summon a copy of this."""
-	#requirements = {PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN: 0}## not implemented
-	#play = PLAY_ELEMENTAL_LAST_TURN. on(Summon( CONTROLLER, RandomLastTurnElemental() ))
+	def play(self):
+		current_turn = self.controller.game.turn
+		for candidate in self.controller.game.__myLog__:
+			if candidate.turn == current_turn-2: #it is my last turn
+				if candidate.card.race == Race.ELEMENTAL:
+					Summon(self.controller, candidate.card.id).trigger(self)
+		pass
+
+## neutral ##
 
 class YOD_009:
 	"""The Amazing Reno

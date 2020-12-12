@@ -283,6 +283,10 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.dormant>0:
+						print("(dormant:%d)"%(character.dormant), end=" ")
+					if character._tmp_int1_>0:
+						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
@@ -294,6 +298,10 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.dormant>0:
+						print("(dormant:%d)"%(character.dormant), end=" ")
+					if character._tmp_int1_>0:
+						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
 					for target in character.targets:

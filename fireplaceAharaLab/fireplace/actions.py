@@ -1640,7 +1640,6 @@ class HitAndExcess(TargetedAction):#DRG_321 #SCH_348
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
-		from .dsl.selector import ADJACENT
 		from math import floor
 		target_health=target.health
 		if target_health>=amount:
@@ -1713,6 +1712,12 @@ class RegularAttack(TargetedAction):
 			if target.can_attack(card):
 				Hit(card, target.atk).trigger(source)
 
+class Dormant(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		target.dormant = amount
+
 ###SCH_714
 class EducatedElekkMemory(TargetedAction):
 	""" Educated Elekk (epic)"""
@@ -1747,4 +1752,3 @@ class TentacledMenace(TargetedAction):#DRG_084
 		card2 = cards2[0][0]
 		card1.cost, card2.cost = card2.cost, card1.cost
 		log.info("Draw cards and change their costs.")
-

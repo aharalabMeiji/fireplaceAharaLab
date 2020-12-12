@@ -16,7 +16,7 @@ def main():
 	from fireplace import cards
 	cards.db.initialize()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human",HumanAgent.HumanInput)
+	Human=HumanAgent("Human",HumanAgent.HumanInput,myClass=CardClass.MAGE)
 	#ランダムプレーヤー
 	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
