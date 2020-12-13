@@ -79,9 +79,10 @@ class BT_126:####################################################
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Resummon
 	them with +1/+1."""
 	play = Destroy(FRIENDLY_MINIONS - SELF)
-	deathrattle = Summon(CONTROLLER, Destroy.TARGET).then(Buff(Summon.CARD, "BT_126e2"))
-BT_126e = buff(0,0)
-"""Shadowy Construct"""
+	deathrattle = Summon(CONTROLLER, Buff(Copy(Destroy.TARGET),"BT_126e2"))
+	#deathrattle = Buff(Summon(CONTROLLER, Copy(Destroy.TARGET)),"BT_126e2")
+#BT_126e = buff(0,0)
+#"""Shadowy Construct"""
 BT_126e2 = buff(1,1)
 class BT_159:#OK
 	"""Terrorguard Escapee	Minion	Common
@@ -115,9 +116,10 @@ class BT_850:##################################################
 	three 1/3 enemy Warders.
 	When they die, destroy all
 	minions and awaken."""
-	dormant = 20
-	play = Summon(CONTROLLER, "BT_850t") * 3
-BT_850e = buff(dormant=100)
+	play = Buff(CONTROLLER, "BT_850e"), Summon(CONTROLLER, "BT_850t") * 3
+class BT_850e:
+   dormant = 20
+   pass
 class BT_850t:
 	""" Hellfire Warder """
 	deathrattle = SidequestCounter(OWNER,3,Destroy(ALL_MINIONS - OWNER).then(Awaken(OWNER)))## no way
