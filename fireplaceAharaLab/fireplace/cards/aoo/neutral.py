@@ -133,33 +133,84 @@ class BT_190:#OK
 	"""Replicat-o-tron	Minion	Epic
 	At the end of your turn, transform a neighbor into a copy of this."""
 	play = OWN_TURN_END.on(Morph(SELF_ADJACENT,Copy(SELF)))
-class BT_:
+class BT_160:#OK
 	"""Rustsworn Cultist	Minion	Common
-	"""
-class BT_:
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Give your
+	other minions &quot;&lt;b&gt;Deathrattle:&lt;/b&gt;
+	Summon a 1/1 Demon.&quot;"""
+	play = Buff( FRIENDLY_MINIONS - SELF, "BT_160e")
+class BT_160e:
+   tags = {GameTag.DEATHRATTLE: True} 
+   deathrattle = Summon(CONTROLLER, "BT_160t")
+class BT_160t:
+
+	"""Rusted Devil"""
+class BT_735:#OK
 	"""Al'ar	Minion	Legendary
-	"""
-class BT_:
+	&lt;b&gt;Deathrattle&lt;/b&gt;: Summon a
+	0/3 Ashes of Al'ar that resurrects this minion on your next turn."""
+	deathrattle = Summon(CONTROLLER, "BT_735t")
+class BT_735t:
+	"""Ashes of Al'ar
+	At the start of your turn, transform this into Al'ar."""
+	events = OWN_TURN_BEGIN.on(Morph(SELF, "BT_735"))
+	pass
+class BT_720:#OK
 	"""Ruststeed Raider	Minion	Common
-	"""
-class BT_:
+	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Rush&lt;/b&gt;
+	&lt;b&gt;Battlecry:&lt;/b&gt; Gain +4 Attack this turn."""
+	play = Buff(SELF, "BT_720e")
+BT_720e = buff(4,0)#with one_turn_effect
+class BT_729:#OK
 	"""Waste Warden	Minion	Epic
-	"""
-class BT_:
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Deal 3 damage to
+	a minion and all others of
+	the same minion type."""
+	requirements = {
+		PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_TARGET_TO_PLAY:0,
+		}
+	def play(self):
+		for card in self.controller.opponent.field:
+			if card.race == self.target.race:
+				Hit(card, 3).trigger(self)
+		pass
+class BT_726:#OK
 	"""Dragonmaw Sky Stalker	Minion	Common
-	"""
-class BT_:
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 3/4 Dragonrider."""
+	deathrattle = Summon(CONTROLLER, "BT_726t")
+class BT_726t:
+	pass
+class BT_732:#OK
 	"""Scavenging Shivarra	Minion	Common
-	"""
-class BT_:
+	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 6 damage randomly split among all_other minions."""
+	play = Hit(RANDOM(ALL_MINIONS - SELF), 1) * 6
+class BT_716:#OK
 	"""Bonechewer Vanguard	Minion	Common
-	"""
-class BT_:
+	[x]&lt;b&gt;Taunt&lt;/b&gt;
+	Whenever this minion takes
+	damage, gain +2 Attack."""
+	events = Attack(IN_PLAY,SELF).after(Buff(SELF, "BT_716e"))
+BT_716e = buff(2,0)
+class BT_255:## strictly saying, it is not correct#################################
 	"""Kael'thas Sunstrider	Minion	Legendary
-	"""
-class BT_:
+	Every third spell you cast each turn costs (1)."""
+	events = [
+		OWN_TURN_BEGIN.on(SidequestCounterClear(SELF)),
+		OWN_SPELL_PLAY.on(SidequestCounter(SELF, 2, Buff(FRIENDLY_HAND + SPELL, "BT_255e"))),
+		]
+class BT_255e:
+   cost = SET(1)
+class BT_734:#OK
 	"""Supreme Abyssal	Minion	Common
-	"""
-class BT_:
+	Can't attack heroes."""
+	tags = {GameTag.CANNOT_ATTACK_HEROES: True}
+class BT_155:#OK
 	"""Scrapyard Colossus	Minion	Rare
-	"""
+	[x]&lt;b&gt;Taunt&lt;/b&gt;
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 
+	7/7 Felcracked Colossus
+	with &lt;b&gt;Taunt&lt;/b&gt;."""
+	deathrattle = Summon(CONTROLLER, "BT_155t")
+class BT_155t:
+	""" Felcracked Colossus """
+	pass
