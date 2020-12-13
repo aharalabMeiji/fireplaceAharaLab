@@ -21,13 +21,23 @@ class DRG_251t:
 	""" Gryphon
 	Rush """
 
-class DRG_253:#####################################  may be valid, but might not be implemented
+class DRG_253:#OK!
 	"""Dwarven Sharpshooter
 	Your Hero Power can target_minions."""
-	update = Refresh(CONTROLLER, {GameTag.STEADY_SHOT_CAN_TARGET: True})
-	##  might use RefreshHeroPower
-	#play = RefreshHeroPower("HERO_08bp")
-	#events = Death(SELF).after(RefreshHeroPower(FRIENDLY_HERO_POWER))
+	## deal 2 damage to enemy hero HERO_05bp, HERO_05dbp
+	## deal 3 damage to enemy hero HERO_05bp2
+	tags = {
+		GameTag.DEATHRATTLE: 1,
+	}
+	play = Summon(CONTROLLER, "HERO_05dbp")
+	deathrattle = Summon(CONTROLLER, "HERO_05bp")
+class HERO_05dbp:
+	"""Steady Shot (Rexxar)"""
+	requirements = { 
+		PlayReq.REQ_ENEMY_TARGET: 0, 
+		PlayReq.REQ_HERO_OR_MINION_TARGET: 0, #new comer
+		PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Hit(TARGET, 2)
 
 class DRG_255:#OK
 	"""Toxic Reinforcements
