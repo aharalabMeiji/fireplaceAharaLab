@@ -195,6 +195,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\paladin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\mage.py" />

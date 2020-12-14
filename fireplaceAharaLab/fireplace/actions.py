@@ -1708,15 +1708,49 @@ class RegularAttack(TargetedAction):
 	def do(self, source, target, other):
 		if not isinstance(other,list):
 			other = [other]
-		for card in other:
-			if target.can_attack(card):
-				Hit(card, target.atk).trigger(source)
+		if not isinstance(target,list):
+			target = [target]
+		for attcard in target:
+			for defcard in other:
+				if attcard.can_attack(defcard):
+					Hit(defcard, attcatd.atk).trigger(source)
 
 class Dormant(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		target.dormant = amount
+
+class CastSpellMe(TargetedAction):
+	"""
+	Cast a spell target to me
+	"""
+	CARD = CardArg()
+	AIMEDTARGET = CardArg()
+	### we might modify CastSpell itself, but no get any risk
+	def do(self, source, card, aimedtarget):
+		target = None
+		if card.must_choose_one:
+			card = random.choice(card.choose_cards)
+		if card.requires_target():
+			if len(card.targets):
+				if aimedtarget in card.targets:
+					target = aimedtarget
+				else:
+					target = random.choice(card.targets)
+			else:
+				log.info("%s cast spell %s don't have a legal target", source, card)
+				return
+		card.target = target
+		log.info("%s cast spell %s target %s", source, card, target)
+		source.game.queue_actions(source, [Battlecry(card, card.target)])
+		player = source.controller
+		while player.choice:
+			choice = random.choice(player.choice.cards)
+			print("Choosing card %r" % (choice))
+			player.choice.choose(choice)
+		source.game.queue_actions(source, [Deaths()])
+
 
 ###SCH_714
 class EducatedElekkMemory(TargetedAction):
