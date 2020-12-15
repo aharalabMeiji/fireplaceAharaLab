@@ -19,6 +19,7 @@ class SCH_235:
 class SCH_310:
 	"""Lab Partner	Common"""
 	#&lt;b&gt;Spell Damage +1&lt;/b&gt;
+	pass
 
 class SCH_270:
 	"""Primordial Studies	Common"""
@@ -84,6 +85,7 @@ class SCH_351b:
 	play = Buff(OWNER, "SCH_351e2")
 class SCH_351e:
 	"""Illusion"""
+	pass
 class SCH_351e2:
 	"""Illusion"""
 	##This might be an illusion that dies when it takes damage."""
