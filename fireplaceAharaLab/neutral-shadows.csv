@@ -1,0 +1,79 @@
+neutral-shadows,,46,,,,,,
+Potion Vendor,,1,1,1,Minion,Common,-,Battlecry
+Toxfin,,1,1,2,Minion,Common,Murloc,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Poisonous
+Arcane Servant,,2,2,3,Minion,Common,Elemental,-
+Dalaran Librarian,,2,2,3,Minion,Common,-,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Silence
+EVIL Cable Rat,,2,1,1,Minion,Common,Beast,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Lackey
+Hench-Clan Hogsteed,,2,2,1,Minion,Common,Beast,Deathrattle
+,,,,,,,,",?"
+,,,,,,,,Rush
+Mana Reservoir,,2,0,6,Minion,Common,Elemental,Spell Damage
+Spellbook Binder,,2,3,2,Minion,Common,-,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Spell Damage
+Sunreaver Spy,,2,2,3,Minion,Common,-,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Secret
+"Zayle, Shadow Cloak",,2,3,2,Minion,Legendary,-,-
+Arcane Watcher,,3,5,6,Minion,Rare,-,Spell Damage
+Faceless Rager,,3,5,1,Minion,Common,-,Battlecry
+Flight Master,,3,3,4,Minion,Common,-,Battlecry
+Hench-Clan Sneak,,3,3,3,Minion,Common,-,Stealth
+Magic Carpet,,3,1,6,Minion,Epic,-,Rush
+Spellward Jeweler,,3,3,4,Minion,Rare,-,Battlecry
+Archmage Vargoth,,4,2,6,Minion,Legendary,-,-
+Hecklebot,,4,3,8,Minion,Rare,Mech,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Taunt
+Hench-Clan Hag,,4,3,3,Minion,Epic,-,Battlecry
+Portal Keeper,,4,5,2,Minion,Rare,Demon,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Rush
+Proud Defender,,4,2,6,Minion,Common,-,Taunt
+Soldier of Fortune,,4,5,6,Minion,Common,Elemental,-
+Traveling Healer,,4,3,2,Minion,Common,-,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Divine Shield
+Violet Spellsword,,4,1,6,Minion,Common,-,Battlecry
+Azerite Elemental,,5,2,7,Minion,Epic,Elemental,Spell Damage
+Barista Lynchen,,5,4,5,Minion,Legendary,-,Battlecry
+Dalaran Crusader,,5,5,4,Minion,Common,-,Divine Shield
+Recurring Villain,,5,3,6,Minion,Rare,-,Deathrattle
+Sunreaver Warmage,,5,4,4,Minion,Rare,-,Battlecry
+Eccentric Scribe,,6,6,4,Minion,Common,-,Deathrattle
+Mad Summoner,,6,4,4,Minion,Rare,Demon,Battlecry
+Portal Overfiend,,6,5,6,Minion,Epic,Demon,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Rush
+Safeguard,,6,4,5,Minion,Common,Mech,Deathrattle
+,,,,,,,,",?"
+,,,,,,,,Taunt
+Unseen Saboteur,,6,5,6,Minion,Epic,-,Battlecry
+Violet Warden,,6,4,7,Minion,Common,-,Spell Damage
+,,,,,,,,",?"
+,,,,,,,,Taunt
+Chef Nomi,,7,6,6,Minion,Legendary,-,Battlecry
+Exotic Mountseller,,7,5,8,Minion,Rare,-,-
+Tunnel Blaster,,7,3,7,Minion,Rare,-,Deathrattle
+,,,,,,,,",?"
+,,,,,,,,Taunt
+Underbelly Ooze,,7,3,5,Minion,Rare,-,-
+Batterhead,,8,3,12,Minion,Epic,-,Rush
+Heroic Innkeeper,,8,4,4,Minion,Common,-,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Taunt
+Jepetto Joybuzz,,8,6,6,Minion,Legendary,-,Battlecry
+Whirlwind Tempest,,8,6,6,Minion,Epic,Elemental,Mega-Windfury
+,,,,,,,,",?"
+,,,,,,,,Windfury
+Archivist Elysiana,,9,7,7,Minion,Legendary,-,Battlecry
+,,,,,,,,",?"
+,,,,,,,,Discover
+Burly Shovelfist,,9,9,9,Minion,Common,-,Rush
+Big Bad Archmage,,10,6,6,Minion,Epic,-,-
