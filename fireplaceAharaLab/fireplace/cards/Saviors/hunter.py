@@ -60,10 +60,10 @@ class ULD_713:
 	Summon seven 1/1 Locusts with &lt;b&gt;Rush&lt;/b&gt;."""
 	play = Summon(CONTROLLER, "ULD_430t") * 7
 
-class ULD_212:#OK
+class ULD_212:#OK  Who attacks the target? 
 	"""Wild Bloodstinger	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a minion from your opponent's hand. Attack it."""
-	play = Summon(OPPONENT, RANDOM(ENEMY_HAND + MINION)).then( RegularAttack(SELF, Summon.CARD))
+	play = Summon(OPPONENT, RANDOM(ENEMY_HAND + MINION)).then( RegularAttack(FRIENDLY_MINIONS, Summon.CARD))
 
 class ULD_156:
 	"""Dinotamer Brann	Legendary

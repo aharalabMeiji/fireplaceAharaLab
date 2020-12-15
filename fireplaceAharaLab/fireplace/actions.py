@@ -1713,7 +1713,9 @@ class RegularAttack(TargetedAction):
 		for attcard in target:
 			for defcard in other:
 				if attcard.can_attack(defcard):
-					Hit(defcard, attcatd.atk).trigger(source)
+					Hit(defcard, attcard.atk).trigger(attcard)
+				if defcard.can_attack(attcard):
+					Hit(attcard, defcard.atk).trigger(defcard)
 
 class Dormant(TargetedAction):
 	TARGET = ActionArg()

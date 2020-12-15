@@ -2,7 +2,7 @@ from ..utils import *
 
 
 class SCH_133:
-##Wolpertinger <-done 
+##Wolpertinger OK 
 	""" Wolpertinger 
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a copy of this."""
 	play = Summon(CONTROLLER, ExactCopy(SELF))
@@ -19,12 +19,12 @@ class SCH_244:#OK
 	deathrattle = Summon(CONTROLLER, RandomBeast(cost=3))
 	pass
 
-class SCH_279:####################waiting
+class SCH_279:#OK
 	## Trueaim Crescent SCH_279 
 	##After your Hero attacks a minion, your minions attack it too.
 	events = Attack(FRIENDLY_HERO,ENEMY_MINIONS).after(#OK for this line
 		RegularAttack(FRIENDLY_MINIONS, Attack.DEFENDER)##  need check RegularAttack its validity
-	)#検証待ち
+	)
 	pass
 
 class SCH_300:#OK
@@ -60,7 +60,7 @@ class SCH_538:
 	update = Refresh(FRIENDLY_MINIONS-SELF,{GameTag.IMMUNE: True})#OK
 	pass
 
-class SCH_539:############################
+class SCH_539:#OK
 	##Professor Slate  SCH_539
 	#Your spells are &lt;b&gt;Poisonous&lt;/b&gt;.
 	update = SetTag(FRIENDLY_HAND + SPELL,(GameTag.POISONOUS, ))# is it OK???????
@@ -118,10 +118,10 @@ class SCH_607b:
 SCH_607e = buff(1,1);
 
 
-class SCH_610:#############################################waiting
+class SCH_610:#OK
 	##Guardian Animals SCH_610
 	#Summon two Beasts that cost (5) or less from your deck. Give_them &lt;b&gt;Rush&lt;/b&gt;.
-	play = Summon(CONTROLLER, SetTag(RANDOM(FRIENDLY_DECK + BEAST), (GameTag.RESH,)))*2
+	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST + (COST <= 5))).then(SetTag(Summon.CARD, (GameTag.RUSH,))),Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST + (COST <= 5))).then(SetTag(Summon.CARD, (GameTag.RUSH,)))
 	pass#does not work
 
 class SCH_617:

@@ -68,7 +68,7 @@ class DRG_252:#OK
 	[x]After you use your Hero
 	Power, cast a &lt;b&gt;Secret&lt;/b&gt;
 	from your deck."""
-	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
+	events = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 
 class DRG_010:#OK
 	"""Diving Gryphon
