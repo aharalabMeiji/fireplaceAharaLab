@@ -126,6 +126,25 @@ class YOD_029t:
 	requirements = {PlayReq.REQ_MINION_TARGET: 0}
 	play = Freeze(TARGET)
 
+## paladin ##
+
+class YOD_012:
+	""" Air Raid
+	&lt;b&gt;Twinspell&lt;/b&gt;
+	Summon two 1/1 Silver_Hand Recruits with &lt;b&gt;Taunt&lt;/b&gt;."""
+	## CS2_101t: Silver Hand Recruit
+	play = Summon(CONTROLLER,"CS2_101t"), Give(CONTROLLER,"YOD_012ts")
+class YOD_012ts:
+	""" Air Raid
+	Summon two 1/1 Silver Hand Recruits with &lt;b&gt;Taunt&lt;/b&gt;."""
+	play = Summon(CONTROLLER,"CS2_101t")
+class YOD_010:
+	""" Shotbot
+	&lt;b&gt;Reborn&lt;/b&gt;"""
+class YOD_043:
+	"""Scalelord
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give your Murlocs &lt;b&gt;Divine Shield&lt;/b&gt;."""
+	play = SetTag(FRIENDLY_MINIONS + MURLOC, (GameTag.DIVINE_SHIELD,))
 
 
 #others##
@@ -133,10 +152,8 @@ class YOD_029t:
 #Cleric of Scales
 #Fiendish Servant
 #Risky Skipper
-#Air Raid
 #Explosive Evolution
 #Rising Winds
-#Shotbot
 #Skyvateer
 #Steel Beetle
 #Twisted Knowledge
@@ -145,7 +162,6 @@ class YOD_029t:
 #Chaos Gazer
 #Dark Prophecy
 #The Fist of Ra-den
-#Scalelord
 #Shadow Sculptor
 #Aeon Reaver
 #Winged Guardian
