@@ -187,6 +187,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\neutral.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\paladin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -201,6 +204,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\druid.py" />
