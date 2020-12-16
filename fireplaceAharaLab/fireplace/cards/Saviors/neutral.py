@@ -17,8 +17,8 @@ class ULD_282:
 class ULD_705:
 	"""Mogu Cultist		1	1	1	Minion	Epic	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your board is full of Mogu Cultists, sacrifice them all and summon Highkeeper Ra."""
-	powered_up = Count(FRIENDLY_MINION + ID('ULD_705'))==8
-	play powered_up & Destroy(FRIENDLY_MINION + ID('ULD_705')), Summon(CONTROLLER, "ULD_705t")
+	powered_up = Count(FRIENDLY_MINIONS + ID('ULD_705'))==8
+	play = powered_up & Destroy(FRIENDLY_MINIONS + ID('ULD_705')), Summon(CONTROLLER, "ULD_705t")
 class ULD_705t:
 	""" Highkeeper Ra
 	At the end of your turn, deal 20 damage to all_enemies."""
@@ -36,7 +36,7 @@ class ULD_712:
 class ULD_309:
 	"""Dwarven Archaeologist		2	2	3	Minion	Epic	-	Discover
 	After you &lt;b&gt;Discover&lt;/b&gt; a card, reduce its cost by (1)."""
-	play = Discover(RandomCollectible()).after(Buff(Discover.CARDS, "ULD_309e")
+	play = Discover(RandomCollectible()).after(Buff(Discover.CARDS, "ULD_309e"))
 class ULD_309e:
 	cost = SET(1)
 

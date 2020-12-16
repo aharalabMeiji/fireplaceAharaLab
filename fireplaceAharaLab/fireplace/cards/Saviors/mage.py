@@ -6,7 +6,7 @@ class ULD_433:
 	"""Raid the Sky Temple,,1,-,-,Spell,Legendary,-,Quest
 	&lt;b&gt;Quest:&lt;/b&gt; Cast 10 spells.
 	&lt;b&gt;Reward: &lt;/b&gt;Ascendant Scroll."""
-	events = OWN_SPELL_PLAY.on(Sidequest(SELF, 10, Summon(CONTROLLER, "ULD_433p") ))
+	events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 10, Summon(CONTROLLER, "ULD_433p") ))
 class ULD_433e:
 	pass
 class ULD_433p:

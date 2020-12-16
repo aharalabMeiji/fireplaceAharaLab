@@ -1590,10 +1590,24 @@ class SidequestCounter(TargetedAction):
 		log.info("Setting Counter on %r -> %i, %r", target, (target._tmp_int1_+1), targetaction)
 		target._tmp_int1_ += 1
 		if target._tmp_int1_== amount:
-			i=0
-			targetaction.trigger(source)
+			if targetaction!=None:
+				targetaction.trigger(source)
 			Destroy(target).trigger(source)
 		elif target._tmp_int1_>amount:# in case that targetaction is the same as gameaction
+			Destroy(target).trigger(source)
+
+class SidequestCounterEq(TargetedAction):
+	"""
+	
+	"""
+	TARGET = ActionArg()# sidequest card
+	AMOUNT = IntArg() #max of call
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, amount, targetaction):
+		if target._tmp_int1_== amount:
+			log.info("Setting Counter on %r :%i== %i, %r", target, target._tmp_int1_, amount, targetaction)
+			if targetaction!=None:
+				targetaction.trigger(source)
 			Destroy(target).trigger(source)
 
 class SidequestCounterClear(TargetedAction):

@@ -140,3 +140,4 @@ class DAL_:
 	"""
 class DAL_:
 	"""Big Bad Archmage,,10,6,6,Minion,Epic,-,-
+	"""
