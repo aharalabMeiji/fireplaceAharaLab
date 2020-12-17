@@ -30,8 +30,8 @@ class HunterCatAgent(Agent):
 		pass
 
 	def HunterCatAI(self, game, option=[], gameLog=[], debugLog=False):
-		if game.turn<2:
-			HunterCatAgent.HunterCatLoadData()
+		## if game.turn<2:
+			## HunterCatAgent.HunterCatLoadData()
 		while True:
 			#scoreVector = HunterCatAgent.HunterCatScore(game)
 			#HunterCatLogLog.loglog.append([game.turn, scoreVector.myMinionPoint, scoreVector.myHeroPoint - scoreVector.hisHeroPoint, scoreVector.hisCharN])
