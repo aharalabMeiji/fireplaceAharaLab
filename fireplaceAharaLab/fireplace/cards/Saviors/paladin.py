@@ -13,7 +13,7 @@ class ULD_431:###################################
 	[x]&lt;b&gt;Quest:&lt;/b&gt; Play 5 &lt;b&gt;Reborn&lt;/b&gt;
 	minions.
 	&lt;b&gt;Reward:&lt;/b&gt; Emperor Wraps."""
-	events = Play(CONTROLLER, MINION + {GameTag.REBORN:True}).SidequestCounters(SELF, 5, Summon(CONTROLLER, "ULD_431p"))
+	events = Play(CONTROLLER, MINION + {GameTag.REBORN:True}).SidequestCounter(SELF, 5, Summon(CONTROLLER, "ULD_431p"))
 class ULD_431e:
 	atk = SET(2)
 	health = SET(2)
@@ -23,7 +23,7 @@ class ULD_431p:
 	[x]&lt;b&gt;Hero Power&lt;/b&gt;
 	Summon a 2/2 copy
 	of a friendly minion."""
-	play = Summon(CONTROLLER, Buff(Copy(RANDOM(FRIENDLY_MINION)), "ULD_431e"))
+	activate = Summon(CONTROLLER, Buff(Copy(RANDOM(FRIENDLY_MINION)), "ULD_431e"))
 
 class ULD_217:
 	"""Micro Mummy,,2,1,2,Minion,Epic,Mech,Reborn
