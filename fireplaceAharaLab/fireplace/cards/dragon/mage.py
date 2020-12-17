@@ -36,7 +36,6 @@ class DRG_323:#OK
 	events = Play(CONTROLLER,SPELL).on(
 		SidequestManaCounter(SELF, Play.CARD,8,Summon(CONTROLLER,"DRG_323t"))
 		)
-	
 class DRG_323t:# 55282
 	"""Draconic Emissary
 	vanilla """
@@ -51,7 +50,6 @@ class DRG_104:#OK
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
 	events = [OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
 	OWN_TURN_END.on(SidequestCounterClear(SELF))]
-
 class DRG_104t2:
 	"""Snow Elemental
 	vanilla """

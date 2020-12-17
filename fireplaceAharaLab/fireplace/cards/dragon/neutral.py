@@ -1,6 +1,6 @@
 from ..utils import *
 
-####### newtral in dragon #######
+####### neutral in dragon #######
 
 class DRG_239:#OK
 	"""Blazing Battlemage	Common
@@ -59,6 +59,8 @@ class DRG_062:#OK
 	into random cards from
 	your class."""
 	play = Morph(IN_DECK+EnumSelector(CardClass.NEUTRAL),RandomCard(card_class=Attr(FRIENDLY_HERO, GameTag.CLASS)))
+
+#### 10 ####
 
 class DRG_403:#OK
 	"""Blowtorch Saboteur	Epic
@@ -125,6 +127,8 @@ class DRG_073:#OK
 	Can't be targeted by spells or Hero Powers."""
 	update = Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}), Refresh(SELF, {GameTag.CANT_BE_TARGETED_BY_SPELLS: True})
 
+####20 ####
+
 class DRG_257:#OK
 	"""Frizz Kindleroost	Legendary
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of Dragons in your deck by_(2)."""
@@ -173,7 +177,6 @@ class DRG_086:############################ check this  later
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Hatch!"""
 	play = HoldinHatch(CONTROLLER, Discover(CONTROLLER, DRAGON))
 	deathrattle = OpenHatch(CONTROLLER )
-
 class DRG_086e:
 	""" What's in the Egg?"""
 	pass
@@ -193,7 +196,9 @@ class DRG_076:#OK
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Morph(TARGET, ExactCopy(SELF))
 
-class DRG_082:
+#### 30 ####
+
+class DRG_082:########################
 	"""Kobold Stickyfinger	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Steal your opponent's weapon."""
 	play = Steal(ENEMY_WEAPON, CONTROLLER)
@@ -263,6 +268,8 @@ class DRG_077:#OK
 		if card2.type == CardType.MINION and card2.race == Race.DRAGON:
 			Summon(other, card2).trigger(self)		
 
+#### 40 ####
+
 class DRG_310:#OK
 	"""Evasive Drakonid	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
@@ -295,7 +302,7 @@ class DRG_089e:
 	"""A Queen's Discount"""
 	play = Give(CONTROLLER, RANDOM(DRAGON)).then(Refresh(Give.CARD, {GameTag.COST: 1})), Give(CONTROLLER, RANDOM(DRAGON)).then(Refresh(Give.CARD, {GameTag.COST: 1}))
 
-class DRG_402:
+class DRG_402:###################################
 	"""Sathrovarr	Legendary
 	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly minion. Add a copy of it to_your hand, deck, and battlefield."""
 	requirements = {

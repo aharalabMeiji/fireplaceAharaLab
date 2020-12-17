@@ -39,7 +39,7 @@ class DRG_235:
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Give a Dragon in your hand +3/+3 and this &lt;b&gt;Deathrattle&lt;/b&gt;."""
 	deathrattle = Buff(RANDOM(FRIENDLY_HAND + DRAGON - SELF), "DRG_235e")
 class DRG_235e:
-	tags = {GameTag:DEATHRATTLE: True}
+	tags = {GameTag.DEATHRATTLE: True}
 	atk = 3
 	health = 3
 	deathrattle = Buff(RANDOM(FRIENDLY_HAND + DRAGON - SELF), "DRG_235e")
