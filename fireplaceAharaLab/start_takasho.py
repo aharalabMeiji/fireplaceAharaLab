@@ -61,7 +61,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
-	play_set_of_games(takasho001,takasho002, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=3, debugLog=False)
+	play_set_of_games(takasho001,takasho002, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=False)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
