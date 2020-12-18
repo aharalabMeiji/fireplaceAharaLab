@@ -5,8 +5,8 @@ from ..utils import *
 class ULD_191:
 	"""Beaming Sidekick		1	1	2	Minion	Common	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly minion +2 Health."""
-	play = Buff(RANDOM(FRIENDLY_MINIONS), "ULD_191e")
-ULD_191e = buff(0,2)
+	play = Buff(RANDOM(FRIENDLY_MINIONS), {GameTag.HEALTH: 2})
+#ULD_191e = buff(0,2) use this elsewhere
 
 class ULD_282:
 	"""Jar Dealer		1	1	1	Minion	Common	-	Deathrattle
@@ -27,6 +27,12 @@ class ULD_705t:
 class ULD_723:
 	"""Murmy		1	1	1	Minion	Common	Murloc	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;"""
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, Buff(Copy(SELF), "ULD_191e"))
+class ULD_191e:# part-time job
+	tags={GameTag.CARDNAME:"reborn", GameTag.REBORN:False}
+	health=SET(1)
+
 
 class ULD_712:
 	"""Bug Collector		2	2	1	Minion	Common	-	Battlecry

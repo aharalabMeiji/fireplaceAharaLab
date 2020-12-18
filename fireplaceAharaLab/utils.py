@@ -432,11 +432,11 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'YOD_004').trigger(player1)#target
-	Give(player1,'EX1_539').trigger(player1)#assistant
+	Give(player1,'ULD_723').trigger(player1)#target
+	#Give(player1,'EX1_539').trigger(player1)#assistant
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
-	Give(player1,'DRG_057').trigger(player1)#MECH
+	#Give(player1,'DRG_057').trigger(player1)#MECH
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'CS2_168').trigger(player1)#murloc
 	#Give(player1,'DRG_107').trigger(player1)#elemental
@@ -449,7 +449,7 @@ def PresetHands(player1, player2):
 	#PresetPlay(player2, 'BT_716')# play
 	#ターン終了、player1のターン
 	player1.game.end_turn()
-	#PresetPlay(player1, 'DRG_057')
+	#PresetPlay(player1, 'ULD_723')
 	#PresetPlay(player1, 'YOD_004')
 
 def PresetPlay(player, cardID):

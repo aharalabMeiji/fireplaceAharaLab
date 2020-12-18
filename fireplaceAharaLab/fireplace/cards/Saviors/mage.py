@@ -8,6 +8,7 @@ class ULD_433:
 	&lt;b&gt;Reward: &lt;/b&gt;Ascendant Scroll."""
 	events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 10, Summon(CONTROLLER, "ULD_433p") ))
 class ULD_433e:
+	cost=-2
 	pass
 class ULD_433p:
 	""" Ascendant Scroll
@@ -15,7 +16,7 @@ class ULD_433p:
 	Add a random Mage
 	spell to your hand.
 	It costs (2) less."""
-	play = Give(CONTROLLER, RandomSpell())
+	play = Give(CONTROLLER, Buff(RandomSpell(),"ULD_433e"))
 class ULD_726:
 	"""Ancient Mysteries,,2,-,-,Spell,Common,-,Secret
 	Draw a &lt;b&gt;Secret&lt;/b&gt; from your deck. It costs (0)."""
