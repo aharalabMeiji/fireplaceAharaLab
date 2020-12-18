@@ -68,13 +68,20 @@ class ULD_196:
 class ULD_157:
 	"""Questing Explorer		2	2	3	Minion	Rare	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you control a &lt;b&gt;Quest&lt;/b&gt;, draw a card."""
+	play = Find(FRIENDLY_CHARACTERS + SECRET) & Draw(CONTROLLER)
 
 class ULD_197:
 	"""Quicksand Elemental		2	3	2	Minion	Rare	Elemental	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give all enemy minions -2 Attack this_turn."""
+	play = Buff(ENEMY_MINIONS, "ULD_197e")
+class ULD_197e:
+   atk =-2
+   play = OWN_TURN_END.on(Destroy(SELF))
+
 class ULD_174:
 	"""Serpent Egg		2	0	3	Minion	Common	-	Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 3/4 Sea Serpent."""
+	deathrattle = Summon(CONTROLLER, "ULD_174t")
 class ULD_174t:
 	"""Sea Serpent """
 	pass
@@ -83,109 +90,198 @@ class ULD_182:
 	[x]At the end of your turn,
 	__deal 1 damage to another__
 	random friendly minion."""
+	play = OWN_TURN_END.on(Hit(RANDOM(FRIENDLY_MINIONS), 1))
+
 class ULD_185:
 	"""Temple Berserker		2	1	2	Minion	Common	-	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;
 	Has +2 Attack while damaged."""
+	update = (CURRENT_HEALTH(SELF)<MAX_HEALTH(SELF)) & Buff(SELF, "ULD_185e")
+ULD_185e = buff(2,0)
+
 class ULD_450:
 	"""Vilefiend		2	2	2	Minion	Common	Demon	Lifesteal
 	&lt;b&gt;Lifesteal&lt;/b&gt;"""
-class ULD_:
-	"""Zephrys the Great		2	3	2	Minion	Legendary	Elemental	Battlecry
-	"""
-class ULD_:
-	"""Candletaker		3	3	2	Minion	Common	-	Reborn
-	"""
-class ULD_:
-	"""Desert Hare		3	1	1	Minion	Common	Beast	Battlecry
-	"""
-class ULD_:
-	"""Generous Mummy		3	5	4	Minion	Rare	-	Reborn
-	"""
 
+class ULD_003:########################## simmilar
+	"""Zephrys the Great		2	3	2	Minion	Legendary	Elemental	Battlecry
+	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no duplicates, wish for the perfect card."""
+	def play(self):
+		powered_up = FindDuplicates(FRIENDLY_DECK)
+		if not powered_up:
+			entourage=['CS2_046','CS2_011']##Bloodlust, Savage Roar
+			if self.controller.opponent.health<10:
+				entourage=['BT_512','CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
+			else:
+				for card in self.controller,opponent.field:
+					if card.taunt == True and card.health-card.damage>2:
+						entourage=['EX1_626','EX1_303','EX1_332']#Mass Dispel, Shadowflame, Silence
+						break
+			Give(CONTROLLER,RandomEntourage())
+
+class ULD_205:
+	"""Candletaker		3	3	2	Minion	Common	-	Reborn
+	&lt;b&gt;Reborn&lt;/b&gt;"""
+
+class ULD_719:
+	"""Desert Hare		3	1	1	Minion	Common	Beast	Battlecry
+	&lt;b&gt;Battlecry:&lt;/b&gt; Summon two 1/1 Desert Hares."""
+	play = Summon(CONTROLLER, "ULD_719")*2
+
+class ULD_214:
+	"""Generous Mummy		3	5	4	Minion	Rare	-	Reborn
+	&lt;b&gt;Reborn&lt;/b&gt;
+	Your opponent's cards cost (1) less."""
+	play = Buff(ENEMY_HAND, "ULD_214e")
+class ULD_214e:
+	cost=-1
 #####20#####
 
-class ULD_:
+class ULD_188:
 	"""Golden Scarab		3	2	2	Minion	Common	Beast	Battlecry
-	"""
-class ULD_:
+	&lt;b&gt;&lt;b&gt;Battlecry:&lt;/b&gt; Discover&lt;/b&gt; a
+	4-Cost card."""
+	play = Discover(CONTROLLER, RandomCollectible(cost=4))
+
+class ULD_290:
 	"""History Buff		3	3	4	Minion	Epic	-	-
-	"""
-class ULD_:
+	Whenever you play a minion, give a random minion in your hand +1/+1."""
+	events = Play(CONTROLLER, MINION).on(Buff(RANDOM(FRIENDLY_HAND + MINION), "ULD_290e"))
+ULD_290e=buff(1,1)
+
+class ULD_250:
 	"""Infested Goblin		3	2	3	Minion	Rare	-	Deathrattle
-	"""
-class ULD_:
+	&lt;b&gt;Taunt&lt;/b&gt;
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Add two 1/1 Scarabs with &lt;b&gt;Taunt&lt;/b&gt; to your hand."""
+	deathrattle = Give(CONTROLLER, "LOE_009t")
+
+class ULD_229:
 	"""Mischief Maker		3	3	3	Minion	Epic	-	Battlecry
-	"""
-class ULD_:
+	&lt;b&gt;Battlecry:&lt;/b&gt; Swap the top card of your deck with your_opponent's."""
+	def play(self):
+		controller = self.controller
+		opponent = controller.opponent
+		controller.deck[-1], opponent.deck[-1] = opponent.deck[-1], controller.deck[-1]
+		pass
+
+class ULD_209:
 	"""Vulpera Scoundrel		3	2	3	Minion	Epic	-	Battlecry
-	"""
-class ULD_:
+	&lt;b&gt;Battlecry&lt;/b&gt;: &lt;b&gt;Discover&lt;/b&gt; a spell or pick a mystery choice."""
+	choose = (SELF, "ULD_209t")
+	play = DISCOVER(RandomSpell())
+class ULD_209t:
+	"""Mystery Choice!
+	Add a random spell to your hand.""" 
+	play = Give(CONTROLLER, RandomSpell())
+
+class ULD_727:
 	"""Body Wrapper		4	4	4	Minion	Epic	-	Battlecry
-	"""
-class ULD_:
+	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a friendly minion that died this game. Shuffle it into your deck."""
+	play = Shuffle(CONTROLLER, Discover(CONTROLLER, RANDOM(FRIENDLY + KILLED)))
+
+class ULD_275:
 	"""Bone Wraith		4	2	5	Minion	Common	-	Reborn
-	"""
-class ULD_:
+	&lt;b&gt;Taunt&lt;/b&gt;
+	&lt;b&gt;Reborn&lt;/b&gt;"""
+	
+class ULD_198:
 	"""Conjured Mirage		4	3	10	Minion	Rare	-	Taunt
-	"""
-class ULD_:
+	&lt;b&gt;Taunt&lt;/b&gt;
+	At the start of your turn, shuffle this minion into your deck."""
+	play = OWN_TURN_BEGIN.on(Shuffle(CONTROLLER, SELF))
+
+class ULD_180:############################################no asleep
 	"""Sunstruck Henchman		4	6	5	Minion	Rare	-	-
-	"""
-class ULD_:
+	At the start of your turn, this has a 50% chance to_fall asleep."""
+	pass
+	#play = OWN_TURN_BEGIN.on(COINFLIP & asleep(SELF))
+
+class ULD_703:
 	"""Desert Obelisk		5	0	5	Minion	Epic	-	-
-	"""
+	[x]If you control 3 of these
+	at the end of your turn,
+	deal 5 damage to a
+	random enemy."""
+	powered_up = Count(FRIENDLY_MINIONS + ID("ULD_703"))==3
+	play = powered_up & Hit(RANDOM(ENEMY_CHARACTERS),5)
 
 ##### 30 #####
 
-
-class ULD_:
+class ULD_189:
 	"""Faceless Lurker		5	3	3	Minion	Common	-	Battlecry
-	"""
-class ULD_:
+	&lt;b&gt;Taunt&lt;/b&gt;
+	&lt;b&gt;Battlecry:&lt;/b&gt; Double this minion's Health."""
+class ULD_702:
 	"""Mortuary Machine		5	8	8	Minion	Epic	Mech	Reborn
-	"""
+	After your opponent plays a minion, give it &lt;b&gt;Reborn&lt;/b&gt;."""
 
-class ULD_:
+class ULD_179:
 	"""Phalanx Commander		5	4	5	Minion	Common	-	Taunt
-	"""
-class ULD_:
+	Your &lt;b&gt;Taunt&lt;/b&gt; minions
+	have +2 Attack."""
+class ULD_274:
 	"""Wasteland Assassin		5	4	2	Minion	Common	-	Reborn
-	"""
-class ULD_:
+	&lt;b&gt;Stealth&lt;/b&gt;
+	&lt;b&gt;Reborn&lt;/b&gt;"""
+class ULD_706:
 	"""Blatant Decoy		6	5	5	Minion	Epic	-	Deathrattle
-	"""
-class ULD_:
+	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Each player
+	summons the lowest Cost
+	minion from their hand."""
+class ULD_208:
 	"""Khartut Defender		6	3	4	Minion	Rare	-	Deathrattle
-	"""
-class ULD_:
+	[x]&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Reborn&lt;/b&gt;
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Restore #3
+	Health to your hero."""
+class ULD_178:
 	"""Siamat		7	6	6	Minion	Legendary	Elemental	Battlecry
-	"""
-class ULD_:
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 of &lt;b&gt;Rush&lt;/b&gt;,
+	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Divine Shield&lt;/b&gt;, or
+	&lt;b&gt;Windfury&lt;/b&gt; &lt;i&gt;(your choice).&lt;/i&gt;"""
+class ULD_194:
 	"""Wasteland Scorpid		7	3	9	Minion	Common	Beast	Poisonous
-	"""
-class ULD_:
+	&lt;b&gt;Poisonous&lt;/b&gt;"""
+class ULD_215:
 	"""Wrapped Golem		7	7	5	Minion	Rare	-	Reborn
-	"""
-class ULD_:
+	[x]&lt;b&gt;Reborn&lt;/b&gt;
+	At the end of your turn,
+	summon a 1/1 Scarab
+	with &lt;b&gt;Taunt&lt;/b&gt;."""
+class ULD_177:
 	"""Octosari		8	8	8	Minion	Legendary	Beast	Deathrattle
-	"""
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Draw 8 cards."""
 
 
 ##### 40 #####
 
-class ULD_:
+class ULD_190:
 	"""Pit Crocolisk		8	5	6	Minion	Common	Beast	Battlecry
-	"""
-class ULD_:
+	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 5 damage."""
+	requirements = { PlayReq.REQ_MINION_OR_ENEMY_HERO:0, PlayReq.REQ_TARGET_TO_PLAY:0}
+class ULD_183:
 	"""Anubisath Warbringer		9	9	6	Minion	Common	-	Deathrattle
-	"""
-class ULD_:
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Give all minions in your hand +3/+3."""
+	deathrattle = Buff(FRIENDLY_HAND + MINION, "ULD_183e")
+ULD_183e = buff(3,3)
+class ULD_721:
 	"""Colossus of the Moon		10	10	10	Minion	Legendary	-	Divine Shield
-	"""
-class ULD_:
+	&lt;b&gt;Divine Shield&lt;/b&gt;
+	&lt;b&gt;Reborn&lt;/b&gt;"""
+	pass
+class ULD_304:
 	"""King Phaoris		10	5	5	Minion	Legendary	-	Battlecry
-	"""
-class ULD_:
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; For each spell
+	in your hand, summon a
+	random minion of the
+	same Cost."""
+	def play(self):
+		hands = self.controller.hand
+		for card in hands:
+			if card.type == CardType.SPELL:
+				cost = card.cost
+				Summon(self.controller, RandomMinion(cost=cost)).trigger(self)
+			
+class ULD_193:
 	"""Living Monument		10	10	10	Minion	Common	-	Taunt
-	"""
+	&lt;b&gt;Taunt&lt;/b&gt;"""
+	pass
