@@ -28,20 +28,29 @@ class DAL_571:
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you control a
 	&lt;b&gt;Secret&lt;/b&gt;, gain +1 Attack."""
 	powered_up = Find(FRIENDLY_CHARACTERS + SECRET)
-	play powered_up & Buff(SELF,"DAL_571e")
+	play = powered_up & Buff(SELF,"DAL_571e")
 DAL_571e = buff(1,0)
 class DAL_146:
 	"""Bronze Herald,,3,3,2,Minion,Common,Dragon,Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add two 4/4 Dragons to your hand."""
+	deathrattle = Give(CONTROLLER, "DAL_146t")
+class DAL_146t:
+	""" Bronze Dragon"""
+	pass
 
+#LOWEST_COST = lambda sel: (
+#	RANDOM(sel + (AttrValue(GameTag.COST) == OpAttr(sel, GameTag.COST, min)))
+#)
 class DAL_727:
 	"""Call to Adventure,,3,-,-,Spell,Rare,-,-
 	Draw the lowest Cost minion from your deck. Give it +2/+2."""
-DAL_727 = buff(2,2)
+	play = ForceDraw(CONTROLLER, Buff( RANDOM(FRIENDLY_DECK + (AttrValue(GameTag.COST) == OpAttr(FRIENDLY_DECK, GameTag.COST, min))) ,"DAL_727e"))
+DAL_727e = buff(2,2)
 
 class DAL_573:################################
 	"""Commander Rhyssa,,3,4,3,Minion,Legendary,-,Secret
 	Your &lt;b&gt;Secrets&lt;/b&gt; trigger twice."""
+	############## no such tag?
 
 class DAL_147:
 	"""Dragon Speaker,,5,3,5,Minion,Epic,-,Battlecry
