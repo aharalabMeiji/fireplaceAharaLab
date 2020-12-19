@@ -205,49 +205,82 @@ class DAL_088:
 	[x]&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 0/5
 	Vault Safe with &lt;b&gt;Taunt&lt;/b&gt;."""
-
+	deathrattle = Summon(CONTROLLER, "DAL_088t2")
+class DAL_088t2:
+	pass
 class DAL_538:
 	"""Unseen Saboteur,,6,5,6,Minion,Epic,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent casts a random spell from their hand &lt;i&gt;(targets chosen randomly)&lt;/i&gt;."""
+	play = CastSpell(RANDOM(ENEMY_HAND + SPELL))
 class DAL_096:
 	"""Violet Warden,,6,4,7,Minion,Common,-,Spell Damage,Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;
-&lt;b&gt;Spell Damage +1&lt;/b&gt;"""
+	&lt;b&gt;Spell Damage +1&lt;/b&gt;"""
+	pass
 class DAL_554:
 	"""Chef Nomi,,7,6,6,Minion,Legendary,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck is empty, summon six 6/6 Greasefire_Elementals."""
+	play = -Find(FRIENDLY_DECK) & Summon(CONTROLLER, "DAL_554t")
+class DAL_554t:
+	pass
 class DAL_774:
 	"""Exotic Mountseller,,7,5,8,Minion,Rare,-,-
 	Whenever you cast a spell, summon a random
-3-Cost Beast."""
+	3-Cost Beast."""
+	events = OWN_SPELL_PLAY.on(Summon(RandomBeast(cost=3)))
 class DAL_775:
 	"""Tunnel Blaster,,7,3,7,Minion,Rare,-,Deathrattle,Taunt
 	[x]&lt;b&gt;Taunt&lt;/b&gt;
-&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 3 damage
-to all minions."""
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 3 damage
+	to all minions."""
+	deathrattle = Hit(ALL_MINIONS, 3)
 class DAL_550:
 	"""Underbelly Ooze,,7,3,5,Minion,Rare,-,-
 	After this minion survives damage, summon a copy_of it."""
-class DAL_592:
+	events = (CURRENT_HEALTH(SELF)>0 + CURRENT_HEALTH(SELF)<MAX_HEALTH(SELF)) & Summon(CONTROLLER, Copy(SELF))
+class DAL_592:####################################
 	"""Batterhead,,8,3,12,Minion,Epic,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;. After this attacks and kills a minion, it may_attack again."""
+	#play = Attack(SELF, MINION).after(Death(ENEMY_MINIONS).on(attack_again))
 #### 40 ####
 class DAL_560:
 	"""Heroic Innkeeper,,8,4,4,Minion,Common,-,Battlecry,Taunt
 	&lt;b&gt;Taunt.&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Gain +2/+2 for each other friendly minion."""
+	play = Buff(FRIENDLY_MINION - SELF, "DAL_560e")
+DAL_560e = buff(2,2)
 class DAL_752:
 	"""Jepetto Joybuzz,,8,6,6,Minion,Legendary,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw 2 minions from your deck. Set their Attack, Health, and Cost to 1."""
+	play = Buff(RANDOM(FRIENDLY_DECK + MINION), "DAL_752e").then(ForceDraw(CONTROLLER, Buff.TARGET)) * 2
+class DAL_752e:
+	atk=SET(1)
+	max_health=SET(1)
+	cost=SET(1)
 class DAL_742:
 	"""Whirlwind Tempest,,8,6,6,Minion,Epic,Elemental,Mega-Windfury,Windfury
 	Your minions with &lt;b&gt;Windfury&lt;/b&gt; have &lt;b&gt;Mega-Windfury&lt;/b&gt;."""
-class DAL_736:
+	# SetTag(TARGET, {GameTag.WINDFURY: 3})
+	play = SetTag(FRIENDLY_MINION + WINDFURY, {GameTag.WINDFURY: 3})
+class DAL_736:##############################################
 	"""Archivist Elysiana,,9,7,7,Minion,Legendary,-,Battlecry,Discover
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; 5 cards. Replace your deck with 2_copies of each."""
+	#def play(self):
+	#	new_deck = []
+	#	for n in range(5):
+	#		new_card=Discover(self.controller, ????)
+	#		if isinstance(new_card,list):
+	#			new_card = new_card[0]
+	#		if isinstance(new_card,list):
+	#			new_card = new_card[0]
+	#		new_deck.append(new_card)
+	#		new_deck.append(new_card)
+	#	self.controller.deck = new_deck
 class DAL_760:
 	"""Burly Shovelfist,,9,9,9,Minion,Common,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;"""
+	pass
 class DAL_553:
 	"""Big Bad Archmage,,10,6,6,Minion,Epic,-,-
 	At the end of your turn, summon a random
-6-Cost minion."""
+	6-Cost minion."""
+	play = OWN_TURN_BEGIN.on(Summon(CONTROLLER, RandomMinion(cost=6))
