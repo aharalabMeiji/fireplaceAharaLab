@@ -24,15 +24,10 @@ class ULD_705t:
 	At the end of your turn, deal 20 damage to all_enemies."""
 	play = OWN_TURN_END.on(Damage(ENEMY_CHARACTERS,20))
 
-class ULD_723:
+class ULD_723:#OK
 	"""Murmy		1	1	1	Minion	Common	Murloc	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;"""
-	tags={GameTag.DEATHRATTLE:True}
-	deathrattle = Summon(CONTROLLER, Buff(Copy(SELF), "ULD_191e"))
-class ULD_191e:# part-time job
-	tags={GameTag.CARDNAME:"reborn", GameTag.REBORN:False}
-	health=SET(1)
-
+	pass
 
 class ULD_712:
 	"""Bug Collector		2	2	1	Minion	Common	-	Battlecry
@@ -109,7 +104,7 @@ class ULD_450:
 	"""Vilefiend		2	2	2	Minion	Common	Demon	Lifesteal
 	&lt;b&gt;Lifesteal&lt;/b&gt;"""
 
-class ULD_003:########################## simmilar
+class ULD_003:########################## mimic
 	"""Zephrys the Great		2	3	2	Minion	Legendary	Elemental	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no duplicates, wish for the perfect card."""
 	def play(self):
@@ -120,7 +115,7 @@ class ULD_003:########################## simmilar
 				entourage=['BT_512','CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
 			else:
 				for card in self.controller,opponent.field:
-					if card.taunt == True and card.health-card.damage>2:
+					if card.taunt == True and card.max_health-card.damage>2:
 						entourage=['EX1_626','EX1_303','EX1_332']#Mass Dispel, Shadowflame, Silence
 						break
 			Give(CONTROLLER,RandomEntourage())
@@ -213,33 +208,41 @@ class ULD_703:
 
 ##### 30 #####
 
-class ULD_189:
+class ULD_189:#########need to make doubling max_health
 	"""Faceless Lurker		5	3	3	Minion	Common	-	Battlecry
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Double this minion's Health."""
+	play = Buff(SELF, "ULD_189e")
+ULD_189e=buff(0,3)
 class ULD_702:
 	"""Mortuary Machine		5	8	8	Minion	Epic	Mech	Reborn
 	After your opponent plays a minion, give it &lt;b&gt;Reborn&lt;/b&gt;."""
-
+	play = Play(OPPONENT,MINION).after(SetTag(SELF,GameTag.REBORN))
 class ULD_179:
 	"""Phalanx Commander		5	4	5	Minion	Common	-	Taunt
 	Your &lt;b&gt;Taunt&lt;/b&gt; minions
 	have +2 Attack."""
+	play = Buff(FRIENDLY_MINIONS+TAUNT,"ULD_179e")
+ULD_179e=buff(2,0)
+
 class ULD_274:
 	"""Wasteland Assassin		5	4	2	Minion	Common	-	Reborn
 	&lt;b&gt;Stealth&lt;/b&gt;
 	&lt;b&gt;Reborn&lt;/b&gt;"""
+	pass
 class ULD_706:
 	"""Blatant Decoy		6	5	5	Minion	Epic	-	Deathrattle
 	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Each player
 	summons the lowest Cost
 	minion from their hand."""
+	deathrattle = Summon(CONTROLLER, RandomMinion(cost= OpAttr(FRIENDLY_HAND+MINION, GameTag.COST, min))), Summon(OPPONENT, RandomMinion(cost= OpAttr(ENEMY_HAND+MINION, GameTag.COST, min)))
 class ULD_208:
 	"""Khartut Defender		6	3	4	Minion	Rare	-	Deathrattle
 	[x]&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Reborn&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Restore #3
 	Health to your hero."""
-class ULD_178:
+	play = Heal(FRIENDLY_HERO, 3)
+class ULD_178:###################  will consider later 
 	"""Siamat		7	6	6	Minion	Legendary	Elemental	Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 of &lt;b&gt;Rush&lt;/b&gt;,
 	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Divine Shield&lt;/b&gt;, or
@@ -247,16 +250,20 @@ class ULD_178:
 class ULD_194:
 	"""Wasteland Scorpid		7	3	9	Minion	Common	Beast	Poisonous
 	&lt;b&gt;Poisonous&lt;/b&gt;"""
+	pass
 class ULD_215:
 	"""Wrapped Golem		7	7	5	Minion	Rare	-	Reborn
 	[x]&lt;b&gt;Reborn&lt;/b&gt;
 	At the end of your turn,
 	summon a 1/1 Scarab
 	with &lt;b&gt;Taunt&lt;/b&gt;."""
+	events = OWN_TURN_END.on(Summon(CONTROLLER, "ULD_215t"))
+class ULD_215t:
+	pass
 class ULD_177:
 	"""Octosari		8	8	8	Minion	Legendary	Beast	Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Draw 8 cards."""
-
+	deathrattle = Draw(CONTROLLER) * 8
 
 ##### 40 #####
 

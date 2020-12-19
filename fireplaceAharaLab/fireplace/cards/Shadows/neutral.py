@@ -2,7 +2,6 @@ from ..utils import *
 
 ####### neutral-shadows,,46,,,,,,
 
-
 class DAL_:
 	"""Potion Vendor,,1,1,1,Minion,Common,-,Battlecry
 	"""
@@ -33,6 +32,7 @@ class DAL_:
 class DAL_:
 	""""Zayle, Shadow Cloak",,2,3,2,Minion,Legendary,-,-
 	"""
+#### 10 ####
 class DAL_:
 	"""Arcane Watcher,,3,5,6,Minion,Rare,-,Spell Damage
 	"""
@@ -63,6 +63,7 @@ class DAL_:
 class DAL_:
 	"""Portal Keeper,,4,5,2,Minion,Rare,Demon,Battlecry,Rush
 	"""
+#### 20 ####
 class DAL_:
 	"""Proud Defender,,4,2,6,Minion,Common,-,Taunt
 	"""
@@ -93,6 +94,7 @@ class DAL_:
 class DAL_:
 	"""Eccentric Scribe,,6,6,4,Minion,Common,-,Deathrattle
 	"""
+#### 30 ####
 class DAL_:
 	"""Mad Summoner,,6,4,4,Minion,Rare,Demon,Battlecry
 	"""
@@ -123,6 +125,7 @@ class DAL_:
 class DAL_:
 	"""Batterhead,,8,3,12,Minion,Epic,-,Rush
 	"""
+#### 40 ####
 class DAL_:
 	"""Heroic Innkeeper,,8,4,4,Minion,Common,-,Battlecry,Taunt
 	"""

@@ -2,7 +2,7 @@ import random
 from collections import OrderedDict
 
 from hearthstone.enums import (
-	BlockType, CardClass, CardType, Mulligan, PlayState, Step, Zone
+	BlockType, CardClass, CardType, Mulligan, PlayState, Step, Zone, GameTag
 )
 
 from .dsl import LazyNum, LazyValue, Selector
@@ -289,6 +289,8 @@ class Death(GameAction):
 		self.broadcast(source, EventListener.ON, target)
 		if target.deathrattles:
 			source.game.queue_actions(source, [Deathrattle(target)])
+		if target.reborn:################## added by aharalab
+			source.game.queue_actions(source, [Reborn(target)])################## added by aharalab
 
 
 class EndTurn(GameAction):
@@ -1638,6 +1640,26 @@ class SetCurrentCost(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting current cost on %r to %i", target, amount)
 		target.cost = amount
+
+		
+from .dsl.copy import Copy
+
+class Reborn(TargetedAction):
+	"""
+	Reborn!
+	"""
+	TARGET = ActionArg()
+	def do(self, source, target):
+		log.info("Reborn on %r", target)
+		controller = target.controller
+		reboran_minion = Summon(controller, target).trigger(source)
+		if isinstance(reboran_minion,list):
+			reboran_minion = reboran_minion[0]
+		if isinstance(reboran_minion,list):
+			reboran_minion = reboran_minion[0]
+		reboran_minion.reborn = False
+		reboran_minion.max_health = 1
+
 
 from .dsl.copy import Copy
 class CopyCostA(Copy):

@@ -432,7 +432,7 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'ULD_723').trigger(player1)#target
+	Give(player1,'ULD_185').trigger(player1)#target
 	#Give(player1,'EX1_539').trigger(player1)#assistant
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
@@ -444,7 +444,7 @@ def PresetHands(player1, player2):
 	#Give(player2,'DRG_403').trigger(player2)
 	#特定のマナ数から始めたいとき
 	player1.max_mana=10
-	player2.max_mana=1
+	player2.max_mana=5
 	#player2が先手です。
 	#PresetPlay(player2, 'BT_716')# play
 	#ターン終了、player1のターン

@@ -149,6 +149,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
+	reborn = boolean_property("reborn")############################### a h a r a l a b ##################
 	_tmp_list1_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
 	_tmp_list2_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
 	_tmp_int1_ = 0############################### a h a r a l a b ################## SCH_717, DRG_086
