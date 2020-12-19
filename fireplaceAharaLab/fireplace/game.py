@@ -347,7 +347,12 @@ class BaseGame(Entity):
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 
-		player.draw()
+		while True:###############################
+			drawn_card = player.draw()######################### modified by aharalab  19.12.2020
+			if not hasattr(drawn_card, "casts_when_drawn"):# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
+				break;############################
+			else:###########################
+				self.queue_actions(self, [Play(player, drawn_card)])#######################
 		self.manager.step(self.next_step, Step.MAIN_END)
 
 

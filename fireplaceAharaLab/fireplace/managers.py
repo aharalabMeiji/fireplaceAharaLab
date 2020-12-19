@@ -164,6 +164,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
 	GameTag.CARDTYPE: "type",
+	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   ##### added by aharalab, 19.12.2020
 	GameTag.CHARGE: "charge",
 	GameTag.CHOOSE_ONE: "has_choose_one",
 	GameTag.CHOOSE_BOTH: "choose_both",
