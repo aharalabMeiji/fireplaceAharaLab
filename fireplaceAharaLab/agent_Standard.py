@@ -293,11 +293,17 @@ class HumanAgent(Agent):
 				print("%s"%character, end='   : ')
 				if character == player.hero:
 					if player.weapon:
-						print("(%2d/%2d/%2d+%d)"%(character.atk,player.weapon.durability,character.health,character.armor), end=" ")
+						print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name), end=" ")
 					else:
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.reborn:
+						print("(reborn)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.divine_shield:
+						print("(divine_shield)", end=" ")
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					if character._tmp_int1_>0:

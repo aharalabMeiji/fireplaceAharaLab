@@ -237,7 +237,7 @@ class DAL_775:
 class DAL_550:
 	"""Underbelly Ooze,,7,3,5,Minion,Rare,-,-
 	After this minion survives damage, summon a copy_of it."""
-	events = (CURRENT_HEALTH(SELF)>0 + CURRENT_HEALTH(SELF)<MAX_HEALTH(SELF)) & Summon(CONTROLLER, Copy(SELF))
+	events = (CURRENT_HEALTH(SELF)>0 and CURRENT_HEALTH(SELF)<MAX_HEALTH(SELF)) & Summon(CONTROLLER, Copy(SELF))
 class DAL_592:####################################
 	"""Batterhead,,8,3,12,Minion,Epic,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;. After this attacks and kills a minion, it may_attack again."""
@@ -246,7 +246,7 @@ class DAL_592:####################################
 class DAL_560:
 	"""Heroic Innkeeper,,8,4,4,Minion,Common,-,Battlecry,Taunt
 	&lt;b&gt;Taunt.&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Gain +2/+2 for each other friendly minion."""
-	play = Buff(FRIENDLY_MINION - SELF, "DAL_560e")
+	play = Buff(FRIENDLY_MINIONS - SELF, "DAL_560e")
 DAL_560e = buff(2,2)
 class DAL_752:
 	"""Jepetto Joybuzz,,8,6,6,Minion,Legendary,-,Battlecry
@@ -260,7 +260,7 @@ class DAL_742:
 	"""Whirlwind Tempest,,8,6,6,Minion,Epic,Elemental,Mega-Windfury,Windfury
 	Your minions with &lt;b&gt;Windfury&lt;/b&gt; have &lt;b&gt;Mega-Windfury&lt;/b&gt;."""
 	# SetTag(TARGET, {GameTag.WINDFURY: 3})
-	play = SetTag(FRIENDLY_MINION + WINDFURY, {GameTag.WINDFURY: 3})
+	play = SetTag(FRIENDLY_MINIONS + WINDFURY, {GameTag.WINDFURY: 3})
 class DAL_736:##############################################
 	"""Archivist Elysiana,,9,7,7,Minion,Legendary,-,Battlecry,Discover
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; 5 cards. Replace your deck with 2_copies of each."""
@@ -283,4 +283,4 @@ class DAL_553:
 	"""Big Bad Archmage,,10,6,6,Minion,Epic,-,-
 	At the end of your turn, summon a random
 	6-Cost minion."""
-	play = OWN_TURN_BEGIN.on(Summon(CONTROLLER, RandomMinion(cost=6))
+	play = OWN_TURN_BEGIN.on(Summon(CONTROLLER, RandomMinion(cost=6)))

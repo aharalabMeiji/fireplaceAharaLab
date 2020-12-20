@@ -1640,6 +1640,24 @@ class SetCurrentCost(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting current cost on %r to %i", target, amount)
 		target.cost = amount
+class SetMaxHealth(TargetedAction):
+	"""
+	Sets the current health of the character target to \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		log.info("Setting max_health on %r to %i", target, amount)
+		target.max_health = amount
+class SetAtk(TargetedAction):
+	"""
+	Sets the current health of the character target to \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		log.info("Setting atk on %r to %i", target, amount)
+		target.atk = amount
 
 		
 from .dsl.copy import Copy
@@ -1824,3 +1842,46 @@ class TentacledMenace(TargetedAction):#DRG_084
 		card2 = cards2[0][0]
 		card1.cost, card2.cost = card2.cost, card1.cost
 		log.info("Draw cards and change their costs.")
+
+class ArgentBraggart(TargetedAction):
+	"""SCH_149
+	&lt;b&gt;Battlecry:&lt;/b&gt; Gain Attack and Health to match the highest in the battlefield.
+	"""
+	TARGET = ActionArg()# SELF
+	def do(self, source, target):
+		controller = target.controller
+		opponent = controller.opponent
+		friendly_minions = controller.field
+		enemy_minions = opponent.field
+		atk=0
+		max_health=0
+		for card in friendly_minions:
+			if card.atk>atk:
+				atk=card.atk
+			if card.max_health>max_health:
+				max_health = card.max_health
+		for card in enemy_minions:
+			if card.atk>atk:
+				atk=card.atk
+			if card.max_health>max_health:
+				max_health = card.max_health
+		target.atk = target._atk = atk
+		target.max_health = max_health
+		pass
+
+class CeremonialMaul(TargetedAction):#SCH_523:
+	"""
+	SCH_523
+	"""
+	TARGET = ActionArg()# CONTROLLER
+	OTHER = ActionArg()# Play.PLAYER=Spellcard
+	BUFF = ActionArg()# "SCH_523t"
+
+	def do(self, source, target, other, buff):
+		new_minion = Summon(target, buff).trigger(source)
+		new_minion = new_minion[0][0]
+		cost = other.cost##
+		new_minion._atk = new_minion.atk = cost
+		new_minion.data.scripts.atk = lambda self, i: self._atk
+		new_minion.max_health = cost
+
