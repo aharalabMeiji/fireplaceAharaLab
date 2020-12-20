@@ -1708,9 +1708,11 @@ class HitAndExcess(TargetedAction):#DRG_321 #SCH_348
 			if field[i].entity_id == target.entity_id:
 				fieldID=i
 				break
-		if 0<fieldID and fieldID<len_field-1: 
-			Hit(field[fieldID-1], floor((amount-target_health)/2)).trigger(source)
-			Hit(field[fieldID+1], floor((amount-target_health)/2)).trigger(source)
+		if 0<fieldID and fieldID<len_field-1:
+			l_dmg = floor((amount-target_health)/2)
+			r_dmg = amount-target_health-l_dmg
+			Hit(field[fieldID-1], l_dmg).trigger(source)
+			Hit(field[fieldID+1], r_dmg).trigger(source)
 		if 0==fieldID and fieldID<len_field-1: 
 			Hit(field[fieldID+1], amount-target_health).trigger(source)
 		if 0<fieldID and fieldID==len_field-1: 

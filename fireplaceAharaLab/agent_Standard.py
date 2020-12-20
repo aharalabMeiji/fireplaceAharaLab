@@ -283,6 +283,14 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
+					if character.reborn:
+						print("(reborn)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.divine_shield:
+						print("(divine_shield)", end=" ")
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					if character._tmp_int1_>0:
@@ -298,6 +306,8 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
 					if character.reborn:
 						print("(reborn)", end=" ")
 					if character.taunt:
@@ -306,6 +316,8 @@ class HumanAgent(Agent):
 						print("(divine_shield)", end=" ")
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
+					if character.spellpower>0:
+						print("(spellpower:%d)"%(character.spellpower), end=" ")
 					if character._tmp_int1_>0:
 						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
