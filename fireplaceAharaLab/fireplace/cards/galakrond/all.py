@@ -2,7 +2,6 @@ from ..utils import *
 
 ####### galakrond #######
 
-##################### no checked
 
 ##hunter##
 
@@ -17,10 +16,10 @@ class YOD_005ts:
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Find(TARGET + BEAST) & Buff(TARGET, "YOD_005e")
 
-class YOD_004:################################################
+class YOD_004:#OK
 	"""Chopshop Copter
 	After a friendly Mech dies, add a random Mech to your hand."""
-	events = Death(FRIENDLY_MINIONS + MECH).on(Give(CONTROLLER, RandomMech()))
+	events = Death(FRIENDLY + MECH).on(Give(CONTROLLER, RandomMech()))
 
 class YOD_036:#OK
 	"""Rotnest Drake
@@ -58,40 +57,43 @@ class YOD_007:#OK
 					Summon(self.controller, candidate.card.id).trigger(self)
 		pass
 
-## neutral ##
+## hero
 
-class YOD_009:
+class YOD_009:#HERO
 	"""The Amazing Reno
 	&lt;b&gt;Battlecry:&lt;/b&gt; Make all minions disappear. &lt;i&gt;*Poof!*&lt;/i&gt;"""
 	play = Destroy(ALL_MINIONS)
 
-class YOD_030:
+## neutral ##
+
+class YOD_030:#OK
 	"""Licensed Adventurer
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you control
 	a &lt;b&gt;Quest&lt;/b&gt;, add a Coin
 	to your hand."""
 	# no way to access quest
-	play = Give(CONTROLLER, "GAME_005")
-class YOD_028:
+	powered_up = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST))
+	play = powered_up & Give(CONTROLLER, "GAME_005")
+class YOD_028:#OK
 	"""Skydiving Instructor
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a
 	1-Cost minion from
 	your deck."""
 	play = Summon(CONTROLLER, RandomMinion(cost=1))
-class YOD_006:
+class YOD_006:#OK
 	"""Escaped Manasaber
 	[x]&lt;b&gt;Stealth&lt;/b&gt;
 	Whenever this attacks,
 	gain 1 Mana Crystal
 	this turn only."""
 	play = Attack(SELF,ALL_MINIONS).on(ManaThisTurn(CONTROLLER,1))
-class YOD_032:
+class YOD_032:##################################
 	"""Frenzied Felwing
 	Costs (1) less for each damage dealt to your opponent this turn."""
 	play = Buff(FRIENDLY_MINIONS, "YOD_032e")
 class YOD_032e:
 	play =Buff(OWNER, buff=buff(cost=-1))
-	events = Attack(OWNER, ENEMY_MINIONS | ENEMY_HERO).on(Destroy(SELF))
+	events = Attack(OWNER, ENEMY_CHARACTERS).on(Destroy(SELF))
 class YOD_035:
 	"""Grand Lackey Erkh
 	After you play a &lt;b&gt;Lackey&lt;/b&gt;, add a &lt;b&gt;Lackey&lt;/b&gt; to your hand."""

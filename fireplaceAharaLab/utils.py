@@ -107,9 +107,12 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
+	exclude = ['CFM_621','CFM_095','LOE_076',\
+		'SCH_199','SCH_259','SCH_138','SCH_139','SCH_270',\
+		'YOD_009',]
+	# バグ取れた：'CFM_672','BT_490',
 	# 'LOE_076' : Sir Finley Mrrgglton
-	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。
+	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。→フツウに動きます
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -432,8 +435,9 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'SCH_352').trigger(player1)#target
+	Give(player1,'YOD_032').trigger(player1)#target
 	#Give(player1,'SCH_348').trigger(player1)#assistant
+	Give(player1,'DRG_008').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON

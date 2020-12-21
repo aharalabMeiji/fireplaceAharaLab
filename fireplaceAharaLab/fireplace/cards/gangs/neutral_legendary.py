@@ -50,6 +50,7 @@ class CFM_672:
 		targets = self.controller.deck.filter(type=CardType.MINION)
 		if targets:
 			target = random.sample(targets, 1)
+			target = target[0]
 			target.zone = Zone.SETASIDE
 			yield Shuffle(CONTROLLER, TARGET)
 			yield Summon(CONTROLLER, target)

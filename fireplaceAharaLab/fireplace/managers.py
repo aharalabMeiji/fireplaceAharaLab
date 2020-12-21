@@ -213,6 +213,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
+	GameTag.SIDEQUEST: "sidequest",############################  added by aharalab, 21.12.2020
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
