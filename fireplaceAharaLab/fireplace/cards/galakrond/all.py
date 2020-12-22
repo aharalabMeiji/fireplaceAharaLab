@@ -87,37 +87,42 @@ class YOD_006:#OK
 	gain 1 Mana Crystal
 	this turn only."""
 	play = Attack(SELF,ALL_MINIONS).on(ManaThisTurn(CONTROLLER,1))
-class YOD_032:##################################
+class YOD_032:#OK
 	"""Frenzied Felwing
 	Costs (1) less for each damage dealt to your opponent this turn."""
-	play = Buff(FRIENDLY_MINIONS, "YOD_032e")
+	class Hand:
+		events = Attack(FRIENDLY_CHARACTERS, ENEMY_CHARACTERS).on(Buff(SELF, "YOD_032e")*ATK(Attack.ATTACKER))##not strict
 class YOD_032e:
-	play =Buff(OWNER, buff=buff(cost=-1))
-	events = Attack(OWNER, ENEMY_CHARACTERS).on(Destroy(SELF))
-class YOD_035:
+	#update = Refresh(OWNER,tags={GameTag.COST: -1})
+	cost = lambda self, i:i-1
+	#events = OWN_TURN_BEGIN.on(Destroy(SELF))
+
+class YOD_035:#OK
 	"""Grand Lackey Erkh
 	After you play a &lt;b&gt;Lackey&lt;/b&gt;, add a &lt;b&gt;Lackey&lt;/b&gt; to your hand."""
 	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
-	play = Play(CONTROLLER, entourage).after(Give(CONTROLLER, RandomEntourage()))
-class YOD_038:
+	play = Play(CONTROLLER, EnumSelector(GameTag.MARK_OF_EVIL)).after(Give(CONTROLLER, RandomEntourage()))
+class YOD_038:#OK
 	"""Sky Gen'ral Kragg
 	[x]&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you've played a
 	&lt;b&gt;Quest&lt;/b&gt; this game, summon a
 	4/2 Parrot with &lt;b&gt;Rush&lt;/b&gt;."""
 	#     no quest controll
-	play = Summon(CONTROLLER, "YOD_038t")
+	play = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST)) & Summon(CONTROLLER, "YOD_038t")
 class YOD_038t:
 	""" Sharkbait """
 	pass
-class YOD_033:
+class YOD_033:#OK
 	"""Boompistol Bully
 	&lt;b&gt;Battlecry:&lt;/b&gt; Enemy &lt;b&gt;Battlecry&lt;/b&gt;_cards cost (5)_more next turn."""
-	play = (OWN_TURN_END.on(Buff(ENEMY_MINIONS+BATTLECRY, "YOD_033e")),
-		OWN_TURN_BEGIN.on(Destroy("YOD_033e")) )
-YOD_033e = buff(cost = 5)
-class YOD_029:
+	play = Buff(SELF, "YOD_033e")
+class YOD_033e:
+	update = Refresh(ENEMY_HAND+BATTLECRY, {GameTag.COST: +5})
+	events = OWN_TURN_BEGIN.on(Destroy(SELF))
+	
+class YOD_029:#OK
 	"""Hailbringer
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two 1/1
 	Ice Shards that &lt;b&gt;Freeze&lt;/b&gt;."""
@@ -126,24 +131,25 @@ class YOD_029t:
 	"""Ice Shard
 	&lt;b&gt;Freeze&lt;/b&gt; any character damaged by this minion."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0}
-	play = Freeze(TARGET)
+	#play = Attack(SELF,TARGET).on(SetTag(TARGET,(GameTag.FROZEN, )))
+	play = Attack(SELF,TARGET).on(Freeze(TARGET))
 
 ## paladin ##
 
-class YOD_012:
+class YOD_012:#OK
 	""" Air Raid
 	&lt;b&gt;Twinspell&lt;/b&gt;
 	Summon two 1/1 Silver_Hand Recruits with &lt;b&gt;Taunt&lt;/b&gt;."""
 	## CS2_101t: Silver Hand Recruit
-	play = Summon(CONTROLLER,"CS2_101t"), Give(CONTROLLER,"YOD_012ts")
-class YOD_012ts:
+	play = Summon(CONTROLLER,"CS2_101t")*2, Give(CONTROLLER,"YOD_012ts")
+class YOD_012ts:#OK
 	""" Air Raid
 	Summon two 1/1 Silver Hand Recruits with &lt;b&gt;Taunt&lt;/b&gt;."""
-	play = Summon(CONTROLLER,"CS2_101t")
-class YOD_010:
+	play = Summon(CONTROLLER,"CS2_101t")*2
+class YOD_010:#OK
 	""" Shotbot
 	&lt;b&gt;Reborn&lt;/b&gt;"""
-class YOD_043:
+class YOD_043:#OK
 	"""Scalelord
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give your Murlocs &lt;b&gt;Divine Shield&lt;/b&gt;."""
 	play = SetTag(FRIENDLY_MINIONS + MURLOC, (GameTag.DIVINE_SHIELD,))

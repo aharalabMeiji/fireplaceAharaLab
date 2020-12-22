@@ -28,8 +28,8 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
-	if subclass is Spell and data.sidequest:##############added
-		subclass = Sidequest##############################added
+	if subclass is Spell and data.sidequest:##############added by aharalab
+		subclass = Sidequest##############################added by aharalab
 	return subclass(data)
 
 
@@ -150,6 +150,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
 	reborn = boolean_property("reborn")############################### a h a r a l a b ##################
+	mark_of_evil = boolean_property("mark_of_evil")############################### a h a r a l a b ##################22.12.2020
 	_tmp_list1_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
 	_tmp_list2_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
 	_tmp_int1_ = 0############################### a h a r a l a b ################## SCH_717, DRG_086

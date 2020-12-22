@@ -5,8 +5,9 @@ class SCH_509:#OK
 	#&lt;b&gt;Freeze&lt;/b&gt; a minion. &lt;b&gt;Combo:&lt;/b&gt; Also deal $3 damage to it.	
 	requirements={PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
-	play = SetTag(TARGET,(GameTag.FROZEN, ))
-	combo = Hit(TARGET, 3)
+	#play = SetTag(TARGET,(GameTag.FROZEN, ))
+	play = Freeze(TARGET)
+	combo = Hit(TARGET, 3),Freeze(TARGET)
 	pass
 
 class SCH_235:#OK

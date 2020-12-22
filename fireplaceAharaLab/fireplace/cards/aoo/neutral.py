@@ -65,7 +65,8 @@ class BT_714:#OK
 	"""Frozen Shadoweaver	Minion	Common
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Freeze&lt;/b&gt; an_enemy."""
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = SetTag(TARGET,(GameTag.FROZEN, ))
+	#play = SetTag(TARGET,(GameTag.FROZEN, ))
+	play = Freeze(TARGET)
 class BT_730:
 	"""Overconfident Orc	Minion	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
