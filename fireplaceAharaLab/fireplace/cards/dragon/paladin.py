@@ -7,7 +7,8 @@ class DRG_008:
 	"""Righteous Cause		1	-	-	Spell	Rare	-	Sidequest
 	&lt;b&gt;Sidequest:&lt;/b&gt; Summon 5 minions.
 	&lt;b&gt;Reward:&lt;/b&gt; Give your minions +1/+1."""
-	events = Play(CONTROLLER, FRIENDLY_HAND + MINION).on(SidequestCounter(SELF, 5, Buff(FRIENDLY_MINIONS, "DRG_008e")))
+	#		<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
+	events = Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 2, Buff(FRIENDLY_MINIONS, "DRG_008e")))
 DRG_008e = buff(1,1)
 class DRG_233:
 	"""Sand Breath		1	-	-	Spell	Common	-	Divine Shield

@@ -341,6 +341,8 @@ class HumanAgent(Agent):
 			print("========MY SECRETS======")
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
+				if hasattr(card, 'sidequest'):
+					print("(%d)"%card._tmp_int1_, end="")
 				print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 			print("[0] ターンを終了する")
