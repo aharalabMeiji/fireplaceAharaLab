@@ -66,22 +66,23 @@ class SCH_141:#OK
 	&lt;b&gt;Spellburst:&lt;/b&gt; Cast a spell from your deck &lt;i&gt;(targets this if possible)&lt;/i&gt;."""
 	play = OWN_SPELL_PLAY.on(CastSpellMe(RANDOM(FRIENDLY_DECK),SELF))
 	## if we modify the definition of class CastSpell, we can!
-class SCH_138:######################################################## cannot 'It_can't attack heroes' 
+class SCH_138:#OK
 	"""Blessing of Authority		5	-	-	Spell	Rare	-	-	
 	Give a minion +8/+8. It_can't attack heroes this turn."""
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
 	play = Buff(TARGET, "SCH_138e"), Buff(TARGET, "SCH_138e2")
 SCH_138e = buff(8,8)
 class SCH_138e2:
-	play = SetTag(OWNER, (GameTag.CANNOT_ATTACK_HEROES, ))
-	events = OWN_TURN_END.on()
+	update = SetCannotAttackHeroesTag(OWNER,1)
+	events = OWN_TURN_END.on(SetCannotAttackHeroesTag(OWNER,0), Destroy(SELF))
 class SCH_139:############################################# NO WAY
 	"""Devout Pupil		6	4	5	Minion	Epic	-	Divine Shield	
 	[x]&lt;b&gt;Divine Shield, Taunt&lt;/b&gt;
 	Costs (1) less for each spell
 	you've cast on friendly
 	characters this game."""
-	#cost_mod = -Count(????)
+	class Hand:
+		update = DevoutPupil(SELF)	
 class SCH_712:#OK
 	"""Judicious Junior		6	4	9	Minion	Common	-	Lifesteal	
 	&lt;b&gt;Lifesteal&lt;/b&gt;"""

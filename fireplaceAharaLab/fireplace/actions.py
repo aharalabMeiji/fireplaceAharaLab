@@ -1912,3 +1912,26 @@ class Freeze(TargetedAction):
 			SetTag(target, (GameTag.FROZEN, )).trigger(source)
 		else:
 			log.info("Freezing is blocked!")
+
+class SetCannotAttackHeroesTag(TargetedAction):
+	"""
+
+	"""
+	TARGET = ActionArg()#TARGET
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		log.info("cannot_attack_heroes: on : %r", target)
+		target.cannot_attack_heroes = (amount==1)
+		pass
+
+class DevoutPupil(TargetedAction):
+	"""
+	SCH_139, Costs (1) less for each spell
+	you've cast on friendly
+	characters this game.
+	"""
+	TARGET = ActionArg()#TARGET
+	def do(self, source, target):
+		controller = target.controller
+		game = controller.game
+		myLog = game.__myLog__

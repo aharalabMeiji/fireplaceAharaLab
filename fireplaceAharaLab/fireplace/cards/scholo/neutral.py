@@ -184,9 +184,7 @@ class SCH_259:################################################### impossible
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
 	#??????????????????????????????????????????????
-	events = Draw(CONTROLLER).on(
-		GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"])
-	)
+	events = Draw(CONTROLLER).on(GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"]))
 	pass
 class SCH_259t:
 	"""	A New Fate """
