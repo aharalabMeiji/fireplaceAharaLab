@@ -59,7 +59,7 @@ class ULD_236:
 	[x]&lt;b&gt;Battlecry&lt;/b&gt;: &lt;b&gt;Discover&lt;/b&gt; a spell
 	in your deck and cast it
 	with random targets."""
-	play = Discover(FRIENDLY_DECK + SPELL).after(CastSpell(Discover.CARDS))
+	play = Discover(CONTROLLER, FRIENDLY_DECK + SPELL).after(CastSpell(Discover.CARDS))
 class ULD_216:
 	"""Puzzle Box of Yogg-Saron,,10,-,-,Spell,Epic,-,-
 	Cast 10 random spells &lt;i&gt;(targets chosen randomly).&lt;/i&gt;"""
