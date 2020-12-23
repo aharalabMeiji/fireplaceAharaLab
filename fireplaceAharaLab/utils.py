@@ -107,10 +107,15 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = ['CFM_621','CFM_095','LOE_076',\
-		'SCH_199','SCH_259','SCH_138','SCH_139','SCH_270',\
-		'YOD_009',
-		'BT_126','BT_850']
+	exclude = ['CFM_621','CFM_095','LOE_076',
+		'SCH_199','SCH_259',## neutral-scholo
+		'SCH_138','SCH_139',## paladin-scholo
+		'SCH_270',## mage-scholo
+		'YOD_009',## this is a hero in garalrond
+		'BT_126','BT_850',## neutral-aoo/30
+		'DRG_068','DRG_050','DRG_086','DRG_082','DRG_242','DRG_099','DRG_089','DRG_402',## neutral-dragon/45
+		'DRG_109',## mage-dragon/10
+		]
 	# バグ取れた：'CFM_672','BT_490',
 	# 'LOE_076' : Sir Finley Mrrgglton
 	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。→フツウに動きます
@@ -436,21 +441,22 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'DRG_231').trigger(player1)#target
+	Give(player1,'BT_714').trigger(player1)#target
 	#Give(player1,'NEW1_019').trigger(player1)#assistant
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
-	Give(player1,'DRG_057').trigger(player1)#MECH
+	#Give(player1,'DRG_057').trigger(player1)#MECH
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'CS2_168').trigger(player1)#murloc
 	#Give(player1,'DRG_107').trigger(player1)#elemental
+	
 	#Give(player2,'YOD_033').trigger(player2)#enemy
 	#Give(player2,'DRG_068').trigger(player2)#enemy
 	#特定のマナ数から始めたいとき
 	player1.max_mana=7
-	player2.max_mana=4
+	player2.max_mana=10
 	#player2が先手です。
 	#PresetPlay(player2, 'YOD_033')# play
 	#PresetPlay(player2, 'DRG_068')# play

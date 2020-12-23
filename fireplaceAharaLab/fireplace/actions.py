@@ -1901,3 +1901,14 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 		new_minion.data.scripts.atk = lambda self, i: self._atk
 		new_minion.max_health = cost
 
+class Freeze(TargetedAction):
+	"""
+
+	"""
+	TARGET = ActionArg()#TARGET
+	def do(self, source, target):
+		log.info("%r Freezes %r", self, target)
+		if not target.tags[GameTag.CANT_BE_FROZEN]:
+			SetTag(target, (GameTag.FROZEN, )).trigger(source)
+		else:
+			log.info("Freezing is blocked!")

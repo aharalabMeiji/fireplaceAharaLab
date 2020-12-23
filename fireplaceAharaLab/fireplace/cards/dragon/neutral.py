@@ -93,7 +93,7 @@ DRG_059e=buff(1,1,rush=True)
 class DRG_068:##################### no way to check this
 	"""Living Dragonbreath	Common
 	Your minions can't be_&lt;b&gt;Frozen&lt;/b&gt;."""
-	update = Refresh(FRIENDLY_MINIONS, {GameTag.CANT_BE_FROZEN: 1})# 
+	update = Refresh(FRIENDLY_MINIONS, {GameTag.CANT_BE_FROZEN: True})# 
 
 class DRG_081:#OK
 	"""Scalerider	Common

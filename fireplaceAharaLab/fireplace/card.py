@@ -149,6 +149,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
+	cant_be_frozen = boolean_property("cant_be_frozen")########## a h a r a l a b ##################23.12.2020
 	reborn = boolean_property("reborn")############################### a h a r a l a b ##################
 	mark_of_evil = boolean_property("mark_of_evil")############################### a h a r a l a b ##################22.12.2020
 	_tmp_list1_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
