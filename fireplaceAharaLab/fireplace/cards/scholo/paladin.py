@@ -75,14 +75,13 @@ SCH_138e = buff(8,8)
 class SCH_138e2:
 	update = SetCannotAttackHeroesTag(OWNER,1)
 	events = OWN_TURN_END.on(SetCannotAttackHeroesTag(OWNER,0), Destroy(SELF))
-class SCH_139:############################################# NO WAY
+class SCH_139:#OK
 	"""Devout Pupil		6	4	5	Minion	Epic	-	Divine Shield	
 	[x]&lt;b&gt;Divine Shield, Taunt&lt;/b&gt;
 	Costs (1) less for each spell
 	you've cast on friendly
 	characters this game."""
-	class Hand:
-		update = DevoutPupil(SELF)	
+	cost_mod = - Attr(CONTROLLER, "times_spell_to_friendly_minion_this_game")	
 class SCH_712:#OK
 	"""Judicious Junior		6	4	9	Minion	Common	-	Lifesteal	
 	&lt;b&gt;Lifesteal&lt;/b&gt;"""

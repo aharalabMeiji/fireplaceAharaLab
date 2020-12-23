@@ -798,6 +798,8 @@ class Spell(PlayableCard):
 
 	def play(self, target=None, index=None, choose=None):
 		self.controller.times_spell_played_this_game += 1
+		if target!=None and target.controller==self.controller: ##### aharalab ####### 24.12.2020 ####
+			self.controller.times_spell_to_friendly_minion_this_game += 1 ##### aharalab ####### 24.12.2020 ####
 		return super().play(target, index, choose)
 
 
