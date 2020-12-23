@@ -109,7 +109,6 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	#バグが確認されているものを当面除外する
 	exclude = ['CFM_621','CFM_095','LOE_076',
 		'SCH_199','SCH_259',## neutral-scholo
-		'SCH_139',## paladin-scholo
 		'SCH_270',## mage-scholo
 		'YOD_009',## this is a hero in garalrond
 		'BT_126','BT_850',## neutral-aoo/30
