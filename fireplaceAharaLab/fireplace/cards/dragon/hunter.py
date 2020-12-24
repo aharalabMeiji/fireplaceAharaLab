@@ -13,7 +13,7 @@ class DRG_251:#OK
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
 	events = (
 		Summon(CONTROLLER, MINION + EnumSelector(GameTag.RUSH)).on(#
-			SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_251t"))#
+			SidequestCounter(SELF,3,[Summon(CONTROLLER,"DRG_251t"), Destroy(SELF)])#
 		)
 	)
 	pass 
@@ -48,8 +48,7 @@ class DRG_255:#OK
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="41127"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
-	events = Activate(CONTROLLER).on(
-		SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_255t2")*3)) 
+	events = Activate(CONTROLLER).on( SidequestCounter(SELF,2,[Summon(CONTROLLER,"DRG_255t2")*3, Destroy(SELF)])) 
 class DRG_255t2:
 	"""Leper Gnome
 	"""

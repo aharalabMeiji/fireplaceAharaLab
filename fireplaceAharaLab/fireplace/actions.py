@@ -1593,10 +1593,11 @@ class SidequestCounter(TargetedAction):
 		target._tmp_int1_ += 1
 		if target._tmp_int1_== amount:
 			if targetaction!=None:
-				targetaction.trigger(source)
-			Destroy(target).trigger(source)
-		elif target._tmp_int1_>amount:# in case that targetaction is the same as gameaction
-			Destroy(target).trigger(source)
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
 
 class SidequestCounterEq(TargetedAction):
 	"""
@@ -1609,8 +1610,11 @@ class SidequestCounterEq(TargetedAction):
 		if target._tmp_int1_== amount:
 			log.info("Setting Counter on %r :%i== %i, %r", target, target._tmp_int1_, amount, targetaction)
 			if targetaction!=None:
-				targetaction.trigger(source)
-			Destroy(target).trigger(source)
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
 
 class SidequestCounterNeq(TargetedAction):
 	"""
@@ -1623,8 +1627,11 @@ class SidequestCounterNeq(TargetedAction):
 		if target._tmp_int1_ != amount:
 			log.info("Setting Counter on %r :%i!= %i, %r", target, target._tmp_int1_, amount, targetaction)
 			if targetaction!=None:
-				targetaction.trigger(source)
-			Destroy(target).trigger(source)
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
 
 class SidequestCounterClear(TargetedAction):
 	TARGET = ActionArg()# sidequest card
@@ -1642,8 +1649,12 @@ class SidequestManaCounter(TargetedAction):
 		target._tmp_int1_ += card.cost
 		if target._tmp_int1_>= amount:
 			i=0
-			targetaction.trigger(source)## take care of an infinite loop!
-			Destroy(target).trigger(source)
+			if targetaction!=None:
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
 
 class SetCurrentCost(TargetedAction):
 	"""
@@ -1736,14 +1747,15 @@ class HoldinHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
 	CARD = ActionArg()
 	def do(self, source, target, card):
-		self._tmp_list1_=card
-		card.zone = Zone.SECRET
+		card = card[0]
+		source._tmp_list1_=card
+		card.zone = Zone.SETASIDE
 		pass
 
 class OpenHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
 	def do(self, source, target):
-		Summon(CONTROLLER, _tmp_list1_).trigger(source)
+		Summon(target, source._tmp_list1_).trigger(source)
 		pass
 
 class DestroyArmor(TargetedAction):

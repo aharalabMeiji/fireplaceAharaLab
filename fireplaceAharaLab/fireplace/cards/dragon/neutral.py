@@ -170,12 +170,12 @@ class DRG_054:#OK
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw a card."""
 	play = Draw(CONTROLLER)
 
-class DRG_086:############################ check this  later
+class DRG_086:#OK :  omit discovering
 	"""Chromatic Egg	Epic
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Secretly &lt;b&gt;Discover&lt;/b&gt;
 	a Dragon to hatch into.
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Hatch!"""
-	play = HoldinHatch(CONTROLLER, Discover(CONTROLLER, DRAGON))
+	play = HoldinHatch(CONTROLLER, RandomDragon())
 	deathrattle = OpenHatch(CONTROLLER )
 class DRG_086e:
 	""" What's in the Egg?"""

@@ -314,7 +314,7 @@ class HumanAgent(Agent):
 						print("(taunt)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
-					if character.dormant>0:
+					if character.dormant!=0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")

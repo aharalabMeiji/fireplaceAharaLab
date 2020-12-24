@@ -19,9 +19,7 @@ class DRG_324:#OK
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="2"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="395"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
-	events = Play(CONTROLLER, EnumSelector(Race.ELEMENTAL)).on(
-		SidequestCounter(SELF,2,ForceDraw(RANDOM(FRIENDLY_DECK+SPELL))*3) ## no implementation of 'in a row'.
-		)
+	events = Play(CONTROLLER, EnumSelector(Race.ELEMENTAL)).on(SidequestCounter(SELF,2,[ForceDraw(RANDOM(FRIENDLY_DECK+SPELL))*3, Destroy(SELF)]))
 	
 
 class DRG_323:#OK
@@ -34,7 +32,7 @@ class DRG_323:#OK
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="55282"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
 	events = Play(CONTROLLER,SPELL).on(
-		SidequestManaCounter(SELF, Play.CARD,8,Summon(CONTROLLER,"DRG_323t"))
+		SidequestManaCounter(SELF, Play.CARD,8, [Summon(CONTROLLER,"DRG_323t"), Destroy(SELF)])
 		)
 class DRG_323t:# 55282
 	"""Draconic Emissary
@@ -48,7 +46,7 @@ class DRG_107:#OK
 class DRG_104:#OK
 	"""Chenvaala
 	After you cast three spells in a turn, summon a 5/5_Elemental."""
-	events = [OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,Summon(CONTROLLER,"DRG_104t2"))),
+	events = [OWN_SPELL_PLAY.on(SidequestCounter(SELF,3,[Summon(CONTROLLER,"DRG_104t2")])),
 	OWN_TURN_END.on(SidequestCounterClear(SELF))]
 class DRG_104t2:
 	"""Snow Elemental

@@ -7,7 +7,7 @@ class DRG_008:#OK
 	&lt;b&gt;Sidequest:&lt;/b&gt; Summon 5 minions.
 	&lt;b&gt;Reward:&lt;/b&gt; Give your minions +1/+1."""
 	#		<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
-	events = Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 5, Buff(FRIENDLY_MINIONS, "DRG_008e")))
+	events = Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 5, [Buff(FRIENDLY_MINIONS, "DRG_008e"), Destroy(SELF)]))
 DRG_008e = buff(1,1)
 class DRG_233:#OK
 	"""Sand Breath		1	-	-	Spell	Common	-	Divine Shield
@@ -24,8 +24,8 @@ class DRG_258:#OK
 	&lt;b&gt;Reward:&lt;/b&gt; Summon a 3/6
 	minion with &lt;b&gt;Taunt&lt;/b&gt;."""
 	events = [ OWN_TURN_END.on(SidequestCounterClear(SELF)),
-		   Attack(ENEMY,FRIENDLY).on(SidequestCounter(SELF,100,None)),
-		   OWN_TURN_BEGIN.on(SidequestCounterEq(SELF,0,Summon(CONTROLLER,"DRG_258t")))
+		   Attack(ENEMY,FRIENDLY).on(SidequestCounter(SELF,-1,None)),
+		   OWN_TURN_BEGIN.on(SidequestCounterEq(SELF,0, [Summon(CONTROLLER,"DRG_258t"), Destroy(SELF)]))
 		]
 class DRG_258t:
 	""" Indomitable Champion

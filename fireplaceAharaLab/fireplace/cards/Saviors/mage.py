@@ -2,21 +2,21 @@ from ..utils import *
 
 ##### mage@uldum,,10,,,,,,
 
-class ULD_433:
+class ULD_433:#OK
 	"""Raid the Sky Temple,,1,-,-,Spell,Legendary,-,Quest
 	&lt;b&gt;Quest:&lt;/b&gt; Cast 10 spells.
 	&lt;b&gt;Reward: &lt;/b&gt;Ascendant Scroll."""
-	events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 10, Summon(CONTROLLER, "ULD_433p") ))
-class ULD_433e:
-	cost=-2
-	pass
+	tags={GameTag.SIDEQUEST:True}
+	events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 2, [Summon(CONTROLLER, "ULD_433p"), Destroy(SELF)] ))
 class ULD_433p:
 	""" Ascendant Scroll
 	&lt;b&gt;Hero Power&lt;/b&gt;
 	Add a random Mage
 	spell to your hand.
 	It costs (2) less."""
-	play = Give(CONTROLLER, Buff(RandomSpell(),"ULD_433e"))
+	activate = Give(CONTROLLER, RandomSpell()).then(Buff(Give.CARD,"ULD_433e"))
+ULD_433e = buff(cost=-2)
+
 class ULD_726:
 	"""Ancient Mysteries,,2,-,-,Spell,Common,-,Secret
 	Draw a &lt;b&gt;Secret&lt;/b&gt; from your deck. It costs (0)."""

@@ -117,13 +117,13 @@ class BT_850:##################################################
 	three 1/3 enemy Warders.
 	When they die, destroy all
 	minions and awaken."""
-	play = Buff(CONTROLLER, "BT_850e"), Summon(CONTROLLER, "BT_850t") * 3
+	dormant = -1 #infinite dormant
+	play = Buff(SELF, "BT_850e"), Summon(OPPONENT, "BT_850t") * 3
 class BT_850e:
-   dormant = 20
-   pass
+	events = Death(ENEMY+ID("BT_850t")).on(SidequestCounter(OWNER,1,[Awaken(OWNER)]))
+	pass
 class BT_850t:
 	""" Hellfire Warder """
-	deathrattle = SidequestCounter(OWNER,3,Destroy(ALL_MINIONS - OWNER).then(Awaken(OWNER)))## no way
 	pass
 class BT_737:#OK
 	"""Maiev Shadowsong	Minion	Legendary
@@ -199,7 +199,7 @@ class BT_255:## strictly saying, it is not correct##############################
 	Every third spell you cast each turn costs (1)."""
 	events = [
 		OWN_TURN_BEGIN.on(SidequestCounterClear(SELF)),
-		OWN_SPELL_PLAY.on(SidequestCounter(SELF, 2, Buff(FRIENDLY_HAND + SPELL, "BT_255e"))),
+		OWN_SPELL_PLAY.on(SidequestCounter(SELF, 2, [Buff(FRIENDLY_HAND + SPELL, "BT_255e")])),
 		]
 class BT_255e:
    cost = SET(1)
