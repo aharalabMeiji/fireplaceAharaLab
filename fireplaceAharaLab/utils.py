@@ -110,7 +110,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	exclude = ['CFM_621','CFM_095','LOE_076',
 		'SCH_199','SCH_259',## neutral-scholo
 		'SCH_270',## mage-scholo
-		'YOD_009',## this is a hero in garalrond
+		'YOD_009',## this is a hero in galakrond
 		'BT_126','BT_850',## neutral-aoo/30
 		'DRG_068','DRG_050','DRG_086','DRG_082','DRG_242','DRG_099','DRG_089','DRG_402',## neutral-dragon/45
 		'DRG_109',## mage-dragon/10

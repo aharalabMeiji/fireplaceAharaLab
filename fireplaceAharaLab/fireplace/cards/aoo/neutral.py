@@ -80,7 +80,7 @@ class BT_126:####################################################
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Resummon
 	them with +1/+1."""
 	play = Destroy(FRIENDLY_MINIONS - SELF)
-	deathrattle = Summon(CONTROLLER, Buff(Copy(Destroy.TARGET),"BT_126e2"))
+	deathrattle = Summon(CONTROLLER, Copy(Destroy.TARGET)).after(Summon.CARD, "BT_126e2")
 	#deathrattle = Buff(Summon(CONTROLLER, Copy(Destroy.TARGET)),"BT_126e2")
 #BT_126e = buff(0,0)
 #"""Shadowy Construct"""
