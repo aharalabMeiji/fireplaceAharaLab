@@ -62,12 +62,12 @@ class ULD_238:#OK
 	powered_up = -FindDuplicates(FRIENDLY_DECK)
 	play = powered_up & Hit(RANDOM(ENEMY_MINIONS),1)*10
 
-class ULD_236:###########################################
+class ULD_236:#OK  #### not exact.
 	"""Tortollan Pilgrim,,8,5,5,Minion,Epic,-,Battlecry
 	[x]&lt;b&gt;Battlecry&lt;/b&gt;: &lt;b&gt;Discover&lt;/b&gt; a spell
 	in your deck and cast it
 	with random targets."""
-	play = Discover(CONTROLLER, FRIENDLY_DECK + SPELL).after(CastSpell(Discover.CARDS))
+	play = DISCOVER(RandomSpell()).then(CastSpell(Discover.CARDS))
 
 class ULD_216:#OK
 	"""Puzzle Box of Yogg-Saron,,10,-,-,Spell,Epic,-,-
