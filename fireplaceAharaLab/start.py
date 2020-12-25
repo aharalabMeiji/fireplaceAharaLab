@@ -16,9 +16,9 @@ def main():
 	from fireplace import cards
 	cards.db.initialize()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human",HumanAgent.HumanInput)
+	Human=HumanAgent("Human",HumanAgent.HumanInput,myClass=CardClass.PALADIN)
 	#ランダムプレーヤー
-	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
+	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	#Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
 	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -54,7 +54,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#play_set_of_games(Human, Random, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
-	play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Random, BigDeck.purePaladin, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition

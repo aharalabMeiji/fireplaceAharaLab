@@ -278,7 +278,7 @@ class HumanAgent(Agent):
 				print("%s"%character, end='   : ')
 				if character == player.opponent.hero:
 					if player.opponent.weapon:
-						print("(%2d/%2d/%2d+%d)"%(character.atk,player.opponent.weapon.durability,character.health,character.armor), end=" ")
+						print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.opponent.weapon.durability,character.health,character.armor,player.opponent.weapon.data.name), end=" ")
 					else:
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :

@@ -90,7 +90,7 @@ class DRG_059:#OK
 	play = Find(FRIENDLY_MINIONS + MECH) & Buff(SELF,"DRG_059e")
 DRG_059e=buff(1,1,rush=True)
 
-class DRG_068:##################### no way to check this
+class DRG_068:#OK
 	"""Living Dragonbreath	Common
 	Your minions can't be_&lt;b&gt;Frozen&lt;/b&gt;."""
 	update = Refresh(FRIENDLY_MINIONS, {GameTag.CANT_BE_FROZEN: True})# 
@@ -198,7 +198,7 @@ class DRG_076:#OK
 
 #### 30 ####
 
-class DRG_082:########################
+class DRG_082:#OK
 	"""Kobold Stickyfinger	Epic
 	&lt;b&gt;Battlecry:&lt;/b&gt; Steal your opponent's weapon."""
 	play = Steal(ENEMY_WEAPON, CONTROLLER)
@@ -290,19 +290,19 @@ class DRG_213:#OK
 	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 4 damage to two random enemy minions."""
 	play = Hit(RANDOM(ENEMY_MINIONS),4) * 2
 
-class DRG_089:########################################
+class DRG_089:#OK
 	"""Dragonqueen Alexstrasza	Legendary
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has
 	no duplicates, add 2 other
 	random Dragons to your
 	hand. They cost (1)."""
 	powered_up = -FindDuplicates(FRIENDLY_DECK)
-	play = powered_up & Buff(CONTROLLER, "DRG_089e")
+	play = powered_up & Give(CONTROLLER, RandomDragon()).then(Buff(Give.CARD, "DRG_089e")), powered_up & Give(CONTROLLER, RandomDragon()).then(Buff(Give.CARD, "DRG_089e"))
 class DRG_089e:
 	"""A Queen's Discount"""
-	play = Give(CONTROLLER, RANDOM(DRAGON)).then(Refresh(Give.CARD, {GameTag.COST: 1})), Give(CONTROLLER, RANDOM(DRAGON)).then(Refresh(Give.CARD, {GameTag.COST: 1}))
+	cost=SET(1)
 
-class DRG_402:###################################
+class DRG_402:#OK
 	"""Sathrovarr	Legendary
 	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly minion. Add a copy of it to_your hand, deck, and battlefield."""
 	requirements = {

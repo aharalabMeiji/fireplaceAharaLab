@@ -112,8 +112,9 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		'SCH_270',## mage-scholo
 		'YOD_009',## this is a hero in galakrond
 		'BT_126','BT_850',## neutral-aoo/30
-		'DRG_068','DRG_050','DRG_086','DRG_082','DRG_242','DRG_099','DRG_089','DRG_402',## neutral-dragon/45
+		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
 		'DRG_109',## mage-dragon/10
+		'ULD_236',## mage-uldum/10
 		]
 	# バグ取れた：'CFM_672','BT_490',
 	# 'LOE_076' : Sir Finley Mrrgglton
@@ -370,6 +371,13 @@ class BigDeck:
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
+	purePaladin=[\
+		'SCH_247','SCH_247','BT_020','BT_020','SCH_149','SCH_149',\
+		'BT_292','BT_292','BT_025','BT_025','BT_019','SCH_532',\
+		'SCH_532','CS2_093','CS2_093','SCH_141','DRG_232','DRG_232',\
+		'BT_026','BT_026','SCH_138','SCH_138','BT_011','BT_011',\
+		'SCH_139','SCH_139','BT_334','DRG_231','DRG_231','BT_024'
+		]
 def postAction(player):
 	if player.choice:
 		choice = random.choice(player.choice.cards)
@@ -440,7 +448,7 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'DRG_086').trigger(player1)#target
+	Give(player1,'ULD_216').trigger(player1)#target
 	#Give(player1,'NEW1_019').trigger(player1)#assistant
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
@@ -449,17 +457,18 @@ def PresetHands(player1, player2):
 	#Give(player1,'DRG_057').trigger(player1)#MECH
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'CS2_168').trigger(player1)#murloc
-	Give(player1,'DRG_107').trigger(player1)#elemental
+	#Give(player1,'DRG_107').trigger(player1)#elemental
 	#Give(player1,'BT_720').trigger(player1)#rush
 
 	
-	#Give(player2,'YOD_033').trigger(player2)#enemy
+	Give(player2,'ULD_240').trigger(player2)#enemy
 	#Give(player2,'DRG_068').trigger(player2)#enemy
+
 	#特定のマナ数から始めたいとき
-	player1.max_mana=7
+	player1.max_mana=10
 	player2.max_mana=10
 	#player2が先手です。
-	#PresetPlay(player2, 'YOD_033')# play
+	PresetPlay(player2, 'ULD_240')# play
 	#PresetPlay(player2, 'DRG_068')# play
 	#ターン終了、player1のターン
 	player1.game.end_turn()

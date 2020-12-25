@@ -83,5 +83,5 @@ class DRG_231:########################  hard to check, maybe OK
 	random Paladin cards
 	to your hand."""
 	powered_up = -Find(FRIENDLY_DECK + EnumSelector(CardClass.NEUTRAL))
-	play = Give(CONTROLLER, RandomMinion(card_class=CardClass.PALADIN))*5
+	play = powered_up & Give(CONTROLLER, RandomMinion(card_class=CardClass.PALADIN))*5
 
