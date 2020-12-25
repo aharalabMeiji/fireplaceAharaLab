@@ -108,7 +108,7 @@ class DRG_071:#OK
 class DRG_071t:
 	pass
 
-class DRG_050:########################### pass
+class DRG_050:########################### Galakrond pass
 	"""Devoted Maniac	Common
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Invoke&lt;/b&gt; Galakrond."""
@@ -208,7 +208,7 @@ class DRG_069:#OK
 	&lt;b&gt;Battlecry:&lt;/b&gt; Destroy your opponent's Armor."""
 	play = DestroyArmor(OPPONENT)
 
-class DRG_242:###########################################
+class DRG_242:###########################################Galakrond
 	"""Shield of Galakrond	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Invoke&lt;/b&gt; Galakrond."""
@@ -243,7 +243,7 @@ class DRG_061:#OK
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Windfury&lt;/b&gt;"""
 
-class DRG_099:##################################
+class DRG_099:##################################Galakrond
 	"""Kronx Dragonhoof	Legendary
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Draw Galakrond.
 	If you're already Galakrond,

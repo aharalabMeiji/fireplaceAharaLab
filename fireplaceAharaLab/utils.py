@@ -448,12 +448,12 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'ULD_156').trigger(player1)#target
+	Give(player1,'DRG_109').trigger(player1)#target
 	#Give(player1,'NEW1_019').trigger(player1)#assistant
 
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
-	#Give(player1,'SCH_301').trigger(player1)#weapon
+	Give(player1,'SCH_301').trigger(player1)#weapon
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
 	#Give(player1,'DRG_057').trigger(player1)#MECH
 	#Give(player1,'SCH_133').trigger(player1)#beast

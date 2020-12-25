@@ -136,9 +136,10 @@ class DRG_322e:
 	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.COST: SET(0)})
 	events = Play(CONTROLLER, SPELL).on(Destroy(SELF))
 
-class DRG_109:#############################################
+class DRG_109:#OK
 	"""Mana Giant
 	[x]Costs (1) less for each
 	card you've played this
 	game that didn't start
 	in your deck."""
+	cost_mod = - Attr(CONTROLLER, "times_card_to_play_out_of_deck")

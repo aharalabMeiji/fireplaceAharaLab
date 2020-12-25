@@ -340,6 +340,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.logger.warning("%r does not require a target, ignoring target %r", self, target)
 			target = None
 		self.game.play_card(self, target, index, choose)
+		if not self.id in self.controller.starting_deck:##### aharalab ## DRG_109 ## 25.12.2020
+			self.controller.times_card_to_play_out_of_deck += 1 ##### aharalab ## DRG_109 ## 25.12.2020
 		return self
 
 	def is_summonable(self) -> bool:
