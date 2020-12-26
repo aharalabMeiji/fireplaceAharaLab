@@ -42,7 +42,7 @@ class SCH_353:#OK
 class SCH_537:#OK
 	"""Trick Totem	Rare"""
 	#At the end of your turn, cast a random spell that costs (3) or less.
-	events = OWN_TURN_END.on(CastSpell(RandomSpell(cost=3))) 
+	events = OWN_TURN_END.on(Summon(CONTROLLER,RandomSpell(cost=[1,2,3]))) 
 
 class SCH_348:#OK
 	"""Combustion	Epic"""

@@ -109,6 +109,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	#バグが確認されているものを当面除外する
 	exclude = ['CFM_621','CFM_095','LOE_076',
 		'SCH_199','SCH_259',## neutral-scholo
+		'SCH_610',## hunter-scholo
 		'SCH_270',## mage-scholo
 		'YOD_009',## this is a hero in galakrond
 		'BT_126','BT_850',## neutral-aoo/30
@@ -449,7 +450,7 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'DAL_581').trigger(player1)#target
+	Give(player1,'SCH_610').trigger(player1)#target
 	#Give(player1,'DAL_570').trigger(player1)#assistant
 
 	#Give(player1,'DRG_255').trigger(player1)#sidequest

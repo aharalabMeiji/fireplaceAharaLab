@@ -118,7 +118,7 @@ class SCH_607b:
 SCH_607e = buff(1,1);
 
 
-class SCH_610:#OK
+class SCH_610:#########################################OK
 	##Guardian Animals SCH_610
 	#Summon two Beasts that cost (5) or less from your deck. Give_them &lt;b&gt;Rush&lt;/b&gt;.
 	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST + (COST <= 5))).then(SetTag(Summon.CARD, (GameTag.RUSH,))),Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST + (COST <= 5))).then(SetTag(Summon.CARD, (GameTag.RUSH,)))

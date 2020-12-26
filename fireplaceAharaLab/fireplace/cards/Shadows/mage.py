@@ -7,7 +7,7 @@ from ..utils import *
 class DAL_608:################ no 'or less'
 	"""Magic Trick,,1,-,-,Spell,Rare,-,Discover
 	&lt;b&gt;Discover&lt;/b&gt; a spell that costs (3) or less."""
-	play = Discover(CONTROLLER, RandomSpell(cost=3))
+	play = Discover(CONTROLLER, RandomSpell(cost=[1,2,3]))
 
 class DAL_577:
 	"""Ray of Frost,,1,-,-,Spell,Common,-,Freeze
