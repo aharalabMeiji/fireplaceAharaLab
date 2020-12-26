@@ -90,12 +90,12 @@ class DAL_081:
 class DAL_081e:
 	tags = { GameTag.CANT_BE_TARGETED_BY_SPELLS: True, GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}
 	Events = OWN_TURN_BEGIN.on(Destroy(SELF))
-class DAL_558:
+class DAL_558:#####################a spell you've cast this turn#################
 	"""Archmage Vargoth,,4,2,6,Minion,Legendary,-,-
 	[x]At the end of your turn, cast
 	a spell you've cast this turn
 	&lt;i&gt;(targets are random)&lt;/i&gt;."""
-	play = OWN_TURN_END.on(CastSpell(RANDOM(FRIENDLY + SPELL + {GameTag.NUM_CARDS_PLAYED_THIS_TURN:True})))
+	play = OWN_TURN_END.on(Summon(CONTROLLER, RANDOM(FRIENDLY + SPELL)))
 class DAL_058:
 	"""Hecklebot,,4,3,8,Minion,Rare,Mech,Battlecry,Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;

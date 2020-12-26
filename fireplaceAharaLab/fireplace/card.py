@@ -806,6 +806,7 @@ class Spell(PlayableCard):
 
 
 class Secret(Spell):
+
 	@property
 	def events(self):
 		ret = super().events
@@ -827,8 +828,16 @@ class Secret(Spell):
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
+			self.secret_twice=False######### aharalab 26.12.2020 ### want to make a new flag for this part.
+			for card in self.controller.field:######### aharalab 26.12.2020
+				if 'DAL_573'==card.id :########### aharalab 26.12.2020
+					self.secret_twice=True######### aharalab 26.12.2020
 		if self.zone == Zone.SECRET:
-			self.controller.secrets.remove(self)
+			if self.secret_twice:######### aharalab 26.12.2020
+				self.secret_twice=False######### aharalab 26.12.2020
+				return######### aharalab 26.12.2020
+			else:######### aharalab 26.12.2020
+				self.controller.secrets.remove(self)
 		if value == Zone.SECRET:
 			self.controller.secrets.append(self)
 		super()._set_zone(value)

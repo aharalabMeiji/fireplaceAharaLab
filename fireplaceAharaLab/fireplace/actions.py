@@ -1936,3 +1936,19 @@ class SetCannotAttackHeroesTag(TargetedAction):
 		target.cannot_attack_heroes = (amount==1)
 		pass
 
+class DAL731Duel(TargetedAction):
+	"""
+	Duel!
+	"""
+	TARGET = ActionArg()
+	OTHER = ActionArg()
+	def do(self, course, target, other):
+		if isinstance(other,list):
+			other = other[0]
+		if isinstance(target,list):
+			target = target[0]
+		Summon(other.controller,other).trigger(other.controller)
+		Summon(target.controller,target).trigger(target.controller)
+		log.info("Duel: %r vs. %r", target, other)
+		Hit(other, target.atk).trigger(target.controller)
+		Hit(target, other.atk).trigger(other.controller)
