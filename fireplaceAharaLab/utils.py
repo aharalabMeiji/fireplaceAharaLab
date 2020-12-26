@@ -115,6 +115,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
 		'ULD_236',## mage-uldum/10
 		'DAL_377','DAL_376','DAL_378',## hunter=shadows/10
+		'ULD_431'
 		]
 	# バグ取れた：'CFM_672','BT_490',
 	# 'LOE_076' : Sir Finley Mrrgglton
@@ -448,8 +449,9 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'DAL_379').trigger(player1)#target
-	#Give(player1,'DAL_587').trigger(player1)#assistant
+	Give(player1,'ULD_431').trigger(player1)#target
+	Give(player1,'ULD_207').trigger(player1)#assistant
+	Give(player1,'ULD_207').trigger(player1)#assistant
 
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
@@ -462,14 +464,14 @@ def PresetHands(player1, player2):
 	#Give(player1,'BT_720').trigger(player1)#rush
 	#Give(player1,'DAL_587').trigger(player1)#deathrattle
 	
-	Give(player2,'ULD_240').trigger(player2)#enemy
+	#Give(player2,'ULD_240').trigger(player2)#enemy
 	#Give(player2,'DRG_068').trigger(player2)#enemy
 
 	#特定のマナ数から始めたいとき
 	player1.max_mana=10
 	player2.max_mana=10
 	#player2が先手です。
-	PresetPlay(player2, 'ULD_240')# play
+	#PresetPlay(player2, 'ULD_240')# play
 	#PresetPlay(player2, 'DRG_068')# play
 	#ターン終了、player1のターン
 	player1.game.end_turn()

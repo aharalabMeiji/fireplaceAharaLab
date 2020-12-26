@@ -3,7 +3,7 @@ from ..utils import *
 ##### paladin-shadows,,,10,,,,,
 
 
-class DAL_:
+class DAL_141:
 	"""Desperate Measures,,1,-,-,Spell,Rare,-,Secret,Twinspell
 	&lt;b&gt;Twinspell&lt;/b&gt;
 	Cast a random Paladin &lt;b&gt;Secret&lt;/b&gt;."""

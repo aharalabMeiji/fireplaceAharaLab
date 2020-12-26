@@ -168,7 +168,7 @@ class ULD_229:
 class ULD_209:
 	"""Vulpera Scoundrel		3	2	3	Minion	Epic	-	Battlecry
 	&lt;b&gt;Battlecry&lt;/b&gt;: &lt;b&gt;Discover&lt;/b&gt; a spell or pick a mystery choice."""
-	choose = (SELF, "ULD_209t")
+	choose = ("ULD_209", "ULD_209t")
 	play = DISCOVER(RandomSpell())
 class ULD_209t:
 	"""Mystery Choice!
