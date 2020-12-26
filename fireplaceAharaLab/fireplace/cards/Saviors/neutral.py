@@ -37,7 +37,7 @@ class ULD_712:
 class ULD_309:
 	"""Dwarven Archaeologist		2	2	3	Minion	Epic	-	Discover
 	After you &lt;b&gt;Discover&lt;/b&gt; a card, reduce its cost by (1)."""
-	play = Discover(RandomCollectible()).after(Buff(Discover.CARDS, "ULD_309e"))
+	play = Discover(CONTROLLER, RandomCollectible()).after(Buff(Discover.CARDS, "ULD_309e"))
 class ULD_309e:
 	cost = SET(1)
 
@@ -208,12 +208,13 @@ class ULD_703:
 
 ##### 30 #####
 
-class ULD_189:#########need to make doubling max_health
+class ULD_189:##
 	"""Faceless Lurker		5	3	3	Minion	Common	-	Battlecry
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Double this minion's Health."""
 	play = Buff(SELF, "ULD_189e")
-ULD_189e=buff(0,3)
+class ULD_189e:
+	max_health = lambda self, i : i*2
 class ULD_702:
 	"""Mortuary Machine		5	8	8	Minion	Epic	Mech	Reborn
 	After your opponent plays a minion, give it &lt;b&gt;Reborn&lt;/b&gt;."""

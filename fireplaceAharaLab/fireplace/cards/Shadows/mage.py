@@ -24,7 +24,8 @@ class DAL_577ts:
 class DAL_575:######################
 	"""Khadgar,,2,2,2,Minion,Legendary,-,-
 	Your cards that summon minions summon twice_as_many."""
-	###### wants such tag
+	###### infinte loop?
+	events = Summon(CONTROLLER, MINION).after(Summon(CONTROLLER, Copy(Summon.CARD)))
 
 class DAL_182:  
 	"""Magic Dart Frog,,2,1,3,Minion,Common,Beast,-
@@ -44,14 +45,14 @@ class DAL_603:
 			if act.turn == turn and act.card.type==CardType.SPELL:
 				num_spells += 1
 		for repeat in range(num_spells):
-			yield Give(CONTROLLER, RANDOM(SPELL + EnumSelector(CardClass.MAGE)))
+			yield Give(CONTROLLER, RandomSpell(card_class=CardClass.MAGE))
 	### needs __myLog__
 
-class DAL_163:
+class DAL_163:#### Discover -> Give
 	"""Messenger Raven,,3,3,2,Minion,Common,Beast,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a
 	Mage minion."""
-	play = Discover(CONTROLLER, RANDOM(ALL_MINIONS + EnumSelector(CardClass.MAGE)))
+	play = Give(CONTROLLER, RANDOM(ALL_MINIONS + EnumSelector(CardClass.MAGE)))
 
 class DAL_177:
 	"""Conjurer's Calling,,4,-,-,Spell,Rare,-,Twinspell
@@ -81,7 +82,7 @@ class DAL_609:
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt;
 	a spell."""
 	events = OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND + SPELL, "DAL_609e"))
-	play = Discover(RandomSpell())
+	play = Discover(CONTROLLER, RandomSpell())
 class DAL_609e:
 	cast = SET(0)
 	events =  OWN_SPELL_PLAY.after(Destroy(SELF))
