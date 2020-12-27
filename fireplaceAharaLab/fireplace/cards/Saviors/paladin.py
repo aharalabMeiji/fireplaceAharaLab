@@ -52,7 +52,7 @@ class ULD_500:#OK
 	entourage = ['HERO_01bp2',  'HERO_03bp2', 'HERO_04bp2','HERO_05bp2','HERO_06bp2', 'HERO_07bp2', 'HERO_08bp2', 'HERO_09bp2']
 	#'HERO_02bp2',
 	powered_up = -FindDuplicates(FRIENDLY_DECK)
-	play = powered_up & Discover(CONTROLLER, RandomEntourage()).then(Summon(CONTROLLER, Discover.CARDS))
+	play = powered_up & Choice(CONTROLLER, RandomEntourage()*3).then(Summon(CONTROLLER, Choice.CARD))
 class HERO_01bp2:#OK
 	""" Tank Up!
 	&lt;b&gt;Hero Power&lt;/b&gt;

@@ -29,17 +29,16 @@ class ULD_723:#OK
 	&lt;b&gt;Reborn&lt;/b&gt;"""
 	pass
 
-class ULD_712:
+class ULD_712:#OK
 	"""Bug Collector		2	2	1	Minion	Common	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 1/1 Locust with &lt;b&gt;Rush&lt;/b&gt;."""
 	play = Summon(CONTROLLER, "ULD_430t")
 
-class ULD_309:
+class ULD_309:#OK
 	"""Dwarven Archaeologist		2	2	3	Minion	Epic	-	Discover
 	After you &lt;b&gt;Discover&lt;/b&gt; a card, reduce its cost by (1)."""
-	play = Discover(CONTROLLER, RandomCollectible()).after(Buff(Discover.CARDS, "ULD_309e"))
-class ULD_309e:
-	cost = SET(1)
+	play = Choice(CONTROLLER, RandomMinion()*3).then(Give(CONTROLLER, Choice.CARD).then(Buff(Give.CARD, "ULD_309e")))
+ULD_309e = buff(cost=-1)
 
 class ULD_289:
 	"""Fishflinger		2	3	2	Minion	Common	Murloc	Battlecry
