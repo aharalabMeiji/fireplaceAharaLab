@@ -54,7 +54,7 @@ class DAL_800:#############################  pass
 class DAL_434:
 	"""Arcane Watcher,,3,5,6,Minion,Rare,-,Spell Damage
 	Can't attack unless you have &lt;b&gt;Spell Damage&lt;/b&gt;."""
-	update = -Find(FRIENDLY_MINIONS + SPELLPOWER) & SetTag(CONTROLLER, {GameTag.CANT_ATTACK:True})
+	update = -Find(FRIENDLY_MINIONS + SPELLPOWER) & SetTag(SELF, (GameTag.CANT_ATTACK,))
 class DAL_744:
 	"""Faceless Rager,,3,5,1,Minion,Common,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Copy a friendly minion's Health."""
@@ -237,7 +237,7 @@ class DAL_775:
 class DAL_550:
 	"""Underbelly Ooze,,7,3,5,Minion,Rare,-,-
 	After this minion survives damage, summon a copy_of it."""
-	events = (CURRENT_HEALTH(SELF)>0 and CURRENT_HEALTH(SELF)<MAX_HEALTH(SELF)) & Summon(CONTROLLER, Copy(SELF))
+	events = Find(SELF + DAMAGED) & Summon(CONTROLLER, Copy(SELF))
 class DAL_592:####################################
 	"""Batterhead,,8,3,12,Minion,Epic,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;. After this attacks and kills a minion, it may_attack again."""

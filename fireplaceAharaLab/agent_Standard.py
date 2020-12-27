@@ -372,11 +372,13 @@ class HumanAgent(Agent):
 						print('(%2d/%2d)'%(targetCard.atk,targetCard.health), end=' ')
 				myCount += 1
 				print('')
-			str = input()
-			try:
-				inputNum = int(str)
-			except ValueError:
-				inputNum = 0
+			while True:
+				str = input()
+				try:
+					inputNum = int(str)
+					break;
+				except ValueError:
+					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):

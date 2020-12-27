@@ -116,7 +116,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
 		'ULD_236',## mage-uldum/10
 		'DAL_377','DAL_376','DAL_378',## hunter=shadows/10
-		'ULD_431'
+		'ULD_197','ULD_727','ULD_180','ULD_703','ULD_178',## neutral-uldum
+		## neutral-shadows
 		]
 	# バグ取れた：'CFM_672','BT_490',
 	# 'LOE_076' : Sir Finley Mrrgglton
@@ -450,8 +451,7 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'ULD_500').trigger(player1)#target
-	#Give(player1,'DAL_570').trigger(player1)#assistant
+	Give(player1,'ULD_229').trigger(player1)#target
 
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower

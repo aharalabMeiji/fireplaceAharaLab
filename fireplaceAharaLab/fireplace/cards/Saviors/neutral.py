@@ -2,27 +2,27 @@ from ..utils import *
 
 ####### neutral in savior,  45 cards#######
 
-class ULD_191:
+class ULD_191:#OK
 	"""Beaming Sidekick		1	1	2	Minion	Common	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly minion +2 Health."""
-	play = Buff(RANDOM(FRIENDLY_MINIONS), "ULD_191e")
+	play = Buff(RANDOM(FRIENDLY_MINIONS - SELF), "ULD_191e")
 ULD_191e = buff(0,2)
 
-class ULD_282:
+class ULD_282:#OK
 	"""Jar Dealer		1	1	1	Minion	Common	-	Deathrattle
 	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Add a random
 	1-Cost minion to your hand."""
 	deathrattle = Give(CONTROLLER,RandomMinion(cost=1))
 
-class ULD_705:
+class ULD_705:#OK
 	"""Mogu Cultist		1	1	1	Minion	Epic	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your board is full of Mogu Cultists, sacrifice them all and summon Highkeeper Ra."""
-	powered_up = Count(FRIENDLY + ID('ULD_705'))==8
-	play = powered_up & Destroy(FRIENDLY + ID('ULD_705')), Summon(CONTROLLER, "ULD_705t")
-class ULD_705t:
+	powered_up = Count(FRIENDLY_MINIONS + ID('ULD_705'))==8
+	play = powered_up & Destroy(FRIENDLY_MINIONS + ID('ULD_705')).then( -Find(FRIENDLY_MINIONS+ID('ULD_705t')) & Summon(CONTROLLER, "ULD_705t"))
+class ULD_705t:#OK
 	""" Highkeeper Ra
 	At the end of your turn, deal 20 damage to all_enemies."""
-	play = OWN_TURN_END.on(Damage(ENEMY_CHARACTERS,20))
+	events = OWN_TURN_END.on(Hit(ENEMY_CHARACTERS,20))
 
 class ULD_723:#OK
 	"""Murmy		1	1	1	Minion	Common	Murloc	Reborn
@@ -46,18 +46,18 @@ class ULD_289:
 	random Murloc to each player's_hand."""
 	play = Give(CONTROLLER, RandomMurloc()), Give(OPPONENT, RandomMurloc())
 
-class ULD_271:
+class ULD_271:#OK
 	"""Injured Tol'vir		2	2	6	Minion	Common	-	Battlecry
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 3 damage to this minion."""
 	play = Hit(SELF, 3)
 
-class ULD_184:
+class ULD_184:#OK
 	"""Kobold Sandtrooper		2	2	1	Minion	Common	-	Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 3 damage to the enemy_hero."""
 	deathrattle = Hit(ENEMY_HERO, 3)
 
-class ULD_196:
+class ULD_196:#OK
 	"""Neferset Ritualist		2	2	3	Minion	Rare	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Restore adjacent minions to full_Health."""
 	play = FullHeal(SELF_ADJACENT)
@@ -65,70 +65,72 @@ class ULD_196:
 ##### 10 #####
 
 
-class ULD_157:
+class ULD_157:#OK
 	"""Questing Explorer		2	2	3	Minion	Rare	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you control a &lt;b&gt;Quest&lt;/b&gt;, draw a card."""
 	play = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST)) & Draw(CONTROLLER)
 
-class ULD_197:########################################
+class ULD_197:#OK
 	"""Quicksand Elemental		2	3	2	Minion	Rare	Elemental	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give all enemy minions -2 Attack this_turn."""
 	play = Buff(ENEMY_MINIONS, "ULD_197e")
 class ULD_197e:
-	#buff = buff(-2,0)
-	play = OWN_TURN_END.on(Destroy(SELF))
+	atk = lambda self, i: i-2
+	events = OWN_TURN_END.on(Destroy(SELF))
 
-class ULD_174:
+class ULD_174:#OK
 	"""Serpent Egg		2	0	3	Minion	Common	-	Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 3/4 Sea Serpent."""
 	deathrattle = Summon(CONTROLLER, "ULD_174t")
 class ULD_174t:
 	"""Sea Serpent """
 	pass
-class ULD_182:
+
+class ULD_182:#OK
 	"""Spitting Camel		2	2	4	Minion	Common	Beast	-
 	[x]At the end of your turn,
 	__deal 1 damage to another__
 	random friendly minion."""
-	play = OWN_TURN_END.on(Hit(RANDOM(FRIENDLY_MINIONS), 1))
+	play = OWN_TURN_END.on(Hit(RANDOM(FRIENDLY_MINIONS-SELF), 1))
 
-class ULD_185:
+class ULD_185:#########################################
 	"""Temple Berserker		2	1	2	Minion	Common	-	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;
 	Has +2 Attack while damaged."""
-	update = Find(SELF + DAMAGED) & Buff(SELF, "ULD_185e")
+	#play = Find(SELF + DAMAGED) & Buff(SELF, "ULD_185e")
 ULD_185e = buff(2,0)
 
-class ULD_450:
+class ULD_450:#OK
 	"""Vilefiend		2	2	2	Minion	Common	Demon	Lifesteal
 	&lt;b&gt;Lifesteal&lt;/b&gt;"""
 
-class ULD_003:# mimic
+class ULD_003:# mimic#OK
 	"""Zephrys the Great		2	3	2	Minion	Legendary	Elemental	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no duplicates, wish for the perfect card."""
 	def play(self):
-		powered_up = FindDuplicates(FRIENDLY_DECK)
-		if not powered_up:
+		powered_up = -FindDuplicates(FRIENDLY_DECK)
+		if powered_up:
 			entourage=['CS2_046','CS2_011']##Bloodlust, Savage Roar
-			if self.controller.opponent.health<10:
+			if self.controller.opponent.hero.health<10:
 				entourage=['BT_512','CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
 			else:
-				for card in self.controller,opponent.field:
+				for card in self.controller.opponent.field:
 					if card.taunt == True and card.max_health-card.damage>2:
 						entourage=['EX1_626','EX1_303','EX1_332']#Mass Dispel, Shadowflame, Silence
 						break
-			Give(CONTROLLER,RandomEntourage())
+			card = random.choice(entourage)
+			Give(self.controller, card).trigger(self.controller)
 
-class ULD_205:
+class ULD_205:#OK
 	"""Candletaker		3	3	2	Minion	Common	-	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;"""
 
-class ULD_719:
+class ULD_719:#OK
 	"""Desert Hare		3	1	1	Minion	Common	Beast	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon two 1/1 Desert Hares."""
 	play = Summon(CONTROLLER, "ULD_719")*2
 
-class ULD_214:
+class ULD_214:#OK
 	"""Generous Mummy		3	5	4	Minion	Rare	-	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;
 	Your opponent's cards cost (1) less."""
@@ -137,25 +139,25 @@ ULD_214e = buff(cost=-1)
 
 #####20#####
 
-class ULD_188:
+class ULD_188:#OK
 	"""Golden Scarab		3	2	2	Minion	Common	Beast	Battlecry
 	&lt;b&gt;&lt;b&gt;Battlecry:&lt;/b&gt; Discover&lt;/b&gt; a
 	4-Cost card."""
 	play = Discover(CONTROLLER, RandomCollectible(cost=4))
 
-class ULD_290:
+class ULD_290:#OK
 	"""History Buff		3	3	4	Minion	Epic	-	-
 	Whenever you play a minion, give a random minion in your hand +1/+1."""
 	events = Play(CONTROLLER, MINION).on(Buff(RANDOM(FRIENDLY_HAND + MINION), "ULD_290e"))
 ULD_290e=buff(1,1)
 
-class ULD_250:
+class ULD_250:#OK
 	"""Infested Goblin		3	2	3	Minion	Rare	-	Deathrattle
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add two 1/1 Scarabs with &lt;b&gt;Taunt&lt;/b&gt; to your hand."""
 	deathrattle = Give(CONTROLLER, "LOE_009t")*2
 
-class ULD_229:
+class ULD_229:#OK
 	"""Mischief Maker		3	3	3	Minion	Epic	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Swap the top card of your deck with your_opponent's."""
 	def play(self):
@@ -193,9 +195,8 @@ class ULD_198:
 class ULD_180:############################################no asleep
 	"""Sunstruck Henchman		4	6	5	Minion	Rare	-	-
 	At the start of your turn, this has a 50% chance to_fall asleep."""
-	pass
 	#play = OWN_TURN_BEGIN.on(COINFLIP & SetTag(SELF,(GameTag.SLEEP,)))
-	#play = OWN_TURN_BEGIN.on(COINFLIP & SetAttr(turns_in_play,0))
+	play = OWN_TURN_BEGIN.on(COINFLIP & SetAttr('turns_in_play',0))
 
 class ULD_703:################## something different
 	"""Desert Obelisk		5	0	5	Minion	Epic	-	-
