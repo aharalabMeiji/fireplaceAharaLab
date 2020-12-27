@@ -1838,10 +1838,11 @@ class CastSpellMe(TargetedAction):
 
 class SetAttr(TargetedAction):
 	TARGET = ActionArg()
+	ATTR = ActionArg()
 	AMOUNT = IntArg()
-	def do(self, source, target, amount):
-		if hasattr(source, target):
-			setattr(source,target,amount)
+	def do(self, source, target, attr, amount):
+		if hasattr(target, attr):
+			setattr(target, attr, amount)
 
 
 ###SCH_714

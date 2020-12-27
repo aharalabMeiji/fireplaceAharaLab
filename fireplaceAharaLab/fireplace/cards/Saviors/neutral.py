@@ -166,7 +166,7 @@ class ULD_229:#OK
 		controller.deck[-1], opponent.deck[-1] = opponent.deck[-1], controller.deck[-1]
 		pass
 
-class ULD_209:
+class ULD_209:#OK
 	"""Vulpera Scoundrel		3	2	3	Minion	Epic	-	Battlecry
 	&lt;b&gt;Battlecry&lt;/b&gt;: &lt;b&gt;Discover&lt;/b&gt; a spell or pick a mystery choice."""
 	choose = ("ULD_209", "ULD_209t")
@@ -176,17 +176,17 @@ class ULD_209t:
 	Add a random spell to your hand.""" 
 	play = Give(CONTROLLER, RandomSpell())
 
-class ULD_727:#################### bad guy
+class ULD_727:#OK
 	"""Body Wrapper		4	4	4	Minion	Epic	-	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a friendly minion that died this game. Shuffle it into your deck."""
-	play = Shuffle(CONTROLLER, Discover(CONTROLLER, RANDOM(FRIENDLY + KILLED)))
+	play = Choice(CONTROLLER, RANDOM(FRIENDLY + KILLED)*3).then(Shuffle(CONTROLLER, Choice.CARD))
 
-class ULD_275:
+class ULD_275:#OK
 	"""Bone Wraith		4	2	5	Minion	Common	-	Reborn
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Reborn&lt;/b&gt;"""
 	
-class ULD_198:
+class ULD_198:#OK
 	"""Conjured Mirage		4	3	10	Minion	Rare	-	Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;
 	At the start of your turn, shuffle this minion into your deck."""
@@ -196,7 +196,7 @@ class ULD_180:############################################no asleep
 	"""Sunstruck Henchman		4	6	5	Minion	Rare	-	-
 	At the start of your turn, this has a 50% chance to_fall asleep."""
 	#play = OWN_TURN_BEGIN.on(COINFLIP & SetTag(SELF,(GameTag.SLEEP,)))
-	play = OWN_TURN_BEGIN.on(COINFLIP & SetAttr('turns_in_play',0))
+	play = OWN_TURN_BEGIN.on(COINFLIP & SetAttr(SELF, 'turns_in_play',0))
 
 class ULD_703:################## something different
 	"""Desert Obelisk		5	0	5	Minion	Epic	-	-
