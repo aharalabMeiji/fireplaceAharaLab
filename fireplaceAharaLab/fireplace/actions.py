@@ -247,6 +247,7 @@ class BeginTurn(GameAction):
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
 		source._begin_turn(player)
+		player.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
 
 
 class Concede(GameAction):
@@ -1579,7 +1580,7 @@ class Awaken(TargetedAction):
 
 
 
-#######  a h a r a l a b  ############
+#######  aharalab  ############
 #
 class SidequestCounter(TargetedAction):
 	"""
@@ -1834,6 +1835,13 @@ class CastSpellMe(TargetedAction):
 			print("Choosing card %r" % (choice))
 			player.choice.choose(choice)
 		source.game.queue_actions(source, [Deaths()])
+
+class SetAttr(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		if hasattr(source, target):
+			setattr(source,target,amount)
 
 
 ###SCH_714

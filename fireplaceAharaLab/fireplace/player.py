@@ -68,6 +68,7 @@ class Player(Entity, TargetableByAuras):
 		self.times_secret_played_this_game = 0
 		self.times_spell_to_friendly_minion_this_game = 0 ##### aharalab ####### 24.12.2020 ####
 		self.times_card_to_play_out_of_deck = 0 ##### aharalab ####DRG_109### 25.12.2020 ####
+		self.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
 		self.cthun = None
 
 	def __str__(self):

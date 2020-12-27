@@ -351,6 +351,8 @@ class HumanAgent(Agent):
 				print('[%d]'%myCount, end=' ')
 				myCard = myChoice.card
 				print("%s"%myCard, end='  ')
+				if myChoice.card2!=None:
+					print("(%s)"%myChoice.card2, end=' ')
 				if myCard.data.type==CardType.MINION:
 					print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 				elif myCard.data.type==CardType.SPELL:

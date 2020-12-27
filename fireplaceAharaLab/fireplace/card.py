@@ -149,12 +149,12 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
-	cant_be_frozen = boolean_property("cant_be_frozen")########## a h a r a l a b ##################23.12.2020
-	reborn = boolean_property("reborn")############################### a h a r a l a b ##################
-	mark_of_evil = boolean_property("mark_of_evil")############################### a h a r a l a b ##################22.12.2020
-	_tmp_list1_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
-	_tmp_list2_ = []############################### a h a r a l a b ################## SCH_717, DRG_086
-	_tmp_int1_ = 0############################### a h a r a l a b ################## SCH_717, DRG_086
+	cant_be_frozen = boolean_property("cant_be_frozen")########## aharalab ##################23.12.2020
+	reborn = boolean_property("reborn")############################### aharalab ##################
+	mark_of_evil = boolean_property("mark_of_evil")############################### aharalab ##################22.12.2020
+	_tmp_list1_ = []############################### aharalab ################## SCH_717, DRG_086
+	_tmp_list2_ = []############################### aharalab ################## SCH_717, DRG_086
+	_tmp_int1_ = 0############################### aharalab ################## SCH_717, DRG_086
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -708,7 +708,7 @@ class Minion(Character):
 		return super().attackable
 
 	@property
-	def asleep(self):
+	def asleep(self):## need to add something on ULD_180 ##### aharalab
 		return self.zone == Zone.PLAY and not self.turns_in_play and (
 			not self.charge and not self.rush)
 
@@ -800,6 +800,7 @@ class Spell(PlayableCard):
 
 	def play(self, target=None, index=None, choose=None):
 		self.controller.times_spell_played_this_game += 1
+		self.controller.times_spells_played_this_turn += 1 ##### aharalab ####### 27.12.2020 ####
 		if target!=None and target.controller==self.controller: ##### aharalab ####### 24.12.2020 ####
 			self.controller.times_spell_to_friendly_minion_this_game += 1 ##### aharalab ####### 24.12.2020 ####
 		return super().play(target, index, choose)
@@ -1009,7 +1010,7 @@ class HeroPower(PlayableCard):
 		return super().is_playable()
 
 
-	############ a h a r a l a b ################
+	############ aharalab ################
 
 class Sidequest(Spell):
 	_tmp_int1_=0
