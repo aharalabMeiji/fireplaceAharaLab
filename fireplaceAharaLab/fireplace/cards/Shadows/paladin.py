@@ -7,7 +7,10 @@ class DAL_141:#OK
 	"""Desperate Measures,,1,-,-,Spell,Rare,-,Secret,Twinspell
 	&lt;b&gt;Twinspell&lt;/b&gt;
 	Cast a random Paladin &lt;b&gt;Secret&lt;/b&gt;."""
+	play = Summon(CONTROLLER,RandomSpell(secret=True, card_class=CardClass.PALADIN)), Give(CONTROLLER, "DAL_141ts")
+class DAL_141ts:
 	play = Summon(CONTROLLER,RandomSpell(secret=True, card_class=CardClass.PALADIN))
+
 class DAL_570:#OK
 	"""Never Surrender!,,1,-,-,Spell,Common,-,Secret
 	&lt;b&gt;Secret:&lt;/b&gt; When your opponent casts a spell, give your minions +2_Health."""

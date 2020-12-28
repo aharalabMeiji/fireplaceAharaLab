@@ -57,11 +57,11 @@ class DAL_376:### cannot understand "trigger its deathrattle"################
 	trigger its &lt;b&gt;Deathrattle&lt;/b&gt;."""
 	deathrattle = Summon(CONTROLLER, RANDOM(FRIENDLY_HAND + MECH)).then(Deathrattle(Summon.CARD))
 
-class DAL_378:###################################### why it doesnt work?
+class DAL_378:#OK
 	"""Unleash the Beast	Spell	Rare
 	&lt;b&gt;Twinspell&lt;/b&gt;
 	Summon a 5/5 Wyvern with &lt;b&gt;Rush&lt;/b&gt;."""
-	play = Summon(CONTROLLER, "DAL_378t1").on(Give(CONTROLLER, "DAL_378ts"))
+	play = Summon(CONTROLLER, "DAL_378t1"),Give(CONTROLLER, "DAL_378ts")
 class DAL_378t1:
 	""" Wyvern""" 
 	pass

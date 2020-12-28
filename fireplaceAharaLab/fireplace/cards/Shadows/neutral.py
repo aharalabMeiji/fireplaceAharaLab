@@ -166,53 +166,53 @@ class DAL_582t2:
 	pass
 
 #### 20 ####
-class DAL_551:
+class DAL_551:#OK
 	"""Proud Defender,,4,2,6,Minion,Common,-,Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;
 	Has +2 Attack while you [x]have no other minions."""
-	powered_up = -Find(FRIENDLY_MINIONS)
-	update = powered_up & Buff(SELF, "DAL_551e")
-DAL_551e=buff(2,0)
-class DAL_771:
+	powered_up = -Find(FRIENDLY_MINIONS - SELF)
+	update = powered_up & (-Find(FRIENDLY + ID("ULD_179e")) & Buff(SELF, "ULD_179e")) | Destroy(FRIENDLY + ID("ULD_179e"))
+#ULD_179e=buff(2,0)
+class DAL_771:#OK
 	"""Soldier of Fortune,,4,5,6,Minion,Common,Elemental,-
 	Whenever this minion attacks, give your opponent a Coin."""
 	events = Attack(SELF, CHARACTER).on(Give(OPPONENT,"GAME_005"))
-class DAL_078:
+class DAL_078:#OK
 	"""Traveling Healer,,4,3,2,Minion,Common,-,Battlecry,Divine Shield
 	[x]&lt;b&gt;Divine Shield&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Restore #3 Health."""
-	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0}
 	play = Heal(TARGET,3)
-class DAL_095:
+class DAL_095:#OK
 	"""Violet Spellsword,,4,1,6,Minion,Common,-,Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Gain +1 Attack
 	for each spell in your hand."""
-	update = Buff(SELF, "DAL_095e")*Count(FRIENDLY_HAND + SPELL)
+	play = Buff(SELF, "DAL_095e")*Count(FRIENDLY_HAND + SPELL)
 DAL_095e=buff(1,0)
-class DAL_548:
+class DAL_548:#OK
 	"""Azerite Elemental,,5,2,7,Minion,Epic,Elemental,Spell Damage
 	At the start of your turn, gain &lt;b&gt;Spell Damage +2&lt;/b&gt;."""
 	play = OWN_TURN_BEGIN.on(Buff(SELF,"DAL_548e"))
 DAL_548e = buff(spellpower=2)
-class DAL_546:
+class DAL_546:#OK
 	"""Barista Lynchen,,5,4,5,Minion,Legendary,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Add a copy of each of your other &lt;b&gt;Battlecry&lt;/b&gt; minions_to_your_hand."""
 	play = Give(CONTROLLER, Copy(FRIENDLY_MINIONS + BATTLECRY - SELF))
-class DAL_085:
+class DAL_085:#OK
 	"""Dalaran Crusader,,5,5,4,Minion,Common,-,Divine Shield
 	&lt;b&gt;Divine Shield&lt;/b&gt;"""
 	pass
-class DAL_749:
+class DAL_749:#OK
 	"""Recurring Villain,,5,3,6,Minion,Rare,-,Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; If this minion has 4 or more Attack, resummon it."""
 	deathrattle = (ATK(SELF)>3) & Summon(CONTROLLER, ExactCopy(SELF))
-class DAL_539:
+class DAL_539:#OK
 	"""Sunreaver Warmage,,5,4,4,Minion,Rare,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a spell that costs (5) or more, deal 4 damage."""
-	powered_up = Find(FRIENDLY_HAND + SPELL + (COST>=4))
+	powered_up = Find(FRIENDLY_HAND + SPELL + (COST>4))
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }
 	play = powered_up & Hit(TARGET,4) 
-class DAL_566:
+class DAL_566:#OK
 	"""Eccentric Scribe,,6,6,4,Minion,Common,-,Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon
 	four 1/1 Vengeful Scrolls."""

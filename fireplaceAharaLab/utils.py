@@ -115,7 +115,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		'BT_126','BT_850',## neutral-aoo/30
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
 		'ULD_236',## mage-uldum/10
-		'DAL_377','DAL_376','DAL_378',## hunter-shadows/10
+		'DAL_377','DAL_376',## hunter-shadows/10
 		'ULD_185','ULD_178',## neutral-uldum/45
 		'DAL_736',## neutral-shadows/46
 		]
@@ -453,8 +453,8 @@ def PresetHands(player1, player2):
 	#特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
 	#Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'DAL_582').trigger(player1)#target
-	#Give(player1,'DAL_544').trigger(player1)#subtarget
+	Give(player1,'DAL_566').trigger(player1)#target
+	#Give(player1,'DAL_378').trigger(player1)#subtarget
 
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'DAL_587').trigger(player1)#deathrattle
