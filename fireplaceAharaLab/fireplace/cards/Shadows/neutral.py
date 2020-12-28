@@ -87,57 +87,57 @@ class DAL_800:#OK  ##two of five decks was implemented
 			self.controller.card(id, zone=Zone.DECK)
 		self.controller.shuffle_deck()
 #### 10 ####
-class DAL_434:
+class DAL_434:#OK
 	"""Arcane Watcher,,3,5,6,Minion,Rare,-,Spell Damage
 	Can't attack unless you have &lt;b&gt;Spell Damage&lt;/b&gt;."""
-	update = -Find(FRIENDLY_MINIONS + SPELLPOWER) & SetTag(SELF, (GameTag.CANT_ATTACK,))
-class DAL_744:
+	update = -Find(FRIENDLY_MINIONS + SPELLPOWER) & SetTag(SELF, (GameTag.CANT_ATTACK,)) | UnsetTag(SELF, (GameTag.CANT_ATTACK,))
+class DAL_744:#OK
 	"""Faceless Rager,,3,5,1,Minion,Common,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Copy a friendly minion's Health."""
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
-	play = SetCurrentHealth(SELF, Attr(TARGET, GameTag.HEALTH))
+	play = SetMaxHealth(SELF, Attr(TARGET, GameTag.HEALTH))
 class DAL_744e:
 	pass
-class DAL_747:
+class DAL_747:#OK
 	"""Flight Master,,3,3,4,Minion,Common,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 2/2 Gryphon for each player."""
 	play = Summon(CONTROLLER, "DAL_747t"), Summon(OPPONENT, "DAL_747t")
 class DAL_747t:
 	""" Gryphon """
 	pass
-class DAL_090:
+class DAL_090:#OK
 	"""Hench-Clan Sneak,,3,3,3,Minion,Common,-,Stealth
 	&lt;b&gt;Stealth&lt;/b&gt;"""
 	pass
-class DAL_773:
+class DAL_773:#OK
 	"""Magic Carpet,,3,1,6,Minion,Epic,-,Rush
 	After you play a 1-Cost minion, give it +1 Attack and &lt;b&gt;Rush&lt;/b&gt;."""
-	play = Play(CONTROLLER, RandomMinion(cost=1)).after(Buff(Play.CARD, "DAL_773e"))
+	play = Play(CONTROLLER, MINION + (COST == 1)).after(Buff(Play.CARD, "DAL_773e"))
 class DAL_773e:
-	atk=3
-	tags={GameTag.RUSH:True}
-class DAL_081:
+	atk = lambda self, i: i+1
+	tags = {GameTag.RUSH:True}
+class DAL_081:#OK
 	"""Spellward Jeweler,,3,3,4,Minion,Rare,-,Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Your hero can't
 	be targeted by spells or
 	Hero Powers until your
 	next turn."""
-	play = Buff(FRIENDLY_HERO_POWER, "DAL_081e")
+	play = Buff(FRIENDLY_HERO, "DAL_081e")
 class DAL_081e:
-	tags = { GameTag.CANT_BE_TARGETED_BY_SPELLS: True, GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}
-	Events = OWN_TURN_BEGIN.on(Destroy(SELF))
+	tags = { GameTag.CANT_BE_TARGETED_BY_ABILITIES: True, GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}
+	events = OWN_TURN_BEGIN.on(Destroy(SELF))
 class DAL_558:#OK
 	"""Archmage Vargoth,,4,2,6,Minion,Legendary,-,-
 	[x]At the end of your turn, cast
 	a spell you've cast this turn
 	&lt;i&gt;(targets are random)&lt;/i&gt;."""
 	events = OWN_TURN_END.on(DAL558ArchmageVargoth(CONTROLLER))
-class DAL_058:
+class DAL_058:#OK
 	"""Hecklebot,,4,3,8,Minion,Rare,Mech,Battlecry,Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent summons a minion from their deck."""
 	play = Summon(OPPONENT, RANDOM(ENEMY_DECK + MINION))
-class DAL_087:
+class DAL_087:#OK
 	"""Hench-Clan Hag,,4,3,3,Minion,Epic,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Summon two 1/1 Amalgams with all minion types."""
 	play = Summon(CONTROLLER, "DAL_087t")*2
@@ -147,13 +147,13 @@ class DAL_087t:
 	Demon, Murloc, Dragon,
 	Beast, Pirate and Totem.&lt;/i&gt;"""
 
-class DAL_582:
+class DAL_582:#OK
 	"""Portal Keeper,,4,5,2,Minion,Rare,Demon,Battlecry,Rush
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 3 Portals
 	into your deck. When drawn,
 	summon a 2/2 Demon
 	with &lt;b&gt;Rush&lt;/b&gt;."""
-	play = Shuffle(CONTROLLER, "DAL_582t")
+	play = Shuffle(CONTROLLER, "DAL_582t")*3
 class DAL_582t:
 	""" Felhound Portal 
 	&lt;b&gt;Casts When Drawn&lt;/b&gt;

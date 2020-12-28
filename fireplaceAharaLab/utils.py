@@ -452,9 +452,9 @@ from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'DAL_086').trigger(player1)#target
-	#Give(player1,'YOD_043').trigger(player1)#subtarget
+	#Discard(player1.hand[-1]).trigger(player1)
+	Give(player1,'DAL_582').trigger(player1)#target
+	#Give(player1,'DAL_544').trigger(player1)#subtarget
 
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'DAL_587').trigger(player1)#deathrattle
@@ -463,21 +463,21 @@ def PresetHands(player1, player2):
 	#Give(player1,'DRG_057').trigger(player1)#MECH
 	#Give(player1,'CS2_168').trigger(player1)#murloc
 	#Give(player1,'BT_720').trigger(player1)#rush
-	Give(player1,'EX1_609').trigger(player1)#secret
+	#Give(player1,'EX1_609').trigger(player1)#secret
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
 	#Give(player1,'BT_715').trigger(player1)#taunt
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 
 	
-	#Give(player2,'DAL_573').trigger(player2)#enemy
+	#Give(player2,'DAL_090').trigger(player2)#enemy
 	#Give(player2,'ULD_152').trigger(player2)#enemy
 
 	#特定のマナ数から始めたいとき
 	player1.max_mana=10
 	player2.max_mana=10
 	#player2が先手です。
-	#PresetPlay(player2, 'DAL_573')# play
+	#PresetPlay(player2, 'DAL_090')# play
 	#PresetPlay(player2, 'ULD_152')# play
 	#ターン終了、player1のターン
 	player1.game.end_turn()

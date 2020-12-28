@@ -1666,9 +1666,10 @@ class SetCurrentCost(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting current cost on %r to %i", target, amount)
 		target.cost = amount
+
 class SetMaxHealth(TargetedAction):
 	"""
-	Sets the current health of the character target to \a amount.
+	Sets the max health of the character target to \a amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()

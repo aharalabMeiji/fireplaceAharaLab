@@ -318,6 +318,8 @@ class HumanAgent(Agent):
 						print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
+					if character.stealthed:
+						print("(stealthed)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
 					if character.dormant!=0:
