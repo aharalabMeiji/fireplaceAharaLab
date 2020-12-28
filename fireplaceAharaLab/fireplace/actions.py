@@ -248,7 +248,7 @@ class BeginTurn(GameAction):
 		self.broadcast(source, EventListener.ON, player)
 		source._begin_turn(player)
 		player.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
-
+		player.spells_played_this_turn=[] ##### aharalab ####DAL_558### 28.12.2020 ####
 
 class Concede(GameAction):
 	"""
@@ -1976,3 +1976,10 @@ class ULD703DesertObelisk(TargetedAction):
 			enemy=controller.opponent
 			enemy_characters=enemy.characters
 			Hit(random.choice(enemy_characters),5).trigger(source)
+
+class DAL558ArchmageVargoth(TargetedAction):
+	TARGET = ActionArg()#controller
+	def do(self,source,target):
+		if len(target.spells_played_this_turn)>0:
+			card = random.choice(target.spells_played_this_turn)
+			Summon(target,card).trigger(source)

@@ -2,30 +2,31 @@ from ..utils import *
 
 ####### neutral-shadows,,46,,,,,,
 
-class DAL_544:
+class DAL_544:#OK
 	"""Potion Vendor,,1,1,1,Minion,Common,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Restore #2 Health to all friendly characters."""
 	play = Heal(FRIENDLY_CHARACTERS, 2)
-class DAL_077:
+
+class DAL_077:#OK
 	"""Toxfin,,1,1,2,Minion,Common,Murloc,Battlecry,Poisonous
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Murloc &lt;b&gt;Poisonous&lt;/b&gt;."""
-	Play = SetTag(RANDOM(FRIENDLY_MINIONS+MURLOC), (GameTag.POISONOUS, ))
-class DAL_092:
+	play = SetTag(RANDOM(FRIENDLY_MINIONS + MURLOC), (GameTag.POISONOUS,))
+class DAL_092:#OK
 	"""Arcane Servant,,2,2,3,Minion,Common,Elemental,-
 	Vanilla"""
 	pass
-class DAL_735:###################
+class DAL_735:#OK
 	"""Dalaran Librarian,,2,2,3,Minion,Common,-,Battlecry,Silence
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Silence&lt;/b&gt;
 	adjacent minions."""
-	#update = SetTag(SELF_ADJACENT, (GameTag.SILENCE, ))
-class DAL_400:
+	play = Silence(SELF_ADJACENT)
+class DAL_400:#OK
 	"""EVIL Cable Rat,,2,1,1,Minion,Common,Beast,Battlecry,Lackey
 	&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand."""
 	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
 	play = Give(CONTROLLER, RandomEntourage())
-class DAL_743:
+class DAL_743:#OK
 	"""Hench-Clan Hogsteed,,2,2,1,Minion,Common,Beast,Deathrattle,Rush
 	&lt;b&gt;Rush&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 1/1 Murloc."""
@@ -33,23 +34,58 @@ class DAL_743:
 class DAL_743t:
 	""" Hench-Clan Squire """
 	pass
-class DAL_748:
+class DAL_748:#OK
 	"""Mana Reservoir,,2,0,6,Minion,Common,Elemental,Spell Damage
 	&lt;b&gt;Spell Damage +1&lt;/b&gt;"""
 	pass
-class DAL_089:
+class DAL_089:#OK
 	"""Spellbook Binder,,2,3,2,Minion,Common,-,Battlecry,Spell Damage
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you have &lt;b&gt;Spell Damage&lt;/b&gt;, draw a card."""
 	play = Find(FRIENDLY_HAND + SPELLPOWER) & Draw(CONTROLLER)
-class DAL_086:
+class DAL_086:#OK
 	"""Sunreaver Spy,,2,2,3,Minion,Common,-,Battlecry,Secret
 	&lt;b&gt;Battlecry:&lt;/b&gt; If you control a &lt;b&gt;Secret&lt;/b&gt;, gain +1/+1."""
-	play = Find(FRIENDLY_CHARACTERS + SPELL) & Buff(SELF, "DAL_086e")
+	play = Find(FRIENDLY_SECRETS) & Buff(SELF, "DAL_086e")
 DAL_086e=buff(1,1)
-class DAL_800:#############################  pass
+class DAL_800:#OK  ##two of five decks was implemented
 	""""Zayle, Shadow Cloak",,2,3,2,Minion,Legendary,-,-
 	You start the game with one of Zayle's EVIL Decks!"""
-
+	def play(self):
+		#tempo-rogue
+		tempo_rogue = [
+		#2x(0:shadowstep),#2x(0:backstab),#2x(0:Preparation),
+		'EX1_144','EX1_144','CS2_072','CS2_072','EX1_145','EX1_145',
+		#2x(1:Pharaoh Cat),#2x(1:Bloodsail Flybooter),#1x(2:Bloodmage Thalnos),
+		'ULD_186','ULD_186','DRG_035','DRG_035','EX1_012',
+		#2x(2:EVIL Cable Rat),#1x(2:sap),#2x(2:Eviscerate),
+		'DAL_400','DAL_400','EX1_581','EX1_124','EX1_124',
+		#2x(3:SI:7 Agent),#1x(3:Edwin VanCleef),#2x(1:Fan of Knives),
+		'EX1_134','EX1_134','EX1_613','EX1_129','EX1_129',
+		#2x(3:EVIL Miscreant),#2x(4:Waggle Pick),#1x(4:Grand Lackey Erkh),
+		'DAL_415','DAL_415','DAL_720','DAL_720','YOD_035',
+		#2x(4:Hench-Clan Burglar),#1x(6:Flik Skyshiv),#1x(6:Heistbaron Togwaggle),
+		'DAL_416','DAL_416','DRG_037','DAL_417']
+		#silence-priest
+		silence_priest=[
+		#2x(0)<<Silence>>,2x(0)<<Forbidden Words>>,2x(0)<<Whispers of EVIL>>,
+		'EX1_332','EX1_332','DAL_723','DAL_723','DRG_301','DRG_301',
+		#2x(1)<<Beaming Sidekick>>,2x(2)<<Ancient Watcher>>,2x(2)<<Neferset Ritualist>>,
+		'ULD_191','ULD_191','EX1_045','EX1_045','ULD_196','ULD_196',
+		#2x(2)<<Injured Tol'vir>>,2x(2)<<Dalaran Librarian>>,1x(3)<<Madame Lazul>>,
+		'ULD_271','ULD_271','DAL_735','DAL_735','DAL_729',
+		#2x(3)<<Injured Blademaster>>,2x(3)<<Arcane Watcher>>,2x(4)<<Holy Nova>>,
+		'CS2_181','CS2_181','DAL_434','DAL_434','CS1_112','CS1_112',
+		#2x(4)<<Hench-Clan Shadequill>>,2x(4)<<Unsleeping Soul>>,2x(4)<<Psychopomp>>,1x(4)<<High Priest Amet>>,
+		'DAL_040','DAL_040','DAL_065','DAL_065','ULD_268','ULD_268','ULD_262']
+		thisDeck=tempo_rogue
+		if self.controller.hero.card_class == CardClass.PRIEST:
+			thisDeck = silence_priest
+		nn=len(self.controller.deck)
+		for n in range(nn):
+			self.controller.deck[0].discard()
+		for id in thisDeck:
+			self.controller.card(id, zone=Zone.DECK)
+		self.controller.shuffle_deck()
 #### 10 ####
 class DAL_434:
 	"""Arcane Watcher,,3,5,6,Minion,Rare,-,Spell Damage
@@ -90,12 +126,12 @@ class DAL_081:
 class DAL_081e:
 	tags = { GameTag.CANT_BE_TARGETED_BY_SPELLS: True, GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: True}
 	Events = OWN_TURN_BEGIN.on(Destroy(SELF))
-class DAL_558:#####################a spell you've cast this turn#################
+class DAL_558:#OK
 	"""Archmage Vargoth,,4,2,6,Minion,Legendary,-,-
 	[x]At the end of your turn, cast
 	a spell you've cast this turn
 	&lt;i&gt;(targets are random)&lt;/i&gt;."""
-	play = OWN_TURN_END.on(Summon(CONTROLLER, RANDOM(FRIENDLY + SPELL)))
+	events = OWN_TURN_END.on(DAL558ArchmageVargoth(CONTROLLER))
 class DAL_058:
 	"""Hecklebot,,4,3,8,Minion,Rare,Mech,Battlecry,Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;
@@ -118,7 +154,7 @@ class DAL_582:
 	summon a 2/2 Demon
 	with &lt;b&gt;Rush&lt;/b&gt;."""
 	play = Shuffle(CONTROLLER, "DAL_582t")
-class DAL_582t:### Casts When Drawn
+class DAL_582t:
 	""" Felhound Portal 
 	&lt;b&gt;Casts When Drawn&lt;/b&gt;
 	Summon a 2/2 Felhound with &lt;b&gt;Rush&lt;/b&gt;."""
@@ -238,10 +274,13 @@ class DAL_550:
 	"""Underbelly Ooze,,7,3,5,Minion,Rare,-,-
 	After this minion survives damage, summon a copy_of it."""
 	events = Find(SELF + DAMAGED) & Summon(CONTROLLER, Copy(SELF))
-class DAL_592:####################################
+class DAL_592:
 	"""Batterhead,,8,3,12,Minion,Epic,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;. After this attacks and kills a minion, it may_attack again."""
 	#play = Attack(SELF, MINION).after(Death(ENEMY_MINIONS).on(attack_again))
+	events = Attack(SELF, ALL_MINIONS).after(
+		Dead(ALL_MINIONS + Attack.DEFENDER) & ExtraAttack(SELF)
+	)
 #### 40 ####
 class DAL_560:
 	"""Heroic Innkeeper,,8,4,4,Minion,Common,-,Battlecry,Taunt

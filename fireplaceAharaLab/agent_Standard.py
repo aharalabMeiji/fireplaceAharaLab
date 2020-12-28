@@ -306,6 +306,12 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.silenced:
+						print("(silenced)", end=" ")
+					if character.windfury:
+						print("(windfury)", end=" ")
+					if character.poisonous:
+						print("(poisonous)", end=" ")
 					if character.frozen:
 						print("(frozen)", end=" ")
 					if character.reborn:
