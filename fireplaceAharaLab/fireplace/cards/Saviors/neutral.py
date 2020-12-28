@@ -93,7 +93,7 @@ class ULD_182:#OK
 	random friendly minion."""
 	play = OWN_TURN_END.on(Hit(RANDOM(FRIENDLY_MINIONS-SELF), 1))
 
-class ULD_185:#########################################
+class ULD_185:########'while damaged'#####################
 	"""Temple Berserker		2	1	2	Minion	Common	-	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;
 	Has +2 Attack while damaged."""
@@ -192,24 +192,25 @@ class ULD_198:#OK
 	At the start of your turn, shuffle this minion into your deck."""
 	play = OWN_TURN_BEGIN.on(Shuffle(CONTROLLER, SELF))
 
-class ULD_180:############################################no asleep
+class ULD_180:#OK ###1-turn-asleep = dormant###
 	"""Sunstruck Henchman		4	6	5	Minion	Rare	-	-
 	At the start of your turn, this has a 50% chance to_fall asleep."""
 	#play = OWN_TURN_BEGIN.on(COINFLIP & SetTag(SELF,(GameTag.SLEEP,)))
-	play = OWN_TURN_BEGIN.on(COINFLIP & SetAttr(SELF, 'turns_in_play',0))
+	play = OWN_TURN_BEGIN.on(COINFLIP & SetAttr(SELF, 'dormant',2))
 
-class ULD_703:################## something different
+class ULD_703:#OK
 	"""Desert Obelisk		5	0	5	Minion	Epic	-	-
 	[x]If you control 3 of these
 	at the end of your turn,
 	deal 5 damage to a
 	random enemy."""
-	powered_up = Count(FRIENDLY_MINIONS + ID("ULD_703"))==3
-	play = powered_up & Hit(RANDOM(ENEMY_CHARACTERS),5)
+	events = OWN_TURN_END.on(ULD703DesertObelisk(SELF))
+	#powered_up = Count(FRIENDLY_MINIONS + ID("ULD_703"))==3
+	#play = powered_up & Hit(RANDOM(ENEMY_CHARACTERS),5)
 
 ##### 30 #####
 
-class ULD_189:
+class ULD_189:#OK
 	"""Faceless Lurker		5	3	3	Minion	Common	-	Battlecry
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Battlecry:&lt;/b&gt; Double this minion's Health."""
@@ -217,57 +218,59 @@ class ULD_189:
 class ULD_189e:
 	max_health = lambda self, i : i*2
 
-class ULD_702:
+class ULD_702:#OK
 	"""Mortuary Machine		5	8	8	Minion	Epic	Mech	Reborn
 	After your opponent plays a minion, give it &lt;b&gt;Reborn&lt;/b&gt;."""
-	play = Play(OPPONENT,MINION).after(SetTag(SELF,GameTag.REBORN))
+	play = Play(OPPONENT,MINION).after(SetTag(Play.CARD, (GameTag.REBORN, )))
 
-class ULD_179:
+class ULD_179:#OK
 	"""Phalanx Commander		5	4	5	Minion	Common	-	Taunt
 	Your &lt;b&gt;Taunt&lt;/b&gt; minions
 	have +2 Attack."""
-	play = Buff(FRIENDLY + TAUNT,"ULD_179e")
+	play = Buff(FRIENDLY_MINIONS + TAUNT,"ULD_179e")
 ULD_179e=buff(2,0)
 
-class ULD_274:
+class ULD_274:#OK
 	"""Wasteland Assassin		5	4	2	Minion	Common	-	Reborn
 	&lt;b&gt;Stealth&lt;/b&gt;
 	&lt;b&gt;Reborn&lt;/b&gt;"""
 	pass
 
-class ULD_706:
+class ULD_706:#OK
 	"""Blatant Decoy		6	5	5	Minion	Epic	-	Deathrattle
 	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Each player
 	summons the lowest Cost
 	minion from their hand."""
 	deathrattle = Summon(CONTROLLER, RandomMinion(cost= OpAttr(FRIENDLY_HAND+MINION, GameTag.COST, min))), Summon(OPPONENT, RandomMinion(cost= OpAttr(ENEMY_HAND+MINION, GameTag.COST, min)))
-class ULD_208:
+
+class ULD_208:#OK
 	"""Khartut Defender		6	3	4	Minion	Rare	-	Deathrattle
 	[x]&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Reborn&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Restore #3
 	Health to your hero."""
-	play = Heal(FRIENDLY_HERO, 3)
-class ULD_178:###################  will consider later  ( how we do twice?)
+	deathrattle = Heal(FRIENDLY_HERO, 3)
+
+class ULD_178:# OK for once ##################  ( how we do twice?)
 	"""Siamat		7	6	6	Minion	Legendary	Elemental	Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 of &lt;b&gt;Rush&lt;/b&gt;,
 	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Divine Shield&lt;/b&gt;, or
 	&lt;b&gt;Windfury&lt;/b&gt; &lt;i&gt;(your choice).&lt;/i&gt;"""
 	choose = ('ULD_178a', 'ULD_178a2', 'ULD_178a3', 'ULD_178a4')
 class ULD_178a:
-	updage = SetTag(SELF,(GameTag.RUSH,))
+	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.RUSH,))
 class ULD_178a2:
-	updage = SetTag(SELF,(GameTag.TAUNT,))
+	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.TAUNT,))
 class ULD_178a3:
-	updage = SetTag(SELF,(GameTag.DIVINE_SHIELD,))
+	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.DIVINE_SHIELD,))
 class ULD_178a4:
-	updage = SetTag(SELF,(GameTag.WINDFURY,))
+	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.WINDFURY,))
 
-class ULD_194:
+class ULD_194:#OK
 	"""Wasteland Scorpid		7	3	9	Minion	Common	Beast	Poisonous
 	&lt;b&gt;Poisonous&lt;/b&gt;"""
 	pass
 
-class ULD_215:
+class ULD_215:#OK
 	"""Wrapped Golem		7	7	5	Minion	Rare	-	Reborn
 	[x]&lt;b&gt;Reborn&lt;/b&gt;
 	At the end of your turn,
@@ -277,32 +280,32 @@ class ULD_215:
 class ULD_215t:
 	pass
 
-class ULD_177:
+class ULD_177:#OK
 	"""Octosari		8	8	8	Minion	Legendary	Beast	Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Draw 8 cards."""
 	deathrattle = Draw(CONTROLLER) * 8
 
 ##### 40 #####
 
-class ULD_190:
+class ULD_190:#OK
 	"""Pit Crocolisk		8	5	6	Minion	Common	Beast	Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 5 damage."""
 	requirements = { PlayReq.REQ_MINION_OR_ENEMY_HERO:0, PlayReq.REQ_TARGET_TO_PLAY:0}
 	play = Hit(TARGET, 5)
 
-class ULD_183:
+class ULD_183:#OK
 	"""Anubisath Warbringer		9	9	6	Minion	Common	-	Deathrattle
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Give all minions in your hand +3/+3."""
 	deathrattle = Buff(FRIENDLY_HAND + MINION, "ULD_183e")
 ULD_183e = buff(3,3)
 
-class ULD_721:
+class ULD_721:#OK
 	"""Colossus of the Moon		10	10	10	Minion	Legendary	-	Divine Shield
 	&lt;b&gt;Divine Shield&lt;/b&gt;
 	&lt;b&gt;Reborn&lt;/b&gt;"""
 	pass
 
-class ULD_304:
+class ULD_304:#OK
 	"""King Phaoris		10	5	5	Minion	Legendary	-	Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; For each spell
 	in your hand, summon a
@@ -315,7 +318,7 @@ class ULD_304:
 				cost = card.cost
 				Summon(self.controller, RandomMinion(cost=cost)).trigger(self)
 			
-class ULD_193:
+class ULD_193:#OK
 	"""Living Monument		10	10	10	Minion	Common	-	Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;"""
 	pass

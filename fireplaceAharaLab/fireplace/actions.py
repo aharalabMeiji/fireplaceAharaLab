@@ -1766,7 +1766,7 @@ class DestroyArmor(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		target.armor = 0
-		self.broadcast(source, EventListener.ON, target, amount)
+		self.broadcast(source, EventListener.ON, target)
 
 
 class SwapController(TargetedAction):
@@ -1951,7 +1951,7 @@ class DAL731Duel(TargetedAction):
 	"""
 	TARGET = ActionArg()
 	OTHER = ActionArg()
-	def do(self, course, target, other):
+	def do(self, sourse, target, other):
 		if isinstance(other,list):
 			other = other[0]
 		if isinstance(target,list):
@@ -1961,3 +1961,18 @@ class DAL731Duel(TargetedAction):
 		log.info("Duel: %r vs. %r", target, other)
 		Hit(other, target.atk).trigger(target.controller)
 		Hit(target, other.atk).trigger(other.controller)
+
+class ULD703DesertObelisk(TargetedAction):
+	TARGET = ActionArg()
+	def do(self,source,target):
+		controller = target.controller
+		id = target.id
+		field = controller.field
+		count=0
+		for card in field:
+			if card.id==id:
+				count+=1
+		if count >= 3:
+			enemy=controller.opponent
+			enemy_characters=enemy.characters
+			Hit(random.choice(enemy_characters),5).trigger(source)

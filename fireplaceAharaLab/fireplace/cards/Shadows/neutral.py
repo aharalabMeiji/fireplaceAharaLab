@@ -14,11 +14,11 @@ class DAL_092:
 	"""Arcane Servant,,2,2,3,Minion,Common,Elemental,-
 	Vanilla"""
 	pass
-class DAL_735:
+class DAL_735:###################
 	"""Dalaran Librarian,,2,2,3,Minion,Common,-,Battlecry,Silence
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Silence&lt;/b&gt;
 	adjacent minions."""
-	update = SetTag(SELF_ADJACENT, (GameTag.SILENCE, ))
+	#update = SetTag(SELF_ADJACENT, (GameTag.SILENCE, ))
 class DAL_400:
 	"""EVIL Cable Rat,,2,1,1,Minion,Common,Beast,Battlecry,Lackey
 	&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand."""

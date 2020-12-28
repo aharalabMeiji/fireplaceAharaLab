@@ -115,8 +115,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		'BT_126','BT_850',## neutral-aoo/30
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
 		'ULD_236',## mage-uldum/10
-		'DAL_377','DAL_376','DAL_378',## hunter=shadows/10
-		'ULD_185','ULD_180','ULD_703','ULD_178',## neutral-uldum
+		'DAL_377','DAL_376','DAL_378',## hunter-shadows/10
+		'ULD_185','ULD_178',## neutral-uldum
 		## neutral-shadows
 		]
 	# バグ取れた：'CFM_672','BT_490',
@@ -451,7 +451,8 @@ def getTurnLog(gameLog, turnN):
 from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
-	Give(player1,'ULD_180').trigger(player1)#target
+	Discard(player1.hand[-1]).trigger(player1)
+	Give(player1,'ULD_304').trigger(player1)#target
 
 	#Give(player1,'DRG_255').trigger(player1)#sidequest
 	#Give(player1,'SCH_310').trigger(player1)#spellpower
@@ -463,6 +464,7 @@ def PresetHands(player1, player2):
 	#Give(player1,'DRG_107').trigger(player1)#elemental
 	#Give(player1,'BT_720').trigger(player1)#rush
 	#Give(player1,'DAL_587').trigger(player1)#deathrattle
+	#Give(player1,'BT_715').trigger(player1)#taunt
 	
 	#Give(player2,'DAL_573').trigger(player2)#enemy
 	#Give(player2,'ULD_152').trigger(player2)#enemy
