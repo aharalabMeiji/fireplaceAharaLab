@@ -221,22 +221,22 @@ class DAL_566t:
 	""" Vengeful Scroll """
 	pass
 #### 30 ####
-class DAL_751:
+class DAL_751:#OK (not a full version)
 	"""Mad Summoner,,6,4,4,Minion,Rare,Demon,Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Fill each player's
 	board with 1/1 Imps."""
-	play = Summon(CONTROLLER, "DAL_751t")*8, Summon(OPPONENT, "DAL_751t")*8
+	play = Summon(CONTROLLER, "DAL_751t")*5, Summon(OPPONENT, "DAL_751t")*5
 class DAL_751t:
 	""" Imp """
 	pass
-class DAL_565:
+class DAL_565:#OK
 	"""Portal Overfiend,,6,5,6,Minion,Epic,Demon,Battlecry,Rush
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 3 Portals
 	into your deck. When drawn,
 	summon a 2/2 Demon
 	with &lt;b&gt;Rush&lt;/b&gt;."""
 	play = Shuffle(CONTROLLER, "DAL_582t")*3
-class DAL_088:
+class DAL_088:#OK
 	"""Safeguard,,6,4,5,Minion,Common,Mech,Deathrattle,,Taunt
 	[x]&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 0/5
@@ -244,37 +244,38 @@ class DAL_088:
 	deathrattle = Summon(CONTROLLER, "DAL_088t2")
 class DAL_088t2:
 	pass
-class DAL_538:
+class DAL_538:#OK
 	"""Unseen Saboteur,,6,5,6,Minion,Epic,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent casts a random spell from their hand &lt;i&gt;(targets chosen randomly)&lt;/i&gt;."""
 	play = CastSpell(RANDOM(ENEMY_HAND + SPELL))
-class DAL_096:
+class DAL_096:#OK
 	"""Violet Warden,,6,4,7,Minion,Common,-,Spell Damage,Taunt
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Spell Damage +1&lt;/b&gt;"""
 	pass
-class DAL_554:
+class DAL_554:# no way to check!
 	"""Chef Nomi,,7,6,6,Minion,Legendary,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck is empty, summon six 6/6 Greasefire_Elementals."""
-	play = -Find(FRIENDLY_DECK) & Summon(CONTROLLER, "DAL_554t")
+	play = -Find(FRIENDLY_DECK) & Summon(CONTROLLER, "DAL_554t")*6
 class DAL_554t:
 	pass
-class DAL_774:
+class DAL_774:#OK
 	"""Exotic Mountseller,,7,5,8,Minion,Rare,-,-
 	Whenever you cast a spell, summon a random
 	3-Cost Beast."""
-	events = OWN_SPELL_PLAY.on(Summon(RandomBeast(cost=3)))
-class DAL_775:
+	events = OWN_SPELL_PLAY.on(Summon(CONTROLLER, RandomBeast(cost=3)))
+class DAL_775:#OK
 	"""Tunnel Blaster,,7,3,7,Minion,Rare,-,Deathrattle,Taunt
 	[x]&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 3 damage
 	to all minions."""
 	deathrattle = Hit(ALL_MINIONS, 3)
-class DAL_550:
+class DAL_550:#OK
 	"""Underbelly Ooze,,7,3,5,Minion,Rare,-,-
 	After this minion survives damage, summon a copy_of it."""
-	events = Find(SELF + DAMAGED) & Summon(CONTROLLER, Copy(SELF))
-class DAL_592:
+	events = SELF_DAMAGE.on(Summon(CONTROLLER, Copy(SELF)))
+	#play = Find(SELF + EnumSelector(GameTag.DAMAGE)) & Summon(CONTROLLER, Copy(SELF))
+class DAL_592:#OK
 	"""Batterhead,,8,3,12,Minion,Epic,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;. After this attacks and kills a minion, it may_attack again."""
 	#play = Attack(SELF, MINION).after(Death(ENEMY_MINIONS).on(attack_again))

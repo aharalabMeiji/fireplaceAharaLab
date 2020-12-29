@@ -453,7 +453,7 @@ def PresetHands(player1, player2):
 	#特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
 	#Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'DAL_566').trigger(player1)#target
+	Give(player1,'DAL_592').trigger(player1)#target
 	#Give(player1,'DAL_378').trigger(player1)#subtarget
 
 	#Give(player1,'SCH_133').trigger(player1)#beast
