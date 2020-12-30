@@ -107,20 +107,19 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = ['CFM_621','CFM_095','LOE_076',
+	exclude = ['CFM_621','CFM_808'
 		'SCH_199','SCH_259',## neutral-scholo
 		'SCH_610',## hunter-scholo
-		'SCH_270',## mage-scholo
 		'YOD_009',## this is a hero in galakrond
 		'BT_126','BT_850',## neutral-aoo/30
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
 		'ULD_236',## mage-uldum/10
 		'DAL_377','DAL_376',## hunter-shadows/10
 		'ULD_185','ULD_178',## neutral-uldum/45
-		'DAL_736',## neutral-shadows/46
+		'DRG_062'
 		]
 	# バグ取れた：'CFM_672','BT_490',
-	# 'LOE_076' : Sir Finley Mrrgglton
+	# 'LOE_076','CFM_095' フツウに動きます
 	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。→フツウに動きます
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
@@ -140,7 +139,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	PresetHands(player1, player2)
+	#PresetHands(player1, player2)
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -158,6 +157,9 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
+				print("")
+				print(">>>>>>>>>>turn change")
+				print("")
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
@@ -277,7 +279,9 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
-		print("%s %s"%(player,str(action)))
+		print("")
+		print(">>>>>>>>>>>%s %s"%(player,str(action)))
+		print("")
 	theCard=theTarget=theCard2=None
 	#print(id(action.card.game))
 	#print(id(mygame))
@@ -448,13 +452,12 @@ def getTurnLog(gameLog, turnN):
 	return ret
 
 
-from fireplace.dsl.selector import *
+#from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
 	#特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
-	#Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'DAL_592').trigger(player1)#target
-	#Give(player1,'DAL_378').trigger(player1)#subtarget
+	Give(player1,'SCH_160').trigger(player1)#target
+	#Give(player1,'SCH_600').trigger(player1)#subtarget
 
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'DAL_587').trigger(player1)#deathrattle
@@ -475,15 +478,17 @@ def PresetHands(player1, player2):
 
 	#特定のマナ数から始めたいとき
 	player1.max_mana=10
-	player2.max_mana=10
-	#player2が先手です。
+	player2.max_mana=1
+	#先手後手を指定したいときにはgame.pyのコイントスのところを変えること。もしくはこう
+	if player2==player2.game.current_player:
+		player2.game.end_turn()
 	#PresetPlay(player2, 'DAL_090')# play
 	#PresetPlay(player2, 'ULD_152')# play
 	#ターン終了、player1のターン
-	player1.game.end_turn()
-	#PresetPlay(player1, 'ULD_723')
-	#PresetPlay(player1, 'YOD_004')
+	#player1.game.end_turn()
 
+
+	pass
 def PresetPlay(player, cardID):
 	for card in player.hand:
 		if card.id == cardID and card.is_playable():

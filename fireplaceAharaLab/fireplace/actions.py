@@ -1657,16 +1657,6 @@ class SidequestManaCounter(TargetedAction):
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
 
-#class SetCurrentCost(TargetedAction):
-#	"""
-#	Sets the current health of the character target to \a amount.
-#	"""
-#	TARGET = ActionArg()
-#	AMOUNT = IntArg()
-#	def do(self, source, target, amount):
-#		log.info("Setting current cost on %r to %i", target, amount)
-#		target.cost = amount
-
 class SetMaxHealth(TargetedAction):
 	"""
 	Sets the max health of the character target to \a amount.

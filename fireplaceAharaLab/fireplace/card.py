@@ -105,7 +105,8 @@ class BaseCard(BaseEntity):
 			Zone.SETASIDE: self.game.setaside,
 		}
 		if caches.get(old) is not None:
-			caches[old].remove(self)
+			if self in caches[old]:########## added by aharalab. 30.12.2020 ####### I dont see why we need this line .
+				caches[old].remove(self)
 		if caches.get(value) is not None:
 			if hasattr(self, "_summon_index") and self._summon_index is not None:
 				caches[value].insert(self._summon_index, self)

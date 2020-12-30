@@ -53,8 +53,9 @@ class YOD_007:#OK
 		current_turn = self.controller.game.turn
 		for candidate in self.controller.game.__myLog__:
 			if candidate.turn == current_turn-2: #it is my last turn
-				if candidate.card.race == Race.ELEMENTAL:
-					Summon(self.controller, candidate.card.id).trigger(self)
+				if hasattr(candidate.card, 'race'):
+					if candidate.card.race == Race.ELEMENTAL:
+						Summon(self.controller, candidate.card.id).trigger(self)
 		pass
 
 ## hero
@@ -100,7 +101,7 @@ class YOD_032e:
 class YOD_035:#OK
 	"""Grand Lackey Erkh
 	After you play a &lt;b&gt;Lackey&lt;/b&gt;, add a &lt;b&gt;Lackey&lt;/b&gt; to your hand."""
-	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
+	entourage = ["DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
 	play = Play(CONTROLLER, EnumSelector(GameTag.MARK_OF_EVIL)).after(Give(CONTROLLER, RandomEntourage()))
 class YOD_038:#OK

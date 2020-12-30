@@ -21,13 +21,17 @@ class SCH_310:#OK
 	#&lt;b&gt;Spell Damage +1&lt;/b&gt;
 	pass
 
-class SCH_270:###################################################### no work
+class SCH_270:#OK
 	"""Primordial Studies	Common"""
 	#&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spell Damage&lt;/b&gt; minion. Your next one costs (1) less.
-	play = DISCOVER(RANDOM(MINION + (AttrValue(GameTag.SPELLPOWER)==1))).after(Buff(SELF, "SCH_270e"))
+	play = Choice(CONTROLLER, RandomMinion(spellpower=[1,2])*3).then(
+		Give(CONTROLLER, Choice.CARD).then(
+			Buff(CONTROLLER, "SCH_270e")
+			)
+		) 
 class SCH_270e:
-	play = Buff(FRIENDLY_MINIONS + (SPELLPOWER==1), "SCH_270e2")
-	events = Play(CONTROLLER, FRIENDLY_MINIONS+(SPELLPOWER==1)).on(Destroy(SELF))
+	update = Refresh(SPELLPOWER, {GameTag.COST: -1})#OK
+	events = Play(CONTROLLER, SPELLPOWER).on(Destroy(SELF))#OK
 SCH_270e2 = buff(cost=-1)	
 class SCH_350:#OK
 	"""Wand Thief	Common"""

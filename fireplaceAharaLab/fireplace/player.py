@@ -233,7 +233,8 @@ class Player(Entity, TargetableByAuras):
 			used_temp = min(self.temp_mana, amount)
 			amount -= used_temp
 			self.temp_mana -= used_temp
-		self.log("%s pays %i mana", self, amount)
+		#self.log("%s pays %i mana", self, amount)
+		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) ############### aharalab ############
 		self.used_mana += amount
 		return amount
 

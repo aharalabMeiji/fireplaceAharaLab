@@ -143,8 +143,8 @@ class BT_160:#OK
 	Summon a 1/1 Demon.&quot;"""
 	play = Buff( FRIENDLY_MINIONS - SELF, "BT_160e")
 class BT_160e:
-   tags = {GameTag.DEATHRATTLE: True} 
    deathrattle = Summon(CONTROLLER, "BT_160t")
+   tags = {GameTag.DEATHRATTLE: True}
 class BT_160t:
 
 	"""Rusted Devil"""

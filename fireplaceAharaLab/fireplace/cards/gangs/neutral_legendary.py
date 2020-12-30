@@ -85,7 +85,7 @@ class CFM_807:
 
 class CFM_808:
 	"""Genzo, the Shark"""
-	events = Attack(SELF).on(DrawUntil(EndTurn.PLAYER, 3))
+	events = Attack(SELF).on(DrawUntil(ALL_PLAYERS, 3))##  fixing by aharalab 30.12.2020 ###
 
 
 class CFM_902:

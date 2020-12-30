@@ -48,8 +48,7 @@ class SCH_162:#done
 		)
 	) *2
 	pass
-class SCH_162e:
-	tags = {GameTag.DEATHRATTLE: True}
+SCH_162e = buff(deathrattle=True)
 	# Experimental Plague
 	# Copied Deathrattle from {0}
 class SCH_162t:
@@ -87,7 +86,7 @@ class SCH_199t19:
 	#Rise of Shadows, Standard######################### no-checked
 	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand.
 	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
-	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
+	   "DAL_741", "DRG_052" ,"ULD_616"]
 	play = Draw(CONTROLLER, RandomEntourage())
 	pass
 class SCH_199t20:
@@ -184,7 +183,10 @@ class SCH_259:################################################### impossible
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
 	#??????????????????????????????????????????????
-	events = Draw(CONTROLLER).on(GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"]))
+	#choose = ('SCH_259', 'SCH_259t')
+	#events = OWN_TURN_BEGIN.on(
+	#		Draw(CONTROLLER).on(GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"]))
+	#	)
 	pass
 class SCH_259t:
 	"""	A New Fate """

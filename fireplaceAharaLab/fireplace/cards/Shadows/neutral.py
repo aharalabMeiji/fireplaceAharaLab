@@ -23,8 +23,8 @@ class DAL_735:#OK
 class DAL_400:#OK
 	"""EVIL Cable Rat,,2,1,1,Minion,Common,Beast,Battlecry,Lackey
 	&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand."""
-	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
-	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
+	entourage = ["DAL_613", "DAL_614", "DAL_615", "DAL_739",\
+	   "DAL_741", "DRG_052" ,"ULD_616"]
 	play = Give(CONTROLLER, RandomEntourage())
 class DAL_743:#OK
 	"""Hench-Clan Hogsteed,,2,2,1,Minion,Common,Beast,Deathrattle,Rush
@@ -221,11 +221,17 @@ class DAL_566t:
 	""" Vengeful Scroll """
 	pass
 #### 30 ####
-class DAL_751:#OK (not a full version)
+class DAL_751:#OK
 	"""Mad Summoner,,6,4,4,Minion,Rare,Demon,Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Fill each player's
 	board with 1/1 Imps."""
-	play = Summon(CONTROLLER, "DAL_751t")*5, Summon(OPPONENT, "DAL_751t")*5
+	def play(self):
+		controller = self.controller
+		for repeat in range(controller.game.MAX_MINIONS_ON_FIELD - len(controller.field)):
+		   Summon(controller, "DAL_751t").trigger(controller)
+		opponent = controller.opponent
+		for repeat in range(opponent.game.MAX_MINIONS_ON_FIELD - len(opponent.field)):
+		   Summon(opponent, "DAL_751t").trigger(opponent)
 class DAL_751t:
 	""" Imp """
 	pass
@@ -283,43 +289,46 @@ class DAL_592:#OK
 		Dead(ALL_MINIONS + Attack.DEFENDER) & ExtraAttack(SELF)
 	)
 #### 40 ####
-class DAL_560:
+class DAL_560:#OK
 	"""Heroic Innkeeper,,8,4,4,Minion,Common,-,Battlecry,Taunt
 	&lt;b&gt;Taunt.&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Gain +2/+2 for each other friendly minion."""
-	play = Buff(FRIENDLY_MINIONS - SELF, "DAL_560e")
-DAL_560e = buff(2,2)
-class DAL_752:
+	play = Buff(FRIENDLY_MINIONS - SELF, "DAL_560e2")
+DAL_560e2 = buff(2,2)
+class DAL_752:#OK
 	"""Jepetto Joybuzz,,8,6,6,Minion,Legendary,-,Battlecry
 	&lt;b&gt;Battlecry:&lt;/b&gt; Draw 2 minions from your deck. Set their Attack, Health, and Cost to 1."""
-	play = Buff(RANDOM(FRIENDLY_DECK + MINION), "DAL_752e").then(ForceDraw(CONTROLLER, Buff.TARGET)) * 2
+	play = Buff(RANDOM(FRIENDLY_DECK + MINION), "DAL_752e").then(ForceDraw(Buff.TARGET)) * 2
 class DAL_752e:
 	atk=SET(1)
 	max_health=SET(1)
 	cost=SET(1)
-class DAL_742:
+class DAL_742:#OK
 	"""Whirlwind Tempest,,8,6,6,Minion,Epic,Elemental,Mega-Windfury,Windfury
 	Your minions with &lt;b&gt;Windfury&lt;/b&gt; have &lt;b&gt;Mega-Windfury&lt;/b&gt;."""
 	# SetTag(TARGET, {GameTag.WINDFURY: 3})
 	play = SetTag(FRIENDLY_MINIONS + WINDFURY, {GameTag.WINDFURY: 3})
-class DAL_736:##############################################
+class DAL_736:## simulator ##OK
 	"""Archivist Elysiana,,9,7,7,Minion,Legendary,-,Battlecry,Discover
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; 5 cards. Replace your deck with 2_copies of each."""
-	#def play(self):
-	#	new_deck = []
-	#	for n in range(5):
-	#		new_card=Discover(self.controller, ????)
-	#		if isinstance(new_card,list):
-	#			new_card = new_card[0]
-	#		if isinstance(new_card,list):
-	#			new_card = new_card[0]
-	#		new_deck.append(new_card)
-	#		new_deck.append(new_card)
-	#	self.controller.deck = new_deck
-class DAL_760:
+	def play(self):
+		new_deck = []
+		for n in range(5):
+			choice = RandomCollectible().evaluate(self)
+			id = choice[0].id
+			new_deck.append(id)
+			new_deck.append(id)
+		nn=len(self.controller.deck)
+		for n in range(nn):
+			self.controller.deck[0].discard()
+		for id in new_deck:
+			self.controller.card(id, zone=Zone.DECK)
+		self.controller.shuffle_deck()
+
+class DAL_760:#OK
 	"""Burly Shovelfist,,9,9,9,Minion,Common,-,Rush
 	&lt;b&gt;Rush&lt;/b&gt;"""
 	pass
-class DAL_553:
+class DAL_553:#OK
 	"""Big Bad Archmage,,10,6,6,Minion,Epic,-,-
 	At the end of your turn, summon a random
 	6-Cost minion."""

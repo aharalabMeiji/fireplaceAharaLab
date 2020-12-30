@@ -155,7 +155,7 @@ class ULD_250:#OK
 	"""Infested Goblin		3	2	3	Minion	Rare	-	Deathrattle
 	&lt;b&gt;Taunt&lt;/b&gt;
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add two 1/1 Scarabs with &lt;b&gt;Taunt&lt;/b&gt; to your hand."""
-	deathrattle = Give(CONTROLLER, "LOE_009t")*2
+	deathrattle = Give(CONTROLLER, "ULD_215t")*2
 
 class ULD_229:#OK
 	"""Mischief Maker		3	3	3	Minion	Epic	-	Battlecry
