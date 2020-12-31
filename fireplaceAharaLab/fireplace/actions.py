@@ -1836,6 +1836,26 @@ class SetAttr(TargetedAction):
 			setattr(target, attr, amount)
 
 
+class BuffOnce(TargetedAction):
+	"""
+
+	"""
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		targets = target
+		if not isinstance(target, list):
+			targets = [targets]
+		for card in targets:
+			omit=False
+			for hisBuff in card.buffs:
+				if hisBuff == buff:
+					omit=True
+					break;
+			if not omit:
+				Buff(card, buff).trigger(source)
+		pass
+
 ###SCH_714
 class EducatedElekkMemory(TargetedAction):
 	""" Educated Elekk (epic)"""
@@ -1974,3 +1994,28 @@ class DAL558ArchmageVargoth(TargetedAction):
 		if len(target.spells_played_this_turn)>0:
 			card = random.choice(target.spells_played_this_turn)
 			Summon(target,card).trigger(source)
+
+class BT126TeronGorefiend(TargetedAction):
+	"""Teron Gorefiend	Minion	Legendary
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Destroy all
+	other friendly minions."""
+	TARGET = ActionArg()#card
+	def do(self,source,target):#
+		target._tmp_list1_=[]
+		for n in range(len(target.controller.field)):
+			card = target.controller.field[0]
+			if card.id != 'BT_126':
+				card.zone = Zone.SETASIDE
+				target._tmp_list1_.append(card)
+		pass
+class BT126TeronGorefiendDeathrattle(TargetedAction):
+	"""Teron Gorefiend	Minion	Legendary
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Resummon
+	them with +1/+1."""
+	TARGET = ActionArg()#card
+	def do(self,source,target):
+		for card in target._tmp_list1_:
+			card.zone = Zone.PLAY
+			Buff(card, "BT_126e2").trigger(source)
+		pass
+

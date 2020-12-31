@@ -58,7 +58,7 @@ class DRG_062:#OK
 	Neutral cards in your deck
 	into random cards from
 	your class."""
-	play = Morph(IN_DECK+EnumSelector(CardClass.NEUTRAL),RandomCard(card_class=Attr(FRIENDLY_HERO, GameTag.CLASS)))
+	play = Morph(IN_DECK+FRIENDLY+EnumSelector(CardClass.NEUTRAL),RandomCard(card_class=Attr(FRIENDLY_HERO, GameTag.CLASS)))
 
 #### 10 ####
 

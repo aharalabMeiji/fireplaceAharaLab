@@ -56,67 +56,72 @@ class SCH_162t:
 	# Vanilla
 	pass
 
-class SCH_199:#????????????????????????????????????????????? maybe impossible in fireplace?
+class SCH_199:###how we execute 'battlecry'?####
 	""" Transfer Student (Epic)"""
 	#This has different effects based on which game board you're on.
-	pass
+	def play(self):
+		yield Morph(self, self.controller.game.__stage_choice__)
+		pass
 class SCH_199t:
-	#Stormwind,　Standard
-	#Divine Shield 
+	"""Stormwind,　Standard
+	#Divine Shield"""  
 	pass
-class SCH_199t2:
-	# Orgrimmar, Standard######################### no-checked
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Deal 2 damage.
+class SCH_199t2:#OK
+	""" Orgrimmar, Standard
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Deal 2 damage."""
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
 	play = Hit(TARGET,2)
 	pass
-class SCH_199t3:
-	#Pandaria, Standard######################### no-checked
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly minion +1/+2.
-	play = Buff(FRIENDLY_MINIONS,"SCH_199t3e")
+class SCH_199t3:#OK
+	"""Pandaria, Standard#
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly minion +1/+2."""
+	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0,
+				 PlayReq.REQ_MINION_TARGET:0,
+			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
+	play = Buff(TARGET,"SCH_199t3e")
 	pass
 SCH_199t3e=buff(1,2)
 #Mark of the Pandaren
-class SCH_199t4:
-	#Stranglethorn, Standard######################### no-checked
-	#&lt;b&gt;Stealth&lt;/b&gt; &lt;b&gt;Poisonous&lt;/b&gt;
+class SCH_199t4:#OK
+	"""Stranglethorn, Standard
+	#&lt;b&gt;Stealth&lt;/b&gt; &lt;b&gt;Poisonous&lt;/b&gt;"""
 	pass
-class SCH_199t19:
-	#Rise of Shadows, Standard######################### no-checked
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand.
+class SCH_199t19:#OK
+	"""Rise of Shadows, Standard
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand."""
 	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"ULD_616"]
 	play = Draw(CONTROLLER, RandomEntourage())
 	pass
-class SCH_199t20:
-	#Saviors of Uldum,　Standard
-	#Reborn
+class SCH_199t20:#OK
+	"""Saviors of Uldum,　Standard
+	#Reborn"""
 	pass
-class SCH_199t21:################################################### no checked
-	# Descent of Dragons Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon.
+class SCH_199t21:#OK
+	""" Descent of Dragons Standard
+	#&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
 	play = DISCOVER(RandomDragon())
 	pass
-class SCH_199t22:################################################### no checked
-	#Ashes of Outland, Standard
-	##&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. When this awakens, deal 3 damage to two random enemy minions.
+class SCH_199t22:#OK
+	"""Ashes of Outland, Standard
+	##&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. When this awakens, deal 3 damage to two random enemy minions."""
 	dormant = 2
-	awaken = Hit(RANDOM_ENEMY_MINION,3) * 2
+	awaken = Hit(RANDOM_ENEMY_MINION * 2, 3)
 	pass
 class SCH_199t23:
-	#Scholomance Academy, Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a Dual Class card to your hand.
-	# dual class card <=> hasattr(self, "multi_class_group")==True
-	#play = ForceDraw(RANDOM_MULTI_CLASS_GROUP) 
+	"""Scholomance Academy, Standard
+	&lt;b&gt;Battlecry:&lt;/b&gt; Add a Dual Class card to your hand.
+	 dual class card <=> hasattr(self, "multi_class_group")==True"""
+	#play = ForceDraw(RANDOM_MULTI_CLASS_GROUP)
 	pass
-class SCH_199t25:
-	#Saviors of Uldum, Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Add an &lt;b&gt;Uldum&lt;/b&gt; Plague spell to your hand.
+class SCH_199t25:#OK
+	""""Saviors of Uldum, Standard
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Add an &lt;b&gt;Uldum&lt;/b&gt; Plague spell to your hand."""
 	pass
 class SCH_199t26:################################################### no checked
-	#Madness at the Darkmoon Faire, Standard
-	#&lt;b&gt;Corrupt:&lt;/b&gt; Gain +2/+2.
+	"""Madness at the Darkmoon Faire, Standard
+	#&lt;b&gt;Corrupt:&lt;/b&gt; Gain +2/+2."""
 	play = Buff(CONTROLLER, "SCH_199t26")
 	pass
 SCH_199t26t = buff(2,2)
@@ -183,14 +188,16 @@ class SCH_259:################################################### impossible
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
 	#??????????????????????????????????????????????
-	#choose = ('SCH_259', 'SCH_259t')
-	#events = OWN_TURN_BEGIN.on(
-	#		Draw(CONTROLLER).on(GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"]))
+	#choose = ('SCH_259', 'SCH_259t')  ## useless 
+	#play = OWN_TURN_BEGIN.on(
+	#	
+	#	Draw(CONTROLLER).on(GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"]))
 	#	)
 	pass
 class SCH_259t:
 	"""	A New Fate """
 	#Draw a different card.
+
 
 class SCH_283:#OK
 	""" Manafeeder Panthara"""

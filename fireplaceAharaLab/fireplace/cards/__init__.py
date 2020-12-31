@@ -99,13 +99,17 @@ class CardDB(dict):
 		for id, card in db.items():
 			#### ristrict cards to standard cards ##  aharalab ##
 			## exclude [15,21,25,1453,1466]
+			yes = False
 			if card.card_set in [2,3,4,17,18,1130,1158,1347,1403,1414,1443]:
-				self[id] = self.merge(id, card)
+				yes = True
 			elif card.id in ['OG_280']:#C'Thun
-				self[id] = self.merge(id, card)
-			elif card.card_set==15:
+				yes = True
+			elif card.card_set==15:#Some extended hero powers
 				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt"]:
-					self[id] = self.merge(id, card)
+					yes = True
+			if yes:
+				self[id] = self.merge(id, card)
+			## end ###
 		log.info("Merged %i cards", len(self))
 
 	def filter(self, **kwargs):

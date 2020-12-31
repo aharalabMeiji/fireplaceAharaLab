@@ -62,7 +62,7 @@ class ULD_238:#OK
 	powered_up = -FindDuplicates(FRIENDLY_DECK)
 	play = powered_up & Hit(RANDOM(ENEMY_MINIONS),1)*10
 
-class ULD_236:#OK  #### maybe OK.
+class ULD_236:#OK 
 	"""Tortollan Pilgrim,,8,5,5,Minion,Epic,-,Battlecry
 	[x]&lt;b&gt;Battlecry&lt;/b&gt;: &lt;b&gt;Discover&lt;/b&gt; a spell
 	in your deck and cast it

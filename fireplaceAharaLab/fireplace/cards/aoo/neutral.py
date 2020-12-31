@@ -73,14 +73,14 @@ class BT_730:
 	While at full Health,
 	this has +2 Attack."""
 	#events = -Damage(SELF).on()
-class BT_126:####################################################
+class BT_126:#OK
 	"""Teron Gorefiend	Minion	Legendary
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Destroy all
 	other friendly minions.
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Resummon
 	them with +1/+1."""
-	play = Destroy(FRIENDLY_MINIONS - SELF)
-	deathrattle = Summon(CONTROLLER, Copy(Destroy.TARGET)).after(Summon.CARD, "BT_126e2")
+	play = BT126TeronGorefiend(SELF)
+	deathrattle = BT126TeronGorefiendDeathrattle(SELF)
 	#deathrattle = Buff(Summon(CONTROLLER, Copy(Destroy.TARGET)),"BT_126e2")
 #BT_126e = buff(0,0)
 #"""Shadowy Construct"""
@@ -111,7 +111,7 @@ class BT_010:#OK
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give your other Murlocs +1/+1."""
 	play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, "BT_010e")
 BT_010e = buff(1,1)
-class BT_850:##################################################
+class BT_850:#OK
 	"""Magtheridon	Minion	Legendary
 	[x]&lt;b&gt;Dormant&lt;/b&gt;. &lt;b&gt;Battlecry:&lt;/b&gt; Summon
 	three 1/3 enemy Warders.
@@ -120,7 +120,7 @@ class BT_850:##################################################
 	dormant = -1 #infinite dormant
 	play = Buff(SELF, "BT_850e"), Summon(OPPONENT, "BT_850t") * 3
 class BT_850e:
-	events = Death(ENEMY+ID("BT_850t")).on(SidequestCounter(OWNER,1,[Awaken(OWNER)]))
+	events = Death(ENEMY+ID("BT_850t")).on(SidequestCounter(OWNER,3,[Destroy(ALL_MINIONS - OWNER), SetAttr(OWNER, 'dormant',0), Awaken(OWNER),Destroy(SELF)]))
 	pass
 class BT_850t:
 	""" Hellfire Warder """

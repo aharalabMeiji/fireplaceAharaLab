@@ -107,16 +107,11 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = ['CFM_621','CFM_808'
+	exclude = [
 		'SCH_199','SCH_259',## neutral-scholo
-		'SCH_610',## hunter-scholo
 		'YOD_009',## this is a hero in galakrond
-		'BT_126','BT_850',## neutral-aoo/30
-		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45
-		'ULD_236',## mage-uldum/10
-		'DAL_377','DAL_376',## hunter-shadows/10
-		'ULD_185','ULD_178',## neutral-uldum/45
-		'DRG_062'
+		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+		'ULD_178',## neutral-uldum/45
 		]
 	# バグ取れた：'CFM_672','BT_490',
 	# 'LOE_076','CFM_095' フツウに動きます
@@ -132,28 +127,31 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	game.start()
 
 	for player in game.players:
-		#mulliganの試合前処理（デッキは撹拌される）
+		#mulligan shuffling
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	#PresetHands(player1, player2)
+	#PresetHands(player1, player2)##starting from the specific hands or fields
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
 		if player.name==P1.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
+			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
 			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
+			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
 			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
-			Original_random(game)#公式のランダム
+			Original_random(game)#random player by fireplace
 		#ターンエンドの処理ここから
+		#turn end procedure from here
 		if player.choice!=None:
-			player.choice=None#論理的にはおこらないが、agentのミスによりときどきおこる
+			player.choice=None#somotimes it comes here
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
@@ -163,15 +161,17 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
+		#if game was over 
 		if game.state==State.COMPLETE:
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
 				return game.current_player.opponent.name
-			return 'DRAW'#まず起こらないが、ねんのため。
+			return 'DRAW'#Maybe impossible to come here.
 
 def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True):
-	""" 決まった回数の試合を行い、勝敗数を表示する """
+	""" 決まった回数の試合を行い、勝敗数を表示する 
+	"""
 	if debugLog:
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 	Count1 = 0
@@ -189,7 +189,8 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
 
 class Candidate(object):
-	"""　アクションの候補手のクラス　"""
+	"""　アクションの候補手のクラス　
+	"""
 	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
 		#super(myAction, self).__init__()
 		self.turn=turn
@@ -212,10 +213,13 @@ class Candidate(object):
 		self.score = 0
 
 class GameWithLog(Game):
-	""" ゲーム進行のログを管理する  """
+	""" game with logs  """
 	def __init__(self, players):
 		super().__init__(players=players)
 		self.__myLog__=[]
+		self.__stage_choice__=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
+			'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
+			'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
 	def add_log(self, choice: Candidate):
 		self.__myLog__.append(choice)
 	def get_log(self):
@@ -452,13 +456,11 @@ def getTurnLog(gameLog, turnN):
 	return ret
 
 
-#from fireplace.dsl.selector import *
 def PresetHands(player1, player2): 
-	#特定のカードを引かせたい場合。
+	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'SCH_160').trigger(player1)#target
-	#Give(player1,'SCH_600').trigger(player1)#subtarget
-
+	Give(player1,'ULD_178').trigger(player1)#target
+	#Give(player1,'DAL_604').trigger(player1)#subtarget
 	#Give(player1,'SCH_133').trigger(player1)#beast
 	#Give(player1,'DAL_587').trigger(player1)#deathrattle
 	#Give(player1,'SCH_232').trigger(player1)#DRAGON
@@ -472,23 +474,25 @@ def PresetHands(player1, player2):
 	#Give(player1,'BT_715').trigger(player1)#taunt
 	#Give(player1,'SCH_301').trigger(player1)#weapon
 
-	
 	#Give(player2,'DAL_090').trigger(player2)#enemy
 	#Give(player2,'ULD_152').trigger(player2)#enemy
 
-	#特定のマナ数から始めたいとき
+	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
 	player1.max_mana=10
 	player2.max_mana=1
-	#先手後手を指定したいときにはgame.pyのコイントスのところを変えること。もしくはこう
-	if player2==player2.game.current_player:
-		player2.game.end_turn()
+
+	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play
 	#PresetPlay(player2, 'ULD_152')# play
-	#ターン終了、player1のターン
+
+	#force-pass of player2,
+	if player2==player2.game.current_player:
+		player2.game.end_turn()
+
+	#force turn end of player1
 	#player1.game.end_turn()
-
-
 	pass
+
 def PresetPlay(player, cardID):
 	for card in player.hand:
 		if card.id == cardID and card.is_playable():

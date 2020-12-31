@@ -97,7 +97,7 @@ class ULD_185:########'while damaged'#####################
 	"""Temple Berserker		2	1	2	Minion	Common	-	Reborn
 	&lt;b&gt;Reborn&lt;/b&gt;
 	Has +2 Attack while damaged."""
-	#play = Find(SELF + DAMAGED) & Buff(SELF, "ULD_185e")
+	update = Find(SELF + DAMAGED) & BuffOnce(SELF, "ULD_185e")
 ULD_185e = buff(2,0)
 
 class ULD_450:#OK
@@ -250,20 +250,22 @@ class ULD_208:#OK
 	Health to your hero."""
 	deathrattle = Heal(FRIENDLY_HERO, 3)
 
-class ULD_178:# OK for once ##################  ( how we do twice?)
+class ULD_178:# OK for once ##################  ( how we do twice? )
 	"""Siamat		7	6	6	Minion	Legendary	Elemental	Battlecry
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 of &lt;b&gt;Rush&lt;/b&gt;,
 	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Divine Shield&lt;/b&gt;, or
 	&lt;b&gt;Windfury&lt;/b&gt; &lt;i&gt;(your choice).&lt;/i&gt;"""
-	choose = ('ULD_178a', 'ULD_178a2', 'ULD_178a3', 'ULD_178a4')
+	#entourage = ['ULD_178a', 'ULD_178a2', 'ULD_178a3', 'ULD_178a4']
+	#play = Choice(CONTROLLER, entourage).then(Buff(SELF, Choice.CARD))
+
 class ULD_178a:
-	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.RUSH,))
+	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.RUSH:True})
 class ULD_178a2:
-	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.TAUNT,))
+	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.TAUNT:True})
 class ULD_178a3:
-	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.DIVINE_SHIELD,))
+	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.DIVINE_SHIELD:True})
 class ULD_178a4:
-	play = SetTag(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),(GameTag.WINDFURY,))
+	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.WINDFURY:True})
 
 class ULD_194:#OK
 	"""Wasteland Scorpid		7	3	9	Minion	Common	Beast	Poisonous

@@ -20,10 +20,15 @@ class DAL_587:#OK
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Add a random Hunter spell to your hand."""
 	deathrattle = Give(CONTROLLER, RandomSpell(card_class=CardClass.HUNTER))
 
-class DAL_377:##### Discover -> Give ###################################no work
+class DAL_377:#OK
 	"""Nine Lives	Spell	Epic	
-	&lt;b&gt;Discover&lt;/b&gt; a friendly &lt;b&gt;Deathrattle&lt;/b&gt; minion that died this game. Also trigger its &lt;b&gt;Deathrattle&lt;/b&gt;."""
-	play = Give(CONTROLLER, Copy(RANDOM(FRIENDLY+KILLED+DEATHRATTLE))).after(Deathrattle(Give.CARD))
+	&lt;b&gt;Discover&lt;/b&gt; a friendly &lt;b&gt;Deathrattle&lt;/b&gt; 
+	minion that died this game. Also trigger its &lt;b&gt;Deathrattle&lt;/b&gt;."""
+	play = Choice(CONTROLLER, RANDOM(FRIENDLY+KILLED+DEATHRATTLE)*3).then(
+		Give(CONTROLLER, Copy(Choice.CARD)).then(
+			Deathrattle(Give.CARD)
+		)
+	)
 
 class DAL_604:#OK
 	"""Ursatron	Minion	Common
@@ -50,7 +55,7 @@ class DAL_589:#OK
 	Copy all Beasts in your_hand."""
 	play = Give(CONTROLLER, Copy(FRIENDLY_HAND+BEAST))
 
-class DAL_376:### cannot understand "trigger its deathrattle"################
+class DAL_376:#OK ## MECH + DEATHRATTLE = ['DAL_376:Oblivitron','DAL_604:Ursatron']
 	"""Oblivitron	Minion	Legendary
 	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a
 	Mech from your hand and
