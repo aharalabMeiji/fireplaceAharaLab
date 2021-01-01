@@ -108,14 +108,12 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	import random
 	#バグが確認されているものを当面除外する
 	exclude = [
-		'SCH_199','SCH_259',## neutral-scholo
+		'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
+		'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
 		'YOD_009',## this is a hero in galakrond
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-		'ULD_178',## neutral-uldum/45
+		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
 		]
-	# バグ取れた：'CFM_672','BT_490',
-	# 'LOE_076','CFM_095' フツウに動きます
-	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。→フツウに動きます
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -134,7 +132,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	PresetHands(player1, player2)##starting from the specific hands or fields
+	#PresetHands(player1, player2)##starting from the specific hands or fields
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
