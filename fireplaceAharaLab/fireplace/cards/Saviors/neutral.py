@@ -255,17 +255,16 @@ class ULD_178:# OK for once ##################  ( how we do twice? )
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 of &lt;b&gt;Rush&lt;/b&gt;,
 	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Divine Shield&lt;/b&gt;, or
 	&lt;b&gt;Windfury&lt;/b&gt; &lt;i&gt;(your choice).&lt;/i&gt;"""
-	#entourage = ['ULD_178a', 'ULD_178a2', 'ULD_178a3', 'ULD_178a4']
-	#play = Choice(CONTROLLER, entourage).then(Buff(SELF, Choice.CARD))
+	choose = ('ULD_178a', 'ULD_178a2', 'ULD_178a3', 'ULD_178a4')
 
 class ULD_178a:
-	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.RUSH:True})
+	play = SetTag(FRIENDLY_MINIONS + ID('ULD_178'),(GameTag.RUSH, ))
 class ULD_178a2:
-	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.TAUNT:True})
+	play = SetTag(FRIENDLY_MINIONS + ID('ULD_178'),(GameTag.TAUNT, ))
 class ULD_178a3:
-	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.DIVINE_SHIELD:True})
+	play = SetTag(FRIENDLY_MINIONS + ID('ULD_178'),(GameTag.DIVINE_SHIELD, ))
 class ULD_178a4:
-	update = Refresh(RANDOM(FRIENDLY_MINIONS + ID('ULD_178')),{GameTag.WINDFURY:True})
+	play = SetTag(FRIENDLY_MINIONS + ID('ULD_178'),(GameTag.WINDFURY, ))
 
 class ULD_194:#OK
 	"""Wasteland Scorpid		7	3	9	Minion	Common	Beast	Poisonous

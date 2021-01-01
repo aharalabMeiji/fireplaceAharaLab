@@ -134,7 +134,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	#PresetHands(player1, player2)##starting from the specific hands or fields
+	PresetHands(player1, player2)##starting from the specific hands or fields
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
