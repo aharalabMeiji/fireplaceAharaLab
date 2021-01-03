@@ -3,8 +3,10 @@ from enum import IntEnum
 from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.exceptions import GameOver
+from fireplace.actions import *
 import copy
 import random
+import time
 
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
@@ -106,9 +108,13 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
-	# 'LOE_076' : Sir Finley Mrrgglton
-	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。
+	exclude = [
+		'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
+		'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
+		'YOD_009',## this is a hero in galakrond
+		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+		]
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -120,7 +126,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	game.start()
 
 	for player in game.players:
-		#mulliganの試合前処理（デッキは撹拌される）
+		#mulligan shuffling
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
@@ -130,32 +136,40 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
+		start_time = time.time()
 		if player.name==P1.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
+			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
 			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
+			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
 			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
-			Original_random(game)#公式のランダム
+			Original_random(game)#random player by fireplace
 		#ターンエンドの処理ここから
+		#turn end procedure from here
 		if player.choice!=None:
-			player.choice=None#論理的にはおこらないが、agentのミスによりときどきおこる
+			player.choice=None#somotimes it comes here
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
+				if debugLog:
+					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
+		#if game was over 
 		if game.state==State.COMPLETE:
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
 				return game.current_player.opponent.name
-			return 'DRAW'#まず起こらないが、ねんのため。
+			return 'DRAW'#Maybe impossible to come here.
 
 def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True):
-	""" 決まった回数の試合を行い、勝敗数を表示する """
+	""" 決まった回数の試合を行い、勝敗数を表示する 
+	"""
 	if debugLog:
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 	Count1 = 0
@@ -173,7 +187,8 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
 
 class Candidate(object):
-	"""　アクションの候補手のクラス　"""
+	"""　アクションの候補手のクラス　
+	"""
 	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
 		#super(myAction, self).__init__()
 		self.turn=turn
@@ -196,10 +211,13 @@ class Candidate(object):
 		self.score = 0
 
 class GameWithLog(Game):
-	""" ゲーム進行のログを管理する  """
+	""" game with logs  """
 	def __init__(self, players):
 		super().__init__(players=players)
 		self.__myLog__=[]
+		self.__stage_choice__=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
+			'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
+			'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
 	def add_log(self, choice: Candidate):
 		self.__myLog__.append(choice)
 	def get_log(self):
@@ -263,7 +281,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
-		print("%s %s"%(player,str(action)))
+		print(">%s>>%s"%(player,str(action)))
 	theCard=theTarget=theCard2=None
 	#print(id(action.card.game))
 	#print(id(mygame))
@@ -360,7 +378,13 @@ class BigDeck:
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
-
+	purePaladin=[\
+		'SCH_247','SCH_247','BT_020','BT_020','SCH_149','SCH_149',\
+		'BT_292','BT_292','BT_025','BT_025','BT_019','SCH_532',\
+		'SCH_532','CS2_093','CS2_093','SCH_141','DRG_232','DRG_232',\
+		'BT_026','BT_026','SCH_138','SCH_138','BT_011','BT_011',\
+		'SCH_139','SCH_139','BT_334','DRG_231','DRG_231','BT_024'
+		]
 def postAction(player):
 	if player.choice:
 		choice = random.choice(player.choice.cards)
@@ -368,9 +392,10 @@ def postAction(player):
 		myChoiceStr = str(choice)
 		if 'RandomCardPicker' in str(choice):
 			myCardID =  random.choice(choice.find_cards())
-			myCard = Card(myCardID)
-			myCard.controller = player#?
-			myCard.draw()
+			#myCard = Card(myCardID)
+			#myCard.controller = player#?
+			#myCard.draw()
+			Give(player1,myCardID).trigger(player1)
 			player.choice = None
 		else :
 			player.choice.choose(choice)
@@ -425,3 +450,46 @@ def getTurnLog(gameLog, turnN):
 		if gameLog[i].turn == turnN:
 			ret.append(gameLog[i])
 	return ret
+
+
+def PresetHands(player1, player2): 
+	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
+	Discard(player1.hand[-1]).trigger(player1)
+	Give(player1,'ULD_178').trigger(player1)#target
+	#Give(player1,'DAL_604').trigger(player1)#subtarget-
+	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
+	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
+	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
+	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
+	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
+	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
+	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
+	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
+	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
+	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
+	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
+	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
+
+	#Give(player2,'DAL_090').trigger(player2)#enemy
+	#Give(player2,'ULD_152').trigger(player2)#enemy
+
+	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
+	player1.max_mana=1
+	player2.max_mana=1
+
+	#force play by player2
+	#PresetPlay(player2, 'DAL_090')# play
+	#PresetPlay(player2, 'ULD_152')# play
+
+	#force-pass of player2,
+	if player2==player2.game.current_player:
+		player2.game.end_turn()
+
+	#force turn end of player1
+	#player1.game.end_turn()
+	pass
+
+def PresetPlay(player, cardID):
+	for card in player.hand:
+		if card.id == cardID and card.is_playable():
+			card.play(target=None)

@@ -163,6 +163,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\adventure.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\collectible.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral_common.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\mage.py" />
@@ -258,10 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fireplaceAharaLab\obj\Any CPU\Debug\fireplaceAhara.pyproj.FileListAbsolute.txt" />
-    <Content Include="test_data34.csv" />
-    <Content Include="test_data35.csv" />
-    <Content Include="test_data43.csv" />
-    <Content Include="test_data53.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fireplaceAharaLab" />
@@ -285,6 +284,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\league" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\naxxramas" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tgt" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tutorial" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\ungoro" />

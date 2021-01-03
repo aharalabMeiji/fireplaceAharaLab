@@ -186,12 +186,12 @@ class StandardVectorAgent(Agent):
 				w[29] +=1	#聖なる盾カードを使う
 			if '隠れ身' in des:
 				w[30] +=1	#隠れ身カードを使う
-			if len(des)<3: #バニラ
+			if card.type == CardType.MINION and len(des)<3: #バニラ
 				if card.atk>2:
 					w[31] += 1	#攻撃力の強いバニラカードを使う
-				if card.type == CardType.MINION and card.health>2:
+				if card.health>2:
 					w[32] += 1	#体力の大きいバニラカードを使う
-				if card.type == CardType.MINION and card.health<4:
+				if card.health<4:
 					w[33] += 1	#体力の小さいバニラカードを使う
 		score = 0.0
 		for i in range(w_length):
@@ -276,12 +276,58 @@ class HumanAgent(Agent):
 			print("========OPPONENT'S PLAYGROUND======")
 			for character in player.opponent.characters:
 				print("%s"%character, end='   : ')
-				print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+				if character == player.opponent.hero:
+					if player.opponent.weapon:
+						print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.opponent.weapon.durability,character.health,character.armor,player.opponent.weapon.data.name), end=" ")
+					else:
+						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
+				else :
+					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
+					#if character.reborn:
+					#	print("(reborn)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.divine_shield:
+						print("(divine_shield)", end=" ")
+					if character.dormant>0:
+						print("(dormant:%d)"%(character.dormant), end=" ")
+					#if character._tmp_int1_>0:
+					#	print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
 				print("%s"%character, end='   : ')
-				print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+				if character == player.hero:
+					if player.weapon:
+						print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name), end=" ")
+					else:
+						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
+				else :
+					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character.silenced:
+						print("(silenced)", end=" ")
+					if character.windfury:
+						print("(windfury)", end=" ")
+					if character.poisonous:
+						print("(poisonous)", end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
+					#if character.reborn:
+					#	print("(reborn)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.stealthed:
+						print("(stealthed)", end=" ")
+					if character.divine_shield:
+						print("(divine_shield)", end=" ")
+					if character.dormant!=0:
+						print("(dormant:%d)"%(character.dormant), end=" ")
+					if character.spellpower>0:
+					#	print("(spellpower:%d)"%(character.spellpower), end=" ")
+					#if character._tmp_int1_>0:
+						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
 					for target in character.targets:
@@ -303,6 +349,8 @@ class HumanAgent(Agent):
 			print("========MY SECRETS======")
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
+				if hasattr(card, 'sidequest'):
+					print("(%d)"%card._tmp_int1_, end="")
 				print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 			print("[0] ターンを終了する")
@@ -311,6 +359,8 @@ class HumanAgent(Agent):
 				print('[%d]'%myCount, end=' ')
 				myCard = myChoice.card
 				print("%s"%myCard, end='  ')
+				if myChoice.card2!=None:
+					print("(%s)"%myChoice.card2, end=' ')
 				if myCard.data.type==CardType.MINION:
 					print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 				elif myCard.data.type==CardType.SPELL:
@@ -330,8 +380,13 @@ class HumanAgent(Agent):
 						print('(%2d/%2d)'%(targetCard.atk,targetCard.health), end=' ')
 				myCount += 1
 				print('')
-			str = input()
-			inputNum = int(str)
+			while True:
+				str = input()
+				try:
+					inputNum = int(str)
+					break;
+				except ValueError:
+					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
