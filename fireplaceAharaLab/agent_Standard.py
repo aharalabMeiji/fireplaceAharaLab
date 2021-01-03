@@ -285,16 +285,16 @@ class HumanAgent(Agent):
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
 					if character.frozen:
 						print("(frozen)", end=" ")
-					if character.reborn:
-						print("(reborn)", end=" ")
+					#if character.reborn:
+					#	print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
-					if character._tmp_int1_>0:
-						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
+					#if character._tmp_int1_>0:
+					#	print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
@@ -314,8 +314,8 @@ class HumanAgent(Agent):
 						print("(poisonous)", end=" ")
 					if character.frozen:
 						print("(frozen)", end=" ")
-					if character.reborn:
-						print("(reborn)", end=" ")
+					#if character.reborn:
+					#	print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
 					if character.stealthed:
@@ -325,8 +325,8 @@ class HumanAgent(Agent):
 					if character.dormant!=0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					if character.spellpower>0:
-						print("(spellpower:%d)"%(character.spellpower), end=" ")
-					if character._tmp_int1_>0:
+					#	print("(spellpower:%d)"%(character.spellpower), end=" ")
+					#if character._tmp_int1_>0:
 						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
