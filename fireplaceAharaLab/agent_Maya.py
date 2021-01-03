@@ -33,11 +33,7 @@ class agent_Maya(Agent):
 				print("len(self.candidates)==1")
 				return ExceptionPlay.VALID
 				pass
-			with ProcessPoolExecutor(max_workers=4) as executor:
-				x=range(10)
-				res=executor.map(self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=10),x)
-			index=int(random.random()*len(res))
-			self.takingAction=res[index]
+			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=10)
 			print("--------------------simulate end!!------------------")
 			print(self.takingAction)
 			# iterate over our hand and play whatever is playable
