@@ -6,6 +6,7 @@ from fireplace.exceptions import GameOver
 from fireplace.actions import *
 import copy
 import random
+import time
 
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
@@ -135,6 +136,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
+		start_time = time.time()
 		if player.name==P1.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
 			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
@@ -153,7 +155,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>turn change")
+					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
@@ -279,9 +281,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
-		print("")
-		print(">>>>>>>>>>>%s %s"%(player,str(action)))
-		print("")
+		print(">%s>>%s"%(player,str(action)))
 	theCard=theTarget=theCard2=None
 	#print(id(action.card.game))
 	#print(id(mygame))
