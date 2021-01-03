@@ -52,12 +52,11 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#play_set_of_games(Human, Vector, gameNumber=1, debugLog=True)
-	play_set_of_games(Random, Vector, gameNumber=50, debugLog=True)
+	play_set_of_games(Human, Vector, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
-	#総当たり戦
+	#デッキを固定しての総当たり戦
 	#from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
 

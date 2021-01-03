@@ -132,7 +132,6 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	#PresetHands(player1, player2)##starting from the specific hands or fields
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -153,9 +152,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
-				print("")
-				print(">>>>>>>>>>turn change")
-				print("")
+				if debugLog:
+					print(">>>>>>>>>>turn change")
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
@@ -458,25 +456,25 @@ def PresetHands(player1, player2):
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
 	Give(player1,'ULD_178').trigger(player1)#target
-	#Give(player1,'DAL_604').trigger(player1)#subtarget
-	#Give(player1,'SCH_133').trigger(player1)#beast
-	#Give(player1,'DAL_587').trigger(player1)#deathrattle
-	#Give(player1,'SCH_232').trigger(player1)#DRAGON
-	#Give(player1,'DRG_107').trigger(player1)#elemental
-	#Give(player1,'DRG_057').trigger(player1)#MECH
-	#Give(player1,'CS2_168').trigger(player1)#murloc
-	#Give(player1,'BT_720').trigger(player1)#rush
-	#Give(player1,'EX1_609').trigger(player1)#secret
-	#Give(player1,'DRG_255').trigger(player1)#sidequest
-	#Give(player1,'SCH_310').trigger(player1)#spellpower
-	#Give(player1,'BT_715').trigger(player1)#taunt
-	#Give(player1,'SCH_301').trigger(player1)#weapon
+	#Give(player1,'DAL_604').trigger(player1)#subtarget-
+	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
+	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
+	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
+	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
+	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
+	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
+	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
+	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
+	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
+	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
+	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
+	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
 
 	#Give(player2,'DAL_090').trigger(player2)#enemy
 	#Give(player2,'ULD_152').trigger(player2)#enemy
 
 	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
-	player1.max_mana=10
+	player1.max_mana=1
 	player2.max_mana=1
 
 	#force play by player2
