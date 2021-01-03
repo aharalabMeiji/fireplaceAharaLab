@@ -186,14 +186,13 @@ class StandardVectorAgent(Agent):
 				w[29] +=1	#聖なる盾カードを使う
 			if '隠れ身' in des:
 				w[30] +=1	#隠れ身カードを使う
-			if len(des)<3: #バニラ
-				if card.type == CardType.MINION:
-					if card.atk>2:
-						w[31] += 1	#攻撃力の強いバニラカードを使う
-					if card.health>2:
-						w[32] += 1	#体力の大きいバニラカードを使う
-					if card.health<4:
-						w[33] += 1	#体力の小さいバニラカードを使う
+			if card.type == CardType.MINION and len(des)<3: #バニラ
+				if card.atk>2:
+					w[31] += 1	#攻撃力の強いバニラカードを使う
+				if card.health>2:
+					w[32] += 1	#体力の大きいバニラカードを使う
+				if card.health<4:
+					w[33] += 1	#体力の小さいバニラカードを使う
 		score = 0.0
 		for i in range(w_length):
 			const=-1
