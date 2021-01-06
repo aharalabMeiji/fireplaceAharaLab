@@ -51,7 +51,8 @@ class CardList(list):
 			if x is item:
 				del self[i]
 				return
-		raise ValueError
+		i=0
+		#raise ValueError
 
 	def exclude(self, *args, **kwargs):
 		if args:

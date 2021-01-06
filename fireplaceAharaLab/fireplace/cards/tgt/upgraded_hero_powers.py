@@ -97,19 +97,19 @@ class CS2_049_H1_AT_132:
 
 class AT_132_SHAMANa:
 	"""Healing Totem"""
-	play = Summon(CONTROLLER, "NEW1_009")
+	activate = Summon(CONTROLLER, "NEW1_009")
 
 
 class AT_132_SHAMANb:
 	"""Searing Totem"""
-	play = Summon(CONTROLLER, "CS2_050")
+	activate = Summon(CONTROLLER, "CS2_050")
 
 
 class AT_132_SHAMANc:
 	"""Stoneclaw Totem"""
-	play = Summon(CONTROLLER, "CS2_051")
+	activate = Summon(CONTROLLER, "CS2_051")
 
 
 class AT_132_SHAMANd:
 	"""Wrath of Air Totem"""
-	play = Summon(CONTROLLER, "CS2_052")
+	activate = Summon(CONTROLLER, "CS2_052")
