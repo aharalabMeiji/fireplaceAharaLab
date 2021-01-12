@@ -1,9 +1,12 @@
+from __future__ import print_function
+from sys import getsizeof, stderr
 import random
 import numpy as np
 import copy
 import time
 import cProfile
 import gc
+import sys
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType
 from utils import *
@@ -14,6 +17,63 @@ from fireplace.game import Game
 from fireplace.utils import random_draft, CardList
 from enum import IntEnum
 from fireplace.deck import Deck
+from itertools import chain
+from collections import deque
+try:
+    from reprlib import repr
+except ImportError:
+    pass
+
+def total_size(o, handlers={}, verbose=False):
+    # with open('file.txt', 'a') as stderr:
+        # print("始まり", file=stderr)
+    """ Returns the approximate memory footprint an object and all of its contents.
+
+    Automatically finds the contents of the following builtin containers and
+    their subclasses:  tuple, list, deque, dict, set and frozenset.
+    To search other containers, add handlers to iterate over their contents:
+
+        handlers = {SomeContainerClass: iter,
+                    OtherContainerClass: OtherContainerClass.get_elements}
+
+    """
+    dict_handler = lambda d: chain.from_iterable(d.items())
+    all_handlers = {tuple: iter,
+                    list: iter,
+                    deque: iter,
+                    dict: dict_handler,
+                    set: iter,
+                    frozenset: iter,
+                   }
+    all_handlers.update(handlers)     # user handlers take precedence
+    seen = set()                      # track which object id's have already been seen
+    default_size = getsizeof(0)       # estimate sizeof object without __sizeof__
+
+    def sizeof(o):
+        if id(o) in seen:       # do not double count the same object
+            return 0
+        seen.add(id(o))
+        s = getsizeof(o, default_size)
+
+        if verbose:
+            with open('file.txt', 'a') as stderr:
+                print(s, type(o), repr(o)) # , file=stderr)
+
+        for typ, handler in all_handlers.items():
+            if isinstance(o, typ):
+                s += sum(map(sizeof, handler(o)))
+                break
+            else:
+                if not hasattr(o.__class__, '__slots__'):
+                    if hasattr(o, '__dict__'):
+                        s+=sizeof(o.__dict__) # no __slots__ *usually* means a __dict__, but some special builtin classes (such as `type(None)`) have neither
+                        # else, `o` has no attributes at all, so sys.getsizeof() actually returned the correct value
+                else:
+                    s+=sum(sizeof(getattr(o, x)) for x in o.__class__.__slots__ if hasattr(o, x))
+        return s
+
+    return sizeof(o)
+
 
 
 
@@ -22,22 +82,30 @@ exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 
 class MiyaryoAgent(Agent):
 
-    vLength = 36  # ベクトルの長さ
-    w=np.array([1, -2, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 1, -1, 0.5, -0.5])
+    vLength = 38  # ベクトルの長さ
+    w=np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -4, 1, -1, 0.5, -0.5])
     lethal = False
+    DebugLog = True
 
     def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000):
         super().__init__(myName, myFunction, myOption, myClass, rating)
 
     def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
+        self.DebugLog = debugLog
         print("turn %d" % game.turn)
         player = game.current_player
+        print(f"秘策数{len(player.secrets)}")
+        print(f"相手秘策数{len(player.opponent.secrets)}")
         self.lethal = False
 
         while True:
+            print(total_size(game.get_log()))
+            print(f"ログの長さ{len(game.get_log())}")
+
             start = time.time()
             tmpGame = copy.deepcopy(game)
             print(f"elapsed_time:{time.time()-start}")
+            # print(total_size(tmpGame,verbose = True))
             myCandidate = getCandidates(
                 tmpGame, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
 
@@ -47,7 +115,9 @@ class MiyaryoAgent(Agent):
                     return
                 return ExceptionPlay.INVALID
             else:
+                print(f"モンテ前{total_size(game.get_log())}")
                 finalScores = self.primitiveMonte(tmpGame, myCandidate)
+                print(f"モンテ後{total_size(game.get_log())}")
                 if isinstance(finalScores, int):
                     mychoice = finalScores
                     self.lethal = True
@@ -56,41 +126,45 @@ class MiyaryoAgent(Agent):
                 if myCandidate[mychoice].type == ExceptionPlay.TURNEND:
                     print("あえてターンエンド")
                     return ExceptionPlay.VALID
-                executeAction(game, myCandidate[mychoice])
+                acts = myCandidate[mychoice]
+                print(f"アクションサイズ{total_size(myCandidate[mychoice])}")
+                executeAction(game, myCandidate[mychoice],debugLog = debugLog)
                 postAction(player)
-                del tmpGame
-                gc.collect()
+                # del tmpGame
+                # gc.collect()
                 if self.lethal == True:
                     return ExceptionPlay.VALID
         return ExceptionPlay.VALID
 
-    def primitiveMonte(self, _game: Game, _candidates: list):
+    def primitiveMonte(self, montegame: Game, _candidates: list):
         retScore = np.empty(0)
-        player = _game.current_player
-        beforeScore = self.getBoardScore(_game)
+        player = montegame.current_player
+        beforeScore = self.getBoardScore(montegame)
         for i in range(len(_candidates)):
             canScore = np.empty((0,self.vLength))
             for j in range(5):
                 if _candidates[i].type == ExceptionPlay.TURNEND:
                     canScore = np.append(canScore, [beforeScore], axis = 0)
                     continue
-                tmpGame = copy.deepcopy(_game)
-                executeAction(tmpGame, _candidates[i],debugLog=False)
+                start = time.time()
+                tmGame = copy.deepcopy(montegame)
+                # print(f"elapsed_time:{time.time()-start}")
+                executeAction(tmGame, _candidates[i],debugLog=False)
                 postAction(player)
-                if tmpGame.current_player.opponent.hero.health <= 0:
+                if tmGame.current_player.opponent.hero.health <= 0:
                     return i
                 while True:
                     tmpCandidates = getCandidates(
-                        tmpGame, _smartCombat=False, _includeTurnEnd=True)
+                        tmGame, _smartCombat=False, _includeTurnEnd=True)
                     index = int(random.random()*len(tmpCandidates))
                     if tmpCandidates[index].type == ExceptionPlay.TURNEND:
                         break
                     else:
-                        executeAction(tmpGame, tmpCandidates[index],debugLog=False)
+                        executeAction(tmGame, tmpCandidates[index],debugLog=False)
                         postAction(player)
-                canScore = np.append(canScore, [self.getBoardScore(tmpGame)], axis = 0)
-                del tmpGame
-                gc.collect()
+                canScore = np.append(canScore, [self.getBoardScore(tmGame)], axis = 0)
+                # del tmGame
+                # gc.collect()
             calcedScore = self.calcScore(beforeScore, np.mean(canScore, axis = 0), self.lethal)
             print(f"_{i}_{_candidates[i]}", end = '')
             print(f'--> {calcedScore:.3f}')
@@ -103,9 +177,10 @@ class MiyaryoAgent(Agent):
         #     print("ERROR")
         #     return 0
         tmpW = np.copy(self.w)
-        print(f"before{_before}")
-        print(f"after{_after}")
-        print(f"w{tmpW}")
+        if self.DebugLog:
+            print(f"before{_before}")
+            print(f"after{_after}")
+        # print(f"w{tmpW}")
         retScore = np.sum((_after - _before) * tmpW)
         return retScore
         pass
@@ -201,10 +276,12 @@ class MiyaryoAgent(Agent):
                 des = char.data.description
                 if '[x]' in des and not ':' in des:
                     v[31] += char.health
-        v[32] = me.hero.atk
-        v[33] = he.hero.atk
-        v[34] = len(me.hand)
-        v[35] = len(he.hand)
+        v[32] = len(me.secrets)
+        v[33] = len(he.secrets)
+        v[34] = me.hero.atk
+        v[35] = he.hero.atk
+        v[36] = len(me.hand)
+        v[37] = len(he.hand)
         return v
         pass
 

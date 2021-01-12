@@ -26,11 +26,13 @@ def main():
 		,myClass=CardClass.HUNTER)
 
 	# Maya : モンテカルロによる読み切り
-	#Maya=Agent("Maya",Maya_MCTS)
+	Maya=Agent("Maya",Maya_MCTS)
 
 	# Miyaryo
 	from agent_Miyaryo import MiyaryoAgent
 	Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
+	Miyaryo2=MiyaryoAgent("Miyaryo2",MiyaryoAgent.MiyaryoAI)
+
 	from agent_Test import TestAgent
 	Test=TestAgent("Test",TestAgent.TestAI)
 
@@ -57,9 +59,10 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	pr = cProfile.Profile()
 	pr.enable()
-	play_set_of_games(Vector, Miyaryo, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
+	play_set_of_games(Random, Maya, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
+	# play_set_of_games(Test, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	pr.disable()
-	pr.print_stats()
+	# pr.print_stats()
 	# cProfile.run('play_set_of_games(Vector, Miyaryo, gameNumber=1, debugLog=True)',"profiling-by-api.stats")
 	#デッキを固定しての対戦
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)

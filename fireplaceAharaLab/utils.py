@@ -152,7 +152,7 @@ class Agent(object):
 	def __str__(self):
 		return self.name
 
-def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=10, debugLog=True):
+def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True):
 	""" 1回ゲームを行う。 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
@@ -308,7 +308,9 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 #
 def executeAction(mygame, action: Candidate, debugLog=True):
 	"""　Candidate型のアクションを実行する　"""
-	mygame.add_log(action)
+	if debugLog:
+		mygame.add_log(action)
+		pass
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
