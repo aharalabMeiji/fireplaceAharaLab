@@ -91,5 +91,8 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
 			if not target.has_deathrattle:
 				return False
+		elif req == PlayReq.REQ_HERO_OR_MINION_TARGET:#### aharalab 13.12.2020
+			if target.type != CardType.MINION and target.type != CardType.HERO:#### aharalab 13.12.2020
+				return False#### aharalab 13.12.2020
 
 	return True
