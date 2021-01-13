@@ -7,6 +7,7 @@ from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
 from enum import IntEnum
+from agent_Miyaryo import total_size
 
 
 class StandardAgent(Agent):
@@ -50,6 +51,7 @@ class StandardVectorAgent(Agent):
 			print(">>>>>>>>>>>>>>>>>>>")
 		for myChoice in myCandidate:
 			tmpGame = copy.deepcopy(game)
+			print(f"アクションサイズ{total_size(myChoice)}")
 			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:

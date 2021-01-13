@@ -19,14 +19,14 @@ def main():
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	#ランダムプレーヤー
-	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
+	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE) 		
+		,myClass=CardClass.HUNTER) 		
 
 	# Maya : モンテカルロによる読み切り
-	Maya=Agent("Maya",Maya_MCTS)
+	# Maya=Agent("Maya",Maya_MCTS)
 
 	# Miyaryo
 	from agent_Miyaryo import MiyaryoAgent
@@ -59,7 +59,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	pr = cProfile.Profile()
 	pr.enable()
-	play_set_of_games(Random, Maya, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
+	play_set_of_games(Vector, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	# play_set_of_games(Test, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	pr.disable()
 	# pr.print_stats()

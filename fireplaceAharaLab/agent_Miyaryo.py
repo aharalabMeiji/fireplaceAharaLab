@@ -83,7 +83,7 @@ exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 class MiyaryoAgent(Agent):
 
     vLength = 38  # ベクトルの長さ
-    w=np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -4, 1, -1, 0.5, -0.5])
+    w=np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5])
     lethal = False
     DebugLog = True
 
@@ -199,8 +199,8 @@ class MiyaryoAgent(Agent):
                 if getattr(char, 'taunt', 0):
                     v[4] += char.health
                 # if char.battlecry:
-                if getattr(char, 'deathrattles', 0):
-                    v[5] += 1
+                # if getattr(char, 'deathrattles', 0):
+                #     v[5] += 1
                 # if char.discover:
                 if getattr(char, 'divine_shield', 0):
                     v[6] += 1
@@ -236,8 +236,8 @@ class MiyaryoAgent(Agent):
                 if getattr(char, 'taunt', 0):
                     v[18] += char.health
                 # if char.battlecry:
-                if getattr(char, 'deathrattles', 0):
-                    v[19] += 1
+                # if getattr(char, 'deathrattles', 0):
+                #     v[19] += 1
                 # if char.discover:
                 if getattr(char, 'divine_shield', 0):
                     v[20] += 1
