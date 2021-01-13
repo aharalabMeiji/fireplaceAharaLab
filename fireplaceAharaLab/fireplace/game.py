@@ -364,7 +364,7 @@ class CoinRules:
 	def begin_turn(self, player):
 		if self.turn == 0:
 			self.log("%s gets The Coin (%s)", self.player2, THE_COIN)
-			self.player2.give(THE_COIN)
+			#self.player2.give(THE_COIN)
 		super().begin_turn(player)
 
 

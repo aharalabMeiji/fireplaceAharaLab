@@ -46,6 +46,7 @@ class takashoAgent(Agent):
                             myChoice = choice
                     if myChoice == None: ##相手の顔を減らせないとき
                         myChoice = random.choice(myCandidate)
+
                   executeAction(game,myChoice,debugLog=False)
                   postAction(player)
               else:
