@@ -347,7 +347,14 @@ class BaseGame(Entity):
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 
-		player.draw()
+		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
+		while True:
+			drawn_card = player.draw()
+			if not hasattr(drawn_card, "casts_when_drawn"):
+				break;
+			else:
+				self.queue_actions(player, [Play(drawn_card, None, None, None)])
+		## end ##
 		self.manager.step(self.next_step, Step.MAIN_END)
 
 class CoinRules:
@@ -356,7 +363,12 @@ class CoinRules:
 	The second player gets "The Coin" (GAME_005).
 	"""
 	def pick_first_player(self):
+<<<<<<< HEAD
 		winner = self.players[0]#random.choice(self.players)
+=======
+		winner = random.choice(self.players)
+		#winner = self.players[1]
+>>>>>>> origin/master
 		self.log("Tossing the coin... %s wins!", winner)
 		print(winner)
 		return winner, winner.opponent

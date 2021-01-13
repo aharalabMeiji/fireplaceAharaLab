@@ -86,6 +86,15 @@ class RandomCardPicker(LazyValue):
 			wf = [{**x, **self.filters} for x in self.weightedfilters]
 			card_sets = [self.find_cards(source, **x) for x in wf]
 
+		####### from here ################## added by aharalab. 1.1.2021 ####
+		count_cards=0
+		for n in range(len(card_sets)):
+			count_cards += len(card_sets[n])
+		if len(self.weights)==0 or count_cards == 0:#### added by aharalab, 20.12.2020 ####
+			stop=0#### halt area for debug
+			return [[]]#### the case weights (hence candidates) are null
+		####### until here ############ 
+
 		# get weighted sample of card pools
 		return weighted_card_choice(source, self.weights, card_sets, self.count)
 
