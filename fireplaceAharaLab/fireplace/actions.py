@@ -292,7 +292,8 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Deathrattle(target)])
 		if target.reborn:################## added by aharalab
 			source.game.queue_actions(source, [Reborn(target)])################## added by aharalab
-
+		if target.id== 'DRG_253':## added by aharalab for Dwarven Sharpshooter
+			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)## added by aharalab
 
 class EndTurn(GameAction):
 	"""
@@ -1956,13 +1957,30 @@ class SetCannotAttackHeroesTag(TargetedAction):
 		target.cannot_attack_heroes = (amount==1)
 		pass
 
+class ChangeHeroPower(TargetedAction):
+	"""
+	"""
+	TARGET = ActionArg()#CONTROLLER
+	CARD = CardArg()
+	def do(self, source, target, card):
+		exh = target.hero.power.activations_this_turn
+		#summon card
+		newHeroPower=Summon(target,card).trigger(source)
+		if isinstance(newHeroPower,list):
+			newHeroPower = newHeroPower[0]
+		if isinstance(newHeroPower,list):
+			newHeroPower = newHeroPower[0]
+		#copy exhausted
+		newHeroPower.activations_this_turn = exh
+		pass
+
 class DAL731Duel(TargetedAction):
 	"""
 	Duel!
 	"""
 	TARGET = ActionArg()
 	OTHER = ActionArg()
-	def do(self, sourse, target, other):
+	def do(self, source, target, other):
 		if isinstance(other,list):
 			other = other[0]
 		if isinstance(target,list):
