@@ -26,11 +26,9 @@ class DRG_253:#OK!
 	Your Hero Power can target_minions."""
 	## deal 2 damage to enemy hero HERO_05bp, HERO_05dbp
 	## deal 3 damage to enemy hero HERO_05bp2
-	tags = {
-		GameTag.DEATHRATTLE: 1,
-	}
-	play = Summon(CONTROLLER, "HERO_05dbp")
-	deathrattle = Summon(CONTROLLER, "HERO_05bp")
+	play = ChangeHeroPower(CONTROLLER, "HERO_05dbp")
+	# see also fireplace.actions.Death.do
+
 class HERO_05dbp:
 	"""Steady Shot (Rexxar)"""
 	requirements = { 
