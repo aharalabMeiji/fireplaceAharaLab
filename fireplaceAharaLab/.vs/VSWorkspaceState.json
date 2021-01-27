@@ -2,10 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\fireplace",
+    "\\fireplace\\dsl",
     "\\obj",
     "\\obj\\Any CPU",
     "\\obj\\Any CPU\\Debug"
   ],
-  "SelectedNode": "\\Agent_takasho002.py",
+  "SelectedNode": "\\fireplace\\dsl\\random_picker.py",
   "PreviewInSolutionExplorer": false
 }

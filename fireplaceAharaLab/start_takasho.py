@@ -63,7 +63,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
-	play_set_of_games(takasho001,takasho002, BigDeck.MechaHunter, BigDeck.MechaHunter, gameNumber=10, debugLog=True)
+	play_set_of_games(takasho001,takasho002, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=30, debugLog=True)
 	#play_set_of_games(Vector,Vector2, BigDeck.MechaHunter, BigDeck.MechaHunter, gameNumber=30, debugLog=False)
 
 	#総当たり戦
