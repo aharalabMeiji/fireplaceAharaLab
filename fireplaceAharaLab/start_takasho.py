@@ -21,9 +21,8 @@ def main():
 	#ランダムプレーヤー
 	Random=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。この人とサシで勝負して勝てるくらいが一応の目安。
-	Vector=StandardVectorAgent("Vector後行",StandardVectorAgent.StandardStep1)
-	Vector2=StandardVectorAgent("Vector先攻",StandardVectorAgent.StandardStep1)
-
+	Vector0=StandardVectorAgent("Vector後手",StandardVectorAgent.StandardStep1)
+	Vector1 = StandardVectorAgent("Vector先手",StandardVectorAgent.StandardStep1)
 	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 	#	,myClass=CardClass.HUNTER) 		
 
@@ -40,9 +39,7 @@ def main():
 	
 	# takasho002
 
-	takasho001=takashoAgent("agent_takasho001",takashoAgent.takasho002AI)
 	takasho002=takashoAgent("agent_takasho002",takashoAgent.takasho002AI)
-
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
 	#from agent_word_strategy import WordStrategyAgent
@@ -63,8 +60,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
-	play_set_of_games(Vector,Vector2, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
-	#play_set_of_games(Vector,Vector2, BigDeck.MechaHunter, BigDeck.MechaHunter, gameNumber=30, debugLog=False)
+	play_set_of_games(Vector0,Vector1, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=5, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition
