@@ -363,13 +363,13 @@ class CoinRules:
 	The second player gets "The Coin" (GAME_005).
 	"""
 	def pick_first_player(self):
-		winner = self.players[0]#random.choice(self.players)
+		winner = self.players[1]#random.choice(self.players)
 
 		#winner = random.choice(self.players)
 		#winner = self.players[1]
 		#origin/master
 		self.log("Tossing the coin... %s wins!", winner)
-		print(winner)
+		print(winner,"は先攻ですぅ")
 		return winner, winner.opponent
 
 	def begin_turn(self, player):

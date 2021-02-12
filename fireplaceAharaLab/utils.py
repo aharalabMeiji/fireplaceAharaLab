@@ -457,8 +457,8 @@ def getTurnLog(gameLog, turnN):
 
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'ULD_178').trigger(player1)#target
+	#Discard(player1.hand[-1]).trigger(player1)
+	#Give(player1,'ULD_178').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
@@ -478,15 +478,15 @@ def PresetHands(player1, player2):
 
 	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
 	player1.max_mana=1
-	player2.max_mana=1
+	player2.max_mana=10
 
 	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play
 	#PresetPlay(player2, 'ULD_152')# play
 
 	#force-pass of player2,
-	if player2==player2.game.current_player:
-		player2.game.end_turn()
+	#if player2==player2.game.current_player:
+	#	player2.game.end_turn()
 
 	#force turn end of player1
 	#player1.game.end_turn()
