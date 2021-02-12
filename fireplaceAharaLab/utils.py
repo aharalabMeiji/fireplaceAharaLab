@@ -453,7 +453,7 @@ def PresetHands(player1, player2):
 
 	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
 	player1.max_mana=1
-	player2.max_mana=1
+	player2.max_mana=10
 
 	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play
