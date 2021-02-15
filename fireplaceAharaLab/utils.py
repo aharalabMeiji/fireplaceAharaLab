@@ -433,9 +433,9 @@ def getTurnLog(gameLog, turnN):
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Discard(player1.hand[-1]).trigger(player1)#最後に配られたハンドのカードを捨てる。
-	n = 4
-	for num in range(n):
-		Draw(player1).trigger(player1) # n枚引かせる
+	#n = 4
+	#for num in range(n):
+	#	Draw(player1).trigger(player1) # n枚引かせる
 	#Give(player1,'ULD_178').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
