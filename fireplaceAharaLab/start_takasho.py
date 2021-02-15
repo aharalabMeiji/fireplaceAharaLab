@@ -60,7 +60,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#play_set_of_games(takasho002, Random, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦
-	play_set_of_games(Vector0,Vector1, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=5, debugLog=True)
+	play_set_of_games(Vector0,Vector1, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=50, debugLog=True)
 
 	#総当たり戦
 	#from competition import play_round_robin_competition

@@ -3,6 +3,7 @@ from enum import IntEnum
 from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.exceptions import GameOver
+from fireplace.actions import *
 import copy
 import random
 
@@ -432,7 +433,9 @@ def getTurnLog(gameLog, turnN):
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Discard(player1.hand[-1]).trigger(player1)#最後に配られたハンドのカードを捨てる。
-	#Draw(player1).trigger(player1) # 1枚引かせる
+	n = 4
+	for num in range(n):
+		Draw(player1).trigger(player1) # n枚引かせる
 	#Give(player1,'ULD_178').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
@@ -453,7 +456,7 @@ def PresetHands(player1, player2):
 
 	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
 	player1.max_mana=1
-	player2.max_mana=10
+	player2.max_mana=1
 
 	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play
