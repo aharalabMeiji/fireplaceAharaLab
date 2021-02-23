@@ -114,6 +114,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		'YOD_009',## this is a hero in galakrond
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
 		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+		'SCH_270'
 		]
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ

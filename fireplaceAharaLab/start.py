@@ -25,8 +25,8 @@ def main():
 		,myClass=CardClass.MAGE) 		
 
 	# Maya : モンテカルロによる読み切り
-	#Maya=Agent("Maya",Maya_MCTS)
-
+	Maya=agent_Maya("Maya",agent_Maya.agent_MayaAI)
+	Maya_secound=agent_Maya("Maya_secound",agent_Maya.agent_MayaAI)
 	# Miyaryo
 	#from agent_miyaryo import miyaryoAgent
 	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
@@ -52,7 +52,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Random, Vector, gameNumber=1, debugLog=True)
+	play_set_of_games(Maya_secound, Maya, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 

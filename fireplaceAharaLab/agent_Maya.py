@@ -33,7 +33,7 @@ class agent_Maya(Agent):
 				print("len(self.candidates)==1")
 				return ExceptionPlay.VALID
 				pass
-			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=10)
+			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=5)
 			print("--------------------simulate end!!------------------")
 			print(self.takingAction)
 			# iterate over our hand and play whatever is playable
@@ -65,12 +65,6 @@ class agent_Maya(Agent):
 			pass
 	def try_montecarlo_tree_search(self,_game,_candidates=[],_trialPerTree=50,_numOfTree=10):
 		from fireplace.deck import Deck
-		print(type(_game))
-		print(type(_candidates))
-		print(len(_candidates))
-		print(_trialPerTree)
-		print(_numOfTree)
-		print("let's start!")
 		self.copyGame=copy.deepcopy(_game)
 		self.myPlayer=self.copyGame.current_player
 		self.enemy=self.myPlayer.opponent
@@ -85,7 +79,14 @@ class agent_Maya(Agent):
 		for i in range(_numOfTree):
 			#シミュレーション下準備
 			#random_sampling
-			self.exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
+			self.exclude = [
+				'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
+				'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
+				'YOD_009',## this is a hero in galakrond
+				'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+				'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+				'SCH_270'
+				]
 			self.temporaryDeck=random_draft(self.enemy.hero,self.exclude)
 			self.enemy.hand=CardList()
 			self.enemy.deck=Deck()
@@ -108,10 +109,10 @@ class agent_Maya(Agent):
 				self.current_node.backPropagate(self.result);
 			self.visitScores=list(map(lambda node:myActionValue(node.move,node.visits),self.root.childNodes))
 			self.totalScores=self.addActionValues(self.totalScores,self.visitScores)
-			print("totalScores")
+			#print("totalScores")
 			for item in self.totalScores:
-				print(item.action)
-				print("-->{score}".format(score=item.score))
+				#print(item.action)
+				#print("-->{score}".format(score=item.score))
 				pass
 		self.maxScore=max(list(map(lambda actionValue:actionValue.score,self.totalScores)))
 		self.retAction=0
@@ -120,7 +121,7 @@ class agent_Maya(Agent):
 				self.retAction=item.action
 				pass
 			pass
-		print(self.retAction)
+		#print(self.retAction)
 		for item in _candidates:
 			if item==self.retAction:
 				self.retAction=item;
@@ -198,7 +199,7 @@ class Node(object):
 		postAction(self.expandingGame.current_player)
 		try:
 			if self.exc==ExceptionPlay.GAMEOVER:
-				print("the game has been ended.")
+				#print("the game has been ended.")
 				self.child=Node(self.expandingGame,action,self,[],_name=self.name)
 				self.childNodes.append(self.child)
 				return self.child
@@ -210,7 +211,7 @@ class Node(object):
 			self.childNodes.append(self.child)
 			return self.child
 		except GameOver as over:
-			print("the game has been ended.")
+			#print("the game has been ended.")
 			self.child=Node(self.expandingGame,action,self,[],_name=self.name)
 			self.childNodes.append(self.child)
 			return self.child
@@ -257,7 +258,7 @@ class Node(object):
 			if self.simCandidates[self.index].type ==ExceptionPlay.TURNEND:
 				game.end_turn();
 				return ExceptionPlay.VALID
-			self.exc=executeAction(game,self.simCandidates[self.index],debugLog=False)
+			self.exc=executeAction(game,self.simCandidates[self.index],debugLog=True)
 			postAction(self.player)
 			if self.exc==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
@@ -272,9 +273,6 @@ class Node(object):
 			try:
 				self.gameState=self.simulate_random_turn(self.simulating_game)
 			except GameOver as e:
-				print("exception")
-				print(self.simulating_game.current_player.name)
-				print(self.simulating_game.current_player.playstate)
 				self.winner=self.judgeWinner(self.simulating_game)
 				break;
 			if self.simulating_game.state==State.COMPLETE:
@@ -285,8 +283,8 @@ class Node(object):
 				self.winner=self.judgeWinner(self.simulating_game)
 				break;
 				pass
-		print("self.winner,self.name=")
-		print(self.winner,self.name)
+		#print("self.winner,self.name=")
+		#print(self.winner,self.name)
 		if self.winner==self.name:
 			self.retVal+=1
 		elif self.winner=="DRAW":
