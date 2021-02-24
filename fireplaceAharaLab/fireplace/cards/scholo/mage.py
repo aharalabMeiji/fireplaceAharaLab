@@ -21,7 +21,7 @@ class SCH_310:#OK
 	#&lt;b&gt;Spell Damage +1&lt;/b&gt;
 	pass
 
-class SCH_270:#OK
+class SCH_270:#NG
 	"""Primordial Studies	Common"""
 	#&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spell Damage&lt;/b&gt; minion. Your next one costs (1) less.
 	play = Choice(CONTROLLER, RandomMinion(spellpower=[1,2])*3).then(
