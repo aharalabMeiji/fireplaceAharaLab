@@ -133,7 +133,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 	if HeroHPOption != 30:
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
-	PresetHands(player1, player2)
+	#PresetHands(player1, player2)
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -456,7 +456,7 @@ def getTurnLog(gameLog, turnN):
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'SCH_270').trigger(player1)#target
+	Give(player1,'ULD_178').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
