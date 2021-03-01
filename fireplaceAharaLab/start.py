@@ -6,6 +6,7 @@ from agent_Standard import *
 from agent_Maya import *
 from agent_word_strategy import *
 from agent_AngryCat import *
+from agent_faceHunter_Mirror_Maya import *
 
 sys.path.append("..")
 
@@ -26,7 +27,10 @@ def main():
 
 	# Maya : モンテカルロによる読み切り
 	Maya=agent_Maya("Maya",agent_Maya.agent_MayaAI)
-	Maya_secound=agent_Maya("Maya_secound",agent_Maya.agent_MayaAI)
+	faceHunter_Maya=faceHunter_Mirror_Maya("faceHunter_Mirror_Maya",faceHunter_Mirror_Maya.faceHunter_Mirror_MayaAI\
+		,myOption=[1,1,1,1,1,1,1,1,1,1,1,1])
+	faceHunter_Maya2=faceHunter_Mirror_Maya("faceHunter_Mirroring",faceHunter_Mirror_Maya.faceHunter_Mirror_MayaAI\
+		,myOption=[1,-1,1,-1,1,-1,1,-1,1,-1,1,-1])
 	# Miyaryo
 	#from agent_miyaryo import miyaryoAgent
 	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
@@ -52,7 +56,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Maya_secound, Maya, gameNumber=1, debugLog=True)
+	play_set_of_games(faceHunter_Maya2, faceHunter_Maya, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
