@@ -1,7 +1,8 @@
 import random
 from itertools import chain
 
-from hearthstone.enums import CardType, PlayReq, PlayState, Race, Rarity, Step, Zone
+from hearthstone.enums import CardType, MultiClassGroup, PlayReq, PlayState, \
+	Race, Rarity, Step, Zone
 
 from . import actions, cards, enums, rules
 from .aura import TargetableByAuras
@@ -27,6 +28,8 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
+	if subclass is Spell and data.sidequest:##############added by aharalab
+		subclass = Sidequest##############################added by aharalab
 	return subclass(data)
 
 
@@ -71,6 +74,13 @@ class BaseCard(BaseEntity):
 	def zone(self):
 		return self._zone
 
+	@property
+	def classes(self):
+		if hasattr(self, "multi_class_group"):
+			return MultiClassGroup(self.multi_class_group).card_classes
+		else:
+			return [self.card_class]
+
 	@zone.setter
 	def zone(self, value):
 		self._set_zone(value)
@@ -95,7 +105,8 @@ class BaseCard(BaseEntity):
 			Zone.SETASIDE: self.game.setaside,
 		}
 		if caches.get(old) is not None:
-			caches[old].remove(self)
+			if self in caches[old]:########## added by aharalab. 30.12.2020 ####### I dont see why we need this line .
+				caches[old].remove(self)
 		if caches.get(value) is not None:
 			if hasattr(self, "_summon_index") and self._summon_index is not None:
 				caches[value].insert(self._summon_index, self)
@@ -139,6 +150,12 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
+	cant_be_frozen = boolean_property("cant_be_frozen")########## aharalab ##################23.12.2020
+	reborn = boolean_property("reborn")############################### aharalab ##################
+	mark_of_evil = boolean_property("mark_of_evil")############################### aharalab ##################22.12.2020
+	_tmp_list1_ = []############################### aharalab ################## SCH_717, DRG_086
+	_tmp_list2_ = []############################### aharalab ################## SCH_717, DRG_086
+	_tmp_int1_ = 0############################### aharalab ################## SCH_717, DRG_086
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -324,6 +341,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.logger.warning("%r does not require a target, ignoring target %r", self, target)
 			target = None
 		self.game.play_card(self, target, index, choose)
+		if not self.id in self.controller.starting_deck:##### aharalab ## DRG_109 ## 25.12.2020
+			self.controller.times_card_to_play_out_of_deck += 1 ##### aharalab ## DRG_109 ## 25.12.2020
 		return self
 
 	def is_summonable(self) -> bool:
@@ -690,7 +709,7 @@ class Minion(Character):
 		return super().attackable
 
 	@property
-	def asleep(self):
+	def asleep(self):## need to add something on ULD_180 ##### aharalab
 		return self.zone == Zone.PLAY and not self.turns_in_play and (
 			not self.charge and not self.rush)
 
@@ -782,10 +801,15 @@ class Spell(PlayableCard):
 
 	def play(self, target=None, index=None, choose=None):
 		self.controller.times_spell_played_this_game += 1
+		self.controller.times_spells_played_this_turn += 1 ##### aharalab ####### 27.12.2020 ####
+		self.controller.spells_played_this_turn.append(self) ##### aharalab ####DAL_558### 28.12.2020 ####
+		if target!=None and target.controller==self.controller: ##### aharalab ####### 24.12.2020 ####
+			self.controller.times_spell_to_friendly_minion_this_game += 1 ##### aharalab ####### 24.12.2020 ####
 		return super().play(target, index, choose)
 
 
 class Secret(Spell):
+
 	@property
 	def events(self):
 		ret = super().events
@@ -807,8 +831,16 @@ class Secret(Spell):
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
+			self.secret_twice=False######### aharalab 26.12.2020 ### want to make a new flag for this part.
+			for card in self.controller.field:######### aharalab 26.12.2020
+				if 'DAL_573'==card.id :########### aharalab 26.12.2020
+					self.secret_twice=True######### aharalab 26.12.2020
 		if self.zone == Zone.SECRET:
-			self.controller.secrets.remove(self)
+			if self.secret_twice:######### aharalab 26.12.2020
+				self.secret_twice=False######### aharalab 26.12.2020
+				return######### aharalab 26.12.2020
+			else:######### aharalab 26.12.2020
+				self.controller.secrets.remove(self)
 		if value == Zone.SECRET:
 			self.controller.secrets.append(self)
 		super()._set_zone(value)
@@ -978,3 +1010,45 @@ class HeroPower(PlayableCard):
 		if self.exhausted:
 			return False
 		return super().is_playable()
+
+
+	############ aharalab ################
+
+class Sidequest(Spell):
+	_tmp_int1_=0
+	@property
+	def events(self):
+		ret = super().events
+		if self.zone == Zone.SECRET:
+			ret += self.data.scripts.secret
+		return ret
+
+	@property
+	def exhausted(self):
+		return self.zone == Zone.SECRET and self.controller.current_player
+
+	@property
+	def zone_position(self):
+		if self.zone == Zone.SECRET:
+			return self.controller.secrets.index(self) + 1
+		return super().zone_position
+
+	def _set_zone(self, value):
+		if value == Zone.PLAY:
+			# Move secrets to the SECRET Zone when played
+			value = Zone.SECRET
+		if self.zone == Zone.SECRET:
+			self.controller.secrets.remove(self)
+		if value == Zone.SECRET:
+			self.controller.secrets.append(self)
+		super()._set_zone(value)
+
+	def is_summonable(self):
+		# secrets are all unique
+		if self.controller.secrets.contains(self):
+			return False
+		return super().is_summonable()
+
+	def play(self, target=None, index=None, choose=None):
+		self.controller.times_secret_played_this_game += 1
+		return super().play(target, index, choose)

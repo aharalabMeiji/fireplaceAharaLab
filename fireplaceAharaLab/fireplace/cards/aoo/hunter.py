@@ -64,7 +64,7 @@ BT_213e = buff(atk=2, health=2)
 class BT_203:
 	"""Pack Tactics"""
 	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(FULL_BOARD | (
-		Summon(CONTROLLER, ExactCopy(Attack.DEFENDER)).then(
+		Reveal(SELF), Summon(CONTROLLER, ExactCopy(Attack.DEFENDER)).then(
 			Buff(Summon.CARD, "BT_203e")
 		)))
 

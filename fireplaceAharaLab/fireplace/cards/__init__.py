@@ -97,8 +97,26 @@ class CardDB(dict):
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
 		for id, card in db.items():
-			self[id] = self.merge(id, card)
-
+			#### ristrict cards to standard cards ##  aharalab ##
+			## exclude [15,21,25,1453,1466]
+			from hearthstone.enums import GameTag
+			## add attr spellpower
+			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
+			if spellpowervalue is not None:
+				setattr(card, 'spellpower', spellpowervalue)
+			else:
+				setattr(card, 'spellpower', 0)
+			yes = False
+			if card.card_set in [2,3,4,17,18,1130,1158,1347,1403,1414,1443]:
+				yes = True
+			elif card.id in ['OG_280']:#C'Thun
+				yes = True
+			elif card.card_set==15:#Some extended hero powers
+				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt"]:
+					yes = True
+			if yes:
+				self[id] = self.merge(id, card)
+			## end ###
 		log.info("Merged %i cards", len(self))
 
 	def filter(self, **kwargs):
@@ -125,10 +143,15 @@ class CardDB(dict):
 			if value is not None:
 				# What? this doesn't work?
 				# cards = __builtins__["filter"](lambda c: getattr(c, attr) == value, cards)
-				cards = [
-					card for card in cards if (isinstance(value, list) and getattr(card, attr) in value) or
-					getattr(card, attr) == value
-				]
+
+				if attr == "card_class":
+					cards = [card for card in cards if value in card.classes]
+				else:
+					cards = [
+						card for card in cards if (
+							isinstance(value, list) and getattr(card, attr) in value) or
+						getattr(card, attr) == value
+					]
 
 		return [card.id for card in cards]
 

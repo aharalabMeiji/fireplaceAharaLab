@@ -20,7 +20,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="fireplaceAharaLab\agent_Standard.py" />
-    <Compile Include="fireplaceAharaLab\agent_Hunter.py" />
+    <Compile Include="fireplaceAharaLab\agent_HunterCat.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
@@ -31,6 +31,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\adventure.py" />
@@ -84,6 +87,26 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\custom\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\debug\all.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\debug\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\paladin.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\dragon\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\neutral_common.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\game\all.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\game\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\gangs\druid.py" />
@@ -131,6 +154,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\icecrown\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\initiate\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\galakrond\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\initiate\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\karazhan\collectible.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\karazhan\__init__.py" />
@@ -154,6 +178,39 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\adventure.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\collectible.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\naxxramas\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\galakrond\all.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\mage.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\Saviors\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\mage.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\demon_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\paladin.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\Shadows\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\tgt\mage.py" />
@@ -249,10 +306,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fireplaceAharaLab\obj\Any CPU\Debug\fireplaceAhara.pyproj.FileListAbsolute.txt" />
-    <Content Include="test_data34.csv" />
-    <Content Include="test_data35.csv" />
-    <Content Include="test_data43.csv" />
-    <Content Include="test_data53.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fireplaceAharaLab" />
@@ -275,6 +328,12 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\kobolds" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\league" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\naxxramas" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\galakrond\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\dragon\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\shadows\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\saviors\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tgt" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\tutorial" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\ungoro" />
