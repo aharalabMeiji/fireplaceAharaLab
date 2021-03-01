@@ -33,7 +33,7 @@ class agent_Maya(Agent):
 				print("len(self.candidates)==1")
 				return ExceptionPlay.VALID
 				pass
-			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=100,_numOfTree=5)
+			self.takingAction=self.try_montecarlo_tree_search(game,self.candidates,_trialPerTree=30,_numOfTree=2)
 			print("--------------------simulate end!!------------------")
 			print(self.takingAction)
 			# iterate over our hand and play whatever is playable
@@ -87,7 +87,7 @@ class agent_Maya(Agent):
 				'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
 				'SCH_270'
 				]
-			self.temporaryDeck=random_draft(self.enemy.hero,self.exclude)
+			self.temporaryDeck=BigDeck.faceHunter
 			self.enemy.hand=CardList()
 			self.enemy.deck=Deck()
 			for item in self.temporaryDeck:
@@ -258,7 +258,7 @@ class Node(object):
 			if self.simCandidates[self.index].type ==ExceptionPlay.TURNEND:
 				game.end_turn();
 				return ExceptionPlay.VALID
-			self.exc=executeAction(game,self.simCandidates[self.index],debugLog=True)
+			self.exc=executeAction(game,self.simCandidates[self.index],debugLog=False)
 			postAction(self.player)
 			if self.exc==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
