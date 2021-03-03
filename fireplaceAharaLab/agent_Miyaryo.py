@@ -88,12 +88,13 @@ class MiyaryoAgent(Agent):
                   1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5])
     lethal = False
     DebugLog = True
+    start = None
 
     def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000):
         super().__init__(myName, myFunction, myOption, myClass, rating)
 
     def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
-        start = time.time()
+        self.start = time.time()
         self.DebugLog = debugLog
         player = game.current_player
         if self.DebugLog:
@@ -101,13 +102,12 @@ class MiyaryoAgent(Agent):
             print(f"秘策数{len(player.secrets)}")
             print(f"相手秘策数{len(player.opponent.secrets)}")
         self.lethal = False
-
         while True:
             # print(total_size(game.get_log()))
             # print(f"ログの長さ{len(game.get_log())}")
             copystart = time.time()
             tmpGame = copy.deepcopy(game)
-            print(f"elapsed_time:{time.time()-copystart}")
+            # print(f"elapsed_time:{time.time()-copystart}")
             # print(total_size(tmpGame,verbose = True))
             myCandidate = getCandidates(
                 game, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
@@ -122,7 +122,10 @@ class MiyaryoAgent(Agent):
                 finalScores = self.primitiveMonte(tmpGame, myCandidate)
                 # finalScores = np.random.randint(10, size=len(myCandidate))
                 # print(f"モンテ後{total_size(game.get_log())}")
-                if isinstance(finalScores, int):
+                if isinstance(finalScores, str):
+                    self.StandardRandom(game,debugLog=self.DebugLog)
+                    return ExceptionPlay.VALID
+                elif isinstance(finalScores, int):
                     mychoice = finalScores
                     self.lethal = True
                 else:
@@ -145,6 +148,9 @@ class MiyaryoAgent(Agent):
         player = montegame.current_player
         beforeScore = self.getBoardScore(montegame)
         for i in range(len(_candidates)):
+            if time.time()-self.start > 28:
+                print("時間切れ")
+                return "over"
             canScore = np.empty((0, self.vLength))
             for j in range(5):
                 if _candidates[i].type == ExceptionPlay.TURNEND:
@@ -304,3 +310,18 @@ class MiyaryoAgent(Agent):
             return False
         pass
 
+    def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+        player = thisgame.current_player
+        loopCount = 0
+        while loopCount < 20:
+            loopCount += 1
+            myCandidate = getCandidates(thisgame)
+            if len(myCandidate) > 0:
+                myChoice = random.choice(myCandidate)
+                exc = executeAction(thisgame, myChoice, debugLog=debugLog)
+                postAction(player)
+                if exc == ExceptionPlay.GAMEOVER:
+                    return ExceptionPlay.GAMEOVER
+                else:
+                    continue
+            return ExceptionPlay.VALID
