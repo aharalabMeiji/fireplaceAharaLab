@@ -186,25 +186,24 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 	if Config.HEROHPOPTION != 30:
 		game.player1.hero.max_health = int(Config.HEROHPOPTION)
 		game.player2.hero.max_health = int(Config.HEROHPOPTION)
-	player1.max_mana=int(Config.P1MAXMANA)
-	player2.max_mana=int(Config.P2MAXMANA)
-	if len(player1.hand) != Config.P1HAND:
-		if len(player1.hand) > Config.P1HAND:
-			rt_cards = random.sample(player1.hand[:len(player1.hand)-2], len(player1.hand)-Config.P1HAND)
+	game.player1.max_mana=int(Config.P1MAXMANA)
+	game.player2.max_mana=int(Config.P2MAXMANA)-1
+	if (len(game.player1.hand)-1) != Config.P1HAND:
+		if (len(game.player1.hand)-1) > Config.P1HAND:
+			rt_cards = random.sample(game.player1.hand, (len(game.player1.hand)-1)-Config.P1HAND)
 			for card in rt_cards:
 				card.zone = Zone.DECK
 		else:
-			player1.draw(Config.P1HAND-len(player1.hand))
-	if len(player2.hand) != Config.P2HAND:
-		if len(player2.hand) > Config.P2HAND:
-			rt_cards = random.sample(player2.hand[:len(player2.hand)-2], len(player2.hand)-Config.P2HAND)
+			game.player1.draw(Config.P1HAND-(len(game.player1.hand)-1))
+	if len(game.player2.hand) != Config.P2HAND:
+		if len(game.player2.hand) > Config.P2HAND:
+			rt_cards = random.sample(game.player2.hand[:len(game.player2.hand)-1], len(game.player2.hand)-Config.P2HAND)
 			for card in rt_cards:
 				card.zone = Zone.DECK
 		else:
-			player2.draw(Config.P2HAND-len(player2.hand))
-
-
+			game.player2.draw(Config.P2HAND-len(game.player2.hand))
 	# PresetHands(player1, player2)
+
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player

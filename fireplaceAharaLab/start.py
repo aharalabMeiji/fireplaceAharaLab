@@ -59,7 +59,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	pr = cProfile.Profile()
 	pr.enable()
-	play_set_of_games(Vector, Human, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
+	play_set_of_games(Vector, Miyaryo, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	# play_set_of_games(Test, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	pr.disable()
 	# pr.print_stats()

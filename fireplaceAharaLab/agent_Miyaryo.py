@@ -24,9 +24,10 @@ try:
 except ImportError:
     pass
 
+
 def total_size(o, handlers={}, verbose=False):
     # with open('file.txt', 'a') as stderr:
-        # print("始まり", file=stderr)
+    # print("始まり", file=stderr)
     """ Returns the approximate memory footprint an object and all of its contents.
 
     Automatically finds the contents of the following builtin containers and
@@ -37,14 +38,14 @@ def total_size(o, handlers={}, verbose=False):
                     OtherContainerClass: OtherContainerClass.get_elements}
 
     """
-    dict_handler = lambda d: chain.from_iterable(d.items())
+    def dict_handler(d): return chain.from_iterable(d.items())
     all_handlers = {tuple: iter,
                     list: iter,
                     deque: iter,
                     dict: dict_handler,
                     set: iter,
                     frozenset: iter,
-                   }
+                    }
     all_handlers.update(handlers)     # user handlers take precedence
     seen = set()                      # track which object id's have already been seen
     default_size = getsizeof(0)       # estimate sizeof object without __sizeof__
@@ -57,7 +58,7 @@ def total_size(o, handlers={}, verbose=False):
 
         if verbose:
             with open('file.txt', 'a') as stderr:
-                print(s, type(o), repr(o)) # , file=stderr)
+                print(s, type(o), repr(o))  # , file=stderr)
 
         for typ, handler in all_handlers.items():
             if isinstance(o, typ):
@@ -66,15 +67,15 @@ def total_size(o, handlers={}, verbose=False):
             else:
                 if not hasattr(o.__class__, '__slots__'):
                     if hasattr(o, '__dict__'):
-                        s+=sizeof(o.__dict__) # no __slots__ *usually* means a __dict__, but some special builtin classes (such as `type(None)`) have neither
+                        # no __slots__ *usually* means a __dict__, but some special builtin classes (such as `type(None)`) have neither
+                        s += sizeof(o.__dict__)
                         # else, `o` has no attributes at all, so sys.getsizeof() actually returned the correct value
                 else:
-                    s+=sum(sizeof(getattr(o, x)) for x in o.__class__.__slots__ if hasattr(o, x))
+                    s += sum(sizeof(getattr(o, x))
+                             for x in o.__class__.__slots__ if hasattr(o, x))
         return s
 
     return sizeof(o)
-
-
 
 
 exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
@@ -83,7 +84,8 @@ exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 class MiyaryoAgent(Agent):
 
     vLength = 38  # ベクトルの長さ
-    w=np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5])
+    w = np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -
+                  1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5])
     lethal = False
     DebugLog = True
 
@@ -91,21 +93,21 @@ class MiyaryoAgent(Agent):
         super().__init__(myName, myFunction, myOption, myClass, rating)
 
     def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
+        start = time.time()
         self.DebugLog = debugLog
-        print("turn %d" % game.turn)
-        print("先攻 %s" % game.player1)
         player = game.current_player
-        print(f"秘策数{len(player.secrets)}")
-        print(f"相手秘策数{len(player.opponent.secrets)}")
+        if self.DebugLog:
+            print("turn %d" % game.turn)
+            print(f"秘策数{len(player.secrets)}")
+            print(f"相手秘策数{len(player.opponent.secrets)}")
         self.lethal = False
 
         while True:
-            print(total_size(game.get_log()))
-            print(f"ログの長さ{len(game.get_log())}")
-
-            start = time.time()
+            # print(total_size(game.get_log()))
+            # print(f"ログの長さ{len(game.get_log())}")
+            copystart = time.time()
             tmpGame = copy.deepcopy(game)
-            print(f"elapsed_time:{time.time()-start}")
+            print(f"elapsed_time:{time.time()-copystart}")
             # print(total_size(tmpGame,verbose = True))
             myCandidate = getCandidates(
                 game, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
@@ -116,24 +118,24 @@ class MiyaryoAgent(Agent):
                     return
                 return ExceptionPlay.INVALID
             else:
-                print(f"モンテ前{total_size(game.get_log())}")
+                # print(f"モンテ前{total_size(game.get_log())}")
                 finalScores = self.primitiveMonte(tmpGame, myCandidate)
                 # finalScores = np.random.randint(10, size=len(myCandidate))
-                print(f"モンテ後{total_size(game.get_log())}")
+                # print(f"モンテ後{total_size(game.get_log())}")
                 if isinstance(finalScores, int):
                     mychoice = finalScores
                     self.lethal = True
                 else:
+                    if len(player.opponent.secrets):
+                        finalScores = finalScores[:len(finalScores)-1]
                     mychoice = np.argmax(finalScores)
                 if myCandidate[mychoice].type == ExceptionPlay.TURNEND:
                     print("あえてターンエンド")
                     return ExceptionPlay.VALID
                 act = myCandidate[mychoice]
                 # print(f"アクションサイズ{total_size(myCandidate[mychoice])}")
-                executeAction(game, act,debugLog = debugLog)
+                executeAction(game, act, debugLog=debugLog)
                 postAction(player)
-                # del tmpGame
-                # gc.collect()
                 if self.lethal == True:
                     return ExceptionPlay.VALID
         return ExceptionPlay.VALID
@@ -143,15 +145,15 @@ class MiyaryoAgent(Agent):
         player = montegame.current_player
         beforeScore = self.getBoardScore(montegame)
         for i in range(len(_candidates)):
-            canScore = np.empty((0,self.vLength))
+            canScore = np.empty((0, self.vLength))
             for j in range(5):
                 if _candidates[i].type == ExceptionPlay.TURNEND:
-                    canScore = np.append(canScore, [beforeScore], axis = 0)
+                    canScore = np.append(canScore, [beforeScore], axis=0)
                     continue
                 start = time.time()
                 tmGame = copy.deepcopy(montegame)
                 # print(f"elapsed_time:{time.time()-start}")
-                executeAction(tmGame, _candidates[i],debugLog=False)
+                executeAction(tmGame, _candidates[i], debugLog=False)
                 postAction(player)
                 if tmGame.current_player.opponent.hero.health <= 0:
                     return i
@@ -162,31 +164,29 @@ class MiyaryoAgent(Agent):
                     if tmpCandidates[index].type == ExceptionPlay.TURNEND:
                         break
                     else:
-                        executeAction(tmGame, tmpCandidates[index],debugLog=False)
+                        executeAction(
+                            tmGame, tmpCandidates[index], debugLog=False)
                         postAction(player)
-                canScore = np.append(canScore, [self.getBoardScore(tmGame)], axis = 0)
-                # del tmGame
-                # gc.collect()
-            calcedScore = self.calcScore(beforeScore, np.mean(canScore, axis = 0), self.lethal)
-            print(f"_{i}_{_candidates[i]}", end = '')
-            print(f'--> {calcedScore:.3f}')
+                canScore = np.append(
+                    canScore, [self.getBoardScore(tmGame)], axis=0)
+            calcedScore = self.calcScore(
+                beforeScore, np.mean(canScore, axis=0), self.lethal)
+            if self.DebugLog:
+                print(f"_{i}_{_candidates[i]}", end='')
+                print(f'--> {calcedScore:.3f}')
             retScore = np.append(retScore, calcedScore)
         return retScore
         pass
 
     def calcScore(self, _before, _after, _lethal):
-        # if(len(_before) != len(_after)):
-        #     print("ERROR")
-        #     return 0
         tmpW = np.copy(self.w)
-        if self.DebugLog:
-            print(f"before{_before}")
-            print(f"after{_after}")
+        # if self.DebugLog:
+        #     print(f"before{_before}")
+        #     print(f"after{_after}")
         # print(f"w{tmpW}")
         retScore = np.sum((_after - _before) * tmpW)
         return retScore
         pass
-
 
     def getBoardScore(self, _game: Game):
         me = _game.current_player
@@ -226,7 +226,7 @@ class MiyaryoAgent(Agent):
                 if getattr(char, 'reborn', 0):
                     v[13] += 1
                 # if char.rush:
-                if getattr(char, 'spell_damage', 0): # int
+                if getattr(char, 'spell_damage', 0):  # int
                     v[14] += char.spell_damage
                 # if char.spellburst:
                 if getattr(char, 'windfury', 0):     # 追加攻撃回数(int)
@@ -263,7 +263,7 @@ class MiyaryoAgent(Agent):
                 if getattr(char, 'reborn', 0):
                     v[27] += 1
                 # if char.rush:
-                if getattr(char, 'spell_damage', 0): # int
+                if getattr(char, 'spell_damage', 0):  # int
                     v[28] += char.spell_damage
                 # if char.spellburst:
                 if getattr(char, 'windfury', 0):     # 追加攻撃回数(int)
@@ -303,5 +303,4 @@ class MiyaryoAgent(Agent):
         else:
             return False
         pass
-
 
