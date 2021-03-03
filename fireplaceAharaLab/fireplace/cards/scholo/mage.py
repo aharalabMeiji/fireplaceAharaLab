@@ -24,13 +24,9 @@ class SCH_310:#OK
 class SCH_270:#NG
 	"""Primordial Studies	Common"""
 	#&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spell Damage&lt;/b&gt; minion. Your next one costs (1) less.
-	play = Choice(CONTROLLER, RandomMinion(spellpower=[1,2])*3).then(
-		Give(CONTROLLER, Choice.CARD).then(
-			Buff(CONTROLLER, "SCH_270e")
-			)
-		) 
+	play = Choice(CONTROLLER, RandomMinion(spellpower=1)*3).then(Give(CONTROLLER, Choice.CARD).then(Buff(CONTROLLER, "SCH_270e")))
 class SCH_270e:
-	update = Refresh(SPELLPOWER, {GameTag.COST: -1})#OK
+	update = Refresh(FRIENDLY_HAND+SPELLPOWER, {GameTag.COST: -1})#OK
 	events = Play(CONTROLLER, SPELLPOWER).on(Destroy(SELF))#OK
 SCH_270e2 = buff(cost=-1)	
 class SCH_350:#OK
