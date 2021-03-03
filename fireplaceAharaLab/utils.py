@@ -145,7 +145,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 			game.player1.draw(Config.P1HAND-(len(game.player1.hand)-1))
 	if len(game.player2.hand) != Config.P2HAND:
 		if len(game.player2.hand) > Config.P2HAND:
-			rt_cards = random.sample(game.player2.hand[:len(game.player2.hand)-2], len(game.player2.hand)-Config.P2HAND)
+			rt_cards = random.sample(game.player2.hand[:len(game.player2.hand)-1], len(game.player2.hand)-Config.P2HAND)
 			for card in rt_cards:
 				card.zone = Zone.DECK
 		else:
