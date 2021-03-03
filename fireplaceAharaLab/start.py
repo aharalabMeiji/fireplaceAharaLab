@@ -29,8 +29,8 @@ def main():
 	Maya=faceHunter_Mirror_Maya("Maya",faceHunter_Mirror_Maya.faceHunter_Mirror_MayaAI)
 
 	# Miyaryo
-	#from agent_miyaryo import miyaryoAgent
-	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
+	from agent_Miyayro import MiyaryoAgent
+	Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
 
 	# Takasho002
 	from Agent_takasho002 import takashoAgent
@@ -59,7 +59,7 @@ def main():
 
 	#デッキを固定しての総当たり戦
 	from competition import play_round_robin_competition
-	play_round_robin_competition([takasho002,HunterCat],matchNumber=1)
+	play_round_robin_competition([Maya,HunterCat],matchNumber=1)
 	#play_round_robin_competition([Random,Vector,takasho002,HunterCat],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
