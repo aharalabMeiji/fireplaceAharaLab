@@ -39,8 +39,6 @@ class faceHunter_Mirror_Maya(Agent):
 		#
 		self.copyGame=_game
 		self.candidates=getCandidates(_game,_includeTurnEnd=True)
-		print("len(candidates)==")
-		print(len(self.candidates))
 		if len(self.candidates)==0:
 			return self.candidates[0]
 			pass
@@ -52,7 +50,7 @@ class faceHunter_Mirror_Maya(Agent):
 		if _candidate.type==ExceptionPlay.TURNEND or _recursive>1:
 			return self.calculate_score(_game)#score
 			pass
-		executeAction(_game,_candidate,debugLog=True)
+		executeAction(_game,_candidate,debugLog=False)
 		postAction(_game.current_player)
 		candidates=getCandidates(_game,_includeTurnEnd=False)
 		if len(candidates)==0:
@@ -66,7 +64,7 @@ class faceHunter_Mirror_Maya(Agent):
 		pass
 	def calculate_score(self,_game:Game):
 		if _game.state==State.COMPLETE:
-			print("the game has been finished")
+			#print("the game has been finished")
 			if _game.current_player.playstate == PlayState.WON:
 				return 10000000
 			else :
