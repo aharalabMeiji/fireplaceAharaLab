@@ -22,10 +22,9 @@ class faceHunter_Mirror_Maya(Agent):
 		#hp_self,mp_self,Hand_num,Sumpow_self,Maxpow_self,Manaratio_1_self,oppo,
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
-	def faceHunter_Mirror_MayaAI(self, game: Game, option=[], gameLog=[], debugLog=False):
+	def faceHunter_Mirror_MayaAI(self, game: Game, option=[0, -0.3263461334873176, -0.4323907113138038,0,0, 0.6836399534561048,-0.4784578333894103,0,0,0, 0.10124717099389445,0], gameLog=[], debugLog=False):
 		while True:
 			self.taking_action=self.choose_action(game)
-			gc.collect()
 			if self.taking_action.type ==ExceptionPlay.TURNEND:
 				return ExceptionPlay.VALID
 				pass
@@ -50,20 +49,14 @@ class faceHunter_Mirror_Maya(Agent):
 		return self.candidates[score_for_action.index(max(score_for_action))]
 		pass
 	def evaluate_action(self,_game,_candidate,_recursive=0):
-		candidates_temp=getCandidates(_game)
-		taking_action=0
-		for item in candidates_temp:
-			if _candidate==item:
-				taking_action=item
-				pass
-			pass
 		if _candidate.type==ExceptionPlay.TURNEND or _recursive>1:
 			return self.calculate_score(_game)#score
 			pass
-		executeAction(_game,taking_action,debugLog=False)
+		executeAction(_game,_candidate,debugLog=True)
 		postAction(_game.current_player)
 		candidates=getCandidates(_game,_includeTurnEnd=False)
 		if len(candidates)==0:
+			gc.collect()
 			return self.calculate_score(_game)#score
 			pass
 		else:

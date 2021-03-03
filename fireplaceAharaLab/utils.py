@@ -279,7 +279,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	mygame.add_log(action)
 	if action.type ==ExceptionPlay.TURNEND:
 
-		print("%s Turn End"%(mygame.current_player))
+		print(">%s>> Turn End"%(mygame.current_player))
 		return ExceptionPlay.TURNEND
 		pass
 	player=mygame.current_player

@@ -11,7 +11,7 @@ import random
 import csv
 sys.path.append("..")
 import math
-
+import datetime
 #
 #		main()
 #
@@ -61,6 +61,7 @@ def main():
 	option_pool=[[random.random()*2-1,random.random()*2-1,-0.5+random.random()*0.5,1,1,1,-1,0,-1,-1,-1,-1 ] for k in range(2)]
 	while True:
 		first,second=tournament(option_pool)
+		print(datetime.datetime.now())
 		option_pool=[]
 		option_pool.append(first)
 		option_pool.append(second)
@@ -70,7 +71,7 @@ def main():
 		print(first)
 		print(second)
 		with open('./data/result.csv',"a") as f:
-			writer=csv.writer(f)
+			writer=csv.writer(f,lineterminator="\n")
 			writer.writerows([first,second])
 			print("----------------------finished===================")
 		pass
@@ -126,8 +127,6 @@ def mirror_match(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugL
 	"""
 	if debugLog:
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
-		print(P1.option)
-		print(P2.option)
 	Count1 = 0
 	Count2 = 0
 	for i in range(gameNumber):
