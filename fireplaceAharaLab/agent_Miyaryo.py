@@ -93,6 +93,7 @@ class MiyaryoAgent(Agent):
     def MiyaryoAI(self, game, option=[], gameLog=[], debugLog=False):
         self.DebugLog = debugLog
         print("turn %d" % game.turn)
+        print("先攻 %s" % game.player1)
         player = game.current_player
         print(f"秘策数{len(player.secrets)}")
         print(f"相手秘策数{len(player.opponent.secrets)}")
@@ -128,7 +129,7 @@ class MiyaryoAgent(Agent):
                     print("あえてターンエンド")
                     return ExceptionPlay.VALID
                 act = myCandidate[mychoice]
-                print(f"アクションサイズ{total_size(myCandidate[mychoice])}")
+                # print(f"アクションサイズ{total_size(myCandidate[mychoice])}")
                 executeAction(game, act,debugLog = debugLog)
                 postAction(player)
                 # del tmpGame
@@ -200,8 +201,8 @@ class MiyaryoAgent(Agent):
                 if getattr(char, 'taunt', 0):
                     v[4] += char.health
                 # if char.battlecry:
-                # if getattr(char, 'deathrattles', 0):
-                #     v[5] += 1
+                if getattr(char, 'deathrattles', 0):
+                    v[5] += 1
                 # if char.discover:
                 if getattr(char, 'divine_shield', 0):
                     v[6] += 1
@@ -237,8 +238,8 @@ class MiyaryoAgent(Agent):
                 if getattr(char, 'taunt', 0):
                     v[18] += char.health
                 # if char.battlecry:
-                # if getattr(char, 'deathrattles', 0):
-                #     v[19] += 1
+                if getattr(char, 'deathrattles', 0):
+                    v[19] += 1
                 # if char.discover:
                 if getattr(char, 'divine_shield', 0):
                     v[20] += 1

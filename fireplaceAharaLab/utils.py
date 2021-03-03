@@ -7,6 +7,7 @@ from fireplace.actions import *
 import copy
 import random
 import time
+from fireplace.config import Config
 
 
 class myAction(object):  # 旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
@@ -154,7 +155,7 @@ class Agent(object):
 	def __str__(self):
 		return self.name
 
-def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True):
+def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 	""" 1回ゲームを行う。 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
@@ -182,10 +183,28 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
-	if HeroHPOption != 30:
-		game.player1.hero.max_health = HeroHPOption
-		game.player2.hero.max_health = HeroHPOption
-	#PresetHands(player1, player2)
+	if Config.HEROHPOPTION != 30:
+		game.player1.hero.max_health = int(Config.HEROHPOPTION)
+		game.player2.hero.max_health = int(Config.HEROHPOPTION)
+	player1.max_mana=int(Config.P1MAXMANA)
+	player2.max_mana=int(Config.P2MAXMANA)
+	if len(player1.hand) != Config.P1HAND:
+		if len(player1.hand) > Config.P1HAND:
+			rt_cards = random.sample(player1.hand[:len(player1.hand)-2], len(player1.hand)-Config.P1HAND)
+			for card in rt_cards:
+				card.zone = Zone.DECK
+		else:
+			player1.draw(Config.P1HAND-len(player1.hand))
+	if len(player2.hand) != Config.P2HAND:
+		if len(player2.hand) > Config.P2HAND:
+			rt_cards = random.sample(player2.hand[:len(player2.hand)-2], len(player2.hand)-Config.P2HAND)
+			for card in rt_cards:
+				card.zone = Zone.DECK
+		else:
+			player2.draw(Config.P2HAND-len(player2.hand))
+
+
+	# PresetHands(player1, player2)
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -509,9 +528,9 @@ def getTurnLog(gameLog, turnN):
 
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'ULD_178').trigger(player1)#target
-	#Give(player1,'DAL_604').trigger(player1)#subtarget-
+	# Discard(player1.hand[-1]).trigger(player1)
+	# Give(player1,'ULD_178').trigger(player1)#target
+	# Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
 	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON

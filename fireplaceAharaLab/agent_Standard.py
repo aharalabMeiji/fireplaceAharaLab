@@ -51,7 +51,7 @@ class StandardVectorAgent(Agent):
 			print(">>>>>>>>>>>>>>>>>>>")
 		for myChoice in myCandidate:
 			tmpGame = copy.deepcopy(game)
-			print(f"アクションサイズ{total_size(myChoice)}")
+			# print(f"アクションサイズ{total_size(myChoice)}")
 			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:
