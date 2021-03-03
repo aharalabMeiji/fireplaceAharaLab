@@ -2,9 +2,7 @@ from utils import *
 
 def play_round_robin_competition(players: list, matchNumber=10):# players: Agentのリスト
 	Nplayer = len(players)
-	ScoreWin = [0] * Nplayer
-	ScoreLose = [0] * Nplayer
-	pass
+	ScoreWin = [[0 for i in range(Nplayer)] for j in range(Nplayer)]
 
 	for repeat in range(matchNumber):
 		for i in range(Nplayer):
@@ -18,13 +16,21 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 				winner = play_one_game_competition(agent1,agent2,BigDeck.faceHunter, BigDeck.faceHunter,debugLog=True)
 				print("winner is %r"%winner)
 				if winner == agent1.name:
-					ScoreWin[i]+=1
-					ScoreLose[j]+=1
+					ScoreWin[i][j]+=1
 				elif winner == agent2.name:
-					ScoreWin[j]+=1
-					ScoreLose[i]+=1
-	for i in range(Nplayer):
-		print ("%s: win %d, lose %d"%(players[i].name,ScoreWin[i], ScoreLose[i]))
+					ScoreWin[j][i]+=1
+				with open("standings.csv", mode="w") as standings:
+					for x in range(Nplayer):
+						NumWin=0
+						NumLose=0
+						standings.write(players[x].name+",")
+						for y in range(Nplayer):
+							standings.write(str(ScoreWin[x][y])+",")
+							NumWin += ScoreWin[x][y]
+							NumLose += ScoreWin[y][x]
+						standings.write(str(NumWin)+",")
+						standings.write(str(NumLose)+"\n")
+
 
 def play_one_game_competition(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True, showFieldHand=True):
 	""" 1回ゲームを行う。 """
@@ -58,12 +64,18 @@ def play_one_game_competition(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOp
 		game.player1.hero.max_health = HeroHPOption
 		game.player2.hero.max_health = HeroHPOption
 	print (">>>>> game begins: %s vs. %s <<<<<"%(game.player1.name, game.player2.name))
+	filename = P1.name+"-"+P2.name+str(time.time())+".txt"
+	game.setFilename(filename)
+	with open(filename, mode="a") as gameshow:
+		gameshow.write (">>>>> game begins: "+game.player1.name+" vs. "+game.player2.name+" <<<<<\n")
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
 		if showFieldHand:
-			show_field_hand(game.player1, game.player2)
+			show_field_hand(game.player1, game.player2, filename)
 			print (">>>>> %s 's turn <<<<<"%(player.name))
+			with open(filename, mode="a") as gameshow:
+				gameshow.write (">>>>> "+player.name+" 's turn <<<<<\n")
 		start_time = time.time()
 		if player.name==P1.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
@@ -84,6 +96,8 @@ def play_one_game_competition(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOp
 				game.end_turn()
 				if debugLog:
 					print(">>>>>%s 's turn time: %d[sec] <<<<<"%(player.name, time.time()-start_time))
+					with open(filename, mode="a") as gameshow:
+						gameshow.write(">>>>>"+player.name+" 's turn time: "+str(time.time()-start_time)+"[sec] <<<<<\n\n")
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
@@ -95,107 +109,108 @@ def play_one_game_competition(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOp
 				return game.current_player.opponent.name
 			return 'DRAW'#Maybe impossible to come here.
 
-def show_field_hand(Player1, Player2):
-	print("========%s 's HAND======"%(Player1.name))
-	player = Player1
-	for card in player.hand:
-		print("%s"%card, end='   : ')
-		if card.data.type == CardType.MINION:
-			print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-		elif card.data.type == CardType.SPELL:
-			print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-		elif card.data.type == CardType.WEAPON:
-			print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-	print("========%s 's SECRETS======"%(Player1.name))
-	for card in player.secrets:
-		print("%s"%card, end='   : ')
-		if hasattr(card, 'sidequest'):
-			print("(%d)"%card._tmp_int1_, end="")
-		print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-	print("========%s 's PLAYGROUND======"%(Player1.name))
-	for character in player.characters:
-		print("%s"%character, end='   : ')
-		if character == player.hero:
-			if player.weapon:
-				print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name), end=" ")
-			else:
-				print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
-		else :
-			print("(%2d/%2d)"%(character.atk,character.health), end=" ")
-			if character.silenced:
-				print("(silenced)", end=" ")
-			if character.windfury:
-				print("(windfury)", end=" ")
-			if character.poisonous:
-				print("(poisonous)", end=" ")
-			if character.frozen:
-				print("(frozen)", end=" ")
-			if character.reborn:
-				print("(reborn)", end=" ")
-			if character.taunt:
-				print("(taunt)", end=" ")
-			if character.stealthed:
-				print("(stealthed)", end=" ")
-			if character.divine_shield:
-				print("(divine_shield)", end=" ")
-			if character.dormant!=0:
-				print("(dormant:%d)"%(character.dormant), end=" ")
-			if character.spellpower>0:
-				print("(spellpower:%d)"%(character.spellpower), end=" ")
-		print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-	if player.hero.power.is_usable():
-		print("%s"%player.hero.power, end='   : ')
-		print("<%2d>"%player.hero.power.cost, end=' ')
-		print("%s"%player.hero.power.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']'))
-	print("========%s 's PLAYGROUND======"%(Player2.name))
-	player = Player2
-	for character in player.characters:
-		print("%s"%character, end='   : ')
-		if character == player.hero:
-			if player.weapon:
-				print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name), end=" ")
-			else:
-				print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
-		else :
-			print("(%2d/%2d)"%(character.atk,character.health), end=" ")
-			if character.silenced:
-				print("(silenced)", end=" ")
-			if character.windfury:
-				print("(windfury)", end=" ")
-			if character.poisonous:
-				print("(poisonous)", end=" ")
-			if character.frozen:
-				print("(frozen)", end=" ")
-			if character.reborn:
-				print("(reborn)", end=" ")
-			if character.taunt:
-				print("(taunt)", end=" ")
-			if character.stealthed:
-				print("(stealthed)", end=" ")
-			if character.divine_shield:
-				print("(divine_shield)", end=" ")
-			if character.dormant!=0:
-				print("(dormant:%d)"%(character.dormant), end=" ")
-			if character.spellpower>0:
-				print("(spellpower:%d)"%(character.spellpower), end=" ")
-		print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-	if player.hero.power.is_usable():
-		print("%s"%player.hero.power, end='   : ')
-		print("<%2d>"%player.hero.power.cost, end=' ')
-		print("%s"%player.hero.power.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']'))
-	print("========%s 's SECRETS======"%(Player2.name))
-	for card in player.secrets:
-		print("%s"%card, end='   : ')
-		if hasattr(card, 'sidequest'):
-			print("(%d)"%card._tmp_int1_, end="")
-		print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-	print("========%s 's HAND======"%(Player2.name))
-	for card in player.hand:
-		print("%s"%card, end='   : ')
-		if card.data.type == CardType.MINION:
-			print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-		elif card.data.type == CardType.SPELL:
-			print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-		elif card.data.type == CardType.WEAPON:
-			print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-	pass
+def show_field_hand(Player1, Player2, filename):
+	with open(filename, mode="a") as display:
+		display.write("========%s 's HAND======\n"%(Player1.name))
+		player = Player1
+		for card in player.hand:
+			display.write("%s   : "%card)
+			if card.data.type == CardType.MINION:
+				display.write("%2d(%2d/%2d)%s\n"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.SPELL:
+				display.write("%2d : %s\n"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.WEAPON:
+				display.write("%2d(%2d/%2d) : %s\n"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+		display.write("========%s 's SECRETS======\n"%(Player1.name))
+		for card in player.secrets:
+			display.write("%s   : "%card)
+			if hasattr(card, 'sidequest'):
+				display.write("(%d)"%card._tmp_int1_)
+			display.write("%s\n"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+		display.write("========%s 's PLAYGROUND======\n"%(Player1.name))
+		for character in player.characters:
+			display.write("%s   : "%character)
+			if character == player.hero:
+				if player.weapon:
+					display.write("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name))
+				else:
+					display.write("(%2d/%2d+%d)"%(character.atk,character.health,character.armor))
+			else :
+				display.write("(%2d/%2d)"%(character.atk,character.health))
+				if character.silenced:
+					display.write("(silenced)")
+				if character.windfury:
+					display.write("(windfury)")
+				if character.poisonous:
+					display.write("(poisonous)")
+				if character.frozen:
+					display.write("(frozen)")
+				if character.reborn:
+					display.write("(reborn)")
+				if character.taunt:
+					display.write("(taunt)")
+				if character.stealthed:
+					display.write("(stealthed)")
+				if character.divine_shield:
+					display.write("(divine_shield)")
+				if character.dormant!=0:
+					display.write("(dormant:%d)"%(character.dormant))
+				if character.spellpower>0:
+					display.write("(spellpower:%d)"%(character.spellpower))
+			display.write(" %s\n"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+		if player.hero.power.is_usable():
+			display.write("%s   : "%player.hero.power)
+			display.write("<%2d>"%player.hero.power.cost)
+			display.write("%s\n"%player.hero.power.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']'))
+		display.write("========%s 's PLAYGROUND======\n"%(Player2.name))
+		player = Player2
+		for character in player.characters:
+			display.write("%s   : "%character)
+			if character == player.hero:
+				if player.weapon:
+					display.write("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name))
+				else:
+					display.write("(%2d/%2d+%d)"%(character.atk,character.health,character.armor))
+			else :
+				display.write("(%2d/%2d)"%(character.atk,character.health))
+				if character.silenced:
+					display.write("(silenced)")
+				if character.windfury:
+					display.write("(windfury)")
+				if character.poisonous:
+					display.write("(poisonous)")
+				if character.frozen:
+					display.write("(frozen)")
+				if character.reborn:
+					display.write("(reborn)")
+				if character.taunt:
+					display.write("(taunt)")
+				if character.stealthed:
+					display.write("(stealthed)")
+				if character.divine_shield:
+					display.write("(divine_shield)")
+				if character.dormant!=0:
+					display.write("(dormant:%d)"%(character.dormant))
+				if character.spellpower>0:
+					display.write("(spellpower:%d)"%(character.spellpower))
+			display.write("%s\n"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+		if player.hero.power.is_usable():
+			display.write("%s   : "%player.hero.power)
+			display.write("<%2d>"%player.hero.power.cost)
+			display.write("%s\n"%player.hero.power.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']'))
+		display.write("========%s 's SECRETS======\n"%(Player2.name))
+		for card in player.secrets:
+			display.write("%s   : "%card)
+			if hasattr(card, 'sidequest'):
+				display.write("(%d)"%card._tmp_int1_)
+			display.write("%s\n"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+		display.write("========%s 's HAND======\n"%(Player2.name))
+		for card in player.hand:
+			display.write("%s   : "%card)
+			if card.data.type == CardType.MINION:
+				display.write("%2d(%2d/%2d)%s\n"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.SPELL:
+				display.write("%2d : %s\n"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.WEAPON:
+				display.write("%2d(%2d/%2d) : %s\n"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+		pass

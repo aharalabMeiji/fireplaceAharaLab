@@ -213,16 +213,20 @@ class Candidate(object):
 
 class GameWithLog(Game):
 	""" game with logs  """
+	gameLogFile = "sample.txt"
 	def __init__(self, players):
 		super().__init__(players=players)
 		self.__myLog__=[]
 		self.__stage_choice__=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
 			'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
 			'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
+		self.gameLogFile = "sample.txt"
 	def add_log(self, choice: Candidate):
 		self.__myLog__.append(choice)
 	def get_log(self):
 		return self.__myLog__
+	def setFilename(self, name):
+		self.gameLogFile = name
 #
 #  getCandidates
 #
@@ -283,6 +287,8 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
 		print(">%s>>%s"%(player,str(action)))
+		with open(mygame.gameLogFile, mode="a") as gameshow:
+			gameshow.write(">%s>>%s\n"%(player,str(action)))
 	theCard=theTarget=theCard2=None
 	#print(id(action.card.game))
 	#print(id(mygame))
@@ -494,3 +500,4 @@ def PresetPlay(player, cardID):
 	for card in player.hand:
 		if card.id == cardID and card.is_playable():
 			card.play(target=None)
+
