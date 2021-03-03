@@ -15,7 +15,7 @@ from fireplace.exceptions import GameOver
 from fireplace.utils import random_draft,CardList
 from fireplace.deck import Deck
 from utils import *
-
+import gc
 class faceHunter_Mirror_Maya(Agent):
 	"""docstring for faceHunter_Mirror_Maya"""
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
@@ -25,6 +25,7 @@ class faceHunter_Mirror_Maya(Agent):
 	def faceHunter_Mirror_MayaAI(self, game: Game, option=[], gameLog=[], debugLog=False):
 		while True:
 			self.taking_action=self.choose_action(game)
+			gc.collect()
 			if self.taking_action.type ==ExceptionPlay.TURNEND:
 				return ExceptionPlay.VALID
 				pass
@@ -38,33 +39,45 @@ class faceHunter_Mirror_Maya(Agent):
 	def choose_action(self,_game):
 		#
 		self.copyGame=_game
-		self.tempGame=0
 		self.candidates=getCandidates(_game,_includeTurnEnd=True)
+		print("len(candidates)==")
+		print(len(self.candidates))
 		if len(self.candidates)==0:
 			return self.candidates[0]
 			pass
-		score_for_action=list(map(self.evaluate_action,self.candidates))
+		games=[copy.deepcopy(self.copyGame) for i in self.candidates]
+		score_for_action=list(map(self.evaluate_action,games,self.candidates))
 		return self.candidates[score_for_action.index(max(score_for_action))]
 		pass
-	def evaluate_action(self,_candidate,_is_root=True):
-		if _is_root:
-			self.tempGame=copy.deepcopy(self.copyGame)
+	def evaluate_action(self,_game,_candidate,_recursive=0):
+		candidates_temp=getCandidates(_game)
+		taking_action=0
+		for item in candidates_temp:
+			if _candidate==item:
+				taking_action=item
+				pass
 			pass
-		executeAction(self.tempGame,_candidate,debugLog=False)
-		if _candidate.type==ExceptionPlay.TURNEND:
-			return self.calculate_score(self.tempGame)#score
+		if _candidate.type==ExceptionPlay.TURNEND or _recursive>1:
+			return self.calculate_score(_game)#score
 			pass
-		candidates=getCandidates(self.tempGame,_includeTurnEnd=True)
+		executeAction(_game,taking_action,debugLog=False)
+		postAction(_game.current_player)
+		candidates=getCandidates(_game,_includeTurnEnd=False)
 		if len(candidates)==0:
-			return self.calculate_score(self.tempGame)#score
+			return self.calculate_score(_game)#score
 			pass
 		else:
-			root=[False for i in candidates]
-			return max(list(map(self.evaluate_action,candidates,root)))
+			new_games=[copy.deepcopy(_game) for i in candidates]
+			recursive=[_recursive+1 for i in range(len(candidates))]
+			return max(list(map(self.evaluate_action,new_games,candidates,recursive)))
 		pass
 	def calculate_score(self,_game:Game):
 		if _game.state==State.COMPLETE:
 			print("the game has been finished")
+			if _game.current_player.playstate == PlayState.WON:
+				return 10000000
+			else :
+				return -10000000
 			pass
 		self.my_player=_game.current_player
 		self.enemy=self.my_player.opponent
