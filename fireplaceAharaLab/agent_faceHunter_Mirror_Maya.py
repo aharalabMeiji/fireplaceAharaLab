@@ -18,7 +18,7 @@ from utils import *
 import gc
 class faceHunter_Mirror_Maya(Agent):
 	"""docstring for faceHunter_Mirror_Maya"""
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
+	def __init__(self, myName: str, myFunction, myOption =  option=[0, -0.3263461334873176, -0.4323907113138038,0,0, 0.6836399534561048,-0.4784578333894103,0,0,0, 0.10124717099389445,0], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		#hp_self,mp_self,Hand_num,Sumpow_self,Maxpow_self,Manaratio_1_self,oppo,
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass

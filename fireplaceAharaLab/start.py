@@ -66,8 +66,8 @@ def main():
 		option_pool.append(first)
 		option_pool.append(second)
 		option_pool.extend(get_mutate_vector(2))
-		option_pool.extend(get_evolute_vector(first,get_num=6))
-		option_pool.extend(get_evolute_vector(second,get_num=6))
+		option_pool.extend(get_evolute_vector(first,get_num=2))
+		option_pool.extend(get_evolute_vector(second,get_num=2))
 		print(first)
 		print(second)
 		with open('./data/result.csv',"a") as f:
