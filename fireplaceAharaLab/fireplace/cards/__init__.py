@@ -101,11 +101,11 @@ class CardDB(dict):
 			## exclude [15,21,25,1453,1466]
 			from hearthstone.enums import GameTag
 			## add attr spellpower
-			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
-			if spellpowervalue is not None:
-				setattr(card, 'spellpower', spellpowervalue)
-			else:
-				setattr(card, 'spellpower', 0)
+			#spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
+			#if spellpowervalue is not None:
+			#	setattr(card, 'spellpower', spellpowervalue)
+			#else:
+			#	setattr(card, 'spellpower', 0)
 			yes = False
 			if card.card_set in [2,3,4,17,18,1130,1158,1347,1403,1414,1443]:
 				yes = True

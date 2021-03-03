@@ -24,16 +24,17 @@ def main():
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.MAGE) 		
 
-	# Maya : モンテカルロによる読み切り
-	#Maya=Agent("Maya",Maya_MCTS)
+	# faceHunter_Mirror_Maya : モンテカルロによる読み切り
+	from agent_faceHunter_Mirror_Maya import faceHunter_Mirror_Maya
+	Maya=faceHunter_Mirror_Maya("Maya",faceHunter_Mirror_Maya.faceHunter_Mirror_MayaAI)
 
 	# Miyaryo
 	#from agent_miyaryo import miyaryoAgent
 	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
 
-	# Takasho001
-	#from agent_takasho001 import takasho001Agent
-	#takasho001=takasho001Agent("Takasho",takasho001Agent.takashoAI)
+	# Takasho002
+	from Agent_takasho002 import takashoAgent
+	takasho002=takashoAgent("Takasho",takashoAgent.takasho002AI)
 
 	# 言葉で戦略を組み立てるエージェント by Ahara
 	#from agent_word_strategy import WordStrategyAgent
@@ -42,8 +43,8 @@ def main():
 	#	,myClass=CardClass.PRIEST)
 
 	#AngryCat ： シンプルに選択するアルゴリズム
-	from agent_AngryCat import AngryCatAgent
-	AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
+	#from agent_AngryCat import AngryCatAgent
+	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#HunterCat : faceHunter専用のエージェント
 	from agent_HunterCat import HunterCatAgent
@@ -52,13 +53,14 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#play_set_of_games(Random, Vector, gameNumber=1, debugLog=True)
+	#play_set_of_games(Random, takasho002, gameNumber=1, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
 	from competition import play_round_robin_competition
-	play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
+	play_round_robin_competition([takasho002,HunterCat],matchNumber=1)
+	#play_round_robin_competition([Random,Vector,takasho002,HunterCat],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair

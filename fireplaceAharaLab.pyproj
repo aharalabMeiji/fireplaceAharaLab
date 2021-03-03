@@ -19,9 +19,15 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="fireplaceAharaLab\agent_faceHunter_Mirror_Maya.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\agent_Standard.py" />
     <Compile Include="fireplaceAharaLab\agent_HunterCat.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
+    <Compile Include="fireplaceAharaLab\Agent_takasho002.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\card_pair.py" />
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
