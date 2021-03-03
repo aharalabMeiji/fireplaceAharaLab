@@ -58,7 +58,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	option_pool=[[random.random()*2-1,random.random()*2-1,-0.5+random.random()*0.5,1,1,1,-1,0,-1,-1,-1,-1 ] for k in range(2)]
+	option_pool=[[0, -0.33, -0.43,0,0, 0.68,-0.48,0,0,0, 0.1,0] for k in range(2)]
 	while True:
 		first,second=tournament(option_pool)
 		print(datetime.datetime.now())
