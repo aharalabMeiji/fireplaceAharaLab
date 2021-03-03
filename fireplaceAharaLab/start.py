@@ -59,7 +59,7 @@ def main():
 
 	#デッキを固定しての総当たり戦
 	from competition import play_round_robin_competition
-	play_round_robin_competition([Maya,HunterCat],matchNumber=1)
+	play_round_robin_competition([Vector,Maya,Miyaryo,takasho002,HunterCat],matchNumber=7)
 	#play_round_robin_competition([Random,Vector,takasho002,HunterCat],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
