@@ -3,7 +3,6 @@ import sys
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
-from agent_Maya import *
 from agent_word_strategy import *
 from agent_AngryCat import *
 
