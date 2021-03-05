@@ -19,12 +19,12 @@ import gc
 import time
 class faceHunter_Mirror_Maya(Agent):
 	"""docstring for faceHunter_Mirror_Maya"""
-	def __init__(self, myName: str, myFunction, myOption =[0, -0.3263461334873176, -0.4323907113138038,0,0, 0.6836399534561048,-0.4784578333894103,0,0,0, 0.10124717099389445,0], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
+	def __init__(self, myName: str, myFunction, myOption =[0.037,-0.3,-0.4,0.024,0.019,0.72,-0.44,0.034,0.087,0.014,0.12,0.097], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
 		#hp_self,mp_self,Hand_num,Sumpow_self,Maxpow_self,Manaratio_1_self,oppo,
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
 	def faceHunter_Mirror_MayaAI(self, game: Game, option=[0, -0.3263461334873176, -0.4323907113138038,0,0, 0.6836399534561048,-0.4784578333894103,0,0,0, 0.10124717099389445,0], gameLog=[], debugLog=False):
-		self.threashould=28
+		self.threashould=26
 		self.pivot_time=time.time()
 		while True:
 			elapsed_time=time.time()-self.pivot_time
@@ -53,13 +53,16 @@ class faceHunter_Mirror_Maya(Agent):
 		return self.candidates[score_for_action.index(max(score_for_action))]
 		pass
 	def evaluate_action(self,_game,_candidate,_recursive=0):
-		if _recursive>2 or _candidate.type==ExceptionPlay.TURNEND or time.time()-self.pivot_time>self.threashould:
+		if _recursive>5 or _candidate.type==ExceptionPlay.TURNEND :
 			score=self.calculate_score(_game)
 			#print("score={s}".format(s=score))
 			return score
 		temp_game=_game
-		executeAction(temp_game,_candidate,debugLog=False)
+		exc =executeAction(temp_game,_candidate,debugLog=False)
 		postAction(temp_game.current_player)
+		if time.time()-self.pivot_time>self.threashould or exc=ExceptionPlay.GAMEOVER:
+			return self.calculate_score(temp.game)
+			pass
 		return max(list(map(lambda cand:self.evaluate_action(_game=copy.deepcopy(temp_game),_candidate=cand,_recursive=_recursive+1),getCandidates(temp_game,_includeTurnEnd=True))))
 	def calculate_score(self,_game:Game):
 		if _game.state==State.COMPLETE:
