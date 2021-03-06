@@ -60,8 +60,8 @@ class faceHunter_Mirror_Maya(Agent):
 		temp_game=_game
 		exc =executeAction(temp_game,_candidate,debugLog=False)
 		postAction(temp_game.current_player)
-		if time.time()-self.pivot_time>self.threashould or exc=ExceptionPlay.GAMEOVER:
-			return self.calculate_score(temp.game)
+		if time.time()-self.pivot_time>self.threashould or exc==ExceptionPlay.GAMEOVER:
+			return self.calculate_score(temp_game)
 			pass
 		return max(list(map(lambda cand:self.evaluate_action(_game=copy.deepcopy(temp_game),_candidate=cand,_recursive=_recursive+1),getCandidates(temp_game,_includeTurnEnd=True))))
 	def calculate_score(self,_game:Game):
