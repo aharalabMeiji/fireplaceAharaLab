@@ -7,6 +7,7 @@ from fireplace.actions import *
 import copy
 import random
 import time
+from fireplace.config import Config
 
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
@@ -102,7 +103,7 @@ class Agent(object):
 	def __str__(self):
 		return self.name
 
-def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, debugLog=True):
+def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 	""" 1回ゲームを行う。 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
@@ -130,10 +131,27 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], HeroHPOption=30, deb
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
-	if HeroHPOption != 30:
-		game.player1.hero.max_health = HeroHPOption
-		game.player2.hero.max_health = HeroHPOption
-	#PresetHands(player1, player2)
+	if Config.HEROHPOPTION != 30:
+		game.player1.hero.max_health = int(Config.HEROHPOPTION)
+		game.player2.hero.max_health = int(Config.HEROHPOPTION)
+	game.player1.max_mana=int(Config.P1MAXMANA)
+	game.player2.max_mana=int(Config.P2MAXMANA)-1
+	if (len(game.player1.hand)-1) != Config.P1HAND:
+		if (len(game.player1.hand)-1) > Config.P1HAND:
+			rt_cards = random.sample(game.player1.hand, (len(game.player1.hand)-1)-Config.P1HAND)
+			for card in rt_cards:
+				card.zone = Zone.DECK
+		else:
+			game.player1.draw(Config.P1HAND-(len(game.player1.hand)-1))
+	if len(game.player2.hand) != Config.P2HAND:
+		if len(game.player2.hand) > Config.P2HAND:
+			rt_cards = random.sample(game.player2.hand[:len(game.player2.hand)-1], len(game.player2.hand)-Config.P2HAND)
+			for card in rt_cards:
+				card.zone = Zone.DECK
+		else:
+			game.player2.draw(Config.P2HAND-len(game.player2.hand))
+	# PresetHands(player1, player2)
+
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
