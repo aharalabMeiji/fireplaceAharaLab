@@ -207,6 +207,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
+		boardToFile(game)
 		start_time = time.time()
 		if player.name==P1.name:
 			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
@@ -225,7 +226,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
-				if debugLog:
+				if True: #debugLog:
 					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
 			except GameOver:#まれにおこる
 				gameover=0
@@ -566,3 +567,19 @@ def PresetPlay(player, cardID):
 	for card in player.hand:
 		if card.id == cardID and card.is_playable():
 			card.play(target=None)
+
+def boardToFile(game):
+	f=open("board.txt",'w')
+	for player in game.players:
+		f.write(f"{int(player.hero)}\n")
+		f.write(f"{player.times_hero_power_used_this_game}\n")
+		f.write(f"{player.hero.health}\n")
+		f.write(f"{len(player.deck)}\n")
+		f.write(f"{len(player.secrets)}\n")
+		f.write(f"{len(player.hand)}\n")
+		for hand in player.hand:
+			f.write(f"{hand.id}\n")
+		f.write(f"{len(player.field)}\n")
+		for minion in player.field:
+			f.write(f"{minion.id},{minion.atk},{minion.health}\n")
+	f.close()
