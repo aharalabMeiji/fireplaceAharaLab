@@ -9,34 +9,6 @@ import random
 import time
 from fireplace.config import Config
 
-
-class myAction(object):  # 旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
-    """docstring for myAction"""
-
-    def __init__(self, _card, _type, _target=None):
-        super(myAction, self).__init__()
-        self.card = _card
-        self.type = _type
-        self.target = _target
-
-    def __str__(self):
-        return "{card}->{type}(target={target})".format(card=self.card, type=self.type, target=self.target)
-        pass
-
-    def __eq__(self, obj):
-        return str(self) == str(obj)
-        pass
-
-
-class myActionValue(object):  # 旧マヤ版ActionValue
-    """docstring for myActionValue"""
-
-    def __init__(self, _action, _score):
-        super(myActionValue, self).__init__()
-        self.action = _action
-        self.score = _score
-
-
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
 	def __init__(self, _card,_type,_target=None):
@@ -528,9 +500,15 @@ def getTurnLog(gameLog, turnN):
 
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
+<<<<<<< HEAD
 	# Discard(player1.hand[-1]).trigger(player1)
 	# Give(player1,'ULD_178').trigger(player1)#target
 	# Give(player1,'DAL_604').trigger(player1)#subtarget-
+=======
+	Discard(player1.hand[-1]).trigger(player1)
+	Give(player1,'SCH_270').trigger(player1)#target
+	#Give(player1,'DAL_604').trigger(player1)#subtarget-
+>>>>>>> c6013724e8d5d4b8c6f27eaac5f7d501e76a60a8
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
 	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
