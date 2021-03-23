@@ -22,8 +22,8 @@ def investigate_card_pair( onlyresult=0):
 	count2=0
 	#ヒーローパワーを消す、というのもよいかも。
 	#良いカードペアを漠然と探す旅に出る？
-	nonvanilla1 = 'EX1_045'#random.choice(nonVanillas).id#自分で指定してもよい
-	nonvanilla2 = 'EX1_332'#random.choice(nonVanillas).id#
+	nonvanilla1 = 'EX1_055'#random.choice(nonVanillas).id#自分で指定してもよい
+	nonvanilla2 = 'EX1_169'#random.choice(nonVanillas).id#
 	#古代の番人：EX1_045:攻撃できない。
 	#沈黙:EX1_332:ミニオン1体を沈黙させる
 	#盾持ち:EX1_405:挑発
@@ -130,11 +130,11 @@ def find_card_pair(onlyresult=1):
 			game = Game(players=(player1, player2))
 			game.start()
 				
-			for player in game.players:
+			#for player in game.players:
 				#print("Can mulligan %r" % (player.choice.cards))
-				mull_count = random.randint(0, len(player.choice.cards))
-				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-				player.choice.choose(*cards_to_mulligan)
+			#	mull_count = random.randint(0, len(player.choice.cards))
+			#	cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+			#	player.choice.choose(*cards_to_mulligan)
 			game.player1.hero.max_health=10
 			game.player2.hero.max_health=10
 			turnNumber=0
