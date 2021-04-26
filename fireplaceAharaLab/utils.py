@@ -92,12 +92,13 @@ class Evaluation(object):
 
 class Agent(object):
 	""" """
-	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating):
+	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E):
 		self.name = myName
 		self.func = myFunction
 		self.option = myOption
 		self.myClass = myClass
 		self.rating = rating
+		self.E = E
 		pass
 
 	def __str__(self):
