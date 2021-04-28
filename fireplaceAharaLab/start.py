@@ -42,23 +42,23 @@ def main():
 	#	,myClass=CardClass.PRIEST)
 
 	#AngryCat ： シンプルに選択するアルゴリズム
-	#from agent_AngryCat import AngryCatAgent
-	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
+	from agent_AngryCat import AngryCatAgent
+	AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
 
 	#HunterCat : faceHunter専用のエージェント
-	#from agent_HunterCat import HunterCatAgent
-	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
+	from agent_HunterCat import HunterCatAgent
+	HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Random, Human, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
+	#play_set_of_games(Random, Human, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
-	#from competition import play_round_robin_competition
-	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
+	from competition import play_round_robin_competition
+	play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair
