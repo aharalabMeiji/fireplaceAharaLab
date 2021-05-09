@@ -19,6 +19,9 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="fireplaceAharaLab\agent_Miyaryo.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\agent_Standard.py" />
     <Compile Include="fireplaceAharaLab\agent_HunterCat.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
@@ -273,6 +276,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\wog\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\wog\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\config.py" />
     <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\copy.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\evaluator.py" />

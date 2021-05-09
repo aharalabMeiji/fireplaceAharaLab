@@ -28,8 +28,9 @@ def main():
 	#Maya=Agent("Maya",Maya_MCTS)
 
 	# Miyaryo
-	#from agent_miyaryo import miyaryoAgent
-	#miyaryo=miyaryoAgent("Miyaryo",miyaryoAgent.miyaryoAI)
+	# winner of the 1st competition of the fixed deck
+	#from agent_Miyaryo import MiyaryoAgent
+	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
 
 	# Takasho001
 	#from agent_takasho001 import takasho001Agent
@@ -52,11 +53,17 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
+<<<<<<< HEAD
    	play_set_of_games(Random, Vector, gameNumber=1, debugLog=True)
+=======
+	play_set_of_games(Random, Human, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+>>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
+	#デッキ種類は関数内で設定
+	#レーティングを表示する。
 	#from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
 

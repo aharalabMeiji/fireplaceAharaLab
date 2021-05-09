@@ -1,4 +1,5 @@
 from utils import *
+from EloRatingSystem import *
 
 def play_round_robin_competition(players: list, matchNumber=10):# players: Agentのリスト
 	Nplayer = len(players)
@@ -11,6 +12,7 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 			j=i+1+k
 			agent1 = players[i]
 			agent2 = players[j]
+			PCalculation(agent1,agent2)
 			if agent1.name==agent2.name:
 				agent1.name += "1"
 				agent2.name += "2"
@@ -19,10 +21,12 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 				winner = play_one_game(agent1,agent2,BigDeck.faceHunter, BigDeck.faceHunter,debugLog=False)
 				print("winner is %r"%winner)
 				if winner == agent1.name:
+					newRate(agent1,agent2)
 					ScoreWin[i]+=1
 					ScoreLose[j]+=1
 				elif winner == agent2.name:
+					newRate(agent2,agent1)
 					ScoreWin[j]+=1
 					ScoreLose[i]+=1
 	for i in range(Nplayer):
-		print ("%s: win %d, lose %d"%(players[i].name,ScoreWin[i], ScoreLose[i]))
+		print ("%s: win %d, lose %d(%f)"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
