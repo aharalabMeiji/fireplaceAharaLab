@@ -6,11 +6,11 @@ from fireplace.exceptions import GameOver
 from fireplace.actions import *
 import copy
 import random
-<<<<<<< HEAD
-=======
+#<<<<<<< HEAD
+#=======
 import time
 from fireplace.config import Config
->>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
+#>>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
 
 class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 	"""docstring for myAction"""
@@ -131,12 +131,12 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 		player.choice.choose(*cards_to_mulligan)
-<<<<<<< HEAD
-	if HeroHPOption != 30:
-		game.player1.hero.max_health = HeroHPOption
-		game.player2.hero.max_health = HeroHPOption
-	PresetHands(player1, player2)
-=======
+#<<<<<<< HEAD
+#	if HeroHPOption != 30:
+#		game.player1.hero.max_health = HeroHPOption
+#		game.player2.hero.max_health = HeroHPOption
+#	PresetHands(player1, player2)
+#=======
 	if Config.HEROHPOPTION != 30:
 		game.player1.hero.max_health = int(Config.HEROHPOPTION)
 		game.player2.hero.max_health = int(Config.HEROHPOPTION)
@@ -158,7 +158,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 			game.player2.draw(Config.P2HAND-len(game.player2.hand))
 	# PresetHands(player1, player2)
 
->>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
+#>>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
 	while True:	
 		#エージェントの処理ここから
 		player = game.current_player
@@ -462,16 +462,32 @@ def getTurnLog(gameLog, turnN):
 
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-<<<<<<< HEAD
-	#Discard(player1.hand[-1]).trigger(player1)#最後に配られたハンドのカードを捨てる。
-	#n = 4
-	#for num in range(n):
-	#	Draw(player1).trigger(player1) # n枚引かせる
-	#Give(player1,'ULD_178').trigger(player1)#target
-=======
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'SCH_270').trigger(player1)#target
->>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
+	n = 0
+	m = 0
+	if player1.name == "Vector1":
+		n = 1
+	elif player1.name == "Vector2":
+		n = 2
+	elif player1.name == "Vector3":
+		n = 3
+	elif player1.name == "Vector4": 
+		n = 4
+	if player2.name == "Vector1":
+		m = 1
+	elif player2.name == "Vector2":
+		m = 2
+	elif player2.name == "Vector3":
+		m = 3
+	elif player2.name == "Vector4": 
+		m = 4
+	for num in range(n):
+		Draw(player1).trigger(player1) # n枚引かせる
+	for num in range(m):
+		Draw(player2).trigger(player2) # n枚引かせる
+#Give(player1,'ULD_178').trigger(player1)#target
+#=======
+#	Discard(player1.hand[-1]).trigger(player1)
+#	Give(player1,'SCH_270').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle

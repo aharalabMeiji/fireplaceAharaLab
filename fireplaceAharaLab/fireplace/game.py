@@ -364,16 +364,7 @@ class CoinRules:
 	The second player gets "The Coin" (GAME_005).
 	"""
 	def pick_first_player(self):
-<<<<<<< HEAD
-		winner = self.players[1]#random.choice(self.players)
 
-		#winner = random.choice(self.players)
-		#winner = self.players[1]
-		#origin/master
-		self.log("Tossing the coin... %s wins!", winner)
-		print(winner,"は先攻ですぅ")
-		return winner, winner.opponent
-=======
 		if Config.FSFIXED == 0: #Aharalab
 			winner = random.choice(self.players)
 			#winner = self.players[1]
@@ -381,7 +372,7 @@ class CoinRules:
 			return winner, winner.opponent
 		else: #Aharalab
 			return self.players[0], self.players[1] #Aharalab
->>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
+#>>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
 
 	def begin_turn(self, player):
 		if self.turn == 0 and Config.COIN > 0:
