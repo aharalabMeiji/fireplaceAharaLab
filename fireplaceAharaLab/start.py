@@ -37,8 +37,8 @@ def main():
 
 	# Miyaryo
 	# winner of the 1st competition of the fixed deck
-	#from agent_Miyaryo import MiyaryoAgent
-	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
+	from agent_Miyaryo import MiyaryoAgent
+	Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
 
 	# Takasho001
 	#from agent_takasho001 import takasho001Agent
@@ -69,7 +69,7 @@ def main():
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
-	play_round_robin_competition([Vector1,Vector2,Vector3,Vector4],matchNumber=5)
+	play_round_robin_competition([Vector1,Vector2,Vector3,Vector4],matchNumber=3)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair

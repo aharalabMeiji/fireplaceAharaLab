@@ -116,6 +116,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 	exclude = ['CFM_672','CFM_621','CFM_095','LOE_076','BT_490']
 	# 'LOE_076' : Sir Finley Mrrgglton
 	# 'BT_490' : 魔力喰い、ターゲットの扱いにエラーがあるので除外。
+	deck1 = deck2 = BigDeck.faceHunter
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -467,19 +468,19 @@ def PresetHands(player1, player2):
 	if player1.name == "Vector1":
 		n = 1
 	elif player1.name == "Vector2":
-		n = 2
-	elif player1.name == "Vector3":
 		n = 3
+	elif player1.name == "Vector3":
+		n = 5
 	elif player1.name == "Vector4": 
-		n = 4
+		n = 7
 	if player2.name == "Vector1":
 		m = 1
 	elif player2.name == "Vector2":
-		m = 2
-	elif player2.name == "Vector3":
 		m = 3
+	elif player2.name == "Vector3":
+		m = 5
 	elif player2.name == "Vector4": 
-		m = 4
+		m = 7
 	for num in range(n):
 		Draw(player1).trigger(player1) # n枚引かせる
 	for num in range(m):
