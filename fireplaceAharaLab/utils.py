@@ -157,7 +157,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 				card.zone = Zone.DECK
 		else:
 			game.player2.draw(Config.P2HAND-len(game.player2.hand))
-	# PresetHands(player1, player2)
+	PresetHands(player1, player2)
 
 #>>>>>>> c947fa55d1dd14097e8109e5362956b2830eca7f
 	while True:	
@@ -465,13 +465,13 @@ def PresetHands(player1, player2):
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	n = 0
 	m = 0
-	if player1.name == "Vector1":
+	if player1.name == "Vector1" :
 		n = 1
 	elif player1.name == "Vector2":
 		n = 3
 	elif player1.name == "Vector3":
 		n = 5
-	elif player1.name == "Vector4": 
+	elif player1.name == "Vector4" or "Human": 
 		n = 7
 	if player2.name == "Vector1":
 		m = 1
@@ -479,8 +479,10 @@ def PresetHands(player1, player2):
 		m = 3
 	elif player2.name == "Vector3":
 		m = 5
-	elif player2.name == "Vector4": 
+	elif player2.name == "Vector4" or "Human": 
 		m = 7
+	#print(n)
+	#print(m)
 	for num in range(n):
 		Draw(player1).trigger(player1) # n枚引かせる
 	for num in range(m):
