@@ -70,7 +70,7 @@ def main():
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
 	for num in range(10):
-		play_round_robin_competition([Vector1,Vector4],matchNumber=10)
+		play_round_robin_competition([Vector1,Vector2],matchNumber=10)
 
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)

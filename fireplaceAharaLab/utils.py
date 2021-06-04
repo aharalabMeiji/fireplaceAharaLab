@@ -480,7 +480,7 @@ def PresetHands(player1, player2):
 	elif player2.name == "Vector3":
 		m = 5
 	elif player2.name == "Vector4" or "Human": 
-		m = 7
+		m = 5
 	#print(n)
 	#print(m)
 	for num in range(n):

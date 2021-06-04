@@ -29,3 +29,4 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 					ScoreLose[i]+=1
 	for i in range(Nplayer):
 		print ("%s: win %d, lose %d(%f)"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
+	
