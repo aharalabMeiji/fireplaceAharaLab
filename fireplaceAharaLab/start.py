@@ -69,10 +69,24 @@ def main():
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
-	for num in range(3):
-		play_round_robin_competition([Vector1,Vector2],matchNumber=1)
-
-
+	#for num in range(10):
+		#play_round_robin_competition([Vector1,Vector2],matchNumber=10)
+	#print("1枚VS3枚しゅうりょう！")
+	#for num in range(10):
+		#play_round_robin_competition([Vector1,Vector3],matchNumber=10)
+	#print("1枚VS5枚しゅうりょう！")
+	#for num in range(10):
+		#play_round_robin_competition([Vector1,Vector4],matchNumber=10)
+	#print("1枚VS7枚しゅうりょう！")
+	#for num in range(10):
+	#	play_round_robin_competition([Vector2,Vector3],matchNumber=10)
+	#print("3枚VS5枚しゅうりょう！")
+	#for num in range(10):
+	#	play_round_robin_competition([Vector2,Vector4],matchNumber=10)
+	#print("3枚VS7枚しゅうりょう！")
+	for num in range(10):
+		play_round_robin_competition([Vector3,Vector4],matchNumber=10)
+	print("5枚VS7枚しゅうりょう！")
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair
 	#investigate_card_pair()
