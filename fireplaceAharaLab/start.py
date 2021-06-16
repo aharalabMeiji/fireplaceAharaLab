@@ -92,7 +92,8 @@ def main():
 		for numY in range(len(Vectors)):
 			Pcount = Pcount + 1
 			print(Pcount)
-			if not numX == numY:
+			if numX > numY:
+
 				for num in range(10):
 					play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=10)
 
