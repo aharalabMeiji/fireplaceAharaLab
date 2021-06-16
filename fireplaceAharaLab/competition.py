@@ -27,10 +27,10 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 					newRate(agent2,agent1)
 					ScoreWin[j]+=1
 					ScoreLose[i]+=1
-	with open("all.csv", mode="a") as standings:
+	with open("ハンド差実験1~9総当たり戦.csv", mode="a") as standings:
 			for i in range(Nplayer):
 				#print ("%s: win %d, lose %d(%f)"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
-				standings.write("%s: win %d, lose %d(%f)\n"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
+				standings.write("%s: win, %d, lose, %d,(%f)\n"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
 				#standings.write(str(NumLose)+"\n")
 
 	

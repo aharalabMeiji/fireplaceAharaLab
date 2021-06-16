@@ -32,6 +32,24 @@ def main():
 	Vector4 = StandardVectorAgent("Vector4",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.HUNTER)
+	Vector5=StandardVectorAgent("Vector5",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.HUNTER) 		
+	Vector6 = StandardVectorAgent("Vector6",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.HUNTER)
+	Vector7 =StandardVectorAgent("Vector7",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.HUNTER)
+	Vector8 = StandardVectorAgent("Vector8",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.HUNTER)
+	Vector9 = StandardVectorAgent("Vector9",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.HUNTER)
+
+	Vectors = [Vector1,Vector2,Vector3,Vector4,Vector5,Vector6,Vector7,Vector8,Vector9]
+
 	# Maya : モンテカルロによる読み切り
 	#Maya=Agent("Maya",Maya_MCTS)
 
@@ -69,8 +87,13 @@ def main():
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
-	#for num in range(10):
-		#play_round_robin_competition([Vector1,Vector2],matchNumber=10)
+	for numX in range(len(Vectors)):
+		for numY in range(len(Vectors)):
+			if not numX == numY:
+				for num in range(10):
+					play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=10)
+
+			
 	#print("1枚VS3枚しゅうりょう！")
 	#for num in range(10):
 		#play_round_robin_competition([Vector1,Vector3],matchNumber=10)
@@ -78,21 +101,6 @@ def main():
 	#for num in range(10):
 		#play_round_robin_competition([Vector1,Vector4],matchNumber=10)
 	#print("1枚VS7枚しゅうりょう！")
-	#for num in range(10):
-	#	play_round_robin_competition([Vector2,Vector3],matchNumber=10)
-	#print("3枚VS5枚しゅうりょう！")
-	#for num in range(10):
-	#	play_round_robin_competition([Vector2,Vector4],matchNumber=10)
-	#print("3枚VS7枚しゅうりょう！")
-	for num in range(10):
-		play_round_robin_competition([Vector3,Vector4],matchNumber=10)
-	print("5枚VS7枚しゅうりょう！")
-	#特定の2枚のカードのシナジーを調べる(idea by Maya)
-	#from card_pair import investigate_card_pair, find_card_pair
-	#investigate_card_pair()
-	#シナジーのあるカードの組を漠然と探す
-	#find_card_pair(1)
-	#print("test_branch_yamadamaya")
 
 	pass
 if __name__ == "__main__":

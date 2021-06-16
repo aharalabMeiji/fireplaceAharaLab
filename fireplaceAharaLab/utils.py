@@ -468,19 +468,40 @@ def PresetHands(player1, player2):
 	if player1.name == "Vector1" :
 		n = 1
 	elif player1.name == "Vector2":
-		n = 3
+		n = 2
 	elif player1.name == "Vector3":
+		n = 3
+	elif player1.name == "Vector4": 
+		n = 4
+	elif player1.name == "Vector5":
 		n = 5
-	elif player1.name == "Vector4" or "Human": 
+	elif player1.name == "Vector6":
+		n = 6
+	elif player1.name == "Vector7": 
 		n = 7
-	if player2.name == "Vector1":
+	elif player1.name == "Vector8":
+		n = 8
+	elif player1.name == "Vector9":
+		n = 9
+	
+	if player2.name == "Vector1" :
 		m = 1
 	elif player2.name == "Vector2":
+		m = 2
+	elif playe2.name == "Vector3":
 		m = 3
-	elif player2.name == "Vector3":
+	elif player2.name == "Vector4": 
 		m = 4
-	elif player2.name == "Vector4" or "Human": 
+	elif player2.name == "Vector5":
+		m = 5
+	elif player2.name == "Vector6":
+		m = 6
+	elif player2.name == "Vector7": 
 		m = 7
+	elif player2.name == "Vector8":
+		m = 8
+	elif player2.name == "Vector9":
+		m = 9
 	#print(n)
 	#print(m)
 	for num in range(n):
