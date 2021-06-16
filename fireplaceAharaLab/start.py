@@ -87,8 +87,11 @@ def main():
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
+	Pcount = 0
 	for numX in range(len(Vectors)):
 		for numY in range(len(Vectors)):
+			Pcount = Pcount + 1
+			print(Pcount)
 			if not numX == numY:
 				for num in range(10):
 					play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=10)
