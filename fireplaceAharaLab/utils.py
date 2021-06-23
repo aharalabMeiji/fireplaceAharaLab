@@ -488,7 +488,7 @@ def PresetHands(player1, player2):
 		m = 1
 	elif player2.name == "Vector2":
 		m = 2
-	elif playe2.name == "Vector3":
+	elif player2.name == "Vector3":
 		m = 3
 	elif player2.name == "Vector4": 
 		m = 4

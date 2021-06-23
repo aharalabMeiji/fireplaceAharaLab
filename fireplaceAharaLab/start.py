@@ -88,12 +88,16 @@ def main():
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
 	Pcount = 0
-	for numX in range(len(Vectors)):
-		for numY in range(len(Vectors)):
-			Pcount = Pcount + 1
-			print(Pcount)
-			if numX > numY:
+	for num in range(10):
+		play_round_robin_competition([Vectors[4],Vectors[3]],matchNumber=10)
 
+	for numX in range(len(Vectors)):
+		if numX < 5:
+			continue
+		for numY in range(len(Vectors)):
+			if numX > numY:
+				Pcount = Pcount + 1
+				print(Pcount)
 				for num in range(10):
 					play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=10)
 
