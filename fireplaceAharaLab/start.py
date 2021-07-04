@@ -48,7 +48,7 @@ def main():
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.HUNTER)
 
-	Vectors = [Vector1,Vector2,Vector3,Vector4,Vector5,Vector6,Vector7,Vector8,Vector9]
+	Vectors = [Vector1,Vector1,Vector2,Vector3,Vector4,Vector5,Vector6,Vector7,Vector8,Vector9]
 
 	# Maya : モンテカルロによる読み切り
 	#Maya=Agent("Maya",Maya_MCTS)
@@ -88,13 +88,17 @@ def main():
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
 	Pcount = 0
-	for num in range(10):
-		play_round_robin_competition([Vectors[4],Vectors[3]],matchNumber=10)
+	#for num in range(10):
+	#	play_round_robin_competition([Vectors[4],Vectors[3]],matchNumber=10)
 
 	for numX in range(len(Vectors)):
-		if numX < 5:
+		if numX < 6:
 			continue
 		for numY in range(len(Vectors)):
+			if numX == 6 and numY<4:
+				continue
+			elif numY < 1:
+				continue
 			if numX > numY:
 				Pcount = Pcount + 1
 				print(Pcount)
