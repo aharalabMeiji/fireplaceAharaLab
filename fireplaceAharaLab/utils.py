@@ -104,7 +104,7 @@ class Agent(object):
 	def __str__(self):
 		return self.name
 
-def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
+def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" 1回ゲームを行う。 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
@@ -123,16 +123,17 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
-	# Config周りの変更はここまでで行う。
 	game = GameWithLog(players=(player1, player2))
+	# Config周りの変更はここで行う。
+	player1._start_hand_size=P1HAND## start()より前におく
+	player2._start_hand_size=P2HAND## start()より前におく
+	player1.max_mana=int(P1MAXMANA)-1
+	player2.max_mana=int(P2MAXMANA)-1
 	game.start()
+	player1.hero.max_health = int(HEROHPOPTION)## start()より後におく
+	player2.hero.max_health = int(HEROHPOPTION)## start()より後におく
 
 	for player in game.players:
-		if player.first_player:
-			player.max_mana=int(Config.P1MAXMANA)-1
-		else:
-			player.max_mana=int(Config.P2MAXMANA)-1
-		player.hero.max_health = int(Config.HEROHPOPTION)
 		#mulligan shuffling
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
@@ -173,7 +174,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 				return game.current_player.opponent.name
 			return 'DRAW'#Maybe impossible to come here.
 
-def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True):
+def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" 決まった回数の試合を行い、勝敗数を表示する 
 	"""
 	if debugLog:
@@ -181,7 +182,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	Count1 = 0
 	Count2 = 0
 	for i in range(gameNumber):
-		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog)
+		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog, HEROHPOPTION=HEROHPOPTION, P1MAXMANA=P1MAXMANA, P2MAXMANA=P2MAXMANA, P1HAND=P1HAND, P2HAND=P2HAND)
 		if debugLog:
 			print("winner is %r"%winner)
 		if winner == P1.name:

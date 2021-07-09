@@ -112,15 +112,12 @@ class Player(Entity, TargetableByAuras):
 
 	@property
 	def start_hand_size(self):
-		if self.first_player:
-			return int(Config.P1HAND)
-		if not self.first_player:
-			return int(Config.P2HAND)
 		# old version
-		#if not self.first_player:
-		#	# Give the second player an extra card
-		#	return self._start_hand_size + 1
-		#return self._start_hand_size
+		if Config.EX_CARD and not self.first_player:
+			# Give the second player an extra card
+			return self._start_hand_size + 1
+		else:
+			return self._start_hand_size
 
 	@property
 	def characters(self):
