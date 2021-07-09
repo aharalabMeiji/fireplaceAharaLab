@@ -10,7 +10,7 @@ from .deck import Deck
 from .entity import Entity, slot_property
 from .managers import PlayerManager
 from .utils import CardList
-
+from .config import Config #by AharaLab
 
 class Player(Entity, TargetableByAuras):
 	Manager = PlayerManager
@@ -112,10 +112,15 @@ class Player(Entity, TargetableByAuras):
 
 	@property
 	def start_hand_size(self):
+		if self.first_player:
+			return int(Config.P1HAND)
 		if not self.first_player:
-			# Give the second player an extra card
-			return self._start_hand_size + 1
-		return self._start_hand_size
+			return int(Config.P2HAND)
+		# old version
+		#if not self.first_player:
+		#	# Give the second player an extra card
+		#	return self._start_hand_size + 1
+		#return self._start_hand_size
 
 	@property
 	def characters(self):

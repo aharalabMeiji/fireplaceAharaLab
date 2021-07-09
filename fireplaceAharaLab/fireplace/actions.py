@@ -412,12 +412,14 @@ class MulliganChoice(GameAction):
 		self.max_count = len(player.hand)
 
 	def choose(self, *cards):
+		self.player.max_hand_size=20#loose the limitter temporarily
 		self.player.draw(len(cards))
 		for card in cards:
 			assert card in self.cards
 			card.zone = Zone.DECK
 		self.player.choice = None
 		self.player.shuffle_deck()
+		self.player.max_hand_size=10
 		self.player.mulligan_state = Mulligan.DONE
 
 		if self.player.opponent.mulligan_state == Mulligan.DONE:

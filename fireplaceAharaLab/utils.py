@@ -123,34 +123,20 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
-
+	# Config周りの変更はここまでで行う。
 	game = GameWithLog(players=(player1, player2))
 	game.start()
 
 	for player in game.players:
+		if player.first_player:
+			player.max_mana=int(Config.P1MAXMANA)-1
+		else:
+			player.max_mana=int(Config.P2MAXMANA)-1
+		player.hero.max_health = int(Config.HEROHPOPTION)
 		#mulligan shuffling
 		mull_count = random.randint(0, len(player.choice.cards))
 		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-		player.choice.choose(*cards_to_mulligan)
-	if Config.HEROHPOPTION != 30:
-		game.player1.hero.max_health = int(Config.HEROHPOPTION)
-		game.player2.hero.max_health = int(Config.HEROHPOPTION)
-	game.player1.max_mana=int(Config.P1MAXMANA)
-	game.player2.max_mana=int(Config.P2MAXMANA)-1
-	if (len(game.player1.hand)-1) != Config.P1HAND:
-		if (len(game.player1.hand)-1) > Config.P1HAND:
-			rt_cards = random.sample(game.player1.hand, (len(game.player1.hand)-1)-Config.P1HAND)
-			for card in rt_cards:
-				card.zone = Zone.DECK
-		else:
-			game.player1.draw(Config.P1HAND-(len(game.player1.hand)-1))
-	if len(game.player2.hand) != Config.P2HAND:
-		if len(game.player2.hand) > Config.P2HAND:
-			rt_cards = random.sample(game.player2.hand[:len(game.player2.hand)-1], len(game.player2.hand)-Config.P2HAND)
-			for card in rt_cards:
-				card.zone = Zone.DECK
-		else:
-			game.player2.draw(Config.P2HAND-len(game.player2.hand))
+		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	# PresetHands(player1, player2)
 
 	while True:	
@@ -493,20 +479,10 @@ def PresetHands(player1, player2):
 	#Give(player2,'DAL_090').trigger(player2)#enemy
 	#Give(player2,'ULD_152').trigger(player2)#enemy
 
-	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
-	player1.max_mana=1
-	player2.max_mana=1
-
 	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play
 	#PresetPlay(player2, 'ULD_152')# play
 
-	#force-pass of player2,
-	if player2==player2.game.current_player:
-		player2.game.end_turn()
-
-	#force turn end of player1
-	#player1.game.end_turn()
 	pass
 
 def PresetPlay(player, cardID):

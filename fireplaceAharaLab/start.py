@@ -42,10 +42,6 @@ def main():
 	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
 	#	,myClass=CardClass.PRIEST)
 
-	#AngryCat ： シンプルに選択するアルゴリズム
-	#from agent_AngryCat import AngryCatAgent
-	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
-
 	#HunterCat : faceHunter専用のエージェント
 	#from agent_HunterCat import HunterCatAgent
 	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
@@ -53,7 +49,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Random, Human, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
