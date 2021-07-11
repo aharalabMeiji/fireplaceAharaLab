@@ -16,7 +16,7 @@ def main():
 	from fireplace import cards
 	cards.db.initialize()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
+	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER, mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	#ランダムプレーヤー
 	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 

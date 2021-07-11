@@ -242,8 +242,8 @@ def Original_random(game: ".game.Game"):
 		break
 
 class HumanAgent(Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-		super().__init__(myName, myFunction, myOption, myClass, rating )
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None):
+		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
@@ -393,6 +393,28 @@ class HumanAgent(Agent):
 				myChoice = myCandidate[inputNum-1]
 				executeAction(game, myChoice)
 				postAction(player)
+	def HumanInputMulligan(self, choiceCards):
+		myCount=0
+		print("%s mulligan turn"%(self.name))
+		for card in choiceCards:
+			print("%d : %s"%(myCount,card), end='   : ')
+			if card.data.type == CardType.MINION:
+				print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.SPELL:
+				print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.WEAPON:
+				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			myCount+=1
+		str = input()#やり直しはなし
+		inputNums = str.split()#空白文字でスプリット
+		cards_to_mulligan = []
+		for inputStr in inputNums:
+			try :
+				inputNum = int(inputStr)
+				cards_to_mulligan.append(choiceCards[inputNum])
+			except ValueError:
+				pass
+		return cards_to_mulligan
 
 
 
