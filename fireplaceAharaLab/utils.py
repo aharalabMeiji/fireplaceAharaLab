@@ -92,13 +92,14 @@ class Evaluation(object):
 
 class Agent(object):
 	""" """
-	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0):
+	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, mulliganStrategy = None):
 		self.name = myName
 		self.func = myFunction
 		self.option = myOption
 		self.myClass = myClass
 		self.rating = rating = 1500
 		self.E = E 
+		self.mulliganStrategy = mulliganStrategy
 		pass
 
 	def __str__(self):
@@ -133,11 +134,23 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	player1.hero.max_health = int(HEROHPOPTION)## start()より後におく
 	player2.hero.max_health = int(HEROHPOPTION)## start()より後におく
 
+	#mulligan exchange
 	for player in game.players:
-		#mulligan shuffling
-		mull_count = random.randint(0, len(player.choice.cards))
-		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+		if player.name==P1.name:
+			if P1.mulliganStrategy == None:
+				mull_count = random.randint(0, len(player.choice.cards))
+				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+			else:
+				cards_to_mulligan = P1.mulliganStrategy(P1, player.choice.cards)
+		elif player.name==P2.name:
+			if P2.mulliganStrategy == None:
+				mull_count = random.randint(0, len(player.choice.cards))
+				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+			else:
+				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
+	#mulligan exchange end
+
 	# PresetHands(player1, player2)
 
 	while True:	

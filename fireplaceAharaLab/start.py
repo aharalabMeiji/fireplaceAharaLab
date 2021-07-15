@@ -16,14 +16,16 @@ def main():
 	from fireplace import cards
 	cards.db.initialize()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
+	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER\
+	   ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	#ランダムプレーヤー
 	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE) 		
+		,myClass=CardClass.MAGE\
+		,mulliganStrategy=StandardVectorAgent.StandardMulligan) 		
 
 	# Maya : モンテカルロによる読み切り
 	#Maya=Agent("Maya",Maya_MCTS)
@@ -51,7 +53,7 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
-	play_set_of_games(Human, Human2, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Vector, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

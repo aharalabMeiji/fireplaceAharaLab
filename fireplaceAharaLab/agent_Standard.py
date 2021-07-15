@@ -32,8 +32,8 @@ class StandardAgent(Agent):
 
 
 class StandardVectorAgent(Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-		super().__init__(myName, myFunction, myOption, myClass, rating )
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000, mulliganStrategy=None):
+		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
 		pass
 	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
@@ -205,7 +205,14 @@ class StandardVectorAgent(Agent):
 				wgt = weight[i]
 			score += w[i]*wgt*const
 		return score
-
+	def StandardMulligan(self, choiceCards):
+		# make cost 1 cards left
+		print("%s mulligan turn"%(self.name))
+		cards_to_mulligan = []
+		for num in range(len(choiceCards)):
+			if choiceCards[num].cost > 1:
+				cards_to_mulligan.append(choiceCards[num])
+		return cards_to_mulligan
 #
 #   Original random
 #
@@ -242,8 +249,8 @@ def Original_random(game: ".game.Game"):
 		break
 
 class HumanAgent(Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-		super().__init__(myName, myFunction, myOption, myClass, rating )
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None):
+		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
@@ -393,6 +400,28 @@ class HumanAgent(Agent):
 				myChoice = myCandidate[inputNum-1]
 				executeAction(game, myChoice)
 				postAction(player)
+	def HumanInputMulligan(self, choiceCards):
+		myCount=1
+		print("%s mulligan turn"%(self.name))
+		for card in choiceCards:
+			print("%d : %s"%(myCount,card), end='   : ')
+			if card.data.type == CardType.MINION:
+				print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.SPELL:
+				print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			elif card.data.type == CardType.WEAPON:
+				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			myCount+=1
+		str = input()#やり直しはなし
+		inputNums = str.split()#空白文字でスプリット
+		cards_to_mulligan = []
+		for inputStr in inputNums:
+			try :
+				inputNum = int(inputStr)
+				cards_to_mulligan.append(choiceCards[inputNum-1])
+			except ValueError :
+				pass
+		return cards_to_mulligan
 
 
 
