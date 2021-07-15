@@ -32,8 +32,8 @@ class StandardAgent(Agent):
 
 
 class StandardVectorAgent(Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-		super().__init__(myName, myFunction, myOption, myClass, rating )
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000, mulliganStrategy=None):
+		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
 		pass
 	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
@@ -205,7 +205,14 @@ class StandardVectorAgent(Agent):
 				wgt = weight[i]
 			score += w[i]*wgt*const
 		return score
-
+	def StandardMulligan(self, choiceCards):
+		# make cost 1 cards left
+		print("%s mulligan turn"%(self.name))
+		cards_to_mulligan = []
+		for num in range(len(choiceCards)):
+			if choiceCards[num].cost > 1:
+				cards_to_mulligan.append(choiceCards[num])
+		return cards_to_mulligan
 #
 #   Original random
 #
@@ -394,7 +401,7 @@ class HumanAgent(Agent):
 				executeAction(game, myChoice)
 				postAction(player)
 	def HumanInputMulligan(self, choiceCards):
-		myCount=0
+		myCount=1
 		print("%s mulligan turn"%(self.name))
 		for card in choiceCards:
 			print("%d : %s"%(myCount,card), end='   : ')
@@ -411,8 +418,8 @@ class HumanAgent(Agent):
 		for inputStr in inputNums:
 			try :
 				inputNum = int(inputStr)
-				cards_to_mulligan.append(choiceCards[inputNum])
-			except ValueError:
+				cards_to_mulligan.append(choiceCards[inputNum-1])
+			except ValueError :
 				pass
 		return cards_to_mulligan
 
