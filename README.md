@@ -92,24 +92,4 @@ Human, Randomのところにエージェントの変数を入れればよい。\
     #ゲームプレイ
     play_set_of_games(Human, Random, gameNumber=1, debugLog=False) 
 
-+ StandardStep1のリーグ戦\
-
-パラメータをcsvファイルに保存しておいて、そのエージェントたちを対戦させる。以下はオプション\
-createNew=1：新規プレーヤーを追加する\
-createMorph=1：新規プレーヤー（現存プレーヤーを少し変更したもの）を追加する\
-player1isNew=1:プレーヤ1として、最後に追加したプレーヤを指名する\
-player2isNew=1:プレーヤ2として、最後に追加したプレーヤを指名する
-
-    #StandardStep1のリーグ戦
-    from league_match import play_league
-    play_league(matchNumber=1)
-
-特定の2枚が並んでいるときのシナジーを確かめる関数（プレーヤーはMCTSのほうがいいようだ。）
-
-    from card_pair import investigate_card_pair
-    investigate_card_pair()
-
-並んでデッキに入っているとシナジーが発生するような2枚を漠然と探す関数
-
-    from card_pair import find_card_pair
-    find_card_pair(1)
++ 
