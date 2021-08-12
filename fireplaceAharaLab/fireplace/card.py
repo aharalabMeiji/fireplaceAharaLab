@@ -881,7 +881,8 @@ class Enchantment(BaseCard):
 		if deathrattle:
 			ret.append(deathrattle)
 		if not ret:
-			raise NotImplementedError("Missing deathrattle script for %r" % (self))
+			#raise NotImplementedError("Missing deathrattle script for %r" % (self))
+			pass
 		return ret
 
 	def _getattr(self, attr, i):

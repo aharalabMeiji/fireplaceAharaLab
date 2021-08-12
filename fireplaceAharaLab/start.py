@@ -54,7 +54,7 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
-	play_set_of_games(Human, Vector, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Maya, deck1=[], deck2=[], gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

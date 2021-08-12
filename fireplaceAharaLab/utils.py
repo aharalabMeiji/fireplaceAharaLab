@@ -9,85 +9,71 @@ import random
 import time
 from fireplace.config import Config
 
-class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
-	"""docstring for myAction"""
-	def __init__(self, _card,_type,_target=None):
-		super(myAction, self).__init__()
-		self.card=_card
-		self.type=_type
-		self.target=_target
+#class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
+#	"""docstring for myAction"""
+#	def __init__(self, _card,_type,_target=None):
+#		super(myAction, self).__init__()
+#		self.card=_card
+#		self.type=_type
+#		self.target=_target
+#
+#	def __str__(self):
+#		return "{card}->{type}(target={target})".format(card=self.card,type=self.type,target=self.target)
+#		pass
+#
+#	def __eq__(self,obj):
+#		return str(self)==str(obj)
+#		pass
 
-	def __str__(self):
-		return "{card}->{type}(target={target})".format(card=self.card,type=self.type,target=self.target)
-		pass
 
-	def __eq__(self,obj):
-		return str(self)==str(obj)
-		pass
-class myActionValue(object):#旧マヤ版ActionValue
-	"""docstring for myActionValue"""
-	def __init__(self, _action,_score):
-		super(myActionValue, self).__init__()
-		self.action = _action
-		self.score=_score
-		
-class Node(object):
-	"""docstring for Node"""
-	def __init__(self, gameTree,move,parent,actions):
-		super(Node, self).__init__()
-		self.gameTree=gameTree
-		self.move=move
-		self.parent=parent
-		self.childNodes=[]
-		self.wins=0
-		self.visits=0
-		self.untriedMoves=copy.deepcopy(actions)
-		self.score=0
-	def selectChild(self):
-		import math#
-		self.totalVisit=self.visits
-		self.values=list(map(lambda node:node.wins/node.visits+math.sqrt(math.log(self.totalVisit)/node.visits),self.childNodes))
-		retNode=self.childNodes[self.values.index(max(self.values))]
-		return retNode
-		pass
-	def expandChild(self,action):
-		self.expandedTree=executeAction(self.gameTree,action)
-		child=Node(self.expandedTree,action,self,getCandidates(self.expandedTree))
-		self.childNodes.append(child)
-		return child
-	def choose_expanding_action(self):
-		index=int(random.random()*len(self.untriedMoves))
-		return self.untriedMoves.pop(index)		
-		pass
-	def simulate(self):
-		return simulate_random_game(self.gameTree)
-		pass
-	def backPropagate(self,result=None):
-		self.addVal=self.score
-		if result is not None:
-			self.addVal=result
-			pass
-		self.wins+=self.addVal
-		self.visits+=1;
-		if self.parent is None:
-			pass
-		else:
-			self.parent.backPropagate(self.addVal)
-		pass
-	def setScore(self,_score):
-		self.score=_score
-		pass
-
+#class Node(object):#旧マヤ版#MCTS用のノードクラス
+#	"""docstring for Node"""
+#	def __init__(self, gameTree,move,parent,actions):
+#		super(Node, self).__init__()
+#		self.gameTree=gameTree
+#		self.move=move
+#		self.parent=parent
+#		self.childNodes=[]
+#		self.wins=0
+#		self.visits=0
+#		self.untriedMoves=copy.deepcopy(actions)
+#		self.score=0
+#	def selectChild(self):
+#		import math#
+#		self.totalVisit=self.visits
+#		self.values=list(map(lambda node:node.wins/node.visits+math.sqrt(math.log(self.totalVisit)/node.visits),self.childNodes))
+#		retNode=self.childNodes[self.values.index(max(self.values))]
+#		return retNode
+#		pass
+#	def expandChild(self,action):
+#		self.expandedTree=executeAction(self.gameTree,action)
+#		child=Node(self.expandedTree,action,self,getCandidates(self.expandedTree))
+#		self.childNodes.append(child)
+#		return child
+#	def choose_expanding_action(self):
+#		index=int(random.random()*len(self.untriedMoves))
+#		return self.untriedMoves.pop(index)		
+#		pass
+#	def simulate(self):
+#		return simulate_random_game(self.gameTree)
+#		pass
+#	def backPropagate(self,result=None):
+#		self.addVal=self.score
+#		if result is not None:
+#			self.addVal=result
+#			pass
+#		self.wins+=self.addVal
+#		self.visits+=1;
+#		if self.parent is None:
+#			pass
+#		else:
+#			self.parent.backPropagate(self.addVal)
+#		pass
+#	def setScore(self,_score):
+#		self.score=_score
+#		pass
+#
 	
-class Evaluation(object):
-	"""docstring for Evaluation"""
-	def __init__(self, deck,score):
-		super(Evaluation, self).__init__()
-		self.deck = deck
-		self.score=score
-	def getScore(self):
-		return self.score
-		pass		
 
 
 class Agent(object):
@@ -114,6 +100,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	exclude = [
 		'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
 		'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
+		#'SCH_162',## neutral-scholo, copy others' deathrattles
 		'YOD_009',## this is a hero in galakrond
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
 		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
