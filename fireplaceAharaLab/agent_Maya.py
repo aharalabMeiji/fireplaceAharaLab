@@ -139,7 +139,7 @@ class Node(object):#ファイル内クラス。（ファイル内クラスは許
 				myPolicy=item
 				pass
 			pass
-		exc=executeAction(self.expandingGame,myPolicy)
+		exc=executeAction(self.expandingGame,myPolicy,debugLog=False)
 		postAction(self.expandingGame.current_player)
 		if exc==ExceptionPlay.GAMEOVER:
 			print("the game has been ended.")
@@ -221,7 +221,7 @@ def simulate_random_turn(game: ".game.Game"):
 		if simCandidates[index].type ==ExceptionPlay.TURNEND:
 			game.end_turn();
 			return ExceptionPlay.VALID
-		exc=executeAction(game,simCandidates[index])
+		exc=executeAction(game,simCandidates[index],debugLog=False)
 		postAction(player)
 		if exc==ExceptionPlay.GAMEOVER:
 			return ExceptionPlay.GAMEOVER
