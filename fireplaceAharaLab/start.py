@@ -25,10 +25,11 @@ def main():
 	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.MAGE\
-		,mulliganStrategy=StandardVectorAgent.StandardMulligan) 		
+		,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 
 	# Maya : モンテカルロによる読み切り
-	#Maya=Agent("Maya",Maya_MCTS)
+	from agent_Maya import MayaAgent
+	Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS)
 
 	# Miyaryo
 	# winner of the 1st competition of the fixed deck
@@ -53,7 +54,7 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
-	play_set_of_games(Human, Vector, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Vector, deck1=[], deck2=[], gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

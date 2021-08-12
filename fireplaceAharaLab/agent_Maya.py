@@ -18,32 +18,38 @@ from fireplace.deck import Deck
 import csv
 from utils import ExceptionPlay, myAction, myActionValue,getCandidates,executeAction
 
-def Maya_MCTS(game: ".game.Game"):
-	while True:
-		player=game.current_player
+class MayaAgent(Agent):
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
+		super().__init__(myName, myFunction, myOption, myClass, rating )
+		pass
+
+	def Maya_MCTS(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+		player = thisgame.current_player
 		print("--------------------simulate start!!----------------")
-		#探索編
-		candidates=getCandidates(game,_includeTurnEnd=True)
-		if len(candidates)==1:
-			print("len(candidates)==1")
-			return ExceptionPlay.VALID
-			pass
-		takingAction=try_montecarlo_tree_search(game,candidates);
-		print("--------------------simulate end!!------------------")
-		print(takingAction)
-		# iterate over our hand and play whatever is playable
-		#多分executeActionで大丈夫だろ
-		if takingAction.type ==ExceptionPlay.TURNEND:
-			return ExceptionPlay.VALID
-			pass
-		exc=executeAction(game, takingAction)
-		postAction(player)
-		if exc==ExceptionPlay.GAMEOVER:
-			return ExceptionPlay.GAMEOVER
-		else:
-			continue
-	return ExceptionPlay.VALID
-	pass
+		while True:
+			#探索編
+			candidates=getCandidates(game,_includeTurnEnd=True)
+			if len(candidates)==1:
+				print("len(candidates)==1")
+				return ExceptionPlay.VALID
+				pass
+			takingAction=try_montecarlo_tree_search(game,candidates);
+			print("--------------------simulate end!!------------------")
+			print(takingAction)
+			# iterate over our hand and play whatever is playable
+			#多分executeActionで大丈夫だろ
+			if takingAction.type == ExceptionPlay.TURNEND:
+				return ExceptionPlay.VALID
+				pass
+			exc=executeAction(game, takingAction)
+			postAction(player)
+			if exc==ExceptionPlay.GAMEOVER:
+				return ExceptionPlay.GAMEOVER
+			else:
+				continue
+		return ExceptionPlay.VALID
+		pass
+
 def postAction(player):
 	while player.choice:
 		choice = random.choice(player.choice.cards)
