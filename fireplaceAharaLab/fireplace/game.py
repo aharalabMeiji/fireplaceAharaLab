@@ -349,12 +349,9 @@ class BaseGame(Entity):
 					self.queue_actions(self, [Awaken(minion)])
 
 		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-		while True:
-			drawn_card = player.draw()
-			if not hasattr(drawn_card, "casts_when_drawn"):
-				break;
-			else:
-				self.queue_actions(player, [Play(drawn_card, None, None, None)])
+		drawn_card = player.draw()
+		if hasattr(drawn_card, "casts_when_drawn"):
+			self.queue_actions(player, [Play(drawn_card, None, None, None)])
 		## end ##
 		self.manager.step(self.next_step, Step.MAIN_END)
 

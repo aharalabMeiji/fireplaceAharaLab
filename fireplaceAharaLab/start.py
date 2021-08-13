@@ -3,7 +3,7 @@ import sys
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
-from agent_Maya import *
+#from agent_Maya import *
 from agent_word_strategy import *
 from agent_AngryCat import *
 
@@ -22,10 +22,14 @@ def main():
 	#ランダムプレーヤー
 	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
-	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE\
-		,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
+		,myClass=CardClass.HUNTER)
+		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
+	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.MAGE)
+		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 
 	# Maya : モンテカルロによる読み切り
 	from agent_Maya import MayaAgent
@@ -54,7 +58,7 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#デッキを固定しての対戦（ここでは両者ともフェイスハンター）
-	play_set_of_games(Human, Maya, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Vector1, deck1=[], deck2=[], gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

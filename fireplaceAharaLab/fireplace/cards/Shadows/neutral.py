@@ -160,7 +160,7 @@ class DAL_582t:
 	Summon a 2/2 Felhound with &lt;b&gt;Rush&lt;/b&gt;."""
 	play = Summon(CONTROLLER, "DAL_582t2")
 	pass
-class DAL_582t2:
+class DAL_582t2:#OK
 	"""Felhound
 	"""
 	pass

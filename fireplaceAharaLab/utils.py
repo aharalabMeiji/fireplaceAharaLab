@@ -138,7 +138,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
 
-	# PresetHands(player1, player2)
+	PresetHands(player1, player2)
 
 	while True:	
 		#エージェントの処理ここから
@@ -460,9 +460,12 @@ def getTurnLog(gameLog, turnN):
 
 
 def PresetHands(player1, player2): 
+	## add a specific card int the top of the deck
+
+
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'SCH_270').trigger(player1)#target
+	#Discard(player1.hand[-1]).trigger(player1)
+	#Give(player1,'DAL_582').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
