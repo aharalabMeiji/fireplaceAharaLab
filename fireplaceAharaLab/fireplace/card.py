@@ -92,13 +92,9 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			if old==Zone.SETASIDE:
-				self.logger.warning("%r is transferred from/to players", self)
-			elif old==Zone.HAND:
-				self.logger.warning("%r is drawn to hand", self)
-			elif old==Zone.HAND:
-				self.logger.warning("%r is discards", self)
-			else:
+			if old==Zone.GRAVEYARD:
+				self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			else:	
 				self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 

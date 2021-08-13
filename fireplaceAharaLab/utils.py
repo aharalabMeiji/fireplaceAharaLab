@@ -104,6 +104,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		'YOD_009',## this is a hero in galakrond
 		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
 		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+		'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
 		]
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
@@ -211,7 +212,7 @@ class Candidate(object):
 		if self.type==BlockType.ATTACK:
 			return "{card} -> attacks -> target={target}".format(card=self.card,target=self.target)
 		elif self.type==ExceptionPlay.TURNEND:
-			return "->Turn end."
+			return "Turn end."
 		elif self.type==BlockType.POWER:
 			return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:

@@ -66,7 +66,7 @@ def try_montecarlo_tree_search(_game, _candidates=[], _trialPerTree=50, _numOfTr
 	for i in range(_numOfTree):
 		#シミュレーション下準備（この下準備は運営側で提供すべき。具体的にはdeepcopyのときに組み込むべき。）
 		#random_sampling
-		exclude = [	'SCH_199','SCH_259','YOD_009','DRG_050','DRG_242','DRG_099','ULD_178']# Aug. 2021
+		exclude = [	'SCH_199','SCH_259','YOD_009','DRG_050','DRG_242','DRG_099','ULD_178','DAL_800']# Aug. 2021
 		d=random_draft(enemy.hero.card_class,exclude)#カードクラスに従ったランダムなデッキ。第1引数はクラス名に変更。
 		enemy.hand=CardList()#敵のハンドをクリア
 		enemy.deck=Deck()#敵のデッキをクリア
@@ -91,8 +91,7 @@ def try_montecarlo_tree_search(_game, _candidates=[], _trialPerTree=50, _numOfTr
 		totalScores=addActionValues(totalScores,visitScores)
 		print("totalScores")
 		for item in totalScores:
-			print(item.action)
-			print("-->{score}".format(score=item.score))
+			print("{action} -->{score}".format(action=item.action, score=item.score))
 			pass
 	maxScore=max(list(map(lambda actionValue:actionValue.score,totalScores)))
 	retAction=0
@@ -170,7 +169,10 @@ class Node(object):#ファイル内クラス。（ファイル内クラスは許
 		if result is not None:
 			self.addVal=result
 			pass
-		self.wins+=self.addVal
+		if self.addVal=="Maya":
+			self.wins+=1
+		elif self.addVal=="DRAW":
+			self.wins+=0.5
 		self.visits+=1;
 		if self.parent is None:
 			pass
@@ -237,17 +239,23 @@ def simulate_random_game(game,trial=1)->"int":
 			try:
 				gameState=simulate_random_turn(simulating_game)
 			except GameOver as e:
-				print("exception")
-				print(simulating_game.current_player.name)
-				print(simulating_game.current_player.playstate)
+				if simulating_game.current_player.playstate== PlayState.WON:
+					pass
+					#print("GameOver: %s won."%(simulating_game.current_player.name))
+				elif simulating_game.current_player.playstate== PlayState.LOST:
+					pass
+					#print("GameOver: %s lost."%(simulating_game.current_player.name))
+				else:
+					print("%s is %s)"%(simulating_game.current_player.name,simulating_game.current_player.playstate ))
 				winner=judgeWinner(simulating_game)
 				break;
 			if simulating_game.state==State.COMPLETE:
 				winner=judgeWinner(simulating_game)
+				#print("GameComplete: %s won."%(winner))
 				break;
 			if gameState==ExceptionPlay.INVALID:
-				print("gameState==ExceptionPlay.INVALID")
 				winner=judgeWinner(simulating_game)
+				print("Invalid gameend: %s won."%(winner))
 				break;
 				pass
 		if winner=="Maya":

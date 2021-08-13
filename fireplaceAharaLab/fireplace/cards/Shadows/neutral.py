@@ -82,7 +82,7 @@ class DAL_800:#OK  ##two of five decks was implemented
 			thisDeck = silence_priest
 		nn=len(self.controller.deck)
 		for n in range(nn):
-			self.controller.deck[0].discard()
+			self.controller.deck[nn-1-n].discard()
 		for id in thisDeck:
 			self.controller.card(id, zone=Zone.DECK)
 		self.controller.shuffle_deck()
