@@ -92,7 +92,14 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			if old==Zone.SETASIDE:
+				self.logger.warning("%r is transferred from/to players", self)
+			elif old==Zone.HAND:
+				self.logger.warning("%r is drawn to hand", self)
+			elif old==Zone.HAND:
+				self.logger.warning("%r is discards", self)
+			else:
+				self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
 		if old:
@@ -175,7 +182,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def events(self):
 		if self.zone == Zone.HAND:
 			return self.data.scripts.Hand.events
-		if self.zone == Zone.DECK:
+		if self.zone == Zone.DECK:## EX1_295 occurs an error
 			return self.data.scripts.Deck.events
 		return self.base_events + self._events
 
@@ -257,7 +264,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.discard()
 		else:
 			self.log("%s draws %r", self.controller, self)
-			self.zone = Zone.HAND
+			if self.zone != Zone.HAND:
+				self.zone = Zone.HAND
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:

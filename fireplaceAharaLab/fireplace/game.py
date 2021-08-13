@@ -348,8 +348,8 @@ class BaseGame(Entity):
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 
-		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
 		drawn_card = player.draw()
+		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
 		if hasattr(drawn_card, "casts_when_drawn"):
 			self.queue_actions(player, [Play(drawn_card, None, None, None)])
 		## end ##

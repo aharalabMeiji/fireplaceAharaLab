@@ -208,6 +208,17 @@ class Candidate(object):
 		pass
 
 	def __str__(self):
+		if self.type==BlockType.ATTACK:
+			return "{card} -> attacks -> target={target}".format(card=self.card,target=self.target)
+		elif self.type==ExceptionPlay.TURNEND:
+			return "->Turn end."
+		elif self.type==BlockType.POWER:
+			return "{card} -> heropower".format(card=self.card)
+		elif self.type==BlockType.PLAY:
+			if self.target==None:
+				return "{card} -> plays".format(card=self.card)
+			else :
+				return "{card}-> plays -> target={target}".format(card=self.card,target=self.target)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
 		pass
 
@@ -464,8 +475,8 @@ def PresetHands(player1, player2):
 
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#Discard(player1.hand[-1]).trigger(player1)
-	#Give(player1,'DAL_582').trigger(player1)#target
+	Discard(player1.hand[-1]).trigger(player1)
+	Give(player1,'BT_493').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle

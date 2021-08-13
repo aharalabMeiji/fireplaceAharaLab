@@ -978,6 +978,10 @@ class Give(TargetedAction):
 			if len(target.hand) >= target.max_hand_size:
 				log.info("Give(%r) fails because %r's hand is full", card, target)
 				continue
+			## when card==[]  ## added, 13/8/2021 
+			if hasattr(card, "__iter__") and len(card)==0:
+				break;
+			## 
 			card.controller = target
 			card.zone = Zone.HAND
 			ret.append(card)
