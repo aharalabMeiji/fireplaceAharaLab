@@ -97,15 +97,15 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = [
-		'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
-		'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
-		#'SCH_162',## neutral-scholo, copy others' deathrattles
-		'YOD_009',## this is a hero in galakrond
-		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-		'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
-		]
+	exclude = []
+	# excluded in initilization of card db
+	#	'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
+	#	'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
+	#	'YOD_009',## this is a hero in galakrond
+	#	'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+	#	'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+	#	'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
+		
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -477,7 +477,7 @@ def PresetHands(player1, player2):
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'BT_493').trigger(player1)#target
+	Give(player1,'BT_163').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle

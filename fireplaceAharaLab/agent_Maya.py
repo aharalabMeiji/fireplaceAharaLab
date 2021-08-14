@@ -66,7 +66,7 @@ def try_montecarlo_tree_search(_game, _candidates=[], _trialPerTree=50, _numOfTr
 	for i in range(_numOfTree):
 		#シミュレーション下準備（この下準備は運営側で提供すべき。具体的にはdeepcopyのときに組み込むべき。）
 		#random_sampling
-		exclude = [	'SCH_199','SCH_259','YOD_009','DRG_050','DRG_242','DRG_099','ULD_178','DAL_800']# Aug. 2021
+		exclude = []# 除外すべきカードは、読み込みを停めている。
 		d=random_draft(enemy.hero.card_class,exclude)#カードクラスに従ったランダムなデッキ。第1引数はクラス名に変更。
 		enemy.hand=CardList()#敵のハンドをクリア
 		enemy.deck=Deck()#敵のデッキをクリア

@@ -90,6 +90,8 @@ class ActionArg(LazyValue):
 		# Action has arguments of the type Action.FOO
 		# XXX we rely on source.event_args to be set, but it's very racey.
 		# If multiple events happen on an entity at once, stuff will go wrong.
+		if source.event_args == None:## add it to avoid the interruption.
+			return []
 		assert source.event_args
 		return source.event_args[self.index]
 
