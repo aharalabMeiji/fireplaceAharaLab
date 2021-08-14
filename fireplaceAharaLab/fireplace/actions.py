@@ -902,9 +902,14 @@ class ForceDraw(TargetedAction):
 	"""
 	Draw card targets into their owners hand
 	"""
+	TARGET = ActionArg()
 	def do(self, source, target):
-		target.draw()
-
+		if not hasattr(target, "__iter__"):
+			target.draw()
+		else:
+			for tgt in target:
+				if not hasattr(tgt, "__iter__"):
+					tgt.draw()
 
 class DrawUntil(TargetedAction):
 	"""
