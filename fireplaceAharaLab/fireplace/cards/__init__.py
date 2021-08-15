@@ -118,7 +118,7 @@ class CardDB(dict):
 				setattr(card, 'spellpower', 0)
 			yes = False
 			if card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635,1637]:
-				if (not 'LOOT_' in card.id) and (not 'CORE_' in card.id) and (not card.id in exclude):
+				if (not 'LOOT_' in card.id) and (not 'CS3_' in card.id) and (not 'CORE_' in card.id) and (not card.id in exclude):
 					yes = True
 			elif card.id in ['OG_280']:#C'Thun
 				yes = True

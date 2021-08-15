@@ -759,12 +759,14 @@ class Minion(Character):
 			
 			if self in self.controller.live_entities:
 				player=self.controller
-			else:
+			elif self in self.controller.opponent.live_entities:
 				player=self.controller.opponent
 			self.log("Controller is %s"%(player.name))
 			for entity in player.field:
-				self.log("%s - %s"%(entity.data.name, entity.entities))
-
+				self.log("%s - %s %s"%(entity.data.name, entity._to_be_destroyed, entity.to_be_destroyed))
+			if self in player.field:
+				player.field.remove(self)
+		##いちおう、無限ループ対策で、ここでカードの消去を行っておく。
 
 		super()._set_zone(value)
 

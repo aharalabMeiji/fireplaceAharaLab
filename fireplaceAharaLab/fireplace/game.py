@@ -150,8 +150,8 @@ class BaseGame(Entity):
 				card.zone = Zone.GRAVEYARD
 				actions.append(Death(card))
 			self.check_for_end_game()
-			self.action_end(type, self)
 			self.trigger(self, actions, event_args=None)
+			self.action_end(type, self)
 
 	def trigger(self, source, actions, event_args):
 		"""
