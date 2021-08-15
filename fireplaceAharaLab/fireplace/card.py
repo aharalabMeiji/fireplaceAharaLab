@@ -753,6 +753,18 @@ class Minion(Character):
 			self.controller.field.remove(self)
 			if self.damage:
 				self.damage = 0
+		## これは必要か？ 14/8/21
+		if value == Zone.GRAVEYARD and self.zone == Zone.GRAVEYARD and self in self.controller.game.live_entities:
+			self.log("%s must be removed from the field but still left in the list of living entities.", self.data.name)
+			
+			if self in self.controller.live_entities:
+				player=self.controller
+			else:
+				player=self.controller.opponent
+			self.log("Controller is %s"%(player.name))
+			for entity in player.field:
+				self.log("%s - %s"%(entity.data.name, entity.entities))
+
 
 		super()._set_zone(value)
 

@@ -28,12 +28,12 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.PALADIN)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 
 	# Maya : モンテカルロによる読み切り
 	from agent_Maya import MayaAgent
-	Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS,myClass=CardClass.HUNTER)
+	Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS,myClass=CardClass.MAGE)
 
 	# Miyaryo
 	# winner of the 1st competition of the fixed deck

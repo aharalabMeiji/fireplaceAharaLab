@@ -196,11 +196,16 @@ class Attack(GameAction):
 
 	def get_args(self, source):
 		attacker = _eval_card(source, self._args[0])[0]
-		defender = _eval_card(source, self._args[1])[0]
+		try:
+			defender = _eval_card(source, self._args[1])[0]
+		except IndexError as e:## annihilation in procedure
+			defender = None
 		return attacker, defender
 
 	def do(self, source, attacker, defender):
 		log.info("%r attacks %r", attacker, defender)
+		if not defender:
+			return
 		attacker.attack_target = defender
 		defender.defending = True
 		source.game.proposed_attacker = attacker
@@ -810,7 +815,10 @@ class Destroy(TargetedAction):
 	"""
 	Destroy character targets.
 	"""
+	
 	def do(self, source, target):
+		if not target:
+			return
 		if target.delayed_destruction:
 			#  If the card is in PLAY, it is instead scheduled to be destroyed
 			# It will be moved to the graveyard on the next Death event
@@ -1170,9 +1178,10 @@ class Silence(TargetedAction):
 		self.broadcast(source, EventListener.ON, target)
 
 		target.clear_buffs()
-		for attr in target.silenceable_attributes:
-			if getattr(target, attr):
-				setattr(target, attr, False)
+		if hasattr(target, 'silenceable_attributes'):
+			for attr in target.silenceable_attributes:
+				if hasattr(target, attr) and getattr(target, attr):
+					setattr(target, attr, False)
 
 		# Wipe the event listeners
 		target._events = []
