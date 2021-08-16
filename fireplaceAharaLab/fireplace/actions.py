@@ -2059,3 +2059,26 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 			Buff(card, "BT_126e2").trigger(source)
 		pass
 
+class WC_028_Meeting_Stone(TargetedAction):
+	""" Meeting Stone """
+	TARGET = ActionArg()#the card
+	def do(self,source,target):
+		new_minion =  Give(target, "EX1_044").trigger(source)
+		new_minion = new_minion[0][0]
+		newAtk=new_minion.atk+random.randint(1,3)
+		new_minion._atk = new_minion.atk = newAtk
+		new_minion.data.scripts.atk = lambda self, i: self._atk
+		newHealth = new_minion.health+random.randint(1,3)
+		new_minion.max_health = newHealth
+		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+
+class Frenzy(TargetedAction):
+	""" Frenzy """
+	TARGET = ActionArg()#self
+	TARGETACTION = ActionArg()
+	def do(self,source,target,targetaction):
+		if target.frenzy==1 and target.frenzyFlag==0:
+			log.info("Franzy action of %r "%(target))
+			targetaction.trigger(source)
+			target.frenzyFlag=1
+			pass 

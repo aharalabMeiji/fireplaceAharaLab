@@ -49,6 +49,8 @@ class BaseCard(BaseEntity):
 		self.heropower_damage = 0
 		self._zone = Zone.INVALID
 		self.tags.update(data.tags)
+		self.frenzyFlag = 0;
+
 
 	def __str__(self):
 		return self.data.name
@@ -670,6 +672,7 @@ class Minion(Character):
 	has_inspire = boolean_property("has_inspire")
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
+	frenzy = boolean_property("frenzy")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",

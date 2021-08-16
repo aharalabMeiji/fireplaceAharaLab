@@ -440,6 +440,7 @@ MECH = EnumSelector(Race.MECHANICAL)
 MURLOC = EnumSelector(Race.MURLOC)
 PIRATE = EnumSelector(Race.PIRATE)
 TOTEM = EnumSelector(Race.TOTEM)
+ELEMENTAL = EnumSelector(Race.ELEMENTAL)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)

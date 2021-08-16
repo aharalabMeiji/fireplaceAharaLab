@@ -39,6 +39,12 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\adventure.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\brawl.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\collectible.py" />
@@ -341,6 +347,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\galakrond\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\dragon\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\darkmoon\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\shadows\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\saviors\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
