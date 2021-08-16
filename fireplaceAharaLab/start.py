@@ -15,6 +15,17 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
+	#idList=[]
+	#for cardID in idList:
+	#	card=cards.db[cardID]
+	#	print ('class %s:'%(card.id))
+	#	print ('    """ %s'%(card.name))
+	#	print ('    %s'%(card.description))
+	#	print ('    """')
+	#	print ('    #')
+	#	print ('    pass')
+	#	print ('')
+	#	pass
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER\
 	   ,mulliganStrategy=HumanAgent.HumanInputMulligan)

@@ -93,7 +93,7 @@ class CardDB(dict):
 
 		return card
 
-	def initialize(self, locale="jaJP"):
+	def initialize(self, locale="enUS"):
 		log.info("Initializing card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
@@ -107,7 +107,11 @@ class CardDB(dict):
 			'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
 			# no implementation
 			]
+		#nameList=[]
+		#print("idList=[")
 		for id, card in db.items():
+			#if card.name in nameList:
+			#	print("'%s',"%(card.id))
 			#### ristrict cards to standard cards ##  aharalab ##
 			## exclude [15,21,25,1453,1466]
 			from hearthstone.enums import GameTag
@@ -137,6 +141,7 @@ class CardDB(dict):
 				self[id] = self.merge(id, card)
 			## end ###
 		log.info("Merged %i cards", len(self))
+
 
 	def filter(self, **kwargs):
 		"""

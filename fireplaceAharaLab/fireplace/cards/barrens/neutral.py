@@ -164,301 +164,208 @@ class BAR_430:#OK
 	play = Summon(CONTROLLER,Copy(ENEMY_SECRETS))
 	pass
 
-class BAR_:
+class BAR_721:
 	"""
 	Mankrik
-	3
-	3
-	4
-	Minion
-	Legendary
-	Battlecry
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Help Mankrik find his wife! She was last seen somewhere in your deck.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_076:
 	"""
 	Mor'shan Watch Post
-	3
-	3
-	4
-	Minion
-	Rare
-	-
+	[x]Can't attack. After your
+opponent plays a minion,
+_summon a 2/2 Grunt.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_061:
 	"""
 	Ratchet Privateer
-	3
-	4
-	3
-	Minion - Pirate
-	Common
-	Battlecry
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give your weapon +1 Attack.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_025:
 	"""
 	Sunwell Initiate
-	3
-	3
-	4
-	Minion
-	Common
-	Divine Shield, Frenzy
+	&lt;b&gt;Frenzy:&lt;/b&gt; Gain &lt;b&gt;Divine Shield&lt;/b&gt;.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_065:
 	"""
 	Venomous Scorpid
-	3
-	1
-	3
-	Minion - Beast
-	Common
-	Battlecry, Discover, Poisonous
+	&lt;b&gt;Poisonous&lt;/b&gt;
+&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a spell.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_078:
 	"""
 	Blademaster Samuro
-	4
-	1
-	6
-	Minion
-	Legendary
-	Frenzy, Rush
+	[x]&lt;b&gt;Rush&lt;/b&gt;
+&lt;b&gt;Frenzy:&lt;/b&gt; Deal damage equal
+to this minion's Attack
+_to all enemy minions.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_075:
 	"""
 	Crossroads Watch Post
-	4
-	4
-	6
-	Minion
-	Epic
-	-
+	[x]Can't attack. Whenever your
+opponent casts a spell, give
+your minions +1/+1.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_027:
 	"""
 	Darkspear Berserker
-	4
-	5
-	7
-	Minion
-	Common
-	Deathrattle
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 5 damage to your hero.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_070:
 	"""
 	Gruntled Patron
-	4
-	3
-	3
-	Minion
-	Common
-	Frenzy
+	>&lt;b&gt;Frenzy:&lt;/b&gt; Summon another Gruntled Patron.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_069:
 	"""
 	Injured Marauder
-	4
-	5
-	10
-	Minion
-	Common
-	Battlecry, Taunt
+	&lt;b&gt;Taunt&lt;/b&gt;
+&lt;b&gt;Battlecry:&lt;/b&gt; Deal 6 damage to this minion.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_079:
 	"""
 	Kazakus, Golem Shaper
-	4
-	3
-	3
-	Minion
-	Legendary
-	Battlecry
+	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no 4-Cost cards, build a custom Golem.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_081:
 	"""
 	Southsea Scoundrel
-	4
-	5
-	5
-	Minion - Pirate
-	Epic
-	Battlecry, Discover
+	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a card in your opponent's deck. They draw theirs as well.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_744:
 	"""
 	Spirit Healer
-	4
-	3
-	6
-	Minion
-	Epic
+	After you cast a Holy spell, give a random friendly minion +2 Health.
 	-
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_073:
 	"""
 	Barrens Blacksmith
-	5
-	3
-	5
-	Minion
-	Epic
-	Frenzy
+	&lt;b&gt;Frenzy:&lt;/b&gt; Give your other minions +2/+2.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_072:
 	"""
 	Burning Blade Acolyte
-	5
-	1
-	1
-	Minion
-	Rare
-	Deathrattle, Taunt
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 5/8 Demonspawn
+with &lt;b&gt;Taunt&lt;/b&gt;.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_021:
 	"""
 	Gold Road Grunt
-	5
-	3
-	7
-	Minion
-	Common
-	Frenzy, Taunt
+	[x]&lt;b&gt;Taunt&lt;/b&gt;
+&lt;b&gt;Frenzy:&lt;/b&gt; Gain Armor equal
+to the damage taken.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_020:
 	"""
 	Razormane Raider
-	5
-	5
-	6
-	Minion - Quilboar
-	Common
-	Frenzy
+	&lt;b&gt;Frenzy:&lt;/b&gt; Attack a
+random enemy.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_080:
 	"""
 	Shadow Hunter Vol'jin
-	5
-	3
-	6
-	Minion
-	Legendary
-	Battlecry
+	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a minion. Swap it with a random one in its owner's hand.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_071:
 	"""
 	Taurajo Brave
-	6
-	4
-	8
-	Minion
-	Rare
-	Frenzy
+	&lt;b&gt;Frenzy:&lt;/b&gt; Destroy a random enemy minion.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_077:
 	"""
 	Kargal Battlescar
-	7
-	5
-	5
-	Minion
-	Legendary
-	Battlecry
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a
+5/5 Lookout for each
+Watch Post you've
+__summoned this game.
 	"""
 	#
 	pass
 
-class BAR_:
+class WC_030:
 	"""
 	Mutanus the Devourer
-	7
-	4
-	4
-	Minion - Murloc
-	Legendary
-	Battlecry
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Eat a minion in
+your opponent's hand.
+Gain its stats.
 	"""
 	#
 	pass
 
-class BAR_:
+class WC_029:
 	"""
 	Selfless Sidekick
-	7
-	6
-	6
-	Minion
-	Common
-	Battlecry
+	&lt;b&gt;Battlecry:&lt;/b&gt; Equip a random weapon from your deck.
 	"""
 	#
 	pass
 
-class BAR_:
+class BAR_042:
 	"""
 	Primordial Protector
-	8
-	6
-	6
-	Minion - Elemental
-	Epic
-	Battlecry
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Draw your
+highest Cost spell.
+Summon a random minion
+with the same Cost.
 	"""
 	#
 	pass
