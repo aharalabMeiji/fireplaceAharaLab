@@ -87,7 +87,7 @@ class BAR_064:#maybe OK
 class BAR_064e:
 	update = Refresh(FRIENDLY_HAND + MINION, {GameTag.SPELLPOWER: 2})
 
-class BAR_743:#確認不能
+class BAR_743:#****************************
 	"""
 	[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Nature spell, gain +2 Health.
 	"""
@@ -120,7 +120,7 @@ class BAR_082:#OK
 	pass
 BAR_082e=buff(cost=-1)
 
-class BAR_890:
+class BAR_890:#*****************************
 	"""
 	Crossroads Gossiper
 	After a friendly &lt;b&gt;Secret&lt;/b&gt; is revealed, gain +2/+2.
@@ -164,22 +164,42 @@ class BAR_430:#OK
 	play = Summon(CONTROLLER,Copy(ENEMY_SECRETS))
 	pass
 
-class BAR_721:
+class BAR_721:#これでよいのか？
 	"""
 	Mankrik
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Help Mankrik find his wife! She was last seen somewhere in your deck.
 	"""
-	#
+	play = Give(CONTROLLER,"BAR_721t")
+	pass
+class BAR_721t:
+	"""Olgra, Mankrik's Wife
+	[x]&lt;b&gt;Casts When Drawn&lt;/b&gt;
+		Summon a 3/7 Mankrik,
+		who immediately attacks
+		the enemy hero.
+		<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
+	"""
+	pass
+class BAR_721t2:
+	"""Mankrik, Consumed by Hatred
+	vanilla
+	"""
 	pass
 
-class BAR_076:
+class BAR_076:############################
 	"""
 	Mor'shan Watch Post
 	[x]Can't attack. After your
 opponent plays a minion,
 _summon a 2/2 Grunt.
+<Tag enumID="227" name="CANT_ATTACK" type="Int" value="1"/>
 	"""
-	#
+	#events = Play(OPPONENT,MINION) & Summon(CONTROLLER,"BAR_076t")
+	pass
+class BAR_076t:
+	"""Watchful Grunt
+	vanilla
+	"""
 	pass
 
 class BAR_061:
@@ -187,24 +207,25 @@ class BAR_061:
 	Ratchet Privateer
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give your weapon +1 Attack.
 	"""
-	#
+	play = Find(FRIENDLY_WEAPON) & Buff(FRIENDLY_WEAPON, "BAR_061e")
 	pass
+BAR_061e=buff(atk=1)
 
 class BAR_025:
 	"""
 	Sunwell Initiate
 	&lt;b&gt;Frenzy:&lt;/b&gt; Gain &lt;b&gt;Divine Shield&lt;/b&gt;.
 	"""
-	#
+	events = SELF_DAMAGE.on(Frenzy(SELF,SetTag(SELF, (GameTag.DIVINE_SHIELD,))))
 	pass
 
 class BAR_065:
 	"""
 	Venomous Scorpid
 	&lt;b&gt;Poisonous&lt;/b&gt;
-&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a spell.
+	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a spell.
 	"""
-	#
+	play = Discover(CONTROLLER, RandomSpell())
 	pass
 
 class BAR_078:
@@ -215,7 +236,7 @@ class BAR_078:
 to this minion's Attack
 _to all enemy minions.
 	"""
-	#
+	events = SELF_DAMAGE.on(Frenzy(SELF,Hit(ENEMY_MINIONS,Attr(SELF, GameTag.ATK))))
 	pass
 
 class BAR_075:
@@ -224,16 +245,18 @@ class BAR_075:
 	[x]Can't attack. Whenever your
 opponent casts a spell, give
 your minions +1/+1.
+<Tag enumID="227" name="CANT_ATTACK" type="Int" value="1"/>
 	"""
-	#
+	events = Play(OPPONENT,SPELL).on(Buff(FRIENDLY_MINIONS,"BAR_075e")) 
 	pass
+BAR_075e=buff(atk=1,health=1)
 
 class BAR_027:
 	"""
 	Darkspear Berserker
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 5 damage to your hero.
 	"""
-	#
+	deathrattle = Hit(FRIENDLY_HERO,5)
 	pass
 
 class BAR_070:
@@ -241,7 +264,7 @@ class BAR_070:
 	Gruntled Patron
 	>&lt;b&gt;Frenzy:&lt;/b&gt; Summon another Gruntled Patron.
 	"""
-	#
+	events = SELF_DAMAGE.on(Frenzy(SELF,Summon(CONTROLLER,ExactCopy(SELF))))
 	pass
 
 class BAR_069:
@@ -250,7 +273,7 @@ class BAR_069:
 	&lt;b&gt;Taunt&lt;/b&gt;
 &lt;b&gt;Battlecry:&lt;/b&gt; Deal 6 damage to this minion.
 	"""
-	#
+	play = Hit(SELF,6)
 	pass
 
 class BAR_079:
@@ -258,8 +281,166 @@ class BAR_079:
 	Kazakus, Golem Shaper
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no 4-Cost cards, build a custom Golem.
 	"""
-	#
+	entourage = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]
+	powered_up = -Find(FRIENDLY_DECK + (COST==4))
+	play = powered_up & Give(CONTROLLER,RandomEntourage())
 	pass
+
+class BAR_079_m1:
+    """ Lesser Golem
+    {0}
+{1} """
+    #
+    pass
+
+class BAR_079_m2:
+    """ Greater Golem
+    {0}
+{1} """
+    #
+    pass
+
+class BAR_079_m3:
+    """ Superior Golem
+    {0}
+{1} """
+    #
+    pass
+
+class BAR_079t4:
+    """ Swifthistle
+    <b>Rush</b> """
+    #
+    pass
+
+class BAR_079t5:
+    """ Earthroot
+    <b>Taunt</b> """
+    #
+    pass
+
+class BAR_079t6:
+    """ Sungrass
+    <b>Divine Shield</b> """
+    #
+    pass
+
+class BAR_079t7:
+    """ Liferoot
+    <b>Lifesteal</b> """
+    #
+    pass
+
+class BAR_079t8:
+    """ Fadeleaf
+    <b>Stealth</b> """
+    #
+    pass
+
+class BAR_079t9:
+    """ Grave Moss
+    <b>Poisonous</b> """
+    #
+    pass
+
+class BAR_079t10:
+    """ Wildvine
+    <b>Battlecry:</b> Give your other minions +1/+1. """
+    #
+    pass
+BAR_079t10e=buff(1,1)
+
+class BAR_079t10b:
+    """ Wildvine
+    <b>Battlecry:</b> Give your other minions +2/+2. """
+    #
+    pass
+BAR_079t10be=buff(2,2)
+
+class BAR_079t10c:
+    """ Wildvine
+    &lt;b&gt;Battlecry:&lt;/b&gt; Give your other minions +4/+4. """
+    #
+    pass
+BAR_079t10ce=buff(4,4)
+
+class BAR_079t11:
+    """ Gromsblood
+    <b>Battlecry:</b> Summon a copy of this. """
+    #
+    pass
+
+class BAR_079t12:
+    """ Icecap
+    <b>Battlecry:</b> <b>Freeze</b> a random enemy minion. """
+    #
+    pass
+
+class BAR_079t12b:
+    """ Icecap
+    <b>Battlecry:</b> <b>Freeze</b> two random enemy minions. """
+    #
+    pass
+
+class BAR_079t12c:
+    """ Icecap
+    <b>Battlecry:</b> <b>Freeze</b> all enemy minions. """
+    #
+    pass
+
+class BAR_079t13:
+    """ Firebloom
+    <b>Battlecry:</b> Deal 3 damage to a random enemy minion. """
+    #
+    pass
+
+class BAR_079t13b:
+    """ Firebloom
+    <b>Battlecry:</b> Deal 3 damage to two random enemy minions. """
+    #
+    pass
+
+class BAR_079t13c:
+    """ Firebloom
+    <b>Battlecry:</b> Deal 3 damage to all enemy minions. """
+    #
+    pass
+
+class BAR_079t14:
+    """ Mageroyal
+    <b>Spell Damage +1</b>. """
+    #
+    pass
+
+class BAR_079t14b:
+    """ Mageroyal
+    <b>Spell Damage +2</b>. """
+    #
+    pass
+
+class BAR_079t14c:
+    """ Mageroyal
+    <b>Spell Damage +4</b>. """
+    #
+    pass
+
+class BAR_079t15:
+    """ Kingsblood
+    <b>Battlecry:</b> Draw a card. """
+    #
+    pass
+
+class BAR_079t15b:
+    """ Kingsblood
+    <b>Battlecry:</b> Draw 2 cards. """
+    #
+    pass
+
+class BAR_079t15c:
+    """ Kingsblood
+    <b>Battlecry:</b> Draw 4 cards. """
+    #
+    pass
 
 class BAR_081:
 	"""
