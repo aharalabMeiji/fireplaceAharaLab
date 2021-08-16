@@ -807,6 +807,8 @@ class Minion(Character):
 
 
 class Spell(PlayableCard):
+	spell_school = int_property("spell_school") ## aharalab 16.8.2021
+
 	def __init__(self, data):
 		self.immune_to_spellpower = False
 		self.receives_double_spelldamage_bonus = False

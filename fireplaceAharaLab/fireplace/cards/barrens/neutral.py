@@ -18,7 +18,6 @@ class WC_028:#OK
 	Meeting Stone
 	[x]At the end of your turn, add a 2/2 Adventurer with a random bonus effect to your hand.
 	"""
-	#events = OWN_TURN_END.on(Give(CONTROLLER, "EX1_044").then(Refresh(Give.CARD, {GameTag.ATK:5, GameTag.HEALTH:5})))
 	events = OWN_TURN_END.on(WC_028_Meeting_Stone(CONTROLLER))
 	pass
 
@@ -77,119 +76,92 @@ class BAR_022:#OK
 	events = Damage(SELF).on(Frenzy(SELF,Give(CONTROLLER,RandomSpell(card_class=FRIENDLY_CLASS))))
 	pass
 
-class BAR_064:#this turn
+class BAR_064:#maybe OK
 	"""
 	Talented Arcanist
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your next spell_this turn has &lt;b&gt;Spell_Damage +2&lt;/b&gt;.
 	"""
 	play = Buff(CONTROLLER, "BAR_064e")
-	events = OWN_SPELL_PLAY.on( Destroy(FRIENDLY + ID("BAR_854e")))
+	events = [OWN_SPELL_PLAY.after( Destroy(FRIENDLY + ID("BAR_854e"))),TURN_END.on( Destroy(FRIENDLY + ID("BAR_854e")))]
 	pass
 class BAR_064e:
-	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.SPELLPOWER: 2})
+	update = Refresh(FRIENDLY_HAND + MINION, {GameTag.SPELLPOWER: 2})
 
-class BAR_:
+class BAR_743:#確認不能
 	"""
-		Toad of the Wilds
-		2
-		2
-		2
-		Minion - Beast
-		Common
-		Battlecry, Taunt
+	[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Nature spell, gain +2 Health.
 	"""
-	#
+	play = Find(FRIENDLY_HAND+SPELL+NATURE) & Heal(FRIENDLY_HERO,2)
 	pass
 
-class BAR_:
+class WC_035:#OK
 	"""
 	Archdruid Naralex
-	3
-	3
-	3
-	Minion
-	Legendary
-	-
+	[x]&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. While &lt;b&gt;Dormant&lt;/b&gt;, 
+	add a Dream card to your hand __at the end of your turn.
 	"""
-	#
+
+	play = Buff(CONTROLLER,"WC_035e")
+	dormant = 2
+	awaken = Destroy(FRIENDLY + ID("WC_035e"))
 	pass
 
-class BAR_:
+class WC_035e:
+	events = OWN_TURN_END.on(WC_035_Archdruid_Naralex(CONTROLLER))
+	pass
+
+
+class BAR_082:#OK
 	"""
 	Barrens Trapper
-	3
-	2
-	4
-	Minion
-	Common
-	Deathrattle
+	Your &lt;b&gt;Deathrattle&lt;/b&gt; cards cost (1) less.
 	"""
-	#
+	play = Buff(FRIENDLY_HAND+DEATHRATTLE,"BAR_082e")
 	pass
+BAR_082e=buff(cost=-1)
 
-class BAR_:
+class BAR_890:
 	"""
 	Crossroads Gossiper
-	3
-	4
-	3
-	Minion
-	Common
-	Secret
+	After a friendly &lt;b&gt;Secret&lt;/b&gt; is revealed, gain +2/+2.
 	"""
-	#
+	events = Reveal(FRIENDLY_SECRETS).on(Buff(SELF, "BAR_890e"))
 	pass
+BAR_890e=buff(atk=2,health=2)
 
-class BAR_:
+class BAR_026:
 	"""
 	Death's Head Cultist
-	3
-	2
-	4
-	Minion - Quilboar
-	Common
-	Deathrattle, Taunt
+	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Deathrattle:&lt;/b&gt; Restore 4 Health to your hero.
 	"""
-	#
+	deathrattle = Heal(FRIENDLY_HERO,4)
 	pass
 
-class BAR_:
+class WC_027:
 	"""
 	Devouring Ectoplasm
-	3
-	3
-	2
-	Minion
-	Common
-	Deathrattle
+	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 2/2 Adventurer with_a random bonus effect.
 	"""
-	#
+	deathrattle = WC_027_Devouring_Ectoplasm(CONTROLLER)
 	pass
 
-class BAR_:
+class BAR_060:
 	"""
 	Hog Rancher
-	3
-	3
-	2
-	Minion
-	Common
-	Battlecry, Rush
+	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 2/1 Hog with &lt;b&gt;Rush&lt;/b&gt;.
 	"""
-	#
+	play = Summon(CONTROLLER, "BAR_060t")
+	pass
+class BAR_060t:
+	""" Hog """
 	pass
 
-class BAR_:
+class BAR_430:#OK
 	"""
 	Horde Operative
-	3
-	3
-	4
-	Minion
-	Rare
-	Battlecry, Secret
+	&lt;b&gt;Battlecry:&lt;/b&gt; Copy your opponent's &lt;b&gt;Secrets&lt;/b&gt; and put them into play.
 	"""
-	#
+	play = Summon(CONTROLLER,Copy(ENEMY_SECRETS))
 	pass
 
 class BAR_:

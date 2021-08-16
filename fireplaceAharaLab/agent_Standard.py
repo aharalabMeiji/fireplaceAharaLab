@@ -332,8 +332,8 @@ class HumanAgent(Agent):
 					if character.dormant!=0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					if character.spellpower>0:
-					#	print("(spellpower:%d)"%(character.spellpower), end=" ")
-					#if character._tmp_int1_>0:
+						print("(spellpower:%d)"%(character.spellpower), end=" ")
+					if character._tmp_int1_>0:
 						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():

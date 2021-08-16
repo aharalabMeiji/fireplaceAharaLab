@@ -1596,7 +1596,7 @@ class Awaken(TargetedAction):
 
 	def do(self, source, target):
 		log.info("%s is awaken", target)
-		target.turns_in_play = 0
+		target.turns_in_play = 1
 		if target.get_actions("awaken"):
 			source.game.trigger(target, target.get_actions("awaken"), event_args=None)
 
@@ -2061,7 +2061,7 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 
 class WC_028_Meeting_Stone(TargetedAction):
 	""" Meeting Stone """
-	TARGET = ActionArg()#the card
+	TARGET = ActionArg()#the controller
 	def do(self,source,target):
 		new_minion =  Give(target, "EX1_044").trigger(source)
 		new_minion = new_minion[0][0]
@@ -2071,6 +2071,20 @@ class WC_028_Meeting_Stone(TargetedAction):
 		newHealth = new_minion.health+random.randint(1,3)
 		new_minion.max_health = newHealth
 		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+
+class WC_027_Devouring_Ectoplasm(TargetedAction):
+	""" Devouring Ectoplasm """
+	TARGET = ActionArg()#the controller
+	def do(self,source,target):
+		new_minion =  Summon(target, "EX1_044").trigger(source)
+		new_minion = new_minion[0][0]
+		newAtk=new_minion.atk+random.randint(1,3)
+		new_minion._atk = new_minion.atk = newAtk
+		new_minion.data.scripts.atk = lambda self, i: self._atk
+		newHealth = new_minion.health+random.randint(1,3)
+		new_minion.max_health = newHealth
+		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+
 
 class Frenzy(TargetedAction):
 	""" Frenzy """
@@ -2082,3 +2096,11 @@ class Frenzy(TargetedAction):
 			targetaction.trigger(source)
 			target.frenzyFlag=1
 			pass 
+
+class WC_035_Archdruid_Naralex(TargetedAction):
+	TARGET = ActionArg()#self
+	def do(self, source,target):
+		dreams=["DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"]
+		newCard = random.choice(dreams)
+		Give(target,newCard).trigger(source)
+		pass

@@ -475,12 +475,11 @@ def PresetHands(player1, player2):
 	## add a specific card int the top of the deck
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'BAR_022').trigger(player1)#target
+	Give(player1,'BAR_430').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
 	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
-	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
 	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
 	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
 	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
@@ -491,9 +490,11 @@ def PresetHands(player1, player2):
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
 	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
 
-	Discard(player2.hand[-1]).trigger(player2)
-	Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	Give(player2,'BAR_854').trigger(player2)#enemy atk=1
+	#Discard(player2.hand[-1]).trigger(player2)
+	#Give(player2,'EX1_609').trigger(player2)#subtarget-secret
+	#Give(player2,'ULD_152').trigger(player2)#subtarget-secret
+	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
+	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
 	#Give(player2,'ULD_152').trigger(player2)#enemy
 
 	#force play by player2

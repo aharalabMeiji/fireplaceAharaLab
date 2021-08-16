@@ -347,6 +347,7 @@ class BaseGame(Entity):
 		for minion in player.field:
 			if minion.dormant:
 				minion.dormant -= 1
+				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 

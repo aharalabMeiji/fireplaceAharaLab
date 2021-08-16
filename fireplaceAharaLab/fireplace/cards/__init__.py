@@ -1,7 +1,7 @@
 import os
 from pkg_resources import resource_filename
 from hearthstone import cardxml
-from hearthstone.enums import CardType
+from hearthstone.enums import CardType,CardSet
 from ..logging import log
 from ..utils import get_script_definition
 
@@ -118,13 +118,14 @@ class CardDB(dict):
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
-			if card.card_set == 1525:
+			if card.card_set == CardSet.THE_BARRENS:#1525
 				if 'BAR_' in card.id or 'WC_' in card.id:
 					yes = True					
-			if card.card_set == 1466:
+			if card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
-					yes = True					
-			elif card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635,1637]:
+					yes = True
+
+			elif card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635, CardSet.CORE]:
 				if (not 'LOOT_' in card.id) and (not 'CORE_' in card.id) and (not card.id in exclude):
 					yes = True
 			elif card.id in ['OG_280']:#C'Thun

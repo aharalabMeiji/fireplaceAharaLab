@@ -57,7 +57,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10)
+	play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

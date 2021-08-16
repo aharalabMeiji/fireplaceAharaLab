@@ -79,6 +79,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\whos_the_boss.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\brawl\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\dream.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\mage.py" />
