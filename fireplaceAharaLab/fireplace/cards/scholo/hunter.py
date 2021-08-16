@@ -37,7 +37,7 @@ class SCH_300:#OK
 class SCH_300e:
 	#Carrion Studies
 	#Your next [Deathrattle] minion costs (1) less.
-	update = Refresh(DEATHRATTLE, {GameTag.COST: -1})#OK
+	update = Refresh(IN_HAND + FRIENDLY + MINION + DEATHRATTLE, {GameTag.COST: -1})#OK
 	events = Play(CONTROLLER, DEATHRATTLE).on(Destroy(SELF))#OK
 	pass
 

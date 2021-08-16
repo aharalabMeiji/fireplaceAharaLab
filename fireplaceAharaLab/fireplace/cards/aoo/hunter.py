@@ -87,3 +87,6 @@ class BT_163:
 	"""Nagrand Slam"""
 	play = Summon(CONTROLLER, "BT_163t").then(
 		Attack(Summon.CARD, RANDOM_ENEMY_CHARACTER)) * 4
+
+class BT_163t:
+	""" Clefthoof """

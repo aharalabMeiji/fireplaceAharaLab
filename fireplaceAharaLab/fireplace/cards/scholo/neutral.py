@@ -39,9 +39,10 @@ class SCH_160:#done
 	play = Give(CONTROLLER, RandomSpell(cost=1, card_class=FRIENDLY_CLASS))
 	pass
 
-class SCH_162:#done
+class SCH_162:#exclude
 	""" Vectus"""
 	#Battlecry: Summon two 1/1 Whelps. Each gains a Deathrattle from your minions that died this game.
+	#雄叫び:1/1のチビドラゴンを2体召喚する。それらはこの対戦で死亡した味方のミニオンの断末魔を1つずつ獲得する。
 	play = Summon(CONTROLLER, "SCH_162t").then( -Find(FRIENDLY + KILLED + DEATHRATTLE) |
 		Buff(Summon.CARD, "SCH_162e").then( 
 			CopyDeathrattles(Buff.BUFF, RANDOM(FRIENDLY + KILLED + DEATHRATTLE))
@@ -122,7 +123,7 @@ class SCH_199t25:#OK
 class SCH_199t26:################################################### no checked
 	"""Madness at the Darkmoon Faire, Standard
 	#&lt;b&gt;Corrupt:&lt;/b&gt; Gain +2/+2."""
-	play = Buff(CONTROLLER, "SCH_199t26")
+	play = Buff(CONTROLLER, "SCH_199t26t")
 	pass
 SCH_199t26t = buff(2,2)
 

@@ -96,6 +96,16 @@ class CardDB(dict):
 		log.info("Initializing card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
+		exclude = [
+			# bug cards
+			'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
+			'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
+			'YOD_009',## this is a hero in galakrond
+			'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+			'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+			'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
+			# no implementation
+			]
 		for id, card in db.items():
 			#### ristrict cards to standard cards ##  aharalab ##
 			## exclude [15,21,25,1453,1466]
@@ -107,12 +117,13 @@ class CardDB(dict):
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
-			if card.card_set in [2,3,4,17,18,1130,1158,1347,1403,1414,1443,1635,1637]:
-				yes = True
+			if card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635,1637]:
+				if (not 'LOOT_' in card.id) and (not 'CS3_' in card.id) and (not 'CORE_' in card.id) and (not card.id in exclude):
+					yes = True
 			elif card.id in ['OG_280']:#C'Thun
 				yes = True
-			elif card.card_set==15:#Some extended hero powers
-				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt"]:
+			if card.card_set == 15:
+				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",]:## cardset 15
 					yes = True
 			if yes:
 				self[id] = self.merge(id, card)

@@ -71,7 +71,7 @@ class BaseEntity(object):
 			else:
 				actions.append(action)
 		ret = source.game.trigger(self, actions, args)
-		if event.once:
+		if event.once and event in self._events:
 			self._events.remove(event)
 
 		return ret
@@ -80,6 +80,8 @@ class BaseEntity(object):
 		"""
 		Override to modify the damage dealt to a target from the given amount.
 		"""
+		if not hasattr(target,'immune'):#non-minion
+			return 0
 		if target.immune:
 			self.log("%r is immune to %s for %i damage", target, self, amount)
 			return 0

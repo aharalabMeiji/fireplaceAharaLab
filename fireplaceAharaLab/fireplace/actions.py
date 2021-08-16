@@ -90,6 +90,8 @@ class ActionArg(LazyValue):
 		# Action has arguments of the type Action.FOO
 		# XXX we rely on source.event_args to be set, but it's very racey.
 		# If multiple events happen on an entity at once, stuff will go wrong.
+		if source.event_args == None:## add it to avoid the interruption.
+			return []
 		assert source.event_args
 		return source.event_args[self.index]
 
@@ -194,11 +196,16 @@ class Attack(GameAction):
 
 	def get_args(self, source):
 		attacker = _eval_card(source, self._args[0])[0]
-		defender = _eval_card(source, self._args[1])[0]
+		try:
+			defender = _eval_card(source, self._args[1])[0]
+		except IndexError as e:## annihilation in procedure
+			defender = None
 		return attacker, defender
 
 	def do(self, source, attacker, defender):
 		log.info("%r attacks %r", attacker, defender)
+		if not defender:
+			return
 		attacker.attack_target = defender
 		defender.defending = True
 		source.game.proposed_attacker = attacker
@@ -808,7 +815,10 @@ class Destroy(TargetedAction):
 	"""
 	Destroy character targets.
 	"""
+	
 	def do(self, source, target):
+		if not target:
+			return
 		if target.delayed_destruction:
 			#  If the card is in PLAY, it is instead scheduled to be destroyed
 			# It will be moved to the graveyard on the next Death event
@@ -900,9 +910,14 @@ class ForceDraw(TargetedAction):
 	"""
 	Draw card targets into their owners hand
 	"""
+	TARGET = ActionArg()
 	def do(self, source, target):
-		target.draw()
-
+		if not hasattr(target, "__iter__"):
+			target.draw()
+		else:
+			for tgt in target:
+				if not hasattr(tgt, "__iter__"):
+					tgt.draw()
 
 class DrawUntil(TargetedAction):
 	"""
@@ -978,6 +993,10 @@ class Give(TargetedAction):
 			if len(target.hand) >= target.max_hand_size:
 				log.info("Give(%r) fails because %r's hand is full", card, target)
 				continue
+			## when card==[]  ## added, 13/8/2021 
+			if hasattr(card, "__iter__") and len(card)==0:
+				break;
+			## 
 			card.controller = target
 			card.zone = Zone.HAND
 			ret.append(card)
@@ -1159,9 +1178,10 @@ class Silence(TargetedAction):
 		self.broadcast(source, EventListener.ON, target)
 
 		target.clear_buffs()
-		for attr in target.silenceable_attributes:
-			if getattr(target, attr):
-				setattr(target, attr, False)
+		if hasattr(target, 'silenceable_attributes'):
+			for attr in target.silenceable_attributes:
+				if hasattr(target, attr) and getattr(target, attr):
+					setattr(target, attr, False)
 
 		# Wipe the event listeners
 		target._events = []

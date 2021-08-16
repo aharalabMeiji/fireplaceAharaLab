@@ -100,6 +100,8 @@ class BaseGame(Entity):
 			self._action_stack -= 1
 		if not self._action_stack:
 			self.log("Empty stack, refreshing auras and processing deaths")
+			if type ==BlockType.DEATHS:
+				self.log("this case.")
 			self.refresh_auras()
 			self.process_deaths()
 
@@ -148,8 +150,8 @@ class BaseGame(Entity):
 				card.zone = Zone.GRAVEYARD
 				actions.append(Death(card))
 			self.check_for_end_game()
-			self.action_end(type, self)
 			self.trigger(self, actions, event_args=None)
+			self.action_end(type, self)
 
 	def trigger(self, source, actions, event_args):
 		"""
@@ -348,13 +350,10 @@ class BaseGame(Entity):
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 
+		drawn_card = player.draw()
 		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-		while True:
-			drawn_card = player.draw()
-			if not hasattr(drawn_card, "casts_when_drawn"):
-				break;
-			else:
-				self.queue_actions(player, [Play(drawn_card, None, None, None)])
+		if hasattr(drawn_card, "casts_when_drawn"):
+			self.queue_actions(player, [Play(drawn_card, None, None, None)])
 		## end ##
 		self.manager.step(self.next_step, Step.MAIN_END)
 

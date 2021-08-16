@@ -102,7 +102,7 @@ class YOD_035:#OK
 	"""Grand Lackey Erkh
 	After you play a &lt;b&gt;Lackey&lt;/b&gt;, add a &lt;b&gt;Lackey&lt;/b&gt; to your hand."""
 	entourage = ["DAL_613", "DAL_614", "DAL_615", "DAL_739",\
-	   "DAL_741", "DRG_052" ,"LOOT_306","ULD_616"]
+	   "DAL_741", "DRG_052" ,"ULD_616"] ## exclude "LOOT_306"
 	play = Play(CONTROLLER, EnumSelector(GameTag.MARK_OF_EVIL)).after(Give(CONTROLLER, RandomEntourage()))
 class YOD_038:#OK
 	"""Sky Gen'ral Kragg

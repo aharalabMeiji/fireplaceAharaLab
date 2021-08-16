@@ -92,7 +92,10 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			if old==Zone.GRAVEYARD:
+				self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			else:	
+				self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
 		if old:
@@ -175,7 +178,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def events(self):
 		if self.zone == Zone.HAND:
 			return self.data.scripts.Hand.events
-		if self.zone == Zone.DECK:
+		if self.zone == Zone.DECK:## EX1_295 occurs an error
 			return self.data.scripts.Deck.events
 		return self.base_events + self._events
 
@@ -257,7 +260,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.discard()
 		else:
 			self.log("%s draws %r", self.controller, self)
-			self.zone = Zone.HAND
+			if self.zone != Zone.HAND:
+				self.zone = Zone.HAND
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:
@@ -749,6 +753,20 @@ class Minion(Character):
 			self.controller.field.remove(self)
 			if self.damage:
 				self.damage = 0
+		## これは必要か？ 14/8/21
+		if value == Zone.GRAVEYARD and self.zone == Zone.GRAVEYARD and self in self.controller.game.live_entities:
+			self.log("%s must be removed from the field but still left in the list of living entities.", self.data.name)
+			
+			if self in self.controller.live_entities:
+				player=self.controller
+			elif self in self.controller.opponent.live_entities:
+				player=self.controller.opponent
+			self.log("Controller is %s"%(player.name))
+			for entity in player.field:
+				self.log("%s - %s %s"%(entity.data.name, entity._to_be_destroyed, entity.to_be_destroyed))
+			if self in player.field:
+				player.field.remove(self)
+		##いちおう、無限ループ対策で、ここでカードの消去を行っておく。
 
 		super()._set_zone(value)
 
@@ -881,7 +899,8 @@ class Enchantment(BaseCard):
 		if deathrattle:
 			ret.append(deathrattle)
 		if not ret:
-			raise NotImplementedError("Missing deathrattle script for %r" % (self))
+			#raise NotImplementedError("Missing deathrattle script for %r" % (self))
+			pass
 		return ret
 
 	def _getattr(self, attr, i):
