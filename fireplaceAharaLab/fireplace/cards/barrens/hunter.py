@@ -115,7 +115,7 @@ class WC_008:
     """ Sin'dorei Scentfinder
     <b>Frenzy:</b> Summon four 1/1 Hyenas with <b>Rush</b>.
     """
-    play = Damage(SELF).on(Frenzy(SELF,Summon(CONTROLLER,'BAR_035t')))
+    events = Damage(SELF).on(Frenzy(SELF,Summon(CONTROLLER,'BAR_035t')))
     pass
 
 class WC_037:
