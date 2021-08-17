@@ -15,41 +15,6 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-	idList=[
-'BAR_079_m1',
-'BAR_079_m2',
-'BAR_079_m3',
-'BAR_079t4',
-'BAR_079t5',
-'BAR_079t6',
-'BAR_079t7',
-'BAR_079t8',
-'BAR_079t9',
-'BAR_079t10',
-'BAR_079t10b',
-#'BAR_079t10c',
-'BAR_079t11',
-'BAR_079t12',
-'BAR_079t12b',
-'BAR_079t12c',
-'BAR_079t13',
-'BAR_079t13b',
-'BAR_079t13c',
-'BAR_079t14',
-'BAR_079t14b',
-'BAR_079t14c',
-'BAR_079t15',
-'BAR_079t15b',
-'BAR_079t15c',
-		]
-	for cardID in idList:
-		card = cards.db[cardID]
-		print('class %s:'%(cardID))
-		print('    """ %s'%(card.name))
-		print('    %s """'%(card.description))
-		print('    #'%())
-		print('    pass'%())
-		print(''%())
 
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER\
@@ -94,6 +59,7 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	#play_set_of_games(Human2, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -113,3 +79,39 @@ if __name__ == "__main__":
 	main()
 
 
+def printClasses():
+	idList=[
+'BAR_079_m1',
+'BAR_079_m2',
+'BAR_079_m3',
+'BAR_079t4',
+'BAR_079t5',
+'BAR_079t6',
+'BAR_079t7',
+'BAR_079t8',
+'BAR_079t9',
+'BAR_079t10',
+'BAR_079t10b',
+#'BAR_079t10c',
+'BAR_079t11',
+'BAR_079t12',
+'BAR_079t12b',
+'BAR_079t12c',
+'BAR_079t13',
+'BAR_079t13b',
+'BAR_079t13c',
+'BAR_079t14',
+'BAR_079t14b',
+'BAR_079t14c',
+'BAR_079t15',
+'BAR_079t15b',
+'BAR_079t15c',
+		]
+	for cardID in idList:
+		card = cards.db[cardID]
+		print('class %s:'%(cardID))
+		print('    """ %s'%(card.name))
+		print('    %s """'%(card.description))
+		print('    #'%())
+		print('    pass'%())
+		print(''%())

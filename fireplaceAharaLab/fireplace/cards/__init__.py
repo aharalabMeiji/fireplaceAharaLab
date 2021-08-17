@@ -106,6 +106,7 @@ class CardDB(dict):
 			'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
 			'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
 			# no implementation
+			#'BT_730',
 			]
 		#nameList=[]
 		#print("idList=[")

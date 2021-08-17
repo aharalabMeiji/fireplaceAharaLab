@@ -443,6 +443,7 @@ TOTEM = EnumSelector(Race.TOTEM)
 ELEMENTAL = EnumSelector(Race.ELEMENTAL)
 
 NATURE = EnumSelector(SpellSchool.NATURE)
+HOLY = EnumSelector(SpellSchool.HOLY)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)

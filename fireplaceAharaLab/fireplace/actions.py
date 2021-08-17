@@ -655,6 +655,16 @@ class Buff(TargetedAction):
 			setattr(buff, k, v)
 		return buff.apply(target)
 
+class EatsCard(TargetedAction):
+	""" add other stats to target stats
+	"""
+	TARGET = ActionArg()
+	OTHER = ActionArg()
+	def do(self, source, target, other):
+		target.atk += other.atk
+		target.health += other.health
+		other.discard()
+		pass
 
 class Bounce(TargetedAction):
 	"""
@@ -836,6 +846,7 @@ class Discard(TargetedAction):
 	"""
 	Discard card targets in a player's hand
 	"""
+	TARGET = ActionArg()
 	def do(self, source, target):
 		self.broadcast(source, EventListener.ON, target)
 		target.discard()
@@ -1799,6 +1810,25 @@ class SwapController(TargetedAction):
 		other.controller = target_controller
 		log.info("%s and %s swap their controllers.",target, other)
 
+class SwapMinionAndHand(TargetedAction):
+	TARGET = ActionArg()# minion
+	OTHER = ActionArg()# card in hand
+	def do(self, source,target,other):
+		if isinstance(target,list):
+			target = target[0]
+		if isinstance(other,list):
+			other = other[0]
+		newTargetController=other.controller
+		newTargetZone = other.zone
+		newOtherController=target.controller
+		newOtherZone = target.zone
+		target.controller = newTargetController
+		target.zone = newTargetZone
+		other.controller = newOtherController
+		other.zone = newOtherZone
+		log.info("%r and %r swap their positions.",target, other)
+
+
 class RegularAttack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER
 	OTHER = ActionArg()#DEFFENDER
@@ -2099,8 +2129,20 @@ class Frenzy(TargetedAction):
 
 class WC_035_Archdruid_Naralex(TargetedAction):
 	TARGET = ActionArg()#self
-	def do(self, source,target):
+	def do(self, source, target):
 		dreams=["DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"]
 		newCard = random.choice(dreams)
 		Give(target,newCard).trigger(source)
 		pass
+
+class CountSummon(TargetedAction):
+	TARGET = ActionArg()#self
+	LIST = ActionArg()#Minion List
+	def do(self, source, target, list) -> int:
+		thisGame = target.game
+		logList = thisGame.get_log()
+		count = 0
+		for log in logList:
+			if log.card.id in list and log.type==BlockType.PLAY and log.card.controller == target.controller:
+				count += 1
+		return count

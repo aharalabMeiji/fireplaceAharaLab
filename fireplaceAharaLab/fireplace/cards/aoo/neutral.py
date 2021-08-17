@@ -67,7 +67,7 @@ class BT_714:#OK
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	#play = SetTag(TARGET,(GameTag.FROZEN, ))
 	play = Freeze(TARGET)
-class BT_730:
+class BT_730:#######################################################################
 	"""Overconfident Orc	Minion	Common
 	&lt;b&gt;Taunt&lt;/b&gt;
 	While at full Health,

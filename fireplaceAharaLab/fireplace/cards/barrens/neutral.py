@@ -280,10 +280,17 @@ class BAR_079:
 	"""
 	Kazakus, Golem Shaper
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no 4-Cost cards, build a custom Golem.
+	First, choose one of 'cost 1, cost 5, cost 10'
+	Next, choose one of 'rush, taunt, divine shield, life steal,  stealth, poisonous'
+
 	"""
-	entourage = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]
+	#self.firstChoice = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]# first choice
+	#self.secondChoice = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# first choice
+	entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12",
+		"BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b",
+		"BAR_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
 	powered_up = -Find(FRIENDLY_DECK + (COST==4))
-	play = powered_up & Give(CONTROLLER,RandomEntourage())
+	play = powered_up & Choice(CONTROLLER,RandomEntourage()*3)
 	pass
 
 class BAR_079_m1:
@@ -346,64 +353,64 @@ class BAR_079t9:
 class BAR_079t10:
     """ Wildvine
     <b>Battlecry:</b> Give your other minions +1/+1. """
-    #
+    play = Buff(FRIENDLY_MINIONS,"BAR_079t10e")
     pass
 BAR_079t10e=buff(1,1)
 
 class BAR_079t10b:
     """ Wildvine
     <b>Battlecry:</b> Give your other minions +2/+2. """
-    #
+    play = Buff(FRIENDLY_MINIONS,"BAR_079t10be")
     pass
 BAR_079t10be=buff(2,2)
 
 class BAR_079t10c:
     """ Wildvine
     &lt;b&gt;Battlecry:&lt;/b&gt; Give your other minions +4/+4. """
-    #
+    play = Buff(FRIENDLY_MINIONS,"BAR_079t10ce")
     pass
 BAR_079t10ce=buff(4,4)
 
 class BAR_079t11:
     """ Gromsblood
     <b>Battlecry:</b> Summon a copy of this. """
-    #
+    play = Summon(CONTROLLER, Copy(SELF))   
     pass
 
 class BAR_079t12:
     """ Icecap
     <b>Battlecry:</b> <b>Freeze</b> a random enemy minion. """
-    #
+    play = Freeze(RANDOM_ENEMY_MINION)
     pass
 
 class BAR_079t12b:
     """ Icecap
     <b>Battlecry:</b> <b>Freeze</b> two random enemy minions. """
-    #
+    play = Freeze(RANDOM_ENEMY_MINION)*2
     pass
 
 class BAR_079t12c:
     """ Icecap
     <b>Battlecry:</b> <b>Freeze</b> all enemy minions. """
-    #
+    play = Freeze(ENEMY_MINIONS)
     pass
 
 class BAR_079t13:
     """ Firebloom
     <b>Battlecry:</b> Deal 3 damage to a random enemy minion. """
-    #
+    play = Hit(CONTROLLER,RANDOM_ENEMY_MINION)
     pass
 
 class BAR_079t13b:
     """ Firebloom
     <b>Battlecry:</b> Deal 3 damage to two random enemy minions. """
-    #
+    play = Hit(CONTROLLER,RANDOM_ENEMY_MINION)*2
     pass
 
 class BAR_079t13c:
     """ Firebloom
     <b>Battlecry:</b> Deal 3 damage to all enemy minions. """
-    #
+    play = Hit(CONTROLLER,ENEMY_MINIONS)
     pass
 
 class BAR_079t14:
@@ -427,19 +434,19 @@ class BAR_079t14c:
 class BAR_079t15:
     """ Kingsblood
     <b>Battlecry:</b> Draw a card. """
-    #
+    play = Draw(CONTROLLER)
     pass
 
 class BAR_079t15b:
     """ Kingsblood
     <b>Battlecry:</b> Draw 2 cards. """
-    #
+    play = Draw(CONTROLLER)*2
     pass
 
 class BAR_079t15c:
     """ Kingsblood
     <b>Battlecry:</b> Draw 4 cards. """
-    #
+    play = Draw(CONTROLLER)*4
     pass
 
 class BAR_081:
@@ -447,7 +454,7 @@ class BAR_081:
 	Southsea Scoundrel
 	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a card in your opponent's deck. They draw theirs as well.
 	"""
-	#
+	play = Choice(CONTROLLER,RANDOM(ENEMY_DECK)*3).after(Give(OPPONENT,Copy(Choice.CARD)))#本当はdrawしたい
 	pass
 
 class BAR_744:
@@ -456,16 +463,18 @@ class BAR_744:
 	After you cast a Holy spell, give a random friendly minion +2 Health.
 	-
 	"""
-	#
+	events = Play(CONTROLLER, SPELL+HOLY).on(Buff(RANDOM_FRIENDLY_MINION),"BAR_744e")
 	pass
+BAR_744e=buff(health=2)
 
 class BAR_073:
 	"""
 	Barrens Blacksmith
 	&lt;b&gt;Frenzy:&lt;/b&gt; Give your other minions +2/+2.
 	"""
-	#
+	events = SELF_DAMAGE.on(Frenzy(SELF,Buff(FRIENDLY_MINIONS,"BAR_073e")))
 	pass
+BAR_073e=buff(atk=2,health=2)
 
 class BAR_072:
 	"""
@@ -473,7 +482,11 @@ class BAR_072:
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 5/8 Demonspawn
 with &lt;b&gt;Taunt&lt;/b&gt;.
 	"""
-	#
+	deathrattle = Summon(CONTROLLER, "BAR_072t")
+	pass
+class BAR_072t:
+	""" Demonspawn
+	"""
 	pass
 
 class BAR_021:
@@ -483,7 +496,7 @@ class BAR_021:
 &lt;b&gt;Frenzy:&lt;/b&gt; Gain Armor equal
 to the damage taken.
 	"""
-	#
+	events = Damage(SELF).on(Frenzy(SELF,GainArmor(FRIENDLY_HERO,Damage.AMOUNT)))
 	pass
 
 class BAR_020:
@@ -492,7 +505,7 @@ class BAR_020:
 	&lt;b&gt;Frenzy:&lt;/b&gt; Attack a
 random enemy.
 	"""
-	#
+	events = Damage(SELF).on(Frenzy(SELF,Hit(RANDOM_ENEMY_CHARACTER,ATK(SELF))))
 	pass
 
 class BAR_080:
@@ -500,7 +513,8 @@ class BAR_080:
 	Shadow Hunter Vol'jin
 	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a minion. Swap it with a random one in its owner's hand.
 	"""
-	#
+	requirements = { PlayReq.REQ_MINION_TARGET: 0,	PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = SwapMinionAndHand(TARGET, RANDOM(FRIENDLY_HAND))
 	pass
 
 class BAR_071:
@@ -508,7 +522,7 @@ class BAR_071:
 	Taurajo Brave
 	&lt;b&gt;Frenzy:&lt;/b&gt; Destroy a random enemy minion.
 	"""
-	#
+	events = Damage(SELF).on(Frenzy(SELF,Destroy(RANDOM(ENEMY_MINION))))
 	pass
 
 class BAR_077:
@@ -519,8 +533,10 @@ class BAR_077:
 Watch Post you've
 __summoned this game.
 	"""
-	#
+	play = Summon(CONTROLLER,"BAR_077t") * CountSummon(SELF,["BAR_074","BAR_075","BAR_076"])
 	pass
+class BAR_077t:
+	""" Lookout """
 
 class WC_030:
 	"""
@@ -529,15 +545,16 @@ class WC_030:
 your opponent's hand.
 Gain its stats.
 	"""
-	#
+	play = EatsCard(SELF, RANDOM(ENEMY_HAND + MINION))
 	pass
+WC_030e=buff()
 
 class WC_029:
 	"""
 	Selfless Sidekick
 	&lt;b&gt;Battlecry:&lt;/b&gt; Equip a random weapon from your deck.
 	"""
-	#
+	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+WEAPON))
 	pass
 
 class BAR_042:
@@ -548,7 +565,8 @@ highest Cost spell.
 Summon a random minion
 with the same Cost.
 	"""
-	#
+	#play = ForceDraw(RANDOM(FRIENDLY_DECK+SPELL)).on(Summon(CONTROLLER,)) 
+	#Selectorを新設しないといけない。
 	pass
 
 
