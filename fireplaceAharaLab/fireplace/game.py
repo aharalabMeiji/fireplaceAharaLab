@@ -5,7 +5,7 @@ from itertools import chain
 
 from hearthstone.enums import BlockType, CardType, PlayState, State, Step, Zone
 
-from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, Play
+from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, Play,Destroy, Give
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
@@ -355,7 +355,16 @@ class BaseGame(Entity):
 		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
 		if hasattr(drawn_card, "casts_when_drawn"):
 			self.queue_actions(player, [Play(drawn_card, None, None, None)])
-		## end ##
+		# if 'BAR_034' is in hand and mana >=5 then change 'BAR_034' to 'BAR_034t'
+		# if 'BAR_034t' is in hand and mana >=10 then change 'BAR_034t' to 'BAR_034t2'
+		for card in player.hand:
+			if card.id == 'BAR_034' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_034t')])
+			if card.id == 'BAR_034t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_034t2')])
+
 		self.manager.step(self.next_step, Step.MAIN_END)
 
 

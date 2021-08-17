@@ -522,7 +522,7 @@ class BAR_071:
 	Taurajo Brave
 	&lt;b&gt;Frenzy:&lt;/b&gt; Destroy a random enemy minion.
 	"""
-	events = Damage(SELF).on(Frenzy(SELF,Destroy(RANDOM(ENEMY_MINION))))
+	events = Damage(SELF).on(Frenzy(SELF,Destroy(RANDOM(ENEMY_MINIONS))))
 	pass
 
 class BAR_077:
