@@ -1,42 +1,68 @@
-#idList=['BAR_030',			'BAR_031',			'BAR_032',			'BAR_033',			'BAR_034',			'BAR_035',			'BAR_037',			'BAR_038',			'BAR_551',			'BAR_801',			'BOM_03_Barak_003hb',			'WC_007',			'WC_008',			'WC_037',]
-#nameList=["Serpentbloom","Sunscale Raptor","Wound Prey","Kolkar Pack Runner","Prospector's Caravan","Tame Beast (Rank 1)","Pack Kodo","Tavish Stormpike","Piercing Shot","Sin'dorei Scentfinder","Venomstrike Bow","Warsong Wrangler","Barak Kodobane"]
 from ..utils import *
 
 class BAR_030:
     """ Pack Kodo
     <b>Battlecry:</b> <b>Discover</b> a Beast, <b>Secret</b>, or weapon.
     """
-    #
+    play = GenericChoice(CONTROLLER, [
+    	RandomCollectible(race=Race.BEAST),
+    	RandomCollectible(secret=True),
+    	RandomCollectible(type=CardType.WEAPON)
+    ])
     pass
 
 class BAR_031:
     """ Sunscale Raptor
     <b>Frenzy:</b> Shuffle a Sunscale Raptor into your deck with permanent +2/+1.
     """
-    #
+    events = Damage(SELF).on(Frenzy(SELF,Shuffle(CONTROLLER,PermanentBuff(ID("BAR_031"),2,1))))
     pass
 
 class BAR_032:
     """ Piercing Shot
     Deal $6 damage to a minion. Excess damage hits the enemy hero.
     """
-    #
+    requirements={PlayReq.REQ_MINION_TARGET:0}
+    play = HitAndExcessToOther(TARGET,6,ENEMY_HERO)
     pass
 
 class BAR_033:
     """ Prospector's Caravan
     At the start of your turn, give all minions in your hand +1/+1.
     """
-    #
+    events = OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND + MINION, "BAR_033e"))
     pass
+BAR_033e=buff(atk=1,health=1)
 
-class BAR_034:
+class BAR_034:##################################################
     """ Tame Beast (Rank 1)
     Summon a 2/2 Beast with <b>Rush</b>. <i>(Upgrades when you
 have 5 Mana.)</i>
     """
-    #
+    events = ( 
+        Play(CONTROLLER,SELF).on(Summon(CONTROLLER,"BAR_034t3")),
+        HaveMana(CONTROLLER,5).on(Give(CONTROLLER,"BAR_034t"),Discard(self))
+        )
     pass
+class BAR_034t:
+    """ Summon a 4/4 Beast with &lt;b&gt;Rush&lt;/b&gt;. &lt;i&gt;(Upgrades when you
+have 10 Mana.)&lt;/i&gt;"""
+    events = ( 
+        Play(CONTROLLER,SELF).on(Summon(CONTROLLER,"BAR_034t4")),
+        HaveMana(CONTROLLER,10).on(Give(CONTROLLER,"BAR_034t2"),Discard(self))
+        )
+    pass
+class BAR_034t2:
+    """ Summon a 6/6 Beast with &lt;b&gt;Rush&lt;/b&gt;."""
+    play = Summon(CONTROLLER,"BAR_034t5")
+    pass
+class BAR_034t3:
+    pass
+class BAR_034t4:
+    pass
+class BAR_034t5:
+    pass
+
 
 class BAR_035:
     """ Kolkar Pack Runner

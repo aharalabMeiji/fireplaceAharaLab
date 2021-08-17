@@ -1768,6 +1768,20 @@ class HitAndExcess(TargetedAction):#DRG_321 #SCH_348
 			Hit(field[fieldID+1], amount-target_health).trigger(source)
 		if 0<fieldID and fieldID==len_field-1: 
 			Hit(field[fieldID-1], amount-target_health).trigger(source)
+		pass
+
+class HitAndExcessToOther(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	OTHER = ActionArg()
+	def do(self, source, target, amount,other):
+		target_health=target.health
+		if target_health>=amount:
+			Hit(target,amount).trigger(source)
+			return
+		Hit(target,target_health).trigger(source)
+		Hit(other,amount-target_health).trigger(source)
+		pass
 
 class HoldinHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
@@ -1907,6 +1921,17 @@ class BuffOnce(TargetedAction):
 					break;
 			if not omit:
 				Buff(card, buff).trigger(source)
+		pass
+
+class PermanentBuff(TargetedAction):
+	"""
+	"""
+	TARGET = ActionArg()
+	BUFFATK = IntArg()
+	BUFFHEALTH = IntArg()
+	def do(self, source, target, buffatk, buffhealth):
+		target.atk += buffatk
+		target.health += buffhealth
 		pass
 
 ###SCH_714
@@ -2146,3 +2171,10 @@ class CountSummon(TargetedAction):
 			if log.card.id in list and log.type==BlockType.PLAY and log.card.controller == target.controller:
 				count += 1
 		return count
+
+class HaveMana(TargetedAction):
+	TARGET = ActionArg()#controller
+	AMOUNT = IntArg()
+	def do(self,source,target,amount):
+		if target.mana>=amount:
+			self.broadcast(source, EventListener.ON, target, amount)
