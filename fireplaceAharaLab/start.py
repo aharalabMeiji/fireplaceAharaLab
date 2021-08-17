@@ -88,22 +88,27 @@ def main():
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
 	Pcount = 0
-	#for num in range(10):
-	#	play_round_robin_competition([Vectors[4],Vectors[3]],matchNumber=10)
+	for num in range(7):
+		play_round_robin_competition([Vectors[8],Vectors[1]],matchNumber=10)
+		print(num)
+	for num in range(10):
+		play_round_robin_competition([Vectors[9],Vectors[1]],matchNumber=10)
+		print(num)
 
-	for numX in range(len(Vectors)):
-		if numX < 6:
-			continue
-		for numY in range(len(Vectors)):
-			if numX == 6 and numY<4:
-				continue
-			elif numY < 1:
-				continue
-			if numX > numY:
-				Pcount = Pcount + 1
-				print(Pcount)
-				for num in range(10):
-					play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=10)
+
+##	for numX in range(len(Vectors)):
+	##	if numX < 7:
+		##	continue
+		##for numY in range(len(Vectors)):
+			##if numY < 1:
+				##continue
+			##if numX == 7 and numY < 4:
+				##continue
+			##if numX > numY:
+				##Pcount = Pcount + 1
+				##print(Pcount)
+				##for num in range(10):
+					##play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=10)
 
 			
 	#print("1枚VS3枚しゅうりょう！")
