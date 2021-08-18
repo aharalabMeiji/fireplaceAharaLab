@@ -15,7 +15,7 @@ class BAR_031:
     """ Sunscale Raptor
     <b>Frenzy:</b> Shuffle a Sunscale Raptor into your deck with permanent +2/+1.
     """
-    events = Damage(SELF).on(Frenzy(SELF,Shuffle(CONTROLLER,PermanentBuff(ID("BAR_031"),2,1))))
+    events = Damage(SELF).on(Frenzy(SELF,Shuffle(CONTROLLER,Copy(SELF))))
     pass
 
 class BAR_032:#OK

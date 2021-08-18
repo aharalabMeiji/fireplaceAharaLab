@@ -1933,10 +1933,13 @@ class PermanentBuff(TargetedAction):
 	"""
 	TARGET = ActionArg()
 	BUFFATK = IntArg()
-	BUFFHEALTH = IntArg()
+	BUFFHEALTH = ActionArg()
 	def do(self, source, target, buffatk, buffhealth):
+		if isinstance(target,list):
+			target = target[0]
 		target.atk += buffatk
 		target.health += buffhealth
+		return [target]
 		pass
 
 ###SCH_714
