@@ -276,7 +276,7 @@ class BAR_069:
 	play = Hit(SELF,6)
 	pass
 
-class BAR_079:
+class BAR_079:####################### possible but huge
 	"""
 	Kazakus, Golem Shaper
 	&lt;b&gt;Battlecry:&lt;/b&gt; If your deck has no 4-Cost cards, build a custom Golem.
@@ -290,7 +290,7 @@ class BAR_079:
 		"BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b",
 		"BAR_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
 	powered_up = -Find(FRIENDLY_DECK + (COST==4))
-	play = powered_up & Choice(CONTROLLER,RandomEntourage()*3)
+	play = powered_up & BAR_079_Kazakus_Golem_Shaper(CONTROLLER,["BAR_079_m1","BAR_079_m2","BAR_079_m3"])
 	pass
 
 class BAR_079_m1:
@@ -528,28 +528,23 @@ class BAR_071:
 class BAR_077:
 	"""
 	Kargal Battlescar
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a
-5/5 Lookout for each
-Watch Post you've
-__summoned this game.
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 5/5 Lookout for each Watch Post you've __summoned this game.
 	"""
 	play = Summon(CONTROLLER,"BAR_077t") * CountSummon(SELF,["BAR_074","BAR_075","BAR_076"])
 	pass
 class BAR_077t:
 	""" Lookout """
 
-class WC_030:
+class WC_030:#OK
 	"""
 	Mutanus the Devourer
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Eat a minion in
-your opponent's hand.
-Gain its stats.
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Eat a minion in your opponent's hand. Gain its stats.
 	"""
 	play = EatsCard(SELF, RANDOM(ENEMY_HAND + MINION))
 	pass
 WC_030e=buff()
 
-class WC_029:
+class WC_029:#OK
 	"""
 	Selfless Sidekick
 	&lt;b&gt;Battlecry:&lt;/b&gt; Equip a random weapon from your deck.
@@ -557,17 +552,11 @@ class WC_029:
 	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+WEAPON))
 	pass
 
-class BAR_042:
+class BAR_042:#OK
 	"""
 	Primordial Protector
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Draw your
-highest Cost spell.
-Summon a random minion
-with the same Cost.
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Draw your highest Cost spell. Summon a random minion with the same Cost.
 	"""
-	#play = ForceDraw(RANDOM(FRIENDLY_DECK+SPELL)).on(Summon(CONTROLLER,)) 
-	#Selectorを新設しないといけない。
+	play = BAR_042_Action(CONTROLLER) 
 	pass
 
-
-	

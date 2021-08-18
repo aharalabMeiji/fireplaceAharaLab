@@ -474,10 +474,11 @@ def getTurnLog(gameLog, turnN):
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#Shuffle(player1,'SCH_133').trigger(player1)#specific card into deck
+	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'BAR_037').trigger(player1)#target
-	#Give(player1,'DAL_604').trigger(player1)#subtarget-
+	Discard(player1.hand[-1]).trigger(player1)
+	Give(player1,'BAR_077').trigger(player1)#target
+	Give(player1,'BAR_074').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle

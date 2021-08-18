@@ -69,13 +69,11 @@ with <b>Rush</b>.
 class BAR_035t:
     pass
 
-class BAR_037:##############################################
+class BAR_037:#OK
     """ Warsong Wrangler
     [x]<b>Battlecry:</b> <b>Discover</b> a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
     """
-    play = ChoiceAfter(CONTROLLER,RANDOM(FRIENDLY_DECK)*3,Buff(ChoiceAfter.CARDS,'BAR_037e'))
-    #play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3).on(Give(CONTROLLER,Choice.CARD))
-    #.on(Buff(ALL_CHARACTERS+ID(Attr(Choice.CARD,GameTag.ID)),'BAR_037e'))
+    play = BAR_037_Warsong_Wrangler(CONTROLLER,RANDOM(FRIENDLY_DECK)*3)
     pass
 BAR_037e=buff(atk=2,health=1)
 

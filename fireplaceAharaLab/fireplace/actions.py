@@ -383,19 +383,6 @@ class Choice(GameAction):
 				self.source, [action], [self.player, self.cards, card])
 		self.player.choice = self.next_choice
 
-class ChoiceAfter(Choice):
-	CARD = ActionArg()
-	AFTERACTION = ActionArg()
-	def get_args(self, source):
-		player, cards = super().get_args(source)
-		afteraction = self._args[2]
-		return player, cards, afteraction
-		pass
-	def do(self,source,player,cards,afteraction):
-		super().do(source,player,cards)
-		afteraction.trigger(source)
-	pass
-
 class GenericChoice(Choice):
 	def choose(self, card):
 		super().choose(card)
@@ -673,8 +660,14 @@ class EatsCard(TargetedAction):
 	TARGET = ActionArg()
 	OTHER = ActionArg()
 	def do(self, source, target, other):
+		if isinstance(other,list):
+			other = other[0]
+		if isinstance(target,list):
+			target = target[0]
 		target.atk += other.atk
-		target.health += other.health
+		target.max_health += other.max_health
+		log.info("ate %r from opponent's hand"%(other))
+		log.info("%r gains +%d/+%d"%(target, other.atk,other.max_health))
 		other.discard()
 		pass
 
@@ -2198,3 +2191,104 @@ class HaveMana(TargetedAction):
 	def do(self,source,target,amount):
 		if target.mana>=amount:
 			self.broadcast(source, EventListener.ON, target, amount)
+
+
+class BAR_042_Action(TargetedAction):
+	def do(self, source, target):
+		_highestCostCards=[]
+		for _card in target.deck:
+			if _card.type==CardType.SPELL:
+				if len(_highestCostCards)==0:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost < _card.cost:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost == _card.cost:
+					_highestCostCards.append(_card)
+		if len(_highestCostCards)>0:
+			_card = random.choice(_highestCostCards)
+			_cost = _card.cost
+			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
+			log.info("Summon a minion of cost %d"%( _cost))
+			Give(target,_card).trigger(source)
+			_highestMinions = []
+			for _card2 in target.deck:
+				if _card2.type==CardType.MINION and _card2.cost == _cost:
+					_highestMinions.append(_card2)
+			if(len(_highestMinions)>0):
+				_card2 = random.choice(_highestMinions)
+				Summon(target,_card2).trigger(source)
+			else:
+				log.info("no minion of cost %d"%( _cost))
+		else:
+			log.info("no spell is in the deck"%())
+
+class BAR_037_Warsong_Wrangler(Choice):
+	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
+	def choose(self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.data.name, card))
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.discard()
+			else:
+				_card.discard()
+		game = card.game
+		cardList = game.decks + game.hands + game.characters
+		for _card in cardList:
+			if _card.id == card.id:
+				Buff(_card,"BAR_037e").trigger(card.controller)
+		pass
+
+class BAR_079_Kazakus_Golem_Shaper(Choice):
+
+	def do(self,source,target, cards):
+		target.choice = self
+		## agent's choice 
+		card = random.choice(player.choice.cards)
+		## overload choose(self, card)
+		log.info("%s chooses %r"%(card.controller.data.name, card))
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.discard()
+			else:
+				_card.discard()
+		if card.ID=='BAR_079_m1':
+			BAR_079_m1_Action(target,["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]).trigger(source)
+		if card.ID=='BAR_079_m2':
+			BAR_079_m2_Action(target,["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]).trigger(source)
+		if card.ID=='BAR_079_m3':
+			BAR_079_m3_Action(target,["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]).trigger(source)
+
+class BAR_079_m1_Action(Choice):
+	def do(self,source,target, cards):
+		target.choice = self
+		## agent's choice 
+		card = random.choice(player.choice.cards)
+		## overload choose(self, card)
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.discard()
+			else:
+				_card.discard()
+		if card.id=='BAR_079t4':
+			pass
+
+class BAR_079_m1_Action(Choice):
+	pass
+class BAR_079_m1_Action(Choice):
+	pass
