@@ -374,7 +374,6 @@ class Choice(GameAction):
 		self.cards = cards
 		self.min_count = 1
 		self.max_count = 1
-		#self.broadcast(source, EventListener.ON, player)## added in 18/8/21
 
 	def choose(self, card):
 		if card not in self.cards:
@@ -383,6 +382,7 @@ class Choice(GameAction):
 			self.source.game.trigger(
 				self.source, [action], [self.player, self.cards, card])
 		self.player.choice = self.next_choice
+
 
 
 class GenericChoice(Choice):
@@ -1938,8 +1938,8 @@ class PermanentBuff(TargetedAction):
 		if isinstance(target,list):
 			target = target[0]
 		target.atk += buffatk
-		target.health += buffhealth
-		return [target]
+		target.max_health += buffhealth
+		return target
 		pass
 
 ###SCH_714
@@ -2154,8 +2154,9 @@ class Frenzy(TargetedAction):
 	TARGET = ActionArg()#self
 	TARGETACTION = ActionArg()
 	def do(self,source,target,targetaction):
-		if target.frenzy==1 and target.frenzyFlag==0:
-			log.info("Franzy action of %r "%(target))
+		#if target.frenzy==1 and target.frenzyFlag==0:
+		if target.frenzyFlag==0:
+			log.info("Frenzy action of %r "%(target))
 			targetaction.trigger(source)
 			target.frenzyFlag=1
 			pass 

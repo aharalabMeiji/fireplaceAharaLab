@@ -1,21 +1,22 @@
 from ..utils import *
 
-class BAR_030:
+class BAR_030:#OK
     """ Pack Kodo
     <b>Battlecry:</b> <b>Discover</b> a Beast, <b>Secret</b>, or weapon.
     """
-    play = Discover(CONTROLLER, [
+    play = GenericChoice(CONTROLLER, [
     	RandomCollectible(race=Race.BEAST),
-    	RandomCollectible(secret=True),
+    	#RandomCollectible(type=CardType.SPELL),# secret
+    	RandomCollectible(secret=True),# secret
     	RandomCollectible(type=CardType.WEAPON)
     ])
     pass
 
-class BAR_031:
+class BAR_031:#OK
     """ Sunscale Raptor
     <b>Frenzy:</b> Shuffle a Sunscale Raptor into your deck with permanent +2/+1.
     """
-    events = Damage(SELF).on(Frenzy(SELF,Shuffle(CONTROLLER,Copy(SELF))))
+    events = Damage(SELF).on(Frenzy(SELF,Shuffle(CONTROLLER,PermanentBuff(Copy(SELF),2,1))))
     pass
 
 class BAR_032:#OK
@@ -72,7 +73,7 @@ class BAR_037:##############################################
     """ Warsong Wrangler
     [x]<b>Battlecry:</b> <b>Discover</b> a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
     """
-    play = Choice(CONTROLLER,RANDOM(FRIENDLY_DECK)*3)#.after(Buff(Choice.CARD,'BAR_037e'))
+    play = Choice(CONTROLLER,RANDOM(FRIENDLY_DECK)*3).then(Buff(Choice.CARD,'BAR_037e'))
     #play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3).on(Give(CONTROLLER,Choice.CARD))
     #.on(Buff(ALL_CHARACTERS+ID(Attr(Choice.CARD,GameTag.ID)),'BAR_037e'))
     pass
