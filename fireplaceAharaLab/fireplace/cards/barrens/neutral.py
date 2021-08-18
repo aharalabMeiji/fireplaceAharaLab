@@ -76,23 +76,27 @@ class BAR_022:#OK
 	events = Damage(SELF).on(Frenzy(SELF,Give(CONTROLLER,RandomSpell(card_class=FRIENDLY_CLASS))))
 	pass
 
-class BAR_064:#maybe OK
+class BAR_064:#maybe OK「一夜漬け」では効果を見られない。
 	"""
 	Talented Arcanist
 	&lt;b&gt;Battlecry:&lt;/b&gt; Your next spell_this turn has &lt;b&gt;Spell_Damage +2&lt;/b&gt;.
 	"""
 	play = Buff(CONTROLLER, "BAR_064e")
-	events = [OWN_SPELL_PLAY.after( Destroy(FRIENDLY + ID("BAR_854e"))),TURN_END.on( Destroy(FRIENDLY + ID("BAR_854e")))]
+	events = [ OWN_SPELL_PLAY.on( Destroy(FRIENDLY + ID("BAR_064e"))),
+		   OWN_TURN_END.on( Destroy(FRIENDLY + ID("BAR_064e")))
+		   ]
 	pass
 class BAR_064e:
-	update = Refresh(FRIENDLY_HAND + MINION, {GameTag.SPELLPOWER: 2})
+	update = Refresh(FRIENDLY_HAND, {GameTag.SPELLPOWER: 2})
+	#{GameTag.SPELLPOWER: 2})
 
-class BAR_743:#****************************
+class BAR_743:#******NATUREはドルイド、シャーマンの特性****たとえば自然学の予習(SCH_333)**動作未確認
 	"""
 	[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; If you're holding a Nature spell, gain +2 Health.
 	"""
-	play = Find(FRIENDLY_HAND+SPELL+NATURE) & Heal(FRIENDLY_HERO,2)
+	events = Find(FRIENDLY_HAND+SPELL+NATURE) & Buff(SELF,'BAR_743e')
 	pass
+BAR_743e=buff(health=2)
 
 class WC_035:#OK
 	"""

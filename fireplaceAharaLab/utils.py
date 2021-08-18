@@ -476,9 +476,8 @@ def PresetHands(player1, player2):
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 	Discard(player1.hand[-1]).trigger(player1)
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'BAR_077').trigger(player1)#target
-	Give(player1,'BAR_074').trigger(player1)#subtarget-
+	Give(player1,'BAR_743').trigger(player1)#target
+	#Give(player1,'BAR_074').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
@@ -489,7 +488,8 @@ def PresetHands(player1, player2):
 	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
 	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
 	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
-	#Give(player1,'SCH_617').trigger(player1)#subtarget-spell
+	#Give(player1,'SCH_353').trigger(player1)#subtarget-spell
+	Give(player1,'SCH_333').trigger(player1)#subtarget-spell(nature)
 	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
 	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
