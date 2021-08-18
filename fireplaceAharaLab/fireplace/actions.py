@@ -383,7 +383,18 @@ class Choice(GameAction):
 				self.source, [action], [self.player, self.cards, card])
 		self.player.choice = self.next_choice
 
-
+class ChoiceAfter(Choice):
+	CARD = ActionArg()
+	AFTERACTION = ActionArg()
+	def get_args(self, source):
+		player, cards = super().get_args(source)
+		afteraction = self._args[2]
+		return player, cards, afteraction
+		pass
+	def do(self,source,player,cards,afteraction):
+		super().do(source,player,cards)
+		afteraction.trigger(source)
+	pass
 
 class GenericChoice(Choice):
 	def choose(self, card):

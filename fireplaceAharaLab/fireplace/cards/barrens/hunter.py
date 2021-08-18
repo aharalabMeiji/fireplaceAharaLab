@@ -73,7 +73,7 @@ class BAR_037:##############################################
     """ Warsong Wrangler
     [x]<b>Battlecry:</b> <b>Discover</b> a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
     """
-    play = Choice(CONTROLLER,RANDOM(FRIENDLY_DECK)*3).then(Buff(Choice.CARD,'BAR_037e'))
+    play = ChoiceAfter(CONTROLLER,RANDOM(FRIENDLY_DECK)*3,Buff(ChoiceAfter.CARDS,'BAR_037e'))
     #play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3).on(Give(CONTROLLER,Choice.CARD))
     #.on(Buff(ALL_CHARACTERS+ID(Attr(Choice.CARD,GameTag.ID)),'BAR_037e'))
     pass
