@@ -474,10 +474,12 @@ def getTurnLog(gameLog, turnN):
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
+	#Shuffle(player1,'SCH_133').trigger(player1)#specific card into deck
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'WC_008').trigger(player1)#target
+	Give(player1,'BAR_032').trigger(player1)#target
 	#Give(player1,'DAL_604').trigger(player1)#subtarget-
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
+	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
 	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
 	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
@@ -486,6 +488,7 @@ def PresetHands(player1, player2):
 	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
 	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
 	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
+	#Give(player1,'SCH_617').trigger(player1)#subtarget-spell
 	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
 	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon

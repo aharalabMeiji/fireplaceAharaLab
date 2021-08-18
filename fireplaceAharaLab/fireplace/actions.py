@@ -374,6 +374,7 @@ class Choice(GameAction):
 		self.cards = cards
 		self.min_count = 1
 		self.max_count = 1
+		#self.broadcast(source, EventListener.ON, player)## added in 18/8/21
 
 	def choose(self, card):
 		if card not in self.cards:
@@ -1775,6 +1776,10 @@ class HitAndExcessToOther(TargetedAction):
 	AMOUNT = IntArg()
 	OTHER = ActionArg()
 	def do(self, source, target, amount,other):
+		if isinstance(target,list):
+			target = target[0]
+		if isinstance(other,list):
+			other = other[0]
 		target_health=target.health
 		if target_health>=amount:
 			Hit(target,amount).trigger(source)

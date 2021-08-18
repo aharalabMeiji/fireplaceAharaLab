@@ -2,7 +2,7 @@
 Targeting logic
 """
 from hearthstone.enums import CardType, PlayReq, Rarity
-
+from enum import IntEnum
 
 TARGETING_PREREQUISITES = (
 	PlayReq.REQ_TARGET_TO_PLAY,
@@ -94,5 +94,6 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_HERO_OR_MINION_TARGET:#### aharalab 13.12.2020
 			if target.type != CardType.MINION and target.type != CardType.HERO:#### aharalab 13.12.2020
 				return False#### aharalab 13.12.2020
+		
 
 	return True

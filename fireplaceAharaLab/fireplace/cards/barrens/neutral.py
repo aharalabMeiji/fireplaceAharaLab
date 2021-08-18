@@ -508,7 +508,7 @@ random enemy.
 	events = Damage(SELF).on(Frenzy(SELF,Hit(RANDOM_ENEMY_CHARACTER,ATK(SELF))))
 	pass
 
-class BAR_080:
+class BAR_080:#OK
 	"""
 	Shadow Hunter Vol'jin
 	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a minion. Swap it with a random one in its owner's hand.
