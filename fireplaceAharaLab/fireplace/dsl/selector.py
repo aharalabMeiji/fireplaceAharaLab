@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 from enum import IntEnum
 from typing import Any, Callable, Iterable, List, Optional, Set, Union
 
-from hearthstone.enums import CardClass, CardType, GameTag, Race, Rarity, Zone
+from hearthstone.enums import CardClass, CardType, GameTag, Race, Rarity, Zone, SpellSchool
 
 from .. import enums
 from ..entity import BaseEntity
@@ -395,6 +395,9 @@ Zone.test = lambda self, entity, *args: (
 CardClass.test = lambda self, entity, *args: (
 	entity is not None and self == getattr(entity, "card_class", CardClass.INVALID)
 )
+SpellSchool.test = lambda self, entity, *args: (# add in 19 aug 2021
+	entity is not None and self == getattr(entity, "spell_school", SpellSchool.NONE)
+)
 
 BATTLECRY = EnumSelector(GameTag.BATTLECRY)
 CHARGE = EnumSelector(GameTag.CHARGE)
@@ -440,6 +443,10 @@ MECH = EnumSelector(Race.MECHANICAL)
 MURLOC = EnumSelector(Race.MURLOC)
 PIRATE = EnumSelector(Race.PIRATE)
 TOTEM = EnumSelector(Race.TOTEM)
+ELEMENTAL = EnumSelector(Race.ELEMENTAL)
+
+NATURE = EnumSelector(SpellSchool.NATURE)
+HOLY = EnumSelector(SpellSchool.HOLY)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)

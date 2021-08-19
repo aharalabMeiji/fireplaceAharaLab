@@ -185,6 +185,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EXHAUSTED: "exhausted",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
+	GameTag.FRENZY: "frenzy",### add by aharalab, 16,8,2021
 	GameTag.FROZEN: "frozen",
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",
@@ -219,6 +220,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
+	GameTag.SPELL_SCHOOL: "spell_school", ### add by aharalab 16.8.2021
 	GameTag.SPELLS_COST_HEALTH: "spells_cost_health",
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",

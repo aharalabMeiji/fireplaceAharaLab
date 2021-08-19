@@ -321,6 +321,8 @@ class HumanAgent(Agent):
 						print("(poisonous)", end=" ")
 					if character.frozen:
 						print("(frozen)", end=" ")
+					if character.rush:
+						print("(rush)", end=" ")
 					#if character.reborn:
 					#	print("(reborn)", end=" ")
 					if character.taunt:
@@ -332,8 +334,8 @@ class HumanAgent(Agent):
 					if character.dormant!=0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					if character.spellpower>0:
-					#	print("(spellpower:%d)"%(character.spellpower), end=" ")
-					#if character._tmp_int1_>0:
+						print("(spellpower:%d)"%(character.spellpower), end=" ")
+					if character._tmp_int1_>0:
 						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():

@@ -2,7 +2,7 @@ from ..utils import *
 
 class SCH_509:#OK
 	"""Brain Freeze	Rare"""
-	#&lt;b&gt;Freeze&lt;/b&gt; a minion. &lt;b&gt;Combo:&lt;/b&gt; Also deal $3 damage to it.	
+	#<b>Freeze</b> a minion. <b>Combo:</b> Also deal $3 damage to it.	
 	requirements={PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
 	#play = SetTag(TARGET,(GameTag.FROZEN, ))
@@ -18,12 +18,12 @@ class SCH_235:#OK
 
 class SCH_310:#OK
 	"""Lab Partner	Common"""
-	#&lt;b&gt;Spell Damage +1&lt;/b&gt;
+	#<b>Spell Damage +1</b>
 	pass
 
 class SCH_270:#OK
 	"""Primordial Studies	Common"""
-	#&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spell Damage&lt;/b&gt; minion. Your next one costs (1) less.
+	#<b>Discover</b> a <b>Spell Damage</b> minion. Your next one costs (1) less.
 	play = Choice(CONTROLLER, RandomMinion(spellpower=1)*3).then(Give(CONTROLLER, Choice.CARD).then(Buff(CONTROLLER, "SCH_270e")))
 class SCH_270e:
 	update = Refresh(FRIENDLY_HAND+SPELLPOWER, {GameTag.COST: -1})#OK
@@ -31,12 +31,12 @@ class SCH_270e:
 SCH_270e2 = buff(cost=-1)	
 class SCH_350:#OK
 	"""Wand Thief	Common"""
-	#&lt;b&gt;Combo:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Mage_spell.
+	#<b>Combo:</b> <b>Discover</b> a Mage_spell.
 	combo = DISCOVER(RandomSpell(card_class=CardClass.MAGE))
 
 class SCH_353:#OK
 	"""Cram Session	Rare"""
-	#Draw $1 |4(card, cards) &lt;i&gt;(improved by &lt;b&gt;Spell Damage&lt;/b&gt;)&lt;/i&gt;.
+	#Draw $1 |4(card, cards) <i>(improved by <b>Spell Damage</b>)</i>.
 	play = Draw(CONTROLLER,1)
 
 class SCH_537:#OK
@@ -52,7 +52,7 @@ class SCH_348:#OK
 
 class SCH_241:#OK
 	"""Firebrand	Common"""
-	#&lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt; Deal 4 damage randomly split among all_enemy minions.
+	#<b><b>Spellburst</b>:</b> Deal 4 damage randomly split among all_enemy minions.
 	play = OWN_SPELL_PLAY.on(Hit(RANDOM(ENEMY_MINIONS),1) * 4 )
 
 class SCH_352:#OK
@@ -67,7 +67,7 @@ class SCH_352e:
 
 class SCH_351:#OK
 	"""Jandice Barov	Legendary"""
-	#[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two random 5-Cost minions. Secretly pick one that dies _when it takes damage.
+	#[x]<b>Battlecry:</b> Summon two random 5-Cost minions. Secretly pick one that dies _when it takes damage.
 	import random
 	def play(self):
 		enchantments=["SCH_351e","SCH_351e2"]
@@ -95,7 +95,7 @@ class SCH_351e2:
 
 class SCH_400:#OK
 	"""Mozaki, Master Duelist	Legendary"""
-	#After you cast a spell, gain &lt;b&gt;Spell Damage +1&lt;/b&gt;.
+	#After you cast a spell, gain <b>Spell Damage +1</b>.
 	play = OWN_SPELL_PLAY.after(Buff(SELF,"SCH_400e2")
 		)
 SCH_400e2 = buff(spellpower=1)
@@ -103,10 +103,10 @@ SCH_400e2 = buff(spellpower=1)
 
 class SCH_273:#OK
 	"""Ras Frostwhisper	Legendary"""
-	#At the end of your turn, deal $1 damage to all enemies &lt;i&gt;(improved by &lt;b&gt;Spell Damage&lt;/b&gt;)&lt;/i&gt;.
+	#At the end of your turn, deal $1 damage to all enemies <i>(improved by <b>Spell Damage</b>)</i>.
 	events = OWN_TURN_END.on(Hit(ENEMY_MINIONS, 1))
 
 class SCH_243:#OK
 	"""Wyrm Weaver	Rare"""
-	#&lt;b&gt;Spellburst:&lt;/b&gt; Summon two 1/3 Mana Wyrms.
+	#<b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
 	play = OWN_SPELL_PLAY.on(Summon(CONTROLLER,"NEW1_012")* 2) 

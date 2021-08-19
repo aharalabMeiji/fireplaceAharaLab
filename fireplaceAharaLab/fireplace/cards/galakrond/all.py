@@ -7,7 +7,7 @@ from ..utils import *
 
 class YOD_005:#OK
 	"""Fresh Scent
-	&lt;b&gt;Twinspell&lt;/b&gt;Give a Beast +2/+2."""
+	<b>Twinspell</b>Give a Beast +2/+2."""
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Find(TARGET + BEAST) & Buff(TARGET, "YOD_005e"), Give(CONTROLLER,"YOD_005ts")
 YOD_005e = buff(2,2)
@@ -23,7 +23,7 @@ class YOD_004:#OK
 
 class YOD_036:#OK
 	"""Rotnest Drake
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you're holding
+	[x]<b>Battlecry:</b> If you're holding
 	a Dragon, destroy a random
 	enemy minion."""
 	powered_up = HOLDING_DRAGON
@@ -46,7 +46,7 @@ class HERO_08bp2:
 
 class YOD_007:#OK
 	"""Animated Avalanche
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you played
+	[x]<b>Battlecry:</b> If you played
 	an Elemental last turn,
 	summon a copy of this."""
 	def play(self):
@@ -62,28 +62,28 @@ class YOD_007:#OK
 
 class YOD_009:#HERO
 	"""The Amazing Reno
-	&lt;b&gt;Battlecry:&lt;/b&gt; Make all minions disappear. &lt;i&gt;*Poof!*&lt;/i&gt;"""
+	<b>Battlecry:</b> Make all minions disappear. <i>*Poof!*</i>"""
 	play = Destroy(ALL_MINIONS)
 
 ## neutral ##
 
 class YOD_030:#OK
 	"""Licensed Adventurer
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you control
-	a &lt;b&gt;Quest&lt;/b&gt;, add a Coin
+	[x]<b>Battlecry:</b> If you control
+	a <b>Quest</b>, add a Coin
 	to your hand."""
 	# no way to access quest
 	powered_up = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST))
 	play = powered_up & Give(CONTROLLER, "GAME_005")
 class YOD_028:#OK
 	"""Skydiving Instructor
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a
+	[x]<b>Battlecry:</b> Summon a
 	1-Cost minion from
 	your deck."""
 	play = Summon(CONTROLLER, RandomMinion(cost=1))
 class YOD_006:#OK
 	"""Escaped Manasaber
-	[x]&lt;b&gt;Stealth&lt;/b&gt;
+	[x]<b>Stealth</b>
 	Whenever this attacks,
 	gain 1 Mana Crystal
 	this turn only."""
@@ -100,16 +100,16 @@ class YOD_032e:
 
 class YOD_035:#OK
 	"""Grand Lackey Erkh
-	After you play a &lt;b&gt;Lackey&lt;/b&gt;, add a &lt;b&gt;Lackey&lt;/b&gt; to your hand."""
+	After you play a <b>Lackey</b>, add a <b>Lackey</b> to your hand."""
 	entourage = ["DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"ULD_616"] ## exclude "LOOT_306"
 	play = Play(CONTROLLER, EnumSelector(GameTag.MARK_OF_EVIL)).after(Give(CONTROLLER, RandomEntourage()))
 class YOD_038:#OK
 	"""Sky Gen'ral Kragg
-	[x]&lt;b&gt;Taunt&lt;/b&gt;
-	&lt;b&gt;Battlecry:&lt;/b&gt; If you've played a
-	&lt;b&gt;Quest&lt;/b&gt; this game, summon a
-	4/2 Parrot with &lt;b&gt;Rush&lt;/b&gt;."""
+	[x]<b>Taunt</b>
+	<b>Battlecry:</b> If you've played a
+	<b>Quest</b> this game, summon a
+	4/2 Parrot with <b>Rush</b>."""
 	#     no quest controll
 	play = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST)) & Summon(CONTROLLER, "YOD_038t")
 class YOD_038t:
@@ -117,7 +117,7 @@ class YOD_038t:
 	pass
 class YOD_033:#OK
 	"""Boompistol Bully
-	&lt;b&gt;Battlecry:&lt;/b&gt; Enemy &lt;b&gt;Battlecry&lt;/b&gt;_cards cost (5)_more next turn."""
+	<b>Battlecry:</b> Enemy <b>Battlecry</b>_cards cost (5)_more next turn."""
 	play = Buff(SELF, "YOD_033e")
 class YOD_033e:
 	update = Refresh(ENEMY_HAND+BATTLECRY, {GameTag.COST: +5})
@@ -125,12 +125,12 @@ class YOD_033e:
 	
 class YOD_029:#OK
 	"""Hailbringer
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon two 1/1
-	Ice Shards that &lt;b&gt;Freeze&lt;/b&gt;."""
+	[x]<b>Battlecry:</b> Summon two 1/1
+	Ice Shards that <b>Freeze</b>."""
 	play = Summon(CONTROLLER, "YOD_029t") * 2
 class YOD_029t:
 	"""Ice Shard
-	&lt;b&gt;Freeze&lt;/b&gt; any character damaged by this minion."""
+	<b>Freeze</b> any character damaged by this minion."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0}
 	#play = Attack(SELF,TARGET).on(SetTag(TARGET,(GameTag.FROZEN, )))
 	play = Attack(SELF,TARGET).on(Freeze(TARGET))
@@ -139,20 +139,20 @@ class YOD_029t:
 
 class YOD_012:#OK
 	""" Air Raid
-	&lt;b&gt;Twinspell&lt;/b&gt;
-	Summon two 1/1 Silver_Hand Recruits with &lt;b&gt;Taunt&lt;/b&gt;."""
+	<b>Twinspell</b>
+	Summon two 1/1 Silver_Hand Recruits with <b>Taunt</b>."""
 	## CS2_101t: Silver Hand Recruit
 	play = Summon(CONTROLLER,"CS2_101t")*2, Give(CONTROLLER,"YOD_012ts")
 class YOD_012ts:#OK
 	""" Air Raid
-	Summon two 1/1 Silver Hand Recruits with &lt;b&gt;Taunt&lt;/b&gt;."""
+	Summon two 1/1 Silver Hand Recruits with <b>Taunt</b>."""
 	play = Summon(CONTROLLER,"CS2_101t")*2
 class YOD_010:#OK
 	""" Shotbot
-	&lt;b&gt;Reborn&lt;/b&gt;"""
+	<b>Reborn</b>"""
 class YOD_043:#OK
 	"""Scalelord
-	&lt;b&gt;Battlecry:&lt;/b&gt; Give your Murlocs &lt;b&gt;Divine Shield&lt;/b&gt;."""
+	<b>Battlecry:</b> Give your Murlocs <b>Divine Shield</b>."""
 	play = SetTag(FRIENDLY_MINIONS + MURLOC, (GameTag.DIVINE_SHIELD,))
 
 

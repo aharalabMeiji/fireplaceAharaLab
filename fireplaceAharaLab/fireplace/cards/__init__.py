@@ -1,7 +1,7 @@
 import os
 from pkg_resources import resource_filename
 from hearthstone import cardxml
-from hearthstone.enums import CardType
+from hearthstone.enums import CardType,CardSet
 from ..logging import log
 from ..utils import get_script_definition
 
@@ -90,6 +90,7 @@ class CardDB(dict):
 		else:
 			card.dormant = 0
 
+
 		return card
 
 	def initialize(self, locale="jaJP"):
@@ -105,10 +106,13 @@ class CardDB(dict):
 			'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
 			'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
 			# no implementation
+			#'BT_730',
 			]
+		nameList=[]
+		#print("idList=[")
 		for id, card in db.items():
-			#### ristrict cards to standard cards ##  aharalab ##
-			## exclude [15,21,25,1453,1466]
+			#if card.name in nameList:
+			#	print("'%s',"%(card.id))
 			from hearthstone.enums import GameTag
 			## add attr spellpower
 			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
@@ -117,7 +121,17 @@ class CardDB(dict):
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
-			if card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635,1637,1466]:
+			#if card.card_set == CardSet.STORMWIND: # 1578:
+			#	if 'SW_' in card.id:
+			#		yes = True					
+			#if card.card_set == CardSet.THE_BARRENS:#1525
+			#	if 'BAR_' in card.id or 'WC_' in card.id:
+			#		yes = True					
+			if card.card_set == CardSet.DARKMOON_FAIRE:#1466
+				if 'DMF_' in card.id or 'YOP_' in card.id:
+					yes = True
+
+			elif card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635, CardSet.CORE]:
 				if (not 'LOOT_' in card.id) and (not 'CORE_' in card.id) and (not card.id in exclude):
 					yes = True
 			elif card.id in ['OG_280']:#C'Thun
@@ -129,6 +143,7 @@ class CardDB(dict):
 				self[id] = self.merge(id, card)
 			## end ###
 		log.info("Merged %i cards", len(self))
+
 
 	def filter(self, **kwargs):
 		"""

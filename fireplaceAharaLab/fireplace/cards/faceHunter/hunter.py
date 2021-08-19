@@ -53,14 +53,14 @@ from ..utils import *
 
 #class DRG_252:
 #	""" フェーズ・ストーカー 
-#	[x]自分がヒーローパワーを使用した後自分のデッキから&lt;b&gt;秘策&lt;/b&gt;を1つ準備する。 """
+#	[x]自分がヒーローパワーを使用した後自分のデッキから<b>秘策</b>を1つ準備する。 """
 #	play = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 #	pass
 
 
 #class ULD_152:
 #	#""" 感圧板 
-#	#&lt;b&gt;秘策:&lt;/b&gt;相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。 """
+#	#<b>秘策:</b>相手が呪文を使用した後ランダムな敵のミニオン1体を破壊する。 """
 #	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
 
 #	#pass
