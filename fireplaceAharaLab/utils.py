@@ -476,8 +476,7 @@ def PresetHands(player1, player2):
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'BAR_081').trigger(player1)#target
-	#Give(player1,'BAR_074').trigger(player1)#subtarget-
+	Give(player1,'BAR_744').trigger(player1)#target
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
@@ -489,6 +488,7 @@ def PresetHands(player1, player2):
 	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
 	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
 	#Give(player1,'SCH_353').trigger(player1)#subtarget-spell
+	#Give(player1,'SCH_524').trigger(player1)#subtarget-spell(holy)
 	#Give(player1,'SCH_333').trigger(player1)#subtarget-spell(nature)
 	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
@@ -499,7 +499,7 @@ def PresetHands(player1, player2):
 	#Give(player2,'ULD_152').trigger(player2)#subtarget-secret
 	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
 	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	#Give(player2,'ULD_152').trigger(player2)#enemy
+	Give(player2,'BAR_075').trigger(player2)#enemy
 
 	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play

@@ -9,7 +9,7 @@ class SCH_247:#OK
 class SCH_524:#OK
 	"""Shield of Honor		1	-	-	Spell	Common	-	Divine Shield	
 	Give a damaged minion +3 Attack and <b>Divine Shield</b>."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_DAMAGED_TARGET:0, PlayReq.REQ_MINION_TARGET:0 }
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_DAMAGED_TARGET:0 }
 	play = Buff(TARGET, "SCH_524e"),SetTag(TARGET, (GameTag.DIVINE_SHIELD,))
 SCH_524e = buff(3,0)
 class SCH_250:#OK

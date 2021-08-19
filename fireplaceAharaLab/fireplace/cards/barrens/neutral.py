@@ -452,30 +452,29 @@ class BAR_081:#OK
 	play = BAR_081_Southsea_Scoundrel(CONTROLLER,RANDOM(ENEMY_DECK)*3)
 	pass
 
-class BAR_744:
+class BAR_744:#OK
 	"""
 	Spirit Healer
 	After you cast a Holy spell, give a random friendly minion +2 Health.
 	-
 	"""
-	events = Play(CONTROLLER, SPELL+HOLY).on(Buff(RANDOM_FRIENDLY_MINION),"BAR_744e")
+	events = Play(CONTROLLER, SPELL+HOLY).on(Buff(RANDOM_FRIENDLY_MINION,"BAR_744e"))
 	pass
 BAR_744e=buff(health=2)
 
-class BAR_073:
+class BAR_073:#OK
 	"""
 	Barrens Blacksmith
 	<b>Frenzy:</b> Give your other minions +2/+2.
 	"""
-	events = SELF_DAMAGE.on(Frenzy(SELF,Buff(FRIENDLY_MINIONS,"BAR_073e")))
+	events = SELF_DAMAGE.on(Frenzy(SELF,Buff(FRIENDLY_MINIONS - SELF,"BAR_073e")))
 	pass
 BAR_073e=buff(atk=2,health=2)
 
-class BAR_072:
+class BAR_072:#OK
 	"""
 	Burning Blade Acolyte
-	<b>Deathrattle:</b> Summon a 5/8 Demonspawn
-with <b>Taunt</b>.
+	<b>Deathrattle:</b> Summon a 5/8 Demonspawn with <b>Taunt</b>.
 	"""
 	deathrattle = Summon(CONTROLLER, "BAR_072t")
 	pass
@@ -484,23 +483,20 @@ class BAR_072t:
 	"""
 	pass
 
-class BAR_021:
+class BAR_021:#OK
 	"""
 	Gold Road Grunt
-	[x]<b>Taunt</b>
-<b>Frenzy:</b> Gain Armor equal
-to the damage taken.
+	[x]<b>Taunt</b> <b>Frenzy:</b> Gain Armor equal to the damage taken.
 	"""
 	events = Damage(SELF).on(Frenzy(SELF,GainArmor(FRIENDLY_HERO,Damage.AMOUNT)))
 	pass
 
-class BAR_020:
+class BAR_020:#OK
 	"""
 	Razormane Raider
-	<b>Frenzy:</b> Attack a
-random enemy.
+	<b>Frenzy:</b> Attack a random enemy.
 	"""
-	events = Damage(SELF).on(Frenzy(SELF,Hit(RANDOM_ENEMY_CHARACTER,ATK(SELF))))
+	events = Damage(SELF).on(Frenzy(SELF,Attack(SELF,RANDOM_ENEMY_CHARACTER)))
 	pass
 
 class BAR_080:#OK
@@ -512,7 +508,7 @@ class BAR_080:#OK
 	play = SwapMinionAndHand(TARGET, RANDOM(FRIENDLY_HAND))
 	pass
 
-class BAR_071:
+class BAR_071:#OK
 	"""
 	Taurajo Brave
 	<b>Frenzy:</b> Destroy a random enemy minion.
@@ -520,7 +516,7 @@ class BAR_071:
 	events = Damage(SELF).on(Frenzy(SELF,Destroy(RANDOM(ENEMY_MINIONS))))
 	pass
 
-class BAR_077:
+class BAR_077:#OK
 	"""
 	Kargal Battlescar
 	[x]<b>Battlecry:</b> Summon a 5/5 Lookout for each Watch Post you've __summoned this game.
