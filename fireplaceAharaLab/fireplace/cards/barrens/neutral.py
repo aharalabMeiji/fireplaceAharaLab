@@ -21,7 +21,7 @@ class WC_028:#OK
 	events = OWN_TURN_END.on(WC_028_Meeting_Stone(CONTROLLER))
 	pass
 
-class BAR_074:#OK
+class BAR_074:#OK　　up to 10 がまだ
 	"""
 	Far Watch Post
 
@@ -237,19 +237,17 @@ class BAR_078:#OK
 	events = SELF_DAMAGE.on(Frenzy(SELF,Hit(ENEMY_MINIONS,Attr(SELF, GameTag.ATK))))
 	pass
 
-class BAR_075:
+class BAR_075:#OK (2回やれば2つつく。)
 	"""
 	Crossroads Watch Post
-	[x]Can't attack. Whenever your
-opponent casts a spell, give
-your minions +1/+1.
+	[x]Can't attack. Whenever your opponent casts a spell, give your minions +1/+1.
 <Tag enumID="227" name="CANT_ATTACK" type="Int" value="1"/>
 	"""
 	events = Play(OPPONENT,SPELL).on(Buff(FRIENDLY_MINIONS,"BAR_075e")) 
 	pass
 BAR_075e=buff(atk=1,health=1)
 
-class BAR_027:
+class BAR_027:#OK
 	"""
 	Darkspear Berserker
 	<b>Deathrattle:</b> Deal 5 damage to your hero.
@@ -257,19 +255,18 @@ class BAR_027:
 	deathrattle = Hit(FRIENDLY_HERO,5)
 	pass
 
-class BAR_070:
+class BAR_070:#OK
 	"""
 	Gruntled Patron
 	><b>Frenzy:</b> Summon another Gruntled Patron.
 	"""
-	events = SELF_DAMAGE.on(Frenzy(SELF,Summon(CONTROLLER,ExactCopy(SELF))))
+	events = SELF_DAMAGE.on(Frenzy(SELF,Summon(CONTROLLER,Copy(SELF))))
 	pass
 
-class BAR_069:
+class BAR_069:#OK
 	"""
 	Injured Marauder
-	<b>Taunt</b>
-<b>Battlecry:</b> Deal 6 damage to this minion.
+	<b>Taunt</b> <b>Battlecry:</b> Deal 6 damage to this minion.
 	"""
 	play = Hit(SELF,6)
 	pass
@@ -447,12 +444,12 @@ class BAR_079t15c:
     play = Draw(CONTROLLER)*4
     pass
 
-class BAR_081:
+class BAR_081:#OK
 	"""
 	Southsea Scoundrel
 	<b>Battlecry:</b> <b>Discover</b> a card in your opponent's deck. They draw theirs as well.
 	"""
-	play = Choice(CONTROLLER,RANDOM(ENEMY_DECK)*3).after(Give(OPPONENT,Copy(Choice.CARD)))#本当はdrawしたい
+	play = BAR_081_Southsea_Scoundrel(CONTROLLER,RANDOM(ENEMY_DECK)*3)
 	pass
 
 class BAR_744:

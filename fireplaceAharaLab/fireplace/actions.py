@@ -2247,6 +2247,25 @@ class BAR_037_Warsong_Wrangler(Choice):
 				Buff(_card,"BAR_037e").trigger(card.controller)
 		pass
 
+class BAR_081_Southsea_Scoundrel(Choice):
+	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
+	def choose(self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.discard()
+			else:
+				_card.discard()
+		controller = card.controller.opponent##もともと相手のもの->これは自分
+		Give(controller,card.id).trigger(controller)
+		pass
+
 class BAR_079_Kazakus_Golem_Shaper(Choice):
 
 	def do(self,source,target, cards):
