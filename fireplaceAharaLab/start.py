@@ -15,7 +15,6 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
@@ -81,32 +80,44 @@ if __name__ == "__main__":
 
 def printClasses():
 	idList=[
-'BAR_079_m1',
-'BAR_079_m2',
-'BAR_079_m3',
-'BAR_079t4',
-'BAR_079t5',
-'BAR_079t6',
-'BAR_079t7',
-'BAR_079t8',
-'BAR_079t9',
-'BAR_079t10',
-'BAR_079t10b',
-#'BAR_079t10c',
-'BAR_079t11',
-'BAR_079t12',
-'BAR_079t12b',
-'BAR_079t12c',
-'BAR_079t13',
-'BAR_079t13b',
-'BAR_079t13c',
-'BAR_079t14',
-'BAR_079t14b',
-'BAR_079t14c',
-'BAR_079t15',
-'BAR_079t15b',
-'BAR_079t15c',
-		]
+'SW_006',
+'SW_036',
+'SW_045',
+'SW_054',
+'SW_055',
+'SW_056',
+'SW_057',
+'SW_059',
+'SW_060',
+'SW_061',
+'SW_062',
+'SW_063',
+'SW_064',
+'SW_065',
+'SW_066',
+'SW_067',
+'SW_068',
+'SW_069',
+'SW_070',
+'SW_071',
+'SW_072',
+'SW_073',
+'SW_074',
+'SW_075',
+'SW_076',
+'SW_077',
+'SW_078',
+'SW_079',
+'SW_080',
+'SW_081',
+'SW_306',
+'SW_307',
+'SW_319',
+'SW_400',
+'SW_418',		]
+	print('')
+	print('from ..utils import *')
+	print('')
 	for cardID in idList:
 		card = cards.db[cardID]
 		print('class %s:'%(cardID))

@@ -108,7 +108,7 @@ class CardDB(dict):
 			# no implementation
 			#'BT_730',
 			]
-		#nameList=[]
+		nameList=[]
 		#print("idList=[")
 		for id, card in db.items():
 			#if card.name in nameList:
@@ -123,6 +123,9 @@ class CardDB(dict):
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
+			if card.card_set == CardSet.STORMWIND # 1578:
+				if 'SW_' in card.id:
+					yes = True					
 			if card.card_set == CardSet.THE_BARRENS:#1525
 				if 'BAR_' in card.id or 'WC_' in card.id:
 					yes = True					
