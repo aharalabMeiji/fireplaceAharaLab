@@ -9,6 +9,7 @@ import random
 import time
 from fireplace.config import Config
 
+
 #class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
 #	"""docstring for myAction"""
 #	def __init__(self, _card,_type,_target=None):
@@ -220,6 +221,8 @@ class Candidate(object):
 				return "{card} -> plays".format(card=self.card)
 			else :
 				return "{card}-> plays -> target={target}".format(card=self.card,target=self.target)
+		elif self.type==ActionType.TRADE:
+			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
 		pass
 
@@ -281,6 +284,12 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
+	for character in player.characters:
+		if character.trade_able:
+			if character.trade_cost>0:
+				myCandidate.append(Candidate(player, type=ActionType.TRADE, target=None, turn=mygame.turn))
+			else:# trade_cost=0 特殊な方法でtradeを行う。とりあえず未実装
+				pass
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
@@ -476,7 +485,9 @@ def PresetHands(player1, player2):
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'BAR_744').trigger(player1)#target
+	Give(player1,'SW_045').trigger(player1)#target
+	Give(player1,'SW_054').trigger(player1)#target
+	Give(player1,'SW_055').trigger(player1)#target
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
@@ -511,3 +522,23 @@ def PresetPlay(player, cardID):
 	for card in player.hand:
 		if card.id == cardID and card.is_playable():
 			card.play(target=None)
+
+class ActionType(IntEnum):
+	ATTACK=1
+	PLAY=7
+	POWER=3
+	PASS=4
+	TRADE=14
+
+
+	def __str__(self):
+		if self==1:
+			return "ATTACK"
+		if self==7:
+			return "PLAY"
+		if self==3:
+			return "PASS"
+		if self==14:
+			return "TRADE"
+		else:
+			return ""

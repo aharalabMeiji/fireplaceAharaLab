@@ -2,7 +2,7 @@ import random
 from itertools import chain
 
 from hearthstone.enums import CardType, MultiClassGroup, PlayReq, PlayState, \
-	Race, Rarity, Step, Zone
+	Race, Rarity, Step, Zone, GameTag
 
 from . import actions, cards, enums, rules
 from .aura import TargetableByAuras
@@ -158,6 +158,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_tmp_list1_ = []# aharalab  SCH_717, DRG_086
 	_tmp_list2_ = []# aharalab  SCH_717, DRG_086
 	_tmp_int1_ = 0# aharalab  SCH_717, DRG_086
+	trade_cost = int_property("trade_cost")
+	#tradeable = int_property("tradeable")
+
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -231,6 +234,13 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		if self.zone == Zone.HAND:
 			return self.controller.hand.index(self) + 1
 		return 0
+	
+	@property
+	def trade_able(self):
+		if self.data.tags.get(GameTag.TRADEABLE)!=None or self.data.referenced_tags.get(GameTag.TRADEABLE)!=None:
+			return True
+		else :
+			return False
 
 	def _set_zone(self, zone):
 		old_zone = self.zone
@@ -505,7 +515,7 @@ class Character(LiveEntity):
 	taunt = boolean_property("taunt")
 	poisonous = boolean_property("poisonous")
 	ignore_taunt = boolean_property("ignore_taunt")
-
+	
 	def __init__(self, data):
 		self.frozen = False
 		self.attack_target = None

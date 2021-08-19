@@ -1,303 +1,270 @@
 from ..utils import *
 
 class SW_006:
-    """ だんまりのチンピラ
-    [x]<b>断末魔:</b>
-ランダムなコスト3の
-ミニオン1体を
-召喚する。 """
-    #
+    """ Stubborn Suspect
+    <b>Deathrattle:</b> Summon a random 3-Cost minion. """
+    deathrattle = Summon(CONTROLLER, RANDOM(MINION+(COST==3)))
     pass
 
 class SW_036:
-    """ 双頭の投資家
-    [x]自分のターンの終了時
-自分の手札1枚のコストを
-（1）減らす。<i>（50%の
-__確率で逆に増える）</i> """
-    #
+    """ Two-Faced Investor
+    [x]At the end of your turn,
+reduce the Cost of a card
+in your hand by (1). <i>(50%
+chance to increase.)</i> """
+    events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_HAND),random.choice(['SW_036e','SW_036e2'])))
     pass
 
+SW_036e=buff(cost=1)
+SW_036e2=buff(cost=-1)
+
 class SW_045:
-    """ 競売人ジャクソン
-    [x]自分が<b>交換</b>する度
-カードを引く代わりに
-自分のデッキから
-1枚<b>発見</b>する。 """
+    """ Auctioneer Jaxon
+    [x]Whenever you <b>Trade</b>,<b>Discover</b> a card from your_deck to draw instead. """
     #
     pass
 
 class SW_054:
-    """ ストームウィンドの衛兵
-    [x]<b>挑発</b>、<b>雄叫び:</b>
-隣接するミニオンに
-__+1/+1を付与する。 """
-    #
+    """ Stormwind Guard
+    <b>Taunt</b><b>Battlecry:</b> Give adjacent minions +1/+1. """
+    play = Buff(FRIENDLY_MINIONS+ADJACENT,'SW_054e')
     pass
+SW_054e=buff(atk=1,health=1)
 
 class SW_055:
-    """ 短気な店主
-    <b>交換可</b>、<b>急襲</b> """
+    """ Impatient Shopkeep
+    <b>Tradeable</b><b>Rush</b> """
     #
     pass
 
 class SW_056:
-    """ スパイスブレッド職人
-    [x]<b>雄叫び:</b>
-自分のヒーローの体力を
-自分の手札の枚数分
-回復する。 """
+    """ Spice Bread Baker
+    <b>Battlecry:</b> Restore Health to your hero equal to your hand size. """
     #
     pass
 
 class SW_057:
-    """ 早飛脚
-    [x]自分の手札が
-8枚以上の時のみ
-___攻撃できる。 """
+    """ Package Runner
+    Can only attack if you have at least 8 cards in hand. """
     #
     pass
 
 class SW_059:
-    """ ディープラン・エンジニア
-    [x]<b>雄叫び:</b>
-メカを1体<b>発見</b>する。
-そのコストは
-（1）減る。 """
+    """ Deeprun Engineer
+    <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
     #
     pass
 
 class SW_060:
-    """ お花屋さん
-    [x]自分のターンの終了時
-自分の手札の
-自然呪文1つのコスト
-を（1）減らす。 """
+    """ Florist
+    [x]At then end of your turn,
+reduce the cost of a Nature
+spell in your hand by (1). """
     #
     pass
 
 class SW_061:
-    """ ギルドの商人
-    [x]<b>交換可</b>
-<b>呪文ダメージ+2</b> """
+    """ Guild Trader
+    <b>Tradeable</b>
+<b>Spell Damage +2</b> """
     #
     pass
 
 class SW_062:
-    """ ゴールドシャイアのノール
-    [x]<b>急襲</b>
-このカード以外の
-自分の手札1枚につき
-____コストが（1）減る。_ """
+    """ Goldshire Gnoll
+    [x]<b>Rush</b>
+Costs (1) less for each
+__other card in your hand. """
     #
     pass
 
 class SW_063:
-    """ バトルグラウンドのバトルマスター
-    [x]隣接するミニオンは
-<b>疾風</b>を得る。 """
+    """ Battleground Battlemaster
+    Adjacent minions
+have <b>Windfury</b>. """
     #
     pass
 
 class SW_064:
-    """ ノースシャイアの農夫
-    [x]<b>雄叫び:</b>
-__味方の獣1体を選択する。
-その3/3のコピー3体を
-___自分のデッキに混ぜる。_ """
+    """ Northshire Farmer
+    <b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
     #
     pass
 
 class SW_065:
-    """ パンダレンの輸入業者
-    [x]<b>雄叫び:</b>
-対戦開始時に自分の
-デッキに入っていなかった
-呪文を1つ<b>発見</b>する。 """
+    """ Pandaren Importer
+    [x]<b>Battlecry:</b> <b>Discover</b> a
+spell that didn't start
+in your deck. """
     #
     pass
 
 class SW_066:
-    """ 王立図書館の司書
-    [x]<b>交換可</b>、<b>雄叫び:</b>
-ミニオン1体を
-<b>沈黙</b>させる。 """
+    """ Royal Librarian
+    [x]<b>Tradeable</b>
+<b>Battlecry:</b> <b>Silence</b>
+a minion. """
     #
     pass
 
 class SW_067:
-    """ 監獄の衛兵
-    [x]<b>雄叫び:</b>
-味方のミニオン1体に
-<b>挑発</b>を付与する。 """
+    """ Stockades Guard
+    [x]<b>Battlecry:</b> Give a
+friendly minion <b>Taunt</b>. """
     #
     pass
 
 class SW_068:
-    """ モアーグの鍛冶鬼
-    [x]<b>挑発</b>、<b>断末魔:</b>
-装甲を8獲得する。 """
+    """ Mo'arg Forgefiend
+    <b>Taunt</b>
+<b>Deathrattle:</b> Gain 8 Armor. """
     #
     pass
 
 class SW_069:
-    """ 勤勉な銀行家
-    [x]自分のターンの終了時
-自分のデッキから
-カードを1枚預かる。
-<b>断末魔:</b>_預けたカード全てを
-______自分の手札に追加する。_ """
+    """ Enthusiastic Banker
+    [x]At the end of your turn,
+store a card from your deck.
+<b>Deathrattle:</b> Add the stored
+cards to your hand. """
     #
     pass
 
 class SW_070:
-    """ ポスト乗り乗りダンサー
-    [x]<b>雄叫び:</b>
-「コイン」1枚を__
-自分の手札に追加する。
-<b>断末魔:</b>_相手に「コイン」
-1枚を与える。 """
+    """ Mailbox Dancer
+    [x]<b>Battlecry:</b> Add a Coin
+to your hand.
+<b>Deathrattle:</b> Give your
+opponent one. """
     #
     pass
 
 class SW_071:
-    """ 獅子近衛兵
-    [x]<b>雄叫び:</b>
-自分のヒーローの体力が
-15以下の場合、+2/+4と
-<b>挑発</b>を獲得する。 """
+    """ Lion's Guard
+    [x]<b>Battlecry:</b> If you have 15
+or less Health, gain
++2/+4 and <b>Taunt</b>. """
     #
     pass
 
 class SW_072:
-    """ 腐り錆びのクサリヘビ
-    [x]<b>交換可</b>、<b>雄叫び:</b>
-__敵の武器を破壊する。 """
+    """ Rustrot Viper
+    [x]<b>Tradeable</b>
+<b>Battlecry:</b> Destroy your
+opponent's weapon. """
     #
     pass
 
 class SW_073:
-    """ チーズ屋さん
-    [x]相手が呪文を使う度
-同コストのランダムな
-呪文1枚を自分の
-__手札に追加する。 """
+    """ Cheesemonger
+    [x]Whenever your opponent
+casts a spell, add a random
+spell with the same Cost
+to your hand. """
     #
     pass
 
 class SW_074:
-    """ 貴族さま
-    [x]<b>雄叫び:</b>
-自分のランダムな
-手札1枚のゴールデンの
-__コピーを1枚作る。 """
+    """ Nobleman
+    <b>Battlecry:</b> Create a Golden copy of a random card in your hand. """
     #
     pass
 
 class SW_075:
-    """ エルウィンのイノシシ
-    [x]<b>断末魔:</b>
-自分がこの対戦で「エルウィン
-のイノシシ」を7体死なせて
-いたら15/3の「千の真実の剣」
-を装備する。@<i>（@/7体）</i> """
+    """ Elwynn Boar
+    [x]<b>Deathrattle:</b> If you had 7
+Elwynn Boars die this game,
+equip a 15/3 Sword of a
+___Thousand Truths.@ <i>(@/7)</i> """
     #
     pass
 
 class SW_076:
-    """ 都市建築家
-    [x]<b>雄叫び:</b>
-<b>挑発</b>を持つ
-0/5の「城壁」を
-___2体召喚する。 """
+    """ City Architect
+    [x]<b>Battlecry:</b> Summon two
+0/5 Castle Walls
+with <b>Taunt</b>. """
     #
     pass
 
 class SW_077:
-    """ 監獄の囚人
-    [x]最初は<b>休眠状態</b>。
-自分がカードを3枚
-手札から使用した後
-___これは目覚める。 """
+    """ Stockades Prisoner
+    [x]Starts <b>Dormant</b>.
+After you play 3 cards,
+this awakens. """
     #
     pass
 
 class SW_078:
-    """ レディ・プレスター
-    <b>雄叫び:</b>
-自分のデッキのミニオン
-全てをランダムな
-ドラゴンに変身させる。
-<i>（ただし攻撃力、体力、
-コストは元のまま）</I> """
+    """ Lady Prestor
+    [x]<b>Battlecry:</b> Transform minions
+in your deck into random
+Dragons. <i>(They keep their
+__original stats and Cost.)</I> """
     #
     pass
 
 class SW_079:
-    """ フライトマスター・ダンガー
-    [x]<b>雄叫び:</b>
-航路を1つ選択し
-<b>休眠状態</b>になる。
-到着時にボーナスを得て
-目覚める！ """
+    """ Flightmaster Dungar
+    [x]<b>Battlecry:</b> Choose a
+flightpath and go <b>Dormant.
+</b> Awaken with a bonus
+__when you complete it! """
     #
     pass
 
 class SW_080:
-    """ コーネリアス・ローム
-    [x]各プレイヤーのターンの
-開始時と終了時
-___カードを1枚引く。 """
+    """ Cornelius Roame
+    [x]At the start and end
+_of each player's turn,
+draw a card. """
     #
     pass
 
 class SW_081:
-    """ ストームウィンド王ヴァリアン
-    [x]<b>雄叫び:</b>
-<b>急襲</b>ミニオンを1体引き、
-引けたら<b>急襲</b>を獲得する。
-<b>挑発</b>、<b>聖なる盾</b>
-___についても繰り返す。 """
+    """ Varian, King of Stormwind
+    [x]<b>Battlecry:</b> Draw a <b>Rush</b>
+minion to gain <b>Rush</b>.
+Repeat for <b>Taunt</b> and
+<b>Divine Shield</b>. """
     #
     pass
 
 class SW_306:
-    """ 重荷運びラバ
-    [x]<b>挑発</b>
-自分がこれを引いた時
-コピー1体を自分の
-手札に追加する。 """
+    """ Encumbered Pack Mule
+    [x]<b>Taunt</b>
+When you draw this, add a
+_copy of it to your hand. """
     #
     pass
 
 class SW_307:
-    """ 旅商人
-    [x]<b>交換可</b>、<b>雄叫び:</b>
-自身を除く味方の
-ミニオン1体につき
-____+1/+1を獲得する。_ """
+    """ Traveling Merchant
+    [x]<b>Tradeable</b>
+<b>Battlecry:</b> Gain +1/+1
+for each other friendly
+_minion you control. """
     #
     pass
 
 class SW_319:
-    """ 土木作業員
-    [x]自分のターンの開始時
-カードを1枚引く。 """
+    """ Peasant
+    At the start of your turn, draw a card. """
     #
     pass
 
 class SW_400:
-    """ 囚われの女魔術師
-    [x]<b>雄叫び:</b>
-自分が<b>クエスト</b>中の場合
-呪文を1つ<b>発見</b>する。 """
+    """ Entrapped Sorceress
+    [x]<b>Battlecry:</b> If you control a
+_<b>Quest</b>, <b>Discover</b> a spell. """
     #
     pass
 
 class SW_418:
-    """ SI:7密偵
-    [x]<b>隠れ身</b>、<b>雄叫び:</b>
-自分が次に引くカードの
-コストが（1）減る。 """
+    """ SI:7 Skulker
+    [x]<b>Stealth</b>
+<b>Battlecry:</b> The next card
+__you draw costs (1) less. """
     #
     pass
+

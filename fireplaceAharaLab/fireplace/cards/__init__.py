@@ -120,13 +120,14 @@ class CardDB(dict):
 				setattr(card, 'spellpower', spellpowervalue)
 			else:
 				setattr(card, 'spellpower', 0)
+
 			yes = False
-			#if card.card_set == CardSet.STORMWIND: # 1578:
-			#	if 'SW_' in card.id:
-			#		yes = True					
-			#if card.card_set == CardSet.THE_BARRENS:#1525
-			#	if 'BAR_' in card.id or 'WC_' in card.id:
-			#		yes = True					
+			if card.card_set == CardSet.STORMWIND: # 1578:
+				if 'SW_' in card.id:
+					yes = True					
+			if card.card_set == CardSet.THE_BARRENS:#1525
+				if 'BAR_' in card.id or 'WC_' in card.id:
+					yes = True					
 			if card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
 					yes = True

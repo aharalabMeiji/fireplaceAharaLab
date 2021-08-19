@@ -265,6 +265,7 @@ class HumanAgent(Agent):
 					print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				elif card.data.type == CardType.WEAPON:
 					print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+					##
 				if card.is_playable():
 					if card.must_choose_one:
 						for card2 in card.choose_cards:
@@ -280,6 +281,11 @@ class HumanAgent(Agent):
 								myCandidate.append(Candidate(card, type=ActionType.PLAY, target=target, turn=game.turn))
 						else:
 							myCandidate.append(Candidate(card, type=ActionType.PLAY, target=None, turn=game.turn))
+				if card.trade_able:
+					if card.trade_cost<=player.mana:
+						myCandidate.append(Candidate(card, type=ActionType.TRADE, target=None, turn=game.turn))
+					else:# trade_cost=0 特殊な方法でtradeを行う。とりあえず未実装
+						pass
 			print("========OPPONENT'S PLAYGROUND======")
 			for character in player.opponent.characters:
 				print("%s"%character, end='   : ')
@@ -378,6 +384,8 @@ class HumanAgent(Agent):
 					print('<%2d> %s'%(myCard.cost, myCard.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')), end=' ')
 				if myChoice.type == ActionType.PLAY:
 					print(' play', end=' ')
+				if myChoice.type == ActionType.TRADE:
+					print(' trade', end=' ')
 				if myChoice.type == ActionType.ATTACK:
 					print(' attack', end=' ')
 				if myChoice.type == ActionType.POWER:
@@ -444,6 +452,7 @@ class ActionType(IntEnum):
 	PLAY=7
 	POWER=3
 	PASS=4
+	TRADE=14
 
 
 	def __str__(self):
@@ -453,5 +462,7 @@ class ActionType(IntEnum):
 			return "PLAY"
 		if self==3:
 			return "PASS"
+		if self==14:
+			return "TRADE"
 		else:
 			return ""

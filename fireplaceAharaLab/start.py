@@ -15,6 +15,7 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
+
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
@@ -114,7 +115,8 @@ def printClasses():
 'SW_307',
 'SW_319',
 'SW_400',
-'SW_418',		]
+'SW_418',
+]
 	print('')
 	print('from ..utils import *')
 	print('')
