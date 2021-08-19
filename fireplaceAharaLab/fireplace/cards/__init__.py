@@ -113,8 +113,6 @@ class CardDB(dict):
 		for id, card in db.items():
 			#if card.name in nameList:
 			#	print("'%s',"%(card.id))
-			#### ristrict cards to standard cards ##  aharalab ##
-			## exclude [15,21,25,1453,1466]
 			from hearthstone.enums import GameTag
 			## add attr spellpower
 			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
@@ -123,12 +121,12 @@ class CardDB(dict):
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
-			if card.card_set == CardSet.STORMWIND # 1578:
-				if 'SW_' in card.id:
-					yes = True					
-			if card.card_set == CardSet.THE_BARRENS:#1525
-				if 'BAR_' in card.id or 'WC_' in card.id:
-					yes = True					
+			#if card.card_set == CardSet.STORMWIND: # 1578:
+			#	if 'SW_' in card.id:
+			#		yes = True					
+			#if card.card_set == CardSet.THE_BARRENS:#1525
+			#	if 'BAR_' in card.id or 'WC_' in card.id:
+			#		yes = True					
 			if card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
 					yes = True

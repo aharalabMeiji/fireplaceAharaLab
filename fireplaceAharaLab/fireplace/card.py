@@ -28,8 +28,8 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
-	if subclass is Spell and data.sidequest:##############added by aharalab
-		subclass = Sidequest##############################added by aharalab
+	if subclass is Spell and data.sidequest:# aharalab
+		subclass = Sidequest# aharalab
 	return subclass(data)
 
 
@@ -94,10 +94,7 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			if old==Zone.GRAVEYARD:
-				self.logger.warning("%r attempted a same-zone move in %r", self, old)
-			else:	
-				self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
 		if old:
@@ -110,7 +107,7 @@ class BaseCard(BaseEntity):
 			Zone.SETASIDE: self.game.setaside,
 		}
 		if caches.get(old) is not None:
-			if self in caches[old]:########## added by aharalab. 30.12.2020 ####### I dont see why we need this line .
+			if self in caches[old]:# aharalab. 30.12.2020 ####### I dont see why we need this line .
 				caches[old].remove(self)
 		if caches.get(value) is not None:
 			if hasattr(self, "_summon_index") and self._summon_index is not None:
@@ -155,12 +152,12 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
-	cant_be_frozen = boolean_property("cant_be_frozen")########## aharalab ##################23.12.2020
-	reborn = boolean_property("reborn")############################### aharalab ##################
-	mark_of_evil = boolean_property("mark_of_evil")############################### aharalab ##################22.12.2020
-	_tmp_list1_ = []############################### aharalab ################## SCH_717, DRG_086
-	_tmp_list2_ = []############################### aharalab ################## SCH_717, DRG_086
-	_tmp_int1_ = 0############################### aharalab ################## SCH_717, DRG_086
+	cant_be_frozen = boolean_property("cant_be_frozen")# aharalab 
+	reborn = boolean_property("reborn")# aharalab 
+	mark_of_evil = boolean_property("mark_of_evil")# aharalab 
+	_tmp_list1_ = []# aharalab  SCH_717, DRG_086
+	_tmp_list2_ = []# aharalab  SCH_717, DRG_086
+	_tmp_int1_ = 0# aharalab  SCH_717, DRG_086
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -350,8 +347,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.logger.warning("%r does not require a target, ignoring target %r", self, target)
 			target = None
 		self.game.play_card(self, target, index, choose)
-		if not self.id in self.controller.starting_deck:##### aharalab ## DRG_109 ## 25.12.2020
-			self.controller.times_card_to_play_out_of_deck += 1 ##### aharalab ## DRG_109 ## 25.12.2020
+		if not self.id in self.controller.starting_deck:# aharalab ## DRG_109 
+			self.controller.times_card_to_play_out_of_deck += 1 
 		return self
 
 	def is_summonable(self) -> bool:
@@ -857,15 +854,15 @@ class Secret(Spell):
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
-			self.secret_twice=False######### aharalab 26.12.2020 ### want to make a new flag for this part.
-			for card in self.controller.field:######### aharalab 26.12.2020
-				if 'DAL_573'==card.id :########### aharalab 26.12.2020
-					self.secret_twice=True######### aharalab 26.12.2020
+			self.secret_twice=False# aharalab  want to make a new flag for this part.
+			for card in self.controller.field:# aharalab 
+				if 'DAL_573'==card.id :# aharalab 
+					self.secret_twice=True #  
 		if self.zone == Zone.SECRET:
-			if self.secret_twice:######### aharalab 26.12.2020
-				self.secret_twice=False######### aharalab 26.12.2020
-				return######### aharalab 26.12.2020
-			else:######### aharalab 26.12.2020
+			if self.secret_twice:# aharalab 
+				self.secret_twice=False
+				return
+			else:
 				self.controller.secrets.remove(self)
 		if value == Zone.SECRET:
 			self.controller.secrets.append(self)

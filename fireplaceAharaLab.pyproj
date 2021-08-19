@@ -39,7 +39,7 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\deamon_hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\hunter.py">

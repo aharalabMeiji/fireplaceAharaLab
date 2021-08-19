@@ -254,8 +254,8 @@ class BeginTurn(GameAction):
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
 		source._begin_turn(player)
-		player.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
-		player.spells_played_this_turn=[] ##### aharalab ####DAL_558### 28.12.2020 ####
+		player.times_spells_played_this_turn = 0 # aharalab #DAL_603
+		player.spells_played_this_turn=[] # aharalab #DAL_558
 
 class Concede(GameAction):
 	"""
@@ -297,10 +297,10 @@ class Death(GameAction):
 		self.broadcast(source, EventListener.ON, target)
 		if target.deathrattles:
 			source.game.queue_actions(source, [Deathrattle(target)])
-		if target.reborn:################## added by aharalab
-			source.game.queue_actions(source, [Reborn(target)])################## added by aharalab
-		if target.id== 'DRG_253':## added by aharalab for Dwarven Sharpshooter
-			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)## added by aharalab
+		if target.reborn:# aharalab
+			source.game.queue_actions(source, [Reborn(target)])
+		if target.id== 'DRG_253':# aharalab for Dwarven Sharpshooter
+			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
 
 class EndTurn(GameAction):
 	"""
