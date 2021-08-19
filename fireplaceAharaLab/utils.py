@@ -4,6 +4,7 @@ from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.exceptions import GameOver
 from fireplace.actions import *
+from fireplace.utils import ActionType
 import copy
 import random
 import time
@@ -385,6 +386,14 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
+	if action.type==ActionType.TRADE:
+		if not theCard.trade_able():
+			return ExceptionPlay.INVALID
+		try:
+			theCard.trade()#まずはoptionなし
+			return ExceptionPlay.VALID
+		except GameOver:#まあこれはないと思うけど。
+			return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.INVALID
 
 class ExceptionPlay(IntEnum):
@@ -523,22 +532,3 @@ def PresetPlay(player, cardID):
 		if card.id == cardID and card.is_playable():
 			card.play(target=None)
 
-class ActionType(IntEnum):
-	ATTACK=1
-	PLAY=7
-	POWER=3
-	PASS=4
-	TRADE=14
-
-
-	def __str__(self):
-		if self==1:
-			return "ATTACK"
-		if self==7:
-			return "PLAY"
-		if self==3:
-			return "PASS"
-		if self==14:
-			return "TRADE"
-		else:
-			return ""

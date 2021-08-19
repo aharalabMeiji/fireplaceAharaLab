@@ -6,6 +6,7 @@ from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAc
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
+from fireplace.utils import ActionType
 from enum import IntEnum
 
 
@@ -441,28 +442,3 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
-
-
-
-
-
-
-class ActionType(IntEnum):
-	ATTACK=1
-	PLAY=7
-	POWER=3
-	PASS=4
-	TRADE=14
-
-
-	def __str__(self):
-		if self==1:
-			return "ATTACK"
-		if self==7:
-			return "PLAY"
-		if self==3:
-			return "PASS"
-		if self==14:
-			return "TRADE"
-		else:
-			return ""

@@ -427,6 +427,22 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def targets(self):
 		return self.play_targets
 
+	def trade_able(self,option=None):
+		if not self.trade_able:
+			return False
+		#if option==None:
+		if self.trade_cost > self.controller.mana:
+			return False
+		else :
+			return True 
+
+	def trade(self,option=None):
+		player = self.controller
+		if len(player.deck)==0:
+			raise InvalidAction("No card in the deck and %r cannot be trade." % (self, choose))
+		self.game.trade_card(self, option)
+
+
 
 class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")

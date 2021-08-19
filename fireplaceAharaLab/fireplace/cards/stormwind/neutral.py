@@ -21,7 +21,7 @@ SW_036e2=buff(cost=-1)
 class SW_045:
     """ Auctioneer Jaxon
     [x]Whenever you <b>Trade</b>,<b>Discover</b> a card from your_deck to draw instead. """
-    #
+    #trade_option=1#TradeOption.DISCOVER
     pass
 
 class SW_054:
