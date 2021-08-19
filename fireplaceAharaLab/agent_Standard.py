@@ -321,6 +321,8 @@ class HumanAgent(Agent):
 						print("(poisonous)", end=" ")
 					if character.frozen:
 						print("(frozen)", end=" ")
+					if character.rush:
+						print("(rush)", end=" ")
 					#if character.reborn:
 					#	print("(reborn)", end=" ")
 					if character.taunt:

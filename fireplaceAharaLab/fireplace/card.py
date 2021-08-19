@@ -264,6 +264,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.log("%s draws %r", self.controller, self)
 			if self.zone != Zone.HAND:
 				self.zone = Zone.HAND
+			# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
+			if hasattr(self, "casts_when_drawn"):
+				self.game.queue_actions(self.controller, [Play(self, None, None, None)])
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:

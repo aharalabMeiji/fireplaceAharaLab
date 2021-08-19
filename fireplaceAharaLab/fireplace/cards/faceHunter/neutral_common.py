@@ -2,7 +2,7 @@ from ..utils import *
 
 #class SCH_312:
 #	""" School Tour ツアーガイド
-#		&lt;b&gt;雄叫び:&lt;/b&gt;自分が次に使うヒーローパワーのコストは（0）
+#		<b>雄叫び:</b>自分が次に使うヒーローパワーのコストは（0）
 #	"""
 #	play = Buff(CONTROLLER, "SCH_312e")
 
@@ -15,7 +15,7 @@ from ..utils import *
 
 #class SCH_231:
 #	"""図太い徒弟
-#	[x]&lt;b&gt;魔法活性:&lt;/b&gt;攻撃力+2を獲得する。
+#	[x]<b>魔法活性:</b>攻撃力+2を獲得する。
 #	"""
 #	play = Play(CONTROLLER,SPELL).on(Buff(SELF, "SCH_231e"))##魔法の部分が未チェックOWN_SPELL_PLAY?
 #	pass
@@ -30,6 +30,6 @@ from ..utils import *
 
 #class SCH_428:
 #	""" 伝承守護者ポルケルト 
-#	[x]&lt;b&gt;雄叫び:&lt;/b&gt;自分のデッキのカードをコストが高い順に並べ替える。 """
+#	[x]<b>雄叫び:</b>自分のデッキのカードをコストが高い順に並べ替える。 """
 #	#これは無理
 #	pass

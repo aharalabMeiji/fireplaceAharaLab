@@ -42,12 +42,12 @@ have 5 Mana.)</i>    """
     play = Summon(CONTROLLER,"BAR_034t3")
     pass
 class BAR_034t:
-    """ Summon a 4/4 Beast with &lt;b&gt;Rush&lt;/b&gt;. &lt;i&gt;(Upgrades when you
-have 10 Mana.)&lt;/i&gt;"""
+    """ Summon a 4/4 Beast with <b>Rush</b>. <i>(Upgrades when you
+have 10 Mana.)</i>"""
     play = Summon(CONTROLLER,"BAR_034t4")
     pass
 class BAR_034t2:
-    """ Summon a 6/6 Beast with &lt;b&gt;Rush&lt;/b&gt;."""
+    """ Summon a 6/6 Beast with <b>Rush</b>."""
     play = Summon(CONTROLLER,"BAR_034t5")
     pass
 class BAR_034t3:

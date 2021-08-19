@@ -3,7 +3,7 @@ from ..utils import *
 
 class YOP_032:
 	"""Armor Vendor"""
-	## &lt;b&gt;Battlecry:&lt;/b&gt; Give 4 Armor to_each hero.
+	## <b>Battlecry:</b> Give 4 Armor to_each hero.
 	play = (GainArmor(FRIENDLY_HERO,4),GainArmor(ENEMY_HERO,4))
 	pass
 

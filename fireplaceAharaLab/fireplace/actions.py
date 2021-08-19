@@ -1015,6 +1015,9 @@ class Give(TargetedAction):
 			## 
 			card.controller = target
 			card.zone = Zone.HAND
+			# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
+			if hasattr(card, "casts_when_drawn"):
+				card.game.queue_actions(card.controller, [Play(card, None, None, None)])
 			ret.append(card)
 		return ret
 
@@ -1950,7 +1953,7 @@ class PermanentBuff(TargetedAction):
 class EducatedElekkMemory(TargetedAction):
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
-	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	#<b>Deathrattle:</b> Shuffle the spells into your deck.
 	HOST = ActionArg()# spell card just played
 	TARGET = ActionArg()# spell card just played
 	def do(self,source,target,card):
@@ -1960,7 +1963,7 @@ class EducatedElekkMemory(TargetedAction):
 class EducatedElekkDeathrattle(TargetedAction):
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
-	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	#<b>Deathrattle:</b> Shuffle the spells into your deck.
 	def do(self,source,target):
 		log.info("%s Deathrattle",target)
 		for card in target._tmp_list1_:
@@ -1968,7 +1971,7 @@ class EducatedElekkDeathrattle(TargetedAction):
 
 class TentacledMenace(TargetedAction):#DRG_084
 	"""Tentacled Menace	Epic
-	&lt;b&gt;Battlecry:&lt;/b&gt; Each player draws a card. Swap their_Costs."""
+	<b>Battlecry:</b> Each player draws a card. Swap their_Costs."""
 	TARGET = ActionArg()# controller
 	OTHER = ActionArg()# oponent
 	def do(self, source, target, other):
@@ -1983,7 +1986,7 @@ class TentacledMenace(TargetedAction):#DRG_084
 
 class ArgentBraggart(TargetedAction):
 	"""SCH_149
-	&lt;b&gt;Battlecry:&lt;/b&gt; Gain Attack and Health to match the highest in the battlefield.
+	<b>Battlecry:</b> Gain Attack and Health to match the highest in the battlefield.
 	"""
 	TARGET = ActionArg()# SELF
 	def do(self, source, target):
@@ -2104,7 +2107,7 @@ class DAL558ArchmageVargoth(TargetedAction):
 
 class BT126TeronGorefiend(TargetedAction):
 	"""Teron Gorefiend	Minion	Legendary
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Destroy all
+	[x]<b>Battlecry:</b> Destroy all
 	other friendly minions."""
 	TARGET = ActionArg()#card
 	def do(self,source,target):#
@@ -2117,7 +2120,7 @@ class BT126TeronGorefiend(TargetedAction):
 		pass
 class BT126TeronGorefiendDeathrattle(TargetedAction):
 	"""Teron Gorefiend	Minion	Legendary
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Resummon
+	<b>Deathrattle:</b> Resummon
 	them with +1/+1."""
 	TARGET = ActionArg()#card
 	def do(self,source,target):

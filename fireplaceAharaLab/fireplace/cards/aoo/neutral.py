@@ -2,14 +2,14 @@ from ..utils import *
 
 class BT_724:#OK
 	"""Ethereal Augmerchant	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 1 damage to a minion and give it &lt;b&gt;Spell Damage +1&lt;/b&gt;."""
+	<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Spell Damage +1</b>."""
 	requirements = { PlayReq.REQ_FRIENDLY_TARGET: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0} 
 	play = Hit(TARGET, 1), SetTag(TARGET, (GameTag.SPELLPOWER,))
 class BT_722:#OK
 	"""Guardian Augmerchant	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 1 damage to a minion and give it &lt;b&gt;Divine Shield&lt;/b&gt;."""
+	<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Divine Shield</b>."""
 	requirements = { PlayReq.REQ_FRIENDLY_TARGET: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0} 
@@ -20,7 +20,7 @@ class BT_731:#OK
 	events = Attack(SELF).after(Morph(ATTACK_TARGET,"BT_731"))
 class BT_723:#OK
 	"""Rocket Augmerchant	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 1 damage to a minion and give it &lt;b&gt;Rush&lt;/b&gt;."""
+	<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Rush</b>."""
 	requirements = { PlayReq.REQ_FRIENDLY_TARGET: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0} 
@@ -31,15 +31,15 @@ class BT_727:#OK
 	events = Attack(ALL_CHARACTERS,SELF).on(Hit(FRIENDLY_HERO, Attr(Attack.ATTACKER, GameTag.ATK)))
 class BT_715:#OK
 	"""Bonechewer Brawler	Minion	Common
-	[x]&lt;b&gt;Taunt&lt;/b&gt;
+	[x]<b>Taunt</b>
 	Whenever this minion takes
 	_damage, gain +2 Attack."""
 	events = Attack(ALL_CHARACTERS,SELF).on(Buff(SELF,"BT_715e"))
 BT_715e = buff(2,0)
 class BT_156:#OK
 	"""Imprisoned Vilefiend	Minion	Common
-	&lt;b&gt;Dormant&lt;/b&gt; for 2 turns.
-	&lt;b&gt;Rush&lt;/b&gt;"""
+	<b>Dormant</b> for 2 turns.
+	<b>Rush</b>"""
 	dormant = 2
 class BT_733:#OK
 	"""Mo'arg Artificer	Minion	Epic
@@ -47,8 +47,8 @@ class BT_733:#OK
 	update = Refresh(FRIENDLY_MINIONS, {GameTag.SPELLPOWER_DOUBLE: 1})
 class BT_008:#OK
 	"""Rustsworn Initiate	Minion	Common
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 1/1 Impcaster with
-	&lt;b&gt;Spell Damage +1&lt;/b&gt;."""
+	<b>Deathrattle:</b> Summon a 1/1 Impcaster with
+	<b>Spell Damage +1</b>."""
 	deathrattle = Summon(CONTROLLER,"BT_008t")
 class BT_008t:
 	pass
@@ -63,21 +63,21 @@ class BT_721t:
 	pass
 class BT_714:#OK
 	"""Frozen Shadoweaver	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Freeze&lt;/b&gt; an_enemy."""
+	<b>Battlecry:</b> <b>Freeze</b> an_enemy."""
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	#play = SetTag(TARGET,(GameTag.FROZEN, ))
 	play = Freeze(TARGET)
 class BT_730:#######################################################################
 	"""Overconfident Orc	Minion	Common
-	&lt;b&gt;Taunt&lt;/b&gt;
+	<b>Taunt</b>
 	While at full Health,
 	this has +2 Attack."""
 	#events = -Damage(SELF).on()
 class BT_126:#OK
 	"""Teron Gorefiend	Minion	Legendary
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Destroy all
+	[x]<b>Battlecry:</b> Destroy all
 	other friendly minions.
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Resummon
+	<b>Deathrattle:</b> Resummon
 	them with +1/+1."""
 	play = BT126TeronGorefiend(SELF)
 	deathrattle = BT126TeronGorefiendDeathrattle(SELF)
@@ -87,33 +87,33 @@ class BT_126:#OK
 BT_126e2 = buff(1,1)
 class BT_159:#OK
 	"""Terrorguard Escapee	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; Summon three 1/1 Huntresses for your_opponent."""
+	<b>Battlecry:</b> Summon three 1/1 Huntresses for your_opponent."""
 	play = Summon(OPPONENT, "BT_159t") * 3
 class BT_159t:
 	""" Huntress """
 	pass
 class BT_717:#OK
 	"""Burrowing Scorpid	Minion	Common
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Deal 2 damage.
+	[x]<b>Battlecry:</b> Deal 2 damage.
 	If that kills the target,
-	gain &lt;b&gt;Stealth&lt;/b&gt;."""
+	gain <b>Stealth</b>."""
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 2).then( Death(TARGET).on(SetTag(SELF,(GameTag.STEALTH,))))
 class BT_728:#OK
 	"""Disguised Wanderer	Minion	Common
-	>&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 9/1 Inquisitor."""
+	><b>Deathrattle:</b> Summon a 9/1 Inquisitor."""
 	deathrattle = Summon(CONTROLLER, "BT_728t")
 class BT_728t:
 	""" Rustsworn Inquisitor """
 	pass
 class BT_010:#OK
 	"""Felfin Navigator	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; Give your other Murlocs +1/+1."""
+	<b>Battlecry:</b> Give your other Murlocs +1/+1."""
 	play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, "BT_010e")
 BT_010e = buff(1,1)
 class BT_850:#OK
 	"""Magtheridon	Minion	Legendary
-	[x]&lt;b&gt;Dormant&lt;/b&gt;. &lt;b&gt;Battlecry:&lt;/b&gt; Summon
+	[x]<b>Dormant</b>. <b>Battlecry:</b> Summon
 	three 1/3 enemy Warders.
 	When they die, destroy all
 	minions and awaken."""
@@ -127,8 +127,8 @@ class BT_850t:
 	pass
 class BT_737:#OK
 	"""Maiev Shadowsong	Minion	Legendary
-	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a minion.
-	It goes &lt;b&gt;Dormant&lt;/b&gt; for 2 turns."""
+	<b>Battlecry:</b> Choose a minion.
+	It goes <b>Dormant</b> for 2 turns."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_ENEMY_TARGET:0}
 	play = Dormant(TARGET, 2)
 #BT_737e = buff(dormant=2)
@@ -138,8 +138,8 @@ class BT_190:#OK
 	play = OWN_TURN_END.on(Morph(SELF_ADJACENT,Copy(SELF)))
 class BT_160:#OK
 	"""Rustsworn Cultist	Minion	Common
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Give your
-	other minions &quot;&lt;b&gt;Deathrattle:&lt;/b&gt;
+	[x]<b>Battlecry:</b> Give your
+	other minions &quot;<b>Deathrattle:</b>
 	Summon a 1/1 Demon.&quot;"""
 	play = Buff( FRIENDLY_MINIONS - SELF, "BT_160e")
 class BT_160e:
@@ -150,7 +150,7 @@ class BT_160t:
 	"""Rusted Devil"""
 class BT_735:#OK
 	"""Al'ar	Minion	Legendary
-	&lt;b&gt;Deathrattle&lt;/b&gt;: Summon a
+	<b>Deathrattle</b>: Summon a
 	0/3 Ashes of Al'ar that resurrects this minion on your next turn."""
 	deathrattle = Summon(CONTROLLER, "BT_735t")
 class BT_735t:
@@ -160,13 +160,13 @@ class BT_735t:
 	pass
 class BT_720:#OK
 	"""Ruststeed Raider	Minion	Common
-	&lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Rush&lt;/b&gt;
-	&lt;b&gt;Battlecry:&lt;/b&gt; Gain +4 Attack this turn."""
+	<b>Taunt</b>, <b>Rush</b>
+	<b>Battlecry:</b> Gain +4 Attack this turn."""
 	play = Buff(SELF, "BT_720e")
 BT_720e = buff(4,0)#with one_turn_effect
 class BT_729:#OK
 	"""Waste Warden	Minion	Epic
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Deal 3 damage to
+	[x]<b>Battlecry:</b> Deal 3 damage to
 	a minion and all others of
 	the same minion type."""
 	requirements = {
@@ -179,17 +179,17 @@ class BT_729:#OK
 		pass
 class BT_726:#OK
 	"""Dragonmaw Sky Stalker	Minion	Common
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 3/4 Dragonrider."""
+	<b>Deathrattle:</b> Summon a 3/4 Dragonrider."""
 	deathrattle = Summon(CONTROLLER, "BT_726t")
 class BT_726t:
 	pass
 class BT_732:#OK
 	"""Scavenging Shivarra	Minion	Common
-	&lt;b&gt;Battlecry:&lt;/b&gt; Deal 6 damage randomly split among all_other minions."""
+	<b>Battlecry:</b> Deal 6 damage randomly split among all_other minions."""
 	play = Hit(RANDOM(ALL_MINIONS - SELF), 1) * 6
 class BT_716:#OK
 	"""Bonechewer Vanguard	Minion	Common
-	[x]&lt;b&gt;Taunt&lt;/b&gt;
+	[x]<b>Taunt</b>
 	Whenever this minion takes
 	damage, gain +2 Attack."""
 	events = Attack(IN_PLAY,SELF).after(Buff(SELF, "BT_716e"))
@@ -209,10 +209,10 @@ class BT_734:#OK
 	tags = {GameTag.CANNOT_ATTACK_HEROES: True}
 class BT_155:#OK
 	"""Scrapyard Colossus	Minion	Rare
-	[x]&lt;b&gt;Taunt&lt;/b&gt;
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 
+	[x]<b>Taunt</b>
+	<b>Deathrattle:</b> Summon a 
 	7/7 Felcracked Colossus
-	with &lt;b&gt;Taunt&lt;/b&gt;."""
+	with <b>Taunt</b>."""
 	deathrattle = Summon(CONTROLLER, "BT_155t")
 class BT_155t:
 	""" Felcracked Colossus """
