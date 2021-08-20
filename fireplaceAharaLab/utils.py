@@ -491,27 +491,45 @@ def getTurnLog(gameLog, turnN):
 			ret.append(gameLog[i])
 	return ret
 
+def ExchangeCard(cards,player):
+	Discard(player.hand[-1]).trigger(player)
+	for _card in cards:
+		if _card=='beast':
+			_card='SCH_133'
+		if _card=='beast2':
+			_card='SCH_714'
+		if _card=='deathrattle':
+			_card='DAL_587'
+		if _card=='dragon':
+			_card='SCH_232'
+		if _card=='elemental':
+			_card='DRG_107'
+		if _card=='nature':
+			_card='SCH_333'
+		if _card=='spell':
+			_card='SCH_353'
+		Give(player,_card).trigger(player)
+
+
+
 
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
-	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
-	#Discard(player1.hand[-1]).trigger(player1)
-	#Give(player1,'SW_054').trigger(player1)#target
-	#Give(player1,'SW_055').trigger(player1)#target
-	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
-	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
-	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
-	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
-	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
+
+	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
+	ExchangeCard(['SW_075','SW_075t'],player1)
+
+
+
 	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
 	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
 	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
 	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
 	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
-	#Give(player1,'SCH_353').trigger(player1)#subtarget-spell
+	#Give(player1,'').trigger(player1)#subtarget-spell
 	#Give(player1,'SCH_524').trigger(player1)#subtarget-spell(holy)
-	#Give(player1,'SCH_333').trigger(player1)#subtarget-spell(nature)
+	#Give(player1,'').trigger(player1)#subtarget-spell(nature)
 	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
 	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon

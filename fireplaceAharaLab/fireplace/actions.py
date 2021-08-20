@@ -294,6 +294,7 @@ class Death(GameAction):
 
 	def do(self, source, target):
 		log.info("Processing Death for %r", target)
+		target.controller.add_death_log(target)
 		self.broadcast(source, EventListener.ON, target)
 		if target.deathrattles:
 			source.game.queue_actions(source, [Deathrattle(target)])
@@ -396,6 +397,7 @@ class GenericChoice(Choice):
 					_card.discard()
 			else:
 				_card.discard()
+
 
 
 class MulliganChoice(GameAction):
@@ -1071,7 +1073,6 @@ class ManaThisTurn(TargetedAction):
 
 	def do(self, source, target, amount):
 		target.temp_mana += min(target.max_resources - target.mana, amount)
-
 
 class Mill(TargetedAction):
 	"""
@@ -2194,6 +2195,21 @@ class CountSummon(TargetedAction):
 				count += 1
 		return count
 
+class CountDeathAction(TargetedAction):
+	TARGET = ActionArg()#self
+	LIST = ActionArg()#Death List
+	AMOUNT = IntArg()
+	ACTION = ActionArg()
+	def do(self, source, target, list, amount, action) :
+		_thisPlayer = target.controller
+		_logList = _thisPlayer.get_death_log
+		_count = 0
+		for _card in _logList:
+			if _card.id in list:
+				_count += 1
+		if _count==amount:
+			action.trigger(source)
+
 class HaveMana(TargetedAction):
 	TARGET = ActionArg()#controller
 	AMOUNT = IntArg()
@@ -2270,6 +2286,14 @@ class BAR_081_Southsea_Scoundrel(Choice):
 				_card.discard()
 		controller = card.controller.opponent##もともと相手のもの->これは自分
 		Give(controller,card.id).trigger(controller)
+		pass
+
+
+class SW_059Action(GenericChoice):
+
+	def choose(self, card):
+		super().choose(card)
+		Buff(card,'SW_059e').trigger(card.controller)
 		pass
 
 class BAR_079_Kazakus_Golem_Shaper(Choice):

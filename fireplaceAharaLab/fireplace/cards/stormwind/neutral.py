@@ -1,12 +1,12 @@
 from ..utils import *
 
-class SW_006:
+class SW_006:#OK
     """ Stubborn Suspect
     <b>Deathrattle:</b> Summon a random 3-Cost minion. """
     deathrattle = Summon(CONTROLLER, RANDOM(MINION+(COST==3)))
     pass
 
-class SW_036:
+class SW_036:#OK
     """ Two-Faced Investor
     [x]At the end of your turn,
 reduce the Cost of a card
@@ -15,70 +15,72 @@ chance to increase.)</i> """
     events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_HAND),random.choice(['SW_036e','SW_036e2'])))
     pass
 
-SW_036e=buff(cost=1)
-SW_036e2=buff(cost=-1)
+SW_036e=buff(cost=-1)
+SW_036e2=buff(cost=1)
 
-class SW_045:
+class SW_045:#OK
     """ Auctioneer Jaxon
     [x]Whenever you <b>Trade</b>,<b>Discover</b> a card from your_deck to draw instead. """
     pass
 
-class SW_054:
+class SW_054:#OK
     """ Stormwind Guard
     <b>Taunt</b><b>Battlecry:</b> Give adjacent minions +1/+1. """
-    play = Buff(FRIENDLY_MINIONS+ADJACENT,'SW_054e')
+    update = BuffOnce(SELF_ADJACENT,'SW_054e')
+    #play = Buff(SELF_ADJACENT,'SW_054e')
     pass
 SW_054e=buff(atk=1,health=1)
 
-class SW_055:
+class SW_055:#OK
     """ Impatient Shopkeep
     <b>Tradeable</b><b>Rush</b> """
     #
     pass
 
-class SW_056:
+class SW_056:#OK
     """ Spice Bread Baker
     <b>Battlecry:</b> Restore Health to your hero equal to your hand size. """
-    play = Heal(CONTROLLER, FRIENDLY_HERO, len(FRIENDLY_HAND))
+    play = Heal(FRIENDLY_HERO, Count(FRIENDLY_HAND))
     pass
 
-class SW_057:
+class SW_057:#OK
     """ Package Runner
     Can only attack if you have at least 8 cards in hand. """
-    update = (len(FRIENDLY_HAND)<8) & Refresh(SELF, {GameTag.CANT_ATTACK:True}) | Refresh(SELF,{GameTag.CANT_ATTACK:False}) 
+    update = (Count(FRIENDLY_HAND)<8) & Refresh(SELF, {GameTag.CANT_ATTACK:True}) | Refresh(SELF,{GameTag.CANT_ATTACK:False}) 
     pass
 
 class SW_059:
     """ Deeprun Engineer
     <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
-    play = Discover(CONTROLLER, RandomMech()) # cost 1 less
+    play = SW_059Action(CONTROLLER, RandomMech()) # cost 1 less
     pass
+SW_059e=buff(cost=-1)
 
-class SW_060:
+class SW_060:#OK
     """ Florist
     [x]At then end of your turn,
 reduce the cost of a Nature
 spell in your hand by (1). """
-    events = OWN_TURN_END.on(Buff(FRIENDLY_HANDS+NATURE,'SW_060t'))
+    events = OWN_TURN_END.on(Buff(FRIENDLY_HAND+NATURE,'SW_060t'))
     pass
 SW_060t=buff(cost=-1)
 
-class SW_061:
+class SW_061:#OK
     """ Guild Trader
     <b>Tradeable</b><b>Spell Damage +2</b> """
     #
     pass
 
-class SW_062:
+class SW_062:#OK
     """ Goldshire Gnoll
     [x]<b>Rush</b>Costs (1) less for each__other card in your hand. """
-    play = Buff(FRIENDLY_HANDS - SELF, {GameTag.COST:-1})
+    update = Refresh(FRIENDLY_HAND - SELF, {GameTag.COST:-1})
     pass
 
 class SW_063:
     """ Battleground Battlemaster
     Adjacent minions have <b>Windfury</b>. """
-    update = Refresh(FRIENDLY_MINION+ADJACENT,'SW_063e')
+    update = Refresh(FRIENDLY_MINIONS+ADJACENT,'SW_063e')
     pass
 SW_63e=buff({GameTag.WINDFURY:True})
 
@@ -86,7 +88,7 @@ class SW_064:
     """ Northshire Farmer
     <b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
     requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
-    play= Shaffle(CONTROLLER, Buff(Copy(TARGET),'SW_64e'))*3
+    play= Shuffle(CONTROLLER, Buff(Copy(TARGET),'SW_64e'))*3
     pass
 SW_064e=buff(atk=3,health=3)
 class SW_065:
@@ -154,7 +156,7 @@ class SW_073:
 class SW_074:
     """ Nobleman
     <b>Battlecry:</b> Create a Golden copy of a random card in your hand. """
-    play = Give(CONTROLLER,RANDOM(FRIENDLY_HANDS))#gold?
+    play = Give(CONTROLLER,RANDOM(FRIENDLY_HAND))#gold?
     pass
 
 class SW_075:
@@ -163,13 +165,12 @@ class SW_075:
 Elwynn Boars die this game,
 equip a 15/3 Sword of a
 ___Thousand Truths.@ <i>(@/7)</i> """
-    #deathrattle = CountDeath(CONTROLLER,'SW_075',7).on(Summon(CONTROLLER,'SW_075t'))
+    # if we use LazyNum, we are able to make in much more general way.
+    deathrattle = CountDeathAction(CONTROLLER,['SW_075'], 7, Summon(CONTROLLER,'SW_075t'))
     pass
-class SW_075t: ##??????????????????????
-    """ [x]After your hero attacks,
-destroy your opponent's
-Mana Crystals."""
-    #
+class SW_075t: ##
+    """ [x]After your hero attacks,destroy your opponent's Mana Crystals."""
+    events = Attack(FRIENDLY_HERO).on(GainMana(OPPONENT,-10))
     pass
 
 class SW_076:

@@ -71,6 +71,7 @@ class Player(Entity, TargetableByAuras):
 		self.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
 		self.spells_played_this_turn=[] ##### aharalab ####DAL_558### 28.12.2020 ####
 		self.cthun = None
+		self.__myDeathLog__=[]
 
 	def __str__(self):
 		return self.name
@@ -294,3 +295,9 @@ class Player(Entity, TargetableByAuras):
 			card = self.card(card, zone=Zone.PLAY)
 		self.game.cheat_action(self, [Summon(self, card)])
 		return card
+
+	def add_death_log(self, card):
+		self.__myDeathLog__.append(card)
+	@property
+	def get_death_log(self):
+		return self.__myDeathLog__
