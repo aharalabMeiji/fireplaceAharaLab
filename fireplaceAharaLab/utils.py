@@ -286,11 +286,10 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
 	for character in player.characters:
-		if character.trade_able:
-			if character.trade_cost>0:
-				myCandidate.append(Candidate(player, type=ActionType.TRADE, target=None, turn=mygame.turn))
-			else:# trade_cost=0 特殊な方法でtradeを行う。とりあえず未実装
-				pass
+		_yes, _option = character.can_trade()
+		if _yes:
+			myCandidate.append(Candidate(player, type=ActionType.TRADE, target=None, turn=mygame.turn))
+			pass
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
@@ -343,6 +342,9 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 								theTarget=target
 					else:
 						pass
+			_yes,_option = card.can_trade()
+			if _yes:
+				theCard = card
 		for character in player.characters:
 			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
 				theCard = character
@@ -387,10 +389,11 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==ActionType.TRADE:
-		if not theCard.trade_able():
+		_yes, _option = theCard.can_trade()
+		if not _yes:
 			return ExceptionPlay.INVALID
 		try:
-			theCard.trade()#まずはoptionなし
+			theCard.trade(_option)#
 			return ExceptionPlay.VALID
 		except GameOver:#まあこれはないと思うけど。
 			return ExceptionPlay.GAMEOVER
@@ -493,10 +496,9 @@ def PresetHands(player1, player2):
 	## add a specific card int the top of the deck
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'SW_045').trigger(player1)#target
-	Give(player1,'SW_054').trigger(player1)#target
-	Give(player1,'SW_055').trigger(player1)#target
+	#Discard(player1.hand[-1]).trigger(player1)
+	#Give(player1,'SW_054').trigger(player1)#target
+	#Give(player1,'SW_055').trigger(player1)#target
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
@@ -519,7 +521,7 @@ def PresetHands(player1, player2):
 	#Give(player2,'ULD_152').trigger(player2)#subtarget-secret
 	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
 	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	Give(player2,'BAR_075').trigger(player2)#enemy
+	#Give(player2,'BAR_075').trigger(player2)#enemy
 
 	#force play by player2
 	#PresetPlay(player2, 'DAL_090')# play

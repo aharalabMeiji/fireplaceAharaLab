@@ -98,15 +98,16 @@ class CardDB(dict):
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
 		exclude = [
-			# bug cards
+			# bug or no implementation cards
 			'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
 			'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
 			'YOD_009',## this is a hero in galakrond
 			'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
 			'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
 			'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
-			# no implementation
+			# 
 			#'BT_730',
+			'BAR_079',## neutral-barrens, too huge
 			]
 		nameList=[]
 		#print("idList=[")

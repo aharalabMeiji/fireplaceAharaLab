@@ -159,7 +159,6 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_tmp_list2_ = []# aharalab  SCH_717, DRG_086
 	_tmp_int1_ = 0# aharalab  SCH_717, DRG_086
 	trade_cost = int_property("trade_cost")
-	#tradeable = int_property("tradeable")
 
 
 	def __init__(self, data):
@@ -235,13 +234,6 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			return self.controller.hand.index(self) + 1
 		return 0
 	
-	@property
-	def trade_able(self):
-		if self.data.tags.get(GameTag.TRADEABLE)!=None or self.data.referenced_tags.get(GameTag.TRADEABLE)!=None:
-			return True
-		else :
-			return False
-
 	def _set_zone(self, zone):
 		old_zone = self.zone
 		super()._set_zone(zone)
@@ -427,21 +419,35 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def targets(self):
 		return self.play_targets
 
-	def trade_able(self,option=None):
-		if not self.trade_able:
-			return False
-		#if option==None:
-		if self.trade_cost > self.controller.mana:
-			return False
-		else :
-			return True 
+	def can_trade(self,option=0):
+		if not self.trade_cost > 0:
+			return (False,0)
+		for _card in (self.controller.hand + self.controller.field):
+			if _card.id=='SW_045':
+				option=1#Discover type trading
+		if option==0:
+			if self.trade_cost > self.controller.mana:
+				log.info("controller of %r doesn't have enough manas." % (self))
+				return (False, option)
+			if len(self.controller.deck)==0:
+				log.info("No card in the deck and %r cannot be trade." % (self))
+				return (False, option)
+			else :
+				return (True, option)
+		else:# option==1
+			if self.trade_cost > self.controller.mana:
+				log.info("controller of %r doesn't have enough manas." % (self))
+				return (False, option)
+			if len(self.controller.deck)<3:
+				log.info("No enough cards in the deck to trade %r." % (self))
+				return (False, option)
+			else :
+				return (True, option)
 
-	def trade(self,option=None):
-		player = self.controller
-		if len(player.deck)==0:
-			raise InvalidAction("No card in the deck and %r cannot be trade." % (self, choose))
+
+	def trade(self,option=0):
 		self.game.trade_card(self, option)
-
+		pass
 
 
 class LiveEntity(PlayableCard, Entity):

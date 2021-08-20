@@ -282,11 +282,9 @@ class HumanAgent(Agent):
 								myCandidate.append(Candidate(card, type=ActionType.PLAY, target=target, turn=game.turn))
 						else:
 							myCandidate.append(Candidate(card, type=ActionType.PLAY, target=None, turn=game.turn))
-				if card.trade_able:
-					if card.trade_cost<=player.mana:
-						myCandidate.append(Candidate(card, type=ActionType.TRADE, target=None, turn=game.turn))
-					else:# trade_cost=0 特殊な方法でtradeを行う。とりあえず未実装
-						pass
+				_yes,_option = card.can_trade()
+				if _yes:
+					myCandidate.append(Candidate(card, type=ActionType.TRADE, target=None, turn=game.turn))
 			print("========OPPONENT'S PLAYGROUND======")
 			for character in player.opponent.characters:
 				print("%s"%character, end='   : ')
@@ -423,6 +421,7 @@ class HumanAgent(Agent):
 			elif card.data.type == CardType.WEAPON:
 				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			myCount+=1
+		print("Choose exchange cards (e.g. '1 3 4') ->")
 		str = input()#やり直しはなし
 		inputNums = str.split()#空白文字でスプリット
 		cards_to_mulligan = []
