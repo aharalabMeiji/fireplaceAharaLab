@@ -159,7 +159,7 @@ class SW_074:
     play = Give(CONTROLLER,RANDOM(FRIENDLY_HAND))#gold?
     pass
 
-class SW_075:
+class SW_075:#OK
     """ Elwynn Boar
     [x]<b>Deathrattle:</b> If you had 7
 Elwynn Boars die this game,
@@ -168,7 +168,7 @@ ___Thousand Truths.@ <i>(@/7)</i> """
     # if we use LazyNum, we are able to make in much more general way.
     deathrattle = CountDeathAction(CONTROLLER,['SW_075'], 7, Summon(CONTROLLER,'SW_075t'))
     pass
-class SW_075t: ##
+class SW_075t: #OK
     """ [x]After your hero attacks,destroy your opponent's Mana Crystals."""
     events = Attack(FRIENDLY_HERO).on(GainMana(OPPONENT,-10))
     pass
