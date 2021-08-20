@@ -54,15 +54,14 @@ class SW_059:
     play = Discover(CONTROLLER, RandomMech()) # cost 1 less
     pass
 
-class SW_060:#??????????????
+class SW_060:
     """ Florist
     [x]At then end of your turn,
 reduce the cost of a Nature
 spell in your hand by (1). """
-    #events = OWN_TURN_END.on()
+    events = OWN_TURN_END.on(Buff(FRIENDLY_HANDS+NATURE,'SW_060t'))
     pass
-class SW_060t:
-    pass
+SW_060t=buff(cost=-1)
 
 class SW_061:
     """ Guild Trader
@@ -73,68 +72,64 @@ class SW_061:
 class SW_062:
     """ Goldshire Gnoll
     [x]<b>Rush</b>Costs (1) less for each__other card in your hand. """
-    update = Refresh(FRIENDLY_HANDS - SELF, {GameTag.COST:-1})
+    play = Buff(FRIENDLY_HANDS - SELF, {GameTag.COST:-1})
     pass
 
 class SW_063:
     """ Battleground Battlemaster
-    Adjacent minions
-have <b>Windfury</b>. """
-    #
+    Adjacent minions have <b>Windfury</b>. """
+    update = Refresh(FRIENDLY_MINION+ADJACENT,'SW_063e')
     pass
+SW_63e=buff({GameTag.WINDFURY:True})
 
 class SW_064:
     """ Northshire Farmer
     <b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
-    #
+    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
+    play= Shaffle(CONTROLLER, Buff(Copy(TARGET),'SW_64e'))*3
     pass
-
+SW_064e=buff(atk=3,health=3)
 class SW_065:
     """ Pandaren Importer
-    [x]<b>Battlecry:</b> <b>Discover</b> a
-spell that didn't start
-in your deck. """
-    #
+    [x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
+    play=GenericChoice(CONTROLLER,RANDOM(SPELL-FRIENDLY_DECK)*3)
     pass
 
 class SW_066:
     """ Royal Librarian
-    [x]<b>Tradeable</b>
-<b>Battlecry:</b> <b>Silence</b>
-a minion. """
-    #
+    [x]<b>Tradeable</b><b>Battlecry:</b> <b>Silence</b>a minion. """
+    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+    play = Buff(TARGET,{GameTag.SILENCE:True})
     pass
 
 class SW_067:
     """ Stockades Guard
-    [x]<b>Battlecry:</b> Give a
-friendly minion <b>Taunt</b>. """
-    #
+    [x]<b>Battlecry:</b> Give a friendly minion <b>Taunt</b>. """
+    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+    play = Buff(TARGET,{GameTag.TAUNT:True})
     pass
 
 class SW_068:
     """ Mo'arg Forgefiend
-    <b>Taunt</b>
-<b>Deathrattle:</b> Gain 8 Armor. """
-    #
+    <b>Taunt</b><b>Deathrattle:</b> Gain 8 Armor. """
+    deathrattle = GainArmor(CONTROLLER,8)
     pass
 
 class SW_069:
     """ Enthusiastic Banker
-    [x]At the end of your turn,
-store a card from your deck.
-<b>Deathrattle:</b> Add the stored
-cards to your hand. """
-    #
+    [x]At the end of your turn, store a card from your deck. <b>Deathrattle:</b> Add the stored cards to your hand. """
+    events = OWN_TURN_END.on(Morph('SW_069e', ID(RANDOM(FRIENDLY_DECK))))
+    deathrattle = Give(CONTROLLER,'SW_069e')
     pass
 
+class SW_069e:
+    """ Safety Deposit """
+    pass
 class SW_070:
     """ Mailbox Dancer
-    [x]<b>Battlecry:</b> Add a Coin
-to your hand.
-<b>Deathrattle:</b> Give your
-opponent one. """
-    #
+    [x]<b>Battlecry:</b> Add a Coin to your hand. <b>Deathrattle:</b> Give your opponent one. """
+    play = Give(CONTROLLER, 'GAME_005e')
+    deathrattle = Give(OPPONENT, 'GAME_005e')
     pass
 
 class SW_071:
