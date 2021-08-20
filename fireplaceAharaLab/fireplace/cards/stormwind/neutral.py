@@ -21,7 +21,6 @@ SW_036e2=buff(cost=-1)
 class SW_045:
     """ Auctioneer Jaxon
     [x]Whenever you <b>Trade</b>,<b>Discover</b> a card from your_deck to draw instead. """
-    #trade_option=1#GameTag.DISCOVER=415
     pass
 
 class SW_054:
@@ -40,42 +39,41 @@ class SW_055:
 class SW_056:
     """ Spice Bread Baker
     <b>Battlecry:</b> Restore Health to your hero equal to your hand size. """
-    #
+    play = Heal(CONTROLLER, FRIENDLY_HERO, len(FRIENDLY_HAND))
     pass
 
 class SW_057:
     """ Package Runner
     Can only attack if you have at least 8 cards in hand. """
-    #
+    update = (len(FRIENDLY_HAND)<8) & Refresh(SELF, {GameTag.CANT_ATTACK:True}) | Refresh(SELF,{GameTag.CANT_ATTACK:False}) 
     pass
 
 class SW_059:
     """ Deeprun Engineer
     <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
-    #
+    play = Discover(CONTROLLER, RandomMech()) # cost 1 less
     pass
 
-class SW_060:
+class SW_060:#??????????????
     """ Florist
     [x]At then end of your turn,
 reduce the cost of a Nature
 spell in your hand by (1). """
-    #
+    #events = OWN_TURN_END.on()
+    pass
+class SW_060t:
     pass
 
 class SW_061:
     """ Guild Trader
-    <b>Tradeable</b>
-<b>Spell Damage +2</b> """
+    <b>Tradeable</b><b>Spell Damage +2</b> """
     #
     pass
 
 class SW_062:
     """ Goldshire Gnoll
-    [x]<b>Rush</b>
-Costs (1) less for each
-__other card in your hand. """
-    #
+    [x]<b>Rush</b>Costs (1) less for each__other card in your hand. """
+    update = Refresh(FRIENDLY_HANDS - SELF, {GameTag.COST:-1})
     pass
 
 class SW_063:
