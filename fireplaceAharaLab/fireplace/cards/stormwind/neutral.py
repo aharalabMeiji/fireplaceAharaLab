@@ -121,10 +121,10 @@ class SW_069:
     events = OWN_TURN_END.on(Morph('SW_069e', ID(RANDOM(FRIENDLY_DECK))))
     deathrattle = Give(CONTROLLER,'SW_069e')
     pass
-
 class SW_069e:
     """ Safety Deposit """
     pass
+
 class SW_070:
     """ Mailbox Dancer
     [x]<b>Battlecry:</b> Add a Coin to your hand. <b>Deathrattle:</b> Give your opponent one. """
@@ -134,33 +134,27 @@ class SW_070:
 
 class SW_071:
     """ Lion's Guard
-    [x]<b>Battlecry:</b> If you have 15
-or less Health, gain
-+2/+4 and <b>Taunt</b>. """
-    #
+    [x]<b>Battlecry:</b> If you have 15 or less Health, gain +2/+4 and <b>Taunt</b>. """
+    #play = (HEALTH(FRIENDLY_HERO)<=15).on(Buff())
     pass
+SW_071e=buff(atk=2,health=4,taunt=True)
 
 class SW_072:
     """ Rustrot Viper
-    [x]<b>Tradeable</b>
-<b>Battlecry:</b> Destroy your
-opponent's weapon. """
-    #
+    [x]<b>Tradeable</b><b>Battlecry:</b> Destroy your opponent's weapon. """
+    play = Destroy(ENEMY_WEAPON)
     pass
 
 class SW_073:
     """ Cheesemonger
-    [x]Whenever your opponent
-casts a spell, add a random
-spell with the same Cost
-to your hand. """
-    #
+    [x]Whenever your opponent casts a spell, add a random spell with the same Cost to your hand. """
+    events = Play(OPPONENT, SPELL).on(Give(CONTROLLER, RandomSpell(cost=Attr(Play.CARD,GameTag.COST))))
     pass
 
 class SW_074:
     """ Nobleman
     <b>Battlecry:</b> Create a Golden copy of a random card in your hand. """
-    #
+    play = Give(CONTROLLER,RANDOM(FRIENDLY_HANDS))#gold?
     pass
 
 class SW_075:
@@ -169,6 +163,12 @@ class SW_075:
 Elwynn Boars die this game,
 equip a 15/3 Sword of a
 ___Thousand Truths.@ <i>(@/7)</i> """
+    #deathrattle = CountDeath(CONTROLLER,'SW_075',7).on(Summon(CONTROLLER,'SW_075t'))
+    pass
+class SW_075t: ##??????????????????????
+    """ [x]After your hero attacks,
+destroy your opponent's
+Mana Crystals."""
     #
     pass
 
