@@ -6,6 +6,7 @@ from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAc
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
+from fireplace.utils import ActionType
 from enum import IntEnum
 
 
@@ -265,6 +266,7 @@ class HumanAgent(Agent):
 					print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				elif card.data.type == CardType.WEAPON:
 					print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+					##
 				if card.is_playable():
 					if card.must_choose_one:
 						for card2 in card.choose_cards:
@@ -280,6 +282,9 @@ class HumanAgent(Agent):
 								myCandidate.append(Candidate(card, type=ActionType.PLAY, target=target, turn=game.turn))
 						else:
 							myCandidate.append(Candidate(card, type=ActionType.PLAY, target=None, turn=game.turn))
+				_yes,_option = card.can_trade()
+				if _yes:
+					myCandidate.append(Candidate(card, type=ActionType.TRADE, target=None, turn=game.turn))
 			print("========OPPONENT'S PLAYGROUND======")
 			for character in player.opponent.characters:
 				print("%s"%character, end='   : ')
@@ -378,6 +383,8 @@ class HumanAgent(Agent):
 					print('<%2d> %s'%(myCard.cost, myCard.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')), end=' ')
 				if myChoice.type == ActionType.PLAY:
 					print(' play', end=' ')
+				if myChoice.type == ActionType.TRADE:
+					print(' trade', end=' ')
 				if myChoice.type == ActionType.ATTACK:
 					print(' attack', end=' ')
 				if myChoice.type == ActionType.POWER:
@@ -414,6 +421,7 @@ class HumanAgent(Agent):
 			elif card.data.type == CardType.WEAPON:
 				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			myCount+=1
+		print("Choose exchange cards (e.g. '1 3 4') ->")
 		str = input()#やり直しはなし
 		inputNums = str.split()#空白文字でスプリット
 		cards_to_mulligan = []
@@ -433,25 +441,3 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
-
-
-
-
-
-
-class ActionType(IntEnum):
-	ATTACK=1
-	PLAY=7
-	POWER=3
-	PASS=4
-
-
-	def __str__(self):
-		if self==1:
-			return "ATTACK"
-		if self==7:
-			return "PLAY"
-		if self==3:
-			return "PASS"
-		else:
-			return ""

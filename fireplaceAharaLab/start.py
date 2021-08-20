@@ -15,6 +15,7 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
+
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
@@ -57,7 +58,8 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	play_set_of_games(Human, Vector, deck1=[], deck2=[], gameNumber=1, debugLog=True)
+	#play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	#play_set_of_games(Human2, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10)
 
 	#デッキを固定しての総当たり戦
@@ -114,7 +116,8 @@ def printClasses():
 'SW_307',
 'SW_319',
 'SW_400',
-'SW_418',		]
+'SW_418',
+]
 	print('')
 	print('from ..utils import *')
 	print('')

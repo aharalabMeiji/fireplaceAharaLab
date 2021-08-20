@@ -5,13 +5,15 @@ from itertools import chain
 
 from hearthstone.enums import BlockType, CardType, PlayState, State, Step, Zone
 
-from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, Play,Destroy, Give
+from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
+	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
 from .managers import GameManager
-from .utils import CardList
-from .config import Config #by AharaLab
+from .utils import CardList,ActionType
+from .config import Config 
+from .dsl.random_picker import *
 
 
 class BaseGame(Entity):
@@ -135,6 +137,15 @@ class BaseGame(Entity):
 		player = card.controller
 		actions = [Play(card, target, index, choose)]
 		return self.action_block(player, actions, type, index, target)
+
+	def trade_card(self,card, option):
+		type = ActionType.TRADE
+		trader = card.controller
+		if option == 0:
+			actions = [PayCost(trader, card, 1), Draw(trader), Shuffle(trader,card)]
+		else: #option=1
+			actions = [PayCost(trader, card, 1), Discover(trader,RandomCard()), Shuffle(trader,card)]
+		return self.action_block(trader, actions, type, None, None)
 
 	def process_deaths(self):
 		type = BlockType.DEATHS

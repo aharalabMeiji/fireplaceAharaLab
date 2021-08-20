@@ -2,7 +2,7 @@ import random
 from itertools import chain
 
 from hearthstone.enums import CardType, MultiClassGroup, PlayReq, PlayState, \
-	Race, Rarity, Step, Zone
+	Race, Rarity, Step, Zone, GameTag
 
 from . import actions, cards, enums, rules
 from .aura import TargetableByAuras
@@ -158,6 +158,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_tmp_list1_ = []# aharalab  SCH_717, DRG_086
 	_tmp_list2_ = []# aharalab  SCH_717, DRG_086
 	_tmp_int1_ = 0# aharalab  SCH_717, DRG_086
+	trade_cost = int_property("trade_cost")
+
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -231,7 +233,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		if self.zone == Zone.HAND:
 			return self.controller.hand.index(self) + 1
 		return 0
-
+	
 	def _set_zone(self, zone):
 		old_zone = self.zone
 		super()._set_zone(zone)
@@ -417,6 +419,36 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def targets(self):
 		return self.play_targets
 
+	def can_trade(self,option=0):
+		if not self.trade_cost > 0:
+			return (False,0)
+		for _card in (self.controller.hand + self.controller.field):
+			if _card.id=='SW_045':
+				option=1#Discover type trading
+		if option==0:
+			if self.trade_cost > self.controller.mana:
+				log.info("controller of %r doesn't have enough manas." % (self))
+				return (False, option)
+			if len(self.controller.deck)==0:
+				log.info("No card in the deck and %r cannot be trade." % (self))
+				return (False, option)
+			else :
+				return (True, option)
+		else:# option==1
+			if self.trade_cost > self.controller.mana:
+				log.info("controller of %r doesn't have enough manas." % (self))
+				return (False, option)
+			if len(self.controller.deck)<3:
+				log.info("No enough cards in the deck to trade %r." % (self))
+				return (False, option)
+			else :
+				return (True, option)
+
+
+	def trade(self,option=0):
+		self.game.trade_card(self, option)
+		pass
+
 
 class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")
@@ -505,7 +537,7 @@ class Character(LiveEntity):
 	taunt = boolean_property("taunt")
 	poisonous = boolean_property("poisonous")
 	ignore_taunt = boolean_property("ignore_taunt")
-
+	
 	def __init__(self, data):
 		self.frozen = False
 		self.attack_target = None

@@ -200,7 +200,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
 	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
 	GameTag.INSPIRE: "has_inspire",
-	GameTag.MARK_OF_EVIL: "mark_of_evil",############### added by aharalab, 22.12.2020
+	GameTag.MARK_OF_EVIL: "mark_of_evil",# aharalab, 22.12.2020
 	GameTag.MULTI_CLASS_GROUP: "multi_class_group",
 	GameTag.NUM_ATTACKS_THIS_TURN: "num_attacks",
 	GameTag.NUM_TURNS_IN_PLAY: "turns_in_play",
@@ -210,21 +210,23 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.POISONOUS: "poisonous",
 	GameTag.POWERED_UP: "powered_up",
 	GameTag.RARITY: "rarity",
-	GameTag.REBORN: "reborn", ########################### added by aharalab, 19.12.2020
+	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
 	GameTag.RUSH: "rush",
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
-	GameTag.SIDEQUEST: "sidequest",############################  added by aharalab, 21.12.2020
+	GameTag.SIDEQUEST: "sidequest",# aharalab, 21.12.2020
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
-	GameTag.SPELL_SCHOOL: "spell_school", ### add by aharalab 16.8.2021
+	GameTag.SPELL_SCHOOL: "spell_school", # aharalab 16.8.2021
 	GameTag.SPELLS_COST_HEALTH: "spells_cost_health",
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",
 	GameTag.TAUNT: "taunt",
+	GameTag.TRADEABLE: "tradeable",
+	GameTag.TRADE_COST: "trade_cost",
 	GameTag.WINDFURY: "windfury",
 	GameTag.ZONE: "zone",
 	GameTag.ZONE_POSITION: "zone_position",

@@ -548,7 +548,13 @@ class Overload(GameAction):
 		self.broadcast(source, EventListener.ON, player, amount)
 		player.overloaded += amount
 
-
+class PayCost(GameAction):
+	PLAYER = ActionArg()# controller of the targeted card
+	TARGET = ActionArg()# the targeted card
+	AMOUNT = IntArg()
+	def do(self, sourse, player, target, amount):
+		player.pay_cost(target, amount)
+		pass
 class TargetedAction(Action):
 	TARGET = ActionArg()
 

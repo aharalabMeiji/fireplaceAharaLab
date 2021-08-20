@@ -5,6 +5,7 @@ from importlib import import_module
 from pkgutil import iter_modules
 from typing import List
 from xml.etree import ElementTree
+from enum import IntEnum
 
 from hearthstone.enums import CardClass, CardType
 
@@ -238,3 +239,24 @@ def play_full_game():
 		play_turn(game)
 
 	return game
+
+
+class ActionType(IntEnum):
+	ATTACK=1
+	PLAY=7
+	POWER=3
+	PASS=4
+	TRADE=14
+
+
+	def __str__(self):
+		if self==1:
+			return "ATTACK"
+		if self==7:
+			return "PLAY"
+		if self==3:
+			return "PASS"
+		if self==14:
+			return "TRADE"
+		else:
+			return ""
