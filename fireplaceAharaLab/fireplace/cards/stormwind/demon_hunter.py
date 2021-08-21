@@ -1,93 +1,103 @@
 from ..utils import *
 
 class SW_037:
-    """ 怒縛の暴れん坊
-    [x]<b>挑発</b>
-このターンに引いた
-カード1枚につき
-____コストが（1）減る。_ """
+    """ Irebound Brute
+    [Taunt]Costs (1) less for eachcard drawn this turn. """
+    #
+    pass
+
+class SW_037e:
+    """ Prepped to Strike
+    Costs (1) less. """
     #
     pass
 
 class SW_039:
-    """ 最後の決闘
-    [x]<b>連続クエスト:</b>
-1ターン中に
-カードを4枚引く。
-<b>報酬:</b>_引いた4枚のカード
-のコストが（1）減る。 """
+    """ Final Showdown
+    [Questline:] Draw 4 cards in one turn. [Reward:] Reduce the Cost of the cards drawn by (1). """
+    #
+    pass
+
+class SW_039t:
+    """ Gain Momentum
+    [Questline:] Draw 5 cards in one turn. [Reward:] Reduce the Cost of the cards drawn by (1). """
+    #
+    pass
+
+class SW_039t2e:
+    """ Faster Moves
+    Costs (2) less. """
+    #
+    pass
+
+class SW_039t3:
+    """ Close the Portal
+    [Questline:] Draw 5 cards in one turn.[Reward:] Demonslayer Kurtrus. """
+    #
+    pass
+
+class SW_039t3_t:
+    """ Demonslayer Kurtrus
+    [Battlecry:] For the rest of the game, cards you draw cost (2) less. """
     #
     pass
 
 class SW_040:
-    """ フェル連射
-    [x]2回、最も体力が
-低い敵1体に
-$2ダメージを与える。 """
+    """ Fel Barrage
+    Deal $2 damage tothe lowest Healthenemy, twice. """
     #
     pass
 
 class SW_041:
-    """ 敏速の秘印
-    [x]次の自分のターンの
-開始時、カードを
-1枚引きそのコストを
-（1）減らす。 """
+    """ Sigil of Alacrity
+    At the start of your nextturn, draw a card and_reduce its Cost by (1). """
+    #
+    pass
+
+class SW_041e2:
+    """ Light as a Feather
+    Costs (1) less. """
     #
     pass
 
 class SW_042:
-    """ しつこい商売人
-    [x]<b>交換可</b>、<b>断末魔:</b>
-自分のデッキから
-「しつこい商売人」
-__を1体召喚する。 """
+    """ Persistent Peddler
+    [Tradeable][Deathrattle:] Summon a Persistent Peddler from your deck. """
     #
     pass
 
 class SW_043:
-    """ フェル喰らい
-    [x]<b>雄叫び:</b>
-フェル呪文を1枚引く。
-そのコストを
-（2）減らす。 """
+    """ Felgorger
+    [Battlecry:] Draw a Fel spell. Reduce its Cost by (2). """
     #
     pass
 
 class SW_044:
-    """ ジェイス・ダークウィーヴァー
-    [x]<b>雄叫び:</b>
-この対戦で自分が使用した
-フェル呪文を全て
-使用する<i>（可能な限り
-敵を標的にする）</i>。 """
+    """ Jace Darkweaver
+    [Battlecry:] Cast all Fel spells you've played this game <i>(targets enemies if possible)</i>. """
     #
     pass
 
 class SW_451:
-    """ 悪魔変フィン
-    [x]<b>挑発</b>、<b>雄叫び:</b>
-このターンに自分が
-フェル呪文を使っていた場合
-+2/+2を獲得する。 """
+    """ Metamorfin
+    [Taunt][Battlecry:] If you've cast a Fel spell this turn, gain +2/+2. """
+    #
+    pass
+
+class SW_451e:
+    """ Mighty Morphing
+    +2/+2. """
     #
     pass
 
 class SW_452:
-    """ 混沌吸血
-    [x]<b>生命奪取</b>
-ミニオン1体に
-$3ダメージを与える。
-<b>異端:</b>_代わりに
-$5ダメージを与える。 """
+    """ Chaos Leech
+    [Lifesteal]. Deal $3 damage to a minion.[Outcast:] Deal $5 instead. """
     #
     pass
 
 class SW_454:
-    """ 獅子奮刃
-    [x]自分がこのターンに
-引いたカードの
-枚数に等しい
-__攻撃力を得る。 """
+    """ Lion's Frenzy
+    Has Attack equal to the number of cards you've drawn this turn. """
     #
     pass

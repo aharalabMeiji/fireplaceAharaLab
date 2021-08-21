@@ -1,92 +1,91 @@
 from ..utils import *
 
 class SW_046:
-    """ 市税
-    [x]<b>交換可</b>、<b>生命奪取</b>
-敵のミニオン全てに
-$1ダメージを与える。 """
+    """ City Tax
+    [Tradeable][Lifesteal]. Deal $1 damageto all enemy minions. """
     #
     pass
 
 class SW_047:
-    """ 騎士団長フォードラゴン
-    [x]<b>聖なる盾</b>
-味方のミニオンが
-<b>聖なる盾</b>を失った後
-自分の手札のミニオン
-____1体に+5/+5を付与する。_ """
+    """ Highlord Fordragon
+    [Divine Shield]After a friendly minion loses[Divine Shield], give a minion__in your hand +5/+5. """
     #
     pass
 
 class SW_048:
-    """ プリズム宝石細工キット
-    [x]味方のミニオンが
-<b>聖なる盾</b>を失った後
-自分の手札のミニオン全てに
-+1/+1を付与する。
-耐久度を1失う。 """
+    """ Prismatic Jewel Kit
+    After a friendly minion loses[Divine Shield], give minionsin your hand  +1/+1.Lose 1 Durability. """
     #
     pass
 
 class SW_049:
-    """ 祝福グッズ
-    [x]<b>秘策</b>、武器、または
-<b>聖なる盾</b>ミニオンを
-1つ<b>発見</b>する。 """
+    """ Blessed Goods
+    [Discover] a [Secret], weapon, or [Divine Shield] minion. """
     #
     pass
 
 class SW_305:
-    """ リン王室筆頭剣士
-    [x]<b>聖なる盾</b>、<b>雄叫び:</b>
-これの攻撃力が
-4以上の場合
-___<b>急襲</b>を獲得する。 """
+    """ First Blade of Wrynn
+    [Divine Shield][Battlecry:] Gain [Rush] if thishas at least 4 Attack. """
     #
     pass
 
 class SW_313:
-    """ いざストームウィンド
-    [x]<b>連続クエスト:</b>
-コスト1のカードを3種類
-手札から使用する。
-<b>報酬:</b>_1/4の
-「ライツ・ジャスティス」
-を装備 """
+    """ Rise to the Occasion
+    [Questline:] Play 3 different 1-Cost cards.[Reward:] Equip a 1/4 Light's Justice. """
+    #
+    pass
+
+class SW_313t:
+    """ Pave the Way
+    [Questline: ] Play 3 different 1-Cost cards.[Reward:] Upgrade your Hero Power. """
+    #
+    pass
+
+class SW_313t2:
+    """ Avenge the Fallen
+    [Questline:] Play 3 different 1-Cost cards.[Reward:] Lightborn Cariel. """
+    #
+    pass
+
+class SW_313t4:
+    """ Lightborn Cariel
+    [Battlecry:] For the rest of thegame, your Silver HandRecruits have +2/+2. """
+    #
+    pass
+
+class SW_313t4e:
+    """ Light's Strength
+    For the rest of the game, your Silver Hand Recruits have +2/+2. """
     #
     pass
 
 class SW_314:
-    """ ライトブリンガーの鎚
-    [x]<b>生命奪取</b>
-ヒーローを
-__攻撃できない。 """
+    """ Lightbringer's Hammer
+    [Lifesteal]Can't attack heroes. """
     #
     pass
 
 class SW_315:
-    """ アライアンスの旗持ち
-    [x]<b>雄叫び:</b>
-ミニオンを1体引く。
-自分の手札のミニオン全てに
-+1/+1を付与する。 """
+    """ Alliance Bannerman
+    [Battlecry:] Draw a minion.Give minions in yourhand +1/+1. """
     #
     pass
 
 class SW_316:
-    """ 貴族の乗騎
-    [x]ミニオン1体に+1/+1と
-<b>聖なる盾</b>を付与する。
-そのミニオンの死亡時
-___戦馬を1体召喚する。 """
+    """ Noble Mount
+    Give a minion +1/+1and [Divine Shield].When it dies, summona Warhorse. """
+    #
+    pass
+
+class SW_316t:
+    """ Cariel's Warhorse
+    [Divine Shield] """
     #
     pass
 
 class SW_317:
-    """ 地下墓所の衛兵
-    [x]<b>生命奪取</b>、<b>雄叫び:</b>
-敵のミニオン1体に
-このミニオンの攻撃力に
-___等しいダメージを与える。 """
+    """ Catacomb Guard
+    [Lifesteal][Battlecry:] Deal damageequal to this minion's Attackto an enemy minion. """
     #
     pass

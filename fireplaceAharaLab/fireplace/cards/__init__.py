@@ -4,6 +4,7 @@ from hearthstone import cardxml
 from hearthstone.enums import CardType,CardSet
 from ..logging import log
 from ..utils import get_script_definition
+from hearthstone.enums import GameTag
 
 
 class CardDB(dict):
@@ -93,6 +94,7 @@ class CardDB(dict):
 
 		return card
 
+
 	def initialize(self, locale="jaJP"):
 		log.info("Initializing card database")
 		self.initialized = True
@@ -109,12 +111,7 @@ class CardDB(dict):
 			#'BT_730',
 			'BAR_079',## neutral-barrens, too huge
 			]
-		nameList=[]
-		#print("idList=[")
 		for id, card in db.items():
-			#if card.name in nameList:
-			#	print("'%s',"%(card.id))
-			from hearthstone.enums import GameTag
 			## add attr spellpower
 			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
 			if spellpowervalue is not None:

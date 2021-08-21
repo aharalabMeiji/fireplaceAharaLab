@@ -1,158 +1,115 @@
 from ..utils import *
 
-
 class DMF_064:
-    """ メリーゴーランド・グリフォン
-    [x]<b>聖なる盾</b>
-<b>変妖:</b>
-+3/+3と<b>挑発</b>を
-_____獲得する。 """
+    """ Carousel Gryphon
+    [Divine Shield][Corrupt:] Gain +3/+3 and_[Taunt]. """
     #
     pass
 
 class DMF_064t:
-    """ メリーゴーランド・グリフォン
-    <b>変妖態</b>
-<b>挑発</b>、<b>聖なる盾</b> """
+    """ Carousel Gryphon
+    [Corrupted][Divine Shield,] [Taunt] """
     #
     pass
 
 class DMF_194:
-    """ レッドスケールのドラゴン使い
-    <b>断末魔:</b>
-ドラゴンを1体引く。 """
+    """ Redscale Dragontamer
+    [Deathrattle:] Draw a Dragon. """
     #
     pass
 
 class DMF_195:
-    """ 買い食い
-    [x]呪文を1つ<b>発見</b>する。
-自分のヒーローは発見した
-呪文のコストに等しい
-体力を回復する。 """
+    """ Snack Run
+    [Discover] a spell. Restore Health to your hero equal to its Cost. """
     #
     pass
 
 class DMF_235:
-    """ 風船売り
-    [x]<b>雄叫び:</b>
-味方の
-「シルバーハンド新兵」
-全てに攻撃力+1と
-__<b>聖なる盾</b>を付与する。 """
+    """ Balloon Merchant
+    [Battlecry:] Give your Silver Hand Recruits +1 Attack and [Divine Shield]. """
+    #
+    pass
+
+class DMF_235e:
+    """ Floaty
+    +1 Attack. """
     #
     pass
 
 class DMF_236:
-    """ おおヨグよ！
-    [x]<b>秘策:</b>
-相手が呪文を使用した時
-相手は同コストの
-ランダムな呪文を
-代わりに使用する。 """
+    """ Oh My Yogg!
+    [Secret:] When youropponent casts a spell,they instead cast a randomone of the same Cost. """
     #
     pass
 
 class DMF_236t:
-    """ おおヨグよ！
+    """ Oh My Yogg!
      """
     #
     pass
 
 class DMF_237:
-    """ カーニバルの客引き
-    [x]自分が体力1の
-ミニオンを召喚する度
-そのミニオンに
-____+1/+2を付与する。 """
+    """ Carnival Barker
+    Whenever you summon a 1-Health minion, give it +1/+2. """
+    #
+    pass
+
+class DMF_237e:
+    """ At the Faire
+    +1/+2. """
     #
     pass
 
 class DMF_238:
-    """ ナールの真槌
-    [x]<b>雄叫び:</b>
-<b>挑発</b>を持つ6/6の
-「聖なるエレメンタル」
-を1体召喚する。 """
+    """ Hammer of the Naaru
+    [Battlecry:] Summon a 6/6 Holy Elemental with [Taunt]. """
+    #
+    pass
+
+class DMF_238t:
+    """ Holy Elemental
+    [Taunt] """
     #
     pass
 
 class DMF_240:
-    """ 贖いし者ロスラクシオン
-    [x]<b>雄叫び:</b>
-この対戦中、自分が
-「シルバーハンド新兵」
-を召喚した後、それに
-___<b>聖なる盾</b>を付与する。 """
+    """ Lothraxion the Redeemed
+    [Battlecry:] For the rest of thegame, after you summona Silver Hand Recruit,give it [Divine Shield]. """
     #
     pass
 
 class DMF_241:
-    """ 大主教ユレール
-    [x]<b>雄叫び:</b>
-自分のデッキに中立カードが
-ない場合、<b>急襲</b>、<b>生命奪取</b>、
-<b>挑発</b>、<b>聖なる盾</b>を
-獲得する。 """
+    """ High Exarch Yrel
+    [Battlecry:] If your deck hasno Neutral cards, gain[Rush], [Lifesteal], [Taunt],and [Divine Shield]. """
     #
     pass
 
 class DMF_244:
-    """ 縁日
-    [x]「シルバーハンド新兵」
-を3体召喚する。
-<b>変妖:</b>_5体召喚する。 """
+    """ Day at the Faire
+    Summon 3 SilverHand Recruits.[Corrupt:] Summon 5. """
     #
     pass
 
 class DMF_244t:
-    """ 縁日
-    [x]<b>変妖態</b>
-「シルバーハンド新兵」
-を5体召喚する。 """
-    #
-    pass
-
-class YOP_005:
-    """ バリケード
-    [x]<b>挑発</b>を持つ2/4の
-警備員を1体召喚する。
-それが自陣の唯一の
-ミニオンの場合
-もう1体召喚する。 """
-    #
-    pass
-
-class YOP_009:
-    """ ラリー！
-    [x]味方のコスト1、
-コスト2、コスト3の
-ミニオンを1体ずつ
-復活させる。 """
+    """ Day at the Faire
+    [Corrupted]Summon 5 Silver Hand Recruits. """
     #
     pass
 
 class YOP_010:
-    """ 封印されし星界馬
-    [x]2ターンの間、<b>休眠状態</b>。
-<b>魔法活性:</b>_味方のミニオン
-全てに<b>聖なる盾</b>
-を付与する。 """
+    """ Imprisoned Celestial
+    [Dormant] for 2 turns.[Spellburst]: Give your minions[Divine Shield]. """
     #
     pass
 
 class YOP_011:
-    """ 神罰の聖典
-    [x]<b>変妖:</b>
-<b>生命奪取</b>を獲得する。 """
+    """ Libram of Judgment
+    [Corrupt:] Gain [Lifesteal]. """
     #
     pass
 
 class YOP_011t:
-    """ 神罰の聖典
-    <b>変妖態</b>
-<b>生命奪取</b> """
+    """ Libram of Judgment
+    [Corrupted][Lifesteal] """
     #
     pass
-
-

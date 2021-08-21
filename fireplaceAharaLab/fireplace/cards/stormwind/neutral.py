@@ -49,18 +49,16 @@ class SW_057:#OK
     update = (Count(FRIENDLY_HAND)<8) & Refresh(SELF, {GameTag.CANT_ATTACK:True}) | Refresh(SELF,{GameTag.CANT_ATTACK:False}) 
     pass
 
-class SW_059:
+class SW_059:#OK
     """ Deeprun Engineer
     <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
-    play = SW_059Action(CONTROLLER, RandomMech()) # cost 1 less
+    play = GenericChoiceBuff(CONTROLLER, RandomMech()*3) # cost 1 less
     pass
 SW_059e=buff(cost=-1)
 
 class SW_060:#OK
     """ Florist
-    [x]At then end of your turn,
-reduce the cost of a Nature
-spell in your hand by (1). """
+    [x]At then end of your turn, reduce the cost of a Nature spell in your hand by (1). """
     events = OWN_TURN_END.on(Buff(FRIENDLY_HAND+NATURE,'SW_060t'))
     pass
 SW_060t=buff(cost=-1)
@@ -77,21 +75,22 @@ class SW_062:#OK
     update = Refresh(FRIENDLY_HAND - SELF, {GameTag.COST:-1})
     pass
 
-class SW_063:
+class SW_063:#OK
     """ Battleground Battlemaster
     Adjacent minions have <b>Windfury</b>. """
-    update = Refresh(FRIENDLY_MINIONS+ADJACENT,'SW_063e')
+    update = Refresh(SELF_ADJACENT,{GameTag.WINDFURY:True})
     pass
-SW_63e=buff({GameTag.WINDFURY:True})
+#SW_63e=buff({GameTag.WINDFURY:True})
 
-class SW_064:
+class SW_064:#OK
     """ Northshire Farmer
     <b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
     requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
-    play= Shuffle(CONTROLLER, Buff(Copy(TARGET),'SW_64e'))*3
+    play= ShuffleBuff(CONTROLLER, Copy(TARGET),'SW_064e')*3
     pass
 SW_064e=buff(atk=3,health=3)
-class SW_065:
+
+class SW_065:###############################
     """ Pandaren Importer
     [x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
     play=GenericChoice(CONTROLLER,RANDOM(SPELL-FRIENDLY_DECK)*3)
@@ -100,15 +99,15 @@ class SW_065:
 class SW_066:
     """ Royal Librarian
     [x]<b>Tradeable</b><b>Battlecry:</b> <b>Silence</b>a minion. """
-    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-    play = Buff(TARGET,{GameTag.SILENCE:True})
+    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+    play = SetTag(TARGET,{GameTag.SILENCED:True})
     pass
 
 class SW_067:
     """ Stockades Guard
     [x]<b>Battlecry:</b> Give a friendly minion <b>Taunt</b>. """
     requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-    play = Buff(TARGET,{GameTag.TAUNT:True})
+    play = SetTag(TARGET,{GameTag.TAUNT:True})
     pass
 
 class SW_068:
@@ -204,14 +203,14 @@ __original stats and Cost.)</I> """
 #SW_078e
 #SW_078e2
 
-class SW_079:############# lol 
+class SW_079:############# lol #################　lol
     """ Flightmaster Dungar
     [x]<b>Battlecry:</b> Choose a
 flightpath and go <b>Dormant.
 </b> Awaken with a bonus
 __when you complete it! """
     entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
-    play = (Discover(CONTROLLER,RandomEntourage()), Destroy(SELF))
+    play = (GenericChoicePlay(CONTROLLER,RandomEntourage()*3), Destroy(SELF))
     pass
 #SW_079e4
 """ &lt;b&gt;Dormant&lt;/b&gt;. Summon a 2/2 Adventurer in @ |4(turn, turns). """

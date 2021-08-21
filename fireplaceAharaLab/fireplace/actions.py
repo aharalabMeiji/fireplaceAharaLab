@@ -893,6 +893,7 @@ class Discover(TargetedAction):
 		source.game.queue_actions(source, [GenericChoice(target, cards)])
 
 
+
 class Draw(TargetedAction):
 	"""
 	Make player targets draw a card from their deck.
@@ -1292,6 +1293,28 @@ class Shuffle(TargetedAction):
 			cards = [cards]
 
 		for card in cards:
+			if card.controller != target:
+				card.zone = Zone.SETASIDE
+				card.controller = target
+			if len(target.deck) >= target.max_deck_size:
+				log.info("Shuffle(%r) fails because %r's deck is full", card, target)
+				continue
+			card.zone = Zone.DECK
+			target.shuffle_deck()
+
+class ShuffleBuff(TargetedAction):
+	"""
+	Shuffle and buff card targets into player target's deck.
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+	BUFF = ActionArg()
+	def do(self, source, target, cards, buff):
+		log.info("%r shuffles into %s's deck", cards, target)
+		if not isinstance(cards, list):
+			cards = [cards]
+		for card in cards:
+			Buff(card,buff).trigger(source)
 			if card.controller != target:
 				card.zone = Zone.SETASIDE
 				card.controller = target
@@ -2332,12 +2355,18 @@ class BAR_081_Southsea_Scoundrel(Choice):
 		pass
 
 
-class SW_059Action(GenericChoice):
-
+class GenericChoiceBuff(GenericChoice):
 	def choose(self, card):
 		super().choose(card)
 		Buff(card,'SW_059e').trigger(card.controller)
 		pass
+
+class GenericChoicePlay(GenericChoice):
+	def choose(self, card):
+		super().choose(card)
+		Play(card, None, None, None).trigger(card.controller)
+		pass
+
 
 class BAR_079_Kazakus_Golem_Shaper(Choice):
 

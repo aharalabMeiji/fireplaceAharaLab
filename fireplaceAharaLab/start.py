@@ -9,12 +9,32 @@ from agent_AngryCat import *
 
 sys.path.append("..")
 
+from fireplace import cards
+
+def printClasses():
+	print('')
+	print('from ..utils import *')
+	print('')
+	_cardList = []
+	for _id in cards.db.keys():
+		_card = cards.db[_id]
+		if _card.card_set== CardSet.DARKMOON_FAIRE:
+			if _card.card_class == CardClass.MAGE: 
+				_cardList.append(_card.id)
+				print('class %s:'%(_card.id))
+				print('    """ %s'%(_card.name))
+				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print('    #'%())
+				print('    pass'%())
+				print(''%())
+
+
 #
 #		main()
 #
 def main():
-	from fireplace import cards
 	cards.db.initialize()
+	#printClasses()
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
@@ -79,27 +99,3 @@ if __name__ == "__main__":
 	main()
 
 
-def printClasses():
-	idList=[
-'SW_320',
-'SW_321',
-'SW_322',
-'SW_323',
-'SW_455',
-'SW_457',
-'SW_458',
-'SW_459',
-'SW_460',
-'SW_463',
-]
-	print('')
-	print('from ..utils import *')
-	print('')
-	for cardID in idList:
-		card = cards.db[cardID]
-		print('class %s:'%(cardID))
-		print('    """ %s'%(card.name))
-		print('    %s """'%(card.description))
-		print('    #'%())
-		print('    pass'%())
-		print(''%())
