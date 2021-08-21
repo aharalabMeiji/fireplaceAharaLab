@@ -15,7 +15,6 @@ sys.path.append("..")
 def main():
 	from fireplace import cards
 	cards.db.initialize()
-
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
@@ -82,41 +81,16 @@ if __name__ == "__main__":
 
 def printClasses():
 	idList=[
-'SW_006',
-'SW_036',
-'SW_045',
-'SW_054',
-'SW_055',
-'SW_056',
-'SW_057',
-'SW_059',
-'SW_060',
-'SW_061',
-'SW_062',
-'SW_063',
-'SW_064',
-'SW_065',
-'SW_066',
-'SW_067',
-'SW_068',
-'SW_069',
-'SW_070',
-'SW_071',
-'SW_072',
-'SW_073',
-'SW_074',
-'SW_075',
-'SW_076',
-'SW_077',
-'SW_078',
-'SW_079',
-'SW_080',
-'SW_081',
-'SW_306',
-'SW_307',
-'SW_319',
-'SW_400',
-'SW_418',
+'SW_320',
+'SW_321',
+'SW_322',
+'SW_323',
+'SW_455',
+'SW_457',
+'SW_458',
+'SW_459',
+'SW_460',
+'SW_463',
 ]
 	print('')
 	print('from ..utils import *')

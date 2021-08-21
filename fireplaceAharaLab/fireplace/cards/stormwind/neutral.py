@@ -178,41 +178,69 @@ class SW_076:
     [x]<b>Battlecry:</b> Summon two
 0/5 Castle Walls
 with <b>Taunt</b>. """
-    #
+    play = Summon(CONTROLLER, 'SW_076t')*2
+    pass
+class SW_076t:
     pass
 
-class SW_077:
+class SW_077:## not 'three turns' but 'three plays'
     """ Stockades Prisoner
-    [x]Starts <b>Dormant</b>.
-After you play 3 cards,
-this awakens. """
-    #
+    [x]Starts <b>Dormant</b>. After you play 3 cards, this awakens. """ 
+    dormant = -1 #infinite dormant
+    play = Buff(SELF, "SW_077e")
+    pass
+class SW_077e:
+    events = Play(CONTROLLER).on(SidequestCounter(OWNER,3,[SetAttr(OWNER, 'dormant',0), Awaken(OWNER),Destroy(SELF)]))
     pass
 
-class SW_078:
+class SW_078:################################### use buffs?
     """ Lady Prestor
     [x]<b>Battlecry:</b> Transform minions
 in your deck into random
 Dragons. <i>(They keep their
 __original stats and Cost.)</I> """
-    #
+    play = SW_078_Morph(FRIENDLY_DECK,RandomDragon())
     pass
+#SW_078e
+#SW_078e2
 
-class SW_079:
+class SW_079:############# lol 
     """ Flightmaster Dungar
     [x]<b>Battlecry:</b> Choose a
 flightpath and go <b>Dormant.
 </b> Awaken with a bonus
 __when you complete it! """
-    #
+    entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
+    play = (Discover(CONTROLLER,RandomEntourage()), Destroy(SELF))
     pass
+#SW_079e4
+""" &lt;b&gt;Dormant&lt;/b&gt;. Summon a 2/2 Adventurer in @ |4(turn, turns). """
+#SW_079e5
+""" &lt;b&gt;Dormant&lt;/b&gt;. Restore 10 health to your hero in @ |4(turn, turns).  """  
+#SW_079e6
+""" &lt;b&gt;Dormant&lt;/b&gt;. Deal 12 damage randomly split to enemies in @ |4(turn, turns). """
+class SW_079t:
+    """ >[x]In 1 turn, summon a 2/2 Adventurer with _a random bonus effect. """
+    dormant=1
+    awaken = SW_079t_Action(CONTROLLER)
+#SW_079te
+class SW_079t2:
+    """ In 3 turns, restore 10 Health to your hero. """
+    dormant = 3
+    awaken = Heal(FRIENDLY_HERO,10)
+#SW_079t2e
+class SW_079t3:
+    """ In 5 turns, deal 12 damage randomly split among enemies."""
+    dormant = 5
+    awaken = Hit(RANDOM(ENEMY_CHARACTERS),1) * 12 
+#SW_079t3e
 
 class SW_080:
     """ Cornelius Roame
     [x]At the start and end
 _of each player's turn,
 draw a card. """
-    #
+    events = (OWN_TURN_BEGIN.on(Draw(CONTROLLER)), OWN_TURN_END.on(Draw(CONTROLLER)))
     pass
 
 class SW_081:
@@ -221,10 +249,14 @@ class SW_081:
 minion to gain <b>Rush</b>.
 Repeat for <b>Taunt</b> and
 <b>Divine Shield</b>. """
-    #
+    events = (
+        #Draw(CONTROLLER,RUSH) & SetAttr(SELF,{GameTag.RUSH:True}),
+        #Draw(CONTROLLER,TAUNT) & SetAttr(SELF,{GameTag.TAUNT:True}),
+        #Draw(CONTROLLER,DIVINE_SHIELD) & SetAttr(SELF,{GameTag.DIVINE_SHIELD:True}),
+        )
     pass
 
-class SW_306:
+class SW_306:############################## when drawn もの
     """ Encumbered Pack Mule
     [x]<b>Taunt</b>
 When you draw this, add a
@@ -238,27 +270,31 @@ class SW_307:
 <b>Battlecry:</b> Gain +1/+1
 for each other friendly
 _minion you control. """
-    #
+    play = Buff(SELF,'SW_307e') * Count(FRIENDLY_MINIONS - SELF)
     pass
+SW_307e=buff(atk=1,health=1)
 
 class SW_319:
     """ Peasant
     At the start of your turn, draw a card. """
-    #
+    events = OWN_TURN_BEGIN.on(Draw(CONTROLLER))
     pass
 
-class SW_400:
+class SW_400:#?#?#?#?#?#?#?#?#?#?#?#?#?#?
     """ Entrapped Sorceress
     [x]<b>Battlecry:</b> If you control a
 _<b>Quest</b>, <b>Discover</b> a spell. """
-    #
+    powered_up = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST))
+    play = powered_up & Discover(CONTROLLER, RandomSpell())
     pass
 
 class SW_418:
     """ SI:7 Skulker
     [x]<b>Stealth</b>
-<b>Battlecry:</b> The next card
-__you draw costs (1) less. """
-    #
+<b>Battlecry:</b> The next card _you draw costs (1) less. """
+    play = Buff(CONTROLLER,'SW_418e')
     pass
-
+class SW_418e:
+    events = Draw(CONTROLLER).on(Buff(Draw.CARD,'SW_418e2'),Destroy(SELF))
+    pass
+SW_418e2=buff(cost=-1)

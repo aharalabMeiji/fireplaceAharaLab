@@ -1112,6 +1112,36 @@ class Morph(TargetedAction):
 		target.morphed = card
 		return card
 
+class SW_078_Morph(TargetedAction):
+	"""
+	Morph minion target into \a minion id
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+
+	def get_target_args(self, source, target):
+		card = _eval_card(source, self._args[1])
+		assert len(card) == 1
+		card = card[0]
+		card.controller = target.controller
+		return [card]
+
+	def do(self, source, target, card):
+		log.info("Morphing %r into %r", target, card)
+		target_zone = target.zone
+		if card.zone != target_zone:
+			# Transfer the zone position
+			card._summon_index = target.zone_position
+			# In-place morph is OK, eg. in the case of Lord Jaraxxus
+			card.zone = target_zone
+		target.clear_buffs()
+		target.zone = Zone.SETASIDE
+		card.cost = target.cost
+		card.atk = target.atk
+		card.max_health = target.max_health
+		target.morphed = card
+		return card
+
 
 class FillMana(TargetedAction):
 	"""
@@ -2148,6 +2178,19 @@ class WC_028_Meeting_Stone(TargetedAction):
 		newHealth = new_minion.health+random.randint(1,3)
 		new_minion.max_health = newHealth
 		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+
+class SW_079t_Action(TargetedAction):
+	""" Westfall """
+	TARGET = ActionArg()#the controller
+	def do(self,source,target):
+		new_minion =  Summon(target, "EX1_044").trigger(source)
+		new_minion = new_minion[0][0]
+		newAtk=new_minion.atk+random.randint(1,3)
+		new_minion._atk = new_minion.atk = newAtk
+		new_minion.data.scripts.atk = lambda self, i: self._atk
+		newHealth = new_minion.health+random.randint(1,3)
+		new_minion.max_health = newHealth
+		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class WC_027_Devouring_Ectoplasm(TargetedAction):
 	""" Devouring Ectoplasm """
