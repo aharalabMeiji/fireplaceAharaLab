@@ -69,7 +69,7 @@ with <b>Rush</b>.
 class BAR_035t:
     pass
 
-class BAR_037:#OK
+class BAR_037:################### beast!!
     """ Warsong Wrangler
     [x]<b>Battlecry:</b> <b>Discover</b> a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
     """

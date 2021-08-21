@@ -90,72 +90,90 @@ class SW_064:#OK
     pass
 SW_064e=buff(atk=3,health=3)
 
-class SW_065:###############################
+class SW_065:#OK
     """ Pandaren Importer
     [x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
     play=GenericChoice(CONTROLLER,RANDOM(SPELL-FRIENDLY_DECK)*3)
     pass
 
-class SW_066:
+class SW_066:##動作はしているが、silencedがそもそも動いていない気がする。
     """ Royal Librarian
     [x]<b>Tradeable</b><b>Battlecry:</b> <b>Silence</b>a minion. """
     requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
     play = SetTag(TARGET,{GameTag.SILENCED:True})
     pass
 
-class SW_067:
+class SW_067:#OK
     """ Stockades Guard
     [x]<b>Battlecry:</b> Give a friendly minion <b>Taunt</b>. """
-    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+    requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
     play = SetTag(TARGET,{GameTag.TAUNT:True})
     pass
 
-class SW_068:
+class SW_068:#OK
     """ Mo'arg Forgefiend
     <b>Taunt</b><b>Deathrattle:</b> Gain 8 Armor. """
-    deathrattle = GainArmor(CONTROLLER,8)
+    deathrattle = GainArmor(FRIENDLY_HERO,8)
     pass
 
-class SW_069:
+class Deposite_Payment(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):
+        if isinstance(target,list):
+            target = target[0]
+        source._tmp_list1_.append(target)
+        pass
+    pass
+
+class Deposite_Withdrawal(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):
+        Give(target, source._tmp_list1_).trigger(source)
+        pass
+    pass
+
+class SW_069:#OK
     """ Enthusiastic Banker
     [x]At the end of your turn, store a card from your deck. <b>Deathrattle:</b> Add the stored cards to your hand. """
-    events = OWN_TURN_END.on(Morph('SW_069e', ID(RANDOM(FRIENDLY_DECK))))
-    deathrattle = Give(CONTROLLER,'SW_069e')
+    events = OWN_TURN_END.on(Deposite_Payment(RANDOM(FRIENDLY_DECK)))
+    deathrattle = Deposite_Withdrawal(CONTROLLER)
     pass
 class SW_069e:
     """ Safety Deposit """
     pass
 
-class SW_070:
+class SW_070:#OK
     """ Mailbox Dancer
     [x]<b>Battlecry:</b> Add a Coin to your hand. <b>Deathrattle:</b> Give your opponent one. """
-    play = Give(CONTROLLER, 'GAME_005e')
-    deathrattle = Give(OPPONENT, 'GAME_005e')
+    play = Give(CONTROLLER, 'GAME_005')
+    deathrattle = Give(OPPONENT, 'GAME_005')
     pass
 
-class SW_071:
+class SW_071:#OK
     """ Lion's Guard
     [x]<b>Battlecry:</b> If you have 15 or less Health, gain +2/+4 and <b>Taunt</b>. """
-    #play = (HEALTH(FRIENDLY_HERO)<=15).on(Buff())
+    def play(self):
+       if(self.controller.hero.health<=15):
+           Buff(self,'SW_071e').trigger(self.controller)
     pass
 SW_071e=buff(atk=2,health=4,taunt=True)
 
-class SW_072:
+class SW_072:#OK
     """ Rustrot Viper
     [x]<b>Tradeable</b><b>Battlecry:</b> Destroy your opponent's weapon. """
     play = Destroy(ENEMY_WEAPON)
     pass
 
-class SW_073:
+class SW_073:#OK
     """ Cheesemonger
     [x]Whenever your opponent casts a spell, add a random spell with the same Cost to your hand. """
     events = Play(OPPONENT, SPELL).on(Give(CONTROLLER, RandomSpell(cost=Attr(Play.CARD,GameTag.COST))))
     pass
 
-class SW_074:
+class SW_074:#OK
     """ Nobleman
     <b>Battlecry:</b> Create a Golden copy of a random card in your hand. """
-    play = Give(CONTROLLER,RANDOM(FRIENDLY_HAND))#gold?
+    play = Give(CONTROLLER,Copy(RANDOM(FRIENDLY_HAND)))#gold?
     pass
 
 class SW_075:#OK
@@ -172,11 +190,9 @@ class SW_075t: #OK
     events = Attack(FRIENDLY_HERO).on(GainMana(OPPONENT,-10))
     pass
 
-class SW_076:
+class SW_076:#OK
     """ City Architect
-    [x]<b>Battlecry:</b> Summon two
-0/5 Castle Walls
-with <b>Taunt</b>. """
+    [x]<b>Battlecry:</b> Summon two 0/5 Castle Walls with <b>Taunt</b>. """
     play = Summon(CONTROLLER, 'SW_076t')*2
     pass
 class SW_076t:

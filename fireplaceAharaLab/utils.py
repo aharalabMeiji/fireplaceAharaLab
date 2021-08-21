@@ -495,9 +495,7 @@ def ExchangeCard(cards,player):
 	Discard(player.hand[-1]).trigger(player)
 	for _card in cards:
 		if _card=='beast':
-			_card='SCH_133'
-		if _card=='beast2':
-			_card='SCH_714'
+			_card=random.choice(['SCH_133','SCH_714'])
 		if _card=='deathrattle':
 			_card='DAL_587'
 		if _card=='dragon':
@@ -507,7 +505,9 @@ def ExchangeCard(cards,player):
 		if _card=='nature':
 			_card='SCH_333'
 		if _card=='spell':
-			_card='SCH_353'
+			_card=random.choice(['SCH_353'])
+		if _card=='weapon':
+			_card='SCH_301'
 		Give(player,_card).trigger(player)
 
 
@@ -518,8 +518,8 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_066','BAR_074'],player1)
-
+	ExchangeCard(['SW_076','SW_077'],player1)
+	#ExchangeCard(['spell'],player2)
 
 
 	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
@@ -532,7 +532,6 @@ def PresetHands(player1, player2):
 	#Give(player1,'').trigger(player1)#subtarget-spell(nature)
 	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
-	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
 
 	#Discard(player2.hand[-1]).trigger(player2)
 	#Give(player2,'EX1_609').trigger(player2)#subtarget-secret
