@@ -494,6 +494,8 @@ def getTurnLog(gameLog, turnN):
 def ExchangeCard(cards,player):
 	Discard(player.hand[-1]).trigger(player)
 	for _card in cards:
+		if _card=='attackspell':
+			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
 			_card=random.choice(['SCH_133','SCH_714'])
 		if _card=='deathrattle':
@@ -518,7 +520,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_400','DRG_255'],player1)
+	ExchangeCard(['SW_322','attackspell','attackspell','attackspell','attackspell'],player1)
 	#ExchangeCard(['spell'],player2)
 
 

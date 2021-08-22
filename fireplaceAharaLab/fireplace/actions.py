@@ -453,6 +453,7 @@ class Play(GameAction):
 
 	def do(self, source, card, target, index, choose):
 		player = source
+		player.spell_and_damage=False
 		log.info("%s plays %r (target=%r, index=%r)", player, card, target, index)
 
 		player.pay_cost(card, card.cost)
@@ -771,6 +772,10 @@ class Damage(TargetedAction):
 			# TODO this should be an event listener of sorts
 			source.stealthed = False
 		if amount:
+			if source.type == CardType.SPELL:## for SW_322
+				source.controller.spell_and_damage=True
+			else:
+				source.controller.spell_and_damage=False
 			# check hasattr: some sources of damage are game or player (like fatigue)
 			# weapon damage itself after hero attack, but does not trigger lifesteal
 			if hasattr(source, "lifesteal") and source.lifesteal and source.type != CardType.WEAPON:
@@ -1697,7 +1702,7 @@ class SidequestCounter(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		log.info("Setting Counter on %r -> %i, %r", target, (target._sidequest_counter_+1), targetaction)
+		log.info("Setting Counter on %r -> %i, %r", target, (source._sidequest_counter_+1), targetaction)
 		target._sidequest_counter_ += 1
 		if target._sidequest_counter_== amount:
 			target._sidequest_counter_ = 0
@@ -2375,6 +2380,15 @@ class GenericChoicePlay(GenericChoice):
 		Play(card, None, None, None).trigger(card.controller)
 		pass
 
+class SpallAndDamage(TargetedAction):## for SW_322
+	TARGET = ActionArg()
+	TARGETACTION = ActionArg()
+	def do(self,source,target,targetaction):
+		player = source.controller
+		if player.spell_and_damage:
+			player.spell_and_damage = False
+			targetaction.trigger(source)
+		pass
 
 class BAR_079_Kazakus_Golem_Shaper(Choice):
 

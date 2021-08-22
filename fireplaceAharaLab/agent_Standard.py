@@ -359,9 +359,6 @@ class HumanAgent(Agent):
 							print("(dormant)", end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
-					if character._sidequest_counter_>0:
-						if character.dormant==0:
-							print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
 					for target in character.targets:
@@ -383,8 +380,8 @@ class HumanAgent(Agent):
 			print("========MY SECRETS======")
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
-				if hasattr(card, 'sidequest'):
-					print("(%d)"%card._sidequest_counter_, end="")
+				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
+					print("(sidequest %d)"%card._sidequest_counter_, end="")
 				print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 			print("[0] ターンを終了する")

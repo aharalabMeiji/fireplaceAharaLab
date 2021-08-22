@@ -30,6 +30,8 @@ def Card(id):
 		subclass = Secret
 	if subclass is Spell and data.sidequest:# aharalab
 		subclass = Sidequest# aharalab
+	if subclass is Spell and data.questline:# aharalab
+		subclass = Sidequest# aharalab
 	return subclass(data)
 
 
@@ -855,10 +857,10 @@ class Spell(PlayableCard):
 
 	def play(self, target=None, index=None, choose=None):
 		self.controller.times_spell_played_this_game += 1
-		self.controller.times_spells_played_this_turn += 1 ##### aharalab ####### 27.12.2020 ####
-		self.controller.spells_played_this_turn.append(self) ##### aharalab ####DAL_558### 28.12.2020 ####
-		if target!=None and target.controller==self.controller: ##### aharalab ####### 24.12.2020 ####
-			self.controller.times_spell_to_friendly_minion_this_game += 1 ##### aharalab ####### 24.12.2020 ####
+		self.controller.times_spells_played_this_turn += 1 #
+		self.controller.spells_played_this_turn.append(self) #
+		if target!=None and target.controller==self.controller: #
+			self.controller.times_spell_to_friendly_minion_this_game += 1 #
 		return super().play(target, index, choose)
 
 

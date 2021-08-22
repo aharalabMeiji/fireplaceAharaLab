@@ -174,7 +174,7 @@ class BAR_721:#OK
 	Mankrik
 	[x]<b>Battlecry:</b> Help Mankrik find his wife! She was last seen somewhere in your deck.
 	"""
-	play = Give(CONTROLLER,"BAR_721t"),
+	play = Shuffle(CONTROLLER,"BAR_721t"),
 	pass
 class BAR_721t:#OK
 	"""Olgra, Mankrik's Wife

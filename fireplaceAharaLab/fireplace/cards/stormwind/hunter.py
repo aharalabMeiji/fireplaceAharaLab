@@ -21,58 +21,74 @@ your hand with +4/+4. """
 SW_320e=buff(atk=4,health=4)
 
 
-class SW_321:
+class SW_321:#impossible
     """ Aimed Shot
     Deal $3 damage. Your next Hero Power deals 2 more damage. """
-    #
+    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+    play = (Hit(TARGET,3),Buff(CONTROLLER,'SW_321e'))
     pass
 
 class SW_321e:
     """ Aiming
     Your next Hero Power deals 2 more damage. """
-    #
+    events=Activate(CONTROLLER, HERO_POWER).on([Hit(ENEMY_HERO, 2),Destroy(SELF)])
     pass
 
-class SW_322:
+class SW_322:#OK
     """ Defend the Dwarven District
     [Questline:] Deal damage with 2 spells. [Reward:] Your Hero Power can target minions. """
-    #
+    tags={GameTag.QUESTLINE:True}
+    events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
+        SidequestCounter(SELF, 2, [\
+            ChangeHeroPower(CONTROLLER, "HERO_05dbp"),Summon(CONTROLLER,'SW_322t'),Destroy(SELF)\
+        ])))
+    #events = OWN_SPELL_PLAY.on( Damage(ENEMY_CHARACTERS).on(SidequestCounter(SELF, 2, [ChangeHeroPower(CONTROLLER, "HERO_05dbp")])) )
     pass
 
-class SW_322t:
+class SW_322t:#OK
     """ Take the High Ground
-    [Questline:] Deal damagewith 2 spells.[Reward:] Set the Cost ofyour Hero Power to (0). """
-    #
+    [Questline:] Deal damage with 2 spells.[Reward:] Set the Cost ofyour Hero Power to (0). """
+    tags={GameTag.QUESTLINE:True}
+    events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
+        SidequestCounter(SELF, 2, [\
+            SetTag(FRIENDLY_HERO_POWER, {GameTag.COST: 0}),Summon(CONTROLLER,'SW_322t2'),Destroy(SELF)\
+        ])))
     pass
 
-class SW_322t2:
+class SW_322t2:#OK
     """ Knock 'Em Down
     [Questline:] Dealdamage with 2 spells.[Reward:] Tavish,Master Marksman. """
-    #
+    tags={GameTag.QUESTLINE:True}
+    events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
+        SidequestCounter(SELF, 2, [\
+            Summon(CONTROLLER,'SW_322t4'),Destroy(SELF)\
+        ]))) 
     pass
 
-class SW_322t4:
+class SW_322t4:#OK
     """ Tavish, Master Marksman
-    [Battlecry:] For the rest ofthe game, spells you castrefresh your Hero Power. """
-    #
+    [Battlecry:] For the rest of the game, spells you cast refresh your Hero Power. """
+    events = OWN_SPELL_PLAY.on(RefreshHeroPower(FRIENDLY_HERO_POWER))
     pass
 
 class SW_323:
     """ The Rat King
     [Rush]. [Deathrattle:] Go[Dormant]. Revive after 5friendly minions die. """
-    #
+    deathrattle = Summon(CONTROLLER,'SW_323e')
     pass
 
 class SW_323e:
     """ Rat King's Slumber
     [Dormant]. Awaken after @ |4(friendly minion dies., friendly minions die.) """
-    #
+    dormant = -1
+    events = Death(FRIENDLY_MINIONS).SidequestCounter(CONTROLLER,5,[Awaken(SELF)])
+    awaken = [Summon(CONTROLLER,'SW_323'), Destroy(SELF)]
     pass
 
 class SW_455:
     """ Rodent Nest
     [Deathrattle:] Summon five 1/1 Rats. """
-    #
+    deathrattle = Summon(CONTROLLER,'SW_455t') * 5
     pass
 
 class SW_455t:
@@ -83,17 +99,20 @@ class SW_455t:
 
 class SW_457:
     """ Leatherworking Kit
-    After three friendlyBeasts die, draw a Beastand give it +1/+1.Lose 1 Durability. """
-    #
+    After three friendlyBeasts die, draw a Beast and give it +1/+1.Lose 1 Durability. """
+    events = Death(FRIENDLY + BEAST).on(SidequestCounter(CONTROELLER,3,[Give(CONTROLLER, BEAST).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
     pass
+SW_457e=buff(atk=1,health=1)
 
-class SW_458:
+class SW_458:#?#?#?#?#?#?#?#?#
     """ Ramming Mount
     Give a minion +2/+2and [Immune] whileattacking. When it dies,summon a Ram. """
-    #
+    #requirements ? 
+    #play = Buff(TARGET,'SW_458e')
+    #events = Death(TARGET).on(Summon(CONTROLLER))
     pass
 
-class SW_458e:
+SW_458e=buff(atk=2,health=2,immune=True)
     """ On a Ram
     +2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
     #
@@ -108,10 +127,10 @@ class SW_458t:
 class SW_459:
     """ Stormwind Piper
     After this minion attacks,give your Beasts +1/+1. """
-    #
+    events = Attack(SELF, ENEMY_MINIONS).on(Buff(FRIENDLY_MINIONS+BEAST,'SW_459e'))
     pass
 
-class SW_459e:
+SW_459e=buff(atk=1,health=1)
     """ Entranced
     +1/+1. """
     #
@@ -120,13 +139,14 @@ class SW_459e:
 class SW_460:
     """ Devouring Swarm
     Choose an enemy minion.Your minions attack it,then return any that die to your hand. """
-    #
+    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
+    play = Attack(FRIENDLY_MINIONS, TARGET), Death(DRIENDLY_MINION).on(Give(CONTROLLER,Death.CARD))
     pass
 
 class SW_463:
     """ Imported Tarantula
     [Tradeable] [Deathrattle:] Summon two1/1 Spiders with[Poisonous] and [Rush]. """
-    #
+    deathrattle = Summon(CONTROLLER,'SW_463t') * 2
     pass
 
 class SW_463t:
