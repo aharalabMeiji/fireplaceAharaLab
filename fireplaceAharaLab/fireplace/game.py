@@ -16,6 +16,7 @@ from .config import Config
 from .dsl.random_picker import *
 
 
+
 class BaseGame(Entity):
 	type = CardType.GAME
 	MAX_MINIONS_ON_FIELD = 7
@@ -329,6 +330,24 @@ class BaseGame(Entity):
 		self.manager.turn(player)
 		return ret
 
+	def card_when_drawn(self, drawn_card, player):
+		# if drawn_card is 'casts_when_drawn' then immediately play.  
+		if hasattr(drawn_card, "casts_when_drawn"):
+			self.queue_actions(player, [Play(drawn_card, None, None, None)])
+			if drawn_card.id == 'SCH_307t':## Soul Fragment
+				self.queue_actions(player, [Draw(player)])
+		if drawn_card.id == 'SW_306':
+			self.queue_actions(player, [Give(player,'SW_306')])
+		# if 'BAR_034' is in hand and mana >=5 then change 'BAR_034' to 'BAR_034t'
+		# if 'BAR_034t' is in hand and mana >=10 then change 'BAR_034t' to 'BAR_034t2'
+		for card in player.hand:
+			if card.id == 'BAR_034' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_034t')])
+			if card.id == 'BAR_034t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_034t2')])
+
 	def _begin_turn(self, player):
 		self.manager.step(self.next_step, Step.MAIN_START)
 		self.manager.step(self.next_step, Step.MAIN_ACTION)
@@ -363,18 +382,6 @@ class BaseGame(Entity):
 					self.queue_actions(self, [Awaken(minion)])
 
 		drawn_card = player.draw()
-		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-		if hasattr(drawn_card, "casts_when_drawn"):
-			self.queue_actions(player, [Play(drawn_card, None, None, None)])
-		# if 'BAR_034' is in hand and mana >=5 then change 'BAR_034' to 'BAR_034t'
-		# if 'BAR_034t' is in hand and mana >=10 then change 'BAR_034t' to 'BAR_034t2'
-		for card in player.hand:
-			if card.id == 'BAR_034' and player.mana>=5:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_034t')])
-			if card.id == 'BAR_034t' and player.mana>=10:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_034t2')])
 
 		self.manager.step(self.next_step, Step.MAIN_END)
 
@@ -418,6 +425,7 @@ class MulliganRules:
 
 	def mulligan_done(self):
 		self.begin_turn(self.player1)
+
 
 
 class Game(MulliganRules, CoinRules, BaseGame):

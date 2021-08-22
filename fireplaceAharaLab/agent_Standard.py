@@ -313,8 +313,14 @@ class HumanAgent(Agent):
 						print("(divine_shield)", end=" ")
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
-					#if character._tmp_int1_>0:
-					#	print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
+					elif character.dormant<0:
+						if character._sidequest_counter_>0:
+							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+						else:
+							print("(dormant)", end=" ")
+					#if character._sidequest_counter_>0:
+					#	if character.dormant==0:
+					#		print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
@@ -344,12 +350,18 @@ class HumanAgent(Agent):
 						print("(stealthed)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
-					if character.dormant!=0:
+					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
+					elif character.dormant<0:
+						if character._sidequest_counter_>0:
+							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+						else:
+							print("(dormant)", end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
-					if character._tmp_int1_>0:
-						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
+					if character._sidequest_counter_>0:
+						if character.dormant==0:
+							print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
 					for target in character.targets:
@@ -372,7 +384,7 @@ class HumanAgent(Agent):
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
 				if hasattr(card, 'sidequest'):
-					print("(%d)"%card._tmp_int1_, end="")
+					print("(%d)"%card._sidequest_counter_, end="")
 				print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 			print("[0] ターンを終了する")

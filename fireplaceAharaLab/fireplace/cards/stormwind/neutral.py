@@ -121,14 +121,14 @@ class Deposite_Payment(TargetedAction):
     def do(self, source, target):
         if isinstance(target,list):
             target = target[0]
-        source._tmp_list1_.append(target)
+        source._sidequest_list1_.append(target)
         pass
     pass
 
 class Deposite_Withdrawal(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
-        Give(target, source._tmp_list1_).trigger(source)
+        Give(target, source._sidequest_list1_).trigger(source)
         pass
     pass
 
@@ -198,7 +198,7 @@ class SW_076:#OK
 class SW_076t:
     pass
 
-class SW_077:## not 'three turns' but 'three plays'
+class SW_077:#OK
     """ Stockades Prisoner
     [x]Starts <b>Dormant</b>. After you play 3 cards, this awakens. """ 
     dormant = -1 #infinite dormant
@@ -208,11 +208,9 @@ class SW_077e:
     events = Play(CONTROLLER).on(SidequestCounter(OWNER,3,[SetAttr(OWNER, 'dormant',0), Awaken(OWNER),Destroy(SELF)]))
     pass
 
-class SW_078:################################### use buffs?
+class SW_078:#OK
     """ Lady Prestor
-    [x]<b>Battlecry:</b> Transform minions
-in your deck into random
-Dragons. <i>(They keep their
+    [x]<b>Battlecry:</b> Transform minions in your deck into random Dragons. <i>(They keep their
 __original stats and Cost.)</I> """
     play = SW_078_Morph(FRIENDLY_DECK,RandomDragon())
     pass
@@ -228,85 +226,73 @@ __when you complete it! """
     entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
     play = (GenericChoicePlay(CONTROLLER,RandomEntourage()*3), Destroy(SELF))
     pass
-#SW_079e4
+SW_079e4=buff(dormant=1)
 """ &lt;b&gt;Dormant&lt;/b&gt;. Summon a 2/2 Adventurer in @ |4(turn, turns). """
-#SW_079e5
+SW_079e5=buff(dormant=3)
 """ &lt;b&gt;Dormant&lt;/b&gt;. Restore 10 health to your hero in @ |4(turn, turns).  """  
-#SW_079e6
+SW_079e6=buff(dormant=5)
 """ &lt;b&gt;Dormant&lt;/b&gt;. Deal 12 damage randomly split to enemies in @ |4(turn, turns). """
 class SW_079t:
     """ >[x]In 1 turn, summon a 2/2 Adventurer with _a random bonus effect. """
-    dormant=1
-    awaken = SW_079t_Action(CONTROLLER)
+    play = SW_079t_Action(CONTROLLER)
 #SW_079te
 class SW_079t2:
     """ In 3 turns, restore 10 Health to your hero. """
-    dormant = 3
-    awaken = Heal(FRIENDLY_HERO,10)
+    play = Heal(FRIENDLY_HERO,10)
 #SW_079t2e
 class SW_079t3:
     """ In 5 turns, deal 12 damage randomly split among enemies."""
-    dormant = 5
-    awaken = Hit(RANDOM(ENEMY_CHARACTERS),1) * 12 
+    play = Hit(RANDOM(ENEMY_CHARACTERS),1) * 12 
 #SW_079t3e
 
-class SW_080:
+class SW_080:#OK
     """ Cornelius Roame
     [x]At the start and end
 _of each player's turn,
 draw a card. """
-    events = (OWN_TURN_BEGIN.on(Draw(CONTROLLER)), OWN_TURN_END.on(Draw(CONTROLLER)))
+    events = [OWN_TURN_END.on(Draw(CONTROLLER)), OWN_TURN_BEGIN.on(Draw(OPPONENT))]
     pass
 
-class SW_081:
+class SW_081:#OK
     """ Varian, King of Stormwind
-    [x]<b>Battlecry:</b> Draw a <b>Rush</b>
-minion to gain <b>Rush</b>.
-Repeat for <b>Taunt</b> and
-<b>Divine Shield</b>. """
-    events = (
-        #Draw(CONTROLLER,RUSH) & SetAttr(SELF,{GameTag.RUSH:True}),
-        #Draw(CONTROLLER,TAUNT) & SetAttr(SELF,{GameTag.TAUNT:True}),
-        #Draw(CONTROLLER,DIVINE_SHIELD) & SetAttr(SELF,{GameTag.DIVINE_SHIELD:True}),
-        )
+    [x]<b>Battlecry:</b> Draw a <b>Rush</b> minion to gain <b>Rush</b>. Repeat for <b>Taunt</b> and <b>Divine Shield</b>. """
+    play = [
+        Find(FRIENDLY_DECK + RUSH) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + RUSH)).then(SetAttr(SELF,'rush', True)),
+        Find(FRIENDLY_DECK + TAUNT) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + TAUNT)).then(SetAttr(SELF,'taunt', True)),
+        Find(FRIENDLY_DECK + DIVINE_SHIELD) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + DIVINE_SHIELD)).then(SetAttr(SELF,'divine_shield', True)),
+        ]
     pass
 
-class SW_306:############################## when drawn もの
+class SW_306:#OK
+    #description が無限ループを含んでいるが・・・・GiveとDrawを区別して解決。
     """ Encumbered Pack Mule
-    [x]<b>Taunt</b>
-When you draw this, add a
-_copy of it to your hand. """
+    [x]<b>Taunt</b> When you draw this, add a _copy of it to your hand. """
     #
     pass
 
-class SW_307:
+class SW_307:#OK
     """ Traveling Merchant
-    [x]<b>Tradeable</b>
-<b>Battlecry:</b> Gain +1/+1
-for each other friendly
-_minion you control. """
+    [x]<b>Tradeable</b><b>Battlecry:</b> Gain +1/+1 for each other friendly _minion you control. """
     play = Buff(SELF,'SW_307e') * Count(FRIENDLY_MINIONS - SELF)
     pass
 SW_307e=buff(atk=1,health=1)
 
-class SW_319:
+class SW_319:#OK
     """ Peasant
     At the start of your turn, draw a card. """
     events = OWN_TURN_BEGIN.on(Draw(CONTROLLER))
     pass
 
-class SW_400:#?#?#?#?#?#?#?#?#?#?#?#?#?#?
+class SW_400:#OK
     """ Entrapped Sorceress
-    [x]<b>Battlecry:</b> If you control a
-_<b>Quest</b>, <b>Discover</b> a spell. """
-    powered_up = Find(EnumSelector(Zone.SECRET) + FRIENDLY + EnumSelector(GameTag.SIDEQUEST))
+    [x]<b>Battlecry:</b> If you control a _<b>Quest</b>, <b>Discover</b> a spell. """
+    powered_up = Find(FRIENDLY + EnumSelector(GameTag.SIDEQUEST))
     play = powered_up & Discover(CONTROLLER, RandomSpell())
     pass
 
-class SW_418:
+class SW_418:#OK
     """ SI:7 Skulker
-    [x]<b>Stealth</b>
-<b>Battlecry:</b> The next card _you draw costs (1) less. """
+    [x]<b>Stealth</b><b>Battlecry:</b> The next card _you draw costs (1) less. """
     play = Buff(CONTROLLER,'SW_418e')
     pass
 class SW_418e:

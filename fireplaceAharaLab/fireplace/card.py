@@ -10,8 +10,8 @@ from .entity import BaseEntity, Entity, boolean_property, int_property, slot_pro
 from .exceptions import InvalidAction
 from .managers import CardManager
 from .targeting import TARGETING_PREREQUISITES, is_valid_target
-from .utils import CardList
-
+from .utils import CardList 
+from .logging import log
 
 THE_COIN = "GAME_005"
 
@@ -155,9 +155,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cant_be_frozen = boolean_property("cant_be_frozen")# aharalab 
 	reborn = boolean_property("reborn")# aharalab 
 	mark_of_evil = boolean_property("mark_of_evil")# aharalab 
-	_tmp_list1_ = []# aharalab  SCH_717, DRG_086
-	_tmp_list2_ = []# aharalab  SCH_717, DRG_086
-	_tmp_int1_ = 0# aharalab  SCH_717, DRG_086
+	_sidequest_list1_ = []# aharalab  SCH_717, DRG_086
+	_sidequest_list2_ = []# aharalab  SCH_717, DRG_086
+	_sidequest_counter_ = 0# aharalab  SCH_717, DRG_086
 	trade_cost = int_property("trade_cost")
 
 
@@ -263,9 +263,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.log("%s draws %r", self.controller, self)
 			if self.zone != Zone.HAND:
 				self.zone = Zone.HAND
-			# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-			if hasattr(self, "casts_when_drawn"):
-				self.game.queue_actions(self.controller, [Play(self, None, None, None)])
+			# if self is 'casts_when_drawn' then immediately play. 
+			self.game.card_when_drawn(self, self.controller)
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:
@@ -1071,7 +1070,7 @@ class HeroPower(PlayableCard):
 	############ aharalab ################
 
 class Sidequest(Spell):
-	_tmp_int1_=0
+	_sidequest_counter_=0
 	@property
 	def events(self):
 		ret = super().events

@@ -110,6 +110,7 @@ class CardDB(dict):
 			# 
 			#'BT_730',
 			'BAR_079',## neutral-barrens, too huge
+			'SW_079',## neutral=Stormwind, choice a dormant
 			]
 		for id, card in db.items():
 			## add attr spellpower

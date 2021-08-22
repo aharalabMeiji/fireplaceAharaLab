@@ -7,7 +7,7 @@ class ULD_155:#OK
 	<b>Quest:</b> Summon 20_minions.
 	<b>Reward:</b> Pharaoh's Warmask."""
 	tags={GameTag.SIDEQUEST:True}
-	events = Summon(CONTROLLER, MINION).on(	SidequestCounter(SELF,2,[Summon(CONTROLLER,"ULD_155p"), Destroy(SELF)]))
+	events = Summon(CONTROLLER, MINION).on(	SidequestCounter(SELF,20,[Summon(CONTROLLER,"ULD_155p"), Destroy(SELF)]))
 	
 ULD_155e = buff(2,0)
 

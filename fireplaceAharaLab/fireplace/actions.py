@@ -456,6 +456,7 @@ class Play(GameAction):
 		log.info("%s plays %r (target=%r, index=%r)", player, card, target, index)
 
 		player.pay_cost(card, card.cost)
+		player.add_play_log(card)
 
 		card.target = target
 		card._summon_index = index
@@ -1024,9 +1025,9 @@ class Give(TargetedAction):
 			## 
 			card.controller = target
 			card.zone = Zone.HAND
-			# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-			if hasattr(card, "casts_when_drawn"):
-				card.game.queue_actions(card.controller, [Play(card, None, None, None)])
+			# if card is 'casts_when_drawn' then immediately play.  
+			if card.id != 'SW_306':# avoiding infinite loop
+				card.game.card_when_drawn(card, card.controller)
 			ret.append(card)
 		return ret
 
@@ -1138,8 +1139,10 @@ class SW_078_Morph(TargetedAction):
 		target.clear_buffs()
 		target.zone = Zone.SETASIDE
 		card.cost = target.cost
-		card.atk = target.atk
-		card.max_health = target.max_health
+		if hasattr(target, 'atk'):
+			card.atk = target.atk
+		if hasattr(target, 'max_health'):
+			card.max_health = target.max_health
 		target.morphed = card
 		return card
 
@@ -1261,12 +1264,14 @@ class Summon(TargetedAction):
 
 	def do(self, source, target, cards):
 		log.info("%s summons %r", target, cards)
+
 		if not isinstance(cards, list):
 			cards = [cards]
 
 		for card in cards:
 			if not card.is_summonable():
 				continue
+			target.add_summon_log(card)
 			if card.controller != target:
 				card.controller = target
 			if card.zone != Zone.PLAY:
@@ -1692,9 +1697,10 @@ class SidequestCounter(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		log.info("Setting Counter on %r -> %i, %r", target, (target._tmp_int1_+1), targetaction)
-		target._tmp_int1_ += 1
-		if target._tmp_int1_== amount:
+		log.info("Setting Counter on %r -> %i, %r", target, (target._sidequest_counter_+1), targetaction)
+		target._sidequest_counter_ += 1
+		if target._sidequest_counter_== amount:
+			target._sidequest_counter_ = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -1710,8 +1716,9 @@ class SidequestCounterEq(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		if target._tmp_int1_== amount:
-			log.info("Setting Counter on %r :%i== %i, %r", target, target._tmp_int1_, amount, targetaction)
+		if target._sidequest_counter_== amount:
+			log.info("Setting Counter on %r :%i== %i, %r", target, target._sidequest_counter_, amount, targetaction)
+			target._sidequest_counter_ = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -1727,8 +1734,9 @@ class SidequestCounterNeq(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		if target._tmp_int1_ != amount:
-			log.info("Setting Counter on %r :%i!= %i, %r", target, target._tmp_int1_, amount, targetaction)
+		if target._sidequest_counter_ != amount:
+			log.info("Setting Counter on %r :%i!= %i, %r", target, target._sidequest_counter_, amount, targetaction)
+			target._sidequest_counter_ = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -1740,7 +1748,7 @@ class SidequestCounterClear(TargetedAction):
 	TARGET = ActionArg()# sidequest card
 	def do(self, source, target):
 		log.info("Setting Counter on %r to be 0", target)
-		target._tmp_int1_ = 0
+		target._sidequest_counter_ = 0
 
 class SidequestManaCounter(TargetedAction):
 	TARGET = ActionArg()# sidequest card
@@ -1748,9 +1756,9 @@ class SidequestManaCounter(TargetedAction):
 	AMOUNT = IntArg() #max of mana
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, card, amount, targetaction):
-		log.info("Setting Counter on %r is added by %d->%d, %r", target, card.cost, (target._tmp_int1_+card.cost), targetaction)
-		target._tmp_int1_ += card.cost
-		if target._tmp_int1_>= amount:
+		log.info("Setting Counter on %r is added by %d->%d, %r", target, card.cost, (target._sidequest_counter_+card.cost), targetaction)
+		target._sidequest_counter_ += card.cost
+		if target._sidequest_counter_>= amount:
 			i=0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
@@ -1860,14 +1868,14 @@ class HoldinHatch(TargetedAction):#DRG_086
 	CARD = ActionArg()
 	def do(self, source, target, card):
 		card = card[0]
-		source._tmp_list1_=card
+		source._sidequest_list1_=card
 		card.zone = Zone.SETASIDE
 		pass
 
 class OpenHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
 	def do(self, source, target):
-		Summon(target, source._tmp_list1_).trigger(source)
+		Summon(target, source._sidequest_list1_).trigger(source)
 		pass
 
 class DestroyArmor(TargetedAction):
@@ -2018,7 +2026,7 @@ class EducatedElekkMemory(TargetedAction):
 	TARGET = ActionArg()# spell card just played
 	def do(self,source,target,card):
 		log.info("%s remember the card: %s",target,card)
-		target._tmp_list1_.append(card)
+		target._sidequest_list1_.append(card)
 
 class EducatedElekkDeathrattle(TargetedAction):
 	""" Educated Elekk (epic)"""
@@ -2026,7 +2034,7 @@ class EducatedElekkDeathrattle(TargetedAction):
 	#<b>Deathrattle:</b> Shuffle the spells into your deck.
 	def do(self,source,target):
 		log.info("%s Deathrattle",target)
-		for card in target._tmp_list1_:
+		for card in target._sidequest_list1_:
 			Shuffle(target.controller, card).trigger(source)
 
 class TentacledMenace(TargetedAction):#DRG_084
@@ -2171,12 +2179,12 @@ class BT126TeronGorefiend(TargetedAction):
 	other friendly minions."""
 	TARGET = ActionArg()#card
 	def do(self,source,target):#
-		target._tmp_list1_=[]
+		target._sidequest_list1_=[]
 		for n in range(len(target.controller.field)):
 			card = target.controller.field[0]
 			if card.id != 'BT_126':
 				card.zone = Zone.SETASIDE
-				target._tmp_list1_.append(card)
+				target._sidequest_list1_.append(card)
 		pass
 class BT126TeronGorefiendDeathrattle(TargetedAction):
 	"""Teron Gorefiend	Minion	Legendary
@@ -2184,7 +2192,7 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 	them with +1/+1."""
 	TARGET = ActionArg()#card
 	def do(self,source,target):
-		for card in target._tmp_list1_:
+		for card in target._sidequest_list1_:
 			card.zone = Zone.PLAY
 			Buff(card, "BT_126e2").trigger(source)
 		pass
@@ -2416,3 +2424,5 @@ class BAR_079_m1_Action(Choice):
 	pass
 class BAR_079_m1_Action(Choice):
 	pass
+
+

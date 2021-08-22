@@ -72,6 +72,8 @@ class Player(Entity, TargetableByAuras):
 		self.spells_played_this_turn=[] ##### aharalab ####DAL_558### 28.12.2020 ####
 		self.cthun = None
 		self.__myDeathLog__=[]
+		self.__myPlayLog__=[]
+		self.__mySummonLog__=[]
 
 	def __str__(self):
 		return self.name
@@ -301,3 +303,15 @@ class Player(Entity, TargetableByAuras):
 	@property
 	def get_death_log(self):
 		return self.__myDeathLog__
+
+	def add_play_log(self, card):
+		self.__myPlayLog__.append(card)
+	@property
+	def get_play_log(self):
+		return self.__myPlayLog__
+
+	def add_summon_log(self, card):
+		self.__mySummonLog__.append(card)
+	@property
+	def get_summon_log(self):
+		return self.__mySummonLog__

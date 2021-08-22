@@ -155,7 +155,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CANT_ATTACK: "cant_attack",
 	GameTag.CANT_BE_ATTACKED: "cant_be_attacked",
 	GameTag.CANT_BE_DAMAGED: "cant_be_damaged",
-	GameTag.CANT_BE_FROZEN: "cant_be_frozen",##### added by aharalab, 19.12.2020
+	GameTag.CANT_BE_FROZEN: "cant_be_frozen",#
 	GameTag.CANT_BE_TARGETED_BY_ABILITIES: "cant_be_targeted_by_abilities",
 	GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: "cant_be_targeted_by_hero_powers",
 	GameTag.CANT_BE_TARGETED_BY_OPPONENTS: "cant_be_targeted_by_opponents",
@@ -165,7 +165,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
 	GameTag.CARDTYPE: "type",
-	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   ##### added by aharalab, 19.12.2020
+	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",
 	GameTag.CHOOSE_ONE: "has_choose_one",
 	GameTag.CHOOSE_BOTH: "choose_both",
