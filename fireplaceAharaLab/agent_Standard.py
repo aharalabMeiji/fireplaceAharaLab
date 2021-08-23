@@ -295,6 +295,8 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character._Asphyxia_ == 'asphyxia':
+						print("(Now Asphyxia)", end=' ')
 					if character.silenced:
 						print("(silenced)", end=" ")
 					if character.windfury:
@@ -309,6 +311,8 @@ class HumanAgent(Agent):
 					#	print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
+					if character.immune:
+						print("(immune)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
 					if character.dormant>0:
@@ -332,6 +336,8 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character._Asphyxia_ == 'asphyxia':
+						print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
 					if character.silenced:
 						print("(silenced)", end=" ")
 					if character.windfury:
@@ -346,6 +352,8 @@ class HumanAgent(Agent):
 					#	print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
+					if character.immune:
+						print("(immune)", end=" ")
 					if character.stealthed:
 						print("(stealthed)", end=" ")
 					if character.divine_shield:

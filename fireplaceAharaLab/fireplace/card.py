@@ -154,14 +154,14 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
-	cant_be_frozen = boolean_property("cant_be_frozen")# aharalab 
-	reborn = boolean_property("reborn")# aharalab 
-	mark_of_evil = boolean_property("mark_of_evil")# aharalab 
-	_sidequest_list1_ = []# aharalab  SCH_717, DRG_086
-	_sidequest_list2_ = []# aharalab  SCH_717, DRG_086
-	_sidequest_counter_ = 0# aharalab  SCH_717, DRG_086
+	cant_be_frozen = boolean_property("cant_be_frozen")# 
+	reborn = boolean_property("reborn")# 
+	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
-
+	_sidequest_list1_ = []# SidequestCouter()
+	_sidequest_list2_ = []# off use
+	_sidequest_counter_ = 0# SidequestCouter()
+	_Asphyxia_='alive' # SW_323 The Rat King
 
 	def __init__(self, data):
 		self.cant_play = False

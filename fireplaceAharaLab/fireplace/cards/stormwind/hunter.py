@@ -67,21 +67,19 @@ class SW_322t4:#OK
     events = OWN_SPELL_PLAY.on(RefreshHeroPower(FRIENDLY_HERO_POWER))
     pass
 
-class SW_323:### 死んでからあとにeventを受け付ける方法がわからない。
+class SW_323:#OK できた気がする。フラグが3種類必要なので、enchantment1個ではどうやるのかがわからなかった。
     """ The Rat King
     [Rush]. [Deathrattle:] Go[Dormant]. Revive after 5 friendly minions die. """
-    deathrattle = Buff(SELF,'SW_323e')
-    events = Death(FRIENDLY_MINIONS).on(SidequestCounter(CONTROLLER,5,[Awaken(SELF)]))
+    events = Death(FRIENDLY + MINION).on(Asphyxia(SELF))
     pass
 
 class SW_323e:
     """ Rat King's Slumber
         [Dormant]. Awaken after @ |4(friendly minion dies., friendly minions die.) """
     tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-    #awaken = [Summon(CONTROLLER,'SW_323'), Destroy(SELF)]
     #pass
 
-class SW_455:#
+class SW_455:#OK
     """ Rodent Nest
     [Deathrattle:] Summon five 1/1 Rats. """
     deathrattle = Summon(CONTROLLER,'SW_455t') * 5
@@ -93,26 +91,32 @@ class SW_455t:
     #
     pass
 
-class SW_457:
+class SW_457:#OK
     """ Leatherworking Kit
-    After three friendlyBeasts die, draw a Beast and give it +1/+1.Lose 1 Durability. """
-    events = Death(FRIENDLY + BEAST).on(SidequestCounter(SELF,3,[Give(CONTROLLER, BEAST).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
+    After three friendly Beasts die, draw a Beast and give it +1/+1.Lose 1 Durability. """
+    events = Death(FRIENDLY + BEAST).on(SidequestCounter(SELF,3,[Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
     pass
 SW_457e=buff(atk=1,health=1)
 
-class SW_458:#?#?#?#?#?#?#?#?#
+class SW_458:##########  Deathイベントが失敗。
     """ Ramming Mount
     Give a minion +2/+2and [Immune] whileattacking. When it dies,summon a Ram. """
-    #requirements ? 
-    #play = Buff(TARGET,'SW_458e')
-    #events = Death(TARGET).on(Summon(CONTROLLER))
+    requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0} 
+    play = Buff(TARGET,'SW_458e')
     pass
 
-SW_458e=buff(atk=2,health=2,immune=True)
+class SW_458e:
+    atk = lambda self, i: i+2
+    max_health = lambda self, i: i+2
+    events = [
+        Play(CONTROLLER).on(SetTag(OWNER,{GameTag.IMMUNE:True})),
+        OWN_TURN_END.on(SetTag(OWNER,{GameTag.IMMUNE:False})),
+        OWN_TURN_BEGIN.on(SetTag(OWNER,{GameTag.IMMUNE:True})),
+        Death(OWNER_TARGET).on(Summon(CONTROLLER,'SW_458t'))
+        ]
 """ On a Ram
     +2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
     
-
 class SW_458t:
     """ Tavish's Ram
     [Immune] while attacking. """

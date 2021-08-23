@@ -251,6 +251,9 @@ SELF = FuncSelector(lambda _, source: [source])
 OWNER = FuncSelector(
 	lambda entities, source: [source.owner] if hasattr(source, "owner") else []
 )
+OWNER_TARGET = FuncSelector(
+	lambda entities, source: [source.owner.target] if hasattr(source, "owner") else []
+)
 
 
 def LazyValueSelector(value):

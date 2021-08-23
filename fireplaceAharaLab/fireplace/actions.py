@@ -296,6 +296,8 @@ class Death(GameAction):
 		log.info("Processing Death for %r", target)
 		target.controller.add_death_log(target)
 		self.broadcast(source, EventListener.ON, target)
+		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
+			source.game.queue_actions(source, [Asphyxia(target)])
 		if target.deathrattles:
 			source.game.queue_actions(source, [Deathrattle(target)])
 		if target.reborn:# aharalab
@@ -1809,6 +1811,37 @@ class Reborn(TargetedAction):
 			reboran_minion = reboran_minion[0]
 		reboran_minion.reborn = False
 		reboran_minion.max_health = 1
+
+
+class Asphyxia(TargetedAction):
+	TARGET = ActionArg()# the card
+	def do(self, source, target):
+		_score_limit = 5
+		if target._Asphyxia_ == 'alive' and target.dead:
+			log.info("The King Rat turns death.")
+			ret = Summon(target.controller, "SW_323").trigger(target.controller)
+			ret = ret[0][0]
+			ret._Asphyxia_= 'asphyxia'
+			ret.cant_attack = True
+			ret.cant_be_damaged = True
+			ret.cant_be_frozen = True
+			ret.cant_be_targeted_by_abilities = True
+			ret.cant_be_targeted_by_hero_powers = True
+			ret.cant_be_targeted_by_opponents = True
+		elif target._Asphyxia_ == 'asphyxia':
+			target._sidequest_counter_ += 1
+			log.info("The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
+			if target._sidequest_counter_ == _score_limit:
+				target._sidequest_counter_ = 0
+				target._Asphyxia_= 'reborn'
+				target.cant_attack = False
+				target.cant_be_damaged = False
+				target.cant_be_frozen = False
+				target.cant_be_targeted_by_abilities = False
+				target.cant_be_targeted_by_hero_powers = False
+				target.cant_be_targeted_by_opponents = False
+			pass
+		pass
 
 
 from .dsl.copy import Copy
