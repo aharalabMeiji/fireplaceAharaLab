@@ -112,7 +112,7 @@ class SW_458e:
         Play(CONTROLLER).on(SetTag(OWNER,{GameTag.IMMUNE:True})),
         OWN_TURN_END.on(SetTag(OWNER,{GameTag.IMMUNE:False})),
         OWN_TURN_BEGIN.on(SetTag(OWNER,{GameTag.IMMUNE:True})),
-        Death(OWNER_TARGET).on(Summon(CONTROLLER,'SW_458t'))
+        Death(OWNER).on(Summon(CONTROLLER,'SW_458t'))
         ]
 """ On a Ram
     +2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
@@ -123,10 +123,10 @@ class SW_458t:
     #
     pass
 
-class SW_459:
+class SW_459:#OK
     """ Stormwind Piper
     After this minion attacks,give your Beasts +1/+1. """
-    events = Attack(SELF, ENEMY_MINIONS).on(Buff(FRIENDLY_MINIONS+BEAST,'SW_459e'))
+    events = Attack(SELF, ENEMY_CHARACTERS).on(Buff(FRIENDLY_MINIONS+BEAST,'SW_459e'))
     pass
 
 SW_459e=buff(atk=1,health=1)
