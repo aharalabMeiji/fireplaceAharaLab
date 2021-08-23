@@ -30,8 +30,8 @@ def Card(id):
 		subclass = Secret
 	if subclass is Spell and data.sidequest:# aharalab
 		subclass = Sidequest# aharalab
-	if subclass is Spell and data.questline:# aharalab
-		subclass = Sidequest# aharalab
+	#if subclass is Spell and data.questline:# aharalab
+	#	subclass = Sidequest# aharalab
 	return subclass(data)
 
 

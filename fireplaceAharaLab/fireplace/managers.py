@@ -209,7 +209,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.PARENT_CARD: "parent_card",
 	GameTag.POISONOUS: "poisonous",
 	GameTag.POWERED_UP: "powered_up",
-	GameTag.QUESTLINE: "questline",#
+	GameTag.QUESTLINE: "sidequest",#
 	GameTag.RARITY: "rarity",
 	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
@@ -217,7 +217,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
-	GameTag.SIDEQUEST: "sidequest",# aharalab, 21.12.2020
+	GameTag.SIDEQUEST: "sidequest",# 
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",

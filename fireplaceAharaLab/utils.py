@@ -520,7 +520,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_322','attackspell','attackspell','attackspell','attackspell'],player1)
+	ExchangeCard(['beast','SW_457'],player1)
 	#ExchangeCard(['spell'],player2)
 
 

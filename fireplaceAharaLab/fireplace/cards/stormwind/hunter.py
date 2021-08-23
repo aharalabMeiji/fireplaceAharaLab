@@ -3,11 +3,7 @@ from ..utils import *
 
 class SW_320:#OK
     """ Rats of Extraordinary Size
-    [x]Summon seven 1/1
-Rats. Any that can't fit
-on the battlefield go to
-your hand with +4/+4. """
-    #play = Summon(CONTROLLER,'SW_455t')
+    [x]Summon seven 1/1 Rats. Any that can't fit on the battlefield go to your hand with +4/+4. """
     play = (
         ((Count(FRIENDLY_MINIONS) < 8) & Summon(CONTROLLER,'SW_455t') | Give(CONTROLLER,'SW_455t').then(Buff(Give.CARD,'SW_320e'))),
         ((Count(FRIENDLY_MINIONS) < 8) & Summon(CONTROLLER,'SW_455t') | Give(CONTROLLER,'SW_455t').then(Buff(Give.CARD,'SW_320e'))),
@@ -21,23 +17,23 @@ your hand with +4/+4. """
 SW_320e=buff(atk=4,health=4)
 
 
-class SW_321:#impossible
+class SW_321:#OK
     """ Aimed Shot
     Deal $3 damage. Your next Hero Power deals 2 more damage. """
-    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
     play = (Hit(TARGET,3),Buff(CONTROLLER,'SW_321e'))
     pass
 
 class SW_321e:
     """ Aiming
     Your next Hero Power deals 2 more damage. """
-    events=Activate(CONTROLLER, HERO_POWER).on([Hit(ENEMY_HERO, 2),Destroy(SELF)])
+    events=Activate(CONTROLLER, HERO_POWER).on(Hit(ENEMY_HERO, 2),Destroy(SELF))
     pass
 
 class SW_322:#OK
     """ Defend the Dwarven District
     [Questline:] Deal damage with 2 spells. [Reward:] Your Hero Power can target minions. """
-    tags={GameTag.QUESTLINE:True}
+    tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
     events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
         SidequestCounter(SELF, 2, [\
             ChangeHeroPower(CONTROLLER, "HERO_05dbp"),Summon(CONTROLLER,'SW_322t'),Destroy(SELF)\
@@ -48,7 +44,7 @@ class SW_322:#OK
 class SW_322t:#OK
     """ Take the High Ground
     [Questline:] Deal damage with 2 spells.[Reward:] Set the Cost ofyour Hero Power to (0). """
-    tags={GameTag.QUESTLINE:True}
+    tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
     events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
         SidequestCounter(SELF, 2, [\
             SetTag(FRIENDLY_HERO_POWER, {GameTag.COST: 0}),Summon(CONTROLLER,'SW_322t2'),Destroy(SELF)\
@@ -58,7 +54,7 @@ class SW_322t:#OK
 class SW_322t2:#OK
     """ Knock 'Em Down
     [Questline:] Dealdamage with 2 spells.[Reward:] Tavish,Master Marksman. """
-    tags={GameTag.QUESTLINE:True}
+    tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
     events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
         SidequestCounter(SELF, 2, [\
             Summon(CONTROLLER,'SW_322t4'),Destroy(SELF)\
@@ -71,21 +67,21 @@ class SW_322t4:#OK
     events = OWN_SPELL_PLAY.on(RefreshHeroPower(FRIENDLY_HERO_POWER))
     pass
 
-class SW_323:
+class SW_323:### 死んでからあとにeventを受け付ける方法がわからない。
     """ The Rat King
-    [Rush]. [Deathrattle:] Go[Dormant]. Revive after 5friendly minions die. """
-    deathrattle = Summon(CONTROLLER,'SW_323e')
+    [Rush]. [Deathrattle:] Go[Dormant]. Revive after 5 friendly minions die. """
+    deathrattle = Buff(SELF,'SW_323e')
+    events = Death(FRIENDLY_MINIONS).on(SidequestCounter(CONTROLLER,5,[Awaken(SELF)]))
     pass
 
 class SW_323e:
     """ Rat King's Slumber
-    [Dormant]. Awaken after @ |4(friendly minion dies., friendly minions die.) """
-    dormant = -1
-    events = Death(FRIENDLY_MINIONS).SidequestCounter(CONTROLLER,5,[Awaken(SELF)])
-    awaken = [Summon(CONTROLLER,'SW_323'), Destroy(SELF)]
-    pass
+        [Dormant]. Awaken after @ |4(friendly minion dies., friendly minions die.) """
+    tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+    #awaken = [Summon(CONTROLLER,'SW_323'), Destroy(SELF)]
+    #pass
 
-class SW_455:
+class SW_455:#
     """ Rodent Nest
     [Deathrattle:] Summon five 1/1 Rats. """
     deathrattle = Summon(CONTROLLER,'SW_455t') * 5
@@ -100,7 +96,7 @@ class SW_455t:
 class SW_457:
     """ Leatherworking Kit
     After three friendlyBeasts die, draw a Beast and give it +1/+1.Lose 1 Durability. """
-    events = Death(FRIENDLY + BEAST).on(SidequestCounter(CONTROELLER,3,[Give(CONTROLLER, BEAST).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
+    events = Death(FRIENDLY + BEAST).on(SidequestCounter(SELF,3,[Give(CONTROLLER, BEAST).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
     pass
 SW_457e=buff(atk=1,health=1)
 
@@ -113,10 +109,9 @@ class SW_458:#?#?#?#?#?#?#?#?#
     pass
 
 SW_458e=buff(atk=2,health=2,immune=True)
-    """ On a Ram
+""" On a Ram
     +2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
-    #
-    pass
+    
 
 class SW_458t:
     """ Tavish's Ram
@@ -131,16 +126,15 @@ class SW_459:
     pass
 
 SW_459e=buff(atk=1,health=1)
-    """ Entranced
+""" Entranced
     +1/+1. """
-    #
-    pass
+#
 
 class SW_460:
     """ Devouring Swarm
     Choose an enemy minion.Your minions attack it,then return any that die to your hand. """
     requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
-    play = Attack(FRIENDLY_MINIONS, TARGET), Death(DRIENDLY_MINION).on(Give(CONTROLLER,Death.CARD))
+    play = Attack(FRIENDLY_MINIONS, TARGET), Death(FRIENDLY_MINIONS).on(Give(CONTROLLER,Copy(SELF)))
     pass
 
 class SW_463:

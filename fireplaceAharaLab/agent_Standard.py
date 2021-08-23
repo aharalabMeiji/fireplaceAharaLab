@@ -357,6 +357,8 @@ class HumanAgent(Agent):
 							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
 						else:
 							print("(dormant)", end=" ")
+					if character._sidequest_counter_>0:
+						print("(counter = %d)"%card._sidequest_counter_, end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
