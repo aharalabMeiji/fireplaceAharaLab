@@ -161,7 +161,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_sidequest_list1_ = []# SidequestCouter()
 	_sidequest_list2_ = []# off use
 	_sidequest_counter_ = 0# SidequestCouter()
-	_Asphyxia_='alive' # SW_323 The Rat King
+	_Asphyxia_ = 'alive' # SW_323 The Rat King
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -455,7 +455,7 @@ class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")
 	atk = int_property("atk")
 	cant_be_damaged = boolean_property("cant_be_damaged")
-	immune_while_attacking = slot_property("immune_while_attacking")
+	immune_while_attacking = boolean_property("immune_while_attacking")
 	incoming_damage_multiplier = int_property("incoming_damage_multiplier")
 	max_health = int_property("max_health")
 
@@ -706,7 +706,7 @@ class Minion(Character):
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
-
+	
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",

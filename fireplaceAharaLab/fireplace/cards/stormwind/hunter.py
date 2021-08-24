@@ -98,26 +98,36 @@ class SW_457:#OK
     pass
 SW_457e=buff(atk=1,health=1)
 
-class SW_458:##########  Deathイベントが失敗。
+class Moribund(TargetedAction):
+    """ call 'on' Predamage  """
+    TARGET = ActionArg()
+    TARGETACTIONS = ActionArg()
+    def do(self, source, target, targetactions):
+        if target.health<=target.predamage: 
+            log.info("%r is moribund."%target)
+            for action in targetactions:
+                action.trigger(source)
+        pass
+
+class SW_458:#OK
     """ Ramming Mount
     Give a minion +2/+2and [Immune] whileattacking. When it dies,summon a Ram. """
     requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0} 
-    play = Buff(TARGET,'SW_458e')
+    play = Buff(TARGET,'SW_458e'),SetTag(TARGET,{GameTag.IMMUNE:True})
     pass
 
 class SW_458e:
-    atk = lambda self, i: i+2
-    max_health = lambda self, i: i+2
-    events = [
-        Play(CONTROLLER).on(SetTag(OWNER,{GameTag.IMMUNE:True})),
+    atk = lambda self, i : i+2
+    max_health = lambda self, i  : i+2
+    events =[
         OWN_TURN_END.on(SetTag(OWNER,{GameTag.IMMUNE:False})),
         OWN_TURN_BEGIN.on(SetTag(OWNER,{GameTag.IMMUNE:True})),
-        Death(OWNER).on(Summon(CONTROLLER,'SW_458t'))
+        Predamage(OWNER).on(Moribund(OWNER,[Summon(CONTROLLER,'SW_458t')]))
         ]
 """ On a Ram
     +2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
     
-class SW_458t:
+class SW_458t:### immune_while_attacking がうまく動いていないように思う。
     """ Tavish's Ram
     [Immune] while attacking. """
     #
@@ -134,11 +144,19 @@ SW_459e=buff(atk=1,health=1)
     +1/+1. """
 #
 
+class AttackByAll(TargetedAction):
+    """   """
+    TARGET = ActionArg()
+    def do(self, source, target):
+        for attacker in source.field:
+            Attack(attacker,target).trigger(source)
+
 class SW_460:
     """ Devouring Swarm
     Choose an enemy minion.Your minions attack it,then return any that die to your hand. """
     requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
-    play = Attack(FRIENDLY_MINIONS, TARGET), Death(FRIENDLY_MINIONS).on(Give(CONTROLLER,Copy(SELF)))
+    play = AttackByAll(TARGET)
+    events = Predamage(FRIENDLY_MINIONS).on(Moribund(OWNER,[Give(CONTROLLER,Copy(Death.ENTITY))]))
     pass
 
 class SW_463:
