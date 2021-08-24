@@ -2235,34 +2235,8 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 			Buff(card, "BT_126e2").trigger(source)
 		pass
 
-class WC_028_Meeting_Stone(TargetedAction):
-	""" Meeting Stone """
-	TARGET = ActionArg()#the controller
-	def do(self,source,target):
-		new_minion =  Give(target, "EX1_044").trigger(source)
-		new_minion = new_minion[0][0]
-		newAtk=new_minion.atk+random.randint(1,3)
-		new_minion._atk = new_minion.atk = newAtk
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		newHealth = new_minion.health+random.randint(1,3)
-		new_minion.max_health = newHealth
-		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
-
 class SW_079t_Action(TargetedAction):
 	""" Westfall """
-	TARGET = ActionArg()#the controller
-	def do(self,source,target):
-		new_minion =  Summon(target, "EX1_044").trigger(source)
-		new_minion = new_minion[0][0]
-		newAtk=new_minion.atk+random.randint(1,3)
-		new_minion._atk = new_minion.atk = newAtk
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		newHealth = new_minion.health+random.randint(1,3)
-		new_minion.max_health = newHealth
-		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
-
-class WC_027_Devouring_Ectoplasm(TargetedAction):
-	""" Devouring Ectoplasm """
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
 		new_minion =  Summon(target, "EX1_044").trigger(source)
@@ -2286,14 +2260,6 @@ class Frenzy(TargetedAction):
 			targetaction.trigger(source)
 			target.frenzyFlag=1
 			pass 
-
-class WC_035_Archdruid_Naralex(TargetedAction):
-	TARGET = ActionArg()#self
-	def do(self, source, target):
-		dreams=["DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"]
-		newCard = random.choice(dreams)
-		Give(target,newCard).trigger(source)
-		pass
 
 class CountSummon(TargetedAction):
 	TARGET = ActionArg()#self
@@ -2422,6 +2388,20 @@ class SpallAndDamage(TargetedAction):## for SW_322
 			player.spell_and_damage = False
 			targetaction.trigger(source)
 		pass
+
+class Moribund(TargetedAction):
+    """ call 'on' Predamage  
+	events = Predamage(SOMEONE).on(Moribund(SOMEONE,[ACTION])
+	"""
+    TARGET = ActionArg()
+    TARGETACTIONS = ActionArg()
+    def do(self, source, target, targetactions):
+        if target.health<=target.predamage: 
+            log.info("%r is moribund."%target)
+            for action in targetactions:
+                action.trigger(source)
+        pass
+
 
 class BAR_079_Kazakus_Golem_Shaper(Choice):
 

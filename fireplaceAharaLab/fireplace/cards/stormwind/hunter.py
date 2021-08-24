@@ -98,16 +98,6 @@ class SW_457:#OK
     pass
 SW_457e=buff(atk=1,health=1)
 
-class Moribund(TargetedAction):
-    """ call 'on' Predamage  """
-    TARGET = ActionArg()
-    TARGETACTIONS = ActionArg()
-    def do(self, source, target, targetactions):
-        if target.health<=target.predamage: 
-            log.info("%r is moribund."%target)
-            for action in targetactions:
-                action.trigger(source)
-        pass
 
 class SW_458:#OK
     """ Ramming Mount
@@ -144,22 +134,24 @@ SW_459e=buff(atk=1,health=1)
     +1/+1. """
 #
 
-class AttackByAll(TargetedAction):
+class SW_460_AttackByAll(TargetedAction):
     """   """
     TARGET = ActionArg()
     def do(self, source, target):
-        for attacker in source.field:
+        for attacker in source.controller.field:
             Attack(attacker,target).trigger(source)
+            if attacker.health==0:
+                log.info("%r revives into the hand",attacker)
+                Give(source.controller,Copy(ID(attacker))).trigger(source.controller)
 
-class SW_460:
+class SW_460:#OK
     """ Devouring Swarm
     Choose an enemy minion.Your minions attack it,then return any that die to your hand. """
     requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
-    play = AttackByAll(TARGET)
-    events = Predamage(FRIENDLY_MINIONS).on(Moribund(OWNER,[Give(CONTROLLER,Copy(Death.ENTITY))]))
+    play = SW_460_AttackByAll(TARGET)
     pass
 
-class SW_463:
+class SW_463:#OK
     """ Imported Tarantula
     [Tradeable] [Deathrattle:] Summon two1/1 Spiders with[Poisonous] and [Rush]. """
     deathrattle = Summon(CONTROLLER,'SW_463t') * 2

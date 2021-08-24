@@ -13,6 +13,19 @@ class BAR_854e:
 	#+ EnumSelector(Race.ELEMENTAL)
 	pass 
 
+class WC_028_Meeting_Stone(TargetedAction):
+	""" Meeting Stone """
+	TARGET = ActionArg()#the controller
+	def do(self,source,target):
+		new_minion =  Give(target, "EX1_044").trigger(source)
+		new_minion = new_minion[0][0]
+		newAtk=new_minion.atk+random.randint(1,3)
+		new_minion._atk = new_minion.atk = newAtk
+		new_minion.data.scripts.atk = lambda self, i: self._atk
+		newHealth = new_minion.health+random.randint(1,3)
+		new_minion.max_health = newHealth
+		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+
 class WC_028:#OK
 	"""
 	Meeting Stone
@@ -99,13 +112,21 @@ class BAR_743:#OK
 	pass
 BAR_743e=buff(health=2)
 
+class WC_035_Archdruid_Naralex(TargetedAction):
+	TARGET = ActionArg()#self
+	def do(self, source, target):
+		dreams=["DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"]
+		newCard = random.choice(dreams)
+		Give(target,newCard).trigger(source)
+		pass
+
+
 class WC_035:#OK
 	"""
 	Archdruid Naralex
 	[x]<b>Dormant</b> for 2 turns. While <b>Dormant</b>, 
 	add a Dream card to your hand __at the end of your turn.
 	"""
-
 	play = Buff(CONTROLLER,"WC_035e")
 	dormant = 2
 	awaken = Destroy(FRIENDLY + ID("WC_035e"))
@@ -141,6 +162,19 @@ class BAR_026:#OK
 	"""
 	deathrattle = Heal(FRIENDLY_HERO,4)
 	pass
+
+class WC_027_Devouring_Ectoplasm(TargetedAction):
+	""" Devouring Ectoplasm """
+	TARGET = ActionArg()#the controller
+	def do(self,source,target):
+		new_minion =  Summon(target, "EX1_044").trigger(source)
+		new_minion = new_minion[0][0]
+		newAtk=new_minion.atk+random.randint(1,3)
+		new_minion._atk = new_minion.atk = newAtk
+		new_minion.data.scripts.atk = lambda self, i: self._atk
+		newHealth = new_minion.health+random.randint(1,3)
+		new_minion.max_health = newHealth
+		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class WC_027:#OK
 	"""
