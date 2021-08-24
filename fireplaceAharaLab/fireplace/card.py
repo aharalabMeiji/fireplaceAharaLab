@@ -158,9 +158,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	reborn = boolean_property("reborn")# 
 	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
-	_sidequest_list1_ = []# SidequestCouter()
+	corrupt = boolean_property('corrupt')# darkmoon
+	_sidequest_list1_ = []# Sidequest
 	_sidequest_list2_ = []# off use
-	_sidequest_counter_ = 0# SidequestCouter()
+	_sidequest_counter_ = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 
 	def __init__(self, data):

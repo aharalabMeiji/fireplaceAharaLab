@@ -1,19 +1,9 @@
 from ..utils import *
 
-class DMF_083_Corrupt(TargetedAction):
-    TARGET = ActionArg()
-    CORRUPTED = CardArg()
-    def do(self, source, target, corrupted):
-        if target.cost > source.cost:
-            for card in corrupted:
-                Summon(source.controller, card).trigger(source.controller)
-            Destroy(source).trigger(source.controller)
-        pass
 
 class DMF_083:
     """ Dancing Cobra
     [Corrupt:] Gain [Poisonous]. """
-    events = Play(CONTROLLER).on(DMF_083_Corrupt(Play.CARD,'DMF_083t'))
     pass
 
 class DMF_083t:
@@ -87,7 +77,6 @@ class DMF_090:
     """ Don't Feed the Animals
     Give all Beasts in your hand +1/+1.[Corrupt:] Give them +2/+2 instead. """
     play = Buff(FRIENDLY_HAND + BEAST,'DMF_090e2')
-    events = Play(CONTROLLER).on(DMF_083_Corrupt(Play.CARD,'DMF_090t'))
     pass
 
 class DMF_090e:
@@ -114,10 +103,10 @@ class DMF_122:
     play = GenericChoice(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
-class DMF_123:
+class DMF_123:############# control two minions
     """ Open the Cages
     [Secret:] When your turn starts, if you control two minions, summon an Animal Companion. """
-    secret = OWN_TURN_BEGIN.on(Count(FRIENDLY_MINIONS)>=2 & (Reveal(SELF), Summon(CONTROLLER,'NEW1_031')))
+    secret = OWN_TURN_BEGIN.on(Reveal(SELF), Summon(CONTROLLER,'NEW1_031'))
     pass
 
 class DMF_734e:

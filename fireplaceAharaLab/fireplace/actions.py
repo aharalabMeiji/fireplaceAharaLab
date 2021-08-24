@@ -492,6 +492,14 @@ class Play(GameAction):
 		self.broadcast(player, EventListener.ON, player, card, target)
 		self.resolve_broadcasts()
 
+		#corrupt:
+		for eachCard in player.hand:
+			if hasattr(eachCard,'corrupt'):
+				if eachCard.corrupt:
+					if eachCard.cost < card.cost:
+						Corrupt(player, eachCard).trigger(player)
+
+
 		# "Can't Play" (aka Counter) means triggers don't happen either
 		if not card.cant_play:
 			if trigger_outcast and card.get_actions("outcast"):
@@ -841,6 +849,18 @@ class Battlecry(TargetedAction):
 		if card.overload:
 			source.game.queue_actions(card, [Overload(player, card.overload)])
 
+class Corrupt(TargetedAction):# darkmoon fair 
+    CONTROLLER = ActionArg()
+    CORRUPT = CardArg()
+    def do(self, source, controller, corrupt):
+        corrupt=corrupt[0]
+        #corruptList=['DMF_083','DMF_090','DMF_101']# たぶん不用
+        #if corrupt.id in corruptList:
+        if corrupt.corrupt:
+            corrupted = corrupt.id+"t"#現時点でのルール
+            Give(controller, corrupted).trigger(controller)
+            Destroy(corrupt).trigger(controller)
+        pass
 
 class Destroy(TargetedAction):
 	"""

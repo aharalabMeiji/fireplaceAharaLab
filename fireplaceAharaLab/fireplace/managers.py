@@ -172,6 +172,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CLASS: "card_class",
 	GameTag.COMBO: "has_combo",
 	GameTag.CONTROLLER: "controller",
+	GameTag.CORRUPT: 'corrupt',
 	GameTag.COST: "cost",
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",

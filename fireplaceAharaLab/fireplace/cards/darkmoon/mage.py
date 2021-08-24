@@ -3,7 +3,7 @@ from ..utils import *
 class DMF_100:
     """ Confection Cyclone
     [Battlecry:] Add two 1/2 Sugar Elementals to your_hand. """
-    #
+    play = Give(CONTROLLER, 'DMF_100t') * 2
     pass
 
 class DMF_100t:
@@ -15,13 +15,14 @@ class DMF_100t:
 class DMF_101:
     """ Firework Elemental
     [Battlecry:] Deal 3 damageto a minion. [Corrupt:]Deal 12 instead. """
-    #
+    requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+    play = Hit(TARGET, 3)
     pass
 
 class DMF_101t:
     """ Firework Elemental
     [Corrupted][Battlecry:] Deal 12 damage to a minion. """
-    #
+    play = Hit(TARGET, 12)
     pass
 
 class DMF_102:
