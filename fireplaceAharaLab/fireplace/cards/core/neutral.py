@@ -223,14 +223,17 @@ EX1_103e = buff(health=2)
 class CORE_EX1_110:# 12 1637
     """ Cairne Bloodhoof
     [Deathrattle:] Summon a 5/5 Baine Bloodhoof. """
-    #
+    deathrattle = Summon(CONTROLLER, "EX1_110t")
     pass
+class EX1_110t:
+    """  """
 
 class CORE_EX1_162:# 12 1637
     """ Dire Wolf Alpha
     Adjacent minions have +1_Attack. """
-    #
+    update = Refresh(SELF_ADJACENT, buff="EX1_162o")
     pass
+EX1_162o = buff(atk=1)
 
 class CORE_EX1_186:# 12 1637
     """ SI:7 Infiltrator
@@ -265,19 +268,20 @@ class CORE_EX1_190:# 12 1637
 class CORE_EX1_249:# 12 1637
     """ Baron Geddon
     At the end of your turn, deal 2 damage to ALL other characters. """
-    #
+    events = OWN_TURN_END.on(Hit(ALL_CHARACTERS - SELF, 2))
     pass
 
 class CORE_EX1_399:# 12 1637
     """ Gurubashi Berserker
     Whenever this minion takes damage, gain +3_Attack. """
-    #
+    events = SELF_DAMAGE.on(Buff(SELF, "EX1_399e"))
     pass
+EX1_399e = buff(atk=3)
 
 class CORE_EX1_506:# 12 1637
     """ Murloc Tidehunter
     [Battlecry:] Summon a 1/1_Murloc Scout. """
-    #
+    play = Summon(CONTROLLER, "EX1_506a")
     pass
 
 class CORE_EX1_506a:# 12 1637
@@ -289,31 +293,37 @@ class CORE_EX1_506a:# 12 1637
 class CORE_EX1_509:# 12 1637
     """ Murloc Tidecaller
     Whenever you summon a Murloc, gain +1 Attack. """
-    #
+    events = Summon(ALL_PLAYERS, MURLOC).on(Buff(SELF, "EX1_509e"))
     pass
+EX1_509e = buff(atk=1)
 
 class CORE_EX1_564:# 12 1637
     """ Faceless Manipulator
     [Battlecry:] Choose a minion and become a copy of it. """
+    requirements = {
+        PlayReq.REQ_MINION_TARGET: 0,
+        PlayReq.REQ_NONSELF_TARGET: 0,
+        PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+    play = Morph(SELF, ExactCopy(TARGET))
     #
     pass
 
 class CORE_FP1_007:# 12 1637
     """ Nerubian Egg
     [Deathrattle:] Summon a 4/4 Nerubian. """
-    #
+    deathrattle = Summon(CONTROLLER, "FP1_007t")
     pass
 
 class CORE_FP1_031:# 12 1637
     """ Baron Rivendare
     Your minions trigger their [Deathrattles] twice. """
-    #
+    update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
     pass
 
 class CORE_GVG_013:# 12 1637
     """ Cogmaster
     Has +2 Attack while you have a Mech. """
-    #
+    update = Find(FRIENDLY_MINIONS + MECH) & Refresh(SELF, {GameTag.ATK: +2})
     pass
 
 class CORE_GVG_044:# 12 1637
@@ -325,7 +335,7 @@ class CORE_GVG_044:# 12 1637
 class CORE_GVG_076:# 12 1637
     """ Explosive Sheep
     [Deathrattle:] Deal 2 damage to all minions. """
-    #
+    deathrattle = Hit(ALL_MINIONS, 2)
     pass
 
 class CORE_GVG_085:# 12 1637
@@ -343,7 +353,7 @@ class CORE_GVG_109:# 12 1637
 class CORE_GVG_121:# 12 1637
     """ Clockwork Giant
     Costs (1) less for each card in your opponent's hand. """
-    #
+    cost_mod = -Count(ENEMY_HAND)
     pass
 
 class CORE_ICC_026:# 12 1637
@@ -355,8 +365,9 @@ class CORE_ICC_026:# 12 1637
 class CORE_KAR_036:# 12 1637
     """ Arcane Anomaly
     After you cast a spell, give this minion +1 Health. """
-    #
+    events = OWN_SPELL_PLAY.on(Buff(SELF, "KAR_036e"))
     pass
+KAR_036e = buff(health=1)
 
 class CORE_LOEA10_3:# 12 1637
     """ Murloc Tinyfin
@@ -367,20 +378,21 @@ class CORE_LOEA10_3:# 12 1637
 class CORE_NEW1_018:# 12 1637
     """ Bloodsail Raider
     [Battlecry:] Gain Attack equal to the Attackof your weapon. """
-    #
+    play = Find(FRIENDLY_WEAPON) & Buff(SELF, "NEW1_018e", atk=ATK(FRIENDLY_WEAPON))
     pass
 
 class CORE_NEW1_026:# 12 1637
     """ Violet Teacher
     Whenever you cast a spell, summon a 1/1 Violet Apprentice. """
-    #
+    events = OWN_SPELL_PLAY.on(Summon(CONTROLLER, "NEW1_026t"))
     pass
 
 class CORE_NEW1_027:# 12 1637
     """ Southsea Captain
     Your other Pirates have +1/+1. """
-    #
+    update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
     pass
+NEW1_027e = buff(+1, +1)
 
 class CORE_tt_004:# 12 1637
     """ Flesheating Ghoul

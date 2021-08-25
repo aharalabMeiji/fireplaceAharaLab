@@ -47,20 +47,20 @@ class EX1_102:
 	events = OWN_TURN_BEGIN.on(Hit(RANDOM_ENEMY_CHARACTER, 2))
 
 
-class EX1_162:
-	"""Dire Wolf Alpha"""
-	update = Refresh(SELF_ADJACENT, buff="EX1_162o")
+#class EX1_162:
+#	"""Dire Wolf Alpha"""
+#	update = Refresh(SELF_ADJACENT, buff="EX1_162o")
 
 
-EX1_162o = buff(atk=1)
+#EX1_162o = buff(atk=1)
 
 
-class EX1_399:
-	"""Gurubashi Berserker"""
-	events = SELF_DAMAGE.on(Buff(SELF, "EX1_399e"))
+#class EX1_399:
+#	"""Gurubashi Berserker"""
+#	events = SELF_DAMAGE.on(Buff(SELF, "EX1_399e"))
 
 
-EX1_399e = buff(atk=3)
+#EX1_399e = buff(atk=3)
 
 
 class EX1_508:
@@ -268,9 +268,9 @@ class EX1_412e:
 	windfury = SET(1)
 
 
-class EX1_506:
-	"""Murloc Tidehunter"""
-	play = Summon(CONTROLLER, "EX1_506a")
+#class EX1_506:
+#	"""Murloc Tidehunter"""
+#	play = Summon(CONTROLLER, "EX1_506a")
 
 
 class EX1_556:
@@ -283,9 +283,9 @@ class EX1_583:
 	play = Heal(FRIENDLY_HERO, 4)
 
 
-class NEW1_018:
-	"""Bloodsail Raider"""
-	play = Find(FRIENDLY_WEAPON) & Buff(SELF, "NEW1_018e", atk=ATK(FRIENDLY_WEAPON))
+#class NEW1_018:
+#	"""Bloodsail Raider"""
+#	play = Find(FRIENDLY_WEAPON) & Buff(SELF, "NEW1_018e", atk=ATK(FRIENDLY_WEAPON))
 
 
 class NEW1_022:

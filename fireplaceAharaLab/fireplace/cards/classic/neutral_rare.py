@@ -135,12 +135,12 @@ class EX1_284:
 	play = Draw(CONTROLLER)
 
 
-class EX1_509:
-	"""Murloc Tidecaller"""
-	events = Summon(ALL_PLAYERS, MURLOC).on(Buff(SELF, "EX1_509e"))
+#class EX1_509:
+#	"""Murloc Tidecaller"""
+#	events = Summon(ALL_PLAYERS, MURLOC).on(Buff(SELF, "EX1_509e"))
 
 
-EX1_509e = buff(atk=1)
+#EX1_509e = buff(atk=1)
 
 
 class EX1_584:
@@ -173,9 +173,9 @@ class NEW1_025:
 	play = Hit(ENEMY_WEAPON, 1)
 
 
-class NEW1_026:
-	"""Violet Teacher"""
-	events = OWN_SPELL_PLAY.on(Summon(CONTROLLER, "NEW1_026t"))
+#class NEW1_026:
+#	"""Violet Teacher"""
+#	events = OWN_SPELL_PLAY.on(Summon(CONTROLLER, "NEW1_026t"))
 
 
 class NEW1_037:

@@ -57,12 +57,12 @@ class KAR_035:
 	events = OWN_SPELL_PLAY.on(Heal(FRIENDLY_HERO, 3))
 
 
-class KAR_036:
-	"""Arcane Anomaly"""
-	events = OWN_SPELL_PLAY.on(Buff(SELF, "KAR_036e"))
+#class KAR_036:
+#	"""Arcane Anomaly"""
+#	events = OWN_SPELL_PLAY.on(Buff(SELF, "KAR_036e"))
 
 
-KAR_036e = buff(health=1)
+#KAR_036e = buff(health=1)
 
 
 class KAR_037:
