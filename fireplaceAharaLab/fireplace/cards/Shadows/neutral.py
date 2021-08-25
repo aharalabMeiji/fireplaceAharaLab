@@ -42,11 +42,11 @@ class DAL_089:#OK
 	"""Spellbook Binder,,2,3,2,Minion,Common,-,Battlecry,Spell Damage
 	<b>Battlecry:</b> If you have <b>Spell Damage</b>, draw a card."""
 	play = Find(FRIENDLY_HAND + SPELLPOWER) & Draw(CONTROLLER)
-class DAL_086:#OK
-	"""Sunreaver Spy,,2,2,3,Minion,Common,-,Battlecry,Secret
-	<b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1."""
-	play = Find(FRIENDLY_SECRETS) & Buff(SELF, "DAL_086e")
-DAL_086e=buff(1,1)
+#class DAL_086:#OK
+#	"""Sunreaver Spy,,2,2,3,Minion,Common,-,Battlecry,Secret
+#	<b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1."""
+#	play = Find(FRIENDLY_SECRETS) & Buff(SELF, "DAL_086e")
+#DAL_086e=buff(1,1)
 class DAL_800:#OK  ##two of five decks was implemented
 	""""Zayle, Shadow Cloak",,2,3,2,Minion,Legendary,-,-
 	You start the game with one of Zayle's EVIL Decks!"""
@@ -74,7 +74,7 @@ class DAL_800:#OK  ##two of five decks was implemented
 		#2x(2)<<Injured Tol'vir>>,2x(2)<<Dalaran Librarian>>,1x(3)<<Madame Lazul>>,
 		'ULD_271','ULD_271','DAL_735','DAL_735','DAL_729',
 		#2x(3)<<Injured Blademaster>>,2x(3)<<Arcane Watcher>>,2x(4)<<Holy Nova>>,
-		'CS2_181','CS2_181','DAL_434','DAL_434','CS1_112','CS1_112',
+		'CORE_CS2_181','CORE_CS2_181','DAL_434','DAL_434','CS1_112','CS1_112',
 		#2x(4)<<Hench-Clan Shadequill>>,2x(4)<<Unsleeping Soul>>,2x(4)<<Psychopomp>>,1x(4)<<High Priest Amet>>,
 		'DAL_040','DAL_040','DAL_065','DAL_065','ULD_268','ULD_268','ULD_262']
 		thisDeck=tempo_rogue

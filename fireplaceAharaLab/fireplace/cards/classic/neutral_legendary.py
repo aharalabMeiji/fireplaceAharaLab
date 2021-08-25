@@ -11,23 +11,23 @@ class EX1_002:
 	play = Destroy(TARGET)
 
 
-class EX1_012:
-	"""Bloodmage Thalnos"""
-	deathrattle = Draw(CONTROLLER)
+#class EX1_012:
+#	"""Bloodmage Thalnos"""
+#	deathrattle = Draw(CONTROLLER)
 
 
-class EX1_014:
-	"""King Mukla"""
-	play = Give(OPPONENT, "EX1_014t") * 2
+#class EX1_014:
+#	"""King Mukla"""
+#	play = Give(OPPONENT, "EX1_014t") * 2
 
 
-class EX1_014t:
-	"""Bananas"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "EX1_014te")
+#class EX1_014t:
+#	"""Bananas"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Buff(TARGET, "EX1_014te")
 
 
-EX1_014te = buff(+1, +1)
+#EX1_014te = buff(+1, +1)
 
 
 class EX1_016:
@@ -230,5 +230,5 @@ class PRO_001b:
 class PRO_001c:
 	"""Power of the Horde"""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["CS2_121", "EX1_021", "EX1_023", "EX1_110", "EX1_390", "CS2_179"]
+	entourage = ["CS2_121", "EX1_021", "EX1_023", "EX1_110", "EX1_390", "CORE_CS2_179"]
 	play = Summon(CONTROLLER, RandomEntourage())

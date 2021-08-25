@@ -11,7 +11,7 @@ class OG_042:
 
 class OG_122:
 	"""Mukla, Tyrant of the Vale"""
-	play = Give(CONTROLLER, "EX1_014t") * 2
+	play = Give(CONTROLLER, "CORE_EX1_014t") * 2
 
 
 class OG_317:

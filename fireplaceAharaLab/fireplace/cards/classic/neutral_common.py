@@ -4,20 +4,18 @@ from ..utils import *
 ##
 # Free basic minions
 
-class CS2_122:
-	"""Raid Leader"""
-	update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_122e")
+#class CS2_122:
+#	"""Raid Leader"""
+#	update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_122e")
+#
+#
+#CS2_122e = buff(atk=1)
 
 
-CS2_122e = buff(atk=1)
-
-
-class CS2_222:
-	"""Stormwind Champion"""
-	update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_222o")
-
-
-CS2_222o = buff(+1, +1)
+#class CS2_222:
+#	"""Stormwind Champion"""
+#	update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_222o")
+#CS2_222o = buff(+1, +1)
 
 
 class CS2_226:
@@ -28,10 +26,10 @@ class CS2_226:
 CS2_226e = buff(+1, +1)
 
 
-class EX1_011:
-	"""Voodoo Doctor"""
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Heal(TARGET, 2)
+#class EX1_011:
+#	"""Voodoo Doctor"""
+#	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Heal(TARGET, 2)
 
 
 class EX1_015:
@@ -86,10 +84,10 @@ class EX1_595:
 ##
 # Common basic minions
 
-class CS2_117:
-	"""Earthen Ring Farseer"""
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Heal(TARGET, 3)
+#class CS2_117:
+#	"""Earthen Ring Farseer"""
+#	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Heal(TARGET, 3)
 
 
 class CS2_141:
@@ -119,19 +117,19 @@ class CS2_151:
 	play = Summon(CONTROLLER, "CS2_152")
 
 
-class CS2_189:
-	"""Elven Archer"""
-	requirements = {PlayReq.REQ_NONSELF_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Hit(TARGET, 1)
+#class CS2_189:
+#	"""Elven Archer"""
+#	requirements = {PlayReq.REQ_NONSELF_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Hit(TARGET, 1)
 
 
-class CS2_188:
-	"""Abusive Sergeant"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "CS2_188o")
+#class CS2_188:
+#	"""Abusive Sergeant"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Buff(TARGET, "CS2_188o")
 
 
-CS2_188o = buff(atk=2)
+#CS2_188o = buff(atk=2)
 
 
 class CS2_196:
@@ -139,10 +137,10 @@ class CS2_196:
 	play = Summon(CONTROLLER, "CS2_boar")
 
 
-class CS2_203:
-	"""Ironbeak Owl"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Silence(TARGET)
+#class CS2_203:
+#	"""Ironbeak Owl"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Silence(TARGET)
 
 
 class CS2_221:
@@ -190,13 +188,13 @@ class EX1_029:
 	deathrattle = Hit(ENEMY_HERO, 2)
 
 
-class EX1_046:
-	"""Dark Iron Dwarf"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "EX1_046e")
-
-
-EX1_046e = buff(atk=2)
+#class EX1_046:
+#	"""Dark Iron Dwarf"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Buff(TARGET, "EX1_046e")
+#
+#
+#EX1_046e = buff(atk=2)
 
 
 class EX1_048:
@@ -208,14 +206,14 @@ class EX1_048:
 	play = Silence(TARGET)
 
 
-class EX1_049:
-	"""Youthful Brewmaster"""
-	requirements = {
-		PlayReq.REQ_FRIENDLY_TARGET: 0,
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_NONSELF_TARGET: 0,
-		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Bounce(TARGET)
+#class EX1_049:
+#	"""Youthful Brewmaster"""
+#	requirements = {
+#		PlayReq.REQ_FRIENDLY_TARGET: 0,
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_NONSELF_TARGET: 0,
+#		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Bounce(TARGET)
 
 
 class EX1_057:
@@ -233,9 +231,9 @@ class EX1_066:
 	play = Destroy(ENEMY_WEAPON)
 
 
-class EX1_096:
-	"""Loot Hoarder"""
-	deathrattle = Draw(CONTROLLER)
+#class EX1_096:
+#	"""Loot Hoarder"""
+#	deathrattle = Draw(CONTROLLER)
 
 
 class EX1_283:
@@ -307,4 +305,4 @@ tt_004o = buff(atk=1)
 # Unused buffs
 
 # Full Strength (Injured Blademaster)
-CS2_181e = buff(atk=2)
+#CS2_181e = buff(atk=2)

@@ -27,7 +27,7 @@ class TB_KTRAF_2s:
 class TB_KTRAF_3:
 	"""Gluth"""
 	entourage = [
-		"FP1_001", "AT_030", "LOE_019", "EX1_012", "EX1_059",
+		"FP1_001", "AT_030", "LOE_019", "CORE_EX1_012", "CORE_EX1_059",
 		"FP1_004", "EX1_616", "FP1_024", "tt_004"]
 	events = OWN_TURN_END.on(Summon(CONTROLLER, RandomEntourage()))
 

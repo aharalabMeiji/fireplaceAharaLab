@@ -1,7 +1,7 @@
 from ..utils import *
 
 
-class DMF_083:
+class DMF_083:#OK
     """ Dancing Cobra
     [Corrupt:] Gain [Poisonous]. """
     pass
@@ -19,7 +19,7 @@ class DMF_084_Action(TargetedAction):
         _minionList=_player.__myDeathLog__
         _count =0
         for _card in _minionList:
-            if _card.deathrattle and _count<3:
+            if _card.deathrattles != None and _count<3:
                 Summon(_player, Copy(ID(_card))).trigger(_player)
                 _count += 1
 

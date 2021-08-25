@@ -18,10 +18,10 @@ def printClasses():
 	_cardList = []
 	for _id in cards.db.keys():
 		_card = cards.db[_id]
-		if _card.card_set== CardSet.DARKMOON_FAIRE:
-			if _card.card_class == CardClass.MAGE: 
+		if _card.card_set== CardSet.CORE:
+			if _card.card_class == CardClass.NEUTRAL: 
 				_cardList.append(_card.id)
-				print('class %s:'%(_card.id))
+				print('class %s:# %d %d'%(_card.id, _card.card_class, _card.card_set))
 				print('    """ %s'%(_card.name))
 				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				print('    #'%())

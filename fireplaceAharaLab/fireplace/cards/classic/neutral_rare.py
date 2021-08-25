@@ -1,9 +1,9 @@
 from ..utils import *
 
 
-class CS2_181:
-	"""Injured Blademaster"""
-	play = Hit(SELF, 4)
+#class CS2_181:
+#	"""Injured Blademaster"""
+#	play = Hit(SELF, 4)
 
 
 class EX1_001:
@@ -69,13 +69,13 @@ class EX1_058:
 	play = Taunt(SELF_ADJACENT)
 
 
-class EX1_059:
-	"""Crazed Alchemist"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "EX1_059e")
+#class EX1_059:
+#	"""Crazed Alchemist"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Buff(TARGET, "EX1_059e")
 
 
-EX1_059e = AttackHealthSwapBuff()
+#EX1_059e = AttackHealthSwapBuff()
 
 
 class EX1_076:
@@ -104,17 +104,17 @@ class EX1_089:
 	play = GainMana(OPPONENT, 1)
 
 
-class EX1_093:
-	"""Defender of Argus"""
-	play = Buff(SELF_ADJACENT, "EX1_093e")
+#class EX1_093:
+#	"""Defender of Argus"""
+#	play = Buff(SELF_ADJACENT, "EX1_093e")
 
 
-EX1_093e = buff(+1, +1, taunt=True)
+#EX1_093e = buff(+1, +1, taunt=True)
 
 
-class EX1_095:
-	"""Gadgetzan Auctioneer"""
-	events = OWN_SPELL_PLAY.on(Draw(CONTROLLER))
+#class EX1_095:
+#	"""Gadgetzan Auctioneer"""
+#	events = OWN_SPELL_PLAY.on(Draw(CONTROLLER))
 
 
 class EX1_097:

@@ -499,13 +499,15 @@ def ExchangeCard(cards,player):
 		if _card=='beast':
 			_card=random.choice(['SCH_133','SCH_714'])
 		if _card=='deathrattle':
-			_card='DAL_587'
+			_card=random.choice(['DAL_587','SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
 		if _card=='dragon':
 			_card='SCH_232'
 		if _card=='elemental':
 			_card='DRG_107'
 		if _card=='nature':
 			_card='SCH_333'
+		if _card=='secret':
+			_card=random.choice(['EX1_609'])
 		if _card=='spell':
 			_card=random.choice(['SCH_353'])
 		if _card=='weapon':
@@ -520,7 +522,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['DMF_101'],player1)
+	ExchangeCard(['secret','DMF_086','DMF_085'],player1)
 	#ExchangeCard(['spell'],player2)
 
 
