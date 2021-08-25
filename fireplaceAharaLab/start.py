@@ -19,7 +19,7 @@ def printClasses():
 	for _id in cards.db.keys():
 		_card = cards.db[_id]
 		if _card.card_set== CardSet.CORE:
-			if _card.card_class == CardClass.NEUTRAL: 
+			if _card.card_class == CardClass.HUNTER: 
 				_cardList.append(_card.id)
 				print('class %s:# %d %d'%(_card.id, _card.card_class, _card.card_set))
 				print('    """ %s'%(_card.name))
@@ -34,7 +34,7 @@ def printClasses():
 #
 def main():
 	cards.db.initialize()
-	#printClasses()
+	printClasses()
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)

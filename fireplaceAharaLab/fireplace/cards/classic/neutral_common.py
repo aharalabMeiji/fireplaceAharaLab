@@ -293,9 +293,9 @@ class NEW1_022:
 	cost_mod = -ATK(FRIENDLY_WEAPON)
 
 
-class tt_004:
-	"""Flesheating Ghoul"""
-	events = Death(MINION).on(Buff(SELF, "tt_004o"))
+#class tt_004:
+#	"""Flesheating Ghoul"""
+#	events = Death(MINION).on(Buff(SELF, "tt_004o"))
 
 
 tt_004o = buff(atk=1)

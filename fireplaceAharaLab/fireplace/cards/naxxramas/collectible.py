@@ -42,9 +42,9 @@ class FP1_009:
 	deathrattle = Summon(OPPONENT, RANDOM(ENEMY_DECK + MINION))
 
 
-class FP1_011:
-	"""Webspinner"""
-	deathrattle = Give(CONTROLLER, RandomBeast())
+#class FP1_011:
+#	"""Webspinner"""
+#	deathrattle = Give(CONTROLLER, RandomBeast())
 
 
 class FP1_012:

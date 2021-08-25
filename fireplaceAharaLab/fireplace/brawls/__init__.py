@@ -105,7 +105,7 @@ class SpidersEverywhereBrawl(Game):
 			hero = player.starting_hero
 			player_class = getattr(cards, hero).card_class
 			spells = cards.filter(card_class=player_class, type=CardType.SPELL)
-			deck = ["FP1_011"] * 23
+			deck = ["CORE_FP1_011"] * 23
 			for i in range(7):
 				deck.append(random.choice(spells))
 			player.starting_deck, player.starting_hero = deck, hero
@@ -216,7 +216,7 @@ class GrandTournamentBrawl(Game):
 		"AT_010",
 		"AT_058", "AT_058",
 		"AT_060",
-		"AT_061", "AT_061",
+		"CORE_AT_061", "CORE_AT_061",
 		"AT_063",
 		"AT_102", "AT_102",
 		"AT_103"
@@ -227,10 +227,10 @@ class GrandTournamentBrawl(Game):
 		"CS2_084", "CS2_084",
 		"DS1_178",
 		"DS1_184", "DS1_184",
-		"DS1_185", "DS1_185",
+		"CORE_DS1_185", "CORE_DS1_185",
 		"EX1_538", "EX1_538",
 		"EX1_609",
-		"EX1_611",
+		"CORE_EX1_611",
 		"GVG_073",
 		"NEW1_031", "NEW1_031",
 	], "HERO_05a")

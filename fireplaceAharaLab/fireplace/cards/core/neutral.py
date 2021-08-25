@@ -397,7 +397,7 @@ NEW1_027e = buff(+1, +1)
 class CORE_tt_004:# 12 1637
     """ Flesheating Ghoul
     Whenever a minion dies, gain +1 Attack. """
-    #
+    events = Death(MINION).on(Buff(SELF, "tt_004o"))
     pass
 
 class CORE_UNG_813:# 12 1637
