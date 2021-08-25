@@ -56,7 +56,7 @@ class DAL_800:#OK  ##two of five decks was implemented
 		#2x(0:shadowstep),#2x(0:backstab),#2x(0:Preparation),
 		'EX1_144','EX1_144','CS2_072','CS2_072','EX1_145','EX1_145',
 		#2x(1:Pharaoh Cat),#2x(1:Bloodsail Flybooter),#1x(2:Bloodmage Thalnos),
-		'ULD_186','ULD_186','DRG_035','DRG_035','EX1_012',
+		'ULD_186','ULD_186','DRG_035','DRG_035','CORE_EX1_012',
 		#2x(2:EVIL Cable Rat),#1x(2:sap),#2x(2:Eviscerate),
 		'DAL_400','DAL_400','EX1_581','EX1_124','EX1_124',
 		#2x(3:SI:7 Agent),#1x(3:Edwin VanCleef),#2x(1:Fan of Knives),
