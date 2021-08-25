@@ -34,7 +34,7 @@ def printClasses():
 #
 def main():
 	cards.db.initialize()
-	printClasses()
+	#printClasses()
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)

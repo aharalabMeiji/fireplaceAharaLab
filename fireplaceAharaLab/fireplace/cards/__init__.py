@@ -95,7 +95,7 @@ class CardDB(dict):
 		return card
 
 
-	def initialize(self, locale="enUS"):#locale="jaJP"):
+	def initialize(self, locale="jaJP"):#locale="enUS"):#
 		log.info("Initializing card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
