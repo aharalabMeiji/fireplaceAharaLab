@@ -195,6 +195,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	print(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
 	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
+	return Count1, Count2, (gameNumber-Count1-Count2)
 
 class Candidate(object):
 	"""　アクションの候補手のクラス　
@@ -285,10 +286,10 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
-	for character in player.characters:
+	for character in player.hand:
 		_yes, _option = character.can_trade()
 		if _yes:
-			myCandidate.append(Candidate(player, type=ActionType.TRADE, target=None, turn=mygame.turn))
+			myCandidate.append(Candidate(character, type=ActionType.TRADE, target=None, turn=mygame.turn))
 			pass
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、

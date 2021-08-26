@@ -6,7 +6,7 @@ class CORE_AT_061:# 3 1637
     play = Buff(CONTROLLER, "AT_061e")
     pass
 
-class AT_061e:
+class AT_061e:# 3 15 
 	events = OWN_SPELL_PLAY.on(
 		Give(CONTROLLER, RandomCollectible(card_class=CardClass.HUNTER))
 	)
@@ -37,14 +37,14 @@ class CORE_EX1_531:# 3 1637
     Whenever a friendly Beast dies, gain +2/+1. """
     events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
     pass
-EX1_531e = buff(+2, +1)
+EX1_531e = buff(+2, +1)# 3 3
 
 class CORE_EX1_534:# 3 1637
     """ Savannah Highmane
     [Deathrattle:] Summon two 2/2 Hyenas. """
     deathrattle = Summon(CONTROLLER, "EX1_534t") * 2
     pass
-class EX1_534t:
+class EX1_534t:# 3 3
     """ 2/2 Hyenas  """
     pass
 
@@ -70,8 +70,7 @@ class CORE_EX1_610:# 3 1637
     """ Explosive Trap
     [Secret:] When your hero is attacked, deal $2 damage to all enemies. """
     secret = Attack(ENEMY_CHARACTERS, FRIENDLY_HERO).on(
-    	Reveal(SELF), Hit(ENEMY_CHARACTERS, 2)
-)
+    	Reveal(SELF), Hit(ENEMY_CHARACTERS, 2))
     pass
 
 class CORE_EX1_611:# 3 1637
@@ -83,7 +82,7 @@ class CORE_EX1_611:# 3 1637
     	Buff(Attack.ATTACKER, "EX1_611e")
     )
     pass
-class EX1_611e:
+class EX1_611e:# 3 3
     events = REMOVED_IN_PLAY
     tags = {GameTag.COST: +2}
 
@@ -107,7 +106,9 @@ class CORE_GIL_828:# 3 1637
         PlayReq.REQ_MINION_TARGET: 0,
         PlayReq.REQ_TARGET_TO_PLAY: 0,
         PlayReq.REQ_TARGET_WITH_RACE: 20}
+    play = Buff(TARGET,'GIL_828e'),ShuffleBuff(CONTROLLER,Copy(TARGET),'GIL_828e')
     pass
+GIL_828e=buff(atk=3,health=3)
 
 class CORE_ICC_419:# 3 1637
     """ Bearshark

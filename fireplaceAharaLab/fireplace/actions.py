@@ -254,8 +254,9 @@ class BeginTurn(GameAction):
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
 		source._begin_turn(player)
-		player.times_spells_played_this_turn = 0 # aharalab #DAL_603
-		player.spells_played_this_turn=[] # aharalab #DAL_558
+		player.times_spells_played_this_turn = 0 # DAL_603
+		player.spells_played_this_turn=[] # DAL_558
+		player.died_this_turn=[] # CORE_EX1_190
 
 class Concede(GameAction):
 	"""
@@ -680,6 +681,8 @@ class EatsCard(TargetedAction):
 	TARGET = ActionArg()
 	OTHER = ActionArg()
 	def do(self, source, target, other):
+		if other==[]:
+			return
 		if isinstance(other,list):
 			other = other[0]
 		if isinstance(target,list):

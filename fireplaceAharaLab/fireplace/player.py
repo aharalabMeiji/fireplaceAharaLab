@@ -70,6 +70,7 @@ class Player(Entity, TargetableByAuras):
 		self.times_card_to_play_out_of_deck = 0 #
 		self.times_spells_played_this_turn = 0 #
 		self.spells_played_this_turn=[] #
+		self.died_this_turn=[] #
 		self.cthun = None
 		self.__myDeathLog__=[]
 		self.__myPlayLog__=[]
@@ -301,6 +302,7 @@ class Player(Entity, TargetableByAuras):
 
 	def add_death_log(self, card):
 		self.__myDeathLog__.append(card)
+		self.died_this_turn.append(card)
 	@property
 	def get_death_log(self):
 		return self.__myDeathLog__
