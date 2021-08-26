@@ -494,11 +494,16 @@ class Play(GameAction):
 		self.resolve_broadcasts()
 
 		#corrupt:
+		_DMF_124_done=False;
 		for eachCard in player.hand:
 			if hasattr(eachCard,'corrupt'):
 				if eachCard.corrupt:
 					if eachCard.cost < card.cost:
-						Corrupt(player, eachCard).trigger(player)
+						if eachCard.id=='DMF_124t' and _DMF_124_done:
+							continue
+						else:
+						    Corrupt(player, eachCard).trigger(player)
+						    _DMF_124_done=True
 
 
 		# "Can't Play" (aka Counter) means triggers don't happen either
@@ -857,11 +862,16 @@ class Corrupt(TargetedAction):# darkmoon fair
     CORRUPT = CardArg()
     def do(self, source, controller, corrupt):
         corrupt=corrupt[0]
-        #corruptList=['DMF_083','DMF_090','DMF_101']# たぶん不用
-        #if corrupt.id in corruptList:
         if corrupt.corrupt:
-            corrupted = corrupt.id+"t"#現時点でのルール
-            Give(controller, corrupted).trigger(controller)
+            if corrupt.id == 'DMF_124t':# （何回でも変妖できて+1/+1）
+                corrupt.max_health += 1
+                corrupt.atk += 1
+                return
+            corrupted = corrupt.id+"t"#現時点でのルール。DMF_124t以外はOK
+            newCard = Give(controller, corrupted).trigger(controller)
+            newCard = newCard[0][0]
+            for _buff in corrupt.buffs:
+                newCard.buffs.append(_buffs)
             Destroy(corrupt).trigger(controller)
         pass
 
@@ -2348,27 +2358,6 @@ class BAR_042_Action(TargetedAction):
 		else:
 			log.info("no spell is in the deck"%())
 
-class BAR_037_Warsong_Wrangler(Choice):
-	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
-	def choose(self, card):
-		super().choose(card)
-		log.info("%s chooses %r"%(card.controller.data.name, card))
-		for _card in self.cards:
-			if _card is card:
-				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
-				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
-				else:
-					_card.discard()
-			else:
-				_card.discard()
-		game = card.game
-		cardList = game.decks + game.hands + game.characters
-		for _card in cardList:
-			if _card.id == card.id:
-				Buff(_card,"BAR_037e").trigger(card.controller)
-		pass
 
 class BAR_081_Southsea_Scoundrel(Choice):
 	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
