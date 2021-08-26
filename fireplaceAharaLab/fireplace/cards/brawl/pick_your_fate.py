@@ -180,7 +180,7 @@ class TB_PickYourFate_7_EnchMiniom2nde:
 
 class TB_PickYourFate_11rand:
 	"""Dire Fate: Murlocs"""
-	play = Morph(ALL_MINIONS, "LOEA10_3")
+	play = Morph(ALL_MINIONS, "CORE_LOEA10_3")
 
 
 class TB_PickYourFate_11:
@@ -189,7 +189,7 @@ class TB_PickYourFate_11:
 
 
 class TB_PickYourFate_11_Ench:
-	events = OWN_TURN_END.on(Summon(CONTROLLER, "LOEA10_3"))
+	events = OWN_TURN_END.on(Summon(CONTROLLER, "CORE_LOEA10_3"))
 
 
 ##

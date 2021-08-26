@@ -108,6 +108,12 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\custom\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\demon_hunter.py">
       <SubType>Code</SubType>
@@ -391,6 +397,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\dragon\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\darkmoon\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\shadows\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\saviors\" />

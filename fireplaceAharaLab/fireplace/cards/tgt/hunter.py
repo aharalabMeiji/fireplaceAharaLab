@@ -51,21 +51,21 @@ class AT_056:
 	play = Hit(TARGET | TARGET_ADJACENT, 2)
 
 
-class AT_061:
-	"""Lock and Load"""
-	play = Buff(CONTROLLER, "AT_061e")
+#class AT_061:
+#	"""Lock and Load"""
+#	play = Buff(CONTROLLER, "AT_061e")
 
 
-class AT_061e:
-	events = OWN_SPELL_PLAY.on(
-		Give(CONTROLLER, RandomCollectible(card_class=CardClass.HUNTER))
-	)
+#class AT_061e:
+#	events = OWN_SPELL_PLAY.on(
+#		Give(CONTROLLER, RandomCollectible(card_class=CardClass.HUNTER))
+#	)
 
 
 class AT_062:
 	"""Ball of Spiders"""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	play = Summon(CONTROLLER, "FP1_011") * 3
+	play = Summon(CONTROLLER, "CORE_FP1_011") * 3
 
 
 ##

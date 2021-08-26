@@ -1,149 +1,104 @@
 from ..utils import *
 
 class DMF_100:
-    """ スイーツサイクロン
-    [x]<b>雄叫び:</b>
-1/2の
-「砂糖のエレメンタル」
-2体を自分の手札に
-追加する。 """
+    """ Confection Cyclone
+    [Battlecry:] Add two 1/2 Sugar Elementals to your_hand. """
+    play = Give(CONTROLLER, 'DMF_100t') * 2
+    pass
+
+class DMF_100t:
+    """ Sugar Elemental
+     """
     #
     pass
 
 class DMF_101:
-    """ 花火のエレメンタル
-    [x]<b>雄叫び:</b>
-ミニオン1体に
-3ダメージを与える。
-<b>変妖:</b>_代わりに
-___12ダメージを与える。 """
-    #
+    """ Firework Elemental
+    [Battlecry:] Deal 3 damageto a minion. [Corrupt:]Deal 12 instead. """
+    requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+    play = Hit(TARGET, 3)
     pass
 
 class DMF_101t:
-    """ 花火のエレメンタル
-    [x]<b>変妖態</b>
-<b>雄叫び:</b>
-ミニオン1体に
-__12ダメージを与える。 """
-    #
+    """ Firework Elemental
+    [Corrupted][Battlecry:] Deal 12 damage to a minion. """
+    play = Hit(TARGET, 12)
     pass
 
 class DMF_102:
-    """ 的屋
-    [x]毎ターン最初に自分が
-手札から使用する
-___<b>秘策</b>のコストは（1）。 """
+    """ Game Master
+    The first [Secret] you play each turn costs (1). """
     #
     pass
 
 class DMF_103:
-    """ クトゥーンの仮面
-    [x]合計$10ダメージを
-敵にランダムに
-振り分ける。 """
+    """ Mask of C'Thun
+    Deal $10 damage randomly split among all enemies. """
     #
     pass
 
 class DMF_104:
-    """ グランドフィナーレ
-    [x]8/8のエレメンタル
-を1体召喚する。
-前のターンに自分が手札から
-使用したエレメンタルの
-数だけ繰り返す。 """
+    """ Grand Finale
+    Summon an 8/8 Elemental. Repeat for each Elemental you played last turn. """
+    #
+    pass
+
+class DMF_104t:
+    """ Exploding Sparkler
+     """
     #
     pass
 
 class DMF_105:
-    """ 輪投げ
-    [x]<b>秘策</b>を1つ
-<b>発見</b>して準備する。
-<b>変妖:</b>_代わりに2つ
-<b>発見</b>する。 """
+    """ Ring Toss
+    [Discover] a [Secret] and cast it. [Corrupt:] [Discover] 2 instead. """
     #
     pass
 
 class DMF_105t:
-    """ 輪投げ
-    [x]<b>変妖態</b>
-<b>秘策</b>を2つ<b>発見</b>して
-それらを準備する。 """
+    """ Ring Toss
+    [Corrupted][Discover] 2 [Secrets] and cast them. """
     #
     pass
 
 class DMF_106:
-    """ オカルト召術師
-    [x]<b>雄叫び:</b>
-自分の<b>秘策</b>が
-準備されている場合
-これのコピーを
-1体召喚する。 """
+    """ Occult Conjurer
+    [Battlecry:] If you control a [Secret], summon a copy of_this. """
     #
     pass
 
 class DMF_107:
-    """ フェアのイカサマゲーム
-    [x]<b>秘策:</b>
-相手のターン中に自分が
-ダメージを受けなかったら
-カードを3枚引く。 """
+    """ Rigged Faire Game
+    [Secret:] If you didn't take any damage during your opponent's turn, draw 3 cards. """
     #
     pass
 
 class DMF_108:
-    """ 狂気のデッキ
-    [x]自分のデッキの呪文
-全てを、それぞれコストが
-（3）高い呪文に変化させる。
-<i>（ただしコストは元のまま）</i> """
+    """ Deck of Lunacy
+    Transform spells in your deck into ones that cost (3) more. <i>(They keep their original Cost.)</i> """
     #
     pass
 
 class DMF_109:
-    """ ダークムーンの予言者セイジ
-    [x]<b>雄叫び:</b>
-カードを@枚引く。
-<i>（この対戦で発動した
-自分の秘策の数だけ
-アップグレード！）</i> """
-    #
-    pass
-
-class YOP_018:
-    """ 千鍵守護者アイボリー
-    [x]<b>雄叫び:</b>
-あらゆるデュアルクラス
-呪文から1つを<b>発見</b>する。
-<b>魔法活性</b>:
-その呪文のコピー
-1枚を得る。 """
+    """ Sayge, Seer of Darkmoon
+    [Battlecry:] Draw @ |4(card, cards).<i>(Upgraded for eachfriendly [Secret] that hastriggered this game!)</i> """
     #
     pass
 
 class YOP_019:
-    """ マナビスケット創造
-    [x]マナクリスタル
-2つを再充填する
-ビスケット1枚を
-自分の手札に追加する。 """
+    """ Conjure Mana Biscuit
+    Add a Biscuit to your hand that refreshes 2 Mana Crystals. """
+    #
+    pass
+
+class YOP_019t:
+    """ Mana Biscuit
+    Refresh 2 Mana Crystals. """
     #
     pass
 
 class YOP_020:
-    """ 氷河のレーサー
-    [x]<b>魔法活性:</b>
-<b>凍結</b>している敵
-全てに3ダメージを
-与える。 """
+    """ Glacier Racer
+    [Spellburst]: Deal 3 damage to all [Frozen] enemies. """
     #
     pass
-
-class YOP_021:
-    """ 封印されしフェニックス
-    [x]2ターンの間、<b>休眠状態</b>。
-<b>呪文ダメージ+2</b> """
-    #
-    pass
-
-

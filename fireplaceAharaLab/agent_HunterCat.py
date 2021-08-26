@@ -389,7 +389,7 @@ def HunterCat_CardStatus(ID):
 		ret += 'False:'#condition for better
 		ret += 'needHeropower(player,'+str(cls.cost)+') or needBeast(player,'+str(cls.cost)+'):'#condition in turn
 		#フェーズ・ストーカー : 自分がヒーローパワーを使用した後自分のデッキから秘策を1つ準備する。
-	elif ID  == 'EX1_611':
+	elif ID  == 'CORE_EX1_611':
 		ret += 'secret+defence:'#type
 		ret += 'False:'#must condition
 		ret += 'heHasMinion(player):'#condition for better

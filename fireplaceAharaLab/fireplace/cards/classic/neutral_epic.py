@@ -23,13 +23,13 @@ class EX1_507:
 EX1_507e = buff(atk=2)
 
 
-class EX1_564:
-	"""Faceless Manipulator"""
-	requirements = {
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_NONSELF_TARGET: 0,
-		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Morph(SELF, ExactCopy(TARGET))
+#class EX1_564:
+#	"""Faceless Manipulator"""
+#	requirements = {
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_NONSELF_TARGET: 0,
+#		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Morph(SELF, ExactCopy(TARGET))
 
 
 class EX1_586:
@@ -72,9 +72,9 @@ class NEW1_021:
 	events = OWN_TURN_BEGIN.on(Destroy(ALL_MINIONS))
 
 
-class NEW1_027:
-	"""Southsea Captain"""
-	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
+#class NEW1_027:
+#	"""Southsea Captain"""
+#	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
 
 
-NEW1_027e = buff(+1, +1)
+#NEW1_027e = buff(+1, +1)

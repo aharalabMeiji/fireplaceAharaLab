@@ -295,29 +295,8 @@ class HumanAgent(Agent):
 						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
-					if character.frozen:
-						print("(frozen)", end=" ")
-					#if character.reborn:
-					#	print("(reborn)", end=" ")
-					if character.taunt:
-						print("(taunt)", end=" ")
-					if character.divine_shield:
-						print("(divine_shield)", end=" ")
-					if character.dormant>0:
-						print("(dormant:%d)"%(character.dormant), end=" ")
-					#if character._tmp_int1_>0:
-					#	print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
-				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-			print("========MY PLAYGROUND======")
-			for character in player.characters:
-				print("%s"%character, end='   : ')
-				if character == player.hero:
-					if player.weapon:
-						print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name), end=" ")
-					else:
-						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
-				else :
-					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character._Asphyxia_ == 'asphyxia':
+						print("(Now Asphyxia)", end=' ')
 					if character.silenced:
 						print("(silenced)", end=" ")
 					if character.windfury:
@@ -332,16 +311,64 @@ class HumanAgent(Agent):
 					#	print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
+					if character.immune:
+						print("(immune)", end=" ")
+					if character.divine_shield:
+						print("(divine_shield)", end=" ")
+					if character.dormant>0:
+						print("(dormant:%d)"%(character.dormant), end=" ")
+					elif character.dormant<0:
+						if character._sidequest_counter_>0:
+							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+						else:
+							print("(dormant)", end=" ")
+					#if character._sidequest_counter_>0:
+					#	if character.dormant==0:
+					#		print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
+				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			print("========MY PLAYGROUND======")
+			for character in player.characters:
+				print("%s"%character, end='   : ')
+				if character == player.hero:
+					if player.weapon:
+						print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name), end=" ")
+					else:
+						print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor), end=" ")
+				else :
+					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+					if character._Asphyxia_ == 'asphyxia':
+						print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
+					if character.silenced:
+						print("(silenced)", end=" ")
+					if character.windfury:
+						print("(windfury)", end=" ")
+					if character.poisonous:
+						print("(poisonous)", end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
+					if character.rush:
+						print("(rush)", end=" ")
+					#if character.reborn:
+					#	print("(reborn)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.immune:
+						print("(immune)", end=" ")
 					if character.stealthed:
 						print("(stealthed)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
-					if character.dormant!=0:
+					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
+					elif character.dormant<0:
+						if character._sidequest_counter_>0:
+							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+						else:
+							print("(dormant)", end=" ")
+					if character._sidequest_counter_>0:
+						print("(counter = %d)"%card._sidequest_counter_, end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
-					if character._tmp_int1_>0:
-						print("(sidequest:%d)"%(character._tmp_int1_), end=" ")
 				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				if character.can_attack():
 					for target in character.targets:
@@ -363,8 +390,8 @@ class HumanAgent(Agent):
 			print("========MY SECRETS======")
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
-				if hasattr(card, 'sidequest'):
-					print("(%d)"%card._tmp_int1_, end="")
+				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
+					print("(sidequest %d)"%card._sidequest_counter_, end="")
 				print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
 			print("[0] ターンを終了する")

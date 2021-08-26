@@ -66,11 +66,16 @@ class Player(Entity, TargetableByAuras):
 		self.jade_golem = 1
 		self.times_spell_played_this_game = 0
 		self.times_secret_played_this_game = 0
-		self.times_spell_to_friendly_minion_this_game = 0 ##### aharalab ####### 24.12.2020 ####
-		self.times_card_to_play_out_of_deck = 0 ##### aharalab ####DRG_109### 25.12.2020 ####
-		self.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
-		self.spells_played_this_turn=[] ##### aharalab ####DAL_558### 28.12.2020 ####
+		self.times_spell_to_friendly_minion_this_game = 0 #
+		self.times_card_to_play_out_of_deck = 0 #
+		self.times_spells_played_this_turn = 0 #
+		self.spells_played_this_turn=[] #
+		self.died_this_turn=[] #
 		self.cthun = None
+		self.__myDeathLog__=[]
+		self.__myPlayLog__=[]
+		self.__mySummonLog__=[]
+		self.spell_and_damage=False
 
 	def __str__(self):
 		return self.name
@@ -294,3 +299,22 @@ class Player(Entity, TargetableByAuras):
 			card = self.card(card, zone=Zone.PLAY)
 		self.game.cheat_action(self, [Summon(self, card)])
 		return card
+
+	def add_death_log(self, card):
+		self.__myDeathLog__.append(card)
+		self.died_this_turn.append(card)
+	@property
+	def get_death_log(self):
+		return self.__myDeathLog__
+
+	def add_play_log(self, card):
+		self.__myPlayLog__.append(card)
+	@property
+	def get_play_log(self):
+		return self.__myPlayLog__
+
+	def add_summon_log(self, card):
+		self.__mySummonLog__.append(card)
+	@property
+	def get_summon_log(self):
+		return self.__mySummonLog__

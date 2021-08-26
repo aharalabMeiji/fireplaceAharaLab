@@ -22,9 +22,14 @@ class DMF_:
 	##
 	pass
 
-class DMF_:
-	"""Horrendous Growth"""
-	##
+class DMF_124:
+	"""Horrendous Growth
+	[x]&lt;b&gt;変妖:&lt;/b&gt;+1/+1を獲得する。何度でも&lt;b&gt;変妖&lt;/b&gt;できる。"""
+	pass
+
+class DMF_124t:
+	"""Horrendous Growth
+	[x]&lt;b&gt;変妖:&lt;/b&gt;+1/+1を獲得する。何度でも&lt;b&gt;変妖&lt;/b&gt;できる。"""
 	pass
 
 class DMF_:

@@ -114,6 +114,7 @@ RandomLegendaryMinion = lambda **kw: RandomMinion(rarity=Rarity.LEGENDARY, **kw)
 RandomSparePart = lambda: RandomCardPicker(spare_part=True)
 
 
+
 class RandomEntourage(RandomCardPicker):
 	def evaluate(self, source):
 		return super().evaluate(source, source.entourage)

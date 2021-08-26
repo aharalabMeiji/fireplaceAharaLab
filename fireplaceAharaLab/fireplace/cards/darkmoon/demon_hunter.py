@@ -1,193 +1,145 @@
 from ..utils import *
 
 class DMF_217:
-    """ 横入り野郎
-    自分の<b>異端</b>カードのコストが（1）減る。 """
+    """ Line Hopper
+    Your [Outcast] cards cost (1)_less. """
+    #
+    pass
+
+class DMF_217e:
+    """ Marked for Passing
+    Your [Outcast] cards cost (1) less. """
     #
     pass
 
 class DMF_219:
-    """ 容赦なき追撃
-    このターンの間
-自分のヒーローに
-攻撃力+4と
-<b>無敵</b>を付与する。 """
+    """ Relentless Pursuit
+    Give your hero +4 Attack and [Immune] this turn. """
+    #
+    pass
+
+class DMF_219e:
+    """ Out for Blood
+    +4 Attack and [Immune] this turn. """
     #
     pass
 
 class DMF_221:
-    """ フェルスクリームブラスト
-    [x]<b>生命奪取</b>
-ミニオン1体と、
-隣接するミニオンに
-$1ダメージを与える。 """
+    """ Felscream Blast
+    [Lifesteal]. Deal $1 damage to a minion and its neighbors. """
     #
     pass
 
 class DMF_222:
-    """ 贖われしハグレ者
-    [x]自分が<b>異端</b>カードを
-手札から使用した後
-__+1/+1を獲得する。 """
+    """ Redeemed Pariah
+    After you play an [Outcast] card, gain +1/+1. """
+    #
+    pass
+
+class DMF_222e:
+    """ Pariah's Resolve
+    +1/+1. """
     #
     pass
 
 class DMF_223:
-    """ 有名芸人
-    [x]<b>急襲</b>、<b>断末魔:</b>
-<b>挑発</b>を持つ1/1の
-___助手2体を召喚する。 """
+    """ Renowned Performer
+    [Rush][Deathrattle:] Summon two__1/1 Assistants with [Taunt].__ """
+    #
+    pass
+
+class DMF_223t:
+    """ Performer's Assistant
+    [Taunt] """
     #
     pass
 
 class DMF_224:
-    """ 下積み芸人
-    [x]<b>急襲</b>を持つ1/1の
-イリダン党員を7体
-召喚する。それらがこの
-ターン中に全員死んだ場合
-もう7体召喚する。 """
+    """ Expendable Performers
+    Summon seven 1/1 Illidari with [Rush]. If_they all die this turn, summon seven more. """
     #
     pass
 
 class DMF_225:
-    """ グレイヴ投げ
-    [x]ミニオン1体に$2ダメージを
-与える。そのミニオンが
-死んだ場合、このカードの
-一時的なコピー1枚を
-自分の手札に追加する。 """
+    """ Throw Glaive
+    Deal $2 damage to a minion. If it dies, add a_temporary copy of this to your hand. """
     #
     pass
 
 class DMF_226:
-    """ 秘剣の貴婦人
-    [x]<b>急襲</b>
-自分のヒーローの
-攻撃力が6以上の場合
-コスト（1）。 """
+    """ Bladed Lady
+    [Rush]Costs (1) if your hero has6 or more Attack. """
     #
     pass
 
 class DMF_227:
-    """ ドレッドロード・バイト
-    [x]<b>異端:</b>_全ての敵に
-1ダメージを与える。 """
+    """ Dreadlord's Bite
+    [Outcast:] Deal 1 damageto all enemies. """
     #
     pass
 
 class DMF_229:
-    """ 竹馬男
-    [x]<b>雄叫び:</b>_カードを1枚引く。
-このターン中に自分がそれを
-使用した場合、このターンの間
-自分のヒーローに
-攻撃力+4を付与する。 """
+    """ Stiltstepper
+    [Battlecry:] Draw a card. If youplay it this turn, give yourhero +4 Attack this turn. """
     #
     pass
 
 class DMF_230:
-    """ イルギノス
-    [x]<b>生命奪取</b>
-自分の<b>生命奪取</b>は自分を
-回復する代わりに
-敵のヒーローに
-ダメージを与える。 """
+    """ Il'gynoth
+    [Lifesteal]Your [Lifesteal] damagesthe enemy hero insteadof healing you. """
     #
     pass
 
 class DMF_231:
-    """ 素晴らしきザイ
-    [x]<b>雄叫び:</b>
-自分の手札の左端と
-右端のカードを
-コピーする。 """
+    """ Zai, the Incredible
+    [Battlecry:] Copy the left- and right-most cards in your hand. """
     #
     pass
 
 class DMF_247:
-    """ 貪婪なるフェルハウンド
-    [x]<b>挑発</b>
-<b>変妖:</b>
-+1/+1と<b>生命奪取</b>
-を獲得する。 """
+    """ Insatiable Felhound
+    [Taunt] [Corrupt:] Gain +1/+1 and_[Lifesteal]. """
     #
     pass
 
 class DMF_247t:
-    """ 貪婪なるフェルハウンド
-    <b>変妖態</b>
-<b>挑発</b>、<b>生命奪取</b> """
+    """ Insatiable Felhound
+    [Corrupted][Taunt][, Lifesteal] """
     #
     pass
 
 class DMF_248:
-    """ フェルスティールの剣精
-    <b>変妖:</b>
-武器に変化する。 """
+    """ Felsteel Executioner
+    [Corrupt:] Become a weapon. """
+    #
+    pass
+
+class DMF_248e:
+    """ Wicked Transformation
+    Health became Durability. """
     #
     pass
 
 class DMF_248t:
-    """ フェルスティールの剣精
-    <b>変妖態</b> """
+    """ Felsteel Executioner
+    [Corrupted] """
     #
     pass
 
 class DMF_249:
-    """ 軽業
-    [x]カードを2枚引く。
-このターン中にそれら
-両方を使用した場合
-もう2枚引く。 """
-    #
-    pass
-
-class DMF_249e:
-    """ 軽業
-    そのカード2枚を使えばもう2枚引ける！ """
+    """ Acrobatics
+    Draw 2 cards. If you play both this turn, draw 2 more. """
     #
     pass
 
 class YOP_001:
-    """ イリダン党の予習
-    [x]<b>異端</b>カード1枚を
-<b>発見</b>する。自分が次に
-使用する<b>異端</b>カードの
-コストが（1）減る。 """
+    """ Illidari Studies
+    [Discover] an [Outcast] card. Your next one costs (1) less. """
     #
     pass
 
 class YOP_002:
-    """ フェルセイバー
-    [x]このターンに自分の
-ヒーローが攻撃した
-___場合のみ攻撃できる。 """
-    #
-    pass
-
-class YOP_003:
-    """ 幸運の魂の溜め込み屋
-    [x]<b>雄叫び:</b>
-「魂の欠片」2枚を
-自分のデッキに混ぜる。
-<b>変妖:</b>
-カードを1枚引く。 """
-    #
-    pass
-
-class YOP_003t:
-    """ 幸運の魂の溜め込み屋
-    [x]<b>変妖態</b>
-<b>雄叫び:</b>_「魂の欠片」2枚
-を自分のデッキに混ぜ
-カードを1枚引く。 """
-    #
-    pass
-
-class YOP_030:
-    """ フェルファイアの射手
-    [x]自分のヒーローパワー
-のコストが（1）減る。 """
+    """ Felsaber
+    Can only attack if your hero attacked this turn. """
     #
     pass
