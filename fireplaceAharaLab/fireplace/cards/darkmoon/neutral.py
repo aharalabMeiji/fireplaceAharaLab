@@ -7,19 +7,40 @@ class YOP_032:
 	play = (GainArmor(FRIENDLY_HERO,4),GainArmor(ENEMY_HERO,4))
 	pass
 
+class ShuffleLowestCostCard(TargetedAction):
+	def do(self, source, target):
+		_lowestCostCards=[]
+		for _card in target.hand:
+			if len(_lowestCostCards)==0:
+				_lowestCostCards = [_card]
+			elif _lowestCostCards[0].cost > _card.cost:
+				_lowestCostCards = [_card]
+			elif _lowestCostCards[0].cost == _card.cost:
+				_lowestCostCards.append(_card)
+		if len(_lowestCostCards)>0:
+			_card = random.choice(_lowestCostCards)
+			_cost = _card.cost
+			log.info("Lowest cost card is %r (cost %d)"%(_card, _cost))
+			Shuffle(target,_card).trigger(source)
+		else:
+			log.info("no hand"%())
+
 class DMF_125:
 	"""Safety Inspector"""
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle the_lowest-Cost card from your hand into your deck. Draw a card.
+	play = ShuffleLowestCostCard(CONTROLLER),Draw(CONTROLLER)
 	pass
 
 class DMF_189:
 	"""Costumed Entertainer"""
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Give a random minion in your hand +2/+2.
+
 	pass
 
 class YOP_031:
 	"""Crabrider"""
 	##[x]&lt;b&gt;Rush&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Gain &lt;b&gt;Windfury&lt;/b&gt; this turn only.
+
 	pass
 
 class DMF_124:
