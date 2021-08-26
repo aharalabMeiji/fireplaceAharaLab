@@ -120,7 +120,13 @@ class CardDB(dict):
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
-			if card.card_set == CardSet.STORMWIND: # 1578:
+			if card.card_set == CardSet.CORE:#1637
+				if 'CORE_' in card.id or 'CS3_' in card.id or card.id == 'GAME_005':
+					yes = True
+			elif card.card_set == CardSet.LEGACY: # 1635
+				if card.id in ['CS2_122e','HERO_05bp','HERO_05bp2']:
+					yes = True
+			elif card.card_set == CardSet.STORMWIND: # 1578:
 				if 'SW_' in card.id:
 					yes = True					
 			elif card.card_set == CardSet.THE_BARRENS:#1525
@@ -129,10 +135,19 @@ class CardDB(dict):
 			elif card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
 					yes = True
+			elif card.card_set == CardSet.BOOMSDAY:# 1127
+				if card.id in ['BOT_083e']:
+					yes = True
+			elif card.card_set == CardSet.HERO_SKINS:#17:
+				yes = True
 			elif card.card_set == CardSet.TGT:# 15
 				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",]:## cardset 15
 					yes = True
-			elif card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635, CardSet.CORE]:
+			elif card.card_set == CardSet.EXPERT1:# 3
+				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e',\
+					'EX1_093e','EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_509e','FP1_007t','EX1_116t','tt_004o']:
+					yes = True
+			elif card.card_set in [2,3,4,12,18,1004,1130,1158,1347,1403,1414,1443,1635]:
 				if (not 'LOOT_' in card.id)  and (not card.id in exclude):#and (not 'CORE_' in card.id)
 					yes = True
 			elif card.id in ['OG_280']:#C'Thun CardSet.OG (21)

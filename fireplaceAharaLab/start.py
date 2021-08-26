@@ -18,10 +18,10 @@ def printClasses():
 	_cardList = []
 	for _id in cards.db.keys():
 		_card = cards.db[_id]
-		if _card.card_set== CardSet.CORE:
+		if _card.card_set== CardSet.LEGACY:
 			if _card.card_class == CardClass.HUNTER: 
 				_cardList.append(_card.id)
-				print('class %s:# %d %d'%(_card.id, _card.card_class, _card.card_set))
+				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 				print('    """ %s'%(_card.name))
 				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 				print('    #'%())
@@ -77,9 +77,8 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#play_set_of_games(Human, Vector, deck1=[], deck2=[], gameNumber=1, debugLog=True)
-	play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
-	#play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	#play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
