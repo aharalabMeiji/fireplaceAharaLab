@@ -62,7 +62,7 @@ class CORE_EX1_554:# 3 1637
 	))
 	pass
 
-class EX1_554t:
+class EX1_554t:# 3 3
     """ 1/1 snake  """
     pass
 
@@ -108,7 +108,7 @@ class CORE_GIL_828:# 3 1637
         PlayReq.REQ_TARGET_WITH_RACE: 20}
     play = Buff(TARGET,'GIL_828e'),ShuffleBuff(CONTROLLER,Copy(TARGET),'GIL_828e')
     pass
-GIL_828e=buff(atk=3,health=3)
+GIL_828e=buff(atk=3,health=3)# 12 1125
 
 class CORE_ICC_419:# 3 1637
     """ Bearshark
@@ -121,10 +121,11 @@ class CORE_TRL_111:# 3 1637
     [Battlecry:] If youcontrol a Beast, gain+1 Durability. """
     #
     pass
+TRL_111e1=buff(health=1)# 12 1129
 
 class CS3_015:# 3 1637
     """ Selective Breeder
     [Battlecry:] [Discover] a copy of a Beast in your deck. """
-    #
+    play = Discover(CONTROLLER, RandomBeast())
     pass
 
