@@ -65,42 +65,42 @@ class CORE_CS2_188:# <12> 1637 #this turn OK
     pass
 CS2_188o = buff(atk=2)# <12> 3
 
-class CORE_CS2_189:# <12> 1637
+class CORE_CS2_189:# <12> 1637 #1
     """ Elven Archer
     [Battlecry:] Deal 1 damage. """
     requirements = {PlayReq.REQ_NONSELF_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
     play = Hit(TARGET, 1)
     pass
 
-class CORE_CS2_203:# <12> 1637
+class CORE_CS2_203:# <12> 1637 #OK
     """ Ironbeak Owl
     [Battlecry:] [Silence] a_minion. """
     requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
     play = Silence(TARGET)
     pass
 
-class CORE_CS2_222:# <12> 1637
+class CORE_CS2_222:# <12> 1637 #OK
     """ Stormwind Champion
     Your other minions have +1/+1. """
     update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_222o")
     pass
 CS2_222o = buff(+1, +1)# <12> 1635
 
-class CORE_DAL_086:# <12> 1637
+class CORE_DAL_086:# <12> 1637 #OK
     """ Sunreaver Spy
     [Battlecry:] If you control a [Secret], gain +1/+1. """
     play = Find(FRIENDLY_SECRETS) & Buff(SELF, "DAL_086e")
     pass
 DAL_086e=buff(1,1)# <12> 1130
 
-class CORE_EX1_004:# <12> 1637
+class CORE_EX1_004:# <12> 1637 
     """ Young Priestess
     At the end of your turn, give another random friendly minion +1 Health. """
     events = OWN_TURN_END.on(Buff(RANDOM_OTHER_FRIENDLY_MINION, "EX1_004e"))
     pass
 EX1_004e = buff(health=1)# <12> 3
 
-class CORE_EX1_005:# <12> 1637
+class CORE_EX1_005:# <12> 1637 #OK
     """ Big Game Hunter
     [Battlecry:] Destroy a minion with 7 or more Attack. """
     requirements = {
@@ -110,49 +110,49 @@ class CORE_EX1_005:# <12> 1637
     play = Destroy(TARGET)
     pass
 
-class CORE_EX1_008:# <12> 1637
+class CORE_EX1_008:# <12> 1637 #OK
     """ Argent Squire
     [Divine Shield] """
     #
     pass
 
-class CORE_EX1_010:# <12> 1637
+class CORE_EX1_010:# <12> 1637 #OK
     """ Worgen Infiltrator
     [Stealth] """
     #
     pass
 
-class CORE_EX1_011:# <12> 1637
+class CORE_EX1_011:# <12> 1637 #OK
     """ Voodoo Doctor
     [Battlecry:] Restore #2_Health. """
     requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
     play = Heal(TARGET, 2)
     pass
 
-class CORE_EX1_012:# <12> 1637
+class CORE_EX1_012:# <12> 1637 #OK
     """ Bloodmage Thalnos
     [Spell Damage +1][Deathrattle:] Draw a card. """
     deathrattle = Draw(CONTROLLER)
     pass
 
-class CORE_EX1_014:# <12> 1637
+class CORE_EX1_014:# <12> 1637 #OK
     """ King Mukla
     [Battlecry:] Give your opponent 2 Bananas. """
     play = Give(OPPONENT, "EX1_014t") * 2
     pass
-class EX1_014t:# <12> 3
+class EX1_014t:# <12> 3 #OK
 	"""Bananas"""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "EX1_014te")
 EX1_014te = buff(+1, +1)# <12> 3
 
-class CORE_EX1_017:# <12> 1637
+class CORE_EX1_017:# <12> 1637 #OK
     """ Jungle Panther
     [Stealth] """
     #
     pass
 
-class CORE_EX1_028:# <12> 1637
+class CORE_EX1_028:# <12> 1637 #OK
     """ Stranglethorn Tiger
     [Stealth] """
     #
@@ -161,12 +161,14 @@ class CORE_EX1_028:# <12> 1637
 class CORE_EX1_046:# <12> 1637
     """ Dark Iron Dwarf
     [Battlecry:] Give a minion +2_Attack this turn. """
-    requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-    play = Buff(TARGET, "EX1_046e")
+    requirements = {
+        PlayReq.REQ_MINION_TARGET: 0, 
+        PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+    play = Buff(TARGET, "EX1_046e")#with one turn effect
     pass
-EX1_046e = buff(atk=2)# <12> 3
+EX1_046e = buff(atk=2)# <12> 3 #OK
 
-class CORE_EX1_049:# <12> 1637
+class CORE_EX1_049:# <12> 1637 #OK
     """ Youthful Brewmaster
     [Battlecry:] Return a friendly minion from the battlefield to your hand. """
     requirements = {
@@ -177,7 +179,7 @@ class CORE_EX1_049:# <12> 1637
     play = Bounce(TARGET)
     pass
 
-class CORE_EX1_059:# <12> 1637
+class CORE_EX1_059:# <12> 1637  #OK
     """ Crazed Alchemist
     [Battlecry:] Swap the Attack and Health of a minion. """
     requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
@@ -185,26 +187,26 @@ class CORE_EX1_059:# <12> 1637
     pass
 EX1_059e = AttackHealthSwapBuff()# <12> 3
 
-class CORE_EX1_066:# <12> 1637
+class CORE_EX1_066:# <12> 1637 #OK
     """ Acidic Swamp Ooze
     [Battlecry:] Destroy your opponent's weapon. """
     play = Destroy(ENEMY_WEAPON)
     pass
 
-class CORE_EX1_082:# <12> 1637
+class CORE_EX1_082:# <12> 1637 #OK
     """ Mad Bomber
     [Battlecry:] Deal 3 damage randomly split between all other characters. """
     play = Hit(RANDOM_OTHER_CHARACTER, 1) * 3
     pass
 
-class CORE_EX1_093:# <12> 1637
+class CORE_EX1_093:# <12> 1637 #OK
     """ Defender of Argus
     [Battlecry:] Give adjacent minions +1/+1 and [Taunt]. """
     play = Buff(SELF_ADJACENT, "EX1_093e")
     pass
 EX1_093e = buff(+1, +1, taunt=True)# <12> 3
 
-class CORE_EX1_095:# <12> 1637
+class CORE_EX1_095:# <12> 1637 #OK
     """ Gadgetzan Auctioneer
     Whenever you cast a spell, draw a card. """
     events = OWN_SPELL_PLAY.on(Draw(CONTROLLER))

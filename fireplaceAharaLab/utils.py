@@ -443,7 +443,7 @@ def ExchangeCard(cards,player):
 		if _card=='nature':
 			_card='SCH_333'
 		if _card=='secret':
-			_card=random.choice(['EX1_609'])
+			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
 			_card=random.choice(['SCH_353'])
 		if _card=='weapon':
@@ -458,8 +458,8 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['CORE_CS2_189'],player1)
-	#ExchangeCard(['spell'],player2)
+	ExchangeCard(['CORE_EX1_095'],player1)
+	ExchangeCard(['weapon'],player2)
 
 
 	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH

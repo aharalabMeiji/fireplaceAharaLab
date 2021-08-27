@@ -124,7 +124,7 @@ class CardDB(dict):
 				if 'CORE_' in card.id or 'CS3_' in card.id or card.id == 'GAME_005':
 					yes = True
 			elif card.card_set == CardSet.LEGACY: # 1635
-				if card.id in ['CS2_122e','HERO_05bp','HERO_05bp2']:
+				if card.id in ['CS2_122e','CS2_222o','HERO_05bp','HERO_05bp2']:
 					yes = True
 			elif card.card_set == CardSet.STORMWIND: # 1578:
 				if 'SW_' in card.id:
@@ -134,6 +134,9 @@ class CardDB(dict):
 					yes = True					
 			elif card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
+					yes = True
+			elif card.card_set == CardSet.DALARAN:# 1130
+				if card.id in ['DAL_086e']:
 					yes = True
 			elif card.card_set == CardSet.BOOMSDAY:# 1127
 				if card.id in ['BOT_083e']:
