@@ -440,6 +440,8 @@ def ExchangeCard(cards,player):
 			_card='SCH_232'
 		if _card=='elemental':
 			_card='DRG_107'
+		if _card=='murloc':
+			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card='SCH_333'
 		if _card=='secret':
@@ -458,7 +460,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['CORE_EX1_095'],player1)
+	ExchangeCard(['CORE_EX1_110'],player1)
 	ExchangeCard(['weapon'],player2)
 
 

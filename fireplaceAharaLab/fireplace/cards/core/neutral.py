@@ -212,20 +212,20 @@ class CORE_EX1_095:# <12> 1637 #OK
     events = OWN_SPELL_PLAY.on(Draw(CONTROLLER))
     pass
 
-class CORE_EX1_096:# <12> 1637
+class CORE_EX1_096:# <12> 1637 #OK
     """ Loot Hoarder
     [Deathrattle:] Draw a card. """
     deathrattle = Draw(CONTROLLER)
     pass
 
-class CORE_EX1_103:# <12> 1637
+class CORE_EX1_103:# <12> 1637 #OK
     """ Coldlight Seer
     [Battlecry:] Give your other Murlocs +2 Health. """
     play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, "EX1_103e")
     pass
 EX1_103e = buff(health=2)# <12> 3
 
-class CORE_EX1_110:# <12> 1637
+class CORE_EX1_110:# <12> 1637 #OK
     """ Cairne Bloodhoof
     [Deathrattle:] Summon a 5/5 Baine Bloodhoof. """
     deathrattle = Summon(CONTROLLER, "EX1_110t")
