@@ -30,18 +30,23 @@ class DMF_125:
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle the_lowest-Cost card from your hand into your deck. Draw a card.
 	play = ShuffleLowestCostCard(CONTROLLER),Draw(CONTROLLER)
 	pass
+#ULD_706のようにかけるかも？
 
 class DMF_189:
 	"""Costumed Entertainer"""
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Give a random minion in your hand +2/+2.
-
+	play = Buff(RANDOM(FRIENDLY_HAND + MINION), "DMF_189e")
 	pass
+DMF_189e = buff(atk=2, health=2)
 
 class YOP_031:
 	"""Crabrider"""
 	##[x]&lt;b&gt;Rush&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Gain &lt;b&gt;Windfury&lt;/b&gt; this turn only.
-
+	play = Buff(SELF, "YOP_031e")
 	pass
+
+class YOP_031e:
+	windfury = SET(1)
 
 class DMF_124:
 	"""Horrendous Growth"""
@@ -51,11 +56,14 @@ class DMF_124:
 class DMF_520:
 	"""Parade Leader"""
 	##After you summon a &lt;b&gt;Rush&lt;/b&gt; minion, give it +2 Attack.
+	events = Summon(CONTROLLER,rush=True).on(Buff(Summon.CARD,"dmf_520e"))
 	pass
+DMF_520e = buff(atk=2)
 
 class DMF_067:
 	"""Prize Vendor"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Each player draws a card.
+	play = Draw(CONTROLLER),Draw(OPPONENT)
 	pass
 
 class DMF_044:
@@ -66,16 +74,20 @@ class DMF_044:
 class DMF_191:
 	"""Showstopper"""
 	##&lt;b&gt;Deathrattle:&lt;/b&gt; &lt;b&gt;Silence&lt;/b&gt; all_minions.
+	deathrattle = Silence(ALL_MINIONS)
 	pass
 
 class DMF_091:
 	"""Wriggling Horror"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Give adjacent minions +1/+1.
+	play = Buff(SELF_ADJACENT, "DMF_091e2")
 	pass
+DMF_091e2 = buff(atk=1,health=1)
 
 class DMF_065:
 	"""Banana Vendor"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Add 2 Bananas to each player's hand.
+	play = Give(CONTROLLER, "EX1_014t") * 2, Give(OPPONENT, "EX1_014t") * 2
 	pass
 
 class DMF_073:
