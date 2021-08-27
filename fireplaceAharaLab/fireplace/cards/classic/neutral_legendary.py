@@ -142,26 +142,26 @@ class EX1_572:
 	)
 
 
-class DREAM_02:
-	"""Ysera Awakens"""
-	play = Hit(ALL_CHARACTERS - ID("EX1_572"), 5)
+#class DREAM_02:
+#	"""Ysera Awakens"""
+#	play = Hit(ALL_CHARACTERS - ID("EX1_572"), 5)
 
 
-class DREAM_04:
-	"""Dream"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Bounce(TARGET)
+#class DREAM_04:
+#	"""Dream"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Bounce(TARGET)
 
 
-class DREAM_05:
-	"""Nightmare"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "DREAM_05e")
+#class DREAM_05:
+#	"""Nightmare"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Buff(TARGET, "DREAM_05e")
 
 
-class DREAM_05e:
-	events = OWN_TURN_BEGIN.on(Destroy(SELF))
-
+#class DREAM_05e:
+#	events = OWN_TURN_BEGIN.on(Destroy(SELF))
+#
 
 class EX1_577:
 	"""The Beast"""

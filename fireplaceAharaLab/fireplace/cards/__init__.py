@@ -148,7 +148,8 @@ class CardDB(dict):
 					yes = True
 			elif card.card_set == CardSet.EXPERT1:# 3
 				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e',\
-					'EX1_093e','EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_509e','FP1_007t','EX1_116t','tt_004o']:
+					'EX1_093e','EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_509e','FP1_007t','EX1_116t','tt_004o',
+				   'DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']:
 					yes = True
 			elif card.card_set in [2,3,4,12,18,1004,1130,1158,1347,1403,1414,1443,1635]:
 				if (not 'LOOT_' in card.id)  and (not card.id in exclude):#and (not 'CORE_' in card.id)

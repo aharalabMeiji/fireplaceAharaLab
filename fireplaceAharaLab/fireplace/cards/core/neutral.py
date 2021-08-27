@@ -65,7 +65,7 @@ class CORE_CS2_188:# <12> 1637 #this turn OK
     pass
 CS2_188o = buff(atk=2)# <12> 3
 
-class CORE_CS2_189:# <12> 1637 #1
+class CORE_CS2_189:# <12> 1637 #OK
     """ Elven Archer
     [Battlecry:] Deal 1 damage. """
     requirements = {PlayReq.REQ_NONSELF_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
@@ -430,7 +430,7 @@ class CORE_UNG_844:# <12> 1637
     #
     pass
 
-class CS3_022:# <12> 1637
+class CS3_022:# <12> 1637 #OK
     """ Fogsail Freebooter
     [Battlecry:] If you have a weapon equipped, deal_2_damage. """
     requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
@@ -456,16 +456,16 @@ class GiveHighestCostMinion(TargetedAction):
 		else:
 			log.info("no minion is in the deck"%())
 
-class CS3_024:# <12> 1637
+class CS3_024:# <12> 1637 #OK
     """ Taelan Fordring
     [[Taunt], Divine Shield][Deathrattle:] Draw your highest Cost minion. """
     deathrattle = GiveHighestCostMinion(CONTROLLER)
     pass
 
-class CS3_025:# <12> 1637
+class CS3_025:# <12> 1637 #OK
     """ Overlord Runthak
     [Rush]. Whenever this attacks, give +1/+1 to all minions in your hand. """
-    events = Attack(SELF).on(FRIENDLY_HAND + MINION)
+    events = Attack(SELF).on(Buff(FRIENDLY_HAND + MINION,'CS3_025e'))
     pass
 
 CS3_025e=buff(atk=1,health=1)# <12> 1637
@@ -473,21 +473,21 @@ CS3_025e=buff(atk=1,health=1)# <12> 1637
     +1/+1. """
 
 class CS3_031_Action(TargetedAction):
-    def do(self,source,target,value1,value2):
+    def do(self,source,target):
         if target.controller==source.controller:
-            Heal(target,value1).trigger(source.controller)
+            Heal(target,8).trigger(source.controller)
         elif target.controller==source.controller.opponent:
-            Hit(target,-value2).trigger(source.controller)
+            Hit(target,8).trigger(source.controller)
 
-class CS3_031:# <12> 1637
+class CS3_031:# <12> 1637 #OK
     """ Alexstrasza the Life-Binder
     [Battlecry]: Choose a character. If it's friendly,restore 8 Health. 
     If it's an___enemy, deal 8 damage. """
-    requirements = {PlayReq.REQ_HERO_OR_MINION_TARGET:0}
-    play = CS3_031_Action(TARGET,8,-8)
+    requirements = {PlayReq.REQ_HERO_OR_MINION_TARGET:0, PlayReq.REQ_TARGET_TO_PLAY:0}
+    play = CS3_031_Action(TARGET)
     pass
 
-class CS3_032:# <12> 1637
+class CS3_032:# <12> 1637 #OK
     """ Onyxia the Broodmother
     At the end of each turn, fill_your board with 1/1_Whelps. """
     events = OWN_TURN_END.on(Summon(CONTROLLER,'EX1_116t') * 8)
@@ -495,50 +495,54 @@ class CS3_032:# <12> 1637
 class EX1_116t:# <12> 3
     """ Whelp """
 
-class CS3_033:# <12> 1637
+class CS3_033:# <12> 1637 #OK
     """ Ysera the Dreamer
     [Battlecry:] Add one of each Dream card to your hand. """
-    play = Draw(CONTROLLER,["DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"])
+    play = Give(CONTROLLER,"DREAM_01"),\
+        Give(CONTROLLER,"DREAM_02"),\
+        Give(CONTROLLER,"DREAM_03"),\
+        Give(CONTROLLER,"DREAM_04"),\
+        Give(CONTROLLER,"DREAM_05")
     pass
 
-class CS3_034:# <12> 1637
+class CS3_034:# <12> 1637 #OK
     """ Malygos the Spellweaver
     [Battlecry:] Draw spells until your hand is full. """
-    play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + SPELL)) * 10
+    play = Give(CONTROLLER,RANDOM(FRIENDLY_DECK + SPELL)) * 10
     pass
 
-class CS3_035:# <12> 1637
+class CS3_035:# <12> 1637 #OK
     """ Nozdormu the Eternal
     [Start of Game:] If this is in BOTH players' decks, turns_are only 15 seconds long. """
     #lol, no implementation
     pass
 
-class CS3_035e:# <12> 1637
+class CS3_035e:# <12> 1637 #OK
     """ Nozdormu Time
     Turns are 15 seconds long. """
     #
     pass
 
-class CS3_036:# <12> 1637
+class CS3_036:# <12> 1637 #OK
     """ Deathwing the Destroyer
     [Battlecry:] Destroy all other minions. Discard a card for each destroyed. """
-    play = Discard(CONTROLLER, RANDOM(FRIENDLY_HAND)) * Count(ALL_MINIONS - SELF), Destroy(ALL_MINIONS - SELF)
+    play = Discard(RANDOM(FRIENDLY_HAND)) * Count(ALL_MINIONS - SELF), Destroy(ALL_MINIONS - SELF)
     pass
 
-class CS3_037:# <12> 1637
+class CS3_037:# <12> 1637 #OK
     """ Emerald Skytalon
     [Rush] """
     #
     pass
 
-class CS3_038:# <12> 1637
+class CS3_038:# <12> 1637 #OK
     """ Redgill Razorjaw
 
     [Rush] """
     #
     pass
 
-class GAME_005:# <12> 1637
+class GAME_005:# <12> 1637 #OK
     """ The Coin
     Gain 1 Mana Crystal this turn only. """
     #

@@ -452,40 +452,13 @@ def ExchangeCard(cards,player):
 			_card='SCH_301'
 		Give(player,_card).trigger(player)
 
-
-
-
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['CORE_EX1_110'],player1)
+	ExchangeCard(['CS3_036'],player1)
 	ExchangeCard(['weapon'],player2)
-
-
-	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
-	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
-	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
-	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
-	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
-	#Give(player1,'').trigger(player1)#subtarget-spell
-	#Give(player1,'SCH_524').trigger(player1)#subtarget-spell(holy)
-	#Give(player1,'').trigger(player1)#subtarget-spell(nature)
-	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
-	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
-
-	#Discard(player2.hand[-1]).trigger(player2)
-	#Give(player2,'EX1_609').trigger(player2)#subtarget-secret
-	#Give(player2,'ULD_152').trigger(player2)#subtarget-secret
-	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	#Give(player2,'BAR_075').trigger(player2)#enemy
-
-	#force play by player2
-	#PresetPlay(player2, 'DAL_090')# play
-	#PresetPlay(player2, 'ULD_152')# play
-
 	pass
 
 def PresetPlay(player, cardID):
