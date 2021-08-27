@@ -114,12 +114,23 @@ class CardDB(dict):
 			]
 		for id, card in db.items():
 			## add attr spellpower
+			if card.card_class!=3 and card.card_class!=11 and card.card_class!=12:
+				if card.id in [
+					"BT_212e",
+					'SCH_617e',
+					'SW_059e',#4
+				   ]:
+					pass
+				else:
+					continue
 			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
 			if spellpowervalue is not None:
 				setattr(card, 'spellpower', spellpowervalue)
 			else:
 				setattr(card, 'spellpower', 0)
 			yes = False
+			#if card.card_set == CardSet.VANILLA:#1646
+			#	yes = True
 			if card.card_set == CardSet.CORE:#1637
 				if 'CORE_' in card.id or 'CS3_' in card.id or card.id == 'GAME_005':
 					yes = True
@@ -135,25 +146,37 @@ class CardDB(dict):
 			elif card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
 					yes = True
+			elif card.card_set == CardSet.BLACK_TEMPLE:#1414
+					yes = True
 			elif card.card_set == CardSet.DALARAN:# 1130
 				if card.id in ['DAL_086e']:
 					yes = True
 			elif card.card_set == CardSet.BOOMSDAY:# 1127
 				if card.id in ['BOT_083e']:
 					yes = True
+			elif card.card_set == CardSet.GILNEAS:#1125
+				if card.id in ['GIL_828e']:
+					yes = True
+			elif card.card_set == CardSet.ICECROWN:#1001
+				if card.id in ['ICC_026t']:
+					yes = True
+			elif card.card_set == CardSet.KARA:#23
+				if card.id in ['KAR_036e']:
+					yes = True
 			elif card.card_set == CardSet.HERO_SKINS:#17:
 				yes = True
 			elif card.card_set == CardSet.TGT:# 15
-				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",]:## cardset 15
+				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",]:
 					yes = True
 			elif card.card_set == CardSet.EXPERT1:# 3
-				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e',\
-					'EX1_093e','EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_509e','FP1_007t','EX1_116t','tt_004o',
-				   'DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']:
+				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e','EX1_093e',\
+					'EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_509e','FP1_007t','EX1_116t','tt_004o',
+					'EX1_531e','EX1_554t','EX1_611e','EX1_534t',
+					'DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']:
 					yes = True
-			elif card.card_set in [2,3,4,12,18,1004,1130,1158,1347,1403,1414,1443,1635]:
-				if (not 'LOOT_' in card.id)  and (not card.id in exclude):#and (not 'CORE_' in card.id)
-					yes = True
+			#elif card.card_set in [2,3,4,12,18,1004,1130,1158,1347,1403,1414,1443,1635]:
+			#	if (not 'LOOT_' in card.id)  and (not card.id in exclude):#and (not 'CORE_' in card.id)
+			#		yes = True
 			elif card.id in ['OG_280']:#C'Thun CardSet.OG (21)
 				yes = True
 			if yes:

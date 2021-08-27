@@ -167,7 +167,7 @@ class WC_027_Devouring_Ectoplasm(TargetedAction):
 	""" Devouring Ectoplasm """
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
-		new_minion =  Summon(target, "EX1_044").trigger(source)
+		new_minion =  Summon(target, random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t7',])).trigger(source)
 		new_minion = new_minion[0][0]
 		newAtk=new_minion.atk+random.randint(1,3)
 		new_minion._atk = new_minion.atk = newAtk
@@ -184,6 +184,24 @@ class WC_027:#OK
 	deathrattle = WC_027_Devouring_Ectoplasm(CONTROLLER)
 	pass
 
+class WC_034t: # <12>[1525] OK (WC_034 is a paladin card.)
+	""" Deadly Adventurer
+	Poisonous"""
+	pass
+class WC_034t2: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t3: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t4: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t5: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t6: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t7: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t8: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
 class BAR_060:#OK
 	"""
 	Hog Rancher

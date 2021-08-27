@@ -43,12 +43,12 @@ class EX1_043:
 EX1_043e = buff(health=1)
 
 
-class EX1_044:
-	"""Questing Adventurer"""
-	events = OWN_CARD_PLAY.on(Buff(SELF, "EX1_044e"))
+#class EX1_044:
+#	"""Questing Adventurer"""
+#	events = OWN_CARD_PLAY.on(Buff(SELF, "EX1_044e"))
 
 
-EX1_044e = buff(+1, +1)
+#EX1_044e = buff(+1, +1)
 
 
 class EX1_050:

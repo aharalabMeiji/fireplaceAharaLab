@@ -548,3 +548,9 @@ class GAME_005:# <12> 1637 #OK
     #
     pass
 
+class EX1_044:# <12> [3]
+	"""Questing Adventurer"""
+	events = OWN_CARD_PLAY.on(Buff(SELF, "EX1_044e"))
+
+
+EX1_044e = buff(+1, +1)# <12> [3]
