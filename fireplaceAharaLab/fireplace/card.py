@@ -10,8 +10,8 @@ from .entity import BaseEntity, Entity, boolean_property, int_property, slot_pro
 from .exceptions import InvalidAction
 from .managers import CardManager
 from .targeting import TARGETING_PREREQUISITES, is_valid_target
-from .utils import CardList
-
+from .utils import CardList 
+from .logging import log
 
 THE_COIN = "GAME_005"
 
@@ -30,6 +30,8 @@ def Card(id):
 		subclass = Secret
 	if subclass is Spell and data.sidequest:# aharalab
 		subclass = Sidequest# aharalab
+	#if subclass is Spell and data.questline:# aharalab
+	#	subclass = Sidequest# aharalab
 	return subclass(data)
 
 
@@ -152,14 +154,15 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	has_choose_one = boolean_property("has_choose_one")
 	playable_zone = Zone.HAND
 	lifesteal = boolean_property("lifesteal")
-	cant_be_frozen = boolean_property("cant_be_frozen")# aharalab 
-	reborn = boolean_property("reborn")# aharalab 
-	mark_of_evil = boolean_property("mark_of_evil")# aharalab 
-	_tmp_list1_ = []# aharalab  SCH_717, DRG_086
-	_tmp_list2_ = []# aharalab  SCH_717, DRG_086
-	_tmp_int1_ = 0# aharalab  SCH_717, DRG_086
+	cant_be_frozen = boolean_property("cant_be_frozen")# 
+	reborn = boolean_property("reborn")# 
+	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
-
+	corrupt = boolean_property('corrupt')# darkmoon
+	_sidequest_list1_ = []# Sidequest
+	_sidequest_list2_ = []# off use
+	_sidequest_counter_ = 0# Sidequest
+	_Asphyxia_ = 'alive' # SW_323 The Rat King
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -263,9 +266,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.log("%s draws %r", self.controller, self)
 			if self.zone != Zone.HAND:
 				self.zone = Zone.HAND
-			# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-			if hasattr(self, "casts_when_drawn"):
-				self.game.queue_actions(self.controller, [Play(self, None, None, None)])
+			# if self is 'casts_when_drawn' then immediately play. 
+			self.game.card_when_drawn(self, self.controller)
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:
@@ -454,7 +456,7 @@ class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")
 	atk = int_property("atk")
 	cant_be_damaged = boolean_property("cant_be_damaged")
-	immune_while_attacking = slot_property("immune_while_attacking")
+	immune_while_attacking = boolean_property("immune_while_attacking")
 	incoming_damage_multiplier = int_property("incoming_damage_multiplier")
 	max_health = int_property("max_health")
 
@@ -705,7 +707,7 @@ class Minion(Character):
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
-
+	
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",
@@ -856,10 +858,10 @@ class Spell(PlayableCard):
 
 	def play(self, target=None, index=None, choose=None):
 		self.controller.times_spell_played_this_game += 1
-		self.controller.times_spells_played_this_turn += 1 ##### aharalab ####### 27.12.2020 ####
-		self.controller.spells_played_this_turn.append(self) ##### aharalab ####DAL_558### 28.12.2020 ####
-		if target!=None and target.controller==self.controller: ##### aharalab ####### 24.12.2020 ####
-			self.controller.times_spell_to_friendly_minion_this_game += 1 ##### aharalab ####### 24.12.2020 ####
+		self.controller.times_spells_played_this_turn += 1 #
+		self.controller.spells_played_this_turn.append(self) #
+		if target!=None and target.controller==self.controller: #
+			self.controller.times_spell_to_friendly_minion_this_game += 1 #
 		return super().play(target, index, choose)
 
 
@@ -1071,7 +1073,7 @@ class HeroPower(PlayableCard):
 	############ aharalab ################
 
 class Sidequest(Spell):
-	_tmp_int1_=0
+	_sidequest_counter_=0
 	@property
 	def events(self):
 		ret = super().events

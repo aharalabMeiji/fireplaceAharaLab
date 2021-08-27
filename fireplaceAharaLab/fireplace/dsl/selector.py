@@ -251,6 +251,9 @@ SELF = FuncSelector(lambda _, source: [source])
 OWNER = FuncSelector(
 	lambda entities, source: [source.owner] if hasattr(source, "owner") else []
 )
+OWNER_TARGET = FuncSelector(
+	lambda entities, source: [source.owner.target] if hasattr(source, "owner") else []
+)
 
 
 def LazyValueSelector(value):
@@ -406,6 +409,7 @@ DEATHRATTLE = EnumSelector(GameTag.DEATHRATTLE)
 DIVINE_SHIELD = EnumSelector(GameTag.DIVINE_SHIELD)
 FROZEN = EnumSelector(GameTag.FROZEN)
 OVERLOAD = EnumSelector(GameTag.OVERLOAD)
+RUSH = EnumSelector(GameTag.RUSH)
 SPELLPOWER = EnumSelector(GameTag.SPELLPOWER)
 STEALTH = EnumSelector(GameTag.STEALTH)
 TAUNT = EnumSelector(GameTag.TAUNT)

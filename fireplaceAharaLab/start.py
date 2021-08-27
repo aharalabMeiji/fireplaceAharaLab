@@ -9,13 +9,32 @@ from agent_AngryCat import *
 
 sys.path.append("..")
 
+from fireplace import cards
+
+def printClasses():
+	print('')
+	print('from ..utils import *')
+	print('')
+	_cardList = []
+	for _id in cards.db.keys():
+		_card = cards.db[_id]
+		if _card.card_set== CardSet.CORE:
+			if _card.card_class == CardClass.HUNTER: 
+				_cardList.append(_card.id)
+				print('class %s:# %d %d'%(_card.id, _card.card_class, _card.card_set))
+				print('    """ %s'%(_card.name))
+				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print('    #'%())
+				print('    pass'%())
+				print(''%())
+
+
 #
 #		main()
 #
 def main():
-	from fireplace import cards
 	cards.db.initialize()
-
+	#printClasses()
 	#人間手入力(クラスを指定しないとハンターになる)
 	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
@@ -58,9 +77,9 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Human, Vector, deck1=[], deck2=[], gameNumber=1, debugLog=True)
+	#play_set_of_games(Human, Vector, deck1=[], deck2=[], gameNumber=1, debugLog=True)
+	play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
 	#play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
-	#play_set_of_games(Human2, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10)
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -80,52 +99,3 @@ if __name__ == "__main__":
 	main()
 
 
-def printClasses():
-	idList=[
-'SW_006',
-'SW_036',
-'SW_045',
-'SW_054',
-'SW_055',
-'SW_056',
-'SW_057',
-'SW_059',
-'SW_060',
-'SW_061',
-'SW_062',
-'SW_063',
-'SW_064',
-'SW_065',
-'SW_066',
-'SW_067',
-'SW_068',
-'SW_069',
-'SW_070',
-'SW_071',
-'SW_072',
-'SW_073',
-'SW_074',
-'SW_075',
-'SW_076',
-'SW_077',
-'SW_078',
-'SW_079',
-'SW_080',
-'SW_081',
-'SW_306',
-'SW_307',
-'SW_319',
-'SW_400',
-'SW_418',
-]
-	print('')
-	print('from ..utils import *')
-	print('')
-	for cardID in idList:
-		card = cards.db[cardID]
-		print('class %s:'%(cardID))
-		print('    """ %s'%(card.name))
-		print('    %s """'%(card.description))
-		print('    #'%())
-		print('    pass'%())
-		print(''%())

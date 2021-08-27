@@ -1,99 +1,115 @@
 from ..utils import *
 
 class SW_001:
-    """ 星界インクセット
-    [x]呪文のために5マナ
-消費した後、自分の
-手札の呪文1枚のコスト
-を（5）減らす。
-耐久度を1失う。 """
+    """ Celestial Ink Set
+    After you spend 5 Mana onspells, reduce the cost of aspell in your hand by (5).Lose 1 Durability. """
+    #
+    pass
+
+class SW_059e:
+    """ Engineered
+    Cost reduced. """
     #
     pass
 
 class SW_107:
-    """ 焼け残り特売
-    [x]<b>交換可</b>
-全てのミニオンに
-___$3ダメージを与える。 """
+    """ Fire Sale
+    [Tradeable]Deal $3 damageto all minions. """
     #
     pass
 
 class SW_108:
-    """ 一の炎
-    [x]ミニオン1体に
-$2ダメージを与える。
-「二の炎」を自分の
-手札に追加する。 """
+    """ First Flame
+    Deal $2 damage to a minion. Add a Second Flame to your hand. """
+    #
+    pass
+
+class SW_108t:
+    """ Second Flame
+    Deal $2 damage toa minion. """
     #
     pass
 
 class SW_109:
-    """ ふらついた配達人
-    [x]<b>雄叫び:</b>
-自分の手札の
-最もコストが高い
-___呪文を使用する。 """
+    """ Clumsy Courier
+    [Battlecry:] Cast the highest Cost spell from your hand. """
     #
     pass
 
 class SW_110:
-    """ 火付け
-    [x]$@ダメージを与える。
-自分のデッキに
-ダメージが1大きい
-「火付け」1枚を混ぜる。 """
+    """ Ignite
+    Deal $@ damage. Shuffle an Ignite intoyour deck that dealsone more damage. """
     #
     pass
 
 class SW_111:
-    """ 聖域の灯火係
-    [x]自分が火炎呪文を
-使った後
-___呪文を1枚引く。 """
+    """ Sanctum Chandler
+    After you cast a Fire spell, draw a spell. """
     #
     pass
 
 class SW_112:
-    """ プレスターの火霊術師
-    [x]<b>雄叫び:</b>
-自分が次に使用する
-火炎呪文は
-<b>____呪文ダメージ+2</b>を得る。 """
+    """ Prestor's Pyromancer
+    [Battlecry:] Your nextFire spell has [SpellDamage +2]. """
+    #
+    pass
+
+class SW_112e:
+    """ Burning Hot!
+    Your next Fire spell has [Spell Damage +2]. """
+    #
+    pass
+
+class SW_112e2:
+    """ Burning Hot!
+    Your next Fire spell has [Spell Damage +2]. """
     #
     pass
 
 class SW_113:
-    """ 大魔導士アントニダス
-    [x]<b>雄叫び:</b>
-自分が直前の3ターンそれぞれ
-で火炎呪文を使っていたら
-「ファイアーボール」3発を
-ランダムな敵に振り分ける。
-<i>（@/3）</i> """
+    """ Grand Magus Antonidas
+    [Battlecry:] If you've cast aFire spell on each of your lastthree turns, cast 3 Fireballs at___random enemies.@ <i>(@/3)</i> """
     #
     pass
 
 class SW_450:
-    """ 魔法使いの策
-    [x]<b>連続クエスト:</b>
-火炎、凍気、魔力呪文
-を１つずつ使う。
-____<b>報酬: </b>呪文を1枚引く。_ """
+    """ Sorcerer's Gambit
+    [Questline:] Cast a Fire, Frost, and Arcane spell. [Reward: ]Draw a spell. """
+    #
+    pass
+
+class SW_450t:
+    """ Stall for Time
+    [Questline:] Cast a Fire, Frost, and Arcane spell. [Reward:] [Discover] one. """
+    #
+    pass
+
+class SW_450t2:
+    """ Reach the Portal Room
+    [Questline:] Cast a Fire,Frost, and Arcane spell.[Reward:] ArcanistDawngrasp. """
+    #
+    pass
+
+class SW_450t4:
+    """ Arcanist Dawngrasp
+    [Battlecry:] For the restof the game, you have[Spell Damage +3]. """
+    #
+    pass
+
+class SW_450t4e:
+    """ Power of Dawngrasp
+    [Spell Damage +3] """
     #
     pass
 
 class SW_462:
-    """ 予熱
-    [x]このターン
-自分が次に使用する
-火炎呪文のコスト
-は（2）減る。 """
+    """ Hot Streak
+    Your next Fire spell this turn costs (2) less. """
     #
     pass
 
 class SW_462e:
-    """ 予熱
-    自分が次に手札から使用する火炎呪文のコストが（2）減る。 """
+    """ Hot Streak
+    The next Fire spell you play costs (2) less. """
     #
     pass
-

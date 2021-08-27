@@ -155,7 +155,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CANT_ATTACK: "cant_attack",
 	GameTag.CANT_BE_ATTACKED: "cant_be_attacked",
 	GameTag.CANT_BE_DAMAGED: "cant_be_damaged",
-	GameTag.CANT_BE_FROZEN: "cant_be_frozen",##### added by aharalab, 19.12.2020
+	GameTag.CANT_BE_FROZEN: "cant_be_frozen",#
 	GameTag.CANT_BE_TARGETED_BY_ABILITIES: "cant_be_targeted_by_abilities",
 	GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: "cant_be_targeted_by_hero_powers",
 	GameTag.CANT_BE_TARGETED_BY_OPPONENTS: "cant_be_targeted_by_opponents",
@@ -165,13 +165,14 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
 	GameTag.CARDTYPE: "type",
-	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   ##### added by aharalab, 19.12.2020
+	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",
 	GameTag.CHOOSE_ONE: "has_choose_one",
 	GameTag.CHOOSE_BOTH: "choose_both",
 	GameTag.CLASS: "card_class",
 	GameTag.COMBO: "has_combo",
 	GameTag.CONTROLLER: "controller",
+	GameTag.CORRUPT: 'corrupt',
 	GameTag.COST: "cost",
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
@@ -209,6 +210,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.PARENT_CARD: "parent_card",
 	GameTag.POISONOUS: "poisonous",
 	GameTag.POWERED_UP: "powered_up",
+	GameTag.QUESTLINE: "sidequest",#
 	GameTag.RARITY: "rarity",
 	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
@@ -216,7 +218,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
-	GameTag.SIDEQUEST: "sidequest",# aharalab, 21.12.2020
+	GameTag.SIDEQUEST: "sidequest",# 
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",

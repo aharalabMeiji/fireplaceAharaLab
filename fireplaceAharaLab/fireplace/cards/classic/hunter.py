@@ -58,17 +58,17 @@ class DS1_178:
 DS1_178e = buff(charge=True)
 
 
-class EX1_531:
-	"""Scavenging Hyena"""
-	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
+#class EX1_531:
+#	"""Scavenging Hyena"""
+#	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
 
 
-EX1_531e = buff(+2, +1)
+#EX1_531e = buff(+2, +1)
 
 
-class EX1_534:
-	"""Savannah Highmane"""
-	deathrattle = Summon(CONTROLLER, "EX1_534t") * 2
+#class EX1_534:
+#	"""Savannah Highmane"""
+#	deathrattle = Summon(CONTROLLER, "EX1_534t") * 2
 
 
 class NEW1_033:
@@ -98,15 +98,15 @@ class DS1_183:
 	play = Hit(RANDOM_ENEMY_MINION * 2, 3)
 
 
-class DS1_184:
-	"""Tracking"""
-	play = GenericChoice(CONTROLLER, FRIENDLY_DECK[:3])
+#class DS1_184:
+#	"""Tracking"""
+#	play = GenericChoice(CONTROLLER, FRIENDLY_DECK[:3])
 
 
-class DS1_185:
-	"""Arcane Shot"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 2)
+#class DS1_185:
+#	"""Arcane Shot"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET, 2)
 
 
 class EX1_537:
@@ -173,11 +173,11 @@ class EX1_533:
 	)
 
 
-class EX1_554:
-	"""Snake Trap"""
-	secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
-		Reveal(SELF), Summon(CONTROLLER, "EX1_554t") * 3
-	))
+#class EX1_554:
+#	"""Snake Trap"""
+#	secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
+#		Reveal(SELF), Summon(CONTROLLER, "CORE_EX1_554t") * 3
+#	))
 
 
 class EX1_609:

@@ -69,11 +69,34 @@ with <b>Rush</b>.
 class BAR_035t:
     pass
 
+class BAR_037_Warsong_Wrangler(Choice):
+	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
+	def choose(self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.discard()
+			else:
+				_card.discard()
+		game = card.game
+		cardList = game.decks + game.hands + game.characters
+		for _card in cardList:
+			if _card.id == card.id:
+				Buff(_card,"BAR_037e").trigger(card.controller)
+		pass
+
+
 class BAR_037:#OK
     """ Warsong Wrangler
     [x]<b>Battlecry:</b> <b>Discover</b> a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
     """
-    play = BAR_037_Warsong_Wrangler(CONTROLLER,RANDOM(FRIENDLY_DECK)*3)
+    play = BAR_037_Warsong_Wrangler(CONTROLLER,RANDOM(FRIENDLY_DECK + BEAST)*3)
     pass
 BAR_037e=buff(atk=2,health=1)
 

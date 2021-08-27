@@ -234,11 +234,11 @@ class BRM_011t:
 	tags = {enums.CANT_OVERLOAD: True}
 
 
-class BRM_013:
-	"""Quick Shot"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	powered_up = Count(FRIENDLY_HAND - SELF) == 0
-	play = Hit(TARGET, 3), EMPTY_HAND & Draw(CONTROLLER)
+#class BRM_013:
+#	"""Quick Shot"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	powered_up = Count(FRIENDLY_HAND - SELF) == 0
+#	play = Hit(TARGET, 3), EMPTY_HAND & Draw(CONTROLLER)
 
 
 class BRM_015:

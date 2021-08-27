@@ -195,6 +195,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	print(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
 	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
+	return Count1, Count2, (gameNumber-Count1-Count2)
 
 class Candidate(object):
 	"""　アクションの候補手のクラス　
@@ -285,10 +286,10 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
-	for character in player.characters:
+	for character in player.hand:
 		_yes, _option = character.can_trade()
 		if _yes:
-			myCandidate.append(Candidate(player, type=ActionType.TRADE, target=None, turn=mygame.turn))
+			myCandidate.append(Candidate(character, type=ActionType.TRADE, target=None, turn=mygame.turn))
 			pass
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
@@ -416,7 +417,7 @@ class BigDeck:
 	faceHunter = [\
 		'SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
-		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
+		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
 	purePaladin=[\
 		'SCH_247','SCH_247','BT_020','BT_020','SCH_149','SCH_149',\
@@ -491,30 +492,51 @@ def getTurnLog(gameLog, turnN):
 			ret.append(gameLog[i])
 	return ret
 
+def ExchangeCard(cards,player):
+	Discard(player.hand[-1]).trigger(player)
+	for _card in cards:
+		if _card=='attackspell':
+			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
+		if _card=='beast':
+			_card=random.choice(['SCH_133','SCH_714'])
+		if _card=='deathrattle':
+			_card=random.choice(['DAL_587','SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
+		if _card=='dragon':
+			_card='SCH_232'
+		if _card=='elemental':
+			_card='DRG_107'
+		if _card=='nature':
+			_card='SCH_333'
+		if _card=='secret':
+			_card=random.choice(['EX1_609'])
+		if _card=='spell':
+			_card=random.choice(['SCH_353'])
+		if _card=='weapon':
+			_card='SCH_301'
+		Give(player,_card).trigger(player)
+
+
+
 
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
-	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
-	#Discard(player1.hand[-1]).trigger(player1)
-	#Give(player1,'SW_054').trigger(player1)#target
-	#Give(player1,'SW_055').trigger(player1)#target
-	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
-	#Give(player1,'SCH_714').trigger(player1)#subtarget-beast
-	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
-	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
-	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
+
+	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
+	#ExchangeCard(['DMF_124','BAR_037'],player1)
+	#ExchangeCard(['spell'],player2)
+
+
 	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
 	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
 	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
 	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
 	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
-	#Give(player1,'SCH_353').trigger(player1)#subtarget-spell
+	#Give(player1,'').trigger(player1)#subtarget-spell
 	#Give(player1,'SCH_524').trigger(player1)#subtarget-spell(holy)
-	#Give(player1,'SCH_333').trigger(player1)#subtarget-spell(nature)
+	#Give(player1,'').trigger(player1)#subtarget-spell(nature)
 	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
 	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
-	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
 
 	#Discard(player2.hand[-1]).trigger(player2)
 	#Give(player2,'EX1_609').trigger(player2)#subtarget-secret

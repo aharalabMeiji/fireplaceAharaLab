@@ -14,9 +14,9 @@ class ICC_023:
 	pass
 
 
-class ICC_026:
-	"""Grim Necromancer"""
-	pass
+#class ICC_026:
+#	"""Grim Necromancer"""
+#	pass
 
 
 class ICC_028:

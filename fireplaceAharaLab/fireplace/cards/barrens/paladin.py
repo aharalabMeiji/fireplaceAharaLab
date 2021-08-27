@@ -1,96 +1,139 @@
 from ..utils import *
 
-
 class BAR_550:
     """ Galloping Savior
-    [x]<b>Secret:</b> After your
-opponent plays three
-cards in a turn, summon a
-3/4 Steed with <b>Taunt</b>.
-    """
+    [Secret:] After youropponent plays threecards in a turn, summon a3/4 Steed with [Taunt]. """
+    #
+    pass
+
+class BAR_550t:
+    """ Holy Steed
+    [Taunt] """
     #
     pass
 
 class BAR_871:
     """ Soldier's Caravan
-    [x]At the start of your turn,
-summon two 1/1
-Silver Hand Recruits.
-    """
+    At the start of your turn,summon two 1/1Silver Hand Recruits. """
     #
     pass
 
 class BAR_873:
     """ Knight of Anointment
-    <b>Battlecry:</b> Draw a
-Holy spell.
-    """
+    [Battlecry:] Draw aHoly spell. """
     #
     pass
 
 class BAR_875:
     """ Sword of the Fallen
-    [x]After your hero attacks,
-cast a <b>Secret</b> from
-your deck.
-    """
+    After your hero attacks,cast a [Secret] fromyour deck. """
     #
     pass
 
 class BAR_876:
     """ Northwatch Commander
-    <b>Battlecry:</b> If you control a <b>Secret</b>, draw a minion.
-    """
+    [Battlecry:] If you control a [Secret], draw a minion. """
     #
     pass
 
 class BAR_878:
     """ Veteran Warmedic
-    [x]After you cast a Holy spell,
-summon a 2/2 Medic
-with <b>Lifesteal</b>.
-    """
+    After you cast a Holy spell,summon a 2/2 Medicwith [Lifesteal]. """
+    #
+    pass
+
+class BAR_878t:
+    """ Battlefield Medic
+    [Lifesteal] """
     #
     pass
 
 class BAR_879:
     """ Cannonmaster Smythe
-    <b>Battlecry:</b> Transform your <b>Secrets</b> into 3/3 Soldiers. They transform back when they die.
-    """
+    [Battlecry:] Transform your [Secrets] into 3/3 Soldiers. They transform back when they die. """
+    #
+    pass
+
+class BAR_879e:
+    """ Secrecy
+    It's a secret...@{0} is inside! <i>(Only you can see this.)</i> """
+    #
+    pass
+
+class BAR_879t:
+    """ Northwatch Soldier
+    [Deathrattle:] Transform back into a [Secret]. """
     #
     pass
 
 class BAR_880:
     """ Conviction (Rank 1)
-    [x]Give a random friendly
-minion +3 Attack.
-<i>(Upgrades when you
-have 5 Mana.)</i>
-    """
+    Give a random friendlyminion +3 Attack.<i>(Upgrades when youhave 5 Mana.)</i> """
+    #
+    pass
+
+class BAR_880e:
+    """ Blessed
+    +3 Attack. """
+    #
+    pass
+
+class BAR_880t:
+    """ Conviction (Rank 2)
+    Give two random friendlyminions +3 Attack.<i>(Upgrades when youhave 10 Mana.)</i> """
+    #
+    pass
+
+class BAR_880t2:
+    """ Conviction (Rank 3)
+    Give three random friendly minions +3_Attack. """
     #
     pass
 
 class BAR_881:
     """ Invigorating Sermon
-    Give +1/+1 to all minions in your hand, deck, and battlefield.
-    """
+    Give +1/+1 to all minions in your hand, deck, and battlefield. """
+    #
+    pass
+
+class BAR_881e:
+    """ Holy Might
+    +1/+1 """
     #
     pass
 
 class BAR_902:
     """ Cariel Roame
-    [x]<b>Rush</b>, <b>Divine Shield</b>
-Whenever this attacks,
-reduce the Cost of Holy
-______spells in your hand by (1).___
-    """
+    [Rush], [Divine Shield]Whenever this attacks,reduce the Cost of Holy______spells in your hand by (1).___ """
+    #
+    pass
+
+class BAR_902e:
+    """ Light's Strength
+    Costs (1) less. """
     #
     pass
 
 class WC_032:
     """ Seedcloud Buckler
-    [x]<b>Deathrattle:</b> Give your
-_minions <b>Divine Shield</b>.
-    """
+    [Deathrattle:] Give your_minions [Divine Shield]. """
+    #
+    pass
+
+class WC_033:
+    """ Judgment of Justice
+    [Secret:] When an enemy minion attacks, set its Attack and Health to 1. """
+    #
+    pass
+
+class WC_033e:
+    """ Judged
+    1/1. """
+    #
+    pass
+
+class WC_034:
+    """ Party Up!
+    Summon five 2/2 Adventurers with random bonus effects. """
     #
     pass

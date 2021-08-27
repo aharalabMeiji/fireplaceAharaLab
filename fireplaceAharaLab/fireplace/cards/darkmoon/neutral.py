@@ -45,12 +45,23 @@ class YOP_031:
 	play = Buff(SELF, "YOP_031e")
 	pass
 
+<<<<<<< HEAD
 class YOP_031e:
 	windfury = SET(1)
 
 class DMF_124:
 	"""Horrendous Growth"""
 	##&lt;b&gt;Corrupt:&lt;/b&gt; Gain +1/+1. Can be &lt;b&gt;Corrupted&lt;/b&gt; endlessly.
+=======
+class DMF_124:
+	"""Horrendous Growth
+	[x]&lt;b&gt;変妖:&lt;/b&gt;+1/+1を獲得する。何度でも&lt;b&gt;変妖&lt;/b&gt;できる。"""
+	pass
+
+class DMF_124t:
+	"""Horrendous Growth
+	[x]&lt;b&gt;変妖:&lt;/b&gt;+1/+1を獲得する。何度でも&lt;b&gt;変妖&lt;/b&gt;できる。"""
+>>>>>>> 2804f339cec9b40d5161179ceafa1685faa0aafe
 	pass
 
 class DMF_520:

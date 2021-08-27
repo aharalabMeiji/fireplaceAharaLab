@@ -4,6 +4,7 @@ from hearthstone import cardxml
 from hearthstone.enums import CardType,CardSet
 from ..logging import log
 from ..utils import get_script_definition
+from hearthstone.enums import GameTag
 
 
 class CardDB(dict):
@@ -93,7 +94,8 @@ class CardDB(dict):
 
 		return card
 
-	def initialize(self, locale="jaJP"):
+
+	def initialize(self, locale="jaJP"):#locale="enUS"):#
 		log.info("Initializing card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
@@ -108,39 +110,33 @@ class CardDB(dict):
 			# 
 			#'BT_730',
 			'BAR_079',## neutral-barrens, too huge
+			'SW_079',## neutral=Stormwind, choice a dormant
 			]
-		nameList=[]
-		#print("idList=[")
 		for id, card in db.items():
-			#if card.name in nameList:
-			#	print("'%s',"%(card.id))
-			from hearthstone.enums import GameTag
 			## add attr spellpower
 			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
 			if spellpowervalue is not None:
 				setattr(card, 'spellpower', spellpowervalue)
 			else:
 				setattr(card, 'spellpower', 0)
-
 			yes = False
 			if card.card_set == CardSet.STORMWIND: # 1578:
 				if 'SW_' in card.id:
 					yes = True					
-			if card.card_set == CardSet.THE_BARRENS:#1525
+			elif card.card_set == CardSet.THE_BARRENS:#1525
 				if 'BAR_' in card.id or 'WC_' in card.id:
 					yes = True					
-			if card.card_set == CardSet.DARKMOON_FAIRE:#1466
+			elif card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
 					yes = True
-
-			elif card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635, CardSet.CORE]:
-				if (not 'LOOT_' in card.id) and (not 'CORE_' in card.id) and (not card.id in exclude):
-					yes = True
-			elif card.id in ['OG_280']:#C'Thun
-				yes = True
-			if card.card_set == 15:
+			elif card.card_set == CardSet.TGT:# 15
 				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",]:## cardset 15
 					yes = True
+			elif card.card_set in [2,3,4,12,17,18,1004,1130,1158,1347,1403,1414,1443,1635, CardSet.CORE]:
+				if (not 'LOOT_' in card.id)  and (not card.id in exclude):#and (not 'CORE_' in card.id)
+					yes = True
+			elif card.id in ['OG_280']:#C'Thun CardSet.OG (21)
+				yes = True
 			if yes:
 				self[id] = self.merge(id, card)
 			## end ###
