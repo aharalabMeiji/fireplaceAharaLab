@@ -1,7 +1,7 @@
 import os
 from pkg_resources import resource_filename
 from hearthstone import cardxml
-from hearthstone.enums import CardType,CardSet
+from hearthstone.enums import CardType,CardSet,CardClass
 from ..logging import log
 from ..utils import get_script_definition
 from hearthstone.enums import GameTag
@@ -95,7 +95,7 @@ class CardDB(dict):
 		return card
 
 
-	def initialize(self, locale="jaJP"):#locale="enUS"):#
+	def initialize(self, locale="enUS"):#locale="jaJP"):#
 		log.info("Initializing card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
@@ -114,11 +114,11 @@ class CardDB(dict):
 			]
 		for id, card in db.items():
 			## add attr spellpower
-			if card.card_class!=3 and card.card_class!=11 and card.card_class!=12:
+			if not card.card_class in [CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:
 				if card.id in [
-					"BT_212e",
-					'SCH_617e',
-					'SW_059e',#4
+					"BT_212e",#7
+					'SCH_617e',#2
+					'SW_059e','BAR_064e','BAR_064e2'#CardClass.MAGE:4
 				   ]:
 					pass
 				else:
@@ -135,7 +135,10 @@ class CardDB(dict):
 				if 'CORE_' in card.id or 'CS3_' in card.id or card.id == 'GAME_005':
 					yes = True
 			elif card.card_set == CardSet.LEGACY: # 1635
-				if card.id in ['CS2_122e','CS2_222o','HERO_05bp','HERO_05bp2']:
+				if card.id in ['CS2_122e','CS2_222o',
+				   'HERO_05bp','HERO_05bp2',#steady shot
+				   'NEW1_031','NEW1_032','NEW1_033','NEW1_034',#Animal Companion
+				   ]:
 					yes = True
 			elif card.card_set == CardSet.STORMWIND: # 1578:
 				if 'SW_' in card.id:
@@ -150,6 +153,9 @@ class CardDB(dict):
 					yes = True
 			elif card.card_set == CardSet.DALARAN:# 1130
 				if card.id in ['DAL_086e']:
+					yes = True
+			elif card.card_set == CardSet.TROLL:# 1129
+				if card.id in ['TRL_111e1']:
 					yes = True
 			elif card.card_set == CardSet.BOOMSDAY:# 1127
 				if card.id in ['BOT_083e']:
@@ -166,7 +172,10 @@ class CardDB(dict):
 			elif card.card_set == CardSet.HERO_SKINS:#17:
 				yes = True
 			elif card.card_set == CardSet.TGT:# 15
-				if card.id in ['AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",]:
+				if card.id in [
+					'AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",
+					'AT_061e',
+					]:
 					yes = True
 			elif card.card_set == CardSet.EXPERT1:# 3
 				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e','EX1_093e',\

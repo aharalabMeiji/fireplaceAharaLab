@@ -293,7 +293,7 @@ EX1_399e = buff(atk=3)# <12> 1635
 class CORE_EX1_506:# <12> 1637
     """ Murloc Tidehunter
     [Battlecry:] Summon a 1/1_Murloc Scout. """
-    play = Summon(CONTROLLER, "EX1_506a")
+    play = Summon(CONTROLLER, "CORE_EX1_506a")
     pass
 
 class CORE_EX1_506a:# <12> 1637
@@ -548,9 +548,3 @@ class GAME_005:# <12> 1637 #OK
     #
     pass
 
-class EX1_044:# <12> [3]
-	"""Questing Adventurer"""
-	events = OWN_CARD_PLAY.on(Buff(SELF, "EX1_044e"))
-
-
-EX1_044e = buff(+1, +1)# <12> [3]

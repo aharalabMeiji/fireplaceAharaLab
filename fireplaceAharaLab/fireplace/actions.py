@@ -401,6 +401,20 @@ class GenericChoice(Choice):
 			else:
 				_card.discard()
 
+class GenericChoiceBackToDeck(Choice):
+	def choose(self, card):
+		super().choose(card)
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.zone = Zone.DECK
+			else:
+				_card.zone = Zone.DECK
+
 
 
 class MulliganChoice(GameAction):
@@ -2268,11 +2282,12 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 			Buff(card, "BT_126e2").trigger(source)
 		pass
 
-class SW_079t_Action(TargetedAction):
-	""" Westfall """
+class SummonAdventurerWithBonus(TargetedAction):
+	""" Devouring Ectoplasm """
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
-		new_minion =  Summon(target, "EX1_044").trigger(source)
+		new_minion =  random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t7',])
+		new_minion =  Summon(target, new_minion).trigger(source)
 		new_minion = new_minion[0][0]
 		newAtk=new_minion.atk+random.randint(1,3)
 		new_minion._atk = new_minion.atk = newAtk
@@ -2280,7 +2295,6 @@ class SW_079t_Action(TargetedAction):
 		newHealth = new_minion.health+random.randint(1,3)
 		new_minion.max_health = newHealth
 		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
-
 
 class Frenzy(TargetedAction):
 	""" Frenzy """

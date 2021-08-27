@@ -58,7 +58,7 @@ class CORE_EX1_554:# 3 1637
 	""" Snake Trap
 	[Secret:] When one of your minions is attacked, summon three 1/1 Snakes. """
 	secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
-		Reveal(SELF), Summon(CONTROLLER, "CORE_EX1_554t") * 3
+		Reveal(SELF), Summon(CONTROLLER, "EX1_554t") * 3
 	))
 	pass
 
@@ -126,6 +126,6 @@ TRL_111e1=buff(health=1)# 12 1129
 class CS3_015:# 3 1637
     """ Selective Breeder
     [Battlecry:] [Discover] a copy of a Beast in your deck. """
-    play = Discover(CONTROLLER, RandomBeast())
+    play = GenericChoiceBackToDeck(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3)
     pass
 

@@ -111,6 +111,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\hunter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\mage.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\neutral.py">
       <SubType>Code</SubType>
     </Compile>

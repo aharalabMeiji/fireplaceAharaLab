@@ -237,7 +237,7 @@ class GrandTournamentBrawl(Game):
 
 	MEDIVH_DECK = ([
 		"AT_001", "AT_001",
-		"AT_003", "AT_003",
+		"CORE_AT_003", "CORE_AT_003",
 		"AT_005", "AT_005",
 		"AT_007", "AT_007",
 		"AT_008", "AT_008",
