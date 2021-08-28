@@ -449,15 +449,15 @@ def ExchangeCard(cards,player):
 		if _card=='spell':
 			_card=random.choice(['SCH_353'])
 		if _card=='weapon':
-			_card='SCH_301'
+			_card=random.choice(['WC_037','DMF_088'])
 		Give(player,_card).trigger(player)
 
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
-	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
+	#Shuffle(player1,'').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['CS3_015'],player1)
+	ExchangeCard(['BT_850'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

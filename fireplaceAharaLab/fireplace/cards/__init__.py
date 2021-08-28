@@ -95,7 +95,7 @@ class CardDB(dict):
 		return card
 
 
-	def initialize(self, locale="enUS"):#locale="jaJP"):#
+	def initialize(self, locale="jaJP"):#locale="enUS"):#
 		log.info("Initializing card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
@@ -114,9 +114,9 @@ class CardDB(dict):
 			]
 		for id, card in db.items():
 			## add attr spellpower
-			if not card.card_class in [CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:
+			if not card.card_class in [CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
 				if card.id in [
-					"BT_212e",#7
+					"BT_212e",'SCH_352e',#7
 					'SCH_617e',#2
 					'SW_059e','BAR_064e','BAR_064e2'#CardClass.MAGE:4
 				   ]:
@@ -135,9 +135,10 @@ class CardDB(dict):
 				if 'CORE_' in card.id or 'CS3_' in card.id or card.id == 'GAME_005':
 					yes = True
 			elif card.card_set == CardSet.LEGACY: # 1635
-				if card.id in ['CS2_122e','CS2_222o',
-				   'HERO_05bp','HERO_05bp2',#steady shot
-				   'NEW1_031','NEW1_032','NEW1_033','NEW1_034',#Animal Companion
+				if card.id in [
+					'CS2_122e','CS2_222o','EX1_399e','NEW1_033o',# core-neutral
+					'HERO_05bp','HERO_05bp2',#steady shot
+					'NEW1_031','NEW1_032','NEW1_033','NEW1_034',#Animal Companion
 				   ]:
 					yes = True
 			elif card.card_set == CardSet.STORMWIND: # 1578:
@@ -148,6 +149,8 @@ class CardDB(dict):
 					yes = True					
 			elif card.card_set == CardSet.DARKMOON_FAIRE:#1466
 				if 'DMF_' in card.id or 'YOP_' in card.id:
+					yes = True
+			elif card.card_set == CardSet.SCHOLOMANCE:# 1443
 					yes = True
 			elif card.card_set == CardSet.BLACK_TEMPLE:#1414
 					yes = True
@@ -179,7 +182,7 @@ class CardDB(dict):
 					yes = True
 			elif card.card_set == CardSet.EXPERT1:# 3
 				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e','EX1_093e',\
-					'EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_509e','FP1_007t','EX1_116t','tt_004o',
+					'EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_399e','EX1_509e','FP1_007t','EX1_116t','tt_004o','NEW1_018e','NEW1_026t','NEW1_027e',
 					'EX1_531e','EX1_554t','EX1_611e','EX1_534t',
 					'DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']:
 					yes = True

@@ -118,9 +118,9 @@ class BT_850:#OK
 	When they die, destroy all
 	minions and awaken."""
 	dormant = -1 #infinite dormant
-	play = Buff(SELF, "BT_850e"), Summon(OPPONENT, "BT_850t") * 3
+	play = Summon(OPPONENT, "BT_850t") * 3
+	events = Death(ENEMY+ID("BT_850t")).on(SidequestCounter(SELF,3,[Destroy(ALL_MINIONS - SELF), SetAttr(SELF, 'dormant',0), Awaken(SELF) ]))
 class BT_850e:
-	events = Death(ENEMY+ID("BT_850t")).on(SidequestCounter(OWNER,3,[Destroy(ALL_MINIONS - OWNER), SetAttr(OWNER, 'dormant',0), Awaken(OWNER),Destroy(SELF)]))
 	pass
 class BT_850t:
 	""" Hellfire Warder """

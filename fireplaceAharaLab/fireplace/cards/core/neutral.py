@@ -391,17 +391,26 @@ class CORE_LOEA10_3:# <12> 1637
     #
     pass
 
-class CORE_NEW1_018:# <12> 1637 ##この文法大丈夫か？ 
+class CORE_NEW1_018_Action(TargetedAction):
+    def do(self,source,target):
+        player = target
+        weapon = player.weapon
+        source.atk += weapon.atk
+
+class CORE_NEW1_018:# <12> 1637 #OK
     """ Bloodsail Raider
     [Battlecry:] Gain Attack equal to the Attack of your weapon. """
-    play = Find(FRIENDLY_WEAPON) & Buff(SELF, "NEW1_018e", atk=ATK(FRIENDLY_WEAPON))
+    play = Find(FRIENDLY_WEAPON) & CORE_NEW1_018_Action(CONTROLLER)
     pass
-# NEW1_018e # <12> 3
+#NEW1_018e=buff(atk=ATK(FRIENDLY_WEAPON)) # <12> 3 #
 
 class CORE_NEW1_026:# <12> 1637
     """ Violet Teacher
     Whenever you cast a spell, summon a 1/1 Violet Apprentice. """
     events = OWN_SPELL_PLAY.on(Summon(CONTROLLER, "NEW1_026t"))
+    pass
+
+class NEW1_026t:# <12> 3
     pass
 
 class CORE_NEW1_027:# <12> 1637

@@ -885,7 +885,7 @@ class Corrupt(TargetedAction):# darkmoon fair
             newCard = Give(controller, corrupted).trigger(controller)
             newCard = newCard[0][0]
             for _buff in corrupt.buffs:
-                newCard.buffs.append(_buffs)
+                newCard.buffs.append(_buff)
             Destroy(corrupt).trigger(controller)
         pass
 
@@ -1830,6 +1830,7 @@ class SetMaxHealth(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting max_health on %r to %i", target, amount)
 		target.max_health = amount
+
 class SetAtk(TargetedAction):
 	"""
 	Sets the current health of the character target to \a amount.
