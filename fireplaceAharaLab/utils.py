@@ -239,6 +239,8 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 def executeAction(mygame, action: Candidate, debugLog=True):
 	"""　Candidate型のアクションを実行する　"""
 	mygame.add_log(action)
+	if mygame.ended:
+		return ExceptionPlay.GAMEOVER
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
@@ -259,7 +261,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		pass
 	else:
 		for card in player.hand:
-			if card.is_playable() and card==action.card and card.controller.name==action.card.controller.name:
+			if card.is_playable() and card.id==action.card.id and card.controller.name==action.card.controller.name:
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
@@ -278,9 +280,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 								theTarget=target
 					else:
 						pass
-			_yes,_option = card.can_trade()
-			if _yes:
-				theCard = card
+			else:
+				_yes, _option = card.can_trade()
+				if _yes and card.id==action.card.id:
+					theCard = card
 		for character in player.characters:
 			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
 				theCard = character
@@ -294,13 +297,20 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 					if target==action.target and target.controller.name==action.target.controller.name:
 						theTarget = target
 	if action.type==BlockType.PLAY:
+		if action.card.id != theCard.id:
+			print("%s != %s"%(action.card.id, theCard.id))
+			print("%s"%(action.card.game==mygame))
+			return ExceptionPlay.INVALID
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
 			return ExceptionPlay.INVALID
 		try:
 			theCard.play(target=theTarget,choose=theCard2)
-			return ExceptionPlay.VALID
+			if mygame.ended:
+				return ExceptionPlay.GAMEOVER
+			else:
+				return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.ATTACK:
@@ -310,7 +320,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.VALID
 		try:
 			theCard.attack(theTarget)
-			return ExceptionPlay.VALID
+			if mygame.ended:
+				return ExceptionPlay.GAMEOVER
+			else:
+				return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.POWER:
@@ -457,7 +470,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['BT_850'],player1)
+	#ExchangeCard(['BT_850'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

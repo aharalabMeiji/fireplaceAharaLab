@@ -116,7 +116,7 @@ class CardDB(dict):
 			## add attr spellpower
 			if not card.card_class in [CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
 				if card.id in [
-					"BT_212e",'SCH_352e',#7
+					"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#7
 					'SCH_617e',#2
 					'SW_059e','BAR_064e','BAR_064e2'#CardClass.MAGE:4
 				   ]:

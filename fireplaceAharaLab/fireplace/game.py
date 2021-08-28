@@ -97,8 +97,8 @@ class BaseGame(Entity):
 		self.manager.action_end(type, source)
 
 		if self.ended:
-			raise GameOver("The game has ended.")
-
+			#raise GameOver("The game has ended.")
+			return
 		if type != BlockType.PLAY:
 			self._action_stack -= 1
 		if not self._action_stack:

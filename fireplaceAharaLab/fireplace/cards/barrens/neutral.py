@@ -19,13 +19,14 @@ class GiveAdventurerWithBonus(TargetedAction):
 	def do(self,source,target):
 		new_minion = random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t8',])
 		new_minion =  Give(target, new_minion).trigger(source)
-		new_minion = new_minion[0][0]
-		newAtk=new_minion.atk+random.randint(1,3)
-		new_minion._atk = new_minion.atk = newAtk
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		newHealth = new_minion.health+random.randint(1,3)
-		new_minion.max_health = newHealth
-		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+		if new_minion[0] != []:# the hand may be full
+			new_minion = new_minion[0][0]
+			newAtk=new_minion.atk+random.randint(1,3)
+			new_minion._atk = new_minion.atk = newAtk
+			new_minion.data.scripts.atk = lambda self, i: self._atk
+			newHealth = new_minion.health+random.randint(1,3)
+			new_minion.max_health = newHealth
+			log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class WC_028:#OK
 	"""

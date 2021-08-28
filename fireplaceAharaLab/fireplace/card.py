@@ -793,7 +793,6 @@ class Minion(Character):
 		## これは必要か？ 14/8/21
 		if value == Zone.GRAVEYARD and self.zone == Zone.GRAVEYARD and self in self.controller.game.live_entities:
 			self.log("%s must be removed from the field but still left in the list of living entities.", self.data.name)
-			
 			if self in self.controller.live_entities:
 				player=self.controller
 			elif self in self.controller.opponent.live_entities:
@@ -803,6 +802,9 @@ class Minion(Character):
 				self.log("%s - %s %s"%(entity.data.name, entity._to_be_destroyed, entity.to_be_destroyed))
 			if self in player.field:
 				player.field.remove(self)
+			else:
+				self.log("non-sense!")
+				raise GameOver("wowowowo")
 		##いちおう、無限ループ対策で、ここでカードの消去を行っておく。
 
 		super()._set_zone(value)
