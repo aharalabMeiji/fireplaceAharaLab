@@ -76,6 +76,8 @@ class Player(Entity, TargetableByAuras):
 		self.__myPlayLog__=[]
 		self.__mySummonLog__=[]
 		self.spell_and_damage=False
+		self.guardians_legacy = False#CS3_001
+
 
 	def __str__(self):
 		return self.name

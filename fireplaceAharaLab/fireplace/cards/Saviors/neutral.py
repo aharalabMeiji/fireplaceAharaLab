@@ -112,7 +112,7 @@ class ULD_003:# mimic#OK
 		if powered_up:
 			entourage=['CS2_046','CS2_011']##Bloodlust, Savage Roar
 			if self.controller.opponent.hero.health<10:
-				entourage=['BT_512','CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
+				entourage=['BT_512','CORE_CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
 			else:
 				for card in self.controller.opponent.field:
 					if card.taunt == True and card.max_health-card.damage>2:

@@ -123,7 +123,7 @@ class CORE_TRL_111:# 3 1637
     pass
 TRL_111e1=buff(health=1)# 12 1129
 
-class CS3_015:# 3 1637
+class CS3_015:# 3 1637 #OK
     """ Selective Breeder
     [Battlecry:] [Discover] a copy of a Beast in your deck. """
     play = GenericChoiceBackToDeck(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3)

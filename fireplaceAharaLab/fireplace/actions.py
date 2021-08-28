@@ -968,6 +968,12 @@ class Draw(TargetedAction):
 			target.fatigue()
 			return []
 		card.draw()
+		#guardian's legacy #CS3_001
+		player = source.controller#
+		if player.guardians_legacy:
+			#引いたばかりのカードにCS3_001のdeathrattleを追加する。
+			Buff(card,'CS3_001e').trigger(source)
+			player.guardians_legacy=False
 		self.broadcast(source, EventListener.ON, target, card, source)
 
 		return [card]
@@ -2179,6 +2185,13 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 		new_minion._atk = new_minion.atk = cost
 		new_minion.data.scripts.atk = lambda self, i: self._atk
 		new_minion.max_health = cost
+
+class InheritGuardiansLegacy(TargetedAction):
+	"""   """
+	def do(self, source, target):
+		log.info("Gardian's Legacy was inherited by %r"%(target))
+		target.guardians_legacy=True
+		pass
 
 class Freeze(TargetedAction):
 	"""
