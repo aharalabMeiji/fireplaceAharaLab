@@ -108,6 +108,12 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\demon_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\druid.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\hunter.py">
       <SubType>Code</SubType>
     </Compile>
@@ -115,6 +121,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\paladin.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\priest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\rogue.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\shaman.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\warlock.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\__init__.py">

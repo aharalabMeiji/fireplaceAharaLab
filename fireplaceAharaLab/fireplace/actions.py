@@ -762,6 +762,7 @@ class Predamage(TargetedAction):
 			amount *= 2
 		target.predamage = amount
 		if amount:
+			target.controller.add_damage_log(target, amount)
 			self.broadcast(source, EventListener.ON, target, amount)
 			return source.game.trigger_actions(source, [Damage(target)])[0][0]
 		return 0
@@ -1216,6 +1217,34 @@ class SW_078_Morph(TargetedAction):
 		target.morphed = card
 		return card
 
+class DMF_108_Morph(TargetedAction):
+	"""
+	Morph minion target into card. with same cost
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+
+	def get_target_args(self, source, target):
+		card = _eval_card(source, self._args[1])
+		assert len(card) == 1
+		card = card[0]
+		card.controller = target.controller
+		return [card]
+
+	def do(self, source, target, card):
+		log.info("Morphing %r into %r", target, card)
+		target_zone = target.zone
+		if card.zone != target_zone:
+			# Transfer the zone position
+			card._summon_index = target.zone_position
+			# In-place morph is OK, eg. in the case of Lord Jaraxxus
+			card.zone = target_zone
+		target.clear_buffs()
+		target.zone = Zone.SETASIDE
+		card.cost = target.cost
+		target.morphed = card
+		return card
+
 
 class FillMana(TargetedAction):
 	"""
@@ -1633,6 +1662,19 @@ class RefreshHeroPower(TargetedAction):
 		log.info("Refresh Hero Power %s.", heropower)
 		heropower.activations_this_turn = 0
 		return heropower
+
+class RefreshMana(TargetedAction):
+	"""
+	Helper to Refresh Hero Power
+	"""
+	AMOUNT = IntArg()
+
+	def do(self, source, amount):
+		log.info("Refresh Mana by %s.", amount)
+		source.controller.used_mana -= 2
+		if source.controller.used_mana<0:
+			source.controller.used_mana=0
+
 
 
 class KazakusHelper(GameAction):

@@ -74,6 +74,7 @@ class Player(Entity, TargetableByAuras):
 		self.cthun = None
 		self.__myDeathLog__=[]
 		self.__myPlayLog__=[]
+		self.__myDamageLog__=[]
 		self.__mySummonLog__=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
@@ -243,7 +244,7 @@ class Player(Entity, TargetableByAuras):
 			amount -= used_temp
 			self.temp_mana -= used_temp
 		#self.log("%s pays %i mana", self, amount)
-		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) ############### aharalab ############
+		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) #
 		self.used_mana += amount
 		return amount
 
@@ -310,10 +311,36 @@ class Player(Entity, TargetableByAuras):
 		return self.__myDeathLog__
 
 	def add_play_log(self, card):
-		self.__myPlayLog__.append(card)
+		self.__myPlayLog__.append([card,card.game.turn])
 	@property
 	def get_play_log(self):
-		return self.__myPlayLog__
+		_ret = []
+		for i in len(self.__myPlayLog__):
+			_ret.append(__myPlayLog__[i][0])
+		return _ret
+	@property
+	def get_play_log_of_last_turn(self):
+		_ret = []
+		for _log in self.__myPlayLog__:
+			if _log[1] == self.game.turn - 2:
+				_ret.append(_log[0])
+		return _ret
+
+	def add_damage_log(self, card, amount):
+		self.__myDamageLog__.append([card,card.game.turn,amount])
+	@property
+	def get_damage_log(self):
+		_ret = []
+		for _log in self.__myDamageLog__:
+			_ret.append(_log[0])
+		return _ret
+	@property
+	def get_damage_log_of_this_turn(self):
+		_ret = []
+		for _log in self.__myDamageLog__:
+			if _log[1] == self.game.turn:
+				_ret.append(_log[0])
+		return _ret
 
 	def add_summon_log(self, card):
 		self.__mySummonLog__.append(card)

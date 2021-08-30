@@ -101,9 +101,10 @@ class BAR_064:#maybe OK「一夜漬け」では効果を見られない。
 		   OWN_TURN_END.on( Destroy(FRIENDLY + ID("BAR_064e")))
 		   ]
 	pass
-class BAR_064e:
+class BAR_064e:#<4> [1525]
 	update = Refresh(FRIENDLY_HAND, {GameTag.SPELLPOWER: 2})
 	#{GameTag.SPELLPOWER: 2})
+#class BAR_064e2: #<4> [1525]
 
 class BAR_743:#OK 
 	#******NATUREはドルイド、シャーマンの特性****たとえば自然学の予習(SCH_333)**

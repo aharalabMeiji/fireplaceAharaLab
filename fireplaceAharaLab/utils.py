@@ -452,7 +452,7 @@ def ExchangeCard(cards,player):
 		if _card=='dragon':
 			_card='SCH_232'
 		if _card=='elemental':
-			_card='DRG_107'
+			_card=random.choice(['SCH_143','SCH_245'])
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
@@ -472,7 +472,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['CORE_UNG_020'],player1)
+	ExchangeCard(['DMF_108',],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

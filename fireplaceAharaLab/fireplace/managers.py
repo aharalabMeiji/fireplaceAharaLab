@@ -187,6 +187,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EXHAUSTED: "exhausted",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
+	GameTag.FREEZE: 'freeze',#
 	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
 	GameTag.HEALING_DOUBLE: "healing_double",
@@ -252,7 +253,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EVIL_GLOW: None,
 	GameTag.FACTION: None,
 	GameTag.FLAVORTEXT: None,
-	GameTag.FREEZE: None,
 	GameTag.HealTarget: None,
 	GameTag.HIDE_COST: None,
 	GameTag.HOW_TO_EARN: None,

@@ -104,9 +104,9 @@ class CardDB(dict):
 			'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
 			'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
 			'YOD_009',## this is a hero in galakrond
-			'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-			'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-			'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
+			#'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+			#'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+			#'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
 			# 
 			#'BT_730',
 			'BAR_079',## neutral-barrens, too huge
@@ -114,10 +114,11 @@ class CardDB(dict):
 			]
 		for id, card in db.items():
 			## add attr spellpower
-			if not card.card_class in [CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
+			if not card.card_class in [ CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
 				if card.id in [
 					"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#7
-					'SCH_617e',#2					
+					'SCH_617e',#2
+					'DMF_102e',#12
 				   ]:
 					pass
 				else:
