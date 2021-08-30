@@ -144,6 +144,7 @@ class PlayerManager(Manager):
 
 CARD_ATTRIBUTE_MAP = {
 	GameTag.ADJACENT_BUFF: "adjacent_buff",
+	GameTag.AFFECTED_BY_SPELL_POWER: 'affected_by_spell_power',
 	GameTag.ALL_TARGETS_RANDOM: "all_targets_random",
 	GameTag.ARMOR: "armor",
 	GameTag.ATK: "atk",
@@ -186,7 +187,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EXHAUSTED: "exhausted",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
-	GameTag.FRENZY: "frenzy",### add by aharalab, 16,8,2021
+	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",
@@ -238,7 +239,6 @@ CARD_ATTRIBUTE_MAP = {
 	enums.KILLED_THIS_TURN: "killed_this_turn",
 	enums.DISCARDED: "discarded",
 	enums.MURLOCS_COST_HEALTH: "murlocs_cost_health",
-	GameTag.AFFECTED_BY_SPELL_POWER: None,
 	GameTag.ARTISTNAME: None,
 	GameTag.AttackVisualType: None,
 	GameTag.CARD_SET: None,

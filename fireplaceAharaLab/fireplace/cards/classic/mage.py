@@ -25,9 +25,9 @@ class CS2_034_H2:
 ##
 # Minions
 
-class CS2_033:
-	"""Water Elemental"""
-	events = Damage(CHARACTER, None, SELF).on(Freeze(Damage.TARGET))
+#class CS2_033:
+#	"""Water Elemental"""
+#	events = Damage(CHARACTER, None, SELF).on(Freeze(Damage.TARGET))
 
 
 class EX1_274:
@@ -40,7 +40,7 @@ EX1_274e = buff(+2, +2)
 
 class EX1_559:
 	"""Archmage Antonidas"""
-	events = OWN_SPELL_PLAY.on(Give(CONTROLLER, "CS2_029"))
+	events = OWN_SPELL_PLAY.on(Give(CONTROLLER, "CORE_CS2_029"))
 
 
 class EX1_608:
@@ -75,9 +75,9 @@ class CS2_022:
 	play = Morph(TARGET, "CS2_tk1")
 
 
-class CS2_023:
-	"""Arcane Intellect"""
-	play = Draw(CONTROLLER) * 2
+#class CS2_023:
+#	"""Arcane Intellect"""
+#	play = Draw(CONTROLLER) * 2
 
 
 class CS2_024:
@@ -107,10 +107,10 @@ class CS2_028:
 	play = Hit(ENEMY_MINIONS, 2), Freeze(ENEMY_MINIONS)
 
 
-class CS2_029:
-	"""Fireball"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 6)
+#class CS2_029:
+#	"""Fireball"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET, 6)
 
 
 class CS2_031:
@@ -119,15 +119,15 @@ class CS2_031:
 	play = Find(TARGET + FROZEN) & Hit(TARGET, 4) | Freeze(TARGET)
 
 
-class CS2_032:
-	"""Flamestrike"""
-	play = Hit(ENEMY_MINIONS, 4)
+#class CS2_032:
+#	"""Flamestrike"""
+#	play = Hit(ENEMY_MINIONS, 4)
 
 
-class EX1_275:
-	"""Cone of Cold"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET | TARGET_ADJACENT, 1), Freeze(TARGET | TARGET_ADJACENT)
+#class EX1_275:
+#	"""Cone of Cold"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET | TARGET_ADJACENT, 1), Freeze(TARGET | TARGET_ADJACENT)
 
 
 class EX1_277:
@@ -153,30 +153,30 @@ class tt_010:
 	))
 
 
-class EX1_287:
-	"""Counterspell"""
-	secret = Play(OPPONENT, SPELL).on(
-		Reveal(SELF), Counter(Play.CARD)
-	)
+#class EX1_287:
+#	"""Counterspell"""
+#	secret = Play(OPPONENT, SPELL).on(
+#		Reveal(SELF), Counter(Play.CARD)
+#	)
 
 
-class EX1_289:
-	"""Ice Barrier"""
-	secret = Attack(CHARACTER, FRIENDLY_HERO).on(
-		Reveal(SELF), GainArmor(FRIENDLY_HERO, 8)
-	)
+#class EX1_289:
+#	"""Ice Barrier"""
+#	secret = Attack(CHARACTER, FRIENDLY_HERO).on(
+#		Reveal(SELF), GainArmor(FRIENDLY_HERO, 8)
+#	)
 
 
-class EX1_294:
-	"""Mirror Entity"""
-	secret = [
-		Play(OPPONENT, MINION).after(
-			Reveal(SELF), Summon(CONTROLLER, ExactCopy(Play.CARD))
-		),
-		Play(OPPONENT, ID("EX1_323h")).after(
-			Reveal(SELF), Summon(CONTROLLER, "EX1_323")
-		)  # :-)
-	]
+#class EX1_294:
+#	"""Mirror Entity"""
+#	secret = [
+#		Play(OPPONENT, MINION).after(
+#			Reveal(SELF), Summon(CONTROLLER, ExactCopy(Play.CARD))
+#		),
+#		Play(OPPONENT, ID("EX1_323h")).after(
+#			Reveal(SELF), Summon(CONTROLLER, "EX1_323")
+#		)  # :-)
+#	]
 
 
 class EX1_295:

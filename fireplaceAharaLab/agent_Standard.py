@@ -249,6 +249,25 @@ def Original_random(game: ".game.Game"):
 				executeAttack(character, target)
 		break
 
+def adjust_text_bt_spellpower(text, player):
+	_catch_number=-1
+	_new_text=text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+	_len=len(_new_text)
+	for _i in range(_len):
+		if _new_text[_i]=='$':
+			if _i+1<_len and _new_text[_i+1] in ['0','1','2','3','4','5','6','7','8','9']:
+				_catch_number = int(_new_text[_i+1])
+				_latter_text = _new_text[_i+2:]
+				if _i+2<_len and _new_text[_i+2] in ['0','1','2','3','4','5','6','7','8','9']:
+					_catch_number *= 10
+					_catch_number += int(_new_text[_i+2])
+					_latter_text = _new_text[_i+3:]
+				_catch_number += player.spellpower
+				for _repeat in range(player.spellpower_double):
+					_catch_number *= 2
+				_new_text = _new_text[:_i] + "*" +str(_catch_number) +"*" + _latter_text
+	return _new_text
+
 class HumanAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
@@ -261,11 +280,11 @@ class HumanAgent(Agent):
 			for card in player.hand:
 				print("%s"%card, end='   : ')
 				if card.data.type == CardType.MINION:
-					print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+					print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, adjust_text_bt_spellpower(card.data.description, player)))
 				elif card.data.type == CardType.SPELL:
-					print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+					print("%2d : %s"%(card.cost, adjust_text_bt_spellpower(card.data.description, player)))
 				elif card.data.type == CardType.WEAPON:
-					print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+					print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, adjust_text_bt_spellpower(card.data.description, player)))
 					##
 				if card.is_playable():
 					if card.must_choose_one:
@@ -325,7 +344,7 @@ class HumanAgent(Agent):
 					#if character._sidequest_counter_>0:
 					#	if character.dormant==0:
 					#		print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
-				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%s"%(adjust_text_bt_spellpower(character.data.description, player.opponent)))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
 				print("%s"%character, end='   : ')
@@ -365,11 +384,9 @@ class HumanAgent(Agent):
 							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
 						else:
 							print("(dormant)", end=" ")
-					if character._sidequest_counter_>0:
-						print("(counter = %d)"%card._sidequest_counter_, end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
-				print("%s"%(character.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%s"%(adjust_text_bt_spellpower(character.data.description, player)))
 				if character.can_attack():
 					for target in character.targets:
 						if character.can_attack(target):
@@ -392,8 +409,8 @@ class HumanAgent(Agent):
 				print("%s"%card, end='   : ')
 				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
 					print("(sidequest %d)"%card._sidequest_counter_, end="")
-				print("%s"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
+				print("%s"%(adjust_text_bt_spellpower(card.data.description,0)))
+			print("========Your turn : %d/%d mana==(spell damage %d)==="%(player.mana,player.max_mana,player.spellpower))
 			print("[0] ターンを終了する")
 			myCount = 1
 			for myChoice in myCandidate:
@@ -405,9 +422,9 @@ class HumanAgent(Agent):
 				if myCard.data.type==CardType.MINION:
 					print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 				elif myCard.data.type==CardType.SPELL:
-					print('<%2d> %s'%(myCard.cost, myCard.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')), end=' ')
+					print('<%2d> %s'%(myCard.cost, adjust_text_bt_spellpower(myCard.data.description,player)), end=' ')
 				elif myCard.data.type==CardType.WEAPON:
-					print('<%2d> %s'%(myCard.cost, myCard.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')), end=' ')
+					print('<%2d> %s'%(myCard.cost, adjust_text_bt_spellpower(myCard.data.description, player)), end=' ')
 				if myChoice.type == ActionType.PLAY:
 					print(' play', end=' ')
 				if myChoice.type == ActionType.TRADE:
@@ -459,6 +476,7 @@ class HumanAgent(Agent):
 			except ValueError :
 				pass
 		return cards_to_mulligan
+
 
 
 

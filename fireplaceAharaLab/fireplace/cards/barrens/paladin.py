@@ -137,3 +137,4 @@ class WC_034:
     Summon five 2/2 Adventurers with random bonus effects. """
     #
     pass
+

@@ -11,71 +11,6 @@ import time
 from fireplace.config import Config
 
 
-#class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
-#	"""docstring for myAction"""
-#	def __init__(self, _card,_type,_target=None):
-#		super(myAction, self).__init__()
-#		self.card=_card
-#		self.type=_type
-#		self.target=_target
-#
-#	def __str__(self):
-#		return "{card}->{type}(target={target})".format(card=self.card,type=self.type,target=self.target)
-#		pass
-#
-#	def __eq__(self,obj):
-#		return str(self)==str(obj)
-#		pass
-
-
-#class Node(object):#旧マヤ版#MCTS用のノードクラス
-#	"""docstring for Node"""
-#	def __init__(self, gameTree,move,parent,actions):
-#		super(Node, self).__init__()
-#		self.gameTree=gameTree
-#		self.move=move
-#		self.parent=parent
-#		self.childNodes=[]
-#		self.wins=0
-#		self.visits=0
-#		self.untriedMoves=copy.deepcopy(actions)
-#		self.score=0
-#	def selectChild(self):
-#		import math#
-#		self.totalVisit=self.visits
-#		self.values=list(map(lambda node:node.wins/node.visits+math.sqrt(math.log(self.totalVisit)/node.visits),self.childNodes))
-#		retNode=self.childNodes[self.values.index(max(self.values))]
-#		return retNode
-#		pass
-#	def expandChild(self,action):
-#		self.expandedTree=executeAction(self.gameTree,action)
-#		child=Node(self.expandedTree,action,self,getCandidates(self.expandedTree))
-#		self.childNodes.append(child)
-#		return child
-#	def choose_expanding_action(self):
-#		index=int(random.random()*len(self.untriedMoves))
-#		return self.untriedMoves.pop(index)		
-#		pass
-#	def simulate(self):
-#		return simulate_random_game(self.gameTree)
-#		pass
-#	def backPropagate(self,result=None):
-#		self.addVal=self.score
-#		if result is not None:
-#			self.addVal=result
-#			pass
-#		self.wins+=self.addVal
-#		self.visits+=1;
-#		if self.parent is None:
-#			pass
-#		else:
-#			self.parent.backPropagate(self.addVal)
-#		pass
-#	def setScore(self,_score):
-#		self.score=_score
-#		pass
-#
-	
 
 
 class Agent(object):
@@ -304,6 +239,8 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 def executeAction(mygame, action: Candidate, debugLog=True):
 	"""　Candidate型のアクションを実行する　"""
 	mygame.add_log(action)
+	if mygame.ended:
+		return ExceptionPlay.GAMEOVER
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
@@ -324,7 +261,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		pass
 	else:
 		for card in player.hand:
-			if card.is_playable() and card==action.card and card.controller.name==action.card.controller.name:
+			if card.is_playable() and card.id==action.card.id and card.controller.name==action.card.controller.name:
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
@@ -343,9 +280,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 								theTarget=target
 					else:
 						pass
-			_yes,_option = card.can_trade()
-			if _yes:
-				theCard = card
+			else:
+				_yes, _option = card.can_trade()
+				if _yes and card.id==action.card.id:
+					theCard = card
 		for character in player.characters:
 			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
 				theCard = character
@@ -359,13 +297,20 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 					if target==action.target and target.controller.name==action.target.controller.name:
 						theTarget = target
 	if action.type==BlockType.PLAY:
+		if action.card.id != theCard.id:
+			print("%s != %s"%(action.card.id, theCard.id))
+			print("%s"%(action.card.game==mygame))
+			return ExceptionPlay.INVALID
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
 			return ExceptionPlay.INVALID
 		try:
 			theCard.play(target=theTarget,choose=theCard2)
-			return ExceptionPlay.VALID
+			if mygame.ended:
+				return ExceptionPlay.GAMEOVER
+			else:
+				return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.ATTACK:
@@ -375,7 +320,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.VALID
 		try:
 			theCard.attack(theTarget)
-			return ExceptionPlay.VALID
+			if mygame.ended:
+				return ExceptionPlay.GAMEOVER
+			else:
+				return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.POWER:
@@ -500,55 +448,32 @@ def ExchangeCard(cards,player):
 		if _card=='beast':
 			_card=random.choice(['SCH_133','SCH_714'])
 		if _card=='deathrattle':
-			_card=random.choice(['DAL_587','SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
+			_card=random.choice(['SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
 		if _card=='dragon':
 			_card='SCH_232'
 		if _card=='elemental':
 			_card='DRG_107'
+		if _card=='murloc':
+			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card='SCH_333'
 		if _card=='secret':
-			_card=random.choice(['EX1_609'])
+			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
 			_card=random.choice(['SCH_353'])
+		if _card=='spellpower':
+			_card=random.choice(['SW_061'])
 		if _card=='weapon':
-			_card='SCH_301'
+			_card=random.choice(['WC_037','DMF_088'])
 		Give(player,_card).trigger(player)
-
-
-
 
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
-	#Shuffle(player1,'SCH_301').trigger(player1)#specific card into deck
+	#Shuffle(player1,'').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['DMF_124','BAR_037'],player1)
-	#ExchangeCard(['spell'],player2)
-
-
-	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
-	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
-	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
-	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
-	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
-	#Give(player1,'').trigger(player1)#subtarget-spell
-	#Give(player1,'SCH_524').trigger(player1)#subtarget-spell(holy)
-	#Give(player1,'').trigger(player1)#subtarget-spell(nature)
-	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
-	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
-
-	#Discard(player2.hand[-1]).trigger(player2)
-	#Give(player2,'EX1_609').trigger(player2)#subtarget-secret
-	#Give(player2,'ULD_152').trigger(player2)#subtarget-secret
-	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	#Give(player2,'BAR_854').trigger(player2)#enemy atk=1
-	#Give(player2,'BAR_075').trigger(player2)#enemy
-
-	#force play by player2
-	#PresetPlay(player2, 'DAL_090')# play
-	#PresetPlay(player2, 'ULD_152')# play
-
+	ExchangeCard(['CORE_UNG_020'],player1)
+	#ExchangeCard(['weapon'],player2)
 	pass
 
 def PresetPlay(player, cardID):

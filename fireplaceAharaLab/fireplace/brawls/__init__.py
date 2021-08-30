@@ -48,7 +48,7 @@ class BlackrockShowdownBrawl(Game):
 		"BRMC_96",
 		"BRMC_99",
 		"BRMC_100", "BRMC_100",
-		"CS2_032", "CS2_032",
+		"CORE_CS2_032", "CORE_CS2_032",
 		"CS2_042", "CS2_042",
 		"EX1_241", "EX1_241",
 		"CORE_EX1_249",
@@ -237,10 +237,10 @@ class GrandTournamentBrawl(Game):
 
 	MEDIVH_DECK = ([
 		"AT_001", "AT_001",
-		"AT_003", "AT_003",
+		"CORE_AT_003", "CORE_AT_003",
 		"AT_005", "AT_005",
 		"AT_007", "AT_007",
-		"AT_008", "AT_008",
+		"CORE_AT_008", "CORE_AT_008",
 		"AT_009",
 		"AT_080", "AT_080",
 		"AT_082", "AT_082",

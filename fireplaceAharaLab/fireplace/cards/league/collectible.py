@@ -4,9 +4,9 @@ from ..utils import *
 ##
 # Minions
 
-class LOE_003:
-	"""Ethereal Conjurer"""
-	play = DISCOVER(RandomSpell())
+#class LOE_003:
+#	"""Ethereal Conjurer"""
+#	play = DISCOVER(RandomSpell())
 
 
 class LOE_006:
