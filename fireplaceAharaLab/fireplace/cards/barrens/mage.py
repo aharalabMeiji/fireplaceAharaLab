@@ -30,7 +30,7 @@ class BAR_305t2:#<4> [1525] ##OK
     play = Freeze(RANDOM(ENEMY_MINIONS - FROZEN)) * 3
     pass
 
-class BAR_541:#<4> [1525] ###
+class BAR_541:#<4> [1525] #OK
     """ Runed Orb
     Deal $2 damage. [Discover] a spell. """
     requirements = {PlayReq.REQ_TARGET_TO_PLAY:0}
@@ -43,13 +43,14 @@ class GetManaIfSpell(TargetedAction):
     def do(self, source, target, amount):
         if target.type == CardType.SPELL:
             source.controller.used_mana -= amount
+            log.info("Refresh %d Mana for %r"%(aount, source.controller))
             if source.controller.used_mana<0:
                 source.controller.used_mana=0
 
-class BAR_542:#<4> [1525] ###
+class BAR_542:#<4> [1525] ##OK # if you use 'on' you may fail.
     """ Refreshing Spring Water
     Draw 2 cards.Refresh 2 Mana Crystals for each spell drawn. """
-    play = Draw(CONTROLLER).on(GetManaIfSpell(Draw.CARD, 2)), Draw(CONTROLLER).on(GetManaIfSpell(Draw.CARD, 2))
+    play = Draw(CONTROLLER).then(GetManaIfSpell(Draw.CARD, 2)), Draw(CONTROLLER).then(GetManaIfSpell(Draw.CARD, 2))
     pass
 
 class BAR_544:#<4> [1525] ### #########################
