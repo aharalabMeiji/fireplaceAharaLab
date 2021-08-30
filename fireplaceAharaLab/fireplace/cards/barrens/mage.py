@@ -53,10 +53,23 @@ class BAR_542:#<4> [1525] ##OK # if you use 'on' you may fail.
     play = Draw(CONTROLLER).then(GetManaIfSpell(Draw.CARD, 2)), Draw(CONTROLLER).then(GetManaIfSpell(Draw.CARD, 2))
     pass
 
-class BAR_544:#<4> [1525] ### #########################
+class BAR_544_Action(TargetedAction):#fake heropower
+    def do(self,source,target):
+        controller = target
+        targetList=controller.opponent.field
+        targetList.append(controller.opponent.hero)
+        heropower = controller.hero.power
+        for tgt in targetList:
+            heropower.target=tgt
+            actions = heropower.get_actions("activate")
+            source.game.action_start(BlockType.PLAY, heropower, 0, tgt)
+            source.game.main_power(heropower, actions, tgt)
+            source.game.action_end(BlockType.PLAY, heropower)
+
+class BAR_544:#<4> [1525] ##OK
     """ Reckless Apprentice
     [Battlecry:] Fire your Hero Power at all enemies. """
-    #play = Activate(CONTROLLER, HERO_POWER)
+    play = BAR_544_Action(CONTROLLER)
     pass
 
 class BAR_545_Action(TargetedAction):
