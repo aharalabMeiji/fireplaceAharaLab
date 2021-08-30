@@ -99,18 +99,23 @@ class MiyaryoAgent(Agent):
         player = game.current_player
         if self.DebugLog:
             print("turn %d" % game.turn)
-            print(f"秘策数{len(player.secrets)}")
-            print(f"相手秘策数{len(player.opponent.secrets)}")
+            # print(f"秘策数{len(player.secrets)}")
+            # print(f"相手秘策数{len(player.opponent.secrets)}")
         self.lethal = False
         while True:
             # print(total_size(game.get_log()))
             # print(f"ログの長さ{len(game.get_log())}")
             copystart = time.time()
             tmpGame = copy.deepcopy(game)
-            # print(f"elapsed_time:{time.time()-copystart}")
+            # tmpGame = np.copy(game)
+            print(f"elapsed_time:{time.time()-copystart}")
             # print(total_size(tmpGame,verbose = True))
             myCandidate = getCandidates(
                 game, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
+            
+            for character in player.characters:
+                if hasattr(character, 'zone_position'):
+                    print(character.zone_position)
 
             if len(myCandidate) <= 1:  # 何もしないを選択した時
                 myChoice = random.choice(myCandidate)  # ランダムに一つ選ぶ

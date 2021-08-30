@@ -1,6 +1,6 @@
 int num_of_player=2;
 
-String path="d:\\Github\\fireplaceAharaLab\\";
+String path="https://github.com/aharalabMeiji/fireplaceAharaLab/blob/1st_competition_fixed_deck/";
 String filename = "standings.csv";
 
 String[] line;

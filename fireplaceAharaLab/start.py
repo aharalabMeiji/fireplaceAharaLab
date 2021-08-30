@@ -17,7 +17,7 @@ def main():
 	from fireplace import cards
 	cards.db.initialize()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
+	Human=HumanAgent("Human",HumanAgent.HumanInput,myClass=CardClass.MAGE)
 	#ランダムプレーヤー
 	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
@@ -59,7 +59,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	pr = cProfile.Profile()
 	pr.enable()
-	play_set_of_games(Vector, Miyaryo, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=False)
+	play_set_of_games(Human, Miyaryo, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	# play_set_of_games(Test, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	pr.disable()
 	# pr.print_stats()

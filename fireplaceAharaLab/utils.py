@@ -500,15 +500,9 @@ def getTurnLog(gameLog, turnN):
 
 def PresetHands(player1, player2): 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-<<<<<<< HEAD
 	# Discard(player1.hand[-1]).trigger(player1)
 	# Give(player1,'ULD_178').trigger(player1)#target
 	# Give(player1,'DAL_604').trigger(player1)#subtarget-
-=======
-	Discard(player1.hand[-1]).trigger(player1)
-	Give(player1,'SCH_270').trigger(player1)#target
-	#Give(player1,'DAL_604').trigger(player1)#subtarget-
->>>>>>> c6013724e8d5d4b8c6f27eaac5f7d501e76a60a8
 	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
 	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
 	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
