@@ -6,7 +6,7 @@ class SW_001:
     #
     pass
 
-class SW_059e:
+class SW_059e:#<4>[1578]
     """ Engineered
     Cost reduced. """
     #

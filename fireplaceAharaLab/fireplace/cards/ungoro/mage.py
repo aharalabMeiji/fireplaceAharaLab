@@ -4,9 +4,9 @@ from ..utils import *
 ##
 # Minions
 
-class UNG_020:
-	"""Arcanologist"""
-	pass
+#class UNG_020:
+#	"""Arcanologist"""
+#	pass
 
 
 class UNG_021:

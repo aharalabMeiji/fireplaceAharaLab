@@ -14,9 +14,9 @@ class KAR_006:
 	update = Refresh(FRIENDLY_HAND + SECRET, {GameTag.COST: SET(0)})
 
 
-class KAR_009:
-	"""Babbling Book"""
-	play = Give(CONTROLLER, RandomSpell())
+#class KAR_009:
+#	"""Babbling Book"""
+#	play = Give(CONTROLLER, RandomSpell())
 
 
 class KAR_010:

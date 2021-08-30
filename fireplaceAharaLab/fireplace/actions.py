@@ -305,6 +305,9 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Reborn(target)])
 		if target.id== 'DRG_253':# aharalab for Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
+		if target.type == CardType.MINION:
+			if target.guardians_legacy:#CS3_001由来の継承
+				SetGLflag(target.controller).trigger(target.controller)##ガーディアンの継承をプレーヤーに移譲する。
 
 class EndTurn(GameAction):
 	"""
@@ -400,6 +403,20 @@ class GenericChoice(Choice):
 					_card.discard()
 			else:
 				_card.discard()
+
+class GenericChoiceBackToDeck(Choice):
+	def choose(self, card):
+		super().choose(card)
+		for _card in self.cards:
+			if _card is card:
+				if card.type == CardType.HERO_POWER:
+					_card.zone = Zone.PLAY
+				elif len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
+				else:
+					_card.zone = Zone.DECK
+			else:
+				_card.zone = Zone.DECK
 
 
 
@@ -871,7 +888,7 @@ class Corrupt(TargetedAction):# darkmoon fair
             newCard = Give(controller, corrupted).trigger(controller)
             newCard = newCard[0][0]
             for _buff in corrupt.buffs:
-                newCard.buffs.append(_buffs)
+                newCard.buffs.append(_buff)
             Destroy(corrupt).trigger(controller)
         pass
 
@@ -934,6 +951,11 @@ class Discover(TargetedAction):
 		source.game.queue_actions(source, [GenericChoice(target, cards)])
 
 
+class SetGLflag(TargetedAction):
+    def do(self, source, target):
+        target.guardians_legacy = True
+        log.info("Guardian's legacy flag on (%r)"%(target))
+
 
 class Draw(TargetedAction):
 	"""
@@ -954,6 +976,14 @@ class Draw(TargetedAction):
 			target.fatigue()
 			return []
 		card.draw()
+		#guardian's legacy #CS3_001
+		player = source.controller#
+		if player.guardians_legacy and card.type == CardType.MINION:
+			#引いたばかりのカードにCS3_001のdeathrattleのためのフラグを追加する。
+			card.spellpower = 2
+			card.guardians_legacy = True##ガーディアンの継承をカードに移譲する。
+			player.guardians_legacy=False
+			log.info("Guardian's legacy is inderited by %r"%(card))
 		self.broadcast(source, EventListener.ON, target, card, source)
 
 		return [card]
@@ -1816,6 +1846,7 @@ class SetMaxHealth(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting max_health on %r to %i", target, amount)
 		target.max_health = amount
+
 class SetAtk(TargetedAction):
 	"""
 	Sets the current health of the character target to \a amount.
@@ -2165,6 +2196,13 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 		new_minion.data.scripts.atk = lambda self, i: self._atk
 		new_minion.max_health = cost
 
+class InheritGuardiansLegacy(TargetedAction):
+	"""   """
+	def do(self, source, target):
+		log.info("Gardian's Legacy was inherited by %r"%(target))
+		target.guardians_legacy=True
+		pass
+
 class Freeze(TargetedAction):
 	"""
 
@@ -2268,11 +2306,12 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 			Buff(card, "BT_126e2").trigger(source)
 		pass
 
-class SW_079t_Action(TargetedAction):
-	""" Westfall """
+class SummonAdventurerWithBonus(TargetedAction):
+	""" Devouring Ectoplasm """
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
-		new_minion =  Summon(target, "EX1_044").trigger(source)
+		new_minion =  random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t7',])
+		new_minion =  Summon(target, new_minion).trigger(source)
 		new_minion = new_minion[0][0]
 		newAtk=new_minion.atk+random.randint(1,3)
 		new_minion._atk = new_minion.atk = newAtk
@@ -2280,7 +2319,6 @@ class SW_079t_Action(TargetedAction):
 		newHealth = new_minion.health+random.randint(1,3)
 		new_minion.max_health = newHealth
 		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
-
 
 class Frenzy(TargetedAction):
 	""" Frenzy """

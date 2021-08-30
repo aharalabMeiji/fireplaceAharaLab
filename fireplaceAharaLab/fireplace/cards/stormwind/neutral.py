@@ -202,10 +202,10 @@ class SW_077:#OK
     """ Stockades Prisoner
     [x]Starts <b>Dormant</b>. After you play 3 cards, this awakens. """ 
     dormant = -1 #infinite dormant
-    play = Buff(SELF, "SW_077e")
+    events = Play(CONTROLLER).on(SidequestCounter(SELF,3,[SetAttr(SELF, 'dormant',0), Awaken(SELF)]))
+    #play = Buff(SELF, "SW_077e")
     pass
 class SW_077e:
-    events = Play(CONTROLLER).on(SidequestCounter(OWNER,3,[SetAttr(OWNER, 'dormant',0), Awaken(OWNER),Destroy(SELF)]))
     pass
 
 class SW_078:#OK
@@ -234,7 +234,7 @@ SW_079e6=buff(dormant=5)
 """ &lt;b&gt;Dormant&lt;/b&gt;. Deal 12 damage randomly split to enemies in @ |4(turn, turns). """
 class SW_079t:
     """ >[x]In 1 turn, summon a 2/2 Adventurer with _a random bonus effect. """
-    play = SW_079t_Action(CONTROLLER)
+    play = SummonAdventurerWithBonus(CONTROLLER)
 #SW_079te
 class SW_079t2:
     """ In 3 turns, restore 10 Health to your hero. """

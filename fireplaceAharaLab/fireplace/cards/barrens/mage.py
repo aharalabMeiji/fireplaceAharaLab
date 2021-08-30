@@ -62,14 +62,14 @@ class BAR_545e:
 
 class BAR_546:
     """ Wildfire
-    Increase the damage ofyour Hero Power by 1. """
-    #
+    Increase the damage of your Hero Power by 1. """
+    play = Buff(CONTROLLER, 'BAR_546e')
     pass
 
 class BAR_546e:
     """ Flame On!
     Hero Power deals 1 more damage. """
-    #
+    play = ChangeHeroPower(CONTROLLER, "HERO_05bp2")
     pass
 
 class BAR_547:

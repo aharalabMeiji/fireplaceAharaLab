@@ -534,16 +534,16 @@ class Character(LiveEntity):
 	cant_be_targeted_by_abilities = boolean_property("cant_be_targeted_by_abilities")
 	cant_be_targeted_by_hero_powers = boolean_property("cant_be_targeted_by_hero_powers")
 	heavily_armored = boolean_property("heavily_armored")
+	ignore_taunt = boolean_property("ignore_taunt")
 	min_health = boolean_property("min_health")
+	poisonous = boolean_property("poisonous")
 	rush = boolean_property("rush")
 	taunt = boolean_property("taunt")
-	poisonous = boolean_property("poisonous")
-	ignore_taunt = boolean_property("ignore_taunt")
 	
 	def __init__(self, data):
-		self.frozen = False
 		self.attack_target = None
 		self.cannot_attack_heroes = False
+		self.frozen = False
 		self.num_attacks = 0
 		self.race = Race.INVALID
 		super().__init__(data)
@@ -707,7 +707,7 @@ class Minion(Character):
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
-	
+
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",
@@ -722,6 +722,7 @@ class Minion(Character):
 		self.silenced = False
 		self._summon_index = None
 		self.dormant = data.dormant
+		self.guardians_legacy = False
 		super().__init__(data)
 
 	@property
@@ -793,7 +794,6 @@ class Minion(Character):
 		## これは必要か？ 14/8/21
 		if value == Zone.GRAVEYARD and self.zone == Zone.GRAVEYARD and self in self.controller.game.live_entities:
 			self.log("%s must be removed from the field but still left in the list of living entities.", self.data.name)
-			
 			if self in self.controller.live_entities:
 				player=self.controller
 			elif self in self.controller.opponent.live_entities:
@@ -803,6 +803,9 @@ class Minion(Character):
 				self.log("%s - %s %s"%(entity.data.name, entity._to_be_destroyed, entity.to_be_destroyed))
 			if self in player.field:
 				player.field.remove(self)
+			else:
+				self.log("non-sense!")
+				raise GameOver("wowowowo")
 		##いちおう、無限ループ対策で、ここでカードの消去を行っておく。
 
 		super()._set_zone(value)

@@ -153,7 +153,6 @@ class FindDuplicates(Evaluator):
 		entities = self.selector.eval(source.game, source)
 		return len(set(entities)) < len(entities)
 
-
 class JoustEvaluator(Evaluator):
 	"""
 	Compare the sum of the costs of \a selector versus \a selector2.

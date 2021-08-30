@@ -13,25 +13,27 @@ class BAR_854e:
 	#+ EnumSelector(Race.ELEMENTAL)
 	pass 
 
-class WC_028_Meeting_Stone(TargetedAction):
+class GiveAdventurerWithBonus(TargetedAction):
 	""" Meeting Stone """
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
-		new_minion =  Give(target, "EX1_044").trigger(source)
-		new_minion = new_minion[0][0]
-		newAtk=new_minion.atk+random.randint(1,3)
-		new_minion._atk = new_minion.atk = newAtk
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		newHealth = new_minion.health+random.randint(1,3)
-		new_minion.max_health = newHealth
-		log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+		new_minion = random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t8',])
+		new_minion =  Give(target, new_minion).trigger(source)
+		if new_minion[0] != []:# the hand may be full
+			new_minion = new_minion[0][0]
+			newAtk=new_minion.atk+random.randint(1,3)
+			new_minion._atk = new_minion.atk = newAtk
+			new_minion.data.scripts.atk = lambda self, i: self._atk
+			newHealth = new_minion.health+random.randint(1,3)
+			new_minion.max_health = newHealth
+			log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class WC_028:#OK
 	"""
 	Meeting Stone
 	[x]At the end of your turn, add a 2/2 Adventurer with a random bonus effect to your hand.
 	"""
-	events = OWN_TURN_END.on(WC_028_Meeting_Stone(CONTROLLER))
+	events = OWN_TURN_END.on(GiveAdventurerWithBonus(CONTROLLER))
 	pass
 
 class BAR_074:#OK　　up to 10 がまだ
@@ -163,27 +165,33 @@ class BAR_026:#OK
 	deathrattle = Heal(FRIENDLY_HERO,4)
 	pass
 
-class WC_027_Devouring_Ectoplasm(TargetedAction):
-	""" Devouring Ectoplasm """
-	TARGET = ActionArg()#the controller
-	def do(self,source,target):
-		new_minion =  Summon(target, "EX1_044").trigger(source)
-		new_minion = new_minion[0][0]
-		newAtk=new_minion.atk+random.randint(1,3)
-		new_minion._atk = new_minion.atk = newAtk
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		newHealth = new_minion.health+random.randint(1,3)
-		new_minion.max_health = newHealth
-		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class WC_027:#OK
 	"""
 	Devouring Ectoplasm
 	[x]<b>Deathrattle:</b> Summon a 2/2 Adventurer with_a random bonus effect.
 	"""
-	deathrattle = WC_027_Devouring_Ectoplasm(CONTROLLER)
+	deathrattle = SummonAdventurerWithBonus(CONTROLLER)
 	pass
 
+class WC_034t: # <12>[1525] OK (WC_034 is a paladin card.)
+	""" Deadly Adventurer
+	Poisonous"""
+	pass
+class WC_034t2: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t3: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t4: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t5: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t6: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t7: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
+class WC_034t8: # <12>[1525]  OK (WC_034 is a paladin card.)
+	pass
 class BAR_060:#OK
 	"""
 	Hog Rancher
