@@ -34,7 +34,7 @@ class BAR_541:#<4> [1525] ###
     """ Runed Orb
     Deal $2 damage. [Discover] a spell. """
     requirements = {PlayReq.REQ_TARGET_TO_PLAY:0}
-    play = Hit(TARGET, 2),Discover(RandomSpell())
+    play = Hit(TARGET, 2),DISCOVER(RandomSpell())
     pass
 
 class GetManaIfSpell(TargetedAction):
