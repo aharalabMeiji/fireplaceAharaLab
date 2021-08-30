@@ -45,23 +45,12 @@ class YOP_031:
 	play = Buff(SELF, "YOP_031e")
 	pass
 
-<<<<<<< HEAD
 class YOP_031e:
 	windfury = SET(1)
 
 class DMF_124:
 	"""Horrendous Growth"""
 	##&lt;b&gt;Corrupt:&lt;/b&gt; Gain +1/+1. Can be &lt;b&gt;Corrupted&lt;/b&gt; endlessly.
-=======
-class DMF_124:
-	"""Horrendous Growth
-	[x]&lt;b&gt;変妖:&lt;/b&gt;+1/+1を獲得する。何度でも&lt;b&gt;変妖&lt;/b&gt;できる。"""
-	pass
-
-class DMF_124t:
-	"""Horrendous Growth
-	[x]&lt;b&gt;変妖:&lt;/b&gt;+1/+1を獲得する。何度でも&lt;b&gt;変妖&lt;/b&gt;できる。"""
->>>>>>> 2804f339cec9b40d5161179ceafa1685faa0aafe
 	pass
 
 class DMF_520:
@@ -106,11 +95,25 @@ class DMF_073:
 	##&lt;b&gt;Divine Shield&lt;/b&gt; &lt;b&gt;Corrupt:&lt;/b&gt; Gain &lt;b&gt;Rush&lt;/b&gt;.
 	pass
 
+class DMF_073t:
+	"""Darkmoon Dirigible"""
+	##&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Rush&lt;/b&gt;, &lt;b&gt;Divine Shield&lt;/b&gt;
+	pass
+
 class DMF_082:
 	"""Darkmoon Statue"""
 	##Your other minions have +1 Attack. &lt;b&gt;Corrupt:&lt;/b&gt; This gains +4 Attack.
+	update = Refresh(FRIENDLY_MINIONS - SELF, buff="DMF_082e")
+	pass
+DMF_082e = buff(atk=1)
+
+class DMF_082t:
+	"""Darkmoon Statue"""
+	##lt;b&gt;Corrupted&lt;/b&gt; Your other minions have +1 Attack.
+	update = Refresh(FRIENDLY_MINIONS - SELF, buff="DMF_082e")
 	pass
 
+☆
 class YOP_012:
 	"""Deathwarden"""
 	##&lt;b&gt;Deathrattles&lt;/b&gt; can't trigger.
@@ -119,16 +122,27 @@ class YOP_012:
 class DMF_062:
 	"""Gyreworm"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; If you played an Elemental last turn, deal 3_damage.
+	def play(self):
+		current_turn = self.controller.game.turn
+		for candidate in self.controller.game.__myLog__:
+			if candidate.turn == current_turn-2: #it is my last turn
+				if hasattr(candidate.card, 'race'):
+					if candidate.card.race == Race.ELEMENTAL:
+						requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+						Hit(TARGET,3)
+		pass
 	pass
 
 class DMF_079:
 	"""Inconspicuous Rider"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Cast a &lt;b&gt;Secret&lt;/b&gt; from your deck.
+	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET))
 	pass
 
 class DMF_081:
 	"""K'thir Ritualist"""
 	##[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Add a random 4-Cost minion to your opponent's hand.
+	play = Give(OPPONENT, RandomMinion(cost=4))
 	pass
 
 class DMF_532:
@@ -139,6 +153,16 @@ class DMF_532:
 class DMF_174:
 	"""Circus Medic"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Restore #4 Health. &lt;b&gt;Corrupt:&lt;/b&gt; Deal 4 damage instead.
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Heal(TARGET,4)
+	pass
+
+class DMF_174t:
+	"""Circus Medic"""
+	##&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Deal 4 damage.
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Hit(TARGET,4)
+
 	pass
 
 class DMF_190:
@@ -149,11 +173,13 @@ class DMF_190:
 class DMF_066:
 	"""Knife Vendor"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Deal 4 damage to each hero.
+	play = Hit(FRIENDLY_HERO + ENEMY_HERO, 4)
 	pass
 
 class DMF_202:
 	"""Derailed Coaster"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 1/1 Rider with &lt;b&gt;Rush&lt;/b&gt; for each minion in your hand.
+	play = Summon(CONTROLLER, "DMF_523t") * Count(FRIENDLY_HAND + MINION)
 	pass
 
 class DMF_080:
@@ -161,21 +187,31 @@ class DMF_080:
 	##&lt;b&gt;Rush&lt;/b&gt; &lt;b&gt;Corrupt:&lt;/b&gt; Gain +4/+4.
 	pass
 
+class DMF_080t:
+	"""Fleethoof Pearltusk"""
+	##&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Rush&lt;/b&gt;
+	pass
+
 class YOP_035:
 	"""Moonfang"""
 	##Can only take 1 damage at_a time.
+	tags = {GameTag.HEAVILY_ARMORED: True}
 	pass
 
 class DMF_068:
 	"""Optimistic Ogre"""
 	##50% chance to attack the correct enemy.
+	events = FORGETFUL
 	pass
 
 class DMF_069:
 	"""Claw Machine"""
 	##&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Draw a minion and give it +3/+3.
+	play = ForceDraw(RANDOM(FRIENDLY_DECK + MINION)).then(
+		Buff(ForceDraw.TARGET, "BT_213e"))
 	pass
-
+DMF_069e = buff(atk=3,health=3)
+☆
 class DMF_074:
 	"""Silas Darkmoon"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Choose a direction to rotate all minions.
@@ -184,6 +220,11 @@ class DMF_074:
 class DMF_078:
 	"""Strongman"""
 	##&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Corrupt:&lt;/b&gt; This costs (0).
+	pass
+
+class DMF_078t:
+	"""Strongman"""
+	##&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Taunt&lt;/b&gt;
 	pass
 
 class DMF_163:
