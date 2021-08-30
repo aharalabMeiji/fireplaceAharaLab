@@ -46,8 +46,9 @@ class BAR_074:#OK　　up to 10 がまだ
 	events = Draw(OPPONENT).on(Buff(Draw.CARD,"BAR_074e"))
 	pass
 
-BAR_074e = buff(cost=1)
-# Spotted!"""
+class BAR_074e:
+	# Spotted!"""
+	cost = lambda self, i: min(i+1,10)
 
 class BAR_745:#OK
 	"""
