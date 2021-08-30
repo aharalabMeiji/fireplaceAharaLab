@@ -534,16 +534,16 @@ class Character(LiveEntity):
 	cant_be_targeted_by_abilities = boolean_property("cant_be_targeted_by_abilities")
 	cant_be_targeted_by_hero_powers = boolean_property("cant_be_targeted_by_hero_powers")
 	heavily_armored = boolean_property("heavily_armored")
+	ignore_taunt = boolean_property("ignore_taunt")
 	min_health = boolean_property("min_health")
+	poisonous = boolean_property("poisonous")
 	rush = boolean_property("rush")
 	taunt = boolean_property("taunt")
-	poisonous = boolean_property("poisonous")
-	ignore_taunt = boolean_property("ignore_taunt")
 	
 	def __init__(self, data):
-		self.frozen = False
 		self.attack_target = None
 		self.cannot_attack_heroes = False
+		self.frozen = False
 		self.num_attacks = 0
 		self.race = Race.INVALID
 		super().__init__(data)
@@ -722,6 +722,7 @@ class Minion(Character):
 		self.silenced = False
 		self._summon_index = None
 		self.dormant = data.dormant
+		self.guardians_legacy = False
 		super().__init__(data)
 
 	@property

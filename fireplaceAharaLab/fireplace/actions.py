@@ -305,6 +305,9 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Reborn(target)])
 		if target.id== 'DRG_253':# aharalab for Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
+		if target.type == CardType.MINION:
+			if target.guardians_legacy:#CS3_001由来の継承
+				SetGLflag(target.controller).trigger(target.controller)##ガーディアンの継承をプレーヤーに移譲する。
 
 class EndTurn(GameAction):
 	"""
@@ -948,6 +951,11 @@ class Discover(TargetedAction):
 		source.game.queue_actions(source, [GenericChoice(target, cards)])
 
 
+class SetGLflag(TargetedAction):
+    def do(self, source, target):
+        target.guardians_legacy = True
+        log.info("Guardian's legacy flag on (%r)"%(target))
+
 
 class Draw(TargetedAction):
 	"""
@@ -970,10 +978,12 @@ class Draw(TargetedAction):
 		card.draw()
 		#guardian's legacy #CS3_001
 		player = source.controller#
-		if player.guardians_legacy:
-			#引いたばかりのカードにCS3_001のdeathrattleを追加する。
-			Buff(card,'CS3_001e').trigger(source)
+		if player.guardians_legacy and card.type == CardType.MINION:
+			#引いたばかりのカードにCS3_001のdeathrattleのためのフラグを追加する。
+			card.spellpower = 2
+			card.guardians_legacy = True##ガーディアンの継承をカードに移譲する。
 			player.guardians_legacy=False
+			log.info("Guardian's legacy is inderited by %r"%(card))
 		self.broadcast(source, EventListener.ON, target, card, source)
 
 		return [card]

@@ -187,7 +187,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EXHAUSTED: "exhausted",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
-	GameTag.FRENZY: "frenzy",### add by aharalab, 16,8,2021
+	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",

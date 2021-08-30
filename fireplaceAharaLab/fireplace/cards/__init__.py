@@ -117,8 +117,7 @@ class CardDB(dict):
 			if not card.card_class in [CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
 				if card.id in [
 					"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#7
-					'SCH_617e',#2
-					'SW_059e','BAR_064e','BAR_064e2'#CardClass.MAGE:4
+					'SCH_617e',#2					
 				   ]:
 					pass
 				else:
@@ -138,6 +137,7 @@ class CardDB(dict):
 				if card.id in [
 					'CS2_122e','CS2_222o','EX1_399e','NEW1_033o',# core-neutral
 					'HERO_05bp','HERO_05bp2',#steady shot
+					'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
 					'NEW1_031','NEW1_032','NEW1_033','NEW1_034',#Animal Companion
 				   ]:
 					yes = True

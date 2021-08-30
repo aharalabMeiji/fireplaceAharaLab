@@ -153,16 +153,6 @@ class FindDuplicates(Evaluator):
 		entities = self.selector.eval(source.game, source)
 		return len(set(entities)) < len(entities)
 
-class Frozen(Evaluator):
-	def check(self, selector):
-		entities = self.selector.eval(source.game, source)
-		if not isinstance(entities,list):
-			entities = [entities]
-		for _card in entities:
-			if _card.tags[GameTag.FROZEN]:
-				return True
-		return False
-
 class JoustEvaluator(Evaluator):
 	"""
 	Compare the sum of the costs of \a selector versus \a selector2.

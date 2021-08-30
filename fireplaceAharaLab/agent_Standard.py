@@ -410,7 +410,7 @@ class HumanAgent(Agent):
 				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
 					print("(sidequest %d)"%card._sidequest_counter_, end="")
 				print("%s"%(adjust_text_bt_spellpower(card.data.description,0)))
-			print("========Your turn : %d/%d mana========"%(player.mana,player.max_mana))
+			print("========Your turn : %d/%d mana==(spell damage %d)==="%(player.mana,player.max_mana,player.spellpower))
 			print("[0] ターンを終了する")
 			myCount = 1
 			for myChoice in myCandidate:

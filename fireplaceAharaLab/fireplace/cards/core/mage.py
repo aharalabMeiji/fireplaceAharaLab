@@ -3,7 +3,7 @@ from ..utils import *
 class CORE_AT_003:# <4>[1637]
     """ Fallen Hero
     Your Hero Power deals 1_extra damage. """
-    play = Activate(CONTROLLER,HERO_POWER).on(Hit(Activate.TARGET, 1))
+    # HEROPOWER_DAMAGE=1
     pass
 
 class CORE_AT_008:# <4>[1637]
@@ -72,11 +72,19 @@ class CORE_EX1_294:# <4>[1637]
         ]
     pass
 
-class CORE_GIL_801:# <4>[1637]
+class FreezeOrDeath(TargetedAction):
+    def do (self, source, target):
+        if target.frozen:
+            Destroy(target).trigger(source)
+        else:
+            Freeze(target).trigger(source)
+        pass
+
+class CORE_GIL_801:# <4>[1637]##OK
     """ Snap Freeze
     [Freeze] a minion.If it's already [Frozen], destroy it. """
     requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-    play = Frozen(TARGET) & Destroy(TARGET) | Freeze(TARGET)
+    play = FreezeOrDeath(TARGET);
     pass
 
 class CORE_KAR_009:# <4>[1637]
@@ -91,27 +99,25 @@ class CORE_LOE_003:# <4>[1637]
     play = DISCOVER(RandomSpell())
     pass
 
-class CORE_UNG_020:# <4>[1637]
+class CORE_UNG_020:# <4>[1637]##OK
     """ Arcanologist
     [Battlecry:] Draw a [Secret]. """
     play = Give(CONTROLLER,RANDOM(SECRET))
     pass
 
-class SetGLflag(TargetedAction):
-    def do(self, source, target):
-        target.guardians_legacy = True
-
-class CS3_001:# <4>[1637]
+class CS3_001:# <4>[1637] ##OK
     """ Aegwynn, the Guardian
     [Spell Damage +2][Deathrattle:] The next minion_you draw inherits these powers. """
-    deathrattle = SetGLflag(CONTROLLER)
+    play = SetGLflag(CONTROLLER)
+    #deathrattle = SetGLflag(CONTROLLER)
     pass
 
 class CS3_001e:# <4>[1637]
     """ Guardian's Legacy
     [Spell Damage +2] and "[Deathrattle:] Pass on the Guardian's Legacy." """
-    spellpower=2
-    deathrattle = SetGLflag(CONTROLLER)
+    # added codes in Death()
+    #play = SetTag(OWNER, (GameTag.SPELLPOWER,)) 
+    #deathrattle = SetGLflag(CONTROLLER)
     pass
 
 class CS3_001e2:# <4>[1637]
