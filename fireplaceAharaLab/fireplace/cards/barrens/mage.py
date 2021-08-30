@@ -58,16 +58,30 @@ class BAR_544:#<4> [1525] ###
     play = Activate(CONTROLLER, FRIENDLY_HERO_POWER, ENEMY_CHARACTERS)
     pass
 
-class BAR_545:#<4> [1525] ## didn't start in your deck
+class BAR_545_Action(TargetedAction):
+    TARGET = ActionArg()
+    CARDS = ActionArg()
+    BUFF = ActionArg()
+    def do(self, source, target, cards, buff):
+        player = source.controller
+        for card in cards:
+            if not card.id in player.starting_deck:
+                #card.cost -= 2
+                #if card.cost<1:
+                #    card.cost = 1
+                Buff(card,buff).trigger(source)
+
+
+class BAR_545:#<4> [1525] ###
     """ Arcane Luminary
     Cards that didn't start in your deck cost (2) less, but not less than (1). """
-    events = Buff(FRIENDLY_HAND,'BAR_545e')
+    play = BAR_545_Action(CONTROLLER, FRIENDLY_HAND,'BAR_545e')
     pass
 
 class BAR_545e:#<4> [1525]
     """ Conjured Reduction
     Costs (2) less (but not less than 1). """
-    cost = 2
+    cost = lambda self, i: max(i-2, 1)
     pass
 
 class BAR_546:#<4> [1525]
