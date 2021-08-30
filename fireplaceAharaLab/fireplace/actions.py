@@ -564,6 +564,16 @@ class Activate(GameAction):
 		source.game.main_power(heropower, actions, target)
 		source.game.action_end(BlockType.PLAY, heropower)
 
+		if heropower.data.id == 'HERO_05bp':
+			player.add_activate_log(heropower, 2)
+		elif heropower.data.id == 'HERO_05bp2':
+			player.add_activate_log(heropower, 3)
+		elif heropower.data.id == 'HERO_08bp':
+			player.add_activate_log(heropower, 1)
+		elif heropower.data.id == 'HERO_08bp2':
+			player.add_activate_log(heropower, 2)
+
+
 		for entity in player.live_entities:
 			if not entity.ignore_scripts:
 				actions = entity.get_actions("inspire")
@@ -2256,6 +2266,24 @@ class Freeze(TargetedAction):
 			SetTag(target, (GameTag.FROZEN, )).trigger(source)
 		else:
 			log.info("Freezing is blocked!")
+
+class FreezeOrDeath(TargetedAction):
+    def do (self, source, target):
+        if target.frozen:
+            Destroy(target).trigger(source)
+        else:
+            Freeze(target).trigger(source)
+        pass
+
+class FreezeOrHit(TargetedAction):
+    TARGET = ActionArg()#TARGET
+    AMOUNT = IntArg()
+    def do (self, source, target, amount):
+        if target.frozen:
+            Hit(target, amount).trigger(source)
+        else:
+            Freeze(target).trigger(source)
+        pass
 
 class SetCannotAttackHeroesTag(TargetedAction):
 	"""

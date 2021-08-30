@@ -75,6 +75,7 @@ class Player(Entity, TargetableByAuras):
 		self.__myDeathLog__=[]
 		self.__myPlayLog__=[]
 		self.__myDamageLog__=[]
+		self.__myActivateLog__=[]
 		self.__mySummonLog__=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
@@ -325,6 +326,16 @@ class Player(Entity, TargetableByAuras):
 			if _log[1] == self.game.turn - 2:
 				_ret.append(_log[0])
 		return _ret
+
+	def add_activate_log(self, card, amount):
+		self.__myActivateLog__.append([card,card.game.turn,amount])
+	@property
+	def get_activate_log(self):
+		_ret = []
+		for _log in self.__myActivateLog__:
+			_ret.append(_log[0])
+		return _ret
+
 
 	def add_damage_log(self, card, amount):
 		self.__myDamageLog__.append([card,card.game.turn,amount])
