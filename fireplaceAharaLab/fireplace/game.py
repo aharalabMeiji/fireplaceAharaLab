@@ -347,6 +347,13 @@ class BaseGame(Entity):
 			if card.id == 'BAR_034t' and player.mana>=10:
 				self.queue_actions(player,[Destroy(card)])
 				self.queue_actions(player,[Give(player, 'BAR_034t2')])
+		for card in player.hand:
+			if card.id == 'BAR_305' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_305t')])
+			if card.id == 'BAR_305t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_305t2')])
 
 	def _begin_turn(self, player):
 		self.manager.step(self.next_step, Step.MAIN_START)

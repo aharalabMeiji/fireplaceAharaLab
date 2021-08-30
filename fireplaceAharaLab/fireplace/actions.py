@@ -303,7 +303,7 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Deathrattle(target)])
 		if target.reborn:# aharalab
 			source.game.queue_actions(source, [Reborn(target)])
-		if target.id== 'DRG_253':# aharalab for Dwarven Sharpshooter
+		if target.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
 		if target.type == CardType.MINION:
 			if target.guardians_legacy:#CS3_001由来の継承

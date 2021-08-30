@@ -12,22 +12,22 @@ from ..utils import *
 #    #
 #    pass
 
-class BAR_305:#<4> [1525] ###
+class BAR_305:#<4> [1525] ##OK
     """ Flurry (Rank 1)
     [Freeze] a random enemy minion. <i>(Upgrades when you have 5 Mana.)</i> """
-    play = Freeze(RANDOM(ENEMY_MINIONS))
+    play = Freeze(RANDOM(ENEMY_MINIONS - FROZEN))
     pass
 
-class BAR_305t:#<4> [1525] ###
+class BAR_305t:#<4> [1525] ##OK 
     """ Flurry (Rank 2)
     [Freeze] two random enemy minions. <i>(Upgradeswhen you have 10 Mana.)</i> """
-    play = Freeze(RANDOM(ENEMY_MINIONS)) * 2
+    play = Freeze(RANDOM(ENEMY_MINIONS - FROZEN)) * 2
     pass
 
-class BAR_305t2:#<4> [1525] ###
+class BAR_305t2:#<4> [1525] ##OK
     """ Flurry (Rank 3)
     [Freeze] three random enemy minions. """
-    play = Freeze(RANDOM(ENEMY_MINIONS)) * 3
+    play = Freeze(RANDOM(ENEMY_MINIONS - FROZEN)) * 3
     pass
 
 class BAR_541:#<4> [1525] ###
