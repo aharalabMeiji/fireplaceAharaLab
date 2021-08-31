@@ -36,7 +36,7 @@ class WC_028:#OK
 	events = OWN_TURN_END.on(GiveAdventurerWithBonus(CONTROLLER))
 	pass
 
-class BAR_074:#OK　　up to 10 がまだ
+class BAR_074:#OK　　
 	"""
 	Far Watch Post
 

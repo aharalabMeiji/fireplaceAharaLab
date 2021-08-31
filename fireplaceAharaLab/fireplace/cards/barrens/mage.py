@@ -132,19 +132,27 @@ class BAR_748:#<4> [1525] ##OK
     play = FreezeOrHit(ENEMY_MINIONS, 4)
     pass
 
-class BAR_812:#<4> [1525] ###
+class BAR_812:#<4> [1525] ##OK
     """ Oasis Ally
     [Secret:] When a friendly minion is attacked, summon a 3/6 Water Elemental. """
     secret = Attack(ENEMY, FRIENDLY_MINIONS).on(Summon(CONTROLLER, 'CORE_CS2_033'))
     pass
 
-class BAR_888:#<4> [1525] ###Frost spell.....
+class IsFrostSpell(TargetedAction):
+    TARGET=ActionArg()
+    TARGETEDACTION = ActionArg()
+    def do(self, source, target, targetedaction):
+        if target.data.referenced_tags.get(GameTag.FREEZE) or target.data.tags.get(GameTag.FREEZE):
+            targetedaction.trigger(source)
+        pass
+
+class BAR_888:#<4> [1525] ###OK.
     """ Rimetongue
     After you cast a Frost spell, summon a 1/1 Elemental that [[Freeze]s]. """
-    events = OWN_SPELL_PLAY.on(Summon(CONTROLLER,'BAR_888t')*2)
+    events = OWN_SPELL_PLAY.on(IsFrostSpell(Play.CARD,Summon(CONTROLLER,'BAR_888t')))
     pass
 
-class BAR_888t:#<4> [1525]
+class BAR_888t:#<4> [1525] ##OK
     """ Frosted Elemental
     [Freeze] any character damaged by this minion. """
     events = Attack(SELF, ALL_CHARACTERS).on(Freeze(Attack.DEFENDER))
@@ -161,7 +169,7 @@ class WC_805_Action(TargetedAction):
     def do(self, source, target):#
         controller = source.controller
         Give(controller, target).trigger(source)
-        if hasattr(target,'freeze'):
+        if target.data.referenced_tags.get(GameTag.FREEZE) or target.data.tags.get(GameTag.FREEZE):
             Summon(controller,'BAR_888t').trigger(source)
             Summon(controller,'BAR_888t').trigger(source)
 
