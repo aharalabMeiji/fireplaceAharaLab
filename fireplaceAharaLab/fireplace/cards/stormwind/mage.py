@@ -79,7 +79,7 @@ class SW_110_Action(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
-class SW_110:#<4>[1578] ####
+class SW_110:#<4>[1578] ###OK
     """ Ignite
     Deal $@ damage. Shuffle an Ignite into your deck that deals one more damage. """
     requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}

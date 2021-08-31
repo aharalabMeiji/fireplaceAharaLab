@@ -122,11 +122,22 @@ class CountTriggeredSecret(TargetedAction):
                 count += 1
         return count
 
-class DMF_109:# <4>[1466] ###OK
+class DMF_109_Hand_Event(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):# controller
+        playLog = target.play_log
+        count = 0
+        for log in playLog:
+            if hasattr(log,'secret') and log.secret:
+                count += 1
+        source.script_data_num_1 = count+1
+
+class DMF_109:# <4>[1466] ### triggered は発動の意味か？Revealを数える必要がある。
     """ Sayge, Seer of Darkmoon
     [Battlecry:] Draw @ |4(card, cards).<i>(Upgraded for each friendly [Secret] that has triggered this game!)</i> """
     play = Draw(CONTROLLER), Draw(CONTROLLER) * CountTriggeredSecret(CONTROLLER)
-    pass
+    class Hand:
+        events = Play(CONTROLLER,SECRET).on(DMF_109_Hand_Event(CONTROLLER))
 
 class YOP_019:# <4>[1466] ###OK
     """ Conjure Mana Biscuit

@@ -119,10 +119,21 @@ class BAR_547_Action(TargetedAction):
         if count >= amount:
             targetedaction.trigger(source)
         pass
+class BAR_547_Hand_Event(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):
+        ActivateList = target.__myActivateLog__
+        count=0
+        for case in ActivateList:
+            count += case[2]
+        source.script_data_num_1 = count+1
+        pass
 class BAR_547:#<4> [1525] ##OK
     """ Mordresh Fire Eye
     [Battlecry:] If you've dealt 10 damage with your Hero Power this game, deal 10 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
     play = BAR_547_Action(CONTROLLER,10,Hit(ENEMY_CHARACTERS,10))
+    class Hand:
+        events = Activate(CONTROLLER, HERO_POWER).on(BAR_547_Hand_Event(CONTROLLER))
     pass
 
 

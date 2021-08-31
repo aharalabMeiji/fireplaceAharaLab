@@ -2565,6 +2565,14 @@ class HitScriptDataNum1(TargetedAction):
         for _card in target:
             Hit(_card,amount).trigger(source)
 
+class SetScriptDataNum1(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'script_data_num_1'):
+			target.script_data_num_1 = amount
+		pass
+
 ###############################################################
 
 
