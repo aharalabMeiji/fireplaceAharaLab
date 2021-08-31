@@ -54,7 +54,7 @@ class SW_059:#OK
     <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
     play = GenericChoiceBuff(CONTROLLER, RandomMech()*3) # cost 1 less
     pass
-SW_059e=buff(cost=-1)
+SW_059e=buff(cost=-1)#<4>[1578]
 
 class SW_060:#OK
     """ Florist

@@ -451,6 +451,7 @@ ELEMENTAL = EnumSelector(Race.ELEMENTAL)
 
 NATURE = EnumSelector(SpellSchool.NATURE)
 HOLY = EnumSelector(SpellSchool.HOLY)
+FIRE = EnumSelector(SpellSchool.FIRE)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
