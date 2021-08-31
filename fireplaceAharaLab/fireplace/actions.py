@@ -2504,6 +2504,18 @@ class GenericChoicePlay(GenericChoice):
 		Play(card, None, None, None).trigger(_controller)
 		pass
 
+class GenericChoicePlayBackToDeck(Choice):
+	def choose(self, card):
+		super().choose(card)
+		_controller = card.controller
+		if _controller != self.player:
+			card.controller = self.player
+			_controller = self.player
+		for _card in self.cards:
+			if _card is card:
+				Summon(_controller, _card).trigger(_controller)
+		pass
+
 class SpallAndDamage(TargetedAction):## for SW_322
 	TARGET = ActionArg()
 	TARGETACTION = ActionArg()
