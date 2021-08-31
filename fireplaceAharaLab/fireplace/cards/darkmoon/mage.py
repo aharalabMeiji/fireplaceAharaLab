@@ -12,7 +12,7 @@ class DMF_100t:# <4>[1466]
     #
     pass
 
-class DMF_101:# <4>[1466] ###
+class DMF_101:# <4>[1466] ##OK
     """ Firework Elemental
     [Battlecry:] Deal 3 damageto a minion. [Corrupt:]Deal 12 instead. """
     requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
