@@ -454,6 +454,8 @@ def ExchangeCard(cards,player):
 			_card='SCH_232'
 		if _card=='elemental':
 			_card=random.choice(['SCH_143','SCH_245'])
+		if _card=='fire':
+			_card=random.choice(['CORE_CS2_029','SW_462','SW_108','BAR_546','SW_110'])
 		if _card=='frost':
 			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
 		if _card=='murloc':
@@ -463,7 +465,7 @@ def ExchangeCard(cards,player):
 		if _card=='secret':
 			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
-			_card=random.choice(['SCH_353'])
+			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
 		if _card=='spellpower':
 			_card=random.choice(['SW_061'])
 		if _card=='weapon':
@@ -475,7 +477,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'DMF_123').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_107'],player1)
+	ExchangeCard(['SW_108','fire'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

@@ -5,7 +5,7 @@ from ..utils import *
 class SW_001:#<4>[1578]###########################################
     """ Celestial Ink Set
     After you spend 5 Mana on spells, reduce the cost of a spell in your hand by (5).Lose 1 Durability. """
-    event = OWN_SPELL_PLAY.on(SidequestManaCount(CONTROLLER,5,Buff(FRIENDLY_HAND + SPELL,'SW_001e')))
+    event = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF,Play.CARD,5,[Buff(FRIENDLY_HAND + SPELL,'SW_001e'), Hit(SELF,1)]))
     pass
 SW_001e = buff(cost=-5)#<12> [1578]
 SW_001e2 = buff(cost=-5)#<12> [1578]
@@ -22,17 +22,17 @@ class SW_107:#<4>[1578]###OK
     play = Hit(ENEMY_MINIONS,3)
     pass
 
-class SW_108:#<4>[1578]###
+class SW_108:#<4>[1578]###OK
     """ First Flame
     Deal $2 damage to a minion. Add a Second Flame to your hand. """
-    reqirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
+    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
     play = Hit(TARGET,2), Give(CONTROLLER, 'SW_108t')
     pass
 
-class SW_108t:#<4>[1578]###
+class SW_108t:#<4>[1578]###OK
     """ Second Flame
     Deal $2 damage to a minion. """
-    reqirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
+    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
     play = Hit(TARGET, 2)
     pass
 
@@ -132,7 +132,7 @@ class SW_462:#<4>[1578]###
 class SW_462e:#<4>[1578] ####
     """ Hot Streak
     The next Fire spell you play costs (2) less. """
-    cost = -2
+    cost = lambda self, i: max(i-2,0) 
     events = Play(CONTROLLER, SPELL+FIRE).on(Destroy(FRIENDLY+ID('SW_462e')))
     pass
 
