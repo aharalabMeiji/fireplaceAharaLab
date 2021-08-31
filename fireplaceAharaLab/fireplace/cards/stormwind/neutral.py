@@ -178,10 +178,7 @@ class SW_074:#OK
 
 class SW_075:#OK
     """ Elwynn Boar
-    [x]<b>Deathrattle:</b> If you had 7
-Elwynn Boars die this game,
-equip a 15/3 Sword of a
-___Thousand Truths.@ <i>(@/7)</i> """
+    [x]<b>Deathrattle:</b> If you had 7 Elwynn Boars die this game, equip a 15/3 Sword of a ___Thousand Truths.@ <i>(@/7)</i> """
     # if we use LazyNum, we are able to make in much more general way.
     deathrattle = CountDeathAction(CONTROLLER,['SW_075'], 7, Summon(CONTROLLER,'SW_075t'))
     pass

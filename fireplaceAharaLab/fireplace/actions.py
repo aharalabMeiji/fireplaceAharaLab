@@ -1119,7 +1119,7 @@ class Hit(TargetedAction):
 	Hit character targets by \a amount.
 	"""
 	TARGET = ActionArg()
-	AMOUNT = IntArg()
+	AMOUNT = ActionArg()
 
 	def do(self, source, target, amount):
 		amount = source.get_damage(amount, target)
@@ -1421,7 +1421,7 @@ class ShuffleBuff(TargetedAction):
 	"""
 	Shuffle and buff card targets into player target's deck.
 	"""
-	TARGET = ActionArg()
+	TARGET = ActionArg()#player
 	CARD = CardArg()
 	BUFF = ActionArg()
 	def do(self, source, target, cards, buff):
@@ -2425,6 +2425,14 @@ class CountDeathAction(TargetedAction):
 		for _card in _logList:
 			if _card.id in list:
 				_count += 1
+		# SW_075
+		if source.id=='SW_075':
+			for cd in _thisPlayer.hand:
+				if cd.id == 'SW_075':
+					cd.script_data_num_1 = _count
+			for cd in _thisPlayer.field:
+				if cd.id == 'SW_075':
+					cd.script_data_num_1 = _count
 		if _count==amount:
 			action.trigger(source)
 
@@ -2536,6 +2544,28 @@ class Moribund(TargetedAction):
             for action in targetactions:
                 action.trigger(source)
         pass
+
+
+############### script_data_num_1 関連 ########################
+
+def ScriptDataNum1(card):
+    if hasattr(card,'script_data_num_1'):
+        return card.script_data_num_1
+    else:
+        return 0
+    pass
+
+class HitScriptDataNum1(TargetedAction):
+    CARD=ActionArg()#card
+    TARGET=ActionArg()#target
+    def do(self,source,card,target):
+        amount = ScriptDataNum1(card)
+        if not isinstance(target,list):
+            target = [target]
+        for _card in target:
+            Hit(_card,amount).trigger(source)
+
+###############################################################
 
 
 class BAR_079_Kazakus_Golem_Shaper(Choice):

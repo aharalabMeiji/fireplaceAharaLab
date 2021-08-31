@@ -249,10 +249,17 @@ def Original_random(game: ".game.Game"):
 				executeAttack(character, target)
 		break
 
-def adjust_text_bt_spellpower(text, player):
+def adjust_text(text):
+	return text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+
+def adjust_text_by_spellpower(text, player, card):
 	_catch_number=-1
-	_new_text=text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+	_new_text=adjust_text(text)
 	_len=len(_new_text)
+	for _i in range(_len):
+		if _new_text[_i]=='@' and hasattr(card,'script_data_num_1'):
+			_new_text = _new_text[:_i] + str(card.script_data_num_1) + _new_text[_i+1:]
+			pass
 	for _i in range(_len):
 		if _new_text[_i]=='$':
 			if _i+1<_len and _new_text[_i+1] in ['0','1','2','3','4','5','6','7','8','9']:
@@ -266,9 +273,6 @@ def adjust_text_bt_spellpower(text, player):
 				for _repeat in range(player.spellpower_double):
 					_catch_number *= 2
 				_new_text = _new_text[:_i] + "*" +str(_catch_number) +"*" + _latter_text
-		elif _new_text[_i]=='@':
-			_new_text = _new_text[:_i] + "<" +str(1) +">" + _new_text[_i+1:]
-			pass
 	return _new_text
 
 class HumanAgent(Agent):
@@ -283,11 +287,14 @@ class HumanAgent(Agent):
 			for card in player.hand:
 				print("%s"%card, end='   : ')
 				if card.data.type == CardType.MINION:
-					print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, adjust_text_bt_spellpower(card.data.description, player)))
+					print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, \
+						adjust_text_by_spellpower(card.data.description, player, card)))
 				elif card.data.type == CardType.SPELL:
-					print("%2d : %s"%(card.cost, adjust_text_bt_spellpower(card.data.description, player)))
+					print("%2d : %s"%(card.cost, \
+						adjust_text_by_spellpower(card.data.description, player, card)))
 				elif card.data.type == CardType.WEAPON:
-					print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, adjust_text_bt_spellpower(card.data.description, player)))
+					print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, \
+						adjust_text_by_spellpower(card.data.description, player, card)))
 					##
 				if card.is_playable():
 					if card.must_choose_one:
@@ -347,7 +354,7 @@ class HumanAgent(Agent):
 					#if character._sidequest_counter_>0:
 					#	if character.dormant==0:
 					#		print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
-				print("%s"%(adjust_text_bt_spellpower(character.data.description, player.opponent)))
+				print("%s"%(adjust_text_by_spellpower(character.data.description, player.opponent, character)))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
 				print("%s"%character, end='   : ')
@@ -389,7 +396,7 @@ class HumanAgent(Agent):
 							print("(dormant)", end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
-				print("%s"%(adjust_text_bt_spellpower(character.data.description, player)))
+				print("%s"%(adjust_text_by_spellpower(character.data.description, player, character)))
 				if character.can_attack():
 					for target in character.targets:
 						if character.can_attack(target):
@@ -400,7 +407,7 @@ class HumanAgent(Agent):
 			if player.hero.power.is_usable():
 				print("%s"%player.hero.power, end='   : ')
 				print("<%2d>"%player.hero.power.cost, end=' ')
-				print("%s"%player.hero.power.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']'))
+				print("%s"%adjust_text(player.hero.power.data.description))
 				if player.hero.power.requires_target():
 					for target in player.hero.power.targets:
 						if player.hero.power.is_usable():
@@ -412,7 +419,7 @@ class HumanAgent(Agent):
 				print("%s"%card, end='   : ')
 				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
 					print("(sidequest %d)"%card._sidequest_counter_, end="")
-				print("%s"%(adjust_text_bt_spellpower(card.data.description,0)))
+				print("%s"%(adjust_text(card.data.description)))
 			print("========Your turn : %d/%d mana==(spell damage %d)==="%(player.mana,player.max_mana,player.spellpower))
 			print("[0] ターンを終了する")
 			myCount = 1
@@ -425,9 +432,9 @@ class HumanAgent(Agent):
 				if myCard.data.type==CardType.MINION:
 					print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
 				elif myCard.data.type==CardType.SPELL:
-					print('<%2d> %s'%(myCard.cost, adjust_text_bt_spellpower(myCard.data.description,player)), end=' ')
+					print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description,player,myCard)), end=' ')
 				elif myCard.data.type==CardType.WEAPON:
-					print('<%2d> %s'%(myCard.cost, adjust_text_bt_spellpower(myCard.data.description, player)), end=' ')
+					print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description, player, myCard)), end=' ')
 				if myChoice.type == ActionType.PLAY:
 					print(' play', end=' ')
 				if myChoice.type == ActionType.TRADE:
@@ -462,11 +469,11 @@ class HumanAgent(Agent):
 		for card in choiceCards:
 			print("%d : %s"%(myCount,card), end='   : ')
 			if card.data.type == CardType.MINION:
-				print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, adjust_text(card.data.description)))
 			elif card.data.type == CardType.SPELL:
-				print("%2d : %s"%(card.cost, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%2d : %s"%(card.cost, adjust_text(card.data.description)))
 			elif card.data.type == CardType.WEAPON:
-				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, adjust_text(card.data.description)))
 			myCount+=1
 		print("Choose exchange cards (e.g. '1 3 4') ->")
 		str = input()#やり直しはなし

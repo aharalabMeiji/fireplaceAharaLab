@@ -217,6 +217,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
 	GameTag.RUSH: "rush",
+	GameTag.TAG_SCRIPT_DATA_NUM_1: 'script_data_num_1',
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",

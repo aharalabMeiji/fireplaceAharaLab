@@ -57,11 +57,33 @@ class SW_109:#<4>[1578]##OK
     play = PlayHighestCostSpell(CONTROLLER)
     pass
 
+
+
+class SW_110_Action(TargetedAction):
+	"""
+	Shuffle and buff card targets into player target's deck.
+	"""
+	TARGET = ActionArg()#player
+	CARD = CardArg()
+	def do(self, source, target, cards):
+		log.info("%r shuffles into %s's deck", cards, target)
+		if not isinstance(cards, list):
+			cards = [cards]
+		for card in cards:
+			card.script_data_num_1 += 1#
+			if card.controller != target:
+				card.zone = Zone.SETASIDE
+				card.controller = target
+			if len(target.deck) >= target.max_deck_size:
+				log.info("Shuffle(%r) fails because %r's deck is full", card, target)
+				continue
+			card.zone = Zone.DECK
+			target.shuffle_deck()
 class SW_110:#<4>[1578] ####
     """ Ignite
     Deal $@ damage. Shuffle an Ignite into your deck that deals one more damage. """
-    reqirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
-    #play = Hit(TARGET, 2), Shuffle(CONTROLLER,'SW_110').then(Buff(atk=1))
+    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
+    play = HitScriptDataNum1(SELF, TARGET), SW_110_Action(CONTROLLER,'SW_110')
     
     pass
 
