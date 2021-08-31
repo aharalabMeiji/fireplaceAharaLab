@@ -472,11 +472,10 @@ def ExchangeCard(cards,player):
 
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
-	Shuffle(player1,'DMF_123').trigger(player1)#specific card into deck
-	Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
-
+	#Shuffle(player1,'DMF_123').trigger(player1)#specific card into deck
+	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['DMF_105t'],player1)
+	ExchangeCard(['DMF_109','secret','secret'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

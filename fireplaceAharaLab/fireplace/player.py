@@ -314,13 +314,13 @@ class Player(Entity, TargetableByAuras):
 	def add_play_log(self, card):
 		self.__myPlayLog__.append([card,card.game.turn])
 	@property
-	def get_play_log(self):
+	def play_log(self):
 		_ret = []
-		for i in len(self.__myPlayLog__):
-			_ret.append(__myPlayLog__[i][0])
+		for _log in self.__myPlayLog__:
+			_ret.append(_log[0])
 		return _ret
 	@property
-	def get_play_log_of_last_turn(self):
+	def play_log_of_last_turn(self):
 		_ret = []
 		for _log in self.__myPlayLog__:
 			if _log[1] == self.game.turn - 2:

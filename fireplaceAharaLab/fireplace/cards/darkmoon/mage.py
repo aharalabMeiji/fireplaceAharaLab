@@ -47,7 +47,7 @@ class CountElementalLastTurnAndAction(TargetedAction):
     ACTION = ActionArg()
     def do(self, source, target, actions) :
         _thisPlayer = target.controller
-        _playLogList = _thisPlayer.get_play_log_of_last_turn
+        _playLogList = _thisPlayer.play_log_of_last_turn
         _count = 0
         for _card in _playLogList:
             if _card.race == Race.ELEMENTAL:
@@ -70,7 +70,7 @@ class DMF_104t:# <4>[1466]
     #
     pass
 
-class DMF_105:# <4>[1466]###
+class DMF_105:# <4>[1466]###OK
     """ Ring Toss
     [Discover] a [Secret] and cast it. [Corrupt:] [Discover] 2 instead. """
     play = GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3)
@@ -82,7 +82,7 @@ class DMF_105t:# <4>[1466]###OK:  2回チョイスできるようにした
     play = GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3), GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
-class DMF_106:# <4>[1466]###
+class DMF_106:# <4>[1466]###OK
     """ Occult Conjurer
     [Battlecry:] If you control a [Secret], summon a copy of_this. """
     play = Find(FRIENDLY_SECRETS) & Summon(CONTROLLER,ExactCopy(SELF))
@@ -115,14 +115,14 @@ class DMF_108:# <4>[1466] ##OK
 class CountTriggeredSecret(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):# controller
-        playLog = target.get_play_log
+        playLog = target.play_log
         count = 0
         for log in playLog:
-            if log.secret:
+            if hasattr(log,'secret') and log.secret:
                 count += 1
         return count
 
-class DMF_109:# <4>[1466] ###
+class DMF_109:# <4>[1466] ###OK
     """ Sayge, Seer of Darkmoon
     [Battlecry:] Draw @ |4(card, cards).<i>(Upgraded for each friendly [Secret] that has triggered this game!)</i> """
     play = Draw(CONTROLLER), Draw(CONTROLLER) * CountTriggeredSecret(CONTROLLER)
