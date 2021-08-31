@@ -1,6 +1,6 @@
 from ..utils import *
 
-class DMF_100:# <4>[1466] ###
+class DMF_100:# <4>[1466] ###OK
     """ Confection Cyclone
     [Battlecry:] Add two 1/2 Sugar Elementals to your_hand. """
     play = Give(CONTROLLER, 'DMF_100t') * 2
@@ -19,22 +19,22 @@ class DMF_101:# <4>[1466] ##OK
     play = Hit(TARGET, 3)
     pass
 
-class DMF_101t:# <4>[1466] ###
+class DMF_101t:# <4>[1466] ###OK
     """ Firework Elemental
     [Corrupted][Battlecry:] Deal 12 damage to a minion. """
     play = Hit(TARGET, 12)
     pass
 
-class DMF_102:# <4>[1466] ###
+class DMF_102:# <4>[1466] ##OK remark that 'play + after'
     """ Game Master
     The first [Secret] you play each turn costs (1). """
-    event = [
-        OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND + SECRET),'DMF_102e'),
-        Play(CONTROLLER,SECRET).on(Destroy(FRIENDLY + 'DMF_102e')),
-        ]
+    play = Buff(FRIENDLY_HAND + SECRET,'DMF_102e')
+    events = OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND + SECRET,'DMF_102e'))
     pass
 class DMF_102e:#<12>[1466]
-    cost=SET(1)
+    cost = SET(1)
+    events = Play(CONTROLLER,SECRET).after(Destroy(SELF))
+
 
 class DMF_103:# <4>[1466] ###
     """ Mask of C'Thun

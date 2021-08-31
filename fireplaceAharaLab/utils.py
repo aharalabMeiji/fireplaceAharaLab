@@ -474,7 +474,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'BAR_305').trigger(player1)#specific card into deck
 
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['DMF_100','DMF_101'],player1)
+	ExchangeCard(['DMF_102','secret','secret'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 
