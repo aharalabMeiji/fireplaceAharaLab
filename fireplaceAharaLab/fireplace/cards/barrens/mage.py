@@ -180,8 +180,8 @@ class WC_805:#<4> [1525] ###OK
     play = WC_805_Action(RANDOM(FRIENDLY_DECK + SPELL))
     pass
 
-class WC_806:#<4> [1525] ### Costs (2)
+class WC_806:#<4> [1525] ##OK
     """ Floecaster
     Costs (2) less for each [Frozen] enemy. """
-    cost_mod = - Count(ENEMY_CHARACTERS + FROZEN)
+    cost_mod = - Count(ENEMY_CHARACTERS+ FROZEN) * 2
     pass
