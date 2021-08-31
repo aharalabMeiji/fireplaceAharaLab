@@ -1676,15 +1676,13 @@ class RefreshHeroPower(TargetedAction):
 
 class RefreshMana(TargetedAction):
 	"""
-	Helper to Refresh Hero Power
+	Helper to Refresh MANA
 	"""
+	TARGET = ActionArg()#controller
 	AMOUNT = IntArg()
-
-	def do(self, source, amount):
+	def do(self, source, target,amount):
 		log.info("Refresh Mana by %s.", amount)
-		source.controller.used_mana -= 2
-		if source.controller.used_mana<0:
-			source.controller.used_mana=0
+		source.controller.used_mana = max(source.controller.used_mana-amount,0)
 
 
 

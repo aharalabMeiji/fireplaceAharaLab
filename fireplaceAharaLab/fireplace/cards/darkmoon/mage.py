@@ -128,23 +128,23 @@ class DMF_109:# <4>[1466] ###OK
     play = Draw(CONTROLLER), Draw(CONTROLLER) * CountTriggeredSecret(CONTROLLER)
     pass
 
-class YOP_019:# <4>[1466] ###
+class YOP_019:# <4>[1466] ###OK
     """ Conjure Mana Biscuit
     Add a Biscuit to your hand that refreshes 2 Mana Crystals. """
-    play = Summon(CONTROLLER,'YOP_019t')
+    play = Give(CONTROLLER,'YOP_019t')
     pass
 
 class YOP_019t:# <4>[1466] ###
     """ Mana Biscuit
     Refresh 2 Mana Crystals. """
-    play = RefreshMana(CONTROLLER)
+    play = RefreshMana(CONTROLLER,2)
     #
     pass
 
-class YOP_020:# <4>[1466] ###
+class YOP_020:# <4>[1466] ###OK
     """ Glacier Racer
     [Spellburst]: Deal 3 damage to all [Frozen] enemies. """
-    play = OWN_SPELL_PLAY.on(Hit(ENEMY_CHARACTERS,3))
+    play = OWN_SPELL_PLAY.on(Hit(ENEMY_CHARACTERS + FROZEN,3))
     pass
 
 
