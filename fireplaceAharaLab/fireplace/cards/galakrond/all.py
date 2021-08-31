@@ -39,10 +39,10 @@ class YOD_008:#OK
 	}
 	play = Summon(CONTROLLER, "HERO_08bp2")
 	deathrattle = Summon(CONTROLLER, "HERO_08bp")
-class HERO_08bp2:
-	"""Fireblast 2 (Jaina Proudmoore)"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Hit(TARGET, 2)
+#class HERO_08bp2:
+#	"""Fireblast 2 (Jaina Proudmoore)"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Hit(TARGET, 2)
 
 class YOD_007:#OK
 	"""Animated Avalanche

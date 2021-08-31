@@ -266,6 +266,9 @@ def adjust_text_bt_spellpower(text, player):
 				for _repeat in range(player.spellpower_double):
 					_catch_number *= 2
 				_new_text = _new_text[:_i] + "*" +str(_catch_number) +"*" + _latter_text
+		elif _new_text[_i]=='@':
+			_new_text = _new_text[:_i] + "<" +str(1) +">" + _new_text[_i+1:]
+			pass
 	return _new_text
 
 class HumanAgent(Agent):

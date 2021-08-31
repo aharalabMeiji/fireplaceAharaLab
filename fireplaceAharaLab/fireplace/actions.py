@@ -303,7 +303,7 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Deathrattle(target)])
 		if target.reborn:# aharalab
 			source.game.queue_actions(source, [Reborn(target)])
-		if target.id== 'DRG_253':# aharalab for Dwarven Sharpshooter
+		if target.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
 		if target.type == CardType.MINION:
 			if target.guardians_legacy:#CS3_001由来の継承
@@ -372,6 +372,7 @@ class Choice(GameAction):
 
 	def do(self, source, player, cards):
 		if len(cards) == 0:
+			log.info("No choice for this condition.")
 			return
 		log.info("%r choice from %r", player, cards)
 		self.next_choice = player.choice
@@ -563,6 +564,16 @@ class Activate(GameAction):
 		source.game.action_start(BlockType.PLAY, heropower, 0, target)
 		source.game.main_power(heropower, actions, target)
 		source.game.action_end(BlockType.PLAY, heropower)
+
+		if heropower.data.id == 'HERO_05bp':
+			player.add_activate_log(heropower, 2)
+		elif heropower.data.id == 'HERO_05bp2':
+			player.add_activate_log(heropower, 3)
+		elif heropower.data.id == 'HERO_08bp':
+			player.add_activate_log(heropower, 1)
+		elif heropower.data.id == 'HERO_08bp2':
+			player.add_activate_log(heropower, 2)
+
 
 		for entity in player.live_entities:
 			if not entity.ignore_scripts:
@@ -1665,15 +1676,13 @@ class RefreshHeroPower(TargetedAction):
 
 class RefreshMana(TargetedAction):
 	"""
-	Helper to Refresh Hero Power
+	Helper to Refresh MANA
 	"""
+	TARGET = ActionArg()#controller
 	AMOUNT = IntArg()
-
-	def do(self, source, amount):
+	def do(self, source, target,amount):
 		log.info("Refresh Mana by %s.", amount)
-		source.controller.used_mana -= 2
-		if source.controller.used_mana<0:
-			source.controller.used_mana=0
+		source.controller.used_mana = max(source.controller.used_mana-amount,0)
 
 
 
@@ -2257,6 +2266,24 @@ class Freeze(TargetedAction):
 		else:
 			log.info("Freezing is blocked!")
 
+class FreezeOrDeath(TargetedAction):
+    def do (self, source, target):
+        if target.frozen:
+            Destroy(target).trigger(source)
+        else:
+            Freeze(target).trigger(source)
+        pass
+
+class FreezeOrHit(TargetedAction):
+    TARGET = ActionArg()#TARGET
+    AMOUNT = IntArg()
+    def do (self, source, target, amount):
+        if target.frozen:
+            Hit(target, amount).trigger(source)
+        else:
+            Freeze(target).trigger(source)
+        pass
+
 class SetCannotAttackHeroesTag(TargetedAction):
 	"""
 
@@ -2468,7 +2495,23 @@ class GenericChoiceBuff(GenericChoice):
 class GenericChoicePlay(GenericChoice):
 	def choose(self, card):
 		super().choose(card)
-		Play(card, None, None, None).trigger(card.controller)
+		_controller = card.controller
+		if _controller != self.player:
+			card.controller = self.player
+			_controller = self.player
+		Play(card, None, None, None).trigger(_controller)
+		pass
+
+class GenericChoicePlayBackToDeck(Choice):
+	def choose(self, card):
+		super().choose(card)
+		_controller = card.controller
+		if _controller != self.player:
+			card.controller = self.player
+			_controller = self.player
+		for _card in self.cards:
+			if _card is card:
+				Summon(_controller, _card).trigger(_controller)
 		pass
 
 class SpallAndDamage(TargetedAction):## for SW_322

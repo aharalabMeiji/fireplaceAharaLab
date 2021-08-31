@@ -374,20 +374,21 @@ class BigDeck:
 		'BT_026','BT_026','SCH_138','SCH_138','BT_011','BT_011',\
 		'SCH_139','SCH_139','BT_334','DRG_231','DRG_231','BT_024'
 		]
+
 def postAction(player):
-	if player.choice:
-		choice = random.choice(player.choice.cards)
-		#print("Choosing card %r" % (choice))
-		myChoiceStr = str(choice)
-		if 'RandomCardPicker' in str(choice):
-			myCardID =  random.choice(choice.find_cards())
-			#myCard = Card(myCardID)
-			#myCard.controller = player#?
-			#myCard.draw()
-			Give(player1,myCardID).trigger(player1)
-			player.choice = None
-		else :
-			player.choice.choose(choice)
+	while True:
+		if player.choice == None:
+			return
+		else:
+			choice = random.choice(player.choice.cards)
+			log.info("%r Chooses a card %r" % (player, choice))
+			#myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				myCardID =  random.choice(choice.find_cards())
+				Give(player1,myCardID).trigger(player1)
+				player.choice = None
+			else :
+				player.choice.choose(choice)
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""
@@ -453,6 +454,8 @@ def ExchangeCard(cards,player):
 			_card='SCH_232'
 		if _card=='elemental':
 			_card=random.choice(['SCH_143','SCH_245'])
+		if _card=='frost':
+			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
@@ -469,10 +472,10 @@ def ExchangeCard(cards,player):
 
 def PresetHands(player1, player2): 
 	## add a specific card int the top of the deck
-	#Shuffle(player1,'').trigger(player1)#specific card into deck
-
+	#Shuffle(player1,'DMF_123').trigger(player1)#specific card into deck
+	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['BAR_545',],player1)
+	#ExchangeCard(['YOP_020'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 
