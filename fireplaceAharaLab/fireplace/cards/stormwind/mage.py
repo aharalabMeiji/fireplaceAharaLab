@@ -123,7 +123,7 @@ class SW_450t4e:#<4>[1578]
     spellpower = +3
     pass
 
-class SW_462:#<4>[1578]###
+class SW_462:#<4>[1578]###OK
     """ Hot Streak
     Your next Fire spell this turn costs (2) less. """
     play = Buff(FRIENDLY_HAND + SPELL + FIRE, 'SW_462e')
@@ -133,6 +133,9 @@ class SW_462e:#<4>[1578] ####
     """ Hot Streak
     The next Fire spell you play costs (2) less. """
     cost = lambda self, i: max(i-2,0) 
-    events = Play(CONTROLLER, SPELL+FIRE).on(Destroy(FRIENDLY+ID('SW_462e')))
+    events = [
+        Play(CONTROLLER, SPELL+FIRE).on(Destroy(SELF)),
+        OWN_TURN_END.on(Destroy(SELF)),
+        ]
     pass
 
