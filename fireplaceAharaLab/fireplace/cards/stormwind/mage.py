@@ -19,7 +19,7 @@ SW_001e2 = buff(cost=-5)#<12> [1578]
 class SW_107:#<4>[1578]###OK
     """ Fire Sale
     [Tradeable]Deal $3 damage to all minions. """
-    play = Hit(ENEMY_MINIONS,3)
+    play = Hit(ALL_MINIONS,3)
     pass
 
 class SW_108:#<4>[1578]###OK
@@ -36,10 +36,25 @@ class SW_108t:#<4>[1578]###OK
     play = Hit(TARGET, 2)
     pass
 
-class SW_109:#<4>[1578]#####################
+class PlayHighestCostSpell(TargetedAction):
+    TARGET = ActionArg()# controller
+    def do(self, source, target):
+        maxCost=-1
+        maxCostSpells=[]
+        for card in target.hand:
+            if card.id!='SW_109' and card.type == CardType.SPELL and not card.requires_target():
+                if card.cost>maxCost:
+                    maxCost = card.cost
+                    maxCostSpells=[card]
+                elif card.cost==maxCost:
+                    maxCostSpells.append(card)
+        if len(maxCostSpells)>0:
+            Summon(target,random.choice(maxCostSpells)).trigger(source)#Summonすることにより、マナを消費しない。
+
+class SW_109:#<4>[1578]##OK
     """ Clumsy Courier
     [Battlecry:] Cast the highest Cost spell from your hand. """
-    #play = Summon(HighestCostSpell)
+    play = PlayHighestCostSpell(CONTROLLER)
     pass
 
 class SW_110:#<4>[1578] ####
