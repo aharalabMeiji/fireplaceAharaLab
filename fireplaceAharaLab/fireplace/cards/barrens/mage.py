@@ -158,7 +158,7 @@ class BAR_888t:#<4> [1525] ##OK
     events = Attack(SELF, ALL_CHARACTERS).on(Freeze(Attack.DEFENDER))
     pass
 
-class WC_041:#<4> [1525] ###
+class WC_041:#<4> [1525] ###OK
     """ Shattering Blast
     Destroy all [Frozen] minions. """
     play = Destroy(ALL_MINIONS + FROZEN)
@@ -174,7 +174,7 @@ class WC_805_Action(TargetedAction):
             Summon(controller,'BAR_888t').trigger(source)
 
 
-class WC_805:#<4> [1525] ###
+class WC_805:#<4> [1525] ###OK
     """ Frostweave Dungeoneer
     [Battlecry:] Draw a spell.If it's a Frost spell,summon two 1/1___Elementals that [Freeze]. """
     play = WC_805_Action(RANDOM(FRIENDLY_DECK + SPELL))
