@@ -372,6 +372,7 @@ class Choice(GameAction):
 
 	def do(self, source, player, cards):
 		if len(cards) == 0:
+			log.info("No choice for this condition.")
 			return
 		log.info("%r choice from %r", player, cards)
 		self.next_choice = player.choice
@@ -2496,7 +2497,11 @@ class GenericChoiceBuff(GenericChoice):
 class GenericChoicePlay(GenericChoice):
 	def choose(self, card):
 		super().choose(card)
-		Play(card, None, None, None).trigger(card.controller)
+		_controller = card.controller
+		if _controller != self.player:
+			card.controller = self.player
+			_controller = self.player
+		Play(card, None, None, None).trigger(_controller)
 		pass
 
 class SpallAndDamage(TargetedAction):## for SW_322

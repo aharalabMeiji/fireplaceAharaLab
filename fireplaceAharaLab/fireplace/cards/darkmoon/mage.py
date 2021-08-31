@@ -36,7 +36,7 @@ class DMF_102e:#<12>[1466]
     events = Play(CONTROLLER,SECRET).after(Destroy(SELF))
 
 
-class DMF_103:# <4>[1466] ###
+class DMF_103:# <4>[1466] ###OK
     """ Mask of C'Thun
     Deal $10 damage randomly split among all enemies. """
     play = Hit(RANDOM_ENEMY_CHARACTER,1) * 10
@@ -76,7 +76,7 @@ class DMF_105:# <4>[1466]###
     play = GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
-class DMF_105t:# <4>[1466]###
+class DMF_105t:# <4>[1466]### 2回チョイスできない。#####################
     """ Ring Toss
     [Corrupted][Discover] 2 [Secrets] and cast them. """
     play = GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3), GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3)
