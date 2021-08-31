@@ -16,7 +16,7 @@ class DMF_084_Action(TargetedAction):
     TARGET=ActionArg()
     def do(self, source, target):
         _player = target
-        _minionList=_player.__myDeathLog__
+        _minionList=_player.death_log
         _count =0
         for _card in _minionList:
             if _card.deathrattles != None and _count<3:

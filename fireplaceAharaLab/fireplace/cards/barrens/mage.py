@@ -112,7 +112,7 @@ class BAR_547_Action(TargetedAction):
     AMOUNT = IntArg()
     TARGETEDACTION = ActionArg()
     def do(self, source, target, amount, targetedaction):
-        ActivateList = target.__myActivateLog__
+        ActivateList = target._activate_log
         count=0
         for case in ActivateList:
             count += case[2]
@@ -122,7 +122,7 @@ class BAR_547_Action(TargetedAction):
 class BAR_547_Hand_Event(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
-        ActivateList = target.__myActivateLog__
+        ActivateList = target._activate_log
         count=0
         for case in ActivateList:
             count += case[2]

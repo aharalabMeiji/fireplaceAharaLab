@@ -1294,6 +1294,7 @@ class Reveal(TargetedAction):
 	"""
 	def do(self, source, target):
 		log.info("Revealing secret %r", target)
+		target.controller.add_reveal_log(target)
 		self.broadcast(source, EventListener.ON, target)
 		target.zone = Zone.GRAVEYARD
 
@@ -2420,7 +2421,7 @@ class CountDeathAction(TargetedAction):
 	ACTION = ActionArg()
 	def do(self, source, target, list, amount, action) :
 		_thisPlayer = target.controller
-		_logList = _thisPlayer.get_death_log
+		_logList = _thisPlayer.death_log
 		_count = 0
 		for _card in _logList:
 			if _card.id in list:
