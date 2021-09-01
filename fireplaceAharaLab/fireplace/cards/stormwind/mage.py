@@ -2,10 +2,10 @@ from ..utils import *
 
 
 
-class SW_001:#<4>[1578]###########################################
+class SW_001:#<4>[1578]###OK
     """ Celestial Ink Set
     After you spend 5 Mana on spells, reduce the cost of a spell in your hand by (5).Lose 1 Durability. """
-    event = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF,Play.CARD,5,[Buff(FRIENDLY_HAND + SPELL,'SW_001e'), Hit(SELF,1)]))
+    events = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF,Play.CARD,5,[Buff(FRIENDLY_HAND + SPELL,'SW_001e'), Hit(SELF,1)]))
     pass
 SW_001e = buff(cost=-5)#<12> [1578]
 SW_001e2 = buff(cost=-5)#<12> [1578]
@@ -87,7 +87,7 @@ class SW_110:#<4>[1578] ###OK
     
     pass
 
-class SW_111:#<4>[1578] ####
+class SW_111:#<4>[1578] ###OK
     """ Sanctum Chandler
     After you cast a Fire spell, draw a spell. """
     events = Play(CONTROLLER, SPELL + FIRE).on(Give(CONTROLLER, RANDOM(FRIENDLY + SPELL)))
