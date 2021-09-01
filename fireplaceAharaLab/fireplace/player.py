@@ -80,6 +80,7 @@ class Player(Entity, TargetableByAuras):
 		self._reveal_log=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
+		self.spellpower_fire=0# There is a referenced tag in SW_112, but this is the only card for this tag.
 
 
 	def __str__(self):
@@ -207,6 +208,16 @@ class Player(Entity, TargetableByAuras):
 		amount += self.spellpower
 		amount <<= self.controller.spellpower_double
 		return amount
+
+	def get_spell_damage_fire(self, amount: int) -> int:
+		"""
+		Returns the amount of damage for only fire card \a amount will do, taking
+		SPELLPOWER and SPELLPOWER_DOUBLE into account.
+		"""
+		amount += (self.spellpower+self.spellpower_fire)
+		amount <<= self.controller.spellpower_double
+		return amount
+
 
 	def discard_hand(self):
 		self.log("%r discards their entire hand!", self)

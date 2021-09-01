@@ -2,7 +2,7 @@ import random
 from itertools import chain
 
 from hearthstone.enums import CardType, MultiClassGroup, PlayReq, PlayState, \
-	Race, Rarity, Step, Zone, GameTag
+	Race, Rarity, Step, Zone, GameTag, SpellSchool
 
 from . import actions, cards, enums, rules
 from .aura import TargetableByAuras
@@ -856,7 +856,10 @@ class Spell(PlayableCard):
 	def get_damage(self, amount, target):
 		amount = super().get_damage(amount, target)
 		if not self.immune_to_spellpower:
-			amount = self.controller.get_spell_damage(amount)
+			if self.spell_school==SpellSchool.FIRE:
+				amount = self.controller.get_spell_damage_fire(amount)
+			else:
+				amount = self.controller.get_spell_damage(amount)
 		if self.receives_double_spelldamage_bonus:
 			amount *= 2
 		return amount
