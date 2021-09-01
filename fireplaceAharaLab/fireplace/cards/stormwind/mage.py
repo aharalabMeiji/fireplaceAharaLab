@@ -113,16 +113,58 @@ class SW_112e2:#<4>[1578]
     #
     pass
 
-class CountFireSpellThis3Turns(TargetedAction):
-    TARGET = ActionArg()
+class SW_113_Action(TargetedAction):
+    TARGET = ActionArg()#controller
     TARGETEDACTION = ActionArg()
     def do(self, source, target, targetedaction):
-        pass
+        playList = target._play_log
+        flag1=flag2=flag3=0
+        for _log in playList:
+            card = _log[0]
+            turn = _log[1]
+            if card.type == CardType.SPELL and card.spell_school == SpellSchool.FIRE:
+                if turn == source.game.turn - 2:
+                    flag1 = 1
+                elif turn == source.game.turn - 4:
+                    flag2 = 1
+                elif turn == source.game.turn - 6:
+                    flag3 = 1
+        if flag1==1 and flag2==1 and flag3==1:
+            for action in targetedaction:
+                action.trigger(source)
 
-class SW_113:#<4>[1578]
+class SW_113_Hand_Event(TargetedAction):
+    TARGET = ActionArg()#controller
+    def do(self, source, target):
+        playList = target._play_log
+        flag1=flag2=flag3=0
+        for _log in playList:
+            card = _log[0]
+            turn = _log[1]
+            if card.type == CardType.SPELL and card.spell_school == SpellSchool.FIRE:
+                if turn == source.game.turn:
+                    flag1 = 1
+                elif turn == source.game.turn - 2:
+                    flag2 = 1
+                elif turn == source.game.turn - 4:
+                    flag3 = 1
+        if flag1==1 and flag2==0:
+            source.script_data_num_1 = 1
+        if flag1==1 and flag2==1 and flag3==0:
+            source.script_data_num_1 = 2
+        if flag1==1 and flag2==1 and flag3==1:
+            source.script_data_num_1 = 3
+
+class SW_113:#<4>[1578] ### not perfect but yes (fireball -> deal 6 damage)
     """ Grand Magus Antonidas
     [Battlecry:] If you've cast a Fire spell on each of your last three turns, cast 3 Fireballs at___random enemies.@ <i>(@/3)</i> """
-    play = CountFireSpellThis3Turns(CONTROLLER).on(Play(CONTROLLER, 'CORE_CS2_029', RANDOM_ENEMY_CHARACTER))
+    play = SW_113_Action(CONTROLLER, \
+                         [Hit(RANDOM_ENEMY_CHARACTER,6),# insted of a fireball
+                          Hit(RANDOM_ENEMY_CHARACTER,6),
+                          Hit(RANDOM_ENEMY_CHARACTER,6)]
+                         )
+    class Hand:
+        events = OWN_TURN_END.on(SW_113_Hand_Event(CONTROLLER))
     pass
 
 class SidequestFireFrostArcane(TargetedAction):############
