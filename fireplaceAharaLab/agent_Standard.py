@@ -269,9 +269,10 @@ def adjust_text_by_spellpower(text, player, card):
 					_catch_number *= 10
 					_catch_number += int(_new_text[_i+2])
 					_latter_text = _new_text[_i+3:]
-				_catch_number += player.spellpower
 				if card.spell_school == SpellSchool.FIRE:
 					_catch_number += player.spellpower_fire
+				else :
+					_catch_number += player.spellpower
 				for _repeat in range(player.spellpower_double):
 					_catch_number *= 2
 				_new_text = _new_text[:_i] + "*" +str(_catch_number) +"*" + _latter_text

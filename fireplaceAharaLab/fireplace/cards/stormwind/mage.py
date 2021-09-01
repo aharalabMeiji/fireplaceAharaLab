@@ -212,7 +212,7 @@ class SW_450t2:#<4>[1578]###OK
 class SW_450t4:#<4>[1578]#################
     """ Arcanist Dawngrasp
     [Battlecry:] For the rest of the game, you have [Spell Damage +3]. """
-    #play = EternalBuff(CONTROLLER,'SW_450t4e')
+    play = SetAttr(CONTROLLER,'spellpower_option',3)
     pass
 
 class SW_450t4e:#<4>[1578]
