@@ -122,6 +122,7 @@ class Deposite_Payment(TargetedAction):
         if isinstance(target,list):
             target = target[0]
         source._sidequest_list1_.append(target)
+        target.zone = Zone.SETASIDE
         pass
     pass
 

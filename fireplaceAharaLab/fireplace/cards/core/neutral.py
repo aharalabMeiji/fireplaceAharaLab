@@ -262,7 +262,7 @@ class CORE_EX1_188:# <12> 1637
 class CORE_EX1_189:# <12> 1637
     """ Brightwing
     [Battlecry:] Add a random [Legendary] minion to your_hand. """
-    play = Give(CONTROLLER,RANDOM(MINION+LEGENDARY))
+    play = Give(CONTROLLER,RANDOM(MINION + LEGENDARY - IN_HAND))
     pass
 
 class ResummonMinionDiedThisTurn(TargetedAction):

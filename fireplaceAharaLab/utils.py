@@ -204,7 +204,7 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
-				if character.can_attack(target):
+				if character.can_attack(target) and character != target:
 					myH=character.health
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
@@ -473,7 +473,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'BAR_541').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_450t4','arcane','fire','frost'],player1)
+	#ExchangeCard(['SW_450t4','arcane','fire','frost'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

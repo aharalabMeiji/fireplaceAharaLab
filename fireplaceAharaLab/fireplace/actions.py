@@ -396,12 +396,13 @@ class GenericChoice(Choice):
 		super().choose(card)
 		for _card in self.cards:
 			if _card is card:
+				new_card = self.player.card(_card.id)
 				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
+					new_card.zone = Zone.PLAY
 				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
+					new_card.zone = Zone.HAND
 				else:
-					_card.discard()
+					new_card.discard()
 			else:
 				_card.discard()
 
@@ -2508,7 +2509,8 @@ class GenericChoicePlay(GenericChoice):
 		if _controller != self.player:
 			card.controller = self.player
 			_controller = self.player
-		Play(card, None, None, None).trigger(_controller)
+		new_card = _controller.card(card.id)
+		Play(new_card, None, None, None).trigger(_controller)
 		pass
 
 class GenericChoicePlayBackToDeck(Choice):
