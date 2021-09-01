@@ -96,7 +96,7 @@ class CardDB(dict):
 
 
 	def initialize(self, locale="jaJP"):#locale="enUS"):#
-		log.info("Initializing card database")
+		log.info("Load card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
 		exclude = [
@@ -112,8 +112,8 @@ class CardDB(dict):
 			'BAR_079',## neutral-barrens, too huge
 			'SW_079',## neutral=Stormwind, choice a dormant
 			]
+		log.info("Initializing card database")
 		for id, card in db.items():
-			## add attr spellpower
 			if not card.card_class in [ CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
 				if card.id in [
 					'SCH_617e',#2
@@ -122,6 +122,7 @@ class CardDB(dict):
 					pass
 				else:
 					continue
+			## add attr spellpower
 			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
 			if spellpowervalue is not None:
 				setattr(card, 'spellpower', spellpowervalue)

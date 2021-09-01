@@ -35,14 +35,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	import random
 	#バグが確認されているものを当面除外する
 	exclude = []
-	# excluded in initilization of card db
-	#	'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
-	#	'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
-	#	'YOD_009',## this is a hero in galakrond
-	#	'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-	#	'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-	#	'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
-		
+	log.info("New game settings")
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -77,6 +70,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	#mulligan exchange end
 
 	PresetHands(player1, player2)
+	log.info("New game start")
 
 	while True:	
 		#エージェントの処理ここから
@@ -479,7 +473,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'BAR_541').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_450','arcane','fire','frost'],player1)
+	ExchangeCard(['SW_450t2','arcane','fire','frost'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

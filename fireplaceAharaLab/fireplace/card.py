@@ -18,8 +18,6 @@ THE_COIN = "GAME_005"
 
 def Card(id):
 	data = cards.db[id]
-	if data.id=='SW_450':
-		log.info(" xxx  ")
 	subclass = {
 		CardType.HERO: Hero,
 		CardType.MINION: Minion,
@@ -30,7 +28,7 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
-	if subclass is Spell and data.sidequest:# 
+	if subclass is Spell and (data.sidequest or data.questline):# もはやsidequestカードはない。
 		subclass = Sidequest# 
 	return subclass(data)
 
