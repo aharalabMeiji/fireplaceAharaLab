@@ -444,6 +444,8 @@ def getTurnLog(gameLog, turnN):
 def ExchangeCard(cards,player):
 	Discard(player.hand[-1]).trigger(player)
 	for _card in cards:
+		if _card=='arcane':
+			_card=random.choice(['DMF_057','CORE_DS1_185','CORE_BOT_453','YOP_019'])
 		if _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':

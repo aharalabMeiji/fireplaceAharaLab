@@ -398,7 +398,7 @@ Zone.test = lambda self, entity, *args: (
 CardClass.test = lambda self, entity, *args: (
 	entity is not None and self == getattr(entity, "card_class", CardClass.INVALID)
 )
-SpellSchool.test = lambda self, entity, *args: (# add in 19 aug 2021
+SpellSchool.test = lambda self, entity, *args: (# 
 	entity is not None and self == getattr(entity, "spell_school", SpellSchool.NONE)
 )
 
@@ -452,6 +452,8 @@ ELEMENTAL = EnumSelector(Race.ELEMENTAL)
 NATURE = EnumSelector(SpellSchool.NATURE)
 HOLY = EnumSelector(SpellSchool.HOLY)
 FIRE = EnumSelector(SpellSchool.FIRE)
+FROST = EnumSelector(SpellSchool.FROST)
+ARCANE = EnumSelector(SpellSchool.ARCANE)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
