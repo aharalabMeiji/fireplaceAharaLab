@@ -95,7 +95,8 @@ class BaseCard(BaseEntity):
 
 		if old == value:
 			if old==Zone.HAND:
-				log.info("Whats up")
+				log.info("%s"%(self in self.controller.hand))
+				log.info("Stop!")
 			self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
