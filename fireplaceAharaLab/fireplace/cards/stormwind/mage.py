@@ -189,13 +189,13 @@ class SidequestFireFrostArcane(TargetedAction):############
             for action in targetedaction:
                 action.trigger(source)
         pass
-class SW_450:#<4>[1578]#######################
+class SW_450:#<4>[1578]###OK
     """ Sorcerer's Gambit
     [Questline:] Cast a Fire, Frost, and Arcane spell. [Reward: ]Draw a spell. """
     events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[Give(CONTROLLER,RANDOM(FRIENDLY_DECK + SPELL)), Summon(CONTROLLER,'SW_450t'),Destroy(SELF)]))
     pass
 
-class SW_450t:#<4>[1578]
+class SW_450t:#<4>[1578]##OK
     """ Stall for Time
     [Questline:] Cast a Fire, Frost, and Arcane spell. [Reward:] [Discover] one. """
     events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[\
@@ -203,13 +203,13 @@ class SW_450t:#<4>[1578]
         Summon(CONTROLLER,'SW_450t2'),Destroy(SELF)]))
     pass
 
-class SW_450t2:#<4>[1578]
+class SW_450t2:#<4>[1578]###OK
     """ Reach the Portal Room
     [Questline:] Cast a Fire,Frost, and Arcane spell.[Reward:] ArcanistDawngrasp. """
     events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[Give( CONTROLLER,'SW_450t4'),Destroy(SELF)]))
     pass
 
-class SW_450t4:#<4>[1578]######
+class SW_450t4:#<4>[1578]#################
     """ Arcanist Dawngrasp
     [Battlecry:] For the rest of the game, you have [Spell Damage +3]. """
     #play = EternalBuff(CONTROLLER,'SW_450t4e')
