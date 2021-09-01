@@ -80,7 +80,6 @@ class Player(Entity, TargetableByAuras):
 		self._reveal_log=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
-		self.spellpower_fire=0# There is a referenced tag in SW_112, but this is the only card for this tag.
 
 
 	def __str__(self):
@@ -121,6 +120,10 @@ class Player(Entity, TargetableByAuras):
 		minion_power = sum(minion.spellpower for minion in self.field)
 		return aura_power + minion_power
 
+	@property
+	def spellpower_fire(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
+		minion_power = sum(minion.spellpower_fire for minion in self.field)
+		return minion_power
 	@property
 	def start_hand_size(self):
 		# old version

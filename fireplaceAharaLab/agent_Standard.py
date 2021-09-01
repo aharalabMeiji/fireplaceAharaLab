@@ -1,7 +1,7 @@
 import random
 import copy
 from fireplace.exceptions import GameOver
-from hearthstone.enums import CardType, BlockType, CardClass#
+from hearthstone.enums import CardType, BlockType, CardClass, SpellSchool#
 from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAction,Agent
 from fireplace.actions import Action
 from fireplace.card import Card
@@ -270,6 +270,8 @@ def adjust_text_by_spellpower(text, player, card):
 					_catch_number += int(_new_text[_i+2])
 					_latter_text = _new_text[_i+3:]
 				_catch_number += player.spellpower
+				if card.spell_school == SpellSchool.FIRE:
+					_catch_number += player.spellpower_fire
 				for _repeat in range(player.spellpower_double):
 					_catch_number *= 2
 				_new_text = _new_text[:_i] + "*" +str(_catch_number) +"*" + _latter_text
@@ -420,7 +422,7 @@ class HumanAgent(Agent):
 				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
 					print("(sidequest %d)"%card._sidequest_counter_, end="")
 				print("%s"%(adjust_text(card.data.description)))
-			print("========Your turn : %d/%d mana==(spell damage %d)==="%(player.mana,player.max_mana,player.spellpower))
+			print("========Your turn : %d/%d mana==(spell damage %d (fire %d))==="%(player.mana,player.max_mana,player.spellpower,player.spellpower_fire))
 			print("[0] ターンを終了する")
 			myCount = 1
 			for myChoice in myCandidate:

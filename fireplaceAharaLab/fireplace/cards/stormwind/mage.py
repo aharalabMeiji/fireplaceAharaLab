@@ -93,11 +93,11 @@ class SW_111:#<4>[1578] ###OK
     events = Play(CONTROLLER, SPELL + FIRE).on(Give(CONTROLLER, RANDOM(FRIENDLY + SPELL)))
     pass
 
-class SW_112:#<4>[1578] ################################################
+class SW_112:#<4>[1578] ####OK
     """ Prestor's Pyromancer
     [Battlecry:] Your next Fire spell has [SpellDamage +2]. """
-    play = Buff(FRIENDLY_HAND + FIRE,'SW_112e')
-    events = Play(CONTROLLER, SPELL + FIRE).on(Destroy(FRIENDLY + ID('SW_112e')))
+    play = SetAttr(SELF,'spellpower_fire',2)
+    events = Play(CONTROLLER, SPELL + FIRE).after(SetAttr(SELF,'spellpower_fire',0))
     pass
 
 class SW_112e:#<4>[1578]

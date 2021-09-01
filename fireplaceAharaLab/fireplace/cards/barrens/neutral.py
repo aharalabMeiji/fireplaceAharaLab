@@ -92,13 +92,13 @@ class BAR_022:#OK
 	events = Damage(SELF).on(Frenzy(SELF,Give(CONTROLLER,RandomSpell(card_class=FRIENDLY_CLASS))))
 	pass
 
-class BAR_064:###OK 
+class BAR_064:###OK  ## OWN_SPELL_PLAY.after is calid. no '.on'
 	"""
 	Talented Arcanist
 	<b>Battlecry:</b> Your next spell_this turn has <b>Spell_Damage +2</b>.
 	"""
 	play = SetAttr(SELF,'spellpower',2)
-	events = [ OWN_SPELL_PLAY.on( SetAttr(SELF,'spellpower',0)),
+	events = [ OWN_SPELL_PLAY.after( SetAttr(SELF,'spellpower',0)),
 		   OWN_TURN_END.on( SetAttr(SELF,'spellpower',0))
 		   ]
 	pass
