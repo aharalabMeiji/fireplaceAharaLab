@@ -18,6 +18,8 @@ THE_COIN = "GAME_005"
 
 def Card(id):
 	data = cards.db[id]
+	if data.id=='SW_450':
+		log.info(" xxx  ")
 	subclass = {
 		CardType.HERO: Hero,
 		CardType.MINION: Minion,
@@ -28,10 +30,8 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
-	if subclass is Spell and data.sidequest:# aharalab
-		subclass = Sidequest# aharalab
-	#if subclass is Spell and data.questline:# aharalab
-	#	subclass = Sidequest# aharalab
+	if subclass is Spell and data.sidequest:# 
+		subclass = Sidequest# 
 	return subclass(data)
 
 
@@ -160,7 +160,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	trade_cost = int_property("trade_cost")
 	corrupt = boolean_property('corrupt')# darkmoon
 	_sidequest_list1_ = []# Sidequest
-	_sidequest_list2_ = []# off use
+	_sidequest_list2_ = []# Sidequest
+	_sidequest_list3_ = []# Sidequest
 	_sidequest_counter_ = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	script_data_num_1 = int_property("script_data_num_1")

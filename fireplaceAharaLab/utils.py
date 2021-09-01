@@ -445,7 +445,7 @@ def ExchangeCard(cards,player):
 	Discard(player.hand[-1]).trigger(player)
 	for _card in cards:
 		if _card=='arcane':
-			_card=random.choice(['DMF_057','CORE_DS1_185','CORE_BOT_453','YOP_019'])
+			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
 		if _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
@@ -476,10 +476,10 @@ def ExchangeCard(cards,player):
 
 def PresetHands(player1, player2): 
 	## add a specific card into the deck
-	Shuffle(player1,'BAR_541').trigger(player1)#specific card into deck
+	#Shuffle(player1,'BAR_541').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_113','fire','fire'],player1)
+	ExchangeCard(['SW_450','arcane','fire','frost'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

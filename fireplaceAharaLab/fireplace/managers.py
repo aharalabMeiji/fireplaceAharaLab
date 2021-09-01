@@ -225,7 +225,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
-	GameTag.SPELL_SCHOOL: "spell_school", # aharalab 16.8.2021
+	GameTag.SPELL_SCHOOL: "spell_school", # 
 	GameTag.SPELLS_COST_HEALTH: "spells_cost_health",
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",

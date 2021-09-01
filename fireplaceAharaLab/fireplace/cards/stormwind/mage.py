@@ -168,21 +168,30 @@ class SW_113:#<4>[1578] ### not perfect but yes (fireball -> deal 6 damage)
     pass
 
 class SidequestFireFrostArcane(TargetedAction):############
-    TARGET = ActionArg()
+    TARGET = ActionArg()#controller
     CARD = CardArg()
     TARGETEDACTION = ActionArg()
     def do(self,source,target,card,targetedaction):
+        if card.spell_school == SpellSchool.FIRE:
+            source._sidequest_list1_.append(card)
+        elif card.spell_school == SpellSchool.FROST:
+            source._sidequest_list2_.append(card)
+        elif card.spell_school == SpellSchool.ARCANE:
+            source._sidequest_list3_.append(card)
+        if len(source._sidequest_list1_)>0 and len(source._sidequest_list2_)>0 and len(source._sidequest_list3_)>0:
+            for action in targetedaction:
+                action.trigger(source)
         pass
 class SW_450:#<4>[1578]#######################
     """ Sorcerer's Gambit
     [Questline:] Cast a Fire, Frost, and Arcane spell. [Reward: ]Draw a spell. """
-    events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[Give(CONTROLLER,RANDOM(SPELL)), Summon(CONTROLLER,'SW_450t')]))
+    events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[Give(CONTROLLER,RANDOM(SPELL)), Summon(CONTROLLER,'SW_450t'),Destroy(SELF)]))
     pass
 
 class SW_450t:#<4>[1578]
     """ Stall for Time
     [Questline:] Cast a Fire, Frost, and Arcane spell. [Reward:] [Discover] one. """
-    events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[DISCOVER(RANDOM(SPELL)), Summon(CONTROLLER,'SW_450t2')]))
+    events = OWN_SPELL_PLAY.on(SidequestFireFrostArcane(CONTROLLER,Play.CARD,[DISCOVER(RANDOM(SPELL)), Summon(CONTROLLER,'SW_450t2'),Destroy(SELF)]))
     pass
 
 class SW_450t2:#<4>[1578]
