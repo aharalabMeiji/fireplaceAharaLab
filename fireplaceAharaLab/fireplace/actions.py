@@ -1110,7 +1110,10 @@ class Give(TargetedAction):
 			if card.zone != Zone.HAND:
 				card.zone = Zone.HAND
 			else:
-				print("%s"%(card in card.controller.hand))
+				if source.id=='SW_069':
+					card.zone = Zone.HAND
+				else:
+					print("%s"%(card in card.controller.hand))
 			# if card is 'casts_when_drawn' then immediately play.  
 			if card.id != 'SW_306':# avoiding infinite loop
 				card.game.card_when_drawn(card, card.controller)

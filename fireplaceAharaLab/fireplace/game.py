@@ -359,6 +359,11 @@ class BaseGame(Entity):
 		self.manager.step(self.next_step, Step.MAIN_START)
 		self.manager.step(self.next_step, Step.MAIN_ACTION)
 
+		####################
+		if player.hero in player.field:
+			self.log("hero is on the field!! lol")
+		####################
+
 		for p in self.players:
 			p.cards_drawn_this_turn = 0
 
@@ -382,7 +387,7 @@ class BaseGame(Entity):
 			character.num_attacks = 0
 
 		for minion in player.field:
-			if minion.dormant:
+			if hasattr(minion,'dormant') and minion.dormant:
 				minion.dormant -= 1
 				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:

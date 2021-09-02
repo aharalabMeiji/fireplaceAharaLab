@@ -121,15 +121,16 @@ class Deposite_Payment(TargetedAction):
     def do(self, source, target):
         if isinstance(target,list):
             target = target[0]
-        source._sidequest_list1_.append(target)
         target.zone = Zone.SETASIDE
+        source.sidequest_list0.append(target)
         pass
     pass
 
 class Deposite_Withdrawal(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
-        Give(target, source._sidequest_list1_).trigger(source)
+        card0 = source.sidequest_list0
+        Give(target, card0).trigger(source)
         pass
     pass
 

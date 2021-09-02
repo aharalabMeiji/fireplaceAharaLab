@@ -94,10 +94,10 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			if old==Zone.HAND:
-				log.info("%s"%(self in self.controller.hand))
-				log.info("Stop!")
-			self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			if old==Zone.HAND and not self in self.controller.hand:
+				self.controller.hand.append(self)
+			elif old==Zone.HAND:
+				self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
 		if old:
@@ -110,7 +110,7 @@ class BaseCard(BaseEntity):
 			Zone.SETASIDE: self.game.setaside,
 		}
 		if caches.get(old) is not None:
-			if self in caches[old]:# aharalab. 30.12.2020 ####### I dont see why we need this line .
+			if self in caches[old]:# 
 				caches[old].remove(self)
 		if caches.get(value) is not None:
 			if hasattr(self, "_summon_index") and self._summon_index is not None:
@@ -160,6 +160,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
 	corrupt = boolean_property('corrupt')# darkmoon
+	sidequest_list0 = []# Sidequest
 	_sidequest_list1_ = []# Sidequest
 	_sidequest_list2_ = []# Sidequest
 	_sidequest_list3_ = []# Sidequest

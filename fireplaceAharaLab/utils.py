@@ -95,11 +95,15 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				game.end_turn()
 				if debugLog:
 					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
+					print("%d : %d"%(player1.hero.health,player2.hero.health))
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
 		#if game was over 
 		if game.state==State.COMPLETE:
+			if debugLog:
+				print(">>>>>>>>>>game end >>>>>>>>"%())
+				print("%d : %d"%(player1.hero.health,player2.hero.health))
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
@@ -474,7 +478,7 @@ def PresetHands(player1, player2):
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#ExchangeCard(['SW_450t4','arcane','fire','frost'],player1)
-	#ExchangeCard(['weapon'],player2)
+	ExchangeCard(['SW_069'],player2)
 	pass
 
 def PresetPlay(player, cardID):

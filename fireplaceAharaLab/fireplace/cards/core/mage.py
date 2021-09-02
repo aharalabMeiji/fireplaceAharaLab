@@ -95,7 +95,7 @@ class CORE_LOE_003:# <4>[1637]
 class CORE_UNG_020:# <4>[1637]##OK
     """ Arcanologist
     [Battlecry:] Draw a [Secret]. """
-    play = Give(CONTROLLER,RANDOM(SECRET))
+    play = Give(CONTROLLER,RANDOM(FRIENDLY_DECK + SECRET))
     pass
 
 class CS3_001:# <4>[1637] ##OK
