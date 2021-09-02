@@ -61,7 +61,7 @@ class DMF_087:#OK
     events = Attack(SELF,ENEMY_MINIONS).on(DMF_087_Action(CONTROLLER,Attack.DEFENDER))
     pass
 
-class DMF_088:#OK
+class DMF_088:##OK
     """ Rinling's Rifle
     After your hero attacks, [Discover] a [Secret] and cast it. """
     events = Attack(FRIENDLY_HERO).on(GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3))

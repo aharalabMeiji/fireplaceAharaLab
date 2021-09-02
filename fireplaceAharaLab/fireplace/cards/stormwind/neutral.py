@@ -49,7 +49,7 @@ class SW_057:#OK
     update = (Count(FRIENDLY_HAND)<8) & Refresh(SELF, {GameTag.CANT_ATTACK:True}) | Refresh(SELF,{GameTag.CANT_ATTACK:False}) 
     pass
 
-class SW_059:#OK
+class SW_059:####OK
     """ Deeprun Engineer
     <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
     play = GenericChoiceBuff(CONTROLLER, RandomMech()*3) # cost 1 less
@@ -90,7 +90,7 @@ class SW_064:#OK
     pass
 SW_064e=buff(atk=3,health=3)
 
-class SW_065:#OK
+class SW_065:###OK
     """ Pandaren Importer
     [x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
     play=GenericChoice(CONTROLLER,RANDOM(SPELL-FRIENDLY_DECK)*3)
@@ -129,8 +129,9 @@ class Deposite_Payment(TargetedAction):
 class Deposite_Withdrawal(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
-        card0 = source.sidequest_list0
-        Give(target, card0).trigger(source)
+        cards = source.sidequest_list0
+        for card in cards:
+            Give(target, card.id).trigger(source)
         pass
     pass
 

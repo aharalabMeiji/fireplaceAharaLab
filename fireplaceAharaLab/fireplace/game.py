@@ -105,6 +105,7 @@ class BaseGame(Entity):
 			self.log("Empty stack, refreshing auras and processing deaths")
 			if type ==BlockType.DEATHS:
 				self.log("this case.")
+				return## avoid infinte loop
 			self.refresh_auras()
 			self.process_deaths()
 

@@ -111,7 +111,6 @@ class CardDB(dict):
 					setattr(card, 'spellpower', 0)
 				self[id] = self.merge(id, card)
 				pass
-		log.info("done")
 		log.info("Merged %i cards", len(self))
 
 

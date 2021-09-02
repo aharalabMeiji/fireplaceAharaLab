@@ -19,10 +19,10 @@ class CORE_BRM_013:# 3 1637
 	play = Hit(TARGET, 3), EMPTY_HAND & Draw(CONTROLLER)
 	pass
 
-class CORE_DS1_184:# 3 1637
+class CORE_DS1_184:# 3 1637 ###############################
     """ Tracking
     [Discover] a card from your deck. """
-    play = GenericChoice(CONTROLLER, FRIENDLY_DECK[:3])
+    play = GenericChoiceOnDeck(CONTROLLER, FRIENDLY_DECK[:3])
     pass
 
 class CORE_DS1_185:# 3 1637
@@ -123,9 +123,9 @@ class CORE_TRL_111:# 3 1637
     pass
 TRL_111e1=buff(health=1)# 12 1129
 
-class CS3_015:# 3 1637 #OK
+class CS3_015:# 3 1637 ############################
     """ Selective Breeder
     [Battlecry:] [Discover] a copy of a Beast in your deck. """
-    play = GenericChoiceBackToDeck(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3)
+    play = GenericChoice(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3)
     pass
 

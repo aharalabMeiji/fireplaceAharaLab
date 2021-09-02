@@ -1,12 +1,11 @@
 from ..utils import *
 
-class BAR_030:#OK
+class BAR_030:###OK
     """ Pack Kodo
     <b>Battlecry:</b> <b>Discover</b> a Beast, <b>Secret</b>, or weapon.
     """
     play = GenericChoice(CONTROLLER, [
     	RandomCollectible(race=Race.BEAST),
-    	#RandomCollectible(type=CardType.SPELL),# secret
     	RandomCollectible(secret=True),# secret
     	RandomCollectible(type=CardType.WEAPON)
     ])
@@ -79,11 +78,8 @@ class BAR_037_Warsong_Wrangler(Choice):
 				if card.type == CardType.HERO_POWER:
 					_card.zone = Zone.PLAY
 				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
-				else:
-					_card.discard()
-			else:
-				_card.discard()
+					if not _card is self.player.hand:
+						_card.zone = Zone.HAND
 		game = card.game
 		cardList = game.decks + game.hands + game.characters
 		for _card in cardList:

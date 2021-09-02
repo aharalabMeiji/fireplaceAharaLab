@@ -458,6 +458,8 @@ def ExchangeCard(cards,player):
 			_card=random.choice(['CORE_CS2_029','SW_462','SW_108','BAR_546','SW_110'])
 		if _card=='frost':
 			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
+		if _card=='mech':
+			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
@@ -474,11 +476,11 @@ def ExchangeCard(cards,player):
 
 def PresetHands(player1, player2): 
 	## add a specific card into the deck
-	#Shuffle(player1,'BAR_541').trigger(player1)#specific card into deck
+	#Shuffle(player2,'CORE_GVG_076').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['SW_450t4','arcane','fire','frost'],player1)
-	ExchangeCard(['SW_069'],player2)
+	#ExchangeCard(['SW_069'],player1)
+	ExchangeCard(['BAR_081'],player2)
 	pass
 
 def PresetPlay(player, cardID):

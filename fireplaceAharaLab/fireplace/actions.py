@@ -342,6 +342,7 @@ class Joust(GameAction):
 		log.info("Jousting %r vs %r", challenger, defender)
 		source.game.joust(source, challenger, defender, self.callback)
 
+########## Choice ##############
 
 class Choice(GameAction):
 	PLAYER = ActionArg()
@@ -394,33 +395,78 @@ class Choice(GameAction):
 class GenericChoice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
-				new_card = self.player.card(_card.id)
 				if card.type == CardType.HERO_POWER:
+					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.PLAY
 				elif len(self.player.hand) < self.player.max_hand_size:
+					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.HAND
+
+
+class GenericChoiceOnDeck(Choice):
+	## choose from Deck 
+	def choose(self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
+		for _card in self.cards:# cards are from Deck
+			if _card is card:
+				if len(self.player.hand) < self.player.max_hand_size:
+					_card.zone = Zone.HAND
 				else:
-					new_card.discard()
+					_card.discard()
 			else:
 				_card.discard()
 
-class GenericChoiceBackToDeck(Choice):
+
+class BAR_081_Southsea_Scoundrel(Choice):## 
+	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
 	def choose(self, card):
 		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:
 					_card.zone = Zone.PLAY
 				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
+					Give(card.controller,card.id).trigger(card.controller)
 				else:
-					_card.zone = Zone.DECK
+					_card.discard()
 			else:
-				_card.zone = Zone.DECK
+				_card.discard()
+		controller = card.controller.opponent##もともと相手のもの->これは自分
+		Give(controller,card.id).trigger(controller)
+		pass
 
 
+class GenericChoiceBuff(GenericChoice):## SW_059  ## callbackで対応可能
+	def choose(self, card):
+		super().choose(card)
+		Buff(card,'SW_059e').trigger(card.controller)
+		pass
+
+class GenericChoicePlay(GenericChoice):## 
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		new_card = controller.card(card.id)
+		Summon(controller, new_card).trigger(controller)
+		pass
+
+class GenericChoicePlayOnDeck(Choice):## callbackで対応可能
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		for _card in self.cards:## cards are from deck
+			if _card is card:
+				Summon(controller, _card).trigger(controller)
+			else:
+				_card.discard()
+		pass
+
+###################  Choice end #######################
 
 class MulliganChoice(GameAction):
 	PLAYER = ActionArg()
@@ -1956,7 +2002,7 @@ class Asphyxia(TargetedAction):
 			log.info("The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
 			if target._sidequest_counter_ == _score_limit:
 				target._sidequest_counter_ = 0
-				target._Asphyxia_= 'reborn'
+				target._Asphyxia_= 'alive'
 				target.cant_attack = False
 				target.cant_be_damaged = False
 				target.cant_be_frozen = False
@@ -2480,56 +2526,6 @@ class BAR_042_Action(TargetedAction):
 				log.info("no minion of cost %d"%( _cost))
 		else:
 			log.info("no spell is in the deck"%())
-
-
-class BAR_081_Southsea_Scoundrel(Choice):
-	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
-	def choose(self, card):
-		super().choose(card)
-		log.info("%s chooses %r"%(card.controller.name, card))
-		for _card in self.cards:
-			if _card is card:
-				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
-				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
-				else:
-					_card.discard()
-			else:
-				_card.discard()
-		controller = card.controller.opponent##もともと相手のもの->これは自分
-		Give(controller,card.id).trigger(controller)
-		pass
-
-
-class GenericChoiceBuff(GenericChoice):
-	def choose(self, card):
-		super().choose(card)
-		Buff(card,'SW_059e').trigger(card.controller)
-		pass
-
-class GenericChoicePlay(GenericChoice):
-	def choose(self, card):
-		super().choose(card)
-		_controller = card.controller
-		if _controller != self.player:
-			card.controller = self.player
-			_controller = self.player
-		new_card = _controller.card(card.id)
-		Play(new_card, None, None, None).trigger(_controller)
-		pass
-
-class GenericChoicePlayBackToDeck(Choice):
-	def choose(self, card):
-		super().choose(card)
-		_controller = card.controller
-		if _controller != self.player:
-			card.controller = self.player
-			_controller = self.player
-		for _card in self.cards:
-			if _card is card:
-				Summon(_controller, _card).trigger(_controller)
-		pass
 
 class SpallAndDamage(TargetedAction):## for SW_322
 	TARGET = ActionArg()

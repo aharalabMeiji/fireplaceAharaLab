@@ -70,16 +70,16 @@ class DMF_104t:# <4>[1466]
     #
     pass
 
-class DMF_105:# <4>[1466]###OK
+class DMF_105:# <4>[1466]###########################
     """ Ring Toss
     [Discover] a [Secret] and cast it. [Corrupt:] [Discover] 2 instead. """
-    play = GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3)
+    play = GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
-class DMF_105t:# <4>[1466]###OK:  2回チョイスできるようにした
+class DMF_105t:# <4>[1466]#####################:  2回チョイスできるようにした
     """ Ring Toss
     [Corrupted][Discover] 2 [Secrets] and cast them. """
-    play = GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3), GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3)
+    play = GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3), GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
 class DMF_106:# <4>[1466]###OK
