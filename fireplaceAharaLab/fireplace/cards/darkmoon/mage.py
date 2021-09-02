@@ -50,7 +50,7 @@ class CountElementalLastTurnAndAction(TargetedAction):
         _playLogList = _thisPlayer.play_log_of_last_turn
         _count = 0
         for _card in _playLogList:
-            if _card.race == Race.ELEMENTAL:
+            if hasattr(_card,'race') and _card.race == Race.ELEMENTAL:
                 _count += 1
         if not isinstance(actions,list):
             actions = [actions]

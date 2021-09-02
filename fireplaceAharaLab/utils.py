@@ -480,7 +480,7 @@ def PresetHands(player1, player2):
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	#ExchangeCard(['SW_069'],player1)
-	ExchangeCard(['BAR_081'],player2)
+	#ExchangeCard(['BAR_081'],player2)
 	pass
 
 def PresetPlay(player, cardID):

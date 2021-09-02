@@ -118,12 +118,18 @@ class Player(Entity, TargetableByAuras):
 	@property
 	def spellpower(self):
 		aura_power = self.controller.spellpower_adjustment
-		minion_power = sum(minion.spellpower for minion in self.field)
+		minion_power = 0
+		for minion in self.field:
+			if hasattr(minion,'spellpower'):
+				minion_power += minion.spellpower
 		return aura_power + minion_power + self.spellpower_option
 
 	@property
 	def spellpower_fire(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
-		minion_power = sum(minion.spellpower_fire for minion in self.field)
+		minion_power = 0
+		for minion in self.field:
+			if hasattr(minion,'spellpower'):
+				minion_power += minion.spellpower
 		return minion_power + self.spellpower_option
 	@property
 	def start_hand_size(self):
