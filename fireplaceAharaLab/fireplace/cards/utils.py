@@ -7,7 +7,6 @@ from ..aura import Refresh
 from ..dsl import *
 from ..events import *
 
-
 # For buffs which are removed when the card is moved to play (eg. cost buffs)
 # This needs to be Summon, because of Summon from the hand
 REMOVED_IN_PLAY = Summon(PLAYER, OWNER).after(Destroy(SELF))

@@ -51,6 +51,6 @@ class UNG_816:
 	pass
 
 
-class UNG_844:
-	"""Humongous Razorleaf"""
-	pass
+#class UNG_844:
+#	"""Humongous Razorleaf"""
+#	pass

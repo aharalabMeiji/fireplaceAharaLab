@@ -5,7 +5,7 @@ Banana Brawl
 from ..utils import *
 
 
-RandomBanana = RandomID("EX1_014t", "TB_006", "TB_007", "TB_008")
+RandomBanana = RandomID("CORE_EX1_014t", "TB_006", "TB_007", "TB_008")
 
 
 class TB_006:

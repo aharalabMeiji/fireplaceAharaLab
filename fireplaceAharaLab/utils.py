@@ -4,177 +4,79 @@ from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.exceptions import GameOver
 from fireplace.actions import *
+from fireplace.utils import ActionType
 import copy
 import random
 import time
 from fireplace.config import Config
 
-class myAction(object):#旧マヤ版Action  ActionValueとあわせて、Candidateと言う形で下に再構成した。
-	"""docstring for myAction"""
-	def __init__(self, _card,_type,_target=None):
-		super(myAction, self).__init__()
-		self.card=_card
-		self.type=_type
-		self.target=_target
 
-	def __str__(self):
-		return "{card}->{type}(target={target})".format(card=self.card,type=self.type,target=self.target)
-		pass
-
-	def __eq__(self,obj):
-		return str(self)==str(obj)
-		pass
-class myActionValue(object):#旧マヤ版ActionValue
-	"""docstring for myActionValue"""
-	def __init__(self, _action,_score):
-		super(myActionValue, self).__init__()
-		self.action = _action
-		self.score=_score
-		
-class Node(object):
-    """docstring for Node"""
-
-    def __init__(self, gameTree, move, parent, actions):
-        super(Node, self).__init__()
-        self.gameTree = gameTree
-        self.move = move
-        self.parent = parent
-        self.childNodes = []
-        self.wins = 0
-        self.visits = 0
-        self.untriedMoves = copy.deepcopy(actions)
-        self.score = 0
-
-    def selectChild(self):
-        import math
-        self.totalVisit = self.visits
-        self.values = list(map(lambda node: node.wins/node.visits +
-                               math.sqrt(math.log(self.totalVisit)/node.visits), self.childNodes))
-        retNode = self.childNodes[self.values.index(max(self.values))]
-        return retNode
-        pass
-
-    def expandChild(self, action):  # maya氏改訂版
-        print("expandChild-----------------------------")
-        print(action)
-        self.expandingGame = copy.deepcopy(self.gameTree)
-        exc = executeAction(self.expandingGame, action)
-        postAction(self.expandingGame.current_player)
-        if exc == ExceptionPlay.GAMEOVER:
-            print("the game has been ended.")
-            child = Node(self.expandingGame, action, self, [])
-            self.childNodes.append(child)
-            return child
-            pass
-        elif action.type == ExceptionPlay.TURNEND:
-            self.expandingGame.end_turn()
-            pass
-        child = Node(self.expandingGame, action, self, getCandidates(
-            self.expandingGame, _smartCombat=False))
-        self.childNodes.append(child)
-        return child
-
-    def choose_expanding_action(self):
-        index = int(random.random()*len(self.untriedMoves))
-        return self.untriedMoves.pop(index)
-        pass
-
-    def simulate(self):
-        return simulate_random_game(self.gameTree)
-        pass
-
-    def backPropagate(self, result=None):
-        self.addVal = self.score
-        if result is not None:
-            self.addVal = result
-            pass
-        self.wins += self.addVal
-        self.visits += 1
-        if self.parent is None:
-            pass
-        else:
-            self.parent.backPropagate(self.addVal)
-        pass
-
-    def setScore(self, _score):
-        self.score = _score
-        pass
-
-
-class Evaluation(object):
-    """docstring for Evaluation"""
-
-    def __init__(self, deck, score):
-        super(Evaluation, self).__init__()
-        self.deck = deck
-        self.score = score
-
-    def getScore(self):
-        return self.score
-        pass
 
 
 class Agent(object):
 	""" """
-	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating):
+	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, mulliganStrategy = None):
 		self.name = myName
 		self.func = myFunction
 		self.option = myOption
 		self.myClass = myClass
-		self.rating = rating
+		self.rating = rating = 1500
+		self.E = E 
+		self.mulliganStrategy = mulliganStrategy
 		pass
 
 	def __str__(self):
 		return self.name
 
-def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
+def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" 1回ゲームを行う。 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
 	import random
 	#バグが確認されているものを当面除外する
-	exclude = [
-		'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
-		'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
-		'YOD_009',## this is a hero in galakrond
-		'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-		'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-		]
+	exclude = []
+	# excluded in initilization of card db
+	#	'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
+	#	'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
+	#	'YOD_009',## this is a hero in galakrond
+	#	'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
+	#	'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
+	#	'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
+		
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
 		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
-
 	game = GameWithLog(players=(player1, player2))
+	# Config周りの変更はここで行う。
+	player1._start_hand_size=P1HAND## start()より前におく
+	player2._start_hand_size=P2HAND## start()より前におく
+	player1.max_mana=int(P1MAXMANA)-1
+	player2.max_mana=int(P2MAXMANA)-1
 	game.start()
+	player1.hero.max_health = int(HEROHPOPTION)## start()より後におく
+	player2.hero.max_health = int(HEROHPOPTION)## start()より後におく
 
+	#mulligan exchange
 	for player in game.players:
-		#mulligan shuffling
-		mull_count = random.randint(0, len(player.choice.cards))
-		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-		player.choice.choose(*cards_to_mulligan)
-	if Config.HEROHPOPTION != 30:
-		game.player1.hero.max_health = int(Config.HEROHPOPTION)
-		game.player2.hero.max_health = int(Config.HEROHPOPTION)
-	game.player1.max_mana=int(Config.P1MAXMANA)
-	game.player2.max_mana=int(Config.P2MAXMANA)-1
-	if (len(game.player1.hand)-1) != Config.P1HAND:
-		if (len(game.player1.hand)-1) > Config.P1HAND:
-			rt_cards = random.sample(game.player1.hand, (len(game.player1.hand)-1)-Config.P1HAND)
-			for card in rt_cards:
-				card.zone = Zone.DECK
-		else:
-			game.player1.draw(Config.P1HAND-(len(game.player1.hand)-1))
-	if len(game.player2.hand) != Config.P2HAND:
-		if len(game.player2.hand) > Config.P2HAND:
-			rt_cards = random.sample(game.player2.hand[:len(game.player2.hand)-1], len(game.player2.hand)-Config.P2HAND)
-			for card in rt_cards:
-				card.zone = Zone.DECK
-		else:
-			game.player2.draw(Config.P2HAND-len(game.player2.hand))
-	# PresetHands(player1, player2)
+		if player.name==P1.name:
+			if P1.mulliganStrategy == None:
+				mull_count = random.randint(0, len(player.choice.cards))
+				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+			else:
+				cards_to_mulligan = P1.mulliganStrategy(P1, player.choice.cards)
+		elif player.name==P2.name:
+			if P2.mulliganStrategy == None:
+				mull_count = random.randint(0, len(player.choice.cards))
+				cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+			else:
+				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
+		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
+	#mulligan exchange end
+
+	PresetHands(player1, player2)
 
 	while True:	
 		#エージェントの処理ここから
@@ -211,7 +113,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True):
 				return game.current_player.opponent.name
 			return 'DRAW'#Maybe impossible to come here.
 
-def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True):
+def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" 決まった回数の試合を行い、勝敗数を表示する 
 	"""
 	if debugLog:
@@ -219,7 +121,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	Count1 = 0
 	Count2 = 0
 	for i in range(gameNumber):
-		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog)
+		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog, HEROHPOPTION=HEROHPOPTION, P1MAXMANA=P1MAXMANA, P2MAXMANA=P2MAXMANA, P1HAND=P1HAND, P2HAND=P2HAND)
 		if debugLog:
 			print("winner is %r"%winner)
 		if winner == P1.name:
@@ -229,6 +131,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	print(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
 	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
+	return Count1, Count2, (gameNumber-Count1-Count2)
 
 class Candidate(object):
 	"""　アクションの候補手のクラス　
@@ -245,6 +148,19 @@ class Candidate(object):
 		pass
 
 	def __str__(self):
+		if self.type==BlockType.ATTACK:
+			return "{card} -> attacks -> target={target}".format(card=self.card,target=self.target)
+		elif self.type==ExceptionPlay.TURNEND:
+			return "Turn end."
+		elif self.type==BlockType.POWER:
+			return "{card} -> heropower".format(card=self.card)
+		elif self.type==BlockType.PLAY:
+			if self.target==None:
+				return "{card} -> plays".format(card=self.card)
+			else :
+				return "{card}-> plays -> target={target}".format(card=self.card,target=self.target)
+		elif self.type==ActionType.TRADE:
+			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
 		pass
 
@@ -306,6 +222,11 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
+	for character in player.hand:
+		_yes, _option = character.can_trade()
+		if _yes:
+			myCandidate.append(Candidate(character, type=ActionType.TRADE, target=None, turn=mygame.turn))
+			pass
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
@@ -318,9 +239,9 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 #
 def executeAction(mygame, action: Candidate, debugLog=True):
 	"""　Candidate型のアクションを実行する　"""
-	if debugLog:
-		mygame.add_log(action)
-		pass
+	mygame.add_log(action)
+	if mygame.ended:
+		return ExceptionPlay.GAMEOVER
 	if action.type ==ExceptionPlay.TURNEND:
 		return ExceptionPlay.TURNEND
 		pass
@@ -341,7 +262,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		pass
 	else:
 		for card in player.hand:
-			if card.is_playable() and card==action.card and card.controller.name==action.card.controller.name:
+			if card.is_playable() and card.id==action.card.id and card.controller.name==action.card.controller.name:
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
@@ -360,6 +281,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 								theTarget=target
 					else:
 						pass
+			else:
+				_yes, _option = card.can_trade()
+				if _yes and card.id==action.card.id:
+					theCard = card
 		for character in player.characters:
 			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
 				theCard = character
@@ -373,13 +298,20 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 					if target==action.target and target.controller.name==action.target.controller.name:
 						theTarget = target
 	if action.type==BlockType.PLAY:
+		if action.card.id != theCard.id:
+			print("%s != %s"%(action.card.id, theCard.id))
+			print("%s"%(action.card.game==mygame))
+			return ExceptionPlay.INVALID
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
 			return ExceptionPlay.INVALID
 		try:
 			theCard.play(target=theTarget,choose=theCard2)
-			return ExceptionPlay.VALID
+			if mygame.ended:
+				return ExceptionPlay.GAMEOVER
+			else:
+				return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.ATTACK:
@@ -389,7 +321,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.VALID
 		try:
 			theCard.attack(theTarget)
-			return ExceptionPlay.VALID
+			if mygame.ended:
+				return ExceptionPlay.GAMEOVER
+			else:
+				return ExceptionPlay.VALID
 		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.POWER:
@@ -402,6 +337,15 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				theCard.use()
 			return ExceptionPlay.VALID
 		except GameOver:
+			return ExceptionPlay.GAMEOVER
+	if action.type==ActionType.TRADE:
+		_yes, _option = theCard.can_trade()
+		if not _yes:
+			return ExceptionPlay.INVALID
+		try:
+			theCard.trade(_option)#
+			return ExceptionPlay.VALID
+		except GameOver:#まあこれはないと思うけど。
 			return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.INVALID
 
@@ -422,7 +366,7 @@ class BigDeck:
 	faceHunter = [\
 		'SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
-		'EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
+		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
 	purePaladin=[\
 		'SCH_247','SCH_247','BT_020','BT_020','SCH_149','SCH_149',\
@@ -431,20 +375,21 @@ class BigDeck:
 		'BT_026','BT_026','SCH_138','SCH_138','BT_011','BT_011',\
 		'SCH_139','SCH_139','BT_334','DRG_231','DRG_231','BT_024'
 		]
+
 def postAction(player):
-	if player.choice:
-		choice = random.choice(player.choice.cards)
-		#print("Choosing card %r" % (choice))
-		myChoiceStr = str(choice)
-		if 'RandomCardPicker' in str(choice):
-			myCardID =  random.choice(choice.find_cards())
-			#myCard = Card(myCardID)
-			#myCard.controller = player#?
-			#myCard.draw()
-			Give(player1,myCardID).trigger(player1)
-			player.choice = None
-		else :
-			player.choice.choose(choice)
+	while True:
+		if player.choice == None:
+			return
+		else:
+			choice = random.choice(player.choice.cards)
+			log.info("%r Chooses a card %r" % (player, choice))
+			#myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				myCardID =  random.choice(choice.find_cards())
+				Give(player1,myCardID).trigger(player1)
+				player.choice = None
+			else :
+				player.choice.choose(choice)
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""
@@ -497,42 +442,42 @@ def getTurnLog(gameLog, turnN):
 			ret.append(gameLog[i])
 	return ret
 
+def ExchangeCard(cards,player):
+	Discard(player.hand[-1]).trigger(player)
+	for _card in cards:
+		if _card=='attackspell':
+			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
+		if _card=='beast':
+			_card=random.choice(['SCH_133','SCH_714'])
+		if _card=='deathrattle':
+			_card=random.choice(['SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
+		if _card=='dragon':
+			_card='SCH_232'
+		if _card=='elemental':
+			_card=random.choice(['SCH_143','SCH_245'])
+		if _card=='frost':
+			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
+		if _card=='murloc':
+			_card=random.choice(['BAR_063','BAR_062','WC_030'])
+		if _card=='nature':
+			_card='SCH_333'
+		if _card=='secret':
+			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
+		if _card=='spell':
+			_card=random.choice(['SCH_353'])
+		if _card=='spellpower':
+			_card=random.choice(['SW_061'])
+		if _card=='weapon':
+			_card=random.choice(['WC_037','DMF_088'])
+		Give(player,_card).trigger(player)
 
 def PresetHands(player1, player2): 
+	## add a specific card int the top of the deck
+	#Shuffle(player1,'DMF_123').trigger(player1)#specific card into deck
+	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	# Discard(player1.hand[-1]).trigger(player1)
-	# Give(player1,'ULD_178').trigger(player1)#target
-	# Give(player1,'DAL_604').trigger(player1)#subtarget-
-	#Give(player1,'SCH_133').trigger(player1)#subtarget-beast
-	#Give(player1,'DAL_587').trigger(player1)#subtarget-deathrattle
-	#Give(player1,'SCH_232').trigger(player1)#subtarget-DRAGON
-	#Give(player1,'DRG_107').trigger(player1)#subtarget-elemental
-	#Give(player1,'DRG_057').trigger(player1)#subtarget-MECH
-	#Give(player1,'CS2_168').trigger(player1)#subtarget-murloc
-	#Give(player1,'BT_720').trigger(player1)#subtarget-rush
-	#Give(player1,'EX1_609').trigger(player1)#subtarget-secret
-	#Give(player1,'DRG_255').trigger(player1)#subtarget-sidequest
-	#Give(player1,'SCH_310').trigger(player1)#subtarget-spellpower
-	#Give(player1,'BT_715').trigger(player1)#subtarget-taunt
-	#Give(player1,'SCH_301').trigger(player1)#subtarget-weapon
-
-	#Give(player2,'DAL_090').trigger(player2)#enemy
-	#Give(player2,'ULD_152').trigger(player2)#enemy
-
-	#start of the specific numbers of manas, 特定のマナ数から始めたいとき
-	player1.max_mana=1
-	player2.max_mana=1
-
-	#force play by player2
-	#PresetPlay(player2, 'DAL_090')# play
-	#PresetPlay(player2, 'ULD_152')# play
-
-	#force-pass of player2,
-	if player2==player2.game.current_player:
-		player2.game.end_turn()
-
-	#force turn end of player1
-	#player1.game.end_turn()
+	#ExchangeCard(['YOP_020'],player1)
+	#ExchangeCard(['weapon'],player2)
 	pass
 
 def PresetPlay(player, cardID):

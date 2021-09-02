@@ -39,9 +39,10 @@ class SCH_160:#done
 	play = Give(CONTROLLER, RandomSpell(cost=1, card_class=FRIENDLY_CLASS))
 	pass
 
-class SCH_162:#done
+class SCH_162:#exclude
 	""" Vectus"""
 	#Battlecry: Summon two 1/1 Whelps. Each gains a Deathrattle from your minions that died this game.
+	#雄叫び:1/1のチビドラゴンを2体召喚する。それらはこの対戦で死亡した味方のミニオンの断末魔を1つずつ獲得する。
 	play = Summon(CONTROLLER, "SCH_162t").then( -Find(FRIENDLY + KILLED + DEATHRATTLE) |
 		Buff(Summon.CARD, "SCH_162e").then( 
 			CopyDeathrattles(Buff.BUFF, RANDOM(FRIENDLY + KILLED + DEATHRATTLE))
@@ -68,14 +69,14 @@ class SCH_199t:
 	pass
 class SCH_199t2:#OK
 	""" Orgrimmar, Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Deal 2 damage."""
+	#<b>Battlecry:</b> Deal 2 damage."""
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
 	play = Hit(TARGET,2)
 	pass
 class SCH_199t3:#OK
 	"""Pandaria, Standard#
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly minion +1/+2."""
+	#<b>Battlecry:</b> Give a friendly minion +1/+2."""
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0,
 				 PlayReq.REQ_MINION_TARGET:0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
@@ -85,11 +86,11 @@ SCH_199t3e=buff(1,2)
 #Mark of the Pandaren
 class SCH_199t4:#OK
 	"""Stranglethorn, Standard
-	#&lt;b&gt;Stealth&lt;/b&gt; &lt;b&gt;Poisonous&lt;/b&gt;"""
+	#<b>Stealth</b> <b>Poisonous</b>"""
 	pass
 class SCH_199t19:#OK
 	"""Rise of Shadows, Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Add a &lt;b&gt;Lackey&lt;/b&gt; to_your hand."""
+	#<b>Battlecry:</b> Add a <b>Lackey</b> to_your hand."""
 	entourage = ["CFM_066", "DAL_613", "DAL_614", "DAL_615", "DAL_739",\
 	   "DAL_741", "DRG_052" ,"ULD_616"]
 	play = Draw(CONTROLLER, RandomEntourage())
@@ -100,34 +101,34 @@ class SCH_199t20:#OK
 	pass
 class SCH_199t21:#OK
 	""" Descent of Dragons Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
+	#<b>Battlecry:</b> <b>Discover</b> a Dragon."""
 	play = DISCOVER(RandomDragon())
 	pass
 class SCH_199t22:#OK
 	"""Ashes of Outland, Standard
-	##&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. When this awakens, deal 3 damage to two random enemy minions."""
+	##<b>Dormant</b> for 2 turns. When this awakens, deal 3 damage to two random enemy minions."""
 	dormant = 2
 	awaken = Hit(RANDOM_ENEMY_MINION * 2, 3)
 	pass
 class SCH_199t23:
 	"""Scholomance Academy, Standard
-	&lt;b&gt;Battlecry:&lt;/b&gt; Add a Dual Class card to your hand.
+	<b>Battlecry:</b> Add a Dual Class card to your hand.
 	 dual class card <=> hasattr(self, "multi_class_group")==True"""
 	#play = ForceDraw(RANDOM_MULTI_CLASS_GROUP)
 	pass
 class SCH_199t25:#OK
 	""""Saviors of Uldum, Standard
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Add an &lt;b&gt;Uldum&lt;/b&gt; Plague spell to your hand."""
+	#<b>Battlecry:</b> Add an <b>Uldum</b> Plague spell to your hand."""
 	pass
 class SCH_199t26:################################################### no checked
 	"""Madness at the Darkmoon Faire, Standard
-	#&lt;b&gt;Corrupt:&lt;/b&gt; Gain +2/+2."""
-	play = Buff(CONTROLLER, "SCH_199t26")
+	#<b>Corrupt:</b> Gain +2/+2."""
+	play = Buff(CONTROLLER, "SCH_199t26t")
 	pass
 SCH_199t26t = buff(2,2)
 
 class SCH_224:#OK
-	# &lt;b&gt;Spellburst:&lt;/b&gt; If the spell destroys any minions, summon them.
+	# <b>Spellburst:</b> If the spell destroys any minions, summon them.
 	""" Headmaster Kel'Thuzad (Legendary)"""
 	play = Buff(CONTROLLER,"SCH_224e3")
 	pass
@@ -147,7 +148,7 @@ class SCH_224t:
 
 class SCH_230:#OK
 	""" Onyx Magescribe"""
-	# &lt;b&gt;Spellburst:&lt;/b&gt; Add 2 random spells from your class to_your hand.
+	# <b>Spellburst:</b> Add 2 random spells from your class to_your hand.
 	play = OWN_SPELL_PLAY.on(
 		ForceDraw(RandomSpell(card_class=FRIENDLY_CLASS)) * 2
 	)
@@ -156,7 +157,7 @@ class SCH_230:#OK
 
 class SCH_231:#OK
 	"""Intrepid Initiate """
-    #&lt;b&gt;Spellburst:&lt;/b&gt; Gain +2_Attack.
+    #<b>Spellburst:</b> Gain +2_Attack.
 	play = OWN_SPELL_PLAY.on(Buff(SELF, "SCH_231e"))#
 	#spellburst = Buff(SELF, "SCH_231e")
 	pass
@@ -164,21 +165,21 @@ SCH_231e = buff(2,0)
 
 class SCH_232:#OK
 	""" Crimson Hothead"""
-	#&lt;b&gt;Spellburst:&lt;/b&gt; Gain +1 Attack and &lt;b&gt;Taunt&lt;/b&gt;.
+	#<b>Spellburst:</b> Gain +1 Attack and <b>Taunt</b>.
 	play = OWN_SPELL_PLAY.on(Buff(SELF, "SCH_232e"))#
 	pass
 SCH_232e = buff(1, 0, taunt=True)
 
 class SCH_245:#OK
 	""" Steward of Scrolls"""
-	#&lt;b&gt;Spell Damage +1&lt;/b&gt;&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a spell.
+	#<b>Spell Damage +1</b><b>Battlecry:</b> <b>Discover</b> a spell.
 	play = DISCOVER(RandomSpell())
 	# 'spellpower=1' has already coded.
 	pass
 
 class SCH_248:#OK
 	""" Pen Flinger"""
-	# &lt;b&gt;Battlecry:&lt;/b&gt; Deal 1 damage. &lt;b&gt;Spellburst:&lt;/b&gt; Return this to_your hand.
+	# <b>Battlecry:</b> Deal 1 damage. <b>Spellburst:</b> Return this to_your hand.
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0,}
 	play = Hit(TARGET, 1), OWN_SPELL_PLAY.on(Bounce(SELF))
@@ -201,7 +202,7 @@ class SCH_259t:
 
 class SCH_283:#OK
 	""" Manafeeder Panthara"""
-	#&lt;b&gt;Battlecry:&lt;/b&gt; If you've used your Hero Power this turn, draw a card.
+	#<b>Battlecry:</b> If you've used your Hero Power this turn, draw a card.
 	#play = HERO_POWER_USED & ForceDraw(FRIENDLY) 
 	def play(self):
 		if self.controller.hero.power.is_usable()==False:
@@ -210,13 +211,13 @@ class SCH_283:#OK
 
 class SCH_311:#OK
 	""" Animated Broomstick"""
-	#&lt;b&gt;Rush&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Give your other minions &lt;b&gt;Rush&lt;/b&gt;.
+	#<b>Rush</b> <b>Battlecry:</b> Give your other minions <b>Rush</b>.
 	update = Refresh(FRIENDLY_MINIONS - SELF, {GameTag.RUSH: 1})
 	pass
 
 class SCH_312:#OK
 	""" Tour Guide"""
-	#	&lt;b&gt;Battlecry:&lt;/b&gt; Your next Hero Power costs (0).
+	#	<b>Battlecry:</b> Your next Hero Power costs (0).
 	play = Buff(CONTROLLER, "SCH_312e")
 class SCH_312e:
 	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST: SET(0)})
@@ -224,13 +225,13 @@ class SCH_312e:
 
 class SCH_313:#done
 	""" Wretched Tutor"""
-	#&lt;b&gt;Spellburst:&lt;/b&gt; Deal 2 damage to all other minions.
+	#<b>Spellburst:</b> Deal 2 damage to all other minions.
 	play = OWN_SPELL_PLAY.on(Hit(ALL_MINIONS-SELF,2))
 	pass
 
 class SCH_428:#done
 	""" Lorekeeper Polkelt (Legendary)"""
-	#[x]&lt;b&gt;Battlecry:&lt;/b&gt; Reorder your deck from the highest Cost card to the lowest Cost card. 
+	#[x]<b>Battlecry:</b> Reorder your deck from the highest Cost card to the lowest Cost card. 
 	def play(self):
 		self.controller.deck.sort(key=lambda x:x.cost)
 		pass
@@ -238,7 +239,7 @@ class SCH_428:#done
 
 class SCH_530:#done
 	""" Sorcerous Substitute"""
-	#&lt;b&gt;Battlecry:&lt;/b&gt; If you have &lt;b&gt;Spell Damage&lt;/b&gt;, summon a copy of this.
+	#<b>Battlecry:</b> If you have <b>Spell Damage</b>, summon a copy of this.
 	#play = Find(FRIENDLY_HAND + MINION + SPELLPOWER) & Summon(CONTROLLER, ExactCopy(RANDOM(FRIENDLY_HAND + MINION + SPELLPOWER)))
 	import random 
 	def play(self):
@@ -258,7 +259,7 @@ class SCH_605:#OK
 
 class SCH_707:#done
 	""" Fishy Flyer"""
-	#&lt;b&gt;Rush&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_4/3 Ghost with &lt;b&gt;Rush&lt;/b&gt; to_your hand.
+	#<b>Rush</b>. <b>Deathrattle:</b> Add a_4/3 Ghost with <b>Rush</b> to_your hand.
 	deathrattle = Give(CONTROLLER,"SCH_707t")
 	pass
 class SCH_707t:
@@ -268,7 +269,7 @@ class SCH_707t:
 
 class SCH_708:#done
 	""" Sneaky Delinquent"""
-	#&lt;b&gt;Stealth&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a 3/1 Ghost with &lt;b&gt;Stealth&lt;/b&gt; to your hand.
+	#<b>Stealth</b>. <b>Deathrattle:</b> Add a 3/1 Ghost with <b>Stealth</b> to your hand.
 	deathrattle = Give(CONTROLLER,"SCH_708t")
 	pass
 class SCH_708t:
@@ -277,7 +278,7 @@ class SCH_708t:
 
 class SCH_709:#done
 	""" Smug Senior"""
-	#&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Add a_5/7 Ghost with &lt;b&gt;Taunt&lt;/b&gt; to_your hand.
+	#<b>Taunt</b>. <b>Deathrattle:</b> Add a_5/7 Ghost with <b>Taunt</b> to_your hand.
 	deathrattle = Give(CONTROLLER,"SCH_709t")
 	pass
 class SCH_709t:
@@ -287,7 +288,7 @@ class SCH_709t:
 
 class SCH_710:#done
 	""" Ogremancer"""
-	#[x]Whenever your opponent casts a spell, summon a 2/2 Skeleton with &lt;b&gt;Taunt&lt;/b&gt;.
+	#[x]Whenever your opponent casts a spell, summon a 2/2 Skeleton with <b>Taunt</b>.
 	events = Play(ENEMY,SPELL).on(Summon(CONTROLLER,"SCH_710t"))
 	pass
 class SCH_710t:
@@ -297,13 +298,13 @@ class SCH_710t:
 
 class SCH_711:#OK
 	""" Plagued Protodrake"""
-	#&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random 7-Cost minion.
+	#<b>Deathrattle:</b> Summon a random 7-Cost minion.
 	deathrattle = Summon(CONTROLLER, RandomMinion(cost=7))
 	pass
 
 class SCH_713:#OK
 	""" Cult Neophyte (Rare)"""
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Your opponent's spells cost (1) more next_turn.
+	#<b>Battlecry:</b> Your opponent's spells cost (1) more next_turn.
 	play = OWN_TURN_END.on( Buff(CONTROLLER, "SCH_713e"))
 	pass
 class SCH_713e:
@@ -315,7 +316,7 @@ SCH_713e2 = buff(cost=1)
 class SCH_714:# maybe OK!!
 	""" Educated Elekk (epic)"""
 	#[x]Whenever a spell is played, this minion remembers it.
-	#&lt;b&gt;Deathrattle:&lt;/b&gt; Shuffle the spells into your deck.
+	#<b>Deathrattle:</b> Shuffle the spells into your deck.
 	events = OWN_SPELL_PLAY.on(EducatedElekkMemory(SELF, Play.CARD))
 	deathrattle = EducatedElekkDeathrattle(SELF)
 	pass

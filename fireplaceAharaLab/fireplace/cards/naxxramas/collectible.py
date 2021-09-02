@@ -32,9 +32,9 @@ class FP1_005:
 FP1_005e = buff(+1, +1)
 
 
-class FP1_007:
-	"""Nerubian Egg"""
-	deathrattle = Summon(CONTROLLER, "FP1_007t")
+#class FP1_007:
+#	"""Nerubian Egg"""
+#	deathrattle = Summon(CONTROLLER, "FP1_007t")
 
 
 class FP1_009:
@@ -42,9 +42,9 @@ class FP1_009:
 	deathrattle = Summon(OPPONENT, RANDOM(ENEMY_DECK + MINION))
 
 
-class FP1_011:
-	"""Webspinner"""
-	deathrattle = Give(CONTROLLER, RandomBeast())
+#class FP1_011:
+#	"""Webspinner"""
+#	deathrattle = Give(CONTROLLER, RandomBeast())
 
 
 class FP1_012:
@@ -128,9 +128,9 @@ class FP1_030e:
 	events = OWN_TURN_BEGIN.on(Destroy(SELF))
 
 
-class FP1_031:
-	"""Baron Rivendare"""
-	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
+#class FP1_031:
+#	"""Baron Rivendare"""
+#	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
 
 
 ##

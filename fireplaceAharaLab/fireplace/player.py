@@ -10,7 +10,7 @@ from .deck import Deck
 from .entity import Entity, slot_property
 from .managers import PlayerManager
 from .utils import CardList
-
+from .config import Config #by AharaLab
 
 class Player(Entity, TargetableByAuras):
 	Manager = PlayerManager
@@ -66,11 +66,20 @@ class Player(Entity, TargetableByAuras):
 		self.jade_golem = 1
 		self.times_spell_played_this_game = 0
 		self.times_secret_played_this_game = 0
-		self.times_spell_to_friendly_minion_this_game = 0 ##### aharalab ####### 24.12.2020 ####
-		self.times_card_to_play_out_of_deck = 0 ##### aharalab ####DRG_109### 25.12.2020 ####
-		self.times_spells_played_this_turn = 0 ##### aharalab ####DAL_603### 27.12.2020 ####
-		self.spells_played_this_turn=[] ##### aharalab ####DAL_558### 28.12.2020 ####
+		self.times_spell_to_friendly_minion_this_game = 0 #
+		self.times_card_to_play_out_of_deck = 0 #
+		self.times_spells_played_this_turn = 0 #
+		self.spells_played_this_turn=[] #
+		self.died_this_turn=[] #
 		self.cthun = None
+		self.__myDeathLog__=[]
+		self.__myPlayLog__=[]
+		self.__myDamageLog__=[]
+		self.__myActivateLog__=[]
+		self.__mySummonLog__=[]
+		self.spell_and_damage=False
+		self.guardians_legacy = False#CS3_001
+
 
 	def __str__(self):
 		return self.name
@@ -112,10 +121,12 @@ class Player(Entity, TargetableByAuras):
 
 	@property
 	def start_hand_size(self):
-		if not self.first_player:
+		# old version
+		if Config.EX_CARD and not self.first_player:
 			# Give the second player an extra card
 			return self._start_hand_size + 1
-		return self._start_hand_size
+		else:
+			return self._start_hand_size
 
 	@property
 	def characters(self):
@@ -234,7 +245,7 @@ class Player(Entity, TargetableByAuras):
 			amount -= used_temp
 			self.temp_mana -= used_temp
 		#self.log("%s pays %i mana", self, amount)
-		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) ############### aharalab ############
+		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) #
 		self.used_mana += amount
 		return amount
 
@@ -292,3 +303,58 @@ class Player(Entity, TargetableByAuras):
 			card = self.card(card, zone=Zone.PLAY)
 		self.game.cheat_action(self, [Summon(self, card)])
 		return card
+
+	def add_death_log(self, card):
+		self.__myDeathLog__.append(card)
+		self.died_this_turn.append(card)
+	@property
+	def get_death_log(self):
+		return self.__myDeathLog__
+
+	def add_play_log(self, card):
+		self.__myPlayLog__.append([card,card.game.turn])
+	@property
+	def play_log(self):
+		_ret = []
+		for _log in self.__myPlayLog__:
+			_ret.append(_log[0])
+		return _ret
+	@property
+	def play_log_of_last_turn(self):
+		_ret = []
+		for _log in self.__myPlayLog__:
+			if _log[1] == self.game.turn - 2:
+				_ret.append(_log[0])
+		return _ret
+
+	def add_activate_log(self, card, amount):
+		self.__myActivateLog__.append([card,card.game.turn,amount])
+	@property
+	def get_activate_log(self):
+		_ret = []
+		for _log in self.__myActivateLog__:
+			_ret.append(_log[0])
+		return _ret
+
+
+	def add_damage_log(self, card, amount):
+		self.__myDamageLog__.append([card,card.game.turn,amount])
+	@property
+	def get_damage_log(self):
+		_ret = []
+		for _log in self.__myDamageLog__:
+			_ret.append(_log[0])
+		return _ret
+	@property
+	def get_damage_log_of_this_turn(self):
+		_ret = []
+		for _log in self.__myDamageLog__:
+			if _log[1] == self.game.turn:
+				_ret.append(_log[0])
+		return _ret
+
+	def add_summon_log(self, card):
+		self.__mySummonLog__.append(card)
+	@property
+	def get_summon_log(self):
+		return self.__mySummonLog__

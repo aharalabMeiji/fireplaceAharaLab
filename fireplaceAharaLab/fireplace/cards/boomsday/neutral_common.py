@@ -34,7 +34,7 @@ class BOT_079:
 	pass
 
 
-class BOT_083:
+class BOT_083:##CORE
 	"""Toxicologist"""
 	pass
 

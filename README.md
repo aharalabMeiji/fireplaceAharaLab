@@ -52,13 +52,16 @@ https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/
 
 人がキーボード入力できる(”Human"というプレーヤー名に、人プレーヤーを張り付けています。）
 
-    Human=Agent("Human",None,myClass=CardClass.MAGE)
+    Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER )
 
 着手できるものの中からランダムに選択する(”Standard"というプレーヤー名に、ランダムプレーヤーを張り付けています。）
 
-    Random=Agent("Standard",None) # Classを指定しないとHUNTER
+    Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 
-agent by MCTS (TBA)
+MCTS によるターン内探索
+
+    from agent_Miyaryo import MiyaryoAgent
+    Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
 
 agent by Q-learning (TBA)
 
@@ -71,8 +74,8 @@ myClassは省略可\
 StandardStep1 のように、オプション付きのオリジナルエージェントも呼び出すことができる。
 
     from agent_Standard import StandardStep1
-    weight=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-    StandardPlayer=Agent("GhostCat", StandardStep1,myOption=weight, myClass=CardClass.WARRIOR)
+    Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8])
 
 言葉で戦術を表して、それらを並べることによってエージェントを作る、という企画をやってみた。道具を豊富にすれば結構面白そう。というか、エージェントを作って、これより強くなければ仕方ないというかwww
 
@@ -89,24 +92,4 @@ Human, Randomのところにエージェントの変数を入れればよい。\
     #ゲームプレイ
     play_set_of_games(Human, Random, gameNumber=1, debugLog=False) 
 
-+ StandardStep1のリーグ戦\
-
-パラメータをcsvファイルに保存しておいて、そのエージェントたちを対戦させる。以下はオプション\
-createNew=1：新規プレーヤーを追加する\
-createMorph=1：新規プレーヤー（現存プレーヤーを少し変更したもの）を追加する\
-player1isNew=1:プレーヤ1として、最後に追加したプレーヤを指名する\
-player2isNew=1:プレーヤ2として、最後に追加したプレーヤを指名する
-
-    #StandardStep1のリーグ戦
-    from league_match import play_league
-    play_league(matchNumber=1)
-
-特定の2枚が並んでいるときのシナジーを確かめる関数（プレーヤーはMCTSのほうがいいようだ。）
-
-    from card_pair import investigate_card_pair
-    investigate_card_pair()
-
-並んでデッキに入っているとシナジーが発生するような2枚を漠然と探す関数
-
-    from card_pair import find_card_pair
-    find_card_pair(1)
++ 

@@ -17,9 +17,9 @@ class AT_007:
 	play = Give(ALL_PLAYERS, RandomSpell())
 
 
-class AT_008:
-	"""Coldarra Drake"""
-	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.HEROPOWER_ADDITIONAL_ACTIVATIONS: SET(-1)})
+#class AT_008:
+#	"""Coldarra Drake"""
+#	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.HEROPOWER_ADDITIONAL_ACTIVATIONS: SET(-1)})
 
 
 class AT_009:

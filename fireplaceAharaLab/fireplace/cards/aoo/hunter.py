@@ -62,7 +62,8 @@ BT_213e = buff(atk=2, health=2)
 
 
 class BT_203:
-	"""Pack Tactics"""
+	"""Pack Tactics 
+	&lt;b&gt;Secret:&lt;/b&gt; When a friendly minion is attacked, summon a 3/3 copy. """
 	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(FULL_BOARD | (
 		Reveal(SELF), Summon(CONTROLLER, ExactCopy(Attack.DEFENDER)).then(
 			Buff(Summon.CARD, "BT_203e")
@@ -87,3 +88,6 @@ class BT_163:
 	"""Nagrand Slam"""
 	play = Summon(CONTROLLER, "BT_163t").then(
 		Attack(Summon.CARD, RANDOM_ENEMY_CHARACTER)) * 4
+
+class BT_163t:
+	""" Clefthoof """

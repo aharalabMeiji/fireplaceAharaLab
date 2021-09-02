@@ -29,14 +29,11 @@ def total_size(o, handlers={}, verbose=False):
     # with open('file.txt', 'a') as stderr:
     # print("始まり", file=stderr)
     """ Returns the approximate memory footprint an object and all of its contents.
-
     Automatically finds the contents of the following builtin containers and
     their subclasses:  tuple, list, deque, dict, set and frozenset.
     To search other containers, add handlers to iterate over their contents:
-
         handlers = {SomeContainerClass: iter,
                     OtherContainerClass: OtherContainerClass.get_elements}
-
     """
     def dict_handler(d): return chain.from_iterable(d.items())
     all_handlers = {tuple: iter,
@@ -183,8 +180,9 @@ class MiyaryoAgent(Agent):
             calcedScore = self.calcScore(
                 beforeScore, np.mean(canScore, axis=0), self.lethal)
             if self.DebugLog:
-                print(f"_{i}_{_candidates[i]}", end='')
-                print(f'--> {calcedScore:.3f}')
+                #print(f"_{i}_{_candidates[i]}", end='')
+                #print(f'--> {calcedScore:.3f}')
+                pass
             retScore = np.append(retScore, calcedScore)
         return retScore
         pass

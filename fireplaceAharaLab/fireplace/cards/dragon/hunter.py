@@ -4,10 +4,10 @@ from ..utils import *
 
 class DRG_251:#OK
 	"""Clear the Way
-	[x]&lt;b&gt;Sidequest:&lt;/b&gt; Summon
-	3 &lt;b&gt;Rush&lt;/b&gt; minions.
-	&lt;b&gt;Reward:&lt;/b&gt; Summon a
-	4/4 Gryphon with &lt;b&gt;Rush&lt;/b&gt;."""
+	[x]<b>Sidequest:</b> Summon
+	3 <b>Rush</b> minions.
+	<b>Reward:</b> Summon a
+	4/4 Gryphon with <b>Rush</b>."""
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
@@ -39,9 +39,9 @@ class HERO_05dbp:
 
 class DRG_255:#OK
 	"""Toxic Reinforcements
-	[x]&lt;b&gt;Sidequest:&lt;/b&gt; Use your Hero
+	[x]<b>Sidequest:</b> Use your Hero
 	Power three times.
-	&lt;b&gt;Reward:&lt;/b&gt; Summon three
+	<b>Reward:</b> Summon three
 	1/1 Leper Gnomes."""
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="41127"/>
@@ -63,20 +63,20 @@ class DRG_006:#OK
 class DRG_252:#OK
 	"""Phase Stalker
 	[x]After you use your Hero
-	Power, cast a &lt;b&gt;Secret&lt;/b&gt;
+	Power, cast a <b>Secret</b>
 	from your deck."""
 	events = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 
 class DRG_010:#OK
 	"""Diving Gryphon
-	&lt;b&gt;Rush&lt;/b&gt;
-	&lt;b&gt;Battlecry:&lt;/b&gt; Draw a &lt;b&gt;Rush&lt;/b&gt; minion_from_your_deck."""
+	<b>Rush</b>
+	<b>Battlecry:</b> Draw a <b>Rush</b> minion_from_your_deck."""
 	play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + EnumSelector(GameTag.RUSH)))
 
 class DRG_254:#OK
 	"""Primordial Explorer
-	&lt;b&gt;Poisonous&lt;/b&gt;
-	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a Dragon."""
+	<b>Poisonous</b>
+	<b>Battlecry:</b> <b>Discover</b> a Dragon."""
 	play = DISCOVER(RandomDragon())
 
 class DRG_007:#OK
@@ -92,5 +92,5 @@ class DRG_256:#OK
 
 class DRG_095:#OK
 	"""Veranus
-	&lt;b&gt;Battlecry:&lt;/b&gt; Change the Health of all enemy minions to 1"""
+	<b>Battlecry:</b> Change the Health of all enemy minions to 1"""
 	play = SetCurrentHealth(ENEMY_MINIONS,1) 

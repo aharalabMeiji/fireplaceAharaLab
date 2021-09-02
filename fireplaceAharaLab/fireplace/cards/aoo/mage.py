@@ -71,4 +71,4 @@ class BT_291:
 class BT_072:
 	"""Deep Freeze"""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Freeze(TARGET), Summon(CONTROLLER, "CS2_033") * 2
+	play = Freeze(TARGET), Summon(CONTROLLER, "CORE_CS2_033") * 2

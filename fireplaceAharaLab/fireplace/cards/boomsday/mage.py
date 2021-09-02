@@ -48,10 +48,10 @@ class BOT_257:
 	pass
 
 
-class BOT_453:
-	"""Shooting Star"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	pass
+#class BOT_453:
+#	"""Shooting Star"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	pass
 
 
 class BOT_600:

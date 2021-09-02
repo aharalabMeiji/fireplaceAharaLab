@@ -54,9 +54,9 @@ class GVG_108:
 	play = Morph(TARGET, RandomMinion(cost=COST(TARGET)))
 
 
-class GVG_121:
-	"""Clockwork Giant"""
-	cost_mod = -Count(ENEMY_HAND)
+#class GVG_121:
+#	"""Clockwork Giant"""
+#	cost_mod = -Count(ENEMY_HAND)
 
 
 class GVG_122:

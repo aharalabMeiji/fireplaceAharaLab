@@ -66,7 +66,7 @@ class BT_509:
 
 class BT_493:
 	"""Priestess of Fury"""
-	events = OWN_TURN_END.on(Hit(RANDOM_ENEMY_CHARACTER), 6)
+	events = OWN_TURN_END.on(Hit(RANDOM_ENEMY_CHARACTER,1) * 6)
 
 
 class BT_761:

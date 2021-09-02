@@ -9,9 +9,9 @@ class GVG_006:
 	update = Refresh(FRIENDLY_HAND + MECH, {GameTag.COST: -1})
 
 
-class GVG_013:
-	"""Cogmaster"""
-	update = Find(FRIENDLY_MINIONS + MECH) & Refresh(SELF, {GameTag.ATK: +2})
+#class GVG_013:
+#	"""Cogmaster"""
+#	update = Find(FRIENDLY_MINIONS + MECH) & Refresh(SELF, {GameTag.ATK: +2})
 
 
 class GVG_065:
@@ -45,9 +45,9 @@ class GVG_075:
 	events = Summon(CONTROLLER, PIRATE).on(Hit(RANDOM_ENEMY_CHARACTER, 2))
 
 
-class GVG_076:
-	"""Explosive Sheep"""
-	deathrattle = Hit(ALL_MINIONS, 2)
+#class GVG_076:
+#	"""Explosive Sheep"""
+#	deathrattle = Hit(ALL_MINIONS, 2)
 
 
 class GVG_078:

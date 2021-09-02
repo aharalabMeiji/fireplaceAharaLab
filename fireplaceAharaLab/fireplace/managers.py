@@ -144,6 +144,7 @@ class PlayerManager(Manager):
 
 CARD_ATTRIBUTE_MAP = {
 	GameTag.ADJACENT_BUFF: "adjacent_buff",
+	GameTag.AFFECTED_BY_SPELL_POWER: 'affected_by_spell_power',
 	GameTag.ALL_TARGETS_RANDOM: "all_targets_random",
 	GameTag.ARMOR: "armor",
 	GameTag.ATK: "atk",
@@ -155,7 +156,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CANT_ATTACK: "cant_attack",
 	GameTag.CANT_BE_ATTACKED: "cant_be_attacked",
 	GameTag.CANT_BE_DAMAGED: "cant_be_damaged",
-	GameTag.CANT_BE_FROZEN: "cant_be_frozen",##### added by aharalab, 19.12.2020
+	GameTag.CANT_BE_FROZEN: "cant_be_frozen",#
 	GameTag.CANT_BE_TARGETED_BY_ABILITIES: "cant_be_targeted_by_abilities",
 	GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: "cant_be_targeted_by_hero_powers",
 	GameTag.CANT_BE_TARGETED_BY_OPPONENTS: "cant_be_targeted_by_opponents",
@@ -165,13 +166,14 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
 	GameTag.CARDTYPE: "type",
-	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   ##### added by aharalab, 19.12.2020
+	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",
 	GameTag.CHOOSE_ONE: "has_choose_one",
 	GameTag.CHOOSE_BOTH: "choose_both",
 	GameTag.CLASS: "card_class",
 	GameTag.COMBO: "has_combo",
 	GameTag.CONTROLLER: "controller",
+	GameTag.CORRUPT: 'corrupt',
 	GameTag.COST: "cost",
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
@@ -185,6 +187,8 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EXHAUSTED: "exhausted",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
+	GameTag.FREEZE: 'freeze',#
+	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",
@@ -199,7 +203,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
 	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
 	GameTag.INSPIRE: "has_inspire",
-	GameTag.MARK_OF_EVIL: "mark_of_evil",############### added by aharalab, 22.12.2020
+	GameTag.MARK_OF_EVIL: "mark_of_evil",# aharalab, 22.12.2020
 	GameTag.MULTI_CLASS_GROUP: "multi_class_group",
 	GameTag.NUM_ATTACKS_THIS_TURN: "num_attacks",
 	GameTag.NUM_TURNS_IN_PLAY: "turns_in_play",
@@ -208,21 +212,25 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.PARENT_CARD: "parent_card",
 	GameTag.POISONOUS: "poisonous",
 	GameTag.POWERED_UP: "powered_up",
+	GameTag.QUESTLINE: "sidequest",#
 	GameTag.RARITY: "rarity",
-	GameTag.REBORN: "reborn", ########################### added by aharalab, 19.12.2020
+	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
 	GameTag.RUSH: "rush",
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
-	GameTag.SIDEQUEST: "sidequest",############################  added by aharalab, 21.12.2020
+	GameTag.SIDEQUEST: "sidequest",# 
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
+	GameTag.SPELL_SCHOOL: "spell_school", # aharalab 16.8.2021
 	GameTag.SPELLS_COST_HEALTH: "spells_cost_health",
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",
 	GameTag.TAUNT: "taunt",
+	GameTag.TRADEABLE: "tradeable",
+	GameTag.TRADE_COST: "trade_cost",
 	GameTag.WINDFURY: "windfury",
 	GameTag.ZONE: "zone",
 	GameTag.ZONE_POSITION: "zone_position",
@@ -232,7 +240,6 @@ CARD_ATTRIBUTE_MAP = {
 	enums.KILLED_THIS_TURN: "killed_this_turn",
 	enums.DISCARDED: "discarded",
 	enums.MURLOCS_COST_HEALTH: "murlocs_cost_health",
-	GameTag.AFFECTED_BY_SPELL_POWER: None,
 	GameTag.ARTISTNAME: None,
 	GameTag.AttackVisualType: None,
 	GameTag.CARD_SET: None,
@@ -246,7 +253,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EVIL_GLOW: None,
 	GameTag.FACTION: None,
 	GameTag.FLAVORTEXT: None,
-	GameTag.FREEZE: None,
 	GameTag.HealTarget: None,
 	GameTag.HIDE_COST: None,
 	GameTag.HOW_TO_EARN: None,

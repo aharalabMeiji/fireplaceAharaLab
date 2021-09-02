@@ -3,25 +3,47 @@ import sys
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
-from agent_Maya import *
+#from agent_Maya import *
 from agent_word_strategy import *
 from agent_AngryCat import *
 import cProfile
 
 sys.path.append("..")
 
+from fireplace import cards
+
+def printClasses():
+	print('')
+	print('from ..utils import *')
+	print('')
+	_cardList = []
+	for _id in cards.db.keys():
+		_card = cards.db[_id]
+		if _card.card_set== CardSet.CORE:
+			if _card.card_class == 10:#CardClass.DEMONHUNTER: 
+				_cardList.append(_card.id)
+				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
+				print('    """ %s'%(_card.name))
+				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+				print('    #'%())
+				print('    pass'%())
+				print(''%())
+
+
 #
 #		main()
 #
 def main():
-	from fireplace import cards
 	cards.db.initialize()
+	#printClasses()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human",HumanAgent.HumanInput,myClass=CardClass.MAGE)
+	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
+	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
+	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	#ランダムプレーヤー
 	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
-	Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.HUNTER) 		
 
@@ -46,10 +68,6 @@ def main():
 	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
 	#	,myClass=CardClass.PRIEST)
 
-	#AngryCat ： シンプルに選択するアルゴリズム
-	#from agent_AngryCat import AngryCatAgent
-	#AngryCat = AngryCatAgent("AngryCat", AngryCatAgent.AngryCatAI)
-
 	#HunterCat : faceHunter専用のエージェント
 	#from agent_HunterCat import HunterCatAgent
 	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
@@ -68,6 +86,8 @@ def main():
 	#play_set_of_games(Human, Random, BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
 
 	#デッキを固定しての総当たり戦
+	#デッキ種類は関数内で設定
+	#レーティングを表示する。
 	#from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
 

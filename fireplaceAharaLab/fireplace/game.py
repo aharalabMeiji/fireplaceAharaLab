@@ -5,13 +5,16 @@ from itertools import chain
 
 from hearthstone.enums import BlockType, CardType, PlayState, State, Step, Zone
 
-from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, Play
+from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
+	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
 from .managers import GameManager
-from .utils import CardList
-from .config import Config #by AharaLab
+from .utils import CardList,ActionType
+from .config import Config 
+from .dsl.random_picker import *
+
 
 
 class BaseGame(Entity):
@@ -94,12 +97,14 @@ class BaseGame(Entity):
 		self.manager.action_end(type, source)
 
 		if self.ended:
-			raise GameOver("The game has ended.")
-
+			#raise GameOver("The game has ended.")
+			return
 		if type != BlockType.PLAY:
 			self._action_stack -= 1
 		if not self._action_stack:
 			self.log("Empty stack, refreshing auras and processing deaths")
+			if type ==BlockType.DEATHS:
+				self.log("this case.")
 			self.refresh_auras()
 			self.process_deaths()
 
@@ -134,6 +139,15 @@ class BaseGame(Entity):
 		actions = [Play(card, target, index, choose)]
 		return self.action_block(player, actions, type, index, target)
 
+	def trade_card(self,card, option):
+		type = ActionType.TRADE
+		trader = card.controller
+		if option == 0:
+			actions = [PayCost(trader, card, 1), Draw(trader), Shuffle(trader,card)]
+		else: #option=1
+			actions = [PayCost(trader, card, 1), Discover(trader,RandomCard()), Shuffle(trader,card)]
+		return self.action_block(trader, actions, type, None, None)
+
 	def process_deaths(self):
 		type = BlockType.DEATHS
 		cards = []
@@ -148,8 +162,8 @@ class BaseGame(Entity):
 				card.zone = Zone.GRAVEYARD
 				actions.append(Death(card))
 			self.check_for_end_game()
-			self.action_end(type, self)
 			self.trigger(self, actions, event_args=None)
+			self.action_end(type, self)
 
 	def trigger(self, source, actions, event_args):
 		"""
@@ -316,6 +330,31 @@ class BaseGame(Entity):
 		self.manager.turn(player)
 		return ret
 
+	def card_when_drawn(self, drawn_card, player):
+		# if drawn_card is 'casts_when_drawn' then immediately play.  
+		if hasattr(drawn_card, "casts_when_drawn"):
+			self.queue_actions(player, [Play(drawn_card, None, None, None)])
+			if drawn_card.id == 'SCH_307t':## Soul Fragment
+				self.queue_actions(player, [Draw(player)])
+		if drawn_card.id == 'SW_306':
+			self.queue_actions(player, [Give(player,'SW_306')])
+		# if 'BAR_034' is in hand and mana >=5 then change 'BAR_034' to 'BAR_034t'
+		# if 'BAR_034t' is in hand and mana >=10 then change 'BAR_034t' to 'BAR_034t2'
+		for card in player.hand:
+			if card.id == 'BAR_034' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_034t')])
+			if card.id == 'BAR_034t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_034t2')])
+		for card in player.hand:
+			if card.id == 'BAR_305' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_305t')])
+			if card.id == 'BAR_305t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_305t2')])
+
 	def _begin_turn(self, player):
 		self.manager.step(self.next_step, Step.MAIN_START)
 		self.manager.step(self.next_step, Step.MAIN_ACTION)
@@ -345,17 +384,12 @@ class BaseGame(Entity):
 		for minion in player.field:
 			if minion.dormant:
 				minion.dormant -= 1
+				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 
-		# if drawn_card is 'casts_when_drawn' then immediately play.  by aharalab  19.12.2020
-		while True:
-			drawn_card = player.draw()
-			if not hasattr(drawn_card, "casts_when_drawn"):
-				break;
-			else:
-				self.queue_actions(player, [Play(drawn_card, None, None, None)])
-		## end ##
+		drawn_card = player.draw()
+
 		self.manager.step(self.next_step, Step.MAIN_END)
 
 
@@ -398,6 +432,7 @@ class MulliganRules:
 
 	def mulligan_done(self):
 		self.begin_turn(self.player1)
+
 
 
 class Game(MulliganRules, CoinRules, BaseGame):
