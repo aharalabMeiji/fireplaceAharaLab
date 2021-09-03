@@ -186,7 +186,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def events(self):
 		if self.zone == Zone.HAND:
 			return self.data.scripts.Hand.events
-		if self.zone == Zone.DECK:## EX1_295 occurs an error
+		if self.zone == Zone.DECK:## EX1_295, SW_072 occurs an error
+			# in existing cards, there isn't one with Deck class.  However, rarely they come here.
 			return self.data.scripts.Deck.events
 		return self.base_events + self._events
 

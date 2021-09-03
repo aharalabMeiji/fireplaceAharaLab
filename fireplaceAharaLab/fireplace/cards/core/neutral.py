@@ -554,6 +554,6 @@ class CS3_038:# <12> 1637 #OK
 class GAME_005:# <12> 1637 #OK
     """ The Coin
     Gain 1 Mana Crystal this turn only. """
-    #
+    play = ManaThisTurn(CONTROLLER, 1)
     pass
 

@@ -204,7 +204,7 @@ class Attack(GameAction):
 
 	def do(self, source, attacker, defender):
 		log.info("%r attacks %r", attacker, defender)
-		if not defender:
+		if defender == None: ## rarely happens
 			return
 		attacker.attack_target = defender
 		defender.defending = True
@@ -1148,18 +1148,18 @@ class Give(TargetedAction):
 			if len(target.hand) >= target.max_hand_size:
 				log.info("Give(%r) fails because %r's hand is full", card, target)
 				continue
-			## when card==[]  ## added, 13/8/2021 
+			## when card==[]  ## 
 			if hasattr(card, "__iter__") and len(card)==0:
 				break;
 			## 
 			card.controller = target
-			if card.zone != Zone.HAND:
+			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
-			else:
-				if source.id=='SW_069':
-					card.zone = Zone.HAND
-				else:
-					print("%s"%(card in card.controller.hand))
+			#else:
+			#	if source.id=='SW_069':
+			#		card.zone = Zone.HAND
+			#	else:
+			#		print("%s"%(card in card.controller.hand))
 			# if card is 'casts_when_drawn' then immediately play.  
 			if card.id != 'SW_306':# avoiding infinite loop
 				card.game.card_when_drawn(card, card.controller)

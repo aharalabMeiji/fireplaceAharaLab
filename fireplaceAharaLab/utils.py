@@ -146,7 +146,7 @@ class Candidate(object):
 
 	def __str__(self):
 		if self.type==BlockType.ATTACK:
-			return "{card} -> attacks -> target={target}".format(card=self.card,target=self.target)
+			return "{card}({atk}) -> attacks -> {target}({value})".format(card=self.card, atk=self.card.atk, target=self.target,value=self.target.health)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
@@ -155,7 +155,7 @@ class Candidate(object):
 			if self.target==None:
 				return "{card} -> plays".format(card=self.card)
 			else :
-				return "{card}-> plays -> target={target}".format(card=self.card,target=self.target)
+				return "{card}-> plays -> {target}".format(card=self.card,target=self.target)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
@@ -479,7 +479,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player2,'CORE_GVG_076').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['SW_069'],player1)
+	ExchangeCard(['SW_069'],player1)
 	#ExchangeCard(['BAR_081'],player2)
 	pass
 
