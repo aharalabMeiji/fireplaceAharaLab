@@ -70,6 +70,9 @@ def main():
 	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
 	#	,myClass=CardClass.PRIEST)
 
+	from agent_Test import TestHumanAgent
+	TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.HUNTER)
+
 	#HunterCat : faceHunter専用のエージェント
 	#from agent_HunterCat import HunterCatAgent
 	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
@@ -77,7 +80,7 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=15, debugLog=True)
+	play_set_of_games(TestHuman, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10)
 	#play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 
 	#デッキを固定しての総当たり戦

@@ -448,6 +448,8 @@ MURLOC = EnumSelector(Race.MURLOC)
 PIRATE = EnumSelector(Race.PIRATE)
 TOTEM = EnumSelector(Race.TOTEM)
 ELEMENTAL = EnumSelector(Race.ELEMENTAL)
+QUILBOAR = EnumSelector(Race.QUILBOAR)
+ALL = EnumSelector(Race.ALL)
 
 NATURE = EnumSelector(SpellSchool.NATURE)
 HOLY = EnumSelector(SpellSchool.HOLY)

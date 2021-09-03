@@ -113,7 +113,7 @@ class DMF_082t:
 	update = Refresh(FRIENDLY_MINIONS - SELF, buff="DMF_082e")
 	pass
 
-☆
+#☆
 class YOP_012:
 	"""Deathwarden"""
 	##&lt;b&gt;Deathrattles&lt;/b&gt; can't trigger.
@@ -211,10 +211,77 @@ class DMF_069:
 		Buff(ForceDraw.TARGET, "BT_213e"))
 	pass
 DMF_069e = buff(atk=3,health=3)
-☆
-class DMF_074:
+
+class DMF_074: #don't consider about chooseboth #OK
 	"""Silas Darkmoon"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Choose a direction to rotate all minions.
+	choose = ("DMF_074a", "DMF_074b")
+	pass
+
+class DMF_074a:
+	"""This Way"""
+	def play(self):
+		controller = self.controller
+		enemy = controller.opponent
+		if len(enemy.characters) <= 1:
+			target = controller.characters[1]
+			zone = target.zone
+			target.zone = Zone.SETASIDE
+			target.controller = enemy
+			target.turns_in_play = 0  # To ensure summoning sickness
+			target.zone = zone
+		else:
+			target1 = controller.characters[1]
+			zone = target1.zone
+			target1.zone = Zone.SETASIDE
+			target1.controller = enemy
+			target1.turns_in_play = 0  # To ensure summoning sickness
+			target1.zone = zone
+
+			target2 = enemy.characters[1]
+			zone = target2.zone
+			target2.zone = Zone.SETASIDE
+			target2.controller = controller
+			target2.turns_in_play = 0  # To ensure summoning sickness
+			target2.zone = zone
+	pass
+
+class DMF_074b:
+	"""That Way"""
+	def play(self):
+		controller = self.controller
+		enemy = controller.opponent
+		if len(enemy.characters) <= 1:
+			target = controller.characters[-1]
+			zone = target.zone
+			target.zone = Zone.SETASIDE
+			target.controller = enemy
+			target.turns_in_play = 0  # To ensure summoning sickness
+			target.zone = zone
+		else:
+			target1 = controller.characters[-1]
+			zone = target1.zone
+			target1.zone = Zone.SETASIDE
+			target1.controller = enemy
+			target1.turns_in_play = 0  # To ensure summoning sickness
+			target1.zone = zone
+			
+			for i in range(len(enemy.characters)-2):
+				target = enemy.characters[1]
+				target.zone = Zone.SETASIDE
+				target.zone = Zone.PLAY
+
+			target2 = enemy.characters[-1]
+			zone = target2.zone
+			target2.zone = Zone.SETASIDE
+			target2.controller = controller
+			target2.turns_in_play = 0  # To ensure summoning sickness
+			target2.zone = zone
+
+			for i in range(len(controller.characters)-2):
+				target = controller.characters[1]
+				target.zone = Zone.SETASIDE
+				target.zone = Zone.PLAY
 	pass
 
 class DMF_078:
@@ -229,17 +296,37 @@ class DMF_078t:
 
 class DMF_163:
 	"""Carnival Clown"""
+	play = Summon(CONTROLLER, Copy(SELF)) * 2
 	##[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Summon 2 copies of this. &lt;b&gt;Corrupt:&lt;/b&gt; Fill your board with copies.
+
+	pass
+
+class DMF_163t:
+	"""Carnival Clown"""
+	##[x]&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Fill your board with copies of this.
+	play = Summon(CONTROLLER, Copy(SELF)) * 6
 	pass
 
 class DMF_002:
 	"""N'Zoth, God of the Deep"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Resurrect a friendly minion of each minion type.
+	def play(self):
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (BEAST | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (DEMON | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (DRAGON | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (MECH | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (MURLOC | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (PIRATE | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (TOTEM | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (ELEMENTAL | ALL))))
+		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (QUILBOAR | ALL))))
+		pass
 	pass
 
 class YOP_034:
 	"""Runaway Blackwing"""
 	##[x]At the end of your turn, deal 9 damage to a random enemy minion.
+	events = OWN_TURN_END.on(Hit(RANDOM_ENEMY_MINION,9))
 	pass
 
 class DMF_254:
@@ -250,12 +337,20 @@ class DMF_254:
 class DMF_:
 	"""Darkmoon Rabbit"""
 	##&lt;b&gt;Rush&lt;/b&gt;, &lt;b&gt;Poisonous&lt;/b&gt; Also damages the minions next to whomever this attacks.
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
+
 	pass
 
-class DMF_188:
+class DMF_188: #this turn only??
 	"""Y'Shaarj, the Defiler"""
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Add a copy of each &lt;b&gt;Corrupted&lt;/b&gt; card you've played this game to your hand. They cost (0) this turn.
+	def play(self):
+		for candidate in self.controller.game.__myLog__:
+			if hasattr(candidate.card,'corrupted'):
+				Give(CONTROLLER, Copy(candidate.card)).then(Buff(Give.CARD, "DMF_188e2"))
 	pass
+class MF_188e2:
+	cost = SET(0)
 
 class DMF_004:
 	"""Yogg-Saron, Master of Fate"""
