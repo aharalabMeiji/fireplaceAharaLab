@@ -72,13 +72,15 @@ class Player(Entity, TargetableByAuras):
 		self.spells_played_this_turn=[] #
 		self.died_this_turn=[] #
 		self.cthun = None
-		self.__myDeathLog__=[]
-		self.__myPlayLog__=[]
-		self.__myDamageLog__=[]
-		self.__myActivateLog__=[]
-		self.__mySummonLog__=[]
+		self._death_log=[]
+		self._play_log=[]
+		self._damage_log=[]
+		self._activate_log=[]
+		self._summon_log=[]
+		self._reveal_log=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
+		self.spellpower_option=0 # SW_450t4
 
 
 	def __str__(self):
@@ -116,9 +118,19 @@ class Player(Entity, TargetableByAuras):
 	@property
 	def spellpower(self):
 		aura_power = self.controller.spellpower_adjustment
-		minion_power = sum(minion.spellpower for minion in self.field)
-		return aura_power + minion_power
+		minion_power = 0
+		for minion in self.field:
+			if hasattr(minion,'spellpower'):
+				minion_power += minion.spellpower
+		return aura_power + minion_power + self.spellpower_option
 
+	@property
+	def spellpower_fire(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
+		minion_power = 0
+		for minion in self.field:
+			if hasattr(minion,'spellpower'):
+				minion_power += minion.spellpower
+		return minion_power + self.spellpower_option
 	@property
 	def start_hand_size(self):
 		# old version
@@ -206,6 +218,16 @@ class Player(Entity, TargetableByAuras):
 		amount += self.spellpower
 		amount <<= self.controller.spellpower_double
 		return amount
+
+	def get_spell_damage_fire(self, amount: int) -> int:
+		"""
+		Returns the amount of damage for only fire card \a amount will do, taking
+		SPELLPOWER and SPELLPOWER_DOUBLE into account.
+		"""
+		amount += (self.spellpower+self.spellpower_fire)
+		amount <<= self.controller.spellpower_double
+		return amount
+
 
 	def discard_hand(self):
 		self.log("%r discards their entire hand!", self)
@@ -304,57 +326,76 @@ class Player(Entity, TargetableByAuras):
 		self.game.cheat_action(self, [Summon(self, card)])
 		return card
 
+	## death_log
 	def add_death_log(self, card):
-		self.__myDeathLog__.append(card)
+		self._death_log.append([card,card.game.turn])
 		self.died_this_turn.append(card)
 	@property
-	def get_death_log(self):
-		return self.__myDeathLog__
+	def death_log(self):
+		_ret = []
+		for _log in self._death_log:
+			_ret.append(_log[0])
+		return _ret
 
+	##play_log
 	def add_play_log(self, card):
-		self.__myPlayLog__.append([card,card.game.turn])
+		self._play_log.append([card,card.game.turn])
 	@property
 	def play_log(self):
 		_ret = []
-		for _log in self.__myPlayLog__:
+		for _log in self._play_log:
 			_ret.append(_log[0])
 		return _ret
 	@property
 	def play_log_of_last_turn(self):
 		_ret = []
-		for _log in self.__myPlayLog__:
+		for _log in self._play_log:
 			if _log[1] == self.game.turn - 2:
 				_ret.append(_log[0])
 		return _ret
 
+	##activate_log
 	def add_activate_log(self, card, amount):
-		self.__myActivateLog__.append([card,card.game.turn,amount])
+		self._activate_log.append([card,card.game.turn,amount])
 	@property
-	def get_activate_log(self):
+	def activate_log(self):
 		_ret = []
-		for _log in self.__myActivateLog__:
+		for _log in self._activate_log:
 			_ret.append(_log[0])
 		return _ret
 
-
+	##damage_log
 	def add_damage_log(self, card, amount):
-		self.__myDamageLog__.append([card,card.game.turn,amount])
+		self._damage_log.append([card,card.game.turn,amount])
 	@property
-	def get_damage_log(self):
+	def damage_log(self):
 		_ret = []
-		for _log in self.__myDamageLog__:
+		for _log in self._damage_log:
 			_ret.append(_log[0])
 		return _ret
 	@property
-	def get_damage_log_of_this_turn(self):
+	def damage_log_of_this_turn(self):
 		_ret = []
-		for _log in self.__myDamageLog__:
+		for _log in self._damage_log:
 			if _log[1] == self.game.turn:
 				_ret.append(_log[0])
 		return _ret
 
+	##sammon_log
 	def add_summon_log(self, card):
-		self.__mySummonLog__.append(card)
+		self._summon_log.append(card)
 	@property
-	def get_summon_log(self):
-		return self.__mySummonLog__
+	def summon_log(self):
+		return self._summon_log
+
+	##reveal_log
+	def add_reveal_log(self, card):
+		self._reveal_log.append([card, card.game.turn])
+	@property
+	def reveal_log(self):
+		_ret = []
+		for _log in self._reveal_log:
+			_ret.append(_log[0])
+		return _ret
+
+

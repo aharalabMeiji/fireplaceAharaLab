@@ -257,7 +257,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\galakrond\all.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\cardlist.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\hunter.py">
       <SubType>Code</SubType>
     </Compile>

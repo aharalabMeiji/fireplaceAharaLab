@@ -204,7 +204,7 @@ class Attack(GameAction):
 
 	def do(self, source, attacker, defender):
 		log.info("%r attacks %r", attacker, defender)
-		if not defender:
+		if defender == None: ## rarely happens
 			return
 		attacker.attack_target = defender
 		defender.defending = True
@@ -215,6 +215,8 @@ class Attack(GameAction):
 		self.broadcast(source, EventListener.ON, attacker, defender)
 
 		defender = source.game.proposed_defender
+		if defender == None: ## rarely happens
+			return
 		source.game.proposed_attacker = None
 		source.game.proposed_defender = None
 		if attacker.should_exit_combat:
@@ -299,7 +301,7 @@ class Death(GameAction):
 		self.broadcast(source, EventListener.ON, target)
 		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(target)])
-		if target.deathrattles:
+		if target.deathrattles and target.deathrattle_valid:
 			source.game.queue_actions(source, [Deathrattle(target)])
 		if target.reborn:# aharalab
 			source.game.queue_actions(source, [Reborn(target)])
@@ -342,6 +344,7 @@ class Joust(GameAction):
 		log.info("Jousting %r vs %r", challenger, defender)
 		source.game.joust(source, challenger, defender, self.callback)
 
+########## Choice ##############
 
 class Choice(GameAction):
 	PLAYER = ActionArg()
@@ -394,32 +397,78 @@ class Choice(GameAction):
 class GenericChoice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
+					new_card = self.player.card(_card.id)# make a new copy
+					new_card.zone = Zone.PLAY
 				elif len(self.player.hand) < self.player.max_hand_size:
+					new_card = self.player.card(_card.id)# make a new copy
+					new_card.zone = Zone.HAND
+
+
+class GenericChoiceOnDeck(Choice):
+	## choose from Deck 
+	def choose(self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
+		for _card in self.cards:# cards are from Deck
+			if _card is card:
+				if len(self.player.hand) < self.player.max_hand_size:
 					_card.zone = Zone.HAND
 				else:
 					_card.discard()
 			else:
 				_card.discard()
 
-class GenericChoiceBackToDeck(Choice):
+
+class BAR_081_Southsea_Scoundrel(Choice):## 
+	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
 	def choose(self, card):
 		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:
 					_card.zone = Zone.PLAY
 				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
+					Give(card.controller,card.id).trigger(card.controller)
 				else:
-					_card.zone = Zone.DECK
+					_card.discard()
 			else:
-				_card.zone = Zone.DECK
+				_card.discard()
+		controller = card.controller.opponent##もともと相手のもの->これは自分
+		Give(controller,card.id).trigger(controller)
+		pass
 
 
+class GenericChoiceBuff(GenericChoice):## SW_059  ## callbackで対応可能
+	def choose(self, card):
+		super().choose(card)
+		Buff(card,'SW_059e').trigger(card.controller)
+		pass
+
+class GenericChoicePlay(GenericChoice):## 
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		new_card = controller.card(card.id)
+		Summon(controller, new_card).trigger(controller)
+		pass
+
+class GenericChoicePlayOnDeck(Choice):## callbackで対応可能
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		for _card in self.cards:## cards are from deck
+			if _card is card:
+				Summon(controller, _card).trigger(controller)
+			else:
+				_card.discard()
+		pass
+
+###################  Choice end #######################
 
 class MulliganChoice(GameAction):
 	PLAYER = ActionArg()
@@ -1101,12 +1150,18 @@ class Give(TargetedAction):
 			if len(target.hand) >= target.max_hand_size:
 				log.info("Give(%r) fails because %r's hand is full", card, target)
 				continue
-			## when card==[]  ## added, 13/8/2021 
+			## when card==[]  ## 
 			if hasattr(card, "__iter__") and len(card)==0:
 				break;
 			## 
 			card.controller = target
-			card.zone = Zone.HAND
+			if card.zone != Zone.HAND or not card in target.hand:
+				card.zone = Zone.HAND
+			#else:
+			#	if source.id=='SW_069':
+			#		card.zone = Zone.HAND
+			#	else:
+			#		print("%s"%(card in card.controller.hand))
 			# if card is 'casts_when_drawn' then immediately play.  
 			if card.id != 'SW_306':# avoiding infinite loop
 				card.game.card_when_drawn(card, card.controller)
@@ -1119,7 +1174,7 @@ class Hit(TargetedAction):
 	Hit character targets by \a amount.
 	"""
 	TARGET = ActionArg()
-	AMOUNT = IntArg()
+	AMOUNT = ActionArg()
 
 	def do(self, source, target, amount):
 		amount = source.get_damage(amount, target)
@@ -1294,6 +1349,7 @@ class Reveal(TargetedAction):
 	"""
 	def do(self, source, target):
 		log.info("Revealing secret %r", target)
+		target.controller.add_reveal_log(target)
 		self.broadcast(source, EventListener.ON, target)
 		target.zone = Zone.GRAVEYARD
 
@@ -1421,7 +1477,7 @@ class ShuffleBuff(TargetedAction):
 	"""
 	Shuffle and buff card targets into player target's deck.
 	"""
-	TARGET = ActionArg()
+	TARGET = ActionArg()#player
 	CARD = CardArg()
 	BUFF = ActionArg()
 	def do(self, source, target, cards, buff):
@@ -1948,7 +2004,7 @@ class Asphyxia(TargetedAction):
 			log.info("The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
 			if target._sidequest_counter_ == _score_limit:
 				target._sidequest_counter_ = 0
-				target._Asphyxia_= 'reborn'
+				target._Asphyxia_= 'alive'
 				target.cant_attack = False
 				target.cant_be_damaged = False
 				target.cant_be_frozen = False
@@ -2420,11 +2476,19 @@ class CountDeathAction(TargetedAction):
 	ACTION = ActionArg()
 	def do(self, source, target, list, amount, action) :
 		_thisPlayer = target.controller
-		_logList = _thisPlayer.get_death_log
+		_logList = _thisPlayer.death_log
 		_count = 0
 		for _card in _logList:
 			if _card.id in list:
 				_count += 1
+		# SW_075
+		if source.id=='SW_075':
+			for cd in _thisPlayer.hand:
+				if cd.id == 'SW_075':
+					cd.script_data_num_1 = _count
+			for cd in _thisPlayer.field:
+				if cd.id == 'SW_075':
+					cd.script_data_num_1 = _count
 		if _count==amount:
 			action.trigger(source)
 
@@ -2465,55 +2529,6 @@ class BAR_042_Action(TargetedAction):
 		else:
 			log.info("no spell is in the deck"%())
 
-
-class BAR_081_Southsea_Scoundrel(Choice):
-	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
-	def choose(self, card):
-		super().choose(card)
-		log.info("%s chooses %r"%(card.controller.name, card))
-		for _card in self.cards:
-			if _card is card:
-				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
-				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
-				else:
-					_card.discard()
-			else:
-				_card.discard()
-		controller = card.controller.opponent##もともと相手のもの->これは自分
-		Give(controller,card.id).trigger(controller)
-		pass
-
-
-class GenericChoiceBuff(GenericChoice):
-	def choose(self, card):
-		super().choose(card)
-		Buff(card,'SW_059e').trigger(card.controller)
-		pass
-
-class GenericChoicePlay(GenericChoice):
-	def choose(self, card):
-		super().choose(card)
-		_controller = card.controller
-		if _controller != self.player:
-			card.controller = self.player
-			_controller = self.player
-		Play(card, None, None, None).trigger(_controller)
-		pass
-
-class GenericChoicePlayBackToDeck(Choice):
-	def choose(self, card):
-		super().choose(card)
-		_controller = card.controller
-		if _controller != self.player:
-			card.controller = self.player
-			_controller = self.player
-		for _card in self.cards:
-			if _card is card:
-				Summon(_controller, _card).trigger(_controller)
-		pass
-
 class SpallAndDamage(TargetedAction):## for SW_322
 	TARGET = ActionArg()
 	TARGETACTION = ActionArg()
@@ -2536,6 +2551,36 @@ class Moribund(TargetedAction):
             for action in targetactions:
                 action.trigger(source)
         pass
+
+
+############### script_data_num_1 関連 ########################
+
+def ScriptDataNum1(card):
+    if hasattr(card,'script_data_num_1'):
+        return card.script_data_num_1
+    else:
+        return 0
+    pass
+
+class HitScriptDataNum1(TargetedAction):
+    CARD=ActionArg()#card
+    TARGET=ActionArg()#target
+    def do(self,source,card,target):
+        amount = ScriptDataNum1(card)
+        if not isinstance(target,list):
+            target = [target]
+        for _card in target:
+            Hit(_card,amount).trigger(source)
+
+class SetScriptDataNum1(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'script_data_num_1'):
+			target.script_data_num_1 = amount
+		pass
+
+###############################################################
 
 
 class BAR_079_Kazakus_Golem_Shaper(Choice):

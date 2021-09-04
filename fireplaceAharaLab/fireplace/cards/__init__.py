@@ -96,104 +96,21 @@ class CardDB(dict):
 
 
 	def initialize(self, locale="jaJP"):#locale="enUS"):#
-		log.info("Initializing card database")
+		log.info("Load card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
-		exclude = [
-			# bug or no implementation cards
-			'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
-			'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
-			'YOD_009',## this is a hero in galakrond
-			#'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-			#'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-			#'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
-			# 
-			#'BT_730',
-			'BAR_079',## neutral-barrens, too huge
-			'SW_079',## neutral=Stormwind, choice a dormant
-			]
-		for id, card in db.items():
-			## add attr spellpower
-			if not card.card_class in [ CardClass.HUNTER, CardClass.MAGE, CardClass.DREAM, CardClass.NEUTRAL]:#3,4,11,12
-				if card.id in [
-					'SCH_617e',#2
-					"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#7
-				   ]:
-					pass
+		log.info("Initializing card database")
+		from .cardlist import All
+		for cardIDlist in All:
+			for id in cardIDlist:
+				card = db[id]
+				spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
+				if spellpowervalue is not None:
+					setattr(card, 'spellpower', spellpowervalue)
 				else:
-					continue
-			spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
-			if spellpowervalue is not None:
-				setattr(card, 'spellpower', spellpowervalue)
-			else:
-				setattr(card, 'spellpower', 0)
-			yes = False
-			#if card.card_set == CardSet.VANILLA:#1646
-			#	yes = True
-			if card.card_set == CardSet.CORE:#1637
-				if 'CORE_' in card.id or 'CS3_' in card.id or card.id == 'GAME_005':
-					yes = True
-			elif card.card_set == CardSet.LEGACY: # 1635
-				if card.id in [
-					'CS2_122e','CS2_222o','EX1_399e','NEW1_033o',# core-neutral
-					'HERO_05bp','HERO_05bp2',#steady shot
-					'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
-					'NEW1_031','NEW1_032','NEW1_033','NEW1_034',#Animal Companion
-				   ]:
-					yes = True
-			elif card.card_set == CardSet.STORMWIND: # 1578:
-				if 'SW_' in card.id:
-					yes = True					
-			elif card.card_set == CardSet.THE_BARRENS:#1525
-				if 'BAR_' in card.id or 'WC_' in card.id:
-					yes = True					
-			elif card.card_set == CardSet.DARKMOON_FAIRE:#1466
-				if 'DMF_' in card.id or 'YOP_' in card.id:
-					yes = True
-			elif card.card_set == CardSet.SCHOLOMANCE:# 1443
-					yes = True
-			elif card.card_set == CardSet.BLACK_TEMPLE:#1414
-					yes = True
-			elif card.card_set == CardSet.DALARAN:# 1130
-				if card.id in ['DAL_086e']:
-					yes = True
-			elif card.card_set == CardSet.TROLL:# 1129
-				if card.id in ['TRL_111e1']:
-					yes = True
-			elif card.card_set == CardSet.BOOMSDAY:# 1127
-				if card.id in ['BOT_083e']:
-					yes = True
-			elif card.card_set == CardSet.GILNEAS:#1125
-				if card.id in ['GIL_828e']:
-					yes = True
-			elif card.card_set == CardSet.ICECROWN:#1001
-				if card.id in ['ICC_026t']:
-					yes = True
-			elif card.card_set == CardSet.KARA:#23
-				if card.id in ['KAR_036e']:
-					yes = True
-			elif card.card_set == CardSet.HERO_SKINS:#17:
-				yes = True
-			elif card.card_set == CardSet.TGT:# 15
-				if card.id in [
-					'AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",
-					'AT_061e',
-					]:
-					yes = True
-			elif card.card_set == CardSet.EXPERT1:# 3
-				if card.id in ['CS2_188o','EX1_004e','EX1_014t','EX1_014te','EX1_046e','EX1_059e','EX1_093e',\
-					'EX1_103e','EX1_110t','EX1_162o','EX1_187e','EX1_399e','EX1_509e','FP1_007t','EX1_116t','tt_004o','NEW1_018e','NEW1_026t','NEW1_027e',
-					'EX1_531e','EX1_554t','EX1_611e','EX1_534t',
-					'DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']:
-					yes = True
-			#elif card.card_set in [2,3,4,12,18,1004,1130,1158,1347,1403,1414,1443,1635]:
-			#	if (not 'LOOT_' in card.id)  and (not card.id in exclude):#and (not 'CORE_' in card.id)
-			#		yes = True
-			elif card.id in ['OG_280']:#C'Thun CardSet.OG (21)
-				yes = True
-			if yes:
+					setattr(card, 'spellpower', 0)
 				self[id] = self.merge(id, card)
-			## end ###
+				pass
 		log.info("Merged %i cards", len(self))
 
 

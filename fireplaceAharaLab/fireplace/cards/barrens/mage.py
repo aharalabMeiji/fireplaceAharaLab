@@ -43,7 +43,7 @@ class GetManaIfSpell(TargetedAction):
     def do(self, source, target, amount):
         if target.type == CardType.SPELL:
             source.controller.used_mana -= amount
-            log.info("Refresh %d Mana for %r"%(aount, source.controller))
+            log.info("Refresh %d Mana for %r"%(amount, source.controller))
             if source.controller.used_mana<0:
                 source.controller.used_mana=0
 
@@ -112,17 +112,28 @@ class BAR_547_Action(TargetedAction):
     AMOUNT = IntArg()
     TARGETEDACTION = ActionArg()
     def do(self, source, target, amount, targetedaction):
-        ActivateList = target.__myActivateLog__
+        ActivateList = target._activate_log
         count=0
         for case in ActivateList:
             count += case[2]
         if count >= amount:
             targetedaction.trigger(source)
         pass
+class BAR_547_Hand_Event(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):
+        ActivateList = target._activate_log
+        count=0
+        for case in ActivateList:
+            count += case[2]
+        source.script_data_num_1 = count+1
+        pass
 class BAR_547:#<4> [1525] ##OK
     """ Mordresh Fire Eye
     [Battlecry:] If you've dealt 10 damage with your Hero Power this game, deal 10 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
     play = BAR_547_Action(CONTROLLER,10,Hit(ENEMY_CHARACTERS,10))
+    class Hand:
+        events = Activate(CONTROLLER, HERO_POWER).on(BAR_547_Hand_Event(CONTROLLER))
     pass
 
 

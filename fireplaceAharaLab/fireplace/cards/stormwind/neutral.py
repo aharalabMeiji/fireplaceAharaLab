@@ -49,12 +49,12 @@ class SW_057:#OK
     update = (Count(FRIENDLY_HAND)<8) & Refresh(SELF, {GameTag.CANT_ATTACK:True}) | Refresh(SELF,{GameTag.CANT_ATTACK:False}) 
     pass
 
-class SW_059:#OK
+class SW_059:####OK
     """ Deeprun Engineer
     <b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
     play = GenericChoiceBuff(CONTROLLER, RandomMech()*3) # cost 1 less
     pass
-SW_059e=buff(cost=-1)
+SW_059e=buff(cost=-1)#<4>[1578]
 
 class SW_060:#OK
     """ Florist
@@ -90,7 +90,7 @@ class SW_064:#OK
     pass
 SW_064e=buff(atk=3,health=3)
 
-class SW_065:#OK
+class SW_065:###OK
     """ Pandaren Importer
     [x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
     play=GenericChoice(CONTROLLER,RANDOM(SPELL-FRIENDLY_DECK)*3)
@@ -121,14 +121,17 @@ class Deposite_Payment(TargetedAction):
     def do(self, source, target):
         if isinstance(target,list):
             target = target[0]
-        source._sidequest_list1_.append(target)
+        target.zone = Zone.SETASIDE
+        source.sidequest_list0.append(target)
         pass
     pass
 
 class Deposite_Withdrawal(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
-        Give(target, source._sidequest_list1_).trigger(source)
+        cards = source.sidequest_list0
+        for card in cards:
+            Give(target, card.id).trigger(source)
         pass
     pass
 
@@ -178,10 +181,7 @@ class SW_074:#OK
 
 class SW_075:#OK
     """ Elwynn Boar
-    [x]<b>Deathrattle:</b> If you had 7
-Elwynn Boars die this game,
-equip a 15/3 Sword of a
-___Thousand Truths.@ <i>(@/7)</i> """
+    [x]<b>Deathrattle:</b> If you had 7 Elwynn Boars die this game, equip a 15/3 Sword of a ___Thousand Truths.@ <i>(@/7)</i> """
     # if we use LazyNum, we are able to make in much more general way.
     deathrattle = CountDeathAction(CONTROLLER,['SW_075'], 7, Summon(CONTROLLER,'SW_075t'))
     pass

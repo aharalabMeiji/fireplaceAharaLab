@@ -50,7 +50,7 @@ class CountElementalLastTurnAndAction(TargetedAction):
         _playLogList = _thisPlayer.play_log_of_last_turn
         _count = 0
         for _card in _playLogList:
-            if _card.race == Race.ELEMENTAL:
+            if hasattr(_card,'race') and _card.race == Race.ELEMENTAL:
                 _count += 1
         if not isinstance(actions,list):
             actions = [actions]
@@ -70,16 +70,16 @@ class DMF_104t:# <4>[1466]
     #
     pass
 
-class DMF_105:# <4>[1466]###OK
+class DMF_105:# <4>[1466]###########################
     """ Ring Toss
     [Discover] a [Secret] and cast it. [Corrupt:] [Discover] 2 instead. """
-    play = GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3)
+    play = GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
-class DMF_105t:# <4>[1466]###OK:  2回チョイスできるようにした
+class DMF_105t:# <4>[1466]#####################:  2回チョイスできるようにした
     """ Ring Toss
     [Corrupted][Discover] 2 [Secrets] and cast them. """
-    play = GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3), GenericChoicePlayBackToDeck(CONTROLLER, RANDOM(SECRET)*3)
+    play = GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3), GenericChoicePlay(CONTROLLER, RANDOM(SECRET)*3)
     pass
 
 class DMF_106:# <4>[1466]###OK
@@ -92,7 +92,7 @@ class NoDamageThisTurn(TargetedAction):
     TARGET = ActionArg()
     TARGETEDACTION = ActionArg()
     def do(self, source, target, targetedaction):
-        entities = source.controller.get_damage_log_of_this_turn
+        entities = source.controller.damage_log_of_this_turn
         if len(entities) == 0:
             for myAction in targetedaction:
                 myAction.trigger(source)
@@ -115,18 +115,22 @@ class DMF_108:# <4>[1466] ##OK
 class CountTriggeredSecret(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):# controller
-        playLog = target.play_log
-        count = 0
-        for log in playLog:
-            if hasattr(log,'secret') and log.secret:
-                count += 1
+        revealList = target.reveal_log
+        count = len(revealList)
         return count
 
-class DMF_109:# <4>[1466] ###OK
+class DMF_109_Hand_Event(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):# controller
+        revealList = target.reveal_log
+        source.script_data_num_1 = len(revealList)+1
+
+class DMF_109:# <4>[1466] ### triggered は発動の意味か？Revealを数える必要がある。
     """ Sayge, Seer of Darkmoon
     [Battlecry:] Draw @ |4(card, cards).<i>(Upgraded for each friendly [Secret] that has triggered this game!)</i> """
     play = Draw(CONTROLLER), Draw(CONTROLLER) * CountTriggeredSecret(CONTROLLER)
-    pass
+    class Hand:
+        events = Reveal(SECRET).on(DMF_109_Hand_Event(CONTROLLER))
 
 class YOP_019:# <4>[1466] ###OK
     """ Conjure Mana Biscuit

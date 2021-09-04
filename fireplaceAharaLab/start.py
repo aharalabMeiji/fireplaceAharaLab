@@ -28,6 +28,14 @@ def printClasses():
 				print('    pass'%())
 				print(''%())
 
+def printListOfCards():
+	print('Stormwind_Mage=',end='[')#   Neutral   Hunter   Mage
+	for _id in cards.db.keys():
+		_card = cards.db[_id]
+		if _card.card_set== CardSet.HERO_SKINS:
+		#	if _card.card_class == CardClass.MAGE: 
+				print("'%s'"%(_card.id), end=",")
+	print(']')
 
 #
 #		main()
@@ -35,16 +43,18 @@ def printClasses():
 def main():
 	cards.db.initialize()
 	#printClasses()
+	#printListOfCards()
 	#人間手入力(クラスを指定しないとハンターになる)
-	Human=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
+	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.MAGE)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	#ランダムプレーヤー
-	Random=StandardAgent("Random",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
+	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
+	Random2=StandardAgent("Random2",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER)
+		,myClass=CardClass.MAGE)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -77,8 +87,10 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=15, debugLog=True)
+	from utils import BigDeck
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
 	#play_set_of_games(Human, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	print("%d:%d"%(a,b))
 
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

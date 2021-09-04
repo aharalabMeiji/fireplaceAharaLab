@@ -35,14 +35,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	import random
 	#バグが確認されているものを当面除外する
 	exclude = []
-	# excluded in initilization of card db
-	#	'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
-	#	'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
-	#	'YOD_009',## this is a hero in galakrond
-	#	'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-	#	'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-	#	'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
-		
+	log.info("New game settings")
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	if len(deck2)==0:
@@ -77,6 +70,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	#mulligan exchange end
 
 	PresetHands(player1, player2)
+	log.info("New game start")
 
 	while True:	
 		#エージェントの処理ここから
@@ -100,12 +94,16 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
+					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
+					print("%d : %d"%(player1.hero.health,player2.hero.health))
 			except GameOver:#まれにおこる
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
 		#if game was over 
 		if game.state==State.COMPLETE:
+			if debugLog:
+				print(">>>>>>>>>>game end >>>>>>>>"%())
+				print("%d : %d"%(player1.hero.health,player2.hero.health))
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
@@ -148,16 +146,19 @@ class Candidate(object):
 
 	def __str__(self):
 		if self.type==BlockType.ATTACK:
-			return "{card} -> attacks -> target={target}".format(card=self.card,target=self.target)
+			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(card=self.card, atk1=self.card.atk, health1=self.card.health, target=self.target,atk2=self.target.atk,health2=self.target.health)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
-			return "{card} -> heropower".format(card=self.card)
+			if self.target:
+				return "{card} -> heropower -> {target}({atk2}/{health2})".format(card=self.card, target=self.target,atk2=self.target.atk,health2=self.target.health)
+			else:
+				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
-				return "{card} -> plays".format(card=self.card)
+				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
 			else :
-				return "{card}-> plays -> target={target}".format(card=self.card,target=self.target)
+				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(card=self.card, cost = self.card.cost, target=self.target,atk2=self.target.atk,health2=self.target.health)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
@@ -210,7 +211,7 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
-				if character.can_attack(target):
+				if character.can_attack(target) and character != target:
 					myH=character.health
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
@@ -444,6 +445,8 @@ def getTurnLog(gameLog, turnN):
 def ExchangeCard(cards,player):
 	Discard(player.hand[-1]).trigger(player)
 	for _card in cards:
+		if _card=='arcane':
+			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
 		if _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
@@ -454,8 +457,12 @@ def ExchangeCard(cards,player):
 			_card='SCH_232'
 		if _card=='elemental':
 			_card=random.choice(['SCH_143','SCH_245'])
+		if _card=='fire':
+			_card=random.choice(['CORE_CS2_029','SW_462','SW_108','BAR_546','SW_110'])
 		if _card=='frost':
 			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
+		if _card=='mech':
+			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
@@ -463,7 +470,7 @@ def ExchangeCard(cards,player):
 		if _card=='secret':
 			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
-			_card=random.choice(['SCH_353'])
+			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
 		if _card=='spellpower':
 			_card=random.choice(['SW_061'])
 		if _card=='weapon':
@@ -471,12 +478,12 @@ def ExchangeCard(cards,player):
 		Give(player,_card).trigger(player)
 
 def PresetHands(player1, player2): 
-	## add a specific card int the top of the deck
-	#Shuffle(player1,'DMF_123').trigger(player1)#specific card into deck
+	## add a specific card into the deck
+	#Shuffle(player2,'CORE_GVG_076').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['YOP_020'],player1)
-	#ExchangeCard(['weapon'],player2)
+	#ExchangeCard(['SW_069'],player1)
+	#ExchangeCard(['BAR_081'],player2)
 	pass
 
 def PresetPlay(player, cardID):

@@ -2,7 +2,7 @@ import random
 from itertools import chain
 
 from hearthstone.enums import CardType, MultiClassGroup, PlayReq, PlayState, \
-	Race, Rarity, Step, Zone, GameTag
+	Race, Rarity, Step, Zone, GameTag, SpellSchool
 
 from . import actions, cards, enums, rules
 from .aura import TargetableByAuras
@@ -28,10 +28,8 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
-	if subclass is Spell and data.sidequest:# aharalab
-		subclass = Sidequest# aharalab
-	#if subclass is Spell and data.questline:# aharalab
-	#	subclass = Sidequest# aharalab
+	if subclass is Spell and (data.sidequest or data.questline):# もはやsidequestカードはない。
+		subclass = Sidequest# 
 	return subclass(data)
 
 
@@ -96,7 +94,10 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			self.logger.warning("%r attempted a same-zone move in %r", self, old)
+			if old==Zone.HAND and not self in self.controller.hand:
+				self.controller.hand.append(self)
+			elif old==Zone.HAND:
+				self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
 		if old:
@@ -109,7 +110,7 @@ class BaseCard(BaseEntity):
 			Zone.SETASIDE: self.game.setaside,
 		}
 		if caches.get(old) is not None:
-			if self in caches[old]:# aharalab. 30.12.2020 ####### I dont see why we need this line .
+			if self in caches[old]:# 
 				caches[old].remove(self)
 		if caches.get(value) is not None:
 			if hasattr(self, "_summon_index") and self._summon_index is not None:
@@ -159,10 +160,13 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
 	corrupt = boolean_property('corrupt')# darkmoon
+	sidequest_list0 = []# Sidequest
 	_sidequest_list1_ = []# Sidequest
-	_sidequest_list2_ = []# off use
+	_sidequest_list2_ = []# Sidequest
+	_sidequest_list3_ = []# Sidequest
 	_sidequest_counter_ = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
+	script_data_num_1 = int_property("script_data_num_1")
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -182,7 +186,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def events(self):
 		if self.zone == Zone.HAND:
 			return self.data.scripts.Hand.events
-		if self.zone == Zone.DECK:## EX1_295 occurs an error
+		if self.zone == Zone.DECK:## EX1_295, SW_072 occurs an error
+			# in existing cards, there isn't one with Deck class.  However, rarely they come here.
 			return self.data.scripts.Deck.events
 		return self.base_events + self._events
 
@@ -723,6 +728,8 @@ class Minion(Character):
 		self._summon_index = None
 		self.dormant = data.dormant
 		self.guardians_legacy = False
+		self.spellpower_fire = 0
+		self.deathrattle_valid = True
 		super().__init__(data)
 
 	@property
@@ -855,7 +862,10 @@ class Spell(PlayableCard):
 	def get_damage(self, amount, target):
 		amount = super().get_damage(amount, target)
 		if not self.immune_to_spellpower:
-			amount = self.controller.get_spell_damage(amount)
+			if self.spell_school==SpellSchool.FIRE:
+				amount = self.controller.get_spell_damage_fire(amount)
+			else:
+				amount = self.controller.get_spell_damage(amount)
 		if self.receives_double_spelldamage_bonus:
 			amount *= 2
 		return amount
