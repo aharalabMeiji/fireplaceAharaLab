@@ -729,6 +729,7 @@ class Minion(Character):
 		self.dormant = data.dormant
 		self.guardians_legacy = False
 		self.spellpower_fire = 0
+		self.deathrattle_valid = True
 		super().__init__(data)
 
 	@property

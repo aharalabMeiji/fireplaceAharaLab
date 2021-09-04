@@ -94,7 +94,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
+					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
 					print("%d : %d"%(player1.hero.health,player2.hero.health))
 			except GameOver:#まれにおこる
 				gameover=0
@@ -146,16 +146,19 @@ class Candidate(object):
 
 	def __str__(self):
 		if self.type==BlockType.ATTACK:
-			return "{card}({atk}) -> attacks -> {target}({value})".format(card=self.card, atk=self.card.atk, target=self.target,value=self.target.health)
+			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(card=self.card, atk1=self.card.atk, health1=self.card.health, target=self.target,atk2=self.target.atk,health2=self.target.health)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
-			return "{card} -> heropower".format(card=self.card)
+			if self.target:
+				return "{card} -> heropower -> {target}({atk2}/{health2})".format(card=self.card, target=self.target,atk2=self.target.atk,health2=self.target.health)
+			else:
+				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
-				return "{card} -> plays".format(card=self.card)
+				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
 			else :
-				return "{card}-> plays -> {target}".format(card=self.card,target=self.target)
+				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(card=self.card, cost = self.card.cost, target=self.target,atk2=self.target.atk,health2=self.target.health)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
@@ -479,7 +482,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player2,'CORE_GVG_076').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['SW_069'],player1)
+	#ExchangeCard(['SW_069'],player1)
 	#ExchangeCard(['BAR_081'],player2)
 	pass
 

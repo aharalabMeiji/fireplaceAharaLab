@@ -61,6 +61,15 @@ Etc=[
 	'KAR_036e',#CardSet.KARA:#23
 	'OG_280',#C'Thun CardSet.OG (21)
 ]
+faceHunter =[
+		#'SCH_617','SCH_312','SCH_133',\
+		#'SCH_231','SCH_600','BT_213','CORE_EX1_611',
+		#'BT_203','SCH_142','SCH_428',
+		'SCH_600','SCH_600t1','SCH_600t2','SCH_600t3',#class = demonhunter
+		'DRG_252','DRG_256','DRG_253','ULD_152',
+		'EX1_610','EX1_536','EX1_539','EX1_536e',
+		'NEW1_031',
+		]
 All=[Core_Hunter, Core_Neutral, Core_Mage, 
 	AOO_Neutral,AOO_Hunter,AOO_Mage,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,
@@ -68,4 +77,5 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,
 	Crossborder,Legacy,HeroSkins,TGT,Expert1,Etc,
+	faceHunter,
 	]

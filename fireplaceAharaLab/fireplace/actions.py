@@ -215,6 +215,8 @@ class Attack(GameAction):
 		self.broadcast(source, EventListener.ON, attacker, defender)
 
 		defender = source.game.proposed_defender
+		if defender == None: ## rarely happens
+			return
 		source.game.proposed_attacker = None
 		source.game.proposed_defender = None
 		if attacker.should_exit_combat:
@@ -299,7 +301,7 @@ class Death(GameAction):
 		self.broadcast(source, EventListener.ON, target)
 		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(target)])
-		if target.deathrattles:
+		if target.deathrattles and target.deathrattle_valid:
 			source.game.queue_actions(source, [Deathrattle(target)])
 		if target.reborn:# aharalab
 			source.game.queue_actions(source, [Reborn(target)])
