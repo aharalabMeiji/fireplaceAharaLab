@@ -391,26 +391,31 @@ class DMF_254t5t:
 	""" C'Thun's Body
 	&lt;b&gt;Taunt&lt;/b&gt; """
 	pass
-class DMF_254t7:
+class DMF_254t7:###OK
 	""" Maw of C'Thun
 	&lt;b&gt;Piece of C'Thun (@/4)&lt;/b&gt; Destroy a minion. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	play = DMF_254t_Action(SELF),Destroy(TARGET)
 	pass
 
-class DMF_:
+class DMF_070:######################
 	"""Darkmoon Rabbit"""
-	##
+	##&lt;b&gt;Rush&lt;/b&gt;, &lt;b&gt;Poisonous&lt;/b&gt; Also damages the minions next to whomever this attacks.
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 
-class DMF_:
+class DMF_188: #this turn only??########################
 	"""Y'Shaarj, the Defiler"""
-	##
+	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Add a copy of each &lt;b&gt;Corrupted&lt;/b&gt; card you've played this game to your hand. They cost (0) this turn.
+	def play(self):
+		for candidate in self.controller.game.__myLog__:
+			if hasattr(candidate.card,'corrupted'):
+				Give(CONTROLLER, Copy(candidate.card)).then(Buff(Give.CARD, "DMF_188e2"))
 	pass
+class MF_188e2:
+	cost = SET(0)
 
-class DMF_:
+class DMF_004:###############################
 	"""Yogg-Saron, Master of Fate"""
-	##
+	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you've cast 10 spells this game, spin the Wheel of Yogg-Saron.@ &lt;i&gt;({0} left!)&lt;/i&gt;@ &lt;i&gt;(Ready!)&lt;/i&gt;
 	pass
-
-	
