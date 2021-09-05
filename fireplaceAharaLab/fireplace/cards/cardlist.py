@@ -59,7 +59,7 @@ Etc=[
 	'GIL_828e',#CardSet.GILNEAS:#1125
 	'ICC_026t',#CardSet.ICECROWN:#1001
 	'KAR_036e',#CardSet.KARA:#23
-	'OG_280',#C'Thun CardSet.OG (21)
+	#'OG_280',#C'Thun CardSet.OG (21)
 ]
 faceHunter =[
 		#'SCH_617','SCH_312','SCH_133',\

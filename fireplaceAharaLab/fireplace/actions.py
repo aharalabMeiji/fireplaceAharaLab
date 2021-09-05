@@ -560,6 +560,7 @@ class Play(GameAction):
 		self.broadcast(player, EventListener.ON, player, card, target)
 		self.resolve_broadcasts()
 
+
 		#corrupt:
 		_DMF_124_done=False;
 		for eachCard in player.hand:
@@ -1447,7 +1448,8 @@ class Summon(TargetedAction):
 				card.zone = Zone.PLAY
 			self.queue_broadcast(self, (source, EventListener.ON, target, card))
 			self.broadcast(source, EventListener.AFTER, target, card)
-
+			# if the spells are casted by the power of another spell, we may need this line.
+			#DMF_254t_Action(card).trigger(card.controller)
 		return cards
 
 

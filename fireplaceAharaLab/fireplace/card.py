@@ -167,6 +167,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_sidequest_counter_ = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	script_data_num_1 = int_property("script_data_num_1")
+	piece_of_cthun=int_property("piece_of_cthun")#
 
 	def __init__(self, data):
 		self.cant_play = False

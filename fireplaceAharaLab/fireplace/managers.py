@@ -210,6 +210,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.TAG_ONE_TURN_EFFECT: "one_turn_effect",
 	GameTag.OVERLOAD: "overload",
 	GameTag.PARENT_CARD: "parent_card",
+	GameTag.PIECE_OF_CTHUN: "piece_of_cthun",
 	GameTag.POISONOUS: "poisonous",
 	GameTag.POWERED_UP: "powered_up",
 	GameTag.QUESTLINE: "sidequest",#

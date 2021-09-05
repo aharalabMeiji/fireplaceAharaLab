@@ -341,14 +341,61 @@ class DMF_002:
 		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (QUILBOAR | ALL)))))#
 	pass
 
-class DMF_:
+class YOP_034:###OK
 	"""Runaway Blackwing"""
-	##
+	##[x]At the end of your turn, deal 9 damage to a random enemy minion.
+	events = OWN_TURN_END.on(Hit(RANDOM_ENEMY_MINION,9))
 	pass
 
-class DMF_:
+class DMF_254t_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		card = target
+		controller = card.controller
+		if card.id=='DMF_254t3':
+			controller.piece_of_cthun[0] = 1
+		if card.id=='DMF_254t4':
+			controller.piece_of_cthun[1] = 1
+		if card.id=='DMF_254t5':
+			controller.piece_of_cthun[2] = 1
+		if card.id=='DMF_254t7':
+			controller.piece_of_cthun[3] = 1
+		c = sum(controller.piece_of_cthun)
+		log.info("C'thun counts his pieces (%d/4)"%(c))
+		if c==4:
+			Shuffle(controller,'DMF_254').trigger(controller)
+		pass
+
+class DMF_254:###OK
 	"""C'Thun, the Shattered"""
-	##
+	##[x]&lt;b&gt;Start of Game:&lt;/b&gt; Break into pieces. &lt;b&gt;Battlecry:&lt;/b&gt; Deal 30 damage randomly split among all enemies.
+	play = Hit(RANDOM_ENEMY_CHARACTER,1) * 30
+	pass
+
+class DMF_254t3:###OK
+	""" Eye of C'Thun
+	[x]&lt;b&gt;Piece_of_C'Thun_(@/4)&lt;/b&gt;Deal $7 damage randomly split among all enemies. """
+	play = DMF_254t_Action(SELF),Hit(RANDOM_ENEMY_CHARACTER,1) * 7
+	pass
+class DMF_254t4:###OK
+	""" Heart of C'Thun
+	&lt;b&gt;Piece of C'Thun (@/4)&lt;/b&gt; Deal $3 damage to all minions. """
+	play = DMF_254t_Action(SELF),Hit(ENEMY_MINIONS,3)
+	pass
+class DMF_254t5:###OK
+	""" Body of C'Thun
+	&lt;b&gt;Piece of C'Thun (@/4)&lt;/b&gt; Summon a 6/6 C'Thun's Body with &lt;b&gt;Taunt&lt;/b&gt;. """
+	play = DMF_254t_Action(SELF),Summon(CONTROLLER,'DMF_254t5t')
+	pass
+class DMF_254t5t:
+	""" C'Thun's Body
+	&lt;b&gt;Taunt&lt;/b&gt; """
+	pass
+class DMF_254t7:
+	""" Maw of C'Thun
+	&lt;b&gt;Piece of C'Thun (@/4)&lt;/b&gt; Destroy a minion. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = DMF_254t_Action(SELF),Destroy(TARGET)
 	pass
 
 class DMF_:
