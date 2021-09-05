@@ -303,7 +303,7 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Asphyxia(target)])
 		if target.deathrattles and target.deathrattle_valid:
 			source.game.queue_actions(source, [Deathrattle(target)])
-		if target.reborn:# aharalab
+		if target.reborn:# 
 			source.game.queue_actions(source, [Reborn(target)])
 		if target.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
@@ -1400,7 +1400,7 @@ class Silence(TargetedAction):
 	Silence minion targets.
 	"""
 	def do(self, source, target):
-		log.info("Silencing %r", self)
+		log.info("Silencing %r", target)
 		self.broadcast(source, EventListener.ON, target)
 
 		target.clear_buffs()

@@ -982,6 +982,9 @@ class Enchantment(BaseCard):
 			self.log("%r removes all damage from %r", self, target)
 			target.damage = 0
 		self.zone = Zone.PLAY
+		if self.id == 'YOP_012e':
+			if hasattr(self.owner,'deathrattle_valid'):
+				self.owner.deathrattle_valid = False
 
 	def remove(self):
 		self.zone = Zone.REMOVEDFROMGAME

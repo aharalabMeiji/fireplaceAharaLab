@@ -452,7 +452,7 @@ def ExchangeCard(cards,player):
 		if _card=='beast':
 			_card=random.choice(['SCH_133','SCH_714'])
 		if _card=='deathrattle':
-			_card=random.choice(['SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
+			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
 		if _card=='dragon':
 			_card='SCH_232'
 		if _card=='elemental':
@@ -467,6 +467,8 @@ def ExchangeCard(cards,player):
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card='SCH_333'
+		if _card=='rush':
+			_card=random.choice(['YOP_031'])
 		if _card=='secret':
 			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
@@ -479,10 +481,10 @@ def ExchangeCard(cards,player):
 
 def PresetHands(player1, player2): 
 	## add a specific card into the deck
-	#Shuffle(player2,'CORE_GVG_076').trigger(player1)#specific card into deck
+	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['SW_069'],player1)
+	ExchangeCard(['DMF_002','DMF_532'],player1)
 	#ExchangeCard(['BAR_081'],player2)
 	pass
 
