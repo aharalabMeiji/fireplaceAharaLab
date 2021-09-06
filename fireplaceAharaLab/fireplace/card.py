@@ -160,6 +160,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
 	corrupt = boolean_property('corrupt')# darkmoon
+	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	sidequest_list0 = []# Sidequest
 	_sidequest_list1_ = []# Sidequest
 	_sidequest_list2_ = []# Sidequest
@@ -167,6 +168,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_sidequest_counter_ = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	script_data_num_1 = int_property("script_data_num_1")
+	piece_of_cthun=int_property("piece_of_cthun")#
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -180,6 +182,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.morphed = None
 		self.upgrade_counter = 0
 		self.cast_on_friendly_characters = False
+		self.script_data_text_0=' '
+		self.script_data_text_1=' '
 		super().__init__(data)
 
 	@property
@@ -982,6 +986,9 @@ class Enchantment(BaseCard):
 			self.log("%r removes all damage from %r", self, target)
 			target.damage = 0
 		self.zone = Zone.PLAY
+		if self.id == 'YOP_012e':
+			if hasattr(self.owner,'deathrattle_valid'):
+				self.owner.deathrattle_valid = False
 
 	def remove(self):
 		self.zone = Zone.REMOVEDFROMGAME

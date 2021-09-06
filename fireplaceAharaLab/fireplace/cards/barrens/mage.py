@@ -127,6 +127,7 @@ class BAR_547_Hand_Event(TargetedAction):
         for case in ActivateList:
             count += case[2]
         source.script_data_num_1 = count+1
+        source.script_data_text_0 = str(9 - count)
         pass
 class BAR_547:#<4> [1525] ##OK
     """ Mordresh Fire Eye

@@ -71,7 +71,8 @@ class Player(Entity, TargetableByAuras):
 		self.times_spells_played_this_turn = 0 #
 		self.spells_played_this_turn=[] #
 		self.died_this_turn=[] #
-		self.cthun = None
+		#self.cthun = None
+		self.piece_of_cthun = [0,0,0,0]
 		self._death_log=[]
 		self._play_log=[]
 		self._damage_log=[]
@@ -183,25 +184,38 @@ class Player(Entity, TargetableByAuras):
 			card.creator = source
 		if parent is not None:
 			card.parent_card = parent
-		if id == "OG_280" and self.controller.cthun is not None:
-			cthun = self.controller.cthun
-			for k in cthun.silenceable_attributes:
-				v = getattr(cthun, k)
-				setattr(card, k, v)
-			card.silenced = cthun.silenced
-			card.damage = cthun.damage
-			for buff in cthun.buffs:
-				cthun.buff(card, buff.id)
+		#if id == "OG_280" and self.controller.cthun is not None:
+		#	cthun = self.controller.cthun
+		#	for k in cthun.silenceable_attributes:
+		#		v = getattr(cthun, k)
+		#		setattr(card, k, v)
+		#	card.silenced = cthun.silenced
+		#	card.damage = cthun.damage
+		#	for buff in cthun.buffs:
+		#s		cthun.buff(card, buff.id)
 		self.game.manager.new_entity(card)
 		return card
+
+	def setup_piece_of_cthun(self):#DMF_254
+		player = self
+		for card in player.deck:
+			if card.id=='DMF_254':
+				card.destroy()
+				self.card('DMF_254t3',zone=Zone.DECK)
+				self.card('DMF_254t4',zone=Zone.DECK)
+				self.card('DMF_254t5',zone=Zone.DECK)
+				self.card('DMF_254t7',zone=Zone.DECK)
+				self.shuffle_deck()
+		pass
 
 	def prepare_for_game(self):
 		self.summon(self.starting_hero)
 		for id in self.starting_deck:
 			self.card(id, zone=Zone.DECK)
 		self.shuffle_deck()
-		self.cthun = self.card("OG_280")
+		#self.cthun = self.card("OG_280")
 		self.playstate = PlayState.PLAYING
+		self.setup_piece_of_cthun()
 
 		# Draw initial hand (but not any more than what we have in the deck)
 		hand_size = min(len(self.deck), self.start_hand_size)
