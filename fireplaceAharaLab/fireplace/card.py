@@ -160,6 +160,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	mark_of_evil = boolean_property("mark_of_evil")# 
 	trade_cost = int_property("trade_cost")
 	corrupt = boolean_property('corrupt')# darkmoon
+	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	sidequest_list0 = []# Sidequest
 	_sidequest_list1_ = []# Sidequest
 	_sidequest_list2_ = []# Sidequest
@@ -181,6 +182,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.morphed = None
 		self.upgrade_counter = 0
 		self.cast_on_friendly_characters = False
+		self.script_data_text_0=''
+		self.script_data_text_1=''
 		super().__init__(data)
 
 	@property

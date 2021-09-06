@@ -559,20 +559,8 @@ class Play(GameAction):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
 		self.resolve_broadcasts()
-
-
 		#corrupt:
-		_DMF_124_done=False;
-		for eachCard in player.hand:
-			if hasattr(eachCard,'corrupt'):
-				if eachCard.corrupt:
-					if eachCard.cost < card.cost:
-						if eachCard.id=='DMF_124t' and _DMF_124_done:
-							continue
-						else:
-						    Corrupt(player, eachCard).trigger(player)
-						    _DMF_124_done=True
-
+		Corrupt(player, card).trigger(player)
 
 		# "Can't Play" (aka Counter) means triggers don't happen either
 		if not card.cant_play:
@@ -937,22 +925,26 @@ class Battlecry(TargetedAction):
 			source.game.queue_actions(card, [Overload(player, card.overload)])
 
 class Corrupt(TargetedAction):# darkmoon fair 
-    CONTROLLER = ActionArg()
-    CORRUPT = CardArg()
-    def do(self, source, controller, corrupt):
-        corrupt=corrupt[0]
-        if corrupt.corrupt:
-            if corrupt.id == 'DMF_124t':# （何回でも変妖できて+1/+1）
-                corrupt.max_health += 1
-                corrupt.atk += 1
-                return
-            corrupted = corrupt.id+"t"#現時点でのルール。DMF_124t以外はOK
-            newCard = Give(controller, corrupted).trigger(controller)
-            newCard = newCard[0][0]
-            for _buff in corrupt.buffs:
-                newCard.buffs.append(_buff)
-            Destroy(corrupt).trigger(controller)
-        pass
+	CONTROLLER = ActionArg()
+	CARD = CardArg()
+	def do(self, source, controller, card):
+		card=card[0]
+		corruptList=[]
+		for target in controller.hand:
+			if target.corrupt and card.cost > target.cost:
+				if target.id == 'DMF_124t':# （+1/+1 in any case）
+					target.max_health += 1
+					target.atk += 1
+				else:
+					corruptList.append({'card':target,'corruptedID':target.id+"t"})
+		for target in corruptList:
+			newCard = Give(controller, target['corruptedID']).trigger(controller)
+			newCard = newCard[0][0]
+			for _buff in target['card'].buffs:
+				newCard.buffs.append(_buff)
+		for target in corruptList:
+			Destroy(target['card']).trigger(controller)
+		pass
 
 class Destroy(TargetedAction):
 	"""
@@ -1966,8 +1958,6 @@ class SetAtk(TargetedAction):
 		log.info("Setting atk on %r to %i", target, amount)
 		target.atk = amount
 
-		
-from .dsl.copy import Copy
 
 class Reborn(TargetedAction):
 	"""

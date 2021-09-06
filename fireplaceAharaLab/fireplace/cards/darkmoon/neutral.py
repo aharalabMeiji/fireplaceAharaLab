@@ -142,6 +142,7 @@ class YOP_012:###OK
 	tags = {GameTag.DEATHRATTLE: True}
 	deathrattle = YOP_012_Deathrattle(CONTROLLER)
 
+
 class YOP_012e:
 	pass
 
@@ -398,24 +399,81 @@ class DMF_254t7:###OK
 	play = DMF_254t_Action(SELF),Destroy(TARGET)
 	pass
 
-class DMF_070:######################
+class DMF_070:###OK
 	"""Darkmoon Rabbit"""
 	##&lt;b&gt;Rush&lt;/b&gt;, &lt;b&gt;Poisonous&lt;/b&gt; Also damages the minions next to whomever this attacks.
 	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 
-class DMF_188: #this turn only??########################
+class DMF_188: #this turn only??# yes! ##OK
 	"""Y'Shaarj, the Defiler"""
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; Add a copy of each &lt;b&gt;Corrupted&lt;/b&gt; card you've played this game to your hand. They cost (0) this turn.
 	def play(self):
-		for candidate in self.controller.game.__myLog__:
-			if hasattr(candidate.card,'corrupted'):
-				Give(CONTROLLER, Copy(candidate.card)).then(Buff(Give.CARD, "DMF_188e2"))
+		for card in self.controller.play_log:
+			if hasattr(card,'corruptedcard') and card.corruptedcard:
+				#a=(card.id)[-1]
+				#b=card.id[:-1]
+				if (card.id)[-1]=='t':  #assert corrupted
+					new_card = Give(self.controller, card.id[:-1]).trigger(self.controller)
+					new_card = new_card[0][0]
+					Buff(new_card, "DMF_188e2").trigger(self)
 	pass
-class MF_188e2:
+class DMF_188e2:###  
 	cost = SET(0)
+	events = EndTurn(CONTROLLER).on(Destroy(SELF))
+
+class Find10SpellsAndSpin(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		count = 0
+		for card in controller.play_log:
+			if card.type==CardType.SPELL:
+				count += 1
+		if count >= 10:
+			Give(controller,random.choice('DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6')).trigger(controller)
+		pass
+class CountSpells(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		count = 0
+		for card in controller.play_log:
+			if card.type==CardType.SPELL:
+				count += 1
+		source.script_data_num_1 = count
+		source.script_data_text_0 = 10-count
+		pass
 
 class DMF_004:###############################
 	"""Yogg-Saron, Master of Fate"""
-	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you've cast 10 spells this game, spin the Wheel of Yogg-Saron.@ &lt;i&gt;({0} left!)&lt;/i&gt;@ &lt;i&gt;(Ready!)&lt;/i&gt;
+	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you've cast 10 spells this game, spin the Wheel of Yogg-Saron.
+	#@ &lt;i&gt;({0} left!)&lt;/i&gt;@ &lt;i&gt;(Ready!)&lt;/i&gt;
+	play = Find10SpellsAndSpin(CONTROLLER)
+	class Hand:
+		events = OWN_SPELL_PLAY.on(CountSpells(CONTROLLER))
+	pass
+class DMF_004t1:
+	"""Mysterybox
+	Cast a random spell for every spell you've cast this game &lt;i&gt;(targets chosen randomly)&lt;/i&gt;. """
+	pass
+DMF_004t1e=buff(0,0)
+class DMF_004t2:
+	"""Hand of Fate
+	Fill your hand with random spells. They cost (0) this turn. """
+	pass
+class DMF_004t3:
+	"""Curse of Flesh
+	Fill the board with random minions, then give yours &lt;b&gt;Rush&lt;/b&gt; """
+	pass
+class DMF_004t4:
+	"""Mindflayer Goggles
+	Take control of three random enemy minions """
+	pass
+class DMF_004t5:
+	"""Devouring Hunger
+	Destroy all other minions. Gain their Attack and Health. """
+	pass
+DMF_005t5e=buff(0,0)
+class DMF_004t6:
+	"""Rod of Roasting
+	Cast 'Pyroblast' randomly until a hero dies."""
 	pass

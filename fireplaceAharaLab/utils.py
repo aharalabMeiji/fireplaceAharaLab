@@ -38,8 +38,6 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	log.info("New game settings")
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
-		if not 'DMF_254' in deck1:
-			deck1[-1] = 'DMF_254'
 	if len(deck2)==0:
 		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
@@ -453,6 +451,8 @@ def ExchangeCard(cards,player):
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
 			_card=random.choice(['SCH_133','SCH_714'])
+		if _card=='corrupt':
+			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
 		if _card=='deathrattle':
 			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
 		if _card=='dragon':
@@ -486,7 +486,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['DMF_254'],player1)
+	ExchangeCard(['DMF_004','spell'],player1)
 	#ExchangeCard(['BAR_081'],player2)
 	pass
 
