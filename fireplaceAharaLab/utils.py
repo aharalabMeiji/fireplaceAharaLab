@@ -10,11 +10,9 @@ import random
 import time
 from fireplace.config import Config
 
-
-
-
 class Agent(object):
-	""" """
+	""" エージェントのクラス
+	エージェントを作るときはこのクラスを継承してください。"""
 	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, mulliganStrategy = None):
 		self.name = myName
 		self.func = myFunction
@@ -29,30 +27,32 @@ class Agent(object):
 		return self.name
 
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
-	""" 1回ゲームを行う。 """
+	""" エージェント同士で1回対戦する。
+	実験的に、ヒーローの体力、初期マナ数、初期ハンド枚数をコントロールできます。
+	play one game by P1 and P2 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
 	import random
-	#バグが確認されているものを当面除外する
-	exclude = []
+	exclude = []# you may exclude some cards to construct a deck
 	log.info("New game settings")
 	if len(deck1)==0:
-		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
+		deck1 = random_draft(P1.myClass,exclude)#random deck wrt its class
 	if len(deck2)==0:
-		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
+		deck2 = random_draft(P2.myClass,exclude)#random deck wrt its class
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 	game = GameWithLog(players=(player1, player2))
-	# Config周りの変更はここで行う。
-	player1._start_hand_size=P1HAND## start()より前におく
-	player2._start_hand_size=P2HAND## start()より前におく
-	player1.max_mana=int(P1MAXMANA)-1
+	# Configurations
+	player1._start_hand_size=P1HAND## this line must be before 'start()'
+	player2._start_hand_size=P2HAND## 
+	player1.max_mana=int(P1MAXMANA)-1## this line must be before 'start()'
 	player2.max_mana=int(P2MAXMANA)-1
 	game.start()
-	player1.hero.max_health = int(HEROHPOPTION)## start()より後におく
-	player2.hero.max_health = int(HEROHPOPTION)## start()より後におく
+	player1.hero.max_health = int(HEROHPOPTION)## this line must be below 'start()'
+	player2.hero.max_health = int(HEROHPOPTION)## 
 
 	#mulligan exchange
+	# Any agent are allowed to give an algorithm to do mulligan exchange.
 	for player in game.players:
 		if player.name==P1.name:
 			if P1.mulliganStrategy == None:
@@ -69,24 +69,21 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
 
-	PresetHands(player1, player2)
+	PresetHands(player1, player2)# if you want to controll the player's hand, write here
 	log.info("New game start")
 
 	while True:	
-		#エージェントの処理ここから
+		#game main loop
 		player = game.current_player
 		start_time = time.time()
 		if player.name==P1.name:
-			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
-			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
+			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
 			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
-			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
-			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
+			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
 			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#random player by fireplace
-		#ターンエンドの処理ここから
 		#turn end procedure from here
 		if player.choice!=None:
 			player.choice=None#somotimes it comes here
@@ -96,13 +93,13 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				if debugLog:
 					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
 					print("%d : %d"%(player1.hero.health,player2.hero.health))
-			except GameOver:#まれにおこる
+			except GameOver:#it rarely occurs
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
 		#if game was over 
 		if game.state==State.COMPLETE:
 			if debugLog:
-				print(">>>>>>>>>>game end >>>>>>>>"%())
+				print(">>>>>>>>>>game end >>>>>>>>"%(),end=' ')
 				print("%d : %d"%(player1.hero.health,player2.hero.health))
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
@@ -357,24 +354,12 @@ class ExceptionPlay(IntEnum):
 	TURNEND=4
 
 class BigDeck:
-	#MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
-	#	'BOT_038','BOT_309','BOT_309','BOT_907','BOT_907',\
-	#	'BOT_033','BOT_033','DAL_604','DAL_604','BOT_251',\
-	#	'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
-	#	'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
-	#	'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
-	faceHunter = [\
-		'SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
+	#Available
+	faceHunter = ['SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
-	purePaladin=[\
-		'SCH_247','SCH_247','BT_020','BT_020','SCH_149','SCH_149',\
-		'BT_292','BT_292','BT_025','BT_025','BT_019','SCH_532',\
-		'SCH_532','CS2_093','CS2_093','SCH_141','DRG_232','DRG_232',\
-		'BT_026','BT_026','SCH_138','SCH_138','BT_011','BT_011',\
-		'SCH_139','SCH_139','BT_334','DRG_231','DRG_231','BT_024'
-		]
+
 
 def postAction(player):
 	while True:

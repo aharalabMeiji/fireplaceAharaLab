@@ -3,13 +3,9 @@ import sys
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
-#from agent_Maya import *
-from agent_word_strategy import *
-from agent_AngryCat import *
+from fireplace import cards
 
 sys.path.append("..")
-
-from fireplace import cards
 
 def printClasses():
 	print('')
@@ -19,7 +15,7 @@ def printClasses():
 	for _id in cards.db.keys():
 		_card = cards.db[_id]
 		if _card.card_set== CardSet.CORE:
-			if _card.card_class == 10:#CardClass.DEMONHUNTER: 
+			if _card.card_class == CardClass.DEMONHUNTER: 
 				_cardList.append(_card.id)
 				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 				print('    """ %s'%(_card.name))
@@ -44,11 +40,11 @@ def main():
 	cards.db.initialize()
 	#printClasses()
 	#printListOfCards()
-	#人間手入力(クラスを指定しないとハンターになる)
+	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.MAGE)
 	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
-	#ランダムプレーヤー
+	# random agent
 	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
 	Random2=StandardAgent("Random2",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
@@ -88,8 +84,8 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	from utils import BigDeck
-	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
-	a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=15, debugLog=True)
+	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
 
 	#デッキを固定しての総当たり戦
