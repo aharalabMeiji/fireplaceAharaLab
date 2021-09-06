@@ -327,20 +327,33 @@ class DMF_163t:###OK
 	play = Summon(CONTROLLER, Copy(SELF)) * 6
 	pass
 
-class DMF_002:
+class DMF_002:###OK
 	"""N'Zoth, God of the Deep"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Resurrect a friendly minion of each minion type.
-	play=(\
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (BEAST | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (DEMON | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (DRAGON | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (MECH | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (MURLOC | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (PIRATE | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (TOTEM | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (ELEMENTAL | ALL)))),
-		Summon(CONTROLLER, Copy(RANDOM(FRIENDLY + KILLED + MINION + (QUILBOAR | ALL)))))#
-	pass
+	def summonRace(self, myRace, exclude):
+		friendly_graveyard = self.controller.graveyard
+		choice = []
+		for card in friendly_graveyard:
+			if not card in exclude and hasattr(card,'race'):
+				if card.race == myRace or card.race == Race.ALL:
+					choice.append(card)
+		if len(choice)>0:
+			card = random.choice(choice)
+			Summon(self.controller, card.id).trigger(self.controller)
+			exclude.append(card)
+
+	def play(self):
+		exclude = []
+		DMF_002.summonRace(self, Race.BEAST, exclude)
+		DMF_002.summonRace(self, Race.DEMON, exclude)
+		DMF_002.summonRace(self, Race.DRAGON, exclude)
+		DMF_002.summonRace(self, Race.MECHANICAL, exclude)
+		DMF_002.summonRace(self, Race.MURLOC, exclude)
+		DMF_002.summonRace(self, Race.PIRATE, exclude)
+		DMF_002.summonRace(self, Race.TOTEM, exclude)
+		DMF_002.summonRace(self, Race.ELEMENTAL, exclude)
+		DMF_002.summonRace(self, Race.QUILBOAR, exclude)
+
 
 class YOP_034:###OK
 	"""Runaway Blackwing"""

@@ -440,16 +440,17 @@ SPELL = EnumSelector(CardType.SPELL)
 SECRET = EnumSelector(GameTag.SECRET)
 HERO_POWER = EnumSelector(CardType.HERO_POWER)
 
-BEAST = EnumSelector(Race.BEAST)
-DEMON = EnumSelector(Race.DEMON)
-DRAGON = EnumSelector(Race.DRAGON)
-MECH = EnumSelector(Race.MECHANICAL)
-MURLOC = EnumSelector(Race.MURLOC)
-PIRATE = EnumSelector(Race.PIRATE)
-TOTEM = EnumSelector(Race.TOTEM)
-ELEMENTAL = EnumSelector(Race.ELEMENTAL)
-QUILBOAR = EnumSelector(Race.QUILBOAR)
 ALL = EnumSelector(Race.ALL)
+
+BEAST = EnumSelector(Race.BEAST) | ALL
+DEMON = EnumSelector(Race.DEMON) | ALL
+DRAGON = EnumSelector(Race.DRAGON) | ALL
+MECH = EnumSelector(Race.MECHANICAL) | ALL
+MURLOC = EnumSelector(Race.MURLOC) | ALL
+PIRATE = EnumSelector(Race.PIRATE) | ALL
+TOTEM = EnumSelector(Race.TOTEM) | ALL
+ELEMENTAL = EnumSelector(Race.ELEMENTAL) | ALL
+QUILBOAR = EnumSelector(Race.QUILBOAR) | ALL
 
 NATURE = EnumSelector(SpellSchool.NATURE)
 HOLY = EnumSelector(SpellSchool.HOLY)
