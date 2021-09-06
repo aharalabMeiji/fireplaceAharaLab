@@ -265,6 +265,9 @@ def adjust_text_by_spellpower(text, player, card):
 			_new_text = _new_text[:_i] + str(sum(player.piece_of_cthun)) + _new_text[_i+1:]
 			pass
 	for _i in range(_len):
+		if _i<_len-3 and _new_text[_i:_i+3]=='{0}' :
+			_new_text = _new_text[:_i+1] + card.script_data_text_0 + _new_text[_i+2:]
+	for _i in range(_len):
 		if _new_text[_i]=='$':
 			if _i+1<_len and _new_text[_i+1] in ['0','1','2','3','4','5','6','7','8','9']:
 				_catch_number = int(_new_text[_i+1])

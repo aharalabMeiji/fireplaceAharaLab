@@ -950,7 +950,7 @@ class Destroy(TargetedAction):
 	"""
 	Destroy character targets.
 	"""
-	
+	TARGET = ActionArg()
 	def do(self, source, target):
 		if not target:
 			return

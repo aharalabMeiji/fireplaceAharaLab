@@ -430,7 +430,7 @@ class Find10SpellsAndSpin(TargetedAction):
 			if card.type==CardType.SPELL:
 				count += 1
 		if count >= 10:
-			Give(controller,random.choice('DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6')).trigger(controller)
+			Give(controller,random.choice(['DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6'])).trigger(controller)
 		pass
 class CountSpells(TargetedAction):
 	CONTROLLER = ActionArg()
@@ -440,10 +440,11 @@ class CountSpells(TargetedAction):
 			if card.type==CardType.SPELL:
 				count += 1
 		source.script_data_num_1 = count
-		source.script_data_text_0 = 10-count
+		source.script_data_text_0 = str(10-count)
+		return count
 		pass
 
-class DMF_004:###############################
+class DMF_004:###OK
 	"""Yogg-Saron, Master of Fate"""
 	##[x]&lt;b&gt;Battlecry:&lt;/b&gt; If you've cast 10 spells this game, spin the Wheel of Yogg-Saron.
 	#@ &lt;i&gt;({0} left!)&lt;/i&gt;@ &lt;i&gt;(Ready!)&lt;/i&gt;
@@ -451,29 +452,108 @@ class DMF_004:###############################
 	class Hand:
 		events = OWN_SPELL_PLAY.on(CountSpells(CONTROLLER))
 	pass
-class DMF_004t1:
+class CastRandomSpell(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source,controller):
+		count = 0
+		for card in controller.play_log:
+			if card.type==CardType.SPELL:
+				count+=1
+		for repeat in range(count-1):
+			spell = RandomSpell().evaluate(controller)
+			spell = spell[0]
+			spell.zone = Zone.HAND
+			spell.cost = 0
+			if spell.requires_target():
+				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])
+				spell.play(target=target)
+			else:
+				spell.play()
+		pass
+class DMF_004t1:###OK
 	"""Mysterybox
 	Cast a random spell for every spell you've cast this game &lt;i&gt;(targets chosen randomly)&lt;/i&gt;. """
+	play = CastRandomSpell(CONTROLLER)
 	pass
 DMF_004t1e=buff(0,0)
-class DMF_004t2:
+class DMF_004t2:###OK
 	"""Hand of Fate
 	Fill your hand with random spells. They cost (0) this turn. """
+	play = (Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),#借りてきた
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')))
 	pass
-class DMF_004t3:
+class DMF_004t3:###OK
 	"""Curse of Flesh
 	Fill the board with random minions, then give yours &lt;b&gt;Rush&lt;/b&gt; """
+	play = (Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))))
 	pass
-class DMF_004t4:
+class DMF_004t4:###OK
 	"""Mindflayer Goggles
 	Take control of three random enemy minions """
+	play = (Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET))),
+		 Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET))),
+		 Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET)))
+		 )
 	pass
-class DMF_004t5:
+class DestroyAll_GainStats(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		minions = controller.field+controller.opponent.field
+		new_atk=0
+		new_health=0
+		master = None
+		for card in minions:
+			if card.id != 'DMF_004':
+				new_atk += card.atk
+				new_health += card.max_health
+				card.destroy()
+			else:
+				master = card
+		if master != None:
+			master.atk += new_atk
+			master.max_health += new_health
+		pass
+	pass
+
+class DMF_004t5:###OK
 	"""Devouring Hunger
 	Destroy all other minions. Gain their Attack and Health. """
+	play = DestroyAll_GainStats(CONTROLLER)
 	pass
 DMF_005t5e=buff(0,0)
-class DMF_004t6:
+
+class RandomPyroblast(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		while True:
+			x = random.choice([controller.hero,controller.opponent.hero])
+			if x.health<10:
+				Hit(x,10).trigger(source)
+				# do something here?
+				return
+			else:
+				Hit(x,10).trigger(source)
+		pass
+	pass
+class DMF_004t6:### OK
 	"""Rod of Roasting
 	Cast 'Pyroblast' randomly until a hero dies."""
+	play = RandomPyroblast(CONTROLLER)
 	pass

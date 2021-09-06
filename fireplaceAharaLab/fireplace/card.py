@@ -182,8 +182,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.morphed = None
 		self.upgrade_counter = 0
 		self.cast_on_friendly_characters = False
-		self.script_data_text_0=''
-		self.script_data_text_1=''
+		self.script_data_text_0=' '
+		self.script_data_text_1=' '
 		super().__init__(data)
 
 	@property
