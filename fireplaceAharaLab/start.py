@@ -7,31 +7,31 @@ from fireplace import cards
 
 sys.path.append("..")
 
-def printClasses():
-	print('')
-	print('from ..utils import *')
-	print('')
-	_cardList = []
-	for _id in cards.db.keys():
-		_card = cards.db[_id]
-		if _card.card_set== CardSet.CORE:
-			if _card.card_class == CardClass.DEMONHUNTER: 
-				_cardList.append(_card.id)
-				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
-				print('    """ %s'%(_card.name))
-				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-				print('    #'%())
-				print('    pass'%())
-				print(''%())
+#def printClasses():
+#	print('')
+#	print('from ..utils import *')
+#	print('')
+#	_cardList = []
+#	for _id in cards.db.keys():
+#		_card = cards.db[_id]
+#		if _card.card_set== CardSet.CORE:
+#			if _card.card_class == CardClass.DEMONHUNTER: 
+#				_cardList.append(_card.id)
+#				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
+#				print('    """ %s'%(_card.name))
+#				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+#				print('    #'%())
+#				print('    pass'%())
+#				print(''%())
 
-def printListOfCards():
-	print('Stormwind_Mage=',end='[')#   Neutral   Hunter   Mage
-	for _id in cards.db.keys():
-		_card = cards.db[_id]
-		if _card.card_set== CardSet.HERO_SKINS:
-		#	if _card.card_class == CardClass.MAGE: 
-				print("'%s'"%(_card.id), end=",")
-	print(']')
+#def printListOfCards():
+#	print('Stormwind_Mage=',end='[')#   Neutral   Hunter   Mage
+#	for _id in cards.db.keys():
+#		_card = cards.db[_id]
+#		if _card.card_set== CardSet.HERO_SKINS:
+#		#	if _card.card_class == CardClass.MAGE: 
+#				print("'%s'"%(_card.id), end=",")
+#	print(']')
 
 #
 #		main()
