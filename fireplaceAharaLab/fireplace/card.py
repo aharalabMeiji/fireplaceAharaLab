@@ -28,8 +28,11 @@ def Card(id):
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
-	if subclass is Spell and (data.sidequest or data.questline):# もはやsidequestカードはない。
-		subclass = Sidequest# 
+	if subclass is Spell:
+		if hasattr(data,'sidequest') and data.sidequest:
+			subclass = Sidequest# 
+		if hasattr(data,'questline') and data.questline:
+			subclass = Sidequest# 
 	return subclass(data)
 
 
