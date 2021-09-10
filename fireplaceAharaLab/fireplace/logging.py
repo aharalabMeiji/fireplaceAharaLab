@@ -15,7 +15,11 @@ def get_logger(name, level=logging.DEBUG):
 		)
 		ch.setFormatter(formatter)
 
+<<<<<<< HEAD
 		# logger.addHandler(ch)
+=======
+		#logger.addHandler(ch)
+>>>>>>> 048bb85c68c0bb4b687cd9e82f60bb17b1344375
 
 	return logger
 

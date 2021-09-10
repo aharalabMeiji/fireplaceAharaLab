@@ -4,9 +4,11 @@ from ..utils import *
 class SW_023:
     """Provoke
     Tradeable Choose a friendly minion. Enemy minions attack it."""
-    requirements = {PlayReq.REQ_MINION_TARGET: 0,
+    requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1,
                     PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_FRIENDLY_TARGET: 0}
-    play =
+    def play(self):
+        for minion in self.controller.opponent.field:
+            Attack(minion,TARGET)
     pass
 
 
@@ -180,7 +182,7 @@ class SW_068:
 class SCH_621:
     """Rattlegore
     Deathrattle: Resummon this with -1/-1."""
-    deathrattle = 
+    deathrattle = ()
     #https://wiki.denfaminicogamer.jp/hearthstone/ラトルゴア_Rattlegore 
     # のメモに要注意
     pass

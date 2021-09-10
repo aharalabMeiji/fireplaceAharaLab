@@ -36,7 +36,7 @@ class WC_028:#OK
 	events = OWN_TURN_END.on(GiveAdventurerWithBonus(CONTROLLER))
 	pass
 
-class BAR_074:#OK　　up to 10 がまだ
+class BAR_074:#OK　　
 	"""
 	Far Watch Post
 
@@ -46,8 +46,9 @@ class BAR_074:#OK　　up to 10 がまだ
 	events = Draw(OPPONENT).on(Buff(Draw.CARD,"BAR_074e"))
 	pass
 
-BAR_074e = buff(cost=1)
-# Spotted!"""
+class BAR_074e:
+	# Spotted!"""
+	cost = lambda self, i: min(i+1,10)
 
 class BAR_745:#OK
 	"""
@@ -91,19 +92,20 @@ class BAR_022:#OK
 	events = Damage(SELF).on(Frenzy(SELF,Give(CONTROLLER,RandomSpell(card_class=FRIENDLY_CLASS))))
 	pass
 
-class BAR_064:#maybe OK「一夜漬け」では効果を見られない。
+class BAR_064:###OK  ## OWN_SPELL_PLAY.after is calid. no '.on'
 	"""
 	Talented Arcanist
 	<b>Battlecry:</b> Your next spell_this turn has <b>Spell_Damage +2</b>.
 	"""
-	play = Buff(CONTROLLER, "BAR_064e")
-	events = [ OWN_SPELL_PLAY.on( Destroy(FRIENDLY + ID("BAR_064e"))),
-		   OWN_TURN_END.on( Destroy(FRIENDLY + ID("BAR_064e")))
+	play = SetAttr(SELF,'spellpower',2)
+	events = [ OWN_SPELL_PLAY.after( SetAttr(SELF,'spellpower',0)),
+		   OWN_TURN_END.on( SetAttr(SELF,'spellpower',0))
 		   ]
 	pass
-class BAR_064e:
-	update = Refresh(FRIENDLY_HAND, {GameTag.SPELLPOWER: 2})
-	#{GameTag.SPELLPOWER: 2})
+
+#class BAR_064e:#<4> [1525]
+#	update = Refresh(FRIENDLY_HAND, {GameTag.SPELLPOWER: 2})
+#class BAR_064e2: #<4> [1525]
 
 class BAR_743:#OK 
 	#******NATUREはドルイド、シャーマンの特性****たとえば自然学の予習(SCH_333)**

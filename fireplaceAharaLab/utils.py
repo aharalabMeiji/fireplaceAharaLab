@@ -10,11 +10,9 @@ import random
 import time
 from fireplace.config import Config
 
-
-
-
 class Agent(object):
-	""" """
+	""" エージェントのクラス
+	エージェントを作るときはこのクラスを継承してください。"""
 	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, mulliganStrategy = None):
 		self.name = myName
 		self.func = myFunction
@@ -29,37 +27,32 @@ class Agent(object):
 		return self.name
 
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
-	""" 1回ゲームを行う。 """
+	""" エージェント同士で1回対戦する。
+	実験的に、ヒーローの体力、初期マナ数、初期ハンド枚数をコントロールできます。
+	play one game by P1 and P2 """
 	from fireplace.utils import random_draft
 	from fireplace.player import Player
 	import random
-	#バグが確認されているものを当面除外する
-	exclude = []
-	# excluded in initilization of card db
-	#	'SCH_199',## neutral-scholo, this card morphs w.r.t. the background when playing
-	#	'SCH_259',## neutral-scholo, while this weapon is played, each turn begin allows me to compare the drawn card and other cards.
-	#	'YOD_009',## this is a hero in galakrond
-	#	'DRG_050','DRG_242','DRG_099',## neutral-dragon/45 These are invoking cards for galakrond
-	#	'ULD_178',## neutral-uldum, this card allows us to add 2 of 4 enchantments when we use.
-	#	'DAL_800', ## change all cards in the friendly deck, and it might occur some troubles. 
-		
+	exclude = []# you may exclude some cards to construct a deck
+	log.info("New game settings")
 	if len(deck1)==0:
-		deck1 = random_draft(P1.myClass,exclude)#カードクラスに従ったランダムなデッキ
+		deck1 = random_draft(P1.myClass,exclude)#random deck wrt its class
 	if len(deck2)==0:
-		deck2 = random_draft(P2.myClass,exclude)#カードクラスに従ったランダムなデッキ
+		deck2 = random_draft(P2.myClass,exclude)#random deck wrt its class
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 	game = GameWithLog(players=(player1, player2))
-	# Config周りの変更はここで行う。
-	player1._start_hand_size=P1HAND## start()より前におく
-	player2._start_hand_size=P2HAND## start()より前におく
-	player1.max_mana=int(P1MAXMANA)-1
+	# Configurations
+	player1._start_hand_size=P1HAND## this line must be before 'start()'
+	player2._start_hand_size=P2HAND## 
+	player1.max_mana=int(P1MAXMANA)-1## this line must be before 'start()'
 	player2.max_mana=int(P2MAXMANA)-1
 	game.start()
-	player1.hero.max_health = int(HEROHPOPTION)## start()より後におく
-	player2.hero.max_health = int(HEROHPOPTION)## start()より後におく
+	player1.hero.max_health = int(HEROHPOPTION)## this line must be below 'start()'
+	player2.hero.max_health = int(HEROHPOPTION)## 
 
 	#mulligan exchange
+	# Any agent are allowed to give an algorithm to do mulligan exchange.
 	for player in game.players:
 		if player.name==P1.name:
 			if P1.mulliganStrategy == None:
@@ -76,23 +69,21 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
 
-	PresetHands(player1, player2)
+	PresetHands(player1, player2)# if you want to controll the player's hand, write here
+	log.info("New game start")
 
 	while True:	
-		#エージェントの処理ここから
+		#game main loop
 		player = game.current_player
 		start_time = time.time()
 		if player.name==P1.name:
-			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
-			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
+			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
 			P1.func(P1, game, option=P1.option, gameLog=game.get_log(), debugLog=debugLog)
 		elif player.name==P2.name:
-			#Agent.funcには引数 self, game, option, gameLog, debugLogを作ってください
-			#please make each Agent.func has attributes 'self, game, option, gameLog, debugLog'
+			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
 			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
 		else:
 			Original_random(game)#random player by fireplace
-		#ターンエンドの処理ここから
 		#turn end procedure from here
 		if player.choice!=None:
 			player.choice=None#somotimes it comes here
@@ -100,12 +91,16 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time))
-			except GameOver:#まれにおこる
+					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
+					print("%d : %d"%(player1.hero.health,player2.hero.health))
+			except GameOver:#it rarely occurs
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
 		#if game was over 
 		if game.state==State.COMPLETE:
+			if debugLog:
+				print(">>>>>>>>>>game end >>>>>>>>"%(),end=' ')
+				print("%d : %d"%(player1.hero.health,player2.hero.health))
 			if game.current_player.playstate == PlayState.WON:
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
@@ -148,16 +143,19 @@ class Candidate(object):
 
 	def __str__(self):
 		if self.type==BlockType.ATTACK:
-			return "{card} -> attacks -> target={target}".format(card=self.card,target=self.target)
+			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(card=self.card, atk1=self.card.atk, health1=self.card.health, target=self.target,atk2=self.target.atk,health2=self.target.health)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
-			return "{card} -> heropower".format(card=self.card)
+			if self.target:
+				return "{card} -> heropower -> {target}({atk2}/{health2})".format(card=self.card, target=self.target,atk2=self.target.atk,health2=self.target.health)
+			else:
+				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
-				return "{card} -> plays".format(card=self.card)
+				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
 			else :
-				return "{card}-> plays -> target={target}".format(card=self.card,target=self.target)
+				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(card=self.card, cost = self.card.cost, target=self.target,atk2=self.target.atk,health2=self.target.health)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
@@ -210,7 +208,7 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
-				if character.can_attack(target):
+				if character.can_attack(target) and character != target:
 					myH=character.health
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
@@ -356,38 +354,27 @@ class ExceptionPlay(IntEnum):
 	TURNEND=4
 
 class BigDeck:
-	#MechaHunter = ['BOT_445','BOT_445','BOT_035','BOT_035','BOT_038',\
-	#	'BOT_038','BOT_309','BOT_309','BOT_907','BOT_907',\
-	#	'BOT_033','BOT_033','DAL_604','DAL_604','BOT_251',\
-	#	'BOT_251','BOT_700','EX1_556','EX1_556','BOT_532',\
-	#	'BOT_532','BOT_312','BOT_312','BOT_563','BOT_563',\
-	#	'BOT_548','EX1_116','BOT_107','BOT_107','BOT_034']
-	faceHunter = [\
-		'SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
+	#Available
+	faceHunter = ['SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
-	purePaladin=[\
-		'SCH_247','SCH_247','BT_020','BT_020','SCH_149','SCH_149',\
-		'BT_292','BT_292','BT_025','BT_025','BT_019','SCH_532',\
-		'SCH_532','CS2_093','CS2_093','SCH_141','DRG_232','DRG_232',\
-		'BT_026','BT_026','SCH_138','SCH_138','BT_011','BT_011',\
-		'SCH_139','SCH_139','BT_334','DRG_231','DRG_231','BT_024'
-		]
+
+
 def postAction(player):
-	if player.choice:
-		choice = random.choice(player.choice.cards)
-		#print("Choosing card %r" % (choice))
-		myChoiceStr = str(choice)
-		if 'RandomCardPicker' in str(choice):
-			myCardID =  random.choice(choice.find_cards())
-			#myCard = Card(myCardID)
-			#myCard.controller = player#?
-			#myCard.draw()
-			Give(player1,myCardID).trigger(player1)
-			player.choice = None
-		else :
-			player.choice.choose(choice)
+	while True:
+		if player.choice == None:
+			return
+		else:
+			choice = random.choice(player.choice.cards)
+			log.info("%r Chooses a card %r" % (player, choice))
+			#myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				myCardID =  random.choice(choice.find_cards())
+				Give(player1,myCardID).trigger(player1)
+				player.choice = None
+			else :
+				player.choice.choose(choice)
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""
@@ -443,24 +430,36 @@ def getTurnLog(gameLog, turnN):
 def ExchangeCard(cards,player):
 	Discard(player.hand[-1]).trigger(player)
 	for _card in cards:
+		if _card=='arcane':
+			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
 		if _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
 			_card=random.choice(['SCH_133','SCH_714'])
+		if _card=='corrupt':
+			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
 		if _card=='deathrattle':
-			_card=random.choice(['SCH_605','SCH_707','SCH_708','SCH_711','SCH_714'])
+			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
 		if _card=='dragon':
 			_card='SCH_232'
 		if _card=='elemental':
-			_card='DRG_107'
+			_card=random.choice(['SCH_143','SCH_245'])
+		if _card=='fire':
+			_card=random.choice(['CORE_CS2_029','SW_462','SW_108','BAR_546','SW_110'])
+		if _card=='frost':
+			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
+		if _card=='mech':
+			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card='SCH_333'
+		if _card=='rush':
+			_card=random.choice(['YOP_031'])
 		if _card=='secret':
 			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
-			_card=random.choice(['SCH_353'])
+			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
 		if _card=='spellpower':
 			_card=random.choice(['SW_061'])
 		if _card=='weapon':
@@ -468,9 +467,9 @@ def ExchangeCard(cards,player):
 		Give(player,_card).trigger(player)
 
 def PresetHands(player1, player2): 
-	## add a specific card int the top of the deck
-	#Shuffle(player1,'').trigger(player1)#specific card into deck
-
+	## add a specific card into the deck
+	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
+	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
 	ExchangeCard(['DMF_074'],player1)
 	#ExchangeCard(['weapon'],player2)

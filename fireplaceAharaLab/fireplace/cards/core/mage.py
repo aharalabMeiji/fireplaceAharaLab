@@ -72,13 +72,6 @@ class CORE_EX1_294:# <4>[1637]
         ]
     pass
 
-class FreezeOrDeath(TargetedAction):
-    def do (self, source, target):
-        if target.frozen:
-            Destroy(target).trigger(source)
-        else:
-            Freeze(target).trigger(source)
-        pass
 
 class CORE_GIL_801:# <4>[1637]##OK
     """ Snap Freeze
@@ -102,7 +95,7 @@ class CORE_LOE_003:# <4>[1637]
 class CORE_UNG_020:# <4>[1637]##OK
     """ Arcanologist
     [Battlecry:] Draw a [Secret]. """
-    play = Give(CONTROLLER,RANDOM(SECRET))
+    play = Give(CONTROLLER,RANDOM(FRIENDLY_DECK + SECRET))
     pass
 
 class CS3_001:# <4>[1637] ##OK

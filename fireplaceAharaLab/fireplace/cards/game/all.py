@@ -18,6 +18,6 @@ class GAME_004:
 	update = Refresh(CONTROLLER, {GameTag.TIMEOUT: 10})
 
 
-class GAME_005:
-	"""The Coin"""
-	play = ManaThisTurn(CONTROLLER, 1)
+#class GAME_005:
+#	"""The Coin"""
+#	play = ManaThisTurn(CONTROLLER, 1)

@@ -105,6 +105,7 @@ class BaseGame(Entity):
 			self.log("Empty stack, refreshing auras and processing deaths")
 			if type ==BlockType.DEATHS:
 				self.log("this case.")
+				return## avoid infinte loop
 			self.refresh_auras()
 			self.process_deaths()
 
@@ -347,10 +348,22 @@ class BaseGame(Entity):
 			if card.id == 'BAR_034t' and player.mana>=10:
 				self.queue_actions(player,[Destroy(card)])
 				self.queue_actions(player,[Give(player, 'BAR_034t2')])
+		for card in player.hand:
+			if card.id == 'BAR_305' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_305t')])
+			if card.id == 'BAR_305t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_305t2')])
 
 	def _begin_turn(self, player):
 		self.manager.step(self.next_step, Step.MAIN_START)
 		self.manager.step(self.next_step, Step.MAIN_ACTION)
+
+		####################
+		if player.hero in player.field:
+			log.warning("hero is on the field!! lol")
+		####################
 
 		for p in self.players:
 			p.cards_drawn_this_turn = 0
@@ -375,7 +388,7 @@ class BaseGame(Entity):
 			character.num_attacks = 0
 
 		for minion in player.field:
-			if minion.dormant:
+			if hasattr(minion,'dormant') and minion.dormant:
 				minion.dormant -= 1
 				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:

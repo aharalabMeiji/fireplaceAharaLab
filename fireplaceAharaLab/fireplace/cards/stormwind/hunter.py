@@ -67,7 +67,7 @@ class SW_322t4:#OK
     events = OWN_SPELL_PLAY.on(RefreshHeroPower(FRIENDLY_HERO_POWER))
     pass
 
-class SW_323:#OK できた気がする。フラグが3種類必要なので、enchantment1個ではどうやるのかがわからなかった。
+class SW_323:#OK できた気がする。
     """ The Rat King
     [Rush]. [Deathrattle:] Go[Dormant]. Revive after 5 friendly minions die. """
     events = Death(FRIENDLY + MINION).on(Asphyxia(SELF))
