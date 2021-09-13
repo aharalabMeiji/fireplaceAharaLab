@@ -174,35 +174,36 @@ class SW_024_Action(TargetedAction):
             Buff(source, 'SW_024e').trigger(controller)
         pass
 
-class SW_024:
+class SW_024:###OK
     """Lothar
     At the end of your turn, attack a random enemy minion. If it dies, gain +3/+3."""
     events = OWN_TURN_END.on(SW_024_Action(SELF))
-    #events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).after(
+    #Attackは使い方が難しい。BAR_844のように、事象発生の条件として使われるほうがふつうなので。
+    #events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).then(
     #    Dead(Attack.DEFENDER) & Buff(SELF, "SW_024e")))
     pass
-
-
 SW_024e = buff(atk=3, health=3)
 
 
 class SCH_337_Troublemaker(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
-        new_minion = Summon(target, "SCH_337t")
-        new_minion = new_minion[0][0]
+        new_minion1 = Summon(target, "SCH_337t").trigger(source.controller)
+        new_minion1 = new_minion1[0][0]
+        new_minion2 = Summon(target, "SCH_337t").trigger(source.controller)
+        new_minion2 = new_minion2[0][0]
         enemy = source.controller.opponent
-        Attack(new_minion, random.choice(enemy.field)).trigger(source.controller)
-        Attack(new_minion, random.choice(enemy.field)).trigger(source.controller)
+        if len(enemy.field)>0:
+            Attack(new_minion1, random.choice(enemy.field)).trigger(source.controller)
+            Attack(new_minion2, random.choice(enemy.field)).trigger(source.controller)
         pass
-
-
-class SCH_337:
+class SCH_337:###OK
     """Troublemaker
     At the end of your turn, summon two 3/3 Ruffians that attack random enemies."""
     events = OWN_TURN_END.on(SCH_337_Troublemaker(CONTROLLER))
     pass
-
+class SCH_337t:
+    pass
 
 class SW_068:
     """Mo'arg Forgefiend
