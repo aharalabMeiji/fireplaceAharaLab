@@ -359,6 +359,12 @@ class BigDeck:
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
 		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
+	bigWarrior = ['CORE_EX1_169','CORE_EX1_169','SCH_427','SCH_427','SCH_311','SCH_311',
+		'SCH_333','SCH_333','DMF_075','DMF_075','CORE_CS2_013','CORE_CS2_013',
+		'BT_130','BT_130','BAR_535','SCH_605','SCH_605','SCH_616',
+		'SCH_616','DMF_078','DMF_078','SCH_610','SCH_610','BAR_042',
+		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','DMF_188'
+		]
 
 
 def postAction(player):
@@ -471,7 +477,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['DMF_074'],player1)
+	#ExchangeCard(['DMF_074'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 
