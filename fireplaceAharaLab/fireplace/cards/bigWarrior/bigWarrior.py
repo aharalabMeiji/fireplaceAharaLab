@@ -13,20 +13,26 @@ class SW_023:###OK
     pass
 
 
-class SCH_237:
+class SCH_237_Choice(GenericChoice):## SCH_237
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		for handcard in controller.hand:
+		    if hasattr(handcard,'rush') and handcard.rush:
+		        Buff(handcard,'SCH_237e').trigger(controller)
+		pass
+
+class SCH_237:###OK
     """Athletic Studies
     Discover a Rush minion. Your next one costs (1) less."""
-    play = DISCOVER(RandomMinion(rush=True)).then(
-        Buff(CONTROLLER, "SCH_237e")
-    )
+    play = SCH_237_Choice(CONTROLLER, RandomMinion(rush=True)*3)
     pass
 
 
 class SCH_237e:
     """Athletic Studies
         Your next [Rush] minion costs (1) less."""
-    update = Refresh(IN_HAND + FRIENDLY + MINION +
-                     RUSH, {GameTag.COST: -1})
+    cost = lambda self, i: max(i-1,0)
     events = Play(CONTROLLER, RUSH).on(Destroy(SELF))
     pass
 
