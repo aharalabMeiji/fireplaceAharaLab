@@ -59,12 +59,10 @@ class BT_124:###OK
     play = ForceDraw(RANDOM(FRIENDLY_DECK + WEAPON)).then(
         Buff(ForceDraw.TARGET, "BT_124e"))
     pass
-
-
 BT_124e = buff(health=1)
 
 
-class DMF_522:
+class DMF_522:###OK
     """Minefield
     Deal 5 damage randomly split among all minions."""
     play = Hit(RANDOM_MINION, 1) * 5
