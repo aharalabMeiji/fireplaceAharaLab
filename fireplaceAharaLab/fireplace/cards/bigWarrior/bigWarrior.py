@@ -86,9 +86,9 @@ class BT_117:###OK
     pass
 
 
-class SW_094:
+class SW_094:###OK
     """Heavy Plate
-    Tradeable Gain 8 Armor."""
+    Tradeable: Gain 8 Armor."""
     play = GainArmor(FRIENDLY_HERO, 8)
     pass
 
