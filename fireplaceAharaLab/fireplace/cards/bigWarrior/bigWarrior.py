@@ -69,15 +69,19 @@ class DMF_522:###OK
     pass
 
 
-class BT_117:
+class BT_117:###OK
     """Bladestorm
     Deal 1 damage to all minions. Repeat until one dies."""
 
     def play(self):
-        before = ALL_MINIONS
-        for i in range(30):
-            if ALL_MINIONS == before:
-                Hit(ALL_MINIONS, 1)
+        controller = self.controller
+        game = controller.game
+        before = game.board
+        for i in range(100):# 1000? lol
+            target = random.choice(game.board)
+            Hit(target, 1).trigger(controller)
+            if target.health == 0:
+                return
         pass
     pass
 
