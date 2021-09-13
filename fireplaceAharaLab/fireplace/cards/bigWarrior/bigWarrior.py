@@ -92,14 +92,14 @@ class SW_094:###OK
     play = GainArmor(FRIENDLY_HERO, 8)
     pass
 
-
-class BT_781:
+class BT_781:###OK
     """Bulwark of Azzinoth
     Whenever your hero would take damage, this loses 1 Durability instead.
     """
-    update = Refresh(FRIENDLY_HERO, {GameTag.HEAVILY_ARMORED: True})
-    events = Attack(ALL_CHARACTERS, FRIENDLY_HERO).on(
-        Buff(SELF, buff(health=-1)))
+    # see AT_124
+    #update = Refresh(FRIENDLY_HERO, {GameTag.HEAVILY_ARMORED: True})
+    events = Predamage(FRIENDLY_HERO).on(
+         Predamage(FRIENDLY_HERO, 0), Hit(SELF, 1))
     # BuffじゃなくてHit??
     pass
 
