@@ -72,7 +72,11 @@ faceHunter =[
 		'EX1_610','EX1_536','EX1_539','EX1_536e',
 		'NEW1_031',
 		]
-bigWarrior = ['CORE_EX1_169',
+bigWarrior = ['CORE_EX1_169','SW_023','SCH_237','SCH_237e','CORE_EX1_410',
+	'BT_124','BT_124e','DMF_522','BT_117','SW_094','BT_781',
+	'BAR_845','BAR_844','YOP_005','YOP_005t','CORE_EX1_407',
+	'SW_021','SCH_533','SW_024','SW_024e','SCH_337',
+	'SW_068','SCH_621',
 	]
 All=[Core_Hunter, Core_Neutral, Core_Mage, 
 	AOO_Neutral,AOO_Hunter,AOO_Mage,
