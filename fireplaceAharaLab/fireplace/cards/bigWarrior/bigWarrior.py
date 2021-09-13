@@ -72,11 +72,12 @@ class BT_117:###OK
         controller = self.controller
         game = controller.game
         before = game.board
-        for i in range(100):# 1000? lol
-            target = random.choice(game.board)
-            Hit(target, 1).trigger(controller)
-            if target.health == 0:
-                return
+        if len(game.board)>0:
+            for i in range(100):# 1000? lol
+                target = random.choice(game.board)
+                Hit(target, 1).trigger(controller)
+                if target.health == 0:
+                    return
         pass
     pass
 
