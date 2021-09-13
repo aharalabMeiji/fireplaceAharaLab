@@ -103,11 +103,27 @@ class BT_781:###OK
     # BuffじゃなくてHit??
     pass
 
+class HitAndGetArmor(TargetedAction):
+    """
+    Hit character targets by \a amount.Gain 2 Armor for each destroyed.
+    """
+    TARGET = ActionArg()
+    AMOUNT = ActionArg()
+    def do(self, source, target, amount):
+        ret = []
+        amount = source.get_damage(amount, target)
+        if amount:
+            if amount >= target.health and not target.divine_shield:
+                log.info("%r gains 2 armor for death of %r"%(source.controller.hero, target))
+                source.controller.hero.armor += 2
+            ret.append( source.game.queue_actions(source, [Predamage(target, amount)])[0][0])
+        return ret
 
 class BAR_845:
     """Rancor
     Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
     # 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
+    play = HitAndGetArmor(ALL_MINIONS, 2)
     pass
 
 
@@ -175,16 +191,21 @@ class SW_024:
 SW_024e = buff(atk=3, health=3)
 
 
-class SCH_337_Troublemaker:
+class SCH_337_Troublemaker(TargetedAction):
+    TARGET = ActionArg()
     def do(self, source, target):
-        Summon(CONTROLLER, "SCH_337t").then(Attack(Summon.CARD,RANDOM_ENEMY_CHARACTER)) * 2
+        new_minion = Summon(target, "SCH_337t")
+        new_minion = new_minion[0][0]
+        enemy = source.controller.opponent
+        Attack(new_minion, random.choice(enemy.field)).trigger(source.controller)
+        Attack(new_minion, random.choice(enemy.field)).trigger(source.controller)
         pass
 
 
 class SCH_337:
     """Troublemaker
     At the end of your turn, summon two 3/3 Ruffians that attack random enemies."""
-    events = OWN_TURN_END.on(SCH_337_Troublemaker)
+    events = OWN_TURN_END.on(SCH_337_Troublemaker(CONTROLLER))
     pass
 
 
