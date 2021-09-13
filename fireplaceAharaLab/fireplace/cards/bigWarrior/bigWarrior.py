@@ -205,17 +205,28 @@ class SCH_337:###OK
 class SCH_337t:
     pass
 
-class SW_068:
+class SW_068:###OK
     """Mo'arg Forgefiend
     Taunt Deathrattle: Gain 8 Armor."""
     deathrattle = GainArmor(FRIENDLY_HERO, 8)
     pass
 
+class SCH_621_Action(TargetedAction):
+    TARGET = ActionArg()
+    CARD = ActionArg()
+    def do(self, source, target):
+        new_atk = source.atk - 1
+        new_health = source.max_health - 1
+        new_minion = Summon(target, source.id).trigger(source.controller)
+        new_minion = new_minion[0][0]
+        new_minion.atk = new_atk
+        new_minion.max_health = new_health
+        pass
 
-class SCH_621:
+class SCH_621:###OK
     """Rattlegore
     Deathrattle: Resummon this with -1/-1."""
-    deathrattle = ()
+    deathrattle = SCH_621_Action(CONTROLLER)
     #https://wiki.denfaminicogamer.jp/hearthstone/ラトルゴア_Rattlegore 
     # のメモに要注意
     #enchantmentがない！
