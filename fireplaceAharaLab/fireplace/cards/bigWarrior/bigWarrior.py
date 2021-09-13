@@ -145,20 +145,21 @@ class CORE_EX1_407:###OK
     pass
 
 
-class SW_021:
+class SW_021:###OK
     """Cowardly Grunt
     Deathrattle: Summon a minion from your deck."""
+    # CardDefsにdeathrattleタグがついていない
+    play = SetTag(SELF, (GameTag.DEATHRATTLE, ))
     deathrattle = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION))
     pass
 
 
-class SCH_533:
-    """Commencement
-    Summon a minion from your deck. Give it Taunt and Divine Shield."""
-    play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION)
-                  ).then(SetTag(Summon.CARD, (GameTag.DIVINE_SHIELD, GameTag.TAUNT)))
-
-    pass
+#class SCH_533: #-> cards.scholo.paladin
+#    """Commencement
+#    Summon a minion from your deck. Give it Taunt and Divine Shield."""
+#    play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION)
+#                  ).then(SetTag(Summon.CARD, (GameTag.DIVINE_SHIELD, GameTag.TAUNT)))
+#    pass
 
 
 class SW_024:
@@ -203,4 +204,5 @@ class SCH_621:
     deathrattle = ()
     #https://wiki.denfaminicogamer.jp/hearthstone/ラトルゴア_Rattlegore 
     # のメモに要注意
+    #enchantmentがない！
     pass
