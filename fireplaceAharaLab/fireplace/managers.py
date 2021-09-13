@@ -174,11 +174,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.COMBO: "has_combo",
 	GameTag.CONTROLLER: "controller",
 	GameTag.CORRUPT: 'corrupt',
-<<<<<<< HEAD
-	GameTag.CORRUPTEDCARD: 'corrupted',
-=======
 	GameTag.CORRUPTEDCARD: 'corruptedcard',
->>>>>>> 048bb85c68c0bb4b687cd9e82f60bb17b1344375
 	GameTag.COST: "cost",
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
