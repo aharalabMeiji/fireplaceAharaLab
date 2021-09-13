@@ -161,12 +161,25 @@ class SW_021:###OK
 #                  ).then(SetTag(Summon.CARD, (GameTag.DIVINE_SHIELD, GameTag.TAUNT)))
 #    pass
 
+class SW_024_Action(TargetedAction):
+    TARGET = ActionArg()# 
+    def do(self, source, target):
+        controller = source.controller
+        enemy = controller.opponent
+        if len(enemy.field)==0:
+            return
+        deffender = random.choice(enemy.field)
+        Attack(source, deffender).trigger(controller)
+        if deffender.health <= 0:
+            Buff(source, 'SW_024e').trigger(controller)
+        pass
 
 class SW_024:
     """Lothar
     At the end of your turn, attack a random enemy minion. If it dies, gain +3/+3."""
-    events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).after(
-        Dead(Attack.DEFENDER) & Buff(SELF, "SW_024e")))
+    events = OWN_TURN_END.on(SW_024_Action(SELF))
+    #events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).after(
+    #    Dead(Attack.DEFENDER) & Buff(SELF, "SW_024e")))
     pass
 
 
