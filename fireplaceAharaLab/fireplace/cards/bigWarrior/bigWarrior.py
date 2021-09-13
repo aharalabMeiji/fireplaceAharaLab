@@ -36,20 +36,15 @@ class SCH_237e:
     events = Play(CONTROLLER, RUSH).on(Destroy(SELF))
     pass
 
-
-class CORE_EX1_410_Action(TargetedAction):
-    TARGET = ActionArg()
-    def do(self, source, target):
-        controller = source.controller
-        armor = controller.hero.armor
-        Hit(source.target, armor).trigger(controller)
-
 class CORE_EX1_410: ###OK <- cards.core.warrior
     """Shield Slam
     Deal 1 damage to a minion for each Armor you have."""
     requirements = {PlayReq.REQ_MINION_TARGET: 0,
                     PlayReq.REQ_TARGET_TO_PLAY: 0}
-    play = CORE_EX1_410_Action(TARGET)
+    def play(self):
+        controller = self.controller
+        armor = controller.hero.armor
+        Hit(self.target, armor).trigger(controller)
     pass
 
 
@@ -103,21 +98,6 @@ class BT_781:###OK
     # BuffじゃなくてHit??
     pass
 
-class HitAndGetArmor(TargetedAction):
-    """
-    Hit character targets by \a amount.Gain 2 Armor for each destroyed.
-    """
-    TARGET = ActionArg()
-    AMOUNT = ActionArg()
-    def do(self, source, target, amount):
-        ret = []
-        amount = source.get_damage(amount, target)
-        if amount:
-            if amount >= target.health and not target.divine_shield:#真の意味での死ではない。
-                log.info("%r gains 2 armor for death of %r"%(source.controller.hero, target))
-                source.controller.hero.armor += 2
-            ret.append( source.game.queue_actions(source, [Predamage(target, amount)])[0][0])
-        return ret
 
 class BAR_845:###OK
     """Rancor
@@ -125,7 +105,6 @@ class BAR_845:###OK
     # 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
     # これでよいなら・・・動いているような感じはある。
     play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
-    #play = HitAndGetArmor(ALL_MINIONS, 2)
     pass
 
 
@@ -137,16 +116,16 @@ class BAR_844:### excellent!
     pass
 
 
-class YOP_005:
+class YOP_005:###OK
     """Barricade
     Summon a 2/4 Guard with Taunt. If it's your only minion, summon another."""
 
     def play(self):
-        Summon(CONTROLLER, "YOP_005t")
-        if Count(ALL_MINIONS) == 1:
-            Summon(CONTROLLER, "YOP_005t")
+        controller = self.controller
+        Summon(controller, "YOP_005t").trigger(controller)
+        if len(controller.field) == 1:
+            Summon(controller, "YOP_005t").trigger(controller)
     pass
-
 
 class YOP_005t:
     """Race Guard
@@ -154,14 +133,14 @@ class YOP_005t:
     pass
 
 
-class CORE_EX1_407:
+class CORE_EX1_407:###OK
     """Brawl
     Destroy all minions except one. (chosen randomly)"""
     requirements = {PlayReq.REQ_MINIMUM_TOTAL_MINIONS: 2}
     play = (
         Find(ALL_MINIONS + ALWAYS_WINS_BRAWLS) &
         Destroy(ALL_MINIONS - RANDOM(ALL_MINIONS + ALWAYS_WINS_BRAWLS)) |
-        Destroy(ALL_MINIONS - RANDOM_MINION)
+        Destroy(ALL_MINIONS - RANDOM_MINION)#たぶんこれだけでよい、と思う。
     )
     pass
 
