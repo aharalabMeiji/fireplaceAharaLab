@@ -1,14 +1,15 @@
 from ..utils import *
 
 
-class SW_023:
+class SW_023:###OK
     """Provoke
-    Tradeable Choose a friendly minion. Enemy minions attack it."""
+    Tradeable: Choose a friendly minion. Enemy minions attack it."""
     requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1,
                     PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_FRIENDLY_TARGET: 0}
     def play(self):
-        for minion in self.controller.opponent.field:
-            Attack(minion,TARGET)
+        for target in self.targets:
+            for minion in self.controller.opponent.field:
+                Attack(minion,target).trigger(self.controller)
     pass
 
 
