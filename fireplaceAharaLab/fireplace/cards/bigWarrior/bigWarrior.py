@@ -37,12 +37,19 @@ class SCH_237e:
     pass
 
 
-class CORE_EX1_410:
+class CORE_EX1_410_Action(TargetedAction):
+    TARGET = ActionArg()
+    def do(self, source, target):
+        controller = source.controller
+        armor = controller.hero.armor
+        Hit(source.target, armor).trigger(controller)
+
+class CORE_EX1_410: #<- cards.core.warrior
     """Shield Slam
     Deal 1 damage to a minion for each Armor you have."""
     requirements = {PlayReq.REQ_MINION_TARGET: 0,
                     PlayReq.REQ_TARGET_TO_PLAY: 0}
-    play = Hit(TARGET, ARMOR(FRIENDLY_HERO))
+    play = CORE_EX1_410_Action(TARGET)
     pass
 
 
