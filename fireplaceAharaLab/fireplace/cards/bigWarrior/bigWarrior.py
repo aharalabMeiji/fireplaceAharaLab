@@ -44,7 +44,7 @@ class CORE_EX1_410_Action(TargetedAction):
         armor = controller.hero.armor
         Hit(source.target, armor).trigger(controller)
 
-class CORE_EX1_410: #<- cards.core.warrior
+class CORE_EX1_410: ###OK <- cards.core.warrior
     """Shield Slam
     Deal 1 damage to a minion for each Armor you have."""
     requirements = {PlayReq.REQ_MINION_TARGET: 0,
@@ -53,7 +53,7 @@ class CORE_EX1_410: #<- cards.core.warrior
     pass
 
 
-class BT_124:
+class BT_124:###OK
     """Corsair Cache
     Draw a weapon. Give it +1 Durability."""
     play = ForceDraw(RANDOM(FRIENDLY_DECK + WEAPON)).then(
