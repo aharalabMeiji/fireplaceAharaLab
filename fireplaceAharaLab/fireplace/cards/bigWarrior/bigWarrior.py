@@ -113,21 +113,23 @@ class HitAndGetArmor(TargetedAction):
         ret = []
         amount = source.get_damage(amount, target)
         if amount:
-            if amount >= target.health and not target.divine_shield:
+            if amount >= target.health and not target.divine_shield:#真の意味での死ではない。
                 log.info("%r gains 2 armor for death of %r"%(source.controller.hero, target))
                 source.controller.hero.armor += 2
             ret.append( source.game.queue_actions(source, [Predamage(target, amount)])[0][0])
         return ret
 
-class BAR_845:
+class BAR_845:###OK
     """Rancor
     Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
     # 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
-    play = HitAndGetArmor(ALL_MINIONS, 2)
+    # これでよいなら・・・動いているような感じはある。
+    play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
+    #play = HitAndGetArmor(ALL_MINIONS, 2)
     pass
 
 
-class BAR_844:
+class BAR_844:### excellent!
     """Outrider's Axe
     After your hero attacks and kills a minion, draw a card."""
     events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
