@@ -32,6 +32,7 @@ Crossborder=[
 	'SCH_617e',#<2>
 	"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#<7>
 	'SCH_279',#<14>demonhunter
+	'DMF_075a','DMF_075a2',#<2>[1466]
 	]
 # CardSet.LEGACY : 1635
 Legacy=[

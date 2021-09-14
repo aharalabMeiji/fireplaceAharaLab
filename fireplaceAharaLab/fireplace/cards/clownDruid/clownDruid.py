@@ -40,12 +40,43 @@ class SCH_333e:
     events = OWN_SPELL_PLAY.on(Destroy(SELF))
     pass
 
+class DMF_075_Choice(GenericChoice):
+    def choose(self, card):
+        super().choose(card)
+        controller = self.player
+        choiceCard = card
+        drawnCard = self.owner
+        moreCard = Draw(controller,1).trigger(controller)
+        if choiceCard.id == 'DMF_075a' and drawCard.cost < moreCard.cost:
+            Destroy(choiceCard).trigger(controller)
+            return
+        else:
+            Destroy(choiceCard).trigger(controller)
+            Destroy(moreCard).trigger(controller)
+            return
+        if choiceCard.id == 'DMF_075a2' and drawCard.cost > moreCard.cost:
+            Destroy(choiceCard).trigger(controller)
+            return
+        else:
+            Destroy(choiceCard).trigger(controller)
+            Destroy(moreCard).trigger(controller)
+            return
+
 class DMF_075: #????
     """Guess the Weight
     Draw a card. Guess if your next card costs more or less to draw it."""
-    # play = Draw(CONTROLLER,1).then(choose.())
-    pass
+    entourage = ['DMF_075a','DMF_075a2']
+    def play(self):
+        controller = self.controller
+        drawnCard = Draw(controller,1).trigger(controller)
+        drawnCard = drawnCard[0][0]
+        DMF_075_Choice(controller, ['DMF_075a','DMF_075a2']).trigger(controller)
 
+    pass
+class DMF_075a:
+    pass
+class DMF_075a2:
+    pass
 
 class CORE_CS2_013: # copied from classic #OK
     """Wild Growth
