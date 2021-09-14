@@ -27,7 +27,7 @@ class SCH_333_Choice(GenericChoice):
 		        Buff(handcard,'SCH_333e').trigger(controller)
 		pass
 
-class SCH_333:
+class SCH_333:###OK
     """Nature Studies
     Discover a spell. Your next one costs (1) less."""
     play = SCH_333_Choice(CONTROLLER, RANDOM(SPELL) * 3)

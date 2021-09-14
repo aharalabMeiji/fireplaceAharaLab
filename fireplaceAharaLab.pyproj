@@ -112,6 +112,8 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\clownDruid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
@@ -416,6 +418,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\boomsday" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\brawl" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\classic" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\clownDruid\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\custom" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\debug" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\game" />
