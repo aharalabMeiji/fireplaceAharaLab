@@ -83,9 +83,9 @@ class BT_129:
 BT_129e = buff(taunt=True)
 
 
-class BT_130:
-	"""Overgrowth"""
-	play = GainEmptyMana(CONTROLLER, 2)
+# class BT_130:
+# 	"""Overgrowth"""
+# 	play = GainEmptyMana(CONTROLLER, 2)
 
 
 class BT_135:

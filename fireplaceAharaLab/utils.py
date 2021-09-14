@@ -370,7 +370,7 @@ class BigDeck:
 		'CORE_EX1_407','CORE_EX1_407','SW_021','SW_021','SCH_533','SCH_533',
 		'SW_024','SCH_337','SCH_337','SW_068','SW_068','SCH_621',
 		]
-	crowbDruid = ['CORE_EX1_169','CORE_EX1_169','SCH_427','SCH_427','SCH_311','SCH_311',
+	clownDruid = ['CORE_EX1_169','CORE_EX1_169','SCH_427','SCH_427','SCH_311','SCH_311',
 		'SCH_333','SCH_333','DMF_075','DMF_075','CORE_CS2_013','CORE_CS2_013',
 		'BT_130','BT_130','BAR_535','SCH_605','SCH_605','SCH_616',
 		'SCH_616','DMF_078','DMF_078','SCH_610','SCH_610','BAR_042',
@@ -488,7 +488,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['BAR_845'],player1)
+	ExchangeCard(['SCH_427'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

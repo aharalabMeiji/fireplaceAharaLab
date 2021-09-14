@@ -20,12 +20,12 @@ class TestHumanAgent(Agent):
         player = game.current_player
         while True:
             myCandidate = []
-            for character in player.characters:
-                if hasattr(character, 'zone_position'):
-                    print(f"{character}のポジションは{character.zone_position}")
-            for character in player.opponent.characters:
-                if hasattr(character, 'zone_position'):
-                    print(f"{character}のポジションは{character.zone_position}")
+            # for character in player.characters:
+            #     if hasattr(character, 'zone_position'):
+            #         print(f"{character}のポジションは{character.zone_position}")
+            # for character in player.opponent.characters:
+            #     if hasattr(character, 'zone_position'):
+            #         print(f"{character}のポジションは{character.zone_position}")
         
             print("========My HAND======")
             for card in player.hand:

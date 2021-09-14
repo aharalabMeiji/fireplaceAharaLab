@@ -1,12 +1,12 @@
 from ..utils import *
 
-class CORE_EX1_169:
+class CORE_EX1_169: #OK
     """Innervate
     Gain 1 Mana Crystal this turn only."""
     play = ManaThisTurn(CONTROLLER, 1)
     pass
 
-class SCH_427:
+class SCH_427: #OK
     """Lightning Bloom
     Gain 2 Mana Crystals this turn only. Overload: (2)"""
     play = ManaThisTurn(CONTROLLER, 2)
@@ -30,7 +30,7 @@ class SCH_333_Choice(GenericChoice):
 class SCH_333:
     """Nature Studies
     Discover a spell. Your next one costs (1) less."""
-    play = SCH_333_Choice(CONTROLLER, RandomSpell*3)
+    play = SCH_333_Choice(CONTROLLER, RANDOM(SPELL) * 3)
     pass
 
 class SCH_333e:
@@ -47,7 +47,7 @@ class DMF_075: #????
     pass
 
 
-class CORE_CS2_013: # copied from classic
+class CORE_CS2_013: # copied from classic #OK
     """Wild Growth
     Gain an empty Mana Crystal."""
     play = (
@@ -60,9 +60,10 @@ class CORE_CS2_013: # copied from classic
 class CS2_013t:
 	play = Draw(CONTROLLER)
 
-class BT_130:
+class BT_130: #OK
     """Overgrowth
     Gain two empty Mana Crystals."""
+    print(AT_MAX_MANA(CONTROLLER))
     play = (
 		AT_MAX_MANA(CONTROLLER) &
 		Give(CONTROLLER, "CS2_013t") |

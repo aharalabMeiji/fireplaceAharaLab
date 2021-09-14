@@ -38,12 +38,13 @@ Legacy=[
 	'CS2_122e','CS2_222o','EX1_399e','NEW1_033o',# core-neutral
 	'HERO_01bp','HERO_01bp2',#Armor Up!
 	'HERO_05bp','HERO_05bp2',#steady shot
+	'HERO_06bp','CS2_017o',#Shapeshift
 	'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
 	'NEW1_031','NEW1_032','NEW1_033','NEW1_034',#Animal Companion
 	]
 # HERO_SKINS # 17
 HeroSkins=['AT_132_HUNTER_H1','CS2_034_H1','CS2_034_H1_AT_132','CS2_034_H2','CS2_034_H2_AT_132','CS2_034_H3','CS2_034_H3_AT_132','CS2_034_H4','DS1h_292_H1','DS1h_292_H1_AT_132','DS1h_292_H2','DS1h_292_H3','DS1h_292_H3_AT_132','HERO_05','HERO_05a','HERO_05b','HERO_05c','HERO_05d','HERO_05dbp','HERO_05dbp2','HERO_05e','HERO_05f','HERO_05g','HERO_05j','HERO_08','HERO_08a','HERO_08b','HERO_08c','HERO_08d','HERO_08e','HERO_08ebp','HERO_08ebp2','HERO_08f','HERO_08fbp','HERO_08fbp2','HERO_08fbp3','HERO_08g','HERO_08h','HERO_08i','HERO_08j','HERO_08k','HERO_08l','HERO_08lbp','HERO_08lbp2',
-		   'HERO_01']
+		   'HERO_01','HERO_06']
 # CardSet.TGT # 15
 TGT=[
 	'AT_132_DRUIDe',"AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd","AT_132_ROGUEt",
@@ -73,12 +74,19 @@ faceHunter =[#old faceHunter
 		'EX1_610','EX1_536','EX1_539','EX1_536e',# wild
 		'NEW1_031',# wild
 		]
-bigWarrior = ['CORE_EX1_169','SW_023','SCH_237','SCH_237e','CORE_EX1_410',
+bigWarrior = [
+	'CORE_EX1_169','SW_023','SCH_237','SCH_237e','CORE_EX1_410',
 	'BT_124','BT_124e','DMF_522','BT_117','SW_094','BT_781',
 	'BAR_845','BAR_844','YOP_005','YOP_005t','CORE_EX1_407',
 	'SW_021','SCH_533','SW_024','SW_024e','SCH_337','SCH_337t',
 	'SW_068','SCH_621',
 	]
+
+clownDruid = [
+	'CORE_EX1_169','SCH_427','SCH_333','SCH_333e','DMF_075','CORE_CS2_013',
+	'CS2_013t','BT_130','BAR_535','SCH_616','SCH_610','BAR_042','SCH_609',
+	'SCH_609e'
+]
 All=[Core_Hunter, Core_Neutral, Core_Mage, 
 	AOO_Neutral,AOO_Hunter,AOO_Mage,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,
@@ -86,5 +94,5 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,
 	Crossborder,Legacy,HeroSkins,TGT,Expert1,Etc,
-	faceHunter,bigWarrior,
+	faceHunter,bigWarrior,clownDruid
 	]
