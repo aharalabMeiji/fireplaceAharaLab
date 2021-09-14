@@ -43,7 +43,7 @@ class SCH_333e:
 class DMF_075: #????
     """Guess the Weight
     Draw a card. Guess if your next card costs more or less to draw it."""
-    play = Draw(CONTROLLER,1).then(choose.())
+    # play = Draw(CONTROLLER,1).then(choose.())
     pass
 
 
@@ -101,9 +101,29 @@ class SCH_610:
     play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<5))).then(SetTag(Summon.CARD, (GameTag.RUSH,))) * 2
     pass
 
+class BAR_042_Action(TargetedAction):
+	def do(self, source, target):
+		_highestCostCards=[]
+		for _card in target.deck:
+			if _card.type==CardType.SPELL:
+				if len(_highestCostCards)==0:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost < _card.cost:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost == _card.cost:
+					_highestCostCards.append(_card)
+		if len(_highestCostCards)>0:
+			_card = random.choice(_highestCostCards)
+			_cost = _card.cost
+			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
+			Give(target,_card).then(Summon(CONTROLLER,RANDOM(MINION+(COST==Attr(Give.CARD,GameTag.COST))))).trigger(source)
+		else:
+			log.info("no spell is in the deck"%())
+
 class BAR_042:
     """Primordial Protector
     Battlecry: Draw your highest Cost spell. Summon a random minion with the same Cost."""
+    play = BAR_042_Action(CONTROLLER)
     
     pass
 
@@ -116,8 +136,14 @@ class BAR_042:
 class SCH_609:
     """Survival of the Fittest
     Give +4/+4 to all minions in your hand, deck, and battlefield."""
-    
+    def play(self):
+        for _card in self.controller.cards:
+            if _card.type == CardType.MINION:
+                Buff(_card,'SCH_609e').tigger(self.controller)
+        pass
+
     pass
+SCH_609e=buff(atk=4,health=4)
 
 # class DMF_188:
 #     """Y'Shaarj, the Defiler
