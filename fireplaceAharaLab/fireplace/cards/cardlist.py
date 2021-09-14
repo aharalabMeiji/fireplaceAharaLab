@@ -31,6 +31,7 @@ Stormwind_Mage=['SW_001','SW_059e','SW_107','SW_108','SW_108t','SW_109','SW_110'
 Crossborder=[
 	'SCH_617e',#<2>
 	"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#<7>
+	'SCH_279',#<14>demonhunter
 	]
 # CardSet.LEGACY : 1635
 Legacy=[
@@ -63,14 +64,14 @@ Etc=[
 	'KAR_036e',#CardSet.KARA:#23
 	#'OG_280',#C'Thun CardSet.OG (21)
 ]
-faceHunter =[
+faceHunter =[#old faceHunter
 		#'SCH_617','SCH_312','SCH_133',\
 		#'SCH_231','SCH_600','BT_213','CORE_EX1_611',
 		#'BT_203','SCH_142','SCH_428',
 		'SCH_600','SCH_600t1','SCH_600t2','SCH_600t3',#class = demonhunter
-		'DRG_252','DRG_256','DRG_253','ULD_152',
-		'EX1_610','EX1_536','EX1_539','EX1_536e',
-		'NEW1_031',
+		'DRG_252','DRG_256','DRG_253','ULD_152',# wild
+		'EX1_610','EX1_536','EX1_539','EX1_536e',# wild
+		'NEW1_031',# wild
 		]
 bigWarrior = ['CORE_EX1_169','SW_023','SCH_237','SCH_237e','CORE_EX1_410',
 	'BT_124','BT_124e','DMF_522','BT_117','SW_094','BT_781',
