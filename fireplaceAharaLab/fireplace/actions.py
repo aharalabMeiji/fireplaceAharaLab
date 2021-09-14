@@ -195,7 +195,10 @@ class Attack(GameAction):
 	DEFENDER = ActionArg()
 
 	def get_args(self, source):
-		attacker = _eval_card(source, self._args[0])[0]
+		try:
+			attacker = _eval_card(source, self._args[0])[0]
+		except IndexError as e:## annihilation in procedure
+			attacker = None
 		try:
 			defender = _eval_card(source, self._args[1])[0]
 		except IndexError as e:## annihilation in procedure
@@ -204,7 +207,7 @@ class Attack(GameAction):
 
 	def do(self, source, attacker, defender):
 		log.info("%r attacks %r", attacker, defender)
-		if defender == None: ## rarely happens
+		if attacker == None or defender == None: ## rarely happens
 			return
 		attacker.attack_target = defender
 		defender.defending = True

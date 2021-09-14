@@ -36,13 +36,13 @@ class CORE_EX1_402:# <10>[1637]
     #
     pass
 
-class CORE_EX1_407:# <10>[1637]
-    """ Brawl
-    Destroy all minions except one. <i>(chosen randomly)</i> """
-    #
-    pass
+#class CORE_EX1_407:# <10>[1637]# -> cards.bigWarrior.bigWarrior
+#    """ Brawl
+#    Destroy all minions except one. <i>(chosen randomly)</i> """
+#    #
+#    pass
 
-#class CORE_EX1_410:# <10>[1637] -> bigWarrior.bigWarrior
+#class CORE_EX1_410:# <10>[1637] -> cards.bigWarrior.bigWarrior
 #    """ Shield Slam
 #    Deal 1 damage to a minion for each Armor you have. """
 #    requirements = {PlayReq.REQ_TARGET_TO_PLAY:0,  PlayReq.REQ_MINION_TARGET: 0}

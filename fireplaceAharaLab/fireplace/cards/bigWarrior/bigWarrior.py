@@ -36,20 +36,15 @@ class SCH_237e:
     events = Play(CONTROLLER, RUSH).on(Destroy(SELF))
     pass
 
-
-class CORE_EX1_410_Action(TargetedAction):
-    TARGET = ActionArg()
-    def do(self, source, target):
-        controller = source.controller
-        armor = controller.hero.armor
-        Hit(source.target, armor).trigger(controller)
-
 class CORE_EX1_410: ###OK <- cards.core.warrior
     """Shield Slam
     Deal 1 damage to a minion for each Armor you have."""
     requirements = {PlayReq.REQ_MINION_TARGET: 0,
                     PlayReq.REQ_TARGET_TO_PLAY: 0}
-    play = CORE_EX1_410_Action(TARGET)
+    def play(self):
+        controller = self.controller
+        armor = controller.hero.armor
+        Hit(self.target, armor).trigger(controller)
     pass
 
 
@@ -77,41 +72,44 @@ class BT_117:###OK
         controller = self.controller
         game = controller.game
         before = game.board
-        for i in range(100):# 1000? lol
-            target = random.choice(game.board)
-            Hit(target, 1).trigger(controller)
-            if target.health == 0:
-                return
+        if len(game.board)>0:
+            for i in range(100):# 1000? lol
+                target = random.choice(game.board)
+                Hit(target, 1).trigger(controller)
+                if target.health == 0:
+                    return
         pass
     pass
 
 
-class SW_094:
+class SW_094:###OK
     """Heavy Plate
-    Tradeable Gain 8 Armor."""
+    Tradeable: Gain 8 Armor."""
     play = GainArmor(FRIENDLY_HERO, 8)
     pass
 
-
-class BT_781:
+class BT_781:###OK
     """Bulwark of Azzinoth
     Whenever your hero would take damage, this loses 1 Durability instead.
     """
-    update = Refresh(FRIENDLY_HERO, {GameTag.HEAVILY_ARMORED: True})
-    events = Attack(ALL_CHARACTERS, FRIENDLY_HERO).on(
-        Buff(SELF, buff(health=-1)))
+    # see AT_124
+    #update = Refresh(FRIENDLY_HERO, {GameTag.HEAVILY_ARMORED: True})
+    events = Predamage(FRIENDLY_HERO).on(
+         Predamage(FRIENDLY_HERO, 0), Hit(SELF, 1))
     # BuffじゃなくてHit??
     pass
 
 
-class BAR_845:
+class BAR_845:###OK
     """Rancor
     Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
     # 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
+    # これでよいなら・・・動いているような感じはある。
+    play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
     pass
 
 
-class BAR_844:
+class BAR_844:### excellent!
     """Outrider's Axe
     After your hero attacks and kills a minion, draw a card."""
     events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
@@ -119,16 +117,16 @@ class BAR_844:
     pass
 
 
-class YOP_005:
+class YOP_005:###OK
     """Barricade
     Summon a 2/4 Guard with Taunt. If it's your only minion, summon another."""
 
     def play(self):
-        Summon(CONTROLLER, "YOP_005t")
-        if Count(ALL_MINIONS) == 1:
-            Summon(CONTROLLER, "YOP_005t")
+        controller = self.controller
+        Summon(controller, "YOP_005t").trigger(controller)
+        if len(controller.field) == 1:
+            Summon(controller, "YOP_005t").trigger(controller)
     pass
-
 
 class YOP_005t:
     """Race Guard
@@ -136,69 +134,101 @@ class YOP_005t:
     pass
 
 
-class CORE_EX1_407:
+class CORE_EX1_407:###OK
     """Brawl
     Destroy all minions except one. (chosen randomly)"""
     requirements = {PlayReq.REQ_MINIMUM_TOTAL_MINIONS: 2}
     play = (
         Find(ALL_MINIONS + ALWAYS_WINS_BRAWLS) &
         Destroy(ALL_MINIONS - RANDOM(ALL_MINIONS + ALWAYS_WINS_BRAWLS)) |
-        Destroy(ALL_MINIONS - RANDOM_MINION)
+        Destroy(ALL_MINIONS - RANDOM_MINION)#たぶんこれだけでよい、と思う。
     )
     pass
 
 
-class SW_021:
+class SW_021:###OK
     """Cowardly Grunt
     Deathrattle: Summon a minion from your deck."""
+    # CardDefsにdeathrattleタグがついていない
+    play = SetTag(SELF, (GameTag.DEATHRATTLE, ))
     deathrattle = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION))
     pass
 
 
-class SCH_533:
-    """Commencement
-    Summon a minion from your deck. Give it Taunt and Divine Shield."""
-    play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION)
-                  ).then(SetTag(Summon.CARD, (GameTag.DIVINE_SHIELD, GameTag.TAUNT)))
+#class SCH_533: #-> cards.scholo.paladin
+#    """Commencement
+#    Summon a minion from your deck. Give it Taunt and Divine Shield."""
+#    play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION)
+#                  ).then(SetTag(Summon.CARD, (GameTag.DIVINE_SHIELD, GameTag.TAUNT)))
+#    pass
 
-    pass
+class SW_024_Action(TargetedAction):
+    TARGET = ActionArg()# 
+    def do(self, source, target):
+        controller = source.controller
+        enemy = controller.opponent
+        if len(enemy.field)==0:
+            return
+        deffender = random.choice(enemy.field)
+        Attack(source, deffender).trigger(controller)
+        if deffender.health <= 0:
+            Buff(source, 'SW_024e').trigger(controller)
+        pass
 
-
-class SW_024:
+class SW_024:###OK
     """Lothar
     At the end of your turn, attack a random enemy minion. If it dies, gain +3/+3."""
-    events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).after(
-        Dead(Attack.DEFENDER) & Buff(SELF, "SW_024e")))
+    events = OWN_TURN_END.on(SW_024_Action(SELF))
+    #Attackは使い方が難しい。BAR_844のように、事象発生の条件として使われるほうがふつうなので。
+    #events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).then(
+    #    Dead(Attack.DEFENDER) & Buff(SELF, "SW_024e")))
     pass
-
-
 SW_024e = buff(atk=3, health=3)
 
 
-class SCH_337_Troublemaker:
+class SCH_337_Troublemaker(TargetedAction):
+    TARGET = ActionArg()
     def do(self, source, target):
-        Summon(CONTROLLER, "SCH_337t").then(Attack(Summon.CARD,RANDOM_ENEMY_CHARACTER)) * 2
+        new_minion1 = Summon(target, "SCH_337t").trigger(source.controller)
+        new_minion1 = new_minion1[0][0]
+        new_minion2 = Summon(target, "SCH_337t").trigger(source.controller)
+        new_minion2 = new_minion2[0][0]
+        enemy = source.controller.opponent
+        if len(enemy.field)>0:
+            Attack(new_minion1, random.choice(enemy.field)).trigger(source.controller)
+            Attack(new_minion2, random.choice(enemy.field)).trigger(source.controller)
         pass
-
-
-class SCH_337:
+class SCH_337:###OK
     """Troublemaker
     At the end of your turn, summon two 3/3 Ruffians that attack random enemies."""
-    events = OWN_TURN_END.on(SCH_337_Troublemaker)
+    events = OWN_TURN_END.on(SCH_337_Troublemaker(CONTROLLER))
+    pass
+class SCH_337t:
     pass
 
-
-class SW_068:
+class SW_068:###OK
     """Mo'arg Forgefiend
     Taunt Deathrattle: Gain 8 Armor."""
     deathrattle = GainArmor(FRIENDLY_HERO, 8)
     pass
 
+class SCH_621_Action(TargetedAction):
+    TARGET = ActionArg()
+    CARD = ActionArg()
+    def do(self, source, target):
+        new_atk = source.atk - 1
+        new_health = source.max_health - 1
+        new_minion = Summon(target, source.id).trigger(source.controller)
+        new_minion = new_minion[0][0]
+        new_minion.atk = new_atk
+        new_minion.max_health = new_health
+        pass
 
-class SCH_621:
+class SCH_621:###OK
     """Rattlegore
     Deathrattle: Resummon this with -1/-1."""
-    deathrattle = ()
+    deathrattle = SCH_621_Action(CONTROLLER)
     #https://wiki.denfaminicogamer.jp/hearthstone/ラトルゴア_Rattlegore 
     # のメモに要注意
+    #enchantmentがない！
     pass
