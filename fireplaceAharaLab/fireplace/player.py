@@ -43,6 +43,7 @@ class Player(Entity, TargetableByAuras):
 		self.graveyard = CardList()
 		self.secrets = CardList()
 		self.choice = None
+		self.choiceText = 'Choose one.'
 		self.max_hand_size = 10
 		self.max_resources = 10
 		self.max_deck_size = 60

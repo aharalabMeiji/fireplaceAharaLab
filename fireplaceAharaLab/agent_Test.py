@@ -216,30 +216,44 @@ class TestHumanAgent(Agent):
                 executeAction(game, myChoice)
                 postAction(player)
 
-def HumanInputMulligan(self, choiceCards):
-    myCount = 1
-    print("%s mulligan turn" % (self.name))
-    for card in choiceCards:
-        print("%d : %s" %(myCount, card), end='   : ')
-        if card.data.type == CardType.MINION:
-            print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
-        elif card.data.type == CardType.SPELL:
-            print("%2d : %s"%(card.cost, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
-        elif card.data.type == CardType.WEAPON:
-            print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
-        myCount += 1
-    print("Choose exchange cards (e.g. '1 3 4') ->")
-    str = input()  # やり直しはなし
-    inputNums = str.split()  # 空白文字でスプリット
-    cards_to_mulligan = []
-    for inputStr in inputNums:
-        try:
-            inputNum = int(inputStr)
-            cards_to_mulligan.append(choiceCards[inputNum-1])
-        except ValueError:
-            pass
-    return cards_to_mulligan
+    def HumanInputMulligan(self, choiceCards):
+        myCount = 1
+        print("%s mulligan turn" % (self.name))
+        for card in choiceCards:
+            print("%d : %s" %(myCount, card), end='   : ')
+            if card.data.type == CardType.MINION:
+                print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
+            elif card.data.type == CardType.SPELL:
+                print("%2d : %s"%(card.cost, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
+            elif card.data.type == CardType.WEAPON:
+                print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
+            myCount += 1
+        print("Choose exchange cards (e.g. '1 3 4') ->")
+        str = input()  # やり直しはなし
+        inputNums = str.split()  # 空白文字でスプリット
+        cards_to_mulligan = []
+        for inputStr in inputNums:
+            try:
+                inputNum = int(inputStr)
+                cards_to_mulligan.append(choiceCards[inputNum-1])
+            except ValueError:
+                pass
+        return cards_to_mulligan
 
+    def HumanInputChoice(self, choiceCards):
+    	print("%s"%(self.choiceText))
+    	count=1
+    	for card in choiceCards:
+    		print("%d : %s (%s)"%(count, card.data.name, adjust_text(card.data.description)))
+    		count += 1
+    	str = input()#やり直しはなし
+    	try :
+    		inputNum = int(str)
+    		if inputNum>=1 and inputNum<=len(choiceCards):
+    			return choiceCards[inputNum-1]
+    	except ValueError :
+    		pass
+    	return random.choice(choiceCards)
 
 def adjust_text_bt_spellpower(text, player):
 	_catch_number=-1

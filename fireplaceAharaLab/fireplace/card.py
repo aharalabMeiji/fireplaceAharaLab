@@ -52,8 +52,8 @@ class BaseCard(BaseEntity):
 		self.heropower_damage = 0
 		self._zone = Zone.INVALID
 		self.tags.update(data.tags)
-		self.frenzyFlag = 0;
-
+		self.frenzyFlag = 0
+		self.choiceText = 'Choose one.'
 
 	def __str__(self):
 		return self.data.name

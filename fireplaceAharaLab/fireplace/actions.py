@@ -383,6 +383,7 @@ class Choice(GameAction):
 		log.info("%r choice from %r", player, cards)
 		self.next_choice = player.choice
 		player.choice = self
+		player.choiceText = source.choiceText
 		self.source = source
 		self.player = player
 		self.cards = cards

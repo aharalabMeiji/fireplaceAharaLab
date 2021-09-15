@@ -497,7 +497,7 @@ class HumanAgent(Agent):
 				pass
 		return cards_to_mulligan
 	def HumanInputChoice(self, choiceCards):
-		print("%s chooses one from %r"%(self.name, choiceCards))
+		print("%s"%(self.choiceText))
 		count=1
 		for card in choiceCards:
 			print("%d : %s (%s)"%(count, card.data.name, adjust_text(card.data.description)))
