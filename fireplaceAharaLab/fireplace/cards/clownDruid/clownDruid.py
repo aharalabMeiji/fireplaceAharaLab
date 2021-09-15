@@ -101,11 +101,10 @@ class BT_130: #OK
 	)
     pass
 
-class BAR_535:
+class BAR_535:##OK
     """Thickhide Kodo
-    Taunt Deathrattle: Gain 5 Armor."""
+    Taunt: Deathrattle: Gain 5 Armor."""
     deathrattle = GainArmor(FRIENDLY_HERO,5)
-    
     pass
 
 # class SCH_605:
