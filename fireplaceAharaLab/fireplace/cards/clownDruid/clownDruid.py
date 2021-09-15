@@ -44,34 +44,33 @@ class DMF_075_Choice(GenericChoice):
     def choose(self, card):
         super().choose(card)
         controller = self.player
-        choiceCard = card
-        drawnCard = self.owner
         moreCard = Draw(controller,1).trigger(controller)
-        if choiceCard.id == 'DMF_075a' and drawCard.cost < moreCard.cost:
-            Destroy(choiceCard).trigger(controller)
+        moreCard = moreCard[0][0]
+        choiceCard = controller.hand[-2]
+        drawnCard = controller.hand[-3]# first drawn card
+        if choiceCard.id == 'DMF_075a':
+            if drawnCard.cost < moreCard.cost:
+                pass
+            else:
+                moreCard.zone = Zone.GRAVEYARD
+            choiceCard.zone = Zone.GRAVEYARD
             return
-        else:
-            Destroy(choiceCard).trigger(controller)
-            Destroy(moreCard).trigger(controller)
-            return
-        if choiceCard.id == 'DMF_075a2' and drawCard.cost > moreCard.cost:
-            Destroy(choiceCard).trigger(controller)
-            return
-        else:
-            Destroy(choiceCard).trigger(controller)
-            Destroy(moreCard).trigger(controller)
+        elif choiceCard.id == 'DMF_075a2':
+            if drawnCard.cost > moreCard.cost:
+                pass
+            else:
+                moreCard.zone = Zone.GRAVEYARD
+            choiceCard.zone = Zone.GRAVEYARD
             return
 
-class DMF_075: #????
+class DMF_075: ###OK
     """Guess the Weight
     Draw a card. Guess if your next card costs more or less to draw it."""
     entourage = ['DMF_075a','DMF_075a2']
-    def play(self):
-        controller = self.controller
-        drawnCard = Draw(controller,1).trigger(controller)
-        drawnCard = drawnCard[0][0]
-        DMF_075_Choice(controller, ['DMF_075a','DMF_075a2']).trigger(controller)
-
+    play = ( 
+        Draw(CONTROLLER,1),
+        DMF_075_Choice(CONTROLLER,RandomEntourage()*2)
+    )
     pass
 class DMF_075a:
     pass
