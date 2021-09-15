@@ -286,8 +286,8 @@ def adjust_text_by_spellpower(text, player, card):
 	return _new_text
 
 class HumanAgent(Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None):
-		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None, choiceStrategy = None):
+		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy, choiceStrategy = choiceStrategy )
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
@@ -496,7 +496,20 @@ class HumanAgent(Agent):
 			except ValueError :
 				pass
 		return cards_to_mulligan
-
+	def HumanInputChoice(self, choiceCards):
+		print("%s chooses one from %r"%(self.name, choiceCards))
+		count=1
+		for card in choiceCards:
+			print("%d : %s (%s)"%(count, card.data.name, adjust_text(card.data.description)))
+			count += 1
+		str = input()#やり直しはなし
+		try :
+			inputNum = int(str)
+			if inputNum>=1 and inputNum<=len(choiceCards):
+				return choiceCards[inputNum-1]
+		except ValueError :
+			pass
+		return random.choice(choiceCards)
 
 
 

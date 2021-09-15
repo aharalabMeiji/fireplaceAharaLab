@@ -13,7 +13,7 @@ from fireplace.config import Config
 class Agent(object):
 	""" エージェントのクラス
 	エージェントを作るときはこのクラスを継承してください。"""
-	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, mulliganStrategy = None):
+	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, mulliganStrategy = None, choiceStrategy=None):
 		self.name = myName
 		self.func = myFunction
 		self.option = myOption
@@ -21,6 +21,7 @@ class Agent(object):
 		self.rating = rating = 1500
 		self.E = E 
 		self.mulliganStrategy = mulliganStrategy
+		self.choiceStrategy = choiceStrategy
 		pass
 
 	def __str__(self):
@@ -41,6 +42,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		deck2 = random_draft(P2.myClass,exclude)#random deck wrt its class
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
+	player1.choiceStrategy = P1.choiceStrategy
+	player2.choiceStrategy = P2.choiceStrategy
 	game = GameWithLog(players=(player1, player2))
 	# Configurations
 	player1._start_hand_size=P1HAND## this line must be before 'start()'
@@ -383,7 +386,10 @@ def postAction(player):
 		if player.choice == None:
 			return
 		else:
-			choice = random.choice(player.choice.cards)
+			if player.choiceStrategy==None:
+				choice = random.choice(player.choice.cards)
+			else:
+				choice = player.choiceStrategy(player,player.choice.cards)
 			log.info("%r Chooses a card %r" % (player, choice))
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
