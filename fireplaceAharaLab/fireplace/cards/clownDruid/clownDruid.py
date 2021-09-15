@@ -123,7 +123,7 @@ class SCH_616:###OK
 #     Taunt Corrupt: This costs (0)."""
 #     pass
 
-class SCH_610:
+class SCH_610:###OK
     """Guardian Animals
     Summon two Beasts that cost (5) or less from your deck. Give them Rush."""
     play = (
@@ -158,27 +158,27 @@ class BAR_042:###OK
     
     pass
 
-# class DMF_163:
+# class DMF_163: # -> darkmoon.neutral
 #     """Carnival Clown
-#     Taunt Battlecry: Summon 2 copies of this. Corrupt: Fill your board with copies."""
-    
+#     Taunt: Battlecry: Summon 2 copies of this. Corrupt: Fill your board with copies."""
+#     pass
+# class DMF_163t:
 #     pass
 
-class SCH_609:
+class SCH_609:###OK
     """Survival of the Fittest
     Give +4/+4 to all minions in your hand, deck, and battlefield."""
     def play(self):
-        for _card in self.controller.cards:
+        controller = self.controller
+        for _card in (controller.hand + controller.deck + controller.field):
             if _card.type == CardType.MINION:
-                Buff(_card,'SCH_609e').tigger(self.controller)
+                Buff(_card,'SCH_609e').trigger(self.controller)
         pass
-
     pass
 SCH_609e=buff(atk=4,health=4)
 
-# class DMF_188:
+# class DMF_188: #-> darkmoon.neutral 
 #     """Y'Shaarj, the Defiler
 #     Battlecry: Add a copy of each Corrupted card you've played this game to your hand. They cost (0) this turn."""
-    
 #     pass
 

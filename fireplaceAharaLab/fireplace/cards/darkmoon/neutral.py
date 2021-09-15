@@ -424,8 +424,6 @@ class DMF_188: #this turn only??# yes! ##OK
 	def play(self):
 		for card in self.controller.play_log:
 			if hasattr(card,'corruptedcard') and card.corruptedcard:
-				#a=(card.id)[-1]
-				#b=card.id[:-1]
 				if (card.id)[-1]=='t':  #assert corrupted
 					new_card = Give(self.controller, card.id[:-1]).trigger(self.controller)
 					new_card = new_card[0][0]
