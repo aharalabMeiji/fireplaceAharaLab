@@ -233,6 +233,7 @@ class SCH_428:#done
 	""" Lorekeeper Polkelt (Legendary)"""
 	#[x]<b>Battlecry:</b> Reorder your deck from the highest Cost card to the lowest Cost card. 
 	def play(self):
+		log.info("Reorder deck from the highest Cost card.")
 		self.controller.deck.sort(key=lambda x:x.cost)
 		pass
 	pass

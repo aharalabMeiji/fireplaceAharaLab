@@ -25,6 +25,7 @@
     <Compile Include="fireplaceAharaLab\agent_Standard.py" />
     <Compile Include="fireplaceAharaLab\agent_HunterCat.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
+    <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
@@ -55,6 +56,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\bigWarrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\blackrock\adventure.py" />
@@ -108,6 +113,8 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\clownDruid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
@@ -407,10 +414,12 @@
     <Folder Include="fireplaceAharaLab\fireplace\brawls" />
     <Folder Include="fireplaceAharaLab\fireplace\cards" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\aoo" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\bigWarrior\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\blackrock" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\boomsday" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\brawl" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\classic" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\clownDruid\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\custom" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\debug" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\game" />

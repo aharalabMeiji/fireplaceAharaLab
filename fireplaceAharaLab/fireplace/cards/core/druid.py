@@ -12,11 +12,11 @@ class CORE_CS2_009:# <2>[1637]
     #
     pass
 
-class CORE_CS2_013:# <2>[1637]
-    """ Wild Growth
-    Gain an empty Mana Crystal. """
-    #
-    pass
+#class CORE_CS2_013:# <2>[1637]
+#    """ Wild Growth
+#    Gain an empty Mana Crystal. """
+#    #
+#    pass
 
 class CORE_EX1_158:# <2>[1637]
     """ Soul of the Forest

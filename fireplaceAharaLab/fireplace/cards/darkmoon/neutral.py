@@ -172,7 +172,6 @@ class DMF_532:###OK
 	##&lt;b&gt;Taunt&lt;/b&gt; &lt;i&gt;This has all minion types.&lt;/i&gt;
 	pass
 
-
 class DMF_174:###OK
 	"""Circus Medic"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Restore #4 Health. &lt;b&gt;Corrupt:&lt;/b&gt; Deal 4 damage instead.
@@ -425,8 +424,6 @@ class DMF_188: #this turn only??# yes! ##OK
 	def play(self):
 		for card in self.controller.play_log:
 			if hasattr(card,'corruptedcard') and card.corruptedcard:
-				#a=(card.id)[-1]
-				#b=card.id[:-1]
 				if (card.id)[-1]=='t':  #assert corrupted
 					new_card = Give(self.controller, card.id[:-1]).trigger(self.controller)
 					new_card = new_card[0][0]

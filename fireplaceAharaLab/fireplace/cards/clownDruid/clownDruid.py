@@ -1,0 +1,184 @@
+from ..utils import *
+
+class CORE_EX1_169: #OK
+    """Innervate
+    Gain 1 Mana Crystal this turn only."""
+    play = ManaThisTurn(CONTROLLER, 1)
+    pass
+
+class SCH_427: #OK
+    """Lightning Bloom
+    Gain 2 Mana Crystals this turn only. Overload: (2)"""
+    play = ManaThisTurn(CONTROLLER, 2)
+    pass
+
+# class SCH_311:
+#     """Animated Broomstick
+#     Rush Battlecry: Give your other minions Rush."""
+    
+#     pass
+
+class SCH_333_Choice(GenericChoice):
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		for handcard in controller.hand:
+		    if handcard.type==CardType.SPELL:
+		        Buff(handcard,'SCH_333e').trigger(controller)
+		pass
+
+class SCH_333:###OK
+    """Nature Studies
+    Discover a spell. Your next one costs (1) less."""
+    play = SCH_333_Choice(CONTROLLER, RANDOM(SPELL) * 3)
+    pass
+
+class SCH_333e:
+    """Nature Studies
+        Your next spell costs (1) less."""
+    cost = lambda self, i: max(i-1,0)
+    events = OWN_SPELL_PLAY.on(Destroy(SELF))
+    pass
+
+class DMF_075_Choice(GenericChoice):
+    def choose(self, card):
+        super().choose(card)
+        controller = self.player
+        moreCard = Draw(controller,1).trigger(controller)
+        moreCard = moreCard[0][0]
+        choiceCard = controller.hand[-2]
+        drawnCard = controller.hand[-3]# first drawn card
+        if choiceCard.id == 'DMF_075a':
+            if drawnCard.cost < moreCard.cost:
+                pass
+            else:
+                moreCard.zone = Zone.GRAVEYARD
+            choiceCard.zone = Zone.GRAVEYARD
+            return
+        elif choiceCard.id == 'DMF_075a2':
+            if drawnCard.cost > moreCard.cost:
+                pass
+            else:
+                moreCard.zone = Zone.GRAVEYARD
+            choiceCard.zone = Zone.GRAVEYARD
+            return
+
+class DMF_075: ###OK
+    """Guess the Weight
+    Draw a card. Guess if your next card costs more or less to draw it."""
+    entourage = ['DMF_075a','DMF_075a2']
+    play = ( 
+        Draw(CONTROLLER,1),
+        DMF_075_Choice(CONTROLLER,RandomEntourage()*2)
+    )
+    pass
+class DMF_075a:
+    pass
+class DMF_075a2:
+    pass
+
+class CORE_CS2_013: # copied from classic #OK
+    """Wild Growth
+    Gain an empty Mana Crystal."""
+    play = (
+		AT_MAX_MANA(CONTROLLER) &
+		Give(CONTROLLER, "CS2_013t") |
+		GainEmptyMana(CONTROLLER, 1)
+	)
+    pass
+
+class CS2_013t:
+	play = Draw(CONTROLLER)
+
+class BT_130: #OK
+    """Overgrowth
+    Gain two empty Mana Crystals."""
+    print(AT_MAX_MANA(CONTROLLER))
+    play = (
+		AT_MAX_MANA(CONTROLLER) &
+		Give(CONTROLLER, "CS2_013t") |
+		GainEmptyMana(CONTROLLER, 2)
+	)
+    pass
+
+class BAR_535:##OK
+    """Thickhide Kodo
+    Taunt: Deathrattle: Gain 5 Armor."""
+    deathrattle = GainArmor(FRIENDLY_HERO,5)
+    pass
+
+# class SCH_605:#-> scholo.neutral 
+#     """Lake Thresher
+#     Also damages the minions next to whomever this attacks."""
+#     pass
+
+class SCH_616:###OK
+    """Twilight Runner
+    Stealth: Whenever this attacks, draw 2 cards."""
+    events = Attack(SELF).on(Draw(CONTROLLER)*2)
+    pass
+
+# class DMF_078: #-> darkmoon.neutral
+#     """Strongman
+#     Taunt Corrupt: This costs (0)."""
+#     pass
+
+class SCH_610:###OK
+    """Guardian Animals
+    Summon two Beasts that cost (5) or less from your deck. Give them Rush."""
+    play = (
+        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,))),
+        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,)))
+        ) 
+    pass
+
+class BAR_042_Action(TargetedAction):
+	def do(self, source, target):
+		_highestCostCards=[]
+		for _card in target.deck:
+			if _card.type==CardType.SPELL:
+				if len(_highestCostCards)==0:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost < _card.cost:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost == _card.cost:
+					_highestCostCards.append(_card)
+		if len(_highestCostCards)>0:
+			_card = random.choice(_highestCostCards)
+			_cost = _card.cost
+			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
+			Give(target,_card).then(Summon(CONTROLLER,RANDOM(MINION+(COST==Attr(Give.CARD,GameTag.COST))))).trigger(source)
+		else:
+			log.info("no spell is in the deck"%())
+
+class BAR_042:###OK
+    """Primordial Protector
+    Battlecry: Draw your highest Cost spell. Summon a random minion with the same Cost."""
+    play = BAR_042_Action(CONTROLLER)
+    
+    pass
+
+# class DMF_163: # -> darkmoon.neutral
+#     """Carnival Clown
+#     Taunt: Battlecry: Summon 2 copies of this. Corrupt: Fill your board with copies."""
+#     pass
+# class DMF_163t:
+#     pass
+
+class SCH_609:###OK
+    """Survival of the Fittest
+    Give +4/+4 to all minions in your hand, deck, and battlefield."""
+    def play(self):
+        controller = self.controller
+        for _card in (controller.hand + controller.deck + controller.field):
+            if _card.type == CardType.MINION:
+                Buff(_card,'SCH_609e').trigger(self.controller)
+        pass
+    pass
+SCH_609e=buff(atk=4,health=4)
+
+# class DMF_188: #-> darkmoon.neutral 
+#     """Y'Shaarj, the Defiler
+#     Battlecry: Add a copy of each Corrupted card you've played this game to your hand. They cost (0) this turn."""
+#     pass
+
