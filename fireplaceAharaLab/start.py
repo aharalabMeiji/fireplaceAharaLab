@@ -86,8 +86,8 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	from utils import BigDeck
-	a,b,c = play_set_of_games(TestHuman, Vector2, deck1=BigDeck.clownDruid, deck2=[], gameNumber=15, debugLog=True, P1MAXMANA=10)
+	from utils import BigDeck#faceHunter,clownDruid,bigWarrior
+	a,b,c = play_set_of_games(TestHuman, Vector2, deck1=BigDeck.clownDruid, deck2=[], gameNumber=15, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=BigDeck.bigWarrior, deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
 

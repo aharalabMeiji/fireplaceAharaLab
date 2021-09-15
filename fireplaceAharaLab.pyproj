@@ -25,6 +25,7 @@
     <Compile Include="fireplaceAharaLab\agent_Standard.py" />
     <Compile Include="fireplaceAharaLab\agent_HunterCat.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
+    <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
