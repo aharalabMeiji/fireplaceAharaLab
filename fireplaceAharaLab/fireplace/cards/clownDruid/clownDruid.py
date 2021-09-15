@@ -115,7 +115,7 @@ class BAR_535:##OK
 
 class SCH_616:
     """Twilight Runner
-    Stealth Whenever this attacks, draw 2 cards."""
+    Stealth: Whenever this attacks, draw 2 cards."""
     events = Attack(SELF).on(Draw(CONTROLLER)*2)
     pass
 
