@@ -107,22 +107,20 @@ class BAR_535:##OK
     deathrattle = GainArmor(FRIENDLY_HERO,5)
     pass
 
-# class SCH_605:
+# class SCH_605:#-> scholo.neutral 
 #     """Lake Thresher
 #     Also damages the minions next to whomever this attacks."""
-    
 #     pass
 
-class SCH_616:
+class SCH_616:###OK
     """Twilight Runner
     Stealth: Whenever this attacks, draw 2 cards."""
     events = Attack(SELF).on(Draw(CONTROLLER)*2)
     pass
 
-# class DMF_078:
+# class DMF_078: #-> darkmoon.neutral
 #     """Strongman
 #     Taunt Corrupt: This costs (0)."""
-    
 #     pass
 
 class SCH_610:
@@ -150,7 +148,7 @@ class BAR_042_Action(TargetedAction):
 		else:
 			log.info("no spell is in the deck"%())
 
-class BAR_042:
+class BAR_042:###OK
     """Primordial Protector
     Battlecry: Draw your highest Cost spell. Summon a random minion with the same Cost."""
     play = BAR_042_Action(CONTROLLER)
