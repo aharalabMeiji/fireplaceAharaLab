@@ -126,7 +126,10 @@ class SCH_616:###OK
 class SCH_610:
     """Guardian Animals
     Summon two Beasts that cost (5) or less from your deck. Give them Rush."""
-    play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<5))).then(SetTag(Summon.CARD, (GameTag.RUSH,))) * 2
+    play = (
+        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,))),
+        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,)))
+        ) 
     pass
 
 class BAR_042_Action(TargetedAction):
