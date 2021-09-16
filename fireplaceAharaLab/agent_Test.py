@@ -11,9 +11,9 @@ from enum import IntEnum
 
 
 class TestHumanAgent(Agent):
-    def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000, mulliganStrategy=None):
+    def __init__(self, myName: str, myFunction, myOption=[], myClass: CardClass = CardClass.HUNTER, rating=1000, mulliganStrategy=None, choiceStrategy=None):
         super().__init__(myName, myFunction, myOption, myClass,
-                         rating, mulliganStrategy=mulliganStrategy)
+                         rating, mulliganStrategy=mulliganStrategy, choiceStrategy=choiceStrategy)
         pass
 
     def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
@@ -244,7 +244,7 @@ class TestHumanAgent(Agent):
     	print("%s"%(self.choiceText))
     	count=1
     	for card in choiceCards:
-    		print("%d : %s (%s)"%(count, card.data.name, adjust_text(card.data.description)))
+    		print("%d : %s (%s)"%(count, card.data.name, adjust_text_bt_spellpower(card.data.description, self)))
     		count += 1
     	str = input()#やり直しはなし
     	try :
