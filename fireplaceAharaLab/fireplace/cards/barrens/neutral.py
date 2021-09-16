@@ -324,7 +324,7 @@ class BAR_079_firstChoice(GenericChoice):
 		choiceCard.zone = Zone.GRAVEYARD
 		BAR_079_secondChoice(controller,RandomEntourage()*3).trigger(self)
 
-class BAR_079:####################### possible but huge
+class BAR_079:###OK
 	"""
 	Kazakus, Golem Shaper
 	<b>Battlecry:</b> If your deck has no 4-Cost cards, build a custom Golem.
@@ -333,13 +333,10 @@ class BAR_079:####################### possible but huge
 
 	"""
 	entourage = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]# first choice
-	#entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12",
-	#	"BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b",
-	#	"BAR_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
 	powered_up = -Find(FRIENDLY_DECK + (COST==4))
 	def play(self):
 		controller = self.controller
-		if True:#if self.powered_up:
+		if self.powered_up:
 			GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
 	pass
 

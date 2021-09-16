@@ -217,32 +217,53 @@ __original stats and Cost.)</I> """
 #SW_078e
 #SW_078e2
 
-class SW_079:############# lol #################　lol
+class SW_079:###OK
     """ Flightmaster Dungar
     [x]<b>Battlecry:</b> Choose a
 flightpath and go <b>Dormant.
 </b> Awaken with a bonus
 __when you complete it! """
     entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
-    play = (GenericChoicePlay(CONTROLLER,RandomEntourage()*3), Destroy(SELF))
+    play = GenericChoiceBattlecry(CONTROLLER,RandomEntourage()*3)
     pass
-SW_079e4=buff(dormant=1)
-""" &lt;b&gt;Dormant&lt;/b&gt;. Summon a 2/2 Adventurer in @ |4(turn, turns). """
-SW_079e5=buff(dormant=3)
-""" &lt;b&gt;Dormant&lt;/b&gt;. Restore 10 health to your hero in @ |4(turn, turns).  """  
-SW_079e6=buff(dormant=5)
-""" &lt;b&gt;Dormant&lt;/b&gt;. Deal 12 damage randomly split to enemies in @ |4(turn, turns). """
-class SW_079t:
+#SW_079e4
+#SW_079e5
+#SW_079e6
+class SW_079t:##OK
     """ >[x]In 1 turn, summon a 2/2 Adventurer with _a random bonus effect. """
-    play = SummonAdventurerWithBonus(CONTROLLER)
+    def play(self):
+        controller = self.controller
+        for main_card in controller.field:
+            if main_card.id == 'SW_079':
+                break
+        main_card.dormant = 1
+        setattr(main_card.data.scripts, 'awaken', (SummonAdventurerWithBonus(CONTROLLER),))
+        #setattr(main_card.data, 'description', self.data.description)
+        controller.hand[-1].zone = Zone.GRAVEYARD
 #SW_079te
-class SW_079t2:
+class SW_079t2:#########################################
     """ In 3 turns, restore 10 Health to your hero. """
-    play = Heal(FRIENDLY_HERO,10)
+    def play(self):
+        controller = self.controller
+        for main_card in controller.field:
+            if main_card.id == 'SW_079':
+                break
+        main_card.dormant = 1
+        setattr(main_card.data.scripts, 'awaken', (Heal(FRIENDLY_HERO,10),))
+        #setattr(main_card.data, 'description', self.data.description)
+        controller.hand[-1].zone = Zone.GRAVEYARD
 #SW_079t2e
-class SW_079t3:
+class SW_079t3:################################################
     """ In 5 turns, deal 12 damage randomly split among enemies."""
-    play = Hit(RANDOM(ENEMY_CHARACTERS),1) * 12 
+    def play(self):
+        controller = self.controller
+        for main_card in controller.field:
+            if main_card.id == 'SW_079':
+                break
+        main_card.dormant = 1
+        setattr(main_card.data.scripts, 'awaken', (Hit(RANDOM(ENEMY_CHARACTERS),1) * 12,))
+        #setattr(main_card.data, 'description', self.data.description)
+        controller.hand[-1].zone = Zone.GRAVEYARD
 #SW_079t3e
 
 class SW_080:#OK
