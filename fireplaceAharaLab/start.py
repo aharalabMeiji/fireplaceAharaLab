@@ -42,8 +42,8 @@ def main():
 	#printListOfCards()
 	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
-				   choiceStrategy=HumanAgent.HumanInputChoice)
-	  # ,mulliganStrategy=HumanAgent.HumanInputMulligan)
+		choiceStrategy=HumanAgent.HumanInputChoice)
+		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
 	# random agent
 	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
@@ -51,7 +51,7 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.MAGE)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -78,7 +78,7 @@ def main():
 	#	,myClass=CardClass.PRIEST)
 
 	from agent_Test import TestHumanAgent
-	TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.WARRIOR,choiceStrategy=TestHumanAgent.HumanInputChoice)
+	TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.DRUID,choiceStrategy=TestHumanAgent.HumanInputChoice)
 
 	#HunterCat : faceHunter専用のエージェント
 	#from agent_HunterCat import HunterCatAgent
@@ -88,8 +88,8 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	from utils import BigDeck#faceHunter,clownDruid,bigWarrior
-	a,b,c = play_set_of_games(TestHuman, Vector2, deck1=BigDeck.bigWarrior, deck2=[], gameNumber=15, debugLog=True)
-	#a,b,c = play_set_of_games(Human1, Human2, deck1=BigDeck.bigWarrior, deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	#a,b,c = play_set_of_games(TestHuman, Vector2, deck1=BigDeck.clownDruid, deck2=[], gameNumber=15, debugLog=True)
+	a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
 
 	#デッキを固定しての総当たり戦

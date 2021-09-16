@@ -457,9 +457,22 @@ class GenericChoicePlay(GenericChoice):##
 	def choose(self, card):
 		super().choose(card)
 		controller = self.player
-		new_card = controller.card(card.id)
-		Summon(controller, new_card).trigger(controller)
+		for new_card in controller.hand:
+			if new_card.id == card.id:
+				Summon(controller, new_card).trigger(controller)
+				break
 		pass
+
+class GenericChoiceBattlecry(GenericChoice):## 
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		for new_card in controller.hand:
+			if new_card.id == card.id:
+				Battlecry(new_card, new_card.target).trigger(controller)
+				break
+		pass
+
 
 class GenericChoicePlayOnDeck(Choice):## callbackで対応可能
 	def choose(self, card):
@@ -2577,55 +2590,3 @@ class SetScriptDataNum1(TargetedAction):
 		pass
 
 ###############################################################
-
-
-class BAR_079_Kazakus_Golem_Shaper(Choice):
-
-	def do(self,source,target, cards):
-		target.choice = self
-		## agent's choice 
-		card = random.choice(player.choice.cards)
-		## overload choose(self, card)
-		log.info("%s chooses %r"%(card.controller.data.name, card))
-		for _card in self.cards:
-			if _card is card:
-				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
-				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
-				else:
-					_card.discard()
-			else:
-				_card.discard()
-		if card.ID=='BAR_079_m1':
-			BAR_079_m1_Action(target,["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]).trigger(source)
-		if card.ID=='BAR_079_m2':
-			BAR_079_m2_Action(target,["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]).trigger(source)
-		if card.ID=='BAR_079_m3':
-			BAR_079_m3_Action(target,["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]).trigger(source)
-
-class BAR_079_m1_Action(Choice):
-	def do(self,source,target, cards):
-		target.choice = self
-		## agent's choice 
-		card = random.choice(player.choice.cards)
-		## overload choose(self, card)
-		for _card in self.cards:
-			if _card is card:
-				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
-				elif len(self.player.hand) < self.player.max_hand_size:
-					_card.zone = Zone.HAND
-				else:
-					_card.discard()
-			else:
-				_card.discard()
-		if card.id=='BAR_079t4':
-			pass
-
-class BAR_079_m1_Action(Choice):
-	pass
-class BAR_079_m1_Action(Choice):
-	pass
-
-

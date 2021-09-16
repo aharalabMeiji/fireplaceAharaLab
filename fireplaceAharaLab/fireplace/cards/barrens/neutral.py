@@ -315,6 +315,15 @@ class BAR_069:#OK
 	play = Hit(SELF,6)
 	pass
 
+class BAR_079_firstChoice(GenericChoice):
+	secondChoice = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# first choice
+	def choose(self, card):
+		super().choose(card)
+		choiceCard = controller.hand[-1]
+		choiceCardId = choiceCard.id
+		choiceCard.zone = Zone.GRAVEYARD
+		BAR_079_secondChoice(controller,RandomEntourage()*3).trigger(self)
+
 class BAR_079:####################### possible but huge
 	"""
 	Kazakus, Golem Shaper
@@ -323,169 +332,390 @@ class BAR_079:####################### possible but huge
 	Next, choose one of 'rush, taunt, divine shield, life steal,  stealth, poisonous'
 
 	"""
-	#self.firstChoice = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]# first choice
-	#self.secondChoice = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# first choice
-	entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12",
-		"BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b",
-		"BAR_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+	entourage = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]# first choice
+	#entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12",
+	#	"BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b",
+	#	"BAR_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
 	powered_up = -Find(FRIENDLY_DECK + (COST==4))
-	play = powered_up & BAR_079_Kazakus_Golem_Shaper(CONTROLLER,["BAR_079_m1","BAR_079_m2","BAR_079_m3"])
+	def play(self):
+		controller = self.controller
+		if True:#if self.powered_up:
+			GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
 	pass
 
+
 class BAR_079_m1:
-    """ Lesser Golem
-    {0}
-{1} """
-    #
-    pass
+	""" Lesser Golem
+	{0}{1} """
+	#
+	entourage = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# second choice
+	def play(self):
+		controller = self.controller
+		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+		pass
+	pass
 
 class BAR_079_m2:
     """ Greater Golem
-    {0}
-{1} """
-    #
+    {0}{1} """
+    entourage = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# second choice
+    def play(self):
+        controller = self.controller
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+        pass
     pass
 
 class BAR_079_m3:
     """ Superior Golem
-    {0}
-{1} """
-    #
+    {0}{1} """
+    entourage = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# second choice
+    def play(self):
+        controller = self.controller
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+        pass
     pass
 
 class BAR_079t4:
     """ Swifthistle
     <b>Rush</b> """
-    #
+    def play(self):
+        controller = self.controller
+        choice1 = controller.hand[-2].id
+        if choice1 == 'BAR_079_m1':
+            self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+        elif choice1 == 'BAR_079_m2':
+            self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+        elif choice1 == 'BAR_079_m3':
+            self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
     pass
 
 class BAR_079t5:
     """ Earthroot
     <b>Taunt</b> """
-    #
+    def play(self):
+        controller = self.controller
+        choice1 = controller.hand[-2].id
+        if choice1 == 'BAR_079_m1':
+            self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+        elif choice1 == 'BAR_079_m2':
+            self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+        elif choice1 == 'BAR_079_m3':
+            self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
     pass
 
 class BAR_079t6:
     """ Sungrass
     <b>Divine Shield</b> """
-    #
+    def play(self):
+        controller = self.controller
+        choice1 = controller.hand[-2].id
+        if choice1 == 'BAR_079_m1':
+            self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+        elif choice1 == 'BAR_079_m2':
+            self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+        elif choice1 == 'BAR_079_m3':
+            self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
     pass
 
 class BAR_079t7:
     """ Liferoot
     <b>Lifesteal</b> """
-    #
+    def play(self):
+        controller = self.controller
+        choice1 = controller.hand[-2].id
+        if choice1 == 'BAR_079_m1':
+            self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+        elif choice1 == 'BAR_079_m2':
+            self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+        elif choice1 == 'BAR_079_m3':
+            self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
     pass
 
 class BAR_079t8:
     """ Fadeleaf
     <b>Stealth</b> """
-    #
+    def play(self):
+        controller = self.controller
+        choice1 = controller.hand[-2].id
+        if choice1 == 'BAR_079_m1':
+            self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+        elif choice1 == 'BAR_079_m2':
+            self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+        elif choice1 == 'BAR_079_m3':
+            self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
     pass
 
 class BAR_079t9:
     """ Grave Moss
     <b>Poisonous</b> """
-    #
+    def play(self):
+        controller = self.controller
+        choice1 = controller.hand[-2].id
+        if choice1 == 'BAR_079_m1':
+            self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+        elif choice1 == 'BAR_079_m2':
+            self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+        elif choice1 == 'BAR_079_m3':
+            self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
+        GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
     pass
+
+def BAR_079Buff(card, buffId):
+	if buffId=='BAR_079t4':
+		card.rush=True
+		card.script_data_text_0='[急襲]'
+	elif buffId=='BAR_079t5':
+		card.taunt=True
+		card.script_data_text_0='[挑発]'
+	elif buffId=='BAR_079t6':
+		card.devine_shield=True
+		card.script_data_text_0='[聖なる盾]'
+	elif buffId=='BAR_079t7':
+		card.lifesteal=True
+		card.script_data_text_0='[生命奪取]'
+	elif buffId=='BAR_079t8':
+		card.stealth=True
+		card.script_data_text_0='[隠れ身]'
+	elif buffId=='BAR_079t9':
+		card.poisonous=True
+		card.script_data_text_0='[猛毒]'
+
+def adjust_text(text):
+	return text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
 
 class BAR_079t10:
     """ Wildvine
     <b>Battlecry:</b> Give your other minions +1/+1. """
-    play = Buff(FRIENDLY_MINIONS,"BAR_079t10e")
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Buff(FRIENDLY_MINIONS-SELF,"BAR_079t10e"),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 BAR_079t10e=buff(1,1)
 
-class BAR_079t10b:
+class BAR_079t10b:###OK
     """ Wildvine
     <b>Battlecry:</b> Give your other minions +2/+2. """
-    play = Buff(FRIENDLY_MINIONS,"BAR_079t10be")
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Buff(FRIENDLY_MINIONS-SELF,"BAR_079t10be"),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 BAR_079t10be=buff(2,2)
 
-class BAR_079t10c:
+class bar_079t10c:
     """ Wildvine
     <b>Battlecry:</b> Give your other minions +4/+4. """
-    play = Buff(FRIENDLY_MINIONS,"BAR_079t10ce")
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Buff(FRIENDLY_MINIONS-SELF,"BAR_079t10ce"),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 BAR_079t10ce=buff(4,4)
 
-class BAR_079t11:
+class BAR_079t11:###OK
     """ Gromsblood
     <b>Battlecry:</b> Summon a copy of this. """
-    play = Summon(CONTROLLER, Copy(SELF))   
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Summon(CONTROLLER, ExactCopy(SELF)),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
+    #play = Summon(CONTROLLER, Copy(SELF))   
     pass
 
 class BAR_079t12:
     """ Icecap
     <b>Battlecry:</b> <b>Freeze</b> a random enemy minion. """
-    play = Freeze(RANDOM_ENEMY_MINION)
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Freeze(RANDOM(ENEMY_MINIONS)),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
-class BAR_079t12b:
+class BAR_079t12b:###OK
     """ Icecap
     <b>Battlecry:</b> <b>Freeze</b> two random enemy minions. """
-    play = Freeze(RANDOM_ENEMY_MINION)*2
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Freeze(RANDOM(ENEMY_MINIONS)),Freeze(RANDOM(ENEMY_MINIONS))))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t12c:
     """ Icecap
     <b>Battlecry:</b> <b>Freeze</b> all enemy minions. """
-    play = Freeze(ENEMY_MINIONS)
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Freeze(ENEMY_MINIONS),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
-class BAR_079t13:
+class BAR_079t13:###OK
     """ Firebloom
     <b>Battlecry:</b> Deal 3 damage to a random enemy minion. """
-    play = Hit(CONTROLLER,RANDOM_ENEMY_MINION)
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Hit(RANDOM(ENEMY_MINIONS),3),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t13b:
     """ Firebloom
     <b>Battlecry:</b> Deal 3 damage to two random enemy minions. """
-    play = Hit(CONTROLLER,RANDOM_ENEMY_MINION)*2
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Hit(RANDOM(ENEMY_MINIONS),3),Hit(RANDOM(ENEMY_MINIONS),3)))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t13c:
     """ Firebloom
     <b>Battlecry:</b> Deal 3 damage to all enemy minions. """
-    play = Hit(CONTROLLER,ENEMY_MINIONS)
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Hit(ENEMY_MINIONS,3),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t14:
     """ Mageroyal
     <b>Spell Damage +1</b>. """
-    #
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        card.spellpower=1
+        setattr(card.scripts, 'play', [])
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t14b:
     """ Mageroyal
     <b>Spell Damage +2</b>. """
-    #
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        card.spellpower=2
+        setattr(card.data.scripts, 'play', [])
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t14c:
     """ Mageroyal
     <b>Spell Damage +4</b>. """
-    #
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        card.spellpower=4
+        setattr(card.scripts, 'play', [])
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t15:
     """ Kingsblood
     <b>Battlecry:</b> Draw a card. """
-    play = Draw(CONTROLLER)
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Draw(CONTROLLER),))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
-class BAR_079t15b:
+class BAR_079t15b:###OK
     """ Kingsblood
     <b>Battlecry:</b> Draw 2 cards. """
-    play = Draw(CONTROLLER)*2
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Draw(CONTROLLER)*2,))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_079t15c:
     """ Kingsblood
     <b>Battlecry:</b> Draw 4 cards. """
-    play = Draw(CONTROLLER)*4
+    def play(self):
+        controller = self.controller
+        card = controller.hand[-3]
+        cardId=card.id
+        BAR_079Buff(card, controller.hand[-2].id)
+        card.script_data_text_0+=adjust_text(self.data.description)
+        setattr(card.data.scripts, 'play', (Draw(CONTROLLER)*4,))
+        controller.hand[-1].zone=Zone.GRAVEYARD
+        controller.hand[-1].zone=Zone.GRAVEYARD
     pass
 
 class BAR_081:#OK

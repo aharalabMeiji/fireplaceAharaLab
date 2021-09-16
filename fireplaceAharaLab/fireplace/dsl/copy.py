@@ -51,4 +51,5 @@ class ExactCopy(Copy):
 		for buff in entity.buffs:
 			# Recreate the buff stack
 			entity.buff(ret, buff.id)
+		ret.script_data_text_0=entity.script_data_text_0
 		return ret
