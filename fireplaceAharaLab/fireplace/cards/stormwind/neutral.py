@@ -238,29 +238,27 @@ class SW_079t:##OK
                 break
         main_card.dormant = 1
         setattr(main_card.data.scripts, 'awaken', (SummonAdventurerWithBonus(CONTROLLER),))
-        #setattr(main_card.data, 'description', self.data.description)
         controller.hand[-1].zone = Zone.GRAVEYARD
 #SW_079te
-class SW_079t2:#########################################
+class SW_079t2:###OK
     """ In 3 turns, restore 10 Health to your hero. """
     def play(self):
         controller = self.controller
         for main_card in controller.field:
             if main_card.id == 'SW_079':
                 break
-        main_card.dormant = 1
+        main_card.dormant = 3
         setattr(main_card.data.scripts, 'awaken', (Heal(FRIENDLY_HERO,10),))
-        #setattr(main_card.data, 'description', self.data.description)
         controller.hand[-1].zone = Zone.GRAVEYARD
 #SW_079t2e
-class SW_079t3:################################################
+class SW_079t3:###OK
     """ In 5 turns, deal 12 damage randomly split among enemies."""
     def play(self):
         controller = self.controller
         for main_card in controller.field:
             if main_card.id == 'SW_079':
                 break
-        main_card.dormant = 1
+        main_card.dormant = 5
         setattr(main_card.data.scripts, 'awaken', (Hit(RANDOM(ENEMY_CHARACTERS),1) * 12,))
         #setattr(main_card.data, 'description', self.data.description)
         controller.hand[-1].zone = Zone.GRAVEYARD
