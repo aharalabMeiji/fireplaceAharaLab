@@ -20,9 +20,9 @@ class LOOT_122:
 	pass
 
 
-class LOOT_125:
-	"""Stoneskin Basilisk"""
-	pass
+#class LOOT_125:
+#	"""Stoneskin Basilisk"""
+#	pass
 
 
 class LOOT_131:
@@ -46,9 +46,9 @@ class LOOT_136:
 	pass
 
 
-class LOOT_137:
-	"""Sleepy Dragon"""
-	pass
+#class LOOT_137:
+#	"""Sleepy Dragon"""
+#	pass
 
 
 class LOOT_144:

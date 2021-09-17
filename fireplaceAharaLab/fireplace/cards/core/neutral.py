@@ -391,6 +391,27 @@ class CORE_LOEA10_3:# <12> 1637
     #
     pass
 
+
+class CORE_LOOT_124:###OK
+    """ Lone Champion  
+    <b>Battlecry:</b> If you control no other minions, gain <b>Taunt</b> and <b>Divine Shield</b>. """
+    def play(self):
+        controller = self.controller
+        if len(controller.field)==1:
+            self.taunt = True
+            self.divine_shield = True
+    pass
+
+class CORE_LOOT_125:###OK
+    """ Stoneskin Basilisk
+    <b>Divine Shield</b>  <b>Poisonous</b>"""
+    pass
+
+class CORE_LOOT_137:###OK
+    """ Sleepy Dragon
+    <b>Taunt</b> """
+    pass
+
 class CORE_NEW1_018_Action(TargetedAction):
     def do(self,source,target):
         player = target
@@ -402,7 +423,9 @@ class CORE_NEW1_018:# <12> 1637 #OK
     [Battlecry:] Gain Attack equal to the Attack of your weapon. """
     play = Find(FRIENDLY_WEAPON) & CORE_NEW1_018_Action(CONTROLLER)
     pass
-#NEW1_018e=buff(atk=ATK(FRIENDLY_WEAPON)) # <12> 3 #
+class NEW1_018e:
+    #=buff(atk=ATK(FRIENDLY_WEAPON)) # <12> 3 #
+    pass
 
 class CORE_NEW1_026:# <12> 1637
     """ Violet Teacher

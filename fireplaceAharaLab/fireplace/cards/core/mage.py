@@ -118,3 +118,9 @@ class CS3_001e2:# <4>[1637]
     The next minion you draw inherits the Guardian's Legacy. """
     #
     pass
+
+class NEW1_012: #<4>[3]
+	"""Mana Wyrm"""
+	events = OWN_SPELL_PLAY.on(Buff(SELF, "NEW1_012o"))
+	pass
+NEW1_012o = buff(atk=1)

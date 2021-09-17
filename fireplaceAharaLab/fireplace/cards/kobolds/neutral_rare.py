@@ -18,9 +18,9 @@ class LOOT_118:
 	pass
 
 
-class LOOT_124:
-	"""Lone Champion"""
-	pass
+#class LOOT_124:
+#	"""Lone Champion"""
+#	pass
 
 
 class LOOT_150:

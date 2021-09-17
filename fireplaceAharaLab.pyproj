@@ -438,6 +438,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\darkmoon\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\misc\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\shadows\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\saviors\" />
