@@ -35,7 +35,7 @@ class BT_715:#OK
 	Whenever this minion takes
 	_damage, gain +2 Attack."""
 	events = Attack(ALL_CHARACTERS,SELF).on(Buff(SELF,"BT_715e"))
-BT_715e = buff(2,0)
+BT_715e = buff(2,0)## -> BT_730
 class BT_156:#OK
 	"""Imprisoned Vilefiend	Minion	Common
 	<b>Dormant</b> for 2 turns.
@@ -67,12 +67,22 @@ class BT_714:#OK
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	#play = SetTag(TARGET,(GameTag.FROZEN, ))
 	play = Freeze(TARGET)
+class DestroyBuff(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		for card in source.buffs:
+			if card.id==buff:
+				source.buffs.remove(card)
+				card.zone=Zone.GRAVEYARD
+		pass
 class BT_730:#######################################################################
 	"""Overconfident Orc	Minion	Common
 	<b>Taunt</b>
 	While at full Health,
 	this has +2 Attack."""
-	#events = -Damage(SELF).on()
+	play = Buff(SELF,'BT_715e')
+	events = Damage(SELF).on(DestroyBuff(SELF,'BT_715e'))
 class BT_126:#OK
 	"""Teron Gorefiend	Minion	Legendary
 	[x]<b>Battlecry:</b> Destroy all
