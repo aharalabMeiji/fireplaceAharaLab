@@ -44,33 +44,36 @@ class DMF_075_Choice(GenericChoice):
     def choose(self, card):
         super().choose(card)
         controller = self.player
-        moreCard = Draw(controller,1).trigger(controller)
-        moreCard = moreCard[0][0]
-        choiceCard = controller.hand[-2]
-        drawnCard = controller.hand[-3]# first drawn card
-        if choiceCard.id == 'DMF_075a':
-            if drawnCard.cost < moreCard.cost:
-                pass
-            else:
-                moreCard.zone = Zone.GRAVEYARD
-            choiceCard.zone = Zone.GRAVEYARD
-            return
-        elif choiceCard.id == 'DMF_075a2':
-            if drawnCard.cost > moreCard.cost:
-                pass
-            else:
-                moreCard.zone = Zone.GRAVEYARD
-            choiceCard.zone = Zone.GRAVEYARD
-            return
+        choiceCard = controller.hand[-1]
+        choiceCardId = choiceCard.id
+        choiceCard.zone = Zone.GRAVEYARD
+        if len(controller.hand)<controller.max_hand_size:
+            moreCard = Draw(controller,1).trigger(controller)
+            moreCard = moreCard[0][0]
+            drawnCard = controller.hand[-2]# first drawn card
+            if choiceCardId == 'DMF_075a':
+                if drawnCard.cost < moreCard.cost:
+                    pass
+                else:
+                    moreCard.zone = Zone.GRAVEYARD
+                return
+            elif choiceCardId == 'DMF_075a2':
+                if drawnCard.cost > moreCard.cost:
+                    pass
+                else:
+                    moreCard.zone = Zone.GRAVEYARD
+                return
 
 class DMF_075: ###OK
     """Guess the Weight
     Draw a card. Guess if your next card costs more or less to draw it."""
     entourage = ['DMF_075a','DMF_075a2']
-    play = ( 
-        Draw(CONTROLLER,1),
-        DMF_075_Choice(CONTROLLER,RandomEntourage()*2)
-    )
+    def play(self):
+        controller = self.controller
+        new_card=Draw(CONTROLLER,1).trigger(controller)
+        new_card=new_card[0][0]
+        self.choiceText=" %s(%d)より :"%(new_card.data.name, new_card.cost)
+        DMF_075_Choice(CONTROLLER,RandomEntourage()*2).trigger(self)
     pass
 class DMF_075a:
     pass

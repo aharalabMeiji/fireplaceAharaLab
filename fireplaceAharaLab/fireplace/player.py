@@ -43,6 +43,7 @@ class Player(Entity, TargetableByAuras):
 		self.graveyard = CardList()
 		self.secrets = CardList()
 		self.choice = None
+		self.choiceText = 'Choose one.'
 		self.max_hand_size = 10
 		self.max_resources = 10
 		self.max_deck_size = 60
@@ -82,7 +83,7 @@ class Player(Entity, TargetableByAuras):
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
-
+		self.choiceStrategy = None
 
 	def __str__(self):
 		return self.name

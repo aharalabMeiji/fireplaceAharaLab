@@ -268,6 +268,9 @@ def adjust_text_by_spellpower(text, player, card):
 		if _i<_len-3 and _new_text[_i:_i+3]=='{0}' :
 			_new_text = _new_text[:_i+1] + card.script_data_text_0 + _new_text[_i+2:]
 	for _i in range(_len):
+		if _i<_len-3 and _new_text[_i:_i+3]=='{1}' :
+			_new_text = _new_text[:_i] + _new_text[_i+3:]
+	for _i in range(_len):
 		if _new_text[_i]=='$':
 			if _i+1<_len and _new_text[_i+1] in ['0','1','2','3','4','5','6','7','8','9']:
 				_catch_number = int(_new_text[_i+1])
@@ -286,8 +289,8 @@ def adjust_text_by_spellpower(text, player, card):
 	return _new_text
 
 class HumanAgent(Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None):
-		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
+	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None, choiceStrategy = None):
+		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy, choiceStrategy = choiceStrategy )
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
@@ -496,7 +499,20 @@ class HumanAgent(Agent):
 			except ValueError :
 				pass
 		return cards_to_mulligan
-
+	def HumanInputChoice(self, choiceCards):
+		print("%s"%(self.choiceText))
+		count=1
+		for card in choiceCards:
+			print("%d : %s (%s)"%(count, card.data.name, adjust_text(card.data.description)))
+			count += 1
+		str = input()#やり直しはなし
+		try :
+			inputNum = int(str)
+			if inputNum>=1 and inputNum<=len(choiceCards):
+				return choiceCards[inputNum-1]
+		except ValueError :
+			pass
+		return random.choice(choiceCards)
 
 
 

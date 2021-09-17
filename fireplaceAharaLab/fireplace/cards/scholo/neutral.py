@@ -185,19 +185,40 @@ class SCH_248:#OK
 	play = Hit(TARGET, 1), OWN_SPELL_PLAY.on(Bounce(SELF))
 	pass
 
-class SCH_259:################################################### impossible
+class SCH_259_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
+		cardID = card.id
+		if cardID == 'SCH_259t':
+			new_card = self.source.controller.hand[-1]#すでに配られてしまっている
+			new_card.zone = Zone.DECK#デッキに戻す。
+			controller = self.source.controller
+			controller.deck.insert(0,new_card)
+			del controller.deck[-1]
+			controller.draw()
+			pass
+		else:
+			pass
+		pass
+class SCH_259_Action(TargetedAction):
+	ACTION = ActionArg()
+	def do(self, source, target):
+		controller = target
+		new_card_id = controller.deck[-1].id
+		source.entourage = [new_card_id, 'SCH_259t']
+		SCH_259_Choice(CONTROLLER, RandomEntourage()*2).trigger(source)
+
+class SCH_259:####OK
 	""" Sphere of Sapience (legendary)"""
 	#At the start of your turn, look at your top card. You can put it on the bottom _and lose 1 Durability.
-	#??????????????????????????????????????????????
-	#choose = ('SCH_259', 'SCH_259t')  ## useless 
-	#play = OWN_TURN_BEGIN.on(
-	#	
-	#	Draw(CONTROLLER).on(GenericChoice(CONTROLLER, [Draw.CARD, "SCH_259t"]))
-	#	)
+	entourage=['SCH_259t']
+	events = OWN_TURN_BEGIN.on(SCH_259_Action(CONTROLLER))
 	pass
 class SCH_259t:
 	"""	A New Fate """
 	#Draw a different card.
+	pass
 
 
 class SCH_283:#OK
