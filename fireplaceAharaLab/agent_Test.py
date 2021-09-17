@@ -244,7 +244,7 @@ class TestHumanAgent(Agent):
     	print("%s"%(self.choiceText))
     	count=1
     	for card in choiceCards:
-    		print("%d : %s (%s)"%(count, card.data.name, adjust_text_bt_spellpower(card.data.description, self)))
+    		print("%d : %s (%d) %s"%(count, card.data.name, card.cost, adjust_text_bt_spellpower(card.data.description, self)))
     		count += 1
     	str = input()#やり直しはなし
     	try :
