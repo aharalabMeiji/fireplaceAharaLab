@@ -129,3 +129,27 @@ class CS3_015:# 3 1637 ############################
     play = GenericChoice(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3)
     pass
 
+class NEW1_031:
+	"""Animal Companion"""
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
+	play = Summon(CONTROLLER, RandomEntourage())
+	pass
+
+class NEW1_032:
+    """ Misha
+    """
+    pass
+    
+class NEW1_033:
+	"""Leokk"""
+	update = Refresh(FRIENDLY_MINIONS - SELF, buff="NEW1_033o")
+	pass
+NEW1_033o = buff(atk=1)
+
+class NEW1_034:
+    """ Huffer
+    """
+    pass
+    
+

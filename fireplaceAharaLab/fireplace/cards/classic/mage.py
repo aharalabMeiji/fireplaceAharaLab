@@ -4,10 +4,10 @@ from ..utils import *
 ##
 # Hero Powers
 
-class HERO_08bp:
-	"""Fireblast (Jaina Proudmoore)"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Hit(TARGET, 1)
+#class HERO_08bp:
+#	"""Fireblast (Jaina Proudmoore)"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Hit(TARGET, 1)
 
 
 class CS2_034_H1:
@@ -58,12 +58,12 @@ class EX1_612o:
 	events = Play(CONTROLLER, SECRET).on(Destroy(SELF))
 
 
-class NEW1_012:
-	"""Mana Wyrm"""
-	events = OWN_SPELL_PLAY.on(Buff(SELF, "NEW1_012o"))
+#class NEW1_012:
+#	"""Mana Wyrm"""
+#	events = OWN_SPELL_PLAY.on(Buff(SELF, "NEW1_012o"))
 
 
-NEW1_012o = buff(atk=1)
+#NEW1_012o = buff(atk=1)
 
 
 ##

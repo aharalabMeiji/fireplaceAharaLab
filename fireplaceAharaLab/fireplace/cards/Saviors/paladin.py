@@ -53,11 +53,11 @@ class ULD_500:#OK
 	#'HERO_02bp2',
 	powered_up = -FindDuplicates(FRIENDLY_DECK)
 	play = powered_up & Choice(CONTROLLER, RandomEntourage()*3).then(Summon(CONTROLLER, Choice.CARD))
-class HERO_01bp2:#OK
-	""" Tank Up!
-	<b>Hero Power</b>
-	Gain 4 Armor."""
-	activate = GainArmor(FRIENDLY_HERO, 4)
+#class HERO_01bp2:#OK
+#	""" Tank Up!
+#	<b>Hero Power</b>
+#	Gain 4 Armor."""
+#	activate = GainArmor(FRIENDLY_HERO, 4)
 class HERO_02bp2:################################# pass 
 	""" Totemic Slam
 	<b>Hero Power</b>
@@ -75,31 +75,31 @@ class HERO_04bp2:#OK
 	Summon two 1/1 Recruits."""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	activate = Summon(CONTROLLER, "CS2_101t") * 2
-class HERO_05bp2:#OK
-	"""Ballista Shot
-	<b>Hero Power</b>
-	Deal $3 damage to the enemy hero.@<b>Hero Power</b>
-	Deal $3 damage."""
-	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
-	activate = Hit(ENEMY_HERO, 3)
-class HERO_06bp2:#OK
-	"""Dire Shapeshift
-	<b>Hero Power</b>
-	+2 Attack this turn.
-	+2 Armor."""
-	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
-AT_132_DRUIDe = buff(atk=2)
+#class HERO_05bp2:#OK
+#	"""Ballista Shot
+#	<b>Hero Power</b>
+#	Deal $3 damage to the enemy hero.@<b>Hero Power</b>
+#	Deal $3 damage."""
+#	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
+#	activate = Hit(ENEMY_HERO, 3)
+#class HERO_06bp2:#OK
+#	"""Dire Shapeshift
+#	<b>Hero Power</b>
+#	+2 Attack this turn.
+#	+2 Armor."""
+#	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
+#AT_132_DRUIDe = buff(atk=2)
 class HERO_07bp2:#OK
 	"""Soul Tap
 	<b>Hero Power</b>
 	Draw a card."""
 	activate = Draw(CONTROLLER)
-class HERO_08bp2:#OK
-	"""Fireblast Rank 2
-	<b>Hero Power</b>
-	Deal $2 damage."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Hit(TARGET, 2)
+#class HERO_08bp2:#OK
+#	"""Fireblast Rank 2
+#	<b>Hero Power</b>
+#	Deal $2 damage."""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Hit(TARGET, 2)
 class HERO_09bp2:#OK
 	"""Heal
 	<b>Hero Power</b>

@@ -4,10 +4,10 @@ from ..utils import *
 ##
 # Hero Powers
 
-class HERO_05bp:
-	"""Steady Shot (Rexxar)"""
-	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
-	activate = Hit(ENEMY_HERO, 2)
+#class HERO_05bp:
+#	"""Steady Shot (Rexxar)"""
+#	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
+#	activate = Hit(ENEMY_HERO, 2)
 
 class DS1h_292:
 	"""Steady Shot (Rexxar)"""
@@ -71,12 +71,12 @@ DS1_178e = buff(charge=True)
 #	deathrattle = Summon(CONTROLLER, "EX1_534t") * 2
 
 
-class NEW1_033:
-	"""Leokk"""
-	update = Refresh(FRIENDLY_MINIONS - SELF, buff="NEW1_033o")
+#class NEW1_033:
+#	"""Leokk"""
+#	update = Refresh(FRIENDLY_MINIONS - SELF, buff="NEW1_033o")
 
 
-NEW1_033o = buff(atk=1)
+#NEW1_033o = buff(atk=1)
 
 
 ##
@@ -155,11 +155,11 @@ class EX1_617:
 	play = Destroy(RANDOM_ENEMY_MINION)
 
 
-class NEW1_031:
-	"""Animal Companion"""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
-	play = Summon(CONTROLLER, RandomEntourage())
+#class NEW1_031:
+#	"""Animal Companion"""
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
+#	play = Summon(CONTROLLER, RandomEntourage())
 
 
 ##

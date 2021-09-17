@@ -29,13 +29,13 @@ class DRG_253:#OK!
 	play = ChangeHeroPower(CONTROLLER, "HERO_05dbp")
 	# see also fireplace.actions.Death.do
 
-class HERO_05dbp:
-	"""Steady Shot (Rexxar)"""
-	requirements = { 
-		PlayReq.REQ_ENEMY_TARGET: 0, 
-		PlayReq.REQ_HERO_OR_MINION_TARGET: 0, #new comer
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Hit(TARGET, 2)
+#class HERO_05dbp:
+#	"""Steady Shot (Rexxar)"""
+#	requirements = { 
+#		PlayReq.REQ_ENEMY_TARGET: 0, 
+#		PlayReq.REQ_HERO_OR_MINION_TARGET: 0, #new comer
+#		PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Hit(TARGET, 2)
 
 class DRG_255:#OK
 	"""Toxic Reinforcements

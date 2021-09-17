@@ -4,12 +4,12 @@ from ..utils import *
 ##
 # Hero Powers
 
-class HERO_06bp:
-	"""Shapeshift"""
-	activate = Buff(FRIENDLY_HERO, "CS2_017o"), GainArmor(FRIENDLY_HERO, 1)
+#class HERO_06bp:
+#	"""Shapeshift"""
+#	activate = Buff(FRIENDLY_HERO, "CS2_017o"), GainArmor(FRIENDLY_HERO, 1)
 
 
-CS2_017o = buff(atk=1)
+#CS2_017o = buff(atk=1)
 
 
 ##
