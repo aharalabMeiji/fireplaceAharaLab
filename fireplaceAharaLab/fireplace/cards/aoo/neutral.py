@@ -76,7 +76,7 @@ class DestroyBuff(TargetedAction):
 				source.buffs.remove(card)
 				card.zone=Zone.GRAVEYARD
 		pass
-class BT_730:#######################################################################
+class BT_730:###とりあえず
 	"""Overconfident Orc	Minion	Common
 	<b>Taunt</b>
 	While at full Health,

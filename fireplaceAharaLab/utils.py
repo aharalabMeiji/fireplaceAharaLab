@@ -96,6 +96,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				if debugLog:
 					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
 					print("%d : %d"%(player1.hero.health,player2.hero.health))
+				if game.current_player.choice!=None:
+					postAction(game.current_player)
 			except GameOver:#it rarely occurs
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
@@ -494,7 +496,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['BT_730'],player1)
+	#ExchangeCard(['SCH_259'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 
