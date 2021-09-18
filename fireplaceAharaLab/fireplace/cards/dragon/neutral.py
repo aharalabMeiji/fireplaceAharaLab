@@ -258,15 +258,17 @@ class DRG_077:#OK
 		target = self.controller
 		draw1 = Draw(target)
 		cards1 = draw1.trigger(self)
-		card1 = cards1[0][0]
-		if card1.type == CardType.MINION and card1.race == Race.DRAGON:
-			Summon(target, card1).trigger(self)
-		other = target.opponent
-		draw2 = Draw(other)
-		cards2 = draw2.trigger(self)
-		card2 = cards2[0][0]
-		if card2.type == CardType.MINION and card2.race == Race.DRAGON:
-			Summon(other, card2).trigger(self)		
+		if cards1[0] != []:
+			card1 = cards1[0][0]
+			if card1.type == CardType.MINION and card1.race == Race.DRAGON:
+				Summon(target, card1).trigger(self)
+			other = target.opponent
+			draw2 = Draw(other)
+			cards2 = draw2.trigger(self)
+			if cards2[0] != []:
+				card2 = cards2[0][0]
+				if card2.type == CardType.MINION and card2.race == Race.DRAGON:
+					Summon(other, card2).trigger(self)		
 
 #### 40 ####
 

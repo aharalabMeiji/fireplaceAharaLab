@@ -73,11 +73,13 @@ class SCH_351:#OK
 		enchantments=["SCH_351e","SCH_351e2"]
 		random.shuffle(enchantments)
 		cards = Summon(CONTROLLER, RandomMinion(cost=5)).trigger(self)
-		card1=cards[0][0]
-		Buff(card1, enchantments[0]).trigger(self)
-		cards = Summon(CONTROLLER, RandomMinion(cost=5)).trigger(self)
-		card2=cards[0][0]
-		Buff(card2, enchantments[1]).trigger(self)
+		if cards[0] != []:
+			card1=cards[0][0]
+			Buff(card1, enchantments[0]).trigger(self)
+			cards = Summon(CONTROLLER, RandomMinion(cost=5)).trigger(self)
+			if cards[0] != []:
+				card2=cards[0][0]
+				Buff(card2, enchantments[1]).trigger(self)
 	pass
 class SCH_351a:
 	"""This is an Illusion."""

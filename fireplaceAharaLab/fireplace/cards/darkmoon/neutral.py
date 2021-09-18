@@ -426,8 +426,9 @@ class DMF_188: #this turn only??# yes! ##OK
 			if hasattr(card,'corruptedcard') and card.corruptedcard:
 				if (card.id)[-1]=='t':  #assert corrupted
 					new_card = Give(self.controller, card.id[:-1]).trigger(self.controller)
-					new_card = new_card[0][0]
-					Buff(new_card, "DMF_188e2").trigger(self)
+					if new_card[0] != []:
+						new_card = new_card[0][0]
+						Buff(new_card, "DMF_188e2").trigger(self)
 	pass
 class DMF_188e2:###  
 	cost = SET(0)

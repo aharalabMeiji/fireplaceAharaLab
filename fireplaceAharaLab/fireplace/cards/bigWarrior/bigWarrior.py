@@ -72,12 +72,14 @@ class BT_117:###OK
         controller = self.controller
         game = controller.game
         before = game.board
-        if len(game.board)>0:
-            for i in range(100):# 1000? lol
+        for i in range(100):# 1000? lol
+            if len(game.board)>0:
                 target = random.choice(game.board)
                 Hit(target, 1).trigger(controller)
                 if target.health == 0:
                     return
+            else:
+                return
         pass
     pass
 
@@ -190,13 +192,15 @@ class SCH_337_Troublemaker(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
         new_minion1 = Summon(target, "SCH_337t").trigger(source.controller)
-        new_minion1 = new_minion1[0][0]
-        new_minion2 = Summon(target, "SCH_337t").trigger(source.controller)
-        new_minion2 = new_minion2[0][0]
-        enemy = source.controller.opponent
-        if len(enemy.field)>0:
-            Attack(new_minion1, random.choice(enemy.field)).trigger(source.controller)
-            Attack(new_minion2, random.choice(enemy.field)).trigger(source.controller)
+        if new_minion1[0] != []:
+            new_minion1 = new_minion1[0][0]
+            new_minion2 = Summon(target, "SCH_337t").trigger(source.controller)
+            if new_minion2[0] != []:
+                new_minion2 = new_minion2[0][0]
+                enemy = source.controller.opponent
+                if len(enemy.field)>0:
+                    Attack(new_minion1, random.choice(enemy.field)).trigger(source.controller)
+                    Attack(new_minion2, random.choice(enemy.field)).trigger(source.controller)
         pass
 class SCH_337:###OK
     """Troublemaker
@@ -219,9 +223,10 @@ class SCH_621_Action(TargetedAction):
         new_atk = source.atk - 1
         new_health = source.max_health - 1
         new_minion = Summon(target, source.id).trigger(source.controller)
-        new_minion = new_minion[0][0]
-        new_minion.atk = new_atk
-        new_minion.max_health = new_health
+        if new_minion[0] != []:
+            new_minion = new_minion[0][0]
+            new_minion.atk = new_atk
+            new_minion.max_health = new_health
         pass
 
 class SCH_621:###OK
