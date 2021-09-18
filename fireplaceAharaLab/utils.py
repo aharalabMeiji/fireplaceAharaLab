@@ -362,7 +362,7 @@ class BigDeck:
 	#Available
 	faceHunter_old = ['SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
-		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
+		'CORE_EX1_611','ULD_152','CORE_EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
 	faceHunter = ['SCH_617','SCH_617','SCH_600','SCH_600','SCH_231','SCH_231',
 		'CORE_DS1_184','CORE_DS1_184','SCH_279','SCH_133','SCH_133','BAR_801',
@@ -496,7 +496,7 @@ def PresetHands(player1, player2):
 	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['SW_079'],player1)
+	ExchangeCard(['BAR_079'],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

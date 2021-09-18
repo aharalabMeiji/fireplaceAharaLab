@@ -469,7 +469,7 @@ class GenericChoiceBattlecry(GenericChoice):##
 		controller = self.player
 		for new_card in controller.hand:
 			if new_card.id == card.id:
-				Battlecry(new_card, new_card.target).trigger(controller)
+				Battlecry(new_card, new_card.target).trigger(new_card)
 				break
 		pass
 
@@ -956,9 +956,10 @@ class Corrupt(TargetedAction):# darkmoon fair
 					corruptList.append({'card':target,'corruptedID':target.id+"t"})
 		for target in corruptList:
 			newCard = Give(controller, target['corruptedID']).trigger(controller)
-			newCard = newCard[0][0]
-			for _buff in target['card'].buffs:
-				newCard.buffs.append(_buff)
+			if len(newCard[0])>0:
+				newCard = newCard[0][0]
+				for _buff in target['card'].buffs:
+					newCard.buffs.append(_buff)
 		for target in corruptList:
 			Destroy(target['card']).trigger(controller)
 		pass

@@ -175,7 +175,7 @@ class SCH_609:###OK
         controller = self.controller
         for _card in (controller.hand + controller.deck + controller.field):
             if _card.type == CardType.MINION:
-                Buff(_card,'SCH_609e').trigger(self.controller)
+                Buff(_card,'SCH_609e').trigger(self)
         pass
     pass
 SCH_609e=buff(atk=4,health=4)

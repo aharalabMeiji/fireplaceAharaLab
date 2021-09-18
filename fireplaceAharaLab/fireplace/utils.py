@@ -14,7 +14,6 @@ from hearthstone.enums import CardClass, CardType
 _cards_module = os.path.join(os.path.dirname(__file__), "cards")
 CARD_SETS = [cs for _, cs, ispkg in iter_modules([_cards_module]) if ispkg]
 
-
 class CardList(list):
 	def __contains__(self, x):
 		for item in self:

@@ -638,7 +638,7 @@ class BAR_079t14:
         BAR_079Buff(card, controller.hand[-2].id)
         card.script_data_text_0+=adjust_text(self.data.description)
         card.spellpower=1
-        setattr(card.scripts, 'play', [])
+        setattr(card.data.scripts, 'play', [])
         controller.hand[-1].zone=Zone.GRAVEYARD
         controller.hand[-1].zone=Zone.GRAVEYARD
     pass
@@ -668,7 +668,7 @@ class BAR_079t14c:
         BAR_079Buff(card, controller.hand[-2].id)
         card.script_data_text_0+=adjust_text(self.data.description)
         card.spellpower=4
-        setattr(card.scripts, 'play', [])
+        setattr(card.data.scripts, 'play', [])
         controller.hand[-1].zone=Zone.GRAVEYARD
         controller.hand[-1].zone=Zone.GRAVEYARD
     pass
