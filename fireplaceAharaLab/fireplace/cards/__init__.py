@@ -55,9 +55,13 @@ class CardDB(dict):
 
 		if not hasattr(card.scripts, "Hand"):
 			card.scripts.Hand = type("Hand", (), {})
+		if not hasattr(card.scripts, "Deck"):
+			card.scripts.Deck = type("Deck", (), {})
 
 		if not hasattr(card.scripts.Hand, "events"):
 			card.scripts.Hand.events = []
+		if not hasattr(card.scripts.Deck, "events"):
+			card.scripts.Deck.events = []
 
 		if not hasattr(card.scripts.Hand.events, "__iter__"):
 			card.scripts.Hand.events = [card.scripts.Hand.events]
