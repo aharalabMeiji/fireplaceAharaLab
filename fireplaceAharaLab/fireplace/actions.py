@@ -769,7 +769,7 @@ class EatsCard(TargetedAction):
 	TARGET = ActionArg()
 	OTHER = ActionArg()
 	def do(self, source, target, other):
-		if other==[]:
+		if target==[] or other==[]:
 			return
 		if isinstance(other,list):
 			other = other[0]
@@ -2071,6 +2071,8 @@ class HitAndExcessToOther(TargetedAction):
 	AMOUNT = IntArg()
 	OTHER = ActionArg()
 	def do(self, source, target, amount,other):
+		if target==[] or other==[]:
+			return
 		if isinstance(target,list):
 			target = target[0]
 		if isinstance(other,list):
@@ -2112,6 +2114,8 @@ class SwapController(TargetedAction):
 	TARGET = ActionArg()# controller's heropower
 	OTHER = ActionArg()# oponent's heropower
 	def do(self, source,target,other):
+		if target==[] or other==[]:
+			return
 		if isinstance(target,list):
 			target = target[0]
 		if isinstance(other,list):
@@ -2128,6 +2132,8 @@ class SwapMinionAndHand(TargetedAction):
 	TARGET = ActionArg()# minion
 	OTHER = ActionArg()# card in hand
 	def do(self, source,target,other):
+		if target==[] or other==[]:
+			return
 		if isinstance(target,list):
 			target = target[0]
 		if isinstance(other,list):
@@ -2230,6 +2236,8 @@ class PermanentBuff(TargetedAction):
 	BUFFATK = IntArg()
 	BUFFHEALTH = ActionArg()
 	def do(self, source, target, buffatk, buffhealth):
+		if target==[]:
+			return
 		if isinstance(target,list):
 			target = target[0]
 		target.atk += buffatk
@@ -2389,6 +2397,8 @@ class DAL731Duel(TargetedAction):
 	TARGET = ActionArg()
 	OTHER = ActionArg()
 	def do(self, source, target, other):
+		if target==[] or other==[]:
+			return
 		if isinstance(other,list):
 			other = other[0]
 		if isinstance(target,list):
