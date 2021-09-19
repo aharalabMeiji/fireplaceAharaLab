@@ -362,7 +362,9 @@ class BaseGame(Entity):
 
 		####################
 		if player.hero in player.field:
-			log.warning("hero is on the field!! lol")
+			print ("hero is on the field!! lol")
+			player.field.remove(player.hero)
+			player.hero.zone = Zone.PLAY
 		####################
 
 		for p in self.players:

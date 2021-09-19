@@ -320,7 +320,10 @@ class Player(Entity, TargetableByAuras):
 
 	def give(self, id):
 		cards = self.game.cheat_action(self, [Give(self, id)])[0]
-		return cards[0][0]
+		if cards[0] != []:
+			return cards[0][0]
+		else:
+			return None
 
 	def concede(self):
 		ret = self.game.cheat_action(self, [Concede(self)])

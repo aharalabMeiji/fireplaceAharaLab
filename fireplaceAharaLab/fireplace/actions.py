@@ -956,7 +956,7 @@ class Corrupt(TargetedAction):# darkmoon fair
 					corruptList.append({'card':target,'corruptedID':target.id+"t"})
 		for target in corruptList:
 			newCard = Give(controller, target['corruptedID']).trigger(controller)
-			if len(newCard[0])>0:
+			if newCard[0]!=[]:
 				newCard = newCard[0][0]
 				for _buff in target['card'].buffs:
 					newCard.buffs.append(_buff)
@@ -2001,14 +2001,15 @@ class Asphyxia(TargetedAction):
 		if target._Asphyxia_ == 'alive' and target.dead:
 			log.info("The King Rat turns death.")
 			ret = Summon(target.controller, "SW_323").trigger(target.controller)
-			ret = ret[0][0]
-			ret._Asphyxia_= 'asphyxia'
-			ret.cant_attack = True
-			ret.cant_be_damaged = True
-			ret.cant_be_frozen = True
-			ret.cant_be_targeted_by_abilities = True
-			ret.cant_be_targeted_by_hero_powers = True
-			ret.cant_be_targeted_by_opponents = True
+			if ret[0]!=[]:
+				ret = ret[0][0]
+				ret._Asphyxia_= 'asphyxia'
+				ret.cant_attack = True
+				ret.cant_be_damaged = True
+				ret.cant_be_frozen = True
+				ret.cant_be_targeted_by_abilities = True
+				ret.cant_be_targeted_by_hero_powers = True
+				ret.cant_be_targeted_by_opponents = True
 		elif target._Asphyxia_ == 'asphyxia':
 			target._sidequest_counter_ += 1
 			log.info("The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
@@ -2264,12 +2265,14 @@ class TentacledMenace(TargetedAction):#DRG_084
 	def do(self, source, target, other):
 		draw1 = Draw(target)
 		cards1 = draw1.trigger(source)
-		card1 = cards1[0][0]
-		draw2 = Draw(other[0])
-		cards2 = draw2.trigger(source)
-		card2 = cards2[0][0]
-		card1.cost, card2.cost = card2.cost, card1.cost
-		log.info("Draw cards and change their costs.")
+		if cards1[0] != []:
+			card1 = cards1[0][0]
+			draw2 = Draw(other[0])
+			cards2 = draw2.trigger(source)
+			if cards2[0] != []:
+				card2 = cards2[0][0]
+				card1.cost, card2.cost = card2.cost, card1.cost
+				log.info("Draw cards and change their costs.")
 
 class ArgentBraggart(TargetedAction):
 	"""SCH_149
@@ -2307,11 +2310,12 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 
 	def do(self, source, target, other, buff):
 		new_minion = Summon(target, buff).trigger(source)
-		new_minion = new_minion[0][0]
-		cost = other.cost##
-		new_minion._atk = new_minion.atk = cost
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		new_minion.max_health = cost
+		if new_minion[0] != []:
+			new_minion = new_minion[0][0]
+			cost = other.cost##
+			new_minion._atk = new_minion.atk = cost
+			new_minion.data.scripts.atk = lambda self, i: self._atk
+			new_minion.max_health = cost
 
 class InheritGuardiansLegacy(TargetedAction):
 	"""   """
@@ -2447,13 +2451,14 @@ class SummonAdventurerWithBonus(TargetedAction):
 	def do(self,source,target):
 		new_minion =  random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t7',])
 		new_minion =  Summon(target, new_minion).trigger(source)
-		new_minion = new_minion[0][0]
-		newAtk=new_minion.atk+random.randint(1,3)
-		new_minion._atk = new_minion.atk = newAtk
-		new_minion.data.scripts.atk = lambda self, i: self._atk
-		newHealth = new_minion.health+random.randint(1,3)
-		new_minion.max_health = newHealth
-		log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+		if new_minion[0] != []:
+			new_minion = new_minion[0][0]
+			newAtk=new_minion.atk+random.randint(1,3)
+			new_minion._atk = new_minion.atk = newAtk
+			new_minion.data.scripts.atk = lambda self, i: self._atk
+			newHealth = new_minion.health+random.randint(1,3)
+			new_minion.max_health = newHealth
+			log.info("Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class Frenzy(TargetedAction):
 	""" Frenzy """

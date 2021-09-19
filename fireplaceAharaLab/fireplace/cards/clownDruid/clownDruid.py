@@ -49,20 +49,21 @@ class DMF_075_Choice(GenericChoice):
         choiceCard.zone = Zone.GRAVEYARD
         if len(controller.hand)<controller.max_hand_size:
             moreCard = Draw(controller,1).trigger(controller)
-            moreCard = moreCard[0][0]
-            drawnCard = controller.hand[-2]# first drawn card
-            if choiceCardId == 'DMF_075a':
-                if drawnCard.cost < moreCard.cost:
-                    pass
-                else:
-                    moreCard.zone = Zone.GRAVEYARD
-                return
-            elif choiceCardId == 'DMF_075a2':
-                if drawnCard.cost > moreCard.cost:
-                    pass
-                else:
-                    moreCard.zone = Zone.GRAVEYARD
-                return
+            if moreCard[0] != []:
+                moreCard = moreCard[0][0]
+                drawnCard = controller.hand[-2]# first drawn card
+                if choiceCardId == 'DMF_075a':
+                    if drawnCard.cost < moreCard.cost:
+                        pass
+                    else:
+                        moreCard.zone = Zone.GRAVEYARD
+                    return
+                elif choiceCardId == 'DMF_075a2':
+                    if drawnCard.cost > moreCard.cost:
+                        pass
+                    else:
+                        moreCard.zone = Zone.GRAVEYARD
+                    return
 
 class DMF_075: ###OK
     """Guess the Weight
@@ -71,9 +72,10 @@ class DMF_075: ###OK
     def play(self):
         controller = self.controller
         new_card=Draw(CONTROLLER,1).trigger(controller)
-        new_card=new_card[0][0]
-        self.choiceText=" %s(%d)より :"%(new_card.data.name, new_card.cost)
-        DMF_075_Choice(CONTROLLER,RandomEntourage()*2).trigger(self)
+        if len(new_card[0])>0:
+            new_card=new_card[0][0]
+            self.choiceText=" %s(%d)より :"%(new_card.data.name, new_card.cost)
+            DMF_075_Choice(CONTROLLER,RandomEntourage()*2).trigger(self)
     pass
 class DMF_075a:
     pass
