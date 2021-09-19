@@ -11,7 +11,7 @@ class SCH_524:#OK
 	Give a damaged minion +3 Attack and <b>Divine Shield</b>."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_DAMAGED_TARGET:0 }
 	play = Buff(TARGET, "SCH_524e"),SetTag(TARGET, (GameTag.DIVINE_SHIELD,))
-SCH_524e = buff(3,0)
+SCH_524e = buff(3,0)## neutral
 class SCH_250:#OK
 	"""Wave of Apathy		1	-	-	Spell	Common	-	-	
 	Set the Attack of all enemy minions to 1 until your next turn."""

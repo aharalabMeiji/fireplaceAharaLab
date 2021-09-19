@@ -1,5 +1,10 @@
 from ..utils import *
 
+# 未実装
+# 'BT_113e','BT_129e','BT_131e','BT_140e',
+# 'BT_187e','BT_187e2','BT_196e','BT_213e',
+# 'BT_302e','BT_309e','BT_496e','BT_601e','BT_711e',
+
 class BT_724:#OK
 	"""Ethereal Augmerchant	Minion	Common
 	<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Spell Damage +1</b>."""
@@ -7,6 +12,8 @@ class BT_724:#OK
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0} 
 	play = Hit(TARGET, 1), SetTag(TARGET, (GameTag.SPELLPOWER,))
+class BT_724e:
+	pass
 class BT_722:#OK
 	"""Guardian Augmerchant	Minion	Common
 	<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Divine Shield</b>."""

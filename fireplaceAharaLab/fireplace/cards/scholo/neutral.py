@@ -1,5 +1,11 @@
 from ..utils import *
 
+#'BAR_COIN3','SCH_158e2',
+#'SCH_301e','SCH_305d',
+#'SCH_519e',
+#'SCH_539e','SCH_622e',
+
+
 class SCH_142:#done
 	""" Voracious Reader (rare) """
 	#At the end of your turn, draw until you have 3 cards.
@@ -356,4 +362,86 @@ class SCH_717:##complete
 	)
 	pass
 
+#class SCH_235: ## mage
+#class SCH_270:#,'SCH_270e','SCH_270e2',# mage
+#class SCH_273:##mage
+#class SCH_350:##mage
+#class SCH_300e, SCH_300e2 ## hunter
+#class SCH_351:##'SCH_351a','SCH_351b','SCH_351e','SCH_351e2' ##mage
+#class SCH_352:# SCH_352e ## mage
+#class SCH_509: ## mage
+#class SCH_537:##mage
+
+class SCH_182_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		source.atk += target.cost
+		source.max_health += target.cost
+		pass
+
+class SCH_182:###OK
+	""" Speaker Gidra
+	[x]&lt;b&gt;&lt;b&gt;Rush&lt;/b&gt;, Windfury&lt;/b&gt;
+&lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt; Gain Attack
+and Health equal to
+the spell's Cost.""" 
+	play = OWN_SPELL_PLAY.on(SCH_182_Action(Play.CARD))
+	pass
+class SCH_182e:
+	pass
+
+class SCH_425:###OK
+	""" Doctor Krastinov
+	&lt;b&gt;Rush&lt;/b&gt;
+	Whenever this attacks, give your weapon +1/+1. """ 
+	events = Attack(SELF).on(Buff(FRIENDLY_WEAPON,'SCH_425e'))
+	pass
+SCH_425e = buff(1,1)##<10>[1443]
+
+class SCH_521:###OK
+	""" Coerce
+	Destroy a damaged minion. &lt;b&gt;Combo:&lt;/b&gt; Destroy any minion. """ 
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	def play(self):
+		if self.target.damage>0:
+			yield Destroy(TARGET)
+		pass
+	combo = Destroy(TARGET)
+	pass
+
+class SCH_522:###OK
+	"""  Steeldancer
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a random
+minion with Cost equal to
+your weapon's Attack. """ 
+	def play(self):
+		if self.controller.weapon:
+			cost = self.controller.weapon.atk
+			picker = RandomMinion(cost = cost)
+			yield Summon(CONTROLLER, picker)
+		pass
+	pass
+
+
+class SCH_623:###OK
+	""" Cutting Class
+	[x]Draw 2 cards.
+Costs (1) less per Attack
+of your weapon. """ 
+	def play(self):
+		controller = self.controller
+		if controller.weapon:
+			cost = controller.weapon.atk
+		else:
+			cost = 0
+		card1 = Draw(controller).trigger(controller)
+		if card1[0] != []:
+			card1 = card1[0][0]
+			card1.cost -= cost
+		card2 = Draw(controller).trigger(controller)
+		if card2[0] != []:
+			card2 = card2[0][0]
+			card2.cost -= cost
+		pass
+	pass
 
