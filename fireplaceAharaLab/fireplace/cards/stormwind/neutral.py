@@ -119,6 +119,8 @@ class SW_068:#OK
 class Deposite_Payment(TargetedAction):
     TARGET = ActionArg()
     def do(self, source, target):
+        if target==[]:
+            return
         if isinstance(target,list):
             target = target[0]
         target.zone = Zone.SETASIDE
