@@ -483,6 +483,8 @@ def PresetHands(player1, player2):
 		n = 8
 	elif player1.name == "Vector9":
 		n = 9
+	elif player1.game == "Vector10":
+		n = 10
 	
 	if player2.name == "Vector1" :
 		m = 1
@@ -502,6 +504,8 @@ def PresetHands(player1, player2):
 		m = 8
 	elif player2.name == "Vector9":
 		m = 9
+	elif player2.game == "Vector10":
+		m = 10
 	#print(n)
 	#print(m)
 	for num in range(n):
