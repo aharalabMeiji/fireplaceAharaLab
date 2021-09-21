@@ -74,10 +74,11 @@ class BT_117:###OK
         before = game.board
         for i in range(100):# 1000? lol
             if len(game.board)>0:
-                target = random.choice(game.board)
-                Hit(target, 1).trigger(controller)
-                if target.health == 0:
-                    return
+                for card in game.board:
+                    Hit(card, 1).trigger(controller)
+                for card in game.board:
+                    if card.health == 0:
+                        return
             else:
                 return
         pass
