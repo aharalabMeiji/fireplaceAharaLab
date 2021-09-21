@@ -65,24 +65,24 @@ class OG_293:
 ##
 # Spells
 
-class OG_047:
-	"""Feral Rage"""
-	choose = ("OG_047a", "OG_047b")
-	play = ChooseBoth(CONTROLLER) & (
-		Buff(FRIENDLY_HERO, "OG_047e"),
-		GainArmor(FRIENDLY_HERO, 8)
-	)
+#class OG_047:
+#	"""Feral Rage"""
+#	choose = ("OG_047a", "OG_047b")
+#	play = ChooseBoth(CONTROLLER) & (
+#		Buff(FRIENDLY_HERO, "OG_047e"),
+#		GainArmor(FRIENDLY_HERO, 8)
+#	)
 
 
-class OG_047a:
-	play = Buff(FRIENDLY_HERO, "OG_047e")
+#class OG_047a:
+#	play = Buff(FRIENDLY_HERO, "OG_047e")
 
 
-OG_047e = buff(atk=4)
+#OG_047e = buff(atk=4)
 
 
-class OG_047b:
-	play = GainArmor(FRIENDLY_HERO, 8)
+#class OG_047b:
+#	play = GainArmor(FRIENDLY_HERO, 8)
 
 
 class OG_048:

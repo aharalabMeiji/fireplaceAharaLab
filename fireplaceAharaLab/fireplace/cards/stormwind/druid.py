@@ -48,11 +48,9 @@ class SW_428:# <2>[1578]
 	""" Lost in the Park
 	[Questline:] Gain 4 Attack with your hero. [Reward:] Gain 5 Armor. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	play = SetAttr(CONTROLLER,'lostInThePark',4)
-	events = AchieveAttack(FRIENDLY_HERO).on(
-		SidequestCounter(SELF, 1, [
+	events = Buff(FRIENDLY_HERO).on(
+		SidequestLostInTheParkCounter(SELF, 4, [
 			GainArmor(FRIENDLY_HERO,5),
-  		    SetAttr(CONTROLLER,'lostInThePark',5),
 			Summon(CONTROLLER,'SW_428t'), 
 			Destroy(SELF)])
 		)
@@ -62,25 +60,30 @@ class SW_428t:# <2>[1578]
 	""" Defend the Squirrels
 	[Questline:] Gain 5 Attack with your hero. [Reward:] Gain 5 Armor and draw a card. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = AchieveAttack(FRIENDLY_HERO).on(
-	   SidequestCounter(SELF, 1, [
-		   GainArmor(FRIENDLY_HERO,5),
-		   SetAttr(CONTROLLER,'lostInThePark',6),
-		   Draw(CONTROLLER),Destroy(SELF)
-		   ])
-	   )
+	events = Buff(FRIENDLY_HERO).on(
+		SidequestLostInTheParkCounter(SELF, 5, [
+			GainArmor(FRIENDLY_HERO,5),
+			Summon(CONTROLLER,'SW_428t2'), 
+			Draw(CONTROLLER),Destroy(SELF)
+			])
+		)
 	pass
 
 class SW_428t2:# <2>[1578]
 	""" Feral Friendsy
 	[Questline:] Gain 6Attack with your hero.[Reward:] Guff the Tough. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = (ATK(FRIENDLY_HERO)>5) & SidequestCounter(SELF, 1, [Give(CONTROLLER,'SW_428t4'),Destroy(SELF)])
+	events = Buff(FRIENDLY_HERO).on(
+		SidequestLostInTheParkCounter(SELF, 6, [
+			Summon(CONTROLLER,'SW_428t4'), 
+			Destroy(SELF)
+			])
+		)
 	pass
 
 class SW_428t4:# <2>[1578]
 	""" Guff the Tough
-	[Taunt]. [Battlecry:] Give yourhero +8 Attack this turn.Gain 8 Armor. """
+	[Taunt]. [Battlecry:] Give your hero +8 Attack this turn.Gain 8 Armor. """
 	play = Buff(FRIENDLY_HERO,'SW_428t4e'), GainArmor(FRIENDLY_HERO, 8)
 	pass
 
@@ -104,7 +107,7 @@ class SW_429t:# <2>[1578]
 class SW_431:# <2>[1578]
 	""" Park Panther
 	[Rush]. Whenever this attacks, give your hero+3 Attack this turn. """
-	events = Attack(SELF).on(AchieveAttack(FRIENDLY_HERO,'SW_431e'))
+	events = Attack(SELF).on(Buff(FRIENDLY_HERO,'SW_431e'))
 	pass
 
 SW_431e=buff(atk=3)# <2>[1578] # ONE_TURN_EFFECT

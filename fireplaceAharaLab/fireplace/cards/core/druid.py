@@ -78,10 +78,22 @@ class CORE_KAR_300:# <2>[1637]
     #
     pass
 
+#'CORE_OG_047','OG_047a','OG_047b','OG_047e'
 class CORE_OG_047:# <2>[1637]
-    """ Feral Rage
-    [Choose One -] Give your hero +4 Attack this turn; or Gain 8 Armor. """
-    #
+	""" Feral Rage
+	[Choose One -] Give your hero +4 Attack this turn; or Gain 8 Armor. """
+	choose = ("OG_047a", "OG_047b")
+	play = ChooseBoth(CONTROLLER) & (
+		Buff(FRIENDLY_HERO, "OG_047e"),
+		GainArmor(FRIENDLY_HERO, 8)
+	)
+	pass
+class OG_047a:
+	play = Buff(FRIENDLY_HERO, "OG_047e")
+	pass
+OG_047e = buff(atk=4)
+class OG_047b:
+    play = GainArmor(FRIENDLY_HERO, 8)
     pass
 
 class CORE_TRL_243:# <2>[1637]
