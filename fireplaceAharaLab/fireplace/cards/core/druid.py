@@ -1,9 +1,12 @@
 from ..utils import *
 
+
+#Core_Druid=[]
 class CORE_BOT_420:# <2>[1637]
     """ Landscaping
     Summon two 2/2 Treants. """
-    #
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+    play = Summon(CONTROLLER,'DMF_061t2') * 2
     pass
 
 class CORE_CS2_009:# <2>[1637]
@@ -78,7 +81,6 @@ class CORE_KAR_300:# <2>[1637]
     #
     pass
 
-#'CORE_OG_047','OG_047a','OG_047b','OG_047e'
 class CORE_OG_047:# <2>[1637]
 	""" Feral Rage
 	[Choose One -] Give your hero +4 Attack this turn; or Gain 8 Armor. """
