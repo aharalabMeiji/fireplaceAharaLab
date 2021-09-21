@@ -92,7 +92,7 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,
-	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,
+	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,
 	Crossborder,Legacy,HeroSkins,TGT,Expert1,Etc,
 	faceHunter,bigWarrior,clownDruid
 	]
