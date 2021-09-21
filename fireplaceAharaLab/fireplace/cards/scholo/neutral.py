@@ -276,7 +276,7 @@ class SCH_530:#done
 class SCH_605:#OK
 	""" Lake Thresher"""
 	#Also damages the minions next to whomever this attacks.
-	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
+	events = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), ATK(SELF)))
 	pass
 
 class SCH_707:#done
