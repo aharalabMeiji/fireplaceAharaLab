@@ -47,8 +47,11 @@ def main():
 	Vector9 = StandardVectorAgent("Vector9",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.HUNTER)
+	Vector10 = StandardVectorAgent("Vector10",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.HUNTER)
 
-	Vectors = [Vector1,Vector1,Vector2,Vector3,Vector4,Vector5,Vector6,Vector7,Vector8,Vector9]
+	Vectors = [Vector1,Vector1,Vector2,Vector3,Vector4,Vector5,Vector6,Vector7,Vector8,Vector9,Vector10]
 
 	# Maya : モンテカルロによる読み切り
 	#Maya=Agent("Maya",Maya_MCTS)
@@ -87,6 +90,7 @@ def main():
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
+<<<<<<< HEAD
 	Pcount = 0
 	for num in range(7):
 		play_round_robin_competition([Vectors[8],Vectors[1]],matchNumber=10)
@@ -119,8 +123,44 @@ def main():
 		#play_round_robin_competition([Vector1,Vector4],matchNumber=10)
 	#print("1枚VS7枚しゅうりょう！")
 
+=======
+	#Pcount = 0
+	#play_round_robin_competition([Vectors[1],Vectors[2]],matchNumber=30)
+	#play_set_of_games(Vectors[1], Vectors[2], BigDeck.faceHunter, BigDeck.faceHunter, gameNumber=10, debugLog=True)
+	#for numX in range(len(Vectors)):
+		#if numX > 5:
+			#continue
+
+		#for numY in range(len(Vectors)):
+			#if numX == 6 and numY<4:
+				#continue
+			#elif numY < 1:
+				#continue
+			#if numX > numY:
+				#Pcount = Pcount + 1
+				#print(Pcount)
+	for num in range(2):
+		play_round_robin_competition([Vectors[1],Vectors[2]],matchNumber=30)
+		play_round_robin_competition([Vectors[1],Vectors[3]],matchNumber=30)
+		play_round_robin_competition([Vectors[1],Vectors[4]],matchNumber=30)
+		play_round_robin_competition([Vectors[1],Vectors[5]],matchNumber=30)
+		play_round_robin_competition([Vectors[1],Vectors[6]],matchNumber=30)
+
+
+	#for numX in range(len(Vectors)):
+		#if numX < 7:
+			#continue
+		#for numY in range(len(Vectors)):
+			#if numY < 1:
+				#continue
+			#if numX == 7 and numY < 4:
+				#continue
+			#if numX > numY:
+				#Pcount = Pcount + 1
+				#print(Pcount)
+				#for num in range(10):
+					#play_round_robin_competition([Vectors[numX],Vectors[numY]],matchNumber=30)
+>>>>>>> 0d6920a72a09e37fa9cb771537252fe1ee747b59
 	pass
 if __name__ == "__main__":
 	main()
-
-
