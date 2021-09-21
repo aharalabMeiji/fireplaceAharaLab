@@ -1,65 +1,42 @@
 from ..utils import *
 
-#CardSet.STORMWIND_CardClass.DRUID=['BOM_05_Guff_004hb','BOM_05_Guff_004p','BOM_05_Guff_03t','BOM_05_Squirrel_04t','Story_10_Tranquility','SW_419','SW_422','SW_422a','SW_422b','SW_422e','SW_422t','SW_428','SW_428t','SW_428t2','SW_428t4','SW_428t4e','SW_429','SW_429t','SW_431','SW_431e','SW_432','SW_432e','SW_432t','SW_436','SW_436e','SW_437','SW_439','SW_439t','SW_439t2','SW_447','SW_447e','SW_447e2',]
-class BOM_05_Guff_004hb:# <2>[1578]
-	""" Guff
-	 """
-	#
-	pass
+#STORMWIND_DRUID=[
+#'SW_419','SW_422','SW_422a','SW_422b','SW_422e','SW_422t',
+#'SW_428','SW_428t','SW_428t2','SW_428t4','SW_428t4e',
+#'SW_429','SW_429t','SW_431','SW_431e','SW_432','SW_432e','SW_432t',
+#'SW_436','SW_436e','SW_437','SW_439','SW_439t','SW_439t2',
+#'SW_447','SW_447e','SW_447e2',]
 
-class BOM_05_Guff_004p:# <2>[1578]
-	""" Look! A Squirrel!
-	[Hero Power]Summon a 2/1 Squirrelwho attacks the enemy heroimmediately. """
-	#
-	pass
-
-class BOM_05_Guff_03t:# <2>[1578]
-	""" Guff
-	At the end of your turn, giveanother friendly minion +0/+2.[Deathrattle:] Go [Dormant]for 2 turns. """
-	#
-	pass
-
-class BOM_05_Squirrel_04t:# <2>[1578]
-	""" Satisfied Squirrel
-	 """
-	#
-	pass
-
-class Story_10_Tranquility:# <2>[1578]
-	""" Tranquility
-	Restore #2 Health, then give the target [Spell Damage +1]if it is at full Health. """
-	#
-	pass
-
-class SW_419:# <2>[1578]
+class SW_419:# <2>[1578] ###OK
 	""" Oracle of Elune
-	After you play a minionthat costs (2) or less,summon a copy of it. """
-	#
+	After you play a minion that costs (2) or less,summon a copy of it. """
+	events = Play(CONTROLLER, MINION  + (COST<3)).on(Summon(CONTROLLER,ExactCopy(Play.CARD)))
 	pass
-
-class SW_422:# <2>[1578]
+#
+class SW_422:# <2>[1578] ###OK
 	""" Sow the Soil
 	[Choose One] - Give your minions +1 Attack; or_ Summon a 2/2 Treant. """
-	#
-	pass
+	choose = ("SW_422a", "SW_422b")
+	play = ChooseBoth(CONTROLLER) & (
+		Summon(CONTROLLER, 'SW_422t'), Buff(FRIENDLY_MINIONS, "SW_422e")
+	)
 
 class SW_422a:# <2>[1578]
 	""" New Growth
 	Summon a 2/2 Treant. """
-	#
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	play = Summon(CONTROLLER, 'SW_422t')
 	pass
 
 class SW_422b:# <2>[1578]
 	""" Fertilizer
 	Give your minions+1 Attack. """
-	#
+	play = Buff(FRIENDLY_MINIONS, "SW_422e")
 	pass
 
-class SW_422e:# <2>[1578]
-	""" Replanted
-	+1 Attack. """
-	#
-	pass
+SW_422e=buff(atk=1)# <2>[1578]
+""" Replanted
++1 Attack. """
 
 class SW_422t:# <2>[1578]
 	""" Treant
