@@ -44,6 +44,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\druid.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\hunter.py">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +157,9 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\custom\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\demon_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\druid.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\hunter.py">
@@ -279,6 +285,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\saviors\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\druid.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\mage.py">
       <SubType>Code</SubType>
@@ -297,6 +306,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\Shadows\paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\shadows\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\demon_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\druid.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\hunter.py">

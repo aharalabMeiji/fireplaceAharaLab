@@ -7,39 +7,40 @@ from fireplace import cards
 
 sys.path.append("..")
 
-#def printClasses():
-#	print('')
-#	print('from ..utils import *')
-#	print('')
-#	_cardList = []
-#	for _id in cards.db.keys():
-#		_card = cards.db[_id]
-#		if _card.card_set== CardSet.CORE:
-#			if _card.card_class == CardClass.DEMONHUNTER: 
-#				_cardList.append(_card.id)
-#				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
-#				print('    """ %s'%(_card.name))
-#				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-#				print('    #'%())
-#				print('    pass'%())
-#				print(''%())
-
-#def printListOfCards():
-#	print('Stormwind_Mage=',end='[')#   Neutral   Hunter   Mage
-#	for _id in cards.db.keys():
-#		_card = cards.db[_id]
-#		if _card.card_set== CardSet.HERO_SKINS:
-#		#	if _card.card_class == CardClass.MAGE: 
-#				print("'%s'"%(_card.id), end=",")
-#	print(']')
+def printClasses():
+	from hearthstone import cardxml
+	print('')
+	print('from ..utils import *')
+	print('')
+	myCardSet=CardSet.BLACK_TEMPLE
+	myCardClass=CardClass.DRUID
+	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
+	db, xml = cardxml.load(locale='enUS')
+	for _id in db.keys():
+		_card = db[_id]
+		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print("'%s'"%(_card.id), end=",")
+		pass
+	pass
+	print(']')
+	for _id in db.keys():
+		_card = db[_id]
+		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
+			print('\t""" %s'%(_card.name))
+			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			print('\t#'%())
+			print('\tpass'%())
+			print(''%())
+		pass
+	pass
 
 #
 #		main()
 #
 def main():
-	cards.db.initialize()
 	#printClasses()
-	#printListOfCards()
+	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
 		choiceStrategy=HumanAgent.HumanInputChoice)
