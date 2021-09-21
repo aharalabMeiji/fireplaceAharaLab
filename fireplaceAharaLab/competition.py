@@ -1,7 +1,7 @@
 from utils import *
 from EloRatingSystem import *
 
-def play_round_robin_competition(players: list, matchNumber=10):# players: Agentのリスト
+def play_round_robin_competition(players: list, matchNumber = 30):# players: Agentのリスト
 	Nplayer = len(players)
 	ScoreWin = [0] * Nplayer
 	ScoreLose = [0] * Nplayer
@@ -27,7 +27,7 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 					newRate(agent2,agent1)
 					ScoreWin[j]+=1
 					ScoreLose[i]+=1
-	with open("ハンド差実験1~9総当たり戦.csv", mode="a") as standings:
+	with open("ハンド差実験1vsn枚.csv", mode="a") as standings:
 			for i in range(Nplayer):
 				#print ("%s: win %d, lose %d(%f)"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
 				standings.write("%s: win, %d, lose, %d,(%f)\n"%(players[i].name,ScoreWin[i], ScoreLose[i],players[i].rating))
