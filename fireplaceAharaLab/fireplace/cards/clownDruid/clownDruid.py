@@ -30,7 +30,7 @@ class SCH_333_Choice(GenericChoice):
 class SCH_333:###OK
     """Nature Studies
     Discover a spell. Your next one costs (1) less."""
-    play = SCH_333_Choice(CONTROLLER, RANDOM(SPELL) * 3)
+    play = SCH_333_Choice(CONTROLLER, RANDOM(SPELL+EnumSelector(FRIENDLY_CLASS)) * 3)
     pass
 
 class SCH_333e:
