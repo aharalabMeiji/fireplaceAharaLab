@@ -1109,6 +1109,16 @@ class FullHeal(TargetedAction):
 	def do(self, source, target):
 		source.heal(target, target.max_health)
 
+class AchieveAttack(Buff):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		super().do(source,target,buff)
+		amount = target.controller.lostInThePark
+		if target.atk>=amount:
+			self.broadcast(source, EventListener.ON, target, amount)
+		pass
+	pass
 
 class GainArmor(TargetedAction):
 	"""
