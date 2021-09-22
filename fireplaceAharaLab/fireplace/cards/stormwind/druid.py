@@ -4,7 +4,7 @@ from ..utils import *
 #'SW_419','SW_422','SW_422a','SW_422b','SW_422e','SW_422t',
 #'SW_428','SW_428t','SW_428t2','SW_428t4','SW_428t4e',
 #'SW_429','SW_429t','SW_431','SW_431e','SW_432','SW_432e','SW_432t',
-#'SW_436','SW_436e','SW_437','SW_439','SW_439t','SW_439t2',
+#'SW_436','SW_436e','SW_437','SW_437e','SW_439','SW_439t','SW_439t2',
 #'SW_447','SW_447e','SW_447e2',]
 
 class SW_419:# <2>[1578] ###OK
@@ -149,9 +149,12 @@ SW_436e=buff(atk=2)# <2>[1578]
 class SW_437:# <2>[1578]
 	""" Composting
 	Give your minions"[Deathrattle:] Draw__a card." """
-	#
+	play = Buff(FRIENDLY_MINIONS,'SW_437e')
 	pass
-
+class SW_437e:#<12>[1578]
+	tags = {GameTag.DEATHRATTLE:True,}
+	deathrattle = Draw(CONTROLLER)
+	pass
 class SW_439:# <2>[1578]
 	""" Vibrant Squirrel
 	[Deathrattle:] Shuffle 4 Acornsinto your deck. When drawn,summon a 2/1 Squirrel. """
