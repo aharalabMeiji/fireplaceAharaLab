@@ -3,8 +3,8 @@ from ..utils import *
 #CORE_DRUID=[
 #   
 #   
-#   'CORE_EX1_178','EX1_178a','EX1_178ae','EX1_178b','EX1_178be',
-#   'CORE_EX1_571','EX1_tk9','CORE_EX1_573','EX1_573a','EX1_573ae','EX1_573b','EX1_573t',
+#   
+#   
 #'CORE_KAR_065','CORE_KAR_300','CORE_OG_047','OG_047a','OG_047b','OG_047e',
 #'CORE_TRL_243','TRL_243e','CS3_012','CS3_012e', ]
 #'CORE_CS2_013','CS2_013t','CORE_EX1_169',
@@ -76,7 +76,7 @@ class EX1_164a:
 class EX1_164b:
 	play = Draw(CONTROLLER) * 3
 
-class CORE_EX1_165:# <2>[1637]
+class CORE_EX1_165:#OK <2>[1637]
 	""" Druid of the Claw
 	[Choose One -] Transforminto a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	choose = ("EX1_165a", "EX1_165b")
@@ -91,13 +91,14 @@ class EX1_165t2:
 	pass
 class OG_044a:
 	pass
+
 #class CORE_EX1_169:# <2>[1637] # clownDruid
 #	""" Innervate
 #	Gain 1 Mana Crystal this turn only. """
 #    play = ManaThisTurn(CONTROLLER, 1)
 #	pass
 
-class CORE_EX1_178:# <2>[1637]
+class CORE_EX1_178:#OK <2>[1637]
 	""" Ancient of War
 	[Choose One -]+5 Attack; or +5 Health and [Taunt]. """
 	choose = ("EX1_178b", "EX1_178a")
@@ -109,7 +110,7 @@ class EX1_178b:
 	play = Buff(SELF, "EX1_178be")
 EX1_178be = buff(atk=5)
 
-class CORE_EX1_571:# <2>[1637]
+class CORE_EX1_571:#OK <2>[1637]
 	""" Force of Nature
 	Summon three 2/2 Treants. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
@@ -118,7 +119,7 @@ class CORE_EX1_571:# <2>[1637]
 class EX1_tk9:
 	pass
 
-class CORE_EX1_573:# <2>[1637]
+class CORE_EX1_573:#OK <2>[1637]
 	""" Cenarius
 	[Choose One -] Give your other minions +2/+2; or Summon two 2/2 Treants with [Taunt]. """
 	choose = ("EX1_573a", "EX1_573b")
