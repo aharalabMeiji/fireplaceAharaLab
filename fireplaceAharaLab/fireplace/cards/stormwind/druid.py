@@ -44,7 +44,7 @@ class SW_422t:# <2>[1578]
 	#
 	pass
 
-class SW_428:# <2>[1578]
+class SW_428:# OK <2>[1578]
 	""" Lost in the Park
 	[Questline:] Gain 4 Attack with your hero. [Reward:] Gain 5 Armor. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
@@ -56,7 +56,7 @@ class SW_428:# <2>[1578]
 		)
 	pass
 
-class SW_428t:# <2>[1578]
+class SW_428t:#OK <2>[1578]
 	""" Defend the Squirrels
 	[Questline:] Gain 5 Attack with your hero. [Reward:] Gain 5 Armor and draw a card. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
@@ -69,19 +69,19 @@ class SW_428t:# <2>[1578]
 		)
 	pass
 
-class SW_428t2:# <2>[1578]
+class SW_428t2:#OK  <2>[1578]
 	""" Feral Friendsy
 	[Questline:] Gain 6Attack with your hero.[Reward:] Guff the Tough. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
 	events = Buff(FRIENDLY_HERO).on(
 		SidequestLostInTheParkCounter(SELF, 6, [
-			Summon(CONTROLLER,'SW_428t4'), 
+			Give(CONTROLLER,'SW_428t4'), 
 			Destroy(SELF)
 			])
 		)
 	pass
 
-class SW_428t4:# <2>[1578]
+class SW_428t4:#OK <2>[1578]
 	""" Guff the Tough
 	[Taunt]. [Battlecry:] Give your hero +8 Attack this turn.Gain 8 Armor. """
 	play = Buff(FRIENDLY_HERO,'SW_428t4e'), GainArmor(FRIENDLY_HERO, 8)
@@ -92,10 +92,10 @@ SW_428t4e=buff(atk=8)# <2>[1578]##ONE_TURN_EFFECT
 Your hero has Attack this turn. """
 #
 
-class SW_429:# <2>[1578]
+class SW_429:#OK <2>[1578]
 	""" Best in Shell
 	[Tradeable]Summon two 2/7_Turtles with [Taunt]. """
-	#
+	play = Summon(CONTROLLER, 'SW_429t') * 2
 	pass
 
 class SW_429t:# <2>[1578]
