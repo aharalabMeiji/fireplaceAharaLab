@@ -7,7 +7,7 @@ from ..utils import *
 #   
 
 #]
-#'CORE_CS2_013','CS2_013t','CORE_EX1_169',
+
 
 class CORE_BOT_420:###OK <2>[1637]
 	""" Landscaping
