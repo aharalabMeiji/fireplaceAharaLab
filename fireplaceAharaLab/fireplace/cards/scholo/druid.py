@@ -85,11 +85,11 @@ class SCH_613:# <2>[1443]
 	#
 	pass
 
-class SCH_614:# <2>[1443]
-	""" Forest Warden Omu
-	[Spellburst:] Refresh your Mana Crystals. """
-	#
-	pass
+#class SCH_614:# <2>[1443] # clown-druid
+#	""" Forest Warden Omu
+#	[Spellburst:] Refresh your Mana Crystals. """
+#	#
+#	pass
 
 class SCH_616:# <2>[1443]
 	""" Twilight Runner

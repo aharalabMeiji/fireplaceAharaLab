@@ -146,7 +146,7 @@ SW_436e=buff(atk=2)# <2>[1578]
 """ Wicked Claws
 +2 Attack. """
 
-class SW_437:# <2>[1578]
+class SW_437:#OK <2>[1578]
 	""" Composting
 	Give your minions"[Deathrattle:] Draw__a card." """
 	play = Buff(FRIENDLY_MINIONS,'SW_437e')
@@ -157,14 +157,14 @@ class SW_437e:#<12>[1578]
 	pass
 class SW_439:# <2>[1578]
 	""" Vibrant Squirrel
-	[Deathrattle:] Shuffle 4 Acornsinto your deck. When drawn,summon a 2/1 Squirrel. """
-	#
+	[Deathrattle:] Shuffle 4 Acorns into your deck. When drawn,summon a 2/1 Squirrel. """
+	deathrattle = Shuffle(CONTROLLER,'SW_439t')*4
 	pass
 
-class SW_439t:# <2>[1578]
+class SW_439t:# <2>[1578] # CASTSWHENDRAWN
 	""" Acorn
 	[Casts When Drawn]Summon a 2/1 Squirrel. """
-	#
+	play = Summon(CONTROLLER,'SW_439t2')
 	pass
 
 class SW_439t2:# <2>[1578]
@@ -175,19 +175,21 @@ class SW_439t2:# <2>[1578]
 
 class SW_447:# <2>[1578]
 	""" Sheldras Moontree
-	[Battlecry:] The next 3spells you draw are[Cast When Drawn]. """
-	#
+	[Battlecry:] The next 3 spells you draw are[Cast When Drawn]. """
+	play = Buff(SELF, 'SW_447e')
 	pass
 
 class SW_447e:# <2>[1578]
 	""" Elune's Guidance
 	Your next 3 spells are [Cast When Drawn]. """
-	#
+	events = Draw(CONTROLLER,SPELL).on(
+		CastSpell(Draw.CARD),Destroy(Draw.CARD),
+		SidequestCounter(OWNER, 3, [Destroy(SELF)])
+		)
 	pass
 
 class SW_447e2:# <2>[1578]
 	""" Elune's Guidance 2
 	Your next 3 spells are [Cast When Drawn]. """
-	#
 	pass
 
