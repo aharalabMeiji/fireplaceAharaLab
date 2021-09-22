@@ -28,7 +28,7 @@ Stormwind_Neutral=['SW_001e','SW_001e2','SW_003e','SW_006','SW_024e','SW_034e','
 Stormwind_Neutral += ['SW_079','SW_079e4','SW_079e5','SW_079e6','SW_079t','SW_079t2','SW_079t2e','SW_079t3','SW_079t3e','SW_079te',]
 Stormwind_Hunter=['SW_320','SW_320e','SW_321','SW_321e','SW_322','SW_322t','SW_322t2','SW_322t4','SW_323','SW_323e','SW_455','SW_455t','SW_457','SW_458','SW_458e','SW_458t','SW_459','SW_459e','SW_460','SW_463','SW_463t',]
 Stormwind_Mage=['SW_001','SW_059e','SW_107','SW_108','SW_108t','SW_109','SW_110','SW_111','SW_112','SW_112e','SW_112e2','SW_113','SW_450','SW_450t','SW_450t2','SW_450t4','SW_450t4e','SW_462','SW_462e',]
-Stromwind_Druid=['SW_419','SW_422','SW_422a','SW_422b','SW_422e','SW_422t','SW_428','SW_428t','SW_428t2','SW_428t4','SW_428t4e','SW_429','SW_429t','SW_431','SW_431e','SW_432','SW_432e','SW_432t',]#'SW_436','SW_436e','SW_437','SW_439','SW_439t','SW_439t2','SW_447','SW_447e','SW_447e2',]
+Stromwind_Druid=['SW_419','SW_422','SW_422a','SW_422b','SW_422e','SW_422t','SW_428','SW_428t','SW_428t2','SW_428t4','SW_428t4e','SW_429','SW_429t','SW_431','SW_431e','SW_432','SW_432e','SW_432t','SW_436','SW_436e','SW_437','SW_437e','SW_439','SW_439t','SW_439t2','SW_447','SW_447e','SW_447e2',]
 Crossborder=[
 	'SCH_617e',#<2>
 	"BT_212e",'SCH_352e','SCH_351e','SCH_351e2',#<7>
