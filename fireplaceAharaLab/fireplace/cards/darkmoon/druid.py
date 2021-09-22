@@ -50,27 +50,32 @@ class DMF_060:# <2>[1466]
 	pass
 
 class DMF_061:# <2>[1466]
-	""" Faire Arborist
-	[Choose One - ]Draw a card;or Summon a 2/2 Treant.[Corrupt:] Do both. """
-	#
+#	""" Faire Arborist
+#	[Choose One - ]Draw a card;or Summon a 2/2 Treant.[Corrupt:] Do both. """
+#	choose = ("BT_136ta", "BT_136tb")
+#	#choose = ('DMF_061a','DMF_061b',)
+#	play = ChooseBoth(CONTROLLER) & (
+#		Draw(CONTROLLER),
+#		Summon(CONTROLLER,'DMF_061t2')
+#		)
 	pass
 
 class DMF_061a:# <2>[1466]
 	""" Prune the Fruit
 	Draw a card. """
-	#
+	play = Draw(CONTROLLER)
 	pass
 
 class DMF_061b:# <2>[1466]
 	""" Dig It Up
 	Summon a 2/2 Treant. """
-	#
+	play = Summon(CONTROLLER,'DMF_061t2')
 	pass
 
 class DMF_061t:# <2>[1466]
 	""" Faire Arborist
 	[Corrupted][Battlecry:] Summon a 2/2 Treant. Draw a card. """
-	#
+	play = Draw(CONTROLLER), Summon(CONTROLLER,'DMF_061t2')
 	pass
 
 class DMF_061t2:# <2>[1466]
