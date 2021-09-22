@@ -104,7 +104,7 @@ class SW_429t:# <2>[1578]
 	#
 	pass
 
-class SW_431:# <2>[1578]
+class SW_431:#OK <2>[1578]
 	""" Park Panther
 	[Rush]. Whenever this attacks, give your hero+3 Attack this turn. """
 	events = Attack(SELF).on(Buff(FRIENDLY_HERO,'SW_431e'))
@@ -114,16 +114,20 @@ SW_431e=buff(atk=3)# <2>[1578] # ONE_TURN_EFFECT
 """ Rawr!
 +3 Attack this turn. """
 
-class SW_432:# <2>[1578]
+class SW_432:#OK <2>[1578]
 	""" Kodo Mount
 	Give a minion +4/+2 and [Rush]. When it dies, summon a Kodo. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Buff(TARGET, 'SW_432e')
 	pass
 
 class SW_432e:# <2>[1578]
 	""" On a Kodo
 	+4/+2 and [Rush]. [Deathrattle:] Summon a Kodo. """
-	#
+	tags = {GameTag.DEATHRATTLE:True, GameTag.RUSH:True}
+	atk = lambda self,i: i+4
+	max_health = lambda self,i: i+2
+	deathrattle = Summon(CONTROLLER, 'SW_432t')
 	pass
 
 class SW_432t:# <2>[1578]
