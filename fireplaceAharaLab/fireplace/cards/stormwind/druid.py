@@ -179,13 +179,27 @@ class SW_447:# <2>[1578]
 	play = Buff(SELF, 'SW_447e')
 	pass
 
+class SW_447e_Action(TargetedAction):
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, card):
+		controller = source.controller
+		owner = source.owner
+		amount = 3
+		CastSpell(card).trigger(controller)
+		Discard(card).trigger(controller)
+		log.info("Setting Counter on %r -> %i", target, (owner._sidequest_counter_+1))
+		owner._sidequest_counter_ += 1
+		if owner._sidequest_counter_== amount:
+			owner.buffs.remove(target)
+			target.zone = Zone.GRAVEYARD
+		pass
+	pass
+
 class SW_447e:# <2>[1578]
 	""" Elune's Guidance
 	Your next 3 spells are [Cast When Drawn]. """
-	events = Draw(CONTROLLER,SPELL).on(
-		CastSpell(Draw.CARD),Destroy(Draw.CARD),
-		SidequestCounter(OWNER, 3, [Destroy(SELF)])
-		)
+	events = Draw(CONTROLLER,SPELL).on(SW_447e_Action(SELF, Draw.CARD))
 	pass
 
 class SW_447e2:# <2>[1578]
