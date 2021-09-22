@@ -136,17 +136,15 @@ class SW_432t:# <2>[1578]
 	#
 	pass
 
-class SW_436:# <2>[1578]
+class SW_436:#OK <2>[1578]
 	""" Wickerclaw
-	After your hero gains Attack, this miniongains +2 Attack. """
-	#
+	After your hero gains Attack, this minion gains +2 Attack. """
+	events = Buff(FRIENDLY_HERO).on(Buff(SELF, 'SW_436e'))
 	pass
 
-class SW_436e:# <2>[1578]
-	""" Wicked Claws
-	+2 Attack. """
-	#
-	pass
+SW_436e=buff(atk=2)# <2>[1578]
+""" Wicked Claws
++2 Attack. """
 
 class SW_437:# <2>[1578]
 	""" Composting

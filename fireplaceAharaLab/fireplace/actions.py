@@ -763,7 +763,8 @@ class Buff(TargetedAction):
 			setattr(buff, k, v)
 		if source.controller==target.controller and target.type==CardType.HERO:##FRIENDLY_HERO
 			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
-			self.broadcast(source, EventListener.ON, target)
+			if buff.atk>0:# it works for atk buffs
+				self.broadcast(source, EventListener.ON, target)
 			pass
 		return buff.apply(target)
 
