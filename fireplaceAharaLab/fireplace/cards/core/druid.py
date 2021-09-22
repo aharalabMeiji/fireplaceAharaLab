@@ -2,8 +2,8 @@ from ..utils import *
 
 #CORE_DRUID=[
 #   
-#   'CORE_EX1_160','EX1_160a','EX1_160b','EX1_160be','CORE_EX1_164','EX1_164a','EX1_164b',
-#   'CORE_EX1_165','CORE_EX1_178','EX1_178a','EX1_178ae','EX1_178b','EX1_178be',
+#   
+#   'CORE_EX1_178','EX1_178a','EX1_178ae','EX1_178b','EX1_178be',
 #   'CORE_EX1_571','EX1_tk9','CORE_EX1_573','EX1_573a','EX1_573ae','EX1_573b','EX1_573t',
 #'CORE_KAR_065','CORE_KAR_300','CORE_OG_047','OG_047a','OG_047b','OG_047e',
 #'CORE_TRL_243','TRL_243e','CS3_012','CS3_012e', ]
@@ -48,7 +48,7 @@ class EX1_158e:
 class EX1_158t:
 	pass
 
-class CORE_EX1_160:# <2>[1637]
+class CORE_EX1_160:#OK <2>[1637]
 	""" Power of the Wild
 	[Choose One -] Give your minions +1/+1; or Summon a 3/2 Panther. """
 	choose = ("EX1_160a", "EX1_160b")
@@ -61,8 +61,12 @@ class EX1_160a:
 class EX1_160b:
 	play = Buff(FRIENDLY_MINIONS, "EX1_160be")
 EX1_160be = buff(+1, +1)
+class EX1_160t:
+	""" Panther
+	""" 
+	pass
 
-class CORE_EX1_164:# <2>[1637]
+class CORE_EX1_164:# OK <2>[1637]
 	""" Nourish
 	[Choose One -] Gain 2_Mana Crystals; or Draw 3 cards. """
 	choose = ("EX1_164a", "EX1_164b")
@@ -81,7 +85,12 @@ class EX1_165a:
 	play = Morph(SELF, "EX1_165t1")
 class EX1_165b:
 	play = Morph(SELF, "EX1_165t2")
-
+class EX1_165t1:
+	pass
+class EX1_165t2:
+	pass
+class OG_044a:
+	pass
 #class CORE_EX1_169:# <2>[1637] # clownDruid
 #	""" Innervate
 #	Gain 1 Mana Crystal this turn only. """
