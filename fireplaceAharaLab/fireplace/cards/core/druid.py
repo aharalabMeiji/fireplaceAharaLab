@@ -5,8 +5,8 @@ from ..utils import *
 #   
 #   
 #   
-#'CORE_KAR_065','CORE_KAR_300','CORE_OG_047','OG_047a','OG_047b','OG_047e',
-#'CORE_TRL_243','TRL_243e','CS3_012','CS3_012e', ]
+
+#]
 #'CORE_CS2_013','CS2_013t','CORE_EX1_169',
 
 class CORE_BOT_420:###OK <2>[1637]
@@ -135,7 +135,7 @@ class EX1_573b:
 class EX1_573t:
 	pass
 
-class CORE_KAR_065:# <2>[1637]
+class CORE_KAR_065:#OK <2>[1637]
 	""" Menagerie Warden
 	[Battlecry:] Choose a friendly Beast. Summon a_copy of it. """
 	requirements = {
@@ -153,7 +153,7 @@ class CORE_KAR_300:# <2>[1637]
 	#
 	pass
 
-class CORE_OG_047:# <2>[1637]
+class CORE_OG_047:#OK <2>[1637]
 	""" Feral Rage
 	[Choose One -] Give your hero +4 Attack this turn; or Gain 8 Armor. """
 	choose = ("OG_047a", "OG_047b")
@@ -167,23 +167,26 @@ OG_047e = buff(atk=4)
 class OG_047b:
 	play = GainArmor(FRIENDLY_HERO, 8)
 
-class CORE_TRL_243:# <2>[1637]
+class CORE_TRL_243:#OK <2>[1637]
 	""" Pounce
 	Give your hero +2_Attack this turn. """
 	play=Buff(FRIENDLY_HERO,'TRL_243e')
 	pass
 TRL_243e=buff(atk=2)# ONE_TURN_EFFECT
 
-class CS3_012:# <2>[1637]
+class CS3_012:#OK <2>[1637]
 	""" Nordrassil Druid
 	[Battlecry:] The next spell you cast this turn costs_(3)_less. """
-	play = Buff(SELF,'CS3_012e')
+	play = Buff(FRIENDLY_HAND + SPELL,'CS3_012e')
 	pass
 
 class CS3_012e:# <2>[1637]
 	""" Nature's Rite
 	Your next spell this turn costs (3) less. """
 	cost = lambda self, i: max(i-3,0)
-	events = OWN_SPELL_PLAY.on(Destroy(SELF))
+	events =[
+	   OWN_SPELL_PLAY.on(Destroy(SELF)),
+	   OWN_TURN_END.on(Destroy(SELF)),
+	   ]
 	pass
 
