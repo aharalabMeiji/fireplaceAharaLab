@@ -160,10 +160,10 @@ WC_006e=buff(cost=-2)# <2>[1525]
 """ Natural Empowerment
 Costs (2) less. """
 
-class WC_036:# <2>[1525]
+class WC_036:#OK <2>[1525]
 	""" Deviate Dreadfang
 	After you cast a Nature spell, summon a 4/2 Viper with [Rush]. """
-	#
+	events = Play(CONTROLLER, SPELL+ NATURE).on(Summon(CONTROLLER, 'WC_036t1'))
 	pass
 
 class WC_036t1:# <2>[1525]
