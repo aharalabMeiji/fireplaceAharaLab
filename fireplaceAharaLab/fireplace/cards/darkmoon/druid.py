@@ -1,6 +1,12 @@
 from ..utils import *
 
-#CardSet.DARKMOON_FAIRE_CardClass.DRUID=['DMF_057','DMF_057e','DMF_057o','DMF_058','DMF_058e','DMF_058o','DMF_059','DMF_060','DMF_061','DMF_061a','DMF_061b','DMF_061t','DMF_061t2','DMF_075','DMF_075a','DMF_075a2','DMF_730','DMF_730e','DMF_730t','DMF_732','DMF_733','DMF_734','Story_06_Broll','Story_06_BrollBear','Story_06_BrollDormant','YOP_025','YOP_025t','YOP_026','YOP_026e',]
+#CardSet.DARKMOON_FAIRE_CardClass.DRUID=[
+#'DMF_057','DMF_057e','DMF_057o','DMF_058','DMF_058e','DMF_058o',
+#'DMF_059','DMF_060','DMF_061','DMF_061a','DMF_061b','DMF_061t','DMF_061t2',
+#'DMF_075','DMF_075a','DMF_075a2','DMF_730','DMF_730e','DMF_730t',
+#'DMF_732','DMF_733','DMF_734',
+#'YOP_025','YOP_025t','YOP_026','YOP_026e',]
+
 class DMF_057:# <2>[1466]
 	""" Lunar Eclipse
 	Deal $3 damage to a minion. Your next spell this turn costs (2) less. """
