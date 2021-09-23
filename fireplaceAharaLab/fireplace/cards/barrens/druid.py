@@ -134,14 +134,12 @@ BAR_549e=buff(2,2)# <2>[1525]
 class BAR_720:# <2>[1525]
 	""" Guff Runetotem
 	After you cast a Nature spell, give another friendly minion +2/+2. """
-	#
+	events = Play(CONTROLLER, SPELL + NATURE).on(Buff(RANDOM(FRIENDLY_MINIONS),'BAR_720e'))
 	pass
 
-class BAR_720e:# <2>[1525]
-	""" Guff's Buff
-	+2/+2. """
-	#
-	pass
+BAR_720e=buff(2,2)# <2>[1525]
+""" Guff's Buff
++2/+2. """
 
 
 class WC_004:# <2>[1525]
