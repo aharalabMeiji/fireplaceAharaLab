@@ -151,17 +151,14 @@ Costs (2) less. """
 #
 pass
 
-class WC_006:# <2>[1525]
+class WC_006:#OK <2>[1525]
 	""" Lady Anacondra
-	Your Nature spellscost (2) less. """
-	#
+	Your Nature spells cost (2) less. """
+	play = Buff(FRIENDLY_HAND + NATURE, 'WC_006e')
 	pass
-
-class WC_006e:# <2>[1525]
-	""" Natural Empowerment
-	Costs (2) less. """
-	#
-	pass
+WC_006e=buff(cost=-2)# <2>[1525]
+""" Natural Empowerment
+Costs (2) less. """
 
 class WC_036:# <2>[1525]
 	""" Deviate Dreadfang
