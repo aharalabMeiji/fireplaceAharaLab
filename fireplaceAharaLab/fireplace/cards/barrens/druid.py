@@ -71,7 +71,7 @@ class BAR_537e:# <2>[1525]
 		]
 	pass
 
-class BAR_538:# <2>[1525]
+class BAR_538:#OK <2>[1525]
 	""" Druid of the Plains
 	[Rush][Frenzy:] Transform into a 6/7 Kodo with [Taunt]. """
 	events = Damage(SELF).on(Frenzy(SELF,Morph(SELF, 'BAR_538t')))
@@ -83,22 +83,38 @@ class BAR_538t:# <2>[1525]
 	#
 	pass
 
-class BAR_539:# <2>[1525]
+class BAR_539:#OK <2>[1525]
 	""" Celestial Alignment
 	Set each player to 0 Mana Crystals. Set the Cost of cards in all hands and decks to (1). """
-	#
+	def play(self):
+		controller = self.controller
+		opponent = controller.opponent
+		controller.max_mana = 0
+		opponent.max_mana = 0
+		yield Buff(FRIENDLY_HAND,'BAR_539e')
+		yield Buff(FRIENDLY_DECK,'BAR_539e')
+		yield Buff(ENEMY_HAND,'BAR_539e')
+		yield Buff(ENEMY_DECK,'BAR_539e')
 	pass
 
 class BAR_539e:# <2>[1525]
 	""" Vortexed
 	Costs (1). """
-	#
+	cost = SET(1)
 	pass
 
-class BAR_540:# <2>[1525]
+class BAR_540_Action(TargetedAction):
+	TARGET = ActionArg
+	def do(self, source, target):
+		new_card = target
+		new_card.taunt = False
+		new_card.zone = Zone.PLAY
+		pass
+	pass
+class BAR_540:#OK <2>[1525]
 	""" Plaguemaw the Rotting
 	After a friendly minion with [Taunt] dies, summon a new_copy of it without [Taunt]. """
-	#
+	events = Death(FRIENDLY + TAUNT).on(BAR_540_Action(ExactCopy(Death.ENTITY)))
 	pass
 
 class BAR_549:# <2>[1525]
