@@ -1,7 +1,7 @@
 from ..utils import *
 
 #Barrens_Druid=['BAR_533','BAR_533t','BAR_534','BAR_534e',
-#'BAR_535','BAR_536','BAR_536t','BAR_536t2','BAR_5362e','BAR_536te','BAR_536t2e',
+#'BAR_535','BAR_536','BAR_536t','BAR_536t2','BAR_536e','BAR_536te','BAR_536t2e',
 #'BAR_537','BAR_537e','BAR_538','BAR_538t',
 #'BAR_539','BAR_539e','BAR_540','BAR_549','BAR_549e','BAR_720','BAR_720e',
 #'WC_004','WC_004t','WC_006','WC_006e','WC_036','WC_036t1',]
@@ -18,7 +18,7 @@ class BAR_533t:# <2>[1525]
 	#####
 	pass
 
-class BAR_534:# <2>[1525]
+class BAR_534:#OK <2>[1525]
 	""" Pride's Fury
 	Give your minions +1/+3. """
 	play = Buff(FRIENDLY_MINIONS, 'BAR_534e')
@@ -27,38 +27,38 @@ BAR_534e=buff(1,3)# <2>[1525]
 """ Overrun
 +1/+3. """
 
-class BAR_535:# <2>[1525]
+class BAR_535:#OK <2>[1525]
 	""" Thickhide Kodo
 	[Taunt][Deathrattle:] Gain 5 Armor. """
 	play = GainArmor(FRIENDLY_HERO, 5)
 	pass
 
-class BAR_536:# <2>[1525]
+class BAR_536:#OK <2>[1525]
 	""" Living Seed (Rank 1)
 	Draw a Beast. Reduce its Cost by (1). <i>(Upgrades when you have 5 Mana.)</i> """
 	play = Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD, "BAR_536e"))
 	pass
 BAR_536e=buff(cost=-1)#<8>[1525]
 
-class BAR_536t:# <2>[1525]
+class BAR_536t:#OK <2>[1525]
 	""" Living Seed (Rank 2)
 	Draw a Beast. Reduce its Cost by (2). <i>(Upgrades when youhave 10 Mana.)</i> """
 	play = Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD, "BAR_536te"))
 	pass
-BAR_536e=buff(cost=-2)#<8>[1525]
+BAR_536te=buff(cost=-2)#<8>[1525]
 
-class BAR_536t2:# <2>[1525]
+class BAR_536t2:#OK <2>[1525]
 	""" Living Seed (Rank 3)
 	Draw a Beast.Reduce its Cost by (3). """
 	play = Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD, "BAR_536t2e"))
 	pass
-BAR_536e=buff(cost=-3)#<8>[1525]
+BAR_536t2e=buff(cost=-3)#<8>[1525]
 
-class BAR_537:# <2>[1525]
+class BAR_537:#OK <2>[1525]
 	""" Razormane Battleguard
 	The first [Taunt] minion you_play each turn costs_(2) less. """
-	play = Buff(FRIENDLY_HAND + MINION, 'BAR_537e')
-	events = OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND + MINION, 'BAR_537e'))
+	play = Buff(FRIENDLY_HAND + TAUNT, 'BAR_537e')
+	events = OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND + TAUNT, 'BAR_537e'))
 	pass
 
 class BAR_537e:# <2>[1525]
@@ -74,7 +74,7 @@ class BAR_537e:# <2>[1525]
 class BAR_538:# <2>[1525]
 	""" Druid of the Plains
 	[Rush][Frenzy:] Transform into a 6/7 Kodo with [Taunt]. """
-	#
+	events = Damage(SELF).on(Frenzy(SELF,Morph(SELF, 'BAR_538t')))
 	pass
 
 class BAR_538t:# <2>[1525]
@@ -129,14 +129,14 @@ class BAR_720e:# <2>[1525]
 class WC_004:# <2>[1525]
 	""" Fangbound Druid
 	[Taunt][Deathrattle:] Reduce the Cost of a Beast in your hand by (2). """
-	#
+	deathrattle = Buff(FRIENDLY_HAND + BEAST,'WC_004t')
 	pass
 
-class WC_004t:# <2>[1525]
-	""" Nightmare Trapped
-	Costs (2) less. """
-	#
-	pass
+WC_004t=buff(cost=-2)# <2>[1525]
+""" Nightmare Trapped
+Costs (2) less. """
+#
+pass
 
 class WC_006:# <2>[1525]
 	""" Lady Anacondra
