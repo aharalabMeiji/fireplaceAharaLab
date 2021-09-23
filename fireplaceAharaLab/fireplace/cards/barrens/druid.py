@@ -117,17 +117,19 @@ class BAR_540:#OK <2>[1525]
 	events = Death(FRIENDLY + TAUNT).on(BAR_540_Action(ExactCopy(Death.ENTITY)))
 	pass
 
-class BAR_549:# <2>[1525]
+class BAR_549:#OK <2>[1525]
 	""" Mark of the Spikeshell
 	Give a minion +2/+2.If it has [Taunt], add a copy of it to your hand. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	def play(self):
+		yield Buff(TARGET,'BAR_549e')
+		if self.target.taunt:
+			yield Give(CONTROLLER, Copy(TARGET))
 	pass
 
-class BAR_549e:# <2>[1525]
-	""" Everbark
-	+2/+2. """
-	#
-	pass
+BAR_549e=buff(2,2)# <2>[1525]
+""" Everbark
++2/+2. """
 
 class BAR_720:# <2>[1525]
 	""" Guff Runetotem
