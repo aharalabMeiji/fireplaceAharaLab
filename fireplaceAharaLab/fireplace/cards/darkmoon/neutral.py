@@ -7,6 +7,7 @@ from ..utils import *
 #DMF_071e,DMF_079,DMF_113e,DMF_116e,DMF_120e2,DMF_187e
 #DMF_224e,DMF_229e,DMF_229e2,DMF_230e,DMF_240e,
 #DMF_247e,DMF_249e,DMF_534e,DMF_534e2,
+#YOP_007e, YOP_013e,YOP_014e
 
 
 #　実装が必要
@@ -19,10 +20,7 @@ Fragments into your deck.
 	pass
 class YOP_003t:
 	"""Luckysoul Hoarder
-	[x]&lt;b&gt;Corrupted&lt;/b&gt;
-&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul
-Fragments into your deck
-and draw a card."""
+	[x]&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul Fragments into your deck and draw a card."""
 	play = Shuffle(CONTROLLER,'SCH_307t') * 2, Draw(CONTROLLER)
 	pass
 class YOP_006:
@@ -44,43 +42,70 @@ minions until it dies."""
 				if target.health<=0:
 					return
 	pass
-#class YOP_007:<6>[1466]
-#	pass
-class YOP_007e:
-	""" Dark Inquisition
-	"""
-	cost = lambda self, i: max(i-2,0)
-	pass
+
+#YOP_007e=buff(cost=-2)
+#""" Dark Inquisition
+#"""
+
 class YOP_009:
 	""" Rally!
 	Resurrect a friendly
 1-Cost, 2-Cost, and
 3-Cost minion. """
-	
+	def play(self):
+		controller = self.controller
+		minionList = controller.death_log
+		cost1=[]
+		cost2=[]
+		cost3=[]
+		for card in minionList:
+			if card.cost==1:
+				cost1.append(card)
+			elif card.cost==2:
+				cost2.append(card)
+			elif card.cost==3:
+				cost3.append(card)
+		if cost1 != []:
+			card = random.choice(cost1)
+			yield Summon(CONTROLLER,card.id)
+		if cost2 != []:
+			card = random.choice(cost2)
+			yield Summon(CONTROLLER,card.id)
+		if cost3 != []:
+			card = random.choice(cost3)
+			yield Summon(CONTROLLER,card.id)
 	pass
-class YOP_013e:
-	"""
-	"""
-	pass
-class YOP_014e:
-	"""
-	"""
-	pass
+
+#class YOP_013:<10>[1466]
+#YOP_013e=buff(atk=3)
+
+#class YOP_014:<10>[1466]
+#YOP_014e=buff(2,2)
+
 class YOP_015:
-	"""
-	"""
+	""" Nitroboost Poison
+	Give a minion +2 Attack. &lt;b&gt;Corrupt:&lt;/b&gt; And your weapon. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
+	play = Buff(TARGET, 'YOP_015e')
 	pass
-class YOP_015e:
-	"""
-	"""
-	pass
+YOP_015e=buff(atk=2)
+
 class YOP_015t:
 	"""
 	"""
+	play = Buff(TARGET, 'YOP_015e'), Buff(FRIENDLY + WEAPON, 'YOP_015e')
 	pass
+
 class YOP_018:
-	"""
-	"""
+	"""Keywarden Ivory
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a
+Dual Class spell from
+any class. &lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt;
+Get another copy. """
+	play = Discover(CONTROLLER, RandomSpell(multiple_classes=True))
+	#.then(
+	#	OWN_SPELL_PLAY.on(Give(CONTROLLER, Copy(Discover.CARDS))
+	#	)
 	pass
 class YOP_018e:
 	"""
