@@ -1,9 +1,9 @@
 from ..utils import *
 
 # 未実装
-# 'BT_113e','BT_129e','BT_131e','BT_140e',
-# 'BT_187e','BT_187e2','BT_196e','BT_213e',
-# 'BT_302e','BT_309e','BT_496e','BT_601e','BT_711e',
+# 'BT_113e','BT_131e','BT_140e',
+# 'BT_187e','BT_187e2','BT_196e',
+# 'BT_302e','BT_309e','BT_711e',
 
 class BT_724:#OK
 	"""Ethereal Augmerchant	Minion	Common
@@ -99,7 +99,7 @@ class BT_126:#OK
 	play = BT126TeronGorefiend(SELF)
 	deathrattle = BT126TeronGorefiendDeathrattle(SELF)
 	#deathrattle = Buff(Summon(CONTROLLER, Copy(Destroy.TARGET)),"BT_126e2")
-#BT_126e = buff(0,0)
+BT_126e = buff(0,0)
 #"""Shadowy Construct"""
 BT_126e2 = buff(1,1)
 class BT_159:#OK
@@ -148,7 +148,7 @@ class BT_737:#OK
 	It goes <b>Dormant</b> for 2 turns."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_ENEMY_TARGET:0}
 	play = Dormant(TARGET, 2)
-#BT_737e = buff(dormant=2)
+BT_737e = buff(dormant=2)#un-used
 class BT_190:#OK
 	"""Replicat-o-tron	Minion	Epic
 	At the end of your turn, transform a neighbor into a copy of this."""

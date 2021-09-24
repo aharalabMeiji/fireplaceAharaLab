@@ -1,6 +1,87 @@
- neutral in DMF
+# neutral in DMF
 # by Miyaryo, Sep. 2021
 from ..utils import *
+
+# 未実装
+#DMF_053e,DMF_054e,DMF_055e,DMF_056e
+#DMF_071e,DMF_079,DMF_113e,DMF_116e,DMF_120e2,DMF_187e
+#DMF_224e,DMF_229e,DMF_229e2,DMF_230e,DMF_240e,
+#DMF_247e,DMF_249e,DMF_534e,DMF_534e2,
+
+
+#　実装が必要
+class YOP_003:
+	"""
+	"""
+	pass
+class YOP_003t:
+	"""
+	"""
+	pass
+class YOP_006:
+	"""
+	"""
+	pass
+class YOP_007e:
+	"""
+	"""
+	pass
+class YOP_009:
+	"""
+	"""
+	pass
+class YOP_013e:
+	"""
+	"""
+	pass
+class YOP_014e:
+	"""
+	"""
+	pass
+class YOP_015:
+	"""
+	"""
+	pass
+class YOP_015e:
+	"""
+	"""
+	pass
+class YOP_015t:
+	"""
+	"""
+	pass
+class YOP_018:
+	"""
+	"""
+	pass
+class YOP_018e:
+	"""
+	"""
+	pass
+class YOP_021:
+	"""
+	"""
+	pass
+class YOP_024:
+	"""
+	"""
+	pass
+class YOP_024t:
+	"""
+	"""
+	pass
+class YOP_029:
+	"""
+	"""
+	pass
+class YOP_030:
+	"""
+	"""
+	pass
+class YOP_030e:
+	"""
+	"""
+	pass
 
 class YOP_032:###OK
 	"""Armor Vendor"""
@@ -92,7 +173,10 @@ DMF_091e2 = buff(atk=1,health=1)
 class DMF_065:###OK
 	"""Banana Vendor"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Add 2 Bananas to each player's hand.
-	play = Give(CONTROLLER, "EX1_014t") * 2, Give(OPPONENT, "EX1_014t") * 2
+	play = Give(CONTROLLER, "DMF_065t") * 2, Give(OPPONENT, "DMF_065t") * 2
+	pass
+DMF_065e=buff(1,1)#no use
+class DMF_065t:
 	pass
 
 class DMF_073:###OK
@@ -202,6 +286,8 @@ class DMF_202:###OK
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 1/1 Rider with &lt;b&gt;Rush&lt;/b&gt; for each minion in your hand.
 	play = Summon(CONTROLLER, "DMF_523t") * Count(FRIENDLY_HAND + MINION)
 	pass
+class DMF_523t:
+	pass
 
 class DMF_080:
 	"""Fleethoof Pearltusk"""
@@ -309,7 +395,7 @@ class DMF_078:###OK
 	"""Strongman"""
 	##&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Corrupt:&lt;/b&gt; This costs (0).
 	pass
-
+DMF_078e=buff(cost=0)
 class DMF_078t:###OK
 	"""Strongman"""
 	##&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Taunt&lt;/b&gt;
@@ -430,9 +516,13 @@ class DMF_188: #this turn only??# yes! ##OK
 						new_card = new_card[0][0]
 						Buff(new_card, "DMF_188e2").trigger(self)
 	pass
+class DMF_188e:
+	pass
 class DMF_188e2:###  
 	cost = SET(0)
 	events = EndTurn(CONTROLLER).on(Destroy(SELF))
+class DMF_188t:
+	pass
 
 class Find10SpellsAndSpin(TargetedAction):
 	CONTROLLER = ActionArg()
@@ -549,7 +639,7 @@ class DMF_004t5:###OK
 	Destroy all other minions. Gain their Attack and Health. """
 	play = DestroyAll_GainStats(CONTROLLER)
 	pass
-DMF_005t5e=buff(0,0)
+DMF_004t5e=buff(0,0)
 
 class RandomPyroblast(TargetedAction):
 	CONTROLLER = ActionArg()

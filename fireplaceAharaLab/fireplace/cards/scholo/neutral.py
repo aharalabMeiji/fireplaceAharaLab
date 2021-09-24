@@ -1,10 +1,8 @@
 from ..utils import *
 
-#'BAR_COIN3','SCH_158e2',
-#'SCH_301e','SCH_305d',
-#'SCH_519e',
-#'SCH_539e','SCH_622e',
-
+# 未実装
+#'SCH_158e2','SCH_301e','SCH_305d',
+#'SCH_519e','SCH_539e','SCH_622e',
 
 class SCH_142:#done
 	""" Voracious Reader (rare) """
@@ -197,8 +195,9 @@ class SCH_259_Choice(Choice):
 		log.info("%s chooses %r"%(card.controller.name, card))
 		cardID = card.id
 		if cardID == 'SCH_259t':
-			new_card = self.source.controller.hand[-1]#すでに配られてしまっている
-			new_card.zone = Zone.DECK#デッキに戻す。
+			if len(self.source.controller.hand)>0:
+				new_card = self.source.controller.hand[-1]#すでに配られてしまっている
+				new_card.zone = Zone.DECK#デッキに戻す。
 			controller = self.source.controller
 			controller.deck.insert(0,new_card)
 			del controller.deck[-1]

@@ -137,6 +137,7 @@ class YOP_001:
 	[Discover] an [Outcast] card. Your next one costs (1) less. """
 	#
 	pass
+YOP_001e=buff(0,0)
 
 class YOP_002:
 	""" Felsaber

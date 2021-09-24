@@ -1,5 +1,26 @@
 from ..utils import *
 
+
+#SW_003e
+#SW_034e
+#SW_039t3_te
+#SW_039te
+#SW_043e
+#SW_047e
+#SW_048e
+#SW_050e
+#SW_063e
+#SW_086e
+#SW_087e
+#SW_087e2
+#SW_093e
+#SW_313t4ee
+#SW_315e
+#SW_316e
+#SW_322e
+#SW_322e2
+#SW_322e3
+
 class SW_006:#OK
 	""" Stubborn Suspect
 	<b>Deathrattle:</b> Summon a random 3-Cost minion. """
@@ -158,9 +179,9 @@ class SW_071:#OK
 	""" Lion's Guard
 	[x]<b>Battlecry:</b> If you have 15 or less Health, gain +2/+4 and <b>Taunt</b>. """
 	def play(self):
-	   if(self.controller.hero.health<=15):
-		   Buff(self,'SW_071e').trigger(self.controller)
-	pass
+		if self.controller.hero.health <= 15:
+			yield Buff(SELF,'SW_071e')
+
 SW_071e=buff(atk=2,health=4,taunt=True)
 
 class SW_072:#OK
@@ -216,8 +237,8 @@ class SW_078:#OK
 __original stats and Cost.)</I> """
 	play = SW_078_Morph(FRIENDLY_DECK,RandomDragon())
 	pass
-#SW_078e
-#SW_078e2
+SW_078e=buff(0,0)
+SW_078e2=buff(0,0)
 
 class SW_079:###OK
 	""" Flightmaster Dungar
@@ -228,9 +249,9 @@ __when you complete it! """
 	entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
 	play = GenericChoiceBattlecry(CONTROLLER,RandomEntourage()*3)
 	pass
-#SW_079e4
-#SW_079e5
-#SW_079e6
+SW_079e4=buff(0,0)
+SW_079e5=buff(0,0)
+SW_079e6=buff(0,0)
 class SW_079t:##OK
 	""" >[x]In 1 turn, summon a 2/2 Adventurer with _a random bonus effect. """
 	def play(self):
@@ -241,7 +262,7 @@ class SW_079t:##OK
 		main_card.dormant = 1
 		setattr(main_card.data.scripts, 'awaken', (SummonAdventurerWithBonus(CONTROLLER),))
 		controller.hand[-1].zone = Zone.GRAVEYARD
-#SW_079te
+SW_079te=buff(0,0)
 class SW_079t2:###OK
 	""" In 3 turns, restore 10 Health to your hero. """
 	def play(self):
@@ -252,7 +273,7 @@ class SW_079t2:###OK
 		main_card.dormant = 3
 		setattr(main_card.data.scripts, 'awaken', (Heal(FRIENDLY_HERO,10),))
 		controller.hand[-1].zone = Zone.GRAVEYARD
-#SW_079t2e
+SW_079t2e=buff(0,0)
 class SW_079t3:###OK
 	""" In 5 turns, deal 12 damage randomly split among enemies."""
 	def play(self):
@@ -264,7 +285,7 @@ class SW_079t3:###OK
 		setattr(main_card.data.scripts, 'awaken', (Hit(RANDOM(ENEMY_CHARACTERS),1) * 12,))
 		#setattr(main_card.data, 'description', self.data.description)
 		controller.hand[-1].zone = Zone.GRAVEYARD
-#SW_079t3e
+SW_079t3e=buff(0,0)
 
 class SW_080:#OK
 	""" Cornelius Roame

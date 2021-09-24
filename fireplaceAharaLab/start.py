@@ -35,10 +35,30 @@ def printClasses():
 		pass
 	pass
 
+def printMissedCards():
+	#from hearthstone import cardxml
+	from importlib import import_module
+	from fireplace.cards.cardlist import All
+	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
+	for cardIDlist in All:
+		for id in cardIDlist:
+			#card = cardxml.CardXML(id)
+			ok=False
+			for cardset in CARD_SETS:
+				module = import_module("fireplace.cards.%s" % (cardset))
+				if hasattr(module, id):
+					ok=True
+					break
+			if not ok:
+				print("%s"%(id))
+		pass
+	pass
+
 #
 #		main()
 #
 def main():
+	#printMissedCards()
 	#printClasses()
 	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)

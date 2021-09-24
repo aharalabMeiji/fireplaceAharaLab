@@ -1,5 +1,32 @@
 from ..utils import *
 
+#BAR_041e
+#BAR_041e2
+#BAR_045e
+#BAR_308e
+#BAR_315e1
+#BAR_315e2
+#BAR_315e3
+#BAR_315e4
+#BAR_318e
+#BAR_320e
+#BAR_322e
+#BAR_333e
+#BAR_552e
+#BAR_705e
+#BAR_842e
+#BAR_842e2
+#BAR_842e3
+#BAR_847e
+#WC_013e
+#WC_023e
+#WC_040e
+#WC_007e
+#BAR_064e
+#BAR_064e2
+
+
+
 class BAR_854:#Perfait
 	"""Kindling Elemental
 	[x]<b>Battlecry:</b> The next  Elemental you play costs (1) less.

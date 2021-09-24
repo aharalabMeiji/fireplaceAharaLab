@@ -109,7 +109,7 @@ class DMF_108:# <4>[1466] ##OK
 	Transform spells in your deck into ones that cost (3) more. <i>(They keep their original Cost.)</i> """
 	play = DMF_108_Morph(FRIENDLY_DECK + SPELL,RandomSpell(cost=[3,4,5,6,7,8,9,10]))
 	pass
-#class DMF_108e:# <12>[1466]
+DMF_108e=buff(0,0)# <12>[1466]
 #	cost = SET(COST(OWNER))
 
 class CountTriggeredSecret(TargetedAction):
