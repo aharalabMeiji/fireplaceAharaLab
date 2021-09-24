@@ -11,24 +11,52 @@ from ..utils import *
 
 #　実装が必要
 class YOP_003:
-	"""
-	"""
+	""" Luckysoul Hoarder
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul
+Fragments into your deck.
+&lt;b&gt;Corrupt:&lt;/b&gt; Draw a card."""
+	play = Shuffle(CONTROLLER,'SCH_307t') * 2
 	pass
 class YOP_003t:
-	"""
-	"""
+	"""Luckysoul Hoarder
+	[x]&lt;b&gt;Corrupted&lt;/b&gt;
+&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul
+Fragments into your deck
+and draw a card."""
+	play = Shuffle(CONTROLLER,'SCH_307t') * 2, Draw(CONTROLLER)
 	pass
 class YOP_006:
-	"""
-	"""
+	""" Hysteria
+	[x]Choose an enemy minion.
+It attacks random
+minions until it dies."""
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
+	def play(self):
+		game = self.game
+		for repeat in range(1000):
+			field = game.fields
+			if len(field)==1:
+				return
+			target = self.target
+			defender = random.choice(field)
+			if defender != target:
+				RegularAttack(target,defender).trigger(self.controller)
+				if target.health<=0:
+					return
 	pass
+#class YOP_007:<6>[1466]
+#	pass
 class YOP_007e:
+	""" Dark Inquisition
 	"""
-	"""
+	cost = lambda self, i: max(i-2,0)
 	pass
 class YOP_009:
-	"""
-	"""
+	""" Rally!
+	Resurrect a friendly
+1-Cost, 2-Cost, and
+3-Cost minion. """
+	
 	pass
 class YOP_013e:
 	"""
