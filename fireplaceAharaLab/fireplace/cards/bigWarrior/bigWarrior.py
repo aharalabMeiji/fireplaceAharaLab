@@ -65,23 +65,24 @@ class DMF_522:###OK
 
 
 class BT_117:###OK
-	"""Bladestorm
-	Deal 1 damage to all minions. Repeat until one dies."""
+    """Bladestorm
+    Deal 1 damage to all minions. Repeat until one dies."""
 
-	def play(self):
-		controller = self.controller
-		game = controller.game
-		before = game.board
-		for i in range(100):# 1000? lol
-			if len(game.board)>0:
-				target = random.choice(game.board)
-				Hit(target, 1).trigger(controller)
-				if target.health == 0:
-					return
-			else:
-				return
-		pass
-	pass
+    def play(self):
+        controller = self.controller
+        game = controller.game
+        before = game.board
+        for i in range(100):# 1000? lol
+            if len(game.board)>0:
+                for card in game.board:
+                    Hit(card, 1).trigger(controller)
+                for card in game.board:
+                    if card.health == 0:
+                        return
+            else:
+                return
+        pass
+    pass
 
 
 class SW_094:###OK

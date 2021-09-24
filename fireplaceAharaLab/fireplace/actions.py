@@ -761,6 +761,11 @@ class Buff(TargetedAction):
 			if isinstance(v, LazyValue):
 				v = v.evaluate(source)
 			setattr(buff, k, v)
+		if source.controller==target.controller and target.type==CardType.HERO:##FRIENDLY_HERO
+			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
+			if buff.atk>0:# it works for atk buffs
+				self.broadcast(source, EventListener.ON, target)
+			pass
 		return buff.apply(target)
 
 class EatsCard(TargetedAction):
@@ -1108,7 +1113,6 @@ class FullHeal(TargetedAction):
 	"""
 	def do(self, source, target):
 		source.heal(target, target.max_health)
-
 
 class GainArmor(TargetedAction):
 	"""
@@ -1876,7 +1880,7 @@ class Awaken(TargetedAction):
 
 
 
-#######  aharalab  ############
+#######  sidequest  ############
 #
 class SidequestCounter(TargetedAction):
 	"""
@@ -1955,6 +1959,24 @@ class SidequestManaCounter(TargetedAction):
 				for action in targetaction:
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
+
+class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
+	""" count ATK buffed on the hero """
+	TARGET = ActionArg()# sidequest card
+	AMOUNT = IntArg() #max of mana
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, amount, targetaction):
+		log.info("Setting Counter on %r rolls by %d->%d, %r", target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction)
+		target._sidequest_counter_ += target.controller.lost_in_the_park
+		target.controller.lost_in_the_park = 0 # to avoid a double count
+		if target._sidequest_counter_>= amount:
+			if targetaction!=None:
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
+
 
 class SetMaxHealth(TargetedAction):
 	"""

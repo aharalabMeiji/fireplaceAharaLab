@@ -84,6 +84,7 @@ class Player(Entity, TargetableByAuras):
 		self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
 		self.choiceStrategy = None
+		self.lost_in_the_park=0
 
 	def __str__(self):
 		return self.name

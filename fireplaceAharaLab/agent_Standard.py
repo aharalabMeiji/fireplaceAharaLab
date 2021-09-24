@@ -442,12 +442,15 @@ class HumanAgent(Agent):
 				print("%s"%myCard, end='  ')
 				if myChoice.card2!=None:
 					print("(%s)"%myChoice.card2, end=' ')
-				if myCard.data.type==CardType.MINION:
-					print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
-				elif myCard.data.type==CardType.SPELL:
-					print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description,player,myCard)), end=' ')
-				elif myCard.data.type==CardType.WEAPON:
-					print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description, player, myCard)), end=' ')
+					if myCard.data.type==CardType.SPELL:
+						print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myChoice.card2.data.description,player,myCard)), end=' ')
+				else:
+					if myCard.data.type==CardType.MINION:
+						print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
+					elif myCard.data.type==CardType.SPELL:
+						print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description,player,myCard)), end=' ')
+					elif myCard.data.type==CardType.WEAPON:
+						print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description, player, myCard)), end=' ')
 				if myChoice.type == ActionType.PLAY:
 					print(' play', end=' ')
 				if myChoice.type == ActionType.TRADE:
