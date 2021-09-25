@@ -18,7 +18,7 @@ Fragments into your deck.
 &lt;b&gt;Corrupt:&lt;/b&gt; Draw a card."""
 	play = Shuffle(CONTROLLER,'SCH_307t') * 2
 	pass
-class YOP_003t:
+class YOP_003t:#OK
 	"""Luckysoul Hoarder
 	[x]&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul Fragments into your deck and draw a card."""
 	play = Shuffle(CONTROLLER,'SCH_307t') * 2, Draw(CONTROLLER)
@@ -32,13 +32,14 @@ minions until it dies."""
 	def play(self):
 		game = self.game
 		for repeat in range(1000):
-			field = game.fields
+			field = game.board
 			if len(field)==1:
 				return
 			target = self.target
 			defender = random.choice(field)
 			if defender != target:
-				RegularAttack(target,defender).trigger(self.controller)
+				Hit(defender, target.atk).trigger(self.controller)
+				Hit(target, defender.atk).trigger(self.controller)
 				if target.health<=0:
 					return
 	pass
