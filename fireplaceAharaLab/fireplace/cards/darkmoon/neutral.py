@@ -83,7 +83,7 @@ class YOP_009:#OK
 #class YOP_014:<10>[1466]
 #YOP_014e=buff(2,2)
 
-class YOP_015:
+class YOP_015:#OK
 	""" Nitroboost Poison
 	Give a minion +2 Attack. &lt;b&gt;Corrupt:&lt;/b&gt; And your weapon. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
@@ -91,10 +91,11 @@ class YOP_015:
 	pass
 YOP_015e=buff(atk=2)
 
-class YOP_015t:
+class YOP_015t:#OK
 	"""
 	"""
-	play = Buff(TARGET, 'YOP_015e'), Buff(FRIENDLY + WEAPON, 'YOP_015e')
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
+	play = Buff(TARGET, 'YOP_015e'), Buff(FRIENDLY_WEAPON, 'YOP_015e')
 	pass
 
 class YOP_018:
