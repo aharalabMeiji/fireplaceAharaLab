@@ -10,7 +10,6 @@ from ..utils import *
 #YOP_007e, YOP_013e,YOP_014e
 
 
-#　実装が必要
 class YOP_003:##OK
 	""" Luckysoul Hoarder
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul
@@ -147,14 +146,15 @@ class YOP_029:#OK
 		remain_mana = self.controller.mana 
 		yield Discover(CONTROLLER, RandomCollectible(cost=remain_mana))
 	pass
-class YOP_030:
-	"""
-	"""
+class YOP_030:#OK
+	"""Felfire Deadeye
+	Your Hero Power costs (1) less."""
+	play = Buff(FRIENDLY_HERO_POWER, 'YOP_030e')
 	pass
-class YOP_030e:
-	"""
-	"""
-	pass
+YOP_030e=buff(cost=-1)
+"""Deadeye
+Costs (1) less."""
+
 
 class YOP_032:###OK
 	"""Armor Vendor"""
