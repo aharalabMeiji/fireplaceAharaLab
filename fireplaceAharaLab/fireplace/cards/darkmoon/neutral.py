@@ -23,7 +23,7 @@ class YOP_003t:#OK
 	[x]&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul Fragments into your deck and draw a card."""
 	play = Shuffle(CONTROLLER,'SCH_307t') * 2, Draw(CONTROLLER)
 	pass
-class YOP_006:
+class YOP_006:#OK
 	""" Hysteria
 	[x]Choose an enemy minion.
 It attacks random
@@ -48,7 +48,7 @@ minions until it dies."""
 #""" Dark Inquisition
 #"""
 
-class YOP_009:
+class YOP_009:#OK
 	""" Rally!
 	Resurrect a friendly
 1-Cost, 2-Cost, and
