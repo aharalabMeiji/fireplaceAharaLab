@@ -6,7 +6,7 @@ class SCH_700:
 	play = Shuffle(CONTROLLER,"SCH_307t")*2 
 	pass
 
-class SCH_307t:
+class SCH_307t:# <9>[1443]
 	""" Soul Fragment
 	<b>Casts When Drawn</b>
 	Restore #2 Health to your hero.""" 

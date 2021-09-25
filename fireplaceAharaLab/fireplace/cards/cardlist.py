@@ -49,6 +49,7 @@ Heroes=[
 	'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
 	]
 Dream= ['DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']
+Etc = ['SCH_307t']
 faceHunter =[#old faceHunter
 		'DRG_252','DRG_256','DRG_253','ULD_152',# wild
 		'CORE_EX1_610','EX1_536','EX1_536e','EX1_539',# wild
@@ -71,6 +72,6 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,
-	Heroes,Dream,
+	Heroes,Dream,Etc,
 	faceHunter,bigWarrior,clownDruid
 	]

@@ -11,7 +11,7 @@ from ..utils import *
 
 
 #　実装が必要
-class YOP_003:
+class YOP_003:##OK
 	""" Luckysoul Hoarder
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul
 Fragments into your deck.
@@ -102,7 +102,7 @@ class YOP_018:
 Dual Class spell from
 any class. &lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt;
 Get another copy. """
-	play = Discover(CONTROLLER, RandomSpell(multiple_classes=True))
+	play = Discover(CONTROLLER, RandomSpell())#multiple_classes=True
 	#.then(
 	#	OWN_SPELL_PLAY.on(Give(CONTROLLER, Copy(Discover.CARDS))
 	#	)
