@@ -134,15 +134,18 @@ class YOP_024t:
 	"""Spirit Path
 	Add both spells to your hand. &lt;b&gt;Overload&lt;/b&gt; (1)"""
 	#no use #tags = {GameTag.CASTSWHENDRAWN: True}
-	def play(self):
+	def play(self):## casts_when_chosen
 		cards = self.controller.carry_cards
 		for card in cards:
 			Give(self.controller, card).trigger(self.controller)
 		Overload(self.controller, 1).trigger(self.controller)
 	pass
-class YOP_029:
-	"""
-	"""
+class YOP_029:#OK
+	"""Resizing Pouch
+	[x]&lt;b&gt;Discover&lt;/b&gt; a card with Cost equal to your remaining Mana Crystals."""
+	def play(self):
+		remain_mana = self.controller.mana 
+		yield Discover(CONTROLLER, RandomCollectible(cost=remain_mana))
 	pass
 class YOP_030:
 	"""
