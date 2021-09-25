@@ -400,6 +400,7 @@ class Choice(GameAction):
 
 class GenericChoice(Choice):
 	def choose(self, card):
+		private_casts_when_chosen = ['YOP_024t']
 		super().choose(card)
 		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
@@ -410,6 +411,8 @@ class GenericChoice(Choice):
 				elif len(self.player.hand) < self.player.max_hand_size:
 					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.HAND
+					if new_card.id in private_casts_when_chosen:
+						Play(new_card,None,None,None).trigger(card.controller)
 
 
 class GenericChoiceOnDeck(Choice):
@@ -1172,11 +1175,6 @@ class Give(TargetedAction):
 			card.controller = target
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
-			#else:
-			#	if source.id=='SW_069':
-			#		card.zone = Zone.HAND
-			#	else:
-			#		print("%s"%(card in card.controller.hand))
 			# if card is 'casts_when_drawn' then immediately play.  
 			if card.id != 'SW_306':# avoiding infinite loop
 				card.game.card_when_drawn(card, card.controller)

@@ -85,6 +85,7 @@ class Player(Entity, TargetableByAuras):
 		self.spellpower_option=0 # SW_450t4
 		self.choiceStrategy = None
 		self.lost_in_the_park=0
+		self.carry_cards=[] # YOP_024
 
 	def __str__(self):
 		return self.name
@@ -124,6 +125,8 @@ class Player(Entity, TargetableByAuras):
 		minion_power = 0
 		for minion in self.field:
 			if hasattr(minion,'spellpower'):
+				if hasattr(minion,'dormant') and minion.dormant>0:
+					continue
 				minion_power += minion.spellpower
 		return aura_power + minion_power + self.spellpower_option
 
@@ -131,9 +134,11 @@ class Player(Entity, TargetableByAuras):
 	def spellpower_fire(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
 		minion_power = 0
 		for minion in self.field:
-			if hasattr(minion,'spellpower'):
-				minion_power += minion.spellpower
-		return minion_power + self.spellpower_option
+			if hasattr(minion,'spellpower_fire'):
+				if hasattr(minion,'dormant') and minion.dormant>0:
+					continue
+				minion_power += minion.spellpower_fire
+		return minion_power
 	@property
 	def start_hand_size(self):
 		# old version

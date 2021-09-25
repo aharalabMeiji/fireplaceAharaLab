@@ -98,7 +98,7 @@ class YOP_015t:#OK
 	play = Buff(TARGET, 'YOP_015e'), Buff(FRIENDLY_WEAPON, 'YOP_015e')
 	pass
 
-class YOP_018:
+class YOP_018:################################
 	"""Keywarden Ivory
 	[x]&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a
 Dual Class spell from
@@ -114,16 +114,31 @@ class YOP_018e:
 	"""
 	pass
 class YOP_021:
-	"""
-	"""
+	"""Imprisoned Phoenix
+	&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. &lt;b&gt;Spell Damage +2&lt;/b&gt;"""
+	dormant = 2
 	pass
-class YOP_024:
-	"""
-	"""
+class YOP_024:#OK
+	"""Guidance
+	Look at two spells. Add one to your hand or &lt;b&gt;Overload:&lt;/b&gt; (1) to get both."""
+	def play(self):
+		card1 = (RandomSpell().evaluate(self.controller))[0]
+		card2 = (RandomSpell().evaluate(self.controller))[0]
+		self.entourage = ['YOP_024t', card1.id, card2.id]
+		self.controller.carry_cards=[card1.id, card2.id]
+		Overload(self.controller, -1).trigger(self.controller)
+		yield Discover(CONTROLLER, RandomEntourage())
+		pass
 	pass
 class YOP_024t:
-	"""
-	"""
+	"""Spirit Path
+	Add both spells to your hand. &lt;b&gt;Overload&lt;/b&gt; (1)"""
+	#no use #tags = {GameTag.CASTSWHENDRAWN: True}
+	def play(self):
+		cards = self.controller.carry_cards
+		for card in cards:
+			Give(self.controller, card).trigger(self.controller)
+		Overload(self.controller, 1).trigger(self.controller)
 	pass
 class YOP_029:
 	"""
