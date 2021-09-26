@@ -56,12 +56,28 @@ class DMF_059:# <2>[1466]
 	#####
 	pass
 
-class DMF_060:# <2>[1466] ###############?#?#?#?#?#?#?#?#?
+
+class DMF_060_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		target._sidequest_counter_ = 0
+		playList = target.controller.play_log
+		for card in playList:
+			if card.type == CardType.SPELL:
+				target._sidequest_counter_ += 1
+class DMF_060:# <2>[1466] ##OK
 	""" Umbral Owl
 	[Rush]Costs (1) less for each spell you've cast this game. """
+	class Deck:
+		events = OWN_SPELL_PLAY.on(DMF_060_Action(SELF))
+		pass
+	class Hand:
+		events = OWN_SPELL_PLAY.on(DMF_060_Action(SELF))
+		pass
+	cost_mod = -Attr(SELF,'_sidequest_counter_')
 	pass
 
-class DMF_061:# <2>[1466] ##OK
+class DMF_061:#OK <2>[1466] #
 #	""" Faire Arborist
 #	[Choose One - ]Draw a card;or Summon a 2/2 Treant.[Corrupt:] Do both. """
 	choose = ('DMF_061a','DMF_061b',)
