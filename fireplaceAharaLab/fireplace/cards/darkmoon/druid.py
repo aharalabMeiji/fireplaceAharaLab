@@ -150,7 +150,7 @@ class DMF_732:#OK <2>[1466]
 	play = GainArmor(FRIENDLY_HERO, 8), Summon(CONTROLLER, RandomMinion(cost = 8))
 	pass
 
-class DMF_733:# <2>[1466]
+class DMF_733:#OK <2>[1466]
 	""" Kiri, Chosen of Elune
 	[Battlecry:] Add a Solar Eclipse(DMF_058) and Lunar Eclipse(DMF_057) to your hand. """
 	play = Give(CONTROLLER, 'DMF_058'), Give(CONTROLLER, 'DMF_057')
