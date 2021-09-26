@@ -156,15 +156,15 @@ class DMF_733:#OK <2>[1466]
 	play = Give(CONTROLLER, 'DMF_058'), Give(CONTROLLER, 'DMF_057')
 	pass
 
-class DMF_734:# <2>[1466]
+class DMF_734:# <2>[1466] #こっちは動く。
 	""" Greybough
 	[Taunt][Deathrattle:] Give a random friendly minion "[Deathrattle:]Summon Greybough." """
-	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS), 'DMF_734e')
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'DMF_734e')
 	pass
-class DMF_734e:# <3>[1466]
-	tags={GameTag.DEATHRATTLE:True}
-	deathrattle=Summon(CONTROLLER,'DMF_734')
-
+class DMF_734e:# <3>[1466]### なぜ動かないかがわからない。
+	""" Greybud """
+	deathrattle = Summon(CONTROLLER,'DMF_734')
+	tags = {GameTag.DEATHRATTLE: True}
 class YOP_025:#OK <2>[1466]
 	""" Dreaming Drake
 	[Taunt][Corrupt:] Gain +2/+2. """
@@ -182,7 +182,7 @@ class YOP_026:# <2>[1466]
 	play = Summon(CONTROLLER, 'DMF_061t2') * 2, Buff(FRIENDLY_MINIONS, 'YOP_026e')
 	pass
 
-YOP_026e=buff(2,2)# <2>[1466]
+YOP_026e=buff(2,1)# <2>[1466]
 """ Forest Guards
 +2/+1. """
 
