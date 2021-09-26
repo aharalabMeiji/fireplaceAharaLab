@@ -10,15 +10,18 @@ from ..utils import *
 class DMF_057:# <2>[1466]
 	""" Lunar Eclipse
 	Deal $3 damage to a minion. Your next spell this turn costs (2) less. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Hit(TARGET,3),  Buff(FRIENDLY_HAND + SPELL,'DMF_057e')
 	pass
-
 class DMF_057e:# <2>[1466]
 	""" Lunar Empowerment
 	The next spell you cast costs (2) less. """
-	#
+	cost = lambda self, i: max(i-2,0)
+	events =[
+	   OWN_SPELL_PLAY.on(Destroy(SELF)),
+	   OWN_TURN_END.on(Destroy(SELF)),
+	   ]
 	pass
-
 class DMF_057o:# <2>[1466]
 	""" Lunar Empowerment
 	The next spell you cast this turn costs (2) less. """
@@ -28,15 +31,19 @@ class DMF_057o:# <2>[1466]
 class DMF_058:# <2>[1466]
 	""" Solar Eclipse
 	Your next spell this turn casts twice. """
-	#
+	play = Buff(FRIENDLY_HAND + SPELL,'DMF_058e')
 	pass
-
 class DMF_058e:# <2>[1466]
 	""" Solar Empowerment
 	Your next spell this turn casts twice. """
-	#
+	events =[
+	   OWN_SPELL_PLAY.on(
+		   Play(Play.CARD,Play.TARGET,None,None),
+		   Destroy(SELF)
+		   ),
+	   OWN_TURN_END.on(Destroy(SELF)),
+	   ]
 	pass
-
 class DMF_058o:# <2>[1466]
 	""" Solar Empowerment
 	Your next spell this turn casts twice. """
@@ -46,84 +53,73 @@ class DMF_058o:# <2>[1466]
 class DMF_059:# <2>[1466]
 	""" Fizzy Elemental
 	[Rush][Taunt] """
-	#
+	#####
 	pass
 
-class DMF_060:# <2>[1466]
+class DMF_060:# <2>[1466] ###############?#?#?#?#?#?#?#?#?
 	""" Umbral Owl
-	[Rush]Costs (1) less for each spellyou've cast this game. """
-	#
+	[Rush]Costs (1) less for each spell you've cast this game. """
 	pass
 
-class DMF_061:# <2>[1466]
+class DMF_061:# <2>[1466] ##OK
 #	""" Faire Arborist
 #	[Choose One - ]Draw a card;or Summon a 2/2 Treant.[Corrupt:] Do both. """
-#	choose = ("BT_136ta", "BT_136tb")
-#	#choose = ('DMF_061a','DMF_061b',)
-#	play = ChooseBoth(CONTROLLER) & (
-#		Draw(CONTROLLER),
-#		Summon(CONTROLLER,'DMF_061t2')
-#		)
+	choose = ('DMF_061a','DMF_061b',)
+	play = ChooseBoth(CONTROLLER) & (
+		Draw(CONTROLLER),
+		Summon(CONTROLLER,'DMF_061t2')
+		)
 	pass
-
 class DMF_061a:# <2>[1466]
 	""" Prune the Fruit
 	Draw a card. """
 	play = Draw(CONTROLLER)
 	pass
-
 class DMF_061b:# <2>[1466]
 	""" Dig It Up
 	Summon a 2/2 Treant. """
 	play = Summon(CONTROLLER,'DMF_061t2')
 	pass
-
 class DMF_061t:# <2>[1466]
 	""" Faire Arborist
 	[Corrupted][Battlecry:] Summon a 2/2 Treant. Draw a card. """
 	play = Draw(CONTROLLER), Summon(CONTROLLER,'DMF_061t2')
 	pass
-
 class DMF_061t2:# <2>[1466]
 	""" Treant
 	 """
 	#
 	pass
 
-class DMF_075:# <2>[1466]
-	""" Guess the Weight
-	Draw a card. Guess if your next card costs more or less to draw it. """
-	#
-	pass
-
-class DMF_075a:# <2>[1466]
-	""" More!
-	Guess that the next card costs more. """
-	#
-	pass
-
-class DMF_075a2:# <2>[1466]
-	""" Less!
-	Guess that the next card costs less. """
-	#
-	pass
+#class DMF_075:# <2>[1466] -> clownDruid
+#	""" Guess the Weight
+#	Draw a card. Guess if your next card costs more or less to draw it. """
+#	pass
+#class DMF_075a:# <2>[1466]
+#	""" More!
+#	Guess that the next card costs more. """
+#	#
+#	pass
+#class DMF_075a2:# <2>[1466]
+#	""" Less!
+#	Guess that the next card costs less. """
+#	#
+#	pass
 
 class DMF_730:# <2>[1466]
 	""" Moontouched Amulet
 	Give your hero +4 Attack this turn. [Corrupt:] And gain 6 Armor. """
-	#
+	play = Buff(FRIENDLY_HERO, 'DMF_730e')
 	pass
 
-class DMF_730e:# <2>[1466]
-	""" Moontouched Amulet
-	+4 Attack this turn. """
-	#
-	pass
+DMF_730e=buff(atk=4)# <2>[1466] #_ONE_TURN_EFFECT
+""" Moontouched Amulet
++4 Attack this turn. """
 
 class DMF_730t:# <2>[1466]
 	""" Moontouched Amulet
 	[Corrupted]Give your hero +4 Attack this turn. Gain 6 Armor. """
-	#
+	play = Buff(FRIENDLY_HERO, 'DMF_730e'), GainArmor(FRIENDLY_HERO,6)
 	pass
 
 class DMF_732:# <2>[1466]
