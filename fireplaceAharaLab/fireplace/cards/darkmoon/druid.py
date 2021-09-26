@@ -4,7 +4,7 @@ from ..utils import *
 #'DMF_057','DMF_057e','DMF_057o','DMF_058','DMF_058e','DMF_058o',
 #'DMF_059','DMF_060','DMF_061','DMF_061a','DMF_061b','DMF_061t','DMF_061t2',
 #'DMF_075','DMF_075a','DMF_075a2','DMF_730','DMF_730e','DMF_730t',
-#'DMF_732','DMF_733','DMF_734',
+#'DMF_732','DMF_733','DMF_734','DMF_734e',
 #'YOP_025','YOP_025t','YOP_026','YOP_026e',]
 
 class DMF_057:#OK <2>[1466]
@@ -144,48 +144,32 @@ class DMF_730t:# <2>[1466]
 	play = Buff(FRIENDLY_HERO, 'DMF_730e'), GainArmor(FRIENDLY_HERO,6)
 	pass
 
-class DMF_732:# <2>[1466]
+class DMF_732:#OK <2>[1466]
 	""" Cenarion Ward
 	Gain 8 Armor.Summon a random8-Cost minion. """
-	#
+	play = GainArmor(FRIENDLY_HERO, 8), Summon(CONTROLLER, RandomMinion(cost = 8))
 	pass
 
 class DMF_733:# <2>[1466]
 	""" Kiri, Chosen of Elune
-	[Battlecry:] Add a Solar Eclipse and Lunar Eclipse to your hand. """
-	#
+	[Battlecry:] Add a Solar Eclipse(DMF_058) and Lunar Eclipse(DMF_057) to your hand. """
+	play = Give(CONTROLLER, 'DMF_058'), Give(CONTROLLER, 'DMF_057')
 	pass
 
 class DMF_734:# <2>[1466]
 	""" Greybough
-	[Taunt][Deathrattle:] Give a randomfriendly minion "[Deathrattle:]Summon Greybough." """
-	#
+	[Taunt][Deathrattle:] Give a random friendly minion "[Deathrattle:]Summon Greybough." """
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS), 'DMF_734e')
 	pass
+class DMF_734e:# <3>[1466]
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle=Summon(CONTROLLER,'DMF_734')
 
-class Story_06_Broll:# <2>[1466]
-	""" Broll Bearmantle
-	[Spellburst:] Transform into a 3/6 Bear with [Rush].[Deathrattle:] Go [Dormant] for 2 turns. """
-	#
-	pass
-
-class Story_06_BrollBear:# <2>[1466]
-	""" Broll Bearmantle
-	[Rush][Deathrattle:] Go [Dormant] for 2 turns. """
-	#
-	pass
-
-class Story_06_BrollDormant:# <2>[1466]
-	""" Broll Bearmantle
-	[Dormant] """
-	#
-	pass
-
-class YOP_025:# <2>[1466]
+class YOP_025:#OK <2>[1466]
 	""" Dreaming Drake
 	[Taunt][Corrupt:] Gain +2/+2. """
 	#
 	pass
-
 class YOP_025t:# <2>[1466]
 	""" Dreaming Drake
 	[Corrupted][Taunt] """
@@ -195,12 +179,10 @@ class YOP_025t:# <2>[1466]
 class YOP_026:# <2>[1466]
 	""" Arbor Up
 	Summon two 2/2 Treants. Give your minions +2/+1. """
-	#
+	play = Summon(CONTROLLER, 'DMF_061t2') * 2, Buff(FRIENDLY_MINIONS, 'YOP_026e')
 	pass
 
-class YOP_026e:# <2>[1466]
-	""" Forest Guards
-	+2/+1. """
-	#
-	pass
+YOP_026e=buff(2,2)# <2>[1466]
+""" Forest Guards
++2/+1. """
 
