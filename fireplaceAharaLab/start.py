@@ -12,8 +12,8 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.BLACK_TEMPLE
-	myCardClass=CardClass.DRUID
+	myCardSet=CardSet.SCHOLOMANCE
+	myCardClass=CardClass.DEMONHUNTER
 	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
@@ -109,8 +109,8 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	from utils import BigDeck#faceHunter,clownDruid,bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=100, debugLog=True)
-	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=100, debugLog=True)
+	a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
 
 	#デッキを固定しての総当たり戦

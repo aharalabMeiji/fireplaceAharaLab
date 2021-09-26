@@ -294,6 +294,7 @@ class HumanAgent(Agent):
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
+		test_deepcopy(game, player)
 		while True:
 			myCandidate = []
 			print("========My HAND======")
@@ -525,3 +526,7 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
+from fireplace.deepcopy import *
+def test_deepcopy(game,player):
+	new_game = DeepCopyGame(game,player,0)
+	

@@ -386,6 +386,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\config.py" />
     <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\deepcopy.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\dsl\copy.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\evaluator.py" />
     <Compile Include="fireplaceAharaLab\fireplace\dsl\hijack.py" />
