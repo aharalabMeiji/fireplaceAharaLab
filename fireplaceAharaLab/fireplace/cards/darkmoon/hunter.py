@@ -113,11 +113,11 @@ class DMF_123:#OK
 	secret = EndTurn(OPPONENT).on(DMF_123_Action(CONTROLLER,[Reveal(SELF), Summon(CONTROLLER,random.choice(['NEW1_032','NEW1_033','NEW1_034']))]))
 	pass
 
-class DMF_734e:#no use
-	""" Greybud
-	[Deathrattle:] Summon Greybough. """
-	deathrattle = Summon(CONTROLLER,'DMF_734')
-	pass
+#class DMF_734e:# -> darkmoon-druid
+#	""" Greybud
+#	[Deathrattle:] Summon Greybough. """
+#	deathrattle = Summon(CONTROLLER,'DMF_734')
+#	pass
 
 class YOP_027:#OK
 	""" Bola Shot

@@ -161,10 +161,10 @@ class DMF_734:# <2>[1466] #こっちは動く。
 	[Taunt][Deathrattle:] Give a random friendly minion "[Deathrattle:]Summon Greybough." """
 	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'DMF_734e')
 	pass
-class DMF_734e:# <3>[1466]### なぜ動かないかがわからない。
-	""" Greybud """
-	deathrattle = Summon(CONTROLLER,'DMF_734')
+class DMF_734e:#OK <3>[1466]#
+	deathrattle = Summon(CONTROLLER, "DMF_734")
 	tags = {GameTag.DEATHRATTLE: True}
+	pass
 class YOP_025:#OK <2>[1466]
 	""" Dreaming Drake
 	[Taunt][Corrupt:] Gain +2/+2. """
