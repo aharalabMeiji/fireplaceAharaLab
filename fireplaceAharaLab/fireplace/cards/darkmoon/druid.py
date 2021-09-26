@@ -28,23 +28,30 @@ class DMF_057o:# <2>[1466]
 	#
 	pass
 
+class PlayOnceMoreTime(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	OTHER = ActionArg()
+	def do(self, source, target, card, other):
+		log.info("Play Once more!")
+		Battlecry(card,other).trigger(target)
+
 class DMF_058:# <2>[1466]
 	""" Solar Eclipse
 	Your next spell this turn casts twice. """
-	play = Buff(FRIENDLY_HAND + SPELL,'DMF_058e')
+	play = Buff(FRIENDLY_HERO,'DMF_058e')
 	pass
-class DMF_058e:# <2>[1466]
+class DMF_058e:# <2>[1466] #ONE_TURN_EFFECT
 	""" Solar Empowerment
 	Your next spell this turn casts twice. """
 	events =[
 	   OWN_SPELL_PLAY.on(
-		   Play(Play.CARD,Play.TARGET,None,None),
+		   PlayOnceMoreTime(CONTROLLER,Play.CARD,Play.TARGET),
 		   Destroy(SELF)
 		   ),
-	   OWN_TURN_END.on(Destroy(SELF)),
 	   ]
 	pass
-class DMF_058o:# <2>[1466]
+class DMF_058o:# <2>[1466] #ONE_TURN_EFFECT
 	""" Solar Empowerment
 	Your next spell this turn casts twice. """
 	#
@@ -65,7 +72,7 @@ class DMF_060_Action(TargetedAction):
 		for card in playList:
 			if card.type == CardType.SPELL:
 				target._sidequest_counter_ += 1
-class DMF_060:# <2>[1466] ##OK
+class DMF_060:##OK <2>[1466] #
 	""" Umbral Owl
 	[Rush]Costs (1) less for each spell you've cast this game. """
 	class Deck:
