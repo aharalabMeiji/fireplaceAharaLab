@@ -294,7 +294,6 @@ class HumanAgent(Agent):
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
-		test_deepcopy(game, player)
 		while True:
 			myCandidate = []
 			print("========My HAND======")
