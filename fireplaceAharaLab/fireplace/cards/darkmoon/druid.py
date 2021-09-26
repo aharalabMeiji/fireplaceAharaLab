@@ -22,7 +22,7 @@ class DMF_057e:# <2>[1466]
 	   OWN_TURN_END.on(Destroy(SELF)),
 	   ]
 	pass
-class DMF_057o:# <2>[1466]
+class DMF_057o:# <2>[1466]#ONE_TURN_EFFECT
 	""" Lunar Empowerment
 	The next spell you cast this turn costs (2) less. """
 	#
@@ -36,7 +36,7 @@ class PlayOnceMoreTime(TargetedAction):
 		log.info("Play Once more!")
 		Battlecry(card,other).trigger(target)
 
-class DMF_058:# <2>[1466]
+class DMF_058:#OK <2>[1466]
 	""" Solar Eclipse
 	Your next spell this turn casts twice. """
 	play = Buff(FRIENDLY_HERO,'DMF_058e')
