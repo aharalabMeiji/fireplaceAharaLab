@@ -7,7 +7,7 @@ from ..utils import *
 #'DMF_732','DMF_733','DMF_734',
 #'YOP_025','YOP_025t','YOP_026','YOP_026e',]
 
-class DMF_057:# <2>[1466]
+class DMF_057:#OK <2>[1466]
 	""" Lunar Eclipse
 	Deal $3 damage to a minion. Your next spell this turn costs (2) less. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
@@ -129,12 +129,11 @@ class DMF_061t2:# <2>[1466]
 #	#
 #	pass
 
-class DMF_730:# <2>[1466]
+class DMF_730:#OK <2>[1466]
 	""" Moontouched Amulet
 	Give your hero +4 Attack this turn. [Corrupt:] And gain 6 Armor. """
 	play = Buff(FRIENDLY_HERO, 'DMF_730e')
 	pass
-
 DMF_730e=buff(atk=4)# <2>[1466] #_ONE_TURN_EFFECT
 """ Moontouched Amulet
 +4 Attack this turn. """
