@@ -97,11 +97,11 @@ class BT_130: #OK
 	)
     pass
 
-class BAR_535:##OK
-    """Thickhide Kodo
-    Taunt: Deathrattle: Gain 5 Armor."""
-    deathrattle = GainArmor(FRIENDLY_HERO,5)
-    pass
+#class BAR_535:##OK <-barrens.druid
+#    """Thickhide Kodo
+#    Taunt: Deathrattle: Gain 5 Armor."""
+#    deathrattle = GainArmor(FRIENDLY_HERO,5)
+#    pass
 
 # class SCH_605:#-> scholo.neutral 
 #     """Lake Thresher
@@ -119,14 +119,14 @@ class SCH_616:###OK
 #     Taunt Corrupt: This costs (0)."""
 #     pass
 
-class SCH_610:###OK
-    """Guardian Animals
-    Summon two Beasts that cost (5) or less from your deck. Give them Rush."""
-    play = (
-        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,))),
-        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,)))
-        ) 
-    pass
+#class SCH_610:###OK -> scholo_hunter
+#    """Guardian Animals
+#    Summon two Beasts that cost (5) or less from your deck. Give them Rush."""
+#    play = (
+#        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,))),
+#        Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST+(COST<6))).then(SetTag(Summon.CARD, (GameTag.RUSH,)))
+#        ) 
+#    pass
 
 class BAR_042_Action(TargetedAction):
 	def do(self, source, target):
