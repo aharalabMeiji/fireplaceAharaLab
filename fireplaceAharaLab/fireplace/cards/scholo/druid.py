@@ -7,7 +7,7 @@ from ..utils import *
 #	#
 #	pass
 
-class SCH_242:# <2>[1443]
+class SCH_242:#OK <2>[1443]
 	""" Gibberling
 	[Spellburst:] Summon a Gibberling. """
 	play = OWN_SPELL_PLAY.on(Summon(CONTROLLER, 'SCH_242'))#
@@ -36,10 +36,10 @@ class SCH_333e2:# <2>[1443]
 #	#
 #	pass
 
-class SCH_606:# <2>[1443]
+class SCH_606:#OK <2>[1443]
 	""" Partner Assignment
 	Add a random 2-Cost and 3-Cost Beast to_your hand. """
-	play = Give(CONTROLLER, RandomBeast(cost=[2,3]))
+	play = Give(CONTROLLER, RandomBeast(cost=2)),Give(CONTROLLER, RandomBeast(cost=3))
 	pass
 
 #class SCH_609:# <2>[1443] # -> clownDruid
