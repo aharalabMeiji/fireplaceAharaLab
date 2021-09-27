@@ -54,13 +54,23 @@ class SCH_606:#OK <2>[1443]
 #	#
 #	pass
 
-class SCH_612:# <2>[1443]
+class SCH_612b_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target.controller
+		for repeat in range(4):
+			new_card = Summon(controller, 'SCH_612t').trigger(controller)
+			if new_card[0] != []:
+				new_card=new_card[0][0]
+				new_card.rush = True
+		pass
+class SCH_612:#OK <2>[1443]
 	""" Runic Carvings
 	[Choose One -] Summon four 2/2 Treant Totems; or [Overload:] (2) to summon them with [Rush]. """
 	choose = ('SCH_612a','SCH_612b')
 	play = ChooseBoth(CONTROLLER) & (
 		Summon(CONTROLLER, 'SCH_612t')*4,
-
+		SCH_612b_Action(SELF)
 		)
 	pass
 
@@ -73,14 +83,7 @@ class SCH_612a:# <2>[1443]
 class SCH_612b:# <2>[1443]##
 	""" Alarm the Forest
 	Summon four 2/2 Treant Totems with [Rush].[Overload:] (2) """
-	def play(self):
-		controller = self.controller
-		for repeat in range(4):
-			new_card = Summon(controller, 'SCH_612t').trigger(controller)
-			if new_card[0] != []:
-				new_card=new_card[0][0]
-				new_card.rush = True
-		pass
+	play = SCH_612b_Action(SELF)
 	pass
 
 class SCH_612t:# <2>[1443]
