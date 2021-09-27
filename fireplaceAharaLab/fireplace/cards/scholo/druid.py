@@ -92,7 +92,7 @@ class SCH_612t:# <2>[1443]
 	#
 	pass
 
-class SCH_613:# <2>[1443]
+class SCH_613:#OK <2>[1443]
 	""" Groundskeeper
 	[Taunt][Battlecry:] If you're holding aspell that costs (5) or more,restore 5 Health. """
 	powered_up = Find(FRIENDLY_HAND + SPELL + (COST>4))
