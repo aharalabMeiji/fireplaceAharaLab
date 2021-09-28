@@ -71,8 +71,9 @@ bigWarrior = [
 clownDruid = [
 	#'SCH_427','SCH_333','SCH_333e','SCH_610','SCH_616','SCH_609','SCH_609e',
 	#'DMF_075','DMF_075a','DMF_075a2',
-	'CORE_EX1_169','CORE_CS2_013',
-	'CS2_013t','BT_130','BAR_535','BAR_042',
+	#'BT_130',
+	'CORE_EX1_169','CORE_CS2_013','CS2_013t',
+	'BAR_535','BAR_042',
 	
 ]
 All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,

@@ -1,7 +1,7 @@
 from ..utils import *
 
 # 未実装
-# 'BT_113e','BT_131e','BT_140e',
+# 'BT_113e','BT_140e',
 # 'BT_187e','BT_187e2','BT_196e',
 # 'BT_302e','BT_309e','BT_711e',
 

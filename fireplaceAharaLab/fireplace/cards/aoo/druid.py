@@ -38,10 +38,13 @@ BT_129e = buff(taunt=True)##<12>[1414}
 # 	play = GainEmptyMana(CONTROLLER, 2)
 #	pass
 
-class BT_131:# <2>[1414]
+class BT_131:#OK <2>[1414]
 	""" Ysiel Windsinger
 	Your spells cost (1). """
-	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.COST: 1})
+	play = Buff(FRIENDLY_HAND + SPELL, 'BT_131e')
+	pass
+class BT_131e:
+	cost=SET(1)
 	pass
 
 class BT_132:# <2>[1414]
