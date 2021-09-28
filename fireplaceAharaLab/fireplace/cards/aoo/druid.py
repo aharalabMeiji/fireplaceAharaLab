@@ -47,6 +47,14 @@ class BT_131e:
 	cost=SET(1)
 	pass
 
+class BT_132_Action(TargetedAction):
+	def do(self,source,target):
+		#controller = target
+		if target.mana>=7:
+			source.cost=0
+		else:
+			source.cost=2
+		pass
 class BT_132:#OK <2>[1414]
 	""" Ironbark
 	Give a minion +1/+3 and [Taunt].Costs (0) if you have at least 7 Mana Crystals. """
@@ -55,6 +63,8 @@ class BT_132:#OK <2>[1414]
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "BT_132e")
 	pass
+	class Hand:
+		update = BT_132_Action(CONTROLLER)
 BT_132e = buff(atk=1, health=3, taunt=True)
 """ Ironbark
 +1/+3 and [Taunt]. """
@@ -65,6 +75,14 @@ class BT_133:#OK <2>[1414]
 	events = Attack(SELF).after(Give(CONTROLLER, RandomMinion(cost=8)))
 	pass
 
+class BT_134_Action(TargetedAction):
+	def do(self,source,target):
+		#controller = target
+		if target.mana>=7:
+			source.cost=0
+		else:
+			source.cost=3
+		pass
 class BT_134:# <2>[1414]
 	""" Bogbeam
 	Deal $3 damage to_a minion.Costs (0) if you have at least 7 Mana Crystals. """
@@ -72,7 +90,8 @@ class BT_134:# <2>[1414]
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 3)
-	update = (MANA(CONTROLLER) >= 7) & Refresh(SELF, {GameTag.COST: SET(0)})
+	class Hand:
+		update = BT_134_Action(CONTROLLER)#(MANA(CONTROLLER) >= 7) & Refresh(SELF, {GameTag.COST: SET(0)})
 	pass
 
 class BT_135:# <2>[1414]
