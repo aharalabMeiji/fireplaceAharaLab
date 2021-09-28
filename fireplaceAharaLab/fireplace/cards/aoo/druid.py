@@ -83,7 +83,7 @@ class BT_134_Action(TargetedAction):
 		else:
 			source.cost=3
 		pass
-class BT_134:# <2>[1414]
+class BT_134:#OK <2>[1414]
 	""" Bogbeam
 	Deal $3 damage to_a minion.Costs (0) if you have at least 7 Mana Crystals. """
 	requirements = {
@@ -94,7 +94,7 @@ class BT_134:# <2>[1414]
 		update = BT_134_Action(CONTROLLER)#(MANA(CONTROLLER) >= 7) & Refresh(SELF, {GameTag.COST: SET(0)})
 	pass
 
-class BT_135:# <2>[1414]
+class BT_135:#OK <2>[1414]
 	""" Glowfly Swarm
 	Summon a 2/2 Glowfly for each spell in your_hand. """
 	play = Summon(CONTROLLER, "BT_135t") * Count(FRIENDLY_HAND + SPELL)
