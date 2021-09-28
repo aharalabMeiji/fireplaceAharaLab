@@ -47,16 +47,15 @@ class BT_131e:
 	cost=SET(1)
 	pass
 
-class BT_132:# <2>[1414]
+class BT_132:#OK <2>[1414]
 	""" Ironbark
 	Give a minion +1/+3 and [Taunt].Costs (0) if you have at least 7 Mana Crystals. """
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "BT_132e")
-	update = (MANA(CONTROLLER) >= 7) & Refresh(SELF, {GameTag.COST: SET(0)})
 	pass
-BT_132e = buff(atk=1, health=1, taunt=True)
+BT_132e = buff(atk=1, health=3, taunt=True)
 """ Ironbark
 +1/+3 and [Taunt]. """
 
