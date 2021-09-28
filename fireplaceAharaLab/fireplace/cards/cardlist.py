@@ -11,6 +11,9 @@ Core_Druid=['CORE_BOT_420','CORE_CS2_009','CS2_009e','CORE_EX1_158','EX1_158e','
 AOO_Neutral=['BT_008','BT_008t','BT_010','BT_010e','BT_011e','BT_020e','BT_026e','BT_113e','BT_126','BT_126e','BT_126e2','BT_129e','BT_131e','BT_140e','BT_155','BT_155t','BT_156','BT_159','BT_159t','BT_160','BT_160e','BT_160t','BT_187e','BT_187e2','BT_190','BT_196e','BT_205e','BT_213e','BT_255','BT_255e','BT_302e','BT_309e','BT_496e','BT_601e','BT_711e','BT_714','BT_715','BT_715e','BT_716','BT_716e','BT_717','BT_720','BT_720e','BT_721','BT_721t','BT_722','BT_723','BT_724','BT_724e','BT_726','BT_726t','BT_727','BT_728','BT_728t','BT_729','BT_730','BT_731','BT_732','BT_733','BT_734','BT_735','BT_735t','BT_737','BT_737e','BT_850','BT_850e','BT_850t',]
 AOO_Hunter=['BT_163','BT_163t','BT_201','BT_202','BT_202e','BT_203','BT_203e','BT_205','BT_210','BT_210t','BT_211','BT_212',"BT_212e",'BT_213','BT_214',]
 AOO_Mage=['BT_002','BT_002e','BT_003','BT_004','BT_006','BT_006e','BT_014','BT_021','BT_022','BT_028','BT_028t','BT_072','BT_291',]
+AOO_Druid=['BT_127','BT_127e','BT_128','BT_129','BT_130','BT_131','BT_132',
+	'BT_132e','BT_133','BT_134','BT_135','BT_135t',
+	'BT_136','BT_136t','BT_136ta','BT_136tb','BT_136tt','BT_136tt2','BT_136tt3']
 # SCHOLOMANCE 1443
 Scholo_Neutral=['SCH_142','SCH_143','SCH_145','SCH_146','SCH_146e','SCH_157','SCH_158e2','SCH_160','SCH_182','SCH_224','SCH_224e3','SCH_224t','SCH_230','SCH_231','SCH_231e','SCH_232','SCH_232e','SCH_235','SCH_245','SCH_248','SCH_259','SCH_259t','SCH_270','SCH_270e','SCH_270e2','SCH_273','SCH_283','SCH_300e','SCH_300e2','SCH_301e','SCH_305d','SCH_311','SCH_312','SCH_312e','SCH_313','SCH_350','SCH_351','SCH_351a','SCH_351b','SCH_351e','SCH_351e2','SCH_352','SCH_352e','SCH_425','SCH_425e','SCH_428','SCH_509','SCH_519e','SCH_521','SCH_522','SCH_524e','SCH_530','SCH_537','SCH_539e','SCH_605','SCH_622e','SCH_623','SCH_707','SCH_707t','SCH_708','SCH_708t','SCH_709','SCH_709t','SCH_710','SCH_710t','SCH_711','SCH_713','SCH_713e','SCH_713e2','SCH_714','SCH_714e','SCH_717',]
 #'SCH_162','SCH_162e','SCH_162t',
@@ -73,7 +76,7 @@ clownDruid = [
 	
 ]
 All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,
-	AOO_Neutral,AOO_Hunter,AOO_Mage,
+	AOO_Neutral,AOO_Hunter,AOO_Mage,AOO_Druid,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,

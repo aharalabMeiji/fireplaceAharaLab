@@ -7,7 +7,8 @@ from ..utils import *
 
 class BT_127:# <2>[1414]
 	""" Imprisoned Satyr
-	[Dormant] for 2 turns.When this awakens, reducethe Cost of a random minionin your hand by (5). """
+	[Dormant] for 2 turns.When this awakens, reduce
+	the Cost of a random minionin your hand by (5). """
 	dormant = 2
 	awaken = Buff(RANDOM(FRIENDLY_HAND + MINION), "BT_127e")
 BT_127e = buff(cost=-5)
