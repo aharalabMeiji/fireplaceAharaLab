@@ -1,6 +1,6 @@
 from ..utils import *
 
-#AOO_DRUID=['BT_127','BT_127e','BT_128','BT_129','BT_130','BT_131','BT_132',
+#AOO_DRUID=['BT_127','BT_127e','BT_128','BT_129','BT_129e','BT_130','BT_131','BT_132',
 #'BT_132e','BT_133','BT_134','BT_135','BT_135t',
 #'BT_136','BT_136t','BT_136ta','BT_136tb','BT_136tt','BT_136tt2','BT_136tt3']
 #outrage=['BTA_05','BTA_05e','BTA_BOSS_03t','BTA_BOSS_10e','BTA_BOSS_10h2','BTA_BOSS_10h4','BTA_BOSS_10t','Prologue_Cenarius','Prologue_CenariusHP','Prologue_MoongladePortal','TB_HERO_MALFURION',]
@@ -21,7 +21,7 @@ class BT_128:#OK <2>[1414]
 	play = Draw(CONTROLLER).then(Discard(Draw.CARD + MINION)) * 3
 	pass
 
-class BT_129:# <2>[1414]
+class BT_129:#OK <2>[1414]
 	""" Germination
 	Summon a copy of a friendly minion.Give the copy [Taunt]. """
 	requirements = {
@@ -30,7 +30,7 @@ class BT_129:# <2>[1414]
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Summon(CONTROLLER, ExactCopy(TARGET)).then(Buff(Summon.CARD, "BT_129e"))
 	pass
-BT_129e = buff(taunt=True)
+BT_129e = buff(taunt=True)##<12>[1414}
 
 #class BT_130:# <2>[1414]# clownDruid
 #	""" Overgrowth
