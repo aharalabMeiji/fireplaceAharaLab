@@ -106,16 +106,17 @@ class BT_135t:# <2>[1414]
 	#
 	pass
 
-class BT_136:# <2>[1414]
+class BT_136:#OK <2>[1414]
 	""" Archspore Msshi'fn
 	[Taunt][Deathrattle:] Shuffle'Msshi'fn Prime'into your deck. """
 	deathrattle = Shuffle(CONTROLLER, "BT_136t")
 
-class BT_136t:# <2>[1414]
+class BT_136t:#OK <2>[1414]
 	""" Msshi'fn Prime
 	[Taunt][Choose One -] Summon a 9/9 Fungal Giant with [Taunt]; or [Rush]. """
 	choose = ("BT_136ta", "BT_136tb")
-	play = ChooseBoth(CONTROLLER) & (Summon(CONTROLLER, "BT_136tt3"))
+	play = ChooseBoth(CONTROLLER) & (
+		Summon(CONTROLLER, "BT_136tt3"))
 	pass
 
 class BT_136ta:# <2>[1414]
