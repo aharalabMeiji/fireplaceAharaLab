@@ -59,7 +59,7 @@ BT_132e = buff(atk=1, health=3, taunt=True)
 """ Ironbark
 +1/+3 and [Taunt]. """
 
-class BT_133:# <2>[1414]
+class BT_133:#OK <2>[1414]
 	""" Marsh Hydra
 	[Rush]After this attacks, add arandom 8-Cost minionto your hand. """
 	events = Attack(SELF).after(Give(CONTROLLER, RandomMinion(cost=8)))
