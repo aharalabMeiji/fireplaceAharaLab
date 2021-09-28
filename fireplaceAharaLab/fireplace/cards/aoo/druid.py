@@ -5,7 +5,7 @@ from ..utils import *
 #'BT_136','BT_136t','BT_136ta','BT_136tb','BT_136tt','BT_136tt2','BT_136tt3']
 #outrage=['BTA_05','BTA_05e','BTA_BOSS_03t','BTA_BOSS_10e','BTA_BOSS_10h2','BTA_BOSS_10h4','BTA_BOSS_10t','Prologue_Cenarius','Prologue_CenariusHP','Prologue_MoongladePortal','TB_HERO_MALFURION',]
 
-class BT_127:# <2>[1414]
+class BT_127:#OK <2>[1414]
 	""" Imprisoned Satyr
 	[Dormant] for 2 turns.When this awakens, reduce
 	the Cost of a random minionin your hand by (5). """
@@ -15,7 +15,7 @@ BT_127e = buff(cost=-5)
 """ Imprisoned Satyr
 Costs (5) less. """
 
-class BT_128:# <2>[1414]
+class BT_128:#OK <2>[1414]
 	""" Fungal Fortunes
 	Draw 3 cards. Discard any minions drawn. """
 	play = Draw(CONTROLLER).then(Discard(Draw.CARD + MINION)) * 3
