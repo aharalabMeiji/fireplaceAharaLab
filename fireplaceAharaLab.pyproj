@@ -40,6 +40,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\warrior.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\demon_hunter.py">
       <SubType>Code</SubType>
@@ -59,11 +62,17 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\paladin.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\warrior.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\bigWarrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\old_cards\blackrock\adventure.py" />
@@ -360,6 +369,9 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\paladin.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
