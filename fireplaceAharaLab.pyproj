@@ -393,6 +393,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\paladin.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\warrior.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
