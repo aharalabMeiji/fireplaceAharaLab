@@ -12,31 +12,33 @@ Scholo_Warrior=['SCH_237','SCH_237e','SCH_237e2',
 class SCH_237:# <10>[1443]
 	""" Athletic Studies
 	[Discover] a [Rush] minion. Your next one costs (1) less. """
-	#
+	play = (
+		Discover(CONTROLLER, RandomMinion(rush=True)),
+		Buff(FRIENDLY_MINIONS + RUSH, 'SCH_237e')
+		)
 	pass
-
 class SCH_237e:# <10>[1443]
 	""" Athletic Studies
 	Your next [Rush] minion costs (1) less. """
-	#
+	cost = lambda self, i: max(i-1, 0)
+	events = Play(FRIENDLY_MINIONS + RUSH).on(Destroy(SELF))
 	pass
-
 class SCH_237e2:# <10>[1443]
 	""" Studying Athletics
 	Costs (1) less. """
 	#
 	pass
 
-class SCH_238:# <10>[1443]
+class SCH_238:# <10>[1443] #
 	""" Reaper's Scythe
-	[Spellburst]: Alsodamages adjacentminions this turn. """
-	#
+	[Spellburst]: Also damages adjacent minions this turn. """
+	play = OWN_SPELL_PLAY.on(Buff(SELF, 'SCH_238e'))
 	pass
 
-class SCH_238e:# <10>[1443]
+class SCH_238e:# <10>[1443] #_ONE_TURN_EFFECT
 	""" Reaping
 	Damages minions next to whomever your hero attacks. """
-	#
+	events = Attack(OWNER, ENEMY_MINIONS).on(Hit(ADJUSCENT(Attack.DEFENDER), ATK(OWNER)))
 	pass
 
 class SCH_317:# <10>[1443]
@@ -78,66 +80,6 @@ class SCH_526e:# <10>[1443]
 class SCH_621:# <10>[1443]
 	""" Rattlegore
 	[Deathrattle:] Resummon this with -1/-1. """
-	#
-	pass
-
-class Story_01_Garrosh:# <10>[1443]
-	""" Garrosh Hellscream
-	<i>Thrall's successor is driven by the need for conquest and valorous war.</i> """
-	#
-	pass
-
-class Story_01_Grommash:# <10>[1443]
-	""" Grommash Hellscream
-	<i>This mighty orc warrior fights a greater battle within himself.</i> """
-	#
-	pass
-
-class Story_01_Malkorok:# <10>[1443]
-	""" Malkorok
-	[Battlecry:] Equip a random weapon. """
-	#
-	pass
-
-class Story_01_Upgrade:# <10>[1443]
-	""" Upgrade!
-	If you have a weapon, give it +1/+1. """
-	#
-	pass
-
-class Story_02_Baine:# <10>[1443]
-	""" Prisoner Baine
-	[Dormant]Defeat Khiragg to return Baine to his father. """
-	#
-	pass
-
-class Story_02_Blackhand:# <10>[1443]
-	""" Warchief Blackhand
-	<i>Uniting the orc clans into the Horde, he has secured dominance over the land.</i> """
-	#
-	pass
-
-class Story_02_BlackhandHP:# <10>[1443]
-	""" Backhand
-	[Hero Power]Destroy a random damaged enemy minion. """
-	#
-	pass
-
-class Story_02_Gorgrom:# <10>[1443]
-	""" Gorgrom the Dragon-Eater
-	<i>This enormous gronn threatens to destroy Rexxar's people once and for all.</i> """
-	#
-	pass
-
-class Story_02_GorgromHP:# <10>[1443]
-	""" Monstrous Growth
-	[Hero Power]Gain 2 Armor. If you haveless than 5 Armor,gain 3 Armor instead. """
-	#
-	pass
-
-class Story_02_Intimidation:# <10>[1443]
-	""" Intimidation
-	Add 2 random [Taunt] minions to your hand. """
 	#
 	pass
 

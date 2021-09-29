@@ -122,9 +122,9 @@ class CS3_009:# <10>[1637]
 	""" War Cache
 	Add a random Warrior minion, spell, and weapon to your hand. """
 	play = (
-		Give(CONTROLLER, RANDOM(MINION + WARRIOR)),
-		Give(CONTROLLER, RANDOM(SPELL + WARRIOR)),
-		Give(CONTROLLER, RANDOM(WEAPON + WARRIOR)),
+		Give(CONTROLLER, RandomMinion(card_class=CardClass.WARRIOR)),
+		Give(CONTROLLER, RandomSpell(card_class=CardClass.WARRIOR)),
+		Give(CONTROLLER, RandomWeapon(card_class=CardClass.WARRIOR)),
 		)
 	pass
 
