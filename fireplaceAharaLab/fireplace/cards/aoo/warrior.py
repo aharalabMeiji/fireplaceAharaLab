@@ -1,7 +1,7 @@
 from ..utils import *
 
 AOO_Warrior=['BT_120','BT_121','BT_123','BT_123t',
-'BT_138','BT_140','BT_233','BT_249',]
+'BT_138','BT_140','BT_140e','BT_233','BT_249',]
 #bigWarrior:'BT_117','BT_124','BT_124e','BT_781',
 
 #'BTA_BOSS_04h','BTA_BOSS_04s','BTA_BOSS_06h',
@@ -37,19 +37,28 @@ class BT_120:# <10>[1414]
 class BT_121:# <10>[1414] #### Find a 3/2 Axe
 	""" Imprisoned Gan'arg
 	[Dormant] for 2 turns.When this awakens,equip a 3/2 Axe. """
-	#
+	dormant = 2
+	awaken = Summon(CONTROLLER, 'CORE_CS2_106')
 	pass
 
 class BT_123:# <10>[1414] ## BT_123t
 	""" Kargath Bladefist
 	[Rush][Deathrattle:] Shuffle'Kargath Prime'into your deck. """
-	#
+	deathrattle = Shuffle(CONTROLLER, 'BT_123t')
 	pass
 
+class BT_123t_Action(TargetedAction):
+	def do(self, source, target):
+		defender = target
+		if defender.health==0:
+			yield GainArmor(FRIENDLY_HERO, 10)
+		pass
+	pass
 class BT_123t:# <10>[1414]
 	""" Kargath Prime
 	[Rush]. Whenever this attacks and kills a minion, gain 10 Armor. """
-	#
+	events = Attack(SELF, ENEMY_MINIONS).on(BT_123t_Action(Attack.DEFENDER))
+	#Death(Attack.DEFENDER).on(GainArmor(FRIENDLY_HERO, 10))
 	pass
 
 #class BT_124:###OK
@@ -64,26 +73,28 @@ class BT_123t:# <10>[1414]
 class BT_138:# <10>[1414] # no enchantment
 	""" Bloodboil Brute
 	[Rush]Costs (1) less for each damaged minion. """
-	#
+	cost_mod = -Count(FRIENDLY_MINIONS + DAMAGED)
 	pass
 
 class BT_140:# <10>[1414]
 	""" Bonechewer Raider
 	[Battlecry:] If there is a damaged minion, gain +1/+1 and [Rush]. """
-	#
+	play = Find(FRIENDLY_MINIONS + DAMAGED) & Buff(SELF, 'BT_140e')
 	pass
+BT_140e=buff(atk=1, health=1, rush=True)#<12>[1414]
 
 class BT_233:# <10>[1414]
 	""" Sword and Board
 	Deal $2 damage to a minion. Gain 2 Armor. """
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }#
+	play = Hit(TARGET, 2), GainArmor(CONTROLLER, 2)
 	#
 	pass
 
 class BT_249:# <10>[1414]
 	""" Scrap Golem
 	[Taunt]. [Deathrattle]: Gain Armor equal to this minion's Attack. """
-	#
+	deathrattle = GainArmor(CONTROLLER, ATK(SELF))
 	pass
 
 #class BT_781:###OK
