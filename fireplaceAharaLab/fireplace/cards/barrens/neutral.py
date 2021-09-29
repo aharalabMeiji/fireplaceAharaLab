@@ -841,10 +841,40 @@ class WC_029:#OK
 	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+WEAPON))
 	pass
 
+class BAR_042_Action(TargetedAction):
+	def do(self, source, target):
+		_highestCostCards=[]
+		for _card in target.deck:
+			if _card.type==CardType.SPELL:
+				if len(_highestCostCards)==0:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost < _card.cost:
+					_highestCostCards = [_card]
+				elif _highestCostCards[0].cost == _card.cost:
+					_highestCostCards.append(_card)
+		if len(_highestCostCards)>0:
+			_card = random.choice(_highestCostCards)
+			_cost = _card.cost
+			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
+			log.info("Summon a minion of cost %d"%( _cost))
+			Give(target,_card).trigger(source)
+			_highestMinions = []
+			for _card2 in target.deck:
+				if _card2.type==CardType.MINION and _card2.cost == _cost:
+					_highestMinions.append(_card2)
+			if(len(_highestMinions)>0):
+				_card2 = random.choice(_highestMinions)
+				Summon(target,_card2).trigger(source)
+			else:
+				log.info("no minion of cost %d"%( _cost))
+		else:
+			log.info("no spell is in the deck"%())
+
 class BAR_042:#OK
 	"""
 	Primordial Protector
-	[x]<b>Battlecry:</b> Draw your highest Cost spell. Summon a random minion with the same Cost.
+	[x]<b>Battlecry:</b> Draw your highest Cost spell. 
+	Summon a random minion with the same Cost.
 	"""
 	play = BAR_042_Action(CONTROLLER) 
 	pass

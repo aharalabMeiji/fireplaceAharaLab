@@ -114,20 +114,47 @@ class DMF_061t2:# <2>[1466]
 	#
 	pass
 
-#class DMF_075:# <2>[1466] -> clownDruid
-#	""" Guess the Weight
-#	Draw a card. Guess if your next card costs more or less to draw it. """
-#	pass
-#class DMF_075a:# <2>[1466]
-#	""" More!
-#	Guess that the next card costs more. """
-#	#
-#	pass
-#class DMF_075a2:# <2>[1466]
-#	""" Less!
-#	Guess that the next card costs less. """
-#	#
-#	pass
+class DMF_075_Choice(GenericChoice):
+    def choose(self, card):
+        super().choose(card)
+        controller = self.player
+        choiceCard = controller.hand[-1]
+        choiceCardId = choiceCard.id
+        choiceCard.zone = Zone.GRAVEYARD
+        if len(controller.hand)<controller.max_hand_size:
+            moreCard = Draw(controller,1).trigger(controller)
+            if moreCard[0] != []:
+                moreCard = moreCard[0][0]
+                drawnCard = controller.hand[-2]# first drawn card
+                if choiceCardId == 'DMF_075a':
+                    if drawnCard.cost < moreCard.cost:
+                        pass
+                    else:
+                        moreCard.zone = Zone.GRAVEYARD
+                    return
+                elif choiceCardId == 'DMF_075a2':
+                    if drawnCard.cost > moreCard.cost:
+                        pass
+                    else:
+                        moreCard.zone = Zone.GRAVEYARD
+                    return
+
+class DMF_075: ###OK  <2>[1466]
+    """Guess the Weight
+    Draw a card. Guess if your next card costs more or less to draw it."""
+    entourage = ['DMF_075a','DMF_075a2']
+    def play(self):
+        controller = self.controller
+        new_card=Draw(CONTROLLER,1).trigger(controller)
+        if len(new_card[0])>0:
+            new_card=new_card[0][0]
+            self.choiceText=" %s(%d)より :"%(new_card.data.name, new_card.cost)
+            DMF_075_Choice(CONTROLLER,RandomEntourage()*2).trigger(self)
+    pass
+class DMF_075a:
+    pass
+class DMF_075a2:
+    pass
 
 class DMF_730:#OK <2>[1466]
 	""" Moontouched Amulet

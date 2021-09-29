@@ -16,17 +16,17 @@ class CORE_CS2_009:###OK <2>[1637]
 	pass
 CS2_009e=buff(atk=2,health=3,taunt=True)
 
-#class CORE_CS2_013:# <2>[1637] ##-> clowndruid
-#	""" Wild Growth
-#	Gain an empty Mana Crystal. """
-#    play = (
-#		AT_MAX_MANA(CONTROLLER) &
-#		Give(CONTROLLER, "CS2_013t") |
-#		GainEmptyMana(CONTROLLER, 1)
-#	)
-#    pass
-#class CS2_013t:
-#	play = Draw(CONTROLLER)
+class CORE_CS2_013:# <2>[1637] ############################
+	""" Wild Growth
+	Gain an empty Mana Crystal. """
+	play = (
+		AT_MAX_MANA(CONTROLLER) &
+		Give(CONTROLLER, "CS2_013t") |
+		GainEmptyMana(CONTROLLER, 1)
+	)
+	pass
+class CS2_013t:
+	play = Draw(CONTROLLER)
 
 class CORE_EX1_158:###OK <2>[1637]
 	""" Soul of the Forest
@@ -84,11 +84,11 @@ class EX1_165t2:
 class OG_044a:
 	pass
 
-#class CORE_EX1_169:# <2>[1637] # clownDruid
-#	""" Innervate
-#	Gain 1 Mana Crystal this turn only. """
-#    play = ManaThisTurn(CONTROLLER, 1)
-#	pass
+class CORE_EX1_169:# <2>[1637] # clownDruid
+	""" Innervate
+	Gain 1 Mana Crystal this turn only. """
+	play = ManaThisTurn(CONTROLLER, 1)
+	pass
 
 class CORE_EX1_178:#OK <2>[1637]
 	""" Ancient of War

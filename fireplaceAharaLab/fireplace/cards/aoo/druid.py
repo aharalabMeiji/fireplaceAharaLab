@@ -32,11 +32,14 @@ class BT_129:#OK <2>[1414]
 	pass
 BT_129e = buff(taunt=True)##<12>[1414}
 
-#class BT_130:# <2>[1414]# clownDruid
-#	""" Overgrowth
-#	Gain two empty Mana_Crystals. """
-# 	play = GainEmptyMana(CONTROLLER, 2)
-#	pass
+class BT_130:# <2>[1414]# clownDruid
+	"""Overgrowth, Gain two empty Mana Crystals."""
+	play = (
+		AT_MAX_MANA(CONTROLLER) &
+		Give(CONTROLLER, "CS2_013t") |
+		GainEmptyMana(CONTROLLER, 2)
+	)
+	pass
 
 class BT_131:#OK <2>[1414]
 	""" Ysiel Windsinger
