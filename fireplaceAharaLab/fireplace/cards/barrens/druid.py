@@ -30,7 +30,7 @@ BAR_534e=buff(1,3)# <2>[1525]
 class BAR_535:#OK <2>[1525]
 	""" Thickhide Kodo
 	[Taunt][Deathrattle:] Gain 5 Armor. """
-	play = GainArmor(FRIENDLY_HERO, 5)
+	deathrattle = GainArmor(FRIENDLY_HERO, 5)
 	pass
 
 class BAR_536:#OK <2>[1525]

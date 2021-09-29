@@ -19,7 +19,7 @@ class SCH_333:# <2>[1443] -> clownDruid
     play = Discover(CONTROLLER, RandomSpell(card_class=FRIENDLY_CLASS)).then(Buff(FRIENDLY_HAND+SPELL,'SCH_333e'))
     pass
 
-#class SCH_333e:# <2>[1443] # ONE_TURN_EFFECT なし -> clownDruid
+class SCH_333e:# <2>[1443] # ONE_TURN_EFFECT なし -> clownDruid
     """Nature Studies
         Your next spell costs (1) less."""
     cost = lambda self, i: max(i-1,0)

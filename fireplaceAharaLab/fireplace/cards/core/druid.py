@@ -16,14 +16,10 @@ class CORE_CS2_009:###OK <2>[1637]
 	pass
 CS2_009e=buff(atk=2,health=3,taunt=True)
 
-class CORE_CS2_013:# <2>[1637] ############################
+class CORE_CS2_013:# <2>[1637] ##OK
 	""" Wild Growth
 	Gain an empty Mana Crystal. """
-	play = (
-		AT_MAX_MANA(CONTROLLER) &
-		Give(CONTROLLER, "CS2_013t") |
-		GainEmptyMana(CONTROLLER, 1)
-	)
+	play = GainEmptyMana(CONTROLLER, 1)
 	pass
 class CS2_013t:
 	play = Draw(CONTROLLER)

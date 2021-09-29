@@ -591,7 +591,7 @@ class DMF_188: #this turn only??# yes! ##OK
 	pass
 class DMF_188e:
 	pass
-class DMF_188e2:###  
+class DMF_188e2:### ONE_TURN_EFFECT 
 	cost = SET(0)
 	events = EndTurn(CONTROLLER).on(Destroy(SELF))
 class DMF_188t:

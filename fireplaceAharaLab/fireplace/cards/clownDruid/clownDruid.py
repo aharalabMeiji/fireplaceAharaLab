@@ -76,11 +76,7 @@ from ..utils import *
 #class CORE_CS2_013: # copied from classic #OK
 #    """Wild Growth
 #    Gain an empty Mana Crystal."""
-#    play = (
-#		AT_MAX_MANA(CONTROLLER) &
-#		Give(CONTROLLER, "CS2_013t") |
-#		GainEmptyMana(CONTROLLER, 1)
-#	)
+#    play = GainEmptyMana(CONTROLLER, 1)
 #    pass
 
 #class CS2_013t:
@@ -89,12 +85,7 @@ from ..utils import *
 #class BT_130: #OK
 #    """Overgrowth
 #    Gain two empty Mana Crystals."""
-#    print(AT_MAX_MANA(CONTROLLER))
-#    play = (
-#		AT_MAX_MANA(CONTROLLER) &
-#		Give(CONTROLLER, "CS2_013t") |
-#		GainEmptyMana(CONTROLLER, 2)
-#	)
+#    play = GainEmptyMana(CONTROLLER, 2)
 #    pass
 
 #class BAR_535:##OK <-barrens.druid
@@ -106,6 +97,7 @@ from ..utils import *
 # class SCH_605:#-> scholo.neutral 
 #     """Lake Thresher
 #     Also damages the minions next to whomever this attacks."""
+#	events = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), ATK(SELF)))
 #     pass
 
 #class SCH_616:###OK  scholo-druid
