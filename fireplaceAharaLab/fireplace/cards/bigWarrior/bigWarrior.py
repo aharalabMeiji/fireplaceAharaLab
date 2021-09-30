@@ -1,7 +1,7 @@
 from ..utils import *
 
 
-class SW_023:###OK
+class SW_023:###OK <10>[1578]
 	"""Provoke
 	Tradeable: Choose a friendly minion. Enemy minions attack it."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1,
@@ -85,7 +85,7 @@ class BT_117:###OK
     pass
 
 
-class SW_094:###OK
+class SW_094:###OK <10>[1578]
 	"""Heavy Plate
 	Tradeable: Gain 8 Armor."""
 	play = GainArmor(FRIENDLY_HERO, 8)
@@ -120,7 +120,7 @@ class BAR_844:### excellent!
 	pass
 
 
-class YOP_005:###OK
+class YOP_005:###OK <12>[1466]
 	"""Barricade
 	Summon a 2/4 Guard with Taunt. If it's your only minion, summon another."""
 
@@ -131,7 +131,7 @@ class YOP_005:###OK
 			Summon(controller, "YOP_005t").trigger(controller)
 	pass
 
-class YOP_005t:
+class YOP_005t:#<12>[1466]
 	"""Race Guard
 	Taunt"""
 	pass
@@ -149,7 +149,7 @@ class CORE_EX1_407:###OK
 	pass
 
 
-class SW_021:###OK
+class SW_021:###OK <10>[1578]
 	"""Cowardly Grunt
 	Deathrattle: Summon a minion from your deck."""
 	# CardDefsにdeathrattleタグがついていない
@@ -178,7 +178,7 @@ class SW_024_Action(TargetedAction):
 			Buff(source, 'SW_024e').trigger(controller)
 		pass
 
-class SW_024:###OK
+class SW_024:###OK <10>[1578]
 	"""Lothar
 	At the end of your turn, attack a random enemy minion. If it dies, gain +3/+3."""
 	events = OWN_TURN_END.on(SW_024_Action(SELF))

@@ -2,10 +2,10 @@
 from ..utils import *
 
 Barrens_Warrior=['BAR_334','BAR_840','BAR_841','BAR_841e',
-'BAR_842','BAR_842t','BAR_842t2','BAR_843','BAR_844',
-'BAR_845','BAR_846','BAR_847','BAR_896','BAR_896e',
+'BAR_842','BAR_842t','BAR_842t2','BAR_843',
+'BAR_846','BAR_847','BAR_896','BAR_896e',
 'WC_024','WC_024e','WC_025','WC_025e','WC_026','WC_026t',]
-#'BOM_01_ArrivalInOrgrimmar_01e','BOM_01_ArrivalInOrgrimmar_01s','BOM_01_ForTheHorde_05s','BOM_01_Garrosh_008hb','BOM_01_Garrosh_08p','BOM_01_Golem_005hb','BOM_01_PrideOfTheFrostwolves_0','BOM_01_Rokara_001hp','BOM_01_Rokara_002hp','BOM_01_Rokara_003hp','BOM_01_Rokara_004hp','BOM_01_Rokara_005hp','BOM_01_Rokara_006hp','BOM_01_Rokara_007hp','BOM_01_Rokara_008hp','BOM_01_Rokara_01p','BOM_01_Rokara_03p','BOM_01_Rokara_04p','BOM_01_Rokara_05p','BOM_01_Rokara_06p','BOM_01_Rokara_07p','BOM_01_Rokara_08p','BOM_01_RokarasAxe_01w','BOM_01_RokarasGreatAxe_08w','BOM_01_SecurityGolem_05t','BOM_01_StrengthAndHonor_05s_Copy','BOM_01_Twinbraid_06p','BOM_02_BigRedButton_04p','BOM_02_Haywire_05s','BOM_02_Kargal_001hb','BOM_02_Kargal_01p','BOM_02_Xyrella_05p','BOM_03_Rokara_02p','BOM_03_Rokara_02pe1','BOM_03_Rokara_08t','BOM_04_Samuro_001hb','BOM_04_Samuro_001p','BOM_04_SamurosBlade_001w','Story_07_AthleticStudies','Story_07_CorruptGarrosh','Story_07_Deathwing_006hb','Story_07_Deathwing_006hb2','Story_07_Deathwing_006hb3','Story_07_Devastate','Story_07_Garrosh_008hb','Story_07_Garrosh_008p2','Story_07_Grommash','Story_07_GrommashDormant','Story_07_Stranger_003hb','Story_07_Stranger_003hb2','Story_07_Thrall_001hp','Story_07_Thrall_002hp','Story_08_Saurfang_008h2','Story_08_Saurfang_008p','Story_09_Blackhand_004hb','Story_09_Blackhand_004p','Story_09_Durotan','Story_09_Grommash','Story_09_Grommash_004hb','Story_09_Grommash_004hb2','Story_09_Hurkan','Story_09_Hurkan2','Story_09_Kargath','Story_09_Kargath2','Story_09_Kilrogg','Story_09_Kilrogg2','Story_09_Orgrim_004hb','Story_09_Orgrim_006hb','Story_09_Orgrim_006p','Story_09_Warrior_001hb','Story_09_Warrior_001p',
+#'BAR_844','BAR_845',
 
 class BAR_334:# <10>[1525]
 	""" Overlord Saurfang
@@ -55,17 +55,20 @@ class BAR_843:# <10>[1525]
 	#
 	pass
 
-class BAR_844:# <10>[1525]
-	""" Outrider's Axe
-	After your hero attacks and kills a minion, draw a card. """
-	#
-	pass
+#class BAR_844:### bigWarrior
+#	"""Outrider's Axe
+#	After your hero attacks and kills a minion, draw a card."""
+#	events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
+#		Dead(ALL_MINIONS + Attack.DEFENDER) & Draw(CONTROLLER))
+#	pass
 
-class BAR_845:# <10>[1525]
-	""" Rancor
-	Deal $2 damage to allminions. Gain 2 Armorfor each destroyed. """
-	#
-	pass
+#class BAR_845:###OK   bigWarrior
+#	"""Rancor
+#	Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
+#	# 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
+#	# これでよいなら・・・動いているような感じはある。
+#	play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
+#	pass
 
 class BAR_846:# <10>[1525]
 	""" Mor'shan Elite

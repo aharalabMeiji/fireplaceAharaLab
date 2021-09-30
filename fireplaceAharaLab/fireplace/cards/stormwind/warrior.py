@@ -2,58 +2,52 @@
 from ..utils import *
 
 Stormwind_Warrior=[
-'SW_021','SW_023','SW_024','SW_027',
+'SW_027',
 'SW_028','SW_028t','SW_028t2','SW_028t5','SW_028t6',
-'SW_029','SW_030','SW_093','SW_094','SW_097','SW_097t',]
-#'BOM_05_Cornelius_008hb','BOM_05_Cornelius_008p','BOM_05_Rokara_004hb','BOM_05_Rokara_004p','BOM_05_Rokara_03t',
+'SW_029','SW_030','SW_093','SW_097','SW_097t',]
+#'SW_021','SW_023','SW_024','SW_094',
 
-class BOM_05_Cornelius_008hb:# <10>[1578]
-	""" Cornelius Roame
-	Through the flames, Tamsin sees a lone soldier approach. It is her father, with armor impenetrable. """
-	#
-	pass
+#class SW_021:###OK bigWarrior
+#	"""Cowardly Grunt
+#	Deathrattle: Summon a minion from your deck."""
+#	# CardDefsにdeathrattleタグがついていない
+#	play = SetTag(SELF, (GameTag.DEATHRATTLE, ))
+#	deathrattle = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION))
+#	pass
 
-class BOM_05_Cornelius_008p:# <10>[1578]
-	""" Stalwart
-	[Passive Hero Power]Damage dealt to youby minions is reducedto zero. """
-	#
-	pass
+#class SW_023:###OK bigWarrior
+#	"""Provoke
+#	Tradeable: Choose a friendly minion. Enemy minions attack it."""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1,
+#					PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_FRIENDLY_TARGET: 0}
+#	def play(self):
+#		for target in self.targets:
+#			for minion in self.controller.opponent.field:
+#				Attack(minion,target).trigger(self.controller)
+#	pass
 
-class BOM_05_Rokara_004hb:# <10>[1578]
-	""" Rokara
-	 """
-	#
-	pass
+#class SW_024_Action(TargetedAction):
+#	TARGET = ActionArg()# 
+#	def do(self, source, target):
+#		controller = source.controller
+#		enemy = controller.opponent
+#		if len(enemy.field)==0:
+#			return
+#		deffender = random.choice(enemy.field)
+#		Attack(source, deffender).trigger(controller)
+#		if deffender.health <= 0:
+#			Buff(source, 'SW_024e').trigger(controller)
+#		pass
 
-class BOM_05_Rokara_004p:# <10>[1578]
-	""" For the Frostwolves!
-	[Hero Power]Gain 1 Armor for eachminion you control. """
-	#
-	pass
-
-class BOM_05_Rokara_03t:# <10>[1578]
-	""" Rokara
-	[Rush][Deathrattle:] Go [Dormant] for 2 turns. """
-	#
-	pass
-
-class SW_021:# <10>[1578]
-	""" Cowardly Grunt
-	[Deathrattle:] Summon a minion from your deck. """
-	#
-	pass
-
-class SW_023:# <10>[1578]
-	""" Provoke
-	[Tradeable]Choose a friendly minion.Enemy minions attack it. """
-	#
-	pass
-
-class SW_024:# <10>[1578]
-	""" Lothar
-	At the end of your turn, attack a random enemy minion. If it dies, gain +3/+3. """
-	#
-	pass
+#class SW_024:###OK  bigWarrior
+#	"""Lothar
+#	At the end of your turn, attack a random enemy minion. If it dies, gain +3/+3."""
+#	events = OWN_TURN_END.on(SW_024_Action(SELF))
+#	#Attackは使い方が難しい。BAR_844のように、事象発生の条件として使われるほうがふつうなので。
+#	#events = OWN_TURN_END.on(Attack(SELF, RANDOM_ENEMY_MINION).then(
+#	#	Dead(Attack.DEFENDER) & Buff(SELF, "SW_024e")))
+#	pass
+#SW_024e = buff(atk=3, health=3)
 
 class SW_027:# <10>[1578]
 	""" Shiver Their Timbers!
@@ -109,11 +103,11 @@ class SW_093:# <10>[1578]
 	#
 	pass
 
-class SW_094:# <10>[1578]
-	""" Heavy Plate
-	[Tradeable]Gain 8 Armor. """
-	#
-	pass
+#class SW_094:###OK
+#	"""Heavy Plate
+#	Tradeable: Gain 8 Armor."""
+#	play = GainArmor(FRIENDLY_HERO, 8)
+#	pass
 
 class SW_097:# <10>[1578]
 	""" Remote-Controlled Golem

@@ -131,11 +131,11 @@ class SW_067:#OK
 	play = SetTag(TARGET,{GameTag.TAUNT:True})
 	pass
 
-class SW_068:#OK
-	""" Mo'arg Forgefiend
-	<b>Taunt</b><b>Deathrattle:</b> Gain 8 Armor. """
-	deathrattle = GainArmor(FRIENDLY_HERO,8)
-	pass
+#class SW_068:#OK bigWarrior
+#	""" Mo'arg Forgefiend
+#	<b>Taunt</b><b>Deathrattle:</b> Gain 8 Armor. """
+#	deathrattle = GainArmor(FRIENDLY_HERO,8)
+#	pass
 
 class Deposite_Payment(TargetedAction):
 	TARGET = ActionArg()
