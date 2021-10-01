@@ -41,7 +41,7 @@ class CORE_EX1_400:#OK <10>[1637]
 	play = Hit(ALL_MINIONS, 1)
 	pass
 
-class CORE_EX1_402:# <10>[1637]
+class CORE_EX1_402:#OK <10>[1637]
 	""" Armorsmith
 	Whenever a friendly minion_takes damage, gain 1 Armor. """
 	events = Damage(FRIENDLY_MINIONS).on(GainArmor(FRIENDLY_HERO, 1))
