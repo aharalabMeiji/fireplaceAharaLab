@@ -123,7 +123,7 @@ class CS3_008e:# <10>[1637]## updateが弱いかも
 	events = Play(CONTROLLER, WEAPON).on(Destroy(SELF))
 	pass
 
-class CS3_009:# <10>[1637]
+class CS3_009:#OK <10>[1637]
 	""" War Cache
 	Add a random Warrior minion, spell, and weapon to your hand. """
 	play = (
