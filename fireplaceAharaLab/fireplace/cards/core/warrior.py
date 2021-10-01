@@ -4,13 +4,13 @@ CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','CORE_EX1_391','CORE_
 #['CORE_EX1_407','CORE_EX1_410',]#bigWarrior
 
 
-class CORE_CS2_106:# <10>[1637]
+class CORE_CS2_106:#OK  <10>[1637]
 	""" Fiery War Axe
 	 """
 	#
 	pass
 
-class CORE_CS2_108:# <10>[1637]
+class CORE_CS2_108:#OK <10>[1637]
 	""" Execute
 	Destroy a damaged enemy minion. """
 	requirements = {
