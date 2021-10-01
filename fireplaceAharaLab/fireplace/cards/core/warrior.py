@@ -1,6 +1,6 @@
 from ..utils import *
 
-CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','CORE_EX1_391','CORE_EX1_400','CORE_EX1_402','CORE_EX1_411','CORE_EX1_414','CORE_EX1_603','CORE_EX1_604','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
+CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','EX1_084e','CORE_EX1_391','CORE_EX1_400','CORE_EX1_402','CORE_EX1_411','CORE_EX1_414','CORE_EX1_603','CORE_EX1_604','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
 #['CORE_EX1_407','CORE_EX1_410',]#bigWarrior
 
 
@@ -21,7 +21,7 @@ class CORE_CS2_108:#OK <10>[1637]
 	play = Destroy(TARGET)
 	pass
 
-class CORE_EX1_084:# <10>[1637]
+class CORE_EX1_084:#OK <10>[1637]
 	""" Warsong Commander
 	After you summon another minion, give it [Rush]. """
 	events = Summon(FRIENDLY - SELF).on(Buff(Summon.CARD,"EX1_084e"))
