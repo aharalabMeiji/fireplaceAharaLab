@@ -35,7 +35,7 @@ class CORE_EX1_391:#OK <10>[1637]
 	play = Hit(TARGET, 2), Dead(TARGET) | Draw(CONTROLLER)
 	pass
 
-class CORE_EX1_400:# <10>[1637]
+class CORE_EX1_400:#OK <10>[1637]
 	""" Whirlwind
 	Deal $1 damage to ALL_minions. """
 	play = Hit(ALL_MINIONS, 1)
