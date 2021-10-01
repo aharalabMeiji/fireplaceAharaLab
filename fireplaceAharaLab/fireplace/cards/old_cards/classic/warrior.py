@@ -35,24 +35,24 @@ class EX1_414:
 EX1_414e = buff(atk=6)
 
 
-class EX1_603:
-	"""Cruel Taskmaster"""
-	requirements = {
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_NONSELF_TARGET: 0,
-		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "EX1_603e"), Hit(TARGET, 1)
+#class EX1_603:
+#	"""Cruel Taskmaster"""
+#	requirements = {
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_NONSELF_TARGET: 0,
+#		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Buff(TARGET, "EX1_603e"), Hit(TARGET, 1)
 
 
-EX1_603e = buff(atk=2)
+#EX1_603e = buff(atk=2)
 
 
-class EX1_604:
-	"""Frothing Berserker"""
-	events = Damage(ALL_MINIONS).on(Buff(SELF, "EX1_604o"))
+#class EX1_604:
+#	"""Frothing Berserker"""
+#	events = Damage(ALL_MINIONS).on(Buff(SELF, "EX1_604o"))
 
 
-EX1_604o = buff(atk=1)
+#EX1_604o = buff(atk=1)
 
 
 ##

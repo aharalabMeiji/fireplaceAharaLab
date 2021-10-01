@@ -3,7 +3,8 @@ from ..utils import *
 CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','EX1_084e',
 	'CORE_EX1_391','CORE_EX1_400','CORE_EX1_402',
 	'CORE_EX1_411','EX1_411e','EX1_411e2',
-	'CORE_EX1_414','EX1_414e','CORE_EX1_603','CORE_EX1_604','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
+	'CORE_EX1_414','EX1_414e','CORE_EX1_603','EX1_603e',
+	'CORE_EX1_604','EX1_604o','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
 #['CORE_EX1_407','CORE_EX1_410',]#bigWarrior
 
 
@@ -95,7 +96,7 @@ class CORE_EX1_603:# <10>[1637]
 	pass
 EX1_603e = buff(atk=2)
 
-class CORE_EX1_604:# <10>[1637]
+class CORE_EX1_604:#OK <10>[1637]
 	""" Frothing Berserker
 	Whenever a minion takes damage, gain +1 Attack. """
 	events = Damage(ALL_MINIONS).on(Buff(SELF, "EX1_604o"))
