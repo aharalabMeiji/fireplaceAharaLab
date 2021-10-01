@@ -4,7 +4,8 @@ CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','EX1_084e',
 	'CORE_EX1_391','CORE_EX1_400','CORE_EX1_402',
 	'CORE_EX1_411','EX1_411e','EX1_411e2',
 	'CORE_EX1_414','EX1_414e','CORE_EX1_603','EX1_603e',
-	'CORE_EX1_604','EX1_604o','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
+	'CORE_EX1_604','EX1_604o','CORE_GVG_053',
+	'CS3_008','CS3_008e','CS3_009','CS3_030',]
 #['CORE_EX1_407','CORE_EX1_410',]#bigWarrior
 
 
@@ -109,10 +110,10 @@ class CORE_GVG_053:#OK <10>[1637]
 	play = GainArmor(FRIENDLY_HERO, 5)
 	pass
 
-class CS3_008:# <10>[1637]
+class CS3_008:#OK <10>[1637]
 	""" Bloodsail Deckhand
 	[Battlecry:] The next weapon you play costs(1) less. """
-	update = BuffOnce(FRIENDLY_WEAPON,'CS3_008e')
+	play = Buff(FRIENDLY_HAND + WEAPON,'CS3_008e')
 	pass
 
 class CS3_008e:# <10>[1637]## updateが弱いかも
