@@ -28,7 +28,7 @@ class CORE_EX1_084:#OK <10>[1637]
 	pass
 EX1_084e = buff(rush=True)
 
-class CORE_EX1_391:# <10>[1637]
+class CORE_EX1_391:#OK <10>[1637]
 	""" Slam
 	Deal $2 damage to a minion. If it survives, draw a card. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
