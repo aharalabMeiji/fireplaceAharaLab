@@ -195,11 +195,11 @@ EX1_084e = buff(atk=1)
 ##
 # Weapons
 
-class EX1_411:
-	"""Gorehowl"""
-	update = Attacking(FRIENDLY_HERO, MINION) & Refresh(SELF, buff="EX1_411e")
-	events = Attack(FRIENDLY_HERO, MINION).after(Buff(SELF, "EX1_411e2"))
+#class EX1_411:
+#	"""Gorehowl"""
+#	update = Attacking(FRIENDLY_HERO, MINION) & Refresh(SELF, buff="EX1_411e")
+#	events = Attack(FRIENDLY_HERO, MINION).after(Buff(SELF, "EX1_411e2"))
 
 
-EX1_411e = buff(immune=True)
-EX1_411e2 = buff(atk=-1)
+#EX1_411e = buff(immune=True)
+#EX1_411e2 = buff(atk=-1)

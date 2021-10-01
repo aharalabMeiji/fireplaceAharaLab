@@ -1,6 +1,9 @@
 from ..utils import *
 
-CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','EX1_084e','CORE_EX1_391','CORE_EX1_400','CORE_EX1_402','CORE_EX1_411','CORE_EX1_414','CORE_EX1_603','CORE_EX1_604','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
+CORE_WARRIOR=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','EX1_084e',
+	'CORE_EX1_391','CORE_EX1_400','CORE_EX1_402',
+	'CORE_EX1_411','EX1_411e','EX1_411e2',
+	'CORE_EX1_414','EX1_414e','CORE_EX1_603','CORE_EX1_604','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
 #['CORE_EX1_407','CORE_EX1_410',]#bigWarrior
 
 
@@ -65,7 +68,7 @@ class CORE_EX1_402:#OK <10>[1637]
 #	play = Hit(TARGET, 2)#ARMOR(FRIENDLY_HERO))
 #	pass
 
-class CORE_EX1_411:# <10>[1637]
+class CORE_EX1_411:#OK <10>[1637] ## この武器は滅びる？のだろうか？
 	""" Gorehowl
 	Attacking a minion costs 1 Attack instead of 1 Durability. """
 	update = Attacking(FRIENDLY_HERO, MINION) & Refresh(SELF, buff="EX1_411e")
@@ -74,7 +77,7 @@ class CORE_EX1_411:# <10>[1637]
 EX1_411e = buff(immune=True)
 EX1_411e2 = buff(atk=-1)
 
-class CORE_EX1_414:# <10>[1637]
+class CORE_EX1_414:#OK <10>[1637]
 	""" Grommash Hellscream
 	[Charge]Has +6 Attack while damaged. """
 	enrage = Refresh(SELF, buff="EX1_414e")
