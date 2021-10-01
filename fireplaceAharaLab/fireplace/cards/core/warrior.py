@@ -103,7 +103,7 @@ class CORE_EX1_604:#OK <10>[1637]
 	pass
 EX1_604o = buff(atk=1)
 
-class CORE_GVG_053:# <10>[1637]
+class CORE_GVG_053:#OK <10>[1637]
 	""" Shieldmaiden
 	[Battlecry:] Gain 5 Armor. """
 	play = GainArmor(FRIENDLY_HERO, 5)

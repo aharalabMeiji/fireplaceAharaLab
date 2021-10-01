@@ -12,9 +12,9 @@ class GVG_051:
 GVG_051e = buff(atk=1)
 
 
-class GVG_053:
-	"""Shieldmaiden"""
-	play = GainArmor(FRIENDLY_HERO, 5)
+#class GVG_053:
+#	"""Shieldmaiden"""
+#	play = GainArmor(FRIENDLY_HERO, 5)
 
 
 class GVG_055:
