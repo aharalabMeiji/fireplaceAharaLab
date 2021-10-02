@@ -47,7 +47,7 @@ class BT_120:#OK  <10>[1414]
 		pass
 	pass
 
-class BT_121:# <10>[1414] #### Find a 3/2 Axe
+class BT_121:#OK <10>[1414] #### Find a 3/2 Axe
 	""" Imprisoned Gan'arg
 	[Dormant] for 2 turns.When this awakens,equip a 3/2 Axe. """
 	dormant = 2
