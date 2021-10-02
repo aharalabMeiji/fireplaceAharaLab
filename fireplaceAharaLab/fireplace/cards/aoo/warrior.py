@@ -83,18 +83,18 @@ class BT_138:#OK <10>[1414] # no enchantment
 	cost_mod = -Count(FRIENDLY_MINIONS + DAMAGED)
 	pass
 
-class BT_140:# <10>[1414]
+class BT_140:#OK <10>[1414]
 	""" Bonechewer Raider
 	[Battlecry:] If there is a damaged minion, gain +1/+1 and [Rush]. """
 	play = Find(FRIENDLY_MINIONS + DAMAGED) & BuffOnce(SELF, 'BT_140e')
 	pass
 BT_140e=buff(atk=1, health=1, rush=True)#<12>[1414]
 
-class BT_233:# <10>[1414]
+class BT_233:#OK <10>[1414]
 	""" Sword and Board
 	Deal $2 damage to a minion. Gain 2 Armor. """
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }#
-	play = Hit(TARGET, 2), GainArmor(CONTROLLER, 2)
+	play = Hit(TARGET, 2), GainArmor(FRIENDLY_HERO, 2)
 	#
 	pass
 
