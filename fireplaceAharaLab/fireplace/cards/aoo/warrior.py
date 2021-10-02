@@ -60,16 +60,7 @@ class BT_123:# <10>[1414] ## BT_123t
 	deathrattle = Shuffle(CONTROLLER, 'BT_123t')
 	pass
 
-class BT_123t_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		defender = target
-		print ("X")
-		if defender.health==0:
-			yield GainArmor(FRIENDLY_HERO, 10)
-		pass
-	pass
-class BT_123t:# <10>[1414]##############################
+class BT_123t:#OK <10>[1414]#
 	""" Kargath Prime
 	[Rush]. Whenever this attacks and kills a minion, gain 10 Armor. """
 	events = Attack(SELF, ENEMY_MINIONS).after(Dead(ALL_MINIONS + Attack.DEFENDER) &GainArmor(FRIENDLY_HERO, 10))
@@ -86,7 +77,7 @@ class BT_123t:# <10>[1414]##############################
 #BT_124e = buff(health=1)
 
 
-class BT_138:# <10>[1414] # no enchantment
+class BT_138:#OK <10>[1414] # no enchantment
 	""" Bloodboil Brute
 	[Rush]Costs (1) less for each damaged minion. """
 	cost_mod = -Count(FRIENDLY_MINIONS + DAMAGED)
