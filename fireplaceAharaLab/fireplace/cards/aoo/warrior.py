@@ -61,17 +61,20 @@ class BT_123:# <10>[1414] ## BT_123t
 	pass
 
 class BT_123t_Action(TargetedAction):
+	TARGET = ActionArg()
 	def do(self, source, target):
 		defender = target
+		print ("X")
 		if defender.health==0:
 			yield GainArmor(FRIENDLY_HERO, 10)
 		pass
 	pass
-class BT_123t:# <10>[1414]
+class BT_123t:# <10>[1414]##############################
 	""" Kargath Prime
 	[Rush]. Whenever this attacks and kills a minion, gain 10 Armor. """
-	events = Attack(SELF, ENEMY_MINIONS).on(BT_123t_Action(Attack.DEFENDER))
-	#Death(Attack.DEFENDER).on(GainArmor(FRIENDLY_HERO, 10))
+	events = Attack(SELF, ENEMY_MINIONS).after(Dead(ALL_MINIONS + Attack.DEFENDER) &GainArmor(FRIENDLY_HERO, 10))
+	#
+	#BT_123t_Action(Attack.DEFENDER)
 	pass
 
 #class BT_124:###OK
