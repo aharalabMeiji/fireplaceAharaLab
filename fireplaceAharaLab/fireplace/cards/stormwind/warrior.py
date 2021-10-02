@@ -4,7 +4,7 @@ from ..utils import *
 Stormwind_Warrior=[
 'SW_027',
 'SW_028','SW_028t','SW_028t2','SW_028t5','SW_028t6',
-'SW_029','SW_030','SW_093','SW_097','SW_097t',]
+'SW_029','SW_030','SW_093','SW_093e','SW_097','SW_097t','skele21']
 #'SW_021','SW_023','SW_024','SW_094',
 
 #class SW_021:###OK bigWarrior
@@ -52,57 +52,86 @@ Stormwind_Warrior=[
 class SW_027:# <10>[1578]
 	""" Shiver Their Timbers!
 	Deal $2 damage to a minion. If you control a Pirate, deal $5 instead. """
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Find(FRIENDLY_MINIONS + PIRATE) & Hit(TARGET, 5) | Hit(TARGET, 2)
 	#
 	pass
 
 class SW_028:# <10>[1578]
 	""" Raid the Docks
 	[Questline:] Play 3 Pirates.[Reward:] Draw a weapon. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
+		SidequestCounter(SELF,  3, [
+			Give(CONTROLLER, RANDOM(FRIENDLY_DECK + WEAPON)),
+			Summon(CONTROLLER, 'SW_028t'),
+			Destroy(SELF)
+			])
+		)
 	pass
 
 class SW_028t:# <10>[1578]
 	""" Create a Distraction
 	[Questline:] Play 2 Pirates.[Reward:] Deal $2 damageto a random enemy twice. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
+		SidequestCounter(SELF,  2, [
+			Hit(RANDOM(ENEMYENEMY_CHARACTERS), 2),
+			Hit(RANDOM(ENEMYENEMY_CHARACTERS), 2),
+			Summon(CONTROLLER, 'SW_028t2'),
+			Destroy(SELF)
+			])
+		)
 	pass
 
 class SW_028t2:# <10>[1578]
 	""" Secure the Supplies
 	[Questline:] Play 2 Pirates.[Reward:] Cap'n Rokara. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
+		SidequestCounter(SELF,  2, [
+			Give(CONTROLLER, 'SW_028t5'),
+			Destroy(SELF)
+			])
+		)
 	pass
 
 class SW_028t5:# <10>[1578]
 	""" Cap'n Rokara
 	[Battlecry:] Summon The Juggernaut! """
-	#
+	play = Summon(CONTROLLER, 'SW_028t6')
 	pass
 
 class SW_028t6:# <10>[1578]
 	""" The Juggernaut
 	[Start of Your Turn:]Summon a Pirate, equip aWarrior weapon, and fire two cannons that deal 2 damage! """
-	#
+	events = OWN_TURN_BEGIN.on(
+		Summon(CONTROLLER, RandomMinion(race = Race.PIRATE)),
+		Summon(CONTROLLER, RandomWeapon(card_class = CardClass.WARRIOR)),
+		RegularAttack(FRIENDLY_HERO, RANDOM(ENEMY_CHARACTERS)) * 2
+		)
 	pass
 
 class SW_029:# <10>[1578]
 	""" Harbor Scamp
 	[Battlecry:] Draw a Pirate. """
-	#
+	play = Give(CONTROLLER, RandomMinion(race = Race.PIRATE))
 	pass
 
 class SW_030:# <10>[1578]
 	""" Cargo Guard
 	At the end of your turn, gain 3 Armor. """
-	#
+	events = OWN_TURN_WND.on(
+		GainArmor(FRIENDLY_HERO, 3)
+		)
 	pass
 
 class SW_093:# <10>[1578]
 	""" Stormwind Freebooter
 	[Battlecry:] Give your hero +2 Attack this turn. """
-	#
+	play = Buff(FRIENDLY_HERO, 'SW_093e')
 	pass
-
+SW_093e = buff(atk=2 )# ONE_TURN_EFFECT
 #class SW_094:###OK
 #	"""Heavy Plate
 #	Tradeable: Gain 8 Armor."""
@@ -112,12 +141,14 @@ class SW_093:# <10>[1578]
 class SW_097:# <10>[1578]
 	""" Remote-Controlled Golem
 	After this takes damage,shuffle two Golem Parts intoyour deck. When drawn,__summon a 2/1 Mech. """
-	#
+	events = Damage(SELF).on( Shuffle( CONTROLLER, 'SW_097t') * 2)
 	pass
 
 class SW_097t:# <10>[1578]
 	""" Golem Parts
 	[Casts When Drawn]Summon a 2/1 Damaged Golem. """
-	#
+	play = Summon(CONTROLLER, 'skele21') * 2
 	pass
-
+class skele21:
+	""" Damaged Golem """
+	pass

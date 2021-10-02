@@ -359,8 +359,6 @@ class DMF_202:###OK
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 1/1 Rider with &lt;b&gt;Rush&lt;/b&gt; for each minion in your hand.
 	play = Summon(CONTROLLER, "DMF_523t") * Count(FRIENDLY_HAND + MINION)
 	pass
-class DMF_523t:
-	pass
 
 class DMF_080:
 	"""Fleethoof Pearltusk"""
@@ -672,12 +670,13 @@ class DMF_004t3:###OK
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))))
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION))
+		 )
 	pass
 class DMF_004t4:###OK
 	"""Mindflayer Goggles

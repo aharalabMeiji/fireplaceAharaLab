@@ -11,7 +11,7 @@ Darkmoon_Warrior=['DMF_521','DMF_521t','DMF_522',
 class DMF_521:# <10>[1466]
 	""" Sword Eater
 	[Taunt][Battlecry:] Equip a 3/2_Sword. """
-	#
+	play = Summon(CONTROLLER, DMF_521t)
 	pass
 
 class DMF_521t:# <10>[1466]
@@ -29,44 +29,50 @@ class DMF_521t:# <10>[1466]
 class DMF_523:# <10>[1466]
 	""" Bumper Car
 	[Rush][Deathrattle:] Add two 1/1 Riders with [Rush] to_your hand. """
-	#
+	deathrattle = Give(CONTROLLER, 'DMF_523t') * 2
+	pass
+class DMF_523t:
+	""" Darkmoon Rider """
 	pass
 
 class DMF_524:# <10>[1466]
 	""" Ringmaster's Baton
 	After your hero attacks, give a Mech, Dragon, and Pirate in your hand +1/+1. """
-	#
+	events = Attack(FRIENDLY_HERO).on(
+		Buff(RANDOM(FRIENDLY_HAND + MECH), 'DMF_524e'),
+		Buff(RANDOM(FRIENDLY_HAND + DRAGON), 'DMF_524e'),
+		Buff(RANDOM(FRIENDLY_HAND + PIRATE), 'DMF_524e'),
+		)
 	pass
 
-class DMF_524e:# <10>[1466]
-	""" Big-Top Special
-	+1/+1. """
-	#
-	pass
+DMF_524e=buff(1,1)# <10>[1466]
+#	""" Big-Top Special
+#	+1/+1. """
 
 class DMF_525:# <10>[1466]
 	""" Ringmaster Whatley
 	[Battlecry:] Draw a Mech, Dragon, and Pirate. """
-	#
+	play = (
+		Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MECH)),
+		Give(CONTROLLER, RANDOM(FRIENDLY_DECK + DRAGON)),
+		Give(CONTROLLER, RANDOM(FRIENDLY_DECK + PIRATE)),
+		)
 	pass
 
 class DMF_526:# <10>[1466]
 	""" Stage Dive
 	Draw a [Rush] minion. [Corrupt:] Give it +2/+1. """
-	#
+	play = Give(CONTROLLER, FRIENDLY_DECK + RUSH)
 	pass
 
 class DMF_526a:# <10>[1466]
 	""" Stage Dive
 	[Corrupted]Draw a [Rush] minion and give it +2/+1. """
-	#
+	play = Give(CONTROLLER, FRIENDLY_DECK + RUSH).then(Buff(Give.CARD,'DMF_526e'))
 	pass
-
-class DMF_526e:# <10>[1466]
-	""" Bweeeoooow!
-	+2/+1. """
-	#
-	pass
+DMF_526e=buff(2,1)# <10>[1466]
+#	""" Bweeeoooow!
+#	+2/+1. """
 
 class DMF_528:# <10>[1466]
 	""" Tent Trasher

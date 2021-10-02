@@ -960,6 +960,8 @@ class Corrupt(TargetedAction):# darkmoon fair
 				if target.id == 'DMF_124t':# （+1/+1 in any case）
 					target.max_health += 1
 					target.atk += 1
+				elif target.id == 'DMF_526':
+					corruptList.append({'card':target,'corruptedID':target.id+"a"})
 				else:
 					corruptList.append({'card':target,'corruptedID':target.id+"t"})
 		for target in corruptList:
