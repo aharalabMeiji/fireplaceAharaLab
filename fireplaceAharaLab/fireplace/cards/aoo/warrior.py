@@ -86,7 +86,7 @@ class BT_138:#OK <10>[1414] # no enchantment
 class BT_140:# <10>[1414]
 	""" Bonechewer Raider
 	[Battlecry:] If there is a damaged minion, gain +1/+1 and [Rush]. """
-	play = Find(FRIENDLY_MINIONS + DAMAGED) & Buff(SELF, 'BT_140e')
+	play = Find(FRIENDLY_MINIONS + DAMAGED) & BuffOnce(SELF, 'BT_140e')
 	pass
 BT_140e=buff(atk=1, health=1, rush=True)#<12>[1414]
 
