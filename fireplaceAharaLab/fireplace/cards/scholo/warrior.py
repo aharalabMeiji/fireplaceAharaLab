@@ -47,15 +47,15 @@ class SCH_317_Action(TargetedAction):
 	CARD = ActionArg()
 	def do(self, source, target, card):
 		controller = target
-		new_card = Summon(controller, ExactCopy(card))
+		new_card = Summon(controller, card.id).trigger(controller)
 		if new_card[0] != []:
 			new_card = new_card[0][0]
 			new_card.max_health = 1
 	pass
-class SCH_317:# <10>[1443]
+class SCH_317:#OK <10>[1443]
 	""" Playmaker
 	After you play a [Rush]minion, summon a copy_with 1 Health remaining. """
-	events = Play(CONTROLLER, FRIENDLY_MINION + RUSH).on(SCH_317_Action(CONTROLLER, Play.CARD))
+	events = Play(CONTROLLER, FRIENDLY_MINIONS + RUSH).on(SCH_317_Action(CONTROLLER, Play.CARD))
 	pass
 
 #class SCH_337:# <10>[1443] bigWarrior
