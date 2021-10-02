@@ -2496,8 +2496,9 @@ class Frenzy(TargetedAction):
 	TARGET = ActionArg()#self
 	TARGETACTION = ActionArg()
 	def do(self,source,target,targetaction):
-		#if target.frenzy==1 and target.frenzyFlag==0:
-		if target.frenzyFlag==0:
+		# 'frenzy' is silencable
+		if target.frenzy==1 and target.frenzyFlag==0:
+		#if target.frenzyFlag==0:
 			log.info("Frenzy action of %r "%(target))
 			targetaction.trigger(source)
 			target.frenzyFlag=1

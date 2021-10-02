@@ -365,6 +365,13 @@ class BaseGame(Entity):
 			if card.id == 'BAR_536t' and player.mana>=10:
 				self.queue_actions(player,[Destroy(card)])
 				self.queue_actions(player,[Give(player, 'BAR_536t2')])
+		for card in player.hand:##Conditioning
+			if card.id == 'BAR_842' and player.mana>=5:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_842t')])
+			if card.id == 'BAR_842t' and player.mana>=10:
+				self.queue_actions(player,[Destroy(card)])
+				self.queue_actions(player,[Give(player, 'BAR_842t2')])
 
 
 

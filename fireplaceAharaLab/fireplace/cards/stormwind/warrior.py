@@ -147,7 +147,7 @@ class SW_097:# <10>[1578]
 class SW_097t:# <10>[1578]
 	""" Golem Parts
 	[Casts When Drawn]Summon a 2/1 Damaged Golem. """
-	play = Summon(CONTROLLER, 'skele21') * 2
+	play = Summon(CONTROLLER, 'skele21')
 	pass
 class skele21:
 	""" Damaged Golem """

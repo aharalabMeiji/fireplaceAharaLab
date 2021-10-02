@@ -377,6 +377,13 @@ class Player(Entity, TargetableByAuras):
 			if _log[1] == self.game.turn - 2:
 				_ret.append(_log[0])
 		return _ret
+	@property
+	def play_this_turn(self):
+		_ret = []
+		for _log in self._play_log:
+			if _log[1] == self.game.turn:
+				_ret.append(_log[0])
+		return _ret
 
 	##activate_log
 	def add_activate_log(self, card, amount):

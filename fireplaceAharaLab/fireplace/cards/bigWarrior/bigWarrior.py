@@ -108,7 +108,17 @@ class BAR_845:###OK
 	Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
 	# 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
 	# これでよいなら・・・動いているような感じはある。
-	play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
+	#play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
+	def play(self):
+		controller = self.controller
+		hero = controller.hero
+		minionList = controller.game.board
+		count = 0
+		for card in minionList:
+			Hit(card, 2).trigger(controller)
+			if card.health==0:
+				count += 1
+		GainArmor(hero, 2*count).trigger(controller)
 	pass
 
 

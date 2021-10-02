@@ -14,10 +14,6 @@ from ..utils import *
 #BAR_333e
 #BAR_552e
 #BAR_705e
-#BAR_842e
-#BAR_842e2
-#BAR_842e3
-#BAR_847e
 #WC_013e
 #WC_023e
 #WC_040e

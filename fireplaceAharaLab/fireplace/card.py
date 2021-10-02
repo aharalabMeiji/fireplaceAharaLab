@@ -724,7 +724,7 @@ class Minion(Character):
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",
 		"forgetful", "frozen", "has_deathrattle", "has_inspire", "poisonous",
-		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush"
+		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush", "frenzy"
 	)
 
 	def __init__(self, data):
@@ -778,6 +778,10 @@ class Minion(Character):
 	@property
 	def enraged(self):
 		return self.enrage and self.damage
+
+	@property
+	def frenzied(self):
+		return self.frenzy and self.damage and self.frenzyFlag==0
 
 	@property
 	def update_scripts(self):
