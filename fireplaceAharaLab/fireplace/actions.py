@@ -1178,8 +1178,7 @@ class Give(TargetedAction):
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
 			# if card is 'casts_when_drawn' then immediately play.  
-			if card.id != 'SW_306':# avoiding infinite loop
-				card.game.card_when_drawn(card, card.controller)
+			card.game.card_when_drawn(card, card.controller)
 			ret.append(card)
 		return ret
 

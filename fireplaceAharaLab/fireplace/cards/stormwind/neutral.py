@@ -306,6 +306,7 @@ class SW_081:#OK
 	pass
 
 class SW_306:#OK
+	# CASTSWHENDRAWN タグなし
 	#description が無限ループを含んでいるが・・・・GiveとDrawを区別して解決。
 	""" Encumbered Pack Mule
 	[x]<b>Taunt</b> When you draw this, add a _copy of it to your hand. """
