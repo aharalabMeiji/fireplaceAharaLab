@@ -28,10 +28,23 @@ AOO_Warrior=['BT_120','BT_121','BT_123','BT_123t',
 #        pass
 #    pass
 
-class BT_120:# <10>[1414]
+class BT_120:#OK  <10>[1414]
 	""" Warmaul Challenger
 	[Battlecry:] Choose an enemy minion.Battle it to the death! """
-	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }#
+	requirements = { 
+		PlayReq.REQ_TARGET_TO_PLAY:0, 
+		PlayReq.REQ_MINION_TARGET:0,
+		PlayReq.REQ_ENEMY_TARGET:0
+		}#
+	def play(self):
+		controller=self.controller
+		target = self.target
+		for repeat in range(100):
+			Hit(target, self.atk).trigger(controller)
+			Hit(self, target.atk).trigger(controller.opponent)
+			if self.health==0 or target.health==0:
+				return
+		pass
 	pass
 
 class BT_121:# <10>[1414] #### Find a 3/2 Axe
