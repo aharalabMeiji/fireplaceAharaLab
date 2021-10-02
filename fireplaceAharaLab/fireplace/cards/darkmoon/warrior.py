@@ -5,7 +5,7 @@ Darkmoon_Warrior=['DMF_521','DMF_521t','DMF_522',
 'DMF_523','DMF_524','DMF_524e','DMF_525',
 'DMF_526','DMF_526a','DMF_526e','DMF_528',
 'DMF_529','DMF_530','DMF_530e','DMF_531','DMF_531e',
-'YOP_013','YOP_014',]
+'YOP_013','YOP_013e','YOP_014','YOP_014e',]
 
 
 class DMF_521:# <10>[1466]
@@ -77,49 +77,56 @@ DMF_526e=buff(2,1)# <10>[1466]
 class DMF_528:# <10>[1466]
 	""" Tent Trasher
 	[[Rush].] Costs (1) less for each friendly minion with a unique minion type. """
-	#
+	def play(self):
+		controller = self.controller
+		races = [Race.BEAST, Race.DEMON, Race.DRAGON,Race.MECH,\
+		   Race.MURLOC,Race.PIRATE,Race.TOTEM,Race.ELEMENTAL,Race.QUILBOAR]
+		for race in races:
+			cardList=[]
+			for card in controller.hand:
+				if card.type == CardType.MINION and card.race == race:
+					cardList.append(card)
+					break
+			if len(cardList)>0:
+				(random.choice(cardList)).cost -= 1
+		pass
 	pass
 
 class DMF_529:# <10>[1466]
 	""" E.T.C., God of Metal
 	After a friendly [Rush] minion attacks, deal 2 damage to the enemy hero. """
-	#
+	events = Attack(FRIENDLY_MINIONS + RUSH).on(Hit(ENEMY_HERO,2))
 	pass
 
 class DMF_530:# <10>[1466]
 	""" Feat of Strength
 	Give a random [Taunt] minion in your hand +5/+5. """
-	#
+	play = Buff(RANDOM(FRIENDLY_HAND + MINION + TAUNT), 'DMF_530e')
 	pass
-
-class DMF_530e:# <10>[1466]
-	""" So Strong!
-	+5/+5. """
-	#
-	pass
+DMF_530e=buff(5,5)# <10>[1466]
+#	""" So Strong!
+#	+5/+5. """
 
 class DMF_531:# <10>[1466]
 	""" Stage Hand
-	[Battlecry:] Give a randomminion in your hand +1/+1. """
-	#
+	[Battlecry:] Give a random minion in your hand +1/+1. """
+	play = Buff(RANDOM(FRIENDLY_HAND + MINION), 'DMF_530e') 
 	pass
-
-class DMF_531e:# <10>[1466]
-	""" Ready to Perform
-	+1/+1. """
-	#
-	pass
-
+DMF_531e=buff(1,1)# <10>[1466]
+""" Ready to Perform
++1/+1. """
 
 class YOP_013:# <10>[1466]
 	""" Spiked Wheel
 	Has +3 Attack while your hero has Armor. """
-	#
+	update = Find(FRIENDLY_ARMOR) & BuffOnce(FRIENDLY_HERO, 'YOP_013e')
 	pass
+YOP_013e=buff(atk=3)##<12>[1466]
 
 class YOP_014:# <10>[1466]
 	""" Ironclad
 	[Battlecry:] If your hero has Armor, gain +2/+2. """
-	#
+	update = Find(FRIENDLY_ARMOR) & BuffOnce(FRIENDLY_HERO, 'YOP_014e')
 	pass
+#YOP_014e=buff(2,2)
 

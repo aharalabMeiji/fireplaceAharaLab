@@ -7,7 +7,7 @@ from ..utils import *
 #DMF_071e,DMF_079,DMF_113e,DMF_116e,DMF_120e2,DMF_187e
 #DMF_224e,DMF_229e,DMF_229e2,DMF_230e,DMF_240e,
 #DMF_247e,DMF_249e,DMF_534e,DMF_534e2,
-#YOP_007e, YOP_013e,YOP_014e
+#YOP_007e, 
 
 
 class YOP_003:##OK
@@ -76,11 +76,7 @@ class YOP_009:#OK
 			yield Summon(CONTROLLER,card.id)
 	pass
 
-#class YOP_013:<10>[1466]
-#YOP_013e=buff(atk=3)
 
-#class YOP_014:<10>[1466]
-#YOP_014e=buff(2,2)
 
 class YOP_015:#OK
 	""" Nitroboost Poison
