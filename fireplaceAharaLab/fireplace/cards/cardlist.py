@@ -22,6 +22,7 @@ Scholo_Neutral=['SCH_142','SCH_143','SCH_145','SCH_146','SCH_146e','SCH_157','SC
 Scholo_Hunter=['SCH_133','SCH_239','SCH_244','SCH_279','SCH_300','SCH_340','SCH_340t','SCH_538e','SCH_539','SCH_600','SCH_600t1','SCH_600t2','SCH_600t3','SCH_600t3e','SCH_604','SCH_607','SCH_607a','SCH_607b','SCH_607e','SCH_610','SCH_617','SCH_617e','SCH_617t','SCH_618e',]
 Scholo_Mage=['SCH_241','SCH_243','SCH_310','SCH_348','SCH_353','SCH_400','SCH_400e2',]
 Scholo_Druid=['SCH_242','SCH_333','SCH_333e','SCH_333e2','SCH_427','SCH_606','SCH_609','SCH_609e','SCH_612','SCH_612a','SCH_612b','SCH_612t','SCH_613','SCH_614','SCH_616',]
+Scholo_Warrior=['SCH_238','SCH_238e','SCH_317','SCH_525',]
 # DARKMOON_FAIRE 1466
 Darkmoon_Neutral=['DMF_002','DMF_004','DMF_004t1','DMF_004t1e','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t5e','DMF_004t6','DMF_044','DMF_053e','DMF_054e','DMF_055e','DMF_056e','DMF_062','DMF_065','DMF_065e','DMF_065t','DMF_066','DMF_067','DMF_068','DMF_069','DMF_069e','DMF_070','DMF_071e','DMF_073','DMF_073t','DMF_074','DMF_074a','DMF_074b','DMF_078','DMF_078e','DMF_078t','DMF_079','DMF_080','DMF_080t','DMF_081','DMF_082','DMF_082e','DMF_082t','DMF_091','DMF_091e2','DMF_102e','DMF_108e','DMF_113e','DMF_116e','DMF_120e2','DMF_124','DMF_124t','DMF_125','DMF_163','DMF_163t','DMF_174','DMF_174t','DMF_187e','DMF_188','DMF_188e','DMF_188e2','DMF_188t','DMF_189','DMF_189e','DMF_190','DMF_191','DMF_202','DMF_224e','DMF_229e','DMF_229e2','DMF_230e','DMF_240e','DMF_247e','DMF_249e','DMF_254','DMF_254t3','DMF_254t4','DMF_254t5','DMF_254t5t','DMF_254t7','DMF_520','DMF_520e','DMF_523t','DMF_532','DMF_534e','DMF_534e2','YOP_001e','YOP_003','YOP_003t','YOP_005','YOP_005t','YOP_006','YOP_007e','YOP_009','YOP_012','YOP_012e','YOP_013e','YOP_014e','YOP_015','YOP_015e','YOP_015t','YOP_018','YOP_018e','YOP_021','YOP_024','YOP_024t','YOP_029','YOP_030','YOP_030e','YOP_031','YOP_031e','YOP_032','YOP_034','YOP_035',]
 Darkmoon_Hunter=['DMF_083','DMF_083t','DMF_084','DMF_085','DMF_086','DMF_086e','DMF_087','DMF_088','DMF_089','DMF_090','DMF_090e','DMF_090e2','DMF_090t','DMF_122','DMF_123','DMF_734e','YOP_027','YOP_028',]
@@ -76,7 +77,7 @@ clownDruid = [
 ]
 All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
 	AOO_Neutral,AOO_Hunter,AOO_Mage,AOO_Druid,AOO_Warrior,
-	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,
+	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,Scholo_Warrior,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,

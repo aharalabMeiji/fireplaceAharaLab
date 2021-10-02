@@ -1,8 +1,7 @@
 
 from ..utils import *
 
-Scholo_Warrior=[
-'SCH_238','SCH_238e','SCH_317','SCH_525',]
+Scholo_Warrior=['SCH_238','SCH_238e','SCH_317','SCH_525',]
 # bigWarrior: 'SCH_237','SCH_237e','SCH_237e2','SCH_337','SCH_337t','SCH_621',
 # 'SCH_526e','SCH_425e',
 
@@ -31,10 +30,10 @@ Scholo_Warrior=[
 #	#
 #	pass
 
-class SCH_238:# <10>[1443] #
+class SCH_238:# <10>[1443] ############################
 	""" Reaper's Scythe
 	[Spellburst]: Also damages adjacent minions this turn. """
-	play = OWN_SPELL_PLAY.on(Buff(SELF, 'SCH_238e'))
+	events = OWN_SPELL_PLAY.on(BuffOnce(SELF, 'SCH_238e'))
 	pass
 
 class SCH_238e:# <10>[1443] #_ONE_TURN_EFFECT
