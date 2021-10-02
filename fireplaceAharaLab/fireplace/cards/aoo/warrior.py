@@ -98,10 +98,10 @@ class BT_233:#OK <10>[1414]
 	#
 	pass
 
-class BT_249:# <10>[1414]
+class BT_249:#OK <10>[1414]
 	""" Scrap Golem
 	[Taunt]. [Deathrattle]: Gain Armor equal to this minion's Attack. """
-	deathrattle = GainArmor(CONTROLLER, ATK(SELF))
+	deathrattle = GainArmor(FRIENDLY_HERO, ATK(SELF))
 	pass
 
 #class BT_781:###OK
