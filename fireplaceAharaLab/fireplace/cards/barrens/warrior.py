@@ -129,10 +129,10 @@ class BAR_847:##OK <10>[1525]
 	pass
 BAR_847e=buff(1,1)# <12>[1525]
 
-class BAR_896:# <10>[1525]
+class BAR_896:##OK <10>[1525]
 	""" Stonemaul Anchorman
 	[Rush][Frenzy:] Draw a card. """
-	events = Damage(SELF).on(Frenzy(
+	events = Damage(SELF).on(Frenzy(SELF,
 		Draw(CONTROLLER)
 		))
 	pass
