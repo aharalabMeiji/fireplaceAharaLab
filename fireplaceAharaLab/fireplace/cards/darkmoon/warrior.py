@@ -96,7 +96,7 @@ class DMF_528:#OK <10>[1466]
 		update = DMF_528_Action(CONTROLLER) 
 	pass
 
-class DMF_529:# <10>[1466]
+class DMF_529:#OK <10>[1466]
 	""" E.T.C., God of Metal
 	After a friendly [Rush] minion attacks, deal 2 damage to the enemy hero. """
 	events = Attack(FRIENDLY_MINIONS + RUSH).on(Hit(ENEMY_HERO,2))
