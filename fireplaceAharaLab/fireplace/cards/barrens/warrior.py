@@ -33,19 +33,19 @@ class BAR_840:##OK <10>[1525]
 	events = Damage(SELF).on(Frenzy(SELF, Hit(ALL_MINIONS - SELF, 1)))
 	pass
 
-class BAR_841:# <10>[1525]
+class BAR_841:##OK <10>[1525]
 	""" Bulk Up
 	Give a random [Taunt] minion in your hand +1/+1 and copy it. """
 	def play(self):
 		controller = self.controller
 		tauntList=[]
 		for card in controller.hand:
-			if card.taunt:
+			if hasattr(card,'taunt') and card.taunt:
 				tauntList.append(card)
 		if len(tauntList)>0:
 			card = random.choice(tauntList)
 			Buff(card,'BAR_841e').trigger(controller)
-			new_card = Give(controller, card.id)
+			new_card = Give(controller, card.id).trigger(controller)
 			if new_card[0] != []:
 				new_card = new_card[0][0]
 				Buff(new_card, 'BAR_841e').trigger(controller)
