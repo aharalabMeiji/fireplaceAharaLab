@@ -27,7 +27,7 @@ class BAR_334:##OK <10>[1525]
 		pass
 	pass
 
-class BAR_840:# <10>[1525]
+class BAR_840:##OK <10>[1525]
 	""" Whirling Combatant
 	[Battlecry and Frenzy:]Deal 1 damage to allother minions. """
 	events = Damage(SELF).on(Frenzy(SELF, Hit(ALL_MINIONS - SELF, 1)))
