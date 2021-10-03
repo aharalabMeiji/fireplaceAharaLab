@@ -35,7 +35,7 @@ class DMF_523t:
 	""" Darkmoon Rider """
 	pass
 
-class DMF_524:# <10>[1466]
+class DMF_524:#OK <10>[1466]
 	""" Ringmaster's Baton
 	After your hero attacks, give a Mech, Dragon, and Pirate in your hand +1/+1. """
 	events = Attack(FRIENDLY_HERO).on(
