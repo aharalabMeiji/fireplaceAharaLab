@@ -56,7 +56,7 @@ BAR_841e=buff(1,1)# <10>[1525]
 #	""" Swoll
 #	+1/+1. """
 
-class BAR_842:# <10>[1525]
+class BAR_842:##OK <10>[1525]
 	""" Conditioning (Rank 1)
 	Give minions in your hand +1/+1. <i>(Upgrades when you have 5 Mana.)</i> """
 	play = Buff(FRIENDLY_HAND, 'BAR_842e')
