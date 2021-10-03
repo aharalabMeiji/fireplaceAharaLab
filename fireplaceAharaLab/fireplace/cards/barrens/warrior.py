@@ -162,10 +162,10 @@ WC_025e=buff(atk=1)# <10>[1525]
 """ Armed
 +1 Attack """
 
-class WC_026:# <10>[1525]
+class WC_026:##OK <10>[1525]
 	""" Kresh, Lord of Turtling
 	[Frenzy:] Gain 8 Armor. [Deathrattle:] Equip a 2/5 Turtle Spike. """
-	events = Damage(SELF).on(Frenzy(
+	events = Damage(SELF).on(Frenzy(SELF, 
 		GainArmor(FRIENDLY_HERO, 8)
 		))
 	deathrattle = Summon(CONTROLLER, 'WC_026t')
