@@ -1,7 +1,7 @@
 # Fdb version 3
-["lualatex"] 1633291428 "c:/Users/User/AppData/Local/Programs/Python/Python38/Lib/site-packages/fireplaceAharaLab/GPW_report_takasho/GPW/2021GPW_takasho.tex" "2021GPW_takasho.pdf" "2021GPW_takasho" 1633291430
-  "2021GPW_takasho.aux" 1633291430 132 614d64e44293cdbfb1b9c3a57d0bad96 "lualatex"
-  "2021GPW_takasho.tex" 1633291426 3942 368c4b5e77134c0c5fc24235c4c5eb11 ""
+["lualatex"] 1633301766 "c:/Users/User/AppData/Local/Programs/Python/Python38/Lib/site-packages/fireplaceAharaLab/GPW_report_takasho/GPW/2021GPW_takasho.tex" "2021GPW_takasho.pdf" "2021GPW_takasho" 1633301768
+  "2021GPW_takasho.aux" 1633301768 132 614d64e44293cdbfb1b9c3a57d0bad96 "lualatex"
+  "2021GPW_takasho.tex" 1633301764 4600 71050093fc9cb2253182ad8b6ded3b0c ""
   "C:/Users/User/.texlive2021/texmf-var/luatexja/extra_haranoajigothic-medium.luc" 1633235924 315734 a94aa08246970734e2f9a8102a7b9078 ""
   "C:/Users/User/.texlive2021/texmf-var/luatexja/extra_haranoajimincho-regular.luc" 1633235920 316270 a3723d28967beac50e83659a5128cc92 ""
   "C:/Users/User/.texlive2021/texmf-var/luatexja/extra_lmmono9-regular.luc" 1633235921 16824 861ec6c82cf6399afaf2de0a437b35fd ""
@@ -28,7 +28,7 @@
   "C:/texlive/2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc" 1633290716 123781 6673db623599fbc40135bfd011afd8c7 ""
   "C:/texlive/2021/texmf-var/luatex-cache/generic/fonts/otl/lmsans12-regular.luc" 1633235924 123974 bf42ed5124d06c55e621df53572253fc ""
   "C:/texlive/2021/texmf-var/luatex-cache/generic/names/luaotfload-names.luc" 1633235916 160325 1bfb19a2b4b486364d72730b8fa50115 ""
-  "c:/Users/User/AppData/Local/Programs/Python/Python38/Lib/site-packages/fireplaceAharaLab/GPW_report_takasho/GPW/2021GPW_takasho.tex" 1633291426 3942 368c4b5e77134c0c5fc24235c4c5eb11 ""
+  "c:/Users/User/AppData/Local/Programs/Python/Python38/Lib/site-packages/fireplaceAharaLab/GPW_report_takasho/GPW/2021GPW_takasho.tex" 1633301764 4600 71050093fc9cb2253182ad8b6ded3b0c ""
   "c:/texlive/2021/texmf-dist/fonts/opentype/public/haranoaji/HaranoAjiGothic-Medium.otf" 1633234583 4688716 3b779ff95814ae230e4ed761046840c6 ""
   "c:/texlive/2021/texmf-dist/fonts/opentype/public/haranoaji/HaranoAjiMincho-Regular.otf" 1633234583 6322076 72440e73107365c785630bacae81e31d ""
   "c:/texlive/2021/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf" 1633234629 111536 fc712364c8d0a1b548d46c76f2678030 ""
@@ -150,6 +150,6 @@
   "c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1633234707 113969 aac75a38fd01b6f0d497bf94df6999f8 ""
   "c:/texlive/2021/texmf-var/web2c/luahbtex/lualatex.fmt" 1633234725 3359352 1efd2429573da2e33986cb0c6d833aaf ""
   (generated)
-  "2021GPW_takasho.log"
   "2021GPW_takasho.pdf"
   "2021GPW_takasho.aux"
+  "2021GPW_takasho.log"
