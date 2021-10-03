@@ -49,7 +49,7 @@ DMF_524e=buff(1,1)# <10>[1466]
 #	""" Big-Top Special
 #	+1/+1. """
 
-class DMF_525:# <10>[1466]
+class DMF_525:#OK <10>[1466]
 	""" Ringmaster Whatley
 	[Battlecry:] Draw a Mech, Dragon, and Pirate. """
 	play = (
