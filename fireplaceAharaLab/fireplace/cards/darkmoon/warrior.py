@@ -11,7 +11,7 @@ Darkmoon_Warrior=['DMF_521','DMF_521t','DMF_522',
 class DMF_521:# <10>[1466]
 	""" Sword Eater
 	[Taunt][Battlecry:] Equip a 3/2_Sword. """
-	play = Summon(CONTROLLER, DMF_521t)
+	play = Summon(CONTROLLER, 'DMF_521t')
 	pass
 
 class DMF_521t:# <10>[1466]
@@ -116,17 +116,17 @@ DMF_531e=buff(1,1)# <10>[1466]
 """ Ready to Perform
 +1/+1. """
 
-class YOP_013:# <10>[1466]
+class YOP_013:#OK <10>[1466]
 	""" Spiked Wheel
 	Has +3 Attack while your hero has Armor. """
-	update = Find(FRIENDLY_ARMOR) & BuffOnce(FRIENDLY_HERO, 'YOP_013e')
+	update = (ARMOR(FRIENDLY_HERO)>0) & BuffOnce(FRIENDLY_HERO, 'YOP_013e') | RemoveBuff(FRIENDLY_HERO, 'YOP_013e')
 	pass
 YOP_013e=buff(atk=3)##<12>[1466]
 
 class YOP_014:# <10>[1466]
 	""" Ironclad
 	[Battlecry:] If your hero has Armor, gain +2/+2. """
-	update = Find(FRIENDLY_ARMOR) & BuffOnce(FRIENDLY_HERO, 'YOP_014e')
+	play = (ARMOR(FRIENDLY_HERO)>0) & Buff(SELF, 'YOP_014e')
 	pass
-#YOP_014e=buff(2,2)
+YOP_014e=buff(2,2)
 

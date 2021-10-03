@@ -771,6 +771,18 @@ class Buff(TargetedAction):
 			pass
 		return buff.apply(target)
 
+class RemoveBuff(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		buffList = target.buffs
+		for bf in buffList:
+			if bf.id == buff:
+				target.buffs.remove(bf)
+				break
+		pass
+	pass
+
 class EatsCard(TargetedAction):
 	""" add other stats to target stats
 	"""

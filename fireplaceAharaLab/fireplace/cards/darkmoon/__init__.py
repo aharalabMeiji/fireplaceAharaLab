@@ -4,3 +4,4 @@ from .mage import *
 from .paladin import *
 from .neutral import *
 from .demon_hunter import *
+from .warrior import *
