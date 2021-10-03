@@ -30,7 +30,7 @@ Scholo_Warrior=['SCH_238','SCH_238e','SCH_317','SCH_525',]
 #	#
 #	pass
 
-class SCH_238:# <10>[1443] ############################
+class SCH_238:#OK <10>[1443] #
 	""" Reaper's Scythe
 	[Spellburst]: Also damages adjacent minions this turn. """
 	events = OWN_SPELL_PLAY.on(BuffOnce(FRIENDLY_HERO, 'SCH_238e'))
@@ -77,7 +77,7 @@ class SCH_317:#OK <10>[1443]
 #	#
 #	pass
 
-class SCH_525:# <10>[1443]
+class SCH_525:#OK <10>[1443]
 	""" In Formation!
 	Add 2 random [Taunt] minions to your hand. """
 	play = Give(CONTROLLER, RandomMinion(taunt=True)) * 2
