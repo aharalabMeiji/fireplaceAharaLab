@@ -121,10 +121,11 @@ class BAR_846:##OK <10>[1525]
 		pass
 	pass
 
-class BAR_847:# <10>[1525]
+class BAR_847:##OK <10>[1525]
 	""" Rokara
 	[Rush]After a friendly minion attacks and survives, give it +1/+1. """
-	events = Attack(FRIENDLY_MINIONS).on( -Dead(Attack.ATTACKER) & Buff(Attack.ATTACKER,'BAR_847e'))
+	events = Attack(FRIENDLY_MINIONS).after( 
+		-Dead(FRIENDLY_MINIONS+Attack.ATTACKER) & Buff(FRIENDLY_MINIONS+Attack.ATTACKER,'BAR_847e'))
 	pass
 BAR_847e=buff(1,1)# <12>[1525]
 
