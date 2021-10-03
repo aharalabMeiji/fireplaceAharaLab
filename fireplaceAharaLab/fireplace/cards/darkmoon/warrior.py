@@ -59,16 +59,16 @@ class DMF_525:#OK <10>[1466]
 		)
 	pass
 
-class DMF_526:# <10>[1466]
+class DMF_526:#OK <10>[1466]
 	""" Stage Dive
 	Draw a [Rush] minion. [Corrupt:] Give it +2/+1. """
-	play = Give(CONTROLLER, FRIENDLY_DECK + RUSH)
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + RUSH))
 	pass
 
-class DMF_526a:# <10>[1466]
+class DMF_526a:#OK <10>[1466]
 	""" Stage Dive
 	[Corrupted]Draw a [Rush] minion and give it +2/+1. """
-	play = Give(CONTROLLER, FRIENDLY_DECK + RUSH).then(Buff(Give.CARD,'DMF_526e'))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + RUSH)).then(Buff(Give.CARD,'DMF_526e'))
 	pass
 DMF_526e=buff(2,1)# <10>[1466]
 #	""" Bweeeoooow!
