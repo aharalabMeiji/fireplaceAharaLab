@@ -74,22 +74,26 @@ DMF_526e=buff(2,1)# <10>[1466]
 #	""" Bweeeoooow!
 #	+2/+1. """
 
-class DMF_528:# <10>[1466]
-	""" Tent Trasher
-	[[Rush].] Costs (1) less for each friendly minion with a unique minion type. """
-	def play(self):
-		controller = self.controller
-		races = [Race.BEAST, Race.DEMON, Race.DRAGON,Race.MECH,\
+class DMF_528_Action(TargetedAction):
+	TARGET = ActionArg()#controller
+	def do(self, source, target) -> int:
+		controller = target
+		new_cost = source.data.tags.get(GameTag.COST)
+		races = [Race.BEAST, Race.DEMON, Race.DRAGON,Race.MECHANICAL,\
 		   Race.MURLOC,Race.PIRATE,Race.TOTEM,Race.ELEMENTAL,Race.QUILBOAR]
 		for race in races:
-			cardList=[]
-			for card in controller.hand:
-				if card.type == CardType.MINION and card.race == race:
-					cardList.append(card)
+			for card in controller.field:
+				if card.race == race:
+					new_cost -=1
+					log.info("%s reduces cost of %s to %d"%(card, source, new_cost))
 					break
-			if len(cardList)>0:
-				(random.choice(cardList)).cost -= 1
-		pass
+		source.cost = new_cost
+	pass
+class DMF_528:#OK <10>[1466]
+	""" Tent Trasher
+	[[Rush].] Costs (1) less for each friendly minion with a unique minion type. """
+	class Hand:
+		update = DMF_528_Action(CONTROLLER) 
 	pass
 
 class DMF_529:# <10>[1466]
