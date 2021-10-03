@@ -107,7 +107,7 @@ class BAR_843:##OK <10>[1525]
 #	play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
 #	pass
 
-class BAR_846:# <10>[1525]
+class BAR_846:##OK <10>[1525]
 	""" Mor'shan Elite
 	[Taunt]. [Battlecry:] If your hero attacked this turn, summon a copy of this. """
 	def play(self):
@@ -115,7 +115,7 @@ class BAR_846:# <10>[1525]
 		hero = controller.hero
 		playList = controller.play_this_turn
 		for card in playList:
-			if card == hero:
+			if card.type == CardType.WEAPON:
 				yield Summon(CONTROLLER, ExactCopy(SELF))
 				return
 		pass
