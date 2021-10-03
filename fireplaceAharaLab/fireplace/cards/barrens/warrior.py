@@ -140,9 +140,7 @@ BAR_896e=buff(atk=1)# <10>[1525] # no use
 """ Incensed
 Increased Attack. """
 
-
-
-class WC_024:# <10>[1525]
+class WC_024:##OK <10>[1525]
 	""" Man-at-Arms
 	[Battlecry:] If you have a weapon equipped, gain +1/+1. """
 	play = Find(FRIENDLY_WEAPON) & Buff(SELF, 'WC_024e')
