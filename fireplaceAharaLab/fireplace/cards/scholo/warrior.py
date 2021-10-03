@@ -33,13 +33,13 @@ Scholo_Warrior=['SCH_238','SCH_238e','SCH_317','SCH_525',]
 class SCH_238:# <10>[1443] ############################
 	""" Reaper's Scythe
 	[Spellburst]: Also damages adjacent minions this turn. """
-	events = OWN_SPELL_PLAY.on(BuffOnce(SELF, 'SCH_238e'))
+	events = OWN_SPELL_PLAY.on(BuffOnce(FRIENDLY_HERO, 'SCH_238e'))
 	pass
 
 class SCH_238e:# <10>[1443] #_ONE_TURN_EFFECT
 	""" Reaping
 	Damages minions next to whomever your hero attacks. """
-	events = Attack(OWNER, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), ATK(OWNER)))
+	events = Attack(FRIENDLY_HERO, ENEMY_MINIONS).on(Hit(ADJACENT(ENEMY_MINIONS+Attack.DEFENDER), ATK(OWNER)))
 	pass
 
 class SCH_317_Action(TargetedAction):
