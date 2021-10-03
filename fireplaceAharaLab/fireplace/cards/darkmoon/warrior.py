@@ -102,7 +102,7 @@ class DMF_529:#OK <10>[1466]
 	events = Attack(FRIENDLY_MINIONS + RUSH).on(Hit(ENEMY_HERO,2))
 	pass
 
-class DMF_530:# <10>[1466]
+class DMF_530:#OK <10>[1466]
 	""" Feat of Strength
 	Give a random [Taunt] minion in your hand +5/+5. """
 	play = Buff(RANDOM(FRIENDLY_HAND + MINION + TAUNT), 'DMF_530e')
@@ -111,10 +111,10 @@ DMF_530e=buff(5,5)# <10>[1466]
 #	""" So Strong!
 #	+5/+5. """
 
-class DMF_531:# <10>[1466]
+class DMF_531:#OK <10>[1466]
 	""" Stage Hand
 	[Battlecry:] Give a random minion in your hand +1/+1. """
-	play = Buff(RANDOM(FRIENDLY_HAND + MINION), 'DMF_530e') 
+	play = Buff(RANDOM(FRIENDLY_HAND + MINION), 'DMF_531e') 
 	pass
 DMF_531e=buff(1,1)# <10>[1466]
 """ Ready to Perform
