@@ -26,7 +26,7 @@ class DMF_521t:# <10>[1466]
 #	play = Hit(RANDOM_MINION, 1) * 5
 #	pass
 
-class DMF_523:# <10>[1466]
+class DMF_523:#OK <10>[1466]
 	""" Bumper Car
 	[Rush][Deathrattle:] Add two 1/1 Riders with [Rush] to_your hand. """
 	deathrattle = Give(CONTROLLER, 'DMF_523t') * 2
