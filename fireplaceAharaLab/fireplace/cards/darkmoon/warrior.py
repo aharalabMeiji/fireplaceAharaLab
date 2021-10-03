@@ -123,7 +123,7 @@ class YOP_013:#OK <10>[1466]
 	pass
 YOP_013e=buff(atk=3)##<12>[1466]
 
-class YOP_014:# <10>[1466]
+class YOP_014:#OK <10>[1466]
 	""" Ironclad
 	[Battlecry:] If your hero has Armor, gain +2/+2. """
 	play = (ARMOR(FRIENDLY_HERO)>0) & Buff(SELF, 'YOP_014e')
