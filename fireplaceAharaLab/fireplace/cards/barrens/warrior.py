@@ -79,17 +79,16 @@ class BAR_843_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARDS = CardArg()
 	def do(self, source, target, cards):
-		controller = target
-		for card in cards:
-			if hasattr(card, 'atk'):
-				card.atk += 1
+		controller = target.controller
+		if hasattr(target, 'atk'):
+			target.atk += len(cards)
 		pass
 	pass
-class BAR_843:# <10>[1525]
+class BAR_843:##OK <10>[1525]
 	""" Warsong Envoy
 	[Frenzy:] Gain +1  Attackfor each damaged character. """
 	events = Damage(SELF).on(Frenzy(
-		SELF, BAR_843_Action(CONTROLLER, FRIENDLY_CHARACTERS + DAMAGED)
+		SELF, BAR_843_Action(SELF, FRIENDLY_CHARACTERS + DAMAGED)
 		))
 	pass
 
