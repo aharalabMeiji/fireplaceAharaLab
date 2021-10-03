@@ -7,7 +7,7 @@ Barrens_Warrior=['BAR_334','BAR_840','BAR_841','BAR_841e',
 'WC_024','WC_024e','WC_025','WC_025e','WC_026','WC_026t',]
 #'BAR_844','BAR_845',
 
-class BAR_334:# <10>[1525]
+class BAR_334:##OK <10>[1525]
 	""" Overlord Saurfang
 	[Battlecry:] Resurrect 2 friendly [Frenzy] minions. Deal 1 damage to all other minions. """
 	def play(self):
@@ -145,7 +145,7 @@ Increased Attack. """
 class WC_024:# <10>[1525]
 	""" Man-at-Arms
 	[Battlecry:] If you have a weapon equipped, gain +1/+1. """
-	play = Find(FRIEFRIENDLY_WEAPON) & Buff(SELF, 'WC_024e')
+	play = Find(FRIENDLY_WEAPON) & Buff(SELF, 'WC_024e')
 	pass
 
 WC_024e=buff(1,1)# <10>[1525]

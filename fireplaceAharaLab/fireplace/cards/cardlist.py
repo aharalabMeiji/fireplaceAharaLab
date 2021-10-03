@@ -37,6 +37,10 @@ Barrens_Neutral += ['BAR_079','BAR_079_m1','BAR_079_m2','BAR_079_m3','BAR_079t10
 Barrens_Hunter=['BAR_030','BAR_031','BAR_032','BAR_033','BAR_033e','BAR_034','BAR_034t','BAR_034t2','BAR_034t3','BAR_034t4','BAR_034t5','BAR_035','BAR_035t','BAR_037','BAR_037e','BAR_038','BAR_551','BAR_801','WC_007','WC_007e','WC_008','WC_037',]
 Barrens_Mage=['BAR_064e','BAR_064e2','BAR_305','BAR_305t','BAR_305t2','BAR_541','BAR_542','BAR_544','BAR_545','BAR_545e','BAR_546','BAR_546e','BAR_547','BAR_748','BAR_812','BAR_888','BAR_888t','WC_041','WC_805','WC_806',]
 Barrens_Druid=['BAR_533','BAR_533t','BAR_534','BAR_534e','BAR_535','BAR_536','BAR_536t','BAR_536t2','BAR_536e','BAR_536te','BAR_536t2e','BAR_537','BAR_537e','BAR_538','BAR_538t','BAR_539','BAR_539e','BAR_540','BAR_549','BAR_549e','BAR_720','BAR_720e','WC_004','WC_004t','WC_006','WC_006e','WC_036','WC_036t1',]
+Barrens_Warrior=['BAR_334','BAR_840','BAR_841','BAR_841e',
+'BAR_842','BAR_842e','BAR_842e2','BAR_842e3','BAR_842t','BAR_842t2','BAR_843',
+'BAR_846','BAR_847','BAR_847e','BAR_896','BAR_896e',
+'WC_024','WC_024e','WC_025','WC_025e','WC_026','WC_026t',]
 ## STORMWIND [1578]
 Stormwind_Neutral=['SW_001e','SW_001e2','SW_003e','SW_006','SW_024e','SW_034e','SW_036','SW_036e','SW_036e2','SW_039t3_te','SW_039te','SW_043e','SW_045','SW_047e','SW_048e','SW_050e','SW_054','SW_054e','SW_055','SW_056','SW_057','SW_059','SW_060','SW_060t','SW_061','SW_062','SW_063','SW_063e','SW_064','SW_064e','SW_065','SW_066','SW_067','SW_068','SW_069','SW_069e','SW_070','SW_071','SW_071e','SW_072','SW_073','SW_074','SW_075','SW_075t','SW_076','SW_076t','SW_077','SW_077e','SW_078','SW_078e','SW_078e2','SW_080','SW_081','SW_086e','SW_087e','SW_087e2','SW_091t5','SW_093e','SW_306','SW_307','SW_307e','SW_313t4ee','SW_315e','SW_316e','SW_319','SW_322e','SW_322e2','SW_322e3','SW_400','SW_418','SW_418e','SW_418e2','SW_437e','SW_457e',]
 Stormwind_Neutral += ['SW_079','SW_079e4','SW_079e5','SW_079e6','SW_079t','SW_079t2','SW_079t2e','SW_079t3','SW_079t3e','SW_079te',]
@@ -81,7 +85,7 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
 	AOO_Neutral,AOO_Hunter,AOO_Mage,AOO_Druid,AOO_Warrior,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,Scholo_Warrior,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,Darkmoon_Warrior,
-	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,
+	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,Barrens_Warrior,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,
 	Heroes,Dream,Etc,
 	faceHunter,bigWarrior,clownDruid
