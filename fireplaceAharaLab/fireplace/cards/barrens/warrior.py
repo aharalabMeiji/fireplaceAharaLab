@@ -150,7 +150,7 @@ WC_024e=buff(1,1)# <10>[1525]
 """ Armed
 +1/+1 """
 
-class WC_025:# <10>[1525]
+class WC_025:##OK <10>[1525]
 	""" Whetstone Hatchet
 	After your hero attacks, give a minion in your hand +1 Attack. """
 	events = Attack(FRIENDLY_HERO).on(Buff(RANDOM(FRIENDLY_HAND), 'WC_025e'))
