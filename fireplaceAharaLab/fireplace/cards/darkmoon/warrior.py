@@ -8,7 +8,7 @@ Darkmoon_Warrior=['DMF_521','DMF_521t','DMF_522',
 'YOP_013','YOP_013e','YOP_014','YOP_014e',]
 
 
-class DMF_521:# <10>[1466]
+class DMF_521:#OK <10>[1466]
 	""" Sword Eater
 	[Taunt][Battlecry:] Equip a 3/2_Sword. """
 	play = Summon(CONTROLLER, 'DMF_521t')
