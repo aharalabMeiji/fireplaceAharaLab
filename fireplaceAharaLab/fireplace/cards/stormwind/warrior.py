@@ -118,7 +118,7 @@ class SW_029:##OK <10>[1578]
 	play = Give(CONTROLLER, RandomMinion(race = Race.PIRATE))
 	pass
 
-class SW_030:# <10>[1578]
+class SW_030:##OK <10>[1578]
 	""" Cargo Guard
 	At the end of your turn, gain 3 Armor. """
 	events = OWN_TURN_END.on(
