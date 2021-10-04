@@ -453,7 +453,7 @@ def getTurnLog(gameLog, turnN):
 	return ret
 
 def ExchangeCard(cards,player):
-	Discard(player.hand[-1]).trigger(player)
+	Discard(player.hand[0]).trigger(player)
 	for _card in cards:
 		if _card=='arcane':
 			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
@@ -479,6 +479,8 @@ def ExchangeCard(cards,player):
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card='SCH_333'
+		if _card=='pirate':
+			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
 		if _card=='rush':
 			_card=random.choice(['YOP_031'])
 		if _card=='secret':

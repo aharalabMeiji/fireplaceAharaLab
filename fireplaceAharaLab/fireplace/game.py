@@ -337,6 +337,7 @@ class BaseGame(Entity):
 		# if drawn_card is 'casts_when_drawn' then immediately play.  
 		if hasattr(drawn_card, "casts_when_drawn"):
 			self.queue_actions(player, [Play(drawn_card, None, None, None)])
+			self.queue_actions(player, [Draw(player)])
 		#When you draw this, add a _copy of it to your hand
 		if drawn_card.id == 'SW_306':
 			new_card = Minion(cards.db[drawn_card.id])

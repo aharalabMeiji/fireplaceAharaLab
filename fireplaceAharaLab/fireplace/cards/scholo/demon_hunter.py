@@ -12,7 +12,7 @@ class SCH_307t:# <9>[1443]WARLOCK
 	""" Soul Fragment
 	<b>Casts When Drawn</b>
 	Restore #2 Health to your hero.""" 
-	play = Heal(FRIENDLY_HERO,2), Draw(CONTROLLER)
+	play = Heal(FRIENDLY_HERO,2)
 
 	
 class SCH_252:# <14>[1443]

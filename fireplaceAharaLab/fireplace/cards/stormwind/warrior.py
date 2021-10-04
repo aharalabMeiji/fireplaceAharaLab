@@ -132,6 +132,7 @@ class SW_093:##OK <10>[1578]
 	play = Buff(FRIENDLY_HERO, 'SW_093e')
 	pass
 SW_093e = buff(atk=2 )# ONE_TURN_EFFECT
+
 #class SW_094:###OK
 #	"""Heavy Plate
 #	Tradeable: Gain 8 Armor."""
