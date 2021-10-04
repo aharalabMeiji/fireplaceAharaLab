@@ -112,7 +112,7 @@ class SW_028t6:##OK <10>[1578]
 		)
 	pass
 
-class SW_029:# <10>[1578]
+class SW_029:##OK <10>[1578]
 	""" Harbor Scamp
 	[Battlecry:] Draw a Pirate. """
 	play = Give(CONTROLLER, RandomMinion(race = Race.PIRATE))
