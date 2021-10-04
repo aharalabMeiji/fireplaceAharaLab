@@ -49,7 +49,7 @@ Stormwind_Warrior=[
 #	pass
 #SW_024e = buff(atk=3, health=3)
 
-class SW_027:# <10>[1578]
+class SW_027:##OK <10>[1578]
 	""" Shiver Their Timbers!
 	Deal $2 damage to a minion. If you control a Pirate, deal $5 instead. """
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
