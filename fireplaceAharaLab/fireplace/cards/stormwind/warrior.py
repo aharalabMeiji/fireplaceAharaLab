@@ -126,7 +126,7 @@ class SW_030:##OK <10>[1578]
 		)
 	pass
 
-class SW_093:# <10>[1578]
+class SW_093:##OK <10>[1578]
 	""" Stormwind Freebooter
 	[Battlecry:] Give your hero +2 Attack this turn. """
 	play = Buff(FRIENDLY_HERO, 'SW_093e')
