@@ -57,11 +57,11 @@ class SW_027:##OK <10>[1578]
 	#
 	pass
 
-class SW_028:# <10>[1578]
+class SW_028:##OK <10>[1578]
 	""" Raid the Docks
 	[Questline:] Play 3 Pirates.[Reward:] Draw a weapon. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
+	events = Play(CONTROLLER, PIRATE).on(
 		SidequestCounter(SELF,  3, [
 			Give(CONTROLLER, RANDOM(FRIENDLY_DECK + WEAPON)),
 			Summon(CONTROLLER, 'SW_028t'),
@@ -70,11 +70,11 @@ class SW_028:# <10>[1578]
 		)
 	pass
 
-class SW_028t:# <10>[1578]
+class SW_028t:##OK <10>[1578]
 	""" Create a Distraction
 	[Questline:] Play 2 Pirates.[Reward:] Deal $2 damageto a random enemy twice. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
+	events = Play(CONTROLLER, PIRATE).on(
 		SidequestCounter(SELF,  2, [
 			Hit(RANDOM(ENEMY_CHARACTERS), 2),
 			Hit(RANDOM(ENEMY_CHARACTERS), 2),
@@ -84,11 +84,11 @@ class SW_028t:# <10>[1578]
 		)
 	pass
 
-class SW_028t2:# <10>[1578]
+class SW_028t2:##OK <10>[1578]
 	""" Secure the Supplies
 	[Questline:] Play 2 Pirates.[Reward:] Cap'n Rokara. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
+	events = Play(CONTROLLER, PIRATE).on(
 		SidequestCounter(SELF,  2, [
 			Give(CONTROLLER, 'SW_028t5'),
 			Destroy(SELF)
@@ -96,19 +96,19 @@ class SW_028t2:# <10>[1578]
 		)
 	pass
 
-class SW_028t5:# <10>[1578]
+class SW_028t5:##OK <10>[1578]
 	""" Cap'n Rokara
 	[Battlecry:] Summon The Juggernaut! """
 	play = Summon(CONTROLLER, 'SW_028t6')
 	pass
 
-class SW_028t6:# <10>[1578]
+class SW_028t6:##OK <10>[1578]
 	""" The Juggernaut
 	[Start of Your Turn:]Summon a Pirate, equip aWarrior weapon, and fire two cannons that deal 2 damage! """
 	events = OWN_TURN_BEGIN.on(
 		Summon(CONTROLLER, RandomMinion(race = Race.PIRATE)),
 		Summon(CONTROLLER, RandomWeapon(card_class = CardClass.WARRIOR)),
-		RegularAttack(FRIENDLY_HERO, RANDOM(ENEMY_CHARACTERS)) * 2
+		Hit(RANDOM(ENEMY_CHARACTERS), 2) * 2
 		)
 	pass
 

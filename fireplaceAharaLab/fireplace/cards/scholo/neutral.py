@@ -205,6 +205,7 @@ class SCH_259_Choice(Choice):
 			pass
 		else:
 			pass
+		Hit(self.source, 1).trigger(self.player)  # 
 		pass
 class SCH_259_Action(TargetedAction):
 	ACTION = ActionArg()
