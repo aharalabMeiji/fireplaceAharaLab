@@ -76,8 +76,8 @@ class SW_028t:# <10>[1578]
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
 	events = Play(CONTROLLER, FRIENDLY_HAND + PIRATE).on(
 		SidequestCounter(SELF,  2, [
-			Hit(RANDOM(ENEMYENEMY_CHARACTERS), 2),
-			Hit(RANDOM(ENEMYENEMY_CHARACTERS), 2),
+			Hit(RANDOM(ENEMY_CHARACTERS), 2),
+			Hit(RANDOM(ENEMY_CHARACTERS), 2),
 			Summon(CONTROLLER, 'SW_028t2'),
 			Destroy(SELF)
 			])
@@ -121,7 +121,7 @@ class SW_029:# <10>[1578]
 class SW_030:# <10>[1578]
 	""" Cargo Guard
 	At the end of your turn, gain 3 Armor. """
-	events = OWN_TURN_WND.on(
+	events = OWN_TURN_END.on(
 		GainArmor(FRIENDLY_HERO, 3)
 		)
 	pass
