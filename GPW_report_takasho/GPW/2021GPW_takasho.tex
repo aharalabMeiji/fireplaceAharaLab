@@ -9,33 +9,41 @@
 \date{}
 \twocolumn[
 \maketitle
-\small{
-\abstractname{:トレーディングカードゲーム(TCG)には，手札枚数や個々のカードの攻撃力など，様々
-なパラメータが存在する．これらの値は一般に勝敗に大きく関わるとされているが，科学的実
-証は報告されていない．そこで本研究では，パラメータ変更による勝率の変化について調査す
-る手法の提案を行う．本論文では特に，初期手札の枚数差を意図的に生じさせ，どのように勝
-率が変化するかを調査した．その結果，初期手札枚数が多いプレイヤーは有意に勝率が高いこ
-とが明らかになった．}
+\small{\textbf{概要:}トレーディングカードゲーム(TCG)には，手札枚数や個々のカードの攻撃力など，様々
+  なパラメータが存在する．これらの値は一般に勝敗に大きく関わるとされているが，科学的実
+  証は報告されていない．そこで本研究では，パラメータ変更による勝率の変化について調査す
+  る手法の提案を行う．本論文では特に，初期手札の枚数差を意図的に生じさせ，どのように勝
+  率が変化するかを調査した．その結果，初期手札枚数が多いプレイヤーは有意に勝率が高いこ
+  とが明らかになった．
+  \\\vspace{0.1cm}
+  \noindent
+  \textbf{キーワード：}不完全情報ゲーム，トレーディングカードゲーム(TCG), ゲーム人工知能
 }
 \begin{center}
   \vspace{0.3cm}
-{\large \bf{A Study on the Effect of the Number of Cards in the Starting Hand
+\large \textbf{A Study on the Effect of the Number of Cards in the Starting Hand
   \\on the Winning Percentage in Trading Card Games
   }
+\author{\textrm{
+  \vspace{0.1cm}\\Shota Takahashi\footnotemark[1]  Kazushi Ahara\footnotemark[1]}
+  \vspace{0.2cm}
 }
-\author{\vspace{0.1cm}\\Shota Takahashi\footnotemark[1]  Kazushi Ahara\footnotemark[1]}
-\\\abstractname{：In trading card games (TCG), there are various parameters, such as the number of cards
+\end{center}
+\small{\\\textbf{Abstract:}In trading card games (TCG), there are various parameters, such as the number of cards
 in players' hands and the attack power of each card. Although we generally consider these values to
 play essential roles in winning or losing, little quantitative evidence has been researched. In this
 study, we propose a method to investigate the change of winning rate by changing parameters. This
 paper examines how the winning rate changes by intentionally changing the number of starting cards
 in their hands. As a result, we find that the player with more starting cards has significantly higher
-winning percentages.}
+winning percentages.
 \\
-\end{center}
+\noindent
+\textbf{Keywords:}:Imperfect Information Game, Trading Card Game(TCG)，Game Artificial Intelligence
+\vspace{0.2cm}
+}
 ]
 
-\vspace{0.9cm}
+
 \section{はじめに}
 \small{
   トレーディングカードゲーム(以下，TCG)とは
@@ -46,9 +54,9 @@ winning percentages.}
 ン制で進むが，使用するカードを各プレイヤーが選
 べ(使用するカードの束をデッキと呼ぶ)，デッキから
 ランダムに引くカードの種類，いわゆる「引き」によ
-って，戦局や戦略が左右されるという点が TCG の大
+り戦局や戦略が左右されるという点が TCG の大
 きな特徴である．
-TCG には様々なパラメータが存在する．手札の枚
+\\ TCG には様々なパラメータが存在する．手札の枚
 数やターン数，出したカードの攻撃力値やプレイヤ
 ーの体力，デッキの枚数などがそれにあたる．これら
 のパラメータの値は対戦結果に大きな影響を及ぼす
@@ -66,7 +74,7 @@ TCG には様々なパラメータが存在する．手札の枚
 わかっている．一方これらの事象(調整ルールやナー
 フ)は経験から来る考えであり，定量的な検証は公開
 されていない．
-そこで本研究では，パラメータの変更による勝率
+\\ そこで本研究では，パラメータの変更による勝率
 変化を実験により測定し，実際にどれくらいハンデ
 ィキャップが生じるかを統計的に調査する．この手
 法を用いることにより，カード能力調整をはじめと
@@ -74,10 +82,19 @@ TCG には様々なパラメータが存在する．手札の枚
 た良質なハンデ調整ができるようになると筆者は考
 える．本論文では，種種のパラメータの中から特に初
 期手札の枚数差による勝率変化について詳細に記す．
-
 }
 
-
+\section{関連研究}
+\small{
+  [1]では，カード間の相性測定の提案並びにその有効
+性について実験を行った．相性の数値化による比較
+は，パラメータの比較と関連があり，今後の実験にお
+いて検証する要因になりうる．[2]では Magic: The Gathering において，お互いにデ
+ッキの構成がわかっている場合，モンテカルロ木探
+索(MCTS)と Determinization を用いることが有効な
+手法であることを明らかにした．本実験でも，この手
+法を参考にプレイヤーエージェントの作成を行った．
+}
 
 \footnotetext[1]{総合数理学部先端メディアサイエンス学科}
 \end{document}
