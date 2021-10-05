@@ -33,7 +33,7 @@ class SW_036:#OK
 reduce the Cost of a card
 in your hand by (1). <i>(50%
 chance to increase.)</i> """
-	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_HAND),random.choice(['SW_036e','SW_036e2'])))
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_HAND),random.choice(['SW_036e','SW_036e2'])))##
 	pass
 
 SW_036e=buff(cost=-1)

@@ -32,10 +32,10 @@ minions until it dies."""
 		game = self.game
 		for repeat in range(1000):
 			field = game.board
-			if len(field)==1:
+			if len(field)<=1:
 				return
 			target = self.target
-			defender = random.choice(field)
+			defender = random.choice(field)##
 			if defender != target:
 				Hit(defender, target.atk).trigger(self.controller)
 				Hit(target, defender.atk).trigger(self.controller)
@@ -66,13 +66,13 @@ class YOP_009:#OK
 			elif card.cost==3:
 				cost3.append(card)
 		if cost1 != []:
-			card = random.choice(cost1)
+			card = random.choice(cost1)##
 			yield Summon(CONTROLLER,card.id)
 		if cost2 != []:
-			card = random.choice(cost2)
+			card = random.choice(cost2)##
 			yield Summon(CONTROLLER,card.id)
 		if cost3 != []:
-			card = random.choice(cost3)
+			card = random.choice(cost3)##
 			yield Summon(CONTROLLER,card.id)
 	pass
 
@@ -169,7 +169,7 @@ class ShuffleLowestCostCard(TargetedAction):###OK
 			elif _lowestCostCards[0].cost == _card.cost:
 				_lowestCostCards.append(_card)
 		if len(_lowestCostCards)>0:
-			_card = random.choice(_lowestCostCards)
+			_card = random.choice(_lowestCostCards)##
 			_cost = _card.cost
 			log.info("Lowest cost card is %r (cost %d)"%(_card, _cost))
 			Shuffle(target,_card).trigger(source)
@@ -491,7 +491,7 @@ class DMF_002:###OK
 				if card.race == myRace or card.race == Race.ALL:
 					choice.append(card)
 		if len(choice)>0:
-			card = random.choice(choice)
+			card = random.choice(choice)##
 			Summon(self.controller, card.id).trigger(self.controller)
 			exclude.append(card)
 
@@ -599,7 +599,7 @@ class Find10SpellsAndSpin(TargetedAction):
 			if card.type==CardType.SPELL:
 				count += 1
 		if count >= 10:
-			Give(controller,random.choice(['DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6'])).trigger(controller)
+			Give(controller,random.choice(['DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6'])).trigger(controller)##
 		pass
 class CountSpells(TargetedAction):
 	CONTROLLER = ActionArg()
@@ -634,7 +634,7 @@ class CastRandomSpell(TargetedAction):
 			spell.zone = Zone.HAND
 			spell.cost = 0
 			if spell.requires_target():
-				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])
+				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])##
 				spell.play(target=target)
 			else:
 				spell.play()
@@ -713,7 +713,7 @@ class RandomPyroblast(TargetedAction):
 	CONTROLLER = ActionArg()
 	def do(self, source, controller):
 		while True:
-			x = random.choice([controller.hero,controller.opponent.hero])
+			x = random.choice([controller.hero,controller.opponent.hero])##
 			if x.health<10:
 				Hit(x,10).trigger(source)
 				# do something here?

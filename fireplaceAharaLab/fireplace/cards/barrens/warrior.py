@@ -43,7 +43,7 @@ class BAR_841:##OK <10>[1525]
 			if hasattr(card,'taunt') and card.taunt:
 				tauntList.append(card)
 		if len(tauntList)>0:
-			card = random.choice(tauntList)
+			card = random.choice(tauntList)##
 			Buff(card,'BAR_841e').trigger(controller)
 			new_card = Give(controller, card.id).trigger(controller)
 			if new_card[0] != []:

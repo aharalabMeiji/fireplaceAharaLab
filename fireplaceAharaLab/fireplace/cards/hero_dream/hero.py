@@ -25,7 +25,8 @@ class HERO_02bp:
 	entourage = ["CS2_050", "CS2_051", "CS2_052", "NEW1_009"]
 	def activate(self):
 		totems = [t for t in self.entourage if not self.controller.field.contains(t)]
-		yield Summon(CONTROLLER, random.choice(totems))
+		if len(totems)>0:
+			yield Summon(CONTROLLER, random.choice(totems))##
 	pass
 class CS2_050: 
 	""" Searing Totem

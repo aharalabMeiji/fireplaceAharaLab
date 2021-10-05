@@ -481,7 +481,7 @@ class GiveHighestCostMinion(TargetedAction):
 				elif _highestCostCards[0].cost == _card.cost:
 					_highestCostCards.append(_card)
 		if len(_highestCostCards)>0:
-			_card = random.choice(_highestCostCards)
+			_card = random.choice(_highestCostCards)##
 			_cost = _card.cost
 			log.info("Highest cost minion is %r (cost %d)"%(_card, _cost))
 			Give(target,_card).trigger(source)

@@ -110,7 +110,7 @@ class DMF_123_Action(TargetedAction):
 class DMF_123:#OK
 	""" Open the Cages
 	[Secret:] When your turn starts, if you control two minions, summon an Animal Companion. """
-	secret = EndTurn(OPPONENT).on(DMF_123_Action(CONTROLLER,[Reveal(SELF), Summon(CONTROLLER,random.choice(['NEW1_032','NEW1_033','NEW1_034']))]))
+	secret = EndTurn(OPPONENT).on(DMF_123_Action(CONTROLLER,[Reveal(SELF), Summon(CONTROLLER,random.choice(['NEW1_032','NEW1_033','NEW1_034']))]))##
 	pass
 
 #class DMF_734e:# -> darkmoon-druid

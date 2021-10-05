@@ -49,7 +49,7 @@ class PlayHighestCostSpell(TargetedAction):
 				elif card.cost==maxCost:
 					maxCostSpells.append(card)
 		if len(maxCostSpells)>0:
-			Summon(target,random.choice(maxCostSpells)).trigger(source)#Summonすることにより、マナを消費しない。
+			Summon(target,random.choice(maxCostSpells)).trigger(source)#Summonすることにより、マナを消費しない。##
 
 class SW_109:#<4>[1578]##OK
 	""" Clumsy Courier

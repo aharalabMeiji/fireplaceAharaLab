@@ -276,7 +276,7 @@ class SCH_530:#done
 			if card.type==CardType.MINION and card.spellpower>0:
 				find.append(card)
 		if len(find)>0:
-			yield Summon(CONTROLLER, random.choice(find).id)
+			yield Summon(CONTROLLER, random.choice(find).id)##
 	pass
 
 class SCH_605:#OK

@@ -40,7 +40,7 @@ class GiveAdventurerWithBonus(TargetedAction):
 	""" Meeting Stone """
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
-		new_minion = random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t8',])
+		new_minion = random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t8',])##
 		new_minion =  Give(target, new_minion).trigger(source)
 		if new_minion[0] != []:# the hand may be full
 			new_minion = new_minion[0][0]
@@ -143,7 +143,7 @@ class WC_035_Archdruid_Naralex(TargetedAction):
 	TARGET = ActionArg()#self
 	def do(self, source, target):
 		dreams=["DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"]
-		newCard = random.choice(dreams)
+		newCard = random.choice(dreams)##
 		Give(target,newCard).trigger(source)
 		pass
 
@@ -849,7 +849,7 @@ class BAR_042_Action(TargetedAction):
 				elif _highestCostCards[0].cost == _card.cost:
 					_highestCostCards.append(_card)
 		if len(_highestCostCards)>0:
-			_card = random.choice(_highestCostCards)
+			_card = random.choice(_highestCostCards)##
 			_cost = _card.cost
 			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
 			log.info("Summon a minion of cost %d"%( _cost))
@@ -859,7 +859,7 @@ class BAR_042_Action(TargetedAction):
 				if _card2.type==CardType.MINION and _card2.cost == _cost:
 					_highestMinions.append(_card2)
 			if(len(_highestMinions)>0):
-				_card2 = random.choice(_highestMinions)
+				_card2 = random.choice(_highestMinions)##
 				Summon(target,_card2).trigger(source)
 			else:
 				log.info("no minion of cost %d"%( _cost))
