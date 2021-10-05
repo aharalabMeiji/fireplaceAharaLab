@@ -141,7 +141,8 @@ class CORE_EX1_014:# <12> 1637 #OK
 	play = Give(OPPONENT, "EX1_014t") * 2
 	pass
 class EX1_014t:# <12> 3 #OK
-	"""Bananas"""
+	"""Bananas
+	Give a minion +1/+1. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "EX1_014te")
 EX1_014te = buff(+1, +1)# <12> 3

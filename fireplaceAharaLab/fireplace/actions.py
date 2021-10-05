@@ -1265,17 +1265,18 @@ class Morph(TargetedAction):
 		return [card]
 
 	def do(self, source, target, card):
-		log.info("Morphing %r into %r", target, card)
-		target_zone = target.zone
-		if card.zone != target_zone:
-			# Transfer the zone position
-			card._summon_index = target.zone_position
-			# In-place morph is OK, eg. in the case of Lord Jaraxxus
-			card.zone = target_zone
-		target.clear_buffs()
-		target.zone = Zone.SETASIDE
-		target.morphed = card
-		return card
+		if target.type == CardType.MINION:
+			log.info("Morphing %r into %r", target, card)
+			target_zone = target.zone
+			if card.zone != target_zone:
+				# Transfer the zone position
+				card._summon_index = target.zone_position
+				# In-place morph is OK, eg. in the case of Lord Jaraxxus
+				card.zone = target_zone
+			target.clear_buffs()
+			target.zone = Zone.SETASIDE
+			target.morphed = card
+			return card
 
 class SW_078_Morph(TargetedAction):
 	"""
@@ -1292,22 +1293,23 @@ class SW_078_Morph(TargetedAction):
 		return [card]
 
 	def do(self, source, target, card):
-		log.info("Morphing %r into %r", target, card)
-		target_zone = target.zone
-		if card.zone != target_zone:
-			# Transfer the zone position
-			card._summon_index = target.zone_position
-			# In-place morph is OK, eg. in the case of Lord Jaraxxus
-			card.zone = target_zone
-		target.clear_buffs()
-		target.zone = Zone.SETASIDE
-		card.cost = target.cost
-		if hasattr(target, 'atk'):
-			card.atk = target.atk
-		if hasattr(target, 'max_health'):
-			card.max_health = target.max_health
-		target.morphed = card
-		return card
+		if target.type == CardType.MINION:
+			log.info("Morphing %r into %r", target, card)
+			target_zone = target.zone
+			if card.zone != target_zone:
+				# Transfer the zone position
+				card._summon_index = target.zone_position
+				# In-place morph is OK, eg. in the case of Lord Jaraxxus
+				card.zone = target_zone
+			target.clear_buffs()
+			target.zone = Zone.SETASIDE
+			card.cost = target.cost
+			if hasattr(target, 'atk'):
+				card.atk = target.atk
+			if hasattr(target, 'max_health'):
+				card.max_health = target.max_health
+			target.morphed = card
+			return card
 
 class DMF_108_Morph(TargetedAction):
 	"""
@@ -1324,18 +1326,19 @@ class DMF_108_Morph(TargetedAction):
 		return [card]
 
 	def do(self, source, target, card):
-		log.info("Morphing %r into %r", target, card)
-		target_zone = target.zone
-		if card.zone != target_zone:
-			# Transfer the zone position
-			card._summon_index = target.zone_position
-			# In-place morph is OK, eg. in the case of Lord Jaraxxus
-			card.zone = target_zone
-		target.clear_buffs()
-		target.zone = Zone.SETASIDE
-		card.cost = target.cost
-		target.morphed = card
-		return card
+		if target.type == CardType.MINION:
+			log.info("Morphing %r into %r", target, card)
+			target_zone = target.zone
+			if card.zone != target_zone:
+				# Transfer the zone position
+				card._summon_index = target.zone_position
+				# In-place morph is OK, eg. in the case of Lord Jaraxxus
+				card.zone = target_zone
+			target.clear_buffs()
+			target.zone = Zone.SETASIDE
+			card.cost = target.cost
+			target.morphed = card
+			return card
 
 
 class FillMana(TargetedAction):

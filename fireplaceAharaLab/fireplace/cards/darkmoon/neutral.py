@@ -246,6 +246,10 @@ class DMF_065:###OK
 	pass
 DMF_065e=buff(1,1)#no use
 class DMF_065t:
+	""" Banana
+	Give a minion +1/+1. """
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "DMF_065e")
 	pass
 
 class DMF_073:###OK
