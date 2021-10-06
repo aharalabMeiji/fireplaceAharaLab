@@ -43,19 +43,46 @@ class SCH_160:#done
 	play = Give(CONTROLLER, RandomSpell(cost=1, card_class=FRIENDLY_CLASS))
 	pass
 
-class SCH_162:#exclude
+class SCH_162:##OK
 	""" Vectus"""
 	#Battlecry: Summon two 1/1 Whelps. Each gains a Deathrattle from your minions that died this game.
-	#雄叫び:1/1のチビドラゴンを2体召喚する。それらはこの対戦で死亡した味方のミニオンの断末魔を1つずつ獲得する。
-	play = Summon(CONTROLLER, "SCH_162t").then( -Find(FRIENDLY + KILLED + DEATHRATTLE) |
-		Buff(Summon.CARD, "SCH_162e").then( 
-			CopyDeathrattles(Buff.BUFF, RANDOM(FRIENDLY + KILLED + DEATHRATTLE))
-		)
-	) *2
+	#雄叫び:1/1のチビドラゴンを2体召喚する。
+	#それらはこの対戦で死亡した味方のミニオンの断末魔を1つずつ獲得する。
+	def play(self):
+		controller = self.controller
+		death_log = controller.death_log
+		deathrattle_log=[]
+		for card in death_log:
+			if len(card.deathrattles)>0:
+				deathrattle_log.append(card)
+		if len(deathrattle_log)==0:
+			return 
+		minion1 = Summon(controller, "SCH_162t").trigger(controller)
+		if minion1[0] != []:
+			minion1 = minion1[0][0]
+			Buff(minion1, 'SCH_162e').trigger(controller)
+			buff1 = minion1.buffs[0]
+			death = random.choice(deathrattle_log)
+			buff1.additional_deathrattles.append(death.deathrattles[0])
+			log.info ('%s gains deathrattle (%s)'%(minion1, minion1.deathrattles[0]))
+			if len(deathrattle_log)>=2:
+				deathrattle_log.remove(death)
+			pass
+		minion2 = Summon(controller, "SCH_162t").trigger(controller)
+		if minion2[0] != []:
+			minion2 = minion2[0][0]
+			Buff(minion2, 'SCH_162e').trigger(controller)
+			buff2 = minion2.buffs[0]
+			death = random.choice(deathrattle_log)
+			buff2.additional_deathrattles.append(death.deathrattles[0])
+			log.info ('%s gains deathrattle (%s)'%(minion2, minion2.deathrattles[0]))
+			pass
 	pass
-SCH_162e = buff(deathrattle=True)
+class SCH_162e:
 	# Experimental Plague
 	# Copied Deathrattle from {0}
+	tags = {GameTag.DEATHRATTLE : True} 
+	#deathrattle = 
 class SCH_162t:
 	# Plagued Hatchling
 	# Vanilla
