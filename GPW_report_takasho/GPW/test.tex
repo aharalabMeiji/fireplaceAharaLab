@@ -1,0 +1,39 @@
+\documentclass[submit]{ipsj}
+% [submit] をつけないとフォントの問題が起きる可能性がある
+% ipsj.cls の文字コードに合わせて、
+% ファイルの文字コードは euc-jp で作成すると良いと思われます
+% コンパイル時には platex --kanji=euc paper.tex のようなオプションを
+% 受付日などを消す
+\makeatletter
+\def\@uketsuke{}
+\def\@euketsuke{}
+\def\SHUBETUname{}
+\makeatother
+% ページ番号を消す
+\pagestyle{empty}
+%\usepackage[dvips]{graphicx} % 利用される方をコメントアウト
+\usepackage[dvipdfmx]{graphicx} % 利用される方をコメントアウト
+%\usepackage{times,mathptmx} % お好みで
+\title{タイトル}
+\etitle{English Title}
+\affiliate{IPSJ}{情報処理学会\\
+IPSJ, Chiyoda, Tokyo 101--0062, Japan}
+\affiliate{univ1}{ゲーム情報大学大学院ゲーム情報研究科
+\\Graduate School of Game Informatics, The University of Game Informatics
+\\住所 (掲載したい場合)
+}
+\author{日本語著者名}{英文著者名}{univ1}[your@mail.address.example.com]
+\begin{document}
+\begin{abstract} 日本語アブストラクト
+\end{abstract}
+\begin{eabstract} English abstract
+\end{eabstract}
+\maketitle
+% ページ番号を消す
+\thispagestyle{empty}
+\section{はじめに}
+引用の例~\cite{ronbun}.
+\begin{thebibliography}{10}
+\bibitem{ronbun} 引用されるべき論文, 著者名, 年.
+\end{thebibliography}
+\end{document}

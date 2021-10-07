@@ -1,8 +1,6 @@
 \documentclass[twocolumn]{ltjsarticle}
 \usepackage{dcolumn}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[dvipdfmx]{color}
-
+\usepackage{pdfpages}
 \begin{document}
 \title{\bf\vspace{-3cm}
 {トレーディングカードゲームにおける
@@ -148,11 +146,7 @@ TCG 初心者へ向けた良質なハンデ調整などに応用できるよう�
   \end{tabular}
 \end{table}
 %図を入れます
-
-\begin{figure}[h]
-  \includegraphics[width=30mm]{graph1.png}
-  \caption{AとBの手札枚数差とBの平均勝利数}
-  \end{figure}
+\includepdf[scale = 0.5]{graph1.pdf}
 \small{\leavevmode\\
 表1は，αの値による平均勝率と分散をまとめたものである．
 αが大きくなるにつれて分散が小さくなり，高い勝率を維持できることが分かった．
@@ -198,8 +192,7 @@ TCG 初心者へ向けた良質なハンデ調整などに応用できるよう�
   参考文献
 }
 \small{
-  \verb#[1]#山田豊大，阿原一志(2020)”トレーディングカー
-  ドゲームにおけるバニラカードを用いたカード間の相性計測”，ゲームプログラミングワークショップ2020論文集
+  \verb#[1]#山田豊大，阿原一志(2020)”トレーディングカードゲームにおけるバニラカードを用いたカード間の相性計測”，ゲームプログラミングワークショップ2020論文集
   \\
   \verb#[2]#Peter I. Cowling [ほか].(2012).“Ensemble
   Determinization in Monte Carlo Tree Search for the
