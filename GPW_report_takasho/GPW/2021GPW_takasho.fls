@@ -257,6 +257,4 @@ INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmsy5.tfm
 INPUT ./graph1.png
 INPUT ./graph1.png
 INPUT ./graph1.png
-INPUT C:/texlive/2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman6-regular.luc
-INPUT C:/Users/User/.texlive2021/texmf-var/luatexja/extra_lmroman6-regular.luc
 INPUT ./2021GPW_takasho.aux
