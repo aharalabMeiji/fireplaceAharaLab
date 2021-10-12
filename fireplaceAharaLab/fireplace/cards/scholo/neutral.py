@@ -1,5 +1,9 @@
 from ..utils import *
 
+# 未実装
+#'SCH_158e2','SCH_301e','SCH_305d',
+#'SCH_519e','SCH_539e','SCH_622e',
+
 class SCH_142:#done
 	""" Voracious Reader (rare) """
 	#At the end of your turn, draw until you have 3 cards.
@@ -39,19 +43,46 @@ class SCH_160:#done
 	play = Give(CONTROLLER, RandomSpell(cost=1, card_class=FRIENDLY_CLASS))
 	pass
 
-class SCH_162:#exclude
+class SCH_162:##OK
 	""" Vectus"""
 	#Battlecry: Summon two 1/1 Whelps. Each gains a Deathrattle from your minions that died this game.
-	#雄叫び:1/1のチビドラゴンを2体召喚する。それらはこの対戦で死亡した味方のミニオンの断末魔を1つずつ獲得する。
-	play = Summon(CONTROLLER, "SCH_162t").then( -Find(FRIENDLY + KILLED + DEATHRATTLE) |
-		Buff(Summon.CARD, "SCH_162e").then( 
-			CopyDeathrattles(Buff.BUFF, RANDOM(FRIENDLY + KILLED + DEATHRATTLE))
-		)
-	) *2
+	#雄叫び:1/1のチビドラゴンを2体召喚する。
+	#それらはこの対戦で死亡した味方のミニオンの断末魔を1つずつ獲得する。
+	def play(self):
+		controller = self.controller
+		death_log = controller.death_log
+		deathrattle_log=[]
+		for card in death_log:
+			if len(card.deathrattles)>0:
+				deathrattle_log.append(card)
+		if len(deathrattle_log)==0:
+			return 
+		minion1 = Summon(controller, "SCH_162t").trigger(controller)
+		if minion1[0] != []:
+			minion1 = minion1[0][0]
+			Buff(minion1, 'SCH_162e').trigger(controller)
+			buff1 = minion1.buffs[0]
+			death = random.choice(deathrattle_log)
+			buff1.additional_deathrattles.append(death.deathrattles[0])
+			log.info ('%s gains deathrattle (%s)'%(minion1, minion1.deathrattles[0]))
+			if len(deathrattle_log)>=2:
+				deathrattle_log.remove(death)
+			pass
+		minion2 = Summon(controller, "SCH_162t").trigger(controller)
+		if minion2[0] != []:
+			minion2 = minion2[0][0]
+			Buff(minion2, 'SCH_162e').trigger(controller)
+			buff2 = minion2.buffs[0]
+			death = random.choice(deathrattle_log)
+			buff2.additional_deathrattles.append(death.deathrattles[0])
+			log.info ('%s gains deathrattle (%s)'%(minion2, minion2.deathrattles[0]))
+			pass
 	pass
-SCH_162e = buff(deathrattle=True)
+class SCH_162e:
 	# Experimental Plague
 	# Copied Deathrattle from {0}
+	tags = {GameTag.DEATHRATTLE : True} 
+	#deathrattle = 
 class SCH_162t:
 	# Plagued Hatchling
 	# Vanilla
@@ -191,8 +222,9 @@ class SCH_259_Choice(Choice):
 		log.info("%s chooses %r"%(card.controller.name, card))
 		cardID = card.id
 		if cardID == 'SCH_259t':
-			new_card = self.source.controller.hand[-1]#すでに配られてしまっている
-			new_card.zone = Zone.DECK#デッキに戻す。
+			if len(self.source.controller.hand)>0:
+				new_card = self.source.controller.hand[-1]#すでに配られてしまっている
+				new_card.zone = Zone.DECK#デッキに戻す。
 			controller = self.source.controller
 			controller.deck.insert(0,new_card)
 			del controller.deck[-1]
@@ -200,6 +232,7 @@ class SCH_259_Choice(Choice):
 			pass
 		else:
 			pass
+		Hit(self.source, 1).trigger(self.player)  # 
 		pass
 class SCH_259_Action(TargetedAction):
 	ACTION = ActionArg()
@@ -270,13 +303,13 @@ class SCH_530:#done
 			if card.type==CardType.MINION and card.spellpower>0:
 				find.append(card)
 		if len(find)>0:
-			yield Summon(CONTROLLER, random.choice(find).id)
+			yield Summon(CONTROLLER, random.choice(find).id)##
 	pass
 
 class SCH_605:#OK
 	""" Lake Thresher"""
 	#Also damages the minions next to whomever this attacks.
-	events = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(Attack.DEFENDER), ATK(SELF)))
+	events = Attack(SELF, ENEMY_MINIONS).on(Hit(ADJACENT(ENEMY_MINIONS+Attack.DEFENDER), ATK(SELF)))
 	pass
 
 class SCH_707:#done
@@ -356,4 +389,86 @@ class SCH_717:##complete
 	)
 	pass
 
+#class SCH_235: ## mage
+#class SCH_270:#,'SCH_270e','SCH_270e2',# mage
+#class SCH_273:##mage
+#class SCH_350:##mage
+#class SCH_300e, SCH_300e2 ## hunter
+#class SCH_351:##'SCH_351a','SCH_351b','SCH_351e','SCH_351e2' ##mage
+#class SCH_352:# SCH_352e ## mage
+#class SCH_509: ## mage
+#class SCH_537:##mage
+
+class SCH_182_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		source.atk += target.cost
+		source.max_health += target.cost
+		pass
+
+class SCH_182:###OK
+	""" Speaker Gidra
+	[x]&lt;b&gt;&lt;b&gt;Rush&lt;/b&gt;, Windfury&lt;/b&gt;
+&lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt; Gain Attack
+and Health equal to
+the spell's Cost.""" 
+	play = OWN_SPELL_PLAY.on(SCH_182_Action(Play.CARD))
+	pass
+class SCH_182e:
+	pass
+
+class SCH_425:###OK
+	""" Doctor Krastinov
+	&lt;b&gt;Rush&lt;/b&gt;
+	Whenever this attacks, give your weapon +1/+1. """ 
+	events = Attack(SELF).on(Buff(FRIENDLY_WEAPON,'SCH_425e'))
+	pass
+SCH_425e = buff(1,1)##<10>[1443]
+
+class SCH_521:###OK
+	""" Coerce
+	Destroy a damaged minion. &lt;b&gt;Combo:&lt;/b&gt; Destroy any minion. """ 
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	def play(self):
+		if self.target.damage>0:
+			yield Destroy(TARGET)
+		pass
+	combo = Destroy(TARGET)
+	pass
+
+class SCH_522:###OK
+	"""  Steeldancer
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a random
+minion with Cost equal to
+your weapon's Attack. """ 
+	def play(self):
+		if self.controller.weapon:
+			cost = self.controller.weapon.atk
+			picker = RandomMinion(cost = cost)
+			yield Summon(CONTROLLER, picker)
+		pass
+	pass
+
+
+class SCH_623:###OK
+	""" Cutting Class
+	[x]Draw 2 cards.
+Costs (1) less per Attack
+of your weapon. """ 
+	def play(self):
+		controller = self.controller
+		if controller.weapon:
+			cost = controller.weapon.atk
+		else:
+			cost = 0
+		card1 = Draw(controller).trigger(controller)
+		if card1[0] != []:
+			card1 = card1[0][0]
+			card1.cost -= cost
+		card2 = Draw(controller).trigger(controller)
+		if card2[0] != []:
+			card2 = card2[0][0]
+			card2.cost -= cost
+		pass
+	pass
 

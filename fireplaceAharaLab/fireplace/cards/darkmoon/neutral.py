@@ -2,6 +2,156 @@
 # by Miyaryo, Sep. 2021
 from ..utils import *
 
+# 未実装
+#DMF_053e,DMF_054e,DMF_055e,DMF_056e
+#DMF_071e,DMF_079,DMF_113e,DMF_116e,DMF_120e2,DMF_187e
+#DMF_224e,DMF_229e,DMF_229e2,DMF_230e,DMF_240e,
+#DMF_247e,DMF_249e,DMF_534e,DMF_534e2,
+#YOP_007e, 
+
+
+class YOP_003:##OK
+	""" Luckysoul Hoarder
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul
+Fragments into your deck.
+&lt;b&gt;Corrupt:&lt;/b&gt; Draw a card."""
+	play = Shuffle(CONTROLLER,'SCH_307t') * 2
+	pass
+class YOP_003t:#OK
+	"""Luckysoul Hoarder
+	[x]&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Shuffle 2 Soul Fragments into your deck and draw a card."""
+	play = Shuffle(CONTROLLER,'SCH_307t') * 2, Draw(CONTROLLER)
+	pass
+class YOP_006:#OK
+	""" Hysteria
+	[x]Choose an enemy minion.
+It attacks random
+minions until it dies."""
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
+	def play(self):
+		game = self.game
+		for repeat in range(1000):
+			field = game.board
+			if len(field)<=1:
+				return
+			target = self.target
+			defender = random.choice(field)##
+			if defender != target:
+				Hit(defender, target.atk).trigger(self.controller)
+				Hit(target, defender.atk).trigger(self.controller)
+				if target.health<=0:
+					return
+	pass
+
+#YOP_007e=buff(cost=-2)
+#""" Dark Inquisition
+#"""
+
+class YOP_009:#OK
+	""" Rally!
+	Resurrect a friendly
+1-Cost, 2-Cost, and
+3-Cost minion. """
+	def play(self):
+		controller = self.controller
+		minionList = controller.death_log
+		cost1=[]
+		cost2=[]
+		cost3=[]
+		for card in minionList:
+			if card.cost==1:
+				cost1.append(card)
+			elif card.cost==2:
+				cost2.append(card)
+			elif card.cost==3:
+				cost3.append(card)
+		if cost1 != []:
+			card = random.choice(cost1)##
+			yield Summon(CONTROLLER,card.id)
+		if cost2 != []:
+			card = random.choice(cost2)##
+			yield Summon(CONTROLLER,card.id)
+		if cost3 != []:
+			card = random.choice(cost3)##
+			yield Summon(CONTROLLER,card.id)
+	pass
+
+
+
+class YOP_015:#OK
+	""" Nitroboost Poison
+	Give a minion +2 Attack. &lt;b&gt;Corrupt:&lt;/b&gt; And your weapon. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
+	play = Buff(TARGET, 'YOP_015e')
+	pass
+YOP_015e=buff(atk=2)
+
+class YOP_015t:#OK
+	"""
+	"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
+	play = Buff(TARGET, 'YOP_015e'), Buff(FRIENDLY_WEAPON, 'YOP_015e')
+	pass
+
+class YOP_018:################################
+	"""Keywarden Ivory
+	[x]&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; a
+Dual Class spell from
+any class. &lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt;
+Get another copy. """
+	play = Discover(CONTROLLER, RandomSpell())#multiple_classes=True
+	#.then(
+	#	OWN_SPELL_PLAY.on(Give(CONTROLLER, Copy(Discover.CARDS))
+	#	)
+	pass
+class YOP_018e:
+	"""
+	"""
+	pass
+class YOP_021:
+	"""Imprisoned Phoenix
+	&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. &lt;b&gt;Spell Damage +2&lt;/b&gt;"""
+	dormant = 2
+	pass
+class YOP_024:#OK
+	"""Guidance
+	Look at two spells. Add one to your hand or &lt;b&gt;Overload:&lt;/b&gt; (1) to get both."""
+	def play(self):
+		card1 = (RandomSpell().evaluate(self.controller))[0]
+		card2 = (RandomSpell().evaluate(self.controller))[0]
+		self.entourage = ['YOP_024t', card1.id, card2.id]
+		self.controller.carry_cards=[card1.id, card2.id]
+		Overload(self.controller, -1).trigger(self.controller)
+		yield Discover(CONTROLLER, RandomEntourage())
+		pass
+	pass
+class YOP_024t:
+	"""Spirit Path
+	Add both spells to your hand. &lt;b&gt;Overload&lt;/b&gt; (1)"""
+	#no use #tags = {GameTag.CASTSWHENDRAWN: True}
+	def play(self):## casts_when_chosen
+		cards = self.controller.carry_cards
+		for card in cards:
+			Give(self.controller, card).trigger(self.controller)
+		Overload(self.controller, 1).trigger(self.controller)
+	pass
+class YOP_029:#OK
+	"""Resizing Pouch
+	[x]&lt;b&gt;Discover&lt;/b&gt; a card with Cost equal to your remaining Mana Crystals."""
+	def play(self):
+		remain_mana = self.controller.mana 
+		yield Discover(CONTROLLER, RandomCollectible(cost=remain_mana))
+	pass
+class YOP_030:#OK
+	"""Felfire Deadeye
+	Your Hero Power costs (1) less."""
+	play = Buff(FRIENDLY_HERO_POWER, 'YOP_030e')
+	pass
+YOP_030e=buff(cost=-1)
+"""Deadeye
+Costs (1) less."""
+
+
 class YOP_032:###OK
 	"""Armor Vendor"""
 	## <b>Battlecry:</b> Give 4 Armor to_each hero.
@@ -19,7 +169,7 @@ class ShuffleLowestCostCard(TargetedAction):###OK
 			elif _lowestCostCards[0].cost == _card.cost:
 				_lowestCostCards.append(_card)
 		if len(_lowestCostCards)>0:
-			_card = random.choice(_lowestCostCards)
+			_card = random.choice(_lowestCostCards)##
 			_cost = _card.cost
 			log.info("Lowest cost card is %r (cost %d)"%(_card, _cost))
 			Shuffle(target,_card).trigger(source)
@@ -92,7 +242,14 @@ DMF_091e2 = buff(atk=1,health=1)
 class DMF_065:###OK
 	"""Banana Vendor"""
 	##&lt;b&gt;Battlecry:&lt;/b&gt; Add 2 Bananas to each player's hand.
-	play = Give(CONTROLLER, "EX1_014t") * 2, Give(OPPONENT, "EX1_014t") * 2
+	play = Give(CONTROLLER, "DMF_065t") * 2, Give(OPPONENT, "DMF_065t") * 2
+	pass
+DMF_065e=buff(1,1)#no use
+class DMF_065t:
+	""" Banana
+	Give a minion +1/+1. """
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "DMF_065e")
 	pass
 
 class DMF_073:###OK
@@ -309,7 +466,7 @@ class DMF_078:###OK
 	"""Strongman"""
 	##&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Corrupt:&lt;/b&gt; This costs (0).
 	pass
-
+DMF_078e=buff(cost=0)
 class DMF_078t:###OK
 	"""Strongman"""
 	##&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Taunt&lt;/b&gt;
@@ -338,7 +495,7 @@ class DMF_002:###OK
 				if card.race == myRace or card.race == Race.ALL:
 					choice.append(card)
 		if len(choice)>0:
-			card = random.choice(choice)
+			card = random.choice(choice)##
 			Summon(self.controller, card.id).trigger(self.controller)
 			exclude.append(card)
 
@@ -430,9 +587,13 @@ class DMF_188: #this turn only??# yes! ##OK
 						new_card = new_card[0][0]
 						Buff(new_card, "DMF_188e2").trigger(self)
 	pass
-class DMF_188e2:###  
+class DMF_188e:
+	pass
+class DMF_188e2:### ONE_TURN_EFFECT 
 	cost = SET(0)
 	events = EndTurn(CONTROLLER).on(Destroy(SELF))
+class DMF_188t:
+	pass
 
 class Find10SpellsAndSpin(TargetedAction):
 	CONTROLLER = ActionArg()
@@ -442,7 +603,7 @@ class Find10SpellsAndSpin(TargetedAction):
 			if card.type==CardType.SPELL:
 				count += 1
 		if count >= 10:
-			Give(controller,random.choice(['DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6'])).trigger(controller)
+			Give(controller,random.choice(['DMF_004t1','DMF_004t2','DMF_004t3','DMF_004t4','DMF_004t5','DMF_004t6'])).trigger(controller)##
 		pass
 class CountSpells(TargetedAction):
 	CONTROLLER = ActionArg()
@@ -477,7 +638,7 @@ class CastRandomSpell(TargetedAction):
 			spell.zone = Zone.HAND
 			spell.cost = 0
 			if spell.requires_target():
-				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])
+				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])##
 				spell.play(target=target)
 			else:
 				spell.play()
@@ -509,12 +670,13 @@ class DMF_004t3:###OK
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))))
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION))
+		 )
 	pass
 class DMF_004t4:###OK
 	"""Mindflayer Goggles
@@ -549,13 +711,13 @@ class DMF_004t5:###OK
 	Destroy all other minions. Gain their Attack and Health. """
 	play = DestroyAll_GainStats(CONTROLLER)
 	pass
-DMF_005t5e=buff(0,0)
+DMF_004t5e=buff(0,0)
 
 class RandomPyroblast(TargetedAction):
 	CONTROLLER = ActionArg()
 	def do(self, source, controller):
 		while True:
-			x = random.choice([controller.hero,controller.opponent.hero])
+			x = random.choice([controller.hero,controller.opponent.hero])##
 			if x.health<10:
 				Hit(x,10).trigger(source)
 				# do something here?

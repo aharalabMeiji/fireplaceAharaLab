@@ -9,7 +9,7 @@ class BT_020:
 	play = Buff(CONTROLLER, "BT_020e")
 
 
-class BT_020e:
+class BT_020e:##<12>[1414]
 	update = Refresh(FRIENDLY + LIBRAMS, {GameTag.COST: -1})
 
 
@@ -34,7 +34,7 @@ class BT_026:
 	play = Buff(CONTROLLER, "BT_026e")
 
 
-class BT_026e:
+class BT_026e:##<12>[1414]
 	update = Refresh(FRIENDLY + LIBRAMS, {GameTag.COST: -2})
 
 
@@ -80,7 +80,7 @@ class BT_011:
 	play = Summon(CONTROLLER, "BT_011t"), Buff(ENEMY_MINIONS, "BT_011e")
 
 
-class BT_011e:
+class BT_011e:##<12>[1414]
 	max_health = SET(1)
 
 

@@ -7,41 +7,62 @@ from fireplace import cards
 
 sys.path.append("..")
 
-#def printClasses():
-#	print('')
-#	print('from ..utils import *')
-#	print('')
-#	_cardList = []
-#	for _id in cards.db.keys():
-#		_card = cards.db[_id]
-#		if _card.card_set== CardSet.CORE:
-#			if _card.card_class == CardClass.DEMONHUNTER: 
-#				_cardList.append(_card.id)
-#				print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
-#				print('    """ %s'%(_card.name))
-#				print('    %s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-#				print('    #'%())
-#				print('    pass'%())
-#				print(''%())
+def printClasses():
+	from hearthstone import cardxml
+	print('')
+	print('from ..utils import *')
+	print('')
+	myCardSet=CardSet.SCHOLOMANCE
+	myCardClass=CardClass.DEMONHUNTER
+	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
+	db, xml = cardxml.load(locale='enUS')
+	for _id in db.keys():
+		_card = db[_id]
+		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print("'%s'"%(_card.id), end=",")
+		pass
+	pass
+	print(']')
+	for _id in db.keys():
+		_card = db[_id]
+		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
+			print('\t""" %s'%(_card.name))
+			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			print('\t#'%())
+			print('\tpass'%())
+			print(''%())
+		pass
+	pass
 
-#def printListOfCards():
-#	print('Stormwind_Mage=',end='[')#   Neutral   Hunter   Mage
-#	for _id in cards.db.keys():
-#		_card = cards.db[_id]
-#		if _card.card_set== CardSet.HERO_SKINS:
-#		#	if _card.card_class == CardClass.MAGE: 
-#				print("'%s'"%(_card.id), end=",")
-#	print(']')
+def printMissedCards():
+	#from hearthstone import cardxml
+	from importlib import import_module
+	from fireplace.cards.cardlist import All
+	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
+	for cardIDlist in All:
+		for id in cardIDlist:
+			#card = cardxml.CardXML(id)
+			ok=False
+			for cardset in CARD_SETS:
+				module = import_module("fireplace.cards.%s" % (cardset))
+				if hasattr(module, id):
+					ok=True
+					break
+			if not ok:
+				print("%s"%(id))
+		pass
+	pass
 
 #
 #		main()
 #
 def main():
-	cards.db.initialize()
+	#printMissedCards()
 	#printClasses()
-	#printListOfCards()
+	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
-	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
+	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.WARRIOR,
 		choiceStrategy=HumanAgent.HumanInputChoice)
 		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
@@ -51,11 +72,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 
 	# Maya : モンテカルロによる読み切り
@@ -87,9 +108,11 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	from utils import BigDeck#faceHunter,clownDruid,bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=15, debugLog=True)
-	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	from utils import BigDeck#BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], 
+		gameNumber=10, debugLog=True)
+	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],\
+	#   gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
 
 	#デッキを固定しての総当たり戦

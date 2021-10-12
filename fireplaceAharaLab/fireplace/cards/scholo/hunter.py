@@ -59,6 +59,7 @@ class SCH_538:
 	#Your other characters are <b>Immune</b> while attacking.
 	update = Refresh(FRIENDLY_MINIONS-SELF,{GameTag.IMMUNE: True})#OK
 	pass
+SCH_538e=buff(immune=True)# no use
 
 class SCH_539:#OK
 	##Professor Slate  SCH_539

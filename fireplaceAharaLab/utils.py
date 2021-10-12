@@ -362,7 +362,7 @@ class BigDeck:
 	#Available
 	faceHunter_old = ['SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
-		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
+		'CORE_EX1_611','ULD_152','CORE_EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
 	faceHunter = ['SCH_617','SCH_617','SCH_600','SCH_600','SCH_231','SCH_231',
 		'CORE_DS1_184','CORE_DS1_184','SCH_279','SCH_133','SCH_133','BAR_801',
@@ -453,7 +453,7 @@ def getTurnLog(gameLog, turnN):
 	return ret
 
 def ExchangeCard(cards,player):
-	Discard(player.hand[-1]).trigger(player)
+	Discard(player.hand[0]).trigger(player)
 	for _card in cards:
 		if _card=='arcane':
 			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
@@ -479,6 +479,8 @@ def ExchangeCard(cards,player):
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card='SCH_333'
+		if _card=='pirate':
+			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
 		if _card=='rush':
 			_card=random.choice(['YOP_031'])
 		if _card=='secret':
@@ -493,10 +495,10 @@ def ExchangeCard(cards,player):
 
 def PresetHands(player1, player2): 
 	## add a specific card into the deck
-	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
+	#PutOnTop(player1,'').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['SW_079'],player1)
+	#ExchangeCard([''],player1)
 	#ExchangeCard(['weapon'],player2)
 	pass
 

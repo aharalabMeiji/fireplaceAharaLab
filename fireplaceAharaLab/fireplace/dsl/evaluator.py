@@ -198,3 +198,17 @@ class Lethal(Evaluator):
 			if health > amount:
 				return False
 		return True
+
+class CostUp(Evaluator):
+	def __init__(self, selector, amount):
+		super().__init__()
+		self.selector = selector
+		self.amount = amount
+
+	def check(self, source, amount):
+		targets = self.selector.eval(source.game, source)
+		for target in targets:
+			if hasattr(target, 'cost'):
+				if target>self.amount:
+					return True
+		return False
