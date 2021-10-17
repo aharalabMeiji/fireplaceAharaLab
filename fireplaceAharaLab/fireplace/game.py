@@ -37,6 +37,12 @@ class BaseGame(Entity):
 		self.active_aura_buffs = CardList()
 		self.setaside = CardList()
 		self._action_stack = 0
+		self._myLog_=[]
+		self.event_args=None
+		self.zone=Zone.INVALID
+		#self._stage_choice_=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
+		#	'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
+		#	'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
 
 	def __repr__(self):
 		return "%s(players=%r)" % (self.__class__.__name__, self.players)
@@ -419,7 +425,14 @@ class BaseGame(Entity):
 		drawn_card = player.draw()
 
 		self.manager.step(self.next_step, Step.MAIN_END)
+	pass
 
+	def add_log(self, choice):
+		self._myLog_.append(choice)
+		pass
+
+	def get_log(self):
+		return self._myLog_
 
 class CoinRules:
 	"""

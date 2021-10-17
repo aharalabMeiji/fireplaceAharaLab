@@ -44,7 +44,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 	player1.choiceStrategy = P1.choiceStrategy
 	player2.choiceStrategy = P2.choiceStrategy
-	game = GameWithLog(players=(player1, player2))
+	game = Game(players=(player1, player2))
 	# Configurations
 	player1._start_hand_size=P1HAND## this line must be before 'start()'
 	player2._start_hand_size=P2HAND## 
@@ -78,6 +78,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	while True:	
 		#game main loop
 		player = game.current_player
+		from fireplace.deepcopy import deepcopy_game####
+		new_game = deepcopy_game(game, player, option=0)####
 		start_time = time.time()
 		if player.name==P1.name:
 			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
@@ -176,14 +178,6 @@ class GameWithLog(Game):
 	""" game with logs  """
 	def __init__(self, players):
 		super().__init__(players=players)
-		self.__myLog__=[]
-		self.__stage_choice__=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
-			'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
-			'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
-	def add_log(self, choice: Candidate):
-		self.__myLog__.append(choice)
-	def get_log(self):
-		return self.__myLog__
 #
 #  getCandidates
 #
