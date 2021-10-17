@@ -9,6 +9,19 @@ import copy
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
 	GAMEPLAY=1# stealth the enemy's data
+	pass
+
+def debug_card(oldCard, newCard):
+	print("--------debug--",newCard)
+	attrList = oldCard.__dict__.keys()
+	for attr in attrList:
+		if hasattr(newCard, attr):
+			if getattr(newCard, attr) != getattr(oldCard, attr):
+				print ("%s: %s != %s"%(attr,getattr(newCard, attr), getattr(oldCard, attr)))
+		else:
+			print ("no attribute : %s"%(attr))
+	print("--------debug--player1-----------")
+	pass
 
 def deepcopy_game(game, player, option):
 	oldGame = game
@@ -23,40 +36,14 @@ def deepcopy_game(game, player, option):
 	newPlayer2.opponent = newPlayer1
 	copy_playerattr(oldPlayer1, newPlayer1)
 	copy_playerattr(oldPlayer2, newPlayer2)
-	print("--------debug--player1-----------")
-	attrList = oldPlayer1.__dict__.keys()
-	for attr in attrList:
-		if hasattr(newPlayer1, attr):
-			if getattr(newPlayer1, attr) != getattr(oldPlayer1, attr):
-				print ("%s: %s != %s"%(attr,getattr(newPlayer1, attr), getattr(oldPlayer1, attr)))
-		else:
-			print ("no attribute : %s"%(attr))
-	print("--------debug--player1-----------")
-	print("--------debug--player2-----------")
-	attrList = oldPlayer2.__dict__.keys()
-	for attr in attrList:
-		if hasattr(newPlayer2, attr):
-			if getattr(newPlayer2, attr) != getattr(oldPlayer2, attr):
-				print ("%s: %s != %s"%(attr,getattr(newPlayer2, attr), getattr(oldPlayer2, attr)))
-		else:
-			print ("no attribute : %s"%(attr))
-	print("--------debug--player1-----------")
+	#debug_card(oldPlayer1, newPlayer1)
+	#debug_card(oldPlayer2, newPlayer2)
 	copy_gameattr(game, newGame)
-	#if player.name == newPlayer1.name:
-	#	newGame.current_player = newPlayer1
-	#	newGame.manager.turn(newPlayer1)
-	#else:
-	#	newGame.current_player = newPlayer2
-	#	newGame.manager.turn(newPlayer2)
-	print("--------debug--game-----------")
-	attrList = oldGame.__dict__.keys()
-	for attr in attrList:
-		if hasattr(newGame, attr):
-			if getattr(newGame, attr) != getattr(oldGame, attr):
-				print ("%s: %s != %s"%(attr,getattr(newGame, attr), getattr(oldGame, attr)))
-		else:
-			print ("no attribute : %s"%(attr))
-	print("--------debug--game-----------")
+	#debug_card(oldGame, newGame)
+	for i in range(len(newPlayer1.field)):
+		newCard = newPlayer1.field[i]
+		oldCard = oldPlayer1.field[i]
+		debug_card(oldCard, newCard)
 	pass
 
 def create_vacant_card(card):
@@ -76,6 +63,45 @@ def deep_copy_player(player, option):
 		new_starting_deck.append(cardID)
 	new_player = Player(player.name+'x', new_starting_deck, new_hero)
 	return new_player
+
+def copy_cardattr(oldCard, newCard):
+	cardAttrs=[
+		'cant_attack',
+		'creator',
+		#'entity_id',
+		'frenzyFlag',
+		'choiceText,',
+		'play_counter',
+		'sidequest_list0',
+		'turns_in_play'
+		'_Asphyxia_ ',
+		'_cant_be_targeted_by_abilities',
+		'_cant_be_targeted_by_hero_powers',
+		'_charge',
+		'_frenzy',
+		'_has_deathrattle',
+		'_has_inspire',
+		'_poisonous',
+		'_rush',
+		'_sidequest_counter',
+		'_sidequest_list1_',
+		'_sidequest_list2_',
+		'_sidequest_list3_',
+		'_stealthed',
+		'_taunt',
+		'_windfury',
+		]
+	for attr in cardAttrs:
+		if hasattr(oldCard,attr):
+			src = getattr(oldCard, attr)
+			if not isinstance(src,list):
+				setattr(newCard, attr, src)
+			else:
+				setattr(newCard, attr, copy.deepcopy(src))
+			pass
+		pass
+
+	pass
 
 def copy_playerattr(oldPlayer, newPlayer):
 	newPlayer.starting_hero.controller=newPlayer
@@ -118,31 +144,39 @@ def copy_playerattr(oldPlayer, newPlayer):
 				setattr(newPlayer, attr, copy.deepcopy(src))
 			pass
 		pass
-	for deckcard in oldPlayer.deck:
-		card = create_vacant_card(deckcard)
-		card.controller=newPlayer
-		card.zone = Zone.DECK
+	for card in oldPlayer.deck:
+		new_card = create_vacant_card(card)
+		new_card.controller=newPlayer
+		copy_cardattr(card,new_card)
+		new_card.zone = Zone.DECK
+		#manager関係の一文
 	for card in oldPlayer.hand:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
+		copy_cardattr(card,new_card)
 		for buff in card.buffs:
 			new_card.buffs.append(Enchantment(cards.db[buff.id]))
 		new_card.zone = Zone.HAND
+		#manager関係の一文
 	for card in oldPlayer.field:
 		new_char = Minion(cards.db[card.id])
 		new_char.controller = newPlayer
+		copy_cardattr(card,new_card)
 		for buff in card.buffs:
 			new_char.buffs.append(Enchantment(cards.db[buff.id]))
 		new_char.damage = card.damage	
 		new_char.zone = Zone.PLAY
+		#manager関係の一文
 	for card in oldPlayer.secrets:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		new_card.zone = Zone.SECRET
+		#manager関係の一文
 	for card in oldPlayer.graveyard:
 		new_card = create_vacant_card(card)
 		new_card.controller = newPlayer
 		new_card.zone=Zone.GRAVEYARD
+		#manager関係の一文
 	pass
 
 def copy_gameattr(oldGame,newGame):
