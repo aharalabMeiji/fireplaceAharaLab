@@ -19,8 +19,8 @@ def debug_card(oldCard, newCard):
 			if getattr(newCard, attr) != getattr(oldCard, attr):
 				print ("%s: %s != %s"%(attr,getattr(newCard, attr), getattr(oldCard, attr)))
 		else:
-			print ("no attribute : %s"%(attr))
-	print("--------debug--player1-----------")
+			print ("no attribute : %s = %s"%(attr, getattr(oldCard, attr)))
+	print("--------debug--%s-----------"%(oldCard.controller))
 	pass
 
 def deepcopy_game(game, player, option):
@@ -68,12 +68,12 @@ def copy_cardattr(oldCard, newCard):
 	cardAttrs=[
 		'cant_attack',
 		'creator',
-		#'entity_id',
+		'event_args',
 		'frenzyFlag',
 		'choiceText,',
 		'play_counter',
 		'sidequest_list0',
-		'turns_in_play'
+		'turns_in_play',
 		'_Asphyxia_ ',
 		'_cant_be_targeted_by_abilities',
 		'_cant_be_targeted_by_hero_powers',
@@ -149,7 +149,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card.controller=newPlayer
 		copy_cardattr(card,new_card)
 		new_card.zone = Zone.DECK
-		#manager関係の一文
+		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.hand:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
@@ -157,26 +157,26 @@ def copy_playerattr(oldPlayer, newPlayer):
 		for buff in card.buffs:
 			new_card.buffs.append(Enchantment(cards.db[buff.id]))
 		new_card.zone = Zone.HAND
-		#manager関係の一文
+		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.field:
-		new_char = Minion(cards.db[card.id])
-		new_char.controller = newPlayer
+		new_card = Minion(cards.db[card.id])
+		new_card.controller = newPlayer
 		copy_cardattr(card,new_card)
 		for buff in card.buffs:
-			new_char.buffs.append(Enchantment(cards.db[buff.id]))
-		new_char.damage = card.damage	
-		new_char.zone = Zone.PLAY
-		#manager関係の一文
+			new_card.buffs.append(Enchantment(cards.db[buff.id]))
+		new_card.damage = card.damage	
+		new_card.zone = Zone.PLAY
+		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.secrets:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		new_card.zone = Zone.SECRET
-		#manager関係の一文
+		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.graveyard:
 		new_card = create_vacant_card(card)
 		new_card.controller = newPlayer
 		new_card.zone=Zone.GRAVEYARD
-		#manager関係の一文
+		new_card.game.manager.new_entity(new_card)
 	pass
 
 def copy_gameattr(oldGame,newGame):
