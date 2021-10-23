@@ -294,6 +294,10 @@ class HumanAgent(Agent):
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
+		###############
+		from fireplace.deepcopy import deepcopy_game
+		new_game = deepcopy_game(game, player,option=0)
+		#######
 		while True:
 			myCandidate = []
 			print("========My HAND======")
@@ -476,9 +480,17 @@ class HumanAgent(Agent):
 			if len(myCandidate)==0 or inputNum == 0:
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
+				new_game = debug_deepcopy(game, player)###################
 				myChoice = myCandidate[inputNum-1]
 				executeAction(game, myChoice)
 				postAction(player)
+				#
+				executeAction(new_game, myChoice)###################
+				postAction(player)###################
+				debug_board(new_game)###########################################
+
+
+
 	def HumanInputMulligan(self, choiceCards):
 		myCount=1
 		print("%s mulligan turn"%(self.name))
@@ -525,7 +537,81 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
-from fireplace.deepcopy import *
-def test_deepcopy(game,player):
-	new_game = DeepCopyGame(game,player,0)
-	
+from fireplace.deepcopy import deepcopy_game
+def debug_deepcopy(game,player):
+	return deepcopy_game(game,player,0)
+
+
+def debug_player_cards(player):
+	print("=======%s HAND======"%(player))
+	for card in player.hand:
+		print("%s"%card, end='   : ')
+		if card.data.type == CardType.MINION:
+			print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, \
+			adjust_text_by_spellpower(card.data.description, player, card)))
+		elif card.data.type == CardType.SPELL:
+			print("%2d : %s"%(card.cost, \
+			adjust_text_by_spellpower(card.data.description, player, card)))
+		elif card.data.type == CardType.WEAPON:
+			print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, \
+			adjust_text_by_spellpower(card.data.description, player, card)))
+		pass##
+	print("========%s FIELD======"%(player))
+	for character in player.characters:
+		print("%s"%character, end='   : ')
+		if character == player.hero:
+			if player.weapon:
+				print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name))
+			else:
+				print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor))
+		else :
+			print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+			if character._Asphyxia_ == 'asphyxia':
+				print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
+			if character.silenced:
+				print("(silenced)", end=" ")
+			if character.windfury:
+				print("(windfury)", end=" ")
+			if character.poisonous:
+				print("(poisonous)", end=" ")
+			if character.frozen:
+				print("(frozen)", end=" ")
+			if character.rush:
+				print("(rush)", end=" ")
+			if character.taunt:
+				print("(taunt)", end=" ")
+			if character.immune:
+				print("(immune)", end=" ")
+			if character.stealthed:
+				print("(stealthed)", end=" ")
+			if character.divine_shield:
+				print("(divine_shield)", end=" ")
+			if character.dormant>0:
+				print("(dormant:%d)"%(character.dormant), end=" ")
+			elif character.dormant<0:
+				if character._sidequest_counter_>0:
+					print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+				else:
+					print("(dormant)", end=" ")
+			if character.spellpower>0:
+				print("(spellpower:%d)"%(character.spellpower), end=" ")
+			print("%s"%(adjust_text_by_spellpower(character.data.description, player, character)))
+	if player.hero.power.is_usable():
+		print("%s"%player.hero.power, end='   : ')
+		print("<%2d>"%player.hero.power.cost, end=' ')
+		print("%s"%adjust_text(player.hero.power.data.description))
+	print("========%s SECRETS======"%(player))
+	for card in player.secrets:
+		print("%s"%card, end='   : ')
+		if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
+			print("(sidequest %d)"%card._sidequest_counter_, end="")
+		print("%s"%(adjust_text(card.data.description)))
+	print("======== E N D =======")
+	pass
+
+def debug_board(game):
+	player = game.current_player
+	print("========TURN : %d/%d mana==(spell damage %d (fire %d))==="%(player.mana,player.max_mana,player.spellpower,player.spellpower_fire))
+	debug_player_cards(player)
+	debug_player_cards(player.opponent)
+	pass

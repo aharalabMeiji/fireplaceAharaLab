@@ -36,15 +36,20 @@ def deepcopy_game(game, player, option):
 	newPlayer2.opponent = newPlayer1
 	copy_playerattr(oldPlayer1, newPlayer1)
 	copy_playerattr(oldPlayer2, newPlayer2)
-	#debug_card(oldPlayer1, newPlayer1)
+	if oldGame.current_player==oldPlayer1:
+		newGame.current_player = newPlayer1
+	else:
+		newGame.current_player = newPlayer2
+	#debug_card(oldPlayer1.hero, newPlayer1.hero)
 	#debug_card(oldPlayer2, newPlayer2)
 	copy_gameattr(game, newGame)
 	#debug_card(oldGame, newGame)
-	for i in range(len(newPlayer1.field)):
-		newCard = newPlayer1.field[i]
-		oldCard = oldPlayer1.field[i]
-		debug_card(oldCard, newCard)
-	pass
+	#for i in range(len(newPlayer1.field)):
+	#	newCard = newPlayer1.field[i]
+	#	oldCard = oldPlayer1.field[i]
+	#	debug_card(oldCard, newCard)
+	#pass
+	return newGame
 
 def create_vacant_card(card):
 	if card.type==CardType.MINION:
@@ -104,8 +109,14 @@ def copy_cardattr(oldCard, newCard):
 	pass
 
 def copy_playerattr(oldPlayer, newPlayer):
-	newPlayer.starting_hero.controller=newPlayer
-	newPlayer.starting_hero.zone = Zone.PLAY
+	new_hero = newPlayer.starting_hero
+	new_hero.controller=newPlayer
+	new_hero.zone = Zone.PLAY
+	new_hero.game.manager.new_entity(new_hero)
+	src = getattr(oldPlayer.hero, 'turns_in_play')
+	setattr(new_hero, 'turns_in_play', src)
+	src = getattr(oldPlayer.hero, 'play_counter')
+	setattr(new_hero, 'play_counter', src)
 	if not newPlayer.hero.power:
 		card=HeroPower(cards.db[oldPlayer.hero.power.id])
 		card.controller = newPlayer
@@ -180,7 +191,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 	pass
 
 def copy_gameattr(oldGame,newGame):
-	gameAttrs =['next_step','turn','current_player','tick','zone','state','step',
+	gameAttrs =['next_step','turn','tick','zone','state','step',
 			 'setaside','_myLog_','active_aura_buffs','proposed_attacker','proposed_defender',
 		]
 	for attr in gameAttrs:

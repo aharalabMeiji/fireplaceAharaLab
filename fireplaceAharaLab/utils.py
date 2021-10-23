@@ -78,8 +78,6 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	while True:	
 		#game main loop
 		player = game.current_player
-		from fireplace.deepcopy import deepcopy_game####
-		new_game = deepcopy_game(game, player, option=0)####
 		start_time = time.time()
 		if player.name==P1.name:
 			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
@@ -230,6 +228,11 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
 		pass
 	return myCandidate
+
+def identifyPlayer(name1, name2):
+	nameLength=len(name2)
+	return (name1[:nameLength]==name2)
+
 #
 #  executeAction
 #
@@ -258,7 +261,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		pass
 	else:
 		for card in player.hand:
-			if card.is_playable() and card.id==action.card.id and card.controller.name==action.card.controller.name:
+			if card.is_playable() and card.id==action.card.id and identifyPlayer(card.controller.name, action.card.controller.name):
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
@@ -266,14 +269,14 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 							theCard2 = card2
 							if theCard2.requires_target():
 								for target in theCard2.targets:
-									if target==action.target and target.controller.name==action.target.controller.name:
+									if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 										theTarget=target
 							else:
 								pass
 				else:# card2=None
 					if theCard.requires_target():
 						for target in theCard.targets:
-							if target==action.target and target.controller.name == action.target.controller.name:
+							if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 								theTarget=target
 					else:
 						pass
@@ -282,16 +285,16 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				if _yes and card.id==action.card.id:
 					theCard = card
 		for character in player.characters:
-			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
+			if character.can_attack() and character==action.card and identifyPlayer(character.controller.name, action.card.controller.name):
 				theCard = character
 				for target in character.targets:
-					if character.can_attack(target) and target==action.target and target.controller.name==action.target.controller.name:
+					if character.can_attack(target) and target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 						theTarget = target
 		if player.hero.power==action.card:
 			if player.hero.power.is_usable():
 				theCard = player.hero.power
 				for target in theCard.targets:
-					if target==action.target and target.controller.name==action.target.controller.name:
+					if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 						theTarget = target
 	if action.type==BlockType.PLAY:
 		if action.card.id != theCard.id:
