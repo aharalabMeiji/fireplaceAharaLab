@@ -296,7 +296,6 @@ class HumanAgent(Agent):
 		player = game.current_player
 		###############
 		from fireplace.deepcopy import deepcopy_game
-		new_game = deepcopy_game(game, player,option=0)
 		#######
 		while True:
 			myCandidate = []

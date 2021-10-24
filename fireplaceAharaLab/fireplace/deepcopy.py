@@ -1,7 +1,7 @@
 from enum import IntEnum
 from fireplace import cards
 from hearthstone.enums import Zone,State,CardType
-from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment
+from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest
 from .player import Player
 from .game import Game
 import copy
@@ -55,7 +55,10 @@ def create_vacant_card(card):
 	if card.type==CardType.MINION:
 		return Minion(cards.db[card.id])
 	if card.type==CardType.SPELL:
-		return Spell(cards.db[card.id])
+		if hasattr(card.data,'sidequest') and card.data.sidequest or hasattr(card.data,'questline') and card.data.questline:
+			return Sidequest(cards.db[card.id])
+		else:
+			return Spell(cards.db[card.id])
 	if card.type==CardType.WEAPON:
 		return Weapon(cards.db[card.id])
 	if card.type==CardType.ENCHANTMENT:
@@ -88,7 +91,7 @@ def copy_cardattr(oldCard, newCard):
 		'_has_inspire',
 		'_poisonous',
 		'_rush',
-		'_sidequest_counter',
+		'_sidequest_counter_',
 		'_sidequest_list1_',
 		'_sidequest_list2_',
 		'_sidequest_list3_',
@@ -121,6 +124,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		card=HeroPower(cards.db[oldPlayer.hero.power.id])
 		card.controller = newPlayer
 		card.zone = Zone.PLAY
+		card.game.manager.new_entity(card)
 	# heropower's attr
 	heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
 		'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
@@ -137,7 +141,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 	#targets
 	# player's attr 
 	playerAttrs = ['cards_drawn_this_turn','_max_mana','playstate','zone',
-				'entity_id','first_player','mulligan_state','turn_start',
+				'first_player','mulligan_state','turn_start',
 				'minions_played_this_turn','combo','cards_played_this_turn',
 				'spell_and_damage','guardians_legacy','spellpower_option',
 				'choiceStrategy','lost_in_the_park','zone',
@@ -182,11 +186,13 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		new_card.zone = Zone.SECRET
+		copy_cardattr(card,new_card)
 		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.graveyard:
 		new_card = create_vacant_card(card)
 		new_card.controller = newPlayer
 		new_card.zone=Zone.GRAVEYARD
+		copy_cardattr(card,new_card)
 		new_card.game.manager.new_entity(new_card)
 	pass
 

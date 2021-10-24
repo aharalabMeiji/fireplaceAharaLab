@@ -2561,7 +2561,7 @@ class HaveMana(TargetedAction):
 		if target.mana>=amount:
 			self.broadcast(source, EventListener.ON, target, amount)
 
-class SpallAndDamage(TargetedAction):## for SW_322
+class SpellAndDamage(TargetedAction):## for SW_322
 	TARGET = ActionArg()
 	TARGETACTION = ActionArg()
 	def do(self,source,target,targetaction):
