@@ -296,8 +296,12 @@ class HumanAgent(Agent):
 		player = game.current_player
 		###############
 		from fireplace.deepcopy import deepcopy_game
+		new_game = debug_deepcopy(game, player)
 		#######
 		while True:
+			###################
+			debug_board(new_game,game)#
+			###################
 			myCandidate = []
 			print("========My HAND======")
 			for card in player.hand:
@@ -477,17 +481,18 @@ class HumanAgent(Agent):
 				except ValueError:
 					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
+				########################################
+				debug_board(new_game,game)###
+				########################################
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
-				new_game = debug_deepcopy(game, player)###################
 				myChoice = myCandidate[inputNum-1]
 				executeAction(game, myChoice)
 				postAction(player)
-				#
-				executeAction(new_game, myChoice)###################
-				postAction(player)###################
-				debug_board(new_game)###########################################
-
+				###################
+				executeAction(new_game, myChoice)#
+				postAction(new_game.current_player)#
+				##################
 
 
 	def HumanInputMulligan(self, choiceCards):
@@ -541,22 +546,43 @@ def debug_deepcopy(game,player):
 	return deepcopy_game(game,player,0)
 
 
-def debug_player_cards(player):
+def debug_player_cards(player,old_player):
 	print("=======%s HAND======"%(player))
-	for card in player.hand:
+	if len(player.hand)!=len(old_player.hand):
+		print("length is different %d:%d"%(len(player.hand), len(old_player.hand)))
+	for i in range(len(player.hand)):
+		comment=""
+		card = player.hand[i]
+		old_card = old_player.hand[i]
+		if card.id != old_card.id:
+			comment += ("old_name=%s"%(old_card))
 		print("%s"%card, end='   : ')
 		if card.data.type == CardType.MINION:
-			print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, \
-			adjust_text_by_spellpower(card.data.description, player, card)))
+			print("%2d(%2d/%2d) "%(card.cost, card.atk, card.health),end="")
+			if comment != "" or card.cost != old_card.cost or card.atk != old_card.atk or card.health != old_card.health:
+				print ("%s : %2d(%2d/%2d)"%(comment, old_card.cost, old_card.atk, old_card.health))
+			else:
+				print ("OOOOO")
 		elif card.data.type == CardType.SPELL:
-			print("%2d : %s"%(card.cost, \
-			adjust_text_by_spellpower(card.data.description, player, card)))
+			print("%2d  "%(card.cost),end="")
+			if comment!="" or card.cost != old_card.cost:
+				print("%s : %2d"%(comment, old_card.cost),end="")
+			else:
+				print ("OOOOO")
 		elif card.data.type == CardType.WEAPON:
-			print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, \
-			adjust_text_by_spellpower(card.data.description, player, card)))
+			print("%2d(%2d/%2d)  "%(card.cost, card.atk, card.durability))
+			if comment != "" or card.cost != old_card.cost or card.atk != old_card.atk or card.durability != old_card.durability:
+				print ("%s : %2d(%2d/%2d)"%(comment, old_card.cost, old_card.atk, old_card.derability))
+			else:
+				print ("OOOOO")
 		pass##
 	print("========%s FIELD======"%(player))
-	for character in player.characters:
+	for i in range(len(player.characters)):
+		comment =""
+		character=player.characters[i]
+		old_character=old_player.characters[i]
+		if character.id != old_character.id:
+			comment = ("old_name=%s"%(old_character))
 		print("%s"%character, end='   : ')
 		if character == player.hero:
 			if player.weapon:
@@ -608,9 +634,10 @@ def debug_player_cards(player):
 	print("======== E N D =======")
 	pass
 
-def debug_board(game):
-	player = game.current_player
+def debug_board(new_game,old_game):
+	player = new_game.current_player
+	old_player = old_game.current_player
 	print("========TURN : %d/%d mana==(spell damage %d (fire %d))==="%(player.mana,player.max_mana,player.spellpower,player.spellpower_fire))
-	debug_player_cards(player)
-	debug_player_cards(player.opponent)
+	debug_player_cards(player,old_player)
+	debug_player_cards(player.opponent,old_player.opponent)
 	pass

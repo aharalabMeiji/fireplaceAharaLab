@@ -15,6 +15,7 @@ def debug_card(oldCard, newCard):
 	print("--------debug--",newCard)
 	attrList = oldCard.__dict__.keys()
 	for attr in attrList:
+		print("[%s]"%(attr),end="")
 		if hasattr(newCard, attr):
 			if getattr(newCard, attr) != getattr(oldCard, attr):
 				print ("%s: %s != %s"%(attr,getattr(newCard, attr), getattr(oldCard, attr)))
@@ -44,11 +45,11 @@ def deepcopy_game(game, player, option):
 	#debug_card(oldPlayer2, newPlayer2)
 	copy_gameattr(game, newGame)
 	#debug_card(oldGame, newGame)
-	#for i in range(len(newPlayer1.field)):
-	#	newCard = newPlayer1.field[i]
-	#	oldCard = oldPlayer1.field[i]
+	#for i in range(len(newPlayer1.hand)):
+	#	newCard = newPlayer1.hand[i]
+	#	oldCard = oldPlayer1.hand[i]
 	#	debug_card(oldCard, newCard)
-	#pass
+	pass
 	return newGame
 
 def create_vacant_card(card):
@@ -73,34 +74,12 @@ def deep_copy_player(player, option):
 	return new_player
 
 def copy_cardattr(oldCard, newCard):
-	cardAttrs=[
-		'cant_attack',
-		'creator',
-		'event_args',
-		'frenzyFlag',
-		'choiceText,',
-		'play_counter',
-		'sidequest_list0',
-		'turns_in_play',
-		'_Asphyxia_ ',
-		'_cant_be_targeted_by_abilities',
-		'_cant_be_targeted_by_hero_powers',
-		'_charge',
-		'_frenzy',
-		'_has_deathrattle',
-		'_has_inspire',
-		'_poisonous',
-		'_rush',
-		'_sidequest_counter_',
-		'_sidequest_list1_',
-		'_sidequest_list2_',
-		'_sidequest_list3_',
-		'_stealthed',
-		'_taunt',
-		'_windfury',
+	attrList = oldCard.__dict__.keys()
+	excludeList=[
+		'manager','target','choose_cards','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone',
 		]
-	for attr in cardAttrs:
-		if hasattr(oldCard,attr):
+	for attr in attrList:
+		if not attr in excludeList:
 			src = getattr(oldCard, attr)
 			if not isinstance(src,list):
 				setattr(newCard, attr, src)
@@ -179,7 +158,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		copy_cardattr(card,new_card)
 		for buff in card.buffs:
 			new_card.buffs.append(Enchantment(cards.db[buff.id]))
-		new_card.damage = card.damage	
+		new_card.damage = card.damage
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.secrets:
