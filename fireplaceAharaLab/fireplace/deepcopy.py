@@ -93,6 +93,20 @@ def copy_cardattr(oldCard, newCard):
 def copy_playerattr(oldPlayer, newPlayer):
 	new_hero = newPlayer.starting_hero
 	new_hero.controller=newPlayer
+	excludeHeroAttrs = [
+		'attack_targets', 'attackable', 'attacking','card_class', 'classes','type','entity_id',
+		'controller', 'data', 'entities', 'game', 'health','id','power','race','target','rarity','manager',
+		'play_counter','tags','uuid','requirements',
+		]
+	for attr in oldPlayer.hero.__dict__.keys():
+		if not attr in excludeHeroAttrs:
+			value = getattr(oldPlayer.hero, attr)
+			if not isinstance(value,list):
+				setattr(new_hero, attr, value)
+			else:
+				setattr(new_hero, attr, copy.deepcopy(value))
+			pass
+		pass
 	new_hero.zone = Zone.PLAY
 	new_hero.game.manager.new_entity(new_hero)
 	src = getattr(oldPlayer.hero, 'turns_in_play')
@@ -155,10 +169,10 @@ def copy_playerattr(oldPlayer, newPlayer):
 	for card in oldPlayer.field:
 		new_card = Minion(cards.db[card.id])
 		new_card.controller = newPlayer
-		copy_cardattr(card,new_card)
+		copy_cardattr(card, new_card)
 		for buff in card.buffs:
 			new_card.buffs.append(Enchantment(cards.db[buff.id]))
-		new_card.damage = card.damage
+		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.secrets:
@@ -173,6 +187,14 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card.zone=Zone.GRAVEYARD
 		copy_cardattr(card,new_card)
 		new_card.game.manager.new_entity(new_card)
+	for card in oldPlayer.game.setaside:
+		if card.controller == oldPlayer:
+			new_card = create_vacant_card(card)
+			new_card.controller = newPlayer
+			new_card.zone = Zone.SETASIDE
+			copy_cardattr(card, new_card)
+			new_card.game.manager.new_entity(new_card)
+		pass
 	pass
 
 def copy_gameattr(oldGame,newGame):

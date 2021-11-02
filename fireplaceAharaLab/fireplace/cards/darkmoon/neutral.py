@@ -401,27 +401,31 @@ class DMF_074a:
 	def play(self):
 		controller = self.controller
 		enemy = controller.opponent
-		if len(enemy.characters) <= 1:
-			target = controller.characters[1]
+		if len(enemy.field) == 0:
+			target = controller.field[0]
 			zone = target.zone
 			target.zone = Zone.SETASIDE
 			target.controller = enemy
 			target.turns_in_play = 0  # To ensure summoning sickness
+			target._summon_index = None
 			target.zone = zone
 		else:
-			target1 = controller.characters[1]
-			zone = target1.zone
+			target1 = controller.field[0]
+			zone = target1.zone # might be PLAY
 			target1.zone = Zone.SETASIDE
 			target1.controller = enemy
 			target1.turns_in_play = 0  # To ensure summoning sickness
+			target1._summon_index = None
 			target1.zone = zone
 
-			target2 = enemy.characters[1]
-			zone = target2.zone
+			target2 = enemy.field[0]
+			zone = target2.zone # might be PLAY
 			target2.zone = Zone.SETASIDE
 			target2.controller = controller
 			target2.turns_in_play = 0  # To ensure summoning sickness
+			target2._summon_index = None
 			target2.zone = zone
+			pass
 	pass
 
 class DMF_074b:
@@ -429,37 +433,40 @@ class DMF_074b:
 	def play(self):
 		controller = self.controller
 		enemy = controller.opponent
-		if len(enemy.characters) <= 1:
-			target = controller.characters[-1]
+		if len(enemy.field) == 0:
+			target = controller.field[-1]
 			zone = target.zone
 			target.zone = Zone.SETASIDE
 			target.controller = enemy
 			target.turns_in_play = 0  # To ensure summoning sickness
+			target._summon_index = 0
 			target.zone = zone
 		else:
-			target1 = controller.characters[-1]
+			target1 = controller.field[-1]
 			zone = target1.zone
 			target1.zone = Zone.SETASIDE
 			target1.controller = enemy
 			target1.turns_in_play = 0  # To ensure summoning sickness
+			target1._summon_index = 0
 			target1.zone = zone
 			
-			for i in range(len(enemy.characters)-2):
-				target = enemy.characters[1]
-				target.zone = Zone.SETASIDE
-				target.zone = Zone.PLAY
+			#for i in range(len(enemy.characters)-2):
+			#	target = enemy.characters[1]
+			#	target.zone = Zone.SETASIDE
+			#	target.zone = Zone.PLAY
 
-			target2 = enemy.characters[-1]
+			target2 = enemy.field[-1]
 			zone = target2.zone
 			target2.zone = Zone.SETASIDE
 			target2.controller = controller
 			target2.turns_in_play = 0  # To ensure summoning sickness
+			target2._summon_index = 0
 			target2.zone = zone
 
-			for i in range(len(controller.characters)-2):
-				target = controller.characters[1]
-				target.zone = Zone.SETASIDE
-				target.zone = Zone.PLAY
+			#for i in range(len(controller.characters)-2):
+			#	target = controller.characters[1]
+			#	target.zone = Zone.SETASIDE
+			#	target.zone = Zone.PLAY
 	pass
 
 class DMF_078:###OK

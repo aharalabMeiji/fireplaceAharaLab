@@ -487,12 +487,12 @@ class HumanAgent(Agent):
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
-				executeAction(game, myChoice)
-				postAction(player)
 				###################
 				executeAction(new_game, myChoice)#
 				postAction(new_game.current_player)#
 				##################
+				executeAction(game, myChoice)
+				postAction(player)
 
 
 	def HumanInputMulligan(self, choiceCards):
@@ -555,82 +555,156 @@ def debug_player_cards(player,old_player):
 		card = player.hand[i]
 		old_card = old_player.hand[i]
 		if card.id != old_card.id:
-			comment += ("old_name=%s"%(old_card))
-		print("%s"%card, end='   : ')
-		if card.data.type == CardType.MINION:
-			print("%2d(%2d/%2d) "%(card.cost, card.atk, card.health),end="")
-			if comment != "" or card.cost != old_card.cost or card.atk != old_card.atk or card.health != old_card.health:
-				print ("%s : %2d(%2d/%2d)"%(comment, old_card.cost, old_card.atk, old_card.health))
-			else:
-				print ("OOOOO")
-		elif card.data.type == CardType.SPELL:
-			print("%2d  "%(card.cost),end="")
-			if comment!="" or card.cost != old_card.cost:
-				print("%s : %2d"%(comment, old_card.cost),end="")
-			else:
-				print ("OOOOO")
-		elif card.data.type == CardType.WEAPON:
-			print("%2d(%2d/%2d)  "%(card.cost, card.atk, card.durability))
-			if comment != "" or card.cost != old_card.cost or card.atk != old_card.atk or card.durability != old_card.durability:
-				print ("%s : %2d(%2d/%2d)"%(comment, old_card.cost, old_card.atk, old_card.derability))
-			else:
-				print ("OOOOO")
+			print("%s : old_name=%s"%(card,old_card))
+		else:
+			header=""
+			footer=""
+			if card.data.type == CardType.MINION:
+				footer = "%s : %2d(%2d/%2d) "%(card, card.cost, card.atk, card.health)
+				if card.cost != old_card.cost or card.atk != old_card.atk or card.health != old_card.health:
+					footer += " old : %2d(%2d/%2d)"%(old_card.cost, old_card.atk, old_card.health)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			elif card.data.type == CardType.SPELL:
+				footer = "%s : %2d  "%(card, card.cost)
+				if card.cost != old_card.cost:
+					footer += ", old : %2d"%(old_card.cost)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			elif card.data.type == CardType.WEAPON:
+				footer = "%s : %2d(%2d/%2d)  "%(card, card.cost, card.atk, card.durability)
+				if card.cost != old_card.cost or card.atk != old_card.atk or card.durability != old_card.durability:
+					footer += ", old : %2d(%2d/%2d)"%(old_card.cost, old_card.atk, old_card.derability)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			print ("%s %s"%(header, footer))
 		pass##
 	print("========%s FIELD======"%(player))
 	for i in range(len(player.characters)):
-		comment =""
+		header = footer =""
 		character=player.characters[i]
 		old_character=old_player.characters[i]
+		footer = "%s"%character
 		if character.id != old_character.id:
-			comment = ("old_name=%s"%(old_character))
-		print("%s"%character, end='   : ')
+			header = 'XXX'
+			footer = "old_name=%s"%(old_character)
 		if character == player.hero:
 			if player.weapon:
-				print("(%2d/%2d/%2d+%d)(%s)"%(character.atk,player.weapon.durability,character.health,character.armor,player.weapon.data.name))
+				footer += "(%2d/%2d/%2d+%d)"%(character.atk,player.weapon.durability,character.health,character.armor)
+				if character.atk != old_character.atk or player.weapon.durability != old_player.weapon.durability or \
+					character.health != old_character.health or character.armor != old_character.armor:
+					footer += "(%2d/%2d/%2d+%d)"%(old_character.atk, old_player.weapon.durability, old_character.health, old_character.armor)
+					header = 'XXX'
+				else:
+					header = 'OOO'
 			else:
-				print("(%2d/%2d+%d)"%(character.atk,character.health,character.armor))
+				footer += "(%2d/%2d+%d)"%(character.atk,character.health,character.armor)
+				if character.atk != old_character.atk  or \
+					character.health != old_character.health or character.armor != old_character.armor:
+					footer += "(%2d/%2d+%d)"%(old_character.atk, old_character.health, old_character.armor)
+					header = 'XXX'
+				else:
+					header = 'OOO'
 		else :
-			print("(%2d/%2d)"%(character.atk,character.health), end=" ")
+			header = 'OOO'
+			footer += "(%2d/%2d)"%(character.atk,character.health)
+			if character.atk != old_character.atk or character.health != old_character.health:
+				footer += "(%2d/%2d)"%(old_character.atk, old_character.health)
 			if character._Asphyxia_ == 'asphyxia':
-				print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
+				footer +="(Now Asphyxia %d)"%(character._sidequest_counter_)
+				if old_character._Asphyxia != 'asphyxia':
+					header ='XXX'
+					footer += 'X'
 			if character.silenced:
-				print("(silenced)", end=" ")
+				footer +="(silenced)"
+				if not old_character.silenced:
+					header ='XXX'
+					footer += 'X'
 			if character.windfury:
-				print("(windfury)", end=" ")
+				footer +="(windfury)"
+				if not old_character.windfury:
+					header ='XXX'
+					footer += 'X'
 			if character.poisonous:
-				print("(poisonous)", end=" ")
+				footer +="(poisonous)"
+				if not old_character.poisonous:
+					header ='XXX'
+					footer += 'X'
 			if character.frozen:
-				print("(frozen)", end=" ")
+				footer +="(frozen)"
+				if not old_character.frozen:
+					header ='XXX'
+					footer += 'X'
 			if character.rush:
-				print("(rush)", end=" ")
+				footer +="(rush)"
+				if not old_character.rush:
+					header ='XXX'
+					footer += 'X'
 			if character.taunt:
-				print("(taunt)", end=" ")
+				footer +="(taunt)"
+				if not old_character.taunt:
+					header ='XXX'
+					footer += 'X'
 			if character.immune:
-				print("(immune)", end=" ")
+				footer +="(immune)"
+				if not old_character.immune:
+					header ='XXX'
+					footer += 'X'
 			if character.stealthed:
-				print("(stealthed)", end=" ")
+				footer +="(stealthed)"
+				if not old_character.stealthed:
+					header ='XXX'
+					footer += 'X'
 			if character.divine_shield:
-				print("(divine_shield)", end=" ")
+				footer +="(divine_shield)"
+				if not old_character.divine_shield:
+					header ='XXX'
+					footer += 'X'
 			if character.dormant>0:
-				print("(dormant:%d)"%(character.dormant), end=" ")
+				footer +="(dormant:%d)"%(character.dormant)
+				if old_character.dormant<=0:
+					header ='XXX'
+					footer += 'X'
 			elif character.dormant<0:
 				if character._sidequest_counter_>0:
-					print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+					footer +="(dormant:%d)"%(character._sidequest_counter_)
+					if old_character.dormant>=0 or old_character._sidequest_counter_<=0:
+						header ='XXX'
+						footer += 'X'
 				else:
-					print("(dormant)", end=" ")
+					footer +="(dormant)"
 			if character.spellpower>0:
-				print("(spellpower:%d)"%(character.spellpower), end=" ")
-			print("%s"%(adjust_text_by_spellpower(character.data.description, player, character)))
+				footer +="(spellpower:%d)"%(character.spellpower)
+				if not old_character.spellpower > 0:
+					header ='XXX'
+					footer += 'X'
+		print("%s %s"%(header, footer))
 	if player.hero.power.is_usable():
-		print("%s"%player.hero.power, end='   : ')
-		print("<%2d>"%player.hero.power.cost, end=' ')
-		print("%s"%adjust_text(player.hero.power.data.description))
+		footer="%s<%2d>"%(player.hero.power, player.hero.power.cost)
+		if player.hero.power != old_player.hero.power or player.hero.power.cost != old_player.hero.power.cost:
+			footer += "%s<%2d>"%(old_player.hero.power, old_player.hero.power.cost)
+			header ='XXX'
+			footer += 'X'
+		else:
+			header = 'OOO'
+		print("%s %s"%(header, footer))
 	print("========%s SECRETS======"%(player))
-	for card in player.secrets:
-		print("%s"%card, end='   : ')
+	for i in range(len(player.secrets)):
+		card = player.secrets[i]
+		old_card = old_player.secrets[i]
+		header = 'OOO'
+		footer = "%s"%card
 		if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
-			print("(sidequest %d)"%card._sidequest_counter_, end="")
-		print("%s"%(adjust_text(card.data.description)))
+			footer += "(sidequest %d)"%(card._sidequest_counter_)
+			if card._sidequest_counter_ != old_card._sidequest_counter_:
+				footer += "(sidequest %d)"%(old_card._sidequest_counter_)
+				header = 'XXX'
+		if card.id != old_card.id:
+			footer += "(%s)"%old_card
+			header = 'XXX'
 	print("======== E N D =======")
 	pass
 

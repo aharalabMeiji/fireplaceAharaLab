@@ -265,7 +265,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
-						if card2.is_playable() and card2==action.card2:
+						if card2.is_playable() and card2.id==action.card2.id and identifyPlayer(card2.controller.name, action.card2.controller.name):
 							theCard2 = card2
 							if theCard2.requires_target():
 								for target in theCard2.targets:

@@ -1025,7 +1025,7 @@ class Discover(TargetedAction):
 	CARDS = CardArg()
 
 	def get_target_args(self, source, target):
-		if target.hero.data.card_class != CardClass.NEUTRAL:
+		if hasattr(target,'hero') and target.hero.data.card_class != CardClass.NEUTRAL:
 			# use hero class for Discover if not neutral (eg. Ragnaros)
 			discover_class = target.hero.data.card_class
 		elif source.data.card_class != CardClass.NEUTRAL:
@@ -1458,6 +1458,11 @@ class Summon(TargetedAction):
 		return super()._broadcast(entity, source, at, *args)
 
 	def do(self, source, target, cards):
+		if target.type != CardType.PLAYER:
+			log.info("<><><><><><><><><><><><>")
+			log.info("%s is not a player, he/she cannot summon anything", target)
+			log.info("<><><><><><><><><><><><>")
+			return
 		log.info("%s summons %r", target, cards)
 
 		if not isinstance(cards, list):
