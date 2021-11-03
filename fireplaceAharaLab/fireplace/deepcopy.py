@@ -163,7 +163,11 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card.controller=newPlayer
 		copy_cardattr(card,new_card)
 		for buff in card.buffs:
-			new_card.buffs.append(Enchantment(cards.db[buff.id]))
+			new_buff = Enchantment(cards.db[buff.id])
+			new_buff.source = buff.source
+			new_buff.controller = newPlayer
+			new_buff.apply(card)
+			new_card.buffs.append(new_buff)
 		new_card.zone = Zone.HAND
 		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.field:
@@ -171,7 +175,11 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card.controller = newPlayer
 		copy_cardattr(card, new_card)
 		for buff in card.buffs:
-			new_card.buffs.append(Enchantment(cards.db[buff.id]))
+			new_buff = Enchantment(cards.db[buff.id])
+			new_buff.source = buff.source
+			new_buff.controller = newPlayer
+			new_buff.apply(card)
+			new_card.buffs.append(new_buff)
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)

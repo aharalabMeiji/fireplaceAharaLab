@@ -32,6 +32,7 @@ class StandardAgent(Agent):
 				myChoice = random.choice(myCandidate)
 				##########
 				executeAction(new_game, myChoice, debugLog=debugLog)
+				postAction(new_game.current_player)
 				##########
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
 				postAction(player)
@@ -568,7 +569,7 @@ def debug_player_cards(player,old_player):
 		card = player.hand[i]
 		old_card = old_player.hand[i]
 		if card.id != old_card.id:
-			print("%s : old_name=%s"%(card,old_card))
+			print("XXX %s : old_name=%s"%(card,old_card))
 		else:
 			header=""
 			footer=""
@@ -603,7 +604,7 @@ def debug_player_cards(player,old_player):
 		footer = "%s"%character
 		if character.id != old_character.id:
 			header = 'XXX'
-			footer = "old_name=%s"%(old_character)
+			footer = "%s : old_name=%s"%(character, old_character)
 		if character == player.hero:
 			if player.weapon:
 				footer += "(%2d/%2d/%2d+%d)"%(character.atk,player.weapon.durability,character.health,character.armor)
