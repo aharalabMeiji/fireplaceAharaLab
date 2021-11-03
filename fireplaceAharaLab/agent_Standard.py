@@ -18,14 +18,27 @@ class StandardAgent(Agent):
 	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
+		##########
+		from fireplace.deepcopy import deepcopy_game
+		new_game = debug_deepcopy(thisgame, player)
+		##########
 		while loopCount<20:
+			##########
+			debug_board(new_game,thisgame)#
+			##########
 			loopCount+=1
 			myCandidate = getCandidates(thisgame)
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
+				##########
+				executeAction(new_game, myChoice, debugLog=debugLog)
+				##########
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
+					##########
+					debug_board(new_game,thisgame)#
+					##########
 					return ExceptionPlay.GAMEOVER
 				else:
 					continue

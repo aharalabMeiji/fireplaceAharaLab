@@ -230,8 +230,12 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	return myCandidate
 
 def identifyPlayer(name1, name2):
-	nameLength=len(name2)
-	return (name1[:nameLength]==name2)
+	if len(name1) > len(name2):
+		return (name1[:len(name2)]==name2)
+	elif len(name1) < len(name2):
+		return (name2[:len(name1)]==name1)
+	if len(name1) == len(name2):
+		return (name1==name2)
 
 #
 #  executeAction
@@ -296,6 +300,18 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				for target in theCard.targets:
 					if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 						theTarget = target
+	if theCard==None:## to debug
+		for card in player.hand:
+			if card.is_playable():
+				if card.id==action.card.id:
+					if identifyPlayer(card.controller.name, action.card.controller.name):
+						print ("OK")
+		for character in player.characters:
+			if character.can_attack():
+				if character==action.card:
+					if identifyPlayer(character.controller.name, action.card.controller.name):
+						print ("OK")
+		pass
 	if action.type==BlockType.PLAY:
 		if action.card.id != theCard.id:
 			print("%s != %s"%(action.card.id, theCard.id))
