@@ -76,7 +76,7 @@ def deep_copy_player(player, option):
 def copy_cardattr(oldCard, newCard):
 	attrList = oldCard.__dict__.keys()
 	excludeList=[
-		'manager','target','choose_cards','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone',
+		'manager','target','choose_cards','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone','game',
 		]
 	for attr in attrList:
 		if not attr in excludeList:
@@ -166,7 +166,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff = Enchantment(cards.db[buff.id])
 			new_buff.source = buff.source
 			new_buff.controller = newPlayer
-			new_buff.apply(card)
+			new_buff.owner = card
 			new_card.buffs.append(new_buff)
 		new_card.zone = Zone.HAND
 		new_card.game.manager.new_entity(new_card)
@@ -178,7 +178,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff = Enchantment(cards.db[buff.id])
 			new_buff.source = buff.source
 			new_buff.controller = newPlayer
-			new_buff.apply(card)
+			new_buff.owner = card
 			new_card.buffs.append(new_buff)
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
@@ -192,9 +192,10 @@ def copy_playerattr(oldPlayer, newPlayer):
 	for card in oldPlayer.graveyard:
 		new_card = create_vacant_card(card)
 		new_card.controller = newPlayer
-		new_card.zone=Zone.GRAVEYARD
-		copy_cardattr(card,new_card)
-		new_card.game.manager.new_entity(new_card)
+		if new_card != None:
+			new_card.zone=Zone.GRAVEYARD
+			copy_cardattr(card,new_card)
+			new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.game.setaside:
 		if card.controller == oldPlayer:
 			new_card = create_vacant_card(card)

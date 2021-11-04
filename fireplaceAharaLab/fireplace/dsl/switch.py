@@ -12,7 +12,7 @@ class Switch:
 		return self.map.get(None, ())
 
 	def evaluate(self, source):
-		entities = self.selector.eval(source.game, source)
+		entities = self.selector.eval(source.game.entities, source)
 		if not entities:
 			return self.default
 		assert len(entities) == 1, "Switch() on more than 1 entity: %r" % (entities)

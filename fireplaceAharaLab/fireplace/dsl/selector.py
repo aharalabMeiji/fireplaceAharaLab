@@ -229,9 +229,19 @@ class SetOpSelector(Selector):
 			self._entity_id_set(right_children)
 		)
 		# Preserve input ordering and multiplicity
-		return [
-			e for e in entities if hasattr(e, "entity_id") and
-			e.entity_id in result_entity_ids]
+		#return [
+		#	e for e in entities if hasattr(e, "entity_id") and
+		#	e.entity_id in result_entity_ids]
+		ret = []
+		ret_id = []
+		for e in entities:
+			if e.game != entities[0].game:
+				i=0
+			if hasattr(e, "entity_id") and e.entity_id in result_entity_ids and not e.entity_id in ret_id:
+				ret.append(e)
+				ret_id.append(e.entity_id)
+		return ret
+
 
 	def __repr__(self):
 		name = self.op.__name__
@@ -358,7 +368,7 @@ class Controller(LazyValue):
 			# This allows us to skip selector evaluation altogether.
 			return self._get_entity_attr(source)
 		else:
-			entities = self.child.eval(source.game, source)
+			entities = self.child.eval(source.game.entities, source)
 		assert len(entities) == 1
 		return self._get_entity_attr(entities[0])
 

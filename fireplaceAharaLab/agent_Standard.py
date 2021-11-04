@@ -567,6 +567,9 @@ def debug_player_cards(player,old_player):
 	for i in range(len(player.hand)):
 		comment=""
 		card = player.hand[i]
+		if i>=len(old_player.hand):
+			print ("XXX %s : no old cards here"%(card))
+			continue
 		old_card = old_player.hand[i]
 		if card.id != old_card.id:
 			print("XXX %s : old_name=%s"%(card,old_card))
@@ -600,6 +603,9 @@ def debug_player_cards(player,old_player):
 	for i in range(len(player.characters)):
 		header = footer =""
 		character=player.characters[i]
+		if i>=len(old_player.characters):
+			print("XXX %s : no old card"%(character))
+			continue
 		old_character=old_player.characters[i]
 		footer = "%s"%character
 		if character.id != old_character.id:

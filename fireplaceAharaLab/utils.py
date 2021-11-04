@@ -301,16 +301,23 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 					if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 						theTarget = target
 	if theCard==None:## to debug
+		noCard=True
 		for card in player.hand:
-			if card.is_playable():
-				if card.id==action.card.id:
-					if identifyPlayer(card.controller.name, action.card.controller.name):
+			if card.id==action.card.id:
+				noCard=False
+				if identifyPlayer(card.controller.name, action.card.controller.name):
+					if card.is_playable():
 						print ("OK")
+
 		for character in player.characters:
-			if character.can_attack():
-				if character==action.card:
-					if identifyPlayer(character.controller.name, action.card.controller.name):
+			if character.id==action.card.id:
+				noCard=False
+				if identifyPlayer(character.controller.name, action.card.controller.name):
+					if character.can_attack():
 						print ("OK")
+		if noCard:
+			print("no card %s is contained in the hand"%(action.card))
+			return
 		pass
 	if action.type==BlockType.PLAY:
 		if action.card.id != theCard.id:
