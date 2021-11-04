@@ -21,6 +21,8 @@ from ..utils import *
 #SW_322e2
 #SW_322e3
 
+#Stormwind_Neutral=['SW_700','SW_701','SW_702','SW_710','SW_710t0','SW_710t1','SW_710t2','SW_710t3','SW_710t4','SW_710t5','SW_710t6','SW_710t7','SW_710t8','SW_710t9','SW_711','SW_712','SW_COIN1','SW_COIN2',]
+
 class SW_006:#OK
 	""" Stubborn Suspect
 	<b>Deathrattle:</b> Summon a random 3-Cost minion. """

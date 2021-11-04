@@ -12,8 +12,8 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.SCHOLOMANCE
-	myCardClass=CardClass.DEMONHUNTER
+	myCardSet=CardSet.STORMWIND
+	myCardClass=CardClass.NEUTRAL
 	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
