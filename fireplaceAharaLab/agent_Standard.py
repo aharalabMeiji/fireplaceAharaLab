@@ -633,6 +633,7 @@ def debug_player_cards(player,old_player):
 			footer += "(%2d/%2d)"%(character.atk,character.health)
 			if character.atk != old_character.atk or character.health != old_character.health:
 				footer += "(%2d/%2d)"%(old_character.atk, old_character.health)
+				header ='XXX'
 			if character._Asphyxia_ == 'asphyxia':
 				footer +="(Now Asphyxia %d)"%(character._sidequest_counter_)
 				if old_character._Asphyxia != 'asphyxia':

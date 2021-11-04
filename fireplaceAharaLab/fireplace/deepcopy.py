@@ -191,8 +191,8 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.graveyard:
 		new_card = create_vacant_card(card)
-		new_card.controller = newPlayer
 		if new_card != None:
+			new_card.controller = newPlayer
 			new_card.zone=Zone.GRAVEYARD
 			copy_cardattr(card,new_card)
 			new_card.game.manager.new_entity(new_card)
