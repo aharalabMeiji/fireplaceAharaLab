@@ -25,6 +25,7 @@ def debug_card(oldCard, newCard):
 	pass
 
 def deepcopy_game(game, player, option):
+	#print("================deepcopy starts================")
 	oldGame = game
 	oldPlayer1 = game.player1
 	oldPlayer2 = game.player2
@@ -49,7 +50,7 @@ def deepcopy_game(game, player, option):
 	#	newCard = newPlayer1.hand[i]
 	#	oldCard = oldPlayer1.hand[i]
 	#	debug_card(oldCard, newCard)
-	pass
+	#print("================deepcopy ends================")
 	return newGame
 
 def create_vacant_card(card):
@@ -149,7 +150,23 @@ def copy_playerattr(oldPlayer, newPlayer):
 			if not isinstance(src,list):
 				setattr(newPlayer, attr, src)
 			else:
-				setattr(newPlayer, attr, copy.deepcopy(src))
+				if src == []:
+					setattr(newPlayer, attr, [])
+				elif not isinstance(src[0], list):
+					new_src = []
+					for elm in src:
+						new_src.append(elm)
+					setattr(newPlayer, attr, new_src)
+				else:
+					new_src = []
+					for elm in src:
+						new_src_sub = []
+						for elm_sub in elm:
+							new_src_sub.append(elm_sub)
+						new_src.append(new_src_sub)
+					setattr(newPlayer, attr, new_src)
+					#setattr(newPlayer, attr, copy.deepcopy(src))
+				pass
 			pass
 		pass
 	for card in oldPlayer.deck:
@@ -167,6 +184,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff.source = buff.source
 			new_buff.controller = newPlayer
 			new_buff.owner = card
+			new_buff.apply(new_card)
 			new_card.buffs.append(new_buff)
 		new_card.zone = Zone.HAND
 		new_card.game.manager.new_entity(new_card)
@@ -179,6 +197,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff.source = buff.source
 			new_buff.controller = newPlayer
 			new_buff.owner = card
+			new_buff.apply(new_card)
 			new_card.buffs.append(new_buff)
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY

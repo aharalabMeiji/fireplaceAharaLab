@@ -8,6 +8,7 @@ from fireplace.card import Card
 from fireplace.game import Game
 from fireplace.utils import ActionType
 from enum import IntEnum
+from fireplace.deepcopy import deepcopy_game
 
 
 class StandardAgent(Agent):
@@ -19,26 +20,29 @@ class StandardAgent(Agent):
 		player = thisgame.current_player
 		loopCount=0
 		##########
-		from fireplace.deepcopy import deepcopy_game
-		new_game = debug_deepcopy(thisgame, player)
+		#from fireplace.deepcopy import deepcopy_game
+		#new_game = debug_deepcopy(thisgame, player)
+		#candidate1 = getCandidates(thisgame)
+		#candidate2 = getCandidates(new_game)
+		#compaireCandidates(candidate1, candidate2)
 		##########
 		while loopCount<20:
 			##########
-			debug_board(new_game,thisgame)#
+			#debug_board(new_game,thisgame)#
 			##########
 			loopCount+=1
 			myCandidate = getCandidates(thisgame)
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
 				##########
-				executeAction(new_game, myChoice, debugLog=debugLog)
-				postAction(new_game.current_player)
+				#executeAction(new_game, myChoice, debugLog=debugLog)
+				#postAction(new_game.current_player)
 				##########
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
 					##########
-					debug_board(new_game,thisgame)#
+					#debug_board(new_game,thisgame)#
 					##########
 					return ExceptionPlay.GAMEOVER
 				else:
@@ -64,7 +68,8 @@ class StandardVectorAgent(Agent):
 		if debug:
 			print(">>>>>>>>>>>>>>>>>>>")
 		for myChoice in myCandidate:
-			tmpGame = copy.deepcopy(game)
+			tmpGame = debug_deepcopy(game, game.current_player)
+			#tmpGame = copy.deepcopy(game)
 			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:
@@ -736,3 +741,51 @@ def debug_board(new_game,old_game):
 	debug_player_cards(player,old_player)
 	debug_player_cards(player.opponent,old_player.opponent)
 	pass
+
+def identityCandidates(can1, can2):
+	if can1.card == None or can2.card == None:
+		return False
+	if can1.card.id != can2.card.id:
+		return False
+	if can1.card2 == None and can2.card2 != None:
+		return False
+	if can1.card2 != None and can2.card2 == None:
+		return False
+	if can1.card2 != None and can1.card2.id != can2.card2.id:
+		return False
+	if can1.type != can2.type:
+		return False
+	if can1.target != None and can2.target == None:
+		return False
+	if can1.target == None and can2.target != None:
+		return False
+	if can1.target != None and can2.target != None and can1.target.id != can2.target.id:
+		return False
+	return True
+
+def compaireCandidates(old_can, new_can):
+	print ("<><><><><><><><><comparing candidates starts<><><><><><><><><")
+	for can1 in old_can:
+		done = False
+		for can2 in old_can:
+			if identityCandidates(can1, can2):
+				done = True
+				break
+			pass
+		if not done:
+			print(" %s(%s)%s does not exist in new candidates. "%(can1.card,can1.type,can1.target))
+		pass
+	for can2 in old_can:
+		done = False
+		for can1 in old_can:
+			if identityCandidates(can1, can2):
+				done = True
+				break
+			pass
+		if not done:
+			print(" %s(%s)%s does not exist in old candidates. "%(can2.card,can2.type,can2.target))
+		pass
+	print ("<><><><><><><><><comparing candidates ends<><><><><><><><><")
+	pass
+
+		

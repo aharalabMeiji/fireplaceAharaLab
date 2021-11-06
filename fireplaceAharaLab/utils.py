@@ -307,16 +307,24 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				noCard=False
 				if identifyPlayer(card.controller.name, action.card.controller.name):
 					if card.is_playable():
-						print ("OK")
+						#print ("OK")
+						pass
+					else:
+						#print ("This card %s is unplayable"%(card))
+						return#
 
 		for character in player.characters:
 			if character.id==action.card.id:
 				noCard=False
 				if identifyPlayer(character.controller.name, action.card.controller.name):
 					if character.can_attack():
-						print ("OK")
+						#print ("OK")
+						pass
+					else:
+						#print ("This card %s is unplayable"%(character))
+						return#
 		if noCard:
-			print("no card %s is contained in the hand"%(action.card))
+			#print("no card %s is contained in the hand"%(action.card))
 			return
 		pass
 	if action.type==BlockType.PLAY:
