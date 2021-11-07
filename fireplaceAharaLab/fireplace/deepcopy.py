@@ -5,6 +5,7 @@ from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest
 from .player import Player
 from .game import Game
 import copy
+import random
 
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
@@ -50,6 +51,19 @@ def deepcopy_game(game, player, option):
 	#	newCard = newPlayer1.hand[i]
 	#	oldCard = oldPlayer1.hand[i]
 	#	debug_card(oldCard, newCard)
+	if option==1:
+		itsme = newGame.current_player
+		itshim = itsme.opponent
+		random.shuffle(itsme.deck)
+		for card in itshim.hand:
+			if random.choice([True, False]):
+				alt_card = random.choice(itshim.deck)
+				card.zone=Zone.DECK
+				alt_card.zone=Zone.HAND
+			pass
+		pass
+		random.shuffle(itshim.deck)
+		random.shuffle(itshim.hand)
 	#print("================deepcopy ends================")
 	return newGame
 

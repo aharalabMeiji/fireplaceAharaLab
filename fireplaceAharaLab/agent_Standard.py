@@ -20,8 +20,7 @@ class StandardAgent(Agent):
 		player = thisgame.current_player
 		loopCount=0
 		##########
-		#from fireplace.deepcopy import deepcopy_game
-		#new_game = debug_deepcopy(thisgame, player)
+		#new_game = deepcopy_game(thisgame, player, 0)
 		#candidate1 = getCandidates(thisgame)
 		#candidate2 = getCandidates(new_game)
 		#compaireCandidates(candidate1, candidate2)
