@@ -44,7 +44,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 	player1.choiceStrategy = P1.choiceStrategy
 	player2.choiceStrategy = P2.choiceStrategy
-	game = GameWithLog(players=(player1, player2))
+	game = Game(players=(player1, player2))
 	# Configurations
 	player1._start_hand_size=P1HAND## this line must be before 'start()'
 	player2._start_hand_size=P2HAND## 
@@ -176,14 +176,6 @@ class GameWithLog(Game):
 	""" game with logs  """
 	def __init__(self, players):
 		super().__init__(players=players)
-		self.__myLog__=[]
-		self.__stage_choice__=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
-			'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
-			'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
-	def add_log(self, choice: Candidate):
-		self.__myLog__.append(choice)
-	def get_log(self):
-		return self.__myLog__
 #
 #  getCandidates
 #
@@ -236,6 +228,15 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
 		pass
 	return myCandidate
+
+def identifyPlayer(name1, name2):
+	if len(name1) > len(name2):
+		return (name1[:len(name2)]==name2)
+	elif len(name1) < len(name2):
+		return (name2[:len(name1)]==name1)
+	if len(name1) == len(name2):
+		return (name1==name2)
+
 #
 #  executeAction
 #
@@ -264,22 +265,22 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		pass
 	else:
 		for card in player.hand:
-			if card.is_playable() and card.id==action.card.id and card.controller.name==action.card.controller.name:
+			if card.is_playable() and card.id==action.card.id and identifyPlayer(card.controller.name, action.card.controller.name):
 				theCard = card
 				if theCard.must_choose_one:
 					for card2 in card.choose_cards:
-						if card2.is_playable() and card2==action.card2:
+						if card2.is_playable() and card2.id==action.card2.id and identifyPlayer(card2.controller.name, action.card2.controller.name):
 							theCard2 = card2
 							if theCard2.requires_target():
 								for target in theCard2.targets:
-									if target==action.target and target.controller.name==action.target.controller.name:
+									if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 										theTarget=target
 							else:
 								pass
 				else:# card2=None
 					if theCard.requires_target():
 						for target in theCard.targets:
-							if target==action.target and target.controller.name == action.target.controller.name:
+							if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 								theTarget=target
 					else:
 						pass
@@ -288,17 +289,44 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				if _yes and card.id==action.card.id:
 					theCard = card
 		for character in player.characters:
-			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
+			if character.can_attack() and character==action.card and identifyPlayer(character.controller.name, action.card.controller.name):
 				theCard = character
 				for target in character.targets:
-					if character.can_attack(target) and target==action.target and target.controller.name==action.target.controller.name:
+					if character.can_attack(target) and target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 						theTarget = target
 		if player.hero.power==action.card:
 			if player.hero.power.is_usable():
 				theCard = player.hero.power
 				for target in theCard.targets:
-					if target==action.target and target.controller.name==action.target.controller.name:
+					if target==action.target and identifyPlayer(target.controller.name, action.target.controller.name):
 						theTarget = target
+	if theCard==None:## to debug
+		noCard=True
+		for card in player.hand:
+			if card.id==action.card.id:
+				noCard=False
+				if identifyPlayer(card.controller.name, action.card.controller.name):
+					if card.is_playable():
+						#print ("OK")
+						pass
+					else:
+						#print ("This card %s is unplayable"%(card))
+						return#
+
+		for character in player.characters:
+			if character.id==action.card.id:
+				noCard=False
+				if identifyPlayer(character.controller.name, action.card.controller.name):
+					if character.can_attack():
+						#print ("OK")
+						pass
+					else:
+						#print ("This card %s is unplayable"%(character))
+						return#
+		if noCard:
+			#print("no card %s is contained in the hand"%(action.card))
+			return
+		pass
 	if action.type==BlockType.PLAY:
 		if action.card.id != theCard.id:
 			print("%s != %s"%(action.card.id, theCard.id))

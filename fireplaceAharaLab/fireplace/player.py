@@ -215,6 +215,13 @@ class Player(Entity, TargetableByAuras):
 				self.shuffle_deck()
 		pass
 
+	def contains_questline(self, deck):
+		for card in deck:
+			if hasattr(card, 'questline') and card.questline:
+				return card
+		return None
+		
+
 	def prepare_for_game(self):
 		self.summon(self.starting_hero)
 		for id in self.starting_deck:
@@ -226,7 +233,13 @@ class Player(Entity, TargetableByAuras):
 
 		# Draw initial hand (but not any more than what we have in the deck)
 		hand_size = min(len(self.deck), self.start_hand_size)
-		starting_hand = random.sample(self.deck, hand_size)
+		questline_card = self.contains_questline(self.deck)
+		# questline card must be included in the initial hand.
+		if questline_card != None:
+			starting_hand = [questline_card]+random.sample(self.deck, hand_size-1)
+		else:
+			starting_hand = random.sample(self.deck, hand_size)
+
 		# It's faster to move cards directly to the hand instead of drawing
 		for card in starting_hand:
 			card.zone = Zone.HAND

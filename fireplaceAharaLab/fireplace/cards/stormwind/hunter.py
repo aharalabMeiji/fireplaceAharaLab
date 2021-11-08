@@ -34,7 +34,7 @@ class SW_322:#OK
 	""" Defend the Dwarven District
 	[Questline:] Deal damage with 2 spells. [Reward:] Your Hero Power can target minions. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
+	events = Damage(ENEMY_CHARACTERS).on(SpellAndDamage(CONTROLLER,
 		SidequestCounter(SELF, 2, [\
 			ChangeHeroPower(CONTROLLER, "HERO_05dbp"),Summon(CONTROLLER,'SW_322t'),Destroy(SELF)\
 		])))
@@ -45,7 +45,7 @@ class SW_322t:#OK
 	""" Take the High Ground
 	[Questline:] Deal damage with 2 spells.[Reward:] Set the Cost ofyour Hero Power to (0). """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
+	events = Damage(ENEMY_CHARACTERS).on(SpellAndDamage(CONTROLLER,
 		SidequestCounter(SELF, 2, [\
 			SetTag(FRIENDLY_HERO_POWER, {GameTag.COST: 0}),Summon(CONTROLLER,'SW_322t2'),Destroy(SELF)\
 		])))
@@ -55,7 +55,7 @@ class SW_322t2:#OK
 	""" Knock 'Em Down
 	[Questline:] Dealdamage with 2 spells.[Reward:] Tavish,Master Marksman. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Damage(ENEMY_CHARACTERS).on(SpallAndDamage(CONTROLLER,
+	events = Damage(ENEMY_CHARACTERS).on(SpellAndDamage(CONTROLLER,
 		SidequestCounter(SELF, 2, [\
 			Summon(CONTROLLER,'SW_322t4'),Destroy(SELF)\
 		]))) 

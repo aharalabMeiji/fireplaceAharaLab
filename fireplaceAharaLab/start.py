@@ -12,8 +12,8 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.SCHOLOMANCE
-	myCardClass=CardClass.DEMONHUNTER
+	myCardSet=CardSet.STORMWIND
+	myCardClass=CardClass.NEUTRAL
 	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
@@ -112,7 +112,7 @@ def main():
 	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], 
 		gameNumber=10, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],\
-	#   gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
+	#   gameNumber=1, debugLog=True, P1MAXMANA=1, P2MAXMANA=1)
 	print("%d:%d"%(a,b))
 
 	#デッキを固定しての総当たり戦

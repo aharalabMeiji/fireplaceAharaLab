@@ -28,7 +28,7 @@ def _eval_card(source, card):
 		card = card.trigger(source)[0]
 
 	if isinstance(card, Selector):
-		card = card.eval(source.game, source)
+		card = card.eval(source.game.entities, source)
 
 	if not isinstance(card, list):
 		cards = [card]
@@ -362,7 +362,7 @@ class Choice(GameAction):
 			player = player[0]
 		cards = self._args[1]
 		if isinstance(cards, Selector):
-			cards = cards.eval(source.game, source)
+			cards = cards.eval(source.game.entities, source)
 		elif isinstance(cards, LazyValue):
 			cards = cards.evaluate(source)
 		elif isinstance(cards, list):
@@ -681,14 +681,14 @@ class TargetedAction(Action):
 		if isinstance(selector, Entity):
 			return [selector]
 		else:
-			return selector.eval(source.game, source)
+			return selector.eval(source.game.entities, source) # game ? or game.entities?
 
 	def get_target_args(self, source, target):
 		ret = []
 		for k, v in zip(self.ARGS[1:], self._args[1:]):
 			if isinstance(v, Selector):
 				# evaluate Selector arguments
-				v = v.eval(source.game, source)
+				v = v.eval(source.game.entities, source)
 			elif isinstance(v, LazyValue):
 				v = v.evaluate(source)
 			elif isinstance(k, CardArg):
@@ -702,7 +702,7 @@ class TargetedAction(Action):
 		elif isinstance(t, LazyValue):
 			ret = t.evaluate(source)
 		else:
-			ret = t.eval(source.game, source)
+			ret = t.eval(source.game.entities, source) ## game? or game.entities?
 		if not ret:
 			return []
 		if not hasattr(ret, "__iter__"):
@@ -714,7 +714,7 @@ class TargetedAction(Action):
 		ret = []
 
 		if self.source is not None:
-			source = self.source.eval(source.game, source)
+			source = self.source.eval(source.game.entities, source) ## game? or game.entities?
 			assert len(source) == 1
 			source = source[0]
 
@@ -937,7 +937,7 @@ class Battlecry(TargetedAction):
 	def get_target_args(self, source, target):
 		arg = self._args[1]
 		if isinstance(arg, Selector):
-			arg = arg.eval(source.game, source)
+			arg = arg.eval(source.game.entities, source) ## game? or game.entities?
 			assert len(arg) == 1
 			arg = arg[0]
 		return [arg]
@@ -1025,7 +1025,7 @@ class Discover(TargetedAction):
 	CARDS = CardArg()
 
 	def get_target_args(self, source, target):
-		if target.hero.data.card_class != CardClass.NEUTRAL:
+		if hasattr(target,'hero') and target.hero.data.card_class != CardClass.NEUTRAL:
 			# use hero class for Discover if not neutral (eg. Ragnaros)
 			discover_class = target.hero.data.card_class
 		elif source.data.card_class != CardClass.NEUTRAL:
@@ -1237,6 +1237,8 @@ class ManaThisTurn(TargetedAction):
 	AMOUNT = IntArg()
 
 	def do(self, source, target, amount):
+		if target.type != CardType.PLAYER:
+			return
 		target.temp_mana += min(target.max_resources - target.mana, amount)
 
 class Mill(TargetedAction):
@@ -1458,6 +1460,11 @@ class Summon(TargetedAction):
 		return super()._broadcast(entity, source, at, *args)
 
 	def do(self, source, target, cards):
+		if target.type != CardType.PLAYER:
+			log.info("<><><><><><><><><><><><>")
+			log.info("%s is not a player, he/she cannot summon anything", target)
+			log.info("<><><><><><><><><><><><>")
+			return
 		log.info("%s summons %r", target, cards)
 
 		if not isinstance(cards, list):
@@ -2561,7 +2568,7 @@ class HaveMana(TargetedAction):
 		if target.mana>=amount:
 			self.broadcast(source, EventListener.ON, target, amount)
 
-class SpallAndDamage(TargetedAction):## for SW_322
+class SpellAndDamage(TargetedAction):## for SW_322
 	TARGET = ActionArg()
 	TARGETACTION = ActionArg()
 	def do(self,source,target,targetaction):

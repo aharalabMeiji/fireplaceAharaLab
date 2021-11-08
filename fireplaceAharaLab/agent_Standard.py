@@ -8,6 +8,7 @@ from fireplace.card import Card
 from fireplace.game import Game
 from fireplace.utils import ActionType
 from enum import IntEnum
+from fireplace.deepcopy import deepcopy_game
 
 
 class StandardAgent(Agent):
@@ -18,14 +19,30 @@ class StandardAgent(Agent):
 	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
+		##########
+		#new_game = deepcopy_game(thisgame, player, 0)
+		#candidate1 = getCandidates(thisgame)
+		#candidate2 = getCandidates(new_game)
+		#compaireCandidates(candidate1, candidate2)
+		##########
 		while loopCount<20:
+			##########
+			#debug_board(new_game,thisgame)#
+			##########
 			loopCount+=1
 			myCandidate = getCandidates(thisgame)
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
+				##########
+				#executeAction(new_game, myChoice, debugLog=debugLog)
+				#postAction(new_game.current_player)
+				##########
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
+					##########
+					#debug_board(new_game,thisgame)#
+					##########
 					return ExceptionPlay.GAMEOVER
 				else:
 					continue
@@ -50,7 +67,8 @@ class StandardVectorAgent(Agent):
 		if debug:
 			print(">>>>>>>>>>>>>>>>>>>")
 		for myChoice in myCandidate:
-			tmpGame = copy.deepcopy(game)
+			tmpGame = debug_deepcopy(game, game.current_player)
+			#tmpGame = copy.deepcopy(game)
 			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:
@@ -294,7 +312,14 @@ class HumanAgent(Agent):
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
+		###############
+		from fireplace.deepcopy import deepcopy_game
+		new_game = debug_deepcopy(game, player)
+		#######
 		while True:
+			###################
+			debug_board(new_game,game)#
+			###################
 			myCandidate = []
 			print("========My HAND======")
 			for card in player.hand:
@@ -474,11 +499,20 @@ class HumanAgent(Agent):
 				except ValueError:
 					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
+				########################################
+				debug_board(new_game,game)###
+				########################################
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
+				###################
+				executeAction(new_game, myChoice)#
+				postAction(new_game.current_player)#
+				##################
 				executeAction(game, myChoice)
 				postAction(player)
+
+
 	def HumanInputMulligan(self, choiceCards):
 		myCount=1
 		print("%s mulligan turn"%(self.name))
@@ -525,7 +559,232 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
-from fireplace.deepcopy import *
-def test_deepcopy(game,player):
-	new_game = DeepCopyGame(game,player,0)
-	
+from fireplace.deepcopy import deepcopy_game
+def debug_deepcopy(game,player):
+	return deepcopy_game(game,player,0)
+
+
+def debug_player_cards(player,old_player):
+	print("=======%s HAND======"%(player))
+	if len(player.hand)!=len(old_player.hand):
+		print("length is different %d:%d"%(len(player.hand), len(old_player.hand)))
+	for i in range(len(player.hand)):
+		comment=""
+		card = player.hand[i]
+		if i>=len(old_player.hand):
+			print ("XXX %s : no old cards here"%(card))
+			continue
+		old_card = old_player.hand[i]
+		if card.id != old_card.id:
+			print("XXX %s : old_name=%s"%(card,old_card))
+		else:
+			header=""
+			footer=""
+			if card.data.type == CardType.MINION:
+				footer = "%s : %2d(%2d/%2d) "%(card, card.cost, card.atk, card.health)
+				if card.cost != old_card.cost or card.atk != old_card.atk or card.health != old_card.health:
+					footer += " old : %2d(%2d/%2d)"%(old_card.cost, old_card.atk, old_card.health)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			elif card.data.type == CardType.SPELL:
+				footer = "%s : %2d  "%(card, card.cost)
+				if card.cost != old_card.cost:
+					footer += ", old : %2d"%(old_card.cost)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			elif card.data.type == CardType.WEAPON:
+				footer = "%s : %2d(%2d/%2d)  "%(card, card.cost, card.atk, card.durability)
+				if card.cost != old_card.cost or card.atk != old_card.atk or card.durability != old_card.durability:
+					footer += ", old : %2d(%2d/%2d)"%(old_card.cost, old_card.atk, old_card.derability)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			print ("%s %s"%(header, footer))
+		pass##
+	print("========%s FIELD======"%(player))
+	for i in range(len(player.characters)):
+		header = footer =""
+		character=player.characters[i]
+		if i>=len(old_player.characters):
+			print("XXX %s : no old card"%(character))
+			continue
+		old_character=old_player.characters[i]
+		footer = "%s"%character
+		if character.id != old_character.id:
+			header = 'XXX'
+			footer = "%s : old_name=%s"%(character, old_character)
+		if character == player.hero:
+			if player.weapon:
+				footer += "(%2d/%2d/%2d+%d)"%(character.atk,player.weapon.durability,character.health,character.armor)
+				if character.atk != old_character.atk or player.weapon.durability != old_player.weapon.durability or \
+					character.health != old_character.health or character.armor != old_character.armor:
+					footer += "(%2d/%2d/%2d+%d)"%(old_character.atk, old_player.weapon.durability, old_character.health, old_character.armor)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			else:
+				footer += "(%2d/%2d+%d)"%(character.atk,character.health,character.armor)
+				if character.atk != old_character.atk  or \
+					character.health != old_character.health or character.armor != old_character.armor:
+					footer += "(%2d/%2d+%d)"%(old_character.atk, old_character.health, old_character.armor)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+		else :
+			header = 'OOO'
+			footer += "(%2d/%2d)"%(character.atk,character.health)
+			if character.atk != old_character.atk or character.health != old_character.health:
+				footer += "(%2d/%2d)"%(old_character.atk, old_character.health)
+				header ='XXX'
+			if character._Asphyxia_ == 'asphyxia':
+				footer +="(Now Asphyxia %d)"%(character._sidequest_counter_)
+				if old_character._Asphyxia != 'asphyxia':
+					header ='XXX'
+					footer += 'X'
+			if character.silenced:
+				footer +="(silenced)"
+				if not old_character.silenced:
+					header ='XXX'
+					footer += 'X'
+			if character.windfury:
+				footer +="(windfury)"
+				if not old_character.windfury:
+					header ='XXX'
+					footer += 'X'
+			if character.poisonous:
+				footer +="(poisonous)"
+				if not old_character.poisonous:
+					header ='XXX'
+					footer += 'X'
+			if character.frozen:
+				footer +="(frozen)"
+				if not old_character.frozen:
+					header ='XXX'
+					footer += 'X'
+			if character.rush:
+				footer +="(rush)"
+				if not old_character.rush:
+					header ='XXX'
+					footer += 'X'
+			if character.taunt:
+				footer +="(taunt)"
+				if not old_character.taunt:
+					header ='XXX'
+					footer += 'X'
+			if character.immune:
+				footer +="(immune)"
+				if not old_character.immune:
+					header ='XXX'
+					footer += 'X'
+			if character.stealthed:
+				footer +="(stealthed)"
+				if not old_character.stealthed:
+					header ='XXX'
+					footer += 'X'
+			if character.divine_shield:
+				footer +="(divine_shield)"
+				if not old_character.divine_shield:
+					header ='XXX'
+					footer += 'X'
+			if character.dormant>0:
+				footer +="(dormant:%d)"%(character.dormant)
+				if old_character.dormant<=0:
+					header ='XXX'
+					footer += 'X'
+			elif character.dormant<0:
+				if character._sidequest_counter_>0:
+					footer +="(dormant:%d)"%(character._sidequest_counter_)
+					if old_character.dormant>=0 or old_character._sidequest_counter_<=0:
+						header ='XXX'
+						footer += 'X'
+				else:
+					footer +="(dormant)"
+			if character.spellpower>0:
+				footer +="(spellpower:%d)"%(character.spellpower)
+				if not old_character.spellpower > 0:
+					header ='XXX'
+					footer += 'X'
+		print("%s %s"%(header, footer))
+	if player.hero.power.is_usable():
+		footer="%s<%2d>"%(player.hero.power, player.hero.power.cost)
+		if player.hero.power != old_player.hero.power or player.hero.power.cost != old_player.hero.power.cost:
+			footer += "%s<%2d>"%(old_player.hero.power, old_player.hero.power.cost)
+			header ='XXX'
+			footer += 'X'
+		else:
+			header = 'OOO'
+		print("%s %s"%(header, footer))
+	print("========%s SECRETS======"%(player))
+	for i in range(len(player.secrets)):
+		card = player.secrets[i]
+		old_card = old_player.secrets[i]
+		header = 'OOO'
+		footer = "%s"%card
+		if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
+			footer += "(sidequest %d)"%(card._sidequest_counter_)
+			if card._sidequest_counter_ != old_card._sidequest_counter_:
+				footer += "(sidequest %d)"%(old_card._sidequest_counter_)
+				header = 'XXX'
+		if card.id != old_card.id:
+			footer += "(%s)"%old_card
+			header = 'XXX'
+	print("======== E N D =======")
+	pass
+
+def debug_board(new_game,old_game):
+	player = new_game.current_player
+	old_player = old_game.current_player
+	print("========TURN : %d/%d mana==(spell damage %d (fire %d))==="%(player.mana,player.max_mana,player.spellpower,player.spellpower_fire))
+	debug_player_cards(player,old_player)
+	debug_player_cards(player.opponent,old_player.opponent)
+	pass
+
+def identityCandidates(can1, can2):
+	if can1.card == None or can2.card == None:
+		return False
+	if can1.card.id != can2.card.id:
+		return False
+	if can1.card2 == None and can2.card2 != None:
+		return False
+	if can1.card2 != None and can2.card2 == None:
+		return False
+	if can1.card2 != None and can1.card2.id != can2.card2.id:
+		return False
+	if can1.type != can2.type:
+		return False
+	if can1.target != None and can2.target == None:
+		return False
+	if can1.target == None and can2.target != None:
+		return False
+	if can1.target != None and can2.target != None and can1.target.id != can2.target.id:
+		return False
+	return True
+
+def compaireCandidates(old_can, new_can):
+	print ("<><><><><><><><><comparing candidates starts<><><><><><><><><")
+	for can1 in old_can:
+		done = False
+		for can2 in old_can:
+			if identityCandidates(can1, can2):
+				done = True
+				break
+			pass
+		if not done:
+			print(" %s(%s)%s does not exist in new candidates. "%(can1.card,can1.type,can1.target))
+		pass
+	for can2 in old_can:
+		done = False
+		for can1 in old_can:
+			if identityCandidates(can1, can2):
+				done = True
+				break
+			pass
+		if not done:
+			print(" %s(%s)%s does not exist in old candidates. "%(can2.card,can2.type,can2.target))
+		pass
+	print ("<><><><><><><><><comparing candidates ends<><><><><><><><><")
+	pass
+
+		

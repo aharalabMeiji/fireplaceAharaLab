@@ -38,7 +38,7 @@ class Refresh:
 		self.priority = priority
 
 	def trigger(self, source):
-		entities = self.selector.eval(source.game, source)
+		entities = self.selector.eval(source.game.entities, source)
 		for entity in entities:
 			if self.buff:
 				entity.refresh_buff(source, self.buff)

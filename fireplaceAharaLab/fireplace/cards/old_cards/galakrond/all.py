@@ -51,7 +51,7 @@ class YOD_007:#OK
 	summon a copy of this."""
 	def play(self):
 		current_turn = self.controller.game.turn
-		for candidate in self.controller.game.__myLog__:
+		for candidate in self.controller.game._myLog_:
 			if candidate.turn == current_turn-2: #it is my last turn
 				if hasattr(candidate.card, 'race'):
 					if candidate.card.race == Race.ELEMENTAL:
