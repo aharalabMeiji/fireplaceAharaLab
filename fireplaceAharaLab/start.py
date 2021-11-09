@@ -7,59 +7,10 @@ from fireplace import cards
 
 sys.path.append("..")
 
-def printClasses():
-	from hearthstone import cardxml
-	print('')
-	print('from ..utils import *')
-	print('')
-	myCardSet=CardSet.STORMWIND
-	myCardClass=CardClass.NEUTRAL
-	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
-	db, xml = cardxml.load(locale='enUS')
-	for _id in db.keys():
-		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			print("'%s'"%(_card.id), end=",")
-		pass
-	pass
-	print(']')
-	for _id in db.keys():
-		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
-			print('\t""" %s'%(_card.name))
-			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-			print('\t#'%())
-			print('\tpass'%())
-			print(''%())
-		pass
-	pass
-
-def printMissedCards():
-	#from hearthstone import cardxml
-	from importlib import import_module
-	from fireplace.cards.cardlist import All
-	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
-	for cardIDlist in All:
-		for id in cardIDlist:
-			#card = cardxml.CardXML(id)
-			ok=False
-			for cardset in CARD_SETS:
-				module = import_module("fireplace.cards.%s" % (cardset))
-				if hasattr(module, id):
-					ok=True
-					break
-			if not ok:
-				print("%s"%(id))
-		pass
-	pass
-
 #
 #		main()
 #
 def main():
-	#printMissedCards()
-	#printClasses()
 	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.WARRIOR,
@@ -129,7 +80,58 @@ def main():
 	#print("test_branch_yamadamaya")
 
 	pass
+
+def printClasses():
+	from hearthstone import cardxml
+	print('')
+	print('from ..utils import *')
+	print('')
+	myCardSet=CardSet.STORMWIND
+	myCardClass=CardClass.NEUTRAL
+	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
+	db, xml = cardxml.load(locale='enUS')
+	for _id in db.keys():
+		_card = db[_id]
+		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print("'%s'"%(_card.id), end=",")
+		pass
+	pass
+	print(']')
+	for _id in db.keys():
+		_card = db[_id]
+		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
+			print('\t""" %s'%(_card.name))
+			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			print('\t#'%())
+			print('\tpass'%())
+			print(''%())
+		pass
+	pass
+
+def printMissedCards():
+	#from hearthstone import cardxml
+	from importlib import import_module
+	from fireplace.cards.cardlist import All
+	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
+	for cardIDlist in All:
+		for id in cardIDlist:
+			#card = cardxml.CardXML(id)
+			ok=False
+			for cardset in CARD_SETS:
+				module = import_module("fireplace.cards.%s" % (cardset))
+				if hasattr(module, id):
+					ok=True
+					break
+			if not ok:
+				print("%s"%(id))
+		pass
+	pass
+
+
 if __name__ == "__main__":
+	#printClasses()
+	#printMissedCards()
 	main()
 
 
