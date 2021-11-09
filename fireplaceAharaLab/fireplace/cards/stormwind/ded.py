@@ -15,14 +15,13 @@ from ..utils import *
 class DED_006:# <12>[1578]
 	""" Mr. Smite
 	Your Pirates have [Charge]. """
-	#
+	play = Buff(FIRNEDLY_MINIONS + PIRATE, 'DED_006e2')
 	pass
 
-class DED_006e2:# <12>[1578]
-	""" Charge
-	{0} grants [Charge]. """
-	#
-	pass
+DED_006e2 = buff(charge=True)# <12>[1578]
+""" Charge
+{0} grants [Charge]. """
+#
 
 class DED_514e:# <12>[1578]
 	""" Copycat
@@ -33,30 +32,30 @@ class DED_514e:# <12>[1578]
 class DED_521:# <12>[1578]
 	""" Maddest Bomber
 	[Battlecry:] Deal 12 damage randomly split among all other characters. """
-	#
+	play = Hit(RANDOM(ALL_CHARACTERS),1) * 12
 	pass
 
 class DED_523:# <12>[1578]
 	""" Golakka Glutton
 	[Battlecry:] Destroy a Beast and gain +1/+1. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
+	play = (Destroy(TARGET), Buff(SELF, 'DED_523e'))
 	pass
 
-class DED_523e:# <12>[1578]
-	""" Stuffed Belly
-	+1/+1. """
-	#
-	pass
+DED_523e = buff(1,1)# <12>[1578]
+""" Stuffed Belly
++1/+1. """
+#
 
 class DED_524:# <12>[1578]
 	""" Multicaster
-	[Battlecry:] Draw a card foreach different spell school_you've cast this game. """
+	[Battlecry:] Draw a card for each different spell school_you've cast this game. """
 	#
 	pass
 
 class DED_525:# <12>[1578]
 	""" Goliath, Sneed's Masterpiece
-	[Battlecry:] Fire five rocketsat enemy minions that deal2 damage each. <i>(You pickthe targets!)</i> """
+	[Battlecry:] Fire five rockets at enemy minions that deal 2 damage each. <i>(You pickthe targets!)</i> """
 	#
 	pass
 
@@ -65,7 +64,7 @@ class DED_525:# <12>[1578]
 
 class DED_007:# <3>[1578]
 	""" Defias Blastfisher
-	[Battlecry:] Deal 2 damageto a random enemy. Repeatfor each of your Beasts. """
+	[Battlecry:] Deal 2 damage to a random enemy. Repeat for each of your Beasts. """
 	#
 	pass
 
@@ -117,33 +116,32 @@ class DED_517t:# <4>[1578]
 
 class DED_001:# <2>[1578]
 	""" Druid of the Reef
-	[Choose One - ]Transform intoa 3/1 Shark with [Rush]; ora 1/3 Turtle with [Taunt]. """
-	#
-	pass
+	[Choose One - ]Transform into a 3/1 Shark with [Rush]; or a 1/3 Turtle with [Taunt]. """
+	choose = ("DED_001a", "DED_001b")
+	play = ChooseBoth(CONTROLLER) & (
+		Summon(CONTROLLER, "DED_001c")
+	)	
 
 class DED_001a:# <2>[1578]
 	""" Shark Form
 	[Rush] """
-	#
+	play = Buff(SELF, 'DED_001at')
 	pass
 
-class DED_001at:# <2>[1578]
-	""" Druid of the Reef
-	[Rush] """
-	#
-	pass
+DED_001at = buff(rush=True)# <2>[1578]
+""" Druid of the Reef
+[Rush] """
 
 class DED_001b:# <2>[1578]
 	""" Sea Turtle Form
 	[Taunt] """
-	#
+	play = Buff(SELF, 'DED_001bt')
 	pass
 
-class DED_001bt:# <2>[1578]
-	""" Druid of the Reef
-	[Taunt] """
-	#
-	pass
+DED_001bt = buff(taunt=True)# <2>[1578]
+""" Druid of the Reef
+[Taunt] """
+#
 
 class DED_001c:# <2>[1578]
 	""" Druid of the Reef
@@ -153,7 +151,7 @@ class DED_001c:# <2>[1578]
 
 class DED_002:# <2>[1578]
 	""" Moonlit Guidance
-	[Discover] a copy ofa card in your deck.If you play it this turn,draw the original. """
+	[Discover] a copy of a card in your deck.If you play it this turn,draw the original. """
 	#
 	pass
 
