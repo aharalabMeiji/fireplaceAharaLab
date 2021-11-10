@@ -153,6 +153,9 @@ class BaseGame(Entity):
 			actions = [PayCost(trader, card, 1), Draw(trader), Shuffle(trader,card)]
 		else: #option=1
 			actions = [PayCost(trader, card, 1), Discover(trader,RandomCard()), Shuffle(trader,card)]
+		## callback
+		if card.id =='DED_009' and len(card.controller.field)>0:
+			actions += [Buff(random.choice(card.controller.field),'DED_001at')]
 		return self.action_block(trader, actions, type, None, None)
 
 	def process_deaths(self):

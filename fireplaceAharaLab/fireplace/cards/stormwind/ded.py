@@ -75,9 +75,6 @@ class DED_524:# <12>[1578]
 	pass
 
 class DED_525Choice(Choice):
-	def do(self, source, player, cards):
-		super().do(source, player, cards)
-
 	def choose(self, card):
 		self.source._sidequest_counter_ += 1
 		if self.source._sidequest_counter_>=5:
@@ -86,9 +83,10 @@ class DED_525Choice(Choice):
 			self.next_choice=self
 		self.callback = [Hit(card, 2)]
 		super().choose(card)
+		self.cards = self.player.opponent.field
 
 
-class DED_525:# <12>[1578] ################################ failure
+class DED_525:# <12>[1578] #### maybe success
 	""" Goliath, Sneed's Masterpiece
 	[Battlecry:] Fire five rockets at enemy minions that deal 2 damage each. <i>(You pick the targets!)</i> """
 	play = DED_525Choice(CONTROLLER, ENEMY_MINIONS)
@@ -101,39 +99,61 @@ class DED_525:# <12>[1578] ################################ failure
 class DED_007:# <3>[1578]
 	""" Defias Blastfisher
 	[Battlecry:] Deal 2 damage to a random enemy. Repeat for each of your Beasts. """
-	#
+	play = Hit(RANDOM(ENEMY_MINIONS),2), Hit(RANDOM(ENEMY_MINIONS),2) * Count(FRIENDLY_MINIONS + BEAST)
 	pass
 
 class DED_008:# <3>[1578]
 	""" Monstrous Parrot
-	[Battlecry:] Repeat the lastfriendly [Deathrattle]that triggered. """
-	#
+	[Battlecry:] Repeat the last friendly [Deathrattle] that triggered. """
+	def play(self):
+		death_log = self.controller.death_log
+		deathrattle = None
+		for card in death_log:
+			if card.has_deathrattle:
+				deathrattle = card.deathrattles[-1]
+				if isinstance(deathrattle,(list, tuple)):
+					deathrattle = deathrattle[0]
+		if deathrattle != None:
+			deathrattle.trigger(self.controller)
+		pass
 	pass
 
 class DED_009:# <3>[1578]
 	""" Doggie Biscuit
-	[Tradeable]Give a minion +2/+3.After you [Trade] this, givea friendly minion [Rush]. """
-	#
+	[Tradeable]Give a minion +2/+3.After you [Trade] this, give a friendly minion [Rush]. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'DED_009e')
+	#trade = Buff(RANDOM(FRIENDLY_MINION),'DED_001at')-> game.trade_card()
 	pass
 
-class DED_009e:# <3>[1578]
-	""" Good Doggie!
-	+2/+3. """
-	#
-	pass
+DED_009e = buff(2,3)# <3>[1578]
+""" Good Doggie!
++2/+3. """
 
 ## mage
 
 class DED_515:# <4>[1578]
 	""" Grey Sage Parrot
 	[Battlecry:] Repeat the last spell you've cast that costs (5) or more. """
-	#
+	def play(self):
+		controller = self.controller
+		play_log = controller.play_log
+		spell_target = None
+		spell_action = None
+		for card in play_log:
+			if card.type == CardType.SPELL and card.cost>=5:
+				if card.require_target():
+					spell_target = random.choice(card.targets)
+				spell_action = Play(card, spell_target, None, None)
+		if spell_action != None:
+			spell_action.trigger(controller)
+		pass
 	pass
 
 class DED_516:# <4>[1578]
 	""" Deepwater Evoker
-	[Battlecry:] Draw a spell.Gain Armor equal toits Cost. """
-	#
+	[Battlecry:] Draw a spell. Gain Armor equal to its Cost. """
+	play = Give(CONTROLLER, RANDOME(FRIENDLY_DECK + SPELL)).on(GainArmor(FRIENDLY_HERO, cost(Give.CARD)))
 	pass
 
 class DED_517:# <4>[1578]
