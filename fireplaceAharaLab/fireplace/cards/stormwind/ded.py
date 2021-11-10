@@ -15,7 +15,7 @@ from ..utils import *
 class DED_006:# <12>[1578]
 	""" Mr. Smite
 	Your Pirates have [Charge]. """
-	play = Buff(FIRNEDLY_MINIONS + PIRATE, 'DED_006e2')
+	play = Buff(FRIENDLY_MINIONS + PIRATE, 'DED_006e2')
 	pass
 
 DED_006e2 = buff(charge=True)# <12>[1578]
@@ -50,13 +50,49 @@ DED_523e = buff(1,1)# <12>[1578]
 class DED_524:# <12>[1578]
 	""" Multicaster
 	[Battlecry:] Draw a card for each different spell school_you've cast this game. """
-	#
+	def play(self):
+		play_log = self.controller.play_log
+		school_count=[0] * 6
+		for card in play_log:
+			if card.type == CardType.SPELL:
+				if card.spell_school == CardSchool.ARCANE:
+					school_count[0] = 1
+				if card.spell_school == CardSchool.FIRE:
+					school_count[1] = 1
+				if card.spell_school == CardSchool.FROST:
+					school_count[2] = 1
+				if card.spell_school == CardSchool.NATURE:
+					school_count[3] = 1
+				if card.spell_school == CardSchool.HOLY:
+					school_count[4] = 1
+				if card.spell_school == CardSchool.SHADOW:
+					school_count[5] = 1
+			pass
+		pass
+		count = sum(school_count)
+		for i in range(count):
+			Draw(self.controller).trigger(self.controller)
 	pass
 
-class DED_525:# <12>[1578]
+class DED_525Choice(Choice):
+	def do(self, source, player, cards):
+		super().do(source, player, cards)
+
+	def choose(self, card):
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=5:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		self.callback = [Hit(card, 2)]
+		super().choose(card)
+
+
+class DED_525:# <12>[1578] ################################ failure
 	""" Goliath, Sneed's Masterpiece
-	[Battlecry:] Fire five rockets at enemy minions that deal 2 damage each. <i>(You pickthe targets!)</i> """
-	#
+	[Battlecry:] Fire five rockets at enemy minions that deal 2 damage each. <i>(You pick the targets!)</i> """
+	play = DED_525Choice(CONTROLLER, ENEMY_MINIONS)
+	#play = GenericChoiceFromEnemyMinions(CONTROLLER, [Hit(GenericChoiceFromEnemyMinions.CARD, 2)]) * 5
 	pass
 
 

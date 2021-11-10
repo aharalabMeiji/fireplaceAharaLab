@@ -313,12 +313,12 @@ class HumanAgent(Agent):
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
 		###############
-		from fireplace.deepcopy import deepcopy_game
-		new_game = debug_deepcopy(game, player)
+		#from fireplace.deepcopy import deepcopy_game
+		#new_game = debug_deepcopy(game, player)
 		#######
 		while True:
 			###################
-			debug_board(new_game,game)#
+			#debug_board(new_game,game)#
 			###################
 			myCandidate = []
 			print("========My HAND======")
@@ -500,14 +500,14 @@ class HumanAgent(Agent):
 					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
 				########################################
-				debug_board(new_game,game)###
+				#debug_board(new_game,game)###
 				########################################
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
 				###################
-				executeAction(new_game, myChoice)#
-				postAction(new_game.current_player)#
+				#executeAction(new_game, myChoice)#
+				#postAction(new_game.current_player)#
 				##################
 				executeAction(game, myChoice)
 				postAction(player)
