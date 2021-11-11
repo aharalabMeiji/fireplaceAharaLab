@@ -45,7 +45,7 @@ Stormwind_Updates=[
 'DED_007','DED_008','DED_009','DED_009e',
 #'DED_515','DED_516','DED_517','DED_517t',
 #'DED_001','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DED_002','DED_002e','DED_003',
-#'DED_518','DED_519','DED_527','DED_527e',
+'DED_518','DED_519','DED_527','DED_527e',
 ]
 # Hero
 Heroes=[

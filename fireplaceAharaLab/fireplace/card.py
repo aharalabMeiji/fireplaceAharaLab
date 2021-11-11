@@ -161,7 +161,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cant_be_frozen = boolean_property("cant_be_frozen")# 
 	reborn = boolean_property("reborn")# 
 	mark_of_evil = boolean_property("mark_of_evil")# 
-	trade_cost = int_property("trade_cost")
+	trade_cost = int_property("trade_cost")#stormwind
+	tradeable = boolean_property("tradeable")#stormwind
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	sidequest_list0 = []# Sidequest
@@ -187,6 +188,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.cast_on_friendly_characters = False
 		self.script_data_text_0=' '
 		self.script_data_text_1=' '
+		if hasattr(self, 'trade_cost') and self.trade_cost>0:## because of CardDefs's bug
+			self.tradeable = True## because of CardDefs's bug
 		super().__init__(data)
 
 	@property

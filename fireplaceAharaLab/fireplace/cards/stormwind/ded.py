@@ -23,7 +23,7 @@ DED_006e2 = buff(charge=True)# <12>[1578]
 {0} grants [Charge]. """
 #
 
-class DED_514e:# <12>[1578]
+class DED_514e:# <12>[1578] -> <6>[1578]
 	""" Copycat
 	Add a copy of the next card your opponent plays to your hand. """
 	#
@@ -153,13 +153,26 @@ class DED_515:# <4>[1578]
 class DED_516:# <4>[1578]
 	""" Deepwater Evoker
 	[Battlecry:] Draw a spell. Gain Armor equal to its Cost. """
-	play = Give(CONTROLLER, RANDOME(FRIENDLY_DECK + SPELL)).on(GainArmor(FRIENDLY_HERO, cost(Give.CARD)))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).on(GainArmor(FRIENDLY_HERO, COST(Give.CARD)))
 	pass
 
 class DED_517:# <4>[1578]
 	""" Arcane Overflow
-	Deal $8 damage to anenemy minion. Summon a Remnant with stats equalto the excess damage. """
-	#
+	Deal $8 damage to an enemy minion. Summon a Remnant with stats equal to the excess damage. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
+	def play(self):
+		target = self.target
+		excess = 8-target.health
+		Hit(target, target.health).trigger(self.controller)
+		new_card = Summon(self.controller, 'DED_517t').trigger(self.controller)
+		if isinstance(new_card,list) and len(new_card)>0:
+			new_card - new_card[0]
+		if isinstance(new_card,list) and len(new_card)>0:
+			new_card - new_card[0]
+		assert isinstance(new_card, Card)
+		if excess>0:
+			new_card.atk = excess
+			new_card.max_health = excess 
 	pass
 
 class DED_517t:# <4>[1578]
@@ -205,19 +218,20 @@ class DED_001c:# <2>[1578]
 	#
 	pass
 
-class DED_002:# <2>[1578]
+class DED_002:# <2>[1578]###########################################
 	""" Moonlit Guidance
 	[Discover] a copy of a card in your deck.If you play it this turn,draw the original. """
-	#
+	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK))
+	play.callback = [Give(CONTROLLER, ExactCopy(Choice.CARD)).then( Buff(Give.CARD, 'DED_002e'))]
 	pass
 
-class DED_002e:# <2>[1578]
+class DED_002e:# <2>[1578]##########################################
 	""" Path of the Moon
 	If played this turn, draw the original copy. """
-	#
+	# do - shi yo -
 	pass
 
-class DED_003:# <2>[1578]
+class DED_003:# <2>[1578]###########################################
 	""" Jerry Rig Carpenter
 	[Battlecry:] Draw a [Choose One] spell and split it. """
 	#
@@ -228,24 +242,25 @@ class DED_003:# <2>[1578]
 class DED_518:# <10>[1578]
 	""" Man the Cannons
 	Deal $3 damage to a minion and $1 damage to all other minions. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Hit(TARGET,3), Hit(ALL_MINIONS - TARGET, 1)
 	#
 	pass
 
 class DED_519:# <10>[1578]
 	""" Defias Cannoneer
-	After your hero attacks,deal 2 damage to arandom enemy twice. """
-	#
+	After your hero attacks,deal 2 damage to a random enemy twice. """
+	events = Attack(FRIENDLY_HERO).after(Hit(RANDOM(ENEMY_MINIONS),2) * 2)
 	pass
 
 class DED_527:# <10>[1578]
 	""" Blacksmithing Hammer
 	[Tradeable]After you [Trade] this,_gain +2 Durability. """
-	#
+	# weapon 
+	#trade = Buff(SELF, 'DED_527e')
 	pass
 
-class DED_527e:# <10>[1578]
-	""" Blacksmithing
-	+2 Durability. """
-	#
-	pass
+DED_527e = buff(0,2)# <10>[1578]
+""" Blacksmithing
++2 Durability. """
 
