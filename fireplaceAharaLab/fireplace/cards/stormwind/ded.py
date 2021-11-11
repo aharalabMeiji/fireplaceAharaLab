@@ -12,7 +12,7 @@ from ..utils import *
 
 ## neutral
 
-class DED_006:# <12>[1578]
+class DED_006:# <12>[1578] ###OK
 	""" Mr. Smite
 	Your Pirates have [Charge]. """
 	play = Buff(FRIENDLY_MINIONS + PIRATE, 'DED_006e2')
@@ -29,13 +29,13 @@ class DED_514e:# <12>[1578] -> <6>[1578]
 	#
 	pass
 
-class DED_521:# <12>[1578]
+class DED_521:# <12>[1578] ####OK
 	""" Maddest Bomber
 	[Battlecry:] Deal 12 damage randomly split among all other characters. """
 	play = Hit(RANDOM(ALL_CHARACTERS),1) * 12
 	pass
 
-class DED_523:# <12>[1578]
+class DED_523:# <12>[1578] ###OK
 	""" Golakka Glutton
 	[Battlecry:] Destroy a Beast and gain +1/+1. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
@@ -234,7 +234,7 @@ class DED_002e:# <2>[1578]##########################################
 class DED_003:# <2>[1578]###########################################
 	""" Jerry Rig Carpenter
 	[Battlecry:] Draw a [Choose One] spell and split it. """
-	#
+	play = Give(CONTROLLER, RandomMinion(has_choose_one=True))#not be splitted
 	pass
 
 ## warrior
