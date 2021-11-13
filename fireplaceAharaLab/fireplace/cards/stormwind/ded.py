@@ -47,7 +47,7 @@ DED_523e = buff(1,1)# <12>[1578]
 +1/+1. """
 #
 
-class DED_524:# <12>[1578]
+class DED_524:# <12>[1578]###OK
 	""" Multicaster
 	[Battlecry:] Draw a card for each different spell school_you've cast this game. """
 	def play(self):
@@ -55,17 +55,17 @@ class DED_524:# <12>[1578]
 		school_count=[0] * 6
 		for card in play_log:
 			if card.type == CardType.SPELL:
-				if card.spell_school == CardSchool.ARCANE:
+				if card.spell_school == SpellSchool.ARCANE:
 					school_count[0] = 1
-				if card.spell_school == CardSchool.FIRE:
+				if card.spell_school == SpellSchool.FIRE:
 					school_count[1] = 1
-				if card.spell_school == CardSchool.FROST:
+				if card.spell_school == SpellSchool.FROST:
 					school_count[2] = 1
-				if card.spell_school == CardSchool.NATURE:
+				if card.spell_school == SpellSchool.NATURE:
 					school_count[3] = 1
-				if card.spell_school == CardSchool.HOLY:
+				if card.spell_school == SpellSchool.HOLY:
 					school_count[4] = 1
-				if card.spell_school == CardSchool.SHADOW:
+				if card.spell_school == SpellSchool.SHADOW:
 					school_count[5] = 1
 			pass
 		pass
@@ -96,13 +96,13 @@ class DED_525:# <12>[1578] #### maybe success
 
 ## hunter
 
-class DED_007:# <3>[1578]
+class DED_007:# <3>[1578] ###OK
 	""" Defias Blastfisher
 	[Battlecry:] Deal 2 damage to a random enemy. Repeat for each of your Beasts. """
-	play = Hit(RANDOM(ENEMY_MINIONS),2), Hit(RANDOM(ENEMY_MINIONS),2) * Count(FRIENDLY_MINIONS + BEAST)
+	play = Hit(RANDOM(ENEMY_CHARACTERS),2), Hit(RANDOM(ENEMY_CHARACTERS),2) * Count(FRIENDLY_MINIONS + BEAST)
 	pass
 
-class DED_008:# <3>[1578]
+class DED_008:# <3>[1578] ###OK
 	""" Monstrous Parrot
 	[Battlecry:] Repeat the last friendly [Deathrattle] that triggered. """
 	def play(self):
@@ -118,7 +118,7 @@ class DED_008:# <3>[1578]
 		pass
 	pass
 
-class DED_009:# <3>[1578]
+class DED_009:# <3>[1578] ###OK
 	""" Doggie Biscuit
 	[Tradeable]Give a minion +2/+3.After you [Trade] this, give a friendly minion [Rush]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -194,23 +194,22 @@ class DED_001:# <2>[1578]
 class DED_001a:# <2>[1578]
 	""" Shark Form
 	[Rush] """
-	play = Buff(SELF, 'DED_001at')
 	pass
 
-DED_001at = buff(rush=True)# <2>[1578]
-""" Druid of the Reef
-[Rush] """
+class DED_001at:# <2>[1578]
+	""" Druid of the Reef
+	[Rush] """
+	pass
 
 class DED_001b:# <2>[1578]
 	""" Sea Turtle Form
 	[Taunt] """
-	play = Buff(SELF, 'DED_001bt')
 	pass
 
-DED_001bt = buff(taunt=True)# <2>[1578]
-""" Druid of the Reef
-[Taunt] """
-#
+class DED_001bt:# <2>[1578]
+	""" Druid of the Reef
+	[Taunt] """
+	#
 
 class DED_001c:# <2>[1578]
 	""" Druid of the Reef
