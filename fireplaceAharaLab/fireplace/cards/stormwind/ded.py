@@ -197,6 +197,8 @@ class DED_001:# <2>[1578]
 class DED_001a:# <2>[1578]
 	""" Shark Form
 	[Rush] """
+	def play(self):
+	   Morph(self.parent_card, 'DED_001at').trigger(self.controller)
 	pass
 
 class DED_001at:# <2>[1578]
@@ -207,6 +209,8 @@ class DED_001at:# <2>[1578]
 class DED_001b:# <2>[1578]
 	""" Sea Turtle Form
 	[Taunt] """
+	def play(self):
+	   Morph(self.parent_card, 'DED_001bt').trigger(self.controller)
 	pass
 
 class DED_001bt:# <2>[1578]
