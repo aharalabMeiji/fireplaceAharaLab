@@ -132,7 +132,7 @@ DED_009e = buff(2,3)# <3>[1578]
 
 ## mage
 
-class DED_515:# <4>[1578]
+class DED_515:# <4>[1578] ###OK
 	""" Grey Sage Parrot
 	[Battlecry:] Repeat the last spell you've cast that costs (5) or more. """
 	def play(self):
@@ -142,34 +142,37 @@ class DED_515:# <4>[1578]
 		spell_action = None
 		for card in play_log:
 			if card.type == CardType.SPELL and card.cost>=5:
-				if card.require_target():
+				if card.requires_target():
 					spell_target = random.choice(card.targets)
-				spell_action = Play(card, spell_target, None, None)
+				spell_action = Battlecry(card, spell_target)
 		if spell_action != None:
 			spell_action.trigger(controller)
 		pass
 	pass
 
-class DED_516:# <4>[1578]
+class DED_516:# <4>[1578] ###OK
 	""" Deepwater Evoker
 	[Battlecry:] Draw a spell. Gain Armor equal to its Cost. """
-	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).on(GainArmor(FRIENDLY_HERO, COST(Give.CARD)))
+	def play(self):
+		new_card = Give(self.controller, RandomSpell()).trigger(self.controller)
+		new_card_cost = new_card[0][0].cost
+		GainArmor(self.controller.hero, new_card_cost).trigger(self.controller)
 	pass
 
-class DED_517:# <4>[1578]
+class DED_517:# <4>[1578] ###OK
 	""" Arcane Overflow
 	Deal $8 damage to an enemy minion. Summon a Remnant with stats equal to the excess damage. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
 	def play(self):
 		target = self.target
-		excess = 8-target.health
+		excess = 8 + self.controller.spellpower - target.health
 		Hit(target, target.health).trigger(self.controller)
 		new_card = Summon(self.controller, 'DED_517t').trigger(self.controller)
 		if isinstance(new_card,list) and len(new_card)>0:
-			new_card - new_card[0]
+			new_card = new_card[0]
 		if isinstance(new_card,list) and len(new_card)>0:
-			new_card - new_card[0]
-		assert isinstance(new_card, Card)
+			new_card = new_card[0]
+		#assert isinstance(new_card, Card)
 		if excess>0:
 			new_card.atk = excess
 			new_card.max_health = excess 
