@@ -56,23 +56,16 @@ class SCH_609:# <2>[1443] # -> clownDruid
     pass
 SCH_609e=buff(atk=4,health=4)
 
-class SCH_612b_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target.controller
-		for repeat in range(4):
-			new_card = Summon(controller, 'SCH_612t').trigger(controller)
-			if new_card[0] != []:
-				new_card=new_card[0][0]
-				new_card.rush = True
-		pass
 class SCH_612:#OK <2>[1443]
 	""" Runic Carvings
 	[Choose One -] Summon four 2/2 Treant Totems; or [Overload:] (2) to summon them with [Rush]. """
 	choose = ('SCH_612a','SCH_612b')
 	play = ChooseBoth(CONTROLLER) & (
 		Summon(CONTROLLER, 'SCH_612t')*4,
-		SCH_612b_Action(SELF)
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e'))
 		)
 	pass
 
@@ -85,7 +78,20 @@ class SCH_612a:# <2>[1443]
 class SCH_612b:# <2>[1443]##
 	""" Alarm the Forest
 	Summon four 2/2 Treant Totems with [Rush].[Overload:] (2) """
-	play = SCH_612b_Action(SELF)
+	play = (
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
+		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e'))
+		)
+	#def play(self):
+	#	controller = self.controller
+	#	for repeat in range(4):
+	#		new_card = Summon(controller, 'SCH_612t').trigger(controller)
+	#		if new_card[0] != []:
+	#			new_card=new_card[0][0]
+	#			new_card.rush = True
+	#	pass
 	pass
 
 class SCH_612t:# <2>[1443]

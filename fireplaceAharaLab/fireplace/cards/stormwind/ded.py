@@ -197,8 +197,7 @@ class DED_001:# <2>[1578] ###OK
 class DED_001a:# <2>[1578]
 	""" Shark Form
 	[Rush] """
-	def play(self):
-	   Morph(self.parent_card, 'DED_001at').trigger(self.controller)
+	play = Morph(SELF, 'DED_001at')
 	pass
 
 class DED_001at:# <2>[1578]
@@ -209,8 +208,7 @@ class DED_001at:# <2>[1578]
 class DED_001b:# <2>[1578]
 	""" Sea Turtle Form
 	[Taunt] """
-	def play(self):
-	   Morph(self.parent_card, 'DED_001bt').trigger(self.controller)
+	play = Morph(SELF, 'DED_001bt')
 	pass
 
 class DED_001bt:# <2>[1578]
@@ -238,39 +236,24 @@ class DED_002e:# <2>[1578]##########################################
 	pass
 
 
-class DED_003:# <2>[1578]###########################################
+class DED_003:# <2>[1578]### it (maybe) doesn't work for CORE_EX1_178 (Ancient of War)
 	""" Jerry Rig Carpenter
 	[Battlecry:] Draw a [Choose One] spell and split it. """
 	def play(self):
 		controller = self.controller
 		choose_one_cards = []
 		for card in controller.deck:
-			if hasattr(card, 'has_choose_one') and card.has_choose_one:
-				choose_one_cards.append(card)
-		if len(choose_one_cards)==0:
-			return
-		card = random.choice(choose_one_cards)
-		card_id = card.id
-		if card_id[:5]=='CORE_':
-			card_id = card_id[5:]
-		nameA = card_id+'a'
-		nameB = card_id+'b'
-		#if card_id == 'EX1_178':## 見当違いだった
-		#	new_card = Give(controller, 'CORE_EX1_178').trigger(controller)
-		#	new_card = new_card[0][0]
-		#	Buff(new_card, 'EX1_178ae').trigger(controller)
-		#	new_card = Give(controller, 'CORE_EX1_178').trigger(controller)
-		#	new_card = new_card[0][0]
-		#	Buff(new_card, 'EX1_178be').trigger(controller)
-		#	pass
-		## 何らかassertしたい
-		#else:
-		try:
-			card.zone = Zone.GRAVEYARD
-			Give(controller, nameA).trigger(controller)
-			Give(controller, nameB).trigger(controller)
-		except ValueError:
-			pass
+			if hasattr(card, 'has_choose_one') and card.has_choose_one and card.id != 'CORE_EX1_178':
+				card_id = card.id
+				# DED_001, SW_422, SCH_612, DMF_061, CORE_EX1_164, CORE_OG_047,CORE_EX1_160, CORE_EX1_573, CORE_EX1_165
+				if card_id[:5]=='CORE_':
+					card_id = card_id[5:]
+				nameA = card_id + 'a'
+				nameB = card_id + 'b'
+				card.zone = Zone.GRAVEYARD
+				Give(controller, nameA).trigger(controller)
+				Give(controller, nameB).trigger(controller)
+				break;
 		pass
 	pass
 
