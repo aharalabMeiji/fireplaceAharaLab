@@ -225,14 +225,19 @@ class DED_001c:# <2>[1578]
 class DED_002:# <2>[1578]###########################################
 	""" Moonlit Guidance
 	[Discover] a copy of a card in your deck.If you play it this turn,draw the original. """
-	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK))
-	play.callback = [Give(CONTROLLER, ExactCopy(Choice.CARD)).then( Buff(Give.CARD, 'DED_002e'))]
+	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).then(
+		Give(CONTROLLER, Choice.CARD), Buff(Choice.CARD, 'DED_002e')
+		)
 	pass
 
 class DED_002e:# <2>[1578]##########################################
 	""" Path of the Moon
 	If played this turn, draw the original copy. """
 	# do - shi yo -
+	events = [
+		#Play(CONTROLLER, FRIENDLY_HAND + OWNER).on(Give(CONTROLLER, ExactCopy(OWNER))),
+		OWN_TURN_END.on(Destroy(SELF)),
+		]
 	pass
 
 
