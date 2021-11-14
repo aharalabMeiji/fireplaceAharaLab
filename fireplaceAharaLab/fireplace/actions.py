@@ -28,7 +28,7 @@ def _eval_card(source, card):
 		card = card.trigger(source)[0]
 
 	if isinstance(card, Selector):
-		card = card.eval(source.game.entities, source)
+		card = card.eval(source.game.entities + source.game.decks, source)
 
 	if not isinstance(card, list):
 		cards = [card]
@@ -362,7 +362,7 @@ class Choice(GameAction):
 			player = player[0]
 		cards = self._args[1]
 		if isinstance(cards, Selector):
-			cards = cards.eval(source.game.entities, source)
+			cards = cards.eval(source.game.entities + source.game.decks, source)
 		elif isinstance(cards, LazyValue):
 			cards = cards.evaluate(source)
 		elif isinstance(cards, list):
@@ -681,14 +681,14 @@ class TargetedAction(Action):
 		if isinstance(selector, Entity):
 			return [selector]
 		else:
-			return selector.eval(source.game.entities, source) # game ? or game.entities?
+			return selector.eval(source.game.entities + source.game.decks, source) # game ? or game.entities?
 
 	def get_target_args(self, source, target):
 		ret = []
 		for k, v in zip(self.ARGS[1:], self._args[1:]):
 			if isinstance(v, Selector):
 				# evaluate Selector arguments
-				v = v.eval(source.game.entities, source)
+				v = v.eval(source.game.entities + source.game.decks, source)
 			elif isinstance(v, LazyValue):
 				v = v.evaluate(source)
 			elif isinstance(k, CardArg):
@@ -702,7 +702,7 @@ class TargetedAction(Action):
 		elif isinstance(t, LazyValue):
 			ret = t.evaluate(source)
 		else:
-			ret = t.eval(source.game.entities, source) ## game? or game.entities?
+			ret = t.eval(source.game.entities + source.game.decks, source) ## game? or game.entities?
 		if not ret:
 			return []
 		if not hasattr(ret, "__iter__"):
@@ -714,7 +714,7 @@ class TargetedAction(Action):
 		ret = []
 
 		if self.source is not None:
-			source = self.source.eval(source.game.entities, source) ## game? or game.entities?
+			source = self.source.eval(source.game.entities + source.game.decks, source) ## game? or game.entities?
 			assert len(source) == 1
 			source = source[0]
 
@@ -732,7 +732,8 @@ class TargetedAction(Action):
 			log.info("%r triggering %r targeting %r", source, self, targets)
 			for target in targets:
 				target_args = self.get_target_args(source, target)
-				ret.append(self.do(source, target, *target_args))
+				if len(target_args)>0:## target exists case
+					ret.append(self.do(source, target, *target_args))
 
 				for action in self.callback:
 					log.info("%r queues up callback %r", self, action)
@@ -937,7 +938,7 @@ class Battlecry(TargetedAction):
 	def get_target_args(self, source, target):
 		arg = self._args[1]
 		if isinstance(arg, Selector):
-			arg = arg.eval(source.game.entities, source) ## game? or game.entities?
+			arg = arg.eval(source.game.entities + source.game.decks, source) ## game? or game.entities? decks must be included
 			assert len(arg) == 1
 			arg = arg[0]
 		return [arg]
@@ -1261,6 +1262,8 @@ class Morph(TargetedAction):
 
 	def get_target_args(self, source, target):
 		card = _eval_card(source, self._args[1])
+		if len(card)==0: # no targeted card
+			return []
 		assert len(card) == 1
 		card = card[0]
 		card.controller = target.controller

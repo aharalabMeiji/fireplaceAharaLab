@@ -13,7 +13,7 @@ sys.path.append("..")
 def main():
 	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
-	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.WARRIOR,
+	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.HUNTER,
 		choiceStrategy=HumanAgent.HumanInputChoice)
 		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)

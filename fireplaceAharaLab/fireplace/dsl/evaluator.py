@@ -138,7 +138,7 @@ class Find(Evaluator):
 		self.selector = selector
 
 	def check(self, source):
-		return bool(len(self.selector.eval(source.game.entities, source))) ### game? or game.entities?
+		return bool(len(self.selector.eval(source.game.entities + source.game.decks, source))) ### game? or game.entities?
 
 
 class FindDuplicates(Evaluator):
@@ -150,7 +150,7 @@ class FindDuplicates(Evaluator):
 		self.selector = selector
 
 	def check(self, source):
-		entities = self.selector.eval(source.game.entities, source)
+		entities = self.selector.eval(source.game.entities + source.game.decks, source)
 		return len(set(entities)) < len(entities)
 
 class JoustEvaluator(Evaluator):

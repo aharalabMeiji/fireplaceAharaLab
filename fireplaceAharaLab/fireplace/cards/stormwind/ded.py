@@ -186,7 +186,7 @@ class DED_517t:# <4>[1578]
 
 ## druid
 
-class DED_001:# <2>[1578]
+class DED_001:# <2>[1578] ###OK
 	""" Druid of the Reef
 	[Choose One - ]Transform into a 3/1 Shark with [Rush]; or a 1/3 Turtle with [Taunt]. """
 	choose = ("DED_001a", "DED_001b")
@@ -237,10 +237,41 @@ class DED_002e:# <2>[1578]##########################################
 	# do - shi yo -
 	pass
 
+
 class DED_003:# <2>[1578]###########################################
 	""" Jerry Rig Carpenter
 	[Battlecry:] Draw a [Choose One] spell and split it. """
-	play = Give(CONTROLLER, RandomMinion(has_choose_one=True))#not be splitted
+	def play(self):
+		controller = self.controller
+		choose_one_cards = []
+		for card in controller.deck:
+			if hasattr(card, 'has_choose_one') and card.has_choose_one:
+				choose_one_cards.append(card)
+		if len(choose_one_cards)==0:
+			return
+		card = random.choice(choose_one_cards)
+		card_id = card.id
+		if card_id[:5]=='CORE_':
+			card_id = card_id[5:]
+		nameA = card_id+'a'
+		nameB = card_id+'b'
+		#if card_id == 'EX1_178':## 見当違いだった
+		#	new_card = Give(controller, 'CORE_EX1_178').trigger(controller)
+		#	new_card = new_card[0][0]
+		#	Buff(new_card, 'EX1_178ae').trigger(controller)
+		#	new_card = Give(controller, 'CORE_EX1_178').trigger(controller)
+		#	new_card = new_card[0][0]
+		#	Buff(new_card, 'EX1_178be').trigger(controller)
+		#	pass
+		## 何らかassertしたい
+		#else:
+		try:
+			card.zone = Zone.GRAVEYARD
+			Give(controller, nameA).trigger(controller)
+			Give(controller, nameB).trigger(controller)
+		except ValueError:
+			pass
+		pass
 	pass
 
 ## warrior

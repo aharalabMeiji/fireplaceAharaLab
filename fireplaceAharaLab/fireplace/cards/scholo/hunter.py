@@ -106,14 +106,15 @@ class SCH_607:#OK
 
 class SCH_607a:
 	#Transfiguration
-	play = Buff(FRIENDLY_DECK+BEAST,"SCH_607e")#OK
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.BEAST}
+	play = Morph(SELF, ExactCopy(TARGET))#OK
 	#update = Refresh(FRIENDLY_DECK+BEAST,buff="SCH_607e")#
 	pass
 
 class SCH_607b:
 	#Rile the Herd
 	#play = Buff(FRIENDLY_MINIONS,buff="SCH_607e")
-	play = Morph(SELF, RANDOM(FRIENDLY+BEAST))#OK
+	play = Buff(FRIENDLY_DECK + BEAST,"SCH_607e")#OK
 	pass
 
 SCH_607e = buff(1,1);
