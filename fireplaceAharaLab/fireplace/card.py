@@ -1099,9 +1099,6 @@ class HeroPower(PlayableCard):
 			return False
 		return super().is_playable()
 
-
-	############ aharalab ################
-
 class Sidequest(Spell):
 	_sidequest_counter_=0
 	@property

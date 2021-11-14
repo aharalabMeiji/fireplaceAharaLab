@@ -234,10 +234,11 @@ class DED_002e:# <2>[1578]##########################################
 	""" Path of the Moon
 	If played this turn, draw the original copy. """
 	# do - shi yo -
-	events = [
+	events = OWN_TURN_END.on(Destroy(SELF))
+		#[
 		#Play(CONTROLLER, FRIENDLY_HAND + OWNER).on(Give(CONTROLLER, ExactCopy(OWNER))),
-		OWN_TURN_END.on(Destroy(SELF)),
-		]
+		#OWN_TURN_END.on(Destroy(SELF)),
+		#]
 	pass
 
 
@@ -264,7 +265,7 @@ class DED_003:# <2>[1578]### it (maybe) doesn't work for CORE_EX1_178 (Ancient o
 
 ## warrior
 
-class DED_518:# <10>[1578]
+class DED_518:# <10>[1578] ###OK
 	""" Man the Cannons
 	Deal $3 damage to a minion and $1 damage to all other minions. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
@@ -275,7 +276,7 @@ class DED_518:# <10>[1578]
 class DED_519:# <10>[1578]
 	""" Defias Cannoneer
 	After your hero attacks,deal 2 damage to a random enemy twice. """
-	events = Attack(FRIENDLY_HERO).after(Hit(RANDOM(ENEMY_MINIONS),2) * 2)
+	events = Attack(FRIENDLY_HERO).then(Hit(RANDOM(ENEMY_MINIONS),2) * 2)
 	pass
 
 class DED_527:# <10>[1578]
