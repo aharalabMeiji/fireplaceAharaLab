@@ -234,11 +234,10 @@ class DED_002e:# <2>[1578]##########################################
 	""" Path of the Moon
 	If played this turn, draw the original copy. """
 	# do - shi yo -
-	events = OWN_TURN_END.on(Destroy(SELF))
-		#[
-		#Play(CONTROLLER, FRIENDLY_HAND + OWNER).on(Give(CONTROLLER, ExactCopy(OWNER))),
-		#OWN_TURN_END.on(Destroy(SELF)),
-		#]
+	events = [
+		Play(CONTROLLER, FRIENDLY+OWNER).on(Destroy(SELF), Give(CONTROLLER, ExactCopy(OWNER))),
+		OWN_TURN_END.on(Destroy(SELF), Shuffle(CONTROLLER, ExactCopy(OWNER))),
+		]
 	pass
 
 

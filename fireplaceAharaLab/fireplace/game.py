@@ -87,6 +87,10 @@ class BaseGame(Entity):
 		return CardList(chain(self.players[0].live_entities, self.players[1].live_entities))
 
 	@property
+	def allcards(self):
+		return self.entities + self.hands + self.decks
+
+	@property
 	def minions_killed_this_turn(self):
 		return self.players[0].minions_killed_this_turn + self.players[1].minions_killed_this_turn
 

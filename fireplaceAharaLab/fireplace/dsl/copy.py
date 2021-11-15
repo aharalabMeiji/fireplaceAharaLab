@@ -23,7 +23,7 @@ class Copy(LazyValue):
 		if isinstance(self.selector, LazyValue):
 			entities = [self.selector.evaluate(source)]
 		else:
-			entities = self.selector.eval(source.game.entities, source)
+			entities = self.selector.eval(source.game.allcards, source) # game? allcards?
 
 		return [self.copy(source, e) for e in entities]
 
