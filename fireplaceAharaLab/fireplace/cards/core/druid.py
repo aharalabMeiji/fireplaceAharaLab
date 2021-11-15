@@ -92,6 +92,8 @@ class CORE_EX1_178:#OK <2>[1637]
 	choose = ("EX1_178b", "EX1_178a")
 	play = ChooseBoth(CONTROLLER) & (Buff(SELF, "EX1_178ae"), Buff(SELF, "EX1_178be"))
 class EX1_178a:
+	""" Rooted
+	+5 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
 	play = Buff(SELF, "EX1_178ae")
 EX1_178ae = buff(health=5, taunt=True)
 class EX1_178b:

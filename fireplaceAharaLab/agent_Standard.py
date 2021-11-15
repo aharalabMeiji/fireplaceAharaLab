@@ -313,12 +313,12 @@ class HumanAgent(Agent):
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
 		###############
-		from fireplace.deepcopy import deepcopy_game
-		new_game = debug_deepcopy(game, player)
+		#from fireplace.deepcopy import deepcopy_game
+		#new_game = debug_deepcopy(game, player)
 		#######
 		while True:
 			###################
-			debug_board(new_game,game)#
+			#debug_board(new_game,game)#
 			###################
 			myCandidate = []
 			print("========My HAND======")
@@ -374,8 +374,8 @@ class HumanAgent(Agent):
 						print("(frozen)", end=" ")
 					if character.rush:
 						print("(rush)", end=" ")
-					#if character.reborn:
-					#	print("(reborn)", end=" ")
+					if character.reborn:
+						print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
 					if character.immune:
@@ -405,24 +405,8 @@ class HumanAgent(Agent):
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
 					if character._Asphyxia_ == 'asphyxia':
 						print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
-					if character.silenced:
-						print("(silenced)", end=" ")
-					if character.windfury:
-						print("(windfury)", end=" ")
-					if character.poisonous:
-						print("(poisonous)", end=" ")
-					if character.frozen:
-						print("(frozen)", end=" ")
-					if character.rush:
-						print("(rush)", end=" ")
-					#if character.reborn:
-					#	print("(reborn)", end=" ")
-					if character.taunt:
-						print("(taunt)", end=" ")
-					if character.immune:
-						print("(immune)", end=" ")
-					if character.stealthed:
-						print("(stealthed)", end=" ")
+					if character.charge:
+						print("(charge)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
 					if character.dormant>0:
@@ -432,8 +416,26 @@ class HumanAgent(Agent):
 							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
 						else:
 							print("(dormant)", end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
+					if character.immune:
+						print("(immune)", end=" ")
+					if character.poisonous:
+						print("(poisonous)", end=" ")
+					if character.reborn:
+						print("(reborn)", end=" ")
+					if character.rush:
+						print("(rush)", end=" ")
+					if character.silenced:
+						print("(silenced)", end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
+					if character.stealthed:
+						print("(stealthed)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.windfury:
+						print("(windfury)", end=" ")
 				print("%s"%(adjust_text_by_spellpower(character.data.description, player, character)))
 				if character.can_attack():
 					for target in character.targets:
@@ -500,14 +502,14 @@ class HumanAgent(Agent):
 					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
 				########################################
-				debug_board(new_game,game)###
+				#debug_board(new_game,game)###
 				########################################
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
 				###################
-				executeAction(new_game, myChoice)#
-				postAction(new_game.current_player)#
+				#executeAction(new_game, myChoice)#
+				#postAction(new_game.current_player)#
 				##################
 				executeAction(game, myChoice)
 				postAction(player)

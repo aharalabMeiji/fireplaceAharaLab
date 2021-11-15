@@ -306,7 +306,7 @@ class Player(Entity, TargetableByAuras):
 		return amount
 
 	def shuffle_deck(self):
-		self.log("%r shuffles their deck", self)
+		self.log("%r shuffles his deck", self)
 		random.shuffle(self.deck)
 
 	def draw(self, count=1):

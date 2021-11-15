@@ -375,6 +375,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\ded.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>

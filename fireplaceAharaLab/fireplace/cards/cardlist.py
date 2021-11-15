@@ -40,6 +40,13 @@ Stormwind_Hunter=['SW_320','SW_320e','SW_321','SW_321e','SW_322','SW_322t','SW_3
 Stormwind_Mage=['SW_001','SW_059e','SW_107','SW_108','SW_108t','SW_109','SW_110','SW_111','SW_112','SW_112e','SW_112e2','SW_113','SW_450','SW_450t','SW_450t2','SW_450t4','SW_450t4e','SW_462','SW_462e',]
 Stromwind_Druid=['SW_419','SW_422','SW_422a','SW_422b','SW_422e','SW_422t','SW_428','SW_428t','SW_428t2','SW_428t4','SW_428t4e','SW_429','SW_429t','SW_431','SW_431e','SW_432','SW_432e','SW_432t','SW_436','SW_436e','SW_437','SW_437e','SW_439','SW_439t','SW_439t2','SW_447','SW_447e','SW_447e2',]
 Stormwind_Warrior=['SW_027','SW_028','SW_028t','SW_028t2','SW_028t5','SW_028t6','SW_029','SW_030','SW_093','SW_093e','SW_097','SW_097t','skele21']
+Stormwind_Updates=[
+'DED_006','DED_006e2','DED_514e','DED_521','DED_523','DED_523e','DED_524','DED_525',
+'DED_007','DED_008','DED_009','DED_009e',
+'DED_515','DED_516','DED_517','DED_517t',
+'DED_001','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DED_002','DED_002e','DED_003',
+'DED_518','DED_519','DED_527','DED_527e',
+]
 # Hero
 Heroes=[
 	'HERO_01',
@@ -79,7 +86,7 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,Scholo_Warrior,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,Darkmoon_Warrior,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,Barrens_Warrior,
-	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,Stormwind_Warrior,
+	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,Stormwind_Warrior,Stormwind_Updates,
 	Heroes,Dream,Etc,
 	faceHunter,bigWarrior,clownDruid
 	]
