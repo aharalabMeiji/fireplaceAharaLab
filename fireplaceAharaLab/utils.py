@@ -526,7 +526,7 @@ def PresetHands(player1, player2):
 	#PutOnTop(player1,'').trigger(player1)#specific card into deck
 	
 	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	ExchangeCard(['DED_002'],player1)
+	#ExchangeCard([''],player1)
 	#ExchangeCard(['beast'],player2)
 	pass
 

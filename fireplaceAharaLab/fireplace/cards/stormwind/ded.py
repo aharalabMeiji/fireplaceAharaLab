@@ -222,7 +222,7 @@ class DED_001c:# <2>[1578]
 	#
 	pass
 
-class DED_002:# <2>[1578]###########################################
+class DED_002:# <2>[1578]####OK
 	""" Moonlit Guidance
 	[Discover] a copy of a card in your deck.If you play it this turn,draw the original. """
 	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).then(
@@ -230,7 +230,7 @@ class DED_002:# <2>[1578]###########################################
 		)
 	pass
 
-class DED_002e:# <2>[1578]##########################################
+class DED_002e:# <2>[1578]####OK
 	""" Path of the Moon
 	If played this turn, draw the original copy. """
 	# do - shi yo -
@@ -241,7 +241,7 @@ class DED_002e:# <2>[1578]##########################################
 	pass
 
 
-class DED_003:# <2>[1578]### it (maybe) doesn't work for CORE_EX1_178 (Ancient of War)
+class DED_003:# <2>[1578]### it doesn't work for CORE_EX1_178 (Ancient of War)
 	""" Jerry Rig Carpenter
 	[Battlecry:] Draw a [Choose One] spell and split it. """
 	def play(self):
@@ -272,15 +272,15 @@ class DED_518:# <10>[1578] ###OK
 	#
 	pass
 
-class DED_519:# <10>[1578]
+class DED_519:# <10>[1578] ###OK
 	""" Defias Cannoneer
 	After your hero attacks,deal 2 damage to a random enemy twice. """
-	events = Attack(FRIENDLY_HERO).then(Hit(RANDOM(ENEMY_MINIONS),2) * 2)
+	events = Attack(FRIENDLY_HERO).on(Hit(RANDOM(ENEMY_CHARACTERS),2) * 2)
 	pass
 
-class DED_527:# <10>[1578]
+class DED_527:# <10>[1578] ###OK
 	""" Blacksmithing Hammer
-	[Tradeable]After you [Trade] this,_gain +2 Durability. """
+	[Tradeable]After you [Trade] this, _gain +2 Durability. """
 	# weapon 
 	#trade = Buff(SELF, 'DED_527e')
 	pass
