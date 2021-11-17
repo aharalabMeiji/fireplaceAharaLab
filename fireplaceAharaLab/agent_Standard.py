@@ -19,30 +19,14 @@ class StandardAgent(Agent):
 	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
-		##########
-		#new_game = deepcopy_game(thisgame, player, 0)
-		#candidate1 = getCandidates(thisgame)
-		#candidate2 = getCandidates(new_game)
-		#compaireCandidates(candidate1, candidate2)
-		##########
 		while loopCount<20:
-			##########
-			#debug_board(new_game,thisgame)#
-			##########
 			loopCount+=1
 			myCandidate = getCandidates(thisgame)
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
-				##########
-				#executeAction(new_game, myChoice, debugLog=debugLog)
-				#postAction(new_game.current_player)
-				##########
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
-					##########
-					#debug_board(new_game,thisgame)#
-					##########
 					return ExceptionPlay.GAMEOVER
 				else:
 					continue

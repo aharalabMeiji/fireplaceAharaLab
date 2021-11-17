@@ -24,7 +24,7 @@ def main():
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.WARRIOR)
-		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
+		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.DRUID)
@@ -128,10 +128,31 @@ def printMissedCards():
 		pass
 	pass
 
+def printCards():
+	from hearthstone import cardxml
+	from fireplace.cards.cardlist import All
+	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
+	myCardSchool=SpellSchool.NATURE
+	myCardSet=CardSet.STORMWIND
+	myCardClass=CardClass.NEUTRAL
+	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
+	db, xml = cardxml.load(locale='enUS')
+	for cardIDlist in All:
+		for id in cardIDlist:
+			card = db[id]
+			tag = card.tags.get(GameTag.CARDRACE)
+			if tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
+				print("'%s'"%(card.id), end=",")
+			pass
+		pass
+	pass
+	print(']')
+
 
 if __name__ == "__main__":
 	#printClasses()
 	#printMissedCards()
+	#printCards()
 	main()
 
 

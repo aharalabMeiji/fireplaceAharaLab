@@ -71,8 +71,6 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
-
-	PresetHands(player1, player2)# if you want to controll the player's hand, write here
 	log.info("New game start")
 
 	while True:	
@@ -480,58 +478,5 @@ def getTurnLog(gameLog, turnN):
 			ret.append(gameLog[i])
 	return ret
 
-def ExchangeCard(cards,player):
-	Discard(player.hand[0]).trigger(player)
-	for _card in cards:
-		if _card=='arcane':
-			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
-		if _card=='attackspell':
-			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
-		if _card=='beast':
-			_card=random.choice(['SCH_133','SCH_714'])
-		if _card=='corrupt':
-			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
-		if _card=='deathrattle':
-			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
-		if _card=='dragon':
-			_card='SCH_232'
-		if _card=='elemental':
-			_card=random.choice(['SCH_143','SCH_245'])
-		if _card=='fire':
-			_card=random.choice(['CORE_CS2_029','SW_462','SW_108','BAR_546','SW_110'])
-		if _card=='frost':
-			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
-		if _card=='mech':
-			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
-		if _card=='murloc':
-			_card=random.choice(['BAR_063','BAR_062','WC_030'])
-		if _card=='nature':
-			_card='SCH_333'
-		if _card=='pirate':
-			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
-		if _card=='rush':
-			_card=random.choice(['YOP_031'])
-		if _card=='secret':
-			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
-		if _card=='spell':
-			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
-		if _card=='spellpower':
-			_card=random.choice(['SW_061'])
-		if _card=='weapon':
-			_card=random.choice(['WC_037','DMF_088'])
-		Give(player,_card).trigger(player)
 
-def PresetHands(player1, player2): 
-	## add a specific card into the deck
-	#PutOnTop(player1,'').trigger(player1)#specific card into deck
-	
-	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard([''],player1)
-	#ExchangeCard(['beast'],player2)
-	pass
-
-def PresetPlay(player, cardID):
-	for card in player.hand:
-		if card.id == cardID and card.is_playable():
-			card.play(target=None)
 
