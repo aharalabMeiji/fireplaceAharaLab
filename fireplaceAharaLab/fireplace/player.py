@@ -80,6 +80,7 @@ class Player(Entity, TargetableByAuras):
 		self._activate_log=[]
 		self._summon_log=[]
 		self._reveal_log=[]
+		self._targetedaction_log=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
@@ -442,4 +443,10 @@ class Player(Entity, TargetableByAuras):
 			_ret.append(_log[0])
 		return _ret
 
+	##targetedaction_log
+	def add_targetedaction_log(self, action):
+		self._targetedaction_log.append(action)
+	@property
+	def targetedaction_log(self):
+		return self._targetedaction_log
 

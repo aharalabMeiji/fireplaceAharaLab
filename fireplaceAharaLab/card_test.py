@@ -56,19 +56,21 @@ class Preset_Play:
 		self.game = player.game
 		pass
 	def preset_deck(self):
-		self.print_hand(self.player)
-		self.print_hand(self.player.opponent)
+		#self.print_hand(self.player)
+		#self.print_hand(self.player.opponent)
 		pass
 	def preset_play(self):
 		pass
 	def result_inspection(self):
-		self.print_hand(self.player)
-		self.print_hand(self.player.opponent)
+		#self.print_hand(self.player)
+		#self.print_hand(self.player.opponent)
 		pass
 	def execute(self):
 		self.preset_deck()
 		self.preset_play()
+		print ("####### results: %s  #######"%(self.__class__.__name__))
 		self.result_inspection()
+		print ("####### end    : %s  #######"%(self.__class__.__name__))
 	def exchange_card(self, card, player):
 		_card = card
 		Discard(self.player.hand[0]).trigger(player)
@@ -184,7 +186,9 @@ def PresetGame():
 	cards_to_mulligan=[]
 	player1.choice.choose(*cards_to_mulligan)
 	player2.choice.choose(*cards_to_mulligan)
-	pp_DED_006(game.current_player).execute()
+	player1._targetedaction_log=[]
+	player2._targetedaction_log=[]
+	pp_DED_521(game.current_player).execute()
 
 
 class pp_DED_006(Preset_Play):# <12>[1578] 
@@ -226,15 +230,39 @@ class pp_DED_006(Preset_Play):# <12>[1578]
 			print("OK")
 		pass
 
-class pp_DED_000(Preset_Play):# <12>[1578] 
+class pp_DED_521(Preset_Play):# <12>[1578] 
 	""" Name
 	description. """
-	def preset_deck(self, player):
-		super().preset_deck(player)
+	def preset_deck(self):
+		self.mark1=self.exchange_card('DED_521',self.player)
+		self.mark2=self.exchange_card('vanilla',self.player)
+		self.mark3=self.exchange_card('vanilla',self.player.opponent)
+		self.mark4=self.exchange_card('vanilla',self.player.opponent)
+		super().preset_deck()
 		pass
-	def preset_play(self, player):
-		super().preset_play(player)
+	def preset_play(self):
+		super().preset_play()
+		player = self.player
+		opponent = player.opponent
+		game = player.game
+		self.play_card(self.mark2, player)
+		game.end_turn()
+		postAction(player)
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		game.end_turn()
+		postAction(opponent)
+		self.play_card(self.mark1, player)
 		pass
-	def result_inspection(self, player):
-		super().result_inspection(player)
+	def result_inspection(self):
+		super().result_inspection()
+		for action in self.player.targetedaction_log:
+			if action.__class__.__name__ == 'Hit':
+				print("target = %s"%( action._args[0]))
+				print("amount = %s"%( action._args[1]))
+				print("times = %s"%( action.times))
+				if action.times==12:
+					print("OK")
+				else: 
+					print("NO: times of Hit is not 12.")
 		pass

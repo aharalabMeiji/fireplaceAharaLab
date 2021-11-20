@@ -717,6 +717,13 @@ class TargetedAction(Action):
 			source = self.source.eval(source.game.allcards, source) ## game? or game.entities?
 			assert len(source) == 1
 			source = source[0]
+		
+		from .player import Player
+		from .card import PlayableCard
+		if isinstance(source, Player):
+			source.add_targetedaction_log(self)## log for action
+		elif isinstance(source, PlayableCard):
+			source.controller.add_targetedaction_log(self)## log for action
 
 		times = self.times
 		if isinstance(times, LazyValue):
