@@ -256,13 +256,14 @@ class pp_DED_521(Preset_Play):# <12>[1578]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		count=0
 		for action in self.player.targetedaction_log:
-			if action.__class__.__name__ == 'Hit':
-				print("target = %s"%( action._args[0]))
-				print("amount = %s"%( action._args[1]))
-				print("times = %s"%( action.times))
-				if action.times==12:
-					print("OK")
-				else: 
-					print("NO: times of Hit is not 12.")
+			if action['class'].__class__.__name__ == 'Hit':
+				print("target = %s"%( action['target']))
+				print("amount = %s"%( action['class']._args[1]))
+				count += 1
+		if count==12:
+			print("OK")
+		else: 
+			print("NO: times of Hit is not 12.")
 		pass
