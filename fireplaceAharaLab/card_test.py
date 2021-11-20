@@ -1,11 +1,12 @@
 from hearthstone.enums import CardClass,BlockType, CardType ,PlayState, State, Race
 from fireplace.game import Game
-from fireplace.card import Card
+from fireplace.card import Card, PlayableCard
 from fireplace.actions import *
 from fireplace.utils import random_draft
 from fireplace.player import Player
 import random
 from agent_Standard import *
+from utils import postAction
 
 
 class DummyAgent(Agent):
@@ -47,18 +48,14 @@ class DummyAgent(Agent):
 
 class Preset_Play:
 	def __init__(self, player):
-		self.card1 = 'vanilla'
-		self.card2 = 'vanilla'
-		self.card3 = 'vanilla'
-		self.card4 = 'vanilla'
+		self.mark1 = None
+		self.mark2 = None
+		self.mark3 = None
+		self.mark4 = None
 		self.player = player
 		self.game = player.game
 		pass
 	def preset_deck(self):
-		self.exchange_card(self.card1, self.player)
-		self.exchange_card(self.card2, self.player)
-		self.exchange_card(self.card3, self.player)
-		self.exchange_card(self.card4, self.player)
 		self.print_hand(self.player)
 		self.print_hand(self.player.opponent)
 		pass
@@ -127,8 +124,9 @@ class Preset_Play:
 						'BAR_721t2','WC_026t','SW_455t','SW_422t','SW_439t2','DED_517t','DREAM_03','SCH_337t',])####
 		if _card=='weapon':
 			_card=random.choice(['WC_037','DMF_088'])
-		Give(player,_card).trigger(player)
-		pass
+		new_card = Give(player,_card).trigger(player)
+		return new_card[0][0]
+
 	def print_hand(self, player):
 		print ("##### %s HAND ####"%(player.name))
 		for card in player.hand:
@@ -138,21 +136,30 @@ class Preset_Play:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
 		pass
-	def play_card(self, card, exclude, player):
-		if card == 'something':
-			card = random.choice(player.hand)
-		elif card == 'pirate':
-			for cd in player.hand:
-				if cd.race == Race.PIRATE and not cd.id in exclude:
-					card = cd
-					break
-		else:
-			for cd in player.hand:
-				if cd.id == card:
-					card = cd
-					break
-		Play(card, None, None, None).trigger(player)
+	def play_card(self, card,  player, condition=None):
+		if not isinstance(card,PlayableCard):
+			if card == 'something':
+				if condition==None:
+					card = random.choice(player.hand)
+				else:
+					for cd in player.hand:
+						if condition(cd) :
+							card = cd
+							break
+						pass
+					pass
+				pass
+			pass
 		pass
+		if isinstance(card,PlayableCard):
+			Play(card, None, None, None).trigger(player)
+		pass
+	def contains_buff(self, card, buffID):
+		for buff in card.buffs:
+			if buff.id == buffID:
+				return True
+		return False
+
 
 def PresetGame():
 	from fireplace import cards
@@ -180,28 +187,13 @@ def PresetGame():
 	pp_DED_006(game.current_player).execute()
 
 
-
-
-def PresetHands(player1, player2): 
-	## add a specific card into the deck
-	#PutOnTop(player1,'').trigger(player1)#specific card into deck
-	
-	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard([''],player1)
-	#ExchangeCard(['beast'],player2)
-	pass
-
-def PresetPlay(player, cardID):
-	for card in player.hand:
-		if card.id == cardID and card.is_playable():
-			card.play(target=None)
-
 class pp_DED_006(Preset_Play):# <12>[1578] 
 	""" Mr. Smite
 	Your Pirates have [Charge]. """
 	def preset_deck(self):
-		self.card1='DED_006'
-		self.card2='pirate'
+		self.mark1=self.exchange_card('DED_006',self.player)
+		self.mark2=self.exchange_card('pirate',self.player)
+		self.mark3=self.exchange_card('vanilla',self.player)
 		#PutOnTop(player1,'').trigger(player1)#specific card into deck
 		super().preset_deck()
 		pass
@@ -210,15 +202,28 @@ class pp_DED_006(Preset_Play):# <12>[1578]
 		player = self.player
 		opponent = player.opponent
 		game = player.game
-		self.play_card('pirate', [self.card1], player)
-		self.play_card('something', [self.card1], player)
+		self.play_card(self.mark2, player)
+		self.play_card(self.mark3, player)
 		game.end_turn()
-		self.play_card('something', [], opponent)
+		postAction(player)
 		game.end_turn()
-		self.play_card(self.card1, [], player)
+		postAction(opponent)
+		self.play_card(self.mark1, player)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		if not self.contains_buff(self.mark1, 'DED_006e2'):
+			print("not contains_buff(mark1, 'DED_006e2')")
+		else:
+			print("OK")
+		if not self.contains_buff(self.mark2, 'DED_006e2'):
+			print("not contains_buff(mark2. 'DED_006e2')")
+		else:
+			print("OK")
+		if self.contains_buff(self.mark3, 'DED_006e2'):
+			print("contains_buff(mark3, 'DED_006e2')")
+		else:
+			print("OK")
 		pass
 
 class pp_DED_000(Preset_Play):# <12>[1578] 
