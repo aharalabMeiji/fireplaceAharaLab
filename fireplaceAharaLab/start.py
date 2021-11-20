@@ -141,7 +141,7 @@ def printCards():
 		for id in cardIDlist:
 			card = db[id]
 			tag = card.tags.get(GameTag.CARDRACE)
-			if tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
+			if len(card.description)<4: #tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
 				print("'%s'"%(card.id), end=",")
 			pass
 		pass
@@ -153,6 +153,8 @@ if __name__ == "__main__":
 	#printClasses()
 	#printMissedCards()
 	#printCards()
-	main()
+	from card_test import PresetGame
+	PresetGame()
+	#main()
 
 
