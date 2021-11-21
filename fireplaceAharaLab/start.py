@@ -148,13 +148,49 @@ def printCards():
 	pass
 	print(']')
 
+def print_deck():
+	from tkinter import filedialog
+	from hearthstone import cardxml
+	db, xml = cardxml.load(locale='jaJP')
+	typ = [('テキストファイル','*.txt')] 
+	dir = 'D:\\'
+	fle = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
+	print(fle)
+	sample_line='# 2x (1) 救いの聖馬\n'
+	elements = sample_line.split()
+	try:
+		f = open(fle, 'r')
+		datalist = f.readlines()
+		print("[",end='')
+		for line in datalist:
+			if len(line)>10:
+				number = line[2:4]
+				if number == '1x':
+					name = line[9:-1]
+					for id in db.keys():
+						card = db[id]
+						if card.name == name: 
+							print("'%s'"%(card.id), end=",")
+							break
+						pass
+					pass
+				elif number == '2x':
+					name = line[9:-1]
+					for id in db.keys():
+						card = db[id]
+						if card.name == name: 
+							print("'%s'"%(card.id), end=",")
+							print("'%s'"%(card.id), end=",")
+							break
+						pass
+					pass
+				pass
+		f.close()
+		print("]")
+	except FileNotFoundError:
+		pass
 
 if __name__ == "__main__":
-	#printClasses()
-	#printMissedCards()
-	#printCards()
-	from card_test import PresetGame
-	PresetGame()
-	#main()
-
-
+	#from card_test import PresetGame
+	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
+	main()
