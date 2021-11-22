@@ -54,6 +54,7 @@ class Preset_Play:
 		self.mark4 = None
 		self.player = player
 		self.game = player.game
+		self.testNr = 0
 		pass
 	def preset_deck(self):
 		#self.print_hand(self.player)
@@ -65,7 +66,8 @@ class Preset_Play:
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
 		pass
-	def execute(self):
+	def execute(self, testNr = 0):
+		self.testNr = testNr
 		self.preset_deck()
 		self.preset_play()
 		print ("####### results: %s  #######"%(self.__class__.__name__))
@@ -92,8 +94,8 @@ class Preset_Play:
 		if _card=='deathrattle':
 			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
 		if _card=='dragon':
-			_card=random.choice('CORE_EX1_189','CORE_LOOT_137','CS3_031','CS3_032','CS3_033','CS3_034','CS3_035','CS3_036','EX1_116t','CORE_AT_008','BT_726',
-					   'SCH_162t','SCH_230','SCH_232','SCH_711','YOP_034','YOP_025','YOP_025t','DMF_528','DREAM_03',)
+			_card=random.choice(['CORE_EX1_189','CORE_LOOT_137','CS3_031','CS3_032','CS3_033','CS3_034','CS3_035','CS3_036','EX1_116t','CORE_AT_008','BT_726',\
+					   'SCH_162t','SCH_230','SCH_232','SCH_711','YOP_034','YOP_025','YOP_025t','DMF_528','DREAM_03',])
 		if _card=='elemental':
 			_card=random.choice(['CORE_AT_092','CORE_EX1_187','CORE_EX1_249','CORE_KAR_036','CORE_UNG_813','CORE_CS2_033','BT_155','BT_155t','BT_735','SCH_143',\
 						'SCH_245','DMF_044','DMF_062','DMF_190','YOP_021','DMF_100','DMF_100t','DMF_101','DMF_059','BAR_042','BAR_854','BAR_545','SW_111',])
@@ -138,23 +140,11 @@ class Preset_Play:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
 		pass
-	def play_card(self, card,  player, condition=None):
-		if not isinstance(card,PlayableCard):
-			if card == 'something':
-				if condition==None:
-					card = random.choice(player.hand)
-				else:
-					for cd in player.hand:
-						if condition(cd) :
-							card = cd
-							break
-						pass
-					pass
-				pass
-			pass
-		pass
+	def play_card(self, card,  player, target = None):
 		if isinstance(card,PlayableCard):
-			Play(card, None, None, None).trigger(player)
+			if target!=None and not target in card.targets:
+				target=None
+			Play(card, target, None, None).trigger(player)
 		pass
 	def contains_buff(self, card, buffID):
 		for buff in card.buffs:
@@ -188,7 +178,7 @@ def PresetGame():
 	player2.choice.choose(*cards_to_mulligan)
 	player1._targetedaction_log=[]
 	player2._targetedaction_log=[]
-	pp_DED_521(game.current_player).execute()
+	pp_DED_523(game.current_player).execute(0)
 
 
 class pp_DED_006(Preset_Play):# <12>[1578] 
@@ -267,3 +257,43 @@ class pp_DED_521(Preset_Play):# <12>[1578]
 		else: 
 			print("NO: times of Hit is not 12.")
 		pass
+
+class pp_DED_523(Preset_Play):
+	""" Golakka Glutton
+	[Battlecry:] Destroy a Beast and gain +1/+1. """
+	def preset_deck(self):
+		self.mark1=self.exchange_card('DED_523',self.player)
+		self.mark2=self.exchange_card('vanilla',self.player)
+		self.mark3=self.exchange_card('beast',self.player.opponent)
+		self.mark4=self.exchange_card('dragon',self.player.opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		player = self.player
+		opponent = player.opponent
+		game = player.game
+		self.play_card(self.mark2, player)
+		game.end_turn()
+		postAction(player)
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		game.end_turn()
+		postAction(opponent)
+		if self.testNr == 0:
+			self.play_card(self.mark1, player, target=self.mark3)
+		elif self.testNr == 1:
+			self.play_card(self.mark1, player, target=self.mark4)
+	def result_inspection(self):
+		super().result_inspection()
+		if self.testNr == 0:
+			if self.contains_buff(self.mark1, 'DED_523e'):
+				print ("OK : contains_buff(mark3, 'DED_523e')")
+			else:
+				print ("NG")
+		elif self.testNr == 1:
+			if not self.contains_buff(self.mark1, 'DED_523e'):
+				print ("OK : not contains_buff(mark3, 'DED_523e')")
+			else:
+				print ("NG")
+

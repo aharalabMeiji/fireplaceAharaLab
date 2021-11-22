@@ -155,9 +155,6 @@ def print_deck():
 	typ = [('テキストファイル','*.txt')] 
 	dir = 'D:\\'
 	fle = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
-	print(fle)
-	sample_line='# 2x (1) 救いの聖馬\n'
-	elements = sample_line.split()
 	try:
 		f = open(fle, 'r')
 		datalist = f.readlines()
@@ -191,6 +188,7 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#from card_test import PresetGame
+	from card_test import PresetGame
 	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
-	main()
+	PresetGame()
+	#main()
