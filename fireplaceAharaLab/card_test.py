@@ -152,11 +152,16 @@ class Preset_Play:
 				return True
 		return False
 
+def SimulateGames():
+	#PresetGame(pp_DED_006,1)
+	PresetGame(pp_DED_521,1)
+	PresetGame(pp_DED_523,2)
+	#PresetGame(pp_DED_524,3)
 
-def PresetGame():
+def PresetGame(pp, testNr=1):
 	from fireplace import cards
-	cards.db.initialize()
-	for testNr in range(3):
+	cards.db.initialize(testNr)
+	for test in range(testNr):
 		class1=CardClass.DRUID
 		class2=CardClass.WARRIOR
 		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
@@ -179,7 +184,7 @@ def PresetGame():
 		player2.choice.choose(*cards_to_mulligan)
 		player1._targetedaction_log=[]
 		player2._targetedaction_log=[]
-		pp_DED_524(game.current_player).execute(testNr)
+		pp(game.current_player).execute(test)
 	pass
 
 class pp_DED_006(Preset_Play):# <12>[1578] 
