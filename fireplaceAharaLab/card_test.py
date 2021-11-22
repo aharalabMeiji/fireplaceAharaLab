@@ -70,9 +70,9 @@ class Preset_Play:
 		self.testNr = testNr
 		self.preset_deck()
 		self.preset_play()
-		print ("####### results: %s  #######"%(self.__class__.__name__))
+		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
-		print ("####### end    : %s  #######"%(self.__class__.__name__))
+		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 	def exchange_card(self, card, player):
 		_card = card
 		Discard(self.player.hand[0]).trigger(player)
@@ -156,30 +156,31 @@ class Preset_Play:
 def PresetGame():
 	from fireplace import cards
 	cards.db.initialize()
-	class1=CardClass.DRUID
-	class2=CardClass.WARRIOR
-	Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
-	Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
-	deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
-	deck2 = random_draft(Dummy2.myClass,[])#random deck wrt its class
-	player1 = Player(Dummy1.name, deck1, Dummy1.myClass.default_hero)
-	player2 = Player(Dummy2.name, deck2, Dummy2.myClass.default_hero)
-	game = Game(players=(player1, player2))
-	# Configurations
-	player1._start_hand_size=3## this line must be before 'start()'
-	player2._start_hand_size=3## 
-	player1.max_mana=9## this line must be before 'start()'
-	player2.max_mana=9##
-	game.start()
-	player1.hero.max_health = 30## this line must be below 'start()'
-	player2.hero.max_health = 30## 
-	cards_to_mulligan=[]
-	player1.choice.choose(*cards_to_mulligan)
-	player2.choice.choose(*cards_to_mulligan)
-	player1._targetedaction_log=[]
-	player2._targetedaction_log=[]
-	pp_DED_523(game.current_player).execute(0)
-
+	for testNr in range(3):
+		class1=CardClass.DRUID
+		class2=CardClass.WARRIOR
+		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
+		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
+		deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
+		deck2 = random_draft(Dummy2.myClass,[])#random deck wrt its class
+		player1 = Player(Dummy1.name, deck1, Dummy1.myClass.default_hero)
+		player2 = Player(Dummy2.name, deck2, Dummy2.myClass.default_hero)
+		game = Game(players=(player1, player2))
+		# Configurations
+		player1._start_hand_size=3## this line must be before 'start()'
+		player2._start_hand_size=3## 
+		player1.max_mana=9## this line must be before 'start()'
+		player2.max_mana=9##
+		game.start()
+		player1.hero.max_health = 30## this line must be below 'start()'
+		player2.hero.max_health = 30## 
+		cards_to_mulligan=[]
+		player1.choice.choose(*cards_to_mulligan)
+		player2.choice.choose(*cards_to_mulligan)
+		player1._targetedaction_log=[]
+		player2._targetedaction_log=[]
+		pp_DED_524(game.current_player).execute(testNr)
+	pass
 
 class pp_DED_006(Preset_Play):# <12>[1578] 
 	""" Mr. Smite
@@ -296,4 +297,56 @@ class pp_DED_523(Preset_Play):
 				print ("OK : not contains_buff(mark3, 'DED_523e')")
 			else:
 				print ("NG")
+
+class pp_DED_524(Preset_Play):
+	""" Multicaster
+	[Battlecry:] Draw a card for each different spell school_you've cast this game. """
+	def preset_deck(self):
+		self.mark1=self.exchange_card('DED_524',self.player)
+		if self.testNr==0:
+			self.mark2=self.exchange_card('arcane',self.player)
+			self.mark3=self.exchange_card('vanilla',self.player)
+		if self.testNr==1:
+			self.mark2=self.exchange_card('arcane',self.player)
+			self.mark3=self.exchange_card('nature',self.player)
+		if self.testNr==2:
+			self.mark2=self.exchange_card('fire',self.player)
+			self.mark3=self.exchange_card('frost',self.player)
+		#self.mark4=self.exchange_card('spell',self.player)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		player = self.player
+		opponent = player.opponent
+		game = player.game
+		self.play_card(self.mark2, player)
+		self.play_card(self.mark3, player)
+		if player.choice!=None:
+			player.choice=None#somotimes it comes here
+		game.end_turn()
+		postAction(player)
+		if opponent.choice!=None:
+			opponent.choice=None#somotimes it comes here
+		game.end_turn()
+		postAction(opponent)
+		self.play_card(self.mark1, player)
+	def result_inspection(self):
+		super().result_inspection()
+		count=0
+		for action in self.player.targetedaction_log:
+			if action['class'].__class__.__name__ == 'Draw':
+				source = action['source']
+				if isinstance(source, Player):
+					print("name = %s"%( source.name))
+					count += 1
+		if self.testNr==0:
+			if count==2:
+				print("OK")
+		if self.testNr==1:
+			if count==3:
+				print("OK")
+		if self.testNr==2:
+			if count==3:
+				print("OK")
 
