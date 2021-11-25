@@ -35,6 +35,12 @@
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
     <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\hunter.py" />
@@ -588,6 +594,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\aoo" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\bigWarrior\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\alterac\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\old_cards\blackrock\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\old_cards\boomsday\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\old_cards\brawl\" />
