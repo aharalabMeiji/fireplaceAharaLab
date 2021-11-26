@@ -2540,7 +2540,7 @@ class HonorableKill(TargetedAction):
 	AMOUNT = IntArg()
 	TARGETEDACTION = ActionArg()
 	def do(self, source, target, amount, targetaction):
-		# 'honorable_kill' is silencable
+		# 'honorable_kill' is silenceable
 		if source.honorable_kill==1:
 			if taget.health == amount:
 				log.info("Honorable Kill works on %s"%(source))
