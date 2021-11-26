@@ -1213,12 +1213,9 @@ class Hit(TargetedAction):
 		if amount:
 			#if isinstance(source,PlayableCard):
 			#	if hasattr(source, 'honorable_kill') and source.honorable_kill:
-			#		if not hasattr(target, "__iter__"):
-			#			target = [target]
-			#		for card in target:
-			#			if card.health == amount:
-			#				actions = source.get_actions("honorable_kill")
-			#				source.game.trigger(source, actions,event_args=None)
+			if target.health == amount:
+				actions = source.get_actions("honorable_kill")
+				source.game.trigger(source, actions,event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 

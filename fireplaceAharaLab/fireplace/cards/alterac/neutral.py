@@ -65,9 +65,9 @@ ALT_NEU_9e=buff(2,2)
 class ALT_NEU_10:
 	""" Icehoof Protector (6/2/10)
 	[Taunt] [Freeze] any character damaged by this minion."""
-	events = Attack(SELF, ALL_CHARACTERS).on(Buff(Attack.TARGET,'ALT_NEU_10e'))
+	events = Attack(SELF, ALL_CHARACTERS).on(Buff(Attack.DEFENDER,'ALT_NEU_10e'))
 	pass
-ALT_NEU_10e=buff(frost=True)
+ALT_NEU_10e=buff(freeze=True)
 
 class ALT_NEU_11:
 	""" Irondeep Trogg (1/1/2)
@@ -158,7 +158,7 @@ class ALT_NEU_21:
 	""" Tower Sergeant (4/4/4)
 	[Battlecry]: If you control at least 2 other minions, gain +2/+2."""
 	powered_up = Count(FRIENDLY_MINIONS - SELF) >= 2
-	play = power_up & Buff(SELF,'ALT_NEU_21e')
+	play = powered_up & Buff(SELF,'ALT_NEU_21e')
 	pass
 ALT_NEU_21e=buff(2,2)
 
@@ -246,7 +246,7 @@ class ALT_NEU_31:
 class ALT_NEU_32:
 	"""Knight-Captain (5/3/3)
 	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLY:0, }
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
 	play = Hit(TARGET, 3)
 	honorable_kill = Buff(SELF, 'ALT_NEU_32e')
 	pass

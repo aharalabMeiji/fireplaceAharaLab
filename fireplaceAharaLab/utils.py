@@ -53,7 +53,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	game.start()
 	player1.hero.max_health = int(HEROHPOPTION)## this line must be below 'start()'
 	player2.hero.max_health = int(HEROHPOPTION)## 
-
+	game.trigger(player1, [Give(player1,'DED_521')],event_args=None)#############
+	game.trigger(player2, [Give(player2,'DED_003')],event_args=None)
 	#mulligan exchange
 	# Any agent are allowed to give an algorithm to do mulligan exchange.
 	for player in game.players:

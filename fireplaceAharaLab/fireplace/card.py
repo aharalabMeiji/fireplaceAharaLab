@@ -173,6 +173,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	script_data_num_1 = int_property("script_data_num_1")
 	piece_of_cthun=int_property("piece_of_cthun")#
+	#honorable_kill = boolean_property("honorable_kill")
+	honorable_kill = True
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -722,7 +724,6 @@ class Minion(Character):
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
-	#honorable_kill = boolean_property("honorable_kill")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
