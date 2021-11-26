@@ -2534,6 +2534,21 @@ class Frenzy(TargetedAction):
 			target.frenzyFlag=1
 			pass 
 
+class HonorableKill(TargetedAction):
+	""" Honorable Kill """
+	TARGET = ActionArg() # predamaged minion
+	AMOUNT = IntArg()
+	TARGETEDACTION = ActionArg()
+	def do(self, source, target, amount, targetaction):
+		# 'honorable_kill' is silencable
+		if source.honorable_kill==1:
+			if taget.health == amount:
+				log.info("Honorable Kill works on %s"%(source))
+				targetaction.trigger(source)
+			pass
+		pass
+	pass
+
 class CountSummon(TargetedAction):
 	TARGET = ActionArg()#self
 	LIST = ActionArg()#Minion List

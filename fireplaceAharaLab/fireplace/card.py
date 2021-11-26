@@ -722,12 +722,13 @@ class Minion(Character):
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
+	#honorable_kill = boolean_property("honorable_kill")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",
 		"forgetful", "frozen", "has_deathrattle", "has_inspire", "poisonous",
-		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush", "frenzy"
+		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush", "frenzy", "honorable_kill",
 	)
 
 	def __init__(self, data):
