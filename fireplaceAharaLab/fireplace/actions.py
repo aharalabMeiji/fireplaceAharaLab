@@ -1211,6 +1211,14 @@ class Hit(TargetedAction):
 	def do(self, source, target, amount):
 		amount = source.get_damage(amount, target)
 		if amount:
+			#if isinstance(source,PlayableCard):
+			#	if hasattr(source, 'honorable_kill') and source.honorable_kill:
+			#		if not hasattr(target, "__iter__"):
+			#			target = [target]
+			#		for card in target:
+			#			if card.health == amount:
+			#				actions = source.get_actions("honorable_kill")
+			#				source.game.trigger(source, actions,event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
@@ -2534,20 +2542,20 @@ class Frenzy(TargetedAction):
 			target.frenzyFlag=1
 			pass 
 
-class HonorableKill(TargetedAction):
-	""" Honorable Kill """
-	TARGET = ActionArg() # predamaged minion
-	AMOUNT = IntArg()
-	TARGETEDACTION = ActionArg()
-	def do(self, source, target, amount, targetaction):
-		# 'honorable_kill' is silenceable
-		if source.honorable_kill==1:
-			if taget.health == amount:
-				log.info("Honorable Kill works on %s"%(source))
-				targetaction.trigger(source)
-			pass
-		pass
-	pass
+#class HonorableKill(TargetedAction):
+#	""" Honorable Kill """
+#	TARGET = ActionArg() # predamaged minion
+#	AMOUNT = IntArg()
+#	TARGETEDACTION = ActionArg()
+#	def do(self, source, target, amount, targetaction):
+#		# 'honorable_kill' is silenceable
+#		if source.honorable_kill==1:
+#			if taget.health == amount:
+#				log.info("Honorable Kill works on %s"%(source))
+#				targetaction.trigger(source)
+#			pass
+#		pass
+#	pass
 
 class CountSummon(TargetedAction):
 	TARGET = ActionArg()#self

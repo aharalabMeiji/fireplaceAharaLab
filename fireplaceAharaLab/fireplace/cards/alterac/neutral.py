@@ -15,7 +15,7 @@ class ALT_NEU2:##############
 class ALT_NEU3:
 	""" Direwolf Commander (3/2/5)
 	[Honorable Kill]: Summon a 2/2 Wolf with Stealth """
-	events = Predamage().on(HonorableKill(Predamage.TARGET, Predamage.AMOUNT, [Summon(CONTROLLER,'ALT_NEU3t')]))
+	honorable_kill = Summon(CONTROLLER,'ALT_NEU3t')
 	pass
 class ALT_NEU3t:
 	""" wolf """
@@ -24,7 +24,7 @@ class ALT_NEU3t:
 class ALT_NEU4:
 	""" Frantic Hippogryph (5/3/7)
 	[Rush]. [Honorable Kill]: Gain [Windfury]. """
-	events = Predamage().on(HonorableKill(Predamage.TARGET, Predamage.AMOUNT, [Buff(SELF,'ALT_NEU4e')]))
+	honorable_kill = Buff(SELF,'ALT_NEU4e')
 	pass
 ALT_NEU4e = buff(windfury=True)
 
@@ -58,7 +58,7 @@ class ALT_NEU_8:
 class ALT_NEU_9:
 	""" Ice Revenant (4/4/5)
 	Whenever you cast a Frost spell, gain +2/+2. """
-	events = Play(CONTROLLER, SPELL+FROST).on(Buff(SELF,'ALT_NEU_9e'))
+	events = Play(CONTROLLER, SPELL + FROST).on(Buff(SELF,'ALT_NEU_9e'))
 	pass
 ALT_NEU_9e=buff(2,2)
 
@@ -119,31 +119,53 @@ class ALT_NEU_16:
 class ALT_NEU_17:
 	""" Ram Commander (2/2/2)
 	[Battlecry]: Add two 1/1 Rams with Rush to your hand."""
+	play = Give(CONTROLLER, 'ALT_NEU_17t') * 2
+	pass
+class ALT_NEU_17t:
+	""" Ram with Rush (1/1)"""
 	pass
 
 class ALT_NEU_18:
 	""" Snowblind Harpy (3/3/4)
 	[Battlecry]: If you're holding a Frost spell, gain 5 Armor."""
+	play = Find(FRIENDLY_HAND + FROST) & GainArmor(FRIENDLY_HERO,5)
 	pass
+
+class ALT_NEU_19_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source,target,amount):
+		source._sidequest_counter_ += amount
+		if source._sidequest_counter_>=5:
+			BuffOnce(target,'ALT_NEU_19e').trigger(source)
 
 class ALT_NEU_19:
 	""" Stormpike Marshal (4/2/6)
 	[Taunt] If you took 5 or more damage on your opponent's turn, this costs (1)."""
+	events = Damage(FRIENDLY_MINIONS).on(ALT_NEU_19_Action(SELF, Damage.AMOUNT))
 	pass
+class ALT_NEU_19e:
+	cost = SET(1)
 
 class ALT_NEU_20:
 	""" Stormpike Quartermaster (2/2/2)
 	After you cast a spell, give a random minion in your hand +1/+1."""
+	events = OWN_SPELL_PLAY.on(Buff(RANDOM(FRIENDLY_MINIONS),'ALT_NEU_20'))
 	pass
+ALT_NEU_20=buff(1,1)
 
 class ALT_NEU_21:
 	""" Tower Sergeant (4/4/4)
 	[Battlecry]: If you control at least 2 other minions, gain +2/+2."""
+	powered_up = Count(FRIENDLY_MINIONS - SELF) >= 2
+	play = power_up & Buff(SELF,'ALT_NEU_21e')
 	pass
+ALT_NEU_21e=buff(2,2)
 
 class ALT_NEU_22:
 	""" Troll Centurion (8/8/8)
 	[Rush]. [Honorable Kill]: Deal 8 damage to the enemy hero."""
+	honorable_kill = Hit(ENEMY_HERO, 8)
 	pass
 
 class ALT_NEU_23:
@@ -226,14 +248,14 @@ class ALT_NEU_32:
 	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLY:0, }
 	play = Hit(TARGET, 3)
-	events = Predamage().on(HonorableKill(Predamage.TARGET, predamage.AMOUNT, [Buff(SELF, 'ALT_NEU_32e')]))
+	honorable_kill = Buff(SELF, 'ALT_NEU_32e')
 	pass
 ALT_NEU_32e=buff(3,3)
 
 class ALT_NEU_33:
 	"""Gnome Private (1/1/3)
 	[Honorable Kill]: Gain +2 Attack. """
-	events = Predamage(ENEMY_MINIONS).on(HonorableKill(Predamage.TARGET, Predamage.AMOUNT, [Buff(SELF,'ALT_NEU33e')]))
+	honorable_kill = Buff(SELF,'ALT_NEU33e')
 	pass
 ALT_NEU33e=buff(2,0)
 
