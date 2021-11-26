@@ -58,24 +58,30 @@ class ALT_NEU_8:
 class ALT_NEU_9:
 	""" Ice Revenant (4/4/5)
 	Whenever you cast a Frost spell, gain +2/+2. """
+	events = Play(CONTROLLER, SPELL+FROST).on(Buff(SELF,'ALT_NEU_9e'))
 	pass
+ALT_NEU_9e=buff(2,2)
 
 class ALT_NEU_10:
 	""" Icehoof Protector (6/2/10)
 	[Taunt] [Freeze] any character damaged by this minion."""
+	events = Attack(SELF, ALL_CHARACTERS).on(Buff(Attack.TARGET,'ALT_NEU_10e'))
 	pass
+ALT_NEU_10e=buff(frost=True)
 
 class ALT_NEU_11:
 	""" Irondeep Trogg (1/1/2)
 	After your opponent casts a spell, summon a copy of this."""
+	events = Play(OPPONENT, SPELL).on(Summon(CONTROLLER,ExactCopy(SELF)))
 	pass
 
 class ALT_NEU_12:
 	""" Kobold Taskmaster (3/2/4)
 	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
+	Play = Give(CONTROLLER, 'ALT_NEU_12t') * 2
 	pass
 
-class ALT_NEU_13:
+class ALT_NEU_13:##################
 	""" Korrak the Bloodrager (4/3/5)
 	Deathrattle: If this wasn't Honorably Killed, resummon Korrak."""
 	pass
@@ -83,16 +89,31 @@ class ALT_NEU_13:
 class ALT_NEU_14:
 	""" Legionnaire (6/9/3)
 	Deathrattle: Give all minions in your hand +2/+2. """
+	deathrattle = Buff(FRIENDLY_HAND + MINION, 'ALT_NEU_14e')
 	pass
+ALT_NEU_14e = buff(2,2)
 
 class ALT_NEU_15:
 	""" Piggyback Imp (3/1/1) deamon
 	Deathrattle: Summon a 4/1 Imp. """
+	deathrattle = Summon(CONTROLLER,'ALT_NEU_15t')
+	pass
+class ALT_NEU_15t:
+	""" 4/1 imp """
 	pass
 
 class ALT_NEU_16:
 	""" Reflecto Engineer (3/2/4)
 	[Battlecry]: Swap the Attack and Health of all minions in both players' hands."""
+	def play(self):
+		game = self.game
+		cardlist = game.hands
+		for card in cardlist:
+			health = card.health
+			atk = card.atk
+			card.atk =health
+			card.max_health = atk
+			card.damage=0
 	pass
 
 class ALT_NEU_17:
@@ -158,6 +179,18 @@ class ALT_NEU_28:
 class ALT_NEU_29:
 	""" Spammy Arcanist (5/3/4)
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
+	def play(self):
+		while True:	
+			list = self.game.fields
+			cont=False
+			for card in list:
+				if card != self:
+					Hit(card,1).trigger(self)
+					if card.health==0:
+						cont = True
+			if not cont:
+				return
+		pass
 	pass
 
 class ALT_NEU_30:
