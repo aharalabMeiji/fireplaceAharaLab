@@ -7,9 +7,10 @@ class ALT_NEU1:
 	pass
 ALT_NEU1 = buff(1,0)
 
-class ALT_NEU2:##############
+class ALT_NEU2:#
 	""" Bunker Sergeant (3/2/4)
 	[Battlecry]: If your opponent has 2 or more minions, deal 1 damage to all enemy minions."""
+	play = (Count(ENEMY_MINIONS)>=2) & Hit(ENEMY_MINIONS, 1)
 	pass
 
 class ALT_NEU3:
@@ -171,31 +172,48 @@ class ALT_NEU_22:
 class ALT_NEU_23:
 	""" Sneaky Scout (2/3/2)
 	[Stealth] [Honorable Kill]: Your next Hero Power costs (0). """
+	honorable_kill = Buff(FRIENDLY_HERO_POWER, 'ALT_NEU_23')
+	pass
+class ALT_NEU_23e:
+	cost = SET(0)
 	pass
 
 class ALT_NEU_24:
 	""" Corporal ( 2/2/3)
 	Honorable Kill: Give your other minions Divine Shield."""
+	honorable_kill = Buff(FRIENDLY_MINIONS - SELF, 'ALT_NEU_24e')
 	pass
+ALT_NEU_24e=buff(divine_shield=True)
 
 class ALT_NEU_25:
 	""" Frozen Mammoth (4/6/7)
 	This is [Frozen] until you cast a Fire spell."""
+	events = Play(CONTROLLER, SPELL + FIRE).on(Buff(SELF,'ALT_NEU_25e'))
 	pass
+ALT_NEU_25e=buff(freeze=False)
 
 class ALT_NEU_26:
 	""" Popsicooler (3/3/3) Mech
 	[Deathrattle]: [Freeze] two random enemy minions."""
+	deathrattle = Buff(RANDOM_ENEMY_MINION, 'ALT_NEU_26e') * 2
 	pass
+ALT_NEU_26e=buff(freeze=True)
 
 class ALT_NEU_27:
 	""" Lokholar the Ice Lord (10/8/8) Elemental
 	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
+	powered_up = CURRENT_HEALTH(FRIENDLY_HERO) <= 15
+	update = powered_up & Buff(SELF, 'ALT_NEU_27e')
 	pass
+ALT_NEU_27e=buff(cost=-5)
 
 class ALT_NEU_28:
 	""" Grimtotem Bounty Hunter (3/4/2)
 	[Battlecry]: Destroy an enemy [Legendary] minion."""
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
+	def play(self):
+		if self.target != None and self.target.rarity==Rarity.LEGENDARY:
+			self.controller.game.trigger(self.controller, [Destroy(self.target)], action_args=None)
 	pass
 
 class ALT_NEU_29:
@@ -241,6 +259,7 @@ ALT_NEU_30e4=buff(2,2)
 class ALT_NEU_31:
 	"""Abominable Lieutenant (8/3/5)
 	At the end of your turn, eat a random enemy minion and gain its stats. """
+	events = OWN_TURN_END.on(EatsCard(SELF, RANDOM_ENEMY_MINION))
 	pass
 
 class ALT_NEU_32:
