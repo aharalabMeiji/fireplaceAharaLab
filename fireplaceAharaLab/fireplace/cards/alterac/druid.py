@@ -93,19 +93,38 @@ class ALT_DRU_6b: ## More Resources
 	play = DrawLowestCost(CONTROLLER)
 	pass
 
-class ALT_DRU_7:############################### lasts 3 turns
+class ALT_DRU_7:#
 	""" Frostwolf Kennels (3) Lasts
 	At the end of your turn, summon a 2/2 Wolf with Stealth. Lasts 3 turns. """
-	events = OWN_TURN_END.on(Summon(CONTROLLER, 'ALT_DRU_7t'))
+	tags={GameTag.SIDEQUEST:True, }
+	events = [
+		OWN_TURN_END.on(Summon(CONTROLLER, 'ALT_DRU_7t')),
+		OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),
+		]		
 	pass
 class ALT_DRU_7t:
 	""" Frostwolf Cub (2/2/2) """
 	pass
 
+class ALT_DRU_8_Count(LazyNum):
+	"""
+	Lazily count the matches in a selector
+	"""
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
+
+	def __repr__(self):
+		return "%s(%r)" % (self.__class__.__name__, self.selector)
+
+	def evaluate(self, source):
+		###change this part(What is 'source'?)
+		return self.num(len(self.get_entities(source)))
+
 class ALT_DRU_8: ##################   this game
 	""" Frostsaber Matriarch (7/4/5) beast
 	[Taunt]. Costs (1) less for each Beast you've summoned this game. """
-	cost_mod = -Count(FRIENDLY_MINIONS + BEAST)
+	cost_mod = -ALT_DRU_8_Count(CONTROLLER)
 	pass
 
 class ALT_DRU_9:
@@ -117,7 +136,13 @@ class ALT_DRU_9:
 class ALT_DRU_10:#################
 	""" Wildheart Guff ( 5/*/5) Hero
 	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
-	#
+	def play(self):
+		controller = self.controller
+		difference = 20 - controller.max_mana
+		controller.max_resources = 20
+		controller.max_mana += difference
+		controller.used_mana += (difference-1)
+		Draw(controller).trigger(controller)
 	pass
 
 

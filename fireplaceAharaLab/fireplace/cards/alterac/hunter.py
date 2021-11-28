@@ -52,13 +52,13 @@ class ALT_HUN_6:
 	pass
 ALT_HUN_6e=buff(atk=1,health=1,stealth=True)
 
-class ALT_HUN_7: ###?????
+class ALT_HUN_7: ###?????maybe
 	""" Revive Pet (3) nature
 	Discover a friendly Beast that died this game. Summon it. """
-	play = GenericChoiceBattlecry(CONTROLLER, RANDOM(FRIENDLY + BEAST + GRAVEYARD))
+	play = GenericChoiceBattlecry(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST))
 	pass
 
-class ALT_HUN_8: #### need the latter half
+class ALT_HUN_8: ################################ need the latter half
 	""" Wing Commander Ichman (9/5/4)
 	[Battlecry]: Summon a Beast from your deck and give it [Rush]. If it kills a minion this turn, repeat."""
 	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Summon.CARD, 'ALT_HUN_8e'))
@@ -68,6 +68,7 @@ ALT_HUN_8e=buff(rush=True)
 class ALT_HUN_9:
 	""" Dun Baldar Bunker (2) Lasts
 	At the end of your turn, draw a Secret and set its Cost to (1). Lasts 3 turns."""
+	tags={GameTag.SIDEQUEST:True, }
 	events = [
 		OWN_TURN_END.on(Give(CONTROLLER, RandomSpell(secret=True)).then(Buff(Give.CARD,'ALT_HUN_9e'))),
 		OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),
