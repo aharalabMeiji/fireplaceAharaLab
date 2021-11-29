@@ -82,9 +82,22 @@ class ALT_NEU_12:
 	Play = Give(CONTROLLER, 'ALT_NEU_12t') * 2
 	pass
 
-class ALT_NEU_13:##################
+class ALT_NEU_13_Find(Evaluator):
+	"""
+	Evaluates to True if \a selector has a match.
+	"""
+	def __init__(self, selector, count=1):
+		super().__init__()
+		self.selector = selector
+
+	def check(self, source):
+		card = self.selector.eval(source.game.allcards, source) ### Korrak card
+		return card[0].honorably_killed
+
+class ALT_NEU_13:#
 	""" Korrak the Bloodrager (4/3/5)
 	Deathrattle: If this wasn't Honorably Killed, resummon Korrak."""
+	deathrattle = ALT_NEU_13_Find(SELF) & Summon(CONTROLLER, 'ALT_NEU_13')
 	pass
 
 class ALT_NEU_14:
