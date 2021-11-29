@@ -657,6 +657,7 @@ class Hero(Character):
 	def __init__(self, data):
 		self.armor = 0
 		self.power = None
+		self.tatal_armor = 0
 		super().__init__(data)
 
 	@property

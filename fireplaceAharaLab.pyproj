@@ -41,6 +41,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\hunter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\mage.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\neutral.py">
       <SubType>Code</SubType>
     </Compile>

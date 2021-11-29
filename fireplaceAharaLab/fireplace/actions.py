@@ -1145,6 +1145,8 @@ class GainArmor(TargetedAction):
 	AMOUNT = IntArg()
 
 	def do(self, source, target, amount):
+		if amount>0 and hasattr(target, 'total_armor'):
+			target.total_armor += amount
 		target.armor += amount
 		self.broadcast(source, EventListener.ON, target, amount)
 
