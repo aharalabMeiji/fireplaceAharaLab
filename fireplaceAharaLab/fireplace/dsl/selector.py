@@ -469,6 +469,7 @@ HOLY = EnumSelector(SpellSchool.HOLY)
 FIRE = EnumSelector(SpellSchool.FIRE)
 FROST = EnumSelector(SpellSchool.FROST)
 ARCANE = EnumSelector(SpellSchool.ARCANE)
+FEL = EnumSelector(SpellSchool.FEL)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)

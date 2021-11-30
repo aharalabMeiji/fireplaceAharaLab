@@ -55,34 +55,85 @@ class ALT_MAG_3e:
 		Destroy(SELF)
 		)
 
+class ALT_MAG_4_Action(TargetedAction):#
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		count = 0
+		while True:	
+			card = RandomSpell(card_class=CardClass.MAGE).evaluate(source)
+			if card.cost + count <= 20:
+				count += card.cost
+				target = None
+				if card.requires_target():
+					target = random.choice(controller.opponent.characters)
+				controller.game.trigger(controller, [Play(card,target,None,None)],action_args=None)
+			else:
+				break
+			pass
+		pass
+	pass
+
 class ALT_MAG_4:
 	""" Rune of the Archmage (9)
 	Cast 20 Mana worth of Mage spells at enemies.
 	"""
+	play = ALT_MAG_4_Action(CONTROLLER)
 	pass
 
 class ALT_MAG_5:
 	""" Magister Dawngrasp (8/*/5) Hero
 	Battlecry: Recast a spell from each spell school you've cast this game.
 	"""
+	def play(self):
+		for school in [SpellSchool.ARCANE, SpellSchool.NATURE, SpellSchool.FEL, SpellSchool.FIRE, SpellSchool.FROST, SpellSchool.HOLY, SpellSchool.SHADOW]:
+			cards = []
+			for log in self.controller.play_log:
+				if log.CardType==CardType.SPELL and log.spell_school==school:
+					cards.append(log)
+			if log != []:
+				card = random.choice(cards)
+				Summon(CONTROLLER, card.id)
+			pass
+		pass
+		#ChangeHero(self).trigger(controller)
 	pass
 
 class ALT_MAG_6:
 	""" Mass Polymorph (7) Arcane
-	Transform all minions into 1/1 Sheep.
-	"""
+	Transform all minions into 1/1 Sheep."""
+	play = Morph(ALL_MINIONS, 'ALT_MAG_6t')
+	pass
+class ALT_MAG_6t:
+	"""  sheep """
 	pass
 
 class ALT_MAG_7:
 	""" Iceblood Tower (10)
-	t the end of your turn, cast another spell from your deck. Lasts 3 turns.
-	"""
+	At the end of your turn, cast another spell from your deck. Lasts 3 turns.	"""
+	events=[
+		OWN_TURN_END,on(Play(RANDOM(FRIENDLY_DECK + SPELL))),
+		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER, 3, [Destroy(SELF)])),
+		]
 	pass
 
 class ALT_MAG_8:
 	""" Balinda Stonehearth (6/5/5)
-	Battlecry: Draw 2 spells. Swap their Costs with this minion's stats.
-	"""
+	Battlecry: Draw 2 spells. Swap their Costs with this minion's stats."""
+	def play(self):
+		card1=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL))
+		card1cost=5
+		if card1!=[]:
+			card1cost = card1[0][0].cost
+			card1[0][0].cost = self.atk
+			self.atk=card1cost
+		card2=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL))
+		card2cost=5
+		if card2!=[]:
+			card2cost = card2[0][0].cost
+			card2[0][0].cost = self.max_health
+			self.max_helth=card2cost
+		pass
 	pass
 
 class ALT_MAG_9t:
