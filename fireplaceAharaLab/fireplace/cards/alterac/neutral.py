@@ -1,9 +1,36 @@
 from ..utils import *
 
+class AV_100:
+	"""Drek'Thar (4/4/4)
+	[Battlecry]: If this costs more than every minion in your deck, summon 2 of them. """
+	pass
+	def play(self):
+		controller = self.controller
+		go = True
+		choices = []
+		for card in controller.deck:
+			if card.type == CardType.MINION:
+				choices.append(card)
+				if card.cost >= self.cost:
+					go = False
+					break
+		if go:
+			choices = random.sample(choices,2)
+			for card in choices:
+				Summon(self.controller, card).trigger(self)
+		pass
+	pass
+
 class AV_101:
 	""" Herald of Lokholar (4/3/5)
 	[Battlecry]: Draw a Frost spell."""
 	play = Give(CONTROLLER, RANDOM(FRIENDLY + SPELL))
+	pass
+
+class AV_102:
+	""" Popsicooler (3/3/3) Mech
+	[Deathrattle]: [Freeze] two random enemy minions."""
+	deathrattle = SetTag(RANDOM_ENEMY_MINION, (GameTag.FREEZE,)) * 2#
 	pass
 
 class AV_112:
@@ -12,12 +39,18 @@ class AV_112:
 	play = Find(FRIENDLY_HAND + FROST) & GainArmor(FRIENDLY_HERO,5)
 	pass
 
+class AV_121:
+	"""Gnome Private (1/1/3)
+	[Honorable Kill]: Gain +2 Attack. """
+	honorable_kill = Buff(SELF,'AV_121e')
+	pass
+AV_121e=buff(2,0)
+
 class AV_122:
 	""" Corporal ( 2/2/3)
 	Honorable Kill: Give your other minions Divine Shield."""
-	honorable_kill = Buff(FRIENDLY_MINIONS - SELF, 'AV_122')###########
+	honorable_kill = SetTag(FRIENDLY_MINIONS - SELF, (GameTag.DIVINE_SHIELD,))#
 	pass
-ALT_NEU_24e=buff(divine_shield=True)############
 
 class AV_123:
 	""" Sneaky Scout (2/3/2)
@@ -72,6 +105,15 @@ class AV_130:
 	pass
 AV_130e = buff(2,2)
 
+class AV_131:
+	"""Knight-Captain (5/3/3)
+	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
+	play = Hit(TARGET, 3)
+	honorable_kill = Buff(SELF, 'AV_131e')
+	pass
+AV_131e=buff(3,3)
+
 class CountPlayedThisTurn(LazyNum):
 	def evaluate(self, source):
 		controller = source
@@ -108,13 +150,17 @@ class AV_135:#################################
 		events = Damage(FRIENDLY_MINIONS).on(SidequestCounter(CONTROLLER, 5, [SetTag(SELF, (GameTag.COST,))]))
 	pass
 
-class AV_136:#######################
+class AV_136:#
 	""" Kobold Taskmaster (3/2/4)
 	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
 	play = Give(CONTROLLER, 'AV_136t') * 2
 	pass
 AV_136e=buff(0,2)
 class AV_136t:
+	""" Armor Scrap 
+	Give a minion +2 Health. """
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0,}
+	play = Buff(TARGET, 'AV_136e')
 	pass
 
 class AV_137:
@@ -122,6 +168,51 @@ class AV_137:
 	After your opponent casts a spell, summon a copy of this."""
 	events = Play(OPPONENT, SPELL).on(Summon(CONTROLLER,ExactCopy(SELF)))
 	pass
+
+class AV_138:
+	""" Grimtotem Bounty Hunter (3/4/2)
+	[Battlecry]: Destroy an enemy [Legendary] minion."""
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
+	def play(self):
+		if self.target != None and self.target.rarity==Rarity.LEGENDARY:
+			self.controller.game.trigger(self.controller, [Destroy(self.target)], action_args=None)
+	pass
+
+class AV_139:
+	"""Abominable Lieutenant (8/3/5)
+	At the end of your turn, eat a random enemy minion and gain its stats. """
+	events = OWN_TURN_END.on(EatsCard(SELF, RANDOM_ENEMY_MINION))
+	pass
+
+class AV_141t:
+	""" Lokholar the Ice Lord (10/8/8) Elemental
+	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
+	powered_up = CURRENT_HEALTH(FRIENDLY_HERO) <= 15
+	update = powered_up & Refresh(SELF,  {GameTag.COST: -5})##############
+	pass
+
+class AV_142t:
+	""" Ivus, the Forest Lord(1/1/1)
+	[Battlecry]: Spend the rest of your Mana and gain +2/+2, [Rush], [Divine Shield], or [Taunt] at random for each."""
+	def play(self):
+		controller = self.controller
+		rest_mana = controller.mana
+		choices = random.sample(['rush','shield','taunt','2/2','2/2','2/2','2/2','2/2','2/2','2/2'],rest_mana)
+		for choice in choices:
+			if choice == 'rush':
+				Buff(SELF,'AV_142e2')
+			elif choice == 'shield':
+				Buff(SELF,'AV_142e3')
+			elif choice == 'taunt':
+				Buff(SELF,'AV_142e4')
+			else:
+				Buff(SELF,'AV_142e')
+		pass
+	pass
+AV_142e2=buff(rush=True)
+AV_142e3=buff(divine_shield=True)
+AV_142e4=buff(taunt=True)
+AV_142e=buff(2,2)
 
 class AV_143_Find(Evaluator):
 	"""
@@ -155,6 +246,41 @@ class AV_219:
 class AV_219t:
 	""" Ram with Rush (1/1)"""
 	pass
+
+class AV_222:
+	""" Spammy Arcanist (5/3/4)
+	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
+	def play(self):
+		while True:	
+			list = self.game.fields
+			cont=False
+			for card in list:
+				if card != self:
+					Hit(card,1).trigger(self)
+					if card.health==0:
+						cont = True
+			if not cont:
+				return
+		pass
+	pass
+
+class AV_223:
+	"""Vanndar Stormpike (4/4/4)
+	[Battlecry]: If this costs less than every minion in your deck, reduce their Cost by (3)."""
+	def play(self):
+		controller = self.controller
+		go = True
+		for card in controller.deck:
+			if card.type == CardType.MINION and card.cost <= self.cost:
+				go = False
+				break
+		if go:
+			for card in controller.deck:
+				if card.type == CardType.MINION:
+					Buff(card,'AV_223e').trigger(self)
+		pass
+	pass
+AV_223e = buff(cost=-3)
 
 class AV_238:
 	""" Gankster (2/4/2)
@@ -198,138 +324,6 @@ class AV_704:
 	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 8)
 	pass
 
-##########################
-
-class AV_128:
-	""" Frozen Mammoth (4/6/7)
-	This is [Frozen] until you cast a Fire spell."""
-	events = Play(CONTROLLER, SPELL + FIRE).on(Buff(SELF,'AV_128e'))
-	pass
-AV_128e=buff(freeze=False)
-
-class AV_102:
-	""" Popsicooler (3/3/3) Mech
-	[Deathrattle]: [Freeze] two random enemy minions."""
-	deathrattle = SetTag(RANDOM_ENEMY_MINION, (GameTag.FREEZE,)) * 2#
-	pass
-
-class AV_141t:
-	""" Lokholar the Ice Lord (10/8/8) Elemental
-	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
-	powered_up = CURRENT_HEALTH(FRIENDLY_HERO) <= 15
-	update = powered_up & Buff(SELF, 'ALT_NEU_27e')##############
-	pass
-ALT_NEU_27e=buff(cost=-5)###################
-
-class AV_138:
-	""" Grimtotem Bounty Hunter (3/4/2)
-	[Battlecry]: Destroy an enemy [Legendary] minion."""
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
-	def play(self):
-		if self.target != None and self.target.rarity==Rarity.LEGENDARY:
-			self.controller.game.trigger(self.controller, [Destroy(self.target)], action_args=None)
-	pass
-
-class AV_222:
-	""" Spammy Arcanist (5/3/4)
-	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
-	def play(self):
-		while True:	
-			list = self.game.fields
-			cont=False
-			for card in list:
-				if card != self:
-					Hit(card,1).trigger(self)
-					if card.health==0:
-						cont = True
-			if not cont:
-				return
-		pass
-	pass
-
-class AV_142t:
-	""" Ivus, the Forest Lord(1/1/1)
-	[Battlecry]: Spend the rest of your Mana and gain +2/+2, [Rush], [Divine Shield], or [Taunt] at random for each."""
-	def play(self):
-		controller = self.controller
-		rest_mana = controller.mana
-		choices = random.sample(['rush','shield','taunt','2/2','2/2','2/2','2/2','2/2','2/2','2/2'],rest_mana)
-		for choice in choices:
-			if choice == 'rush':
-				Buff(SELF,'AV_142e2')
-			elif choice == 'shield':
-				Buff(SELF,'AV_142e3')
-			elif choice == 'taunt':
-				Buff(SELF,'AV_142e4')
-			else:
-				Buff(SELF,'AV_142e')
-		pass
-	pass
-AV_142e2=buff(rush=True)
-AV_142e3=buff(divine_shield=True)
-AV_142e4=buff(taunt=True)
-AV_142e=buff(2,2)
-
-class AV_139:
-	"""Abominable Lieutenant (8/3/5)
-	At the end of your turn, eat a random enemy minion and gain its stats. """
-	events = OWN_TURN_END.on(EatsCard(SELF, RANDOM_ENEMY_MINION))
-	pass
-
-class AV_131:
-	"""Knight-Captain (5/3/3)
-	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
-	play = Hit(TARGET, 3)
-	honorable_kill = Buff(SELF, 'AV_131e')
-	pass
-AV_131e=buff(3,3)
-
-class AV_121:
-	"""Gnome Private (1/1/3)
-	[Honorable Kill]: Gain +2 Attack. """
-	honorable_kill = Buff(SELF,'AV_121e')
-	pass
-AV_121e=buff(2,0)
-
-class AV_223:
-	"""Vanndar Stormpike (4/4/4)
-	[Battlecry]: If this costs less than every minion in your deck, reduce their Cost by (3)."""
-	def play(self):
-		controller = self.controller
-		go = True
-		for card in controller.deck:
-			if card.type == CardType.MINION and card.cost <= self.cost:
-				go = False
-				break
-		if go:
-			for card in controller.deck:
-				if card.type == CardType.MINION:
-					Buff(card,'AV_223e').trigger(self)
-		pass
-	pass
-AV_223e = buff(cost=-3)
-
-class AV_100:
-	"""Drek'Thar (4/4/4)
-	[Battlecry]: If this costs more than every minion in your deck, summon 2 of them. """
-	pass
-	def play(self):
-		controller = self.controller
-		go = True
-		choices = []
-		for card in controller.deck:
-			if card.type == CardType.MINION:
-				choices.append(card)
-				if card.cost >= self.cost:
-					go = False
-					break
-		if go:
-			choices = random.sample(choices,2)
-			for card in choices:
-				Summon(self.controller, card).trigger(self)
-		pass
-	pass
 
 
 
