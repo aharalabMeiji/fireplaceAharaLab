@@ -28,7 +28,10 @@
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
-    <Compile Include="fireplaceAharaLab\card_test.py">
+    <Compile Include="fireplaceAharaLab\simulate_game.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\alterac_neutral.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
@@ -659,6 +662,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
     <Folder Include="fireplaceAharaLab\fireplace\dsl" />
+    <Folder Include="fireplaceAharaLab\card_test\" />
     <Folder Include="fireplaceAharaLab\obj\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\Debug" />
