@@ -66,6 +66,13 @@ class Preset_Play:
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
 		pass
+	def change_turn(self, player):
+		game = player.game
+		if player.choice!=None:
+			player.choice=None#somotimes it comes here
+		game.end_turn()
+		postAction(player)
+		pass
 	def execute(self, testNr = 0):
 		self.testNr = testNr
 		self.preset_deck()
@@ -73,7 +80,7 @@ class Preset_Play:
 		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
-	def exchange_card(self, card, player):
+	def exchange_card(self, card, player, health=0):
 		_card = card
 		Discard(self.player.hand[0]).trigger(player)
 		if _card=='arcane':
@@ -122,10 +129,17 @@ class Preset_Play:
 		if _card=='spellpower':
 			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
 		if _card=='vanilla':
-			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t','EX1_116t',\
-						'NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t','BT_726t','BT_728t','BT_163t',\
-						'BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t','DMF_104t','DMF_061t2','DMF_521t','BAR_076t','BAR_077t',\
-						'BAR_721t2','WC_026t','SW_455t','SW_422t','SW_439t2','DED_517t','DREAM_03','SCH_337t',])####
+			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
+	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',
+	'BT_726t','BT_728t','BT_163t','BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t',
+	'DMF_104t','DMF_061t2','DMF_521t','BAR_076t','BAR_077t','BAR_721t2','WC_026t','SW_455t','SW_422t','SW_439t2','DED_517t',
+	'DREAM_03','SCH_337t',])####
+		if _card=='vanillaH1':
+			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
+		if _card=='vanillaH2':
+			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
+		if _card=='vanillaH3':
+			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
 		if _card=='weapon':
 			_card=random.choice(['WC_037','DMF_088'])
 		new_card = Give(player,_card).trigger(player)
@@ -146,21 +160,36 @@ class Preset_Play:
 				target=None
 			Play(card, target, None, None).trigger(player)
 		pass
+	def attack_card(self, card,  target, player):
+		if isinstance(card,PlayableCard) and isinstance(target, PlayableCard):
+			if card.can_attack(target):
+				card.attack(target)
+		pass
 	def contains_buff(self, card, buffID):
 		for buff in card.buffs:
 			if buff.id == buffID:
 				return True
 		return False
-
+	def card_in_field(self, player, cardID):
+		for card in player.field:
+			if card.id==cardID:
+				return True
+		return False
 def SimulateGames():
 	#PresetGame(pp_DED_006,1)
-	PresetGame(pp_DED_521,1)
-	PresetGame(pp_DED_523,2)
+	#PresetGame(pp_DED_521,1)
+	#PresetGame(pp_DED_523,2)
 	#PresetGame(pp_DED_524,3)
+	
+	#PresetGame(pp_AV_129,1)
+	#PresetGame(pp_AV_126,1)
+	#PresetGame(pp_AV_124,2)
+	PresetGame(pp_AV_215,2)
+	pass
 
 def PresetGame(pp, testNr=1):
 	from fireplace import cards
-	cards.db.initialize(testNr)
+	cards.db.initialize()
 	for test in range(testNr):
 		class1=CardClass.DRUID
 		class2=CardClass.WARRIOR
@@ -354,4 +383,158 @@ class pp_DED_524(Preset_Play):
 		if self.testNr==2:
 			if count==3:
 				print("OK")
+
+class pp_AV_129(Preset_Play):
+	const = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_129',controller)
+		self.const = self.mark1.atk
+		self.mark2=self.exchange_card('vanilla',controller)
+		self.mark3=self.exchange_card('vanilla',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		#############
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		#############
+		self.attack_card(self.mark3, self.mark1, opponent)
+	def result_inspection(self):
+		super().result_inspection()
+		if self.mark1.zone==Zone.GRAVEYARD:
+			print("OK")
+		print("%d - %d == 1"%(self.mark1.atk, self.const))
+		if self.contains_buff(self.mark1, 'AV_129e'):
+			print("OK")
+		if self.contains_buff(self.mark2, 'AV_129e'):
+			print("OK")
+
+class pp_AV_126(Preset_Play):
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_126',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark4=self.exchange_card('vanilla',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		#############
+		self.play_card(self.mark1, controller)
+	def result_inspection(self):
+		super().result_inspection()
+		## mark3がダメージ1を受けているか
+		## mark4がダメージ1を受けているか
+		## mark4をプレイしなければダメージ攻撃がないか
+	pass
+
+class pp_AV_124(Preset_Play):
+	const1=0
+	const2=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_124',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		if self.testNr==0:
+			self.mark3=self.exchange_card('vanillaH2',opponent)
+		if self.testNr==1:
+			self.mark3=self.exchange_card('vanillaH1',opponent)
+		self.mark4=self.exchange_card('vanilla',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		#############
+		self.const1 = self.mark1.atk
+		self.const2 = self.mark3.health
+		self.attack_card(self.mark1, self.mark3, controller)
+	def result_inspection(self):
+		super().result_inspection()
+		#mark1がhonorable_killタグをもっているか。
+		if hasattr(self.mark1, 'honorable_kill') and self.mark1.honorable_kill:
+			print("check 1 OK")
+		#Honorable Kill 発動条件
+		print("%d - %d == 0"%(self.const1, self.const2))
+		#Honorable Kill 発動しているか
+		if self.card_in_field(self.player, 'AV_211t'):
+			print("check 2 OK")
+		else:
+			print("check 2 NG")
+
+class pp_AV_215(Preset_Play):
+	const1=0
+	const2=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_215',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		if self.testNr==0:
+			self.mark3=self.exchange_card('vanillaH3',opponent)
+		if self.testNr==1:
+			self.mark3=self.exchange_card('vanillaH2',opponent)
+		self.mark4=self.exchange_card('vanilla',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		#############
+		self.const1 = self.mark1.atk
+		self.const2 = self.mark3.health
+		self.attack_card(self.mark1, self.mark3, controller)
+	def result_inspection(self):
+		super().result_inspection()
+		#mark1がhonorable_killタグをもっているか。
+		if hasattr(self.mark1, 'honorable_kill') and self.mark1.honorable_kill:
+			print("check 1 OK")
+		#Honorable Kill 発動条件
+		print("%d - %d == 0"%(self.const1, self.const2))
+		#Honorable Kill 発動しているか
+		if hasattr(self.mark1, "windfury") and self.mark1.windfury:
+			print("check 2 OK")
+		else:
+			print("check 2 NG")
 

@@ -1,33 +1,32 @@
 from ..utils import *
 
-class AV_129:
+class AV_129:####OK # [1626]<12>
 	""" Blood Guard (5/4/7)
 	Whenever this minion takes damage, give your minions +1 Attack. """
 	events = Attack(ALL_CHARACTERS,SELF).on(Buff(FRIENDLY_MINIONS,'AV_129e'))
 	pass
 AV_129e = buff(1,0)
 
-class AV_126:#
+class AV_126:###OK
 	""" Bunker Sergeant (3/2/4)
 	[Battlecry]: If your opponent has 2 or more minions, deal 1 damage to all enemy minions."""
 	play = (Count(ENEMY_MINIONS)>=2) & Hit(ENEMY_MINIONS, 1)
 	pass
 
-class AV_124:
+class AV_124:####OK
 	""" Direwolf Commander (3/2/5)
 	[Honorable Kill]: Summon a 2/2 Wolf with Stealth """
-	honorable_kill = Summon(CONTROLLER,'AV_124t')##############
+	honorable_kill = Summon(CONTROLLER,'AV_211t')
 	pass
-class AV_124t:##########
+class AV_211t:##重複を除く
 	""" wolf """
 	pass
 
-class AV_215:
+class AV_215:####OK
 	""" Frantic Hippogryph (5/3/7)
 	[Rush]. [Honorable Kill]: Gain [Windfury]. """
-	honorable_kill = Buff(SELF,'ALT_NEU4e')############
+	honorable_kill = SetTag(SELF, (GameTag.WINDFURY,))
 	pass
-ALT_NEU4e = buff(windfury=True)############
 
 class AV_134:
 	""" Frostwolf Warmaster (4/3/5)
@@ -86,7 +85,7 @@ class AV_136e:
 class AV_136t:
 	pass
 
-class AAV_143_Find(Evaluator):
+class AV_143_Find(Evaluator):
 	"""
 	Evaluates to True if \a selector has a match.
 	"""

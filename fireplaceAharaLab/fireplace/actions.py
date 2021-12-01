@@ -1422,6 +1422,7 @@ class SetTag(TargetedAction):
 	TAGS = ActionArg()
 
 	def do(self, source, target, tags):
+		log.info("Setting current tag on %r to %s", target, tags)
 		if isinstance(tags, dict):
 			for tag, value in tags.items():
 				target.tags[tag] = value

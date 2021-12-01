@@ -173,7 +173,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	script_data_num_1 = int_property("script_data_num_1")
 	piece_of_cthun=int_property("piece_of_cthun")#
-	#honorable_kill = boolean_property("honorable_kill")
+	honorable_kill = boolean_property("honorable_kill")
 	honorable_kill = True
 	honorably_killed = False ##
 
