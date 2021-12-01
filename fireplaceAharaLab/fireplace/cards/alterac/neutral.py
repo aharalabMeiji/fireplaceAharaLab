@@ -1,88 +1,92 @@
 from ..utils import *
 
-class ALT_NEU1:
+class AV_129:
 	""" Blood Guard (5/4/7)
 	Whenever this minion takes damage, give your minions +1 Attack. """
-	events = Attack(ALL_CHARACTERS,SELF).on(Buff(FRIENDLY_MINIONS,'ALT_NEU1e'))
+	events = Attack(ALL_CHARACTERS,SELF).on(Buff(FRIENDLY_MINIONS,'AV_129e'))
 	pass
-ALT_NEU1 = buff(1,0)
+AV_129e = buff(1,0)
 
-class ALT_NEU2:#
+class AV_126:#
 	""" Bunker Sergeant (3/2/4)
 	[Battlecry]: If your opponent has 2 or more minions, deal 1 damage to all enemy minions."""
 	play = (Count(ENEMY_MINIONS)>=2) & Hit(ENEMY_MINIONS, 1)
 	pass
 
-class ALT_NEU3:
+class AV_124:
 	""" Direwolf Commander (3/2/5)
 	[Honorable Kill]: Summon a 2/2 Wolf with Stealth """
-	honorable_kill = Summon(CONTROLLER,'ALT_NEU3t')
+	honorable_kill = Summon(CONTROLLER,'AV_124t')##############
 	pass
-class ALT_NEU3t:
+class AV_124t:##########
 	""" wolf """
 	pass
 
-class ALT_NEU4:
+class AV_215:
 	""" Frantic Hippogryph (5/3/7)
 	[Rush]. [Honorable Kill]: Gain [Windfury]. """
-	honorable_kill = Buff(SELF,'ALT_NEU4e')
+	honorable_kill = Buff(SELF,'ALT_NEU4e')############
 	pass
-ALT_NEU4e = buff(windfury=True)
+ALT_NEU4e = buff(windfury=True)############
 
-class ALT_NEU5:
+class AV_134:
 	""" Frostwolf Warmaster (4/3/5)
 	Costs (1) less for each card you've played this turn."""
-	play = Buff(FRIENDLY_HAND,'ALT_NEU5e')
+	play = Buff(FRIENDLY_HAND,'ALT_NEU5e')###########
 	pass
-class ALT_NEU5e:
+class ALT_NEU5e:##############
 	cost = lambda self, i: max(i-1,0)
 	events = OWN_TURN_END.on(Destroy(SELF))
 
-class ALT_NEU6:
+class AV_238:
 	""" Gankster (2/4/2)
 	[Stealth] After your opponents plays a minion, attack it"""
 	events = Play(OPPONENT, MINION).after(RegularAttack(SELF, Play.CARD))
 	pass
 
-class ALT_NEU_7:
+class AV_101:
 	""" Herald of Lokholar (4/3/5)
 	[Battlecry]: Draw a Frost spell."""
 	play = Give(CONTROLLER, RANDOM(FRIENDLY + SPELL))
 	pass
 
-class ALT_NEU_8:
+class AV_704:
 	"""Humongous Owl(7/8/4)
 	Deathrattle: Deal 8 damage to a random enemy."""
 	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 8)
 	pass
 
-class ALT_NEU_9:
+class AV_127:
 	""" Ice Revenant (4/4/5)
 	Whenever you cast a Frost spell, gain +2/+2. """
-	events = Play(CONTROLLER, SPELL + FROST).on(Buff(SELF,'ALT_NEU_9e'))
+	events = Play(CONTROLLER, SPELL + FROST).on(Buff(SELF,'AV_127e'))
 	pass
-ALT_NEU_9e=buff(2,2)
+AV_127e=buff(2,2)
 
-class ALT_NEU_10:
+class AV_133:
 	""" Icehoof Protector (6/2/10)
 	[Taunt] [Freeze] any character damaged by this minion."""
-	events = Attack(SELF, ALL_CHARACTERS).on(Buff(Attack.DEFENDER,'ALT_NEU_10e'))
+	events = Attack(SELF, ALL_CHARACTERS).on(Buff(Attack.DEFENDER,'ALT_NEU_10e'))###############
 	pass
-ALT_NEU_10e=buff(freeze=True)
+ALT_NEU_10e=buff(freeze=True)################
 
-class ALT_NEU_11:
+class AV_137:
 	""" Irondeep Trogg (1/1/2)
 	After your opponent casts a spell, summon a copy of this."""
 	events = Play(OPPONENT, SPELL).on(Summon(CONTROLLER,ExactCopy(SELF)))
 	pass
 
-class ALT_NEU_12:
+class AV_136:
 	""" Kobold Taskmaster (3/2/4)
 	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
-	Play = Give(CONTROLLER, 'ALT_NEU_12t') * 2
+	Play = Give(CONTROLLER, 'AV_136t') * 2
+	pass
+class AV_136e:
+	pass
+class AV_136t:
 	pass
 
-class ALT_NEU_13_Find(Evaluator):
+class AAV_143_Find(Evaluator):
 	"""
 	Evaluates to True if \a selector has a match.
 	"""
@@ -94,29 +98,29 @@ class ALT_NEU_13_Find(Evaluator):
 		card = self.selector.eval(source.game.allcards, source) ### Korrak card
 		return card[0].honorably_killed
 
-class ALT_NEU_13:#
+class AV_143:#
 	""" Korrak the Bloodrager (4/3/5)
 	Deathrattle: If this wasn't Honorably Killed, resummon Korrak."""
-	deathrattle = ALT_NEU_13_Find(SELF) & Summon(CONTROLLER, 'ALT_NEU_13')
+	deathrattle = AV_143_Find(SELF) & Summon(CONTROLLER, 'AV_143')
 	pass
 
-class ALT_NEU_14:
+class AV_130:
 	""" Legionnaire (6/9/3)
 	Deathrattle: Give all minions in your hand +2/+2. """
-	deathrattle = Buff(FRIENDLY_HAND + MINION, 'ALT_NEU_14e')
+	deathrattle = Buff(FRIENDLY_HAND + MINION, 'AV_130e')
 	pass
-ALT_NEU_14e = buff(2,2)
+AV_130e = buff(2,2)
 
-class ALT_NEU_15:
+class AV_309:
 	""" Piggyback Imp (3/1/1) deamon
 	Deathrattle: Summon a 4/1 Imp. """
-	deathrattle = Summon(CONTROLLER,'ALT_NEU_15t')
+	deathrattle = Summon(CONTROLLER,'AV_309t')
 	pass
-class ALT_NEU_15t:
+class AV_309t:
 	""" 4/1 imp """
 	pass
 
-class ALT_NEU_16:
+class AV_256:
 	""" Reflecto Engineer (3/2/4)
 	[Battlecry]: Swap the Attack and Health of all minions in both players' hands."""
 	def play(self):
@@ -130,97 +134,97 @@ class ALT_NEU_16:
 			card.damage=0
 	pass
 
-class ALT_NEU_17:
+class AV_219:
 	""" Ram Commander (2/2/2)
 	[Battlecry]: Add two 1/1 Rams with Rush to your hand."""
-	play = Give(CONTROLLER, 'ALT_NEU_17t') * 2
+	play = Give(CONTROLLER, 'AV_219t') * 2
 	pass
-class ALT_NEU_17t:
+class AV_219t:
 	""" Ram with Rush (1/1)"""
 	pass
 
-class ALT_NEU_18:
+class AV_112:
 	""" Snowblind Harpy (3/3/4)
 	[Battlecry]: If you're holding a Frost spell, gain 5 Armor."""
 	play = Find(FRIENDLY_HAND + FROST) & GainArmor(FRIENDLY_HERO,5)
 	pass
 
-class ALT_NEU_19_Action(TargetedAction):
+class AV_135_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source,target,amount):
 		source._sidequest_counter_ += amount
 		if source._sidequest_counter_>=5:
-			BuffOnce(target,'ALT_NEU_19e').trigger(source)
+			BuffOnce(target,'ALT_NEU_19e').trigger(source)##########
 
-class ALT_NEU_19:
+class AV_135:
 	""" Stormpike Marshal (4/2/6)
 	[Taunt] If you took 5 or more damage on your opponent's turn, this costs (1)."""
-	events = Damage(FRIENDLY_MINIONS).on(ALT_NEU_19_Action(SELF, Damage.AMOUNT))
+	events = Damage(FRIENDLY_MINIONS).on(AV_135_Action(SELF, Damage.AMOUNT))
 	pass
-class ALT_NEU_19e:
+class ALT_NEU_19e:#############
 	cost = SET(1)
 
-class ALT_NEU_20:
+class AV_401:
 	""" Stormpike Quartermaster (2/2/2)
 	After you cast a spell, give a random minion in your hand +1/+1."""
-	events = OWN_SPELL_PLAY.on(Buff(RANDOM(FRIENDLY_MINIONS),'ALT_NEU_20'))
+	events = OWN_SPELL_PLAY.on(Buff(RANDOM(FRIENDLY_MINIONS),'AV_401e'))
 	pass
-ALT_NEU_20=buff(1,1)
+AV_401e=buff(1,1)
 
-class ALT_NEU_21:
+class AV_125:
 	""" Tower Sergeant (4/4/4)
 	[Battlecry]: If you control at least 2 other minions, gain +2/+2."""
 	powered_up = Count(FRIENDLY_MINIONS - SELF) >= 2
-	play = powered_up & Buff(SELF,'ALT_NEU_21e')
+	play = powered_up & Buff(SELF,'AV_125e')
 	pass
-ALT_NEU_21e=buff(2,2)
+AV_125e=buff(2,2)
 
-class ALT_NEU_22:
+class AV_132:
 	""" Troll Centurion (8/8/8)
 	[Rush]. [Honorable Kill]: Deal 8 damage to the enemy hero."""
 	honorable_kill = Hit(ENEMY_HERO, 8)
 	pass
 
-class ALT_NEU_23:
+class AV_123:
 	""" Sneaky Scout (2/3/2)
 	[Stealth] [Honorable Kill]: Your next Hero Power costs (0). """
-	honorable_kill = Buff(FRIENDLY_HERO_POWER, 'ALT_NEU_23')
+	honorable_kill = Buff(FRIENDLY_HERO_POWER, 'AV_123e')
 	pass
-class ALT_NEU_23e:
+class AV_123e:
 	cost = SET(0)
 	pass
 
-class ALT_NEU_24:
+class AV_122:
 	""" Corporal ( 2/2/3)
 	Honorable Kill: Give your other minions Divine Shield."""
-	honorable_kill = Buff(FRIENDLY_MINIONS - SELF, 'ALT_NEU_24e')
+	honorable_kill = Buff(FRIENDLY_MINIONS - SELF, 'AV_122')###########
 	pass
-ALT_NEU_24e=buff(divine_shield=True)
+ALT_NEU_24e=buff(divine_shield=True)############
 
-class ALT_NEU_25:
+class AV_128:
 	""" Frozen Mammoth (4/6/7)
 	This is [Frozen] until you cast a Fire spell."""
-	events = Play(CONTROLLER, SPELL + FIRE).on(Buff(SELF,'ALT_NEU_25e'))
+	events = Play(CONTROLLER, SPELL + FIRE).on(Buff(SELF,'AV_128e'))
 	pass
-ALT_NEU_25e=buff(freeze=False)
+AV_128e=buff(freeze=False)
 
-class ALT_NEU_26:
+class AV_102:
 	""" Popsicooler (3/3/3) Mech
 	[Deathrattle]: [Freeze] two random enemy minions."""
-	deathrattle = Buff(RANDOM_ENEMY_MINION, 'ALT_NEU_26e') * 2
+	deathrattle = Buff(RANDOM_ENEMY_MINION, 'ALT_NEU_26e') * 2##################
 	pass
-ALT_NEU_26e=buff(freeze=True)
+ALT_NEU_26e=buff(freeze=True)#################
 
-class ALT_NEU_27:
+class AV_141t:
 	""" Lokholar the Ice Lord (10/8/8) Elemental
 	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
 	powered_up = CURRENT_HEALTH(FRIENDLY_HERO) <= 15
-	update = powered_up & Buff(SELF, 'ALT_NEU_27e')
+	update = powered_up & Buff(SELF, 'ALT_NEU_27e')##############
 	pass
-ALT_NEU_27e=buff(cost=-5)
+ALT_NEU_27e=buff(cost=-5)###################
 
-class ALT_NEU_28:
+class AV_138:
 	""" Grimtotem Bounty Hunter (3/4/2)
 	[Battlecry]: Destroy an enemy [Legendary] minion."""
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
@@ -229,7 +233,7 @@ class ALT_NEU_28:
 			self.controller.game.trigger(self.controller, [Destroy(self.target)], action_args=None)
 	pass
 
-class ALT_NEU_29:
+class AV_222:
 	""" Spammy Arcanist (5/3/4)
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
 	def play(self):
@@ -246,7 +250,7 @@ class ALT_NEU_29:
 		pass
 	pass
 
-class ALT_NEU_30:
+class AV_142t:
 	""" Ivus, the Forest Lord(1/1/1)
 	[Battlecry]: Spend the rest of your Mana and gain +2/+2, [Rush], [Divine Shield], or [Taunt] at random for each."""
 	def play(self):
@@ -255,43 +259,43 @@ class ALT_NEU_30:
 		choices = random.sample(['rush','shield','taunt','2/2','2/2','2/2','2/2','2/2','2/2','2/2'],rest_mana)
 		for choice in choices:
 			if choice == 'rush':
-				Buff(SELF,'ALT_NEU_30e1')
+				Buff(SELF,'AV_142e2')
 			elif choice == 'shield':
-				Buff(SELF,'ALT_NEU_30e2')
+				Buff(SELF,'AV_142e3')
 			elif choice == 'taunt':
-				Buff(SELF,'ALT_NEU_30e3')
+				Buff(SELF,'AV_142e4')
 			else:
-				Buff(SELF,'ALT_NEU_30e4')
+				Buff(SELF,'AV_142e')
 		pass
 	pass
-ALT_NEU_30e1=buff(rush=True)
-ALT_NEU_30e2=buff(divine_shield=True)
-ALT_NEU_30e3=buff(taunt=True)
-ALT_NEU_30e4=buff(2,2)
+AV_142e2=buff(rush=True)
+AV_142e3=buff(divine_shield=True)
+AV_142e4=buff(taunt=True)
+AV_142e=buff(2,2)
 
-class ALT_NEU_31:
+class AV_139:
 	"""Abominable Lieutenant (8/3/5)
 	At the end of your turn, eat a random enemy minion and gain its stats. """
 	events = OWN_TURN_END.on(EatsCard(SELF, RANDOM_ENEMY_MINION))
 	pass
 
-class ALT_NEU_32:
+class AV_131:
 	"""Knight-Captain (5/3/3)
 	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
 	play = Hit(TARGET, 3)
-	honorable_kill = Buff(SELF, 'ALT_NEU_32e')
+	honorable_kill = Buff(SELF, 'AV_131e')
 	pass
-ALT_NEU_32e=buff(3,3)
+AV_131e=buff(3,3)
 
-class ALT_NEU_33:
+class AV_121:
 	"""Gnome Private (1/1/3)
 	[Honorable Kill]: Gain +2 Attack. """
-	honorable_kill = Buff(SELF,'ALT_NEU33e')
+	honorable_kill = Buff(SELF,'AV_121e')
 	pass
-ALT_NEU33e=buff(2,0)
+AV_121e=buff(2,0)
 
-class ALT_NEU_34:
+class AV_223:
 	"""Vanndar Stormpike (4/4/4)
 	[Battlecry]: If this costs less than every minion in your deck, reduce their Cost by (3)."""
 	def play(self):
@@ -304,12 +308,12 @@ class ALT_NEU_34:
 		if go:
 			for card in controller.deck:
 				if card.type == CardType.MINION:
-					Buff(card,'ALT_NEU_34e').trigger(self)
+					Buff(card,'AV_223e').trigger(self)
 		pass
 	pass
-ALT_NEU_34e = buff(cost=-3)
+AV_223e = buff(cost=-3)
 
-class ALT_NEU_35:
+class AV_100:
 	"""Drek'Thar (4/4/4)
 	[Battlecry]: If this costs more than every minion in your deck, summon 2 of them. """
 	pass
