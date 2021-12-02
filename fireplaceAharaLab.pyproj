@@ -28,7 +28,10 @@
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
-    <Compile Include="fireplaceAharaLab\simulate_game.py">
+    <Compile Include="fireplaceAharaLab\card_test\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\simulate_game.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\card_test\alterac_neutral.py">

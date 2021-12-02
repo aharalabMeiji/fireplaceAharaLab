@@ -1,14 +1,14 @@
-from ..card_test import *
+from .simulate_game import PresetGame,Preset_Play
 
 def SimulateGames_Alterac_Neutral():
 
 	#PresetGame(pp_AV_100,1)
-	#PresetGame(pp_AV_101,1)
-	#PresetGame(pp_AV_102,1)
-	#PresetGame(pp_AV_112,1)
-	#PresetGame(pp_AV_121,1)
-	#PresetGame(pp_AV_122,1)
-	#PresetGame(pp_AV_123,1)
+	#PresetGame(pp_AV_101,1)####OK
+	#PresetGame(pp_AV_102,1)####OK
+	#PresetGame(pp_AV_112,1)####OK
+	#PresetGame(pp_AV_121,1)####OK
+	#PresetGame(pp_AV_122,1)####OK
+	PresetGame(pp_AV_123,1)
 	#PresetGame(pp_AV_124,2)####OK
 	#PresetGame(pp_AV_125,1)
 	#PresetGame(pp_AV_126,1)####OK
@@ -73,9 +73,7 @@ class pp_AV_101(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
-		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark1=self.exchange_card('AV_101',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -83,20 +81,10 @@ class pp_AV_101(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
-		##########
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		#############
 		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
-		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		## 自然系のカードを一枚引いている
 		pass
 	pass
 
@@ -104,9 +92,10 @@ class pp_AV_102(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
+		self.mark1=self.exchange_card('AV_102',controller)
+		self.mark2=self.exchange_card('vanillaH3',opponent)
 		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark4=self.exchange_card('vanilla',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -114,20 +103,22 @@ class pp_AV_102(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
-		##########
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		#############
 		self.play_card(self.mark1, controller)
 		self.change_turn(controller)
+		##########
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
 		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
+		self.attack_card(self.mark1, self.mark2, controller)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		#ミニオン2体が凍っている
+		if self.mark3.frozen:
+			print("check 1 OK")
+		if self.mark4.frozen:
+			print("check 1 OK")
 		pass
 	pass
 
@@ -135,9 +126,8 @@ class pp_AV_112(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
-		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark1=self.exchange_card('AV_112',controller)
+		self.mark2=self.exchange_card('frost',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -145,30 +135,24 @@ class pp_AV_112(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
-		##########
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		#############
 		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
-		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
-		pass
+		#armorが5増えてる
+		if self.player.hero.armor == 5:
+			print("check 1 OK")
+	pass
 	pass
 
 class pp_AV_121(Preset_Play):
+	const=0
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
-		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark1=self.exchange_card('AV_121',controller)
+		self.const = self.mark1.atk
+		self.mark2=self.exchange_card('vanillaH1',opponent)
+		self.mark3=self.exchange_card('vanillaH2',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -176,30 +160,31 @@ class pp_AV_121(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
 		##########
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		#############
 		self.play_card(self.mark1, controller)
 		self.change_turn(controller)
+		##########
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
 		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
+		self.attack_card(self.mark1, self.mark2, controller)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		if self.contains_buff(self.mark1, 'AV_121e'):
+			print("check 1 OK")
+		if self.mark1.atk - self.const == 2:
+			print("check 2 OK")
 		pass
 	pass
 
 class pp_AV_122(Preset_Play):
+	""" Honorable Kill: Give your other minions Divine Shield."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
-		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark1=self.exchange_card('AV_122',controller)
+		self.mark2=self.exchange_card('vanillaH2',opponent)
+		self.mark3=self.exchange_card('vanilla',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -207,20 +192,19 @@ class pp_AV_122(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark3, controller)
 		self.change_turn(controller)
 		##########
-		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		#############
-		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
-		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
+		self.attack_card(self.mark1, self.mark2, controller)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		#mark3にdivine shieldがついているかどうかを見る。
+		if self.mark3.divine_shield:
+			print("check 1 OK")
 		pass
 	pass
 

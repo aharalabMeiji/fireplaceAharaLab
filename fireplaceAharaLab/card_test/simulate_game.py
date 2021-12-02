@@ -55,6 +55,7 @@ class Preset_Play:
 		self.player = player
 		self.game = player.game
 		self.testNr = 0
+		self.current=player
 		pass
 	def preset_deck(self):
 		#self.print_hand(self.player)
@@ -72,6 +73,7 @@ class Preset_Play:
 			player.choice=None#somotimes it comes here
 		game.end_turn()
 		postAction(player)
+		current = player.opponent
 		pass
 	def execute(self, testNr = 0):
 		self.testNr = testNr
@@ -132,7 +134,7 @@ class Preset_Play:
 			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
 	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',
 	'BT_726t','BT_728t','BT_163t','BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t',
-	'DMF_104t','DMF_061t2','DMF_521t','BAR_076t','BAR_077t','BAR_721t2','WC_026t','SW_455t','SW_422t','SW_439t2','DED_517t',
+	'DMF_104t','DMF_061t2','DMF_521t','BAR_076t','BAR_077t','BAR_721t2','SW_455t','SW_422t','SW_439t2','DED_517t',
 	'DREAM_03','SCH_337t',])####
 		if _card=='vanillaH1':
 			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
@@ -175,13 +177,14 @@ class Preset_Play:
 			if card.id==cardID:
 				return True
 		return False
+
+
 def SimulateGames():
 	#PresetGame(pp_DED_006,1)
 	#PresetGame(pp_DED_521,1)
 	#PresetGame(pp_DED_523,2)
 	#PresetGame(pp_DED_524,3)
-	
-	from card_test.alterac_neutral import SimulateGames_Alterac_Neutral
+	from .alterac_neutral import SimulateGames_Alterac_Neutral
 	SimulateGames_Alterac_Neutral()
 
 	pass

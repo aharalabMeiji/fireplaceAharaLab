@@ -30,7 +30,7 @@ class AV_101:
 class AV_102:
 	""" Popsicooler (3/3/3) Mech
 	[Deathrattle]: [Freeze] two random enemy minions."""
-	deathrattle = SetTag(RANDOM_ENEMY_MINION, (GameTag.FREEZE,)) * 2#
+	deathrattle = Freeze(RANDOM(ENEMY_MINIONS - FROZEN)) * 2#
 	pass
 
 class AV_112:
@@ -49,7 +49,7 @@ AV_121e=buff(2,0)
 class AV_122:
 	""" Corporal ( 2/2/3)
 	Honorable Kill: Give your other minions Divine Shield."""
-	honorable_kill = SetTag(FRIENDLY_MINIONS - SELF, (GameTag.DIVINE_SHIELD,))#
+	honorable_kill = SetAttr(FRIENDLY_MINIONS - SELF, 'divine_shield', 1)#
 	pass
 
 class AV_123:
@@ -114,17 +114,6 @@ class AV_131:
 	pass
 AV_131e=buff(3,3)
 
-class CountPlayedThisTurn(LazyNum):
-	def evaluate(self, source):
-		controller = source
-		game =controller.game
-		turn = game.turn
-		count=0
-		for card in controller._play_log:
-			if card[1] == turn:
-				count+=1
-		return self.num(count)
-
 class AV_132:
 	""" Troll Centurion (8/8/8)
 	[Rush]. [Honorable Kill]: Deal 8 damage to the enemy hero."""
@@ -137,10 +126,21 @@ class AV_133:
 	events = Attack(SELF, ALL_CHARACTERS).on(SetTag(Attack.DEFENDER,(GameTag.FREEZE,)))
 	pass
 
+class CountPlayedThisTurn(LazyNum):
+	def evaluate(self, source):
+		controller = source
+		game =controller.game
+		turn = game.turn
+		count=0
+		for card in controller._play_log:
+			if card[1] == turn:
+				count+=1
+		return self.num(count)
+
 class AV_134:
 	""" Frostwolf Warmaster (4/3/5)
 	Costs (1) less for each card you've played this turn."""
-	cost_mod = -CountPlayedThisTurn(CONTROLLER)
+	#cost_mod = -CountPlayedThisTurn(CONTROLLER)
 	pass
 
 class AV_135:#################################

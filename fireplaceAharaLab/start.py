@@ -189,7 +189,7 @@ def print_deck():
 
 if __name__ == "__main__":
 	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
-	from simulate_game import SimulateGames
+	from card_test.simulate_game import SimulateGames
 	SimulateGames()
 	#printCards()
 	#main()

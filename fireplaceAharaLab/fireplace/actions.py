@@ -2266,6 +2266,7 @@ class SetAttr(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, attr, amount):
 		if hasattr(target, attr):
+			log.info("%s set attr '%s' into %d"%(target, attr, amount ))
 			setattr(target, attr, amount)
 
 
@@ -2400,7 +2401,8 @@ class Freeze(TargetedAction):
 	def do(self, source, target):
 		log.info("%r Freezes %r", self, target)
 		if not target.tags[GameTag.CANT_BE_FROZEN]:
-			SetTag(target, (GameTag.FROZEN, )).trigger(source)
+			##SetTag(target, (GameTag.FROZEN, )).trigger(source)
+			target.frozen = True
 		else:
 			log.info("Freezing is blocked!")
 
