@@ -141,7 +141,7 @@ def printCards():
 		for id in cardIDlist:
 			card = db[id]
 			tag = card.tags.get(GameTag.CARDRACE)
-			if len(card.description)<4 and card.tags.get(GameTag.HEALTH,0)==3: #tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
+			if card.tags.get(GameTag.CARDTYPE)==CardType.MINION and card.tags.get(GameTag.ATK,0)==6: #tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
 				print("'%s'"%(card.id), end=",")
 			pass
 		pass

@@ -8,14 +8,14 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_112,1)####OK
 	#PresetGame(pp_AV_121,1)####OK
 	#PresetGame(pp_AV_122,1)####OK
-	PresetGame(pp_AV_123,1)
+	#PresetGame(pp_AV_123,1)####OK
 	#PresetGame(pp_AV_124,2)####OK
-	#PresetGame(pp_AV_125,1)
+	#PresetGame(pp_AV_125,1)####OK
 	#PresetGame(pp_AV_126,1)####OK
-	#PresetGame(pp_AV_127,1)
+	#PresetGame(pp_AV_127,1)####OK
 	#PresetGame(pp_AV_129,1)####OK
-	#PresetGame(pp_AV_130,1)
-	#PresetGame(pp_AV_131,1)
+	#PresetGame(pp_AV_130,1)####OK
+	PresetGame(pp_AV_131,1)
 	#PresetGame(pp_AV_132,1)
 	#PresetGame(pp_AV_133,1)
 	#PresetGame(pp_AV_134,1)
@@ -295,12 +295,14 @@ class pp_AV_124(Preset_Play):
 			print("check 2 NG")
 
 class pp_AV_125(Preset_Play):
+	""" Tower Sergeant (4/4/4)
+	[Battlecry]: If you control at least 2 other minions, gain +2/+2."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
-		self.mark3=self.exchange_card('vanilla',opponent)
+		self.mark1=self.exchange_card('AV_125',controller)
+		self.mark2=self.exchange_card('vanillaH1',controller)
+		self.mark3=self.exchange_card('vanillaH2',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -309,19 +311,12 @@ class pp_AV_125(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
-		##########
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		#############
+		self.play_card(self.mark3, controller)
 		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
-		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		if self.contains_buff(self.mark1,'AV_125e'):
+			print ("check 1 OK: stats is %d/%d"%(self.mark1.atk, self.mark1.health))
 		pass
 	pass
 
@@ -353,6 +348,33 @@ class pp_AV_126(Preset_Play):
 		## mark3がダメージ1を受けているか
 		## mark4がダメージ1を受けているか
 		## mark4をプレイしなければダメージ攻撃がないか
+	pass
+
+class pp_AV_127(Preset_Play):
+	""" Ice Revenant (4/4/5)
+	Whenever you cast a Frost spell, gain +2/+2. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_127',controller)
+		self.mark2=self.exchange_card('frost',controller)
+		self.mark3=self.exchange_card('frost',opponent)
+		self.mark4=self.exchange_card('vanilla',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark3, controller)
+	def result_inspection(self):
+		super().result_inspection()
+		## AV_127eがついているか
+		if self.contains_buff(self.mark1,'AV_127e'):
+			print ("check 1 OK: stats is %d/%d (8/9)"%(self.mark1.atk, self.mark1.health))
 	pass
 
 class pp_AV_129(Preset_Play):
@@ -390,6 +412,96 @@ class pp_AV_129(Preset_Play):
 			print("OK")
 		if self.contains_buff(self.mark2, 'AV_129e'):
 			print("OK")
+
+##################################
+
+class pp_AV_130(Preset_Play):
+	""" Legionnaire (6/9/3)
+	Deathrattle: Give all minions in your hand +2/+2. """	
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_130',opponent)
+		self.mark2=self.exchange_card('vanilla',opponent)
+		self.const1 = self.mark2.atk
+		self.const2 = self.mark2.health
+		self.mark3=self.exchange_card('vanillaA3',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########
+		self.play_card(self.mark3, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark1, opponent)
+		self.change_turn(opponent)
+		##########
+		self.attack_card(self.mark3, self.mark1, controller)
+	def result_inspection(self):
+		super().result_inspection()
+		if self.mark1.zone==Zone.GRAVEYARD:
+			print("Check 1 OK")
+		if self.contains_buff(self.mark2, 'AV_130e'):
+			print("check 2 OK")
+			print("(%d/%d) + (2/2) -> (%d/%d)"%(self.const1, self.const2, self.mark2.atk, self.mark2.health))
+	pass
+
+##################################
+
+class pp_AV_131(Preset_Play):
+	"""Knight-Captain (5/3/3)
+	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_131',opponent)
+		self.mark2=self.exchange_card('vanilla',opponent)
+		self.mark3=self.exchange_card('vanillaH3',controller)### (2,3) or (3,2) or (3,6)
+		self.mark4=self.exchange_card('minionH6',controller)### 
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########
+		self.play_card(self.mark3, controller)
+		self.play_card(self.mark4, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark1, opponent, target=self.mark3)
+		self.const1=self.mark1.atk
+		self.const2=self.mark1.health
+		self.change_turn(opponent)
+		##########
+		self.change_turn(controller)
+		##########
+		self.attack_card(self.mark1, self.mark4, opponent)
+	def result_inspection(self):
+		super().result_inspection()
+		if self.contains_buff(self.mark1, 'AV_131e'):
+			print("check 1 OK")
+			print("(3/3) -> (%d/%d)"%(self.const1, self.const2))
+			print(" -> (%d/%d)"%(self.mark1.atk, self.mark1.health))
+	pass
+
+##################################
+
+##################################
+
+
+
+
+
 
 class pp_AV_215(Preset_Play):
 	const1=0

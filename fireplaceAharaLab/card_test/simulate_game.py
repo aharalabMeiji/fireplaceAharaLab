@@ -142,6 +142,11 @@ class Preset_Play:
 			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
 		if _card=='vanillaH3':
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
+		if _card=='vanillaA3':
+			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','DMF_521t','BAR_721t2','SCH_337t',])
+		if _card=='minionH6':
+			_card=random.choice(['CORE_EX1_534','CORE_AT_008','CORE_LOE_003','BT_732','SCH_530','SCH_717','DMF_068','DMF_069','DMF_078','DMF_078t','DMF_254','DMF_254t5t','YOP_035','BAR_042','WC_029','BAR_034t5','BAR_538t','SW_078','SW_113','DED_006','DED_515','SW_021','SCH_337',]
+)
 		if _card=='weapon':
 			_card=random.choice(['WC_037','DMF_088'])
 		new_card = Give(player,_card).trigger(player)
