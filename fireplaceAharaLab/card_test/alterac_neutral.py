@@ -2,7 +2,7 @@ from .simulate_game import PresetGame,Preset_Play
 
 def SimulateGames_Alterac_Neutral():
 
-	#PresetGame(pp_AV_100,1)
+	#PresetGame(pp_AV_100,1)####OK
 	#PresetGame(pp_AV_101,1)####OK
 	#PresetGame(pp_AV_102,1)####OK
 	#PresetGame(pp_AV_112,1)####OK
@@ -38,13 +38,28 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_704,1)
 	pass
 
+from hearthstone.enums import Zone,CardType
+
 class pp_AV_100(Preset_Play):
+	"""Drek'Thar (4/4/4)
+	[Battlecry]: If this costs more than every minion in your deck, summon 2 of them. """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
+		deck = controller.deck
+		leng = len(deck)
+		i=0
+		while True:
+			card = deck[i]
+			if card.cost>=4 and card.type==CardType.MINION:
+				card.zone=Zone.GRAVEYARD
+				leng -= 1
+			else:
+				i += 1
+			if leng==i:
+				break
+			pass
 		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
-		self.mark3=self.exchange_card('vanilla',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -52,20 +67,12 @@ class pp_AV_100(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
-		##########
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		#############
+		###########
 		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
-		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		# デッキからカードを2枚召喚しているかどうかをチェック
+
 		pass
 	pass
 
@@ -209,11 +216,15 @@ class pp_AV_122(Preset_Play):
 	pass
 
 class pp_AV_123(Preset_Play):
+	""" Sneaky Scout (2/3/2)
+	[Stealth] [Honorable Kill]: Your next Hero Power costs (0). """
+	const1=0
+	const2=0
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_100',controller)
-		self.mark2=self.exchange_card('vanilla',controller)
+		self.mark1=self.exchange_card('AV_123',controller)
+		self.mark2=self.exchange_card('vanillaH3',opponent)
 		self.mark3=self.exchange_card('vanilla',opponent)
 		super().preset_deck()
 		pass
@@ -222,20 +233,20 @@ class pp_AV_123(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		self.play_card(self.mark2, controller)
+		##########
+		self.play_card(self.mark1, controller)
+		self.const1 = controller.hero.power.cost
 		self.change_turn(controller)
 		##########
-		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		#############
-		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
-		#############
-		self.attack_card(self.mark3, self.mark1, opponent)
+		self.attack_card(self.mark1, self.mark2, controller)
+		self.const2 = controller.hero.power.cost
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_129e'):
-			print("OK")
+		#ヒロパのコストが０になる。
+		print ("The cost of hero-power: %d -> %d"%(self.const1, self.const2))
 		pass
 	pass
 

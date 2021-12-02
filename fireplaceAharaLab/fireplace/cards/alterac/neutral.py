@@ -18,6 +18,8 @@ class AV_100:
 			choices = random.sample(choices,2)
 			for card in choices:
 				Summon(self.controller, card).trigger(self)
+		else:
+			print("Nothing happens at playing AV_100")
 		pass
 	pass
 
