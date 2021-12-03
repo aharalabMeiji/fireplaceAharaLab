@@ -15,8 +15,8 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_127,1)####OK
 	#PresetGame(pp_AV_129,1)####OK
 	#PresetGame(pp_AV_130,1)####OK
-	PresetGame(pp_AV_131,1)
-	#PresetGame(pp_AV_132,1)
+	#PresetGame(pp_AV_131,1)####OK
+	PresetGame(pp_AV_132,1)
 	#PresetGame(pp_AV_133,1)
 	#PresetGame(pp_AV_134,1)
 	#PresetGame(pp_AV_135,1)
@@ -464,8 +464,48 @@ class pp_AV_131(Preset_Play):
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_131',opponent)
 		self.mark2=self.exchange_card('vanilla',opponent)
-		self.mark3=self.exchange_card('vanillaH3',controller)### (2,3) or (3,2) or (3,6)
-		self.mark4=self.exchange_card('minionH6',controller)### 
+		self.mark3=self.exchange_card('vanillaH2',controller)### (2,3) or (3,2) or (3,6)
+		self.mark4=self.exchange_card('vanillaH3',controller)### 
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########
+		self.play_card(self.mark3, controller)
+		self.play_card(self.mark4, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark1, opponent, target=self.mark3)
+		self.const1=self.mark1.atk
+		self.const2=self.mark1.health
+		self.change_turn(opponent)
+		##########
+		self.change_turn(controller)
+		##########
+		self.attack_card(self.mark1, self.mark4, opponent)
+	def result_inspection(self):
+		super().result_inspection()
+		if self.contains_buff(self.mark1, 'AV_131e'):
+			print("check 1 OK")
+			print("(3/3) -> (%d/%d)"%(self.const1, self.const2))
+			print(" -> (%d/%d)"%(self.mark1.atk, self.mark1.health))
+	pass
+
+##################################
+
+class pp_AV_132(Preset_Play):
+	""" Troll Centurion (8/8/8)
+	[Rush]. [Honorable Kill]: Deal 8 damage to the enemy hero."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_132',opponent)
+		#self.mark3=self.exchange_card('minionH8',controller)### 
 		super().preset_deck()
 		pass
 	def preset_play(self):
