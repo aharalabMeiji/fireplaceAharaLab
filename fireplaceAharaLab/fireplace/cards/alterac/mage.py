@@ -9,7 +9,7 @@ class ALT_MAG_1_Action(TargetedAction):
 			if card.cost >6:
 				cardlist.append(card)
 		card = random.choice(cardlist)
-		target.game.trigger(target, [Give(target, card)], action_arg=None)
+		target.game.trigger(target, [Give(target, card)], event_args=None)
 		pass
 	pass
 class ALT_MAG_1:
@@ -31,7 +31,7 @@ class ALT_MAG_2_Action(TargetedAction):
 			elif highestcost[0].cost == card.cost:
 				highestcost.append(card)
 		for card in highestcost:
-			target.game.trigger(target, [Buff(card, 'ALT_MAG_2e')], action_arg=None)
+			target.game.trigger(target, [Buff(card, 'ALT_MAG_2e')], event_args=None)
 		pass
 	pass
 class ALT_MAG_2:
@@ -67,7 +67,7 @@ class ALT_MAG_4_Action(TargetedAction):#
 				target = None
 				if card.requires_target():
 					target = random.choice(controller.opponent.characters)
-				controller.game.trigger(controller, [Play(card,target,None,None)],action_args=None)
+				controller.game.trigger(controller, [Play(card,target,None,None)],event_args=None)
 			else:
 				break
 			pass

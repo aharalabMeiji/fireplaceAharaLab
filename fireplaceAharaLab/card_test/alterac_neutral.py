@@ -16,13 +16,14 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_129,1)####OK
 	#PresetGame(pp_AV_130,1)####OK
 	#PresetGame(pp_AV_131,1)####OK
-	PresetGame(pp_AV_132,1)
-	#PresetGame(pp_AV_133,1)
-	#PresetGame(pp_AV_134,1)
+	#PresetGame(pp_AV_132,1)####OK
+	#PresetGame(pp_AV_133,1)####OK
+	#PresetGame(pp_AV_134,1)####OK
 	#PresetGame(pp_AV_135,1)
-	#PresetGame(pp_AV_136,1)
-	#PresetGame(pp_AV_137,1)
-	#PresetGame(pp_AV_138,1)
+	#PresetGame(pp_AV_136,1)####OK
+	#PresetGame(pp_AV_136t,1)###OK
+	#PresetGame(pp_AV_137,1)####OK
+	#PresetGame(pp_AV_138,1)####TRY SOME TIMES ####OK
 	#PresetGame(pp_AV_139,1)
 	#PresetGame(pp_AV_141t,1)
 	#PresetGame(pp_AV_142t,1)
@@ -38,7 +39,7 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_704,1)
 	pass
 
-from hearthstone.enums import Zone,CardType
+from hearthstone.enums import Zone,CardType, Rarity
 
 class pp_AV_100(Preset_Play):
 	"""Drek'Thar (4/4/4)
@@ -504,8 +505,9 @@ class pp_AV_132(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_132',opponent)
-		#self.mark3=self.exchange_card('minionH8',controller)### 
+		self.mark1=self.exchange_card('AV_132',controller)
+		self.mark3=self.exchange_card('minionH8',opponent)### 
+		self.mark4=self.exchange_card('minionH7',opponent)### 
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -514,30 +516,242 @@ class pp_AV_132(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		##########
-		self.play_card(self.mark3, controller)
-		self.play_card(self.mark4, controller)
+		self.play_card(self.mark1, controller)
 		self.change_turn(controller)
 		##########
-		self.play_card(self.mark1, opponent, target=self.mark3)
-		self.const1=self.mark1.atk
-		self.const2=self.mark1.health
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
 		self.change_turn(opponent)
 		##########
-		self.change_turn(controller)
+		self.attack_card(self.mark1, self.mark3, controller)### (1,3) or (1,4)
 		##########
-		self.attack_card(self.mark1, self.mark4, opponent)
 	def result_inspection(self):
 		super().result_inspection()
-		if self.contains_buff(self.mark1, 'AV_131e'):
+		opponent = self.player.opponent
+		enemy_hero = opponent.hero
+		if enemy_hero.health==30-8:
 			print("check 1 OK")
-			print("(3/3) -> (%d/%d)"%(self.const1, self.const2))
-			print(" -> (%d/%d)"%(self.mark1.atk, self.mark1.health))
+		print("enemy_hero.health (%d)"%(enemy_hero.health))
+	pass
+
+##################################
+
+class pp_AV_133(Preset_Play):
+	""" Icehoof Protector (6/2/10)
+	[Taunt] [Freeze] any character damaged by this minion."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_133',controller)
+		self.mark3=self.exchange_card('minionH4',opponent)### 
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		##########
+		self.attack_card(self.mark1, self.mark3, controller)### (1,3) 
+		##########
+	def result_inspection(self):
+		super().result_inspection()
+		opponent = self.player.opponent
+		if self.mark3.frozen:
+			print("check 1 OK")
+	pass
+
+##################################
+
+class pp_AV_134(Preset_Play):
+	""" Frostwolf Warmaster (4/3/5)
+	Costs (1) less for each card you've played this turn."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_134',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		self.mark3=self.exchange_card('vanillaH2',controller)
+		self.mark4=self.exchange_card('vanillaA3',controller)### 
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########
+		self.play_card(self.mark2, controller)
+		self.const1 = self.mark1.cost
+		self.change_turn(controller)
+		##########
+		self.change_turn(opponent)
+		##########
+		self.play_card(self.mark3, controller)
+		self.play_card(self.mark4, controller)
+		self.const2 = self.mark1.cost
+		self.change_turn(controller)
+	def result_inspection(self):
+		super().result_inspection()
+		opponent = self.player.opponent
+		print("4 -> %d(=3) -> %d(=2)"%(self.const1, self.const2))
 	pass
 
 ##################################
 
 ##################################
 
+class pp_AV_136(Preset_Play):
+	""" Kobold Taskmaster (3/2/4)
+	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_136',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1 = controller.hand[-2]
+		card2 = controller.hand[-1]
+		if card1.id=='AV_136t' and card2.id=='AV_136t':
+			print("check 1 OK")
+	pass
+
+##################################
+
+class pp_AV_136t(Preset_Play):
+	""" Kobold Taskmaster (3/2/4)
+	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_136t',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark2, controller)
+		self.const1 = self.mark2.health
+		self.play_card(self.mark1, controller, target=self.mark2)
+		self.const2 = self.mark2.health
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		if self.contains_buff(self.mark2, 'AV_136e'):
+			print("check 1 OK")
+			print ("%d -> %d (=%d)"%(self.const1,self.const2,self.const1+2))
+	pass
+
+##################################
+
+class pp_AV_137(Preset_Play):
+	""" Irondeep Trogg (1/1/2)
+	After your opponent casts a spell, summon a copy of this."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_137',controller)
+		self.mark2=self.exchange_card('spell',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		card2=self.mark2
+		card3=self.mark3
+		card4=self.mark4
+		##########start
+		self.play_card(card1, controller)
+		self.change_turn(controller)
+		########
+		self.play_card(card2, opponent)
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		minion1 = controller.field[-1]
+		print("%s"%(minion1))
+		if minion1.id == 'AV_137':
+			print("check 1 OK")
+	pass
+
+##################################
+
+class pp_AV_138(Preset_Play):
+	""" Grimtotem Bounty Hunter (3/4/2)
+	[Battlecry]: Destroy an enemy [Legendary] minion."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_138',opponent)
+		self.mark2=self.exchange_card('minionH8',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		card2=self.mark2
+		##########start
+		self.play_card(card2, controller)
+		self.change_turn(controller)
+		########
+		self.play_card(card1, opponent, target=card2)
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		if card2.rarity == Rarity.LEGENDARY:
+			print("%s is legendary."%(card2))
+		else:
+			print("%s is not legendary."%(card2))
+		if card2.zone == Zone.GRAVEYARD:
+			print("%s is now in graveyard"%(card2))
+		else:
+			print("%s is still alive."%(card2))
+	pass
+
+##################################
 
 
 

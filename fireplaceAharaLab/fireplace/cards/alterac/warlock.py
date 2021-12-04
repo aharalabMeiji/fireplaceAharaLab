@@ -18,7 +18,7 @@ class ALT_WLK_1:
 						highestcost.append(card)
 			if highestcost != []:
 				card = random.choice(highestcost)
-				controller.game.trigger(controller,[Play(card,None,None,None)], action_args=None)
+				controller.game.trigger(controller,[Play(card,None,None,None)], event_args=None)
 			pass
 		pass
 	pass

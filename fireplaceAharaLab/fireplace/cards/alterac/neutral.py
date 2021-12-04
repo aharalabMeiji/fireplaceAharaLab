@@ -125,12 +125,15 @@ class AV_132:
 class AV_133:
 	""" Icehoof Protector (6/2/10)
 	[Taunt] [Freeze] any character damaged by this minion."""
-	events = Attack(SELF, ALL_CHARACTERS).on(SetTag(Attack.DEFENDER,(GameTag.FREEZE,)))
+	events = Attack(SELF, ALL_CHARACTERS).on(Freeze(Attack.DEFENDER))
 	pass
 
 class CountPlayedThisTurn(LazyNum):
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
 	def evaluate(self, source):
-		controller = source
+		controller = source.controller
 		game =controller.game
 		turn = game.turn
 		count=0
@@ -142,7 +145,7 @@ class CountPlayedThisTurn(LazyNum):
 class AV_134:
 	""" Frostwolf Warmaster (4/3/5)
 	Costs (1) less for each card you've played this turn."""
-	#cost_mod = -CountPlayedThisTurn(CONTROLLER)
+	cost_mod = -CountPlayedThisTurn(CONTROLLER)
 	pass
 
 class AV_135:#################################
@@ -177,7 +180,7 @@ class AV_138:
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
 	def play(self):
 		if self.target != None and self.target.rarity==Rarity.LEGENDARY:
-			self.controller.game.trigger(self.controller, [Destroy(self.target)], action_args=None)
+			self.controller.game.trigger(self.controller, [Destroy(self.target)], event_args=None)
 	pass
 
 class AV_139:
