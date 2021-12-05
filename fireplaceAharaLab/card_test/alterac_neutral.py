@@ -31,10 +31,10 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_215,2)####OK
 	#PresetGame(pp_AV_219,1)####OK
 	#PresetGame(pp_AV_222,1)####OK
-	#PresetGame(pp_AV_223,1)
-	#PresetGame(pp_AV_238,1)
-	#PresetGame(pp_AV_256,1)
-	#PresetGame(pp_AV_309,1)
+	#PresetGame(pp_AV_223,1)####OK
+	#PresetGame(pp_AV_238,1)####OK
+	#PresetGame(pp_AV_256,1)####OK
+	PresetGame(pp_AV_309,1)
 	#PresetGame(pp_AV_401,1)
 	#PresetGame(pp_AV_704,1)
 	pass
@@ -1102,6 +1102,121 @@ class pp_AV_222(Preset_Play):
 			print("%s was killed."%(self.mark3))
 		if self.mark4.zone==Zone.GRAVEYARD:##if (1,2,3), (1,2,2) then yes, (1,2,4) then no.
 			print("%s was killed."%(self.mark4))
+		
+#########################
+
+class pp_AV_223(Preset_Play):
+	"""Vanndar Stormpike (4/4/4)
+	[Battlecry]: If this costs less than every minion in your deck, reduce their Cost by (3)."""
+	const1=0
+	const2=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_223',controller)
+		super().preset_deck()
+		nr=0
+		while True:
+			card = controller.deck[nr]
+			if card.cost<=4:
+				card.zone = Zone.GRAVEYARD
+			else:
+				nr += 1
+			if len(controller.deck)<=nr:
+				break
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		#デッキにバフがついているかどうかを確認
+		for card in controller.deck:
+			if card.type==CardType.MINION:
+				if self.contains_buff(card, 'AV_223e'):
+					print("OK (cost=%d)"%(card.cost))
+				else:
+					print("NG ")
+
+#########################
+
+class pp_AV_238(Preset_Play):
+	""" Gankster (2/4/2)
+	[Stealth] After your opponents plays a minion, attack it"""
+	const1=0
+	const2=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_238',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print ("%s が攻撃を受けているかどうかを確認(目視)"%(self.mark2))
+		#mark1のstealthが解除ざれているかどうかを確認
+		if self.mark1.stealthed == False:
+			print("sheck2 OK")
+	pass
+		
+#########################
+
+
+class pp_AV_256(Preset_Play):
+	""" Reflecto Engineer (3/2/4)
+	[Battlecry]: Swap the Attack and Health of all minions in both players' hands."""
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_256',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		self.mark3=self.exchange_card('vanilla',opponent)
+		self.const1 = [self.mark1.atk,self.mark1.health,self.mark2.atk,self.mark2.health,self.mark3.atk,self.mark3.health,]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		cst=self.const1
+		print ("%s のスタッツが交換されているか %d/%d -> %d/%d (no)"%(self.mark1, cst[0],cst[1],self.mark1.atk,self.mark1.health))
+		print ("%s のスタッツが交換されているか %d/%d -> %d/%d (yes)"%(self.mark2, cst[2],cst[3],self.mark2.atk,self.mark2.health))
+		print ("%s のスタッツが交換されているか %d/%d -> %d/%d (yes)"%(self.mark3, cst[4],cst[5],self.mark3.atk,self.mark3.health))
+	pass
 		
 #########################
 

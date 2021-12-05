@@ -167,7 +167,7 @@ class AV_135_AmountCounter(TargetedAction):
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
 
-class AV_135:#################################
+class AV_135:#
 	""" Stormpike Marshal (4/2/6)
 	[Taunt] If you took 5 or more damage on your opponent's turn, this costs (1)."""
 	class Hand:
@@ -305,7 +305,7 @@ AV_223e = buff(cost=-3)
 class AV_238:
 	""" Gankster (2/4/2)
 	[Stealth] After your opponents plays a minion, attack it"""
-	events = Play(OPPONENT, MINION).after(RegularAttack(SELF, Play.CARD))
+	events = Play(OPPONENT, MINION).after(Hit(Play.CARD, ATK(SELF)), Hit(SELF, ATK(Play.CARD)))
 	pass
 
 class AV_256:
@@ -315,11 +315,12 @@ class AV_256:
 		game = self.game
 		cardlist = game.hands
 		for card in cardlist:
-			health = card.health
-			atk = card.atk
-			card.atk =health
-			card.max_health = atk
-			card.damage=0
+			if card.type==CardType.MINION:
+				health = card.health
+				atk = card.atk
+				card.atk =health
+				card.max_health = atk
+				card.damage=0
 	pass
 
 class AV_309:
