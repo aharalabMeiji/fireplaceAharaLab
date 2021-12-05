@@ -557,7 +557,8 @@ class Character(LiveEntity):
 	poisonous = boolean_property("poisonous")
 	rush = boolean_property("rush")
 	taunt = boolean_property("taunt")
-	
+	divine_shield = boolean_property("divine_shield")
+
 	def __init__(self, data):
 		self.attack_target = None
 		self.cannot_attack_heroes = False
@@ -736,7 +737,6 @@ class Minion(Character):
 
 	def __init__(self, data):
 		self.always_wins_brawls = False
-		self.divine_shield = False
 		self.enrage = False
 		self.silenced = False
 		self._summon_index = None

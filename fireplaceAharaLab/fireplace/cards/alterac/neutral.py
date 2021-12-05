@@ -148,11 +148,30 @@ class AV_134:
 	cost_mod = -CountPlayedThisTurn(CONTROLLER)
 	pass
 
+class AV_135_AmountCounter(TargetedAction):
+	"""	"""
+	TARGET = ActionArg()# sidequest card
+	AMOUNT = IntArg() #current damage
+	AMOUNTGOAL = IntArg() #max of damage
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, amount, amountgoal, targetaction):
+		if source.controller.game.current_player == source.controller.opponent:
+			target._sidequest_counter_ += amount
+			log.info("Setting Counter on %r -> %i, %r", target, (source._sidequest_counter_), targetaction)
+		if target._sidequest_counter_>= amountgoal:
+			target._sidequest_counter_ = 0
+			if targetaction!=None:
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
+
 class AV_135:#################################
 	""" Stormpike Marshal (4/2/6)
 	[Taunt] If you took 5 or more damage on your opponent's turn, this costs (1)."""
 	class Hand:
-		events = Damage(FRIENDLY_MINIONS).on(SidequestCounter(CONTROLLER, 5, [SetTag(SELF, (GameTag.COST,))]))
+		events = Damage(FRIENDLY_MINIONS).on(AV_135_AmountCounter(SELF, Damage.AMOUNT, 5, [SetCost(SELF,1)]))
 	pass
 
 class AV_136:#
@@ -193,7 +212,7 @@ class AV_141t:
 	""" Lokholar the Ice Lord (10/8/8) Elemental
 	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
 	powered_up = CURRENT_HEALTH(FRIENDLY_HERO) <= 15
-	update = powered_up & Refresh(SELF,  {GameTag.COST: -5})##############
+	cost_mod  = powered_up & -5
 	pass
 
 class AV_142t:
@@ -205,13 +224,13 @@ class AV_142t:
 		choices = random.sample(['rush','shield','taunt','2/2','2/2','2/2','2/2','2/2','2/2','2/2'],rest_mana)
 		for choice in choices:
 			if choice == 'rush':
-				Buff(SELF,'AV_142e2')
+				Buff(self,'AV_142e2').trigger(controller)
 			elif choice == 'shield':
-				Buff(SELF,'AV_142e3')
+				Buff(self,'AV_142e3').trigger(controller)
 			elif choice == 'taunt':
-				Buff(SELF,'AV_142e4')
+				Buff(self,'AV_142e4').trigger(controller)
 			else:
-				Buff(SELF,'AV_142e')
+				Buff(self,'AV_142e').trigger(controller)
 		pass
 	pass
 AV_142e2=buff(rush=True)
@@ -219,22 +238,17 @@ AV_142e3=buff(divine_shield=True)
 AV_142e4=buff(taunt=True)
 AV_142e=buff(2,2)
 
-class AV_143_Find(Evaluator):
-	"""
-	Evaluates to True if \a selector has a match.
-	"""
-	def __init__(self, selector, count=1):
-		super().__init__()
-		self.selector = selector
-
-	def check(self, source):
-		card = self.selector.eval(source.game.allcards, source) ### Korrak card
-		return card[0].honorably_killed
+class AV_143_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source,target):
+		controller = target.controller
+		if not target.honorably_killed:
+			Summon(controller, 'AV_143').trigger(controller)
 
 class AV_143:#
 	""" Korrak the Bloodrager (4/3/5)
 	Deathrattle: If this wasn't Honorably Killed, resummon Korrak."""
-	deathrattle = AV_143_Find(SELF) & Summon(CONTROLLER, 'AV_143')
+	deathrattle = AV_143_Action(SELF)
 	pass
 
 class AV_215:####OK
@@ -257,13 +271,14 @@ class AV_222:
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
 	def play(self):
 		while True:	
-			list = self.game.fields
+			list = self.controller.field + self.controller.opponent.field
 			cont=False
 			for card in list:
 				if card != self:
-					Hit(card,1).trigger(self)
-					if card.health==0:
+					if card.health==1:
 						cont = True
+					Hit(card,1).trigger(self.controller)##これだけでは死亡処理が行われない。
+			Deaths().trigger(self.controller)#死亡処理
 			if not cont:
 				return
 		pass

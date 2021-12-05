@@ -19,18 +19,18 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_132,1)####OK
 	#PresetGame(pp_AV_133,1)####OK
 	#PresetGame(pp_AV_134,1)####OK
-	#PresetGame(pp_AV_135,1)
+	#PresetGame(pp_AV_135,1)####OK
 	#PresetGame(pp_AV_136,1)####OK
 	#PresetGame(pp_AV_136t,1)###OK
 	#PresetGame(pp_AV_137,1)####OK
 	#PresetGame(pp_AV_138,1)####TRY SOME TIMES ####OK
-	#PresetGame(pp_AV_139,1)
-	#PresetGame(pp_AV_141t,1)
-	#PresetGame(pp_AV_142t,1)
-	#PresetGame(pp_AV_143,1)
+	#PresetGame(pp_AV_139,1)####OK
+	#PresetGame(pp_AV_141t,1)###OK
+	#PresetGame(pp_AV_142t,1)###OK
+	#PresetGame(pp_AV_143,1)####OK
 	#PresetGame(pp_AV_215,2)####OK
-	#PresetGame(pp_AV_219,1)
-	#PresetGame(pp_AV_222,1)
+	#PresetGame(pp_AV_219,1)####OK
+	#PresetGame(pp_AV_222,1)####OK
 	#PresetGame(pp_AV_223,1)
 	#PresetGame(pp_AV_238,1)
 	#PresetGame(pp_AV_256,1)
@@ -610,6 +610,42 @@ class pp_AV_134(Preset_Play):
 
 ##################################
 
+class pp_AV_135(Preset_Play):
+	""" Stormpike Marshal (4/2/6)
+	[Taunt] If you took 5 or more damage on your opponent's turn, this costs (1)."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_135',controller)
+		self.mark2=self.exchange_card('minionH8',controller)
+		self.mark3=self.exchange_card('vanillaA3',opponent)
+		self.mark4=self.exchange_card('vanillaA3',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		##########controller
+		self.change_turn(controller)
+		##########opponent
+		self.attack_card(self.mark3, self.mark2, opponent)
+		self.attack_card(self.mark4, self.mark2, opponent)### if this quits, cost will be still 4.
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("cost of %s id %d (=1)."%(self.mark1, self.mark1.cost))
+	pass
 ##################################
 
 class pp_AV_136(Preset_Play):
@@ -753,9 +789,196 @@ class pp_AV_138(Preset_Play):
 
 ##################################
 
+class pp_AV_139(Preset_Play):
+	"""Abominable Lieutenant (8/3/5)
+	At the end of your turn, eat a random enemy minion and gain its stats. """
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_139',opponent)
+		self.mark2=self.exchange_card('minionH4',controller)
+		self.mark3=self.exchange_card('minionH5',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		card2=self.mark2
+		card3=self.mark3
+		##########start
+		self.play_card(card2, controller)
+		self.play_card(card3, controller)
+		self.const1=[card2.atk, card2.health]
+		self.const2=[card3.atk, card3.health]
+		self.change_turn(controller)
+		########
+		self.play_card(card1, opponent, target=card2)
+		self.change_turn(opponent)
+		########
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		card3=self.mark3
+		print ("(3/5) -> (%d/%d)"%(card1.atk, card1.health))
+		if card2.zone==Zone.GRAVEYARD:
+			print ("check 1 OK")
+		if card3.zone==Zone.GRAVEYARD:
+			print ("check 1 OK")
+		if card1.atk-3==self.const1[0] and card1.health-5==self.const1[1]:
+			print ("check 2 OK")
+		elif card1.atk-3==self.const2[0] and card1.health-5==self.const2[1]:
+			print ("check 2 OK")
+		else:
+			print ("failure")
+		pass
 
+##################################
 
+class pp_AV_141t(Preset_Play):
+	""" Lokholar the Ice Lord (10/8/8) Elemental
+	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_141t',opponent)
+		self.mark2=self.exchange_card('minionA7',controller)
+		self.mark3=self.exchange_card('minionA7',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		card2=self.mark2
+		card3=self.mark3
+		##########start
+		self.play_card(card2, controller)
+		self.play_card(card3, controller)
+		#self.play_card(card4, controller)
+		self.change_turn(controller)
+		########
+		self.change_turn(opponent)
+		########
+		self.attack_card(card2, opponent.hero, controller )
+		self.attack_card(card3, opponent.hero, controller )
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		card3=self.mark3
+		hero = controller.opponent.hero
+		print ("hero's health is %s"%(hero.health))
+		print ("The cost of %s is %d"%(card1, card1.cost))
+		if hero.health<=15 and card1.cost==5:
+			print("check 1 OK")
+		elif hero.health>15 and card1.cost==10:
+			print("check 1 OK")
+		else:
+			print ("check 1 NNGG")
+		pass
 
+##################################
+
+class pp_AV_142t(Preset_Play):
+	""" Ivus, the Forest Lord(1/1/1)
+	[Battlecry]: Spend the rest of your Mana and gain +2/+2, [Rush], [Divine Shield], or [Taunt] at random for each."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_142t',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		##########start
+		self.play_card(card1, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		hero = controller.opponent.hero
+		print ("%s:"%(card1))
+		print ("STATS: %d/%d"%(card1.atk, card1.health))
+		print ("RUSH: %s"%(card1.rush))
+		print ("DIVINE SHIELD: %s"%(card1.divine_shield))
+		print ("TAUNT: %s"%(card1.taunt))
+		pass
+
+##################################
+
+class pp_AV_143(Preset_Play):
+	""" Korrak the Bloodrager (4/3/5)
+	Deathrattle: If this wasn't Honorably Killed, resummon Korrak."""
+	const1 = 0
+	const2 = 0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_143',opponent)
+		self.mark2=self.exchange_card('minionA6',controller)## 5 or 6
+		self.mark3=self.exchange_card('vanilla',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		card2=self.mark2
+		card3=self.mark3
+		##########start
+		self.play_card(card2, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(card1, opponent)
+		self.play_card(card3, opponent)
+		self.change_turn(opponent)
+		##########
+		if card2.atk==card1.health:
+			self.const1=1
+		self.attack_card(card2, card1,controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		hero = controller.opponent.hero
+		if self.const1==1:
+			print("%s was honorably killed."%(card1))
+		else:
+			print("%s was not honorably killed."%(card1))
+		if controller.opponent.field[-1].id == 'AV_143':
+			print("%s was resummoned."%(card1))
+			if self.const1!=1:
+				print("check 1 OK")
+		else:
+			print("%s was not resummoned."%(card1))
+			if self.const1==1:
+				print("check 1 OK")
+		pass
+
+##################################
 
 class pp_AV_215(Preset_Play):
 	const1=0
@@ -801,6 +1024,84 @@ class pp_AV_215(Preset_Play):
 		else:
 			print("check 2 NG")
 
+##################################
 
+class pp_AV_219(Preset_Play):
+	""" Ram Commander (2/2/2)
+	[Battlecry]: Add two 1/1 Rams with Rush to your hand."""
+	const1=0
+	const2=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_219',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		card1=self.mark1
+		##########start
+		self.play_card(card1, controller)
+		#self.change_turn(controller)
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		#ハンドの中身を検証
+		card2=controller.hand[-1]
+		card3=controller.hand[-2]
+		if card2.id=='AV_219t' and card3.id=='AV_219t':
+			print("check 1 OK")
+		else:
+			print("check 1 NG")
+		
+#########################
 
+class pp_AV_222(Preset_Play):
+	""" Spammy Arcanist (5/3/4)
+	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
+	const1=0
+	const2=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_222',controller)
+		self.mark2=self.exchange_card('vanillaH1',controller)###(1,2,3), (1,2,4), (1,3,4), etc
+		self.mark3=self.exchange_card('vanillaH2',opponent)
+		self.mark4=self.exchange_card('vanillaH3',opponent)
+		#self.mark4=self.exchange_card('minionH4',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(controller)
+		##########
+		self.play_card(self.mark1, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		#フィールドのカードの生き死にを確認
+		if self.mark2.zone==Zone.GRAVEYARD:
+			print("%s was killed."%(self.mark2))
+			print("check 1 OK")
+		else:
+			print("check 1 NG")
+		if self.mark3.zone==Zone.GRAVEYARD:##if (1,2,4), (1,2,3) then yes, (1,3,4) then no.
+			print("%s was killed."%(self.mark3))
+		if self.mark4.zone==Zone.GRAVEYARD:##if (1,2,3), (1,2,2) then yes, (1,2,4) then no.
+			print("%s was killed."%(self.mark4))
+		
+#########################
 

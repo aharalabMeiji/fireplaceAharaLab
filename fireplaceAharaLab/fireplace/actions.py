@@ -1214,13 +1214,13 @@ class Hit(TargetedAction):
 		amount = source.get_damage(amount, target)
 		if amount:
 			#if isinstance(source,PlayableCard):
-			#	if hasattr(source, 'honorable_kill') and source.honorable_kill:
-			target_health = target.health
-			if target_health == amount:
-				log.info("%s hits %s and gets honorable kill"%(source, target))
-				target.honorably_killed = True
-				actions = source.get_actions("honorable_kill")
-				source.game.trigger(source, actions,event_args=None)
+			if hasattr(source, 'honorable_kill') and source.honorable_kill:
+				target_health = target.health
+				if target_health == amount:
+					log.info("%s hits %s and gets honorable kill"%(source, target))
+					target.honorably_killed = True
+					actions = source.get_actions("honorable_kill")
+					source.game.trigger(source, actions,event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
@@ -2018,6 +2018,8 @@ class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
 						action.trigger(source)
 
 
+###################### end of sidequest
+
 class SetMaxHealth(TargetedAction):
 	"""
 	Sets the max health of the character target to \a amount.
@@ -2037,6 +2039,15 @@ class SetAtk(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting atk on %r to %i", target, amount)
 		target.atk = amount
+class SetCost(TargetedAction):
+	"""
+	Sets the cost of the character target to \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		log.info("Setting cost on %r to %i", target, amount)
+		target.cost = amount
 
 
 class Reborn(TargetedAction):
