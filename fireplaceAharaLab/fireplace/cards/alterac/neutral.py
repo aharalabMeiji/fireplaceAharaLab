@@ -335,7 +335,7 @@ class AV_309t:
 class AV_401:
 	""" Stormpike Quartermaster (2/2/2)
 	After you cast a spell, give a random minion in your hand +1/+1."""
-	events = OWN_SPELL_PLAY.on(Buff(RANDOM(FRIENDLY_MINIONS),'AV_401e'))
+	events = Play(CONTROLLER,SPELL).on(Buff(RANDOM(FRIENDLY_HAND - SPELL),'AV_401e'))
 	pass
 AV_401e=buff(1,1)
 

@@ -34,9 +34,9 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_223,1)####OK
 	#PresetGame(pp_AV_238,1)####OK
 	#PresetGame(pp_AV_256,1)####OK
-	PresetGame(pp_AV_309,1)
-	#PresetGame(pp_AV_401,1)
-	#PresetGame(pp_AV_704,1)
+	#PresetGame(pp_AV_309,1)####OK
+	#PresetGame(pp_AV_401,1)####OK
+	#PresetGame(pp_AV_704,1)####OK
 	pass
 
 from hearthstone.enums import Zone,CardType, Rarity
@@ -1207,7 +1207,6 @@ class pp_AV_256(Preset_Play):
 		self.play_card(self.mark2, controller)
 		self.change_turn(controller)
 		##########opponent
-		self.play_card(self.mark2, opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1220,3 +1219,117 @@ class pp_AV_256(Preset_Play):
 		
 #########################
 
+#########################
+
+
+class pp_AV_309(Preset_Play):
+	""" Piggyback Imp (3/1/1) deamon
+	Deathrattle: Summon a 4/1 Imp. """
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_309',opponent)
+		self.mark2=self.exchange_card('vanilla',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark1, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.attack_card(self.mark2, self.mark1, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		cst=self.const1
+		print ("%s のフィールドに4/1のインプがいるか "%(controller.opponent))
+		card = controller.opponent.field[-1]
+		print ("%s (%d/%d)"%(card,card.atk,card.health))
+	pass
+		
+#########################
+
+
+class pp_AV_401(Preset_Play):
+	""" Stormpike Quartermaster (2/2/2)
+	After you cast a spell, give a random minion in your hand +1/+1."""
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_401',controller)
+		self.mark2=self.exchange_card('spell',controller)
+		self.mark3=self.exchange_card('vanilla',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		cst=self.const1
+		print ("%sのハンドにAV_401e(+1/+1)がいるかどうか"%(controller))
+		for card in controller.hand:
+			if self.contains_buff(card,'AV_401e'):
+				print("%s (%d/%d) <-(%d/%d)"%(card,card.atk,card.health,card.data.atk,card.data.health))
+	pass
+		
+#########################
+
+class pp_AV_704(Preset_Play):
+	"""Humongous Owl(7/8/4)
+	Deathrattle: Deal 8 damage to a random enemy."""
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_704',opponent)
+		self.mark2=self.exchange_card('minionH8',controller)
+		self.mark3=self.exchange_card('minionA5',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark3, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark1, opponent)
+		self.change_turn(opponent)
+		##########  controller
+		self.attack_card(self.mark3, self.mark1,controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		cst=self.const1
+		print ("%sのミニオンに%sからの8点の攻撃があるかどうか（目視）"%(controller,self.mark1))
+	pass
+		
+#########################
