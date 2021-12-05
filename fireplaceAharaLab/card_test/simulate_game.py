@@ -197,15 +197,6 @@ class Preset_Play:
 		return False
 
 
-def SimulateGames():
-	#PresetGame(pp_DED_006,1)
-	#PresetGame(pp_DED_521,1)
-	#PresetGame(pp_DED_523,2)
-	#PresetGame(pp_DED_524,3)
-	from .alterac_neutral import SimulateGames_Alterac_Neutral
-	SimulateGames_Alterac_Neutral()
-
-	pass
 
 def PresetGame(pp, testNr=1):
 	from fireplace import cards
@@ -404,3 +395,12 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
+def SimulateGames():
+	#PresetGame(pp_DED_006,1)
+	#PresetGame(pp_DED_521,1)
+	#PresetGame(pp_DED_523,2)
+	#PresetGame(pp_DED_524,3)
+	from .alterac_warrior import SimulateGames_Alterac_Warrior
+	SimulateGames_Alterac_Warrior()
+
+	pass
