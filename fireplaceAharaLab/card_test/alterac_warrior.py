@@ -7,8 +7,8 @@ def SimulateGames_Alterac_Warrior():
 	""" simulate games  """
 	#PresetGame(pp_AV_108)####OK
 	#PresetGame(pp_AV_109)####OK
-	PresetGame(pp_AV_119)#
-	#PresetGame(pp_AV_145)##
+	#PresetGame(pp_AV_119)####OK
+	PresetGame(pp_AV_145)##
 	#PresetGame(pp_AV_202)##
 	#PresetGame(pp_AV_321)##
 	#PresetGame(pp_AV_322)#
@@ -122,5 +122,36 @@ class pp_AV_119(Preset_Play):
 		pass
 	pass
 
+#######################
+
+class pp_AV_145(Preset_Play):
+	""" Captain Galvangar (6/6/6)
+	Battlecry: If you have gained 15 or more Armor this game, gain +3/+3 and Charge. (#1 left!) (Ready!) """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_145',controller)
+		super().preset_deck()
+		controller.hero.armor=16# 16 or 14
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check stats
+		print("stats of %s is (%d/%d) (=9/9)"%(self.mark1, self.mark1.atk, self.mark1.health))
+		if self.mark1.charge:
+			print("check 2 OK")
+		pass
+	pass
+
+######################
 #######################
 

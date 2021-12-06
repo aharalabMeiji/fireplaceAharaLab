@@ -30,8 +30,8 @@ class AV_145_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do (self,source, target):
 		controller = target.controller
-		if controller.hero.total_armor>=15:
-			BuffOnce(source, 'ALT_WAR_8e').trigger(controller)
+		if controller.hero.armor>=15:
+			BuffOnce(source, 'AV_145e').trigger(controller)
 class AV_145:##events?
 	""" Captain Galvangar (6/6/6)
 	Battlecry: If you have gained 15 or more Armor this game, gain +3/+3 and Charge. (#1 left!) (Ready!) """
