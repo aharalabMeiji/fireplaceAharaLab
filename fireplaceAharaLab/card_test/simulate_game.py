@@ -139,6 +139,8 @@ class Preset_Play:
 			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
 		if _card=='spellpower':
 			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
+		if _card=='taunt':
+			_card=random.choice(['NEW1_032','CORE_CS2_179','CORE_GVG_085','CORE_LOOT_137','CS3_024','EX1_165t2','OG_044a','EX1_573t','SCH_709','SCH_709t','SCH_710t','SCH_244','SCH_600t2','SCH_613','DMF_044','DMF_078','DMF_078t','DMF_081','DMF_163','DMF_163t','DMF_254t5t','DMF_532','YOP_005t','DMF_059','DMF_734','YOP_025','YOP_025t','DMF_521','BAR_021','BAR_026','BAR_069','BAR_072t','BAR_743','WC_034t2','BAR_533t','BAR_535','BAR_538t','WC_004','BAR_846','SW_054','SW_068','SW_076t','SW_428t4','SW_429t','DED_001b','DED_001bt','DED_001c','CS2_051','YOP_005t','SW_068',])
 		if _card=='vanilla':
 			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
 	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',

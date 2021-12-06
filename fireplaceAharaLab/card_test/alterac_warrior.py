@@ -8,11 +8,11 @@ def SimulateGames_Alterac_Warrior():
 	#PresetGame(pp_AV_108)####OK
 	#PresetGame(pp_AV_109)####OK
 	#PresetGame(pp_AV_119)####OK
-	PresetGame(pp_AV_145)##
-	#PresetGame(pp_AV_202)##
-	#PresetGame(pp_AV_321)##
-	#PresetGame(pp_AV_322)#
-	#PresetGame(pp_AV_323)##
+	#PresetGame(pp_AV_145)####OK
+	#PresetGame(pp_AV_202)###################
+	#PresetGame(pp_AV_321)####OK
+	#PresetGame(pp_AV_322)####OK
+	PresetGame(pp_AV_323)##
 	#PresetGame(pp_AV_565)##
 	#PresetGame(pp_AV_660)##
 	pass
@@ -155,3 +155,70 @@ class pp_AV_145(Preset_Play):
 ######################
 #######################
 
+class pp_AV_321(Preset_Play):
+	""" Glory Chaser (3/4/3)
+	After you play a Taunt minion, draw a card. """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_321',controller)
+		self.mark2=self.exchange_card('taunt',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		print ("カードをドローしたかどうかを目視")
+		pass
+	pass
+
+#######################
+
+class pp_AV_322(Preset_Play):
+	""" Snowed In (3) frost
+	Destroy a damaged minion. Freeze all other minions. """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_322',controller)
+		self.mark2=self.exchange_card('vanillaA3',controller)
+		self.mark3=self.exchange_card('minionH5',opponent)
+		self.mark4=self.exchange_card('vanillaH2',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.attack_card(self.mark2, self.mark3, controller)
+		self.play_card(self.mark1, controller, target=self.mark3)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		print ("self.mark2が破壊されていることを目視")
+		print ("ミニオンたちがfreezeされていることを目視")
+		pass
+	pass
+
+#######################
