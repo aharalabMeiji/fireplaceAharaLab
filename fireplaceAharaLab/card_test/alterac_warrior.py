@@ -93,3 +93,34 @@ class pp_AV_109(Preset_Play):
 
 #######################
 
+class pp_AV_119(Preset_Play):
+	""" To the Front! (2) 
+	Your minions cost (2) less this turn (but not less than 1). """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_119',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check costs
+		for card in self.player.hand:
+			print("cost of %s = %d <- %d - 2"%(card, card.cost, card.data.cost), end=':')
+			if self.contains_buff(card,'AV_119e'):
+				print("check OK")
+
+		pass
+	pass
+
+#######################
+
