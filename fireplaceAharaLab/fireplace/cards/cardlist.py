@@ -43,7 +43,7 @@ Stormwind_Warrior=['SW_027','SW_028','SW_028t','SW_028t2','SW_028t5','SW_028t6',
 Stormwind_Updates=['DED_006','DED_006e2','DED_514e','DED_521','DED_523','DED_523e','DED_524','DED_525','DED_007','DED_008','DED_009','DED_009e','DED_515','DED_516','DED_517','DED_517t','DED_001','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DED_002','DED_002e','DED_003','DED_518','DED_519','DED_527','DED_527e',]
 ## ALTERAC []
 Alterac_Neutral = ['AV_100','AV_101','AV_102','AV_112','AV_121','AV_121e','AV_122','AV_123','AV_123e','AV_124','AV_125','AV_125e','AV_126','AV_127','AV_127e','AV_129','AV_129e','AV_130','AV_130e','AV_131','AV_131e','AV_132','AV_133','AV_134','AV_135','AV_136','AV_136e','AV_136t','AV_137','AV_138','AV_139','AV_141t','AV_142t','AV_142e','AV_142e2','AV_142e3','AV_142e4','AV_143','AV_211t','AV_215','AV_219','AV_219t','AV_222','AV_223','AV_223e','AV_238','AV_256','AV_309','AV_309t','AV_401','AV_401e', 'AV_704',]
-Alterac_Warrior=['AV_108','AV_109','AV_119','AV_119e','AV_145','AV_145e','AV_202','AV_202p','AV_202t2','AV_321','AV_322','AV_323','AV_323t','AV_565','AV_660',]
+Alterac_Warrior=['AV_108','AV_109','AV_109e','AV_119','AV_119e','AV_145','AV_145e','AV_202','AV_202p','AV_202t2','AV_321','AV_322','AV_323','AV_323t','AV_565','AV_660',]
 # Hero
 Heroes=[
 	'HERO_01',

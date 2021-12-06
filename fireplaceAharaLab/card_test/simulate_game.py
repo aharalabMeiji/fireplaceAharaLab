@@ -60,6 +60,10 @@ class Preset_Play:
 	def preset_deck(self):
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
+		print ("")
+		print ("")
+		print ("")
+		print ("")
 		pass
 	def preset_play(self):
 		pass
@@ -79,6 +83,9 @@ class Preset_Play:
 		self.testNr = testNr
 		self.preset_deck()
 		self.preset_play()
+		print ("")
+		print ("")
+		print ("")
 		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
@@ -88,6 +95,8 @@ class Preset_Play:
 		if _card=='arcane':
 			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','CORE_CS2_023','CORE_EX1_287','CORE_EX1_294','BT_002','BT_003','BT_006','BT_021','SCH_235','SCH_270',\
 						'SCH_352','SCH_353','YOP_019','DMF_057','BAR_541','BAR_539','DED_517','DED_002',])
+		if _card=='armor':
+			_card=random.choice(['SW_030','SW_094',])
 		if _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
@@ -202,7 +211,7 @@ def PresetGame(pp, testNr=1):
 	from fireplace import cards
 	cards.db.initialize()
 	for test in range(testNr):
-		class1=CardClass.DRUID
+		class1=CardClass.WARRIOR
 		class2=CardClass.WARRIOR
 		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
 		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
@@ -395,12 +404,12 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
+from .alterac_warrior import SimulateGames_Alterac_Warrior
 def SimulateGames():
 	#PresetGame(pp_DED_006,1)
 	#PresetGame(pp_DED_521,1)
 	#PresetGame(pp_DED_523,2)
 	#PresetGame(pp_DED_524,3)
-	from .alterac_warrior import SimulateGames_Alterac_Warrior
 	SimulateGames_Alterac_Warrior()
 
 	pass
