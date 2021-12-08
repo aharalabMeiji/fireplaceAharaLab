@@ -406,12 +406,12 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
-from .alterac_warrior import SimulateGames_Alterac_Warrior
+from .alterac_druid import SimulateGames_Alterac_Druid
 def SimulateGames():
 	#PresetGame(pp_DED_006,1)
 	#PresetGame(pp_DED_521,1)
 	#PresetGame(pp_DED_523,2)
 	#PresetGame(pp_DED_524,3)
-	SimulateGames_Alterac_Warrior()
+	SimulateGames_Alterac_Druid()
 
 	pass
