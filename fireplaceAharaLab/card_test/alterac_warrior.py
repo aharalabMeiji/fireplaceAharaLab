@@ -12,9 +12,9 @@ def SimulateGames_Alterac_Warrior():
 	#PresetGame(pp_AV_202)###################
 	#PresetGame(pp_AV_321)####OK
 	#PresetGame(pp_AV_322)####OK
-	PresetGame(pp_AV_323)##
-	#PresetGame(pp_AV_565)##
-	#PresetGame(pp_AV_660)##
+	#PresetGame(pp_AV_323)####OK
+	#PresetGame(pp_AV_565)####OK
+	#PresetGame(pp_AV_660)####OK
 	pass
 
 #######################
@@ -219,6 +219,129 @@ class pp_AV_322(Preset_Play):
 		print ("self.mark2が破壊されていることを目視")
 		print ("ミニオンたちがfreezeされていることを目視")
 		pass
+	pass
+
+#######################
+
+
+class pp_AV_323(Preset_Play):
+	""" Scrapsmith (3/2/4)
+	Taunt Battlecry: Add two 2/4 Grunts with Taunt to your hand. """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_323',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark3, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		print ("ハンドのカードを確認")
+		card1 = self.player.hand[-1]
+		card2 = self.player.hand[-2]
+		if card1.id=='AV_323t' and card1.taunt:
+			print("check 1 OK %s STATS(%d/%d)"%(card1,card1.atk, card1.health))
+		if card2.id=='AV_323t' and card2.taunt:
+			print("check 2 OK %s STATS(%d/%d)"%(card2,card2.atk, card2.health))
+		pass
+	pass
+
+#######################
+
+class pp_AV_565(Preset_Play):
+	""" Axe Berserker (4/3/5)
+	Rush. Honorable Kill: Draw a weapon. """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_565',controller)
+		self.mark2=self.exchange_card('vanillaH3',opponent)## 3 or 2
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.attack_card(self.mark1, self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		print ("ハンドのカードを確認")
+		card1 = self.player.hand[-1]
+		if card1.type==CardType.WEAPON:
+			print("check 1 OK %s STATS(%d/%d)"%(card1,card1.atk, card1.durability))
+		pass
+	pass
+
+#######################
+
+class pp_AV_660(Preset_Play):
+	""" Iceblood Garrison (2)
+	At the end of your turn, deal 1 damage to all minions. Lasts 3 turns. """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_660',controller)
+		self.mark2=self.exchange_card('minionH5',controller)##
+		self.mark3=self.exchange_card('vanillaH3',opponent)##
+		self.mark4=self.exchange_card('minionH6',opponent)##
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		print ("プレイの詳細を確認")
+		print ("「全てのミニオンにターン開始ごとに１ダメ」を3回行うかどうかを☑。")
 	pass
 
 #######################

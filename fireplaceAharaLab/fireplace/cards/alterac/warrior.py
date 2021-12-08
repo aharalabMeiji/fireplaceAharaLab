@@ -73,7 +73,7 @@ class AV_322:
 class AV_323:
 	""" Scrapsmith (3/2/4)
 	Taunt Battlecry: Add two 2/4 Grunts with Taunt to your hand. """
-	play = Give(CONTROLLER, 'AV_323t')
+	play = Give(CONTROLLER, 'AV_323t') * 2
 	pass
 class AV_323t:
 	"""   """
