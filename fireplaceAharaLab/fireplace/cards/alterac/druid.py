@@ -47,11 +47,17 @@ class AV_291_Count(LazyNum):
 
 	def evaluate(self, source):
 		###change this part(What is 'source'?)
-		return self.num(len(self.get_entities(source)))
+		controller = source.controller
+		cardlist = controller.summon_log
+		count = 0
+		for card in cardlist:
+			if hasattr(card, 'race') and card.race==Race.BEAST:
+				count += 1
+		return self.num(count)
 class AV_291: ##################   this game
 	""" Frostsaber Matriarch (7/4/5) beast
 	[Taunt]. Costs (1) less for each Beast you've summoned this game. """
-	cost_mod = -AV_291_Count(CONTROLLER)
+	cost_mod = -AV_291_Count(SELF)
 	pass
 
 class AV_292:#70249

@@ -5,8 +5,8 @@ from .simulate_game import Preset_Play,PresetGame
 def SimulateGames_Alterac_Druid():
 	#PresetGame(pp_AV_205)# Hero
 	#PresetGame(pp_AV_210)#################
-	PresetGame(pp_AV_211)
-	#PresetGame(pp_AV_291)
+	#PresetGame(pp_AV_211)####OK
+	PresetGame(pp_AV_291)
 	#PresetGame(pp_AV_291)
 	#PresetGame(pp_AV_291)
 	#PresetGame(pp_AV_291)
@@ -62,7 +62,7 @@ class pp_AV_211(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller)###stealth
 		self.change_turn(controller)
 		########## opponent
 		self.play_card(self.mark2, opponent)
@@ -73,7 +73,43 @@ class pp_AV_211(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		print ("%s（目視）"%(self.mark1))
+		card=controller.field[-1]
+		print ("%s（目視）(%d/%d) stealth=%s"%(card, card.atk, card.health, card.stealthed))
+	pass
+		
+#########################
+
+class pp_AV_291(Preset_Play):
+	""" Frostsaber Matriarch (7/4/5) beast
+	[Taunt]. Costs (1) less for each Beast you've summoned this game. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_291',controller)
+		self.mark2=self.exchange_card('beast',controller)
+		self.mark3=self.exchange_card('beast',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)###
+		self.play_card(self.mark3, controller)###
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		########## controller
+		#self.attack_card(self.mark1, self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		card=self.mark1
+		print ("%s（目視）cost:%d <- %d "%(card, card.cost, card.data.cost))
 	pass
 		
 #########################
