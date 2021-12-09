@@ -566,6 +566,8 @@ class Play(GameAction):
 			trigger_outcast = False
 
 		card.zone = Zone.PLAY
+		if card.type == CardType.MINION:
+			player.add_summon_log(card)
 
 		# Remember cast on friendly characters
 		if target and target.controller == source:
@@ -574,7 +576,6 @@ class Play(GameAction):
 		# NOTE: A Play is not a summon! But it sure looks like one.
 		# We need to fake a Summon broadcast.
 		summon_action = Summon(player, card)
-
 		if card.type in (CardType.MINION, CardType.WEAPON):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)

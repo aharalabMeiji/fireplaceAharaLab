@@ -53,8 +53,9 @@ class AV_291_Count(LazyNum):
 		for card in cardlist:
 			if hasattr(card, 'race') and card.race==Race.BEAST:
 				count += 1
+		log.info("%s costs %d less "%(source, count))
 		return self.num(count)
-class AV_291: ##################   this game
+class AV_291: #
 	""" Frostsaber Matriarch (7/4/5) beast
 	[Taunt]. Costs (1) less for each Beast you've summoned this game. """
 	cost_mod = -AV_291_Count(SELF)
@@ -64,7 +65,7 @@ class AV_292:#70249
 	""" Heart of the Wild (3)
 	Give a minion +2/+2, then give your Beasts +1/+1."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
-	play = Buff(TARGET, 'ALT_DRU_1e'), Buff(FRIENDLY_MINIONS + BEAST, 'ALT_DRU_1e2')
+	play = Buff(TARGET, 'AV_292e'), Buff(FRIENDLY_MINIONS + BEAST, 'AV_292e2')
 	pass
 AV_292e=buff(2,2)
 AV_292e2=buff(1,1)
