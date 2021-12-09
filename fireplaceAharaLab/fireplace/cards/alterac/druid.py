@@ -77,7 +77,7 @@ class AV_293:
 	pass
 class AV_293e:
 	#tags = {GameTag.HONORABLE_KILL: True}
-	#honorable_kill = Summon(CONTROLLER, 'AV_293t')
+	honorable_kill = Summon(CONTROLLER, 'AV_293t')
 	pass
 class AV_293t:
 	""" Strike Wyvern

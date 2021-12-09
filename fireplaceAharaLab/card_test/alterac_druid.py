@@ -157,3 +157,48 @@ class pp_AV_292(Preset_Play):
 	pass
 		
 #########################
+
+
+class pp_AV_293(Preset_Play):
+	""" Wing Commander Mulverick (4/2/5)
+	[Rush]. Your minions have "Honorable Kill: Summon a 2/2 Wyvern with Rush." """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_293',controller)
+		self.mark2=self.exchange_card('beast',controller)
+		self.mark3=self.exchange_card('beast',controller)
+		self.mark4=self.exchange_card('dragon',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)###
+		self.play_card(self.mark3, controller)###
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark4, controller)###
+		self.play_card(self.mark1, controller,target=self.mark2)###(1,4),(1,2)
+		#self.attack_card(self.mark1, self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		card=self.mark2
+		if self.contains_buff(card,'AV_292e'):
+			print("OK. %s has a buff AV_292e"%(card))
+		card=self.mark2
+		if self.contains_buff(card,'AV_292e2'):
+			print("OK. %s has a buff AV_292e2"%(card))
+		card=self.mark3
+		if self.contains_buff(card,'AV_292e2'):
+			print("OK. %s has a buff AV_292e2"%(card))
+	pass
+		
+#########################
