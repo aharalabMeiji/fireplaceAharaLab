@@ -81,11 +81,29 @@ bigWarrior = [
 	'SW_068','SCH_621',
 	]
 
+bigWarrior2 = [
+	'CORE_EX1_169','SW_023','SCH_237','SCH_237e','CORE_EX1_410',
+	'BT_124','BT_124e','DMF_522','BT_117','SW_094','BT_781',
+	'BAR_845','BAR_844','YOP_005','YOP_005t','CORE_EX1_407',
+	'SW_021','SCH_533','SW_024','SW_024e','SCH_337','SCH_337t',
+	'SW_068','SCH_621',
+	]
+
+classicPaladin =[
+	'CS2_088','EX1_362','EX1_382','EX1_382e','EX1_383','CS2_087',
+	'CS2_089','CS2_092','CS2_093','CS2_094','EX1_349','EX1_354',
+	'EX1_355','EX1_355e','EX1_360','EX1_360e','EX1_363','EX1_363e',
+	'EX1_363e2','EX1_365','EX1_371','EX1_384','EX1_619','EX1_619e',
+	'EX1_130','EX1_132','EX1_136','EX1_379','EX1_379e','CS2_097',
+	'EX1_366','EX1_366e','CORE_AT_075','CORE_CS2_088','CORE_CS2_089',
+	'CORE_CS2_092','CORE_CS2_093','CORE_CS2_097'
+	]
+
 clownDruid = [
 	'CORE_EX1_169','SCH_427','SCH_333','SCH_333e','DMF_075','CORE_CS2_013',
 	'CS2_013t','BT_130','BAR_535','SCH_616','SCH_610','BAR_042','SCH_609',
 	'SCH_609e'
-]
+	]
 All=[Core_Hunter, Core_Neutral, Core_Mage, 
 	AOO_Neutral,AOO_Hunter,AOO_Mage,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,
@@ -93,5 +111,5 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,
 	Crossborder,Legacy,HeroSkins,TGT,Expert1,Etc,
-	faceHunter,bigWarrior,clownDruid
+	faceHunter,bigWarrior,clownDruid,bigWarrior2,classicPaladin
 	]

@@ -41,7 +41,7 @@ def main():
 	#printClasses()
 	#printListOfCards()
 	#manual input(if you don't specify a class, it will be a hunter)
-	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
+	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.WARRIOR,
 		choiceStrategy=HumanAgent.HumanInputChoice)
 		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.HUNTER)
@@ -84,11 +84,14 @@ def main():
 	#from agent_HunterCat import HunterCatAgent
 	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
 
+	from agent_shimada import ShimadaAgent
+	Shimada=ShimadaAgent("Shimada", ShimadaAgent.ShimadaAI, mulliganStrategy=ShimadaAgent.ShimadaMulligan)
+
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	from utils import BigDeck#faceHunter,clownDruid,bigWarrior
-	a,b,c = play_set_of_games(Human1, Vector2, deck1=BigDeck.clownDruid, deck2=[], gameNumber=15, debugLog=True)
+	a,b,c = play_set_of_games(Human1, Shimada, deck1=BigDeck.classicPaladin, deck2=BigDeck.bigWarrior2, gameNumber=15, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[], gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
 
@@ -108,5 +111,4 @@ def main():
 	pass
 if __name__ == "__main__":
 	main()
-
 
