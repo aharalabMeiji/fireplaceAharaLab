@@ -206,7 +206,9 @@ class Preset_Play:
 			if card.id==cardID:
 				return True
 		return False
-
+	def activate_heropower(self, player):
+		Activate(player.hero.power).trigger(player)
+		pass
 
 
 def PresetGame(pp, testNr=1):

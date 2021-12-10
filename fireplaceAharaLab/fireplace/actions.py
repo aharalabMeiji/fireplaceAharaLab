@@ -1222,6 +1222,10 @@ class Hit(TargetedAction):
 					target.honorably_killed = True
 					actions = source.get_actions("honorable_kill")
 					source.game.trigger(source, actions,event_args=None)
+					for buff in source.buffs:
+						if hasattr(buff, 'honorable_kill'):
+							actions = buff.get_actions('honorable_kill')
+							source.game.trigger(source, actions, event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 

@@ -3,18 +3,58 @@ from .simulate_game import Preset_Play,PresetGame
 #Alteric_Druid=['AV_205','AV_210','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]
 
 def SimulateGames_Alterac_Druid():
-	#PresetGame(pp_AV_205)# Hero
+	#PresetGame(pp_AV_205)# Hero ####OK
 	#PresetGame(pp_AV_210)#################
 	#PresetGame(pp_AV_211)####OK
 	#PresetGame(pp_AV_291)####OK
 	#PresetGame(pp_AV_292)####OK
-	PresetGame(pp_AV_293)
-	#PresetGame(pp_AV_294)
+	#PresetGame(pp_AV_293)####OK
+	PresetGame(pp_AV_294)
 	#PresetGame(pp_AV_295)
 	#PresetGame(pp_AV_296)
 	#PresetGame(pp_AV_360)
 	pass
 
+#########################
+
+class pp_AV_205(Preset_Play):
+	""" Wildheart Guff ( 5/*/5) Hero
+	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_205',controller)
+		self.mark2=self.exchange_card('weapon',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.activate_heropower(controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print ("New hero = %s"%(self.mark1))
+		print ("Hero health = %s"%(controller.hero.health))
+		print ("Weapon = %s"%(controller.weapon))
+		print ("Mana = %d/%d"%(controller.mana, controller.max_mana))
+		print ("Armor = %s"%(controller.hero.armor))
+		print ("Atk = %s"%(controller.hero.atk))
+		print ("HeroPower = %s"%(controller.hero.power))
+		print ("Cost HeroPower = %s"%(controller.hero.power.cost))
+	pass
+		
 #########################
 
 class pp_AV_210(Preset_Play):
@@ -166,9 +206,8 @@ class pp_AV_293(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_293',controller)
-		self.mark2=self.exchange_card('beast',controller)
-		self.mark3=self.exchange_card('beast',controller)
-		self.mark4=self.exchange_card('dragon',controller)
+		self.mark2=self.exchange_card('vanillaA3',controller)
+		self.mark3=self.exchange_card('vanillaH3',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -178,27 +217,21 @@ class pp_AV_293(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark2, controller)###
-		self.play_card(self.mark3, controller)###
 		self.change_turn(controller)
 		########## opponent
+		self.play_card(self.mark3, controller)###
 		self.change_turn(opponent)
 		########## controller
-		self.play_card(self.mark4, controller)###
-		self.play_card(self.mark1, controller,target=self.mark2)###(1,4),(1,2)
+		self.play_card(self.mark1, controller)###
+		self.attack_card(self.mark2, self.mark3, controller)#
 		#self.attack_card(self.mark1, self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		card=self.mark2
-		if self.contains_buff(card,'AV_292e'):
-			print("OK. %s has a buff AV_292e"%(card))
-		card=self.mark2
-		if self.contains_buff(card,'AV_292e2'):
-			print("OK. %s has a buff AV_292e2"%(card))
-		card=self.mark3
-		if self.contains_buff(card,'AV_292e2'):
-			print("OK. %s has a buff AV_292e2"%(card))
+		print("%s honorablly killed %s. 目視"%(self.mark2, self.mark3))
+		for card in controller.field:
+			print("field: %s(%s). "%(card, card.id))
 	pass
 		
 #########################

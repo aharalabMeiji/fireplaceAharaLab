@@ -8,11 +8,29 @@ class AV_205:#################
 	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
 	def play(self):
 		controller = self.controller
+		GainArmor(self, self.armor)
 		difference = 20 - controller.max_mana
 		controller.max_resources = 20
-		controller.max_mana += difference
+		controller.max_mana = 20
 		controller.used_mana += (difference-1)
 		Draw(controller).trigger(controller)
+		controller.summon('AV_205p')## Hero power
+	pass
+class AV_205a:
+	""" Ice Blossom
+	Gain a Mana Crystal."""
+	play = GainMana(CONTROLLER, 1)
+	pass
+class AV_205p:
+	""" Nurture (hero power)
+	&lt;b&gt;Hero Power&lt;/b&gt;&lt;b&gt;Choose One -&lt;/b&gt; Draw a card;or Gain a Mana Crystal."""
+	choose=('AV_205a', 'AV_205pb')
+	play = ChooseBoth(CONTROLLER) & (GainMana(CONTROLLER, 1), Draw(CONTROLLER))
+	pass
+class AV_205pb:
+	""" Valley Root
+	Draw a card."""
+	play = Draw(CONTROLLER)
 	pass
 
 class AV_210:###########################
@@ -76,7 +94,7 @@ class AV_293:
 	play = Buff(FRIENDLY_MINIONS, 'AV_293e')
 	pass
 class AV_293e:
-	#tags = {GameTag.HONORABLE_KILL: True}
+	#tags = {GameTag.HONORABLEKILL: True} #exists
 	honorable_kill = Summon(CONTROLLER, 'AV_293t')
 	pass
 class AV_293t:
