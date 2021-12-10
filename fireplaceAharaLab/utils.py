@@ -376,13 +376,6 @@ class BigDeck:
 		'SW_024','SCH_337','SCH_337','SW_068','SW_068','SCH_621',
 		]
 
-	bigWarrior2 = ['SW_023','SCH_237','SCH_237','CORE_EX1_410','CORE_EX1_410','BT_124',
-		'DMF_522','DMF_522','BT_117','BT_117','SW_094','SW_094',
-		'BT_781','BAR_845','BAR_845','BAR_844','YOP_005','YOP_005',
-		'CORE_EX1_407','CORE_EX1_407','SW_021','SW_021','SCH_533','SCH_533',
-		'SW_024','SCH_337','SCH_337','SW_068','SW_068','SCH_621',
-		]
-
 	clownDruid = ['CORE_EX1_169','CORE_EX1_169','SCH_427','SCH_427','SCH_311','SCH_311',
 		'SCH_333','SCH_333','DMF_075','DMF_075','CORE_CS2_013','CORE_CS2_013',
 		'BT_130','BT_130','BAR_535','SCH_605','SCH_605','SCH_616',
@@ -399,6 +392,10 @@ class BigDeck:
 		'EX1_366','CORE_AT_075','CORE_CS2_088','CORE_CS2_089',
 		'CORE_CS2_092','CORE_CS2_093','CORE_CS2_097'
 		]
+
+	testPaladin =[
+		'CORE_AT_075','CORE_AT_075e'
+		] * 30
 
 
 def postAction(player):

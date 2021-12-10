@@ -4,7 +4,9 @@ class CORE_AT_075:# <5>[1637]
     """ Warhorse Trainer
     Your Silver Hand Recruits have +1 Attack. """
     #
+    update = BuffOnce(FRIENDLY_MINIONS + "CS2_101t" - SELF, "CORE_AT_075e")
     pass
+CORE_AT_075e = buff(1,0)
 
 class CORE_CS2_088:# <5>[1637]
     """ Guardian of Kings

@@ -4,12 +4,13 @@ class SW_046:
     """ City Tax
     [Tradeable][Lifesteal]. Deal $1 damageto all enemy minions. """
     #
-    pass
+    play = Hit(ENEMY_MINIONS , 1)
 
 class SW_047:
     """ Highlord Fordragon
     [Divine Shield]After a friendly minion loses[Divine Shield], give a minion__in your hand +5/+5. """
     #
+
     pass
 
 class SW_048:
