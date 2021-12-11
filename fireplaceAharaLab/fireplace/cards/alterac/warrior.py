@@ -43,12 +43,12 @@ class AV_202:
 	""" Rokara, the Valorous (7/*/5) hero
 	Battlecry: Equip a 5/2 Unstoppable Force. """
 	play = (
+		Summon(CONTROLLER, 'AV_202p'),
 		Summon(CONTROLLER, 'AV_202t2'),
-		#ChangeHero(SELF)
 		)
 	pass
 class AV_202p:
-	"""  Grand Slam """
+	"""  Grand Slam (Hero power)"""
 	pass
 class AV_202t2: 
 	""" The Unstoppable Force  """

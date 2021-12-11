@@ -3,7 +3,7 @@ from ..utils import *
 
 #Alteric_Druid=['AV_205','AV_210','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]
 
-class AV_205:#################
+class AV_205:##
 	""" Wildheart Guff ( 5/*/5) Hero
 	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
 	def play(self):
@@ -105,7 +105,7 @@ class AV_293t:
 class AV_294:
 	""" Clawfury Adept (2/2/3) beast
 	[Battlecry]: Give all other friendly characters +1 Attack this turn. """
-	play = Buff(FRIENDLY_CHARACTERS, 'AV_294e')
+	play = Buff(FRIENDLY_CHARACTERS - SELF, 'AV_294e')
 	pass
 class AV_294e:
 	atk = lambda self, i: i+1
@@ -122,7 +122,7 @@ class DrawLowestCost(TargetedAction):
 				lowest = [card]
 			elif lowest[0].cost > card.cost:
 				lowest = [card]
-			elif lewest[0].cost == card.cost:
+			elif lowest[0].cost == card.cost:
 				lowest.append(card)
 		card = random.choice(lowest)
 		controller.game.trigger(controller, [Give(controller,card)],event_args=None)
@@ -132,15 +132,15 @@ class DrawHighestCost(TargetedAction):
 	def do(self,source, target):
 		controller = target
 		deck = controller.deck
-		lowest = None
+		highest = None
 		for card in deck:
-			if lowest == None:
-				lowest = [card]
-			elif lowest[0].cost < card.cost:
-				lowest = [card]
-			elif lewest[0].cost == card.cost:
-				lowest.append(card)
-		card = random.choice(lowest)
+			if highest == None:
+				highest = [card]
+			elif highest[0].cost < card.cost:
+				highest = [card]
+			elif highest[0].cost == card.cost:
+				highest.append(card)
+		card = random.choice(highest)
 		controller.game.trigger(controller, [Give(controller,card)],event_args=None)
 	pass
 class AV_295:
@@ -153,7 +153,7 @@ class AV_295a: ## More Supplies
 	play = DrawLowestCost(CONTROLLER)
 	pass
 class AV_295b: ## More Resources
-	play = DrawLowestCost(CONTROLLER)
+	play = DrawHighestCost(CONTROLLER)
 	pass
 
 class AV_296:
@@ -162,8 +162,8 @@ class AV_296:
 	play = Buff(CONTROLLER, 'AV_296e')
 	pass
 class AV_296e:
-	update = Refresh(FRIENDLY_HAND + CHOOSE_ONE, "AV_296e2")
-	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).then(Destroy(SELF))
+	update = Refresh(FRIENDLY_HAND + CHOOSE_ONE, buff= "AV_296e2")
+	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).on(Destroy(SELF))
 AV_296e2=buff(cost=-2)
 
 class AV_360:#

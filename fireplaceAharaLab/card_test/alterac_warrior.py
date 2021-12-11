@@ -9,7 +9,7 @@ def SimulateGames_Alterac_Warrior():
 	#PresetGame(pp_AV_109)####OK
 	#PresetGame(pp_AV_119)####OK
 	#PresetGame(pp_AV_145)####OK
-	#PresetGame(pp_AV_202)###################
+	#PresetGame(pp_AV_202)####OK
 	#PresetGame(pp_AV_321)####OK
 	#PresetGame(pp_AV_322)####OK
 	#PresetGame(pp_AV_323)####OK
@@ -153,6 +153,35 @@ class pp_AV_145(Preset_Play):
 	pass
 
 ######################
+
+class pp_AV_202(Preset_Play):
+	""" Rokara, the Valorous (7/*/5) hero
+	Battlecry: Equip a 5/2 Unstoppable Force. """
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_202',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+
+		pass
+	pass
+
 #######################
 
 class pp_AV_321(Preset_Play):

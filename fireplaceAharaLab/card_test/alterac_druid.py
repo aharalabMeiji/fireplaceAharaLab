@@ -9,10 +9,10 @@ def SimulateGames_Alterac_Druid():
 	#PresetGame(pp_AV_291)####OK
 	#PresetGame(pp_AV_292)####OK
 	#PresetGame(pp_AV_293)####OK
-	PresetGame(pp_AV_294)
-	#PresetGame(pp_AV_295)
-	#PresetGame(pp_AV_296)
-	#PresetGame(pp_AV_360)
+	#PresetGame(pp_AV_294)####OK
+	#PresetGame(pp_AV_295)####OK
+	#PresetGame(pp_AV_296)####OK
+	#PresetGame(pp_AV_360)####OK
 	pass
 
 #########################
@@ -235,3 +235,150 @@ class pp_AV_293(Preset_Play):
 	pass
 		
 #########################
+
+class pp_AV_294(Preset_Play):
+	""" Clawfury Adept (2/2/3) beast
+	[Battlecry]: Give all other friendly characters +1 Attack this turn. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_294',controller)
+		self.mark2=self.exchange_card('vanilla',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)###
+		self.play_card(self.mark1, controller)###
+		hero = controller.hero
+		card1 = self.mark1
+		card2 = self.mark2
+		print ("Hero: (%d/%d)<-(%d/%d)"%(hero.atk,hero.health, hero.data.atk, hero.data.health))
+		print ("card1: (%d/%d)<-(%d/%d)"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print ("card2: (%d/%d)<-(%d/%d)"%(card2.atk, card2.health, card2.data.atk, card2.data.health))
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		print ("Hero: (%d/%d)<-(%d/%d)"%(hero.atk,hero.health, hero.data.atk, hero.data.health))
+		print ("card1: (%d/%d)<-(%d/%d)"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print ("card2: (%d/%d)<-(%d/%d)"%(card2.atk, card2.health, card2.data.atk, card2.data.health))
+		#self.attack_card(self.mark1, self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+	pass
+		
+#########################
+
+class pp_AV_295(Preset_Play):
+	""" Capture Coldtooth Mine (2)
+	[Choose One] - Draw your lowest Cost card; or Draw your highest Cost card. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_295',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])###
+		self.change_turn(controller)
+		########## opponent
+		#self.change_turn(opponent)
+		#self.attack_card(self.mark1, self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+	pass
+		
+#########################
+
+class pp_AV_296(Preset_Play):
+	""" Pride Seeker (3/2/4)
+	[Battlecry]: Your next [Choose One] card costs (2) less."""
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_296',controller)
+		self.mark2=self.exchange_card('chooseone',controller)
+		self.mark3=self.exchange_card('chooseone',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)###
+		print ("cost of card2(%s) = %d <- %d"%(self.mark2, self.mark2.cost, self.mark2.data.cost))
+		print ("cost of card3(%s) = %d <- %d"%(self.mark3, self.mark3.cost, self.mark3.data.cost))
+		self.play_card(self.mark2, controller, choose=self.mark2.choose_cards[0])###
+		print ("cost of card2(%s) = %d <- %d"%(self.mark2, self.mark2.cost, self.mark2.data.cost))
+		print ("cost of card3(%s) = %d <- %d"%(self.mark3, self.mark3.cost, self.mark3.data.cost))
+		self.change_turn(controller)
+		########## opponent
+		#self.change_turn(opponent)
+		#self.attack_card(self.mark1, self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+	pass
+		
+#########################
+
+class pp_AV_360(Preset_Play):
+	""" Frostwolf Kennels (3) Lasts
+	At the end of your turn, summon a 2/2 Wolf with Stealth. Lasts 3 turns. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_360',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)###
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.field:
+			print("field: %s(%s). "%(card, card.id))
+	pass
+		
+#########################
+

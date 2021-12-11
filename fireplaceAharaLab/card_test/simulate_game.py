@@ -107,6 +107,8 @@ class Preset_Play:
 						'BAR_743','BAR_745','BAR_030','BAR_031','BAR_034t3','BAR_034t4','BAR_034t5','BAR_035t','BAR_533t','BAR_535','BAR_538','BAR_538t','WC_036',\
 						'WC_036t1','WC_026','SW_072','SW_075','SW_306','SW_323','SW_455t','SW_458t','SW_463','SW_463t','SW_428t4','SW_429t','SW_431','SW_432t',\
 						'SW_436','SW_439','SW_439t2','DED_008','DED_515','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DRG_252',])
+		if _card=='chooseone':
+			_card=random.choice(['CORE_EX1_178','CORE_EX1_165','CORE_EX1_573','CORE_EX1_160','CORE_OG_047','CORE_EX1_164','DMF_061',])
 		if _card=='corrupt':
 			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
 		if _card=='deathrattle':
@@ -185,11 +187,13 @@ class Preset_Play:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
 		pass
-	def play_card(self, card,  player, target = None):
+	def play_card(self, card,  player, target = None, choose = None):
 		if isinstance(card,PlayableCard):
 			if target!=None and not target in card.targets:
 				target=None
-			Play(card, target, None, None).trigger(player)
+			if choose != None and not choose in card.choose_cards:
+				choose = None
+			Play(card, target, None, choose).trigger(player)
 		pass
 	def attack_card(self, card,  target, player):
 		if isinstance(card,PlayableCard) and isinstance(target, PlayableCard):
@@ -408,12 +412,12 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
-from .alterac_druid import SimulateGames_Alterac_Druid
+from .alterac_warrior import SimulateGames_Alterac_Warrior
 def SimulateGames():
 	#PresetGame(pp_DED_006,1)
 	#PresetGame(pp_DED_521,1)
 	#PresetGame(pp_DED_523,2)
 	#PresetGame(pp_DED_524,3)
-	SimulateGames_Alterac_Druid()
+	SimulateGames_Alterac_Warrior()
 
 	pass
