@@ -1,25 +1,8 @@
 from ..utils import *
 
+#Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
 
-class ALT_MAG_1_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		cardlist = []
-		for card in target.deck:
-			if card.cost >6:
-				cardlist.append(card)
-		card = random.choice(cardlist)
-		target.game.trigger(target, [Give(target, card)], event_args=None)
-		pass
-	pass
-class ALT_MAG_1:
-	""" Arcane Brilliance (4) Arcane
-	Add a copy of a 7, 8, 9, and 10-Cost spell in your deck to your hand.
-	"""
-	play = ALT_MAG_1_Action(CONTROLLER)
-	pass
-
-class ALT_MAG_2_Action(TargetedAction):
+class AV_114_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		highestcost=[]
@@ -31,57 +14,49 @@ class ALT_MAG_2_Action(TargetedAction):
 			elif highestcost[0].cost == card.cost:
 				highestcost.append(card)
 		for card in highestcost:
-			target.game.trigger(target, [Buff(card, 'ALT_MAG_2e')], event_args=None)
+			target.game.trigger(target, [Buff(card, 'AV_114e')], event_args=None)
 		pass
 	pass
-class ALT_MAG_2:
+class AV_114:
 	""" Shivering Sorceress (1/2/2)
 	Battlecry: Reduce the Cost of the highest Cost spell in your hand by (1).
 	"""
-	play = ALT_MAG_2_Action(CONTROLLER)
+	play = AV_114_Action(CONTROLLER)
 	pass
-ALT_MAG_2e=buff(cost=-1)
+AV_114e=buff(cost=-1)
 
-class ALT_MAG_3:
+class AV_115:
 	""" Amplified Snowflurry (2/2/3)
 	Battlecry: Your next Hero Power costs (0) and Freezes the target.
 	"""
-	play = Buff(FRIENDLY_HERO_POWER, 'ALT_MAG_3e')
+	play = Buff(FRIENDLY_HERO_POWER, 'AV_115e')
 	pass
-class ALT_MAG_3e:
+class AV_115e:
 	cost = lambda self, i:0
 	events = Activate(CONTROLLER, HERO_POWER).on(
 		Freeze(Activate.TARGET),
 		Destroy(SELF)
 		)
 
-class ALT_MAG_4_Action(TargetedAction):#
-	TARGET = ActionArg()
+class AV_116_Action(TargetedAction):
+	TARGET=ActionArg()
 	def do(self, source, target):
-		controller = target
-		count = 0
-		while True:	
-			card = RandomSpell(card_class=CardClass.MAGE).evaluate(source)
-			if card.cost + count <= 20:
-				count += card.cost
-				target = None
-				if card.requires_target():
-					target = random.choice(controller.opponent.characters)
-				controller.game.trigger(controller, [Play(card,target,None,None)],event_args=None)
-			else:
-				break
-			pass
+		cardlist = []
+		for card in target.deck:
+			if card.cost >6:
+				cardlist.append(card)
+		card = random.choice(cardlist)
+		target.game.trigger(target, [Give(target, card)], event_args=None)
 		pass
 	pass
-
-class ALT_MAG_4:
-	""" Rune of the Archmage (9)
-	Cast 20 Mana worth of Mage spells at enemies.
+class AV_116:
+	""" Arcane Brilliance (4) Arcane
+	Add a copy of a 7, 8, 9, and 10-Cost spell in your deck to your hand.
 	"""
-	play = ALT_MAG_4_Action(CONTROLLER)
+	play = AV_116_Action(CONTROLLER)
 	pass
 
-class ALT_MAG_5:
+class AV_200:
 	""" Magister Dawngrasp (8/*/5) Hero
 	Battlecry: Recast a spell from each spell school you've cast this game.
 	"""
@@ -99,25 +74,88 @@ class ALT_MAG_5:
 		#ChangeHero(self).trigger(controller)
 	pass
 
-class ALT_MAG_6:
+class AV_212:
+	""" Siphon Mana (2) Arcane
+	Deal 2 damage. Honorable Kill: Reduce the Cost of spells in your hand by (1).
+	"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0  }
+	play = Hit(TARGET, 2)
+	honorable_kill = Buff(FRIENDLY_HAND, 'AV_212e')
+	pass
+AV_212e=buff(cost=-1)
+
+class AV_218:
 	""" Mass Polymorph (7) Arcane
 	Transform all minions into 1/1 Sheep."""
-	play = Morph(ALL_MINIONS, 'ALT_MAG_6t')
+	play = Morph(ALL_MINIONS, 'AV_218t')
 	pass
-class ALT_MAG_6t:
+class AV_218t:
 	"""  sheep """
 	pass
 
-class ALT_MAG_7:
-	""" Iceblood Tower (10)
-	At the end of your turn, cast another spell from your deck. Lasts 3 turns.	"""
-	events=[
-		OWN_TURN_END,on(Play(RANDOM(FRIENDLY_DECK + SPELL))),
-		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER, 3, [Destroy(SELF)])),
-		]
+class AV_282:
+	""" Build a Snowman (3) Frost
+	Summon a 3/3 Snowman that Freezes.  Add 'Build a Snowbrute' to your hand.
+	"""
+	play = Summon(CONTROLLER, 'AV_282t'), Give(CONTROLLER, 'AV_282t2')
+	pass
+class AV_282t:
+	""" Snowman (3/3/3) Elemental
+	Freeze any character damaged by this minion
+	"""
+	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
+	pass
+class AV_282t2:
+	""" Build a Snowbrute (6) Frost
+	Summon a 6/6 Snowbrute that Freezes.  Add 'Build a Snowgre' to your hand.
+	play = Summon(CONTROLLER, 'ALT_MAG_9t3'), Give(CONTROLLER, 'ALT_MAG_9t4')
+	"""
+	pass
+class AV_282t3:
+	""" Snowbrute (6/6/6) Elemental
+	Freeze any character damaged by this minion.
+	"""
+	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
+	pass
+class AV_282t4:
+	""" Build a Snowgre (9) Frost
+	Summon a 9/9 Sbiwgre tgat Freezes.
+	"""
+	play = Summon(CONTROLLER, 'ALT_MAG_9t5')
+	pass
+class AV_282t5:
+	""" Snowgre (9/9/9) Elemental
+	Freeze any character damaged by this minion.
+	"""
+	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
 	pass
 
-class ALT_MAG_8:
+class AV_283_Action(TargetedAction):#
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		count = 0
+		while True:	
+			card = RandomSpell(card_class=CardClass.MAGE).evaluate(source)
+			if card.cost + count <= 20:
+				count += card.cost
+				target = None
+				if card.requires_target():
+					target = random.choice(controller.opponent.characters)
+				controller.game.trigger(controller, [Play(card,target,None,None)],event_args=None)
+			else:
+				break
+			pass
+		pass
+	pass
+class AV_283:
+	""" Rune of the Archmage (9)
+	Cast 20 Mana worth of Mage spells at enemies.
+	"""
+	play = AV_283_Action(CONTROLLER)
+	pass
+
+class AV_284:
 	""" Balinda Stonehearth (6/5/5)
 	Battlecry: Draw 2 spells. Swap their Costs with this minion's stats."""
 	def play(self):
@@ -136,49 +174,12 @@ class ALT_MAG_8:
 		pass
 	pass
 
-class ALT_MAG_9t:
-	""" Build a Snowman (3) Frost
-	Summon a 3/3 Snowman that Freezes.  Add 'Build a Snowbrute' to your hand.
-	"""
-	play = Summon(CONTROLLER, 'ALT_MAG_9t'), Give(CONTROLLER, 'ALT_MAG_9t2')
-	pass
-class ALT_MAG_9t:
-	""" Snowman (3/3/3) Elemental
-	Freeze any character damaged by this minion
-	"""
-	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
-	pass
-class ALT_MAG_9t2:
-	""" Build a Snowbrute (6) Frost
-	Summon a 6/6 Snowbrute that Freezes.  Add 'Build a Snowgre' to your hand.
-	play = Summon(CONTROLLER, 'ALT_MAG_9t3'), Give(CONTROLLER, 'ALT_MAG_9t4')
-	"""
-	pass
-class ALT_MAG_9t3:
-	""" Snowbrute (6/6/6) Elemental
-	Freeze any character damaged by this minion.
-	"""
-	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
-	pass
-class ALT_MAG_9t4:
-	""" Build a Snowgre (9) Frost
-	Summon a 9/9 Sbiwgre tgat Freezes.
-	"""
-	play = Summon(CONTROLLER, 'ALT_MAG_9t5')
-	pass
-class ALT_MAG_9t5:
-	""" Snowgre (9/9/9) Elemental
-	Freeze any character damaged by this minion.
-	"""
-	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
+class AV_290:
+	""" Iceblood Tower (10)
+	At the end of your turn, cast another spell from your deck. Lasts 3 turns.	"""
+	events=[
+		OWN_TURN_END,on(Play(RANDOM(FRIENDLY_DECK + SPELL))),
+		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER, 3, [Destroy(SELF)])),
+		]
 	pass
 
-class ALT_MAG_10:
-	""" Siphon Mana (2) Arcane
-	Deal 2 damage. Honorable Kill: Reduce the Cost of spells in your hand by (1).
-	"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0  }
-	play = Hit(TARGET, 2)
-	honorable_kill = Buff(FRIENDLY_HAND, 'ALT_MAG_10e')
-	pass
-ALT_MAG_10e=buff(cost=-1)
