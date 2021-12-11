@@ -1,13 +1,13 @@
 from ..utils import *
 
-#Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
+#Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
 
 class AV_114_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		highestcost=[]
 		for card in target.hand:
-			if len(hightestcost)==0:
+			if len(highestcost)==0:
 				highestcost = [card]
 			elif highestcost[0].cost < card.cost:
 				highestcost = [card]
@@ -29,9 +29,9 @@ class AV_115:
 	""" Amplified Snowflurry (2/2/3)
 	Battlecry: Your next Hero Power costs (0) and Freezes the target.
 	"""
-	play = Buff(FRIENDLY_HERO_POWER, 'AV_115e')
+	play = Buff(FRIENDLY_HERO_POWER, 'AV_115e5')
 	pass
-class AV_115e:
+class AV_115e5:
 	cost = lambda self, i:0
 	events = Activate(CONTROLLER, HERO_POWER).on(
 		Freeze(Activate.TARGET),
@@ -178,7 +178,7 @@ class AV_290:
 	""" Iceblood Tower (10)
 	At the end of your turn, cast another spell from your deck. Lasts 3 turns.	"""
 	events=[
-		OWN_TURN_END,on(Play(RANDOM(FRIENDLY_DECK + SPELL))),
+		OWN_TURN_END.on(Play(RANDOM(FRIENDLY_DECK + SPELL))),
 		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER, 3, [Destroy(SELF)])),
 		]
 	pass
