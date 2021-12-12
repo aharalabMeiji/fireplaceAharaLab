@@ -83,8 +83,9 @@ bigWarrior = [
 	]
 
 testPaladin =[
-	'CORE_AT_075','CORE_AT_075e'
+	'CORE_AT_075','CORE_CS2_088','CORE_CS2_089','CORE_CS2_092','CORE_CS2_093','CORE_CS2_097'
 	]
+
 clownDruid = [
 	'CORE_EX1_169','SCH_427','SCH_333','SCH_333e','DMF_075','CORE_CS2_013',
 	'CS2_013t','BT_130','BAR_535','SCH_616','SCH_610','BAR_042','SCH_609',

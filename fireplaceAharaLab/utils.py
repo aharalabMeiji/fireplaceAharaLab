@@ -394,7 +394,7 @@ class BigDeck:
 		]
 
 	testPaladin =[
-		'CORE_AT_075','CORE_AT_075e'
+		'CORE_CS2_097'
 		] * 30
 
 

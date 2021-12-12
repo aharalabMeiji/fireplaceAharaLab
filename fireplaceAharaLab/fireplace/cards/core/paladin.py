@@ -3,39 +3,43 @@ from ..utils import *
 class CORE_AT_075:# <5>[1637]
     """ Warhorse Trainer
     Your Silver Hand Recruits have +1 Attack. """
-    #
-    update = BuffOnce(FRIENDLY_MINIONS + "CS2_101t" - SELF, "CORE_AT_075e")
+    #update = BuffOnce(FRIENDLY_MINIONS("CS2_152"?), buff(1,0)←ここがよくわからない)
+  
     pass
-CORE_AT_075e = buff(1,0)
 
-class CORE_CS2_088:# <5>[1637]
+
+class CORE_CS2_088:# <5>[1637]#OK
     """ Guardian of Kings
     [Taunt][Battlecry:] Restore #6 Health to your hero. """
     #
+    play = Heal(FRIENDLY_HERO, 6)
     pass
 
-class CORE_CS2_089:# <5>[1637]
+class CORE_CS2_089:# <5>[1637]#OK
     """ Holy Light
     Restore #8 Health to your hero. """
     #
+    play = Heal(FRIENDLY_HERO, 8)
     pass
 
 class CORE_CS2_092:# <5>[1637]
     """ Blessing of Kings
     Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i> """
-    #
+    #これもエンチャントカードがないためわからず
     pass
 
-class CORE_CS2_093:# <5>[1637]
+class CORE_CS2_093:# <5>[1637]#OK
     """ Consecration
     Deal $2 damage to all enemies. """
     #
+    play = Hit(ENEMY_CHARACTERS, 2)
     pass
 
-class CORE_CS2_097:# <5>[1637]
+class CORE_CS2_097:# <5>[1637]#OK
     """ Truesilver Champion
     Whenever your hero attacks, restore #2_Health to it. """
     #
+    events = Attack(FRIENDLY_HERO, ENEMY_CHARACTERS).on(Heal(FRIENDLY_HERO,2))
     pass
 
 class CORE_EX1_130:# <5>[1637]
