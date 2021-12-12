@@ -29,14 +29,11 @@ class AV_115:
 	""" Amplified Snowflurry (2/2/3)
 	Battlecry: Your next Hero Power costs (0) and Freezes the target.
 	"""
-	play = Buff(FRIENDLY_HERO_POWER, 'AV_115e5')
+	play = Buff(CONTROLLER, 'AV_115e5')
 	pass
 class AV_115e5:
-	cost = lambda self, i:0
-	events = Activate(CONTROLLER, HERO_POWER).on(
-		Freeze(Activate.TARGET),
-		Destroy(SELF)
-		)
+	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST:SET(0)})
+	events = Activate(CONTROLLER, HERO_POWER).on(Freeze(Activate.TARGET), Destroy(SELF))
 
 class AV_116_Action(TargetedAction):
 	TARGET=ActionArg()

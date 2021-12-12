@@ -40,7 +40,7 @@ class pp_AV_205(Preset_Play):
 		#self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		########## controller
-		self.activate_heropower(controller)
+		self.activate_heropower(controller, None)
 		pass
 	def result_inspection(self):
 		super().result_inspection()

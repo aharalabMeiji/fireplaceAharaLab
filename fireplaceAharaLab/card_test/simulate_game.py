@@ -210,8 +210,8 @@ class Preset_Play:
 			if card.id==cardID:
 				return True
 		return False
-	def activate_heropower(self, player):
-		Activate(player.hero.power).trigger(player)
+	def activate_heropower(self, player, target=None):
+		player.hero.power.use(target=target)
 		pass
 
 
@@ -219,8 +219,8 @@ def PresetGame(pp, testNr=1):
 	from fireplace import cards
 	cards.db.initialize()
 	for test in range(testNr):
-		class1=CardClass.WARRIOR
-		class2=CardClass.WARRIOR
+		class1=CardClass.MAGE
+		class2=CardClass.MAGE
 		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
 		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
 		deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
