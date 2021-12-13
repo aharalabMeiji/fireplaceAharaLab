@@ -168,7 +168,8 @@ class pp_AV_200(Preset_Play):
 			print("Armor : %d "%(hero.armor))
 			print("HeroPower : %s cost %d "%(hero.power, hero.power.cost))
 		else:
-			print("%s health %d -> %d"%(self.mark4, self.mark4.data.health, self.mark4.health))
+			print("Zone of %s is %s"%(self.mark4, self.mark4.zone))
+			print("Hero's script_data_num_1 is %d"%(controller.hero.power.script_data_num_1))
 	pass
 		
 #########################

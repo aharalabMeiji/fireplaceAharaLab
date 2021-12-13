@@ -75,7 +75,7 @@ class AV_200p2:
 	[x]&lt;b&gt;Hero Power&lt;/b&gt; Deal $@ damage. 
 	&lt;b&gt;Honorable Kill:&lt;/b&gt; Gain +2 damage."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
-	activate = HitScriptDataNum1(TARGET)
+	activate = HitScriptDataNum1(SELF, TARGET)
 	honorable_kill = AddScriptDataNum1(SELF, 2)
 	pass
 
@@ -164,13 +164,13 @@ class AV_284:
 	""" Balinda Stonehearth (6/5/5)
 	Battlecry: Draw 2 spells. Swap their Costs with this minion's stats."""
 	def play(self):
-		card1=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL))
+		card1=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self.controller)
 		card1cost=5
 		if card1!=[]:
 			card1cost = card1[0][0].cost
 			card1[0][0].cost = self.atk
 			self.atk=card1cost
-		card2=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL))
+		card2=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self.controller)
 		card2cost=5
 		if card2!=[]:
 			card2cost = card2[0][0].cost
