@@ -61,14 +61,22 @@ class AV_200:
 		for school in [SpellSchool.ARCANE, SpellSchool.NATURE, SpellSchool.FEL, SpellSchool.FIRE, SpellSchool.FROST, SpellSchool.HOLY, SpellSchool.SHADOW]:
 			cards = []
 			for log in self.controller.play_log:
-				if log.CardType==CardType.SPELL and log.spell_school==school:
+				if log.type==CardType.SPELL and log.spell_school==school:
 					cards.append(log)
-			if log != []:
+			if cards != []:
 				card = random.choice(cards)
-				Summon(CONTROLLER, card.id)
+				CastSpell(card).trigger(self.controller)
 			pass
 		pass
 		#ChangeHero(self).trigger(controller)
+	pass
+class AV_200p2:
+	""" >Arcane Burst (Hero power)
+	[x]&lt;b&gt;Hero Power&lt;/b&gt; Deal $@ damage. 
+	&lt;b&gt;Honorable Kill:&lt;/b&gt; Gain +2 damage."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
+	activate = HitScriptDataNum1(TARGET)
+	honorable_kill = AddScriptDataNum1(SELF, 2)
 	pass
 
 class AV_212:

@@ -200,6 +200,10 @@ class Preset_Play:
 			if card.can_attack(target):
 				card.attack(target)
 		pass
+	def cast_spell(self, card, player):
+		if card.type==CardType.SPELL:
+			CastSpell(card).trigger(player)
+		pass
 	def contains_buff(self, card, buffID):
 		for buff in card.buffs:
 			if buff.id == buffID:

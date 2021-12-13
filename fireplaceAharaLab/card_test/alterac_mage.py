@@ -3,10 +3,10 @@ from .simulate_game import Preset_Play,PresetGame
 #Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
 
 def SimulateGames_Alterac_Mage():
-	#PresetGame(pp_AV_114)##ok
+	#PresetGame(pp_AV_114)##OK
 	#PresetGame(pp_AV_115)##OK
-	PresetGame(pp_AV_116)##
-	#PresetGame(pp_AV_200)##
+	#PresetGame(pp_AV_116)##OK
+	PresetGame(pp_AV_200,2)##
 	#PresetGame(pp_AV_212)##
 	#PresetGame(pp_AV_218)##
 	#PresetGame(pp_AV_282)##
@@ -95,9 +95,7 @@ class pp_AV_116(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_116',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -116,7 +114,9 @@ class pp_AV_116(Preset_Play):
 		super().result_inspection()
 		controller=self.player
 		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+			print("%s :  cost %d"%(card, card.cost))
+		if controller.hand[-1].cost>=7:
+			print("check OK")
 	pass
 		
 #########################
@@ -128,9 +128,10 @@ class pp_AV_200(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_200',controller)
+		self.mark2=self.exchange_card('nature',controller)
+		self.mark3=self.exchange_card('fire',controller)
+		self.mark4=self.exchange_card('vanillaH1',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -138,18 +139,36 @@ class pp_AV_200(Preset_Play):
 		controller = self.player
 		opponent = controller.opponent
 		game = controller.game
-		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
-		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		if self.testNr==0:
+			########## controller
+			self.play_card(self.mark2, controller)
+			self.play_card(self.mark3, controller)
+			self.change_turn(controller)
+			########## opponent
+			self.play_card(opponent.hand[0], opponent)
+			self.change_turn(opponent)
+			########## controller
+			self.play_card(self.mark1, controller)
+		else:
+			########## controller
+			self.play_card(self.mark1, controller)
+			self.change_turn(controller)
+			########## opponent
+			self.play_card(self.mark4, opponent)
+			self.change_turn(opponent)
+			########## controller
+			self.activate_heropower(controller, target=self.mark4)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		if self.testNr==0:
+			hero = controller.hero
+			print("Hero : %s health %d "%(hero, hero.health))
+			print("Armor : %d "%(hero.armor))
+			print("HeroPower : %s cost %d "%(hero.power, hero.power.cost))
+		else:
+			print("%s health %d -> %d"%(self.mark4, self.mark4.data.health, self.mark4.health))
 	pass
 		
 #########################
