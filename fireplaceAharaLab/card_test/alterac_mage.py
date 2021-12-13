@@ -6,13 +6,13 @@ def SimulateGames_Alterac_Mage():
 	#PresetGame(pp_AV_114)##OK
 	#PresetGame(pp_AV_115)##OK
 	#PresetGame(pp_AV_116)##OK
-	PresetGame(pp_AV_200,2)##
-	#PresetGame(pp_AV_212)##
-	#PresetGame(pp_AV_218)##
-	#PresetGame(pp_AV_282)##
-	#PresetGame(pp_AV_283)##
-	#PresetGame(pp_AV_284)##
-	#PresetGame(pp_AV_290)##
+	#PresetGame(pp_AV_200,2)##zOK
+	#PresetGame(pp_AV_212)##OK
+	#PresetGame(pp_AV_218)##OK
+	#PresetGame(pp_AV_282,4)##OK
+	#PresetGame(pp_AV_283)##OK
+	#PresetGame(pp_AV_284)##OK
+	#PresetGame(pp_AV_290)##OK
 	pass
 
 #########################
@@ -178,12 +178,14 @@ class pp_AV_212(Preset_Play):
 	""" Siphon Mana (2) Arcane
 	Deal 2 damage. Honorable Kill: Reduce the Cost of spells in your hand by (1).
 	"""
+	cost2=0;
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_212',controller)
+		self.mark2=self.exchange_card('spell',controller)
+		self.cost2 = self.mark2.cost
+		self.mark3=self.exchange_card('vanillaH2',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -192,17 +194,20 @@ class pp_AV_212(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		#self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller, target=self.mark3)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		print("zone of %s is %s"%(self.mark3, self.mark3.zone))
+		print("%s is honorably killed : %s"%(self.mark3, self.mark3.honorably_killed))
+		print("cost of %s is %d =>(-1)=> %d"%(self.mark2, self.cost2, self.mark2.cost))
 	pass
 		
 #########################
@@ -213,9 +218,9 @@ class pp_AV_218(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
+		self.mark1=self.exchange_card('AV_218',controller)
 		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark3=self.exchange_card('minionH7',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -224,17 +229,21 @@ class pp_AV_218(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.field:
+			print("(C)%s :   %d/%d"%(card, card.atk, card.health))
+		for card in controller.opponent.field:
+			print("(O)%s :   %d/%d"%(card, card.atk, card.health))
 	pass
 		
 #########################
@@ -246,9 +255,15 @@ class pp_AV_282(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		if self.testNr==0:
+			self.mark1=self.exchange_card('AV_282',controller)
+		if self.testNr==1:
+			self.mark1=self.exchange_card('AV_282t2',controller)
+		if self.testNr==2:
+			self.mark1=self.exchange_card('AV_282t4',controller)
+		if self.testNr==3:
+			self.mark1=self.exchange_card('AV_282t5',controller)
+			self.mark2=self.exchange_card('minionH8',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -258,16 +273,24 @@ class pp_AV_282(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
-		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		if self.testNr==3:
+			self.change_turn(controller)
+			########## opponent
+			self.play_card(self.mark2, opponent)
+			self.change_turn(opponent)
+			########## controller
+			self.attack_card(self.mark1, self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		for card in controller.field:
+			print("field: %s :  stats %d/%d"%(card, card.atk, card.health),end="")
+			print("   -> freeze: %s"%(card.freeze))
 		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+			print("hand : %s :  cost %d"%(card, card.cost))
+		if self.testNr==3:
+			print("%s : freeze: %s"%(self.mark2, self.mark2.frozen))
 	pass
 		
 #########################
@@ -279,9 +302,9 @@ class pp_AV_283(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_283',controller)
+		self.mark2=self.exchange_card('vanillaH3',opponent)
+		self.mark3=self.exchange_card('minionH7',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -290,17 +313,19 @@ class pp_AV_283(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		#self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		print("%s, %s がスペルで散々痛めつけられていることを目視"%(self.mark2, self.mark3))
 	pass
 		
 #########################
@@ -311,9 +336,7 @@ class pp_AV_284(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_284',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -333,6 +356,9 @@ class pp_AV_284(Preset_Play):
 		controller=self.player
 		for card in controller.hand:
 			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.field:
+			print("field: %s :  stats %d/%d <- %d/%d"%(card, card.atk, card.health, card.data.atk, card.data.health),end="")
+		print("スタッツがスワップしているかどうかを目視")
 	pass
 		
 #########################
@@ -343,9 +369,8 @@ class pp_AV_290(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_114',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_290',controller)
+		self.mark2=self.exchange_card('vanilla',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -355,16 +380,29 @@ class pp_AV_290(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.play_log:
+			print("spell : %s "%(card))
+		print("3つのスペルがプレイされていることを目視")
 	pass
 		
 #########################

@@ -1673,6 +1673,7 @@ class CastSpell(TargetedAction):
 		log.info("%s cast spell %s target %s", source, card, target)
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
+		player.add_play_log(card)
 		while player.choice:
 			choice = random.choice(player.choice.cards)
 			print("Choosing card %r" % (choice))

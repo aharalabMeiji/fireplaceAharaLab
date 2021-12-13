@@ -113,8 +113,8 @@ class AV_282t:
 class AV_282t2:
 	""" Build a Snowbrute (6) Frost
 	Summon a 6/6 Snowbrute that Freezes.  Add 'Build a Snowgre' to your hand.
-	play = Summon(CONTROLLER, 'ALT_MAG_9t3'), Give(CONTROLLER, 'ALT_MAG_9t4')
 	"""
+	play = Summon(CONTROLLER, 'AV_282t3'), Give(CONTROLLER, 'AV_282t4')
 	pass
 class AV_282t3:
 	""" Snowbrute (6/6/6) Elemental
@@ -126,7 +126,7 @@ class AV_282t4:
 	""" Build a Snowgre (9) Frost
 	Summon a 9/9 Sbiwgre tgat Freezes.
 	"""
-	play = Summon(CONTROLLER, 'ALT_MAG_9t5')
+	play = Summon(CONTROLLER, 'AV_282t5')
 	pass
 class AV_282t5:
 	""" Snowgre (9/9/9) Elemental
@@ -141,12 +141,12 @@ class AV_283_Action(TargetedAction):#
 		controller = target
 		count = 0
 		while True:	
-			card = RandomSpell(card_class=CardClass.MAGE).evaluate(source)
+			card = RandomSpell(card_class=CardClass.MAGE).evaluate(source)[0]
 			if card.cost + count <= 20:
 				count += card.cost
 				target = None
 				if card.requires_target():
-					target = random.choice(controller.opponent.characters)
+					target = random.choice(card.targets)
 				controller.game.trigger(controller, [Play(card,target,None,None)],event_args=None)
 			else:
 				break
@@ -168,23 +168,26 @@ class AV_284:
 		card1cost=5
 		if card1!=[]:
 			card1cost = card1[0][0].cost
-			card1[0][0].cost = self.atk
+			card1[0][0].cost = self.atk# =5
 			self.atk=card1cost
 		card2=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self.controller)
 		card2cost=5
 		if card2!=[]:
 			card2cost = card2[0][0].cost
-			card2[0][0].cost = self.max_health
-			self.max_helth=card2cost
+			card2[0][0].cost = self.max_health# =5
+			self.max_health=card2cost
 		pass
 	pass
+#AV_284e=buff(cost=SET(5))
+#AV_284e2=buff(atk=SET(1),health=SET(1))
 
 class AV_290:
-	""" Iceblood Tower (10)
+	""" Iceblood Tower (10) lasts 3 turns
 	At the end of your turn, cast another spell from your deck. Lasts 3 turns.	"""
+	tags={GameTag.SIDEQUEST:True, }
 	events=[
-		OWN_TURN_END.on(Play(RANDOM(FRIENDLY_DECK + SPELL))),
-		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER, 3, [Destroy(SELF)])),
+		OWN_TURN_END.on(CastSpell(RANDOM(FRIENDLY_DECK + SPELL))),
+		OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),
 		]
 	pass
 
