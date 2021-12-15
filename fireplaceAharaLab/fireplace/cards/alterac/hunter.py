@@ -27,13 +27,12 @@ class AV_147e:
 	cost=SET(1)
 	pass
 
-class AV_224:############################################
+class AV_224:##
 	""" Spring the Trap (4)
 	Deal 3 damage to a minion and cast a Secret from your deck. Honorable Kill: Cast 2."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
-	play = Hit(TARGET, 3)#,
-		#CastSecret(RANDOM(FRIENDLY_DECK + SECRET)) # Play?
-	#honorable_kill = CastSecret(RANDOM(FRIENDLY_DECK + SECRET))
+	play = Hit(TARGET, 3),CastSecret(RANDOM(FRIENDLY_DECK + SECRET)) # Play?
+	honorable_kill = CastSecret(RANDOM(FRIENDLY_DECK + SECRET))
 	pass
 
 class AV_226:

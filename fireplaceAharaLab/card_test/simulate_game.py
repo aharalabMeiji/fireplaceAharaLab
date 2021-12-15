@@ -89,9 +89,8 @@ class Preset_Play:
 		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
-	def exchange_card(self, card, player, health=0):
-		_card = card
-		Discard(self.player.hand[0]).trigger(player)
+
+	def card_choice(self, _card):
 		if _card=='arcane':
 			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','CORE_CS2_023','CORE_EX1_287','CORE_EX1_294','BT_002','BT_003','BT_006','BT_021','SCH_235','SCH_270',\
 						'SCH_352','SCH_353','YOP_019','DMF_057','BAR_541','BAR_539','DED_517','DED_002',])
@@ -175,9 +174,18 @@ class Preset_Play:
 			_card=random.choice(['CORE_EX1_543','CORE_CS2_222','CORE_EX1_249','CORE_GVG_121','CS3_031','CS3_032','CS3_035','CS3_036','BT_155','BT_155t','BT_728t','BT_734','BT_735','BT_850','BT_028t','BT_133','BT_136t','BT_136tt','BT_136tt2','BT_136tt3','BT_123t','SCH_711','DMF_004','DMF_080t','DMF_188','YOP_034','DMF_085','DMF_104t','DMF_059','BAR_079_m3','BAR_547','BAR_538','SW_068','SW_081','SW_322t4','SW_450t4','SW_428t4','SW_028t5','DED_521','DED_525','AV_130','AV_132','AV_141t','AV_704','DREAM_03','SW_024','SW_068','SCH_621',])
 		if _card=='weapon':
 			_card=random.choice(['WC_037','DMF_088','DMF_521t'])
+		return _card
+
+	def exchange_card(self, card, player, health=0):
+		_card = self.card_choice(card)
+		Discard(self.player.hand[0]).trigger(player)
 		new_card = Give(player,_card).trigger(player)
 		return new_card[0][0]
-
+	def append_deck_shuffle(self, card, player):
+		_card = self.card_choice(card)
+		new_card=Shuffle(player, _card).trigger(player)
+		return new_card[0][0]
+		pass
 	def print_hand(self, player):
 		print ("##### %s HAND ####"%(player.name))
 		for card in player.hand:

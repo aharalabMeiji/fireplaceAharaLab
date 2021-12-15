@@ -1216,16 +1216,23 @@ class Hit(TargetedAction):
 		if amount:
 			#if isinstance(source,PlayableCard):
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
-				target_health = target.health
-				if target_health == amount:
-					log.info("%s hits %s and gets honorable kill"%(source, target))
-					target.honorably_killed = True
-					actions = source.get_actions("honorable_kill")
-					source.game.trigger(source, actions,event_args=None)
-					for buff in source.buffs:
-						if hasattr(buff, 'honorable_kill'):
-							actions = buff.get_actions('honorable_kill')
-							source.game.trigger(source, actions, event_args=None)
+				if target.type==CardType.WEAPON and target==source:## when decreasing durability
+					pass
+				else:
+					target_health = target.health
+					if target_health == amount:
+						log.info("%s hits %s and gets honorable kill"%(source, target))
+						target.honorably_killed = True
+						if source.type==CardType.HERO:
+							actions = source.controller.weapon.get_actions("honorable_kill")
+							source.game.trigger(source.controller.weapon, actions,event_args=None)
+						else:
+							actions = source.get_actions("honorable_kill")
+							source.game.trigger(source, actions,event_args=None)
+						for buff in source.buffs:
+							if hasattr(buff, 'honorable_kill'):
+								actions = buff.get_actions('honorable_kill')
+								source.game.trigger(source, actions, event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
@@ -1533,6 +1540,7 @@ class Shuffle(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
+		return cards
 
 class ShuffleBuff(TargetedAction):
 	"""
@@ -1679,6 +1687,18 @@ class CastSpell(TargetedAction):
 			print("Choosing card %r" % (choice))
 			player.choice.choose(choice)
 		source.game.queue_actions(source, [Deaths()])
+
+class CastSecret(TargetedAction):
+	"""
+	Cast a spell target random
+	"""
+	CARD = CardArg()
+	def do(self, source, cards):
+		log.info("%s cast secret %s ", source, cards)
+		if not isinstance(cards,list):
+			cards = [cards]
+		for card in cards:
+			card.zone=Zone.SECRET
 
 
 class CastSpellTargetsEnemiesIfPossible(TargetedAction):
