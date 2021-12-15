@@ -223,8 +223,8 @@ def PresetGame(pp, testNr=1):
 	from fireplace import cards
 	cards.db.initialize()
 	for test in range(testNr):
-		class1=CardClass.MAGE
-		class2=CardClass.MAGE
+		class1=CardClass.HUNTER
+		class2=CardClass.HUNTER
 		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
 		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
 		deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
@@ -416,8 +416,8 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
-from .alterac_mage import SimulateGames_Alterac_Mage
+from .alterac_hunter import SimulateGames_Alterac_Hunter
 def SimulateGames():
-	SimulateGames_Alterac_Mage()
+	SimulateGames_Alterac_Hunter()
 
 	pass

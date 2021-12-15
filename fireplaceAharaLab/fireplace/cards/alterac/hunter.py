@@ -23,7 +23,9 @@ class AV_147:
 		OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),
 		]	
 	pass
-AV_147e=buff(cost=SET(1))
+class AV_147e:
+	cost=SET(1)
+	pass
 
 class AV_224:############################################
 	""" Spring the Trap (4)

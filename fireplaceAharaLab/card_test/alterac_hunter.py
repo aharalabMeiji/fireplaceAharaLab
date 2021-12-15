@@ -2,9 +2,9 @@ from .simulate_game import Preset_Play,PresetGame
 
 #Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
 def SimulateGames_Alterac_Hunter():
-	#PresetGame(pp_AV_113)##
-	#PresetGame(pp_AV_147)##
-	#PresetGame(pp_AV_224)##
+	#PresetGame(pp_AV_113)########## imporoved secret....
+	#PresetGame(pp_AV_147)##OK
+	PresetGame(pp_AV_224)##
 	#PresetGame(pp_AV_226)##
 	#PresetGame(pp_AV_244)##
 	#PresetGame(pp_AV_333)##
@@ -17,8 +17,8 @@ def SimulateGames_Alterac_Hunter():
 #########################
 
 class pp_AV_113(Preset_Play):
-	""" 
-	"""
+	"""Beaststalker Tavish (6/*/5) Hero
+	Battlecry: Discover and cast 2 Improved Secrets."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -49,14 +49,12 @@ class pp_AV_113(Preset_Play):
 #########################
 
 class pp_AV_147(Preset_Play):
-	""" 
-	"""
+	""" Dun Baldar Bunker (2) Lasts
+	At the end of your turn, draw a Secret and set its Cost to (1). Lasts 3 turns."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
+		self.mark1=self.exchange_card('AV_147',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -66,10 +64,21 @@ class pp_AV_147(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
