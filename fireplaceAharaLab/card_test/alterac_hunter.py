@@ -1,4 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
+from utils import postAction
 
 #Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
 def SimulateGames_Alterac_Hunter():
@@ -202,14 +203,17 @@ class pp_AV_244(Preset_Play):
 #########################
 
 class pp_AV_333(Preset_Play):
-	""" 
-	"""
+	""" Revive Pet (3) nature
+	Discover a friendly Beast that died this game. Summon it. """
+	mark5=None
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
+		self.mark1=self.exchange_card('AV_333',opponent)
+		self.mark2=self.exchange_card('beast',opponent)
+		self.mark3=self.exchange_card('beast',opponent)
+		self.mark4=self.exchange_card('minionH7',controller)
+		self.mark5=self.exchange_card('minionH7',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -218,11 +222,27 @@ class pp_AV_333(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark4, controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark5, controller)
+		self.attack_card(self.mark4,self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.attack_card(self.mark5, self.mark3, controller)
+		self.attack_card(self.mark4, self.mark3, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark1, opponent)
+		postAction(controller)
+		self.change_turn(opponent)
+		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
