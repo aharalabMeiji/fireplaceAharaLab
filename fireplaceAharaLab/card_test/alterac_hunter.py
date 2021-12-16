@@ -8,10 +8,10 @@ def SimulateGames_Alterac_Hunter():
 	#PresetGame(pp_AV_224)##OK
 	#PresetGame(pp_AV_226)##OK
 	#PresetGame(pp_AV_244)##OK
-	PresetGame(pp_AV_333)##
-	#PresetGame(pp_AV_334)##
-	#PresetGame(pp_AV_335)##
-	#PresetGame(pp_AV_336)##
+	#PresetGame(pp_AV_333)##OK
+	#PresetGame(pp_AV_334)##OK
+	#PresetGame(pp_AV_335)##OK
+	PresetGame(pp_AV_336)##
 	#PresetGame(pp_AV_337)##
 	pass
 
@@ -240,33 +240,34 @@ class pp_AV_333(Preset_Play):
 		self.change_turn(controller)
 		########## opponent
 		print(">>>>>> %s (%s): zone=%s"%(self.mark1, self.mark1.controller, self.mark1.zone))
-		print(">>>>>> %s (%s): zone=%s"%(self.mark2, self.mark2.controller, self.mark2.zone))
-		print(">>>>>> %s (%s): zone=%s"%(self.mark3, self.mark3.controller, self.mark3.zone))
+		print(">>>>>> %s (%s): zone=%s(candidate of revive)"%(self.mark2, self.mark2.controller, self.mark2.zone))
+		print(">>>>>> %s (%s): zone=%s(candidate of revive)"%(self.mark3, self.mark3.controller, self.mark3.zone))
 		print(">>>>>> %s (%s): zone=%s"%(self.mark4, self.mark4.controller, self.mark4.zone))
 		print(">>>>>> %s (%s): zone=%s"%(self.mark5, self.mark5.controller, self.mark5.zone))
 		self.play_card(self.mark1, opponent)
 		postAction(opponent)
 		self.change_turn(opponent)
-		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		opponent = controller.opponent
+		for card in opponent.field:
+			print("%s :  stats %d/%d"%(card, card.atk, card.health))
 	pass
 		
 #########################
 
 class pp_AV_334(Preset_Play):
-	""" 
-	"""
+	""" Stormpike Battle Ram (4/4/3) beast
+	Rush Deathrattle: Your next Beast costs (2) less."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
+		self.mark1=self.exchange_card('AV_334',controller)
+		self.mark2=self.exchange_card('beast',controller)
+		self.mark3=self.exchange_card('beast',controller)
+		self.mark4=self.exchange_card('minionH7',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -275,30 +276,39 @@ class pp_AV_334(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.attack_card(self.mark4, self.mark1, opponent)
+		self.change_turn(opponent)
+		########## controller
+		for card in controller.hand:
+			print(">>>>>>>>>%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		self.play_card(self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
 		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+			print(">>>>>>>>>%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
 	pass
 		
 #########################
 
 class pp_AV_335(Preset_Play):
-	""" 
-	"""
+	""" Ram Tamer (3/4/3)
+	Battlecry: If you control a Secret, gain +1/+1 and Stealth."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
+		self.mark1=self.exchange_card('AV_335',controller)
+		self.mark2=self.exchange_card('secret',controller)
+		self.mark3=self.exchange_card('AV_335',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -308,29 +318,35 @@ class pp_AV_335(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark3, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.field:
+			print("%s : stats %d/%d, stealthed: %s"%(card, card.atk, card.health, card.stealthed))
 	pass
 		
 #########################
 
 class pp_AV_336(Preset_Play):
-	""" 
-	"""
+	""" Wing Commander Ichman (9/5/4)
+	[Battlecry]: Summon a Beast from your deck and give it [Rush]. If it kills a minion this turn, repeat."""
+	mark5 = None
+	mark6 = None
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
+		self.mark1=self.exchange_card('AV_336',controller)
+		self.mark2=self.append_deck_shuffle('beast',controller)
+		self.mark3=self.exchange_card('vanillaH1',opponent)
+		self.mark4=self.append_deck_shuffle('beast',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -339,8 +355,15 @@ class pp_AV_336(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.mark5 = controller.field[-1]
+		#self.attack_card(self.mark5, self.mark3, controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
 		#self.change_turn(opponent)
@@ -348,8 +371,10 @@ class pp_AV_336(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.field:
+			print("(C) %s : stats %d/%d, rush : %s"%(card, card.atk, card.health, card.rush))
+		#for card in controller.hand:
+		#	print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
 	pass
 		
 #########################

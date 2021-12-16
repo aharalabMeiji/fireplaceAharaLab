@@ -473,7 +473,7 @@ class GenericChoiceBattlecry(GenericChoice):##
 		for new_card in controller.hand:
 			if new_card.id == card.id:
 				Battlecry(new_card, new_card.target).trigger(new_card)
-				new_card.zone=Zone.PLAY# 必要？
+				#new_card.zone=Zone.PLAY# 必要？
 				break
 		pass
 

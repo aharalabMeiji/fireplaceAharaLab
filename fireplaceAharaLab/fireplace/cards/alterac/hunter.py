@@ -53,10 +53,10 @@ class AV_244:
 	pass
 AV_244e=buff(1,1)
 
-class AV_333: ###?????maybe
+class AV_333: ##
 	""" Revive Pet (3) nature
 	Discover a friendly Beast that died this game. Summon it. """
-	play = GenericChoiceBattlecry(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST)*3)# not GenericChoiceBattlecry
+	play = GenericChoicePlay(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST)*3)# not GenericChoiceBattlecry
 	pass
 
 class AV_334:
@@ -66,7 +66,8 @@ class AV_334:
 	pass
 class AV_334e:
 	cost = lambda self, i : max(0,i-2)
-	events = Play(CONTROLLER, FRIENDLY_HAND+BEAST).on(Destroy(SELF))
+	events = Play(CONTROLLER, MINION + BEAST).on(Destroy(SELF))
+	pass
 
 class AV_335:
 	""" Ram Tamer (3/4/3)
@@ -78,9 +79,22 @@ AV_335e=buff(atk=1,health=1,stealth=True)
 class AV_336: ################################ need the latter half
 	""" Wing Commander Ichman (9/5/4)
 	[Battlecry]: Summon a Beast from your deck and give it [Rush]. If it kills a minion this turn, repeat."""
-	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Summon.CARD, 'AV_336e'))
+	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(
+		SetAttr(Summon.CARD, 'rush', True),
+		Buff(Summon.CARD, 'AV_336e')
+		)
 	pass
-AV_336e=buff(rush=True)
+class AV_336e:
+	events =[
+		Attack(OWNER, ENEMY_MINIONS).on(
+			Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(
+				SetAttr(Summon.CARD, 'rush', True),
+				Buff(Summon.CARD, 'AV_336e')
+				)
+			)
+		OWN_TURN_END.on(Destroy(SELF))
+		]
+	pass
 
 class AV_337:
 	""" Mountain Bear (7/5/6) beast
