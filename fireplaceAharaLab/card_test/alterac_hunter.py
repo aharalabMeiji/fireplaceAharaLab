@@ -345,7 +345,7 @@ class pp_AV_336(Preset_Play):
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_336',controller)
 		self.mark2=self.append_deck_shuffle('beast',controller)
-		self.mark3=self.exchange_card('vanillaH1',opponent)
+		self.mark3=self.exchange_card('vanillaH2',opponent)
 		self.mark4=self.append_deck_shuffle('beast',controller)
 		super().preset_deck()
 		pass
@@ -362,7 +362,7 @@ class pp_AV_336(Preset_Play):
 		########## controller
 		self.play_card(self.mark1, controller)
 		self.mark5 = controller.field[-1]
-		#self.attack_card(self.mark5, self.mark3, controller)
+		self.attack_card(self.mark5, self.mark3, controller)
 		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -386,8 +386,8 @@ class pp_AV_337(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
+		self.mark2=self.exchange_card('minionH7',controller)
+		self.mark3=self.exchange_card('vanillaH2',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):

@@ -84,14 +84,19 @@ class AV_336: ################################ need the latter half
 		Buff(Summon.CARD, 'AV_336e')
 		)
 	pass
+class AV_336_Action(TargetedAction):
+	ATTACKER=ActionArg()
+	DEFENDER=ActionArg()
+	TARGETEDACTION=ActionArg()
+	def do(self, source, attacker, defender, targetedaction):
+		if hasattr(attacker, 'atk') and hasattr(defender,'health'):
+			if attacker.atk>=defender.health:
+				targetedaction.trigger(source)
+
 class AV_336e:
+	next_action = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(SetAttr(Summon.CARD, 'rush', True), Buff(Summon.CARD, 'AV_336e'))
 	events =[
-		Attack(OWNER, ENEMY_MINIONS).on(
-			Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(
-				SetAttr(Summon.CARD, 'rush', True),
-				Buff(Summon.CARD, 'AV_336e')
-				)
-			)
+		Attack(OWNER, ENEMY_MINIONS).on(AV_336_Action(Attack.ATTACKER, Attack.DEFENDER, next_action)),
 		OWN_TURN_END.on(Destroy(SELF))
 		]
 	pass
