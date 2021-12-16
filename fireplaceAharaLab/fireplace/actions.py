@@ -362,7 +362,7 @@ class Choice(GameAction):
 			player = player[0]
 		cards = self._args[1]
 		if isinstance(cards, Selector):
-			cards = cards.eval(source.game.entities + source.game.decks, source) # game? entities + decks?
+			cards = cards.eval(source.game.allcards + source.game.graveyard, source) # game? entities + decks?
 		elif isinstance(cards, LazyValue):
 			cards = cards.evaluate(source)
 		elif isinstance(cards, list):
@@ -473,6 +473,7 @@ class GenericChoiceBattlecry(GenericChoice):##
 		for new_card in controller.hand:
 			if new_card.id == card.id:
 				Battlecry(new_card, new_card.target).trigger(new_card)
+				new_card.zone=Zone.PLAY# 必要？
 				break
 		pass
 

@@ -239,8 +239,13 @@ class pp_AV_333(Preset_Play):
 		self.attack_card(self.mark4, self.mark3, controller)
 		self.change_turn(controller)
 		########## opponent
+		print(">>>>>> %s (%s): zone=%s"%(self.mark1, self.mark1.controller, self.mark1.zone))
+		print(">>>>>> %s (%s): zone=%s"%(self.mark2, self.mark2.controller, self.mark2.zone))
+		print(">>>>>> %s (%s): zone=%s"%(self.mark3, self.mark3.controller, self.mark3.zone))
+		print(">>>>>> %s (%s): zone=%s"%(self.mark4, self.mark4.controller, self.mark4.zone))
+		print(">>>>>> %s (%s): zone=%s"%(self.mark5, self.mark5.controller, self.mark5.zone))
 		self.play_card(self.mark1, opponent)
-		postAction(controller)
+		postAction(opponent)
 		self.change_turn(opponent)
 		
 		pass

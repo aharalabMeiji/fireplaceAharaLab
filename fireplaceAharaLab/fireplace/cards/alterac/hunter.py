@@ -56,7 +56,7 @@ AV_244e=buff(1,1)
 class AV_333: ###?????maybe
 	""" Revive Pet (3) nature
 	Discover a friendly Beast that died this game. Summon it. """
-	play = GenericChoiceBattlecry(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST))
+	play = GenericChoiceBattlecry(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST)*3)# not GenericChoiceBattlecry
 	pass
 
 class AV_334:
