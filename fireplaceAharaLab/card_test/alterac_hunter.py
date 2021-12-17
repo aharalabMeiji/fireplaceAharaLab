@@ -3,7 +3,7 @@ from utils import postAction
 
 #Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
 def SimulateGames_Alterac_Hunter():
-	#PresetGame(pp_AV_113)########## imporoved secret....
+	PresetGame(pp_AV_113)########## imporoved secret....
 	#PresetGame(pp_AV_147)##OK
 	#PresetGame(pp_AV_224)##OK
 	#PresetGame(pp_AV_226)##OK
@@ -11,8 +11,8 @@ def SimulateGames_Alterac_Hunter():
 	#PresetGame(pp_AV_333)##OK
 	#PresetGame(pp_AV_334)##OK
 	#PresetGame(pp_AV_335)##OK
-	PresetGame(pp_AV_336)##
-	#PresetGame(pp_AV_337)##
+	#PresetGame(pp_AV_336)##OK
+	#PresetGame(pp_AV_337)##OK
 	pass
 
 #########################
@@ -24,8 +24,6 @@ class pp_AV_113(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('vanillaH3',controller)
-		self.mark3=self.exchange_card('minionH7',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -35,16 +33,21 @@ class pp_AV_113(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		postAction(controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.activate_heropower(controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.secrets:
+			print("secret : %s :  "%(card))
+		for card in controller.field:
+			print("%s :  stats %d/%d"%(card, card.atk, card.health))
 	pass
 		
 #########################
@@ -380,14 +383,13 @@ class pp_AV_336(Preset_Play):
 #########################
 
 class pp_AV_337(Preset_Play):
-	""" 
-	"""
+	""" Mountain Bear (7/5/6) beast
+	[Taunt] [Deathrattle]: Summon two 2/4 Cubs with [Taunt]."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
-		self.mark2=self.exchange_card('minionH7',controller)
-		self.mark3=self.exchange_card('vanillaH2',opponent)
+		self.mark1=self.exchange_card('AV_337',controller)
+		self.mark2=self.exchange_card('minionA7',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -397,16 +399,18 @@ class pp_AV_337(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.attack_card(self.mark1, self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+		for card in controller.field:
+			print("(C) %s : stats %d/%d"%(card, card.atk, card.health))
 	pass
 		
 ########################
