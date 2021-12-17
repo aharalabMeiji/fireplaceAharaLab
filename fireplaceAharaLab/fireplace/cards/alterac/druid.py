@@ -9,12 +9,9 @@ class AV_205:##
 	def play(self):
 		controller = self.controller
 		GainArmor(self, self.armor)
-		difference = 20 - controller.max_mana
 		controller.max_resources = 20
-		controller.max_mana = 20
-		controller.used_mana += (difference-1)
 		Draw(controller).trigger(controller)
-		controller.summon('AV_205p')## Hero power
+		#controller.summon('AV_205p')## Hero power いらないらしい。
 	pass
 class AV_205a:
 	""" Ice Blossom
