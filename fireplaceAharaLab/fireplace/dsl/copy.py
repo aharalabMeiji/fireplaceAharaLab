@@ -38,6 +38,10 @@ class ExactCopy(Copy):
 		self.selector = selector
 
 	def copy(self, source, entity):
+		if entity==[]:
+			return
+		if isinstance(entity, list):
+			entity = entity[0]
 		if entity.id == "OG_280":
 			return super().copy(source, entity)
 		ret = super().copy(source, entity)

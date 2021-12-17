@@ -40,7 +40,7 @@ class AV_113t2:
 	secret = Attack(ENEMY_MINIONS).on(
 		Reveal(SELF),
 		Bounce(Attack.ATTACKER),
-		Buff(Attack.ATTACKER, "EX1_611e")
+		Buff(Attack.ATTACKER, "AV_113t2e")
 	)	
 	pass
 class AV_113t2e:# 3 3
@@ -57,15 +57,25 @@ class AV_113t3t2:
 	"""Snake
 	"""
 	pass
+class AV_113t7_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Reveal(source).trigger(source)
+		if isinstance(target, list):
+			target = target[0]
+		card00 = Summon(source.controller, ExactCopy(FuncSelector(lambda entities, source: [target]))).trigger(source)
+		card = card00[0][0]
+		Buff(card,"BT_203e" ).trigger(source)
+		card00 = Summon(source.controller, ExactCopy(FuncSelector(lambda entities, source: [target]))).trigger(source)
+		card = card00[0][0]
+		Buff(card,"BT_203e" ).trigger(source)
+
 class AV_113t7:
 	"""Improved Pack Tactics
 	&lt;b&gt;Secret:&lt;/b&gt; When a friendly minion is attacked, summon two 3/3 copies. """
-	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(FULL_BOARD | (
-		Reveal(SELF), Summon(CONTROLLER, ExactCopy(Attack.DEFENDER)).then(
-			Buff(Summon.CARD, "BT_203e")
-		)))
+	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(AV_113t7_Action(Attack.DEFENDER))
 	pass
-#class BT_203e:
+#class BT_203e: ## AOO_Hunter
 #	atk = SET(3)
 #	max_health = SET(3)
 
@@ -74,6 +84,7 @@ class AV_113t8_Action(TargetedAction):
 	TARGETACTION = ActionArg()
 	def do(self, source, target, targetaction):
 		if len(target.field)==2:
+			log.info("AV_113t8_action warks!!!")
 			for _action in targetaction:
 				_action.trigger(source)
 
@@ -92,7 +103,7 @@ class AV_113t9:
 	secret = Play(OPPONENT, SPELL).on(
 		Reveal(SELF),
 		Bounce(Play.CARD),
-		Buff(Play.CARD,'AV_226e')
+		Buff(Play.CARD,'AV_113t9e')
 		)
 	pass
 AV_113t9e=buff(cost=2)

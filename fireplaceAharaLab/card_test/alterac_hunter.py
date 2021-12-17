@@ -3,7 +3,14 @@ from utils import postAction
 
 #Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
 def SimulateGames_Alterac_Hunter():
-	PresetGame(pp_AV_113)########## imporoved secret....
+	#PresetGame(pp_AV_113)##OK
+	######### imporoved secret....
+	#PresetGame(pp_AV_113t1)##OK
+	#PresetGame(pp_AV_113t2)##OK
+	#PresetGame(pp_AV_113t3)##OK
+	#PresetGame(pp_AV_113t7)##OK
+	#PresetGame(pp_AV_113t8)##OK
+	#PresetGame(pp_AV_113t9)##OK
 	#PresetGame(pp_AV_147)##OK
 	#PresetGame(pp_AV_224)##OK
 	#PresetGame(pp_AV_226)##OK
@@ -48,6 +55,225 @@ class pp_AV_113(Preset_Play):
 			print("secret : %s :  "%(card))
 		for card in controller.field:
 			print("%s :  stats %d/%d"%(card, card.atk, card.health))
+	pass
+		
+#########################
+
+class pp_AV_113t1(Preset_Play):
+	""" Improved Explosive Trap
+	&lt;b&gt;Secret:&lt;/b&gt; When your hero is attacked, deal $3 damage to all enemies. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_113t1',controller)
+		self.mark2=self.exchange_card('vanillaH2',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.attack_card(self.mark2, controller.hero, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		opponent = controller.opponent
+		print("secret : %s : zone = %s "%(self.mark1, self.mark1.zone))
+		print("minion : %s : zone = %s "%(self.mark2, self.mark2.zone))
+		print ("opponent hero : stats = %d <- 30"%(opponent.hero.health))
+	pass
+		
+#########################
+class pp_AV_113t2(Preset_Play):
+	""" Improved Freezing Trap
+	&lt;b&gt;Secret:&lt;/b&gt; When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_113t2',controller)
+		self.mark2=self.exchange_card('vanillaH2',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		########## opponent
+		self.attack_card(self.mark2, controller.hero, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("secret : %s : zone = %s "%(self.mark1, self.mark1.zone))
+		print("minion : %s : zone = %s : cost = %d <- %d"%(self.mark2, self.mark2.zone, self.mark2.cost, self.mark2.data.cost))
+		print ("controller hero : stats = %d <- 30"%(controller.hero.health))
+	pass
+		
+#########################
+class pp_AV_113t3(Preset_Play):
+	""" Improved Snake Trap
+	&lt;b&gt;Secret:&lt;/b&gt; When one of your minions is attacked, summon three 2/2 Snakes. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_113t3',controller)
+		self.mark2=self.exchange_card('vanillaH2',controller)
+		self.mark3=self.exchange_card('vanillaH2',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.attack_card(self.mark3, self.mark2, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("secret : %s : zone = %s "%(self.mark1, self.mark1.zone))
+		print("minion : %s : zone = %s : cost = %d <- %d"%(self.mark2, self.mark2.zone, self.mark2.cost, self.mark2.data.cost))
+		for card in controller.field:
+			print("(C) %s :  stats %d/%d"%(card, card.atk, card.health))
+	pass
+		
+#########################
+class pp_AV_113t7(Preset_Play):
+	"""Improved Pack Tactics
+	&lt;b&gt;Secret:&lt;/b&gt; When a friendly minion is attacked, summon two 3/3 copies. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_113t7',controller)
+		self.mark2=self.exchange_card('minionH6',controller)
+		self.mark3=self.exchange_card('vanillaH2',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.attack_card(self.mark3, self.mark2, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("secret : %s : zone = %s "%(self.mark1, self.mark1.zone))
+		print("minion : %s : zone = %s : cost = %d <- %d"%(self.mark2, self.mark2.zone, self.mark2.cost, self.mark2.data.cost))
+		for card in controller.field:
+			print("(C) %s :  stats %d/%d"%(card, card.atk, card.health))
+	pass
+		
+#########################
+class pp_AV_113t8(Preset_Play):
+	""" Improved Open the Cages
+	[x]&lt;b&gt;Secret:&lt;/b&gt; When your turn starts, if you control two minions, summon two Animal Companions."""
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_113t8',controller)
+		self.mark2=self.exchange_card('vanillaH2',controller)
+		self.mark3=self.exchange_card('vanillaH3',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark3, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.change_turn(opponent)
+		########## controller
+		self.change_turn(controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.secrets:
+			print("secret : %s :  "%(card))
+		for card in controller.field:
+			print("%s :  stats %d/%d"%(card, card.atk, card.health))
+	pass
+		
+#########################
+
+class pp_AV_113t9(Preset_Play):
+	""" Improved Ice Trap
+	&lt;b&gt;Secret:&lt;/b&gt; When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_113t9',controller)
+		self.mark2=self.exchange_card('fire',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark2, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("secret : %s : zone = %s "%(self.mark1, self.mark1.zone))
+		for card in controller.opponent.hand:
+			print("(O)%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
 	pass
 		
 #########################
