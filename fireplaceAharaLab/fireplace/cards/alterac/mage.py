@@ -166,13 +166,13 @@ class AV_284:
 	def play(self):
 		card1=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self.controller)
 		card1cost=5
-		if card1!=[]:
+		if card1!=[] and card1[0]!=[]:
 			card1cost = card1[0][0].cost
 			card1[0][0].cost = self.atk# =5
 			self.atk=card1cost
 		card2=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self.controller)
 		card2cost=5
-		if card2!=[]:
+		if card2!=[] and card2[0]!=[]:
 			card2cost = card2[0][0].cost
 			card2[0][0].cost = self.max_health# =5
 			self.max_health=card2cost

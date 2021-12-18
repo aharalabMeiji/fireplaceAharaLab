@@ -1224,7 +1224,7 @@ class Hit(TargetedAction):
 					if target_health == amount:
 						log.info("%s hits %s and gets honorable kill"%(source, target))
 						target.honorably_killed = True
-						if source.type==CardType.HERO:
+						if source.type==CardType.HERO and source.controller.weapon!=None :
 							actions = source.controller.weapon.get_actions("honorable_kill")
 							source.game.trigger(source.controller.weapon, actions,event_args=None)
 						else:

@@ -51,8 +51,8 @@ class StandardVectorAgent(Agent):
 		if debug:
 			print(">>>>>>>>>>>>>>>>>>>")
 		for myChoice in myCandidate:
-			tmpGame = debug_deepcopy(game, game.current_player)
-			#tmpGame = copy.deepcopy(game)
+			#tmpGame = debug_deepcopy(game, game.current_player)
+			tmpGame = copy.deepcopy(game)
 			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:
