@@ -42,8 +42,10 @@ class AV_116_Action(TargetedAction):
 		for card in target.deck:
 			if card.cost >6:
 				cardlist.append(card)
-		card = random.choice(cardlist)
-		target.game.trigger(target, [Give(target, card)], event_args=None)
+		if len(cardlist)>0:
+			card = random.choice(cardlist)
+			target.game.trigger(target, [Give(target, card)],	event_args=None)
+			pass
 		pass
 	pass
 class AV_116:
