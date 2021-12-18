@@ -90,8 +90,7 @@ def deep_copy_player(player, option):
 
 def copy_cardattr(oldCard, newCard):
 	attrList = oldCard.__dict__.keys()
-	excludeList=[
-		'manager','target','choose_cards','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone','game',
+	excludeList=[		'manager','target','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone','game',
 		]
 	for attr in attrList:
 		if not attr in excludeList:

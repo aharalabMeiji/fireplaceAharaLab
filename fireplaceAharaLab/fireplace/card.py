@@ -803,36 +803,44 @@ class Minion(Character):
 		return super().zone_position
 
 	def _set_zone(self, value):
-		if value == Zone.PLAY:
+		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
 			if self._summon_index is not None:
 				self.controller.field.insert(self._summon_index, self)
 			else:
 				self.controller.field.append(self)
-		elif value == Zone.GRAVEYARD and self.zone == Zone.PLAY:
-			self.controller.minions_killed_this_turn += 1
-
-		if self.zone == Zone.PLAY:
-			self.log("%r is removed from the field", self)
-			self.controller.field.remove(self)
-			if self.damage:
-				self.damage = 0
-		## これは必要か？ 14/8/21
-		if value == Zone.GRAVEYARD and self.zone == Zone.GRAVEYARD and self in self.controller.game.live_entities:
-			self.log("%s must be removed from the field but still left in the list of living entities.", self.data.name)
-			if self in self.controller.live_entities:
-				player=self.controller
-			elif self in self.controller.opponent.live_entities:
-				player=self.controller.opponent
-			self.log("Controller is %s"%(player.name))
-			for entity in player.field:
-				self.log("%s - %s %s"%(entity.data.name, entity._to_be_destroyed, entity.to_be_destroyed))
-			if self in player.field:
-				player.field.remove(self)
-			else:
-				self.log("non-sense!")
-				raise GameOver("wowowowo")
-		##いちおう、無限ループ対策で、ここでカードの消去を行っておく。
-
+		elif value == Zone.GRAVEYARD: ## -> graveyard  
+			if self.zone == Zone.PLAY: ## play -> graveyard
+				self.controller.minions_killed_this_turn += 1
+				self.log("%r is removed from the field", self)
+				self.controller.field.remove(self)
+				if self.damage:
+					self.damage = 0
+			elif self.zone == Zone.HAND:
+				pass
+			elif self.zone == Zone.SETASIDE:
+				pass
+			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
+				if self in self.controller.game.live_entities:
+					print("%s must be removed from the field but still left in the list of living entities.", self.data.name)
+					if self in self.controller.live_entities:
+						player=self.controller
+					elif self in self.controller.opponent.live_entities:
+						player=self.controller.opponent
+					self.log("Controller is %s"%(player.name))
+					if self in player.field:
+						for entity in player.field:
+							print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						player.field.remove(self)
+					elif self in player.hand:
+						for entity in player.hand:
+							print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						player.hand.remove(self)
+					elif self in player.game.setaside:
+						for entity in player.game.setaside:
+							print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						player.game.setaside.remove(self)
+					else:
+						print("Extra-ordinary error happens.  Stop here in set_zon()")
 		super()._set_zone(value)
 
 	def _hit(self, amount):
