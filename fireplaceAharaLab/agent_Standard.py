@@ -53,10 +53,12 @@ class StandardVectorAgent(Agent):
 		for myChoice in myCandidate:
 			tmpGame = debug_deepcopy(game, game.current_player)
 			#tmpGame = copy.deepcopy(game)
-			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
+			result = executeAction(tmpGame, myChoice, debugLog=False)
+			if result==ExceptionPlay.INVALID:
+				stop=True
+			if result==ExceptionPlay.GAMEOVER:
 				score=100000
 			else:
-
 				if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
 					score=100000
 				else:

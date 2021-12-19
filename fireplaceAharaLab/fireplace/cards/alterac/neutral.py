@@ -138,7 +138,7 @@ class CountPlayedThisTurn(LazyNum):
 		turn = game.turn
 		count=0
 		for card in controller._play_log:
-			if card[1] == turn:
+			if card.turn == turn:
 				count+=1
 		return self.num(count)
 

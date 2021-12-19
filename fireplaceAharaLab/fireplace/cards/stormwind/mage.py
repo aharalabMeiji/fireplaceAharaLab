@@ -120,8 +120,8 @@ class SW_113_Action(TargetedAction):
 		playList = target._play_log
 		flag1=flag2=flag3=0
 		for _log in playList:
-			card = _log[0]
-			turn = _log[1]
+			card = _log.card
+			turn = _log.turn
 			if card.type == CardType.SPELL and card.spell_school == SpellSchool.FIRE:
 				if turn == source.game.turn - 2:
 					flag1 = 1
@@ -139,8 +139,8 @@ class SW_113_Hand_Event(TargetedAction):
 		playList = target._play_log
 		flag1=flag2=flag3=0
 		for _log in playList:
-			card = _log[0]
-			turn = _log[1]
+			card = _log.card
+			turn = _log.turn
 			if card.type == CardType.SPELL and card.spell_school == SpellSchool.FIRE:
 				if turn == source.game.turn:
 					flag1 = 1

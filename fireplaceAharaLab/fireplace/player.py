@@ -12,6 +12,17 @@ from .managers import PlayerManager
 from .utils import CardList
 from .config import Config #by AharaLab
 
+class PlayLog:
+	card=None
+	turn=0
+	amount=0
+	def __init__(self, _card, _turn, _amount=0):
+		self.card = _card
+		self.turn = _turn
+		self.amount = _amount
+		pass
+	pass
+
 class Player(Entity, TargetableByAuras):
 	Manager = PlayerManager
 	all_targets_random = slot_property("all_targets_random")
@@ -375,72 +386,76 @@ class Player(Entity, TargetableByAuras):
 			_ret.append(_log[0])
 		return _ret
 
+
 	##play_log
 	def add_play_log(self, card):
-		self._play_log.append([card,card.game.turn])
+		self._play_log.append(PlayLog(card, card.game.turn))
 	@property
 	def play_log(self):
 		_ret = []
 		for _log in self._play_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 	@property
 	def play_log_of_last_turn(self):
 		_ret = []
 		for _log in self._play_log:
-			if _log[1] == self.game.turn - 2:
-				_ret.append(_log[0])
+			if _log.turn == self.game.turn - 2:
+				_ret.append(_log.card)
 		return _ret
 	@property
 	def play_this_turn(self):
 		_ret = []
 		for _log in self._play_log:
-			if _log[1] == self.game.turn:
-				_ret.append(_log[0])
+			if _log.turn == self.game.turn:
+				_ret.append(_log.card)
 		return _ret
 
 	##activate_log
 	def add_activate_log(self, card, amount):
-		self._activate_log.append([card,card.game.turn,amount])
+		self._activate_log.append(PlayLog(card,card.game.turn,amount))
 	@property
 	def activate_log(self):
 		_ret = []
 		for _log in self._activate_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 
 	##damage_log
 	def add_damage_log(self, card, amount):
-		self._damage_log.append([card,card.game.turn,amount])
+		self._damage_log.append(PlayLog(card, card.game.turn, amount))
 	@property
 	def damage_log(self):
 		_ret = []
 		for _log in self._damage_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 	@property
 	def damage_log_of_this_turn(self):
 		_ret = []
 		for _log in self._damage_log:
-			if _log[1] == self.game.turn:
-				_ret.append(_log[0])
+			if _log.turn == self.game.turn:
+				_ret.append(_log.card)
 		return _ret
 
 	##sammon_log
 	def add_summon_log(self, card):
-		self._summon_log.append(card)
+		self._summon_log.append(PlayLog(card, card.game.turn))
 	@property
 	def summon_log(self):
-		return self._summon_log
+		_ret = []
+		for _log in self._summon_log:
+			_ret.append(_log.card)
+		return _ret
 
 	##reveal_log
 	def add_reveal_log(self, card):
-		self._reveal_log.append([card, card.game.turn])
+		self._reveal_log.append(PlayLog(card, card.game.turn))
 	@property
 	def reveal_log(self):
 		_ret = []
 		for _log in self._reveal_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 
 	##targetedaction_log

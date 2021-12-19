@@ -1,7 +1,7 @@
 """
 Targeting logic
 """
-from hearthstone.enums import CardType, PlayReq, Rarity
+from hearthstone.enums import CardType, PlayReq, Rarity, Zone
 from enum import IntEnum
 
 TARGETING_PREREQUISITES = (
@@ -50,7 +50,7 @@ def is_valid_target(self, target, requirements=None):
 
 	for req, param in requirements.items():
 		if req == PlayReq.REQ_MINION_TARGET:
-			if target.type != CardType.MINION:
+			if target.type != CardType.MINION or target.zone!=Zone.PLAY:
 				return False
 		elif req == PlayReq.REQ_FRIENDLY_TARGET:
 			if target.controller != self.controller:

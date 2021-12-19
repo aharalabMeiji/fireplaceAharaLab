@@ -103,14 +103,14 @@ class HERO_08:
 	pass
 class HERO_08bp:
 	"""Fireblast (Jaina Proudmoore)"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
 	activate = Hit(TARGET, 1)
 	pass
 class HERO_08bp2:#OK
 	"""Fireblast Rank 2
 	<b>Hero Power</b>
 	Deal $2 damage."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
 	activate = Hit(TARGET, 2)
 	pass
 
