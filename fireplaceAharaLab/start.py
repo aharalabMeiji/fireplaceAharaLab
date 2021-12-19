@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import winsound
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
@@ -65,7 +66,8 @@ def main():
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],\
 	#   gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
 	print("%d:%d"%(a,b))
-
+	winsound.Beep(442, 2000)
+	winsound.Beep(884, 2000)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
@@ -78,7 +80,6 @@ def main():
 	#シナジーのあるカードの組を漠然と探す
 	#find_card_pair(1)
 	#print("test_branch_yamadamaya")
-
 	pass
 
 def printClasses():

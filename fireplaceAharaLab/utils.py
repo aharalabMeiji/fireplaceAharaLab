@@ -363,7 +363,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.INVALID
 		try:
 			if theCard.requires_target():
-				theCard.use(target=theTarget)
+				if theTarget==None:
+					return ExceptionPlay.INVALID
+				else:
+					theCard.use(target=theTarget)
 			else:
 				theCard.use()
 			return ExceptionPlay.VALID
@@ -418,7 +421,10 @@ def postAction(player):
 			return
 		else:
 			if player.choiceStrategy==None:
-				choice = random.choice(player.choice.cards)
+				if len(player.choice.cards)==0:
+					choice = None
+				else:
+					choice = random.choice(player.choice.cards)
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
 			log.info("%r Chooses a card %r" % (player, choice))
@@ -428,7 +434,10 @@ def postAction(player):
 				Give(player1,myCardID).trigger(player1)
 				player.choice = None
 			else :
-				player.choice.choose(choice)
+				if choice == None:
+					player.choice=None##return
+				else:
+					player.choice.choose(choice)
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""
