@@ -333,6 +333,8 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.INVALID
 		if (theTarget != None and theTarget not in theCard.targets):
 			return ExceptionPlay.INVALID
+		if theCard.requires_target() and theTarget == None:
+			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
 			return ExceptionPlay.INVALID
 		try:

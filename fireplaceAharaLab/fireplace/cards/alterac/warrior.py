@@ -24,7 +24,7 @@ class AV_119:
 	pass
 class AV_119e:
 	cost = lambda self, i: max(1,i-2)
-	events = OWN_TURN_END.on(Destroy())
+	events = OWN_TURN_END.on(Destroy(SELF))
 
 class AV_145_Action(TargetedAction):
 	TARGET = ActionArg()
