@@ -390,8 +390,11 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		if theCard.requires_target() and theTarget == None:
 			print ("theCard : %s"%(theCard))
 			for card in theCard.targets:
-				print ("theCard.targets : %s"%(card))
+				print ("theCard.targets : %s(%s)"%(card, card.id))
 			print ("theTarget : %s"%(theTarget))
+			print ("action.card : %s"%(action.card))
+			if action.target!=None:
+				print ("action.target : %s(%s)"%(action.target, action.target.id))
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
 			result = theCard.is_playable()

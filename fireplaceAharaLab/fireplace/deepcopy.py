@@ -2,8 +2,9 @@ from enum import IntEnum
 from fireplace import cards
 from hearthstone.enums import Zone,State,CardType
 from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest
-from .player import Player
+from .player import Player, PlayLog
 from .game import Game
+from .aura import AuraBuff
 import copy
 import random
 
@@ -88,6 +89,35 @@ def deep_copy_player(player, option):
 	new_player = Player(player.name+'x', new_starting_deck, new_hero)
 	return new_player
 
+def deepcopy_aurabuff(oldCard):
+	ret=[]
+	for card in oldCard:
+		ret.append(AuraBuff(card.source, card.entity))
+	return ret
+
+def deepcopy_enchantment(oldCards, oldCard, newCard):
+	"""
+	@oldCards: for example, buffs of oldCard
+	"""
+	ret=[]
+	for card in oldCards:
+		Ncard = Enchantment(cards.db[card.id])
+		Ncard.source = oldCard
+		Ncard.controller = newCard.controller
+		Ncard.owner = newCard
+		Ncard.apply(newCard)
+		ret.append(Ncard)
+	return ret
+
+def deepcopy_minion(oldCards, oldCard, newCard):
+	"""
+	oldCards: for example, choose_cards of oldCard
+	"""
+	pass
+
+def deepcopy_log(oldLog):
+	return copy.deepcopy(oldLog)
+
 def copy_cardattr(oldCard, newCard):
 	attrList = oldCard.__dict__.keys()
 	excludeList=[		'manager','target','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone','game',
@@ -98,7 +128,22 @@ def copy_cardattr(oldCard, newCard):
 			if not isinstance(src,list):
 				setattr(newCard, attr, src)
 			else:
-				setattr(newCard, attr, copy.deepcopy(src))
+				if src==[]:
+					setattr(newCard, attr, [])
+				elif isinstance(src[0], AuraBuff):
+					setattr(newCard, attr, deepcopy_aurabuff(src))
+				elif isinstance(src[0], Enchantment):## 
+					setattr(newCard, attr, deepcopy_enchantment(src, oldCard, newCard))
+				elif isinstance(src[0], Minion):##choose one card
+					setattr(newCard, attr, deepcopy_minion(src, newCard.controller))
+				elif isinstance(src[0], Spell):##choose one card
+					setattr(newCard, attr, deepcopy_card(src, newCard.controller))
+				elif isinstance(src[0], PlayLog):
+					setattr(newCard, attr, deepcopy_log(src))
+				elif isinstance(src[0], str):##discover,entourage
+					setattr(newCard, attr, copy.deepcopy(src))
+				else:
+					setattr(newCard, attr, copy.deepcopy(src))
 			pass
 		pass
 
@@ -192,13 +237,13 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		copy_cardattr(card,new_card)
-		for buff in card.buffs:
-			new_buff = Enchantment(cards.db[buff.id])
-			new_buff.source = buff.source
-			new_buff.controller = newPlayer
-			new_buff.owner = card
-			new_buff.apply(new_card)
-			new_card.buffs.append(new_buff)
+		#for buff in card.buffs:
+		#	new_buff = Enchantment(cards.db[buff.id])
+		#	new_buff.source = buff.source
+		#	new_buff.controller = newPlayer
+		#	new_buff.owner = card
+		#	new_buff.apply(new_card)
+		#	new_card.buffs.append(new_buff)
 		new_card.zone = Zone.HAND
 		new_card.game.manager.new_entity(new_card)
 	for card in oldPlayer.field:
