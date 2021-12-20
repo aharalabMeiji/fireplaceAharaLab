@@ -42,6 +42,8 @@ class ExactCopy(Copy):
 			return
 		if isinstance(entity, list):
 			entity = entity[0]
+		if not hasattr(entity, 'silenceable_attributes'):
+			return
 		if entity.id == "OG_280":
 			return super().copy(source, entity)
 		ret = super().copy(source, entity)

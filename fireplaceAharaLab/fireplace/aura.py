@@ -49,8 +49,8 @@ class Refresh:
 						if not isinstance(value, int) and not callable(value):
 							value = value.evaluate(source)
 						tags[tag] = value
-
-				entity.refresh_tags(source, tags)
+				if hasattr(entity, 'refresh_tags'):
+					entity.refresh_tags(source, tags)
 
 	def __repr__(self):
 		return "Refresh(%r, %r, %r)" % (self.selector, self.tags or {}, self.buff or "")
