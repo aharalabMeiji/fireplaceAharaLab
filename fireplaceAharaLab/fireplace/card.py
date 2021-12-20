@@ -346,7 +346,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		"""
 		if choose:
 			if self.must_choose_one:
-				choose = card = self.choose_cards.filter(id=choose)[0]
+				for card in self.choose_cards:
+					if card.id==choose.id:
+						choose=card
+						break
+				#choose = card = self.choose_cards.filter(id=choose)[0]
 				self.log("%r: choosing %r", self, choose)
 			else:
 				raise InvalidAction("%r cannot be played with choice %r" % (self, choose))
@@ -414,9 +418,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				return True
 		if PlayReq.REQ_TARGET_IF_AVAILABLE in self.requirements:
 			return bool(self.play_targets)
-		if PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND in self.requirements:
-			if self.controller.hand.filter(race=Race.DRAGON):
-				return bool(self.play_targets)
+		#if PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND in self.requirements:
+		#	if self.controller.hand.filter(race=Race.DRAGON):
+		#		return bool(self.play_targets)
 		req = self.requirements.get(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS)
 		if req is not None:
 			if len(self.controller.field) >= req:

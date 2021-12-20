@@ -377,27 +377,27 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 		pass
 	if action.type==BlockType.PLAY:
 		if action.card.id != theCard.id:
-			print("%s != %s"%(action.card.id, theCard.id))
-			print("%s"%(action.card.game==mygame))
+			#print("%s != %s"%(action.card.id, theCard.id))
+			#print("%s"%(action.card.game==mygame))
 			return ExceptionPlay.INVALID
 		if (theTarget != None and theTarget not in theCard.targets):
-			print ("theCard : %s"%(theCard))
-			for card in theCard.targets:
-				print ("theCard.targets : %s"%(card))
-			print ("theCard2 : %s"%(theCard2))
-			print ("theTarget : %s"%(theTarget))
+			#print ("theCard : %s"%(theCard))
+			#for card in theCard.targets:
+			#	print ("theCard.targets : %s"%(card))
+			#print ("theCard2 : %s"%(theCard2))
+			#print ("theTarget : %s"%(theTarget))
 			return ExceptionPlay.INVALID
 		if theCard.requires_target() and theTarget == None:
-			print ("theCard : %s"%(theCard))
-			for card in theCard.targets:
-				print ("theCard.targets : %s(%s)"%(card, card.id))
-			print ("theTarget : %s"%(theTarget))
-			print ("action.card : %s"%(action.card))
-			if action.target!=None:
-				print ("action.target : %s(%s)"%(action.target, action.target.id))
+			#print ("theCard : %s"%(theCard))
+			#for card in theCard.targets:
+			#	print ("theCard.targets : %s(%s)"%(card, card.id))
+			#print ("theTarget : %s"%(theTarget))
+			#print ("action.card : %s"%(action.card))
+			#if action.target!=None:
+			#	print ("action.target : %s(%s)"%(action.target, action.target.id))
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
-			result = theCard.is_playable()
+			#result = theCard.is_playable()
 			return ExceptionPlay.INVALID
 		try:
 			theCard.play(target=theTarget,choose=theCard2)

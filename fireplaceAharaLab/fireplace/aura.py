@@ -40,14 +40,15 @@ class Refresh:
 	def trigger(self, source):
 		entities = self.selector.eval(source.game.entities + source.game.hands, source) # game ? entities + hands?
 		for entity in entities:
-			if self.buff:
+			if self.buff and hasattr(entity, 'self.refresh_buff'):
 				entity.refresh_buff(source, self.buff)
 			else:
 				tags = {}
-				for tag, value in self.tags.items():
-					if not isinstance(value, int) and not callable(value):
-						value = value.evaluate(source)
-					tags[tag] = value
+				if self.tags:
+					for tag, value in self.tags.items():
+						if not isinstance(value, int) and not callable(value):
+							value = value.evaluate(source)
+						tags[tag] = value
 
 				entity.refresh_tags(source, tags)
 
