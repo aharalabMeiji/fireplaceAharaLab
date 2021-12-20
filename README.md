@@ -3,13 +3,16 @@
 This is an application on a AI-platform fireplace for Hearthstone.
 This needs python 3.8, hearthstone 5.23.4, and fireplace 0.1.
 
+## card implementations
+{'neutral','hunter','mage','druid','warrior'}.{'aoo','scholomance','darkmoon fair','barrens','stormwind','alterac'} (Dec. 2021)
+
 ## 日本語によるwiki (wiki only in Japanese, sorry!)
 
 https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/
 
-## インストールの仕方
+## インストールの仕方(how to install in Japanese)
 
-https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E3%81%AF%E3%81%98%E3%82%81%E3%81%8B%E3%81%9F (日本語)
+https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E3%81%AF%E3%81%98%E3%82%81%E3%81%8B%E3%81%9F (Japanese)
 
 ## マストではないが、チューンアップしておいたほうがよい項目
 
