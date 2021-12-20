@@ -362,7 +362,7 @@ class Choice(GameAction):
 			player = player[0]
 		cards = self._args[1]
 		if isinstance(cards, Selector):
-			cards = cards.eval(source.game.entities + source.game.decks, source) # game? entities + decks?
+			cards = cards.eval(source.game.allcards + source.game.graveyard, source) # game? entities + decks?
 		elif isinstance(cards, LazyValue):
 			cards = cards.evaluate(source)
 		elif isinstance(cards, list):
@@ -473,6 +473,7 @@ class GenericChoiceBattlecry(GenericChoice):##
 		for new_card in controller.hand:
 			if new_card.id == card.id:
 				Battlecry(new_card, new_card.target).trigger(new_card)
+				#new_card.zone=Zone.PLAY# 必要？
 				break
 		pass
 
@@ -566,6 +567,8 @@ class Play(GameAction):
 			trigger_outcast = False
 
 		card.zone = Zone.PLAY
+		if card.type == CardType.MINION:
+			player.add_summon_log(card)
 
 		# Remember cast on friendly characters
 		if target and target.controller == source:
@@ -574,7 +577,6 @@ class Play(GameAction):
 		# NOTE: A Play is not a summon! But it sure looks like one.
 		# We need to fake a Summon broadcast.
 		summon_action = Summon(player, card)
-
 		if card.type in (CardType.MINION, CardType.WEAPON):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
@@ -1145,6 +1147,8 @@ class GainArmor(TargetedAction):
 	AMOUNT = IntArg()
 
 	def do(self, source, target, amount):
+		if amount>0 and hasattr(target, 'total_armor'):
+			target.total_armor += amount
 		target.armor += amount
 		self.broadcast(source, EventListener.ON, target, amount)
 
@@ -1211,6 +1215,25 @@ class Hit(TargetedAction):
 	def do(self, source, target, amount):
 		amount = source.get_damage(amount, target)
 		if amount:
+			#if isinstance(source,PlayableCard):
+			if hasattr(source, 'honorable_kill') and source.honorable_kill:
+				if target.type==CardType.WEAPON and target==source:## when decreasing durability
+					pass
+				else:
+					target_health = target.health
+					if target_health == amount:
+						log.info("%s hits %s and gets honorable kill"%(source, target))
+						target.honorably_killed = True
+						if source.type==CardType.HERO and source.controller.weapon!=None :
+							actions = source.controller.weapon.get_actions("honorable_kill")
+							source.game.trigger(source.controller.weapon, actions,event_args=None)
+						else:
+							actions = source.get_actions("honorable_kill")
+							source.game.trigger(source, actions,event_args=None)
+						for buff in source.buffs:
+							if hasattr(buff, 'honorable_kill'):
+								actions = buff.get_actions('honorable_kill')
+								source.game.trigger(source, actions, event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
@@ -1414,6 +1437,7 @@ class SetTag(TargetedAction):
 	TAGS = ActionArg()
 
 	def do(self, source, target, tags):
+		log.info("Setting current tag on %r to %s", target, tags)
 		if isinstance(tags, dict):
 			for tag, value in tags.items():
 				target.tags[tag] = value
@@ -1517,6 +1541,7 @@ class Shuffle(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
+		return cards
 
 class ShuffleBuff(TargetedAction):
 	"""
@@ -1657,11 +1682,24 @@ class CastSpell(TargetedAction):
 		log.info("%s cast spell %s target %s", source, card, target)
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
+		player.add_play_log(card)
 		while player.choice:
 			choice = random.choice(player.choice.cards)
 			print("Choosing card %r" % (choice))
 			player.choice.choose(choice)
 		source.game.queue_actions(source, [Deaths()])
+
+class CastSecret(TargetedAction):
+	"""
+	Cast a spell target random
+	"""
+	CARD = CardArg()
+	def do(self, source, cards):
+		log.info("%s cast secret %s ", source, cards)
+		if not isinstance(cards,list):
+			cards = [cards]
+		for card in cards:
+			card.zone=Zone.SECRET
 
 
 class CastSpellTargetsEnemiesIfPossible(TargetedAction):
@@ -2007,6 +2045,8 @@ class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
 						action.trigger(source)
 
 
+###################### end of sidequest
+
 class SetMaxHealth(TargetedAction):
 	"""
 	Sets the max health of the character target to \a amount.
@@ -2026,6 +2066,15 @@ class SetAtk(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting atk on %r to %i", target, amount)
 		target.atk = amount
+class SetCost(TargetedAction):
+	"""
+	Sets the cost of the character target to \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		log.info("Setting cost on %r to %i", target, amount)
+		target.cost = amount
 
 
 class Reborn(TargetedAction):
@@ -2257,6 +2306,7 @@ class SetAttr(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, attr, amount):
 		if hasattr(target, attr):
+			log.info("%s set attr '%s' into %d"%(target, attr, amount ))
 			setattr(target, attr, amount)
 
 
@@ -2391,7 +2441,8 @@ class Freeze(TargetedAction):
 	def do(self, source, target):
 		log.info("%r Freezes %r", self, target)
 		if not target.tags[GameTag.CANT_BE_FROZEN]:
-			SetTag(target, (GameTag.FROZEN, )).trigger(source)
+			##SetTag(target, (GameTag.FROZEN, )).trigger(source)
+			target.frozen = True
 		else:
 			log.info("Freezing is blocked!")
 
@@ -2534,6 +2585,21 @@ class Frenzy(TargetedAction):
 			target.frenzyFlag=1
 			pass 
 
+#class HonorableKill(TargetedAction):
+#	""" Honorable Kill """
+#	TARGET = ActionArg() # predamaged minion
+#	AMOUNT = IntArg()
+#	TARGETEDACTION = ActionArg()
+#	def do(self, source, target, amount, targetaction):
+#		# 'honorable_kill' is silenceable
+#		if source.honorable_kill==1:
+#			if taget.health == amount:
+#				log.info("Honorable Kill works on %s"%(source))
+#				targetaction.trigger(source)
+#			pass
+#		pass
+#	pass
+
 class CountSummon(TargetedAction):
 	TARGET = ActionArg()#self
 	LIST = ActionArg()#Minion List
@@ -2625,6 +2691,14 @@ class SetScriptDataNum1(TargetedAction):
 	def do(self, source, target, amount):
 		if hasattr(target,'script_data_num_1'):
 			target.script_data_num_1 = amount
+		pass
+
+class AddScriptDataNum1(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'script_data_num_1'):
+			target.script_data_num_1 += amount
 		pass
 
 ###############################################################

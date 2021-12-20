@@ -197,13 +197,14 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.HEAVILY_ARMORED: "heavily_armored",
 	GameTag.HEROPOWER_ADDITIONAL_ACTIVATIONS: "additional_activations",
 	GameTag.HEROPOWER_DAMAGE: "heropower_damage",
-	GameTag.JADE_GOLEM: "jade_golem",
-	GameTag.LIFESTEAL: "lifesteal",
+	GameTag.HONORABLEKILL: "honorable_kill",##01/Dec/21
 	GameTag.IGNORE_TAUNT: "ignore_taunt",
 	GameTag.INCOMING_DAMAGE_MULTIPLIER: "incoming_damage_multiplier",
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
 	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
 	GameTag.INSPIRE: "has_inspire",
+	GameTag.JADE_GOLEM: "jade_golem",
+	GameTag.LIFESTEAL: "lifesteal",
 	GameTag.MARK_OF_EVIL: "mark_of_evil",# aharalab, 22.12.2020
 	GameTag.MULTI_CLASS_GROUP: "multi_class_group",
 	GameTag.NUM_ATTACKS_THIS_TURN: "num_attacks",

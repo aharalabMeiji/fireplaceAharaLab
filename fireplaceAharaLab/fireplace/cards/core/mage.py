@@ -28,7 +28,7 @@ class CORE_CS2_023:# <4>[1637]
 class CORE_CS2_029:# <4>[1637]
 	""" Fireball
 	Deal $6 damage. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_HERO_OR_MINION_TARGET: 0}
 	play = Hit(TARGET, 6)
 	pass
 

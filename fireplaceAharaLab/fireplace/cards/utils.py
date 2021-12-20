@@ -15,7 +15,7 @@ ENEMY_CLASS = Attr(ENEMY_HERO, GameTag.CLASS)
 FRIENDLY_CLASS = Attr(FRIENDLY_HERO, GameTag.CLASS)
 
 
-#Freeze = lambda target: SetTag(target, (GameTag.FROZEN, )) ##### aharalab, 23.12.2020
+#Freeze = lambda target: SetTag(target, (GameTag.FROZEN, )) ##
 Stealth = lambda target: SetTag(target, (GameTag.STEALTH, ))
 Unstealth = lambda target: UnsetTag(target, (GameTag.STEALTH, ))
 Taunt = lambda target: SetTag(target, (GameTag.TAUNT, ))

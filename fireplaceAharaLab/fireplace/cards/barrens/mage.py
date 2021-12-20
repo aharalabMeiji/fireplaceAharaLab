@@ -115,7 +115,7 @@ class BAR_547_Action(TargetedAction):
 		ActivateList = target._activate_log
 		count=0
 		for case in ActivateList:
-			count += case[2]
+			count += case.amount
 		if count >= amount:
 			targetedaction.trigger(source)
 		pass
@@ -125,7 +125,7 @@ class BAR_547_Hand_Event(TargetedAction):
 		ActivateList = target._activate_log
 		count=0
 		for case in ActivateList:
-			count += case[2]
+			count += case.amount
 		source.script_data_num_1 = count+1
 		source.script_data_text_0 = str(9 - count)
 		pass

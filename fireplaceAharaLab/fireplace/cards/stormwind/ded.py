@@ -32,7 +32,7 @@ class DED_514e:# <12>[1578] -> <6>[1578]
 class DED_521:# <12>[1578] ####OK
 	""" Maddest Bomber
 	[Battlecry:] Deal 12 damage randomly split among all other characters. """
-	play = Hit(RANDOM(ALL_CHARACTERS),1) * 12
+	play = Hit(RANDOM(ALL_CHARACTERS - SELF),1) * 12
 	pass
 
 class DED_523:# <12>[1578] ###OK

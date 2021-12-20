@@ -17,8 +17,10 @@ class AuraBuff:
 
 	def remove(self):
 		log.info("Destroying %r", self)
-		self.entity.slots.remove(self)
-		self.source.game.active_aura_buffs.remove(self)
+		if self in self.entity.slots:
+			self.entity.slots.remove(self)
+		if self in self.source.game.active_aura_buffs:
+			self.source.game.active_aura_buffs.remove(self)
 
 	def _getattr(self, attr, i):
 		value = getattr(self, attr, 0)
@@ -40,16 +42,17 @@ class Refresh:
 	def trigger(self, source):
 		entities = self.selector.eval(source.game.entities + source.game.hands, source) # game ? entities + hands?
 		for entity in entities:
-			if self.buff:
+			if self.buff and hasattr(entity, 'self.refresh_buff'):
 				entity.refresh_buff(source, self.buff)
 			else:
 				tags = {}
-				for tag, value in self.tags.items():
-					if not isinstance(value, int) and not callable(value):
-						value = value.evaluate(source)
-					tags[tag] = value
-
-				entity.refresh_tags(source, tags)
+				if self.tags:
+					for tag, value in self.tags.items():
+						if not isinstance(value, int) and not callable(value):
+							value = value.evaluate(source)
+						tags[tag] = value
+				if hasattr(entity, 'refresh_tags'):
+					entity.refresh_tags(source, tags)
 
 	def __repr__(self):
 		return "Refresh(%r, %r, %r)" % (self.selector, self.tags or {}, self.buff or "")

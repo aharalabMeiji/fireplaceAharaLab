@@ -55,10 +55,15 @@ class Preset_Play:
 		self.player = player
 		self.game = player.game
 		self.testNr = 0
+		self.current=player
 		pass
 	def preset_deck(self):
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
+		print ("")
+		print ("")
+		print ("")
+		print ("")
 		pass
 	def preset_play(self):
 		pass
@@ -66,19 +71,31 @@ class Preset_Play:
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
 		pass
+	def change_turn(self, player):
+		game = player.game
+		if player.choice!=None:
+			player.choice=None#somotimes it comes here
+		game.end_turn()
+		postAction(player)
+		current = player.opponent
+		pass
 	def execute(self, testNr = 0):
 		self.testNr = testNr
 		self.preset_deck()
 		self.preset_play()
+		print ("")
+		print ("")
+		print ("")
 		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
-	def exchange_card(self, card, player):
-		_card = card
-		Discard(self.player.hand[0]).trigger(player)
+
+	def card_choice(self, _card):
 		if _card=='arcane':
 			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','CORE_CS2_023','CORE_EX1_287','CORE_EX1_294','BT_002','BT_003','BT_006','BT_021','SCH_235','SCH_270',\
 						'SCH_352','SCH_353','YOP_019','DMF_057','BAR_541','BAR_539','DED_517','DED_002',])
+		if _card=='armor':
+			_card=random.choice(['SW_030','SW_094',])
 		if _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
@@ -89,6 +106,8 @@ class Preset_Play:
 						'BAR_743','BAR_745','BAR_030','BAR_031','BAR_034t3','BAR_034t4','BAR_034t5','BAR_035t','BAR_533t','BAR_535','BAR_538','BAR_538t','WC_036',\
 						'WC_036t1','WC_026','SW_072','SW_075','SW_306','SW_323','SW_455t','SW_458t','SW_463','SW_463t','SW_428t4','SW_429t','SW_431','SW_432t',\
 						'SW_436','SW_439','SW_439t2','DED_008','DED_515','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DRG_252',])
+		if _card=='chooseone':
+			_card=random.choice(['CORE_EX1_178','CORE_EX1_165','CORE_EX1_573','CORE_EX1_160','CORE_OG_047','CORE_EX1_164','DMF_061',])
 		if _card=='corrupt':
 			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
 		if _card=='deathrattle':
@@ -121,16 +140,52 @@ class Preset_Play:
 			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
 		if _card=='spellpower':
 			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
+		if _card=='taunt':
+			_card=random.choice(['NEW1_032','CORE_CS2_179','CORE_GVG_085','CORE_LOOT_137','CS3_024','EX1_165t2','OG_044a','EX1_573t','SCH_709','SCH_709t','SCH_710t','SCH_244','SCH_600t2','SCH_613','DMF_044','DMF_078','DMF_078t','DMF_081','DMF_163','DMF_163t','DMF_254t5t','DMF_532','YOP_005t','DMF_059','DMF_734','YOP_025','YOP_025t','DMF_521','BAR_021','BAR_026','BAR_069','BAR_072t','BAR_743','WC_034t2','BAR_533t','BAR_535','BAR_538t','WC_004','BAR_846','SW_054','SW_068','SW_076t','SW_428t4','SW_429t','DED_001b','DED_001bt','DED_001c','CS2_051','YOP_005t','SW_068',])
 		if _card=='vanilla':
-			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t','EX1_116t',\
-						'NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t','BT_726t','BT_728t','BT_163t',\
-						'BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t','DMF_104t','DMF_061t2','DMF_521t','BAR_076t','BAR_077t',\
-						'BAR_721t2','WC_026t','SW_455t','SW_422t','SW_439t2','DED_517t','DREAM_03','SCH_337t',])####
+			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
+	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',
+	'BT_726t','BT_728t','BT_163t','BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t',
+	'DMF_104t','DMF_061t2','BAR_076t','BAR_077t','BAR_721t2','SW_455t','SW_422t','SW_439t2','DED_517t',
+	'DREAM_03','SCH_337t',])####
+		if _card=='vanillaH1':
+			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
+		if _card=='vanillaH2':
+			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
+		if _card=='vanillaH3':
+			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
+		if _card=='vanillaA3':
+			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
+		if _card=='minionH4':
+			_card=random.choice(['NEW1_032','NEW1_033','CORE_EX1_046','CORE_EX1_095','CORE_EX1_186','CORE_GVG_044','CORE_ICC_026','CORE_LOOT_124','FP1_007t','CORE_LOE_003','CORE_EX1_165','EX1_165a','EX1_165t1','CORE_KAR_065','CORE_EX1_402','CORE_EX1_604','CS3_030','SCH_146','SCH_162','SCH_182','SCH_245','SCH_425','SCH_522','SCH_714','SCH_340t','SCH_539','SCH_241','SCH_614','SCH_616','DMF_065','DMF_066','DMF_074','DMF_080','DMF_081','DMF_163','DMF_163t','DMF_174','DMF_174t','YOP_003','YOP_003t','YOP_005t','YOP_031','DMF_089','YOP_028','DMF_106','DMF_060','YOP_025','DMF_529','YOP_014','BAR_025','BAR_026','BAR_076','BAR_082','BAR_430','BAR_721','BAR_745','WC_030','BAR_034t4','BAR_035','BAR_037','BAR_888','BAR_540','BAR_720','BAR_334','BAR_846','SW_036','SW_061','SW_062','SW_066','SW_072','SW_076','SW_077','SW_400','SW_419','SW_431','SW_436','SW_030','SW_093','DED_524','DED_008','DED_516','YOP_005t',])
+		if _card=='minionH5':
+			_card=random.choice(['CORE_EX1_534','CORE_CS2_179','CORE_CS2_182','CORE_EX1_014','CORE_EX1_028','CORE_EX1_110','CORE_EX1_188','CORE_NEW1_026','EX1_110t','CS3_001','CORE_EX1_178','CS3_012','CORE_GVG_053','SCH_313','SCH_428','SCH_239','SCH_244','SCH_243','SCH_613','DMF_004','DMF_082','DMF_082t','DMF_190','DMF_532','YOP_012','YOP_018','DMF_083','DMF_083t','DMF_085','DMF_087','DMF_101','DMF_101t','DMF_109','DMF_521','DMF_525','DMF_528','BAR_073','BAR_077','BAR_077t','BAR_081','BAR_079_m2','BAR_038','BAR_551','BAR_544','WC_806','BAR_535','SW_054','SW_063','SW_076t','SW_080','SW_323','SW_463','SW_109','SW_111','SW_447','DED_006','DREAM_01','DRG_256',])
+		if _card=='minionA5':
+			_card=random.choice(['CORE_AT_092','CORE_EX1_014','CORE_EX1_028','CORE_EX1_110','CORE_EX1_186','CORE_EX1_188','CORE_EX1_190','EX1_110t','CS3_001','CORE_EX1_165','EX1_165a','EX1_165b','EX1_165t1','EX1_165t2','OG_044a','CORE_EX1_178','CORE_EX1_573','CORE_GVG_053','CS3_030','SCH_143','SCH_709','SCH_709t','SCH_614','SCH_616','DMF_002','DMF_044','DMF_087','DMF_109','YOP_025t','DMF_528','BAR_020','BAR_027','BAR_069','BAR_072t','BAR_077','BAR_077t','BAR_081','BAR_079_m2','WC_806','BAR_334','SW_057','SW_062','SW_063','SW_077','SW_323','SW_447',])
+		if _card=='minionH6':
+			_card=random.choice(['CS3_025','CORE_CS2_033','EX1_165b','EX1_165t2','OG_044a','SCH_157','SCH_224','SCH_232','SCH_273','SCH_530','SCH_605','DMF_078','DMF_078t','DMF_254','DMF_254t5t','DMF_734','YOP_025t','BAR_020','BAR_042','BAR_075','BAR_078','BAR_080','BAR_744','WC_029','BAR_034t5','WC_008','BAR_538','BAR_840','BAR_896','SW_057','SW_071','SW_073','SW_459','SW_113','SW_097','DED_515','DREAM_03',])
+		if _card=='minionA6':
+			_card=random.choice(['CORE_EX1_534','CORE_AT_008','CORE_LOE_003','SCH_530','SCH_717','DMF_068','DMF_069','DMF_078','DMF_078t','DMF_254','DMF_254t5t','YOP_035','BAR_042','WC_029','BAR_034t5','BAR_538t','SW_078','SW_113','DED_006','DED_515','SW_021','SCH_337',])
+		if _card=='minionH7':
+			_card=random.choice(['CORE_CS2_181','CORE_CS2_222','CORE_EX1_190','CORE_EX1_249','CORE_FP1_031','CORE_AT_008','SCH_709','SCH_709t','SCH_710','DMF_002','DMF_068','BAR_021','BAR_027','BAR_721t2','BAR_538t','WC_006','SW_078','SW_081','SW_322t4','SW_450t4','SW_429t','SW_028t5','SW_024',])
+		if _card=='minionH8':
+			_card=random.choice(['CORE_EX1_543','CORE_EX1_187','CORE_EX1_399','CORE_GVG_121','CORE_UNG_813','CORE_UNG_844','CS3_031','CS3_032','CS3_035','CORE_EX1_573','BT_720','BT_138','SCH_711','SCH_717','SCH_400','DMF_080t','DMF_104t','BAR_071','BAR_072t','BAR_547','SW_068','SW_428t4','DED_521','DED_525','AV_132','AV_141t','SCH_337','SW_068',])
+		if _card=='minionA7':
+			_card=random.choice(['CORE_EX1_543','CORE_CS2_222','CORE_EX1_249','CORE_GVG_121','CS3_031','CS3_032','CS3_035','CS3_036','BT_155','BT_155t','BT_728t','BT_734','BT_735','BT_850','BT_028t','BT_133','BT_136t','BT_136tt','BT_136tt2','BT_136tt3','BT_123t','SCH_711','DMF_004','DMF_080t','DMF_188','YOP_034','DMF_085','DMF_104t','DMF_059','BAR_079_m3','BAR_547','BAR_538','SW_068','SW_081','SW_322t4','SW_450t4','SW_428t4','SW_028t5','DED_521','DED_525','AV_130','AV_132','AV_141t','AV_704','DREAM_03','SW_024','SW_068','SCH_621',])
 		if _card=='weapon':
-			_card=random.choice(['WC_037','DMF_088'])
+			_card=random.choice(['WC_037','DMF_088','DMF_521t'])
+		return _card
+
+	def exchange_card(self, card, player, health=0):
+		_card = self.card_choice(card)
+		Discard(self.player.hand[0]).trigger(player)
 		new_card = Give(player,_card).trigger(player)
 		return new_card[0][0]
-
+	def append_deck_shuffle(self, card, player):
+		_card = self.card_choice(card)
+		new_card=Shuffle(player, _card).trigger(player)
+		return new_card[0][0]
+		pass
 	def print_hand(self, player):
 		print ("##### %s HAND ####"%(player.name))
 		for card in player.hand:
@@ -140,30 +195,44 @@ class Preset_Play:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
 		pass
-	def play_card(self, card,  player, target = None):
+	def play_card(self, card,  player, target = None, choose = None):
 		if isinstance(card,PlayableCard):
 			if target!=None and not target in card.targets:
 				target=None
-			Play(card, target, None, None).trigger(player)
+			if choose != None and not choose in card.choose_cards:
+				choose = None
+			Play(card, target, None, choose).trigger(player)
+		pass
+	def attack_card(self, card,  target, player):
+		if isinstance(card,PlayableCard) and isinstance(target, PlayableCard):
+			if card.can_attack(target):
+				card.attack(target)
+		pass
+	def cast_spell(self, card, player):
+		if card.type==CardType.SPELL:
+			CastSpell(card).trigger(player)
 		pass
 	def contains_buff(self, card, buffID):
 		for buff in card.buffs:
 			if buff.id == buffID:
 				return True
 		return False
+	def card_in_field(self, player, cardID):
+		for card in player.field:
+			if card.id==cardID:
+				return True
+		return False
+	def activate_heropower(self, player, target=None):
+		player.hero.power.use(target=target)
+		pass
 
-def SimulateGames():
-	#PresetGame(pp_DED_006,1)
-	PresetGame(pp_DED_521,1)
-	PresetGame(pp_DED_523,2)
-	#PresetGame(pp_DED_524,3)
 
 def PresetGame(pp, testNr=1):
 	from fireplace import cards
-	cards.db.initialize(testNr)
+	cards.db.initialize()
 	for test in range(testNr):
-		class1=CardClass.DRUID
-		class2=CardClass.WARRIOR
+		class1=CardClass.HUNTER
+		class2=CardClass.HUNTER
 		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
 		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
 		deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
@@ -355,3 +424,8 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
+from .alterac_hunter import SimulateGames_Alterac_Hunter
+def SimulateGames():
+	SimulateGames_Alterac_Hunter()
+
+	pass

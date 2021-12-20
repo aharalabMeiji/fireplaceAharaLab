@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import winsound
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
@@ -23,11 +24,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.DRUID)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 
 	# Maya : モンテカルロによる読み切り
@@ -59,13 +60,11 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	from utils import BigDeck#BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], 
-		gameNumber=10, debugLog=True)
-	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],\
-	#   gameNumber=1, debugLog=True, P1MAXMANA=10, P2MAXMANA=10)
-	print("%d:%d"%(a,b))
-
+	#from utils import BigDeck#BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
+	#print("%d:%d"%(a,b))
+	#winsound.Beep(884, 2000)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
@@ -78,7 +77,6 @@ def main():
 	#シナジーのあるカードの組を漠然と探す
 	#find_card_pair(1)
 	#print("test_branch_yamadamaya")
-
 	pass
 
 def printClasses():
@@ -141,7 +139,7 @@ def printCards():
 		for id in cardIDlist:
 			card = db[id]
 			tag = card.tags.get(GameTag.CARDRACE)
-			if len(card.description)<4: #tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
+			if card.tags.get(GameTag.CARDTYPE)==CardType.MINION and card.tags.get(GameTag.TAUNT,0)!=0: #tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
 				print("'%s'"%(card.id), end=",")
 			pass
 		pass
@@ -189,6 +187,7 @@ def print_deck():
 
 if __name__ == "__main__":
 	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
-	#from card_test import SimulateGames
+	#from card_test.simulate_game import SimulateGames
 	#SimulateGames()
+	#printCards()
 	main()

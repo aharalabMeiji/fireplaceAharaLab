@@ -1,14 +1,14 @@
 """
 Targeting logic
 """
-from hearthstone.enums import CardType, PlayReq, Rarity
+from hearthstone.enums import CardType, PlayReq, Rarity, Zone
 from enum import IntEnum
 
 TARGETING_PREREQUISITES = (
 	PlayReq.REQ_TARGET_TO_PLAY,
 	PlayReq.REQ_TARGET_FOR_COMBO,
 	PlayReq.REQ_TARGET_IF_AVAILABLE,
-	PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND,
+	#PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND,
 	PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS,
 	PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS,
 	PlayReq.REQ_TARGET_IF_AVAILABLE_AND_HERO_ATTACKED_THIS_TURN,
@@ -50,7 +50,7 @@ def is_valid_target(self, target, requirements=None):
 
 	for req, param in requirements.items():
 		if req == PlayReq.REQ_MINION_TARGET:
-			if target.type != CardType.MINION:
+			if target.type == CardType.HERO or target.type != CardType.MINION or target.zone!=Zone.PLAY:
 				return False
 		elif req == PlayReq.REQ_FRIENDLY_TARGET:
 			if target.controller != self.controller:
@@ -74,7 +74,7 @@ def is_valid_target(self, target, requirements=None):
 			if target.type != CardType.HERO:
 				return False
 		elif req == PlayReq.REQ_TARGET_MIN_ATTACK:
-			if target.atk < param or 0:
+			if target.atk < param:
 				return False
 		elif req == PlayReq.REQ_MUST_TARGET_TAUNTER:
 			if not target.taunt:
@@ -91,7 +91,7 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
 			if not target.has_deathrattle:
 				return False
-		elif req == PlayReq.REQ_HERO_OR_MINION_TARGET:# aharalab 
+		elif req == PlayReq.REQ_HERO_OR_MINION_TARGET:# 
 			if target.type != CardType.MINION and target.type != CardType.HERO:
 				return False
 		

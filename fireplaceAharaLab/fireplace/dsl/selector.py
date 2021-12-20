@@ -427,6 +427,7 @@ WINDFURY = EnumSelector(GameTag.WINDFURY)
 CLASS_CARD = EnumSelector(GameTag.CLASS)
 DORMANT = EnumSelector(GameTag.DORMANT)
 FRENZY = EnumSelector(GameTag.FRENZY)
+CHOOSE_ONE = EnumSelector(GameTag.CHOOSE_ONE)
 
 ALWAYS_WINS_BRAWLS = AttrValue(enums.ALWAYS_WINS_BRAWLS) == True  # noqa
 KILLED_THIS_TURN = AttrValue(enums.KILLED_THIS_TURN) == True  # noqa
@@ -468,6 +469,7 @@ HOLY = EnumSelector(SpellSchool.HOLY)
 FIRE = EnumSelector(SpellSchool.FIRE)
 FROST = EnumSelector(SpellSchool.FROST)
 ARCANE = EnumSelector(SpellSchool.ARCANE)
+FEL = EnumSelector(SpellSchool.FEL)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
@@ -497,6 +499,7 @@ FRIENDLY_CHARACTERS = ALL_CHARACTERS + FRIENDLY
 FRIENDLY_WEAPON = ALL_WEAPONS + FRIENDLY
 FRIENDLY_SECRETS = ALL_SECRETS + FRIENDLY
 FRIENDLY_HERO_POWER = ALL_HERO_POWERS + FRIENDLY
+FRIENDLY_KILLED = KILLED + FRIENDLY
 
 ENEMY_HAND = IN_HAND + ENEMY
 ENEMY_DECK = IN_DECK + ENEMY
