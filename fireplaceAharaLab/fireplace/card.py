@@ -937,7 +937,7 @@ class Secret(Spell):
 				if 'DAL_573'==card.id :# aharalab 
 					self.secret_twice=True #  
 		if self.zone == Zone.SECRET:
-			if self.secret_twice:# aharalab 
+			if hasattr(self,'secret_twice') and self.secret_twice:# aharalab 
 				self.secret_twice=False
 				return
 			else:

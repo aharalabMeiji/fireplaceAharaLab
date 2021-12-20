@@ -32,7 +32,7 @@ class StandardAgent(Agent):
 					continue
 			return ExceptionPlay.VALID
 
-
+import time
 class StandardVectorAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000, mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )

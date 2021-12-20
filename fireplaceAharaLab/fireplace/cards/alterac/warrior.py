@@ -63,7 +63,7 @@ class AV_321:
 class AV_322:
 	""" Snowed In (3) frost
 	Destroy a damaged minion. Freeze all other minions. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_DAMAGED_TARGET:0 }
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_DAMAGED_TARGET:0 }
 	play = (
 		Destroy(TARGET),
 		Freeze(ALL_MINIONS - SELF),

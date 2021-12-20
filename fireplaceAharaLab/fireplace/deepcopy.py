@@ -1,6 +1,6 @@
 from enum import IntEnum
 from fireplace import cards
-from hearthstone.enums import Zone,State,CardType
+from hearthstone.enums import Zone,State,CardType,Step
 from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest
 from .player import Player, PlayLog
 from .game import Game
@@ -96,7 +96,9 @@ def create_vacant_card(card):
 def deepcopy_aurabuff(oldCard):
 	ret=[]
 	for card in oldCard:
-		ret.append(AuraBuff(card.source, card.entity))
+		buff=AuraBuff(card.source, card.entity)
+		buff.tick = card.source.controller.game.tick
+		ret.append(buff)
 	return ret
 
 def deepcopy_enchantment(oldCards, oldCard, newCard):
@@ -145,9 +147,8 @@ def deepcopy_spell(oldCards, oldCard, newCard):
 def deepcopy_log(oldLog):
 	ret=[]
 	for log in oldLog:
-		ret.append(PlayLog(log.card, log.turn, log.amoune))
+		ret.append(PlayLog(log.card, log.turn, log.amount))
 	return ret
-	return copy.deepcopy(oldLog)
 
 def copy_cardattr(oldCard, newCard):
 	""" copy attributes from and to existing cards
@@ -326,15 +327,27 @@ def copy_gameattr(oldGame,newGame):
 	""" copy game's attr.
 	"""
 	gameAttrs =['next_step','turn','tick','zone','state','step',
-			 'setaside','_myLog_','active_aura_buffs','proposed_attacker','proposed_defender',
+			 'active_aura_buffs','proposed_attacker','proposed_defender',
 		]
 	for attr in gameAttrs:
 		if hasattr(oldGame,attr):
 			src = getattr(oldGame, attr)
 			if not isinstance(src,list):
 				setattr(newGame, attr, src)
+			elif src==[]:
+				setattr(newGame, attr, src)
+			elif attr=='_myLog_':
+				ret=[]
+				for element in src:
+					ret.append(copy.copy(element))
+				setattr(newGame, attr, ret)
+			elif isinstance(src[0], AuraBuff):
+				setattr(newGame, attr, deepcopy_aurabuff(src))
 			else:
-				setattr(newGame, attr, copy.deepcopy(src))
+				ret=[]
+				for element in src:
+					ret.append(copy.deepcopy(element))
+				setattr(newGame, attr, ret)
 			pass
 		pass
 	for player in newGame.players:

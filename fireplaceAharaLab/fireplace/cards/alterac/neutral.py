@@ -19,6 +19,7 @@ class AV_100:
 			for card in choices:
 				Summon(self.controller, card).trigger(self)
 		else:
+			pass
 			#print("Nothing happens at playing AV_100")
 		pass
 	pass

@@ -17,8 +17,10 @@ class AuraBuff:
 
 	def remove(self):
 		log.info("Destroying %r", self)
-		self.entity.slots.remove(self)
-		self.source.game.active_aura_buffs.remove(self)
+		if self in self.entity.slots:
+			self.entity.slots.remove(self)
+		if self in self.source.game.active_aura_buffs:
+			self.source.game.active_aura_buffs.remove(self)
 
 	def _getattr(self, attr, i):
 		value = getattr(self, attr, 0)

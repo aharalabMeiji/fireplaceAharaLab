@@ -314,7 +314,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 					else:# card2=None
 						if theCard.requires_target():
 							for target in theCard.targets:
-								if target.zone==Zone.PLAY and identifyTargetCard(target, action.target):
+								if identifyTargetCard(target, action.target):
 									theTarget=target
 						else:
 							pass
@@ -327,14 +327,14 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 				if identifyAttackCard(card, action.card):
 					theCard = card
 					for target in card.targets:
-						if target.zone==Zone.PLAY and identifyTargetCard(target, action.target): 
+						if identifyTargetCard(target, action.target): 
 							##character.can_attack(target)
 							theTarget = target
 		if player.hero.power.id==action.card.id and action.type==BlockType.POWER:
 			if player.hero.power.is_usable():
 				theCard = player.hero.power
 				for target in theCard.targets:
-					if target.zone==Zone.PLAY and identifyTargetCard(target, action.target):
+					if identifyTargetCard(target, action.target):
 						theTarget = target
 	if theCard==None:## to debug
 		noCard=True
@@ -388,13 +388,16 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			#print ("theTarget : %s"%(theTarget))
 			return ExceptionPlay.INVALID
 		if theCard.requires_target() and theTarget == None:
-			#print ("theCard : %s"%(theCard))
-			#for card in theCard.targets:
-			#	print ("theCard.targets : %s(%s)"%(card, card.id))
-			#print ("theTarget : %s"%(theTarget))
-			#print ("action.card : %s"%(action.card))
 			#if action.target!=None:
 			#	print ("action.target : %s(%s)"%(action.target, action.target.id))
+			#	for card in theCard.targets:
+			#		print ("theCard.targets : %s(%s)"%(card, card.id))
+			#		print ("->identifyTarget : %s"%(identifyTargetCard(card, action.target)))
+			#game1 = action.card.controller.game
+			#game2 = theCard.controller.game
+			#can1 = getCandidates(game1)
+			#can2 = getCandidates(game2)
+			#print("%d, %d"%(len(can1),len(can2)))
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
 			#result = theCard.is_playable()
