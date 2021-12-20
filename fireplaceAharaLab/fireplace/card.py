@@ -825,26 +825,26 @@ class Minion(Character):
 				pass
 			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
 				if self in self.controller.game.live_entities:
-					print("%s must be removed from the field but still left in the list of living entities.", self.data.name)
+					self.log("%s must be removed from the field but still left in the list of living entities."%(self.data.name))
 					if self in self.controller.live_entities:
 						player=self.controller
 					elif self in self.controller.opponent.live_entities:
 						player=self.controller.opponent
 					self.log("Controller is %s"%(player.name))
 					if self in player.field:
-						for entity in player.field:
-							print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						#for entity in player.field:
+						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
 						player.field.remove(self)
 					elif self in player.hand:
-						for entity in player.hand:
-							print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						#for entity in player.hand:
+						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
 						player.hand.remove(self)
 					elif self in player.game.setaside:
-						for entity in player.game.setaside:
-							print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						#for entity in player.game.setaside:
+						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
 						player.game.setaside.remove(self)
 					else:
-						print("Extra-ordinary error happens.  Stop here in set_zon()")
+						self.log("Extra-ordinary error happens.  Stop here in set_zone()")
 		super()._set_zone(value)
 
 	def _hit(self, amount):
@@ -995,7 +995,7 @@ class Enchantment(BaseCard):
 		elif zone == Zone.REMOVEDFROMGAME:
 			if self.zone == zone:
 				# Can happen if a Destroy is queued after a bounce, for example
-				self.logger.warning("Trying to remove %r which is already gone", self)
+				self.log("Trying to remove %r which is already gone", self)
 				return
 			self.owner.buffs.remove(self)
 			if self in self.game.active_aura_buffs:

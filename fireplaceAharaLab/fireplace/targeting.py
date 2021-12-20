@@ -74,7 +74,7 @@ def is_valid_target(self, target, requirements=None):
 			if target.type != CardType.HERO:
 				return False
 		elif req == PlayReq.REQ_TARGET_MIN_ATTACK:
-			if target.atk < param or 0:
+			if target.atk < param:
 				return False
 		elif req == PlayReq.REQ_MUST_TARGET_TAUNTER:
 			if not target.taunt:
