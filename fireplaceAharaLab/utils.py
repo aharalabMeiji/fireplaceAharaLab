@@ -556,5 +556,11 @@ def getTurnLog(gameLog, turnN):
 			ret.append(gameLog[i])
 	return ret
 
+from fireplace.deepcopy import deepcopy_game
+def debug_deepcopy(game,player):
+	return deepcopy_game(game,player,0)
+
+def fireplace_deepcopy(game):
+	return deepcopy_game(game, game.current_player,0)
 
 

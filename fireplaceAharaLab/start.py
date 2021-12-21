@@ -37,8 +37,8 @@ def main():
 
 	# Miyaryo
 	# winner of the 1st competition of the fixed deck
-	#from agent_Miyaryo import MiyaryoAgent
-	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI)
+	from agent_Miyaryo import MiyaryoAgent
+	Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI,myClass=CardClass.WARRIOR)
 
 	# Takasho001
 	#from agent_takasho001 import takasho001Agent
@@ -60,8 +60,9 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#from utils import BigDeck#BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	#from utils import BigDeck
+	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
+	a,b,c = play_set_of_games(Vector1, Miyaryo, deck1=BigDeck.faceHunter, deck2=BigDeck.bigWarrior, gameNumber=10, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#print("%d:%d"%(a,b))
 	#winsound.Beep(884, 2000)

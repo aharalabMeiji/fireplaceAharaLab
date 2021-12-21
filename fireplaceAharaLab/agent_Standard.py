@@ -2,13 +2,12 @@ import random
 import copy
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType, CardClass, SpellSchool#
-from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAction,Agent
+from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAction,Agent, fireplace_deepcopy
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
 from fireplace.utils import ActionType
 from enum import IntEnum
-from fireplace.deepcopy import deepcopy_game
 
 
 class StandardAgent(Agent):
@@ -51,7 +50,7 @@ class StandardVectorAgent(Agent):
 		if debug:
 			print(">>>>>>>>>>>>>>>>>>>")
 		for myChoice in myCandidate:
-			tmpGame = debug_deepcopy(game, game.current_player)
+			tmpGame = fireplace_deepcopy(game)
 			#tmpGame = copy.deepcopy(game)
 			result = executeAction(tmpGame, myChoice, debugLog=False)
 			if result==ExceptionPlay.INVALID:
@@ -547,9 +546,6 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
-from fireplace.deepcopy import deepcopy_game
-def debug_deepcopy(game,player):
-	return deepcopy_game(game,player,0)
 
 
 def debug_player_cards(player,old_player):

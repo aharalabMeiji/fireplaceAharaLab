@@ -103,7 +103,8 @@ class MiyaryoAgent(Agent):
             # print(total_size(game.get_log()))
             # print(f"ログの長さ{len(game.get_log())}")
             copystart = time.time()
-            tmpGame = copy.deepcopy(game)
+            #tmpGame = copy.deepcopy(game)
+            tmpGame = fireplace_deepcopy(game)
             # print(f"elapsed_time:{time.time()-copystart}")
             # print(total_size(tmpGame,verbose = True))
             myCandidate = getCandidates(
@@ -154,7 +155,8 @@ class MiyaryoAgent(Agent):
                     canScore = np.append(canScore, [beforeScore], axis=0)
                     continue
                 start = time.time()
-                tmGame = copy.deepcopy(montegame)
+                #tmGame = copy.deepcopy(montegame)
+                tmGame = fireplace_deepcopy(montegame)
                 # print(f"elapsed_time:{time.time()-start}")
                 executeAction(tmGame, _candidates[i], debugLog=False)
                 postAction(player)
