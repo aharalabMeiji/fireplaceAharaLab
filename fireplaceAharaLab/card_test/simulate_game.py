@@ -424,8 +424,7 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
-from .alterac_hunter import SimulateGames_Alterac_Hunter
+from .scholo_druid import SimulateGames_Scholo_Druid
 def SimulateGames():
-	SimulateGames_Alterac_Hunter()
-
+	SimulateGames_Scholo_Druid()
 	pass
