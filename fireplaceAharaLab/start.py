@@ -15,8 +15,8 @@ def main():
 	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
-		choiceStrategy=HumanAgent.HumanInputChoice)
-		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
+		choiceStrategy=HumanAgent.HumanInputChoice
+		,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.WARRIOR)
 	# random agent
 	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
@@ -62,7 +62,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Miyaryo, deck1=BigDeck.faceHunter, deck2=BigDeck.bigWarrior, gameNumber=10, debugLog=True)
+	a,b,c = play_set_of_games(Human1, Vector2, deck1=BigDeck.clownDruid, deck2=BigDeck.bigWarrior, gameNumber=10, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#print("%d:%d"%(a,b))
 	#winsound.Beep(884, 2000)
