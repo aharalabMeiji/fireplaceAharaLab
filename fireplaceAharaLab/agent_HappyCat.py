@@ -115,26 +115,62 @@ class HappyCatAgent(Agent):
 		pass
 
 	bigWarrior = [
-		'SW_023',#Provoke(0)spell, tradeable
-		'SCH_237','SCH_237',#Athletic Studies(1)spell
-		'CORE_EX1_410','CORE_EX1_410',#Shield Slam(1)spell
-		'BT_124',#Corsair Cache (2)spell
-		'DMF_522','DMF_522',#Minefield(2) spell
-		'BT_117','BT_117',#Bladestorm(3)spell
-		'SW_094','SW_094',#Heavy Plate(3) spell, tradeable
-		'BT_781',#Bulwark of Azzinoth(3/1/4)weapon
-		'BAR_845','BAR_845',#Rancor(4) spell
-		'BAR_844',#Outrider's Axe(4/3/3)weapon
-		'YOP_005','YOP_005',#Barricade(4) spell 
-		'CORE_EX1_407','CORE_EX1_407',#Brawl(5) spell
-		'SW_021','SW_021',#Cowardly Grunt(6/6/2) 
-		'SCH_533','SCH_533',#Commencement(7)
-		'SW_024',#Lothar (7/7/7)
-		'SCH_337','SCH_337',#Troublemaker(8/6/8)
-		#'SCH_337t', #Ruffian(3/3/3)
-		'SW_068','SW_068',#Mo'arg Forgefiend(8/8/8)
-		'SCH_621',]#Rattlegore(9/9/9)
+		'SW_023',#Provoke(煽り立て) (0)spell, tradeable
+		'SCH_237','SCH_237',#Athletic Studies(体育学の予習) (1)spell
+		'CORE_EX1_410','CORE_EX1_410',#Shield Slam(シールドスラム) (1)spell
+		'BT_124',#Corsair Cache(海賊の隠し武器) (2)spell
+		'DMF_522','DMF_522',#Minefield(地雷原) (2) spell
+		'BT_117','BT_117',#Bladestorm(魔刃嵐) (3)spell
+		'SW_094','SW_094',#Heavy Plate(重装鎧) (3) spell, tradeable
+		'BT_781',#Bulwark of Azzinoth(アズィノスの防塁) (3/1/4)weapon
+		'BAR_845','BAR_845',#Rancor(遺恨) (4) spell
+		'BAR_844',#Outrider's Axe(先導者の斧) (4/3/3)weapon
+		'YOP_005','YOP_005',#Barricade(バリケード) (4) spell 
+		'CORE_EX1_407','CORE_EX1_407',#Brawl(乱闘) (5) spell
+		'SW_021','SW_021',#Cowardly Grunt(腑抜けの兵卒) (6/6/2) 
+		'SCH_533','SCH_533',#Commencement(学位授与式) (7)
+		'SW_024',#Lothar (ローサー) (7/7/7)
+		'SCH_337','SCH_337',#Troublemaker(不良学生) (8/6/8)
+		'SW_068','SW_068',#Mo'arg Forgefiend(モアーグの鍛冶鬼) (8/8/8)
+		'SCH_621',]#Rattlegore(ラトルゴア) (9/9/9)
 	def WarriorDruidChoice(myCandidate):
 		pass
 	def WarriorHunterChoice(myCandidate):
 		pass
+
+
+	def getVector(game):
+		ret=[]
+		my = game.current_player
+		his = game.current_player.opponent
+		turn=game.turn
+		myMMana=my.max_mana
+		myMana=my.mana
+		gameStatus=[turn,myMMana,myMana]
+		myHeroH = my.hero.health
+		hisHeroH = his.hero.health
+		myHeroA = my.hero.atk
+		hisHeroA = his.hero.atk
+		heroV=[myHeroH,myHeroA,hisHeroH,hisHeroA]
+		myCharH = 0
+		myCharA = 0
+		myTauntCharH = 0
+		myTauntCharA = 0
+		for minion in my.field:
+			myCharH += minion.health
+			myCharA += minion.atk
+			if minion.taunt:
+				myTauntCharH += minion.health
+				myTauntCharA += minion.atk
+		myField=[myCharH,myCharA,myTauntCharH,myTauntCharA]
+		hisCharH = 0
+		hisCharA = 0
+		hisTauntCharH = 0
+		hisTauntCharA = 0
+		for minion in his.field:
+			hisCharH += minion.health
+			hisCharA += minion.atk
+			if chminionar.taunt:
+				hisTauntCharH += minion.health
+				hisTauntCharA += chminionar.atk
+		hisField=[hisCharH,hisCharA,hisTauntCharH,hisTauntCharA]

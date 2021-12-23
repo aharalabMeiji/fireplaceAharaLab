@@ -489,7 +489,6 @@ class HumanAgent(Agent):
 				########################################
 				#debug_board(new_game,game)###
 				########################################
-				answerQuestionaire()
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
@@ -499,7 +498,6 @@ class HumanAgent(Agent):
 				##################
 				executeAction(game, myChoice)
 				postAction(player)
-				answerQuestionaire()
 
 	def HumanInputMulligan(self, choiceCards):
 		myCount=1
@@ -523,7 +521,6 @@ class HumanAgent(Agent):
 				cards_to_mulligan.append(choiceCards[inputNum-1])
 			except ValueError :
 				pass
-		answerQuestionaire()
 		return cards_to_mulligan
 
 	def HumanInputChoice(self, choiceCards):
@@ -539,28 +536,7 @@ class HumanAgent(Agent):
 				return choiceCards[inputNum-1]
 		except ValueError :
 			pass
-		answerQuestionaire()
 		return random.choice(choiceCards)
-
-def answerQuestionaire():
-	#print("How did you dicide your move?")
-	#print("Choose items(anytime):")
-	#print("1: Friendly hero's health, 2:Enemy hero's health")
-	#print("3: num of minions, 4:num of hand cards")
-	#print("5: num of taunt minion, 6: sum of minions health")
-	#print("7: sum of enemy minions health, 8: sum of minions atk")
-	#print("specific hand card : ***")
-	#try :
-	#	str = input()#やり直しはなし
-	#	inputNums = str.split()#空白文字でスプリット
-	#	for inputStr in inputNums:
-	#		inputNum = int(str)
-	#		pass
-	#except ValueError :
-	#	pass
-	return
-
-
 
 def weight_deepcopy(weight):
 	wgt=[]
