@@ -8,11 +8,11 @@ This needs python 3.8, hearthstone 5.23.4, and fireplace 0.1.
 
 ## 日本語によるwiki (wiki only in Japanese, sorry!)
 
-https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/
+[日本語によるwikiはこちら](https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/)
 
 ## インストールの仕方(how to install in Japanese)
 
-https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E3%81%AF%E3%81%98%E3%82%81%E3%81%8B%E3%81%9F (Japanese)
+[How to install fireplaceAharalab](https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E3%81%AF%E3%81%98%E3%82%81%E3%81%8B%E3%81%9F) (Japanese)
 
 ## 第2回ハースストーンAI大会（2022年3月）
 
@@ -35,4 +35,4 @@ https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E3%81%AF%E3%81%98%E3%82
 
 ## start.pyの見方
 
-https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/start.py-%E3%81%AE%E8%A6%8B%E6%96%B9%E3%80%82
+[起動ファイルであるstart.pyの見方](https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/start.py-%E3%81%AE%E8%A6%8B%E6%96%B9%E3%80%82)
