@@ -14,6 +14,10 @@ https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/
 
 https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E3%81%AF%E3%81%98%E3%82%81%E3%81%8B%E3%81%9F (Japanese)
 
+## 第2回ハースストーンAI大会（2022年3月）
+
+[詳細はこちらをご覧ください。](https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/%E7%AC%AC%E4%BA%8C%E5%9B%9E%E5%A4%A7%E4%BC%9A%E8%A6%81%E9%A0%98)
+
 ## マストではないが、チューンアップしておいたほうがよい項目
 
 * カード名を日本語表示にする方法
