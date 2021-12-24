@@ -7,6 +7,7 @@ from typing import List
 from utils import *
 from fireplace.card import Card
 from fireplace.game import Game
+from itertools import chain
 
 class HappyCat:
 	dict={}
@@ -19,6 +20,7 @@ class HappyCatAgent(Agent):
 	def HappyCatAI(self, game, option=[], gameLog=[], debugLog=False):
 		player = game.current_player
 		while True:
+			myVector = self.getVector(game)
 			myCandidate = getCandidates(game)#実行できることがらをリストで取得
 			if len(myCandidate)>0:
 				if myClass==CardClass.HUNTER:
@@ -87,9 +89,9 @@ class HappyCatAgent(Agent):
 		'SCH_609','SCH_609',
 		'DMF_188']
 	def DruidHunterChoice(myCandidate):
-		pass
+		return random.choice(myCandidate)
 	def DruidWarriorChoice(myCandidate):
-		pass
+		return random.choice(myCandidate)
 
 	faceHunter = [
 		'SCH_617','SCH_617',
@@ -110,9 +112,9 @@ class HappyCatAgent(Agent):
 		'BAR_551',
 		'DMF_087','DMF_087',]	
 	def HunterDruidChoice(myCandidate):
-		pass
+		return random.choice(myCandidate)
 	def HunterWarriorChoice(myCandidate):
-		pass
+		return random.choice(myCandidate)
 
 	bigWarrior = [
 		'SW_023',#Provoke(煽り立て) (0)spell, tradeable
@@ -134,19 +136,39 @@ class HappyCatAgent(Agent):
 		'SW_068','SW_068',#Mo'arg Forgefiend(モアーグの鍛冶鬼) (8/8/8)
 		'SCH_621',]#Rattlegore(ラトルゴア) (9/9/9)
 	def WarriorDruidChoice(myCandidate):
-		pass
+		return random.choice(myCandidate)
 	def WarriorHunterChoice(myCandidate):
-		pass
+		return random.choice(myCandidate)
 
 
-	def getVector(game):
+	def getVector(self, game):
 		ret=[]
+		Manas=[
+			[1,0,0,0,0,0,0,0,0,0,0,],
+			[1,1,0,0,0,0,0,0,0,0,0,],
+			[1,1,1,0,0,0,0,0,0,0,0,],
+			[0,1,1,1,0,0,0,0,0,0,0,],
+			[0,0,1,1,1,0,0,0,0,0,0,],
+			[0,0,0,1,1,1,0,0,0,0,0,],
+			[0,0,0,0,1,1,1,0,0,0,0,],
+			[0,0,0,0,0,1,1,1,0,0,0,],
+			[0,0,0,0,0,0,1,1,1,0,0,],
+			[0,0,0,0,0,0,0,1,1,1,0,],
+			[0,0,0,0,0,0,0,0,1,1,1,],
+			[0,0,0,0,0,0,0,0,0,1,1,],
+			]
 		my = game.current_player
 		his = game.current_player.opponent
 		turn=game.turn
-		myMMana=my.max_mana
-		myMana=my.mana
-		gameStatus=[turn,myMMana,myMana]
+		if my.max_mana<=10:
+			myMMana=Manas[my.max_mana]
+		else:
+			myMMana=Manas[11]
+		if my.mana<=10:
+			myMana=Manas[my.mana]
+		else:
+			myMana=Manas[11]
+		gameStatus=myMMana+myMana
 		myHeroH = my.hero.health
 		hisHeroH = his.hero.health
 		myHeroA = my.hero.atk
@@ -174,3 +196,23 @@ class HappyCatAgent(Agent):
 				hisTauntCharH += minion.health
 				hisTauntCharA += chminionar.atk
 		hisField=[hisCharH,hisCharA,hisTauntCharH,hisTauntCharA]
+		MinionCH = 0#手持ちのミニョンカードのHPの総和
+		PlayableMinionCH = 0#手持ちのミニョンカードのHPの総和
+		MinionCN = 0#手持ちのミニョンカードの枚数
+		PlayableMinionCN = 0#手持ちのミニョンカードの枚数
+		SpellCN = 0#手持ちのスペルカードの枚数
+		PlayableSpellCN = 0#手持ちのスペルカードの枚数
+		for card in my.hand:
+			if card.type == CardType.MINION:
+				MinionCH += card.health
+				MinionCN += 1
+				if card.is_playable():
+					PlayableMinionCH += card.health
+					PlayableMinionCN += 1
+			if card.type == CardType.SPELL:
+				SpellCN += 1
+				if card.is_playable():
+					PlayableSpellCN += 1
+		myHand=[MinionCH,MinionCN,PlayableMinionCH,PlayableMinionCN,SpellCN,PlayableSpellCN]
+		totalVector=gameStatus+heroV+myField+hisField+myHand
+		return totalVector

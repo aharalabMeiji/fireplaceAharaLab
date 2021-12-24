@@ -37,8 +37,8 @@ def main():
 
 	# Miyaryo
 	# winner of the 1st competition of the fixed deck
-	from agent_Miyaryo import MiyaryoAgent
-	Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI,myClass=CardClass.WARRIOR)
+	#from agent_Miyaryo import MiyaryoAgent
+	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI,myClass=CardClass.WARRIOR)
 
 	# Takasho001
 	#from agent_takasho001 import takasho001Agent
@@ -50,19 +50,16 @@ def main():
 	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
 	#	,myClass=CardClass.PRIEST)
 
-	from agent_Test import TestHumanAgent
-	TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.DRUID,choiceStrategy=TestHumanAgent.HumanInputChoice)
-
-	#HunterCat : faceHunter専用のエージェント
-	#from agent_HunterCat import HunterCatAgent
-	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
+	#HappyCat : エージェント
+	from agent_HappyCat import HappyCatAgent
+	HappyCat=HappyCatAgent("HappyCat", HappyCatAgent.HappyCatAI,myClass=CardClass.DRUID)
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Human1, Vector2, deck1=BigDeck.clownDruid, deck2=BigDeck.bigWarrior, gameNumber=10, debugLog=True)
+	a,b,c = play_set_of_games(Human2, HappyCat, deck1=BigDeck.bigWarrior, deck2=BigDeck.clownDruid, gameNumber=10, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#print("%d:%d"%(a,b))
 	#winsound.Beep(884, 2000)
