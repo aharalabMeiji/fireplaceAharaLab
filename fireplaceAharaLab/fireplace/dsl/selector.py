@@ -296,7 +296,7 @@ class BoardPositionSelector(Selector):
 	def eval(self, entities, source):
 		result = []
 		for e in self.child.eval(entities, source):
-			if getattr(e, "zone", None) == Zone.PLAY:
+			if e.type==CardType.MINION and getattr(e, "zone", None) == Zone.PLAY:
 				field = e.controller.field
 				position = e.zone_position - 1
 				if self.direction == self.Direction.RIGHT:
