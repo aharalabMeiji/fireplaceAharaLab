@@ -188,4 +188,4 @@ if __name__ == "__main__":
 	#from card_test.simulate_game import SimulateGames
 	#SimulateGames()
 	#printCards()
-	#main()
+	main()
