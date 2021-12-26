@@ -2,7 +2,7 @@ import random
 import copy
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType, CardClass, SpellSchool#
-from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAction,Agent, fireplace_deepcopy
+from utils import ExceptionPlay, Candidate, executeAction,getCandidates,postAction,Agent,fireplace_deepcopy,QTable
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
@@ -36,13 +36,17 @@ class StandardVectorAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000, mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
+		self.QList=[]
 		pass
 	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
+		player=game.current_player
+		cardList=[player.hero.id, player.hero.power.id]+list(set(player.starting_deck))
 		debug=False
 		if option==None:
 			print ("StandardStep1 needs an option")
 			return ExceptionPlay.INVALID
 		myWeight=option
+		statusVector=self.getStatusVector(game)
 		myCandidate = getCandidates(game)
 		myChoices = []
 		maxScore=-100000
@@ -75,6 +79,8 @@ class StandardVectorAgent(Agent):
 			print("<<<<<<<<<<<<<<<<<<<")
 		if len(myChoices)>0:
 			myChoice = random.choice(myChoices)
+			actionVector=self.getActionVector(myChoice,cardList)
+			self.QList.append(QTable(statusVector,actionVector))
 			ret = executeAction(game, myChoice,debugLog=debugLog)
 			if ret==ExceptionPlay.GAMEOVER:
 				return ExceptionPlay.GAMEOVER
@@ -82,7 +88,11 @@ class StandardVectorAgent(Agent):
 				return ExceptionPlay.INVALID
 			player = game.current_player
 			postAction(player)
-			return self.StandardStep1(game, option=myWeight, debugLog=debugLog)
+			#print("(%s,%s)"%(statusVector,actionVector))
+			if myChoice.type==ExceptionPlay.TURNEND:
+				return ExceptionPlay.VALID
+			else:
+				return self.StandardStep1(game, option=myWeight, debugLog=debugLog)
 		else:
 			return ExceptionPlay.VALID
 	def getStageScore(self,game, weight):
@@ -96,9 +106,9 @@ class StandardVectorAgent(Agent):
 		myHero = me.hero
 		hisHero = he.hero
 		#w[0]=myHeroH
-		w[0] = myHero.health
+		w[0] = myHero.health+myHero.armor
 		#w[1]=hisHeroH
-		w[1] = hisHero.health
+		w[1] = hisHero.health+hisHero.armor
 		#w[2]=myCharA = 0
 		#w[3]=myCharH = 0
 		#w[4]=myTauntCharA = 0
@@ -217,6 +227,140 @@ class StandardVectorAgent(Agent):
 			if choiceCards[num].cost > 1:
 				cards_to_mulligan.append(choiceCards[num])
 		return cards_to_mulligan
+	def gameStatus(self,my):
+		Manas=[
+			[1,0,0,0,0,0,0,0,0,0,0,],
+			[1,1,0,0,0,0,0,0,0,0,0,],
+			[1,1,1,0,0,0,0,0,0,0,0,],
+			[0,1,1,1,0,0,0,0,0,0,0,],
+			[0,0,1,1,1,0,0,0,0,0,0,],
+			[0,0,0,1,1,1,0,0,0,0,0,],
+			[0,0,0,0,1,1,1,0,0,0,0,],
+			[0,0,0,0,0,1,1,1,0,0,0,],
+			[0,0,0,0,0,0,1,1,1,0,0,],
+			[0,0,0,0,0,0,0,1,1,1,0,],
+			[0,0,0,0,0,0,0,0,1,1,1,],
+			[0,0,0,0,0,0,0,0,0,1,1,],
+			]
+		if my.max_mana<=10:
+			myMMana=Manas[my.max_mana]
+		else:
+			myMMana=Manas[11]
+		if my.mana<=10:
+			myMana=Manas[my.mana]
+		else:
+			myMana=Manas[11]
+		return myMMana+myMana
+	def vectorize(self,value,level,step):
+		w=[]
+		for i in range(level+1):
+			w.append(0)
+		t=int(value/step)
+		if t>level:
+			t=level
+		w[t]=1
+		return w
+	def heroes(self,my,his):
+		myHeroH = self.vectorize(my.hero.health+my.hero.armor,5,6)
+		hisHeroH = self.vectorize(his.hero.health+his.hero.armor,5,6)
+		myHeroA = self.vectorize(my.hero.atk+1,3,2)
+		hisHeroA = self.vectorize(his.hero.atk+1,3,2)
+		return myHeroH+myHeroA+hisHeroH+hisHeroA
+	def myField(self, my):
+		myCharH = 0
+		myCharA = 0
+		myTauntCharH = 0
+		myTauntCharA = 0
+		myShieldCharA = 0
+		myRebornCharA = 0
+		for minion in my.field:
+			myCharH += minion.health
+			myCharA += minion.atk
+			if minion.taunt:
+				myTauntCharH += minion.health
+				myTauntCharA += minion.atk
+			if minion.divine_shield:
+				myShieldCharA += minion.atk
+			if minion.reborn:
+				myRebornCharA += minion.atk
+		myCharH = self.vectorize(myCharH+2,5,3)
+		myCharA = self.vectorize(myCharA+2,5,3)
+		myTauntCharH = self.vectorize(myTauntCharH+2,4,3)
+		myTauntCharA = self.vectorize(myTauntCharA+1,4,2)
+		myShieldCharA = self.vectorize(myShieldCharA+1,4,2)
+		myRebornCharA = self.vectorize(myRebornCharA+1,4,2)
+		return myCharH+myCharA+myTauntCharH+myTauntCharA+myShieldCharA+myRebornCharA
+	def hisField(self, his):
+		hisCharH = 0
+		hisCharA = 0
+		hisTauntCharH = 0
+		hisTauntCharA = 0
+		for minion in his.field:
+			hisCharH += minion.health
+			hisCharA += minion.atk
+			if minion.taunt:
+				hisTauntCharH += minion.health
+				hisTauntCharA += minion.atk
+		hisCharH = self.vectorize(hisCharH+2,5,3)
+		hisCharA = self.vectorize(hisCharA+2,5,3)
+		hisTauntCharH = self.vectorize(hisTauntCharH+2,4,3)
+		hisTauntCharA = self.vectorize(hisTauntCharA+1,4,2)
+		return hisCharH+hisCharA+hisTauntCharH+hisTauntCharA
+	def myHand(self,my):
+		MinionCH = 0#手持ちのミニョンカードのHPの総和
+		PlayableMinionCH = 0#手持ちのミニョンカードのHPの総和
+		MinionCN = 0#手持ちのミニョンカードの枚数
+		PlayableMinionCN = 0#手持ちのミニョンカードの枚数
+		SpellCN = 0#手持ちのスペルカードの枚数
+		PlayableSpellCN = 0#手持ちのスペルカードの枚数
+		for card in my.hand:
+			if card.type == CardType.MINION:
+				MinionCH += card.health
+				MinionCN += 1
+				if card.is_playable():
+					PlayableMinionCH += card.health
+					PlayableMinionCN += 1
+			if card.type == CardType.SPELL:
+				SpellCN += 1
+				if card.is_playable():
+					PlayableSpellCN += 1
+		MinionCH=self.vectorize(MinionCH+2,5,3)
+		PlayableMinionCH=self.vectorize(PlayableMinionCH+2,5,3)
+		MinionCN=self.vectorize(MinionCN,5,1)
+		PlayableMinionCN=self.vectorize(PlayableMinionCN,5,1)
+		SpellCN=self.vectorize(SpellCN,5,1)
+		PlayableSpellCN=self.vectorize(PlayableSpellCN,5,1)
+		return MinionCH+MinionCN+PlayableMinionCH+PlayableMinionCN+SpellCN+PlayableSpellCN
+	def getStatusVector(self, game):
+		my = game.current_player
+		his = game.current_player.opponent
+		return self.gameStatus(my)+self.heroes(my,his)+self.myField(my)+self.hisField(his)+self.myHand(my)
+
+	def getActionVector(self, candidate,cardList):
+		#druid
+		if candidate.type ==ExceptionPlay.TURNEND:
+			card=[1]
+		else:
+			card=[0]
+		another=True
+		for cardID in cardList:
+			if candidate.card!=None and cardID==candidate.card.id:
+				card.append(1)
+				another=False
+			else:
+				card.append(0)
+		if another:
+			card.append(1)
+		else:
+			card.append(0)
+		if candidate.target==None:
+			target=[1,0,0]
+		elif candidate.target.type==CardType.HERO:
+			target=[0,1,0]
+		else:
+			target=[0,0,1]
+		return target+card
+
 #
 #   Original random
 #
@@ -537,6 +681,8 @@ class HumanAgent(Agent):
 		except ValueError :
 			pass
 		return random.choice(choiceCards)
+
+
 
 def weight_deepcopy(weight):
 	wgt=[]

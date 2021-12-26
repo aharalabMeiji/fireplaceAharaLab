@@ -54,7 +54,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	player1.hero.max_health = int(HEROHPOPTION)## this line must be below 'start()'
 	player2.hero.max_health = int(HEROHPOPTION)## 
 
-
+	playerTable1=[]
+	playerTable2=[]
 	#mulligan exchange
 	# Any agent are allowed to give an algorithm to do mulligan exchange.
 	for player in game.players:
@@ -119,17 +120,47 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	Count1 = 0
 	Count2 = 0
 	for i in range(gameNumber):
+		P1.QList=[]
+		P2.QList=[]
 		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog, HEROHPOPTION=HEROHPOPTION, P1MAXMANA=P1MAXMANA, P2MAXMANA=P2MAXMANA, P1HAND=P1HAND, P2HAND=P2HAND)
 		if debugLog:
 			print("winner is %r"%winner)
 		if winner == P1.name:
 			Count1+=1
+			AppendQlist(P1.myClass,P2.myClass,"W",P1.QList)
+			AppendQlist(P2.myClass,P1.myClass,"L",P2.QList)
+
 		elif winner == P2.name:
 			Count2+=1
+			AppendQlist(P1.myClass,P2.myClass,"L",P1.QList)
+			AppendQlist(P2.myClass,P1.myClass,"W",P2.QList)
 	print(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
 	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
 	print(" Draw: %d"%(gameNumber-Count1-Count2))
 	return Count1, Count2, (gameNumber-Count1-Count2)
+def AppendQlist(class1, class2, WL, qlist):
+	if class1==CardClass.WARRIOR:
+		name1='War'
+	elif class1==CardClass.DRUID:
+		name1='Dru'
+	else:
+		name1='Hun'
+	if class2==CardClass.WARRIOR:
+		name2='War'
+	elif class2==CardClass.DRUID:
+		name2='Dru'
+	else:
+		name2='Hun'
+	filename = "%s%s%s_data.txt"%(name1, name2, WL)
+	f = open(filename, 'a')
+	for line in qlist:
+		f.write("%s,\n"%(line.statusVector))
+	f.close()
+	filename = "%s%s%s_label.txt"%(name1, name2, WL)
+	f = open(filename, 'a')
+	for line in qlist:
+		f.write("%s,\n"%(line.actionVector))
+	f.close()
 
 class Candidate(object):
 	"""　アクションの候補手のクラス　
@@ -178,7 +209,7 @@ class GameWithLog(Game):
 #
 #  getCandidates
 #
-def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
+def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=True):
 	"""　アクションの候補をすべてリスト化して返す　
 	_smartCombat=True,　スマートコンバットなもののみをリストアップする
 	_includeTurnEnd=False　「何もしない」というアクションを候補に入れない
@@ -563,4 +594,9 @@ def debug_deepcopy(game,player):
 def fireplace_deepcopy(game):
 	return deepcopy_game(game, game.current_player,0)
 
-
+class QTable:
+	statusVector=[]
+	actionVector=[]
+	def __init__(self,status,action):
+		self.statusVector = status
+		self.actionVector = action
