@@ -1531,7 +1531,8 @@ class Shuffle(TargetedAction):
 		log.info("%r shuffles into %s's deck", cards, target)
 		if not isinstance(cards, list):
 			cards = [cards]
-
+		if cards[0]==None:
+			return
 		for card in cards:
 			if card.controller != target:
 				card.zone = Zone.SETASIDE
