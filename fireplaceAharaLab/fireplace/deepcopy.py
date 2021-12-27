@@ -233,16 +233,17 @@ def copy_playerattr(oldPlayer, newPlayer):
 	#play_targets
 	#targets
 	# player's attr 
-	playerAttrs = ['cards_drawn_this_turn','_max_mana','playstate','zone',
+	playerAttrs = ['cards_drawn_this_turn','_max_mana','max_mana','playstate','zone',
 				'first_player','mulligan_state','turn_start',
 				'minions_played_this_turn','combo','cards_played_this_turn',
 				'spell_and_damage','guardians_legacy','spellpower_option',
 				'choiceStrategy','lost_in_the_park','zone',
 				'piece_of_cthun','_death_log','_play_log','_damage_log',
 				'_activate_log','_summon_log','_reveal_log','carry_cards',
-				'last_card_played','used_mana','times_spell_played_this_game',
+				'last_card_played','used_mana','overload_locked','temp_mana','times_spell_played_this_game',
 				'times_spells_played_this_turn','spells_played_this_turn',
 				'times_hero_power_used_this_game','times_card_to_play_out_of_deck',]
+	print("oldPlayer.mana,_max_mana,max_mana=%d,%d,%d"%(oldPlayer.mana,oldPlayer._max_mana,oldPlayer.max_mana))
 	for attr in playerAttrs:
 		if hasattr(oldPlayer,attr):
 			src = getattr(oldPlayer, attr)
@@ -268,6 +269,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 				pass
 			pass
 		pass
+	print("newPlayer.mana,_max_mana,max_mana=%d,%d,%d"%(newPlayer.mana,newPlayer._max_mana,newPlayer.max_mana))
 	# deck-cards attr.
 	for card in oldPlayer.deck:
 		new_card = create_vacant_card(card)

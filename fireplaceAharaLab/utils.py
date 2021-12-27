@@ -78,6 +78,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	while True:	
 		#game main loop
 		player = game.current_player
+		if debugLog:
+			print(">>>>>>>>>>%s turn begin %d [mana]"%(player, player.mana))
 		start_time = time.time()
 		if player.name==P1.name:
 			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
@@ -94,8 +96,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
-					print("%d : %d"%(player1.hero.health,player2.hero.health))
+					print(">>>>>>>>>>%s turn end %d [sec]"%(player, time.time()-start_time),end='  ')
+					print("%d : %d"%(player1.hero.health+player1.hero.armor,player2.hero.health+player2.hero.armor))
 				if game.current_player.choice!=None:
 					postAction(game.current_player)
 			except GameOver:#it rarely occurs
@@ -309,13 +311,12 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	mygame.add_log(action)
 	if mygame.ended:
 		return ExceptionPlay.GAMEOVER
-	if action.type ==ExceptionPlay.TURNEND:
-		return ExceptionPlay.TURNEND
-		pass
 	player=mygame.current_player
 	thisEntities= mygame.entities + mygame.hands
 	if debugLog:
 		print(">%s>>%s"%(player,str(action)))
+	if action.type ==ExceptionPlay.TURNEND:
+		return ExceptionPlay.TURNEND
 	theCard=theTarget=theCard2=None
 	#print(id(action.card.game))
 	#print(id(mygame))
