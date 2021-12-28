@@ -199,7 +199,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			if not isinstance(value,list):
 				setattr(new_hero, attr, value)
 			elif value==[]:
-				setattr(new_hero, attr, value)
+				setattr(new_hero, attr, [])
 			elif isinstance(value[0], Enchantment):## 
 				setattr(new_hero, attr, deepcopy_enchantment(value, oldPlayer.hero, new_hero))
 			else:
@@ -336,7 +336,7 @@ def copy_gameattr(oldGame,newGame):
 			if not isinstance(src,list):
 				setattr(newGame, attr, src)
 			elif src==[]:
-				setattr(newGame, attr, src)
+				setattr(newGame, attr, [])
 			elif attr=='_myLog_':
 				ret=[]
 				for element in src:

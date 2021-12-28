@@ -27,6 +27,8 @@ class StandardAgent(Agent):
 				postAction(player)
 				if exc==ExceptionPlay.GAMEOVER:
 					return ExceptionPlay.GAMEOVER
+				elif myChoice.type==ExceptionPlay.TURNEND:
+					return ExceptionPlay.VALID
 				else:
 					continue
 			return ExceptionPlay.VALID
@@ -64,6 +66,8 @@ class StandardVectorAgent(Agent):
 					stop=True
 				if result==ExceptionPlay.GAMEOVER:
 					score=100000
+				elif myChoice.type==ExceptionPlay.TURNEND:
+					score = self.getStageScore(tmpGame,myWeight)
 				else:
 					if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
 						score=100000
@@ -82,7 +86,7 @@ class StandardVectorAgent(Agent):
 				print("<<<<<<<<<<<<<<<<<<<")
 			if len(myChoices)>0:
 				myChoice = random.choice(myChoices)
-				actionVector=self.getActionVector(myChoice,cardList)
+				actionVector=self.getActionVector(myChoice,self.myClass)
 				self.QList.append(QTable(statusVector,actionVector))
 				ret = executeAction(game, myChoice,debugLog=debugLog)
 				if ret==ExceptionPlay.GAMEOVER:
@@ -230,6 +234,63 @@ class StandardVectorAgent(Agent):
 			if choiceCards[num].cost > 1:
 				cards_to_mulligan.append(choiceCards[num])
 		return cards_to_mulligan
+	clownDruidCard = [
+		'GAME_005',#コイン
+		'CORE_EX1_169',#Innervate(練気) (0)
+		'SCH_427',#Lightning Bloom(電光刹花) (0)
+		'SCH_311',#Animated Broomstick(空飛ぶほうき) (1/1/1)
+		'SCH_333',#Nature Studies(自然学の予習) (1)
+		'DMF_075',#Guess the Weight(重さ当て) (2)
+		'CORE_CS2_013',#Wild Growth(野生の繁茂) (3)
+		'BT_130',#Overgrowth(過剰繁殖) (4)
+		'BAR_535',#Thickhide Kodo(厚皮のコドー) (4/3/5)
+		'SCH_605',#Lake Thresher(湖のスレッシャー) (5/4/6)
+		'SCH_616',#Twilight Runner(トワイライトランナー) (5/5/4)
+		'DMF_078',#Strongman(怪力男) (7/6/6)
+		'SCH_610',#Guardian Animals(守護獣) (8)
+		'BAR_042',#Primordial Protector(始原の守護者) (8/6/6)
+		'DMF_163',#Carnival Clown(カーニバルのピエロ) (9/4/4)
+		'SCH_609',#Survival of the Fittest(適者生存) (10)
+		'DMF_188']#Y'Shaarj, the Defiler(背徳の魔手ヤシャラージュ) (10/10/10)
+	bigWarriorCard = [
+		'GAME_005',#コイン
+		'SW_023',#Provoke(煽り立て) (0)spell, tradeable
+		'SCH_237',#Athletic Studies(体育学の予習) (1)spell
+		'CORE_EX1_410',#Shield Slam(シールドスラム) (1)spell
+		'BT_124',#Corsair Cache(海賊の隠し武器) (2)spell
+		'DMF_522',#Minefield(地雷原) (2) spell
+		'BT_117',#Bladestorm(魔刃嵐) (3)spell
+		'SW_094',#Heavy Plate(重装鎧) (3) spell, tradeable
+		'BT_781',#Bulwark of Azzinoth(アズィノスの防塁) (3/1/4)weapon
+		'BAR_845',#Rancor(遺恨) (4) spell
+		'BAR_844',#Outrider's Axe(先導者の斧) (4/3/3)weapon
+		'YOP_005',#Barricade(バリケード) (4) spell 
+		'CORE_EX1_407',#Brawl(乱闘) (5) spell
+		'SW_021',#Cowardly Grunt(腑抜けの兵卒) (6/6/2) 
+		'SCH_533',#Commencement(学位授与式) (7)
+		'SW_024',#Lothar (ローサー) (7/7/7)
+		'SCH_337',#Troublemaker(不良学生) (8/6/8)
+		'SW_068',#Mo'arg Forgefiend(モアーグの鍛冶鬼) (8/8/8)
+		'SCH_621',]#Rattlegore(ラトルゴア) (9/9/9)
+	faceHunterCard = [
+		'GAME_005',#コイン
+		'SCH_617',#Adorable Infestation(カワイイ侵入者) (1)
+		'SCH_600',#Demon Companion(悪魔の相棒) (1)
+		'SCH_231',#Intrepid Initiate(図太い徒弟) (1/1/2)
+		'CORE_DS1_184',#Tracking(追跡術) (1)
+		'SCH_279',#Trueaim Crescent(トゥルーエイム・クレセント) (1/1/4) weapon
+		'SCH_133',#Wolpertinger(ヴォルパーティンガー) (1/1/1)
+		'BAR_801',#Wound Prey(獲物の傷) (1)
+		'SCH_713',#Cult Neophyte(教団の新入会員) (2/3/2)
+		'BT_211',#Imprisoned Felmaw(封印されしフェルモー) (2/5/4)
+		'CORE_BRM_013',#Quick Shot(速射の一矢) (2)
+		'SW_321',#Aimed Shot(狙い撃ち) (3)
+		'BAR_721',#Mankrik(マンクリック) (3/3/4)
+		'BAR_032',#Piercing Shot(貫通弾) (4)
+		'DMF_088',#Rinling's Rifle(リンリングのライフル) (4/2/2) weapon
+		'BAR_037',#Warsong Wrangler(ウォーソングの獣飼育者) (4/3/4)
+		'BAR_551',#Barak Kodobane(バラク・コドーベイン) (5/3/5)
+		'DMF_087',]#Trampling Rhino(踏み潰すサイ) (5/5/5)
 	def gameStatus(self,my):
 		Manas=[
 			[1,0,0,0,0,0,0,0,0,0,0,],
@@ -334,28 +395,59 @@ class StandardVectorAgent(Agent):
 		SpellCN=self.vectorize(SpellCN,5,1)
 		PlayableSpellCN=self.vectorize(PlayableSpellCN,5,1)
 		return MinionCH+MinionCN+PlayableMinionCH+PlayableMinionCN+SpellCN+PlayableSpellCN
+	def myHandCard(self, my, myClass):
+		if myClass==CardClass.DRUID:
+			cardList=self.clownDruidCard
+		elif myClass==CardClass.WARRIOR:
+			cardList=self.bigWarriorCard
+		else:#CardClass.HUNTER
+			cardList=self.faceHunterCard
+		lenCardList=len(cardList)
+		handCardList=[0]*(lenCardList+3)
+		for card in my.hand:
+			another=True
+			for i in range(lenCardList):
+				if card.id==cardList[i]:
+					handCardList[i] = 1
+					another=False
+					break
+			if another:
+				if card.type==CardType.MINION:
+					handCardList[lenCardList] = 1
+				elif card.type==CardType.SPELL:
+					handCardList[lenCardList+1] = 1
+				else:
+					handCardList[lenCardList+2] = 1
+		return handCardList
 	def getStatusVector(self, game):
 		my = game.current_player
 		his = game.current_player.opponent
-		return self.gameStatus(my)+self.heroes(my,his)+self.myField(my)+self.hisField(his)+self.myHand(my)
+		return self.gameStatus(my)+self.heroes(my,his)+self.myField(my)+self.hisField(his)+self.myHand(my)+self.myHandCard(my,my.hero.card_class)
 
-	def getActionVector(self, candidate,cardList):
-		#druid
-		if candidate.type ==ExceptionPlay.TURNEND:
-			card=[1]
-		else:
-			card=[0]
+	def getActionVector(self, candidate, myClass):
+		card=[]
 		another=True
+		if myClass==CardClass.DRUID:
+			cardList=self.clownDruidCard
+		elif myClass==CardClass.WARRIOR:
+			cardList=self.bigWarriorCard
+		else:#CardClass.HUNTER
+			cardList=self.faceHunterCard
 		for cardID in cardList:
-			if candidate.card!=None and cardID==candidate.card.id:
+			if candidate.card!=None and candidate.card!=None and cardID==candidate.card.id:
 				card.append(1)
 				another=False
 			else:
 				card.append(0)
 		if another:
-			card.append(1)
+			if candidate.type ==ExceptionPlay.TURNEND:
+				card += [0,0,1]
+			elif candidate.card.type==CardType.MINION:
+				card += [1,0,0]
+			else: 
+				card += [0,1,0]
 		else:
-			card.append(0)
+			card += [0,0,0]
 		if candidate.target==None:
 			target=[1,0,0]
 		elif candidate.target.type==CardType.HERO:
