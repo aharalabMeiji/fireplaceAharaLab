@@ -266,7 +266,8 @@ class SCH_283:#OK
 class SCH_311:#OK
 	""" Animated Broomstick"""
 	#<b>Rush</b> <b>Battlecry:</b> Give your other minions <b>Rush</b>.
-	update = Refresh(FRIENDLY_MINIONS - SELF, {GameTag.RUSH: 1})
+	#update = Refresh(FRIENDLY_MINIONS - SELF, {GameTag.RUSH: 1})
+	play = Buff(FRIENDLY_MINIONS - SELF, 'EX1_084e')
 	pass
 
 class SCH_312:#OK
