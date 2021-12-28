@@ -243,7 +243,6 @@ def copy_playerattr(oldPlayer, newPlayer):
 				'last_card_played','used_mana','overload_locked','temp_mana','times_spell_played_this_game',
 				'times_spells_played_this_turn','spells_played_this_turn',
 				'times_hero_power_used_this_game','times_card_to_play_out_of_deck',]
-	print("oldPlayer.mana,_max_mana,max_mana=%d,%d,%d"%(oldPlayer.mana,oldPlayer._max_mana,oldPlayer.max_mana))
 	for attr in playerAttrs:
 		if hasattr(oldPlayer,attr):
 			src = getattr(oldPlayer, attr)
@@ -269,7 +268,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 				pass
 			pass
 		pass
-	print("newPlayer.mana,_max_mana,max_mana=%d,%d,%d"%(newPlayer.mana,newPlayer._max_mana,newPlayer.max_mana))
+	#print("oldPlayer.mana,newPlayer.mana,=%d->%d"%(oldPlayer.mana, newPlayer.mana))
 	# deck-cards attr.
 	for card in oldPlayer.deck:
 		new_card = create_vacant_card(card)
