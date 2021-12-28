@@ -22,11 +22,15 @@ def main():
 	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
 	Random2=StandardAgent("Random2",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
-	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+	VectorHunter=StandardVectorAgent("VectorHunter",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
-	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+	VectorDruid=StandardVectorAgent("VectorDruid",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.DRUID)
+		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
+	VectorWarrior=StandardVectorAgent("VectorWarrior",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
@@ -50,8 +54,8 @@ def main():
 	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
 	#	,myClass=CardClass.PRIEST)
 
-	from agent_Test import TestHumanAgent
-	TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.DRUID,choiceStrategy=TestHumanAgent.HumanInputChoice)
+	#from agent_Test import TestHumanAgent
+	#TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.DRUID,choiceStrategy=TestHumanAgent.HumanInputChoice)
 
 	#HunterCat : faceHunter専用のエージェント
 	#from agent_HunterCat import HunterCatAgent
@@ -62,7 +66,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Miyaryo, deck1=BigDeck.faceHunter, deck2=BigDeck.bigWarrior, gameNumber=10, debugLog=True)
+	a,b,c = play_set_of_games(VectorDruid, VectorWarrior, deck1=BigDeck.clownDruid, deck2=BigDeck.bigWarrior, gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#print("%d:%d"%(a,b))
 	#winsound.Beep(884, 2000)

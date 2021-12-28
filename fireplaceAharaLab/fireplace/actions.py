@@ -1503,7 +1503,7 @@ class Summon(TargetedAction):
 			cards = [cards]
 
 		for card in cards:
-			if not card.is_summonable():
+			if not hasattr(card, 'is_summonable') or not card.is_summonable():
 				continue
 			target.add_summon_log(card)
 			if card.controller != target:
