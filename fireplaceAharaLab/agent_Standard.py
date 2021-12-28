@@ -39,62 +39,65 @@ class StandardVectorAgent(Agent):
 		self.QList=[]
 		pass
 	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
-		player=game.current_player
-		cardList=[player.hero.id, player.hero.power.id]+list(set(player.starting_deck))
-		debug=False
-		if option==None:
-			print ("StandardStep1 needs an option")
-			return ExceptionPlay.INVALID
-		myWeight=option
-		statusVector=self.getStatusVector(game)
-		myCandidate = getCandidates(game)
-		myChoices = []
-		maxScore=-100000
-		maxChoice = None
-		if debug:
-			print(">>>>>>>>>>>>>>>>>>>")
-		for myChoice in myCandidate:
-			tmpGame = fireplace_deepcopy(game)
-			#tmpGame = copy.deepcopy(game)
-			result = executeAction(tmpGame, myChoice, debugLog=False)
-			if result==ExceptionPlay.INVALID:
-				stop=True
-			if result==ExceptionPlay.GAMEOVER:
-				score=100000
-			else:
-				if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+		loopCount=0
+		while loopCount<20:	
+			loopCount+=1
+			player=game.current_player
+			cardList=[player.hero.id, player.hero.power.id]+list(set(player.starting_deck))
+			debug=False
+			if option==None:
+				print ("StandardStep1 needs an option")
+				return ExceptionPlay.INVALID
+			myWeight=option
+			statusVector=self.getStatusVector(game)
+			myCandidate = getCandidates(game)
+			myChoices = []
+			maxScore=-100000
+			maxChoice = None
+			if debug:
+				print(">>>>>>>>>>>>>>>>>>>")
+			for myChoice in myCandidate:
+				tmpGame = fireplace_deepcopy(game)
+				#tmpGame = copy.deepcopy(game)
+				result = executeAction(tmpGame, myChoice, debugLog=False)
+				if result==ExceptionPlay.INVALID:
+					stop=True
+				if result==ExceptionPlay.GAMEOVER:
 					score=100000
 				else:
-					score = self.getStageScore(tmpGame,myWeight)
+					if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+						score=100000
+					else:
+						score = self.getStageScore(tmpGame,myWeight)
+				if debug:
+					print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
+				if score > maxScore:
+					maxScore = score
+					myChoices = [myChoice]
+					if score==100000:
+						break
+				elif score == maxScore:
+					myChoices.append(myChoice)
 			if debug:
-				print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
-			if score > maxScore:
-				maxScore = score
-				myChoices = [myChoice]
-				if score==100000:
-					break
-			elif score == maxScore:
-				myChoices.append(myChoice)
-		if debug:
-			print("<<<<<<<<<<<<<<<<<<<")
-		if len(myChoices)>0:
-			myChoice = random.choice(myChoices)
-			actionVector=self.getActionVector(myChoice,cardList)
-			self.QList.append(QTable(statusVector,actionVector))
-			ret = executeAction(game, myChoice,debugLog=debugLog)
-			if ret==ExceptionPlay.GAMEOVER:
-				return ExceptionPlay.GAMEOVER
-			if ret==ExceptionPlay.INVALID:
-				return ExceptionPlay.INVALID
-			player = game.current_player
-			postAction(player)
-			#print("(%s,%s)"%(statusVector,actionVector))
-			if myChoice.type==ExceptionPlay.TURNEND:
-				return ExceptionPlay.VALID
+				print("<<<<<<<<<<<<<<<<<<<")
+			if len(myChoices)>0:
+				myChoice = random.choice(myChoices)
+				actionVector=self.getActionVector(myChoice,cardList)
+				self.QList.append(QTable(statusVector,actionVector))
+				ret = executeAction(game, myChoice,debugLog=debugLog)
+				if ret==ExceptionPlay.GAMEOVER:
+					return ExceptionPlay.GAMEOVER
+				if ret==ExceptionPlay.INVALID:
+					return ExceptionPlay.INVALID
+				player = game.current_player
+				postAction(player)
+				#print("(%s,%s)"%(statusVector,actionVector))
+				if myChoice.type==ExceptionPlay.TURNEND:
+					return ExceptionPlay.VALID
+				else:
+					continue
 			else:
-				return self.StandardStep1(game, option=myWeight, debugLog=debugLog)
-		else:
-			return ExceptionPlay.VALID
+				return ExceptionPlay.VALID
 	def getStageScore(self,game, weight):
 		cardPerPoint=0.3
 		w_length=34
