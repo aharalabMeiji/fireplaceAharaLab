@@ -121,8 +121,9 @@ class DrawLowestCost(TargetedAction):
 				lowest = [card]
 			elif lowest[0].cost == card.cost:
 				lowest.append(card)
-		card = random.choice(lowest)
-		controller.game.trigger(controller, [Give(controller,card)],event_args=None)
+		if len(lowest)>0:
+			card = random.choice(lowest)
+			controller.game.trigger(controller, [Give(controller,card)],event_args=None)
 	pass
 class DrawHighestCost(TargetedAction):
 	TARGET = ActionArg()
@@ -137,8 +138,9 @@ class DrawHighestCost(TargetedAction):
 				highest = [card]
 			elif highest[0].cost == card.cost:
 				highest.append(card)
-		card = random.choice(highest)
-		controller.game.trigger(controller, [Give(controller,card)],event_args=None)
+		if len(highest)>0:
+			card = random.choice(highest)
+			controller.game.trigger(controller, [Give(controller,card)],event_args=None)
 	pass
 class AV_295:
 	""" Capture Coldtooth Mine (2)
