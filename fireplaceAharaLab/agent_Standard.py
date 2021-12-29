@@ -86,8 +86,8 @@ class StandardVectorAgent(Agent):
 				print("<<<<<<<<<<<<<<<<<<<")
 			if len(myChoices)>0:
 				myChoice = random.choice(myChoices)
-				actionVector=self.getActionVector(myChoice,self.myClass)
-				self.QList.append(QTable(statusVector,actionVector))
+				actionCard, actionTarget=self.getActionVector(myChoice,self.myClass)
+				self.QList.append(QTable(statusVector,actionCard,actionTarget))
 				ret = executeAction(game, myChoice,debugLog=debugLog)
 				if ret==ExceptionPlay.GAMEOVER:
 					return ExceptionPlay.GAMEOVER
@@ -425,7 +425,8 @@ class StandardVectorAgent(Agent):
 		return self.gameStatus(my)+self.heroes(my,his)+self.myField(my)+self.hisField(his)+self.myHand(my)+self.myHandCard(my,my.hero.card_class)
 
 	def getActionVector(self, candidate, myClass):
-		card=[]
+		card=-1
+		target=-1
 		another=True
 		if myClass==CardClass.DRUID:
 			cardList=self.clownDruidCard
@@ -433,28 +434,30 @@ class StandardVectorAgent(Agent):
 			cardList=self.bigWarriorCard
 		else:#CardClass.HUNTER
 			cardList=self.faceHunterCard
-		for cardID in cardList:
+		for i in range(len(cardList)):
+			cardID=cardList[i]
 			if candidate.card!=None and candidate.card!=None and cardID==candidate.card.id:
-				card.append(1)
+				card=i
 				another=False
-			else:
-				card.append(0)
+				break
 		if another:
 			if candidate.type ==ExceptionPlay.TURNEND:
-				card += [0,0,1]
+				card = len(cardList)+4
 			elif candidate.card.type==CardType.MINION:
-				card += [1,0,0]
+				card = len(cardList)
+			elif candidate.card.type==CardType.HERO:
+				card = len(cardList)+1
+			elif candidate.type==CardType.HERO_POWER:
+				card = len(cardList)+2
 			else: 
-				card += [0,1,0]
-		else:
-			card += [0,0,0]
+				card = len(cardList)+3
 		if candidate.target==None:
-			target=[1,0,0]
+			target=0
 		elif candidate.target.type==CardType.HERO:
-			target=[0,1,0]
+			target=1
 		else:
-			target=[0,0,1]
-		return target+card
+			target=2
+		return card,target
 
 #
 #   Original random

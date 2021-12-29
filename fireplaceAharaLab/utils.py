@@ -158,10 +158,15 @@ def AppendQlist(class1, class2, WL, qlist):
 	for line in qlist:
 		f.write("%s,\n"%(line.statusVector))
 	f.close()
-	filename = "%s%s%s_label.txt"%(name1, name2, WL)
+	filename = "%s%s%s_card.txt"%(name1, name2, WL)
 	f = open(filename, 'a')
 	for line in qlist:
-		f.write("%s,\n"%(line.actionVector))
+		f.write("%s,\n"%(line.actionCard))
+	f.close()
+	filename = "%s%s%s_target.txt"%(name1, name2, WL)
+	f = open(filename, 'a')
+	for line in qlist:
+		f.write("%s,\n"%(line.actionTarget))
 	f.close()
 
 class Candidate(object):
@@ -597,7 +602,9 @@ def fireplace_deepcopy(game):
 
 class QTable:
 	statusVector=[]
-	actionVector=[]
-	def __init__(self,status,action):
+	actionCard=0
+	actionTarget=0
+	def __init__(self,status,card,target):
 		self.statusVector = status
-		self.actionVector = action
+		self.actionCard = card
+		self.actionTarget = target

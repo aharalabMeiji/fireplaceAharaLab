@@ -121,7 +121,7 @@ class DrawLowestCost(TargetedAction):
 				lowest = [card]
 			elif lowest[0].cost == card.cost:
 				lowest.append(card)
-		if len(lowest)>0:
+		if lowest!=None and len(lowest)>0:
 			card = random.choice(lowest)
 			controller.game.trigger(controller, [Give(controller,card)],event_args=None)
 	pass
@@ -138,7 +138,7 @@ class DrawHighestCost(TargetedAction):
 				highest = [card]
 			elif highest[0].cost == card.cost:
 				highest.append(card)
-		if len(highest)>0:
+		if highest != None and len(highest)>0:
 			card = random.choice(highest)
 			controller.game.trigger(controller, [Give(controller,card)],event_args=None)
 	pass
