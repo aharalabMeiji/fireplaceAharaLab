@@ -7,6 +7,7 @@ from .game import Game
 from .aura import AuraBuff
 import copy
 import random
+from .logging import log
 
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
@@ -29,7 +30,7 @@ def debug_card(oldCard, newCard):
 def deepcopy_game(game, player, option):
 	""" deepcopy a game state. 
 	"""
-	#print("================deepcopy starts================")
+	log.info("================deepcopy starts================")
 	oldGame = game
 	oldPlayer1 = game.player1
 	oldPlayer2 = game.player2
@@ -65,7 +66,7 @@ def deepcopy_game(game, player, option):
 		pass
 		random.shuffle(itshim.deck)
 		random.shuffle(itshim.hand)
-	#print("================deepcopy ends================")
+	log.info("================deepcopy ends================")
 	return newGame
 
 def deep_copy_player(player, option):
@@ -199,7 +200,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			if not isinstance(value,list):
 				setattr(new_hero, attr, value)
 			elif value==[]:
-				setattr(new_hero, attr, value)
+				setattr(new_hero, attr, [])
 			elif isinstance(value[0], Enchantment):## 
 				setattr(new_hero, attr, deepcopy_enchantment(value, oldPlayer.hero, new_hero))
 			else:
@@ -335,7 +336,7 @@ def copy_gameattr(oldGame,newGame):
 			if not isinstance(src,list):
 				setattr(newGame, attr, src)
 			elif src==[]:
-				setattr(newGame, attr, src)
+				setattr(newGame, attr, [])
 			elif attr=='_myLog_':
 				ret=[]
 				for element in src:

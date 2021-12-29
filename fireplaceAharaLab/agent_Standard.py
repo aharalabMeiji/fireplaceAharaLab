@@ -8,7 +8,7 @@ from fireplace.card import Card
 from fireplace.game import Game
 from fireplace.utils import ActionType
 from enum import IntEnum
-
+from fireplace.logging import log
 
 class StandardAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
@@ -20,7 +20,7 @@ class StandardAgent(Agent):
 		loopCount=0
 		while loopCount<20:
 			loopCount+=1
-			myCandidate = getCandidates(thisgame)
+			myCandidate = getCandidates(thisgame)#「何もしない」選択肢は入れていない
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
@@ -38,54 +38,65 @@ class StandardVectorAgent(Agent):
 		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
 		pass
 	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
-		debug=False
+		debugChoice=False###  Display parameters and scores
 		if option==None:
 			print ("StandardStep1 needs an option")
 			return ExceptionPlay.INVALID
 		myWeight=option
-		myCandidate = getCandidates(game)
-		myChoices = []
-		maxScore=-100000
-		maxChoice = None
-		if debug:
-			print(">>>>>>>>>>>>>>>>>>>")
-		for myChoice in myCandidate:
-			tmpGame = fireplace_deepcopy(game)
-			#tmpGame = copy.deepcopy(game)
-			result = executeAction(tmpGame, myChoice, debugLog=False)
-			if result==ExceptionPlay.INVALID:
-				stop=True
-			if result==ExceptionPlay.GAMEOVER:
-				score=100000
-			else:
-				if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+		loopCount=0
+		while loopCount<20:
+			loopCount+=1
+			if debugChoice:
+				print(">>>>>>>>>>>>>>>>>>>")
+			myCandidate = getCandidates(game)#「何もしない」選択肢は入れていない
+			myChoices = [Candidate(None,type=ExceptionPlay.TURNEND, turn=game.turn)]#何もしない選択
+			maxScore = self.getStageScore(game,myWeight,debugChoice)#何もしないときのスコア
+			if debugChoice:
+				print("   %s %d"%(myChoices[0],maxScore))
+			maxChoice = None
+			for myChoice in myCandidate:
+				tmpGame = fireplace_deepcopy(game)
+				#tmpGame = copy.deepcopy(game)
+				log.info("Estimate the score for [%s]"%(myChoice))
+				result = executeAction(tmpGame, myChoice, debugLog=False)
+				postAction(tmpGame.current_player)
+				if result==ExceptionPlay.INVALID:
+					stop=True
+				if result==ExceptionPlay.GAMEOVER:
 					score=100000
 				else:
-					score = self.getStageScore(tmpGame,myWeight)
-			if debug:
-				print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
-			if score > maxScore:
-				maxScore = score
-				myChoices = [myChoice]
-				if score==100000:
-					break
-			elif score == maxScore:
-				myChoices.append(myChoice)
-		if debug:
-			print("<<<<<<<<<<<<<<<<<<<")
-		if len(myChoices)>0:
-			myChoice = random.choice(myChoices)
-			ret = executeAction(game, myChoice,debugLog=debugLog)
-			if ret==ExceptionPlay.GAMEOVER:
-				return ExceptionPlay.GAMEOVER
-			if ret==ExceptionPlay.INVALID:
-				return ExceptionPlay.INVALID
-			player = game.current_player
-			postAction(player)
-			return self.StandardStep1(game, option=myWeight, debugLog=debugLog)
-		else:
-			return ExceptionPlay.VALID
-	def getStageScore(self,game, weight):
+					if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+						score=100000
+					else:
+						score = self.getStageScore(tmpGame,myWeight,debugChoice)
+				if debugChoice:
+					print("   %s %d"%(myChoice,score))
+				if score > maxScore:
+					maxScore = score
+					myChoices = [myChoice]
+					if score==100000:
+						break
+				elif score == maxScore:
+					myChoices.append(myChoice)
+			if debugChoice:
+				print("<<<<<<<<<<<<<<<<<<<")
+			if len(myChoices)>0:
+				myChoice = random.choice(myChoices)
+				if myChoice.type==ExceptionPlay.TURNEND:
+					if debugLog:
+						print(">%s -> turnend."%(self.name))
+					return ExceptionPlay.VALID
+				ret = executeAction(game, myChoice,debugLog=debugLog)
+				if ret==ExceptionPlay.GAMEOVER:
+					return ExceptionPlay.GAMEOVER
+				if ret==ExceptionPlay.INVALID:
+					return ExceptionPlay.INVALID
+				player = game.current_player
+				postAction(player)
+				continue
+			else:
+				return ExceptionPlay.VALID
+	def getStageScore(self,game, weight, debugChoice=False):
 		cardPerPoint=0.3
 		w_length=34
 		w=[]
@@ -96,9 +107,9 @@ class StandardVectorAgent(Agent):
 		myHero = me.hero
 		hisHero = he.hero
 		#w[0]=myHeroH
-		w[0] = myHero.health
+		w[0] = myHero.health+myHero.armor
 		#w[1]=hisHeroH
-		w[1] = hisHero.health
+		w[1] = hisHero.health+hisHero.armor
 		#w[2]=myCharA = 0
 		#w[3]=myCharH = 0
 		#w[4]=myTauntCharA = 0
@@ -199,6 +210,10 @@ class StandardVectorAgent(Agent):
 					w[33] += 1	#体力の小さいバニラカードを使う
 		score = 0.0
 		for i in range(w_length):
+			if debugChoice:
+				if w[i]!=0:
+					print("%d:%d"%(i,w[i]),end=", ")
+				pass
 			const=-1
 			if i in [0,2,3,4,5]:
 				const=1
@@ -208,6 +223,8 @@ class StandardVectorAgent(Agent):
 			if len(weight)>i:
 				wgt = weight[i]
 			score += w[i]*wgt*const
+		if debugChoice:
+			print("")
 		return score
 	def StandardMulligan(self, choiceCards):
 		# make cost 1 cards left
