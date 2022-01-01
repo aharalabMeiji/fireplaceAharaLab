@@ -1294,6 +1294,8 @@ class Morph(TargetedAction):
 			return []
 		assert len(card) == 1
 		card = card[0]
+		if card==None or not hasattr(card,'controller'):
+			return []
 		card.controller = target.controller
 		return [card]
 
