@@ -1294,6 +1294,8 @@ class Morph(TargetedAction):
 			return []
 		assert len(card) == 1
 		card = card[0]
+		if card==None:
+			return []
 		card.controller = target.controller
 		return [card]
 

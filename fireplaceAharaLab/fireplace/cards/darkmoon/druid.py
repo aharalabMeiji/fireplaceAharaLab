@@ -46,7 +46,7 @@ class DMF_058e:# <2>[1466] #ONE_TURN_EFFECT
 	Your next spell this turn casts twice. """
 	events =[
 	   OWN_SPELL_PLAY.on(
-		   PlayOnceMoreTime(CONTROLLER,Play.CARD,Play.TARGET),
+		   PlayOnceMoreTime(OWNER,Play.CARD,Play.TARGET),
 		   Destroy(SELF)
 		   ),
 	   ]
