@@ -122,8 +122,8 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	Count1 = 0
 	Count2 = 0
 	for i in range(gameNumber):
-		if not debugLog:
-			print("%d"%(i),end=",")
+		if not debugLog and i%10==0:
+			print("%d"%(i))
 		P1.QList=[]
 		P2.QList=[]
 		winner = play_one_game(P1,P2,deck1, deck2, debugLog=debugLog, HEROHPOPTION=HEROHPOPTION, P1MAXMANA=P1MAXMANA, P2MAXMANA=P2MAXMANA, P1HAND=P1HAND, P2HAND=P2HAND)
