@@ -426,8 +426,9 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
-from .darkmoon_druid import SimulateGames_Darkmoon_Druid
-def SimulateGames():
-	SimulateGames_Darkmoon_Druid()
-
-	pass
+#from .darkmoon_druid import SimulateGames_Darkmoon_Druid
+#from .alterac_neutral import SimulateGames_Alterac_Neutral
+#def SimulateGames():
+#	SimulateGames_Alterac_Neutral()
+#
+#	pass

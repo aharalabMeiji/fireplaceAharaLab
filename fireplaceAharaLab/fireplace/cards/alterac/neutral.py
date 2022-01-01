@@ -117,10 +117,22 @@ class AV_131:
 	pass
 AV_131e=buff(3,3)
 
+class HitWithoutHonorableKill(TargetedAction):
+	"""
+	Hit character targets by \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+
+	def do(self, source, target, amount):
+		amount = source.get_damage(amount, target)
+		if amount:
+			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
+		return 0
 class AV_132:
 	""" Troll Centurion (8/8/8)
 	[Rush]. [Honorable Kill]: Deal 8 damage to the enemy hero."""
-	honorable_kill = Hit(ENEMY_HERO, 8)
+	honorable_kill = HitWithoutHonorableKill(ENEMY_HERO, 8)
 	pass
 
 class AV_133:
