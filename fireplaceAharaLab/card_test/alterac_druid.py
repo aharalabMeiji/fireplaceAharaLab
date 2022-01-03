@@ -162,8 +162,7 @@ class pp_AV_292(Preset_Play):
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_292',controller)
 		self.mark2=self.exchange_card('beast',controller)
-		self.mark3=self.exchange_card('beast',controller)
-		self.mark4=self.exchange_card('dragon',controller)
+		self.mark3=self.exchange_card('dragon',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -178,8 +177,7 @@ class pp_AV_292(Preset_Play):
 		########## opponent
 		self.change_turn(opponent)
 		########## controller
-		self.play_card(self.mark4, controller)###
-		self.play_card(self.mark1, controller,target=self.mark2)###(1,4),(1,2)
+		self.play_card(self.mark1, controller,target=self.mark3)###(1,3),(1,2)
 		#self.attack_card(self.mark1, self.mark2, controller)
 		pass
 	def result_inspection(self):
@@ -192,8 +190,8 @@ class pp_AV_292(Preset_Play):
 		if self.contains_buff(card,'AV_292e2'):
 			print("OK. %s has a buff AV_292e2"%(card))
 		card=self.mark3
-		if self.contains_buff(card,'AV_292e2'):
-			print("OK. %s has a buff AV_292e2"%(card))
+		if not self.contains_buff(card,'AV_292e2'):
+			print("OK. %s does not has a buff AV_292e2"%(card))
 	pass
 		
 #########################
