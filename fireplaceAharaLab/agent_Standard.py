@@ -46,7 +46,7 @@ class StandardVectorAgent(Agent):
 			loopCount+=1
 			player=game.current_player
 			cardList=[player.hero.id, player.hero.power.id]+list(set(player.starting_deck))
-			debug=False
+			debug=True
 			if option==None:
 				print ("StandardStep1 needs an option")
 				return ExceptionPlay.INVALID
@@ -421,10 +421,41 @@ class StandardVectorAgent(Agent):
 				else:
 					handCardList[lenCardList+2] = 1
 		return handCardList
+	def myFieldCard(self, my, myClass):
+		if myClass==CardClass.DRUID:
+			cardList=self.clownDruidCard
+		elif myClass==CardClass.WARRIOR:
+			cardList=self.bigWarriorCard
+		else:#CardClass.HUNTER
+			cardList=self.faceHunterCard
+		lenCardList=len(cardList)
+		fieldCardList=[0]*(lenCardList+3)
+		for card in my.field:
+			another=True
+			for i in range(lenCardList):
+				if not card.asleep and card.id==cardList[i]:
+					fieldCardList[i] = 1
+					another=False
+					break
+			if another and not card.asleep:
+				if card.type==CardType.MINION:
+					fieldCardList[lenCardList] = 1
+				elif card.type==CardType.SPELL:
+					fieldCardList[lenCardList+1] = 1
+				else:
+					fieldCardList[lenCardList+2] = 1
+		return fieldCardList
 	def getStatusVector(self, game):
 		my = game.current_player
 		his = game.current_player.opponent
-		return self.gameStatus(my)+self.heroes(my,his)+self.myField(my)+self.hisField(his)+self.myHand(my)+self.myHandCard(my,my.hero.card_class)
+		ret = self.gameStatus(my)\
+			+self.heroes(my,his)\
+			+self.myField(my)\
+			+self.hisField(his)\
+			+self.myHand(my)\
+			+self.myHandCard(my, my.hero.card_class)\
+			+self.myFieldCard(my, my.hero.card_class)
+		return ret
 
 	def getActionVector(self, candidate, myClass):
 		card=-1
