@@ -234,6 +234,8 @@ class StandardVectorAgent(Agent):
 			if choiceCards[num].cost > 1:
 				cards_to_mulligan.append(choiceCards[num])
 		return cards_to_mulligan
+	def StandardChoice(self, choiceCards):
+		return random.choice(choiceCards)
 	clownDruidCard = [
 		'GAME_005',#コイン
 		'CORE_EX1_169',#Innervate(練気) (0)
@@ -536,6 +538,9 @@ def adjust_text_by_spellpower(text, player, card):
 class HumanAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy = None, choiceStrategy = None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy, choiceStrategy = choiceStrategy )
+		self.vectorAgent=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=myClass)
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
@@ -720,6 +725,12 @@ class HumanAgent(Agent):
 						print('(%2d/%2d)'%(targetCard.atk,targetCard.health), end=' ')
 				myCount += 1
 				print('')
+			##analysis by vector
+			vectorChoices=self.VectorKernel(game)
+			print("Vector agent candidates:")
+			for choice in vectorChoices:
+				print("  %s"%(choice))
+			##impout
 			while True:
 				str = input()
 				try:
@@ -779,8 +790,52 @@ class HumanAgent(Agent):
 		except ValueError :
 			pass
 		return random.choice(choiceCards)
-
-
+	def VectorKernel(self, game):
+		player=game.current_player
+		cardList=[player.hero.id, player.hero.power.id]+list(set(player.starting_deck))
+		myWeight=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]
+		myCandidate = getCandidates(game)
+		myChoices = []
+		maxScore=-100000
+		maxChoice = None
+		for myChoice in myCandidate:
+			tmpGame = fireplace_deepcopy(game)
+			tmpGame.current_player.choiceStrategy=None
+			result = executeAction(tmpGame, myChoice, debugLog=False)
+			postAction(tmpGame.current_player)
+			if result==ExceptionPlay.INVALID:
+				stop=True
+			if result==ExceptionPlay.GAMEOVER:
+				score=100000
+			elif myChoice.type==ExceptionPlay.TURNEND:
+				score = self.vectorAgent.getStageScore(tmpGame,myWeight)
+			else:
+				loopCount=0
+				while loopCount<20:
+					loopCount+=1
+					tmpCandidates = getCandidates(tmpGame)
+					if len(tmpCandidates)>0:
+						tmpChoice = random.choice(tmpCandidates)
+						tmpResult = executeAction(tmpGame, tmpChoice, debugLog=False)
+						postAction(tmpGame.current_player)
+						if tmpResult==ExceptionPlay.GAMEOVER:
+							score=100000
+						elif tmpChoice.type==ExceptionPlay.TURNEND:
+							score = self.vectorAgent.getStageScore(tmpGame,myWeight)
+							break
+						else:
+							continue
+					else:
+						score = self.vectorAgent.getStageScore(tmpGame,myWeight)
+						break
+			if score > maxScore:
+				maxScore = score
+				myChoices = [myChoice]
+				if score==100000:
+					break
+			elif score == maxScore:
+				myChoices.append(myChoice)
+		return myChoices
 
 def weight_deepcopy(weight):
 	wgt=[]
