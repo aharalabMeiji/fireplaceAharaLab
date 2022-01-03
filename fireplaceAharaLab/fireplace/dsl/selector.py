@@ -411,6 +411,13 @@ CardClass.test = lambda self, entity, *args: (
 SpellSchool.test = lambda self, entity, *args: (# 
 	entity is not None and self == getattr(entity, "spell_school", SpellSchool.NONE)
 )
+class Alive(IntEnum):
+	INVALID=0
+	ALIVE=1
+	pass
+Alive.test = lambda self, entity, *arges: (
+	entity is not None and hasattr(entity,'health') and entity.health>0
+)
 
 BATTLECRY = EnumSelector(GameTag.BATTLECRY)
 CHARGE = EnumSelector(GameTag.CHARGE)
@@ -437,6 +444,7 @@ ROGUE = EnumSelector(CardClass.ROGUE)
 WARLOCK = EnumSelector(CardClass.WARLOCK)
 
 IN_PLAY = EnumSelector(Zone.PLAY)
+ALIVE=EnumSelector(Alive.ALIVE)+IN_PLAY
 IN_DECK = EnumSelector(Zone.DECK)
 IN_HAND = EnumSelector(Zone.HAND)
 HIDDEN = EnumSelector(Zone.SECRET)
@@ -478,7 +486,7 @@ LEGENDARY = EnumSelector(Rarity.LEGENDARY)
 
 ALL_PLAYERS = IN_PLAY + PLAYER
 ALL_HEROES = IN_PLAY + HERO
-ALL_MINIONS = IN_PLAY + MINION - DORMANT
+ALL_MINIONS = ALIVE + MINION - DORMANT
 ALL_CHARACTERS = IN_PLAY + CHARACTER - DORMANT
 ALL_WEAPONS = IN_PLAY + WEAPON
 ALL_SECRETS = HIDDEN + SECRET
