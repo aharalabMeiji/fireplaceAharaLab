@@ -46,7 +46,7 @@ class StandardVectorAgent(Agent):
 			loopCount+=1
 			player=game.current_player
 			cardList=[player.hero.id, player.hero.power.id]+list(set(player.starting_deck))
-			debug=True
+			debug=False
 			if option==None:
 				print ("StandardStep1 needs an option")
 				return ExceptionPlay.INVALID
@@ -317,21 +317,26 @@ class StandardVectorAgent(Agent):
 		else:
 			myMana=Manas[11]
 		return myMMana+myMana
-	def vectorize(self,value,level,step):
-		w=[]
-		for i in range(level+1):
-			w.append(0)
-		t=int(value/step)
-		if t>level:
-			t=level
-		w[t]=1
-		return w
+	#def vectorize(self,value,level,step):
+	#	w=[]
+	#	for i in range(level+1):
+	#		w.append(0)
+	#	t=int(value/step)
+	#	if t>level:
+	#		t=level
+	#	w[t]=1
+	#	return w
 	def heroes(self,my,his):
-		myHeroH = self.vectorize(my.hero.health+my.hero.armor,5,6)
-		hisHeroH = self.vectorize(his.hero.health+his.hero.armor,5,6)
-		myHeroA = self.vectorize(my.hero.atk+1,3,2)
-		hisHeroA = self.vectorize(his.hero.atk+1,3,2)
-		return myHeroH+myHeroA+hisHeroH+hisHeroA
+		#myHeroH = self.vectorize(my.hero.health+my.hero.armor,5,6)
+		#hisHeroH = self.vectorize(his.hero.health+his.hero.armor,5,6)
+		#myHeroA = self.vectorize(my.hero.atk+1,3,2)
+		#hisHeroA = self.vectorize(his.hero.atk+1,3,2)
+		#return myHeroH+myHeroA+hisHeroH+hisHeroA
+		myHeroH = my.hero.health+my.hero.armor
+		hisHeroH = his.hero.health+his.hero.armor
+		myHeroA = my.hero.atk
+		hisHeroA = his.hero.atk
+		return [myHeroH,myHeroA,hisHeroH,hisHeroA]
 	def myField(self, my):
 		myCharH = 0
 		myCharA = 0
@@ -349,13 +354,14 @@ class StandardVectorAgent(Agent):
 				myShieldCharA += minion.atk
 			if minion.reborn:
 				myRebornCharA += minion.atk
-		myCharH = self.vectorize(myCharH+2,5,3)
-		myCharA = self.vectorize(myCharA+2,5,3)
-		myTauntCharH = self.vectorize(myTauntCharH+2,4,3)
-		myTauntCharA = self.vectorize(myTauntCharA+1,4,2)
-		myShieldCharA = self.vectorize(myShieldCharA+1,4,2)
-		myRebornCharA = self.vectorize(myRebornCharA+1,4,2)
-		return myCharH+myCharA+myTauntCharH+myTauntCharA+myShieldCharA+myRebornCharA
+		#myCharH = self.vectorize(myCharH+2,5,3)
+		#myCharA = self.vectorize(myCharA+2,5,3)
+		#myTauntCharH = self.vectorize(myTauntCharH+2,4,3)
+		#myTauntCharA = self.vectorize(myTauntCharA+1,4,2)
+		#myShieldCharA = self.vectorize(myShieldCharA+1,4,2)
+		#myRebornCharA = self.vectorize(myRebornCharA+1,4,2)
+		#return myCharH+myCharA+myTauntCharH+myTauntCharA+myShieldCharA+myRebornCharA
+		return [myCharH,myCharA,myTauntCharH,myTauntCharA,myShieldCharA,myRebornCharA]
 	def hisField(self, his):
 		hisCharH = 0
 		hisCharA = 0
@@ -367,11 +373,12 @@ class StandardVectorAgent(Agent):
 			if minion.taunt:
 				hisTauntCharH += minion.health
 				hisTauntCharA += minion.atk
-		hisCharH = self.vectorize(hisCharH+2,5,3)
-		hisCharA = self.vectorize(hisCharA+2,5,3)
-		hisTauntCharH = self.vectorize(hisTauntCharH+2,4,3)
-		hisTauntCharA = self.vectorize(hisTauntCharA+1,4,2)
-		return hisCharH+hisCharA+hisTauntCharH+hisTauntCharA
+		#hisCharH = self.vectorize(hisCharH+2,5,3)
+		#hisCharA = self.vectorize(hisCharA+2,5,3)
+		#hisTauntCharH = self.vectorize(hisTauntCharH+2,4,3)
+		#hisTauntCharA = self.vectorize(hisTauntCharA+1,4,2)
+		#return hisCharH+hisCharA+hisTauntCharH+hisTauntCharA
+		return [hisCharH,hisCharA,hisTauntCharH,hisTauntCharA]
 	def myHand(self,my):
 		MinionCH = 0#手持ちのミニョンカードのHPの総和
 		PlayableMinionCH = 0#手持ちのミニョンカードのHPの総和
@@ -390,13 +397,14 @@ class StandardVectorAgent(Agent):
 				SpellCN += 1
 				if card.is_playable():
 					PlayableSpellCN += 1
-		MinionCH=self.vectorize(MinionCH+2,5,3)
-		PlayableMinionCH=self.vectorize(PlayableMinionCH+2,5,3)
-		MinionCN=self.vectorize(MinionCN,5,1)
-		PlayableMinionCN=self.vectorize(PlayableMinionCN,5,1)
-		SpellCN=self.vectorize(SpellCN,5,1)
-		PlayableSpellCN=self.vectorize(PlayableSpellCN,5,1)
-		return MinionCH+MinionCN+PlayableMinionCH+PlayableMinionCN+SpellCN+PlayableSpellCN
+		#MinionCH=self.vectorize(MinionCH+2,5,3)
+		#PlayableMinionCH=self.vectorize(PlayableMinionCH+2,5,3)
+		#MinionCN=self.vectorize(MinionCN,5,1)
+		#PlayableMinionCN=self.vectorize(PlayableMinionCN,5,1)
+		#SpellCN=self.vectorize(SpellCN,5,1)
+		#PlayableSpellCN=self.vectorize(PlayableSpellCN,5,1)
+		#return MinionCH+MinionCN+PlayableMinionCH+PlayableMinionCN+SpellCN+PlayableSpellCN
+		return [MinionCH,MinionCN,PlayableMinionCH,PlayableMinionCN,SpellCN,PlayableSpellCN]
 	def myHandCard(self, my, myClass):
 		if myClass==CardClass.DRUID:
 			cardList=self.clownDruidCard

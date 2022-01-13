@@ -158,7 +158,10 @@ def AppendQlist(class1, class2, WL, qlist):
 	filename = "%s%s%s_data.txt"%(name1, name2, WL)
 	f = open(filename, 'a')
 	for line in qlist:
-		f.write("%s,\n"%(line.statusVector))
+		for num in line.statusVector:
+			f.write("%s,"%(num))
+			pass
+		f.write("\n")
 	f.close()
 	filename = "%s%s%s_card.txt"%(name1, name2, WL)
 	f = open(filename, 'a')
