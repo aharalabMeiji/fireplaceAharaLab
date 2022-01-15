@@ -482,13 +482,13 @@ class DMF_078t:###OK
 class DMF_163:###OK
 	"""Carnival Clown"""
 	##[x]&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Summon 2 copies of this. &lt;b&gt;Corrupt:&lt;/b&gt; Fill your board with copies.
-	play = Summon(CONTROLLER, Copy(SELF)) * 2
+	play = Summon(CONTROLLER, ExactCopy(SELF)) * 2
 	pass
 
 class DMF_163t:###OK
 	"""Carnival Clown"""
 	##[x]&lt;b&gt;Corrupted&lt;/b&gt; &lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Fill your board with copies of this.
-	play = Summon(CONTROLLER, Copy(SELF)) * 6
+	play = Summon(CONTROLLER, ExactCopy(SELF)) * 6
 	pass
 
 class DMF_002:###OK

@@ -68,25 +68,21 @@ class DMF_522:###OK
 
 
 class BT_117:###OK
-    """Bladestorm
-    Deal 1 damage to all minions. Repeat until one dies."""
-
-    def play(self):
-        controller = self.controller
-        game = controller.game
-        before = game.board
-        for i in range(100):# 1000? lol
-            if len(game.board)>0:
-                for card in game.board:
-                    Hit(card, 1).trigger(controller)
-                for card in game.board:
-                    if card.health == 0:
-                        return
-            else:
-                return
-        pass
-    pass
-
+	"""Bladestorm
+	Deal 1 damage to all minions. Repeat until one dies."""
+	def play(self):
+		controller = self.controller
+		game = controller.game
+		before = game.board
+		if len(game.board)>0:
+			min=20
+			for card in game.board:
+				if card.health<min:
+					min=card.health
+			for card in game.board:
+				Hit(card, min).trigger(controller)
+		pass
+	pass
 
 class SW_094:###OK <10>[1578]
 	"""Heavy Plate
@@ -118,9 +114,10 @@ class BAR_845:###OK
 		minionList = controller.game.board
 		count = 0
 		for card in minionList:
+			if card.health<2:
+				count+=1
+		for card in minionList:
 			Hit(card, 2).trigger(controller)
-			if card.health==0:
-				count += 1
 		GainArmor(hero, 2*count).trigger(controller)
 	pass
 
