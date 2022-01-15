@@ -23,9 +23,9 @@ class UNG_830:
 	pass
 
 
-class UNG_833:
-	"""Lakkari Felhound"""
-	pass
+#class UNG_833:
+#	"""Lakkari Felhound"""
+#	pass
 
 
 class UNG_835:

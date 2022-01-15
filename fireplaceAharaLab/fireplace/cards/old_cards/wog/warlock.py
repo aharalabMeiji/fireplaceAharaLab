@@ -28,9 +28,9 @@ class OG_121e:
 	update = Refresh(CONTROLLER, {GameTag.SPELLS_COST_HEALTH: True})
 
 
-class OG_241:
-	"""Possessed Villager"""
-	deathrattle = Summon(CONTROLLER, "OG_241a")
+#class OG_241:
+#	"""Possessed Villager"""
+#	deathrattle = Summon(CONTROLLER, "OG_241a")
 
 
 class OG_302:

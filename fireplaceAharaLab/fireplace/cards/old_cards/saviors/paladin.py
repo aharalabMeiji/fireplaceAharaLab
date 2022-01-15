@@ -89,11 +89,11 @@ class HERO_04bp2:#OK
 #	+2 Armor."""
 #	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
 #AT_132_DRUIDe = buff(atk=2)
-class HERO_07bp2:#OK
-	"""Soul Tap
-	<b>Hero Power</b>
-	Draw a card."""
-	activate = Draw(CONTROLLER)
+#class HERO_07bp2:#OK
+#	"""Soul Tap
+#	<b>Hero Power</b>
+#	Draw a card."""
+#	activate = Draw(CONTROLLER)
 #class HERO_08bp2:#OK
 #	"""Fireblast Rank 2
 #	<b>Hero Power</b>

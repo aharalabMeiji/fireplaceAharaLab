@@ -23,6 +23,8 @@ class pp_AV_108(Preset_Play):
 	"""Shield Shatter (10) frost
 	Deal 5 damage to all minions. Costs (1) less for each Armor you have. """
 	msg1=''
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -61,6 +63,8 @@ class pp_AV_109(Preset_Play):
 	""" Frozen Buckler (2) frost
 	Gain 10 Armor. At the start of your next turn, lose 5 Armor. """
 	msg1=''
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -96,6 +100,8 @@ class pp_AV_109(Preset_Play):
 class pp_AV_119(Preset_Play):
 	""" To the Front! (2) 
 	Your minions cost (2) less this turn (but not less than 1). """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -127,6 +133,8 @@ class pp_AV_119(Preset_Play):
 class pp_AV_145(Preset_Play):
 	""" Captain Galvangar (6/6/6)
 	Battlecry: If you have gained 15 or more Armor this game, gain +3/+3 and Charge. (#1 left!) (Ready!) """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -157,6 +165,8 @@ class pp_AV_145(Preset_Play):
 class pp_AV_202(Preset_Play):
 	""" Rokara, the Valorous (7/*/5) hero
 	Battlecry: Equip a 5/2 Unstoppable Force. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -187,6 +197,8 @@ class pp_AV_202(Preset_Play):
 class pp_AV_321(Preset_Play):
 	""" Glory Chaser (3/4/3)
 	After you play a Taunt minion, draw a card. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -216,6 +228,8 @@ class pp_AV_321(Preset_Play):
 class pp_AV_322(Preset_Play):
 	""" Snowed In (3) frost
 	Destroy a damaged minion. Freeze all other minions. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -256,6 +270,8 @@ class pp_AV_322(Preset_Play):
 class pp_AV_323(Preset_Play):
 	""" Scrapsmith (3/2/4)
 	Taunt Battlecry: Add two 2/4 Grunts with Taunt to your hand. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -293,6 +309,8 @@ class pp_AV_323(Preset_Play):
 class pp_AV_565(Preset_Play):
 	""" Axe Berserker (4/3/5)
 	Rush. Honorable Kill: Draw a weapon. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player
@@ -330,6 +348,8 @@ class pp_AV_565(Preset_Play):
 class pp_AV_660(Preset_Play):
 	""" Iceblood Garrison (2)
 	At the end of your turn, deal 1 damage to all minions. Lasts 3 turns. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
 	msg1=''
 	def preset_deck(self):
 		controller=self.player

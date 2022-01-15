@@ -97,6 +97,18 @@ class HERO_06bp2:#OK
 	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
 #HERO_06ebp2 = buff(atk=2)
 AT_132_DRUIDe = buff(atk=2)
+
+class HERO_07:
+	""" Gul'dan
+	"""
+	pass
+class HERO_07bp:
+	"""Life Tap"""
+	activate = Hit(FRIENDLY_HERO, 2), Draw(CONTROLLER)
+class HERO_07bp2:#OK
+	"""Soul Tap
+	<b>Hero Power</b>	Draw a card."""
+	activate = Draw(CONTROLLER)
 class HERO_08:
 	"""  Jaina Proudmoore
 	"""

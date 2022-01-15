@@ -4,9 +4,9 @@ from ..utils import *
 ##
 # Hero Powers
 
-class HERO_07bp:
-	"""Life Tap"""
-	activate = Hit(FRIENDLY_HERO, 2), Draw(CONTROLLER)
+#class HERO_07bp:
+#	"""Life Tap"""
+#	activate = Hit(FRIENDLY_HERO, 2), Draw(CONTROLLER)
 
 
 ##
@@ -20,9 +20,9 @@ class CS2_059:
 CS2_059o = buff(health=1)
 
 
-class CS2_064:
-	"""Dread Infernal"""
-	play = Hit(ALL_CHARACTERS - SELF, 1)
+#class CS2_064:
+#	"""Dread Infernal"""
+#	play = Hit(ALL_CHARACTERS - SELF, 1)
 
 
 class EX1_301:
@@ -30,12 +30,12 @@ class EX1_301:
 	play = GainEmptyMana(CONTROLLER, -1)
 
 
-class EX1_304:
-	"""Void Terror"""
-	play = (
-		Buff(SELF, "EX1_304e", atk=ATK(SELF_ADJACENT), max_health=CURRENT_HEALTH(SELF_ADJACENT)),
-		Destroy(SELF_ADJACENT)
-	)
+#class EX1_304:
+#	"""Void Terror"""
+#	play = (
+#		Buff(SELF, "EX1_304e", atk=ATK(SELF_ADJACENT), max_health=CURRENT_HEALTH(SELF_ADJACENT)),
+#		Destroy(SELF_ADJACENT)
+#	)
 
 
 class EX1_306:
@@ -60,17 +60,17 @@ class EX1_315:
 	})
 
 
-class EX1_319:
-	"""Flame Imp"""
-	play = Hit(FRIENDLY_HERO, 3)
+#class EX1_319:
+#	"""Flame Imp"""
+#	play = Hit(FRIENDLY_HERO, 3)
 
 
-class EX1_323:
-	"""Lord Jaraxxus"""
-	play = (
-		Summon(CONTROLLER, "EX1_323h").then(Morph(SELF, Summon.CARD)),
-		Summon(CONTROLLER, "EX1_323w")
-	)
+#class EX1_323:
+#	"""Lord Jaraxxus"""
+#	play = (
+#		Summon(CONTROLLER, "EX1_323h").then(Morph(SELF, Summon.CARD)),
+#		Summon(CONTROLLER, "EX1_323w")
+#	)
 
 
 class EX1_tk33:
@@ -88,9 +88,9 @@ class CS2_061:
 	play = Hit(TARGET, 2), Heal(FRIENDLY_HERO, 2)
 
 
-class CS2_062:
-	"""Hellfire"""
-	play = Hit(ALL_CHARACTERS, 3)
+#class CS2_062:
+#	"""Hellfire"""
+#	play = Hit(ALL_CHARACTERS, 3)
 
 
 class CS2_063:
@@ -112,10 +112,10 @@ class CS2_057:
 	play = Hit(TARGET, 4)
 
 
-class EX1_302:
-	"""Mortal Coil"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 1), Dead(TARGET) & Draw(CONTROLLER)
+#class EX1_302:
+#	"""Mortal Coil"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET, 1), Dead(TARGET) & Draw(CONTROLLER)
 
 
 class EX1_303:
@@ -133,15 +133,15 @@ class EX1_308:
 	play = Hit(TARGET, 4), Discard(RANDOM(FRIENDLY_HAND))
 
 
-class EX1_309:
-	"""Siphon Soul"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Destroy(TARGET), Heal(FRIENDLY_HERO, 3)
+#class EX1_309:
+#	"""Siphon Soul"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Destroy(TARGET), Heal(FRIENDLY_HERO, 3)
 
 
-class EX1_312:
-	"""Twisting Nether"""
-	play = Destroy(ALL_MINIONS)
+#class EX1_312:
+#	"""Twisting Nether"""
+#	play = Destroy(ALL_MINIONS)
 
 
 class EX1_316:

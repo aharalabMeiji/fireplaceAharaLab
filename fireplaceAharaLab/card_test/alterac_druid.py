@@ -20,6 +20,8 @@ def SimulateGames_Alterac_Druid():
 class pp_AV_205(Preset_Play):
 	""" Wildheart Guff ( 5/*/5) Hero
 	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -60,6 +62,8 @@ class pp_AV_205(Preset_Play):
 class pp_AV_210(Preset_Play):
 	""" Pathmaker (3/3/4) 
 	Battlecry: Cast the other choice from the last [Choose One] spell you've cast.  """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -89,6 +93,8 @@ class pp_AV_210(Preset_Play):
 class pp_AV_211(Preset_Play):
 	""" Dire Frostwolf (4/4/4) beast
 	[Stealth] [Deathrattle]: Summon a 2/2 Wolf with Stealth. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -122,6 +128,8 @@ class pp_AV_211(Preset_Play):
 class pp_AV_291(Preset_Play):
 	""" Frostsaber Matriarch (7/4/5) beast
 	[Taunt]. Costs (1) less for each Beast you've summoned this game. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -157,6 +165,8 @@ class pp_AV_291(Preset_Play):
 class pp_AV_292(Preset_Play):
 	""" Heart of the Wild (3)
 	Give a minion +2/+2, then give your Beasts +1/+1."""
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -200,6 +210,8 @@ class pp_AV_292(Preset_Play):
 class pp_AV_293(Preset_Play):
 	""" Wing Commander Mulverick (4/2/5)
 	[Rush]. Your minions have "Honorable Kill: Summon a 2/2 Wyvern with Rush." """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -237,6 +249,8 @@ class pp_AV_293(Preset_Play):
 class pp_AV_294(Preset_Play):
 	""" Clawfury Adept (2/2/3) beast
 	[Battlecry]: Give all other friendly characters +1 Attack this turn. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -277,6 +291,8 @@ class pp_AV_294(Preset_Play):
 class pp_AV_295(Preset_Play):
 	""" Capture Coldtooth Mine (2)
 	[Choose One] - Draw your lowest Cost card; or Draw your highest Cost card. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -306,6 +322,8 @@ class pp_AV_295(Preset_Play):
 class pp_AV_296(Preset_Play):
 	""" Pride Seeker (3/2/4)
 	[Battlecry]: Your next [Choose One] card costs (2) less."""
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -342,6 +360,8 @@ class pp_AV_296(Preset_Play):
 class pp_AV_360(Preset_Play):
 	""" Frostwolf Kennels (3) Lasts
 	At the end of your turn, summon a 2/2 Wolf with Stealth. Lasts 3 turns. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent

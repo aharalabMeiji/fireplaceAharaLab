@@ -190,7 +190,7 @@ def print_deck():
 
 if __name__ == "__main__":
 	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
-	#from card_test.alterac_neutral import SimulateGames_Alterac_Neutral
-	#SimulateGames_Alterac_Neutral()
+	from card_test.core_warlock import SimulateGames_CoreWarlock
+	SimulateGames_CoreWarlock()
 	#printCards()
-	main()
+	#main()
