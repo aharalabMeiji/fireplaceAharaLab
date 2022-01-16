@@ -9,10 +9,10 @@ def SimulateGames_CoreWarlock():
 	#PresetGame(pp_CORE_EX1_302)#OK
 	#PresetGame(pp_CORE_EX1_304)#OK
 	#PresetGame(pp_CORE_EX1_309)#OK
-	PresetGame(pp_CORE_EX1_312)#OK
-	#PresetGame(pp_CORE_EX1_319)#
-	#PresetGame(pp_CORE_EX1_323)#
-	#PresetGame(pp_CORE_GIL_191)#
+	#PresetGame(pp_CORE_EX1_312)#OK
+	#PresetGame(pp_CORE_EX1_319)#OK
+	#PresetGame(pp_CORE_EX1_323)#OK
+	PresetGame(pp_CORE_GIL_191)#
 	#PresetGame(pp_CORE_ICC_055)#
 	#PresetGame(pp_CORE_OG_241)#
 	#PresetGame(pp_CORE_UNG_833)#
@@ -315,6 +315,81 @@ class pp_CORE_EX1_312(Preset_Play):
 		hero = controller.hero
 		for card in [self.mark2,self.mark3,self.mark4]:
 			#mark2,3,4が破壊されていること
+			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+
+class pp_CORE_EX1_319(Preset_Play):
+	""" Flame Imp
+	[Battlecry:] Deal 3 damage to your hero. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_319',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# hero に３ダメついていること
+		for card in [controller.hero]:
+			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+
+class pp_CORE_EX1_323(Preset_Play):
+	""" Lord Jaraxxus
+	[Battlecry:] Equip a 3/8 Blood Fury. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_323',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
+		##########opponent
+		self.change_turn(opponent)
+		##########controller
+		self.activate_heropower(controller)#
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# hero が差し替えられていること
+		for card in [controller.hero]:
+			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		# weaponが差し替えられていること
+		print ("weapon: %s"%(hero.controller.weapon))
+		# ヒロパで召喚されていることを目視
+		for card in controller.field:
 			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
 		pass
 

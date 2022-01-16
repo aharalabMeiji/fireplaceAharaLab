@@ -1,7 +1,7 @@
 from ..utils import *
 
 #Core_Warlock=[
-#	"CORE_AT_021","AT_021e","CORE_CS2_062","CORE_CS2_064","CORE_EX1_302","CORE_EX1_304","EX1_304e","CORE_EX1_309","CORE_EX1_312","CORE_EX1_319","CORE_EX1_323","EX1_323h","EX1_323w","CORE_GIL_191","CORE_GIL_191t","CORE_ICC_055","CORE_OG_241","OG_241a","CORE_UNG_833","CS3_002","CS3_002t","CS3_003","CS3_021"
+#	"CORE_AT_021","AT_021e","CORE_CS2_062","CORE_CS2_064","CORE_EX1_302","CORE_EX1_304","EX1_304e","CORE_EX1_309","CORE_EX1_312","CORE_EX1_319","CORE_EX1_323","EX1_323h","EX1_tk33","EX1_tk34","EX1_323w","CORE_GIL_191","CORE_GIL_191t","CORE_ICC_055","CORE_OG_241","OG_241a","CORE_UNG_833","CS3_002","CS3_002t","CS3_003","CS3_021"
 #	]
 
 class CORE_AT_021:# <9>[1637]
@@ -71,6 +71,13 @@ class EX1_323h: ## Hero (9/*/5)
 	""" Lord Jaraxxus
 	"""
 	pass
+class EX1_tk33: ## heropower
+	"""INFERNO!"""
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	activate = Summon(CONTROLLER, "EX1_tk34")
+class EX1_tk34: ##(6/6/6)
+	""" Infernal """
+	## vanilla 
 class EX1_323w: ## weapon (3/3/8)
 	""" Blood Fury
 	"""

@@ -73,10 +73,10 @@ class EX1_315:
 #	)
 
 
-class EX1_tk33:
-	"""INFERNO!"""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	activate = Summon(CONTROLLER, "EX1_tk34")
+#class EX1_tk33:
+#	"""INFERNO!"""
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	activate = Summon(CONTROLLER, "EX1_tk34")
 
 
 ##
