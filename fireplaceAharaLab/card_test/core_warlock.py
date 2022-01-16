@@ -12,12 +12,12 @@ def SimulateGames_CoreWarlock():
 	#PresetGame(pp_CORE_EX1_312)#OK
 	#PresetGame(pp_CORE_EX1_319)#OK
 	#PresetGame(pp_CORE_EX1_323)#OK
-	PresetGame(pp_CORE_GIL_191)#
-	#PresetGame(pp_CORE_ICC_055)#
-	#PresetGame(pp_CORE_OG_241)#
-	#PresetGame(pp_CORE_UNG_833)#
-	#PresetGame(pp_CS3_002)#
-	#PresetGame(pp_CS3_003)#
+	#PresetGame(pp_CORE_GIL_191)#OK
+	#PresetGame(pp_CORE_ICC_055)#OK
+	#PresetGame(pp_CORE_OG_241)#OK
+	#PresetGame(pp_CORE_UNG_833)#OK
+	#PresetGame(pp_CS3_002)#OK
+	PresetGame(pp_CS3_003)#
 	#PresetGame(pp_CS3_021)#
 	pass
 
@@ -391,6 +391,211 @@ class pp_CORE_EX1_323(Preset_Play):
 		# ヒロパで召喚されていることを目視
 		for card in controller.field:
 			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CORE_GIL_191(Preset_Play):
+	""" Fiendish Circle
+	Summon four 1/1 Imps. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_GIL_191',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# フィールドを目視
+		for card in controller.field:
+			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CORE_ICC_055(Preset_Play):
+	""" Drain Soul
+	[Lifesteal]Deal $3 damage to a minion. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_ICC_055',controller)#
+		self.mark2=self.exchange_card('minionA5',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		self.change_turn(controller)
+		self.attack_card(self.mark2, controller.hero, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# 敵フィールドと自ヒーローを目視
+		for card in controller.opponent.field+[controller.hero]:
+			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CORE_OG_241(Preset_Play):
+	""" Possessed Villager
+	[Deathrattle:] Summon a 1/1 Shadowbeast. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_OG_241',controller)#
+		self.mark2=self.exchange_card('vanilla',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.change_turn(controller)
+		##########opponent
+		self.attack_card(self.mark2, self.mark1, opponent)#
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# 自フィールドを目視
+		for card in [self.mark1, self.mark2]:
+			print ("%s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		for card in controller.field:
+			print ("field: %s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CORE_UNG_833(Preset_Play):
+	""" Lakkari Felhound
+	[Taunt][Battlecry:] Discard your two lowest-Cost cards. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	count1 = []
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_UNG_833',controller)#
+		self.mark2=self.exchange_card('vanilla',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.change_turn(controller)
+		self.change_turn(opponent)
+		self.count1 = []
+		for card in controller.hand:
+			self.count1.append(card)
+		self.play_card(self.mark1, controller)#
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# 自フィールドを目視
+		for card in self.count1:
+			print ("starting_hand: %s: (%d/**/%d) zone->%s"%(card, card.cost, card.health,card.zone))
+		for card in controller.hand:
+			print ("hand: %s: (%d/%d) zone->%s"%(card, card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CS3_002(Preset_Play):
+	""" Ritual of Doom
+	Destroy a friendly minion. If you had 5 or more, summon a 5/5 Demon. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	count1 = []
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CS3_002',controller)#
+		self.mark2=self.exchange_card('vanillaH2',controller)#
+		self.mark3=self.exchange_card('vanillaH1',controller)#
+		self.mark4=self.exchange_card('vanillaH2',controller)#
+		self.mark5=self.exchange_card('vanillaH1',controller)#
+		self.mark6=self.exchange_card('vanillaH2',controller)#
+		super().preset_deck()
+		##player1._start_hand_size=7
+		##player2._start_hand_size=7
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark2, controller)#
+		self.play_card(self.mark3, controller)#
+		self.play_card(self.mark4, controller)#
+		self.change_turn(controller)
+		##########opponent
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark5, controller)#
+		self.play_card(self.mark6, controller)#comment out/in
+		self.play_card(self.mark1, controller, target=self.mark4)#
+		##########opponent
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# 自フィールドを目視
+		for card in controller.field:
+			print ("field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
 
 ####################

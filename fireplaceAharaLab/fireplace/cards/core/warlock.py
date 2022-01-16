@@ -102,7 +102,7 @@ class CORE_ICC_055:# <9>[1637]
 	play = Hit(TARGET, 3)
 	pass
 
-class CORE_OG_241:# <9>[1637]
+class CORE_OG_241:# <9>[1637] (1/1/1)
 	""" Possessed Villager
 	[Deathrattle:] Summon a 1/1 Shadowbeast. """
 	deathrattle = Summon(CONTROLLER, "OG_241a")	#
