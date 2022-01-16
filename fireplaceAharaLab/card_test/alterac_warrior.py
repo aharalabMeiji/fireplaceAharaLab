@@ -1,5 +1,5 @@
 from .simulate_game import PresetGame, Preset_Play
-from hearthstone.enums import Zone,CardType, Rarity
+from hearthstone.enums import Zone,CardType, Rarity, CardClass
 
 #Alterac_Warrior=['AV_108','AV_109','AV_109e','AV_119','AV_119e','AV_145','AV_145e','AV_202','AV_202p','AV_202t2','AV_321','AV_322','AV_323','AV_323t','AV_565','AV_660',]
 
