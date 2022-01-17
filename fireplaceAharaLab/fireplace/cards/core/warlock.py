@@ -1,4 +1,5 @@
 from ..utils import *
+import copy
 
 #Core_Warlock=[
 #	"CORE_AT_021","AT_021e","CORE_CS2_062","CORE_CS2_064","CORE_EX1_302","CORE_EX1_304","EX1_304e","CORE_EX1_309","CORE_EX1_312","CORE_EX1_319","CORE_EX1_323","EX1_323h","EX1_tk33","EX1_tk34","EX1_323w","CORE_GIL_191","CORE_GIL_191t","CORE_ICC_055","CORE_OG_241","OG_241a","CORE_UNG_833","CS3_002","CS3_002t","CS3_003","CS3_021"
@@ -157,12 +158,13 @@ class CS3_002t:# <9>[1637]
 class CS3_003Play(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		target.zone=Zone.SETASIDE
+		source.sidequest_list0=target.id
+		Discard(target).trigger(source)
 		pass
 class CS3_003Deathrattle(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		target.zone=Zone.PLAY
+		Summon(source.controller.opponent, source.sidequest_list0).trigger(source)
 		pass
 class CS3_003:# <9>[1637]
 	""" Felsoul Jailer

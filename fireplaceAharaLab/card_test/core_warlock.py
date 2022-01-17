@@ -17,8 +17,8 @@ def SimulateGames_CoreWarlock():
 	#PresetGame(pp_CORE_OG_241)#OK
 	#PresetGame(pp_CORE_UNG_833)#OK
 	#PresetGame(pp_CS3_002)#OK
-	PresetGame(pp_CS3_003)#
-	#PresetGame(pp_CS3_021)#
+	#PresetGame(pp_CS3_003)#OK
+	PresetGame(pp_CS3_021)#
 	pass
 
 ##################################
@@ -596,6 +596,96 @@ class pp_CS3_002(Preset_Play):
 		# 自フィールドを目視
 		for card in controller.field:
 			print ("field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CS3_003(Preset_Play):
+	""" Felsoul Jailer
+	[Battlecry:] Your opponent discards a minion.[Deathrattle:] Return it. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	count1 = []
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CS3_003',controller)#
+		self.mark2=self.exchange_card('vanilla',opponent)#
+		self.mark3=self.exchange_card('minionA6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)#
+		self.play_card(self.mark3, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
+		self.change_turn(controller)
+		##########opponent
+		self.attack_card(self.mark3, self.mark1, opponent)
+
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# 相手フィールドを目視
+		for card in controller.opponent.field:
+			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		pass
+
+####################
+
+class pp_CS3_021(Preset_Play):
+	""" Enslaved Fel Lord
+	[Taunt]. Also damages the minions next to whomever this attacks. """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK
+	count1 = []
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CS3_021',controller)#
+		self.mark2=self.exchange_card('vanillaH2',opponent)#
+		self.mark3=self.exchange_card('vanillaH1',opponent)#
+		self.mark4=self.exchange_card('vanillaH2',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)#
+		self.play_card(self.mark3, opponent)#
+		self.play_card(self.mark4, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.attack_card(self.mark1, self.mark3, opponent)
+		#self.change_turn(controller)
+		##########opponent
+
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.hero
+		# 相手フィールドを目視
+		for card in controller.opponent.field:
+			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
 
 ####################
