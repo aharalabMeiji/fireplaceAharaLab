@@ -68,6 +68,7 @@ def main():
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
 	a,b,c = play_set_of_games(VectorDruid, VectorWarrior, deck1=BigDeck.clownDruid, deck2=BigDeck.bigWarrior, gameNumber=10, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
+	## 最初のプレイヤーからみてa勝ちb負けc分け。わけって何？？ｗ
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
