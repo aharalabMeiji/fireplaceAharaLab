@@ -92,7 +92,9 @@ def create_vacant_card(card):
 		return Weapon(cards.db[card.id])
 	if card.type==CardType.ENCHANTMENT:
 		return Enchantment(cards.db[card.id])
-
+	if card.type==CardType.HERO:
+		return Hero(cards.db[card.id])
+	raise InvalidAction("This card is not supported in deepcopy: %s" % card)
 
 def deepcopy_aurabuff(oldCard):
 	ret=[]
