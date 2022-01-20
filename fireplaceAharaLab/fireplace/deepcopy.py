@@ -1,13 +1,14 @@
 from enum import IntEnum
 from fireplace import cards
 from hearthstone.enums import Zone,State,CardType,Step
-from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest
+from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest,Secret
 from .player import Player, PlayLog
 from .game import Game
 from .aura import AuraBuff
 import copy
 import random
 from .logging import log
+from .exceptions import InvalidAction
 
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
@@ -86,6 +87,8 @@ def create_vacant_card(card):
 	if card.type==CardType.SPELL:
 		if hasattr(card.data,'sidequest') and card.data.sidequest or hasattr(card.data,'questline') and card.data.questline:
 			return Sidequest(cards.db[card.id])
+		elif hasattr(card.data,'secret') and card.data.secret:
+			return Secret(cards.db[card.id])
 		else:
 			return Spell(cards.db[card.id])
 	if card.type==CardType.WEAPON:
@@ -94,6 +97,8 @@ def create_vacant_card(card):
 		return Enchantment(cards.db[card.id])
 	if card.type==CardType.HERO:
 		return Hero(cards.db[card.id])
+	if card.type==CardType.HERO_POWER:
+		return HeroPower(cards.db[card.id])
 	raise InvalidAction("This card is not supported in deepcopy: %s" % card)
 
 def deepcopy_aurabuff(oldCard):

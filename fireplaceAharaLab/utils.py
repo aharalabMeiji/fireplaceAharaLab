@@ -168,7 +168,7 @@ class Candidate(object):
 					health2 += self.target.armor
 				return "{card} -> heropower -> {target}({atk2}/{health2})".format(
 					card=self.card, 
-					target=self.target,atk2=atk2.atk,health2=health2)
+					target=self.target,atk2=atk2,health2=health2)
 			else:
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
