@@ -168,7 +168,7 @@ class Candidate(object):
 					health2 += self.target.armor
 				return "{card} -> heropower -> {target}({atk2}/{health2})".format(
 					card=self.card, 
-					target=self.target,atk2=atk2.atk,health2=health2)
+					target=self.target,atk2=atk2,health2=health2)
 			else:
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
@@ -500,7 +500,7 @@ class BigDeck:
 		'SCH_333','SCH_333','DMF_075','DMF_075','CORE_CS2_013','CORE_CS2_013',
 		'BT_130','BT_130','BAR_535','SCH_605','SCH_605','SCH_616',
 		'SCH_616','DMF_078','DMF_078','SCH_610','SCH_610','BAR_042',
-		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','DMF_188'
+		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','AV_205'#'DMF_188'
 		]
 
 

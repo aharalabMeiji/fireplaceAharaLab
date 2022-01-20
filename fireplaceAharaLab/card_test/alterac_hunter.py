@@ -27,10 +27,12 @@ def SimulateGames_Alterac_Hunter():
 class pp_AV_113(Preset_Play):
 	"""Beaststalker Tavish (6/*/5) Hero
 	Battlecry: Discover and cast 2 Improved Secrets."""
+	count1 = 0
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_113',controller)
+		self.mark1=self.exchange_card('minionA7',controller)
+		self.mark2=self.exchange_card('AV_113',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -40,21 +42,28 @@ class pp_AV_113(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		postAction(controller)
 		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		########## controller
-		self.activate_heropower(controller)
+		self.attack_card(self.mark1, opponent.hero, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.count1=opponent.hero.health
+		self.play_card(self.mark2, opponent)
+		postAction(opponent)
+		self.activate_heropower(opponent)
+		self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.secrets:
-			print("secret : %s :  "%(card))
-		for card in controller.field:
+		opponent=controller.opponent
+		for card in opponent.secrets:
+			print("opponent : secret : %s :  "%(card))
+		for card in opponent.field:
 			print("%s :  stats %d/%d"%(card, card.atk, card.health))
+		print("%s :  stats %d/%d<-%d"%(opponent.hero, opponent.hero.atk, opponent.hero.health,self.count1))
 	pass
 		
 #########################

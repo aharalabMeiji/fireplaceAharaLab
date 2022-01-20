@@ -705,7 +705,13 @@ class Hero(Character):
 
 	def _set_zone(self, value):
 		if value == Zone.PLAY:
+			old_hero = self.controller.hero
 			self.controller.hero = self
+			# if there is an former hero copy hero's health
+			if old_hero:
+				self.max_health=old_hero.max_health
+				self.damage = old_hero.damage 
+				old_hero.zone = Zone.GRAVEYARD
 			if self.data.hero_power:
 				self.controller.summon(self.data.hero_power)
 		elif value == Zone.GRAVEYARD:

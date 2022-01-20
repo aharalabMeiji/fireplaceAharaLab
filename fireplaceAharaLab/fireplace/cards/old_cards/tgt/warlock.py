@@ -13,12 +13,10 @@ class AT_019e:
 	events = OWN_TURN_END.on(Summon(CONTROLLER, "AT_019"), Destroy(SELF))
 
 
-class AT_021:
-	"""Tiny Knight of Evil"""
-	events = Discard(FRIENDLY).on(Buff(SELF, "AT_021e"))
-
-
-AT_021e = buff(+1, +1)
+#class AT_021:
+#	"""Tiny Knight of Evil"""
+#	events = Discard(FRIENDLY).on(Buff(SELF, "AT_021e"))
+#AT_021e = buff(+1, +1)
 
 
 class AT_023:
