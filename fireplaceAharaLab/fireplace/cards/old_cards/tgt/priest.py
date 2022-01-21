@@ -69,7 +69,7 @@ class AT_016:
 AT_016e = AttackHealthSwapBuff()
 
 
-class AT_055:
-	"""Flash Heal"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Heal(TARGET, 5)
+#class AT_055:
+#	"""Flash Heal"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Heal(TARGET, 5)
