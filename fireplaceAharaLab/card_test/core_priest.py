@@ -73,7 +73,10 @@ class pp_CORE_CS1_112(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CORE_CS1_112',controller)#
+		self.mark2=self.exchange_card('minionH6',controller)#
+		self.mark3=self.exchange_card('minionH4',opponent)#
+		self.mark4=self.exchange_card('vanillaA3',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -83,17 +86,33 @@ class pp_CORE_CS1_112(Preset_Play):# <6>[1637]
 		game = controller.game
 		##########controller
 		#self.play_card(self.mark4, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark3, opponent)#
+		self.play_card(self.mark4, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		##########opponent
+		self.attack_card(self.mark3, controller.hero, opponent)#
+		self.attack_card(self.mark4, self.mark2, opponent)#
+		for card in controller.opponent.field:
+			print ("oppo. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		for card in controller.field+[controller.hero]:
+			print ("contr. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		#for card in controller.field:
-		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		for card in controller.opponent.field:
+			print ("oppo. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		for card in controller.field+[controller.hero]:
+			print ("contr. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
 
 ##################################
