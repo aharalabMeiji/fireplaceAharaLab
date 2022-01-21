@@ -193,8 +193,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
-	#from card_test.core_warlock import SimulateGames_CoreWarlock
-	#SimulateGames_CoreWarlock()
-	#printCards()
-	main()
+	from card_test.core_priest import SimulateGames_Core_Priest
+	SimulateGames_Core_Priest()
+	#main()

@@ -1,7 +1,7 @@
 from ..utils import *
 
 Core_Priest=[
-	"CORE_AT_055","CORE_CS1_112","CORE_CS1_130",
+	"CORE_AT_055","CORE_CS1_112","CORE_CS1_130","CORE_EX1_193","CORE_EX1_194","EX1_194e","CORE_EX1_195","EX1_195e","CORE_EX1_197","CORE_EX1_198","CORE_EX1_335","CORE_EX1_622","CORE_EX1_623","EX1_623e","CORE_EX1_625","EX1_625t","EX1_625t2","CS3_013","CS3_014","CS3_014e","CS3_027","CS3_027e",
 	]
 class CORE_AT_055:# <6>[1637]
 	""" Flash Heal
@@ -129,23 +129,15 @@ class CS3_013:# <6>[1637]
 class CS3_014:# <6>[1637]
 	""" Crimson Clergy
 	After a friendly character is healed, gain +1 Attack. """
-	#
+	events=Heal(FRIENDLY_CHARACTERS).after(Buff(FRIENDLY_HERO,'CS3_014e'))
 	pass
+CS3_014e=buff(1,0)
 
-class CS3_014e:# <6>[1637]
-	""" Holy Affinity
-	+1 Attack. """
-	#
-	pass
 
 class CS3_027:# <6>[1637]
 	""" Focused Will
 	[Silence] a minion, then give it +3 Health. """
-	
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }
+	play = Silence(TARGET), Buff(TARGET, 'CS3_027e')
 	pass
-
-class CS3_027e:# <6>[1637]
-	""" Focused Will
-	+3 Health. """
-	#
-	pass
+CS3_027e=buff(0,3)
