@@ -23,31 +23,44 @@ class CORE_CS1_130:# <6>[1637]
 	play = Hit(TARGET, 3)
 	pass
 
-class CORE_EX1_193:# <6>[1637]## no EX1_193 card ################
+class CORE_EX1_193:# <6>[1637]## 
 	""" Psychic Conjurer
 	[Battlecry:] Copy a card in your opponent’s deck and add it to your hand. """
-	#
+	play= Give(CONTROLLER, Copy(RANDOM(ENEMY_DECK)))
 	pass
 
-class CORE_EX1_194:# <6>[1637]## no EX1_194 card ################
+class CORE_EX1_194:# <6>[1637]## no EX1_194 card 
 	""" Power Infusion
 	Give a minion +2/+6. """
-	#
+	requirements = {
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "EX1_194e")
 	pass
+EX1_194e = buff(health=2)
 
-class CORE_EX1_195:# <6>[1637]## no EX1_195 card ################
+class CORE_EX1_195:# <6>[1637]## no EX1_195 but similar as EX1_623
 	""" Kul Tiran Chaplain
 	[Battlecry:] Give a friendly minion +2 Health. """
-	#
+	requirements = {
+		PlayReq.REQ_FRIENDLY_TARGET: 0,
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Buff(TARGET, "EX1_195e")
 	pass
+EX1_195e = buff(health=2)
 
-class CORE_EX1_197:# <6>[1637]## no EX1_197 card ################
+class CORE_EX1_197:# <6>[1637]## no EX1_197 but same as EX1_622
 	""" Shadow Word: Ruin
 	Destroy all minions with 5 or more Attack. """
-	#
+	requirements = {
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_TARGET_MIN_ATTACK: 5,
+		PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Destroy(TARGET)
 	pass
 
-class CORE_EX1_198:# <6>[1637]## no EX1_198 card ################
+class CORE_EX1_198:# <6>[1637]##
 	""" Natalie Seline
 	[Battlecry:] Destroy a minion and gain its Health. """
 	requirements = {
@@ -128,7 +141,7 @@ class CS3_014e:# <6>[1637]
 class CS3_027:# <6>[1637]
 	""" Focused Will
 	[Silence] a minion, then give it +3 Health. """
-	#
+	
 	pass
 
 class CS3_027e:# <6>[1637]
