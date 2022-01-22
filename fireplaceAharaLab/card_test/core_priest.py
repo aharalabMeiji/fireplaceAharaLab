@@ -3,9 +3,9 @@ from hearthstone.enums import Zone,CardType, Rarity,CardClass
 
 def SimulateGames_Core_Priest():
 	#PresetGame(pp_CORE_AT_055)#OK
-	PresetGame(pp_CORE_CS1_112)#
-	#PresetGame(pp_CORE_CS1_130)#
-	#PresetGame(pp_CORE_EX1_193)#
+	#PresetGame(pp_CORE_CS1_112)#OK
+	#PresetGame(pp_CORE_CS1_130)#OK
+	PresetGame(pp_CORE_EX1_193)#
 	#PresetGame(pp_CORE_EX1_194)#
 	#PresetGame(pp_CORE_EX1_195)#
 	#PresetGame(pp_CORE_EX1_197)#
@@ -149,7 +149,8 @@ class pp_CORE_CS1_130(Preset_Play):# <6>[1637]
 		hero = controller.opponent.hero
 		# self.mark2が３ダメを受けているか目視
 		for card in controller.field:
-			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone),end='')
+			print("<-(%d/%d)" % (card.data.atk, card.data.health))
 		pass
 
 ##################################
@@ -171,7 +172,7 @@ class pp_CORE_EX1_193(Preset_Play):# <6>[1637]##
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		self.play_card(self.mark4, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
@@ -181,11 +182,17 @@ class pp_CORE_EX1_193(Preset_Play):# <6>[1637]##
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		#最後に配られたカードが敵方のデッキにあるかどうかを目視
+		print("#最後に配られたカードが敵方のデッキにあるかどうかを目視")
 		for card in controller.hand:
-			print ("con. hand: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+			if hasattr(card, 'atk') and hasattr(card, 'health'):
+				print ("con. hand: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+			else:
+				print ("con. hand: %s: (%d) zone->%s"%(card, card.cost, card.zone))
 		for card in controller.opponent.deck:
-			print ("opp. deck: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+			if hasattr(card, 'atk') and hasattr(card, 'health'):
+				print ("opp. deck: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+			else:
+				print ("con. hand: %s: (%d) zone->%s"%(card, card.cost, card.zone))
 		pass
 
 ##################################
