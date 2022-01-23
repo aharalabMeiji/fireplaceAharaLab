@@ -1,6 +1,6 @@
 from ..utils import *
 
-#Core_Priest=[	"CORE_AT_055","CORE_CS1_112","CORE_CS1_130","CORE_EX1_193","CORE_EX1_194","EX1_194e","CORE_EX1_195","EX1_195e","CORE_EX1_197","CORE_EX1_198","CORE_EX1_335","CORE_EX1_622","CORE_EX1_623","EX1_623e","CORE_EX1_625","EX1_625t","EX1_625t2","CS3_013","CS3_014","CS3_014e","CS3_027","CS3_027e",	]
+#Core_Priest=[	"CORE_AT_055","CORE_CS1_112","CORE_CS1_130","CORE_EX1_193","CORE_EX1_194","EX1_194e","CORE_EX1_195","EX1_195e","CORE_EX1_197","CORE_EX1_198",'EX1_198e',"CORE_EX1_335","CORE_EX1_622","CORE_EX1_623","EX1_623e","CORE_EX1_625","EX1_625t","EX1_625t2","CS3_013","CS3_014","CS3_014e","CS3_027","CS3_027e",	]
 
 class CORE_AT_055:# <6>[1637]
 	""" Flash Heal
@@ -36,7 +36,7 @@ class CORE_EX1_194:# <6>[1637]## no EX1_194 card
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "EX1_194e")
 	pass
-EX1_194e = buff(health=2)
+EX1_194e = buff(2,6)
 
 class CORE_EX1_195:# <6>[1637]## no EX1_195 but similar as EX1_623
 	""" Kul Tiran Chaplain
@@ -49,14 +49,16 @@ class CORE_EX1_195:# <6>[1637]## no EX1_195 but similar as EX1_623
 	pass
 EX1_195e = buff(health=2)
 
-class CORE_EX1_197:# <6>[1637]## no EX1_197 but same as EX1_622
+class CORE_EX1_197:# <6>[1637]## 
 	""" Shadow Word: Ruin
 	Destroy all minions with 5 or more Attack. """
-	requirements = {
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_MIN_ATTACK: 5,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Destroy(TARGET)
+	def play(self):
+		for  card in self.controller.field:
+			if card.atk>=5:
+				Destroy(card).trigger(self)
+		for  card in self.controller.opponent.field:
+			if card.atk>=5:
+				Destroy(card).trigger(self)
 	pass
 
 class CORE_EX1_198:# <6>[1637]##
