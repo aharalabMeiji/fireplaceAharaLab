@@ -10,9 +10,9 @@ def SimulateGames_Core_Priest():
 	#PresetGame(pp_CORE_EX1_195)#OK
 	#PresetGame(pp_CORE_EX1_197)#OK
 	#PresetGame(pp_CORE_EX1_198)#OK
-	PresetGame(pp_CORE_EX1_335)#
-	#PresetGame(pp_CORE_EX1_622)#
-	#PresetGame(pp_CORE_EX1_623)#
+	#PresetGame(pp_CORE_EX1_335)#OK
+	#PresetGame(pp_CORE_EX1_622)#OK
+	PresetGame(pp_CORE_EX1_623)#
 	#PresetGame(pp_CORE_EX1_625)#
 	#PresetGame(pp_CS3_013)#
 	#PresetGame(pp_CS3_014)#
@@ -364,7 +364,9 @@ class pp_CORE_EX1_335(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CORE_EX1_335',controller)#
+		self.mark2=self.exchange_card('vanillaH1',opponent)#
+		self.mark3=self.exchange_card('vanillaH2',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -373,18 +375,26 @@ class pp_CORE_EX1_335(Preset_Play):# <6>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark4, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.play_card(self.mark3, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.attack_card(self.mark1, self.mark2, controller)
+		#self.change_turn(controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		#for card in controller.field:
-		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		print("self.mark1～self.mark3のスタッツを目視する。")
+		print("self.mark1のatk==healthを目視する。")
+		for card in [self.mark1, self.mark2, self.mark3]:
+			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone),end='')
+			print("<-(%d/%d)" % (card.data.atk, card.data.health))
+		pass
 		pass
 
 ##################################
@@ -397,7 +407,8 @@ class pp_CORE_EX1_622(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CORE_EX1_622',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -407,17 +418,19 @@ class pp_CORE_EX1_622(Preset_Play):# <6>[1637]
 		game = controller.game
 		##########controller
 		#self.play_card(self.mark4, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		#for card in controller.field:
-		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		for card in [ self.mark2]:
+			print ("mark2: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
 
 ##################################
