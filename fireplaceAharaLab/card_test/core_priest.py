@@ -14,8 +14,8 @@ def SimulateGames_Core_Priest():
 	#PresetGame(pp_CORE_EX1_622)#OK
 	#PresetGame(pp_CORE_EX1_623)#OK
 	#PresetGame(pp_CORE_EX1_625)#OK
-	PresetGame(pp_CS3_013)#
-	#PresetGame(pp_CS3_014)#
+	#PresetGame(pp_CS3_013)#OK
+	PresetGame(pp_CS3_014)#
 	#PresetGame(pp_CS3_027)#
 	pass
 
@@ -518,14 +518,15 @@ class pp_CORE_EX1_625(Preset_Play):# <6>[1637]
 ##################################
 
 class pp_CS3_013(Preset_Play):# <6>[1637]
-	""" Shadowed Spirit
+	""" Shadowed Spirit (3/4/3)
 	[Deathrattle:] Deal 3 damage to the enemy hero. """
 	class1=CardClass.PRIEST
 	class2=CardClass.PRIEST
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CS3_013',controller)#
+		self.mark2=self.exchange_card('minionA5',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -534,16 +535,19 @@ class pp_CS3_013(Preset_Play):# <6>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark4, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.attack_card(self.mark1, self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
+		print("check whether dealing 3 damage to the enemy hero")
 		#for card in controller.field:
 		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
