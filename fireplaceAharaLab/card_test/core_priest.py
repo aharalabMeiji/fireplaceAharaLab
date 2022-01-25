@@ -13,8 +13,8 @@ def SimulateGames_Core_Priest():
 	#PresetGame(pp_CORE_EX1_335)#OK
 	#PresetGame(pp_CORE_EX1_622)#OK
 	#PresetGame(pp_CORE_EX1_623)#OK
-	#PresetGame(pp_CORE_EX1_625)#
-	#PresetGame(pp_CS3_013)#
+	#PresetGame(pp_CORE_EX1_625)#OK
+	PresetGame(pp_CS3_013)#
 	#PresetGame(pp_CS3_014)#
 	#PresetGame(pp_CS3_027)#
 	pass
@@ -480,7 +480,8 @@ class pp_CORE_EX1_625(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CORE_EX1_625',controller)#Shadowform
+		self.mark2=self.exchange_card('CORE_EX1_625',controller)#Shadowform
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -489,16 +490,28 @@ class pp_CORE_EX1_625(Preset_Play):# <6>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark4, controller)
-		#self.change_turn(controller)
+		self.activate_heropower(controller, target=controller.opponent.hero)
+		self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller)
+		self.activate_heropower(controller, target=controller.opponent.hero)
+		self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark2, controller)
+		self.activate_heropower(controller, target=controller.opponent.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
+		print("once play the card, heropower is 'deal 2 damage.")
+		print("once more play the card, heropower is 'deal 3 damage.")
 		#for card in controller.field:
 		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
