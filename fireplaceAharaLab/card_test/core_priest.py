@@ -563,7 +563,7 @@ class pp_CS3_014(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CS3_014',controller)#Minefield
 		super().preset_deck()
 		pass
 	def preset_play(self):
