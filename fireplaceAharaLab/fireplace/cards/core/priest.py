@@ -130,7 +130,7 @@ class CS3_013:# <6>[1637]
 class CS3_014:# <6>[1637]
 	""" Crimson Clergy
 	After a friendly character is healed, gain +1 Attack. """
-	events=Heal(FRIENDLY_CHARACTERS).after(Buff(FRIENDLY_HERO,'CS3_014e'))
+	events=Heal(FRIENDLY_CHARACTERS).on(Buff(SELF,'CS3_014e'))
 	pass
 CS3_014e=buff(1,0)
 

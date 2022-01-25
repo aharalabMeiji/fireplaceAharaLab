@@ -1,5 +1,6 @@
 from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import Zone,CardType, Rarity,CardClass
+from fireplace.actions import Hit, Heal
 
 def SimulateGames_Core_Priest():
 	#PresetGame(pp_CORE_AT_055)#OK
@@ -15,8 +16,8 @@ def SimulateGames_Core_Priest():
 	#PresetGame(pp_CORE_EX1_623)#OK
 	#PresetGame(pp_CORE_EX1_625)#OK
 	#PresetGame(pp_CS3_013)#OK
-	PresetGame(pp_CS3_014)#
-	#PresetGame(pp_CS3_027)#
+	#PresetGame(pp_CS3_014)#OK
+	PresetGame(pp_CS3_027)#
 	pass
 
 ##################################
@@ -563,7 +564,8 @@ class pp_CS3_014(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('CS3_014',controller)#Minefield
+		self.mark1=self.exchange_card('CS3_014',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -572,18 +574,24 @@ class pp_CS3_014(Preset_Play):# <6>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark4, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark2, controller)
+		Hit(self.mark2, 2).trigger(controller)
+		self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller)
+		Heal(self.mark2, 1).trigger(controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		#for card in controller.field:
-		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		print("%s が 1/0 のバフを得ているかどうかを目視"%(self.mark1))
+		for card in controller.field:
+			print ("con. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone),end='')
+			print("<-(%d/%d)" % (card.data.atk, card.data.health))
 		pass
 
 ##################################
@@ -596,7 +604,7 @@ class pp_CS3_027(Preset_Play):# <6>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('DMF_522',controller)#Minefield
+		self.mark1=self.exchange_card('CS3_027',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
