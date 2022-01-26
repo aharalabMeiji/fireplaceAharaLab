@@ -605,6 +605,7 @@ class pp_CS3_027(Preset_Play):# <6>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CS3_027',controller)#
+		self.mark2=self.exchange_card('taunt',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -613,7 +614,8 @@ class pp_CS3_027(Preset_Play):# <6>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark4, controller)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller, target=self.mark2)
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
@@ -623,8 +625,11 @@ class pp_CS3_027(Preset_Play):# <6>[1637]
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		#for card in controller.field:
-		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		print("沈黙がついていることと、0/3のバフがついていることを目視する。")
+		for card in [self.mark2]:
+			print ("field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health, card.zone),end='')
+			print("<-(%d/%d)" % (card.data.atk, card.data.health))
+			print("silenced : %s"%card.silenced)
 		pass
 
 ##################################
