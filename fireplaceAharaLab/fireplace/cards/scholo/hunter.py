@@ -99,7 +99,6 @@ class SCH_604:#OK
 class SCH_607:#OK
 	##Shan'do Wildclaw SCH_607
 	# [x]<b>Choose One -</b> Give Beasts in your deck +1/+1; or Transform into a copy of a friendly Beast.
-	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0 }
 	choose = ("SCH_607a", "SCH_607b")#OK
 	play =ChooseBoth(CONTROLLER) & Morph(SELF, RANDOM((FRIENDLY + BEAST) - FRIENDLY_HERO));#OK
 	pass

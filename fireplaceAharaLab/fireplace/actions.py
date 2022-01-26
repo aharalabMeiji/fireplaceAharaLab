@@ -402,6 +402,8 @@ class GenericChoice(Choice):
 	def choose(self, card):
 		private_casts_when_chosen = ['YOP_024t']
 		super().choose(card)
+		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
+			return
 		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
@@ -1047,7 +1049,7 @@ class Discover(TargetedAction):
 		picker = picker.copy_with_weighting(1, card_class=CardClass.NEUTRAL)
 		picker = picker.copy_with_weighting(4, card_class=discover_class)
 		result = picker.evaluate(source)
-		if len(result) == 3:
+		if len(result) >= 0:
 			return [picker.evaluate(source)]
 		else:
 			return [[]]

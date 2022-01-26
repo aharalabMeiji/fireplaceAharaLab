@@ -160,6 +160,8 @@ def weighted_card_choice(source, weights: List[int], card_sets: List[str], count
 		chosen_set = bisect(cum_weights, random.random() * totalweight)
 
 		# choose a random card from that set
+		if chosen_set>= len(card_sets):
+			continue
 		chosen_card_index = random.randint(0, len(card_sets[chosen_set]) - 1)
 
 		chosen_cards.append(card_sets[chosen_set].pop(chosen_card_index))
