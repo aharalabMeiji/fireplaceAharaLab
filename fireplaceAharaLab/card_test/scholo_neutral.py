@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from hearthstone.enums import Zone,CardType, Rarity
+from hearthstone.enums import Zone,CardType, Rarity, CardClass
 
 def SimulateGames_Scholo_Neutral():
 	PresetGame(pp_SCH_605)#
@@ -9,8 +9,8 @@ def SimulateGames_Scholo_Neutral():
 class pp_SCH_605(Preset_Play):
 	""" Lake Thresher"""
 	#Also damages the minions next to whomever this attacks."""
-	const1 = 0
-	const2 = 0
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent

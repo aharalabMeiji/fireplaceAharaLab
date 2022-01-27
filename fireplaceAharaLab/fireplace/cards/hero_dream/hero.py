@@ -126,3 +126,17 @@ class HERO_08bp2:#OK
 	activate = Hit(TARGET, 2)
 	pass
 
+class HERO_09:#
+	""" Anduin Wrynn  """
+	pass
+
+class HERO_09bp:#
+	"""Lesser Heal (Anduin Wrynn)"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Heal(TARGET, 2)
+class HERO_09bp2:#OK
+	"""Heal
+	<b>Hero Power</b>
+	Restore #4 Health."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Heal(TARGET, 4)

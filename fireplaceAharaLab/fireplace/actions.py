@@ -402,6 +402,8 @@ class GenericChoice(Choice):
 	def choose(self, card):
 		private_casts_when_chosen = ['YOP_024t']
 		super().choose(card)
+		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
+			return
 		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
@@ -556,7 +558,7 @@ class Play(GameAction):
 		battlecry_card = choose or card
 		# We check whether the battlecry will trigger, before the card.zone changes
 		if battlecry_card.battlecry_requires_target() and not target:
-			log.info("%r requires a target for its battlecry. Will not trigger.")
+			log.info("%r requires a target for its battlecry. Will not trigger." % card)
 			trigger_battlecry = False
 		else:
 			trigger_battlecry = True
@@ -1046,7 +1048,11 @@ class Discover(TargetedAction):
 		picker = self._args[1] * 3
 		picker = picker.copy_with_weighting(1, card_class=CardClass.NEUTRAL)
 		picker = picker.copy_with_weighting(4, card_class=discover_class)
-		return [picker.evaluate(source)]
+		result = picker.evaluate(source)
+		if len(result) >= 0:
+			return [picker.evaluate(source)]
+		else:
+			return [[]]
 
 	def do(self, source, target, cards):
 		log.info("%r discovers %r for %s", source, cards, target)

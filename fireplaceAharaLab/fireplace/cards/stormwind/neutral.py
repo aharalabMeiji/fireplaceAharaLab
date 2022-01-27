@@ -1,5 +1,5 @@
 from ..utils import *
-
+#from .logging import log
 
 #SW_003e
 #SW_034e
@@ -244,10 +244,7 @@ SW_078e2=buff(0,0)
 
 class SW_079:###OK
 	""" Flightmaster Dungar
-	[x]<b>Battlecry:</b> Choose a
-flightpath and go <b>Dormant.
-</b> Awaken with a bonus
-__when you complete it! """
+	[x]<b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b> Awaken with a bonus __when you complete it! """
 	entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
 	play = GenericChoiceBattlecry(CONTROLLER,RandomEntourage()*3)
 	pass
@@ -260,32 +257,36 @@ class SW_079t:##OK
 		controller = self.controller
 		for main_card in controller.field:
 			if main_card.id == 'SW_079':
-				break
-		main_card.dormant = 1
-		setattr(main_card.data.scripts, 'awaken', (SummonAdventurerWithBonus(CONTROLLER),))
+				main_card.dormant = 1
+				setattr(main_card.data.scripts, 'awaken', (SummonAdventurerWithBonus(CONTROLLER),))
+				log.info("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
+				break;
 		controller.hand[-1].zone = Zone.GRAVEYARD
 SW_079te=buff(0,0)
 class SW_079t2:###OK
-	""" In 3 turns, restore 10 Health to your hero. """
+	""" Ironforge
+	In 3 turns, restore 10 Health to your hero. """
 	def play(self):
 		controller = self.controller
 		for main_card in controller.field:
 			if main_card.id == 'SW_079':
+				main_card.dormant = 3
+				setattr(main_card.data.scripts, 'awaken', (Heal(FRIENDLY_HERO,10),))
+				log.info("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break
-		main_card.dormant = 3
-		setattr(main_card.data.scripts, 'awaken', (Heal(FRIENDLY_HERO,10),))
 		controller.hand[-1].zone = Zone.GRAVEYARD
 SW_079t2e=buff(0,0)
 class SW_079t3:###OK
-	""" In 5 turns, deal 12 damage randomly split among enemies."""
+	""" Eastern Plaguelands
+	In 5 turns, deal 12 damage randomly split among enemies."""
 	def play(self):
 		controller = self.controller
 		for main_card in controller.field:
 			if main_card.id == 'SW_079':
+				main_card.dormant = 5
+				setattr(main_card.data.scripts, 'awaken', (Hit(RANDOM(ENEMY_CHARACTERS),1) * 12,))
+				log.info("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break
-		main_card.dormant = 5
-		setattr(main_card.data.scripts, 'awaken', (Hit(RANDOM(ENEMY_CHARACTERS),1) * 12,))
-		#setattr(main_card.data, 'description', self.data.description)
 		controller.hand[-1].zone = Zone.GRAVEYARD
 SW_079t3e=buff(0,0)
 

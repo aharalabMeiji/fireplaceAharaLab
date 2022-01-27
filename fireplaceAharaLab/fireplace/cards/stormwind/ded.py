@@ -114,7 +114,7 @@ class DED_008:# <3>[1578] ###OK
 				if isinstance(deathrattle,(list, tuple)):
 					deathrattle = deathrattle[0]
 		if deathrattle != None:
-			deathrattle.trigger(self.controller)
+			deathrattle.trigger(self)
 		pass
 	pass
 

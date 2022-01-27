@@ -100,12 +100,12 @@ class HERO_04bp2:#OK
 #	Deal $2 damage."""
 #	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 #	activate = Hit(TARGET, 2)
-class HERO_09bp2:#OK
-	"""Heal
-	<b>Hero Power</b>
-	Restore #4 Health."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Heal(TARGET, 4)
+#class HERO_09bp2:#OK
+#	"""Heal
+#	<b>Hero Power</b>
+#	Restore #4 Health."""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Heal(TARGET, 4)
 
 
 
