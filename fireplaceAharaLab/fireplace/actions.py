@@ -558,7 +558,7 @@ class Play(GameAction):
 		battlecry_card = choose or card
 		# We check whether the battlecry will trigger, before the card.zone changes
 		if battlecry_card.battlecry_requires_target() and not target:
-			log.info("%r requires a target for its battlecry. Will not trigger.")
+			log.info("%r requires a target for its battlecry. Will not trigger." % card)
 			trigger_battlecry = False
 		else:
 			trigger_battlecry = True

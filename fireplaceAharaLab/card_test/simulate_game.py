@@ -201,10 +201,14 @@ class Preset_Play:
 		pass
 	def play_card(self, card,  player, target = None, choose = None):
 		if isinstance(card,PlayableCard):
-			if target!=None and not target in card.targets:
-				target=None
-			if choose != None and not choose in card.choose_cards:
-				choose = None
+			if choose != None and target!=None and target in choose.targets:
+				pass
+			else:
+				if target!=None and not target in card.targets:
+					target=None
+				if choose != None and not choose in card.choose_cards:
+					choose = None
+				pass
 			Play(card, target, None, choose).trigger(player)
 		pass
 	def attack_card(self, card,  target, player):
