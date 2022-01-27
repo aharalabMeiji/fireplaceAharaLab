@@ -58,6 +58,9 @@
     <Compile Include="fireplaceAharaLab\card_test\scholo_neutral.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\stormwind_neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\card_test\__init__.py">
       <SubType>Code</SubType>
     </Compile>

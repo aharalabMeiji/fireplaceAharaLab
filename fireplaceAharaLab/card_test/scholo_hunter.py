@@ -3,7 +3,7 @@ from hearthstone.enums import Zone, CardType, Rarity, CardClass
 from utils import postAction
 
 def SimulateGames_Scholo_Hunter():
-	PresetGame(pp_SCH_607)#
+	PresetGame(pp_SCH_607)#OK
 
 ##########################################
 
