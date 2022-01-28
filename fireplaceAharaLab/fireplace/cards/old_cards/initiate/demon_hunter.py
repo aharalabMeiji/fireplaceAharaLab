@@ -9,12 +9,12 @@ class BT_407:
 	deathrattle = Give(CONTROLLER, "BT_407t")
 
 
-class BT_351:
-	"""Battlefiend"""
-	events = Attack(FRIENDLY_HERO).after(Buff(SELF, "BT_351e"))
+#class BT_351:
+#	"""Battlefiend"""
+#	events = Attack(FRIENDLY_HERO).after(Buff(SELF, "BT_351e"))
 
 
-BT_351e = buff(atk=1)
+#BT_351e = buff(atk=1)
 
 
 class BT_355:
@@ -30,14 +30,14 @@ class BT_814:
 BT_814e = buff(immune=True)
 
 
-class BT_416:
-	"""Raging Felscreamer"""
-	play = Buff(CONTROLLER, "BT_416e")
+#class BT_416:
+#	"""Raging Felscreamer"""
+#	play = Buff(CONTROLLER, "BT_416e")
 
 
-class BT_416e:
-	update = Refresh(FRIENDLY_HAND + DEMON, {GameTag.COST: -2})
-	events = Play(CONTROLLER, DEMON).on(Destroy(SELF))
+#class BT_416e:
+#	update = Refresh(FRIENDLY_HAND + DEMON, {GameTag.COST: -2})
+#	events = Play(CONTROLLER, DEMON).on(Destroy(SELF))
 
 
 class BT_937:
@@ -97,11 +97,11 @@ class BT_490:
 	outcast = Silence(TARGET), Draw(CONTROLLER)
 
 
-class BT_801:
-	"""Eye Beam"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 3)
-	update = Refresh(OUTERMOST_HAND + SELF, {GameTag.COST: SET(1)})
+#class BT_801:
+#	"""Eye Beam"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET, 3)
+#	update = Refresh(OUTERMOST_HAND + SELF, {GameTag.COST: SET(1)})
 
 
 class BT_753:
@@ -119,8 +119,8 @@ class BT_354:
 	play = Hit(RANDOM_ENEMY_MINION * 2, ATK(FRIENDLY_HERO))
 
 
-class BT_427:
-	"""Feast of Souls"""
+#class BT_427:
+#	"""Feast of Souls"""
 	play = Draw(CONTROLLER) * Count(FRIENDLY + MINION + KILLED_THIS_TURN)
 
 

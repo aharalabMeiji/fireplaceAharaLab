@@ -1,5 +1,5 @@
 from ..utils import *
-
+##嶋田君の仕事！！
 class CORE_AT_075:# <5>[1637]
 	""" Warhorse Trainer
 	Your Silver Hand Recruits have +1 Attack. """
