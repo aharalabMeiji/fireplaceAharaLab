@@ -4,9 +4,9 @@ from ..utils import *
 ##
 # Rogue
 
-class HERO_03bp:
-	"""Dagger Mastery"""
-	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
+#class HERO_03bp:
+#	"""Dagger Mastery"""
+#	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
 
 
 # Sharpened (Unused)

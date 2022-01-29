@@ -52,6 +52,19 @@ class HERO_02bp2:################################# pass, need to modify
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	choose = ("CS2_050", "CS2_051", "CS2_052", "NEW1_009")
 
+class HERO_03:
+	""" Valeera Sanguinar
+	"""
+	pass
+class HERO_03bp:
+	"""Dagger Mastery"""
+	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
+class HERO_03bp2:#OK
+	""" Poisoned Daggers
+	<b>Hero Power</b>
+	Equip a 2/2 Weapon."""
+	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
+
 class HERO_05:
 	""" Garrosh Hellscream
 	"""
@@ -109,6 +122,7 @@ class HERO_07bp2:#OK
 	"""Soul Tap
 	<b>Hero Power</b>	Draw a card."""
 	activate = Draw(CONTROLLER)
+
 class HERO_08:
 	"""  Jaina Proudmoore
 	"""

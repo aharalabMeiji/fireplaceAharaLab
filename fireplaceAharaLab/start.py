@@ -186,6 +186,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#from card_test.core_priest import SimulateGames_Core_Priest
-	#SimulateGames_Core_Priest()
-	main()
+	from card_test.core_rogue import SimulateGames_Core_Rogue
+	SimulateGames_Core_Rogue()
+	#main()
