@@ -39,12 +39,12 @@ class CS2_049_H1:
 #	play = Hit(TARGET, 3)
 
 
-class EX1_258:
-	"""Unbound Elemental"""
-	events = Play(CONTROLLER, OVERLOAD).on(Buff(SELF, "EX1_258e"))
+#class EX1_258:
+#	"""Unbound Elemental"""
+#	events = Play(CONTROLLER, OVERLOAD).on(Buff(SELF, "EX1_258e"))
 
 
-EX1_258e = buff(+1, +1)
+#EX1_258e = buff(+1, +1)
 
 
 class EX1_565:
@@ -55,9 +55,9 @@ class EX1_565:
 EX1_565o = buff(atk=2)
 
 
-class EX1_575:
-	"""Mana Tide Totem"""
-	events = OWN_TURN_END.on(Draw(CONTROLLER))
+#class EX1_575:
+#	"""Mana Tide Totem"""
+#	events = OWN_TURN_END.on(Draw(CONTROLLER))
 
 
 class EX1_587:
@@ -155,10 +155,10 @@ EX1_244e = buff(health=2)
 #	play = Morph(TARGET, "hexfrog")
 
 
-class EX1_248:
-	"""Feral Spirit"""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	play = Summon(CONTROLLER, "EX1_tk11") * 2
+#class EX1_248:
+#	"""Feral Spirit"""
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	play = Summon(CONTROLLER, "EX1_tk11") * 2
 
 
 class EX1_251:
@@ -173,6 +173,6 @@ class EX1_245:
 	play = Silence(TARGET), Hit(TARGET, 1)
 
 
-class EX1_259:
-	"""Lightning Storm"""
-	play = Hit(ENEMY_MINIONS, RandomNumber(2, 3))
+#class EX1_259:
+#	"""Lightning Storm"""
+#	play = Hit(ENEMY_MINIONS, RandomNumber(2, 3))

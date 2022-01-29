@@ -10,7 +10,7 @@ AT_047e = buff(+1, +1)
 class CORE_BOT_533:# <8>[1637]
 	""" Menacing Nimbus
 	[Battlecry:] Add a random Elemental to your hand. """
-	##########################
+	play = Give(CONTROLLER, RandomCard(race=Race.ELEMENTAL))
 	pass
 
 class CORE_CS2_039:# <8>[1637]
@@ -53,11 +53,15 @@ class hexfrog:
 	""" Frog
 	[Taunt] """
 
-
 class CORE_EX1_248:# <8>[1637]
 	""" Feral Spirit
 	Summon two 2/3 Spirit Wolves with [Taunt]. [Overload:] (1) """
-	#
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	play = Summon(CONTROLLER, "EX1_tk11") * 2
+	pass
+class EX1_tk11:
+	""" Spirit Wolf
+	&lt;b&gt;Taunt&lt;/b&gt; """
 	pass
 
 class CORE_EX1_250:# <8>[1637]
@@ -69,13 +73,14 @@ class CORE_EX1_250:# <8>[1637]
 class CORE_EX1_258:# <8>[1637]
 	""" Unbound Elemental
 	After you play a card_with [Overload], gain_+1/+1. """
-	#
+	events = Play(CONTROLLER, OVERLOAD).on(Buff(SELF, "EX1_258e"))
 	pass
+EX1_258e = buff(+1, +1)
 
 class CORE_EX1_259:# <8>[1637]
 	""" Lightning Storm
 	Deal $3 damage to all_enemy minions. [Overload:] (2) """
-	#
+	play = Hit(ENEMY_MINIONS, 3)
 	pass
 
 class CORE_EX1_567:# <8>[1637]
@@ -87,7 +92,7 @@ class CORE_EX1_567:# <8>[1637]
 class CORE_EX1_575:# <8>[1637]
 	""" Mana Tide Totem
 	At the end of your turn, draw a card. """
-	#
+	events = OWN_TURN_END.on(Draw(CONTROLLER))
 	pass
 
 class CORE_NEW1_010:# <8>[1637]
@@ -99,7 +104,8 @@ class CORE_NEW1_010:# <8>[1637]
 class CORE_UNG_817:# <8>[1637]
 	""" Tidal Surge
 	[Lifesteal]Deal $4 damage to a_minion. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 4)
 	pass
 
 class CS3_007:# <8>[1637]
