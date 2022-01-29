@@ -112,9 +112,9 @@ class KAR_065:
 	play = Summon(CONTROLLER, ExactCopy(TARGET))
 
 
-class KAR_069:
-	"""Swashburglar"""
-	play = Give(CONTROLLER, RandomCollectible(card_class=ENEMY_CLASS))
+#class KAR_069:
+#	"""Swashburglar"""
+#	play = Give(CONTROLLER, RandomCollectible(card_class=ENEMY_CLASS))
 
 
 class KAR_070:

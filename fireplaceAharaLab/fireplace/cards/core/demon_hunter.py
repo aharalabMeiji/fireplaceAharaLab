@@ -1,5 +1,8 @@
 from ..utils import *
 
+Core_DemonHunter=[
+	"CORE_BT_035","CORE_BT_036","BT_036t","CORE_BT_235","CORE_BT_323","CORE_BT_351","BT_351e","CORE_BT_416","BT_416e","CORE_BT_423","CORE_BT_427","CORE_BT_430","CORE_BT_480","CORE_BT_491","CORE_BT_801","CORE_BT_921","CS3_017","CS3_017e","CS3_019","CS3_020",
+	]
 class CORE_BT_035:# <14>[1637]
 	""" Chaos Strike
 	Give your hero +2_Attack this turn. Draw a card. """

@@ -19,9 +19,9 @@ class BOT_411:
 	pass
 
 
-class BOT_533:
-	"""Menacing Nimbus"""
-	pass
+#class BOT_533:
+#	"""Menacing Nimbus"""
+#	pass
 
 
 class BOT_543:

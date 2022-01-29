@@ -33,10 +33,10 @@ class CS2_049_H1:
 ##
 # Minions
 
-class CS2_042:
-	"""Fire Elemental"""
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Hit(TARGET, 3)
+#class CS2_042:
+#	"""Fire Elemental"""
+#	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Hit(TARGET, 3)
 
 
 class EX1_258:
@@ -89,10 +89,10 @@ class CS2_038e:
 	tags = {GameTag.DEATHRATTLE: True}
 
 
-class CS2_039:
-	"""Windfury"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = GiveWindfury(TARGET - WINDFURY)
+#class CS2_039:
+#	"""Windfury"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = GiveWindfury(TARGET - WINDFURY)
 
 
 class CS2_041:
@@ -104,13 +104,13 @@ class CS2_041:
 CS2_041e = buff(taunt=True)
 
 
-class CS2_045:
-	"""Rockbiter Weapon"""
-	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "CS2_045e")
-
-
-CS2_045e = buff(atk=3)
+#class CS2_045:
+#	"""Rockbiter Weapon"""
+#	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Buff(TARGET, "CS2_045e")
+#
+#
+#CS2_045e = buff(atk=3)
 
 
 class CS2_046:
@@ -129,10 +129,10 @@ class CS2_053:
 CS2_053e = buff(cost=-3)
 
 
-class EX1_238:
-	"""Lightning Bolt"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 3)
+#class EX1_238:
+#	"""Lightning Bolt"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET, 3)
 
 
 class EX1_241:
@@ -149,10 +149,10 @@ class EX1_244:
 EX1_244e = buff(health=2)
 
 
-class EX1_246:
-	"""Hex"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Morph(TARGET, "hexfrog")
+#class EX1_246:
+#	"""Hex"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Morph(TARGET, "hexfrog")
 
 
 class EX1_248:

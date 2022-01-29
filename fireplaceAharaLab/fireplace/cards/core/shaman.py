@@ -3,44 +3,56 @@ from ..utils import *
 class CORE_AT_047:# <8>[1637]
 	""" Draenei Totemcarver
 	[Battlecry:] Gain +1/+1 for each friendly Totem. """
-	#
+	play = Buff(SELF, "AT_047e") * Count(FRIENDLY_MINIONS + TOTEM)
 	pass
+AT_047e = buff(+1, +1)
 
 class CORE_BOT_533:# <8>[1637]
 	""" Menacing Nimbus
 	[Battlecry:] Add a random Elemental to your hand. """
-	#
+	##########################
 	pass
 
 class CORE_CS2_039:# <8>[1637]
 	""" Windfury
 	Give a minion [Windfury]. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = GiveWindfury(TARGET - WINDFURY)
 	pass
 
 class CORE_CS2_042:# <8>[1637]
 	""" Fire Elemental
 	[Battlecry:] Deal 4 damage. """
-	#
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Hit(TARGET, 3)	
 	pass
 
 class CORE_CS2_045:# <8>[1637]
 	""" Rockbiter Weapon
 	Give a friendly character +3 Attack this turn. """
-	#
+	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "CS2_045e")
 	pass
+CS2_045e = buff(atk=3)	
 
 class CORE_EX1_238:# <8>[1637]
 	""" Lightning Bolt
 	Deal $3 damage. [Overload:] (1) """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 3)	
 	pass
 
 class CORE_EX1_246:# <8>[1637]
 	""" Hex
 	Transform a minion into a 0/1 Frog with [Taunt]. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Morph(TARGET, "hexfrog")
 	pass
+#EX1_246e#Morphed buff?
+class hexfrog:
+	""" Frog
+	[Taunt] """
+
 
 class CORE_EX1_248:# <8>[1637]
 	""" Feral Spirit

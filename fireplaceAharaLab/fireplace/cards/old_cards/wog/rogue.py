@@ -4,12 +4,10 @@ from ..utils import *
 ##
 # Minions
 
-class OG_070:
-	"""Bladed Cultist"""
-	combo = Buff(SELF, "OG_070e")
-
-
-OG_070e = buff(+1, +1)
+#class OG_070:
+#	"""Bladed Cultist"""
+#	combo = Buff(SELF, "OG_070e")
+#OG_070e = buff(+1, +1)
 
 
 class OG_080:
