@@ -3,7 +3,7 @@ from ..utils import *
 class CORE_BT_035:# <14>[1637]
 	""" Chaos Strike
 	Give your hero +2_Attack this turn. Draw a card. """
-	#
+	play = Heal(FRIENDLY_HERO), Draw(CONTROLLER)
 	pass
 
 class CORE_BT_036:# <14>[1637]
@@ -17,7 +17,7 @@ class BT_036t:
 class CORE_BT_235:# <14>[1637]
 	""" Chaos Nova
 	Deal $4 damage to all_minions. """
-	#
+	play = Hit(ALL_MINIONS,4)
 	pass
 
 class CORE_BT_323:# <14>[1637]
@@ -94,15 +94,14 @@ class CS3_017:# <14>[1637]
 	[Outcast:] Give your hero +3_Attack this turn. """
 	play=Buff(FRIENDLY_HERO,'CS3_017e')
 	pass
-CS3_017e=buff(atk=3)# ONE_TURN_EFFECT
-# <14>[1637]
+CS3_017e=buff(atk=3)# ONE_TURN_EFFECT# <14>[1637]
 """ Felfist
 +3 Attack this turn. """
 
 class CS3_019:# <14>[1637]
 	""" Kor'vas Bloodthorn
-	[Charge], [Lifesteal]After you play a card with[Outcast], return this to your hand. """
-	#
+	[Charge], [Lifesteal]After you play a card with [Outcast], return this to your hand. """
+	events = Play(CONTROLLER, FRIENDLY_HAND + OUTCAST).after(Bounce(SELF))
 	pass
 
 class CS3_020:# <14>[1637]
