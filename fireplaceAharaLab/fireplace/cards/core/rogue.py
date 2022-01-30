@@ -103,14 +103,14 @@ class CORE_EX1_522:# <7>[1637]#
 	#
 	pass
 
-class CORE_ICC_809:# <7>[1637]#########################
+class CORE_ICC_809:# <7>[1637]##
 	""" Plague Scientist
 	[Combo:] Give a friendly minion [Poisonous]. """
 	requirements = {
 		PlayReq.REQ_FRIENDLY_TARGET: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_FOR_COMBO: 0}
-	play = Buff(TARGET, 'ICC_809e')
+	combo = Buff(TARGET, 'ICC_809e')
 	pass
 ICC_809e=buff(poisonous=True)
 

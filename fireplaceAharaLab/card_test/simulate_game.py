@@ -217,7 +217,7 @@ class Preset_Play:
 			print("(old cost:%d)"%(card.data.cost),end="")
 		if show_buff and len(card.buffs):
 			for buff in card.buffs:
-				print("[%r]" % buff)
+				print("[%r]" % buff,end="")
 		print("")
 		pass
 	def play_card(self, card,  player, target = None, choose = None):

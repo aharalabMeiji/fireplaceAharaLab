@@ -13,9 +13,9 @@ def SimulateGames_Core_Rogue():
 	#PresetGame(pp_CORE_EX1_134)#OK
 	#PresetGame(pp_CORE_EX1_144)#OK
 	#PresetGame(pp_CORE_EX1_145)#OK
-	#PresetGame(pp_CORE_EX1_522)#
-	#PresetGame(pp_CORE_ICC_809)#
-	#PresetGame(pp_CORE_KAR_069)#
+	#PresetGame(pp_CORE_EX1_522)#OK
+	#PresetGame(pp_CORE_ICC_809)#OK
+	PresetGame(pp_CORE_KAR_069)#
 	#PresetGame(pp_CORE_LOE_012)#
 	#PresetGame(pp_CORE_OG_070)#
 	#PresetGame(pp_CS3_005)	
@@ -387,6 +387,7 @@ class pp_CORE_EX1_522(Preset_Play):# <7>[1637]#
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_522',controller)#
+		self.mark2=self.exchange_card('minionH8',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -395,22 +396,23 @@ class pp_CORE_EX1_522(Preset_Play):# <7>[1637]#
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.attack_card(self.mark1, self.mark2, controller)#poisonaousの確認
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %r がpoisonousで死んでいるかどうかを視認"%(self.mark2))
+		self.print_stats ("card2:",self.mark2)
 		pass
 
-class pp_CORE_ICC_809(Preset_Play):# <7>[1637]#########################
+class pp_CORE_ICC_809(Preset_Play):# <7>[1637]#
 	""" Plague Scientist
 	[Combo:] Give a friendly minion [Poisonous]. """
 	class1=CardClass.ROGUE
@@ -419,6 +421,8 @@ class pp_CORE_ICC_809(Preset_Play):# <7>[1637]#########################
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_ICC_809',controller)#
+		self.mark2=self.exchange_card('minionH2',controller)#
+		self.mark3=self.exchange_card('minionH2',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -427,7 +431,10 @@ class pp_CORE_ICC_809(Preset_Play):# <7>[1637]#########################
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark2, controller)#
+		#self.change_turn(controller) # to make it no-combo
+		#self.change_turn(opponent)
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -437,9 +444,9 @@ class pp_CORE_ICC_809(Preset_Play):# <7>[1637]#########################
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %r がpoisonousかどうかを視認"%(self.mark2))
+		self.print_stats("card2",self.mark2, show_buff=True)
+		print ("poisonous: %s"%(self.mark2.poisonous))
 		pass
 
 class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
