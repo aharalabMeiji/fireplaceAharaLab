@@ -12,7 +12,7 @@ def SimulateGames_Core_Rogue():
 	#PresetGame(pp_CORE_CS2_080)#OK
 	#PresetGame(pp_CORE_EX1_134)#OK
 	#PresetGame(pp_CORE_EX1_144)#OK
-	PresetGame(pp_CORE_EX1_145)#
+	#PresetGame(pp_CORE_EX1_145)#OK
 	#PresetGame(pp_CORE_EX1_522)#
 	#PresetGame(pp_CORE_ICC_809)#
 	#PresetGame(pp_CORE_KAR_069)#
@@ -351,6 +351,8 @@ class pp_CORE_EX1_145(Preset_Play):# <7>[1637]##
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_145',controller)#
+		self.mark2=self.exchange_card('nature',controller)#
+		self.mark3=self.exchange_card('fire',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -359,8 +361,9 @@ class pp_CORE_EX1_145(Preset_Play):# <7>[1637]##
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)#
+		self.play_card(self.mark2, controller)# on/off
+		#self.change_turn(controller)# on/off
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
 		#self.change_turn(opponent)
@@ -369,9 +372,10 @@ class pp_CORE_EX1_145(Preset_Play):# <7>[1637]##
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" スペルのコストが2下がっているかどうかを視認")
+		print("C1だした瞬間・C1出してスペルをプレイした直後・C1出してターンエンド")
+		for card in controller.hand:
+			self.print_stats("friendly hand",card, old_cost=True)
 		pass
 
 class pp_CORE_EX1_522(Preset_Play):# <7>[1637]#

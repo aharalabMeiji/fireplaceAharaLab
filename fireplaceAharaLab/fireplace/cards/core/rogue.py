@@ -86,9 +86,15 @@ class EX1_144e:
 class CORE_EX1_145:# <7>[1637]##
 	""" Preparation
 	The next spell you cast this turn costs (2) less. """
-	play = Buff(FRIENDLY_HAND, 'EX1_145o')
+	play = Buff(FRIENDLY_HAND + SPELL, 'EX1_145e')
 	pass
-EX1_145e=buff(cost=-2)
+class EX1_145e:
+	cost = lambda self, i : max(i-2,0)
+	events =[
+		OWN_SPELL_PLAY.on(Destroy(SELF)),
+		OWN_TURN_END.on(Destroy(SELF))
+		]
+	pass
 EX1_145o=buff(cost=-2)#ONE_TURN_EFFECT
 
 class CORE_EX1_522:# <7>[1637]#
