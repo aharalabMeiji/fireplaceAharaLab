@@ -201,12 +201,14 @@ class Preset_Play:
 		pass
 	def print_stats(self, cat, card, show_buff=False):
 		if hasattr(card,'atk') and hasattr(card,'health'):
-			print ("%s(%s): %r: %d/%d <- %d/%d"%(
+			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
 				cat, card.controller, card, card.atk, card.health, 
+				card.zone,
 				card.data.atk, card.data.health),end=" ")
 		elif hasattr(card,'atk') and hasattr(card,'durability'):
-			print ("%s(%s): %r: %d/%d <- %d/%d"%(
+			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
 				cat, card.controller, card, card.atk, card.durability, 
+				card.zone,
 				card.data.atk, card.data.durability),end=" ")
 		else: 
 			print ("%s(%s): %r: cost:%d"%(

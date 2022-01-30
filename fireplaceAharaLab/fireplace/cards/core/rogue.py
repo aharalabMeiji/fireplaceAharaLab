@@ -61,7 +61,7 @@ class CORE_CS2_080:# <7>[1637]
 class CORE_EX1_134:# <7>[1637]
 	""" SI:7 Agent
 	[Combo:] Deal 2 damage. """
-	requirements = {PlayReq.REQ_TARGET_FOR_COMBO: 0}
+	requirements = {PlayReq.REQ_TARGET_FOR_COMBO: 0, PlayReq.REQ_MINION_TARGET:0}
 	combo = Hit(TARGET, 2)	
 	pass
 

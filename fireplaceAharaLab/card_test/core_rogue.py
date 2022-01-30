@@ -7,12 +7,12 @@ def SimulateGames_Core_Rogue():
 	#PresetGame(pp_CORE_CS2_073)#OK
 	#PresetGame(pp_CORE_CS2_074)#OK
 	#PresetGame(pp_CORE_CS2_075)#OK
-	#PresetGame(pp_CORE_CS2_076)#
-	#PresetGame(pp_CORE_CS2_077)#
-	#PresetGame(pp_CORE_CS2_080)#
-	#PresetGame(pp_CORE_EX1_134)#
-	#PresetGame(pp_CORE_EX1_144)#
-	#PresetGame(pp_CORE_EX1_145)#
+	#PresetGame(pp_CORE_CS2_076)#OK
+	#PresetGame(pp_CORE_CS2_077)#OK
+	#PresetGame(pp_CORE_CS2_080)#OK
+	#PresetGame(pp_CORE_EX1_134)#OK
+	#PresetGame(pp_CORE_EX1_144)#OK
+	PresetGame(pp_CORE_EX1_145)#
 	#PresetGame(pp_CORE_EX1_522)#
 	#PresetGame(pp_CORE_ICC_809)#
 	#PresetGame(pp_CORE_KAR_069)#
@@ -199,14 +199,14 @@ class pp_CORE_CS2_076(Preset_Play):# <7>[1637]
 		self.play_card(self.mark2, opponent)#
 		self.change_turn(opponent)
 		##########controller
-		self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		print(" %r が破壊されているかどうかを視認"%(self.mark2))
 		for card in [self.mark2]:
-			print_stats("enemy hero",card)
+			self.print_stats("enemy",card)
 		pass
 
 class pp_CORE_CS2_077(Preset_Play):# <7>[1637]
@@ -236,10 +236,8 @@ class pp_CORE_CS2_077(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		print(" カードを４枚引いたかどうかを視認")
-		for card in [cotroller.hand]:
-			print ("hand: %r: %d/%d <- %d/%d"%(
-				card, card.atk, card.health, card.data.atk, card.data.health
-				))
+		for card in controller.hand:
+			self.print_stats("friendly hand",card)
 		pass
 
 class pp_CORE_CS2_080(Preset_Play):# <7>[1637]
@@ -259,7 +257,7 @@ class pp_CORE_CS2_080(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -269,9 +267,9 @@ class pp_CORE_CS2_080(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %r が武器を装備しているかどうかを視認"%(card1))
+		for card in [controller.hero]:
+			self.print_stats("friendly hand",card)
 		pass
 
 class pp_CORE_EX1_134(Preset_Play):# <7>[1637]
@@ -283,6 +281,8 @@ class pp_CORE_EX1_134(Preset_Play):# <7>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_134',controller)#
+		self.mark2=self.exchange_card('minionH4',opponent)#
+		self.mark3=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -292,19 +292,20 @@ class pp_CORE_EX1_134(Preset_Play):# <7>[1637]
 		game = controller.game
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark3, controller)# combo
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
-		pass
+		print(" %r がコンボの時に限り２ダメージ受けているかどうかを視認"%(self.mark2))
+		self.print_stats("card2", self.mark2)
 
 class pp_CORE_EX1_144(Preset_Play):# <7>[1637]
 	""" Shadowstep
@@ -315,6 +316,7 @@ class pp_CORE_EX1_144(Preset_Play):# <7>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_144',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -323,19 +325,21 @@ class pp_CORE_EX1_144(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.play_card(self.mark2, controller)#
+		self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %r が手元にあるかどうかを視認"%(self.mark2))
+		print(" %r のコストが２減っているかを視認"%(self.mark2))
+		self.print_stats("card2",self.mark2)
+		print("cost = %d<-%d" % (self.mark2.cost,self.mark2.data.cost))
 		pass
 
 class pp_CORE_EX1_145(Preset_Play):# <7>[1637]##
