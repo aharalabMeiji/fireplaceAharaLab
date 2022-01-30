@@ -5,8 +5,8 @@ from fireplace.actions import Hit
 def SimulateGames_Core_Rogue():
 	#PresetGame(pp_CORE_CS2_072)#OK
 	#PresetGame(pp_CORE_CS2_073)#OK
-	PresetGame(pp_CORE_CS2_074)#
-	#PresetGame(pp_CORE_CS2_075)#
+	#PresetGame(pp_CORE_CS2_074)#OK
+	#PresetGame(pp_CORE_CS2_075)#OK
 	#PresetGame(pp_CORE_CS2_076)#
 	#PresetGame(pp_CORE_CS2_077)#
 	#PresetGame(pp_CORE_CS2_080)#
@@ -118,6 +118,7 @@ class pp_CORE_CS2_074(Preset_Play):# <7>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_CS2_074',controller)#
+		self.mark2=self.exchange_card('weapon',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -126,7 +127,8 @@ class pp_CORE_CS2_074(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark2, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -136,9 +138,9 @@ class pp_CORE_CS2_074(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" ヒーロー の攻撃力が２上がっているかどうかを視認")
+		for card in [self.mark2]:
+			self.print_stats ("friendly weapon",card)
 		pass
 
 class pp_CORE_CS2_075(Preset_Play):# <7>[1637]
@@ -158,7 +160,7 @@ class pp_CORE_CS2_075(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -168,9 +170,9 @@ class pp_CORE_CS2_075(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %rのhealthが 3 減っているかどうかを視認"%(controller.opponent.hero))
+		for card in [controller.opponent.hero]:
+			self.print_stats("enemy hero",card)
 		pass
 
 class pp_CORE_CS2_076(Preset_Play):# <7>[1637]
@@ -182,6 +184,7 @@ class pp_CORE_CS2_076(Preset_Play):# <7>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_CS2_076',controller)#
+		self.mark2=self.exchange_card('minionH7',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -191,18 +194,19 @@ class pp_CORE_CS2_076(Preset_Play):# <7>[1637]
 		game = controller.game
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %r が破壊されているかどうかを視認"%(self.mark2))
+		for card in [self.mark2]:
+			print_stats("enemy hero",card)
 		pass
 
 class pp_CORE_CS2_077(Preset_Play):# <7>[1637]
@@ -222,7 +226,7 @@ class pp_CORE_CS2_077(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -231,10 +235,11 @@ class pp_CORE_CS2_077(Preset_Play):# <7>[1637]
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" カードを４枚引いたかどうかを視認")
+		for card in [cotroller.hand]:
+			print ("hand: %r: %d/%d <- %d/%d"%(
+				card, card.atk, card.health, card.data.atk, card.data.health
+				))
 		pass
 
 class pp_CORE_CS2_080(Preset_Play):# <7>[1637]

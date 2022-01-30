@@ -199,6 +199,23 @@ class Preset_Play:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
 		pass
+	def print_stats(self, cat, card, show_buff=False):
+		if hasattr(card,'atk') and hasattr(card,'health'):
+			print ("%s(%s): %r: %d/%d <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.health, 
+				card.data.atk, card.data.health),end=" ")
+		elif hasattr(card,'atk') and hasattr(card,'durability'):
+			print ("%s(%s): %r: %d/%d <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.durability, 
+				card.data.atk, card.data.durability),end=" ")
+		else: 
+			print ("%s(%s): %r: cost:%d"%(
+				cat, card.controller, card, card.cost),end=" ")
+		if show_buff and len(card.buffs):
+			for buff in card.buffs:
+				print("[%r]" % buff)
+		print("")
+		pass
 	def play_card(self, card,  player, target = None, choose = None):
 		if isinstance(card,PlayableCard):
 			if choose != None and target!=None and target in choose.targets:
