@@ -15,10 +15,10 @@ def SimulateGames_Core_Rogue():
 	#PresetGame(pp_CORE_EX1_145)#OK
 	#PresetGame(pp_CORE_EX1_522)#OK
 	#PresetGame(pp_CORE_ICC_809)#OK
-	PresetGame(pp_CORE_KAR_069)#
-	#PresetGame(pp_CORE_LOE_012)#
-	#PresetGame(pp_CORE_OG_070)#
-	#PresetGame(pp_CS3_005)	
+	#PresetGame(pp_CORE_KAR_069)#OK
+	#PresetGame(pp_CORE_LOE_012)#OK
+	#PresetGame(pp_CORE_OG_070)#OK
+	#PresetGame(pp_CS3_005)	#OK
 	pass
 
 ##################################
@@ -453,7 +453,8 @@ class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
 	""" Swashburglar
 	[Battlecry:] Add a random card from another class to_your hand. """
 	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
+	#class2=CardClass.WARRIOR#10
+	class2=CardClass.HUNTER#3
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -466,7 +467,7 @@ class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -476,9 +477,11 @@ class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		hand = controller.hand
+		print(" ハンドを視認")
+		for card in hand:
+			self.print_stats("hand",card)
+		print("card class of %r = %r"%(hand[-1], hand[-1].card_class))
 		pass
 
 class pp_CORE_LOE_012(Preset_Play):# <7>[1637]
@@ -490,6 +493,7 @@ class pp_CORE_LOE_012(Preset_Play):# <7>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_LOE_012',controller)#
+		self.mark2=self.exchange_card('minionA5',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -499,18 +503,23 @@ class pp_CORE_LOE_012(Preset_Play):# <7>[1637]
 		game = controller.game
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
+		##########opponent
+		self.attack_card(self.mark2, self.mark1, opponent)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" 最後にコインが配給されているかどうかを視認")
+		for card in controller.hand:
+			self.print_stats("hand",card)
 		pass
 
 class pp_CORE_OG_070(Preset_Play):# <7>[1637]
@@ -522,6 +531,7 @@ class pp_CORE_OG_070(Preset_Play):# <7>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_OG_070',controller)#
+		self.mark2=self.exchange_card('minionH1',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -530,7 +540,8 @@ class pp_CORE_OG_070(Preset_Play):# <7>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark2, controller)#
+		self.play_card(self.mark1, controller)#combo
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
@@ -540,9 +551,8 @@ class pp_CORE_OG_070(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print(" %r が+1/+1を持っているかどうかを視認"%(card1))
+		self.print_stats("mark1",self.mark1,show_buff=True)
 		pass
 
 class pp_CS3_005(Preset_Play):# <7>[1637]#
@@ -554,6 +564,9 @@ class pp_CS3_005(Preset_Play):# <7>[1637]#
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CS3_005',controller)#
+		self.mark2=self.exchange_card('minionH2',controller)#
+		self.mark3=self.exchange_card('minionH2',opponent)#
+		self.mark4=self.exchange_card('minionH2',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -563,18 +576,23 @@ class pp_CS3_005(Preset_Play):# <7>[1637]#
 		game = controller.game
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark3, opponent)#
+		self.play_card(self.mark4, opponent)# last played card
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark2, controller)#
+		self.play_card(self.mark1, controller)# combo
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が＊＊＊かどうかを視認"%(card1))
-		#print ("%s:"%(card1.buffs))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
-		pass
+		print(" ハンドにmark4があるかどうかを視認")
+		for card in [self.mark3,self.mark4]:
+			self.print_stats("played",card)
+		for card in controller.hand:
+			self.print_stats("hand",card)
 
 ########################################

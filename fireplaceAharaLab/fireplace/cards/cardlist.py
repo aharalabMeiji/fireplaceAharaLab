@@ -57,6 +57,7 @@ Heroes=[
 	"CS2_050", "CS2_051", "CS2_052", "NEW1_009",
 	'HERO_03',
 	'HERO_03bp','HERO_03bp2',#Dagger Mastery
+	'AT_034','AT_034e','CS2_082','AT_132_ROGUEt',
 	'HERO_05',
 	'HERO_05bp','HERO_05bp2','HERO_05dbp',#steady shot
 	'HERO_06',	

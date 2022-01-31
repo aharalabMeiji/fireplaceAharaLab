@@ -65,9 +65,9 @@ class AT_035t:
 ##
 # Weapons
 
-class AT_034:
-	"""Poisoned Blade"""
-	inspire = Buff(SELF, "AT_034e")
+#class AT_034:
+#	"""Poisoned Blade"""
+#	inspire = Buff(SELF, "AT_034e")
 
 
-AT_034e = buff(atk=1)
+#AT_034e = buff(atk=1)

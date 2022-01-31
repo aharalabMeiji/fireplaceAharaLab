@@ -59,11 +59,26 @@ class HERO_03:
 class HERO_03bp:
 	"""Dagger Mastery"""
 	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
+	pass
 class HERO_03bp2:#OK
 	""" Poisoned Daggers
 	<b>Hero Power</b>
 	Equip a 2/2 Weapon."""
 	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
+	pass
+class AT_034:
+	"""Poisoned Blade"""
+	inspire = Buff(SELF, "AT_034e")
+	pass
+AT_034e = buff(atk=1)
+class CS2_082:
+	""" Wicked Knife
+	(weapon) """
+	pass
+class AT_132_ROGUEt:
+	""" Poisoned Dagger
+	(weapon) """
+	pass
 
 class HERO_05:
 	""" Garrosh Hellscream
