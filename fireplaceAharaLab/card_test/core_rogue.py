@@ -477,11 +477,11 @@ class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		hand = controller.hand
-		print(" ハンドを視認")
-		for card in hand:
-			self.print_stats("hand",card)
-		print("card class of %r = %r"%(hand[-1], hand[-1].card_class))
+		print(" ハンドにカードが入っているかどうかを視認")
+		for card in controller.hand:
+			self.print_stats ("controller hand",card)
+		print("card class = %r"%(controller.hand[-1].card_class))
+		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
 		pass
 
 class pp_CORE_LOE_012(Preset_Play):# <7>[1637]
