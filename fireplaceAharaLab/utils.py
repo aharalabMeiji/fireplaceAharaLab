@@ -102,6 +102,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
 		#if game was over 
 		if game.state==State.COMPLETE:
+			print("turn=",game.turn)
 			if debugLog:
 				print(">>>>>>>>>>game end >>>>>>>>"%(),end=' ')
 				print("%d : %d"%(player1.hero.health,player2.hero.health))
