@@ -23,10 +23,10 @@ class BT_142:
 BT_142e = buff(atk=1)
 
 
-class BT_323:
-	"""Sightless Watcher"""
-	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK) * 3).then(
-		PutOnTop(CONTROLLER, Choice.CARD))
+#class BT_323:
+#	"""Sightless Watcher"""
+#	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK) * 3).then(
+#		PutOnTop(CONTROLLER, Choice.CARD))
 
 
 class BT_352:
@@ -46,9 +46,9 @@ class BT_495:
 # Spells
 
 
-class BT_036:
-	"""Coordinated Strike"""
-	play = Summon(CONTROLLER, "BT_036t") * 3
+#class BT_036:
+#	"""Coordinated Strike"""
+#	play = Summon(CONTROLLER, "BT_036t") * 3
 
 
 class Prologue_ChaosStrike:

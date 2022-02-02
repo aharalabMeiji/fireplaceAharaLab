@@ -25,9 +25,9 @@ class LOE_011:
 	play = powered_up & FullHeal(FRIENDLY_HERO)
 
 
-class LOE_012:
-	"""Tomb Pillager"""
-	deathrattle = Give(CONTROLLER, "GAME_005")
+#class LOE_012:
+#	"""Tomb Pillager"""
+#	deathrattle = Give(CONTROLLER, "GAME_005")
 
 
 class LOE_016:

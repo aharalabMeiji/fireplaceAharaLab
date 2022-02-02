@@ -916,6 +916,7 @@ class Damage(TargetedAction):
 			# poisonous can not destory hero
 			if hasattr(source, "poisonous") and source.poisonous and (
 				target.type != CardType.HERO and source.type != CardType.WEAPON):
+				log.info("%r destroys %r by poison"%(source, target))
 				target.destroy()
 		return amount
 

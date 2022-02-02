@@ -64,11 +64,11 @@ class ULD_500:#OK
 #	Summon a Totem of your choice."""
 #	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 #	choose = ("AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd")
-class HERO_03bp2:#OK
-	""" Poisoned Daggers
-	<b>Hero Power</b>
-	Equip a 2/2 Weapon."""
-	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
+#class HERO_03bp2:#OK
+#	""" Poisoned Daggers
+#	<b>Hero Power</b>
+#	Equip a 2/2 Weapon."""
+#	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
 class HERO_04bp2:#OK
 	""" The Silver Hand
 	<b>Hero Power</b>

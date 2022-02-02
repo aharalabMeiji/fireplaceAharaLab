@@ -152,11 +152,11 @@ class Preset_Play:
 	'BT_726t','BT_728t','BT_163t','BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t',
 	'DMF_104t','DMF_061t2','BAR_076t','BAR_077t','BAR_721t2','SW_455t','SW_422t','SW_439t2','DED_517t',
 	'DREAM_03','SCH_337t',])####
-		if _card=='vanillaH1':
+		if _card=='vanillaH1' or _card=='minionH1':
 			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
-		if _card=='vanillaH2':
+		if _card=='vanillaH2' or _card=='minionH2':
 			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
-		if _card=='vanillaH3':
+		if _card=='vanillaH3' or _card=='minionH3':
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
 		if _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
@@ -198,6 +198,27 @@ class Preset_Play:
 		for card in player.field:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
+		pass
+	def print_stats(self, cat, card, show_buff=False, old_cost=False):
+		if hasattr(card,'atk') and hasattr(card,'health'):
+			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.health, 
+				card.zone,
+				card.data.atk, card.data.health),end=" ")
+		elif hasattr(card,'atk') and hasattr(card,'durability'):
+			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.durability, 
+				card.zone,
+				card.data.atk, card.data.durability),end=" ")
+		else: 
+			print ("%s(%s): %r: cost:%d"%(
+				cat, card.controller, card, card.cost),end=" ")
+		if old_cost:
+			print("(old cost:%d)"%(card.data.cost),end="")
+		if show_buff and len(card.buffs):
+			for buff in card.buffs:
+				print("[%r]" % buff,end="")
+		print("")
 		pass
 	def play_card(self, card,  player, target = None, choose = None):
 		if isinstance(card,PlayableCard):
