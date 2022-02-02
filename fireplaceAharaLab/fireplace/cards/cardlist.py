@@ -90,7 +90,7 @@ clownDruid = [
 	#'BAR_042',	
 ]
 All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
-	 Core_Rogue,#Core_Warlock,Core_Priest,
+	#Core_Rogue,Core_Warlock,Core_Priest,
 	AOO_Neutral,AOO_Hunter,AOO_Mage,AOO_Druid,AOO_Warrior,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,Scholo_Warrior,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,Darkmoon_Warrior,
