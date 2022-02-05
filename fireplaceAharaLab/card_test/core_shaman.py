@@ -1,0 +1,558 @@
+
+from .simulate_game import Preset_Play,PresetGame
+from hearthstone.enums import Zone,CardType,Rarity,CardClass,Race
+from fireplace.actions import Hit
+
+def SimulateGames_Core_Shaman():
+	#PresetGame(pp_CORE_AT_047)#OK
+	PresetGame(pp_CORE_BOT_533)#
+	#PresetGame(pp_CORE_CS2_039)#
+	#PresetGame(pp_CORE_CS2_042)#
+	#PresetGame(pp_CORE_CS2_045)#
+	#PresetGame(pp_CORE_EX1_238)#
+	#PresetGame(pp_CORE_EX1_246)#
+	#PresetGame(pp_CORE_EX1_248)#
+	#PresetGame(pp_CORE_EX1_250)#
+	#PresetGame(pp_CORE_EX1_258)#
+	#PresetGame(pp_CORE_EX1_259)#
+	#PresetGame(pp_CORE_EX1_567)#
+	#PresetGame(pp_CORE_EX1_575)#
+	#PresetGame(pp_CORE_NEW1_010)#
+	#PresetGame(pp_CORE_UNG_817)#
+	#PresetGame(pp_CS3_007)#OK
+	pass
+
+class pp_CORE_AT_047(Preset_Play):# <8>[1637]
+	""" Draenei Totemcarver
+	[Battlecry:] Gain +1/+1 for each friendly Totem. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_AT_047',controller)#
+		self.mark2=self.exchange_card('totem',controller)#
+		self.mark3=self.exchange_card('totem',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark2, controller)#
+		self.play_card(self.mark3, controller)#
+		self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" +1+1のバフがついているかどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card, show_buff=True)
+	pass
+
+class pp_CORE_BOT_533(Preset_Play):# <8>[1637]
+	""" Menacing Nimbus
+	[Battlecry:] Add a random Elemental to your hand. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_BOT_533',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" エレメンタル(%r)のカードがハンドに含まれているかどうかを視認"%(Race.ELEMENTAL))
+		for card in controller.hand:
+			self.print_stats ("***",card, show_race=True)
+	pass
+
+class pp_CORE_CS2_039(Preset_Play):# <8>[1637]
+	""" Windfury
+	Give a minion [Windfury]. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_039',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_CS2_042(Preset_Play):# <8>[1637]
+	""" Fire Elemental
+	[Battlecry:] Deal 4 damage. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_042',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_CS2_045(Preset_Play):# <8>[1637]
+	""" Rockbiter Weapon
+	Give a friendly character +3 Attack this turn. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_045',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_238(Preset_Play):# <8>[1637]
+	""" Lightning Bolt
+	Deal $3 damage. [Overload:] (1) """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_238',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_246(Preset_Play):# <8>[1637]
+	""" Hex
+	Transform a minion into a 0/1 Frog with [Taunt]. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_246',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_248(Preset_Play):# <8>[1637]
+	""" Feral Spirit
+	Summon two 2/3 Spirit Wolves with [Taunt]. [Overload:] (1) """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_248',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_250(Preset_Play):# <8>[1637]
+	""" Earth Elemental
+	[Taunt][[Overload]:] (2) """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_250',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_258(Preset_Play):# <8>[1637]
+	""" Unbound Elemental
+	After you play a card_with [Overload], gain_+1/+1. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_258',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+		pass
+
+class pp_CORE_EX1_259(Preset_Play):# <8>[1637]
+	""" Lightning Storm
+	Deal $3 damage to all_enemy minions. [Overload:] (2) """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_259',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_567(Preset_Play):# <8>[1637]
+	""" Doomhammer
+	[Windfury, Overload:] (2) """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_567',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_EX1_575(Preset_Play):# <8>[1637]
+	""" Mana Tide Totem
+	At the end of your turn, draw a card. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_575',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_NEW1_010(Preset_Play):# <8>[1637]
+	""" Al'Akir the Windlord
+	[Charge, Divine Shield, Taunt, Windfury] """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_NEW1_010',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CORE_UNG_817(Preset_Play):# <8>[1637]
+	""" Tidal Surge
+	[Lifesteal]Deal $4 damage to a_minion. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_UNG_817',controller)#
+		self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		card2=self.mark2
+		print(" かどうかを視認"%())
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CS3_007(Preset_Play):# <8>[1637]
+	""" Novice Zapper
+	[Spell Damage +1] [Overload:] (1) """
+	class1=CardClass.SHAMAN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CS3_007',controller)#
+		#self.mark2=self.exchange_card('minionH6',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		#self.play_card(self.mark1, controller)#
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		print(" spellpowerとoverloadの値を視認"%())
+		print("spellpower=%d" % controller.spellpower)
+		print("overload=%d" % controller.overloaded)
+		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+

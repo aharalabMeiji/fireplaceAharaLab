@@ -1,5 +1,8 @@
 from ..utils import *
 
+#Core_Shaman=[
+#	'CORE_AT_047','AT_047e','CORE_BOT_533','CORE_CS2_039','CORE_CS2_042','CORE_CS2_045','CS2_045e','CORE_EX1_238','CORE_EX1_246','hexfrog','CORE_EX1_248','EX1_tk11','CORE_EX1_250','CORE_EX1_258','EX1_258e','CORE_EX1_259','CORE_EX1_567','CORE_EX1_575','CORE_NEW1_010','CORE_UNG_817','CS3_007','',]
+
 class CORE_AT_047:# <8>[1637]
 	""" Draenei Totemcarver
 	[Battlecry:] Gain +1/+1 for each friendly Totem. """
