@@ -8,9 +8,9 @@ def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_BOT_533)#OK
 	#PresetGame(pp_CORE_CS2_039)#OK
 	#PresetGame(pp_CORE_CS2_042)#OK
-	PresetGame(pp_CORE_CS2_045)#
-	#PresetGame(pp_CORE_EX1_238)#
-	#PresetGame(pp_CORE_EX1_246)#
+	#PresetGame(pp_CORE_CS2_045)#OK
+	#PresetGame(pp_CORE_EX1_238)#OK
+	PresetGame(pp_CORE_EX1_246)#
 	#PresetGame(pp_CORE_EX1_248)#
 	#PresetGame(pp_CORE_EX1_250)#
 	#PresetGame(pp_CORE_EX1_258)#
@@ -171,7 +171,8 @@ class pp_CORE_CS2_045(Preset_Play):# <8>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_CS2_045',controller)#
-		self.mark2=self.exchange_card('minionH6',opponent)#
+		self.mark2=self.exchange_card('minionH2',controller)#
+		self.mark3=self.exchange_card('minionH6',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -179,19 +180,28 @@ class pp_CORE_CS2_045(Preset_Play):# <8>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.play_card(self.mark2, controller)#
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark3, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller,target=self.mark2)#
+		#self.attack_card(self.mark2, self.mark3, controller)
+		print(" mark2からmark3への攻撃が+3されているかどうかを視認"%())
+		for card in [self.mark1, self.mark2, self.mark3]:
+			self.print_stats ("***",card)
+		self.change_turn(controller)
+		##########opponent
+		self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
+		print(" mark2.atkが戻っているかどうかを視認"%())
+		for card in [self.mark1, self.mark2, self.mark3]:
 			self.print_stats ("***",card)
 	pass
 
@@ -213,19 +223,23 @@ class pp_CORE_EX1_238(Preset_Play):# <8>[1637]
 		opponent = controller.opponent
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
+		print(" mark2が３ダメを受けているかどうかを視認"%())
+		for card in [card2]:
 			self.print_stats ("***",card)
+		print(" controllerがoverload=1かどうかを視認"%())
+		print("overload=%d" % controller.overloaded)
 	pass
 
 class pp_CORE_EX1_246(Preset_Play):# <8>[1637]

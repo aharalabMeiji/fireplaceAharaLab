@@ -36,7 +36,7 @@ class CORE_CS2_045:# <8>[1637]
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "CS2_045e")
 	pass
-CS2_045e = buff(atk=3)	
+CS2_045e = buff(atk=3)## ONE_TURN_EFFECT
 
 class CORE_EX1_238:# <8>[1637]
 	""" Lightning Bolt
