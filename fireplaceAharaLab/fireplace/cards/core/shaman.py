@@ -27,7 +27,7 @@ class CORE_CS2_042:# <8>[1637]
 	""" Fire Elemental
 	[Battlecry:] Deal 4 damage. """
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Hit(TARGET, 3)	
+	play = Hit(TARGET, 4)	
 	pass
 
 class CORE_CS2_045:# <8>[1637]

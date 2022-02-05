@@ -5,10 +5,10 @@ from fireplace.actions import Hit
 
 def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_AT_047)#OK
-	PresetGame(pp_CORE_BOT_533)#
-	#PresetGame(pp_CORE_CS2_039)#
-	#PresetGame(pp_CORE_CS2_042)#
-	#PresetGame(pp_CORE_CS2_045)#
+	#PresetGame(pp_CORE_BOT_533)#OK
+	#PresetGame(pp_CORE_CS2_039)#OK
+	#PresetGame(pp_CORE_CS2_042)#OK
+	PresetGame(pp_CORE_CS2_045)#
 	#PresetGame(pp_CORE_EX1_238)#
 	#PresetGame(pp_CORE_EX1_246)#
 	#PresetGame(pp_CORE_EX1_248)#
@@ -101,7 +101,7 @@ class pp_CORE_CS2_039(Preset_Play):# <8>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_CS2_039',controller)#
-		self.mark2=self.exchange_card('minionH6',opponent)#
+		self.mark2=self.exchange_card('minionH3',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -110,7 +110,8 @@ class pp_CORE_CS2_039(Preset_Play):# <8>[1637]
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark2, controller)#
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
@@ -121,9 +122,9 @@ class pp_CORE_CS2_039(Preset_Play):# <8>[1637]
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
-			self.print_stats ("***",card)
+		print("mark2に疾風がついているかどうかを視認"%())
+		self.print_stats ("***",self.mark2, show_buff=True)
+		print("windfury=%d" % self.mark2.windfury)
 	pass
 
 class pp_CORE_CS2_042(Preset_Play):# <8>[1637]
@@ -144,18 +145,20 @@ class pp_CORE_CS2_042(Preset_Play):# <8>[1637]
 		opponent = controller.opponent
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
+		print(" mark2に４ダメいっているかどうかを視認"%())
+		for card in [card2]:
 			self.print_stats ("***",card)
 	pass
 
