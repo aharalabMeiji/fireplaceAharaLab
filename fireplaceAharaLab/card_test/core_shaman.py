@@ -16,9 +16,9 @@ def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_EX1_258)#OK
 	#PresetGame(pp_CORE_EX1_259)#OK
 	#PresetGame(pp_CORE_EX1_567)#OK
-	PresetGame(pp_CORE_EX1_575)#
-	#PresetGame(pp_CORE_NEW1_010)#
-	#PresetGame(pp_CORE_UNG_817)#
+	#PresetGame(pp_CORE_EX1_575)#OK
+	#PresetGame(pp_CORE_NEW1_010)#OK
+	#PresetGame(pp_CORE_UNG_817)#OK
 	#PresetGame(pp_CS3_007)#OK
 	pass
 
@@ -498,7 +498,7 @@ class pp_CORE_NEW1_010(Preset_Play):# <8>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
@@ -508,11 +508,11 @@ class pp_CORE_NEW1_010(Preset_Play):# <8>[1637]
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
-			self.print_stats ("***",card)
-	pass
+		print("charge=%d"%(card1.charge))
+		print("shield=%d"%(card1.divine_shield))
+		print("taunt=%d"%(card1.taunt))
+		print("windfury=%d"%(card1.windfury))
+		
 
 class pp_CORE_UNG_817(Preset_Play):# <8>[1637]
 	""" Tidal Surge
@@ -532,18 +532,20 @@ class pp_CORE_UNG_817(Preset_Play):# <8>[1637]
 		opponent = controller.opponent
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		Hit(controller.hero, 5).trigger(self.mark2)
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
+		for card in [controller.hero, self.mark2]:
 			self.print_stats ("***",card)
 	pass
 
