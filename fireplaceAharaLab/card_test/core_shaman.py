@@ -10,10 +10,10 @@ def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_CS2_042)#OK
 	#PresetGame(pp_CORE_CS2_045)#OK
 	#PresetGame(pp_CORE_EX1_238)#OK
-	PresetGame(pp_CORE_EX1_246)#
-	#PresetGame(pp_CORE_EX1_248)#
-	#PresetGame(pp_CORE_EX1_250)#
-	#PresetGame(pp_CORE_EX1_258)#
+	#PresetGame(pp_CORE_EX1_246)#OK
+	#PresetGame(pp_CORE_EX1_248)#OK
+	#PresetGame(pp_CORE_EX1_250)#OK
+	PresetGame(pp_CORE_EX1_258)#
 	#PresetGame(pp_CORE_EX1_259)#
 	#PresetGame(pp_CORE_EX1_567)#
 	#PresetGame(pp_CORE_EX1_575)#
@@ -260,19 +260,21 @@ class pp_CORE_EX1_246(Preset_Play):# <8>[1637]
 		opponent = controller.opponent
 		##########controller
 		#self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		##########opponent
-		#self.play_card(self.mark2, opponent)#
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)#
+		self.change_turn(opponent)
+		##########controller
+		self.play_card(self.mark1, controller, target=self.mark2)#
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
-			self.print_stats ("***",card)
+		print(" 敵側のフィールドにカエルがいるかどうかを視認"%())
+		for card in controller.opponent.field:
+			self.print_stats ("opponent.field",card)
 	pass
 
 class pp_CORE_EX1_248(Preset_Play):# <8>[1637]
@@ -284,7 +286,6 @@ class pp_CORE_EX1_248(Preset_Play):# <8>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_248',controller)#
-		self.mark2=self.exchange_card('minionH6',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -292,7 +293,7 @@ class pp_CORE_EX1_248(Preset_Play):# <8>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
@@ -303,9 +304,13 @@ class pp_CORE_EX1_248(Preset_Play):# <8>[1637]
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
-			self.print_stats ("***",card)
+		print(" tauntつきオオカミが2匹いるかどうかを視認"%())
+		for card in controller.field:
+			self.print_stats ("controller.field",card)
+			print("taunt=%d" % card.taunt)
+		print(" overloadが１かどうかを視認"%())
+		print("overload=%d" % controller.overloaded)
+
 	pass
 
 class pp_CORE_EX1_250(Preset_Play):# <8>[1637]
@@ -325,7 +330,7 @@ class pp_CORE_EX1_250(Preset_Play):# <8>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		#self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1, controller)#
 		#self.change_turn(controller)
 		##########opponent
 		#self.play_card(self.mark2, opponent)#
@@ -336,9 +341,8 @@ class pp_CORE_EX1_250(Preset_Play):# <8>[1637]
 		controller = self.player
 		card1=self.mark1
 		card2=self.mark2
-		print(" かどうかを視認"%())
-		for card in [card1]:
-			self.print_stats ("***",card)
+		print(" overloadが２かどうかを視認"%())
+		print("overload=%d" % controller.overloaded)
 	pass
 
 class pp_CORE_EX1_258(Preset_Play):# <8>[1637]
