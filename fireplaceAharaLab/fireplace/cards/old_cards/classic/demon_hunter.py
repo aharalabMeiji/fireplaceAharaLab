@@ -51,12 +51,12 @@ class BT_495:
 #	play = Summon(CONTROLLER, "BT_036t") * 3
 
 
-class Prologue_ChaosStrike:
-	"""Chaos Strike"""
-	play = Buff(FRIENDLY_HERO, "BT_035e"), Draw(CONTROLLER)
+#class Prologue_ChaosStrike:
+#	"""Chaos Strike"""
+#	play = Buff(FRIENDLY_HERO, "BT_035e"), Draw(CONTROLLER)
 
 
-BT_035e = buff(atk=2)
+#BT_035e = buff(atk=2)
 
 
 class BT_740:
