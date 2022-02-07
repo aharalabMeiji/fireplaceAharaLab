@@ -44,7 +44,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	player2 = Player(P2.name, deck2, P2.myClass.default_hero)
 	player1.choiceStrategy = P1.choiceStrategy
 	player2.choiceStrategy = P2.choiceStrategy
-	game = GameWithLog(players=(player1, player2))
+	game = Game(players=(player1, player2))
 	# Configurations
 	player1._start_hand_size=P1HAND## this line must be before 'start()'
 	player2._start_hand_size=P2HAND## 
@@ -53,6 +53,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	game.start()
 	player1.hero.max_health = int(HEROHPOPTION)## this line must be below 'start()'
 	player2.hero.max_health = int(HEROHPOPTION)## 
+
 
 	#mulligan exchange
 	# Any agent are allowed to give an algorithm to do mulligan exchange.
@@ -71,8 +72,6 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
-
-	PresetHands(player1, player2)# if you want to controll the player's hand, write here
 	log.info("New game start")
 
 	while True:	
@@ -94,8 +93,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>turn change %d[sec]"%(time.time()-start_time),end='  ')
-					print("%d : %d"%(player1.hero.health,player2.hero.health))
+					print(">>>>%s>>>>turn change %d[sec]>>>>%s"%(player, time.time()-start_time, player.opponent),end='  ')
+					print("%d : %d"%(player1.hero.health+player1.hero.armor,player2.hero.health+player2.hero.armor))
 				if game.current_player.choice!=None:
 					postAction(game.current_player)
 			except GameOver:#it rarely occurs
@@ -148,19 +147,41 @@ class Candidate(object):
 
 	def __str__(self):
 		if self.type==BlockType.ATTACK:
-			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(card=self.card, atk1=self.card.atk, health1=self.card.health, target=self.target,atk2=self.target.atk,health2=self.target.health)
+			atk1=self.card.atk
+			health1=self.card.health
+			if self.card.type==CardType.HERO:
+				health1 += self.card.armor
+			atk2=self.target.atk
+			health2=self.target.health
+			if self.target.type==CardType.HERO:
+				health2 += self.target.armor
+			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(
+				card=self.card, atk1=atk1, health1=health1, 
+				target=self.target, atk2=atk2, health2=health2)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
 			if self.target:
-				return "{card} -> heropower -> {target}({atk2}/{health2})".format(card=self.card, target=self.target,atk2=self.target.atk,health2=self.target.health)
+				atk2=self.target.atk
+				health2=self.target.health
+				if self.target.type==CardType.HERO:
+					health2 += self.target.armor
+				return "{card} -> heropower -> {target}({atk2}/{health2})".format(
+					card=self.card, 
+					target=self.target,atk2=atk2,health2=health2)
 			else:
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
 				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
 			else :
-				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(card=self.card, cost = self.card.cost, target=self.target,atk2=self.target.atk,health2=self.target.health)
+				atk2=self.target.atk
+				health2=self.target.health
+				if self.target.type==CardType.HERO:
+					health2 += self.target.armor
+				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(
+					card=self.card, cost = self.card.cost,
+					target=self.target, atk2=atk2, health2=health2)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
@@ -176,14 +197,6 @@ class GameWithLog(Game):
 	""" game with logs  """
 	def __init__(self, players):
 		super().__init__(players=players)
-		self.__myLog__=[]
-		self.__stage_choice__=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
-			'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
-			'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
-	def add_log(self, choice: Candidate):
-		self.__myLog__.append(choice)
-	def get_log(self):
-		return self.__myLog__
 #
 #  getCandidates
 #
@@ -201,19 +214,21 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					if card2.is_playable():
 						if card2.requires_target():
 							for target in card.targets:
-								myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target, turn=mygame.turn))
+								if target.zone==Zone.PLAY: 
+									myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=target,		turn=mygame.turn))
 						else:
 							myCandidate.append(Candidate(card, card2=card2, type=BlockType.PLAY, target=None, turn=mygame.turn))
 			else:# card2=None
 				if card.requires_target():
 					for target in card.targets:
-						myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target, turn=mygame.turn))
+						if target.zone==Zone.PLAY:
+							myCandidate.append(Candidate(card, type=BlockType.PLAY, target=target, turn=mygame.turn))
 				else:
 					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None, turn=mygame.turn))
 	for character in player.characters:
 		if character.can_attack():
 			for target in character.targets:
-				if character.can_attack(target) and character != target:
+				if target.zone==Zone.PLAY and character.can_attack(target) and character != target:
 					myH=character.health
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
@@ -221,7 +236,8 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 	if player.hero.power.is_usable():
 		if len(player.hero.power.targets)>0:
 			for target in player.hero.power.targets:
-				myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
+				if target.zone==Zone.PLAY:
+					myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=target, turn=mygame.turn))
 		else:
 			myCandidate.append(Candidate(player.hero.power, type=BlockType.POWER, target=None, turn=mygame.turn))
 	for character in player.hand:
@@ -236,6 +252,47 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
 		pass
 	return myCandidate
+
+def identifyPlayer(name1, name2):
+	if len(name1) > len(name2):
+		return (name1[:len(name2)]==name2)
+	elif len(name1) < len(name2):
+		return (name2[:len(name1)]==name1)
+	if len(name1) == len(name2):
+		return (name1==name2)
+
+def identifyPlayCard(card1, card2):
+	if card1==None or card2==None:
+		return False
+	cond1 = card1.is_playable() and card2.is_playable()
+	cond2 = card1.id==card2.id
+	cond3 = identifyPlayer(card1.controller.name, card2.controller.name)
+	cond4 = card1.zone == card2.zone 
+	#cond4 = card1.atk == card2.atk and card1.health == card2.health
+	if cond1 and cond2 and cond3 and cond4:
+		return True
+	return False
+def identifyAttackCard(card1, card2):
+	if card1==None or card2==None:
+		return False
+	cond11 = card1.can_attack()
+	cond12 = card2.can_attack()
+	cond2 = card1.id==card2.id
+	cond3 = identifyPlayer(card1.controller.name, card2.controller.name)
+	cond4 = card1.zone == card2.zone 
+	#cond4 = card1.atk == card2.atk and card1.health == card2.health
+	if cond12 and cond2 and cond3 and cond4:
+		return True
+	return False
+def identifyTargetCard(card1, card2):
+	if card1==None or card2==None:
+		return False
+	cond2 = card1.id==card2.id
+	cond3 = identifyPlayer(card1.controller.name, card2.controller.name)
+	#cond4 = card1.zone == card2.zone 
+	if cond2 and cond3:
+		return True
+	return False
 #
 #  executeAction
 #
@@ -263,50 +320,110 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	if theCard!=None and ((action.target==None and theTarget==None) or (action.target!=None and theTarget!=None)):
 		pass
 	else:
-		for card in player.hand:
-			if card.is_playable() and card.id==action.card.id and card.controller.name==action.card.controller.name:
-				theCard = card
-				if theCard.must_choose_one:
-					for card2 in card.choose_cards:
-						if card2.is_playable() and card2==action.card2:
-							theCard2 = card2
-							if theCard2.requires_target():
-								for target in theCard2.targets:
-									if target==action.target and target.controller.name==action.target.controller.name:
-										theTarget=target
-							else:
-								pass
-				else:# card2=None
-					if theCard.requires_target():
-						for target in theCard.targets:
-							if target==action.target and target.controller.name == action.target.controller.name:
-								theTarget=target
-					else:
-						pass
-			else:
-				_yes, _option = card.can_trade()
-				if _yes and card.id==action.card.id:
+		if action.card.zone==Zone.HAND and action.type==BlockType.PLAY:
+			for card in player.hand:
+				if identifyPlayCard(card, action.card):
 					theCard = card
-		for character in player.characters:
-			if character.can_attack() and character==action.card and character.controller.name==action.card.controller.name:
-				theCard = character
-				for target in character.targets:
-					if character.can_attack(target) and target==action.target and target.controller.name==action.target.controller.name:
-						theTarget = target
-		if player.hero.power==action.card:
+					if theCard.must_choose_one:
+						for card2 in card.choose_cards:
+							if identifyPlayCard(card2, action.card2):
+								theCard2 = card2
+								if theCard2.requires_target():
+									for target in theCard2.targets:
+										if identifyTargetCard(target, action.target):
+											theTarget=target
+								else:
+									pass
+					else:# card2=None
+						if theCard.requires_target():
+							for target in theCard.targets:
+								if identifyTargetCard(target, action.target):
+									theTarget=target
+						else:
+							pass
+				else:
+					_yes, _option = card.can_trade()
+					if _yes and card.id==action.card.id:
+						theCard = card
+		if action.card.zone==Zone.PLAY and action.type==BlockType.ATTACK:
+			for card in player.characters:
+				if identifyAttackCard(card, action.card):
+					theCard = card
+					for target in card.targets:
+						if identifyTargetCard(target, action.target): 
+							##character.can_attack(target)
+							theTarget = target
+		if player.hero.power.id==action.card.id and action.type==BlockType.POWER:
 			if player.hero.power.is_usable():
 				theCard = player.hero.power
 				for target in theCard.targets:
-					if target==action.target and target.controller.name==action.target.controller.name:
+					if identifyTargetCard(target, action.target):
 						theTarget = target
+	if theCard==None:## to debug
+		noCard=True
+		if action.card.zone==Zone.HAND and action.type==BlockType.PLAY:
+			for card in player.hand:
+				if card.id==action.card.id:
+					noCard=False
+					if identifyPlayer(card.controller.name, action.card.controller.name):
+						if card.is_playable():
+							#print ("OK")
+							theCard = card
+							pass
+						else:
+							#print ("This card %s is unplayable"%(card))
+							x=card.is_playable()
+							return#
+
+		if action.card.zone==Zone.PLAY and action.type==BlockType.ATTACK:
+			for card in player.characters:
+				if card.id==action.card.id:
+					noCard=False
+					if identifyPlayer(card.controller.name, action.card.controller.name):
+						if card.can_attack():
+							#print ("OK")
+							theCard = card
+							pass
+						else:
+							#print ("This card %s is unplayable"%(character))
+							return#
+		if player.hero.power.id==action.card.id and action.type==BlockType.POWER:
+			if not player.hero.power.is_usable():
+				if player.mana<player.hero.power.cost:
+					pass
+				else:
+					player.hero.power.is_usable()
+			pass
+		if noCard:
+			#print("no card %s is contained in the hand"%(action.card))
+			return
+		pass
 	if action.type==BlockType.PLAY:
 		if action.card.id != theCard.id:
-			print("%s != %s"%(action.card.id, theCard.id))
-			print("%s"%(action.card.game==mygame))
+			#print("%s != %s"%(action.card.id, theCard.id))
+			#print("%s"%(action.card.game==mygame))
 			return ExceptionPlay.INVALID
 		if (theTarget != None and theTarget not in theCard.targets):
+			#print ("theCard : %s"%(theCard))
+			#for card in theCard.targets:
+			#	print ("theCard.targets : %s"%(card))
+			#print ("theCard2 : %s"%(theCard2))
+			#print ("theTarget : %s"%(theTarget))
+			return ExceptionPlay.INVALID
+		if theCard.requires_target() and theTarget == None:
+			#if action.target!=None:
+			#	print ("action.target : %s(%s)"%(action.target, action.target.id))
+			#	for card in theCard.targets:
+			#		print ("theCard.targets : %s(%s)"%(card, card.id))
+			#		print ("->identifyTarget : %s"%(identifyTargetCard(card, action.target)))
+			#game1 = action.card.controller.game
+			#game2 = theCard.controller.game
+			#can1 = getCandidates(game1)
+			#can2 = getCandidates(game2)
+			#print("%d, %d"%(len(can1),len(can2)))
 			return ExceptionPlay.INVALID
 		if not theCard.is_playable():
+			#result = theCard.is_playable()
 			return ExceptionPlay.INVALID
 		try:
 			theCard.play(target=theTarget,choose=theCard2)
@@ -318,6 +435,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.GAMEOVER
 	if action.type==BlockType.ATTACK:
 		if not theCard.can_attack(theTarget):
+			theCard.can_attack(theTarget)
 			return ExceptionPlay.INVALID
 		if theTarget==None:
 			return ExceptionPlay.VALID
@@ -334,7 +452,10 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.INVALID
 		try:
 			if theCard.requires_target():
-				theCard.use(target=theTarget)
+				if theTarget==None:
+					return ExceptionPlay.INVALID
+				else:
+					theCard.use(target=theTarget)
 			else:
 				theCard.use()
 			return ExceptionPlay.VALID
@@ -362,7 +483,7 @@ class BigDeck:
 	#Available
 	faceHunter_old = ['SCH_617','SCH_617','SCH_312','SCH_312','DRG_253','DRG_253','SCH_133','SCH_133',\
 		'SCH_231','SCH_231','SCH_600','SCH_600','BT_213','BT_213','DRG_252','DRG_252',\
-		'CORE_EX1_611','ULD_152','EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
+		'CORE_EX1_611','ULD_152','CORE_EX1_610','BT_203','SCH_142','SCH_142','EX1_536','EX1_536',\
 		'EX1_539','EX1_539','NEW1_031','NEW1_031','DRG_256','SCH_428']
 	faceHunter = ['SCH_617','SCH_617','SCH_600','SCH_600','SCH_231','SCH_231',
 		'CORE_DS1_184','CORE_DS1_184','SCH_279','SCH_133','SCH_133','BAR_801',
@@ -380,7 +501,7 @@ class BigDeck:
 		'SCH_333','SCH_333','DMF_075','DMF_075','CORE_CS2_013','CORE_CS2_013',
 		'BT_130','BT_130','BAR_535','SCH_605','SCH_605','SCH_616',
 		'SCH_616','DMF_078','DMF_078','SCH_610','SCH_610','BAR_042',
-		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','DMF_188'
+		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','AV_205'#'DMF_188'
 		]
 
 	classicPaladin =[
@@ -404,7 +525,10 @@ def postAction(player):
 			return
 		else:
 			if player.choiceStrategy==None:
-				choice = random.choice(player.choice.cards)
+				if len(player.choice.cards)==0:
+					choice = None
+				else:
+					choice = random.choice(player.choice.cards)
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
 			log.info("%r Chooses a card %r" % (player, choice))
@@ -414,7 +538,10 @@ def postAction(player):
 				Give(player1,myCardID).trigger(player1)
 				player.choice = None
 			else :
-				player.choice.choose(choice)
+				if choice == None:
+					player.choice=None##return
+				else:
+					player.choice.choose(choice)
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""
@@ -467,56 +594,11 @@ def getTurnLog(gameLog, turnN):
 			ret.append(gameLog[i])
 	return ret
 
-def ExchangeCard(cards,player):
-	Discard(player.hand[-1]).trigger(player)
-	for _card in cards:
-		if _card=='arcane':
-			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','YOP_019'])
-		if _card=='attackspell':
-			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
-		if _card=='beast':
-			_card=random.choice(['SCH_133','SCH_714'])
-		if _card=='corrupt':
-			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
-		if _card=='deathrattle':
-			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
-		if _card=='dragon':
-			_card='SCH_232'
-		if _card=='elemental':
-			_card=random.choice(['SCH_143','SCH_245'])
-		if _card=='fire':
-			_card=random.choice(['CORE_CS2_029','SW_462','SW_108','BAR_546','SW_110'])
-		if _card=='frost':
-			_card=random.choice(['SCH_509','BAR_305','CORE_GIL_801'])
-		if _card=='mech':
-			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
-		if _card=='murloc':
-			_card=random.choice(['BAR_063','BAR_062','WC_030'])
-		if _card=='nature':
-			_card='SCH_333'
-		if _card=='rush':
-			_card=random.choice(['YOP_031'])
-		if _card=='secret':
-			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
-		if _card=='spell':
-			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
-		if _card=='spellpower':
-			_card=random.choice(['SW_061'])
-		if _card=='weapon':
-			_card=random.choice(['WC_037','DMF_088'])
-		Give(player,_card).trigger(player)
+from fireplace.deepcopy import deepcopy_game
+def debug_deepcopy(game,player):
+	return deepcopy_game(game,player,0)
 
-def PresetHands(player1, player2): 
-	## add a specific card into the deck
-	#Shuffle(player1,'CORE_EX1_554').trigger(player1)#specific card into deck
-	
-	#forcedraw some specific cards to debug, 特定のカードを引かせたい場合。
-	#ExchangeCard(['SW_079'],player1)
-	#ExchangeCard(['weapon'],player2)
-	pass
+def fireplace_deepcopy(game):
+	return deepcopy_game(game, game.current_player,0)
 
-def PresetPlay(player, cardID):
-	for card in player.hand:
-		if card.id == cardID and card.is_playable():
-			card.play(target=None)
 

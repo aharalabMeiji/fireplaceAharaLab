@@ -161,7 +161,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cant_be_frozen = boolean_property("cant_be_frozen")# 
 	reborn = boolean_property("reborn")# 
 	mark_of_evil = boolean_property("mark_of_evil")# 
-	trade_cost = int_property("trade_cost")
+	trade_cost = int_property("trade_cost")#stormwind
+	tradeable = boolean_property("tradeable")#stormwind
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	sidequest_list0 = []# Sidequest
@@ -172,6 +173,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	script_data_num_1 = int_property("script_data_num_1")
 	piece_of_cthun=int_property("piece_of_cthun")#
+	honorable_kill = boolean_property("honorable_kill")
+	honorable_kill = True
+	honorably_killed = False ##
 
 	def __init__(self, data):
 		self.cant_play = False
@@ -187,6 +191,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.cast_on_friendly_characters = False
 		self.script_data_text_0=' '
 		self.script_data_text_1=' '
+		if hasattr(self, 'trade_cost') and self.trade_cost>0:## because of CardDefs's bug
+			self.tradeable = True## because of CardDefs's bug
 		super().__init__(data)
 
 	@property
@@ -340,7 +346,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		"""
 		if choose:
 			if self.must_choose_one:
-				choose = card = self.choose_cards.filter(id=choose)[0]
+				for card in self.choose_cards:
+					if card.id==choose.id:
+						choose=card
+						break
+				#choose = card = self.choose_cards.filter(id=choose)[0]
 				self.log("%r: choosing %r", self, choose)
 			else:
 				raise InvalidAction("%r cannot be played with choice %r" % (self, choose))
@@ -408,9 +418,9 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				return True
 		if PlayReq.REQ_TARGET_IF_AVAILABLE in self.requirements:
 			return bool(self.play_targets)
-		if PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND in self.requirements:
-			if self.controller.hand.filter(race=Race.DRAGON):
-				return bool(self.play_targets)
+		#if PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND in self.requirements:
+		#	if self.controller.hand.filter(race=Race.DRAGON):
+		#		return bool(self.play_targets)
 		req = self.requirements.get(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS)
 		if req is not None:
 			if len(self.controller.field) >= req:
@@ -551,7 +561,8 @@ class Character(LiveEntity):
 	poisonous = boolean_property("poisonous")
 	rush = boolean_property("rush")
 	taunt = boolean_property("taunt")
-	
+	divine_shield = boolean_property("divine_shield")
+
 	def __init__(self, data):
 		self.attack_target = None
 		self.cannot_attack_heroes = False
@@ -651,6 +662,7 @@ class Hero(Character):
 	def __init__(self, data):
 		self.armor = 0
 		self.power = None
+		self.tatal_armor = 0
 		super().__init__(data)
 
 	@property
@@ -693,7 +705,13 @@ class Hero(Character):
 
 	def _set_zone(self, value):
 		if value == Zone.PLAY:
+			old_hero = self.controller.hero
 			self.controller.hero = self
+			# if there is an former hero copy hero's health
+			if old_hero:
+				self.max_health=old_hero.max_health
+				self.damage = old_hero.damage 
+				old_hero.zone = Zone.GRAVEYARD
 			if self.data.hero_power:
 				self.controller.summon(self.data.hero_power)
 		elif value == Zone.GRAVEYARD:
@@ -724,12 +742,11 @@ class Minion(Character):
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",
 		"forgetful", "frozen", "has_deathrattle", "has_inspire", "poisonous",
-		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush"
+		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush", "frenzy", "honorable_kill",
 	)
 
 	def __init__(self, data):
 		self.always_wins_brawls = False
-		self.divine_shield = False
 		self.enrage = False
 		self.silenced = False
 		self._summon_index = None
@@ -780,6 +797,10 @@ class Minion(Character):
 		return self.enrage and self.damage
 
 	@property
+	def frenzied(self):
+		return self.frenzy and self.damage and self.frenzyFlag==0
+
+	@property
 	def update_scripts(self):
 		yield from super().update_scripts
 		if self.enraged:
@@ -792,36 +813,44 @@ class Minion(Character):
 		return super().zone_position
 
 	def _set_zone(self, value):
-		if value == Zone.PLAY:
+		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
 			if self._summon_index is not None:
 				self.controller.field.insert(self._summon_index, self)
 			else:
 				self.controller.field.append(self)
-		elif value == Zone.GRAVEYARD and self.zone == Zone.PLAY:
-			self.controller.minions_killed_this_turn += 1
-
-		if self.zone == Zone.PLAY:
-			self.log("%r is removed from the field", self)
-			self.controller.field.remove(self)
-			if self.damage:
-				self.damage = 0
-		## これは必要か？ 14/8/21
-		if value == Zone.GRAVEYARD and self.zone == Zone.GRAVEYARD and self in self.controller.game.live_entities:
-			self.log("%s must be removed from the field but still left in the list of living entities.", self.data.name)
-			if self in self.controller.live_entities:
-				player=self.controller
-			elif self in self.controller.opponent.live_entities:
-				player=self.controller.opponent
-			self.log("Controller is %s"%(player.name))
-			for entity in player.field:
-				self.log("%s - %s %s"%(entity.data.name, entity._to_be_destroyed, entity.to_be_destroyed))
-			if self in player.field:
-				player.field.remove(self)
-			else:
-				self.log("non-sense!")
-				raise GameOver("wowowowo")
-		##いちおう、無限ループ対策で、ここでカードの消去を行っておく。
-
+		elif value == Zone.GRAVEYARD: ## -> graveyard  
+			if self.zone == Zone.PLAY: ## play -> graveyard
+				self.controller.minions_killed_this_turn += 1
+				self.log("%r is removed from the field", self)
+				self.controller.field.remove(self)
+				if self.damage:
+					self.damage = 0
+			elif self.zone == Zone.HAND:
+				pass
+			elif self.zone == Zone.SETASIDE:
+				pass
+			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
+				if self in self.controller.game.live_entities:
+					self.log("%s must be removed from the field but still left in the list of living entities."%(self.data.name))
+					if self in self.controller.live_entities:
+						player=self.controller
+					elif self in self.controller.opponent.live_entities:
+						player=self.controller.opponent
+					self.log("Controller is %s"%(player.name))
+					if self in player.field:
+						#for entity in player.field:
+						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						player.field.remove(self)
+					elif self in player.hand:
+						#for entity in player.hand:
+						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						player.hand.remove(self)
+					elif self in player.game.setaside:
+						#for entity in player.game.setaside:
+						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
+						player.game.setaside.remove(self)
+					else:
+						self.log("Extra-ordinary error happens.  Stop here in set_zone()")
 		super()._set_zone(value)
 
 	def _hit(self, amount):
@@ -914,7 +943,7 @@ class Secret(Spell):
 				if 'DAL_573'==card.id :# aharalab 
 					self.secret_twice=True #  
 		if self.zone == Zone.SECRET:
-			if self.secret_twice:# aharalab 
+			if hasattr(self,'secret_twice') and self.secret_twice:# aharalab 
 				self.secret_twice=False
 				return
 			else:
@@ -941,7 +970,6 @@ class Enchantment(BaseCard):
 	incoming_damage_multiplier = int_property("incoming_damage_multiplier")
 	max_health = int_property("max_health")
 	spellpower = int_property("spellpower")
-
 	buffs = []
 	slots = []
 
@@ -973,7 +1001,7 @@ class Enchantment(BaseCard):
 		elif zone == Zone.REMOVEDFROMGAME:
 			if self.zone == zone:
 				# Can happen if a Destroy is queued after a bounce, for example
-				self.logger.warning("Trying to remove %r which is already gone", self)
+				self.log("Trying to remove %r which is already gone", self)
 				return
 			self.owner.buffs.remove(self)
 			if self in self.game.active_aura_buffs:
@@ -1092,9 +1120,6 @@ class HeroPower(PlayableCard):
 		if self.exhausted:
 			return False
 		return super().is_playable()
-
-
-	############ aharalab ################
 
 class Sidequest(Spell):
 	_sidequest_counter_=0

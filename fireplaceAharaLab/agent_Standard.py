@@ -2,13 +2,13 @@ import random
 import copy
 from fireplace.exceptions import GameOver
 from hearthstone.enums import CardType, BlockType, CardClass, SpellSchool#
-from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAction,Agent
+from utils import ExceptionPlay, Candidate, executeAction, getCandidates, postAction,Agent, fireplace_deepcopy
 from fireplace.actions import Action
 from fireplace.card import Card
 from fireplace.game import Game
 from fireplace.utils import ActionType
 from enum import IntEnum
-
+from fireplace.logging import log
 
 class StandardAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
@@ -20,7 +20,7 @@ class StandardAgent(Agent):
 		loopCount=0
 		while loopCount<20:
 			loopCount+=1
-			myCandidate = getCandidates(thisgame)
+			myCandidate = getCandidates(thisgame)#「何もしない」選択肢は入れていない
 			if len(myCandidate)>0:
 				myChoice = random.choice(myCandidate)
 				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
@@ -31,58 +31,72 @@ class StandardAgent(Agent):
 					continue
 			return ExceptionPlay.VALID
 
-
+import time
 class StandardVectorAgent(Agent):
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000, mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
 		pass
 	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
-		debug=False
+		debugChoice=False###  Display parameters and scores
 		if option==None:
 			print ("StandardStep1 needs an option")
 			return ExceptionPlay.INVALID
 		myWeight=option
-		myCandidate = getCandidates(game)
-		myChoices = []
-		maxScore=-100000
-		maxChoice = None
-		if debug:
-			print(">>>>>>>>>>>>>>>>>>>")
-		for myChoice in myCandidate:
-			tmpGame = copy.deepcopy(game)
-			if executeAction(tmpGame, myChoice, debugLog=False)==ExceptionPlay.GAMEOVER:
-				score=100000
-			else:
-
-				if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+		loopCount=0
+		while loopCount<20:
+			loopCount+=1
+			if debugChoice:
+				print(">>>>>>>>>>>>>>>>>>>")
+			myCandidate = getCandidates(game)#「何もしない」選択肢は入れていない
+			myChoices = [Candidate(None,type=ExceptionPlay.TURNEND, turn=game.turn)]#何もしない選択
+			maxScore = self.getStageScore(game,myWeight,debugChoice)#何もしないときのスコア
+			if debugChoice:
+				print("   %s %d"%(myChoices[0],maxScore))
+			maxChoice = None
+			for myChoice in myCandidate:
+				tmpGame = fireplace_deepcopy(game)
+				#tmpGame = copy.deepcopy(game)
+				log.info("Estimate the score for [%s]"%(myChoice))
+				result = executeAction(tmpGame, myChoice, debugLog=False)
+				postAction(tmpGame.current_player)
+				if result==ExceptionPlay.INVALID:
+					stop=True
+				if result==ExceptionPlay.GAMEOVER:
 					score=100000
 				else:
-					score = self.getStageScore(tmpGame,myWeight)
-			if debug:
-				print("%s %s %s %f"%(myChoice.card,myChoice.type,myChoice.target,score))
-			if score > maxScore:
-				maxScore = score
-				myChoices = [myChoice]
-				if score==100000:
-					break
-			elif score == maxScore:
-				myChoices.append(myChoice)
-		if debug:
-			print("<<<<<<<<<<<<<<<<<<<")
-		if len(myChoices)>0:
-			myChoice = random.choice(myChoices)
-			ret = executeAction(game, myChoice,debugLog=debugLog)
-			if ret==ExceptionPlay.GAMEOVER:
-				return ExceptionPlay.GAMEOVER
-			if ret==ExceptionPlay.INVALID:
-				return ExceptionPlay.INVALID
-			player = game.current_player
-			postAction(player)
-			return self.StandardStep1(game, option=myWeight, debugLog=debugLog)
-		else:
-			return ExceptionPlay.VALID
-	def getStageScore(self,game, weight):
+					if self.__standard_agent__.StandardRandom(tmpGame,debugLog=False)==ExceptionPlay.GAMEOVER:#ここをもっと賢くしてもよい
+						score=100000
+					else:
+						score = self.getStageScore(tmpGame,myWeight,debugChoice)
+				if debugChoice:
+					print("   %s %d"%(myChoice,score))
+				if score > maxScore:
+					maxScore = score
+					myChoices = [myChoice]
+					if score==100000:
+						break
+				elif score == maxScore:
+					myChoices.append(myChoice)
+			if debugChoice:
+				print("<<<<<<<<<<<<<<<<<<<")
+			if len(myChoices)>0:
+				myChoice = random.choice(myChoices)
+				if myChoice.type==ExceptionPlay.TURNEND:
+					if debugLog:
+						print(">%s -> turnend."%(self.name))
+					return ExceptionPlay.VALID
+				ret = executeAction(game, myChoice,debugLog=debugLog)
+				if ret==ExceptionPlay.GAMEOVER:
+					return ExceptionPlay.GAMEOVER
+				if ret==ExceptionPlay.INVALID:
+					return ExceptionPlay.INVALID
+				player = game.current_player
+				postAction(player)
+				continue
+			else:
+				return ExceptionPlay.VALID
+	def getStageScore(self,game, weight, debugChoice=False):
 		cardPerPoint=0.3
 		w_length=34
 		w=[]
@@ -93,9 +107,9 @@ class StandardVectorAgent(Agent):
 		myHero = me.hero
 		hisHero = he.hero
 		#w[0]=myHeroH
-		w[0] = myHero.health
+		w[0] = myHero.health+myHero.armor
 		#w[1]=hisHeroH
-		w[1] = hisHero.health
+		w[1] = hisHero.health+hisHero.armor
 		#w[2]=myCharA = 0
 		#w[3]=myCharH = 0
 		#w[4]=myTauntCharA = 0
@@ -196,6 +210,10 @@ class StandardVectorAgent(Agent):
 					w[33] += 1	#体力の小さいバニラカードを使う
 		score = 0.0
 		for i in range(w_length):
+			if debugChoice:
+				if w[i]!=0:
+					print("%d:%d"%(i,w[i]),end=", ")
+				pass
 			const=-1
 			if i in [0,2,3,4,5]:
 				const=1
@@ -205,6 +223,8 @@ class StandardVectorAgent(Agent):
 			if len(weight)>i:
 				wgt = weight[i]
 			score += w[i]*wgt*const
+		if debugChoice:
+			print("")
 		return score
 	def StandardMulligan(self, choiceCards):
 		# make cost 1 cards left
@@ -294,7 +314,14 @@ class HumanAgent(Agent):
 		pass
 	def HumanInput(self, game, option=None, gameLog=[], debugLog=True):
 		player = game.current_player
+		###############
+		#from fireplace.deepcopy import deepcopy_game
+		#new_game = debug_deepcopy(game, player)
+		#######
 		while True:
+			###################
+			#debug_board(new_game,game)#
+			###################
 			myCandidate = []
 			print("========My HAND======")
 			for card in player.hand:
@@ -349,8 +376,8 @@ class HumanAgent(Agent):
 						print("(frozen)", end=" ")
 					if character.rush:
 						print("(rush)", end=" ")
-					#if character.reborn:
-					#	print("(reborn)", end=" ")
+					if character.reborn:
+						print("(reborn)", end=" ")
 					if character.taunt:
 						print("(taunt)", end=" ")
 					if character.immune:
@@ -380,24 +407,8 @@ class HumanAgent(Agent):
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
 					if character._Asphyxia_ == 'asphyxia':
 						print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
-					if character.silenced:
-						print("(silenced)", end=" ")
-					if character.windfury:
-						print("(windfury)", end=" ")
-					if character.poisonous:
-						print("(poisonous)", end=" ")
-					if character.frozen:
-						print("(frozen)", end=" ")
-					if character.rush:
-						print("(rush)", end=" ")
-					#if character.reborn:
-					#	print("(reborn)", end=" ")
-					if character.taunt:
-						print("(taunt)", end=" ")
-					if character.immune:
-						print("(immune)", end=" ")
-					if character.stealthed:
-						print("(stealthed)", end=" ")
+					if character.charge:
+						print("(charge)", end=" ")
 					if character.divine_shield:
 						print("(divine_shield)", end=" ")
 					if character.dormant>0:
@@ -407,8 +418,26 @@ class HumanAgent(Agent):
 							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
 						else:
 							print("(dormant)", end=" ")
+					if character.frozen:
+						print("(frozen)", end=" ")
+					if character.immune:
+						print("(immune)", end=" ")
+					if character.poisonous:
+						print("(poisonous)", end=" ")
+					if character.reborn:
+						print("(reborn)", end=" ")
+					if character.rush:
+						print("(rush)", end=" ")
+					if character.silenced:
+						print("(silenced)", end=" ")
 					if character.spellpower>0:
 						print("(spellpower:%d)"%(character.spellpower), end=" ")
+					if character.stealthed:
+						print("(stealthed)", end=" ")
+					if character.taunt:
+						print("(taunt)", end=" ")
+					if character.windfury:
+						print("(windfury)", end=" ")
 				print("%s"%(adjust_text_by_spellpower(character.data.description, player, character)))
 				if character.can_attack():
 					for target in character.targets:
@@ -442,12 +471,15 @@ class HumanAgent(Agent):
 				print("%s"%myCard, end='  ')
 				if myChoice.card2!=None:
 					print("(%s)"%myChoice.card2, end=' ')
-				if myCard.data.type==CardType.MINION:
-					print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
-				elif myCard.data.type==CardType.SPELL:
-					print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description,player,myCard)), end=' ')
-				elif myCard.data.type==CardType.WEAPON:
-					print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description, player, myCard)), end=' ')
+					if myCard.data.type==CardType.SPELL:
+						print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myChoice.card2.data.description,player,myCard)), end=' ')
+				else:
+					if myCard.data.type==CardType.MINION:
+						print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk,myCard.health), end=' ')
+					elif myCard.data.type==CardType.SPELL:
+						print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description,player,myCard)), end=' ')
+					elif myCard.data.type==CardType.WEAPON:
+						print('<%2d> %s'%(myCard.cost, adjust_text_by_spellpower(myCard.data.description, player, myCard)), end=' ')
 				if myChoice.type == ActionType.PLAY:
 					print(' play', end=' ')
 				if myChoice.type == ActionType.TRADE:
@@ -471,11 +503,20 @@ class HumanAgent(Agent):
 				except ValueError:
 					inputNum = 0
 			if len(myCandidate)==0 or inputNum == 0:
+				########################################
+				#debug_board(new_game,game)###
+				########################################
 				break;
 			if inputNum>0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
+				###################
+				#executeAction(new_game, myChoice)#
+				#postAction(new_game.current_player)#
+				##################
 				executeAction(game, myChoice)
 				postAction(player)
+
+
 	def HumanInputMulligan(self, choiceCards):
 		myCount=1
 		print("%s mulligan turn"%(self.name))
@@ -522,3 +563,229 @@ def weight_deepcopy(weight):
 		wgt.append(weight[i])
 	return wgt
 
+
+
+def debug_player_cards(player,old_player):
+	print("=======%s HAND======"%(player))
+	if len(player.hand)!=len(old_player.hand):
+		print("length is different %d:%d"%(len(player.hand), len(old_player.hand)))
+	for i in range(len(player.hand)):
+		comment=""
+		card = player.hand[i]
+		if i>=len(old_player.hand):
+			print ("XXX %s : no old cards here"%(card))
+			continue
+		old_card = old_player.hand[i]
+		if card.id != old_card.id:
+			print("XXX %s : old_name=%s"%(card,old_card))
+		else:
+			header=""
+			footer=""
+			if card.data.type == CardType.MINION:
+				footer = "%s : %2d(%2d/%2d) "%(card, card.cost, card.atk, card.health)
+				if card.cost != old_card.cost or card.atk != old_card.atk or card.health != old_card.health:
+					footer += " old : %2d(%2d/%2d)"%(old_card.cost, old_card.atk, old_card.health)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			elif card.data.type == CardType.SPELL:
+				footer = "%s : %2d  "%(card, card.cost)
+				if card.cost != old_card.cost:
+					footer += ", old : %2d"%(old_card.cost)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			elif card.data.type == CardType.WEAPON:
+				footer = "%s : %2d(%2d/%2d)  "%(card, card.cost, card.atk, card.durability)
+				if card.cost != old_card.cost or card.atk != old_card.atk or card.durability != old_card.durability:
+					footer += ", old : %2d(%2d/%2d)"%(old_card.cost, old_card.atk, old_card.derability)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			print ("%s %s"%(header, footer))
+		pass##
+	print("========%s FIELD======"%(player))
+	for i in range(len(player.characters)):
+		header = footer =""
+		character=player.characters[i]
+		if i>=len(old_player.characters):
+			print("XXX %s : no old card"%(character))
+			continue
+		old_character=old_player.characters[i]
+		footer = "%s"%character
+		if character.id != old_character.id:
+			header = 'XXX'
+			footer = "%s : old_name=%s"%(character, old_character)
+		if character == player.hero:
+			if player.weapon:
+				footer += "(%2d/%2d/%2d+%d)"%(character.atk,player.weapon.durability,character.health,character.armor)
+				if character.atk != old_character.atk or player.weapon.durability != old_player.weapon.durability or \
+					character.health != old_character.health or character.armor != old_character.armor:
+					footer += "(%2d/%2d/%2d+%d)"%(old_character.atk, old_player.weapon.durability, old_character.health, old_character.armor)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+			else:
+				footer += "(%2d/%2d+%d)"%(character.atk,character.health,character.armor)
+				if character.atk != old_character.atk  or \
+					character.health != old_character.health or character.armor != old_character.armor:
+					footer += "(%2d/%2d+%d)"%(old_character.atk, old_character.health, old_character.armor)
+					header = 'XXX'
+				else:
+					header = 'OOO'
+		else :
+			header = 'OOO'
+			footer += "(%2d/%2d)"%(character.atk,character.health)
+			if character.atk != old_character.atk or character.health != old_character.health:
+				footer += "(%2d/%2d)"%(old_character.atk, old_character.health)
+				header ='XXX'
+			if character._Asphyxia_ == 'asphyxia':
+				footer +="(Now Asphyxia %d)"%(character._sidequest_counter_)
+				if old_character._Asphyxia != 'asphyxia':
+					header ='XXX'
+					footer += 'X'
+			if character.silenced:
+				footer +="(silenced)"
+				if not old_character.silenced:
+					header ='XXX'
+					footer += 'X'
+			if character.windfury:
+				footer +="(windfury)"
+				if not old_character.windfury:
+					header ='XXX'
+					footer += 'X'
+			if character.poisonous:
+				footer +="(poisonous)"
+				if not old_character.poisonous:
+					header ='XXX'
+					footer += 'X'
+			if character.frozen:
+				footer +="(frozen)"
+				if not old_character.frozen:
+					header ='XXX'
+					footer += 'X'
+			if character.rush:
+				footer +="(rush)"
+				if not old_character.rush:
+					header ='XXX'
+					footer += 'X'
+			if character.taunt:
+				footer +="(taunt)"
+				if not old_character.taunt:
+					header ='XXX'
+					footer += 'X'
+			if character.immune:
+				footer +="(immune)"
+				if not old_character.immune:
+					header ='XXX'
+					footer += 'X'
+			if character.stealthed:
+				footer +="(stealthed)"
+				if not old_character.stealthed:
+					header ='XXX'
+					footer += 'X'
+			if character.divine_shield:
+				footer +="(divine_shield)"
+				if not old_character.divine_shield:
+					header ='XXX'
+					footer += 'X'
+			if character.dormant>0:
+				footer +="(dormant:%d)"%(character.dormant)
+				if old_character.dormant<=0:
+					header ='XXX'
+					footer += 'X'
+			elif character.dormant<0:
+				if character._sidequest_counter_>0:
+					footer +="(dormant:%d)"%(character._sidequest_counter_)
+					if old_character.dormant>=0 or old_character._sidequest_counter_<=0:
+						header ='XXX'
+						footer += 'X'
+				else:
+					footer +="(dormant)"
+			if character.spellpower>0:
+				footer +="(spellpower:%d)"%(character.spellpower)
+				if not old_character.spellpower > 0:
+					header ='XXX'
+					footer += 'X'
+		print("%s %s"%(header, footer))
+	if player.hero.power.is_usable():
+		footer="%s<%2d>"%(player.hero.power, player.hero.power.cost)
+		if player.hero.power != old_player.hero.power or player.hero.power.cost != old_player.hero.power.cost:
+			footer += "%s<%2d>"%(old_player.hero.power, old_player.hero.power.cost)
+			header ='XXX'
+			footer += 'X'
+		else:
+			header = 'OOO'
+		print("%s %s"%(header, footer))
+	print("========%s SECRETS======"%(player))
+	for i in range(len(player.secrets)):
+		card = player.secrets[i]
+		old_card = old_player.secrets[i]
+		header = 'OOO'
+		footer = "%s"%card
+		if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
+			footer += "(sidequest %d)"%(card._sidequest_counter_)
+			if card._sidequest_counter_ != old_card._sidequest_counter_:
+				footer += "(sidequest %d)"%(old_card._sidequest_counter_)
+				header = 'XXX'
+		if card.id != old_card.id:
+			footer += "(%s)"%old_card
+			header = 'XXX'
+	print("======== E N D =======")
+	pass
+
+def debug_board(new_game,old_game):
+	player = new_game.current_player
+	old_player = old_game.current_player
+	print("========TURN : %d/%d mana==(spell damage %d (fire %d))==="%(player.mana,player.max_mana,player.spellpower,player.spellpower_fire))
+	debug_player_cards(player,old_player)
+	debug_player_cards(player.opponent,old_player.opponent)
+	pass
+
+def identityCandidates(can1, can2):
+	if can1.card == None or can2.card == None:
+		return False
+	if can1.card.id != can2.card.id:
+		return False
+	if can1.card2 == None and can2.card2 != None:
+		return False
+	if can1.card2 != None and can2.card2 == None:
+		return False
+	if can1.card2 != None and can1.card2.id != can2.card2.id:
+		return False
+	if can1.type != can2.type:
+		return False
+	if can1.target != None and can2.target == None:
+		return False
+	if can1.target == None and can2.target != None:
+		return False
+	if can1.target != None and can2.target != None and can1.target.id != can2.target.id:
+		return False
+	return True
+
+def compaireCandidates(old_can, new_can):
+	print ("<><><><><><><><><comparing candidates starts<><><><><><><><><")
+	for can1 in old_can:
+		done = False
+		for can2 in old_can:
+			if identityCandidates(can1, can2):
+				done = True
+				break
+			pass
+		if not done:
+			print(" %s(%s)%s does not exist in new candidates. "%(can1.card,can1.type,can1.target))
+		pass
+	for can2 in old_can:
+		done = False
+		for can1 in old_can:
+			if identityCandidates(can1, can2):
+				done = True
+				break
+			pass
+		if not done:
+			print(" %s(%s)%s does not exist in old candidates. "%(can2.card,can2.type,can2.target))
+		pass
+	print ("<><><><><><><><><comparing candidates ends<><><><><><><><><")
+	pass
+
+		

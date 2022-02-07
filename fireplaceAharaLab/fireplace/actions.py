@@ -28,7 +28,7 @@ def _eval_card(source, card):
 		card = card.trigger(source)[0]
 
 	if isinstance(card, Selector):
-		card = card.eval(source.game, source)
+		card = card.eval(source.game.allcards, source) # game? allcards?
 
 	if not isinstance(card, list):
 		cards = [card]
@@ -362,7 +362,7 @@ class Choice(GameAction):
 			player = player[0]
 		cards = self._args[1]
 		if isinstance(cards, Selector):
-			cards = cards.eval(source.game, source)
+			cards = cards.eval(source.game.allcards + source.game.graveyard, source) # game? entities + decks?
 		elif isinstance(cards, LazyValue):
 			cards = cards.evaluate(source)
 		elif isinstance(cards, list):
@@ -400,7 +400,10 @@ class Choice(GameAction):
 
 class GenericChoice(Choice):
 	def choose(self, card):
+		private_casts_when_chosen = ['YOP_024t']
 		super().choose(card)
+		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
+			return
 		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
@@ -410,6 +413,8 @@ class GenericChoice(Choice):
 				elif len(self.player.hand) < self.player.max_hand_size:
 					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.HAND
+					if new_card.id in private_casts_when_chosen:
+						Play(new_card,None,None,None).trigger(card.controller)
 
 
 class GenericChoiceOnDeck(Choice):
@@ -470,6 +475,7 @@ class GenericChoiceBattlecry(GenericChoice):##
 		for new_card in controller.hand:
 			if new_card.id == card.id:
 				Battlecry(new_card, new_card.target).trigger(new_card)
+				#new_card.zone=Zone.PLAY# 必要？
 				break
 		pass
 
@@ -552,7 +558,7 @@ class Play(GameAction):
 		battlecry_card = choose or card
 		# We check whether the battlecry will trigger, before the card.zone changes
 		if battlecry_card.battlecry_requires_target() and not target:
-			log.info("%r requires a target for its battlecry. Will not trigger.")
+			log.info("%r requires a target for its battlecry. Will not trigger." % card)
 			trigger_battlecry = False
 		else:
 			trigger_battlecry = True
@@ -563,6 +569,8 @@ class Play(GameAction):
 			trigger_outcast = False
 
 		card.zone = Zone.PLAY
+		if card.type == CardType.MINION:
+			player.add_summon_log(card)
 
 		# Remember cast on friendly characters
 		if target and target.controller == source:
@@ -571,7 +579,6 @@ class Play(GameAction):
 		# NOTE: A Play is not a summon! But it sure looks like one.
 		# We need to fake a Summon broadcast.
 		summon_action = Summon(player, card)
-
 		if card.type in (CardType.MINION, CardType.WEAPON):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
@@ -678,14 +685,14 @@ class TargetedAction(Action):
 		if isinstance(selector, Entity):
 			return [selector]
 		else:
-			return selector.eval(source.game, source)
+			return selector.eval(source.game.allcards, source) # game ? or game.allcards?
 
 	def get_target_args(self, source, target):
 		ret = []
 		for k, v in zip(self.ARGS[1:], self._args[1:]):
 			if isinstance(v, Selector):
 				# evaluate Selector arguments
-				v = v.eval(source.game, source)
+				v = v.eval(source.game.allcards, source)# game ? or game.allcards?
 			elif isinstance(v, LazyValue):
 				v = v.evaluate(source)
 			elif isinstance(k, CardArg):
@@ -699,7 +706,7 @@ class TargetedAction(Action):
 		elif isinstance(t, LazyValue):
 			ret = t.evaluate(source)
 		else:
-			ret = t.eval(source.game, source)
+			ret = t.eval(source.game.allcards, source) ## game? or game.entities?
 		if not ret:
 			return []
 		if not hasattr(ret, "__iter__"):
@@ -711,10 +718,10 @@ class TargetedAction(Action):
 		ret = []
 
 		if self.source is not None:
-			source = self.source.eval(source.game, source)
+			source = self.source.eval(source.game.allcards, source) ## game? or game.entities?
 			assert len(source) == 1
 			source = source[0]
-
+		
 		times = self.times
 		if isinstance(times, LazyValue):
 			times = times.evaluate(source)
@@ -729,6 +736,12 @@ class TargetedAction(Action):
 			log.info("%r triggering %r targeting %r", source, self, targets)
 			for target in targets:
 				target_args = self.get_target_args(source, target)
+				from .player import Player
+				from .card import PlayableCard
+				if isinstance(source, Player):
+					source.add_targetedaction_log({'class':self,'source':source,'target':target})## log for action
+				elif isinstance(source, PlayableCard):
+					source.controller.add_targetedaction_log({'class':self,'source':source,'target':target})## log for action
 				ret.append(self.do(source, target, *target_args))
 
 				for action in self.callback:
@@ -761,7 +774,24 @@ class Buff(TargetedAction):
 			if isinstance(v, LazyValue):
 				v = v.evaluate(source)
 			setattr(buff, k, v)
+		if source.controller==target.controller and target.type==CardType.HERO:##FRIENDLY_HERO
+			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
+			if buff.atk>0:# it works for atk buffs
+				self.broadcast(source, EventListener.ON, target)
+			pass
 		return buff.apply(target)
+
+class RemoveBuff(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		buffList = target.buffs
+		for bf in buffList:
+			if bf.id == buff:
+				target.buffs.remove(bf)
+				break
+		pass
+	pass
 
 class EatsCard(TargetedAction):
 	""" add other stats to target stats
@@ -886,6 +916,7 @@ class Damage(TargetedAction):
 			# poisonous can not destory hero
 			if hasattr(source, "poisonous") and source.poisonous and (
 				target.type != CardType.HERO and source.type != CardType.WEAPON):
+				log.info("%r destroys %r by poison"%(source, target))
 				target.destroy()
 		return amount
 
@@ -917,7 +948,7 @@ class Battlecry(TargetedAction):
 	def get_target_args(self, source, target):
 		arg = self._args[1]
 		if isinstance(arg, Selector):
-			arg = arg.eval(source.game, source)
+			arg = arg.eval(source.game.allcards, source) ## game? or game.allcards? decks must be included
 			assert len(arg) == 1
 			arg = arg[0]
 		return [arg]
@@ -952,6 +983,8 @@ class Corrupt(TargetedAction):# darkmoon fair
 				if target.id == 'DMF_124t':# （+1/+1 in any case）
 					target.max_health += 1
 					target.atk += 1
+				elif target.id == 'DMF_526':
+					corruptList.append({'card':target,'corruptedID':target.id+"a"})
 				else:
 					corruptList.append({'card':target,'corruptedID':target.id+"t"})
 		for target in corruptList:
@@ -1003,7 +1036,7 @@ class Discover(TargetedAction):
 	CARDS = CardArg()
 
 	def get_target_args(self, source, target):
-		if target.hero.data.card_class != CardClass.NEUTRAL:
+		if hasattr(target,'hero') and target.hero.data.card_class != CardClass.NEUTRAL:
 			# use hero class for Discover if not neutral (eg. Ragnaros)
 			discover_class = target.hero.data.card_class
 		elif source.data.card_class != CardClass.NEUTRAL:
@@ -1016,7 +1049,11 @@ class Discover(TargetedAction):
 		picker = self._args[1] * 3
 		picker = picker.copy_with_weighting(1, card_class=CardClass.NEUTRAL)
 		picker = picker.copy_with_weighting(4, card_class=discover_class)
-		return [picker.evaluate(source)]
+		result = picker.evaluate(source)
+		if len(result) >= 0:
+			return [picker.evaluate(source)]
+		else:
+			return [[]]
 
 	def do(self, source, target, cards):
 		log.info("%r discovers %r for %s", source, cards, target)
@@ -1109,7 +1146,6 @@ class FullHeal(TargetedAction):
 	def do(self, source, target):
 		source.heal(target, target.max_health)
 
-
 class GainArmor(TargetedAction):
 	"""
 	Make hero targets gain \a amount armor.
@@ -1118,6 +1154,8 @@ class GainArmor(TargetedAction):
 	AMOUNT = IntArg()
 
 	def do(self, source, target, amount):
+		if amount>0 and hasattr(target, 'total_armor'):
+			target.total_armor += amount
 		target.armor += amount
 		self.broadcast(source, EventListener.ON, target, amount)
 
@@ -1168,14 +1206,8 @@ class Give(TargetedAction):
 			card.controller = target
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
-			#else:
-			#	if source.id=='SW_069':
-			#		card.zone = Zone.HAND
-			#	else:
-			#		print("%s"%(card in card.controller.hand))
 			# if card is 'casts_when_drawn' then immediately play.  
-			if card.id != 'SW_306':# avoiding infinite loop
-				card.game.card_when_drawn(card, card.controller)
+			card.game.card_when_drawn(card, card.controller)
 			ret.append(card)
 		return ret
 
@@ -1190,6 +1222,25 @@ class Hit(TargetedAction):
 	def do(self, source, target, amount):
 		amount = source.get_damage(amount, target)
 		if amount:
+			#if isinstance(source,PlayableCard):
+			if hasattr(source, 'honorable_kill') and source.honorable_kill:
+				if target.type==CardType.WEAPON and target==source:## when decreasing durability
+					pass
+				else:
+					target_health = target.health
+					if target_health == amount:
+						log.info("%s hits %s and gets honorable kill"%(source, target))
+						target.honorably_killed = True
+						if source.type==CardType.HERO and source.controller.weapon!=None :
+							actions = source.controller.weapon.get_actions("honorable_kill")
+							source.game.trigger(source.controller.weapon, actions,event_args=None)
+						else:
+							actions = source.get_actions("honorable_kill")
+							source.game.trigger(source, actions,event_args=None)
+						for buff in source.buffs:
+							if hasattr(buff, 'honorable_kill'):
+								actions = buff.get_actions('honorable_kill')
+								source.game.trigger(source, actions, event_args=None)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
@@ -1222,6 +1273,8 @@ class ManaThisTurn(TargetedAction):
 	AMOUNT = IntArg()
 
 	def do(self, source, target, amount):
+		if target.type != CardType.PLAYER:
+			return
 		target.temp_mana += min(target.max_resources - target.mana, amount)
 
 class Mill(TargetedAction):
@@ -1244,23 +1297,28 @@ class Morph(TargetedAction):
 
 	def get_target_args(self, source, target):
 		card = _eval_card(source, self._args[1])
+		if len(card)==0: # no targeted card
+			return []
 		assert len(card) == 1
 		card = card[0]
+		if card==None:
+			return []
 		card.controller = target.controller
 		return [card]
 
 	def do(self, source, target, card):
-		log.info("Morphing %r into %r", target, card)
-		target_zone = target.zone
-		if card.zone != target_zone:
-			# Transfer the zone position
-			card._summon_index = target.zone_position
-			# In-place morph is OK, eg. in the case of Lord Jaraxxus
-			card.zone = target_zone
-		target.clear_buffs()
-		target.zone = Zone.SETASIDE
-		target.morphed = card
-		return card
+		if target.type == CardType.MINION:
+			log.info("Morphing %r into %r", target, card)
+			target_zone = target.zone
+			if card.zone != target_zone:
+				# Transfer the zone position
+				card._summon_index = target.zone_position
+				# In-place morph is OK, eg. in the case of Lord Jaraxxus
+				card.zone = target_zone
+			target.clear_buffs()
+			target.zone = Zone.SETASIDE
+			target.morphed = card
+			return card
 
 class SW_078_Morph(TargetedAction):
 	"""
@@ -1277,22 +1335,23 @@ class SW_078_Morph(TargetedAction):
 		return [card]
 
 	def do(self, source, target, card):
-		log.info("Morphing %r into %r", target, card)
-		target_zone = target.zone
-		if card.zone != target_zone:
-			# Transfer the zone position
-			card._summon_index = target.zone_position
-			# In-place morph is OK, eg. in the case of Lord Jaraxxus
-			card.zone = target_zone
-		target.clear_buffs()
-		target.zone = Zone.SETASIDE
-		card.cost = target.cost
-		if hasattr(target, 'atk'):
-			card.atk = target.atk
-		if hasattr(target, 'max_health'):
-			card.max_health = target.max_health
-		target.morphed = card
-		return card
+		if target.type == CardType.MINION:
+			log.info("Morphing %r into %r", target, card)
+			target_zone = target.zone
+			if card.zone != target_zone:
+				# Transfer the zone position
+				card._summon_index = target.zone_position
+				# In-place morph is OK, eg. in the case of Lord Jaraxxus
+				card.zone = target_zone
+			target.clear_buffs()
+			target.zone = Zone.SETASIDE
+			card.cost = target.cost
+			if hasattr(target, 'atk'):
+				card.atk = target.atk
+			if hasattr(target, 'max_health'):
+				card.max_health = target.max_health
+			target.morphed = card
+			return card
 
 class DMF_108_Morph(TargetedAction):
 	"""
@@ -1309,18 +1368,19 @@ class DMF_108_Morph(TargetedAction):
 		return [card]
 
 	def do(self, source, target, card):
-		log.info("Morphing %r into %r", target, card)
-		target_zone = target.zone
-		if card.zone != target_zone:
-			# Transfer the zone position
-			card._summon_index = target.zone_position
-			# In-place morph is OK, eg. in the case of Lord Jaraxxus
-			card.zone = target_zone
-		target.clear_buffs()
-		target.zone = Zone.SETASIDE
-		card.cost = target.cost
-		target.morphed = card
-		return card
+		if target.type == CardType.MINION:
+			log.info("Morphing %r into %r", target, card)
+			target_zone = target.zone
+			if card.zone != target_zone:
+				# Transfer the zone position
+				card._summon_index = target.zone_position
+				# In-place morph is OK, eg. in the case of Lord Jaraxxus
+				card.zone = target_zone
+			target.clear_buffs()
+			target.zone = Zone.SETASIDE
+			card.cost = target.cost
+			target.morphed = card
+			return card
 
 
 class FillMana(TargetedAction):
@@ -1386,6 +1446,7 @@ class SetTag(TargetedAction):
 	TAGS = ActionArg()
 
 	def do(self, source, target, tags):
+		log.info("Setting current tag on %r to %s", target, tags)
 		if isinstance(tags, dict):
 			for tag, value in tags.items():
 				target.tags[tag] = value
@@ -1440,13 +1501,18 @@ class Summon(TargetedAction):
 		return super()._broadcast(entity, source, at, *args)
 
 	def do(self, source, target, cards):
+		if target.type != CardType.PLAYER:
+			log.info("<><><><><><><><><><><><>")
+			log.info("%s is not a player, he/she cannot summon anything", target)
+			log.info("<><><><><><><><><><><><>")
+			return
 		log.info("%s summons %r", target, cards)
 
 		if not isinstance(cards, list):
 			cards = [cards]
 
 		for card in cards:
-			if not card.is_summonable():
+			if not hasattr(card, 'is_summonable') or not card.is_summonable():
 				continue
 			target.add_summon_log(card)
 			if card.controller != target:
@@ -1474,7 +1540,8 @@ class Shuffle(TargetedAction):
 		log.info("%r shuffles into %s's deck", cards, target)
 		if not isinstance(cards, list):
 			cards = [cards]
-
+		if cards[0]==None:
+			return
 		for card in cards:
 			if card.controller != target:
 				card.zone = Zone.SETASIDE
@@ -1484,6 +1551,7 @@ class Shuffle(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
+		return cards
 
 class ShuffleBuff(TargetedAction):
 	"""
@@ -1624,11 +1692,24 @@ class CastSpell(TargetedAction):
 		log.info("%s cast spell %s target %s", source, card, target)
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
+		player.add_play_log(card)
 		while player.choice:
 			choice = random.choice(player.choice.cards)
 			print("Choosing card %r" % (choice))
 			player.choice.choose(choice)
 		source.game.queue_actions(source, [Deaths()])
+
+class CastSecret(TargetedAction):
+	"""
+	Cast a spell target random
+	"""
+	CARD = CardArg()
+	def do(self, source, cards):
+		log.info("%s cast secret %s ", source, cards)
+		if not isinstance(cards,list):
+			cards = [cards]
+		for card in cards:
+			card.zone=Zone.SECRET
 
 
 class CastSpellTargetsEnemiesIfPossible(TargetedAction):
@@ -1876,7 +1957,7 @@ class Awaken(TargetedAction):
 
 
 
-#######  aharalab  ############
+#######  sidequest  ############
 #
 class SidequestCounter(TargetedAction):
 	"""
@@ -1956,6 +2037,26 @@ class SidequestManaCounter(TargetedAction):
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
 
+class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
+	""" count ATK buffed on the hero """
+	TARGET = ActionArg()# sidequest card
+	AMOUNT = IntArg() #max of mana
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, amount, targetaction):
+		log.info("Setting Counter on %r rolls by %d->%d, %r", target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction)
+		target._sidequest_counter_ += target.controller.lost_in_the_park
+		target.controller.lost_in_the_park = 0 # to avoid a double count
+		if target._sidequest_counter_>= amount:
+			if targetaction!=None:
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)
+
+
+###################### end of sidequest
+
 class SetMaxHealth(TargetedAction):
 	"""
 	Sets the max health of the character target to \a amount.
@@ -1975,6 +2076,15 @@ class SetAtk(TargetedAction):
 	def do(self, source, target, amount):
 		log.info("Setting atk on %r to %i", target, amount)
 		target.atk = amount
+class SetCost(TargetedAction):
+	"""
+	Sets the cost of the character target to \a amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		log.info("Setting cost on %r to %i", target, amount)
+		target.cost = amount
 
 
 class Reborn(TargetedAction):
@@ -2072,7 +2182,7 @@ class HitAndExcessToOther(TargetedAction):
 	OTHER = ActionArg()
 	def do(self, source, target, amount,other):
 		if target==[] or other==[]:
-			return
+			return 
 		if isinstance(target,list):
 			target = target[0]
 		if isinstance(other,list):
@@ -2206,6 +2316,7 @@ class SetAttr(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, attr, amount):
 		if hasattr(target, attr):
+			log.info("%s set attr '%s' into %d"%(target, attr, amount ))
 			setattr(target, attr, amount)
 
 
@@ -2340,7 +2451,8 @@ class Freeze(TargetedAction):
 	def do(self, source, target):
 		log.info("%r Freezes %r", self, target)
 		if not target.tags[GameTag.CANT_BE_FROZEN]:
-			SetTag(target, (GameTag.FROZEN, )).trigger(source)
+			##SetTag(target, (GameTag.FROZEN, )).trigger(source)
+			target.frozen = True
 		else:
 			log.info("Freezing is blocked!")
 
@@ -2475,12 +2587,28 @@ class Frenzy(TargetedAction):
 	TARGET = ActionArg()#self
 	TARGETACTION = ActionArg()
 	def do(self,source,target,targetaction):
-		#if target.frenzy==1 and target.frenzyFlag==0:
-		if target.frenzyFlag==0:
+		# 'frenzy' is silencable
+		if target.frenzy==1 and target.frenzyFlag==0:
+		#if target.frenzyFlag==0:
 			log.info("Frenzy action of %r "%(target))
 			targetaction.trigger(source)
 			target.frenzyFlag=1
 			pass 
+
+#class HonorableKill(TargetedAction):
+#	""" Honorable Kill """
+#	TARGET = ActionArg() # predamaged minion
+#	AMOUNT = IntArg()
+#	TARGETEDACTION = ActionArg()
+#	def do(self, source, target, amount, targetaction):
+#		# 'honorable_kill' is silenceable
+#		if source.honorable_kill==1:
+#			if taget.health == amount:
+#				log.info("Honorable Kill works on %s"%(source))
+#				targetaction.trigger(source)
+#			pass
+#		pass
+#	pass
 
 class CountSummon(TargetedAction):
 	TARGET = ActionArg()#self
@@ -2524,37 +2652,7 @@ class HaveMana(TargetedAction):
 		if target.mana>=amount:
 			self.broadcast(source, EventListener.ON, target, amount)
 
-
-class BAR_042_Action(TargetedAction):
-	def do(self, source, target):
-		_highestCostCards=[]
-		for _card in target.deck:
-			if _card.type==CardType.SPELL:
-				if len(_highestCostCards)==0:
-					_highestCostCards = [_card]
-				elif _highestCostCards[0].cost < _card.cost:
-					_highestCostCards = [_card]
-				elif _highestCostCards[0].cost == _card.cost:
-					_highestCostCards.append(_card)
-		if len(_highestCostCards)>0:
-			_card = random.choice(_highestCostCards)
-			_cost = _card.cost
-			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
-			log.info("Summon a minion of cost %d"%( _cost))
-			Give(target,_card).trigger(source)
-			_highestMinions = []
-			for _card2 in target.deck:
-				if _card2.type==CardType.MINION and _card2.cost == _cost:
-					_highestMinions.append(_card2)
-			if(len(_highestMinions)>0):
-				_card2 = random.choice(_highestMinions)
-				Summon(target,_card2).trigger(source)
-			else:
-				log.info("no minion of cost %d"%( _cost))
-		else:
-			log.info("no spell is in the deck"%())
-
-class SpallAndDamage(TargetedAction):## for SW_322
+class SpellAndDamage(TargetedAction):## for SW_322
 	TARGET = ActionArg()
 	TARGETACTION = ActionArg()
 	def do(self,source,target,targetaction):
@@ -2603,6 +2701,14 @@ class SetScriptDataNum1(TargetedAction):
 	def do(self, source, target, amount):
 		if hasattr(target,'script_data_num_1'):
 			target.script_data_num_1 = amount
+		pass
+
+class AddScriptDataNum1(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'script_data_num_1'):
+			target.script_data_num_1 += amount
 		pass
 
 ###############################################################

@@ -12,6 +12,17 @@ from .managers import PlayerManager
 from .utils import CardList
 from .config import Config #by AharaLab
 
+class PlayLog:
+	card=None
+	turn=0
+	amount=0
+	def __init__(self, _card, _turn, _amount=0):
+		self.card = _card
+		self.turn = _turn
+		self.amount = _amount
+		pass
+	pass
+
 class Player(Entity, TargetableByAuras):
 	Manager = PlayerManager
 	all_targets_random = slot_property("all_targets_random")
@@ -80,10 +91,13 @@ class Player(Entity, TargetableByAuras):
 		self._activate_log=[]
 		self._summon_log=[]
 		self._reveal_log=[]
+		self._targetedaction_log=[]
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
 		self.choiceStrategy = None
+		self.lost_in_the_park=0
+		self.carry_cards=[] # YOP_024
 
 	def __str__(self):
 		return self.name
@@ -123,6 +137,8 @@ class Player(Entity, TargetableByAuras):
 		minion_power = 0
 		for minion in self.field:
 			if hasattr(minion,'spellpower'):
+				if hasattr(minion,'dormant') and minion.dormant>0:
+					continue
 				minion_power += minion.spellpower
 		return aura_power + minion_power + self.spellpower_option
 
@@ -130,9 +146,11 @@ class Player(Entity, TargetableByAuras):
 	def spellpower_fire(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
 		minion_power = 0
 		for minion in self.field:
-			if hasattr(minion,'spellpower'):
-				minion_power += minion.spellpower
-		return minion_power + self.spellpower_option
+			if hasattr(minion,'spellpower_fire'):
+				if hasattr(minion,'dormant') and minion.dormant>0:
+					continue
+				minion_power += minion.spellpower_fire
+		return minion_power
 	@property
 	def start_hand_size(self):
 		# old version
@@ -209,6 +227,13 @@ class Player(Entity, TargetableByAuras):
 				self.shuffle_deck()
 		pass
 
+	def contains_questline(self, deck):
+		for card in deck:
+			if hasattr(card, 'questline') and card.questline:
+				return card
+		return None
+		
+
 	def prepare_for_game(self):
 		self.summon(self.starting_hero)
 		for id in self.starting_deck:
@@ -220,7 +245,13 @@ class Player(Entity, TargetableByAuras):
 
 		# Draw initial hand (but not any more than what we have in the deck)
 		hand_size = min(len(self.deck), self.start_hand_size)
-		starting_hand = random.sample(self.deck, hand_size)
+		questline_card = self.contains_questline(self.deck)
+		# questline card must be included in the initial hand.
+		if questline_card != None:
+			starting_hand = [questline_card]+random.sample(self.deck, hand_size-1)
+		else:
+			starting_hand = random.sample(self.deck, hand_size)
+
 		# It's faster to move cards directly to the hand instead of drawing
 		for card in starting_hand:
 			card.zone = Zone.HAND
@@ -287,7 +318,7 @@ class Player(Entity, TargetableByAuras):
 		return amount
 
 	def shuffle_deck(self):
-		self.log("%r shuffles their deck", self)
+		self.log("%r shuffles his deck", self)
 		random.shuffle(self.deck)
 
 	def draw(self, count=1):
@@ -355,65 +386,83 @@ class Player(Entity, TargetableByAuras):
 			_ret.append(_log[0])
 		return _ret
 
+
 	##play_log
 	def add_play_log(self, card):
-		self._play_log.append([card,card.game.turn])
+		self._play_log.append(PlayLog(card, card.game.turn))
 	@property
 	def play_log(self):
 		_ret = []
 		for _log in self._play_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 	@property
 	def play_log_of_last_turn(self):
 		_ret = []
 		for _log in self._play_log:
-			if _log[1] == self.game.turn - 2:
-				_ret.append(_log[0])
+			if _log.turn == self.game.turn - 2:
+				_ret.append(_log.card)
+		return _ret
+	@property
+	def play_this_turn(self):
+		_ret = []
+		for _log in self._play_log:
+			if _log.turn == self.game.turn:
+				_ret.append(_log.card)
 		return _ret
 
 	##activate_log
 	def add_activate_log(self, card, amount):
-		self._activate_log.append([card,card.game.turn,amount])
+		self._activate_log.append(PlayLog(card,card.game.turn,amount))
 	@property
 	def activate_log(self):
 		_ret = []
 		for _log in self._activate_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 
 	##damage_log
 	def add_damage_log(self, card, amount):
-		self._damage_log.append([card,card.game.turn,amount])
+		self._damage_log.append(PlayLog(card, card.game.turn, amount))
 	@property
 	def damage_log(self):
 		_ret = []
 		for _log in self._damage_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 	@property
 	def damage_log_of_this_turn(self):
 		_ret = []
 		for _log in self._damage_log:
-			if _log[1] == self.game.turn:
-				_ret.append(_log[0])
+			if _log.turn == self.game.turn:
+				_ret.append(_log.card)
 		return _ret
 
 	##sammon_log
 	def add_summon_log(self, card):
-		self._summon_log.append(card)
+		self._summon_log.append(PlayLog(card, card.game.turn))
 	@property
 	def summon_log(self):
-		return self._summon_log
+		_ret = []
+		for _log in self._summon_log:
+			_ret.append(_log.card)
+		return _ret
 
 	##reveal_log
 	def add_reveal_log(self, card):
-		self._reveal_log.append([card, card.game.turn])
+		self._reveal_log.append(PlayLog(card, card.game.turn))
 	@property
 	def reveal_log(self):
 		_ret = []
 		for _log in self._reveal_log:
-			_ret.append(_log[0])
+			_ret.append(_log.card)
 		return _ret
 
+	##targetedaction_log
+	def add_targetedaction_log(self, action):
+		self._targetedaction_log.append(action)
+	@property
+	def targetedaction_log(self):
+		return self._targetedaction_log
 
+	### d

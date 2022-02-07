@@ -55,7 +55,7 @@ class LazyNum(LazyValue):
 	def get_entities(self, source):
 		from .selector import Selector
 		if isinstance(self.selector, Selector):
-			entities = self.selector.eval(source.game, source)
+			entities = self.selector.eval(source.game.allcards, source)
 		elif isinstance(self.selector, LazyValue):
 			entities = [self.selector.evaluate(source)]
 		else:

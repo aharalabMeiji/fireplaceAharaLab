@@ -30,9 +30,9 @@ class BT_429p2:
 ##
 # Minions
 
-class BT_480:
-	"""Crimson Sigil Runner"""
-	outcast = Draw(CONTROLLER)
+#class BT_480:
+#	"""Crimson Sigil Runner"""
+#	outcast = Draw(CONTROLLER)
 
 
 class BT_496:
@@ -82,10 +82,10 @@ class BT_486:
 ##
 # Spells
 
-class BT_491:
-	"""Spectral Sight"""
-	play = Draw(CONTROLLER)
-	outcast = Draw(CONTROLLER) * 2
+#class BT_491:
+#	"""Spectral Sight"""
+#	play = Draw(CONTROLLER)
+#	outcast = Draw(CONTROLLER) * 2
 
 
 class BT_514:
@@ -116,7 +116,7 @@ BT_601e = buff(cost=-3)
 ##
 # Weapons
 
-class BT_430:
-	"""Warglaives of Azzinoth"""
-	events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
-		ExtraAttack(FRIENDLY_HERO))
+#class BT_430:
+#	"""Warglaives of Azzinoth"""
+#	events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
+#		ExtraAttack(FRIENDLY_HERO))

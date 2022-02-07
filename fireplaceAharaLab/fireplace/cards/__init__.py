@@ -30,7 +30,7 @@ class CardDB(dict):
 
 		scriptnames = (
 			"activate", "combo", "deathrattle", "draw", "inspire", "play",
-			"enrage", "update", "powered_up", "outcast", "awaken"
+			"enrage", "update", "powered_up", "outcast", "awaken","trade", "honorable_kill",
 		)
 
 		for script in scriptnames:
@@ -114,6 +114,8 @@ class CardDB(dict):
 				else:
 					setattr(card, 'spellpower', 0)
 				self[id] = self.merge(id, card)
+				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
+				#	print ("%s"%(id))
 				pass
 		log.info("Merged %i cards", len(self))
 
