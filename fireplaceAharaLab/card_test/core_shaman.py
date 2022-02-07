@@ -20,6 +20,7 @@ def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_NEW1_010)#OK
 	#PresetGame(pp_CORE_UNG_817)#OK
 	#PresetGame(pp_CS3_007)#OK
+	PresetGame(pp_CS3_016)#
 	pass
 
 class pp_CORE_AT_047(Preset_Play):# <8>[1637]
@@ -580,6 +581,43 @@ class pp_CS3_007(Preset_Play):# <8>[1637]
 		print("spellpower=%d" % controller.spellpower)
 		print("overload=%d" % controller.overloaded)
 		for card in [card1]:
+			self.print_stats ("***",card)
+	pass
+
+class pp_CS3_016(Preset_Play):# <8>[1637]
+	""" Novice Zapper
+	[Spell Damage +1] [Overload:] (1) """
+	class1=CardClass.PALADIN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CS3_016',controller)#
+		self.mark2=self.exchange_card('minionH2',opponent)#もしくはH3
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		self.play_card(self.mark1, controller)#secretを設置
+		self.change_turn(controller)
+		##########opponent
+		self.play_card(self.mark2, opponent)#ミニオンを場に出す
+		self.change_turn(opponent)
+		##########controller
+		self.change_turn(controller)
+		##########opponent
+		self.attack_card(self.mark2, controller.hero, opponent)#敵ミニオンで自ヒーローを攻撃
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		print(" controllerの秘策、self.mark2 の生死"%())
+		print("secrets=%d" % controller.secrets)
+		for card in [self.mark2]:
 			self.print_stats ("***",card)
 	pass
 

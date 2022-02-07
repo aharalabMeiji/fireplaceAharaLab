@@ -117,3 +117,13 @@ class CS3_007:# <8>[1637]
 	#
 	pass
 
+############# core paladin  #######
+
+class CS3_016:# <5>[1637]
+	""" Reckoning
+	[Secret:] After an enemy minion deals 3 or more damage, destroy it. """
+	secret = Attack(ENEMY_MINIONS, FRIENDLY_CHARACTERS).after(
+		Reveal(SELF),
+		Destroy(Attack.ATTACKER)
+		)
+	pass
