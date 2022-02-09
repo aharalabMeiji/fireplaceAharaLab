@@ -186,6 +186,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	from card_test.core_shaman import SimulateGames_Core_Shaman
-	SimulateGames_Core_Shaman()
-	#main()
+	#from card_test.core_shaman import SimulateGames_Core_Shaman
+	#SimulateGames_Core_Shaman()
+	main()
