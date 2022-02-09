@@ -237,7 +237,12 @@ class Attack(GameAction):
 		if def_atk:
 			source.game.queue_actions(defender, [Hit(attacker, def_atk)])
 
-		self.broadcast(source, EventListener.AFTER, attacker, defender)
+		attack_after_activate=True 
+		for secret in defender.controller.secrets:
+			if secret.id=='CS3_016' and attacker.atk<3:
+				attack_after_activate=False
+		if attack_after_activate:
+			self.broadcast(source, EventListener.AFTER, attacker, defender)
 
 		attacker.attack_target = None
 		defender.defending = False

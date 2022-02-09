@@ -69,12 +69,12 @@ class ULD_500:#OK
 #	<b>Hero Power</b>
 #	Equip a 2/2 Weapon."""
 #	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
-class HERO_04bp2:#OK
-	""" The Silver Hand
-	<b>Hero Power</b>
-	Summon two 1/1 Recruits."""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	activate = Summon(CONTROLLER, "CS2_101t") * 2
+#class HERO_04bp2:#OK
+#	""" The Silver Hand
+#	<b>Hero Power</b>
+#	Summon two 1/1 Recruits."""
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	activate = Summon(CONTROLLER, "CS2_101t") * 2
 #class HERO_05bp2:#OK
 #	"""Ballista Shot
 #	<b>Hero Power</b>

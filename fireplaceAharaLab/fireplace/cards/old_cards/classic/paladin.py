@@ -4,10 +4,10 @@ from ..utils import *
 ##
 # Hero Powers
 
-class HERO_04bp:
-	"""Reinforce (Uther Lightbringer)"""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	activate = Summon(CONTROLLER, "CS2_101t")
+#class HERO_04bp:
+#	"""Reinforce (Uther Lightbringer)"""
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	activate = Summon(CONTROLLER, "CS2_101t")
 
 
 class CS2_101_H1:

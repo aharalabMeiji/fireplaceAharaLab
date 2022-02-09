@@ -46,6 +46,9 @@
     <Compile Include="fireplaceAharaLab\card_test\core_rogue.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\core_shaman.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\card_test\core_warlock.py">
       <SubType>Code</SubType>
     </Compile>
