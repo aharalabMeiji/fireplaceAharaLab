@@ -216,7 +216,7 @@ class Preset_Play:
 			print ("%s(%s): %r: cost:%d"%(
 				cat, card.controller, card, card.cost),end=" ")
 		if old_cost:
-			print("(old cost:%d)"%(card.data.cost),end="")
+			print("(cost:%d<-%d)"%(card.cost, card.data.cost),end="")
 		if show_buff and len(card.buffs):
 			for buff in card.buffs:
 				print("[%r]" % buff,end="")
