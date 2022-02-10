@@ -32,7 +32,8 @@ class BT_004:
 # Spells
 
 class BT_006:
-	"""Evocation"""
+	"""Evocation
+	Fill your hand with random Mage spells.At the end of your turn, discard them."""
 	play = Give(CONTROLLER, RandomSpell(card_class=CardClass.MAGE)).then(
 		Buff(Give.CARD, "BT_006e")) * MAX_HAND_SIZE(CONTROLLER)
 
@@ -44,7 +45,7 @@ class BT_006e:
 class BT_021:
 	"""Font of Power
 	&lt;b&gt;Discover&lt;/b&gt; a Mage minion. If your deck has no minions, keep all 3. """
-	powered_up = -FindDuplicates(FRIENDLY_DECK)## -Find(FRIENDLY_DECK + MINION)
+	powered_up = -Find(FRIENDLY_DECK + MINION)##-FindDuplicates(FRIENDLY_DECK)## 
 	play = powered_up & (Give(CONTROLLER, RandomMinion(card_class=CardClass.MAGE)) * 3) | (
 		DISCOVER(RandomMinion(card_class=CardClass.MAGE)))
 
