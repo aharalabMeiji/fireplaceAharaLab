@@ -104,7 +104,11 @@ def create_vacant_card(card):
 def deepcopy_aurabuff(oldCard):
 	ret=[]
 	for card in oldCard:
-		buff=AuraBuff(card.source, card.entity)
+		if not hasattr(card,'entity'):
+			print ("Consider how to avoid this trouble!!")
+			buff=AuraBuff(card.source, None)
+		else:
+			buff=AuraBuff(card.source, card.entity)
 		buff.tick = card.source.controller.game.tick
 		ret.append(buff)
 	return ret
