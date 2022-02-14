@@ -27,7 +27,7 @@ def main():
 		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	VectorDruid=StandardVectorAgent("VectorDruid",StandardVectorAgent.StandardStep1\
-		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,5,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	VectorWarrior=StandardVectorAgent("VectorWarrior",StandardVectorAgent.StandardStep1\
