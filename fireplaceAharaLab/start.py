@@ -186,6 +186,11 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
+<<<<<<< Updated upstream
 	from card_test.stormwind_hunter import SimulateGames_Stormwind_Hunter
 	SimulateGames_Stormwind_Hunter()
+=======
+	from card_test.core_shaman import SimulateGames_Core_Shaman
+	SimulateGames_Core_Shaman()
+>>>>>>> Stashed changes
 	#main()

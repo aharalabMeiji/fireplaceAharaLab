@@ -20,7 +20,8 @@ def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_NEW1_010)#OK
 	#PresetGame(pp_CORE_UNG_817)#OK
 	#PresetGame(pp_CS3_007)#OK
-	PresetGame(pp_CS3_016)#
+	#PresetGame(pp_CS3_016)#
+	PresetGame(pp_CORE_AT_075)#
 	pass
 
 class pp_CORE_AT_047(Preset_Play):# <8>[1637]
@@ -621,3 +622,38 @@ class pp_CS3_016(Preset_Play):# <8>[1637]
 			self.print_stats ("***",card)
 	pass
 
+class pp_CORE_AT_075(Preset_Play):
+	""" Warhorse Trainer
+	Your Silver Hand Recruits have +1 Attack. """
+	class1=CardClass.PALADIN
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_AT_075',controller)#
+		self.mark2=self.exchange_card('CS2_101t',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		##########controller
+		self.play_card(self.mark1, controller)#
+		#self.play_card(self.mark2, controller)#
+		self.activate_heropower(controller)
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark2, opponent)#ミニオンを場に出す
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		print(" シルバーハンドにバフが付いていることを目視"%())
+		for card in controller.hand:
+			self.print_stats ("hand",card, show_buff=True, old_cost=True)
+		for card in controller.field:
+			self.print_stats ("field",card, show_buff=True, old_cost=True)
+	pass

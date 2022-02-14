@@ -4,12 +4,12 @@ from ..utils import *
 ##
 # Minions
 
-class AT_075:
-	"""Warhorse Trainer"""
-	update = Refresh(FRIENDLY + ID("CS2_101t"), buff="AT_075e")
+#class AT_075:
+#	"""Warhorse Trainer"""
+#	update = Refresh(FRIENDLY + ID("CS2_101t"), buff="AT_075e")
 
 
-AT_075e = buff(atk=1)
+#AT_075e = buff(atk=1)
 
 
 class AT_076:
