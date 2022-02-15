@@ -186,6 +186,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#from card_test.darkmoon_neutral import SimulateGames_Darkmoon_Neutral
-	#SimulateGames_Darkmoon_Neutral()
+	#from card_test.scholo_mage import SimulateGames_Scholo_Mage
+	#SimulateGames_Scholo_Mage()
 	main()

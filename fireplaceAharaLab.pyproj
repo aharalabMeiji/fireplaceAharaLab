@@ -71,6 +71,7 @@
     <Compile Include="fireplaceAharaLab\card_test\scholo_hunter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\scholo_mage.py" />
     <Compile Include="fireplaceAharaLab\card_test\scholo_neutral.py">
       <SubType>Code</SubType>
     </Compile>

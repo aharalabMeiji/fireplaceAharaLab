@@ -14,7 +14,7 @@ class SCH_235:#OK
 	"""Devolving Missiles	Epic"""
 	#[x]Shoot three missiles at random enemy minions that transform them into ones that cost (1) less.
 	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 0}
-	play = Evolve(ENEMY_MINIONS, -1) * 3
+	play = Evolve(RANDOM_ENEMY_MINION, -1) * 3
 
 class SCH_310:#OK
 	"""Lab Partner	Common"""
