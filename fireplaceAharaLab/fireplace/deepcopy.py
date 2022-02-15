@@ -104,7 +104,11 @@ def create_vacant_card(card):
 def deepcopy_aurabuff(oldCard):
 	ret=[]
 	for card in oldCard:
-		buff=AuraBuff(card.source, card.entity)
+		if isinstance(card,AuraBuff):
+			buff=AuraBuff(card.source, card.entity)
+		else:
+			#print ("Consider how to avoid this trouble!!")
+			buff=copy.deepcopy(card)
 		buff.tick = card.source.controller.game.tick
 		ret.append(buff)
 	return ret
@@ -349,12 +353,13 @@ def copy_gameattr(oldGame,newGame):
 				for element in src:
 					ret.append(copy.copy(element))
 				setattr(newGame, attr, ret)
-			elif isinstance(src[0], AuraBuff):
-				setattr(newGame, attr, deepcopy_aurabuff(src))
 			else:
 				ret=[]
 				for element in src:
-					ret.append(copy.deepcopy(element))
+					if isinstance(element, AuraBuff):
+						ret.append(deepcopy_aurabuff([element]))
+					else:
+						ret.append(copy.deepcopy(element))
 				setattr(newGame, attr, ret)
 			pass
 		pass

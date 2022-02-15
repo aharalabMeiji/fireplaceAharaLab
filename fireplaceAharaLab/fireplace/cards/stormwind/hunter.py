@@ -94,7 +94,7 @@ class SW_455t:
 class SW_457:#OK
 	""" Leatherworking Kit
 	After three friendly Beasts die, draw a Beast and give it +1/+1.Lose 1 Durability. """
-	events = Death(FRIENDLY + BEAST).on(SidequestCounter(SELF,3,[Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
+	events = Death(FRIENDLY + BEAST).on(SidequestCounter(SELF,3,[Give(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Give.CARD,'SW_457e')), Heal(SELF,-1)]))
 	pass
 SW_457e=buff(atk=1,health=1)
 

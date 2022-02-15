@@ -27,7 +27,7 @@ class AV_100:
 class AV_101:
 	""" Herald of Lokholar (4/3/5)
 	[Battlecry]: Draw a Frost spell."""
-	play = Give(CONTROLLER, RANDOM(FRIENDLY + SPELL))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL + FROST))
 	pass
 
 class AV_102:
@@ -196,7 +196,7 @@ AV_136e=buff(0,2)
 class AV_136t:
 	""" Armor Scrap 
 	Give a minion +2 Health. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0,}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	play = Buff(TARGET, 'AV_136e')
 	pass
 

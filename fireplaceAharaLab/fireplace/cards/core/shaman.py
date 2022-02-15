@@ -127,3 +127,10 @@ class CS3_016:# <5>[1637]
 		Destroy(Attack.ATTACKER)
 		)
 	pass
+
+class CORE_AT_075:# <5>[1637]
+	""" Warhorse Trainer
+	Your Silver Hand Recruits have +1 Attack. """
+	update = Refresh(FRIENDLY + ID("CS2_101t"), buff="AT_075e")	
+	pass
+AT_075e = buff(atk=1)
