@@ -364,49 +364,59 @@ class AV_704:
 class ONY_001:# <12>[1626]
 	""" Onyxian Warder
 	[Battlecry:] If you're holdinga Dragon, summon two2/1 Whelps with [Rush]. """
-	#
+	powered_up = Find(FRIENDLY_HAND + DRAGON)
+	play = powered_up & (Summon(CONTROLLER, 'ONY_001t'), Summon(CONTROLLER, 'ONY_001t'))
 	pass
 
 class ONY_001t:# <12>[1626]
 	""" Onyxian Whelp
 	[Rush] """
-	#
 	pass
+
+class ONY_002_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		unspent_mana = (target.mana>0)
+		if unspent_mana:
+			yield Buff(CONTROLLER,'ONY_002e')
+		pass
 
 class ONY_002:# <12>[1626]
 	""" Gear Grubber
 	[Taunt]. If you end your turn with any unspent mana, reduce this card's Cost by (1). """
-	#
+	events = OWN_END_TURN.on(ONY_002_Action(CONTROLLER))
 	pass
 
-class ONY_002e:# <12>[1626]
-	""" More Loot!
-	Reduced Cost. """
-	#
-	pass
+ONY_002e=buff(cost=-1)
+""" More Loot!
+Reduced Cost. """
 
 class ONY_003:# <12>[1626]
 	""" Whelp Bonker
 	[Frenzy and Honorable Kill:] Draw a card. """
-	#
+	events = Damage(SELF).on(Frenzy(SELF,Draw(CONTROLLER)))
+	#tags = {GameTag.HONORABLEKILL: True} #exists
+	honorable_kill = Draw(CONTROLLER)
 	pass
 
 class ONY_004:# <12>[1626]
 	""" Raid Boss Onyxia
-	[Rush]. [Immune] whileyou control a Whelp.[Battlecry:] Summon six_2/1 Whelps with [Rush]. """
-	#
+	[Rush]. [Immune] while you control a Whelp.[Battlecry:] Summon six_2/1 Whelps with [Rush]. """
+	update = Find(FRIENDLY_MINIONS + ID(ONY_001t)) & Refresh(SELF, {GameTag.IMMUNE:True})
+	play = Summon(CONTROLLER, 'ONY_001t') * 6
 	pass
 
 class ONY_005:# <12>[1626]
 	""" Kazakusan
-	[Battlecry:] If all minionsin your deck are Dragons,craft a custom deckof Treasures. """
+	[Battlecry:] If all minions in your deck are Dragons,craft a custom deck of Treasures. """
 	#
 	pass
 
 class ONY_005ta1:# <12>[1626]
 	""" Necrotic Poison
 	Destroy a minion. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Destroy(TARGET)#
 	pass
 
 class ONY_005ta10:# <12>[1626]
@@ -436,14 +446,12 @@ class ONY_005ta13:# <12>[1626]
 class ONY_005ta2:# <12>[1626]
 	""" Mutating Injection
 	Give a minion +4/+4 and [Taunt]. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "ONY_005ta2e")#
 	pass
-
-class ONY_005ta2e:# <12>[1626]
-	""" Mutating Injection
-	+4/+4 and [Taunt]. """
-	#
-	pass
+ONY_005ta2e=buff(+4, +4, taunt=True)# <12>[1626]
+""" Mutating Injection
++4/+4 and [Taunt]. """
 
 class ONY_005ta3:# <12>[1626]
 	""" The Exorcisor
@@ -454,7 +462,7 @@ class ONY_005ta3:# <12>[1626]
 class ONY_005ta4:# <12>[1626]
 	""" Pure Cold
 	Deal $8 damage to the enemy hero, and [Freeze] it. """
-	#
+	play = Hit(ENEMY_HERO, 8), Freeze(ENEMY_HERO)#
 	pass
 
 class ONY_005ta5:# <12>[1626]
@@ -490,12 +498,12 @@ class ONY_005ta7e:# <12>[1626]
 class ONY_005ta8:# <12>[1626]
 	""" Looming Presence
 	Draw 2 cards. Gain 4 Armor. """
-	#
+	play = Draw(CONTROLLER) * 2, GainArmor(FRIENDLY_HERO, 4)#
 	pass
 
 class ONY_005ta9:# <12>[1626]
 	""" Beastly Beauty
-	[Rush]After this attacks a minionand survives, transformthis into an 8/8. """
+	[Rush]After this attacks a minion and survives, transform this into an 8/8. """
 	#
 	pass
 

@@ -21,7 +21,7 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_134,1)####OK
 	#PresetGame(pp_AV_135,1)####OK
 	#PresetGame(pp_AV_136,1)####OK
-	PresetGame(pp_AV_136t,1)###OK
+	#PresetGame(pp_AV_136t,1)###OK
 	#PresetGame(pp_AV_137,1)####OK
 	#PresetGame(pp_AV_138,1)####TRY SOME TIMES ####OK
 	#PresetGame(pp_AV_139,1)####OK
@@ -37,6 +37,11 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_309,1)####OK
 	#PresetGame(pp_AV_401,1)####OK
 	#PresetGame(pp_AV_704,1)####OK
+	PresetGame(pp_ONY_001,1)#
+	#PresetGame(pp_ONY_002,1)#
+	#PresetGame(pp_ONY_003,1)#
+	#PresetGame(pp_ONY_004,1)#
+	#PresetGame(pp_ONY_005,1)#
 	pass
 
 from hearthstone.enums import Zone,CardType, Rarity
