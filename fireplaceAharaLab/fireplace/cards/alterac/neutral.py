@@ -406,10 +406,28 @@ class ONY_004:# <12>[1626]
 	play = Summon(CONTROLLER, 'ONY_001t') * 6
 	pass
 
+class ONY_005_Action(TargetedAction):# <12>[1626]
+	TARGET=ActionArg()
+	def do(self, source,target):
+		controller = target
+		powered_up=True
+		for card in controller.deck:
+			if card.type == CardType.MINION and card.card_class != Race.DRAGON:
+				powered_up=False
+		if powered_up:
+			new_deckA=['ONY_005ta1','ONY_005ta2','ONY_005ta3','ONY_005ta4','ONY_005ta5','ONY_005ta6','ONY_005ta7','ONY_005ta8','ONY_005ta9','ONY_005ta10','ONY_005ta11','ONY_005ta12','ONY_005ta13',]
+			new_deckB=[]
+			new_deckC=[]
+			new_deck = random.choice[new_deckA, new_deckB, new_deckC]
+			for card in controller.deck:
+				Destroy(card).trigger(self)
+			for card in new_deck:
+				Shuffle(controller, new_deck).trigger(self)
+			pass
 class ONY_005:# <12>[1626]
 	""" Kazakusan
 	[Battlecry:] If all minions in your deck are Dragons,craft a custom deck of Treasures. """
-	#
+	play = ONY_005_Action(CONTROLLER)
 	pass
 
 class ONY_005ta1:# <12>[1626]
@@ -422,8 +440,16 @@ class ONY_005ta1:# <12>[1626]
 class ONY_005ta10:# <12>[1626]
 	""" Spyglass
 	Put a copy of a random card in your opponent's hand into yours. It costs (3) less. """
-	#
+	play = Give(CONTROLLER, ExactCopy(RANDOM(ENEMY_HAND))).then(Buff(Give.CARD, 'ONY_005ta10e'))
 	pass
+@custom_card
+class ONY_005ta10e:
+	tags = {
+		GameTag.CARDNAME: "Spyglass",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.COST: -3,
+	}
+	events = REMOVED_IN_PLAY
 
 class ONY_005ta11:# <12>[1626]
 	""" Clockwork Assistant
