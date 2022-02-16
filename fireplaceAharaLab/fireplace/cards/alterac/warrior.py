@@ -95,3 +95,27 @@ class AV_660:
 		]
 	pass
 
+
+class ONY_023:# <10>[1626]
+	""" Hit It Very Hard
+	Gain +10 Attack and "Can't attack heroes" this turn. """
+	#
+	pass
+
+class ONY_023e:# <10>[1626]
+	""" HIT IT HARD
+	+10 Attack this turn. """
+	#
+	pass
+
+class ONY_024:# <10>[1626]
+	""" Onyxian Drake
+	[Taunt] [Battlecry:] Deal damageequal to your Armor toan enemy minion. """
+	#
+	pass
+
+class ONY_025:# <10>[1626]
+	""" Shoulder Check
+	[Tradeable]Give a minion +2/+1 and [Rush]. """
+	#
+	pass

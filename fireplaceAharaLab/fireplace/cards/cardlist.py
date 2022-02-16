@@ -46,10 +46,27 @@ Stormwind_Warrior=['SW_027','SW_028','SW_028t','SW_028t2','SW_028t5','SW_028t6',
 Stormwind_Updates=['DED_006','DED_006e2','DED_514e','DED_521','DED_523','DED_523e','DED_524','DED_525','DED_007','DED_008','DED_009','DED_009e','DED_515','DED_516','DED_517','DED_517t','DED_001','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DED_002','DED_002e','DED_003','DED_518','DED_519','DED_527','DED_527e',]
 ## ALTERAC []
 Alterac_Neutral = ['AV_100','AV_101','AV_102','AV_112','AV_121','AV_121e','AV_122','AV_123','AV_123e','AV_124','AV_125','AV_125e','AV_126','AV_127','AV_127e','AV_129','AV_129e','AV_130','AV_130e','AV_131','AV_131e','AV_132','AV_133','AV_134','AV_135','AV_136','AV_136e','AV_136t','AV_137','AV_138','AV_139','AV_141t','AV_142t','AV_142e','AV_142e2','AV_142e3','AV_142e4','AV_143','AV_211t','AV_215','AV_219','AV_219t','AV_222','AV_223','AV_223e','AV_238','AV_256','AV_309','AV_309t','AV_401','AV_401e', 'AV_704',]
-Alterac_Hunter=['AV_113','AV_113p','AV_113t1','AV_113t2','AV_113t2e','AV_113t3','AV_113t3t2','AV_113t7','AV_113t8','AV_113t9','AV_113t9e','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
+#Alterac_Neutral += ['ONY_001','ONY_001t','ONY_002','ONY_002e','ONY_003','ONY_004','ONY_005','ONY_005ta1','ONY_005ta10','ONY_005ta11','ONY_005ta12','ONY_005ta13','ONY_005ta2','ONY_005ta2e','ONY_005ta3','ONY_005ta4','ONY_005ta5','ONY_005ta5t','ONY_005ta6','ONY_005ta7','ONY_005ta7e','ONY_005ta8','ONY_005ta9','ONY_005ta9t','ONY_005tb1','ONY_005tb12','ONY_005tb13','ONY_005tb14','ONY_005tb1e','ONY_005tb2','ONY_005tb2e','ONY_005tb3','ONY_005tb3t','ONY_005tb3t2','ONY_005tb4','ONY_005tb5','ONY_005tb5t','ONY_005tb6','ONY_005tb610','ONY_005tb6e','ONY_005tb7','ONY_005tb7e','ONY_005tb8','ONY_005tb8e','ONY_005tb9','ONY_005tb9e','ONY_005tc1','ONY_005tc2','ONY_005tc3','ONY_005tc4','ONY_005tc5','ONY_005tc6','ONY_005tc7','ONY_005tc7t','ONY_025e',]
+Alterac_Hunter=['AV_113','AV_113p','AV_113t1','AV_113t2','AV_113t2e','AV_113t3','AV_113t3t2','AV_113t7','AV_113t8','AV_113t9','AV_113t9e','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',]
+#Alterac_Hunter += ['ONY_008','ONY_009','ONY_010','ONY_010e',]
 Alterac_Warrior=['AV_108','AV_109','AV_109e','AV_119','AV_119e','AV_145','AV_145e','AV_202','AV_202p','AV_202t2','AV_321','AV_322','AV_323','AV_323t','AV_565','AV_660',]#
+#Alterac_Warrior += ['ONY_023','ONY_023e','ONY_024','ONY_025',]
 Alteric_Druid=['AV_205','AV_205a','AV_205p','AV_205pb','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]#'AV_210',
+#Alteric_Druid += ['ONY_018','ONY_018t','ONY_018t2','ONY_019','ONY_019e','ONY_021',]
 Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_200p2','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
+#Alterac_Mage += ['ONY_006','ONY_007','ONY_029',]
+#Alterac_Demonhunter=['AV_118','AV_204','AV_204e','AV_204p','AV_204t2','AV_209','AV_261','AV_261e','AV_262','AV_262e2','AV_264','AV_265','AV_267','AV_267e2','AV_269','AV_269e','AV_269t','AV_661','AV_661e2',]
+#Alterac_Demonhunter += ['ONY_014','ONY_014e','ONY_016','ONY_016t','ONY_016t2','ONY_036',]
+#Alterac_Paladin=['AV_146','AV_146e','AV_146e2','AV_206','AV_206p','AV_206pe','AV_213','AV_338','AV_338e','AV_338e2','AV_339','AV_340','AV_341','AV_342','AV_342t','AV_343','AV_343e','AV_344','AV_344e','AV_345',]
+#Alterac_Paladin += ['ONY_020','ONY_020e','ONY_022','ONY_027','ONY_027e',]
+#Alterac_Priest=['AV_207','AV_207p','AV_207p2','AV_315','AV_315e2','AV_324','AV_324e2','AV_324e2b','AV_324e3','AV_324eb','AV_325','AV_326','AV_326e','AV_328','AV_329','AV_329e','AV_329e2','AV_330','AV_331','AV_331e','AV_331e2','AV_664','AV_664e2',]
+#Alterac_Priest += ['ONY_017','ONY_026','ONY_028','ONY_028t',]
+#Alterac_Rogue=['AV_201','AV_201e','AV_203','AV_203p','AV_203pe','AV_203po','AV_203t','AV_298','AV_400','AV_400e','AV_402','AV_403','AV_403e2','AV_405','AV_601','AV_601e','AV_710','AV_710e','AV_711',]
+#Alterac_Rogue += ['ONY_030','ONY_031','ONY_032',]
+#Alterac_Shaman = ['AV_107','AV_250','AV_251','AV_255','AV_255e','AV_257','AV_257t','AV_258','AV_258p','AV_258p2','AV_258pt','AV_258pt3','AV_258pt4','AV_258pt7','AV_258t','AV_258t2','AV_258t3','AV_258t4','AV_258t6','AV_259','AV_260','AV_266','AV_268',]
+#Alterac_Shaman += ['ONY_011','ONY_012','ONY_012e','ONY_012t','ONY_013','ONY_013e',]
+#Alterac_Warlock=['AV_277','AV_281','AV_285','AV_286','AV_286e2','AV_308','AV_312','AV_313','AV_313e','AV_316','AV_316hp','AV_316t','AV_316t4','AV_317','AV_317e','AV_657','AV_657e','AV_657t',]
+#Alterac_Warlock+= ['ONY_033','ONY_034','ONY_034t','ONY_035',]
 # Hero
 Heroes=[
 	'HERO_01',
@@ -94,13 +111,14 @@ clownDruid = [
 	#'BAR_042',	
 ]
 All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
-	Core_Shaman,#Core_Rogue,Core_Warlock,Core_Priest,
+	#Core_Paladin, Core_Shaman,Core_Rogue,Core_Warlock,Core_Priest,
 	AOO_Neutral,AOO_Hunter,AOO_Mage,AOO_Druid,AOO_Warrior,
 	Scholo_Neutral,Scholo_Hunter,Scholo_Mage,Scholo_Druid,Scholo_Warrior,
 	Darkmoon_Neutral,Darkmoon_Hunter,Darkmoon_Mage,Darkmoon_Druid,Darkmoon_Warrior,
 	Barrens_Neutral,Barrens_Hunter,Barrens_Mage,Barrens_Druid,Barrens_Warrior,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,Stormwind_Warrior,Stormwind_Updates,
 	Alterac_Neutral,Alterac_Hunter,Alterac_Mage,Alteric_Druid,Alterac_Warrior,
+	#Alterac_Paladin, Alterac_Shaman,Alterac_Rogue,Alterac_Warlock,Alterac_Priest,
 	Heroes,Dream,Etc,
 	faceHunter,bigWarrior,clownDruid
 	]

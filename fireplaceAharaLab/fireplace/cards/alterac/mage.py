@@ -193,3 +193,21 @@ class AV_290:
 		]
 	pass
 
+
+class ONY_006:# <4>[1626]
+	""" Deep Breath
+	Deal $@ damage to aminion and its neighbors.<i>(Improved by number of_other spells in your hand.)</i> """
+	#
+	pass
+
+class ONY_007:# <4>[1626]
+	""" Haleh, Matron Protectorate
+	After you cast a spell, deal 4 damage randomly split among all enemies. """
+	#
+	pass
+
+class ONY_029:# <4>[1626]
+	""" Drakefire Amulet
+	[Tradeable][Discover] 2 Dragons. Summon them. """
+	#
+	pass

@@ -106,6 +106,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\priest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\rogue.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\shaman.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warlock.py">
       <SubType>Code</SubType>
     </Compile>
