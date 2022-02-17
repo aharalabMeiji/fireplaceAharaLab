@@ -4,7 +4,7 @@ from fireplace.actions import Hit
 
 def SimulateGames_Stormwind_Hunter():
 	#PresetGame(pp_SW_457)#OK
-	PresetGame(pp_SW_458)#OK
+	#PresetGame(pp_SW_458)#OK
 	pass
 
 ##################################
