@@ -267,9 +267,6 @@ class BeginTurn(GameAction):
 		player.times_spells_played_this_turn = 0 # DAL_603
 		player.spells_played_this_turn=[] # DAL_558
 		player.died_this_turn=[] # CORE_EX1_190
-		#for card in player.character:
-		#	if hasattr(card,'immune_while_attacking') and card.immune_while_attacking:
-
 
 
 class Concede(GameAction):
