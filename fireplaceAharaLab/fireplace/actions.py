@@ -267,6 +267,10 @@ class BeginTurn(GameAction):
 		player.times_spells_played_this_turn = 0 # DAL_603
 		player.spells_played_this_turn=[] # DAL_558
 		player.died_this_turn=[] # CORE_EX1_190
+		#for card in player.character:
+		#	if hasattr(card,'immune_while_attacking') and card.immune_while_attacking:
+
+
 
 class Concede(GameAction):
 	"""
@@ -1165,7 +1169,7 @@ class GainArmor(TargetedAction):
 		self.broadcast(source, EventListener.ON, target, amount)
 
 class GainAttackHealth(TargetedAction):
-	TARGET=AcActionArg()
+	TARGET=ActionArg()
 	AMOUNT1=IntArg()
 	AMOUNT2=IntArg()
 	def do(self, source, target, amount1, amount2):
@@ -1477,6 +1481,7 @@ class UnsetTag(TargetedAction):
 
 	def do(self, source, target, tags):
 		for tag in tags:
+			log.info("%s unset tag %s"%(target, tag))
 			target.tags[tag] = False
 
 

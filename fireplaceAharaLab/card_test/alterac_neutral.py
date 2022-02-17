@@ -37,11 +37,12 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_309,1)####OK
 	#PresetGame(pp_AV_401,1)####OK
 	#PresetGame(pp_AV_704,1)####OK
-	PresetGame(pp_ONY_001,1)#
+	#PresetGame(pp_ONY_001,1)#
 	#PresetGame(pp_ONY_002,1)#
 	#PresetGame(pp_ONY_003,1)#
 	#PresetGame(pp_ONY_004,1)#
 	#PresetGame(pp_ONY_005,1)#
+	PresetGame(pp_ONY_005tb1,1)#
 	pass
 
 from hearthstone.enums import Zone,CardType, Rarity
@@ -1344,6 +1345,48 @@ class pp_AV_704(Preset_Play):
 		controller=self.player
 		cst=self.const1
 		print ("%sのミニオンに%sからの8点の攻撃があるかどうか（目視）"%(controller,self.mark1))
+	pass
+		
+#########################
+
+class pp_ONY_005tb1(Preset_Play):
+	""" Hyperblaster
+	[Poisonous].Your hero is [Immune] while attacking. """
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_005tb1',controller)
+		self.mark2=self.exchange_card('minionH3',opponent)
+		self.mark3=self.exchange_card('minionA5',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		self.print_stats("*+*+*+*+*+*+*+*+ ", controller.hero)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		##########  controller
+		self.attack_card(controller.hero, self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.attack_card(self.mark3, controller.hero, opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		cst=self.const1
+		print("hero.immune_while_attacking:%s"%controller.hero.immune_while_attacking)
 	pass
 		
 #########################

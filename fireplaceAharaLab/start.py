@@ -186,6 +186,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#from card_test.scholo_mage import SimulateGames_Scholo_Mage
-	#SimulateGames_Scholo_Mage()
-	main()
+	from card_test.alterac_neutral import SimulateGames_Alterac_Neutral
+	SimulateGames_Alterac_Neutral()
+	#main()

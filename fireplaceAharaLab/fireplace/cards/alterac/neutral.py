@@ -563,19 +563,11 @@ class ONY_005ta9t:# <12>[1626]
 class ONY_005tb1:# <12>[1626]
 	""" Hyperblaster
 	[Poisonous].Your hero is [Immune] while attacking. """
-	play = Buff(SELF, 'ONY_005tb1e')#
+	play = Buff(FRIENDLY_HERO, 'ONY_005tb1e')#
 	pass
-
-class ONY_005tb1e:# <12>[1626]
-	""" Hyperblaster Enchantment
-	[Immune] while attacking. """
-	events =[
-		OWN_TURN_BEGIN.on(Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:True,})),
-		OWN_TURN_END.on(Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:False,})),
-		#OWN_TURN_BEGIN.on(SetTag(FRIENDLY_HERO, {GameTag.IMMUNE:True,})),
-		#OWN_TURN_END.on(SetTag(FRIENDLY_HERO, {GameTag.IMMUNE:False,})),
-		]
-	pass
+ONY_005tb1e=buff(immune_while_attacking = True)# <12>[1626]
+""" Hyperblaster Enchantment
+[Immune] while attacking. """
 
 class ONY_005tb12:# <12>[1626]
 	""" Dr. Boom's Boombox
@@ -608,7 +600,7 @@ class ONY_005tb2:# <12>[1626]
 	#
 	pass
 
-ONY_005tb2e=buff(rush=True, windfury=True, devine_shield=True, lifesteal=True, taunt=True, stealth=True)
+ONY_005tb2e=buff(rush=True, windfury=True, divine_shield=True, lifesteal=True, taunt=True, stealth=True)
 # <12>[1626]
 """ Tooled Up!
 Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
