@@ -1164,6 +1164,14 @@ class GainArmor(TargetedAction):
 		target.armor += amount
 		self.broadcast(source, EventListener.ON, target, amount)
 
+class GainAttackHealth(TargetedAction):
+	TARGET=AcActionArg()
+	AMOUNT1=IntArg()
+	AMOUNT2=IntArg()
+	def do(self, source, target, amount1, amount2):
+		target.atk = max(target.atk+amount1,0)
+		target.max_health = max(target.max_health+amount2, 0)
+		self.broadcast(source, EventListener.ON, target, amount1, amount2)
 
 class GainMana(TargetedAction):
 	"""

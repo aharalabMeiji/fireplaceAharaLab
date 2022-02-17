@@ -522,25 +522,25 @@ class ONY_005ta5:# <12>[1626]
 class ONY_005ta5t:# <12>[1626]
 	""" Bloodhound
 	[Rush] """
-	#
 	pass
 
 class ONY_005ta6:# <12>[1626]
 	""" Holy Book
 	[Silence] and destroy a minion. Summon a 10/10 copy of it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = (Silence(TARGET), Destroy(TARGET),Summon(CONTROLLER, ExactCopy(TARGET)))
 	pass
 
 class ONY_005ta7:# <12>[1626]
 	""" Crusty the Crustacean
 	[Battlecry:] Destroy a minion.Gain its Attack and Health. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
+	play = (Destroy(TARGET), GainAttackHealth(SELF, ATK(TARGET), MAX_HEALTH(TARGET)))
 	pass
 
-class ONY_005ta7e:# <12>[1626]
+class ONY_005ta7e:# <12>[1626] # dont know how to use this.
 	""" Om Nom Nom
 	Increased stats. """
-	#
 	pass
 
 class ONY_005ta8:# <12>[1626]
@@ -552,13 +552,12 @@ class ONY_005ta8:# <12>[1626]
 class ONY_005ta9:# <12>[1626]
 	""" Beastly Beauty
 	[Rush]After this attacks a minion and survives, transform this into an 8/8. """
-	#
+	events = Attack(SELF).after(-Dead(SELF) & Morph(SELF, 'ONY_005ta9t'))
 	pass
 
 class ONY_005ta9t:# <12>[1626]
 	""" Beautiful Beast
 	 """
-	#
 	pass
 
 class ONY_005tb1:# <12>[1626]
