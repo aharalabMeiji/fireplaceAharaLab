@@ -563,44 +563,55 @@ class ONY_005ta9t:# <12>[1626]
 class ONY_005tb1:# <12>[1626]
 	""" Hyperblaster
 	[Poisonous].Your hero is [Immune] while attacking. """
-	#
-	pass
-
-class ONY_005tb12:# <12>[1626]
-	""" Dr. Boom's Boombox
-	Summon 7 'Boom Bots'. """
-	#
-	pass
-
-class ONY_005tb13:# <12>[1626]
-	""" Wax Rager
-	[Deathrattle:] Resummon this minion. """
-	#
-	pass
-
-class ONY_005tb14:# <12>[1626]
-	""" Vampiric Fangs
-	Destroy a minion. Restore its Health to your hero. """
-	#
+	play = Buff(SELF, 'ONY_005tb1e')#
 	pass
 
 class ONY_005tb1e:# <12>[1626]
 	""" Hyperblaster Enchantment
 	[Immune] while attacking. """
-	#
+	events =[
+		OWN_TURN_BEGIN.on(Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:True,})),
+		OWN_TURN_END.on(Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:False,})),
+		#OWN_TURN_BEGIN.on(SetTag(FRIENDLY_HERO, {GameTag.IMMUNE:True,})),
+		#OWN_TURN_END.on(SetTag(FRIENDLY_HERO, {GameTag.IMMUNE:False,})),
+		]
+	pass
+
+class ONY_005tb12:# <12>[1626]
+	""" Dr. Boom's Boombox
+	Summon 7 'Boom Bots'. """
+	play = Summon(CONTROLLER, 'GVG_110t') * 7#
+	pass
+class GVG_110t:
+	"""Boom Bot
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1-4 damage to a random enemy."""
+	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
+
+class ONY_005tb13:# <12>[1626]
+	""" Wax Rager　(3/5/1)
+	[Deathrattle:] Resummon this minion. """
+	deathrattel = Summon(CONTROLLER, Copy(SELF))#なんだこりゃ。
+	pass
+
+class ONY_005tb14:# <12>[1626]
+	""" Vampiric Fangs
+	Destroy a minion. Restore its Health to your hero. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,} #
+	play = Destroy(TARGET), Heal(FRIENDLY_HERO, CURRENT_HEALTH(TARGET))
 	pass
 
 class ONY_005tb2:# <12>[1626]
 	""" Gnomish Army Knife
 	Give a minion [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,} #
+	play = Buff(TARGET, 'ONY_005tb2e')
 	#
 	pass
 
-class ONY_005tb2e:# <12>[1626]
-	""" Tooled Up!
-	Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
-	#
-	pass
+ONY_005tb2e=buff(rush=True, windfury=True, devine_shield=True, lifesteal=True, taunt=True, stealth=True)
+# <12>[1626]
+""" Tooled Up!
+Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
 
 class ONY_005tb3:# <12>[1626]
 	""" LOCUUUUSTS!!!
