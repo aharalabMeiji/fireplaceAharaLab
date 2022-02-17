@@ -384,7 +384,7 @@ class ONY_002_Action(TargetedAction):
 class ONY_002:# <12>[1626]
 	""" Gear Grubber
 	[Taunt]. If you end your turn with any unspent mana, reduce this card's Cost by (1). """
-	events = OWN_END_TURN.on(ONY_002_Action(CONTROLLER))
+	events = OWN_TURN_END.on(ONY_002_Action(CONTROLLER))
 	pass
 
 ONY_002e=buff(cost=-1)
@@ -454,19 +454,40 @@ class ONY_005ta10e:
 class ONY_005ta11:# <12>[1626]
 	""" Clockwork Assistant
 	Has +1/+1 for each spell you've cast this game. """
-	#
-	pass
+	#AV_401eを拝借？
+	def play(self):
+		spell_count=0
+		for card_log in self.controller.play_log:
+			if card_log.card.type==CardType.SPELL:
+				spell_count+=1
+		for repeat in range(spell_count):
+			Buff(source, 'ONY_005ta11e').trigger(self)
+		pass
+@custom_card
+class ONY_005ta11e:
+	tags = {
+		GameTag.CARDNAME: "Clockwork Assistant",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: +1,
+		GameTag.HEALTH: +1,
+	}
 
 class ONY_005ta12:# <12>[1626]
 	""" Grimmer Patron
 	At the end of your turn, summon a copy of this minion. """
-	#
+	events = OWN_TURN_END.on(Summon, ExactCopy(SELF))
 	pass
 
-class ONY_005ta13:# <12>[1626]
+class ONY_005ta13:# <12>[1626]##################################
 	""" Puzzle Box
 	Transform all minions into random ones that cost (3) more. """
-	#
+	def play(self):
+		for card in self.controller.field + self.controller.opponent.field:
+			cost = card.cost+3
+			new_card = RandomMinion(cost=cost)
+			yield Destroy(card)#????????????
+			yield Summon(CONTROLLER, new_card)
+		pass
 	pass
 
 class ONY_005ta2:# <12>[1626]
@@ -482,7 +503,7 @@ ONY_005ta2e=buff(+4, +4, taunt=True)# <12>[1626]
 class ONY_005ta3:# <12>[1626]
 	""" The Exorcisor
 	[Silence] any minion attacked by this weapon. """
-	#
+	events = Attack(FRIENDLY_HERO, ENEMY_MINIONS).on(SetTag(Attack.DEFENDER,{GameTag.SILENCED:True}))
 	pass
 
 class ONY_005ta4:# <12>[1626]
@@ -493,8 +514,9 @@ class ONY_005ta4:# <12>[1626]
 
 class ONY_005ta5:# <12>[1626]
 	""" Bubba
-	[Battlecry]: Summon six1/1 Bloodhounds with[Rush] to attack anenemy minion. """
-	#
+	[Battlecry]: Summon six 1/1 Bloodhounds with[Rush] to attack an enemy minion. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Summon(CONTROLLER, 'ONY_005ta5t').then(RegularAttack(Summon.CARD, TARGET)) * 6
 	pass
 
 class ONY_005ta5t:# <12>[1626]
