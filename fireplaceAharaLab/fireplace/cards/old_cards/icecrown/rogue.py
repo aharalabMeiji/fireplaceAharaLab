@@ -14,13 +14,13 @@ class ICC_240:
 	pass
 
 
-class ICC_809:
-	"""Plague Scientist"""
-	requirements = {
-		PlayReq.REQ_FRIENDLY_TARGET: 0,
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_FOR_COMBO: 0}
-	pass
+#class ICC_809:
+#	"""Plague Scientist"""
+#	requirements = {
+#		PlayReq.REQ_FRIENDLY_TARGET: 0,
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_FOR_COMBO: 0}
+#	pass
 
 
 class ICC_811:

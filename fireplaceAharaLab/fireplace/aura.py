@@ -42,7 +42,7 @@ class Refresh:
 	def trigger(self, source):
 		entities = self.selector.eval(source.game.entities + source.game.hands, source) # game ? entities + hands?
 		for entity in entities:
-			if self.buff and hasattr(entity, 'self.refresh_buff'):
+			if self.buff and hasattr(entity, 'refresh_buff'):
 				entity.refresh_buff(source, self.buff)
 			else:
 				tags = {}

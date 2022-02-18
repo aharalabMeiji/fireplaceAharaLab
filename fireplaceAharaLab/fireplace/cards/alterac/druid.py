@@ -176,3 +176,39 @@ class AV_360:#
 	pass
 
 
+class ONY_018:# <2>[1626]
+	""" Boomkin
+	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
+	#
+	pass
+
+class ONY_018t:# <2>[1626]
+	""" Eyes of the Moon
+	Restore 8 Health to your hero. """
+	#
+	pass
+
+class ONY_018t2:# <2>[1626]
+	""" Heart of the Sun
+	Deal 4 damage. """
+	#
+	pass
+
+class ONY_019:# <2>[1626]
+	""" Raid Negotiator
+	[Battlecry:] [Discover] a[Choose One] card. It hasboth effects combined. """
+	#
+	pass
+
+class ONY_019e:# <2>[1626]
+	""" Decisive
+	Your next [Choose One] card is combined. """
+	#
+	pass
+
+class ONY_021:# <2>[1626]
+	""" Scale of Onyxia
+	Fill your board with 2/1 Whelps with [Rush]. """
+	#
+	pass
+

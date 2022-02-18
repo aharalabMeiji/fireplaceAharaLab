@@ -4,10 +4,10 @@ from ..utils import *
 ##
 # Hero Powers
 
-class HERO_09bp:
-	"""Lesser Heal (Anduin Wrynn)"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Heal(TARGET, 2)
+#class HERO_09bp:
+#	"""Lesser Heal (Anduin Wrynn)"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Heal(TARGET, 2)
 
 
 ##
@@ -28,9 +28,9 @@ class EX1_091:
 	play = Steal(TARGET)
 
 
-class EX1_335:
-	"""Lightspawn"""
-	update = Refresh(SELF, {GameTag.ATK: lambda self, i: self.health}, priority=100)
+#class EX1_335:
+#	"""Lightspawn"""
+#	update = Refresh(SELF, {GameTag.ATK: lambda self, i: self.health}, priority=100)
 
 
 class EX1_341:
@@ -54,16 +54,16 @@ class EX1_591:
 	})
 
 
-class EX1_623:
-	"""Temple Enforcer"""
-	requirements = {
-		PlayReq.REQ_FRIENDLY_TARGET: 0,
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "EX1_623e")
+#class EX1_623:
+#	"""Temple Enforcer"""
+#	requirements = {
+#		PlayReq.REQ_FRIENDLY_TARGET: 0,
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+#	play = Buff(TARGET, "EX1_623e")
 
 
-EX1_623e = buff(health=3)
+#EX1_623e = buff(health=3)
 
 
 ##
@@ -78,9 +78,9 @@ class CS2_004:
 CS2_004e = buff(health=2)
 
 
-class CS1_112:
-	"""Holy Nova"""
-	play = Hit(ENEMY_MINIONS, 2), Heal(FRIENDLY_CHARACTERS, 2)
+#class CS1_112:
+#	"""Holy Nova"""
+#	play = Hit(ENEMY_MINIONS, 2), Heal(FRIENDLY_CHARACTERS, 2)
 
 
 class CS1_113:
@@ -106,10 +106,10 @@ class CS1_129e:
 		self._xatk = target.health
 
 
-class CS1_130:
-	"""Holy Smite"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET, 3)
+#class CS1_130:
+#	"""Holy Smite"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Hit(TARGET, 3)
 
 
 class CS2_003:
@@ -182,13 +182,13 @@ class EX1_621:
 	play = Heal(ALL_MINIONS, 4)
 
 
-class EX1_622:
-	"""Shadow Word: Death"""
-	requirements = {
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_MIN_ATTACK: 5,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Destroy(TARGET)
+#class EX1_622:
+#	"""Shadow Word: Death"""
+#	requirements = {
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_MIN_ATTACK: 5,
+#		PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Destroy(TARGET)
 
 
 class EX1_624:
@@ -197,27 +197,27 @@ class EX1_624:
 	play = Hit(TARGET, 5), Heal(FRIENDLY_HERO, 5)
 
 
-class EX1_625:
-	"""Shadowform"""
-	play = Switch(FRIENDLY_HERO_POWER, {
-		"EX1_625t": Summon(CONTROLLER, "EX1_625t2"),
-		"EX1_625t2": (),
-		None: Summon(CONTROLLER, "EX1_625t"),
-	})
+#class EX1_625:
+#	"""Shadowform"""
+#	play = Switch(FRIENDLY_HERO_POWER, {
+#		"EX1_625t": Summon(CONTROLLER, "EX1_625t2"),
+#		"EX1_625t2": (),
+#		None: Summon(CONTROLLER, "EX1_625t"),
+#	})
 
 
-class EX1_625t:
-	"""Mind Spike"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Hit(TARGET, 2)
-	update = Refresh(CONTROLLER, {GameTag.SHADOWFORM: True})
+#class EX1_625t:
+#	"""Mind Spike"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Hit(TARGET, 2)
+#	update = Refresh(CONTROLLER, {GameTag.SHADOWFORM: True})
 
 
-class EX1_625t2:
-	"""Mind Shatter"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Hit(TARGET, 3)
-	update = Refresh(CONTROLLER, {GameTag.SHADOWFORM: True})
+#class EX1_625t2:
+#	"""Mind Shatter"""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Hit(TARGET, 3)
+#	update = Refresh(CONTROLLER, {GameTag.SHADOWFORM: True})
 
 
 class EX1_626:

@@ -72,10 +72,10 @@ class SW_028:##OK <10>[1578]
 
 class SW_028t:##OK <10>[1578]
 	""" Create a Distraction
-	[Questline:] Play 2 Pirates.[Reward:] Deal $2 damageto a random enemy twice. """
+	[Questline:] Play 3 Pirates.[Reward:] Deal $2 damage to a random enemy twice.	"""
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
 	events = Play(CONTROLLER, PIRATE).on(
-		SidequestCounter(SELF,  2, [
+		SidequestCounter(SELF,  3, [## 3 = self.quest_progrss_total
 			Hit(RANDOM(ENEMY_CHARACTERS), 2),
 			Hit(RANDOM(ENEMY_CHARACTERS), 2),
 			Summon(CONTROLLER, 'SW_028t2'),

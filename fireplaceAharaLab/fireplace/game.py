@@ -281,6 +281,8 @@ class BaseGame(Entity):
 
 		buffs_to_destroy = []
 		for buff in self.active_aura_buffs:
+			if isinstance(buff, list):
+				buff=buff[0]
 			if buff.tick < self.tick:
 				buffs_to_destroy.append(buff)
 		for buff in buffs_to_destroy:

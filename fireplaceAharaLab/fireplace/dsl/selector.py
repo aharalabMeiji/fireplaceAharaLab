@@ -435,13 +435,24 @@ CLASS_CARD = EnumSelector(GameTag.CLASS)
 DORMANT = EnumSelector(GameTag.DORMANT)
 FRENZY = EnumSelector(GameTag.FRENZY)
 CHOOSE_ONE = EnumSelector(GameTag.CHOOSE_ONE)
+OUTCAST = EnumSelector(GameTag.OUTCAST)
 
 ALWAYS_WINS_BRAWLS = AttrValue(enums.ALWAYS_WINS_BRAWLS) == True  # noqa
 KILLED_THIS_TURN = AttrValue(enums.KILLED_THIS_TURN) == True  # noqa
 CAST_ON_FRIENDLY_CHARACTERS = AttrValue(enums.CAST_ON_FRIENDLY_CHARACTERS) == True  # noqa
 
+DRUID = EnumSelector(CardClass.DRUID)
+HUNTER = EnumSelector(CardClass.HUNTER)
+MAGE = EnumSelector(CardClass.MAGE)
+PALADIN = EnumSelector(CardClass.PALADIN)
+PRIEST = EnumSelector(CardClass.PRIEST)
 ROGUE = EnumSelector(CardClass.ROGUE)
+SHAMAN = EnumSelector(CardClass.SHAMAN)
 WARLOCK = EnumSelector(CardClass.WARLOCK)
+WARRIOR = EnumSelector(CardClass.WARRIOR)
+DREAM = EnumSelector(CardClass.DREAM)
+NEUTRAL = EnumSelector(CardClass.NEUTRAL)
+DEMONHUNTER = EnumSelector(CardClass.DEMONHUNTER)
 
 IN_PLAY = EnumSelector(Zone.PLAY)
 ALIVE=EnumSelector(Alive.ALIVE)+IN_PLAY

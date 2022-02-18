@@ -96,7 +96,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			try:
 				game.end_turn()
 				if debugLog:
-					print(">>>>>>>>>>%s turn end %d [sec]"%(player, time.time()-start_time),end='  ')
+					print(">>>>%s>>>>turn change %d[sec]>>>>%s"%(player, time.time()-start_time, player.opponent),end='  ')
 					print("%d : %d"%(player1.hero.health+player1.hero.armor,player2.hero.health+player2.hero.armor))
 				if game.current_player.choice!=None:
 					postAction(game.current_player)
@@ -190,19 +190,41 @@ class Candidate(object):
 
 	def __str__(self):
 		if self.type==BlockType.ATTACK:
-			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(card=self.card, atk1=self.card.atk, health1=self.card.health, target=self.target,atk2=self.target.atk,health2=self.target.health)
+			atk1=self.card.atk
+			health1=self.card.health
+			if self.card.type==CardType.HERO:
+				health1 += self.card.armor
+			atk2=self.target.atk
+			health2=self.target.health
+			if self.target.type==CardType.HERO:
+				health2 += self.target.armor
+			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(
+				card=self.card, atk1=atk1, health1=health1, 
+				target=self.target, atk2=atk2, health2=health2)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
 			if self.target:
-				return "{card} -> heropower -> {target}({atk2}/{health2})".format(card=self.card, target=self.target,atk2=self.target.atk,health2=self.target.health)
+				atk2=self.target.atk
+				health2=self.target.health
+				if self.target.type==CardType.HERO:
+					health2 += self.target.armor
+				return "{card} -> heropower -> {target}({atk2}/{health2})".format(
+					card=self.card, 
+					target=self.target,atk2=atk2,health2=health2)
 			else:
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
 				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
 			else :
-				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(card=self.card, cost = self.card.cost, target=self.target,atk2=self.target.atk,health2=self.target.health)
+				atk2=self.target.atk
+				health2=self.target.health
+				if self.target.type==CardType.HERO:
+					health2 += self.target.armor
+				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(
+					card=self.card, cost = self.card.cost,
+					target=self.target, atk2=atk2, health2=health2)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
@@ -296,12 +318,13 @@ def identifyPlayCard(card1, card2):
 def identifyAttackCard(card1, card2):
 	if card1==None or card2==None:
 		return False
-	cond1 = card1.can_attack() and card2.can_attack()
+	cond11 = card1.can_attack()
+	cond12 = card2.can_attack()
 	cond2 = card1.id==card2.id
 	cond3 = identifyPlayer(card1.controller.name, card2.controller.name)
 	cond4 = card1.zone == card2.zone 
 	#cond4 = card1.atk == card2.atk and card1.health == card2.health
-	if cond1 and cond2 and cond3 and cond4:
+	if cond12 and cond2 and cond3 and cond4:
 		return True
 	return False
 def identifyTargetCard(card1, card2):
@@ -519,7 +542,7 @@ class BigDeck:
 		'SCH_333','SCH_333','DMF_075','DMF_075','CORE_CS2_013','CORE_CS2_013',
 		'BT_130','BT_130','BAR_535','SCH_605','SCH_605','SCH_616',
 		'SCH_616','DMF_078','DMF_078','SCH_610','SCH_610','BAR_042',
-		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','DMF_188'
+		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','AV_205'#'DMF_188'
 		]
 
 

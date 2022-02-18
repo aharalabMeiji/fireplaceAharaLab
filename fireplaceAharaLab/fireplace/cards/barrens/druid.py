@@ -36,21 +36,21 @@ class BAR_535:#OK <2>[1525]
 class BAR_536:#OK <2>[1525]
 	""" Living Seed (Rank 1)
 	Draw a Beast. Reduce its Cost by (1). <i>(Upgrades when you have 5 Mana.)</i> """
-	play = Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD, "BAR_536e"))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Give.CARD, "BAR_536e"))
 	pass
 BAR_536e=buff(cost=-1)#<8>[1525]
 
 class BAR_536t:#OK <2>[1525]
 	""" Living Seed (Rank 2)
 	Draw a Beast. Reduce its Cost by (2). <i>(Upgrades when youhave 10 Mana.)</i> """
-	play = Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD, "BAR_536te"))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Give.CARD, "BAR_536te"))
 	pass
 BAR_536te=buff(cost=-2)#<8>[1525]
 
 class BAR_536t2:#OK <2>[1525]
 	""" Living Seed (Rank 3)
 	Draw a Beast.Reduce its Cost by (3). """
-	play = Give(CONTROLLER, RANDOM(BEAST)).then(Buff(Give.CARD, "BAR_536t2e"))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Give.CARD, "BAR_536t2e"))
 	pass
 BAR_536t2e=buff(cost=-3)#<8>[1525]
 

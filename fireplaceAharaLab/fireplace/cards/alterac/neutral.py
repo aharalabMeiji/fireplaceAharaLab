@@ -27,7 +27,7 @@ class AV_100:
 class AV_101:
 	""" Herald of Lokholar (4/3/5)
 	[Battlecry]: Draw a Frost spell."""
-	play = Give(CONTROLLER, RANDOM(FRIENDLY + SPELL))
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL + FROST))
 	pass
 
 class AV_102:
@@ -195,7 +195,7 @@ AV_136e=buff(0,2)
 class AV_136t:
 	""" Armor Scrap 
 	Give a minion +2 Health. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0,}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	play = Buff(TARGET, 'AV_136e')
 	pass
 
@@ -358,7 +358,337 @@ class AV_704:
 	pass
 
 
+##### Onyxian
 
+class ONY_001:# <12>[1626]
+	""" Onyxian Warder
+	[Battlecry:] If you're holdinga Dragon, summon two2/1 Whelps with [Rush]. """
+	#
+	pass
+
+class ONY_001t:# <12>[1626]
+	""" Onyxian Whelp
+	[Rush] """
+	#
+	pass
+
+class ONY_002:# <12>[1626]
+	""" Gear Grubber
+	[Taunt]. If you end your turn with any unspent mana, reduce this card's Cost by (1). """
+	#
+	pass
+
+class ONY_002e:# <12>[1626]
+	""" More Loot!
+	Reduced Cost. """
+	#
+	pass
+
+class ONY_003:# <12>[1626]
+	""" Whelp Bonker
+	[Frenzy and Honorable Kill:] Draw a card. """
+	#
+	pass
+
+class ONY_004:# <12>[1626]
+	""" Raid Boss Onyxia
+	[Rush]. [Immune] whileyou control a Whelp.[Battlecry:] Summon six_2/1 Whelps with [Rush]. """
+	#
+	pass
+
+class ONY_005:# <12>[1626]
+	""" Kazakusan
+	[Battlecry:] If all minionsin your deck are Dragons,craft a custom deckof Treasures. """
+	#
+	pass
+
+class ONY_005ta1:# <12>[1626]
+	""" Necrotic Poison
+	Destroy a minion. """
+	#
+	pass
+
+class ONY_005ta10:# <12>[1626]
+	""" Spyglass
+	Put a copy of a random card in your opponent's hand into yours. It costs (3) less. """
+	#
+	pass
+
+class ONY_005ta11:# <12>[1626]
+	""" Clockwork Assistant
+	Has +1/+1 for each spell you've cast this game. """
+	#
+	pass
+
+class ONY_005ta12:# <12>[1626]
+	""" Grimmer Patron
+	At the end of your turn, summon a copy of this minion. """
+	#
+	pass
+
+class ONY_005ta13:# <12>[1626]
+	""" Puzzle Box
+	Transform all minions into random ones that cost (3) more. """
+	#
+	pass
+
+class ONY_005ta2:# <12>[1626]
+	""" Mutating Injection
+	Give a minion +4/+4 and [Taunt]. """
+	#
+	pass
+
+class ONY_005ta2e:# <12>[1626]
+	""" Mutating Injection
+	+4/+4 and [Taunt]. """
+	#
+	pass
+
+class ONY_005ta3:# <12>[1626]
+	""" The Exorcisor
+	[Silence] any minion attacked by this weapon. """
+	#
+	pass
+
+class ONY_005ta4:# <12>[1626]
+	""" Pure Cold
+	Deal $8 damage to the enemy hero, and [Freeze] it. """
+	#
+	pass
+
+class ONY_005ta5:# <12>[1626]
+	""" Bubba
+	[Battlecry]: Summon six1/1 Bloodhounds with[Rush] to attack anenemy minion. """
+	#
+	pass
+
+class ONY_005ta5t:# <12>[1626]
+	""" Bloodhound
+	[Rush] """
+	#
+	pass
+
+class ONY_005ta6:# <12>[1626]
+	""" Holy Book
+	[Silence] and destroy a minion. Summon a 10/10 copy of it. """
+	#
+	pass
+
+class ONY_005ta7:# <12>[1626]
+	""" Crusty the Crustacean
+	[Battlecry:] Destroy a minion.Gain its Attack and Health. """
+	#
+	pass
+
+class ONY_005ta7e:# <12>[1626]
+	""" Om Nom Nom
+	Increased stats. """
+	#
+	pass
+
+class ONY_005ta8:# <12>[1626]
+	""" Looming Presence
+	Draw 2 cards. Gain 4 Armor. """
+	#
+	pass
+
+class ONY_005ta9:# <12>[1626]
+	""" Beastly Beauty
+	[Rush]After this attacks a minionand survives, transformthis into an 8/8. """
+	#
+	pass
+
+class ONY_005ta9t:# <12>[1626]
+	""" Beautiful Beast
+	 """
+	#
+	pass
+
+class ONY_005tb1:# <12>[1626]
+	""" Hyperblaster
+	[Poisonous].Your hero is [Immune] while attacking. """
+	#
+	pass
+
+class ONY_005tb12:# <12>[1626]
+	""" Dr. Boom's Boombox
+	Summon 7 'Boom Bots'. """
+	#
+	pass
+
+class ONY_005tb13:# <12>[1626]
+	""" Wax Rager
+	[Deathrattle:] Resummon this minion. """
+	#
+	pass
+
+class ONY_005tb14:# <12>[1626]
+	""" Vampiric Fangs
+	Destroy a minion. Restore its Health to your hero. """
+	#
+	pass
+
+class ONY_005tb1e:# <12>[1626]
+	""" Hyperblaster Enchantment
+	[Immune] while attacking. """
+	#
+	pass
+
+class ONY_005tb2:# <12>[1626]
+	""" Gnomish Army Knife
+	Give a minion [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
+	#
+	pass
+
+class ONY_005tb2e:# <12>[1626]
+	""" Tooled Up!
+	Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
+	#
+	pass
+
+class ONY_005tb3:# <12>[1626]
+	""" LOCUUUUSTS!!!
+	[Twinspell]Choose an enemy.Fill your board with 2/2 Locusts that attack it. """
+	#
+	pass
+
+class ONY_005tb3t:# <12>[1626]
+	""" LOCUUUUSTS!!!
+	Choose an enemy.Fill your board with 2/2 Locusts that attack it. """
+	#
+	pass
+
+class ONY_005tb3t2:# <12>[1626]
+	""" Giant Locust
+	 """
+	#
+	pass
+
+class ONY_005tb4:# <12>[1626]
+	""" Wand of Disintegration
+	[Silence] and destroy all enemy minions. """
+	#
+	pass
+
+class ONY_005tb5:# <12>[1626]
+	""" Staff of Scales
+	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
+	#
+	pass
+
+class ONY_005tb5t:# <12>[1626]
+	""" Ancient Snake
+	[Rush][Poisonous][Reborn] """
+	#
+	pass
+
+class ONY_005tb6:# <12>[1626]
+	""" Phaoris' Blade
+	[Windfury].After your hero attacks and kills a minion, this gains +2/+1. """
+	#
+	pass
+
+class ONY_005tb610:# <12>[1626]
+	""" Zephrys's Lamp
+	Wish for the perfect card. """
+	#
+	pass
+
+class ONY_005tb6e:# <12>[1626]
+	""" Phaoris' Fury
+	Increased stats. """
+	#
+	pass
+
+class ONY_005tb7:# <12>[1626]
+	""" Canopic Jars
+	Give your minions"[Deathrattle:] Summona random [Legendary]minion." """
+	#
+	pass
+
+class ONY_005tb7e:# <12>[1626]
+	""" Canopic Jars
+	[Deathrattle:] Summon a random [Legendary] minion. """
+	#
+	pass
+
+class ONY_005tb8:# <12>[1626]
+	""" Ancient Reflections
+	Choose a minion.Fill your board with 1/1 copies of it. """
+	#
+	pass
+
+class ONY_005tb8e:# <12>[1626]
+	""" Titan Hologram
+	1/1. """
+	#
+	pass
+
+class ONY_005tb9:# <12>[1626]
+	""" Banana Split
+	Give a friendly minion +2/+2. Summon two copies of it. """
+	#
+	pass
+
+class ONY_005tb9e:# <12>[1626]
+	""" Glowing Green
+	+2/+2. """
+	#
+	pass
+
+class ONY_005tc1:# <12>[1626]
+	""" Embers of Ragnaros
+	Shoot three fireballs at random enemies that deal $8 damage each. """
+	#
+	pass
+
+class ONY_005tc2:# <12>[1626]
+	""" Book of the Dead
+	Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game. """
+	#
+	pass
+
+class ONY_005tc3:# <12>[1626]
+	""" Annoy-o Horn
+	Fill your board with annoying minions. """
+	#
+	pass
+
+class ONY_005tc4:# <12>[1626]
+	""" Flex-plosion
+	Blow up half your opponent's stuff. """
+	#
+	pass
+
+class ONY_005tc5:# <12>[1626]
+	""" Blade of Quel'Delar
+	 """
+	#
+	pass
+
+class ONY_005tc6:# <12>[1626]
+	""" Hilt of Quel'Delar
+	Give a minion +3/+3. """
+	#
+	pass
+
+class ONY_005tc7:# <12>[1626]
+	""" Quel'Delar
+	After your hero attacks, deal 4 damage to all_enemies. """
+	#
+	pass
+
+class ONY_005tc7t:# <12>[1626]
+	""" Forging Quel'Delar
+	 """
+	#
+	pass
+
+class ONY_025e:# <12>[1626]
+	""" Incensed
+	+2/+1 and [Rush]. """
+	#
+	pass
 
 
 

@@ -47,11 +47,15 @@ class DummyAgent(Agent):
 			return ExceptionPlay.VALID
 
 class Preset_Play:
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
 	def __init__(self, player):
 		self.mark1 = None
 		self.mark2 = None
 		self.mark3 = None
 		self.mark4 = None
+		self.mark5 = None
+		self.mark6 = None
 		self.player = player
 		self.game = player.game
 		self.testNr = 0
@@ -142,17 +146,19 @@ class Preset_Play:
 			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
 		if _card=='taunt':
 			_card=random.choice(['NEW1_032','CORE_CS2_179','CORE_GVG_085','CORE_LOOT_137','CS3_024','EX1_165t2','OG_044a','EX1_573t','SCH_709','SCH_709t','SCH_710t','SCH_244','SCH_600t2','SCH_613','DMF_044','DMF_078','DMF_078t','DMF_081','DMF_163','DMF_163t','DMF_254t5t','DMF_532','YOP_005t','DMF_059','DMF_734','YOP_025','YOP_025t','DMF_521','BAR_021','BAR_026','BAR_069','BAR_072t','BAR_743','WC_034t2','BAR_533t','BAR_535','BAR_538t','WC_004','BAR_846','SW_054','SW_068','SW_076t','SW_428t4','SW_429t','DED_001b','DED_001bt','DED_001c','CS2_051','YOP_005t','SW_068',])
+		if _card=='totem':
+			_card=random.choice(['CORE_EX1_575','SCH_537','SCH_612t','CS2_050','CS2_051','CS2_052','NEW1_009'])
 		if _card=='vanilla':
 			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
 	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',
 	'BT_726t','BT_728t','BT_163t','BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t',
 	'DMF_104t','DMF_061t2','BAR_076t','BAR_077t','BAR_721t2','SW_455t','SW_422t','SW_439t2','DED_517t',
 	'DREAM_03','SCH_337t',])####
-		if _card=='vanillaH1':
+		if _card=='vanillaH1' or _card=='minionH1':
 			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
-		if _card=='vanillaH2':
+		if _card=='vanillaH2' or _card=='minionH2':
 			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
-		if _card=='vanillaH3':
+		if _card=='vanillaH3' or _card=='minionH3':
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
 		if _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
@@ -195,12 +201,44 @@ class Preset_Play:
 			print("%s "%(card))
 		print ("##### %s END ####"%(player.name))
 		pass
+	def print_stats(self, cat, card, show_buff=False, old_cost=False, show_race=False):
+		""" print stats of card
+		show_buff: showing all buffs
+		old_cost: showing chainge of the cost
+		sgiw_race: showing the race of the card
+		"""
+		if hasattr(card,'atk') and hasattr(card,'health'):
+			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.health, 
+				card.zone,
+				card.data.atk, card.data.health),end=" ")
+		elif hasattr(card,'atk') and hasattr(card,'durability'):
+			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.durability, 
+				card.zone,
+				card.data.atk, card.data.durability),end=" ")
+		else: 
+			print ("%s(%s): %r: cost:%d"%(
+				cat, card.controller, card, card.cost),end=" ")
+		if old_cost:
+			print("(cost:%d<-%d)"%(card.cost, card.data.cost),end="")
+		if show_buff and len(card.buffs):
+			for buff in card.buffs:
+				print("[%r]" % buff,end="")
+		if show_race:
+			print("(race=%r)"%(card.race),end="")
+		print("")
+		pass
 	def play_card(self, card,  player, target = None, choose = None):
 		if isinstance(card,PlayableCard):
-			if target!=None and not target in card.targets:
-				target=None
-			if choose != None and not choose in card.choose_cards:
-				choose = None
+			if choose != None and target!=None and target in choose.targets:
+				pass
+			else:
+				if target!=None and not target in card.targets:
+					target=None
+				if choose != None and not choose in card.choose_cards:
+					choose = None
+				pass
 			Play(card, target, None, choose).trigger(player)
 		pass
 	def attack_card(self, card,  target, player):
@@ -231,8 +269,8 @@ def PresetGame(pp, testNr=1):
 	from fireplace import cards
 	cards.db.initialize()
 	for test in range(testNr):
-		class1=CardClass.HUNTER
-		class2=CardClass.HUNTER
+		class1=pp.class1
+		class2=pp.class2
 		Dummy1=DummyAgent("Dummy1",DummyAgent.DummyAI,myClass=class1)
 		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
 		deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
@@ -424,8 +462,9 @@ class pp_DED_524(Preset_Play):
 			if count==3:
 				print("OK")
 
-from .alterac_hunter import SimulateGames_Alterac_Hunter
-def SimulateGames():
-	SimulateGames_Alterac_Hunter()
-
-	pass
+#from .darkmoon_druid import SimulateGames_Darkmoon_Druid
+#from .alterac_neutral import SimulateGames_Alterac_Neutral
+#def SimulateGames():
+#	SimulateGames_Alterac_Neutral()
+#
+#	pass

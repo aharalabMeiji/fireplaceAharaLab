@@ -1,7 +1,8 @@
 
 from ..utils import *
 
-#ALTERAC_VALLEY.PALADIN=['AV_146','AV_146e','AV_146e2','AV_206','AV_206p','AV_206pe','AV_213','AV_338','AV_338e','AV_338e2','AV_339','AV_340','AV_341','AV_342','AV_342t','AV_343','AV_343e','AV_344','AV_344e','AV_345',]
+#Alterac_Paladin=['AV_146','AV_146e','AV_146e2','AV_206','AV_206p','AV_206pe','AV_213','AV_338','AV_338e','AV_338e2','AV_339','AV_340','AV_341','AV_342','AV_342t','AV_343','AV_343e','AV_344','AV_344e','AV_345',]
+#Alterac_Paladin += ['ONY_020','ONY_020e','ONY_022','ONY_027','ONY_027e',]
 
 class AV_146:# <5>[1626] (7/2/5)
 	""" The Immovable Object
@@ -117,5 +118,36 @@ class AV_344e:# <5>[1626]
 class AV_345:# <5>[1626]
 	""" Saidan the Scarlet
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """
+	#
+	pass
+
+
+class ONY_020:# <5>[1626]
+	""" Stormwind Avenger
+	After you cast a spell on this minion, it gains +2 Attack. """
+	#
+	pass
+
+class ONY_020e:# <5>[1626]
+	""" En Garde!
+	+2 Attack. """
+	#
+	pass
+
+class ONY_022:# <5>[1626]
+	""" Battle Vicar
+	[Battlecry:] [Discover] aHoly spell. """
+	#
+	pass
+
+class ONY_027:# <5>[1626]
+	""" Ring of Courage
+	[Tradeable]Give a minion +1/+1. Repeat for each enemy minion. """
+	#
+	pass
+
+class ONY_027e:# <5>[1626]
+	""" Heroic
+	+1/+1. """
 	#
 	pass

@@ -1,12 +1,14 @@
 from enum import IntEnum
 from fireplace import cards
 from hearthstone.enums import Zone,State,CardType,Step
-from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest
+from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest,Secret
 from .player import Player, PlayLog
 from .game import Game
 from .aura import AuraBuff
 import copy
 import random
+from .logging import log
+from .exceptions import InvalidAction
 
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
@@ -29,7 +31,7 @@ def debug_card(oldCard, newCard):
 def deepcopy_game(game, player, option):
 	""" deepcopy a game state. 
 	"""
-	#print("================deepcopy starts================")
+	log.info("================deepcopy starts================")
 	oldGame = game
 	oldPlayer1 = game.player1
 	oldPlayer2 = game.player2
@@ -65,7 +67,7 @@ def deepcopy_game(game, player, option):
 		pass
 		random.shuffle(itshim.deck)
 		random.shuffle(itshim.hand)
-	#print("================deepcopy ends================")
+	log.info("================deepcopy ends================")
 	return newGame
 
 def deep_copy_player(player, option):
@@ -85,18 +87,28 @@ def create_vacant_card(card):
 	if card.type==CardType.SPELL:
 		if hasattr(card.data,'sidequest') and card.data.sidequest or hasattr(card.data,'questline') and card.data.questline:
 			return Sidequest(cards.db[card.id])
+		elif hasattr(card.data,'secret') and card.data.secret:
+			return Secret(cards.db[card.id])
 		else:
 			return Spell(cards.db[card.id])
 	if card.type==CardType.WEAPON:
 		return Weapon(cards.db[card.id])
 	if card.type==CardType.ENCHANTMENT:
 		return Enchantment(cards.db[card.id])
-
+	if card.type==CardType.HERO:
+		return Hero(cards.db[card.id])
+	if card.type==CardType.HERO_POWER:
+		return HeroPower(cards.db[card.id])
+	raise InvalidAction("This card is not supported in deepcopy: %s" % card)
 
 def deepcopy_aurabuff(oldCard):
 	ret=[]
 	for card in oldCard:
-		buff=AuraBuff(card.source, card.entity)
+		if isinstance(card,AuraBuff):
+			buff=AuraBuff(card.source, card.entity)
+		else:
+			#print ("Consider how to avoid this trouble!!")
+			buff=copy.deepcopy(card)
 		buff.tick = card.source.controller.game.tick
 		ret.append(buff)
 	return ret
@@ -342,12 +354,13 @@ def copy_gameattr(oldGame,newGame):
 				for element in src:
 					ret.append(copy.copy(element))
 				setattr(newGame, attr, ret)
-			elif isinstance(src[0], AuraBuff):
-				setattr(newGame, attr, deepcopy_aurabuff(src))
 			else:
 				ret=[]
 				for element in src:
-					ret.append(copy.deepcopy(element))
+					if isinstance(element, AuraBuff):
+						ret.append(deepcopy_aurabuff([element]))
+					else:
+						ret.append(copy.deepcopy(element))
 				setattr(newGame, attr, ret)
 			pass
 		pass

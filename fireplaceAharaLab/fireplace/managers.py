@@ -216,6 +216,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.POISONOUS: "poisonous",
 	GameTag.POWERED_UP: "powered_up",
 	GameTag.QUESTLINE: "sidequest",#
+	GameTag.QUEST_PROGRESS_TOTAL: "quest_progress_total",#26.1.2022
 	GameTag.RARITY: "rarity",
 	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",

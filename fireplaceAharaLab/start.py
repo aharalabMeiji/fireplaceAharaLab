@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import sys
-import winsound
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
 from fireplace import cards
+from fireplace.logging import log
 
 sys.path.append("..")
 
@@ -21,6 +21,7 @@ def main():
 	# random agent
 	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
 	Random2=StandardAgent("Random2",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
+
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -28,8 +29,8 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
-		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
+		,myClass=CardClass.MAGE)
+		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	# Maya : モンテカルロによる読み切り
 	#from agent_Maya import MayaAgent
@@ -63,9 +64,8 @@ def main():
 		Vector1, Vector2, \
 		deck1=BigDeck.clownDruid,deck2=BigDeck.bigWarrior,  \
 		gameNumber=1000, debugLog=True)
+	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=50, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
-	#print("%d:%d"%(a,b))
-	#winsound.Beep(884, 2000)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
@@ -187,8 +187,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#printClasses()#printMissedCards()#printCards()#print_deck()#PresetGame()
-	#from card_test.simulate_game import SimulateGames
-	#SimulateGames()
-	#printCards()
+	#from card_test.scholo_mage import SimulateGames_Scholo_Mage
+	#SimulateGames_Scholo_Mage()
 	main()

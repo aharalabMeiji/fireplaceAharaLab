@@ -3,7 +3,7 @@ from .simulate_game import Preset_Play,PresetGame
 def SimulateGames_Alterac_Neutral():
 
 	#PresetGame(pp_AV_100,1)####OK
-	#PresetGame(pp_AV_101,1)####OK
+	#PresetGame(pp_AV_101,1)####OK###OK(2-10-22)
 	#PresetGame(pp_AV_102,1)####OK
 	#PresetGame(pp_AV_112,1)####OK
 	#PresetGame(pp_AV_121,1)####OK
@@ -21,7 +21,7 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_134,1)####OK
 	#PresetGame(pp_AV_135,1)####OK
 	#PresetGame(pp_AV_136,1)####OK
-	#PresetGame(pp_AV_136t,1)###OK
+	PresetGame(pp_AV_136t,1)###OK
 	#PresetGame(pp_AV_137,1)####OK
 	#PresetGame(pp_AV_138,1)####TRY SOME TIMES ####OK
 	#PresetGame(pp_AV_139,1)####OK
@@ -78,10 +78,13 @@ class pp_AV_100(Preset_Play):
 	pass
 
 class pp_AV_101(Preset_Play):
+	""" Herald of Lokholar (4/3/5)
+	[Battlecry]: Draw a Frost spell."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_101',controller)
+		self.mark2=self.append_deck_shuffle('frost',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -92,7 +95,13 @@ class pp_AV_101(Preset_Play):
 		self.play_card(self.mark1, controller)
 	def result_inspection(self):
 		super().result_inspection()
-		## 自然系のカードを一枚引いている
+		controller=self.player
+		## 自然系のカードをデッキから一枚引いているできればself.mark2
+		for card in controller.hand:
+			self.print_stats("controller.hand",card)
+		for card in [self.mark2]:
+			self.print_stats("self.mark2",card)
+
 		pass
 	pass
 
@@ -678,8 +687,8 @@ class pp_AV_136(Preset_Play):
 ##################################
 
 class pp_AV_136t(Preset_Play):
-	""" Kobold Taskmaster (3/2/4)
-	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
+	""" Armor Scrap 
+	Give a minion +2 Health. """
 	const1 = 0
 	const2 = 0
 	def preset_deck(self):

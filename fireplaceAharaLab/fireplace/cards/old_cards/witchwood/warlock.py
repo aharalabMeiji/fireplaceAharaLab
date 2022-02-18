@@ -46,9 +46,9 @@ class GIL_825:
 ##
 # Spells
 
-class GIL_191:
-	"""Fiendish Circle"""
-	pass
+#class GIL_191:
+#	"""Fiendish Circle"""
+#	pass
 
 
 class GIL_543:

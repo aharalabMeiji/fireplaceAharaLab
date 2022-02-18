@@ -64,17 +64,17 @@ class ULD_500:#OK
 #	Summon a Totem of your choice."""
 #	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 #	choose = ("AT_132_SHAMANa", "AT_132_SHAMANb", "AT_132_SHAMANc", "AT_132_SHAMANd")
-class HERO_03bp2:#OK
-	""" Poisoned Daggers
-	<b>Hero Power</b>
-	Equip a 2/2 Weapon."""
-	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
-class HERO_04bp2:#OK
-	""" The Silver Hand
-	<b>Hero Power</b>
-	Summon two 1/1 Recruits."""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	activate = Summon(CONTROLLER, "CS2_101t") * 2
+#class HERO_03bp2:#OK
+#	""" Poisoned Daggers
+#	<b>Hero Power</b>
+#	Equip a 2/2 Weapon."""
+#	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
+#class HERO_04bp2:#OK
+#	""" The Silver Hand
+#	<b>Hero Power</b>
+#	Summon two 1/1 Recruits."""
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	activate = Summon(CONTROLLER, "CS2_101t") * 2
 #class HERO_05bp2:#OK
 #	"""Ballista Shot
 #	<b>Hero Power</b>
@@ -89,23 +89,23 @@ class HERO_04bp2:#OK
 #	+2 Armor."""
 #	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
 #AT_132_DRUIDe = buff(atk=2)
-class HERO_07bp2:#OK
-	"""Soul Tap
-	<b>Hero Power</b>
-	Draw a card."""
-	activate = Draw(CONTROLLER)
+#class HERO_07bp2:#OK
+#	"""Soul Tap
+#	<b>Hero Power</b>
+#	Draw a card."""
+#	activate = Draw(CONTROLLER)
 #class HERO_08bp2:#OK
 #	"""Fireblast Rank 2
 #	<b>Hero Power</b>
 #	Deal $2 damage."""
 #	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 #	activate = Hit(TARGET, 2)
-class HERO_09bp2:#OK
-	"""Heal
-	<b>Hero Power</b>
-	Restore #4 Health."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Heal(TARGET, 4)
+#class HERO_09bp2:#OK
+#	"""Heal
+#	<b>Hero Power</b>
+#	Restore #4 Health."""
+#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	activate = Heal(TARGET, 4)
 
 
 

@@ -70,7 +70,6 @@ class DMF_522:###OK
 class BT_117:###OK
 	"""Bladestorm
 	Deal 1 damage to all minions. Repeat until one dies."""
-
 	def play(self):
 		controller = self.controller
 		game = controller.game
@@ -84,7 +83,6 @@ class BT_117:###OK
 				Hit(card, min).trigger(controller)
 		pass
 	pass
-
 
 class SW_094:###OK <10>[1578]
 	"""Heavy Plate

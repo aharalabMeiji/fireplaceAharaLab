@@ -4,9 +4,9 @@ from ..utils import *
 ##
 # Rogue
 
-class HERO_03bp:
-	"""Dagger Mastery"""
-	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
+#class HERO_03bp:
+#	"""Dagger Mastery"""
+#	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
 
 
 # Sharpened (Unused)
@@ -21,10 +21,10 @@ class EX1_131:
 	combo = Summon(CONTROLLER, "EX1_131t")
 
 
-class EX1_134:
-	"""SI:7 Agent"""
-	requirements = {PlayReq.REQ_TARGET_FOR_COMBO: 0}
-	combo = Hit(TARGET, 2)
+#class EX1_134:
+#	"""SI:7 Agent"""
+#	requirements = {PlayReq.REQ_TARGET_FOR_COMBO: 0}
+#	combo = Hit(TARGET, 2)
 
 
 class EX1_613:
@@ -60,52 +60,48 @@ class NEW1_014e:
 ##
 # Spells
 
-class CS2_072:
-	"""Backstab"""
-	requirements = {
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_TO_PLAY: 0,
-		PlayReq.REQ_UNDAMAGED_TARGET: 0}
-	play = Hit(TARGET, 2)
+#class CS2_072:
+#	"""Backstab"""
+#	requirements = {
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_TO_PLAY: 0,
+#		PlayReq.REQ_UNDAMAGED_TARGET: 0}
+#	play = Hit(TARGET, 2)
 
 
-class CS2_073:
-	"""Cold Blood"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "CS2_073e")
-	combo = Buff(TARGET, "CS2_073e2")
+#class CS2_073:
+#	"""Cold Blood"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Buff(TARGET, "CS2_073e")
+#	combo = Buff(TARGET, "CS2_073e2")
+#CS2_073e = buff(atk=2)
+#CS2_073e2 = buff(atk=4)
 
 
-CS2_073e = buff(atk=2)
-CS2_073e2 = buff(atk=4)
+#class CS2_074:
+#	"""Deadly Poison"""
+#	requirements = {PlayReq.REQ_WEAPON_EQUIPPED: 0}
+#	play = Buff(FRIENDLY_WEAPON, "CS2_074e")
+#CS2_074e = buff(atk=2)
 
 
-class CS2_074:
-	"""Deadly Poison"""
-	requirements = {PlayReq.REQ_WEAPON_EQUIPPED: 0}
-	play = Buff(FRIENDLY_WEAPON, "CS2_074e")
+#class CS2_075:
+#	"""Sinister Strike"""
+#	play = Hit(ENEMY_HERO, 3)
 
 
-CS2_074e = buff(atk=2)
+#class CS2_076:
+#	"""Assassinate"""
+#	requirements = {
+#		PlayReq.REQ_ENEMY_TARGET: 0,
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Destroy(TARGET)
 
 
-class CS2_075:
-	"""Sinister Strike"""
-	play = Hit(ENEMY_HERO, 3)
-
-
-class CS2_076:
-	"""Assassinate"""
-	requirements = {
-		PlayReq.REQ_ENEMY_TARGET: 0,
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Destroy(TARGET)
-
-
-class CS2_077:
-	"""Sprint"""
-	play = Draw(CONTROLLER) * 4
+#class CS2_077:
+#	"""Sprint"""
+#	play = Draw(CONTROLLER) * 4
 
 
 class CS2_233:
@@ -153,23 +149,23 @@ class EX1_137:
 	combo = (play, TURN_END.on(Give(CONTROLLER, "EX1_137")))
 
 
-class EX1_144:
-	"""Shadowstep"""
-	requirements = {
-		PlayReq.REQ_FRIENDLY_TARGET: 0,
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Bounce(TARGET), Buff(TARGET, "EX1_144e")
-
-
-@custom_card
-class EX1_144e:
-	tags = {
-		GameTag.CARDNAME: "Shadowstep Buff",
-		GameTag.CARDTYPE: CardType.ENCHANTMENT,
-		GameTag.COST: -2,
-	}
-	events = REMOVED_IN_PLAY
+#class EX1_144:
+#	"""Shadowstep"""
+#	requirements = {
+#		PlayReq.REQ_FRIENDLY_TARGET: 0,
+#		PlayReq.REQ_MINION_TARGET: 0,
+#		PlayReq.REQ_TARGET_TO_PLAY: 0}
+#	play = Bounce(TARGET), Buff(TARGET, "EX1_144e")
+#
+#
+#@custom_card
+#class EX1_144e:
+#	tags = {
+#		GameTag.CARDNAME: "Shadowstep Buff",
+#		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+#		GameTag.COST: -2,
+#	}
+#	events = REMOVED_IN_PLAY
 
 
 class EX1_145:

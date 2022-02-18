@@ -9,12 +9,12 @@ class AT_046:
 	play = Summon(CONTROLLER, RandomTotem())
 
 
-class AT_047:
-	"""Draenei Totemcarver"""
-	play = Buff(SELF, "AT_047e") * Count(FRIENDLY_MINIONS + TOTEM)
+#class AT_047:
+#	"""Draenei Totemcarver"""
+#	play = Buff(SELF, "AT_047e") * Count(FRIENDLY_MINIONS + TOTEM)
 
 
-AT_047e = buff(+1, +1)
+#AT_047e = buff(+1, +1)
 
 
 class AT_049:

@@ -52,11 +52,55 @@ class HERO_02bp2:################################# pass, need to modify
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	choose = ("CS2_050", "CS2_051", "CS2_052", "NEW1_009")
 
+class HERO_03:
+	""" Valeera Sanguinar
+	"""
+	pass
+class HERO_03bp:
+	"""Dagger Mastery"""
+	activate = Find(FRIENDLY_WEAPON + ID("AT_034")) | Summon(CONTROLLER, "CS2_082")
+	pass
+class HERO_03bp2:#OK
+	""" Poisoned Daggers
+	<b>Hero Power</b>
+	Equip a 2/2 Weapon."""
+	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
+	pass
+class AT_034:
+	"""Poisoned Blade"""
+	inspire = Buff(SELF, "AT_034e")
+	pass
+AT_034e = buff(atk=1)
+class CS2_082:
+	""" Wicked Knife
+	(weapon) """
+	pass
+class AT_132_ROGUEt:
+	""" Poisoned Dagger
+	(weapon) """
+	pass
+
+class HERO_04:
+	""" Uther Lightbringer
+	"""
+class HERO_04bp:
+	"""Reinforce (Uther Lightbringer)"""
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	activate = Summon(CONTROLLER, "CS2_101t")
+class CS2_101t:
+	""" Silver Hand Recruit (1/1/1)
+	"""
+class HERO_04bp2:#OK
+	""" The Silver Hand
+	<b>Hero Power</b>
+	Summon two 1/1 Recruits."""
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	activate = Summon(CONTROLLER, "CS2_101t") * 2
+
 class HERO_05:
 	""" Garrosh Hellscream
 	"""
 	pass
-
 class HERO_05bp:
 	"""Steady Shot (Rexxar)"""
 	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
@@ -97,6 +141,19 @@ class HERO_06bp2:#OK
 	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
 #HERO_06ebp2 = buff(atk=2)
 AT_132_DRUIDe = buff(atk=2)
+
+class HERO_07:
+	""" Gul'dan
+	"""
+	pass
+class HERO_07bp:
+	"""Life Tap"""
+	activate = Hit(FRIENDLY_HERO, 2), Draw(CONTROLLER)
+class HERO_07bp2:#OK
+	"""Soul Tap
+	<b>Hero Power</b>	Draw a card."""
+	activate = Draw(CONTROLLER)
+
 class HERO_08:
 	"""  Jaina Proudmoore
 	"""
@@ -114,3 +171,17 @@ class HERO_08bp2:#OK
 	activate = Hit(TARGET, 2)
 	pass
 
+class HERO_09:#
+	""" Anduin Wrynn  """
+	pass
+
+class HERO_09bp:#
+	"""Lesser Heal (Anduin Wrynn)"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Heal(TARGET, 2)
+class HERO_09bp2:#OK
+	"""Heal
+	<b>Hero Power</b>
+	Restore #4 Health."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Heal(TARGET, 4)

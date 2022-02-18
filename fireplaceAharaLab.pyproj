@@ -40,6 +40,45 @@
     <Compile Include="fireplaceAharaLab\card_test\alterac_mage.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\barrens_druid.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\core_neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\core_priest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\core_rogue.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\core_shaman.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\core_warlock.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\darkmoon_druid.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\darkmoon_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\darkmoon_neutral.py" />
+    <Compile Include="fireplaceAharaLab\card_test\darkmoon_warrior.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\scholo_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\scholo_mage.py" />
+    <Compile Include="fireplaceAharaLab\card_test\scholo_neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\card_test\stormwind_mage.py" />
+    <Compile Include="fireplaceAharaLab\card_test\stormwind_neutral.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\card_test\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +106,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\priest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\rogue.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\shaman.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warlock.py">
       <SubType>Code</SubType>
     </Compile>
@@ -479,6 +527,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\start.py" />
+    <Compile Include="fireplaceAharaLab\card_test\stormwind_hunter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\utils.py" />
   </ItemGroup>
   <ItemGroup>

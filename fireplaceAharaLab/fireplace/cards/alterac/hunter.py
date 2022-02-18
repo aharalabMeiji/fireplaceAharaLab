@@ -205,3 +205,26 @@ class AV_337t:
 	pass
 
 
+class ONY_008:# <3>[1626]
+	""" Furious Howl
+	Draw a card.Repeat until you have at least 3 cards. """
+	#
+	pass
+
+class ONY_009:# <3>[1626]
+	""" Pet Collector
+	[Battlecry:] Summon a Beast from your deck that costs (5) or less. """
+	#
+	pass
+
+class ONY_010:# <3>[1626]
+	""" Dragonbane Shot
+	Deal $2 damage.[Honorable Kill:] Add a Dragonbane Shotto your hand. """
+	#
+	pass
+
+class ONY_010e:# <3>[1626]
+	""" Drakeshot
+	Costs (1) less. """
+	#
+	pass

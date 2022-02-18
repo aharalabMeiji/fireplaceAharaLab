@@ -41,9 +41,9 @@ class ICC_041:
 	pass
 
 
-class ICC_055:
-	"""Drain Soul"""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+#class ICC_055:
+#	"""Drain Soul"""
+#	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	pass
 
 

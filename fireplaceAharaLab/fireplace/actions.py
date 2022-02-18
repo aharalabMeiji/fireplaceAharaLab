@@ -237,7 +237,12 @@ class Attack(GameAction):
 		if def_atk:
 			source.game.queue_actions(defender, [Hit(attacker, def_atk)])
 
-		self.broadcast(source, EventListener.AFTER, attacker, defender)
+		attack_after_activate=True 
+		for secret in defender.controller.secrets:
+			if secret.id=='CS3_016' and attacker.atk<3:
+				attack_after_activate=False
+		if attack_after_activate:
+			self.broadcast(source, EventListener.AFTER, attacker, defender)
 
 		attacker.attack_target = None
 		defender.defending = False
@@ -402,6 +407,8 @@ class GenericChoice(Choice):
 	def choose(self, card):
 		private_casts_when_chosen = ['YOP_024t']
 		super().choose(card)
+		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
+			return
 		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
@@ -556,7 +563,7 @@ class Play(GameAction):
 		battlecry_card = choose or card
 		# We check whether the battlecry will trigger, before the card.zone changes
 		if battlecry_card.battlecry_requires_target() and not target:
-			log.info("%r requires a target for its battlecry. Will not trigger.")
+			log.info("%r requires a target for its battlecry. Will not trigger." % card)
 			trigger_battlecry = False
 		else:
 			trigger_battlecry = True
@@ -914,6 +921,7 @@ class Damage(TargetedAction):
 			# poisonous can not destory hero
 			if hasattr(source, "poisonous") and source.poisonous and (
 				target.type != CardType.HERO and source.type != CardType.WEAPON):
+				log.info("%r destroys %r by poison"%(source, target))
 				target.destroy()
 		return amount
 
@@ -1046,7 +1054,11 @@ class Discover(TargetedAction):
 		picker = self._args[1] * 3
 		picker = picker.copy_with_weighting(1, card_class=CardClass.NEUTRAL)
 		picker = picker.copy_with_weighting(4, card_class=discover_class)
-		return [picker.evaluate(source)]
+		result = picker.evaluate(source)
+		if len(result) >= 0:
+			return [picker.evaluate(source)]
+		else:
+			return [[]]
 
 	def do(self, source, target, cards):
 		log.info("%r discovers %r for %s", source, cards, target)
