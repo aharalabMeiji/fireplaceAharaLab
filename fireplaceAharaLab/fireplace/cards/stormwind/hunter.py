@@ -117,7 +117,7 @@ class SW_458e:
 		GameTag.IMMUNE_WHILE_ATTACKING: True
 	}
 
-class SW_458t:### immune_while_attacking がうまく動いていないように思う。
+class SW_458t:### 
 	""" Tavish's Ram
 	[Immune] while attacking. """
 	#<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>

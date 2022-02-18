@@ -57,9 +57,9 @@ class SCH_340t:
 class SCH_538:
 	##Ace Hunter Kreen SCH_538
 	#Your other characters are <b>Immune</b> while attacking.
-	update = Refresh(FRIENDLY_MINIONS-SELF,{GameTag.IMMUNE: True})#OK
+	update = Refresh(FRIENDLY_MINIONS-SELF,buff='SCH_538e')#OK
 	pass
-SCH_538e=buff(immune=True)# no use
+SCH_538e=buff(immune_while_attacking=True)# no use
 
 class SCH_539:#OK
 	##Professor Slate  SCH_539
