@@ -9,6 +9,10 @@ import copy
 import random
 import time
 from fireplace.config import Config
+import csv
+import pandas as pd
+
+
 
 class Agent(object):
 	""" エージェントのクラス
@@ -28,6 +32,7 @@ class Agent(object):
 		return self.name
 
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
+
 	""" エージェント同士で1回対戦する。
 	実験的に、ヒーローの体力、初期マナ数、初期ハンド枚数をコントロールできます。
 	play one game by P1 and P2 """
@@ -102,11 +107,14 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
 		#if game was over 
 		if game.state==State.COMPLETE:
-			print("turn=",game.turn)
+			#print("turn=",game.turn)
+			with open('output.csv', 'a', newline='') as csvfile:
+				writer = csv.writer(csvfile)
+				writer.writerow([game.current_player,game.turn])
 			if debugLog:
 				print(">>>>>>>>>>game end >>>>>>>>"%(),end=' ')
 				print("%d : %d"%(player1.hero.health,player2.hero.health))
-			if game.current_player.playstate == PlayState.WON:
+			if game.current_player.playstate == PlayState.WON:				
 				return game.current_player.name
 			if game.current_player.playstate == PlayState.LOST:
 				return game.current_player.opponent.name
@@ -115,6 +123,12 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" 決まった回数の試合を行い、勝敗数を表示する 
 	"""
+	with open('output.csv', 'w', newline='') as csvfile:
+		header = ['勝敗','終了ターン数']
+		writer = csv.writer(csvfile)
+		writer.writerow(header)
+
+
 	if debugLog:
 		print(" %r (%s) vs.  %r (%s)"%(P1.name, P1.myClass, P2.name, P2.myClass))
 	Count1 = 0
