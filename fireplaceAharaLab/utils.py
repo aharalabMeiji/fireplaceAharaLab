@@ -248,6 +248,12 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=True):
 	_smartCombat=True,　スマートコンバットなもののみをリストアップする
 	_includeTurnEnd=False　「何もしない」というアクションを候補に入れない
 	"""
+	if _includeTurnEnd:
+		#この選択肢は「何もしない」選択肢ですが、
+		#ターンを終了することはできないので、
+		#エージェントの方でターンを終了してあげてください
+		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
+		pass
 	player = mygame.current_player
 	myCandidate = []
 	for card in player.hand:
@@ -288,12 +294,6 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=True):
 		if _yes:
 			myCandidate.append(Candidate(character, type=ActionType.TRADE, target=None, turn=mygame.turn))
 			pass
-	if _includeTurnEnd:
-		#この選択肢は「何もしない」選択肢ですが、
-		#ターンを終了することはできないので、
-		#エージェントの方でターンを終了してあげてください
-		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
-		pass
 	return myCandidate
 
 def identifyPlayer(name1, name2):
