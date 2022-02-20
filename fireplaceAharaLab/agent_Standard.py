@@ -102,7 +102,7 @@ class StandardVectorAgent(Agent):
 					continue
 			else:
 				return ExceptionPlay.VALID
-	def getStageScore(self,game, weight):
+	def getStageScore(self, game, weight):
 		cardPerPoint=0.3
 		w_length=34
 		w=[]
@@ -216,10 +216,10 @@ class StandardVectorAgent(Agent):
 					w[33] += 1	#体力の小さいバニラカードを使う
 		score = 0.0
 		for i in range(w_length):
-			if debugChoice:
-				if w[i]!=0:
-					print("%d:%d"%(i,w[i]),end=", ")
-				pass
+			#if debugChoice:
+			#	if w[i]!=0:
+			#		print("%d:%d"%(i,w[i]),end=", ")
+			#	pass
 			const=-1
 			if i in [0,2,3,4,5]:
 				const=1
@@ -229,8 +229,8 @@ class StandardVectorAgent(Agent):
 			if len(weight)>i:
 				wgt = weight[i]
 			score += w[i]*wgt*const
-		if debugChoice:
-			print("")
+		#if debugChoice:
+		#	print("")
 		return score
 	def StandardMulligan(self, choiceCards):
 		# make cost 1 cards left

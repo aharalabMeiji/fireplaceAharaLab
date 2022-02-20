@@ -8,6 +8,7 @@ from utils import *
 from fireplace.card import Card
 from fireplace.game import Game
 from itertools import chain
+from agent_Standard import StandardVectorAgent, adjust_text_by_spellpower
 
 class HappyCat:
 	dict={}
@@ -17,28 +18,31 @@ class HappyCat:
 class HappyCatAgent(Agent):
 	game = None
 	player = None
-	option=[]
+	braches=[]
 	HumanInput = True
 	# Human input: if true, shows various candidate and allows us to input by hand.
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
+		self.Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.DRUID)
 	def HappyCatAI(self, game, option=[], gameLog=[], debugLog=False):
 		self.player = game.current_player
 		self.game = game
-		self.option = option
+		self.option = self.Vector.option
 		for loop in range(20):# loop max
 			myCandidate = getCandidates(game, _includeTurnEnd=True)#including 'turnend'
-			myChoice = self.MainChoice(myCandidate)
+			myChoice = self.MainChoice(game, myCandidate)
 			if myChoice.type == ExceptionPlay.TURNEND:#何もしないを選択したとき
 				return
 			else:
-				executeAction(game, myChoice, debugLog=debugLog)#選択したものを実行
-				postAction(player)#後処理
+				executeAction(self.game, myChoice, debugLog=debugLog)#選択したものを実行
+				postAction(self.player)#後処理
 		pass
 
 	def RandomChoice(self, candidate):
 		return random.choice(candidate)
-	def RandomPlayToTuenEnd(game):
+	def RandomPlayToTurnEnd(self, game):
 		for loop in range(20):
 			branches = getCandidates(game)
 			branch = self.RandomChoice(branches)
@@ -57,7 +61,7 @@ class HappyCatAgent(Agent):
 	def VectorScore(self, branch):
 		score = 0
 		if branch.type==ExceptionPlay.TURNEND:
-			score = self.getStageScore(tmpGame, self.option)
+			score = self.Vector.getStageScore(self.game, self.option)
 			return score
 		#statusVector=self.getStatusVector(self.game)
 		tmpGame = fireplace_deepcopy(self.game)
@@ -72,24 +76,39 @@ class HappyCatAgent(Agent):
 			if result == ExceptionPlay.GAMEOVER:
 				score = 100000
 			else:
-				score = self.getStageScore(tmpGame, self.option)
+				score = self.Vector.getStageScore(tmpGame, self.option)
 		return score
+
 	def VectorChoice(self, candidate):
-		first = [-1,None]
-		#second = [-1,None]
-		#third = [-1,None]
+		""" three choices by the vector agent
+		"""
+		first = [-100000,None]
+		second = [-100000,None]
+		third = [-100000,None]
 		for branch in candidate:
 			score = self.VectorScore(branch)
 			if first[0]<score:
+				third[0]=second[0]
+				third[1]=second[1]
+				second[0]=first[0]
+				second[1]=first[1]
 				first[0]=score
 				first[1]=branch
+			elif second[0]<score:
+				third[0]=second[0]
+				third[1]=second[1]
+				second[0]=score
+				second[1]=branch
+			elif third[0]<score:
+				third[0]=score
+				third[1]=branch
 			pass
-		pass
+		return first,second,third
 
 	def MainChoice(self, game, candidate):
 		if self.HumanInput:
 			self.ShowDataForHuman(game)
-			self.ShowAnalysis(game)
+			self.ShowAnalysis(game, candidate)
 			return self.InputByHand(game, candidate)
 		if len(myCandidate)>0:
 			if myClass==CardClass.HUNTER:
@@ -120,13 +139,12 @@ class HappyCatAgent(Agent):
 				player.weapon.durability,\
 				character.health,\
 				character.armor,\
-				player.weapon.data.name\
-				), end=" ")
+				player.weapon.data.name))
 		else:
 			print("(%2d/%2d+%d)"%(\
 				character.atk,\
 				character.health,\
-				character.armor), end=" ")
+				character.armor))
 		pass
 	def ShowCharacter(self, character):
 		player = character.controller
@@ -212,16 +230,17 @@ class HappyCatAgent(Agent):
 		for myChoice in myCandidate:
 			if myChoice.type == ExceptionPlay.TURNEND:
 				print("[%d] ターンを終了する"%(myCount))
+				myCount+=1
 				continue
 			print('[%d]'%myCount, end=' ')
 			myCard = myChoice.card
-			print("%s"%myCard, end='  ')
 			if myChoice.card2!=None:
-				print("(%s)"%myChoice.card2, end=' ')
+				myCard=myChoice.card2
+			print("%s"%myCard, end='  ')
 			if myCard.data.type==CardType.SPELL:#show spell in hand
 				print('<%2d> %s'%(\
 					myCard.cost, \
-					adjust_text_by_spellpower(myChoice.card2.data.description, player, myCard)), end=' ')
+					adjust_text_by_spellpower(myCard.data.description, player, myCard)), end=' ')
 			elif myCard.data.type==CardType.MINION:
 				print('<%2d>(%2d/%2d)'%(myCard.cost, myCard.atk, myCard.health), end=' ')
 			elif myCard.data.type==CardType.WEAPON:
@@ -229,9 +248,9 @@ class HappyCatAgent(Agent):
 			if myChoice.type == ActionType.PLAY:
 				print(' PLAYS', end=' ')
 			if myChoice.type == ActionType.TRADE:
-				print(' TRADES', end=' ')
+				print(' TRADES <>', end=' ')
 			if myChoice.type == ActionType.ATTACK:
-				print(' ATTACKS', end=' ')
+				print(' ATTACKS => ', end=' ')
 			if myChoice.type == ActionType.POWER:
 				print('<%2d> POWER'%(myCard.cost), end=' ')
 			targetCard = myChoice.target
@@ -244,12 +263,13 @@ class HappyCatAgent(Agent):
 			pass
 		pass
 
-	def ShowAnalysis(self,game):
+	def ShowAnalysis(self, game, candidate):
 		##analysis by vector
-		vectorChoices=self.VectorKernel(game)
+		v1,v2,v3=self.VectorChoice(candidate)
 		print("Vector agent candidates:")
-		for choice in vectorChoices:
-			print("  %s"%(choice))
+		print("%s(%d)"%(v1[1],v1[0]))
+		print("%s(%d)"%(v2[1],v2[0]))
+		print("%s(%d)"%(v3[1],v3[0]))
 		pass
 
 	def InputByHand(self, game, myCandidate):

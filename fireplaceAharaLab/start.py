@@ -29,7 +29,7 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	# Maya : モンテカルロによる読み切り
@@ -61,9 +61,9 @@ def main():
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
 	a,b,c = play_set_of_games(\
-		Vector1, Vector2, \
-		deck1=BigDeck.clownDruid,deck2=BigDeck.bigWarrior,  \
-		gameNumber=1000, debugLog=True)
+		HappyCat, Vector2, \
+		deck1=BigDeck.clownDruid,deck2=BigDeck.bigWarrior,\
+		gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=50, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦

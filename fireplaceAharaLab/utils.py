@@ -248,14 +248,14 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=True):
 	_smartCombat=True,　スマートコンバットなもののみをリストアップする
 	_includeTurnEnd=False　「何もしない」というアクションを候補に入れない
 	"""
+	player = mygame.current_player
+	myCandidate = []
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
 		#エージェントの方でターンを終了してあげてください
 		myCandidate.append(Candidate(None,type=ExceptionPlay.TURNEND, turn=mygame.turn))
 		pass
-	player = mygame.current_player
-	myCandidate = []
 	for card in player.hand:
 		if card.is_playable():
 			if card.must_choose_one:
