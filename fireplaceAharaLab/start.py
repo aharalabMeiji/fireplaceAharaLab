@@ -66,7 +66,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=2, P2MAXMANA=3)
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=3, P2MAXMANA=3)
 	with open('output.csv', 'a', newline='') as csvfile:
 		writer = csv.writer(csvfile)
 		writer.writerow(['先手勝利数：',a])
