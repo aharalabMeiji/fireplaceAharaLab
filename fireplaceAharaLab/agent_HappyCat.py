@@ -270,8 +270,9 @@ class HappyCatAgent(Agent):
 		print("%s(%d)"%(v1[1],v1[0]))
 		print("%s(%d)"%(v2[1],v2[0]))
 		print("%s(%d)"%(v3[1],v3[0]))
+		##analysis by DW_W_ML
+		##analysis by DW_L_ML
 		pass
-
 	def InputByHand(self, game, myCandidate):
 		while True:
 			str = input()
