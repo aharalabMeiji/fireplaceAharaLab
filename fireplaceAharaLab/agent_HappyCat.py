@@ -277,30 +277,17 @@ class HappyCatAgent(Agent):
 		pass
 
 	def getBest3(self, prob):
-		n1=-1
-		n2=-1
-		n3=-1
-		v1=0.0
-		v2=0.0
-		v3=0.0
+		n1=n2=n3=-1
+		v1=v2=v3=0.0
 		leng=len(prob)
 		for n in range(leng):
 			v=prob[n]
 			if v1<=v:
-				n3=n2
-				v3=v2
-				n2=n1
-				v2=v1
-				n1=n
-				v1=v
+				n3,v3,n2,v2,n1,v1=n2,v2,n1,v1,n,v
 			elif v2<=v:
-				n3=n2
-				v3=v2
-				n2=n
-				v2=v
+				n3,v3,n2,v2=n2,v2,n,v
 			elif v3<=v:
-				n3=n
-				v3=v
+				n3,v3=n,v
 				pass
 			pass
 		return [n1,n2,n3],[v1,v2,v3]
