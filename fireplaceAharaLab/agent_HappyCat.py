@@ -24,22 +24,22 @@ class HappyCatAgent(Agent):
 	player = None
 	braches=[]
 	HumanInput = True
-	MLmodel1 = keras.Sequential()
+	MLmodel = [None,None]
 	# Human input: if true, shows various candidate and allows us to input by hand.
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.DRUID)
-		self.MLmodel2 = tf.keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn2')
-		self.MLmodel3 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn3')
-		self.MLmodel4 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn4')
-		self.MLmodel5 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn5')
-		self.MLmodel6 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn6')
-		self.MLmodel7 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn7')
-		self.MLmodel8 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn8')
-		self.MLmodel9 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn9')
-		self.MLmodel10 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn10')
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn2'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn3'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn4'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn5'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn6'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn7'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn8'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn9'))
+		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn10'))
 	def HappyCatAI(self, game, option=[], gameLog=[], debugLog=False):
 		self.player = game.current_player
 		self.game = game
@@ -305,35 +305,51 @@ class HappyCatAgent(Agent):
 		##analysis by DW_W_ML
 		pred=[]
 		another=['MINION','HERO','HEROPOWER','OTHERS','TURNEND']
-		if self.player.max_mana == 2:
-			pred = self.MLmodel2.predict([svec])
-		elif self.player.max_mana == 3:
-			pred = self.MLmodel3.predict([svec])
-		elif self.player.max_mana == 4:
-			pred = self.MLmodel4.predict([svec])
-		elif self.player.max_mana == 5:
-			pred = self.MLmodel5.predict([svec])
-		elif self.player.max_mana == 6:
-			pred = self.MLmodel6.predict([svec])
-		elif self.player.max_mana == 7:
-			pred = self.MLmodel7.predict([svec])
-		elif self.player.max_mana == 8:
-			pred = self.MLmodel8.predict([svec])
-		elif self.player.max_mana == 9:
-			pred = self.MLmodel9.predict([svec])
-		elif self.player.max_mana >= 10:
-			pred = self.MLmodel10.predict([svec])
+		if self.player.max_mana >= 2:
+			pred = self.MLmodel[self.player.max_mana].predict([svec])
 		if len(pred)>0:
 			pred = self.getBest3(pred[0])
+			print(pred)
 			leng = len(self.clownDruidCard)
 			for i in range(3):
 				if pred[0][i]<leng:
-					print("MLwin: %s:%f"%(self.clownDruidCard[pred[0][i]],pred[1][i]))
+					mykey=self.clownDruidCard[pred[0][i]]
 				else:
-					print("MLwin: %s:%f"%(another[pred[0][i]-leng],pred[1][i]))
-			print(self.getBest3(pred[0]))
+					mykey=another[pred[0][i]-leng]
+				cardNr=self.findCardFromKey(mykey, candidate, self.clownDruidCard)
+				if cardNr>=0 and cardNr<leng:
+					print("MLwin: (%d)[%s]%s : %f"%(cardNr, mykey, candidate[cardNr],pred[1][i]))
+				else:
+					print("MLwin: (--)[%s]--- : ==="%(mykey))
 		##analysis by DW_L_ML
 		pass
+	def findCardFromKey(self, key, candidate, cardset):
+		#'MINION','HERO','HEROPOWER','OTHERS','TURNEND'
+		answer=[]
+		for nr in range(len(candidate)):
+			card = candidate[nr].card
+			if card==None:
+				if key=='TURNEND':
+					answer.append(0)
+			elif key=='MINION' and card.type==CardType.MINION and not card.id in cardset:
+				answer.append(nr)
+			elif key=='HERO' and card.type==CardType.HERO:
+				answer.append(nr)
+			elif key=='HEROPOWER' and card.type==CardType.HERO_POWER:
+				answer.append(nr)
+			elif key=='OTHERS':
+				if card.type==CardType.HERO_POWER:
+					answer.append(nr)
+				if card.type==CardType.SPELL and not card.id in cardset:
+					answer.append(nr)
+			elif card.id==key:
+				answer.append(nr)
+		if answer==[]:
+			return -1
+		else:
+			return random.choice(answer)
+
+		return 0
 	def InputByHand(self, game, myCandidate):
 		while True:
 			str = input()
