@@ -24,13 +24,14 @@ class HappyCatAgent(Agent):
 	player = None
 	braches=[]
 	HumanInput = True
+	MLmodel1 = keras.Sequential()
 	# Human input: if true, shows various candidate and allows us to input by hand.
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.Vector=StandardVectorAgent("Vector",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.DRUID)
-		self.MLmodel2 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn2')
+		self.MLmodel2 = tf.keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn2')
 		self.MLmodel3 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn3')
 		self.MLmodel4 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn4')
 		self.MLmodel5 = keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn5')
