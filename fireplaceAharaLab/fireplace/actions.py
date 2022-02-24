@@ -1207,6 +1207,9 @@ class Give(TargetedAction):
 			## when card==[]  ## 
 			if hasattr(card, "__iter__") and len(card)==0:
 				break;
+			## when card==None  ## 
+			if card == None:
+				break;
 			## 
 			card.controller = target
 			if card.zone != Zone.HAND or not card in target.hand:
