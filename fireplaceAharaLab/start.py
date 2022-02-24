@@ -5,6 +5,8 @@ from utils import *
 from agent_Standard import *
 from fireplace import cards
 from fireplace.logging import log
+import os
+import time
 
 sys.path.append("..")
 
@@ -66,10 +68,27 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=2, P2MAXMANA=1,P1HAND=3,P2HAND=3)
+
+	
+
+
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=3)
 	with open('output.csv', 'a', newline='') as csvfile:
 		writer = csv.writer(csvfile)
 		writer.writerow(['先手勝利数：',a])
+	os.rename('./output.csv','1-3-1-3.csv')
+	
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=4)
+	with open('output.csv', 'a', newline='') as csvfile:
+		writer = csv.writer(csvfile)
+		writer.writerow(['先手勝利数：',a])
+	os.rename('./output.csv','1-3-1-4.csv')
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=4,P2HAND=5)
+	with open('output.csv', 'a', newline='') as csvfile:
+		writer = csv.writer(csvfile)
+		writer.writerow(['先手勝利数：',a])
+	os.rename('./output.csv','1-4-1-5.csv')
+	
 
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	## 最初のプレイヤーからみてa勝ちb負けc分け。わけって何？？ｗ
