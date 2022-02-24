@@ -23,7 +23,7 @@ class HappyCatAgent(Agent):
 	game = None
 	player = None
 	braches=[]
-	HumanInput = True
+	HumanInput = False
 	MLmodel = [None,None]
 	# Human input: if true, shows various candidate and allows us to input by hand.
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy=None):
@@ -124,25 +124,27 @@ class HappyCatAgent(Agent):
 			self.ShowDataForHuman(game)
 			self.ShowAnalysis(game, candidate)
 			return self.InputByHand(game, candidate)
-		if len(myCandidate)>0:
-			if myClass==CardClass.HUNTER:
-				if hisClass==CardClass.WARRIOR:
-					myChoice=HunterWarriorChoice(myCandidate)
-				else:
-					myChoice=HunterDruidChoice(myCandidate)
-			elif myClass==CardClass.WARRIOR:
-				if hisClass==CardClass.DRUID:
-					myChoice=WarriorDruidChoice(myCandidate)
-				else:
-					myChoice=WarriorHunterChoice(myCandidate)
-			elif myClass==CardClass.DRUID:
-				if hisClass==CardClass.HUNTER:
-					myChoice=DruidHunterChoice(myCandidate)
-				else:
-					myChoice=DruidWarriorChoice(myCandidate)
-			else:
-				myChoice = random.choice(myCandidate)#ランダムに一つ選ぶ
-		return myChoice
+		else:
+			return self.GetAnalysis(game, candidate)
+		#if len(myCandidate)>0:
+		#	if myClass==CardClass.HUNTER:
+		#		if hisClass==CardClass.WARRIOR:
+		#			myChoice=HunterWarriorChoice(myCandidate)
+		#		else:
+		#			myChoice=HunterDruidChoice(myCandidate)
+		#	elif myClass==CardClass.WARRIOR:
+		#		if hisClass==CardClass.DRUID:
+		#			myChoice=WarriorDruidChoice(myCandidate)
+		#		else:
+		#			myChoice=WarriorHunterChoice(myCandidate)
+		#	elif myClass==CardClass.DRUID:
+		#		if hisClass==CardClass.HUNTER:
+		#			myChoice=DruidHunterChoice(myCandidate)
+		#		else:
+		#			myChoice=DruidWarriorChoice(myCandidate)
+		#	else:
+		#		myChoice = random.choice(myCandidate)#ランダムに一つ選ぶ
+		#return myChoice
 
 	def ShowHero(self, character):
 		player = character.controller
@@ -323,6 +325,45 @@ class HappyCatAgent(Agent):
 					print("MLwin: (--)[%s]--- : ==="%(mykey))
 		##analysis by DW_L_ML
 		pass
+	def GetAnalysis(self, game, candidate):
+		##analysis by vector
+		v1,v2,v3=self.VectorChoice(candidate)
+		if v1[0]>=100000:## Lethal case
+			return v1[1]
+		svec = self.getStatusVector(game)
+		##analysis by DW_W_ML
+		pred=[]
+		another=['MINION','HERO','HEROPOWER','OTHERS','TURNEND']
+		if self.player.max_mana >= 2:
+			mn=min(self.player.max_mana,10)
+			pred = self.MLmodel[mn].predict([svec])
+		ret=0
+		if len(pred)>0:
+			pred = self.getBest3(pred[0])
+			leng = len(self.clownDruidCard)
+			for i in range(3):
+				if pred[0][i]<leng:
+					mykey=self.clownDruidCard[pred[0][i]]
+				else:
+					mykey=another[pred[0][i]-leng]
+				cardNr=self.findCardFromKey(mykey, candidate, self.clownDruidCard)
+				if cardNr>=0 and cardNr<leng:
+					ret = cardNr
+					break
+			if ret==0:
+				remainingAttack=[]
+				for cand in candidate:
+					if cand.type==BlockType.ATTACK:
+						remainingAttack.append(cand)
+				if len(remainingAttack)>0:
+					return random.choice(remainingAttack)
+				else:
+					return candidate[0]
+			else:
+				return candidate[ret]
+		return Candidate(None, type=ExceptionPlay.TURNEND, turn=game.turn)
+		##analysis by DW_L_ML
+		pass
 	def findCardFromKey(self, key, candidate, cardset):
 		#'MINION','HERO','HEROPOWER','OTHERS','TURNEND'
 		answer=[]
@@ -350,6 +391,7 @@ class HappyCatAgent(Agent):
 			return random.choice(answer)
 
 		return 0
+
 	def InputByHand(self, game, myCandidate):
 		while True:
 			str = input()
@@ -358,13 +400,14 @@ class HappyCatAgent(Agent):
 				break;
 			except ValueError:
 				inputNum = -1
-		if len(myCandidate)==0 or inputNum == -1:
-			return Candidate(None, type=ExceptionPlay.TURNEND, turn=game.turn)
 		if inputNum>=0 and inputNum<len(myCandidate):
 			return myCandidate[inputNum]
-			if myChoice.type != ExceptionPlay.TURNEND:
-				executeAction(game, myChoice)
-				postAction(game.current_player)
+		return Candidate(None, type=ExceptionPlay.TURNEND, turn=game.turn)
+
+	def InputByNumber(self, game, myCandidate, inputNum):
+		if inputNum>=0 and inputNum<len(myCandidate):
+			return myCandidate[inputNum]
+		return Candidate(None, type=ExceptionPlay.TURNEND, turn=game.turn)
 		pass
 
 	hunterMulligan=[]
