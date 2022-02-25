@@ -63,7 +63,7 @@ def main():
 	a,b,c = play_set_of_games(\
 		HappyCat, Vector2, \
 		deck1=BigDeck.clownDruid,deck2=BigDeck.bigWarrior,\
-		gameNumber=1, debugLog=True)
+		gameNumber=10000, debugLog=True)
 	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=50, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
