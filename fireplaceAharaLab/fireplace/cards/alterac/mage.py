@@ -147,7 +147,7 @@ class AV_283_Action(TargetedAction):#
 			if card.cost + count <= 20:
 				count += card.cost
 				target = None
-				if card.requires_target() and card.targets!=None:
+				if card.requires_target() and card.targets!=None and card.targets!=[]:
 					target = random.choice(card.targets)
 				controller.game.trigger(controller, [Play(card,target,None,None)],event_args=None)
 			else:
