@@ -1,4 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
+from fireplace.actions import Hit
 
 def SimulateGames_Alterac_Neutral():
 
@@ -37,12 +38,11 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_309,1)####OK
 	#PresetGame(pp_AV_401,1)####OK
 	#PresetGame(pp_AV_704,1)####OK
-	#PresetGame(pp_ONY_001,1)#
-	#PresetGame(pp_ONY_002,1)#
-	#PresetGame(pp_ONY_003,1)#
-	#PresetGame(pp_ONY_004,1)#
-	#PresetGame(pp_ONY_005,1)#
-	PresetGame(pp_ONY_005tb1,1)#
+	#PresetGame(pp_ONY_001,1)####OK
+	#PresetGame(pp_ONY_002,1)####OK
+	#PresetGame(pp_ONY_003,1)####OK
+	#PresetGame(pp_ONY_004,1)####OK
+	#PresetGame(pp_ONY_005,1)#### now under pending
 	pass
 
 from hearthstone.enums import Zone,CardType, Rarity
@@ -1349,6 +1349,147 @@ class pp_AV_704(Preset_Play):
 		
 #########################
 
+class pp_ONY_001(Preset_Play):
+	""" Onyxian Warder
+	[Battlecry:] If you're holdinga Dragon, summon two 2/1 Whelps with [Rush]. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_001',controller)
+		self.mark2=self.exchange_card('dragon',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("Chekc whether summon two 2/1 Whelps")
+		for card in controller.field:
+			self.print_stats("controller.field", card)
+pass
+		
+#########################
+class pp_ONY_002(Preset_Play):
+	""" Gear Grubber
+	[Taunt]. If you end your turn with any un spent mana, reduce this card's Cost by (1). """
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_002',controller)
+		self.mark2=self.exchange_card('minionH3',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("Check whether reduce this card's Cost by (1)")
+		for card in controller.hand:
+			self.print_stats("controller.hand", card,old_cost=True)
+	pass
+		
+#########################
+
+class pp_ONY_003(Preset_Play):
+	""" Whelp Bonker (3/1/5)
+	[Frenzy and Honorable Kill:] Draw a card. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_003',controller)
+		self.mark2=self.exchange_card('minionH2',opponent)
+		self.mark3=self.exchange_card('minionH1',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		Hit(self.mark1, 2).trigger(controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		##########  controller
+		self.attack_card(self.mark1, self.mark3, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("Check if controller drew two cards, once when frenzy and another when honorable kill.")
+		for card in controller.hand:
+			self.print_stats("hand", card)
+	pass
+		
+#########################
+
+class pp_ONY_004(Preset_Play):
+	""" Raid Boss Onyxia
+	[Rush]. [Immune] while you control a Whelp. [Battlecry:] Summon six_2/1 Whelps with [Rush]. """
+	const1=0
+	const2=0
+	const3=0
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_004',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########start
+		self.play_card(self.mark1, controller)
+		#Hit(controller.field[-1], 2).trigger(controller)# if this works, immune turns false.
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		cst=self.const1
+		print("Check whether Whelps is in the field and the card is immune.")
+		for card in controller.field:
+			self.print_stats("controller.field", card)
+		print("card immune = %s"%(self.mark1.immune))
+
+	pass
+		
+#########################
+
 class pp_ONY_005tb1(Preset_Play):
 	""" Hyperblaster
 	[Poisonous].Your hero is [Immune] while attacking. """
@@ -1390,3 +1531,4 @@ class pp_ONY_005tb1(Preset_Play):
 	pass
 		
 #########################
+

@@ -376,15 +376,17 @@ class ONY_001t:# <12>[1626]
 class ONY_002_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		unspent_mana = (target.mana>0)
+		log.info("now ONY_002_Action")
+		unspent_mana = (target.controller.mana>0)
 		if unspent_mana:
-			yield Buff(CONTROLLER,'ONY_002e')
+			Buff(target,'ONY_002e').trigger(target)
 		pass
 
 class ONY_002:# <12>[1626]
 	""" Gear Grubber
 	[Taunt]. If you end your turn with any unspent mana, reduce this card's Cost by (1). """
-	events = OWN_TURN_END.on(ONY_002_Action(CONTROLLER))
+	class Hand:
+		events = OWN_TURN_END.on(ONY_002_Action(SELF))
 	pass
 
 ONY_002e=buff(cost=-1)
@@ -402,7 +404,7 @@ class ONY_003:# <12>[1626]
 class ONY_004:# <12>[1626]
 	""" Raid Boss Onyxia
 	[Rush]. [Immune] while you control a Whelp.[Battlecry:] Summon six_2/1 Whelps with [Rush]. """
-	update = Find(FRIENDLY_MINIONS + ID(ONY_001t)) & Refresh(SELF, {GameTag.IMMUNE:True})
+	update = Find(FRIENDLY_MINIONS + ID('ONY_001t')) & Refresh(SELF, {GameTag.IMMUNE:True}) |  Refresh(SELF, {GameTag.IMMUNE:False})
 	play = Summon(CONTROLLER, 'ONY_001t') * 6
 	pass
 
@@ -569,6 +571,8 @@ ONY_005tb1e=buff(immune_while_attacking = True)# <12>[1626]
 """ Hyperblaster Enchantment
 [Immune] while attacking. """
 
+## no class ONY_005tb10,class ONY_005tb11 (but class ONY_005tb610)
+
 class ONY_005tb12:# <12>[1626]
 	""" Dr. Boom's Boombox
 	Summon 7 'Boom Bots'. """
@@ -608,31 +612,44 @@ Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and
 class ONY_005tb3:# <12>[1626]
 	""" LOCUUUUSTS!!!
 	[Twinspell]Choose an enemy.Fill your board with 2/2 Locusts that attack it. """
-	#
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Give(CONTROLLER,'ONY_005tb3t')
 	pass
 
 class ONY_005tb3t:# <12>[1626]
 	""" LOCUUUUSTS!!!
 	Choose an enemy.Fill your board with 2/2 Locusts that attack it. """
-	#
+	play = Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET)),\
+		Summon(CONTROLLER, 'ONY_005tb3t2').then(RegularAttack(Summon.CARD, TARGET))
 	pass
 
 class ONY_005tb3t2:# <12>[1626]
 	""" Giant Locust
-	 """
-	#
+	vanilla """
 	pass
 
 class ONY_005tb4:# <12>[1626]
 	""" Wand of Disintegration
 	[Silence] and destroy all enemy minions. """
-	#
+	play = Silence(ENEMY_MINIONS),Destroy(ENEMY_MINIONS)
 	pass
 
 class ONY_005tb5:# <12>[1626]
 	""" Staff of Scales
 	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
-	#
+	play=Summon(CONTROLLER,'ONY_005tb5t')*3#
 	pass
 
 class ONY_005tb5t:# <12>[1626]
@@ -644,73 +661,85 @@ class ONY_005tb5t:# <12>[1626]
 class ONY_005tb6:# <12>[1626]
 	""" Phaoris' Blade
 	[Windfury].After your hero attacks and kills a minion, this gains +2/+1. """
-	#
+	events = Attack(SELF, ENEMY_MINIONS).after(Dead(ALL_MINIONS + Attack.DEFENDER) &Buff(SELF, 'ONY_005tb6e'))
 	pass
 
-class ONY_005tb610:# <12>[1626]
+class ONY_005tb610:# <12>[1626]#???????? maybe class ONY_005tb10
 	""" Zephrys's Lamp
-	Wish for the perfect card. """
-	#
+	Wish for the perfect card. 
+	[x]「勝利のカード」の願いを叶える。 = ULD_003"""
+	#def play(self):
+	#	entourage=['CS2_046','CS2_011']##Bloodlust, Savage Roar
+	#	if self.controller.opponent.hero.health<10:
+	#		entourage=['BT_512','CORE_CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
+	#	else:
+	#		for card in self.controller.opponent.field:
+	#			if card.taunt == True and card.max_health-card.damage>2:
+	#				entourage=['EX1_626','EX1_303','EX1_332']#Mass Dispel, Shadowflame, Silence
+	#				break
+	#	card = random.choice(entourage)
+	#	Give(self.controller, card).trigger(self.controller)
 	pass
 
-class ONY_005tb6e:# <12>[1626]
-	""" Phaoris' Fury
-	Increased stats. """
-	#
-	pass
+ONY_005tb6e=buff(2,1)# <12>[1626]
+""" Phaoris' Fury
+Increased stats. """
 
 class ONY_005tb7:# <12>[1626]
 	""" Canopic Jars
-	Give your minions"[Deathrattle:] Summona random [Legendary]minion." """
+	Give your minions "[Deathrattle:] Summon a random [Legendary] minion." """
 	#
 	pass
 
 class ONY_005tb7e:# <12>[1626]
 	""" Canopic Jars
 	[Deathrattle:] Summon a random [Legendary] minion. """
-	#
+	tags={GameTag.DEATHRATTLE: True}
+	deathrattle = Summon(RandomMinion(rarity=Rarity.LEGENDARY))
 	pass
 
 class ONY_005tb8:# <12>[1626]
 	""" Ancient Reflections
 	Choose a minion.Fill your board with 1/1 copies of it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Summon(CONTROLLER, Copy(TARGET)).then(Summon.CARD,'ONY_005tb8e')
 	pass
 
 class ONY_005tb8e:# <12>[1626]
 	""" Titan Hologram
 	1/1. """
-	#
+	atk=SET(1)
+	max_health=SET(1)
 	pass
 
 class ONY_005tb9:# <12>[1626]
 	""" Banana Split
 	Give a friendly minion +2/+2. Summon two copies of it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'ONY_005tb9e').then(Summon(CONTROLLER,ExactCopy(Buff.TARGET)) * 2)
 	pass
 
-class ONY_005tb9e:# <12>[1626]
-	""" Glowing Green
-	+2/+2. """
-	#
-	pass
+ONY_005tb9e=buff(2,2)# <12>[1626]
+""" Glowing Green
++2/+2. """
 
 class ONY_005tc1:# <12>[1626]
 	""" Embers of Ragnaros
 	Shoot three fireballs at random enemies that deal $8 damage each. """
-	#
+	play = Hit(RANDOM_ENEMY_CHARACTER,8) * 3
 	pass
 
-class ONY_005tc2:# <12>[1626]
+class ONY_005tc2:# <12>[1626]#################
 	""" Book of the Dead
 	Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game. """
-	#
+	#### whose cost?
+	#play = Hit(ENEMY_CHARACTERS,7), 
 	pass
 
-class ONY_005tc3:# <12>[1626]
+class ONY_005tc3:# <12>[1626]######################
 	""" Annoy-o Horn
 	Fill your board with annoying minions. """
-	#
+	annoying=['CORE_GVG_085','BOT_911',]
 	pass
 
 class ONY_005tc4:# <12>[1626]
