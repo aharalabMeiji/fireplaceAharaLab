@@ -15,6 +15,9 @@ def SimulateGames_Alterac_Warrior():
 	#PresetGame(pp_AV_323)####OK
 	#PresetGame(pp_AV_565)####OK
 	#PresetGame(pp_AV_660)####OK
+	#PresetGame(pp_ONY_023)####OK
+	#PresetGame(pp_ONY_024)####OK
+	#PresetGame(pp_ONY_025)####OK
 	pass
 
 #######################
@@ -391,6 +394,123 @@ class pp_AV_660(Preset_Play):
 		# check whether a card drawn
 		print ("プレイの詳細を確認")
 		print ("「全てのミニオンにターン開始ごとに１ダメ」を3回行うかどうかを☑。")
+	pass
+
+#######################
+
+class pp_ONY_023(Preset_Play):
+	""" Hit It Very Hard
+	Gain +10 Attack and "Can't attack heroes" this turn. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_023',controller)
+		self.mark2=self.exchange_card('minionH5',controller)
+		self.mark3=self.exchange_card('minionH5',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller)
+		for card in controller.hero.attack_targets:
+			self.print_stats("hero's targets", card)
+		#self.attack_card(controller.hero, self.mark3, controller)
+		self.attack_card(controller.hero, opponent.hero, controller)## alternative
+		self.change_turn(controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		# check whether a card drawn
+		print ("See the attack of the hero = %d"%(controller.hero.atk))
+		print ("See the HP of the enemy hero = %d"%(controller.opponent.hero.health))
+		print ("See (cant attack hero) flag on the hero = %s"%(controller.hero.cannot_attack_heroes))
+	pass
+
+#######################
+
+class pp_ONY_024(Preset_Play):
+	""" Onyxian Drake
+	[Taunt] [Battlecry:] Deal damage equal to your Armor to an enemy minion. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_024',controller)
+		self.mark2=self.exchange_card('armor',controller)
+		self.mark3=self.exchange_card('minionH5',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller, target=self.mark3)
+		#self.play_card(self.mark1, controller) #optional
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		print ("カード３(%s)へのダメージが%dであることを確認。"%(self.mark3, self.player.hero.armor))
+		self.print_stats("カード３", self.mark3)
+	pass
+
+#######################
+
+class pp_ONY_025(Preset_Play):
+	""" Shoulder Check
+	[Tradeable]Give a minion +2/+1 and [Rush]. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
+	msg1=''
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_025',controller)
+		self.mark2=self.exchange_card('minionH2',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller, target=self.mark2)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark3, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		# check whether a card drawn
+		self.print_stats("card2", self.mark2, show_buff=True)
+		print("rush=%s"%self.mark2.rush)
 	pass
 
 #######################

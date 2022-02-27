@@ -2489,16 +2489,16 @@ class FreezeOrHit(TargetedAction):
             Freeze(target).trigger(source)
         pass
 
-class SetCannotAttackHeroesTag(TargetedAction):
-	"""
-
-	"""
-	TARGET = ActionArg()#TARGET
-	AMOUNT = IntArg()
-	def do(self, source, target, amount):
-		log.info("cannot_attack_heroes: on : %r", target)
-		target.cannot_attack_heroes = (amount==1)
-		pass
+#class SetCannotAttackHeroesTag(TargetedAction):
+#	"""
+#
+#	"""
+#	TARGET = ActionArg()#TARGET
+#	AMOUNT = IntArg()
+#	def do(self, source, target, amount):
+#		log.info("cannot_attack_heroes: on : %r", target)
+#		target.cannot_attack_heroes = (amount==1)
+#		pass
 
 class ChangeHeroPower(TargetedAction):
 	"""

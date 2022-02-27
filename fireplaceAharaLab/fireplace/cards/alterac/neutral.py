@@ -410,6 +410,7 @@ class ONY_004:# <12>[1626]
 
 class ONY_005_Action(TargetedAction):# <12>[1626]
 	TARGET=ActionArg()
+	## discover new cards 5 times.(new cards are fed in two.)
 	def do(self, source,target):
 		controller = target
 		powered_up=True
