@@ -268,6 +268,7 @@ class BeginTurn(GameAction):
 		player.spells_played_this_turn=[] # DAL_558
 		player.died_this_turn=[] # CORE_EX1_190
 
+
 class Concede(GameAction):
 	"""
 	Make \a player concede
@@ -1164,6 +1165,14 @@ class GainArmor(TargetedAction):
 		target.armor += amount
 		self.broadcast(source, EventListener.ON, target, amount)
 
+class GainAttackHealth(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT1=IntArg()
+	AMOUNT2=IntArg()
+	def do(self, source, target, amount1, amount2):
+		target.atk = max(target.atk+amount1,0)
+		target.max_health = max(target.max_health+amount2, 0)
+		self.broadcast(source, EventListener.ON, target, amount1, amount2)
 
 class GainMana(TargetedAction):
 	"""
@@ -1472,6 +1481,7 @@ class UnsetTag(TargetedAction):
 
 	def do(self, source, target, tags):
 		for tag in tags:
+			log.info("%s unset tag %s"%(target, tag))
 			target.tags[tag] = False
 
 
@@ -2482,16 +2492,16 @@ class FreezeOrHit(TargetedAction):
             Freeze(target).trigger(source)
         pass
 
-class SetCannotAttackHeroesTag(TargetedAction):
-	"""
-
-	"""
-	TARGET = ActionArg()#TARGET
-	AMOUNT = IntArg()
-	def do(self, source, target, amount):
-		log.info("cannot_attack_heroes: on : %r", target)
-		target.cannot_attack_heroes = (amount==1)
-		pass
+#class SetCannotAttackHeroesTag(TargetedAction):
+#	"""
+#
+#	"""
+#	TARGET = ActionArg()#TARGET
+#	AMOUNT = IntArg()
+#	def do(self, source, target, amount):
+#		log.info("cannot_attack_heroes: on : %r", target)
+#		target.cannot_attack_heroes = (amount==1)
+#		pass
 
 class ChangeHeroPower(TargetedAction):
 	"""

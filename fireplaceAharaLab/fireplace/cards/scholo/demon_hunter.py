@@ -123,11 +123,11 @@ class SCH_422:# <14>[1443]
 	#
 	pass
 
-class SCH_538:# <14>[1443]
-	""" Ace Hunter Kreen
-	Your other characters are [Immune] while attacking. """
-	#
-	pass
+#class SCH_538:# <14>[1443]-> scholo_hunter
+#	""" Ace Hunter Kreen
+#	Your other characters are [Immune] while attacking. """
+#	#
+#	pass
 
 class SCH_600:# <14>[1443]
 	""" Demon Companion

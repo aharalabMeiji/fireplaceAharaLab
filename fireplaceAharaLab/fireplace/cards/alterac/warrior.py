@@ -99,23 +99,28 @@ class AV_660:
 class ONY_023:# <10>[1626]
 	""" Hit It Very Hard
 	Gain +10 Attack and "Can't attack heroes" this turn. """
-	#
+	play = Buff(FRIENDLY_HERO, 'ONY_023e')
 	pass
 
-class ONY_023e:# <10>[1626]
-	""" HIT IT HARD
-	+10 Attack this turn. """
-	#
-	pass
+ONY_023e=buff(10,0,cannot_attack_heroes = True)
+#class ONY_023e:# <10>[1626]
+""" HIT IT HARD
++10 Attack this turn. """
+#TAG_ONE_TURN_EFFECT
+## see SCH_138e2
+#pass
 
 class ONY_024:# <10>[1626]
 	""" Onyxian Drake
-	[Taunt] [Battlecry:] Deal damageequal to your Armor toan enemy minion. """
-	#
+	[Taunt] [Battlecry:] Deal damage equal to your Armor to an enemy minion. """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}
+	play = Hit(TARGET, ARMOR(FRIENDLY_HERO))
 	pass
 
 class ONY_025:# <10>[1626]
 	""" Shoulder Check
 	[Tradeable]Give a minion +2/+1 and [Rush]. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Buff(TARGET, 'ONY_025e')
 	pass
+ONY_025e=buff(2,1,rush=True)#<12>[1626]

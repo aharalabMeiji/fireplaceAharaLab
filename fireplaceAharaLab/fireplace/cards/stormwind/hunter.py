@@ -99,28 +99,28 @@ class SW_457:#OK
 SW_457e=buff(atk=1,health=1)
 
 
-class SW_458:#OK
+class SW_458:#
 	""" Ramming Mount
-	Give a minion +2/+2and [Immune] whileattacking. When it dies,summon a Ram. """
+	Give a minion +2/+2 and [Immune] while attacking. When it dies,summon a Ram. """
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0} 
-	play = Buff(TARGET,'SW_458e'),SetTag(TARGET,{GameTag.IMMUNE:True})
+	play = Buff(TARGET,'SW_458e')
 	pass
 
 class SW_458e:
-	atk = lambda self, i : i+2
-	max_health = lambda self, i  : i+2
-	events =[
-		OWN_TURN_END.on(SetTag(OWNER,{GameTag.IMMUNE:False})),
-		OWN_TURN_BEGIN.on(SetTag(OWNER,{GameTag.IMMUNE:True})),
-		Predamage(OWNER).on(Moribund(OWNER,[Summon(CONTROLLER,'SW_458t')]))
-		]
-""" On a Ram
+	""" On a Ram
 	+2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
-	
-class SW_458t:### immune_while_attacking がうまく動いていないように思う。
+	deathrattle = Summon(CONTROLLER, "SW_458t")
+	tags = {
+		GameTag.ATK: +2,
+		GameTag.HEALTH: +1,
+		GameTag.DEATHRATTLE: True,
+		GameTag.IMMUNE_WHILE_ATTACKING: True
+	}
+
+class SW_458t:### 
 	""" Tavish's Ram
 	[Immune] while attacking. """
-	#
+	#<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>
 	pass
 
 class SW_459:#OK

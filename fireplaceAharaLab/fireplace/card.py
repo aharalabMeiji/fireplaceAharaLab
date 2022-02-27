@@ -562,10 +562,10 @@ class Character(LiveEntity):
 	rush = boolean_property("rush")
 	taunt = boolean_property("taunt")
 	divine_shield = boolean_property("divine_shield")
+	cannot_attack_heroes = boolean_property("cannot_attack_heroes")
 
 	def __init__(self, data):
 		self.attack_target = None
-		self.cannot_attack_heroes = False
 		self.frozen = False
 		self.num_attacks = 0
 		self.race = Race.INVALID
