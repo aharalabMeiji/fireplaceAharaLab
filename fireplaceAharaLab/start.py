@@ -15,8 +15,8 @@ def main():
 	cards.db.initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
-		choiceStrategy=HumanAgent.HumanInputChoice
-		,mulliganStrategy=HumanAgent.HumanInputMulligan)
+		choiceStrategy=HumanAgent.HumanInputChoice)
+		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.WARRIOR)
 	# random agent
 	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
@@ -25,11 +25,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.DRUID)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	# Maya : モンテカルロによる読み切り
@@ -51,25 +51,19 @@ def main():
 	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
 	#	,myClass=CardClass.PRIEST)
 
-	#HappyCat : エージェント
-	from agent_HappyCat import HappyCatAgent
-	HappyCat=HappyCatAgent("HappyCat", HappyCatAgent.HappyCatAI,myClass=CardClass.DRUID)
+	#from agent_Test import TestHumanAgent
+	#TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.DRUID,choiceStrategy=TestHumanAgent.HumanInputChoice)
+
+	#HunterCat : faceHunter専用のエージェント
+	#from agent_HunterCat import HunterCatAgent
+	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(\
-<<<<<<< Updated upstream
-		HappyCat, Vector2, \
-		deck1=BigDeck.clownDruid,deck2=BigDeck.bigWarrior,\
-=======
-		Vector1, Vector2, \
-		deck1=BigDeck.faceHunter,deck2=BigDeck.clownDruid,\
->>>>>>> Stashed changes
-		gameNumber=10000, debugLog=True)
-	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=50, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -192,6 +186,6 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#from card_test.scholo_mage import SimulateGames_Scholo_Mage
-	#SimulateGames_Scholo_Mage()
+	#from card_test.stormwind_hunter import SimulateGames_Stormwind_Hunter
+	#SimulateGames_Stormwind_Hunter()
 	main()

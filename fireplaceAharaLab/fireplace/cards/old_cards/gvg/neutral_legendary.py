@@ -9,9 +9,9 @@ class GVG_110:
 	play = Summon(CONTROLLER, "GVG_110t") * 2
 
 
-class GVG_110t:
-	"""Boom Bot"""
-	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
+#class GVG_110t:
+#	"""Boom Bot"""
+#	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
 
 
 class GVG_111:

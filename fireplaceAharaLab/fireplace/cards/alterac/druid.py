@@ -104,7 +104,7 @@ class AV_294:
 	[Battlecry]: Give all other friendly characters +1 Attack this turn. """
 	play = Buff(FRIENDLY_CHARACTERS - SELF, 'AV_294e')
 	pass
-class AV_294e:
+class AV_294e:#ONE_TURN_EFFECT
 	atk = lambda self, i: i+1
 	events = OWN_TURN_END.on(Destroy(SELF))
 
