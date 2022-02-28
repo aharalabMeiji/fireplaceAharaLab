@@ -179,19 +179,20 @@ class AV_360:#
 class ONY_018:# <2>[1626]
 	""" Boomkin
 	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
-	#
+	choose=('ONY_018t','ONY_018t2')
+	play = ChooseBoth(CONTROLLER) & (Heal(FRIENDLY_HERO, 8), Buff(SELF, "EX1_178be"))
 	pass
 
 class ONY_018t:# <2>[1626]
 	""" Eyes of the Moon
 	Restore 8 Health to your hero. """
-	#
+	play = Heal(FRIENDLY_HERO, 8)
 	pass
 
 class ONY_018t2:# <2>[1626]
 	""" Heart of the Sun
 	Deal 4 damage. """
-	#
+	
 	pass
 
 class ONY_019:# <2>[1626]

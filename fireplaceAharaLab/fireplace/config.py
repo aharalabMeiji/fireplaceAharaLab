@@ -11,6 +11,6 @@ class Config(IntEnum):# ()is the default value
     #P1MAXMANA=1 # 先攻マナ(1) 1~10
     #P2MAXMANA=1 # 後攻マナ(1) 1~10
     #P1HAND=3 # 先攻ハンド枚数(3) 1~9 
-    #P2HAND=4 # 後攻ハンド枚数(4) 1~9 ※コインは含まない
+    #P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
 
