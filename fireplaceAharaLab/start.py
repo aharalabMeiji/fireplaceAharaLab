@@ -72,50 +72,30 @@ def main():
 	
 
 
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=8)
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=5,P1HAND=3,P2HAND=3)
 	with open('output.csv', 'a', newline='') as csvfile:
 		writer = csv.writer(csvfile)
 		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-3-1-8.csv')
+	os.rename('./output.csv','1-3-5-3.csv')
 	
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=7)
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=4,P1HAND=3,P2HAND=3)
 	with open('output.csv', 'a', newline='') as csvfile:
 		writer = csv.writer(csvfile)
 		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-3-1-7.csv')
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=6)
-	with open('output.csv', 'a', newline='') as csvfile:
-		writer = csv.writer(csvfile)
-		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-3-1-6.csv')
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=5)
-	with open('output.csv', 'a', newline='') as csvfile:
-		writer = csv.writer(csvfile)
-		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-3-1-5.csv')
-	
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=8,P2HAND=3)
-	with open('output.csv', 'a', newline='') as csvfile:
-		writer = csv.writer(csvfile)
-		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-8-1-3.csv')
-	
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=7,P2HAND=3)
-	with open('output.csv', 'a', newline='') as csvfile:
-		writer = csv.writer(csvfile)
-		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-7-1-3.csv')
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=6,P2HAND=3)
-	with open('output.csv', 'a', newline='') as csvfile:
-		writer = csv.writer(csvfile)
-		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-6-1-3.csv')
-	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=5,P2HAND=3)
-	with open('output.csv', 'a', newline='') as csvfile:
-		writer = csv.writer(csvfile)
-		writer.writerow(['先手勝利数：',a])
-	os.rename('./output.csv','1-5-1-3.csv')
+	os.rename('./output.csv','1-3-4-3.csv')
 
+
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=4, P2MAXMANA=1,P1HAND=3,P2HAND=3)
+	with open('output.csv', 'a', newline='') as csvfile:
+		writer = csv.writer(csvfile)
+		writer.writerow(['先手勝利数：',a])
+	os.rename('./output.csv','4-3-1-3.csv')
+
+	a,b,c = play_set_of_games(Random1, Random2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=3000, debugLog=False,P1MAXMANA=5, P2MAXMANA=1,P1HAND=3,P2HAND=3)
+	with open('output.csv', 'a', newline='') as csvfile:
+		writer = csv.writer(csvfile)
+		writer.writerow(['先手勝利数：',a])
+	os.rename('./output.csv','5-3-1-3.csv')
 
 
 
