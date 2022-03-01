@@ -180,7 +180,7 @@ class ONY_018:# <2>[1626]
 	""" Boomkin
 	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
 	choose=('ONY_018t','ONY_018t2')
-	play = ChooseBoth(CONTROLLER) & (Heal(FRIENDLY_HERO, 8), Buff(SELF, "EX1_178be"))
+	play = ChooseBoth(CONTROLLER) & (Heal(FRIENDLY_HERO, 8), Hit(RANDOM(ENEMY_CHARACTERS), 4))
 	pass
 
 class ONY_018t:# <2>[1626]
@@ -192,24 +192,23 @@ class ONY_018t:# <2>[1626]
 class ONY_018t2:# <2>[1626]
 	""" Heart of the Sun
 	Deal 4 damage. """
-	
+	requirements ={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_HERO_OR_MINION_TARGET:0 }
+	Hit(TARGET, 4)
 	pass
 
 class ONY_019:# <2>[1626]
 	""" Raid Negotiator
-	[Battlecry:] [Discover] a[Choose One] card. It hasboth effects combined. """
-	#
+	[Battlecry:] [Discover] a [Choose One] card. It has both effects combined. """
+	play = DISCOVER(Random(has_choose_one=True)).then(Buff(Discover.CARD,'ONY_019e'))
 	pass
 
-class ONY_019e:# <2>[1626]
-	""" Decisive
-	Your next [Choose One] card is combined. """
-	#
-	pass
+ONY_019e=both(choose_both=True)# <2>[1626]
+""" Decisive
+Your next [Choose One] card is combined. """
 
 class ONY_021:# <2>[1626]
 	""" Scale of Onyxia
 	Fill your board with 2/1 Whelps with [Rush]. """
-	#
+	play = Summon(CONTROLLER, 'ONY_001t') * 7
 	pass
 
