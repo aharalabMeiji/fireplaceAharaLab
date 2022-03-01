@@ -199,10 +199,12 @@ class ONY_018t2:# <2>[1626]
 class ONY_019:# <2>[1626]
 	""" Raid Negotiator
 	[Battlecry:] [Discover] a [Choose One] card. It has both effects combined. """
-	play = DISCOVER(Random(has_choose_one=True)).then(Buff(Discover.CARD,'ONY_019e'))
+	play = DISCOVER(RandomCollectible(has_choose_one=True)).then(Buff(Discover.CARDS,'ONY_019e'))
 	pass
 
-ONY_019e=both(choose_both=True)# <2>[1626]
+class ONY_019e:
+	tags = {GameTag.CHOOSE_BOTH:True }
+#ONY_019e=buff(choose_both=True)# <2>[1626]
 """ Decisive
 Your next [Choose One] card is combined. """
 

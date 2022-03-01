@@ -14,7 +14,7 @@ def SimulateGames_Alterac_Druid():
 	#PresetGame(pp_AV_296)####OK
 	#PresetGame(pp_AV_360)####OK
 	#PresetGame(pp_ONY_018)#
-	#PresetGame(pp_ONY_019)#
+	PresetGame(pp_ONY_019)#
 	#PresetGame(pp_ONY_021)#
 	pass
 
@@ -426,18 +426,19 @@ class pp_ONY_018(Preset_Play):
 		#self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		########## controller
-		self.activate_heropower(controller, None)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		for card in controller.hand:
+			self.print_stats("hand",card, show_buff=True)
 	pass
 		
 #########################
 
 class pp_ONY_019(Preset_Play):
 	""" Raid Negotiator
-	[Battlecry:] [Discover] a[Choose One] card. It hasboth effects combined. """
+	[Battlecry:] [Discover] a[Choose One] card. It has both effects combined. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
@@ -458,11 +459,13 @@ class pp_ONY_019(Preset_Play):
 		#self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		########## controller
-		self.activate_heropower(controller, None)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		for card in controller.hand:
+			self.print_stats("hand",card, show_buff=True)
+
 	pass
 		
 #########################
