@@ -147,8 +147,8 @@ class CardDB(dict):
 
 				if attr == "card_class":
 					cards = [card for card in cards if value in card.classes]
-				#elif attr == 'has_choose_one':
-				#	cards = [card for card in cards if hasattr(card,'has_choose_one')]
+				elif attr == 'has_choose_one':
+					cards = [card for card in cards if hasattr(card,'has_choose_one')]
 				else:
 					cards = [
 						card for card in cards if (

@@ -1,5 +1,7 @@
 from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import CardClass
+from utils import postAction
+
 #Alteric_Druid=['AV_205','AV_210','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]
 
 def SimulateGames_Alterac_Druid():
@@ -454,10 +456,11 @@ class pp_ONY_019(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
+		postAction(controller)
 		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		self.change_turn(opponent)
+		#self.change_turn(opponent)
 		########## controller
 		pass
 	def result_inspection(self):
@@ -465,7 +468,6 @@ class pp_ONY_019(Preset_Play):
 		controller=self.player
 		for card in controller.hand:
 			self.print_stats("hand",card, show_buff=True)
-
 	pass
 		
 #########################

@@ -196,10 +196,16 @@ class ONY_018t2:# <2>[1626]
 	Hit(TARGET, 4)
 	pass
 
+class ONY_019_Discover(GenericChoice):## SW_059  ## callbackで対応可能
+	def choose(self, card):
+		super().choose(card)
+		Buff(card,'ONY_019e').trigger(card.controller)
+		pass
+
 class ONY_019:# <2>[1626]
 	""" Raid Negotiator
 	[Battlecry:] [Discover] a [Choose One] card. It has both effects combined. """
-	play = DISCOVER(RandomCollectible(has_choose_one=True)).then(Buff(Discover.CARDS,'ONY_019e'))
+	play = ONY_019_Discover(CONTROLLER, RandomCard(card_class=CardClass.DRUID)*3)
 	pass
 
 class ONY_019e:
