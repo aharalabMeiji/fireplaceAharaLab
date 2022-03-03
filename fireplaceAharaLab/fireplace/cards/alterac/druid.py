@@ -199,7 +199,7 @@ class ONY_018t2:# <2>[1626]
 class ONY_019_Discover(GenericChoice):## SW_059  ## callbackで対応可能
 	def choose(self, card):
 		super().choose(card)
-		Buff(card,'ONY_019e').trigger(card.controller)
+		Buff(self.source.controller,'ONY_019e').trigger(self.source.controller)
 		pass
 
 class ONY_019:# <2>[1626]
@@ -209,7 +209,11 @@ class ONY_019:# <2>[1626]
 	pass
 
 class ONY_019e:
-	tags = {GameTag.CHOOSE_BOTH:True }
+	update = Refresh(CONTROLLER, {GameTag.CHOOSE_BOTH: True,})
+	#def apply(self, target):
+	#	setattr(self.owner,'choose_both', True)
+	#	pass
+	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).on(Destroy(SELF))
 #ONY_019e=buff(choose_both=True)# <2>[1626]
 """ Decisive
 Your next [Choose One] card is combined. """
