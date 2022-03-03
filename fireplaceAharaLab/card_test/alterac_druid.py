@@ -447,6 +447,7 @@ class pp_ONY_019(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('ONY_019',controller)
+		self.mark2=self.exchange_card('ONY_018',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):

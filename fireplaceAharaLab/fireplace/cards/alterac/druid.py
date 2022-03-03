@@ -205,7 +205,7 @@ class ONY_019_Discover(GenericChoice):## SW_059  ## callbackで対応可能
 class ONY_019:# <2>[1626]
 	""" Raid Negotiator
 	[Battlecry:] [Discover] a [Choose One] card. It has both effects combined. """
-	play = ONY_019_Discover(CONTROLLER, RandomCard(card_class=CardClass.DRUID)*3)
+	play = ONY_019_Discover(CONTROLLER, RandomCollectible(has_choose_one=True)*3)
 	pass
 
 class ONY_019e:
