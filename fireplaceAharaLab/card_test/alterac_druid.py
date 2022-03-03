@@ -461,8 +461,9 @@ class pp_ONY_019(Preset_Play):
 		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
 		########## controller
+		self.play_card(self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
