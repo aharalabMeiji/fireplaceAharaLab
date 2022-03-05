@@ -40,7 +40,7 @@ class CORE_EX1_160:#OK <2>[1637]
 	""" Power of the Wild
 	[Choose One -] Give your minions +1/+1; or Summon a 3/2 Panther. """
 	choose = ("EX1_160a", "EX1_160b")
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Buff(FRIENDLY_MINIONS, "EX1_160be"), Summon(CONTROLLER, "EX1_160t")
 	)
 class EX1_160a:
@@ -58,7 +58,7 @@ class CORE_EX1_164:# OK <2>[1637]
 	""" Nourish
 	[Choose One -] Gain 2_Mana Crystals; or Draw 3 cards. """
 	choose = ("EX1_164a", "EX1_164b")
-	play = ChooseBoth(CONTROLLER) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER) * 3)
+	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER) * 3)
 class EX1_164a:
 	play = GainMana(CONTROLLER, 2)
 class EX1_164b:
@@ -68,7 +68,7 @@ class CORE_EX1_165:#OK <2>[1637]
 	""" Druid of the Claw
 	[Choose One -] Transforminto a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	choose = ("EX1_165a", "EX1_165b")
-	play = ChooseBoth(CONTROLLER) & Morph(SELF, "OG_044a")
+	play = ChooseBoth(SELF) & Morph(SELF, "OG_044a")
 class EX1_165a:
 	play = Morph(SELF, "EX1_165t1")
 class EX1_165b:
@@ -90,7 +90,7 @@ class CORE_EX1_178:#OK <2>[1637]
 	""" Ancient of War
 	[Choose One -]+5 Attack; or +5 Health and [Taunt]. """
 	choose = ("EX1_178b", "EX1_178a")
-	play = ChooseBoth(CONTROLLER) & (Buff(SELF, "EX1_178ae"), Buff(SELF, "EX1_178be"))
+	play = ChooseBoth(SELF) & (Buff(SELF, "EX1_178ae"), Buff(SELF, "EX1_178be"))
 class EX1_178a:
 	""" Rooted
 	+5 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
@@ -113,7 +113,7 @@ class CORE_EX1_573:#OK <2>[1637]
 	""" Cenarius
 	[Choose One -] Give your other minions +2/+2; or Summon two 2/2 Treants with [Taunt]. """
 	choose = ("EX1_573a", "EX1_573b")
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Buff(FRIENDLY_MINIONS - SELF, "EX1_573ae"),
 		Summon(CONTROLLER, "EX1_573t") * 2
 	)
@@ -147,7 +147,7 @@ class CORE_OG_047:#OK <2>[1637]
 	""" Feral Rage
 	[Choose One -] Give your hero +4 Attack this turn; or Gain 8 Armor. """
 	choose = ("OG_047a", "OG_047b")
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Buff(FRIENDLY_HERO, "OG_047e"),
 		GainArmor(FRIENDLY_HERO, 8)
 	)

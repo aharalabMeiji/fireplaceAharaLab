@@ -88,7 +88,7 @@ class DMF_061:#OK <2>[1466] #
 #	""" Faire Arborist
 #	[Choose One - ]Draw a card;or Summon a 2/2 Treant.[Corrupt:] Do both. """
 	choose = ('DMF_061a','DMF_061b',)
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Draw(CONTROLLER),
 		Summon(CONTROLLER,'DMF_061t2')
 		)

@@ -60,7 +60,7 @@ class SCH_612:#OK <2>[1443]
 	""" Runic Carvings
 	[Choose One -] Summon four 2/2 Treant Totems; or [Overload:] (2) to summon them with [Rush]. """
 	choose = ('SCH_612a','SCH_612b')
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Summon(CONTROLLER, 'SCH_612t')*4,
 		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),
 		Summon(CONTROLLER, 'SCH_612t').then(Buff(Summon.CARD,'EX1_084e')),

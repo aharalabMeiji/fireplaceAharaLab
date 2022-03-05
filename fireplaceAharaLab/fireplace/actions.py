@@ -421,6 +421,7 @@ class GenericChoice(Choice):
 					new_card.zone = Zone.HAND
 					if new_card.id in private_casts_when_chosen:
 						Play(new_card,None,None,None).trigger(card.controller)
+		# we may return the new card. 
 
 
 class GenericChoiceOnDeck(Choice):

@@ -114,7 +114,7 @@ class BT_136t:#OK <2>[1414]
 	""" Msshi'fn Prime
 	[Taunt][Choose One -] Summon a 9/9 Fungal Giant with [Taunt]; or [Rush]. """
 	choose = ("BT_136ta", "BT_136tb")
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Summon(CONTROLLER, "BT_136tt3"))
 	pass
 
