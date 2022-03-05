@@ -1,5 +1,7 @@
 from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import CardClass
+from utils import postAction
+
 #Alteric_Druid=['AV_205','AV_210','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]
 
 def SimulateGames_Alterac_Druid():
@@ -13,6 +15,9 @@ def SimulateGames_Alterac_Druid():
 	#PresetGame(pp_AV_295)####OK
 	#PresetGame(pp_AV_296)####OK
 	#PresetGame(pp_AV_360)####OK
+	#PresetGame(pp_ONY_018)#
+	PresetGame(pp_ONY_019)#
+	#PresetGame(pp_ONY_021)#
 	pass
 
 #########################
@@ -400,3 +405,102 @@ class pp_AV_360(Preset_Play):
 		
 #########################
 
+class pp_ONY_018(Preset_Play):
+	""" Boomkin
+	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_018',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.hand:
+			self.print_stats("hand",card, show_buff=True)
+	pass
+		
+#########################
+
+class pp_ONY_019(Preset_Play):
+	""" Raid Negotiator
+	[Battlecry:] [Discover] a[Choose One] card. It has both effects combined. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_019',controller)
+		self.mark2=self.exchange_card('ONY_018',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.hand:
+			self.print_stats("hand",card, show_buff=True)
+	pass
+		
+#########################
+
+class pp_ONY_021(Preset_Play):
+	""" Scale of Onyxia
+	Fill your board with 2/1 Whelps with [Rush]. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_021',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.activate_heropower(controller, None)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+	pass
+		
+#########################

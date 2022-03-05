@@ -186,6 +186,4 @@ def print_deck():
 		pass
 
 if __name__ == "__main__":
-	#from card_test.stormwind_hunter import SimulateGames_Stormwind_Hunter
-	#SimulateGames_Stormwind_Hunter()
 	main()

@@ -92,8 +92,9 @@ class ChooseBoth(Evaluator):
 		self.selector = selector
 
 	def check(self, source):
-		player = self.selector.eval(source.game.entities, source)[0]
-		if player.choose_both:
+		entity = self.selector.eval(source.game.entities, source)[0]
+		# entity may be Player or PlayableCard
+		if entity.choose_both:
 			return True
 		return False
 

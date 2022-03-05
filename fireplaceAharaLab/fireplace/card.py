@@ -154,38 +154,39 @@ class BaseCard(BaseEntity):
 
 
 class PlayableCard(BaseCard, Entity, TargetableByAuras):
-	windfury = int_property("windfury")
-	has_choose_one = boolean_property("has_choose_one")
-	playable_zone = Zone.HAND
-	lifesteal = boolean_property("lifesteal")
 	cant_be_frozen = boolean_property("cant_be_frozen")# 
-	reborn = boolean_property("reborn")# 
-	mark_of_evil = boolean_property("mark_of_evil")# 
-	trade_cost = int_property("trade_cost")#stormwind
-	tradeable = boolean_property("tradeable")#stormwind
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
+	has_choose_one = boolean_property("has_choose_one")
+	honorable_kill = boolean_property("honorable_kill")
+	lifesteal = boolean_property("lifesteal")
+	mark_of_evil = boolean_property("mark_of_evil")# 
+	piece_of_cthun=int_property("piece_of_cthun")#
+	playable_zone = Zone.HAND
+	reborn = boolean_property("reborn")# 
+	script_data_num_1 = int_property("script_data_num_1")
+	trade_cost = int_property("trade_cost")#stormwind
+	tradeable = boolean_property("tradeable")#stormwind
+	windfury = int_property("windfury")
 	sidequest_list0 = []# Sidequest
 	_sidequest_list1_ = []# Sidequest
 	_sidequest_list2_ = []# Sidequest
 	_sidequest_list3_ = []# Sidequest
 	_sidequest_counter_ = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
-	script_data_num_1 = int_property("script_data_num_1")
-	piece_of_cthun=int_property("piece_of_cthun")#
-	honorable_kill = boolean_property("honorable_kill")
 	honorable_kill = True
 	honorably_killed = False ##
 
 	def __init__(self, data):
 		self.cant_play = False
+		self.choose_both = False
+		self.choose_cards = CardList()
 		self.entourage = CardList(data.entourage)
 		self.has_battlecry = False
 		self.has_combo = False
 		self.overload = 0
 		self.target = None
 		self.rarity = Rarity.INVALID
-		self.choose_cards = CardList()
 		self.morphed = None
 		self.upgrade_counter = 0
 		self.cast_on_friendly_characters = False

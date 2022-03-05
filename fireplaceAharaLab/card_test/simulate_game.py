@@ -78,9 +78,8 @@ class Preset_Play:
 	def change_turn(self, player):
 		game = player.game
 		if player.choice!=None:
-			player.choice=None#somotimes it comes here
+			postAction(player)
 		game.end_turn()
-		postAction(player)
 		current = player.opponent
 		pass
 	def execute(self, testNr = 0):
