@@ -180,7 +180,7 @@ class ONY_018:# <2>[1626]
 	""" Boomkin
 	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
 	choose=('ONY_018t','ONY_018t2')
-	play = ChooseBoth(CONTROLLER) & (Heal(FRIENDLY_HERO, 8), Hit(RANDOM(ENEMY_CHARACTERS), 4))
+	play = ChooseBoth(SELF) & (Heal(FRIENDLY_HERO, 8), Hit(RANDOM(ENEMY_CHARACTERS), 4))
 	pass
 
 class ONY_018t:# <2>[1626]
@@ -196,10 +196,10 @@ class ONY_018t2:# <2>[1626]
 	Hit(TARGET, 4)
 	pass
 
-class ONY_019_Discover(GenericChoice):## SW_059  ## callbackで対応可能
+class ONY_019_Discover(GenericChoice):##
 	def choose(self, card):
 		super().choose(card)
-		Buff(self.source.controller,'ONY_019e').trigger(self.source.controller)
+		Buff(card,'ONY_019e').trigger(self.source.controller)
 		pass
 
 class ONY_019:# <2>[1626]
@@ -209,11 +209,9 @@ class ONY_019:# <2>[1626]
 	pass
 
 class ONY_019e:
-	update = Refresh(CONTROLLER, {GameTag.CHOOSE_BOTH: True,})
-	#def apply(self, target):
-	#	setattr(self.owner,'choose_both', True)
-	#	pass
-	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).on(Destroy(SELF))
+	#update = Refresh(OWNER, {GameTag.CHOOSE_BOTH:True})
+	play = SetTag(OWNER, (GameTag.CHOOSE_BOTH,))
+	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).after(Destroy(SELF))
 #ONY_019e=buff(choose_both=True)# <2>[1626]
 """ Decisive
 Your next [Choose One] card is combined. """

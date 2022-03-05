@@ -457,7 +457,6 @@ class pp_ONY_019(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		postAction(controller)
 		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
