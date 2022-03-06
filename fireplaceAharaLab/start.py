@@ -190,8 +190,8 @@ def print_deck():
 	except FileNotFoundError:
 		pass
 
-if __name__ == "__main__":
-	#from card_test.core_rogue import SimulateGames_Core_Rogue
-	#SimulateGames_Core_Rogue()
-	main()
+if  __name__ == "__main__":
+	from card_test.core_paladin import SimulateGames_Core_Paladin
+	SimulateGames_Core_Paladin()
+	#main()
 

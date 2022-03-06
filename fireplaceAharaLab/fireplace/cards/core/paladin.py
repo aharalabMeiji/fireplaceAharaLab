@@ -1,13 +1,13 @@
 from ..utils import *
 ##嶋田君の仕事！！
-class CORE_AT_075:# <5>[1637]
+class CORE_AT_075:# <5>[1637]#OK
 
     """ Warhorse Trainer
     Your Silver Hand Recruits have +1 Attack. """
-    #update = BuffOnce(FRIENDLY_MINIONS("CS2_152"?), buff(1,0)←ここがよくわからない)
-  
+    update = Refresh(FRIENDLY + ID("CS2_101t"), buff="AT_075e")
     pass
 
+AT_075e = buff(atk=1)
 
 class CORE_CS2_088:# <5>[1637]#OK
     """ Guardian of Kings
@@ -23,11 +23,14 @@ class CORE_CS2_089:# <5>[1637]#OK
     play = Heal(FRIENDLY_HERO, 8)
     pass
 
-class CORE_CS2_092:# <5>[1637]
-    """ Blessing of Kings
-    Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i> """
-    #これもエンチャントカードがないためわからず
-    pass
+class CORE_CS2_092:# <5>[1637]#OK
+	""" Blessing of Kings
+	Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i> """
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "CS2_092e")
+	pass
+
+CS2_092e = buff(+4, +4)
 
 class CORE_CS2_093:# <5>[1637]#OK
     """ Consecration
@@ -48,6 +51,13 @@ class CORE_EX1_130:# <5>[1637]
 	""" Noble Sacrifice
 	[Secret:] When an enemy attacks, summon a 2/1 Defender as the new target. """
 	#
+	sercret = Attack(ENEMY_MINIONS).on(FULL_BOARD | (
+		Reveal(SELF), Retarget(Attack.ATTACKER, Summon(CONTROLLER, "EX1_130a"))
+	))
+	pass
+
+class EX1_130a:
+	""" Defender vanilla """
 	pass
 
 class CORE_EX1_362:# <5>[1637]
@@ -96,6 +106,10 @@ class CS3_016:# <5>[1637]
 	""" Reckoning
 	[Secret:] After an enemy minion deals 3 or more damage, destroy it. """
 	#
+	secret = Attack(ENEMY_MINIONS, FRIENDLY_CHARACTERS).after(
+		Reveal(SELF),
+		Destroy(Attack.ATTACKER)
+		)
 	pass
 
 class CS3_029:# <5>[1637]
