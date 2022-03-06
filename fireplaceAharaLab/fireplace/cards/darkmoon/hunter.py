@@ -129,5 +129,5 @@ class YOP_027:#OK
 class YOP_028:#OK
 	""" Saddlemaster
 	After you play a Beast, add_a random Beast to_your hand. """
-	events = Play(CONTROLLER, BEAST).on(Give(CONTROLLER,RANDOM(BEAST)))
+	events = Play(CONTROLLER, BEAST).on(Give(CONTROLLER,RandomBeast()))
 	pass

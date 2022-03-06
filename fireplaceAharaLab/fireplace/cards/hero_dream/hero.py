@@ -81,16 +81,16 @@ class AT_132_ROGUEt:
 	pass
 
 class HERO_04:
-
-	pass
-
+	""" Uther Lightbringer
+	"""
 class HERO_04bp:
 	"""Reinforce (Uther Lightbringer)"""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	activate = Summon(CONTROLLER, "CS2_101t")
-	pass
-
-class HERO_04bp2:
+class CS2_101t:
+	""" Silver Hand Recruit (1/1/1)
+	"""
+class HERO_04bp2:#OK
 	""" The Silver Hand
 	<b>Hero Power</b>
 	Summon two 1/1 Recruits."""
@@ -102,7 +102,6 @@ class HERO_05:
 	""" Garrosh Hellscream
 	"""
 	pass
-
 class HERO_05bp:
 	"""Steady Shot (Rexxar)"""
 	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}

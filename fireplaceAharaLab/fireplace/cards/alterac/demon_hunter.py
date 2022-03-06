@@ -1,6 +1,7 @@
 from ..utils import *
 
-#CardSet.ALTERAC_VALLEY_CardClass.DEMONHUNTER=['AV_118','AV_204','AV_204e','AV_204p','AV_204t2','AV_209','AV_261','AV_261e','AV_262','AV_262e2','AV_264','AV_265','AV_267','AV_267e2','AV_269','AV_269e','AV_269t','AV_661','AV_661e2',]
+#Alterac_Demonhunter=['AV_118','AV_204','AV_204e','AV_204p','AV_204t2','AV_209','AV_261','AV_261e','AV_262','AV_262e2','AV_264','AV_265','AV_267','AV_267e2','AV_269','AV_269e','AV_269t','AV_661','AV_661e2',]
+#+= ['ONY_014','ONY_014e','ONY_016','ONY_016t','ONY_016t2','ONY_036',]
 class AV_118:# <14>[1626]
 	""" Battleworn Vanguard
 	After your hero attacks,summon two 1/1 Felwings. """
@@ -112,5 +113,42 @@ class AV_661:# <14>[1626]
 class AV_661e2:# <14>[1626]
 	""" Empowered
 	+1 Attack from {0}. """
+	#
+	pass
+
+
+class ONY_014:# <14>[1626]
+	""" Keen Reflex
+	Deal $1 damage to allminions. [Honorable Kill:]Gain +1 Attack this turn. """
+	#
+	pass
+
+class ONY_014e:# <14>[1626]
+	""" Keen Reflex
+	+1 Attack this turn. """
+	#
+	pass
+
+class ONY_016:# <14>[1626]
+	""" Wings of Hate (Rank 1)
+	Summon two 1/1Felwings. <i>(Upgradeswhen you have 5 Mana.)</i> """
+	#
+	pass
+
+class ONY_016t:# <14>[1626]
+	""" Wings of Hate (Rank 2)
+	Summon three 1/1Felwings. <i>(Upgradeswhen you have 10 Mana.)</i> """
+	#
+	pass
+
+class ONY_016t2:# <14>[1626]
+	""" Wings of Hate (Rank 3)
+	Summon four1/1 Felwings. """
+	#
+	pass
+
+class ONY_036:# <14>[1626]
+	""" Razorglaive Sentinel
+	After you play the left or right-most card in your hand, draw a card. """
 	#
 	pass

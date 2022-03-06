@@ -104,7 +104,7 @@ class AV_294:
 	[Battlecry]: Give all other friendly characters +1 Attack this turn. """
 	play = Buff(FRIENDLY_CHARACTERS - SELF, 'AV_294e')
 	pass
-class AV_294e:
+class AV_294e:#ONE_TURN_EFFECT
 	atk = lambda self, i: i+1
 	events = OWN_TURN_END.on(Destroy(SELF))
 
@@ -175,4 +175,50 @@ class AV_360:#
 		]		
 	pass
 
+
+class ONY_018:# <2>[1626]
+	""" Boomkin
+	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
+	choose=('ONY_018t','ONY_018t2')
+	play = ChooseBoth(SELF) & (Heal(FRIENDLY_HERO, 8), Hit(RANDOM(ENEMY_CHARACTERS), 4))
+	pass
+
+class ONY_018t:# <2>[1626]
+	""" Eyes of the Moon
+	Restore 8 Health to your hero. """
+	play = Heal(FRIENDLY_HERO, 8)
+	pass
+
+class ONY_018t2:# <2>[1626]
+	""" Heart of the Sun
+	Deal 4 damage. """
+	requirements ={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_HERO_OR_MINION_TARGET:0 }
+	Hit(TARGET, 4)
+	pass
+
+class ONY_019_Discover(GenericChoice):##
+	def choose(self, card):
+		super().choose(card)
+		Buff(card,'ONY_019e').trigger(self.source.controller)
+		pass
+
+class ONY_019:# <2>[1626]
+	""" Raid Negotiator
+	[Battlecry:] [Discover] a [Choose One] card. It has both effects combined. """
+	play = ONY_019_Discover(CONTROLLER, RandomCollectible(has_choose_one=True)*3)
+	pass
+
+class ONY_019e:
+	#update = Refresh(OWNER, {GameTag.CHOOSE_BOTH:True})
+	play = SetTag(OWNER, (GameTag.CHOOSE_BOTH,))
+	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).after(Destroy(SELF))
+#ONY_019e=buff(choose_both=True)# <2>[1626]
+""" Decisive
+Your next [Choose One] card is combined. """
+
+class ONY_021:# <2>[1626]
+	""" Scale of Onyxia
+	Fill your board with 2/1 Whelps with [Rush]. """
+	play = Summon(CONTROLLER, 'ONY_001t') * 7
+	pass
 

@@ -90,7 +90,7 @@ class SW_110:#<4>[1578] ###OK
 class SW_111:#<4>[1578] ###OK
 	""" Sanctum Chandler
 	After you cast a Fire spell, draw a spell. """
-	events = Play(CONTROLLER, SPELL + FIRE).on(Give(CONTROLLER, RANDOM(FRIENDLY + SPELL)))
+	events = Play(CONTROLLER, SPELL + FIRE).on(Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)))
 	pass
 
 class SW_112:#<4>[1578] ####OK

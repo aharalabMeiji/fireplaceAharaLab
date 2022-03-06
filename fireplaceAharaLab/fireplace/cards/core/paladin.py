@@ -1,5 +1,6 @@
 from ..utils import *
 ##嶋田君の仕事！！
+
 class CORE_AT_075:# <5>[1637]#OK
 
     """ Warhorse Trainer

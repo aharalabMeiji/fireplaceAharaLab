@@ -6,8 +6,9 @@ Core_DemonHunter=[
 class CORE_BT_035:# <14>[1637]
 	""" Chaos Strike
 	Give your hero +2_Attack this turn. Draw a card. """
-	play = Heal(FRIENDLY_HERO), Draw(CONTROLLER)
+	play = Buff(FRIENDLY_HERO, "BT_035e"), Draw(CONTROLLER)
 	pass
+BT_035e = buff(atk=2)#ONE_TURN_EFFECT
 
 class CORE_BT_036:# <14>[1637]
 	""" Coordinated Strike
@@ -95,7 +96,7 @@ class CORE_BT_921:# <14>[1637]
 class CS3_017:# <14>[1637]
 	""" Gan'arg Glaivesmith
 	[Outcast:] Give your hero +3_Attack this turn. """
-	play=Buff(FRIENDLY_HERO,'CS3_017e')
+	outcast=Buff(FRIENDLY_HERO,'CS3_017e')
 	pass
 CS3_017e=buff(atk=3)# ONE_TURN_EFFECT# <14>[1637]
 """ Felfist

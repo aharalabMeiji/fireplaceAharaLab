@@ -113,6 +113,8 @@ class CardDB(dict):
 					setattr(card, 'spellpower', spellpowervalue)
 				else:
 					setattr(card, 'spellpower', 0)
+				if card.tags.get(GameTag.CHOOSE_ONE) is not None:
+					setattr(card, 'has_choose_one', True)
 				self[id] = self.merge(id, card)
 				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
 				#	print ("%s"%(id))
@@ -147,6 +149,8 @@ class CardDB(dict):
 
 				if attr == "card_class":
 					cards = [card for card in cards if value in card.classes]
+				elif attr == 'has_choose_one':
+					cards = [card for card in cards if hasattr(card,'has_choose_one')]
 				else:
 					cards = [
 						card for card in cards if (
