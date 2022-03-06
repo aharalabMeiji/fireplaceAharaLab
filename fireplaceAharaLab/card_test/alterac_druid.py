@@ -12,11 +12,11 @@ def alterac_druid():
 	#PresetGame(pp_AV_292)####OK
 	#PresetGame(pp_AV_293)####OK
 	#PresetGame(pp_AV_294)####OK
-	PresetGame(pp_AV_295)####OK
+	#PresetGame(pp_AV_295)####OK
 	#PresetGame(pp_AV_296)####OK
 	#PresetGame(pp_AV_360)####OK
 	#PresetGame(pp_ONY_018)####OK
-	#PresetGame(pp_ONY_019)####OK
+	PresetGame(pp_ONY_019)####OK
 	#PresetGame(pp_ONY_021)####OK
 	pass
 
