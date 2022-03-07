@@ -22,7 +22,7 @@ class AV_205p:
 	""" Nurture (hero power)
 	&lt;b&gt;Hero Power&lt;/b&gt;&lt;b&gt;Choose One -&lt;/b&gt; Draw a card;or Gain a Mana Crystal."""
 	choose=('AV_205a', 'AV_205pb')
-	play = ChooseBoth(CONTROLLER) & (GainMana(CONTROLLER, 1), Draw(CONTROLLER))
+	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 1), Draw(CONTROLLER))
 	pass
 class AV_205pb:
 	""" Valley Root
@@ -146,7 +146,7 @@ class AV_295:
 	""" Capture Coldtooth Mine (2)
 	[Choose One] - Draw your lowest Cost card; or Draw your highest Cost card. """
 	choose = ("AV_295a", "AV_295b")
-	play = ChooseBoth(CONTROLLER) & (DrawLowestCost(CONTROLLER), DrawLowestCost(CONTROLLER))
+	play = ChooseBoth(SELF) & (DrawLowestCost(CONTROLLER), DrawHighestCost(CONTROLLER))
 	pass
 class AV_295a: ## More Supplies
 	play = DrawLowestCost(CONTROLLER)
@@ -180,7 +180,7 @@ class ONY_018:# <2>[1626]
 	""" Boomkin
 	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
 	choose=('ONY_018t','ONY_018t2')
-	play = ChooseBoth(SELF) & (Heal(FRIENDLY_HERO, 8), Hit(RANDOM(ENEMY_CHARACTERS), 4))
+	play = ChooseBoth(SELF) & (Heal(FRIENDLY_HERO, 8), Hit(FRIENDLY_HERO, 4))
 	pass
 
 class ONY_018t:# <2>[1626]
@@ -192,14 +192,14 @@ class ONY_018t:# <2>[1626]
 class ONY_018t2:# <2>[1626]
 	""" Heart of the Sun
 	Deal 4 damage. """
-	requirements ={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_HERO_OR_MINION_TARGET:0 }
-	Hit(TARGET, 4)
+	play = Hit(FRIENDLY_HERO, 4)
 	pass
 
 class ONY_019_Discover(GenericChoice):##
 	def choose(self, card):
 		super().choose(card)
-		Buff(card,'ONY_019e').trigger(self.source.controller)
+		new_card = self.source.controller.hand[-1]
+		Buff(new_card,'ONY_019e').trigger(self.source.controller)
 		pass
 
 class ONY_019:# <2>[1626]
@@ -210,8 +210,11 @@ class ONY_019:# <2>[1626]
 
 class ONY_019e:
 	#update = Refresh(OWNER, {GameTag.CHOOSE_BOTH:True})
-	play = SetTag(OWNER, (GameTag.CHOOSE_BOTH,))
-	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).after(Destroy(SELF))
+	#play = SetTag(OWNER, (GameTag.CHOOSE_BOTH,))
+	def apply(self, target):
+		self.owner.choose_both=True
+		pass
+	events = Play(CONTROLLER, OWNER).after(Destroy(SELF))
 #ONY_019e=buff(choose_both=True)# <2>[1626]
 """ Decisive
 Your next [Choose One] card is combined. """

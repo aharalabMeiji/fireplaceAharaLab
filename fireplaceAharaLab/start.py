@@ -185,5 +185,11 @@ def print_deck():
 	except FileNotFoundError:
 		pass
 
+def card_test():
+	from card_test.alterac_druid import alterac_druid
+	alterac_druid()
+	pass
+
+
 if __name__ == "__main__":
 	main()

@@ -17,7 +17,7 @@ class SW_422:# <2>[1578] ###OK
 	""" Sow the Soil
 	[Choose One] - Give your minions +1 Attack; or_ Summon a 2/2 Treant. """
 	choose = ("SW_422a", "SW_422b")
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Summon(CONTROLLER, 'SW_422t'), Buff(FRIENDLY_MINIONS, "SW_422e")
 	)
 

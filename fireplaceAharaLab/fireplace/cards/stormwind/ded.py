@@ -190,7 +190,7 @@ class DED_001:# <2>[1578] ###OK
 	""" Druid of the Reef
 	[Choose One - ]Transform into a 3/1 Shark with [Rush]; or a 1/3 Turtle with [Taunt]. """
 	choose = ("DED_001a", "DED_001b")
-	play = ChooseBoth(CONTROLLER) & (
+	play = ChooseBoth(SELF) & (
 		Summon(CONTROLLER, "DED_001c")
 	)	
 

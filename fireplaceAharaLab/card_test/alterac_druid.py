@@ -4,7 +4,7 @@ from utils import postAction
 
 #Alteric_Druid=['AV_205','AV_210','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]
 
-def SimulateGames_Alterac_Druid():
+def alterac_druid():
 	#PresetGame(pp_AV_205)# Hero ####OK
 	#PresetGame(pp_AV_210)#################
 	#PresetGame(pp_AV_211)####OK
@@ -15,9 +15,9 @@ def SimulateGames_Alterac_Druid():
 	#PresetGame(pp_AV_295)####OK
 	#PresetGame(pp_AV_296)####OK
 	#PresetGame(pp_AV_360)####OK
-	#PresetGame(pp_ONY_018)#
-	PresetGame(pp_ONY_019)#
-	#PresetGame(pp_ONY_021)#
+	#PresetGame(pp_ONY_018)####OK
+	PresetGame(pp_ONY_019)####OK
+	#PresetGame(pp_ONY_021)####OK
 	pass
 
 #########################
@@ -310,7 +310,10 @@ class pp_AV_295(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])###
+		#self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])###option1
+		#self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])###option2
+		self.mark1.choose_both=True
+		self.play_card(self.mark1, controller)
 		self.change_turn(controller)
 		########## opponent
 		#self.change_turn(opponent)
@@ -320,6 +323,8 @@ class pp_AV_295(Preset_Play):
 		super().result_inspection()
 		controller=self.player
 		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+		for card in controller.hand:
+			self.print_stats("hand",card, old_cost=True)
 	pass
 		
 #########################
@@ -422,11 +427,14 @@ class pp_ONY_018(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
+		#self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])#option1
+		#self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])#option2
+		self.mark1.choose_both=True#option3
+		self.play_card(self.mark1, controller)#option3
+		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		self.change_turn(opponent)
+		#self.change_turn(opponent)
 		########## controller
 		pass
 	def result_inspection(self):
@@ -462,13 +470,18 @@ class pp_ONY_019(Preset_Play):
 		#self.play_card(self.mark2, opponent)
 		self.change_turn(opponent)
 		########## controller
-		self.play_card(self.mark2, controller)
+		self.play_card(controller.hand[-2], controller)
+		#self.play_card(self.mark2, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
 		for card in controller.hand:
 			self.print_stats("hand",card, show_buff=True)
+			print("%s choose_both %s"%(card, card.choose_both))
+		for card in controller.field:
+			self.print_stats("field",card, show_buff=True)
+			print("%s choose_both %s"%(card, card.choose_both))
 	pass
 		
 #########################
@@ -491,16 +504,16 @@ class pp_ONY_021(Preset_Play):
 		game = controller.game
 		########## controller
 		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
+		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		self.change_turn(opponent)
-		########## controller
-		self.activate_heropower(controller, None)
+		#self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		for card in controller.field:
+			self.print_stats("field",card, show_buff=True)
 	pass
 		
 #########################
