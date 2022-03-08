@@ -1,0 +1,61 @@
+from ..logging import log
+from .lazynum import LazyValue
+
+
+class Copy(LazyValue):
+	"""
+	Lazily return a list of copies of the target
+	"""
+	def __init__(self, selector):
+		self.selector = selector
+
+	def __repr__(self):
+		return "%s(%r)" % (self.__class__.__name__, self.selector)
+
+	def copy(self, source, entity):
+		"""
+		Return a copy of \a entity
+		"""
+		log.info("Creating a copy of %r", entity)
+		return source.controller.card(entity.id, source)
+
+	def evaluate(self, source) -> [str]:
+		if isinstance(self.selector, LazyValue):
+			entities = [self.selector.evaluate(source)]
+		else:
+			entities = self.selector.eval(source.game.allcards, source) # game? allcards?
+
+		return [self.copy(source, e) for e in entities]
+
+
+class ExactCopy(Copy):
+	"""
+	Lazily create an exact copy of the target.
+	An exact copy will include buffs and all tags.
+	"""
+	def __init__(self, selector, id=None):
+		self.id = id
+		self.selector = selector
+
+	def copy(self, source, entity):
+		if entity==[]:
+			return
+		if isinstance(entity, list):
+			entity = entity[0]
+		if not hasattr(entity, 'silenceable_attributes'):
+			return
+		if entity.id == "OG_280":
+			return super().copy(source, entity)
+		ret = super().copy(source, entity)
+		if self.id:
+			ret = source.controller.card(self.id, source)
+		for k in entity.silenceable_attributes:
+			v = getattr(entity, k)
+			setattr(ret, k, v)
+		ret.silenced = entity.silenced
+		ret.damage = entity.damage
+		for buff in entity.buffs:
+			# Recreate the buff stack
+			entity.buff(ret, buff.id)
+		ret.script_data_text_0=entity.script_data_text_0
+		return ret
