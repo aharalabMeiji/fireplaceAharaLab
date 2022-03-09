@@ -20,6 +20,9 @@ def SimulateGames_Alterac_Hunter():
 	#PresetGame(pp_AV_335)##OK
 	#PresetGame(pp_AV_336)##OK
 	#PresetGame(pp_AV_337)##OK
+	#PresetGame(pp_ONY_008)#
+	#PresetGame(pp_ONY_009)#
+	#PresetGame(pp_ONY_010)#
 	pass
 
 #########################
@@ -646,6 +649,102 @@ class pp_AV_337(Preset_Play):
 		controller=self.player
 		for card in controller.field:
 			print("(C) %s : stats %d/%d"%(card, card.atk, card.health))
+	pass
+		
+########################
+
+class pp_ONY_008(Preset_Play):
+	""" Furious Howl
+	Draw a card.Repeat until you have at least 3 cards. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER	
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_008',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		#self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+	pass
+		
+########################
+
+class pp_ONY_009(Preset_Play):
+	""" Pet Collector
+	[Battlecry:] Summon a Beast from your deck that costs (5) or less. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER	
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_008',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		#self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+	pass
+		
+########################
+
+class pp_ONY_010(Preset_Play):
+	""" Dragonbane Shot
+	Deal $2 damage.[Honorable Kill:] Add a Dragonbane Shot to your hand. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER	
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_010',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		#self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.field:
+			self.print_stats("field", card)
 	pass
 		
 ########################
