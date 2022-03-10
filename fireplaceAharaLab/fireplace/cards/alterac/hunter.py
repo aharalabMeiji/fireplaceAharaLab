@@ -212,7 +212,7 @@ class ONY_008:# <3>[1626]
 	def play(self):
 		Draw(self.controller).trigger(self.controller)
 		while True:
-			if len(self.controller.hand)>=3:
+			if len(self.controller.hand)>3:
 				break;
 			Draw(self.controller).trigger(self.controller)
 			pass
@@ -224,8 +224,8 @@ class ONY_009:# <3>[1626]
 	def play(self):
 		cards = []
 		for card in self.controller.deck:
-			if card.race==Race.BEAST and card.cost<=5:
-				cards.add(card)
+			if card.type==CardType.MINION and card.race==Race.BEAST and card.cost<=5:
+				cards.append(card)
 		if len(cards)>0:
 			Summon(self.controller, random.choice(cards)).trigger(self.controller)
 		pass
@@ -235,8 +235,8 @@ class ONY_010:# <3>[1626]
 	""" Dragonbane Shot
 	Deal $2 damage.[Honorable Kill:] Add a Dragonbane Shot to your hand. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
-	play = Hit(TARGET, 3)
-	honorable_kill = Give(SELF, 'ONY_010')	
+	play = Hit(TARGET, 2)
+	honorable_kill = Give(CONTROLLER, 'ONY_010')	
 	pass
 
 ONY_010e=buff(cost=-1)# <3>[1626] ##???

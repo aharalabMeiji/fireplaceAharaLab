@@ -1,8 +1,9 @@
 from .simulate_game import Preset_Play,PresetGame
 from utils import postAction
+from hearthstone.enums import CardClass 
 
 #Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
-def SimulateGames_Alterac_Hunter():
+def alterac_hunter():
 	#PresetGame(pp_AV_113)##OK
 	######### imporoved secret....
 	#PresetGame(pp_AV_113t1)##OK
@@ -20,9 +21,9 @@ def SimulateGames_Alterac_Hunter():
 	#PresetGame(pp_AV_335)##OK
 	#PresetGame(pp_AV_336)##OK
 	#PresetGame(pp_AV_337)##OK
-	#PresetGame(pp_ONY_008)#
-	#PresetGame(pp_ONY_009)#
-	#PresetGame(pp_ONY_010)#
+	#PresetGame(pp_ONY_008)##OK
+	#PresetGame(pp_ONY_009)##OK
+	#PresetGame(pp_ONY_010)##OK
 	pass
 
 #########################
@@ -662,6 +663,8 @@ class pp_ONY_008(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('ONY_008',controller)
+		self.mark2=self.exchange_card('minionH1',controller)
+		self.mark3=self.exchange_card('minionH2',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -670,7 +673,9 @@ class pp_ONY_008(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
+		self.play_card(self.mark3, controller)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -679,8 +684,8 @@ class pp_ONY_008(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.field:
-			self.print_stats("field", card)
+		for card in controller.hand:
+			self.print_stats("hand", card)
 	pass
 		
 ########################
@@ -693,7 +698,7 @@ class pp_ONY_009(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('ONY_008',controller)
+		self.mark1=self.exchange_card('ONY_009',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -702,7 +707,7 @@ class pp_ONY_009(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -726,6 +731,8 @@ class pp_ONY_010(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('ONY_010',controller)
+		self.mark2=self.exchange_card('minionH1',opponent)
+		self.mark3=self.exchange_card('minionH2',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -735,16 +742,20 @@ class pp_ONY_010(Preset_Play):
 		game = controller.game
 		########## controller
 		#self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.change_turn(controller)
 		########## opponent
-		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		#self.play_card(self.mark1, controller,target=self.mark2)#optional 
+		self.play_card(self.mark1, controller,target=self.mark3)#optional , honorable_kill
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.field:
-			self.print_stats("field", card)
+		for card in controller.hand:
+			self.print_stats("hand", card)
 	pass
 		
 ########################
