@@ -203,7 +203,7 @@ class ONY_006:# <4>[1626]
 		controller=self.controller
 		amount=1
 		for card in controller.hand:
-			if card.type==CradType.SPELL:
+			if card.type==CardType.SPELL:
 				amount+=1
 		self.script_data_text_0=amount# カード記載のため
 		Hit(target, amount).trigger(controller)

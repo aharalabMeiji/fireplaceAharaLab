@@ -2,7 +2,7 @@ from .simulate_game import Preset_Play,PresetGame
 
 #Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
 
-def SimulateGames_Alterac_Mage():
+def alterac_mage():
 	#PresetGame(pp_AV_114)##OK
 	#PresetGame(pp_AV_115)##OK
 	#PresetGame(pp_AV_116)##OK
@@ -13,7 +13,7 @@ def SimulateGames_Alterac_Mage():
 	#PresetGame(pp_AV_283)##OK
 	#PresetGame(pp_AV_284)##OK
 	#PresetGame(pp_AV_290)##OK
-	#PresetGame(pp_ONY_006)#
+	PresetGame(pp_ONY_006)#
 	#PresetGame(pp_ONY_007)#
 	#PresetGame(pp_ONY_029)#
 	pass
