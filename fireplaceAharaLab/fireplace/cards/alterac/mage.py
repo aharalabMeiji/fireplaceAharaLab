@@ -214,6 +214,7 @@ class ONY_006:# <4>[1626]
 					Hit(controller.field[i-1], amount).trigger(controller)
 				if i<len(controller.field)-1:
 					Hit(controller.field[i+1], amount).trigger(controller)
+				break;
 	pass
 
 class ONY_007:# <4>[1626]
