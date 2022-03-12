@@ -13,9 +13,9 @@ def alterac_mage():
 	#PresetGame(pp_AV_283)##OK
 	#PresetGame(pp_AV_284)##OK
 	#PresetGame(pp_AV_290)##OK
-	PresetGame(pp_ONY_006)#
-	#PresetGame(pp_ONY_007)#
-	#PresetGame(pp_ONY_029)#
+	#PresetGame(pp_ONY_006)##OK
+	#PresetGame(pp_ONY_007)##OK
+	PresetGame(pp_ONY_029)#
 	pass
 
 #########################
@@ -440,6 +440,7 @@ class pp_ONY_006(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		print("%sと%sにダメージ２を与えているかどうか。")
 		for card in controller.hand:
 			self.print_stats("hand",card)
 	pass
@@ -475,6 +476,7 @@ class pp_ONY_007(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		print("After casting a spell, check if 4 times 1 damage to enemy.")
 		for card in controller.opponent.field:
 			self.print_stats("opponent.field",card)
 	pass
@@ -506,8 +508,8 @@ class pp_ONY_029(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			self.print_stats("hand",card)
+		for card in controller.field:
+			self.print_stats("field",card)
 	pass
 		
 #########################

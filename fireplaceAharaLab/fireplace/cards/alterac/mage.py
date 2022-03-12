@@ -206,15 +206,18 @@ class ONY_006:# <4>[1626]
 			if card.type==CardType.SPELL:
 				amount+=1
 		self.script_data_text_0=amount# カード記載のため
-		Hit(target, amount).trigger(controller)
+		targets=[target]
 		#instead of TARGET_ADJACENT
-		for i in range(len(controller.field)):
-			if controller.field[i]==target:
+		opp_field = controller.opponent.field
+		for i in range(len(opp_field)):
+			if opp_field[i]==target:
 				if i>0:
-					Hit(controller.field[i-1], amount).trigger(controller)
-				if i<len(controller.field)-1:
-					Hit(controller.field[i+1], amount).trigger(controller)
+					targets.append(opp_field[i-1])
+				if i<len(opp_field)-1:
+					targets.append(opp_field[i+1])
 				break;
+		for card in targets:
+			Hit(card, amount).trigger(controller)
 	pass
 
 class ONY_007:# <4>[1626]
