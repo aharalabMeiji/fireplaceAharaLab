@@ -186,10 +186,10 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.alterac_mage import alterac_mage
-	alterac_mage()
+	from card_test.alterac_druid import alterac_druid
+	alterac_druid()
 	pass
 
 
 if __name__ == "__main__":
-	card_test()
+	main()
