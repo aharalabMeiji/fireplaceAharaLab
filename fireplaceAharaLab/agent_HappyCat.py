@@ -2,7 +2,7 @@ import random
 import copy
 from fireplace.exceptions import GameOver, InvalidAction
 from fireplace.logging import log
-from hearthstone.enums import  CardType, BlockType, Race#
+from hearthstone.enums import  CardType, BlockType, Race, CardClass#
 from typing import List
 from utils import *
 from fireplace.card import Card
@@ -23,8 +23,9 @@ class HappyCatAgent(Agent):
 	game = None
 	player = None
 	braches=[]
-	HumanInput = False
-	MLmodel = [None,None]
+	HumanInput = True
+	MLmodel1 = [None]
+	MLmodel2 = [None]
 	# Human input: if true, shows various candidate and allows us to input by hand.
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
@@ -32,15 +33,71 @@ class HappyCatAgent(Agent):
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.DRUID)
 		self.QList=[]
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn2'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn3'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn4'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn5'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn6'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn7'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn8'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn9'))
-		self.MLmodel.append(keras.models.load_model('fireplaceAharaLab/happyCatData/DWW_model_turn10'))
+		self.playerClass=myClass
+		if myClass==CardClass.DRUID:
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_1'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_2'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_3'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_4'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_5'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_6'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_7'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_8'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_9'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_Hun_V_W_10'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_1'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_2'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_3'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_4'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_5'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_6'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_7'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_8'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_9'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Dru_A_War_V_W_10'))
+		elif myClass==CardClass.HUNTER:
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_1'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_2'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_3'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_4'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_5'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_6'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_7'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_8'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_9'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_Dru_V_W_10'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_1'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_2'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_3'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_4'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_5'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_6'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_7'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_8'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_9'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/Hun_A_War_V_W_10'))
+		else:## myClass==CardClass.WARRIOR:
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_1'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_2'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_3'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_4'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_5'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_6'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_7'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_8'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_9'))
+			self.MLmodel1.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Dru_A_W_10'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_1'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_2'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_3'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_4'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_5'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_6'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_7'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_8'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_9'))
+			self.MLmodel2.append(keras.models.load_model('fireplaceAharaLab/happyCatData/War_A_Hun_V_W_10'))
+			pass
 	def HappyCatAI(self, game, option=[], gameLog=[], debugLog=False):
 		self.player = game.current_player
 		self.game = game
@@ -311,15 +368,29 @@ class HappyCatAgent(Agent):
 		##analysis by DW_W_ML
 		pred=[]
 		another=['MINION','HERO','HEROPOWER','OTHERS','TURNEND']
-		if self.player.max_mana >= 2:
-			pred = self.MLmodel[self.player.max_mana].predict([svec])
+		if self.player.max_mana >= 1:
+			mn=min(self.player.max_mana,10)
+			thisModel=self.MLmodel1
+			if self.myClass==CardClass.DRUID and self.player.opponent.hero.card_class==CardClass.WARRIOR:
+				thisModel=self.MLmodel2
+			elif self.myClass==CardClass.HUNTER and self.player.opponent.hero.card_class==CardClass.WARRIOR:
+				thisModel=self.MLmodel2
+			elif self.myClass==CardClass.WARRIOR and self.player.opponent.hero.card_class==CardClass.HUNTER:
+				thisModel=self.MLmodel2
+			pred = thisModel[mn].predict([svec])
 		if len(pred)>0:
 			pred = self.getBest3(pred[0])
 			print(pred)
-			leng = len(self.clownDruidCard)
+			if self.myClass==CardClass.DRUID:
+				careSet= self.clownDruidCard
+			elif self.myClass==CardClass.HUNTER:
+				careSet= self.faceHunterCard
+			else:#if self.myClass==CardClass.WARRIOR:
+				careSet= self.bigWarriorCard
+			leng = len(careSet)
 			for i in range(3):
 				if pred[0][i]<leng:
-					mykey=self.clownDruidCard[pred[0][i]]
+					mykey=careSet[pred[0][i]]
 				else:
 					mykey=another[pred[0][i]-leng]
 				cardNr=self.findCardFromKey(mykey, candidate, self.clownDruidCard)
@@ -338,13 +409,26 @@ class HappyCatAgent(Agent):
 		##analysis by DW_W_ML
 		pred=[]
 		another=['MINION','HERO','HEROPOWER','OTHERS','TURNEND']
-		if self.player.max_mana >= 2:
+		if self.player.max_mana >= 1:
 			mn=min(self.player.max_mana,10)
-			pred = self.MLmodel[mn].predict([svec])
+			thisModel=self.MLmodel1
+			if self.myClass==CardClass.DRUID and self.player.opponent.hero.card_class==CardClass.WARRIOR:
+				thisModel=self.MLmodel2
+			elif self.myClass==CardClass.HUNTER and self.player.opponent.hero.card_class==CardClass.WARRIOR:
+				thisModel=self.MLmodel2
+			elif self.myClass==CardClass.WARRIOR and self.player.opponent.hero.card_class==CardClass.HUNTER:
+				thisModel=self.MLmodel2
+			pred = thisModel[mn].predict([svec])
 		ret=0
 		if len(pred)>0:
 			pred = self.getBest3(pred[0])
-			leng = len(self.clownDruidCard)
+			if self.myClass==CardClass.DRUID:
+				careSet= self.clownDruidCard
+			elif self.myClass==CardClass.HUNTER:
+				careSet= self.faceHunterCard
+			else:#if self.myClass==CardClass.WARRIOR:
+				careSet= self.bigWarriorCard
+			leng = len(careSet)
 			for i in range(3):
 				if pred[0][i]<leng:
 					mykey=self.clownDruidCard[pred[0][i]]
