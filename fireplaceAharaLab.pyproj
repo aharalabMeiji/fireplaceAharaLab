@@ -526,6 +526,9 @@
     <Compile Include="fireplaceAharaLab\agent_word_strategy.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\agent_Queen.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\start.py" />
     <Compile Include="fireplaceAharaLab\card_test\stormwind_hunter.py">
       <SubType>Code</SubType>
