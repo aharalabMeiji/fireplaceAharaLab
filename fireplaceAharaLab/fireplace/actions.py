@@ -1240,14 +1240,14 @@ class Hit(TargetedAction):
 	def do(self, source, target, amount):
 		amount = source.get_damage(amount, target)
 		# if target is hero and target has buff 'AV_146e'(Take half damage, rounded up)
-		if target.type==CardType.HERO:
-			for buff in target.buffs:
-				if buff.id=='AV_146e':
-					if amount%2==0:
-						amount = amount/2
-					else:
-						amount = (amount+1)/2
-					break;
+		#if target.type==CardType.HERO:
+		#	for buff in target.buffs:
+		#		if buff.id=='AV_146e':
+		#			if amount%2==0:
+		#				amount = amount/2
+		#			else:
+		#				amount = (amount+1)/2
+		#			break;
 		if amount:
 			#if isinstance(source,PlayableCard):
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:

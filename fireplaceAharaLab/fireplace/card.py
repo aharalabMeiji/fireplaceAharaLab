@@ -1024,9 +1024,9 @@ class Enchantment(BaseCard):
 		if self.id == 'YOP_012e':
 			if hasattr(self.owner,'deathrattle_valid'):
 				self.owner.deathrattle_valid = False
-		if self.id == 'AV_146e2':
-			if hasattr(self.owner,'no_base_events'):
-				self.owner.no_base_events=True
+		#if self.id == 'AV_146e2':
+		#	if hasattr(self.owner,'no_base_events'):
+		#		self.owner.no_base_events=True
 
 	def remove(self):
 		self.zone = Zone.REMOVEDFROMGAME
