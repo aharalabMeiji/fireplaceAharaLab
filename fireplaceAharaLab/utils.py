@@ -502,6 +502,13 @@ class BigDeck:
 		'SCH_616','DMF_078','DMF_078','SCH_610','SCH_610','BAR_042',
 		'BAR_042','DMF_163','DMF_163','SCH_609','SCH_609','AV_205'#'DMF_188'
 		]
+	def name(deck):
+		if deck == BigDeck.faceHunter:
+			return "faceHunter"
+		elif deck == BigDeck.clownDruid:
+			return "clownDruid"
+		elif deck == BigDeck.bigWarrior:
+			return "bigWarrior"
 
 
 def postAction(player):

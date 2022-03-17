@@ -63,13 +63,14 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=50, debugLog=True)
+	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=50, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
-	#from competition import play_round_robin_competition
+	from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
+	play_round_robin_competition([Random1,Vector1,Vector2],matchNumber=1)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair
