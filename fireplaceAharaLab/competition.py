@@ -17,10 +17,19 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 				agent1.name += "1"
 				agent2.name += "2"
 			deck1,deck2= DeckSelecter()
+			if deck1== BigDeck.clownDruid and deck2 == BigDeck.faceHunter:
+				agent1.myClass=CardClass.DRUID
+				agent2.myClass=CardClass.HUNTER
+			elif deck1== BigDeck.faceHunter and deck2 == BigDeck.bigWarrior:
+				agent1.myClass=CardClass.HUNTER
+				agent2.myClass=CardClass.WARRIOR
+			elif deck1== BigDeck.bigWarrior and deck2 == BigDeck.clownDruid:
+				agent1.myClass=CardClass.WARRIOR
+				agent2.myClass=CardClass.DRUID
 
 			print("Start %s(%s) vs. %s(%s)"%(agent1.name, BigDeck.name(deck1), agent2.name, BigDeck.name(deck2)))
 			for repeat in range(matchNumber):
-				winner = play_one_game_competition(agent1,agent2,deck1, deck2,debugLog=False)
+				winner = play_one_game_competition(agent1,agent2,deck1, deck2,debugLog=True)
 				print("winner is %r"%winner)
 				if winner == agent1.name:
 					newRate(agent1,agent2)
@@ -28,9 +37,13 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 				elif winner == agent2.name:
 					newRate(agent2,agent1)
 					ScoreWin[j][i]+=1
+
+			temp = agent1.myClass
+			agent1.myClass = agent2.myClass
+			agent2.myClass = temp
 			print("Start %s(%s) vs. %s(%s)"%(agent1.name, BigDeck.name(deck2), agent2.name, BigDeck.name(deck1)))
 			for repeat in range(matchNumber):
-				winner = play_one_game_competition(agent1,agent2,deck2, deck1,debugLog=False)
+				winner = play_one_game_competition(agent1,agent2,deck2, deck1,debugLog=True)
 				print("winner is %r"%winner)
 				if winner == agent1.name:
 					newRate(agent1,agent2)
@@ -120,10 +133,10 @@ def play_one_game_competition(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog
 		player = game.current_player
 		if showFieldHand:
 			show_field_hand(game.player1, game.player2, filename)
-			if debugLog:
-				print (">>>>> %s 's turn <<<<<"%(player.name))
 			with open(filename, mode="a") as gameshow:
 				gameshow.write (">>>>> "+player.name+" 's turn <<<<<\n")
+			if debugLog:
+				print (">>>>> %s 's turn <<<<<"%(player.name))
 		start_time = time.time()
 		if player.name==P1.name:
 			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
@@ -139,11 +152,11 @@ def play_one_game_competition(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog
 		if game.state!=State.COMPLETE:
 			try:
 				game.end_turn()
+				with open(filename, mode="a") as gameshow:
+					gameshow.write(">>>>>"+player.name+" 's turn time: "+str(time.time()-start_time)+"[sec] <<<<<\n\n")
 				if debugLog:
 					print(">>>>%s>>>>turn change %d[sec]>>>>%s"%(player, time.time()-start_time, player.opponent),end='  ')
 					print("%d : %d"%(player1.hero.health+player1.hero.armor,player2.hero.health+player2.hero.armor))
-					with open(filename, mode="a") as gameshow:
-						gameshow.write(">>>>>"+player.name+" 's turn time: "+str(time.time()-start_time)+"[sec] <<<<<\n\n")
 				if game.current_player.choice!=None:
 					postAction(game.current_player)
 			except GameOver:#it rarely occurs
@@ -177,9 +190,9 @@ def show_field_hand(Player1, Player2, filename):
 		display.write("========%s 's SECRETS======\n"%(Player1.name))
 		for card in player.secrets:
 			display.write("%s   : "%card)
-			if hasattr(card, 'sidequest'):
-				display.write("(%d)"%card._tmp_int1_)
-			display.write("%s\n"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			if hasattr(card, 'sidequest') or hasattr(card, 'questline'):	
+				display.write("(sidequest %d)"%card._sidequest_counter_)
+			display.write("%s\n"%(adjust_text(card.data.description)))
 		display.write("========%s 's PLAYGROUND======\n"%(Player1.name))
 		for character in player.characters:
 			display.write("%s   : "%character)
@@ -254,9 +267,9 @@ def show_field_hand(Player1, Player2, filename):
 		display.write("========%s 's SECRETS======\n"%(Player2.name))
 		for card in player.secrets:
 			display.write("%s   : "%card)
-			if hasattr(card, 'sidequest'):
-				display.write("(%d)"%card._tmp_int1_)
-			display.write("%s\n"%(card.data.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			if hasattr(card, 'sidequest') or hasattr(card, 'questline'):	
+				display.write("(sidequest %d)"%card._sidequest_counter_)
+			display.write("%s\n"%(adjust_text(card.data.description)))
 		display.write("========%s 's HAND======\n"%(Player2.name))
 		for card in player.hand:
 			display.write("%s   : "%card)
