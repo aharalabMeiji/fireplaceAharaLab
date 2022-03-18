@@ -106,8 +106,8 @@ class HappyCatAgent(Agent):
 			myCandidate = getCandidates(game, _includeTurnEnd=True)#including 'turnend'
 			statusVector=self.getStatusVector(game)
 			myChoice = self.MainChoice(game, myCandidate)
-			actionCard, actionTarget=self.getActionVector(myChoice,self.myClass)
-			self.QList.append(QTable(statusVector,actionCard,actionTarget))
+			#actionCard, actionTarget=self.getActionVector(myChoice,self.myClass)
+			#self.QList.append(QTable(statusVector,actionCard,actionTarget))
 			if myChoice.type == ExceptionPlay.TURNEND:#何もしないを選択したとき
 				return
 			else:
@@ -119,7 +119,7 @@ class HappyCatAgent(Agent):
 		return random.choice(candidate)
 	def RandomPlayToTurnEnd(self, game):
 		for loop in range(20):
-			branches = getCandidates(game)
+			branches = getCandidates(game, _includeTurnEnd =True)
 			branch = self.RandomChoice(branches)
 			if branch.type==ExceptionPlay.TURNEND:
 				return ExceptionPlay.VALID
