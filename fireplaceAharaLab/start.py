@@ -84,7 +84,8 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.STORMWIND
+	#THE_SUNKEN_CITY = 1658
+	myCardSet=CardSet.THE_SUNKEN_CITY
 	myCardClass=CardClass.NEUTRAL
 	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
