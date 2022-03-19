@@ -80,9 +80,9 @@ exclude = ['CFM_672', 'CFM_621', 'CFM_095', 'LOE_076', 'BT_490']
 
 class MiyaryoAgent(Agent):
 
-    vLength = 38  # ベクトルの長さ
+    vLength = 39  # ベクトルの長さ
     w = np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -
-                  1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5])
+                  1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5,3])
     lethal = False
     DebugLog = True
     start = None
@@ -290,6 +290,7 @@ class MiyaryoAgent(Agent):
         v[35] = he.hero.atk
         v[36] = len(me.hand)
         v[37] = len(he.hand)
+        v[38] = me._max_mana
         return v
         pass
 

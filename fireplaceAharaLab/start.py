@@ -6,6 +6,7 @@ from agent_Standard import *
 from fireplace import cards
 from fireplace.logging import log
 import torch
+import pickle
 
 
 sys.path.append("..")
@@ -32,11 +33,11 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	from agent_Queen import QueenAgent
-	Queen = QueenAgent("Queen", QueenAgent.QAI)
+	Queen = QueenAgent("Queen", QueenAgent.QAI,myClass=CardClass.DRUID, mulliganStrategy=QueenAgent.SimpleMulligan)
 
 	# Maya : モンテカルロによる読み切り
 	#from agent_Maya import MayaAgent
@@ -67,9 +68,9 @@ def main():
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#from utils import BigDeck
+	from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Queen, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
+	a,b,c = play_set_of_games(Queen, Vector2, deck1=BigDeck.clownDruid, deck2=BigDeck.faceHunter, gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -83,6 +84,9 @@ def main():
 	#シナジーのあるカードの組を漠然と探す
 	#find_card_pair(1)
 	#print("test_branch_yamadamaya")
+
+	#with open('qtable', 'wb') as qtable:
+	#	pickle.dump(Queen.qtable , qtable)
 	pass
 
 def printClasses():
