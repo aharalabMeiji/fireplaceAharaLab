@@ -1,4 +1,4 @@
-import random
+Ôªøimport random
 import copy
 import pickle
 from fireplace import card, cards
@@ -22,17 +22,19 @@ TARGET_UPDATE = 10
 class QueenAgent(Agent):
 	game =None
 	player =None
-	qtable = np.zeros((6*6*11*11*2*2,20+1+1))
+	qtable = np.zeros((6*6*11*11*2*2,20+1+1+1))
 	qq = np.array([[1,2,3],[2,3,4]])
 	state = None
 	eps_threshold = 0.5
+	myclass =None
+	deckcards =None
 
-	vLength = 39  # ÉxÉNÉgÉãÇÃí∑Ç≥
+	vLength = 39  # „Éô„ÇØ„Éà„É´„ÅÆÈï∑„Åï
 	w = np.array([1, -1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, -1, -1, -1, 2, -2, 4, -8, 1, -1, 0.5, -0.5,3])
 
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000, mulliganStrategy=None ):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
-		#with open('qtable', 'rb', encoding='shift_jis') as qtable:
+		#with open('qtable', 'rb') as qtable:
 		#	self.qtable = pickle.load(qtable)
 		pass
 
@@ -40,64 +42,97 @@ class QueenAgent(Agent):
 		
 		self.game = thisgame
 		self.player = thisgame.current_player
+		self.myclass = self.player.hero.card_class
+		if self.myclass==2:
+			with open('qtable', 'rb') as qtable:
+				self.qtable = pickle.load(qtable)
+			self.deckcards = self.clownDruidCard
+		elif self.myclass==10:
+			with open('qtablew', 'rb') as qtable:
+				self.qtable = pickle.load(qtable)
+			self.deckcards = self.bigWarriorCard
+		else:
+			self.deckcards = self.faceHunterCard
+			pass
+		print (self.myclass)
 		loopCount=0
 		while loopCount<20:
 			loopCount+=1
 			myCandidate = getCandidates(thisgame)
-			simpCan = self.classify_action(myCandidate)
-			#for x in simpCan:
-			#	print(simpCan)
-			self.state = self.observe_state(self.game)
-			action = self.chooseAction(simpCan)
-			maxscore=0
-			index=0
-			actionIndex = 21
-			if simpCan[action]=="power":
-				actionIndex=21
+			if len(myCandidate)>0:
 				for x in myCandidate:
-					if x.type==BlockType.POWER:
-						tmpgame = fireplace_deepcopy(self.game)
-						before=self.getBoardScore(tmpgame)
-						exc = executeAction(tmpgame, x, debugLog=False)
-						postAction(self.player)
-						after = self.getBoardScore(tmpgame)
-						maxscore = self.calcScore(before, after)
-						index = x
-				pass
-			elif simpCan[action]=="attack":
-				actionIndex=20
-				for x in myCandidate:
-					if x.type==BlockType.ATTACK:
-						tmpgame = fireplace_deepcopy(self.game)
-						before=self.getBoardScore(tmpgame)
-						exc = executeAction(tmpgame, x, debugLog=False)
-						postAction(self.player)
-						after = self.getBoardScore(tmpgame)
-						if maxscore < self.calcScore(before, after):
+					print("CANDIDATE")
+					print(x)
+				simpCan = self.classify_action(myCandidate)
+				#for x in simpCan:
+				#	print(simpCan)
+				self.state = self.observe_state(self.game)
+				action = self.chooseAction(simpCan)
+				maxscore=0
+				index=0
+				actionIndex = 21
+				#print(action)
+				if simpCan[action]=='power':
+					actionIndex=21
+					for x in range(len(myCandidate)):
+						if myCandidate[x].type==BlockType.POWER:
+							tmpgame = fireplace_deepcopy(self.game)
+							before=self.getBoardScore(tmpgame)
+							exc = executeAction(tmpgame, myCandidate[x], debugLog=False)
+							postAction(self.player)
+							after = self.getBoardScore(tmpgame)
 							maxscore = self.calcScore(before, after)
 							index = x
-			else:
-				for i in range(len(self.clownDruidCard)):
-					if simpCan[action]==self.clownDruidCard[i]:
-						actionIndex=i
-					else:
-						actionIndex=20
-				for x in myCandidate:
-					if x.type == BlockType.PLAY:
-						tmpgame = fireplace_deepcopy(self.game)
-						before=self.getBoardScore(tmpgame)
-						exc = executeAction(tmpgame, x, debugLog=False)
-						postAction(self.player)
-						after = self.getBoardScore(tmpgame)
-						if maxscore < self.calcScore(before, after):
+					pass
+				elif simpCan[action]=='trade':
+					actionIndex=22
+					for x in range(len(myCandidate)):
+						if myCandidate[x].type==ActionType.TRADE:
+							tmpgame = fireplace_deepcopy(self.game)
+							before=self.getBoardScore(tmpgame)
+							exc = executeAction(tmpgame, myCandidate[x], debugLog=False)
+							postAction(self.player)
+							after = self.getBoardScore(tmpgame)
 							maxscore = self.calcScore(before, after)
 							index = x
-			copygame = fireplace_deepcopy(self.game)
-			exc = executeAction(thisgame, myCandidate[index], debugLog=False)
-			value = self.calcValue(myCandidate[index].card,copygame)
-
-			tableslice = qtable[state[0]*17424/6+state[1]*2904/6+state[2]*484/11+state[3]*44/11+state[4]*4/2+state[5]]
-			tableslice[actionIndex] = (tableslice[actionIndex] + value)/2.0
+					pass
+				elif simpCan[action]=='attack':
+					actionIndex=20
+					for x in range(len(myCandidate)):
+						if myCandidate[x].type==BlockType.ATTACK:
+							tmpgame = fireplace_deepcopy(self.game)
+							before=self.getBoardScore(tmpgame)
+							exc = executeAction(tmpgame, myCandidate[x], debugLog=False)
+							postAction(self.player)
+							after = self.getBoardScore(tmpgame)
+							if maxscore < self.calcScore(before, after):
+								maxscore = self.calcScore(before, after)
+								index = x
+				else:
+					for i in range(len(self.deckcards)):
+						#print(simpCan[action])
+						if simpCan[action]==self.deckcards[i]:
+							actionIndex=i
+							break
+						else:
+							actionIndex=19
+					for x in range(len(myCandidate)):
+						if myCandidate[x].type == BlockType.PLAY:
+							tmpgame = fireplace_deepcopy(self.game)
+							before=self.getBoardScore(tmpgame)
+							exc = executeAction(tmpgame, myCandidate[x], debugLog=False)
+							postAction(self.player)
+							after = self.getBoardScore(tmpgame)
+							if maxscore < self.calcScore(before, after):
+								maxscore = self.calcScore(before, after)
+								index = x
+				copygame = fireplace_deepcopy(self.game)
+				exc = executeAction(thisgame, myCandidate[index], debugLog=False)
+				value = self.calcValue(myCandidate[index],copygame)
+				s=self.state
+				doko = int(s[0]*(17424/6)+s[1]*(2904/6)+s[2]*(484/11)+s[3]*(44/11)+s[4]*(4/2)+s[5])
+				tableslice = self.qtable[doko]
+				tableslice[int(actionIndex)] = (tableslice[int(actionIndex)] + value)/2.0
 
 
 
@@ -113,21 +148,27 @@ class QueenAgent(Agent):
 
 	def classify_action(self, candidates):
 		atkflag=False
+		tradeflag=False
 		simpleCandidates =[]
 		for  i in candidates:
+			print(i.type)
 			if i.type==BlockType.ATTACK:
 				if not atkflag:
-					simpleCandidates.append("attack")
+					simpleCandidates.append('attack')
 					atkflag = True
 				pass
 			elif i.type==BlockType.PLAY:
 				simpleCandidates.append(i.card.id)
 				pass
 			elif i.type==BlockType.POWER:
-				simpleCandidates.append("power")
+				simpleCandidates.append('power')
 				pass
 			else:
 				pass
+			if i.type==ActionType.TRADE:
+				if not tradeflag:
+					simpleCandidates.append('trade')
+					tradeflag = True
 		return simpleCandidates
 	def observe_state(self, game):
 
@@ -150,10 +191,11 @@ class QueenAgent(Agent):
 	def chooseAction(self,simplecan):
 		s=self.state
 		doko = int(s[0]*(17424/6)+s[1]*(2904/6)+s[2]*(484/11)+s[3]*(44/11)+s[4]*(4/2)+s[5])
-		print(doko)
+		for x in simplecan:
+			print(simplecan)
 		tabe = self.qq[0]
 		tableslice = self.qtable[doko]
-		rannum = random.randint(0,len(simplecan))
+		rannum = random.randint(0,len(simplecan)-1)
 		maxvalue=0
 		maxindex=0
 		canvalue =[0]*len(simplecan)
@@ -164,7 +206,7 @@ class QueenAgent(Agent):
 				canvalue[i]=tableslice[20]
 			else:
 				for x in range(19):
-					if canvalue[i] == self.clownDruidCard[x]:
+					if canvalue[i] == self.deckcards[x]:
 						canvalue[i] = tableslice[x]
 					else:
 						canvalue[i] = tableslice[19]
@@ -176,7 +218,7 @@ class QueenAgent(Agent):
 		if self.eps_threshold <random.random():
 			return maxindex
 		else:
-			return random.randint(0,len(simplecan))
+			return random.randint(0,len(simplecan)-1)
 		pass
 
 	def SimpleMulligan(self, choiceCards):
@@ -229,7 +271,7 @@ class QueenAgent(Agent):
 				if getattr(char, 'spell_damage', 0):  # int
 					v[14] += char.spell_damage
 				# if char.spellburst:
-				if getattr(char, 'windfury', 0):     # í«â¡çUåÇâÒêî(int)
+				if getattr(char, 'windfury', 0):     # ËøΩÂä†ÊîªÊíÉÂõûÊï∞(int)
 					v[15] += char.windfury
 		for char in he.characters:
 			if char.type == CardType.MINION:
@@ -266,7 +308,7 @@ class QueenAgent(Agent):
 				if getattr(char, 'spell_damage', 0):  # int
 					v[28] += char.spell_damage
 				# if char.spellburst:
-				if getattr(char, 'windfury', 0):     # í«â¡çUåÇâÒêî(int)
+				if getattr(char, 'windfury', 0):     # ËøΩÂä†ÊîªÊíÉÂõûÊï∞(int)
 					v[29] += char.windfury*char.atk
 		for char in me.characters:
 			if char.type == CardType.MINION:
@@ -288,19 +330,15 @@ class QueenAgent(Agent):
 		return v
 		pass
 
-		def calcScore(self, _before, _after):
-			tmpW = np.copy(self.w)
-			 #if self.DebugLog:
-				# print(f"before{_before}")
-				# print(f"after{_after}")
-			 #print(f"w{tmpW}")
-			if _before is int:
-				retScore = _after - _before
-				return retScore
-			else:
-				retScore = np.sum((_after - _before) * tmpW)
-			return retScore
-			pass
+	def calcScore(self, _before, _after):
+		tmpW = np.copy(self.w)
+			#if self.DebugLog:
+			# print(f"before{_before}")
+			# print(f"after{_after}")
+			#print(f"w{tmpW}")
+		retScore = np.sum((_after - _before) * tmpW)
+		return retScore
+		pass
 
 	def calcValue(self, action,copygame):
 		card = action.card
@@ -348,71 +386,120 @@ class QueenAgent(Agent):
 			elif card.id == "DMF_188":
 				return len(self.player.hand)-len(copygame.current_player.hand)*3
 			else:
-				return calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
+				return self.calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
 		else:
-			return calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
+			return self.calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
+
+	def calcValuew(self, action,copygame):
+		card = action.card
+		if action.type == BlockType.PLAY:
+			if card.id == "GAME__005":
+				return 1
+			elif card.id == "SW_023":
+				return (len(self.player.opponent.characters)-len(copygame.current_player.opponent.characters))*(-2)
+			elif card.id == "SCH_237":
+				return 2
+			elif card.id == "CORE_EX1_410":
+				return self.calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
+			elif card.id == "BT_124":
+				if  (len(self.player.hand)-len(copygame.current_player.hand))==0:
+					return 3
+				else:
+					return 0
+			elif card.id == "DMF_522":
+				return (len(self.player.opponent.characters)-len(copygame.current_player.opponent.characters))*(-2)
+			elif card.id == "BT_117":
+				return (len(self.player.opponent.characters)-len(copygame.current_player.opponent.characters))*(-3)
+			elif card.id == "SW_094":
+				return 4
+			elif card.id == "BT_781":
+				return 8-len(self.player.opponent.characters)
+			elif card.id == "BAR_845":
+				return (len(self.player.opponent.characters)-len(copygame.current_player.opponent.characters))*(-3)
+			elif card.id == "BAR_844":
+				return 4
+			elif card.id == "YOP_005":
+				return (len(self.player.characters)-len(copygame.current_player.characters))*3
+			elif card.id == "CORE_EX1_407":
+				return (len(self.player.opponent.characters)-len(copygame.current_player.opponent.characters))*(-2)
+			elif card.id == "SW_021":
+				return 7
+			elif card.id == "SCH_533":
+				return 10
+			elif card.id == "SW_024":
+				return 8
+			elif card.id == "SCH_337":
+				return 10
+			elif card.id == "SW_068":
+				return 10
+			elif card.id == "SCH_621":
+				return 10
+			else:
+				return self.calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
+		else:
+			return self.calcScore(self.getBoardScore(copygame), self.getBoardScore(self.game))
 
 
 
 	clownDruidCard = [
-		'GAME_005',#ÉRÉCÉì
-		'CORE_EX1_169',#Innervate(ó˚ãC) (0)
-		'SCH_427',#Lightning Bloom(ìdåıôãâ‘) (0)
-		'SCH_311',#Animated Broomstick(ãÛîÚÇ‘ÇŸÇ§Ç´) (1/1/1)
-		'SCH_333',#Nature Studies(é©ëRäwÇÃó\èK) (1)
-		'DMF_075',#Guess the Weight(èdÇ≥ìñÇƒ) (2)
-		'CORE_CS2_013',#Wild Growth(ñÏê∂ÇÃî…ñŒ) (3)
-		'BT_130',#Overgrowth(âﬂèËî…êB) (4)
-		'BAR_535',#Thickhide Kodo(å˙îÁÇÃÉRÉhÅ[) (4/3/5)
-		'SCH_605',#Lake Thresher(åŒÇÃÉXÉåÉbÉVÉÉÅ[) (5/4/6)
-		'SCH_616',#Twilight Runner(ÉgÉèÉCÉâÉCÉgÉâÉìÉiÅ[) (5/5/4)
-		'DMF_078',#Strongman(âˆóÕíj) (7/6/6)
+		'GAME_005',#„Ç≥„Ç§„É≥
+		'CORE_EX1_169',#Innervate(Á∑¥Ê∞ó) (0)
+		'SCH_427',#Lightning Bloom(ÈõªÂÖâÂàπËä±) (0)
+		'SCH_311',#Animated Broomstick(Á©∫È£õ„Å∂„Åª„ÅÜ„Åç) (1/1/1)
+		'SCH_333',#Nature Studies(Ëá™ÁÑ∂Â≠¶„ÅÆ‰∫àÁøí) (1)
+		'DMF_075',#Guess the Weight(Èáç„ÅïÂΩì„Å¶) (2)
+		'CORE_CS2_013',#Wild Growth(ÈáéÁîü„ÅÆÁπÅËåÇ) (3)
+		'BT_130',#Overgrowth(ÈÅéÂâ∞ÁπÅÊÆñ) (4)
+		'BAR_535',#Thickhide Kodo(ÂéöÁöÆ„ÅÆ„Ç≥„Éâ„Éº) (4/3/5)
+		'SCH_605',#Lake Thresher(Êπñ„ÅÆ„Çπ„É¨„ÉÉ„Ç∑„É£„Éº) (5/4/6)
+		'SCH_616',#Twilight Runner(„Éà„ÉØ„Ç§„É©„Ç§„Éà„É©„É≥„Éä„Éº) (5/5/4)
+		'DMF_078',#Strongman(ÊÄ™ÂäõÁî∑) (7/6/6)
 		'DMF_078t',
-		'SCH_610',#Guardian Animals(éÁåÏèb) (8)
-		'BAR_042',#Primordial Protector(énå¥ÇÃéÁåÏé“) (8/6/6)
-		'DMF_163',#Carnival Clown(ÉJÅ[ÉjÉoÉãÇÃÉsÉGÉç) (9/4/4)
+		'SCH_610',#Guardian Animals(ÂÆàË≠∑Áç£) (8)
+		'BAR_042',#Primordial Protector(ÂßãÂéü„ÅÆÂÆàË≠∑ËÄÖ) (8/6/6)
+		'DMF_163',#Carnival Clown(„Ç´„Éº„Éã„Éê„É´„ÅÆ„Éî„Ç®„É≠) (9/4/4)
 		'DMF_163t',
-		'SCH_609',#Survival of the Fittest(ìKé“ê∂ë∂) (10)
-		'DMF_188']#Y'Shaarj, the Defiler(îwìøÇÃñÇéËÉÑÉVÉÉÉâÅ[ÉWÉÖ) (10/10/10)
+		'SCH_609',#Survival of the Fittest(ÈÅ©ËÄÖÁîüÂ≠ò) (10)
+		'DMF_188']#Y'Shaarj, the Defiler(ËÉåÂæ≥„ÅÆÈ≠îÊâã„É§„Ç∑„É£„É©„Éº„Ç∏„É•) (10/10/10)
 	bigWarriorCard = [
-		'GAME_005',#ÉRÉCÉì
-		'SW_023',#Provoke(ê¯ÇËóßÇƒ) (0)spell, tradeable
-		'SCH_237',#Athletic Studies(ëÃàÁäwÇÃó\èK) (1)spell
-		'CORE_EX1_410',#Shield Slam(ÉVÅ[ÉãÉhÉXÉâÉÄ) (1)spell
-		'BT_124',#Corsair Cache(äCëØÇÃâBÇµïêäÌ) (2)spell
-		'DMF_522',#Minefield(ínóãå¥) (2) spell
-		'BT_117',#Bladestorm(ñÇênóí) (3)spell
-		'SW_094',#Heavy Plate(èdëïäZ) (3) spell, tradeable
-		'BT_781',#Bulwark of Azzinoth(ÉAÉYÉBÉmÉXÇÃñhó€) (3/1/4)weapon
-		'BAR_845',#Rancor(à‚ç¶) (4) spell
-		'BAR_844',#Outrider's Axe(êÊì±é“ÇÃïÄ) (4/3/3)weapon
-		'YOP_005',#Barricade(ÉoÉäÉPÅ[Éh) (4) spell 
-		'CORE_EX1_407',#Brawl(óêì¨) (5) spell
-		'SW_021',#Cowardly Grunt(‰Dî≤ÇØÇÃï∫ë≤) (6/6/2) 
-		'SCH_533',#Commencement(äwà éˆó^éÆ) (7)
-		'SW_024',#Lothar (ÉçÅ[ÉTÅ[) (7/7/7)
-		'SCH_337',#Troublemaker(ïsó«äwê∂) (8/6/8)
-		'SW_068',#Mo'arg Forgefiend(ÉÇÉAÅ[ÉOÇÃíbñËãS) (8/8/8)
-		'SCH_621',]#Rattlegore(ÉâÉgÉãÉSÉA) (9/9/9)
+		'GAME_005',#„Ç≥„Ç§„É≥
+		'SW_023',#Provoke(ÁÖΩ„ÇäÁ´ã„Å¶) (0)spell, tradeable
+		'SCH_237',#Athletic Studies(‰ΩìËÇ≤Â≠¶„ÅÆ‰∫àÁøí) (1)spell
+		'CORE_EX1_410',#Shield Slam(„Ç∑„Éº„É´„Éâ„Çπ„É©„É†) (1)spell
+		'BT_124',#Corsair Cache(Êµ∑Ë≥ä„ÅÆÈö†„ÅóÊ≠¶Âô®) (2)spell
+		'DMF_522',#Minefield(Âú∞Èõ∑Âéü) (2) spell
+		'BT_117',#Bladestorm(È≠îÂàÉÂµê) (3)spell
+		'SW_094',#Heavy Plate(ÈáçË£ÖÈéß) (3) spell, tradeable
+		'BT_781',#Bulwark of Azzinoth(„Ç¢„Ç∫„Ç£„Éé„Çπ„ÅÆÈò≤Â°Å) (3/1/4)weapon
+		'BAR_845',#Rancor(ÈÅ∫ÊÅ®) (4) spell
+		'BAR_844',#Outrider's Axe(ÂÖàÂ∞éËÄÖ„ÅÆÊñß) (4/3/3)weapon
+		'YOP_005',#Barricade(„Éê„É™„Ç±„Éº„Éâ) (4) spell 
+		'CORE_EX1_407',#Brawl(‰π±Èóò) (5) spell
+		'SW_021',#Cowardly Grunt(ËÖëÊäú„Åë„ÅÆÂÖµÂçí) (6/6/2) 
+		'SCH_533',#Commencement(Â≠¶‰ΩçÊéà‰∏éÂºè) (7)
+		'SW_024',#Lothar („É≠„Éº„Çµ„Éº) (7/7/7)
+		'SCH_337',#Troublemaker(‰∏çËâØÂ≠¶Áîü) (8/6/8)
+		'SW_068',#Mo'arg Forgefiend(„É¢„Ç¢„Éº„Ç∞„ÅÆÈçõÂÜ∂È¨º) (8/8/8)
+		'SCH_621',]#Rattlegore(„É©„Éà„É´„Ç¥„Ç¢) (9/9/9)
 	faceHunterCard = [
-		'GAME_005',#ÉRÉCÉì
-		'SCH_617',#Adorable Infestation(ÉJÉèÉCÉCêNì¸é“) (1)
-		'SCH_600',#Demon Companion(à´ñÇÇÃëäñ_) (1)
-		'SCH_231',#Intrepid Initiate(ê}ëæÇ¢ìkíÌ) (1/1/2)
-		'CORE_DS1_184',#Tracking(í«ê’èp) (1)
-		'SCH_279',#Trueaim Crescent(ÉgÉDÉãÅ[ÉGÉCÉÄÅEÉNÉåÉZÉìÉg) (1/1/4) weapon
-		'SCH_133',#Wolpertinger(ÉîÉHÉãÉpÅ[ÉeÉBÉìÉKÅ[) (1/1/1)
-		'BAR_801',#Wound Prey(älï®ÇÃèù) (1)
-		'SCH_713',#Cult Neophyte(ã≥ícÇÃêVì¸âÔàı) (2/3/2)
-		'BT_211',#Imprisoned Felmaw(ïïàÛÇ≥ÇÍÇµÉtÉFÉãÉÇÅ[) (2/5/4)
-		'CORE_BRM_013',#Quick Shot(ë¨éÀÇÃàÍñÓ) (2)
-		'SW_321',#Aimed Shot(ë_Ç¢åÇÇø) (3)
-		'BAR_721',#Mankrik(É}ÉìÉNÉäÉbÉN) (3/3/4)
-		'BAR_032',#Piercing Shot(ä—í íe) (4)
-		'DMF_088',#Rinling's Rifle(ÉäÉìÉäÉìÉOÇÃÉâÉCÉtÉã) (4/2/2) weapon
-		'BAR_037',#Warsong Wrangler(ÉEÉHÅ[É\ÉìÉOÇÃèbéîàÁé“) (4/3/4)
-		'BAR_551',#Barak Kodobane(ÉoÉâÉNÅEÉRÉhÅ[ÉxÉCÉì) (5/3/5)
-		'DMF_087',]#Trampling Rhino(ì•Ç›í◊Ç∑ÉTÉC) (5/5/5)
+		'GAME_005',#„Ç≥„Ç§„É≥
+		'SCH_617',#Adorable Infestation(„Ç´„ÉØ„Ç§„Ç§‰æµÂÖ•ËÄÖ) (1)
+		'SCH_600',#Demon Companion(ÊÇ™È≠î„ÅÆÁõ∏Ê£í) (1)
+		'SCH_231',#Intrepid Initiate(Âõ≥Â§™„ÅÑÂæíÂºü) (1/1/2)
+		'CORE_DS1_184',#Tracking(ËøΩË∑°Ë°ì) (1)
+		'SCH_279',#Trueaim Crescent(„Éà„Ç•„É´„Éº„Ç®„Ç§„É†„Éª„ÇØ„É¨„Çª„É≥„Éà) (1/1/4) weapon
+		'SCH_133',#Wolpertinger(„É¥„Ç©„É´„Éë„Éº„ÉÜ„Ç£„É≥„Ç¨„Éº) (1/1/1)
+		'BAR_801',#Wound Prey(Áç≤Áâ©„ÅÆÂÇ∑) (1)
+		'SCH_713',#Cult Neophyte(ÊïôÂõ£„ÅÆÊñ∞ÂÖ•‰ºöÂì°) (2/3/2)
+		'BT_211',#Imprisoned Felmaw(Â∞ÅÂç∞„Åï„Çå„Åó„Éï„Çß„É´„É¢„Éº) (2/5/4)
+		'CORE_BRM_013',#Quick Shot(ÈÄüÂ∞Ñ„ÅÆ‰∏ÄÁü¢) (2)
+		'SW_321',#Aimed Shot(Áãô„ÅÑÊíÉ„Å°) (3)
+		'BAR_721',#Mankrik(„Éû„É≥„ÇØ„É™„ÉÉ„ÇØ) (3/3/4)
+		'BAR_032',#Piercing Shot(Ë≤´ÈÄöÂºæ) (4)
+		'DMF_088',#Rinling's Rifle(„É™„É≥„É™„É≥„Ç∞„ÅÆ„É©„Ç§„Éï„É´) (4/2/2) weapon
+		'BAR_037',#Warsong Wrangler(„Ç¶„Ç©„Éº„ÇΩ„É≥„Ç∞„ÅÆÁç£È£ºËÇ≤ËÄÖ) (4/3/4)
+		'BAR_551',#Barak Kodobane(„Éê„É©„ÇØ„Éª„Ç≥„Éâ„Éº„Éô„Ç§„É≥) (5/3/5)
+		'DMF_087',]#Trampling Rhino(Ë∏è„ÅøÊΩ∞„Åô„Çµ„Ç§) (5/5/5)
 
 
 
