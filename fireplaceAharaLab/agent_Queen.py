@@ -44,9 +44,10 @@ class QueenAgent(Agent):
 		self.player = thisgame.current_player
 		self.myclass = self.player.hero.card_class
 		if self.myclass==2:
-			with open('qtable', 'rb') as qtable:
-				self.qtable = pickle.load(qtable)
+			#with open('qtable', 'rb') as qtable:
+			#	self.qtable = pickle.load(qtable)
 			self.deckcards = self.clownDruidCard
+			pass
 		elif self.myclass==10:
 			with open('qtablew', 'rb') as qtable:
 				self.qtable = pickle.load(qtable)

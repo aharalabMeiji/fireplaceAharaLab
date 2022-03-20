@@ -37,7 +37,7 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	from agent_Queen import QueenAgent
-	Queen = QueenAgent("Queen", QueenAgent.QAI,myClass=CardClass.WARRIOR, mulliganStrategy=QueenAgent.SimpleMulligan)
+	Queen = QueenAgent("Queen", QueenAgent.QAI,myClass=CardClass.DRUID, mulliganStrategy=QueenAgent.SimpleMulligan)
 
 	# Maya : モンテカルロによる読み切り
 	#from agent_Maya import MayaAgent
@@ -70,7 +70,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Queen, Vector2, deck1=BigDeck.bigWarrior, deck2=BigDeck.faceHunter, gameNumber=20, debugLog=True)
+	a,b,c = play_set_of_games(Queen, Vector2, deck1=BigDeck.clownDruid, deck2=BigDeck.faceHunter, gameNumber=20, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -85,7 +85,7 @@ def main():
 	#find_card_pair(1)
 	#print("test_branch_yamadamaya")
 
-	with open('qtablew', 'wb') as qtable:
+	with open('qtable', 'wb') as qtable:
 		pickle.dump(Queen.qtable , qtable)
 	pass
 
