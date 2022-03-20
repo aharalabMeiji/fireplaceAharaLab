@@ -37,6 +37,9 @@ def main():
 	from agent_HappyCat import HappyCatAgent
 	HappyCat = HappyCatAgent("HappyCat", HappyCatAgent.HappyCatAI)
 
+	from agent_Queen import QueenAgent
+	Queen= QueenAgent("Queen", QueenAgent.QAI, mulliganStrategy=QueenAgent.SimpleMulligan)
+
 	# Maya : モンテカルロによる読み切り
 	#from agent_Maya import MayaAgent
 	#Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS,myClass=CardClass.MAGE)
@@ -68,14 +71,14 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	#a,b,c = play_set_of_games(Vector1, HappyCat, deck1=[], deck2=[], gameNumber=1, debugLog=True)
+	#a,b,c = play_set_of_games(Vector1, HappyCat, deck1=BigDeck.clownDruid, deck2=BigDeck.bigWarrior, gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
-	play_round_robin_competition([Random1,Vector1,Vector2],matchNumber=1)
+	play_round_robin_competition([Vector1,HappyCat,Queen],matchNumber=2)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair

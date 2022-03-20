@@ -18,6 +18,8 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 				agent2.name += "2"
 			deck1,deck2= DeckSelecter()
 			if deck1== BigDeck.clownDruid and deck2 == BigDeck.faceHunter:
+				#from agent_HappyCat import HappyCatAgent
+				#HappyCat = HappyCatAgent("HappyCat", HappyCatAgent.HappyCatAI)
 				agent1.myClass=CardClass.DRUID
 				agent2.myClass=CardClass.HUNTER
 			elif deck1== BigDeck.faceHunter and deck2 == BigDeck.bigWarrior:
@@ -44,7 +46,8 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 			print("Start %s(%s) vs. %s(%s)"%(agent1.name, BigDeck.name(deck2), agent2.name, BigDeck.name(deck1)))
 			for repeat in range(matchNumber):
 				winner = play_one_game_competition(agent1,agent2,deck2, deck1,debugLog=True)
-				print("winner is %r"%winner)
+				with open("result.txt", mode="w") as result:
+					result.write(agent1.name+BigDeck.name(deck2)+agent2.name+BigDeck.name(deck1)+winner+"\n")
 				if winner == agent1.name:
 					newRate(agent1,agent2)
 					ScoreWin[i][j]+=1
