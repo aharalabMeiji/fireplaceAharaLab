@@ -28,9 +28,6 @@
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
-    <Compile Include="fireplaceAharaLab\card_test\core_warrior.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\card_test\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -39,6 +36,21 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_buddy.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_hero.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_minion.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\demon_hunter.py" />
@@ -235,6 +247,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\neutral.py">
       <SubType>Code</SubType>
     </Compile>
@@ -300,6 +316,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
     <Folder Include="fireplaceAharaLab\fireplace\dsl" />
     <Folder Include="fireplaceAharaLab\card_test\" />
+    <Folder Include="fireplaceAharaLab\fireplace\battlegrounds\" />
     <Folder Include="fireplaceAharaLab\obj\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\Debug" />

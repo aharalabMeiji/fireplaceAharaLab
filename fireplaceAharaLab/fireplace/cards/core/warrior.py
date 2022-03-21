@@ -71,7 +71,6 @@ class CORE_EX1_402:#OK <10>[1637]
 #	pass
 
 class CORE_EX1_411:#OK <10>[1637] ## ##########正しく動作しない。
-	######### というか、weaponにeventsをつけることができないのだが・・・・？
 	""" Gorehowl
 	Attacking a minion costs 1 Attack instead of 1 Durability. """
 	events = Attack(FRIENDLY_HERO).after(Heal(SELF, 1), Buff(SELF, 'EX1_411e2'))
