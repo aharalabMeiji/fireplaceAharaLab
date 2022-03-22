@@ -7,6 +7,60 @@ BattleGrounds_Minion=[
 	'BGS_001','BGS_002','BGS_004','BGS_006','BGS_008','BGS_009','BGS_010','BGS_012','BGS_014','BGS_017','BGS_018','BGS_019','BGS_020','BGS_021','BGS_022','BGS_023','BGS_024','BGS_025','BGS_027','BGS_028','BGS_029','BGS_030','BGS_031','BGS_032','BGS_033','BGS_034','BGS_035','BGS_036','BGS_037','BGS_038','BGS_039','BGS_040','BGS_041','BGS_043','BGS_044','BGS_045','BGS_046','BGS_046t','BGS_047','BGS_048','BGS_049','BGS_053','BGS_055','BGS_056','BGS_059','BGS_060','BGS_061','BGS_061t','BGS_066','BGS_067','BGS_069','BGS_071','BGS_072','BGS_075','BGS_077','BGS_078','BGS_079','BGS_080','BGS_081','BGS_082','BGS_083','BGS_100','BGS_104','BGS_105','BGS_106','BGS_110','BGS_111','BGS_112','BGS_113','BGS_115','BGS_115t','BGS_116','BGS_119','BGS_120','BGS_121','BGS_122','BGS_123','BGS_124','BGS_126','BGS_127','BGS_128','BGS_131','BGS_200','BGS_201','BGS_202','BGS_204','BGS_205',]
 #
 
+class CFM_315:# <3>[25]
+	""" Alleycat <beast> (1/1)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 1/1_Cat."""
+	play = Summon(CONTROLLER, 'CFM_315t')
+	pass
+class TB_BaconUps_093:#
+	""" Alleycat <beast> (2/2)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 2/2_Cat."""
+	pass
+class CFM_315t:# <3>[25]
+	""" Tabbycat <beast>
+	"""
+	pass
+class TB_BaconUps_093t:#
+	""" Tabbycat <beast> (2/2)
+	"""
+
+class BGS_055:# 
+	""" Deck Swabbie <pirate>  (2/2)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
+	pass
+class TB_BaconUps_126:
+	""" Deck Swabbie <pirate>  (4/4)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
+	pass
+
+class BG21_027:# <12>[1453]
+	""" Evolving Chromawing
+	After you upgrade your Tavern Tier, double this minion's Attack."""
+	pass
+class BG21_027_G:# <12>[1453]
+	""" Evolving Chromawing
+	After you upgrade your Tavern Tier, triple this minion's Attack."""
+	pass
+
+class BG21_029:
+	""" Icky Imp <demon> (1/1)
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon two 1/1 Imps."""
+	pass
+class BG21_029_G:
+	""" Icky Imp <demon> (2/2)
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon two 2/2 Imps."""
+	pass
+class CORE_GIL_191t:
+	""" Imp (1/1)
+	"""
+
+class TB_BaconUps_030t:
+	""" Imp (2/2)
+	"""
+	pass
+
+
+
 class BG19_010:# <12>[1453]
 	""" Sewer Rat
 	[Deathrattle:] Summon a 2/3 Turtle with [Taunt]. """
