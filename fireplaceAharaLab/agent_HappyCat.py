@@ -23,7 +23,7 @@ class HappyCatAgent(Agent):
 	game = None
 	player = None
 	braches=[]
-	HumanInput = True
+	HumanInput = False
 	# Human input: if true, shows various candidate and allows us to input by hand.
 	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 , mulliganStrategy=None):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
