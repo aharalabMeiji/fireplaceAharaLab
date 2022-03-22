@@ -352,7 +352,6 @@ class HappyCatAgent(Agent):
 		another=['MINION','HERO','HEROPOWER','OTHERS','TURNEND']
 		if self.player.max_mana >= 1:
 			mn=min(self.player.max_mana,10)
-			thisModel=self.MLmodel1
 			if self.myClass==CardClass.DRUID:
 				if self.player.opponent.hero.card_class==CardClass.HUNTER:
 					thisModel=self.HappyCatModel_DA_HV_W
@@ -402,7 +401,6 @@ class HappyCatAgent(Agent):
 		another=['MINION','HERO','HEROPOWER','OTHERS','TURNEND']
 		if self.player.max_mana >= 1:
 			mn=min(self.player.max_mana,10)
-			thisModel=self.MLmodel1
 			if self.myClass==CardClass.DRUID:
 				if self.player.opponent.hero.card_class==CardClass.HUNTER:
 					thisModel=self.HappyCatModel_DA_HV_W
