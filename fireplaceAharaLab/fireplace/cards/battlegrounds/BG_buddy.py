@@ -1,21 +1,23 @@
 from ..utils import *
 
 BattleGrounds_Buddy=[\
-	'BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_G','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_G','BG20_HERO_102_Buddy','BG20_HERO_102_Buddy_G','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_G','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G','BG20_HERO_242_Buddy','BG20_HERO_242_Buddy_G','BG20_HERO_280_Buddy','BG20_HERO_280_Buddy_G','BG20_HERO_282_Buddy','BG20_HERO_282_Buddy_G','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_G','BG20_HERO_301_Buddy','BG20_HERO_301_Buddy_G','BG20_HERO_666p_t0',\
+	'BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge',
+					'BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_G','BG20_HERO_102_Buddy','BG20_HERO_102_Buddy_G','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_G','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G','BG20_HERO_242_Buddy','BG20_HERO_242_Buddy_G','BG20_HERO_280_Buddy','BG20_HERO_280_Buddy_G','BG20_HERO_282_Buddy','BG20_HERO_282_Buddy_G','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_G','BG20_HERO_301_Buddy','BG20_HERO_301_Buddy_G','BG20_HERO_666p_t0',\
 	'BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_G','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G','BG21_HERO_030_Buddy','BG21_HERO_030_Buddy_G','BG22_001','BG22_001_G','BG22_001t2','BG22_001t2_G','BG22_202','BG22_202_G','BG22_401','BG22_401_G','BG22_404','BG22_404_G','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_G','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_G','BG22_HERO_001p_t1et','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_G','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_G','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_G','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G','BG22_HERO_305_Buddy','BG22_HERO_305_Buddy_G','BG22_HERO_305t',
 	]
 
 class BG20_HERO_100_Buddy:# <12>[1453]
 	""" Icesnarl the Mighty
 	After a friendly minionkills an enemy, gain+1 Health permanently. """
-	#
+	events = Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(SELF, 'BG20_HERO_100_Buddy_e'))
 	pass
-
+BG20_HERO_100_Buddy_e=buff(0,1)# <12>[1453]
 class BG20_HERO_100_Buddy_G:# <12>[1453]
 	""" Icesnarl the Mighty
 	After a friendly minionkills an enemy, gain+2 Health permanently. """
-	#
+	events = Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(SELF, 'BG20_HERO_100_Buddy_Ge'))
 	pass
+BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
 
 class BG20_HERO_101_Buddy:# <12>[1453]
 	""" Baby Elekk

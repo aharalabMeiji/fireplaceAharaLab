@@ -191,6 +191,10 @@ def card_test():
 	alterac_druid()
 	pass
 
+def battleground_main():
+	from fireplace.battlegrounds import utils
+	utils.battlegroundMain()
 
 if __name__ == "__main__":
 	main()
+	

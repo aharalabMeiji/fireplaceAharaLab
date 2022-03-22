@@ -36,13 +36,13 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_buddy.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_buddy.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_hero.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_minion.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\utils.py">
@@ -121,6 +121,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\bigWarrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
       <SubType>Code</SubType>
@@ -311,6 +312,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\battlegrounds\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
