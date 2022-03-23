@@ -1,23 +1,10 @@
 
 from ..utils import *
 
-BattleGrounds_Minion=[
-	'BG19_010','BG19_010_G','BG19_010_Gt','BG19_010t','BG20_100','BG20_100_G','BG20_101','BG20_101_G','BG20_102','BG20_102_G','BG20_103','BG20_103_G','BG20_104','BG20_104_G','BG20_105','BG20_105_G','BG20_106','BG20_106_G','BG20_201','BG20_201_G','BG20_202','BG20_202_G','BG20_203','BG20_203_G','BG20_204','BG20_204_G','BG20_205','BG20_205_G','BG20_206','BG20_206_G','BG20_207','BG20_207_G','BG20_210','BG20_210_G','BG20_301','BG20_301_G','BG20_302','BG20_302_G','BG20_303','BG20_303_G','BG20_304','BG20_304_G','BG20_401','BG20_401_G',
-	'BG21_000','BG21_000_G','BG21_001','BG21_001_G','BG21_002','BG21_002_G','BG21_003','BG21_003_G','BG21_004','BG21_004_G','BG21_005','BG21_005_G','BG21_006','BG21_006_G','BG21_007','BG21_007_G','BG21_008','BG21_008_G','BG21_009','BG21_009_G','BG21_010','BG21_010_G','BG21_011','BG21_011_G','BG21_012','BG21_012_G','BG21_013','BG21_013_G','BG21_014','BG21_014_G','BG21_015','BG21_015_G','BG21_016','BG21_016_G','BG21_017','BG21_017_G','BG21_018','BG21_018_G','BG21_019','BG21_019_G','BG21_020','BG21_020_G','BG21_021','BG21_021_G','BG21_022','BG21_022_G','BG21_023','BG21_023_G','BG21_024','BG21_024_G','BG21_025','BG21_025_G','BG21_027','BG21_027_G','BG21_029','BG21_029_G','BG21_030','BG21_030_G','BG21_031','BG21_031_G','BG21_036','BG21_036_G','BG21_037','BG21_037_G','BG21_038','BG21_038_G','BG21_039','BG21_039_G','BG21_040','BG21_040_G',
-	'BGS_001','BGS_002','BGS_004','BGS_006','BGS_008','BGS_009','BGS_010','BGS_012','BGS_014','BGS_017','BGS_018','BGS_019','BGS_020','BGS_021','BGS_022','BGS_023','BGS_024','BGS_025','BGS_027','BGS_028','BGS_029','BGS_030','BGS_031','BGS_032','BGS_033','BGS_034','BGS_035','BGS_036','BGS_037','BGS_038','BGS_039','BGS_040','BGS_041','BGS_043','BGS_044','BGS_045','BGS_046','BGS_046t','BGS_047','BGS_048','BGS_049','BGS_053','BGS_055','BGS_056','BGS_059','BGS_060','BGS_061','BGS_061t','BGS_066','BGS_067','BGS_069','BGS_071','BGS_072','BGS_075','BGS_077','BGS_078','BGS_079','BGS_080','BGS_081','BGS_082','BGS_083','BGS_100','BGS_104','BGS_105','BGS_106','BGS_110','BGS_111','BGS_112','BGS_113','BGS_115','BGS_115t','BGS_116','BGS_119','BGS_120','BGS_121','BGS_122','BGS_123','BGS_124','BGS_126','BGS_127','BGS_128','BGS_131','BGS_200','BGS_201','BGS_202','BGS_204','BGS_205',]
+BattleGrounds_Minion_Pirate=[
+	'BGS_055','TB_BaconUps_126',
+	]
 #
-
-#all
-class BGS_069:# <12>[1453]
-	""" Amalgadon
-	[Battlecry:] For each differentminion type you have amongother minions, [Adapt]randomly. """
-	#
-	pass
-class TB_BaconUps_121:# <12>[1453]
-	""" Amalgadon
-	&lt;b&gt;Battlecry:&lt;/b&gt; For each different minion type you have among other minions, &lt;b&gt;Adapt&lt;/b&gt; randomly twice. """
-	#
-	pass
 
 class BGS_055:# 
 	""" Deck Swabbie <pirate>  (2/2)
@@ -27,6 +14,9 @@ class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
 	pass
+
+
+
 
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
@@ -1101,6 +1091,11 @@ class BGS_067:# <12>[1453]
 	#
 	pass
 
+class BGS_069:# <12>[1453]
+	""" Amalgadon
+	[Battlecry:] For each differentminion type you have amongother minions, [Adapt]randomly. """
+	#
+	pass
 
 
 class BGS_071:# <12>[1453]
