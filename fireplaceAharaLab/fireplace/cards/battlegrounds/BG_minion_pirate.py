@@ -6,6 +6,8 @@ BattleGrounds_Minion_Pirate=[
 	]
 #
 
+
+#Deck Swabbie,1,2,2,Pirate,Battlecry
 class BGS_055:# 
 	""" Deck Swabbie <pirate>  (2/2)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
@@ -14,6 +16,155 @@ class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
 	pass
+
+#Scallywag,1,3,1,Pirate,Deathrattle
+class BGS_061:# <12>[1453]
+	""" Scallywag
+	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """
+	#
+	pass
+class BGS_061t:# <7>[1453]
+	""" Sky Pirate
+	 """
+	#
+	pass
+class TB_BaconUps_141:# <12>[1453]
+	""" Scallywag
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 2/2 Pirate. It attacks immediately. """
+	#
+	pass
+class TB_BaconUps_141t:# <7>[1453]
+	""" Sky Pirate
+	 """
+	#
+	pass
+
+
+#Freedealing Gambler,2,3,3,Pirate,-
+class BGS_049:# <12>[1453]
+	""" Freedealing Gambler
+	This minion sells for3 Gold. """
+	#
+	pass
+class TB_BaconUps_127:# <12>[1453]
+	""" Freedealing Gambler
+	This minion sells for 6 Gold. """
+	#
+	pass
+
+#Southsea Captain,2,3,3,Pirate,-
+#class CORE_NEW1_027:
+#	""" Southsea Captain
+#	Your other Pirates have +1/+1. """
+#	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
+#	pass
+#NEW1_027e = buff(+1, +1)
+class TB_BaconUps_136:
+	""" Southsea Captain
+	Your other Pirates have +2/+2. """
+	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="TB_BaconUps_136e")
+	pass
+TB_BaconUps_136e = buff(+2, +2)
+
+
+#Yo-Ho-Ogre,2,3,5,Pirate,Taunt
+class BGS_060:# <12>[1453]
+	""" Yo-Ho-Ogre
+	[Taunt]After this minion survives being attacked, attack immediately. """
+	#
+	pass
+class TB_BaconUps_150:# <12>[1453]
+	""" Yo-Ho-Ogre (2/6/10)
+	[Taunt]After this minion survives being attacked, attack immediately. """
+	#
+	pass
+
+#Briny Bootlegger,3,4,4,Pirate,-
+class BG21_017:# <12>[1453]
+	""" Briny Bootlegger
+	At the end of your turn,if you have another Pirate,add a Gold Coin to your hand. """
+	#
+	pass
+class BG21_017_G:# <12>[1453]
+	""" Briny Bootlegger
+	At the end of your turn,if you have another Pirate,add 2 Gold Coins to your hand. """
+	#
+	pass
+
+#Salty Looter,3,4,5,Pirate,-
+class BGS_081:# <7>[1453]
+	""" Salty Looter
+	Whenever you play a Pirate, gain +1/+1. """
+	#
+	pass
+BGS_081e=buff(1,1)
+class TB_BaconUps_143:# <7>[1453]
+	""" Salty Looter
+	Whenever you play a Pirate, gain +2/+2. """
+	#
+	pass
+TB_BaconUps_143e=buff(2,2)
+
+#Southsea Strongarm,3,4,3,Pirate,Battlecry
+class BGS_048:# <12>[1453]
+	""" Southsea Strongarm
+	[Battlecry:] Give a friendlyPirate +1/+1. Repeat foreach Pirate you bought this turn. """
+	#
+	pass
+BGS_048e=buff(1,1)
+class TB_BaconUps_140:# <12>[1453]
+	""" Southsea Strongarm
+	[Battlecry:] Give a friendlyPirate +1/+1. Repeat foreach Pirate you boughtthis turn. """
+	#
+	pass
+TB_BaconUps_140e=buff(2,2)
+
+#Goldgrubber,4,4,4,Pirate,-
+class BGS_066:# <12>[1453]
+	""" Goldgrubber
+	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
+	#
+	pass
+BGS_066e=buff(2,2)
+class TB_BaconUps_130:# <12>[1453]
+	""" Goldgrubber
+	At the end of your turn, gain +4/+4 for each friendly Golden minion. """
+	#
+	pass
+TB_BaconUps_130e=buff(4,4)
+
+#Peggy Brittlebone,4,6,5,Pirate,-
+class BG21_016:# <12>[1453]
+	""" Peggy Brittlebone
+	After a card is added to your hand, give another friendly Pirate +1/+1. """
+	#
+	pass
+BG21_016e=buff(1,1)
+class BG21_016_G:# <12>[1453]
+	""" Peggy Brittlebone
+	After a card is added to your hand, give another friendly Pirate +2/+2. """
+	#
+	pass
+BG21_016_Ge=buff(2,2)
+
+#Ripsnarl Captain,4,4,6,Pirate,-
+
+
+#Cap'n Hoggarr,5,6,6,Pirate,-
+
+
+#Tony Two-Tusk,5,4,6,Pirate,Avenge (X)
+
+
+#Amalgadon,6,6,6,*,Adapt
+
+
+#Dread Admiral Eliza,6,6,7,Pirate,-
+
+
+#Nosy Looter,6,9,8,Pirate,-
+
+
 
 
 
@@ -502,29 +653,7 @@ class BG21_015_G:# <12>[1453]
 	#
 	pass
 
-class BG21_016:# <12>[1453]
-	""" Peggy Brittlebone
-	After a card is added to your hand, give another friendly Pirate +1/+1. """
-	#
-	pass
 
-class BG21_016_G:# <12>[1453]
-	""" Peggy Brittlebone
-	After a card is added to your hand, give another friendly Pirate +2/+2. """
-	#
-	pass
-
-class BG21_017:# <12>[1453]
-	""" Briny Bootlegger
-	At the end of your turn,if you have another Pirate,add a Gold Cointo your hand. """
-	#
-	pass
-
-class BG21_017_G:# <12>[1453]
-	""" Briny Bootlegger
-	At the end of your turn,if you have another Pirate,add 2 Gold Coinsto your hand. """
-	#
-	pass
 
 class BG21_018:# <12>[1453]
 	""" Defiant Shipwright
@@ -1031,11 +1160,6 @@ class BGS_048:# <12>[1453]
 	#
 	pass
 
-class BGS_049:# <12>[1453]
-	""" Freedealing Gambler
-	This minion sells for3 Gold. """
-	#
-	pass
 
 class BGS_053:# <12>[1453]
 	""" Bloodsail Cannoneer
@@ -1061,29 +1185,8 @@ class BGS_059:# <12>[1453]
 	#
 	pass
 
-class BGS_060:# <12>[1453]
-	""" Yo-Ho-Ogre
-	[Taunt]After this minion survivesbeing attacked,attack immediately. """
-	#
-	pass
 
-class BGS_061:# <12>[1453]
-	""" Scallywag
-	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """
-	#
-	pass
 
-class BGS_061t:# <7>[1453]
-	""" Sky Pirate
-	 """
-	#
-	pass
-
-class BGS_066:# <12>[1453]
-	""" Goldgrubber
-	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
-	#
-	pass
 
 class BGS_067:# <12>[1453]
 	""" Drakonid Enforcer
@@ -1140,11 +1243,6 @@ class BGS_080:# <12>[1453]
 	#
 	pass
 
-class BGS_081:# <7>[1453]
-	""" Salty Looter
-	Whenever you play a Pirate, gain +1/+1. """
-	#
-	pass
 
 class BGS_082:# <12>[1453]
 	""" Menagerie Mug
