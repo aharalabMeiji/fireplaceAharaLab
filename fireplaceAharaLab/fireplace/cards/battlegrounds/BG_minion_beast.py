@@ -2,27 +2,28 @@
 from ..utils import *
 
 BattleGrounds_Minion_Beast=[
-	'CFM_315','TB_BaconUps_093',	'CFM_315t','TB_BaconUps_093t',
-	'CORE_EX1_531','TB_BaconUps_043',
-	'BG21_000','BG21_000_G',
-	'BGS_075','TB_BaconUps_125',
+	'CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',
+	#'CORE_EX1_531','EX1_531',
+	'TB_BaconUps_043','TB_BaconUps_043e',
+	'BG21_000','BG21_000e','BG21_000_G','BG21_000_Ge',
+	'BGS_075','BGS_075e','TB_BaconUps_125','TB_BaconUps_125e',
 	'BG19_010','BG19_010t','BG19_010_G','BG19_010_Gt',
 	'BGS_078','TB_BaconUps_135',
-	'CFM_316','TB_BaconUps_027',
+	'CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',
 	'LOOT_078','TB_BaconUps_151',
-	'BG21_003','BG21_003_G',
+	'BG21_003','BG21_003e','BG21_003_G',
 	'CORE_EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',
 	'BG20_205','BG20_205_G',
 	'BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',
-	'BGS_021','TB_BaconUps_090',
-	'BG21_001','BG21_001_G',
+	'BGS_021','BGS_021e','TB_BaconUps_090','TB_BaconUps_090e',
+	'BG21_001','BG21_001e','BG21_001_G','BG21_001e2',
 	'BGS_008','TB_BaconUps_057',
-	'BGS_018','TB_BaconUps_085',]
+	'BGS_018','BGS_018e','TB_BaconUps_085','TB_BaconUps_085e']
 #
 
 class CFM_315:# <3>[25]
 	""" Alleycat <beast> (1/1)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 1/1_Cat."""
+	[Battlecry:] Summon a 1/1_Cat."""
 	play = Summon(CONTROLLER, 'CFM_315t')
 	pass
 class CFM_315t:# <3>[25]
@@ -31,7 +32,7 @@ class CFM_315t:# <3>[25]
 	pass
 class TB_BaconUps_093:#
 	""" Alleycat <beast> (2/2)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Summon a 2/2_Cat."""
+	[Battlecry:] Summon a 2/2_Cat."""
 	play = Summon(CONTROLLER, 'TB_BaconUps_093t')
 	pass
 class TB_BaconUps_093t:#
@@ -120,13 +121,13 @@ class BGS_078:# <12>[1453]
 	pass
 class TB_BaconUps_135:
 	""" Monstrous Macaw (3/10/6)
-	[x]After this attacks, trigger another friendly minion's &lt;b&gt;Deathrattle&lt;/b&gt; twice. """
+	[x]After this attacks, trigger another friendly minion's [Deathrattle] twice. """
 	events = Attack(FRIENDLY_MINIONS, ENEMY_MINIONS).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
 	pass
 
 class CFM_316:
 	""" Rat Pack (3/2/2)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a number of 1/1 Rats equal _to this minion's Attack."""
+	[Deathrattle:] Summon a number of 1/1 Rats equal _to this minion's Attack."""
 	deathrattle = Summon(CONTROLLER, 'CFM_316t') * ATK(SELF)#
 	pass
 class CFM_316t:
@@ -134,7 +135,7 @@ class CFM_316t:
 	pass
 class TB_BaconUps_027:
 	""" Rat Pack (3/4/4)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a number of 2/2 Rats equal _to this minion's Attack."""
+	[Deathrattle:] Summon a number of 2/2 Rats equal _to this minion's Attack."""
 	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_027t') * ATK(SELF)#
 	pass
 class TB_BaconUps_027t:
@@ -144,68 +145,70 @@ class TB_BaconUps_027t:
 class LOOT_078:
 	""" Cave Hydra (4/2/4)
 	Also damages the minions next to whomever this attacks."""
-	
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 class TB_BaconUps_151:
 	""" Cave Hydra (4/4/8)
 	Also damages the minions next to whomever this attacks."""
-	#
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 
 class BG21_003:# <12>[1453]
 	""" Reanimating Rattler (4/5/3)
 	[Battlecry:] Give a friendly Beast [Reborn]. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET,'BG21_003e')
 	pass
+BG21_003e=buff(reborn=True)
 class BG21_003_G:# <12>[1453]
 	""" Reanimating Rattler (4/10/6)
 	[Battlecry:] Give a friendly Beast [Reborn]. """
-	#
+	play = Buff(TARGET,'BG21_003e')
 	pass
 
 class CORE_EX1_534:
 	""" Savannah Highmane (4/6/5)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon two 2/2 Hyenas."""
-	#
+	[Deathrattle:] Summon two 2/2 Hyenas."""
+	deathrattle = Summon(CONTROLLER, 'EX1_534t')
 	pass
 class EX1_534t:
 	""" Hyenta
 	"""
-	#
 	pass
 class TB_BaconUps_049:
 	""" Savannah Highmane (4/12/10)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon two 4/4 Hyenas."""
-	#
+	[Deathrattle:] Summon two 4/4 Hyenas."""
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_049t')
 	pass
 class TB_BaconUps_049t:
 	""" Hyenta
 	"""
-	#
 	pass
 
-class BG20_205:# <12>[1453]
+
+class BG20_205:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/6/6)
 	Your [Blood Gems] give an extra +1/+1. """
-	#
+	events = Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'))
 	pass
-class BG20_205_G:# <12>[1453]
+class BG20_205_G:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/12/12)
 	Your [Blood Gems] give an extra +2/+2. """
+	events = Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'), Buff(SELF, 'BG20_GEMe'))
 	#
 	pass
 
 class BG22_001:# <12>[1453]
 	""" Baby Krush (5/7/7)
 	Whenever this attacks,summon a 9/9 Devilsaur toattack the target first. """
-	#
+	events = Attack(SELF, ENEMY).on(Summon(CONTROLLER, 'BG22_001t2').then(RegularAttack(Summon.CARD, RANDOM_ENEMY_MINION)))
 	pass
 class BG22_001t2:
 	pass
 class BG22_001_G:# <12>[1453]
 	""" Baby Krush (5/14/14)
 	Whenever this attacks, summon an 18/18 Devilsaur to attack the target first. """
-	#
+	events = Attack(SELF, ENEMY).on(Summon(CONTROLLER, 'BG22_001t2_G').then(RegularAttack(Summon.CARD, RANDOM_ENEMY_MINION)))
 	pass
 class BG22_001t2_G:
 	pass
@@ -213,45 +216,55 @@ class BG22_001t2_G:
 class BGS_021:# <12>[1453]
 	""" Mama Bear (5/5/5)
 	Whenever you summon a Beast, give it +5/+5. """
-	#
+	events = Summon(CONTROLLER, BEAST).then(Buff(Summon.CARD, 'BGS_021e'))
 	pass
+BGS_021e=buff(5,5)
 class TB_BaconUps_090:# <12>[1453]
 	""" Mama Bear (5/10/10)
 	Whenever you summon a Beast, give it +10/+10. """
 	#
 	pass
+TB_BaconUps_090e=buff(10,10)
 
 class BG21_001:# <12>[1453]
 	""" Palescale Crocolisk(5/4/5)
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +6/+6. """
-	#
+	#<Tag enumID="2129" name="AVENGE" type="Int" value="1"/>
+	#<Tag enumID="451" name="SCORE_VALUE_1" type="Int" value="2"/>
+	events = Death(FRIENDLY_MINIONS).on(Avenge(2, Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e')))
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e')
 	pass
+BG21_001e=buff(6,6)
 class BG21_001_G:# <12>[1453]
 	""" Palescale Crocolisk(5/8/10)
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +12/+12. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(2, Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')))
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')
 	pass
+BG21_001e2=buff(12,12)
 
 class BGS_008:# <6>[1453]
 	""" Ghastcoiler (6/7/7)
-	[Deathrattle:] Summon2 random [Deathrattle] minions. """
-	#
+	[Deathrattle:] Summon 2 random [Deathrattle] minions. """
+	deathrattle = Summon(CONTROLLER, RandomCollectible(deathrattle=True)) * 2
 	pass
 class TB_BaconUps_057:# <6>[1453]
 	""" Ghastcoiler (6/14/14)
 	[Deathrattle:] Summon 4 random [Deathrattle] minions. """
-	#
+	deathrattle = Summon(CONTROLLER, RandomCollectible(deathrattle=True)) * 4
 	pass
 
 class BGS_018:# <12>[1453]
 	""" Goldrinn, the Great Wolf (6/4/4)
 	[Deathrattle:] Give your Beasts +5/+5. """
-	#
+	deathrattle = Buff(FRIENDLY_MINIONS + BEAST, 'BGS_018e')
 	pass
+BGS_018e=buff(5,5)
 class TB_BaconUps_085:# <12>[1453]
 	""" Goldrinn, the Great Wolf (6/8/8)
-	[Deathrattle:] Give your Beasts +5/+5. """
-	#
+	[Deathrattle:] Give your Beasts +10/+10. """
+	deathrattle = Buff(FRIENDLY_MINIONS + BEAST, 'TB_BaconUps_085e')
 	pass
+TB_BaconUps_085e=buff(10,10)
 
 
