@@ -1,4 +1,3 @@
-
 from ..utils import *
 
 BattleGrounds_Minion_Pirate=[
@@ -11,17 +10,19 @@ BattleGrounds_Minion_Pirate=[
 class BGS_055:# 
 	""" Deck Swabbie <pirate>  (2/2)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
+	#play = ReduceUpgradingCost(CONTROLLER,1)
 	pass
 class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
+	#play = ReduceUpgradingCost(CONTROLLER,2)
 	pass
 
 #Scallywag,1,3,1,Pirate,Deathrattle
 class BGS_061:# <12>[1453]
 	""" Scallywag
 	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """
-	#
+	deathrattle = Summon(CONTROLLER, 'BGS_061t').then(RegularAttack(Summon.CARD,RANDOM_ENEMY_MINION))
 	pass
 class BGS_061t:# <7>[1453]
 	""" Sky Pirate
@@ -31,7 +32,7 @@ class BGS_061t:# <7>[1453]
 class TB_BaconUps_141:# <12>[1453]
 	""" Scallywag
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 2/2 Pirate. It attacks immediately. """
-	#
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_141t').then(RegularAttack(Summon.CARD,RANDOM_ENEMY_MINION))
 	pass
 class TB_BaconUps_141t:# <7>[1453]
 	""" Sky Pirate
