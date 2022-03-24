@@ -98,6 +98,7 @@ class Player(Entity, TargetableByAuras):
 		self.choiceStrategy = None
 		self.lost_in_the_park=0
 		self.carry_cards=[] # YOP_024
+		self.UpgradeCost=4 # battlegrounds
 
 	def __str__(self):
 		return self.name

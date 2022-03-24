@@ -2740,3 +2740,29 @@ class AddScriptDataNum1(TargetedAction):
 		pass
 
 ###############################################################
+
+## Battlegrounds
+
+class ReduceUpgradingCost(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'UpgradeCost'):
+			target.UpgradeCost = max(target.UpgradeCost-amount, 0)
+		pass
+
+class Avange(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntARg()
+	ACTIONS=ActionArg()
+	def do(self, source, target, amount, actions):
+		log.info("Avenge Counter on %r -> %i, %r", source, (source._sidequest_counter_+1), actions)
+		source._sidequest_counter_ += 1
+		if source._sidequest_counter_== amount:
+			source._sidequest_counter_ = 0
+			if actions!=None:
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction):
+						action.trigger(source)

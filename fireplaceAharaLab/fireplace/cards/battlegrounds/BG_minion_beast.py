@@ -238,7 +238,7 @@ BG21_001e=buff(6,6)
 class BG21_001_G:# <12>[1453]
 	""" Palescale Crocolisk(5/8/10)
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +12/+12. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(2, Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')))
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')]))
 	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')
 	pass
 BG21_001e2=buff(12,12)

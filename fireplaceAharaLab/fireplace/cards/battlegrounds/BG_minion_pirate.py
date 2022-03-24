@@ -10,12 +10,12 @@ BattleGrounds_Minion_Pirate=[
 class BGS_055:# 
 	""" Deck Swabbie <pirate>  (2/2)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
-	#play = ReduceUpgradingCost(CONTROLLER,1)
+	play = ReduceUpgradingCost(CONTROLLER,1)
 	pass
 class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
-	#play = ReduceUpgradingCost(CONTROLLER,2)
+	play = ReduceUpgradingCost(CONTROLLER,2)
 	pass
 
 #Scallywag,1,3,1,Pirate,Deathrattle
@@ -40,17 +40,16 @@ class TB_BaconUps_141t:# <7>[1453]
 	#
 	pass
 
-
 #Freedealing Gambler,2,3,3,Pirate,-
 class BGS_049:# <12>[1453]
 	""" Freedealing Gambler
-	This minion sells for3 Gold. """
-	#
+	This minion sells for 3 Gold. """
+	#		<Tag enumID="1587" name="3" type="Int" value="3"/> 謎タグ
 	pass
 class TB_BaconUps_127:# <12>[1453]
 	""" Freedealing Gambler
 	This minion sells for 6 Gold. """
-	#
+	#		<Tag enumID="1587" name="6" type="Int" value="6"/> 謎タグ
 	pass
 
 #Southsea Captain,2,3,3,Pirate,-
@@ -67,56 +66,56 @@ class TB_BaconUps_136:
 	pass
 TB_BaconUps_136e = buff(+2, +2)
 
-
 #Yo-Ho-Ogre,2,3,5,Pirate,Taunt
 class BGS_060:# <12>[1453]
 	""" Yo-Ho-Ogre
 	[Taunt]After this minion survives being attacked, attack immediately. """
-	#
+	events = Attack(ENEMY_MINIONS, SELF).after(RegularAttack(SELF, RANDOM_ENEMY_MINION))
 	pass
 class TB_BaconUps_150:# <12>[1453]
 	""" Yo-Ho-Ogre (2/6/10)
 	[Taunt]After this minion survives being attacked, attack immediately. """
-	#
+	events = Attack(ENEMY_MINIONS, SELF).after(RegularAttack(SELF, RANDOM_ENEMY_MINION)) 
 	pass
 
 #Briny Bootlegger,3,4,4,Pirate,-
 class BG21_017:# <12>[1453]
 	""" Briny Bootlegger
 	At the end of your turn,if you have another Pirate,add a Gold Coin to your hand. """
-	#
+	events = SELF_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & Give(CONTROLLER, THE_COIN))
 	pass
 class BG21_017_G:# <12>[1453]
 	""" Briny Bootlegger
 	At the end of your turn,if you have another Pirate,add 2 Gold Coins to your hand. """
-	#
+	events = SELF_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & (Give(CONTROLLER, THE_COIN),Give(CONTROLLER, THE_COIN)))
 	pass
 
 #Salty Looter,3,4,5,Pirate,-
 class BGS_081:# <7>[1453]
 	""" Salty Looter
 	Whenever you play a Pirate, gain +1/+1. """
-	#
+	events = Play(CONTROLLER, PIRATE).on(Buff(SELF,'BGS_081e'))
 	pass
 BGS_081e=buff(1,1)
 class TB_BaconUps_143:# <7>[1453]
 	""" Salty Looter
 	Whenever you play a Pirate, gain +2/+2. """
-	#
+	events = Play(CONTROLLER, PIRATE).on(Buff(SELF,'TB_BaconUps_143e'))
 	pass
 TB_BaconUps_143e=buff(2,2)
 
 #Southsea Strongarm,3,4,3,Pirate,Battlecry
 class BGS_048:# <12>[1453]
 	""" Southsea Strongarm
-	[Battlecry:] Give a friendlyPirate +1/+1. Repeat foreach Pirate you bought this turn. """
-	#
+	[Battlecry:] Give a friendly Pirate +1/+1. Repeat foreach Pirate you bought this turn. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET, 'BGS_048e'), Buff(TARGET, 'BGS_048e') *Count(PIRATE_BOUGHT_THIS_TURN) 
 	pass
 BGS_048e=buff(1,1)
 class TB_BaconUps_140:# <12>[1453]
 	""" Southsea Strongarm
-	[Battlecry:] Give a friendlyPirate +1/+1. Repeat foreach Pirate you boughtthis turn. """
-	#
+	[Battlecry:] Give a friendly Pirate +2/+2. Repeat foreach Pirate you boughtthis turn. """
+	play = Buff(TARGET, 'TB_BaconUps_140e'), Buff(TARGET, 'TB_BaconUps_140e') * Count(PIRATE_BOUGHT_THIS_TURN) 
 	pass
 TB_BaconUps_140e=buff(2,2)
 
@@ -124,13 +123,13 @@ TB_BaconUps_140e=buff(2,2)
 class BGS_066:# <12>[1453]
 	""" Goldgrubber
 	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINION + GOLDEN, 'BGS_066e'))
 	pass
 BGS_066e=buff(2,2)
 class TB_BaconUps_130:# <12>[1453]
 	""" Goldgrubber
 	At the end of your turn, gain +4/+4 for each friendly Golden minion. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINION + GOLDEN, 'TB_BaconUps_130e'))
 	pass
 TB_BaconUps_130e=buff(4,4)
 
