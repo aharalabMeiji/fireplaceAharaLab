@@ -39,24 +39,47 @@ BG_Minion=[
 	#Majordomo Executus	4	6	3	-	-
 	'BGS_105','BGS_105e','TB_BaconUps_207',
 	#Menagerie Jug	4	3	3	-	Battlecry
-
+	'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',
 	#Strongshell Scavenger	4	2	3	-	Battlecry
+	'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',
 	#Witchwing Nestmatron	4	3	5	-	Avenge (X)
+	'BG21_038','BG21_038_G',
 	#Baron Rivendare	5	1	7	-	Deathrattle
+	'CORE_FP1_031','TB_BaconUps_055',
 	#Brann Bronzebeard	5	2	4	-	Battlecry
+	'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',
 	#Deadly Spore	5	1	1	-	Poisonous
+	'BGS_131','TB_BaconUps_251',
 	#Kangor's Apprentice	5	3	6	-	Deathrattle
+	'BGS_012','TB_BaconUps_087',
 	#Lightfang Enforcer	5	2	2	-	-
+	'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',
 	#Master of Realities	5	6	6	-	Taunt
+	'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',
 	#Mythrax the Unraveler	5	4	4	-	-
+	'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',
 	#Nomi, Kitchen Nightmare	5	4	4	-	-
+	'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',
 	#Amalgadon	6	6	6	*	Adapt
+	'BGS_069','TB_BaconUps_121',
 	#Friend of a Friend	6	5	6	-	Battlecry
+	#'BG22_404','BG22_404_G',#BAN
 	#Nadina the Red	6	7	4	-	Deathrattle
+	'BGS_040','TB_BaconUps_154',
 	#Seafood Slinger	6	5	5	-	Battlecry
-	#Zapp Slywick	6	7	10	-	Windfury	
+	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge'
+	#Zapp Slywick	6	7	10	-	Windfury
+	'BGS_022','TB_BaconUps_091',	
 	]
 
+BG_PoolSet_Minion=[
+	['BGS_004',],
+	['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
+	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002',],
+	['BGS_111','CORE_EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],
+	['CORE_FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],
+	['BGS_069','BGS_040','BG21_011','BGS_022',],
+	]
 
 #Wrath Weaver	1	1	3	-	- BGS_004 TB_BaconUps_079 おりや
 class BGS_004:# <12>[1453]
@@ -100,7 +123,6 @@ class BGS_082:# <12>[1453]
 	[Battlecry:] Give 3 randomfriendly minions of differentminion types +1/+1. """
 	#
 	pass
-
 class BGS_082e:# <12>[1453]
 	""" Sip of Tea
 	+1/+1. """
@@ -111,7 +133,6 @@ class TB_BaconUps_144:# <12>[1453]
 	[Battlecry:] Give 3 randomfriendly minions of differentminion types +2/+2. """
 	#
 	pass
-
 class TB_BaconUps_144e:# <12>[1453]
 	""" Sip of Tea
 	+2/+2. """
@@ -402,6 +423,7 @@ class TB_BaconUps_072e:# <12>[1453]
 	+4/+4. """
 	#
 	pass
+
 #Witchwing Nestmatron	4	3	5	-	Avenge (X)  BG21_038 BG21_038_G
 class BG21_038:# <12>[1453]
 	""" Witchwing Nestmatron
@@ -577,12 +599,12 @@ class TB_BaconUps_121:
 
 #Friend of a Friend	(BAN)	6	5	6	-	Battlecry   BG22_404 BG22_404_G 
 class BG22_404:# <12>[1453]
-	""" Friend of a Friend
+	""" Friend of a Friend(BAN)
 	[Battlecry: Discover] a Buddy. """
 	#
 	pass
 class BG22_404_G:# <12>[1453]
-	""" Friend of a Friend
+	""" Friend of a Friend(BAN)
 	[Battlecry: Discover]two Buddies. """
 	#
 	pass
