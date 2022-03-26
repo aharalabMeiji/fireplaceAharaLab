@@ -85,20 +85,24 @@ def printClasses():
 	print('from ..utils import *')
 	print('')
 	#THE_SUNKEN_CITY = 1658
-	myCardSet=CardSet.THE_SUNKEN_CITY
+	#BATTLEGROUNDS = 1453
+	myCardSet=CardSet.BATTLEGROUNDS
 	myCardClass=CardClass.NEUTRAL
-	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
+	myCardRace=Race.INVALID
+	print('#%s_%s='%(myCardSet,myCardRace),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
 		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+		#if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+		if _card.card_set== myCardSet and _card.race == myCardRace: 
 			print("'%s'"%(_card.id), end=",")
 		pass
 	pass
 	print(']')
 	for _id in db.keys():
 		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+		#if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+		if _card.card_set== myCardSet and _card.race == myCardRace: 
 			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 			print('\t""" %s'%(_card.name))
 			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
@@ -196,5 +200,5 @@ def battleground_main():
 	utils.battlegroundMain()
 
 if __name__ == "__main__":
-	main()
+	battleground_main()
 	

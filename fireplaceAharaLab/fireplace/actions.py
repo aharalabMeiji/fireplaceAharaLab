@@ -2751,9 +2751,9 @@ class ReduceUpgradingCost(TargetedAction):
 			target.UpgradeCost = max(target.UpgradeCost-amount, 0)
 		pass
 
-class Avange(TargetedAction):
+class Avenge(TargetedAction):
 	TARGET=ActionArg()
-	AMOUNT=IntARg()
+	AMOUNT=IntArg()
 	ACTIONS=ActionArg()
 	def do(self, source, target, amount, actions):
 		log.info("Avenge Counter on %r -> %i, %r", source, (source._sidequest_counter_+1), actions)

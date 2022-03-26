@@ -1,25 +1,34 @@
 
 from ..utils import *
 
-BattleGrounds_Minion_Beast=[
-	'CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',
-	#'CORE_EX1_531','EX1_531',
-	'TB_BaconUps_043','TB_BaconUps_043e',
-	'BG21_000','BG21_000e','BG21_000_G','BG21_000_Ge',
-	'BGS_075','BGS_075e','TB_BaconUps_125','TB_BaconUps_125e',
-	'BG19_010','BG19_010t','BG19_010_G','BG19_010_Gt',
-	'BGS_078','TB_BaconUps_135',
-	'CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',
-	'LOOT_078','TB_BaconUps_151',
-	'BG21_003','BG21_003e','BG21_003_G',
-	'CORE_EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',
-	'BG20_205','BG20_205_G',
-	'BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',
-	'BGS_021','BGS_021e','TB_BaconUps_090','TB_BaconUps_090e',
-	'BG21_001','BG21_001e','BG21_001_G','BG21_001e2',
-	'BGS_008','TB_BaconUps_057',
-	'BGS_018','BGS_018e','TB_BaconUps_085','TB_BaconUps_085e']
+BG_Minion_Beast=[
+	'CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',#Alleycat
+	'CORE_EX1_531','EX1_531','TB_BaconUps_043','TB_BaconUps_043e',#Scavenging Hyena
+	'BG21_000','BG21_000e','BG21_000_G','BG21_000_Ge',#Leapfrogger
+	'BGS_075','BGS_075e','TB_BaconUps_125','TB_BaconUps_125e',#Rabid Saurolisk
+	'BG19_010','BG19_010t','BG19_010_G','BG19_010_Gt',#Sewer Rat
+	'BGS_078','TB_BaconUps_135',#Monstrous Macaw
+	'CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',#Rat Pack
+	'LOOT_078','TB_BaconUps_151',#Cave Hydra
+	'BG21_003','BG21_003e','BG21_003_G',#Reanimating Rattler
+	'CORE_EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',#Savannah Highmane
+	'BG20_205','BG20_205_G',#Agamaggan, the Great Boar
+	'BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',#Baby Krush
+	'BGS_021','BGS_021e','TB_BaconUps_090','TB_BaconUps_090e',#Mama Bear
+	'BG21_001','BG21_001e','BG21_001_G','BG21_001e2',#Palescale Crocolisk
+	'BGS_008','TB_BaconUps_057',#Ghastcoiler
+	'BGS_018','BGS_018e','TB_BaconUps_085','TB_BaconUps_085e'#Goldrinn, the Great Wolf
+	#'FP1_010','TB_BaconUps_155',# Maexxna (BAN)
+	]
 #
+BG_PoolSet_Beast=[
+	['CFM_315','CORE_EX1_531',],##2
+	['BG21_000','BGS_075','BG19_010',],##3
+	['BGS_078','CFM_316',],#2
+	['LOOT_078','BG21_003','CORE_EX1_534',],#3
+	['BG20_205','BG22_001','BGS_021','BG21_001'],#4
+	['BGS_008','BGS_018',],#2
+	]
 
 class CFM_315:# <3>[25]
 	""" Alleycat <beast> (1/1)
@@ -53,7 +62,7 @@ class TB_BaconUps_043: #<3>[1637]
 TB_BaconUps_043e=buff(4,2)
 
 class BG21_000:# <12>[1453]
-	""" Leapfrogger
+	""" Leapfrogger(2/3/3)
 	[Deathrattle:] Give a friendly Beast +1/+1 and this [Deathrattle]. """
 	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + BEAST), 'BG21_000e')
 	pass
@@ -267,4 +276,11 @@ class TB_BaconUps_085:# <12>[1453]
 	pass
 TB_BaconUps_085e=buff(10,10)
 
-
+class FP1_010:
+	""" Maexxna (BAN)
+	&lt;b&gt;Poisonous&lt;/b&gt; """
+	pass
+class TB_BaconUps_155:
+	""" Maexxna (BAN)
+	&lt;b&gt;Poisonous&lt;/b&gt; """
+	pass

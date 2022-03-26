@@ -1,206 +1,125 @@
 
 from ..utils import *
 
-BattleGrounds_Minion=[
-	'BG19_010','BG19_010_G','BG19_010_Gt','BG19_010t','BG20_100','BG20_100_G','BG20_101','BG20_101_G','BG20_102','BG20_102_G','BG20_103','BG20_103_G','BG20_104','BG20_104_G','BG20_105','BG20_105_G','BG20_106','BG20_106_G','BG20_201','BG20_201_G','BG20_202','BG20_202_G','BG20_203','BG20_203_G','BG20_204','BG20_204_G','BG20_205','BG20_205_G','BG20_206','BG20_206_G','BG20_207','BG20_207_G','BG20_210','BG20_210_G','BG20_301','BG20_301_G','BG20_302','BG20_302_G','BG20_303','BG20_303_G','BG20_304','BG20_304_G','BG20_401','BG20_401_G',
-	'BG21_000','BG21_000_G','BG21_001','BG21_001_G','BG21_002','BG21_002_G','BG21_003','BG21_003_G','BG21_004','BG21_004_G','BG21_005','BG21_005_G','BG21_006','BG21_006_G','BG21_007','BG21_007_G','BG21_008','BG21_008_G','BG21_009','BG21_009_G','BG21_010','BG21_010_G','BG21_011','BG21_011_G','BG21_012','BG21_012_G','BG21_013','BG21_013_G','BG21_014','BG21_014_G','BG21_015','BG21_015_G','BG21_016','BG21_016_G','BG21_017','BG21_017_G','BG21_018','BG21_018_G','BG21_019','BG21_019_G','BG21_020','BG21_020_G','BG21_021','BG21_021_G','BG21_022','BG21_022_G','BG21_023','BG21_023_G','BG21_024','BG21_024_G','BG21_025','BG21_025_G','BG21_027','BG21_027_G','BG21_029','BG21_029_G','BG21_030','BG21_030_G','BG21_031','BG21_031_G','BG21_036','BG21_036_G','BG21_037','BG21_037_G','BG21_038','BG21_038_G','BG21_039','BG21_039_G','BG21_040','BG21_040_G',
-	'BGS_001','BGS_002','BGS_004','BGS_006','BGS_008','BGS_009','BGS_010','BGS_012','BGS_014','BGS_017','BGS_018','BGS_019','BGS_020','BGS_021','BGS_022','BGS_023','BGS_024','BGS_025','BGS_027','BGS_028','BGS_029','BGS_030','BGS_031','BGS_032','BGS_033','BGS_034','BGS_035','BGS_036','BGS_037','BGS_038','BGS_039','BGS_040','BGS_041','BGS_043','BGS_044','BGS_045','BGS_046','BGS_046t','BGS_047','BGS_048','BGS_049','BGS_053','BGS_055','BGS_056','BGS_059','BGS_060','BGS_061','BGS_061t','BGS_066','BGS_067','BGS_069','BGS_071','BGS_072','BGS_075','BGS_077','BGS_078','BGS_079','BGS_080','BGS_081','BGS_082','BGS_083','BGS_100','BGS_104','BGS_105','BGS_106','BGS_110','BGS_111','BGS_112','BGS_113','BGS_115','BGS_115t','BGS_116','BGS_119','BGS_120','BGS_121','BGS_122','BGS_123','BGS_124','BGS_126','BGS_127','BGS_128','BGS_131','BGS_200','BGS_201','BGS_202','BGS_204','BGS_205',]
-#
-#Blood Gem
-#
-class BG20_GEM:
-	"""Blood Gem
-	Give a friendly minion +@/+@."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(TARGET, 'BG20_GEMe'), Destroy(SELF)
-	pass
-class BG20_GEMe:
-	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
-	max_health = lambda self, i : i+self._script_data_num_1
-	atk  = lambda self, i : i+self._script_data_num_1 
-	pass
+BG_Minion=[
+	#Wrath Weaver	1	1	3	-	-
+	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',
+	#Acolyte of C'Thun	2	2	3	-	Reborn
+	'BGS_106','TB_BaconUps_255',
+	#Menagerie Mug	2	2	2	-	Battlecry
+	'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',
+	#Prophet of the Boar	2	3	3	-	Blood Gem
+	'BG20_203','BG20_203_G',
+	#Selfless Hero	2	2	1	-	Deathrattle
+	'OG_221','TB_BaconUps_014',
+	#Spawn of N'Zoth	2	2	2	-	Deathrattle
+	'OG_256','OG_256e','TB_BaconUps_025',
+	#Unstable Ghoul	2	1	3	-	Deathrattle
+	'FP1_024','TB_BaconUps_118',
+	#Whelp Smuggler	2	2	5	-	-
+	'BG21_013','BG21_013_G',
+	#Arm of the Empire	3	4	4	-	Taunt
+	'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',
+	#Bird Buddy	3	2	4	-	Avenge (X)
+	'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',
+	#Budding Greenthumb	3	1	4	-	Avenge (X)
+	'BG21_030','BG21_030_G',
+	#Houndmaster	3	4	3	-	Battlecry
+	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',
+	#Khadgar	3	2	2	-	-
+	'DAL_575','TB_BaconUps_034'
+	#Soul Juggler	3	3	5	-	-
+	'BGS_002','TB_BaconUps_075',
+	#Champion of Y'Shaarj	4	4	4	-	Taunt
+	'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',
+	#Defender of Argus	4	3	3	-	Battlecry
+	'CORE_EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',
+	#Impatient Doomsayer	4	2	6	-	Avenge (X)
+	'BG21_007','BG21_007_G',
+	#Majordomo Executus	4	6	3	-	-
+	'BGS_105','BGS_105e','TB_BaconUps_207',
+	#Menagerie Jug	4	3	3	-	Battlecry
 
-#all
-class BGS_069:# <12>[1453]
-	""" Amalgadon
-	[Battlecry:] For each differentminion type you have amongother minions, [Adapt]randomly. """
+	#Strongshell Scavenger	4	2	3	-	Battlecry
+	#Witchwing Nestmatron	4	3	5	-	Avenge (X)
+	#Baron Rivendare	5	1	7	-	Deathrattle
+	#Brann Bronzebeard	5	2	4	-	Battlecry
+	#Deadly Spore	5	1	1	-	Poisonous
+	#Kangor's Apprentice	5	3	6	-	Deathrattle
+	#Lightfang Enforcer	5	2	2	-	-
+	#Master of Realities	5	6	6	-	Taunt
+	#Mythrax the Unraveler	5	4	4	-	-
+	#Nomi, Kitchen Nightmare	5	4	4	-	-
+	#Amalgadon	6	6	6	*	Adapt
+	#Friend of a Friend	6	5	6	-	Battlecry
+	#Nadina the Red	6	7	4	-	Deathrattle
+	#Seafood Slinger	6	5	5	-	Battlecry
+	#Zapp Slywick	6	7	10	-	Windfury	
+	]
+
+
+#Wrath Weaver	1	1	3	-	- BGS_004 TB_BaconUps_079 おりや
+class BGS_004:# <12>[1453]
+	""" Wrath Weaver
+	After you play a Demon, deal 1 damage to your hero and gain +2/+2. """
 	#
 	pass
-class TB_BaconUps_121:# <12>[1453]
-	""" Amalgadon
-	&lt;b&gt;Battlecry:&lt;/b&gt; For each different minion type you have among other minions, &lt;b&gt;Adapt&lt;/b&gt; randomly twice. """
+class BGS_004e:# <12>[1453]
+	""" Wrath Woven
+	Increased stats. """
 	#
 	pass
-
-class BGS_055:# 
-	""" Deck Swabbie <pirate>  (2/2)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
-	pass
-class TB_BaconUps_126:
-	""" Deck Swabbie <pirate>  (4/4)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
-	pass
-
-class BG21_027:# <12>[1453]
-	""" Evolving Chromawing
-	After you upgrade your Tavern Tier, double this minion's Attack."""
-	pass
-class BG21_027_G:# <12>[1453]
-	""" Evolving Chromawing
-	After you upgrade your Tavern Tier, triple this minion's Attack."""
-	pass
-
-class BG21_029:
-	""" Icky Imp <demon> (1/1)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon two 1/1 Imps."""
-	pass
-class BG21_029_G:
-	""" Icky Imp <demon> (2/2)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon two 2/2 Imps."""
-	pass
-class CORE_GIL_191t:
-	""" Imp (1/1)
-	"""
-
-class TB_BaconUps_030t:
-	""" Imp (2/2)
-	"""
-	pass
-
-
-
-class BG19_010:# <12>[1453]
-	""" Sewer Rat
-	[Deathrattle:] Summon a 2/3 Turtle with [Taunt]. """
-	#
-	pass
-
-class BG19_010_G:# <12>[1453]
-	""" Sewer Rat
-	[Deathrattle:] Summon a 4/6 Turtle with [Taunt]. """
+class TB_BaconUps_079:# <12>[1453]
+	""" Wrath Weaver
+	After you play a Demon, deal 1 damage to your hero and gain +4/+4. """
 	#
 	pass
 
-class BG19_010_Gt:# <12>[1453]
-	""" Half-Shell
-	[Taunt] """
+class TB_BaconUps_079e:# <12>[1453]
+	""" Wrath Woven
+	Increased stats. """
 	#
 	pass
 
-class BG19_010t:# <12>[1453]
-	""" Half-Shell
-	[Taunt] """
+
+#Acolyte of C'Thun	2	2	3	-	Reborn BGS_106 TB_BaconUps_255 クトゥーン
+class BGS_106:# <12>[1453]
+	""" Acolyte of C'Thun
+	[Taunt][Reborn] """
+	#
+	pass
+class TB_BaconUps_255:# <12>[1453]
+	""" Acolyte of C'Thun
+	[Taunt][Reborn] """
 	#
 	pass
 
-class BG20_100:# <12>[1453]
-	""" Razorfen Geomancer
-	[Battlecry:] Gain a[Blood Gem]. """
+#Menagerie Mug	2	2	2	-	Battlecry  BGS_082 TB_BaconUps_144
+class BGS_082:# <12>[1453]
+	""" Menagerie Mug
+	[Battlecry:] Give 3 randomfriendly minions of differentminion types +1/+1. """
 	#
 	pass
 
-class BG20_100_G:# <12>[1453]
-	""" Razorfen Geomancer
-	[Battlecry:] Gain 2[Blood Gems]. """
+class BGS_082e:# <12>[1453]
+	""" Sip of Tea
+	+1/+1. """
+	#
+	pass
+class TB_BaconUps_144:# <12>[1453]
+	""" Menagerie Mug
+	[Battlecry:] Give 3 randomfriendly minions of differentminion types +2/+2. """
 	#
 	pass
 
-class BG20_101:# <12>[1453]
-	""" Roadboar
-	[Frenzy:] Gain a [Blood Gem]. """
+class TB_BaconUps_144e:# <12>[1453]
+	""" Sip of Tea
+	+2/+2. """
 	#
 	pass
 
-class BG20_101_G:# <12>[1453]
-	""" Roadboar
-	[Frenzy:] Gain 2 [Blood Gems]. """
-	#
-	pass
 
-class BG20_102:# <12>[1453]
-	""" Tough Tusk
-	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """
-	#
-	pass
-
-class BG20_102_G:# <12>[1453]
-	""" Tough Tusk
-	After a [Blood Gem] is played on this, gain[Divine Shield]. """
-	#
-	pass
-
-class BG20_103:# <12>[1453]
-	""" Bristleback Brute
-	The first [Blood Gem] played on this each turn gives an extra +3/+3. """
-	#
-	pass
-
-class BG20_103_G:# <12>[1453]
-	""" Bristleback Brute
-	The first [Blood Gem] played on this each turn gives an extra +6/+6. """
-	#
-	pass
-
-class BG20_104:# <12>[1453]
-	""" Bonker
-	[Windfury]After this attacks, gain a [Blood Gem]. """
-	#
-	pass
-
-class BG20_104_G:# <12>[1453]
-	""" Bonker
-	[Mega-Windfury]After this attacks, gain a [Blood Gem]. """
-	#
-	pass
-
-class BG20_105:# <12>[1453]
-	""" Thorncaller
-	[Battlecry and Deathrattle:] Gain a [Blood Gem]. """
-	#
-	pass
-
-class BG20_105_G:# <12>[1453]
-	""" Thorncaller
-	[Battlecry and Deathrattle:] Gain 2 [Blood Gems]. """
-	#
-	pass
-
-class BG20_106:# <12>[1453]
-	""" Groundshaker
-	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
-	#
-	pass
-
-class BG20_106_G:# <12>[1453]
-	""" Groundshaker
-	After a [Blood Gem] is played on this, give your other minions +4 Attack for next combat only. """
-	#
-	pass
-
-class BG20_201:# <12>[1453]
-	""" Bannerboar
-	At the end of your turn, play a [Blood Gem] on adjacent Quilboar. """
-	#
-	pass
-
-class BG20_201_G:# <12>[1453]
-	""" Bannerboar
-	At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar. """
-	#
-	pass
-
-class BG20_202:# <12>[1453]
-	""" Necrolyte
-	[Battlecry:] Play 2 [BloodGems] on a friendly minion.It steals all [Blood Gems]from its neighbors. """
-	#
-	pass
-
-class BG20_202_G:# <12>[1453]
-	""" Necrolyte
-	[Battlecry:] Play 4 [BloodGems] on a friendly minion.It steals all [Blood Gems]from its neighbors. """
-	#
-	pass
-
+#Prophet of the Boar	2	3	3	-	Blood Gem BG20_203 BG20_203_G
 class BG20_203:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """
@@ -213,659 +132,666 @@ class BG20_203_G:# <12>[1453]
 	#
 	pass
 
-class BG20_204:# <12>[1453]
-	""" Bristleback Knight
-	[Windfury], [Divine Shield][Frenzy:] Gain [Divine Shield]. """
+#Selfless Hero	2	2	1	-	Deathrattle OG_221 TB_BaconUps_014
+class OG_221:
+	"""Selfless Hero:
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Give a random friendly minion &lt;b&gt;Divine Shield&lt;/b&gt;."""
+class TB_BaconUps_014:# <5>[1453]
+	""" Selfless Hero
+	[Deathrattle:] Give 2_random friendly minions [Divine Shield]. """
 	#
 	pass
 
-class BG20_204_G:# <12>[1453]
-	""" Bristleback Knight
-	[Mega-Windfury],[[Divine Shield].][Frenzy:] Gain[Divine Shield]. """
+#Spawn of N'Zoth	2	2	2	-	Deathrattle　 OG_256 TB_BaconUps_025 んぞす
+class OG_256:
+	""" Spawn of N'Zoth
+	[Deathrattle:] Give your minions +1/+1. """
+	#
+	pass
+OG_256e=buff(1,1)
+class TB_BaconUps_025:# <12>[1453]
+	""" Spawn of N'Zoth
+	[Deathrattle:] Give your minions +2/+2. """
 	#
 	pass
 
-class BG20_205:# <12>[1453]
-	""" Agamaggan, the Great Boar
-	Your [Blood Gems] give an extra +1/+1. """
+#Unstable Ghoul	2	1	3	-	Deathrattle FP1_024  TB_BaconUps_118 ぐうる
+class FP1_024:# <12>[1453]
+	""" Unstable Ghoul
+	&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1 damage to all minions. """
+	#
+	pass
+class TB_BaconUps_118:# <12>[1453]
+	""" Unstable Ghoul
+	[Taunt][Deathrattle:] Deal 1 damage to all minions twice. """
 	#
 	pass
 
-class BG20_205_G:# <12>[1453]
-	""" Agamaggan, the Great Boar
-	Your [Blood Gems] give an extra +2/+2. """
-	#
-	pass
-
-class BG20_206:# <12>[1453]
-	""" Captain Flat Tusk
-	After you spend 4 Gold, gain a [Blood Gem].<i>(@ Gold left!)</i> """
-	#
-	pass
-
-class BG20_206_G:# <12>[1453]
-	""" Captain Flat Tusk
-	After you spend 4 Gold,gain 2 [Blood Gems].<i>(@ Gold left!)</i> """
-	#
-	pass
-
-class BG20_207:# <12>[1453]
-	""" Dynamic Duo
-	[[Taunt].] After a [Blood Gem]is played on anotherQuilboar, gain +1/+1. """
-	#
-	pass
-
-class BG20_207_G:# <12>[1453]
-	""" Dynamic Duo
-	[[Taunt].] After a [Blood Gem]is played on anotherQuilboar, gain +2/+2. """
-	#
-	pass
-
-class BG20_210:# <12>[1453]
-	""" Hexruin Marauder
-	At the end of your turn,if you have 6 or fewerminions, gain +3/+3. """
-	#
-	pass
-
-class BG20_210_G:# <12>[1453]
-	""" Hexruin Marauder
-	At the end of your turn,if you have 6 or fewerminions, gain +6/+6. """
-	#
-	pass
-
-class BG20_301:# <12>[1453]
-	""" Sun-Bacon Relaxer
-	When you sell this, gain 2_[Blood Gems]. """
-	#
-	pass
-
-class BG20_301_G:# <12>[1453]
-	""" Sun-Bacon Relaxer
-	When you sell this, gain 4_[Blood Gems]. """
-	#
-	pass
-
-class BG20_302:# <12>[1453]
-	""" Aggem Thorncurse
-	After a [Blood Gem] is played on this, give a friendly minion of each minion type +1/+1. """
-	#
-	pass
-
-class BG20_302_G:# <12>[1453]
-	""" Aggem Thorncurse
-	After a [Blood Gem] is played on this, give a friendly minion of each minion type +2/+2. """
-	#
-	pass
-
-class BG20_303:# <12>[1453]
-	""" Charlga
-	At the end of your turn, play a [Blood Gem] on all friendly minions. """
-	#
-	pass
-
-class BG20_303_G:# <12>[1453]
-	""" Charlga
-	At the end of your turn, play 2 [Blood Gems] on all friendly minions. """
-	#
-	pass
-
-class BG20_304:# <12>[1453]
-	""" Archdruid Hamuul
-	[Battlecry:] [Refresh] Bob's Tavern with minions of your most common type. """
-	#
-	pass
-
-class BG20_304_G:# <12>[1453]
-	""" Archdruid Hamuul
-	[Battlecry:] [Refresh] Bob's Tavern with minions of your most common type. """
-	#
-	pass
-
-class BG20_401:# <12>[1453]
-	""" Holy Mecherel
-	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
-	#
-	pass
-
-class BG20_401_G:# <12>[1453]
-	""" Holy Mecherel
-	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
-	#
-	pass
-
-class BG21_000:# <12>[1453]
-	""" Leapfrogger
-	[Deathrattle:] Give a friendly Beast +1/+1 and this [Deathrattle]. """
-	#
-	pass
-
-class BG21_000_G:# <12>[1453]
-	""" Leapfrogger
-	[Deathrattle:] Give a friendly Beast +2/+2 and this [Deathrattle]. """
-	#
-	pass
-
-class BG21_001:# <12>[1453]
-	""" Palescale Crocolisk
-	[Avenge (2) and Deathrattle:] Give another friendly Beast +6/+6. """
-	#
-	pass
-
-class BG21_001_G:# <12>[1453]
-	""" Palescale Crocolisk
-	[Avenge (2) and Deathrattle:] Give another friendly Beast +12/+12. """
-	#
-	pass
-
-class BG21_002:# <12>[1453]
-	""" Bird Buddy
-	[Avenge (1):] Give your Beasts +1/+1. """
-	#
-	pass
-
-class BG21_002_G:# <12>[1453]
-	""" Bird Buddy
-	[Avenge (1):] Give your Beasts +2/+2. """
-	#
-	pass
-
-class BG21_003:# <12>[1453]
-	""" Reanimating Rattler
-	[Battlecry:] Give a friendly Beast [Reborn]. """
-	#
-	pass
-
-class BG21_003_G:# <12>[1453]
-	""" Reanimating Rattler
-	[Battlecry:] Give a friendly Beast [Reborn]. """
-	#
-	pass
-
-class BG21_004:# <12>[1453]
-	""" Insatiable Ur'zul
-	[[Taunt].] After you play aDemon, consume a minionin Bob's Tavern to gainits stats. """
-	#
-	pass
-
-class BG21_004_G:# <12>[1453]
-	""" Insatiable Ur'zul
-	[[Taunt].] After you play aDemon, consume a minionin Bob's Tavern to gaindouble its stats. """
-	#
-	pass
-
-class BG21_005:# <12>[1453]
-	""" Famished Felbat
-	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain its stats. """
-	#
-	pass
-
-class BG21_005_G:# <12>[1453]
-	""" Famished Felbat
-	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain double its stats. """
-	#
-	pass
-
-class BG21_006:# <12>[1453]
-	""" Impulsive Trickster
-	[Deathrattle:] Give thisminion's maximum Health__to another friendly minion._ """
-	#
-	pass
-
-class BG21_006_G:# <12>[1453]
-	""" Impulsive Trickster
-	[Deathrattle:] Give thisminion's maximum Healthto another friendly miniontwice. """
-	#
-	pass
-
-class BG21_007:# <12>[1453]
-	""" Impatient Doomsayer
-	[Avenge (4):] Add a random Demon to your hand. """
-	#
-	pass
-
-class BG21_007_G:# <12>[1453]
-	""" Impatient Doomsayer
-	[Avenge (4):] Add 2 random Demons to your hand. """
-	#
-	pass
-
-class BG21_008:# <12>[1453]
-	""" Saltscale Honcho
-	After you play a Murloc, give two other friendly Murlocs +1 Health. """
-	#
-	pass
-
-class BG21_008_G:# <12>[1453]
-	""" Saltscale Honcho
-	After you play a Murloc, give two other friendly Murlocs +2 Health. """
-	#
-	pass
-
-class BG21_009:# <12>[1453]
-	""" SI:Sefin
-	[Avenge (3):] Give a friendly Murloc [Poisonous] permanently. """
-	#
-	pass
-
-class BG21_009_G:# <12>[1453]
-	""" SI:Sefin
-	[Avenge (3):] Give 2 friendly Murlocs [Poisonous] permanently. """
-	#
-	pass
-
-class BG21_010:# <12>[1453]
-	""" Swolefin
-	[Battlecry:] Gain +2/+1 foreach other friendly Murloc. """
-	#
-	pass
-
-class BG21_010_G:# <12>[1453]
-	""" Swolefin
-	[Battlecry:] Gain +4/+2 foreach other friendly Murloc. """
-	#
-	pass
-
-class BG21_011:# <12>[1453]
-	""" Seafood Slinger
-	[Battlecry:] Make a Murloc Golden. """
-	#
-	pass
-
-class BG21_011_G:# <12>[1453]
-	""" Seafood Slinger
-	[Battlecry:] Make a Murloc Golden. """
-	#
-	pass
-
-class BG21_012:# <12>[1453]
-	""" Prestor's Pyrospawn
-	Whenever another friendlyDragon attacks, deal3 damage to its target. """
-	#
-	pass
-
-class BG21_012_G:# <12>[1453]
-	""" Prestor's Pyrospawn
-	Whenever another friendlyDragon attacks, deal6 damage to its target. """
-	#
-	pass
-
+#Whelp Smuggler	2	2	5	-	- BG21_013  BG21_013_G 密輸人
 class BG21_013:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +1_Health. """
 	#
 	pass
-
 class BG21_013_G:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +2_Health. """
 	#
 	pass
 
-class BG21_014:# <12>[1453]
-	""" Prized Promo-Drake
-	[Start of Combat:] Giveadjacent minions +1/+1__for each friendly Dragon. """
+
+#Arm of the Empire	3	4	4	-	Taunt BGS_110  TB_BaconUps_302 
+class BGS_110:# <12>[1453]
+	""" Arm of the Empire
+	Whenever a friendly [Taunt]minion is attacked,give it +2 Attackpermanently. """
+	#
+	pass
+class BGS_110e:# <12>[1453]
+	""" Armed!
+	+2 Attack """
+	#
+	pass
+class TB_BaconUps_302:# <12>[1453]
+	""" Arm of the Empire
+	Whenever a friendly [Taunt]minion is attacked,give it +4 Attackpermanently. """
+	#
+	pass
+class TB_BaconUps_302e:# <12>[1453]
+	""" Double Armed!
+	+4 Attack """
 	#
 	pass
 
-class BG21_014_G:# <12>[1453]
-	""" Prized Promo-Drake
-	[Start of Combat:] Giveadjacent minions +2/+2__for each friendly Dragon. """
+#Bird Buddy	3	2	4	-	Avenge (X)  BG21_002  BG21_002_G  愛鳥家
+class BG21_002:# <12>[1453]
+	""" Bird Buddy愛鳥家
+	[Avenge (1):] Give your Beasts +1/+1. """
+	#
+	pass
+class BG21_002_G:# <12>[1453]
+	""" Bird Buddy
+	[Avenge (1):] Give your Beasts +2/+2. """
+	#
+	pass
+class BG21_002_Ge:# <12>[1453]
+	""" Well Fed
+	+2/+2. """
+	#
+	pass
+class BG21_002e:# <12>[1453]
+	""" Well Fed
+	+1/+1. """
 	#
 	pass
 
-class BG21_015:# <12>[1453]
-	""" Tarecgosa
-	This permanently keeps enchantments from combat. """
-	#
-	pass
 
-class BG21_015_G:# <12>[1453]
-	""" Tarecgosa
-	This permanently doubles and keeps enchantments from combat. """
-	#
-	pass
-
-class BG21_016:# <12>[1453]
-	""" Peggy Brittlebone
-	After a card is added to your hand, give another friendly Pirate +1/+1. """
-	#
-	pass
-
-class BG21_016_G:# <12>[1453]
-	""" Peggy Brittlebone
-	After a card is added to your hand, give another friendly Pirate +2/+2. """
-	#
-	pass
-
-class BG21_017:# <12>[1453]
-	""" Briny Bootlegger
-	At the end of your turn,if you have another Pirate,add a Gold Cointo your hand. """
-	#
-	pass
-
-class BG21_017_G:# <12>[1453]
-	""" Briny Bootlegger
-	At the end of your turn,if you have another Pirate,add 2 Gold Coinsto your hand. """
-	#
-	pass
-
-class BG21_018:# <12>[1453]
-	""" Defiant Shipwright
-	After you upgrade yourTavern Tier, add a randomPirate to Bob's Tavern. """
-	#
-	pass
-
-class BG21_018_G:# <12>[1453]
-	""" Defiant Shipwright
-	After you upgrade yourTavern Tier, add two randomPirates to Bob's Tavern. """
-	#
-	pass
-
-class BG21_019:# <12>[1453]
-	""" Nosy Looter
-	Every two turns,add a random Goldenminion to your hand.<i>(@ |4(turn, turns) left!)</i> """
-	#
-	pass
-
-class BG21_019_G:# <12>[1453]
-	""" Nosy Looter
-	At the start of your turn,add a random Golden minion to your hand. """
-	#
-	pass
-
-class BG21_020:# <12>[1453]
-	""" Dazzling Lightspawn
-	[Avenge (2):] Elementals inBob's Tavern have +1/+1__for the rest of the game. """
-	#
-	pass
-
-class BG21_020_G:# <12>[1453]
-	""" Dazzling Lightspawn
-	[Avenge (2):] Elementals inBob's Tavern have +2/+2__for the rest of the game. """
-	#
-	pass
-
-class BG21_021:# <12>[1453]
-	""" Smogger
-	[Battlecry:] Give a friendly Elemental stats equal to your Tavern Tier. """
-	#
-	pass
-
-class BG21_021_G:# <12>[1453]
-	""" Smogger
-	[Battlecry:] Give a friendlyElemental stats equal to_your Tavern Tier twice. """
-	#
-	pass
-
-class BG21_022:# <12>[1453]
-	""" Pupbot
-	[Divine Shield] """
-	#
-	pass
-
-class BG21_022_G:# <12>[1453]
-	""" Pupbot
-	[Divine Shield] """
-	#
-	pass
-
-class BG21_023:# <12>[1453]
-	""" Mechano-Tank
-	[Avenge (2):] Deal 5 damage to the highest Health enemy minion. """
-	#
-	pass
-
-class BG21_023_G:# <12>[1453]
-	""" Mechano-Tank
-	[Avenge (2):] Deal 5 damageto the highest Healthenemy minion twice. """
-	#
-	pass
-
-class BG21_024:# <12>[1453]
-	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +1/+1_permanently. """
-	#
-	pass
-
-class BG21_024_G:# <12>[1453]
-	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +2/+2_permanently. """
-	#
-	pass
-
-class BG21_025:# <12>[1453]
-	""" Omega Buster
-	[Deathrattle:] Summon five 1/1 Microbots. For each that doesn't fit, give your Mechs +1/+1. """
-	#
-	pass
-
-class BG21_025_G:# <12>[1453]
-	""" Omega Buster
-	[Deathrattle:] Summon five 2/2 Microbots. For each that doesn't fit, give your Mechs +2/+2. """
-	#
-	pass
-
-class BG21_027:# <12>[1453]
-	""" Evolving Chromawing
-	After you upgrade your Tavern Tier, double this minion's Attack. """
-	#
-	pass
-
-class BG21_027_G:# <12>[1453]
-	""" Evolving Chromawing
-	After you upgrade your Tavern Tier, triple this minion's Attack. """
-	#
-	pass
-
-class BG21_029:# <12>[1453]
-	""" Icky Imp
-	[Deathrattle:] Summon two 1/1 Imps. """
-	#
-	pass
-
-class BG21_029_G:# <12>[1453]
-	""" Icky Imp
-	[Deathrattle:] Summon two 2/2 Imps. """
-	#
-	pass
-
+#Budding Greenthumb	3	1	4	-	Avenge (X)  BG21_030  BG21_030_G
 class BG21_030:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Giveadjacent minions+2/+1 permanently. """
 	#
 	pass
-
 class BG21_030_G:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Giveadjacent minions+4/+2 permanently. """
 	#
 	pass
 
-class BG21_031:# <12>[1453]
-	""" Tony Two-Tusk
-	[Avenge (4):] Makeanother friendly PirateGolden permanently. """
+#Houndmaster	3	4	3	-	Battlecry  DS1_070  TB_BaconUps_068 TB_BaconUps_068e
+class DS1_070:# <3>[1453]
+	""" Houndmaster
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Beast +2/+2 and &lt;b&gt;Taunt&lt;/b&gt;."""
+	#
+	pass
+DS1_070o=buff(2,2,taunt=True)
+class TB_BaconUps_068:# <3>[1453]
+	""" Houndmaster
+	[Battlecry:] Give a friendly Beast +4/+4 and [Taunt]. """
+	#
+	pass
+class TB_BaconUps_068e:# <3>[1453]
+	""" Master's Presence
+	+4/+4 and [Taunt]. """
 	#
 	pass
 
-class BG21_031_G:# <12>[1453]
-	""" Tony Two-Tusk
-	[Avenge (4):] Make2 other friendly PiratesGolden permanently. """
+
+#Khadgar	3	2	2	-	-  DAL_575 TB_BaconUps_034 カドガー
+class DAL_575:
+	""" Khadgar
+	Your cards that summon minions summon twice_as_many. """
+	#
+	pass
+class TB_BaconUps_034:# <4>[1453]
+	""" Khadgar
+	Your cards that summon minions summon three times as many. """
 	#
 	pass
 
-class BG21_036:# <12>[1453]
-	""" Master of Realities
-	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
+
+#Soul Juggler	3	3	5	-	-  BGS_002  TB_BaconUps_075
+class BGS_002:# <9>[1453]
+	""" Soul Juggler
+	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
+	#
+	pass
+class TB_BaconUps_075:# <9>[1453]
+	""" Soul Juggler
+	After a friendly Demon dies, deal 3 damage to a random enemy minion twice. """
 	#
 	pass
 
-class BG21_036_G:# <12>[1453]
-	""" Master of Realities
-	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
+
+#Champion of Y'Shaarj	4	4	4	-	Taunt  BGS_111 BGS_111e   TB_BaconUps_301 TB_BaconUps_301e
+class BGS_111:# <12>[1453]
+	""" Champion of Y'Shaarj
+	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
+	#
+	pass
+class BGS_111e:# <12>[1453]
+	""" Y'Shaarj!!!
+	+1/+1. """
+	#
+	pass
+class TB_BaconUps_301:# <12>[1453]
+	""" Champion of Y'Shaarj
+	Whenever a friendly [Taunt] minion is attacked, gain +2/+2 permanently. """
 	#
 	pass
 
-class BG21_037:# <12>[1453]
-	""" Gemsplitter
-	After a friendly minion loses [Divine Shield], gain a_[Blood Gem]. """
+class TB_BaconUps_301e:# <12>[1453]
+	""" Y'Shaarj!!!!!!
+	+2/+2. """
 	#
 	pass
 
-class BG21_037_G:# <12>[1453]
-	""" Gemsplitter
-	After a friendly minion loses [Divine Shield], gain 2_[Blood Gems]. """
+#Defender of Argus	4	3	3	-	Battlecry CORE_EX1_093  TB_BaconUps_009 TB_BaconUps_009
+class CORE_EX1_093:# <12>[1453]
+	""" Defender of Argus
+	[Battlecry:] Give adjacent minions +1/+1 and [Taunt]. """
+	#
+	pass
+EX1_093e=buff(1,1,taunt=True)
+""" Hand of Argus
++2/+2 and [Taunt]. """
+class TB_BaconUps_009:# <12>[1453]
+	""" Defender of Argus
+	[Battlecry:] Give adjacent minions +2/+2 and [Taunt]. """
+	#
+	pass
+class TB_BaconUps_009e:# <12>[1453]
+	""" Hand of Argus
+	+2/+2 and [Taunt]. """
 	#
 	pass
 
+#Impatient Doomsayer	4	2	6	-	Avenge (X) BG21_007 BG21_007_G
+class BG21_007:# <12>[1453]
+	""" Impatient Doomsayer
+	[Avenge (4):] Add a random Demon to your hand. """
+	#
+	pass
+class BG21_007_G:# <12>[1453]
+	""" Impatient Doomsayer
+	[Avenge (4):] Add 2 random Demons to your hand. """
+	#
+	pass
+
+
+#Majordomo Executus	4	6	3	-	-  BGS_105  BGS_105e  TB_BaconUps_207
+class BGS_105:# <12>[1453]
+	""" Majordomo Executus
+	At the end of your turn, giveyour left-most minion +1/+1.Repeat for each Elementalyou played this turn. """
+	#
+	pass
+class BGS_105e:# <12>[1453]
+	""" Aegis of the Firelord
+	Increased stats. """
+	#
+	pass
+class TB_BaconUps_207:# <12>[1453]
+	""" Majordomo Executus
+	At the end of your turn, giveyour left-most minion +2/+2.Repeat for each Elementalyou played this turn. """
+	#
+	pass
+
+
+#Menagerie Jug	4	3	3	-	Battlecry  BGS_083 BGS_083e  TB_BaconUps_145 TB_BaconUps_145e
+class BGS_083:# <12>[1453]
+	""" Menagerie Jug
+	[Battlecry:] Give 3 randomfriendly minions of different minion types +2/+2. """
+	#
+	pass
+class BGS_083e:# <12>[1453]
+	""" Gulp of Tea
+	+2/+2. """
+	#
+	pass
+class TB_BaconUps_145:# <12>[1453]
+	""" Menagerie Jug
+	[Battlecry:] Give 3 randomfriendly minions of differentminion types +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_145e:# <12>[1453]
+	""" Gulp of Tea
+	+4/+4. """
+	#
+	pass
+
+
+#Strongshell Scavenger	4	2	3	-	Battlecry  ICC_807  ICC_807e  TB_BaconUps_072 TB_BaconUps_072e
+class ICC_807:# <2>[1453]
+	""" Strongshell Scavenger
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give your &lt;b&gt;Taunt&lt;/b&gt; minions +2/+2. """
+	#
+	pass
+
+class ICC_807e:# <12>[1453]
+	""" Strongshell
+	+2/+2. """
+	#
+	pass
+class TB_BaconUps_072:# <2>[1453]
+	""" Strongshell Scavenger
+	[Battlecry:] Give your [Taunt] minions +4/+4. """
+	#
+	pass
+class TB_BaconUps_072e:# <12>[1453]
+	""" Strongshell
+	+4/+4. """
+	#
+	pass
+#Witchwing Nestmatron	4	3	5	-	Avenge (X)  BG21_038 BG21_038_G
 class BG21_038:# <12>[1453]
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
 	#
 	pass
-
 class BG21_038_G:# <12>[1453]
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
 	#
 	pass
 
-class BG21_039:# <12>[1453]
-	""" Kathra'natir
-	Your other Demonshave +2 Attack.Your Hero is [Immune]. """
+#Baron Rivendare	5	1	7	-	Deathrattle  CORE_FP1_031 TB_BaconUps_055 ばろん
+class CORE_FP1_031:
+	"""Baron Rivendare
+	Your minions trigger their &lt;b&gt;Deathrattles&lt;/b&gt; twice."""
+	pass
+class TB_BaconUps_055:# <12>[1453]
+	""" Baron Rivendare
+	Your minions trigger their [Deathrattles] three times. """
 	#
 	pass
 
-class BG21_039_G:# <12>[1453]
-	""" Kathra'natir
-	Your other Demonshave +4 Attack.Your Hero is [Immune]. """
+#Brann Bronzebeard	5	2	4	-	Battlecry  LOE_077 LOE_077e  TB_BaconUps_045  TB_BaconUps_045e
+class LOE_077:# 
+	""" Brann Bronzebeard
+	Your &lt;b&gt;Battlecries&lt;/b&gt; trigger twice. """
+	#
+	pass
+class LOE_077e:# 
+	""" Bronzebeard Battlecry
+	Your &lt;b&gt;Battlecries&lt;/b&gt; trigger twice. """
+	#
+	pass
+class TB_BaconUps_045:# <12>[1453]
+	""" Brann Bronzebeard
+	Your [Battlecries] trigger three times. """
 	#
 	pass
 
-class BG21_040:# <12>[1453]
-	""" Recycling Wraith
-	After you play anElemental, your next[Refresh] costs (1) less. """
+class TB_BaconUps_045e:# <12>[1453]
+	""" Bronzebeard Battlecry
+	Your [Battlecries] trigger three times. """
 	#
 	pass
 
-class BG21_040_G:# <12>[1453]
-	""" Recycling Wraith
-	After you play anElemental, your next two[Refreshes] cost (1) less. """
+#Deadly Spore	5	1	1	-	Poisonous BGS_131  TB_BaconUps_251
+class BGS_131:# <12>[1453]
+	""" Deadly Spore
+	[Poisonous] """
+	#
+	pass
+class TB_BaconUps_251:# <12>[1453]
+	""" Deadly Spore
+	[Poisonous] """
 	#
 	pass
 
-class BG22_001:# <12>[1453]
-	""" Baby Krush
-	Whenever this attacks,summon a 9/9 Devilsaur toattack the target first. """
+
+#Kangor's Apprentice	5	3	6	-	Deathrattle    BGS_012  TB_BaconUps_087
+class BGS_012:# <12>[1453]
+	""" Kangor's Apprentice
+	[Deathrattle]: Summon the first 2 friendly Mechs that died this combat. """
+	#
+	pass
+class TB_BaconUps_087:# <12>[1453]
+	""" Kangor's Apprentice
+	[Deathrattle]: Summon the first 4 friendly Mechs that died this combat. """
 	#
 	pass
 
-class BG22_001_G:# <12>[1453]
-	""" Baby Krush
-	Whenever this attacks, summon an 18/18 Devilsaur to attack the target first. """
+
+#Lightfang Enforcer	5	2	2	-	-    BGS_009 BGS_009e  TB_BaconUps_082 TB_BaconUps_082e
+class BGS_009:# <12>[1453]
+	""" Lightfang Enforcer
+	At the end of your turn,give a friendly minionof each minion type+2/+2. """
+	#
+	pass
+class BGS_009e:# <7>[1453]
+	""" Blessed
+	Increased stats. """
+	#
+	pass
+class TB_BaconUps_082:# <12>[1453]
+	""" Lightfang Enforcer
+	At the end of your turn,give a friendly minionof each minion type+4/+4. """
 	#
 	pass
 
-class BG22_001t2:# <12>[1453]
-	""" Devilsaur
-	 """
+class TB_BaconUps_082e:# <7>[1453]
+	""" Blessed
+	Increased stats. """
 	#
 	pass
 
-class BG22_001t2_G:# <12>[1453]
-	""" Devilsaur
-	 """
+
+#Master of Realities	5	6	6	-	Taunt  BG21_036 BG21_036e BG21_036_G BG21_036_Ge
+class BG21_036:# <12>[1453]
+	""" Master of Realities
+	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
+	#
+	pass
+class BG21_036_G:# <12>[1453]
+	""" Master of Realities
+	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
+	#
+	pass
+class BG21_036_Ge:# <12>[1453]
+	""" The Elemental Plane
+	+2/+2. """
+	#
+	pass
+class BG21_036e:# <12>[1453]
+	""" The Elemental Plane
+	+1/+1. """
 	#
 	pass
 
-class BG22_202:# <12>[1453]
-	""" Tad
-	When you sell this,add another randomMurloc to your hand. """
+#Mythrax the Unraveler	5	4	4	-	-  BGS_202 BGS_202e TB_BaconUps_258 TB_BaconUps_258e
+class BGS_202:# <12>[1453]
+	""" Mythrax the Unraveler
+	At the end of your turn,gain +2/+2 for each__minion type you control. """
+	#
+	pass
+class BGS_202e:# <12>[1453]
+	""" Void Echoes
+	+2/+2. """
+	#
+	pass
+class TB_BaconUps_258:# <12>[1453]
+	""" Mythrax the Unraveler
+	At the end of your turn,gain +4/+4 for each__minion type you control. """
+	#
+	pass
+class TB_BaconUps_258e:# <12>[1453]
+	""" Void Echoes
+	+4/+4. """
+	#
+	pass
+#Nomi, Kitchen Nightmare	5	4	4	-	-  BGS_104 BGS_104e1 BGS_104pe TB_BaconUps_201
+class BGS_104:# <12>[1453]
+	""" Nomi, Kitchen Nightmare
+	After you play an Elemental,Elementals in Bob's Tavernhave +1/+1 for the restof the game. """
+	#
+	pass
+class BGS_104e1:# <12>[1453]
+	""" Tavern Feast
+	Increased stats. """
+	#
+	pass
+class BGS_104pe:# <12>[1453]
+	""" Nomi Player Enchant
+	Increased stats. """
+	#
+	pass
+class TB_BaconUps_201:# <12>[1453]
+	""" Nomi, Kitchen Nightmare
+	After you play an Elemental,Elementals in Bob's Tavernhave +2/+2 for the restof the game. """
 	#
 	pass
 
-class BG22_202_G:# <12>[1453]
-	""" Tad
-	When you sell this,add 2 other randomMurlocs to your hand. """
+#Amalgadon	6	6	6	*	Adapt  BGS_069 TB_BaconUps_121 
+class BGS_069:
+	""" Amalgadon
+	&lt;b&gt;Battlecry:&lt;/b&gt; For each different minion type you have among other minions, &lt;b&gt;Adapt&lt;/b&gt; randomly."""
+	#
+	pass
+class TB_BaconUps_121:
+	""" Amalgadon
+	&lt;b&gt;Battlecry:&lt;/b&gt; For each different minion type you have among other minions, &lt;b&gt;Adapt&lt;/b&gt; randomly twice."""
 	#
 	pass
 
-class BG22_401:# <12>[1453]
-	""" Swampstriker
-	After you summon a Murloc, gain +1 Attack. """
-	#
-	pass
-
-class BG22_401_G:# <12>[1453]
-	""" Swampstriker
-	After you summon a Murloc, gain +2 Attack. """
-	#
-	pass
-
+#Friend of a Friend	(BAN)	6	5	6	-	Battlecry   BG22_404 BG22_404_G 
 class BG22_404:# <12>[1453]
 	""" Friend of a Friend
 	[Battlecry: Discover] a Buddy. """
 	#
 	pass
-
 class BG22_404_G:# <12>[1453]
 	""" Friend of a Friend
 	[Battlecry: Discover]two Buddies. """
 	#
 	pass
 
-class BGS_001:# <12>[1453]
-	""" Nathrezim Overseer
-	[Battlecry:] Give a friendly Demon +2/+2. """
+#Nadina the Red	6	7	4	-	Deathrattle  BGS_040 TB_BaconUps_154
+class BGS_040:# <12>[1453]
+	""" Nadina the Red
+	[Deathrattle:] Give your Dragons [Divine Shield]. """
+	#
+	pass
+class TB_BaconUps_154:# <12>[1453]
+	""" Nadina the Red
+	[Deathrattle:] Give your Dragons [Divine Shield]. """
 	#
 	pass
 
-class BGS_002:# <9>[1453]
-	""" Soul Juggler
-	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
+#Seafood Slinger	6	5	5	-	Battlecry BG21_011 BG21_011e BG21_011e2 BG21_011_G BG21_011_Ge
+class BG21_011:# <12>[1453]
+	""" Seafood Slinger
+	[Battlecry:] Make a Murloc Golden. """
+	#
+	pass
+class BG21_011e:# <12>[1453]
+	""" Slung
+	+3/+3. """
+	#
+	pass
+class BG21_011e2:# <12>[1453]
+	""" Battlecry Self-Trigger [DNT]
+	 """
+	#
+	pass
+class BG21_011_G:# <12>[1453]
+	""" Seafood Slinger
+	[Battlecry:] Make a Murloc Golden. """
+	#
+	pass
+class BG21_011_Ge:# <12>[1453]
+	""" Slung
+	+6/+6. """
 	#
 	pass
 
-class BGS_004:# <12>[1453]
-	""" Wrath Weaver
-	After you play a Demon, deal 1 damage to your hero and gain +2/+2. """
+#Zapp Slywick	6	7	10	-	Windfury  BGS_022 TB_BaconUps_091
+class BGS_022:# <12>[1453]
+	""" Zapp Slywick
+	[Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
+	#
+	pass
+class TB_BaconUps_091:# <12>[1453]
+	""" Zapp Slywick
+	[Mega-Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
 	#
 	pass
 
-class BGS_006:# <12>[1453]
-	""" Sneed's Old Shredder
-	[Deathrattle:] Summon a random [Legendary] minion. """
+#############################################
+
+
+##
+## miscellinous enchantments or banned items
+##
+
+class BG20_304:# <12>[1453]
+	""" Archdruid Hamuul  (BAN??)
+	[Battlecry:] [Refresh] Bob's Tavern with minions of your most common type. """
+	#
+	pass
+class BG20_304_G:# <12>[1453]
+	""" Archdruid Hamuul  (BAN??)
+	[Battlecry:] [Refresh] Bob's Tavern with minions of your most common type. """
 	#
 	pass
 
-class BGS_008:# <6>[1453]
-	""" Ghastcoiler
-	[Deathrattle:] Summon2 random [Deathrattle] minions. """
+
+
+class BG21_013e:# <12>[1453]
+	""" Job Whelp Done
+	Increased Health. """
 	#
 	pass
 
-class BGS_009:# <12>[1453]
-	""" Lightfang Enforcer
-	At the end of your turn,give a friendly minionof each minion type+2/+2. """
+
+
+
+
+class BG21_018:# <12>[1453]
+	""" Defiant Shipwright (BAN??)
+	After you upgrade yourTavern Tier, add a randomPirate to Bob's Tavern. """
+	#
+	pass
+class BG21_018_G:# <12>[1453]
+	""" Defiant Shipwright
+	After you upgrade yourTavern Tier, add two random Pirates to Bob's Tavern. """
 	#
 	pass
 
-class BGS_010:# <12>[1453]
-	""" Annihilan Battlemaster
-	[Battlecry:] Gain +1 Health for each Health your hero_is missing. """
+
+class BG21_024_Ge:# <12>[1453]
+	""" Greased Up
+	+2/+2. """
 	#
 	pass
 
-class BGS_012:# <12>[1453]
-	""" Kangor's Apprentice
-	[Deathrattle]: Summon the first 2 friendly Mechs that died this combat. """
+class BG21_024e:# <12>[1453]
+	""" Greased Up
+	+1/+1. """
 	#
 	pass
 
-class BGS_014:# <12>[1453]
-	""" Imprisoner
-	[Taunt][Deathrattle:] Summon a 1/1 Imp. """
+class BG21_025e:# <12>[1453]
+	""" Omega Busted
+	+1/+1. """
 	#
 	pass
+
+class BG21_025e2:# <12>[1453]
+	""" Omega Busted
+	+2/+2. """
+	#
+	pass
+
+class BG21_027_Ge:# <12>[1453]
+	""" Evolved
+	Tripled Attack. """
+	#
+	pass
+
+class BG21_027e:# <12>[1453]
+	""" Evolved
+	Doubled Attack. """
+	#
+	pass
+
+
+
+class BG21_030_Ge:# <12>[1453]
+	""" Budding
+	+4/+2. """
+	#
+	pass
+
+class BG21_030e:# <12>[1453]
+	""" Budding
+	+2/+1. """
+	#
+	pass
+
+
+
+
+
+class BG21_039_Ge:# <12>[1453]
+	""" Grasp of Kathra'natir
+	Kathra'natir is granting +4 Attack. """
+	#
+	pass
+
+class BG21_039e:# <12>[1453]
+	""" Grasp of Kathra'natir
+	Kathra'natir is granting +2 Attack. """
+	#
+	pass
+
+class BG21_040e:# <12>[1453]
+	""" Refresh Costs 1 less
+	 """
+	#
+	pass
+
+class BG22_401_Ge:# <12>[1453]
+	""" Swamped
+	+2 Attack. """
+	#
+	pass
+
+class BG22_401e:# <12>[1453]
+	""" Swamped
+	+1 Attack. """
+	#
+	pass
+
+
+class BG22_BuddyMeter:# <12>[1453]
+	""" Buddy Meter
+	 """
+	#
+	pass
+
+class BG22_BuddyPlayerEnch:# <12>[1453]
+	""" Buddy Player Enchantment [DNT]
+	 """
+	#
+	pass
+
+class BGS_001e:# <12>[1453]
+	""" Impish
+	+2/+2. """
+	#
+	pass
+
+
+
+
+class BGS_010e:# <12>[1453]
+	""" Monstrous
+	Health increased. """
+	#
+	pass
+
 
 class BGS_017:# <12>[1453]
 	""" Pack Leader
@@ -873,64 +799,29 @@ class BGS_017:# <12>[1453]
 	#
 	pass
 
-class BGS_018:# <12>[1453]
-	""" Goldrinn, the Great Wolf
-	[Deathrattle:] Give your Beasts +5/+5. """
+class BGS_017e:# <12>[1453]
+	""" Feral Calling
+	+2 Attack. """
 	#
 	pass
 
-class BGS_019:# <12>[1453]
-	""" Red Whelp
-	[Start of Combat:] Deal1 damage per friendlyDragon to one randomenemy minion. """
+class BGS_018e:# <12>[1453]
+	""" Soul of the Beast
+	+5/+5. """
 	#
 	pass
 
-class BGS_020:# <12>[1453]
-	""" Primalfin Lookout
-	[Battlecry:] If you control another Murloc, [Discover] a_Murloc. """
+class BGS_021e:# <12>[1453]
+	""" Rampage
+	+5/+5. """
 	#
 	pass
 
-class BGS_021:# <12>[1453]
-	""" Mama Bear
-	Whenever you summon a Beast, give it +5/+5. """
-	#
-	pass
 
-class BGS_022:# <12>[1453]
-	""" Zapp Slywick
-	[Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
-	#
-	pass
 
-class BGS_023:# <12>[1453]
-	""" Piloted Shredder
-	[Deathrattle:] Summon a random 2-Cost minion. """
-	#
-	pass
-
-class BGS_024:# <12>[1453]
-	""" Piloted Sky Golem
-	[Deathrattle:] Summon a random 4-Cost minion. """
-	#
-	pass
-
-class BGS_025:# <2>[1453]
-	""" Mounted Raptor
-	[Deathrattle:] Summon a random 1-Cost minion. """
-	#
-	pass
-
-class BGS_027:# <12>[1453]
-
-	""" Micro Machine
-	At the start of each turn, gain +1 Attack. """
-	#
-	pass
-
-class BGS_028:# <7>[1453]
-	""" Pogo-Hopper
-	[Battlecry:] Gain +2/+2 foreach other Pogo-Hopperyou played this game. """
+class BGS_028pe:# <7>[1453]
+	""" PogoCounterEnchantment
+	Counts the number of Pogo-Hoppers played. """
 	#
 	pass
 
@@ -940,33 +831,21 @@ class BGS_029:# <12>[1453]
 	#
 	pass
 
-class BGS_030:# <12>[1453]
-	""" King Bagurgle
-	[Battlecry and Deathrattle:] Give your other Murlocs +2/+2. """
+class BGS_029e:# <12>[1453]
+	""" Shifting
+	Transforming into random minions. """
 	#
 	pass
 
-class BGS_031:# <12>[1453]
-	""" Gentle Megasaur
-	[Battlecry:] [Adapt] your_Murlocs. """
+class BGS_030e:# <12>[1453]
+	""" Bagurgled
+	Increased stats. """
 	#
 	pass
 
-class BGS_032:# <10>[1453]
-	""" Herald of Flame
-	[Overkill:] Deal 3 damageto the left-most enemy minion. """
-	#
-	pass
-
-class BGS_033:# <12>[1453]
-	""" Hangry Dragon
-	At the start of your turn,gain +2/+2 if you wonthe last combat. """
-	#
-	pass
-
-class BGS_034:# <12>[1453]
-	""" Bronze Warden
-	[Divine Shield][Reborn] """
+class BGS_033e1:# <12>[1453]
+	""" Well Fed
+	Increased stats. """
 	#
 	pass
 
@@ -976,63 +855,47 @@ class BGS_035:# <12>[1453]
 	#
 	pass
 
-class BGS_036:# <12>[1453]
-	""" Razorgore, the Untamed
-	At the end of your turn, gain +1/+1 for each Dragon you have. """
+class BGS_035e:# <12>[1453]
+	""" Dragon Wax
+	Increased stats. """
 	#
 	pass
 
-class BGS_037:# <12>[1453]
-	""" Steward of Time
-	When you sell this minion, give all minions in Bob's Tavern +2/+1. """
+class BGS_036e:# <12>[1453]
+	""" Dragonlust
+	Increased stats. """
 	#
 	pass
 
-class BGS_038:# <12>[1453]
-	""" Twilight Emissary
-	[Taunt][Battlecry:] Give a friendly Dragon +2/+2. """
+class BGS_037e:# <12>[1453]
+	""" Time Dilation
+	+2/+1. """
 	#
 	pass
 
-class BGS_039:# <12>[1453]
-	""" Dragonspawn Lieutenant
+class BGS_038e:# <12>[1453]
+	""" Twilight Embrace
+	+2/+2. """
+	#
+	pass
+
+
+
+class BGS_041e:# <12>[1453]
+	""" Arcane Aspect
+	+1/+1. """
+	#
+	pass
+
+class BGS_044e:# <9>[1453]
+	""" Protect Mama!
 	[Taunt] """
 	#
 	pass
 
-class BGS_040:# <12>[1453]
-	""" Nadina the Red
-	[Deathrattle:] Give your Dragons [Divine Shield]. """
-	#
-	pass
-
-class BGS_041:# <12>[1453]
-	""" Kalecgos, Arcane Aspect
-	After you play a minion with [Battlecry], give your Dragons +1/+1. """
-	#
-	pass
-
-class BGS_043:# <12>[1453]
-	""" Murozond
-	[Battlecry:] Add a minionfrom your last opponent'swarband to your hand. """
-	#
-	pass
-
-class BGS_044:# <9>[1453]
-	""" Imp Mama
-	Whenever this minion takesdamage, summon a randomDemon and give it [Taunt]. """
-	#
-	pass
-
-class BGS_045:# <4>[1453]
-	""" Glyph Guardian
-	Whenever this attacks, double its Attack. """
-	#
-	pass
-
-class BGS_046:# <12>[1453]
-	""" Nat Pagle, Extreme Angler
-	When this attacks and killsa minion, add a randomminion to your hand. """
+class BGS_045e:# <12>[1453]
+	""" Cold Breath
+	Multiplying Attack. """
 	#
 	pass
 
@@ -1042,179 +905,107 @@ class BGS_046t:# <12>[1453]
 	#
 	pass
 
-class BGS_047:# <12>[1453]
-	""" Dread Admiral Eliza
-	Whenever a friendly Pirate attacks, give all friendly minions +2/+1. """
+class BGS_047e:# <12>[1453]
+	""" Yaharr!!
+	+2/+1. """
 	#
 	pass
 
-class BGS_048:# <12>[1453]
-	""" Southsea Strongarm
-	[Battlecry:] Give a friendlyPirate +1/+1. Repeat foreach Pirate you boughtthis turn. """
+class BGS_048e:# <12>[1453]
+	""" Pirate Tattoos
+	Increased stats. """
 	#
 	pass
 
-class BGS_049:# <12>[1453]
-	""" Freedealing Gambler
-	This minion sells for3 Gold. """
+class BGS_053e:# <12>[1453]
+	""" Pirate Life!
+	+3 Attack. """
 	#
 	pass
 
-class BGS_053:# <12>[1453]
-	""" Bloodsail Cannoneer
-	[Battlecry]: Give your other Pirates +3 Attack. """
+class BGS_056e:# <12>[1453]
+	""" Snarled
+	+2/+2. """
 	#
 	pass
 
-class BGS_055:# <12>[1453]
-	""" Deck Swabbie
-	[Battlecry:] Reduce the cost of upgrading Bob'sTavern by (1). """
+class BGS_059e:# <12>[1453]
+	""" Devoured Soul
+	Increased stats. """
 	#
 	pass
 
-class BGS_056:# <12>[1453]
-	""" Ripsnarl Captain
-	Whenever another friendly Pirate attacks, give it +2/+2. """
+class BGS_066e:# <12>[1453]
+	""" Gold Grubbing
+	Increased stats. """
 	#
 	pass
 
-class BGS_059:# <12>[1453]
-	""" Soul Devourer
-	[Battlecry:] Choose afriendly Demon. Removeit to gain its stats and3 Gold. """
+class BGS_067e:# <12>[1453]
+	""" Divinity
+	Increased stats. """
 	#
 	pass
 
-class BGS_060:# <12>[1453]
-	""" Yo-Ho-Ogre
-	[Taunt]After this minion survivesbeing attacked,attack immediately. """
+class BGS_071e:# <12>[1453]
+	""" Deflect-o-Shield
+	Increased stats. """
 	#
 	pass
 
-class BGS_061:# <12>[1453]
-	""" Scallywag
-	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """
-	#
-	pass
-
-class BGS_061t:# <7>[1453]
-	""" Sky Pirate
-	 """
-	#
-	pass
-
-class BGS_066:# <12>[1453]
-	""" Goldgrubber
-	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
-	#
-	pass
-
-class BGS_067:# <12>[1453]
-	""" Drakonid Enforcer
-	After a friendly minion loses [Divine Shield], gain_+2/+2. """
-	#
-	pass
-
-
-
-class BGS_071:# <12>[1453]
-	""" Deflect-o-Bot
-	[Divine Shield]Whenever you summon a Mechduring combat, gain +2 Attackand [Divine Shield]. """
-	#
-	pass
-
-class BGS_072:# <12>[1453]
-	""" Cap'n Hoggarr
-	Whenever you buy a Pirate,gain 1 Gold this turn only. """
-	#
-	pass
-
-class BGS_075:# <3>[1453]
-	""" Rabid Saurolisk
-	After you play a minion with [Deathrattle], gain +1/+2. """
+class BGS_075e:# <3>[1453]
+	""" Rabid
+	+1/+2. """
 	#
 	pass
 
 class BGS_077:# <12>[1453]
-	""" Arcane Cannon
+	""" Arcane Cannon (BAN?)
 	Can't attack.After an adjacent minionattacks, deal 2 damageto an enemy minion. """
 	#
 	pass
 
-class BGS_078:# <12>[1453]
-	""" Monstrous Macaw
-	After this attacks,trigger another friendlyminion's [Deathrattle]. """
-	#
-	pass
-
 class BGS_079:# <12>[1453]
-	""" The Tide Razor
+	""" The Tide Razor (??)
 	[Deathrattle]: Summon 3 random Pirates. """
 	#
 	pass
 
-class BGS_080:# <12>[1453]
-	""" Seabreaker Goliath
-	[Windfury][Overkill:] Give your other Pirates +2/+2. """
+class BGS_080e:# <12>[1453]
+	""" Broken Seas
+	+2/+2. """
 	#
 	pass
 
-class BGS_081:# <7>[1453]
-	""" Salty Looter
-	Whenever you play a Pirate, gain +1/+1. """
+class BGS_081e:# <12>[1453]
+	""" Loot!
+	+1/+1. """
 	#
 	pass
 
-class BGS_082:# <12>[1453]
-	""" Menagerie Mug
-	[Battlecry:] Give 3 randomfriendly minions of differentminion types +1/+1. """
+
+
+
+class BGS_100e:# <12>[1453]
+	""" Lil' Hand of Rag
+	Increased stats. """
 	#
 	pass
 
-class BGS_083:# <12>[1453]
-	""" Menagerie Jug
-	[Battlecry:] Give 3 randomfriendly minions of differentminion types +2/+2. """
-	#
-	pass
 
-class BGS_100:# <12>[1453]
-	""" Lil' Rag
-	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier. """
-	#
-	pass
 
-class BGS_104:# <12>[1453]
-	""" Nomi, Kitchen Nightmare
-	After you play an Elemental,Elementals in Bob's Tavernhave +1/+1 for the restof the game. """
-	#
-	pass
 
-class BGS_105:# <12>[1453]
-	""" Majordomo Executus
-	At the end of your turn, giveyour left-most minion +1/+1.Repeat for each Elementalyou played this turn. """
-	#
-	pass
 
-class BGS_106:# <12>[1453]
-	""" Acolyte of C'Thun
-	[Taunt][Reborn] """
-	#
-	pass
-
-class BGS_110:# <12>[1453]
-	""" Arm of the Empire
-	Whenever a friendly [Taunt]minion is attacked,give it +2 Attackpermanently. """
-	#
-	pass
-
-class BGS_111:# <12>[1453]
-	""" Champion of Y'Shaarj
-	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
-	#
-	pass
 
 class BGS_112:# <12>[1453]
 	""" Qiraji Harbinger
 	After a friendly minion with [Taunt] dies, give its neighbors +2/+2. """
+	#
+	pass
+
+class BGS_112e:# <12>[1453]
+	""" Harbinger's Illusion
+	+2/+2. """
 	#
 	pass
 
@@ -1224,86 +1015,38 @@ class BGS_113:# <12>[1453]
 	#
 	pass
 
-class BGS_115:# <12>[1453]
-	""" Sellemental
-	When you sell this,add a 2/2 Elementalto your hand. """
-	#
-	pass
-
-class BGS_115t:# <12>[1453]
-	""" Water Droplet
+class BGS_116e:# <12>[1453]
+	""" Refresh Costs 0
 	 """
 	#
 	pass
 
-class BGS_116:# <12>[1453]
-	""" Refreshing Anomaly
-	[Battlecry:] Your next[Refresh] costs (0). """
+class BGS_120e:# <12>[1453]
+	""" Party Time
+	+1/+1. """
 	#
 	pass
 
-class BGS_119:# <12>[1453]
-	""" Crackling Cyclone
-	[Divine Shield][Windfury] """
+class BGS_124e:# <12>[1453]
+	""" Garrdian
+	+1 Health. """
 	#
 	pass
 
-class BGS_120:# <12>[1453]
-	""" Party Elemental
-	After you play an Elemental, give another random friendly Elemental +1/+1. """
+class BGS_127e:# <12>[1453]
+	""" Lava Shield
+	+1 Health. """
 	#
 	pass
 
-class BGS_121:# <12>[1453]
-	""" Gentle Djinni
-	[Taunt]. [Deathrattle:] Summon another random Elemental and add a copy of it to your hand. """
+class BGS_128e:# <12>[1453]
+	""" Elemental Energy
+	+1/+1. """
 	#
 	pass
 
-class BGS_122:# <12>[1453]
-	""" Stasis Elemental
-	[Battlecry:] Add another random Elemental to Bob's Tavern and [Freeze] it. """
-	#
-	pass
-
-class BGS_123:# <12>[1453]
-	""" Tavern Tempest
-	[Battlecry:] Add another random Elemental to your hand. """
-	#
-	pass
-
-class BGS_124:# <12>[1453]
-	""" Lieutenant Garr
-	[Taunt]. After you play an Elemental, gain +1 Health for each Elemental you have. """
-	#
-	pass
-
-class BGS_126:# <12>[1453]
-	""" Wildfire Elemental
-	After this attacks and killsa minion, deal excess damage to a random adjacent minion. """
-	#
-	pass
-
-class BGS_127:# <12>[1453]
-	""" Molten Rock
-	[Taunt]. After you play an Elemental, gain +1 Health. """
-	#
-	pass
-
-class BGS_128:# <12>[1453]
-	""" Arcane Assistant
-	[Battlecry:] Give your other Elementals +1/+1. """
-	#
-	pass
-
-class BGS_131:# <12>[1453]
-	""" Deadly Spore
-	[Poisonous] """
-	#
-	pass
 
 class BGS_200:# <12>[1453]
-
 	""" Warden of Old
 	[Deathrattle:] Add a Gold Coin to your hand. """
 	#
@@ -1315,23 +1058,586 @@ class BGS_201:# <12>[1453]
 	#
 	pass
 
-class BGS_202:# <12>[1453]
-	""" Mythrax the Unraveler
-	At the end of your turn,gain +2/+2 for each__minion type you control. """
+class BGS_201e:# <12>[1453]
+	""" Ritual Sacrifice
+	+1/+1. """
 	#
 	pass
 
-class BGS_204:# <12>[1453]
-	""" Bigfernal
-	After you summon a Demon, gain +1/+1 permanently. """
+
+
+class BGS_204e:# <12>[1453]
+	""" Bigger!!!
+	+1/+1. """
 	#
 	pass
 
 class BGS_205:# <12>[1453]
-	""" Elistra the Immortal
+	""" Elistra the Immortal (BAN)
+	[Divine Shield]. [Reborn].Whenever a friendly [Taunt]minion is attacked, this__gets attacked instead. """
+	#
+	pass
+class TB_BaconUps_306:# <12>[1453]
+	""" Elistra the Immortal (BAN)
 	[Divine Shield]. [Reborn].Whenever a friendly [Taunt]minion is attacked, this__gets attacked instead. """
 	#
 	pass
 
+
+########################################################################################
+##
+## TB_BaconUps series 
+##
+########################################################################################
+
+
+
+class TB_BaconUps_011e:# <12>[1453]
+	""" Blarghghl
+	Increased Attack. """
+	#
+	pass
+
+
+class TB_BaconUps_025:# <12>[1453]
+	""" Spawn of N'Zoth
+	[Deathrattle:] Give your minions +2/+2. """
+	#
+	pass
+
+class TB_BaconUps_025e:# <12>[1453]
+	""" Slimed
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_031:# <6>[1453]
+	""" Tortollan Shellraiser
+	[Taunt][Deathrattle:] Give a random_friendly minion +2/+2. """
+	#
+	pass
+
+class TB_BaconUps_031e:# <6>[1453]
+	""" Shellshield
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_032e:# <12>[1453]
+	""" Replicating Menace
+	[Deathrattle:] Summon three 2/2 Microbots. """
+	#
+	pass
+
+class TB_BaconUps_033:# <10>[1453]
+	""" Festeroot Hulk
+	After a friendly minion attacks, gain +2 Attack. """
+	#
+	pass
+
+class TB_BaconUps_033e:# <12>[1453]
+	""" Grown
+	Increased Attack. """
+	#
+	pass
+
+
+class TB_BaconUps_037:# <12>[1453]
+	""" Crowd Favorite
+	Whenever you play a card with [Battlecry], gain +2/+2. """
+	#
+	pass
+
+class TB_BaconUps_037e:# <12>[1453]
+	""" Huge Ego
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_038:# <12>[1453]
+	""" Phalanx Commander
+	Your [Taunt] minionshave +4 Attack. """
+	#
+	pass
+
+class TB_BaconUps_038e:# <12>[1453]
+	""" Commanded
+	Phalanx Commander is granting this +4 Attack. """
+	#
+	pass
+
+class TB_BaconUps_043e:# <3>[1453]
+	""" Well Fed
+	Increased Attack and Health. """
+	#
+	pass
+
+class TB_BaconUps_044e:# <7>[1453]
+	""" Ironed Out
+	Increased stats. """
+	#
+	pass
+
+
+
+class TB_BaconUps_046e:# <12>[1453]
+	""" Junked Up
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_047:# <5>[1453]
+	""" Bolvar, Fireblood
+	[Divine Shield]After a friendly minion loses_[Divine Shield], gain +4 Attack. """
+	#
+	pass
+
+class TB_BaconUps_047e:# <5>[1453]
+	""" Fading Light
+	Increased Attack. """
+	#
+	pass
+
+class TB_BaconUps_053e:# <9>[1453]
+	""" Siegebreaking
+	Siegebreaker is granting this minion +2 Attack. """
+	#
+	pass
+
+class TB_BaconUps_055:# <12>[1453]
+	""" Baron Rivendare
+	Your minions trigger their [Deathrattles] three times. """
+	#
+	pass
+
+class TB_Baconups_055e:# <12>[1453]
+	""" Rivendare Deathrattle
+	Your minions trigger their [Deathrattles] three times. """
+	#
+	pass
+
+class TB_BaconUps_058:# <12>[1453]
+	""" The Boogeymonster
+	Whenever this attacks and kills a minion, gain +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_058e:# <12>[1453]
+	""" Tasty!
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_060e:# <9>[1453]
+	""" Grasp of Mal'Ganis
+	Mal'Ganis is granting +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_061e:# <12>[1453]
+	""" Trained
+	+2/+2 """
+	#
+	pass
+
+class TB_BaconUps_062e:# <12>[1453]
+	""" Impish
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_063e:# <12>[1453]
+	""" Well Fed
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_064e:# <12>[1453]
+	""" Mrghlglhal
+	+4 Health. """
+	#
+	pass
+
+class TB_BaconUps_066e:# <3>[1453]
+	""" Metal Teeth
+	+4 Attack. """
+	#
+	pass
+
+
+class TB_BaconUps_069e:# <10>[1453]
+	""" Screwy Jank
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_070:# <9>[1453]
+	""" Crystalweaver
+	[Battlecry:] Give your Demons +2/+2. """
+	#
+	pass
+
+class TB_BaconUps_070e:# <12>[1453]
+	""" Serrated Shadows
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_072:# <2>[1453]
+	""" Strongshell Scavenger
+	[Battlecry:] Give your [Taunt] minions +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_072e:# <12>[1453]
+	""" Strongshell
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_073:# <12>[1453]
+	""" Menagerie Magician
+	[Battlecry:] Give a random friendly Beast, Dragon, and Murloc +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_073e:# <12>[1453]
+	""" A Simple Trick
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_074:# <2>[1453]
+	""" Virmen Sensei
+	[Battlecry:] Give a friendly Beast +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_074e:# <12>[1453]
+	""" Get Big
+	+4/+4. """
+	#
+	pass
+
+
+class TB_BaconUps_077e:# <7>[1453]
+	""" Kinetic Energy
+	Increased stats. """
+	#
+	pass
+
+
+
+
+class TB_BaconUps_085e:# <12>[1453]
+	""" Soul of the Beast
+	+10/+10. """
+	#
+	pass
+
+class TB_BaconUps_086:# <12>[1453]
+	""" Pack Leader
+	Whenever you summon a Beast, give it +4 Attack. """
+	#
+	pass
+
+class TB_BaconUps_086e:# <12>[1453]
+	""" Feral Calling
+	+4 Attack. """
+	#
+	pass
+
+
+class TB_BaconUps_088e:# <12>[1453]
+	""" Strength of the Pack
+	+2 Attack from {0}. """
+	#
+	pass
+
+class TB_BaconUps_090e:# <12>[1453]
+	""" Rampage
+	+10/+10. """
+	#
+	pass
+
+
+
+class TB_BaconUps_094e:# <12>[1453]
+	""" Pistons
+	Increased Attack. """
+	#
+	pass
+
+class TB_BaconUps_095:# <12>[1453]
+	""" Shifter Zerus
+	Each turn this is in your hand, transform it into a random minion. """
+	#
+	pass
+
+class TB_BaconUps_095e:# <12>[1453]
+	""" Shifting
+	Transforming into random minions. """
+	#
+	pass
+
+class TB_BaconUps_099e:# <5>[1453]
+	""" Annoy-o-Module
+	[Taunt], [Divine Shield]. """
+	#
+	pass
+
+class TB_BaconUps_100e:# <12>[1453]
+	""" Bagurgled
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_101e:# <9>[1453]
+	""" Brow Furrow
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_104e:# <12>[1453]
+	""" Well Fed
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_105:# <12>[1453]
+	""" Waxrider Togwaggle
+	Whenever a friendly Dragon kills an enemy, gain +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_105e:# <12>[1453]
+	""" Dragon Wax
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_106e:# <12>[1453]
+	""" Dragonlust
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_107e:# <12>[1453]
+	""" Time Dilation
+	+4/+2. """
+	#
+	pass
+
+class TB_BaconUps_108e:# <12>[1453]
+	""" Twilight Embrace
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_109e:# <12>[1453]
+	""" Arcane Aspect
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_115e:# <12>[1453]
+	""" Cold Breath
+	Multiplying Attack. """
+	#
+	pass
+
+class TB_BaconUps_117e:# <12>[1453]
+	""" Divinity
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_118:# <12>[1453]
+	""" Unstable Ghoul
+	[Taunt][Deathrattle:] Deal 1 damage to all minions twice. """
+	#
+	pass
+
+class TB_BaconUps_120e:# <12>[1453]
+	""" Dragonscales
+	Attack increased. """
+	#
+	pass
+
+class TB_BaconUps_123e:# <12>[1453]
+	""" Deflect-o-Shield
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_124e:# <12>[1453]
+	""" Felfin Fueled
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_125e:# <3>[1453]
+	""" Rabid
+	+2/+4. """
+	#
+	pass
+
+class TB_BaconUps_128:# <12>[1453]
+	""" Arcane Cannon (BAN?)
+	Can't attack.After an adjacent minionattacks, deal 2 damage to___an enemy minion twice. """
+	#
+	pass
+
+class TB_BaconUps_130e:# <12>[1453]
+	""" Gold Grubbing
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_132t:# <12>[1453]
+	""" Treasure Chest
+	[Deathrattle:] Summon 2 random Golden minions. """
+	#
+	pass
+
+class TB_BaconUps_134e:# <12>[1453]
+	""" Yaharr!!
+	+4/+2. """
+	#
+	pass
+
+class TB_BaconUps_136e:# <12>[1453]
+	""" Yarrr!
+	Southsea Captain is granting +2/+2. """
+	#
+	pass
+
+class TB_BaconUps_137:# <12>[1453]
+	""" The Tide Razor (BAN)
+	[Deathrattle]: Summon 6 random Pirates. """
+	#
+	pass
+
+class TB_BaconUps_138e:# <12>[1453]
+	""" Pirate Life!
+	+6 Attack. """
+	#
+	pass
+
+class TB_BaconUps_139e:# <12>[1453]
+	""" Snarled
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_140e:# <12>[1453]
+	""" Pirate Tattoos
+	Increased stats. """
+	#
+	pass
+
+class TB_BaconUps_142e:# <12>[1453]
+	""" Broken Seas
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_143e:# <12>[1453]
+	""" Loot!
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_147:# <5>[1453]
+	""" Righteous Protector (BAN?)
+	[Taunt][Divine Shield] """
+	#
+	pass
+
+class TB_BaconUps_163e:# <12>[1453]
+	""" Garrdian
+	+2 Health. """
+	#
+	pass
+
+
+
+class TB_Baconups_202e:# <12>[1453]
+	""" Lava Shield
+	+2 Health. """
+	#
+	pass
+
+class TB_Baconups_203e:# <12>[1453]
+	""" Elemental Energy
+	+2/+2. """
+	#
+	pass
+
+
+class TB_BaconUps_250e:# <12>[1453]
+	""" Microwrapped
+	Attack increased. """
+	#
+	pass
+
+class TB_BaconUps_256:# <12>[1453]
+	""" Warden of Old (BAN?)
+	[Deathrattle:] Add 2 Gold Coins to your hand. """
+	#
+	pass
+
+class TB_BaconUps_257:# <12>[1453]
+	""" Tormented Ritualist (BAN?)
+	[Taunt]Whenever this is attacked,give adjacent minions+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_257e:# <12>[1453]
+	""" Ritual Sacrifice (BAN?)
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_303:# <12>[1453]
+	""" Qiraji Harbinger
+	After a friendly minion with [Taunt] dies, give its neighbors +4/+4. """
+	#
+	pass
+
+class TB_BaconUps_303e:# <12>[1453]
+	""" Harbinger's Illusion
+	+4/+4. """
+	#
+	pass
+
+class TB_BaconUps_304e:# <12>[1453]
+	""" Bigger!!!
+	+2/+2. """
+	#
+	pass
+
+class TB_BaconUps_305:# <12>[1453]
+	""" Faceless Taverngoer(BAN?)
+	[Battlecry:] Choose a minionin Bob's Tavern. Transforminto a Golden copy of it. """
+	#
+	pass
+
+class TB_BaconUps_308:# <5>[1453]
+	""" Argent Braggart(BAN?)
+	[Battlecry:] Gain Attack andHealth to match double thehighest in the battlefield. """
+	#
+	pass
+
+class TB_BaconUps_320:# <12>[1453]
+	""" Barrens Blacksmith (BAN?)
+	[Frenzy:] Give your other minions +4/+4. """
+	#
+	pass
+class TB_BaconUps_320e:# <12>[1453]
+	""" Superforged(BAN?)
+	+4/+4. """
+	#
+	pass
 
 

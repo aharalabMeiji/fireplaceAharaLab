@@ -98,21 +98,6 @@ class CardDB(dict):
 
 		return card
 
-	def BG_initialize(self):
-		locale = 'jaJP'
-		self.initialized = True
-		log.info("Load card database")
-		db, xml = cardxml.load(locale=locale)
-		log.info("Initializing card database")
-		from .cardlist import BG
-		for cardIDlist in BG:
-			for id in cardIDlist:
-				card = db[id]
-				self[id] = self.merge(id, card)
-				pass
-			pass
-		log.info("Merged %i cards", len(self))
-
 	def initialize(self, locale="jaJP"):#locale="enUS"):#
 		log.info("Load card database")
 		self.initialized = True
@@ -135,6 +120,24 @@ class CardDB(dict):
 				pass
 		log.info("Merged %i cards", len(self))
 
+	def BG_initialize(self):
+		locale = 'jaJP'
+		self.initialized = True
+		log.info("Load card database")
+		db, xml = cardxml.load(locale=locale)
+		log.info("Initializing card database")
+		from fireplace.cards import battlegrounds
+		BG=[
+			battlegrounds.BG_hero21.BG_Hero21,
+			battlegrounds.BG_minion_beast.BG_Minion_Beast,
+			]
+		for cardIDlist in BG:
+			for id in cardIDlist:
+				card = db[id]
+				self[id] = self.merge(id, card)
+				pass
+			pass
+		log.info("Merged %i cards", len(self))
 
 	def filter(self, **kwargs):
 		"""
