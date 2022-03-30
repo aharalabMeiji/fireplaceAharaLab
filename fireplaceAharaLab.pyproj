@@ -68,7 +68,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\utils.py">
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BGutils.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\__init__.py">

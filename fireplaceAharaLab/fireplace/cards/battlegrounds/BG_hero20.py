@@ -6,8 +6,16 @@ from ..utils import *
 BattleGrounds_Hero20=[
 	'BG20_HERO_100','BG20_HERO_100p','BG20_HERO_100p_e2','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge',#Rokara
 	'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',#Xyrella
+	'BG20_HERO_102','BG20_HERO_102p','BG20_HERO_102pe','BG20_HERO_102pe2','BG20_HERO_102pe3','BG20_HERO_102_Buddy','BG20_HERO_102_Buddy_G','BG20_HERO_102pe_Buddy',#Overlord Saurfang
+	'BG20_HERO_103','BG20_HERO_103p',#Death Speaker Blackthorn
+	'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',#Vol'jin
+	'BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',#Master Nguyen
+	]
+BG20_Heroes =[
+	'BG20_HERO_100','BG20_HERO_101','BG20_HERO_102','BG20_HERO_103','BG20_HERO_201','BG20_HERO_202',
 	]
 
+#### 100 ####
 class BG20_HERO_100:# <10>[1453]
 	""" Rokara
 	 """
@@ -31,6 +39,7 @@ class BG20_HERO_100_Buddy_G:# <12>[1453]
 	pass
 BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
 
+#### 101 ####
 class BG20_HERO_101:# <12>[1453]
 	""" Xyrella
 	 """
@@ -62,6 +71,8 @@ class BG20_HERO_101_Buddy_G:
 	events = Play(CONTROLLER, FRIENDLY_MINIONS).on(BG20_HERO_101_Buddy_Action(Play.CARD, 'BG20_HERO_101_Buddy_Ge'))
 	pass
 BG20_HERO_101_Buddy_Ge=buff(4,4)
+
+#### 102 ####
 class BG20_HERO_102:# <12>[1453]
 	""" Overlord Saurfang
 	 """
@@ -77,30 +88,6 @@ class BG20_HERO_102_Buddy:# <12>[1453]
 class BG20_HERO_102_Buddy_G:# <12>[1453]
 	""" Dranosh Saurfang
 	'For the Horde!' also grants Health twice. """
-	#
-	pass
-
-class BG20_HERO_102_SKIN_A:# <12>[1453]
-	""" Sea Admiral Saurfang
-	 """
-	#
-	pass
-
-class BG20_HERO_102_SKIN_B:# <12>[1453]
-	""" Chargeleader Saurfang
-	 """
-	#
-	pass
-
-class BG20_HERO_102_SKIN_C:# <12>[1453]
-	""" Guan Yu Saurfang
-	 """
-	#
-	pass
-
-class BG20_HERO_102_SKIN_D:# <12>[1453]
-	""" Colossal Dragonplate Saurfang
-	 """
 	#
 	pass
 
@@ -134,156 +121,113 @@ class BG20_HERO_102pe_Buddy:# <12>[1453]
 	#
 	pass
 
+#### 103 ####
 class BG20_HERO_103:# <12>[1453]
 	""" Death Speaker Blackthorn
 	 """
 	#
 	pass
-
-class BG20_HERO_103_SKIN_A:# <12>[1453]
-	""" Tidespeaker Blackthorn
-	 """
-	#
-	pass
-
 class BG20_HERO_103p:# <12>[1453]
 	""" Bloodbound
 	[Passive]After you upgradeBob's Tavern, gain2 [Blood Gems]. """
 	#
 	pass
 
+#### 201 ####
 class BG20_HERO_201:# <12>[1453]
 	""" Vol'jin
 	 """
 	#
 	pass
-
+class BG20_HERO_201e:# <12>[1453]
+	""" Modified Attack
+	Attack is increased or decreased. """
+	#
+	pass
+class BG20_HERO_201e2:# <12>[1453]
+	""" Modified Health
+	Health is increased or decreased. """
+	#
+	pass
+class BG20_HERO_201e3:# <12>[1453]
+	""" Stats Set
+	 """
+	#
+	pass
+class BG20_HERO_201p:# <12>[1453]
+	""" Spirit Swap
+	Choose two minions. Swap their stats. """
+	#
+	pass
+class BG20_HERO_201p2:# <12>[1453]
+	""" Spirit Swap
+	Choose a minion. Swap its stats with {0}. """
+	#
+	pass
+class BG20_HERO_201p2e:# <12>[1453]
+	""" Spirit Swapped
+	Stats swapped with another minion. """
+	#
+	pass
+class BG20_HERO_201p3e:# <12>[1453]
+	""" Marked for Swap
+	Stats can be swapped. """
+	#
+	pass
 class BG20_HERO_201_Buddy:# <12>[1453]
 	""" Master Gadrin
 	At the end of your turn,the minion to the leftof this copies thisminion's Attack. """
 	#
 	pass
-
 class BG20_HERO_201_Buddy_e:# <12>[1453]
 	""" Blessed Hands
 	Copied Gadrin's Attack. """
 	#
 	pass
-
 class BG20_HERO_201_Buddy_e2:# <12>[1453]
 	""" Attack Set
 	 """
 	#
 	pass
-
 class BG20_HERO_201_Buddy_G:# <12>[1453]
 	""" Master Gadrin
 	At the end of your turn,adjacent minions copythis minion's Attack. """
 	#
 	pass
 
-class BG20_HERO_201_SKIN_A:# <12>[1453]
-	""" Chillin' Vol'jin
-	 """
-	#
-	pass
-
-class BG20_HERO_201_SKIN_B:# <12>[1453]
-	""" Vol'jin, Frostwolf Officer
-	 """
-	#
-	pass
-
-class BG20_HERO_201_SKIN_C:# <12>[1453]
-	""" Vol'jin of Blind Absolution
-	 """
-	#
-	pass
-
-class BG20_HERO_201e:# <12>[1453]
-	""" Modified Attack
-	Attack is increased or decreased. """
-	#
-	pass
-
-class BG20_HERO_201e2:# <12>[1453]
-	""" Modified Health
-	Health is increased or decreased. """
-	#
-	pass
-
-class BG20_HERO_201e3:# <12>[1453]
-	""" Stats Set
-	 """
-	#
-	pass
-
-class BG20_HERO_201p:# <12>[1453]
-	""" Spirit Swap
-	Choose two minions. Swap their stats. """
-	#
-	pass
-
-class BG20_HERO_201p2:# <12>[1453]
-	""" Spirit Swap
-	Choose a minion. Swap its stats with {0}. """
-	#
-	pass
-
-class BG20_HERO_201p2e:# <12>[1453]
-	""" Spirit Swapped
-	Stats swapped with another minion. """
-	#
-	pass
-
-class BG20_HERO_201p3e:# <12>[1453]
-	""" Marked for Swap
-	Stats can be swapped. """
-	#
-	pass
-
+#### 202 ####
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen
 	 """
 	#
 	pass
-
+class BG20_HERO_202p:# <12>[1453]
+	""" Power of the Storm
+	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
+	#
+	pass
+class BG20_HERO_202pe:# <12>[1453]
+	""" Shifting Hero Power
+	Each turn, transform into a random Hero Power. """
+	#
+	pass
+class BG20_HERO_202pt:# <12>[1453]
+	""" Shift your Hero Power
+	Trigger Power of the Storm effect """
+	#
+	pass
 class BG20_HERO_202_Buddy:# <12>[1453]
 	""" Lei Flamepaw
 	'Power of the Storm' offers3 options instead of 2. """
 	#
 	pass
-
 class BG20_HERO_202_Buddy_G:# <12>[1453]
 	""" Lei Flamepaw
 	'Power of the Storm' offers4 options instead of 2. """
 	#
 	pass
 
-class BG20_HERO_202_SKIN_A:# <12>[1453]
-	""" Ban-Lu Nguyen
-	 """
-	#
-	pass
-
-class BG20_HERO_202p:# <12>[1453]
-	""" Power of the Storm
-	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
-	#
-	pass
-
-class BG20_HERO_202pe:# <12>[1453]
-	""" Shifting Hero Power
-	Each turn, transform into a random Hero Power. """
-	#
-	pass
-
-class BG20_HERO_202pt:# <12>[1453]
-	""" Shift your Hero Power
-	Trigger Power of the Storm effect """
-	#
-	pass
-
+#### 242 ####
 class BG20_HERO_242:# <2>[1453]
 	""" Guff Runetotem
 	 """

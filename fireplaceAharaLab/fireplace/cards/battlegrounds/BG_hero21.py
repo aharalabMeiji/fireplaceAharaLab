@@ -1,9 +1,15 @@
 from ..utils import *
 
-BG_Hero21=[
-	'BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',
+BattleGrounds_Hero20=[
+	'BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',#Cariel Roame
+	'BG21_HERO_010','BG21_HERO_010p','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G',#Scabbs Cutterbutter
 	]
 
+BG21_Heroes=[
+	'BG21_HERO_000','BG21_HERO_010',
+	]
+
+#### 000 ####
 class BG21_HERO_000:# <5>[1453]
 	""" Cariel Roame
 	"""
@@ -40,7 +46,7 @@ class BG21_HERO_000_Buddy_G:# <12>[1453]
 	pass
 BG21_HERO_000_Buddy_G_e=buff(2,2)
 
-
+#### 010 ####
 class BG21_HERO_010:# <7>[1453]
 	""" Scabbs Cutterbutter
 	 """
