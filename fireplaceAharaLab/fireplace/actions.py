@@ -800,6 +800,26 @@ class RemoveBuff(TargetedAction):
 		pass
 	pass
 
+class Buy(TargetedAction): ## battlegrounds
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller = target
+		bartender = controller.opponent
+		len =len(bartender.field)
+		if controller.mana>=3:
+			for c in bartender.field:
+				if c==card:
+					card.controller = self.controller
+					card.zone = Zone.HAND
+					self.controller.self.used_mana += 3
+					self.controller.add_buy_log(card)
+					self.broadcast(source, EventListener.ON, controller, card)
+					return
+			pass
+		pass
+
+
 class EatsCard(TargetedAction):
 	""" add other stats to target stats
 	"""

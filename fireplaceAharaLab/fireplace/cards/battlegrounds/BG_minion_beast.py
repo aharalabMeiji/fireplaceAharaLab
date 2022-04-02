@@ -3,7 +3,7 @@ from ..utils import *
 
 BG_Minion_Beast=[
 	'CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',#Alleycat
-	'CORE_EX1_531','EX1_531','TB_BaconUps_043','TB_BaconUps_043e',#Scavenging Hyena
+	'EX1_531','EX1_531e','TB_BaconUps_043','TB_BaconUps_043e',#Scavenging Hyena
 	'BG21_000','BG21_000e','BG21_000_G','BG21_000_Ge',#Leapfrogger
 	'BGS_075','BGS_075e','TB_BaconUps_125','TB_BaconUps_125e',#Rabid Saurolisk
 	'BG19_010','BG19_010t','BG19_010_G','BG19_010_Gt',#Sewer Rat
@@ -22,7 +22,7 @@ BG_Minion_Beast=[
 	]
 #
 BG_PoolSet_Beast=[
-	['CFM_315','CORE_EX1_531',],##2
+	['CFM_315','EX1_531',],##2
 	['BG21_000','BGS_075','BG19_010',],##3
 	['BGS_078','CFM_316',],#2
 	['LOOT_078','BG21_003','CORE_EX1_534',],#3
@@ -48,11 +48,11 @@ class TB_BaconUps_093t:#
 	""" Tabbycat <beast> (2/2)
 	"""
 
-#class CORE_EX1_531: #<3>[1637]
-#	"""Scavenging Hyena (1/2/2)
-#	Whenever a friendly Beast dies, gain +2/+1."""
-#	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
-#	pass
+class EX1_531: #<3>[1637]
+	"""Scavenging Hyena (1/2/2)
+	Whenever a friendly Beast dies, gain +2/+1."""
+	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
+	pass
 #EX1_531=buff(2,1)
 class TB_BaconUps_043: #<3>[1637]
 	"""Scavenging Hyena (1/2/2)

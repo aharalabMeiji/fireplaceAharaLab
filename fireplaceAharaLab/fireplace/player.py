@@ -92,6 +92,7 @@ class Player(Entity, TargetableByAuras):
 		self._summon_log=[]
 		self._reveal_log=[]
 		self._targetedaction_log=[]
+		self._buy_log=[] # battlegraounds
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
@@ -100,7 +101,7 @@ class Player(Entity, TargetableByAuras):
 		self.carry_cards=[] # YOP_024
 		self.Tier=1# battlegrounds
 		self.TierUpCost=5 # battlegrounds
-		self.BobsFieldSize=3 # battlegrounds
+		self.BobsTmpFieldSize=3 # battlegrounds
 
 	def __str__(self):
 		return self.name
@@ -468,4 +469,19 @@ class Player(Entity, TargetableByAuras):
 	def targetedaction_log(self):
 		return self._targetedaction_log
 
-	### d
+	### battlegraounds
+	def add_buy_log(self, card):
+		self._buy_log.append(PlayLog(card, card.game.turn))
+	@property
+	def buy_log(self):
+		ret = []
+		for _log in self._buy_log:
+			ret.append(_log.card)
+		return ret
+	def buy_this_turn_log(self):
+		ret = []
+		turn =self.game.turn
+		for _log in self._buy_log:
+			if _log.turn == turn:
+				ret.append(_log.card)
+		return ret

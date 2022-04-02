@@ -27,7 +27,7 @@ BG_Minion=[
 	#Houndmaster	3	4	3	-	Battlecry
 	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',
 	#Khadgar	3	2	2	-	-
-	'DAL_575','TB_BaconUps_034'
+	'DAL_575','TB_BaconUps_034',
 	#Soul Juggler	3	3	5	-	-
 	'BGS_002','TB_BaconUps_075',
 	#Champion of Y'Shaarj	4	4	4	-	Taunt
@@ -67,7 +67,7 @@ BG_Minion=[
 	#Nadina the Red	6	7	4	-	Deathrattle
 	'BGS_040','TB_BaconUps_154',
 	#Seafood Slinger	6	5	5	-	Battlecry
-	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge'
+	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',
 	#Zapp Slywick	6	7	10	-	Windfury
 	'BGS_022','TB_BaconUps_091',	
 	]

@@ -128,7 +128,9 @@ class CardDB(dict):
 		log.info("Initializing card database")
 		from fireplace.cards import battlegrounds
 		BG=[
-			battlegrounds.BG_hero21.BG_Hero21,
+			battlegrounds.BG_hero21.BattleGrounds_Hero21,
+			battlegrounds.BG_hero20.BattleGrounds_Hero20,
+			battlegrounds.BG_minion.BG_Minion,
 			battlegrounds.BG_minion_beast.BG_Minion_Beast,
 			]
 		for cardIDlist in BG:

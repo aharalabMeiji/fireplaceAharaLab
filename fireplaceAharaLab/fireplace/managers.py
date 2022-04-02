@@ -234,6 +234,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",
 	GameTag.TAUNT: "taunt",
+	GameTag.TECH_LEVEL: "tech_level",
 	GameTag.TRADEABLE: "tradeable",
 	GameTag.TRADE_COST: "trade_cost",
 	GameTag.WINDFURY: "windfury",

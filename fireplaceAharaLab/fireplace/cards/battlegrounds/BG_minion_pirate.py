@@ -82,12 +82,12 @@ class TB_BaconUps_150:# <12>[1453]
 class BG21_017:# <12>[1453]
 	""" Briny Bootlegger
 	At the end of your turn,if you have another Pirate,add a Gold Coin to your hand. """
-	events = SELF_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & Give(CONTROLLER, THE_COIN))
+	events = OWN_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & Give(CONTROLLER, "GAME_005"))
 	pass
 class BG21_017_G:# <12>[1453]
 	""" Briny Bootlegger
 	At the end of your turn,if you have another Pirate,add 2 Gold Coins to your hand. """
-	events = SELF_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & (Give(CONTROLLER, THE_COIN),Give(CONTROLLER, THE_COIN)))
+	events = OWN_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & (Give(CONTROLLER, "GAME_005"),Give(CONTROLLER, "GAME_005")))
 	pass
 
 #Salty Looter,3,4,5,Pirate,-
@@ -109,13 +109,27 @@ class BGS_048:# <12>[1453]
 	""" Southsea Strongarm
 	[Battlecry:] Give a friendly Pirate +1/+1. Repeat foreach Pirate you bought this turn. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(TARGET, 'BGS_048e'), Buff(TARGET, 'BGS_048e') *Count(PIRATE_BOUGHT_THIS_TURN) 
+	def play(self):
+		count=1
+		log = self.controller.buy_this_turn_log
+		for card in log:
+			if card.race == Race.PIRATE:
+				count += 1
+		for repeat in range(count):
+			yield Buff(TARGET, 'BGS_048e')
 	pass
 BGS_048e=buff(1,1)
 class TB_BaconUps_140:# <12>[1453]
 	""" Southsea Strongarm
 	[Battlecry:] Give a friendly Pirate +2/+2. Repeat foreach Pirate you boughtthis turn. """
-	play = Buff(TARGET, 'TB_BaconUps_140e'), Buff(TARGET, 'TB_BaconUps_140e') * Count(PIRATE_BOUGHT_THIS_TURN) 
+	def play(self):
+		count=1
+		log = self.controller.buy_this_turn_log
+		for card in log:
+			if card.race == Race.PIRATE:
+				count += 1
+		for repeat in range(count):
+			yield Buff(TARGET, 'TB_BaconUps_140e')
 	pass
 TB_BaconUps_140e=buff(2,2)
 
@@ -123,13 +137,13 @@ TB_BaconUps_140e=buff(2,2)
 class BGS_066:# <12>[1453]
 	""" Goldgrubber
 	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINION + GOLDEN, 'BGS_066e'))
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + GOLDEN, 'BGS_066e'))
 	pass
 BGS_066e=buff(2,2)
 class TB_BaconUps_130:# <12>[1453]
 	""" Goldgrubber
 	At the end of your turn, gain +4/+4 for each friendly Golden minion. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINION + GOLDEN, 'TB_BaconUps_130e'))
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + GOLDEN, 'TB_BaconUps_130e'))
 	pass
 TB_BaconUps_130e=buff(4,4)
 

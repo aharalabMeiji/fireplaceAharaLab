@@ -1,6 +1,6 @@
 from ..utils import *
 
-BattleGrounds_Hero20=[
+BattleGrounds_Hero21=[
 	'BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',#Cariel Roame
 	'BG21_HERO_010','BG21_HERO_010p','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G',#Scabbs Cutterbutter
 	]
