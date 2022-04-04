@@ -102,6 +102,7 @@ class Player(Entity, TargetableByAuras):
 		self.Tier=1# battlegrounds
 		self.TierUpCost=5 # battlegrounds
 		self.BobsTmpFieldSize=3 # battlegrounds
+		self.AttackIndex=0 # battlegrounds
 
 	def __str__(self):
 		return self.name

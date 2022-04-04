@@ -225,22 +225,23 @@ def copy_playerattr(oldPlayer, newPlayer):
 	src = getattr(oldPlayer.hero, 'play_counter')
 	setattr(new_hero, 'play_counter', src)
 	## hero power
-	if not newPlayer.hero.power:
-		card=HeroPower(cards.db[oldPlayer.hero.power.id])
-		card.controller = newPlayer
-		card.zone = Zone.PLAY
-		card.game.manager.new_entity(card)
-	# heropower's attr
-	heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
-		'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
-		'lifesteal','morphed','old_power','overload','play_counter',\
-		'requirements','reborn','target','windfury',
-		]
-	for attr in heropowerAttrs:
-		value = getattr(oldPlayer.hero.power,attr)
-		setattr(newPlayer.hero.power,attr, value)
-	for buff in oldPlayer.hero.power.buffs:
-		newPlayer.hero.power.buffs.append(Enchantment(cards.db[buff.id]))
+	if oldPlayer.hero.power:
+		if not newPlayer.hero.power:
+			card=HeroPower(cards.db[oldPlayer.hero.power.id])
+			card.controller = newPlayer
+			card.zone = Zone.PLAY
+			card.game.manager.new_entity(card)
+		# heropower's attr
+		heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
+			'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
+			'lifesteal','morphed','old_power','overload','play_counter',\
+			'requirements','reborn','target','windfury',
+			]
+		for attr in heropowerAttrs:
+			value = getattr(oldPlayer.hero.power,attr)
+			setattr(newPlayer.hero.power,attr, value)
+		for buff in oldPlayer.hero.power.buffs:
+			newPlayer.hero.power.buffs.append(Enchantment(cards.db[buff.id]))
 	#events
 	#play_targets
 	#targets

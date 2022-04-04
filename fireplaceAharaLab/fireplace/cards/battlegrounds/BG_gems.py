@@ -1,17 +1,5 @@
 from ..utils import *
 
-##
-##   Bartenders
-##
-
-Bartenders=['DALA_BOSS_99h','DALA_BOSS_98h',]
-
-class DALA_BOSS_99h:
-	""" Bartender Bob
-	"""
-class DALA_BOSS_98h:
-	""" Bartendotron
-	"""
 
 ##
 ##  Blood gem

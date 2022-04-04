@@ -151,6 +151,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.ATTACKING: "attacking",
 	GameTag.ATTACHED: "owner",
 	GameTag.AURA: "aura",
+	GameTag.BACON_COMPANION_ID: "buddy_id",
 	GameTag.BATTLECRY: "has_battlecry",
 	GameTag.CANNOT_ATTACK_HEROES: "cannot_attack_heroes",
 	GameTag.CANT_ATTACK: "cant_attack",
@@ -191,6 +192,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.FREEZE: 'freeze',#
 	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
+	1429: "gold_card", # battlegrounds
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",
 	GameTag.HEALTH_MINIMUM: "min_health",
@@ -273,6 +275,8 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.TOPDECK: None,
 	GameTag.TAG_AI_MUST_PLAY: None,
 	GameTag.TRIGGER_VISUAL: None,
+
+
 }
 
 
