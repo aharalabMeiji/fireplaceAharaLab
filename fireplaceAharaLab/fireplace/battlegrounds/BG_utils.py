@@ -15,7 +15,8 @@ decks=[[],[],[],[],[],[]]
 
 
 
-BobsFieldSize={1:3,2:4,3:4,4:5,5:5,6:6}
+BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
+TierUpCost={1:5, 2:6, 3:8, 4:11, 5:10}
 
 def BG_main():
 	#使用カードの初期化
@@ -105,18 +106,45 @@ def BG_main():
 		### 対戦後処理
 		if damage0>0:
 			hero0 = BG_Bars[matches[i][0]].controller.hero
-			hero0.damage += damage0## armorも加味すること。
+			if hero0.armor>0:# armorも加味する
+				if hero0.armor >= damage0:
+					hero0.armor -= damage0
+				else:
+					hero0.damage += (damage0 - hero0.armor)
+					hero0.armor=0
+			else:
+				hero0.damage += damage0#
+			print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
 			if hero0.health<=0:
 				#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
 				pass
 		if damage1>0:
-			hero1 = BG_Bars[matches[i][0]].controller.hero
-			hero1.damage += damage1## armorも加味すること。
+			hero1 = BG_Bars[matches[i][1]].controller.hero
+			if hero1.armor>0:# armorも加味する
+				if hero1.armor >= damage1:
+					hero1.armor -= damage1
+				else:
+					hero1.damage += (damage1 - hero1.armor)
+					hero1.armor=0
+			else:
+				hero1.damage += damage1#
+			print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
 			if hero1.health<=0:
 				#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
 				pass
 		pass
+		#次のターンへ
+		for bar in BG_Bars:
+			controller = bar.controller
+			controller.TierUpCost = max(0, controller.TierUpCost-1) 
+			pass
+
 	# 無限ループ終わり
+	pass
+
+def print_hero_stats(hero0, hero1):
+	print("<< %s (%s)<< health=%d"%(hero0, hero0.controller, hero0.health))
+	print("<< %s (%s)<< health=%d"%(hero1, hero1.controller, hero1.health))
 	pass
 
 class MovePlay(IntEnum):
@@ -125,10 +153,11 @@ class MovePlay(IntEnum):
 	ORDER=2
 	BUY=3
 	SELL=4
-	TIERUP=5
-	REROLE=6
-	FREEZE=7
-	TURNEND=8
+	POWER=5
+	TIERUP=6
+	REROLE=7
+	FREEZE=8
+	TURNEND=9
 	pass
 
 class Move(object):
@@ -148,7 +177,7 @@ class Move(object):
 
 	def execute(self):
 		if self.move==MovePlay.PLAY:# move a card from hand to field
-			self.play(self.target, self.param0)
+			self.play(self.target, position=self.param0, targetpos=self.param1)
 			pass
 		elif self.move==MovePlay.ORDER:# change the order of field cards 
 			self.changeOrder(self.target, self.param0)
@@ -158,6 +187,9 @@ class Move(object):
 			pass
 		elif self.move==MovePlay.SELL:# move a card from field to opponent
 			self.sell(self.target)
+			pass
+		elif self.move==MovePlay.POWER:# move a card from field to opponent
+			self.power(self.target)
 			pass
 		elif self.move==MovePlay.TIERUP:#push a button of grade-up
 			self.tierup()
@@ -172,11 +204,13 @@ class Move(object):
 			pass
 		pass
 
-	def play(self, card, position=-1):
+	def play(self, card, position=-1, targetpos=-1):
 		if card!=None and len(self.controller.field)<7:
 			if position<0:
 				position += len(self.controller.field)
 			card._summon_index = position
+			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
+				card.target = se
 			card.zone=Zone.PLAY
 			self.controller.add_summon_log(card)
 
@@ -220,10 +254,22 @@ class Move(object):
 				return
 		pass
 
+	def power(self, target):
+		controller = self.controller
+		heropower = self.controller.hero.power
+		if heropower.is_usable() and heropower.cost >= controller.mana:
+			if heropower.requires_target() and target in heropower.targets:
+				if target in self.controller.field:
+					heropower.use(target=target)
+			else:
+				heropower.use()
+		pass
+
 	def tierup(self):
 		if self.controller.Tier<=5 and self.controller.mana>=self.controller.TierUpCost:
 			self.controller.Tier += 1
 			self.controller.usedmana += self.controller.TierUpCost
+			self.controller.TierUpCost = TierUpCost[self.controller.Tier]
 
 	def rerole(self):
 		if self.controller.mana>=self.game.reroleCost:
@@ -261,28 +307,40 @@ def GetMoveCandidates(bar, controller, bartender):
 	if len(controller.field)<7:
 		for card in controller.hand:
 			for pos in range(len(controller.field)+1):
-				ret.append(Move(bar, card, MovePlay.PLAY, pos))
+				if card.requires_target():
+					for target in card.targets:
+						targetpos=controller.field.index(target)
+						ret.append(Move(bar, card, MovePlay.PLAY, param0=pos, param1=targetpos))
+				else:
+					ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))
 	#ORDER=2
 	for pos0 in range(len(controller.field)):
 		card = controller.field[pos0]
 		for pos in range(len(controller.field)):
 			if pos != pos0:
-				ret.append(Move(bar, card, MovePlay.ORDER, pos))
+				ret.append(Move(bar, card, MovePlay.ORDER, param0=pos))
 	#BUY=3
 	if controller.mana>=3:
 		for card in bartender.field:
-			ret.append(Move(bar, card, MovePlay.BUY, 0))
+			ret.append(Move(bar, card, MovePlay.BUY))
 	#SELL=4
 	for card in controller.field:
-		ret.append(Move(bar, card, MovePlay.SELL, 0))
-	#TIERUP=5
+		ret.append(Move(bar, card, MovePlay.SELL))
+	#POWER=5
+	if controller.hero.power.is_usable() and controller.hero.power.cost >= controller.mana:
+		if controller.hero.power.requires_target() and len(controller.hero.power.targets)>0:
+			for target in controller.hero.power.targets:
+				ret.append(Move(bar, target, MovePlay.POWER))
+		else:
+			ret.append(Move(bar, None, MovePlay.POWER))
+	#TIERUP=6
 	if controller.Tier<=5 and controller.mana>=controller.TierUpCost:
-		ret.append(Move(bar, None, MovePlay.TIERUP, 0))
-	#REROLE=6
+		ret.append(Move(bar, None, MovePlay.TIERUP))
+	#REROLE=7
 	if controller.mana>=bar.reroleCost:
 		ret.append(Move(bar, None, MovePlay.REROLE, 0))
-	#FREEZE=7
+	#FREEZE=8
 	ret.append(Move(bar, None, MovePlay.FREEZE, 0))
-	#TURNEND=8
+	#TURNEND=9
 	ret.append(Move(bar, None, MovePlay.TURNEND, 0))
 	return ret

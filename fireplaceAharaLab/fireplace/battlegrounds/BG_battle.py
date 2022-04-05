@@ -52,7 +52,7 @@ class BG_Battle(Game):
 			if len(self.first.field)==0 or len(self.second.field)==0:
 				break
 			#攻撃者
-			attacker = self.current_player.field[self.current_player]
+			attacker = self.current_player.field[self.AttackIndex]
 			#被攻撃者
 			taunts=[]
 			for card in self.current_player.opponent.field:
