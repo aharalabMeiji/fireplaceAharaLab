@@ -196,8 +196,8 @@ def card_test():
 	pass
 
 def battleground_main():
-	from fireplace.battlegrounds import BGutils
-	BGutils.BGmain()
+	from fireplace.battlegrounds import BG_utils
+	BG_utils.BG_main()
 
 if __name__ == "__main__":
 	battleground_main()

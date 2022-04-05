@@ -36,6 +36,15 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_agent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_bar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_battle.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
       <SubType>Code</SubType>
     </Compile>
@@ -68,7 +77,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BGutils.py">
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_utils.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\__init__.py">
