@@ -2,7 +2,7 @@ from .simulate_game import Preset_Play,PresetGame
 
 #Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
 
-def SimulateGames_Alterac_Mage():
+def alterac_mage():
 	#PresetGame(pp_AV_114)##OK
 	#PresetGame(pp_AV_115)##OK
 	#PresetGame(pp_AV_116)##OK
@@ -13,6 +13,9 @@ def SimulateGames_Alterac_Mage():
 	#PresetGame(pp_AV_283)##OK
 	#PresetGame(pp_AV_284)##OK
 	#PresetGame(pp_AV_290)##OK
+	#PresetGame(pp_ONY_006)##OK
+	#PresetGame(pp_ONY_007)##OK
+	PresetGame(pp_ONY_029)#
 	pass
 
 #########################
@@ -407,3 +410,106 @@ class pp_AV_290(Preset_Play):
 		
 #########################
 
+class pp_ONY_006(Preset_Play):
+	""" Deep Breath
+	Deal $@ damage to a minion and its neighbors.<i>(Improved by number of_other spells in your hand.)</i> """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_006',controller)
+		self.mark2=self.exchange_card('frost',controller)
+		self.mark3=self.exchange_card('minionH4',opponent)
+		self.mark4=self.exchange_card('minionH2',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		#self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.play_card(self.mark4, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller, target=self.mark3)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("%sと%sにダメージ２を与えているかどうか。")
+		for card in controller.hand:
+			self.print_stats("hand",card)
+	pass
+		
+#########################
+
+
+class pp_ONY_007(Preset_Play):
+	""" Haleh, Matron Protectorate
+	After you cast a spell, deal 4 damage randomly split among all enemies. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_007',controller)
+		self.mark2=self.exchange_card('nature',controller)
+		self.mark3=self.exchange_card('minionH5',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark2, controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print("After casting a spell, check if 4 times 1 damage to enemy.")
+		for card in controller.opponent.field:
+			self.print_stats("opponent.field",card)
+	pass
+		
+#########################
+
+
+class pp_ONY_029(Preset_Play):
+	""" Drakefire Amulet
+	[Tradeable][Discover] 2 Dragons. Summon them. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('ONY_029',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		for card in controller.field:
+			self.print_stats("field",card)
+	pass
+		
+#########################

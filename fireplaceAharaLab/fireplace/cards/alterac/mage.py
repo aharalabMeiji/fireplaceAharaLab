@@ -193,21 +193,52 @@ class AV_290:
 		]
 	pass
 
-
 class ONY_006:# <4>[1626]
 	""" Deep Breath
 	Deal $@ damage to aminion and its neighbors.<i>(Improved by number of_other spells in your hand.)</i> """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	def play(self):
+		target=self.target
+		controller=self.controller
+		amount=1
+		for card in controller.hand:
+			if card.type==CardType.SPELL:
+				amount+=1
+		self.script_data_text_0=amount# カード記載のため
+		targets=[target]
+		#instead of TARGET_ADJACENT
+		opp_field = controller.opponent.field
+		for i in range(len(opp_field)):
+			if opp_field[i]==target:
+				if i>0:
+					targets.append(opp_field[i-1])
+				if i<len(opp_field)-1:
+					targets.append(opp_field[i+1])
+				break;
+		for card in targets:
+			Hit(card, amount).trigger(controller)
 	pass
 
 class ONY_007:# <4>[1626]
 	""" Haleh, Matron Protectorate
 	After you cast a spell, deal 4 damage randomly split among all enemies. """
-	#
+	events = OWN_SPELL_PLAY.on(Hit(RANDOM_ENEMY_CHARACTER,1) * 4)
 	pass
 
+class ONY_029_Choice(Choice):
+	def choose(self, card):
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=2:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		card.zone = Zone.PLAY
+		cards = self._args[1]
+		if isinstance(cards, LazyValue):
+			self.cards = cards.evaluate(self.source)
 class ONY_029:# <4>[1626]
 	""" Drakefire Amulet
 	[Tradeable][Discover] 2 Dragons. Summon them. """
-	#
+	play = 	ONY_029_Choice(CONTROLLER, RandomMinion(race=Race.DRAGON)*3)
 	pass
