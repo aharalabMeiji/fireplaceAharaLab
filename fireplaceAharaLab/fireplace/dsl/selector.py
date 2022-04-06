@@ -482,6 +482,7 @@ PIRATE = EnumSelector(Race.PIRATE) | ALL
 TOTEM = EnumSelector(Race.TOTEM) | ALL
 ELEMENTAL = EnumSelector(Race.ELEMENTAL) | ALL
 QUILBOAR = EnumSelector(Race.QUILBOAR) | ALL
+NAGA = EnumSelector(Race.NAGA) | ALL
 
 NATURE = EnumSelector(SpellSchool.NATURE)
 HOLY = EnumSelector(SpellSchool.HOLY)

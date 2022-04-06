@@ -232,6 +232,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_demonhunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\config.py" />
@@ -270,6 +282,12 @@
     <Compile Include="fireplaceAharaLab\utils.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\druid.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\hunter.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\mage.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\neutral.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\warrior.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\__init__.cpython-38.pyc" />
     <Content Include="fireplaceAharaLab\obj\Any CPU\Debug\fireplaceAhara.pyproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +306,8 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\" />
     <Folder Include="fireplaceAharaLab\fireplace\dsl" />
     <Folder Include="fireplaceAharaLab\card_test\" />
     <Folder Include="fireplaceAharaLab\obj\" />

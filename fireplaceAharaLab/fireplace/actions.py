@@ -423,6 +423,27 @@ class GenericChoice(Choice):
 						Play(new_card,None,None,None).trigger(card.controller)
 		# we may return the new card. 
 
+class Dredge(Choice):
+	## choose one from the three bottoms of the deck and place it at the top
+	def get_args(self, source):
+		player = self._args[0]
+		if isinstance(player, Selector):
+			player = player.eval(source.game.players, source)
+			assert len(player) >= 1
+			player = player[0]
+		cards = player.deck[:3]## bottom of deck
+		return player, cards
+
+	def choose (self, card):
+		super().choose(card)
+		log.info("%s chooses %r"%(card.controller.name, card))
+		for _card in card.controller.deck:# cards are from Deck
+			if _card is card:
+				last_index = len(card.controller.deck)-1
+				index = card.controller.deck.index(_card)
+				for i in range(last_index-index):
+					card.controller.deck[index+i] = card.controller.deck[index+1+i]
+	pass
 
 class GenericChoiceOnDeck(Choice):
 	## choose from Deck 
@@ -892,6 +913,27 @@ class PutOnTop(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			card, card.controller.deck[-1] = card.controller.deck[-1], card
+
+class PutOnBottom(TargetedAction):
+	"""
+	Put card on deck dottom
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+
+	def do(self, source, target, cards):
+		log.info("%r put on %s's deck bottom", cards, target)
+		if not isinstance(cards, list):
+			cards = [cards]
+		for card in cards:
+			if card.controller != target:
+				card.zone = Zone.SETASIDE
+				card.controller = target
+			if len(target.deck) >= target.max_deck_size:
+				log.info("Put(%r) fails because %r's deck is full", card, target)
+				continue
+			card.zone = Zone.DECK
+			card, card.controller.deck[0] = card.controller.deck[0], card
 
 
 class Damage(TargetedAction):
