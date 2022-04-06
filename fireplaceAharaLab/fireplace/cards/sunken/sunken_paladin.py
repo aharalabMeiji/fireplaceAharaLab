@@ -98,11 +98,11 @@ class TSC_644t:# <5>[1658]
 	#
 	pass
 
-class TSC_928e:# <5>[1658]
-	""" Overclocked
-	+1/+1. """
-	#
-	pass
+#class TSC_928e:# <5>[1658] -> neutral
+#	""" Overclocked
+#	+1/+1. """
+#	#
+#	pass
 
 class TSC_952:# <5>[1658]
 	""" Holy Maki Roll

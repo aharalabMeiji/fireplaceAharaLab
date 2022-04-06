@@ -150,8 +150,10 @@ class TSC_067:# <12>[1658]
 
 class TSC_069:# <12>[1658]
 	""" Amalgam of the Deep
-	[Battlecry:] Choose a friendly minion. [Discover] a minio nof the same minion type. """
-	#
+	[Battlecry:] Choose a friendly minion. [Discover] a minion of the same minion type. """
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_MINION:0, PlayReq.REQ_FRIENDLY_MINION:0 }
+	play = Discover(CONTROLLER, RandomMinion(type = TYPE(TARGET)))
 	pass
 
 class TSC_083e:# <12>[1658]
@@ -349,13 +351,13 @@ class TSC_909:# <12>[1658]
 class TSC_911:# <12>[1658]
 	""" Excavation Specialist
 	[Battlecry:] [Dredge].Reduce its Cost by (1). """
-	#
+	#play = Dredge(CONTROLLER).then(Buff(Dredge.CARD,{GameTag.COST:-1}))
 	pass
 
 class TSC_919:# <12>[1658]
 	""" Azsharan Sentinel
-	[Taunt]. [Deathrattle:] Put a'Sunken Sentinel' on thebottom of your deck. """
-	#
+	[Taunt]. [Deathrattle:] Put a'Sunken Sentinel' on the bottom of your deck. """
+	deathrattle = PutOnBottom(CONTROLLER, 'TSC_919t')
 	pass
 
 class TSC_919t:# <12>[1658]
@@ -367,31 +369,32 @@ class TSC_919t:# <12>[1658]
 class TSC_926:# <12>[1658]
 	""" Smothering Starfish
 	[Battlecry:] [Silence] ALL other minions. """
-	#
+	play = Silence(ALL_MINIONS - SELF)
 	pass
 
 class TSC_928:# <12>[1658]
 	""" Security Automaton
 	After you summon a Mech, gain +1/+1. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + MECH).on(Buff(SELF, 'TSC_928e'))
 	pass
+TSC_928e=buff(1,1)
 
 class TSC_935:# <12>[1658]
 	""" Selfish Shellfish
 	[Deathrattle:] Your opponent draws 2 cards. """
-	#
+	deathrattle = Draw(OPPONENT) * 2
 	pass
 
 class TSC_938:# <12>[1658]
 	""" Treasure Guard
 	[Taunt][Deathrattle:] Draw a card. """
-	#
+	deathrattle = Draw(CONTROLLER)
 	pass
 
 class TSC_960:# <12>[1658]
 	""" Twin-fin Fin Twin
 	[Rush]. [Battlecry:] Summon a copy of this. """
-	#
+	play = Summon(CONTROLLER, ExactCopy(SELF))
 	pass
 
 class TSC_COIN1:# <12>[1658]
