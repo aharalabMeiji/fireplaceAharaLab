@@ -911,6 +911,7 @@ class PutOnTop(TargetedAction):
 			if len(target.deck) >= target.max_deck_size:
 				log.info("Put(%r) fails because %r's deck is full", card, target)
 				continue
+			#card._summon_index=None
 			card.zone = Zone.DECK
 			card, card.controller.deck[-1] = card.controller.deck[-1], card
 
@@ -932,9 +933,8 @@ class PutOnBottom(TargetedAction):
 			if len(target.deck) >= target.max_deck_size:
 				log.info("Put(%r) fails because %r's deck is full", card, target)
 				continue
+			card._summon_index=0
 			card.zone = Zone.DECK
-			card, card.controller.deck[0] = card.controller.deck[0], card
-
 
 class Damage(TargetedAction):
 	"""
@@ -1020,6 +1020,13 @@ class Battlecry(TargetedAction):
 
 		if card.overload:
 			source.game.queue_actions(card, [Overload(player, card.overload)])
+
+class GiveBattlecry(TargetedAction):
+	CARD = CardArg()
+	TARGETEDACTIONS = ActionArg()
+	def do(self, source, card, targetedactions):
+		card.play = targetedactions
+		pass
 
 class Corrupt(TargetedAction):# darkmoon fair 
 	CONTROLLER = ActionArg()

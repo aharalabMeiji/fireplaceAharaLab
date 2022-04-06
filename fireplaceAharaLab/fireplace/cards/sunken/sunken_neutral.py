@@ -81,38 +81,46 @@ class TSC_020e2:# <12>[1658]
 
 class TSC_032:# <12>[1658]
 	""" Blademaster Okani
-	[Battlecry:] [Secretly] choose to[Counter] the next minion orspell your opponent playswhile this is alive. """
-	#
+	[Battlecry:] [Secretly] choose to [Counter] the next minion or spell your opponent plays while this is alive. """
+	choose = ('TSC_032t', 'TSC_032t2')
 	pass
 
 class TSC_032t:# <12>[1658]
 	""" Minion Counter
-	[Counter] the next minionyour opponent plays. """
-	#
+	[Counter] the next minion your opponent plays. """
+	tags = {GameTag.SECRET:1, }
+	secret =  Play(OPPONENT, MINION).on(
+		Reveal(SELF),
+		Destroy(Play.CARD),
+		)
 	pass
 
 class TSC_032t2:# <12>[1658]
 	""" Spell Counter
 	[Counter] the next spell your opponent plays. """
-	#
+	tags = {GameTag.SECRET:1, }
+	secret =  Play(OPPONENT, SPELL).on(
+		Reveal(SELF),
+		Destroy(Play.CARD),
+		)
 	pass
 
 class TSC_034:# <12>[1658]
 	""" Gorloc Ravager
 	[Battlecry:] Draw 3 Murlocs. """
-	#
+	play = Draw(CONTROLLER, RANDOM(FRIENDLY_DECK+MURLOC)) * 3
 	pass
 
-class TSC_052:# <12>[1658]
+class TSC_052:# <12>[1658]################
 	""" School Teacher
 	[Battlecry:] Add a 1/1 Nagaling to your hand. [Discover] a spell that costs (3) or less to teach it. """
-	#
+	play = Give(CONTROLLER, 'TSC_052t'), Discover(CONTROLLER, RandomSpell(cost=[3,2,1,0])*3)
+	## Discover したspell のbattlecryをTSC_052tに付与する。（どうやって？）
 	pass
 
 class TSC_052t:# <12>[1658]
 	""" Nagaling
 	[Battlecry:] Cast {0}. """
-	#
 	pass
 
 class TSC_053:# <12>[1658]
@@ -124,7 +132,8 @@ class TSC_053:# <12>[1658]
 class TSC_064:# <12>[1658]
 	""" Slithering Deathscale
 	[Battlecry:] If you've cast three spells while holding this, deal 3 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 3, GiveBattlecry(SELF, [Hit(ENEMY_CHARACTERS, 3)])))
 	pass
 
 class TSC_065:# <12>[1658]
@@ -136,12 +145,12 @@ class TSC_065:# <12>[1658]
 class TSC_067:# <12>[1658]
 	""" Ambassador Faelin
 	[Battlecry:] Put 3 [Colossal] minions on the bottom of your deck. """
-	#
+	play = PutOnBottom(CONTROLLER, RandomMinion(colossal=True)) * 3
 	pass
 
 class TSC_069:# <12>[1658]
 	""" Amalgam of the Deep
-	[Battlecry:] Choose a friendlyminion. [Discover] a minionof the same minion type. """
+	[Battlecry:] Choose a friendly minion. [Discover] a minio nof the same minion type. """
 	#
 	pass
 

@@ -738,6 +738,7 @@ class Minion(Character):
 	spellpower = int_property("spellpower")
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
+	colossal = boolean_property("colossal")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
