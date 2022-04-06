@@ -6,19 +6,19 @@ sunken_druid=['TSC_026','TSC_026t','TSC_650','TSC_650a','TSC_650d','TSC_650t','T
 class TSC_026:# <2>[1658]###############################
 	""" Colaque
 	[Colossal +1] [Immune] while you control Colaque's Shell. """
-	play = Summon(CONTROLLER, 'TSC_026t')
+	update = Find(FRIENDLY_MINIONS + ID('TSC_026t')) & Refresh(SELF, {GameTag.IMMUNE:True}) |  Refresh(SELF, {GameTag.IMMUNE:False})
 	pass
 
 class TSC_026t:# <2>[1658]
 	""" Colaque's Shell
 	[Taunt][Deathrattle:] Gain 8 Armor. """
-	#
+	deathrattle = GainArmor(FRIENDLY_HERO, 8)
 	pass
 
 class TSC_650:# <2>[1658]
 	""" Flipper Friends
 	[Choose One] - Summon a 6/6 Orca with [Taunt]; or six 1/1 Otters with [Rush]. """
-	choose = ('TSC_650a','TSC_650b')
+	choose = ('TSC_650a','TSC_650d')
 	play = ChooseBoth(SELF) & (
 		Summon(CONTROLLER, 'TSC_650t'), Summon(CONTROLLER, 'TSC_650t4')
 	)
@@ -67,7 +67,7 @@ class TSC_651e:# <2>[1658]
 	pass
 
 class TSC_652:# <2>[1658]
-	""" Green-Thumb Gardener
+	""" Green-Thumb Gardener (NAGA)
 	[Battlecry:] Refresh empty Mana Crystals equal to the Cost of the most expensive spell in your hand. """
 	def play(self):
 		controller = self.controller
@@ -77,7 +77,7 @@ class TSC_652:# <2>[1658]
 				if card.cost>maxCost:
 					maxCost = card.cost
 		if maxCost>0:
-			RefreshMana(controller, maxCost).trigger(source)
+			RefreshMana(controller, maxCost).trigger(controller)
 	pass
 
 class TSC_653_Action(TargetedAction):
@@ -89,12 +89,9 @@ class TSC_653_Action(TargetedAction):
 			card.controller = target
 		card.atk += 2
 		card.max_health += 2
+		card._summon_index = 0
 		card.zone = Zone.DECK
-		index = controller.deck.index(card)
-		tmp = card## rolling
-		for i in range(index):
-			controller.deck[index-i]=controller.deck[index-1-i]
-		controller.deck[0]=tmp
+		#index = controller.deck.index(card)# this must be 0
 		pass
 
 class TSC_653:# <2>[1658]
@@ -144,7 +141,7 @@ class TSC_657:# <2>[1658]
 	""" Dozing Kelpkeeper
 	[Rush]. Starts [Dormant].After you've cast 5 Mana worth of spells, awaken. """
 	dormant = -1
-	events = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF, Play.CARD, 5, [Awake(SELF)]))
+	events = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF, Play.CARD, 5, [Awaken(SELF)]))
 	pass
 
 class TSC_657e:# <2>[1658]

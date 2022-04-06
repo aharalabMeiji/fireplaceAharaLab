@@ -186,10 +186,10 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.alterac_druid import alterac_druid
-	alterac_druid()
+	from card_test.sunken_druid import sunken_druid
+	sunken_druid()
 	pass
 
 
 if __name__ == "__main__":
-	main()
+	card_test()

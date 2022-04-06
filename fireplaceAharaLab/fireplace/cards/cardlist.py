@@ -69,6 +69,7 @@ Alterac_Mage += ['ONY_006','ONY_007','ONY_029',]
 #Alterac_Shaman += ['ONY_011','ONY_012','ONY_012e','ONY_012t','ONY_013','ONY_013e',]
 #Alterac_Warlock=['AV_277','AV_281','AV_285','AV_286','AV_286e2','AV_308','AV_312','AV_313','AV_313e','AV_316','AV_316hp','AV_316t','AV_316t4','AV_317','AV_317e','AV_657','AV_657e','AV_657t',]
 #Alterac_Warlock+= ['ONY_033','ONY_034','ONY_034t','ONY_035',]
+from fireplace.cards.sunken import sunken_druid
 # Hero
 Heroes=[
 	'HERO_01',
@@ -122,6 +123,7 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
 	Stormwind_Neutral,Stormwind_Hunter,Stormwind_Mage,Stromwind_Druid,Stormwind_Warrior,Stormwind_Updates,
 	Alterac_Neutral,Alterac_Hunter,Alterac_Mage,Alteric_Druid,Alterac_Warrior,
 	#Alterac_Paladin, Alterac_Shaman,Alterac_Rogue,Alterac_Warlock,Alterac_Priest,
+	sunken_druid, 
 	Heroes,Dream,Etc,
 	faceHunter,bigWarrior,clownDruid
 	]

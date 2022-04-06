@@ -439,10 +439,9 @@ class Dredge(Choice):
 		log.info("%s chooses %r"%(card.controller.name, card))
 		for _card in card.controller.deck:# cards are from Deck
 			if _card is card:
-				last_index = len(card.controller.deck)-1
-				index = card.controller.deck.index(_card)
-				for i in range(last_index-index):
-					card.controller.deck[index+i] = card.controller.deck[index+1+i]
+				_card.zone = Zone.SETASIDE
+				_card._summon_index=None# top of deck
+				_card.zone = Zone.DECK
 	pass
 
 class GenericChoiceOnDeck(Choice):
@@ -597,6 +596,7 @@ class Play(GameAction):
 			trigger_outcast = False
 
 		card.zone = Zone.PLAY
+		Colossal(source,card).trigger(source)
 		if card.type == CardType.MINION:
 			player.add_summon_log(card)
 
@@ -1583,13 +1583,23 @@ class Summon(TargetedAction):
 					source_index = source.controller.field.index(source)
 					card._summon_index = source_index + ((self.trigger_index + 1) % 2)
 				card.zone = Zone.PLAY
+			Colossal(target,card).trigger(source)
 			self.queue_broadcast(self, (source, EventListener.ON, target, card))
 			self.broadcast(source, EventListener.AFTER, target, card)
 			# if the spells are casted by the power of another spell, we may need this line.
 			#DMF_254t_Action(card).trigger(card.controller)
 		return cards
 
-
+class Colossal(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		# Colossal # sunken sicy
+		if card.id=='TSC_026':
+			Summon(target,'TSC_026t').trigger(source)
+		pass
+	pass
+	
 class Shuffle(TargetedAction):
 	"""
 	Shuffle card targets into player target's deck.
