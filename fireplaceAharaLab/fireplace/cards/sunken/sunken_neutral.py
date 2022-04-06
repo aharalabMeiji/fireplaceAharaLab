@@ -1,60 +1,78 @@
 from ..utils import *
 
-#CardSet.THE_SUNKEN_CITY_Race.INVALID=['TSC_001','TSC_002','TSC_003','TSC_003e','TSC_007','TSC_013','TSC_017','TSC_020','TSC_020e','TSC_020e2','TSC_032','TSC_032t','TSC_032t2','TSC_034','TSC_052','TSC_052t','TSC_053','TSC_064','TSC_065','TSC_067','TSC_069','TSC_083e','TSC_632','TSC_632e','TSC_638','TSC_638e','TSC_638t','TSC_638t2','TSC_638t3','TSC_638t4','TSC_640','TSC_641','TSC_641ta','TSC_641tae','TSC_641tb','TSC_641tc','TSC_641td','TSC_641tde','TSC_645','TSC_646','TSC_646t','TSC_647','TSC_647e','TSC_649','TSC_649e2','TSC_823','TSC_823e','TSC_826','TSC_827','TSC_827e','TSC_829','TSC_908','TSC_909','TSC_911','TSC_919','TSC_919t','TSC_926','TSC_928','TSC_935','TSC_938','TSC_960','TSC_COIN1','TSC_COIN2',]
+sunken_neutral=['TSC_001','TSC_002','TSC_003','TSC_003e','TSC_007','TSC_013','TSC_017','TSC_020','TSC_020e','TSC_020e2','TSC_032','TSC_032t','TSC_032t2','TSC_034','TSC_052','TSC_052t','TSC_053','TSC_064','TSC_065','TSC_067','TSC_069','TSC_083e','TSC_632','TSC_632e','TSC_638','TSC_638e','TSC_638t','TSC_638t2','TSC_638t3','TSC_638t4','TSC_640','TSC_641','TSC_641ta','TSC_641tae','TSC_641tb','TSC_641tc','TSC_641td','TSC_641tde','TSC_645','TSC_646','TSC_646t','TSC_647','TSC_647e','TSC_649','TSC_649e2','TSC_823','TSC_823e','TSC_826','TSC_827','TSC_827e','TSC_829','TSC_908','TSC_909','TSC_911','TSC_919','TSC_919t','TSC_926','TSC_928','TSC_935','TSC_938','TSC_960','TSC_COIN1','TSC_COIN2',]
+
 class TSC_001:# <12>[1658]
 	""" Naval Mine
-	[Deathrattle:] Deal 4 damageto the enemy hero. """
-	#
+	[Deathrattle:] Deal 4 damage to the enemy hero. """
+	deathrattle = Hit(ENEMY_HERO, 4)
 	pass
 
 class TSC_002:# <12>[1658]
 	""" Pufferfist
 	After your hero attacks, deal 1 damage to all enemies. """
-	#
+	events = Attack(FRIENDLY_HERO).after(Hit(ENEMY_CHARACTERS, 1))
 	pass
 
 class TSC_003:# <12>[1658]
 	""" Coilfang Constrictor
-	[Battlecry:] Look at 3 cardsin your opponent's hand and choose one. It can'tbe played next turn. """
-	#
+	[Battlecry:] Look at 3 cards in your opponent's hand and choose one. It can't be played next turn. """
+	play = GenericChoice(CONTROLLER, RANDOM(ENEMY_HAND)*3).on(Buff(GenericChoice.CARDS,'TSC_003e'))
 	pass
 
-class TSC_003e:# <12>[1658]
-	""" Constricted
-	Can't be played next turn. """
-	#
-	pass
+TSC_003e=buff(cant_play=True)# <12>[1658]
+""" Constricted
+Can't be played next turn. """
 
 class TSC_007:# <12>[1658]
 	""" Gangplank Diver
 	[Dormant] for 1 turn.[Rush]. [Immune] while attacking. """
-	#
+	#		<Tag enumID="791" name="RUSH" type="Int" value="1"/>
+	#		<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>
+	#		<ReferencedTag enumID="1518" name="DORMANT" type="Int" value="1"/>
 	pass
 
 class TSC_013:# <12>[1658]
 	""" Slimescale Diver
 	[Dormant] for 1 turn.[Rush], [Poisonous] """
-	#
+	#<Tag enumID="791" name="RUSH" type="Int" value="1"/>
+	#<Tag enumID="363" name="POISONOUS" type="Int" value="1"/>
+	#<ReferencedTag enumID="1518" name="DORMANT" type="Int" value="1"/>
 	pass
 
-class TSC_017:# <12>[1658]
+class TSC_017:# <12>[1658]###########################
 	""" Baba Naga
-	[Battlecry:] If you've casta spell while holding this, deal 3 damage. """
-	#
+	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
+	requirements = {PlqyReq.REQ_TARGET_IF_AVAILABLE:0 }
 	pass
 
 class TSC_020:# <12>[1658]
 	""" Barbaric Sorceress
 	[Taunt]. [Battlecry:] Swap the Cost of a random spell in each player's hand. """
-	#
-	pass
+	def play(self):
+		choice1=[]
+		for card in self.controller.hand:
+			if card.type==CardType.SPELL:
+				choice1.append(card)
+		choice2=[]
+		for card in self.controller.opponent.hand:
+			if card.type==CardType.SPELL:
+				choice2.append(card)
+		if len(choice1)>0 and len(choice2)>0:
+			card1 = random.choice(choice1)
+			card2 = random.choice(choice2)
+			#card1.cost, card2.cost = card2.cost, card.cost1
+			TSC_020e.cost=SET(card2.cost)
+			TSC_020e2.cost=SET(card1.cost)
+			Buff(card1,'TSC_020e').trigger(self)
+			Buff(card2,'TSC_020e2').trigger(self)
+	pass	
 
 class TSC_020e:# <12>[1658]
 	""" Barbarous
 	Attack was swapped. """
 	#
 	pass
-
 class TSC_020e2:# <12>[1658]
 	""" Barbarous
 	Cost was swapped. """
