@@ -1,6 +1,6 @@
 from ..utils import *
 
-sunken_neutral=['TSC_001','TSC_002','TSC_003','TSC_003e','TSC_007','TSC_013','TSC_017','TSC_020','TSC_020e','TSC_020e2','TSC_032','TSC_032t','TSC_032t2','TSC_034','TSC_052','TSC_052t','TSC_053','TSC_064','TSC_065','TSC_067','TSC_069','TSC_083e','TSC_632','TSC_632e','TSC_638','TSC_638e','TSC_638t','TSC_638t2','TSC_638t3','TSC_638t4','TSC_640','TSC_641','TSC_641ta','TSC_641tae','TSC_641tb','TSC_641tc','TSC_641td','TSC_641tde','TSC_645','TSC_646','TSC_646t','TSC_647','TSC_647e','TSC_649','TSC_649e2','TSC_823','TSC_823e','TSC_826','TSC_827','TSC_827e','TSC_829','TSC_908','TSC_909','TSC_911','TSC_919','TSC_919t','TSC_926','TSC_928','TSC_935','TSC_938','TSC_960','TSC_COIN1','TSC_COIN2',]
+sunken_neutral=['TSC_001','TSC_002','TSC_003','TSC_003e','TSC_007','TSC_013','TSC_017','TSC_020','TSC_020e','TSC_020e2','TSC_032','TSC_032t','TSC_032t2','TSC_034','TSC_052','TSC_052t','TSC_053','TSC_064','TSC_065','TSC_067','TSC_069','TSC_083e','TSC_632','TSC_632e','TSC_638','TSC_638e','TSC_638t','TSC_638t2','TSC_638t3','TSC_638t4','TSC_640','TSC_641','TSC_641ta','TSC_641tae','TSC_641tb','TSC_641tc','TSC_641td','TSC_641tde','TSC_645','TSC_646','TSC_646t','TSC_647','TSC_647e','TSC_649','TSC_649e2','TSC_823','TSC_823e','TSC_826','TSC_827','TSC_827e','TSC_829','TSC_908','TSC_909','TSC_911','TSC_919','TSC_919t','TSC_926','TSC_928','TSC_935','TSC_938','TSC_960',]
 
 class TSC_001:# <12>[1658]
 	""" Naval Mine
@@ -356,10 +356,16 @@ class TSC_909:# <12>[1658]
 	#
 	pass
 
+class TSC_911_Action(Dredge):
+	def choose (self, card):
+		super().choose(card)
+		card.cost = max(0, card.cost-1)
+		pass
+
 class TSC_911:# <12>[1658]
 	""" Excavation Specialist
 	[Battlecry:] [Dredge].Reduce its Cost by (1). """
-	#play = Dredge(CONTROLLER).then(Buff(Dredge.CARD,{GameTag.COST:-1}))
+	play = TSC_911_Action(CONTROLLER)
 	pass
 
 class TSC_919:# <12>[1658]
@@ -405,14 +411,3 @@ class TSC_960:# <12>[1658]
 	play = Summon(CONTROLLER, ExactCopy(SELF))
 	pass
 
-class TSC_COIN1:# <12>[1658]
-	""" The Coin
-	Gain 1 Mana Crystal this turn only. """
-	#
-	pass
-
-class TSC_COIN2:# <12>[1658]
-	""" The Coin
-	Gain 1 Mana Crystal this turn only. """
-	#
-	pass
