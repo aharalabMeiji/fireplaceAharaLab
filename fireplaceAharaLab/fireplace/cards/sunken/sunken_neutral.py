@@ -311,49 +311,59 @@ class TSC_649e2:# <12>[1658]
 class TSC_823:# <12>[1658]
 	""" Murkwater Scribe
 	[Battlecry:] The next spell you play costs (1) less. """
-	#
+	play = Buff(FRIENDLY_HAND + SPELL, 'TSC_823e')
 	pass
 
 class TSC_823e:# <12>[1658]
 	""" Murky
 	Your next spell costs (1) less. """
-	#
+	cost = lambda self, i : max(i-1,0)
+	events = OWN_SPELL_PLAY.on(Destroy(SELF))
 	pass
 
 class TSC_826:# <12>[1658]
 	""" Crushclaw Enforcer
 	[Battlecry:] If you've cast a spell while holding this, draw a Naga. """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 1, [SetAttr(SELF, '_sidequest_counter_', 1)]))
+	play = GetAttr(SELF, '_sidequest_counter_') & Give(CONTROLLER, RNADOM(FRIENDLY_DECK + NAGA))
 	pass
 
 class TSC_827:# <12>[1658]
 	""" Vicious Slitherspear
 	After you cast a spell,gain +1 Attack untilyour next turn. """
-	#
+	events = OWN_SPELL_PLAY.on(Buff(SELF, 'TSC_827e'))
 	pass
 
 class TSC_827e:# <12>[1658]
 	""" Vicious
 	+1 Attack until your next turn. """
-	#
+	atk = lambda self, i : i+1
+	events = OWN_TURN_BEGIN.on(Destroy(SELF))
 	pass
+
+
 
 class TSC_829:# <12>[1658]
 	""" Naga Giant
 	Costs (1) less for each Mana you've spent on spells this game. """
-	#
+	cost_mod = - Count(FRIENDLY + KILLED + SPELL)
 	pass
 
 class TSC_908:# <12>[1658]
 	""" Sir Finley, Sea Guide
-	[Battlecry:] Swap yourhand with the bottom ofyour deck. """
-	#
+	[Battlecry:] Swap your hand with the bottom of your deck. """
+	def play(self):
+		num = len(self.controller.hand)
+		for i in range(num):
+			log.info("Swap %s and %s"%(self.controller.hand[i], self.controller.deck[i]))
+			self.controller.hand[i], self.controller.deck[i] = self.controller.deck[i], self.controller.hand[i] 
 	pass
 
 class TSC_909:# <12>[1658]
 	""" Tuskarrrr Trawler
 	[Battlecry:] [Dredge]. """
-	#
+	play = Dredge(CONTROLLER)
 	pass
 
 class TSC_911_Action(Dredge):

@@ -2398,6 +2398,14 @@ class SetAttr(TargetedAction):
 			log.info("%s set attr '%s' into %d"%(target, attr, amount ))
 			setattr(target, attr, amount)
 
+class GetAttr(TargetedAction):
+	TARGET = ActionArg()
+	ATTR = ActionArg()
+	def do(self, source, target, attr):
+		if hasattr(target, attr):
+			log.info("%s get attr '%s' -> %d"%(target, attr, getattr(target, attr)))
+			return getattr(target, attr)
+		return 0
 
 class BuffOnce(TargetedAction):
 	"""
