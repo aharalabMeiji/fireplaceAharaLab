@@ -9,12 +9,12 @@ def sunken_druid():
 	#PresetGame(pp_TSC_650)# OK
 	#PresetGame(pp_TSC_651)# OK
 	#PresetGame(pp_TSC_652)# OK
-	PresetGame(pp_TSC_653)# 
-	#PresetGame(pp_TSC_654)# 
-	#PresetGame(pp_TSC_656)# 
-	#PresetGame(pp_TSC_657)# 
-	#PresetGame(pp_TSC_658)# 
-	#PresetGame(pp_TSC_927)# 
+	#PresetGame(pp_TSC_653)# OK
+	#PresetGame(pp_TSC_654)# OK
+	#PresetGame(pp_TSC_656)# OK
+	#PresetGame(pp_TSC_657)# OK
+	#PresetGame(pp_TSC_658)# OK
+	PresetGame(pp_TSC_927)# OK
 	pass
 
 #########################
@@ -166,15 +166,16 @@ class pp_TSC_652(Preset_Play):
 		
 #########################
 
+from fireplace.actions import Hit
 class pp_TSC_653(Preset_Play):
-	""" Colaque
-	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	""" Bottomfeeder (1/1/3)
+	[Deathrattle:] Add a Bottomfeeder to the bottom of your deck with permanent +2/+2. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_026',controller)
+		self.mark1=self.exchange_card('TSC_653',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -183,30 +184,31 @@ class pp_TSC_653(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
+		Hit(self.mark1, 4).trigger(opponent)
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.field:
-			self.print_stats("field", card)
+		for card in controller.deck:
+			self.print_stats("deck", card)
 	pass
 		
 #########################
 
 class pp_TSC_654(Preset_Play):
-	""" Colaque
-	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	""" Aquatic Form (cost=0)
+	[Dredge]. If you have the Mana to play the card this turn, draw it. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_026',controller)
+		self.mark1=self.exchange_card('TSC_654',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -215,8 +217,8 @@ class pp_TSC_654(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
 		#self.change_turn(opponent)
@@ -224,21 +226,23 @@ class pp_TSC_654(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.field:
-			self.print_stats("field", card)
+		for card in controller.deck:
+			self.print_stats("deck", card)
+		for card in controller.hand:
+			self.print_stats("hand", card)
 	pass
 		
 #########################
 
 class pp_TSC_656(Preset_Play):
-	""" Colaque
-	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	""" Miracle Growth
+	Draw 3 cards.Summon a Plant with [Taunt] and stats equal to your hand size. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_026',controller)
+		self.mark1=self.exchange_card('TSC_656',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -247,7 +251,7 @@ class pp_TSC_656(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -258,19 +262,22 @@ class pp_TSC_656(Preset_Play):
 		controller=self.player
 		for card in controller.field:
 			self.print_stats("field", card)
+		print("hand size = %d"%(len(controller.hand)))
 	pass
 		
 #########################
 
 class pp_TSC_657(Preset_Play):
-	""" Colaque
-	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	""" Dozing Kelpkeeper
+	[Rush]. Starts [Dormant].After you've cast 5 Mana worth of spells, awaken. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_026',controller)
+		self.mark1=self.exchange_card('TSC_657',controller)
+		self.mark2=self.exchange_card('fire',controller)
+		self.mark3=self.exchange_card('frost',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -279,30 +286,35 @@ class pp_TSC_657(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark3, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
 		for card in controller.field:
 			self.print_stats("field", card)
+			print("dormant = %d"%card.dormant)
 	pass
 		
 #########################
 
 class pp_TSC_658(Preset_Play):
-	""" Colaque
-	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	""" Hedra the Heretic
+	[Battlecry:] For each spellyou've cast while holdingthis, summon a minionof that spell's Cost. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_026',controller)
+		self.mark1=self.exchange_card('TSC_658',controller)
+		self.mark2=self.exchange_card('fire',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -311,7 +323,7 @@ class pp_TSC_658(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -327,14 +339,14 @@ class pp_TSC_658(Preset_Play):
 #########################
 
 class pp_TSC_927(Preset_Play):
-	""" Colaque
-	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	""" Azsharan Gardens
+	Give all minions in your hand +1/+1. Put a 'Sunken Gardens' on the bottom of your deck. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_026',controller)
+		self.mark1=self.exchange_card('TSC_927',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -343,7 +355,7 @@ class pp_TSC_927(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -352,8 +364,10 @@ class pp_TSC_927(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.field:
-			self.print_stats("field", card)
+		for card in controller.hand:
+			self.print_stats("hand", card)
+		for card in controller.deck:
+			self.print_stats("deck", card)
 	pass
 		
 #########################

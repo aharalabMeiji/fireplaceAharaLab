@@ -442,6 +442,7 @@ class Dredge(Choice):
 				_card.zone = Zone.SETASIDE
 				_card._summon_index=None# top of deck
 				_card.zone = Zone.DECK
+				break
 	pass
 
 class GenericChoiceOnDeck(Choice):

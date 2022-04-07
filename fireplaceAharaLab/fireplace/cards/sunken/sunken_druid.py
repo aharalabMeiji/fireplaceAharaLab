@@ -82,8 +82,11 @@ class TSC_652:# <2>[1658]
 
 class TSC_653_Action(TargetedAction):
 	TARGET=ActionArg()
+	CARD=CardArg()
 	def do(self, source, target, card):
 		controller = target
+		if isinstance(card, list):
+			card = card[0]
 		if card.controller != target:
 			card.zone = Zone.SETASIDE
 			card.controller = target
@@ -96,7 +99,7 @@ class TSC_653_Action(TargetedAction):
 
 class TSC_653:# <2>[1658]
 	""" Bottomfeeder
-	[Deathrattle:] Add a Bottom feeder to the bottom of your deck with permanent +2/+2. """
+	[Deathrattle:] Add a Bottomfeeder to the bottom of your deck with permanent +2/+2. """
 	deathrattle = TSC_653_Action(CONTROLLER,'TSC_653')
 	pass
 
@@ -104,7 +107,7 @@ class TSC_654_Action(Dredge):
 	TARGET = ActionArg()
 	def choose (self, card):
 		super().choose(card)
-		controller = target
+		controller = card.controller # self.player
 		if controller.mana>= card.cost:
 			Draw(controller, card).trigger(controller)
 
@@ -141,7 +144,7 @@ class TSC_657:# <2>[1658]
 	""" Dozing Kelpkeeper
 	[Rush]. Starts [Dormant].After you've cast 5 Mana worth of spells, awaken. """
 	dormant = -1
-	events = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF, Play.CARD, 5, [Awaken(SELF)]))
+	events = OWN_SPELL_PLAY.on(SidequestManaCounter(SELF, Play.CARD, 5, [Awaken(SELF),Dormant(SELF,0)]))
 	pass
 
 class TSC_657e:# <2>[1658]

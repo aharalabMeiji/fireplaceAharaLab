@@ -156,70 +156,69 @@ class TSC_069:# <12>[1658]
 	play = Discover(CONTROLLER, RandomMinion(type = TYPE(TARGET)))
 	pass
 
-class TSC_083e:# <12>[1658]
-	""" Lamplight
-	Increased stats. """
-	#
-	pass
+#class TSC_083e:# <12>[1658] -> <5>[1658]
+#	""" Lamplight
+#	Increased stats. """
+#	#
+#	pass
 
 class TSC_632:# <12>[1658]
 	""" Click-Clocker
 	[Divine Shield]. [Battlecry:]Give a random Mech inyour hand +1/+1. """
-	#
+	play = Buff(RANDOM(FRIENDLY_HAND + MECH), 'TSC_632e')
 	pass
 
-class TSC_632e:# <12>[1658]
-	""" Robo-claws
-	+1/+1. """
-	#
-	pass
+TSC_632e=buff(1,1)# <12>[1658]
+""" Robo-claws
++1/+1. """
 
 class TSC_638:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
 	pass
 
-class TSC_638e:# <12>[1658]
-	""" Swarming
-	Increased Attack. """
-	#
-	pass
+TSC_638e=buff(1,0)# <12>[1658]
+""" Swarming
+Increased Attack. """
 
 class TSC_638t:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_638t2:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_638t3:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_638t4:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_640:# <12>[1658]
 	""" Reefwalker
 	[Battlecry and Deathrattle:] Summon a 1/1 Piranha Swarmer. """
-	#
+	play = Summon(CONTROLLER, 'TSC_638')
+	deathrattle = Summon(CONTROLLER, 'TSC_638')
 	pass
 
 class TSC_641:# <12>[1658]
 	""" Queen Azshara
 	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
-	#
+	entourage = ['TSC_641ta','TSC_641tb','TSC_641tc','TSC_641td']
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 3, Discover(CONTROLLER, RandomEntourage())))
 	pass
 
 class TSC_641ta:# <12>[1658]
