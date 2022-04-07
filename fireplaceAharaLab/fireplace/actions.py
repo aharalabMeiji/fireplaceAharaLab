@@ -1026,7 +1026,7 @@ class GiveBattlecry(TargetedAction):
 	CARD = CardArg()
 	TARGETEDACTIONS = ActionArg()
 	def do(self, source, card, targetedactions):
-		card.play = targetedactions
+		card.data.scripts.play.append(targetedactions)
 		pass
 
 class Corrupt(TargetedAction):# darkmoon fair 

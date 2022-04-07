@@ -43,7 +43,7 @@ class TSC_013:# <12>[1658]
 class TSC_017:# <12>[1658]###########################
 	""" Baba Naga
 	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
-	requirements = {PlqyReq.REQ_TARGET_IF_AVAILABLE:0 }
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
 	pass
 
 class TSC_020:# <12>[1658]
@@ -152,8 +152,8 @@ class TSC_069:# <12>[1658]
 	""" Amalgam of the Deep
 	[Battlecry:] Choose a friendly minion. [Discover] a minion of the same minion type. """
 	requirements = {
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_MINION:0, PlayReq.REQ_FRIENDLY_MINION:0 }
-	play = Discover(CONTROLLER, RandomMinion(type = TYPE(TARGET)))
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	play = Discover(CONTROLLER, RandomMinion(race = RACE(TARGET)))
 	pass
 
 #class TSC_083e:# <12>[1658] -> <5>[1658]
@@ -175,7 +175,7 @@ TSC_632e=buff(1,1)# <12>[1658]
 class TSC_638:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID('TSC_638')).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 TSC_638e=buff(1,0)# <12>[1658]
@@ -185,25 +185,25 @@ Increased Attack. """
 class TSC_638t:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID('TSC_638')).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_638t2:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID('TSC_638')).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_638t3:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID('TSC_638')).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_638t4:# <12>[1658]
 	""" Piranha Swarmer
 	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID(TSC_638)).after(Buff(SELF, 'TSC_638e'))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS + ID('TSC_638')).after(Buff(SELF, 'TSC_638e'))
 	pass
 
 class TSC_640:# <12>[1658]
@@ -226,7 +226,8 @@ class TSC_641ta_Action(TargetedAction):
 	TARGET=ActionArg()
 	CARD=ActionArg()
 	def do(self, source, target, card):
-		target.play = card.play
+		target.data.scripts.play = card.data.scripts.play
+		target.requirements = card.data.requirements
 		target.cost = 1
 		pass
 

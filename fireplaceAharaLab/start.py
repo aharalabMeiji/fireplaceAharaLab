@@ -186,8 +186,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.sunken_druid import sunken_druid
-	sunken_druid()
+	from card_test.sunken_neutral_test import sunken_neutral_test
+	sunken_neutral_test()
 	pass
 
 
