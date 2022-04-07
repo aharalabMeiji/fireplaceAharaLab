@@ -221,10 +221,20 @@ class TSC_641:# <12>[1658]
 		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 3, Discover(CONTROLLER, RandomEntourage())))
 	pass
 
+
+class TSC_641ta_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=ActionArg()
+	def do(self, source, target, card):
+		target.play = card.play
+		target.cost = 1
+		pass
+
 class TSC_641ta:# <12>[1658]
 	""" Ring of Tides
 	After you cast a spell, this becomes a copy of it that costs (1). """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.after(TSC_641ta_Action(SELF, Play.CARD))
 	pass
 
 class TSC_641tae:# <12>[1658]
@@ -233,13 +243,13 @@ class TSC_641tae:# <12>[1658]
 	#
 	pass
 
-class TSC_641tb:# <12>[1658]
+class TSC_641tb:# <12>[1658]##
 	""" Horn of Ancients
 	Add a random [Colossal] minion to your hand.It costs (1). """
-	#
+	play = Give(CONTROLLER, RandomMinion(colossal=True)).then(Buff(Give.CARD, 'TSC_641tde'))
 	pass
 
-class TSC_641tc:# <12>[1658]
+class TSC_641tc:# <12>[1658]#############################
 	""" Xal'atath
 	After you cast a spell, deal 2 damage to the enemy hero and lose 1 Durability. """
 	#
@@ -248,14 +258,12 @@ class TSC_641tc:# <12>[1658]
 class TSC_641td:# <12>[1658]
 	""" Tidestone of Golganneth
 	Shuffle 5 randomspells into your deck.Set their Cost to (1).Draw two cards. """
-	#
+	play = (Shuffle(CONTROLLER, RandomSpell()).then(Buff(Shuffle.CARD,'TSC_641tde'))) * 5, Draw(CONTROLLER) * 2
 	pass
 
-class TSC_641tde:# <12>[1658]
-	""" Reduced
-	Costs (1). """
-	#
-	pass
+TSC_641tde=buff(cost=SET(1))# <12>[1658]
+""" Reduced
+Costs (1). """
 
 class TSC_645:# <12>[1658]
 	""" Mothership
