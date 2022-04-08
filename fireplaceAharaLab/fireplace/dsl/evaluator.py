@@ -213,3 +213,19 @@ class CostUp(Evaluator):
 				if target>self.amount:
 					return True
 		return False
+
+class CheckAttribute(Evaluator):
+	"""
+	Evaluates to True if \a attribute has a positive value.
+	"""
+	def __init__(self, selector, attribute):
+		super().__init__()
+		self.selector = selector
+		self.attr = attribute
+
+	def check(self, source):
+		attr = self.attr
+		controller = self.selector.eval(source.game.allcards, source)
+		if hasattr(controller, attr) and getattr(controller, attr)>0:
+			return True
+		return False

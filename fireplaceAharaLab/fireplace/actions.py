@@ -2404,8 +2404,8 @@ class GetAttr(TargetedAction):
 	def do(self, source, target, attr):
 		if hasattr(target, attr):
 			log.info("%s get attr '%s' -> %d"%(target, attr, getattr(target, attr)))
-			return getattr(target, attr)
-		return 0
+			return (getattr(target, attr)>0)
+		return False
 
 class BuffOnce(TargetedAction):
 	"""

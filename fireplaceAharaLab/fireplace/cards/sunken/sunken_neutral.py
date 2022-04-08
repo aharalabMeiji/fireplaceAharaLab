@@ -326,7 +326,7 @@ class TSC_826:# <12>[1658]
 	[Battlecry:] If you've cast a spell while holding this, draw a Naga. """
 	class Hand:
 		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 1, [SetAttr(SELF, '_sidequest_counter_', 1)]))
-	play = GetAttr(SELF, '_sidequest_counter_') & Give(CONTROLLER, RNADOM(FRIENDLY_DECK + NAGA))
+	play = CheckAttribute(SELF, '_sidequest_counter_') & Give(CONTROLLER, RANDOM(FRIENDLY_DECK + NAGA))
 	pass
 
 class TSC_827:# <12>[1658]
