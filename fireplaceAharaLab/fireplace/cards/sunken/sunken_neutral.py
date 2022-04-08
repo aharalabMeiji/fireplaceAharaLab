@@ -31,10 +31,12 @@ class TSC_003:# <12>[1658]
 	play = TSC_003_Action(CONTROLLER, RANDOM(ENEMY_HAND)*3)
 	pass
 
-TSC_003e=buff(cant_play=True)# <12>[1658]
-""" Constricted
-Can't be played next turn. """
-# NO one_turn_effect
+class TSC_003e:# <12>[1658] #CANT_PLAY
+	""" Constricted
+	Can't be played next turn. """
+	# NO one_turn_effect
+	cant_play = lambda self, i :True
+	events = OWN_TURN_BEGIN.on(Destroy(SELF))
 
 class TSC_007:# <12>[1658]
 	""" Gangplank Diver
@@ -42,6 +44,7 @@ class TSC_007:# <12>[1658]
 	#		<Tag enumID="791" name="RUSH" type="Int" value="1"/>
 	#		<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>
 	#		<ReferencedTag enumID="1518" name="DORMANT" type="Int" value="1"/>
+	dormant = 1
 	pass
 
 class TSC_013:# <12>[1658]
@@ -50,12 +53,14 @@ class TSC_013:# <12>[1658]
 	#<Tag enumID="791" name="RUSH" type="Int" value="1"/>
 	#<Tag enumID="363" name="POISONOUS" type="Int" value="1"/>
 	#<ReferencedTag enumID="1518" name="DORMANT" type="Int" value="1"/>
+	dormant = 1
 	pass
 
 class TSC_017:# <12>[1658]###########################
 	""" Baba Naga
 	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0 }
+	class Hand:
+		events = OWN_SPELL_PLAY.on(Hit(RANDOM(ENEMY_CHARACTERS),3))
 	pass
 
 class TSC_020:# <12>[1658]

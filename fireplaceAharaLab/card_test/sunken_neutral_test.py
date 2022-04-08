@@ -7,10 +7,10 @@ from utils import postAction
 def sunken_neutral_test():
 	#PresetGame(pp_TSC_001)# OK
 	#PresetGame(pp_TSC_002)# OK
-	PresetGame(pp_TSC_003)# 
-	#PresetGame(pp_TSC_007)# 
-	#PresetGame(pp_TSC_013)# 
-	#PresetGame(pp_TSC_017)# 
+	#PresetGame(pp_TSC_003)# 
+	#PresetGame(pp_TSC_007)# OK
+	#PresetGame(pp_TSC_013)# OK
+	PresetGame(pp_TSC_017)# 
 	#PresetGame(pp_TSC_020)# 
 	#PresetGame(pp_TSC_032)# 
 	#PresetGame(pp_TSC_034)# 
@@ -132,23 +132,23 @@ class pp_TSC_003(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			self.print_stats("hand", card)
+		for card in controller.opponent.hand:
+			self.print_stats("op-hand", card, show_buff=True)
 		for card in controller.field:
 			self.print_stats("field", card)
 	pass
 
 #########################
 
-class pp_TSC_(Preset_Play):
-	""" 
-	"""
+class pp_TSC_007(Preset_Play):
+	""" Gangplank Diver
+	[Dormant] for 1 turn.[Rush]. [Immune] while attacking. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_',controller)
+		self.mark1=self.exchange_card('TSC_007',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -157,32 +157,33 @@ class pp_TSC_(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark3, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		########## controller
+		#self.change_turn(controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			self.print_stats("hand", card)
 		for card in controller.field:
 			self.print_stats("field", card)
+			print("dormant = %d, rush = %d, immune_while_attacking=%d"%(card.dormant, card.rush, card.immune_while_attacking))
 	pass
 
 #########################
 
-class pp_TSC_(Preset_Play):
-	""" 
-	"""
+class pp_TSC_013(Preset_Play):
+	""" Slimescale Diver
+	[Dormant] for 1 turn.[Rush], [Poisonous] """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_',controller)
+		self.mark1=self.exchange_card('TSC_013',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -191,7 +192,7 @@ class pp_TSC_(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark3, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -200,10 +201,9 @@ class pp_TSC_(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		for card in controller.hand:
-			self.print_stats("hand", card)
 		for card in controller.field:
 			self.print_stats("field", card)
+			print("dormant = %d, rush = %d, poisonous = %d"%(card.dormant, card.rush, card.poisonous))
 	pass
 
 #########################
