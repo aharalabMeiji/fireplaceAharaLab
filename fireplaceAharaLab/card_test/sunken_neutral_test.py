@@ -123,11 +123,11 @@ class pp_TSC_003(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark3, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()

@@ -14,15 +14,27 @@ class TSC_002:# <12>[1658]
 	events = Attack(FRIENDLY_HERO).after(Hit(ENEMY_CHARACTERS, 1))
 	pass
 
+class TSC_003_Action(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
+			return
+		log.info("%s chooses %r"%(card.controller.name, card))
+		for _card in self.cards:
+			if _card is card:
+				Buff(_card,'TSC_003e').trigger(self.source)
+				break
+
 class TSC_003:# <12>[1658]
 	""" Coilfang Constrictor
 	[Battlecry:] Look at 3 cards in your opponent's hand and choose one. It can't be played next turn. """
-	play = GenericChoice(CONTROLLER, RANDOM(ENEMY_HAND)*3).on(Buff(GenericChoice.CARDS,'TSC_003e'))
+	play = TSC_003_Action(CONTROLLER, RANDOM(ENEMY_HAND)*3)
 	pass
 
 TSC_003e=buff(cant_play=True)# <12>[1658]
 """ Constricted
 Can't be played next turn. """
+# NO one_turn_effect
 
 class TSC_007:# <12>[1658]
 	""" Gangplank Diver
