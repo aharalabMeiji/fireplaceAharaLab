@@ -110,8 +110,6 @@ def buff(atk=0, health=0, **kwargs):
 		buff_tags[GameTag.HEALTH] = health
 
 	for tag in GameTag:
-		a= tag.name.lower()
-		b=kwargs.copy()
 		if tag.name.lower() in kwargs.copy():
 			buff_tags[tag] = kwargs.pop(tag.name.lower())
 

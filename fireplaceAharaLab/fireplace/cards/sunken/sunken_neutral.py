@@ -60,7 +60,10 @@ class TSC_017:# <12>[1658]###########################
 	""" Baba Naga
 	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
 	class Hand:
-		events = OWN_SPELL_PLAY.on(Hit(RANDOM(ENEMY_CHARACTERS),3))
+		events = OWN_SPELL_PLAY.on(
+			ReplaceRequirements(SELF,{PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0 }), 
+			GiveBattlecry(SELF,Hit(TARGET,3))
+			)
 	pass
 
 class TSC_020:# <12>[1658]

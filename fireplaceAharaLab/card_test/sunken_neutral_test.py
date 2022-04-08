@@ -10,9 +10,9 @@ def sunken_neutral_test():
 	#PresetGame(pp_TSC_003)# 
 	#PresetGame(pp_TSC_007)# OK
 	#PresetGame(pp_TSC_013)# OK
-	PresetGame(pp_TSC_017)# 
-	#PresetGame(pp_TSC_020)# 
-	#PresetGame(pp_TSC_032)# 
+	#PresetGame(pp_TSC_017)# OK
+	#PresetGame(pp_TSC_020)# OK
+	PresetGame(pp_TSC_032)# 
 	#PresetGame(pp_TSC_034)# 
 	#PresetGame(pp_TSC_052)# 
 	#PresetGame(pp_TSC_053)# 
@@ -208,15 +208,16 @@ class pp_TSC_013(Preset_Play):
 
 #########################
 
-class pp_TSC_(Preset_Play):
-	""" 
-	"""
+class pp_TSC_017(Preset_Play):
+	""" Baba Naga
+	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_',controller)
+		self.mark1=self.exchange_card('TSC_017',controller)
+		self.mark2=self.exchange_card('nature',controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -225,11 +226,13 @@ class pp_TSC_(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark3, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
-		#self.change_turn(opponent)
+		self.change_turn(opponent)
+		########## controller
+		self.play_card(self.mark1, controller, target=opponent.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -242,15 +245,17 @@ class pp_TSC_(Preset_Play):
 
 #########################
 
-class pp_TSC_(Preset_Play):
-	""" 
-	"""
+class pp_TSC_020(Preset_Play):
+	""" Barbaric Sorceress
+	[Taunt]. [Battlecry:] Swap the Cost of a random spell in each player's hand. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('TSC_',controller)
+		self.mark1=self.exchange_card('TSC_020',controller)
+		self.mark2=self.exchange_card('fire',controller)
+		self.mark3=self.exchange_card('nature',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -259,7 +264,7 @@ class pp_TSC_(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark3, controller)
+		self.play_card(self.mark1, controller)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -268,10 +273,11 @@ class pp_TSC_(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
+		opponent = controller.opponent
 		for card in controller.hand:
-			self.print_stats("hand", card)
-		for card in controller.field:
-			self.print_stats("field", card)
+			self.print_stats("hand", card, old_cost=True)
+		for card in opponent.hand:
+			self.print_stats("op-hand", card, old_cost=True)
 	pass
 
 #########################

@@ -2762,6 +2762,12 @@ class Moribund(TargetedAction):
                 action.trigger(source)
         pass
 
+class ReplaceRequirements(TargetedAction):
+	TARGET = ActionArg()
+	REQUIREMENTS = ActionArg()
+	def do(self, source, target, requirements):
+		target.requirements = requirements
+		pass
 
 ############### script_data_num_1 関連 ########################
 
