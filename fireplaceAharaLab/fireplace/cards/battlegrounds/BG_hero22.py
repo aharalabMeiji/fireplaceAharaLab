@@ -139,6 +139,23 @@ class BG22_HERO_305t:# <12>[1453]
 	 """
 	#
 	pass
+class BG22_HERO_305_Buddy:# <12>[1453]
+	""" Many Whelps
+	Whenever you summon a Whelp, gain +2/+2 permanently. """
+	#
+	pass
+
+class BG22_HERO_305_Buddy_G:# <12>[1453]
+	""" Many Whelps
+	Whenever you summon a Whelp, gain +4/+4 permanently. """
+	#
+	pass
+
+class BG22_HERO_305t:# <12>[1453]
+	""" Onyxian Whelp
+	 """
+	#
+	pass
 
 
 class BG22_HERO_000:# <12>[1453]

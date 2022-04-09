@@ -32,6 +32,26 @@ BG20_Heroes =[
 	'BG20_HERO_100','BG20_HERO_101','BG20_HERO_102','BG20_HERO_103','BG20_HERO_201','BG20_HERO_202',
 	]
 
+	#'BG20_HERO_666p_t0',#Diablo, Lord of Terror
+	#'TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',#
+#class BG20_HERO_666p_t0:# <10>[1453]
+#	""" Diablo, Lord of Terror
+#	[Deathrattle:] Give youropponent loot!<i>(If this survives, Diablogets 2 loot instead.)</i> """
+#	#
+#	pass
+#class TB_BaconShop_HERO_37_Buddy:# <12>[1453]
+#	""" Kil'rek
+#	[Taunt][Deathrattle:] Add a random Demon to your hand. """
+#	#
+#	pass
+#class TB_BaconShop_HERO_37_Buddy_G:# <12>[1453]
+#	""" Kil'rek
+#	[Taunt][Deathrattle:] Add 2 randomDemons to your hand. """
+#	#
+#	pass
+
+
+
 #### 100 ####
 class BG20_HERO_100:# <10>[1453]
 	""" Rokara

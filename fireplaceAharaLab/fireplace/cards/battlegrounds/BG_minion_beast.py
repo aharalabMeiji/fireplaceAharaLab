@@ -22,14 +22,33 @@ BG_Minion_Beast=[
 	]
 #
 BG_PoolSet_Beast=[
-	['CFM_315','EX1_531',],##2
-	['BG21_000','BGS_075','BG19_010',],##3
-	['BGS_078','CFM_316',],#2
-	['LOOT_078','BG21_003','CORE_EX1_534',],#3
-	['BG20_205','BG22_001','BGS_021','BG21_001'],#4
-	['BGS_008','BGS_018',],#2
+	['CFM_315','EX1_531',],#1
+	['BG21_000','BGS_075','BG19_010',],#2
+	['BGS_078','CFM_316',],#3
+	['LOOT_078','BG21_003','CORE_EX1_534',],#4
+	['BG20_205','BG22_001','BGS_021','BG21_001'],#5
+	['BGS_008','BGS_018',],#6
 	]
 
+BG_Beast_Gold={
+	'CFM_315':'TB_BaconUps_093',,#Alleycat
+	'EX1_531':'TB_BaconUps_043',#Scavenging Hyena
+	'BG21_000':'BG21_000_G',#Leapfrogger
+	'BGS_075':'TB_BaconUps_125',#Rabid Saurolisk
+	'BG19_010':'BG19_010_G',#Sewer Rat
+	'BGS_078':'TB_BaconUps_135',#Monstrous Macaw
+	'CFM_316':'TB_BaconUps_027',#Rat Pack
+	'LOOT_078':'TB_BaconUps_151',#Cave Hydra
+	'BG21_003':'BG21_003_G',#Reanimating Rattler
+	'CORE_EX1_534':'TB_BaconUps_049',#Savannah Highmane
+	'BG20_205':'BG20_205_G',#Agamaggan, the Great Boar
+	'BG22_001':'BG22_001_G',#Baby Krush
+	'BGS_021':'TB_BaconUps_090',#Mama Bear
+	'BG21_001':'BG21_001_G',#Palescale Crocolisk
+	'BGS_008':'TB_BaconUps_057',#Ghastcoiler
+	'BGS_018':'TB_BaconUps_085',#Goldrinn, the Great Wolf
+	#'FP1_010','TB_BaconUps_155',# Maexxna (BAN)
+	}
 class CFM_315:# <3>[25]
 	""" Alleycat <beast> (1/1)
 	[Battlecry:] Summon a 1/1_Cat."""
