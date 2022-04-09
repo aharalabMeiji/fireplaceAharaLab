@@ -155,6 +155,7 @@ class BaseCard(BaseEntity):
 
 class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cant_be_frozen = boolean_property("cant_be_frozen")# 
+	colossal = int_property("colossal") # sunken city
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	has_choose_one = boolean_property("has_choose_one")

@@ -597,7 +597,8 @@ class Play(GameAction):
 			trigger_outcast = False
 
 		card.zone = Zone.PLAY
-		Colossal(source,card).trigger(source)
+		if hasattr(card,'colossal') and card.colossal>0:
+			Colossal(source,card).trigger(source)
 		if card.type == CardType.MINION:
 			player.add_summon_log(card)
 
@@ -1591,7 +1592,8 @@ class Summon(TargetedAction):
 					source_index = source.controller.field.index(source)
 					card._summon_index = source_index + ((self.trigger_index + 1) % 2)
 				card.zone = Zone.PLAY
-			Colossal(target,card).trigger(source)
+			if hasattr(card,'colossal') and card.colossal>0:
+				Colossal(target,card).trigger(source)
 			self.queue_broadcast(self, (source, EventListener.ON, target, card))
 			self.broadcast(source, EventListener.AFTER, target, card)
 			# if the spells are casted by the power of another spell, we may need this line.
@@ -1604,7 +1606,13 @@ class Colossal(TargetedAction):
 	def do(self, source, target, card):
 		# Colossal # sunken sicy
 		if card.id=='TSC_026':
-			Summon(target,'TSC_026t').trigger(source)
+			newcard = Summon(target,'TSC_026t').trigger(source)
+			newcard = newcard[0][0]
+			newcard.owner = card
+		elif card.id=='TSC_660':
+			newcard = Summon(target,'TSC_660t').trigger(source)
+			newcard = newcard[0][0]
+			newcard.owner = card
 		pass
 	pass
 	
