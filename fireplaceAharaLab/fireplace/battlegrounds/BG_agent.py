@@ -4,6 +4,7 @@ from fireplace.card import Card
 from fireplace.player import Player
 import random
 from hearthstone.enums import Zone,State, CardClass
+from fireplace.cards.battlegrounds import BG_hero1
 
 class BG_Agent(object):
 	""" バトルグラウンドのエージェントのクラス
@@ -92,7 +93,13 @@ class BG_HumanAgent(BG_Agent):
 				pass
 	def printHero(self, count, cardID):
 		card = cards.db[cardID]
-		print("[%d] %s"%(count, card.name))
+		hpID=card.hero_power
+		hp=cards.db[hpID]
+		bdID=BG_hero1.BG_Hero1_Buddy[cardID]
+		bd=cards.db[bdID]
+		print("[%d] %s "%(count, card.name))
+		print("HeroPower:%s"%(hp.description.replace('\n',' ')))
+		print("Buddy:%s"%(bd.description.replace('\n',' ')))
 		pass
 	def printMove(self, count, move):
 		print("[%d] %s"%(count, move))
@@ -123,6 +130,8 @@ def DealCard(decks, grade):
 def ReturnCard(decks, card):
 	gr = card.tech_level-1
 	decks[gr].append(card.id)
+	card.zone=Zone.DECK
+	card.controller.field.remove(card)
 	pass
 
 

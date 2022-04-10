@@ -29,7 +29,7 @@ def BG_main():
 	# ヒーローセット
 	Heroes = \
 		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1 
-	# デッキを作る
+	# デッキを作る新しいゲームの始まり。
 	for i in range(6):
 		if i<5:
 			rep=8
@@ -62,7 +62,7 @@ def BG_main():
 	# 無限ループ始まり
 	prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
 	while True:	
-		### 組合せを決める
+		### 組合せをランダムに決める（現状固定）
 		matches=[[0,1],[2,3]]#
 		#battlesはこのままで繰り返し使う。
 		battles = [None,None]
@@ -77,13 +77,15 @@ def BG_main():
 			bartender.BobsTmpFieldSize=BobsFieldSize[bar.turn]
 			controller.max_mana = min(10,bar.turn+2)
 			# リロール
-			notfrozen=0
-			for card in bartender.field:
+			frozencard=0
+			repeat = len(bartender.field)
+			for i in range(repeat):
+				card = bartender.field[0]
 				if not card.frozen:
 					ReturnCard(decks, card)
 				else:
-					notfrozen += 1
-			for repeat in range(max(bartender.BobsTmpFieldSize,controller.BobsTmpFieldSize)-notfrozen):
+					frozencard += 1
+			for repeat in range(bartender.BobsTmpFieldSize-frozencard):
 				card = DealCard(decks,controller.Tier)
 				card.controller = bartender
 				card.zone = Zone.PLAY
@@ -117,7 +119,8 @@ def BG_main():
 				hero0.damage += damage0#
 			print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
 			if hero0.health<=0:
-				#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
+				#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+				#ケルスザードは酒場のムーブを行わない。
 				pass
 		if damage1>0:
 			hero1 = BG_Bars[matches[i][1]].controller.hero
@@ -137,7 +140,11 @@ def BG_main():
 		#次のターンへ
 		for bar in BG_Bars:
 			controller = bar.controller
+			# グレードアップコストを減らす。
 			controller.TierUpCost = max(0, controller.TierUpCost-1) 
+			#ターン更新に伴うコインの補充。
+			bar.turn += 1
+			controller.used_mana = 0 
 			pass
 
 	# 無限ループ終わり
@@ -269,7 +276,7 @@ class Move(object):
 	def tierup(self):
 		if self.controller.Tier<=5 and self.controller.mana>=self.controller.TierUpCost:
 			self.controller.Tier += 1
-			self.controller.usedmana += self.controller.TierUpCost
+			self.controller.used_mana += self.controller.TierUpCost
 			self.controller.TierUpCost = TierUpCost[self.controller.Tier]
 
 	def rerole(self):
