@@ -4,7 +4,7 @@ from hearthstone.enums import State, Zone
 
 class BG_Bar(Game):
 	def __init__(self, player):
-		self.bartender = Player('Bartender', player.starting_deck, 'DALA_BOSS_99h')
+		self.bartender = Player('Bartender', player.starting_deck, 'TB_BaconShopBob')
 		self.controller = player
 		#self.controller.starting_hero.game=self
 		players = (self.bartender, player)

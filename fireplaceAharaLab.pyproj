@@ -48,13 +48,17 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero21.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero0.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero20.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero22.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero4.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero3.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_demon.py">

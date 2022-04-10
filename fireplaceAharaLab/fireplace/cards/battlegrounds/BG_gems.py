@@ -475,11 +475,6 @@ class TB_BaconShopBadsongE:# <2>[1453]
 	#
 	pass
 
-class TB_BaconShopBob:# <12>[1453]
-	""" Bartender Bob
-	 """
-	#
-	pass
 
 class TB_BaconShopBob_SKIN_A:# <12>[1453]
 	""" Ragnaros, Tikilord

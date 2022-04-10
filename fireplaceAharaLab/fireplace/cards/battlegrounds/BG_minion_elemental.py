@@ -31,7 +31,7 @@ BG_Elemental_Gold={
 	'BGS_115':'TB_BaconUps_156',#Sellemental(1)
 	'BGS_127':'TB_Baconups_202',#Molten Rock(2)
 	'BGS_120':'TB_BaconUps_160',#Party Elemental(2)
-	'BGS_119';'TB_BaconUps_159',#Crackling Cyclone(3)
+	'BGS_119':'TB_BaconUps_159',#Crackling Cyclone(3)
 	'BG21_021':'BG21_021_G',#Smogger(3)
 	'BGS_122':'TB_BaconUps_161',#Stasis Elemental(3)
 	'BG21_020':'BG21_020_G',#Dazzling Lightspawn(4)

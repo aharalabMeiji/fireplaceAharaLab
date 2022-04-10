@@ -13,8 +13,6 @@ from .BG_battle import BG_Battle
 
 decks=[[],[],[],[],[],[]]
 
-
-
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 TierUpCost={1:5, 2:6, 3:8, 4:11, 5:10}
 
@@ -30,8 +28,7 @@ def BG_main():
 		]
 	# ヒーローセット
 	Heroes = \
-		cards.battlegrounds.BG_hero20.BG20_Heroes + \
-		cards.battlegrounds.BG_hero21.BG21_Heroes
+		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1 
 	# デッキを作る
 	for i in range(6):
 		if i<5:
@@ -41,6 +38,10 @@ def BG_main():
 		for repeat in range(rep):	# BAN される raceはここで除外
 			decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 			decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+			decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+			decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+			decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+			decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
 	# ヒーローの選択
 	BG_Bars=[]
 	for agent in Agents:

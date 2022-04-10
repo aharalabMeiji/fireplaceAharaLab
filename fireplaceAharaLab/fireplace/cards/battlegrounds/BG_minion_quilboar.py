@@ -1,6 +1,6 @@
 from ..utils import *
 
-BG_Minion_Pirate=[
+BG_Minion_Quilboar=[
 	'BG20_100','BG20_100_G',#Razorfen Geomancer	1
 	'BG20_301','BG20_301_G',#Sun-Bacon Relaxer	1
 	'BG20_101','BG20_101_G',#Roadboar	2
@@ -11,14 +11,14 @@ BG_Minion_Pirate=[
 	'BG20_105','BG20_105_G',#Thorncaller	3
 	'BG20_104','BG20_104_G',#Bonker	4
 	'BG20_207','BG20_207e','BG20_207_G','BG20_207_Ge',#Dynamic Duo	4
-	'BG20_106','BG20_106e','BG20_106_G','BG20_106_Ge',#Groundshaker	4
+	'BG20_106','BG20_106e','BG20_106_G',#Groundshaker	4
 	'BG20_202','BG20_202_G',#Necrolyte	4
 	'BG20_302','BG20_302e','BG20_302_G','BG20_302_Ge',#Aggem Thorncurse	5
 	'BG20_206','BG20_206_G',#Captain Flat Tusk	6
 	'BG20_303','BG20_303_G',#Charlga	6
 	]
 
-BG_PoolSet_Pirate=[
+BG_PoolSet_Quilboar=[
 	['BG20_100','BG20_301',],
 	['BG20_101','BG20_102',],
 	['BG20_201','BG20_103','BG21_037','BG20_105',],
@@ -27,7 +27,7 @@ BG_PoolSet_Pirate=[
 	['BG20_206','BG20_303',],
 	]
 
-BG_Pirate_Gold={
+BG_Quilboar_Gold={
 	'BG20_100':'BG20_100_G',#Razorfen Geomancer	1
 	'BG20_301':'BG20_301_G',#Sun-Bacon Relaxer	1
 	'BG20_101':'BG20_101_G',#Roadboar	2
@@ -40,9 +40,10 @@ BG_Pirate_Gold={
 	'BG20_207':'BG20_207_G',#Dynamic Duo	4
 	'BG20_106':'BG20_106_G',#Groundshaker	4
 	'BG20_202':'BG20_202_G',#Necrolyte	4
-	'BG20_302':'BG20_302_G',,#Aggem Thorncurse	5
+	'BG20_302':'BG20_302_G',#Aggem Thorncurse	5
 	'BG20_206':'BG20_206_G',#Captain Flat Tusk	6
-	'BG20_303':'BG20_303_G',#Charlga	6	}
+	'BG20_303':'BG20_303_G',#Charlga	6	
+	}
 
 #Razorfen Geomancer	1
 class BG20_100:# <12>[1453]

@@ -31,7 +31,7 @@ BG_PoolSet_Beast=[
 	]
 
 BG_Beast_Gold={
-	'CFM_315':'TB_BaconUps_093',,#Alleycat
+	'CFM_315':'TB_BaconUps_093',#Alleycat
 	'EX1_531':'TB_BaconUps_043',#Scavenging Hyena
 	'BG21_000':'BG21_000_G',#Leapfrogger
 	'BGS_075':'TB_BaconUps_125',#Rabid Saurolisk
