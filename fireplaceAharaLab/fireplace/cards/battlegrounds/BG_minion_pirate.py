@@ -1,9 +1,49 @@
 from ..utils import *
 
-BattleGrounds_Minion_Pirate=[
-	'BGS_055','TB_BaconUps_126',
+BG_Minion_Pirate=[
+	'BGS_055','TB_BaconUps_126',#Deck Swabbie (1)
+	'BGS_061','BGS_061t','TB_BaconUps_141','TB_BaconUps_141t',#Scallywag,1
+	'BGS_049','TB_BaconUps_127',#Freedealing Gambler,2
+	'CORE_NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e',#Southsea Captain,2
+	'BGS_060','TB_BaconUps_150',#Yo-Ho-Ogre,2
+	'BG21_017','BG21_017_G',#Briny Bootlegger,3
+	'BGS_081','BGS_081e','TB_BaconUps_143','TB_BaconUps_143e',#Salty Looter,3
+	'BGS_048','BGS_048e','TB_BaconUps_140','TB_BaconUps_140e',#Southsea Strongarm,3,
+	'BGS_066','BGS_066e','TB_BaconUps_130','TB_BaconUps_130e',#Goldgrubber,4
+	'BG21_016','BG21_016e','BG21_016_G','BG21_016_Ge',#Peggy Brittlebone,4
+	'BGS_056','BGS_056e','TB_BaconUps_139','TB_BaconUps_139e',#Ripsnarl Captain,4,
+	'BGS_072','TB_BaconUps_133',#Cap'n Hoggarr,5
+	'BG21_031','BG21_031_G',#Tony Two-Tusk,5
+	'BGS_047','BGS_047e','TB_BaconUps_134','TB_BaconUps_134e',#Dread Admiral Eliza,6
+	'BG21_019','BG21_019_G',#Nosy Looter,6
 	]
-#
+
+BG_PoolSet_Pirate=[
+	['BGS_055','BGS_061',],
+	['BGS_049','CORE_NEW1_027','BGS_060',],
+	['BG21_017','BGS_081','BGS_048',],
+	['BGS_066','BG21_016','BGS_056',],
+	['BGS_072','BG21_031',],
+	['BGS_047', 'BG21_019',],
+	]
+
+BG_Pirate_Gold={
+	'BGS_055':'TB_BaconUps_126',#Deck Swabbie (1)
+	'BGS_061':'TB_BaconUps_141',#Scallywag,1
+	'BGS_049':'TB_BaconUps_127',#Freedealing Gambler,2
+	'CORE_NEW1_027':'TB_BaconUps_136',#Southsea Captain,2
+	'BGS_060':'TB_BaconUps_150',#Yo-Ho-Ogre,2
+	'BG21_017':'BG21_017_G',#Briny Bootlegger,3
+	'BGS_081':'TB_BaconUps_143',#Salty Looter,3
+	'BGS_048':'TB_BaconUps_140',#Southsea Strongarm,3,
+	'BGS_066':'TB_BaconUps_130',#Goldgrubber,4
+	'BG21_016':'BG21_016_G',#Peggy Brittlebone,4
+	'BGS_056':'TB_BaconUps_139',#Ripsnarl Captain,4,
+	'BGS_072':'TB_BaconUps_133',#Cap'n Hoggarr,5
+	'BG21_031':'BG21_031_G',#Tony Two-Tusk,5
+	'BGS_047':'TB_BaconUps_134',#Dread Admiral Eliza,6
+	'BG21_019':'BG21_019_G',#Nosy Looter,6
+	}
 
 
 #Deck Swabbie,1,2,2,Pirate,Battlecry

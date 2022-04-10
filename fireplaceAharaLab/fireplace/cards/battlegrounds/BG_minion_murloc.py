@@ -1,8 +1,6 @@
 from ..utils import *
 
-#CardSet.BATTLEGROUNDS_Race.MURLOC=['BG21_008','BG21_008_G','BG21_009','BG21_009_G','BG21_010','BG21_010_G','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G','BG22_202','BG22_202_G','BG22_401','BG22_401_G','BGS_020','BGS_030','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_G','TB_BaconShop_HERO_55_Buddy','TB_BaconShop_HERO_55_Buddy_G','TB_BaconUps_003','TB_BaconUps_003t','TB_BaconUps_008','TB_BaconUps_011','TB_BaconUps_036','TB_BaconUps_052t','TB_BaconUps_061','TB_BaconUps_064','TB_BaconUps_089','TB_BaconUps_100','TB_BaconUps_124','TB_BaconUps_152',]
-
-BG_Minion_Mecha =[
+BG_Minion_Murloc =[
 'UNG_073','TB_BaconUps_061',#Rockpool Hunter (1)
 'BG22_401','BG22_401e','BG22_401_G','BG22_401_Ge',#Swampstriker (1)
 'EX1_507','EX1_507e','TB_BaconUps_008','TB_BaconUps_008e',#Murloc Warleader (2)
@@ -15,7 +13,8 @@ BG_Minion_Mecha =[
 'BGS_030','BGS_030e','TB_BaconUps_100','TB_BaconUps_100e',#King Bagurgle (5)
 'BG21_009','BG21_009e','BG21_009_G',#SI:Sefin (5)
 	]
-BG_PoolSet_Mecha=[
+
+BG_PoolSet_Murloc=[
 	['UNG_073','BG22_401', ],
 	['EX1_507', 'BG21_008', 'BG22_202', ],
 	['EX1_103', 'BT_010', 'BG21_010', ],
@@ -23,7 +22,7 @@ BG_PoolSet_Mecha=[
 	['BGS_030', ],
 	['BG21_009',],
 	]
-BG_Mecha_Gold={
+BG_Murloc_Gold={
 	'UNG_073':'TB_BaconUps_061',#Rockpool Hunter (1)
 	'BG22_401':'BG22_401_G',#Swampstriker (1)
 	'EX1_507':'TB_BaconUps_008',#Murloc Warleader (2)
