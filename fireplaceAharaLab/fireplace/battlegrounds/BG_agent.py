@@ -105,16 +105,21 @@ class BG_HumanAgent(BG_Agent):
 		print("[%d] %s"%(count, move))
 		pass
 	def printBar(self, bar, controller, bartender):
-		print("Tier[%d], TierUpCost[%d], ReroleCost[%d], Gold[%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana ))
+		print("----------------------------------------------")
+		print("Tier[%d], TierUpCost[%d], ReroleCost[%d], Gold[%d/%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana ))
+		print("----------------------------------------------")
 		for card in bartender.field:
 			if card.frozen:
 				print("Bar   : %s (frozen)"%(card))
 			else:
 				print("Bar   : %s"%(card))
+		print("----------------------------------------------")
 		for card in controller.field:
 			print("Field : %s"%(card))
+		print("----------------------------------------------")
 		for card in controller.hand:
 			print("Hand  : %s"%(card))
+		print("----------------------------------------------")
 		pass
 
 def DealCard(decks, grade):
@@ -130,8 +135,8 @@ def DealCard(decks, grade):
 def ReturnCard(decks, card):
 	gr = card.tech_level-1
 	decks[gr].append(card.id)
-	card.zone=Zone.DECK
-	card.controller.field.remove(card)
+	card.zone=Zone.GRAVEYARD
+	#card.controller.field.remove(card)
 	pass
 
 

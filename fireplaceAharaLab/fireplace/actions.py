@@ -616,6 +616,65 @@ class Play(GameAction):
 		card.target = None
 		card.choose = None
 
+class BG_Play(GameAction):
+	"""
+	Make the source player play \a card, on \a target or None.
+	Choose play action from \a choose or None.
+	"""
+	PLAYER = ActionArg()
+	CARD = CardArg()
+	TARGET = ActionArg()
+	INDEX = IntArg()
+	CHOOSE = ActionArg()
+
+	def _broadcast(self, entity, source, at, *args):
+		# Prevent cards from triggering off their own play
+		if entity is args[1]:
+			return
+		return super()._broadcast(entity, source, at, *args)
+
+	def do(self, source, card, target, index, choose):
+		player = source
+		log.info("%s plays %r (target=%r, index=%r)", player, card, target, index)
+		player.add_play_log(card)
+
+		card.target = target
+		card._summon_index = index
+		battlecry_card = choose or card
+		# We check whether the battlecry will trigger, before the card.zone changes
+		if battlecry_card.battlecry_requires_target() and not target:
+			log.info("%r requires a target for its battlecry. Will not trigger." % card)
+			trigger_battlecry = False
+		else:
+			trigger_battlecry = True
+		card.zone = Zone.PLAY
+		if card.type == CardType.MINION:
+			player.add_summon_log(card)
+		# Remember cast on friendly characters
+		if target and target.controller == source:
+			card.cast_on_friendly_characters = True
+		summon_action = Summon(player, card)
+		if card.type in (CardType.MINION, CardType.WEAPON):
+			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
+		self.broadcast(player, EventListener.ON, player, card, target)
+		self.resolve_broadcasts()
+		#Corrupt(player, card).trigger(player)
+		# "Can't Play" (aka Counter) means triggers don't happen either
+		if not card.cant_play:
+			if trigger_battlecry:
+				source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
+			played_card = card.morphed or card
+			if played_card.type in (CardType.MINION, CardType.WEAPON):
+				summon_action.broadcast(player, EventListener.AFTER, player, played_card)
+			self.broadcast(player, EventListener.AFTER, player, played_card, target)
+		player.combo = True
+		player.last_card_played = card
+		#player.cards_played_this_turn += 1
+		#if card.type == CardType.MINION:
+		#	player.minions_played_this_turn += 1
+		card.target = None
+		card.choose = None
+
 
 class Activate(GameAction):
 	PLAYER = ActionArg()

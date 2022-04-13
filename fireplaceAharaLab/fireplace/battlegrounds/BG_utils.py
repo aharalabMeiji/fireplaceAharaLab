@@ -218,15 +218,14 @@ class Move(object):
 				position += len(self.controller.field)
 			card._summon_index = position
 			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
-				card.target = se
-			card.zone=Zone.PLAY
-			self.controller.add_summon_log(card)
+				card.target = self.controller.field[targetpos]
+			BG_Play(card, card.target, position, None).trigger(self.controller)
 
 	def changeOrder(self, card, p0):
-		len = len(self.controller.field)
+		num = len(self.controller.field)
 		field = self.controller.field
 		tmp = card
-		for p in range(len):
+		for p in range(num):
 			if field[p]==card:
 				break
 		if p>p0:

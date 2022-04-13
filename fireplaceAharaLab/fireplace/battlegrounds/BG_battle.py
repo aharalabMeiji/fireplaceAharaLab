@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BeginTurn
+from fireplace.actions import BeginTurn, RegularAttack
 import random
 from hearthstone.enums import PlayState
 
@@ -58,7 +58,7 @@ class BG_Battle(Game):
 			for card in self.current_player.opponent.field:
 				if card.taunt:
 					taunts.append[card]
-			if len(tanuts)>0:
+			if len(taunts)>0:
 				defenders = taunts
 			else:
 				defenders = self.current_player.opponent.field
