@@ -200,5 +200,6 @@ def battleground_main():
 	BG_utils.BG_main()
 
 if __name__ == "__main__":
+	#main()
 	battleground_main()
 	

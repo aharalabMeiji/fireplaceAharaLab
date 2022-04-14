@@ -39,9 +39,12 @@ def BG_main():
 			decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 			decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 			decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-			decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
-			decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-			decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+			#decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+			#decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Murloc[i]
+			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Pirate[i]
+			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Quilboar[i]
 	# ヒーローの選択
 	BG_Bars=[]
 	for agent in Agents:
@@ -49,7 +52,7 @@ def BG_main():
 		Heroes.remove(theHeroes[0])
 		Heroes.remove(theHeroes[1])
 		theHero = agent.heroChoiceStrategy(theHeroes)
-		heroCard=Card(theHero)
+		#heroCard=Card(theHero)
 		thePlayer = Player(agent.name, decks[0], theHero)#とりあえずグレ１をデッキとしておく。
 		# ゲームのたちあげ
 		bar = BG_Bar(thePlayer)
@@ -74,7 +77,7 @@ def BG_main():
 			for agent in Agents:
 				if agent.name == controller.name:
 					break
-			bartender.BobsTmpFieldSize=BobsFieldSize[bar.turn]
+			bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
 			controller.max_mana = min(10,bar.turn+2)
 			# リロール
 			frozencard=0
@@ -86,8 +89,8 @@ def BG_main():
 				else:
 					frozencard += 1
 			for repeat in range(bartender.BobsTmpFieldSize-frozencard):
-				card = DealCard(decks,controller.Tier)
-				card.controller = bartender
+				card = DealCard(decks, bartender, controller.Tier)
+				card.controller = bartender#たぶん不要
 				card.zone = Zone.PLAY
 			while True:
 				### （バーテンダーに）カードを配る
@@ -97,11 +100,14 @@ def BG_main():
 				choice = agent.moveStrategy(bar, candidates, controller, bartender)
 				#### ターンエンドが選択されていれば、ループから脱出。
 				if choice.move==MovePlay.TURNEND:
+					EndTurn(controller).trigger(controller)
 					break
 				else:
 					choice.execute()
 				pass
 		### ムーブのループ終わり
+		#self.manager.step(self.next_step, Step.MAIN_NEXT)
+
 		### 対戦
 		i=0
 		battles[i] = BG_Battle([BG_Bars[matches[i][0]],BG_Bars[matches[i][1]]])
@@ -143,7 +149,7 @@ def BG_main():
 			# グレードアップコストを減らす。
 			controller.TierUpCost = max(0, controller.TierUpCost-1) 
 			#ターン更新に伴うコインの補充。
-			bar.turn += 1
+			#bar.turn += 1
 			controller.used_mana = 0 
 			pass
 
@@ -283,7 +289,7 @@ class Move(object):
 			for card in self.bartender.field:
 				ReturnCard(decks,card)
 			for card in range(max(self.bartender.BobsTmpFieldSize, self.controller.BobsTmpFieldSize)):
-				card = DealCard(decks, self.controller.Tier)
+				card = DealCard(decks, self.bartender, self.controller.Tier)
 				card.controller = self.bartender
 				card.zone = Zone.PLAY
 

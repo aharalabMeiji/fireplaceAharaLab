@@ -21,7 +21,7 @@ class BG_Bar(Game):
 		self.players[1].opponent = self.players[0]
 		for player in self.players:
 			player.zone = Zone.PLAY
-			#self.manager.new_entity(player)
+			self.manager.new_entity(player)
 
 		first, second = self.controller, self.bartender
 		self.player1 = first
@@ -32,5 +32,6 @@ class BG_Bar(Game):
 		for player in self.players:
 			player.summon(player.starting_hero)
 			#player.playstate = PlayState.PLAYING
+		self.manager.start_game()
 
 

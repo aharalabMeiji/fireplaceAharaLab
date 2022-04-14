@@ -122,12 +122,12 @@ class BG_HumanAgent(BG_Agent):
 		print("----------------------------------------------")
 		pass
 
-def DealCard(decks, grade):
+def DealCard(decks, bartender, grade):
 	dk=[]
 	for i in range(grade):
 		dk += decks[i]
 	cardID = random.choice(dk)
-	card = Card(cardID)
+	card = bartender.card(cardID)
 	gr = card.tech_level-1
 	decks[gr].remove(cardID)
 	return card

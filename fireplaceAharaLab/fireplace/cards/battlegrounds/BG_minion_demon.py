@@ -47,7 +47,7 @@ BG_Demon_Gold={
 class BG21_029:# <12>[1453]
 	""" Icky Imp (1)
 	[Deathrattle:] Summon two 1/1 Imps. """
-	#
+	deathrattle = Summon(CONTROLLER, 'EX1_598') * 2
 	pass
 class EX1_598:#
 	""" imp (1/1)
@@ -56,27 +56,36 @@ class EX1_598:#
 class BG21_029_G:# <12>[1453]
 	""" Icky Imp
 	[Deathrattle:] Summon two 2/2 Imps. """
-	#
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_030t') * 2
 	pass
 class TB_BaconUps_030t:#
 	""" Imp (2/2)
 	"""
 
 ####################
+class BG21_006_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		# source : trickstar card
+		# target = friendly minion
+		buff_health = source.max_health
+		BG21_006e.max_health = buff_health
+		if target!=None and target!=[]:
+			Buff(target, 'BG21_006e').trigger(source)
+		pass
 class BG21_006:# <12>[1453]
 	""" Impulsive Trickster(1)
-	[Deathrattle:] Give thisminion's maximum Health__to another friendly minion._ """
-	#
+	[Deathrattle:] Give this minion's maximum Health__to another friendly minion._ """
+	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS))
 	pass
 class BG21_006e:# <12>[1453]
 	""" Impulsive
 	Increased Health. """
-	#
 	pass
 class BG21_006_G:# <12>[1453]
 	""" Impulsive Trickster
 	[Deathrattle:] Give thisminion's maximum Healthto another friendly miniontwice. """
-	#
+	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS)) * 2
 	pass
 
 ####################

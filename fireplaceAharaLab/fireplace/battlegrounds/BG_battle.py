@@ -1,15 +1,15 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BeginTurn, RegularAttack
+from fireplace.actions import BeginTurn, RegularAttack, Deaths
 import random
 from hearthstone.enums import PlayState
 
 class BG_Battle(Game):
 	def __init__(self, bars):
-		self.game1=deepcopy_game(bars[0], bars[0].current_player,0)
-		self.game2=deepcopy_game(bars[1], bars[1].current_player,0)
-		self.player1 = self.game1.current_player
-		self.player2 = self.game2.current_player
+		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
+		self.game2=deepcopy_game(bars[1], bars[1].controller, 0)
+		self.player1 = self.game1.player1
+		self.player2 = self.game2.player1
 		super().__init__([self.player1, self.player2])
 		pass
 	def battle(self):
@@ -38,8 +38,8 @@ class BG_Battle(Game):
 		for player in self.players:
 			player.playstate = PlayState.PLAYING
 		#turn_beginを実行（先攻、後攻の順）（イベントを発生させるため）
-		BeginTurn(self.first).trigger(self)## trigger主はplayer?
-		BeginTurn(self.second).trigger(self)
+		BeginTurn(self.first).trigger(self)## trigger主はplayer
+		BeginTurn(self.second).trigger(self)## trigger主はplayer
 		#パラメータ設定
 		self.current_player=self.first
 		self.first.AttackIndex=0
@@ -48,6 +48,8 @@ class BG_Battle(Game):
 		self.printField()
 		#ループ開始
 		while True:
+			#フィールドの表示
+			self.printField()
 			#一方が全滅したかどうかの判断（もし全滅していたら終戦処理へ）
 			if len(self.first.field)==0 or len(self.second.field)==0:
 				break
@@ -64,15 +66,21 @@ class BG_Battle(Game):
 				defenders = self.current_player.opponent.field
 			defender=random.choice(defenders)
 			#攻撃
-			RegularAttack(attacker, defender)
+			print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
+			RegularAttack(attacker, defender).trigger(attacker.controller)
 			#死者が出る場合にその処理(deathrattle)
-			self.current_player.end_turn()
+			Deaths().trigger(self)
 			#攻撃ターンの交代(freezeとone_turn_effectはない)
 			self.current_player.AttackIndex+=1
 			if self.current_player.AttackIndex>= len(self.current_player.field):
 				self.current_player.AttackIndex=0
 			self.current_player = self.current_player.opponent
 			pass
+		#バトル終了
+		#self.state = State.COMPLETE
+		#self.manager.step(self.next_step, Step.FINAL_WRAPUP)
+		#self.manager.step(self.next_step, Step.FINAL_GAMEOVER)
+		#self.manager.step(self.next_step)
 		#引き分け
 		if len(self.first.field)==0 and len(self.second.field)==0:
 			return 0,0 #続行
