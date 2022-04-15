@@ -174,10 +174,10 @@ class pp_CORE_CS2_093(Preset_Play):#フィールドにいるミニオンのス�
 		controller = self.player
 		opponent = controller.opponent
 		print("相手フィールドのミニオンがダメージを受けているかどうかを視認"%())
-		for card in opponent.field:#プレイヤー2のフィールドを表示
-			print("field: %s(%s). "%(card, card.id))
-		for card in controller.field:#プレイヤー1のフィールドを表示
-			print("field: %s(%s). "%(card, card.id))
+		for card in controller.hand:#プレイヤー2のフィールドを表示
+			self.print_stats("controller's hand", card)
+		for card in controller.opponent.hand:#プレイヤー1のフィールドを表示
+			self.print_stats("opponent's hand", card)
 	pass
 
 class pp_CORE_CS2_097(Preset_Play):#武器を振る？
