@@ -44,8 +44,6 @@ class BG_Battle(Game):
 		self.current_player=self.first
 		self.first.AttackIndex=0
 		self.second.AttackIndex=0
-		# フィールド表示
-		self.printField()
 		#ループ開始
 		while True:
 			#フィールドの表示
@@ -75,6 +73,8 @@ class BG_Battle(Game):
 			if self.current_player.AttackIndex>= len(self.current_player.field):
 				self.current_player.AttackIndex=0
 			self.current_player = self.current_player.opponent
+			if self.current_player.AttackIndex>= len(self.current_player.field):
+				self.current_player.AttackIndex=0
 			pass
 		#バトル終了
 		#self.state = State.COMPLETE
@@ -88,14 +88,20 @@ class BG_Battle(Game):
 			# 「セカンドのフィールドの残りカードのtech_levelの総和＋セカンドのTier」を求める
 			damage = self.player2.Tier
 			for card in self.player2.field:
-				damage += card.tech_level
+				if hasattr(card,'tech_level'):
+					damage += card.tech_level
+				else:
+					damage += card.cost# or 1?
 			# ダメージを返す
 			return damage, 0
 		else:#if len(self.player2.field)==0:
 			# 「ファーストのフィールドの残りカードのtech_levelの総和＋ファーストのTier」を求める
 			damage = self.player1.Tier
 			for card in self.player1.field:
-				damage += card.tech_level
+				if hasattr(card,'tech_level'):
+					damage += card.tech_level
+				else:
+					damage += card.cost# or 1?
 			# ダメージを返す
 			return 0, damage
 		pass

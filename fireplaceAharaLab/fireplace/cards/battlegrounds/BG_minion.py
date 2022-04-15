@@ -122,7 +122,7 @@ BG_Minon_Gold={
 class BGS_004:# <12>[1453]
 	""" Wrath Weaver
 	After you play a Demon, deal 1 damage to your hero and gain +2/+2. """
-	#
+	events = BG_Play(CONTROLLER, FRIENDLY + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'BGS_004e'))
 	pass
 BGS_004e=buff(2,2)# <12>[1453]
 """ Wrath Woven
@@ -130,9 +130,8 @@ Increased stats. """
 class TB_BaconUps_079:# <12>[1453]
 	""" Wrath Weaver
 	After you play a Demon, deal 1 damage to your hero and gain +4/+4. """
-	#
+	events = Play(CONTROLLER, FRIENDLY_HAND + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'TB_BaconUps_079e'))
 	pass
-
 class TB_BaconUps_079e:# <12>[1453]
 	""" Wrath Woven
 	Increased stats. """

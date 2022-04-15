@@ -109,18 +109,29 @@ class BG_HumanAgent(BG_Agent):
 		print("Tier[%d], TierUpCost[%d], ReroleCost[%d], Gold[%d/%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana ))
 		print("----------------------------------------------")
 		for card in bartender.field:
-			if card.frozen:
-				print("Bar   : %s (frozen)"%(card))
-			else:
-				print("Bar   : %s"%(card))
+			print("Bar   :%s" %(card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.field:
-			print("Field : %s"%(card))
+			print("Field : %s"%(card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.hand:
-			print("Hand  : %s"%(card))
+			print("Hand  : %s"%(card_stats(card)))
 		print("----------------------------------------------")
 		pass
+def card_stats(card):
+	ret = ' %s'%(card)
+	ret += '(%d/%d)'%(card.atk,card.health)
+	if card.frozen:
+		ret += "(frozen)"
+	if card.taunt:
+		ret += "(taunt)"
+	if card.divine_shield:
+		ret += "(divine_shield)"
+	if card.windfury:
+		ret += "(windfury)"
+	if card.reborn:
+		ret += "(reborn)"
+	return ret
 
 def DealCard(decks, bartender, grade):
 	dk=[]

@@ -252,6 +252,7 @@ class Move(object):
 				if c==card:
 					card.controller = self.controller
 					card.zone = Zone.HAND
+					card.frozen=False
 					self.controller.used_mana += 3
 					self.controller.add_buy_log(card)
 					self.bartender.field.remove(c)
