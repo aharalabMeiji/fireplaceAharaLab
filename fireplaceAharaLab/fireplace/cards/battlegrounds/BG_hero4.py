@@ -3,7 +3,8 @@ from ..utils import *
 BG_Hero4=[
 #Rakanishu
 #Reno Jackson
-'BG20_HERO_100','BG20_HERO_100p','BG20_HERO_100p_e2','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge',#Rokara
+'BG20_HERO_100','BG20_HERO_100p','BG20_HERO_100p_e2','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge',
+#Rokara
 #Scabbs Cutterbutter
 #Shudderwock
 #Silas Darkmoon
@@ -22,8 +23,10 @@ BG_Hero4=[
 #Trade Prince Gallywix
 #BG22_HERO_003#Vanndar Stormpike
 #BG22_HERO_004#Varden Dawngrasp
-'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',#Vol'jin
-'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',#Xyrella
+'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',
+#Vol'jin
+'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',
+#Xyrella
 #Y'Shaarj
 #Yogg-Saron, Hope's End
 #Ysera
@@ -31,11 +34,11 @@ BG_Hero4=[
 ]
 ######## source #################################################################
 
-#Rakanishu
+#Rakanishu # armor 5
 
-#Reno Jackson
+#Reno Jackson # armor 6
 
-#Rokara
+#Rokara # armor 5
 class BG20_HERO_100:# <10>[1453]
 	""" Rokara
 	 """
@@ -82,7 +85,7 @@ class BG21_HERO_010_Buddy_G:# <12>[1453]
 	#events = OWN_TURN_BEGIN.on(Give(CONTROLLER, ID(NEXT_OPPONENT_BUDDY))*2)
 	pass
 
-#Shudderwock
+#Shudderwock # armor 3
 class TB_BaconShop_HERO_23:# <12>[1453]
 	""" Shudderwock
 	 """
@@ -120,7 +123,7 @@ class TB_BaconShop_HERO_23_SKIN_A:# <12>[1453]
 	pass
 
 
-#Silas Darkmoon
+#Silas Darkmoon # # armor 6
 
 #Sindragosa
 class TB_BaconShop_HERO_27:# <12>[1453]
@@ -148,7 +151,7 @@ class TB_BaconShop_HERO_27_SKIN_A:# <12>[1453]
 	pass
 
 
-#Sir Finley Mrrgglton
+#Sir Finley Mrrgglton ## armor 3
 
 #Skycap'n Kragg
 
@@ -361,7 +364,7 @@ class TB_BaconShop_HERO_22_SKIN_C:# <12>[1453]
 	pass
 
 
-#The Rat King
+#The Rat King ## armor 6
 class TB_BaconShop_HERO_12:# <12>[1453]
 	""" The Rat King
 	 """
@@ -633,7 +636,7 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 
 #Y'Shaarj
 
-#Yogg-Saron, Hope's End
+#Yogg-Saron, Hope's End # armor 0
 
 #Ysera
 

@@ -121,6 +121,8 @@ class BG_HumanAgent(BG_Agent):
 def card_stats(card):
 	ret = ' %s'%(card)
 	ret += '(%d/%d)'%(card.atk,card.health)
+	if card.cant_play:
+		ret += "(can't play)"
 	if card.frozen:
 		ret += "(frozen)"
 	if card.taunt:

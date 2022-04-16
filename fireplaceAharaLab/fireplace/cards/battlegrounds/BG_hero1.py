@@ -86,6 +86,26 @@ BG_Hero1_Buddy_Gold={
 	'TB_BaconShop_HERO_52_Buddy':'TB_BaconShop_HERO_52_Buddy_G',#16#Deathwing
 	'TB_BaconShop_HERO_43_Buddy':'TB_BaconShop_HERO_43_Buddy_G',#17#Dinotamer Brann
 	}
+
+BG_Hero1_Armor={
+	'TB_BaconShop_HERO_16':0,#01#A. F. Kay 
+	'TB_BaconShop_HERO_76':5,#02#Al'Akir
+	'TB_BaconShop_HERO_56':3,#03#Alexstrasza
+	'BG22_HERO_201':4,#04#Ambassador Faelin
+	'TB_BaconShop_HERO_59':0,#05#Aranna 
+	'TB_BaconShop_HERO_45':5,#06#Arch-Villain Rafaam
+	'BG22_HERO_001':'BG22_HERO_001_Buddy',#BG22_HERO_001#07#Bru'kan
+	'TB_BaconShop_HERO_29':5,#08#C'Thun
+	'TB_BaconShop_HERO_64':6,#09#Captain Eudora
+	'TB_BaconShop_HERO_67':6,#10#Captain Hooktusk
+	'BG21_HERO_000':0,#11#Cariel Roame
+	'TB_BaconShop_HERO_78':0,#12#Chenvaala
+	'BG21_HERO_020':0,#13#Cookie the Cook
+	'TB_BaconShop_HERO_36':'TB_BaconShop_HERO_36_Buddy',#14#Dancin' Deryl
+	'BG20_HERO_103':'BG20_HERO_103_Buddy',#Death Speaker Blackthorn
+	'TB_BaconShop_HERO_52':'TB_BaconShop_HERO_52_Buddy',#16#Deathwing
+	'TB_BaconShop_HERO_43':'TB_BaconShop_HERO_43_Buddy',#17#Dinotamer Brann
+	}
 ########### source
 
 
@@ -107,7 +127,6 @@ class DiscoverTwice(Choice):
 		cards = self._args[1]
 		if isinstance(cards, LazyValue):
 			self.cards = cards.evaluate(self.source)
-		log.info("%r choice from %r", self.source.controller, cards)
 
 class TB_BaconShop_HP_044_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -183,8 +202,8 @@ class TB_BaconShop_HP_064_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
-		if target.Tier==2:
-			DiscoverTwice(controller, RandomBGDragon(tech_level_less=5)).trigger(source)
+		if target.Tier==5:
+			DiscoverTwice(controller, RandomBGDragon(tech_level_less=5)*3).trigger(source)
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
 	<b>Passive</b>After you upgrade Bob's Tavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
@@ -202,15 +221,66 @@ class TB_BaconShop_HERO_56_Buddy_G:
 class BG22_HERO_201:# <12>[1453]
 	""" Ambassador Faelin
 	"""
+class BG22_HERO_201p_Choice(Choice):
+	def choose(self, card):
+		source = self.source
+		source._sidequest_counter_ += 1
+		if source._sidequest_counter_>=3:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		card.zone = Zone.HAND
+		cards = self._args[1]
+		if source._sidequest_counter_==1:
+			Buff(card, 'BG22_HERO_201pe').trigger(source)		
+			cards = RandomBGMinion(tech_level=4)*3
+		elif source._sidequest_counter_==2:
+			Buff(card, 'BG22_HERO_201pe').trigger(source)		
+			cards = RandomBGMinion(tech_level=6)*3
+		elif source._sidequest_counter_==3:
+			Buff(card, 'BG22_HERO_201pe').trigger(source)	
+			pass	
+		if isinstance(cards, LazyValue):
+			self.cards = cards.evaluate(source)
+class BG22_HERO_201p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		bar = target.game
+		turn = bar.turn
+		if turn==1:
+			controller.max_mana = 0
+			BG22_HERO_201p_Choice(controller, RandomBGMinion(tech_level=2)*3).trigger(source)
+		if turn==2:# maybe no need
+			controller.max_mana = 4# maybe no need
+		pass
 class BG22_HERO_201p:# <12>[1453]
 	""" Expedition Plans
 	[Passive.] Skip your first turn. [Discover] a Tier 2, 4, and 6 minion to get at those Tiers. """
-	#
+	events = BeginBar(CONTROLLER).on(BG22_HERO_201p_Action(CONTROLLER))
 	pass
+class BG22_HERO_201pe_Action(TargetedAction):
+	TARGET = ActionArg()
+	TARGETEDACTION = ActionArg()
+	def do(self, source, target, targetedaction):
+		#source = Buff card
+		#target = owner card
+		controller = target.controller
+		self.owner = target
+		tier = self.owner.tech_level
+		if controller.Tier>= tier:
+			self.owner.cant_play=False
+			targetedaction.trigger(source)
+		pass
 class BG22_HERO_201pe:# <12>[1453]
 	""" Unplayable
 	"""
-	#
+	def apply(self, target):
+		self.owner = target
+		self.owner.cant_play=True
+	#play = SetAttr(OWNER, 'cant_play', True)
+	events = UpgradeTier(CONTROLLER).on(BG22_HERO_201pe_Action(OWNER,Destroy(SELF)))
 	pass
 class BG22_HERO_201_Buddy:# <12>[1453]
 	""" Submersible Chef

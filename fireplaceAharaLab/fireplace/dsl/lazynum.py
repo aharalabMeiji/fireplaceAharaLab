@@ -96,6 +96,22 @@ class Count(LazyNum):
 	def evaluate(self, source):
 		return self.num(len(self.get_entities(source)))
 
+class TavernTier(LazyNum):
+	"""
+	Lazily count the matches in a selector
+	"""
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
+
+	def __repr__(self):
+		return "%s(%r)" % (self.__class__.__name__, self.selector)
+
+	def evaluate(self, source):
+		controller = self.get_entities(source)[0]
+		return self.num(controller.Tier)
+
+
 
 class OpAttr(LazyNum):
 	"""
@@ -146,14 +162,4 @@ class RandomNumber(LazyNum):
 	def evaluate(self, source):
 		return self.num(random.choice(self.choices))
 
-class RandomNumberUnderTier(LazyNum):
-	def __init__(self, *args):
-		super().__init__()
-		self.player = args[0]
-		self.player_tier = self.player.Tier
 
-	def __repr__(self):
-		return "%s(%r)" % (self.__class__.__name__, self.choices)
-
-	def evaluate(self, source):
-		return self.num(random.choice(range(self.player_tier))+1)

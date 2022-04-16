@@ -193,7 +193,7 @@ def postAction(player):
 					choice = random.choice(player.choice.cards)
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
-			log.info("%r Chooses a card %r" % (player, choice))
+			log.info("%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())
@@ -275,7 +275,7 @@ class Move(object):
 		pass
 
 	def play(self, card, position=-1, targetpos=-1):
-		if card!=None and len(self.controller.field)<7:
+		if card!=None and card.cant_play!=True and len(self.controller.field)<7:
 			if position<0:
 				position += len(self.controller.field)
 			card._summon_index = position
@@ -380,13 +380,14 @@ def GetMoveCandidates(bar, controller, bartender):
 	#PLAY=1
 	if len(controller.field)<7:
 		for card in controller.hand:
-			for pos in range(len(controller.field)+1):
-				if card.requires_target():
-					for target in card.targets:
-						targetpos=controller.field.index(target)
-						ret.append(Move(bar, card, MovePlay.PLAY, param0=pos, param1=targetpos))
-				else:
-					ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))
+			if not card.cant_play:
+				for pos in range(len(controller.field)+1):
+					if card.requires_target():
+						for target in card.targets:
+							targetpos=controller.field.index(target)
+							ret.append(Move(bar, card, MovePlay.PLAY, param0=pos, param1=targetpos))
+					else:
+						ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))
 	#ORDER=2
 	for pos0 in range(len(controller.field)):
 		card = controller.field[pos0]

@@ -267,7 +267,7 @@ class TB_BaconShop_HERO_34_SKIN_B:# <12>[1453]
 
 #Pyramad
 
-#Queen Wagtoggle
+#Queen Wagtoggle # armor 6
 class TB_BaconShop_HERO_14:# <12>[1453]
 	""" Queen Wagtoggle
 	 """

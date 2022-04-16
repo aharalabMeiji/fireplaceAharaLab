@@ -165,7 +165,7 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 	#
 	pass
 
-#Galewing
+#Galewing # armor 9
 class BG20_HERO_283:# <12>[1453]
 	""" Galewing
 	 """
@@ -464,7 +464,7 @@ class BG20_HERO_280pe:# <12>[1453]
 	#
 	pass
 
-#Lich Baz'hial
+#Lich Baz'hial # armor ? 2 ? 
 class TB_BaconShop_HERO_25:# <12>[1453]
 	""" Lich Baz'hial
 	 """
