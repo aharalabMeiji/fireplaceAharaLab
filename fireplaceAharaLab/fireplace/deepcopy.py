@@ -306,7 +306,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff.controller = newPlayer
 			new_buff.owner = card
 			new_buff.apply(new_card)
-			new_card.buffs.append(new_buff)
+			#new_card.buffs.append(new_buff)
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)

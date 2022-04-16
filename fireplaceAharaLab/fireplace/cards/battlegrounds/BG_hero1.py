@@ -94,9 +94,22 @@ class TB_BaconShop_HERO_16:# <12>[1453]
 	""" A. F. Kay
 	 """
 	pass
+class TB_BaconShop_HP_044_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		bar = target.game
+		turn = bar.turn
+		if turn==1 or turn==2:
+			SetMaxMana(controller,0).trigger(bar)
+		if turn==3:
+			SetMaxMana(controller,5).trigger(bar)
+			Discover(controller, RandomMinion(tech_level = 3)).trigger(source)#tech_level=3
+
 class TB_BaconShop_HP_044:#<12>[1453]
 	""" Procrastinate
-	<b>Passive</b>Skip your first two turns.Start with two minionsfrom Tavern Tier 3."""
+	<b>Passive</b> Skip your first two turns.Start with two minions from Tavern Tier 3."""
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_044_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_16_Buddy:# <12>[1453]
 	""" Snack Vendor
@@ -120,9 +133,18 @@ TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453]
 class TB_BaconShop_HERO_76:# <12>[1453]
 	""" Al'Akir
 	 """
+class TB_BaconShop_HP_086_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if len(target.field)>0:
+			card = target.field[0]
+			card.windfury=True
+			card.divine_shield=True
+			card.taunt=True
 class TB_BaconShop_HP_086:
 	""" Swatting Insects
 	<b>Passive</b><b>Start of Combat:</b> Give yourleft-most minion <b>Windfury</b>,___<b>Divine Shield</b>, and <b>Taunt</b>."""
+	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_76_Buddy:
 	"""Spirit of Air
@@ -144,7 +166,7 @@ class TB_BaconShop_HERO_56:# <12>[1453]
 	"""
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
-	<b>Passive</b>After you upgrade Bob'sTavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
+	<b>Passive</b>After you upgrade Bob's Tavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
 	pass
 class TB_BaconShop_HERO_56_Buddy:
 	""" Vaelastrasz

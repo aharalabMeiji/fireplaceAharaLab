@@ -248,7 +248,13 @@ class Attack(GameAction):
 		defender.defending = False
 		attacker.num_attacks += 1
 
-
+class BeginBar(GameAction):
+	PLAYER = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, player, amount):
+		if source.turn==amount:	
+			self.broadcast(source, EventListener.ON, player)
+		pass
 class BeginTurn(GameAction):
 	"""
 	Make \a player begin the turn
@@ -267,6 +273,20 @@ class BeginTurn(GameAction):
 		player.times_spells_played_this_turn = 0 # DAL_603
 		player.spells_played_this_turn=[] # DAL_558
 		player.died_this_turn=[] # CORE_EX1_190
+
+class BeginBattle(GameAction):
+	"""
+	Make \a player begin the battle ( battlegrounds )
+	"""
+	PLAYER = ActionArg()
+	def do(self, source, player):
+		source.manager.step(source.next_step, Step.MAIN_READY)
+		source.log("%s begins the battle", player)
+		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
+		source.manager.step(source.next_step, source.next_step)
+		self.broadcast(source, EventListener.ON, player)
+		source._begin_turn(player)
+
 
 
 class Concede(GameAction):
@@ -1543,6 +1563,14 @@ class SetCurrentHealth(TargetedAction):
 		maxhp = target.max_health
 		target.damage = max(0, maxhp - amount)
 
+class SetMaxMana(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self,source, target, amount):
+		log.info("Setting max_mana on %r to %i", target, amount)
+		target._max_mana = amount
+		pass
+
 
 class SetTag(TargetedAction):
 	"""
@@ -2370,6 +2398,8 @@ class RegularAttack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER
 	OTHER = ActionArg()#DEFFENDER
 	def do(self, source, target, other):
+		Attack(target, other).broadcast(source, EventListener.ON, target, other)
+		self.broadcast(source, EventListener.ON, target, other)
 		if not isinstance(other,list):
 			other = [other]
 		if not isinstance(target,list):
@@ -2380,6 +2410,8 @@ class RegularAttack(TargetedAction):
 					Hit(defcard, attcard.atk).trigger(attcard)
 				if defcard.can_attack(attcard):
 					Hit(attcard, defcard.atk).trigger(defcard)
+		Attack(target, other).broadcast(source, EventListener.AFTER, target, other)
+		self.broadcast(source, EventListener.AFTER, target, other)
 
 class Dormant(TargetedAction):
 	TARGET = ActionArg()

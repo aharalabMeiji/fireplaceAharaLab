@@ -106,7 +106,7 @@ class BG_HumanAgent(BG_Agent):
 		pass
 	def printBar(self, bar, controller, bartender):
 		print("----------------------------------------------")
-		print("Tier[%d], TierUpCost[%d], ReroleCost[%d], Gold[%d/%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana ))
+		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar   :%s" %(card_stats(card)))

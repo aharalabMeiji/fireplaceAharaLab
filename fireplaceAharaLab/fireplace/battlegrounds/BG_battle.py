@@ -1,11 +1,12 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BeginTurn, RegularAttack, Deaths
+from fireplace.actions import BeginTurn, RegularAttack, Deaths, BeginBattle
 import random
 from hearthstone.enums import PlayState
 
 class BG_Battle(Game):
 	def __init__(self, bars):
+		#エージェントのデータからバトルフィールドの設定をする。
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
 		self.game2=deepcopy_game(bars[1], bars[1].controller, 0)
 		self.player1 = self.game1.player1
@@ -13,13 +14,6 @@ class BG_Battle(Game):
 		super().__init__([self.player1, self.player2])
 		pass
 	def battle(self):
-		#エージェントのデータからバトルフィールドの設定をする。
-		#for card in self.game1.current_player.field:
-		#	card.controller = self.player1 #????
-		#	card.zone = Zone.PLAY #????
-		#for card in self.game2.current_player.field:
-		#	card.controller = self.player2 #????
-		#	card.zone = Zone.PLAYER #????
 		#プレイヤーのopponentを設定
 		self.player1.opponent=self.player2
 		self.player2.opponent=self.player1
@@ -38,8 +32,8 @@ class BG_Battle(Game):
 		for player in self.players:
 			player.playstate = PlayState.PLAYING
 		#turn_beginを実行（先攻、後攻の順）（イベントを発生させるため）
-		BeginTurn(self.first).trigger(self)## trigger主はplayer
-		BeginTurn(self.second).trigger(self)## trigger主はplayer
+		BeginBattle(self.first).trigger(self)## trigger主はplayer
+		BeginBattle(self.second).trigger(self)## trigger主はplayer
 		#パラメータ設定
 		self.current_player=self.first
 		self.first.AttackIndex=0

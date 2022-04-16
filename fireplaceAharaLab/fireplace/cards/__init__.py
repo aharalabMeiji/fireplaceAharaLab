@@ -177,6 +177,8 @@ class CardDB(dict):
 					cards = [card for card in cards if value in card.classes]
 				elif attr == 'has_choose_one':
 					cards = [card for card in cards if hasattr(card,'has_choose_one')]
+				elif attr == 'tech_level':
+					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)==value ]
 				else:
 					cards = [
 						card for card in cards if (

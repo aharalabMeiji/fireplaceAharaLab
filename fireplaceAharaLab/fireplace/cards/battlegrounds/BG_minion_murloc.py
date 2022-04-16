@@ -1,7 +1,7 @@
 from ..utils import *
 
 BG_Minion_Murloc =[
-'UNG_073','TB_BaconUps_061',#Rockpool Hunter (1)
+'UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',#Rockpool Hunter (1)
 'BG22_401','BG22_401e','BG22_401_G','BG22_401_Ge',#Swampstriker (1)
 'EX1_507','EX1_507e','TB_BaconUps_008','TB_BaconUps_008e',#Murloc Warleader (2)
 'BG21_008','BG21_008e','BG21_008_G','BG21_008_Ge',#Saltscale Honcho (2)
@@ -39,26 +39,31 @@ BG_Murloc_Gold={
 
 #Rockpool Hunter (1)
 class UNG_073:
-	"""
-	"""
+	""" >Rockpool Hunter
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Murloc +1/+1. """
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	play = Buff(TARGET, 'UNG_073e')
 	pass
+UNG_073e=buff(1,1)
 class TB_BaconUps_061:# <12>[1453]
 	""" Rockpool Hunter
 	[Battlecry:] Give a friendly Murloc +2/+2. """
-	#
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	play = Buff(TARGET, 'TB_BaconUps_061e')
 	pass
+TB_BaconUps_061e=buff(2,2)
 
 #Swampstriker (1)
 class BG22_401:# <12>[1453]
 	""" Swampstriker
 	After you summon a Murloc, gain +1 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY + MURLOC).after(Buff(SELF, 'BG22_401e'))
 	pass
 BG22_401e=buff(1,0)
 class BG22_401_G:# <12>[1453]
 	""" Swampstriker
 	After you summon a Murloc, gain +2 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY + MURLOC).after(Buff(SELF, 'BG22_401_Ge'))
 	pass
 BG22_401_Ge=buff(2,0)
 

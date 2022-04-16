@@ -7,6 +7,7 @@ from enum import IntEnum
 import random
 from hearthstone.enums import Zone,State
 
+
 from .BG_agent import *
 from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
@@ -14,7 +15,7 @@ from .BG_battle import BG_Battle
 decks=[[],[],[],[],[],[]]
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
-TierUpCost={1:5, 2:6, 3:8, 4:11, 5:10}
+TierUpCost={1:5, 2:7, 3:9, 4:12, 5:11}
 
 def BG_main():
 	#使用カードの初期化
@@ -28,7 +29,7 @@ def BG_main():
 		]
 	# ヒーローセット
 	Heroes = \
-		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1 
+		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1[:8] 
 	# デッキを作る新しいゲームの始まり。
 	for i in range(6):
 		if i<5:
@@ -37,18 +38,21 @@ def BG_main():
 			rep=3
 		for repeat in range(rep):	# BAN される raceはここで除外
 			decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
-			decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
-			decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+			#decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+			#decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
 			#decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 			#decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
 			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Murloc[i]
-			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Pirate[i]
-			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Quilboar[i]
+			decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+			#decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
+			#decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 	# ヒーローの選択
 	BG_Bars=[]
 	for agent in Agents:
-		theHeroes = random.sample(Heroes, 2)
+		if agent.name=='Human1':
+			theHeroes = Heroes[0:2]
+		else:
+			theHeroes = random.sample(Heroes, 2)
 		Heroes.remove(theHeroes[0])
 		Heroes.remove(theHeroes[1])
 		theHero = agent.heroChoiceStrategy(theHeroes)
@@ -92,6 +96,8 @@ def BG_main():
 				card = DealCard(decks, bartender, controller.Tier)
 				card.controller = bartender#たぶん不要
 				card.zone = Zone.PLAY
+			BeginBar(controller, bar.turn).trigger(bar)
+			postAction(controller)
 			while True:
 				### （バーテンダーに）カードを配る
 				##### ムーブの選択肢を作る
@@ -104,6 +110,7 @@ def BG_main():
 					break
 				else:
 					choice.execute()
+					postAction(controller)
 				pass
 		### ムーブのループ終わり
 		#self.manager.step(self.next_step, Step.MAIN_NEXT)
@@ -174,12 +181,38 @@ class MovePlay(IntEnum):
 	TURNEND=9
 	pass
 
+def postAction(player):
+	while True:
+		if player.choice == None:
+			return
+		else:
+			if player.choiceStrategy==None:
+				if len(player.choice.cards)==0:
+					choice = None
+				else:
+					choice = random.choice(player.choice.cards)
+			else:
+				choice = player.choiceStrategy(player,player.choice.cards)
+			log.info("%r Chooses a card %r" % (player, choice))
+			#myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				myCardID =  random.choice(choice.find_cards())
+				Give(player1,myCardID).trigger(player1)
+				player.choice = None
+			else :
+				if choice == None:
+					player.choice=None##return
+				else:
+					player.choice.choose(choice)
+
+
+
+
 class Move(object):
-	def __init__(self, game, target, move, param0=0, param1=0, param2=0):
+	def __init__(self, game, target, move, param0=-1, param1=-1, param2=-1):
 		self.game=game
 		self.controller = game.controller
 		self.bartender = game.bartender
-		self.game = game
 		self.target = target
 		self.move = move
 		self.param0 = param0
@@ -187,7 +220,30 @@ class Move(object):
 		self.param2 = param2
 		pass
 	def __str__(self):
-		return "%s %s %d"%(self.target, self.move, self.param0)
+		if self.move==MovePlay.PLAY:
+			if self.param1==-1:
+				return "%s を場に出す（位置：%d）"%(self.target, self.param0)
+			else :
+				return "%s を場に出す（位置：%d）（ターゲット：%s）"%(self.target, self.param0,
+										self.controller.field[self.param1])
+		elif self.move==MovePlay.ORDER:
+			return "%s の場所を動かす（位置：%d）"%(self.target, self.param0)
+		elif self.move==MovePlay.BUY:# 
+			return "%s を雇用する"%(self.target)
+		elif self.move==MovePlay.SELL:# 
+			return "%s を売る"%(self.target)
+		elif self.move==MovePlay.POWER:# 
+			return "%s （ヒーローパワー）を発動する"%(self.target)
+		elif self.move==MovePlay.TIERUP:#
+			return "グレードを上げる（コスト%d）"%(self.controller.TierUpCost)
+		elif self.move==MovePlay.REROLE:# 
+			return "リロールする（コスト%d）"%(self.game.reroleCost)
+		elif self.move==MovePlay.FREEZE:# 
+			return "凍結する"
+		elif self.move==MovePlay.TURNEND:# 
+			return "ターンを終了する"
+		else:
+			return "%s %s %d"%(self.target, self.move, self.param0)
 
 	def execute(self):
 		if self.move==MovePlay.PLAY:# move a card from hand to field
@@ -287,13 +343,13 @@ class Move(object):
 
 	def rerole(self):
 		if self.controller.mana>=self.game.reroleCost:
+			self.controller.used_mana += 1
 			for card in self.bartender.field:
 				ReturnCard(decks,card)
-			for card in range(max(self.bartender.BobsTmpFieldSize, self.controller.BobsTmpFieldSize)):
+			for card in range(self.bartender.BobsTmpFieldSize):
 				card = DealCard(decks, self.bartender, self.controller.Tier)
-				card.controller = self.bartender
+				card.controller = self.bartender#たぶん不要
 				card.zone = Zone.PLAY
-
 		pass
 
 	def freeze(self):
@@ -317,6 +373,12 @@ class Move(object):
 
 def GetMoveCandidates(bar, controller, bartender):
 	ret = []
+	#TURNEND=9
+	ret.append(Move(bar, None, MovePlay.TURNEND, 0))
+	#BUY=3
+	if controller.mana>=3:
+		for card in bartender.field:
+			ret.append(Move(bar, card, MovePlay.BUY))
 	#PLAY=1
 	if len(controller.field)<7:
 		for card in controller.hand:
@@ -333,10 +395,6 @@ def GetMoveCandidates(bar, controller, bartender):
 		for pos in range(len(controller.field)):
 			if pos != pos0:
 				ret.append(Move(bar, card, MovePlay.ORDER, param0=pos))
-	#BUY=3
-	if controller.mana>=3:
-		for card in bartender.field:
-			ret.append(Move(bar, card, MovePlay.BUY))
 	#SELL=4
 	for card in controller.field:
 		ret.append(Move(bar, card, MovePlay.SELL))
@@ -355,6 +413,4 @@ def GetMoveCandidates(bar, controller, bartender):
 		ret.append(Move(bar, None, MovePlay.REROLE, 0))
 	#FREEZE=8
 	ret.append(Move(bar, None, MovePlay.FREEZE, 0))
-	#TURNEND=9
-	ret.append(Move(bar, None, MovePlay.TURNEND, 0))
 	return ret
