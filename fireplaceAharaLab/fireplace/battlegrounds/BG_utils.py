@@ -15,7 +15,7 @@ from .BG_battle import BG_Battle
 decks=[[],[],[],[],[],[]]
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
-TierUpCost={1:5, 2:7, 3:9, 4:12, 5:11}
+
 
 def BG_main():
 	#使用カードの初期化
@@ -29,7 +29,7 @@ def BG_main():
 		]
 	# ヒーローセット
 	Heroes = \
-		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1[:8] 
+		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
 	# デッキを作る新しいゲームの始まり。
 	for i in range(6):
 		if i<5:
@@ -40,7 +40,7 @@ def BG_main():
 			decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 			#decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 			#decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-			#decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+			decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 			#decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
 			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
 			decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
@@ -50,7 +50,7 @@ def BG_main():
 	BG_Bars=[]
 	for agent in Agents:
 		if agent.name=='Human1':
-			theHeroes = Heroes[0:2]
+			theHeroes = Heroes[2:4]
 		else:
 			theHeroes = random.sample(Heroes, 2)
 		Heroes.remove(theHeroes[0])
@@ -336,10 +336,8 @@ class Move(object):
 		pass
 
 	def tierup(self):
-		if self.controller.Tier<=5 and self.controller.mana>=self.controller.TierUpCost:
-			self.controller.Tier += 1
-			self.controller.used_mana += self.controller.TierUpCost
-			self.controller.TierUpCost = TierUpCost[self.controller.Tier]
+		UpgradeTier(self.controller).trigger(self.controller)
+		pass
 
 	def rerole(self):
 		if self.controller.mana>=self.game.reroleCost:

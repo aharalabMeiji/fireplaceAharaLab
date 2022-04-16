@@ -204,6 +204,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.INCOMING_DAMAGE_MULTIPLIER: "incoming_damage_multiplier",
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
 	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
+	GameTag.IS_BACON_POOL_MINION:"bg_collectible",
 	GameTag.INSPIRE: "has_inspire",
 	GameTag.JADE_GOLEM: "jade_golem",
 	GameTag.LIFESTEAL: "lifesteal",

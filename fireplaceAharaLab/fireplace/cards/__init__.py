@@ -179,6 +179,10 @@ class CardDB(dict):
 					cards = [card for card in cards if hasattr(card,'has_choose_one')]
 				elif attr == 'tech_level':
 					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)==value ]
+				elif attr == 'tech_level_less':
+					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)<=value ]
+				elif attr == 'bg_collectible':
+					cards = [card for card in cards if card.tags.get(GameTag.IS_BACON_POOL_MINION)==value ]
 				else:
 					cards = [
 						card for card in cards if (

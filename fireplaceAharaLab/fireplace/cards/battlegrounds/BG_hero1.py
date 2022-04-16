@@ -94,6 +94,21 @@ class TB_BaconShop_HERO_16:# <12>[1453]
 	""" A. F. Kay
 	 """
 	pass
+
+class DiscoverTwice(Choice):
+	def choose(self, card):
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=2:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		card.zone = Zone.HAND
+		cards = self._args[1]
+		if isinstance(cards, LazyValue):
+			self.cards = cards.evaluate(self.source)
+		log.info("%r choice from %r", self.source.controller, cards)
+
 class TB_BaconShop_HP_044_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -104,7 +119,7 @@ class TB_BaconShop_HP_044_Action(TargetedAction):
 			SetMaxMana(controller,0).trigger(bar)
 		if turn==3:
 			SetMaxMana(controller,5).trigger(bar)
-			Discover(controller, RandomMinion(tech_level = 3)).trigger(source)#tech_level=3
+			DiscoverTwice(controller, RandomBGMinion(tech_level = 3)*3).trigger(source)#tech_level=3
 
 class TB_BaconShop_HP_044:#<12>[1453]
 	""" Procrastinate
@@ -164,9 +179,16 @@ class TB_BaconShop_HERO_76_Buddy_G:
 class TB_BaconShop_HERO_56:# <12>[1453]
 	""" Alexstrasza
 	"""
+class TB_BaconShop_HP_064_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		if target.Tier==2:
+			DiscoverTwice(controller, RandomBGDragon(tech_level_less=5)).trigger(source)
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
 	<b>Passive</b>After you upgrade Bob's Tavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
+	events = UpgradeTier(CONTROLLER).on(TB_BaconShop_HP_064_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_56_Buddy:
 	""" Vaelastrasz

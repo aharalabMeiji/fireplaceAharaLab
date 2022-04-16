@@ -2877,3 +2877,16 @@ class Avenge(TargetedAction):
 				for action in targetaction:
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
+
+class UpgradeTier(TargetedAction):
+	TARGET=ActionArg()#controller
+	def do(self, source, target):
+		TierUpCost={1:5, 2:7, 3:9, 4:12, 5:11}
+		controller = target
+		bar = target.game
+		if controller.Tier<=5 and controller.mana >= controller.TierUpCost:
+			controller.Tier += 1
+			controller.used_mana += controller.TierUpCost
+			controller.TierUpCost = TierUpCost[controller.Tier]
+			self.broadcast(source, EventListener.ON, controller)
+			self.broadcast(source, EventListener.AFTER, controller)
