@@ -1,7 +1,7 @@
 from ..utils import *
 
 BG_Minion_Mecha =[
-	'ULD_217', 'ULD_217e','TB_BaconUps_250',	#Micro Mummy(1)
+	'ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)
 	'BG21_022','BG21_022_G',	#Pupbot(1)
 	'EX1_556', 'skele21','TB_BaconUps_006','TB_BaconUps_006t',	#Harvest Golem(2)
 	'BOT_606', 'TB_BaconUps_028',	#Kaboom Bot(2)
@@ -47,31 +47,32 @@ BG_Mecha_Gold={
 class ULD_217:
 	"""
 	&lt;b&gt;Reborn&lt;/b&gt;At the end of your turn, giveanother random friendlyminion +1 Attack."""
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ULD_217e'))
 	pass
 ULD_217e=buff(1,0)
 class TB_BaconUps_250:# <5>[1453]
 	""" Micro Mummy
-	[Reborn]At the end of your turn, giveanother random friendlyminion +2 Attack. """
-	#
+	[Reborn]At the end of your turn, giveanother random friendly minion +2 Attack. """
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'TB_BaconUps_250e'))
 	pass
+TB_BaconUps_250e=buff(2,0)
 
 #Pupbot(1)
 class BG21_022:# <12>[1453]
 	""" Pupbot
 	[Divine Shield] """
-	#
+	#<Tag enumID="194" name="DIVINE_SHIELD" type="Int" value="1"/>
 	pass
-
 class BG21_022_G:# <12>[1453]
 	""" Pupbot
 	[Divine Shield] """
-	#
 	pass
 
 #Harvest Golem(2)
 class EX1_556:
 	"""
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 2/1 Damaged Golem."""
+	deathrattle = Summon(CONTROLLER, "skele21")
 	pass
 class skele21:
 	"""
@@ -79,7 +80,7 @@ class skele21:
 class TB_BaconUps_006:# <12>[1453]
 	""" Harvest Golem
 	[Deathrattle:] Summon a 4/2 Damaged Golem. """
-	#
+	deathrattle = Summon(CONTROLLER, "TB_BaconUps_006t")
 	pass
 
 class TB_BaconUps_006t:# <12>[1453]

@@ -38,11 +38,11 @@ def BG_main():
 		for repeat in range(rep):	# BAN される raceはここで除外
 			decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 			#decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
-			#decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-			decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+			decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+			#decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 			#decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-			#decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-			decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+			decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+			#decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
 			#decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 			#decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 	# ヒーローの選択

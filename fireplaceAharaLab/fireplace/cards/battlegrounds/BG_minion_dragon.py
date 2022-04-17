@@ -106,13 +106,13 @@ class TB_BaconUps_149:# <12>[1453]
 class BGS_067:# <12>[1453]
 	""" Drakonid Enforcer
 	After a friendly minion loses [Divine Shield], gain_+2/+2. """
-	events = LostDivineShield(FRIENDLY_MINIONS).on(Buff(SELF,'BGS_067e'))
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(Buff(SELF,'BGS_067e'))
 	pass
 BGS_067e=buff(2,2)
 class TB_BaconUps_117:# <12>[1453]
 	""" Drakonid Enforcer
 	After a friendly minion loses [Divine Shield], gain_+4/+4. """
-	events = LostDivineShield(FRIENDLY_MINIONS).after(Buff(SELF,'TB_BaconUps_117e'))
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(Buff(SELF,'TB_BaconUps_117e'))
 	pass
 TB_BaconUps_117e=buff(4,4)
 #Twilight Emissary(3)

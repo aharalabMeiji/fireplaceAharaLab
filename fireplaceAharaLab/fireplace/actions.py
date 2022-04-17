@@ -1005,8 +1005,9 @@ class Damage(TargetedAction):
 		return [target.predamage]
 
 	def do(self, source, target, amount):
+		# ここでターゲットが聖なる盾を持っているとamountを0にしている。
 		if amount>0 and target.divine_shield:
-			LoseDivineShield(target).broadcast(source, EventListener.ON, target)
+			source.game.trigger_actions(source, [LoseDivineShield(target)])#実質なにもしていない。
 		amount = target._hit(target.predamage)
 		target.predamage = 0
 		if source.type == CardType.MINION and source.stealthed:
@@ -2917,6 +2918,7 @@ class UpgradeTier(TargetedAction):
 class LostDivineShield(GameAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		apss
+		self.broadcast(source, EventListener.ON, target)
+		self.broadcast(source, EventListener.AFTER, target)
 
 
