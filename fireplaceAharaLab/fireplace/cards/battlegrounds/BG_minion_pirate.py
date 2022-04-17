@@ -151,7 +151,7 @@ class BGS_048:# <12>[1453]
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
 	def play(self):
 		count=1
-		log = self.controller.buy_this_turn_log
+		log = self.controller.buy_this_turn_log()
 		for card in log:
 			if card.race == Race.PIRATE:
 				count += 1
@@ -164,7 +164,7 @@ class TB_BaconUps_140:# <12>[1453]
 	[Battlecry:] Give a friendly Pirate +2/+2. Repeat foreach Pirate you boughtthis turn. """
 	def play(self):
 		count=1
-		log = self.controller.buy_this_turn_log
+		log = self.controller.buy_this_turn_log()
 		for card in log:
 			if card.race == Race.PIRATE:
 				count += 1

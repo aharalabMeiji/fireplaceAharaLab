@@ -625,7 +625,27 @@ class Character(LiveEntity):
 			return False
 		if target is not None and target not in self.attack_targets:
 			return False
+		return True
 
+	def can_BG_attack(self, target=None):
+		#if self.controller.choice:
+		#	return False
+		if not self.zone == Zone.PLAY:
+			return False
+		if self.cant_attack:
+			return False
+		#if not self.controller.current_player:
+		#	return False
+		if not self.atk:
+			return False
+		if self.exhausted:
+			return False
+		if self.frozen:
+			return False
+		if not self.attack_targets:
+			return False
+		if target is not None and target not in self.attack_targets:
+			return False
 		return True
 
 	@property

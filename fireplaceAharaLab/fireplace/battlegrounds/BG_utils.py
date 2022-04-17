@@ -82,6 +82,7 @@ def BG_main():
 					break
 			bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
 			controller.max_mana = min(10,bar.turn+2)
+			### （バーテンダーに）カードを配る
 			# リロール
 			frozencard=0
 			repeat = len(bartender.field)
@@ -98,13 +99,13 @@ def BG_main():
 			BeginBar(controller, bar.turn).trigger(bar)
 			postAction(controller)
 			while True:
-				### （バーテンダーに）カードを配る
 				##### ムーブの選択肢を作る
 				candidates = GetMoveCandidates(bar, controller, bartender)
 				##### それぞれのムーブを行う（エージェントを呼び出す。）
 				choice = agent.moveStrategy(bar, candidates, controller, bartender)
 				#### ターンエンドが選択されていれば、ループから脱出。
 				if choice.move==MovePlay.TURNEND:
+					bar.no_drawing_at_begin_turn=True
 					EndTurn(controller).trigger(controller)
 					break
 				else:

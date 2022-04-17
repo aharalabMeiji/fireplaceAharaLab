@@ -285,6 +285,7 @@ class BeginBattle(GameAction):
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
+		source.no_drawing_at_begin_turn=True
 		source._begin_turn(player)
 
 
@@ -2398,17 +2399,36 @@ class RegularAttack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER
 	OTHER = ActionArg()#DEFFENDER
 	def do(self, source, target, other):
-		Attack(target, other).broadcast(source, EventListener.ON, target, other)
-		self.broadcast(source, EventListener.ON, target, other)
 		if not isinstance(other,list):
 			other = [other]
 		if not isinstance(target,list):
 			target = [target]
+		Attack(target, other).broadcast(source, EventListener.ON, target, other)
+		self.broadcast(source, EventListener.ON, target, other)
 		for attcard in target:
 			for defcard in other:
 				if attcard.can_attack(defcard):
 					Hit(defcard, attcard.atk).trigger(attcard)
-				if defcard.can_attack(attcard):
+				if defcard.atk>0:
+					Hit(attcard, defcard.atk).trigger(defcard)
+		Attack(target, other).broadcast(source, EventListener.AFTER, target, other)
+		self.broadcast(source, EventListener.AFTER, target, other)
+
+class BG_RegularAttack(TargetedAction):
+	TARGET = ActionArg()#ATTACKER
+	OTHER = ActionArg()#DEFFENDER
+	def do(self, source, target, other):
+		if not isinstance(other,list):
+			other = [other]
+		if not isinstance(target,list):
+			target = [target]
+		Attack(target, other).broadcast(source, EventListener.ON, target, other)
+		self.broadcast(source, EventListener.ON, target, other)
+		for attcard in target:
+			for defcard in other:
+				if attcard.atk>0:
+					Hit(defcard, attcard.atk).trigger(attcard)
+				if defcard.atk>0:
 					Hit(attcard, defcard.atk).trigger(defcard)
 		Attack(target, other).broadcast(source, EventListener.AFTER, target, other)
 		self.broadcast(source, EventListener.AFTER, target, other)

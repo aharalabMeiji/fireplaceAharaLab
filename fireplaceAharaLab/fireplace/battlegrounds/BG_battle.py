@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BeginTurn, RegularAttack, Deaths, BeginBattle
+from fireplace.actions import BeginTurn, BG_RegularAttack, Deaths, BeginBattle
 import random
 from hearthstone.enums import PlayState
 
@@ -59,7 +59,7 @@ class BG_Battle(Game):
 			defender=random.choice(defenders)
 			#攻撃
 			print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
-			RegularAttack(attacker, defender).trigger(attacker.controller)
+			BG_RegularAttack(attacker, defender).trigger(attacker.controller)
 			#死者が出る場合にその処理(deathrattle)
 			Deaths().trigger(self)
 			#攻撃ターンの交代(freezeとone_turn_effectはない)
