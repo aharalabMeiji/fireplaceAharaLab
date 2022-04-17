@@ -1,20 +1,18 @@
 from fireplace import cards
 from fireplace.card import Card
-#from fireplace.actions import *
 from fireplace.player import Player
+from fireplace.cards.battlegrounds import BG_hero1
 import random
 from hearthstone.enums import Zone,State, CardClass
-from fireplace.cards.battlegrounds import BG_hero1
+from .BG_enums import MovePlay
 
 class BG_Agent(object):
 	""" バトルグラウンドのエージェントのクラス
 	エージェントを作るときはこのクラスを継承してください。"""
-	def __init__(self, myName: str, myFunction, myOption: list, myClass: CardClass, rating ,E = 0, heroChoiceStrategy=None, moveStrategy = None, choiceStrategy=None):
+	def __init__(self, myName: str, myOption: list, rating ,E = 0, heroChoiceStrategy=None, moveStrategy = None, choiceStrategy=None):
 		self.name = myName
-		self.func = myFunction
 		self.option = myOption
-		self.myClass = myClass
-		self.rating = rating = 1500
+		self.rating = rating = 1000
 		self.E = E 
 		self.heroChoiceStrategy = heroChoiceStrategy
 		self.moveStrategy = moveStrategy
@@ -27,41 +25,58 @@ class BG_Agent(object):
 		return self.name
 
 class BG_RandomAgent(BG_Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-		super().__init__(myName, myFunction, myOption, myClass, rating, \
+	def __init__(self, myName: str, myOption = [], rating =1000 ):
+		super().__init__(myName, myOption, rating, \
 			heroChoiceStrategy=self.RandomHeroChoice, \
 			moveStrategy=self.RandomMoveChoice )
 		pass
-	def Random(self, game, option=[], gameLog=[], debugLog=False):
-		player = thisgame.current_player
-		loopCount=0
-		while loopCount<20:
-			loopCount+=1
-			myCandidate = getBGCandidates(game)
-			if len(myCandidate)>0:
-				myChoice = random.choice(myCandidate)
-				exc = executeAction(thisgame, myChoice, debugLog=debugLog)
-				postAction(player)
-				if exc==ExceptionPlay.GAMEOVER:
-					return ExceptionPlay.GAMEOVER
-				else:
-					continue
-			return ExceptionPlay.VALID
-		pass
-
+	
 	def RandomHeroChoice(self, heroes):
 		return random.choice(heroes)
 
 	def RandomMoveChoice(self, bar, candidates, controller, bartender):
 		return random.choice(candidates)
 
-class BG_HumanAgent(BG_Agent):
-	def __init__(self, myName: str, myFunction, myOption = [], myClass: CardClass = CardClass.HUNTER, rating =1000 ):
-		super().__init__(myName, myFunction, myOption, myClass, rating , \
-			heroChoiceStrategy=self.HumanHeroChoice, \
-			moveStrategy = self.HumanMoveChoice)
+class BG_NecoAgent(BG_Agent):
+	def __init__(self, myName, myOption = [], rating =1000 ):
+		super().__init__(myName, myOption, rating, \
+			heroChoiceStrategy=self.NecoHeroChoice, \
+			moveStrategy=self.NecoMoveChoice,
+			choiceStrategy=self.NecoDiscoveryChoice)
 		pass
-	def HumanInput(self, game, option=[], gameLog=[], debugLog=False):
+	def NecoMoveChoice(self, bar, candidates, controller, bartender):
+		myCandidate = candidates
+		if len(myCandidate)>0:
+			choices=[]
+			for move in myCandidate:
+				if move.move==MovePlay.BUY:
+					choices.append(move)
+			if len(choices)>0:
+				myChoice = random.choice(choices)
+			else:
+				choices=[]
+				for move in myCandidate:
+					if move.move==MovePlay.PLAY:
+						choices.append(move)
+				if len(choices)>0:
+					myChoice = random.choice(choices)
+				else:
+					myChoice = random.choice(myCandidate)
+			return myChoice
+		return None
+
+	def NecoHeroChoice(self, heroes):
+		return random.choice(heroes)
+	def NecoDiscoveryChoice(self, choices):
+		return random.choice(choices)
+
+
+class BG_HumanAgent(BG_Agent):
+	def __init__(self, myName, myOption = [], rating =1000 ):
+		super().__init__(myName, myOption, rating, \
+			heroChoiceStrategy=self.HumanHeroChoice, \
+			moveStrategy = self.HumanMoveChoice,
+			choiceStrategy = self.HumanDiscoveryChoice	   )
 		pass
 	def HumanMoveChoice(self, bar, candidates, controller, bartender):
 		self.printBar(bar, controller, bartender)
@@ -118,6 +133,11 @@ class BG_HumanAgent(BG_Agent):
 			print("Hand  : %s"%(card_stats(card)))
 		print("----------------------------------------------")
 		pass
+	def HumanDiscoveryChoice(self, choices):
+		return random.choice(choices)
+		pass
+	pass
+
 def card_stats(card):
 	ret = ' %s'%(card)
 	ret += '(%d/%d)'%(card.atk,card.health)
@@ -134,22 +154,4 @@ def card_stats(card):
 	if card.reborn:
 		ret += "(reborn)"
 	return ret
-
-def DealCard(decks, bartender, grade):
-	dk=[]
-	for i in range(grade):
-		dk += decks[i]
-	cardID = random.choice(dk)
-	card = bartender.card(cardID)
-	gr = card.tech_level-1
-	decks[gr].remove(cardID)
-	return card
-
-def ReturnCard(decks, card):
-	gr = card.tech_level-1
-	decks[gr].append(card.id)
-	card.zone=Zone.GRAVEYARD
-	#card.controller.field.remove(card)
-	pass
-
 

@@ -3,12 +3,11 @@ from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.actions import *
 from fireplace.player import Player
-from enum import IntEnum
 import random
 from hearthstone.enums import Zone,State
+from .BG_enums import MovePlay
 
-
-from .BG_agent import *
+from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
 from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
 
@@ -22,10 +21,10 @@ def BG_main():
 	cards.db.BG_initialize()
 	#エージェントのリスト
 	Agents=[
-		BG_HumanAgent("Human1",BG_HumanAgent.HumanInput ),
-		BG_RandomAgent("Random1",BG_RandomAgent.Random),
-		BG_RandomAgent("Random2",BG_RandomAgent.Random),
-		BG_RandomAgent("Random3",BG_RandomAgent.Random)
+		BG_HumanAgent("Human1"),
+		BG_NecoAgent("Neco2"),
+		BG_RandomAgent("Random3"),
+		BG_RandomAgent("Random4")
 		]
 	# ヒーローセット
 	Heroes = \
@@ -166,19 +165,6 @@ def BG_main():
 def print_hero_stats(hero0, hero1):
 	print("<< %s (%s)<< health=%d"%(hero0, hero0.controller, hero0.health))
 	print("<< %s (%s)<< health=%d"%(hero1, hero1.controller, hero1.health))
-	pass
-
-class MovePlay(IntEnum):
-	VALID=0
-	PLAY=1
-	ORDER=2
-	BUY=3
-	SELL=4
-	POWER=5
-	TIERUP=6
-	REROLE=7
-	FREEZE=8
-	TURNEND=9
 	pass
 
 def postAction(player):
@@ -413,3 +399,22 @@ def GetMoveCandidates(bar, controller, bartender):
 	#FREEZE=8
 	ret.append(Move(bar, None, MovePlay.FREEZE, 0))
 	return ret
+
+def DealCard(decks, bartender, grade):
+	dk=[]
+	for i in range(grade):
+		dk += decks[i]
+	cardID = random.choice(dk)
+	card = bartender.card(cardID)
+	gr = card.tech_level-1
+	decks[gr].remove(cardID)
+	return card
+
+def ReturnCard(decks, card):
+	gr = card.tech_level-1
+	decks[gr].append(card.id)
+	card.zone=Zone.GRAVEYARD
+	#card.controller.field.remove(card)
+	pass
+
+

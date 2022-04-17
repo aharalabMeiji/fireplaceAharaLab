@@ -45,6 +45,9 @@
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_battle.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_enums.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
       <SubType>Code</SubType>
     </Compile>
