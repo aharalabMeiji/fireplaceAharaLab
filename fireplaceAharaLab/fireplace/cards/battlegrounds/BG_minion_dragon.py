@@ -2,11 +2,11 @@
 from ..utils import *
 
 BG_Minion_Dragon =[
-	'BG21_027','BG21_027_G',#Evolving Chromawing(1)
+	'BG21_027','BG21_027e','BG21_027_G',#Evolving Chromawing(1) ###OK
 	'BGS_019','TB_BaconUps_102',#Red Whelp(1)
-	'BGS_045','TB_BaconUps_115',#Glyph Guardian(2)
+	'BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e',#Glyph Guardian(2)
 	'BGS_034','TB_BaconUps_149',#Bronze Warden(3)
-	'BGS_067','TB_BaconUps_117',#Drakonid Enforcer(3)
+	'BGS_067','BGS_067e','TB_BaconUps_117','TB_BaconUps_117e',#Drakonid Enforcer(3)
 	'BGS_038','TB_BaconUps_108',#Twilight Emissary(3)
 	'ICC_029','TB_BaconUps_120',#Cobalt Scalebane(4)
 	'BG21_012','BG21_012_G',#Prestor's Pyrospawn(4)
@@ -47,62 +47,74 @@ BG_Dragon_Gold={
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, double this minion's Attack. """
-	#
+	events = UpgradeTier(CONTROLLER).after(Buff(SELF, 'BG21_027e'))
+	pass
+class BG21_027e:
+	atk = lambda self, i: i*2
 	pass
 class BG21_027_G:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, triple this minion's Attack. """
-	#
+	events = UpgradeTier(CONTROLLER).after(Buff(SELF, 'BG21_027_Ge'))
+	pass
+class BG21_027_Ge:
+	atk = lambda self, i: i*3
 	pass
 
 #Red Whelp(1)
 class BGS_019:# <12>[1453]
 	""" Red Whelp
-	[Start of Combat:] Deal1 damage per friendlyDragon to one randomenemy minion. """
-	#
+	[Start of Combat:] Deal1 damage per friendly Dragon to one random enemy minion. """
+	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS, Count(FRIENDLY_MINIONS + DRAGON))))
 	pass
 class TB_BaconUps_102:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendlyDragon to one randomenemy minion twice. """
-	#
+	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS, Count(FRIENDLY_MINIONS + DRAGON))),Hit(RANDOM(ENEMY_MINIONS, Count(FRIENDLY_MINIONS + DRAGON))))
 	pass
 
 #Glyph Guardian(2)
 class BGS_045:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, double its Attack. """
-	#
+	events = Attack(SELF).on(Buff(SELF,'BGS_045e'))
 	pass
+class BGS_045e:
+	atk = lambda self, i: i*2
 class TB_BaconUps_115:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, triple its Attack. """
-	#
+	events = Attack(SELF).on(Buff(SELF,'TB_BaconUps_115e'))
+	pass
+class TB_BaconUps_115e:
+	atk = lambda self, i: i*3
 	pass
 
 #Bronze Warden(3)
 class BGS_034:# <12>[1453]
 	""" Bronze Warden
 	[Divine Shield][Reborn] """
-	#
+	#<Tag enumID="194" name="DIVINE_SHIELD" type="Int" value="1"/>
+	#<Tag enumID="1085" name="REBORN" type="Int" value="1"/>
 	pass
 class TB_BaconUps_149:# <12>[1453]
 	""" Bronze Warden
 	[Divine Shield][Reborn] """
-	#
 	pass
 
 #Drakonid Enforcer(3)
 class BGS_067:# <12>[1453]
 	""" Drakonid Enforcer
 	After a friendly minion loses [Divine Shield], gain_+2/+2. """
-	#
+	events = LostDivineShield(FRIENDLY_MINIONS).on(Buff(SELF,'BGS_067e'))
 	pass
+BGS_067e=buff(2,2)
 class TB_BaconUps_117:# <12>[1453]
 	""" Drakonid Enforcer
 	After a friendly minion loses [Divine Shield], gain_+4/+4. """
-	#
+	events = LostDivineShield(FRIENDLY_MINIONS).after(Buff(SELF,'TB_BaconUps_117e'))
 	pass
-
+TB_BaconUps_117e=buff(4,4)
 #Twilight Emissary(3)
 class BGS_038:# <12>[1453]
 	""" Twilight Emissary

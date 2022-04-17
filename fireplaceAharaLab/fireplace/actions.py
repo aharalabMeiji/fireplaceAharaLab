@@ -1005,6 +1005,8 @@ class Damage(TargetedAction):
 		return [target.predamage]
 
 	def do(self, source, target, amount):
+		if amount>0 and target.divine_shield:
+			LoseDivineShield(target).broadcast(source, EventListener.ON, target)
 		amount = target._hit(target.predamage)
 		target.predamage = 0
 		if source.type == CardType.MINION and source.stealthed:
@@ -2910,3 +2912,11 @@ class UpgradeTier(TargetedAction):
 			controller.TierUpCost = TierUpCost[controller.Tier]
 			self.broadcast(source, EventListener.ON, controller)
 			self.broadcast(source, EventListener.AFTER, controller)
+	pass
+
+class LostDivineShield(GameAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		apss
+
+
