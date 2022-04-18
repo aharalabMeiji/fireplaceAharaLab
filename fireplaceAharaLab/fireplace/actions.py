@@ -2915,7 +2915,7 @@ class UpgradeTier(TargetedAction):
 			self.broadcast(source, EventListener.AFTER, controller)
 	pass
 
-class LostDivineShield(GameAction):
+class LoseDivineShield(GameAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		self.broadcast(source, EventListener.ON, target)

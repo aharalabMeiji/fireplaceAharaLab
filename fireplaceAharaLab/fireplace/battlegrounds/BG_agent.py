@@ -124,13 +124,13 @@ class BG_HumanAgent(BG_Agent):
 		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		print("----------------------------------------------")
 		for card in bartender.field:
-			print("Bar   :%s" %(card_stats(card)))
+			print("Bar   :%s" %(self.card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.field:
-			print("Field : %s"%(card_stats(card)))
+			print("Field : %s"%(self.card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.hand:
-			print("Hand  : %s"%(card_stats(card)))
+			print("Hand  : %s"%(self.card_stats(card)))
 		print("----------------------------------------------")
 		pass
 	def HumanDiscoveryChoice(self, choices):
@@ -138,20 +138,21 @@ class BG_HumanAgent(BG_Agent):
 		pass
 	pass
 
-def card_stats(card):
-	ret = ' %s'%(card)
-	ret += '(%d/%d)'%(card.atk,card.health)
-	if card.cant_play:
-		ret += "(can't play)"
-	if card.frozen:
-		ret += "(frozen)"
-	if card.taunt:
-		ret += "(taunt)"
-	if card.divine_shield:
-		ret += "(divine_shield)"
-	if card.windfury:
-		ret += "(windfury)"
-	if card.reborn:
-		ret += "(reborn)"
-	return ret
+	def card_stats(self, card):
+		ret = ' %s'%(card)
+		ret += '(%d/%d)'%(card.atk,card.health)
+		if card.cant_play:
+			ret += "(can't play)"
+		if card.frozen:
+			ret += "(frozen)"
+		if card.taunt:
+			ret += "(taunt)"
+		if card.divine_shield:
+			ret += "(divine_shield)"
+		if card.windfury:
+			ret += "(windfury)"
+		if card.reborn:
+			ret += "(reborn)"
+		ret += card.data.description.replace('\n','_')
+		return ret
 

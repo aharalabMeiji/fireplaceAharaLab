@@ -103,10 +103,27 @@ class BG_Battle(Game):
 	def printField(self):
 		print("--------%s--------"%self.first.name)
 		for card in self.first.field:
-			print("%s:%s(%d/%d)"%(self.first.name, card, card.atk, card.health))
+			print("%s:%s"%(self.first.name, self.card_stats(card)))
 		print("--------%s--------"%self.second.name)
 		for card in self.second.field:
-			print("%s:%s(%d/%d)"%(self.second.name, card, card.atk, card.health))
+			print("%s:%s"%(self.second.name, self.card_stats(card)))
 		print("--------[over]--------")
 	
+	def card_stats(self, card):
+		ret = ' %s'%(card)
+		ret += '(%d/%d)'%(card.atk,card.health)
+		if card.cant_play:
+			ret += "(can't play)"
+		if card.frozen:
+			ret += "(frozen)"
+		if card.taunt:
+			ret += "(taunt)"
+		if card.divine_shield:
+			ret += "(divine_shield)"
+		if card.windfury:
+			ret += "(windfury)"
+		if card.reborn:
+			ret += "(reborn)"
+		return ret
+
 

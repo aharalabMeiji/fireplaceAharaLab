@@ -5,8 +5,8 @@ BG_Minion_Mecha =[
 	'BG21_022','BG21_022_G',	#Pupbot(1)
 	'EX1_556', 'skele21','TB_BaconUps_006','TB_BaconUps_006t',	#Harvest Golem(2)
 	'BOT_606', 'TB_BaconUps_028',	#Kaboom Bot(2)
-	'GVG_048','TB_BaconUps_066',	#Metaltooth Leaper(2)
-	'BGS_071', 'TB_BaconUps_123',	#Deflect-o-Bot(3)
+	'GVG_048','GVG_048e','TB_BaconUps_066','TB_BaconUps_066e',	#Metaltooth Leaper(2)
+	'BGS_071', 'BGS_071e', 'TB_BaconUps_123', 'TB_BaconUps_123e',	#Deflect-o-Bot(3)
 	'BOT_312', 'BOT_312e','TB_BaconUps_032','TB_BaconUps_032t',	#Replicating Menace(3)
 	'GVG_055', 'TB_BaconUps_069',	#Screwjank Clunker(3)
 	'BOT_911', 'TB_BaconUps_099',	#Annoy-o-Module(4)
@@ -93,34 +93,42 @@ class TB_BaconUps_006t:# <12>[1453]
 class BOT_606:
 	"""
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 4_damage to a random enemy minion. """
+	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 4)
 	pass
 class TB_BaconUps_028:# <12>[1453]
 	""" Kaboom Bot
 	[Deathrattle:] Deal 4_damage to a random enemy minion twice. """
-	#
+	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 4) * 2
 	pass
+
 
 #Metaltooth Leaper(2)
 class GVG_048:
 	"""
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give your other Mechs +2 Attack."""
+	play = Buff(FRIENDLY_MINIONS - SELF,'GVG_048e')
+GVG_048e=buff(2,0)
 class TB_BaconUps_066:# <3>[1453]
 	""" Metaltooth Leaper
 	[Battlecry:] Give your other Mechs +4 Attack. """
-	#
+	play = Buff(FRIENDLY_MINIONS - SELF, 'TB_BaconUps_066e')
 	pass
+TB_BaconUps_066e=buff(4,0)
+
 
 #Deflect-o-Bot(3)
 class BGS_071:# <12>[1453]
 	""" Deflect-o-Bot
-	[Divine Shield]Whenever you summon a Mechduring combat, gain +2 Attackand [Divine Shield]. """
-	#
+	[Divine Shield]Whenever you summon a Mech during combat, gain +2 Attackand [Divine Shield]. """
+	events = Summon(CONTROLLER, MECH).on(Buff(SELF, 'BGS_071e'), SetAttr(SELF, 'divine_shield', True))
 	pass
+BGS_071e=buff(2,0)
 class TB_BaconUps_123:# <12>[1453]
 	""" Deflect-o-Bot
 	[Divine Shield]Whenever you summon a Mechduring combat, gain +4 Attackand [Divine Shield]. """
-	#
+	events = Summon(CONTROLLER, MECH).on(Buff(SELF, 'TB_BaconUps_123e'), SetAttr(SELF, 'divine_shield', True))
 	pass
+TB_BaconUps_123e=buff(4,0)
 
 #Replicating Menace(3)
 class BOT_312:
