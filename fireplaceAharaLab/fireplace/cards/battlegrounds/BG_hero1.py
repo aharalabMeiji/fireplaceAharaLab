@@ -295,7 +295,7 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 	pass
 
 
-#05#Aranna Starseeker
+#05#Aranna Starseeker # アランナ
 class TB_BaconShop_HERO_59:# <12>[1453]
 	""" Aranna Starseeker
 	"""
@@ -303,11 +303,12 @@ class TB_BaconShop_HP_065:
 	""" Demon Hunter Training
 	<b>Passive</b> After you <b>Refresh</b> 5 times, Bob always has 7 minions.
 <i>(@ left!)</i>"""
+	#events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]))
 	pass
 class TB_BaconShop_HP_065pe:
 	"""  Aranna Watcher
 	"""
-class TB_BaconShop_HP_065t2:
+class TB_BaconShop_HP_065t2:###  条件が満たされるとヒロパが交代になる
 	""" Spectral Sight
 	<b>Passive</b>Bob's Tavern refreshes with 7 minions."""
 class TB_BaconShop_HERO_59_Buddy:# <12>[1453]

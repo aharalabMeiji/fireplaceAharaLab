@@ -7,7 +7,7 @@ BG_Minion_Mecha =[
 	'BOT_606', 'TB_BaconUps_028',	#Kaboom Bot(2)
 	'GVG_048','GVG_048e','TB_BaconUps_066','TB_BaconUps_066e',	#Metaltooth Leaper(2)
 	'BGS_071', 'BGS_071e', 'TB_BaconUps_123', 'TB_BaconUps_123e',	#Deflect-o-Bot(3)
-	'BOT_312', 'BOT_312e','TB_BaconUps_032','TB_BaconUps_032t',	#Replicating Menace(3)
+	'BOT_312', 'BOT_312e','BOT_312t','TB_BaconUps_032','TB_BaconUps_032e','TB_BaconUps_032t',	#Replicating Menace(3)
 	'GVG_055', 'TB_BaconUps_069',	#Screwjank Clunker(3)
 	'BOT_911', 'TB_BaconUps_099',	#Annoy-o-Module(4)
 	'BG21_024', 'BG21_024_G',	#Grease Bot(4)
@@ -134,20 +134,31 @@ TB_BaconUps_123e=buff(4,0)
 class BOT_312:
 	"""Replicating Menace
 	&lt;b&gt;Magnetic&lt;/b&gt;&lt;b&gt;Deathrattle:&lt;/b&gt; Summon three 1/1 Microbots."""
+	#magnetic = Buff(RIGHT(SELF), 'BOT_312e')
+	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 class BOT_312e:
 	"""Replicating Menace
+	"""
+	tags = {GameTag.DEATHRATTLE:True, }
+	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
+	pass
+class BOT_312t:
+	""" Microbot
 	"""
 	pass
 class TB_BaconUps_032:# <12>[1453]
 	""" Replicating Menace
 	[Magnetic][Deathrattle:] Summon three 2/2 Microbots. """
-	#
+	#magnetic = Buff(RIGHT(SELF), 'BOT_312e')
+	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 	pass
-
+class TB_BaconUps_032e:
+	tags = {GameTag.DEATHRATTLE:True, }
+	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
+	pass
 class TB_BaconUps_032t:# <12>[1453]
 	""" Microbot
 	 """
-	#
 	pass
 
 #Screwjank Clunker(3)

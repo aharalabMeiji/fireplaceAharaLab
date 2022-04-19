@@ -2921,4 +2921,20 @@ class LoseDivineShield(GameAction):
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
 
-
+class Rerole(TargetedAction): ## battlegrounds
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		game = controller.game
+		bartender = game.bartender
+		if controller.mana>=game.reroleCost:
+			self.broadcast(source, EventListener.ON, target)
+			controller.used_mana += game.reroleCost
+			for card in bartender.field:
+				ReturnCard(decks,card)
+			for card in range(bartender.BobsTmpFieldSize):
+				card = DealCard(decks, bartender, controller.Tier)
+				card.controller = bartender#たぶん不要
+				card.zone = Zone.PLAY
+			self.broadcast(source, EventListener.AFTER, target)
+		pass

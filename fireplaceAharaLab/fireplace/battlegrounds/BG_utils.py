@@ -80,10 +80,12 @@ def BG_main():
 			for agent in Agents:
 				if agent.name == controller.name:
 					break
-			bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
+			if bartender.BobsTmpFieldSize<7:#「アランナフラグが立っていれば」のフラグに振り替えもありうる。
+				bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
 			controller.max_mana = min(10,bar.turn+2)
 			### （バーテンダーに）カードを配る
-			# リロール
+			# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
+			# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
 			frozencard=0
 			repeat = len(bartender.field)
 			for i in range(repeat):
@@ -96,6 +98,7 @@ def BG_main():
 				card = DealCard(decks, bartender, controller.Tier)
 				card.controller = bartender#たぶん不要
 				card.zone = Zone.PLAY
+			#ボブのバーを開始する。
 			BeginBar(controller, bar.turn).trigger(bar)
 			postAction(controller)
 			while True:
@@ -326,9 +329,9 @@ class Move(object):
 		UpgradeTier(self.controller).trigger(self.controller)
 		pass
 
-	def rerole(self):
+	def rerole(self):## TargetedActionへ振り替える。
 		if self.controller.mana>=self.game.reroleCost:
-			self.controller.used_mana += 1
+			self.controller.used_mana += self.game.reroleCost
 			for card in self.bartender.field:
 				ReturnCard(decks,card)
 			for card in range(self.bartender.BobsTmpFieldSize):
