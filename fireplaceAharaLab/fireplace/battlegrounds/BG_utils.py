@@ -5,13 +5,13 @@ from fireplace.actions import *
 from fireplace.player import Player
 import random
 from hearthstone.enums import Zone,State
-from .BG_enums import MovePlay
+from .BG_enums import MovePlay, BG_decks
 
 from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
 from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
+from .BG_actions import *
 
-decks=[[],[],[],[],[],[]]
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
@@ -30,21 +30,22 @@ def BG_main():
 	Heroes = \
 		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
 	# デッキを作る新しいゲームの始まり。
+	BG_decks=[[],[],[],[],[],[]]
 	for i in range(6):
 		if i<5:
 			rep=8
 		else:
 			rep=3
 		for repeat in range(rep):	# BAN される raceはここで除外
-			decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
-			#decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
-			#decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-			#decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
-			#decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-			decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-			#decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
-			#decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
-			#decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+			BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+			BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
+			#BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 	# ヒーローの選択
 	BG_Bars=[]
 	for agent in Agents:
@@ -56,7 +57,7 @@ def BG_main():
 		Heroes.remove(theHeroes[1])
 		theHero = agent.heroChoiceStrategy(theHeroes)
 		#heroCard=Card(theHero)
-		thePlayer = Player(agent.name, decks[0], theHero)#とりあえずグレ１をデッキとしておく。
+		thePlayer = Player(agent.name, BG_decks[0], theHero)#とりあえずグレ１をデッキとしておく。
 		# ゲームのたちあげ
 		bar = BG_Bar(thePlayer)
 		bar.BG_setup()
@@ -65,12 +66,12 @@ def BG_main():
 		bar.turn=1
 		BG_Bars.append(bar)
 		pass
-	# 無限ループ始まり
 	prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
+	# 無限ループ始まり
 	while True:	
-		### 組合せをランダムに決める（現状固定）
+		### 組合せをランダムに決める（現状固定だが、最終形ではランダム）
 		matches=[[0,1],[2,3]]#
-		#battlesはこのままで繰り返し使う。
+		#battlesはこのままで繰り返し使う。配列の長さは最終形では4
 		battles = [None,None]
 		### ムーブのループ始まり
 		for bar in BG_Bars:
@@ -91,11 +92,11 @@ def BG_main():
 			for i in range(repeat):
 				card = bartender.field[0]
 				if not card.frozen:
-					ReturnCard(decks, card)
+					ReturnCard(BG_decks, card)
 				else:
 					frozencard += 1
 			for repeat in range(bartender.BobsTmpFieldSize-frozencard):
-				card = DealCard(decks, bartender, controller.Tier)
+				card = DealCard(BG_decks, bartender, controller.Tier)
 				card.controller = bartender#たぶん不要
 				card.zone = Zone.PLAY
 			#ボブのバーを開始する。
@@ -330,14 +331,15 @@ class Move(object):
 		pass
 
 	def rerole(self):## TargetedActionへ振り替える。
-		if self.controller.mana>=self.game.reroleCost:
-			self.controller.used_mana += self.game.reroleCost
-			for card in self.bartender.field:
-				ReturnCard(decks,card)
-			for card in range(self.bartender.BobsTmpFieldSize):
-				card = DealCard(decks, self.bartender, self.controller.Tier)
-				card.controller = self.bartender#たぶん不要
-				card.zone = Zone.PLAY
+		Rerole(self.controller).trigger(self.controller)
+		#if self.controller.mana>=self.game.reroleCost:
+		#	self.controller.used_mana += self.game.reroleCost
+		#	for card in self.bartender.field:
+		#		ReturnCard(decks,card)
+		#	for card in range(self.bartender.BobsTmpFieldSize):
+		#		card = DealCard(decks, self.bartender, self.controller.Tier)
+		#		card.controller = self.bartender#たぶん不要
+		#		card.zone = Zone.PLAY
 		pass
 
 	def freeze(self):

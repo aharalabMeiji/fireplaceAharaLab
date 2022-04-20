@@ -1,5 +1,6 @@
 
 from ..utils import *
+from fireplace.battlegrounds.BG_actions import *
 
 BG_Minion_Dragon =[
 	'BG21_027','BG21_027e','BG21_027_G',#Evolving Chromawing(1) ###OK
