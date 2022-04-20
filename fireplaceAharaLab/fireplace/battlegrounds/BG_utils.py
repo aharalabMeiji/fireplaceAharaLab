@@ -5,166 +5,193 @@ from fireplace.actions import *
 from fireplace.player import Player
 import random
 from hearthstone.enums import Zone,State
-from .BG_enums import MovePlay, BG_decks
+
 
 from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
 from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
 from .BG_actions import *
-
+from .BG_enums import MovePlay
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
-
-def BG_main():
-	#使用カードの初期化
-	cards.db.BG_initialize()
-	#エージェントのリスト
-	Agents=[
-		BG_HumanAgent("Human1"),
-		BG_NecoAgent("Neco2"),
-		BG_RandomAgent("Random3"),
-		BG_RandomAgent("Random4")
-		]
-	# ヒーローセット
-	Heroes = \
-		cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
-	# デッキを作る新しいゲームの始まり。
-	BG_decks=[[],[],[],[],[],[]]
-	for i in range(6):
-		if i<5:
-			rep=8
-		else:
-			rep=3
-		for repeat in range(rep):	# BAN される raceはここで除外
-			BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-			BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
-			#BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
-	# ヒーローの選択
-	BG_Bars=[]
-	for agent in Agents:
-		if agent.name=='Human1':
-			theHeroes = Heroes[2:4]
-		else:
-			theHeroes = random.sample(Heroes, 2)
-		Heroes.remove(theHeroes[0])
-		Heroes.remove(theHeroes[1])
-		theHero = agent.heroChoiceStrategy(theHeroes)
-		#heroCard=Card(theHero)
-		thePlayer = Player(agent.name, BG_decks[0], theHero)#とりあえずグレ１をデッキとしておく。
-		# ゲームのたちあげ
-		bar = BG_Bar(thePlayer)
-		bar.BG_setup()
-		bar.player1 = bar.current_player = bar.controller
-		bar.player2 = bar.bartender
-		bar.turn=1
-		BG_Bars.append(bar)
-		pass
-	prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
-	# 無限ループ始まり
-	while True:	
-		### 組合せをランダムに決める（現状固定だが、最終形ではランダム）
-		matches=[[0,1],[2,3]]#
-		#battlesはこのままで繰り返し使う。配列の長さは最終形では4
-		battles = [None,None]
-		### ムーブのループ始まり
-		for bar in BG_Bars:
-			controller = bar.controller
-			controller.game = bar
-			bartender = bar.bartender
-			for agent in Agents:
-				if agent.name == controller.name:
-					break
-			if bartender.BobsTmpFieldSize<7:#「アランナフラグが立っていれば」のフラグに振り替えもありうる。
-				bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
-			controller.max_mana = min(10,bar.turn+2)
-			### （バーテンダーに）カードを配る
-			# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
-			# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
-			frozencard=0
-			repeat = len(bartender.field)
-			for i in range(repeat):
-				card = bartender.field[0]
-				if not card.frozen:
-					ReturnCard(BG_decks, card)
-				else:
-					frozencard += 1
-			for repeat in range(bartender.BobsTmpFieldSize-frozencard):
-				card = DealCard(BG_decks, bartender, controller.Tier)
-				card.controller = bartender#たぶん不要
-				card.zone = Zone.PLAY
-			#ボブのバーを開始する。
-			BeginBar(controller, bar.turn).trigger(bar)
-			postAction(controller)
-			while True:
-				##### ムーブの選択肢を作る
-				candidates = GetMoveCandidates(bar, controller, bartender)
-				##### それぞれのムーブを行う（エージェントを呼び出す。）
-				choice = agent.moveStrategy(bar, candidates, controller, bartender)
-				#### ターンエンドが選択されていれば、ループから脱出。
-				if choice.move==MovePlay.TURNEND:
-					bar.no_drawing_at_begin_turn=True
-					EndTurn(controller).trigger(controller)
-					break
-				else:
-					choice.execute()
-					postAction(controller)
-				pass
-		### ムーブのループ終わり
-		#self.manager.step(self.next_step, Step.MAIN_NEXT)
-
-		### 対戦
-		i=0
-		battles[i] = BG_Battle([BG_Bars[matches[i][0]],BG_Bars[matches[i][1]]])
-		damage0, damage1 = battles[i].battle()
-		### 対戦後処理
-		if damage0>0:
-			hero0 = BG_Bars[matches[i][0]].controller.hero
-			if hero0.armor>0:# armorも加味する
-				if hero0.armor >= damage0:
-					hero0.armor -= damage0
-				else:
-					hero0.damage += (damage0 - hero0.armor)
-					hero0.armor=0
+class BG_main:
+	def __init__(self):
+		#使用カードの初期化
+		cards.db.BG_initialize()
+		#エージェントのリスト
+		self.Agents=[
+			BG_HumanAgent("Human1"),
+			BG_NecoAgent("Neco2"),
+			BG_RandomAgent("Random3"),
+			BG_RandomAgent("Random4")
+			]
+		# ヒーローセット
+		self.Heroes = \
+			cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
+		# デッキを作る新しいゲームの始まり。
+		self.BG_decks=[[],[],[],[],[],[]]
+		for i in range(6):
+			if i<5:
+				rep=8
 			else:
-				hero0.damage += damage0#
-			print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
-			if hero0.health<=0:
-				#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
-				#ケルスザードは酒場のムーブを行わない。
-				pass
-		if damage1>0:
-			hero1 = BG_Bars[matches[i][1]].controller.hero
-			if hero1.armor>0:# armorも加味する
-				if hero1.armor >= damage1:
-					hero1.armor -= damage1
-				else:
-					hero1.damage += (damage1 - hero1.armor)
-					hero1.armor=0
+				rep=3
+			for repeat in range(rep):	# BAN される raceはここで除外
+				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+				self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+		self.BG_Bars=[]
+	pass
+
+	def BG_main(self):
+		# ヒーローの選択
+		for agent in self.Agents:
+			if agent.name=='Human1':
+				theHeroes = self.Heroes[4:6]
 			else:
-				hero1.damage += damage1#
-			print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
-			if hero1.health<=0:
-				#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
-				pass
-		pass
-		#次のターンへ
-		for bar in BG_Bars:
-			controller = bar.controller
-			# グレードアップコストを減らす。
-			controller.TierUpCost = max(0, controller.TierUpCost-1) 
-			#ターン更新に伴うコインの補充。
-			#bar.turn += 1
-			controller.used_mana = 0 
+				theHeroes = random.sample(self.Heroes, 2)
+			self.Heroes.remove(theHeroes[0])
+			self.Heroes.remove(theHeroes[1])
+			theHero = agent.heroChoiceStrategy(theHeroes)
+			#heroCard=Card(theHero)
+			thePlayer = Player(agent.name, self.BG_decks[0], theHero)#とりあえずグレ１をデッキとしておく。
+			# ゲームのたちあげ
+			bar = BG_Bar(thePlayer)
+			bar.BG_setup()
+			bar.player1 = bar.current_player = bar.controller
+			bar.player2 = bar.bartender
+			bar.turn=1
+			bar.parent = self
+			self.BG_Bars.append(bar)
 			pass
+		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
+		# 無限ループ始まり
+		while True:	
+			### 組合せをランダムに決める（現状固定だが、最終形ではランダム）
+			matches=[[0,1],[2,3]]#
+			#battlesはこのままで繰り返し使う。配列の長さは最終形では4
+			battles = [None,None]
+			### ムーブのループ始まり
+			for bar in self.BG_Bars:
+				controller = bar.controller
+				controller.game = bar
+				bartender = bar.bartender
+				for agent in self.Agents:
+					if agent.name == controller.name:
+						break
+				if bartender.BobsTmpFieldSize<7:#「アランナフラグが立っていれば」のフラグに振り替えも ありうる。
+					bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
+				controller.max_mana = min(10,bar.turn+2)
+				### （バーテンダーに）カードを配る
+				# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
+				# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
+				frozencard=0
+				repeat = len(bartender.field)
+				for i in range(repeat):
+					card = bartender.field[0]
+					if not card.frozen:
+						self.ReturnCard(card)
+					else:
+						frozencard += 1
+				for repeat in range(bartender.BobsTmpFieldSize-frozencard):
+					card = self.DealCard(bartender, controller.Tier)
+					card.controller = bartender#たぶん不要
+					card.zone = Zone.PLAY
+				#ボブのバーを開始する。
+				BeginBar(controller, bar.turn).trigger(bar)
+				#この瞬間に「選択」が発生しうるので
+				choiceAction(controller)
+				while True:
+					##### ムーブの選択肢を作る
+					candidates = GetMoveCandidates(bar, controller, bartender)
+					##### それぞれのムーブを行う（エージェントを呼び出す。）
+					choice = agent.moveStrategy(bar, candidates, controller, bartender)
+					#### ターンエンドが選択されていれば、ループから脱出。
+					if choice.move==MovePlay.TURNEND:
+						bar.no_drawing_at_begin_turn=True
+						EndTurn(controller).trigger(controller)
+						break
+					else:
+						choice.execute()
+						choiceAction(controller)
+					pass
+			### ムーブのループ終わり
+			#self.manager.step(self.next_step, Step.MAIN_NEXT)
 
-	# 無限ループ終わり
+			### 対戦
+			i=0
+			battles[i] = BG_Battle([self.BG_Bars[matches[i][0]],self.BG_Bars[matches[i][1]]])
+			damage0, damage1 = battles[i].battle()
+			### 対戦後処理
+			if damage0>0:
+				hero0 = BG_Bars[matches[i][0]].controller.hero
+				if hero0.armor>0:# armorも加味する
+					if hero0.armor >= damage0:
+						hero0.armor -= damage0
+					else:
+						hero0.damage += (damage0 - hero0.armor)
+						hero0.armor=0
+				else:
+					hero0.damage += damage0#
+				print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
+				if hero0.health<=0:
+					#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+					#ケルスザードは酒場のムーブを行わない。
+					pass
+			if damage1>0:
+				hero1 = BG_Bars[matches[i][1]].controller.hero
+				if hero1.armor>0:# armorも加味する
+					if hero1.armor >= damage1:
+						hero1.armor -= damage1
+					else:
+						hero1.damage += (damage1 - hero1.armor)
+						hero1.armor=0
+				else:
+					hero1.damage += damage1#
+				print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
+				if hero1.health<=0:
+					#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
+					pass
+			pass
+			#次のターンへ
+			for bar in self.BG_Bars:
+				controller = bar.controller
+				# グレードアップコストを減らす。
+				controller.TierUpCost = max(0, controller.TierUpCost-1) 
+				#ターン更新に伴うコインの補充。
+				#bar.turn += 1
+				controller.used_mana = 0 
+				pass
+
+		# 無限ループ終わり
+		# main おわり
+		pass
+
+	def DealCard(self, bartender, grade):
+		decks = self.BG_decks
+		dk=[]
+		for i in range(grade):
+			dk += decks[i]
+		cardID = random.choice(dk)
+		card = bartender.card(cardID)
+		gr = card.tech_level-1
+		decks[gr].remove(cardID)
+		return card
+	def ReturnCard(self, card):
+		decks = self.BG_decks
+		gr = card.tech_level-1
+		decks[gr].append(card.id)
+		card.zone=Zone.GRAVEYARD
+		#card.controller.field.remove(card)
+		pass
+
+	#class 終わり
 	pass
 
 def print_hero_stats(hero0, hero1):
@@ -172,7 +199,7 @@ def print_hero_stats(hero0, hero1):
 	print("<< %s (%s)<< health=%d"%(hero1, hero1.controller, hero1.health))
 	pass
 
-def postAction(player):
+def choiceAction(player):
 	while True:
 		if player.choice == None:
 			return
@@ -195,9 +222,6 @@ def postAction(player):
 					player.choice=None##return
 				else:
 					player.choice.choose(choice)
-
-
-
 
 class Move(object):
 	def __init__(self, game, target, move, param0=-1, param1=-1, param2=-1):
@@ -406,21 +430,6 @@ def GetMoveCandidates(bar, controller, bartender):
 	ret.append(Move(bar, None, MovePlay.FREEZE, 0))
 	return ret
 
-def DealCard(decks, bartender, grade):
-	dk=[]
-	for i in range(grade):
-		dk += decks[i]
-	cardID = random.choice(dk)
-	card = bartender.card(cardID)
-	gr = card.tech_level-1
-	decks[gr].remove(cardID)
-	return card
 
-def ReturnCard(decks, card):
-	gr = card.tech_level-1
-	decks[gr].append(card.id)
-	card.zone=Zone.GRAVEYARD
-	#card.controller.field.remove(card)
-	pass
 
 

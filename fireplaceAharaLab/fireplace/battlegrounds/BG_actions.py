@@ -52,28 +52,14 @@ class Rerole(TargetedAction): ## battlegrounds
 		if controller.mana>=game.reroleCost:
 			self.broadcast(source, EventListener.ON, target)
 			controller.used_mana += game.reroleCost
-			for card in bartender.field:
-				self.ReturnCard(BG_decks,card)
+			for i in range(len(bartender.field)):
+				card=bartender.field[0]
+				game.parent.ReturnCard(card)
 			for card in range(bartender.BobsTmpFieldSize):
-				card = self.DealCard(BG_decks, bartender, controller.Tier)
+				card = game.parent.DealCard(bartender, controller.Tier)
 				card.controller = bartender#たぶん不要
 				card.zone = Zone.PLAY
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
-	def DealCard(self, decks, bartender, grade):
-		dk=[]
-		for i in range(grade):
-			dk += decks[i]
-		cardID = random.choice(dk)
-		card = bartender.card(cardID)
-		gr = card.tech_level-1
-		decks[gr].remove(cardID)
-		return card
 
-	def ReturnCard(self, decks, card):
-		gr = card.tech_level-1
-		decks[gr].append(card.id)
-		card.zone=Zone.GRAVEYARD
-		#card.controller.field.remove(card)
-		pass
 

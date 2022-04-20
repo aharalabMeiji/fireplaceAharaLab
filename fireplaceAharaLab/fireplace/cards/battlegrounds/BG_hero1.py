@@ -303,7 +303,7 @@ class TB_BaconShop_HP_065:
 	""" Demon Hunter Training
 	<b>Passive</b> After you <b>Refresh</b> 5 times, Bob always has 7 minions.
 <i>(@ left!)</i>"""
-	#events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]))
+	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]))
 	pass
 class TB_BaconShop_HP_065pe:
 	"""  Aranna Watcher
