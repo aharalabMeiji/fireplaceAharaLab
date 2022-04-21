@@ -781,6 +781,7 @@ class Minion(Character):
 		self.guardians_legacy = False
 		self.spellpower_fire = 0
 		self.deathrattle_valid = True
+		self.deepcopy_original = None
 		super().__init__(data)
 
 	@property

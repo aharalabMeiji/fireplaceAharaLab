@@ -868,6 +868,13 @@ class Buff(TargetedAction):
 			pass
 		return buff.apply(target)
 
+class BuffPermanently(Buff):
+	def do(self, source, target, buff):
+		ret = super().do(source, target, buff)
+		if target.deepcopy_original:
+			buff.apply(target.deepcopy_original)
+		return ret
+
 class RemoveBuff(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()

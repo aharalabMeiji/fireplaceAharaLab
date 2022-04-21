@@ -105,6 +105,7 @@ class Player(Entity, TargetableByAuras):
 		self.AttackIndex=0 # battlegrounds
 		self.FirstKillMinion=None # battlegrounds
 		self.SecondKillMinion=None # battlegrounds
+		self.ActivateThisTurn=False # battlegrounds
 
 	def __str__(self):
 		return self.name

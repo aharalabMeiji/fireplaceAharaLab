@@ -9,12 +9,12 @@ BG_Minion=[
 	'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
 	'BG20_203','BG20_203_G',#Prophet of the Boar	2
 	'OG_221','TB_BaconUps_014',#Selfless Hero	2
-	'OG_256','OG_256e','TB_BaconUps_025',#Spawn of N'Zoth	2
+	'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
 	'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
-	'BG21_013','BG21_013_G',#Whelp Smuggler	2
+	'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
 	'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
 	'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
-	'BG21_030','BG21_030_G',#Budding Greenthumb	3
+	'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
 	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
 	'DAL_575','TB_BaconUps_034',#Khadgar	3
 	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
@@ -193,65 +193,84 @@ TB_BaconUps_144e=buff(2,2)# <12>[1453]
 """ Sip of Tea
 +2/+2. """
 
-
 #Prophet of the Boar	2	3	3	-	Blood Gem BG20_203 BG20_203_G
+class BG20_203_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		controller = target
+		if controller.ActivateThisTurn==False:
+			for repeat in range(amount):
+				Give(controller, 'BG20_GEM')
+				#.trigger(source)
+			controller.ActivateThisTurn=True
 class BG20_203:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """
-	#
+	events = [
+		Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
+		OWN_TURN_BEGIN.on(SetAttr(CONTROLLER, 'ActivateThisTurn', False))
+		]
 	pass
-
 class BG20_203_G:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
-	#
+	events = [
+		Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
+		OWN_TURN_BEGIN.on(SetAttr(CONTROLLER, 'ActivateThisTurn', False))
+		]
 	pass
+
 
 #Selfless Hero	2	2	1	-	Deathrattle OG_221 TB_BaconUps_014
 class OG_221:
 	"""Selfless Hero:
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Give a random friendly minion &lt;b&gt;Divine Shield&lt;/b&gt;."""
+	deathrattle = GiveDivineShield(RANDOM_FRIENDLY_MINION)
 class TB_BaconUps_014:# <5>[1453]
 	""" Selfless Hero
 	[Deathrattle:] Give 2_random friendly minions [Divine Shield]. """
-	#
+	deathrattle = GiveDivineShield(RANDOM_FRIENDLY_MINION) * 2
 	pass
 
 #Spawn of N'Zoth	2	2	2	-	Deathrattle　 OG_256 TB_BaconUps_025 んぞす
 class OG_256:
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +1/+1. """
-	#
+	deathrattle = Buff(FRIENDLY_MINIONS, 'OG_256e')#
 	pass
 OG_256e=buff(1,1)
 class TB_BaconUps_025:# <12>[1453]
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +2/+2. """
-	#
+	deathrattle = Buff(FRIENDLY_MINIONS, 'TB_BaconUps_025e')#
 	pass
+TB_BaconUps_025e = buff(2,2)
+
 
 #Unstable Ghoul	2	1	3	-	Deathrattle FP1_024  TB_BaconUps_118 ぐうる
 class FP1_024:# <12>[1453]
 	""" Unstable Ghoul
 	&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1 damage to all minions. """
-	#
+	deathrattle = Hit(ALL_MINIONS, 1)
 	pass
 class TB_BaconUps_118:# <12>[1453]
 	""" Unstable Ghoul
 	[Taunt][Deathrattle:] Deal 1 damage to all minions twice. """
-	#
+	deathrattle = Hit(ALL_MINIONS, 1) * 2
 	pass
 
 #Whelp Smuggler	2	2	5	-	- BG21_013  BG21_013_G 密輸人
 class BG21_013:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +1_Health. """
-	#
+	events = Buff(FRIENDLY + DRAGON).on(Buff(Buff.TARGET,'BG21_013e'))
 	pass
+BG21_013e=buff(0,1)
 class BG21_013_G:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +2_Health. """
-	#
+	events = Buff(FRIENDLY + DRAGON).on(Buff(Buff.TARGET,'BG21_013e') * 2)
 	pass
 
 
@@ -259,88 +278,91 @@ class BG21_013_G:# <12>[1453]
 class BGS_110:# <12>[1453]
 	""" Arm of the Empire
 	Whenever a friendly [Taunt]minion is attacked,give it +2 Attackpermanently. """
-	#
+	events = Attack(ENEMY_MINIONS, FRIENDLY_MINIONS+TAUNT).on(BuffPermanently(Attack.DEFENDER,'BGS_110e'))
 	pass
-class BGS_110e:# <12>[1453]
-	""" Armed!
-	+2 Attack """
-	#
-	pass
+BGS_110e=buff(2,0)# <12>[1453]
+""" Armed!
++2 Attack """
 class TB_BaconUps_302:# <12>[1453]
 	""" Arm of the Empire
 	Whenever a friendly [Taunt]minion is attacked,give it +4 Attackpermanently. """
-	#
+	events = Attack(ENEMY_MINIONS, FRIENDLY_MINIONS+TAUNT).on(BuffPermanently(Attack.DEFENDER,'BGS_110e'))
 	pass
-class TB_BaconUps_302e:# <12>[1453]
-	""" Double Armed!
-	+4 Attack """
-	#
-	pass
+TB_BaconUps_302e=buff(4,0)# <12>[1453]
+""" Double Armed!
++4 Attack """
+
 
 #Bird Buddy	3	2	4	-	Avenge (X)  BG21_002  BG21_002_G  愛鳥家
 class BG21_002:# <12>[1453]
-	""" Bird Buddy愛鳥家
+	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +1/+1. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, [Buff(FRIENDLY_MINIONS + BEAST), 'BG21_002e')]))
 	pass
+BG21_002e=buff(1,1)
+""" Well Fed
++1/+1. """
 class BG21_002_G:# <12>[1453]
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +2/+2. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, [Buff(FRIENDLY_MINIONS + BEAST), 'BG21_002_Ge')]))
 	pass
-class BG21_002_Ge:# <12>[1453]
-	""" Well Fed
-	+2/+2. """
-	#
-	pass
-class BG21_002e:# <12>[1453]
-	""" Well Fed
-	+1/+1. """
-	#
-	pass
+BG21_002_Ge=buff(2,2)# <12>[1453]
+""" Well Fed
++2/+2. """
 
 
-#Budding Greenthumb	3	1	4	-	Avenge (X)  BG21_030  BG21_030_G
+
+#Budding Greenthumb	3	1	4	-	Avenge (X)  BG21_030  BG21_030_G 栽培家
 class BG21_030:# <12>[1453]
 	""" Budding Greenthumb
-	[Avenge (3):] Giveadjacent minions+2/+1 permanently. """
-	#
+	[Avenge (3):] Give adjacent minions +2/+1 permanently. """
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030e')])
 	pass
+BG21_030e=buff(2,1)
 class BG21_030_G:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Giveadjacent minions+4/+2 permanently. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030_Ge')])
 	pass
+BG21_030_Ge=buff(4,2)
 
-#Houndmaster	3	4	3	-	Battlecry  DS1_070  TB_BaconUps_068 TB_BaconUps_068e
+
+
+#Houndmaster	3	4	3	-	Battlecry  DS1_070  TB_BaconUps_068 TB_BaconUps_068e 猟犬使い
 class DS1_070:# <3>[1453]
 	""" Houndmaster
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Beast +2/+2 and &lt;b&gt;Taunt&lt;/b&gt;."""
-	#
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
+		}
+	play = Buff(TARGET, 'DS1_070o')
 	pass
 DS1_070o=buff(2,2,taunt=True)
 class TB_BaconUps_068:# <3>[1453]
 	""" Houndmaster
 	[Battlecry:] Give a friendly Beast +4/+4 and [Taunt]. """
-	#
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
+		}
+	play = Buff(TARGET, 'TB_BaconUps_068e')
 	pass
-class TB_BaconUps_068e:# <3>[1453]
-	""" Master's Presence
-	+4/+4 and [Taunt]. """
-	#
-	pass
+TB_BaconUps_068e=buff(2,2,taunt=True)# <3>[1453]
+""" Master's Presence
++4/+4 and [Taunt]. """
 
 
-#Khadgar	3	2	2	-	-  DAL_575 TB_BaconUps_034 カドガー
+#Khadgar	3	2	2	-	-  DAL_575 TB_BaconUps_034 カドガー 
 class DAL_575:
 	""" Khadgar
 	Your cards that summon minions summon twice_as_many. """
-	#
+	##############  infinite loop?
+	events = Summon(FRIENDLY_MINIONS).after(Summon(CONTROLLER, ExactCopy(Summon.CARD)))
 	pass
 class TB_BaconUps_034:# <4>[1453]
 	""" Khadgar
 	Your cards that summon minions summon three times as many. """
-	#
+	events = Summon(FRIENDLY_MINIONS).after(Summon(CONTROLLER, ExactCopy(Summon.CARD))*2)
 	pass
 
 
