@@ -7,6 +7,8 @@ from hearthstone.enums import PlayState
 class BG_Battle(Game):
 	def __init__(self, bars):
 		#エージェントのデータからバトルフィールドの設定をする。
+		self.bar1=bars[0]
+		self.bar2=bars[1]
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
 		self.game2=deepcopy_game(bars[1], bars[1].controller, 0)
 		self.player1 = self.game1.player1
@@ -38,6 +40,10 @@ class BG_Battle(Game):
 		self.current_player=self.first
 		self.first.AttackIndex=0
 		self.second.AttackIndex=0
+		self.first.controller.FirstKillMinion=None
+		self.second.controller.FirstKillMinion=None
+		self.first.controller.SecondKillMinion=None
+		self.second.controller.SecondKillMinion=None
 		#ループ開始
 		while True:
 			#フィールドの表示
@@ -62,6 +68,16 @@ class BG_Battle(Game):
 			BG_RegularAttack(attacker, defender).trigger(attacker.controller)
 			#死者が出る場合にその処理(deathrattle)
 			Deaths().trigger(self)
+			if attacker.zone==Zone.GRAVEYARD:
+				if attacker.controller.FirstKillMinion==None:
+					attacker.controller.FirstKillMinion=attacker.id
+				elif attacker.controller.SecondKillMinion==None:
+					attacker.controller.SecondKillMinion=attacker.id
+			if defender.zone==Zone.GRAVEYARD:
+				if defender.controller.FirstKillMinion==None:
+					defender.controller.FirstKillMinion=attacker.id
+				elif defender.controller.SecondKillMinion==None:
+					defender.controller.SecondKillMinion=attacker.id
 			#攻撃ターンの交代(freezeとone_turn_effectはない)
 			self.current_player.AttackIndex+=1
 			if self.current_player.AttackIndex>= len(self.current_player.field):

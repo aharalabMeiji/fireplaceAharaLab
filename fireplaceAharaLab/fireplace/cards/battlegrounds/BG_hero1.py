@@ -332,9 +332,16 @@ class TB_BaconShop_HERO_59t:# <12>[1453]
 class TB_BaconShop_HERO_45:# <12>[1453]
 	""" Arch-Villain Rafaam
 	"""
+class TB_BaconShop_HP_053_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		if controller.FirstKillMinion!=None:
+			Give(controller,controller.FirstKillMinion).trigger(source)
 class TB_BaconShop_HP_053:
 	""" I'll Take That!
 	Next combat, add a plain copy of the first minion you kill to your hand."""
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_053_Action(CONTROLLER))
 class TB_BaconShop_HERO_45_Buddy:# <12>[1453]
 	""" Loyal Henchman
 	After you kill a secondminion each combat,get a plain copy of it. """

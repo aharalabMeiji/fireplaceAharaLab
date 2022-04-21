@@ -103,6 +103,8 @@ class Player(Entity, TargetableByAuras):
 		self.TierUpCost=5 # battlegrounds
 		self.BobsTmpFieldSize=3 # battlegrounds
 		self.AttackIndex=0 # battlegrounds
+		self.FirstKillMinion=None # battlegrounds
+		self.SecondKillMinion=None # battlegrounds
 
 	def __str__(self):
 		return self.name
