@@ -78,7 +78,7 @@ def main():
 	#レーティングを表示する。
 	from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
-	play_round_robin_competition([Vector1,HappyCat,Queen],matchNumber=2)
+	play_round_robin_competition([Vector1,Queen,HappyCat],matchNumber=7)
 
 	#特定の2枚のカードのシナジーを調べる(idea by Maya)
 	#from card_pair import investigate_card_pair, find_card_pair

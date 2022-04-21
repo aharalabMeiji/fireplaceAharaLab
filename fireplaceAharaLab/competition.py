@@ -32,6 +32,8 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 			print("Start %s(%s) vs. %s(%s)"%(agent1.name, BigDeck.name(deck1), agent2.name, BigDeck.name(deck2)))
 			for repeat in range(matchNumber):
 				winner = play_one_game_competition(agent1,agent2,deck1, deck2,debugLog=True)
+				with open("result.txt", mode="a") as result:
+					result.write(agent1.name+BigDeck.name(deck1)+agent2.name+BigDeck.name(deck2)+winner+"\n")
 				print("winner is %r"%winner)
 				if winner == agent1.name:
 					newRate(agent1,agent2)
@@ -46,7 +48,7 @@ def play_round_robin_competition(players: list, matchNumber=10):# players: Agent
 			print("Start %s(%s) vs. %s(%s)"%(agent1.name, BigDeck.name(deck2), agent2.name, BigDeck.name(deck1)))
 			for repeat in range(matchNumber):
 				winner = play_one_game_competition(agent1,agent2,deck2, deck1,debugLog=True)
-				with open("result.txt", mode="w") as result:
+				with open("result.txt", mode="a") as result:
 					result.write(agent1.name+BigDeck.name(deck2)+agent2.name+BigDeck.name(deck1)+winner+"\n")
 				if winner == agent1.name:
 					newRate(agent1,agent2)
@@ -195,7 +197,7 @@ def show_field_hand(Player1, Player2, filename):
 			display.write("%s   : "%card)
 			if hasattr(card, 'sidequest') or hasattr(card, 'questline'):	
 				display.write("(sidequest %d)"%card._sidequest_counter_)
-			display.write("%s\n"%(adjust_text(card.data.description)))
+			#display.write("%s\n"%(adjust_text(card.data.description)))
 		display.write("========%s 's PLAYGROUND======\n"%(Player1.name))
 		for character in player.characters:
 			display.write("%s   : "%character)

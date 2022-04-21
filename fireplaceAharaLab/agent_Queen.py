@@ -54,15 +54,15 @@ class QueenAgent(Agent):
 		else:
 			self.deckcards = self.faceHunterCard
 			pass
-		print (self.myclass)
+		#print (self.myclass)
 		loopCount=0
 		while loopCount<20:
 			loopCount+=1
 			myCandidate = getCandidates(thisgame)
 			if len(myCandidate)>0:
-				for x in myCandidate:
-					print("CANDIDATE")
-					print(x)
+				#for x in myCandidate:
+				#	print("CANDIDATE")
+				#	print(x)
 				simpCan = self.classify_action(myCandidate)
 				#for x in simpCan:
 				#	print(simpCan)
@@ -151,7 +151,7 @@ class QueenAgent(Agent):
 		tradeflag=False
 		simpleCandidates =[]
 		for  i in candidates:
-			print(i.type)
+			#print(i.type)
 			if i.type==BlockType.ATTACK:
 				if not atkflag:
 					simpleCandidates.append('attack')
@@ -176,7 +176,7 @@ class QueenAgent(Agent):
 		he=game.current_player.opponent
 		a=min((me.hero.health+me.hero.armor-1)/5,5)
 		b=min((he.hero.health+he.hero.armor-1)/5,5)
-		c=game.turn/2
+		c=min(game.turn/2,10)
 		d=me.mana
 		if len(me.characters)>1:
 			e=1
@@ -191,8 +191,8 @@ class QueenAgent(Agent):
 	def chooseAction(self,simplecan):
 		s=self.state
 		doko = int(s[0]*(17424/6)+s[1]*(2904/6)+s[2]*(484/11)+s[3]*(44/11)+s[4]*(4/2)+s[5])
-		for x in simplecan:
-			print(simplecan)
+		#for x in simplecan:
+			#print(simplecan)
 		tabe = self.qq[0]
 		tableslice = self.qtable[doko]
 		rannum = random.randint(0,len(simplecan)-1)
@@ -205,7 +205,7 @@ class QueenAgent(Agent):
 			elif simplecan[i]=="attack":
 				canvalue[i]=tableslice[20]
 			else:
-				for x in range(19):
+				for x in range(len(self.deckcards)):
 					if canvalue[i] == self.deckcards[x]:
 						canvalue[i] = tableslice[x]
 					else:
