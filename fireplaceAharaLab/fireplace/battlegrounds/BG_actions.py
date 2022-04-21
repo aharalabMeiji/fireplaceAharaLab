@@ -62,4 +62,36 @@ class Rerole(TargetedAction): ## battlegrounds
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
 
+	class SummonOnce(Summon):
+	"""
+	Make player targets summon \a id onto their field.
+	This works for equipping weapons as well as summoning minions.
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+
+	def do(self, source, target, cards):
+		if target.type != CardType.PLAYER:
+			log.info("<><><><><><><><><><><><>")
+			log.info("%s is not a player, he/she cannot summon anything", target)
+			log.info("<><><><><><><><><><><><>")
+			return
+		log.info("%s summons %r", target, cards)
+
+		if not isinstance(cards, list):
+			cards = [cards]
+
+		for card in cards:
+			if not hasattr(card, 'is_summonable') or not card.is_summonable():
+				continue
+			target.add_summon_log(card)
+			if card.controller != target:
+				card.controller = target
+			if card.zone != Zone.PLAY:
+				if source.type == CardType.MINION and source.zone == Zone.PLAY:
+					source_index = source.controller.field.index(source)
+					card._summon_index = source_index + ((self.trigger_index + 1) % 2)
+				card.zone = Zone.PLAY
+			## no broadcasting
+		return cards
 

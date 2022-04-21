@@ -297,7 +297,9 @@ TB_BaconUps_302e=buff(4,0)# <12>[1453]
 class BG21_002:# <12>[1453]
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +1/+1. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, [Buff(FRIENDLY_MINIONS + BEAST), 'BG21_002e')]))
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, \
+		[Buff(FRIENDLY_MINIONS + BEAST, 'BG21_002e')]\
+		))
 	pass
 BG21_002e=buff(1,1)
 """ Well Fed
@@ -305,7 +307,9 @@ BG21_002e=buff(1,1)
 class BG21_002_G:# <12>[1453]
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +2/+2. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, [Buff(FRIENDLY_MINIONS + BEAST), 'BG21_002_Ge')]))
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, \
+		[Buff(FRIENDLY_MINIONS + BEAST, 'BG21_002_Ge')]\
+		))
 	pass
 BG21_002_Ge=buff(2,2)# <12>[1453]
 """ Well Fed
@@ -357,56 +361,53 @@ class DAL_575:
 	""" Khadgar
 	Your cards that summon minions summon twice_as_many. """
 	##############  infinite loop?
-	events = Summon(FRIENDLY_MINIONS).after(Summon(CONTROLLER, ExactCopy(Summon.CARD)))
+	events = Summon(FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD)))
 	pass
 class TB_BaconUps_034:# <4>[1453]
 	""" Khadgar
 	Your cards that summon minions summon three times as many. """
-	events = Summon(FRIENDLY_MINIONS).after(Summon(CONTROLLER, ExactCopy(Summon.CARD))*2)
+	events = Summon(FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD))*2)
 	pass
 
 
-#Soul Juggler	3	3	5	-	-  BGS_002  TB_BaconUps_075
+#Soul Juggler	3	3	5	-	-  BGS_002  TB_BaconUps_075 ソールジャグラー
 class BGS_002:# <9>[1453]
 	""" Soul Juggler
 	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
-	#
+	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3))
 	pass
 class TB_BaconUps_075:# <9>[1453]
 	""" Soul Juggler
 	After a friendly Demon dies, deal 3 damage to a random enemy minion twice. """
-	#
+	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3) * 2)
 	pass
 
 
 #Champion of Y'Shaarj	4	4	4	-	Taunt  BGS_111 BGS_111e   TB_BaconUps_301 TB_BaconUps_301e
-class BGS_111:# <12>[1453]
+class BGS_111:# <12>[1453]  ヤシャラージュ
 	""" Champion of Y'Shaarj
 	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
-	#
+	events = Attack(ENEMY_MINIONS, FRINEDLY + TAUNT).on(BuffPermanently(SELF, 'BGS_111e'))
 	pass
-class BGS_111e:# <12>[1453]
-	""" Y'Shaarj!!!
-	+1/+1. """
-	#
-	pass
+BGS_111e=buff(1,1)# <12>[1453]
+""" Y'Shaarj!!!
++1/+1. """
 class TB_BaconUps_301:# <12>[1453]
 	""" Champion of Y'Shaarj
 	Whenever a friendly [Taunt] minion is attacked, gain +2/+2 permanently. """
-	#
+	events = Attack(ENEMY_MINIONS, FRINEDLY + TAUNT).on(BuffPermanently(SELF, 'TB_BaconUps_301e'))
 	pass
+TB_BaconUps_301e=buff(2,2)# <12>[1453]
+""" Y'Shaarj!!!!!!
++2/+2. """
 
-class TB_BaconUps_301e:# <12>[1453]
-	""" Y'Shaarj!!!!!!
-	+2/+2. """
-	#
-	pass
 
-#Defender of Argus	4	3	3	-	Battlecry CORE_EX1_093  TB_BaconUps_009 TB_BaconUps_009
-class CORE_EX1_093:# <12>[1453]
+
+#Defender of Argus	4	3	3	-	Battlecry CORE_EX1_093  TB_BaconUps_009 
+class CORE_EX1_093:# <12>[1453]   アルガス
 	""" Defender of Argus
 	[Battlecry:] Give adjacent minions +1/+1 and [Taunt]. """
-	#
+	play = Buff(SELF_ADJACENT, 'EX1_093e')
 	pass
 EX1_093e=buff(1,1,taunt=True)
 """ Hand of Argus
@@ -414,24 +415,23 @@ EX1_093e=buff(1,1,taunt=True)
 class TB_BaconUps_009:# <12>[1453]
 	""" Defender of Argus
 	[Battlecry:] Give adjacent minions +2/+2 and [Taunt]. """
-	#
+	play = Buff(SELF_ADJACENT, 'TB_BaconUps_009e')
 	pass
-class TB_BaconUps_009e:# <12>[1453]
-	""" Hand of Argus
-	+2/+2 and [Taunt]. """
-	#
-	pass
+TB_BaconUps_009e=buff(2,2,taunt=True# <12>[1453]
+""" Hand of Argus
++2/+2 and [Taunt]. """
+
 
 #Impatient Doomsayer	4	2	6	-	Avenge (X) BG21_007 BG21_007_G
 class BG21_007:# <12>[1453]
 	""" Impatient Doomsayer
 	[Avenge (4):] Add a random Demon to your hand. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon())])
 	pass
 class BG21_007_G:# <12>[1453]
 	""" Impatient Doomsayer
 	[Avenge (4):] Add 2 random Demons to your hand. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon()), Give(CONTROLLER, RandomDemon())])
 	pass
 
 
@@ -701,14 +701,12 @@ class TB_BaconUps_154:# <12>[1453]
 class BG21_011:# <12>[1453]
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
-	#
+	requirements={
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+	#play = MakeGolden(TARGET)
 	pass
-class BG21_011e:# <12>[1453]
-	""" Slung
-	+3/+3. """
-	#
-	pass
-class BG21_011e2:# <12>[1453]
+BG21_011e=buff(3,3)# <12>[1453] ??????????????
+class BG21_011e2:# <12>[1453]  ??????????????
 	""" Battlecry Self-Trigger [DNT]
 	 """
 	#
@@ -716,23 +714,22 @@ class BG21_011e2:# <12>[1453]
 class BG21_011_G:# <12>[1453]
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
-	#
+	requirements={
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+	#play = MakeGolden(TARGET)
 	pass
-class BG21_011_Ge:# <12>[1453]
-	""" Slung
-	+6/+6. """
-	#
-	pass
+BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
+
 
 #Zapp Slywick	6	7	10	-	Windfury  BGS_022 TB_BaconUps_091
 class BGS_022:# <12>[1453]
 	""" Zapp Slywick
-	[Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
-	#
+	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """
+	#<ReferencedTag enumID="189" name="WINDFURY" type="Int" value="1"/> ### REF-TAGだ！
 	pass
 class TB_BaconUps_091:# <12>[1453]
 	""" Zapp Slywick
 	[Mega-Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
-	#
+	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/>　###これはオケ
 	pass
 

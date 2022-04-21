@@ -62,6 +62,16 @@ class BG_Battle(Game):
 				defenders = taunts
 			else:
 				defenders = self.current_player.opponent.field
+			if attacker.id =='BGS_022' or attacker.id=='TB_BaconUps_091':## Zapp Slywick
+				lowest_attack=[]
+				for card in defenders:
+					if lowest_attack==[]:
+						lowest_attack = [card]
+					elif lowest_attack[0].atk>card.atk:
+						lowest_attack = [card]
+					elif lowest_attack[0].atk==card.atk:
+						lowest_attack.append(card)
+				defenders = lowest_attack
 			defender=random.choice(defenders)
 			#攻撃
 			print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
