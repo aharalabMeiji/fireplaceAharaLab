@@ -1,6 +1,7 @@
 from fireplace.game import Game
 from fireplace.player import Player
 from hearthstone.enums import State, Zone
+import random
 
 class BG_Bar(Game):
 	def __init__(self, player):
@@ -33,6 +34,9 @@ class BG_Bar(Game):
 
 		for player in self.players:
 			player.summon(player.starting_hero)
+			armor_grade = player.hero.data.tags.get(1723)
+			if armor_grade != 1 and armor_grade != None:
+				player.hero.armor = random.randint(armor_grade, armor_grade+3)
 			#player.playstate = PlayState.PLAYING
 		self.manager.start_game()
 
