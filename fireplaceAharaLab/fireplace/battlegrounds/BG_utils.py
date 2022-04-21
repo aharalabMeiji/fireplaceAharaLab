@@ -130,7 +130,7 @@ class BG_main:
 			damage0, damage1 = battles[i].battle()
 			### 対戦後処理
 			if damage0>0:
-				hero0 = BG_Bars[matches[i][0]].controller.hero
+				hero0 = self.BG_Bars[matches[i][0]].controller.hero
 				if hero0.armor>0:# armorも加味する
 					if hero0.armor >= damage0:
 						hero0.armor -= damage0
@@ -139,13 +139,13 @@ class BG_main:
 						hero0.armor=0
 				else:
 					hero0.damage += damage0#
-				print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
+				print_hero_stats(self.BG_Bars[matches[i][0]].controller.hero, self.BG_Bars[matches[i][1]].controller.hero)
 				if hero0.health<=0:
 					#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
 					#ケルスザードは酒場のムーブを行わない。
 					pass
 			if damage1>0:
-				hero1 = BG_Bars[matches[i][1]].controller.hero
+				hero1 = self.BG_Bars[matches[i][1]].controller.hero
 				if hero1.armor>0:# armorも加味する
 					if hero1.armor >= damage1:
 						hero1.armor -= damage1
@@ -154,7 +154,7 @@ class BG_main:
 						hero1.armor=0
 				else:
 					hero1.damage += damage1#
-				print_hero_stats(BG_Bars[matches[i][0]].controller.hero, BG_Bars[matches[i][1]].controller.hero)
+				print_hero_stats(self.BG_Bars[matches[i][0]].controller.hero, self.BG_Bars[matches[i][1]].controller.hero)
 				if hero1.health<=0:
 					#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
 					pass
