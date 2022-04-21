@@ -144,35 +144,54 @@ class TB_BaconUps_079e:# <12>[1453]
 class BGS_106:# <12>[1453]
 	""" Acolyte of C'Thun
 	[Taunt][Reborn] """
-	#
 	pass
 class TB_BaconUps_255:# <12>[1453]
 	""" Acolyte of C'Thun
 	[Taunt][Reborn] """
-	#
 	pass
 
 #Menagerie Mug	2	2	2	-	Battlecry  BGS_082 TB_BaconUps_144
+class BGS_082_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller = target
+		field = controller.field
+		flag = [0] * len(field)
+		ret = []
+		while True:
+			if sum(flag)==len(field):
+				break
+			c =random.choice(field)
+			addOK=True
+			for d in ret:
+				if c.race == d.race:
+					flag[field.index(c)]=1
+					addOK=False
+					continue
+			if addOK:
+				ret.append(c)
+				flag[field.index(c)]=1
+			pass
+		for c in random.select(ret,3):
+			Buff(c,buff).trigger(source)
+
 class BGS_082:# <12>[1453]
 	""" Menagerie Mug
-	[Battlecry:] Give 3 randomfriendly minions of differentminion types +1/+1. """
-	#
+	[Battlecry:] Give 3 random friendly minions of different minion types +1/+1. """
+	play = BGS_082_Action(CONTROLLER,'BGS_082e')
 	pass
-class BGS_082e:# <12>[1453]
-	""" Sip of Tea
-	+1/+1. """
-	#
-	pass
+BGS_082e=buff(1,1)# <12>[1453]
+""" Sip of Tea
++1/+1. """
 class TB_BaconUps_144:# <12>[1453]
 	""" Menagerie Mug
 	[Battlecry:] Give 3 randomfriendly minions of differentminion types +2/+2. """
-	#
+	play = BGS_082_Action(CONTROLLER,'TB_BaconUps_144e')
 	pass
-class TB_BaconUps_144e:# <12>[1453]
-	""" Sip of Tea
-	+2/+2. """
-	#
-	pass
+TB_BaconUps_144e=buff(2,2)# <12>[1453]
+""" Sip of Tea
++2/+2. """
 
 
 #Prophet of the Boar	2	3	3	-	Blood Gem BG20_203 BG20_203_G
