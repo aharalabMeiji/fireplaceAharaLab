@@ -184,10 +184,14 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.DIVINE_SHIELD: "divine_shield",
 	GameTag.DORMANT: "dormant",
 	GameTag.DURABILITY: "max_durability",
+	GameTag.ELEMENTAL_POWERED_UP: "elemental_powered_up", ## battlegrounds, Nomi, lightsporn
 	GameTag.EMBRACE_THE_SHADOW: "healing_as_damage",
 	GameTag.ENRAGED: "enrage",
 	GameTag.EXHAUSTED: "exhausted",
+	GameTag.EXTRA_BATTLECRIES_BASE: "extra_battlecry",
+	GameTag.EXTRA_BATTLECRIES_ADDITIONAL: "extra_extra_battlecry",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
+	GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: "extra_extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
 	GameTag.FREEZE: 'freeze',#
 	GameTag.FRENZY: "frenzy",#

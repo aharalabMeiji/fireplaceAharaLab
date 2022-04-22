@@ -29,7 +29,9 @@ class Player(Entity, TargetableByAuras):
 	cant_overload = slot_property("cant_overload")
 	choose_both = slot_property("choose_both")
 	extra_battlecries = slot_property("extra_battlecries")
+	extra_extra_battlecries = slot_property("extra_extra_battlecries")
 	extra_deathrattles = slot_property("extra_deathrattles")
+	extra_extra_deathrattles = slot_property("extra_extra_deathrattles") ## TB_BaconUps_055
 	healing_double = slot_property("healing_double", sum)
 	hero_power_double = slot_property("hero_power_double", sum)
 	healing_as_damage = slot_property("healing_as_damage")
@@ -38,6 +40,7 @@ class Player(Entity, TargetableByAuras):
 	spellpower_adjustment = slot_property("spellpower", sum)
 	spells_cost_health = slot_property("spells_cost_health")
 	murlocs_cost_health = slot_property("murlocs_cost_health")
+	elemental_powered_up = slot_property("elemental_powered_up") ## battlegrounds, Nomi, lightspoan
 	type = CardType.PLAYER
 
 	def __init__(self, name, deck, hero):

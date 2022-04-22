@@ -863,7 +863,9 @@ class Buff(TargetedAction):
 			setattr(buff, k, v)
 		if source.controller==target.controller and target.type==CardType.HERO:##FRIENDLY_HERO
 			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
-			if buff.atk>0:# it works for atk buffs
+			if buff.atk>0:# for atk buffs : BG21_013
+				self.broadcast(source, EventListener.ON, target)
+			if (source.id=='BG21_036' or source.id=='BG21_036_G') and (buff.atk>0 or buff.max_health>0):# for stats buffs : BG21_036
 				self.broadcast(source, EventListener.ON, target)
 			pass
 		return buff.apply(target)
@@ -1053,7 +1055,10 @@ class Deathrattle(TargetedAction):
 			if target.controller.extra_deathrattles:
 				log.info("Triggering deathrattles for %r again", target)
 				source.game.queue_actions(target, actions)
-
+			if target.controller.extra_extra_deathrattles: ## TB_BaconUps_055
+				log.info("Triggering deathrattles for %r again and again", target)
+				source.game.queue_actions(target, actions)
+				source.game.queue_actions(target, actions)
 
 class Battlecry(TargetedAction):
 	"""
@@ -1084,6 +1089,9 @@ class Battlecry(TargetedAction):
 		source.game.main_power(source, actions, target)
 
 		if player.extra_battlecries and card.has_battlecry:
+			source.game.main_power(source, actions, target)
+		elif player.extra_extra_battlecries and card.has_battlecry: ## golden Brann :TB_BaconUps_045
+			source.game.main_power(source, actions, target)
 			source.game.main_power(source, actions, target)
 
 		if card.overload:
