@@ -285,24 +285,24 @@ def copy_playerattr(oldPlayer, newPlayer):
 	for card in oldPlayer.deck:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
-		new_card.deepcopy_original = card
 		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
 		new_card.zone = Zone.DECK
 		new_card.game.manager.new_entity(new_card)
 	#hand-cards attr.
 	for card in oldPlayer.hand:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
-		new_card.deepcopy_original = card
 		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
 		new_card.zone = Zone.HAND
 		new_card.game.manager.new_entity(new_card)
 	#field-cards attr.
 	for card in oldPlayer.field:
 		new_card = Minion(cards.db[card.id])
 		new_card.controller = newPlayer
-		new_card.deepcopy_original = card
 		copy_cardattr(card, new_card)
+		new_card.deepcopy_original = card
 		for buff in card.buffs:
 			new_buff = Enchantment(cards.db[buff.id])
 			new_buff.source = buff.source
@@ -318,8 +318,8 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		new_card.zone = Zone.SECRET
-		new_card.deepcopy_original = card
 		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
 		new_card.game.manager.new_entity(new_card)
 	## graveyard-cards attr.
 	for card in oldPlayer.graveyard:
