@@ -1,4 +1,5 @@
-from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, IntArg
+from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give
+
 from hearthstone.enums import Zone
 
 import random
@@ -62,7 +63,7 @@ class Rerole(TargetedAction): ## battlegrounds
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
 
-	class SummonOnce(Summon):
+class SummonOnce(Summon):
 	"""
 	Make player targets summon \a id onto their field.
 	This works for equipping weapons as well as summoning minions.
@@ -95,3 +96,12 @@ class Rerole(TargetedAction): ## battlegrounds
 			## no broadcasting
 		return cards
 
+#class GiveGoldCard(TargetedAction):
+#	TARGET = ActionArg()
+#	CARD = ActionArg()
+#	def do(self, source, target, card):
+#		new_card = target.game.parent.BG_Gold[card.id]
+#		if new_card:
+#			Give(target, new_card).trigger(source)
+#		pass
+#	pass

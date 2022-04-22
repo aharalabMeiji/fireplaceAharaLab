@@ -47,6 +47,7 @@ class BG_main:
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
+		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
 	pass
 
 	def BG_main(self):

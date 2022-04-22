@@ -321,13 +321,13 @@ BG21_002_Ge=buff(2,2)# <12>[1453]
 class BG21_030:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Give adjacent minions +2/+1 permanently. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030e')])
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030e')]))
 	pass
 BG21_030e=buff(2,1)
 class BG21_030_G:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Giveadjacent minions+4/+2 permanently. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030_Ge')])
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030_Ge')]))
 	pass
 BG21_030_Ge=buff(4,2)
 
@@ -387,7 +387,7 @@ class TB_BaconUps_075:# <9>[1453]
 class BGS_111:# <12>[1453]  ヤシャラージュ
 	""" Champion of Y'Shaarj
 	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
-	events = Attack(ENEMY_MINIONS, FRINEDLY + TAUNT).on(BuffPermanently(SELF, 'BGS_111e'))
+	events = Attack(ENEMY_MINIONS, FRIENDLY + TAUNT).on(BuffPermanently(SELF, 'BGS_111e'))
 	pass
 BGS_111e=buff(1,1)# <12>[1453]
 """ Y'Shaarj!!!
@@ -395,7 +395,7 @@ BGS_111e=buff(1,1)# <12>[1453]
 class TB_BaconUps_301:# <12>[1453]
 	""" Champion of Y'Shaarj
 	Whenever a friendly [Taunt] minion is attacked, gain +2/+2 permanently. """
-	events = Attack(ENEMY_MINIONS, FRINEDLY + TAUNT).on(BuffPermanently(SELF, 'TB_BaconUps_301e'))
+	events = Attack(ENEMY_MINIONS, FRIENDLY + TAUNT).on(BuffPermanently(SELF, 'TB_BaconUps_301e'))
 	pass
 TB_BaconUps_301e=buff(2,2)# <12>[1453]
 """ Y'Shaarj!!!!!!
@@ -417,7 +417,7 @@ class TB_BaconUps_009:# <12>[1453]
 	[Battlecry:] Give adjacent minions +2/+2 and [Taunt]. """
 	play = Buff(SELF_ADJACENT, 'TB_BaconUps_009e')
 	pass
-TB_BaconUps_009e=buff(2,2,taunt=True# <12>[1453]
+TB_BaconUps_009e=buff(2,2,taunt=True)# <12>[1453]
 """ Hand of Argus
 +2/+2 and [Taunt]. """
 
@@ -426,12 +426,12 @@ TB_BaconUps_009e=buff(2,2,taunt=True# <12>[1453]
 class BG21_007:# <12>[1453]
 	""" Impatient Doomsayer
 	[Avenge (4):] Add a random Demon to your hand. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon())])
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon())]))
 	pass
 class BG21_007_G:# <12>[1453]
 	""" Impatient Doomsayer
 	[Avenge (4):] Add 2 random Demons to your hand. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon()), Give(CONTROLLER, RandomDemon())])
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon()), Give(CONTROLLER, RandomDemon())]))
 	pass
 
 
@@ -703,7 +703,7 @@ class BG21_011:# <12>[1453]
 	[Battlecry:] Make a Murloc Golden. """
 	requirements={
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	#play = MakeGolden(TARGET)
+	#play = GiveGoldCard(CONTROLLER, TARGET)
 	pass
 BG21_011e=buff(3,3)# <12>[1453] ??????????????
 class BG21_011e2:# <12>[1453]  ??????????????
@@ -716,7 +716,7 @@ class BG21_011_G:# <12>[1453]
 	[Battlecry:] Make a Murloc Golden. """
 	requirements={
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	#play = MakeGolden(TARGET)
+	#play = GiveGoldCard(CONTROLLER, TARGET)
 	pass
 BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
 
