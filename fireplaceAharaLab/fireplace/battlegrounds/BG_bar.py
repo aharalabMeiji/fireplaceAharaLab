@@ -40,4 +40,36 @@ class BG_Bar(Game):
 			#player.playstate = PlayState.PLAYING
 		self.manager.start_game()
 
+	def BG_find_triple(self):
+		## トリプルを見つけ次第自動的にゴールドにするので、とにかく左から見ていってトリプルを見つければよい。
+		characters=[]
+		for card in self.controller.field:
+			characters.append(card.id)
+		for card in self.controller.hand:
+			characters.append(card.id)
+		for id in characters:
+			count=0
+			for jd in characters:
+				if id==jd:
+					count+=1
+					if count>=3:
+						return id
+				pass
+			pass
+		return None
+		pass
 
+	def BG_deal_gold(self, id):
+		if not id:
+			return
+		gold_id = self.parent.BG_Gold[id]
+		if not gold_id:
+			return
+		for card in self.controller.field + self.controller.hand:
+			if card.id==id:
+				decks = self.parent.BG_decks
+				gr = card.tech_level-1
+				decks[gr].append(card.id)
+				card.zone=Zone.GRAVEYARD
+		newcard = self.controller.card(gold_id)
+		newcard.zone = Zone.HAND # 必要か？

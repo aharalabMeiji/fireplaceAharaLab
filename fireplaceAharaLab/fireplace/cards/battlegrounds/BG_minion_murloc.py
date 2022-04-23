@@ -68,33 +68,35 @@ class BG22_401_G:# <12>[1453]
 	pass
 BG22_401_Ge=buff(2,0)
 
+
+
 #Murloc Warleader (2)
 class EX1_507:
+	"""Murloc Warleader 戦隊長
 	"""
-	"""
+	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="EX1_507e")
 	pass
 EX1_507e=buff(2,0)
 class TB_BaconUps_008:# <12>[1453]
 	""" Murloc Warleader
 	Your other Murlocs have +4 Attack. """
-	#
+	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="TB_BaconUps_008e")
 	pass
-class TB_BaconUps_008e:# <12>[1453]
-	""" Mrgglaargl!
-	+4 Attack from Murloc Warleader. """
-	#
-	pass
+TB_BaconUps_008e=buff(4,0)# <12>[1453]
+""" Mrgglaargl!
++4 Attack from Murloc Warleader. """
+
+
+
 #Saltscale Honcho (2)
 class BG21_008:# <12>[1453]
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +1 Health. """
 	#
 	pass
-class BG21_008e:# <12>[1453]
-	""" Salty
-	+1 Health. """
-	#
-	pass
+BG21_008e=buff(0,1)# <12>[1453]
+""" Salty
++1 Health. """
 class BG21_008_G:# <12>[1453]
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +2 Health. """

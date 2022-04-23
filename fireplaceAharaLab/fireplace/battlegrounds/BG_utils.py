@@ -42,7 +42,7 @@ class BG_main:
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-				self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
 				self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
@@ -291,6 +291,11 @@ class Move(object):
 		pass
 
 	def play(self, card, position=-1, targetpos=-1):
+		if card!=None and card.id=='TB_BaconShop_Triples_01':## カードを発見
+			pass
+		# コイン
+		# バナナ
+		# 血の宝石
 		if card!=None and card.cant_play!=True and len(self.controller.field)<7:
 			if position<0:
 				position += len(self.controller.field)
@@ -298,7 +303,9 @@ class Move(object):
 			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
 				card.target = self.controller.field[targetpos]
 			BG_Play(card, card.target, position, None).trigger(self.controller)
-
+			#ゴールドカードをプレイすると、1枚おまけがもらえる→カード番号は？
+			#TB_BaconShop_Triples_01
+			#探せばあるもんだ。
 	def changeOrder(self, card, p0):
 		num = len(self.controller.field)
 		field = self.controller.field
@@ -328,6 +335,9 @@ class Move(object):
 					self.controller.used_mana += 3
 					self.controller.add_buy_log(card)
 					self.bartender.field.remove(c)
+					gold_card_id = self.controller.game.BG_find_triple## トリプルを判定
+					if gold_card_id:
+						self.controller.game.BG_deal_gold(gold_card_id)
 					return
 			pass
 		pass
