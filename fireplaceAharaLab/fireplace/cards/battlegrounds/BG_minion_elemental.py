@@ -6,7 +6,7 @@ BG_Minion_Elemental =[
 	'BGS_116','TB_BaconUps_167',#Refreshing Anomaly(1)
 	'BGS_115','BGS_115t','TB_BaconUps_156',#Sellemental(1)
 	'BGS_127','BGS_127e','TB_Baconups_202','TB_Baconups_202e',#Molten Rock(2)
-	'BGS_120','BGS_120e','TB_BaconUps_160','TB_BaconUps_160e',#Party Elemental(2)
+	'BGS_120','BGS_120e','TB_BaconUps_160',#Party Elemental(2)
 	'BGS_119','TB_BaconUps_159',#Crackling Cyclone(3)
 	'BG21_021','BG21_021e','BG21_021_G',#Smogger(3)
 	'BGS_122','TB_BaconUps_161',#Stasis Elemental(3)
@@ -15,7 +15,7 @@ BG_Minion_Elemental =[
 	'BGS_126','TB_BaconUps_166',#Wildfire Elemental(4)
 	'BGS_123','TB_BaconUps_162',#Tavern Tempest(5)
 	'BGS_121','TB_BaconUps_165',#Gentle Djinni(6)
-	'BGS_100','TB_BaconUps_200',#Lil' Rag (6)
+	'BGS_100','BGS_100e','TB_BaconUps_200',#Lil' Rag (6)
 ]
 
 BG_PoolSet_Elemental=[
@@ -59,7 +59,7 @@ class TB_BaconUps_167:# <12>[1453]
 class BGS_115:# <12>[1453]　ウレメンタル
 	""" Sellemental
 	When you sell this,add a 2/2 Elementalto your hand. """
-	events = Sell(CONTROLLER, SELF).after(Give(CONTROLLER, 'BGS_115t'))
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BGS_115t'))
 	pass
 class BGS_115t:# <12>[1453]　おつりちゃん
 	""" Water Droplet  
@@ -68,7 +68,7 @@ class BGS_115t:# <12>[1453]　おつりちゃん
 class TB_BaconUps_156:# <12>[1453]
 	""" Sellemental
 	When you sell this,add two 2/2 Elementalsto your hand. """
-	events = Sell(CONTROLLER, SELF).after(Give(CONTROLLER, 'BGS_115t') * 2)
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BGS_115t') * 2)
 	pass
 
 
@@ -317,6 +317,9 @@ class TB_BaconUps_165:# <12>[1453]
 	deathrattle = BGS_121_Action(CONTROLLER, 2)
 	pass
 
+
+
+
 #Lil' Rag (6)
 class BGS_100_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -327,13 +330,14 @@ class BGS_100_Action(TargetedAction):
 		BGS_100e.atk=tier
 		BGS_100e.max_health=tier
 		if controller.field != []:
-			Buff(random.choice(controller.field), 'BGS_100e')trigger(source)
+			Buff(random.choice(controller.field), 'BGS_100e').trigger(source)
 class BGS_100:# <12>[1453] チビラグ
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion stats equal to the Elemental's Tavern Tier. """
 	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD))
 	pass
 class BGS_100e:
+	pass
 class TB_BaconUps_200:# <12>[1453]
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier twice. """

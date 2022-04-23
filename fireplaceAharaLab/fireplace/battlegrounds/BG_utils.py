@@ -95,13 +95,20 @@ class BG_main:
 				# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
 				# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
 				frozencard=0
+				for card in bartender.field:
+					print ("bartender.field:%s"%(card))
+				for card in controller.hand:
+					print ("controller.hand:%s"%(card))
 				repeat = len(bartender.field)
 				for i in range(repeat):
 					card = bartender.field[repeat-1-i]
-					if not card.frozen:
-						self.ReturnCard(card)
+					if card.zone==Zone.PLAY:# 理由は不明だが、なぜか必要。
+						if not card.frozen:
+							self.ReturnCard(card)
+						else:
+							frozencard += 1
 					else:
-						frozencard += 1
+						i=0
 				for repeat in range(bartender.BobsTmpFieldSize-frozencard):
 					card = self.DealCard(bartender, controller.Tier)
 					card.controller = bartender#たぶん不要

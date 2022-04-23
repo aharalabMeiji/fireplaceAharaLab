@@ -69,6 +69,7 @@ class TargetableByAuras:
 				buff.tick = source.game.tick
 				break
 		else:
+			print("Aura from %r buffs %r with %r", source, self, id)
 			log.info("Aura from %r buffs %r with %r", source, self, id)
 			buff = source.buff(self, id)
 			buff.tick = source.game.tick

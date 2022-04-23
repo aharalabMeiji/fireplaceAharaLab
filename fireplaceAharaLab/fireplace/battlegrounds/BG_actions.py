@@ -53,7 +53,7 @@ class Rerole(TargetedAction): ## battlegrounds
 		if game.free_rerole>0:
 			game.reroleCost=0
 			game.free_rerole -= 1
-		elif game.free_rerole==0
+		elif game.free_rerole==0:
 			game.reroleCost=1
 		if controller.mana>=game.reroleCost:
 			self.broadcast(source, EventListener.ON, target)
@@ -132,8 +132,8 @@ class Sell(TargetedAction):
 		for c in controller.field:
 			if c==card:
 				self.broadcast(source, EventListener.ON, target, card)
+				self.broadcast(source, EventListener.AFTER, target, card)
 				card.zone=Zone.GRAVEYARD
 				controller.used_mana -= 1
-				self.broadcast(source, EventListener.AFTER, target, card)
 				return
 		pass
