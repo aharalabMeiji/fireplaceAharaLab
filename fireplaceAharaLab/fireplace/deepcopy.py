@@ -310,6 +310,10 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff.owner = card
 			new_buff.apply(new_card)
 			#new_card.buffs.append(new_buff)
+			if buff in card.game.active_aura_buffs:
+				new_card.game.active_aura_buffs.append(new_buff)
+				new_card.game.tick=card.game.tick
+				new_buff.tick=buff.tick
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)
@@ -346,8 +350,9 @@ def copy_gameattr(oldGame,newGame):
 	""" copy game's attr.
 	"""
 	gameAttrs =['next_step','turn','tick','zone','state','step',
-			 'active_aura_buffs','proposed_attacker','proposed_defender',
+			'proposed_attacker','proposed_defender',
 		]
+	#  'active_aura_buffs'のコピーはbuffの追加のところで行っておく。
 	for attr in gameAttrs:
 		if hasattr(oldGame,attr):
 			src = getattr(oldGame, attr)

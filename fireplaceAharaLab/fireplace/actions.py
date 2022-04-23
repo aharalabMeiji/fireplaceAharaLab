@@ -285,7 +285,7 @@ class BeginBattle(GameAction):
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
-		source.no_drawing_at_begin_turn=True
+		source.no_drawing_at_turn_begin=True
 		source._begin_turn(player)
 
 

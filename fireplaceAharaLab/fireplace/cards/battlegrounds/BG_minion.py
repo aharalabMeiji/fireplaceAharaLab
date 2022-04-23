@@ -173,7 +173,8 @@ class BGS_082_Action(TargetedAction):
 				ret.append(c)
 				flag[field.index(c)]=1
 			pass
-		for c in random.select(ret,3):
+		sample = random.sample(ret,3)
+		for c in sample:
 			Buff(c,buff).trigger(source)
 
 class BGS_082:# <12>[1453]

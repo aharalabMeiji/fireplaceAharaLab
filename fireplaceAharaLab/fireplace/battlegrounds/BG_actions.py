@@ -1,5 +1,5 @@
 from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give, Choice
-
+from fireplace.dsl import LazyNum, LazyValue, Selector
 from hearthstone.enums import Zone
 
 import random
@@ -124,6 +124,8 @@ class Sell(TargetedAction):
 	CARD = CardArg()
 	def do(self, source, target, card):
 		controller = target
+		if isinstance(card,list):
+			card = card[0]
 		for c in controller.field:
 			if c==card:
 				card.zone=Zone.GRAVEYARD

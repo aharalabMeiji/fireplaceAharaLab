@@ -43,14 +43,14 @@ BG_Murloc_Gold={
 class UNG_073:
 	""" >Rockpool Hunter
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Murloc +1/+1. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
 	play = Buff(TARGET, 'UNG_073e')
 	pass
 UNG_073e=buff(1,1)
 class TB_BaconUps_061:# <12>[1453]
 	""" Rockpool Hunter
 	[Battlecry:] Give a friendly Murloc +2/+2. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
 	play = Buff(TARGET, 'TB_BaconUps_061e')
 	pass
 TB_BaconUps_061e=buff(2,2)

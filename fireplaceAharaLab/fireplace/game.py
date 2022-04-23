@@ -40,7 +40,7 @@ class BaseGame(Entity):
 		self._myLog_=[]
 		self.event_args=None
 		self.zone=Zone.INVALID
-		self.no_drawing_at_turnbegin=False
+		self.no_drawing_at_turn_begin=False
 		#self._stage_choice_=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
 		#	'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
 		#	'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
@@ -436,7 +436,7 @@ class BaseGame(Entity):
 				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
-		if self.no_drawing_at_begin_turn==False:
+		if self.no_drawing_at_turn_begin==False:
 			drawn_card = player.draw()
 
 		self.manager.step(self.next_step, Step.MAIN_END)

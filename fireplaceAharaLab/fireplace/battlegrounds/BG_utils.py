@@ -48,6 +48,7 @@ class BG_main:
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_murloc.BG_Murloc_Gold)
 	pass
 
 	def BG_main(self):
@@ -95,7 +96,7 @@ class BG_main:
 				frozencard=0
 				repeat = len(bartender.field)
 				for i in range(repeat):
-					card = bartender.field[0]
+					card = bartender.field[repeat-1-i]
 					if not card.frozen:
 						self.ReturnCard(card)
 					else:
@@ -115,7 +116,7 @@ class BG_main:
 					choice = agent.moveStrategy(bar, candidates, controller, bartender)
 					#### ターンエンドが選択されていれば、ループから脱出。
 					if choice.move==MovePlay.TURNEND:
-						bar.no_drawing_at_begin_turn=True
+						bar.no_drawing_at_turn_begin=True
 						EndTurn(controller).trigger(controller)
 						break
 					else:
