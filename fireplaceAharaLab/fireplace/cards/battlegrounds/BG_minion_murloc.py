@@ -39,6 +39,7 @@ BG_Murloc_Gold={
 
 
 #Rockpool Hunter (1)
+## 動作確認済み
 class UNG_073:
 	""" >Rockpool Hunter
 	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Murloc +1/+1. """
@@ -54,7 +55,9 @@ class TB_BaconUps_061:# <12>[1453]
 	pass
 TB_BaconUps_061e=buff(2,2)
 
+
 #Swampstriker (1)
+## 動作確認済み
 class BG22_401:# <12>[1453]
 	""" Swampstriker
 	After you summon a Murloc, gain +1 Attack. """
@@ -88,11 +91,11 @@ TB_BaconUps_008e=buff(4,0)# <12>[1453]
 
 
 
-#Saltscale Honcho (2)
+#Saltscale Honcho (2)　そるとすけいる
 class BG21_008:# <12>[1453]
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +1 Health. """
-	#
+	events = Play(CONTROLLER, FRIENDLY + MURLOC).after(Buff(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF),'BG21_008e') * 2)
 	pass
 BG21_008e=buff(0,1)# <12>[1453]
 """ Salty
@@ -100,104 +103,112 @@ BG21_008e=buff(0,1)# <12>[1453]
 class BG21_008_G:# <12>[1453]
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +2 Health. """
-	#
+	events = Play(CONTROLLER, FRIENDLY+MURLOC).after(Buff(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF),'BG21_008_Ge') * 2)
 	pass
-class BG21_008_Ge:# <12>[1453]
-	""" Extra Salty
-	+2 Health. """
-	#
-	pass
+BG21_008_Ge=buff(0,2)# <12>[1453]
+""" Extra Salty
++2 Health. """
+
+
 
 #Tad (2)
 class BG22_202:# <12>[1453]
 	""" Tad
-	When you sell this,add another randomMurloc to your hand. """
-	#
+	When you sell this,add another random Murloc to your hand. """
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, RandomMurloc()))
 	pass
 class BG22_202_G:# <12>[1453]
 	""" Tad
 	When you sell this,add 2 other randomMurlocs to your hand. """
-	#
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, RandomMurloc())*2)
 	pass
+
+
 
 #Coldlight Seer (3)
 class EX1_103:
-	"""
-	"""
+	""" Coldlight Seer
+	[Battlecry:] Give your other Murlocs +2 Health. """
+	play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, 'EX1_103e')
 	pass
 EX1_103e=buff(0,2)
 class TB_BaconUps_064:# <12>[1453]
 	""" Coldlight Seer
 	[Battlecry:] Give your other Murlocs +4 Health. """
-	#
+	play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, 'TB_BaconUps_064e')
 	pass
 TB_BaconUps_064e=buff(0,4)
 
+
+
 #Felfin Navigator (3)
 class BT_010:
-	"""
-	"""
+	""" Felfin Navigator
+	[Battlecry:] Give your other Murlocs +1/+1. """
+	play =  Buff(FRIENDLY_MINIONS + MURLOC - SELF, 'BT_010e')
 BT_010e=buff(1,1)
 class TB_BaconUps_124:# <12>[1453]
 	""" Felfin Navigator
 	[Battlecry:] Give your other Murlocs +2/+2. """
-	#
+	play =  Buff(FRIENDLY_MINIONS + MURLOC - SELF, 'TB_BaconUps_124e')
 	pass
 TB_BaconUps_124e=buff(2,2)
 
 #Swolefin (3)
-class BG21_010:# <12>[1453]
+class BG21_010:# <12>[1453] ムキムキ
 	""" Swolefin
-	[Battlecry:] Gain +2/+1 foreach other friendly Murloc. """
-	#
+	[Battlecry:] Gain +2/+1 for each other friendly Murloc. """
+	play = Buff(SELF, 'BG21_010e') * Count(FRIENDLY_MINIONS + MURLOC - SELF)
 	pass
-class BG21_010e:# <12>[1453]
-	""" Swole
-	+2/+1. """
-	#
-	pass
+BG21_010e=buff(2,1)# <12>[1453]
+""" Swole
++2/+1. """
 class BG21_010_G:# <12>[1453]
 	""" Swolefin
 	[Battlecry:] Gain +4/+2 foreach other friendly Murloc. """
-	#
+	play = Buff(SELF, 'BG21_010_Ge') * Count(FRIENDLY_MINIONS + MURLOC - SELF)
 	pass
-class BG21_010_Ge:# <12>[1453]
-	""" Swoler
-	+4/+2. """
-	#
-	pass
+BG21_010_Ge=buff(4,2)# <12>[1453]
+""" Swoler
++4/+2. """
+
+
 
 #Primalfin Lookout (4)
-class BGS_020:# <12>[1453]
+class BGS_020:# <12>[1453] 見張り番
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] a_Murloc. """
-	#
+	play = Find(FRIENDLY_MINIONS + MURLOC) & Discover(CONTROLLER, RandomMurloc())
 	pass
 class TB_BaconUps_089:# <12>[1453]
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] two_Murlocs. """
-	#
+	play = Find(FRIENDLY_MINIONS + MURLOC) & DiscoverTwice(CONTROLLER, RandomMurloc()*3)
 	pass
 
+
+
 #King Bagurgle (5)
-class BGS_030:# <12>[1453]
+class BGS_030:# <12>[1453] バガァグル
 	""" King Bagurgle
 	[Battlecry and Deathrattle:] Give your other Murlocs +2/+2. """
-	#
+	play = Buff(FRIENDLY_MINIONS + MURLOC, 'BGS_030e')
+	deathrattle = Buff(FRIENDLY_MINIONS + MURLOC, 'BGS_030e')
 	pass
 BGS_030e=buff(2,2)
 class TB_BaconUps_100:# <12>[1453]
 	""" King Bagurgle
 	[Battlecry and Deathrattle:] Give your other Murlocs +4/+4. """
-	#
+	play = Buff(FRIENDLY_MINIONS + MURLOC, 'TB_BaconUps_100e')
+	deathrattle = Buff(FRIENDLY_MINIONS + MURLOC, 'TB_BaconUps_100e')
 	pass
-TB_BaconUps_100=buff(4,4)
+TB_BaconUps_100e=buff(4,4)
 
 #SI:Sefin (5)
-class BG21_009:# <12>[1453]
+class BG21_009:# <12>[1453] セブリ
 	""" SI:Sefin
 	[Avenge (3):] Give a friendly Murloc [Poisonous] permanently. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e')])) #
 	pass
 BG21_009e=buff(poisonous=True)# <12>[1453]
 """ SI:7 Training
@@ -205,7 +216,7 @@ BG21_009e=buff(poisonous=True)# <12>[1453]
 class BG21_009_G:# <12>[1453]
 	""" SI:Sefin
 	[Avenge (3):] Give 2 friendly Murlocs [Poisonous] permanently. """
-	#
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e'), BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e')])) #
 	pass
 
 

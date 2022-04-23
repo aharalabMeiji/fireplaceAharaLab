@@ -140,7 +140,7 @@ class TB_BaconUps_079e:# <12>[1453]
 	pass
 
 
-#Acolyte of C'Thun	2	2	3	-	Reborn BGS_106 TB_BaconUps_255 クトゥーン
+#Acolyte of C'Thun	2	2	3	-	Reborn BGS_106 TB_BaconUps_255 クトゥーンのじさい
 class BGS_106:# <12>[1453]
 	""" Acolyte of C'Thun
 	[Taunt][Reborn] """
@@ -224,7 +224,8 @@ class BG20_203_G:# <12>[1453]
 	pass
 
 
-#Selfless Hero	2	2	1	-	Deathrattle OG_221 TB_BaconUps_014
+#Selfless Hero	2	2	1	-	Deathrattle OG_221 TB_BaconUps_014　けんしん
+## 動作確認済み
 class OG_221:
 	"""Selfless Hero:
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Give a random friendly minion &lt;b&gt;Divine Shield&lt;/b&gt;."""
@@ -238,6 +239,7 @@ class TB_BaconUps_014:# <5>[1453]
 
 
 #Spawn of N'Zoth	2	2	2	-	Deathrattle　 OG_256 TB_BaconUps_025 んぞす
+## 動作確認済み
 class OG_256:
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +1/+1. """
@@ -462,7 +464,7 @@ class BGS_105_Action(TargetedAction):
 class BGS_105:# <12>[1453]
 	""" Majordomo Executus エグゼクタス
 	At the end of your turn, giveyour left-most minion +1/+1.Repeat for each Elementalyou played this turn. """
-	events = OWN_END_TURN.on(BGS_105_Action(CoNTROLLER))
+	events = OWN_TURN_END.on(BGS_105_Action(CONTROLLER))
 	pass
 class BGS_105e:# <12>[1453]
 	""" Aegis of the Firelord
@@ -597,7 +599,7 @@ class BGS_012_Action(TargetedAction):
 		controller = target
 		cards = []
 		for card in controller.death_log:
-			if card.race = Race.MECHA:
+			if card.race == Race.MECHA:
 				cards.append(card)
 		for repeat in range(amount):
 			if repeat<len(cards):
@@ -636,7 +638,7 @@ class BGS_009_Action(TargetedAction):
 class BGS_009:# <12>[1453]  光牙
 	""" Lightfang Enforcer
 	At the end of your turn, give a friendly minion of each minion type +2/+2. """
-	events = OWN_TURN_END.on(BGS_009_Action(CONTROLLER, 2)
+	events = OWN_TURN_END.on(BGS_009_Action(CONTROLLER, 2))
 	pass
 class BGS_009e:# <7>[1453]
 	""" Blessed
@@ -644,7 +646,7 @@ class BGS_009e:# <7>[1453]
 class TB_BaconUps_082:# <12>[1453]
 	""" Lightfang Enforcer
 	At the end of your turn,give a friendly minionof each minion type+4/+4. """
-	events = OWN_TURN_END.on(BGS_009_Action(CONTROLLER, 4)
+	events = OWN_TURN_END.on(BGS_009_Action(CONTROLLER, 4))
 	pass
 class TB_BaconUps_082e:# <7>[1453]
 	""" Blessed
@@ -659,7 +661,6 @@ class BG21_036:# <12>[1453] 多重現実の支配者
 	events = Buff(FRIENDLY + ELEMENTAL).on(Buff(SELF,'BG21_036e'))
 	pass
 BG21_036e=buff(1,1)
-	pass
 class BG21_036_G:# <12>[1453]
 	""" Master of Realities
 	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
@@ -710,11 +711,16 @@ TB_BaconUps_258e=buff(4,4)# <12>[1453]
 
 
 #Nomi, Kitchen Nightmare	5	4	4	-	-  BGS_104 BGS_104e1 BGS_104pe TB_BaconUps_201
-class BGS_104(TargetedAction):
+class BGS_104_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount):
 		controller = target
+		controller.elemental_powered_up += amount
+		buffsize=controller.elemental_powered_up
+		BGS_104pe.atk = buffsize
+		BGS_104pe.max_health= buffsize
+		
 class BGS_104:# <12>[1453]  ノミ（🐼）
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavern have +1/+1 for the restof the game. """
@@ -723,17 +729,15 @@ class BGS_104:# <12>[1453]  ノミ（🐼）
 class BGS_104e1:# <12>[1453]
 	""" Tavern Feast
 	Increased stats. """
-	#
 	pass
 class BGS_104pe:# <12>[1453]
 	""" Nomi Player Enchant
 	Increased stats. """
-	#
 	pass
 class TB_BaconUps_201:# <12>[1453]
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavernhave +2/+2 for the restof the game. """
-	#
+	events = Play(CONTROLLER, FRIENDLY_MINIONS + ELEMENTAL).on(BGS_104_Action(CONTROLLER, 2))
 	pass
 
 

@@ -4,7 +4,7 @@ from fireplace.card import Card
 from fireplace.actions import *
 from fireplace.player import Player
 import random
-from hearthstone.enums import Zone,State
+from hearthstone.enums import Zone, State, Race
 
 
 from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
@@ -181,6 +181,8 @@ class BG_main:
 			dk += decks[i]
 		cardID = random.choice(dk)
 		card = bartender.card(cardID)
+		if card.race==Race.ELEMENTAL:
+			Buff(card, 'BGS_104pe').trigger(bartender)
 		gr = card.tech_level-1
 		decks[gr].remove(cardID)
 		return card
@@ -196,8 +198,8 @@ class BG_main:
 	pass
 
 def print_hero_stats(hero0, hero1):
-	print("<< %s (%s)<< health=%d"%(hero0, hero0.controller, hero0.health))
-	print("<< %s (%s)<< health=%d"%(hero1, hero1.controller, hero1.health))
+	print("<< %s (%s)<< health=%d+%d"%(hero0, hero0.controller, hero0.health, hero0.armor))
+	print("<< %s (%s)<< health=%d+%d"%(hero1, hero1.controller, hero1.health, hero1.armor))
 	pass
 
 def choiceAction(player):
@@ -335,7 +337,7 @@ class Move(object):
 					self.controller.used_mana += 3
 					self.controller.add_buy_log(card)
 					self.bartender.field.remove(c)
-					gold_card_id = self.controller.game.BG_find_triple## トリプルを判定
+					gold_card_id = self.controller.game.BG_find_triple()## トリプルを判定
 					if gold_card_id:
 						self.controller.game.BG_deal_gold(gold_card_id)
 					return
@@ -343,12 +345,7 @@ class Move(object):
 		pass
 
 	def sell(self, card):
-		for c in self.controller.field:
-			if c==card:
-				card.zone=Zone.GRAVEYARD
-				self.controller.used_mana -= 1
-				return
-		pass
+		Sell(self.controller, card).trigger(self.controller)
 
 	def power(self, target):
 		controller = self.controller

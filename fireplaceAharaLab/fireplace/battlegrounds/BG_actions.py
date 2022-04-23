@@ -1,4 +1,4 @@
-from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give
+from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give, Choice
 
 from hearthstone.enums import Zone
 
@@ -105,3 +105,28 @@ class SummonOnce(Summon):
 #			Give(target, new_card).trigger(source)
 #		pass
 #	pass
+
+class DiscoverTwice(Choice):
+	def choose(self, card):
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=2:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		card.zone = Zone.HAND
+		cards = self._args[1]
+		if isinstance(cards, LazyValue):
+			self.cards = cards.evaluate(self.source)
+
+class Sell(TargetedAction):
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, card):
+		controller = target
+		for c in controller.field:
+			if c==card:
+				card.zone=Zone.GRAVEYARD
+				controller.used_mana -= 1
+				return
+		pass

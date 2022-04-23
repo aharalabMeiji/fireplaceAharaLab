@@ -115,19 +115,6 @@ class TB_BaconShop_HERO_16:# <12>[1453]
 	 """
 	pass
 
-class DiscoverTwice(Choice):
-	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=2:
-			self.next_choice=None
-		else:
-			self.next_choice=self
-		super().choose(card)
-		card.zone = Zone.HAND
-		cards = self._args[1]
-		if isinstance(cards, LazyValue):
-			self.cards = cards.evaluate(self.source)
-
 class TB_BaconShop_HP_044_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
