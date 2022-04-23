@@ -40,7 +40,6 @@ class Player(Entity, TargetableByAuras):
 	spellpower_adjustment = slot_property("spellpower", sum)
 	spells_cost_health = slot_property("spells_cost_health")
 	murlocs_cost_health = slot_property("murlocs_cost_health")
-	elemental_powered_up = slot_property("elemental_powered_up") ## battlegrounds, Nomi, lightspoan
 	type = CardType.PLAYER
 
 	def __init__(self, name, deck, hero):
@@ -110,6 +109,8 @@ class Player(Entity, TargetableByAuras):
 		self.SecondKillMinion=None # battlegrounds
 		self.ActivateThisTurn=False # battlegrounds
 		self.deepcopy_original=None # battlegrounds
+		self.nomi_powered_up = 0## battlegrounds, Nomi
+		self.lightspawn_powered_up = 0## battlegrounds, lightspoan
 
 	def __str__(self):
 		return self.name

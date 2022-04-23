@@ -33,7 +33,7 @@ class Avenge(TargetedAction):
 class UpgradeTier(TargetedAction):
 	TARGET=ActionArg()#controller
 	def do(self, source, target):
-		TierUpCost={1:5, 2:7, 3:9, 4:12, 5:11}
+		TierUpCost={1:5, 2:7, 3:8, 4:11, 5:10}
 		controller = target
 		bar = target.game
 		if controller.Tier<=5 and controller.mana >= controller.TierUpCost:
@@ -50,6 +50,11 @@ class Rerole(TargetedAction): ## battlegrounds
 		controller = target
 		game = controller.game
 		bartender = game.bartender
+		if game.free_rerole>0:
+			game.reroleCost=0
+			game.free_rerole -= 1
+		elif game.free_rerole==0
+			game.reroleCost=1
 		if controller.mana>=game.reroleCost:
 			self.broadcast(source, EventListener.ON, target)
 			controller.used_mana += game.reroleCost
@@ -96,15 +101,13 @@ class SummonOnce(Summon):
 			## no broadcasting
 		return cards
 
-#class GiveGoldCard(TargetedAction):
-#	TARGET = ActionArg()
-#	CARD = ActionArg()
-#	def do(self, source, target, card):
-#		new_card = target.game.parent.BG_Gold[card.id]
-#		if new_card:
-#			Give(target, new_card).trigger(source)
-#		pass
-#	pass
+class GetFreeRerole(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		controller.game.free_rerole += 1
+		pass
+	pass
 
 class DiscoverTwice(Choice):
 	def choose(self, card):
@@ -128,7 +131,9 @@ class Sell(TargetedAction):
 			card = card[0]
 		for c in controller.field:
 			if c==card:
+				self.broadcast(source, EventListener.ON, target, card)
 				card.zone=Zone.GRAVEYARD
 				controller.used_mana -= 1
+				self.broadcast(source, EventListener.AFTER, target, card)
 				return
 		pass

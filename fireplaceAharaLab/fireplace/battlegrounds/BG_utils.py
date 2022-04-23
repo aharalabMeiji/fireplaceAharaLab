@@ -41,13 +41,14 @@ class BG_main:
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+				self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
 				self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_elemental.BG_Elemental_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_murloc.BG_Murloc_Gold)
 	pass
 
@@ -184,6 +185,7 @@ class BG_main:
 		card = bartender.card(cardID)
 		if card.race==Race.ELEMENTAL:
 			Buff(card, 'BGS_104pe').trigger(bartender)
+			Buff(card, 'BG21_020pe').trigger(bartender)
 		gr = card.tech_level-1
 		decks[gr].remove(cardID)
 		return card

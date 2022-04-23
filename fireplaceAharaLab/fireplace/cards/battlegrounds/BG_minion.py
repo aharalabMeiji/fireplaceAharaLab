@@ -173,7 +173,10 @@ class BGS_082_Action(TargetedAction):
 				ret.append(c)
 				flag[field.index(c)]=1
 			pass
-		sample = random.sample(ret,3)
+		if len(ret)<=3:
+			sample = ret
+		else:
+			sample = random.sample(ret,3)
 		for c in sample:
 			Buff(c,buff).trigger(source)
 
@@ -717,11 +720,10 @@ class BGS_104_Action(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount):
 		controller = target
-		controller.elemental_powered_up += amount
-		buffsize=controller.elemental_powered_up
+		controller.nomi_powered_up += amount
+		buffsize=controller.nomi_powered_up
 		BGS_104pe.atk = buffsize
 		BGS_104pe.max_health= buffsize
-		
 class BGS_104:# <12>[1453]  ノミ（🐼）
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavern have +1/+1 for the restof the game. """

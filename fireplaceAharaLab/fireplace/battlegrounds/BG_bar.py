@@ -11,8 +11,8 @@ class BG_Bar(Game):
 		players = (self.bartender, player)
 		super().__init__(players)
 		self.reroleCost=1
+		self.free_rerole=0
 		self.parent=None
-
 	pass
 
 	def BG_setup(self):

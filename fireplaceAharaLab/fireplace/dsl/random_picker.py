@@ -114,6 +114,7 @@ RandomSparePart = lambda: RandomCardPicker(spare_part=True)
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
 RandomBGMinion = lambda **kw: RandomBGCollectible(type=CardType.MINION, **kw)
 RandomBGDragon = lambda **kw: RandomBGMinion(race=Race.DRAGON, **kw)
+RandomBGElemental = lambda **kw: RandomBGMinion(race=Race.ELEMENTAL, **kw)
 
 
 
