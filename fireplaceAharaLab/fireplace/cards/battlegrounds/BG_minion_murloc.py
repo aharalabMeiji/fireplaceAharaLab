@@ -208,7 +208,7 @@ TB_BaconUps_100e=buff(4,4)
 class BG21_009:# <12>[1453] セブリ
 	""" SI:Sefin
 	[Avenge (3):] Give a friendly Murloc [Poisonous] permanently. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e')])) #
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e')])) #
 	pass
 BG21_009e=buff(poisonous=True)# <12>[1453]
 """ SI:7 Training
@@ -216,7 +216,7 @@ BG21_009e=buff(poisonous=True)# <12>[1453]
 class BG21_009_G:# <12>[1453]
 	""" SI:Sefin
 	[Avenge (3):] Give 2 friendly Murlocs [Poisonous] permanently. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e'), BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e')])) #
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e'), BuffPermanently(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF), 'BG21_009e')])) #
 	pass
 
 

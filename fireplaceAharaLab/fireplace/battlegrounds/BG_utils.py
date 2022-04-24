@@ -72,6 +72,11 @@ class BG_main:
 			bar.turn=1
 			bar.parent = self
 			self.BG_Bars.append(bar)
+			##########デバッグのための仕込みをするならココ
+			if agent.name=='Human1':
+				card = bar.controller.card('BG21_020')
+				card.zone = Zone.HAND
+			##########
 			pass
 		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
 		# 無限ループ始まり
@@ -96,19 +101,19 @@ class BG_main:
 				# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
 				frozencard=0
 				for card in bartender.field:
-					print ("bartender.field:%s"%(card))
+					print ("(%s)bartender.field:%s"%(controller,card))
 				for card in controller.hand:
-					print ("controller.hand:%s"%(card))
+					print ("(%s)controller.hand:%s"%(controller,card))
 				repeat = len(bartender.field)
 				for i in range(repeat):
 					card = bartender.field[repeat-1-i]
-					if card.zone==Zone.PLAY:# 理由は不明だが、なぜか必要。
-						if not card.frozen:
-							self.ReturnCard(card)
-						else:
-							frozencard += 1
+					if card.zone!=Zone.PLAY:# 理由は不明だが、なぜかときどきZone.HANDのときがある。
+						card.zone = Zone.PLAY
+					if not card.frozen:
+						self.ReturnCard(card)
 					else:
-						i=0
+						card.frozen=False
+						frozencard += 1
 				for repeat in range(bartender.BobsTmpFieldSize-frozencard):
 					card = self.DealCard(bartender, controller.Tier)
 					card.controller = bartender#たぶん不要
@@ -341,12 +346,12 @@ class Move(object):
 		if self.controller.mana>=3:
 			for c in self.bartender.field:
 				if c==card:
+					self.bartender.field.remove(c)
 					card.controller = self.controller
 					card.zone = Zone.HAND
 					card.frozen=False
 					self.controller.used_mana += 3
 					self.controller.add_buy_log(card)
-					self.bartender.field.remove(c)
 					gold_card_id = self.controller.game.BG_find_triple()## トリプルを判定
 					if gold_card_id:
 						self.controller.game.BG_deal_gold(gold_card_id)
@@ -374,14 +379,6 @@ class Move(object):
 
 	def rerole(self):## TargetedActionへ振り替える。
 		Rerole(self.controller).trigger(self.controller)
-		#if self.controller.mana>=self.game.reroleCost:
-		#	self.controller.used_mana += self.game.reroleCost
-		#	for card in self.bartender.field:
-		#		ReturnCard(decks,card)
-		#	for card in range(self.bartender.BobsTmpFieldSize):
-		#		card = DealCard(decks, self.bartender, self.controller.Tier)
-		#		card.controller = self.bartender#たぶん不要
-		#		card.zone = Zone.PLAY
 		pass
 
 	def freeze(self):

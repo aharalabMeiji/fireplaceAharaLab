@@ -76,4 +76,5 @@ class BG_Bar(Game):
 		newcard = self.controller.card(gold_id)
 		for buff in buffs:## バフはすべて継承する
 			buff.apply(newcard)
+		print("Gold card!!! by %s"%(self.controller))
 		newcard.zone = Zone.HAND # 必要か？

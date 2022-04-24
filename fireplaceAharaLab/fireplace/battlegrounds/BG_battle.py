@@ -87,9 +87,9 @@ class BG_Battle(Game):
 					defender.controller.deepcopy_original.SecondKillMinion=attacker.id
 			if defender.zone==Zone.GRAVEYARD:
 				if attacker.controller.deepcopy_original.FirstKillMinion==None:
-					attacker.controller.deepcopy_original.FirstKillMinion=attacker.id
+					attacker.controller.deepcopy_original.FirstKillMinion=defender.id
 				elif attacker.controller.deepcopy_original.SecondKillMinion==None:
-					attacker.controller.deepcopy_original.SecondKillMinion=attacker.id
+					attacker.controller.deepcopy_original.SecondKillMinion=defender.id
 			#攻撃ターンの交代(freezeとone_turn_effectはない)
 			self.current_player.AttackIndex+=1
 			if self.current_player.AttackIndex>= len(self.current_player.field):

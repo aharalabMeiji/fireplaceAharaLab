@@ -310,7 +310,7 @@ TB_BaconUps_302e=buff(4,0)# <12>[1453]
 class BG21_002:# <12>[1453]
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +1/+1. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, \
+	events = Death(FRIENDLY).on(Avenge(SELF, 1, \
 		[Buff(FRIENDLY_MINIONS + BEAST, 'BG21_002e')]\
 		))
 	pass
@@ -320,7 +320,7 @@ BG21_002e=buff(1,1)
 class BG21_002_G:# <12>[1453]
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +2/+2. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 1, \
+	events = Death(FRIENDLY).on(Avenge(SELF, 1, \
 		[Buff(FRIENDLY_MINIONS + BEAST, 'BG21_002_Ge')]\
 		))
 	pass
@@ -334,13 +334,13 @@ BG21_002_Ge=buff(2,2)# <12>[1453]
 class BG21_030:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Give adjacent minions +2/+1 permanently. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030e')]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030e')]))
 	pass
 BG21_030e=buff(2,1)
 class BG21_030_G:# <12>[1453]
 	""" Budding Greenthumb
 	[Avenge (3):] Giveadjacent minions+4/+2 permanently. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030_Ge')]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [BuffPermanently(SELF_ADJACENT, 'BG21_030_Ge')]))
 	pass
 BG21_030_Ge=buff(4,2)
 
@@ -439,12 +439,12 @@ TB_BaconUps_009e=buff(2,2,taunt=True)# <12>[1453]
 class BG21_007:# <12>[1453]
 	""" Impatient Doomsayer 終魔通予言者
 	[Avenge (4):] Add a random Demon to your hand. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon())]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon())]))
 	pass
 class BG21_007_G:# <12>[1453]
 	""" Impatient Doomsayer
 	[Avenge (4):] Add 2 random Demons to your hand. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon()), Give(CONTROLLER, RandomDemon())]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomDemon()), Give(CONTROLLER, RandomDemon())]))
 	pass
 
 
@@ -459,8 +459,8 @@ class BGS_105_Action(TargetedAction):
 			for card in controller.play_this_turn:
 				if card.race==Race.ELEMENTAL:
 					count += 1
-			BGS_105e.atk=1#SET(1)
-			BGS_105e.max_health=1#SET(1)
+			BGS_105e.atk=lambda self,i:i+1
+			BGS_105e.max_health=lambda self,i:i+1
 			for repeat in range(count):
 				Buff(left_card, 'BGS_105e').trigger(source)
 		pass
@@ -484,8 +484,8 @@ class TB_BaconUps_207_Action(TargetedAction):
 			for card in controller.play_this_turn:
 				if card.race==Race.ELEMENTAL:
 					count += 1
-			BGS_105e.atk=2#SET(2)
-			BGS_105e.max_health=2#SET(2)
+			BGS_105e.atk=lambda self,i:i+2
+			BGS_105e.max_health=lambda self,i:i+2
 			for repeat in range(count):
 				Buff(left_card, 'BGS_105e').trigger(source)
 		pass
@@ -540,12 +540,12 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 class BG21_038:# <12>[1453] 巣母
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
 class BG21_038_G:# <12>[1453]
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
 
 
@@ -636,8 +636,8 @@ class BGS_009_Action(TargetedAction):
 			elif not card.race in races:
 				races.append(card.race)
 		buffsize = len(races)*amount
-		BGS_009e.atk = buffsize
-		BGS_009e.max_health = buffsize
+		BGS_009e.atk = lambda self,i:(i+buffsize)
+		BGS_009e.max_health = lambda self,i:(i+buffsize)
 		Buff(SELF, 'BGS_009e').trigger(source)
 class BGS_009:# <12>[1453]  光牙
 	""" Lightfang Enforcer
@@ -722,8 +722,8 @@ class BGS_104_Action(TargetedAction):
 		controller = target
 		controller.nomi_powered_up += amount
 		buffsize=controller.nomi_powered_up
-		BGS_104pe.atk = buffsize
-		BGS_104pe.max_health= buffsize
+		BGS_104pe.atk = lambda self,i:(i+buffsize)
+		BGS_104pe.max_health= lambda self,i:(i+buffsize)
 class BGS_104:# <12>[1453]  ノミ（🐼）
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavern have +1/+1 for the restof the game. """

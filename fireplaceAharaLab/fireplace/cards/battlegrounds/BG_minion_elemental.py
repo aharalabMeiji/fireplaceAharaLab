@@ -124,8 +124,8 @@ class BG21_021:# <12>[1453]
 		source = self
 		controller = self.controller
 		tier = controller.Tier
-		BG21_021e.atk=tier
-		BG21_021e.max_health=tier
+		BG21_021e.atk=lambda self,i:(i+tier)
+		BG21_021e.max_health=lambda self,i:(i+tier)
 		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
 	pass
 class BG21_021e:# <12>[1453]
@@ -139,8 +139,8 @@ class BG21_021_G:# <12>[1453]
 		source = self
 		controller = self.controller
 		tier = controller.Tier
-		BG21_021e.atk=tier
-		BG21_021e.max_health=tier
+		BG21_021e.atk=lambda self,i:(i+tier)
+		BG21_021e.max_health=lambda self,i:(i+tier)
 		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
 		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
 	pass
@@ -148,7 +148,7 @@ class BG21_021_G:# <12>[1453]
 
 
 #Stasis Elemental(3)
-class BGS_122:# <12>[1453] ### another
+class BGS_122:# <12>[1453] ###
 	""" Stasis Elemental 
 	[Battlecry:] Add another random Elemental to Bob's Tavern and [Freeze] it. """
 	def play(self):
@@ -192,12 +192,12 @@ class BG21_020_Action(TargetedAction):
 		controller = target
 		controller.lightspawn_powered_up += amount
 		buffsize=controller.lightspawn_powered_up
-		BG21_020pe.atk = buffsize
-		BG21_020pe.max_health= buffsize
+		BG21_020pe.atk = lambda self,i:i+buffsize
+		BG21_020pe.max_health= lambda self,i:i+buffsize
 class BG21_020:# <12>[1453] ライトスポーン
 	""" Dazzling Lightspawn
 	[Avenge (2):] Elementals inBob's Tavern have +1/+1__for the rest of the game. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [BG21_020_Action(CONTROLLER, 1)]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 2, [BG21_020_Action(CONTROLLER, 1)]))
 	pass
 class BG21_020e:# <12>[1453]
 	""" Dazzled
@@ -210,7 +210,7 @@ class BG21_020pe:# <12>[1453]
 class BG21_020_G:# <12>[1453]
 	""" Dazzling Lightspawn
 	[Avenge (2):] Elementals inBob's Tavern have +2/+2__for the rest of the game. """
-	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [BG21_020_Action(CONTROLLER, 2)]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 2, [BG21_020_Action(CONTROLLER, 2)]))
 	pass
 
 
@@ -327,8 +327,8 @@ class BGS_100_Action(TargetedAction):
 	def do(self, source, target, cards):
 		controller = target
 		tier = cards[0].tech_level
-		BGS_100e.atk=tier
-		BGS_100e.max_health=tier
+		BGS_100e.atk=lambda self,i:i+tier
+		BGS_100e.max_health=lambda self,i:i+tier
 		if controller.field != []:
 			Buff(random.choice(controller.field), 'BGS_100e').trigger(source)
 class BGS_100:# <12>[1453] チビラグ

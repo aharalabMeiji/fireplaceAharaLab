@@ -114,7 +114,6 @@ class TB_BaconShop_HERO_16:# <12>[1453]
 	""" A. F. Kay
 	 """
 	pass
-
 class TB_BaconShop_HP_044_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -126,7 +125,6 @@ class TB_BaconShop_HP_044_Action(TargetedAction):
 		if turn==3:
 			SetMaxMana(controller,5).trigger(bar)
 			DiscoverTwice(controller, RandomBGMinion(tech_level = 3)*3).trigger(source)#tech_level=3
-
 class TB_BaconShop_HP_044:#<12>[1453]
 	""" Procrastinate
 	<b>Passive</b> Skip your first two turns.Start with two minions from Tavern Tier 3."""
@@ -346,7 +344,7 @@ class BG22_HERO_001:# <12>[1453]
 	"""
 class BG22_HERO_001p:# <12>[1453]
 	""" Embrace the Elements
-	Choose an Element.[Start of Combat:] Callupon that Element. """
+	Choose an Element.[Start of Combat:] Call upon that Element. """
 	#<ReferencedTag enumID="1531" name="START_OF_COMBAT" type="Int" value="1"/>
 	#
 	pass
@@ -455,7 +453,7 @@ class TB_BaconShop_HERO_29:# <12>[1453]
 	"""
 class TB_BaconShop_HP_104:
 	""" Saturday C'Thuns!
-	At end of turn, give afriendly minion +1/+1.__Repeat @ |4(time, times).<i>__(Upgrades after each use!)</i>"""
+	At end of turn, give a friendly minion +1/+1.__Repeat @ |4(time, times).<i>__(Upgrades after each use!)</i>"""
 TB_BaconShop_HP_104e=buff(1,1)
 class TB_BaconShop_HERO_29_Buddy:# <12>[1453]
 	""" Tentacle of C'Thun

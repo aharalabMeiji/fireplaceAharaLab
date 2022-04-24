@@ -1,6 +1,7 @@
 from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give, Choice
 from fireplace.dsl import LazyNum, LazyValue, Selector
 from hearthstone.enums import Zone
+from fireplace.logging import log
 
 import random
 
@@ -17,13 +18,13 @@ class ReduceUpgradingCost(TargetedAction):
 class Avenge(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
-	ACTIONS=ActionArg()
-	def do(self, source, target, amount, actions):
-		log.info("Avenge Counter on %r -> %i, %r", source, (source._sidequest_counter_+1), actions)
+	TARGETACTION=ActionArg()
+	def do(self, source, target, amount, targetaction):
+		log.info("Avenge Counter on %r -> %i, %r", source, (source._sidequest_counter_+1), targetaction)
 		source._sidequest_counter_ += 1
 		if source._sidequest_counter_== amount:
 			source._sidequest_counter_ = 0
-			if actions!=None:
+			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
 				for action in targetaction:
@@ -106,6 +107,7 @@ class GetFreeRerole(TargetedAction):
 	def do(self, source, target):
 		controller = target
 		controller.game.free_rerole += 1
+		controller.game.reroleCost=0
 		pass
 	pass
 
