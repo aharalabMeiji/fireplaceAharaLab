@@ -184,7 +184,7 @@ class TB_BaconUps_161:# <12>[1453]
 
 
 
-#Dazzling Lightspawn(4)
+#Dazzling Lightspawn(4) ####動作確認
 class BG21_020_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()

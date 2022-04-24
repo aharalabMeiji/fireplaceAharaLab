@@ -130,6 +130,8 @@ class BG_main:
 					#### ターンエンドが選択されていれば、ループから脱出。
 					if choice.move==MovePlay.TURNEND:
 						bar.no_drawing_at_turn_begin=True
+						for card in controller.field:
+							card.gem_applied_thisturn=False
 						EndTurn(controller).trigger(controller)
 						break
 					else:
@@ -144,6 +146,8 @@ class BG_main:
 			battles[i] = BG_Battle([self.BG_Bars[matches[i][0]],self.BG_Bars[matches[i][1]]])
 			damage0, damage1 = battles[i].battle()
 			### 対戦後処理
+			EndBattle(self.BG_Bars[matches[i][0]].controller).trigger(self)
+			EndBattle(self.BG_Bars[matches[i][1]].controller).trigger(self)
 			if damage0>0:
 				hero0 = self.BG_Bars[matches[i][0]].controller.hero
 				if hero0.armor>0:# armorも加味する

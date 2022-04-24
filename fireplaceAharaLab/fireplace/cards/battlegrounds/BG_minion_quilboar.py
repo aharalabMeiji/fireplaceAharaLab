@@ -46,90 +46,108 @@ BG_Quilboar_Gold={
 	'BG20_303':'BG20_303_G',#Charlga	6	
 	}
 
-#Razorfen Geomancer	1
+# BG20_GEM : blood gem
+
+#Razorfen Geomancer	1　
 class BG20_100:# <12>[1453]
 	""" Razorfen Geomancer
 	[Battlecry:] Gain a[Blood Gem]. """
-	#
+	play = Give(CONTROLLER, 'BG20_GEM')
 	pass
 class BG20_100_G:# <12>[1453]
 	""" Razorfen Geomancer
 	[Battlecry:] Gain 2[Blood Gems]. """
-	#
+	play = Give(CONTROLLER, 'BG20_GEM') * 2
 	pass
+
+
 
 #Sun-Bacon Relaxer	1
-class BG20_301:# <12>[1453]
+class BG20_301:# <12>[1453] コンガリ
 	""" Sun-Bacon Relaxer
 	When you sell this, gain 2_[Blood Gems]. """
-	#
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 2)
 	pass
-
 class BG20_301_G:# <12>[1453]
 	""" Sun-Bacon Relaxer
 	When you sell this, gain 4_[Blood Gems]. """
-	#
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 4)
 	pass
+
+
+
 
 #Roadboar	2
 class BG20_101:# <12>[1453]
 	""" Roadboar
 	[Frenzy:] Gain a [Blood Gem]. """
-	#
+	events = Damage(SELF).on(Frenzy(SELF,Draw(CONTROLLER, 'BG20_GEM')))
 	pass
-
 class BG20_101_G:# <12>[1453]
 	""" Roadboar
 	[Frenzy:] Gain 2 [Blood Gems]. """
-	#
+	events = Damage(SELF).on(Frenzy(SELF,[Draw(CONTROLLER, 'BG20_GEM'), Draw(CONTROLLER, 'BG20_GEM')]))
 	pass
+
+
 
 #Tough Tusk	2
 class BG20_102:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """
-	#
+	events = BG_Play(CONTROLLER, ID('BG20_GEM'), target=SELF).on(Buff(SELF,'BG20_102e'))
 	pass
 class BG20_102e:# <12>[1453]
 	""" Toughened
 	[Divine Shield] next combat. """
-	#
+	tags = {PlayGame.DIVINE_SHIELD:True, }
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG20_102_G:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain[Divine Shield]. """
-	#
+	events = BG_Play(CONTROLLER, ID('BG20_GEM'), target=SELF).on(Buff(SELF,'BG20_102_Ge'))
 	pass
 class BG20_102_Ge:# <12>[1453]
 	""" Real Tough
 	[Divine Shield]. """
-	#
+	tags = {PlayGame.DIVINE_SHIELD:True, }
 	pass
+
+
 
 #Bannerboar	3
 class BG20_201:# <12>[1453]
 	""" Bannerboar
 	At the end of your turn, play a [Blood Gem] on adjacent Quilboar. """
-	#
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
 	pass
-
 class BG20_201_G:# <12>[1453]
 	""" Bannerboar
 	At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar. """
-	#
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'), ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
 	pass
 
+
+
 #Bristleback Brute	3
+class GB20_103_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		if target.gem_applied_thisturn:
+			for repeat in range(amount):
+				Buff(target, 'BG20_GEMe').trigger(source)
+		pass
 class BG20_103:# <12>[1453]
 	""" Bristleback Brute
 	The first [Blood Gem] played on this each turn gives an extra +3/+3. """
-	#
+	events = ApplyGem(SELF,'BG20_GEM').on(GB20_103_Action(SELF, 3))
 	pass
-
 class BG20_103_G:# <12>[1453]
 	""" Bristleback Brute
 	The first [Blood Gem] played on this each turn gives an extra +6/+6. """
-	#
+	events = ApplyGem(SELF,'BG20_GEM').on(GB20_103_Action(SELF, 6))
 	pass
 
 #Gemsplitter	3

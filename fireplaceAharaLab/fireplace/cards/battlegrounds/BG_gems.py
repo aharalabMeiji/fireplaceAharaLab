@@ -17,17 +17,15 @@ class BG20_GEM_No_Impact:# <12>[1453]
 	#
 	pass
 
-class BG20_GEMe:# <12>[1453]
-	""" Blood Gem
-	Increased stats from Blood Gem (but invisible banner) """
-	#
-	pass
+BG20_GEMe=buff(1,1)# <12>[1453]
+""" Blood Gem
+Increased stats from Blood Gem (but invisible banner) """
 
-class BG20_GEMe2:# <12>[1453]
-	""" Blood Gems
-	+@/+@. """
-	#
-	pass
+
+BG20_GEMe2=buff(3,3)# <12>[1453]
+""" Blood Gems
++@/+@. """
+
 
 class BG20_GEMt:# <12>[1453]
 	""" Mass Blood Gem

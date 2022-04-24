@@ -714,7 +714,7 @@ TB_BaconUps_258e=buff(4,4)# <12>[1453]
 
 
 
-#Nomi, Kitchen Nightmare	5	4	4	-	-  BGS_104 BGS_104e1 BGS_104pe TB_BaconUps_201
+#Nomi, Kitchen Nightmare	5	4	4	-	-  動作確認済み
 class BGS_104_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()

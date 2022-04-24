@@ -2895,3 +2895,4 @@ class LoseDivineShield(GameAction):#聖盾を失ったとき
 	def do(self, source, target):
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
+

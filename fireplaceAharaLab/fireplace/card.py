@@ -782,6 +782,7 @@ class Minion(Character):
 		self.spellpower_fire = 0
 		self.deathrattle_valid = True
 		self.deepcopy_original = None
+		self.gem_applied_thisturn=False
 		super().__init__(data)
 
 	@property
