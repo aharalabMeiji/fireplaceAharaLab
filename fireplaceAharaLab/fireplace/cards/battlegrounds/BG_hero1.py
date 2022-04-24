@@ -323,6 +323,9 @@ class TB_BaconShop_HP_053_Action(TargetedAction):
 		controller = target
 		if controller.FirstKillMinion!=None:
 			Give(controller,controller.FirstKillMinion).trigger(source)
+			gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+			if gold_card_id:
+				controller.game.BG_deal_gold(gold_card_id)
 class TB_BaconShop_HP_053:
 	""" I'll Take That!
 	Next combat, add a plain copy of the first minion you kill to your hand."""

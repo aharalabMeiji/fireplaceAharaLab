@@ -19,7 +19,7 @@ BG_Minion=[
 	'DAL_575','TB_BaconUps_034',#Khadgar	3
 	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
 	'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
-	'CORE_EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
+	'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
 	'BG21_007','BG21_007_G',#Impatient Doomsayer	4
 	'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
 	'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
@@ -131,7 +131,7 @@ Increased stats. """
 class TB_BaconUps_079:# <12>[1453]
 	""" Wrath Weaver
 	After you play a Demon, deal 1 damage to your hero and gain +4/+4. """
-	events = Play(CONTROLLER, FRIENDLY_HAND + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'TB_BaconUps_079e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'TB_BaconUps_079e'))
 	pass
 class TB_BaconUps_079e:# <12>[1453]
 	""" Wrath Woven
@@ -416,8 +416,8 @@ TB_BaconUps_301e=buff(2,2)# <12>[1453]
 
 
 
-#Defender of Argus	4	3	3	-	Battlecry CORE_EX1_093  TB_BaconUps_009 
-class CORE_EX1_093:# <12>[1453]   アルガス
+#Defender of Argus	4	3	3	-	Battlecry EX1_093  TB_BaconUps_009 
+class EX1_093:# <12>[1453]   アルガス
 	""" Defender of Argus
 	[Battlecry:] Give adjacent minions +1/+1 and [Taunt]. """
 	play = Buff(SELF_ADJACENT, 'EX1_093e')
@@ -727,7 +727,7 @@ class BGS_104_Action(TargetedAction):
 class BGS_104:# <12>[1453]  ノミ（🐼）
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavern have +1/+1 for the restof the game. """
-	events = Play(CONTROLLER, FRIENDLY_MINIONS + ELEMENTAL).on(BGS_104_Action(CONTROLLER, 1))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_104_Action(CONTROLLER, 1))
 	pass
 class BGS_104e1:# <12>[1453]
 	""" Tavern Feast
@@ -740,7 +740,7 @@ class BGS_104pe:# <12>[1453]
 class TB_BaconUps_201:# <12>[1453]
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavernhave +2/+2 for the restof the game. """
-	events = Play(CONTROLLER, FRIENDLY_MINIONS + ELEMENTAL).on(BGS_104_Action(CONTROLLER, 2))
+	events = BG_Play(CONTROLLER, FRIENDLY_MINIONS + ELEMENTAL).on(BGS_104_Action(CONTROLLER, 2))
 	pass
 
 

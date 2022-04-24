@@ -135,13 +135,13 @@ class BG21_017_G:# <12>[1453]
 class BGS_081:# <7>[1453]
 	""" Salty Looter
 	Whenever you play a Pirate, gain +1/+1. """
-	events = Play(CONTROLLER, PIRATE).on(Buff(SELF,'BGS_081e'))
+	events = BG_Play(CONTROLLER, PIRATE).on(Buff(SELF,'BGS_081e'))
 	pass
 BGS_081e=buff(1,1)
 class TB_BaconUps_143:# <7>[1453]
 	""" Salty Looter
 	Whenever you play a Pirate, gain +2/+2. """
-	events = Play(CONTROLLER, PIRATE).on(Buff(SELF,'TB_BaconUps_143e'))
+	events = BG_Play(CONTROLLER, PIRATE).on(Buff(SELF,'TB_BaconUps_143e'))
 	pass
 TB_BaconUps_143e=buff(2,2)
 

@@ -77,13 +77,13 @@ class TB_BaconUps_156:# <12>[1453]
 class BGS_127:# <12>[1453] ようがん
 	""" Molten Rock
 	[Taunt]. After you play an Elemental, gain +1 Health. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(SELF, 'BGS_127e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(SELF, 'BGS_127e'))
 	pass
 BGS_127e=buff(0,1)
 class TB_Baconups_202:# <12>[1453]
 	""" Molten Rock
 	[Taunt]. After you play an Elemental, gain +2 Health. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(SELF, 'TB_Baconups_202e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(SELF, 'TB_Baconups_202e'))
 	pass
 TB_Baconups_202e=buff(0,2)
 
@@ -93,13 +93,13 @@ TB_Baconups_202e=buff(0,2)
 class BGS_120:# <12>[1453]
 	""" Party Elemental
 	After you play an Elemental, give another random friendly Elemental +1/+1. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL - SELF), 'BGS_120e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL - SELF), 'BGS_120e'))
 	pass
 BGS_120e=buff(1,1)
 class TB_BaconUps_160:# <12>[1453]
 	""" Party Elemental
 	After you play an Elemental, give another random friendly Elemental +1/+1 twice. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL - SELF), 'BGS_120e') * 2)
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL - SELF), 'BGS_120e') * 2)
 	pass
 
 
@@ -219,13 +219,13 @@ class BG21_020_G:# <12>[1453]
 class BG21_040:# <12>[1453] レイス
 	""" Recycling Wraith
 	After you play an Elemental, your next [Refresh] costs (1) less. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(GetFreeRerole(CONTROLLER))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(GetFreeRerole(CONTROLLER))
 	pass
 
 class BG21_040_G:# <12>[1453]
 	""" Recycling Wraith
 	After you play anElemental, your next two[Refreshes] cost (1) less. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(GetFreeRerole(CONTROLLER)*2)
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(GetFreeRerole(CONTROLLER)*2)
 	pass
 
 
@@ -334,14 +334,14 @@ class BGS_100_Action(TargetedAction):
 class BGS_100:# <12>[1453] チビラグ
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion stats equal to the Elemental's Tavern Tier. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD))
 	pass
 class BGS_100e:
 	pass
 class TB_BaconUps_200:# <12>[1453]
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier twice. """
-	events = Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD)*2)
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD)*2)
 	pass
 
 

@@ -74,7 +74,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			if agent.name=='Human1':
-				card = bar.controller.card('BG21_020')
+				card = bar.controller.card('BGS_104')
 				card.zone = Zone.HAND
 			##########
 			pass
@@ -348,7 +348,12 @@ class Move(object):
 				if c==card:
 					self.bartender.field.remove(c)
 					card.controller = self.controller
+					buffs=[]
+					for buff in card.buffs:
+						buffs.append(buff)
 					card.zone = Zone.HAND
+					for buff in buffs:
+						buff.apply(card)
 					card.frozen=False
 					self.controller.used_mana += 3
 					self.controller.add_buy_log(card)
@@ -420,11 +425,11 @@ def GetMoveCandidates(bar, controller, bartender):
 					else:
 						ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))
 	#ORDER=2
-	for pos0 in range(len(controller.field)):
-		card = controller.field[pos0]
-		for pos in range(len(controller.field)):
-			if pos != pos0:
-				ret.append(Move(bar, card, MovePlay.ORDER, param0=pos))
+	#for pos0 in range(len(controller.field)):
+	#	card = controller.field[pos0]
+	#	for pos in range(len(controller.field)):
+	#		if pos != pos0:
+	#			ret.append(Move(bar, card, MovePlay.ORDER, param0=pos))
 	#SELL=4
 	for card in controller.field:
 		ret.append(Move(bar, card, MovePlay.SELL))

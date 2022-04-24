@@ -105,13 +105,13 @@ class BG21_000_Ge:
 class BGS_075:# <3>[1453]
 	""" Rabid Saurolisk (2/3/2)
 	After you play a minion with [Deathrattle], gain +1/+2. """
-	events = Play(CONTROLLER, FRIENDLY_MINIONS + DEATHRATTLE).after(Buff(SELF, 'BGS_075e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + DEATHRATTLE).after(Buff(SELF, 'BGS_075e'))
 	pass
 BGS_075e=buff(1,2)
 class TB_BaconUps_125:# <3>[1453]
 	""" Rabid Saurolisk
 	After you play a minion with [Deathrattle], gain +2/+4. """
-	events = Play(CONTROLLER, FRIENDLY_MINIONS + DEATHRATTLE).after(Buff(SELF, 'TB_BaconUps_125e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + DEATHRATTLE).after(Buff(SELF, 'TB_BaconUps_125e'))
 	pass
 TB_BaconUps_125e=buff(2,4)
 
@@ -218,12 +218,12 @@ class TB_BaconUps_049t:
 class BG20_205:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/6/6)
 	Your [Blood Gems] give an extra +1/+1. """
-	events = Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'))
+	events = BG_Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'))
 	pass
 class BG20_205_G:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/12/12)
 	Your [Blood Gems] give an extra +2/+2. """
-	events = Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'), Buff(SELF, 'BG20_GEMe'))
+	events = BG_Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'), Buff(SELF, 'BG20_GEMe'))
 	#
 	pass
 

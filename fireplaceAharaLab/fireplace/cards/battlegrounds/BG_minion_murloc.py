@@ -95,7 +95,7 @@ TB_BaconUps_008e=buff(4,0)# <12>[1453]
 class BG21_008:# <12>[1453]
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +1 Health. """
-	events = Play(CONTROLLER, FRIENDLY + MURLOC).after(Buff(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF),'BG21_008e') * 2)
+	events = BG_Play(CONTROLLER, FRIENDLY + MURLOC).after(Buff(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF),'BG21_008e') * 2)
 	pass
 BG21_008e=buff(0,1)# <12>[1453]
 """ Salty
@@ -103,7 +103,7 @@ BG21_008e=buff(0,1)# <12>[1453]
 class BG21_008_G:# <12>[1453]
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +2 Health. """
-	events = Play(CONTROLLER, FRIENDLY+MURLOC).after(Buff(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF),'BG21_008_Ge') * 2)
+	events = BG_Play(CONTROLLER, FRIENDLY+MURLOC).after(Buff(RANDOM(FRIENDLY_MINIONS + MURLOC - SELF),'BG21_008_Ge') * 2)
 	pass
 BG21_008_Ge=buff(0,2)# <12>[1453]
 """ Extra Salty
