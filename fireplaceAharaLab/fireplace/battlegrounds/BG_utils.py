@@ -196,8 +196,10 @@ class BG_main:
 		cardID = random.choice(dk)
 		card = bartender.card(cardID)
 		if card.race==Race.ELEMENTAL:
-			Buff(card, 'BGS_104pe').trigger(bartender)
-			Buff(card, 'BG21_020pe').trigger(bartender)
+			for repeat in range(bartender.opponent.nomi_powered_up):
+				Buff(card, 'BGS_104pe').trigger(bartender)
+			for repeat in range(bartender.opponent.lightspawn_powered_up):
+				Buff(card, 'BG21_020pe').trigger(bartender)
 		gr = card.tech_level-1
 		decks[gr].remove(cardID)
 		return card

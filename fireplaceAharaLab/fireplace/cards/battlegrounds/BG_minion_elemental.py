@@ -191,9 +191,9 @@ class BG21_020_Action(TargetedAction):
 	def do(self, source, target, amount):
 		controller = target
 		controller.lightspawn_powered_up += amount
-		buffsize=controller.lightspawn_powered_up
-		BG21_020pe.atk = lambda self,i:i+buffsize
-		BG21_020pe.max_health= lambda self,i:i+buffsize
+		#buffsize=controller.lightspawn_powered_up
+		#BG21_020pe.atk = lambda self,i:i+buffsize
+		#BG21_020pe.max_health= lambda self,i:i+buffsize
 class BG21_020:# <12>[1453] ライトスポーン
 	""" Dazzling Lightspawn
 	[Avenge (2):] Elementals inBob's Tavern have +1/+1__for the rest of the game. """
@@ -203,10 +203,9 @@ class BG21_020e:# <12>[1453]
 	""" Dazzled
 	Increased stats. """
 	pass
-class BG21_020pe:# <12>[1453]
-	""" Dazzling Lightspawn Player Enchant
-	Increased stats. """
-	pass
+BG21_020pe=buff(1,1)# <12>[1453]
+""" Dazzling Lightspawn Player Enchant
+Increased stats. """
 class BG21_020_G:# <12>[1453]
 	""" Dazzling Lightspawn
 	[Avenge (2):] Elementals inBob's Tavern have +2/+2__for the rest of the game. """

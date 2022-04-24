@@ -721,9 +721,8 @@ class BGS_104_Action(TargetedAction):
 	def do(self, source, target, amount):
 		controller = target
 		controller.nomi_powered_up += amount
-		buffsize=controller.nomi_powered_up
-		BGS_104pe.atk = lambda self,i:(i+buffsize)
-		BGS_104pe.max_health= lambda self,i:(i+buffsize)
+		#BGS_104pe.atk = lambda self,i:(i+buffsize)
+		#BGS_104pe.max_health= lambda self,i:(i+buffsize)
 class BGS_104:# <12>[1453]  ノミ（🐼）
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavern have +1/+1 for the restof the game. """
@@ -733,10 +732,9 @@ class BGS_104e1:# <12>[1453]
 	""" Tavern Feast
 	Increased stats. """
 	pass
-class BGS_104pe:# <12>[1453]
-	""" Nomi Player Enchant
-	Increased stats. """
-	pass
+BGS_104pe=buff(1,1)# <12>[1453]
+""" Nomi Player Enchant
+Increased stats. """
 class TB_BaconUps_201:# <12>[1453]
 	""" Nomi, Kitchen Nightmare
 	After you play an Elemental,Elementals in Bob's Tavernhave +2/+2 for the restof the game. """
