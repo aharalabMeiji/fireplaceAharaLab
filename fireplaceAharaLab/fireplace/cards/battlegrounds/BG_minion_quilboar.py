@@ -48,7 +48,7 @@ BG_Quilboar_Gold={
 
 # BG20_GEM : blood gem
 
-#Razorfen Geomancer	1　
+#Razorfen Geomancer	1　##動作確認済み
 class BG20_100:# <12>[1453]
 	""" Razorfen Geomancer
 	[Battlecry:] Gain a[Blood Gem]. """
@@ -63,7 +63,7 @@ class BG20_100_G:# <12>[1453]
 
 
 #Sun-Bacon Relaxer	1
-class BG20_301:# <12>[1453] コンガリ ##動作確認
+class BG20_301:# <12>[1453] コンガリ ##動作確認済み
 	""" Sun-Bacon Relaxer
 	When you sell this, gain 2_[Blood Gems]. """
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 2)
@@ -78,15 +78,21 @@ class BG20_301_G:# <12>[1453]
 
 
 #Roadboar	2
+class BG20_101_Action(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller=taget.deepcopy_original
+		Draw(controller, card).trigger(controller)
 class BG20_101:# <12>[1453]
 	""" Roadboar
 	[Frenzy:] Gain a [Blood Gem]. """
-	events = Damage(SELF).on(Frenzy(SELF,Draw(CONTROLLER, 'BG20_GEM')))
+	events = Damage(SELF).on(Frenzy(SELF,BG20_101_Action(CONTROLLER, 'BG20_GEM')))
 	pass
 class BG20_101_G:# <12>[1453]
 	""" Roadboar
 	[Frenzy:] Gain 2 [Blood Gems]. """
-	events = Damage(SELF).on(Frenzy(SELF,[Draw(CONTROLLER, 'BG20_GEM'), Draw(CONTROLLER, 'BG20_GEM')]))
+	events = Damage(SELF).on(Frenzy(SELF,[BG20_101_Action(CONTROLLER, 'BG20_GEM'), BG20_101_Action(CONTROLLER, 'BG20_GEM')]))
 	pass
 
 
