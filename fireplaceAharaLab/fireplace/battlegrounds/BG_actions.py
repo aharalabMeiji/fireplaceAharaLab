@@ -109,6 +109,20 @@ class Sell(TargetedAction):
 				return
 		pass
 
+class StealGem(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		gem_count=0
+		repeat = len(card.buffs)
+		for i in repeat:
+			c = card.buffs[repeat-1-i]
+			if c.id=='BG20_GEMe':
+				card.buffs.remove(c)
+				gem_count += 1
+		for i in range(gem_count):
+			ApplyGem(target, 'BG20_GEM').trigger(source)
+
 class SummonOnce(Summon):
 	"""
 	Make player targets summon \a id onto their field.

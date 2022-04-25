@@ -150,100 +150,113 @@ class BG20_103_G:# <12>[1453]
 	events = ApplyGem(SELF,'BG20_GEM').on(GB20_103_Action(SELF, 6))
 	pass
 
+
+
 #Gemsplitter	3
-class BG21_037:# <12>[1453]
+class BG21_037:# <12>[1453] 宝石割
 	""" Gemsplitter
 	After a friendly minion loses [Divine Shield], gain a_[Blood Gem]. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(Give(CONTROLLER, 'BG20_GEM'))
 	pass
-
 class BG21_037_G:# <12>[1453]
 	""" Gemsplitter
 	After a friendly minion loses [Divine Shield], gain 2_[Blood Gems]. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(Give(CONTROLLER, 'BG20_GEM')*2)
 	pass
+
+
 
 #Thorncaller	3
-class BG20_105:# <12>[1453]
+class BG20_105:# <12>[1453] 荊使い
 	""" Thorncaller
 	[Battlecry and Deathrattle:] Gain a [Blood Gem]. """
-	#
+	#<Tag enumID="217" name="DEATHRATTLE" type="Int" value="1"/>
+	play = Give(CONTROLLER, 'BG20_GEM')
+	deathrattle = Give(CONTROLLER, 'BG20_GEM')
 	pass
-
 class BG20_105_G:# <12>[1453]
 	""" Thorncaller
 	[Battlecry and Deathrattle:] Gain 2 [Blood Gems]. """
-	#
+	play = Give(CONTROLLER, 'BG20_GEM')*2
+	deathrattle = Give(CONTROLLER, 'BG20_GEM')*2
 	pass
+
+
 
 #Bonker	4
 class BG20_104:# <12>[1453]
 	""" Bonker
 	[Windfury]After this attacks, gain a [Blood Gem]. """
-	#
+	events = Attack(SELF).after(Give(CONTROLLER, 'BG20_GEM'))
 	pass
-
 class BG20_104_G:# <12>[1453]
 	""" Bonker
 	[Mega-Windfury]After this attacks, gain a [Blood Gem]. """
-	#
+	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/>
+	events = Attack(SELF).after(Give(CONTROLLER, 'BG20_GEM'))
 	pass
+
+
 
 #Dynamic Duo	4
 class BG20_207:# <12>[1453]
 	""" Dynamic Duo
-	[[Taunt].] After a [Blood Gem]is played on anotherQuilboar, gain +1/+1. """
-	#
+	[[Taunt].] After a [Blood Gem]is played on another Quilboar, gain +1/+1. """
+	events = ApplyGem(FRIENDLY_MINIONS - SELF, 'BG20_GEM').on(Buff(SELF, 'BG20_207e'))
 	pass
-class BG20_207e:# <12>[1453]
-	""" Boar's Favor
-	+1/+1. """
-	#
-	pass
+BG20_207e=buff(1,1)# <12>[1453]
+""" Boar's Favor
++1/+1. """
 class BG20_207_G:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on anotherQuilboar, gain +2/+2. """
-	#
+	events = ApplyGem(FRIENDLY_MINIONS - SELF, 'BG20_GEM').on(Buff(SELF, 'BG20_207_Ge'))
 	pass
-class BG20_207_Ge:# <12>[1453]
-	""" Boar's Favor
-	+2/+2. """
-	#
-	pass
+BG20_207_Ge=buff(2,2)# <12>[1453]
+""" Boar's Favor
++2/+2. """
+
+
 
 #Groundshaker	4
 class BG20_106:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
-	#
+	events = ApplyGem(SELF, 'BG20_GEM').on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
 	pass
 class BG20_106e:# <12>[1453]
 	""" Groundshook
 	+@ Attack. """
-	#
-	pass
-
+	atk = lambda self, i : i+2
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 class BG20_106_G:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +4 Attack for next combat only. """
-	#
+	events = ApplyGem(SELF, 'BG20_GEM').on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'), Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
 	pass
+
+
 
 #Necrolyte	4
 class BG20_202:# <12>[1453]
 	""" Necrolyte
-	[Battlecry:] Play 2 [BloodGems] on a friendly minion.It steals all [Blood Gems]from its neighbors. """
-	#
+	[Battlecry:] Play 2 [BloodGems] on a friendly minion. It steals all [Blood Gems]from its neighbors. """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
+	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),StealGem(TARGET, TARGET_ADUACENT)
 	pass
-
 class BG20_202_G:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 4 [BloodGems] on a friendly minion.It steals all [Blood Gems]from its neighbors. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
+	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),\
+		ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),\
+		StealGem(TARGET, TARGET_ADUACENT)
 	pass
 
+
+
 #Aggem Thorncurse	5
-class BG20_302:# <12>[1453]
+class BG20_302:# <12>[1453]　そーんかーす
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +1/+1. """
 	#
@@ -265,6 +278,7 @@ class BG20_302_Ge:# <12>[1453]
 	pass
 
 
+
 #Captain Flat Tusk	6
 class BG20_206:# <12>[1453]
 	""" Captain Flat Tusk
@@ -277,8 +291,9 @@ class BG20_206_G:# <12>[1453]
 	#
 	pass
 
+
 #Charlga	6
-class BG20_303:# <12>[1453]
+class BG20_303:# <12>[1453] ちゃるが
 	""" Charlga
 	At the end of your turn, play a [Blood Gem] on all friendly minions. """
 	#

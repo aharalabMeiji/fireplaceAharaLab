@@ -43,9 +43,9 @@ class BG_main:
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 				self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-				self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+				#self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
 				#self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+				self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_elemental.BG_Elemental_Gold)
