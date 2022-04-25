@@ -1,4 +1,4 @@
-#from .BG_buddy import *
+from .BG_gems import *
 from .BG_hero1 import *
 #from .BG_hero2 import *
 #from .BG_hero3 import *

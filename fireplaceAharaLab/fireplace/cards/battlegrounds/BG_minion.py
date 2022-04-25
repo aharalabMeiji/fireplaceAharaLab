@@ -3,7 +3,6 @@ from ..utils import *
 from fireplace.battlegrounds.BG_actions import *
 
 BG_Minion=[
-	
 	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
 	'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
 	'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2

@@ -1,5 +1,9 @@
 from ..utils import *
+from fireplace.battlegrounds.BG_actions import *
 
+BG_Gems=[
+	'BG20_GEM','BG20_GEMe','BG20_GEMe2',
+	]
 
 ##
 ##  Blood gem
@@ -8,7 +12,8 @@ from ..utils import *
 class BG20_GEM:# <12>[1453]
 	""" Blood Gem
 	Give a friendly minion +@/+@. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = ApplyGem(TARGET, 'BG20_GEM')
 	pass
 
 class BG20_GEM_No_Impact:# <12>[1453]

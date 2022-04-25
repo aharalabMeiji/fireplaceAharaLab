@@ -1,4 +1,4 @@
-from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give, Choice
+from fireplace.actions import GameAction, TargetedAction, EventListener, ActionArg, CardArg, IntArg, Summon, Give, Choice, Buff
 from fireplace.dsl import LazyNum, LazyValue, Selector
 from hearthstone.enums import Zone
 from fireplace.logging import log
@@ -32,6 +32,39 @@ class Avenge(TargetedAction):
 				for action in targetaction:
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
+
+class Buy(TargetedAction): ## battlegrounds
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller = target
+		bartender = controller.opponent
+		if controller.mana>=3:
+			for c in bartender.field:
+				if c==card:
+					bartender.field.remove(c)
+					card.controller = controller
+					card.zone = Zone.HAND
+					buffs=[]
+					for buff in card.buffs:
+						buffs.append(buff)
+					card.zone = Zone.HAND
+					for buff in buffs:
+						buff.apply(card)
+					card.frozen=False
+					controller.used_mana += 3
+					controller.spentmoney_in_this_turn += 3
+					controller.add_buy_log(card)
+					self.broadcast(source, EventListener.ON, controller, card)
+					self.broadcast(source, EventListener.AFTER, controller, card)
+					gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+					if gold_card_id:
+						controller.game.BG_deal_gold(gold_card_id)
+					return
+			pass
+		pass
+
+
 
 class DiscoverTwice(Choice):
 	def choose(self, card):
@@ -83,6 +116,7 @@ class Rerole(TargetedAction): ## battlegrounds
 		if controller.mana>=game.reroleCost:
 			self.broadcast(source, EventListener.ON, target)
 			controller.used_mana += game.reroleCost
+			controller.spentmoney_in_this_turn += game.reroleCost
 			for i in range(len(bartender.field)):
 				card=bartender.field[0]
 				game.parent.ReturnCard(card)
@@ -165,6 +199,7 @@ class UpgradeTier(TargetedAction):
 		if controller.Tier<=5 and controller.mana >= controller.TierUpCost:
 			controller.Tier += 1
 			controller.used_mana += controller.TierUpCost
+			controller.spentmoney_in_this_turn += controller.TierUpCost
 			controller.TierUpCost = TierUpCost[controller.Tier]
 			self.broadcast(source, EventListener.ON, controller)
 			self.broadcast(source, EventListener.AFTER, controller)

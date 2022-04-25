@@ -111,6 +111,7 @@ class Player(Entity, TargetableByAuras):
 		self.deepcopy_original=None # battlegrounds
 		self.nomi_powered_up = 0## battlegrounds, Nomi
 		self.lightspawn_powered_up = 0## battlegrounds, lightspoan
+		self.spentmoney_in_this_turn=0 ## battlegrounds, #Captain Flat Tusk
 
 	def __str__(self):
 		return self.name

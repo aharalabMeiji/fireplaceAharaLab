@@ -3,7 +3,7 @@ from fireplace.card import Card
 from fireplace.player import Player
 from fireplace.cards.battlegrounds import BG_hero1
 import random
-from hearthstone.enums import Zone,State, CardClass
+from hearthstone.enums import Zone,State, CardClass, CardType
 from .BG_enums import MovePlay
 
 class BG_Agent(object):
@@ -141,6 +141,8 @@ class BG_HumanAgent(BG_Agent):
 
 	def card_stats(self, card):
 		ret = ' %s'%(card)
+		if card.type != CardType.MINION:
+			return ret
 		ret += '(%d/%d)'%(card.atk,card.health)
 		if card.cant_play:
 			ret += "(can't play)"

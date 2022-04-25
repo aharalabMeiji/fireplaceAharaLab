@@ -119,7 +119,8 @@ class BG_main:
 					card.controller = bartender#たぶん不要
 					card.zone = Zone.PLAY
 				#ボブのバーを開始する。
-				BeginBar(controller, bar.turn).trigger(bar)
+				BeginBar(controller, bar.turn).trigger(controller)
+				controller.spentmoney_in_this_turn=0
 				#この瞬間に「選択」が発生しうるので
 				choiceAction(controller)
 				while True:
@@ -146,8 +147,8 @@ class BG_main:
 			battles[i] = BG_Battle([self.BG_Bars[matches[i][0]],self.BG_Bars[matches[i][1]]])
 			damage0, damage1 = battles[i].battle()
 			### 対戦後処理
-			EndBattle(self.BG_Bars[matches[i][0]].controller).trigger(self)
-			EndBattle(self.BG_Bars[matches[i][1]].controller).trigger(self)
+			EndBattle(self.BG_Bars[matches[i][0]].controller).trigger(self.BG_Bars[matches[i][0]].controller)
+			EndBattle(self.BG_Bars[matches[i][1]].controller).trigger(self.BG_Bars[matches[i][1]].controller)
 			if damage0>0:
 				hero0 = self.BG_Bars[matches[i][0]].controller.hero
 				if hero0.armor>0:# armorも加味する
@@ -349,26 +350,7 @@ class Move(object):
 		pass
 
 	def buy(self, card):
-		if self.controller.mana>=3:
-			for c in self.bartender.field:
-				if c==card:
-					self.bartender.field.remove(c)
-					card.controller = self.controller
-					buffs=[]
-					for buff in card.buffs:
-						buffs.append(buff)
-					card.zone = Zone.HAND
-					for buff in buffs:
-						buff.apply(card)
-					card.frozen=False
-					self.controller.used_mana += 3
-					self.controller.add_buy_log(card)
-					gold_card_id = self.controller.game.BG_find_triple()## トリプルを判定
-					if gold_card_id:
-						self.controller.game.BG_deal_gold(gold_card_id)
-					return
-			pass
-		pass
+		Buy(self.controller, card).trigger(self.controller)
 
 	def sell(self, card):
 		Sell(self.controller, card).trigger(self.controller)
@@ -420,16 +402,25 @@ def GetMoveCandidates(bar, controller, bartender):
 		for card in bartender.field:
 			ret.append(Move(bar, card, MovePlay.BUY))
 	#PLAY=1
-	if len(controller.field)<7:
-		for card in controller.hand:
+	for card in controller.hand:
+		if card.type==CardType.MINION:
+			if len(controller.field)<7:
+				if not card.cant_play:
+					for pos in range(len(controller.field)+1):
+						if card.requires_target():
+							for target in card.targets:
+								targetpos=controller.field.index(target)
+								ret.append(Move(bar, card, MovePlay.PLAY, param0=pos, param1=targetpos))
+						else:
+							ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))
+		else: ## card.type==CardType.SPELL
 			if not card.cant_play:
-				for pos in range(len(controller.field)+1):
-					if card.requires_target():
-						for target in card.targets:
-							targetpos=controller.field.index(target)
-							ret.append(Move(bar, card, MovePlay.PLAY, param0=pos, param1=targetpos))
-					else:
-						ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))
+				if card.requires_target():
+					for target in card.targets:
+						targetpos=controller.field.index(target)
+						ret.append(Move(bar, card, MovePlay.PLAY, param0=0, param1=targetpos))
+				else:
+					ret.append(Move(bar, card, MovePlay.PLAY, param0=0))
 	#ORDER=2
 	#for pos0 in range(len(controller.field)):
 	#	card = controller.field[pos0]

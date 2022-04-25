@@ -63,7 +63,7 @@ class BG20_100_G:# <12>[1453]
 
 
 #Sun-Bacon Relaxer	1
-class BG20_301:# <12>[1453] コンガリ
+class BG20_301:# <12>[1453] コンガリ ##動作確認
 	""" Sun-Bacon Relaxer
 	When you sell this, gain 2_[Blood Gems]. """
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 2)
@@ -100,7 +100,7 @@ class BG20_102:# <12>[1453]
 class BG20_102e:# <12>[1453]
 	""" Toughened
 	[Divine Shield] next combat. """
-	tags = {PlayGame.DIVINE_SHIELD:True, }
+	tags = {GameTag.DIVINE_SHIELD:True, }
 	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG20_102_G:# <12>[1453]
@@ -111,7 +111,7 @@ class BG20_102_G:# <12>[1453]
 class BG20_102_Ge:# <12>[1453]
 	""" Real Tough
 	[Divine Shield]. """
-	tags = {PlayGame.DIVINE_SHIELD:True, }
+	tags = {GameTag.DIVINE_SHIELD:True, }
 	pass
 
 
@@ -242,7 +242,7 @@ class BG20_202:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 2 [BloodGems] on a friendly minion. It steals all [Blood Gems]from its neighbors. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
-	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),StealGem(TARGET, TARGET_ADUACENT)
+	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),StealGem(TARGET, TARGET_ADJACENT)
 	pass
 class BG20_202_G:# <12>[1453]
 	""" Necrolyte
@@ -250,40 +250,73 @@ class BG20_202_G:# <12>[1453]
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
 	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),\
 		ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),\
-		StealGem(TARGET, TARGET_ADUACENT)
+		StealGem(TARGET, TARGET_ADJACENT)
 	pass
 
 
 
 #Aggem Thorncurse	5
+class BG20_302_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		controller = target
+		field = controller.field
+		flag = [0] * len(field)
+		ret = []
+		while True:
+			if sum(flag)==len(field):
+				break
+			c =random.choice(field)
+			addOK=True
+			for d in ret:
+				if c.race == d.race:
+					flag[field.index(c)]=1
+					addOK=False
+					continue
+			if addOK:
+				ret.append(c)
+				flag[field.index(c)]=1
+			pass
+		for c in ret:
+			Buff(c,buff).trigger(source)
 class BG20_302:# <12>[1453]　そーんかーす
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +1/+1. """
-	#
+	events = ApplyGem(SELF, 'BG20_GEM').on(BG20_302_Action(CONTROLLER, 'BG20_302e'))
 	pass
-class BG20_302e:# <12>[1453]
-	""" Thorncursed
-	+1/+1 """
-	#
-	pass
+BG20_302e=buff(1,1)# <12>[1453]
+""" Thorncursed
++1/+1 """
 class BG20_302_G:# <12>[1453]
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +2/+2. """
-	#
+	events = ApplyGem(SELF, 'BG20_GEM').on(BG20_302_Action(CONTROLLER, 'BG20_302_Ge'))
 	pass
-class BG20_302_Ge:# <12>[1453]
-	""" Thorncursed
-	+2/+2 """
-	#
-	pass
+BG20_302_Ge=buff(2,2)# <12>[1453]
+""" Thorncursed
++2/+2 """
+
+
 
 
 
 #Captain Flat Tusk	6
+class BG20_206_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		if controller.spentmoney_in_this_turn>=4:
+			Give(controller,'BG20_GEM').trigger(source)
+			controller.spentmoney_in_this_turn -= 4
 class BG20_206:# <12>[1453]
 	""" Captain Flat Tusk
 	After you spend 4 Gold, gain a [Blood Gem].<i>(@ Gold left!)</i> """
-	#
+	events = [
+		Buy(CONTROLLER).on(BG20_206_Action(CONTROLLER)),
+		Rerole(CONTROLLER).on(BG20_206_Action(CONTROLLER)),
+		UpgradeTier(CONTROLLER).on(BG20_206_Action(CONTROLLER)),
+		]
 	pass
 class BG20_206_G:# <12>[1453]
 	""" Captain Flat Tusk
@@ -292,16 +325,17 @@ class BG20_206_G:# <12>[1453]
 	pass
 
 
+
 #Charlga	6
 class BG20_303:# <12>[1453] ちゃるが
 	""" Charlga
 	At the end of your turn, play a [Blood Gem] on all friendly minions. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS, 'BG20_GEM'))
 	pass
 
 class BG20_303_G:# <12>[1453]
 	""" Charlga
 	At the end of your turn, play 2 [Blood Gems] on all friendly minions. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS, 'BG20_GEM'), Buff(FRIENDLY_MINIONS, 'BG20_GEM'))
 	pass
 
