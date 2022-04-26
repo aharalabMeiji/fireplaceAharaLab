@@ -36,16 +36,25 @@ class BG_main:
 				rep=8
 			else:
 				rep=3
+			races=['elemental','quilboar']
 			for repeat in range(rep):	# BAN される raceはここで除外
 				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
-				self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
-				#self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
-				self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+				if 'beast' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+				if 'demon' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+				if 'dragon' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+				if 'elemental' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+				if 'mecha' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+				if 'murloc' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+				if 'pirate' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
+				if 'quilboar' in races:
+					self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_elemental.BG_Elemental_Gold)
@@ -73,9 +82,9 @@ class BG_main:
 			bar.parent = self
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
-			if agent.name=='Human1':
-				card = bar.controller.card('BGS_104')
-				card.zone = Zone.HAND
+			#if agent.name=='Human1':
+			#	card = bar.controller.card('BGS_104')
+			#	card.zone = Zone.HAND
 			##########
 			pass
 		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
