@@ -83,7 +83,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			#if agent.name=='Human1':
-			#	card = bar.controller.card('BGS_104')
+			#	card = bar.controller.card('BG20_101')
 			#	card.zone = Zone.HAND
 			##########
 			pass

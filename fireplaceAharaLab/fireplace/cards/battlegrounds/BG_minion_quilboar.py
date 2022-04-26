@@ -82,16 +82,19 @@ class BG20_101_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARD = ActionArg()
 	def do(self, source, target, card):
-		controller=taget.deepcopy_original
-		Draw(controller, card).trigger(controller)
-class BG20_101:# <12>[1453]
+		controller=target.deepcopy_original
+		Give(controller, card).trigger(controller)
+class BG20_101:# <12>[1453]　動作確認済み
 	""" Roadboar
 	[Frenzy:] Gain a [Blood Gem]. """
+	tags={GameTag.FRENZY:1, }
+	#<ReferencedTag enumID="1637" name="FRENZY" type="Int" value="1"/>
 	events = Damage(SELF).on(Frenzy(SELF,BG20_101_Action(CONTROLLER, 'BG20_GEM')))
 	pass
 class BG20_101_G:# <12>[1453]
 	""" Roadboar
 	[Frenzy:] Gain 2 [Blood Gems]. """
+	tags={GameTag.FRENZY:1, }
 	events = Damage(SELF).on(Frenzy(SELF,[BG20_101_Action(CONTROLLER, 'BG20_GEM'), BG20_101_Action(CONTROLLER, 'BG20_GEM')]))
 	pass
 
