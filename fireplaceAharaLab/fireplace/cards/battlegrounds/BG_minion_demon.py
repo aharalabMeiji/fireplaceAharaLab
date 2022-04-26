@@ -8,8 +8,8 @@ BG_Minion_Demon =[
 	'BGS_014','TB_BaconUps_113',#Imprisoner(2)
 	'BG21_039','BG21_039_G',#Kathra'natir(3)
 	'BGS_059','TB_BaconUps_119',#Soul Devourer(3)
-	'BGS_204','TB_BaconUps_304',#Bigfernal(4)
-	'DMF_533','TB_BaconUps_309','TB_BaconUps_309t',#Ring Matron(4)
+	'BGS_204','BGS_204e','TB_BaconUps_304','TB_BaconUps_304e',#Bigfernal(4)
+	'DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t',#Ring Matron(4)
 	'BG21_004','BG21_004e','BG21_004_G',#Insatiable Ur'zul(5)
 	'BGS_010','TB_BaconUps_083',#Annihilan Battlemaster(5)
 	'LOOT_368','TB_BaconUps_059','TB_BaconUps_059t',#Voidlord(5)
@@ -42,7 +42,7 @@ BG_Demon_Gold={
 	'BGS_044':'TB_BaconUps_116',#Imp Mama(6)
 	}
 
-####################
+####################　インプ
 class BG21_029:# <12>[1453]
 	""" Icky Imp (1)
 	[Deathrattle:] Summon two 1/1 Imps. """
@@ -61,7 +61,7 @@ class TB_BaconUps_030t:#
 	""" Imp (2/2)
 	"""
 
-####################
+#################### トリックスター
 class BG21_006_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -83,92 +83,133 @@ class BG21_006e:# <12>[1453]
 	pass
 class BG21_006_G:# <12>[1453]
 	""" Impulsive Trickster
-	[Deathrattle:] Give thisminion's maximum Healthto another friendly miniontwice. """
+	[Deathrattle:] Give thisminion's maximum Healthto another friendly minion twice. """
 	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS)) * 2
 	pass
 
-####################
-class BGS_001:# <12>[1453]
+
+
+####################ナスレズィム
+class BGS_001:# <12>[1453] 
 	""" Nathrezim Overseer (2)
 	[Battlecry:] Give a friendly Demon +2/+2. """
-	#
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
+		}
+	play = Buff(TARGET, 'BGS_001')
 	pass
+BGS_001e=buff(2,2)
 class TB_BaconUps_062:# <12>[1453]
 	""" Nathrezim Overseer
 	[Battlecry:] Give a friendly Demon +4/+4. """
-	#
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
+		}
+	play = Buff(TARGET, 'BGS_001')
 	pass
+TB_BaconUps_062e=buff(4,4)
 
-####################
+
+
+####################  禁固番
 class BGS_014:# <12>[1453]
 	""" Imprisoner (2)
 	[Taunt][Deathrattle:] Summon a 1/1 Imp. """
-	#
+	deathrattle = Summon(CONTROLLER, 'EX1_598')
 	pass
 class TB_BaconUps_113:# <12>[1453]
 	""" Imprisoner
 	[Taunt][Deathrattle:] Summon a 2/2 Imp. """
-	#
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_030t')
 	pass
 
-####################
+
+
+#################### カスラナティール（カステラ）
 class BG21_039:# <12>[1453]
 	""" Kathra'natir (3)
-	Your other Demonshave +2 Attack.Your Hero is [Immune]. """
-	#
+	Your other Demons have +2 Attack.Your Hero is [Immune]. """
+	update = Refresh(FRIENDLY + DEMON, buff='BG21_039e'),Refresh(FRIENDLY_HERO, {GameTag:IMMUNE:True, })
 	pass
+BG21_039e=buff(2,0)
 class BG21_039_G:# <12>[1453]
 	""" Kathra'natir
 	Your other Demonshave +4 Attack.Your Hero is [Immune]. """
-	#
+	update = Refresh(FRIENDLY + DEMON, buff='BG21_039_Ge'),Refresh(FRIENDLY_HERO, {GameTag:IMMUNE:True, })
 	pass
+BG21_039_Ge=buff(4,0)
 
-####################
-class BGS_059:# <12>[1453]
+
+
+####################   魂喰らい魔
+class BGS_059_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):## こんなんで正しく動くとは思えない
+		controller = source.controller
+		source.atk += target.atk*amount
+		source.max_health += target.max_health*amount
+		Destroy(target).trigger(source)
+		ManaThisTurn(controller, 3*amount).trigger(source)
+class BGS_059:# <12>[1453] 
 	""" Soul Devourer (3)
-	[Battlecry:] Choose afriendly Demon. Removeit to gain its stats and3 Gold. """
-	#
+	[Battlecry:] Choose a friendly Demon. Remove it to gain its stats and 3 Gold. """
+	requirements={
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
+		}
+	play = BGS_059_Action(TARGET, CONTROLLER, 1)
 	pass
+BGS_059e=buff(0,0)
 class TB_BaconUps_119:# <12>[1453]
 	""" Soul Devourer
 	[Battlecry:] Choose afriendly Demon. Removeit to gain double its statsand 6 Gold. """
-	#
+	requirements={
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
+		}
+	play = BGS_059_Action(TARGET, CONTROLLER, 2)
 	pass
 
-###################
+
+
+###################　焦熱の圧鬼（あっき）
 class BGS_204:# <12>[1453]
 	""" Bigfernal (4)
 	After you summon a Demon, gain +1/+1 permanently. """
-	#
+	events = Summon(FRIENDLY + DEMON).after(BuffPermanently(SELF, 'BGS_204e' ))
 	pass
+BGS_204e=buff(1,1)
 class TB_BaconUps_304:# <12>[1453]
 	""" Bigfernal
 	After you summon a Demon, gain +2/+2 permanently. """
-	#
+	events = Summon(FRIENDLY + DEMON).after(BuffPermanently(SELF, 'TB_BaconUps_304e' ))
 	pass
+TB_BaconUps_304e=buff(2,2)
 
-###################
+
+###################　　火の輪くぐらせ嬢
 class DMF_533:# <9>[1453]
 	""" Ring Matron (4)
-	[Taunt][Deathrattle:] Summontwo 6/4 Imps. """
-	#
+	[Taunt][Deathrattle:] Summon　two 3/2 Imps. """
+	deathrattle = Summon(CONTROLLER, 'DMF_533t')*2
+	pass
+class DMF_533t:
 	pass
 class TB_BaconUps_309:# <9>[1453]
 	""" Ring Matron
 	[Taunt][Deathrattle:] Summontwo 6/4 Imps. """
-	#
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_309t')*2
 	pass
 class TB_BaconUps_309t:# <9>[1453]
 	""" Fiery Imp
 	 """
-	#
 	pass
 
 
-####################
+
+####################　　　ウルズール
 class BG21_004:# <12>[1453]
 	""" Insatiable Ur'zul (5)
-	[[Taunt].] After you play aDemon, consume a minionin Bob's Tavern to gainits stats. """
+	[[Taunt].] After you play a Demon, consume a minion in Bob's Tavern to gain its stats. """
 	#
 	pass
 class BG21_004e:# <12>[1453]
@@ -182,7 +223,10 @@ class BG21_004_G:# <12>[1453]
 	#
 	pass
 
-####################
+
+
+
+####################　　　アニヒラン
 class BGS_010:# <12>[1453]
 	""" Annihilan Battlemaster (5)
 	[Battlecry:] Gain +1 Health for each Health your hero_is missing. """
@@ -194,7 +238,9 @@ class TB_BaconUps_083:# <12>[1453]
 	#
 	pass
 
-####################
+
+
+#################### ヴォイドロード
 class LOOT_368:# <9>[1453]
 	""" Voidlord (5)
 	[Taunt] [Deathrattle:] Summon three2/6 Demons with [Taunt]. """
@@ -211,7 +257,7 @@ class TB_BaconUps_059t:# <9>[1453]
 	#
 	pass
 
-####################
+####################　　　フェルバット
 class BG21_005:# <12>[1453]
 	""" Famished Felbat (6)
 	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain its stats. """
@@ -227,6 +273,7 @@ class BG21_005_G:# <12>[1453]
 	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain double its stats. """
 	#
 	pass
+
 
 ####################
 class BGS_044:# <9>[1453]

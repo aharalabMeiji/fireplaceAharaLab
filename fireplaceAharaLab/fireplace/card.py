@@ -481,7 +481,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")
 	atk = int_property("atk")
-	cant_be_damaged = boolean_property("cant_be_damaged")
+	cant_be_damaged = boolean_property("Cant Be Damaged")
 	immune_while_attacking = boolean_property("immune_while_attacking")
 	incoming_damage_multiplier = int_property("incoming_damage_multiplier")
 	max_health = int_property("max_health")
