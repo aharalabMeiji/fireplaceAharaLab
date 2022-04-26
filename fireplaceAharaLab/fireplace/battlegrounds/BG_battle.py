@@ -154,4 +154,19 @@ class BG_Battle(Game):
 			ret += "(reborn)"
 		return ret
 
-
+	def BG_morph_gold(self, card):
+		if not card:
+			return
+		controller = card.controller
+		gold_id = self.parent.BG_Gold[card.id]
+		if not gold_id:
+			return
+		buffs=[]
+		for buff in card.buffs:## バフはすべて継承する
+			buffs.append(buff)
+		card.zone=Zone.GRAVEYARD
+		newcard = controller.card(gold_id)
+		for buff in buffs:## バフはすべて継承する
+			buff.apply(newcard)
+		newcard.zone = Zone.PLAY #余分な動きを誘発してしまうか？ 
+		return newcard

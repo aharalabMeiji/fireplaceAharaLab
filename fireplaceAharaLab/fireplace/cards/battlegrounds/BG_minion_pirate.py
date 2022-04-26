@@ -48,15 +48,15 @@ BG_Pirate_Gold={
 
 
 #Deck Swabbie,1,2,2,Pirate,Battlecry
-class BGS_055:# 
+class BGS_055:# 甲板みがき　動作確認済み
 	""" Deck Swabbie <pirate>  (2/2)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
-	play = ReduceUpgradingCost(CONTROLLER,1)
+	play = ReduceTierUpCost(CONTROLLER,1)
 	pass
 class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
 	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
-	play = ReduceUpgradingCost(CONTROLLER,2)
+	play = ReduceTierUpCost(CONTROLLER,2)
 	pass
 
 #Scallywag,1,3,1,Pirate,Deathrattle
@@ -94,12 +94,12 @@ class TB_BaconUps_127:# <12>[1453]
 	pass
 
 #Southsea Captain,2,3,3,Pirate,-
-#class CORE_NEW1_027:
-#	""" Southsea Captain
-#	Your other Pirates have +1/+1. """
-#	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
-#	pass
-#NEW1_027e = buff(+1, +1)
+class NEW1_027:
+	""" Southsea Captain
+	Your other Pirates have +1/+1. """
+	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
+	pass
+NEW1_027e = buff(+1, +1)
 class TB_BaconUps_136:
 	""" Southsea Captain
 	Your other Pirates have +2/+2. """
@@ -174,8 +174,10 @@ class TB_BaconUps_140:# <12>[1453]
 	pass
 TB_BaconUps_140e=buff(2,2)
 
+
+
 #Goldgrubber,4,4,4,Pirate,-
-class BGS_066:# <12>[1453]
+class BGS_066:# <12>[1453] 金ぴか
 	""" Goldgrubber
 	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
 	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + GOLDEN, 'BGS_066e'))
@@ -188,82 +190,127 @@ class TB_BaconUps_130:# <12>[1453]
 	pass
 TB_BaconUps_130e=buff(4,4)
 
+
+
 #Peggy Brittlebone,4,6,5,Pirate,-
-class BG21_016:# <12>[1453]
+class BG21_016:# <12>[1453] 義足
 	""" Peggy Brittlebone
 	After a card is added to your hand, give another friendly Pirate +1/+1. """
-	#
+	events = [
+		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016e')),
+		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016e')),
+		]
 	pass
 BG21_016e=buff(1,1)
 class BG21_016_G:# <12>[1453]
 	""" Peggy Brittlebone
 	After a card is added to your hand, give another friendly Pirate +2/+2. """
-	#
+	events = [
+		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016_Ge')),
+		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016_Ge')),
+		]
 	pass
 BG21_016_Ge=buff(2,2)
 
 #Ripsnarl Captain,4,4,6,Pirate,-
-class BGS_056:# <12>[1453]
+class BGS_056:# <12>[1453] ギリガルル
 	""" Ripsnarl Captain
 	Whenever another friendly Pirate attacks, give it +2/+2. """
-	#
+	events = Attack(FRIENDLY + PIRATE).on(Buff(Attack.ATTACKER,'BGS_056e'))
 	pass
 BGS_056e=buff(2,2)
 class TB_BaconUps_139:# <12>[1453]
 	""" Ripsnarl Captain
 	Whenever another friendly Pirate attacks, give it +4/+4. """
-	#
+	events = Attack(FRIENDLY + PIRATE).on(Buff(Attack.ATTACKER,'TB_BaconUps_139e'))
 	pass
 TB_BaconUps_139e=buff(4,4)
 
+
+
 #Cap'n Hoggarr,5,6,6,Pirate,-
-class BGS_072:# <12>[1453]
+class BGS_072:# <12>[1453] ホガァ
 	""" Cap'n Hoggarr
 	Whenever you buy a Pirate,gain 1 Gold this turn only. """
-	#
+	events = Buy(CONTROLLER, MINION + PIRATE).on(ManaThisTurn(CONTROLLER, 1))
 	pass
 class TB_BaconUps_133:# <12>[1453]
 	""" Cap'n Hoggarr
 	Whenever you buy a Pirate, gain 2 Gold this turn only. """
-	#
+	events = Buy(CONTROLLER, MINION + PIRATE).on(ManaThisTurn(CONTROLLER, 2))
 	pass
 
+
+
 #Tony Two-Tusk,5,4,6,Pirate,Avenge (X)
+class BG21_031_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		friendly_pirates=[]
+		for card in controller.field:
+			if card.race==Race.PIRATE:
+				friendly_pirates.append(card)
+		if len(friendly_parates)>0:
+			card = random.choice(friendly_pirates)
+			original_card = card.deepcopy_original
+			new_card = controller.game.BG_morph_gold(card)
+			new_original_card = original_card.controller.game.BG_morph_gold(card)
+		pass
 class BG21_031:# <12>[1453]
 	""" Tony Two-Tusk
 	[Avenge (4):] Make another friendly Pirate Golden permanently. """
-	#
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [BG21_031_Action(CONTROLLER)]))
 	pass
 class BG21_031_G:# <12>[1453]
 	""" Tony Two-Tusk
 	[Avenge (4):] Make 2 other friendly Pirates Golden permanently. """
-	#
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [BG21_031_Action(CONTROLLER), BG21_031_Action(CONTROLLER)]))
 	pass
 
+
+
+
 #Dread Admiral Eliza,6,6,7,Pirate,-
-class BGS_047:# <12>[1453]
+class BGS_047:# <12>[1453]  エリザ
 	""" Dread Admiral Eliza
 	Whenever a friendly Pirate attacks, give all friendly minions +2/+1. """
-	#
+	events = Attack(FRIENDLY_MINIONS + PIRATE).on(Buff(FRIENDLY_MINIONS,'BGS_047e'))
 	pass
 BGS_047e=buff(2,1)
 class TB_BaconUps_134:# <12>[1453]
 	""" Dread Admiral Eliza
 	Whenever a friendly Pirate attacks, give all friendly minions +4/+2. """
-	#
+	events = Attack(FRIENDLY_MINIONS + PIRATE).on(Buff(FRIENDLY_MINIONS,'TB_BaconUps_134e'))
 	pass
 TB_BaconUps_134e=buff(4,2)
 
+
+
+
 #Nosy Looter,6,9,8,Pirate,-
-class BG21_019:# <12>[1453]
+class BG21_019_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		controller = target
+		decks = controller.game.parent.BG_decks
+		dk=[]
+		for i in range(grade):
+			dk += decks[i]
+		for repeat in range(amount):
+			cardID = random.choice(dk)
+			controller.game.BG_deal_gold(cardID)
+		pass
+class BG21_019:# <12>[1453] 戦利品詮索屋
 	""" Nosy Looter
 	Every two turns,add a random Golden minion to your hand.<i>(@ |4(turn, turns) left!)</i> """
-	#
+	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,1)]))
 	pass
 class BG21_019_G:# <12>[1453]
 	""" Nosy Looter
 	At the start of your turn,add a random Golden minion to your hand. """
-	#
+	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,2)]))
 	pass
 
 

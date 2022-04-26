@@ -36,7 +36,7 @@ class BG_main:
 				rep=8
 			else:
 				rep=3
-			races=['elemental','quilboar']
+			races=['elemental','pirate']
 			for repeat in range(rep):	# BAN される raceはここで除外
 				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 				if 'beast' in races:
@@ -57,8 +57,14 @@ class BG_main:
 					self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_beast.BG_Beast_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_demon.BG_Demon_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_dragon.BG_Dragon_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_elemental.BG_Elemental_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_mecha.BG_Mecha_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_murloc.BG_Murloc_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_pirate.BG_Pirate_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_quilboar.BG_Quilboar_Gold)
 	pass
 
 	def BG_main(self):
@@ -109,10 +115,10 @@ class BG_main:
 				# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
 				# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
 				frozencard=0
-				for card in bartender.field:
-					print ("(%s)bartender.field:%s"%(controller,card))
-				for card in controller.hand:
-					print ("(%s)controller.hand:%s"%(controller,card))
+				#for card in bartender.field:
+				#	print ("(%s)bartender.field:%s"%(controller,card))
+				#for card in controller.hand:
+				#	print ("(%s)controller.hand:%s"%(controller,card))
 				repeat = len(bartender.field)
 				for i in range(repeat):
 					card = bartender.field[repeat-1-i]

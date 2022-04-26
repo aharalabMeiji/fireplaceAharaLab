@@ -93,12 +93,12 @@ class GetFreeRerole(TargetedAction):
 		pass
 	pass
 
-class ReduceUpgradingCost(TargetedAction):
+class ReduceTierUpCost(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
 	def do(self, source, target, amount):
-		if hasattr(target,'UpgradeCost'):
-			target.UpgradeCost = max(target.UpgradeCost-amount, 0)
+		if hasattr(target,'TierUpCost'):
+			target.TierUpCost = max(target.TierUpCost-amount, 0)
 		pass
 
 class Rerole(TargetedAction): ## battlegrounds

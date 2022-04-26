@@ -610,7 +610,7 @@ class BG20_HERO_101p:
 	""" See the Light
 	Choose a minion in Bob's Tavern to add to your hand. Set its stats to 2."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0,PlayReq.REQ_MINION_TARGET:0,}
-	play = Buy(CONTROLLER, TARGET).on(Buff(Buy.CARD,'BG20_HERO_101pe2'))
+	activate = Buy(CONTROLLER, TARGET).on(Buff(Buy.CARD,'BG20_HERO_101pe2'))
 class BG20_HERO_101pe2:
 	max_health = lambda self, i : 2
 	atk = lambda self, i : 2
