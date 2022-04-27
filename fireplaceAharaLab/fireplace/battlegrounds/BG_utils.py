@@ -36,7 +36,8 @@ class BG_main:
 				rep=8
 			else:
 				rep=3
-			races=['elemental','pirate']
+			races=['elemental','demon']
+			## races = random.sample(['beast','demon','dragon',elemental','mecha','murloc','pirate','quilboar'],5)
 			for repeat in range(rep):	# BAN される raceはここで除外
 				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 				if 'beast' in races:
@@ -88,9 +89,9 @@ class BG_main:
 			bar.parent = self
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
-			#if agent.name=='Human1':
-			#	card = bar.controller.card('BG20_101')
-			#	card.zone = Zone.HAND
+			if agent.name=='Human1':
+				card = bar.controller.card('BGS_059')
+				card.zone = Zone.HAND
 			##########
 			pass
 		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
@@ -216,10 +217,16 @@ class BG_main:
 		cardID = random.choice(dk)
 		card = bartender.card(cardID)
 		if card.race==Race.ELEMENTAL:
-			for repeat in range(bartender.opponent.nomi_powered_up):
+			if bartender.opponent.nomi_powered_up>0:
 				Buff(card, 'BGS_104pe').trigger(bartender)
-			for repeat in range(bartender.opponent.lightspawn_powered_up):
+				buff = card.buffs[-1]
+				buff.atk=bartender.opponent.nomi_powered_up
+				buff.max_health=bartender.opponent.nomi_powered_up
+			if bartender.opponent.lightspawn_powered_up>0:
 				Buff(card, 'BG21_020pe').trigger(bartender)
+				buff = card.buffs[-1]
+				buff.atk=bartender.opponent.lightspawn_powered_up
+				buff.max_health=bartender.opponent.lightspawn_powered_up
 		gr = card.tech_level-1
 		decks[gr].remove(cardID)
 		return card

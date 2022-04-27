@@ -7,7 +7,7 @@ BG_Minion_Demon =[
 	'BGS_001','TB_BaconUps_062',#Nathrezim Overseer(2)
 	'BGS_014','TB_BaconUps_113',#Imprisoner(2)
 	'BG21_039','BG21_039_G',#Kathra'natir(3)
-	'BGS_059','TB_BaconUps_119',#Soul Devourer(3)
+	'BGS_059','BGS_059e','TB_BaconUps_119',#Soul Devourer(3)
 	'BGS_204','BGS_204e','TB_BaconUps_304','TB_BaconUps_304e',#Bigfernal(4)
 	'DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t',#Ring Matron(4)
 	'BG21_004','BG21_004e','BG21_004_G',#Insatiable Ur'zul(5)
@@ -64,18 +64,23 @@ class TB_BaconUps_030t:#
 #################### トリックスター
 class BG21_006_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target):
-		# source : trickstar card
+	CONTRO = ActionArg()
+	def do(self, source, target, contro):
+		# controller : trickstar card
 		# target = friendly minion
+		if isinstance(contro, list):
+			contro = contro[0]
+		controller = contro
 		buff_health = source.max_health
-		BG21_006e.max_health = buff_health
 		if target!=None and target!=[]:
-			Buff(target, 'BG21_006e').trigger(source)
+			Buff(target, 'BG21_006e').trigger(controller)
+			buff = target.buffs[-1]
+			buff.max_health = buff_health
 		pass
 class BG21_006:# <12>[1453]
 	""" Impulsive Trickster(1)
 	[Deathrattle:] Give this minion's maximum Health__to another friendly minion._ """
-	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS))
+	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS),CONTROLLER)
 	pass
 class BG21_006e:# <12>[1453]
 	""" Impulsive
@@ -129,13 +134,13 @@ class TB_BaconUps_113:# <12>[1453]
 class BG21_039:# <12>[1453]
 	""" Kathra'natir (3)
 	Your other Demons have +2 Attack.Your Hero is [Immune]. """
-	update = Refresh(FRIENDLY + DEMON, buff='BG21_039e'),Refresh(FRIENDLY_HERO, {GameTag:IMMUNE:True, })
+	update = Refresh(FRIENDLY + DEMON, buff='BG21_039e'),Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:True})
 	pass
 BG21_039e=buff(2,0)
 class BG21_039_G:# <12>[1453]
 	""" Kathra'natir
 	Your other Demonshave +4 Attack.Your Hero is [Immune]. """
-	update = Refresh(FRIENDLY + DEMON, buff='BG21_039_Ge'),Refresh(FRIENDLY_HERO, {GameTag:IMMUNE:True, })
+	update = Refresh(FRIENDLY + DEMON, buff='BG21_039_Ge'),Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:True})
 	pass
 BG21_039_Ge=buff(4,0)
 
@@ -145,28 +150,31 @@ BG21_039_Ge=buff(4,0)
 class BGS_059_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
-	def do(self, source, target, amount):## こんなんで正しく動くとは思えない
+	def do(self, source, target, amount):
 		controller = source.controller
-		source.atk += target.atk*amount
-		source.max_health += target.max_health*amount
+		Buff(source, 'BGS_059e').trigger(source)
+		buff = source.buffs[-1]
+		buff.atk = target.atk * amount
+		buff.max_health = target.max_health * amount
 		Destroy(target).trigger(source)
-		ManaThisTurn(controller, 3*amount).trigger(source)
-class BGS_059:# <12>[1453] 
+		ManaThisTurn(controller, 3 * amount).trigger(source)
+class BGS_059:# <12>[1453] ## 動いている感じはある
 	""" Soul Devourer (3)
 	[Battlecry:] Choose a friendly Demon. Remove it to gain its stats and 3 Gold. """
 	requirements={
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
 		}
-	play = BGS_059_Action(TARGET, CONTROLLER, 1)
+	play = BGS_059_Action(TARGET,  1)
 	pass
-BGS_059e=buff(0,0)
+class BGS_059e:
+	pass
 class TB_BaconUps_119:# <12>[1453]
 	""" Soul Devourer
 	[Battlecry:] Choose afriendly Demon. Removeit to gain double its statsand 6 Gold. """
 	requirements={
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
 		}
-	play = BGS_059_Action(TARGET, CONTROLLER, 2)
+	play = BGS_059_Action(TARGET, 2)
 	pass
 
 
