@@ -78,6 +78,27 @@ class DiscoverTwice(Choice):
 		if isinstance(cards, LazyValue):
 			self.cards = cards.evaluate(self.source)
 
+
+class EatsMinion(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	AMOUNT = IntArg()
+	BUFF = ActionArg()
+	def do(self, source, target, card, amount, buff):
+		if target==[] or card==[]:
+			return
+		if isinstance(target,list):
+			target = target[0]
+		if isinstance(card,list):
+			card = card[0]
+		Buff(target,  buff).trigger(target)
+		buff = source.buffs[-1]
+		buff.atk = card.atk * amount
+		buff.max_health = card.max_health * amount
+		Destroy(card).trigger(target)
+	pass
+
+
 class EndBattle(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):

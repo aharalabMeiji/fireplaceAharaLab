@@ -4,7 +4,7 @@ from fireplace.battlegrounds.BG_actions import *
 BG_Minion_Demon =[
 	'BG21_029','EX1_598','BG21_029_G','TB_BaconUps_030t',#Icky Imp(1)
 	'BG21_006','BG21_006e','BG21_006_G',#Impulsive Trickster(1)
-	'BGS_001','TB_BaconUps_062',#Nathrezim Overseer(2)
+	'BGS_001','BGS_001e','TB_BaconUps_062','TB_BaconUps_062e',#Nathrezim Overseer(2)
 	'BGS_014','TB_BaconUps_113',#Imprisoner(2)
 	'BG21_039','BG21_039_G',#Kathra'natir(3)
 	'BGS_059','BGS_059e','TB_BaconUps_119',#Soul Devourer(3)
@@ -12,7 +12,7 @@ BG_Minion_Demon =[
 	'DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t',#Ring Matron(4)
 	'BG21_004','BG21_004e','BG21_004_G',#Insatiable Ur'zul(5)
 	'BGS_010','TB_BaconUps_083',#Annihilan Battlemaster(5)
-	'LOOT_368','TB_BaconUps_059','TB_BaconUps_059t',#Voidlord(5)
+	'LOOT_368','CS2_065','TB_BaconUps_059','TB_BaconUps_059t',#Voidlord(5)
 	'BG21_005','BG21_005e','BG21_005_G',#Famished Felbat(6)
 	'BGS_044','TB_BaconUps_116',#Imp Mama(6)
 	]
@@ -68,6 +68,7 @@ class BG21_006_Action(TargetedAction):
 	def do(self, source, target, contro):
 		# controller : trickstar card
 		# target = friendly minion
+		# sourceは、この事象が発生する大もとのカード
 		if isinstance(contro, list):
 			contro = contro[0]
 		controller = contro
@@ -165,6 +166,7 @@ class BGS_059:# <12>[1453] ## 動いている感じはある
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
 		}
 	play = BGS_059_Action(TARGET,  1)
+	#play = EatsMinion(SELF, TARGET, 1, 'BGS_059e'),ManaThisTurn(controller, 3)
 	pass
 class BGS_059e:
 	pass
@@ -175,6 +177,7 @@ class TB_BaconUps_119:# <12>[1453]
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
 		}
 	play = BGS_059_Action(TARGET, 2)
+	#play = EatsMinion(SELF, TARGET, 2, 'BGS_059e'),ManaThisTurn(controller, 6)
 	pass
 
 
@@ -218,7 +221,7 @@ class TB_BaconUps_309t:# <9>[1453]
 class BG21_004:# <12>[1453]
 	""" Insatiable Ur'zul (5)
 	[[Taunt].] After you play a Demon, consume a minion in Bob's Tavern to gain its stats. """
-	#
+	events = Play(CONTROLLER, FRIENDLY + DEMON).on(EatsMinion(SELF, RANDOM(ENEMY_MINIONS), 1, 'BG21_004e'))
 	pass
 class BG21_004e:# <12>[1453]
 	""" Sated
@@ -228,7 +231,7 @@ class BG21_004e:# <12>[1453]
 class BG21_004_G:# <12>[1453]
 	""" Insatiable Ur'zul
 	[[Taunt].] After you play aDemon, consume a minionin Bob's Tavern to gaindouble its stats. """
-	#
+	events = Play(CONTROLLER, FRIENDLY + DEMON).on(EatsMinion(SELF, RANDOM(ENEMY_MINIONS), 2, 'BG21_004e'))
 	pass
 
 
@@ -238,12 +241,16 @@ class BG21_004_G:# <12>[1453]
 class BGS_010:# <12>[1453]
 	""" Annihilan Battlemaster (5)
 	[Battlecry:] Gain +1 Health for each Health your hero_is missing. """
-	#
+	def play(self):
+		hero = self.controller.hero
+		self.max_helth += hero.damage
 	pass
 class TB_BaconUps_083:# <12>[1453]
 	""" Annihilan Battlemaster
 	[Battlecry:] Gain +2 Health for each Health your hero_is missing. """
-	#
+	def play(self):
+		hero = self.controller.hero
+		self.max_helth += hero.damage*2
 	pass
 
 
@@ -252,12 +259,14 @@ class TB_BaconUps_083:# <12>[1453]
 class LOOT_368:# <9>[1453]
 	""" Voidlord (5)
 	[Taunt] [Deathrattle:] Summon three2/6 Demons with [Taunt]. """
-	#
+	deathrattle = Summon(CONTROLLER, 'CS2_065')*3
+	pass
+class CS2_065:
 	pass
 class TB_BaconUps_059:# <9>[1453]
 	""" Voidlord
 	[Taunt] [Deathrattle:] Summon three2/6 Demons with [Taunt]. """
-	#
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_059t')*3
 	pass
 class TB_BaconUps_059t:# <9>[1453]
 	""" Voidwalker
