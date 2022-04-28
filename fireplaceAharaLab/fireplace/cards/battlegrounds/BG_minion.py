@@ -783,6 +783,20 @@ class TB_BaconUps_121:
 	play = BGS_069_Action(CONTROLLER, 2)
 	pass
 
+#class UNG_999t14e:## 火山の力 ## +1/+1
+#class UNG_999t13e:## 猛毒の唾 ## 猛毒
+#class UNG_999t10e:## 霧隠れ ## 次の自分のターンまで隠れ身状態。
+#class UNG_999t8e:## 電気の盾 # 聖なる盾
+#class UNG_999t7e:## 電光石火 # 疾風
+#class UNG_999t6e:## 巨体 # 挑発
+#class UNG_999t5e:## 液状膜 ## 呪文とヒーローパワーの標的にならない。
+#class UNG_999t4e:## 岩状の甲殻 ## 体力+3
+#class UNG_999t3e:## 炎熱の爪 ##攻撃力+3
+#class UNG_999t2e:## 動き回る胞子 ##;断末魔:&lt;/b&gt;1/1の植物を2体召喚する。
+#class UNG_999t2t1:## 植物
+
+
+
 
 
 #Friend of a Friend	(BAN)	6	5	6	-	Battlecry   BG22_404 BG22_404_G 
