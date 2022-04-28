@@ -122,7 +122,10 @@ class BG_HumanAgent(BG_Agent):
 	def printBar(self, bar, controller, bartender):
 		print("----------------------------------------------")
 		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
-		print("%s(%d + %d)"%(controller.hero, controller.hero.health, controller.hero.armor))
+		buddy = controller.buddy_gauge
+		if buddy>100:
+			buddy = (buddy-100)*0.5
+		print("%s(%d + %d), buddy : %d"%(controller.hero, controller.hero.health, controller.hero.armor, buddy))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar   :%s" %(self.card_stats(card)))

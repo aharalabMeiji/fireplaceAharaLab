@@ -112,6 +112,7 @@ class Player(Entity, TargetableByAuras):
 		self.nomi_powered_up = 0## battlegrounds, Nomi
 		self.lightspawn_powered_up = 0## battlegrounds, lightspoan
 		self.spentmoney_in_this_turn=0 ## battlegrounds, #Captain Flat Tusk
+		self.buddy_gauge=0## battlegrounds, # buddy
 
 	def __str__(self):
 		return self.name

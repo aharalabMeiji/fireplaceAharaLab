@@ -12,15 +12,21 @@ class BG_Battle(Game):
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
 		self.game2=deepcopy_game(bars[1], bars[1].controller, 0)
 		self.player1 = self.game1.player1
+		self.player1.buddy_gauge = bars[0].controller.buddy_gauge
 		self.player2 = self.game2.player1
+		self.player2.buddy_gauge = bars[1].controller.buddy_gauge
 		self.player1.deepcopy_original = bars[0].controller
 		self.player2.deepcopy_original = bars[1].controller
 		super().__init__([self.player1, self.player2])
+
 		pass
 	def battle(self):
 		#プレイヤーのopponentを設定
 		self.player1.opponent=self.player2
 		self.player2.opponent=self.player1
+		#buddy gaugeを進める
+		self.player1.buddy_gauge += (len(self.player1.field)*2+2)
+		self.player2.buddy_gauge += (len(self.player2.field)*2+2)
 		#先攻後攻を決める（枚数の多いほうが先攻、同数ならばランダム）
 		#self.first #先攻 #self.second #後攻
 		if len(self.player1.field)>len(self.player2.field):
@@ -78,6 +84,9 @@ class BG_Battle(Game):
 			#攻撃
 			print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 			BG_RegularAttack(attacker, defender).trigger(attacker.controller)
+			#buddy gaugeを進める
+			self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
+			self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
 			#死者が出る場合にその処理(deathrattle)
 			Deaths().trigger(self)
 			if attacker.zone==Zone.GRAVEYARD:
@@ -105,7 +114,10 @@ class BG_Battle(Game):
 		#self.manager.step(self.next_step)
 		#引き分け
 		if len(self.first.field)==0 and len(self.second.field)==0:
-			return 0,0 #続行
+			#buddy gaugeを進める
+			self.player1.buddy_gauge += 1
+			self.player2.buddy_gauge += 1
+			return 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge #続行
 		elif len(self.player1.field)==0:
 			# 「セカンドのフィールドの残りカードのtech_levelの総和＋セカンドのTier」を求める
 			damage = self.player2.Tier
@@ -115,7 +127,10 @@ class BG_Battle(Game):
 				else:
 					damage += card.cost# or 1?
 			# ダメージを返す
-			return damage, 0
+			#buddy gaugeを進める
+			self.player1.buddy_gauge += (damage)
+			self.player1.buddy_gauge += 3
+			return damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
 		else:#if len(self.player2.field)==0:
 			# 「ファーストのフィールドの残りカードのtech_levelの総和＋ファーストのTier」を求める
 			damage = self.player1.Tier
@@ -125,7 +140,10 @@ class BG_Battle(Game):
 				else:
 					damage += card.cost# or 1?
 			# ダメージを返す
-			return 0, damage
+			#buddy gaugeを進める
+			self.player2.buddy_gauge += (damage)
+			self.player2.buddy_gauge += 3
+			return 0, damage,self.player1.buddy_gauge,self.player2.buddy_gauge
 		pass
 
 	def printField(self):
