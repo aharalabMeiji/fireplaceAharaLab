@@ -72,6 +72,8 @@ class BG21_006_Action(TargetedAction):
 		if isinstance(contro, list):
 			contro = contro[0]
 		controller = contro
+		if isinstance(target,Enchantment):
+			target = target.owner
 		buff_health = source.max_health
 		if target!=None and target!=[]:
 			Buff(target, 'BG21_006e').trigger(controller)
@@ -90,7 +92,7 @@ class BG21_006e:# <12>[1453]
 class BG21_006_G:# <12>[1453]
 	""" Impulsive Trickster
 	[Deathrattle:] Give thisminion's maximum Healthto another friendly minion twice. """
-	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS)) * 2
+	deathrattle = BG21_006_Action(RANDOM(FRIENDLY_MINIONS),CONTROLLER) * 2
 	pass
 
 

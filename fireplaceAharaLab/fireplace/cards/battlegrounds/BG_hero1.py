@@ -476,6 +476,7 @@ class TB_BaconShop_HERO_29:# <12>[1453]
 class TB_BaconShop_HP_104:
 	""" Saturday C'Thuns!
 	At end of turn, give a friendly minion +1/+1.__Repeat @ |4(time, times).<i>__(Upgrades after each use!)</i>"""
+	#events = OWN_TUEN_END.on()
 TB_BaconShop_HP_104e=buff(1,1)
 class TB_BaconShop_HERO_29_Buddy:# <12>[1453]
 	""" Tentacle of C'Thun

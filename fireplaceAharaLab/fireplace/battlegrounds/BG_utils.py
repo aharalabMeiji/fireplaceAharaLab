@@ -169,12 +169,12 @@ class BG_main:
 				### バディーゲージが100を超えたらバディーカードを発行する。
 				if player.buddy_gauge>=100 and player.got_buddy==0:
 					player.got_buddy=1
-					buddy = selfBG_Hero_Buddy[player.hero.id]
+					buddy = self.BG_Hero_Buddy[player.hero.id]
 					Give(player, buddy).trigger(player)
 				### バディーゲージが300を超えたらバディーカードを2枚発行する。
 				if player.buddy_gauge>=300 and player.got_buddy==1:
 					player.got_buddy=2
-					buddy = selfBG_Hero_Buddy[player.hero.id]
+					buddy = self.BG_Hero_Buddy[player.hero.id]
 					Give(player, buddy).trigger(player)
 					Give(player, buddy).trigger(player)
 					gold_card_id = player.game.BG_find_triple()## トリプルを判定

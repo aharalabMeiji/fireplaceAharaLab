@@ -237,53 +237,6 @@ class TB_BaconShop_HERO_41_SKIN_C:# <12>[1453]
 	#
 	pass
 
-class TB_BaconShop_HERO_42:# <12>[1453]
-	""" Elise Starseeker
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_Buddy:# <12>[1453]
-	""" Jr. Navigator
-	At the start of your turn,get a 'Recruitment Map.'Your Maps cost (1). """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_Buddy_e:# <12>[1453]
-	""" In The Distance
-	Costs (1) less. """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_Buddy_G:# <12>[1453]
-	""" Jr. Navigator
-	At the start of your turn,get 2 'Recruitment Maps.'Your Maps cost (1). """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_Buddy_G_e:# <12>[1453]
-	""" In The Distance
-	Costs (2) less. """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_SKIN_A:# <12>[1453]
-	""" Starseeker
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_SKIN_B:# <12>[1453]
-	""" Da Qiao Elise
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_42_SKIN_C:# <12>[1453]
-	""" Nightsong Elise
-	 """
-	#
-	pass
 
 class TB_BaconShop_HERO_44:# <12>[1453]
 	""" Sylvanas Windrunner
@@ -435,23 +388,6 @@ class TB_BaconShop_HERO_53_SKIN_C:# <12>[1453]
 	#
 	pass
 
-class TB_BaconShop_HERO_55:# <12>[1453]
-	""" Fungalmancer Flurgl
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_55_SKIN_A:# <12>[1453]
-	""" Pyroloc
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_55_SKIN_B:# <12>[1453]
-	""" Horsemaster Flurgl
-	 """
-	#
-	pass
 
 
 
@@ -713,47 +649,6 @@ class TB_BaconShop_HERO_72_SKIN_A:# <12>[1453]
 	#
 	pass
 
-class TB_BaconShop_HERO_74:# <12>[1453]
-	""" Forest Warden Omu
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_74_Buddy:# <12>[1453]
-	""" Evergreen Botani
-	At the end of your turn, adda random minion of your_Tavern Tier to your hand. """
-	#
-	pass
-
-class TB_BaconShop_HERO_74_Buddy_e:# <10>[1453]
-	""" Evergreen
-	Increased stats. """
-	#
-	pass
-
-class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
-	""" Evergreen Botani
-	At the end of your turn, add2 random minions of your_Tavern Tier to your hand. """
-	#
-	pass
-
-class TB_BaconShop_HERO_74_SKIN_A:# <12>[1453]
-	""" Faewarden Omu
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_74_SKIN_B:# <12>[1453]
-	""" Pugilist Omu
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_74_SKIN_C:# <12>[1453]
-	""" Gingerbread Omu
-	 """
-	#
-	pass
 
 class TB_BaconShop_HERO_75:# <12>[1453]
 	""" Rakanishu
