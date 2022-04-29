@@ -1,42 +1,107 @@
 from ..utils import *
 
 BG_Hero4=[
-#Rakanishu
-#Reno Jackson
+#53#Rakanishu
+#54#Reno Jackson
 'BG20_HERO_100','BG20_HERO_100p','BG20_HERO_100p_e2','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge',
-#Rokara
-#Scabbs Cutterbutter
-#Shudderwock
-#Silas Darkmoon
-#Sindragosa
-#Sir Finley Mrrgglton
-#Skycap'n Kragg
-#Sneed
-#Tamsin Roame
-#BG22_HERO_000#Tavish Stormpike
-#Tess Greymane
-#The Curator
-#The Great Akazamzarak
-#The Lich King
-#The Rat King
-#Tickatus
-#Trade Prince Gallywix
-#BG22_HERO_003#Vanndar Stormpike
-#BG22_HERO_004#Varden Dawngrasp
-'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',
-#Vol'jin
-'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',
-#Xyrella
-#Y'Shaarj
-#Yogg-Saron, Hope's End
-#Ysera
-#Zephrys, the Great
+#55#Rokara
+#56#Scabbs Cutterbutter
+#57#Shudderwock
+#58#Silas Darkmoon
+#59#Sindragosa
+#60#Sir Finley Mrrgglton
+#61#Skycap'n Kragg
+#62#Sneed
+#63#Tamsin Roame
+#64#BG22_HERO_000#Tavish Stormpike
+#65#Tess Greymane
+#66#The Curator
+#67#The Great Akazamzarak
+#68#The Lich King
+#69#The Rat King
 ]
+
+
+BG_PoolSet_Hero4=[
+	]
+BG_Hero4_Buddy={
+	}
+BG_Hero4_Buddy_Gold={
+	}
+
 ######## source #################################################################
 
 #Rakanishu # armor 5
+class TB_BaconShop_HERO_75:# <12>[1453]
+	""" Rakanishu
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_75_Buddy:# <12>[1453]
+	""" Lantern Tender
+	At the end of your turn,give a random friendlyminion stats equal toyour Tavern Tier. """
+	#
+	pass
+
+class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
+	""" Lantern Tender
+	At the end of your turn,give a random friendlyminion stats equal to yourTavern Tier twice. """
+	#
+	pass
+
+class TB_BaconShop_HERO_75_SKIN_A:# <12>[1453]
+	""" Deckwatch Rakanishu
+	 """
+	#
+	pass
+
+
+
+
+
 
 #Reno Jackson # armor 6
+class TB_BaconShop_HERO_41:# <12>[1453]
+	""" Reno Jackson
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_41_Buddy:# <12>[1453]
+	""" Sr. Tomb Diver
+	[Deathrattle:] Make your right-most minion Golden. """
+	#
+	pass
+
+class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
+	""" Sr. Tomb Diver
+	[Deathrattle:] Make your tworight-most minions Golden. """
+	#
+	pass
+
+class TB_BaconShop_HERO_41_SKIN_A:# <12>[1453]
+	""" Renogos
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_41_SKIN_B:# <12>[1453]
+	""" Reno-man
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_41_SKIN_C:# <12>[1453]
+	""" Tower-toppler Reno
+	 """
+	#
+	pass
+
+
+
+
+
 
 #Rokara # armor 5
 class BG20_HERO_100:# <10>[1453]
@@ -124,6 +189,39 @@ class TB_BaconShop_HERO_23_SKIN_A:# <12>[1453]
 
 
 #Silas Darkmoon # # armor 6
+class TB_BaconShop_HERO_90:# <12>[1453]
+	""" Silas Darkmoon
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_90_Buddy:# <12>[1453]
+	""" Burth
+	After you buy a minion witha Darkmoon Ticket, gain1_Gold this turn only. """
+	#
+	pass
+
+class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
+	""" Burth
+	After you buy a minion witha Darkmoon Ticket, gain2_Gold this turn only. """
+	#
+	pass
+
+class TB_BaconShop_HERO_90_SKIN_A:# <12>[1453]
+	""" Port Authority Silas
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_90_SKIN_B:# <12>[1453]
+	""" Jinglepocket Silas
+	 """
+	#
+	pass
+
+
+
+
 
 #Sindragosa
 class TB_BaconShop_HERO_27:# <12>[1453]
@@ -152,8 +250,49 @@ class TB_BaconShop_HERO_27_SKIN_A:# <12>[1453]
 
 
 #Sir Finley Mrrgglton ## armor 3
+class TB_BaconShop_HERO_40:# <12>[1453]
+	""" Sir Finley Mrrgglton
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_40_SKIN_A:# <12>[1453]
+	""" Finley of the Kyrian
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_40_SKIN_B:# <12>[1453]
+	""" Fintastic Finley
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_40_SKIN_C:# <12>[1453]
+	""" Finley & Metzen
+	 """
+	#
+	pass
+
+
+
 
 #Skycap'n Kragg
+class TB_BaconShop_HERO_68:# <12>[1453]
+	""" Skycap'n Kragg
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_68_SKIN_A:# <12>[1453]
+	""" Undercap'n Kragg
+	 """
+	#
+	pass
+
+
+
+
 
 #Sneed
 class BG21_HERO_030:# <10>[1453]
@@ -292,6 +431,45 @@ class BG22_HERO_000p_t4:# <12>[1453]
 	pass
 
 #Tess Greymane
+class TB_BaconShop_HERO_50:# <12>[1453]
+	""" Tess Greymane
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
+	""" Hunter of Old
+	At the start of your turn,add your last opponent's Buddy to your hand. """
+	#
+	pass
+
+class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
+	""" Hunter of Old
+	At the start of your turn, add 2 of your last opponent's Buddy to your hand. """
+	#
+	pass
+
+class TB_BaconShop_HERO_50_SKIN_A:# <12>[1453]
+	""" Venthyr Tess
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_50_SKIN_B:# <12>[1453]
+	""" Tess, Stormpike Assassin
+	 """
+	#
+	pass
+
+class TB_BaconShop_HERO_50_SKIN_C:# <12>[1453]
+	""" Riddling Tempest Tess
+	 """
+	#
+	pass
+
+
+
+
 
 #The Curator
 class TB_BaconShop_HERO_33:# <12>[1453]
@@ -389,260 +567,4 @@ class TB_BaconShop_HERO_12_SKIN_A:# <12>[1453]
 	#
 	pass
 
-
-#Tickatus
-
-#Trade Prince Gallywix
-class TB_BaconShop_HERO_10:# <12>[1453]
-	""" Trade Prince Gallywix
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_10_Buddy:# <12>[1453]
-	""" Bilgewater Mogul
-	[Battlecry:] Give a minion +1/+1 for each Gold spent this turn. """
-	#
-	pass
-
-class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
-	""" Bilgewater Mogul
-	[Battlecry:] Give a minion +2/+2 for each Gold spent this turn. """
-	#
-	pass
-
-class TB_BaconShop_HERO_10_Buddye:# <12>[1453]
-	""" Brutal Luxury
-	Increased stats. """
-	#
-	pass
-
-class TB_BaconShop_HERO_10_SKIN_A:# <12>[1453]
-	""" Moneyhogger Gallywix
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_10_SKIN_B:# <12>[1453]
-	""" Dong Zhuo Gallywix
-	 """
-	#
-	pass
-
-#BG22_HERO_003#Vanndar Stormpike
-###Vanndar Stormpike
-class BG22_HERO_003:# <12>[1453]
-	""" Vanndar Stormpike
-	 """
-	#
-	pass
-class BG22_HERO_003_Buddy:# <12>[1453]
-	""" Stormpike Lieutenant
-	[Avenge (2):] Give your minions +1 Health permanently. """
-	#
-	pass
-
-class BG22_HERO_003_Buddy_G:# <12>[1453]
-	""" Stormpike Lieutenant
-	[Avenge (2):] Give your minions +2 Health permanently. """
-	#
-	pass
-class BG22_HERO_003:# <12>[1453]
-	""" Vanndar Stormpike
-	 """
-	#
-	pass
-
-class BG22_HERO_003_Buddy:# <12>[1453]
-	""" Stormpike Lieutenant
-	[Avenge (2):] Give your minions +1 Health permanently. """
-	#
-	pass
-
-class BG22_HERO_003_Buddy_e:# <12>[1453]
-	""" Lieutenant's Leadership
-	+1 Health. """
-	#
-	pass
-
-class BG22_HERO_003_Buddy_G:# <12>[1453]
-	""" Stormpike Lieutenant
-	[Avenge (2):] Give your minions +2 Health permanently. """
-	#
-	pass
-
-class BG22_HERO_003_Buddy_Ge:# <12>[1453]
-	""" Lieutenant's Leadership
-	+2 Health. """
-	#
-	pass
-
-class BG22_HERO_003p:# <12>[1453]
-	""" Lead the Stormpikes
-	Choose a friendly minion.It copies the Health of yourhighest Health minion fornext combat only. """
-	#
-	pass
-
-class BG22_HERO_003pe:# <12>[1453]
-	""" Stormpike Strength
-	Copied highest Health. """
-	#
-	pass
-
-class BG22_HERO_003pe2:# <12>[1453]
-	""" Health Set Next Combat Only
-	 """
-	#
-	pass
-
-class BG22_HERO_003pe3:# <12>[1453]
-	""" Modified Health Next Combat Only
-	Health is increased or decreased for next combat only. """
-	#
-	pass
-
-#BG22_HERO_004#Varden Dawngrasp
-###Varden Dawngrasp
-class BG22_HERO_004:# <4>[1453]
-	""" Varden Dawngrasp
-	 """
-	#
-	pass
-class BG22_HERO_004_Buddy:# <12>[1453]
-	""" Varden's Aquarrior
-	'Twice as Nice' also gives the copy stats equal to your Tavern Tier. """
-	#
-	pass
-
-class BG22_HERO_004_Buddy_G:# <12>[1453]
-	""" Varden's Aquarrior
-	'Twice as Nice' also givesthe copy stats equal toyour Tavern Tier twice. """
-	#
-	pass
-class BG22_HERO_004:# <4>[1453]
-	""" Varden Dawngrasp
-	 """
-	#
-	pass
-
-class BG22_HERO_004_Buddy_e2:# <12>[1453]
-	""" Frosted
-	Increased stats. """
-	#
-	pass
-
-class BG22_HERO_004p:# <12>[1453]
-	""" Twice as Nice
-	[Passive.] After Bob'sTavern is [Refreshed],copy and [Freeze] oneof his minions. """
-	#
-	pass
-
-
-
-#Vol'jin
-class BG20_HERO_201:# <12>[1453]
-	""" Vol'jin
-	 """
-	#
-	pass
-class BG20_HERO_201e:# <12>[1453]
-	""" Modified Attack
-	Attack is increased or decreased. """
-	#
-	pass
-class BG20_HERO_201e2:# <12>[1453]
-	""" Modified Health
-	Health is increased or decreased. """
-	#
-	pass
-class BG20_HERO_201e3:# <12>[1453]
-	""" Stats Set
-	 """
-	#
-	pass
-class BG20_HERO_201p:# <12>[1453]
-	""" Spirit Swap
-	Choose two minions. Swap their stats. """
-	#
-	pass
-class BG20_HERO_201p2:# <12>[1453]
-	""" Spirit Swap
-	Choose a minion. Swap its stats with {0}. """
-	#
-	pass
-class BG20_HERO_201p2e:# <12>[1453]
-	""" Spirit Swapped
-	Stats swapped with another minion. """
-	#
-	pass
-class BG20_HERO_201p3e:# <12>[1453]
-	""" Marked for Swap
-	Stats can be swapped. """
-	#
-	pass
-class BG20_HERO_201_Buddy:# <12>[1453]
-	""" Master Gadrin
-	At the end of your turn,the minion to the leftof this copies thisminion's Attack. """
-	#
-	pass
-class BG20_HERO_201_Buddy_e:# <12>[1453]
-	""" Blessed Hands
-	Copied Gadrin's Attack. """
-	#
-	pass
-class BG20_HERO_201_Buddy_e2:# <12>[1453]
-	""" Attack Set
-	 """
-	#
-	pass
-class BG20_HERO_201_Buddy_G:# <12>[1453]
-	""" Master Gadrin
-	At the end of your turn,adjacent minions copythis minion's Attack. """
-	#
-	pass
-
-#Xyrella
-class BG20_HERO_101:# <12>[1453]
-	""" Xyrella
-	 """
-	pass
-class BG20_HERO_101p:
-	""" See the Light
-	Choose a minion in Bob's Tavern to add to your hand. Set its stats to 2."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0,PlayReq.REQ_MINION_TARGET:0,}
-	activate = Buy(CONTROLLER, TARGET).on(Buff(Buy.CARD,'BG20_HERO_101pe2'))
-class BG20_HERO_101pe2:
-	max_health = lambda self, i : 2
-	atk = lambda self, i : 2
-class BG20_HERO_101_Buddy_Action(TargetedAction):
-	TARGET=ActionArg()
-	BUFF=ActionArg()
-	def do(self,source,target,buff):
-		if isinstance(target,PlayableCard):
-			if target.health==target.atk:
-				Buff(source,buff).trigger(source)
-class BG20_HERO_101_Buddy:#
-	""" Baby Elekk
-	After you play a minion with Attack equal to its Health, gain +2/+2. """
-	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(Play.CARD, 'BG20_HERO_101_Buddy_e'))
-	pass
-BG20_HERO_101_Buddy_e=buff(2,2)
-class BG20_HERO_101_Buddy_G:
-	""" 
-	After you play a minion with Attack equal to its Health, gain +4/+4.""" 
-	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(Play.CARD, 'BG20_HERO_101_Buddy_Ge'))
-	pass
-BG20_HERO_101_Buddy_Ge=buff(4,4)
-
-#Y'Shaarj
-
-#Yogg-Saron, Hope's End # armor 0
-
-#Ysera
-
-#Zephrys, the Great
-
-
-
-####################################################################################
 

@@ -22,6 +22,11 @@ class TB_BaconShop_HERO_31:# <12>[1453]
 class TB_KTRAF_H_1:
 	""" Kel'Thuzad
 	""" 
+	pass
+class TB_BaconShop_HERO_KelThuzad:# <12>[1453]
+	""" Kel'Thuzad
+	"""
+	pass
 
 BG_Hero1=[
 	'TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',#01#A. F. Kay 
