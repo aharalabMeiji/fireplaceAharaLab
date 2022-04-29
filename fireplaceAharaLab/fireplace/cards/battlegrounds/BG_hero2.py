@@ -256,6 +256,7 @@ class TB_BaconShop_HERO_15:# <12>[1453]
 class TB_BaconShop_HP_010:
 	""" Boon of Light
 	Give a minion &lt;b&gt;Divine Shield&lt;/b&gt;."""
+	## divine shield without buff
 class TB_BaconShop_HERO_15_Buddy:# <12>[1453]
 	""" Karl the Lost
 	After you use your Hero Power, give your [Divine Shield] minions +2_Attack. """
@@ -275,99 +276,90 @@ TB_BaconShop_HERO_15_Buddy_G_e=buff(4,0)# <12>[1453]
 
 
 #26#Greybough
+class TB_BaconShop_HERO_95:# <12>[1453]
+	""" Greybough  """
+class TB_BaconShop_HP_107:
+	""" Sprout It Out!
+	&lt;b&gt;Passive&lt;/b&gt; Give +1/+2 and &lt;b&gt;Taunt&lt;/b&gt; to minions you summon during combat."""
+	pass
+class TB_BaconShop_HP_107e:
+	pass
+class TB_BaconShop_HERO_95_Buddy:# <12>[1453]
+	""" Wandering Treant
+	Whenever you summon a [Taunt] minion, give it +2/+2. """
+	#
+	pass
+class TB_BaconShop_HERO_95_Buddy_e:# <12>[1453]
+	""" Happy Little Tree
+	+2/+2. """
+	#
+	pass
+class TB_BaconShop_HERO_95_Buddy_G:# <12>[1453]
+	""" Wandering Treant
+	Whenever you summon a [Taunt] minion, give it +4/+4. """
+	#
+	pass
+class TB_BaconShop_HERO_95_Buddy_G_e:# <12>[1453]
+	""" Happy Little Tree
+	+4/+4. """
+	#
+	pass
 
 
 
 #27#Guff Runetotem
-#### 242 ####
 class BG20_HERO_242:# <2>[1453]
-	""" Guff Runetotem
-	 """
-	#
-	pass
-
-class BG20_HERO_242_SKIN_A:# <2>[1453]
-	""" Stormwind Guard Guff
-	 """
-	#
-	pass
-
-class BG20_HERO_242_SKIN_B:# <2>[1453]
-	""" Oasis Guff
-	 """
-	#
-	pass
-
+	""" Guff Runetotem """
 class BG20_HERO_242p:# <2>[1453]
 	""" Natural Balance
-	Give a friendly minion ofeach Tavern Tier +1/+1. """
+	Give a friendly minion of each Tavern Tier +1/+1. """
 	#
 	pass
-
 class BG20_HERO_242pe:# <12>[1453]
 	""" Guff's Buff
 	+1/+1. """
 	#
 	pass
-
-#Illidan Stormrage
-class TB_BaconShop_HERO_08:# <12>[1453]
-	""" Illidan Stormrage
-	 """
-	#
+class BG20_HERO_242_Buddy:
+	pass
+class BG20_HERO_242_Buddy_G:
 	pass
 
+
+#28#Illidan Stormrage
+class TB_BaconShop_HERO_08:# <12>[1453]
+	""" Illidan Stormrage  """
+class TB_BaconShop_HP_069:
+	""" Wingmen
+	&lt;b&gt;Passive.&lt;/b&gt; &lt;b&gt;Start of Combat:&lt;/b&gt; Your left and right-most minions gain +2 Attack __and attack immediately. """
+	pass
+TB_BaconShop_HP_069e=buff(2,0)
 class TB_BaconShop_HERO_08_Buddy:# <12>[1453]
 	""" Eclipsion Illidari
 	Your first minion thatattacks has "[Immune]while Attacking" for oneattack only. """
 	#
 	pass
-
 class TB_BaconShop_HERO_08_Buddy_e:# <12>[1453]
 	""" Darkened Heart
 	[Immune] while Attacking. """
 	#
 	pass
-
 class TB_BaconShop_HERO_08_Buddy_G:# <12>[1453]
 	""" Eclipsion Illidari
 	Your first two minions thatattack have "[Immune]while Attacking" for oneattack only. """
 	#
 	pass
 
-class TB_BaconShop_HERO_08_SKIN_A:# <12>[1453]
-	""" The Horned Devil
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_08_SKIN_B:# <12>[1453]
-	""" Illidan of the Second Sight
-	 """
-	#
-	pass
 
 
 
-#28#Illidan Stormrage
 #29#Infinite Toki
 class TB_BaconShop_HERO_28:# <12>[1453]
-	""" Infinite Toki
-	 """
-	#
-	pass
+	""" Infinite Toki  """
 
-class TB_BaconShop_HERO_28_SKIN_A:# <12>[1453]
-	""" Toki the Clown
-	 """
-	#
-	pass
 
-class TB_BaconShop_HERO_28_SKIN_B:# <12>[1453]
-	""" Toki, Wings of the Infinite
-	 """
-	#
-	pass
+
+
 
 #30#Jandice Barov
 

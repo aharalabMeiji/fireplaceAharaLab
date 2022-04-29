@@ -820,41 +820,6 @@ class TB_BaconShop_HERO_94_SKIN_B:# <12>[1453]
 	#
 	pass
 
-class TB_BaconShop_HERO_95:# <12>[1453]
-	""" Greybough
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_95_Buddy:# <12>[1453]
-	""" Wandering Treant
-	Whenever you summon a [Taunt] minion, give it +2/+2. """
-	#
-	pass
-
-class TB_BaconShop_HERO_95_Buddy_e:# <12>[1453]
-	""" Happy Little Tree
-	+2/+2. """
-	#
-	pass
-
-class TB_BaconShop_HERO_95_Buddy_G:# <12>[1453]
-	""" Wandering Treant
-	Whenever you summon a [Taunt] minion, give it +4/+4. """
-	#
-	pass
-
-class TB_BaconShop_HERO_95_Buddy_G_e:# <12>[1453]
-	""" Happy Little Tree
-	+4/+4. """
-	#
-	pass
-
-class TB_BaconShop_HERO_95_SKIN_A:# <12>[1453]
-	""" Winterbough
-	 """
-	#
-	pass
 
 class TB_BaconShop_HERO_KelThuzad:# <12>[1453]
 	""" Kel'Thuzad
