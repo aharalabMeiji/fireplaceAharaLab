@@ -66,6 +66,7 @@ class BG_main:
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_murloc.BG_Murloc_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_pirate.BG_Pirate_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_quilboar.BG_Quilboar_Gold)
+		self.BG_Hero_Buddy=cards.battlegrounds.BG_hero1.BG_Hero1_Buddy
 	pass
 
 	def BG_main(self):
@@ -90,9 +91,9 @@ class BG_main:
 			bar.parent = self
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
-			if agent.name=='Human1':
-				card = bar.controller.card('BGS_059')
-				card.zone = Zone.HAND
+			#if agent.name=='Human1':
+			#	card = bar.controller.card('BGS_059')
+			#	card.zone = Zone.HAND
 			##########
 			pass
 		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
@@ -113,14 +114,11 @@ class BG_main:
 				if bartender.BobsTmpFieldSize<7:#「アランナフラグが立っていれば」のフラグに振り替えも ありうる。
 					bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
 				controller.max_mana = min(10,bar.turn+2)
+				controller.used_mana = 0
 				### （バーテンダーに）カードを配る
 				# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
 				# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
 				frozencard=0
-				#for card in bartender.field:
-				#	print ("(%s)bartender.field:%s"%(controller,card))
-				#for card in controller.hand:
-				#	print ("(%s)controller.hand:%s"%(controller,card))
 				repeat = len(bartender.field)
 				for i in range(repeat):
 					card = bartender.field[repeat-1-i]
@@ -165,9 +163,23 @@ class BG_main:
 			battleplayer0 = self.BG_Bars[matches[i][0]].controller
 			battleplayer1 = self.BG_Bars[matches[i][1]].controller
 			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
-			### 対戦後処理
-			EndBattle(battleplayer0).trigger(battleplayer0)
-			EndBattle(battleplayer1).trigger(battleplayer1)
+			for  player in [battleplayer0, battleplayer1]:
+				### 対戦後処理
+				EndBattle(player).trigger(player)
+				### バディーゲージが100を超えたらバディーカードを発行する。
+				if player.buddy_gauge>=100 and player.got_buddy==0:
+					player.got_buddy=1
+					buddy = selfBG_Hero_Buddy[player.hero.id]
+					Give(player, buddy).trigger(player)
+				### バディーゲージが300を超えたらバディーカードを2枚発行する。
+				if player.buddy_gauge>=300 and player.got_buddy==1:
+					player.got_buddy=2
+					buddy = selfBG_Hero_Buddy[player.hero.id]
+					Give(player, buddy).trigger(player)
+					Give(player, buddy).trigger(player)
+					gold_card_id = player.game.BG_find_triple()## トリプルを判定
+					if gold_card_id:
+						player.game.BG_deal_gold(gold_card_id)
 			if damage0>0:
 				hero0 = battleplayer0.hero
 				if hero0.armor>0:# armorも加味する

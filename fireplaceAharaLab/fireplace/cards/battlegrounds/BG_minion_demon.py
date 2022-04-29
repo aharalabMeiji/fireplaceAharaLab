@@ -2,11 +2,11 @@ from ..utils import *
 from fireplace.battlegrounds.BG_actions import *
 
 BG_Minion_Demon =[
-	'BG21_029','EX1_598','BG21_029_G','TB_BaconUps_030t',#Icky Imp(1)
+	'BG21_029','BRM_006t','BG21_029_G','TB_BaconUps_030t',#Icky Imp(1)
 	'BG21_006','BG21_006e','BG21_006_G',#Impulsive Trickster(1)
 	'BGS_001','BGS_001e','TB_BaconUps_062','TB_BaconUps_062e',#Nathrezim Overseer(2)
 	'BGS_014','TB_BaconUps_113',#Imprisoner(2)
-	'BG21_039','BG21_039_G',#Kathra'natir(3)
+	'BG21_039','BG21_039e','BG21_039_G','BG21_039_Ge',#Kathra'natir(3)
 	'BGS_059','BGS_059e','TB_BaconUps_119',#Soul Devourer(3)
 	'BGS_204','BGS_204e','TB_BaconUps_304','TB_BaconUps_304e',#Bigfernal(4)
 	'DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t',#Ring Matron(4)
@@ -46,9 +46,9 @@ BG_Demon_Gold={
 class BG21_029:# <12>[1453]
 	""" Icky Imp (1)
 	[Deathrattle:] Summon two 1/1 Imps. """
-	deathrattle = Summon(CONTROLLER, 'EX1_598') * 2
+	deathrattle = Summon(CONTROLLER, 'BRM_006t') * 2
 	pass
-class EX1_598:#
+class BRM_006t:#
 	""" imp (1/1)
 	"""
 	pass
@@ -102,7 +102,7 @@ class BGS_001:# <12>[1453]
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
 		}
-	play = Buff(TARGET, 'BGS_001')
+	play = Buff(TARGET, 'BGS_001e')
 	pass
 BGS_001e=buff(2,2)
 class TB_BaconUps_062:# <12>[1453]
@@ -111,7 +111,7 @@ class TB_BaconUps_062:# <12>[1453]
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
 		}
-	play = Buff(TARGET, 'BGS_001')
+	play = Buff(TARGET, 'TB_BaconUps_062e')
 	pass
 TB_BaconUps_062e=buff(4,4)
 
@@ -121,7 +121,7 @@ TB_BaconUps_062e=buff(4,4)
 class BGS_014:# <12>[1453]
 	""" Imprisoner (2)
 	[Taunt][Deathrattle:] Summon a 1/1 Imp. """
-	deathrattle = Summon(CONTROLLER, 'EX1_598')
+	deathrattle = Summon(CONTROLLER, 'BRM_006t')
 	pass
 class TB_BaconUps_113:# <12>[1453]
 	""" Imprisoner
@@ -258,7 +258,7 @@ class TB_BaconUps_083:# <12>[1453]
 #################### ヴォイドロード
 class LOOT_368:# <9>[1453]
 	""" Voidlord (5)
-	[Taunt] [Deathrattle:] Summon three2/6 Demons with [Taunt]. """
+	[Taunt] [Deathrattle:] Summon three1/3 Demons with [Taunt]. """
 	deathrattle = Summon(CONTROLLER, 'CS2_065')*3
 	pass
 class CS2_065:
@@ -278,7 +278,7 @@ class TB_BaconUps_059t:# <9>[1453]
 class BG21_005:# <12>[1453]
 	""" Famished Felbat (6)
 	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain its stats. """
-	#
+	events = OWN_TURN_END.on(EatsMinion(FRIENDLY + DEMON, RANDOM(ENEMY_MINIONS), 1, 'BG21_005e'))
 	pass
 class BG21_005e:# <12>[1453]
 	""" Fed by the Felbat
@@ -288,19 +288,21 @@ class BG21_005e:# <12>[1453]
 class BG21_005_G:# <12>[1453]
 	""" Famished Felbat
 	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain double its stats. """
-	#
+	events = OWN_TURN_END.on(EatsMinion(FRIENDLY + DEMON, RANDOM(ENEMY_MINIONS), 2, 'BG21_005e'))
 	pass
 
 
 ####################
 class BGS_044:# <9>[1453]
 	""" Imp Mama (6)
-	Whenever this minion takesdamage, summon a randomDemon and give it [Taunt]. """
-	#
+	Whenever this minion takes damage, summon a random Demon and give it [Taunt]. """
+	events = Damage(SELF).on(Summon(CONTROLLER, RandomBGDemon()).then(Buff(Summon.CARD, 'BGS_044e')))
 	pass
+BGS_044e=buff(taunt=True)
 class TB_BaconUps_116:# <9>[1453]
 	""" Imp Mama
 	Whenever this miniontakes damage, summon2 random Demons andgive them [Taunt]. """
+	events = Damage(SELF).on(Summon(CONTROLLER, RandomBGDemon()).then(Buff(Summon.CARD, 'BGS_044e')), Summon(CONTROLLER, RandomBGDemon()).then(Buff(Summon.CARD, 'BGS_044e')))
 	#
 	pass
 

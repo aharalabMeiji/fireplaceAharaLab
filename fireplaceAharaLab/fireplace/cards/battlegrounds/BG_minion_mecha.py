@@ -227,6 +227,8 @@ class BG21_023_G:# <12>[1453]
 	#
 	pass
 
+
+
 #Holy Mecherel(5)
 class BG20_401:# <12>[1453]
 	""" Holy Mecherel
@@ -240,30 +242,57 @@ class BG20_401_G:# <12>[1453]
 	#
 	pass
 
+
 #Foe Reaper 4000(6)
-class GVG_113:
+class GVG_113:## エネリ
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 class TB_BaconUps_153:# <12>[1453]
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
-	#
+	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
+
+
 
 #Omega Buster(6)
-class BG21_025:# <12>[1453]
+class BG21_025_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source,target):
+		controller = target
+		summonnumber = 8-len(controller.field)# or 7-len(***) ?
+		for repeat in range(summonnumber):
+			yield Summon(CONTROLLER, 'BOT_312t')
+		if summonnumber<5:
+			for repeat in range(5-summonnumber):
+				yield Buff(FRIENDLY + MECHA, 'BG21_025e')
+class BG21_025:# <12>[1453]　オメバス
 	""" Omega Buster
 	[Deathrattle:] Summon five 1/1 Microbots. For each that doesn't fit, give your Mechs +1/+1. """
-	#
+	deathrattle = BG21_025_Action(CONTROLLER)
 	pass
-
+BG21_025e=buff(1,1)
+class BOT_312t:
+	""" Microbot (1/1)
+	"""
 class BG21_025_G:# <12>[1453]
 	""" Omega Buster
 	[Deathrattle:] Summon five 2/2 Microbots. For each that doesn't fit, give your Mechs +2/+2. """
-	#
+	def do(self, source,target):
+		controller = target
+		summonnumber = 8-len(controller.field)# or 7-len(***) ?
+		for repeat in range(summonnumber):
+			yield Summon(CONTROLLER, 'TB_BaconUps_032t')
+		if summonnumber<5:
+			for repeat in range(5-summonnumber):
+				yield Buff(FRIENDLY + MECHA, 'BG21_025e2')
 	pass
-
-
+BG21_025e2=buff(2,2)
+class TB_BaconUps_032t:
+	""" Microbot (2/2)
+	"""
+	pass
 
 

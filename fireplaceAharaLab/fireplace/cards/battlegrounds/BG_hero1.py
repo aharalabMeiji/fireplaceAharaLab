@@ -330,15 +330,34 @@ class TB_BaconShop_HP_053:
 	""" I'll Take That!
 	Next combat, add a plain copy of the first minion you kill to your hand."""
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_053_Action(CONTROLLER))
+class TB_BaconShop_HERO_45_Buddy_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		if controller.SecondKillMinion!=None:
+			Give(controller,controller.SecondKillMinion).trigger(source)
+			gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+			if gold_card_id:
+				controller.game.BG_deal_gold(gold_card_id)
 class TB_BaconShop_HERO_45_Buddy:# <12>[1453]
 	""" Loyal Henchman
-	After you kill a secondminion each combat,get a plain copy of it. """
-	#
+	After you kill a second minion each combat,get a plain copy of it. """
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_Action(CONTROLLER))
 	pass
+class TB_BaconShop_HERO_45_Buddy_G_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		if controller.SecondKillMinion!=None:
+			Give(controller,controller.SecondKillMinion).trigger(source)
+			Give(controller,controller.SecondKillMinion).trigger(source)
+			gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+			if gold_card_id:
+				controller.game.BG_deal_gold(gold_card_id)
 class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 	""" Loyal Henchman
 	After you kill a secondminion each combat,_get 2 plain copies of it. """
-	#
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_G_Action(CONTROLLER))
 	pass
 
 ###Bru'kan

@@ -68,6 +68,8 @@ class TB_BaconUps_093t:#
 	""" Tabbycat <beast> (2/2)
 	"""
 
+
+
 class EX1_531: #<3>[1637]
 	"""Scavenging Hyena (1/2/2)
 	Whenever a friendly Beast dies, gain +2/+1."""
@@ -80,6 +82,9 @@ class TB_BaconUps_043: #<3>[1637]
 	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "TB_BaconUps_043e"))
 	pass
 TB_BaconUps_043e=buff(4,2)
+
+
+
 
 class BG21_000:# <12>[1453]
 	""" Leapfrogger(2/3/3)
@@ -102,6 +107,8 @@ class BG21_000_Ge:
 	tags = {GameTag.DEATHRATTLE:True, }
 	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + BEAST), 'BG21_000e')
 
+
+
 class BGS_075:# <3>[1453]
 	""" Rabid Saurolisk (2/3/2)
 	After you play a minion with [Deathrattle], gain +1/+2. """
@@ -114,6 +121,8 @@ class TB_BaconUps_125:# <3>[1453]
 	events = BG_Play(CONTROLLER, FRIENDLY + DEATHRATTLE).after(Buff(SELF, 'TB_BaconUps_125e'))
 	pass
 TB_BaconUps_125e=buff(2,4)
+
+
 
 class BG19_010:# <12>[1453]
 	""" Sewer Rat (2/3/2)
@@ -133,6 +142,8 @@ class BG19_010_Gt:# <12>[1453]
 	""" Half-Shell
 	[Taunt] """
 	pass
+
+
 
 class BGS_078_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -154,6 +165,8 @@ class TB_BaconUps_135:
 	events = Attack(FRIENDLY_MINIONS, ENEMY_MINIONS).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
 	pass
 
+
+
 class CFM_316:
 	""" Rat Pack (3/2/2)
 	[Deathrattle:] Summon a number of 1/1 Rats equal _to this minion's Attack."""
@@ -170,6 +183,8 @@ class TB_BaconUps_027:
 class TB_BaconUps_027t:
 	""" Rat """
 	pass
+
+
 
 class LOOT_078:
 	""" Cave Hydra (4/2/4)
