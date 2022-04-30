@@ -2,18 +2,23 @@ from ..utils import *
 
 BG_Hero4=[
 #53#Rakanishu
+'TB_BaconShop_HERO_75','TB_BaconShop_HP_085','TB_BaconShop_HP_085e','TB_BaconShop_HERO_75_Buddy','TB_BaconShop_HERO_75_Buddy_G',
 #54#Reno Jackson
-'BG20_HERO_100','BG20_HERO_100p','BG20_HERO_100p_e2','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge',
+'TB_BaconShop_HERO_41','TB_BaconShop_HERO_41_Buddy','TB_BaconShop_HERO_41_Buddy_G','TB_BaconShop_HP_046',
 #55#Rokara
+'BG20_HERO_100','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge','BG20_HERO_100p','BG20_HERO_100p_e2',
 #56#Scabbs Cutterbutter
+'BG21_HERO_010','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G','BG21_HERO_010p',
 #57#Shudderwock
+'TB_BaconShop_HERO_23','TB_BaconShop_HERO_23_Buddy','TB_BaconShop_HERO_23_Buddy_e','TB_BaconShop_HERO_23_Buddy_G','TB_BaconShop_HERO_23_Buddy_Ge','TB_BaconShop_HP_022','TB_BaconShop_HP_022e','TB_BaconShop_HP_022t','TB_BaconShop_HP_022t_G',
 #58#Silas Darkmoon
+'TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2'
 #59#Sindragosa
 #60#Sir Finley Mrrgglton
 #61#Skycap'n Kragg
 #62#Sneed
 #63#Tamsin Roame
-#64#BG22_HERO_000#Tavish Stormpike
+#64#Tavish Stormpike
 #65#Tess Greymane
 #66#The Curator
 #67#The Great Akazamzarak
@@ -23,37 +28,49 @@ BG_Hero4=[
 
 
 BG_PoolSet_Hero4=[
+	'TB_BaconShop_HERO_75',
+	'TB_BaconShop_HERO_41',
+	'BG20_HERO_100',
+	'BG21_HERO_010',
+	'TB_BaconShop_HERO_23',
+	'TB_BaconShop_HERO_90',
 	]
 BG_Hero4_Buddy={
+	'TB_BaconShop_HERO_75':'TB_BaconShop_HERO_75_Buddy',
+	'TB_BaconShop_HERO_41':'TB_BaconShop_HERO_41_Buddy',
+	'BG20_HERO_100':'BG20_HERO_100_Buddy',
+	'BG21_HERO_010':'BG21_HERO_010_Buddy',
+	'TB_BaconShop_HERO_23':'TB_BaconShop_HERO_23_Buddy',
+	'TB_BaconShop_HERO_90':'TB_BaconShop_HERO_90_Buddy',
 	}
 BG_Hero4_Buddy_Gold={
+	'TB_BaconShop_HERO_75_Buddy':'TB_BaconShop_HERO_75_Buddy_G',
+	'TB_BaconShop_HERO_41_Buddy':'TB_BaconShop_HERO_41_Buddy_G',
+	'BG20_HERO_100_Buddy':'BG20_HERO_100_Buddy_G',
+	'BG21_HERO_010_Buddy':'BG21_HERO_010_Buddy_G',
+	'TB_BaconShop_HERO_23_Buddy':'TB_BaconShop_HERO_23_Buddy_G',
+	'TB_BaconShop_HP_022t':'TB_BaconShop_HP_022t_G',
+	'TB_BaconShop_HERO_90_Buddy':'TB_BaconShop_HERO_90_Buddy_G',
+
 	}
 
 ######## source #################################################################
 
-#Rakanishu # armor 5
+#53#Rakanishu # armor 5
 class TB_BaconShop_HERO_75:# <12>[1453]
-	""" Rakanishu
-	 """
-	#
+	""" Rakanishu """
 	pass
-
+class TB_BaconShop_HP_085:
+	"""  """
+class TB_BaconShop_HP_085e:
+	"""  """
 class TB_BaconShop_HERO_75_Buddy:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal toyour Tavern Tier. """
-	#
 	pass
-
 class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal to yourTavern Tier twice. """
-	#
-	pass
-
-class TB_BaconShop_HERO_75_SKIN_A:# <12>[1453]
-	""" Deckwatch Rakanishu
-	 """
-	#
 	pass
 
 
@@ -63,40 +80,20 @@ class TB_BaconShop_HERO_75_SKIN_A:# <12>[1453]
 
 #Reno Jackson # armor 6
 class TB_BaconShop_HERO_41:# <12>[1453]
-	""" Reno Jackson
-	 """
-	#
+	""" Reno Jackson """
 	pass
-
 class TB_BaconShop_HERO_41_Buddy:# <12>[1453]
 	""" Sr. Tomb Diver
 	[Deathrattle:] Make your right-most minion Golden. """
-	#
 	pass
-
 class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 	""" Sr. Tomb Diver
 	[Deathrattle:] Make your tworight-most minions Golden. """
-	#
+	pass
+class TB_BaconShop_HP_046:
+	"""  """
 	pass
 
-class TB_BaconShop_HERO_41_SKIN_A:# <12>[1453]
-	""" Renogos
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_41_SKIN_B:# <12>[1453]
-	""" Reno-man
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_41_SKIN_C:# <12>[1453]
-	""" Tower-toppler Reno
-	 """
-	#
-	pass
 
 
 
@@ -108,12 +105,6 @@ class BG20_HERO_100:# <10>[1453]
 	""" Rokara
 	 """
 	pass
-class BG20_HERO_100p:# <10>[1453]
-	""" Glory of Combat
-	&lt;b&gt;Passive.&lt;/b&gt; After a friendly minion kills an enemy, give it +1 Attack permanently. """
-	events =  Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(Attack.ATTACKER, 'BG20_HERO_100p_e2'))
-	pass
-BG20_HERO_100p_e2=buff(1,0)
 class BG20_HERO_100_Buddy:# <12>[1453]
 	""" Icesnarl the Mighty
 	After a friendly minionkills an enemy, gain+1 Health permanently. """
@@ -126,18 +117,19 @@ class BG20_HERO_100_Buddy_G:# <12>[1453]
 	events = Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(SELF, 'BG20_HERO_100_Buddy_Ge'))
 	pass
 BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
+class BG20_HERO_100p:# <10>[1453]
+	""" Glory of Combat
+	&lt;b&gt;Passive.&lt;/b&gt; After a friendly minion kills an enemy, give it +1 Attack permanently. """
+	events =  Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(Attack.ATTACKER, 'BG20_HERO_100p_e2'))
+	pass
+BG20_HERO_100p_e2=buff(1,0)
+
 
 
 #Scabbs Cutterbutter
 #### 010 ####
 class BG21_HERO_010:# <7>[1453]
-	""" Scabbs Cutterbutter
-	 """
-	pass
-class BG21_HERO_010p:# <7>[1453]
-	""" I Spy
-	[Discover] a plain copy of a minion from your next opponent's warband. """
-	#play = GenericChoice(CONTROLLER, RANDOM(NEXT_OPPONENT) * 3)
+	""" Scabbs Cutterbutter	 """
 	pass
 class BG21_HERO_010_Buddy:# <12>[1453]
 	""" Warden Thelwater
@@ -149,76 +141,66 @@ class BG21_HERO_010_Buddy_G:# <12>[1453]
 	At the start of your turn, add 2 of your next opponent's Buddy to your hand. """
 	#events = OWN_TURN_BEGIN.on(Give(CONTROLLER, ID(NEXT_OPPONENT_BUDDY))*2)
 	pass
+class BG21_HERO_010p:# <7>[1453]
+	""" I Spy
+	[Discover] a plain copy of a minion from your next opponent's warband. """
+	#play = GenericChoice(CONTROLLER, RANDOM(NEXT_OPPONENT) * 3)
+	pass
+
+
 
 #Shudderwock # armor 3
 class TB_BaconShop_HERO_23:# <12>[1453]
-	""" Shudderwock
-	 """
-	#
+	""" Shudderwock """
 	pass
-
 class TB_BaconShop_HERO_23_Buddy:# <12>[1453]
 	""" Muckslinger
 	After you play a minion,add a [Battlecry] minionto Bob's Tavern.Give it +2/+2. """
-	#
 	pass
-
 class TB_BaconShop_HERO_23_Buddy_e:# <12>[1453]
 	""" Mucked Up
 	+2/+2. """
-	#
 	pass
-
 class TB_BaconShop_HERO_23_Buddy_G:# <12>[1453]
 	""" Muckslinger
 	After you play a minion,add a [Battlecry] minionto Bob's Tavern.Give it +4/+4. """
-	#
 	pass
-
 class TB_BaconShop_HERO_23_Buddy_Ge:# <12>[1453]
 	""" Mucked Up
 	+4/+4. """
-	#
 	pass
 
-class TB_BaconShop_HERO_23_SKIN_A:# <12>[1453]
-	""" Gentleman Shudderwock
-	 """
-	#
+class TB_BaconShop_HP_022:
+	""" """
 	pass
+class TB_BaconShop_HP_022e:
+	pass
+class TB_BaconShop_HP_022t:
+	pass
+class TB_BaconShop_HP_022t_G:
+	pass
+
 
 
 #Silas Darkmoon # # armor 6
 class TB_BaconShop_HERO_90:# <12>[1453]
-	""" Silas Darkmoon
-	 """
-	#
+	""" Silas Darkmoon """
 	pass
-
 class TB_BaconShop_HERO_90_Buddy:# <12>[1453]
 	""" Burth
 	After you buy a minion witha Darkmoon Ticket, gain1_Gold this turn only. """
-	#
 	pass
-
 class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
 	""" Burth
 	After you buy a minion witha Darkmoon Ticket, gain2_Gold this turn only. """
-	#
 	pass
-
-class TB_BaconShop_HERO_90_SKIN_A:# <12>[1453]
-	""" Port Authority Silas
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_90_SKIN_B:# <12>[1453]
-	""" Jinglepocket Silas
-	 """
-	#
-	pass
-
+class TB_BaconShop_HP_101:
+	"""  """
+class TB_BaconShop_HP_101e:
+	"""  """
+class TB_BaconShop_HP_101t2:
+	"""  """
+,
 
 
 
