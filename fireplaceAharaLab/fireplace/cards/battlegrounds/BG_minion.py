@@ -1,6 +1,6 @@
 
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
+
 
 BG_Minion=[
 	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1

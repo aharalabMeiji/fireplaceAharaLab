@@ -1,5 +1,4 @@
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
 
 BG_Minion_Murloc =[
 'UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',#Rockpool Hunter (1)

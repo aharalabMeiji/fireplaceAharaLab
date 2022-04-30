@@ -130,6 +130,10 @@ class CardDB(dict):
 		BG=[
 			battlegrounds.BG_gems.BG_Gems,
 			battlegrounds.BG_hero1.BG_Hero1,
+			battlegrounds.BG_hero2.BG_Hero2,
+			battlegrounds.BG_hero3.BG_Hero3,
+			battlegrounds.BG_hero4.BG_Hero4,
+			battlegrounds.BG_hero5.BG_Hero5,
 			battlegrounds.BG_hero1.Bartenders,
 			battlegrounds.BG_minion.BG_Minion,
 			battlegrounds.BG_minion_beast.BG_Minion_Beast,

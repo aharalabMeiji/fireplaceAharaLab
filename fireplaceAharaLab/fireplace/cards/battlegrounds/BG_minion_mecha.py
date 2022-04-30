@@ -1,5 +1,5 @@
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
+
 
 BG_Minion_Mecha =[
 	'ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)

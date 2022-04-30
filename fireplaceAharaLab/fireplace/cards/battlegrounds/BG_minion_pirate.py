@@ -1,5 +1,5 @@
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
+
 
 BG_Minion_Pirate=[
 	'BGS_055','TB_BaconUps_126',#Deck Swabbie (1)

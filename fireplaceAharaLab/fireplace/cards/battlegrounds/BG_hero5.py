@@ -60,7 +60,7 @@ BG_Hero5_Buddy_Gold={
 	'TB_BaconShop_HERO_92_Buddy':'TB_BaconShop_HERO_92_Buddy_G',
 	'TB_BaconShop_HERO_35_Buddy':'TB_BaconShop_HERO_35_Buddy_G',
 	'TB_BaconShop_HERO_53_Buddy':'TB_BaconShop_HERO_53_Buddy_G',
-	'TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',
+	'TB_BaconShop_HERO_91_Buddy':'TB_BaconShop_HERO_91_Buddy_G',
 	}
 
 ######## source #################################################################

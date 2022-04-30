@@ -1,5 +1,5 @@
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
+
 
 BG_Minion_Quilboar=[
 	'BG20_100','BG20_100_G',#Razorfen Geomancer	1

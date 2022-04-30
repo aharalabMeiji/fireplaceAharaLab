@@ -1,5 +1,5 @@
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
+
 
 BG_Minion_Demon =[
 	'BG21_029','BRM_006t','BG21_029_G','TB_BaconUps_030t',#Icky Imp(1)

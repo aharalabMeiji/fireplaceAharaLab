@@ -105,13 +105,13 @@ class BG22_HERO_002p_Action(TargetedAction):
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
 	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. """
-	requirements = {PlqyReq.REQ_TARGET_TO_PLAY:0, PlqyReq.REQ_FRIENDLY_TARGET:0, PlqyReq.REQ_MINIONS_TARGET:0}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
 	activate = BG22_HERO_002p_Action(TARGET, 'BG22_HERO_002pe')
 	pass
 class BG22_HERO_002pe:# <12>[1453]
 	""" Frostwolf Fervor
 	Copied highest Attack. """
-	events = EndBattle(CONTROLLER).Destroy(SELF)
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG22_HERO_002pe2:# <12>[1453]
 	""" Attack Set Next Combat Only

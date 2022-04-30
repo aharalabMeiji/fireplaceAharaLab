@@ -10,7 +10,6 @@ from hearthstone.enums import Zone, State, Race
 from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
 from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
-from .BG_actions import *
 from .BG_enums import MovePlay
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
@@ -27,8 +26,11 @@ class BG_main:
 			BG_RandomAgent("Random4")
 			]
 		# ヒーローセット
-		self.Heroes = \
-			cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
+		self.Heroes = cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
+		self.Heroes += cards.battlegrounds.BG_hero2.BG_PoolSet_Hero2
+		self.Heroes += cards.battlegrounds.BG_hero3.BG_PoolSet_Hero3
+		self.Heroes += cards.battlegrounds.BG_hero4.BG_PoolSet_Hero4
+		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[]]
 		for i in range(6):
@@ -36,9 +38,10 @@ class BG_main:
 				rep=8
 			else:
 				rep=3
-			races=['elemental','demon']
-			## races = random.sample(['beast','demon','dragon',elemental','mecha','murloc','pirate','quilboar'],5)
-			for repeat in range(rep):	# BAN される raceはここで除外
+			#races=['elemental','demon']
+			# BAN される raceはここで除外
+			races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+			for repeat in range(rep):	
 				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 				if 'beast' in races:
 					self.BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
@@ -67,13 +70,17 @@ class BG_main:
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_pirate.BG_Pirate_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_quilboar.BG_Quilboar_Gold)
 		self.BG_Hero_Buddy=cards.battlegrounds.BG_hero1.BG_Hero1_Buddy
+		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero2.BG_Hero2_Buddy)
+		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero3.BG_Hero3_Buddy)
+		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero4.BG_Hero4_Buddy)
+		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero5.BG_Hero5_Buddy)
 	pass
 
 	def BG_main(self):
 		# ヒーローの選択
 		for agent in self.Agents:
 			if agent.name=='Human1':
-				theHeroes = self.Heroes[4:6]
+				theHeroes = [self.Heroes[52],self.Heroes[53]]
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])

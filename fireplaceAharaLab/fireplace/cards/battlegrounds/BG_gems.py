@@ -1,5 +1,4 @@
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
 
 BG_Gems=[
 	'BG20_GEM','BG20_GEMe','BG20_GEMe2',

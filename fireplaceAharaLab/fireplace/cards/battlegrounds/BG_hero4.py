@@ -12,7 +12,7 @@ BG_Hero4=[
 #57#Shudderwock
 'TB_BaconShop_HERO_23','TB_BaconShop_HERO_23_Buddy','TB_BaconShop_HERO_23_Buddy_e','TB_BaconShop_HERO_23_Buddy_G','TB_BaconShop_HERO_23_Buddy_Ge','TB_BaconShop_HP_022','TB_BaconShop_HP_022e','TB_BaconShop_HP_022t','TB_BaconShop_HP_022t_G',
 #58#Silas Darkmoon
-'TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2'
+'TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2',
 #59#Sindragosa
 'TB_BaconShop_HERO_27','TB_BaconShop_HERO_27_Buddy','TB_BaconShop_HERO_27_Buddy_G','TB_BaconShop_HP_014','TB_BaconShop_HP_014e',
 #60#Sir Finley Mrrgglton
@@ -74,7 +74,7 @@ BG_Hero4_Buddy={
 	'TB_BaconShop_HERO_33':'TB_BaconShop_HERO_33_Buddy',
 	'TB_BaconShop_HERO_21':'TB_BaconShop_HERO_21_Buddy',
 	'TB_BaconShop_HERO_22':'TB_BaconShop_HERO_22_Buddy',
-	'TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy',
+	'TB_BaconShop_HERO_12':'TB_BaconShop_HERO_12_Buddy',
 	}
 BG_Hero4_Buddy_Gold={
 	'TB_BaconShop_HERO_75_Buddy':'TB_BaconShop_HERO_75_Buddy_G',
@@ -93,20 +93,16 @@ BG_Hero4_Buddy_Gold={
 	'TB_BaconShop_HERO_50_Buddy':'TB_BaconShop_HERO_50_Buddy_G',
 	'TB_BaconShop_HERO_33_Buddy':'TB_BaconShop_HERO_33_Buddy_G',
 	'TB_BaconShop_HERO_21_Buddy':'TB_BaconShop_HERO_21_Buddy_G',
-	'TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G',
-	'TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G',
+	'TB_BaconShop_HERO_22_Buddy':'TB_BaconShop_HERO_22_Buddy_G',
+	'TB_BaconShop_HERO_12_Buddy':'TB_BaconShop_HERO_12_Buddy_G',
 	}
 
 ######## source #################################################################
 
-#53#Rakanishu # armor 5
+#52#Rakanishu # armor 5
 class TB_BaconShop_HERO_75:# <12>[1453]
 	""" Rakanishu """
 	pass
-class TB_BaconShop_HP_085:
-	"""  """
-class TB_BaconShop_HP_085e:
-	"""  """
 class TB_BaconShop_HERO_75_Buddy:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal toyour Tavern Tier. """
@@ -115,13 +111,17 @@ class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal to yourTavern Tier twice. """
 	pass
+class TB_BaconShop_HP_085:
+	"""  """
+class TB_BaconShop_HP_085e:
+	"""  """
 
 
 
 
 
 
-#Reno Jackson # armor 6
+#53#Reno Jackson # armor 6
 class TB_BaconShop_HERO_41:# <12>[1453]
 	""" Reno Jackson """
 	pass

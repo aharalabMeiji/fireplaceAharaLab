@@ -1,6 +1,6 @@
 
 from ..utils import *
-from fireplace.battlegrounds.BG_actions import *
+
 
 BG_Minion_Beast=[
 	'CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',#Alleycat
