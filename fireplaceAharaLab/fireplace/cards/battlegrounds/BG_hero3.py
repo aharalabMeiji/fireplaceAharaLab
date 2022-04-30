@@ -4,12 +4,17 @@ from ..utils import *
 
 BG_Hero3=[
 #36#Lord Jaraxxus
+'TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',
 #37#Maiev Shadowsong
+'TB_BaconShop_HERO_62','TB_BaconShop_HP_068','TB_BaconShop_HP_068pe','TB_BaconShop_HP_068e','TB_BaconShop_HP_068e2','TB_BaconShop_HERO_62_Buddy','TB_BaconShop_HERO_62_Buddy_e','TB_BaconShop_HERO_62_Buddy_G',
 #38#Malygos
+'TB_BaconShop_HERO_58','TB_BaconShop_HP_052','TB_BaconShop_HERO_58_Buddy','TB_BaconShop_HERO_58_Buddy_G',
 #39#Master Nguyen
 'BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',
 #40#Millhouse Manastorm
+'TB_BaconShop_HERO_49','TB_BaconShop_HP_054','TB_Baconshop_HP_054e','TB_BaconShop_HERO_49_Buddy','TB_BaconShop_HERO_49_Buddy_G',
 #41#Millificent Manastorm
+'TB_BaconShop_HERO_17','TB_BaconShop_HP_015','TB_BaconShop_HP_015e','TB_BaconShop_HERO_17_Buddy','TB_BaconShop_HERO_17_Buddy_G',
 #42#Mr. Bigglesworth
 #43#Mutanus the Devourer
 #44#N'Zoth
@@ -25,10 +30,28 @@ BG_Hero3=[
 ]
 
 BG_PoolSet_Hero3=[
+	'TB_BaconShop_HERO_37',
+	'TB_BaconShop_HERO_62',
+	'TB_BaconShop_HERO_58',
+	'BG20_HERO_202',
+	'TB_BaconShop_HERO_49',
+	'TB_BaconShop_HERO_17',
 	]
 BG_Hero3_Buddy={
+	'TB_BaconShop_HERO_37':'TB_BaconShop_HERO_37_Buddy',
+	'TB_BaconShop_HERO_62':'TB_BaconShop_HERO_62_Buddy',
+	'TB_BaconShop_HERO_58':'TB_BaconShop_HERO_58_Buddy',
+	'BG20_HERO_202':'BG20_HERO_202_Buddy',
+	'TB_BaconShop_HERO_49':'TB_BaconShop_HERO_49_Buddy',
+	'TB_BaconShop_HERO_17':'TB_BaconShop_HERO_17_Buddy',
 	}
 BG_Hero3_Buddy_Gold={
+	'TB_BaconShop_HERO_37_Buddy':'TB_BaconShop_HERO_37_Buddy_G',
+	'TB_BaconShop_HERO_62_Buddy':'TB_BaconShop_HERO_62_Buddy_G',
+	'TB_BaconShop_HERO_58_Buddy':'TB_BaconShop_HERO_58_Buddy_G',
+	'BG20_HERO_202_Buddy':'BG20_HERO_202_Buddy_G',
+	'TB_BaconShop_HERO_49_Buddy':'TB_BaconShop_HERO_49_Buddy_G',
+	'TB_BaconShop_HERO_17_Buddy','TB_BaconShop_HERO_17_Buddy_G',
 	}
 
 #### source ####################################################
@@ -45,13 +68,12 @@ class TB_BaconShop_HERO_37_Buddy:
 class TB_BaconShop_HERO_37_Buddy_G:
 	""" Kil'rek
 	<b>Taunt</b> <b>Deathrattle:</b> Add 2 random Demons to your hand."""
+	pass
+
 
 #37#Maiev Shadowsong
 class TB_BaconShop_HERO_62:# <12>[1453]
-	""" Maiev Shadowsong
-	 """
-	#
-	pass
+	""" Maiev Shadowsong """
 class TB_BaconShop_HP_068:
 	""" Imprison
 	Make a minion in Bob's Tavern <b>Dormant</b>. After 3 __turns, get it with +2/+2 """
@@ -82,10 +104,7 @@ class TB_BaconShop_HERO_62_Buddy_G:# <12>[1453]
 
 #38#Malygos
 class TB_BaconShop_HERO_58:# <12>[1453]
-	""" Malygos
-	 """
-	#
-	pass
+	""" Malygos """
 class TB_BaconShop_HP_052:
 	""" Arcane Alteration
 	Replace a minion with a random one of the same Tavern Tier. <i>(Twice per turn.)</i>"""
@@ -104,10 +123,7 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 #39#Master Nguyen
 class BG20_HERO_202:# <12>[1453]
-	""" Master Nguyen
-	 """
-	#
-	pass
+	""" Master Nguyen """
 class BG20_HERO_202p:# <12>[1453]
 	""" Power of the Storm
 	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
@@ -137,9 +153,7 @@ class BG20_HERO_202_Buddy_G:# <12>[1453]
 
 #40#Millhouse Manastorm
 class TB_BaconShop_HERO_49:# <12>[1453]
-	""" Millhouse Manastorm
-	 """
-	#
+	""" Millhouse Manastorm """
 	pass
 class TB_BaconShop_HP_054:
 	""" Manastorm
@@ -163,30 +177,20 @@ class TB_BaconShop_HERO_49_Buddy_G:# <12>[1453]
 
 #41#Millificent Manastorm
 class TB_BaconShop_HERO_17:# <12>[1453]
-	""" Millificent Manastorm
-	 """
-	#
+	""" Millificent Manastorm """
 	pass
 class TB_BaconShop_HP_015:
 	""" Tinker
-	<b>Passive</b>
-Mechs in Bob's Tavern
-have +1/+1."""
+	<b>Passive</b>Mechs in Bob's Tavern have +1/+1."""
 TB_BaconShop_HP_015e=buff(1,1)
 class TB_BaconShop_HERO_17_Buddy:# <12>[1453]
 	""" Elementium Squirrel Bomb
-	<b>Deathrattle:</b> Deal 3 damage
-to a random enemy minion
-for each of your Mechs that
-died this combat. """
+	<b>Deathrattle:</b> Deal 3 damage to a random enemy minion for each of your Mechs that died this combat. """
 	#
 	pass
 class TB_BaconShop_HERO_17_Buddy_G:
 	""" 
-	<b>Deathrattle:</b> Deal 6 damage
-to a random enemy minion
-for each of your Mechs that
-died this combat.""" 
+	<b>Deathrattle:</b> Deal 6 damage to a random enemy minion for each of your Mechs that died this combat.""" 
 
 
 
