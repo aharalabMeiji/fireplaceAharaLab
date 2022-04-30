@@ -61,15 +61,15 @@ class Refresh:
 class TargetableByAuras:
 	def refresh_buff(self, source, id):
 		for buff in self.buffs:
-			if hasattr(buff,'tick'):
-				print ("buff=%s:buff.source=%s:source=%s:buff.id=%s:id=%s:buff.tick=%s:source.game.tick=%s"%(buff,buff.source,source,buff.id, id,buff.tick,source.game.tick))
-			else:
-				print ("buff=%s:buff.source=%s:source=%s:buff.id=%s:id=%s:buff.tick=*:source.game.tick=%s"%(buff,buff.source,source,buff.id, id,source.game.tick))
+			#if hasattr(buff,'tick'):
+			#	print ("buff=%s:buff.source=%s:source=%s:buff.id=%s:id=%s:buff.tick=%s:source.game.tick=%s"%(buff,buff.source,source,buff.id, id,buff.tick,source.game.tick))
+			#else:
+			#	print ("buff=%s:buff.source=%s:source=%s:buff.id=%s:id=%s:buff.tick=*:source.game.tick=%s"%(buff,buff.source,source,buff.id, id,source.game.tick))
 			if buff.source is source and buff.id == id:
 				buff.tick = source.game.tick
 				break
 		else:
-			print("Aura from %r buffs %r with %r", source, self, id)
+			#print("Aura from %r buffs %r with %r", source, self, id)
 			log.info("Aura from %r buffs %r with %r", source, self, id)
 			buff = source.buff(self, id)
 			buff.tick = source.game.tick
