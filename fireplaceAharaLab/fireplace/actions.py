@@ -997,7 +997,7 @@ class Damage(TargetedAction):
 
 	def do(self, source, target, amount):
 		# ここでターゲットが聖なる盾を持っているとamountを0にしている。
-		if amount>0 and target.divine_shield:
+		if amount>0 and hasattr(target,'divine_shield') and target.divine_shield:
 			source.game.trigger_actions(source, [LoseDivineShield(target)])#実質なにもしていない。
 		amount = target._hit(target.predamage)
 		target.predamage = 0
