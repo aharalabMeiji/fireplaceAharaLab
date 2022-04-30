@@ -14,16 +14,27 @@ BG_Hero4=[
 #58#Silas Darkmoon
 'TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2'
 #59#Sindragosa
+'TB_BaconShop_HERO_27','TB_BaconShop_HERO_27_Buddy','TB_BaconShop_HERO_27_Buddy_G','TB_BaconShop_HP_014','TB_BaconShop_HP_014e',
 #60#Sir Finley Mrrgglton
+'TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',
 #61#Skycap'n Kragg
+'TB_BaconShop_HERO_68','TB_BaconShop_HERO_68_Buddy','TB_BaconShop_HERO_68_Buddy_G','TB_BaconShop_HP_080',
 #62#Sneed
+'BG21_HERO_030','BG21_HERO_030_Buddy','BG21_HERO_030_Buddy_e','BG21_HERO_030_Buddy_G','BG21_HERO_030p','BG21_HERO_030pe',
 #63#Tamsin Roame
+'BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',
 #64#Tavish Stormpike
+'BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',
 #65#Tess Greymane
+'TB_BaconShop_HERO_50','TB_BaconShop_HERO_50_Buddy','TB_BaconShop_HERO_50_Buddy_G','TB_BaconShop_HP_077',
 #66#The Curator
+'TB_BaconShop_HERO_33','TB_BaconShop_HERO_33_Buddy','TB_BaconShop_HERO_33_Buddy_e','TB_BaconShop_HERO_33_Buddy_G','TB_BaconShop_HP_033','TB_BaconShop_HP_033t',
 #67#The Great Akazamzarak
+'TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',
 #68#The Lich King
+'TB_BaconShop_HERO_22','TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G','TB_BaconShop_HP_024','TB_BaconShop_HP_024e2',
 #69#The Rat King
+'TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i',
 ]
 
 
@@ -34,6 +45,17 @@ BG_PoolSet_Hero4=[
 	'BG21_HERO_010',
 	'TB_BaconShop_HERO_23',
 	'TB_BaconShop_HERO_90',
+	'TB_BaconShop_HERO_27',
+	'TB_BaconShop_HERO_40',
+	'TB_BaconShop_HERO_68',
+	'BG21_HERO_030',
+	'BG20_HERO_282',
+	'BG22_HERO_000',
+	'TB_BaconShop_HERO_50',
+	'TB_BaconShop_HERO_33',
+	'TB_BaconShop_HERO_21',
+	'TB_BaconShop_HERO_22',
+	'TB_BaconShop_HERO_12',
 	]
 BG_Hero4_Buddy={
 	'TB_BaconShop_HERO_75':'TB_BaconShop_HERO_75_Buddy',
@@ -42,6 +64,17 @@ BG_Hero4_Buddy={
 	'BG21_HERO_010':'BG21_HERO_010_Buddy',
 	'TB_BaconShop_HERO_23':'TB_BaconShop_HERO_23_Buddy',
 	'TB_BaconShop_HERO_90':'TB_BaconShop_HERO_90_Buddy',
+	'TB_BaconShop_HERO_27':'TB_BaconShop_HERO_27_Buddy',
+	'TB_BaconShop_HERO_40':'TB_BaconShop_HERO_40_Buddy',
+	'TB_BaconShop_HERO_68':'TB_BaconShop_HERO_68_Buddy',
+	'BG21_HERO_030':'BG21_HERO_030_Buddy',
+	'BG20_HERO_282':'BG20_HERO_282_Buddy',
+	'BG22_HERO_000':'BG22_HERO_000_Buddy',
+	'TB_BaconShop_HERO_50':'TB_BaconShop_HERO_50_Buddy',
+	'TB_BaconShop_HERO_33':'TB_BaconShop_HERO_33_Buddy',
+	'TB_BaconShop_HERO_21':'TB_BaconShop_HERO_21_Buddy',
+	'TB_BaconShop_HERO_22':'TB_BaconShop_HERO_22_Buddy',
+	'TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy',
 	}
 BG_Hero4_Buddy_Gold={
 	'TB_BaconShop_HERO_75_Buddy':'TB_BaconShop_HERO_75_Buddy_G',
@@ -51,7 +84,17 @@ BG_Hero4_Buddy_Gold={
 	'TB_BaconShop_HERO_23_Buddy':'TB_BaconShop_HERO_23_Buddy_G',
 	'TB_BaconShop_HP_022t':'TB_BaconShop_HP_022t_G',
 	'TB_BaconShop_HERO_90_Buddy':'TB_BaconShop_HERO_90_Buddy_G',
-
+	'TB_BaconShop_HERO_27_Buddy':'TB_BaconShop_HERO_27_Buddy_G',
+	'TB_BaconShop_HERO_40_Buddy':'TB_BaconShop_HERO_40_Buddy_G',
+	'TB_BaconShop_HERO_68_Buddy':'TB_BaconShop_HERO_68_Buddy_G',
+	'BG21_HERO_030_Buddy':'BG21_HERO_030_Buddy_G',
+	'BG20_HERO_282_Buddy':'BG20_HERO_282_Buddy_G',
+	'BG22_HERO_000_Buddy':'BG22_HERO_000_Buddy_G',
+	'TB_BaconShop_HERO_50_Buddy':'TB_BaconShop_HERO_50_Buddy_G',
+	'TB_BaconShop_HERO_33_Buddy':'TB_BaconShop_HERO_33_Buddy_G',
+	'TB_BaconShop_HERO_21_Buddy':'TB_BaconShop_HERO_21_Buddy_G',
+	'TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G',
+	'TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G',
 	}
 
 ######## source #################################################################
@@ -200,97 +243,60 @@ class TB_BaconShop_HP_101e:
 	"""  """
 class TB_BaconShop_HP_101t2:
 	"""  """
-,
 
 
 
 
-#Sindragosa
+
+#59#Sindragosa
 class TB_BaconShop_HERO_27:# <12>[1453]
-	""" Sindragosa
-	 """
-	#
+	""" Sindragosa """
 	pass
-
 class TB_BaconShop_HERO_27_Buddy:# <12>[1453]
 	""" Thawed Champion
 	At the end of your turn, adda random [Frozen] minionfrom Bob's Tavernto your hand. """
-	#
 	pass
-
 class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 	""" Thawed Champion
 	At the end of your turn, add2 random [Frozen] minionsfrom Bob's Tavernto your hand. """
-	#
 	pass
-
-class TB_BaconShop_HERO_27_SKIN_A:# <12>[1453]
-	""" Sindragosa the Blue
-	 """
-	#
-	pass
+class TB_BaconShop_HP_014:
+	"""  """
+TB_BaconShop_HP_014e=buff(2,1)
 
 
-#Sir Finley Mrrgglton ## armor 3
+
+
+#60#Sir Finley Mrrgglton ## armor 3
 class TB_BaconShop_HERO_40:# <12>[1453]
-	""" Sir Finley Mrrgglton
-	 """
-	#
+	""" Sir Finley Mrrgglton """
 	pass
-
-class TB_BaconShop_HERO_40_SKIN_A:# <12>[1453]
-	""" Finley of the Kyrian
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_40_SKIN_B:# <12>[1453]
-	""" Fintastic Finley
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_40_SKIN_C:# <12>[1453]
-	""" Finley & Metzen
-	 """
-	#
-	pass
+class TB_BaconShop_HERO_40_Buddy:
+	"""  """
+class TB_BaconShop_HERO_40_Buddy_G:
+	"""  """
+class TB_BaconShop_HP_057:
+	"""  """
 
 
-
-
-#Skycap'n Kragg
+#61#Skycap'n Kragg
 class TB_BaconShop_HERO_68:# <12>[1453]
-	""" Skycap'n Kragg
-	 """
-	#
+	""" Skycap'n Kragg """
 	pass
-
-class TB_BaconShop_HERO_68_SKIN_A:# <12>[1453]
-	""" Undercap'n Kragg
-	 """
-	#
-	pass
-
-
+class TB_BaconShop_HERO_68_Buddy:
+	"""  """
+class TB_BaconShop_HERO_68_Buddy_G:
+	"""  """
+class TB_BaconShop_HP_080:
+	"""  """
 
 
 
-#Sneed
+
+
+#62#Sneed
 class BG21_HERO_030:# <10>[1453]
-	""" Sneed
-	 """
-	#
-	pass
-class BG21_HERO_030p:# <12>[1453]
-	""" Sneed's Replicator
-	Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(TARGET,'BG21_HERO_030pe')
-	pass
-class BG21_HERO_030pe:# <12>[1453]
-	""" Replicate
-	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
+	""" Sneed """
 	pass
 class BG21_HERO_030_Buddy:# <12>[1453]
 	""" Piloted Whirl-O-Tron
@@ -309,244 +315,198 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 	[Battlecry:] Copy a friendly minion's [Deathrattles] twice. """
 	play = Buff(SELF, 'BG21_HERO_030_Buddy_e') * 2
 	pass
-
-
-#Tamsin Roame
-#### 20 282 ####
-class BG20_HERO_282:# <9>[1453]
-	""" Tamsin Roame
-	 """
-	#
+class BG21_HERO_030p:# <12>[1453]
+	""" Sneed's Replicator
+	Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET,'BG21_HERO_030pe')
+	pass
+class BG21_HERO_030pe:# <12>[1453]
+	""" Replicate
+	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
 	pass
 
+
+#63#Tamsin Roame
+class BG20_HERO_282:# <9>[1453]
+	""" Tamsin Roame """
+	pass
 class BG20_HERO_282_Buddy:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack. """
-	#
 	pass
-
-class BG20_HERO_282_Buddy_G:# <12>[1453]
-	""" Monstrosity
-	After a friendly minion dies, gain its Attack twice. """
-	#
-	pass
-
 class BG20_HERO_282_Buddye:# <12>[1453]
 	""" Consumed
 	Increased Attack. """
-	#
+class BG20_HERO_282_Buddy_G:# <12>[1453]
+	""" Monstrosity
+	After a friendly minion dies, gain its Attack twice. """
 	pass
-
 class BG20_HERO_282p:# <9>[1453]
 	""" Fragrant Phylactery
 	[Start of Combat:]Destroy your lowest Healthminion. Give its stats_to four friendly minions. """
-	#
 	pass
-
 class BG20_HERO_282pe:# <12>[1453]
 	""" Fragrant
 	Increased stats. """
-	#
 	pass
 
-#BG22_HERO_000#Tavish Stormpike
-###Tavish Stormpike
+
+
+
+
+#64##Tavish Stormpike
 class BG22_HERO_000:# <12>[1453]
-	""" Tavish Stormpike
-	 """
-	#
+	""" Tavish Stormpike """
 	pass
-class BG22_HERO_000p:
-	"""
-	"""
 class BG22_HERO_000_Buddy:# <12>[1453]
 	""" Crabby
 	After your Hero Power fires,give adjacent minions stats__equal to the damage dealt._ """
-	#
 	pass
-
-class BG22_HERO_000_Buddy_G:# <12>[1453]
-	""" Crabby
-	After your Hero Power fires, give adjacent minions stats equal to twice the damage dealt. """
-	#
-	pass
-class BG22_HERO_000:# <12>[1453]
-	""" Tavish Stormpike
-	 """
-	#
-	pass
-
 class BG22_HERO_000_Buddy_e:# <12>[1453]
 	""" Crabby
 	Increased stats. """
-	#
 	pass
-
+class BG22_HERO_000_Buddy_G:# <12>[1453]
+	""" Crabby
+	After your Hero Power fires, give adjacent minions stats equal to twice the damage dealt. """
+	pass
 class BG22_HERO_000p:# <12>[1453]
 	""" Deadeye
 	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
 	#
 	pass
-
 class BG22_HERO_000p_t1:# <12>[1453]
 	""" Aim Left!
 	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
 	#
 	pass
-
 class BG22_HERO_000p_t2:# <12>[1453]
 	""" Aim Low!
 	[PassiveStart of Combat]: Deal@ damage to the lowestHealth enemy minion. """
 	#
 	pass
-
 class BG22_HERO_000p_t3:# <12>[1453]
 	""" Aim High!
 	[PassiveStart of Combat]: Deal@ damage to the highestHealth enemy minion. """
 	#
 	pass
-
 class BG22_HERO_000p_t4:# <12>[1453]
 	""" Aim Right!
 	[PassiveStart of Combat]: Deal@ damage to the right-most enemy minion. """
 	#
 	pass
 
-#Tess Greymane
-class TB_BaconShop_HERO_50:# <12>[1453]
-	""" Tess Greymane
-	 """
-	#
-	pass
 
+
+#65#Tess Greymane
+class TB_BaconShop_HERO_50:# <12>[1453]
+	""" Tess Greymane """
+	pass
 class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
 	""" Hunter of Old
 	At the start of your turn,add your last opponent's Buddy to your hand. """
 	#
 	pass
-
 class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
 	""" Hunter of Old
 	At the start of your turn, add 2 of your last opponent's Buddy to your hand. """
 	#
 	pass
-
-class TB_BaconShop_HERO_50_SKIN_A:# <12>[1453]
-	""" Venthyr Tess
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_50_SKIN_B:# <12>[1453]
-	""" Tess, Stormpike Assassin
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_50_SKIN_C:# <12>[1453]
-	""" Riddling Tempest Tess
-	 """
-	#
-	pass
+class TB_BaconShop_HP_077:
+	"""  """
 
 
 
 
 
-#The Curator
+#66#The Curator
 class TB_BaconShop_HERO_33:# <12>[1453]
-	""" The Curator
-	 """
-	#
+	""" The Curator	 """
 	pass
-
+class TB_BaconShop_HERO_33_Buddy:# <12>[1453]
+	"""  """
 class TB_BaconShop_HERO_33_Buddy_e:# <12>[1453]
 	""" Amalfam
 	Increased stats. """
 	#
 	pass
+class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
+	"""  """
+class TB_BaconShop_HP_033:
+	"""  """
+class TB_BaconShop_HP_033t:
+	"""   """
 
-class TB_BaconShop_HERO_33_SKIN_A:# <12>[1453]
-	""" Cuddly Curator
-	 """
-	#
-	pass
 
-#The Great Akazamzarak
+#67#The Great Akazamzarak
 class TB_BaconShop_HERO_21:# <12>[1453]
-	""" The Great Akazamzarak
-	 """
-	#
+	""" The Great Akazamzarak """
 	pass
-
 class TB_BaconShop_HERO_21_Buddy:# <12>[1453]
 	""" Street Magician
 	[Deathrattle:] Put a random [Secret] into the battlefield. """
 	#
 	pass
-
 class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
 	""" Street Magician
 	[Deathrattle:] Put 2 random[Secrets] into the battlefield. """
 	#
 	pass
-
-class TB_BaconShop_HERO_21_SKIN_A:# <12>[1453]
-	""" Crashin' Thrashin' Akazamzarak
-	 """
-	#
-	pass
+class TB_BaconShop_HP_020:
+	"""  """
 
 
-#The Lich King
+
+#68#The Lich King
 class TB_BaconShop_HERO_22:# <12>[1453]
-	""" The Lich King
-	 """
-	#
+	""" The Lich King """
 	pass
-
-class TB_BaconShop_HERO_22_SKIN_A:# <12>[1453]
-	""" Grill King Bolvar
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_22_SKIN_B:# <12>[1453]
-	""" Invincible Lich King
-	 """
-	#
-	pass
-
-class TB_BaconShop_HERO_22_SKIN_C:# <12>[1453]
-	""" Lü Bu Arthas
-	 """
-	#
-	pass
+class TB_BaconShop_HERO_22_Buddy:
+	"""  """
+class TB_BaconShop_HERO_22_Buddy_G:
+	"""  """
+class TB_BaconShop_HP_024:
+	"""  """
+TB_BaconShop_HP_024e2=buff(reborn=True)
 
 
-#The Rat King ## armor 6
+#69#The Rat King ## armor 6
 class TB_BaconShop_HERO_12:# <12>[1453]
-	""" The Rat King
-	 """
-	#
+	""" The Rat King """
 	pass
-
 class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
 	""" Pigeon Lord
 	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
-	#
 	pass
-
 class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
 	""" Pigeon Lord
 	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
 	#
 	pass
+class TB_BaconShop_HP_041:
+	"""  """
+class TB_BaconShop_HP_041a:
+	"""  """
+class TB_BaconShop_HP_041b:
+	"""  """
+class TB_BaconShop_HP_041c:
 
-class TB_BaconShop_HERO_12_SKIN_A:# <12>[1453]
-	""" The Martial Rat
-	 """
-	#
-	pass
+	"""  """
+class TB_BaconShop_HP_041d:
 
+	"""  """
+class TB_BaconShop_HP_041e:
 
+	"""  """
+class TB_BaconShop_HP_041f:
+
+	"""  """
+class TB_BaconShop_HP_041g:
+
+	"""  """
+class TB_BaconShop_HP_041h:
+
+	"""  """
+class TB_BaconShop_HP_041i:
+	"""  """
