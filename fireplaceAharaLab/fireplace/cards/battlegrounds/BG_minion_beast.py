@@ -313,9 +313,9 @@ TB_BaconUps_085e=buff(10,10)
 
 class FP1_010:
 	""" Maexxna (BAN)
-	&lt;b&gt;Poisonous&lt;/b&gt; """
+	<b>Poisonous</b> """
 	pass
 class TB_BaconUps_155:
 	""" Maexxna (BAN)
-	&lt;b&gt;Poisonous&lt;/b&gt; """
+	<b>Poisonous</b> """
 	pass

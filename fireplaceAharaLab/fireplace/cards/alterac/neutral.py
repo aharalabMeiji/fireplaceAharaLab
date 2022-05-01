@@ -581,7 +581,7 @@ class ONY_005tb12:# <12>[1626]
 	pass
 class GVG_110t:
 	"""Boom Bot
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1-4 damage to a random enemy."""
+	<b>Deathrattle:</b> Deal 1-4 damage to a random enemy."""
 	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
 
 class ONY_005tb13:# <12>[1626]

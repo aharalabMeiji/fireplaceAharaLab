@@ -168,7 +168,7 @@ class BGS_082_Action(TargetedAction):
 					flag[field.index(c)]=1
 					addOK=False
 					continue
-			if addOK:
+			if c.race != Race.INVALID and addOK:
 				ret.append(c)
 				flag[field.index(c)]=1
 			pass
@@ -231,7 +231,7 @@ class BG20_203_G:# <12>[1453]
 ## 動作確認済み
 class OG_221:
 	"""Selfless Hero:
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Give a random friendly minion &lt;b&gt;Divine Shield&lt;/b&gt;."""
+	<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>."""
 	deathrattle = GiveDivineShield(RANDOM_FRIENDLY_MINION)
 class TB_BaconUps_014:# <5>[1453]
 	""" Selfless Hero
@@ -261,7 +261,7 @@ TB_BaconUps_025e = buff(2,2)
 #Unstable Ghoul	2	1	3	-	Deathrattle FP1_024  TB_BaconUps_118 ぐうる
 class FP1_024:# <12>[1453]
 	""" Unstable Ghoul
-	&lt;b&gt;Taunt&lt;/b&gt;. &lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1 damage to all minions. """
+	<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions. """
 	deathrattle = Hit(ALL_MINIONS, 1)
 	pass
 class TB_BaconUps_118:# <12>[1453]
@@ -273,16 +273,23 @@ class TB_BaconUps_118:# <12>[1453]
 
 
 #Whelp Smuggler	2	2	5	-	- BG21_013  BG21_013_G 密輸人
+class BG21_013_Action(TargetedAction):
+	TARGET = TargetArg()
+	BUFF = TargetArg()
+	TARGETBUFF = TargetArg()
+	def do(self, source, target, buff. targetbuff):
+		if buff.atk>0:
+			Buff(target, targetbuff).trigger(target.controller)
 class BG21_013:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +1_Health. """
-	events = Buff(FRIENDLY + DRAGON).on(Buff(Buff.TARGET,'BG21_013e'))
+	events = Buff(FRIENDLY + DRAGON).on(BG21_013_Action(Buff.TARGET, Buff.BUFF, 'BG21_013e'))
 	pass
 BG21_013e=buff(0,1)
 class BG21_013_G:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +2_Health. """
-	events = Buff(FRIENDLY + DRAGON).on(Buff(Buff.TARGET,'BG21_013e') * 2)
+	events = Buff(FRIENDLY + DRAGON).on(BG21_013_Action(Buff.TARGET, Buff.BUFF,'BG21_013e') * 2)
 	pass
 
 
@@ -348,7 +355,7 @@ BG21_030_Ge=buff(4,2)
 #Houndmaster	3	4	3	-	Battlecry  DS1_070  TB_BaconUps_068 TB_BaconUps_068e 猟犬使い
 class DS1_070:# <3>[1453]
 	""" Houndmaster
-	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Beast +2/+2 and &lt;b&gt;Taunt&lt;/b&gt;."""
+	<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>."""
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
 		}
@@ -519,7 +526,7 @@ TB_BaconUps_145e=buff(4,4)# <12>[1453]
 #Strongshell Scavenger	4	2	3	-	Battlecry  ICC_807  ICC_807e  TB_BaconUps_072 TB_BaconUps_072e
 class ICC_807:# <2>[1453]
 	""" Strongshell Scavenger  クズ拾い
-	&lt;b&gt;Battlecry:&lt;/b&gt; Give your &lt;b&gt;Taunt&lt;/b&gt; minions +2/+2. """
+	<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2. """
 	play = Buff(FRIENDLY + TAUNT, 'ICC_807e')
 	pass
 ICC_807e=buff(2,2)# <12>[1453]
@@ -551,7 +558,7 @@ class BG21_038_G:# <12>[1453]
 #Baron Rivendare	5	1	7	-	Deathrattle  CORE_FP1_031 TB_BaconUps_055 ばろん
 class CORE_FP1_031:
 	"""Baron Rivendare
-	Your minions trigger their &lt;b&gt;Deathrattles&lt;/b&gt; twice."""
+	Your minions trigger their <b>Deathrattles</b> twice."""
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
 	pass
 class TB_BaconUps_055:# <12>[1453]
@@ -563,12 +570,12 @@ class TB_BaconUps_055:# <12>[1453]
 #Brann Bronzebeard	5	2	4	-	Battlecry  LOE_077 LOE_077e  TB_BaconUps_045  TB_BaconUps_045e
 class LOE_077:#    ぶらん
 	""" Brann Bronzebeard
-	Your &lt;b&gt;Battlecries&lt;/b&gt; trigger twice. """
+	Your <b>Battlecries</b> trigger twice. """
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_BATTLECRIES_BASE: True})
 	pass
 class LOE_077e:# 
 	""" Bronzebeard Battlecry
-	Your &lt;b&gt;Battlecries&lt;/b&gt; trigger twice. """
+	Your <b>Battlecries</b> trigger twice. """
 	pass
 class TB_BaconUps_045:# <12>[1453]
 	""" Brann Bronzebeard
@@ -658,20 +665,26 @@ class TB_BaconUps_082e:# <7>[1453]
 
 
 #Master of Realities	5	6	6	-	Taunt  BG21_036 BG21_036e BG21_036_G BG21_036_Ge
+class BG21_036_Action(TargetedAction):
+	TARGET = TargetArg()
+	BUFF = TargetArg()
+	TARGETBUFF = TargetArg()
+	def do(self, source, target, buff. targetbuff):
+		if buff.atk>0 or buff.health>0:
+			Buff(target, targetbuff).trigger(target.controller)
 class BG21_036:# <12>[1453] 多重現実の支配者
 	""" Master of Realities
 	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(Buff(SELF,'BG21_036e'))
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036e'))
 	pass
 BG21_036e=buff(1,1)
 class BG21_036_G:# <12>[1453]
 	""" Master of Realities
 	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(Buff(SELF,'BG21_036_Ge'))
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036_Ge'))
 	pass
 BG21_036_Ge=buff(2,2)# <12>[1453]
-""" The Elemental Plane
-+2/+2. """
+""" The Elemental Plane, +2/+2. """
 
 
 
@@ -774,12 +787,12 @@ class BGS_069_Action(TargetedAction):
 		pass
 class BGS_069:##  アマルガドン　(アルマゲドンではない）
 	""" Amalgadon
-	&lt;b&gt;Battlecry:&lt;/b&gt; For each different minion type you have among other minions, &lt;b&gt;Adapt&lt;/b&gt; randomly."""
+	<b>Battlecry:</b> For each different minion type you have among other minions, <b>Adapt</b> randomly."""
 	play = BGS_069_Action(CONTROLLER, 1)	
 	pass
 class TB_BaconUps_121:
 	""" Amalgadon
-	&lt;b&gt;Battlecry:&lt;/b&gt; For each different minion type you have among other minions, &lt;b&gt;Adapt&lt;/b&gt; randomly twice."""
+	<b>Battlecry:</b> For each different minion type you have among other minions, <b>Adapt</b> randomly twice."""
 	play = BGS_069_Action(CONTROLLER, 2)
 	pass
 
@@ -792,7 +805,7 @@ class TB_BaconUps_121:
 #class UNG_999t5e:## 液状膜 ## 呪文とヒーローパワーの標的にならない。
 #class UNG_999t4e:## 岩状の甲殻 ## 体力+3
 #class UNG_999t3e:## 炎熱の爪 ##攻撃力+3
-#class UNG_999t2e:## 動き回る胞子 ##;断末魔:&lt;/b&gt;1/1の植物を2体召喚する。
+#class UNG_999t2e:## 動き回る胞子 ##;断末魔:</b>1/1の植物を2体召喚する。
 #class UNG_999t2t1:## 植物
 
 

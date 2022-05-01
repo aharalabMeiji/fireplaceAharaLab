@@ -64,7 +64,7 @@ class CORE_EX1_248:# <8>[1637]
 	pass
 class EX1_tk11:
 	""" Spirit Wolf
-	&lt;b&gt;Taunt&lt;/b&gt; """
+	<b>Taunt</b> """
 	pass
 
 class CORE_EX1_250:# <8>[1637]

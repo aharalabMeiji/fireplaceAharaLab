@@ -34,11 +34,11 @@ class CS2_050:
 	pass
 class CS2_051: 
 	""" Stoneclaw Totem
-	&lt;b&gt;Taunt&lt;/b&gt; """
+	<b>Taunt</b> """
 	pass
 class CS2_052: 
 	""" Wrath of Air Totem
-	&lt;b&gt;Spell Damage +1&lt;/b&gt; """ 
+	<b>Spell Damage +1</b> """ 
 	pass
 class NEW1_009:
 	""" Healing Totem

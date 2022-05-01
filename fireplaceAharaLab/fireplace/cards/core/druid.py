@@ -93,7 +93,7 @@ class CORE_EX1_178:#OK <2>[1637]
 	play = ChooseBoth(SELF) & (Buff(SELF, "EX1_178ae"), Buff(SELF, "EX1_178be"))
 class EX1_178a:
 	""" Rooted
-	+5 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
+	+5 Health and <b>Taunt</b>."""
 	play = Buff(SELF, "EX1_178ae")
 EX1_178ae = buff(health=5, taunt=True)
 class EX1_178b:

@@ -47,7 +47,7 @@ BG_Mecha_Gold={
 #Micro Mummy(1)
 class ULD_217:
 	"""
-	&lt;b&gt;Reborn&lt;/b&gt;At the end of your turn, giveanother random friendlyminion +1 Attack."""
+	<b>Reborn</b>At the end of your turn, giveanother random friendlyminion +1 Attack."""
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ULD_217e'))
 	pass
 ULD_217e=buff(1,0)
@@ -72,7 +72,7 @@ class BG21_022_G:# <12>[1453]
 #Harvest Golem(2)
 class EX1_556:
 	"""
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 2/1 Damaged Golem."""
+	<b>Deathrattle:</b> Summon a 2/1 Damaged Golem."""
 	deathrattle = Summon(CONTROLLER, "skele21")
 	pass
 class skele21:
@@ -93,7 +93,7 @@ class TB_BaconUps_006t:# <12>[1453]
 #Kaboom Bot(2)
 class BOT_606:
 	"""
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 4_damage to a random enemy minion. """
+	<b>Deathrattle:</b> Deal 4_damage to a random enemy minion. """
 	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 4)
 	pass
 class TB_BaconUps_028:# <12>[1453]
@@ -106,7 +106,7 @@ class TB_BaconUps_028:# <12>[1453]
 #Metaltooth Leaper(2)
 class GVG_048:
 	"""
-	&lt;b&gt;Battlecry:&lt;/b&gt; Give your other Mechs +2 Attack."""
+	<b>Battlecry:</b> Give your other Mechs +2 Attack."""
 	play = Buff(FRIENDLY_MINIONS - SELF,'GVG_048e')
 GVG_048e=buff(2,0)
 class TB_BaconUps_066:# <3>[1453]
@@ -115,6 +115,7 @@ class TB_BaconUps_066:# <3>[1453]
 	play = Buff(FRIENDLY_MINIONS - SELF, 'TB_BaconUps_066e')
 	pass
 TB_BaconUps_066e=buff(4,0)
+
 
 
 #Deflect-o-Bot(3)
@@ -131,10 +132,12 @@ class TB_BaconUps_123:# <12>[1453]
 	pass
 TB_BaconUps_123e=buff(4,0)
 
+
+
 #Replicating Menace(3)
 class BOT_312:
 	"""Replicating Menace
-	&lt;b&gt;Magnetic&lt;/b&gt;&lt;b&gt;Deathrattle:&lt;/b&gt; Summon three 1/1 Microbots."""
+	<b>Magnetic</b><b>Deathrattle:</b> Summon three 1/1 Microbots."""
 	#magnetic = Buff(RIGHT(SELF), 'BOT_312e')
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 class BOT_312e:
@@ -162,10 +165,12 @@ class TB_BaconUps_032t:# <12>[1453]
 	 """
 	pass
 
+
+
 #Screwjank Clunker(3)
 class GVG_055:
 	""" Screwjank Clunker
-	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Mech +2/+2 """
+	<b>Battlecry:</b> Give a friendly Mech +2/+2 """
 	pass
 class TB_BaconUps_069:# <10>[1453]
 	""" Screwjank Clunker
@@ -176,7 +181,7 @@ class TB_BaconUps_069:# <10>[1453]
 #Annoy-o-Module(4)
 class BOT_911:
 	"""
-	&lt;b&gt;Magnetic&lt;/b&gt;&lt;b&gt;Divine Shield&lt;/b&gt;&lt;b&gt;Taunt&lt;/b&gt;"""
+	<b>Magnetic</b><b>Divine Shield</b><b>Taunt</b>"""
 	pass
 class TB_BaconUps_099:# <5>[1453]
 	""" Annoy-o-Module
@@ -200,7 +205,7 @@ class BG21_024_G:# <12>[1453]
 #Mechano-Egg(4)
 class BOT_537:
 	"""
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon an 8/8 Robosaur."""
+	<b>Deathrattle:</b> Summon an 8/8 Robosaur."""
 	pass
 class BOT_537t:
 	"""

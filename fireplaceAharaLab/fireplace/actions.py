@@ -255,6 +255,7 @@ class BeginBar(GameAction):
 		if source.game.turn==amount:	
 			self.broadcast(source, EventListener.ON, player)
 		pass
+
 class BeginTurn(GameAction):
 	"""
 	Make \a player begin the turn
@@ -863,11 +864,7 @@ class Buff(TargetedAction):
 			setattr(buff, k, v)
 		if source.controller==target.controller and target.type==CardType.HERO:##FRIENDLY_HERO
 			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
-			if buff.atk>0:# for atk buffs : BG21_013
-				self.broadcast(source, EventListener.ON, target)
-			if (source.id=='BG21_036' or source.id=='BG21_036_G') and (buff.atk>0 or buff.max_health>0):# for stats buffs : BG21_036
-				self.broadcast(source, EventListener.ON, target)
-			pass
+		self.broadcast(source, EventListener.ON, target, buff)
 		return buff.apply(target)
 
 class BuffPermanently(Buff):

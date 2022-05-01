@@ -156,7 +156,7 @@ class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 	pass
 class TB_BaconShop_HP_046:
 	"""  Gonna Be Rich!
-	Make a friendly minion Golden. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
+	Make a friendly minion Golden. <i>(Once per game.)</i>"""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
 	activate = MorphGold(TARGET), MakeCardUnplayable(SELF)
 	pass
@@ -186,7 +186,7 @@ class BG20_HERO_100_Buddy_G:# <12>[1453]
 BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
 class BG20_HERO_100p:# <10>[1453]
 	""" Glory of Combat
-	&lt;b&gt;Passive.&lt;/b&gt; After a friendly minion kills an enemy, give it +1 Attack permanently. """
+	<b>Passive.</b> After a friendly minion kills an enemy, give it +1 Attack permanently. """
 	events =  Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(Attack.ATTACKER, 'BG20_HERO_100p_e2'))
 	pass
 BG20_HERO_100p_e2=buff(1,0)

@@ -23,20 +23,20 @@ class AV_113:
 	pass
 class AV_113p:
 	""" Summon Pet (3) (hero power)
-	&lt;b&gt;Hero Power&lt;/b&gt;Summon an Animal Companion. """
+	<b>Hero Power</b>Summon an Animal Companion. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
 	activate = Summon(CONTROLLER, RandomEntourage())	
 	pass
 class AV_113t1:
 	""" Improved Explosive Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When your hero is attacked, deal $3 damage to all enemies. """
+	<b>Secret:</b> When your hero is attacked, deal $3 damage to all enemies. """
 	secret = Attack(ENEMY_CHARACTERS, FRIENDLY_HERO).on(
 		Reveal(SELF), Hit(ENEMY_CHARACTERS, 3))	
 	pass
 class AV_113t2:
 	""" Improved Freezing Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
+	<b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
 	secret = Attack(ENEMY_MINIONS).on(
 		Reveal(SELF),
 		Bounce(Attack.ATTACKER),
@@ -48,7 +48,7 @@ class AV_113t2e:# 3 3
 	tags = {GameTag.COST: +4}
 class AV_113t3:
 	""" Improved Snake Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When one of your minions is attacked, summon three 2/2 Snakes. """
+	<b>Secret:</b> When one of your minions is attacked, summon three 2/2 Snakes. """
 	secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
 		Reveal(SELF), Summon(CONTROLLER, "AV_113t3t2") * 3
 	))
@@ -72,7 +72,7 @@ class AV_113t7_Action(TargetedAction):
 
 class AV_113t7:
 	"""Improved Pack Tactics
-	&lt;b&gt;Secret:&lt;/b&gt; When a friendly minion is attacked, summon two 3/3 copies. """
+	<b>Secret:</b> When a friendly minion is attacked, summon two 3/3 copies. """
 	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(AV_113t7_Action(Attack.DEFENDER))
 	pass
 #class BT_203e: ## AOO_Hunter
@@ -90,7 +90,7 @@ class AV_113t8_Action(TargetedAction):
 
 class AV_113t8:
 	""" Improved Open the Cages
-	[x]&lt;b&gt;Secret:&lt;/b&gt; When your turn starts, if you control two minions, summon two Animal Companions."""
+	[x]<b>Secret:</b> When your turn starts, if you control two minions, summon two Animal Companions."""
 	secret = EndTurn(OPPONENT).on(AV_113t8_Action(CONTROLLER,[
 		Reveal(SELF), 
 		Summon(CONTROLLER,random.choice(['NEW1_032','NEW1_033','NEW1_034'])),  
@@ -99,7 +99,7 @@ class AV_113t8:
 	pass
 class AV_113t9:
 	""" Improved Ice Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
+	<b>Secret:</b> When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
 	secret = Play(OPPONENT, SPELL).on(
 		Reveal(SELF),
 		Bounce(Play.CARD),

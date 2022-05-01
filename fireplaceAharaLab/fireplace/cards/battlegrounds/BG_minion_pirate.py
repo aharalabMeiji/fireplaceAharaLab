@@ -50,12 +50,12 @@ BG_Pirate_Gold={
 #Deck Swabbie,1,2,2,Pirate,Battlecry
 class BGS_055:# 甲板みがき　動作確認済み
 	""" Deck Swabbie <pirate>  (2/2)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (1). """
+	<b>Battlecry:</b> Reduce the cost of upgrading Bob's Tavern by (1). """
 	play = ReduceTierUpCost(CONTROLLER,1)
 	pass
 class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the cost of upgrading Bob's Tavern by (2). """
+	<b>Battlecry:</b> Reduce the cost of upgrading Bob's Tavern by (2). """
 	play = ReduceTierUpCost(CONTROLLER,2)
 	pass
 
@@ -72,7 +72,7 @@ class BGS_061t:# <7>[1453]
 	pass
 class TB_BaconUps_141:# <12>[1453]
 	""" Scallywag
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 2/2 Pirate. It attacks immediately. """
+	<b>Deathrattle:</b> Summon a 2/2 Pirate. It attacks immediately. """
 	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_141t').then(RegularAttack(Summon.CARD,RANDOM_ENEMY_MINION))
 	pass
 class TB_BaconUps_141t:# <7>[1453]

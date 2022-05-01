@@ -142,6 +142,8 @@ class BG_main:
 					card.zone = Zone.PLAY
 				#ボブのバーを開始する。
 				BeginBar(controller, bar.turn).trigger(controller)
+				if controller.hero.power:
+					controller.hero.power.activations_this_turn = 0
 				controller.spentmoney_in_this_turn=0
 				#この瞬間に「選択」が発生しうるので
 				choiceAction(controller)
@@ -170,6 +172,9 @@ class BG_main:
 			battleplayer0 = self.BG_Bars[matches[i][0]].controller
 			battleplayer1 = self.BG_Bars[matches[i][1]].controller
 			battles[i].parent = self
+			for  player in [battleplayer0, battleplayer1]:
+				#対戦前処理
+				BeginBattle(player).trigger(player)
 			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
 			for  player in [battleplayer0, battleplayer1]:
 				### 対戦後処理

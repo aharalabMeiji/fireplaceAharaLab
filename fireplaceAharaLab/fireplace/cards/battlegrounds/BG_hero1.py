@@ -203,7 +203,7 @@ class TB_BaconShop_HERO_56_Buddy:
 	<b>Battlecry:</b> Add a random Dragon of your Tavern Tier to your hand."""
 class TB_BaconShop_HERO_56_Buddy_G:
 	""" Vaelastrasz
-	&lt;b&gt;Battlecry:&lt;/b&gt; Add two random Dragons of your Tavern Tier to your hand."""
+	<b>Battlecry:</b> Add two random Dragons of your Tavern Tier to your hand."""
 
 
 ###Ambassador Faelin
@@ -624,7 +624,7 @@ class TB_BaconShop_HERO_36:# <12>[1453]
 	 """
 class TB_BaconShop_HP_042:
 	""" Hat Trick
-	&lt;b&gt;Passive.&lt;/b&gt; After you sell a minion, randomly give a minion in Bob's Tavern +1/+1 three times."""
+	<b>Passive.</b> After you sell a minion, randomly give a minion in Bob's Tavern +1/+1 three times."""
 TB_BaconShop_HP_042e=buff(1,1)
 class TB_BaconShop_HERO_36_Buddy:# <12>[1453]
 	""" Asher the Haberdasher
@@ -668,7 +668,7 @@ class TB_BaconShop_HERO_52:
 	"""
 class TB_BaconShop_HP_061:
 	""" ALL Will Burn!
-	[x]&lt;b&gt;Passive&lt;/b&gt; ALL minions have +2 Attack."""
+	[x]<b>Passive</b> ALL minions have +2 Attack."""
 TB_BaconShop_HP_061e=buff(2,0)
 class TB_BaconShop_HERO_52_Buddy:
 	""" Lady Sinestra
