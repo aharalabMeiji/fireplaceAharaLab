@@ -9,9 +9,9 @@ BG_Minion_Mecha =[
 	'GVG_048','GVG_048e','TB_BaconUps_066','TB_BaconUps_066e',	#Metaltooth Leaper(2)
 	'BGS_071', 'BGS_071e', 'TB_BaconUps_123', 'TB_BaconUps_123e',	#Deflect-o-Bot(3)
 	'BOT_312', 'BOT_312e','BOT_312t','TB_BaconUps_032','TB_BaconUps_032e','TB_BaconUps_032t',	#Replicating Menace(3)
-	'GVG_055', 'TB_BaconUps_069',	#Screwjank Clunker(3)
-	'BOT_911', 'TB_BaconUps_099',	#Annoy-o-Module(4)
-	'BG21_024', 'BG21_024_G',	#Grease Bot(4)
+	'GVG_055', 'GVG_055e', 'TB_BaconUps_069','TB_BaconUps_069e',	#Screwjank Clunker(3)
+	'BOT_911', 'BOT_911e', 'TB_BaconUps_099','TB_BaconUps_099e',	#Annoy-o-Module(4)
+	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4)
 	'BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',	#Mechano-Eg'g(4)
 	'BG21_023', 'BG21_023_G',	#Mechano-Tank(4)
 	'BG20_401', 'BG20_401_G',	#Holy Mecherel(5)
@@ -138,7 +138,7 @@ TB_BaconUps_123e=buff(4,0)
 class BOT_312:
 	"""Replicating Menace
 	<b>Magnetic</b><b>Deathrattle:</b> Summon three 1/1 Microbots."""
-	#magnetic = Buff(RIGHT(SELF), 'BOT_312e')
+	play = Magnetic(SELF, 'BOT_312e')
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 class BOT_312e:
 	"""Replicating Menace
@@ -153,12 +153,12 @@ class BOT_312t:
 class TB_BaconUps_032:# <12>[1453]
 	""" Replicating Menace
 	[Magnetic][Deathrattle:] Summon three 2/2 Microbots. """
-	#magnetic = Buff(RIGHT(SELF), 'BOT_312e')
-	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
+	play = Magnetic(SELF, 'BOT_312e')
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_032t' ) * 3
 	pass
 class TB_BaconUps_032e:
 	tags = {GameTag.DEATHRATTLE:True, }
-	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_032t' ) * 3
 	pass
 class TB_BaconUps_032t:# <12>[1453]
 	""" Microbot
@@ -171,81 +171,96 @@ class TB_BaconUps_032t:# <12>[1453]
 class GVG_055:
 	""" Screwjank Clunker
 	<b>Battlecry:</b> Give a friendly Mech +2/+2 """
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MECHANICAL} 
+	play = Buff(TARGET, 'GVG_055e')
 	pass
+GVG_055e=buff(2,2)
 class TB_BaconUps_069:# <10>[1453]
 	""" Screwjank Clunker
 	[Battlecry:] Give a friendly Mech +4/+4. """
-	#
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MECHANICAL} 
+	play = Buff(TARGET, 'TB_BaconUps_069e')
 	pass
+TB_BaconUps_069e=buff(4,4)
+
 
 #Annoy-o-Module(4)
 class BOT_911:
 	"""
 	<b>Magnetic</b><b>Divine Shield</b><b>Taunt</b>"""
+	play = Magnetic(SELF, 'BOT_911')
 	pass
+BOT_911e=buff(divine_shield=True, taunt=True)
 class TB_BaconUps_099:# <5>[1453]
 	""" Annoy-o-Module
 	[Magnetic][Divine Shield][Taunt] """
-	#
+	play = Magnetic(SELF, 'TB_BaconUps_099e')
 	pass
+TB_BaconUps_099e=buff(divine_shield=True, taunt=True)
+
 
 #Grease Bot(4)
 class BG21_024:# <12>[1453]
 	""" Grease Bot
 	After a friendly minion loses [Divine Shield], give it +1/+1_permanently. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
 	pass
-
+BG21_024e=buff(1,1)
 class BG21_024_G:# <12>[1453]
 	""" Grease Bot
 	After a friendly minion loses [Divine Shield], give it +2/+2_permanently. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
 	pass
+BG21_024_Ge=buff(2,2)
+
+
 
 #Mechano-Egg(4)
 class BOT_537:
 	"""
 	<b>Deathrattle:</b> Summon an 8/8 Robosaur."""
-	pass
+	deathrattle = Summon(CONTROLLER, 'BOT_537t')
 class BOT_537t:
-	"""
-	"""
+	""" Robosaur """
 	pass
 class TB_BaconUps_039:# <5>[1453]
 	""" Mechano-Egg
 	[Deathrattle:] Summon a 16/16 Robosaur. """
-	#
+	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_039t')
 	pass
 class TB_BaconUps_039t:
-	""" Robosaur
-	"""
+	""" Robosaur 	"""
+
+
+
 #Mechano-Tank(4)
 class BG21_023:# <12>[1453]
 	""" Mechano-Tank
 	[Avenge (2):] Deal 5 damage to the highest Health enemy minion. """
-	#
+	events = Death(FRIENDLY_MINION).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
 
 class BG21_023_G:# <12>[1453]
 	""" Mechano-Tank
-	[Avenge (2):] Deal 5 damageto the highest Healthenemy minion twice. """
-	#
+	[Avenge (2):] Deal 5 damage to the highest Health enemy minion twice. """
+	events = Death(FRIENDLY_MINION).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5), Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
 
 
 
 #Holy Mecherel(5)
 class BG20_401:# <12>[1453]
-	""" Holy Mecherel
+	""" Holy Mecherel  さば
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetAttr(SELF, 'divine_shield', True))
 	pass
 
 class BG20_401_G:# <12>[1453]
 	""" Holy Mecherel
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetAttr(SELF, 'divine_shield', True))
 	pass
+
 
 
 #Foe Reaper 4000(6)

@@ -2985,6 +2985,21 @@ class LoseDivineShield(GameAction):#聖盾を失ったとき
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
 
+class Magnetic(TargetedAction):#超電磁
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		if not target in target.controller.field:
+			return
+		index = target.controller.field.index(target)
+		if index==len(target.controller.field)-1:
+			return
+		other = target.controller.field[index+1]
+		if other.race == Race.MECHANICAL:
+			Buff(other, buff).trigger(target.controller)
+			Destroy(target).trigger(target.controller)
+		pass
+
 class MakeCardUnplayable(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):

@@ -354,6 +354,9 @@ HIGHEST_ATK = lambda sel: (
 LOWEST_ATK = lambda sel: (
 	RANDOM(sel + (AttrValue(GameTag.ATK) == OpAttr(sel, GameTag.ATK, min)))
 )
+HIGHEST_HEALTH = lambda sel: (
+	RANDOM(sel + (AttrValue(GameTag.HEALTH == OpAttr(sel, GameTag.HEALTH, max)))
+)
 
 
 class Controller(LazyValue):

@@ -95,7 +95,7 @@ class BG22_HERO_002p_Action(TargetedAction):
 	BUFF=ActionArg()
 	def do(self, source, target, buff):
 		controller = target.controller
-		Buff(target.buff).trigger(controller)
+		Buff(target, buff).trigger(controller)
 		buffcard = target.buffs[-1]
 		highest_atk = 0
 		for card in controller.field:
