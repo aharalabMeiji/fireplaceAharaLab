@@ -80,19 +80,3 @@ class BG_Bar(Game):
 		newcard.zone = Zone.HAND # 必要か？
 		return newcard
 
-	def BG_morph_gold(self, card):
-		if not card or not card in self.controller.field:
-			return
-		gold_id = self.parent.BG_Gold[id]
-		if not gold_id:
-			return
-		buffs = []
-		for card in self.controller.field:
-			if card.id==id:
-				buffs += card.buffs
-				card.zone=Zone.GRAVEYARD
-		newcard = self.controller.card(gold_id)
-		for buff in buffs:## バフはすべて継承する
-			buff.apply(newcard)
-		newcard.zone = Zone.HAND # 必要か？
-		return newcard

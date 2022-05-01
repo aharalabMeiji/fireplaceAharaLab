@@ -2988,6 +2988,30 @@ class LoseDivineShield(GameAction):#聖盾を失ったとき
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
 
+class MakeCardUnplayable(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		target.cant_play = True
+
+class MorphGold(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if isinstance(target, list):
+			target = target[0]
+		id = target.id
+		gold_id = target.controller.game.parent.BG_Gold[id]
+		if not gold_id:
+			return
+		buffs = []
+		buffs += target.buffs
+		target.zone=Zone.GRAVEYARD
+		newcard = target.controller.card(gold_id)
+		for buff in buffs:## inheriting all buffs
+			buff.apply(newcard)
+		print("Gold card!!! by %s"%(target.controller))
+		newcard.zone = Zone.HAND # 必要か？
+		return newcard
+
 class ReduceTierUpCost(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()

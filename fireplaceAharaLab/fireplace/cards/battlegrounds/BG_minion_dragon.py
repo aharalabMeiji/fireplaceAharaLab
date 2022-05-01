@@ -65,12 +65,12 @@ class BG21_027_Ge:
 class BGS_019:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendly Dragon to one random enemy minion. """
-	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS, Count(FRIENDLY_MINIONS + DRAGON))))
+	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)))
 	pass
 class TB_BaconUps_102:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendlyDragon to one randomenemy minion twice. """
-	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS, Count(FRIENDLY_MINIONS + DRAGON))),Hit(RANDOM(ENEMY_MINIONS, Count(FRIENDLY_MINIONS + DRAGON))))
+	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)),Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)))
 	pass
 
 #Glyph Guardian(2)

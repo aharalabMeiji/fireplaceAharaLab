@@ -169,6 +169,7 @@ class BG_main:
 			battles[i] = BG_Battle([self.BG_Bars[matches[i][0]],self.BG_Bars[matches[i][1]]])
 			battleplayer0 = self.BG_Bars[matches[i][0]].controller
 			battleplayer1 = self.BG_Bars[matches[i][1]].controller
+			battles[i].parent = self
 			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
 			for  player in [battleplayer0, battleplayer1]:
 				### 対戦後処理
@@ -475,7 +476,7 @@ def GetMoveCandidates(bar, controller, bartender):
 	for card in controller.field:
 		ret.append(Move(bar, card, MovePlay.SELL))
 	#POWER=5
-	if controller.hero.power.is_usable() and controller.hero.power.cost >= controller.mana:
+	if not controller.hero.power.cant_play and controller.hero.power.is_usable() and controller.hero.power.cost <= controller.mana:
 		if controller.hero.power.requires_target() and len(controller.hero.power.targets)>0:
 			for target in controller.hero.power.targets:
 				ret.append(Move(bar, target, MovePlay.POWER))

@@ -103,20 +103,38 @@ BG_Hero4_Buddy_Gold={
 class TB_BaconShop_HERO_75:# <12>[1453]
 	""" Rakanishu """
 	pass
+class TB_BaconShop_HERO_75_Action(TargetedAction):
+	TARGET = ActionArg()
+	OTHER = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		if not isinstance(other, list):
+			other = [other]
+		tier = controller.Tier
+		for card in other:
+			Buff(card, 'TB_BaconShop_HP_085e').trigger(controller)
+			buff = card.buffs[-1]
+			buff.atk = tier*amount
+			buff.max_health = tier*amount
+		pass
 class TB_BaconShop_HERO_75_Buddy:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal toyour Tavern Tier. """
+	events = OWN_TURN_END.on(TB_BaconShop_HERO_75_Action(CONTROLLER, RANDOM_FRIENDLY_MINION, 1))
 	pass
 class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal to yourTavern Tier twice. """
+	events = OWN_TURN_END.on(TB_BaconShop_HERO_75_Action(CONTROLLER, RANDOM_FRIENDLY_MINION, 2))
 	pass
 class TB_BaconShop_HP_085:
-	"""  """
+	""" Tavern Lighting 
+	Give a friendly minion stats equal to your Tavern Tier."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	activate =  TB_BaconShop_HERO_75_Action(CONTROLLER, TARGET, 1)
 class TB_BaconShop_HP_085e:
 	"""  """
-
-
 
 
 
@@ -128,13 +146,19 @@ class TB_BaconShop_HERO_41:# <12>[1453]
 class TB_BaconShop_HERO_41_Buddy:# <12>[1453]
 	""" Sr. Tomb Diver
 	[Deathrattle:] Make your right-most minion Golden. """
+	deathrattle = MorphGold(RIGHT_MOST(SELF))
 	pass
 class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 	""" Sr. Tomb Diver
-	[Deathrattle:] Make your tworight-most minions Golden. """
+	[Deathrattle:] Make your two right-most minions Golden. """
+	deathrattle = MorphGold(LEFT_OF(RIGHT_MOST(SELF)))
+	deathrattle = MorphGold(RIGHT_MOST(SELF))
 	pass
 class TB_BaconShop_HP_046:
-	"""  """
+	"""  Gonna Be Rich!
+	Make a friendly minion Golden. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	activate = MorphGold(TARGET), MakeCardUnplayable(SELF)
 	pass
 
 

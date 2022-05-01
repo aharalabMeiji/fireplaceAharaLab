@@ -286,6 +286,8 @@ class BoardPositionSelector(Selector):
 	class Direction(IntEnum):
 		LEFT = 1
 		RIGHT = 2
+		LEFT_MOST = 3
+		RIGHT_MOST = 4
 
 	def __init__(self, direction: Direction, child: SelectorLike):
 		if isinstance(child, LazyValue):
@@ -303,7 +305,10 @@ class BoardPositionSelector(Selector):
 					# Swap the list, reverse the position
 					field = list(reversed(field))
 					position = -(position + 1)
-
+				elif self.direction == self.Direction.RIGHT_MOST:
+					position = -1
+				elif self.direction == self.Direction.LEFT_MOST:
+					position = 0
 				left = field[:position]
 				if left:
 					result.append(left[-1])
@@ -316,7 +321,8 @@ RIGHT_OF = lambda s: BoardPositionSelector(BoardPositionSelector.Direction.RIGHT
 ADJACENT = lambda s: LEFT_OF(s) | RIGHT_OF(s)
 SELF_ADJACENT = ADJACENT(SELF)
 TARGET_ADJACENT = ADJACENT(TARGET)
-
+RIGHT_MOST =  lambda s: BoardPositionSelector(BoardPositionSelector.Direction.RIGHT_MOST, s)
+LEFT_MOST =  lambda s: BoardPositionSelector(BoardPositionSelector.Direction.LEFT_MOST, s)
 
 class RandomSelector(Selector):
 	"""

@@ -125,7 +125,8 @@ class BG_HumanAgent(BG_Agent):
 		buddy = controller.buddy_gauge
 		if buddy>100:
 			buddy = (buddy-100)*0.5
-		print("%s(%d + %d), buddy : %d"%(controller.hero, controller.hero.health, controller.hero.armor, buddy))
+		print("ヒーロー：%s(%d + %d), buddy : %d"%(controller.hero, controller.hero.health, controller.hero.armor, buddy))
+		print("パワー　：%s(cost %d), playable : %s"%(controller.hero.power, controller.hero.power.cost, (not controller.hero.power.cant_play)))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar   :%s" %(self.card_stats(card)))

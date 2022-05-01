@@ -5,7 +5,7 @@ BG_Minion_Pirate=[
 	'BGS_055','TB_BaconUps_126',#Deck Swabbie (1)
 	'BGS_061','BGS_061t','TB_BaconUps_141','TB_BaconUps_141t',#Scallywag,1
 	'BGS_049','TB_BaconUps_127',#Freedealing Gambler,2
-	'CORE_NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e',#Southsea Captain,2
+	'NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e',#Southsea Captain,2
 	'BGS_060','TB_BaconUps_150',#Yo-Ho-Ogre,2
 	'BG21_017','BG21_017_G',#Briny Bootlegger,3
 	'BGS_081','BGS_081e','TB_BaconUps_143','TB_BaconUps_143e',#Salty Looter,3
@@ -21,7 +21,7 @@ BG_Minion_Pirate=[
 
 BG_PoolSet_Pirate=[
 	['BGS_055','BGS_061',],
-	['BGS_049','CORE_NEW1_027','BGS_060',],
+	['BGS_049','NEW1_027','BGS_060',],
 	['BG21_017','BGS_081','BGS_048',],
 	['BGS_066','BG21_016','BGS_056',],
 	['BGS_072','BG21_031',],
@@ -32,7 +32,7 @@ BG_Pirate_Gold={
 	'BGS_055':'TB_BaconUps_126',#Deck Swabbie (1)
 	'BGS_061':'TB_BaconUps_141',#Scallywag,1
 	'BGS_049':'TB_BaconUps_127',#Freedealing Gambler,2
-	'CORE_NEW1_027':'TB_BaconUps_136',#Southsea Captain,2
+	'NEW1_027':'TB_BaconUps_136',#Southsea Captain,2
 	'BGS_060':'TB_BaconUps_150',#Yo-Ho-Ogre,2
 	'BG21_017':'BG21_017_G',#Briny Bootlegger,3
 	'BGS_081':'TB_BaconUps_143',#Salty Looter,3
