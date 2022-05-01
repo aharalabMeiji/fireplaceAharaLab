@@ -28,23 +28,23 @@ class TB_BaconShop_HERO_KelThuzad:# <12>[1453]
 	pass
 
 BG_Hero1=[
-	'TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',#01#A. F. Kay 
-	'TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',#02#Al'Akir
-	'TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy',#03#Alexstrasza
-	'BG22_HERO_201','BG22_HERO_201p','BG22_HERO_201pe','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G',#04#Ambassador Faelin
-	'TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',#05#Aranna Starseeker
-	'TB_BaconShop_HERO_45','TB_BaconShop_HP_053','TB_BaconShop_HERO_45_Buddy','TB_BaconShop_HERO_45_Buddy_G',#06#Arch-Villain Rafaam
-	'BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',#BG22_HERO_001#07#Bru'kan
-	'TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',#08#C'Thun
-	'TB_BaconShop_HERO_64','TB_BaconShop_HP_074','TB_BaconShop_HERO_64_Buddy','TB_BaconShop_HERO_64_Buddy_e','TB_BaconShop_HERO_64_Buddy_G','TB_BaconShop_HERO_64_Buddy_G_e',#09#Captain Eudora
-	'TB_BaconShop_HERO_67','TB_BaconShop_HP_075','TB_BaconShop_HERO_67_Buddy','TB_BaconShop_HERO_67_Buddy_G',#10#Captain Hooktusk
-	'BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',#11#Cariel Roame
-	'TB_BaconShop_HERO_78','TB_BaconShop_HP_088','TB_BaconShop_HERO_78_Buddy','TB_BaconShop_HERO_78_Buddy_G',#12#Chenvaala
-	'BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',#13#Cookie the Cook
-	'TB_BaconShop_HERO_36','TB_BaconShop_HP_042','TB_BaconShop_HP_042e','TB_BaconShop_HERO_36_Buddy','TB_BaconShop_HERO_36_Buddy_e','TB_BaconShop_HERO_36_Buddy_G','TB_BaconShop_HERO_36_Buddy_Ge',#14#Dancin' Deryl
-	'BG20_HERO_103','BG20_HERO_103p','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G',#Death Speaker Blackthorn
-	'TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',#16#Deathwing
-	'TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e','TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',#17#Dinotamer Brann
+	'TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',#00#A. F. Kay 
+	'TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',#01#Al'Akir
+	'TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy',#02#Alexstrasza
+	'BG22_HERO_201','BG22_HERO_201p','BG22_HERO_201pe','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G',#03#Ambassador Faelin
+	'TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',#04#Aranna Starseeker
+	'TB_BaconShop_HERO_45','TB_BaconShop_HP_053','TB_BaconShop_HERO_45_Buddy','TB_BaconShop_HERO_45_Buddy_G',#05#Arch-Villain Rafaam
+	'BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',#BG22_HERO_001#06#Bru'kan
+	'TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',#07#C'Thun
+	'TB_BaconShop_HERO_64','TB_BaconShop_HP_074','TB_BaconShop_HERO_64_Buddy','TB_BaconShop_HERO_64_Buddy_e','TB_BaconShop_HERO_64_Buddy_G','TB_BaconShop_HERO_64_Buddy_G_e',#08#Captain Eudora
+	'TB_BaconShop_HERO_67','TB_BaconShop_HP_075','TB_BaconShop_HERO_67_Buddy','TB_BaconShop_HERO_67_Buddy_G',#09#Captain Hooktusk
+	'BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',#10#Cariel Roame
+	'TB_BaconShop_HERO_78','TB_BaconShop_HP_088','TB_BaconShop_HERO_78_Buddy','TB_BaconShop_HERO_78_Buddy_G',#11#Chenvaala
+	'BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',#12#Cookie the Cook
+	'TB_BaconShop_HERO_36','TB_BaconShop_HP_042','TB_BaconShop_HP_042e','TB_BaconShop_HERO_36_Buddy','TB_BaconShop_HERO_36_Buddy_e','TB_BaconShop_HERO_36_Buddy_G','TB_BaconShop_HERO_36_Buddy_Ge',#13#Dancin' Deryl
+	'BG20_HERO_103','BG20_HERO_103p','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G',#14#Death Speaker Blackthorn
+	'TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',#15#Deathwing
+	'TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e','TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',#16#Dinotamer Brann
 ]
 
 BG_PoolSet_Hero1=[
@@ -52,68 +52,50 @@ BG_PoolSet_Hero1=[
 	]
 
 BG_Hero1_Buddy={
-	'TB_BaconShop_HERO_16':'TB_BaconShop_HERO_16_Buddy',#01#A. F. Kay 
-	'TB_BaconShop_HERO_76':'TB_BaconShop_HERO_76_Buddy',#02#Al'Akir
-	'TB_BaconShop_HERO_56':'TB_BaconShop_HERO_56_Buddy',#03#Alexstrasza
-	'BG22_HERO_201':'BG22_HERO_201_Buddy',#04#Ambassador Faelin
-	'TB_BaconShop_HERO_59':'TB_BaconShop_HERO_59_Buddy',#05#Aranna 
-	'TB_BaconShop_HERO_45':'TB_BaconShop_HERO_45_Buddy',#06#Arch-Villain Rafaam
-	'BG22_HERO_001':'BG22_HERO_001_Buddy',#BG22_HERO_001#07#Bru'kan
-	'TB_BaconShop_HERO_29':'TB_BaconShop_HERO_29_Buddy',#08#C'Thun
-	'TB_BaconShop_HERO_64':'TB_BaconShop_HERO_64_Buddy',#09#Captain Eudora
-	'TB_BaconShop_HERO_67':'TB_BaconShop_HERO_67_Buddy',#10#Captain Hooktusk
-	'BG21_HERO_000':'BG21_HERO_000_Buddy',#11#Cariel Roame
-	'TB_BaconShop_HERO_78':'TB_BaconShop_HERO_78_Buddy',#12#Chenvaala
-	'BG21_HERO_020':'BG21_HERO_020_Buddy',#13#Cookie the Cook
-	'TB_BaconShop_HERO_36':'TB_BaconShop_HERO_36_Buddy',#14#Dancin' Deryl
-	'BG20_HERO_103':'BG20_HERO_103_Buddy',#Death Speaker Blackthorn
-	'TB_BaconShop_HERO_52':'TB_BaconShop_HERO_52_Buddy',#16#Deathwing
-	'TB_BaconShop_HERO_43':'TB_BaconShop_HERO_43_Buddy',#17#Dinotamer Brann
+	'TB_BaconShop_HERO_16':'TB_BaconShop_HERO_16_Buddy',#00#A. F. Kay 
+	'TB_BaconShop_HERO_76':'TB_BaconShop_HERO_76_Buddy',#01#Al'Akir
+	'TB_BaconShop_HERO_56':'TB_BaconShop_HERO_56_Buddy',#02#Alexstrasza
+	'BG22_HERO_201':'BG22_HERO_201_Buddy',#03#Ambassador Faelin
+	'TB_BaconShop_HERO_59':'TB_BaconShop_HERO_59_Buddy',#04#Aranna 
+	'TB_BaconShop_HERO_45':'TB_BaconShop_HERO_45_Buddy',#05#Arch-Villain Rafaam
+	'BG22_HERO_001':'BG22_HERO_001_Buddy',#BG22_HERO_001#06#Bru'kan
+	'TB_BaconShop_HERO_29':'TB_BaconShop_HERO_29_Buddy',#07#C'Thun
+	'TB_BaconShop_HERO_64':'TB_BaconShop_HERO_64_Buddy',#08#Captain Eudora
+	'TB_BaconShop_HERO_67':'TB_BaconShop_HERO_67_Buddy',#09#Captain Hooktusk
+	'BG21_HERO_000':'BG21_HERO_000_Buddy',#10#Cariel Roame
+	'TB_BaconShop_HERO_78':'TB_BaconShop_HERO_78_Buddy',#11#Chenvaala
+	'BG21_HERO_020':'BG21_HERO_020_Buddy',#12#Cookie the Cook
+	'TB_BaconShop_HERO_36':'TB_BaconShop_HERO_36_Buddy',#13#Dancin' Deryl
+	'BG20_HERO_103':'BG20_HERO_103_Buddy',#14#Death Speaker Blackthorn
+	'TB_BaconShop_HERO_52':'TB_BaconShop_HERO_52_Buddy',#15#Deathwing
+	'TB_BaconShop_HERO_43':'TB_BaconShop_HERO_43_Buddy',#16#Dinotamer Brann
 	}
 
 BG_Hero1_Buddy_Gold={
-	'TB_BaconShop_HERO_16_Buddy':'TB_BaconShop_HERO_16_Buddy_G',#01#A. F. Kay 
-	'TB_BaconShop_HERO_76_Buddy':'TB_BaconShop_HERO_76_Buddy_G',#02#Al'Akir
-	'TB_BaconShop_HERO_56_Buddy':'TB_BaconShop_HERO_56_Buddy_G',#03#Alexstrasza
-	'BG22_HERO_201_Buddy':'BG22_HERO_201_Buddy_G',#04#Ambassador Faelin
-	'TB_BaconShop_HERO_59_Buddy':'TB_BaconShop_HERO_59_Buddy_G',#05#Aranna Starseeker
-	'TB_BaconShop_HERO_45_Buddy':'TB_BaconShop_HERO_45_Buddy_G',#06#Arch-Villain Rafaam
-	'BG22_HERO_001_Buddy':'BG22_HERO_001_Buddy_G',##07#Bru'kan
-	'TB_BaconShop_HERO_29_Buddy':'TB_BaconShop_HERO_29_Buddy_G',#08#C'Thun
-	'TB_BaconShop_HERO_64_Buddy':'TB_BaconShop_HERO_64_Buddy_G',#09#Captain Eudora
-	'TB_BaconShop_HERO_67_Buddy':'TB_BaconShop_HERO_67_Buddy_G',#10#Captain Hooktusk
-	'BG21_HERO_000_Buddy':'BG21_HERO_000_Buddy_G',#11#Cariel Roame
-	'TB_BaconShop_HERO_78_Buddy':'TB_BaconShop_HERO_78_Buddy_G',#12#Chenvaala
-	'BG21_HERO_020_Buddy':'BG21_HERO_020_Buddy_G',#13#Cookie the Cook
-	'TB_BaconShop_HERO_36_Buddy':'TB_BaconShop_HERO_36_Buddy_G',#14#Dancin' Deryl
-	'BG20_HERO_103_Buddy':'BG20_HERO_103_Buddy_G',#Death Speaker Blackthorn
-	'TB_BaconShop_HERO_52_Buddy':'TB_BaconShop_HERO_52_Buddy_G',#16#Deathwing
-	'TB_BaconShop_HERO_43_Buddy':'TB_BaconShop_HERO_43_Buddy_G',#17#Dinotamer Brann
+	'TB_BaconShop_HERO_16_Buddy':'TB_BaconShop_HERO_16_Buddy_G',#
+	'TB_BaconShop_HERO_76_Buddy':'TB_BaconShop_HERO_76_Buddy_G',#
+	'TB_BaconShop_HERO_56_Buddy':'TB_BaconShop_HERO_56_Buddy_G',#
+	'BG22_HERO_201_Buddy':'BG22_HERO_201_Buddy_G',#
+	'TB_BaconShop_HERO_59_Buddy':'TB_BaconShop_HERO_59_Buddy_G',#
+	'TB_BaconShop_HERO_45_Buddy':'TB_BaconShop_HERO_45_Buddy_G',#
+	'BG22_HERO_001_Buddy':'BG22_HERO_001_Buddy_G',##
+	'TB_BaconShop_HERO_29_Buddy':'TB_BaconShop_HERO_29_Buddy_G',#
+	'TB_BaconShop_HERO_64_Buddy':'TB_BaconShop_HERO_64_Buddy_G',#
+	'TB_BaconShop_HERO_67_Buddy':'TB_BaconShop_HERO_67_Buddy_G',#
+	'BG21_HERO_000_Buddy':'BG21_HERO_000_Buddy_G',#
+	'TB_BaconShop_HERO_78_Buddy':'TB_BaconShop_HERO_78_Buddy_G',#
+	'BG21_HERO_020_Buddy':'BG21_HERO_020_Buddy_G',#
+	'TB_BaconShop_HERO_36_Buddy':'TB_BaconShop_HERO_36_Buddy_G',#
+	'BG20_HERO_103_Buddy':'BG20_HERO_103_Buddy_G',#
+	'TB_BaconShop_HERO_52_Buddy':'TB_BaconShop_HERO_52_Buddy_G',#
+	'TB_BaconShop_HERO_43_Buddy':'TB_BaconShop_HERO_43_Buddy_G',#
 	}
 
-BG_Hero1_Armor={
-	'TB_BaconShop_HERO_16':0,#01#A. F. Kay 
-	'TB_BaconShop_HERO_76':5,#02#Al'Akir
-	'TB_BaconShop_HERO_56':3,#03#Alexstrasza
-	'BG22_HERO_201':4,#04#Ambassador Faelin
-	'TB_BaconShop_HERO_59':0,#05#Aranna 
-	'TB_BaconShop_HERO_45':5,#06#Arch-Villain Rafaam
-	'BG22_HERO_001':'BG22_HERO_001_Buddy',#BG22_HERO_001#07#Bru'kan
-	'TB_BaconShop_HERO_29':5,#08#C'Thun
-	'TB_BaconShop_HERO_64':6,#09#Captain Eudora
-	'TB_BaconShop_HERO_67':6,#10#Captain Hooktusk
-	'BG21_HERO_000':0,#11#Cariel Roame
-	'TB_BaconShop_HERO_78':0,#12#Chenvaala
-	'BG21_HERO_020':0,#13#Cookie the Cook
-	'TB_BaconShop_HERO_36':'TB_BaconShop_HERO_36_Buddy',#14#Dancin' Deryl
-	'BG20_HERO_103':'BG20_HERO_103_Buddy',#Death Speaker Blackthorn
-	'TB_BaconShop_HERO_52':'TB_BaconShop_HERO_52_Buddy',#16#Deathwing
-	'TB_BaconShop_HERO_43':'TB_BaconShop_HERO_43_Buddy',#17#Dinotamer Brann
-	}
+
 ########### source
 
 
-#01#A. F. Kay 
+#00#A. F. Kay 
 class TB_BaconShop_HERO_16:# <12>[1453]
 	""" A. F. Kay
 	 """
@@ -137,7 +119,7 @@ class TB_BaconShop_HP_044:#<12>[1453]
 class TB_BaconShop_HERO_16_Buddy:# <12>[1453]
 	""" Snack Vendor
 	At the end of your turn, give your Tavern Tier 3 minions +1/+2. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + TIER3, 'TB_BaconShop_HERO_16_Buddy_e'))
 	pass
 TB_BaconShop_HERO_16_Buddy_e=buff(1,2)# <12>[1453]
 """ Snack-Filled
@@ -145,14 +127,14 @@ TB_BaconShop_HERO_16_Buddy_e=buff(1,2)# <12>[1453]
 class TB_BaconShop_HERO_16_Buddy_G:# <12>[1453]
 	""" Snack Vendor
 	At the end of your turn, give your Tavern Tier 3 minions +2/+4. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + TIER3, 'TB_BaconShop_HERO_16_Buddy_G_e'))
 	pass
 TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453]
 """ Snack-Filled
 +2/+4. """
 
 
-#02#Al'Akir
+#01#Al'Akir
 class TB_BaconShop_HERO_76:# <12>[1453]
 	""" Al'Akir
 	 """
@@ -180,10 +162,12 @@ class TB_BaconShop_HERO_76_Buddy_e:# <12>[1453]
 	pass
 class TB_BaconShop_HERO_76_Buddy_G:
 	""" Spirit of Air
-	<b>Deathrattle:</b> Give 2 randomfriendly minions <b>Windfury</b>,<b>Divine Shield</b>, and <b>Taunt</b>."""
+	<b>Deathrattle:</b> Give 2 random friendly minions <b>Windfury</b>,<b>Divine Shield</b>, and <b>Taunt</b>."""
 	pass
 
-#03#Alexstrasza
+
+
+#02#Alexstrasza
 class TB_BaconShop_HERO_56:# <12>[1453]
 	""" Alexstrasza
 	"""
@@ -206,7 +190,7 @@ class TB_BaconShop_HERO_56_Buddy_G:
 	<b>Battlecry:</b> Add two random Dragons of your Tavern Tier to your hand."""
 
 
-###Ambassador Faelin
+#03##Ambassador Faelin
 class BG22_HERO_201:# <12>[1453]
 	""" Ambassador Faelin
 	"""
@@ -284,7 +268,8 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 	pass
 
 
-#05#Aranna Starseeker # アランナ
+
+#04#Aranna Starseeker # アランナ
 class TB_BaconShop_HERO_59:# <12>[1453]
 	""" Aranna Starseeker
 	"""
@@ -317,7 +302,7 @@ class TB_BaconShop_HERO_59t:# <12>[1453]
 	pass
 
 
-#06#Arch-Villain Rafaam
+#05#Arch-Villain Rafaam
 class TB_BaconShop_HERO_45:# <12>[1453]
 	""" Arch-Villain Rafaam
 	"""
@@ -364,7 +349,9 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_G_Action(CONTROLLER))
 	pass
 
-###Bru'kan
+
+
+#06##Bru'kan
 class BG22_HERO_001:# <12>[1453]
 	""" Bru'kan
 	"""
@@ -473,7 +460,8 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 	pass
 
 
-#08#C'Thun
+
+#07#C'Thun
 class TB_BaconShop_HERO_29:# <12>[1453]
 	""" C'Thun
 	"""
@@ -503,7 +491,9 @@ class TB_BaconShop_HERO_29_Buddy_Ge:# <12>[1453]
 	#
 	pass
 
-#09#Captain Eudora
+
+
+#08#Captain Eudora
 class TB_BaconShop_HERO_64:# <12>[1453]
 	""" Captain Eudora
 	"""
@@ -524,7 +514,8 @@ TB_BaconShop_HERO_64_Buddy_G_e=buff(10,10)# <12>[1453]
 +10/+10. """
 
 
-#10#Captain Hooktusk
+
+#09#Captain Hooktusk
 class TB_BaconShop_HERO_67:# <12>[1453]
 	""" Captain Hooktusk
 	"""
@@ -543,7 +534,8 @@ class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 	pass
 
 
-#11#Cariel Roame
+
+#10#Cariel Roame
 class BG21_HERO_000:# <5>[1453]
 	""" Cariel Roame
 	"""
@@ -580,7 +572,9 @@ class BG21_HERO_000_Buddy_G:# <12>[1453]
 	pass
 BG21_HERO_000_Buddy_G_e=buff(2,2)
 
-#12#Chenvaala
+
+
+#11#Chenvaala
 class TB_BaconShop_HERO_78:# <12>[1453]
 	""" Chenvaala
 	"""
@@ -595,7 +589,8 @@ class TB_BaconShop_HERO_78_Buddy_G:
 	Bob always offers 2 extra <b>Frozen</b> Elementals whenever the Tavern is <b>Refreshed</b>."""
 
 
-#13#Cookie the Cook
+
+#12#Cookie the Cook
 class BG21_HERO_020:# <12>[1453]
 	""" Cookie the Cook
 	 """
@@ -618,7 +613,7 @@ class BG21_HERO_020_Buddy_G:# <12>[1453]
 
 
 
-#14#Dancin' Deryl
+#13#Dancin' Deryl
 class TB_BaconShop_HERO_36:# <12>[1453]
 	""" Dancin' Deryl
 	 """
@@ -644,8 +639,7 @@ TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
 +2/+2. """
 
 
-'BG20_HERO_103','BG20_HERO_103p',
-#15#Death Speaker Blackthorn
+#14#Death Speaker Blackthorn
 class BG20_HERO_103:# <12>[1453]
 	""" Death Speaker Blackthorn
 	 """
@@ -662,7 +656,8 @@ class BG20_HERO_103_Buddy_G:
 	After you gain a <b>Blood Gem</b>, gain two extra. """
 
 
-#16#Deathwing
+
+#15#Deathwing
 class TB_BaconShop_HERO_52:
 	""" Deathwing
 	"""
@@ -680,7 +675,7 @@ class TB_BaconShop_HERO_52_Buddy_G:
 TB_BaconShop_HERO_52_Buddy_G_e=buff(3,0)
 
 
-#17#Dinotamer Brann
+#16#Dinotamer Brann
 class TB_BaconShop_HERO_43:# <12>[1453]
 	""" Dinotamer Brann
 	 """

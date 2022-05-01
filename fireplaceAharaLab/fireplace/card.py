@@ -1095,6 +1095,7 @@ class Weapon(rules.WeaponRules, LiveEntity):
 
 class HeroPower(PlayableCard):
 	additional_activations = int_property("additional_activations")
+	passive_power = int_property("passive_power")
 	playable_zone = Zone.PLAY
 
 	def __init__(self, data):
@@ -1150,6 +1151,8 @@ class HeroPower(PlayableCard):
 
 	def is_usable(self):
 		if self.exhausted:
+			return False
+		if self.passive_power:## 常時発動（バトルグラウンド）
 			return False
 		return super().is_playable()
 

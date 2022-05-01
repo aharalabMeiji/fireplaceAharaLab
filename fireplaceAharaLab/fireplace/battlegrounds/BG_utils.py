@@ -98,9 +98,9 @@ class BG_main:
 			bar.parent = self
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
-			#if agent.name=='Human1':
-			#	card = bar.controller.card('BGS_059')
-			#	card.zone = Zone.HAND
+			if agent.name=='Human1':
+				card = bar.controller.card('TB_BaconShop_HERO_16_Buddy')
+				card.zone = Zone.HAND
 			##########
 			pass
 		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
