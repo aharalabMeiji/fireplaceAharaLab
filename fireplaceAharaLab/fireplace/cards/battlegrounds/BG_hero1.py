@@ -297,8 +297,10 @@ class TB_BaconShop_HP_065:
 	""" Demon Hunter Training
 	<b>Passive</b> After you <b>Refresh</b> 5 times, Bob always has 7 minions.
 <i>(@ left!)</i>"""
-	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_065t2'),
-														   SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]))
+	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, \
+		[ ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_065t2'),\
+		SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]\
+		))
 	pass
 class TB_BaconShop_HP_065pe:
 	"""  Aranna Watcher
@@ -339,6 +341,7 @@ class TB_BaconShop_HP_053_Action(TargetedAction):
 class TB_BaconShop_HP_053:
 	""" I'll Take That!
 	Next combat, add a plain copy of the first minion you kill to your hand."""
+	tags={GameTag.HIDE_COST:1}
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_053_Action(CONTROLLER))
 class TB_BaconShop_HERO_45_Buddy_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -641,40 +644,41 @@ class TB_BaconShop_HERO_36:# <12>[1453]
 class TB_BaconShop_HP_042:
 	""" Hat Trick
 	<b>Passive.</b> After you sell a minion, randomly give a minion in Bob's Tavern +1/+1 three times."""
+	events = Sell(CONTROLLER).after(Buff(SELF, 'TB_BaconShop_HERO_36_Buddy_e'))
+
 TB_BaconShop_HP_042e=buff(1,1)
 class TB_BaconShop_HERO_36_Buddy:# <12>[1453]
 	""" Asher the Haberdasher
 	After you sell a minion, gain +1/+1. """
-	#
+	events = Sell(CONTROLLER).after(Buff(SELF, 'TB_BaconShop_HERO_36_Buddy_e'))
 	pass
 TB_BaconShop_HERO_36_Buddy_e=buff(1,1)# <12>[1453]
-""" Dashing Hat
-+1/+1. """
+""" Dashing Hat,+1/+1. """
 class TB_BaconShop_HERO_36_Buddy_G:# <12>[1453]
 	""" Asher the Haberdasher
 	After you sell a minion, gain +2/+2. """
-	#
+	events = Sell(CONTROLLER).after(Buff(SELF, 'TB_BaconShop_HERO_36_Buddy_Ge'))
 	pass
 TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
-""" Dashing Hat
-+2/+2. """
+""" Dashing Hat,+2/+2. """
 
 
 #14#Death Speaker Blackthorn
 class BG20_HERO_103:# <12>[1453]
-	""" Death Speaker Blackthorn
-	 """
+	""" Death Speaker Blackthorn	 """
 class BG20_HERO_103p:# <12>[1453]
 	""" Bloodbound
-	[Passive]After you upgradeBob's Tavern, gain2 [Blood Gems]. """
-	#
+	[Passive]After you upgrade Bob's Tavern, gain 2 [Blood Gems]. """
+	events = UpgradeTier(CONTROLLER).on(Give(CONTROLLER, 'BG20_GEM')*2)
 	pass
 class BG20_HERO_103_Buddy:
 	""" Death's Head Sage
 	After you gain a <b>Blood Gem</b>, gain an extra one. """
+	events = Give(CONTROLLER, ID('BG20_GEM')).after(Give(CONTROLLER, 'BG20_GEM'))
 class BG20_HERO_103_Buddy_G:
 	""" Death's Head Sage
 	After you gain a <b>Blood Gem</b>, gain two extra. """
+	events = Give(CONTROLLER, ID('BG20_GEM')).after(Give(CONTROLLER, 'BG20_GEM')*2)
 
 
 
@@ -685,15 +689,18 @@ class TB_BaconShop_HERO_52:
 class TB_BaconShop_HP_061:
 	""" ALL Will Burn!
 	[x]<b>Passive</b> ALL minions have +2 Attack."""
+	update = Refresh(ALL_MINIONS, buff='TB_BaconShop_HP_061e')
 TB_BaconShop_HP_061e=buff(2,0)
 class TB_BaconShop_HERO_52_Buddy:
 	""" Lady Sinestra
 	Your minions have +3_Attack. """
+	update = Refresh(FRIENDLY_MINIONS, buff='TB_BaconShop_HERO_52_Buddy_e')
 TB_BaconShop_HERO_52_Buddy_e=buff(3,0)
 class TB_BaconShop_HERO_52_Buddy_G:
 	""" Lady Sinestra
 	Your minions have +6_Attack. """
-TB_BaconShop_HERO_52_Buddy_G_e=buff(3,0)
+	update = Refresh(FRIENDLY_MINIONS, buff='TB_BaconShop_HERO_52_Buddy_G_e')
+TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
 #16#Dinotamer Brann

@@ -869,6 +869,7 @@ class BGS_022:# <12>[1453]　ざっぷ
 	""" Zapp Slywick
 	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """
 	#<ReferencedTag enumID="189" name="WINDFURY" type="Int" value="1"/> ### REF-TAGだ！
+	tags = {GameTag.WINDFURY:1}
 	pass
 class TB_BaconUps_091:# <12>[1453]
 	""" Zapp Slywick

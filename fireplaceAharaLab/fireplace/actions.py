@@ -1304,6 +1304,7 @@ class Give(TargetedAction):
 	def do(self, source, target, cards):
 		log.info("Giving %r to %s", cards, target)
 		ret = []
+		self.broadcast(source, EventListener.ON, target, cards[0])
 		if not hasattr(cards, "__iter__"):
 			# Support Give on multiple cards at once (eg. Echo of Medivh)
 			cards = [cards]
@@ -1324,6 +1325,7 @@ class Give(TargetedAction):
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.card_when_drawn(card, card.controller)
 			ret.append(card)
+		self.broadcast(source, EventListener.AFTER, target, cards[0])
 		return ret
 
 
