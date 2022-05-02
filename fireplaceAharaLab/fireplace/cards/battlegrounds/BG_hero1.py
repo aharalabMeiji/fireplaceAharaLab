@@ -305,7 +305,7 @@ class TB_BaconShop_HP_065:
 class TB_BaconShop_HP_065pe:
 	"""  Aranna Watcher
 	"""
-class TB_BaconShop_HP_065t2:###  条件が満たされるとヒロパが交代になる
+class TB_BaconShop_HP_065t2:### 条件が満たされるとヒロパが交代になる
 	""" Spectral Sight
 	<b>Passive</b>Bob's Tavern refreshes with 7 minions."""
 class TB_BaconShop_HERO_59_Buddy:# <12>[1453]
@@ -335,7 +335,7 @@ class TB_BaconShop_HP_053_Action(TargetedAction):
 		controller = target
 		if controller.FirstKillMinion!=None:
 			Give(controller,controller.FirstKillMinion).trigger(source)
-			gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+			gold_card_id = controller.game.BG_find_triple()##
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
 class TB_BaconShop_HP_053:
@@ -349,7 +349,7 @@ class TB_BaconShop_HERO_45_Buddy_Action(TargetedAction):
 		controller = target
 		if controller.SecondKillMinion!=None:
 			Give(controller,controller.SecondKillMinion).trigger(source)
-			gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+			gold_card_id = controller.game.BG_find_triple()##
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
 class TB_BaconShop_HERO_45_Buddy:# <12>[1453]
@@ -364,12 +364,12 @@ class TB_BaconShop_HERO_45_Buddy_G_Action(TargetedAction):
 		if controller.SecondKillMinion!=None:
 			Give(controller,controller.SecondKillMinion).trigger(source)
 			Give(controller,controller.SecondKillMinion).trigger(source)
-			gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+			gold_card_id = controller.game.BG_find_triple()##
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
 class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 	""" Loyal Henchman
-	After you kill a secondminion each combat,_get 2 plain copies of it. """
+	After you kill a second minion each combat,_get 2 plain copies of it. """
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_G_Action(CONTROLLER))
 	pass
 
@@ -377,110 +377,122 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 
 #06##Bru'kan
 class BG22_HERO_001:# <12>[1453]
-	""" Bru'kan
-	"""
+	""" Bru'kan 	"""
 class BG22_HERO_001p:# <12>[1453]
 	""" Embrace the Elements
 	Choose an Element.[Start of Combat:] Call upon that Element. """
 	#<ReferencedTag enumID="1531" name="START_OF_COMBAT" type="Int" value="1"/>
-	#
+	entourage=['BG22_HERO_001p_t1','BG22_HERO_001p_t2','BG22_HERO_001p_t3','BG22_HERO_001p_t4']
+	activate = GenericChoicePlay(CONTROLLER, RandomEntourage()*4)
 	pass
 class BG22_HERO_001p_t1:# <12>[1453]
 	""" Earth Invocation
 	[Start of Combat:] Give 4random friendly minions"[Deathrattle:] Summona 1/1 Elemental." """
-	#
+	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t1_s'))
 	pass
 class BG22_HERO_001p_t1_s:# <8>[1453]
 	""" Earth Invocation
 	Give 4 random friendly minions "[Deathrattle:] Summon a 1/1 Elemental." """
-	#
+	play = Buff(RANDOM_FRIENDLY_MINION, 'BG22_HERO_001p_t1_s') * 4
 	pass
 class BG22_HERO_001p_t1e:# <12>[1453]
 	""" Element: Earth
 	[Deathrattle:] Summon a 1/1 Elemental. """
-	#
+	tags={GameTag.DEATHRATTLE:1}
+	deathrattle = Summon(CONTROLLER,'BG22_HERO_001p_t1et')
 	pass
 class BG22_HERO_001p_t1et:# <12>[1453]
-	""" Stone Elemental
-	 """
-	#
+	""" Stone Elemental 	 """
 	pass
 class BG22_HERO_001p_t2:# <12>[1453]
 	""" Fire Invocation
 	[Start of Combat:] Double your left-most minion's Attack. """
-	#
+	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t2_s'))
 	pass
-
 class BG22_HERO_001p_t2_s:# <8>[1453]
 	""" Fire Invocation
 	Double your left-most minion's Attack. """
-	#
+	def play(self):
+	   controller = self.controller
+	   if len(controller.field)>0:
+		   card = controller.field[0]
+		   Buff(card, 'BG22_HERO_001p_t2_s').trigger(controller)
 	pass
-
 class BG22_HERO_001p_t2e:# <12>[1453]
 	""" Element: Fire
 	This minion's Attack has been doubled. """
-	#
+	atk = lambda self, k : k*2
 	pass
 class BG22_HERO_001p_t3:# <12>[1453]
 	""" Water Invocation
 	[Start of Combat:] Giveyour right-most minion+3 Health and [Taunt]. """
-	#
+	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t3_s'))
 	pass
 class BG22_HERO_001p_t3_s:# <8>[1453]
 	""" Water Invocation
-	Give your right-most minion +3 Healthand [Taunt]. """
-	#
+	Give your right-most minion +3 Health and [Taunt]. """
+	def play(self):
+	   controller = self.controller
+	   if len(controller.field)>0:
+		   card = controller.field[-1]
+		   Buff(card, 'BG22_HERO_001p_t3_s').trigger(controller)
 	pass
 class BG22_HERO_001p_t3e:# <12>[1453]
 	""" Element: Water
 	+3 Health and [Taunt]. """
-	#
+	max_health = lambda self, i : i+3
+	taunt = True
 	pass
 class BG22_HERO_001p_t4:# <12>[1453]
 	""" Lightning Invocation
 	[Start of Combat:] Deal 1 damage to 5 random enemy minions. """
-	#
+	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t4_s'))
 	pass
 class BG22_HERO_001p_t4_s:# <8>[1453]
 	""" Lightning Invocation
-	Deal 1 damage to 5random enemy minions. """
-	#
+	Deal 1 damage to 5 random enemy minions. """
+	play = Hit(RANDOM(ENEMY_MINIONS),1) * 5
+	pass
+class BG22_HERO_001_Buddy_Events(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller = target.controller
+		if isinstance(card,list):
+			card = card[0]
+		if card.id=='BG22_HERO_001p_t1':
+			if not 'BG22_HERO_001p_t1_s' in target.sidequest_list0:
+				target.sidequest_list0.append('BG22_HERO_001p_t1_s')
+		elif card.id=='BG22_HERO_001p_t2':
+			if not 'BG22_HERO_001p_t2_s' in target.sidequest_list0:
+				target.sidequest_list0.append('BG22_HERO_001p_t2_s')
+		elif card.id=='BG22_HERO_001p_t3':
+			if not 'BG22_HERO_001p_t3_s' in target.sidequest_list0:
+				target.sidequest_list0.append('BG22_HERO_001p_t3_s')
+		elif card.id=='BG22_HERO_001p_t4':
+			if not 'BG22_HERO_001p_t4_s' in target.sidequest_list0:
+				target.sidequest_list0.append('BG22_HERO_001p_t4_s')
+class BG22_HERO_001_Buddy_Deathrattle(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		controller = target.controller
+		for cardId in target.sidequest_list0:
+			for repeat in range(amount):
+				Play(CONTROLLER,cardID).trigger(controller)
+		pass
 	pass
 class BG22_HERO_001_Buddy:# <12>[1453]
 	""" Spirit Raptor
-	After you call upon a newElement, this remembers it.[Deathrattle:] Call uponthose Elements. """
-	#
-	pass
-class BG22_HERO_001_Buddy_e:# <12>[1453]
-	""" Elemental Recollection
-	Remembering an Element. """
-	#
-	pass
-class BG22_HERO_001_Buddy_e1:# <12>[1453]
-	""" Earth Recollection
-	Remembering Earth Invocation. """
-	#
-	pass
-class BG22_HERO_001_Buddy_e2:# <12>[1453]
-	""" Fire Recollection
-	Remembering Fire Invocation. """
-	#
-	pass
-class BG22_HERO_001_Buddy_e3:# <12>[1453]
-	""" Water Recollection
-	Remembering Water Invocation. """
-	#
-	pass
-class BG22_HERO_001_Buddy_e4:# <12>[1453]
-	""" Lightning Recollection
-	Remembering Lightning Invocation. """
-	#
+	After you call upon a new Element, this remembers it.[Deathrattle:] Call uponthose Elements. """
+	events = Play(CONTROLLER).on(BG22_HERO_001_Buddy_Events(SELF, Play.CARD))
+	deathrattle = BG22_HERO_001_Buddy_Deathrattle(SELF,1)
 	pass
 class BG22_HERO_001_Buddy_G:# <12>[1453]
 	""" Spirit Raptor
 	After you call upon a newElement, this remembers it.[Deathrattle:] Call upon thoseElements twice. """
-	#
+	events = Play(CONTROLLER).on(BG22_HERO_001_Buddy_Events(SELF, Play.CARD))
+	deathrattle = BG22_HERO_001_Buddy_Deathrattle(SELF,2)
 	pass
 
 

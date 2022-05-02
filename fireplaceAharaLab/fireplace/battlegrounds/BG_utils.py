@@ -80,7 +80,7 @@ class BG_main:
 		# ヒーローの選択
 		for agent in self.Agents:
 			if agent.name=='Human1':
-				theHeroes = [self.Heroes[16],self.Heroes[53]]
+				theHeroes = [self.Heroes[6],self.Heroes[53]]
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])
@@ -99,7 +99,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			if agent.name=='Human1':
-				card = bar.controller.card('TB_BaconShop_HERO_43_Buddy')
+				card = bar.controller.card('BG22_HERO_001p')
 				card.zone = Zone.HAND
 			##########
 			pass
