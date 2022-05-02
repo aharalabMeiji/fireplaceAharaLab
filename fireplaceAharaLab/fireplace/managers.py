@@ -268,7 +268,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.FACTION: None,
 	GameTag.FLAVORTEXT: None,
 	GameTag.HealTarget: None,
-	GameTag.HIDE_COST: None,
 	GameTag.HOW_TO_EARN: None,
 	GameTag.HOW_TO_EARN_GOLDEN: None,
 	GameTag.InvisibleDeathrattle: None,

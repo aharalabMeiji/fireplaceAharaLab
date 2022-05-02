@@ -72,7 +72,7 @@ class BG21_006_Action(TargetedAction):
 		if isinstance(contro, list):
 			contro = contro[0]
 		controller = contro
-		if isinstance(target,Enchantment):
+		if target.type == CardType.ENCHANTMENT:#ないとは思うが、一度あった
 			target = target.owner
 		buff_health = source.max_health
 		if target!=None and target!=[]:

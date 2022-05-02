@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BeginTurn, BG_RegularAttack, Deaths, BeginBattle
+from fireplace.actions import BG_RegularAttack, Deaths, BeginBattle
 import random
 from hearthstone.enums import PlayState, Zone
 
@@ -42,8 +42,8 @@ class BG_Battle(Game):
 		for player in self.players:
 			player.playstate = PlayState.PLAYING
 		#turn_beginを実行（先攻、後攻の順）（イベントを発生させるため）
-		BeginBattle(self.first).trigger(self)## trigger主はplayer
-		BeginBattle(self.second).trigger(self)## trigger主はplayer
+		BeginBattle(self.first).trigger(self)## trigger主はgame
+		BeginBattle(self.second).trigger(self)## trigger主はgame
 		#パラメータ設定
 		self.current_player=self.first
 		self.first.AttackIndex=0
@@ -61,44 +61,48 @@ class BG_Battle(Game):
 				break
 			#攻撃者
 			attacker = self.current_player.field[self.current_player.AttackIndex]
-			#被攻撃者
-			taunts=[]
-			for card in self.current_player.opponent.field:
-				if card.taunt:
-					taunts.append(card)
-			if len(taunts)>0:
-				defenders = taunts
-			else:
-				defenders = self.current_player.opponent.field
-			if attacker.id =='BGS_022' or attacker.id=='TB_BaconUps_091':## Zapp Slywick
-				lowest_attack=[]
-				for card in defenders:
-					if lowest_attack==[]:
-						lowest_attack = [card]
-					elif lowest_attack[0].atk>card.atk:
-						lowest_attack = [card]
-					elif lowest_attack[0].atk==card.atk:
-						lowest_attack.append(card)
-				defenders = lowest_attack
-			defender=random.choice(defenders)
-			#攻撃
-			print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
-			BG_RegularAttack(attacker, defender).trigger(attacker.controller)
-			#buddy gaugeを進める
-			self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
-			self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
-			#死者が出る場合にその処理(deathrattle)
-			Deaths().trigger(self)
-			if attacker.zone==Zone.GRAVEYARD:
-				if defender.controller.deepcopy_original.FirstKillMinion==None:
-					defender.controller.deepcopy_original.FirstKillMinion=attacker.id
-				elif defender.controller.deepcopy_original.SecondKillMinion==None:
-					defender.controller.deepcopy_original.SecondKillMinion=attacker.id
-			if defender.zone==Zone.GRAVEYARD:
-				if attacker.controller.deepcopy_original.FirstKillMinion==None:
-					attacker.controller.deepcopy_original.FirstKillMinion=defender.id
-				elif attacker.controller.deepcopy_original.SecondKillMinion==None:
-					attacker.controller.deepcopy_original.SecondKillMinion=defender.id
+			if attacker.atk>0:
+				for repeat in range(attacker.windfury+1):## windfury 疾風
+					#被攻撃者
+					taunts=[]
+					for card in self.current_player.opponent.field:
+						if card.taunt:
+							taunts.append(card)
+					if len(taunts)>0:
+						defenders = taunts
+					else:
+						defenders = self.current_player.opponent.field
+					if attacker.id =='BGS_022' or attacker.id=='TB_BaconUps_091':## Zapp Slywick
+						lowest_attack=[]
+						for card in defenders:
+							if lowest_attack==[]:
+								lowest_attack = [card]
+							elif lowest_attack[0].atk>card.atk:
+								lowest_attack = [card]
+							elif lowest_attack[0].atk==card.atk:
+								lowest_attack.append(card)
+						defenders = lowest_attack
+					defender=random.choice(defenders)
+					#攻撃
+					print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
+					BG_RegularAttack(attacker, defender).trigger(attacker.controller)
+					#buddy gaugeを進める
+					self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
+					self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
+					#死者が出る場合にその処理(deathrattle)
+					Deaths().trigger(self)
+					if attacker.zone==Zone.GRAVEYARD:
+						if defender.controller.deepcopy_original.FirstKillMinion==None:
+							defender.controller.deepcopy_original.FirstKillMinion=attacker.id
+						elif defender.controller.deepcopy_original.SecondKillMinion==None:
+							defender.controller.deepcopy_original.SecondKillMinion=attacker.id
+					if defender.zone==Zone.GRAVEYARD:
+						if attacker.controller.deepcopy_original.FirstKillMinion==None:
+							attacker.controller.deepcopy_original.FirstKillMinion=defender.id
+						elif attacker.controller.deepcopy_original.SecondKillMinion==None:
+							attacker.controller.deepcopy_original.SecondKillMinion=defender.id
+					if len(self.first.field)==0 or len(self.second.field)==0:
+						break;
 			#攻撃ターンの交代(freezeとone_turn_effectはない)
 			self.current_player.AttackIndex+=1
 			if self.current_player.AttackIndex>= len(self.current_player.field):

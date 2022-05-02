@@ -2419,7 +2419,9 @@ class BG_RegularAttack(TargetedAction):
 			other = [other]
 		if not isinstance(target,list):
 			target = [target]
-		Attack(target, other).broadcast(source, EventListener.ON, target, other)
+		for attcard in target:
+			for defcard in other:
+				Attack(attcard, defcard).broadcast(source, EventListener.ON, attcard, defcard)
 		self.broadcast(source, EventListener.ON, target, other)
 		for attcard in target:
 			for defcard in other:
@@ -2427,7 +2429,9 @@ class BG_RegularAttack(TargetedAction):
 					Hit(defcard, attcard.atk).trigger(attcard)
 				if defcard.atk>0:
 					Hit(attcard, defcard.atk).trigger(defcard)
-		Attack(target, other).broadcast(source, EventListener.AFTER, target, other)
+		for attcard in target:
+			for defcard in other:
+				Attack(attcard, defcard).broadcast(source, EventListener.AFTER, attcard, defcard)
 		self.broadcast(source, EventListener.AFTER, target, other)
 
 class Dormant(TargetedAction):
@@ -3050,6 +3054,8 @@ class Rerole(TargetedAction): ## battlegrounds
 			for i in range(len(bartender.field)):
 				card=bartender.field[0]
 				game.parent.ReturnCard(card)
+			if controller.hero.power.id=='TB_BaconShop_HP_065t2':### アランナフラグ
+				bartender.BobsTmpFieldSize=7
 			for card in range(bartender.BobsTmpFieldSize):
 				card = game.parent.DealCard(bartender, controller.Tier)
 				card.controller = bartender#たぶん不要

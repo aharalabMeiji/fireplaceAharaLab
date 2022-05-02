@@ -135,7 +135,7 @@ NUM_ATTACKS_THIS_TURN = AttrValue(GameTag.NUM_ATTACKS_THIS_TURN)
 UPGRADE_COUNTER = AttrValue("upgrade_counter")
 NUM_ATTACKS = AttrValue("num_attacks")
 MAX_HAND_SIZE = AttrValue("max_hand_size")
-
+TIER = AttrValue("Tier")
 
 class ComparisonSelector(Selector):
 	"""A ComparisonSelector compares values of entities to
@@ -355,7 +355,10 @@ LOWEST_ATK = lambda sel: (
 	RANDOM(sel + (AttrValue(GameTag.ATK) == OpAttr(sel, GameTag.ATK, min)))
 )
 HIGHEST_HEALTH = lambda sel: (
-	RANDOM(sel + (AttrValue(GameTag.HEALTH == OpAttr(sel, GameTag.HEALTH, max)))
+	RANDOM(sel + (AttrValue(GameTag.HEALTH) == OpAttr(sel, GameTag.HEALTH, max)))
+)
+LOWEST_HEALTH = lambda sel: (
+	RANDOM(sel + (AttrValue(GameTag.HEALTH) == OpAttr(sel, GameTag.HEALTH, min)))
 )
 
 
@@ -552,7 +555,7 @@ RANDOM_ENEMY_CHARACTER = RANDOM(ENEMY_CHARACTERS - MORTALLY_WOUNDED)
 DAMAGED_CHARACTERS = ALL_CHARACTERS + DAMAGED
 CTHUN = FRIENDLY + ID("OG_280")
 
-TIER3 = AttrValue(GameTAg.TECH_LEVEL)==3
+TIER3 = AttrValue(GameTag.TECH_LEVEL)==3
 
 FRIENDLY_CLASS_CHARACTER = FuncSelector(
 	lambda entities, src: [

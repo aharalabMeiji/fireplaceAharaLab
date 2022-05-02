@@ -274,10 +274,10 @@ class TB_BaconUps_118:# <12>[1453]
 
 #Whelp Smuggler	2	2	5	-	- BG21_013  BG21_013_G 密輸人
 class BG21_013_Action(TargetedAction):
-	TARGET = TargetArg()
-	BUFF = TargetArg()
-	TARGETBUFF = TargetArg()
-	def do(self, source, target, buff. targetbuff):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	TARGETBUFF = ActionArg()
+	def do(self, source, target, buff, targetbuff):
 		if buff.atk>0:
 			Buff(target, targetbuff).trigger(target.controller)
 class BG21_013:# <12>[1453]
@@ -358,7 +358,7 @@ class DS1_070:# <3>[1453]
 	<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>."""
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
-		}
+		PlayReq.REQ_TARGET_WITH_RACE:Race.BEAST }
 	play = Buff(TARGET, 'DS1_070o')
 	pass
 DS1_070o=buff(2,2,taunt=True)
@@ -546,12 +546,12 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 class BG21_038:# <12>[1453] 巣母
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGMinion(has_battlecry=True))]))
 	pass
 class BG21_038_G:# <12>[1453]
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
 
 
@@ -666,10 +666,10 @@ class TB_BaconUps_082e:# <7>[1453]
 
 #Master of Realities	5	6	6	-	Taunt  BG21_036 BG21_036e BG21_036_G BG21_036_Ge
 class BG21_036_Action(TargetedAction):
-	TARGET = TargetArg()
-	BUFF = TargetArg()
-	TARGETBUFF = TargetArg()
-	def do(self, source, target, buff. targetbuff):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	TARGETBUFF = ActionArg()
+	def do(self, source, target, buff, targetbuff):
 		if buff.atk>0 or buff.health>0:
 			Buff(target, targetbuff).trigger(target.controller)
 class BG21_036:# <12>[1453] 多重現実の支配者

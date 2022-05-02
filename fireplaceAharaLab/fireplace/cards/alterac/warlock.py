@@ -164,7 +164,7 @@ class ALT_WLK_2:
 	""" Desecrated Graveyard (3)
 	At the end of your turn, destroy your lowest Attack minion to summon a 4/4 Shade. Lasts 3 turns."""
 	events=[
-		OWN_TURN_END.on(Destroy(RANDOM(LOWEST_ATK(FRIENDLY_MINION))), Summon(CONTROLLER, 'ALT_WLK_2t')),
+		OWN_TURN_END.on(Destroy(RANDOM(LOWEST_ATK(FRIENDLY_MINIONS))), Summon(CONTROLLER, 'ALT_WLK_2t')),
 		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER,3,[Destroy(SELF)]))
 	]
 	pass

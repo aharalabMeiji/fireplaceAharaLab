@@ -158,6 +158,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	has_choose_one = boolean_property("has_choose_one")
+	has_battlecry = boolean_property("has_battlecry")
 	honorable_kill = boolean_property("honorable_kill")
 	lifesteal = boolean_property("lifesteal")
 	mark_of_evil = boolean_property("mark_of_evil")# 
@@ -182,7 +183,6 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.choose_both = False
 		self.choose_cards = CardList()
 		self.entourage = CardList(data.entourage)
-		self.has_battlecry = False
 		self.has_combo = False
 		self.overload = 0
 		self.target = None
@@ -636,7 +636,7 @@ class Character(LiveEntity):
 			return False
 		#if not self.controller.current_player:
 		#	return False
-		if not self.atk:
+		if self.atk==0:
 			return False
 		if self.exhausted:
 			return False

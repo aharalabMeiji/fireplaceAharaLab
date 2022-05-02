@@ -139,11 +139,11 @@ class TB_BaconShop_HERO_76:# <12>[1453]
 	""" Al'Akir
 	 """
 class TB_BaconShop_HP_086_Action(TargetedAction):
-	TARGET = ActionArg()
+	TARGET = ActionArg()# controller
 	def do(self, source, target):
 		if len(target.field)>0:
 			card = target.field[0]
-			card.windfury=True
+			card.windfury=1
 			card.divine_shield=True
 			card.taunt=True
 class TB_BaconShop_HP_086:
@@ -151,18 +151,26 @@ class TB_BaconShop_HP_086:
 	<b>Passive</b><b>Start of Combat:</b> Give yourleft-most minion <b>Windfury</b>,___<b>Divine Shield</b>, and <b>Taunt</b>."""
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action(CONTROLLER))
 	pass
+class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
+	TARGET = ActionArg()# target
+	def do(self, source, target):
+		if not isinstance(target,list):
+			target = [target]
+		for card in target:
+			card.windfury=1
+			card.divine_shield=True
+			card.taunt=True
 class TB_BaconShop_HERO_76_Buddy:
 	"""Spirit of Air
 	<b>Deathrattle:</b> Give a random friendly minion <b>Windfury</b>,___<b>Divine Shield</b>, and <b>Taunt</b>.___"""
+	deathrattle = TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION)
 	pass
 class TB_BaconShop_HERO_76_Buddy_e:# <12>[1453]
-	""" Blessing of Air
-	[Windfury], [Divine Shield], and [Taunt]. """
-	#
-	pass
+	""" Blessing of Air,[Windfury], [Divine Shield], and [Taunt]. """
 class TB_BaconShop_HERO_76_Buddy_G:
 	""" Spirit of Air
 	<b>Deathrattle:</b> Give 2 random friendly minions <b>Windfury</b>,<b>Divine Shield</b>, and <b>Taunt</b>."""
+	deathrattle =  TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION) * 2
 	pass
 
 
@@ -185,9 +193,12 @@ class TB_BaconShop_HP_064:
 class TB_BaconShop_HERO_56_Buddy:
 	""" Vaelastrasz
 	<b>Battlecry:</b> Add a random Dragon of your Tavern Tier to your hand."""
+	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER)))
 class TB_BaconShop_HERO_56_Buddy_G:
 	""" Vaelastrasz
 	<b>Battlecry:</b> Add two random Dragons of your Tavern Tier to your hand."""
+	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER))) * 2
+
 
 
 #03##Ambassador Faelin
@@ -258,13 +269,22 @@ class BG22_HERO_201pe:# <12>[1453]
 class BG22_HERO_201_Buddy:# <12>[1453]
 	""" Submersible Chef
 	[Battlecry:] Add a random Tier 1, 3, and 5 minion to your hand. """
-	#
+	play = (
+		Give(CONTROLLER, RandomBGMinion(tech_level=1)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=5)),)
 	pass
 
 class BG22_HERO_201_Buddy_G:# <12>[1453]
 	""" Submersible Chef
 	[Battlecry:] Add a random Tier 1, 3, and 5 minion to your hand twice. """
-	#
+	play = (
+		Give(CONTROLLER, RandomBGMinion(tech_level=1)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=5)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=1)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
+		Give(CONTROLLER, RandomBGMinion(tech_level=5)),)
 	pass
 
 
@@ -277,7 +297,8 @@ class TB_BaconShop_HP_065:
 	""" Demon Hunter Training
 	<b>Passive</b> After you <b>Refresh</b> 5 times, Bob always has 7 minions.
 <i>(@ left!)</i>"""
-	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]))
+	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_065t2'),
+														   SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]))
 	pass
 class TB_BaconShop_HP_065pe:
 	"""  Aranna Watcher
@@ -288,18 +309,18 @@ class TB_BaconShop_HP_065t2:###  条件が満たされるとヒロパが交代�
 class TB_BaconShop_HERO_59_Buddy:# <12>[1453]
 	""" Sklibb, Demon Hunter
 	After you play a minion,your next [Refresh] costs (0). """
-	#
+	events = BG_Play(CONTROLLER, MINION).on(GetFreeRerole(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_59_Buddy_G:# <12>[1453]
 	""" Sklibb, Demon Hunter
 	After you play a minion, your next two [Refreshes] cost (0). """
-	#
+	events = BG_Play(CONTROLLER, MINION).after(GetFreeRerole(CONTROLLER) * 2)
 	pass
 class TB_BaconShop_HERO_59t:# <12>[1453]
-	""" Aranna, Unleashed
+	""" Aranna, Unleashed ヒロパ交代後のヒーロー
 	"""
-	#
 	pass
+
 
 
 #05#Arch-Villain Rafaam
@@ -682,18 +703,32 @@ class TB_BaconShop_HERO_43:# <12>[1453]
 class TB_BaconShop_HP_048:
 	""" Battle Brand
 	<b>Passive.</b> After you buy 5 <b>Battlecry</b> minions, add Brann Bronzebeard to your _hand. <i>(Once per game.)</i>@[x]<b>Passive.</b> After you buy 5 <b>Battlecry</b> minions, add Brann Bronzebeard to your hand. <i>({0} left!)</i>"""
+	events = Buy(CONTROLLER, MINION + BATTLECRY).on(SidequestCounter(SELF, 5, \
+		[Give(CONTROLLER,"LOE_077"), SetAttr(SELF,'exhausted',True)]))
 class TB_BaconShop_HP_048e:
-	"""
-	"""
+	""" 	"""
+class TB_BaconShop_HERO_43_Buddy_Action(TargetedAction):
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, card):
+		controller = target
+		if isinstance(card,list):
+			card = card[0]
+		Summon(controller, card).trigger(controller)
+		Give(controller.deepcopy_original, card.id).trigger(controller)
+		pass
 class TB_BaconShop_HERO_43_Buddy:# <12>[1453]
 	""" Brann's Epic Egg
-	[Taunt]. [Deathrattle:] Summona random [Battlecry] minionand add a copy of itto your hand. """
-	#
+	[Taunt]. [Deathrattle:] Summon a random [Battlecry] minion and add a copy of it to your hand. """
+	deathrattle = TB_BaconShop_HERO_43_Buddy_Action(CONTROLLER, RandomBGMinion(has_battlecry=True, tech_level_less=TIER(CONTROLLER)))
 	pass
 class TB_BaconShop_HERO_43_Buddy_G:# <12>[1453]
 	""" Brann's Epic Egg
 	[Taunt]. [Deathrattle:] Summon2 random [Battlecry] minionsand add copies of themto your hand. """
-	#
+	deathrattle = (\
+		Summon(CONTROLLER, RandomBGMinion(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD))),\
+		Summon(CONTROLLER, RandomBGMinion(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD)))\
+	)
 	pass
 
 

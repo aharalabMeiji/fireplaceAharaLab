@@ -237,13 +237,13 @@ class TB_BaconUps_039t:
 class BG21_023:# <12>[1453]
 	""" Mechano-Tank
 	[Avenge (2):] Deal 5 damage to the highest Health enemy minion. """
-	events = Death(FRIENDLY_MINION).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
 
 class BG21_023_G:# <12>[1453]
 	""" Mechano-Tank
 	[Avenge (2):] Deal 5 damage to the highest Health enemy minion twice. """
-	events = Death(FRIENDLY_MINION).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5), Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
+	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5), Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
 
 

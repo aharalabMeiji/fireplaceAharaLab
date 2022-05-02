@@ -198,21 +198,21 @@ class BG21_014_G:# <12>[1453]
 
 #Tarecgosa(4)
 class BG21_015_Action1(TargetedAction):
-	TARGET = TargetArg()
-	BUFF = TargetArg()
+	TARGET = ActionArg()
+	BUFF = ActionArg()
 	def do(self, source, target, buff):
 		#target = target[0]
 		if not isinstance(buff, list):
 			buff = [buff]
 		target.sidequest_list0 += b
 class BG21_015_Action2(TargetedAction):
-	TARGET = TargetArg()
+	TARGET = ActionArg()
 	def do(self, source, target):
 		#target = target[0]
 		for buff in target.sidequest_list0:
 			buff.apply(target.deepcopy_original)
 class BG21_015_Action3(TargetedAction):
-	TARGET = TargetArg()
+	TARGET = ActionArg()
 	def do(self, source, target):
 		#target = target[0]
 		for buff in target.sidequest_list0:
@@ -255,14 +255,13 @@ class BGS_036:# <12>[1453]
 	At the end of your turn, gain +1/+1 for each Dragon you have. """
 	events = OWN_TURN_END.on()
 	pass
-class BGS_036e:
-	pass
+BGS_036e=buff(1,1)
 class TB_BaconUps_106:# <12>[1453]
 	""" Razorgore, the Untamed
 	At the end of your turn, gain +2/+2 for each Dragon you have. """
 	#
 	pass
-class TB_BaconUps_106e:
+TB_BaconUps_106e=buff(2,2)
 
 
 #Kalecgos, Arcane Aspect (6)

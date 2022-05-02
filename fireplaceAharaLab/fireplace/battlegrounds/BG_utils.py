@@ -80,7 +80,7 @@ class BG_main:
 		# ヒーローの選択
 		for agent in self.Agents:
 			if agent.name=='Human1':
-				theHeroes = [self.Heroes[52],self.Heroes[53]]
+				theHeroes = [self.Heroes[16],self.Heroes[53]]
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])
@@ -99,7 +99,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			if agent.name=='Human1':
-				card = bar.controller.card('TB_BaconShop_HERO_16_Buddy')
+				card = bar.controller.card('TB_BaconShop_HERO_43_Buddy')
 				card.zone = Zone.HAND
 			##########
 			pass
@@ -118,8 +118,11 @@ class BG_main:
 				for agent in self.Agents:
 					if agent.name == controller.name:
 						break
-				if bartender.BobsTmpFieldSize<7:#「アランナフラグが立っていれば」のフラグに振り替えも ありうる。
+				#「アランナフラグが立っていれば」
+				if controller.hero.power.id!='TB_BaconShop_HP_065t2':
 					bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
+				else:
+					bartender.BobsTmpFieldSize=7
 				controller.max_mana = min(10,bar.turn+2)
 				controller.used_mana = 0
 				### （バーテンダーに）カードを配る
@@ -172,9 +175,9 @@ class BG_main:
 			battleplayer0 = self.BG_Bars[matches[i][0]].controller
 			battleplayer1 = self.BG_Bars[matches[i][1]].controller
 			battles[i].parent = self
-			for  player in [battleplayer0, battleplayer1]:
-				#対戦前処理
-				BeginBattle(player).trigger(player)
+			#for  player in [battleplayer0, battleplayer1]:
+			#	#対戦前処理
+			#	BeginBattle(player).trigger(player.game)# trigger主はgame
 			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
 			for  player in [battleplayer0, battleplayer1]:
 				### 対戦後処理

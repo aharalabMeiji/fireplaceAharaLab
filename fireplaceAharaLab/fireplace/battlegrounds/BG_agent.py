@@ -156,7 +156,7 @@ class BG_HumanAgent(BG_Agent):
 			ret += "(taunt)"
 		if card.divine_shield:
 			ret += "(divine_shield)"
-		if card.windfury:
+		if card.windfury>0:
 			ret += "(windfury)"
 		if card.reborn:
 			ret += "(reborn)"

@@ -188,6 +188,8 @@ class CardDB(dict):
 					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)<=value ]
 				elif attr == 'bg_collectible':
 					cards = [card for card in cards if card.tags.get(GameTag.IS_BACON_POOL_MINION)==value ]
+				elif attr == 'has_battlecry':
+					cards = [card for card in cards if card.tags.get(GameTag.BATTLECRY,0)==1 ]
 				else:
 					cards = [
 						card for card in cards if (
