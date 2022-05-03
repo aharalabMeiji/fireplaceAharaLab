@@ -102,7 +102,7 @@ class BGS_001:# <12>[1453]
 	""" Nathrezim Overseer (2)
 	[Battlecry:] Give a friendly Demon +2/+2. """
 	requirements = {
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, 
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0, 
 		}
 	play = Buff(TARGET, 'BGS_001e')
 	pass
@@ -245,14 +245,14 @@ class BGS_010:# <12>[1453]
 	[Battlecry:] Gain +1 Health for each Health your hero_is missing. """
 	def play(self):
 		hero = self.controller.hero
-		self.max_helth += hero.damage
+		self.max_health += hero.damage
 	pass
 class TB_BaconUps_083:# <12>[1453]
 	""" Annihilan Battlemaster
 	[Battlecry:] Gain +2 Health for each Health your hero_is missing. """
 	def play(self):
 		hero = self.controller.hero
-		self.max_helth += hero.damage*2
+		self.max_health += hero.damage*2
 	pass
 
 

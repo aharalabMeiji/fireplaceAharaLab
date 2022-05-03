@@ -46,7 +46,10 @@ class BG_NecoAgent(BG_Agent):
 			choiceStrategy=self.NecoDiscoveryChoice)
 		pass
 	def getStats(self, card):
-		return card.atk+card.max_health
+		if card.type==CardType.MINION:
+			return card.atk+card.max_health
+		else:
+			return 10
 	def NecoMoveChoice(self, bar, candidates, controller, bartender):
 		myCandidate = candidates
 		if len(myCandidate)>0:
@@ -114,7 +117,7 @@ class BG_NecoAgent(BG_Agent):
 
 	def NecoHeroChoice(self, heroes):
 		return random.choice(heroes)
-	def NecoDiscoveryChoice(self, choices):
+	def NecoDiscoveryChoice(self, controller, choices):
 		return random.choice(choices)
 
 

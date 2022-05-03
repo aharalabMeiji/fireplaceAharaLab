@@ -12,7 +12,7 @@ BG_Minion_Beast=[
 	'CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',#Rat Pack
 	'LOOT_078','TB_BaconUps_151',#Cave Hydra
 	'BG21_003','BG21_003e','BG21_003_G',#Reanimating Rattler
-	'CORE_EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',#Savannah Highmane
+	'EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',#Savannah Highmane
 	'BG20_205','BG20_205_G',#Agamaggan, the Great Boar
 	'BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',#Baby Krush
 	'BGS_021','BGS_021e','TB_BaconUps_090','TB_BaconUps_090e',#Mama Bear
@@ -26,7 +26,7 @@ BG_PoolSet_Beast=[
 	['CFM_315','EX1_531',],#1
 	['BG21_000','BGS_075','BG19_010',],#2
 	['BGS_078','CFM_316',],#3
-	['LOOT_078','BG21_003','CORE_EX1_534',],#4
+	['LOOT_078','BG21_003','EX1_534',],#4
 	['BG20_205','BG22_001','BGS_021','BG21_001'],#5
 	['BGS_008','BGS_018',],#6
 	]
@@ -41,7 +41,7 @@ BG_Beast_Gold={
 	'CFM_316':'TB_BaconUps_027',#Rat Pack
 	'LOOT_078':'TB_BaconUps_151',#Cave Hydra
 	'BG21_003':'BG21_003_G',#Reanimating Rattler
-	'CORE_EX1_534':'TB_BaconUps_049',#Savannah Highmane
+	'EX1_534':'TB_BaconUps_049',#Savannah Highmane
 	'BG20_205':'BG20_205_G',#Agamaggan, the Great Boar
 	'BG22_001':'BG22_001_G',#Baby Krush
 	'BGS_021':'TB_BaconUps_090',#Mama Bear
@@ -150,9 +150,10 @@ class BGS_078_Action(TargetedAction):
 	def do(self, source, target):
 		deathrattles = []
 		for card in target.controller.field:
-			deathrattles.append(card.deathrattles)
+			deathrattles += card.deathrattles
 		if len(deathrattles)>0:
-			random.choice(deathrattles).trigger(source)
+			action = random.choice(deathrattles)
+			action.trigger(source)
 		pass
 class BGS_078:# <12>[1453]
 	""" Monstrous Macaw (3/5/3)
@@ -210,7 +211,7 @@ class BG21_003_G:# <12>[1453]
 	play = Buff(TARGET,'BG21_003e')
 	pass
 
-class CORE_EX1_534:
+class EX1_534:
 	""" Savannah Highmane (4/6/5)
 	[Deathrattle:] Summon two 2/2 Hyenas."""
 	deathrattle = Summon(CONTROLLER, 'EX1_534t')
@@ -233,12 +234,12 @@ class TB_BaconUps_049t:
 class BG20_205:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/6/6)
 	Your [Blood Gems] give an extra +1/+1. """
-	events = BG_Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'))
+	events = BG_Play(CONTROLLER, ID('BG20_GEM'), SELF).on(Buff(SELF, 'BG20_GEMe'))
 	pass
 class BG20_205_G:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/12/12)
 	Your [Blood Gems] give an extra +2/+2. """
-	events = BG_Play(CONTROLLER, 'BG20_GEM', SELF).on(Buff(SELF, 'BG20_GEMe'), Buff(SELF, 'BG20_GEMe'))
+	events = BG_Play(CONTROLLER, ID('BG20_GEM'), SELF).on(Buff(SELF, 'BG20_GEMe'), Buff(SELF, 'BG20_GEMe'))
 	#
 	pass
 
@@ -260,7 +261,7 @@ class BG22_001t2_G:
 class BGS_021:# <12>[1453]
 	""" Mama Bear (5/5/5)
 	Whenever you summon a Beast, give it +5/+5. """
-	events = Summon(CONTROLLER, BEAST).then(Buff(Summon.CARD, 'BGS_021e'))
+	events = Summon(CONTROLLER, BEAST).on(Buff(Summon.CARD, 'BGS_021e'))
 	pass
 BGS_021e=buff(5,5)
 class TB_BaconUps_090:# <12>[1453]

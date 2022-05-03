@@ -17,10 +17,10 @@ BG_Minion_Murloc =[
 BG_PoolSet_Murloc=[
 	['UNG_073','BG22_401', ],
 	['EX1_507', 'BG21_008', 'BG22_202', ],
-	['EX1_103', 'BT_010', 'BG21_010', ],
-	['BGS_020',],
-	['BGS_030', ],
-	['BG21_009',],
+	['BT_010', 'BG21_010', ],
+	['EX1_103','BGS_020',],
+	['BGS_030','BG21_009', ],
+	[],
 	]
 BG_Murloc_Gold={
 	'UNG_073':'TB_BaconUps_061',#Rockpool Hunter (1)

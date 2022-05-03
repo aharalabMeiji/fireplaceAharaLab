@@ -507,7 +507,7 @@ RARE = EnumSelector(Rarity.RARE)
 EPIC = EnumSelector(Rarity.EPIC)
 LEGENDARY = EnumSelector(Rarity.LEGENDARY)
 
-GOLDEN = FuncSelector(lambda entities, source: getattr(entity, "id", 'X')[-1]=='G' )
+GOLDEN = FuncSelector(lambda entity, source: getattr(entity, "id", 'X')[-1]=='G' )
 
 ALL_PLAYERS = IN_PLAY + PLAYER
 ALL_HEROES = IN_PLAY + HERO

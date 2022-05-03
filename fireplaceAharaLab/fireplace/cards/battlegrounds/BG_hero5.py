@@ -1,29 +1,17 @@
 from ..utils import *
 
 BG_Hero5=[
-
-#69#Tickatus
-'TB_BaconShop_HERO_94','TB_BaconShop_HP_106','TB_BaconShop_HERO_94_Buddy','TB_BaconShop_HERO_94_Buddy_G',
-#70#Trade Prince Gallywix
-'TB_BaconShop_HERO_10','TB_BaconShop_HP_008','TB_BaconShop_HP_008a','TB_BaconShop_HERO_10_Buddy','TB_BaconShop_HERO_10_Buddye','TB_BaconShop_HERO_10_Buddy_G',
-#71#Vanndar Stormpike
-'BG22_HERO_003','BG22_HERO_003p','BG22_HERO_003pe','BG22_HERO_003pe2','BG22_HERO_003pe3','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_e','BG22_HERO_003_Buddy_G','BG22_HERO_003_Buddy_Ge',
-#72#Varden Dawngrasp
-'BG22_HERO_004','BG22_HERO_004p','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_e2','BG22_HERO_004_Buddy_G',
-#73#Vol'jin
-'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',
-#74#Xyrella
-'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',
-#75#Y'Shaarj
-'TB_BaconShop_HERO_92','TB_BaconShop_HP_103','TB_BaconShop_HERO_92_Buddy','TB_BaconShop_HERO_92_Buddy_e','TB_BaconShop_HERO_92_Buddy_G','TB_BaconShop_HERO_92_Buddy_G_e',
-#76#Yogg-Saron, Hope's End
-'TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',
-#77#Ysera
-'TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',
-#78#Zephrys, the Great
-'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',
-
-]
+	'TB_BaconShop_HERO_94','TB_BaconShop_HP_106','TB_BaconShop_HERO_94_Buddy','TB_BaconShop_HERO_94_Buddy_G',#69#Tickatus
+	'TB_BaconShop_HERO_10','TB_BaconShop_HP_008','TB_BaconShop_HP_008a','TB_BaconShop_HERO_10_Buddy','TB_BaconShop_HERO_10_Buddye','TB_BaconShop_HERO_10_Buddy_G',#70#Trade Prince Gallywix
+	'BG22_HERO_003','BG22_HERO_003p','BG22_HERO_003pe','BG22_HERO_003pe2','BG22_HERO_003pe3','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_e','BG22_HERO_003_Buddy_G','BG22_HERO_003_Buddy_Ge',#71#Vanndar Stormpike
+	'BG22_HERO_004','BG22_HERO_004p','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_e2','BG22_HERO_004_Buddy_G',#72#Varden Dawngrasp
+	'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',#73#Vol'jin
+	'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',#74#Xyrella
+	'TB_BaconShop_HERO_92','TB_BaconShop_HP_103','TB_BaconShop_HERO_92_Buddy','TB_BaconShop_HERO_92_Buddy_e','TB_BaconShop_HERO_92_Buddy_G','TB_BaconShop_HERO_92_Buddy_G_e',#75#Y'Shaarj
+	'TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',#76#Yogg-Saron, Hope's End
+	'TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',#77#Ysera
+	'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',#78#Zephrys, the Great
+	]
 
 
 BG_PoolSet_Hero5=[

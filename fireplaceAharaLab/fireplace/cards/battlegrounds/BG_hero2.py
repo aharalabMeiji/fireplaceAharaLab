@@ -1,42 +1,26 @@
 from ..utils import *
 
 BG_Hero2=[
-	#17	#Drek'Thar#BG22_HERO_002
-	'BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge',
-	#18#Edwin VanCleef
-	'TB_BaconShop_HERO_01','TB_BaconShop_HP_001','TB_BaconShop_HP_001e','TB_BaconShop_HERO_01_Buddy','TB_BaconShop_HERO_01_Buddy_e','TB_BaconShop_HERO_01_Buddy_G','TB_BaconShop_HERO_01_Buddy_G_e',
-	#19#Elise Starseeker
-	'TB_BaconShop_HERO_42','TB_BaconShop_HP_047','TB_BaconShop_HP_047t','TB_BaconShop_HERO_42_Buddy','TB_BaconShop_HERO_42_Buddy_e','TB_BaconShop_HERO_42_Buddy_G','TB_BaconShop_HERO_42_Buddy_G_e',
-	#20#Forest Warden Omu
-	'TB_BaconShop_HERO_74','TB_BaconShop_HP_082','TB_BaconShop_HERO_74_Buddy','TB_BaconShop_HERO_74_Buddy_e','TB_BaconShop_HERO_74_Buddy_G',
-	#21#Fungalmancer Flurgl
-	'TB_BaconShop_HERO_55','TB_BaconShop_HP_056','TB_BaconShop_HERO_55_Buddy','TB_BaconShop_HERO_55_Buddy_G',
-	#22#Galakrond
-	'TB_BaconShop_HERO_02','TB_BaconShop_HP_011','TB_BaconShop_HERO_02_Buddy','TB_BaconShop_HERO_02_Buddy_G',
-	#23#Galewing
-	'BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',
-	#24#George the Fallen
-	'TB_BaconShop_HERO_15','TB_BaconShop_HP_010','TB_BaconShop_HERO_15_Buddy','TB_BaconShop_HERO_15_Buddy_e','TB_BaconShop_HERO_15_Buddy_G','TB_BaconShop_HERO_15_Buddy_G_e',
-	#25#Greybough
-	'TB_BaconShop_HERO_95','TB_BaconShop_HP_107','TB_BaconShop_HP_107e','TB_BaconShop_HERO_95_Buddy','TB_BaconShop_HERO_95_Buddy_e','TB_BaconShop_HERO_95_Buddy_G','TB_BaconShop_HERO_95_Buddy_G_e',
-	#26#Guff Runetotem
-	'BG20_HERO_242','BG20_HERO_242p','BG20_HERO_242pe','BG20_HERO_242_Buddy','BG20_HERO_242_Buddy_G',
-	#27#Illidan Stormrage
-	'TB_BaconShop_HERO_08','TB_BaconShop_HP_069','TB_BaconShop_HP_069e','TB_BaconShop_HERO_08_Buddy','TB_BaconShop_HERO_08_Buddy_e','TB_BaconShop_HERO_08_Buddy_G',
-	#28#Infinite Toki
-	'TB_BaconShop_HERO_28','TB_BaconShop_HP_028','TB_BaconShop_HERO_28_Buddy','TB_BaconShop_HERO_28_Buddy_G',
-	#29#Jandice Barov
-	'TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',
-	#30#Kael'thas Sunstrider
-	'TB_BaconShop_HERO_60','TB_BaconShop_HP_066','TB_BaconShop_HP_066e','TB_BaconShop_HERO_60_Buddy','TB_BaconShop_HERO_60_Buddy_e','TB_BaconShop_HERO_60_Buddy_G','TB_BaconShop_HERO_60_Buddy_G_e',
-	#31#King Mukla
-	'TB_BaconShop_HERO_38','TB_BaconShop_HP_038','TB_BaconShop_HERO_38_Buddy','TB_BaconShop_HERO_38_Buddy_e','TB_BaconShop_HERO_38_Buddy_G','TB_BaconShop_HERO_38_Buddy_Ge',
-	#32#Kurtrus Ashfallen
-	'BG20_HERO_280','BG20_HERO_280e','BG20_HERO_280p','BG20_HERO_280pe','BG20_HERO_280p2','BG20_HERO_280p2e','BG20_HERO_280p2e2','BG20_HERO_280p3','BG20_HERO_280p3e2','BG20_HERO_280_Buddy','BG20_HERO_280_Buddye','BG20_HERO_280_Buddy_G','BG20_HERO_280_Buddye2',
-	#33#Lich Baz'hial
-	'TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',
-	#34#Lord Barov
-	'TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',
+
+	'BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge',	#17	#Drek'Thar#BG22_HERO_002
+	'TB_BaconShop_HERO_01','TB_BaconShop_HP_001','TB_BaconShop_HP_001e','TB_BaconShop_HERO_01_Buddy','TB_BaconShop_HERO_01_Buddy_e','TB_BaconShop_HERO_01_Buddy_G','TB_BaconShop_HERO_01_Buddy_G_e',	#18#Edwin VanCleef
+	'TB_BaconShop_HERO_42','TB_BaconShop_HP_047','TB_BaconShop_HP_047t','TB_BaconShop_HERO_42_Buddy','TB_BaconShop_HERO_42_Buddy_e','TB_BaconShop_HERO_42_Buddy_G','TB_BaconShop_HERO_42_Buddy_G_e',	#19#Elise Starseeker
+	'TB_BaconShop_HERO_74','TB_BaconShop_HP_082','TB_BaconShop_HERO_74_Buddy','TB_BaconShop_HERO_74_Buddy_e','TB_BaconShop_HERO_74_Buddy_G',	#20#Forest Warden Omu
+	'TB_BaconShop_HERO_55','TB_BaconShop_HP_056','TB_BaconShop_HERO_55_Buddy','TB_BaconShop_HERO_55_Buddy_G',	#21#Fungalmancer Flurgl
+	'TB_BaconShop_HERO_02','TB_BaconShop_HP_011','TB_BaconShop_HERO_02_Buddy','TB_BaconShop_HERO_02_Buddy_G',	#22#Galakrond
+	'BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',	#23#Galewing
+	'TB_BaconShop_HERO_15','TB_BaconShop_HP_010','TB_BaconShop_HERO_15_Buddy','TB_BaconShop_HERO_15_Buddy_e','TB_BaconShop_HERO_15_Buddy_G','TB_BaconShop_HERO_15_Buddy_G_e',	#24#George the Fallen
+	'TB_BaconShop_HERO_95','TB_BaconShop_HP_107','TB_BaconShop_HP_107e','TB_BaconShop_HERO_95_Buddy','TB_BaconShop_HERO_95_Buddy_e','TB_BaconShop_HERO_95_Buddy_G','TB_BaconShop_HERO_95_Buddy_G_e',	#25#Greybough
+	'BG20_HERO_242','BG20_HERO_242p','BG20_HERO_242pe','BG20_HERO_242_Buddy','BG20_HERO_242_Buddy_G',	#26#Guff Runetotem
+	'TB_BaconShop_HERO_08','TB_BaconShop_HP_069','TB_BaconShop_HP_069e','TB_BaconShop_HERO_08_Buddy','TB_BaconShop_HERO_08_Buddy_e','TB_BaconShop_HERO_08_Buddy_G',	#27#Illidan Stormrage
+	'TB_BaconShop_HERO_28','TB_BaconShop_HP_028','TB_BaconShop_HERO_28_Buddy','TB_BaconShop_HERO_28_Buddy_G',	#28#Infinite Toki
+	'TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',	#29#Jandice Barov
+	'TB_BaconShop_HERO_60','TB_BaconShop_HP_066','TB_BaconShop_HP_066e','TB_BaconShop_HERO_60_Buddy','TB_BaconShop_HERO_60_Buddy_e','TB_BaconShop_HERO_60_Buddy_G','TB_BaconShop_HERO_60_Buddy_G_e',	#30#Kael'thas Sunstrider
+	'TB_BaconShop_HERO_38','TB_BaconShop_HP_038','TB_BaconShop_HERO_38_Buddy','TB_BaconShop_HERO_38_Buddy_e','TB_BaconShop_HERO_38_Buddy_G','TB_BaconShop_HERO_38_Buddy_Ge',	#31#King Mukla
+	'BG20_HERO_280','BG20_HERO_280e','BG20_HERO_280p','BG20_HERO_280pe','BG20_HERO_280p2','BG20_HERO_280p2e','BG20_HERO_280p2e2','BG20_HERO_280p3','BG20_HERO_280p3e2','BG20_HERO_280_Buddy','BG20_HERO_280_Buddye','BG20_HERO_280_Buddy_G','BG20_HERO_280_Buddye2',	#32#Kurtrus Ashfallen
+	'TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',	#33#Lich Baz'hial
+	'TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',	#34#Lord Barov
+
 ]
 BG_PoolSet_Hero2=[
 	'BG22_HERO_002','TB_BaconShop_HERO_01','TB_BaconShop_HERO_42','TB_BaconShop_HERO_74','TB_BaconShop_HERO_55','TB_BaconShop_HERO_02','BG20_HERO_283','TB_BaconShop_HERO_15','TB_BaconShop_HERO_95','BG20_HERO_242','TB_BaconShop_HERO_08','TB_BaconShop_HERO_28','TB_BaconShop_HERO_71','TB_BaconShop_HERO_60','TB_BaconShop_HERO_38','BG20_HERO_280','TB_BaconShop_HERO_25','TB_BaconShop_HERO_72',

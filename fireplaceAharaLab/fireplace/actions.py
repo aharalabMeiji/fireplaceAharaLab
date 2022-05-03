@@ -2,7 +2,7 @@ import random
 from collections import OrderedDict
 
 from hearthstone.enums import (
-	BlockType, CardClass, CardType, Mulligan, PlayState, Step, Zone, GameTag
+	BlockType, CardClass, CardType, Mulligan, PlayState, Step, Zone, GameTag, Race
 )
 
 from .dsl import LazyNum, LazyValue, Selector
@@ -2763,7 +2763,10 @@ class Frenzy(TargetedAction):
 		if target.frenzy==1 and target.frenzyFlag==0:
 		#if target.frenzyFlag==0:
 			log.info("Frenzy action of %r "%(target))
-			targetaction.trigger(source)
+			if not isinstance(targetaction, list):
+				targetaction = [targetaction]
+			for action in targetaction:
+				action.trigger(source)
 			target.frenzyFlag=1
 			pass 
 
@@ -2973,7 +2976,7 @@ class EatsMinion(TargetedAction):
 		if isinstance(card,list):
 			card = card[0]
 		Buff(target,  buff).trigger(target)
-		buff = source.buffs[-1]
+		buff = target.buffs[-1]
 		buff.atk = card.atk * amount
 		buff.max_health = card.max_health * amount
 		Destroy(card).trigger(target)
@@ -3093,15 +3096,20 @@ class Sell(TargetedAction):
 
 class StealGem(TargetedAction):
 	TARGET = ActionArg()
-	CARD = ActionArg()
-	def do(self, source, target, card):
+	CARDS = ActionArg()
+	def do(self, source, target, cards):
+		if not isinstance(card, list):
+			cards = [cards]
+		else:
+			cards = cards
 		gem_count=0
-		repeat = len(card.buffs)
-		for i in repeat:
-			c = card.buffs[repeat-1-i]
-			if c.id=='BG20_GEMe':
-				card.buffs.remove(c)
-				gem_count += 1
+		for card in cards:
+			repeat = len(card.buffs)
+			for i in repeat:
+				c = card.buffs[repeat-1-i]
+				if c.id=='BG20_GEMe':
+					card.buffs.remove(c)
+					gem_count += 1
 		for i in range(gem_count):
 			ApplyGem(target, 'BG20_GEM').trigger(source)
 
@@ -3141,7 +3149,7 @@ class SummonOnce(Summon):
 class UpgradeTier(TargetedAction):
 	TARGET=ActionArg()#controller
 	def do(self, source, target):
-		TierUpCost={1:5, 2:7, 3:8, 4:11, 5:10}
+		TierUpCost={1:5, 2:7, 3:8, 4:11, 5:10, 6:10}
 		controller = target
 		bar = target.game
 		if controller.Tier<=5 and controller.mana >= controller.TierUpCost:

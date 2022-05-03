@@ -120,15 +120,27 @@ class TB_BaconUps_150:# <12>[1453]
 	pass
 
 #Briny Bootlegger,3,4,4,Pirate,-
+class BG21_017_Action(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
+		controller = target.controller#
+		field = controller.field
+		for card in field:
+			if card != target and card.race==Race.PIRATE:
+				for repeat in range(amount):
+					Give(controller, "GAME_005").trigger(controller)
+				return
 class BG21_017:# <12>[1453]
 	""" Briny Bootlegger
 	At the end of your turn,if you have another Pirate,add a Gold Coin to your hand. """
-	events = OWN_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & Give(CONTROLLER, "GAME_005"))
+	events = OWN_TURN_END.on(BG21_017_Action(SELF, 1))
+	#events = OWN_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & Give(CONTROLLER, "GAME_005"))
 	pass
 class BG21_017_G:# <12>[1453]
 	""" Briny Bootlegger
 	At the end of your turn,if you have another Pirate,add 2 Gold Coins to your hand. """
-	events = OWN_TURN_END.on(Find(FRIENDLY_MINIONS - SELF + PIRATE) & (Give(CONTROLLER, "GAME_005"),Give(CONTROLLER, "GAME_005")))
+	events = OWN_TURN_END.on(BG21_017_Action(SELF, 2))
 	pass
 
 #Salty Looter,3,4,5,Pirate,-

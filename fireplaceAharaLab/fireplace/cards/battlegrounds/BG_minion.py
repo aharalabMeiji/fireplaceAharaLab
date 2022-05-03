@@ -24,7 +24,7 @@ BG_Minion=[
 	'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
 	'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
 	'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
-	'CORE_FP1_031','TB_BaconUps_055',#Baron Rivendare	5
+	'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
 	'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
 	'BGS_131','TB_BaconUps_251',#Deadly Spore	5
 	'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
@@ -42,8 +42,8 @@ BG_PoolSet_Minion=[
 	['BGS_004',],
 	['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
 	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002',],
-	['BGS_111','CORE_EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],
-	['CORE_FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],
+	['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],
+	['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],
 	['BGS_069','BGS_040','BG21_011','BGS_022',],
 	]
 
@@ -79,7 +79,7 @@ BG_Minon_Gold={
 	#Champion of Y'Shaarj	4	4	4	-	Taunt
 	'BGS_111':'TB_BaconUps_301',
 	#Defender of Argus	4	3	3	-	Battlecry
-	'CORE_EX1_093':'TB_BaconUps_009',
+	'EX1_093':'TB_BaconUps_009',
 	#Impatient Doomsayer	4	2	6	-	Avenge (X)
 	'BG21_007':'BG21_007_G',
 	#Majordomo Executus	4	6	3	-	-
@@ -91,7 +91,7 @@ BG_Minon_Gold={
 	#Witchwing Nestmatron	4	3	5	-	Avenge (X)
 	'BG21_038':'BG21_038_G',
 	#Baron Rivendare	5	1	7	-	Deathrattle
-	'CORE_FP1_031':'TB_BaconUps_055',
+	'FP1_031':'TB_BaconUps_055',
 	#Brann Bronzebeard	5	2	4	-	Battlecry
 	'LOE_077':'TB_BaconUps_045',
 	#Deadly Spore	5	1	1	-	Poisonous
@@ -464,7 +464,7 @@ class BGS_105_Action(TargetedAction):
 			left_card = controller.field[0]
 			count=1
 			for card in controller.play_this_turn:
-				if card.race==Race.ELEMENTAL:
+				if card.type==CardType.MINION and card.race==Race.ELEMENTAL:
 					count += 1
 			BGS_105e.atk=lambda self,i:i+1
 			BGS_105e.max_health=lambda self,i:i+1
@@ -556,8 +556,8 @@ class BG21_038_G:# <12>[1453]
 	pass
 
 
-#Baron Rivendare	5	1	7	-	Deathrattle  CORE_FP1_031 TB_BaconUps_055 ばろん
-class CORE_FP1_031:
+#Baron Rivendare	5	1	7	-	Deathrattle FP1_031 TB_BaconUps_055 ばろん
+class FP1_031:
 	"""Baron Rivendare
 	Your minions trigger their <b>Deathrattles</b> twice."""
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
@@ -703,7 +703,7 @@ class BGS_202_Action(TargetedAction):
 				races.append(card.race)
 			elif not card.race in races:
 				races.append(card.race)
-		buffsize = len(races)*amount
+		buffsize = len(races)
 		for repeat in range(buffsize):
 			Buff(source, buff).trigger(source)
 class BGS_202:# <12>[1453] ミスラクス
@@ -845,7 +845,7 @@ class BG21_011:# <12>[1453]　板前
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
 	requirements={
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
 	#play = GiveGoldCard(CONTROLLER, TARGET)
 	pass
 BG21_011e=buff(3,3)# <12>[1453] ??????????????

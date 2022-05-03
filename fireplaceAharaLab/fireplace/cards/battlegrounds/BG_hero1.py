@@ -589,7 +589,7 @@ class BuffRandomFriendlyMinion(TargetedAction):
 		if amount >= len(controller.field):
 			samples = controller.field
 		else:
-			samples = random.sample(controller.field)
+			samples = random.sample(controller.field, amount)
 		for card in samples:
 			Buff(card, buff).trigger(controller)
 		pass

@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.player import Player
-from hearthstone.enums import State, Zone
+from hearthstone.enums import State, Zone, CardType
 import random
 
 class BG_Bar(Game):
@@ -42,11 +42,13 @@ class BG_Bar(Game):
 
 	def BG_find_triple(self):
 		## トリプルを見つけ次第自動的にゴールドにするので、とにかく左から見ていってトリプルを見つければよい。
+		#ただし、スペルカード（宝石、バナナ、コイン）はのぞく
 		characters=[]
 		for card in self.controller.field:
 			characters.append(card.id)
 		for card in self.controller.hand:
-			characters.append(card.id)
+			if card.type==CardType.MINION:
+				characters.append(card.id)
 		for id in characters:
 			count=0
 			for jd in characters:

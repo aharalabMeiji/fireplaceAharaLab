@@ -151,12 +151,12 @@ class GB20_103_Action(TargetedAction):
 class BG20_103:# <12>[1453]
 	""" Bristleback Brute
 	The first [Blood Gem] played on this each turn gives an extra +3/+3. """
-	events = ApplyGem(SELF,'BG20_GEM').on(GB20_103_Action(SELF, 3))
+	events = ApplyGem(SELF,ID('BG20_GEM')).on(GB20_103_Action(SELF, 3))
 	pass
 class BG20_103_G:# <12>[1453]
 	""" Bristleback Brute
 	The first [Blood Gem] played on this each turn gives an extra +6/+6. """
-	events = ApplyGem(SELF,'BG20_GEM').on(GB20_103_Action(SELF, 6))
+	events = ApplyGem(SELF,ID('BG20_GEM')).on(GB20_103_Action(SELF, 6))
 	pass
 
 
@@ -211,7 +211,7 @@ class BG20_104_G:# <12>[1453]
 class BG20_207:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on another Quilboar, gain +1/+1. """
-	events = ApplyGem(FRIENDLY_MINIONS - SELF, 'BG20_GEM').on(Buff(SELF, 'BG20_207e'))
+	events = ApplyGem(FRIENDLY_MINIONS - SELF, ID('BG20_GEM')).on(Buff(SELF, 'BG20_207e'))
 	pass
 BG20_207e=buff(1,1)# <12>[1453]
 """ Boar's Favor
@@ -219,7 +219,7 @@ BG20_207e=buff(1,1)# <12>[1453]
 class BG20_207_G:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on anotherQuilboar, gain +2/+2. """
-	events = ApplyGem(FRIENDLY_MINIONS - SELF, 'BG20_GEM').on(Buff(SELF, 'BG20_207_Ge'))
+	events = ApplyGem(FRIENDLY_MINIONS - SELF, ID('BG20_GEM')).on(Buff(SELF, 'BG20_207_Ge'))
 	pass
 BG20_207_Ge=buff(2,2)# <12>[1453]
 """ Boar's Favor
@@ -231,7 +231,7 @@ BG20_207_Ge=buff(2,2)# <12>[1453]
 class BG20_106:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
-	events = ApplyGem(SELF, 'BG20_GEM').on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
+	events = ApplyGem(SELF, ID('BG20_GEM')).on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
 	pass
 class BG20_106e:# <12>[1453]
 	""" Groundshook
@@ -241,7 +241,7 @@ class BG20_106e:# <12>[1453]
 class BG20_106_G:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +4 Attack for next combat only. """
-	events = ApplyGem(SELF, 'BG20_GEM').on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'), Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
+	events = ApplyGem(SELF, ID('BG20_GEM')).on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'), Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
 	pass
 
 
@@ -292,7 +292,7 @@ class BG20_302_Action(TargetedAction):
 class BG20_302:# <12>[1453]　そーんかーす
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +1/+1. """
-	events = ApplyGem(SELF, 'BG20_GEM').on(BG20_302_Action(CONTROLLER, 'BG20_302e'))
+	events = ApplyGem(SELF, ID('BG20_GEM')).on(BG20_302_Action(CONTROLLER, 'BG20_302e'))
 	pass
 BG20_302e=buff(1,1)# <12>[1453]
 """ Thorncursed
@@ -300,7 +300,7 @@ BG20_302e=buff(1,1)# <12>[1453]
 class BG20_302_G:# <12>[1453]
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +2/+2. """
-	events = ApplyGem(SELF, 'BG20_GEM').on(BG20_302_Action(CONTROLLER, 'BG20_302_Ge'))
+	events = ApplyGem(SELF, ID('BG20_GEM')).on(BG20_302_Action(CONTROLLER, 'BG20_302_Ge'))
 	pass
 BG20_302_Ge=buff(2,2)# <12>[1453]
 """ Thorncursed
