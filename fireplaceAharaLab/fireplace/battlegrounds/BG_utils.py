@@ -33,14 +33,14 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[]]
+		#races=['elemental','demon']
+		# BAN される raceはここで除外
+		self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		for i in range(6):
 			if i<5:
 				rep=8
 			else:
 				rep=3
-			#races=['elemental','demon']
-			# BAN される raceはここで除外
-			races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 			for repeat in range(rep):	
 				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 				if 'beast' in races:
@@ -80,7 +80,7 @@ class BG_main:
 		# ヒーローの選択
 		for agent in self.Agents:
 			if agent.name=='Human1':
-				theHeroes = [self.Heroes[6],self.Heroes[53]]
+				theHeroes = [self.Heroes[10],self.Heroes[53]]
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])
@@ -96,10 +96,12 @@ class BG_main:
 			bar.player2 = bar.bartender
 			bar.turn=1
 			bar.parent = self
+			bar.player1.parent_agent = agent
+			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			if agent.name=='Human1':
-				card = bar.controller.card('BG22_HERO_001p')
+				card = bar.controller.card('BG21_HERO_000_Buddy')
 				card.zone = Zone.HAND
 			##########
 			pass
@@ -115,9 +117,8 @@ class BG_main:
 				controller = bar.controller
 				controller.game = bar
 				bartender = bar.bartender
-				for agent in self.Agents:
-					if agent.name == controller.name:
-						break
+				agent = controller.parent_agent
+				assert agent
 				#「アランナフラグが立っていれば」
 				if controller.hero.power.id!='TB_BaconShop_HP_065t2':
 					bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
@@ -326,7 +327,10 @@ class Move(object):
 		elif self.move==MovePlay.SELL:# 
 			return "%s を売る"%(self.target)
 		elif self.move==MovePlay.POWER:# 
-			return "%s （ヒーローパワー）を発動する"%(self.target)
+			if self.target != None:
+				return "%s （ヒーローパワー）を発動する（コスト%d）"%(self.target, self.controller.hero.power.cost)
+			else:
+				return "（ヒーローパワー）を発動する（コスト%d）"%(self.controller.hero.power.cost)
 		elif self.move==MovePlay.TIERUP:#
 			return "グレードを上げる（コスト%d）"%(self.controller.TierUpCost)
 		elif self.move==MovePlay.REROLE:# 
@@ -411,7 +415,7 @@ class Move(object):
 	def power(self, target):
 		controller = self.controller
 		heropower = self.controller.hero.power
-		if heropower.is_usable() and heropower.cost >= controller.mana:
+		if heropower.is_usable() and heropower.cost <= controller.mana:
 			if heropower.requires_target() and target in heropower.targets:
 				if target in self.controller.field:
 					heropower.use(target=target)

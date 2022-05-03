@@ -383,17 +383,17 @@ class BG22_HERO_001p:# <12>[1453]
 	Choose an Element.[Start of Combat:] Call upon that Element. """
 	#<ReferencedTag enumID="1531" name="START_OF_COMBAT" type="Int" value="1"/>
 	entourage=['BG22_HERO_001p_t1','BG22_HERO_001p_t2','BG22_HERO_001p_t3','BG22_HERO_001p_t4']
-	activate = GenericChoicePlay(CONTROLLER, RandomEntourage()*4)
+	activate = GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*4)
 	pass
 class BG22_HERO_001p_t1:# <12>[1453]
 	""" Earth Invocation
 	[Start of Combat:] Give 4random friendly minions"[Deathrattle:] Summona 1/1 Elemental." """
-	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t1_s'))
+	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t1_s'))
 	pass
 class BG22_HERO_001p_t1_s:# <8>[1453]
 	""" Earth Invocation
 	Give 4 random friendly minions "[Deathrattle:] Summon a 1/1 Elemental." """
-	play = Buff(RANDOM_FRIENDLY_MINION, 'BG22_HERO_001p_t1_s') * 4
+	play = Buff(RANDOM_FRIENDLY_MINION, 'BG22_HERO_001p_t1e') * 4
 	pass
 class BG22_HERO_001p_t1e:# <12>[1453]
 	""" Element: Earth
@@ -407,7 +407,7 @@ class BG22_HERO_001p_t1et:# <12>[1453]
 class BG22_HERO_001p_t2:# <12>[1453]
 	""" Fire Invocation
 	[Start of Combat:] Double your left-most minion's Attack. """
-	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t2_s'))
+	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t2_s'))
 	pass
 class BG22_HERO_001p_t2_s:# <8>[1453]
 	""" Fire Invocation
@@ -426,7 +426,7 @@ class BG22_HERO_001p_t2e:# <12>[1453]
 class BG22_HERO_001p_t3:# <12>[1453]
 	""" Water Invocation
 	[Start of Combat:] Giveyour right-most minion+3 Health and [Taunt]. """
-	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t3_s'))
+	events = BeginBattle(CONTROLLER).on(CastSpell(ID('BG22_HERO_001p_t3_s')))
 	pass
 class BG22_HERO_001p_t3_s:# <8>[1453]
 	""" Water Invocation
@@ -446,7 +446,7 @@ class BG22_HERO_001p_t3e:# <12>[1453]
 class BG22_HERO_001p_t4:# <12>[1453]
 	""" Lightning Invocation
 	[Start of Combat:] Deal 1 damage to 5 random enemy minions. """
-	events = BeginBattle(CONTROLLER).on(Play(CONTROLLER,'BG22_HERO_001p_t4_s'))
+	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t4_s'))
 	pass
 class BG22_HERO_001p_t4_s:# <8>[1453]
 	""" Lightning Invocation
@@ -580,31 +580,58 @@ class BG21_HERO_000e:
 	"""Cariel Watcher
 	"""
 	pass
+class BuffRandomFriendlyMinion(TargetedAction):
+	TARGET = ActionArg()#controller
+	BUFF = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, buff, amount):
+		controller = target
+		if amount >= len(controller.field):
+			samples = controller.field
+		else:
+			samples = random.sample(controller.field)
+		for card in samples:
+			Buff(card, buff).trigger(controller)
+		pass
+	pass
+class BG21_HERO_000p_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	NEWPOWER = ActionArg()
+	def do(self, source, target, amount, newpower):
+		controller = target
+		tier = controller.Tier
+		if tier==amount:
+			ChangeHeroPower(controller, newpower).trigger(controller)
+		pass
+
 class BG21_HERO_000p:
 	""" Conviction (Rank 1)
 	Give a random friendly minion +1/+1. <i>(Upgrades at Tavern Tier 3.)</i>"""
-	play = Buff(RANDOM_FRIENDLY_MINION,'BG21_HERO_000pe')
+	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe',1)
+	events = UpgradeTier(CONTROLLER).on(BG21_HERO_000p_Action(CONTROLLER, 3, 'BG21_HERO_000p2')) 
 	pass
 BG21_HERO_000pe=buff(1,1)
 class BG21_HERO_000p2:
 	"""Conviction (Rank 2)
 	Give three random friendly minions +1/+1. <i>(Upgrades at Tavern Tier 5.)</i>"""
-	play = Buff(RANDOM_FRIENDLY_MINION,'BG21_HERO_000pe') * 3
+	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 3)
+	events = UpgradeTier(CONTROLLER).on(BG21_HERO_000p_Action(CONTROLLER, 5, 'BG21_HERO_000p3')) 
 	pass
 class BG21_HERO_000p3:
 	"""Conviction (Rank 3)
 	Give five random _friendly minions +1/+1."""
-	play = Buff(RANDOM_FRIENDLY_MINION,'BG21_HERO_000pe') * 5
+	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 5)
 class BG21_HERO_000_Buddy:# <12>[1453]
 	""" Captain Fairmount
 	At the end of your turn, give five random friendly minions +1/+1. """
-	events = OWN_TURN_END.on(Buff(RANDOM_FRIENDLY_MINION,'BG21_HERO_000_Buddy_e') * 5)
+	events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_e', 5))
 	pass
 BG21_HERO_000_Buddy_e=buff(1,1)
 class BG21_HERO_000_Buddy_G:# <12>[1453]
 	""" Captain Fairmount
 	At the end of your turn, give five random friendly minions +2/+2. """
-	events = OWN_TURN_END.on(Buff(RANDOM_FRIENDLY_MINION,'BG21_HERO_000_Buddy_G_e') * 5)
+	events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_G_e', 5))
 	pass
 BG21_HERO_000_Buddy_G_e=buff(2,2)
 

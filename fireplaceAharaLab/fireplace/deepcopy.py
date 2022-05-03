@@ -226,11 +226,11 @@ def copy_playerattr(oldPlayer, newPlayer):
 	setattr(new_hero, 'play_counter', src)
 	## hero power
 	if oldPlayer.hero.power:
-		if not newPlayer.hero.power:
-			card=HeroPower(cards.db[oldPlayer.hero.power.id])
-			card.controller = newPlayer
-			card.zone = Zone.PLAY
-			card.game.manager.new_entity(card)
+		card=HeroPower(cards.db[oldPlayer.hero.power.id])#デフォルトから変更されている可能性もある。
+		card.controller = newPlayer
+		card.zone = Zone.PLAY
+		## もしくはSummon(newPlayer, card),trigger(newPlayer)
+		card.game.manager.new_entity(card)
 		# heropower's attr
 		heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
 			'cant_play','cast_on_friendly_characters','cost','heropower_damage',\

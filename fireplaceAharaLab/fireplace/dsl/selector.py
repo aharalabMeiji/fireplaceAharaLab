@@ -556,6 +556,7 @@ DAMAGED_CHARACTERS = ALL_CHARACTERS + DAMAGED
 CTHUN = FRIENDLY + ID("OG_280")
 
 TIER3 = AttrValue(GameTag.TECH_LEVEL)==3
+TIER5 = AttrValue(GameTag.TECH_LEVEL)==5
 
 FRIENDLY_CLASS_CHARACTER = FuncSelector(
 	lambda entities, src: [

@@ -1,5 +1,6 @@
 from fireplace import cards
 from fireplace.card import Card
+from fireplace.dsl.selector import TARGET
 from fireplace.player import Player
 from fireplace.cards.battlegrounds import BG_hero1
 import random
@@ -44,25 +45,71 @@ class BG_NecoAgent(BG_Agent):
 			moveStrategy=self.NecoMoveChoice,
 			choiceStrategy=self.NecoDiscoveryChoice)
 		pass
+	def getStats(self, card):
+		return card.atk+card.max_health
 	def NecoMoveChoice(self, bar, candidates, controller, bartender):
 		myCandidate = candidates
 		if len(myCandidate)>0:
 			choices=[]
-			for move in myCandidate:
-				if move.move==MovePlay.BUY:
-					choices.append(move)
-			if len(choices)>0:
-				myChoice = random.choice(choices)
-			else:
+			tier = controller.Tier
+			gold = controller.mana
+			if (tier,gold) in [(1,4),(2,7),(3,9),(4,10),(5,10)]:
+				for move in myCandidate:
+					if move.move==MovePlay.TIERUP:
+						return move
+			if gold>=3:
+				max_stats=0
+				for move in myCandidate:
+					if move.move==MovePlay.BUY:
+						card = move.target
+						if choices==[]:
+							choices=[move]
+							max_stats=self.getStats(move.target)
+						elif self.getStats(card)>max_stats:
+							choices=[move]
+							max_stats=self.getStats(move.target)
+						elif self.getStats(card)==max_stats:
+							choices.append(move)
+				if len(choices)>0:
+					return random.choice(choices)
+			if len(controller.field)<7 and len(controller.hand)>0:
+				max_stats=0
 				choices=[]
 				for move in myCandidate:
 					if move.move==MovePlay.PLAY:
-						choices.append(move)
+						card = move.target
+						if choices==[]:
+							choices=[move]
+							max_stats=self.getStats(move.target)
+						elif self.getStats(card)>max_stats:
+							choices=[move]
+							max_stats=self.getStats(move.target)
+						elif self.getStats(card)==max_stats:
+							choices.append(move)
 				if len(choices)>0:
-					myChoice = random.choice(choices)
-				else:
-					myChoice = random.choice(myCandidate)
-			return myChoice
+					return random.choice(choices)
+			if len(controller.field)==7 and len(controller.hand)>0:
+				max_stats=999
+				min_minion=None
+				for card in controller.field:
+					if max_stats>self.getStats(card):
+						min_minion=card
+						max_stats=self.getStats(card)
+				for move in myCandidate:
+					if move.move==MovePlay.BUY:
+						card = move.target
+						if self.getStats(card)>max_stats:
+							choices=[move]
+							max_stats=self.getStats(move.target)
+						elif self.getStats(card)==max_stats:
+							choices.append(move)
+				if len(choices)>0:
+					for choice in myCandidate:
+						if choice.target==card and choice.move==MovePlay.SELL:
+							return choice
+			for choice in myCandidate:
+				if choice.move==MovePlay.TURNEND:
+					return choice
 		return None
 
 	def NecoHeroChoice(self, heroes):
@@ -86,7 +133,7 @@ class BG_HumanAgent(BG_Agent):
 			count += 1
 		while True:
 			try :
-				print("->",end='')
+				print("choose from moves ->",end='')
 				inputNum = int(input())
 				if inputNum>=0 and inputNum<len(candidates):
 					return candidates[inputNum]
@@ -121,12 +168,20 @@ class BG_HumanAgent(BG_Agent):
 		pass
 	def printBar(self, bar, controller, bartender):
 		print("----------------------------------------------")
+		races = controller.game.parent.BG_races
+		print("種族 : ", end="")
+		for race in races:
+			print("[%s]"%(race),end=' ')
+		print("")
 		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		buddy = controller.buddy_gauge
 		if buddy>100:
 			buddy = (buddy-100)*0.5
 		print("ヒーロー：%s(%d + %d), buddy : %d"%(controller.hero, controller.hero.health, controller.hero.armor, buddy))
-		print("パワー　：%s(cost %d), playable : %s"%(controller.hero.power, controller.hero.power.cost, (not controller.hero.power.cant_play)))
+		if controller.hero.power.cant_play:
+			print("パワー　：%s(cost %d) : unplayable"%(controller.hero.power, controller.hero.power.cost,))
+		else:
+			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, controller.hero.power.data.description.replace('\n','_')))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar   :%s" %(self.card_stats(card)))
@@ -138,10 +193,35 @@ class BG_HumanAgent(BG_Agent):
 			print("Hand  : %s"%(self.card_stats(card)))
 		print("----------------------------------------------")
 		pass
-	def HumanDiscoveryChoice(self, choices):
-		return random.choice(choices)
+	def HumanDiscoveryChoice(self, controller, choices):
+		#return random.choice(choices)
+		print("----------------------------------------------")
+		count=0
+		for choice in choices:
+			if choice.requires_target() and len(choice.targets)>0:
+				for target in choice.targets:
+					self.printChoice(count, choice, target)
+					count += 1
+			else:
+				self.printChoice(count, choice)
+				count += 1
+		print("----------------------------------------------")
+		while True:
+			try :
+				print("choose from choices ->",end='')
+				inputNum = int(input())
+				if inputNum>=0 and inputNum<len(choices):
+					return choices[inputNum]
+			except ValueError :
+				pass
 		pass
-	pass
+	def printChoice(self, count, choice, target=None):
+		if target:
+			print ("[%d] %s (target: %s) : %s"%(count, choice, target, choice.data.description.replace('\n','_')))
+		else :
+			print ("[%d] %s : %s"%(count, choice, choice.data.description.replace('\n','_')))
+			count += 1
+		pass
 
 	def card_stats(self, card):
 		ret = ' %s'%(card)

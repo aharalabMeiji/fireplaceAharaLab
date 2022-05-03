@@ -114,6 +114,7 @@ class Player(Entity, TargetableByAuras):
 		self.spentmoney_in_this_turn=0 ## battlegrounds, #Captain Flat Tusk
 		self.buddy_gauge=0## battlegrounds, # buddy
 		self.got_buddy=0## battlegrounds, # buddy
+		self.parent_agent=None##
 
 
 	def __str__(self):

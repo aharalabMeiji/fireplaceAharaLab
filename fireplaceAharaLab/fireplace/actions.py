@@ -497,6 +497,16 @@ class GenericChoicePlay(GenericChoice):##
 				break
 		pass
 
+class GenericChoiceChangeHeropower(GenericChoice):## 
+	def choose(self, card):
+		super().choose(card)
+		controller = self.player
+		if card.type != CardType.HERO_POWER:
+			return
+		ChangeHeroPower(controller, card).trigger(controller)
+		pass
+
+
 class GenericChoiceBattlecry(GenericChoice):## 
 	def choose(self, card):
 		super().choose(card)
@@ -2402,16 +2412,16 @@ class RegularAttack(TargetedAction):
 			other = [other]
 		if not isinstance(target,list):
 			target = [target]
-		Attack(target, other).broadcast(source, EventListener.ON, target, other)
-		self.broadcast(source, EventListener.ON, target, other)
+		Attack(target, other).broadcast(source, EventListener.ON, target[0], other[0])
+		self.broadcast(source, EventListener.ON, target[0], other[0])
 		for attcard in target:
 			for defcard in other:
 				if attcard.can_attack(defcard):
 					Hit(defcard, attcard.atk).trigger(attcard)
 				if defcard.atk>0:
 					Hit(attcard, defcard.atk).trigger(defcard)
-		Attack(target, other).broadcast(source, EventListener.AFTER, target, other)
-		self.broadcast(source, EventListener.AFTER, target, other)
+				Attack(target, other).broadcast(source, EventListener.AFTER, attcard, defcard)
+				self.broadcast(source, EventListener.AFTER, attcard, defcard)
 
 class BG_RegularAttack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER

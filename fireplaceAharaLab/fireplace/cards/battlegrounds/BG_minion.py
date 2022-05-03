@@ -168,9 +168,10 @@ class BGS_082_Action(TargetedAction):
 					flag[field.index(c)]=1
 					addOK=False
 					continue
-			if c.race != Race.INVALID and addOK:
-				ret.append(c)
+			if addOK:
 				flag[field.index(c)]=1
+				if c.race != Race.INVALID:
+					ret.append(c)
 			pass
 		if len(ret)<=3:
 			sample = ret
