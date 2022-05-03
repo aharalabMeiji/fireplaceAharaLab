@@ -41,8 +41,8 @@ class BG_Bar(Game):
 		self.manager.start_game()
 
 	def BG_find_triple(self):
-		## トリプルを見つけ次第自動的にゴールドにするので、とにかく左から見ていってトリプルを見つければよい。
-		#ただし、スペルカード（宝石、バナナ、コイン）はのぞく
+		## in any way, we find one triple
+		# except spell cards(coins, golds, bananas)
 		characters=[]
 		for card in self.controller.field:
 			characters.append(card.id)
@@ -76,9 +76,9 @@ class BG_Bar(Game):
 				decks[gr].append(card.id)
 				card.zone=Zone.GRAVEYARD
 		newcard = self.controller.card(gold_id)
-		for buff in buffs:## バフはすべて継承する
+		for buff in buffs:## inferit all buffs
 			buff.apply(newcard)
 		print("Gold card!!! by %s"%(self.controller))
-		newcard.zone = Zone.HAND # 必要か？
+		newcard.zone = Zone.HAND # do we need this line?
 		return newcard
 

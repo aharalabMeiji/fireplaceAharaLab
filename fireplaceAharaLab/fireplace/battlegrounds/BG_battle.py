@@ -6,7 +6,7 @@ from hearthstone.enums import PlayState, Zone
 
 class BG_Battle(Game):
 	def __init__(self, bars):
-		#エージェントのデータからバトルフィールドの設定をする。
+		#we construct the battlefield from the data of players
 		self.bar1=bars[0]
 		self.bar2=bars[1]
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
@@ -21,14 +21,14 @@ class BG_Battle(Game):
 
 		pass
 	def battle(self):
-		#プレイヤーのopponentを設定
+		#set their opponents
 		self.player1.opponent=self.player2
 		self.player2.opponent=self.player1
-		#buddy gaugeを進める
+		# move buddy gauges
 		self.player1.buddy_gauge += (len(self.player1.field)*2+2)
 		self.player2.buddy_gauge += (len(self.player2.field)*2+2)
-		#先攻後攻を決める（枚数の多いほうが先攻、同数ならばランダム）
-		#self.first #先攻 #self.second #後攻
+		#determing first and second （if they have the same num of cards, random dice will be used.）
+		#self.first  #self.second 
 		if len(self.player1.field)>len(self.player2.field):
 			self.first = self.player1
 			self.second = self.player2
@@ -38,13 +38,13 @@ class BG_Battle(Game):
 		else:
 			self.first = random.choice([self.player1, self.player2])
 			self.second = self.first.opponent
-		#playstateをPLAYINGにする。格段の意味は見いだせない
+		#let playstate be PLAYING.
 		for player in self.players:
 			player.playstate = PlayState.PLAYING
-		#turn_beginを実行（先攻、後攻の順）（イベントを発生させるため）
-		BeginBattle(self.first).trigger(self)## trigger主はgame
-		BeginBattle(self.second).trigger(self)## trigger主はgame
-		#パラメータ設定
+		#turn_begin for the event broadcasting
+		BeginBattle(self.first).trigger(self)## trigger by game
+		BeginBattle(self.second).trigger(self)## trigger by game
+		#some parameters
 		self.current_player=self.first
 		self.first.AttackIndex=0
 		self.second.AttackIndex=0
@@ -52,18 +52,18 @@ class BG_Battle(Game):
 		self.second.controller.deepcopy_original.FirstKillMinion=None
 		self.first.controller.deepcopy_original.SecondKillMinion=None
 		self.second.controller.deepcopy_original.SecondKillMinion=None
-		#ループ開始
+		# starting the infinite loop
 		while True:
-			#フィールドの表示
+			# display the field
 			self.printField()
-			#一方が全滅したかどうかの判断（もし全滅していたら終戦処理へ）
+			# check if the battle ends
 			if len(self.first.field)==0 or len(self.second.field)==0:
 				break
-			#攻撃者
+			#attacker
 			attacker = self.current_player.field[self.current_player.AttackIndex]
 			if attacker.atk>0:
-				for repeat in range(attacker.windfury+1):## windfury 疾風
-					#被攻撃者
+				for repeat in range(attacker.windfury+1):## procedure for windfury
+					#defender
 					taunts=[]
 					for card in self.current_player.opponent.field:
 						if card.taunt:
@@ -83,13 +83,13 @@ class BG_Battle(Game):
 								lowest_attack.append(card)
 						defenders = lowest_attack
 					defender=random.choice(defenders)
-					#攻撃
+					#attack
 					print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 					BG_RegularAttack(attacker, defender).trigger(attacker.controller)
-					#buddy gaugeを進める
+					#move buddy gauge
 					self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
 					self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
-					#死者が出る場合にその処理(deathrattle)
+					#procedures of deathrattle
 					Deaths().trigger(self)
 					if attacker.zone==Zone.GRAVEYARD:
 						if defender.controller.deepcopy_original.FirstKillMinion==None:
@@ -103,7 +103,7 @@ class BG_Battle(Game):
 							attacker.controller.deepcopy_original.SecondKillMinion=defender.id
 					if len(self.first.field)==0 or len(self.second.field)==0:
 						break;
-			#攻撃ターンの交代(freezeとone_turn_effectはない)
+			# change the turn (no freeze nor one_turn_effect)
 			self.current_player.AttackIndex+=1
 			if self.current_player.AttackIndex>= len(self.current_player.field):
 				self.current_player.AttackIndex=0
@@ -111,40 +111,38 @@ class BG_Battle(Game):
 			if self.current_player.AttackIndex>= len(self.current_player.field):
 				self.current_player.AttackIndex=0
 			pass
-		#バトル終了
+		#end of the battle
 		#self.state = State.COMPLETE
 		#self.manager.step(self.next_step, Step.FINAL_WRAPUP)
 		#self.manager.step(self.next_step, Step.FINAL_GAMEOVER)
 		#self.manager.step(self.next_step)
-		#引き分け
+		# draw
 		if len(self.first.field)==0 and len(self.second.field)==0:
-			#buddy gaugeを進める
+			#move buddy gauge
 			self.player1.buddy_gauge += 1
 			self.player2.buddy_gauge += 1
-			return 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge #続行
+			return 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge #
 		elif len(self.player1.field)==0:
-			# 「セカンドのフィールドの残りカードのtech_levelの総和＋セカンドのTier」を求める
+			# get "sum of tech_levels of the winner + winners tier"
 			damage = self.player2.Tier
 			for card in self.player2.field:
 				if hasattr(card,'tech_level'):
 					damage += card.tech_level
 				else:
 					damage += card.cost# or 1?
-			# ダメージを返す
-			#buddy gaugeを進める
+			# return the damages for heroes
 			self.player1.buddy_gauge += (damage)
 			self.player1.buddy_gauge += 3
 			return damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
 		else:#if len(self.player2.field)==0:
-			# 「ファーストのフィールドの残りカードのtech_levelの総和＋ファーストのTier」を求める
+			# get "sum of tech_levels of the winner + winners tier"
 			damage = self.player1.Tier
 			for card in self.player1.field:
 				if hasattr(card,'tech_level'):
 					damage += card.tech_level
 				else:
 					damage += card.cost# or 1?
-			# ダメージを返す
-			#buddy gaugeを進める
+			# return the damages for heroes
 			self.player2.buddy_gauge += (damage)
 			self.player2.buddy_gauge += 3
 			return 0, damage,self.player1.buddy_gauge,self.player2.buddy_gauge
@@ -184,11 +182,11 @@ class BG_Battle(Game):
 		if not gold_id:
 			return
 		buffs=[]
-		for buff in card.buffs:## バフはすべて継承する
+		for buff in card.buffs:## inferit buffs
 			buffs.append(buff)
 		card.zone=Zone.GRAVEYARD
 		newcard = controller.card(gold_id)
-		for buff in buffs:## バフはすべて継承する
+		for buff in buffs:## inferit buffs
 			buff.apply(newcard)
-		newcard.zone = Zone.PLAY #余分な動きを誘発してしまうか？ 
+		newcard.zone = Zone.PLAY #something wrong? 
 		return newcard
