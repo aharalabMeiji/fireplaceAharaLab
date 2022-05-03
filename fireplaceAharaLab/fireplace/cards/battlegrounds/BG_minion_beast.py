@@ -152,8 +152,11 @@ class BGS_078_Action(TargetedAction):
 	def do(self, source, target):
 		deathrattles = []
 		for card in target.controller.field:
-			for buff in card.deathrattles:
-				deathrattles.append(buff)
+			if isinstance(card.deathrattles, list):
+				for buffs in card.deathrattles:
+					if isinstance(buffs, tuple):
+						for buff in buffs:
+							deathrattles.append(buff)
 		if len(deathrattles)>0:
 			actionbuff = random.choice(deathrattles)
 			actionbuff.trigger(source)
@@ -161,12 +164,12 @@ class BGS_078_Action(TargetedAction):
 class BGS_078:# <12>[1453]
 	""" Monstrous Macaw (3/5/3)
 	After this attacks, trigger another friendly minion's [Deathrattle]. """
-	events = BG_RegularAttack(SELF, ENEMY_MINIONS).after(BGS_078_Action(SELF))
+	events = BG_RegularAttack(SELF).after(BGS_078_Action(SELF))
 	pass
 class TB_BaconUps_135:
 	""" Monstrous Macaw (3/10/6)
 	[x]After this attacks, trigger another friendly minion's [Deathrattle] twice. """
-	events = BG_RegularAttack(FRIENDLY_MINIONS, ENEMY_MINIONS).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
+	events = BG_RegularAttack(SELF).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
 	pass
 
 

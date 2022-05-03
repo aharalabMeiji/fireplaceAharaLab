@@ -139,6 +139,8 @@ class Action(metaclass=ActionMeta):
 		for event in entity.events:
 			if event.at != at:
 				continue
+			if hasattr(entity,'id') and entity.id=='BGS_078' and self.__class__==BG_RegularAttack:
+				kazushi_ahara=100
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				log.info("%r triggers off %r from %r", entity, self, source)
 				entity.trigger_event(source, event, args)
