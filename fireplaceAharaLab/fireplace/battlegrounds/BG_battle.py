@@ -7,6 +7,7 @@ from hearthstone.enums import PlayState, Zone
 class BG_Battle(Game):
 	def __init__(self, bars):
 		#we construct the battlefield from the data of players
+		print("=============constructing the battle field====================")
 		self.bar1=bars[0]
 		self.bar2=bars[1]
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
@@ -21,6 +22,7 @@ class BG_Battle(Game):
 
 		pass
 	def battle(self):
+		print("=============start the battle====================")
 		#set their opponents
 		self.player1.opponent=self.player2
 		self.player2.opponent=self.player1
@@ -116,6 +118,7 @@ class BG_Battle(Game):
 		#self.manager.step(self.next_step, Step.FINAL_WRAPUP)
 		#self.manager.step(self.next_step, Step.FINAL_GAMEOVER)
 		#self.manager.step(self.next_step)
+		print("=============end the battle====================")
 		# draw
 		if len(self.first.field)==0 and len(self.second.field)==0:
 			#move buddy gauge

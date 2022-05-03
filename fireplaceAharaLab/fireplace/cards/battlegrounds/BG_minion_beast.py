@@ -127,6 +127,7 @@ TB_BaconUps_125e=buff(2,4)
 class BG19_010:# <12>[1453]
 	""" Sewer Rat (2/3/2)
 	[Deathrattle:] Summon a 2/3 Turtle with [Taunt]. """
+	tags={GameTag.DEATHRATTLE:True}
 	deathrattle = Summon(CONTROLLER, 'BG19_010t')
 	pass
 class BG19_010t:# <12>[1453]
@@ -136,6 +137,7 @@ class BG19_010t:# <12>[1453]
 class BG19_010_G:# <12>[1453]
 	""" Sewer Rat
 	[Deathrattle:] Summon a 4/6 Turtle with [Taunt]. """
+	tags={GameTag.DEATHRATTLE:True}
 	deathrattle = Summon(CONTROLLER, 'BG19_010_Gt')
 	pass
 class BG19_010_Gt:# <12>[1453]
@@ -150,20 +152,21 @@ class BGS_078_Action(TargetedAction):
 	def do(self, source, target):
 		deathrattles = []
 		for card in target.controller.field:
-			deathrattles += card.deathrattles
+			for buff in card.deathrattles:
+				deathrattles.append(buff)
 		if len(deathrattles)>0:
-			action = random.choice(deathrattles)
-			action.trigger(source)
+			actionbuff = random.choice(deathrattles)
+			actionbuff.trigger(source)
 		pass
 class BGS_078:# <12>[1453]
 	""" Monstrous Macaw (3/5/3)
 	After this attacks, trigger another friendly minion's [Deathrattle]. """
-	events = Attack(FRIENDLY_MINIONS, ENEMY_MINIONS).after(BGS_078_Action(SELF))
+	events = BG_RegularAttack(SELF, ENEMY_MINIONS).after(BGS_078_Action(SELF))
 	pass
 class TB_BaconUps_135:
 	""" Monstrous Macaw (3/10/6)
 	[x]After this attacks, trigger another friendly minion's [Deathrattle] twice. """
-	events = Attack(FRIENDLY_MINIONS, ENEMY_MINIONS).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
+	events = BG_RegularAttack(FRIENDLY_MINIONS, ENEMY_MINIONS).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
 	pass
 
 

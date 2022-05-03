@@ -20,10 +20,10 @@ class BG_main:
 		cards.db.BG_initialize()
 		#エージェントのリスト
 		self.Agents=[
-			BG_NecoAgent("Neco1"),
+			BG_HumanAgent("Human1"),
 			BG_NecoAgent("Neco2"),
-			BG_RandomAgent("Random3"),
-			BG_RandomAgent("Random4")
+			BG_NecoAgent("Random3"),
+			BG_NecoAgent("Random4")
 			]
 		# ヒーローセット
 		self.Heroes = cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
@@ -107,7 +107,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			if agent.name=='Human1':
-				card = bar.controller.card('BG21_HERO_000_Buddy')
+				card = bar.controller.card('BGS_078')
 				card.zone = Zone.HAND
 			##########
 			pass
@@ -121,6 +121,7 @@ class BG_main:
 			### ムーブのループ始まり
 			for bar in self.BG_Bars:
 				controller = bar.controller
+				print ("==== %s 's thinkng ===="% controller)
 				controller.game = bar
 				bartender = bar.bartender
 				agent = controller.parent_agent

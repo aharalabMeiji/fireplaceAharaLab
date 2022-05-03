@@ -2408,6 +2408,8 @@ class RegularAttack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER
 	OTHER = ActionArg()#DEFFENDER
 	def do(self, source, target, other):
+		if other==[]:
+			return
 		if not isinstance(other,list):
 			other = [other]
 		if not isinstance(target,list):
@@ -2434,7 +2436,7 @@ class BG_RegularAttack(TargetedAction):
 		for attcard in target:
 			for defcard in other:
 				Attack(attcard, defcard).broadcast(source, EventListener.ON, attcard, defcard)
-		self.broadcast(source, EventListener.ON, target, other)
+				self.broadcast(source, EventListener.ON, attcard, defcard)
 		for attcard in target:
 			for defcard in other:
 				if attcard.atk>0:
@@ -2444,7 +2446,7 @@ class BG_RegularAttack(TargetedAction):
 		for attcard in target:
 			for defcard in other:
 				Attack(attcard, defcard).broadcast(source, EventListener.AFTER, attcard, defcard)
-		self.broadcast(source, EventListener.AFTER, target, other)
+				self.broadcast(source, EventListener.AFTER, attcard, defcard)
 
 class Dormant(TargetedAction):
 	TARGET = ActionArg()
