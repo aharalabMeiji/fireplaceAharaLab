@@ -95,10 +95,9 @@ BG_Hero1_Buddy_Gold={
 ########### source
 
 
-#00#A. F. Kay 
+#00#A. F. Kay   ### OK ###
 class TB_BaconShop_HERO_16:# <12>[1453]
-	""" A. F. Kay
-	 """
+	""" A. F. Kay	 """
 	pass
 class TB_BaconShop_HP_044_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -134,10 +133,9 @@ TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453]
 +2/+4. """
 
 
-#01#Al'Akir
+#01#Al'Akir  ### OK ###
 class TB_BaconShop_HERO_76:# <12>[1453]
-	""" Al'Akir
-	 """
+	""" Al'Akir	 """
 class TB_BaconShop_HP_086_Action(TargetedAction):
 	TARGET = ActionArg()# controller
 	def do(self, source, target):
@@ -175,10 +173,9 @@ class TB_BaconShop_HERO_76_Buddy_G:
 
 
 
-#02#Alexstrasza
+#02#Alexstrasza   ### OK ###
 class TB_BaconShop_HERO_56:# <12>[1453]
-	""" Alexstrasza
-	"""
+	""" Alexstrasza	"""
 class TB_BaconShop_HP_064_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -201,10 +198,9 @@ class TB_BaconShop_HERO_56_Buddy_G:
 
 
 
-#03##Ambassador Faelin
+#03##Ambassador Faelin ### OK ###
 class BG22_HERO_201:# <12>[1453]
-	""" Ambassador Faelin
-	"""
+	""" Ambassador Faelin	"""
 class BG22_HERO_201p_Choice(Choice):
 	def choose(self, card):
 		source = self.source
@@ -274,7 +270,6 @@ class BG22_HERO_201_Buddy:# <12>[1453]
 		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
 		Give(CONTROLLER, RandomBGMinion(tech_level=5)),)
 	pass
-
 class BG22_HERO_201_Buddy_G:# <12>[1453]
 	""" Submersible Chef
 	[Battlecry:] Add a random Tier 1, 3, and 5 minion to your hand twice. """
@@ -289,7 +284,7 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 
 
 
-#04#Aranna Starseeker # アランナ
+#04#Aranna Starseeker # アランナ ### OK ###
 class TB_BaconShop_HERO_59:# <12>[1453]
 	""" Aranna Starseeker
 	"""
@@ -325,7 +320,7 @@ class TB_BaconShop_HERO_59t:# <12>[1453]
 
 
 
-#05#Arch-Villain Rafaam
+#05#Arch-Villain Rafaam ### OK ###
 class TB_BaconShop_HERO_45:# <12>[1453]
 	""" Arch-Villain Rafaam
 	"""
@@ -499,8 +494,7 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 #07#C'Thun
 class TB_BaconShop_HERO_29:# <12>[1453]
-	""" C'Thun
-	"""
+	""" C'Thun	"""
 class TB_BaconShop_HP_104:
 	""" Saturday C'Thuns!
 	At end of turn, give a friendly minion +1/+1.__Repeat @ |4(time, times).<i>__(Upgrades after each use!)</i>"""
@@ -571,14 +565,12 @@ class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 
 
 
-#10#Cariel Roame
+#10#Cariel Roame ### OK ###
 class BG21_HERO_000:# <5>[1453]
-	""" Cariel Roame
-	"""
+	""" Cariel Roame	"""
 	pass
 class BG21_HERO_000e:
-	"""Cariel Watcher
-	"""
+	"""Cariel Watcher	"""
 	pass
 class BuffRandomFriendlyMinion(TargetedAction):
 	TARGET = ActionArg()#controller

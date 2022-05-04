@@ -32,7 +32,7 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero4.BG_PoolSet_Hero4
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
-		self.BG_decks=[[],[],[],[],[],[]]
+		self.BG_decks=[[],[],[],[],[],[],[]]
 		self.BG_races = races=['pirate','quilboar','mecha']
 		# BAN される raceはここで除外
 		#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
@@ -42,23 +42,23 @@ class BG_main:
 			else:
 				rep=4
 			for repeat in range(rep):	
-				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
+				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 				if 'beast' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 				if 'demon' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
 				if 'dragon' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 				if 'elemental' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
 				if 'mecha' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
 				if 'murloc' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
 				if 'pirate' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				if 'quilboar' in races:
-					self.BG_decks[i] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_beast.BG_Beast_Gold)
@@ -95,7 +95,7 @@ class BG_main:
 			theHero = agent.heroChoiceStrategy(theHeroes)
 			#heroCard=Card(theHero)
 			print ("==== %s 's bar building 1===="% agent)
-			thePlayer = Player(agent.name, self.BG_decks[0], theHero)#
+			thePlayer = Player(agent.name, self.BG_decks[1], theHero)#
 			# building a Tavern
 			print ("==== %s 's bar building 2===="% agent)
 			bar = BG_Bar(thePlayer)
@@ -249,11 +249,10 @@ class BG_main:
 		# main おわり
 		pass
 
-	def DealCard(self, bartender, grade):
-		decks = self.BG_decks
+	def DealCard(self, bartender, tier):
 		dk=[]
-		for i in range(grade):
-			dk += decks[i]
+		for i in range(1,tier+1):
+			dk += self.BG_decks[i]
 		cardID = random.choice(dk)
 		card = bartender.card(cardID)
 		if card.race==Race.ELEMENTAL:## 
@@ -267,15 +266,12 @@ class BG_main:
 				buff = card.buffs[-1]
 				buff.atk=bartender.opponent.lightspawn_powered_up
 				buff.max_health=bartender.opponent.lightspawn_powered_up
-		gr = card.tech_level-1
-		decks[gr].remove(cardID)
+		self.BG_decks[card.tech_level].remove(cardID)
 		card.controller = bartender# maybe deletable
 		card.zone = Zone.PLAY
 		return card
 	def ReturnCard(self, card):
-		decks = self.BG_decks
-		gr = card.tech_level-1
-		decks[gr].append(card.id)
+		self.BG_decks[card.tech_level].append(card.id)
 		card.zone=Zone.GRAVEYARD
 		#card.controller.field.remove(card)
 		pass

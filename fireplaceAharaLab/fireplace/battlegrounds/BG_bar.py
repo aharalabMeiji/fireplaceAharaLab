@@ -71,7 +71,8 @@ class BG_Bar(Game):
 	def BG_deal_gold(self, id):
 		if not id:
 			return
-		gold_id = self.parent.BG_Gold[id]
+		gold_id = self.parent.BG_Gold[id] ## to find a buf
+		#gold_id = self.parent.BG_Gold.get(id, 0)
 		if not gold_id:
 			return
 		buffs = []

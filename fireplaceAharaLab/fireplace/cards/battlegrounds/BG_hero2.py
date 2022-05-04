@@ -391,9 +391,9 @@ class TB_BaconShop_HP_028_Action(TargetedAction):
 		controller = target
 		bartender = controller.opponent
 		Rerole(controller).trigger(controller)
-		tier=controller.Tier## tier = (Tier-1) +1
-		if tier==6:
-			tier=5
+		tier=controller.Tier+1## 
+		if tier==7:
+			tier=6
 		cardID = random.choice(controller.game.parent.BG_decks[tier])
 		card = bartender.card(cardID)
 		card.controller = bartender
