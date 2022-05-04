@@ -111,7 +111,7 @@ class BG_main:
 			########## FOR DEBUGGIN! Default dealing a specific card
 			print ("==== %s 's bar building 3===="% agent)
 			if agent.name=='Human1':
-				card = bar.controller.card('BG20_201')
+				card = bar.controller.card('BG20_103')#BG20_301
 				card.zone = Zone.HAND
 			##########
 			print ("==== %s 's bar done ===="% agent)
@@ -304,7 +304,7 @@ def choiceAction(player):
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())
-				Give(player1,myCardID).trigger(player1)
+				Give(player,myCardID).trigger(player)
 				player.choice = None
 			else :
 				if choice == None:

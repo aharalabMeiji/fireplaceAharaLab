@@ -125,38 +125,39 @@ class BG20_102_Ge:# <12>[1453]
 
 
 
-#Bannerboar	3
+#Bannerboar	3  ### OK ###
 class BG20_201:# <12>[1453]
 	""" Bannerboar
 	At the end of your turn, play a [Blood Gem] on adjacent Quilboar. """
-	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
 	pass
 class BG20_201_G:# <12>[1453]
 	""" Bannerboar
 	At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar. """
-	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'), ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'), ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
 	pass
 
 
 
-#Bristleback Brute	3
+#Bristleback Brute	3   ### OK ###
 class GB20_103_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
-		if target.gem_applied_thisturn:
-			for repeat in range(amount):
-				Buff(target, 'BG20_GEMe').trigger(source)
+		if not target.gem_applied_thisturn:
+			buff=target.buffs[-1]
+			buff.atk+=3
+			buff.max_health+=3
 		pass
 class BG20_103:# <12>[1453]
 	""" Bristleback Brute
 	The first [Blood Gem] played on this each turn gives an extra +3/+3. """
-	events = ApplyGem(SELF,ID('BG20_GEM')).on(GB20_103_Action(SELF, 3))
+	events = ApplyGem(SELF).on(GB20_103_Action(SELF, 3))
 	pass
 class BG20_103_G:# <12>[1453]
 	""" Bristleback Brute
 	The first [Blood Gem] played on this each turn gives an extra +6/+6. """
-	events = ApplyGem(SELF,ID('BG20_GEM')).on(GB20_103_Action(SELF, 6))
+	events = ApplyGem(SELF).on(GB20_103_Action(SELF, 6))
 	pass
 
 

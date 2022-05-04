@@ -84,8 +84,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		elif player.name==P2.name:
 			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
 			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
-		else:
-			Original_random(game)#random player by fireplace
+		#else:
+		#	Original_random(game)#random player by fireplace
 		#turn end procedure from here
 		if player.choice!=None:
 			player.choice=None#somotimes it comes here
@@ -520,7 +520,7 @@ def postAction(player):
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())
-				Give(player1,myCardID).trigger(player1)
+				Give(player, myCardID).trigger(player)
 				player.choice = None
 			else :
 				if choice == None:

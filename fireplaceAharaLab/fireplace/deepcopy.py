@@ -308,6 +308,8 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff.source = buff.source
 			new_buff.controller = newPlayer
 			new_buff.owner = card
+			new_buff.atk=buff.atk## modified buff
+			new_buff.max_health=buff.max_health## modified buff
 			new_buff.apply(new_card)
 			#new_card.buffs.append(new_buff)
 			if buff in card.game.active_aura_buffs:

@@ -3108,10 +3108,8 @@ class StealGem(TargetedAction):
 	TARGET = ActionArg()
 	CARDS = ActionArg()
 	def do(self, source, target, cards):
-		if not isinstance(card, list):
+		if not isinstance(cards, list):
 			cards = [cards]
-		else:
-			cards = cards
 		gem_count=0
 		for card in cards:
 			repeat = len(card.buffs)
