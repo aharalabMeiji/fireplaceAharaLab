@@ -139,7 +139,7 @@ class Action(metaclass=ActionMeta):
 		for event in entity.events:
 			if event.at != at:
 				continue
-			if hasattr(entity,'id') and entity.id=='BGS_078' and self.__class__==BG_RegularAttack:
+			if hasattr(entity,'id') and entity.id=='LOOT_078' and self.__class__==BG_Attack:
 				kazushi_ahara=100
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				log.info("%r triggers off %r from %r", entity, self, source)
@@ -2408,7 +2408,7 @@ class SwapMinionAndHand(TargetedAction):
 
 class RegularAttack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER
-	OTHER = ActionArg()#DEFFENDER
+	OTHER = ActionArg()#DEFENDER
 	def do(self, source, target, other):
 		if other==[]:
 			return
@@ -2427,7 +2427,7 @@ class RegularAttack(TargetedAction):
 				Attack(target, other).broadcast(source, EventListener.AFTER, attcard, defcard)
 				self.broadcast(source, EventListener.AFTER, attcard, defcard)
 
-class BG_RegularAttack(TargetedAction):
+class BG_Attack(TargetedAction):
 	TARGET = ActionArg()#ATTACKER
 	OTHER = ActionArg()#DEFFENDER
 	def do(self, source, target, other):
@@ -3001,6 +3001,12 @@ class GetFreeRerole(TargetedAction):
 		controller.game.reroleCost=0
 		pass
 	pass
+
+class HitAdjacentMinions(TargetedAction):#Cave Hydra, Foe Reaper 4000,
+	TARGET=ActionArg()
+	def do(self, source, target):
+		for card in target.adjacent_minions:
+			Hit(card, source.atk).trigger(source)
 
 class LoseDivineShield(GameAction):#聖盾を失ったとき
 	TARGET=ActionArg()

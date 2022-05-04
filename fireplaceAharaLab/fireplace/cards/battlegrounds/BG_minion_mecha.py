@@ -267,12 +267,12 @@ class BG20_401_G:# <12>[1453]
 class GVG_113:## エネリ
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
-	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
+	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER))
 	pass
 class TB_BaconUps_153:# <12>[1453]
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
-	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
+	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER))
 	pass
 
 

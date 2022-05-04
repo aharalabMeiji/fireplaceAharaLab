@@ -85,6 +85,7 @@ class BG_main:
 	def BG_main(self):
 		# ヒーローの選択
 		for agent in self.Agents:
+			print ("==== %s 's bar building ===="% agent)
 			if agent.name=='Human1':
 				theHeroes = [self.Heroes[10],self.Heroes[53]]
 			else:
@@ -107,9 +108,10 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			##########デバッグのための仕込みをするならココ
 			if agent.name=='Human1':
-				card = bar.controller.card('BGS_078')
+				card = bar.controller.card('BGS_126')
 				card.zone = Zone.HAND
 			##########
+			print ("==== %s 's bar done ===="% agent)
 			pass
 		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
 		# 無限ループ始まり

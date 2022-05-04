@@ -155,14 +155,14 @@ class TB_BaconShop_HP_046:
 
 
 
-#Rokara # armor 5
+#54#Rokara # armor 5
 class BG20_HERO_100:# <10>[1453]
 	""" Rokara
 	 """
 	pass
 class BG20_HERO_100_Buddy:# <12>[1453]
 	""" Icesnarl the Mighty
-	After a friendly minionkills an enemy, gain+1 Health permanently. """
+	After a friendly minion kills an enemy, gain+1 Health permanently. """
 	events = Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(SELF, 'BG20_HERO_100_Buddy_e'))
 	pass
 BG20_HERO_100_Buddy_e=buff(0,1)# <12>[1453]

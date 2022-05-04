@@ -149,7 +149,8 @@ class BG19_010_Gt:# <12>[1453]
 
 class BGS_078_Action(TargetedAction):
 	TARGET=ActionArg()
-	def do(self, source, target):
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
 		deathrattles = []
 		for card in target.controller.field:
 			if isinstance(card.deathrattles, list):
@@ -158,18 +159,19 @@ class BGS_078_Action(TargetedAction):
 						for buff in buffs:
 							deathrattles.append(buff)
 		if len(deathrattles)>0:
-			actionbuff = random.choice(deathrattles)
-			actionbuff.trigger(source)
+			for repeat in range(amount):
+				actionbuff = random.choice(deathrattles)
+				actionbuff.trigger(source)
 		pass
 class BGS_078:# <12>[1453]
 	""" Monstrous Macaw (3/5/3)
 	After this attacks, trigger another friendly minion's [Deathrattle]. """
-	events = BG_RegularAttack(SELF).after(BGS_078_Action(SELF))
+	events = BG_Attack(SELF).after(BGS_078_Action(SELF, 1))
 	pass
 class TB_BaconUps_135:
 	""" Monstrous Macaw (3/10/6)
 	[x]After this attacks, trigger another friendly minion's [Deathrattle] twice. """
-	events = BG_RegularAttack(SELF).after(BGS_078_Action(SELF), BGS_078_Action(SELF))
+	events = BG_Attack(SELF).after(BGS_078_Action(SELF, 2))
 	pass
 
 
@@ -191,17 +193,15 @@ class TB_BaconUps_027t:
 	""" Rat """
 	pass
 
-
-
 class LOOT_078:
 	""" Cave Hydra (4/2/4)
 	Also damages the minions next to whomever this attacks."""
-	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
+	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER))
 	pass
 class TB_BaconUps_151:
 	""" Cave Hydra (4/4/8)
 	Also damages the minions next to whomever this attacks."""
-	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
+	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER))
 	pass
 
 class BG21_003:# <12>[1453]

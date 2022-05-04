@@ -184,7 +184,7 @@ class TB_BaconUps_161:# <12>[1453]
 
 
 
-#Dazzling Lightspawn(4) ####動作確認
+#Dazzling Lightspawn(4) ####OK
 class BG21_020_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -232,24 +232,27 @@ class BG21_040_G:# <12>[1453]
 #Wildfire Elemental(4)
 class BGS_126_Action(TargetedAction):
 	TARGET = ActionArg()
-	CARDS = CardArg()
-	def do(self, source, target, cards):
+	LVL = IntArg()
+	def do(self, source, target, lvl):
 		attacker = source
 		defender = target
-		adjacents = cards
+		adjacents = source.adjacent_minions
 		amount = attacker.atk - defender.health
-		if amount>0:
-			for card in adjacents:
-				Hit(card, amount).trigger(source)
+		if amount>0 and len(adjacents)>0:
+			if lvl==1:
+				Hit(random.choice(adjacents), amount).trigger(source.controller)
+			else:
+				for card in adjacents:
+					Hit(card, amount).trigger(source.controller)
 class BGS_126:# <12>[1453]
 	""" Wildfire Elemental
 	After this attacks and kills a minion, deal excess damage to a random adjacent minion. """
-	events = Attack(SELF, ENEMY_MINIONS).on(BGS_126_Action(Attack.DEFENDER, RANDOM(ADJACENT(Attack.DEFENDER))))
+	events = Attack(SELF, ENEMY_MINIONS).on(BGS_126_Action(Attack.DEFENDER, 1))
 	pass
 class TB_BaconUps_166:# <12>[1453]
 	""" Wildfire Elemental
 	After this attacks and killsa minion, deal excess damage to both adjacent minions. """
-	events = Attack(SELF, ENEMY_MINIONS).on(BGS_126_Action(Attack.DEFENDER, ADJACENT(Attack.DEFENDER)))
+	events = Attack(SELF, ENEMY_MINIONS).on(BGS_126_Action(Attack.DEFENDER, 2))
 	pass
 
 

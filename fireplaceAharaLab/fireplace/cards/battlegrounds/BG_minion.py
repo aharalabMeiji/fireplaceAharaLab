@@ -229,7 +229,7 @@ class BG20_203_G:# <12>[1453]
 
 
 #Selfless Hero	2	2	1	-	Deathrattle OG_221 TB_BaconUps_014　けんしん
-## 動作確認済み
+## OK
 class OG_221:
 	"""Selfless Hero:
 	<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>."""
@@ -243,7 +243,7 @@ class TB_BaconUps_014:# <5>[1453]
 
 
 #Spawn of N'Zoth	2	2	2	-	Deathrattle　 OG_256 TB_BaconUps_025 んぞす
-## 動作確認済み
+## OK
 class OG_256:
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +1/+1. """

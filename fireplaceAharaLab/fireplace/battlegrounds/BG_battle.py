@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BG_RegularAttack, Deaths, BeginBattle
+from fireplace.actions import BG_Attack, Deaths, BeginBattle
 import random
 from hearthstone.enums import PlayState, Zone
 
@@ -87,7 +87,7 @@ class BG_Battle(Game):
 					defender=random.choice(defenders)
 					#attack
 					print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
-					BG_RegularAttack(attacker, defender).trigger(attacker.controller)
+					BG_Attack(attacker, defender).trigger(attacker.controller)
 					#move buddy gauge
 					self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
 					self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
