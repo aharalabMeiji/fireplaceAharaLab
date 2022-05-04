@@ -274,7 +274,7 @@ class BG20_202_G:# <12>[1453]
 
 
 
-#Aggem Thorncurse	5
+#Aggem Thorncurse	5  ### OK ###
 class BG20_302_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -294,15 +294,16 @@ class BG20_302_Action(TargetedAction):
 					addOK=False
 					continue
 			if addOK:
-				ret.append(c)
 				flag[field.index(c)]=1
+				if c.race != Race.INVALID:
+					ret.append(c)
 			pass
 		for c in ret:
 			Buff(c,buff).trigger(source)
 class BG20_302:# <12>[1453]　そーんかーす
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +1/+1. """
-	events = ApplyGem(SELF, ID('BG20_GEM')).on(BG20_302_Action(CONTROLLER, 'BG20_302e'))
+	events = ApplyGem(SELF).on(BG20_302_Action(CONTROLLER, 'BG20_302e'))
 	pass
 BG20_302e=buff(1,1)# <12>[1453]
 """ Thorncursed
@@ -320,41 +321,46 @@ BG20_302_Ge=buff(2,2)# <12>[1453]
 
 
 
-#Captain Flat Tusk	6
+#Captain Flat Tusk	6  ### OK ###
 class BG20_206_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target):
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
 		controller = target
 		if controller.spentmoney_in_this_turn>=4:
-			Give(controller,'BG20_GEM').trigger(source)
+			for repeat in range(amount):
+				Give(controller,'BG20_GEM').trigger(source)
 			controller.spentmoney_in_this_turn -= 4
 class BG20_206:# <12>[1453]
 	""" Captain Flat Tusk
 	After you spend 4 Gold, gain a [Blood Gem].<i>(@ Gold left!)</i> """
 	events = [
-		Buy(CONTROLLER).on(BG20_206_Action(CONTROLLER)),
-		Rerole(CONTROLLER).on(BG20_206_Action(CONTROLLER)),
-		UpgradeTier(CONTROLLER).on(BG20_206_Action(CONTROLLER)),
+		Buy(CONTROLLER).on(BG20_206_Action(CONTROLLER, 1)),
+		Rerole(CONTROLLER).on(BG20_206_Action(CONTROLLER, 1)),
+		UpgradeTier(CONTROLLER).on(BG20_206_Action(CONTROLLER, 1)),
 		]
 	pass
 class BG20_206_G:# <12>[1453]
 	""" Captain Flat Tusk
 	After you spend 4 Gold,gain 2 [Blood Gems].<i>(@ Gold left!)</i> """
-	#
+	events = [
+		Buy(CONTROLLER).on(BG20_206_Action(CONTROLLER, 2)),
+		Rerole(CONTROLLER).on(BG20_206_Action(CONTROLLER, 2)),
+		UpgradeTier(CONTROLLER).on(BG20_206_Action(CONTROLLER, 2)),
+		]
 	pass
 
 
-
-#Charlga	6
+#Charlga	6 ### OK ###
 class BG20_303:# <12>[1453] ちゃるが
 	""" Charlga
 	At the end of your turn, play a [Blood Gem] on all friendly minions. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS, 'BG20_GEM'))
+	events = OWN_TURN_END.on(ApplyGem(FRIENDLY_MINIONS, 'BG20_GEM'))
 	pass
 
 class BG20_303_G:# <12>[1453]
 	""" Charlga
 	At the end of your turn, play 2 [Blood Gems] on all friendly minions. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS, 'BG20_GEM'), Buff(FRIENDLY_MINIONS, 'BG20_GEM'))
+	events = OWN_TURN_END.on(ApplyGem(FRIENDLY_MINIONS, 'BG20_GEM')*2)
 	pass
 

@@ -196,6 +196,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.FREEZE: 'freeze',#
 	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
+	1587: "gambler_sell_price",# battleground
 	1429: "gold_card", # battlegrounds
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",

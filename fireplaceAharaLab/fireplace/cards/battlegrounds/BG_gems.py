@@ -1,7 +1,7 @@
 from ..utils import *
 
 BG_Gems=[
-	'BG20_GEM','BG20_GEMe','BG20_GEMe2',
+	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005'
 	]
 
 ##
@@ -29,6 +29,13 @@ Increased stats from Blood Gem (but invisible banner) """
 BG20_GEMe2=buff(3,3)# <12>[1453]
 """ Blood Gems
 +@/+@. """
+
+class GAME_005:# <12> 1637 #OK
+	""" The Coin
+	Gain 1 Mana Crystal this turn only. """
+	play = ManaThisTurn(CONTROLLER, 1)
+	pass
+
 
 
 class BG20_GEMt:# <12>[1453]

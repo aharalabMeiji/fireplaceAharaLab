@@ -37,12 +37,12 @@ class BG_Bar(Game):
 		print("S", end=':')
 
 		for player in self.players:
-			print("S", end=':')
+			print("S(%s)(%s)"%(player,player.starting_hero), end=':')
 			player.summon(player.starting_hero)
+			print("S", end=':')
 			armor_grade = player.hero.data.tags.get(1723)
 			if armor_grade != 1 and armor_grade != None:
 				player.hero.armor = random.randint(armor_grade, armor_grade+3)
-			print("S", end=':')
 			#player.playstate = PlayState.PLAYING
 		self.manager.start_game()
 		print("E")

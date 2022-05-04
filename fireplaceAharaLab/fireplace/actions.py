@@ -139,8 +139,6 @@ class Action(metaclass=ActionMeta):
 		for event in entity.events:
 			if event.at != at:
 				continue
-			if hasattr(entity,'id') and entity.id=='BG20_105' and self.__class__==LoseDivineShield:
-				kazushi_ahara=100
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				log.info("%r triggers off %r from %r", entity, self, source)
 				entity.trigger_event(source, event, args)
@@ -3100,7 +3098,11 @@ class Sell(TargetedAction):
 				self.broadcast(source, EventListener.ON, target, card)
 				self.broadcast(source, EventListener.AFTER, target, card)
 				card.zone=Zone.GRAVEYARD
-				controller.used_mana -= 1
+				controller.game.refresh_auras()## refresh aura_buff
+				if card.data.tags.get(1587):
+					controller.used_mana -= card.gambler_sell_price
+				else:
+					controller.used_mana -= 1
 				return
 		pass
 

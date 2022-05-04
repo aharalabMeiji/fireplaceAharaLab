@@ -47,8 +47,8 @@ BG_Pirate_Gold={
 	}
 
 
-#Deck Swabbie,1,2,2,Pirate,Battlecry
-class BGS_055:# 甲板みがき　動作確認済み
+#Deck Swabbie,1,2,2,Pirate,Battlecry ### OK ###
+class BGS_055:#
 	""" Deck Swabbie <pirate>  (2/2)
 	<b>Battlecry:</b> Reduce the cost of upgrading Bob's Tavern by (1). """
 	play = ReduceTierUpCost(CONTROLLER,1)
@@ -59,47 +59,58 @@ class TB_BaconUps_126:
 	play = ReduceTierUpCost(CONTROLLER,2)
 	pass
 
-#Scallywag,1,3,1,Pirate,Deathrattle
+
+#Scallywag,1,3,1,Pirate,Deathrattle  ### OK ###
+class BGS_061_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARDID=ActionArg()
+	def do(self, source, target, cardid):
+		controller = target
+		newcard=Summon(controller, cardid).trigger(controller)
+		newcard=newcard[0][0]
+		if len(controller.opponent.field)>0:
+			defender=random.choice(controller.opponent.field)
+			print("%s attacks %s"%(newcard,defender))
+			BG_Attack(newcard, defender).trigger(controller)
+			Deaths().trigger(controller)
 class BGS_061:# <12>[1453]
 	""" Scallywag
 	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """
-	deathrattle = Summon(CONTROLLER, 'BGS_061t').then(RegularAttack(Summon.CARD,RANDOM_ENEMY_MINION))
+	deathrattle = BGS_061_Action(CONTROLLER,'BGS_061t')
+	#deathrattle = Summon(CONTROLLER, 'BGS_061t').then(BG_Attack(Summon.CARD,RANDOM_ENEMY_MINION))
 	pass
 class BGS_061t:# <7>[1453]
-	""" Sky Pirate
-	 """
-	#
-	pass
+	""" Sky Pirate,	 """
 class TB_BaconUps_141:# <12>[1453]
 	""" Scallywag
 	<b>Deathrattle:</b> Summon a 2/2 Pirate. It attacks immediately. """
-	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_141t').then(RegularAttack(Summon.CARD,RANDOM_ENEMY_MINION))
+	deathrattle = BGS_061_Action(CONTROLLER, 'TB_BaconUps_141t')
 	pass
 class TB_BaconUps_141t:# <7>[1453]
-	""" Sky Pirate
-	 """
-	#
-	pass
+	""" Sky Pirate,	 """
 
-#Freedealing Gambler,2,3,3,Pirate,-
+
+#Freedealing Gambler,2,3,3,Pirate,- ### OK ###
 class BGS_049:# <12>[1453]
 	""" Freedealing Gambler
 	This minion sells for 3 Gold. """
-	#		<Tag enumID="1587" name="3" type="Int" value="3"/> 謎タグ
+	#		<Tag enumID="1587" name="3" type="Int" value="3"/> # quiz tag
 	pass
 class TB_BaconUps_127:# <12>[1453]
 	""" Freedealing Gambler
 	This minion sells for 6 Gold. """
-	#		<Tag enumID="1587" name="6" type="Int" value="6"/> 謎タグ
+	#		<Tag enumID="1587" name="6" type="Int" value="6"/> #quiz tag
 	pass
 
-#Southsea Captain,2,3,3,Pirate,-
+#Southsea Captain,2,3,3,Pirate,- ### OK ###
 class NEW1_027:
 	""" Southsea Captain
 	Your other Pirates have +1/+1. """
 	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
 	pass
-NEW1_027e = buff(+1, +1)
+class NEW1_027e:
+   atk = lambda self,i:i+1
+   max_health = lambda self,i:i+1
 class TB_BaconUps_136:
 	""" Southsea Captain
 	Your other Pirates have +2/+2. """
@@ -107,19 +118,27 @@ class TB_BaconUps_136:
 	pass
 TB_BaconUps_136e = buff(+2, +2)
 
-#Yo-Ho-Ogre,2,3,5,Pirate,Taunt
+#Yo-Ho-Ogre,2,3,5,Pirate,Taunt  ### OK ###
+class BGS_060_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if len(source.controller.opponent.field)>0 and not target.to_be_destroyed:
+			defender=random.choice(source.controller.opponent.field)
+			print("%s attacks %s"%(target,defender))
+			BG_Attack(target, defender).trigger(source.controller)
+			Deaths().trigger(source.controller)
 class BGS_060:# <12>[1453]
 	""" Yo-Ho-Ogre
 	[Taunt]After this minion survives being attacked, attack immediately. """
-	events = Attack(ENEMY_MINIONS, SELF).after(RegularAttack(SELF, RANDOM_ENEMY_MINION))
+	events = BG_Attack(ENEMY, SELF).after(BGS_060_Action(SELF))
 	pass
 class TB_BaconUps_150:# <12>[1453]
 	""" Yo-Ho-Ogre (2/6/10)
 	[Taunt]After this minion survives being attacked, attack immediately. """
-	events = Attack(ENEMY_MINIONS, SELF).after(RegularAttack(SELF, RANDOM_ENEMY_MINION)) 
+	events = BG_Attack(ENEMY_MINIONS, SELF).after(BGS_060_Action(SELF)) 
 	pass
 
-#Briny Bootlegger,3,4,4,Pirate,-
+#Briny Bootlegger,3,4,4,Pirate,- ### OK ###
 class BG21_017_Action(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
@@ -129,7 +148,7 @@ class BG21_017_Action(TargetedAction):
 		for card in field:
 			if card != target and card.race==Race.PIRATE:
 				for repeat in range(amount):
-					Give(controller, "GAME_005").trigger(controller)
+					Give(controller, 'GAME_005').trigger(controller)
 				return
 class BG21_017:# <12>[1453]
 	""" Briny Bootlegger
