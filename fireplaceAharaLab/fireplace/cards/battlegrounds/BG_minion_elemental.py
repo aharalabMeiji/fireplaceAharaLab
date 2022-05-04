@@ -229,14 +229,14 @@ class BG21_040_G:# <12>[1453]
 
 
 
-#Wildfire Elemental(4)
+#Wildfire Elemental(4) ### OK ###
 class BGS_126_Action(TargetedAction):
 	TARGET = ActionArg()
 	LVL = IntArg()
 	def do(self, source, target, lvl):
 		attacker = source
 		defender = target
-		adjacents = source.adjacent_minions
+		adjacents = defender.adjacent_minions
 		amount = attacker.atk - defender.health
 		if amount>0 and len(adjacents)>0:
 			if lvl==1:

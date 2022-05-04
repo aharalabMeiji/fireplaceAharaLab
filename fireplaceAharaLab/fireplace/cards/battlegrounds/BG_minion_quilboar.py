@@ -48,7 +48,7 @@ BG_Quilboar_Gold={
 
 # BG20_GEM : blood gem
 
-#Razorfen Geomancer	1　##動作確認済み
+#Razorfen Geomancer	1　### OK ###
 class BG20_100:# <12>[1453]
 	""" Razorfen Geomancer
 	[Battlecry:] Gain a[Blood Gem]. """
@@ -62,8 +62,8 @@ class BG20_100_G:# <12>[1453]
 
 
 
-#Sun-Bacon Relaxer	1
-class BG20_301:# <12>[1453] コンガリ ##動作確認済み
+#Sun-Bacon Relaxer	1 ### OK ###
+class BG20_301:# <12>[1453] コンガリ 
 	""" Sun-Bacon Relaxer
 	When you sell this, gain 2_[Blood Gems]. """
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 2)
@@ -77,14 +77,14 @@ class BG20_301_G:# <12>[1453]
 
 
 
-#Roadboar	2
+#Roadboar	2  ### OK ###
 class BG20_101_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARD = ActionArg()
 	def do(self, source, target, card):
 		controller=target.deepcopy_original
 		Give(controller, card).trigger(controller)
-class BG20_101:# <12>[1453]　動作確認済み
+class BG20_101:# <12>[1453]　
 	""" Roadboar
 	[Frenzy:] Gain a [Blood Gem]. """
 	tags={GameTag.FRENZY:1, }
@@ -100,7 +100,7 @@ class BG20_101_G:# <12>[1453]
 
 
 
-#Tough Tusk	2
+#Tough Tusk	2 ### OK ###
 class BG20_102:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """

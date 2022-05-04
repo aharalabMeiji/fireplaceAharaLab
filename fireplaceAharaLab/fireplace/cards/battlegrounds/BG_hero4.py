@@ -155,27 +155,35 @@ class TB_BaconShop_HP_046:
 
 
 
-#54#Rokara # armor 5
-class BG20_HERO_100:# <10>[1453]
+#54#Rokara # 
+class BG20_HERO_100:# <10>[1453] #### OK ####
 	""" Rokara
 	 """
 	pass
+class BG20_HERO_100_Action(TargetedAction):
+	ATTACKER=ActionArg()
+	DEFENDER=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, attacker, defender, buff):
+		if defender.to_be_destroyed:
+			BuffPermanently(attacker, buff).trigger(source.controller)
+		pass
 class BG20_HERO_100_Buddy:# <12>[1453]
 	""" Icesnarl the Mighty
 	After a friendly minion kills an enemy, gain+1 Health permanently. """
-	events = Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(SELF, 'BG20_HERO_100_Buddy_e'))
+	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100_Buddy_e'))
 	pass
 BG20_HERO_100_Buddy_e=buff(0,1)# <12>[1453]
 class BG20_HERO_100_Buddy_G:# <12>[1453]
 	""" Icesnarl the Mighty
 	After a friendly minionkills an enemy, gain+2 Health permanently. """
-	events = Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(SELF, 'BG20_HERO_100_Buddy_Ge'))
+	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100_Buddy_Ge'))
 	pass
 BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
 class BG20_HERO_100p:# <10>[1453]
 	""" Glory of Combat
 	<b>Passive.</b> After a friendly minion kills an enemy, give it +1 Attack permanently. """
-	events =  Attack(FRIENDLY_MINIONS, ENEMY_CHARACTERS).on(Buff(Attack.ATTACKER, 'BG20_HERO_100p_e2'))
+	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100p_e2'))
 	pass
 BG20_HERO_100p_e2=buff(1,0)
 

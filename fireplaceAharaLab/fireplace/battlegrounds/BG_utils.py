@@ -33,14 +33,14 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[]]
-		#races=['elemental','demon']
+		self.BG_races = races=['parate','quilboar','demon']
 		# BAN される raceはここで除外
-		self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+		#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		for i in range(6):
 			if i<5:
 				rep=8
 			else:
-				rep=3
+				rep=4
 			for repeat in range(rep):	
 				self.BG_decks[i] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
 				if 'beast' in races:
@@ -83,7 +83,7 @@ class BG_main:
 	pass
 
 	def BG_main(self):
-		# ヒーローの選択
+		# each agent chooses heroes 
 		for agent in self.Agents:
 			print ("==== %s 's bar building ===="% agent)
 			if agent.name=='Human1':
@@ -94,8 +94,10 @@ class BG_main:
 			self.Heroes.remove(theHeroes[1])
 			theHero = agent.heroChoiceStrategy(theHeroes)
 			#heroCard=Card(theHero)
-			thePlayer = Player(agent.name, self.BG_decks[0], theHero)#とりあえずグレ１をデッキとしておく。
-			# ゲームのたちあげ
+			print ("==== %s 's bar building 1===="% agent)
+			thePlayer = Player(agent.name, self.BG_decks[0], theHero)#
+			# building a Tavern
+			print ("==== %s 's bar building 2===="% agent)
 			bar = BG_Bar(thePlayer)
 			bar.BG_setup()
 			bar.player1 = bar.current_player = bar.controller
@@ -106,21 +108,22 @@ class BG_main:
 			bar.player1.parent_agent = agent
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
-			##########デバッグのための仕込みをするならココ
+			########## FOR DEBUGGIN! Default dealing a specific card
+			print ("==== %s 's bar building 3===="% agent)
 			if agent.name=='Human1':
-				card = bar.controller.card('BGS_126')
+				card = bar.controller.card('BG20_201')
 				card.zone = Zone.HAND
 			##########
 			print ("==== %s 's bar done ===="% agent)
 			pass
-		prevMatches=[[0,1],[2,3]]# 直前の組合せを保存するための変数
-		# 無限ループ始まり
+		prevMatches=[[0,1],[2,3]]# previous combination
+		# Start game
 		while True:	
-			### 組合せをランダムに決める（現状固定だが、最終形ではランダム）
+			### randomize the combinations(now fixed)
 			matches=[[0,1],[2,3]]#
-			#battlesはこのままで繰り返し使う。配列の長さは最終形では4
+			#in tha final, battles lengtha will be 4 
 			battles = [None,None]
-			### ムーブのループ始まり
+			### Agent moves start
 			for bar in self.BG_Bars:
 				controller = bar.controller
 				print ("==== %s 's thinkng ===="% controller)
@@ -128,21 +131,20 @@ class BG_main:
 				bartender = bar.bartender
 				agent = controller.parent_agent
 				assert agent
-				#「アランナフラグが立っていれば」
+				#if Aranna-flag, 
 				if controller.hero.power.id!='TB_BaconShop_HP_065t2':
 					bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
 				else:
 					bartender.BobsTmpFieldSize=7
 				controller.max_mana = min(10,bar.turn+2)
 				controller.used_mana = 0
-				### （バーテンダーに）カードを配る
-				# リロール: できればTargetedActionに振り替えるが、発動条件としては微妙に異なるので、このまま説もありうる。
-				# 一説では、len(bartender.field)<bartender.BobsTmpFieldSizeのときにはリロール扱いになるとのこと。
+				### deal cards to tavern
+				# this part seems like reloading, but they say that 'only if some cards are purchased, this dealing is recognized as a reloading.'
 				frozencard=0
 				repeat = len(bartender.field)
 				for i in range(repeat):
 					card = bartender.field[repeat-1-i]
-					if card.zone!=Zone.PLAY:# 理由は不明だが、なぜかときどきZone.HANDのときがある。
+					if card.zone!=Zone.PLAY:# sometimes this is Zone.HAND, I don't know why.
 						card.zone = Zone.PLAY
 					if not card.frozen:
 						self.ReturnCard(card)
@@ -151,32 +153,31 @@ class BG_main:
 						frozencard += 1
 				for repeat in range(bartender.BobsTmpFieldSize-frozencard):
 					card = self.DealCard(bartender, controller.Tier)
-					card.controller = bartender#たぶん不要
+					card.controller = bartender# maybe deletable
 					card.zone = Zone.PLAY
-				#ボブのバーを開始する。
+				#start bob's tavern
 				BeginBar(controller, bar.turn).trigger(controller)
 				if controller.hero.power:
 					controller.hero.power.activations_this_turn = 0
 				controller.spentmoney_in_this_turn=0
-				#この瞬間に「選択」が発生しうるので
+				# in this timing, some choice may occer.
 				choiceAction(controller)
 				while True:
-					##### ムーブの選択肢を作る
+					##### get a list of all moves
 					candidates = GetMoveCandidates(bar, controller, bartender)
-					##### それぞれのムーブを行う（エージェントを呼び出す。）
+					##### each agent choose a move
 					choice = agent.moveStrategy(bar, candidates, controller, bartender)
-					#### ターンエンドが選択されていれば、ループから脱出。
-					if choice.move==MovePlay.TURNEND:
+					if choice.move==MovePlay.TURNEND:#### if the move is 'turnend' then turn to the battle
 						bar.no_drawing_at_turn_begin=True
 						for card in controller.field:
 							card.gem_applied_thisturn=False
 						EndTurn(controller).trigger(controller)
 						break
-					else:
+					else: ###execute the move here
 						choice.execute()
 						choiceAction(controller)
 					pass
-			### ムーブのループ終わり
+			### end of move turn of agent 
 			#self.manager.step(self.next_step, Step.MAIN_NEXT)
 
 			### 対戦
@@ -257,13 +258,13 @@ class BG_main:
 			dk += decks[i]
 		cardID = random.choice(dk)
 		card = bartender.card(cardID)
-		if card.race==Race.ELEMENTAL:
-			if bartender.opponent.nomi_powered_up>0:
+		if card.race==Race.ELEMENTAL:## 
+			if bartender.opponent.nomi_powered_up>0: ### Nomi, Kitchen Nightmare
 				Buff(card, 'BGS_104pe').trigger(bartender)
 				buff = card.buffs[-1]
 				buff.atk=bartender.opponent.nomi_powered_up
 				buff.max_health=bartender.opponent.nomi_powered_up
-			if bartender.opponent.lightspawn_powered_up>0:
+			if bartender.opponent.lightspawn_powered_up>0: ### Dazzling Lightspawn
 				Buff(card, 'BG21_020pe').trigger(bartender)
 				buff = card.buffs[-1]
 				buff.atk=bartender.opponent.lightspawn_powered_up
