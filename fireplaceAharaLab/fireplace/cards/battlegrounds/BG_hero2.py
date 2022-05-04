@@ -71,7 +71,7 @@ BG_Hero2_Buddy_Gold={
 ############ source ################################################
 
 #BG22_HERO_002#Drek'Thar
-#18	#Drek'Thar#BG22_HERO_002
+#17	#Drek'Thar#BG22_HERO_002
 class BG22_HERO_002:# <12>[1453]
 	""" Drek'Thar 	 """
 class BG22_HERO_002p_Action(TargetedAction):
@@ -123,7 +123,7 @@ BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
 
 
 
-#19#Edwin VanCleef
+#18#Edwin VanCleef
 class TB_BaconShop_HERO_01:# <12>[1453]
 	""" Edwin VanCleef  """
 class TB_BaconShop_HP_001:
@@ -149,7 +149,7 @@ TB_BaconShop_HERO_01_Buddy_G_e=buff(2,2)# <12>[1453]
 
 
 
-#20#Elise Starseeker
+#19#Elise Starseeker
 class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
 class TB_BaconShop_HP_047:
@@ -175,7 +175,7 @@ TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
 
 
 
-#21#Forest Warden Omu
+#20#Forest Warden Omu
 class TB_BaconShop_HERO_74:# <12>[1453]
 	""" Forest Warden Omu  """
 class TB_BaconShop_HP_082:
@@ -195,7 +195,7 @@ class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
 	pass
 
 
-#22#Fungalmancer Flurgl
+#21#Fungalmancer Flurgl
 class TB_BaconShop_HERO_55:# <12>[1453]
 	""" Fungalmancer Flurgl  """
 	pass
@@ -210,7 +210,7 @@ class TB_BaconShop_HERO_55_Buddy_G:
 
 
 
-#23#Galakrond
+#22#Galakrond
 class TB_BaconShop_HERO_02:# <12>[1453]
 	""" Galakrond """
 class TB_BaconShop_HP_011:
@@ -230,7 +230,7 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 
 
 
-#24#Galewing
+#23#Galewing
 class BG20_HERO_283:# <12>[1453]
 	""" Galewing """
 class BG20_HERO_283p:# <12>[1453]
@@ -279,7 +279,7 @@ class BG20_HERO_283_Buddy_G_e:# <12>[1453]
 
 
 
-#25#George the Fallen
+#24#George the Fallen
 class TB_BaconShop_HERO_15:# <12>[1453]
 	""" George the Fallen  """
 class TB_BaconShop_HP_010:
@@ -304,7 +304,7 @@ TB_BaconShop_HERO_15_Buddy_G_e=buff(4,0)# <12>[1453]
 
 
 
-#26#Greybough
+#25#Greybough
 class TB_BaconShop_HERO_95:# <12>[1453]
 	""" Greybough  """
 class TB_BaconShop_HP_107:
@@ -336,7 +336,7 @@ class TB_BaconShop_HERO_95_Buddy_G_e:# <12>[1453]
 
 
 
-#27#Guff Runetotem
+#26#Guff Runetotem
 class BG20_HERO_242:# <2>[1453]
 	""" Guff Runetotem """
 class BG20_HERO_242p:# <2>[1453]
@@ -355,7 +355,7 @@ class BG20_HERO_242_Buddy_G:
 	pass
 
 
-#28#Illidan Stormrage
+#27#Illidan Stormrage
 class TB_BaconShop_HERO_08:# <12>[1453]
 	""" Illidan Stormrage  """
 class TB_BaconShop_HP_069:
@@ -382,25 +382,44 @@ class TB_BaconShop_HERO_08_Buddy_G:# <12>[1453]
 
 
 
-#29#Infinite Toki
+#28#Infinite Toki  ### OK ###
 class TB_BaconShop_HERO_28:# <12>[1453]
 	""" Infinite Toki  """
+class TB_BaconShop_HP_028_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		bartender = controller.opponent
+		Rerole(controller).trigger(controller)
+		tier=controller.Tier## tier = (Tier-1) +1
+		if tier==6:
+			tier=5
+		cardID = random.choice(controller.game.parent.BG_decks[tier])
+		card = bartender.card(cardID)
+		card.controller = bartender
+		card.zone = Zone.PLAY
+		controller.game.parent.BG_decks[tier].remove(cardID)
 class TB_BaconShop_HP_028:
 	"""  Temporal Tavern
 	<b>Refresh</b> Bob's Tavern. Include a minion from a higher Tavern Tier."""
+	activate = TB_BaconShop_HP_028_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HERO_28_Buddy:# <12>[1453]
 	""" Clockwork Assistant
 	<b>Battlecry:</b> <b>Discover</b> a minion from a higher Tavern Tier. """
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level=(TIER(CONTROLLER)+1)))
 	pass
 class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
+	"""
+	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; two minions from a higher Tavern Tier."""
+	play = DiscoverTwice(CONTROLLER, RandomBGMinion(tech_level=(TIER(CONTROLLER)+1))*3)
 	pass
 
 
 
 
 
-#30#Jandice Barov
+#29#Jandice Barov
 class TB_BaconShop_HERO_71:# <12>[1453]
 	""" Jandice Barov """
 class TB_BaconShop_HP_084:
@@ -424,7 +443,7 @@ class TB_BaconShop_HERO_71_Buddy_G:# <12>[1453]
 
 
 
-#31#Kael'thas Sunstrider
+#30#Kael'thas Sunstrider
 class TB_BaconShop_HERO_60:# <12>[1453]
 	""" Kael'thas Sunstrider """
 class TB_BaconShop_HP_066:
@@ -455,7 +474,7 @@ class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
 
 
 
-#32#King Mukla
+#31#King Mukla
 class TB_BaconShop_HERO_38:# <12>[1453]
 	""" King Mukla  """
 class TB_BaconShop_HP_038:
@@ -476,7 +495,7 @@ TB_BaconShop_HERO_38_Buddy_Ge=buff(2,2)# <12>[1453]
 
 
 
-#33#Kurtrus Ashfallen
+#32#Kurtrus Ashfallen
 class BG20_HERO_280:# <14>[1453]
 	""" Kurtrus Ashfallen """
 class BG20_HERO_280e:# <12>[1453]
@@ -528,7 +547,7 @@ class BG20_HERO_280_Buddye2:# <12>[1453]
 
 
 
-#34#Lich Baz'hial
+#33#Lich Baz'hial
 class TB_BaconShop_HERO_25:# <12>[1453]
 	""" Lich Baz'hial
 	 """
@@ -556,7 +575,7 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
 
 
 
-#35#Lord Barov
+#34#Lord Barov
 class TB_BaconShop_HERO_72:# <12>[1453]
 	""" Lord Barov	 """
 class TB_BaconShop_HP_081:

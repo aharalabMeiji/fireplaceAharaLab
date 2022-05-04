@@ -3081,8 +3081,6 @@ class Rerole(TargetedAction): ## battlegrounds
 				bartender.BobsTmpFieldSize=7
 			for card in range(bartender.BobsTmpFieldSize):
 				card = game.parent.DealCard(bartender, controller.Tier)
-				card.controller = bartender#たぶん不要
-				card.zone = Zone.PLAY
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
 
