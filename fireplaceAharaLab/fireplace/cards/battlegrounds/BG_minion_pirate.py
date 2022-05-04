@@ -162,7 +162,9 @@ class BG21_017_G:# <12>[1453]
 	events = OWN_TURN_END.on(BG21_017_Action(SELF, 2))
 	pass
 
-#Salty Looter,3,4,5,Pirate,-
+
+
+#Salty Looter,3,4,5,Pirate,- ### OK ###
 class BGS_081:# <7>[1453]
 	""" Salty Looter
 	Whenever you play a Pirate, gain +1/+1. """
@@ -176,11 +178,13 @@ class TB_BaconUps_143:# <7>[1453]
 	pass
 TB_BaconUps_143e=buff(2,2)
 
-#Southsea Strongarm,3,4,3,Pirate,Battlecry
+
+
+#Southsea Strongarm,3,4,3,Pirate,Battlecry  ### OK ###
 class BGS_048:# <12>[1453]
 	""" Southsea Strongarm
 	[Battlecry:] Give a friendly Pirate +1/+1. Repeat foreach Pirate you bought this turn. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.PIRATE }
 	def play(self):
 		count=1
 		log = self.controller.buy_this_turn_log()

@@ -3115,7 +3115,7 @@ class StealGem(TargetedAction):
 		gem_count=0
 		for card in cards:
 			repeat = len(card.buffs)
-			for i in repeat:
+			for i in range(repeat):
 				c = card.buffs[repeat-1-i]
 				if c.id=='BG20_GEMe':
 					card.buffs.remove(c)
