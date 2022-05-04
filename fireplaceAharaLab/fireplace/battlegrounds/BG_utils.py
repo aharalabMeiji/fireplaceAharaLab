@@ -33,7 +33,7 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[]]
-		self.BG_races = races=['parate','quilboar','demon']
+		self.BG_races = races=['parate','quilboar','mecha']
 		# BAN される raceはここで除外
 		#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		for i in range(6):
@@ -100,6 +100,7 @@ class BG_main:
 			print ("==== %s 's bar building 2===="% agent)
 			bar = BG_Bar(thePlayer)
 			bar.BG_setup()
+			print ("==== %s 's bar building 3===="% agent)
 			bar.player1 = bar.current_player = bar.controller
 			bar.player1.buddy_gauge = 0
 			bar.player2 = bar.bartender
@@ -109,9 +110,8 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
-			print ("==== %s 's bar building 3===="% agent)
 			if agent.name=='Human1':
-				card = bar.controller.card('BG20_103')#BG20_301
+				card = bar.controller.card('BG20_106')#
 				card.zone = Zone.HAND
 			##########
 			print ("==== %s 's bar done ===="% agent)
@@ -187,11 +187,10 @@ class BG_main:
 			battleplayer1 = self.BG_Bars[matches[i][1]].controller
 			battles[i].parent = self
 			#for  player in [battleplayer0, battleplayer1]:
-			#	#対戦前処理
-			#	BeginBattle(player).trigger(player.game)# trigger主はgame
+			### begin the battle
 			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
+			### after the battle
 			for  player in [battleplayer0, battleplayer1]:
-				### 対戦後処理
 				EndBattle(player).trigger(player)
 				### バディーゲージが100を超えたらバディーカードを発行する。
 				if player.buddy_gauge>=100 and player.got_buddy==0:
@@ -207,6 +206,7 @@ class BG_main:
 					gold_card_id = player.game.BG_find_triple()## トリプルを判定
 					if gold_card_id:
 						player.game.BG_deal_gold(gold_card_id)
+			### if agent got a gem card while the battle, we carry it to the bar
 			if damage0>0:
 				hero0 = battleplayer0.hero
 				if hero0.armor>0:# armorも加味する

@@ -139,7 +139,7 @@ class Action(metaclass=ActionMeta):
 		for event in entity.events:
 			if event.at != at:
 				continue
-			if hasattr(entity,'id') and entity.id=='LOOT_078' and self.__class__==BG_Attack:
+			if hasattr(entity,'id') and entity.id=='BG20_105' and self.__class__==LoseDivineShield:
 				kazushi_ahara=100
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				log.info("%r triggers off %r from %r", entity, self, source)
@@ -1005,9 +1005,9 @@ class Damage(TargetedAction):
 		return [target.predamage]
 
 	def do(self, source, target, amount):
-		# ここでターゲットが聖なる盾を持っているとamountを0にしている。
+		# in method '_hit', we manage divine_shield and damage amount.
 		if amount>0 and hasattr(target,'divine_shield') and target.divine_shield:
-			source.game.trigger_actions(source, [LoseDivineShield(target)])#実質なにもしていない。
+			source.game.trigger_actions(source, [LoseDivineShield(target)])#nothing is done inside 
 		amount = target._hit(target.predamage)
 		target.predamage = 0
 		if source.type == CardType.MINION and source.stealthed:

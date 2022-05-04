@@ -162,11 +162,11 @@ class BG20_103_G:# <12>[1453]
 
 
 
-#Gemsplitter	3
+#Gemsplitter	3 ### OK ###
 class BG21_037:# <12>[1453] 宝石割
 	""" Gemsplitter
 	After a friendly minion loses [Divine Shield], gain a_[Blood Gem]. """
-	events = LoseDivineShield(FRIENDLY_MINIONS).on(Give(CONTROLLER, 'BG20_GEM'))
+	events = LoseDivineShield(FRIENDLY).on(Give(CONTROLLER, 'BG20_GEM'))
 	pass
 class BG21_037_G:# <12>[1453]
 	""" Gemsplitter
@@ -176,55 +176,59 @@ class BG21_037_G:# <12>[1453]
 
 
 
-#Thorncaller	3
+#Thorncaller	3  ### OK ###
+class GiveGemToOriginal(TargetedAction):
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, card):
+		if target.deepcopy_original:
+			Give(target.deepcopy_original,card).trigger(target.deepcopy_original)
 class BG20_105:# <12>[1453] 荊使い
 	""" Thorncaller
 	[Battlecry and Deathrattle:] Gain a [Blood Gem]. """
 	#<Tag enumID="217" name="DEATHRATTLE" type="Int" value="1"/>
 	play = Give(CONTROLLER, 'BG20_GEM')
-	deathrattle = Give(CONTROLLER, 'BG20_GEM')
+	deathrattle = GiveGemToOriginal(CONTROLLER, 'BG20_GEM')
 	pass
 class BG20_105_G:# <12>[1453]
 	""" Thorncaller
 	[Battlecry and Deathrattle:] Gain 2 [Blood Gems]. """
 	play = Give(CONTROLLER, 'BG20_GEM')*2
-	deathrattle = Give(CONTROLLER, 'BG20_GEM')*2
+	deathrattle = GiveGemToOriginal(CONTROLLER, 'BG20_GEM')*2
 	pass
 
 
 
-#Bonker	4
+#Bonker	4  ### OK ###
 class BG20_104:# <12>[1453]
 	""" Bonker
 	[Windfury]After this attacks, gain a [Blood Gem]. """
-	events = Attack(SELF).after(Give(CONTROLLER, 'BG20_GEM'))
+	events = Attack(SELF).after(GiveGemToOriginal(CONTROLLER, 'BG20_GEM'))
 	pass
 class BG20_104_G:# <12>[1453]
 	""" Bonker
 	[Mega-Windfury]After this attacks, gain a [Blood Gem]. """
 	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/>
-	events = Attack(SELF).after(Give(CONTROLLER, 'BG20_GEM'))
+	events = Attack(SELF).after(GiveGemToOriginal(CONTROLLER, 'BG20_GEM'))
 	pass
 
 
 
-#Dynamic Duo	4
+#Dynamic Duo	4 ### OK ###
 class BG20_207:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on another Quilboar, gain +1/+1. """
-	events = ApplyGem(FRIENDLY_MINIONS - SELF, ID('BG20_GEM')).on(Buff(SELF, 'BG20_207e'))
+	events = ApplyGem(FRIENDLY_MINIONS - SELF).on(Buff(SELF, 'BG20_207e'))
 	pass
 BG20_207e=buff(1,1)# <12>[1453]
-""" Boar's Favor
-+1/+1. """
+""" Boar's Favor,+1/+1. """
 class BG20_207_G:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on anotherQuilboar, gain +2/+2. """
-	events = ApplyGem(FRIENDLY_MINIONS - SELF, ID('BG20_GEM')).on(Buff(SELF, 'BG20_207_Ge'))
+	events = ApplyGem(FRIENDLY_MINIONS - SELF).on(Buff(SELF, 'BG20_207_Ge'))
 	pass
 BG20_207_Ge=buff(2,2)# <12>[1453]
-""" Boar's Favor
-+2/+2. """
+""" Boar's Favor,+2/+2. """
 
 
 
@@ -232,17 +236,18 @@ BG20_207_Ge=buff(2,2)# <12>[1453]
 class BG20_106:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
-	events = ApplyGem(SELF, ID('BG20_GEM')).on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
+	events = ApplyGem(SELF).on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_106e'))
 	pass
 class BG20_106e:# <12>[1453]
-	""" Groundshook
-	+@ Attack. """
+	""" Groundshook,	+@ Attack. """
 	atk = lambda self, i : i+2
 	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 class BG20_106_G:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +4 Attack for next combat only. """
-	events = ApplyGem(SELF, ID('BG20_GEM')).on(Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'), Buff(FRIENDLY_MINIONS - SELF, 'BG20_207e'))
+	events = ApplyGem(SELF).on(
+		Buff(FRIENDLY_MINIONS - SELF, 'BG20_106e'), 
+		Buff(FRIENDLY_MINIONS - SELF, 'BG20_106e'))
 	pass
 
 
@@ -252,14 +257,18 @@ class BG20_202:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 2 [BloodGems] on a friendly minion. It steals all [Blood Gems]from its neighbors. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
-	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),StealGem(TARGET, TARGET_ADJACENT)
+	play = ApplyGem(TARGET, 'BG20_GEM'),\
+		ApplyGem(TARGET, 'BG20_GEM'),\
+		StealGem(TARGET, TARGET_ADJACENT)
 	pass
 class BG20_202_G:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 4 [BloodGems] on a friendly minion.It steals all [Blood Gems]from its neighbors. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
-	play = ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),\
-		ApplyGem(TARGET, 'BG20_GEM'),ApplyGem(TARGET, 'BG20_GEM'),\
+	play = ApplyGem(TARGET, 'BG20_GEM'),\
+		ApplyGem(TARGET, 'BG20_GEM'),\
+		ApplyGem(TARGET, 'BG20_GEM'),\
+		ApplyGem(TARGET, 'BG20_GEM'),\
 		StealGem(TARGET, TARGET_ADJACENT)
 	pass
 
