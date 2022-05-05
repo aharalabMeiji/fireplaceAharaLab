@@ -325,8 +325,8 @@ class BG21_031_G:# <12>[1453]
 
 
 
-#Dread Admiral Eliza,6,6,7,Pirate,-
-class BGS_047:# <12>[1453]  エリザ
+#Dread Admiral Eliza,6,6,7,Pirate,-　### OK ###
+class BGS_047:# <12>[1453]  イライザ
 	""" Dread Admiral Eliza
 	Whenever a friendly Pirate attacks, give all friendly minions +2/+1. """
 	events = Attack(FRIENDLY + PIRATE).on(Buff(FRIENDLY_MINIONS,'BGS_047e'))
@@ -342,7 +342,7 @@ TB_BaconUps_134e=buff(4,2)
 
 
 
-#Nosy Looter,6,9,8,Pirate,-
+#Nosy Looter,6,9,8,Pirate,-  ### OK ###
 class BG21_019_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()

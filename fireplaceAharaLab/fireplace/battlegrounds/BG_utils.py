@@ -111,7 +111,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
 			if agent.name=='Human1':
-				card = bar.controller.card('BGS_047')#:
+				card = bar.controller.card('BG21_019')#:
 				card.zone = Zone.HAND
 				#card = bar.controller.card('BG21_031')
 				#card.zone = Zone.HAND
