@@ -113,7 +113,8 @@ class BaseGame(Entity):
 		if type != BlockType.PLAY:
 			self._action_stack -= 1
 		if not self._action_stack:
-			self.log("Empty stack, refreshing auras and processing deaths")
+			if Config.LOGINFO:
+				print("(Game.action_end)Empty stack, refreshing auras and processing deaths")
 			if type ==BlockType.DEATHS:
 				self.log("this case.")
 				return## avoid infinte loop

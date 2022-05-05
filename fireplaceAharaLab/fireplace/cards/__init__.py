@@ -6,6 +6,7 @@ from ..logging import log
 from ..utils import get_script_definition
 from hearthstone.enums import GameTag
 
+from fireplace.config import Config
 
 class CardDB(dict):
 	def __init__(self):
@@ -99,10 +100,12 @@ class CardDB(dict):
 		return card
 
 	def initialize(self, locale="jaJP"):#locale="enUS"):#
-		log.info("Load card database")
+		if Config.LOGINFO:
+			print("[cards.initialize]loading card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
-		log.info("Initializing card database")
+		if Config.LOGINFO:
+			print("[cards.initialize]Initializing card database")
 		from .cardlist import All
 		for cardIDlist in All:
 			for id in cardIDlist:
@@ -118,14 +121,17 @@ class CardDB(dict):
 				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
 				#	print ("%s"%(id))
 				pass
-		log.info("Merged %i cards", len(self))
+		if Config.LOGINFO:
+			print("Merged %i cards"%( len(self)))
 
 	def BG_initialize(self):
 		locale = 'jaJP'
 		self.initialized = True
-		log.info("Load card database")
+		if Config.LOGINFO:
+			print("[cards.BG_initialize]loading card database")
 		db, xml = cardxml.load(locale=locale)
-		log.info("Initializing card database")
+		if Config.LOGINFO:
+			print("[cards.BG_initialize]Initializing card database")
 		from fireplace.cards import battlegrounds
 		BG=[
 			battlegrounds.BG_gems.BG_Gems,
@@ -151,7 +157,8 @@ class CardDB(dict):
 				self[id] = self.merge(id, card)
 				pass
 			pass
-		log.info("Merged %i cards", len(self))
+		if Config.LOGINFO:
+			print("Merged %i cards"%( len(self)))
 
 	def filter(self, **kwargs):
 		"""

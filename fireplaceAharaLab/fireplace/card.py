@@ -12,6 +12,8 @@ from .managers import CardManager
 from .targeting import TARGETING_PREREQUISITES, is_valid_target
 from .utils import CardList 
 from .logging import log
+from .config import Config
+from .actions import LoseDivineShield
 
 THE_COIN = "GAME_005"
 
@@ -100,11 +102,13 @@ class BaseCard(BaseEntity):
 			if old==Zone.HAND and not self in self.controller.hand:
 				self.controller.hand.append(self)
 			elif old==Zone.HAND:
-				self.logger.warning("%r attempted a same-zone move in %r", self, old)
+				if Config.LOGINFO:
+					print("(BaseCard._set_zone)[warning]%r attempted a same-zone move in %r"% (self, old))
 			return
 
 		if old:
-			self.logger.debug("%r moves from %r to %r", self, old, value)
+			if Config.LOGINFO:
+				print("(BaseCard._set_zone)%r moves from %r to %r"%(self, old, value))
 
 		caches = {
 			Zone.HAND: self.controller.hand,
@@ -276,16 +280,19 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		return self.game.cheat_action(self, [actions.Destroy(self), actions.Deaths()])
 
 	def discard(self):
-		self.log("Discarding %r" % self)
+		if Config.LOGINFO:
+			print("Discarding %r" % self)
 		self.tags[enums.DISCARDED] = True
 		self.zone = Zone.GRAVEYARD
 
 	def draw(self):
 		if len(self.controller.hand) >= self.controller.max_hand_size:
-			self.log("%s overdraws and loses %r!", self.controller, self)
+			if Config.LOGINFO:
+				print("(BaseCard.draw)%s overdraws and loses %r!", self.controller, self)
 			self.discard()
 		else:
-			self.log("%s draws %r", self.controller, self)
+			if Config.LOGINFO:
+				print("(BaseCard.draw)%s draws %r", self.controller, self)
 			if self.zone != Zone.HAND:
 				self.zone = Zone.HAND
 			# if self is 'casts_when_drawn' then immediately play. 
@@ -355,7 +362,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 						choose=card
 						break
 				#choose = card = self.choose_cards.filter(id=choose)[0]
-				self.log("%r: choosing %r", self, choose)
+				if Config.LOGINFO:
+					print("(BaseCard.play)%r: choosing %r"%(self, choose))
 			else:
 				raise InvalidAction("%r cannot be played with choice %r" % (self, choose))
 		else:
@@ -371,10 +379,12 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				raise InvalidAction("%r is not a valid target for %r." % (target, self))
 			if self.controller.all_targets_random:
 				new_target = random.choice(self.play_targets)
-				self.logger.info("Retargeting %r from %r to %r", self, target, new_target)
+				if Config.LOGINFO:
+					print("(BaseCard.play)Retargeting %r from %r to %r", self, target, new_target)
 				target = new_target
 		elif target:
-			self.logger.warning("%r does not require a target, ignoring target %r", self, target)
+			if Config.LOGINFO:
+					print("(BaseCard.play)%r does not require a target, ignoring target %r", self, target)
 			target = None
 		self.game.play_card(self, target, index, choose)
 		if not self.id in self.controller.starting_deck:# aharalab ## DRG_109 
@@ -455,19 +465,23 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				option=1#Discover type trading
 		if option==0:
 			if self.trade_cost > self.controller.mana:
-				log.info("controller of %r doesn't have enough manas." % (self))
+				if Config.LOGINFO:
+					print("[card.can_trade]controller of %r doesn't have enough manas." % (self))
 				return (False, option)
 			if len(self.controller.deck)==0:
-				log.info("No card in the deck and %r cannot be trade." % (self))
+				if Config.LOGINFO:
+					print("[card.can_trade]No card in the deck and %r cannot be trade." % (self))
 				return (False, option)
 			else :
 				return (True, option)
 		else:# option==1
 			if self.trade_cost > self.controller.mana:
-				log.info("controller of %r doesn't have enough manas." % (self))
+				if Config.LOGINFO:
+					print("[card.can_trade]controller of %r doesn't have enough manas." % (self))
 				return (False, option)
 			if len(self.controller.deck)<3:
-				log.info("No enough cards in the deck to trade %r." % (self))
+				if Config.LOGINFO:
+					print("[card.can_trade]No enough cards in the deck to trade %r." % (self))
 				return (False, option)
 			else :
 				return (True, option)
@@ -751,7 +765,8 @@ class Hero(Character):
 		amount = super()._hit(amount)
 		if self.armor:
 			reduced_damage = min(amount, self.armor)
-			self.log("%r loses %r armor instead of damage", self, reduced_damage)
+			if Config.LOGINFO:
+				print("(BaseCard._hit)%r loses %r armor instead of damage", self, reduced_damage)
 			self.damage -= reduced_damage
 			self.armor -= reduced_damage
 		return amount
@@ -850,7 +865,8 @@ class Minion(Character):
 		elif value == Zone.GRAVEYARD: ## -> graveyard  
 			if self.zone == Zone.PLAY: ## play -> graveyard
 				self.controller.minions_killed_this_turn += 1
-				self.log("%r is removed from the field", self)
+				if Config.LOGINFO:
+					print("(BaseCard._set_zone)%r is removed from the field", self)
 				self.controller.field.remove(self)
 				if self.damage:
 					self.damage = 0
@@ -860,12 +876,14 @@ class Minion(Character):
 				pass
 			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
 				if self in self.controller.game.live_entities:
-					self.log("%s must be removed from the field but still left in the list of living entities."%(self.data.name))
+					if Config.LOGINFO:
+						print("(BaseCard._set_zone)%s must be removed from the field but still left in the list of living entities."%(self.data.name))
 					if self in self.controller.live_entities:
 						player=self.controller
 					elif self in self.controller.opponent.live_entities:
 						player=self.controller.opponent
-					self.log("Controller is %s"%(player.name))
+					if Config.LOGINFO:
+						print("(BaseCard._set_zone)Controller is %s"%(player.name))
 					if self in player.field:
 						#for entity in player.field:
 						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
@@ -879,19 +897,17 @@ class Minion(Character):
 						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
 						player.game.setaside.remove(self)
 					else:
-						self.log("Extra-ordinary error happens.  Stop here in set_zone()")
+						if Config.LOGINFO:
+							print("(BaseCard._set_zone)Extra-ordinary error happens.  Stop here in set_zone()")
 		super()._set_zone(value)
 
 	def _hit(self, amount):
-		if self.divine_shield:
-			self.divine_shield = False
-			self.log("%r's divine shield prevents %i damage.", self, amount)
-			return 0
-
+		###  Remove the routine of 'divine shield prevents damages' -> class Damage'
 		amount = super()._hit(amount)
 
 		if self.health < self.min_health:
-			self.log("%r has HEALTH_MINIMUM of %i", self, self.min_health)
+			if Config.LOGINFO:
+				print("(BaseCard._hit)%r has HEALTH_MINIMUM of %i", self, self.min_health)
 			self.damage = self.max_health - self.min_health
 
 		return amount
@@ -1030,7 +1046,8 @@ class Enchantment(BaseCard):
 		elif zone == Zone.REMOVEDFROMGAME:
 			if self.zone == zone:
 				# Can happen if a Destroy is queued after a bounce, for example
-				self.log("Trying to remove %r which is already gone", self)
+				if Config.LOGINFO:
+					print("(Enchantment._set_zone)Trying to remove %r which is already gone", self)
 				return
 			self.owner.buffs.remove(self)
 			if self in self.game.active_aura_buffs:
@@ -1038,12 +1055,14 @@ class Enchantment(BaseCard):
 		super()._set_zone(zone)
 
 	def apply(self, target):
-		self.log("Applying %r to %r", self, target)
+		if Config.LOGINFO:
+			print("(Enchantment.apply)Applying %r to %r", self, target)
 		self.owner = target
 		if hasattr(self.data.scripts, "apply"):
 			self.data.scripts.apply(self, target)
 		if hasattr(self.data.scripts, "max_health"):
-			self.log("%r removes all damage from %r", self, target)
+			if Config.LOGINFO:
+					print("(Enchantment.apply)%r removes all damage from %r", self, target)
 			target.damage = 0
 		self.zone = Zone.PLAY
 		if self.id == 'YOP_012e':
@@ -1085,7 +1104,8 @@ class Weapon(rules.WeaponRules, LiveEntity):
 	def _set_zone(self, zone):
 		if zone == Zone.PLAY:
 			if self.controller.weapon:
-				self.log("Destroying old weapon %r", self.controller.weapon)
+				if Config.LOGINFO:
+					print("(Weapon._set_zone)Destroying old weapon %r", self.controller.weapon)
 				self.game.trigger(self, [actions.Destroy(self.controller.weapon)], event_args=None)
 			self.controller.weapon = self
 		elif self.zone == Zone.PLAY:
@@ -1129,18 +1149,21 @@ class HeroPower(PlayableCard):
 		if not self.is_usable():
 			raise InvalidAction("%r can't be used." % (self))
 
-		self.log("%s uses hero power %r on %r", self.controller, self, target)
+		if Config.LOGINFO:
+			print("(HeroPower.use)%s uses hero power %r on %r", self.controller, self, target)
 
 		if self.requires_target():
 			if not target:
 				raise InvalidAction("%r requires a target." % (self))
 			if self.controller.all_targets_random:
 				new_target = random.choice(self.play_targets)
-				self.logger.info("Retargeting %r from %r to %r", self, target, new_target)
+				if Config.LOGINFO:
+					print("(HeroPower.use)Retargeting %r from %r to %r", self, target, new_target)
 				target = new_target
 			self.target = target
 		elif target:
-			self.logger.warning("%r does not require a target, ignoring target %r", self, target)
+			if Config.LOGINFO:
+				print("(HeroPower.use)%r does not require a target, ignoring target %r", self, target)
 
 		ret = self.activate()
 

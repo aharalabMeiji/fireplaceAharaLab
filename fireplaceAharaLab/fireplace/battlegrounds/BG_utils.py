@@ -12,6 +12,8 @@ from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
 from .BG_enums import MovePlay
 
+from fireplace.config import Config
+
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
 class BG_main:
@@ -110,11 +112,11 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
-			if agent.name=='Human1':
-				card = bar.controller.card('BG21_019')#:
-				card.zone = Zone.HAND
-				#card = bar.controller.card('BG21_031')
-				#card.zone = Zone.HAND
+			#if agent.name=='Human1':
+			#	card = bar.controller.card('BG20_102')#:
+			#	card.zone = Zone.HAND
+			#	card = bar.controller.card('BG20_301')
+			#	card.zone = Zone.HAND
 			##########
 			print ("==== %s 's bar done ===="% agent)
 			pass
@@ -298,7 +300,8 @@ def choiceAction(player):
 					choice = random.choice(player.choice.cards)
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
-			log.info("%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
+			if Config.LOGINFO:
+				print("%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())

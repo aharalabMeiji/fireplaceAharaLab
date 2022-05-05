@@ -9,6 +9,7 @@ import copy
 import random
 from .logging import log
 from .exceptions import InvalidAction
+from .config import Config
 
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
@@ -31,7 +32,8 @@ def debug_card(oldCard, newCard):
 def deepcopy_game(game, player, option):
 	""" deepcopy a game state. 
 	"""
-	log.info("================deepcopy starts================")
+	if Config.DEEPCOPY_LOGINFO:
+		print("================deepcopy starts================")
 	oldGame = game
 	oldPlayer1 = game.player1
 	oldPlayer2 = game.player2
@@ -67,7 +69,8 @@ def deepcopy_game(game, player, option):
 		pass
 		random.shuffle(itshim.deck)
 		random.shuffle(itshim.hand)
-	log.info("================deepcopy ends================")
+	if Config.DEEPCOPY_LOGINFO:
+		print("================deepcopy ends================")
 	return newGame
 
 def deep_copy_player(player, option):

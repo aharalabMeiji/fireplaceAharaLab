@@ -1,6 +1,6 @@
 from .logging import log
 from .managers import CardManager
-
+from .config import Config
 
 class AuraBuff:
 	def __init__(self, source, entity):
@@ -16,7 +16,8 @@ class AuraBuff:
 		self.tick = self.source.game.tick
 
 	def remove(self):
-		log.info("Destroying %r", self)
+		if Config.LOGINFO:
+			print("Destroying %r"% self)
 		if self in self.entity.slots:
 			self.entity.slots.remove(self)
 		if self in self.source.game.active_aura_buffs:
@@ -61,16 +62,12 @@ class Refresh:
 class TargetableByAuras:
 	def refresh_buff(self, source, id):
 		for buff in self.buffs:
-			#if hasattr(buff,'tick'):
-			#	print ("buff=%s:buff.source=%s:source=%s:buff.id=%s:id=%s:buff.tick=%s:source.game.tick=%s"%(buff,buff.source,source,buff.id, id,buff.tick,source.game.tick))
-			#else:
-			#	print ("buff=%s:buff.source=%s:source=%s:buff.id=%s:id=%s:buff.tick=*:source.game.tick=%s"%(buff,buff.source,source,buff.id, id,source.game.tick))
 			if buff.source is source and buff.id == id:
 				buff.tick = source.game.tick
 				break
 		else:
-			#print("Aura from %r buffs %r with %r", source, self, id)
-			log.info("Aura from %r buffs %r with %r", source, self, id)
+			if Config.LOGINFO:
+				print("Aura from %r buffs %r with %r"%( source, self, id))
 			buff = source.buff(self, id)
 			buff.tick = source.game.tick
 			source.game.active_aura_buffs.append(buff)
@@ -82,7 +79,8 @@ class TargetableByAuras:
 				break
 		else:
 			buff = AuraBuff(source, self)
-			log.info("Creating %r", buff)
+			if Config.LOGINFO:
+				print("Creating %r"% buff)
 			buff.update_tags(tags)
 			self.slots.append(buff)
 			source.game.active_aura_buffs.append(buff)

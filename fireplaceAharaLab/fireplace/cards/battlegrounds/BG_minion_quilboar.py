@@ -104,23 +104,30 @@ class BG20_101_G:# <12>[1453]
 class BG20_102:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """
-	events = BG_Play(CONTROLLER, ID('BG20_GEM'), target=SELF).on(Buff(SELF,'BG20_102e'))
+	events = ApplyGem(SELF).on(Buff(SELF,'BG20_102e'))
 	pass
 class BG20_102e:# <12>[1453]
 	""" Toughened
 	[Divine Shield] next combat. """
 	tags = {GameTag.DIVINE_SHIELD:True, }
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = [
+		EndBattle(CONTROLLER).on(Destroy(SELF)),
+		LoseDivineShield(OWNER).on(Destroy(SELF))
+	]
 	pass
 class BG20_102_G:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain[Divine Shield]. """
-	events = BG_Play(CONTROLLER, ID('BG20_GEM'), target=SELF).on(Buff(SELF,'BG20_102_Ge'))
+	events = ApplyGem(SELF).on(Buff(SELF,'BG20_102_Ge'))
 	pass
 class BG20_102_Ge:# <12>[1453]
 	""" Real Tough
 	[Divine Shield]. """
 	tags = {GameTag.DIVINE_SHIELD:True, }
+	events = [
+		EndBattle(CONTROLLER).on(Destroy(SELF)),
+		#LoseDivineShield(OWNER).on(Destroy(SELF))
+	]
 	pass
 
 
@@ -311,7 +318,7 @@ BG20_302e=buff(1,1)# <12>[1453]
 class BG20_302_G:# <12>[1453]
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +2/+2. """
-	events = ApplyGem(SELF, ID('BG20_GEM')).on(BG20_302_Action(CONTROLLER, 'BG20_302_Ge'))
+	events = ApplyGem(SELF).on(BG20_302_Action(CONTROLLER, 'BG20_302_Ge'))
 	pass
 BG20_302_Ge=buff(2,2)# <12>[1453]
 """ Thorncursed

@@ -14,3 +14,4 @@ class Config(IntEnum):# ()is the default value
     #P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
     LOGINFO=1 # log.info相当のログ表示
+    DEEPCOPY_LOGINFO=0

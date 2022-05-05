@@ -848,7 +848,7 @@ class TargetedAction(Action):
 			targets = self.get_targets(source, args[0])
 			args = args[1:]
 			if Config.LOGINFO:
-				print("(TargetedAction.trigger)%r triggering %r targeting %r", source, self, targets)
+				print("(TargetedAction.trigger)%r triggering %r targeting %r"%( source, self, targets))
 			for target in targets:
 				target_args = self.get_target_args(source, target)
 				from .player import Player
@@ -861,7 +861,7 @@ class TargetedAction(Action):
 
 				for action in self.callback:
 					if Config.LOGINFO:
-						print("(TargetedAction.trigger)%r queues up callback %r", self, action)
+						print("(TargetedAction.trigger)%r queues up callback %r"%( self, action))
 					ret += source.game.queue_actions(source, [action], event_args=[target] + target_args)
 
 		self.resolve_broadcasts()
@@ -1027,8 +1027,15 @@ class Damage(TargetedAction):
 
 	def do(self, source, target, amount):
 		# in method '_hit', we manage divine_shield and damage amount.
-		if amount>0 and hasattr(target,'divine_shield') and target.divine_shield:
-			source.game.trigger_actions(source, [LoseDivineShield(target)])#nothing is done inside 
+		#if amount>0 and hasattr(target,'divine_shield') and target.divine_shield:
+		#	source.game.trigger_actions(source, [LoseDivineShield(target)])#nothing is done inside 
+		if target.divine_shield:
+			target.game.trigger_actions(source, [LoseDivineShield(target)])
+			target.divine_shield = False
+			if Config.LOGINFO:
+				print("%r's divine shield prevents %i damage.", target, amount)
+			return 0
+
 		amount = target._hit(target.predamage)
 		target.predamage = 0
 		if source.type == CardType.MINION and source.stealthed:
@@ -1151,11 +1158,11 @@ class Destroy(TargetedAction):
 			#  If the card is in PLAY, it is instead scheduled to be destroyed
 			# It will be moved to the graveyard on the next Death event
 			if Config.LOGINFO:
-				print("(Destroy.do)%r marks %r for imminent death", source, target)
+				print("(Destroy.do)%r marks %r for imminent death"%(source, target))
 			target.to_be_destroyed = True
 		else:
 			if Config.LOGINFO:
-				print("(Destroy.do)%r destroys %r", source, target)
+				print("(Destroy.do)%r destroys %r"%(source, target))
 			if target.type == CardType.ENCHANTMENT:
 				target.remove()
 			else:
