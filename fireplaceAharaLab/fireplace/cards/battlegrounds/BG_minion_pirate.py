@@ -192,12 +192,13 @@ class BGS_048:# <12>[1453]
 			if card.race == Race.PIRATE:
 				count += 1
 		for repeat in range(count):
-			yield Buff(TARGET, 'BGS_048e')
+			Buff(self.target, 'BGS_048e').trigger(self.controller)
 	pass
 BGS_048e=buff(1,1)
 class TB_BaconUps_140:# <12>[1453]
 	""" Southsea Strongarm
 	[Battlecry:] Give a friendly Pirate +2/+2. Repeat foreach Pirate you boughtthis turn. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.PIRATE }
 	def play(self):
 		count=1
 		log = self.controller.buy_this_turn_log()
@@ -205,23 +206,37 @@ class TB_BaconUps_140:# <12>[1453]
 			if card.race == Race.PIRATE:
 				count += 1
 		for repeat in range(count):
-			yield Buff(TARGET, 'TB_BaconUps_140e')
+			#yield Buff(TARGET, 'TB_BaconUps_140e')
+			Buff(self.target, 'TB_BaconUps_140e').trigger(self.controller)
 	pass
 TB_BaconUps_140e=buff(2,2)
 
 
 
-#Goldgrubber,4,4,4,Pirate,-
+#Goldgrubber,4,4,4,Pirate,-  ### OK ###
+class BGS_066_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller = target
+		count=0
+		for card in controller.field:
+			if card.gold_card==0:## that is, it is gold
+				count += 1
+		for repeat in range(count):
+			Buff(source, buff).trigger(controller)
+		pass
 class BGS_066:# <12>[1453] 金ぴか
 	""" Goldgrubber
 	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + GOLDEN, 'BGS_066e'))
+	events = OWN_TURN_END.on(BGS_066_Action(CONTROLLER, 'BGS_066e'))
+	#events = OWN_TURN_END.on(Buff(SELF, 'BGS_066e')*Count(FRIENDLY + GOLDEN))
 	pass
 BGS_066e=buff(2,2)
 class TB_BaconUps_130:# <12>[1453]
 	""" Goldgrubber
 	At the end of your turn, gain +4/+4 for each friendly Golden minion. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + GOLDEN, 'TB_BaconUps_130e'))
+	events = OWN_TURN_END.on(BGS_066_Action(CONTROLLER, 'TB_BaconUps_130e'))
 	pass
 TB_BaconUps_130e=buff(4,4)
 
