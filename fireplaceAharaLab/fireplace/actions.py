@@ -1033,7 +1033,7 @@ class Damage(TargetedAction):
 			target.game.trigger_actions(source, [LoseDivineShield(target)])
 			target.divine_shield = False
 			if Config.LOGINFO:
-				print("%r's divine shield prevents %i damage.", target, amount)
+				print("(Damage.do)%r's divine shield prevents %i damage."%( target, amount))
 			return 0
 
 		amount = target._hit(target.predamage)
@@ -2587,6 +2587,12 @@ class SetAttr(TargetedAction):
 				print("(SetAttr.do)%s set attr '%s' into %d"%(target, attr, amount ))
 			setattr(target, attr, amount)
 
+class SetDivineShield(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if Config.LOGINFO:
+			print("(SetDivineShield.do) Let '%s' have a divine shiled"%(target))
+		setattr(target, 'divine_shield', True)
 
 class BuffOnce(TargetedAction):
 	"""
@@ -3120,7 +3126,7 @@ class LoseDivineShield(GameAction):#聖盾を失ったとき
 class Magnetic(TargetedAction):#超電磁
 	TARGET = ActionArg()
 	BUFF = ActionArg()
-	def do(self, source, target, buff):
+	def do(self, source, target, buffs):
 		if not target in target.controller.field:
 			return
 		index = target.controller.field.index(target)
@@ -3128,7 +3134,10 @@ class Magnetic(TargetedAction):#超電磁
 			return
 		other = target.controller.field[index+1]
 		if other.race == Race.MECHANICAL:
-			Buff(other, buff).trigger(target.controller)
+			if not isinstance(buffs,list):
+				buffs = [buffs]
+			for buff in buffs:
+				Buff(other, buff).trigger(target.controller)
 			Destroy(target).trigger(target.controller)
 		pass
 

@@ -116,7 +116,8 @@ class BaseGame(Entity):
 			if Config.LOGINFO:
 				print("(Game.action_end)Empty stack, refreshing auras and processing deaths")
 			if type ==BlockType.DEATHS:
-				self.log("this case.")
+				if Config.LOGINFO:
+					print("this case is annoying us.")
 				return## avoid infinte loop
 			self.refresh_auras()
 			self.process_deaths()

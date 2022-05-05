@@ -104,16 +104,11 @@ class BG20_101_G:# <12>[1453]
 class BG20_102:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """
-	events = ApplyGem(SELF).on(Buff(SELF,'BG20_102e'))
+	events = ApplyGem(SELF).on(SetDivineShield(SELF), Buff(SELF,'BG20_102e'))
 	pass
 class BG20_102e:# <12>[1453]
-	""" Toughened
-	[Divine Shield] next combat. """
-	tags = {GameTag.DIVINE_SHIELD:True, }
-	events = [
-		EndBattle(CONTROLLER).on(Destroy(SELF)),
-		LoseDivineShield(OWNER).on(Destroy(SELF))
-	]
+	""" Toughened """
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG20_102_G:# <12>[1453]
 	""" Tough Tusk

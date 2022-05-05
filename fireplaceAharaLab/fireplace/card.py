@@ -1056,7 +1056,7 @@ class Enchantment(BaseCard):
 
 	def apply(self, target):
 		if Config.LOGINFO:
-			print("(Enchantment.apply)Applying %r to %r", self, target)
+			print("(Enchantment.apply)Applying %r to %r"% (self, target))
 		self.owner = target
 		if hasattr(self.data.scripts, "apply"):
 			self.data.scripts.apply(self, target)

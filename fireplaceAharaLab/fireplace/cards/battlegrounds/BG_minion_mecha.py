@@ -188,16 +188,27 @@ TB_BaconUps_069e=buff(4,4)
 class BOT_911:
 	"""
 	<b>Magnetic</b><b>Divine Shield</b><b>Taunt</b>"""
-	play = Magnetic(SELF, 'BOT_911')
+	## divine shield is a consumable buff. taunt is not
+	play = Magnetic(SELF, ['BOT_911e'])
 	pass
-BOT_911e=buff(divine_shield=True, taunt=True)
+class BOT_911e:
+	def apply(self,target):
+		target.divine_shield=True
+		target.taunt=True
+		target.atk += 2
+		target.max_health += 4
+	pass
 class TB_BaconUps_099:# <5>[1453]
 	""" Annoy-o-Module
 	[Magnetic][Divine Shield][Taunt] """
-	play = Magnetic(SELF, 'TB_BaconUps_099e')
+	play = Magnetic(SELF, ['TB_BaconUps_099e'])
 	pass
-TB_BaconUps_099e=buff(divine_shield=True, taunt=True)
-
+class TB_BaconUps_099e:
+	def apply(self,target):
+		target.divine_shield=True
+		target.taunt=True
+		target.atk += 4
+		target.max_health += 8
 
 #Grease Bot(4)
 class BG21_024:# <12>[1453]
@@ -252,13 +263,13 @@ class BG21_023_G:# <12>[1453]
 class BG20_401:# <12>[1453]
 	""" Holy Mecherel  さば
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
-	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetAttr(SELF, 'divine_shield', True))
+	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetDivineShield(SELF))
 	pass
 
 class BG20_401_G:# <12>[1453]
 	""" Holy Mecherel
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
-	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetAttr(SELF, 'divine_shield', True))
+	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetDivineShield(SELF))
 	pass
 
 
