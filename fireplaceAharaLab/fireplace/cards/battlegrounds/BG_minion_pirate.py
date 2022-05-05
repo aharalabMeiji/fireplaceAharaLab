@@ -280,7 +280,7 @@ TB_BaconUps_139e=buff(4,4)
 
 
 
-#Cap'n Hoggarr,5,6,6,Pirate,-
+#Cap'n Hoggarr,5,6,6,Pirate,-　### OK ###
 class BGS_072:# <12>[1453] ホガァ
 	""" Cap'n Hoggarr
 	Whenever you buy a Pirate,gain 1 Gold this turn only. """
@@ -294,30 +294,32 @@ class TB_BaconUps_133:# <12>[1453]
 
 
 
-#Tony Two-Tusk,5,4,6,Pirate,Avenge (X)
+#Tony Two-Tusk,5,4,6,Pirate,Avenge (X) ### OK ###
 class BG21_031_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target):
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
 		controller = target
-		friendly_pirates=[]
-		for card in controller.field:
-			if card.race==Race.PIRATE:
-				friendly_pirates.append(card)
-		if len(friendly_parates)>0:
-			card = random.choice(friendly_pirates)
-			original_card = card.deepcopy_original
-			new_card = controller.game.BG_morph_gold(card)
-			new_original_card = original_card.controller.game.BG_morph_gold(card)
+		for repeat in range(amount):
+			friendly_pirates=[]
+			for card in controller.field:
+				if card.race==Race.PIRATE and card.gold_card != 0 and card != source:
+					friendly_pirates.append(card)
+			if len(friendly_pirates)>0:
+				card = random.choice(friendly_pirates)
+				original_card = card.deepcopy_original
+				new_card = controller.game.BG_morph_gold(card)
+				new_original_card = original_card.controller.game.BG_morph_gold(original_card)
 		pass
 class BG21_031:# <12>[1453]
 	""" Tony Two-Tusk
 	[Avenge (4):] Make another friendly Pirate Golden permanently. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 4, [BG21_031_Action(CONTROLLER)]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [BG21_031_Action(CONTROLLER, 1)]))
 	pass
 class BG21_031_G:# <12>[1453]
 	""" Tony Two-Tusk
 	[Avenge (4):] Make 2 other friendly Pirates Golden permanently. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 4, [BG21_031_Action(CONTROLLER), BG21_031_Action(CONTROLLER)]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [BG21_031_Action(CONTROLLER, 2)]))
 	pass
 
 
@@ -327,13 +329,13 @@ class BG21_031_G:# <12>[1453]
 class BGS_047:# <12>[1453]  エリザ
 	""" Dread Admiral Eliza
 	Whenever a friendly Pirate attacks, give all friendly minions +2/+1. """
-	events = Attack(FRIENDLY_MINIONS + PIRATE).on(Buff(FRIENDLY_MINIONS,'BGS_047e'))
+	events = Attack(FRIENDLY + PIRATE).on(Buff(FRIENDLY_MINIONS,'BGS_047e'))
 	pass
 BGS_047e=buff(2,1)
 class TB_BaconUps_134:# <12>[1453]
 	""" Dread Admiral Eliza
 	Whenever a friendly Pirate attacks, give all friendly minions +4/+2. """
-	events = Attack(FRIENDLY_MINIONS + PIRATE).on(Buff(FRIENDLY_MINIONS,'TB_BaconUps_134e'))
+	events = Attack(FRIENDLY + PIRATE).on(Buff(FRIENDLY_MINIONS,'TB_BaconUps_134e'))
 	pass
 TB_BaconUps_134e=buff(4,2)
 
@@ -357,12 +359,12 @@ class BG21_019_Action(TargetedAction):
 class BG21_019:# <12>[1453] 戦利品詮索屋
 	""" Nosy Looter
 	Every two turns,add a random Golden minion to your hand.<i>(@ |4(turn, turns) left!)</i> """
-	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,1)]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,1)]))
 	pass
 class BG21_019_G:# <12>[1453]
 	""" Nosy Looter
 	At the start of your turn,add a random Golden minion to your hand. """
-	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,2)]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,2)]))
 	pass
 
 

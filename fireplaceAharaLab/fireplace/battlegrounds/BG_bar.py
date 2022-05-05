@@ -90,3 +90,23 @@ class BG_Bar(Game):
 		newcard.zone = Zone.HAND # do we need this line?
 		return newcard
 
+	def BG_morph_gold(self, card):
+		if not card:
+			return
+		controller = card.controller
+		index = controller.field.index(card)
+		if not card in controller.field:
+			return
+		gold_id = self.parent.BG_Gold[card.id]
+		if not gold_id:
+			return
+		buffs=[]
+		for buff in card.buffs:## inferit buffs
+			buffs.append(buff)
+		card.zone=Zone.GRAVEYARD
+		newcard = controller.card(gold_id)
+		for buff in buffs:## inferit buffs
+			buff.apply(newcard)
+		newcard._summon_index=index
+		newcard.zone = Zone.PLAY #something wrong? 
+		return newcard

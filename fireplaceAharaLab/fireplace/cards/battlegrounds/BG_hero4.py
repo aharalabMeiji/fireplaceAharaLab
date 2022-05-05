@@ -9,7 +9,7 @@ BG_Hero4=[
 	'TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2',#57#Silas Darkmoon
 	'TB_BaconShop_HERO_27','TB_BaconShop_HERO_27_Buddy','TB_BaconShop_HERO_27_Buddy_G','TB_BaconShop_HP_014','TB_BaconShop_HP_014e',#58#Sindragosa
 	'TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',#59#Sir Finley Mrrgglton
-	'TB_BaconShop_HERO_68','TB_BaconShop_HERO_68_Buddy','TB_BaconShop_HERO_68_Buddy_G','TB_BaconShop_HP_080',#60#Skycap'n Kragg
+	'TB_BaconShop_HERO_68','TB_BaconShop_HERO_68_Buddy','TB_BaconShop_HERO_68_Buddy_G','TB_BaconShop_HP_076',#60#Skycap'n Kragg
 	'BG21_HERO_030','BG21_HERO_030_Buddy','BG21_HERO_030_Buddy_e','BG21_HERO_030_Buddy_G','BG21_HERO_030p','BG21_HERO_030pe',#61#Sneed
 	'BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',#62#Tamsin Roame
 	'BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',#63#Tavish Stormpike
@@ -189,7 +189,7 @@ BG20_HERO_100p_e2=buff(1,0)
 
 
 
-#Scabbs Cutterbutter
+#55#Scabbs Cutterbutter
 #### 010 ####
 class BG21_HERO_010:# <7>[1453]
 	""" Scabbs Cutterbutter	 """
@@ -212,7 +212,7 @@ class BG21_HERO_010p:# <7>[1453]
 
 
 
-#Shudderwock # armor 3
+#56#Shudderwock # armor 3
 class TB_BaconShop_HERO_23:# <12>[1453]
 	""" Shudderwock """
 	pass
@@ -245,7 +245,7 @@ class TB_BaconShop_HP_022t_G:
 
 
 
-#Silas Darkmoon # # armor 6
+#57#Silas Darkmoon # # armor 6
 class TB_BaconShop_HERO_90:# <12>[1453]
 	""" Silas Darkmoon """
 	pass
@@ -268,7 +268,7 @@ class TB_BaconShop_HP_101t2:
 
 
 
-#59#Sindragosa
+#58#Sindragosa
 class TB_BaconShop_HERO_27:# <12>[1453]
 	""" Sindragosa """
 	pass
@@ -287,7 +287,7 @@ TB_BaconShop_HP_014e=buff(2,1)
 
 
 
-#60#Sir Finley Mrrgglton ## armor 3
+#59#Sir Finley Mrrgglton ## armor 3
 class TB_BaconShop_HERO_40:# <12>[1453]
 	""" Sir Finley Mrrgglton """
 	pass
@@ -299,22 +299,25 @@ class TB_BaconShop_HP_057:
 	"""  """
 
 
-#61#Skycap'n Kragg
+#60#Skycap'n Kragg
 class TB_BaconShop_HERO_68:# <12>[1453]
 	""" Skycap'n Kragg """
 	pass
 class TB_BaconShop_HERO_68_Buddy:
 	"""  """
+	pass
 class TB_BaconShop_HERO_68_Buddy_G:
 	"""  """
-class TB_BaconShop_HP_080:
+	pass
+class TB_BaconShop_HP_076:
 	"""  """
+	pass
 
 
 
 
 
-#62#Sneed
+#61#Sneed
 class BG21_HERO_030:# <10>[1453]
 	""" Sneed """
 	pass
@@ -347,7 +350,7 @@ class BG21_HERO_030pe:# <12>[1453]
 	pass
 
 
-#63#Tamsin Roame
+#62#Tamsin Roame
 class BG20_HERO_282:# <9>[1453]
 	""" Tamsin Roame """
 	pass
@@ -375,7 +378,7 @@ class BG20_HERO_282pe:# <12>[1453]
 
 
 
-#64##Tavish Stormpike
+#63##Tavish Stormpike
 class BG22_HERO_000:# <12>[1453]
 	""" Tavish Stormpike """
 	pass
@@ -419,7 +422,7 @@ class BG22_HERO_000p_t4:# <12>[1453]
 
 
 
-#65#Tess Greymane
+#64#Tess Greymane
 class TB_BaconShop_HERO_50:# <12>[1453]
 	""" Tess Greymane """
 	pass
@@ -440,7 +443,7 @@ class TB_BaconShop_HP_077:
 
 
 
-#66#The Curator
+#65#The Curator
 class TB_BaconShop_HERO_33:# <12>[1453]
 	""" The Curator	 """
 	pass
@@ -459,7 +462,7 @@ class TB_BaconShop_HP_033t:
 	"""   """
 
 
-#67#The Great Akazamzarak
+#66#The Great Akazamzarak
 class TB_BaconShop_HERO_21:# <12>[1453]
 	""" The Great Akazamzarak """
 	pass
@@ -478,7 +481,7 @@ class TB_BaconShop_HP_020:
 
 
 
-#68#The Lich King
+#67#The Lich King
 class TB_BaconShop_HERO_22:# <12>[1453]
 	""" The Lich King """
 	pass
@@ -491,7 +494,7 @@ class TB_BaconShop_HP_024:
 TB_BaconShop_HP_024e2=buff(reborn=True)
 
 
-#69#The Rat King ## armor 6
+#68#The Rat King ## armor 6
 class TB_BaconShop_HERO_12:# <12>[1453]
 	""" The Rat King """
 	pass

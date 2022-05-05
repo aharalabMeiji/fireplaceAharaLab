@@ -87,7 +87,7 @@ class BG_main:
 		for agent in self.Agents:
 			print ("==== %s 's bar building ===="% agent)
 			if agent.name=='Human1':
-				theHeroes = [self.Heroes[10],self.Heroes[28]]
+				theHeroes = [self.Heroes[60],self.Heroes[28]]
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])
@@ -111,10 +111,10 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
 			if agent.name=='Human1':
-				card = bar.controller.card('BGS_056')#:
+				card = bar.controller.card('BGS_047')#:
 				card.zone = Zone.HAND
-				card = bar.controller.card('BG21_016')
-				card.zone = Zone.HAND
+				#card = bar.controller.card('BG21_031')
+				#card.zone = Zone.HAND
 			##########
 			print ("==== %s 's bar done ===="% agent)
 			pass

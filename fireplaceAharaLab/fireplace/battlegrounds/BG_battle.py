@@ -181,15 +181,19 @@ class BG_Battle(Game):
 		if not card:
 			return
 		controller = card.controller
-		gold_id = self.parent.BG_Gold[card.id]
+		if not card in controller.field:
+			return
+		index = controller.field.index(card)
+		gold_id = self.parent.BG_Gold.get(card.id, 0)
 		if not gold_id:
 			return
 		buffs=[]
-		for buff in card.buffs:## inferit buffs
+		for buff in card.buffs:## inherits buffs
 			buffs.append(buff)
 		card.zone=Zone.GRAVEYARD
 		newcard = controller.card(gold_id)
-		for buff in buffs:## inferit buffs
+		for buff in buffs:## inherits buffs
 			buff.apply(newcard)
+		newcard._summon_index=index
 		newcard.zone = Zone.PLAY #something wrong? 
 		return newcard
