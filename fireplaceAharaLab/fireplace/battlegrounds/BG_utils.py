@@ -33,7 +33,7 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[],[]]
-		self.BG_races = races=['pirate','quilboar','mecha']
+		self.BG_races = races=['pirate','quilboar','elemental']
 		# BAN される raceはここで除外
 		#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		for i in range(6):
@@ -111,9 +111,9 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
 			if agent.name=='Human1':
-				card = bar.controller.card('BGS_066')#:
+				card = bar.controller.card('BGS_056')#:
 				card.zone = Zone.HAND
-				card = bar.controller.card('TB_BaconUps_140')
+				card = bar.controller.card('BG21_016')
 				card.zone = Zone.HAND
 			##########
 			print ("==== %s 's bar done ===="% agent)

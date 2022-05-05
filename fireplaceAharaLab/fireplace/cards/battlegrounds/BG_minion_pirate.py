@@ -213,7 +213,7 @@ TB_BaconUps_140e=buff(2,2)
 
 
 
-#Goldgrubber,4,4,4,Pirate,-  ### OK ###
+#Goldgrubber,4,4,4,Pirate,- 金ぴか ### OK ###
 class BGS_066_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
@@ -226,7 +226,7 @@ class BGS_066_Action(TargetedAction):
 		for repeat in range(count):
 			Buff(source, buff).trigger(controller)
 		pass
-class BGS_066:# <12>[1453] 金ぴか
+class BGS_066:# <12>[1453] 
 	""" Goldgrubber
 	At the end of your turn, gain +2/+2 for each friendly Golden minion. """
 	events = OWN_TURN_END.on(BGS_066_Action(CONTROLLER, 'BGS_066e'))
@@ -242,13 +242,13 @@ TB_BaconUps_130e=buff(4,4)
 
 
 
-#Peggy Brittlebone,4,6,5,Pirate,-
+#Peggy Brittlebone,4,6,5,Pirate,- ### OK ###
 class BG21_016:# <12>[1453] 義足
 	""" Peggy Brittlebone
 	After a card is added to your hand, give another friendly Pirate +1/+1. """
 	events = [
-		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016e')),
-		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016e')),
+		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG21_016e')),
+		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG21_016e')),
 		]
 	pass
 BG21_016e=buff(1,1)
@@ -256,23 +256,25 @@ class BG21_016_G:# <12>[1453]
 	""" Peggy Brittlebone
 	After a card is added to your hand, give another friendly Pirate +2/+2. """
 	events = [
-		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016_Ge')),
-		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_016_Ge')),
+		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG21_016_Ge')),
+		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG21_016_Ge')),
 		]
 	pass
 BG21_016_Ge=buff(2,2)
 
-#Ripsnarl Captain,4,4,6,Pirate,-
+
+
+#Ripsnarl Captain,4,4,6,Pirate,- ### OK ###
 class BGS_056:# <12>[1453] ギリガルル
 	""" Ripsnarl Captain
 	Whenever another friendly Pirate attacks, give it +2/+2. """
-	events = Attack(FRIENDLY + PIRATE).on(Buff(Attack.ATTACKER,'BGS_056e'))
+	events = BG_Attack(FRIENDLY + PIRATE - SELF).on(Buff(BG_Attack.TARGET,'BGS_056e'))
 	pass
 BGS_056e=buff(2,2)
 class TB_BaconUps_139:# <12>[1453]
 	""" Ripsnarl Captain
 	Whenever another friendly Pirate attacks, give it +4/+4. """
-	events = Attack(FRIENDLY + PIRATE).on(Buff(Attack.ATTACKER,'TB_BaconUps_139e'))
+	events = BG_Attack(FRIENDLY + PIRATE - SELF).on(Buff(BG_Attack.TARGET,'TB_BaconUps_139e'))
 	pass
 TB_BaconUps_139e=buff(4,4)
 
