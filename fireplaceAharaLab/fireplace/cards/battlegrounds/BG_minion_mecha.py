@@ -195,8 +195,8 @@ class BOT_911e:
 	def apply(self,target):
 		target.divine_shield=True
 		target.taunt=True
-		target.atk += 2
-		target.max_health += 4
+	atk = lambda self,i:i+2
+	max_health = lambda self,i:i+4
 	pass
 class TB_BaconUps_099:# <5>[1453]
 	""" Annoy-o-Module
