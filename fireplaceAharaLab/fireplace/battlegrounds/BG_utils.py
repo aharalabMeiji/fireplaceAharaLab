@@ -112,9 +112,9 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
-			if agent.name=='Human1':
-				card = bar.controller.card('TB_BaconShop_HERO_36_Buddy')#:
-				card.zone = Zone.HAND
+			#if agent.name=='Human1':
+			#	card = bar.controller.card('TB_BaconShop_HERO_36_Buddy')#:
+			#	card.zone = Zone.HAND
 			#	card = bar.controller.card('ULD_217')
 			#	card.zone = Zone.HAND
 			##########
