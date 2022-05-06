@@ -44,7 +44,7 @@ BG_Mecha_Gold={
 	'BG21_025':'BG21_025_G',	#Omega Buster(6)
 	}
 
-#Micro Mummy(1)
+#Micro Mummy(1) ### OK ###
 class ULD_217:
 	"""
 	<b>Reborn</b>At the end of your turn, giveanother random friendlyminion +1 Attack."""
@@ -58,7 +58,7 @@ class TB_BaconUps_250:# <5>[1453]
 	pass
 TB_BaconUps_250e=buff(2,0)
 
-#Pupbot(1)
+#Pupbot(1) ### OK ###
 class BG21_022:# <12>[1453]
 	""" Pupbot
 	[Divine Shield] """
@@ -69,7 +69,7 @@ class BG21_022_G:# <12>[1453]
 	[Divine Shield] """
 	pass
 
-#Harvest Golem(2)
+#Harvest Golem(2) ### OK ###
 class EX1_556:
 	"""
 	<b>Deathrattle:</b> Summon a 2/1 Damaged Golem."""
@@ -83,14 +83,13 @@ class TB_BaconUps_006:# <12>[1453]
 	[Deathrattle:] Summon a 4/2 Damaged Golem. """
 	deathrattle = Summon(CONTROLLER, "TB_BaconUps_006t")
 	pass
-
 class TB_BaconUps_006t:# <12>[1453]
 	""" Damaged Golem
 	 """
 	#
 	pass
 
-#Kaboom Bot(2)
+#Kaboom Bot(2)  ### OK ###
 class BOT_606:
 	"""
 	<b>Deathrattle:</b> Deal 4_damage to a random enemy minion. """
@@ -117,18 +116,25 @@ class TB_BaconUps_066:# <3>[1453]
 TB_BaconUps_066e=buff(4,0)
 
 
-
 #Deflect-o-Bot(3)
+class BGS_071_Action(TargetedAction):
+	TARGET = ActionArg()#SELF
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		from fireplace.battlegrounds.BG_battle import BG_Battle
+		if isinstance(target.game, BG_Battle):##during combat
+			Buff(target, buff).trigger(target.controller)
+			SetDivineShield(target)
 class BGS_071:# <12>[1453]
 	""" Deflect-o-Bot
 	[Divine Shield]Whenever you summon a Mech during combat, gain +2 Attackand [Divine Shield]. """
-	events = Summon(CONTROLLER, MECH).on(Buff(SELF, 'BGS_071e'), SetAttr(SELF, 'divine_shield', True))
+	events = Summon(CONTROLLER, MECH).on(BGS_071_Action(SELF, 'BGS_071e'))
 	pass
 BGS_071e=buff(2,0)
 class TB_BaconUps_123:# <12>[1453]
 	""" Deflect-o-Bot
 	[Divine Shield]Whenever you summon a Mechduring combat, gain +4 Attackand [Divine Shield]. """
-	events = Summon(CONTROLLER, MECH).on(Buff(SELF, 'TB_BaconUps_123e'), SetAttr(SELF, 'divine_shield', True))
+	events = Summon(CONTROLLER, MECH).on(BGS_071_Action(SELF, 'TB_BaconUps_123e'))
 	pass
 TB_BaconUps_123e=buff(4,0)
 
@@ -184,7 +190,7 @@ class TB_BaconUps_069:# <10>[1453]
 TB_BaconUps_069e=buff(4,4)
 
 
-#Annoy-o-Module(4)
+#Annoy-o-Module(4)　### OK ###
 class BOT_911:
 	"""
 	<b>Magnetic</b><b>Divine Shield</b><b>Taunt</b>"""

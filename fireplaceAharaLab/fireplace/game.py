@@ -247,7 +247,8 @@ class BaseGame(Entity):
 			if isinstance(action, EventListener):
 				# Queuing an EventListener registers it as a one-time event
 				# This allows registering events from eg. play actions
-				self.log("Registering event listener %r on %r", action, self)
+				if Config.LOGINFO:
+					print("(BaseGame.trigger_actions)Registering event listener %r on %r", action, self)
 				action.once = True
 				# FIXME: Figure out a cleaner way to get the event listener target
 				if source.type == CardType.SPELL:
@@ -294,7 +295,8 @@ class BaseGame(Entity):
 		self.tick += 1
 
 	def setup(self):
-		self.log("Setting up game %r", self)
+		if Config.LOGINFO:
+			print("(BaseGame.setup)Setting up game %r", self)
 		self.state = State.RUNNING
 		self.step = Step.BEGIN_DRAW
 		self.zone = Zone.PLAY
@@ -324,7 +326,8 @@ class BaseGame(Entity):
 		return self.queue_actions(self, [EndTurn(self.current_player)])
 
 	def _end_turn(self):
-		self.log("%s ends turn %i", self.current_player, self.turn)
+		if Config.LOGINFO:
+			print("(BaseGame.end_turn)%s ends turn %i", self.current_player, self.turn)
 		self.manager.step(self.next_step, Step.MAIN_CLEANUP)
 		self.current_player.temp_mana = 0
 		self.end_turn_cleanup()
@@ -333,10 +336,12 @@ class BaseGame(Entity):
 		self.manager.step(self.next_step, Step.MAIN_NEXT)
 		for character in self.current_player.characters.filter(frozen=True):
 			if not character.num_attacks and not character.exhausted:
-				self.log("Freeze fades from %r", character)
+				if Config.LOGINFO:
+					print("(BaseGame.end_turn_cleanup)Freeze fades from %r", character)
 				character.frozen = False
 		for buff in self.entities.filter(one_turn_effect=True):
-			self.log("Ending One-Turn effect: %r", buff)
+			if Config.LOGINFO:
+				print("(BaseGame.end_turn_cleanup)Ending One-Turn effect: %r", buff)
 			buff.remove()
 		self.begin_turn(self.current_player.opponent)
 
@@ -435,7 +440,8 @@ class BaseGame(Entity):
 		for minion in player.field:
 			if hasattr(minion,'dormant') and minion.dormant:
 				minion.dormant -= 1
-				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
+				if Config.LOGINFO:
+					print("(BaseGame._begin_turn)while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
 		if self.no_drawing_at_turn_begin==False:
@@ -460,14 +466,16 @@ class CoinRules:
 		if Config.FSFIXED == 0: #Aharalab
 			winner = random.choice(self.players)
 			#winner = self.players[1]
-			self.log("Tossing the coin... %s wins!", winner)
+			if Config.LOGINFO:
+				print("(CoinRules.pick_first_player)Tossing the coin... %s wins!", winner)
 			return winner, winner.opponent
 		else: #Aharalab
 			return self.players[0], self.players[1] #Aharalab
 
 	def begin_turn(self, player):
 		if self.turn == 0 and Config.COIN > 0:
-			self.log("%s gets The Coin (%s)", self.player2, THE_COIN)
+			if Config.LOGINFO:
+				print("(CoinRules.begin_turn)%s gets The Coin (%s)", self.player2, THE_COIN)
 			self.player2.give(THE_COIN)
 		super().begin_turn(player)
 
@@ -482,7 +490,8 @@ class MulliganRules:
 		from .actions import MulliganChoice
 		self.setup()
 		self.next_step = Step.BEGIN_MULLIGAN
-		self.log("Entering mulligan phase")
+		if Config.LOGINFO:
+			print("(MulliganRules.start)Entering mulligan phase")
 		self.step, self.next_step = self.next_step, Step.MAIN_READY
 
 		for player in self.players:

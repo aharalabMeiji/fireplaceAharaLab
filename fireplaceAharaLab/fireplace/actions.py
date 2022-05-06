@@ -268,7 +268,8 @@ class BeginTurn(GameAction):
 	def do(self, source, player):
 		source.manager.step(source.next_step, Step.MAIN_READY)
 		source.turn += 1
-		source.log("%s begins turn %i", player, source.turn)
+		if Config.LOGINFO:
+			print("(BeginTurn.do)%s begins turn %i", player, source.turn)
 		source.current_player = player
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
