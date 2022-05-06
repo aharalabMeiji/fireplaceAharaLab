@@ -675,8 +675,7 @@ class TB_BaconShop_HERO_36:# <12>[1453]
 class TB_BaconShop_HP_042:
 	""" Hat Trick
 	<b>Passive.</b> After you sell a minion, randomly give a minion in Bob's Tavern +1/+1 three times."""
-	events = Sell(CONTROLLER).after(Buff(SELF, 'TB_BaconShop_HERO_36_Buddy_e'))
-
+	events = Sell(CONTROLLER).after(Buff(RANDOM(ENEMY_MINIONS), 'TB_BaconShop_HERO_36_Buddy_e')*3)
 TB_BaconShop_HP_042e=buff(1,1)
 class TB_BaconShop_HERO_36_Buddy:# <12>[1453]
 	""" Asher the Haberdasher
