@@ -71,8 +71,9 @@ class BAR_074:#OK　　
 
 class BAR_074e:
 	# Spotted!"""
-	cost = lambda self, i: min(i+1,10)
-
+	#cost = lambda self, i: min(i+1,10)
+	tags = {GameTag.COST:+1}
+	
 class BAR_745:#OK
 	"""
 	Hecklefang Hyena

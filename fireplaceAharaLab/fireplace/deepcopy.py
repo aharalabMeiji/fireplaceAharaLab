@@ -1,6 +1,6 @@
 from enum import IntEnum
 from fireplace import cards
-from hearthstone.enums import Zone,State,CardType,Step
+from hearthstone.enums import GameTag, Zone,State,CardType,Step
 from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest,Secret
 from .player import Player, PlayLog
 from .game import Game
@@ -311,8 +311,8 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_buff.source = buff.source
 			new_buff.controller = newPlayer
 			new_buff.owner = card
-			new_buff.atk=buff.atk## modified buff
-			new_buff.max_health=buff.max_health## modified buff
+			new_buff.tags[GameTag.ATK]=buff.atk## modified buff
+			new_buff.tags[GameTag.HEALTH]=buff.max_health## modified buff
 			new_buff.apply(new_card)
 			#new_card.buffs.append(new_buff)
 			if buff in card.game.active_aura_buffs:

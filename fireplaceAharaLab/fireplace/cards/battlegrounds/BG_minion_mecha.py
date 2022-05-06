@@ -195,8 +195,8 @@ class BOT_911e:
 	def apply(self,target):
 		target.divine_shield=True
 		target.taunt=True
-	atk = lambda self,i:i+2
-	max_health = lambda self,i:i+4
+		self.tags[GameTag.ATK] = 2
+		self.tags[GameTag.HEALTH] = 4
 	pass
 class TB_BaconUps_099:# <5>[1453]
 	""" Annoy-o-Module
@@ -207,8 +207,8 @@ class TB_BaconUps_099e:
 	def apply(self,target):
 		target.divine_shield=True
 		target.taunt=True
-		target.atk += 4
-		target.max_health += 8
+		self.tags[GameTag.ATK] = 4
+		self.tags[GameTag.HEALTH] = 8
 
 #Grease Bot(4)
 class BG21_024:# <12>[1453]
@@ -298,7 +298,7 @@ class BG21_025_Action(TargetedAction):
 			yield Summon(CONTROLLER, 'BOT_312t')
 		if summonnumber<5:
 			for repeat in range(5-summonnumber):
-				yield Buff(FRIENDLY + MECHA, 'BG21_025e')
+				yield Buff(FRIENDLY + MECH, 'BG21_025e')
 class BG21_025:# <12>[1453]　オメバス
 	""" Omega Buster
 	[Deathrattle:] Summon five 1/1 Microbots. For each that doesn't fit, give your Mechs +1/+1. """
@@ -318,7 +318,7 @@ class BG21_025_G:# <12>[1453]
 			yield Summon(CONTROLLER, 'TB_BaconUps_032t')
 		if summonnumber<5:
 			for repeat in range(5-summonnumber):
-				yield Buff(FRIENDLY + MECHA, 'BG21_025e2')
+				yield Buff(FRIENDLY + MECH, 'BG21_025e2')
 	pass
 BG21_025e2=buff(2,2)
 class TB_BaconUps_032t:

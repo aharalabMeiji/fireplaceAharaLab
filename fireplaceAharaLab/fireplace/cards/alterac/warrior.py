@@ -23,7 +23,8 @@ class AV_119:
 	play = Buff(FRIENDLY_HAND, 'AV_119e')
 	pass
 class AV_119e:
-	cost = lambda self, i: max(1,i-2)
+	tags = {GameTag.COST:-2,}
+	#cost = lambda self, i: max(1,i-2)
 	events = OWN_TURN_END.on(Destroy(SELF))
 
 class AV_145_Action(TargetedAction):

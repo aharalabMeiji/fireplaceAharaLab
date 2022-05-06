@@ -610,7 +610,7 @@ class BGS_012_Action(TargetedAction):
 		controller = target
 		cards = []
 		for card in controller.death_log:
-			if card.race == Race.MECHA:
+			if card.race == Race.MECHANICAL:
 				cards.append(card)
 		for repeat in range(amount):
 			if repeat<len(cards):

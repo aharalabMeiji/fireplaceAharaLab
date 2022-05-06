@@ -159,7 +159,8 @@ class AV_334:
 	deathrattle = Buff(FRIENDLY_HAND + BEAST, 'AV_334e')
 	pass
 class AV_334e:
-	cost = lambda self, i : max(0,i-2)
+	#cost = lambda self, i : max(0,i-2)
+	tags = {GameTag.COST:-2,}
 	events = Play(CONTROLLER, MINION + BEAST).on(Destroy(SELF))
 	pass
 

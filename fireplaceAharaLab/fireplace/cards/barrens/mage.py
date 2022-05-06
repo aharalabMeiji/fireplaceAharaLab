@@ -92,7 +92,9 @@ class BAR_545:#<4> [1525] ##OK
 class BAR_545e:#<4> [1525]
 	""" Conjured Reduction
 	Costs (2) less (but not less than 1). """
-	cost = lambda self, i: max(i-2, 1)
+	#cost = lambda self, i: max(i-2, 1)
+	tags = {GameTag.COST:-2, }
+	
 	pass
 
 class BAR_546:#<4> [1525] ##OK

@@ -64,7 +64,8 @@ class BAR_537:#OK <2>[1525]
 class BAR_537e:# <2>[1525]
 	""" Razorforced
 	Each turn, your first [ Taunt] minion costs (2) less. """
-	cost = lambda self, i : max(i-2, 0)
+	#cost = lambda self, i : max(i-2, 0)
+	tags = {GameTag.COST:-2,}
 	events = [
 		Play(CONTROLLER, FRIENDLY_MINIONS + TAUNT).on(Destroy(SELF)),
 		OWN_TURN_END.on(Destroy(SELF)),
