@@ -205,11 +205,11 @@ class BG20_203_Action(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		controller = target
-		if controller.ActivateThisTurn==False:
+		if controller.once_per_turn==False:
 			for repeat in range(amount):
 				Give(controller, 'BG20_GEM')
 				#.trigger(source)
-			controller.ActivateThisTurn=True
+			controller.once_per_turn=True
 class BG20_203:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """

@@ -3170,8 +3170,8 @@ class ReduceTierUpCost(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
 	def do(self, source, target, amount):
-		if hasattr(target,'TierUpCost'):
-			target.TierUpCost = max(target.TierUpCost-amount, 0)
+		if hasattr(target,'tavern_tierup_cost'):
+			target.tavern_tierup_cost = max(target.tavern_tierup_cost-amount, 0)
 		pass
 
 class Rerole(TargetedAction): ## battlegrounds
@@ -3193,9 +3193,9 @@ class Rerole(TargetedAction): ## battlegrounds
 				card=bartender.field[0]
 				game.parent.ReturnCard(card)
 			if controller.hero.power.id=='TB_BaconShop_HP_065t2':### アランナフラグ
-				bartender.BobsTmpFieldSize=7
-			for card in range(bartender.BobsTmpFieldSize):
-				card = game.parent.DealCard(bartender, controller.Tier)
+				bartender.len_bobs_field=7
+			for card in range(bartender.len_bobs_field):
+				card = game.parent.DealCard(bartender, controller.tavern_tier)
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
 
@@ -3274,14 +3274,14 @@ class SummonOnce(Summon):
 class UpgradeTier(TargetedAction):
 	TARGET=ActionArg()#controller
 	def do(self, source, target):
-		TierUpCost={1:5, 2:7, 3:8, 4:11, 5:10, 6:10}
+		tavern_tierup_cost={1:5, 2:7, 3:8, 4:11, 5:10, 6:10}
 		controller = target
 		bar = target.game
-		if controller.Tier<=5 and controller.mana >= controller.TierUpCost:
-			controller.Tier += 1
-			controller.used_mana += controller.TierUpCost
-			controller.spentmoney_in_this_turn += controller.TierUpCost
-			controller.TierUpCost = TierUpCost[controller.Tier]
+		if controller.tavern_tier<=5 and controller.mana >= controller.tavern_tierup_cost:
+			controller.tavern_tier += 1
+			controller.used_mana += controller.tavern_tierup_cost
+			controller.spentmoney_in_this_turn += controller.tavern_tierup_cost
+			controller.tavern_tierup_cost = tavern_tierup_cost[controller.tavern_tier]
 			self.broadcast(source, EventListener.ON, controller)
 			self.broadcast(source, EventListener.AFTER, controller)
 	pass

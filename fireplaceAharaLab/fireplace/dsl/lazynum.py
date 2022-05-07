@@ -109,7 +109,7 @@ class TavernTier(LazyNum):
 
 	def evaluate(self, source):
 		controller = self.get_entities(source)[0]
-		return self.num(controller.Tier)
+		return self.num(controller.tavern_tier)
 
 
 

@@ -99,7 +99,7 @@ class TB_BaconShop_HERO_75_Action(TargetedAction):
 		controller = target
 		if not isinstance(other, list):
 			other = [other]
-		tier = controller.Tier
+		tier = controller.tavern_tier
 		for card in other:
 			Buff(card, 'TB_BaconShop_HP_085e').trigger(controller)
 			buff = card.buffs[-1]

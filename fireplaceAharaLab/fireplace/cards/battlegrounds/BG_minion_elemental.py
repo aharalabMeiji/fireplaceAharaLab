@@ -123,7 +123,7 @@ class BG21_021:# <12>[1453]
 	def play(self):
 		source = self
 		controller = self.controller
-		tier = controller.Tier
+		tier = controller.tavern_tier
 		BG21_021e.atk=lambda self,i:(i+tier)
 		BG21_021e.max_health=lambda self,i:(i+tier)
 		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
@@ -138,7 +138,7 @@ class BG21_021_G:# <12>[1453]
 	def play(self):
 		source = self
 		controller = self.controller
-		tier = controller.Tier
+		tier = controller.tavern_tier
 		BG21_021e.atk=lambda self,i:(i+tier)
 		BG21_021e.max_health=lambda self,i:(i+tier)
 		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
@@ -153,7 +153,7 @@ class BGS_122:# <12>[1453] ###
 	[Battlecry:] Add another random Elemental to Bob's Tavern and [Freeze] it. """
 	def play(self):
 		bartender = self.controller.opponent
-		tier = self.controller.Tier
+		tier = self.controller.tavern_tier
 		elemental = []
 		for gr in range(tier):
 			elemental += BG_PoolSet_Elemental[gr-1]
@@ -168,7 +168,7 @@ class TB_BaconUps_161:# <12>[1453]
 	[Battlecry:] Add two other random Elementals to Bob's Tavern and [Freeze] them. """
 	def play(self):
 		bartender = self.controller.opponent
-		tier = self.controller.Tier
+		tier = self.controller.tavern_tier
 		elemental = []
 		for gr in range(tier):
 			elemental += BG_PoolSet_Elemental[gr-1]
@@ -263,7 +263,7 @@ class BGS_123:# <12>[1453] 逆巻き風
 	[Battlecry:] Add another random Elemental to your hand. """
 	def play(self):
 		controller = self.controller
-		tier = self.controller.Tier
+		tier = self.controller.tavern_tier
 		elemental = []
 		for gr in range(tier):
 			elemental += BG_PoolSet_Elemental[gr-1]
@@ -277,7 +277,7 @@ class TB_BaconUps_162:# <12>[1453]
 	[Battlecry:] Add two other random Elementals to your hand. """
 	def play(self):
 		controller = self.controller
-		tier = self.controller.Tier
+		tier = self.controller.tavern_tier
 		elemental = []
 		for gr in range(tier):
 			elemental += BG_PoolSet_Elemental[gr-1]
@@ -297,7 +297,7 @@ class BGS_121_Action(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		controller = target
-		tier = self.controller.Tier
+		tier = self.controller.tavern_tier
 		elemental = []
 		for gr in range(tier):
 			elemental += BG_PoolSet_Elemental[gr-1]

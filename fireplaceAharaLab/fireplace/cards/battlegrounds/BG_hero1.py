@@ -180,7 +180,7 @@ class TB_BaconShop_HP_064_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
-		if target.Tier==5:
+		if target.tavern_tier==5:
 			DiscoverTwice(controller, RandomBGDragon(tech_level_less=5)*3).trigger(source)
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
@@ -249,7 +249,7 @@ class BG22_HERO_201pe_Action(TargetedAction):
 		controller = target.controller
 		self.owner = target
 		tier = self.owner.tech_level
-		if controller.Tier>= tier:
+		if controller.tavern_tier>= tier:
 			self.owner.cant_play=False
 			targetedaction.trigger(source)
 		pass
@@ -328,8 +328,8 @@ class TB_BaconShop_HP_053_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
-		if controller.FirstKillMinion!=None:
-			Give(controller,controller.FirstKillMinion).trigger(source)
+		if controller.first_dead_minion!=None:
+			Give(controller,controller.first_dead_minion).trigger(source)
 			gold_card_id = controller.game.BG_find_triple()##
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
@@ -342,8 +342,8 @@ class TB_BaconShop_HERO_45_Buddy_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
-		if controller.SecondKillMinion!=None:
-			Give(controller,controller.SecondKillMinion).trigger(source)
+		if controller.second_dead_minion!=None:
+			Give(controller,controller.second_dead_minion).trigger(source)
 			gold_card_id = controller.game.BG_find_triple()##
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
@@ -356,9 +356,9 @@ class TB_BaconShop_HERO_45_Buddy_G_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
-		if controller.SecondKillMinion!=None:
-			Give(controller,controller.SecondKillMinion).trigger(source)
-			Give(controller,controller.SecondKillMinion).trigger(source)
+		if controller.second_dead_minion!=None:
+			Give(controller,controller.second_dead_minion).trigger(source)
+			Give(controller,controller.second_dead_minion).trigger(source)
 			gold_card_id = controller.game.BG_find_triple()##
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
@@ -592,7 +592,7 @@ class BG21_HERO_000p_Action(TargetedAction):
 	NEWPOWER = ActionArg()
 	def do(self, source, target, amount, newpower):
 		controller = target
-		tier = controller.Tier
+		tier = controller.tavern_tier
 		if tier==amount:
 			ChangeHeroPower(controller, newpower).trigger(controller)
 		pass

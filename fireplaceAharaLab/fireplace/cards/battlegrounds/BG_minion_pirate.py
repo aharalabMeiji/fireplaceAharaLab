@@ -350,7 +350,7 @@ class BG21_019_Action(TargetedAction):
 		controller = target
 		decks = controller.game.parent.BG_decks
 		dk=[]
-		for i in range(1, controller.Tier+1):
+		for i in range(1, controller.tavern_tier+1):
 			dk += decks[i]
 		for repeat in range(amount):
 			cardID = random.choice(dk)

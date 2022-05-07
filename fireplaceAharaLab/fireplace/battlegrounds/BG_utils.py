@@ -18,6 +18,8 @@ BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
 class BG_main:
 	def __init__(self):
+		## buddyありゲーム（2022/05までのゲーム）
+		self.buddy_game=True
 		#使用カードの初期化
 		cards.db.BG_initialize()
 		#エージェントのリスト
@@ -137,9 +139,9 @@ class BG_main:
 				assert agent
 				#if Aranna-flag, 
 				if controller.hero.power.id!='TB_BaconShop_HP_065t2':
-					bartender.BobsTmpFieldSize=BobsFieldSize[controller.Tier]
+					bartender.len_bobs_field=BobsFieldSize[controller.tavern_tier]
 				else:
-					bartender.BobsTmpFieldSize=7
+					bartender.len_bobs_field=7
 				controller.max_mana = min(10,bar.turn+2)
 				controller.used_mana = 0
 				### deal cards to tavern
@@ -155,8 +157,8 @@ class BG_main:
 					else:
 						card.frozen=False
 						frozencard += 1
-				for repeat in range(bartender.BobsTmpFieldSize-frozencard):
-					card = self.DealCard(bartender, controller.Tier)
+				for repeat in range(bartender.len_bobs_field-frozencard):
+					card = self.DealCard(bartender, controller.tavern_tier)
 				#start bob's tavern
 				BeginBar(controller, bar.turn).trigger(controller)
 				if controller.hero.power:
@@ -243,7 +245,7 @@ class BG_main:
 			for bar in self.BG_Bars:
 				controller = bar.controller
 				# グレードアップコストを減らす。
-				controller.TierUpCost = max(0, controller.TierUpCost-1) 
+				controller.tavern_tierup_cost = max(0, controller.tavern_tierup_cost-1) 
 				#ターン更新に伴うコインの補充。
 				#bar.turn += 1
 				controller.used_mana = 0 
@@ -343,7 +345,7 @@ class Move(object):
 			else:
 				return "（ヒーローパワー）を発動する（コスト%d）"%(self.controller.hero.power.cost)
 		elif self.move==MovePlay.TIERUP:#
-			return "グレードを上げる（コスト%d）"%(self.controller.TierUpCost)
+			return "グレードを上げる（コスト%d）"%(self.controller.tavern_tierup_cost)
 		elif self.move==MovePlay.REROLE:# 
 			return "リロールする（コスト%d）"%(self.game.reroleCost)
 		elif self.move==MovePlay.FREEZE:# 
@@ -506,7 +508,7 @@ def GetMoveCandidates(bar, controller, bartender):
 		else:
 			ret.append(Move(bar, None, MovePlay.POWER))
 	#TIERUP=6
-	if controller.Tier<=5 and controller.mana>=controller.TierUpCost:
+	if controller.tavern_tier<=5 and controller.mana>=controller.tavern_tierup_cost:
 		ret.append(Move(bar, None, MovePlay.TIERUP))
 	#REROLE=7
 	if controller.mana>=bar.reroleCost:

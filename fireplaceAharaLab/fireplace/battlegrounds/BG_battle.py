@@ -48,12 +48,12 @@ class BG_Battle(Game):
 		BeginBattle(self.second).trigger(self)## trigger by game
 		#some parameters
 		self.current_player=self.first
-		self.first.AttackIndex=0
-		self.second.AttackIndex=0
-		self.first.controller.deepcopy_original.FirstKillMinion=None
-		self.second.controller.deepcopy_original.FirstKillMinion=None
-		self.first.controller.deepcopy_original.SecondKillMinion=None
-		self.second.controller.deepcopy_original.SecondKillMinion=None
+		self.first.attacker_index=0
+		self.second.attacker_index=0
+		self.first.controller.deepcopy_original.first_dead_minion=None
+		self.second.controller.deepcopy_original.first_dead_minion=None
+		self.first.controller.deepcopy_original.second_dead_minion=None
+		self.second.controller.deepcopy_original.second_dead_minion=None
 		# starting the infinite loop
 		while True:
 			# display the field
@@ -62,7 +62,7 @@ class BG_Battle(Game):
 			if len(self.first.field)==0 or len(self.second.field)==0:
 				break
 			#attacker
-			attacker = self.current_player.field[self.current_player.AttackIndex]
+			attacker = self.current_player.field[self.current_player.attacker_index]
 			if attacker.atk>0:
 				for repeat in range(attacker.windfury+1):## procedure for windfury
 					#defender
@@ -94,24 +94,24 @@ class BG_Battle(Game):
 					#procedures of deathrattle
 					Deaths().trigger(self)
 					if attacker.zone==Zone.GRAVEYARD:
-						if defender.controller.deepcopy_original.FirstKillMinion==None:
-							defender.controller.deepcopy_original.FirstKillMinion=attacker.id
-						elif defender.controller.deepcopy_original.SecondKillMinion==None:
-							defender.controller.deepcopy_original.SecondKillMinion=attacker.id
+						if defender.controller.deepcopy_original.first_dead_minion==None:
+							defender.controller.deepcopy_original.first_dead_minion=attacker.id
+						elif defender.controller.deepcopy_original.second_dead_minion==None:
+							defender.controller.deepcopy_original.second_dead_minion=attacker.id
 					if defender.zone==Zone.GRAVEYARD:
-						if attacker.controller.deepcopy_original.FirstKillMinion==None:
-							attacker.controller.deepcopy_original.FirstKillMinion=defender.id
-						elif attacker.controller.deepcopy_original.SecondKillMinion==None:
-							attacker.controller.deepcopy_original.SecondKillMinion=defender.id
+						if attacker.controller.deepcopy_original.first_dead_minion==None:
+							attacker.controller.deepcopy_original.first_dead_minion=defender.id
+						elif attacker.controller.deepcopy_original.second_dead_minion==None:
+							attacker.controller.deepcopy_original.second_dead_minion=defender.id
 					if len(self.first.field)==0 or len(self.second.field)==0:
 						break;
 			# change the turn (no freeze nor one_turn_effect)
-			self.current_player.AttackIndex+=1
-			if self.current_player.AttackIndex>= len(self.current_player.field):
-				self.current_player.AttackIndex=0
+			self.current_player.attacker_index+=1
+			if self.current_player.attacker_index>= len(self.current_player.field):
+				self.current_player.attacker_index=0
 			self.current_player = self.current_player.opponent
-			if self.current_player.AttackIndex>= len(self.current_player.field):
-				self.current_player.AttackIndex=0
+			if self.current_player.attacker_index>= len(self.current_player.field):
+				self.current_player.attacker_index=0
 			pass
 		#end of the battle
 		#self.state = State.COMPLETE
@@ -127,7 +127,7 @@ class BG_Battle(Game):
 			return 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge #
 		elif len(self.player1.field)==0:
 			# get "sum of tech_levels of the winner + winners tier"
-			damage = self.player2.Tier
+			damage = self.player2.tavern_tier
 			for card in self.player2.field:
 				if hasattr(card,'tech_level'):
 					damage += card.tech_level
@@ -139,7 +139,7 @@ class BG_Battle(Game):
 			return damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
 		else:#if len(self.player2.field)==0:
 			# get "sum of tech_levels of the winner + winners tier"
-			damage = self.player1.Tier
+			damage = self.player1.tavern_tier
 			for card in self.player1.field:
 				if hasattr(card,'tech_level'):
 					damage += card.tech_level

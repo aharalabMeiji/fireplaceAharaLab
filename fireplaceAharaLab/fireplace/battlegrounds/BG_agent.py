@@ -18,7 +18,7 @@ class BG_Agent(object):
 		self.heroChoiceStrategy = heroChoiceStrategy
 		self.moveStrategy = moveStrategy
 		self.choiceStrategy = choiceStrategy
-		self.tierupCost=5# -> player
+		self.tavern_tierup_cost=5# -> player
 		self.player = Player(myName, None, None)
 		pass
 
@@ -54,7 +54,7 @@ class BG_NecoAgent(BG_Agent):
 		myCandidate = candidates
 		if len(myCandidate)>0:
 			choices=[]
-			tier = controller.Tier
+			tier = controller.tavern_tier
 			gold = controller.mana
 			if (tier,gold) in [(1,4),(2,7),(3,9),(4,10),(5,10)]:
 				for move in myCandidate:
@@ -176,7 +176,7 @@ class BG_HumanAgent(BG_Agent):
 		for race in races:
 			print("[%s]"%(race),end=' ')
 		print("")
-		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.Tier, controller.TierUpCost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
+		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, controller.tavern_tierup_cost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		buddy = controller.buddy_gauge
 		if buddy>100:
 			buddy = (buddy-100)*0.5
