@@ -7,7 +7,6 @@ from hearthstone.enums import PlayState, Zone
 class BG_Battle(Game):
 	def __init__(self, bars):
 		#we construct the battlefield from the data of players
-		print("=============constructing the battle field====================")
 		self.bar1=bars[0]
 		self.bar2=bars[1]
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)

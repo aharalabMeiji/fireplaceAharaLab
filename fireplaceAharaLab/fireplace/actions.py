@@ -269,7 +269,7 @@ class BeginTurn(GameAction):
 		source.manager.step(source.next_step, Step.MAIN_READY)
 		source.turn += 1
 		if Config.LOGINFO:
-			print("(BeginTurn.do)%s begins turn %i", player, source.turn)
+			print("(BeginTurn.do)%s begins turn %i"%(player, source.turn))
 		source.current_player = player
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
@@ -286,7 +286,8 @@ class BeginBattle(GameAction):
 	PLAYER = ActionArg()
 	def do(self, source, player):
 		source.manager.step(source.next_step, Step.MAIN_READY)
-		source.log("%s begins the battle", player)
+		if Config.LOGINFO:
+			print("(BeginBattle.do)%s begins a battle"%( player))
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
@@ -1632,7 +1633,7 @@ class SetMaxMana(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self,source, target, amount):
 		if Config.LOGINFO:
-			print("(SetMaxMana.do)Setting max_mana on %r to %i", target, amount)
+			print("(SetMaxMana.do)Setting max_mana on %r to %i"%(target, amount))
 		target._max_mana = amount
 		pass
 

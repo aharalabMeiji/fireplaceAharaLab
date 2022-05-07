@@ -1,5 +1,5 @@
 from ..utils import *
-
+from fireplace.battlegrounds.BG_battle import BG_Battle
 
 BG_Minion_Mecha =[
 	'ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)
@@ -121,7 +121,7 @@ class BGS_071_Action(TargetedAction):
 	TARGET = ActionArg()#SELF
 	BUFF = ActionArg()
 	def do(self, source, target, buff):
-		from fireplace.battlegrounds.BG_battle import BG_Battle
+
 		if isinstance(target.game, BG_Battle):##during combat
 			Buff(target, buff).trigger(target.controller)
 			SetDivineShield(target).trigger(target.controller)
@@ -220,6 +220,9 @@ class TB_BaconUps_099e:
 		target.taunt=True
 		self.tags[GameTag.ATK] = 4
 		self.tags[GameTag.HEALTH] = 8
+	pass
+
+
 
 #Grease Bot(4)
 class BG21_024:# <12>[1453]
@@ -237,7 +240,7 @@ BG21_024_Ge=buff(2,2)
 
 
 
-#Mechano-Egg(4)
+#Mechano-Egg(4) ### OK ###
 class BOT_537:
 	"""
 	<b>Deathrattle:</b> Summon an 8/8 Robosaur."""
@@ -261,7 +264,6 @@ class BG21_023:# <12>[1453]
 	[Avenge (2):] Deal 5 damage to the highest Health enemy minion. """
 	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
-
 class BG21_023_G:# <12>[1453]
 	""" Mechano-Tank
 	[Avenge (2):] Deal 5 damage to the highest Health enemy minion twice. """
@@ -276,7 +278,6 @@ class BG20_401:# <12>[1453]
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
 	events = LoseDivineShield(FRIENDLY_MINIONS - SELF).after(SetDivineShield(SELF))
 	pass
-
 class BG20_401_G:# <12>[1453]
 	""" Holy Mecherel
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """

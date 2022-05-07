@@ -248,7 +248,7 @@ class BaseGame(Entity):
 				# Queuing an EventListener registers it as a one-time event
 				# This allows registering events from eg. play actions
 				if Config.LOGINFO:
-					print("(BaseGame.trigger_actions)Registering event listener %r on %r", action, self)
+					print("(BaseGame.trigger_actions)Registering event listener %r on %r"%(action, self))
 				action.once = True
 				# FIXME: Figure out a cleaner way to get the event listener target
 				if source.type == CardType.SPELL:
@@ -296,7 +296,7 @@ class BaseGame(Entity):
 
 	def setup(self):
 		if Config.LOGINFO:
-			print("(BaseGame.setup)Setting up game %r", self)
+			print("(BaseGame.setup)Setting up game %r"%(self))
 		self.state = State.RUNNING
 		self.step = Step.BEGIN_DRAW
 		self.zone = Zone.PLAY
@@ -327,7 +327,7 @@ class BaseGame(Entity):
 
 	def _end_turn(self):
 		if Config.LOGINFO:
-			print("(BaseGame.end_turn)%s ends turn %i", self.current_player, self.turn)
+			print("(BaseGame.end_turn)%s ends turn %i"%(self.current_player, self.turn))
 		self.manager.step(self.next_step, Step.MAIN_CLEANUP)
 		self.current_player.temp_mana = 0
 		self.end_turn_cleanup()
@@ -337,11 +337,11 @@ class BaseGame(Entity):
 		for character in self.current_player.characters.filter(frozen=True):
 			if not character.num_attacks and not character.exhausted:
 				if Config.LOGINFO:
-					print("(BaseGame.end_turn_cleanup)Freeze fades from %r", character)
+					print("(BaseGame.end_turn_cleanup)Freeze fades from %r"%character)
 				character.frozen = False
 		for buff in self.entities.filter(one_turn_effect=True):
 			if Config.LOGINFO:
-				print("(BaseGame.end_turn_cleanup)Ending One-Turn effect: %r", buff)
+				print("(BaseGame.end_turn_cleanup)Ending One-Turn effect: %r"%buff)
 			buff.remove()
 		self.begin_turn(self.current_player.opponent)
 
@@ -467,7 +467,7 @@ class CoinRules:
 			winner = random.choice(self.players)
 			#winner = self.players[1]
 			if Config.LOGINFO:
-				print("(CoinRules.pick_first_player)Tossing the coin... %s wins!", winner)
+				print("(CoinRules.pick_first_player)Tossing the coin... %s wins!"%winner)
 			return winner, winner.opponent
 		else: #Aharalab
 			return self.players[0], self.players[1] #Aharalab
@@ -475,7 +475,7 @@ class CoinRules:
 	def begin_turn(self, player):
 		if self.turn == 0 and Config.COIN > 0:
 			if Config.LOGINFO:
-				print("(CoinRules.begin_turn)%s gets The Coin (%s)", self.player2, THE_COIN)
+				print("(CoinRules.begin_turn)%s gets The Coin (%s)"%(self.player2, THE_COIN))
 			self.player2.give(THE_COIN)
 		super().begin_turn(player)
 

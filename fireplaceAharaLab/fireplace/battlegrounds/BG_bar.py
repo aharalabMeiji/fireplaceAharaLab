@@ -1,6 +1,7 @@
 from fireplace.game import Game
 from fireplace.player import Player
 from hearthstone.enums import State, Zone, CardType
+from fireplace.config import Config
 import random
 
 class BG_Bar(Game):
@@ -16,36 +17,34 @@ class BG_Bar(Game):
 	pass
 
 	def BG_setup(self):
-		self.log("Setting up game %r", self)
-		print("Setting up game %r", self)
+		if Config.LOGINFO:
+			("(BG.Bar.BG_setup)Setting up game %r", self)
 		self.state = State.RUNNING
-		print("S", end=':')
 		#self.step = Step.BEGIN_DRAW
 		self.zone = Zone.PLAY
 		self.players[0].opponent = self.players[1]
 		self.players[1].opponent = self.players[0]
-		print("S", end=':')
 		for player in self.players:
 			player.zone = Zone.PLAY
 			self.manager.new_entity(player)
-		print("S", end=':')
+		#print("S", end=':')
 		first, second = self.controller, self.bartender
 		self.player1 = first
 		self.player1.first_player = True
 		self.player2 = second
 		self.player2.first_player = False
-		print("S", end=':')
+		#print("S", end=':')
 
 		for player in self.players:
-			print("S(%s)(%s)"%(player,player.starting_hero), end=':')
+			#print("S(%s)(%s)"%(player,player.starting_hero), end=':')
 			player.summon(player.starting_hero)
-			print("S", end=':')
+			#print("S", end=':')
 			armor_grade = player.hero.data.tags.get(1723)
 			if armor_grade != 1 and armor_grade != None:
 				player.hero.armor = random.randint(armor_grade, armor_grade+3)
 			#player.playstate = PlayState.PLAYING
 		self.manager.start_game()
-		print("E")
+		pass
 
 	def BG_find_triple(self):
 		## in any way, we find one triple

@@ -37,9 +37,12 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[],[]]
-		self.BG_races = races=['pirate','quilboar','elemental']
-		# BAN される raceはここで除外
-		#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+		if Config.BAN_RACE:
+			# BAN される raceはここで除外
+			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+		else:
+			# 特定の種族のみを指定
+			self.BG_races = races=['pirate','quilboar','elemental']
 		for i in range(6):
 			if i<5:
 				rep=8
@@ -89,22 +92,20 @@ class BG_main:
 	def BG_main(self):
 		# each agent chooses heroes 
 		for agent in self.Agents:
-			print ("==== %s 's bar building ===="% agent)
+			if Config.LOGINFO:
+				print ("==== %s 's bar building ===="% agent)
 			if agent.name=='Human1':
-				theHeroes = [self.Heroes[13],self.Heroes[28]]
+				theHeroes = [self.Heroes[Config.HERO_1],self.Heroes[Config.HERO_2]]
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])
 			self.Heroes.remove(theHeroes[1])
 			theHero = agent.heroChoiceStrategy(theHeroes)
 			#heroCard=Card(theHero)
-			print ("==== %s 's bar building 1===="% agent)
 			thePlayer = Player(agent.name, self.BG_decks[1], theHero)#
 			# building a Tavern
-			print ("==== %s 's bar building 2===="% agent)
 			bar = BG_Bar(thePlayer)
 			bar.BG_setup()
-			print ("==== %s 's bar building 3===="% agent)
 			bar.player1 = bar.current_player = bar.controller
 			bar.player1.buddy_gauge = 0
 			bar.player2 = bar.bartender
@@ -114,13 +115,15 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
-			if agent.name=='Human1':
-				card = bar.controller.card('BGS_071')
-				card.zone = Zone.HAND
-				card = bar.controller.card('GVG_055')
-				card.zone = Zone.HAND
+			if Config.CARD_PRESET:
+				if agent.name=='Human1':
+					card = bar.controller.card('BOT_911')
+					card.zone = Zone.HAND
+					card = bar.controller.card('BG21_024')
+					card.zone = Zone.HAND
 			##########
-			print ("==== %s 's bar done ===="% agent)
+			if Config.LOGINFO:
+				print ("==== %s 's bar done ===="% agent)
 			pass
 		prevMatches=[[0,1],[2,3]]# previous combination
 		# Start game
@@ -145,18 +148,13 @@ class BG_main:
 				controller.max_mana = min(10,bar.turn+2)
 				controller.used_mana = 0
 				### deal cards to tavern
-				# this part seems like reloading, but they say that 'only if some cards are purchased, this dealing is recognized as a reloading.'
 				frozencard=0
-				repeat = len(bartender.field)
-				for i in range(repeat):
-					card = bartender.field[repeat-1-i]
-					if card.zone!=Zone.PLAY:# sometimes this is Zone.HAND, I don't know why.
-						if Config.LOGINFO:
-							print("illigal position caution : %s is in bob's field"%(card))
-							print("illigal position caution : zone=%s, controller=%s "%(card.zone, card.controller))
-						card.zone = Zone.PLAY
+				for card in reversed(bartender.field):
+					if Config.LOGINFO:
+						print("(BG_MainBG_Main)field card %s is removed."%(card))
 					if not card.frozen:
 						self.ReturnCard(card)
+						assert not card in bartender.field, "not card in bartender.field"
 					else:
 						card.frozen=False
 						frozencard += 1
