@@ -10,7 +10,7 @@ from .deck import Deck
 from .entity import Entity, slot_property
 from .managers import PlayerManager
 from .utils import CardList
-from .config import Config #by AharaLab
+from .config import Config #
 
 class PlayLog:
 	card=None
@@ -143,7 +143,8 @@ class Player(Entity, TargetableByAuras):
 	@max_mana.setter
 	def max_mana(self, amount):
 		self._max_mana = min(self.max_resources, max(0, amount))
-		self.log("%s is now at %i mana crystals", self, self._max_mana)
+		if Config.LOGINFO:
+			print("(Player.max_mana)%s is now at %i mana crystals", self, self._max_mana)
 
 	@property
 	def heropower_damage(self):

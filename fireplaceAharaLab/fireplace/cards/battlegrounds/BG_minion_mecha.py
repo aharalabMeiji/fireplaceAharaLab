@@ -124,10 +124,11 @@ class BGS_071_Action(TargetedAction):
 		from fireplace.battlegrounds.BG_battle import BG_Battle
 		if isinstance(target.game, BG_Battle):##during combat
 			Buff(target, buff).trigger(target.controller)
-			SetDivineShield(target)
+			SetDivineShield(target).trigger(target.controller)
 class BGS_071:# <12>[1453]
 	""" Deflect-o-Bot
 	[Divine Shield]Whenever you summon a Mech during combat, gain +2 Attackand [Divine Shield]. """
+	tags = {GameTag.DIVINE_SHIELD:True, }
 	events = Summon(CONTROLLER, MECH).on(BGS_071_Action(SELF, 'BGS_071e'))
 	pass
 BGS_071e=buff(2,0)

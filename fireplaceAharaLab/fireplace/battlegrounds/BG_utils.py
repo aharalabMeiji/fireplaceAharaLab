@@ -115,7 +115,7 @@ class BG_main:
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
 			if agent.name=='Human1':
-				card = bar.controller.card('GVG_048')
+				card = bar.controller.card('EX1_556')
 				card.zone = Zone.HAND
 				card = bar.controller.card('BGS_071')
 				card.zone = Zone.HAND
@@ -151,6 +151,9 @@ class BG_main:
 				for i in range(repeat):
 					card = bartender.field[repeat-1-i]
 					if card.zone!=Zone.PLAY:# sometimes this is Zone.HAND, I don't know why.
+						if Config.LOGINFO:
+							print("illigal position caution : %s is in bob's field"%(card))
+							print("illigal position caution : zone=%s, controller=%s "%(card.zone, card.controller))
 						card.zone = Zone.PLAY
 					if not card.frozen:
 						self.ReturnCard(card)
