@@ -243,6 +243,8 @@ class BG_HumanAgent(BG_Agent):
 			ret += "(windfury)"
 		if card.reborn:
 			ret += "(reborn)"
+		if card.has_deathrattle:
+			ret += "(deathrattle)"
 		ret += card.data.description.replace('\n','_')
 		return ret
 

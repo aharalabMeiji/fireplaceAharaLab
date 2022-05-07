@@ -3139,6 +3139,7 @@ class Magnetic(TargetedAction):#超電磁
 				buffs = [buffs]
 			for buff in buffs:
 				Buff(other, buff).trigger(target.controller)
+			target.deathrattle_valid=False### deathrattle を止めたい
 			Destroy(target).trigger(target.controller)
 		pass
 

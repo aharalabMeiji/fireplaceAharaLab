@@ -116,7 +116,7 @@ class TB_BaconUps_066:# <3>[1453]
 TB_BaconUps_066e=buff(4,0)
 
 
-#Deflect-o-Bot(3)
+#Deflect-o-Bot(3) ### OK ###
 class BGS_071_Action(TargetedAction):
 	TARGET = ActionArg()#SELF
 	BUFF = ActionArg()
@@ -141,16 +141,18 @@ TB_BaconUps_123e=buff(4,0)
 
 
 
-#Replicating Menace(3)
+#Replicating Menace(3)  ### OK ###
 class BOT_312:
 	"""Replicating Menace
 	<b>Magnetic</b><b>Deathrattle:</b> Summon three 1/1 Microbots."""
-	play = Magnetic(SELF, 'BOT_312e')
+	play = Magnetic(SELF, ['BOT_312e'])
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 class BOT_312e:
 	"""Replicating Menace
 	"""
-	tags = {GameTag.DEATHRATTLE:True, }
+	tags = {GameTag.DEATHRATTLE:True, 
+		GameTag.ATK:3,
+		GameTag.HEALTH:1}
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 	pass
 class BOT_312t:
@@ -160,11 +162,13 @@ class BOT_312t:
 class TB_BaconUps_032:# <12>[1453]
 	""" Replicating Menace
 	[Magnetic][Deathrattle:] Summon three 2/2 Microbots. """
-	play = Magnetic(SELF, 'BOT_312e')
+	play = Magnetic(SELF, ['TB_BaconUps_032e'])
 	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_032t' ) * 3
 	pass
 class TB_BaconUps_032e:
-	tags = {GameTag.DEATHRATTLE:True, }
+	tags = {GameTag.DEATHRATTLE:True, 
+		GameTag.ATK:6,
+		GameTag.HEALTH:2}
 	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_032t' ) * 3
 	pass
 class TB_BaconUps_032t:# <12>[1453]
@@ -174,7 +178,7 @@ class TB_BaconUps_032t:# <12>[1453]
 
 
 
-#Screwjank Clunker(3)
+#Screwjank Clunker(3) ### OK ###
 class GVG_055:
 	""" Screwjank Clunker
 	<b>Battlecry:</b> Give a friendly Mech +2/+2 """
