@@ -1076,11 +1076,11 @@ class Deathrattle(TargetedAction):
 
 			if target.controller.extra_deathrattles:
 				if Config.LOGINFO:
-					print("(Deathrattle.do)Triggering deathrattles for %r again", target)
+					print("(Deathrattle.do)Triggering deathrattles for %r again"%target)
 				source.game.queue_actions(target, actions)
 			if target.controller.extra_extra_deathrattles: ## TB_BaconUps_055
 				if Config.LOGINFO:
-					print("(Deathrattle.do)Triggering deathrattles for %r again and again", target)
+					print("(Deathrattle.do)Triggering deathrattles for %r again and again"% target)
 				source.game.queue_actions(target, actions)
 				source.game.queue_actions(target, actions)
 
@@ -3160,12 +3160,14 @@ class MorphGold(TargetedAction):
 			return
 		buffs = []
 		buffs += target.buffs
+		myzone=target.zone
 		target.zone=Zone.GRAVEYARD
 		newcard = target.controller.card(gold_id)
 		for buff in buffs:## inheriting all buffs
 			buff.apply(newcard)
 		print("Gold card!!! by %s"%(target.controller))
-		newcard.zone = Zone.HAND # 必要か？
+
+		newcard.zone = myzone # 必要か？PLAY?
 		return newcard
 
 class ReduceTierUpCost(TargetedAction):

@@ -5,6 +5,7 @@ from utils import *
 from agent_Standard import *
 from fireplace import cards
 from fireplace.logging import log
+from fireplace.config import Config
 
 sys.path.append("..")
 
@@ -201,6 +202,10 @@ def battleground_main():
 	BG.BG_main()
 
 if __name__ == "__main__":
-	#main()
-	battleground_main()
+	if Config.HEARTHSTONE:
+		main()
+	if Config.BATTLEGROUNDS:
+		battleground_main()
+	if Config.CARDTEST:
+		card_test()
 	

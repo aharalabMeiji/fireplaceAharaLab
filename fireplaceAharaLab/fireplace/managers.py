@@ -188,7 +188,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EMBRACE_THE_SHADOW: "healing_as_damage",
 	GameTag.ENRAGED: "enrage",
 	GameTag.EXHAUSTED: "exhausted",
-	GameTag.EXTRA_BATTLECRIES_BASE: "extra_battlecry",
+	GameTag.EXTRA_BATTLECRIES_BASE: "extra_battlecries",
 	GameTag.EXTRA_BATTLECRIES_ADDITIONAL: "extra_extra_battlecry",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
 	GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: "extra_extra_deathrattles",
