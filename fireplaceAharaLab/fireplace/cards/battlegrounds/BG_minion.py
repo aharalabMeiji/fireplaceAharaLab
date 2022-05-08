@@ -769,10 +769,10 @@ class UNG_999t8e:## 電気の盾 # 聖なる盾
 	def apply(self,target):
 		target.divine_shield=True
 		pass
-UNG_999t7e=buff(windfury=True):## 電光石火 # 疾風
-UNG_999t6e=buff(taunt=True):## 巨体 # 挑発
+UNG_999t7e=buff(windfury=True)## 電光石火 # 疾風
+UNG_999t6e=buff(taunt=True)## 巨体 # 挑発
 #class UNG_999t5e:## 液状膜 ## 呪文とヒーローパワーの標的にならない。
-UNG_999t4e=buff(0,3):## 岩状の甲殻 ## 体力+3
+UNG_999t4e=buff(0,3)## 岩状の甲殻 ## 体力+3
 UNG_999t3e=buff(3,0)## 炎熱の爪 ##攻撃力+3
 class UNG_999t2e:## 動き回る胞子 ##;断末魔:</b>1/1の植物を2体召喚する。
 	tags={GameTag.DEATHRATTLE:True}

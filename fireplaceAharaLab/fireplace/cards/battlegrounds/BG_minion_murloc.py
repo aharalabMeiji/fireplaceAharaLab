@@ -37,8 +37,7 @@ BG_Murloc_Gold={
 	}
 
 
-#Rockpool Hunter (1)
-## 動作確認済み
+#Rockpool Hunter (1)  ## OK ##
 class UNG_073:
 	""" >Rockpool Hunter
 	<b>Battlecry:</b> Give a friendly Murloc +1/+1. """
@@ -55,8 +54,7 @@ class TB_BaconUps_061:# <12>[1453]
 TB_BaconUps_061e=buff(2,2)
 
 
-#Swampstriker (1)
-## 動作確認済み
+#Swampstriker (1)  ## OK ##
 class BG22_401:# <12>[1453]
 	""" Swampstriker
 	After you summon a Murloc, gain +1 Attack. """
@@ -85,8 +83,7 @@ class TB_BaconUps_008:# <12>[1453]
 	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="TB_BaconUps_008e")
 	pass
 TB_BaconUps_008e=buff(4,0)# <12>[1453]
-""" Mrgglaargl!
-+4 Attack from Murloc Warleader. """
+""" Mrgglaargl!,  +4 Attack from Murloc Warleader. """
 
 
 

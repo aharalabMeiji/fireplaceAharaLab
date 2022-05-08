@@ -1,8 +1,6 @@
-# made by AharaLab
+#from enum import IntEnum
 
-from enum import IntEnum
-
-class Config(IntEnum):# ()is the default value
+class Config:# ()is the default value
 
     HEARTHSTONE=0# ランク戦をするならこちら
     BATTLEGROUNDS=1# バトグラをするならこちら
@@ -23,7 +21,9 @@ class Config(IntEnum):# ()is the default value
     DEEPCOPY_LOGINFO=0
 
     #battlegrounds option
-    CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える（BG_utils.pyの120行あたりでカード名を設定。）
+    CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
+    CARD_PRESET1='BG21_008'
+    CARD_PRESET2='EX1_507'
     BAN_RACE=1 #BANする種族をランダムに選ぶ（default:1）
     HERO_1=10 #人間プレーヤーはヒーローを指定できる(0~78)
     HERO_2=28 #人間プレーヤーはヒーローを指定できる(0~78)

@@ -117,10 +117,12 @@ class BG_main:
 			########## FOR DEBUGGIN! Default dealing a specific card
 			if Config.CARD_PRESET:
 				if agent.name=='Human1':
-					card = bar.controller.card('BOT_911')
-					card.zone = Zone.HAND
-					card = bar.controller.card('BG21_024')
-					card.zone = Zone.HAND
+					if Config.CARD_PRESET1!= '':
+						card = bar.controller.card(Config.CARD_PRESET1)
+						card.zone = Zone.HAND
+					if Config.CARD_PRESET2!= '':
+						card = bar.controller.card(Config.CARD_PRESET2)
+						card.zone = Zone.HAND
 			##########
 			if Config.LOGINFO:
 				print ("==== %s 's bar done ===="% agent)
