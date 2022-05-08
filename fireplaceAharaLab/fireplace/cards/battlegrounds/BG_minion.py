@@ -748,19 +748,8 @@ class BGS_069_Action(TargetedAction):
 		buffsize = len(races)*amount
 		for repeat in range(buffsize):
 			# adapting something
-			num = random.choice([1,2,3,4,5,6])
-			if num==1:
-				source.atk += 3
-			elif num==2:
-				source.divine_shield = True
-			elif num==3:
-				source.taunt = True
-			elif num==4:
-				source.poinsonous = True
-			elif num==5:
-				source.windfury = True
-			elif num==6:
-				source.max_health += 3
+			buff = random.choice(['UNG_999t2e','UNG_999t3e','UNG_999t4e','UNG_999t6e','UNG_999t7e','UNG_999t8e','UNG_999t13e','UNG_999t14e'])
+			Buff(source, buff).trigger(source)
 		pass
 class BGS_069:##  アマルガドン　(アルマゲドンではない）
 	""" Amalgadon
@@ -773,18 +762,23 @@ class TB_BaconUps_121:
 	play = BGS_069_Action(CONTROLLER, 2)
 	pass
 
-#class UNG_999t14e:## 火山の力 ## +1/+1
-#class UNG_999t13e:## 猛毒の唾 ## 猛毒
+UNG_999t14e=buff(1,1)## 火山の力 ## +1/+1
+UNG_999t13e=buff(poisonous=True)## 猛毒の唾 ## 猛毒
 #class UNG_999t10e:## 霧隠れ ## 次の自分のターンまで隠れ身状態。
-#class UNG_999t8e:## 電気の盾 # 聖なる盾
-#class UNG_999t7e:## 電光石火 # 疾風
-#class UNG_999t6e:## 巨体 # 挑発
+class UNG_999t8e:## 電気の盾 # 聖なる盾
+	def apply(self,target):
+		target.divine_shield=True
+		pass
+UNG_999t7e=buff(windfury=True):## 電光石火 # 疾風
+UNG_999t6e=buff(taunt=True):## 巨体 # 挑発
 #class UNG_999t5e:## 液状膜 ## 呪文とヒーローパワーの標的にならない。
-#class UNG_999t4e:## 岩状の甲殻 ## 体力+3
-#class UNG_999t3e:## 炎熱の爪 ##攻撃力+3
-#class UNG_999t2e:## 動き回る胞子 ##;断末魔:</b>1/1の植物を2体召喚する。
-#class UNG_999t2t1:## 植物
-
+UNG_999t4e=buff(0,3):## 岩状の甲殻 ## 体力+3
+UNG_999t3e=buff(3,0)## 炎熱の爪 ##攻撃力+3
+class UNG_999t2e:## 動き回る胞子 ##;断末魔:</b>1/1の植物を2体召喚する。
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle=Summon(CONTROLLER, 'UNG_999t2t1')*2
+class UNG_999t2t1:## 植物
+	""" """
 
 
 
@@ -816,37 +810,35 @@ class TB_BaconUps_154:# <12>[1453]
 	pass
 
 
-#Seafood Slinger	6	5	5	-	Battlecry BG21_011 BG21_011e BG21_011e2 BG21_011_G BG21_011_Ge
+#Seafood Slinger	6	5	5	
 class BG21_011:# <12>[1453]　板前
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
 	requirements={
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	#play = GiveGoldCard(CONTROLLER, TARGET)
+	play = MorphGold(TARGET)
 	pass
 BG21_011e=buff(3,3)# <12>[1453] ??????????????
 class BG21_011e2:# <12>[1453]  ??????????????
-	""" Battlecry Self-Trigger [DNT]
-	 """
-	#
-	pass
+	""" Battlecry Self-Trigger [DNT] """
 class BG21_011_G:# <12>[1453]
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
 	requirements={
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	#play = GiveGoldCard(CONTROLLER, TARGET)
+	play = MorphGold(TARGET)
 	pass
 BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
 
 
 
-#Zapp Slywick	6	7	10	-	Windfury  BGS_022 TB_BaconUps_091
+#Zapp Slywick	6	7	10	
 class BGS_022:# <12>[1453]　ざっぷ
 	""" Zapp Slywick
 	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """
 	#<ReferencedTag enumID="189" name="WINDFURY" type="Int" value="1"/> ### REF-TAGだ！
 	tags = {GameTag.WINDFURY:1}
+	#本体実装はBG_Battle.pyの80行あたり
 	pass
 class TB_BaconUps_091:# <12>[1453]
 	""" Zapp Slywick
