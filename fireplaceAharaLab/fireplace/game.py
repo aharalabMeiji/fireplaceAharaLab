@@ -290,6 +290,8 @@ class BaseGame(Entity):
 			if buff.tick < self.tick:
 				buffs_to_destroy.append(buff)
 		for buff in buffs_to_destroy:
+			if Config.LOGINFO:
+				print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.owner))
 			buff.remove()
 
 		self.tick += 1

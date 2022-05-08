@@ -156,7 +156,6 @@ class BG_main:
 						print("(BG_MainBG_Main)field card %s is removed."%(card))
 					if not card.frozen:
 						self.ReturnCard(card)
-						assert not card in bartender.field, "not card in bartender.field"
 					else:
 						card.frozen=False
 						frozencard += 1
@@ -282,7 +281,7 @@ class BG_main:
 	def ReturnCard(self, card):
 		self.BG_decks[card.tech_level].append(card.id)
 		card.zone=Zone.GRAVEYARD
-		#card.controller.field.remove(card)
+		card.controller.field.remove(card)
 		pass
 
 	#class 終わり

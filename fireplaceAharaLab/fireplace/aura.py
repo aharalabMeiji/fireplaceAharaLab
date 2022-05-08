@@ -67,7 +67,7 @@ class TargetableByAuras:
 				break
 		else:
 			if Config.LOGINFO:
-				print("Aura from %r buffs %r with %r"%( source, self, id))
+				print("(TargetableByAuras.refresh_buff)Aura from %r buffs %r with %r"%( source, self, id))
 			buff = source.buff(self, id)
 			buff.tick = source.game.tick
 			source.game.active_aura_buffs.append(buff)
@@ -80,7 +80,7 @@ class TargetableByAuras:
 		else:
 			buff = AuraBuff(source, self)
 			if Config.LOGINFO:
-				print("Creating %r"% buff)
+				print("(TargetableByAuras.refresh_tags)Creating %r"% buff)
 			buff.update_tags(tags)
 			self.slots.append(buff)
 			source.game.active_aura_buffs.append(buff)

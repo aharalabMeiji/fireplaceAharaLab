@@ -334,6 +334,7 @@ class Death(GameAction):
 	def do(self, source, target):
 		if Config.LOGINFO:
 			print("(Death.do)Processing Death for %r"% target)
+		source.game.refresh_auras()
 		target.controller.add_death_log(target)
 		self.broadcast(source, EventListener.ON, target)
 		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat

@@ -475,21 +475,40 @@ class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
 
 
 #31#King Mukla
+class UseBanana(TargetedAction):
+	TARGET = ActionArg()#controller
+	OTHER = ActionArg()
+	def do(self, source, target, other):
+		if Config.LOGINFO:
+			print("(UseBanana.do)%s feed a banana to %s"%(source, target))
+		self.broadcast(source, EventListener.ON, target, other)
+		self.broadcast(source, EventListener.AFTER, target, other)
 class TB_BaconShop_HERO_38:# <12>[1453]
 	""" King Mukla  """
 class TB_BaconShop_HP_038:
-	"""
-	"""
+	""" Bananarama
+	Get 2 Bananas. At the end of your turn, _give everyone else one."""
 	pass
+TB_BaconShop_HP_038e=buff(1,1)##
+class TB_BaconShop_HP_038t:
+	"""
+	Give a friendly Beast +1/+1. """
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0,  PlayReq.REQ_MINION_TARGET:0,  PlayReq.REQ_FRIENDLY_TARGET:0 }
+	def play(self):
+	   Buff(self.target, 'TB_BaconShop_HP_038te').trigger(self.controller)
+	   UseBanana(self.controller, self.target).trigger(self.controller)
+TB_BaconShop_HP_038te=buff(1,1)## 2/2の版もあるはずなのだが・・・記述は1/1のみ
 class TB_BaconShop_HERO_38_Buddy:# <12>[1453]
 	""" Crazy Monkey
 	After you feed a minion a Banana, give it +1/+1."""
+	events = UseBanana(CONTROLLER).after(Buff(UseBanana.OTHER, 'TB_BaconShop_HERO_38_Buddy_e'))
 	pass
-TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453]
+TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] バナナの皮
 """ Banana Peel,	+1/+1. """
 class TB_BaconShop_HERO_38_Buddy_G:# <12>[1453]
 	""" Crazy Monkey
 	After you feed a minion a Banana, give it +2/+2."""
+	events = UseBanana(CONTROLLER).after(Buff(UseBanana.OTHER, 'TB_BaconShop_HERO_38_Buddy_Ge'))
 	pass
 TB_BaconShop_HERO_38_Buddy_Ge=buff(2,2)# <12>[1453]
 
