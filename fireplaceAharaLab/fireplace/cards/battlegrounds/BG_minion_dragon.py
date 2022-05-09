@@ -43,7 +43,7 @@ BG_Dragon_Gold={
 	}
 
 
-#Evolving Chromawing(1)
+#Evolving Chromawing(1)  ### OK ###
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, double this minion's Attack. """
@@ -61,7 +61,9 @@ class BG21_027_Ge:
 	atk = lambda self, i: i*3
 	pass
 
-#Red Whelp(1)
+
+
+#Red Whelp(1) ### need check ###
 class BGS_019:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendly Dragon to one random enemy minion. """
@@ -73,24 +75,28 @@ class TB_BaconUps_102:# <12>[1453]
 	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)),Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)))
 	pass
 
-#Glyph Guardian(2)
+
+
+#Glyph Guardian(2)   ### need check ###
 class BGS_045:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, double its Attack. """
-	events = Attack(SELF).on(Buff(SELF,'BGS_045e'))
+	events = BG_Attack(SELF).on(Buff(SELF,'BGS_045e'))
 	pass
 class BGS_045e:
 	atk = lambda self, i: i*2
 class TB_BaconUps_115:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, triple its Attack. """
-	events = Attack(SELF).on(Buff(SELF,'TB_BaconUps_115e'))
+	events = BG_Attack(SELF).on(Buff(SELF,'TB_BaconUps_115e'))
 	pass
 class TB_BaconUps_115e:
 	atk = lambda self, i: i*3
 	pass
 
-#Bronze Warden(3)
+
+
+#Bronze Warden(3)  ### OK ###
 class BGS_034:# <12>[1453]
 	""" Bronze Warden
 	[Divine Shield][Reborn] """
@@ -102,7 +108,9 @@ class TB_BaconUps_149:# <12>[1453]
 	[Divine Shield][Reborn] """
 	pass
 
-#Drakonid Enforcer(3)
+
+
+#Drakonid Enforcer(3)  ### OK ##
 class BGS_067:# <12>[1453]
 	""" Drakonid Enforcer
 	After a friendly minion loses [Divine Shield], gain_+2/+2. """
@@ -118,25 +126,26 @@ TB_BaconUps_117e=buff(4,4)
 
 
 
-#Twilight Emissary(3)
+
+#Twilight Emissary(3)  ### OK ###
 class BGS_038:# <12>[1453]
 	""" Twilight Emissary
 	[Taunt][Battlecry:] Give a friendly Dragon +2/+2. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,} 
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.FRAGON }
 	play = Buff(TARGET, 'BGS_038e')
 	pass
 BGS_038e=buff(2,2)
 class TB_BaconUps_108:# <12>[1453]
 	""" Twilight Emissary
 	[Taunt][Battlecry:] Give a friendly Dragon +4/+4. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,} 
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.FRAGON } 
 	play = Buff(TARGET, 'TB_BaconUps_108e')
 	pass
 TB_BaconUps_108e=buff(4,4)
 
 
 
-#Cobalt Scalebane(4)
+#Cobalt Scalebane(4)  ### OK ###
 class ICC_029:
 	""" Cobalt Scalebane
 	At the end of your turn, give another random friendly minion +3 Attack. """
@@ -146,25 +155,25 @@ class TB_BaconUps_120:# <12>[1453]
 	""" Cobalt Scalebane
 	At the end of your turn, give another random friendly minion +6 Attack. """
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS), 'TB_BaconUps_120e'))
-TB_BaconUps_120e=buff(3,0)
+TB_BaconUps_120e=buff(6,0)
 
 
 
-#Prestor's Pyrospawn(4)
+#Prestor's Pyrospawn(4)  ### maybe ###
 class BG21_012:# <12>[1453]
 	""" Prestor's Pyrospawn
-	Whenever another friendlyDragon attacks, deal3 damage to its target. """
-	events = Attack(FRIENDLY + DRAGON).on(Hit(Attack.DEFENDER, 3))
+	Whenever another friendlyDragon attacks, deal 3 damage to its target. """
+	events = BG_Attack(FRIENDLY + DRAGON - SELF).on(Hit(BG_Attack.OTHER, 3))
 	pass
 class BG21_012_G:# <12>[1453]
 	""" Prestor's Pyrospawn
-	Whenever another friendlyDragon attacks, deal6 damage to its target. """
-	events = Attack(FRIENDLY + DRAGON).on(Hit(Attack.DEFENDER, 3))
+	Whenever another friendlyDragon attacks, deal 6 damage to its target. """
+	events = BG_Attack(FRIENDLY + DRAGON - SELF).on(Hit(Attack.DEFENDER, 6))
 	pass
 
 
 
-#Prized Promo-Drake(4)
+#Prized Promo-Drake(4)   ### maybe ###
 class BG21_014_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -172,18 +181,18 @@ class BG21_014_Action(TargetedAction):
 	def do(self, source, target, buff, amount):
 		if not isinstance(target, list):
 			target = [target]
-		amount=0
+		count=0
 		for card in target.controller.field:
 			if card.race==Race.DRAGON:
 				count += amount
 		for card in target:
 			Buff(card, buff).trigger(target.controller)
 			buff = card.buffs[-1]
-			card.atk = count
-			card.max_health = count
+			buff.tags[GameTag.ATK] = count
+			buff.tags[GameTag.HEALTH] = count
 class BG21_014:# <12>[1453]
 	""" Prized Promo-Drake
-	[Start of Combat:] Giveadjacent minions +1/+1__for each friendly Dragon. """
+	[Start of Combat:] Give adjacent minions +1/+1__for each friendly Dragon. """
 	events = BeginBattle(CONTROLLER).on(BG21_014_Action(SELF_ADJACENT, 'BG21_014e', 1))
 	pass
 class BG21_014e:# <12>[1453]
@@ -196,7 +205,9 @@ class BG21_014_G:# <12>[1453]
 	events = BeginBattle(CONTROLLER).on(BG21_014_Action(SELF_ADJACENT, 'BG21_014e', 2))
 	pass
 
-#Tarecgosa(4)
+
+
+#Tarecgosa(4)    ## need check ###
 class BG21_015_Action1(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -204,7 +215,7 @@ class BG21_015_Action1(TargetedAction):
 		#target = target[0]
 		if not isinstance(buff, list):
 			buff = [buff]
-		target.sidequest_list0 += b
+		target.sidequest_list0 += buff
 class BG21_015_Action2(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -235,46 +246,62 @@ class BG21_015_G:# <12>[1453]
 	]
 	pass
 
-#Murozond(5)
+
+
+#Murozond(5)   ### not yet ####
 class BGS_043:# <12>[1453]
 	""" Murozond
-	[Battlecry:] Add a minionfrom your last opponent'swarband to your hand. """
+	[Battlecry:] Add a minion from your last opponent's warband to your hand. """
 	#
 	pass
 class TB_BaconUps_110:# <12>[1453]
 	""" Murozond
-	[Battlecry:] Add a minionfrom your last opponent'swarband to your hand.Make it Golden! """
+	[Battlecry:] Add a minion from your last opponent's warband to your hand.Make it Golden! """
 	#
 	pass
 
 
 
-#Razorgore, the Untamed (5)
+#Razorgore, the Untamed (5)  ### need check (alternative) ###
+class BGS_036_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target.controller
+		count = 0
+		for card in controller.field:
+			if card.race == Race.DRAGON:
+				count += 1
+		Buff(target, 'BGS_036e').trigger(controller)
+		buff = target.buffs[-1]
+		buff.tags[GameTag.ATK] = count
+		buff.tags[GameTag.HEALTH] = count
 class BGS_036:# <12>[1453]
 	""" Razorgore, the Untamed
 	At the end of your turn, gain +1/+1 for each Dragon you have. """
-	events = OWN_TURN_END.on()
+	events = OWN_TURN_END.on(BGS_036_Action(SELF))
+	#events = OWN_TURN_END.on(Buff(SELF, 'BGS_036e') * Count(FRIENDLY_MINIONS + DRAGON))
 	pass
 BGS_036e=buff(1,1)
 class TB_BaconUps_106:# <12>[1453]
 	""" Razorgore, the Untamed
 	At the end of your turn, gain +2/+2 for each Dragon you have. """
-	#
+	events = OWN_TURN_END.on(Buff(SELF, 'TB_BaconUps_106e') * Count(FRIENDLY_MINIONS + DRAGON))
 	pass
 TB_BaconUps_106e=buff(2,2)
 
 
-#Kalecgos, Arcane Aspect (6)
+
+#Kalecgos, Arcane Aspect (6)  ### maybe ###
 class BGS_041:# <12>[1453]
 	""" Kalecgos, Arcane Aspect
 	After you play a minion with [Battlecry], give your Dragons +1/+1. """
-	events = Play(CONTROLLER, FRIENDLY + BATTLECRY).on(Buff(FRIENDLY_MINIONS + DRAGON, 'BGS_041e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + BATTLECRY).on(Buff(FRIENDLY_MINIONS + DRAGON, 'BGS_041e'))
 	pass
 BGS_041e=buff(1,1)
 class TB_BaconUps_109:# <12>[1453]
 	""" Kalecgos, Arcane Aspect
 	After you play a minion with [Battlecry], give your Dragons +2/+2. """
-	events = Play(CONTROLLER, FRIENDLY + BATTLECRY).on(Buff(FRIENDLY_MINIONS + DRAGON, 'TB_BaconUps_109e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + BATTLECRY).on(Buff(FRIENDLY_MINIONS + DRAGON, 'TB_BaconUps_109e'))
 	pass
 TB_BaconUps_109e=buff(2,2)
 
