@@ -131,14 +131,14 @@ TB_BaconUps_117e=buff(4,4)
 class BGS_038:# <12>[1453]
 	""" Twilight Emissary
 	[Taunt][Battlecry:] Give a friendly Dragon +2/+2. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.FRAGON }
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DRAGON }
 	play = Buff(TARGET, 'BGS_038e')
 	pass
 BGS_038e=buff(2,2)
 class TB_BaconUps_108:# <12>[1453]
 	""" Twilight Emissary
 	[Taunt][Battlecry:] Give a friendly Dragon +4/+4. """
-	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.FRAGON } 
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DRAGON } 
 	play = Buff(TARGET, 'TB_BaconUps_108e')
 	pass
 TB_BaconUps_108e=buff(4,4)

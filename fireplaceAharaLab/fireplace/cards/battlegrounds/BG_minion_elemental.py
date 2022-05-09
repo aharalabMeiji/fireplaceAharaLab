@@ -43,6 +43,7 @@ BG_Elemental_Gold={
 	'BGS_100':'TB_BaconUps_200',#Lil' Rag (6)
 	}
 
+
 #Refreshing Anomaly(1)
 class BGS_116:# <12>[1453]　
 	""" Refreshing Anomaly
@@ -54,6 +55,8 @@ class TB_BaconUps_167:# <12>[1453]
 	[Battlecry:] Your next two [Refreshes] cost (0). """
 	play = GetFreeRerole(CONTROLLER) * 2
 	pass
+
+
 
 #Sellemental(1)
 class BGS_115:# <12>[1453]　ウレメンタル

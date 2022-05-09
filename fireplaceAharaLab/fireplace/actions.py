@@ -683,7 +683,7 @@ class BG_Play(GameAction):
 	def do(self, source, card, target, index, choose):
 		player = source
 		if Config.LOGINFO:
-			print("(BG_Play.do)%s plays %r (target=%r, index=%r)", player, card, target, index)
+			print("(BG_Play.do)%s plays %r (target=%r, index=%r)"%(player, card, target, index))
 		player.add_play_log(card)
 
 		card.target = target
@@ -1105,11 +1105,11 @@ class Battlecry(TargetedAction):
 
 		if card.has_combo and player.combo:
 			if Config.LOGINFO:
-				print("(Battlecry.do)Activating %r combo targeting %r", card, target)
+				print("(Battlecry.do)Activating %r combo targeting %r"%(card, target))
 			actions = card.get_actions("combo")
 		else:
 			if Config.LOGINFO:
-				print("(Battlecry.do)Activating %r action targeting %r", card, target)
+				print("(Battlecry.do)Activating %r action targeting %r"%(card, target))
 			actions = card.get_actions("play")
 
 		source.target = target

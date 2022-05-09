@@ -144,7 +144,7 @@ class Player(Entity, TargetableByAuras):
 	def max_mana(self, amount):
 		self._max_mana = min(self.max_resources, max(0, amount))
 		if Config.LOGINFO:
-			print("(Player.max_mana)%s is now at %i mana crystals", self, self._max_mana)
+			print("(Player.max_mana)%s is now at %i mana crystals"%(self, self._max_mana))
 
 	@property
 	def heropower_damage(self):
