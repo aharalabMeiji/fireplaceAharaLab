@@ -118,7 +118,7 @@ BG_Minon_Gold={
 	'BGS_022':'TB_BaconUps_091',	
 	}
 
-#Wrath Weaver	1	1	3	 
+#Wrath Weaver	1	1	3	 ### maybe ###
 class BGS_004:# <12>[1453] おりや
 	""" Wrath Weaver
 	After you play a Demon, deal 1 damage to your hero and gain +2/+2. """
@@ -135,7 +135,7 @@ TB_BaconUps_079e=buff(4,4)# <12>[1453]
 """ Wrath Woven,	Increased stats. """
 
 
-#Acolyte of C'Thun	2	2	3	-	
+#Acolyte of C'Thun	2	2	3	-		 ### OK ###
 class BGS_106:# <12>[1453] クトゥーンのじさい
 	""" Acolyte of C'Thun
 	[Taunt][Reborn] """
@@ -145,7 +145,9 @@ class TB_BaconUps_255:# <12>[1453]
 	[Taunt][Reborn] """
 	pass
 
-#Menagerie Mug	2	2	2	-	
+
+
+#Menagerie Mug	2	2	2	-		 ### maybe ###
 class BGS_082_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
@@ -193,7 +195,7 @@ TB_BaconUps_144e=buff(2,2)# <12>[1453]
 
 
 
-#Prophet of the Boar	2	3	3	-	
+#Prophet of the Boar	2	3	3	-		 ### maybe ###
 class BG20_203_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -252,7 +254,7 @@ TB_BaconUps_025e = buff(2,2)
 
 
 
-#Unstable Ghoul	2	1	3	-	
+#Unstable Ghoul	2	1	3	-		 ### OK ###
 class FP1_024:# <12>[1453] ぐうる
 	""" Unstable Ghoul
 	<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions. """
@@ -266,7 +268,7 @@ class TB_BaconUps_118:# <12>[1453]
 
 
 
-#Whelp Smuggler	2	2	5	-	 
+#Whelp Smuggler	2	2	5	-	 	 ### maybe ###
 class BG21_013_Action(TargetedAction):## 密輸人
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -288,7 +290,7 @@ class BG21_013_G:# <12>[1453]
 
 
 
-#Arm of the Empire	3	4	4	-	
+#Arm of the Empire	3	4	4	-		 ### maybe ###
 class BGS_110:# <12>[1453] 帝国の腕
 	""" Arm of the Empire
 	Whenever a friendly [Taunt]minion is attacked,give it +2 Attack　permanently. """
@@ -306,7 +308,7 @@ TB_BaconUps_302e=buff(4,0)# <12>[1453]
 
 
 
-#Bird Buddy	3	2	4	-	
+#Bird Buddy	3	2	4	-		 ### maybe ###
 class BG21_002:# <12>[1453]  愛鳥家
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +1/+1. """
@@ -328,7 +330,7 @@ BG21_002_Ge=buff(2,2)# <12>[1453]
 
 
 
-#Budding Greenthumb	3	1	4	-	 
+#Budding Greenthumb	3	1	4	-	 	 ### maybe ###
 class BG21_030:# <12>[1453]  栽培家
 	""" Budding Greenthumb
 	[Avenge (3):] Give adjacent minions +2/+1 permanently. """
@@ -344,7 +346,7 @@ BG21_030_Ge=buff(4,2)
 
 
 
-#Houndmaster	3	4	3	-	TB_BaconUps_068e 
+#Houndmaster	3	4	3	-		 ### maybe ###
 class DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
 	<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>."""
@@ -366,21 +368,21 @@ TB_BaconUps_068e=buff(4,4,taunt=True)# <3>[1453]
 """ Master's Presence, +4/+4 and [Taunt]. """
 
 
-#Khadgar	3	2	2	-	  
+#Khadgar	3	2	2	-	  	 ### maybe ###
 class DAL_575:#カドガー
 	""" Khadgar
 	Your cards that summon minions summon twice_as_many. """
 	##############  infinite loop?
-	events = Summon(FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD)))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD)))
 	pass
 class TB_BaconUps_034:# <4>[1453]
 	""" Khadgar
 	Your cards that summon minions summon three times as many. """
-	events = Summon(FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD))*2)
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD))*2)
 	pass
 
 
-#Soul Juggler	3	3	5	-	 
+#Soul Juggler	3	3	5	-	 	 ### maybe ###
 class BGS_002:# <9>[1453] ソールジャグラー
 	""" Soul Juggler
 	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
@@ -393,7 +395,7 @@ class TB_BaconUps_075:# <9>[1453]
 	pass
 
 
-#Champion of Y'Shaarj	4	4	4	
+#Champion of Y'Shaarj	4	4	4		 ### maybe ###
 class BGS_111:# <12>[1453]  ヤシャラージュ
 	""" Champion of Y'Shaarj
 	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
@@ -411,7 +413,7 @@ TB_BaconUps_301e=buff(2,2)# <12>[1453]
 
 
 
-#Defender of Argus	4	3	3	 
+#Defender of Argus	4	3	3	 	 ### OK ###
 class EX1_093:# <12>[1453]   アルガス
 	""" Defender of Argus
 	[Battlecry:] Give adjacent minions +1/+1 and [Taunt]. """
@@ -428,7 +430,7 @@ TB_BaconUps_009e=buff(2,2,taunt=True)# <12>[1453]
 """ Hand of Argus,  +2/+2 and [Taunt]. """
 
 
-#Impatient Doomsayer	4	2	6	
+#Impatient Doomsayer	4	2	6		 ### maybe ###
 class BG21_007:# <12>[1453]  終魔通予言者
 	""" Impatient Doomsayer
 	[Avenge (4):] Add a random Demon to your hand. """
@@ -441,7 +443,7 @@ class BG21_007_G:# <12>[1453]
 	pass
 
 
-#Majordomo Executus	4	6	3	
+#Majordomo Executus	4	6	3		 ### maybe ###
 class BGS_105_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -488,7 +490,9 @@ class TB_BaconUps_207:# <12>[1453]
 	At the end of your turn, giveyour left-most minion +2/+2.Repeat for each Elementalyou played this turn. """
 	events = OWN_TURN_END.on(TB_BaconUps_207_Action(CONTROLLER))
 
-#Menagerie Jug	4	3	3	-	
+
+
+#Menagerie Jug	4	3	3	-		 ### maybe ###
 class BGS_083:# <12>[1453] ミナジェリ
 	""" Menagerie Jug
 	[Battlecry:] Give 3 random friendly minions of different minion types +2/+2. """
@@ -506,7 +510,7 @@ TB_BaconUps_145e=buff(4,4)# <12>[1453]
 
 
 
-#Strongshell Scavenger	4	2	3	
+#Strongshell Scavenger	4	2	3		 ### OK ###
 class ICC_807:# <2>[1453]  クズ拾い
 	""" Strongshell Scavenger
 	<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2. """
@@ -523,7 +527,7 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 """ Strongshell,  +4/+4. """
 
 
-#Witchwing Nestmatron	4	3	5	
+#Witchwing Nestmatron	4	3	5		 ### maybe ###
 class BG21_038:# <12>[1453] 巣母
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
@@ -536,7 +540,7 @@ class BG21_038_G:# <12>[1453]
 	pass
 
 
-#Baron Rivendare	5	1	7	
+#Baron Rivendare	5	1	7		 ### maybe ###
 class FP1_031:# ばろん
 	"""Baron Rivendare
 	Your minions trigger their <b>Deathrattles</b> twice."""
@@ -549,7 +553,7 @@ class TB_BaconUps_055:# <12>[1453]
 	pass
 
 
-#Brann Bronzebeard	5	2	4	
+#Brann Bronzebeard	5	2	4		 ### maybe ###
 class LOE_077:#    ぶらん
 	""" Brann Bronzebeard
 	Your <b>Battlecries</b> trigger twice. """
@@ -571,7 +575,7 @@ class TB_BaconUps_045e:# <12>[1453]
 
 
 
-#Deadly Spore	5	1	1	
+#Deadly Spore	5	1	1		 ### OK ###
 class BGS_131:# <12>[1453]  横死の胞子
 	""" Deadly Spore
 	[Poisonous] """
@@ -583,7 +587,7 @@ class TB_BaconUps_251:# <12>[1453]
 
 
 
-#Kangor's Apprentice	5	3	6	
+#Kangor's Apprentice	5	3	6		 ### maybe ###
 class BGS_012_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -609,7 +613,7 @@ class TB_BaconUps_087:# <12>[1453]
 	pass
 
 
-#Lightfang Enforcer	5	2	2	
+#Lightfang Enforcer	5	2	2		 ### maybe ###
 class BGS_009_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -647,7 +651,7 @@ class TB_BaconUps_082e:# <7>[1453]
 
 
 
-#Master of Realities	5	6	6	-	
+#Master of Realities	5	6	6	-		 ### maybe ###
 class BG21_036_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -671,7 +675,7 @@ BG21_036_Ge=buff(2,2)# <12>[1453]
 
 
 
-#Mythrax the Unraveler	5	4	4	
+#Mythrax the Unraveler	5	4	4		 ### maybe ###
 class BGS_202_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -731,7 +735,7 @@ class TB_BaconUps_201:# <12>[1453]
 	pass
 
 
-#Amalgadon	6	6	6	*	 
+#Amalgadon	6	6	6	*	 	 ### need check ###
 class BGS_069_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -797,7 +801,7 @@ class BG22_404_G:# <12>[1453]
 
 
 
-#Nadina the Red	6	7	4	
+#Nadina the Red	6	7	4		 ### maybe OK ###
 class BGS_040:# <12>[1453]　　ナディナ
 	""" Nadina the Red
 	[Deathrattle:] Give your Dragons [Divine Shield]. """
@@ -810,7 +814,7 @@ class TB_BaconUps_154:# <12>[1453]
 	pass
 
 
-#Seafood Slinger	6	5	5	
+#Seafood Slinger	6	5	5		 ### maybe ###
 class BG21_011:# <12>[1453]　板前
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
@@ -832,7 +836,7 @@ BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
 
 
 
-#Zapp Slywick	6	7	10	
+#Zapp Slywick	6	7	10	 	 ### maybe ###
 class BGS_022:# <12>[1453]　ざっぷ
 	""" Zapp Slywick
 	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """

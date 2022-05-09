@@ -168,7 +168,7 @@ class BGS_078_Action(TargetedAction):
 				actionbuff = random.choice(deathrattles)
 				actionbuff.trigger(source)
 		pass
-class BGS_078:# <12>[1453]  ÉIÉEÉÄ
+class BGS_078:# <12>[1453]  „Ç™„Ç¶„É†
 	""" Monstrous Macaw (3/5/3)
 	After this attacks, trigger another friendly minion's [Deathrattle]. """
 	events = BG_Attack(SELF).after(BGS_078_Action(SELF, 1))
@@ -230,8 +230,8 @@ class BG21_003_G:# <12>[1453]
 
 
 
-#Savannah Highmane (4/6/5)Å@Å@Å@###maybe ###
-class EX1_534: ## ÉnÉCÉÅÉCÉì
+#Savannah Highmane (4/6/5) ### maybe ###
+class EX1_534: ## „Éè„Ç§„É°„Ç§„É≥
 	""" Savannah Highmane (4/6/5)
 	[Deathrattle:] Summon two 2/2 Hyenas."""
 	deathrattle = Summon(CONTROLLER, 'EX1_534t')
@@ -265,7 +265,7 @@ class BG20_205_G:# <12>[1453] #
 
 
 
-# Baby Krush (5/7/7)->(5/6/6)
+# Baby Krush (5/7/7)->(5/6/6)„ÄÄ###„ÄÄneed check ###
 class BG22_001:# <12>[1453]
 	""" Baby Krush (5/7/7)->(5/6/6)
 	Whenever this attacks,summon a 9/9 Devilsaur toattack the target first. """
@@ -281,6 +281,8 @@ class BG22_001_G:# <12>[1453]
 class BG22_001t2_G:
 	pass
 
+
+#Mama Bear (5/5/5) ### maybe ###
 class BGS_021:# <12>[1453]
 	""" Mama Bear (5/5/5)
 	Whenever you summon a Beast, give it +5/+5. """
@@ -294,23 +296,29 @@ class TB_BaconUps_090:# <12>[1453]
 	pass
 TB_BaconUps_090e=buff(10,10)
 
-class BG21_001:# <12>[1453]
+
+
+#alescale Crocolisk(5/4/5) ### maybe OK ###
+class BG21_001:# <12>[1453] „ÇØ„É≠„Ç≥„É™„Çπ„ÇØ
 	""" Palescale Crocolisk(5/4/5)
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +6/+6. """
 	#<Tag enumID="2129" name="AVENGE" type="Int" value="1"/>
 	#<Tag enumID="451" name="SCORE_VALUE_1" type="Int" value="2"/>
-	events = Death(FRIENDLY).on(Avenge(2, Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e')))
-	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e')
+	events = Death(FRIENDLY).on(Avenge(2, Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e')))
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e')
 	pass
 BG21_001e=buff(6,6)
 class BG21_001_G:# <12>[1453]
 	""" Palescale Crocolisk(5/8/10)
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +12/+12. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 2, [Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')]))
-	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'BG21_001e2')
+	events = Death(FRIENDLY).on(Avenge(SELF, 2, [Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e2')]))
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e2')
 	pass
 BG21_001e2=buff(12,12)
 
+
+
+#Ghastcoiler (6/7/7) ### maybe OK ###
 class BGS_008:# <6>[1453]
 	""" Ghastcoiler (6/7/7)
 	[Deathrattle:] Summon 2 random [Deathrattle] minions. """
@@ -322,6 +330,9 @@ class TB_BaconUps_057:# <6>[1453]
 	deathrattle = Summon(CONTROLLER, RandomCollectible(deathrattle=True)) * 4
 	pass
 
+
+
+# Goldrinn, the Great Wolf (6/4/4)  ### maybe OK ###
 class BGS_018:# <12>[1453]
 	""" Goldrinn, the Great Wolf (6/4/4)
 	[Deathrattle:] Give your Beasts +5/+5. """
@@ -335,6 +346,8 @@ class TB_BaconUps_085:# <12>[1453]
 	pass
 TB_BaconUps_085e=buff(10,10)
 
+
+#Maexxna (BAN)   ### I'M WAITING  ###
 class FP1_010:
 	""" Maexxna (BAN)
 	<b>Poisonous</b> """
