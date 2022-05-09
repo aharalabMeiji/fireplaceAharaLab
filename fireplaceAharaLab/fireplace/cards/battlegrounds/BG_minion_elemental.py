@@ -44,7 +44,7 @@ BG_Elemental_Gold={
 	}
 
 
-#Refreshing Anomaly(1)
+#Refreshing Anomaly(1)  ### OK ###
 class BGS_116:# <12>[1453]　
 	""" Refreshing Anomaly
 	[Battlecry:] Your next [Refresh] costs (0). """
@@ -58,7 +58,7 @@ class TB_BaconUps_167:# <12>[1453]
 
 
 
-#Sellemental(1)
+#Sellemental(1)  ### OK ###
 class BGS_115:# <12>[1453]　ウレメンタル
 	""" Sellemental
 	When you sell this,add a 2/2 Elementalto your hand. """
@@ -76,7 +76,7 @@ class TB_BaconUps_156:# <12>[1453]
 
 
 
-#Molten Rock(2)
+#Molten Rock(2)  ### MAYBE ###
 class BGS_127:# <12>[1453] ようがん
 	""" Molten Rock
 	[Taunt]. After you play an Elemental, gain +1 Health. """
@@ -92,7 +92,7 @@ TB_Baconups_202e=buff(0,2)
 
 
 
-#Party Elemental(2)
+#Party Elemental(2)  ### MAYBE ###
 class BGS_120:# <12>[1453]
 	""" Party Elemental
 	After you play an Elemental, give another random friendly Elemental +1/+1. """
@@ -107,7 +107,7 @@ class TB_BaconUps_160:# <12>[1453]
 
 
 
-#Crackling Cyclone(3)
+#Crackling Cyclone(3)   ### OK ###
 class BGS_119:# <12>[1453] ばりばり
 	""" Crackling Cyclone
 	[Divine Shield][Windfury] """
@@ -119,7 +119,7 @@ class TB_BaconUps_159:# <12>[1453]
 	pass
 
 
-#Smogger(3)
+#Smogger(3)   ### need check ###
 class BG21_021:# <12>[1453]
 	""" Smogger
 	[Battlecry:] Give a friendly Elemental stats equal to your Tavern Tier. """
@@ -127,9 +127,15 @@ class BG21_021:# <12>[1453]
 		source = self
 		controller = self.controller
 		tier = controller.tavern_tier
-		BG21_021e.atk=lambda self,i:(i+tier)
-		BG21_021e.max_health=lambda self,i:(i+tier)
-		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
+		elementals=[]
+		for card in controller.field:
+			if card.race == Race.ELEMENTAL:
+				elementals.append(card)
+		target = random.choice(elementals)
+		Buff(target, 'BG21_021e').trigger(controller)
+		buff = target.buffs[-1]
+		buff.tags[GameTag.ATK] = tier
+		buff.tags[GameTag.HEALTH] = tier
 	pass
 class BG21_021e:# <12>[1453]
 	""" Smogged
@@ -142,29 +148,40 @@ class BG21_021_G:# <12>[1453]
 		source = self
 		controller = self.controller
 		tier = controller.tavern_tier
-		BG21_021e.atk=lambda self,i:(i+tier)
-		BG21_021e.max_health=lambda self,i:(i+tier)
-		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
-		yield Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL), 'BG21_021e')
+		elementals=[]
+		for card in controller.field:
+			if card.race == Race.ELEMENTAL:
+				elementals.append(card)
+		target = random.choice(elementals)
+		Buff(target, 'BG21_021e').trigger(controller)
+		buff = target.buffs[-1]
+		buff.tags[GameTag.ATK] = tier
+		buff.tags[GameTag.HEALTH] = tier
+		target = random.choice(elementals)
+		Buff(target, 'BG21_021e').trigger(controller)
+		buff = target.buffs[-1]
+		buff.tags[GameTag.ATK] = tier
+		buff.tags[GameTag.HEALTH] = tier
 	pass
 
 
 
-#Stasis Elemental(3)
+#Stasis Elemental(3)   ### need check ###
 class BGS_122:# <12>[1453] ###
 	""" Stasis Elemental 
 	[Battlecry:] Add another random Elemental to Bob's Tavern and [Freeze] it. """
 	def play(self):
 		bartender = self.controller.opponent
 		tier = self.controller.tavern_tier
-		elemental = []
-		for gr in range(tier):
-			elemental += BG_PoolSet_Elemental[gr-1]
-		if 'BGS_122' in elemental:
-			elemental.remove('BGS_122')
-		newcard_id = random.choice(elemental)
-		newcard = Summon(bartender,newcard_id).trigger(self)
-		newcard[0][0].frozen=True
+		elementals = []
+		for gr in range(1, tier):
+			elementals += BG_PoolSet_Elemental[gr]
+		if 'BGS_122' in elementals:
+			elementals.remove('BGS_122')
+		if len(elementals)>0:
+			newcard_id = random.choice(elementals)
+			newcard = Summon(bartender,newcard_id).trigger(self)
+			newcard[0][0].frozen=True
 	pass
 class TB_BaconUps_161:# <12>[1453]
 	""" Stasis Elemental
@@ -172,22 +189,23 @@ class TB_BaconUps_161:# <12>[1453]
 	def play(self):
 		bartender = self.controller.opponent
 		tier = self.controller.tavern_tier
-		elemental = []
-		for gr in range(tier):
-			elemental += BG_PoolSet_Elemental[gr-1]
-		if 'BGS_122' in elemental:
-			elemental.remove('BGS_122')
-		newcard_id = random.choice(elemental)
-		newcard = Summon(bartender,newcard_id).trigger(self)
-		newcard[0][0].frozen=True
-		newcard_id = random.choice(elemental)
-		newcard = Summon(bartender,newcard_id).trigger(self)
-		newcard[0][0].frozen=True
+		elementals = []
+		for gr in range(1, tier):
+			elementals += BG_PoolSet_Elemental[gr]
+		if 'BGS_122' in elementals:
+			elementals.remove('BGS_122')
+		if len(elementals)>0:		
+			newcard_id = random.choice(elementals)
+			newcard = Summon(bartender,newcard_id).trigger(self)
+			newcard[0][0].frozen=True
+			newcard_id = random.choice(elementals)
+			newcard = Summon(bartender,newcard_id).trigger(self)
+			newcard[0][0].frozen=True
 	pass
 
 
 
-#Dazzling Lightspawn(4) ####OK
+#Dazzling Lightspawn(4) ### OK ###
 class BG21_020_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -217,13 +235,12 @@ class BG21_020_G:# <12>[1453]
 
 
 
-#Recycling Wraith(4)
+#Recycling Wraith(4)   ### maybe ###
 class BG21_040:# <12>[1453] レイス
 	""" Recycling Wraith
 	After you play an Elemental, your next [Refresh] costs (1) less. """
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(GetFreeRerole(CONTROLLER))
 	pass
-
 class BG21_040_G:# <12>[1453]
 	""" Recycling Wraith
 	After you play anElemental, your next two[Refreshes] cost (1) less. """
@@ -260,7 +277,7 @@ class TB_BaconUps_166:# <12>[1453]
 
 
 
-#Tavern Tempest(5)
+#Tavern Tempest(5)   ### need check ###
 class BGS_123:# <12>[1453] 逆巻き風
 	""" Tavern Tempest
 	[Battlecry:] Add another random Elemental to your hand. """
@@ -294,22 +311,22 @@ class TB_BaconUps_162:# <12>[1453]
 
 
 
-#Gentle Djinni(6)
+#Gentle Djinni(6)   ### OK ###
 class BGS_121_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		controller = target
-		tier = self.controller.tavern_tier
+		tier = controller.tavern_tier
 		elemental = []
-		for gr in range(tier):
-			elemental += BG_PoolSet_Elemental[gr-1]
-		if 'BGS_123' in elemental:
-			elemental.remove('BGS_123')
+		for gr in range(1,tier+1):
+			elemental += BG_PoolSet_Elemental[gr]
+		if 'BGS_121' in elemental:
+			elemental.remove('BGS_121')
 		for repeat in range(amount):
 			newcard_id = random.choice(elemental)
-			Summon(controller,newcard_id).trigger(self)
-			Give(controller.game.parent.controller, newcard_id).trigger(self)
+			Summon(controller,newcard_id).trigger(source)
+			Give(controller.deepcopy_original, newcard_id).trigger(source)
 	pass
 class BGS_121:# <12>[1453] ランプの精
 	""" Gentle Djinni
@@ -325,28 +342,32 @@ class TB_BaconUps_165:# <12>[1453]
 
 
 
-#Lil' Rag (6)
+#Lil' Rag (6)   ### OK ###
 class BGS_100_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARDS = CardArg()
 	def do(self, source, target, cards):
+		if not isinstance(cards, list):
+			cards = [cards]
 		controller = target
 		tier = cards[0].tech_level
-		BGS_100e.atk=lambda self,i:i+tier
-		BGS_100e.max_health=lambda self,i:i+tier
 		if controller.field != []:
-			Buff(random.choice(controller.field), 'BGS_100e').trigger(source)
+			card = random.choice(controller.field)
+			Buff(card, 'BGS_100e').trigger(source)
+			buff = card.buffs[-1]
+			buff.tags[GameTag.ATK] = tier
+			buff.tags[GameTag.HEALTH] = tier
 class BGS_100:# <12>[1453] チビラグ
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion stats equal to the Elemental's Tavern Tier. """
-	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD))
 	pass
 class BGS_100e:
 	pass
 class TB_BaconUps_200:# <12>[1453]
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier twice. """
-	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, Play.CARD)*2)
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD)*2)
 	pass
 
 

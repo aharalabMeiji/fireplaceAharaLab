@@ -258,7 +258,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 				'_activate_log','_summon_log','_reveal_log','carry_cards',
 				'last_card_played','used_mana','overload_locked','temp_mana','times_spell_played_this_game',
 				'times_spells_played_this_turn','spells_played_this_turn',
-				'times_hero_power_used_this_game','times_card_to_play_out_of_deck',]
+				'times_hero_power_used_this_game','times_card_to_play_out_of_deck','tavern_tier',]
 	for attr in playerAttrs:
 		if hasattr(oldPlayer,attr):
 			src = getattr(oldPlayer, attr)
