@@ -2,28 +2,111 @@
 
 class Config:# ()is the default value
 
-    HEARTHSTONE=0# ランク戦をするならこちら
-    BATTLEGROUNDS=1# バトグラをするならこちら
-    CARDTEST=0
+	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
+	BATTLEGROUNDS=1# バトグラをするならこちら
+	CARDTEST=0# カードの動作テストをするならこちら
 
-    #ランク戦のオプション
-    FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
-    COIN=1 # giving a coin to the second (後攻にコインを与えるか) YES:>0 NO:0(1)
-    EX_CARD=1 # giving an extra ard to the second (後攻にカードを与えるか) YES:>0 NO:0(1)
-    # 以下はplay_set_of_games()のオプションへ移動
-    #HEROHPOPTION=30 #ヒーロー体力(30)
-    #P1MAXMANA=1 # 先攻マナ(1) 1~10
-    #P2MAXMANA=1 # 後攻マナ(1) 1~10
-    #P1HAND=3 # 先攻ハンド枚数(3) 1~9 
-    #P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
+	#ランク戦のオプション
+	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
+	COIN=1 # giving a coin to the second (後攻にコインを与えるか) YES:>0 NO:0(1)
+	EX_CARD=1 # giving an extra ard to the second (後攻にカードを与えるか) YES:>0 NO:0(1)
+	# 以下はplay_set_of_games()のオプションへ移動
+	#HEROHPOPTION=30 #ヒーロー体力(30)
+	#P1MAXMANA=1 # 先攻マナ(1) 1~10
+	#P2MAXMANA=1 # 後攻マナ(1) 1~10
+	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
+	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-    LOGINFO=1 # log.info相当のログ表示
-    DEEPCOPY_LOGINFO=0
+	LOGINFO=0 # log.info相当のログ表示
+	DEEPCOPY_LOGINFO=0
 
-    #battlegrounds option
-    CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-    CARD_PRESET1='BG20_202'
-    CARD_PRESET2='BG20_301'
-    BAN_RACE=1 #BANする種族をランダムに選ぶ（default:1）
-    HERO_1=10 #人間プレーヤーはヒーローを指定できる(0~78)
-    HERO_2=28 #人間プレーヤーはヒーローを指定できる(0~78)
+	#battlegrounds option
+	HUMAN_PLAY=0 ##人間プレーヤーあり
+	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
+	CARD_PRESET1='BG20_202'
+	CARD_PRESET2='BG20_301'
+	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
+	#['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar']から選ぶ
+	RACE_CHOICE=['pirate','quilboar','elemental']
+	HERO_1=10 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
+
+	#00#A. F. Kay, 
+	#01#Al'Akir
+	#02#Alexstrasza
+	#03#Ambassador Faelin
+	#04#Aranna Starseeker
+	#05#Arch-Villain Rafaam
+	#06#Bru'kan
+	#07#C'Thun
+	#08#Captain Eudora
+	#09#Captain Hooktusk
+	#10#Cariel Roame
+	#11#Chenvaala
+	#12#Cookie the Cook
+	#13#Dancin' Deryl
+	#14#Death Speaker Blackthorn
+	#15#Deathwing
+	#16#Dinotamer Brann
+	#17#Drek'Thar
+	#18#Edwin VanCleef
+	#19#Elise Starseeker
+	#20#Forest Warden Omu
+	#21#Fungalmancer Flurgl
+	#22#Galakrond
+	#23#Galewing
+	#24#George the Fallen
+	#25#Greybough
+	#26#Guff Runetotem
+	#27#Illidan Stormrage
+	#28#Infinite Toki
+	#29#Jandice Barov
+	#30#Kael'thas Sunstrider
+	#31#King Mukla
+	#32#Kurtrus Ashfallen
+	#33#Lich Baz'hial
+	#34#Lord Barov
+	#35#Lord Jaraxxus
+	#36#Maiev Shadowsong
+	#37#Malygos
+	#38#Master Nguyen
+	#39#Millhouse Manastorm
+	#40#Millificent Manastorm
+	#41#Mr. Bigglesworth
+	#42#Mutanus the Devourer
+	#43#N'Zoth
+	#44#Nozdormu
+	#45#Onyxia
+	#46#Overlord Saurfang
+	#47#Patches the Pirate
+	#48#Patchwerk
+	#49#Pyramad
+	#50#Queen Wagtoggle
+	#51#Ragnaros the Firelord
+	#52#Rakanishu
+	#53#Reno Jackson
+	#54#Rokara
+	#55#Scabbs Cutterbutter
+	#56#Shudderwock
+	#57#Silas Darkmoon
+	#58#Sindragosa
+	#59#Sir Finley Mrrgglton
+	#60#Skycap'n Kragg
+	#61#Sneed
+	#62#Tamsin Roame
+	#63#Tavish Stormpike
+	#64#Tess Greymane
+	#65#The Curator
+	#66#The Great Akazamzarak
+	#67#The Lich King
+	#68#The Rat King
+	#69#Tickatus
+	#70#Trade Prince Gallywix
+	#71#Vanndar Stormpike
+	#72#Varden Dawngrasp
+	#73#Vol'jin
+	#74#Xyrella
+	#75#Y'Shaarj
+	#76#Yogg-Saron, Hope's End
+	#77#Ysera
+	#78#Zephrys, the Great

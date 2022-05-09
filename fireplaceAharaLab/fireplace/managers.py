@@ -152,6 +152,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.ATTACHED: "owner",
 	GameTag.AURA: "aura",
 	GameTag.BACON_COMPANION_ID: "buddy_id",
+	GameTag.BACON_BUDDY: "buddy",
 	GameTag.BATTLECRY: "has_battlecry",
 	GameTag.CANNOT_ATTACK_HEROES: "cannot_attack_heroes",
 	GameTag.CANT_ATTACK: "cant_attack",

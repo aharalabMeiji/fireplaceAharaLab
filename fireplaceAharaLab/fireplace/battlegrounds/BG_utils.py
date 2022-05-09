@@ -23,8 +23,16 @@ class BG_main:
 		#使用カードの初期化
 		cards.db.BG_initialize()
 		#エージェントのリスト
-		self.Agents=[
+		if Config.HUMAN_PLAY:
+			self.Agents=[
 			BG_HumanAgent("Human1"),
+			BG_NecoAgent("Neco2"),
+			BG_NecoAgent("Random3"),
+			BG_NecoAgent("Random4")
+			]
+		else:
+			self.Agents=[
+			BG_NecoAgent("Neco1"),
 			BG_NecoAgent("Neco2"),
 			BG_NecoAgent("Random3"),
 			BG_NecoAgent("Random4")
@@ -37,12 +45,12 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[],[]]
-		if Config.BAN_RACE:
+		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
 			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		else:
-			# 特定の種族のみを指定
-			self.BG_races = races=['pirate','quilboar','elemental']
+			# 特定の種族のみを指定(config.py内で指定)
+			self.BG_races = races=Config.RACE_CHOICE
 		for i in range(6):
 			if i<5:
 				rep=8
@@ -279,7 +287,11 @@ class BG_main:
 		card.zone = Zone.PLAY
 		return card
 	def ReturnCard(self, card):
-		self.BG_decks[card.tech_level].append(card.id)
+		# if the card is not a buddy
+		if not hasattr(card, 'buddy'):
+			self.BG_decks[card.tech_level].append(card.id)
+		else:
+			test=0
 		card.zone=Zone.GRAVEYARD
 		card.controller.field.remove(card)
 		pass

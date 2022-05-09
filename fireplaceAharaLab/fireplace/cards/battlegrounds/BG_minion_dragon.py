@@ -2,7 +2,7 @@
 from ..utils import *
 
 BG_Minion_Dragon =[
-	'BG21_027','BG21_027e','BG21_027_G',#Evolving Chromawing(1) ###OK
+	'BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',#Evolving Chromawing(1) ###OK
 	'BGS_019','TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e',#Glyph Guardian(2)
 	'BGS_034','TB_BaconUps_149',#Bronze Warden(3)

@@ -1,7 +1,6 @@
 from ..utils import *
 
 BG_Hero2=[
-
 	'BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge',	#17	#Drek'Thar#BG22_HERO_002
 	'TB_BaconShop_HERO_01','TB_BaconShop_HP_001','TB_BaconShop_HP_001e','TB_BaconShop_HERO_01_Buddy','TB_BaconShop_HERO_01_Buddy_e','TB_BaconShop_HERO_01_Buddy_G','TB_BaconShop_HERO_01_Buddy_G_e',	#18#Edwin VanCleef
 	'TB_BaconShop_HERO_42','TB_BaconShop_HP_047','TB_BaconShop_HP_047t','TB_BaconShop_HERO_42_Buddy','TB_BaconShop_HERO_42_Buddy_e','TB_BaconShop_HERO_42_Buddy_G','TB_BaconShop_HERO_42_Buddy_G_e',	#19#Elise Starseeker
