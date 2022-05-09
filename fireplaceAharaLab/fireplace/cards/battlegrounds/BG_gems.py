@@ -1,8 +1,18 @@
 from ..utils import *
 
 BG_Gems=[
-	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005'
-	]
+	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',
+	  'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_002','BGS_Treasures_003',
+	  'BGS_Treasures_004','BGS_Treasures_005','BGS_Treasures_006','BGS_Treasures_007',
+	  'BGS_Treasures_008','BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
+	  'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
+	  'BGS_Treasures_016','BGS_Treasures_017','BGS_Treasures_018','BGS_Treasures_019',
+	  'BGS_Treasures_020','BGS_Treasures_021','BGS_Treasures_022','BGS_Treasures_023',
+	  'BGS_Treasures_024','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_027',
+	  'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030','BGS_Treasures_031',
+	  'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034','BGS_Treasur_035',
+	  'BGS_Treasures_036','BGS_Treasures_037',
+  ]
 
 ##
 ##  Blood gem

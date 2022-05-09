@@ -54,12 +54,28 @@ BG_Hero5_Buddy_Gold={
 ######## source #################################################################
 
 
+
+
 #70#Tickatus
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
 class TB_BaconShop_HP_106:
-	"""  """
+	""" Prize Wall 
+	&lt;b&gt;Passive&lt;/b&gt; Every 4 turns, &lt;b&gt;Discover&lt;/b&gt; a Darkmoon Prize. &lt;i&gt;(@ |4(turn, turns) left!)&lt;/i&gt;"""
+	entourage = ['BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_002','BGS_Treasures_003',
+			  'BGS_Treasures_004','BGS_Treasures_005','BGS_Treasures_006','BGS_Treasures_007',
+			  'BGS_Treasures_008','BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
+			  'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
+			  'BGS_Treasures_016','BGS_Treasures_017','BGS_Treasures_018','BGS_Treasures_019',
+			  'BGS_Treasures_020','BGS_Treasures_021','BGS_Treasures_022','BGS_Treasures_023',
+			  'BGS_Treasures_024','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_027',
+			  'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030','BGS_Treasures_031',
+			  'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034','BGS_Treasures_035',
+			  'BGS_Treasures_036','BGS_Treasures_037',
+			  ]
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 4, [Discover(CONTROLLER, RandomEntourage())]))
 	pass
+## darkmoon prize -> BGS_Treasures_000 ~ BGS_Treasures_037
 class TB_BaconShop_HERO_94_Buddy:# <12>[1453]
 	""" Ticket Collector
 	[Battlecry:] [Discover] aDarkmoon Prize fromthe next Prize turn. """
@@ -79,7 +95,8 @@ class TB_BaconShop_HERO_94_Buddy_G:# <12>[1453]
 class TB_BaconShop_HERO_10:# <12>[1453]
 	""" Trade Prince Gallywix """
 class TB_BaconShop_HP_008:
-	""" """
+	""" 
+	&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;(Can exceed 10.)&lt;/i&gt;@[x]&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;({0} Gold saved.)&lt;/i&gt;"""
 	pass
 class TB_BaconShop_HP_008a:
 	""" """
@@ -103,12 +120,11 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 #72#Vanndar Stormpike
-###Vanndar Stormpike
 class BG22_HERO_003:# <12>[1453]
 	""" Vanndar Stormpike """
 class BG22_HERO_003p:# <12>[1453]
 	""" Lead the Stormpikes
-	Choose a friendly minion.It copies the Health of yourhighest Health minion fornext combat only. """
+	Choose a friendly minion.It copies the Health of your highest Health minion for next combat only. """
 	#
 	pass
 class BG22_HERO_003pe:# <12>[1453]
