@@ -234,7 +234,7 @@ BG20_207_Ge=buff(2,2)# <12>[1453]
 
 
 
-#Groundshaker	4
+#Groundshaker	4  ## OK ###
 class BG20_106:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
@@ -242,7 +242,7 @@ class BG20_106:# <12>[1453]
 	pass
 class BG20_106e:# <12>[1453]
 	""" Groundshook,	+@ Attack. """
-	atk = lambda self, i : i+2
+	tags = {GameTag.ATK:2, }
 	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 class BG20_106_G:# <12>[1453]
 	""" Groundshaker
@@ -254,7 +254,7 @@ class BG20_106_G:# <12>[1453]
 
 
 
-#Necrolyte	4
+#Necrolyte	4  ### OK ###
 class BG20_202:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 2 [BloodGems] on a friendly minion. It steals all [Blood Gems]from its neighbors. """
