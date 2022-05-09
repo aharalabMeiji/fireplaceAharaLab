@@ -265,18 +265,28 @@ class BG20_205_G:# <12>[1453] #
 
 
 
-# Baby Krush (5/7/7)->(5/6/6)　###　need check ###
+# Baby Krush (5/7/7)->(5/6/6)　###　OK ###
+class BG22_001_Action(TargetedAction):
+	TARGET = ActionArg()# Attack.DEFENDER
+	OTHER = ActionArg()# 'BG22_001t2'
+	def do(self, source, target, other):
+		controller = source.controller
+		if len(controller.field)<7 and source in controller.field:
+			index = controller.field.index(source)
+			newcard = Summon(controller, other).trigger(controller)
+			newcard = newcard[0][0]
+			BG_Attack(newcard, target).trigger(controller)
 class BG22_001:# <12>[1453]
 	""" Baby Krush (5/7/7)->(5/6/6)
-	Whenever this attacks,summon a 9/9 Devilsaur toattack the target first. """
-	events = Attack(SELF, ENEMY).on(Summon(CONTROLLER, 'BG22_001t2').then(RegularAttack(Summon.CARD, RANDOM_ENEMY_MINION)))
+	Whenever this attacks,summon a 8/8 Devilsaur toattack the target first. """
+	events = BG_Attack(SELF, ENEMY).on(BG22_001_Action(BG_Attack.OTHER, 'BG22_001t2'))
 	pass
 class BG22_001t2:
 	pass
 class BG22_001_G:# <12>[1453]
 	""" Baby Krush (5/14/14)
-	Whenever this attacks, summon an 18/18 Devilsaur to attack the target first. """
-	events = Attack(SELF, ENEMY).on(Summon(CONTROLLER, 'BG22_001t2_G').then(RegularAttack(Summon.CARD, RANDOM_ENEMY_MINION)))
+	Whenever this attacks, summon an 16/16 Devilsaur to attack the target first. """
+	events = BG_Attack(SELF, ENEMY).on(BG22_001_Action(BG_Attack.OTHER, 'BG22_001t2_G'))
 	pass
 class BG22_001t2_G:
 	pass

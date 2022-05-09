@@ -22,7 +22,7 @@ class Config:# ()is the default value
 
     #battlegrounds option
     CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-    CARD_PRESET1='BGS_121'
+    CARD_PRESET1='BG22_001'
     CARD_PRESET2=''
     BAN_RACE=1 #BANする種族をランダムに選ぶ（default:1）
     HERO_1=10 #人間プレーヤーはヒーローを指定できる(0~78)

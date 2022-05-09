@@ -2533,10 +2533,11 @@ class BG_Attack(TargetedAction):
 				self.broadcast(source, EventListener.ON, attcard, defcard)
 		for attcard in target:
 			for defcard in other:
-				if attcard.atk>0:
-					Hit(defcard, attcard.atk).trigger(attcard)
-				if defcard.atk>0:
-					Hit(attcard, defcard.atk).trigger(defcard)
+				if attcard.zone == Zone.PLAY and defcard.zone == Zone.PLAY:# if they're alive
+					if attcard.atk>0:
+						Hit(defcard, attcard.atk).trigger(attcard)
+					if defcard.atk>0:
+						Hit(attcard, defcard.atk).trigger(defcard)
 		for attcard in target:
 			for defcard in other:
 				Attack(attcard, defcard).broadcast(source, EventListener.AFTER, attcard, defcard)
