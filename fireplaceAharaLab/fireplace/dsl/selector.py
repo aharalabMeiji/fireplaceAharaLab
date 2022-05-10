@@ -360,6 +360,9 @@ HIGHEST_HEALTH = lambda sel: (
 LOWEST_HEALTH = lambda sel: (
 	RANDOM(sel + (AttrValue(GameTag.HEALTH) == OpAttr(sel, GameTag.HEALTH, min)))
 )
+HIGHEST_TIER = lambda sel: (
+	RANDOM(sel + (AttrValue(GameTag.TECH_LEVEL) == OpAttr(sel, GameTag.TECH_LEVEL, max)))
+)
 
 
 class Controller(LazyValue):

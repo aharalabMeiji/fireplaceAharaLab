@@ -1175,7 +1175,7 @@ class HeroPower(PlayableCard):
 	def is_usable(self):
 		if self.exhausted:
 			return False
-		if self.passive_power:## �펞�����i�o�g���O���E���h�j
+		if self.passive_power:## if hero.power is passive, there are no need to activate
 			return False
 		return super().is_playable()
 

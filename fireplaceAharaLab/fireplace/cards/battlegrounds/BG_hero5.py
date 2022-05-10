@@ -121,7 +121,7 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 
-#71#Vanndar Stormpike   ## HP need check ##
+#71#Vanndar Stormpike   ## HP OK ##
 class BG22_HERO_003:# <12>[1453]
 	""" Vanndar Stormpike """
 class BG22_HERO_003p:# <12>[1453]
@@ -180,23 +180,27 @@ class BG22_HERO_003_Buddy_Ge:# <12>[1453]
 	pass
 
 
-#72#Varden Dawngrasp ## HP need check ##
+#72#Varden Dawngrasp ## HP OK ##
 class BG22_HERO_004:# <4>[1453]
 	""" Varden Dawngrasp """
 class BG22_HERO_004p_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = source.controller
+		bartender = controller.opponent
 		if isinstance(target, list):
 			target = target[0]
 		target.frozen=True
-		newcard = controller.card(target.id)
-		newcard.zone = Zone.HAND
+		index = bartender.field.index(target)
+		newcard = bartender.card(target.id)
+		newcard._summon_index = index+1
+		newcard.zone = Zone.PLAY
+		newcard.frozen = True
 
 class BG22_HERO_004p:# <12>[1453]
 	""" Twice as Nice
 	[Passive.] After Bob's Tavern is [Refreshed],copy and [Freeze] one of his minions. """
-	events = Rerole(CONTROLLER).on(BG22_HERO_004p_Action(RANDOM(FRIENDLY_MINIONS)))
+	events = Rerole(CONTROLLER).after(BG22_HERO_004p_Action(HIGHEST_TIER(ENEMY_MINIONS)))
 	pass
 class BG22_HERO_004_Buddy:# <12>[1453]
 	""" Varden's Aquarrior

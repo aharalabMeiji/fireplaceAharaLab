@@ -148,6 +148,7 @@ class BG_main:
 				print ("==== %s 's thinkng ===="% controller)
 				controller.game = bar
 				bartender = bar.bartender
+				bar.current_player=controller
 				agent = controller.parent_agent
 				assert agent
 				#if Aranna-flag, 
