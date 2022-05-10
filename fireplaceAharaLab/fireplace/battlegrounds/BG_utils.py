@@ -157,6 +157,9 @@ class BG_main:
 					bartender.len_bobs_field=7
 				controller.max_mana = min(10,bar.turn+2)
 				controller.used_mana = 0
+				if controller.hero.power.id=='TB_BaconShop_HP_008':
+					controller.used_mana = -controller.sells_in_this_turn
+				controller.sells_in_this_turn=0
 				### deal cards to tavern
 				frozencard=0
 				for card in reversed(bartender.field):
@@ -235,7 +238,7 @@ class BG_main:
 				if hero0.health<=0:
 					#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
 					#ケルスザードは酒場のムーブを行わない。
-					pass
+					return
 			if damage1>0:
 				hero1 = battleplayer1.hero
 				if hero1.armor>0:# armorも加味する
@@ -249,7 +252,7 @@ class BG_main:
 				print_hero_stats(battleplayer0.hero, battleplayer1.hero)
 				if hero1.health<=0:
 					#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
-					pass
+					return
 			pass
 			#次のターンへ
 			for bar in self.BG_Bars:

@@ -56,23 +56,24 @@ BG_Hero5_Buddy_Gold={
 
 
 
-#70#Tickatus
+#69#Tickatus
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
 class TB_BaconShop_HP_106:
 	""" Prize Wall 
 	&lt;b&gt;Passive&lt;/b&gt; Every 4 turns, &lt;b&gt;Discover&lt;/b&gt; a Darkmoon Prize. &lt;i&gt;(@ |4(turn, turns) left!)&lt;/i&gt;"""
-	entourage = ['BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_002','BGS_Treasures_003',
-			  'BGS_Treasures_004','BGS_Treasures_005','BGS_Treasures_006','BGS_Treasures_007',
-			  'BGS_Treasures_008','BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
-			  'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
-			  'BGS_Treasures_016','BGS_Treasures_017','BGS_Treasures_018','BGS_Treasures_019',
-			  'BGS_Treasures_020','BGS_Treasures_021','BGS_Treasures_022','BGS_Treasures_023',
-			  'BGS_Treasures_024','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_027',
-			  'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030','BGS_Treasures_031',
-			  'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034','BGS_Treasures_035',
-			  'BGS_Treasures_036','BGS_Treasures_037',
-			  ]
+	entourage = [
+	'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
+	'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
+	'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
+	'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
+	'BGS_Treasures_016','BGS_Treasures_018','BGS_Treasures_019',
+	'BGS_Treasures_020','BGS_Treasures_022','BGS_Treasures_023',
+	'BGS_Treasures_025','BGS_Treasures_026',
+	'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030',
+	'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034',
+	'BGS_Treasures_036','BGS_Treasures_037',
+	]
 	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 4, [Discover(CONTROLLER, RandomEntourage())]))
 	pass
 ## darkmoon prize -> BGS_Treasures_000 ~ BGS_Treasures_037
@@ -91,12 +92,12 @@ class TB_BaconShop_HERO_94_Buddy_G:# <12>[1453]
 
 
 
-#71#Trade Prince Gallywix
+#70#Trade Prince Gallywix
 class TB_BaconShop_HERO_10:# <12>[1453]
 	""" Trade Prince Gallywix """
 class TB_BaconShop_HP_008:
 	""" 
-	&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;(Can exceed 10.)&lt;/i&gt;@[x]&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;({0} Gold saved.)&lt;/i&gt;"""
+	&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;(Can exceed 10.)&lt;/i&gt;"""
 	pass
 class TB_BaconShop_HP_008a:
 	""" """
@@ -119,7 +120,7 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 
-#72#Vanndar Stormpike
+#71#Vanndar Stormpike
 class BG22_HERO_003:# <12>[1453]
 	""" Vanndar Stormpike """
 class BG22_HERO_003p:# <12>[1453]
@@ -164,7 +165,7 @@ class BG22_HERO_003_Buddy_Ge:# <12>[1453]
 	pass
 
 
-#73#Varden Dawngrasp
+#72#Varden Dawngrasp
 class BG22_HERO_004:# <4>[1453]
 	""" Varden Dawngrasp """
 class BG22_HERO_004p:# <12>[1453]
@@ -192,7 +193,7 @@ class BG22_HERO_004_Buddy_G:# <12>[1453]
 
 
 
-#Vol'jin
+#73#Vol'jin
 class BG20_HERO_201:# <12>[1453]
 	""" Vol'jin  """
 class BG20_HERO_201e:# <12>[1453]
@@ -253,7 +254,7 @@ class BG20_HERO_201_Buddy_G:# <12>[1453]
 
 
 
-#Xyrella
+#74#Xyrella
 class BG20_HERO_101:# <12>[1453]
 	""" Xyrella """
 class BG20_HERO_101p:
@@ -286,7 +287,7 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 
 
 
-#Y'Shaarj
+#75#Y'Shaarj
 class TB_BaconShop_HERO_92:# <12>[1453]
 	""" Y'Shaarj """
 class TB_BaconShop_HP_103:
@@ -317,7 +318,7 @@ class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
 
 
 
-#Yogg-Saron, Hope's End # armor 0
+#76#Yogg-Saron, Hope's End # armor 0
 class TB_BaconShop_HERO_35:# <12>[1453]
 	""" Yogg-Saron, Hope's End """
 class TB_BaconShop_HP_039:
@@ -391,7 +392,7 @@ class TB_BaconShop_HERO_35_Buddy_G:
 
 
 
-#78#Ysera
+#77#Ysera
 class TB_BaconShop_HERO_53:# <12>[1453]
 	""" Ysera """
 class TB_BaconShop_HP_062:
@@ -412,7 +413,7 @@ class TB_BaconShop_HERO_53_Buddy_G:
 
 
 
-#Zephrys, the Great
+#78#Zephrys, the Great
 class TB_BaconShop_HERO_91:# <12>[1453]
 	""" Zephrys, the Great """
 class TB_BaconShop_HP_102:
@@ -424,6 +425,11 @@ class TB_BaconShop_HERO_91_Buddy:
 class TB_BaconShop_HERO_91_Buddy_G:
 	"""  """
 	pass
+
+
+#79#
+
+
 
 ####################################################################################
 

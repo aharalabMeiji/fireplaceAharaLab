@@ -317,26 +317,39 @@ class TB_BaconShop_HP_076:
 
 
 
-#61#Sneed
+#61#Sneed    ### need check###
 class BG21_HERO_030:# <10>[1453]
 	""" Sneed """
 	pass
+class BG21_HERO_030_Buddy_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFFCARD=ActionArg()
+	AMOUNT=IntArg()
+	def do(self,source,target,buffcard,amount):
+		if target:
+			Buff(source, buffcard).trigger(source)
+			buff=source,buffs[-1]
+			for d in target.deathrattle: ## may be a deepcopy?
+				for repeat in amount:
+					deathrattle.append(d)
 class BG21_HERO_030_Buddy:# <12>[1453]
 	""" Piloted Whirl-O-Tron
 	[Battlecry:] Copy a friendly minion's [Deathrattles]. """
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(SELF, 'BG21_HERO_030_Buddy_e') 
+	requirements={PlayReq.REQ_TARGET_IF_AVAILABLE:0,  PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,
+			   PlayReq.REQ_TARGET_WITH_DEATHRATTLE:1}
+	play = BG21_HERO_030_Buddy_Action(TARGET, 'BG21_HERO_030_Buddy_e',1) 
 	pass
 class BG21_HERO_030_Buddy_e:# <12>[1453]
 	""" Whirling
 	Copied [Deathrattles] from {0}. """
 	tags={GameTag.DEATHRATTLE:True}
-	deathrattle = Deathrattle(TARGET)
 	pass
 class BG21_HERO_030_Buddy_G:# <12>[1453]
 	""" Piloted Whirl-O-Tron
 	[Battlecry:] Copy a friendly minion's [Deathrattles] twice. """
-	play = Buff(SELF, 'BG21_HERO_030_Buddy_e') * 2
+	requirements={PlayReq.REQ_TARGET_IF_AVAILABLE:0,  PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,
+			   PlayReq.REQ_TARGET_WITH_DEATHRATTLE:1}
+	play = BG21_HERO_030_Buddy_Action(TARGET, 'BG21_HERO_030_Buddy_e',2) 
 	pass
 class BG21_HERO_030p:# <12>[1453]
 	""" Sneed's Replicator
@@ -347,6 +360,8 @@ class BG21_HERO_030p:# <12>[1453]
 class BG21_HERO_030pe:# <12>[1453]
 	""" Replicate
 	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
 	pass
 
 

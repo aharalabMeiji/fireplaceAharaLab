@@ -21,32 +21,32 @@ class Config:# ()is the default value
 	DEEPCOPY_LOGINFO=0
 
 	#battlegrounds option
-	HUMAN_PLAY=0 ##人間プレーヤーあり
+	HUMAN_PLAY=1 ##人間プレーヤーあり
 	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
 	CARD_PRESET1='BG20_202'
 	CARD_PRESET2='BG20_301'
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=10 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=70 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
-	#00#A. F. Kay, 
-	#01#Al'Akir
-	#02#Alexstrasza
-	#03#Ambassador Faelin
-	#04#Aranna Starseeker
-	#05#Arch-Villain Rafaam
+	#00#A. F. Kay, #HP#BUDDY
+	#01#Al'Akir#HP#BUDDY
+	#02#Alexstrasza #HP#BUDDY
+	#03#Ambassador Faelin #HP#BUDDY
+	#04#Aranna Starseeker #HP#BUDDY
+	#05#Arch-Villain Rafaam  #HP#BUDDY
 	#06#Bru'kan
 	#07#C'Thun
 	#08#Captain Eudora
 	#09#Captain Hooktusk
-	#10#Cariel Roame
+	#10#Cariel Roame  #HP#BUDDY
 	#11#Chenvaala
 	#12#Cookie the Cook
-	#13#Dancin' Deryl
+	#13#Dancin' Deryl  #HP#BUDDY
 	#14#Death Speaker Blackthorn
-	#15#Deathwing
+	#15#Deathwing    #HP#BUDDY
 	#16#Dinotamer Brann
 	#17#Drek'Thar
 	#18#Edwin VanCleef
@@ -100,8 +100,8 @@ class Config:# ()is the default value
 	#66#The Great Akazamzarak
 	#67#The Lich King
 	#68#The Rat King
-	#69#Tickatus
-	#70#Trade Prince Gallywix
+	#69#Tickatus #HP
+	#70#Trade Prince Gallywix ##HP
 	#71#Vanndar Stormpike
 	#72#Varden Dawngrasp
 	#73#Vol'jin

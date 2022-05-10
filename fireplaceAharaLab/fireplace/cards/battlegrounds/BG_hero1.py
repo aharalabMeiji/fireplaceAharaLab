@@ -181,7 +181,7 @@ class TB_BaconShop_HP_064_Action(TargetedAction):
 	def do(self, source, target):
 		controller = target
 		if target.tavern_tier==5:
-			DiscoverTwice(controller, RandomBGDragon(tech_level_less=5)*3).trigger(source)
+			DiscoverTwice(controller, RandomBGDragon()*3).trigger(source)
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
 	<b>Passive</b>After you upgrade Bob's Tavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
@@ -294,7 +294,7 @@ class TB_BaconShop_HP_065:
 <i>(@ left!)</i>"""
 	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, \
 		[ ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_065t2'),\
-		SetAttr(CONTROLLER, 'BobsTmpFieldSize', 7)]\
+		SetAttr(CONTROLLER, 'len_bobs_field', 7)]\
 		))
 	pass
 class TB_BaconShop_HP_065pe:

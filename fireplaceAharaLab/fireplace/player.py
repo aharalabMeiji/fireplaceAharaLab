@@ -115,6 +115,7 @@ class Player(Entity, TargetableByAuras):
 		self.buddy_gauge=0## battlegrounds, # buddy
 		self.got_buddy=0## battlegrounds, # buddy
 		self.parent_agent=None##
+		self.sells_in_this_turn=0
 
 
 	def __str__(self):

@@ -3222,6 +3222,7 @@ class Sell(TargetedAction):
 					controller.used_mana -= card.gambler_sell_price
 				else:
 					controller.used_mana -= 1
+				controller.sells_in_this_turn+=1
 				return
 		pass
 

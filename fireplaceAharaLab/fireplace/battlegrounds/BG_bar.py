@@ -80,7 +80,7 @@ class BG_Bar(Game):
 				buffs += card.buffs
 				decks = self.parent.BG_decks
 				gr = card.tech_level-1
-				decks[gr].append(card.id)
+				#decks[gr].append(card.id) #no need to back to deck
 				card.zone=Zone.GRAVEYARD
 		newcard = self.controller.card(gold_id)
 		for buff in buffs:## inferit all buffs
