@@ -87,14 +87,14 @@ def printClasses():
 	print('')
 	#THE_SUNKEN_CITY = 1658
 	#BATTLEGROUNDS = 1453
-	myCardSet=CardSet.THE_SUNKEN_CITY
+	myCardSet=CardSet.BATTLEGROUNDS
 	myCardClass=CardClass.SHAMAN
-	myCardRace=Race.INVALID
+	myCardRace=Race.NAGA
 	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
 		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+		if _card.card_set== myCardSet and _card.race == myCardRace: 
 		#if _card.card_set== myCardSet and _card.race == myCardRace: 
 			print("'%s'"%(_card.id), end=",")
 		pass
@@ -102,7 +102,7 @@ def printClasses():
 	print(']')
 	for _id in db.keys():
 		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+		if _card.card_set== myCardSet and _card.race == myCardRace: 
 		#if _card.card_set== myCardSet and _card.race == myCardRace: 
 			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 			print('\t""" %s'%(_card.name))
@@ -202,6 +202,7 @@ def battleground_main():
 	BG.BG_main()
 
 if __name__ == "__main__":
+	printClasses()
 	if Config.HEARTHSTONE:
 		main()
 	if Config.BATTLEGROUNDS:

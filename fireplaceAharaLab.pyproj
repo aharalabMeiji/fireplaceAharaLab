@@ -77,6 +77,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_murloc.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_naga.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_pirate.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_beast.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion.py">

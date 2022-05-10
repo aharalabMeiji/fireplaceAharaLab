@@ -36,16 +36,32 @@ BG_Minion=[
 	'BGS_040','TB_BaconUps_154',#Nadina the Red	6
 	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
 	'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6
+]
+BG_Minion23=[
+	'BG23_015','BG23_015t','BG23_015_G','BG23_015_Gt', #Orgozoa, the Tender 6  NEW
+	'BG23_016','BG23_016_G', # Reef Explorer 4 NEW
+	'BG23_018','BG23_018t','BG23_018_G', # Darkgaze Elder 6 NEW
+	'BG23_318','BG23_318_G', # Leeroy the Reckless 5 NEW
+	'BG23_Spellcraft_e',
+	'GIL_681','BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
 	]
 
 BG_PoolSet_Minion=[
 	['BGS_004',],
 	['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
-	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002',],
-	['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],
-	['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],
-	['BGS_069','BGS_040','BG21_011','BGS_022',],
+	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002',],#3
+	['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],#4
+	['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],#5
+	['BGS_069','BGS_040','BG21_011','BGS_022',],#6
 	]
+BG_PoolSet_Minion23=[
+	[],
+	[],
+	['GIL_681',],#3
+	['BG23_016',],#4
+	['BG23_318',],#5
+	['BG23_015','BG23_018',],#6
+]
 
 BG_Minon_Gold={
 	#Wrath Weaver	1	1	3	-	-
@@ -116,6 +132,7 @@ BG_Minon_Gold={
 	'BG21_011':'BG21_011_G',
 	#Zapp Slywick	6	7	10	-	Windfury
 	'BGS_022':'TB_BaconUps_091',	
+	'BG23_015':'BG23_015_G',
 	}
 
 #Wrath Weaver	1	1	3	 ### maybe ###
@@ -850,3 +867,62 @@ class TB_BaconUps_091:# <12>[1453]
 	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/>　###これはオケ
 	pass
 
+
+
+class BG23_015:# <12>[1453]
+	""" Orgozoa, the Tender(6)
+	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; a Naga."""
+class BG23_015t:
+	pass
+class BG23_015_G:# <12>[1453]
+	"""
+	"""
+	#
+	pass
+class BG23_015_Gt:
+	pass
+
+
+
+class BG23_016:# <12>[1453]
+	""" Reef Explorer(4)
+	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a minion from a minion type you don't control."""
+	pass
+class BG23_016_G:# <12>[1453]
+	pass
+
+
+
+class BG23_018:# <12>[1453]
+	""" Darkgaze Elder (6)
+	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	pass
+class BG23_018_G:# <12>[1453]
+	pass
+class BG23_018t:# <12>[1453]
+	pass
+
+
+
+
+class BG23_318:# <12>[1453]
+	""" Leeroy the Reckless (5)
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Destroy the minion that killed this."""
+	pass
+class BG23_318_G:# <12>[1453]
+	pass
+
+
+class BG23_Spellcraft_e:
+	""" Spellcraft In-Hand Ench [DNT]
+	"""
+	pass
+
+class GIL_681:
+	""" Nightmare Amalgam (3)
+	&lt;i&gt;This has all minion types.&lt;/i&gt;"""
+	pass
+class BG_GIL_681_G:
+	""" Nightmare Amalgam (3)
+	&lt;i&gt;This has all minion types.&lt;/i&gt;"""
+	pass

@@ -47,7 +47,10 @@ class BG_main:
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
-			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+			if PATCH23_3:
+				self.BG_races = races = ['naga',] + random.sample(['beast','demon','dragon','elemental','mecha','murloc', 'pirate','quilboar'],4)
+			else:
+				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		else:
 			# 特定の種族のみを指定(config.py内で指定)
 			self.BG_races = races=Config.RACE_CHOICE
@@ -58,6 +61,8 @@ class BG_main:
 				rep=4
 			for repeat in range(rep):	
 				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
+				if PATCH23_3:
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion23[i]
 				if 'beast' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 				if 'demon' in races:
@@ -70,6 +75,8 @@ class BG_main:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
 				if 'murloc' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+				if 'naga' in races:
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Naga[i]
 				if 'pirate' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				if 'quilboar' in races:
