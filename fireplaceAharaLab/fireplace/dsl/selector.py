@@ -493,6 +493,7 @@ DEMON = EnumSelector(Race.DEMON) | ALL
 DRAGON = EnumSelector(Race.DRAGON) | ALL
 MECH = EnumSelector(Race.MECHANICAL) | ALL
 MURLOC = EnumSelector(Race.MURLOC) | ALL
+NAGA = EnumSelector(Race.NAGA) | ALL
 PIRATE = EnumSelector(Race.PIRATE) | ALL
 TOTEM = EnumSelector(Race.TOTEM) | ALL
 ELEMENTAL = EnumSelector(Race.ELEMENTAL) | ALL
@@ -510,7 +511,7 @@ RARE = EnumSelector(Rarity.RARE)
 EPIC = EnumSelector(Rarity.EPIC)
 LEGENDARY = EnumSelector(Rarity.LEGENDARY)
 
-GOLDEN = FilterSelector(lambda entity, source: getattr(entity, "gold_card", None)==0 )
+GOLDEN = FilterSelector(lambda entity, source: getattr(entity, "gold_card", -1)==0 )
 
 ALL_PLAYERS = IN_PLAY + PLAYER
 ALL_HEROES = IN_PLAY + HERO

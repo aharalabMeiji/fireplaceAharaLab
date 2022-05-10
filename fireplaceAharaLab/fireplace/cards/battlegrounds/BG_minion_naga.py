@@ -51,25 +51,37 @@ BG_Naga_Gold={
 class BG23_000:# <12>[1453]
 	""" Mini-Myrmidon(1)
 	[Spellcraft:] Give a minion +2 Attack until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_000t'))
 	pass
-BG23_000e=buff(2,0)
+class BG23_000e:
+	tags={GameTag.ATK:2,}
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 class BG23_000t:
 	""" """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_000e')
 class BG23_000_G:# <12>[1453]
 	""" Mini-Myrmidon
 	[Spellcraft:] Give a minion +4 Attack until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_000_Gt'))
 	pass
-BG23_000_Ge=buff(0,0)
+class BG23_000_Ge:
+	tags={GameTag.ATK:4,}
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 class BG23_000_Gt:
 	""" """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_000_Ge')
+
 
 
 class BG23_001:# <12>[1453]
 	""" Snail Cavalry(2)
 	[Once per Turn:]After you cast a spell,gain +2_Health. """
-	#
+	events = [
+		OWN_SPELL_PLAY.on(Buff(SELF, 'BG23_001e')),
+		OWN_TURN_BEGIN.on(SetAttr(CONTROLLER, 'once_per_turn', False))
+	]
 	pass
 BG23_001e=buff(0,2)
 class BG23_001_G:# <12>[1453]
