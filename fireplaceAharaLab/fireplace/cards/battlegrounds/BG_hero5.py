@@ -328,19 +328,19 @@ class BG20_HERO_101_Buddy_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
 	def do(self,source,target,buff):
-		if isinstance(target,PlayableCard):
-			if target.health==target.atk:
+		if hasattr(target,'atk') and hasattr(target,'max_health'):
+			if target.max_health==target.atk:
 				Buff(source,buff).trigger(source)
 class BG20_HERO_101_Buddy:#
 	""" Baby Elekk
 	After you play a minion with Attack equal to its Health, gain +2/+2. """
-	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(Play.CARD, 'BG20_HERO_101_Buddy_e'))
+	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(BG_Play.CARD, 'BG20_HERO_101_Buddy_e'))
 	pass
 BG20_HERO_101_Buddy_e=buff(2,2)
 class BG20_HERO_101_Buddy_G:
 	""" 
 	After you play a minion with Attack equal to its Health, gain +4/+4.""" 
-	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(Play.CARD, 'BG20_HERO_101_Buddy_Ge'))
+	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(BG_Play.CARD, 'BG20_HERO_101_Buddy_Ge'))
 	pass
 BG20_HERO_101_Buddy_Ge=buff(4,4)
 
