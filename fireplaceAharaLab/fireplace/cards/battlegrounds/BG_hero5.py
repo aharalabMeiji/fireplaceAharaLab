@@ -56,7 +56,7 @@ BG_Hero5_Buddy_Gold={
 
 
 
-#69#Tickatus
+#69#Tickatus   ### HP OK ###
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
 class TB_BaconShop_HP_106:
@@ -92,12 +92,13 @@ class TB_BaconShop_HERO_94_Buddy_G:# <12>[1453]
 
 
 
-#70#Trade Prince Gallywix
+#70#Trade Prince Gallywix  ### HP OK ###
 class TB_BaconShop_HERO_10:# <12>[1453]
 	""" Trade Prince Gallywix """
 class TB_BaconShop_HP_008:
 	""" 
 	&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;(Can exceed 10.)&lt;/i&gt;"""
+	### proceed in BG_main
 	pass
 class TB_BaconShop_HP_008a:
 	""" """
@@ -120,28 +121,42 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 
-#71#Vanndar Stormpike
+#71#Vanndar Stormpike   ## HP need check ##
 class BG22_HERO_003:# <12>[1453]
 	""" Vanndar Stormpike """
 class BG22_HERO_003p:# <12>[1453]
 	""" Lead the Stormpikes
 	Choose a friendly minion.It copies the Health of your highest Health minion for next combat only. """
-	#
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0 }
+	activate = Buff(TARGET,'BG22_HERO_003pe3' )
 	pass
 class BG22_HERO_003pe:# <12>[1453]
 	""" Stormpike Strength
 	Copied highest Health. """
-	#
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG22_HERO_003pe2:# <12>[1453]
 	""" Health Set Next Combat Only
 	 """
-	#
 	pass
+class BG22_HERO_003p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source,target):
+		controller = source.controller
+		highest_health=0
+		for card in controller.field:
+			if highest_health<card.max_health:
+				highest_health=card.max_health
+		Buff(target, 'BG22_HERO_003pe').trigger(source)
+		buff = target.buffs[-1]
+		buff.max_health = highest_health - target.max_health
 class BG22_HERO_003pe3:# <12>[1453]
 	""" Modified Health Next Combat Only
 	Health is increased or decreased for next combat only. """
-	#
+	events = [
+		EndTurn(CONTROLLER).on(BG22_HERO_003p_Action(OWNER)),
+		EndBattle(CONTROLLER).on(Destroy(SELF))
+		]
 	pass
 class BG22_HERO_003_Buddy:# <12>[1453]
 	""" Stormpike Lieutenant
@@ -165,13 +180,23 @@ class BG22_HERO_003_Buddy_Ge:# <12>[1453]
 	pass
 
 
-#72#Varden Dawngrasp
+#72#Varden Dawngrasp ## HP need check ##
 class BG22_HERO_004:# <4>[1453]
 	""" Varden Dawngrasp """
+class BG22_HERO_004p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = source.controller
+		if isinstance(target, list):
+			target = target[0]
+		target.frozen=True
+		newcard = controller.card(target.id)
+		newcard.zone = Zone.HAND
+
 class BG22_HERO_004p:# <12>[1453]
 	""" Twice as Nice
-	[Passive.] After Bob'sTavern is [Refreshed],copy and [Freeze] oneof his minions. """
-	#
+	[Passive.] After Bob's Tavern is [Refreshed],copy and [Freeze] one of his minions. """
+	events = Rerole(CONTROLLER).on(BG22_HERO_004p_Action(RANDOM(FRIENDLY_MINIONS)))
 	pass
 class BG22_HERO_004_Buddy:# <12>[1453]
 	""" Varden's Aquarrior

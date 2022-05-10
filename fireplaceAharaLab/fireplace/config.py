@@ -28,7 +28,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=70 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=71 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
