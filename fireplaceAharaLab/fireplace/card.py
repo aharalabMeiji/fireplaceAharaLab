@@ -333,6 +333,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		if len(self.controller.opponent.field) < min_enemy_minions:
 			return False
 
+		min_friendly_minions = self.requirements.get(1001, 0)
+		if len(self.controller.field) < min_friendly_minions:
+			return False
+
+
 		min_total_minions = self.requirements.get(PlayReq.REQ_MINIMUM_TOTAL_MINIONS, 0)
 		if len(self.controller.game.board) < min_total_minions:
 			return False

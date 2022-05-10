@@ -94,6 +94,9 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_HERO_OR_MINION_TARGET:# 
 			if target.type != CardType.MINION and target.type != CardType.HERO:
 				return False
+		elif req == PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:# 
+			if len(target.controller.field)<param:
+				return False
 		
 
 	return True

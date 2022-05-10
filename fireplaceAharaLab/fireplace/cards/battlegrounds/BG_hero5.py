@@ -127,7 +127,7 @@ class BG22_HERO_003:# <12>[1453]
 class BG22_HERO_003p:# <12>[1453]
 	""" Lead the Stormpikes
 	Choose a friendly minion.It copies the Health of your highest Health minion for next combat only. """
-	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0 }
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0, 1001:2 }
 	activate = Buff(TARGET,'BG22_HERO_003pe3' )
 	pass
 class BG22_HERO_003pe:# <12>[1453]
@@ -196,7 +196,6 @@ class BG22_HERO_004p_Action(TargetedAction):
 		newcard._summon_index = index+1
 		newcard.zone = Zone.PLAY
 		newcard.frozen = True
-
 class BG22_HERO_004p:# <12>[1453]
 	""" Twice as Nice
 	[Passive.] After Bob's Tavern is [Refreshed],copy and [Freeze] one of his minions. """
@@ -222,28 +221,49 @@ class BG22_HERO_004_Buddy_G:# <12>[1453]
 
 
 
-#73#Vol'jin
+#73#Vol'jin   ### HP OK ###
+class ChooseTwice(Choice):
+	card1=None
+	card2=None
+	def choose(self, card):
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=2:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		if self.source._sidequest_counter_==1:
+			self.card1=card
+			#self.cards = self._args[1]
+			self.cards = self.source.controller.field
+		else:
+			self.card2=card
+			buff1 = self.source.controller.card('BG20_HERO_201e')
+			buff2 = self.source.controller.card('BG20_HERO_201e2')
+			buff1.tags[GameTag.ATK]=self.card2.atk-self.card1.atk
+			buff1.tags[GameTag.HEALTH]=self.card2.max_health-self.card1.max_health
+			buff2.tags[GameTag.ATK]=self.card1.atk-self.card2.atk
+			buff2.tags[GameTag.HEALTH]=self.card1.max_health-self.card2.max_health
+			buff1.apply(self.card1)
+			buff2.apply(self.card2)
+			if Config.LOGINFO:
+				print("(ChooseTwice.choose)Swaping stats between %s and %s"%(self.card1, self.card2))
 class BG20_HERO_201:# <12>[1453]
 	""" Vol'jin  """
 class BG20_HERO_201e:# <12>[1453]
-	""" Modified Attack
-	Attack is increased or decreased. """
-	#
+	""" Modified Attack,	Attack is increased or decreased. """
 	pass
 class BG20_HERO_201e2:# <12>[1453]
-	""" Modified Health
-	Health is increased or decreased. """
-	#
+	""" Modified Health,	Health is increased or decreased. """
 	pass
 class BG20_HERO_201e3:# <12>[1453]
-	""" Stats Set
-	 """
-	#
+	""" Stats Set	 """
 	pass
 class BG20_HERO_201p:# <12>[1453]
 	""" Spirit Swap
 	Choose two minions. Swap their stats. """
-	#
+	requirements = {1001:2}
+	activate = ChooseTwice(CONTROLLER, FRIENDLY_MINIONS)
 	pass
 class BG20_HERO_201p2:# <12>[1453]
 	""" Spirit Swap
@@ -262,7 +282,7 @@ class BG20_HERO_201p3e:# <12>[1453]
 	pass
 class BG20_HERO_201_Buddy:# <12>[1453]
 	""" Master Gadrin
-	At the end of your turn,the minion to the leftof this copies thisminion's Attack. """
+	At the end of your turn,the minion to the leftof this copies this minion's Attack. """
 	#
 	pass
 class BG20_HERO_201_Buddy_e:# <12>[1453]
@@ -283,14 +303,24 @@ class BG20_HERO_201_Buddy_G:# <12>[1453]
 
 
 
-#74#Xyrella
+#74#Xyrella  ### HP OK ###
 class BG20_HERO_101:# <12>[1453]
 	""" Xyrella """
+class BG20_HERO_101p_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = source.controller
+		controller.opponent.field.remove(target)
+		target.controller=controller
+		target.zone=Zone.HAND
+		target.frozen=False
+		buff=controller.card('BG20_HERO_101pe2')
+		buff.apply(target)
 class BG20_HERO_101p:
 	""" See the Light
 	Choose a minion in Bob's Tavern to add to your hand. Set its stats to 2."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0,PlayReq.REQ_MINION_TARGET:0,}
-	activate = Buy(CONTROLLER, TARGET).on(Buff(Buy.CARD,'BG20_HERO_101pe2'))
+	activate = BG20_HERO_101p_Action(TARGET)
 class BG20_HERO_101pe2:
 	max_health = SET(2)
 	atk = SET(2)
@@ -320,7 +350,8 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 class TB_BaconShop_HERO_92:# <12>[1453]
 	""" Y'Shaarj """
 class TB_BaconShop_HP_103:
-	""" """
+	"""  Embrace Your Rage
+	&lt;b&gt;Start of Combat:&lt;/b&gt; Summon a minion from your Tavern Tier. Add a copy to your hand."""
 	pass
 class TB_BaconShop_HERO_92_Buddy:# <12>[1453]
 	""" Baby Y'Shaarj

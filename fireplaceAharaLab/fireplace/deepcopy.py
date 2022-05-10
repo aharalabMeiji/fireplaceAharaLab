@@ -311,7 +311,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		for buff in card.buffs:
 			if buff not in card.game.active_aura_buffs:
 				new_buff = Enchantment(cards.db[buff.id])
-				new_buff.source = buff.source
+				#new_buff.source = buff.source
 				new_buff.controller = newPlayer
 				new_buff.owner = card
 				new_buff.tags[GameTag.ATK]=buff.atk## modified buff

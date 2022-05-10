@@ -448,8 +448,7 @@ class Move(object):
 		heropower = self.controller.hero.power
 		if heropower.is_usable() and heropower.cost <= controller.mana:
 			if heropower.requires_target() and target in heropower.targets:
-				if target in self.controller.field:
-					heropower.use(target=target)
+				heropower.use(target=target)
 			else:
 				heropower.use()
 		pass
