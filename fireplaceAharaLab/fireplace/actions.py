@@ -706,8 +706,8 @@ class BG_Play(GameAction):
 		if card.type in (CardType.MINION, CardType.WEAPON):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
-		if hasattr(card,'spellcraft_spellcard'):
-			self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.ON, player, card))
+		#if hasattr(card,'spellcraft_spellcard'):
+		#	self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.ON, player, card))
 		self.resolve_broadcasts()
 		#Corrupt(player, card).trigger(player)
 		# "Can't Play" (aka Counter) means triggers don't happen either
@@ -718,8 +718,8 @@ class BG_Play(GameAction):
 			if played_card.type in (CardType.MINION, CardType.WEAPON):
 				summon_action.broadcast(player, EventListener.AFTER, player, played_card)
 			self.broadcast(player, EventListener.AFTER, player, played_card, target)
-			if hasattr(card,'spellcraft_spellcard'):
-				self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.AFTER, player, card))
+			#if hasattr(card,'spellcraft_spellcard'):
+			#	self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.AFTER, player, card))
 		player.combo = True
 		player.last_card_played = card
 		#player.cards_played_this_turn += 1

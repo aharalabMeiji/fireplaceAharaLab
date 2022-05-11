@@ -47,7 +47,7 @@ class BG_main:
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
-			if PATCH23_3:
+			if Config.PATCH23_3:
 				self.BG_races = races = ['naga',] + random.sample(['beast','demon','dragon','elemental','mecha','murloc', 'pirate','quilboar'],4)
 			else:
 				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
@@ -61,7 +61,7 @@ class BG_main:
 				rep=4
 			for repeat in range(rep):	
 				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
-				if PATCH23_3:
+				if Config.PATCH23_3:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion23[i]
 				if 'beast' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
@@ -413,6 +413,10 @@ class Move(object):
 	def play(self, card, position=-1, targetpos=-1):
 		if card!=None and card.id=='TB_BaconShop_Triples_01':## カードを発見
 			pass
+		if card!=None and card.type==CardType.SPELL:
+			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
+				card.target = self.controller.field[targetpos]
+			BG_Play(card, card.target, None, None).trigger(self.controller)
 		# コイン
 		# バナナ
 		# 血の宝石
