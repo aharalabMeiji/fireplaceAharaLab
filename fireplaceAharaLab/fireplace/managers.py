@@ -178,7 +178,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CORRUPT: 'corrupt',
 	GameTag.CORRUPTEDCARD: 'corruptedcard',
 	GameTag.COST: "cost",
-	2423:"spellcraft",# battleground
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
 	GameTag.DEATHRATTLE: "has_deathrattle",
@@ -238,6 +237,9 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
 	GameTag.SIDEQUEST: "sidequest",# 
 	GameTag.SILENCED: "silenced",
+	GameTag.SPELLCRAFT: "spellcraft",
+	2564: "spellcraft_buff",
+	2423: "spellcraft_spellcard",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
 	GameTag.SPELL_SCHOOL: "spell_school", # 

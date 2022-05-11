@@ -176,6 +176,63 @@ class BG23_009_G:# <12>[1453]
 
 
 
+class BG23_005_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		controller =target
+		for card in target.field:
+			if hasattr(card, "spellcraft") and card.spellcraft:
+				dbf_id = card.spellcraft
+				for _id in db.keys():
+					_card = db[_id]
+					if _card.data_dbf_id==dbf_id:
+						spellcard = controller.card(_id)
+						BG_Play(_card, card, None, None).trigger(controller)
+
+
+
+class BG23_005:# <12>[1453]
+	""" Stormscale Siren (3)
+	At the end of your turn,your [Spellcraft] minions cast their spells on themselves. """
+	events = OWN_TURN_END.on(BG23_005_Action(CONTROLLER, 1))
+	pass
+
+class BG23_005_G:# <12>[1453]
+	""" Stormscale Siren
+	At the end of your turn,your [Spellcraft] minionscast their spells_on themselves twice. """
+	#
+	pass
+
+
+
+
+class BG23_014:# <12>[1453]
+	""" Pashmar the Vengeful (3)
+	[Avenge (3):] Get a[Spellcraft] spell of your Tier or lower. """
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell(tech_level=TIER(CONTROLLER)))]))
+	pass
+class BG23_014_G:# <12>[1453]
+	""" Pashmar the Vengeful
+	[Avenge (3):] Get 2[Spellcraft] spellsof your Tier or lower. """
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell(tech_level=TIER(CONTROLLER))), Give(CONTROLLER, RandomBGSpellcraftSpell(tech_level=TIER(CONTROLLER)))]))
+	pass
+
+
+
+
+
+class BGS_200:# <12>[1453]
+	""" Warden of Old (3)
+	[Deathrattle:] Add a Gold Coin to your hand. """
+	deathrattle = Give(CONTROLLER, THE_COIN)
+	pass
+class TB_BaconUps_256:# <12>[1453]
+	""" Warden of Old
+	[Deathrattle:] Add 2 Gold Coins to your hand. """
+	deathrattle = Give(CONTROLLER, THE_COIN)*2
+	pass
+
 class BG23_003:# <12>[1453]
 	""" Critter Wrangler(5)
 	After you cast a [Spellcraft] spell on a minion,give it +2/+2. """
@@ -188,21 +245,6 @@ class BG23_003_G:# <12>[1453]
 	#
 	pass
 BG23_003_Ge=buff(4,4)
-
-
-
-class BG23_005:# <12>[1453]
-	""" Stormscale Siren (3)
-	At the end of your turn,your [Spellcraft] minionscast their spellson themselves. """
-	#
-	pass
-
-class BG23_005_G:# <12>[1453]
-	""" Stormscale Siren
-	At the end of your turn,your [Spellcraft] minionscast their spells_on themselves twice. """
-	#
-	pass
-
 
 
 
@@ -366,28 +408,3 @@ class BG23_013_Ge:
 
 
 
-class BG23_014:# <12>[1453]
-	""" Pashmar the Vengeful (3)
-	[Avenge (3):] Get a[Spellcraft] spellof your Tier or lower. """
-	#
-	pass
-class BG23_014_G:# <12>[1453]
-	""" Pashmar the Vengeful
-	[Avenge (3):] Get 2[Spellcraft] spellsof your Tier or lower. """
-	#
-	pass
-
-
-
-
-
-class BGS_200:# <12>[1453]
-	""" Warden of Old (3)
-	[Deathrattle:] Add a Gold Coin to your hand. """
-	#
-	pass
-class TB_BaconUps_256:# <12>[1453]
-	""" Warden of Old
-	[Deathrattle:] Add 2 Gold Coins to your hand. """
-	#
-	pass

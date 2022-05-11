@@ -202,7 +202,6 @@ def battleground_main():
 	BG.BG_main()
 
 if __name__ == "__main__":
-	printClasses()
 	if Config.HEARTHSTONE:
 		main()
 	if Config.BATTLEGROUNDS:
