@@ -184,6 +184,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	honorably_killed = False ##
 
 	def __init__(self, data):
+		self.attacker=None
 		self.cant_play = False
 		self.choose_both = False
 		self.choose_cards = CardList()

@@ -48,27 +48,21 @@ BG_Naga_Gold={
 	'BGS_200':'TB_BaconUps_256',
 }
 
-class Destroy_spellcraft(TargetedAction):
-	TARGET = ActionArg()
-	def do(self,source,target):
-		if not target.permanent_buff:
-			Destroy(target).trigger(source.controller)
-		pass
-	pass
 
 ## Mini-Myrmidon(1)  ## need check
 class BG23_000:# <12>[1453]
 	""" Mini-Myrmidon(1)
 	[Spellcraft:] Give a minion +2 Attack until next turn. """
-	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_000t'))
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_000t'))
 	pass
+class BG23_000t:
+	""" Mini-Trident
+	Give a minion +2_Attack until next turn."""
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_000e')
 class BG23_000e:
 	tags={GameTag.ATK:2, }
 	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
-class BG23_000t:
-	""" """
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_000e')
 class BG23_000_G:# <12>[1453]
 	""" Mini-Myrmidon
 	[Spellcraft:] Give a minion +4 Attack until next turn. """
@@ -233,18 +227,6 @@ class TB_BaconUps_256:# <12>[1453]
 	deathrattle = Give(CONTROLLER, THE_COIN)*2
 	pass
 
-class BG23_003:# <12>[1453]
-	""" Critter Wrangler(5)
-	After you cast a [Spellcraft] spell on a minion,give it +2/+2. """
-	#
-	pass
-BG23_003e=buff(2,2)
-class BG23_003_G:# <12>[1453]
-	""" Critter Wrangler
-	After you cast a [Spellcraft] spell on a minion,give it +4/+4. """
-	#
-	pass
-BG23_003_Ge=buff(4,4)
 
 
 
@@ -301,32 +283,6 @@ class BG23_007_Gt:
 
 
 
-class BG23_008:# <12>[1453]
-	""" Glowscale (5)
-	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
-	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_008t'))
-	pass
-class BG23_008e:
-	pass
-class BG23_008t:
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_008e')	
-	pass
-class BG23_008_G:# <12>[1453]
-	""" Glowscale
-	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
-	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_008_Gt'))
-	pass
-class BG23_008_Ge:
-	pass
-class BG23_008_Gt:
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_008_Ge')	
-	pass
-
-
-
-
 class BG23_010:# <12>[1453]
 	""" Eventide Brute (4)
 	After you cast a spell,gain +1/+1. """
@@ -345,16 +301,67 @@ class BG23_010_Ge:
 
 
 
+class BG23_003:# <12>[1453]
+	""" Critter Wrangler(5)
+	After you cast a [Spellcraft] spell on a minion,give it +2/+2. """
+	#events = SpellcraftSpell(CONTROLLER).on(Buff(SpellcraftSpell.TARGET,'BG23_003e'))
+	pass
+BG23_003e=buff(2,2)
+class BG23_003_G:# <12>[1453]
+	""" Critter Wrangler
+	After you cast a [Spellcraft] spell on a minion,give it +4/+4. """
+	#
+	pass
+BG23_003_Ge=buff(4,4)
+
+
+
+class BG23_008:# <12>[1453]
+	""" Glowscale (5)
+	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_008t'))
+	pass
+class BG23_008e:
+	def apply(self,target):
+		target.divine_shield=True	
+		pass
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	pass
+class BG23_008t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_008e')	
+	pass
+class BG23_008_G:# <12>[1453]
+	""" Glowscale
+	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_008_Gt'))
+	pass
+class BG23_008_Ge:
+	def apply(self,target):
+		target.divine_shield=True	
+		pass
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	pass
+class BG23_008_Gt:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_008_Ge')	
+	pass
+
+
+
+
 class BG23_011:# <12>[1453]
 	""" Shoal Commander (3)
-	[Spellcraft:] Give a minion+1/+1 for each friendlyNaga until next turn. """
+	[Spellcraft:] Give a minion +1/+1 for each friendly Naga until next turn. """
 	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_011t'))
 	pass
 class BG23_011e:
+	tags={GameTag.ATK:1, GameTag.HEALTH:1}
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
 	pass
 class BG23_011t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_011e')		
+	play = Buff(TARGET, 'BG23_011e') * Count(FRIENDLY_MINIONS + NAGA)		
 	pass
 class BG23_011_G:# <12>[1453]
 	""" Shoal Commander
@@ -362,10 +369,12 @@ class BG23_011_G:# <12>[1453]
 	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_011_Gt'))
 	pass
 class BG23_011_Ge:
+	tags={GameTag.ATK:1, GameTag.HEALTH:1}
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
 	pass
 class BG23_011_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_011_Ge')	
+	play = Buff(TARGET, 'BG23_011_Ge') * Count(FRIENDLY_MINIONS + NAGA)	
 	pass
 
 
@@ -374,35 +383,53 @@ class BG23_011_Gt:
 class BG23_012:# <12>[1453]
 	""" Corrupted Myrmidon (5)
 	[Start of Combat:] Double this minion's stats. """
-	#
+	events = BeginBattle(CONTROLLER).on(Buff(SELF, 'BG23_012e'))
 	pass
 class BG23_012e:
+	atk = lambda self, i:i*2
+	max_health = lambda self, i:i*2
+	#events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_012_G:# <12>[1453]
 	""" Corrupted Myrmidon
-	[Start of Combat:] Triplethis minion's stats. """
-	#
+	[Start of Combat:] Triple this minion's stats. """
+	events = BeginBattle(CONTROLLER).on(Buff(SELF, 'BG23_012_Ge'))
 	pass
 class BG23_012_Ge:
+	atk = lambda self, i:i*3
+	max_health = lambda self, i:i*3
+	#events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
 
 
-
+class BG23_013_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self,source,target, buff):
+		controller = target
+		nagas=[]
+		for card in controller.field:
+			if card.race==Race.NAGA:
+				nagas.append(card)
+		if len(nagas)>4:
+			nagas=random.sample(nagas,4)
+		for card in nagas:
+			Buff(card, buff).trigger(source)
 class BG23_013:# <12>[1453]
 	""" Tidemistress Athissa (6)
 	After you cast a spell, give four friendly Naga +1/+1. """
-	#
+	events = OWN_SPELL_PLAY.on(BG23_013_Action(CONTROLLER, 'BG23_013e'))
 	pass
-class BG23_013e:
-	pass
+BG23_013e=buff(1,1)
 class BG23_013_G:# <12>[1453]
 	""" Tidemistress Athissa
 	After you cast a spell, givefour friendly Naga +2/+2. """
-	#
+	events = OWN_SPELL_PLAY.on(BG23_013_Action(CONTROLLER, 'BG23_013_Ge'))
 	pass
 class BG23_013_Ge:
+	tags = {GameTag.ATK:2, GameTag.HEALTH:2}
 	pass
 
 

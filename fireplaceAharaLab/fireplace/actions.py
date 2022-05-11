@@ -706,6 +706,8 @@ class BG_Play(GameAction):
 		if card.type in (CardType.MINION, CardType.WEAPON):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
+		if hasattr(card,'spellcraft_spellcard'):
+			self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.ON, player, card))
 		self.resolve_broadcasts()
 		#Corrupt(player, card).trigger(player)
 		# "Can't Play" (aka Counter) means triggers don't happen either
@@ -716,6 +718,8 @@ class BG_Play(GameAction):
 			if played_card.type in (CardType.MINION, CardType.WEAPON):
 				summon_action.broadcast(player, EventListener.AFTER, player, played_card)
 			self.broadcast(player, EventListener.AFTER, player, played_card, target)
+			if hasattr(card,'spellcraft_spellcard'):
+				self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.AFTER, player, card))
 		player.combo = True
 		player.last_card_played = card
 		#player.cards_played_this_turn += 1
@@ -1406,6 +1410,7 @@ class Hit(TargetedAction):
 		#			break;
 		if amount:
 			#if isinstance(source,PlayableCard):
+			target.attacker=source ## 
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
 				if target.type==CardType.WEAPON and target==source:## when decreasing durability
 					pass
@@ -3064,6 +3069,14 @@ class Buy(TargetedAction): ## battlegrounds
 			pass
 		pass
 
+class Destroy_spellcraft(TargetedAction):
+	TARGET = ActionArg()
+	def do(self,source,target):
+		if not target.permanent_buff:
+			Destroy(target).trigger(source.controller)
+		pass
+	pass
+
 
 
 class DiscoverTwice(Choice):
@@ -3224,6 +3237,16 @@ class Sell(TargetedAction):
 					controller.used_mana -= 1
 				controller.sells_in_this_turn+=1
 				return
+		pass
+
+class Spellcraft(TargetedAction):
+	TARGET = ActionArg()
+	SPELLCARD = ActionArg()
+	def do(self, source, target, spellcard):
+		controller = target
+		self.broadcast(source, EventListener.ON, target, spellcard)
+		Give(controller, spellcard).trigger(source)
+		self.broadcast(source, EventListener.AFTER, target, spellcard)
 		pass
 
 class StealGem(TargetedAction):

@@ -1,4 +1,3 @@
-
 from ..utils import *
 
 
@@ -38,6 +37,40 @@ BG_Minion=[
 	'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6
 ]
 BG_Minion23=[
+	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
+	'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
+	'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
+	'BG20_203','BG20_203_G',#Prophet of the Boar	2
+	'OG_221','TB_BaconUps_014',#Selfless Hero	2
+	'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
+	'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
+	'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
+	'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
+	'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
+	'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
+	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
+	'DAL_575','TB_BaconUps_034',#Khadgar	3
+	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
+	'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
+	'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
+	'BG21_007','BG21_007_G',#Impatient Doomsayer	4
+	'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
+	'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
+	'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
+	'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
+	'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
+	'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
+	'BGS_131','TB_BaconUps_251',#Deadly Spore	5
+	'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
+	'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',#Lightfang Enforcer	5
+	'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',#Master of Realities	5
+	'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',#Mythrax the Unraveler	5
+	'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',#Nomi, Kitchen Nightmare	5
+	##'BGS_069','TB_BaconUps_121',#Amalgadon	6
+	'BGS_040','TB_BaconUps_154',#Nadina the Red	6
+	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
+	'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6	
+	### NEW CARDS ####
 	'BG23_015','BG23_015t','BG23_015_G','BG23_015_Gt', #Orgozoa, the Tender 6  NEW
 	'BG23_016','BG23_016_G', # Reef Explorer 4 NEW
 	'BG23_018','BG23_018t','BG23_018_G', # Darkgaze Elder 6 NEW
@@ -55,12 +88,12 @@ BG_PoolSet_Minion=[
 	['BGS_069','BGS_040','BG21_011','BGS_022',],#6
 	]
 BG_PoolSet_Minion23=[
-	[],
-	[],
-	['GIL_681',],#3
-	['BG23_016',],#4
-	['BG23_318',],#5
-	['BG23_015','BG23_018',],#6
+	['BGS_004',],
+	['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
+	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002','GIL_681',],#3
+	['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',],#4
+	['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',],#5
+	['BGS_040','BG21_011','BGS_022','BG23_015','BG23_018',],#6
 ]
 
 BG_Minon_Gold={
@@ -872,15 +905,17 @@ class TB_BaconUps_091:# <12>[1453]
 class BG23_015:# <12>[1453]
 	""" Orgozoa, the Tender(6)
 	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; a Naga."""
-	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_015t'))
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_015t'))
 class BG23_015t:
+	play = Discover(CONTROLLER, RandomBGNaga())
 	pass
 class BG23_015_G:# <12>[1453]
 	"""
-	"""
-	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_015_Gt'))
+	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; 2 Naga.</enUS>"""
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_015_Gt'))
 	pass
 class BG23_015_Gt:
+	play = DiscoverTwice(CONTROLLER, RandomBGNaga()*3)
 	pass
 
 
@@ -888,29 +923,70 @@ class BG23_015_Gt:
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a minion from a minion type you don't control."""
+	#play = Discover(CONTROLLER, BG23_015_Entourage())
 	pass
 class BG23_016_G:# <12>[1453]
+	"""
+	&lt;b&gt;Battlecry: Discover&lt;/b&gt; 2 minions from minion types you don't control."""
+	#play = DiscoverTwice(CONTROLLER, BG23_015_Entourage())
 	pass
 
 
-
+class BG23_018_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		controller = target
+		if controller.spentmoney_in_this_turn>=4:
+			quilboars=[]
+			for card in controller.field:
+				if card.race==Race.QUILBOAR:
+					quilboars.append(card)
+			if len(quilboars)>4:
+				quilboars=random.select(quilboars,4)
+			for card in quilboars:
+				for repeat in range(amount):
+					ApplyGem(card,'BG20_GEM').trigger(source)
+			controller.spentmoney_in_this_turn -= 4
 class BG23_018:# <12>[1453]
 	""" Darkgaze Elder (6)
 	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	events = [
+		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
+		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
+		UpgradeTier(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
+		]
 	pass
 class BG23_018_G:# <12>[1453]
+	"""
+	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar twice. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	events = [
+		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
+		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
+		UpgradeTier(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
+		]
 	pass
 class BG23_018t:# <12>[1453]
 	pass
 
 
 
-
+class BG23_318_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		killer = target.attacker
+		if hasattr(killer,'charge'):# instead of isinstance(killer, Minion)
+			Destroy(killer).trigger(source.controller)
+		pass
 class BG23_318:# <12>[1453]
 	""" Leeroy the Reckless (5)
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Destroy the minion that killed this."""
+	deathrattle = BG23_318_Action(SELF)
 	pass
 class BG23_318_G:# <12>[1453]
+	"""
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Destroy the minion that killed this."""
+	deathrattle = BG23_318_Action(SELF)
 	pass
 
 
