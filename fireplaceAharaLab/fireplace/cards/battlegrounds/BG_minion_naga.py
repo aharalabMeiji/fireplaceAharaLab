@@ -48,10 +48,10 @@ BG_Naga_Gold={
 	'BGS_200':'TB_BaconUps_256',
 }
 
-class Destryoy_spellcraft(TargetedAction):
+class Destroy_spellcraft(TargetedAction):
 	TARGET = ActionArg()
 	def do(self,source,target):
-		if target.one_battle_effect:
+		if not target.permanent_buff:
 			Destroy(target).trigger(source.controller)
 		pass
 	pass
@@ -64,7 +64,7 @@ class BG23_000:# <12>[1453]
 	pass
 class BG23_000e:
 	tags={GameTag.ATK:2, }
-	events = EndBattle(CONTROLLER).on(Destryoy_spellcraft(SELF))
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
 class BG23_000t:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -76,7 +76,7 @@ class BG23_000_G:# <12>[1453]
 	pass
 class BG23_000_Ge:
 	tags={GameTag.ATK:4,}
-	events = EndBattle(CONTROLLER).on(Destryoy_spellcraft(SELF))
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
 class BG23_000_Gt:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -132,7 +132,7 @@ class BG23_004:# <12>[1453]
 	pass
 class BG23_004e:
 	tags={GameTag.HEALTH:3, GameTag.TAUNT:True}
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))	
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
 	pass
 class BG23_004t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -145,7 +145,7 @@ class BG23_004_G:# <12>[1453]
 	pass
 class BG23_004_Ge:
 	tags={GameTag.HEALTH:6, GameTag.TAUNT:True}
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))	
+	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
 	pass
 class BG23_004_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -153,12 +153,19 @@ class BG23_004_Gt:
 	pass
 
 
-
-
+## Lava Lurker (2)  
+class BG23_009_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self,source,target, buff):
+		controller = source.controller
+		if controller.once_per_turn==False:
+			Buff(target, buff).trigger(source)
+			controller.once_per_turn=True
 class BG23_009:# <12>[1453]
 	""" Lava Lurker (2)
 	The first [Spellcraft] spellcast on this each turn is permanent. """
-	#
+	
 	pass
 class BG23_009_G:# <12>[1453]
 	""" Lava Lurker
