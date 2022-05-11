@@ -1,3 +1,4 @@
+from fireplace.card import THE_COIN
 from ..utils import *
 
 BG_Minion_Naga=['BG23_000','BG23_000_G',#Mini-Myrmidon(1)
@@ -47,15 +48,23 @@ BG_Naga_Gold={
 	'BGS_200':'TB_BaconUps_256',
 }
 
+class Destryoy_spellcraft(TargetedAction):
+	TARGET = ActionArg()
+	def do(self,source,target):
+		if target.one_battle_effect:
+			Destroy(target).trigger(source.controller)
+		pass
+	pass
 
+## Mini-Myrmidon(1)  ## need check
 class BG23_000:# <12>[1453]
 	""" Mini-Myrmidon(1)
 	[Spellcraft:] Give a minion +2 Attack until next turn. """
 	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_000t'))
 	pass
 class BG23_000e:
-	tags={GameTag.ATK:2,}
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	tags={GameTag.ATK:2, }
+	events = EndBattle(CONTROLLER).on(Destryoy_spellcraft(SELF))
 class BG23_000t:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -67,7 +76,7 @@ class BG23_000_G:# <12>[1453]
 	pass
 class BG23_000_Ge:
 	tags={GameTag.ATK:4,}
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = EndBattle(CONTROLLER).on(Destryoy_spellcraft(SELF))
 class BG23_000_Gt:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -75,34 +84,85 @@ class BG23_000_Gt:
 
 
 
+
+## Shell Collector(1) ## maybe ##
+class BG23_002:# <12>[1453]
+	""" Shell Collector(1)
+	[Battlecry:] Add a Gold Coin to your hand. """
+	play = Give(CONTROLLER, THE_COIN)
+	pass
+class BG23_002_G:# <12>[1453]
+	""" Shell Collector
+	[Battlecry:] Add 2 Gold Coinsto your hand. """
+	play = Give(CONTROLLER, THE_COIN)*2
+	pass
+
+
+
+
+## Snail Cavalry(2)   ## need check ##
+class BG23_001_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self,source,target, buff):
+		controller = source.controller
+		if controller.once_per_turn==False:
+			Buff(target, buff).trigger(source)
+			controller.once_per_turn=True
 class BG23_001:# <12>[1453]
 	""" Snail Cavalry(2)
 	[Once per Turn:]After you cast a spell,gain +2_Health. """
-	events = [
-		OWN_SPELL_PLAY.on(Buff(SELF, 'BG23_001e')),
-		OWN_TURN_BEGIN.on(SetAttr(CONTROLLER, 'once_per_turn', False))
-	]
+	events = OWN_SPELL_PLAY.on(BG23_001_Action(SELF, 'BG23_001e'))
 	pass
 BG23_001e=buff(0,2)
 class BG23_001_G:# <12>[1453]
 	""" Snail Cavalry
 	[Once per Turn:]After you cast a spell,gain +4_Health. """
-	#
+	events = OWN_SPELL_PLAY.on(BG23_001_Action(SELF, 'BG23_001_Ge'))
 	pass
 BG23_001_Ge=buff(0,4)
 
 
 
-
-class BG23_002:# <12>[1453]
-	""" Shell Collector(1)
-	[Battlecry:] Add a Gold Coin to your hand. """
-	#
+## Deep-Sea Angler (2) ### maybe ###
+class BG23_004:# <12>[1453]
+	""" Deep-Sea Angler (2)
+	[Spellcraft:] Give a minion+3 Health and [Taunt]until next turn. """
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_004t'))
+	pass
+class BG23_004e:
+	tags={GameTag.HEALTH:3, GameTag.TAUNT:True}
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))	
+	pass
+class BG23_004t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_004e')	
+	pass
+class BG23_004_G:# <12>[1453]
+	""" Deep-Sea Angler
+	[Spellcraft:] Give a minion+6 Health and [Taunt]until next turn. """
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_004_Gt'))
+	pass
+class BG23_004_Ge:
+	tags={GameTag.HEALTH:6, GameTag.TAUNT:True}
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))	
+	pass
+class BG23_004_Gt:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_004_Ge')	
 	pass
 
-class BG23_002_G:# <12>[1453]
-	""" Shell Collector
-	[Battlecry:] Add 2 Gold Coinsto your hand. """
+
+
+
+class BG23_009:# <12>[1453]
+	""" Lava Lurker (2)
+	The first [Spellcraft] spellcast on this each turn is permanent. """
+	#
+	pass
+class BG23_009_G:# <12>[1453]
+	""" Lava Lurker
+	The first 2 [Spellcraft] spellscast on this each turnare permanent. """
 	#
 	pass
 
@@ -124,28 +184,6 @@ BG23_003_Ge=buff(4,4)
 
 
 
-class BG23_004:# <12>[1453]
-	""" Deep-Sea Angler (2)
-	[Spellcraft:] Give a minion+3 Health and [Taunt]until next turn. """
-	#
-	pass
-class BG23_004e:
-	pass
-class BG23_004t:
-	pass
-class BG23_004_G:# <12>[1453]
-	""" Deep-Sea Angler
-	[Spellcraft:] Give a minion+6 Health and [Taunt]until next turn. """
-	#
-	pass
-class BG23_004_Ge:
-	pass
-class BG23_004_Gt:
-	pass
-
-
-
-
 class BG23_005:# <12>[1453]
 	""" Stormscale Siren (3)
 	At the end of your turn,your [Spellcraft] minionscast their spellson themselves. """
@@ -164,20 +202,24 @@ class BG23_005_G:# <12>[1453]
 class BG23_006:# <12>[1453]
 	""" Eelbound Archer (4)
 	[Spellcraft:] Give a minion +8_Attack until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_006t'))
 	pass
 class BG23_006e:
 	pass
 class BG23_006t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_006e')	
 	pass
 class BG23_006_G:# <12>[1453]
 	""" Eelbound Archer
 	[Spellcraft:] Give a minion+16_Attack until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_006_Gt'))
 	pass
 class BG23_006_Ge:
 	pass
 class BG23_006_Gt:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_006_Ge')	
 	pass
 
 
@@ -186,20 +228,24 @@ class BG23_006_Gt:
 class BG23_007:# <12>[1453]
 	""" Waverider (4)
 	[Spellcraft:] Give a minion+1/+1 and [Windfury]until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_007t'))
 	pass
 class BG23_007e:
 	pass
 class BG23_007t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_007e')	
 	pass
 class BG23_007_G:# <12>[1453]
 	""" Waverider
 	[Spellcraft:] Give a minion+2/+2 and [Windfury]until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_007_Gt'))
 	pass
 class BG23_007_Ge:
 	pass
 class BG23_007_Gt:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_007_Ge')	
 	pass
 
 
@@ -209,34 +255,24 @@ class BG23_007_Gt:
 class BG23_008:# <12>[1453]
 	""" Glowscale (5)
 	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_008t'))
 	pass
 class BG23_008e:
 	pass
 class BG23_008t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_008e')	
 	pass
 class BG23_008_G:# <12>[1453]
 	""" Glowscale
 	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_008_Gt'))
 	pass
 class BG23_008_Ge:
 	pass
 class BG23_008_Gt:
-	pass
-
-
-
-
-class BG23_009:# <12>[1453]
-	""" Lava Lurker (2)
-	The first [Spellcraft] spellcast on this each turnis permanent. """
-	#
-	pass
-class BG23_009_G:# <12>[1453]
-	""" Lava Lurker
-	The first 2 [Spellcraft] spellscast on this each turnare permanent. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_008_Ge')	
 	pass
 
 
@@ -263,20 +299,24 @@ class BG23_010_Ge:
 class BG23_011:# <12>[1453]
 	""" Shoal Commander (3)
 	[Spellcraft:] Give a minion+1/+1 for each friendlyNaga until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_011t'))
 	pass
 class BG23_011e:
 	pass
 class BG23_011t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_011e')		
 	pass
 class BG23_011_G:# <12>[1453]
 	""" Shoal Commander
 	[Spellcraft:] Give a minion+2/+2 for each friendlyNaga until next turn. """
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_011_Gt'))
 	pass
 class BG23_011_Ge:
 	pass
 class BG23_011_Gt:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'BG23_011_Ge')	
 	pass
 
 

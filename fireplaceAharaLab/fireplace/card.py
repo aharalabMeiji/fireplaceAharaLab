@@ -1025,6 +1025,7 @@ class Enchantment(BaseCard):
 
 	def __init__(self, data):
 		self.one_turn_effect = False
+		self.one_battle_effect = False ## battleground
 		self.additional_deathrattles = []
 		super().__init__(data)
 

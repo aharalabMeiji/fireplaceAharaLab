@@ -872,12 +872,13 @@ class TB_BaconUps_091:# <12>[1453]
 class BG23_015:# <12>[1453]
 	""" Orgozoa, the Tender(6)
 	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; a Naga."""
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_015t'))
 class BG23_015t:
 	pass
 class BG23_015_G:# <12>[1453]
 	"""
 	"""
-	#
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER,'BG23_015_Gt'))
 	pass
 class BG23_015_Gt:
 	pass

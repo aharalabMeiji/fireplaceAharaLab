@@ -178,6 +178,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CORRUPT: 'corrupt',
 	GameTag.CORRUPTEDCARD: 'corruptedcard',
 	GameTag.COST: "cost",
+	2423:"spellcraft",# battleground
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
 	GameTag.DEATHRATTLE: "has_deathrattle",
