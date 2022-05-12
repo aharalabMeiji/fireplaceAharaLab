@@ -420,7 +420,7 @@ class Move(object):
 		# コイン
 		# バナナ
 		# 血の宝石
-		if card!=None and card.cant_play!=True and len(self.controller.field)<7:
+		if card!=None and card.cant_play!=True and card.type==CardType.MINION and len(self.controller.field)<7:
 			if position<0:
 				position += len(self.controller.field)
 			card._summon_index = position
