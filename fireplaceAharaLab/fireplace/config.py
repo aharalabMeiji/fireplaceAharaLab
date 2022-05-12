@@ -24,7 +24,7 @@ class Config:# ()is the default value
 	PATCH23_3 = 0 ## 22年5月以降のレギュレーション（バディーなし）
 
 	HUMAN_PLAY=1 ##人間プレーヤーあり
-	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
+	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
 	CARD_PRESET1='BG20_GEM'
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）

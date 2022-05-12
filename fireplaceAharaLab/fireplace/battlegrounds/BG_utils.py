@@ -413,13 +413,12 @@ class Move(object):
 	def play(self, card, position=-1, targetpos=-1):
 		if card!=None and card.id=='TB_BaconShop_Triples_01':## カードを発見
 			pass
+		# play a spell card (blood gem, banana, coin, spellcraft)
 		if card!=None and card.type==CardType.SPELL:
 			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
 				card.target = self.controller.field[targetpos]
 			BG_Play(card, card.target, None, None).trigger(self.controller)
-		# コイン
-		# バナナ
-		# 血の宝石
+		# play a minion card
 		if card!=None and card.cant_play!=True and card.type==CardType.MINION and len(self.controller.field)<7:
 			if position<0:
 				position += len(self.controller.field)
