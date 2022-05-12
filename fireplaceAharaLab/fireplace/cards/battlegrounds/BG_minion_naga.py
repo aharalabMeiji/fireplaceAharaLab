@@ -170,16 +170,17 @@ class BG23_009_G:# <12>[1453]
 
 
 
-class BG23_005_Action(TargetedAction):
+class BG23_005_Action(TargetedAction): ## ‚æ‚­‚í‚©‚ñ‚È‚¢
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
+		from fireplace import cards
 		controller =target
 		for card in target.field:
 			if hasattr(card, "spellcraft") and card.spellcraft:
-				dbf_id = card.spellcraft
-				for _id in db.keys():
-					_card = db[_id]
+				dbf_id = cards.spellcraft
+				for _id in cards.db.keys():
+					_card = cards.db[_id]
 					if _card.data_dbf_id==dbf_id:
 						spellcard = controller.card(_id)
 						BG_Play(_card, card, None, None).trigger(controller)
