@@ -55,20 +55,28 @@ class BG20_GEMt:# <12>[1453]
 	pass
 
 ##
-## treasures
+## bananas
 ##
 
 class BGS_Treasures_000:# <12>[1453]
 	""" Big Banana
 	Give a minion +2/+2. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = ApplyBanana(TARGET, 'BGS_Treasures_000e')
+	pass
+BGS_Treasures_000e=buff(2,2)# <12>[1453]
+""" Big Banana , Has +2/+2. """
+
+class TB_BaconShop_Triples_01:# <12>[1453]
+	""" Triple Reward
+	[Discover] a minionfrom [Tavern Tier @]. """
 	#
 	pass
 
-class BGS_Treasures_000e:# <12>[1453]
-	""" Big Banana
-	Has +2/+2. """
-	#
-	pass
+
+
+#########  appendix  ########
+
 
 class BGS_Treasures_001:# <7>[1453]
 	""" Pocket Change
@@ -476,11 +484,6 @@ class TB_BaconShop_IncreasedStats:# <12>[1453]
 	#
 	pass
 
-class TB_BaconShop_Triples_01:# <12>[1453]
-	""" Triple Reward
-	[Discover] a minionfrom [Tavern Tier @]. """
-	#
-	pass
 
 class TB_BaconShop_UpdateDmgCap:# <12>[1453]
 	""" Update Damage Cap [DNT]

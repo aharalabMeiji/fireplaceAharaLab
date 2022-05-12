@@ -107,7 +107,7 @@ class Player(Entity, TargetableByAuras):
 		self.attacker_index=0 # battlegrounds
 		self.first_dead_minion=None # battlegrounds
 		self.second_dead_minion=None # battlegrounds
-		self.once_per_turn=False # battlegrounds
+		self.once_per_turn=0 # battlegrounds
 		self.deepcopy_original=None # battlegrounds
 		self.nomi_powered_up = 0## battlegrounds, Nomi
 		self.lightspawn_powered_up = 0## battlegrounds, lightspoan

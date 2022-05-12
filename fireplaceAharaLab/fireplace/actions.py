@@ -3012,6 +3012,16 @@ class AddScriptDataNum1(TargetedAction):
 
 ## Battlegrounds actions
 
+class ApplyBanana(TargetedAction):
+	TARGET=ActionArg()
+	GEM=ActionArg()
+	def do(self, source, target, gem):
+		if gem=='BGS_Treasures_000e':## big banana
+			Buff(target,'BGS_Treasures_000e').trigger(source)
+			self.broadcast(source, EventListener.ON, target, gem)
+			self.broadcast(source, EventListener.AFTER, target, gem)
+			target.gem_applied_thisturn=True
+
 class ApplyGem(TargetedAction):
 	TARGET=ActionArg()
 	GEM=ActionArg()

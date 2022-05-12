@@ -182,7 +182,7 @@ class BG_main:
 				if controller.hero.power:
 					controller.hero.power.activations_this_turn = 0
 				controller.spentmoney_in_this_turn=0
-				controller.once_per_turn=False
+				controller.once_per_turn=0
 				# in this timing, some choice may occer.
 				choiceAction(controller)
 				while True:
