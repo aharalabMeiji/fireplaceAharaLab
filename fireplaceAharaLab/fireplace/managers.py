@@ -238,7 +238,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SIDEQUEST: "sidequest",# 
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLCRAFT: "spellcraft",
-	2564: "spellcraft_buff",
 	2423: "spellcraft_spellcard",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",

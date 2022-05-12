@@ -152,44 +152,42 @@ class BG23_004_Gt:
 	pass
 
 
-## Lava Lurker (2)  
+## Lava Lurker (2)  ### OK ###
 class BG23_009_Action(TargetedAction):
-	TARGET=ActionArg()
+	BUFF=ActionArg()
 	AMOUNT=ActionArg()
-	def do(self, source, target, amount):
+	def do(self, source, buff, amount):
 		controller = source.controller
-		buffid = target.id[:-1]+'e'## cheet to get buff_id
-		if controller.once_per_turn<amount:
-			Buff(source, buffid).trigger(source)###########################‚æ‚­‚í‚©‚ç‚ñ
-			controller.once_per_turn+=1
+		if hasattr(buff.source,'spellcraft_spellcard'):
+			if controller.once_per_turn<amount:
+				buff.permanent_buff = True
+				controller.once_per_turn+=1
 class BG23_009:# <12>[1453]
 	""" Lava Lurker (2)
 	The first [Spellcraft] spellcast on this each turn is permanent. """
-	events = BG_Play(CONTROLLER, SPELL, SELF).on(BG23_009_Action(BG_Play.CARD, 1))
+	## Only in this case, Buff.on activates for spellcraft spellcasts. 
+	events = Buff(SELF).on(BG23_009_Action(Buff.BUFF, 1))
 	pass
 class BG23_009_G:# <12>[1453]
 	""" Lava Lurker
 	The first 2 [Spellcraft] spellscast on this each turnare permanent. """
-	#
+	events = Buff(SELF).on(BG23_009_Action(Buff.BUFF, 2))
 	pass
 
 
 
-## Stormscale Siren (3)
-class BG23_005_Action(TargetedAction): ## ‚æ‚­‚í‚©‚ñ‚È‚¢
+## Stormscale Siren (3)  ### OK ###
+class BG23_005_Action(TargetedAction): ## 
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
-		from fireplace import cards
-		controller =target
+		controller =source.controller
 		for card in target.field:
 			if hasattr(card, "spellcraft") and card.spellcraft:
-				dbf_id = cards.spellcraft
-				for _id in cards.db.keys():
-					_card = cards.db[_id]
-					if _card.data_dbf_id==dbf_id:
-						spellcard = controller.card(_id)
-						BG_Play(_card, card, None, None).trigger(controller)
+				spellcraft_spellid = card.id+'t'## cheet to get spell card id
+				for repeat in range(amount):
+					spellcard = controller.card(spellcraft_spellid)
+					Battlecry(spellcard, card).trigger(controller)
 class BG23_005:# <12>[1453]
 	""" Stormscale Siren (3)
 	At the end of your turn,your [Spellcraft] minions cast their spells on themselves. """
@@ -198,7 +196,7 @@ class BG23_005:# <12>[1453]
 class BG23_005_G:# <12>[1453]
 	""" Stormscale Siren
 	At the end of your turn,your [Spellcraft] minionscast their spells_on themselves twice. """
-	##################################
+	events = OWN_TURN_END.on(BG23_005_Action(CONTROLLER, 2))
 	pass
 
 
@@ -207,12 +205,12 @@ class BG23_005_G:# <12>[1453]
 class BG23_014:# <12>[1453]
 	""" Pashmar the Vengeful (3)
 	[Avenge (3):] Get a[Spellcraft] spell of your Tier or lower. """
-	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell(tech_level=TIER(CONTROLLER)))]))
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell())]))
 	pass
 class BG23_014_G:# <12>[1453]
 	""" Pashmar the Vengeful
 	[Avenge (3):] Get 2[Spellcraft] spellsof your Tier or lower. """
-	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell(tech_level=TIER(CONTROLLER))), Give(CONTROLLER, RandomBGSpellcraftSpell(tech_level=TIER(CONTROLLER)))]))
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell())]*2))
 	pass
 
 

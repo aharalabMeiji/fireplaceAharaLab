@@ -227,23 +227,22 @@ class BG_HumanAgent(BG_Agent):
 
 	def card_stats(self, card):
 		ret = ' %s'%(card)
-		if card.type != CardType.MINION:
-			return ret
-		ret += '(%d/%d)'%(card.atk,card.health)
-		if card.cant_play:
-			ret += "(can't play)"
-		if card.frozen:
-			ret += "(frozen)"
-		if card.taunt:
-			ret += "(taunt)"
-		if card.divine_shield:
-			ret += "(divine_shield)"
-		if card.windfury>0:
-			ret += "(windfury)"
-		if card.reborn:
-			ret += "(reborn)"
-		if card.has_deathrattle:
-			ret += "(deathrattle)"
+		if card.type == CardType.MINION:
+			ret += '(%d/%d)'%(card.atk,card.health)
+			if card.cant_play:
+				ret += "(can't play)"
+			if card.frozen:
+				ret += "(frozen)"
+			if card.taunt:
+				ret += "(taunt)"
+			if card.divine_shield:
+				ret += "(divine_shield)"
+			if card.windfury>0:
+				ret += "(windfury)"
+			if card.reborn:
+				ret += "(reborn)"
+			if card.has_deathrattle:
+				ret += "(deathrattle)"
 		ret += card.data.description.replace('\n','_')
 		return ret
 
