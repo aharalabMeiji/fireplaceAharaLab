@@ -11,6 +11,7 @@ from .BG_minion_demon import *
 from .BG_minion_dragon import *
 from .BG_minion_elemental import *
 from .BG_minion_mecha import *
+from .BG_minion_naga import *
 from .BG_minion_murloc import *
 from .BG_minion_quilboar import *
 

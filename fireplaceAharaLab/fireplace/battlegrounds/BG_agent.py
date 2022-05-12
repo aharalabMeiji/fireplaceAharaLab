@@ -51,18 +51,17 @@ class BG_NecoAgent(BG_Agent):
 		else:
 			return 10
 	def NecoMoveChoice(self, bar, candidates, controller, bartender):
-		myCandidate = candidates
-		if len(myCandidate)>0:
+		if len(candidates)>0:
 			choices=[]
 			tier = controller.tavern_tier
 			gold = controller.mana
 			if (tier,gold) in [(1,4),(2,7),(3,9),(4,10),(5,10)]:
-				for move in myCandidate:
+				for move in candidates:
 					if move.move==MovePlay.TIERUP:
 						return move
 			if gold>=3:
 				max_stats=0
-				for move in myCandidate:
+				for move in candidates:
 					if move.move==MovePlay.BUY:
 						card = move.target
 						if choices==[]:
@@ -78,7 +77,7 @@ class BG_NecoAgent(BG_Agent):
 			if len(controller.field)<7 and len(controller.hand)>0:
 				max_stats=0
 				choices=[]
-				for move in myCandidate:
+				for move in candidates:
 					if move.move==MovePlay.PLAY:
 						card = move.target
 						if choices==[]:
@@ -98,7 +97,7 @@ class BG_NecoAgent(BG_Agent):
 					if max_stats>self.getStats(card):
 						min_minion=card
 						max_stats=self.getStats(card)
-				for move in myCandidate:
+				for move in candidates:
 					if move.move==MovePlay.BUY:
 						card = move.target
 						if self.getStats(card)>max_stats:
@@ -107,10 +106,10 @@ class BG_NecoAgent(BG_Agent):
 						elif self.getStats(card)==max_stats:
 							choices.append(move)
 				if len(choices)>0:
-					for choice in myCandidate:
+					for choice in candidates:
 						if choice.target==card and choice.move==MovePlay.SELL:
 							return choice
-			for choice in myCandidate:
+			for choice in candidates:
 				if choice.move==MovePlay.TURNEND:
 					return choice
 		return None

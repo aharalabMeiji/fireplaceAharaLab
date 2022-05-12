@@ -3073,7 +3073,10 @@ class Destroy_spellcraft(TargetedAction):
 	TARGET = ActionArg()
 	def do(self,source,target):
 		if not target.permanent_buff:
-			Destroy(target).trigger(source.controller)
+			if target.type==CardType.ENCHANTMENT:
+				target.remove()
+			else:
+				Destroy(target).trigger(source.controller)
 		pass
 	pass
 

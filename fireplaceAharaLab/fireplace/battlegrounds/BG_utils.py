@@ -18,8 +18,6 @@ BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
 class BG_main:
 	def __init__(self):
-		## buddyありゲーム（2022/05までのゲーム）
-		self.buddy_game=True
 		#使用カードの初期化
 		cards.db.BG_initialize()
 		#エージェントのリスト
@@ -61,8 +59,6 @@ class BG_main:
 				rep=4
 			for repeat in range(rep):	
 				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
-				if Config.PATCH23_3:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion23[i]
 				if 'beast' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 				if 'demon' in races:
@@ -76,7 +72,7 @@ class BG_main:
 				if 'murloc' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
 				if 'naga' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Naga[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_naga.BG_PoolSet_Naga[i]
 				if 'pirate' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				if 'quilboar' in races:
@@ -88,6 +84,7 @@ class BG_main:
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_dragon.BG_Dragon_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_elemental.BG_Elemental_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_mecha.BG_Mecha_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_naga.BG_Naga_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_murloc.BG_Murloc_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_pirate.BG_Pirate_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_quilboar.BG_Quilboar_Gold)

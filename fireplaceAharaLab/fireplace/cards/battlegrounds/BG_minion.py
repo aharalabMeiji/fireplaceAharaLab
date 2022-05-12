@@ -1,100 +1,101 @@
 from ..utils import *
 
-
-BG_Minion=[
-	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
-	'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
-	'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
-	'BG20_203','BG20_203_G',#Prophet of the Boar	2
-	'OG_221','TB_BaconUps_014',#Selfless Hero	2
-	'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
-	'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
-	'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
-	'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
-	'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
-	'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
-	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
-	'DAL_575','TB_BaconUps_034',#Khadgar	3
-	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
-	'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
-	'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
-	'BG21_007','BG21_007_G',#Impatient Doomsayer	4
-	'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
-	'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
-	'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
-	'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
-	'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
-	'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
-	'BGS_131','TB_BaconUps_251',#Deadly Spore	5
-	'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
-	'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',#Lightfang Enforcer	5
-	'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',#Master of Realities	5
-	'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',#Mythrax the Unraveler	5
-	'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',#Nomi, Kitchen Nightmare	5
-	'BGS_069','TB_BaconUps_121',#Amalgadon	6
-	'BGS_040','TB_BaconUps_154',#Nadina the Red	6
-	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
-	'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6
-]
-BG_Minion23=[
-	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
-	'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
-	'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
-	'BG20_203','BG20_203_G',#Prophet of the Boar	2
-	'OG_221','TB_BaconUps_014',#Selfless Hero	2
-	'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
-	'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
-	'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
-	'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
-	'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
-	'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
-	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
-	'DAL_575','TB_BaconUps_034',#Khadgar	3
-	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
-	'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
-	'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
-	'BG21_007','BG21_007_G',#Impatient Doomsayer	4
-	'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
-	'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
-	'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
-	'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
-	'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
-	'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
-	'BGS_131','TB_BaconUps_251',#Deadly Spore	5
-	'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
-	'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',#Lightfang Enforcer	5
-	'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',#Master of Realities	5
-	'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',#Mythrax the Unraveler	5
-	'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',#Nomi, Kitchen Nightmare	5
-	##'BGS_069','TB_BaconUps_121',#Amalgadon	6
-	'BGS_040','TB_BaconUps_154',#Nadina the Red	6
-	'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
-	'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6	
-	### NEW CARDS ####
-	'BG23_015','BG23_015t','BG23_015_G','BG23_015_Gt', #Orgozoa, the Tender 6  NEW
-	'BG23_016','BG23_016_G', # Reef Explorer 4 NEW
-	'BG23_018','BG23_018t','BG23_018_G', # Darkgaze Elder 6 NEW
-	'BG23_318','BG23_318_G', # Leeroy the Reckless 5 NEW
-	'BG23_Spellcraft_e',
-	'GIL_681','BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
+if Config.PATCH23_3:
+	BG_Minion=[
+		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
+		'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
+		'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
+		'BG20_203','BG20_203_G',#Prophet of the Boar	2
+		'OG_221','TB_BaconUps_014',#Selfless Hero	2
+		'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
+		'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
+		'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
+		'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
+		'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
+		'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
+		'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
+		'DAL_575','TB_BaconUps_034',#Khadgar	3
+		'BGS_002','TB_BaconUps_075',#Soul Juggler	3
+		##'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
+		'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
+		'BG21_007','BG21_007_G',#Impatient Doomsayer	4
+		'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
+		'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
+		'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
+		'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
+		'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
+		'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
+		##'BGS_131','TB_BaconUps_251',#Deadly Spore	5
+		'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
+		'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',#Lightfang Enforcer	5
+		'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',#Master of Realities	5
+		'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',#Mythrax the Unraveler	5
+		'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',#Nomi, Kitchen Nightmare	5
+		##'BGS_069','TB_BaconUps_121',#Amalgadon	6
+		'BGS_040','TB_BaconUps_154',#Nadina the Red	6
+		##'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
+		'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6	
+		### NEW CARDS ####
+		'BG23_015','BG23_015t','BG23_015_G','BG23_015_Gt', #Orgozoa, the Tender 6  NEW
+		'BG23_016','BG23_016_G', # Reef Explorer 4 NEW
+		'BG23_018','BG23_018t','BG23_018_G', # Darkgaze Elder 6 NEW
+		'BG23_318','BG23_318_G', # Leeroy the Reckless 5 NEW
+		'BG23_Spellcraft_e',
+		'GIL_681','BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
 	]
-
-BG_PoolSet_Minion=[
-	['BGS_004',],
-	['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
-	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002',],#3
-	['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],#4
-	['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],#5
-	['BGS_069','BGS_040','BG21_011','BGS_022',],#6
+	BG_PoolSet_Minion=[
+		['BGS_004',],
+		['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
+		['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002','GIL_681',],#3
+		['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',],#4
+		['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',],#5
+		['BGS_040','BG21_011','BGS_022','BG23_015','BG23_018',],#6
 	]
-BG_PoolSet_Minion23=[
-	['BGS_004',],
-	['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
-	['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002','GIL_681',],#3
-	['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',],#4
-	['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',],#5
-	['BGS_040','BG21_011','BGS_022','BG23_015','BG23_018',],#6
-]
+else:
+	BG_Minion=[
+		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
+		'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
+		'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
+		'BG20_203','BG20_203_G',#Prophet of the Boar	2
+		'OG_221','TB_BaconUps_014',#Selfless Hero	2
+		'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
+		'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
+		'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
+		'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
+		'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
+		'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
+		'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
+		'DAL_575','TB_BaconUps_034',#Khadgar	3
+		'BGS_002','TB_BaconUps_075',#Soul Juggler	3
+		'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
+		'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
+		'BG21_007','BG21_007_G',#Impatient Doomsayer	4
+		'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
+		'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
+		'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
+		'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
+		'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
+		'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
+		'BGS_131','TB_BaconUps_251',#Deadly Spore	5
+		'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
+		'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',#Lightfang Enforcer	5
+		'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',#Master of Realities	5
+		'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',#Mythrax the Unraveler	5
+		'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',#Nomi, Kitchen Nightmare	5
+		'BGS_069','TB_BaconUps_121',#Amalgadon	6
+		'BGS_040','TB_BaconUps_154',#Nadina the Red	6
+		'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
+		'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6
+	]
+	BG_PoolSet_Minion=[
+		['BGS_004',],
+		['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
+		['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002',],#3
+		['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038',],#4
+		['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104',],#5
+		['BGS_069','BGS_040','BG21_011','BGS_022',],#6
+		]
+
 
 BG_Minon_Gold={
 	#Wrath Weaver	1	1	3	-	-
@@ -165,7 +166,11 @@ BG_Minon_Gold={
 	'BG21_011':'BG21_011_G',
 	#Zapp Slywick	6	7	10	-	Windfury
 	'BGS_022':'TB_BaconUps_091',	
-	'BG23_015':'BG23_015_G',
+	'BG23_015':'BG23_015_G', #Orgozoa, the Tender 6  NEW
+	'BG23_016':'BG23_016_G', # Reef Explorer 4 NEW
+	'BG23_018':'BG23_018_G', # Darkgaze Elder 6 NEW
+	'BG23_318':'BG23_318_G', # Leeroy the Reckless 5 NEW
+	'GIL_681':'BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
 	}
 
 #Wrath Weaver	1	1	3	 ### maybe ###
@@ -919,16 +924,30 @@ class BG23_015_Gt:
 	pass
 
 
-
+class BG23_016_Choice(Choice):
+	def get_args(self, source):
+		player, cards = super().get_args(source)
+		controller = source,controller
+		for fcard in controller.field:
+			exclude_race = fcard.race
+			for card in reversed(cards):
+				if card.race==exclude_race:
+					cards.remove(card)
+			pass
+		if len(cards)>0:
+			if len(cards)>3:
+				cards = random.sample(cards,3)
+		return player, cards
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a minion from a minion type you don't control."""
-	#play = Discover(CONTROLLER, BG23_015_Entourage())
+	play = BG23_016_Choice(CONTROLLER, RandomBGMinion())
 	pass
 class BG23_016_G:# <12>[1453]
 	"""
 	&lt;b&gt;Battlecry: Discover&lt;/b&gt; 2 minions from minion types you don't control."""
 	#play = DiscoverTwice(CONTROLLER, BG23_015_Entourage())
+	#play = BG23_016_G_Choice(CONTROLLER, RandomBGMinion())
 	pass
 
 

@@ -147,6 +147,7 @@ class CardDB(dict):
 			battlegrounds.BG_minion_dragon.BG_Minion_Dragon,
 			battlegrounds.BG_minion_elemental.BG_Minion_Elemental,
 			battlegrounds.BG_minion_mecha.BG_Minion_Mecha,
+			battlegrounds.BG_minion_naga.BG_Minion_Naga,
 			battlegrounds.BG_minion_murloc.BG_Minion_Murloc,
 			battlegrounds.BG_minion_pirate.BG_Minion_Pirate,
 			battlegrounds.BG_minion_quilboar.BG_Minion_Quilboar,

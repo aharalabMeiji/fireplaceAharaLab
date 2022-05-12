@@ -21,7 +21,7 @@ class Config:# ()is the default value
 	DEEPCOPY_LOGINFO=0
 
 	#battlegrounds option
-	PATCH23_3 = 0 ## 22年5月以降のレギュレーション（バディーなし）
+	PATCH23_3 = 1 ## 22年5月以降のレギュレーション（バディーなし）
 
 	HUMAN_PLAY=1 ##人間プレーヤーあり
 	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
