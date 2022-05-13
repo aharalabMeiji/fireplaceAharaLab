@@ -2,6 +2,7 @@ from ..utils import *
 
 BG_Gems=[
 	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',
+	'TB_BaconShop_Triples_01',#### triple card
 	'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
 	'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
 	'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
@@ -70,7 +71,7 @@ BGS_Treasures_000e=buff(2,2)# <12>[1453]
 class TB_BaconShop_Triples_01:# <12>[1453]
 	""" Triple Reward
 	[Discover] a minionfrom [Tavern Tier @]. """
-	#
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level=TAG_SCRIPT_DATA_NUM_1(SELF)))
 	pass
 
 

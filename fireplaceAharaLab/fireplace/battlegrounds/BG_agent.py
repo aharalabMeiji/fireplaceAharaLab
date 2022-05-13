@@ -4,7 +4,7 @@ from fireplace.dsl.selector import TARGET
 from fireplace.player import Player
 from fireplace.cards.battlegrounds import BG_hero1
 import random
-from hearthstone.enums import Zone,State, CardClass, CardType
+from hearthstone.enums import Zone,State, CardClass, CardType, GameTag
 from .BG_enums import MovePlay
 
 class BG_Agent(object):
@@ -243,6 +243,6 @@ class BG_HumanAgent(BG_Agent):
 				ret += "(reborn)"
 			if card.has_deathrattle:
 				ret += "(deathrattle)"
-		ret += card.data.description.replace('\n','_')
+		ret += card.data.description.replace('\n','_').replace('@','%d'%(card.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]))
 		return ret
 
