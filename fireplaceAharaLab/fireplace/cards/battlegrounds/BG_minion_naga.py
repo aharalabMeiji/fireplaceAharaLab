@@ -56,6 +56,7 @@ class BG23_000:# <12>[1453]
 	[Spellcraft:] Give a minion +2 Attack until next turn. """
 	play = Spellcraft(CONTROLLER,'BG23_000t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_000t'))
+	tags={2359:'BG23_000t'}
 	pass
 class BG23_000t:
 	""" Mini-Trident
@@ -70,6 +71,7 @@ class BG23_000_G:# <12>[1453]
 	[Spellcraft:] Give a minion +4 Attack until next turn. """
 	play = Spellcraft(CONTROLLER,'BG23_000_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_000_Gt'))
+	tags={2359:'BG23_000_Gt'}
 	pass
 class BG23_000_Ge:
 	tags={GameTag.ATK:4,}
@@ -127,6 +129,7 @@ class BG23_004:# <12>[1453]
 	[Spellcraft:] Give a minion+3 Health and [Taunt]until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_004t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_004t'))
+	tags={2359:'BG23_004t'}
 	pass
 class BG23_004e:
 	tags={GameTag.HEALTH:3, GameTag.TAUNT:True}
@@ -141,6 +144,7 @@ class BG23_004_G:# <12>[1453]
 	[Spellcraft:] Give a minion+6 Health and [Taunt]until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_004_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_004_Gt'))
+	tags={2359:'BG23_004_Gt'}
 	pass
 class BG23_004_Ge:
 	tags={GameTag.HEALTH:6, GameTag.TAUNT:True}
@@ -201,16 +205,30 @@ class BG23_005_G:# <12>[1453]
 
 
 
-## Pashmar the Vengeful (3)
+## Pashmar the Vengeful (3) ### OK ###
+class BG23_014_Action(TargetedAction):
+	"""
+	Give player targets card \a id. (battleground)
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, cards):
+		original = target.deepcopy_original
+		if original:
+			if not hasattr(cards, "__iter__"):
+				cards = [cards]			
+			for card in cards:
+				Give(original, card.spellcraft).trigger(source)
+		pass
 class BG23_014:# <12>[1453]
 	""" Pashmar the Vengeful (3)
-	[Avenge (3):] Get a[Spellcraft] spell of your Tier or lower. """
-	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell())]))
+	[Avenge (3):] Get a [Spellcraft] spell of your Tier or lower. """
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [BG23_014_Action(CONTROLLER, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER)))]))
 	pass
 class BG23_014_G:# <12>[1453]
 	""" Pashmar the Vengeful
 	[Avenge (3):] Get 2[Spellcraft] spellsof your Tier or lower. """
-	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGSpellcraftSpell())]*2))
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [BG23_014_Action(CONTROLLER, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER)))]*2))
 	pass
 
 
@@ -235,6 +253,7 @@ class BG23_011:# <12>[1453]
 	[Spellcraft:] Give a minion +1/+1 for each friendly Naga until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_011t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_011t'))
+	tags={2359:'BG23_011t'}
 	pass
 class BG23_011e:
 	tags={GameTag.ATK:1, GameTag.HEALTH:1}
@@ -249,6 +268,7 @@ class BG23_011_G:# <12>[1453]
 	[Spellcraft:] Give a minion+2/+2 for each friendlyNaga until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_011_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_011_Gt'))
+	tags={2359:'BG23_011_Gt'}
 	pass
 class BG23_011_Ge:
 	tags={GameTag.ATK:1, GameTag.HEALTH:1}
@@ -272,6 +292,7 @@ class BG23_006:# <12>[1453]
 class BG23_006e:
 	tags = {GameTag.ATK:8}
 	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	tags={2359:'BG23_006t'}
 	pass
 class BG23_006t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -282,6 +303,7 @@ class BG23_006_G:# <12>[1453]
 	[Spellcraft:] Give a minion+16_Attack until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_006_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_006_Gt'))
+	tags={2359:'BG23_006_Gt'}
 	pass
 class BG23_006_Ge:
 	tags = {GameTag.ATK:16}
@@ -300,6 +322,7 @@ class BG23_007:# <12>[1453]
 	[Spellcraft:] Give a minion+1/+1 and [Windfury] until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_007t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_007t'))
+	tags={2359:'BG23_007t'}
 	pass
 class BG23_007e:
 	tags={GameTag.ATK:1, GameTag.HEALTH:1, GameTag.WINDFURY:1}
@@ -314,6 +337,7 @@ class BG23_007_G:# <12>[1453]
 	[Spellcraft:] Give a minion+2/+2 and [Windfury]until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_007_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_007_Gt'))
+	tags={2359:'BG23_007_Gt'}
 	pass
 class BG23_007_Ge:
 	tags={GameTag.ATK:2, GameTag.HEALTH:3, GameTag.WINDFURY:1}
@@ -378,6 +402,7 @@ class BG23_008:# <12>[1453]
 	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_008t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_008t'))
+	tags={2359:'BG23_008t'}
 	pass
 class BG23_008e:
 	def apply(self,target):
@@ -394,6 +419,7 @@ class BG23_008_G:# <12>[1453]
 	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_008_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_008_Gt'))
+	tags={2359:'BG23_008_Gt'}
 	pass
 class BG23_008_Ge:
 	def apply(self,target):

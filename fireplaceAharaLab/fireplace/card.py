@@ -170,7 +170,6 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	playable_zone = Zone.HAND
 	reborn = boolean_property("reborn")# 
 	script_data_num_1 = int_property("script_data_num_1")
-	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
 	trade_cost = int_property("trade_cost")#stormwind
 	tradeable = boolean_property("tradeable")#stormwind
 	windfury = int_property("windfury")
@@ -786,6 +785,7 @@ class Minion(Character):
 	stealthed = boolean_property("stealthed")
 	frenzy = boolean_property("frenzy")
 	tech_level = int_property("tech_level") # battlegrounds
+	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",

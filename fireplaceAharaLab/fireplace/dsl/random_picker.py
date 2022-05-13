@@ -117,7 +117,7 @@ RandomBGDragon = lambda **kw: RandomBGMinion(race=Race.DRAGON, **kw)
 RandomBGElemental = lambda **kw: RandomBGMinion(race=Race.ELEMENTAL, **kw)
 RandomBGNaga = lambda **kw: RandomBGMinion(race=Race.NAGA, **kw)
 RandomBGMinion = lambda **kw: RandomBGCollectible(type=CardType.MINION, **kw)
-RandomBGSpellcraftSpell = lambda **kw: RandomBGCollectible(spellcraft_spellcard=1, **kw)
+RandomBGSpellcraft = lambda **kw: RandomBGCollectible(spellcraft=1, **kw)
 
 
 class RandomEntourage(RandomCardPicker):

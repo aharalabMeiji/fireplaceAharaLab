@@ -25,7 +25,7 @@ class Config:# ()is the default value
 
 	HUMAN_PLAY=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG23_005_G'
+	CARD_PRESET1='BG23_014_G'
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ

@@ -1358,6 +1358,7 @@ class SpendMana(TargetedAction):
 		target.used_mana = max(target.used_mana + amount, 0)
 
 
+
 class Give(TargetedAction):
 	"""
 	Give player targets card \a id.

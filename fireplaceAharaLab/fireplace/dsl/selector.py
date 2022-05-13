@@ -135,7 +135,7 @@ NUM_ATTACKS_THIS_TURN = AttrValue(GameTag.NUM_ATTACKS_THIS_TURN)
 UPGRADE_COUNTER = AttrValue("upgrade_counter")
 NUM_ATTACKS = AttrValue("num_attacks")
 MAX_HAND_SIZE = AttrValue("max_hand_size")
-TIER = AttrValue("Tier")
+TIER = AttrValue("tavern_tier")
 TAG_SCRIPT_DATA_NUM_1 = AttrValue(GameTag.TAG_SCRIPT_DATA_NUM_1)
 
 class ComparisonSelector(Selector):

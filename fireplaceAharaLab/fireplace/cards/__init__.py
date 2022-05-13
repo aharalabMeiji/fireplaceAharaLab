@@ -192,6 +192,8 @@ class CardDB(dict):
 					cards = [card for card in cards if hasattr(card,'has_choose_one')]
 				elif attr == 'tech_level':
 					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)==value ]
+				elif attr == 'spellcraft':
+					cards = [card for card in cards if card.tags.get(2359,'')!='' ]
 				elif attr == 'tech_level_less':
 					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)<=value ]
 				elif attr == 'bg_collectible':
