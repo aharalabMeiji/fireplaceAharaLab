@@ -234,21 +234,35 @@ class BG23_014_G:# <12>[1453]
 
 
 
-## Warden of Old (3)
+## Warden of Old (3) ### OK ###
+class BGS_200_Action(TargetedAction):
+	"""
+	Give player targets card \a id. (battleground)
+	"""
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, cards):
+		original = target.deepcopy_original
+		if original:
+			if not hasattr(cards, "__iter__"):
+				cards = [cards]			
+			for card in cards:
+				Give(original, card).trigger(source)
+		pass
 class BGS_200:# <12>[1453]
 	""" Warden of Old (3)
 	[Deathrattle:] Add a Gold Coin to your hand. """
-	deathrattle = Give(CONTROLLER, THE_COIN)
+	deathrattle = BGS_200_Action(CONTROLLER, THE_COIN)
 	pass
 class TB_BaconUps_256:# <12>[1453]
 	""" Warden of Old
 	[Deathrattle:] Add 2 Gold Coins to your hand. """
-	deathrattle = Give(CONTROLLER, THE_COIN)*2
+	deathrattle = BGS_200_Action(CONTROLLER, THE_COIN)*2
 	pass
 
 
 
-class BG23_011:# <12>[1453]
+class BG23_011:# <12>[1453]  ### OK ###
 	""" Shoal Commander (3)
 	[Spellcraft:] Give a minion +1/+1 for each friendly Naga until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_011t')
