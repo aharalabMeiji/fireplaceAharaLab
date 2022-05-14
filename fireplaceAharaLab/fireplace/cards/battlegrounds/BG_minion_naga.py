@@ -191,7 +191,7 @@ class BG23_005_Action(TargetedAction): ##
 				spellcraft_spellid = card.id+'t'## cheet to get spell card id
 				for repeat in range(amount):
 					spellcard = controller.card(spellcraft_spellid)
-					Battlecry(spellcard, card).trigger(controller)
+					BG_Play(spellcard, card, None, None).trigger(controller)
 class BG23_005:# <12>[1453]
 	""" Stormscale Siren (3)
 	At the end of your turn,your [Spellcraft] minions cast their spells on themselves. """
@@ -271,7 +271,7 @@ class BG23_011_G:# <12>[1453]
 	tags={2359:'BG23_011_Gt'}
 	pass
 class BG23_011_Ge:
-	tags={GameTag.ATK:1, GameTag.HEALTH:1}
+	tags={GameTag.ATK:2, GameTag.HEALTH:2}
 	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
 	pass
 class BG23_011_Gt:
@@ -458,7 +458,7 @@ class BG23_012_Ge:
 
 
 
-
+##Tidemistress Athissa (6)  アジッサ  ### OK ###
 class BG23_013_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
@@ -483,9 +483,7 @@ class BG23_013_G:# <12>[1453]
 	After you cast a spell, givefour friendly Naga +2/+2. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_013_Action(CONTROLLER, 'BG23_013_Ge'))
 	pass
-class BG23_013_Ge:
-	tags = {GameTag.ATK:2, GameTag.HEALTH:2}
-	pass
+BG23_013_Ge=buff(2,2)
 
 
 
