@@ -17,7 +17,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=0 # log.info相当のログ表示
+	LOGINFO=1# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 
 	#battlegrounds option
@@ -25,8 +25,8 @@ class Config:# ()is the default value
 
 	HUMAN_PLAY=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG23_006'
-	CARD_PRESET2='TB_BaconUps_115'
+	CARD_PRESET1='BG23_007'
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']

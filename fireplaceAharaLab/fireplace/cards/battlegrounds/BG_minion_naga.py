@@ -296,7 +296,7 @@ class BG23_011_Gt:
 
 
 
-#Eelbound Archer (4)
+#Eelbound Archer (4) ### OK ###
 class BG23_006:# <12>[1453]
 	""" Eelbound Archer (4)
 	[Spellcraft:] Give a minion +8_Attack until next turn. """
@@ -339,8 +339,10 @@ class BG23_007:# <12>[1453]
 	tags={2359:'BG23_007t'}
 	pass
 class BG23_007e:
-	tags={GameTag.ATK:1, GameTag.HEALTH:1, GameTag.WINDFURY:1}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	def apply(self, target):
+		target.windfury=1
+	tags={GameTag.ATK:1, GameTag.HEALTH:1, }
+	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
 	pass
 class BG23_007t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -354,8 +356,10 @@ class BG23_007_G:# <12>[1453]
 	tags={2359:'BG23_007_Gt'}
 	pass
 class BG23_007_Ge:
-	tags={GameTag.ATK:2, GameTag.HEALTH:3, GameTag.WINDFURY:1}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	def apply(self, target):
+		target.windfury=1
+	tags={GameTag.ATK:2, GameTag.HEALTH:2, }
+	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
 	pass
 class BG23_007_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
