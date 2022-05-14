@@ -330,7 +330,7 @@ class BG23_006_Gt:
 
 
 
-## Waverider (4) ### OK ### windfuryÇÃàµÇ¢Ç™ìÔÇµÇ∑Ç¨ÇÈ
+## Waverider (4) ### OK ### too hard to manage windfury buff
 class BG23_007:# <12>[1453]
 	""" Waverider (4)
 	[Spellcraft:] Give a minion+1/+1 and [Windfury] until next turn. """
@@ -369,7 +369,7 @@ class BG23_007_Gt:
 
 
 
-## Eventide Brute (4)Å@### OK ##
+## Eventide Brute (4)  ### OK ##
 class BG23_010:# <12>[1453]
 	""" Eventide Brute (4)
 	After you cast a spell,gain +1/+1. """
@@ -413,7 +413,7 @@ class BG23_003_G:# <12>[1453]
 BG23_003_Ge=buff(4,4)
 
 
-## Glowscale (5) 
+## Glowscale (5)  ### OK ###
 class BG23_008:# <12>[1453]
 	""" Glowscale (5)
 	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
@@ -425,7 +425,7 @@ class BG23_008e:
 	def apply(self,target):
 		target.divine_shield=True	
 		pass
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False), Destroy_spellcraft(SELF))
 	pass
 class BG23_008t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -442,7 +442,7 @@ class BG23_008_Ge:
 	def apply(self,target):
 		target.divine_shield=True	
 		pass
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False), Destroy_spellcraft(SELF))
 	pass
 class BG23_008_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -450,7 +450,7 @@ class BG23_008_Gt:
 	pass
 
 
-#Corrupted Myrmidon (5)
+#Corrupted Myrmidon (5) ### OK ###
 class BG23_012_Buff(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
