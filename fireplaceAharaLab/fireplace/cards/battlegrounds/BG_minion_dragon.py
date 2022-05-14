@@ -44,21 +44,27 @@ BG_Dragon_Gold={
 
 
 #Evolving Chromawing(1)  ### OK ###
+class BG21_027_Buff(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, buff, amount):
+		Buff(target, buff).trigger(source)
+		buff = target.buffs[-1]
+		buff.tags[GameTag.ATK] = target.atk*amount
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, double this minion's Attack. """
-	events = UpgradeTier(CONTROLLER).after(Buff(SELF, 'BG21_027e'))
+	events = UpgradeTier(CONTROLLER).after(BG21_027_Buff(SELF, 'BG21_027e',1 ))
 	pass
 class BG21_027e:
-	atk = lambda self, i: i*2
 	pass
 class BG21_027_G:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, triple this minion's Attack. """
-	events = UpgradeTier(CONTROLLER).after(Buff(SELF, 'BG21_027_Ge'))
+	events = UpgradeTier(CONTROLLER).after(BG21_027_Buff(SELF, 'BG21_027_Ge', 2))
 	pass
 class BG21_027_Ge:
-	atk = lambda self, i: i*3
 	pass
 
 
@@ -78,20 +84,28 @@ class TB_BaconUps_102:# <12>[1453]
 
 
 #Glyph Guardian(2)   ### need check ###
+class BGS_045_Buff(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, buff, amount):
+		Buff(target, buff).trigger(source)
+		buff = target.buffs[-1]
+		atk_buff  = target.atk*amount
+		buff.tags[GameTag.ATK] = atk_buff
 class BGS_045:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, double its Attack. """
-	events = BG_Attack(SELF).on(Buff(SELF,'BGS_045e'))
+	events = BG_Attack(SELF).on(BGS_045_Buff(SELF,'BGS_045e',1))
 	pass
 class BGS_045e:
-	atk = lambda self, i: i*2
+	pass
 class TB_BaconUps_115:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, triple its Attack. """
-	events = BG_Attack(SELF).on(Buff(SELF,'TB_BaconUps_115e'))
+	events = BG_Attack(SELF).on(BGS_045_Buff(SELF,'TB_BaconUps_115e',2))
 	pass
 class TB_BaconUps_115e:
-	atk = lambda self, i: i*3
 	pass
 
 

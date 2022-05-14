@@ -302,11 +302,11 @@ class BG23_006:# <12>[1453]
 	[Spellcraft:] Give a minion +8_Attack until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_006t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_006t'))
+	tags={2359:'BG23_006t'}
 	pass
 class BG23_006e:
 	tags = {GameTag.ATK:8}
 	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
-	tags={2359:'BG23_006t'}
 	pass
 class BG23_006t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -410,7 +410,7 @@ class BG23_003_G:# <12>[1453]
 BG23_003_Ge=buff(4,4)
 
 
-
+## Glowscale (5) 
 class BG23_008:# <12>[1453]
 	""" Glowscale (5)
 	[Taunt][Spellcraft:] Give a minion [Divine Shield] until next turn. """
@@ -447,27 +447,33 @@ class BG23_008_Gt:
 	pass
 
 
-
-
+#Corrupted Myrmidon (5)
+class BG23_012_Buff(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, buff, amount):
+		Buff(target, buff).trigger(source)
+		buff = target.buffs[-1]
+		atk_buff  = target.atk*amount
+		health_buff  = target.max_health*amount
+		buff.tags[GameTag.ATK] = atk_buff
+		buff.tags[GameTag.HEALTH] = health_buff
 class BG23_012:# <12>[1453]
 	""" Corrupted Myrmidon (5)
 	[Start of Combat:] Double this minion's stats. """
-	events = BeginBattle(CONTROLLER).on(Buff(SELF, 'BG23_012e'))
+	events = BeginBattle(CONTROLLER).on(BG23_012_Buff(SELF, 'BG23_012e', 1))
 	pass
 class BG23_012e:
-	atk = lambda self, i:i*2
-	max_health = lambda self, i:i*2
-	#events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_012_G:# <12>[1453]
 	""" Corrupted Myrmidon
 	[Start of Combat:] Triple this minion's stats. """
-	events = BeginBattle(CONTROLLER).on(Buff(SELF, 'BG23_012_Ge'))
+	events = BeginBattle(CONTROLLER).on(BG23_012_Buff(SELF, 'BG23_012_Ge', 2))
 	pass
 class BG23_012_Ge:
-	atk = lambda self, i:i*3
-	max_health = lambda self, i:i*3
-	#events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
