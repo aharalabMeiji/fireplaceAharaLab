@@ -330,7 +330,7 @@ class BG23_006_Gt:
 
 
 
-## Waverider (4)
+## Waverider (4) ### OK ### windfuryÇÃàµÇ¢Ç™ìÔÇµÇ∑Ç¨ÇÈ
 class BG23_007:# <12>[1453]
 	""" Waverider (4)
 	[Spellcraft:] Give a minion+1/+1 and [Windfury] until next turn. """
@@ -369,7 +369,7 @@ class BG23_007_Gt:
 
 
 
-## Eventide Brute (4)
+## Eventide Brute (4)Å@### OK ##
 class BG23_010:# <12>[1453]
 	""" Eventide Brute (4)
 	After you cast a spell,gain +1/+1. """
@@ -379,13 +379,13 @@ BG23_010e=buff(1,1)
 class BG23_010_G:# <12>[1453]
 	""" Eventide Brute
 	After you cast a spell,gain +2/+2. """
-	events = BG_Play(CONTROLLER, SPELL).on(Buff(SELF,'BG23_010_Gebuff'))
+	events = BG_Play(CONTROLLER, SPELL).on(Buff(SELF,'BG23_010_Ge'))
 	pass
 BG23_010_Ge=buff(2,2)
 	
 
 
-## Critter Wrangler(5)
+## Critter Wrangler(5)  ### OK ###
 class BG23_003_Action(TargetedAction):
 	TARGET=ActionArg()
 	CARD=CardArg()
@@ -399,7 +399,6 @@ class BG23_003_Action(TargetedAction):
 			Buff(spell_target, buff).trigger(source)
 		pass
 	pass
-
 class BG23_003:# <12>[1453]
 	""" Critter Wrangler(5)
 	After you cast a [Spellcraft] spell on a minion,give it +2/+2. """
