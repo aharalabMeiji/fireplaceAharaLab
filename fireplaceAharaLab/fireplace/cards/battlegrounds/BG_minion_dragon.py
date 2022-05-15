@@ -222,6 +222,10 @@ class BG21_014_G:# <12>[1453]
 
 
 #Tarecgosa(4)    ## need check ###
+class BG21_015_Action0(TargetedAction):
+	TARGET = ActionArg()# self
+	def do(self, source, target):
+		target.sidequest_list0 = [] 
 class BG21_015_Action1(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -247,6 +251,7 @@ class BG21_015:# <12>[1453]
 	""" Tarecgosa
 	This permanently keeps enchantments from combat. """
 	events = [
+		BeginBattle(CONTROLLER).on(BG21_015_Action0(SELF)),
 		Buff(SELF).on(BG21_015_Action1(SELF, Buff.BUFF)),
 		EndBattle(CONTROLLER).on(BG21_015_Action2(SELF))
 	]
@@ -255,6 +260,7 @@ class BG21_015_G:# <12>[1453]
 	""" Tarecgosa
 	This permanently doubles and keeps enchantments from combat. """
 	events = [
+		BeginBattle(CONTROLLER).on(BG21_015_Action0(SELF)),
 		Buff(SELF).on(BG21_015_Action1(SELF, Buff.BUFF)),
 		EndBattle(CONTROLLER).on(BG21_015_Action3(SELF))
 	]

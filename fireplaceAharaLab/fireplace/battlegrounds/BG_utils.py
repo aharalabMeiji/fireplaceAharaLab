@@ -220,7 +220,7 @@ class BG_main:
 					player.got_buddy=1
 					buddy = self.BG_Hero_Buddy[player.hero.id]
 					Give(player, buddy).trigger(player)
-				### バディーゲージが300を超えたらバディーカードを2枚発行する。
+				### バディーゲージが200を超えたらバディーカードを2枚発行する。
 				if player.buddy_gauge>=300 and player.got_buddy==1:
 					player.got_buddy=2
 					buddy = self.BG_Hero_Buddy[player.hero.id]
@@ -268,6 +268,9 @@ class BG_main:
 				#ターン更新に伴うコインの補充。
 				#bar.turn += 1
 				controller.used_mana = 0 
+				controller.prev_field=[]
+				for card in controller.field:
+					controller.prev_field.append(card.id)
 				pass
 
 		# 無限ループ終わり
@@ -423,9 +426,6 @@ class Move(object):
 			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
 				card.target = self.controller.field[targetpos]
 			BG_Play(card, card.target, position, None).trigger(self.controller)
-			#ゴールドカードをプレイすると、1枚おまけがもらえる→カード番号は？
-			#TB_BaconShop_Triples_01
-			#探せばあるもんだ。
 	def changeOrder(self, card, p0):
 		num = len(self.controller.field)
 		field = self.controller.field

@@ -479,7 +479,7 @@ class BG22_HERO_001_Buddy_Deathrattle(TargetedAction):
 	pass
 class BG22_HERO_001_Buddy:# <12>[1453]
 	""" Spirit Raptor
-	After you call upon a new Element, this remembers it.[Deathrattle:] Call uponthose Elements. """
+	After you call upon a new Element, this remembers it.[Deathrattle:] Call upon those Elements. """
 	events = Play(CONTROLLER).on(BG22_HERO_001_Buddy_Events(SELF, Play.CARD))
 	deathrattle = BG22_HERO_001_Buddy_Deathrattle(SELF,1)
 	pass

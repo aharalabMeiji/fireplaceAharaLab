@@ -82,49 +82,58 @@ class TB_BaconShop_Triples_01:# <12>[1453]
 class BGS_Treasures_001:# <7>[1453]
 	""" Pocket Change
 	Add 2 Gold Coins to your hand. """
-	#
+	play = Give(CONTROLLER, 'GAME_005')
 	pass
 
 class BGS_Treasures_003:# <12>[1453]
 	""" Regular Discount
 	Reduce the cost of upgrading Bob's Tavern by (3). """
-	#
+	play = ReduceTierUpCost(CONTROLLER, 3)	
 	pass
 
 class BGS_Treasures_004:# <12>[1453]
 	""" Gacha Gift
 	[Discover] a minion from [Tavern Tier 1]. """
-	#
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level=1))
 	pass
 
 class BGS_Treasures_006:# <8>[1453]
 	""" Evolving Tavern
 	Replace all minions in Bob's Tavern with ones of a higher Tavern Tier. """
-	#
+	def play(self):
+		controller = self.controller
+		bartender = controller.opponent
+		new_field = []
+		for card in bartender.field:
+			tier = min(card.tech_level+1, 6)
+			new_card = RandomBGMinion(tech_level=tier).evaluate(self)
+			if hasattr(new_card, '__iter__'):
+				new_card=new_card[0]
+			new_field.append(bartender.card(new_card))
+		for card in reversed(bartender.field):
+			card.zone = Zone.GRAVEYARD
+		for card in new_field:
+			card.zone = Zone.PLAY
 	pass
 
 class BGS_Treasures_007:# <12>[1453]
 	""" Might of Stormwind
 	Give 3 random friendly minions +1/+1. """
-	#
+	play = Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_007e') * 3
 	pass
-
-class BGS_Treasures_007e:# <12>[1453]
-	""" Might of Stormwind
-	+1/+1. """
-	#
-	pass
+BGS_Treasures_007e=buff(1,1)# <12>[1453]
+""" Might of Stormwind, 	+1/+1. """
 
 class BGS_Treasures_009:# <12>[1453]
 	""" Gruul Rules
 	Give a friendly minion "At the end of your turn, gain +2/+2." """
-	#
+	play = Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_009e')
 	pass
 
 class BGS_Treasures_009e:# <12>[1453]
 	""" Gruul Rules
 	Gains +2/+2 at the end of your turn. """
-	#
+	events = OWN_TURN_END.on(SetTag(SELF, {GameTag.ATK:2, GameTag.HEALTH:2}))
 	pass
 
 class BGS_Treasures_010:# <12>[1453]
