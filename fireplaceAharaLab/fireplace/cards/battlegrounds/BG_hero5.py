@@ -262,7 +262,7 @@ class BG20_HERO_201e3:# <12>[1453]
 class BG20_HERO_201p:# <12>[1453]
 	""" Spirit Swap
 	Choose two minions. Swap their stats. """
-	requirements = {1001:2}
+	requirements = {1001:2} ## original gametag.  need {value} or more field minions.
 	activate = ChooseTwice(CONTROLLER, FRIENDLY_MINIONS)
 	pass
 class BG20_HERO_201p2:# <12>[1453]
@@ -346,12 +346,23 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 
 
 
-#75#Y'Shaarj
+#75#Y'Shaarj   ### HP OK ###
 class TB_BaconShop_HERO_92:# <12>[1453]
 	""" Y'Shaarj """
+class TB_BaconShop_HP_103_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target # in the battle
+		gm = controller.game.parent
+		tier = controller.tavern_tier
+		card = random.choice(gm.BG_decks[tier])
+		if len(controller.field)<7:
+			Summon(controller, card).trigger(source)
+			Give(controller.deepcopy_original, card).trigger(controller.deepcopy_original)
 class TB_BaconShop_HP_103:
 	"""  Embrace Your Rage
 	&lt;b&gt;Start of Combat:&lt;/b&gt; Summon a minion from your Tavern Tier. Add a copy to your hand."""
+	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_103_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_92_Buddy:# <12>[1453]
 	""" Baby Y'Shaarj
@@ -378,11 +389,24 @@ class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
 
 
 
-#76#Yogg-Saron, Hope's End # armor 0
+#76#Yogg-Saron, Hope's End #   ### HP OK ###
 class TB_BaconShop_HERO_35:# <12>[1453]
 	""" Yogg-Saron, Hope's End """
+class TB_BaconShop_HP_039_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target # in the bar
+		bartender = controller.opponent
+		if len(bartender.field)>0:
+			card = random.choice(bartender.field)
+			bartender.field.remove(card)
+			card.controller = controller
+			card.zone=Zone.HAND
+			Buff(card, 'TB_BaconShop_HP_039e').trigger(source)
 class TB_BaconShop_HP_039:
-	""" """
+	""" Puzzle Box
+	Add a random minion in Bob's Tavern to your hand. Give it +1/+1."""
+	activate = TB_BaconShop_HP_039_Action(CONTROLLER)
 	pass
 TB_BaconShop_HP_039e=buff(1,1)
 class TB_BaconShop_HERO_35_Buddy:
@@ -453,10 +477,30 @@ class TB_BaconShop_HERO_35_Buddy_G:
 
 
 #77#Ysera
-class TB_BaconShop_HERO_53:# <12>[1453]
+class TB_BaconShop_HERO_53:# <12>[1453]  ## if dragon is not banned
 	""" Ysera """
+class TB_BaconShop_HP_062_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		from fireplace import cards
+		controller = target # in the bar
+		bartender = controller.opponent
+		gm=controller.game.parent
+		tier = controller.tavern_tier
+		dk=[]
+		for i in range(1,tier+1):
+			dk += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i-1]
+		cardID=random.choice(dk)
+		card = bartender.card(cardID)
+		if cardID in gm.BG_decks[card.tech_level]:
+			gm.BG_decks[card.tech_level].remove(cardID)
+		card.controller = bartender# maybe deletable
+		card.zone = Zone.PLAY
+
 class TB_BaconShop_HP_062:
-	"""  """
+	"""  Dream Portal
+	&lt;b&gt;Passive&lt;/b&gt; Bob always offers an extra Dragon whenever the Tavern is &lt;b&gt;Refreshed&lt;/b&gt;."""
+	events = Rerole(CONTROLLER).after(TB_BaconShop_HP_062_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_53_Buddy:
 	""" """

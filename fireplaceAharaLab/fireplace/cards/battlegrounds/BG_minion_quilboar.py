@@ -135,7 +135,7 @@ class BG20_102:# <12>[1453]
 	pass
 class BG20_102e:# <12>[1453]
 	""" Toughened """
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False),Destroy(SELF))
 	pass
 class BG20_102_G:# <12>[1453]
 	""" Tough Tusk
@@ -145,11 +145,9 @@ class BG20_102_G:# <12>[1453]
 class BG20_102_Ge:# <12>[1453]
 	""" Real Tough
 	[Divine Shield]. """
-	tags = {GameTag.DIVINE_SHIELD:True, }
-	events = [
-		EndBattle(CONTROLLER).on(Destroy(SELF)),
-		#LoseDivineShield(OWNER).on(Destroy(SELF))
-	]
+	def apply(self,target):
+		target.divine_shield=True	
+		pass	
 	pass
 
 

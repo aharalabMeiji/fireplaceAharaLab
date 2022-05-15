@@ -17,7 +17,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 
 	#battlegrounds option
@@ -25,12 +25,12 @@ class Config:# ()is the default value
 
 	HUMAN_PLAY=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BGS_Treasures_006'
-	CARD_PRESET2=''
+	CARD_PRESET1='TB_BaconUps_110'
+	CARD_PRESET2='BG23_000'
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=74 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=77 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY

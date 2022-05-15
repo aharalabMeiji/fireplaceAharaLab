@@ -65,7 +65,7 @@ class BG23_000t:
 	play = Buff(TARGET, 'BG23_000e')
 class BG23_000e:
 	tags={GameTag.ATK:2, }
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))
 class BG23_000_G:# <12>[1453]
 	""" Mini-Myrmidon
 	[Spellcraft:] Give a minion +4 Attack until next turn. """
@@ -75,7 +75,7 @@ class BG23_000_G:# <12>[1453]
 	pass
 class BG23_000_Ge:
 	tags={GameTag.ATK:4,}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))
 class BG23_000_Gt:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -133,7 +133,7 @@ class BG23_004:# <12>[1453]
 	pass
 class BG23_004e:
 	tags={GameTag.HEALTH:3, GameTag.TAUNT:True}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))	
 	pass
 class BG23_004t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -148,7 +148,7 @@ class BG23_004_G:# <12>[1453]
 	pass
 class BG23_004_Ge:
 	tags={GameTag.HEALTH:6, GameTag.TAUNT:True}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))	
 	pass
 class BG23_004_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -271,7 +271,7 @@ class BG23_011:# <12>[1453]  ### OK ###
 	pass
 class BG23_011e:
 	tags={GameTag.ATK:1, GameTag.HEALTH:1}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))
 	pass
 class BG23_011t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -286,7 +286,7 @@ class BG23_011_G:# <12>[1453]
 	pass
 class BG23_011_Ge:
 	tags={GameTag.ATK:2, GameTag.HEALTH:2}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))
 	pass
 class BG23_011_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -306,7 +306,7 @@ class BG23_006:# <12>[1453]
 	pass
 class BG23_006e:
 	tags = {GameTag.ATK:8}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))	
 	pass
 class BG23_006t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -321,7 +321,7 @@ class BG23_006_G:# <12>[1453]
 	pass
 class BG23_006_Ge:
 	tags = {GameTag.ATK:16}
-	events = EndBattle(CONTROLLER).on(Destroy_spellcraft(SELF))	
+	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))	
 	pass
 class BG23_006_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -342,7 +342,7 @@ class BG23_007e:
 	def apply(self, target):
 		target.windfury=1
 	tags={GameTag.ATK:1, GameTag.HEALTH:1, }
-	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
+	events = BeginBar(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
 	pass
 class BG23_007t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -359,7 +359,7 @@ class BG23_007_Ge:
 	def apply(self, target):
 		target.windfury=1
 	tags={GameTag.ATK:2, GameTag.HEALTH:2, }
-	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
+	events = BeginBar(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
 	pass
 class BG23_007_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -425,7 +425,7 @@ class BG23_008e:
 	def apply(self,target):
 		target.divine_shield=True	
 		pass
-	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False), Destroy_spellcraft(SELF))
+	events = BeginBar(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False), Destroy_spellcraft(SELF))
 	pass
 class BG23_008t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -442,7 +442,7 @@ class BG23_008_Ge:
 	def apply(self,target):
 		target.divine_shield=True	
 		pass
-	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False), Destroy_spellcraft(SELF))
+	events = BeginBar(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False), Destroy_spellcraft(SELF))
 	pass
 class BG23_008_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
@@ -468,7 +468,7 @@ class BG23_012:# <12>[1453]
 	events = BeginBattle(CONTROLLER).on(BG23_012_Buff(SELF, 'BG23_012e', 1))
 	pass
 class BG23_012e:
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = BeginBar(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_012_G:# <12>[1453]
 	""" Corrupted Myrmidon
@@ -476,7 +476,7 @@ class BG23_012_G:# <12>[1453]
 	events = BeginBattle(CONTROLLER).on(BG23_012_Buff(SELF, 'BG23_012_Ge', 2))
 	pass
 class BG23_012_Ge:
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	events = BeginBar(CONTROLLER).on(Destroy(SELF))
 	pass
 
 

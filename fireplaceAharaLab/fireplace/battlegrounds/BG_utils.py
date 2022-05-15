@@ -99,6 +99,8 @@ class BG_main:
 		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero3.BG_Hero3_Buddy)
 		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero4.BG_Hero4_Buddy)
 		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero5.BG_Hero5_Buddy)
+		self.prevMatches=[[0,1],[2,3]]# previous combination
+		self.matches=[[0,1],[2,3]]
 	pass
 
 	def BG_main(self):
@@ -139,11 +141,11 @@ class BG_main:
 			if Config.LOGINFO:
 				print ("==== %s 's bar done ===="% agent)
 			pass
-		prevMatches=[[0,1],[2,3]]# previous combination
+		self.prevMatches=[[0,1],[2,3]]# previous combination
 		# Start game
 		while True:	
 			### randomize the combinations(now fixed)
-			matches=[[0,1],[2,3]]#
+			self.matches=[[0,1],[2,3]]#
 			#in tha final, battles lengtha will be 4 
 			battles = [None,None]
 			### Agent moves start
@@ -205,16 +207,15 @@ class BG_main:
 
 			### 対戦
 			i=0
-			battles[i] = BG_Battle([self.BG_Bars[matches[i][0]],self.BG_Bars[matches[i][1]]])
-			battleplayer0 = self.BG_Bars[matches[i][0]].controller
-			battleplayer1 = self.BG_Bars[matches[i][1]].controller
+			battles[i] = BG_Battle([self.BG_Bars[self.matches[i][0]],self.BG_Bars[self.matches[i][1]]])
+			battleplayer0 = self.BG_Bars[self.matches[i][0]].controller
+			battleplayer1 = self.BG_Bars[self.matches[i][1]].controller
 			battles[i].parent = self
 			#for  player in [battleplayer0, battleplayer1]:
 			### begin the battle
 			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
 			### after the battle
 			for  player in [battleplayer0, battleplayer1]:
-				EndBattle(player).trigger(player)
 				### バディーゲージが100を超えたらバディーカードを発行する。
 				if player.buddy_gauge>=100 and player.got_buddy==0:
 					player.got_buddy=1
@@ -307,6 +308,38 @@ class BG_main:
 		card.zone=Zone.GRAVEYARD
 		card.controller.field.remove(card)
 		pass
+
+	def last_warband(self, controller):
+		my_bar = controller.game
+		# assert my_bar.parent == self
+		last_matches = self.prevMatches
+		for match in range(len(last_matches)):
+			the_match = last_matches[match]
+			if my_bar == self.BG_Bars[the_match[0]]:
+				last_opponent_bar = self.BG_Bars[the_match[1]]
+				break
+			elif my_bar == self.BG_Bars[the_match[1]]:
+				last_opponent_bar = self.BG_Bars[the_match[0]]
+				break
+		else:
+			something_is_wrong=1
+		return last_opponent_bar.controller.prev_field
+
+	def next_warband(self, controller):
+		my_bar = controller.game
+		# assert my_bar.parent == self
+		next_matches = self.matches
+		for match in range(len(next_matches)):
+			the_match = next_matches[match]
+			if my_bar == self.BG_Bars[the_match[0]]:
+				next_opponent_bar = self.BG_Bars[the_match[1]]
+				break
+			elif my_bar == gamemaster.self.BG_Bars[the_match[1]]:
+				next_opponent_bar = self.BG_Bars[the_match[0]]
+				break
+		else:
+			something_is_wrong=1
+		return next_opponent_bar.controller.prev_field
 
 	#class 終わり
 	pass

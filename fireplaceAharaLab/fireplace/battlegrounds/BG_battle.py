@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BG_Attack, Deaths, BeginBattle
+from fireplace.actions import BG_Attack, Deaths, BeginBattle, EndBattle
 import random
 from hearthstone.enums import PlayState, Zone
 
@@ -123,6 +123,8 @@ class BG_Battle(Game):
 		#self.manager.step(self.next_step, Step.FINAL_GAMEOVER)
 		#self.manager.step(self.next_step)
 		print("=============end the battle====================")
+		EndBattle(self.first).trigger(player)
+		EndBattle(self.second).trigger(player)
 		# draw
 		if len(self.first.field)==0 and len(self.second.field)==0:
 			#move buddy gauge

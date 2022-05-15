@@ -221,7 +221,7 @@ class BG21_014_G:# <12>[1453]
 
 
 
-#Tarecgosa(4)    ## need check ###
+#Tarecgosa(4)    ## OK ###
 class BG21_015_Action0(TargetedAction):
 	TARGET = ActionArg()# self
 	def do(self, source, target):
@@ -268,16 +268,29 @@ class BG21_015_G:# <12>[1453]
 
 
 
-#Murozond(5)   ### not yet ####
+#Murozond(5)   ### OK ####
 class BGS_043:# <12>[1453]
 	""" Murozond
 	[Battlecry:] Add a minion from your last opponent's warband to your hand. """
-	#
+	def play(self):
+		controller = self.controller
+		gamemaster = controller.game.parent
+		last_warband = gamemaster.last_warband(controller)
+		if len(last_warband)>0:
+			new_card = random.choice(last_warband)
+			Give(controller, new_card).trigger(self)
 	pass
 class TB_BaconUps_110:# <12>[1453]
 	""" Murozond
 	[Battlecry:] Add a minion from your last opponent's warband to your hand.Make it Golden! """
-	#
+	def play(self):
+		controller = self.controller
+		gamemaster = controller.game.parent
+		last_warband = gamemaster.last_warband(controller)
+		if len(last_warband)>0:
+			new_card = random.choice(last_warband)
+			gold_id = gamemaster.BG_Gold[new_card]
+			Give(controller, gold_id).trigger(self)## I want to check whether no error before excuting
 	pass
 
 
@@ -285,12 +298,13 @@ class TB_BaconUps_110:# <12>[1453]
 #Razorgore, the Untamed (5)  ### need check (alternative) ###
 class BGS_036_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target):
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
 		controller = target.controller
 		count = 0
 		for card in controller.field:
 			if card.race == Race.DRAGON:
-				count += 1
+				count += amount
 		Buff(target, 'BGS_036e').trigger(controller)
 		buff = target.buffs[-1]
 		buff.tags[GameTag.ATK] = count
@@ -298,14 +312,15 @@ class BGS_036_Action(TargetedAction):
 class BGS_036:# <12>[1453]
 	""" Razorgore, the Untamed
 	At the end of your turn, gain +1/+1 for each Dragon you have. """
-	events = OWN_TURN_END.on(BGS_036_Action(SELF))
+	events = OWN_TURN_END.on(BGS_036_Action(SELF, 1))
 	#events = OWN_TURN_END.on(Buff(SELF, 'BGS_036e') * Count(FRIENDLY_MINIONS + DRAGON))
 	pass
 BGS_036e=buff(1,1)
 class TB_BaconUps_106:# <12>[1453]
 	""" Razorgore, the Untamed
 	At the end of your turn, gain +2/+2 for each Dragon you have. """
-	events = OWN_TURN_END.on(Buff(SELF, 'TB_BaconUps_106e') * Count(FRIENDLY_MINIONS + DRAGON))
+	events = OWN_TURN_END.on(BGS_036_Action(SELF, 2))
+	#events = OWN_TURN_END.on(Buff(SELF, 'TB_BaconUps_106e') * Count(FRIENDLY_MINIONS + DRAGON))
 	pass
 TB_BaconUps_106e=buff(2,2)
 
