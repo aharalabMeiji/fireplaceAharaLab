@@ -183,7 +183,7 @@ class BG_HumanAgent(BG_Agent):
 		if controller.hero.power.cant_play:
 			print("パワー　：%s(cost %d) : unplayable"%(controller.hero.power, controller.hero.power.cost,))
 		else:
-			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, controller.hero.power.data.description.replace('\n','_')))
+			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, controller.hero.power.data.description.replace('\n','_').replace('@','%d'%(controller.hero.power.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]))))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar   :%s" %(self.card_stats(card)))

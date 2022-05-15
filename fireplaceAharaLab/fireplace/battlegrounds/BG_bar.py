@@ -46,6 +46,27 @@ class BG_Bar(Game):
 		self.manager.start_game()
 		pass
 
+	def BG_find_double(self):
+		## in any way, we find one double
+		# except spell cards(coins, golds, bananas)
+		characters=[]
+		for card in self.controller.field:
+			characters.append(card.id)
+		for card in self.controller.hand:
+			if card.type==CardType.MINION:
+				characters.append(card.id)
+		for id in characters:
+			count=0
+			for jd in characters:
+				if id==jd:
+					count+=1
+					if count>=2:
+						return id
+				pass
+			pass
+		return None
+
+
 	def BG_find_triple(self):
 		## in any way, we find one triple
 		# except spell cards(coins, golds, bananas)

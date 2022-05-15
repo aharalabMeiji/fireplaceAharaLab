@@ -520,8 +520,24 @@ class TB_BaconShop_HERO_53_Buddy_G:
 #78#Zephrys, the Great
 class TB_BaconShop_HERO_91:# <12>[1453]
 	""" Zephrys, the Great """
+class TB_BaconShop_HP_102_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target # in the bar
+		bartender = controller.opponent
+		gm=controller.game.parent
+		source.script_data_num_1=source.tags[GameTag.SCORE_VALUE_1]
+		if source.script_data_num_1>0:
+			gold_card_id = controller.game.BG_find_double()## ƒ_ƒuƒ‹‚ð”»’è
+			if gold_card_id:
+				controller.game.BG_deal_gold(gold_card_id)
+				source.script_data_num_1 -= 1
+				source.tags[GameTag.SCORE_VALUE_1]=source.script_data_num_1
+
 class TB_BaconShop_HP_102:
-	"""  """
+	"""  Three Wishes
+	If you have two copies of a minion, find the third. &lt;i&gt;(@ |4(Wish, Wishes) left!)&lt;/i&gt;"""
+	activate = TB_BaconShop_HP_102_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HERO_91_Buddy:
 	"""  """
