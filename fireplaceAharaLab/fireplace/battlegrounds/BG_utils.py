@@ -16,6 +16,73 @@ from fireplace.config import Config
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
+BG_Exclude_Hero=[
+	'TB_BaconShop_HERO_56',#2 dragon ban
+	'BG22_HERO_001',#6 X
+	'TB_BaconShop_HERO_29',#7 X
+	'TB_BaconShop_HERO_64',#8 X
+	'TB_BaconShop_HERO_67',#9 X
+	'TB_BaconShop_HERO_78',#11 X elemental ban
+	'BG21_HERO_020',#12 X
+	'BG20_HERO_103',#14 X
+	'TB_BaconShop_HERO_52',#15 X
+	'TB_BaconShop_HERO_43',#16 X
+
+	'BG22_HERO_002',#17 X
+	'TB_BaconShop_HERO_01',#18 X
+	'TB_BaconShop_HERO_42',#19 X
+	'TB_BaconShop_HERO_74',#20 X
+	'TB_BaconShop_HERO_55',#21 X Murloc ban
+	'TB_BaconShop_HERO_02',#22 X
+	'BG20_HERO_283',#23 X
+	'TB_BaconShop_HERO_15',#24 X
+	'TB_BaconShop_HERO_95',#25 X
+	'BG20_HERO_242',#26 X
+	'TB_BaconShop_HERO_08',#27 X
+	'TB_BaconShop_HERO_28',#28 X
+	'TB_BaconShop_HERO_71',#29 X
+	'TB_BaconShop_HERO_60',#30 X
+	'TB_BaconShop_HERO_38',#31 X
+	'BG20_HERO_280',#32 X
+	'TB_BaconShop_HERO_25',#33 X
+	'TB_BaconShop_HERO_72',#34 X
+	'TB_BaconShop_HERO_37',#35 X
+
+	'TB_BaconShop_HERO_62',#36 X demon ban
+	'TB_BaconShop_HERO_58',#37 X
+	'BG20_HERO_202',#38 X
+	'TB_BaconShop_HERO_49',#39 X
+	'TB_BaconShop_HERO_17',#40 X
+	'TB_BaconShop_HERO_70',#41 X mech ban
+	'BG20_HERO_301',#42 X
+	'TB_BaconShop_HERO_93',#43 X
+	'TB_BaconShop_HERO_57',#44 X
+	'BG22_HERO_305',#45 X
+	'BG20_HERO_102',#46 X
+	'TB_BaconShop_HERO_18',#47 X
+	'TB_BaconShop_HERO_34',#48 X pirate ban
+	'TB_BaconShop_HERO_39',#49 X
+	'TB_BaconShop_HERO_14',#50 X
+	'TB_BaconShop_HERO_11',#51 X
+
+	'TB_BaconShop_HERO_23',#56 X
+	'TB_BaconShop_HERO_90',#57 X
+	'TB_BaconShop_HERO_27',#58 X
+	'TB_BaconShop_HERO_40',#59 X
+	'TB_BaconShop_HERO_68',#60 X
+	'BG21_HERO_030',#61 X
+	'BG20_HERO_282',#62 X
+	'BG22_HERO_000',#63 X
+	'TB_BaconShop_HERO_50',#64 X
+	'TB_BaconShop_HERO_33',#65 X
+	'TB_BaconShop_HERO_21',#66 X
+	'TB_BaconShop_HERO_22',#67 X
+	'TB_BaconShop_HERO_12',#68 X
+
+	'TB_BaconShop_HERO_94',#69 X
+	'TB_BaconShop_HERO_53',#77 dragon ban
+	]
+
 class BG_main:
 	def __init__(self):
 		#使用カードの初期化

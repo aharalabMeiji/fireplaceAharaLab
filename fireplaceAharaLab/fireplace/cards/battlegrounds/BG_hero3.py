@@ -366,7 +366,7 @@ class BG20_HERO_102:# <12>[1453]
 	""" Overlord Saurfang """
 class BG20_HERO_102p:# <10>[1453]
 	""" For the Horde!
-	Give +@ Attack to the nextminion you buy this turn.<i>(Upgrades each turn!)</i> """
+	Give +@ Attack to the next minion you buy this turn.<i>(Upgrades each turn!)</i> """
 	#
 	pass
 class BG20_HERO_102pe:# <12>[1453]

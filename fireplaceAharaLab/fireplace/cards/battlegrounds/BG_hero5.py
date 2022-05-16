@@ -56,7 +56,7 @@ BG_Hero5_Buddy_Gold={
 
 
 
-#69#Tickatus   ### HP OK ###
+#69#Tickatus   ### HP OK, prize not yet ###
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
 class TB_BaconShop_HP_106:
@@ -262,7 +262,7 @@ class BG20_HERO_201e3:# <12>[1453]
 class BG20_HERO_201p:# <12>[1453]
 	""" Spirit Swap
 	Choose two minions. Swap their stats. """
-	requirements = {1001:2} ## original gametag.  need {value} or more field minions.
+	requirements = {1001:2} ## original gametag.  need "{value} or more" field minions.
 	activate = ChooseTwice(CONTROLLER, FRIENDLY_MINIONS)
 	pass
 class BG20_HERO_201p2:# <12>[1453]

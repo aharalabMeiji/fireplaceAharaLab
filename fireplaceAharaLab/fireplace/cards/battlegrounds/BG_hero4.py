@@ -328,7 +328,8 @@ class TB_BaconShop_HP_014_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_014:
-	"""  """
+	"""  
+	&lt;b&gt;Freeze&lt;/b&gt; a minion in Bob's Tavern. &lt;b&gt;Frozen&lt;/b&gt; minions get +2/+1 each turn."""
 TB_BaconShop_HP_014e=buff(2,1)
 
 
@@ -348,7 +349,8 @@ class TB_BaconShop_HP_057_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_057:
-	"""  """
+	"""  
+	&lt;b&gt;Passive&lt;/b&gt; At the start of the game, &lt;b&gt;Discover&lt;/b&gt; a Hero Power."""
 
 
 #60#Skycap'n Kragg
@@ -367,7 +369,8 @@ class TB_BaconShop_HP_076_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_076:
-	"""  """
+	"""  
+	Gain @ Gold this turn. Increases each turn. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
 	pass
 
 
@@ -444,7 +447,7 @@ class BG20_HERO_282p_Action(TargetedAction):
 		pass
 class BG20_HERO_282p:# <9>[1453]
 	""" Fragrant Phylactery
-	[Start of Combat:]Destroy your lowest Healthminion. Give its stats_to four friendly minions. """
+	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to four friendly minions. """
 	pass
 class BG20_HERO_282pe:# <12>[1453]
 	""" Fragrant
@@ -524,7 +527,8 @@ class TB_BaconShop_HP_077_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_077:
-	"""  """
+	"""  
+	&lt;b&gt;Refresh&lt;/b&gt; Bob's Tavern with your last opponent's warband."""
 
 
 
@@ -549,7 +553,8 @@ class TB_BaconShop_HP_033_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_033:
-	"""  """
+	"""  
+	&lt;b&gt;Passive&lt;/b&gt; Start the game with a 2/2 Amalgam with all minion types."""
 class TB_BaconShop_HP_033t:
 	"""   """
 
@@ -574,7 +579,7 @@ class TB_BaconShop_HP_020_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_020:
-	"""  """
+	"""  &lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Secret&lt;/b&gt;. Put it into the battlefield."""
 
 
 
@@ -592,7 +597,8 @@ class TB_BaconShop_HP_024_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_024:
-	"""  """
+	"""  
+	Give a friendly minion &lt;b&gt;Reborn&lt;/b&gt; until next turn."""
 TB_BaconShop_HP_024e2=buff(reborn=True)
 
 
@@ -615,7 +621,8 @@ class TB_BaconShop_HP_041_Action(TargetedAction):
 		controller = target
 		pass
 class TB_BaconShop_HP_041:
-	"""  """
+	"""  
+	&lt;b&gt;Passive&lt;/b&gt; Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
 class TB_BaconShop_HP_041a:
 	"""  """
 class TB_BaconShop_HP_041b:
@@ -640,3 +647,6 @@ class TB_BaconShop_HP_041h:
 	"""  """
 class TB_BaconShop_HP_041i:
 	"""  """
+class TB_BaconShop_HP_041j:
+	"""  """
+
