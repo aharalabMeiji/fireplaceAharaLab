@@ -63,6 +63,8 @@ class BG23_000t:
 	Give a minion +2_Attack until next turn."""
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_000e')
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 class BG23_000e:
 	tags={GameTag.ATK:2, }
 	events = BeginBar(CONTROLLER).on(Destroy_spellcraft(SELF))
@@ -80,6 +82,8 @@ class BG23_000_Gt:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_000_Ge')
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 
 
 
@@ -138,6 +142,8 @@ class BG23_004e:
 class BG23_004t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_004e')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_004_G:# <12>[1453]
 	""" Deep-Sea Angler
@@ -153,6 +159,8 @@ class BG23_004_Ge:
 class BG23_004_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_004_Ge')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
 	pass
 
 
@@ -276,6 +284,8 @@ class BG23_011e:
 class BG23_011t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_011e') * Count(FRIENDLY_MINIONS + NAGA)		
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
 	pass
 class BG23_011_G:# <12>[1453]
 	""" Shoal Commander
@@ -291,6 +301,8 @@ class BG23_011_Ge:
 class BG23_011_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_011_Ge') * Count(FRIENDLY_MINIONS + NAGA)	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
 	pass
 
 
@@ -311,6 +323,8 @@ class BG23_006e:
 class BG23_006t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_006e')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_006_G:# <12>[1453]
 	""" Eelbound Archer
@@ -326,6 +340,8 @@ class BG23_006_Ge:
 class BG23_006_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_006_Ge')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
@@ -347,6 +363,8 @@ class BG23_007e:
 class BG23_007t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_007e')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_007_G:# <12>[1453]
 	""" Waverider
@@ -364,6 +382,8 @@ class BG23_007_Ge:
 class BG23_007_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_007_Ge')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
@@ -430,6 +450,8 @@ class BG23_008e:
 class BG23_008t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_008e')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 class BG23_008_G:# <12>[1453]
 	""" Glowscale
@@ -447,6 +469,8 @@ class BG23_008_Ge:
 class BG23_008_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_008_Ge')	
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 
 

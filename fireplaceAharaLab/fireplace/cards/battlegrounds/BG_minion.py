@@ -906,24 +906,33 @@ class TB_BaconUps_091:# <12>[1453]
 	pass
 
 
-
+### Orgozoa, the Tender(6) ### OK ###
 class BG23_015:# <12>[1453]
 	""" Orgozoa, the Tender(6)
 	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; a Naga."""
+	play = Spellcraft(CONTROLLER,'BG23_015t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_015t'))
+	tags={2359:'BG23_015t'}
 class BG23_015t:
-	play = Discover(CONTROLLER, RandomBGNaga())
-	pass
+	play = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
+pass
 class BG23_015_G:# <12>[1453]
 	"""
 	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; 2 Naga.</enUS>"""
+	play = Spellcraft(CONTROLLER,'BG23_015_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_015_Gt'))
+	tags={2359:'BG23_015_Gt'}
 	pass
 class BG23_015_Gt:
-	play = DiscoverTwice(CONTROLLER, RandomBGNaga()*3)
+	play = DiscoverTwice(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER))*3)
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
+### Reef Explorer(4)
 class BG23_016_Choice(Choice):
 	def get_args(self, source):
 		player, cards = super().get_args(source)
@@ -941,7 +950,7 @@ class BG23_016_Choice(Choice):
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a minion from a minion type you don't control."""
-	play = BG23_016_Choice(CONTROLLER, RandomBGMinion())
+	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER)))
 	pass
 class BG23_016_G:# <12>[1453]
 	"""
@@ -951,6 +960,7 @@ class BG23_016_G:# <12>[1453]
 	pass
 
 
+## Darkgaze Elder (6) (quilboar)
 class BG23_018_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
