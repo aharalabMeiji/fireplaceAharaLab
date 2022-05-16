@@ -87,7 +87,7 @@ BG_Hero4_Buddy_Gold={
 
 ######## source #################################################################
 
-#52#Rakanishu # armor 5
+#52#Rakanishu #  ### HP OK ###
 class TB_BaconShop_HERO_75:# <12>[1453]
 	""" Rakanishu """
 	pass
@@ -103,9 +103,17 @@ class TB_BaconShop_HERO_75_Action(TargetedAction):
 		for card in other:
 			Buff(card, 'TB_BaconShop_HP_085e').trigger(controller)
 			buff = card.buffs[-1]
-			buff.atk = tier*amount
-			buff.max_health = tier*amount
+			buff.tags[GameTag.ATK] = tier*amount
+			buff.tags[GameTag.HEALTH] = tier*amount
 		pass
+class TB_BaconShop_HP_085:
+	""" Tavern Lighting 
+	Give a friendly minion stats equal to your Tavern Tier."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	activate =  TB_BaconShop_HERO_75_Action(CONTROLLER, TARGET, 1)
+class TB_BaconShop_HP_085e:
+	"""  """
+############# BUDDY 
 class TB_BaconShop_HERO_75_Buddy:# <12>[1453]
 	""" Lantern Tender
 	At the end of your turn,give a random friendlyminion stats equal toyour Tavern Tier. """
@@ -116,21 +124,23 @@ class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
 	At the end of your turn,give a random friendlyminion stats equal to yourTavern Tier twice. """
 	events = OWN_TURN_END.on(TB_BaconShop_HERO_75_Action(CONTROLLER, RANDOM_FRIENDLY_MINION, 2))
 	pass
-class TB_BaconShop_HP_085:
-	""" Tavern Lighting 
-	Give a friendly minion stats equal to your Tavern Tier."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
-	activate =  TB_BaconShop_HERO_75_Action(CONTROLLER, TARGET, 1)
-class TB_BaconShop_HP_085e:
-	"""  """
 
 
 
 
-#53#Reno Jackson # armor 6
+
+#53#Reno Jackson #  ### HP OK ###
 class TB_BaconShop_HERO_41:# <12>[1453]
 	""" Reno Jackson """
 	pass
+
+class TB_BaconShop_HP_046:
+	"""  Gonna Be Rich!
+	Make a friendly minion Golden. <i>(Once per game.)</i>"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	activate = MorphGold(TARGET), MakeCardUnplayable(SELF)
+	pass
+############# BUDDY 
 class TB_BaconShop_HERO_41_Buddy:# <12>[1453]
 	""" Sr. Tomb Diver
 	[Deathrattle:] Make your right-most minion Golden. """
@@ -142,21 +152,13 @@ class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 	deathrattle = MorphGold(LEFT_OF(RIGHT_MOST(SELF)))
 	deathrattle = MorphGold(RIGHT_MOST(SELF))
 	pass
-class TB_BaconShop_HP_046:
-	"""  Gonna Be Rich!
-	Make a friendly minion Golden. <i>(Once per game.)</i>"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
-	activate = MorphGold(TARGET), MakeCardUnplayable(SELF)
-	pass
-
-
 
 
 
 
 
 #54#Rokara # 
-class BG20_HERO_100:# <10>[1453] #### OK ####
+class BG20_HERO_100:# <10>[1453] #### HP OK ####
 	""" Rokara
 	 """
 	pass
@@ -168,6 +170,13 @@ class BG20_HERO_100_Action(TargetedAction):
 		if defender.to_be_destroyed:
 			BuffPermanently(attacker, buff).trigger(source.controller)
 		pass
+class BG20_HERO_100p:# <10>[1453]
+	""" Glory of Combat
+	<b>Passive.</b> After a friendly minion kills an enemy, give it +1 Attack permanently. """
+	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100p_e2'))
+	pass
+BG20_HERO_100p_e2=buff(1,0)
+############# BUDDY 
 class BG20_HERO_100_Buddy:# <12>[1453]
 	""" Icesnarl the Mighty
 	After a friendly minion kills an enemy, gain+1 Health permanently. """
@@ -180,20 +189,36 @@ class BG20_HERO_100_Buddy_G:# <12>[1453]
 	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100_Buddy_Ge'))
 	pass
 BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
-class BG20_HERO_100p:# <10>[1453]
-	""" Glory of Combat
-	<b>Passive.</b> After a friendly minion kills an enemy, give it +1 Attack permanently. """
-	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100p_e2'))
-	pass
-BG20_HERO_100p_e2=buff(1,0)
 
 
 
-#55#Scabbs Cutterbutter
-#### 010 ####
+#55#Scabbs Cutterbutter ### OK ###
 class BG21_HERO_010:# <7>[1453]
 	""" Scabbs Cutterbutter	 """
 	pass
+class BG21_HERO_010p_Action(Choice):
+	def get_args(self, source):
+		controller = source.controller
+		bartender = controller.opponent
+		gamemaster = controller.game.parent
+		next_warband = gamemaster.next_warband(controller)
+		if len(next_warband)>3:
+			next_warband=random.sample(next_warband,3)
+		cards=[]
+		for card in next_warband:
+			cards.append(controller.card(card))
+		return player, cards
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(BG21_HERO_010p_Action.choose)%s chooses %r"%(card.controller.name, card))
+		card.zone=Zone.HAND
+class BG21_HERO_010p:# <7>[1453]
+	""" I Spy
+	[Discover] a plain copy of a minion from your next opponent's warband. """
+	activate = BG21_HERO_010p_Action(CONTROLLER, [])
+	pass
+########### BUDDY
 class BG21_HERO_010_Buddy:# <12>[1453]
 	""" Warden Thelwater
 	At the start of your turn, add your next opponent's Buddy to your hand. """
@@ -204,11 +229,6 @@ class BG21_HERO_010_Buddy_G:# <12>[1453]
 	At the start of your turn, add 2 of your next opponent's Buddy to your hand. """
 	#events = OWN_TURN_BEGIN.on(Give(CONTROLLER, ID(NEXT_OPPONENT_BUDDY))*2)
 	pass
-class BG21_HERO_010p:# <7>[1453]
-	""" I Spy
-	[Discover] a plain copy of a minion from your next opponent's warband. """
-	#play = GenericChoice(CONTROLLER, RANDOM(NEXT_OPPONENT) * 3)
-	pass
 
 
 
@@ -216,6 +236,33 @@ class BG21_HERO_010p:# <7>[1453]
 class TB_BaconShop_HERO_23:# <12>[1453]
 	""" Shudderwock """
 	pass
+class TB_BaconShop_HP_022_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		if source.script_data_num_1<2:
+			new_card=Give(controller, 'TB_BaconShop_HP_022t').trigger(source)
+			source.script_data_num_1+=1
+		pass
+class TB_BaconShop_HP_022:
+	""" Snicker-snack
+	Add a 1/1 Shudderling to your hand that repeats all &lt;b&gt;Battlecries&lt;/b&gt; you've played. &lt;i&gt;(Twice per game.)&lt;/i&gt;"""
+	activate = TB_BaconShop_HP_022_Action(CONTROLLER)
+	pass
+class TB_BaconShop_HP_022e:
+	pass
+class TB_BaconShop_HP_022t_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		for action in controller.targetedaction_log:## ‚±‚ê“I‚È‰½‚©
+			Battlecry(controller, action).trigger(source)
+class TB_BaconShop_HP_022t:##&lt;b&gt;Battlecry:&lt;/b&gt; Repeat all other &lt;b&gt;Battlecries&lt;/b&gt; from cards you played this game &lt;i&gt;(targets chosen randomly)&lt;/i&gt;.
+	play = TB_BaconShop_HP_022t_Action(CONTROLLER)
+	pass
+class TB_BaconShop_HP_022t_G:
+	pass
+########## BUDDY
 class TB_BaconShop_HERO_23_Buddy:# <12>[1453]
 	""" Muckslinger
 	After you play a minion,add a [Battlecry] minionto Bob's Tavern.Give it +2/+2. """
@@ -233,16 +280,6 @@ class TB_BaconShop_HERO_23_Buddy_Ge:# <12>[1453]
 	+4/+4. """
 	pass
 
-class TB_BaconShop_HP_022:
-	""" """
-	pass
-class TB_BaconShop_HP_022e:
-	pass
-class TB_BaconShop_HP_022t:
-	pass
-class TB_BaconShop_HP_022t_G:
-	pass
-
 
 
 #57#Silas Darkmoon # # armor 6
@@ -257,6 +294,11 @@ class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
 	""" Burth
 	After you buy a minion witha Darkmoon Ticket, gain2_Gold this turn only. """
 	pass
+class TB_BaconShop_HP_101_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_101:
 	"""  """
 class TB_BaconShop_HP_101e:
@@ -280,6 +322,11 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 	""" Thawed Champion
 	At the end of your turn, add2 random [Frozen] minionsfrom Bob's Tavernto your hand. """
 	pass
+class TB_BaconShop_HP_014_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_014:
 	"""  """
 TB_BaconShop_HP_014e=buff(2,1)
@@ -295,6 +342,11 @@ class TB_BaconShop_HERO_40_Buddy:
 	"""  """
 class TB_BaconShop_HERO_40_Buddy_G:
 	"""  """
+class TB_BaconShop_HP_057_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_057:
 	"""  """
 
@@ -309,6 +361,11 @@ class TB_BaconShop_HERO_68_Buddy:
 class TB_BaconShop_HERO_68_Buddy_G:
 	"""  """
 	pass
+class TB_BaconShop_HP_076_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_076:
 	"""  """
 	pass
@@ -380,6 +437,11 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack twice. """
 	pass
+class BG20_HERO_282p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class BG20_HERO_282p:# <9>[1453]
 	""" Fragrant Phylactery
 	[Start of Combat:]Destroy your lowest Healthminion. Give its stats_to four friendly minions. """
@@ -409,6 +471,11 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 	""" Crabby
 	After your Hero Power fires, give adjacent minions stats equal to twice the damage dealt. """
 	pass
+class BG20_HERO_000p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class BG22_HERO_000p:# <12>[1453]
 	""" Deadeye
 	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
@@ -451,6 +518,11 @@ class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
 	At the start of your turn, add 2 of your last opponent's Buddy to your hand. """
 	#
 	pass
+class TB_BaconShop_HP_077_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_077:
 	"""  """
 
@@ -471,6 +543,11 @@ class TB_BaconShop_HERO_33_Buddy_e:# <12>[1453]
 	pass
 class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
 	"""  """
+class TB_BaconShop_HP_033_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_033:
 	"""  """
 class TB_BaconShop_HP_033t:
@@ -491,6 +568,11 @@ class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
 	[Deathrattle:] Put 2 random[Secrets] into the battlefield. """
 	#
 	pass
+class TB_BaconShop_HP_020_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_020:
 	"""  """
 
@@ -504,6 +586,11 @@ class TB_BaconShop_HERO_22_Buddy:
 	"""  """
 class TB_BaconShop_HERO_22_Buddy_G:
 	"""  """
+class TB_BaconShop_HP_024_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_024:
 	"""  """
 TB_BaconShop_HP_024e2=buff(reborn=True)
@@ -522,6 +609,11 @@ class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
 	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
 	#
 	pass
+class TB_BaconShop_HP_041_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
 class TB_BaconShop_HP_041:
 	"""  """
 class TB_BaconShop_HP_041a:

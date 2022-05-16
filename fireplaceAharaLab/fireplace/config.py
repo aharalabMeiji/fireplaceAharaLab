@@ -30,7 +30,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=78 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=55 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
@@ -85,10 +85,10 @@ class Config:# ()is the default value
 	#49#Pyramad
 	#50#Queen Wagtoggle
 	#51#Ragnaros the Firelord
-	#52#Rakanishu
-	#53#Reno Jackson
-	#54#Rokara
-	#55#Scabbs Cutterbutter
+	#52#Rakanishu  ### HP
+	#53#Reno Jackson  ### HP
+	#54#Rokara  ### HP
+	#55#Scabbs Cutterbutter  ### HP
 	#56#Shudderwock
 	#57#Silas Darkmoon
 	#58#Sindragosa
@@ -108,7 +108,7 @@ class Config:# ()is the default value
 	#72#Varden Dawngrasp ## HP 
 	#73#Vol'jin  ### HP 
 	#74#Xyrella  ### HP 
-	#75#Y'Shaarj
-	#76#Yogg-Saron, Hope's End
-	#77#Ysera
-	#78#Zephrys, the Great
+	#75#Y'Shaarj  ### HP
+	#76#Yogg-Saron, Hope's End  ### HP
+	#77#Ysera  ### HP
+	#78#Zephrys, the Great  ### HP
