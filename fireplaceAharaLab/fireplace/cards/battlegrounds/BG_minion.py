@@ -932,11 +932,12 @@ class BG23_015_Gt:
 	pass
 
 
-### Reef Explorer(4)
+### Reef Explorer(4) ### regular card OK, gold card NOT YET ###
+### WARNING  : we must exclude all of banned cards
 class BG23_016_Choice(Choice):
 	def get_args(self, source):
 		player, cards = super().get_args(source)
-		controller = source,controller
+		controller = source.controller
 		for fcard in controller.field:
 			exclude_race = fcard.race
 			for card in reversed(cards):
@@ -947,25 +948,44 @@ class BG23_016_Choice(Choice):
 			if len(cards)>3:
 				cards = random.sample(cards,3)
 		return player, cards
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(BG23_016_Choice.choose)%s chooses %r"%(card.controller.name, card))
+		card.zone=Zone.HAND
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a minion from a minion type you don't control."""
-	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER)))
+	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*12)
 	pass
+class BG23_016_G_Choice(DiscoverTwice):
+	def get_args(self, source):
+		player, cards = super().get_args(source)
+		controller = source.controller
+		for fcard in controller.field:
+			exclude_race = fcard.race
+			for card in reversed(cards):
+				if card.race==exclude_race:
+					cards.remove(card)
+			pass
+		if len(cards)>0:
+			if len(cards)>3:
+				cards = random.sample(cards,3)
+		return player, cards
 class BG23_016_G:# <12>[1453]
 	"""
 	&lt;b&gt;Battlecry: Discover&lt;/b&gt; 2 minions from minion types you don't control."""
-	#play = DiscoverTwice(CONTROLLER, BG23_015_Entourage())
-	#play = BG23_016_G_Choice(CONTROLLER, RandomBGMinion())
+	play = BG23_016_G_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*12)
 	pass
 
 
-## Darkgaze Elder (6) (quilboar)
+## Darkgaze Elder (6) (quilboar)  ### maybe OK ###
 class BG23_018_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount):
 		controller = target
+		source.script_data_num_1 = 4-controller.spentmoney_in_this_turn
 		if controller.spentmoney_in_this_turn>=4:
 			quilboars=[]
 			for card in controller.field:
@@ -977,6 +997,7 @@ class BG23_018_Action(TargetedAction):
 				for repeat in range(amount):
 					ApplyGem(card,'BG20_GEM').trigger(source)
 			controller.spentmoney_in_this_turn -= 4
+			source.script_data_num_1 = 4-controller.spentmoney_in_this_turn
 class BG23_018:# <12>[1453]
 	""" Darkgaze Elder (6)
 	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
@@ -999,7 +1020,7 @@ class BG23_018t:# <12>[1453]
 	pass
 
 
-
+## Leeroy the Reckless (5)  ### maybe ###
 class BG23_318_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
