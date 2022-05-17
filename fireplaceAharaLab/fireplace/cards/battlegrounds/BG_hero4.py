@@ -240,9 +240,9 @@ class TB_BaconShop_HP_022_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
-		if source.script_data_num_1<2:
+		if source.script_data_num_1>0:
 			new_card=Give(controller, 'TB_BaconShop_HP_022t').trigger(source)
-			source.script_data_num_1+=1
+			source.script_data_num_1-=1
 		pass
 class TB_BaconShop_HP_022:
 	""" Snicker-snack
@@ -254,9 +254,19 @@ class TB_BaconShop_HP_022e:
 class TB_BaconShop_HP_022t_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
+		from fireplace.card import is_valid_target
 		controller = target
-		for action in controller.targetedaction_log:## ‚±‚ê“I‚È‰½‚©
-			Battlecry(controller, action).trigger(source)
+		for battlecry in controller.battlecry_log:## does it contain itself? 
+			if battlecry['card'].id != source.id:
+				if battlecry['requirements']!={}:
+					targets=[]
+					for card in source.controller.field:
+						if is_valid_target(source, card, requirements=battlecry['requirements']):
+							targets.append(card)  
+					target = random.choice(source.targets)## set random targets
+					battlecry['action'].trigger(source)
+				else:
+					battlecry['action'].trigger(source)
 class TB_BaconShop_HP_022t:##&lt;b&gt;Battlecry:&lt;/b&gt; Repeat all other &lt;b&gt;Battlecries&lt;/b&gt; from cards you played this game &lt;i&gt;(targets chosen randomly)&lt;/i&gt;.
 	play = TB_BaconShop_HP_022t_Action(CONTROLLER)
 	pass

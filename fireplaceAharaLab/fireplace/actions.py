@@ -1123,6 +1123,12 @@ class Battlecry(TargetedAction):
 
 		source.target = target
 		source.game.main_power(source, actions, target)
+		if card.has_battlecry:
+			if hasattr(actions,'__iter__'):
+				for action in actions:
+					player.add_battlecry_log({'card':card, 'action':action, 'target':target, 'requirements':card.requirements})
+			else:
+				player.add_battlecry_log(actions)
 
 		if player.extra_battlecries and card.has_battlecry:
 			source.game.main_power(source, actions, target)
