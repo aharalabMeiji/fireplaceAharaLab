@@ -232,7 +232,7 @@ class BG21_HERO_010_Buddy_G:# <12>[1453]
 
 
 
-#56#Shudderwock # armor 3
+#56#Shudderwock ### need check ###
 class TB_BaconShop_HERO_23:# <12>[1453]
 	""" Shudderwock """
 	pass
@@ -296,26 +296,39 @@ class TB_BaconShop_HERO_23_Buddy_Ge:# <12>[1453]
 class TB_BaconShop_HERO_90:# <12>[1453]
 	""" Silas Darkmoon """
 	pass
+class TB_BaconShop_HP_101_Action(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller = target
+		for buff in card.buffs:
+			if buff.id=='TB_BaconShop_HP_101e':
+				source._sidequest_counter_ += 1 ## this is a counter.
+				if source._sidequest_counter_==3:
+					source._sidequest_counter_=0
+					Give(controller, 'TB_BaconShop_HP_101t2').trigger(source)
+				break
+
+		pass
+class TB_BaconShop_HP_101:
+	"""  Come One, Come All!
+	&lt;b&gt;Passive.&lt;/b&gt; Darkmoon Tickets are in the Tavern! Get 3 to &lt;b&gt;Discover&lt;/b&gt; a minion from your Tavern Tier."""
+	### when reroling cards, put some of minions the enchantment below
+	events = Buy(CONTROLLER).TB_BaconShop_HP_101_Action(CONTROLLER, Buy.CARD)
+class TB_BaconShop_HP_101e:
+	"""  """
+class TB_BaconShop_HP_101t2:## discover card
+	"""  """
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
+##### BUDDY
 class TB_BaconShop_HERO_90_Buddy:# <12>[1453]
 	""" Burth
-	After you buy a minion witha Darkmoon Ticket, gain1_Gold this turn only. """
+	After you buy a minion with a Darkmoon Ticket, gain1_Gold this turn only. """
 	pass
 class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
 	""" Burth
 	After you buy a minion witha Darkmoon Ticket, gain2_Gold this turn only. """
 	pass
-class TB_BaconShop_HP_101_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
-		pass
-class TB_BaconShop_HP_101:
-	"""  """
-class TB_BaconShop_HP_101e:
-	"""  """
-class TB_BaconShop_HP_101t2:
-	"""  """
-
 
 
 

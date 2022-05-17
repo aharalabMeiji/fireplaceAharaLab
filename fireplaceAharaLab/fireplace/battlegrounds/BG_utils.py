@@ -65,7 +65,7 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_14',#50 X
 	'TB_BaconShop_HERO_11',#51 X
 
-	'TB_BaconShop_HERO_23',#56 X
+	'TB_BaconShop_HERO_23',#56 XX
 	'TB_BaconShop_HERO_90',#57 X
 	'TB_BaconShop_HERO_27',#58 X
 	'TB_BaconShop_HERO_40',#59 X
@@ -79,7 +79,7 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_22',#67 X
 	'TB_BaconShop_HERO_12',#68 X
 
-	'TB_BaconShop_HERO_94',#69 X
+	'TB_BaconShop_HERO_94',#69 XX
 	'TB_BaconShop_HERO_53',#77 dragon ban
 	]
 
