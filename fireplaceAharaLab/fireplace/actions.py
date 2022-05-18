@@ -516,6 +516,7 @@ class GenericChoiceChangeHeropower(GenericChoice):##
 		controller = self.player
 		if card.type != CardType.HERO_POWER:
 			return
+		card.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]=controller.hero.power.script_data_num_1
 		ChangeHeroPower(controller, card).trigger(controller)
 		pass
 

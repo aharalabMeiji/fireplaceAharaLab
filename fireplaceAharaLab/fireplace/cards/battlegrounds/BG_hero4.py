@@ -477,6 +477,44 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 class BG20_HERO_282:# <9>[1453]
 	""" Tamsin Roame """
 	pass
+class BG20_HERO_282p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		lowesthealth=[]
+		for card in controller.field:
+			if lowesthealth==[]:
+				lowesthealth=[card]
+			elif card.max_health>lowesthealth[0].max_health:
+				lowesthealth=[card]
+			elif card.max_health==lowesthealth[0].max_health:
+				lowesthealth.append[card]
+		lowestcard = random.choice(lowesthealth)
+		atk=lowestcard.atk
+		health=lowesthealth.max_health
+		lowestcard.zone=Zone.GRAVEYARD
+		if lowestcard in controller.field:
+			controller.field.remove(lowestcard)
+		if len(controller.field)>4:
+			coleagues = random.sample(controller.field, 4)
+		else:
+			coleagues = controller.field
+		for card in coleagues:
+			Buff(card, 'BG20_HERO_282pe').trigger(source)
+			buff=card.buffs[-1]
+			buff.tags[GameTag.ATK]=atk
+			buff.tags[GameTag.HEALTH]=health
+		pass
+class BG20_HERO_282p:# <9>[1453]
+	""" Fragrant Phylactery
+	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to four friendly minions. """
+	events = BeginBattle(CONTROLLER).on(BG20_HERO_282p_Action(CONTROLLER))
+	pass
+class BG20_HERO_282pe:# <12>[1453]
+	""" Fragrant
+	Increased stats. """
+	pass
+######## BUDDY
 class BG20_HERO_282_Buddy:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack. """
@@ -488,19 +526,6 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack twice. """
 	pass
-class BG20_HERO_282p_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
-		pass
-class BG20_HERO_282p:# <9>[1453]
-	""" Fragrant Phylactery
-	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to four friendly minions. """
-	pass
-class BG20_HERO_282pe:# <12>[1453]
-	""" Fragrant
-	Increased stats. """
-	pass
 
 
 
@@ -510,6 +535,39 @@ class BG20_HERO_282pe:# <12>[1453]
 class BG22_HERO_000:# <12>[1453]
 	""" Tavish Stormpike """
 	pass
+class BG22_HERO_000p:# <12>[1453]
+	""" Deadeye
+	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
+	entourage=['BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4']
+	events = [
+		BeginGame(CONTROLLER).on(SetScriptDataNum1(SELF,1)),
+		BeginBattle(CONTROLLER).on(
+			GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*4)
+			),
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
+		]
+	pass
+class BG22_HERO_000p_t1:# <12>[1453]
+	""" Aim Left!
+	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
+	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LEFT_MOST(ENEMY_MINIONS)))
+	pass
+class BG22_HERO_000p_t2:# <12>[1453]
+	""" Aim Low!
+	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
+	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LOWEST_HEALTH(ENEMY_MINIONS)))
+	pass
+class BG22_HERO_000p_t3:# <12>[1453]
+	""" Aim High!
+	[Passive Start of Combat]: Deal@ damage to the highestHealth enemy minion. """
+	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, HIGHEST_HEALTH(ENEMY_MINIONS)))
+	pass
+class BG22_HERO_000p_t4:# <12>[1453]
+	""" Aim Right!
+	[Passive Start of Combat]: Deal@ damage to the right-most enemy minion. """
+	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, RIGHT_MOST(ENEMY_MINIONS)))
+	pass
+######## BUDDY
 class BG22_HERO_000_Buddy:# <12>[1453]
 	""" Crabby
 	After your Hero Power fires,give adjacent minions stats__equal to the damage dealt._ """
@@ -522,36 +580,7 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 	""" Crabby
 	After your Hero Power fires, give adjacent minions stats equal to twice the damage dealt. """
 	pass
-class BG20_HERO_000p_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
-		pass
-class BG22_HERO_000p:# <12>[1453]
-	""" Deadeye
-	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
-	#
-	pass
-class BG22_HERO_000p_t1:# <12>[1453]
-	""" Aim Left!
-	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
-	#
-	pass
-class BG22_HERO_000p_t2:# <12>[1453]
-	""" Aim Low!
-	[PassiveStart of Combat]: Deal@ damage to the lowestHealth enemy minion. """
-	#
-	pass
-class BG22_HERO_000p_t3:# <12>[1453]
-	""" Aim High!
-	[PassiveStart of Combat]: Deal@ damage to the highestHealth enemy minion. """
-	#
-	pass
-class BG22_HERO_000p_t4:# <12>[1453]
-	""" Aim Right!
-	[PassiveStart of Combat]: Deal@ damage to the right-most enemy minion. """
-	#
-	pass
+
 
 
 
@@ -559,6 +588,17 @@ class BG22_HERO_000p_t4:# <12>[1453]
 class TB_BaconShop_HERO_50:# <12>[1453]
 	""" Tess Greymane """
 	pass
+class TB_BaconShop_HP_077_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target, other, amount):
+		controller = target
+		pass
+class TB_BaconShop_HP_077:
+	"""  
+	&lt;b&gt;Refresh&lt;/b&gt; Bob's Tavern with your last opponent's warband."""
+	
+	pass
+######## BUDDY
 class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
 	""" Hunter of Old
 	At the start of your turn,add your last opponent's Buddy to your hand. """
@@ -569,14 +609,6 @@ class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
 	At the start of your turn, add 2 of your last opponent's Buddy to your hand. """
 	#
 	pass
-class TB_BaconShop_HP_077_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
-		pass
-class TB_BaconShop_HP_077:
-	"""  
-	&lt;b&gt;Refresh&lt;/b&gt; Bob's Tavern with your last opponent's warband."""
 
 
 
