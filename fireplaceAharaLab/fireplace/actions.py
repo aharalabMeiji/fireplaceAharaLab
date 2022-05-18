@@ -3061,6 +3061,13 @@ class Avenge(TargetedAction):
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
 
+class BeginGame(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		self.broadcast(source, EventListener.ON, target)
+		self.broadcast(source, EventListener.AFTER, target)
+
 class Buy(TargetedAction): ## battlegrounds
 	TARGET = ActionArg()
 	CARD = ActionArg()

@@ -365,42 +365,57 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 
 
 
-#59#Sir Finley Mrrgglton ## armor 3
+#59#Sir Finley Mrrgglton     ### need check###
 class TB_BaconShop_HERO_40:# <12>[1453]
 	""" Sir Finley Mrrgglton """
 	pass
-class TB_BaconShop_HERO_40_Buddy:
-	"""  """
-class TB_BaconShop_HERO_40_Buddy_G:
-	"""  """
-class TB_BaconShop_HP_057_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
+class TB_BaconShop_HP_057_Discover(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(TB_BaconShop_HP_057_Discover.choose)%s chooses %r"%(card.controller.name, card))
+		card.zone=Zone.Play
 		pass
 class TB_BaconShop_HP_057:
 	"""  
 	&lt;b&gt;Passive&lt;/b&gt; At the start of the game, &lt;b&gt;Discover&lt;/b&gt; a Hero Power."""
+	entourage=['TB_BaconShop_HP_085','TB_BaconShop_HP_046','BG20_HERO_100p',]
+	events = BeginGame(CONTROLLER).on(TB_BaconShop_HP_057_Discover(CONTROLLER, RandomEntourage()*3))
+######## BUDDY
+class TB_BaconShop_HERO_40_Buddy:
+	"""  """
+class TB_BaconShop_HERO_40_Buddy_G:
+	"""  """
 
 
-#60#Skycap'n Kragg
+
+
+#60#Skycap'n Kragg     ### need check###
 class TB_BaconShop_HERO_68:# <12>[1453]
 	""" Skycap'n Kragg """
 	pass
+class TB_BaconShop_HP_076_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		source._sidequest_counter_+=1
+		if source._sidequest_counter_<=1:
+			for repeat in range(min(source.script_data_num_1,10)):  
+				Give(controller, 'GAME_005').trigger(controller)
+			SetAttr(source,'cant_play',True).trigger(controller)
+		pass
+class TB_BaconShop_HP_076:
+	"""  
+	Gain @ Gold this turn. Increases each turn. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
+	activate = TB_BaconShop_HP_076_Action(CONTROLLER)
+	events = BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
+	pass
+######## BUDDY
 class TB_BaconShop_HERO_68_Buddy:
 	"""  """
 	pass
 class TB_BaconShop_HERO_68_Buddy_G:
 	"""  """
-	pass
-class TB_BaconShop_HP_076_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
-		pass
-class TB_BaconShop_HP_076:
-	"""  
-	Gain @ Gold this turn. Increases each turn. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
 	pass
 
 
@@ -411,6 +426,19 @@ class TB_BaconShop_HP_076:
 class BG21_HERO_030:# <10>[1453]
 	""" Sneed """
 	pass
+class BG21_HERO_030p:# <12>[1453]
+	""" Sneed's Replicator
+	Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET,'BG21_HERO_030pe')
+	pass
+class BG21_HERO_030pe:# <12>[1453]
+	""" Replicate
+	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
+	pass
+######## BUDDY 
 class BG21_HERO_030_Buddy_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFFCARD=ActionArg()
@@ -441,18 +469,8 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 			   PlayReq.REQ_TARGET_WITH_DEATHRATTLE:1}
 	play = BG21_HERO_030_Buddy_Action(TARGET, 'BG21_HERO_030_Buddy_e',2) 
 	pass
-class BG21_HERO_030p:# <12>[1453]
-	""" Sneed's Replicator
-	Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(TARGET,'BG21_HERO_030pe')
-	pass
-class BG21_HERO_030pe:# <12>[1453]
-	""" Replicate
-	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
-	tags={GameTag.DEATHRATTLE:True}
-	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
-	pass
+
+
 
 
 #62#Tamsin Roame

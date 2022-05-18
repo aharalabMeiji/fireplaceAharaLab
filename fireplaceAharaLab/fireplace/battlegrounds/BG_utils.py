@@ -203,6 +203,7 @@ class BG_main:
 						card = bar.controller.card(Config.CARD_PRESET2)
 						card.zone = Zone.HAND
 			##########
+			BeginGame(bar.controller).trigger(bar.controller)
 			if Config.LOGINFO:
 				print ("==== %s 's bar done ===="% agent)
 			pass
