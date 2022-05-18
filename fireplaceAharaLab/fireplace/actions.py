@@ -3243,7 +3243,7 @@ class Rerole(TargetedAction): ## battlegrounds
 				if controller.hero.power.id=='TB_BaconShop_HP_101':### サイラスフラグ
 					if random.choice([0,1]):
 						#cardにBuff('TB_BaconShop_HP_101e')をつける
-						Buff(card, 'TB_BaconShop_HP_101e').trigger(bartender)
+						card.darkmoon_ticket = True
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
 

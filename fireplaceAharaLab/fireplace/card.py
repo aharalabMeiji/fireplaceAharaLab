@@ -181,6 +181,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	honorable_kill = True
 	honorably_killed = False ##
+	darkmoon_ticket=False #battlegrounds
 
 	def __init__(self, data):
 		self.attacker=None
