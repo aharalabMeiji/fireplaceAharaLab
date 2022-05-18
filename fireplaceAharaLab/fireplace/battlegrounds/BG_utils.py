@@ -66,8 +66,6 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_11',#51 X
 
 	'TB_BaconShop_HERO_23',#56 XX
-	'TB_BaconShop_HERO_90',#57 X
-	'TB_BaconShop_HERO_27',#58 X
 	'TB_BaconShop_HERO_40',#59 X
 	'TB_BaconShop_HERO_68',#60 X
 	'BG21_HERO_030',#61 X
@@ -246,6 +244,9 @@ class BG_main:
 						frozencard += 1
 				for repeat in range(bartender.len_bobs_field-frozencard):
 					card = self.DealCard(bartender, controller.tavern_tier)
+					if controller.hero.power.id=='TB_BaconShop_HP_101':### Silas-flag
+						if random.choice([0,1]):
+							card.darkmoon_ticket = True
 				#start bob's tavern
 				BeginBar(controller, bar.turn).trigger(controller)
 				if controller.hero.power:

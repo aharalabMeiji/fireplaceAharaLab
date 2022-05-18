@@ -292,7 +292,7 @@ class TB_BaconShop_HERO_23_Buddy_Ge:# <12>[1453]
 
 
 
-#57#Silas Darkmoon # # armor 6
+#57#Silas Darkmoon # ## OK ##
 class TB_BaconShop_HERO_90:# <12>[1453]
 	""" Silas Darkmoon """
 	pass
@@ -301,20 +301,19 @@ class TB_BaconShop_HP_101_Action(TargetedAction):
 	CARD = ActionArg()
 	def do(self, source, target, card):
 		controller = target
-		for buff in card.buffs:
-			if buff.id=='TB_BaconShop_HP_101e':
-				source._sidequest_counter_ += 1 ## this is a counter.
-				if source._sidequest_counter_==3:
-					source._sidequest_counter_=0
-					Give(controller, 'TB_BaconShop_HP_101t2').trigger(source)
-				break
-
+		if card.darkmoon_ticket:
+			card.darkmoon_ticket=False
+			source._sidequest_counter_ += 1 ## this is a counter.
+			if source._sidequest_counter_==3:
+				source._sidequest_counter_=0
+				newcard=Give(controller, 'TB_BaconShop_HP_101t2').trigger(source)
+				newcard[0][0].script_data_num_1=controller.tavern_tier
 		pass
 class TB_BaconShop_HP_101:
 	"""  Come One, Come All!
 	&lt;b&gt;Passive.&lt;/b&gt; Darkmoon Tickets are in the Tavern! Get 3 to &lt;b&gt;Discover&lt;/b&gt; a minion from your Tavern Tier."""
 	### when reroling cards, put some of minions the enchantment below
-	events = Buy(CONTROLLER).TB_BaconShop_HP_101_Action(CONTROLLER, Buy.CARD)
+	events = Buy(CONTROLLER).on(TB_BaconShop_HP_101_Action(CONTROLLER, Buy.CARD))
 class TB_BaconShop_HP_101e:
 	"""  """
 class TB_BaconShop_HP_101t2:## discover card
@@ -333,10 +332,27 @@ class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
 
 
 
-#58#Sindragosa
+#58#Sindragosa  ### HP OK ###
 class TB_BaconShop_HERO_27:# <12>[1453]
 	""" Sindragosa """
 	pass
+class TB_BaconShop_HP_014_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		bartender = controller.opponent
+		for card in bartender.field:
+			if card.frozen:
+				Buff(card, 'TB_BaconShop_HP_014e').trigger(source)
+		pass
+class TB_BaconShop_HP_014:
+	"""  
+	&lt;b&gt;Freeze&lt;/b&gt; a minion in Bob's Tavern. &lt;b&gt;Frozen&lt;/b&gt; minions get +2/+1 each turn."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
+	activate = Freeze(TARGET)
+	events = OWN_TURN_END.on(TB_BaconShop_HP_014_Action(CONTROLLER))
+TB_BaconShop_HP_014e=buff(2,1)
+######## BUDDY
 class TB_BaconShop_HERO_27_Buddy:# <12>[1453]
 	""" Thawed Champion
 	At the end of your turn, adda random [Frozen] minionfrom Bob's Tavernto your hand. """
@@ -345,15 +361,6 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 	""" Thawed Champion
 	At the end of your turn, add2 random [Frozen] minionsfrom Bob's Tavernto your hand. """
 	pass
-class TB_BaconShop_HP_014_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
-		controller = target
-		pass
-class TB_BaconShop_HP_014:
-	"""  
-	&lt;b&gt;Freeze&lt;/b&gt; a minion in Bob's Tavern. &lt;b&gt;Frozen&lt;/b&gt; minions get +2/+1 each turn."""
-TB_BaconShop_HP_014e=buff(2,1)
 
 
 

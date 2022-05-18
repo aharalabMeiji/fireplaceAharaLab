@@ -184,6 +184,8 @@ class BG_HumanAgent(BG_Agent):
 			print("パワー　：%s(cost %d) : unplayable"%(controller.hero.power, controller.hero.power.cost,))
 		else:
 			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, controller.hero.power.data.description.replace('\n','_').replace('@','%d'%(controller.hero.power.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]))))
+		if controller.hero.power.id=='TB_BaconShop_HP_101':
+			print ("ダークムーンチケット (%d/3)"%(controller.hero.power._sidequest_counter_))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar   :%s" %(self.card_stats(card)))
@@ -243,6 +245,8 @@ class BG_HumanAgent(BG_Agent):
 				ret += "(reborn)"
 			if card.has_deathrattle:
 				ret += "(deathrattle)"
-		ret += card.data.description.replace('\n','_').replace('@','%d'%(card.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]))
+			if card.darkmoon_ticket:
+				ret += "(darkmoon ticket)"
+		ret += card.data.description.replace('\n','_').replace('@','%d'%(card.script_data_num_1))
 		return ret
 
