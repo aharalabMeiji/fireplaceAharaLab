@@ -25,12 +25,12 @@ class Config:# ()is the default value
 
 	HUMAN_PLAY=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG23_018'
+	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=59 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=63 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
@@ -93,9 +93,9 @@ class Config:# ()is the default value
 	#57#Silas Darkmoon ### HP
 	#58#Sindragosa ### HP
 	#59#Sir Finley Mrrgglton ### HP
-	#60#Skycap'n Kragg
-	#61#Sneed
-	#62#Tamsin Roame
+	#60#Skycap'n Kragg ### HP
+	#61#Sneed ### HP
+	#62#Tamsin Roame ### HP
 	#63#Tavish Stormpike
 	#64#Tess Greymane
 	#65#The Curator

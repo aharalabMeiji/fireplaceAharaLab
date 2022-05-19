@@ -383,7 +383,7 @@ class TB_BaconShop_HERO_40_Buddy_G:
 
 
 
-#60#Skycap'n Kragg     ### need check###
+#60#Skycap'n Kragg     ### HP OK ###
 class TB_BaconShop_HERO_68:# <12>[1453]
 	""" Skycap'n Kragg """
 	pass
@@ -394,14 +394,15 @@ class TB_BaconShop_HP_076_Action(TargetedAction):
 		source._sidequest_counter_+=1
 		if source._sidequest_counter_<=1:
 			for repeat in range(min(source.script_data_num_1,10)):  
-				Give(controller, 'GAME_005').trigger(controller)
+				#Give(controller, 'GAME_005').trigger(controller)
+				ManaThisTurn(CONTROLLER, 1).trigger(controller)
 			SetAttr(source,'cant_play',True).trigger(controller)
 		pass
 class TB_BaconShop_HP_076:
 	"""  
 	Gain @ Gold this turn. Increases each turn. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
 	activate = TB_BaconShop_HP_076_Action(CONTROLLER)
-	events = BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
+	events = OWN_TURN_END.on(AddScriptDataNum1(SELF,1))
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_68_Buddy:
@@ -415,7 +416,7 @@ class TB_BaconShop_HERO_68_Buddy_G:
 
 
 
-#61#Sneed    ### need check###
+#61#Sneed    ### OK ###
 class BG21_HERO_030:# <10>[1453]
 	""" Sneed """
 	pass
@@ -423,13 +424,13 @@ class BG21_HERO_030p:# <12>[1453]
 	""" Sneed's Replicator
 	Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(TARGET,'BG21_HERO_030pe')
+	activate = Buff(TARGET,'BG21_HERO_030pe')
 	pass
 class BG21_HERO_030pe:# <12>[1453]
 	""" Replicate
 	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
-	tags={GameTag.DEATHRATTLE:True}
-	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
+	tags = {GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TECH_LEVEL(SELF)))
 	pass
 ######## BUDDY 
 class BG21_HERO_030_Buddy_Action(TargetedAction):
@@ -466,25 +467,27 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 
 
 
-#62#Tamsin Roame
+#62#Tamsin Roame ### OK ###
 class BG20_HERO_282:# <9>[1453]
 	""" Tamsin Roame """
 	pass
 class BG20_HERO_282p_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
+	def do(self, source, target):
 		controller = target
 		lowesthealth=[]
+		if len(controller.field)<2:
+			return
 		for card in controller.field:
 			if lowesthealth==[]:
 				lowesthealth=[card]
-			elif card.max_health>lowesthealth[0].max_health:
+			elif card.max_health<lowesthealth[0].max_health:
 				lowesthealth=[card]
 			elif card.max_health==lowesthealth[0].max_health:
-				lowesthealth.append[card]
+				lowesthealth.append(card)
 		lowestcard = random.choice(lowesthealth)
 		atk=lowestcard.atk
-		health=lowesthealth.max_health
+		health=lowestcard.max_health
 		lowestcard.zone=Zone.GRAVEYARD
 		if lowestcard in controller.field:
 			controller.field.remove(lowestcard)
@@ -524,7 +527,7 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 
 
 
-#63##Tavish Stormpike
+#63##Tavish Stormpike ### need check ###
 class BG22_HERO_000:# <12>[1453]
 	""" Tavish Stormpike """
 	pass
@@ -532,23 +535,27 @@ class BG22_HERO_000p:# <12>[1453]
 	""" Deadeye
 	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
 	entourage=['BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4']
+	activate = GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*4)
 	events = [
-		BeginGame(CONTROLLER).on(SetScriptDataNum1(SELF,1)),
-		BeginBattle(CONTROLLER).on(
-			GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*4)
-			),
+		BeginGame(CONTROLLER).on(SetScriptDataNum1(SELF,0)),
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
 		]
 	pass
 class BG22_HERO_000p_t1:# <12>[1453]
 	""" Aim Left!
 	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
-	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LEFT_MOST(ENEMY_MINIONS)))
+	events = [
+		BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LEFT_MOST(RANDOM_ENEMY_MINION))),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]
 	pass
 class BG22_HERO_000p_t2:# <12>[1453]
 	""" Aim Low!
 	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
-	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LOWEST_HEALTH(ENEMY_MINIONS)))
+	events = [
+		BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LOWEST_HEALTH(ENEMY_MINIONS))),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]
 	pass
 class BG22_HERO_000p_t3:# <12>[1453]
 	""" Aim High!
@@ -577,19 +584,33 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 
 
 
-#64#Tess Greymane
+#64#Tess Greymane ### need check ###
 class TB_BaconShop_HERO_50:# <12>[1453]
 	""" Tess Greymane """
 	pass
 class TB_BaconShop_HP_077_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
+	def do(self, source, target):
 		controller = target
+		gamemaster = controller.game.parent
+		bartender = controller.opponent
+
+		last_warband = gamemaster.last_warband(controller)
+		for card in reversed(bartender.field):
+			bartender.remove(card)
+			card.zone=Zone.GRAVEYARD
+		for cardid in last_warband:
+			card = bartender.card(cardid)
+			card.controller = bartender
+			card.zone=Zone.PLAY
+		if bartender.len_bobs_field-len(last_warband)>0:
+			for repeat in range(bartender.len_bobs_field-len(last_warband)):
+				card = game.parent.DealCard(bartender, controller.tavern_tier)
 		pass
 class TB_BaconShop_HP_077:
 	"""  
 	&lt;b&gt;Refresh&lt;/b&gt; Bob's Tavern with your last opponent's warband."""
-	
+	activate = TB_BaconShop_HP_077_Action(CONTROLLER)
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
