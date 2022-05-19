@@ -30,7 +30,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=58 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=59 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
@@ -92,7 +92,7 @@ class Config:# ()is the default value
 	#56#Shudderwock
 	#57#Silas Darkmoon ### HP
 	#58#Sindragosa ### HP
-	#59#Sir Finley Mrrgglton
+	#59#Sir Finley Mrrgglton ### HP
 	#60#Skycap'n Kragg
 	#61#Sneed
 	#62#Tamsin Roame

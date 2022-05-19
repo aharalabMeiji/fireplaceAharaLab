@@ -335,7 +335,8 @@ class Player(Entity, TargetableByAuras):
 			amount -= used_temp
 			self.temp_mana -= used_temp
 		#self.log("%s pays %i mana", self, amount)
-		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) #
+		if Config.LOGINFO:
+			print ("%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
 		self.used_mana += amount
 		return amount
 

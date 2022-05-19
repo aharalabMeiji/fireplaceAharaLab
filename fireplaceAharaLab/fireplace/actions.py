@@ -3213,7 +3213,8 @@ class MorphGold(TargetedAction):
 		newcard = target.controller.card(gold_id)
 		for buff in buffs:## inheriting all buffs
 			buff.apply(newcard)
-		print("Gold card!!! by %s"%(target.controller))
+		if Config.LOGINFO:
+			print("Gold card!!! by %s"%(target.controller))
 
 		newcard.zone = myzone # 必要か？PLAY?
 		return newcard

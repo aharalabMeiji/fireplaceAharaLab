@@ -365,22 +365,15 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 
 
 
-#59#Sir Finley Mrrgglton     ### need check###
+#59#Sir Finley Mrrgglton     ### OK ###
 class TB_BaconShop_HERO_40:# <12>[1453]
 	""" Sir Finley Mrrgglton """
 	pass
-class TB_BaconShop_HP_057_Discover(Choice):
-	def choose(self, card):
-		super().choose(card)
-		if Config.LOGINFO:
-			print("(TB_BaconShop_HP_057_Discover.choose)%s chooses %r"%(card.controller.name, card))
-		card.zone=Zone.Play
-		pass
 class TB_BaconShop_HP_057:
 	"""  
 	&lt;b&gt;Passive&lt;/b&gt; At the start of the game, &lt;b&gt;Discover&lt;/b&gt; a Hero Power."""
 	entourage=['TB_BaconShop_HP_085','TB_BaconShop_HP_046','BG20_HERO_100p',]
-	events = BeginGame(CONTROLLER).on(TB_BaconShop_HP_057_Discover(CONTROLLER, RandomEntourage()*3))
+	events = BeginGame(CONTROLLER).on(GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*3))
 ######## BUDDY
 class TB_BaconShop_HERO_40_Buddy:
 	"""  """
@@ -686,25 +679,28 @@ TB_BaconShop_HP_024e2=buff(reborn=True)
 class TB_BaconShop_HERO_12:# <12>[1453]
 	""" The Rat King """
 	pass
-class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
-	""" Pigeon Lord
-	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
-	pass
-class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
-	""" Pigeon Lord
-	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
-	#
-	pass
 class TB_BaconShop_HP_041_Action(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target, other, amount):
+	def do(self, source, target):
 		controller = target
+		new_hp=random.choice([
+			'TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d',
+			'TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h',
+			'TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',
+			])
+		ChangeHeroPower(controller, new_hp).trigger(source)
 		pass
 class TB_BaconShop_HP_041:
 	"""  
 	&lt;b&gt;Passive&lt;/b&gt; Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+	pass	
 class TB_BaconShop_HP_041a:
 	"""  """
+	events = [
+		Buy(CONTROLLER).on(Buff(Buy.CARD,'')),
+		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		]
 class TB_BaconShop_HP_041b:
 	"""  """
 class TB_BaconShop_HP_041c:
@@ -729,4 +725,14 @@ class TB_BaconShop_HP_041i:
 	"""  """
 class TB_BaconShop_HP_041j:
 	"""  """
+######## BUDDY
+class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
+	""" Pigeon Lord
+	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
+	pass
+class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
+	""" Pigeon Lord
+	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
+	#
+	pass
 
