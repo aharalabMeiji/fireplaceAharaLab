@@ -541,31 +541,97 @@ class BG22_HERO_000p:# <12>[1453]
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
 		]
 	pass
+class  BG22_HERO_000p_t1_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targetcard=field[0]
+		amount=source.script_data_num_1
+		print("Aim Left! by Tavish Stormpike")
+		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t1:# <12>[1453]
 	""" Aim Left!
 	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
 	events = [
-		BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LEFT_MOST(RANDOM_ENEMY_MINION))),
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t1_Action(CONTROLLER)),
 		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
+class  BG22_HERO_000p_t2_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targets=[]
+		for card in field:
+			if targets==[]:
+				targets=[card]
+			elif targets[0].max_health>card.max_health:
+				targets=[card]
+			elif targets[0].max_health==card.max_health:
+				targets.append(card)
+		targetcard = random.choice(targets)
+		amount=source.script_data_num_1
+		print("Aim Low! by Tavish Stormpike")
+		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t2:# <12>[1453]
 	""" Aim Low!
 	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
 	events = [
-		BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, LOWEST_HEALTH(ENEMY_MINIONS))),
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t2_Action(CONTROLLER)),
 		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
+class  BG22_HERO_000p_t3_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targets=[]
+		for card in field:
+			if targets==[]:
+				targets=[card]
+			elif targets[0].max_health<card.max_health:
+				targets=[card]
+			elif targets[0].max_health==card.max_health:
+				targets.append(card)
+		targetcard = random.choice(targets)
+		amount=source.script_data_num_1
+		print("Aim High! by Tavish Stormpike")
+		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t3:# <12>[1453]
 	""" Aim High!
 	[Passive Start of Combat]: Deal@ damage to the highestHealth enemy minion. """
-	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, HIGHEST_HEALTH(ENEMY_MINIONS)))
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t3_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]
 	pass
+class  BG22_HERO_000p_t4_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targetcard=field[-1]
+		amount=source.script_data_num_1
+		print("Aim Right! by Tavish Stormpike")
+		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t4:# <12>[1453]
 	""" Aim Right!
 	[Passive Start of Combat]: Deal@ damage to the right-most enemy minion. """
-	events = BeginBattle(CONTROLLER).on(HitScriptDataNum1(SELF, RIGHT_MOST(ENEMY_MINIONS)))
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t4_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]		
 	pass
 ######## BUDDY
 class BG22_HERO_000_Buddy:# <12>[1453]

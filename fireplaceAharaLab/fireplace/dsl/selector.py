@@ -302,16 +302,20 @@ class BoardPositionSelector(Selector):
 		for e in self.child.eval(entities, source):
 			if e.type==CardType.MINION and getattr(e, "zone", None) == Zone.PLAY:
 				field = e.controller.field
-				position = e.zone_position - 1
-				if self.direction == self.Direction.RIGHT:
+				if self.direction == self.Direction.LEFT:
+					position = e.zone_position - 1
+					left = field[:position]
+				elif self.direction == self.Direction.RIGHT:
 					# Swap the list, reverse the position
 					field = list(reversed(field))
 					position = -(position + 1)
+					left = field[:position]
 				elif self.direction == self.Direction.RIGHT_MOST:
-					position = -1
+					left = field
+					break
 				elif self.direction == self.Direction.LEFT_MOST:
-					position = 0
-				left = field[:position]
+					left = field[:1]
+					break
 				if left:
 					result.append(left[-1])
 
