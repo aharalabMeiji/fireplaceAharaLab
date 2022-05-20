@@ -12,6 +12,7 @@ BG_Minion_Murloc =[
 'BGS_020','TB_BaconUps_089',#Primalfin Lookout (4)
 'BGS_030','BGS_030e','TB_BaconUps_100','TB_BaconUps_100e',#King Bagurgle (5)
 'BG21_009','BG21_009e','BG21_009_G',#SI:Sefin (5)
+'BG22_403',
 	]
 
 BG_PoolSet_Murloc=[
@@ -219,3 +220,13 @@ class BG21_009_G:# <12>[1453]
 	pass
 
 
+
+## oung Murk-Eye (6) 
+class BG22_403:
+	""" Young Murk-Eye (6) 
+	At the end of your turn, the Murloc to the left of this triggers its &lt;b&gt;Battlecry&lt;/b&gt;."""
+	pass
+class BG22_403_G:
+	""" (6) 
+	At the end of your turn, adjacent Murlocs trigger their &lt;b&gt;Battlecries&lt;/b&gt;."""
+	pass

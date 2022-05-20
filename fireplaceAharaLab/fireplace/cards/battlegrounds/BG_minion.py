@@ -1,6 +1,6 @@
 from ..utils import *
 
-if Config.PATCH23_3:
+if Config.PATCH23_2_2:
 	BG_Minion=[
 		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
 		'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
@@ -985,8 +985,8 @@ class BG23_018_Action(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount):
 		controller = target
-		source.script_data_num_1 = 4-controller.spentmoney_in_this_turn
-		if controller.spentmoney_in_this_turn>=4:
+		source.script_data_num_1 = 5-controller.spentmoney_in_this_turn
+		if controller.spentmoney_in_this_turn>=5:
 			quilboars=[]
 			for card in controller.field:
 				if card.race==Race.QUILBOAR:
@@ -996,11 +996,11 @@ class BG23_018_Action(TargetedAction):
 			for card in quilboars:
 				for repeat in range(amount):
 					ApplyGem(card,'BG20_GEM').trigger(source)
-			controller.spentmoney_in_this_turn -= 4
-			source.script_data_num_1 = 4-controller.spentmoney_in_this_turn
+			controller.spentmoney_in_this_turn -= 5
+			source.script_data_num_1 = 5-controller.spentmoney_in_this_turn
 class BG23_018:# <12>[1453]
 	""" Darkgaze Elder (6)
-	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	After you spend 5 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
 	events = [
 		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
 		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),

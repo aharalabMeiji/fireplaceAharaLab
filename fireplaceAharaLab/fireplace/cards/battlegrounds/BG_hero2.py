@@ -200,7 +200,7 @@ class TB_BaconShop_HERO_55:# <12>[1453]
 	pass
 class TB_BaconShop_HP_056:
 	""" Gone Fishing
-	<b>Passive</b> After you sell a minion, add a random Murloc to Bob's Tavern."""
+	<b>Passive</b> After you sell two minions, add a random Murloc to Bob's Tavern."""
 	pass
 class TB_BaconShop_HERO_55_Buddy:
 	pass

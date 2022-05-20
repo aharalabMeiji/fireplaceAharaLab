@@ -1,6 +1,6 @@
 from ..utils import *
 
-if Config.PATCH23_3:
+if Config.PATCH23_2_2:
 	BG_Minion_Quilboar=[
 		'BG20_100','BG20_100_G',#Razorfen Geomancer	1
 		'BG20_301','BG20_301_G',#Sun-Bacon Relaxer	1

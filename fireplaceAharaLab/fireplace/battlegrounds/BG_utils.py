@@ -106,7 +106,7 @@ class BG_main:
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
-			if Config.PATCH23_3:
+			if Config.PATCH23_2_2:
 				self.BG_races = races = ['naga',] + random.sample(['beast','demon','dragon','elemental','mecha','murloc', 'pirate','quilboar'],4)
 			else:
 				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)

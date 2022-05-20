@@ -424,13 +424,13 @@ class BG23_003:# <12>[1453]
 	After you cast a [Spellcraft] spell on a minion,give it +2/+2. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_003_Action(CONTROLLER, BG_Play.CARD, BG_Play.TARGET, 'BG23_003e'))
 	pass
-BG23_003e=buff(2,2)
+BG23_003e=buff(2,1)
 class BG23_003_G:# <12>[1453]
 	""" Critter Wrangler
 	After you cast a [Spellcraft] spell on a minion,give it +4/+4. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_003_Action(CONTROLLER, BG_Play.CARD, BG_Play.TARGET, 'BG23_003_Ge'))
 	pass
-BG23_003_Ge=buff(4,4)
+BG23_003_Ge=buff(4,2)
 
 
 ## Glowscale (5)  ### OK ###
@@ -515,19 +515,19 @@ class BG23_013_Action(TargetedAction):
 		for card in controller.field:
 			if card.race==Race.NAGA:
 				nagas.append(card)
-		if len(nagas)>4:
-			nagas=random.sample(nagas,4)
+		if len(nagas)>3:
+			nagas=random.sample(nagas,3)
 		for card in nagas:
 			Buff(card, buff).trigger(source)
 class BG23_013:# <12>[1453]
 	""" Tidemistress Athissa (6)
-	After you cast a spell, give four friendly Naga +1/+1. """
+	After you cast a spell, give three friendly Naga +1/+1. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_013_Action(CONTROLLER, 'BG23_013e'))
 	pass
 BG23_013e=buff(1,1)
 class BG23_013_G:# <12>[1453]
 	""" Tidemistress Athissa
-	After you cast a spell, givefour friendly Naga +2/+2. """
+	After you cast a spell, give three friendly Naga +2/+2. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_013_Action(CONTROLLER, 'BG23_013_Ge'))
 	pass
 BG23_013_Ge=buff(2,2)
