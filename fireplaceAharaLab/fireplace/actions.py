@@ -534,6 +534,13 @@ class GenericChoiceBattlecry(GenericChoice):##
 				break
 		pass
 
+class GenericChoiceSecret(Choice):## 
+	def choose(self, card):
+		super().choose(card)
+		card.zone=Zone.SECRET
+		pass
+
+
 
 class GenericChoicePlayOnDeck(Choice):## callbackで対応可能
 	def choose(self, card):
@@ -1188,6 +1195,26 @@ class Destroy(TargetedAction):
 				target.remove()
 			else:
 				target.zone = Zone.GRAVEYARD
+
+class DestroyOriginal(TargetedAction):
+	"""
+	Destroy character targets. (in battlegrounds)
+	"""
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if not target:
+			return
+		if not target.deepcopy_original:
+			return
+		if Config.LOGINFO:
+			print("(Destroy.do)%r destroys %r"%(source, target.deepcopy_original))
+		if target.deepcopy_original.type == CardType.ENCHANTMENT:
+			target.remove()
+			target.deepcopy_original.remove()
+		else:
+			target.zone = Zone.GRAVEYARD
+			target.deepcopy_original.zone = Zone.GRAVEYARD
+
 
 
 class Discard(TargetedAction):
@@ -3102,6 +3129,13 @@ class Avenge(TargetedAction):
 				for action in targetaction:
 					if isinstance(action, TargetedAction):
 						action.trigger(source)
+
+class BeginBattleTurn(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		self.broadcast(source, EventListener.ON, target)
+		self.broadcast(source, EventListener.AFTER, target)
 
 class BeginGame(TargetedAction):
 	TARGET = ActionArg()

@@ -719,17 +719,19 @@ class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
 
 
 
-#66#The Great Akazamzarak  ### need check ###
+#66#The Great Akazamzarak  ### OK ###
 class TB_BaconShop_HERO_21:# <12>[1453]
 	""" The Great Akazamzarak """
 	pass
 class TB_BaconShop_HP_020:
 	"""  &lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Secret&lt;/b&gt;. Put it into the battlefield."""
-	entourage=['TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_03','TB_Bacon_Secrets_04',
-			'TB_Bacon_Secrets_05','TB_Bacon_Secrets_06','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
-			'TB_Bacon_Secrets_09','TB_Bacon_Secrets_10','TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
-			'TB_Bacon_Secrets_013',]
-	activate=GenericChoicePlay(CONTROLLER, RandomEntourage()*3)
+	entourage=[
+		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
+		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
+			#'TB_Bacon_Secrets_10',#'TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
+			#'TB_Bacon_Secrets_13',
+		]
+	activate=GenericChoiceSecret(CONTROLLER, RandomEntourage()*3)
 ########  BUDDY
 class TB_BaconShop_HERO_21_Buddy:# <12>[1453]
 	""" Street Magician
@@ -767,7 +769,7 @@ class TB_BaconShop_HERO_22_Buddy_G:
 
 
 
-#68#The Rat King ##   ### need check ###
+#68#The Rat King ##   ### OK ###
 class TB_BaconShop_HERO_12:# <12>[1453]
 	""" The Rat King """
 	pass
@@ -776,8 +778,9 @@ class TB_BaconShop_HP_041_Action(TargetedAction):
 	def do(self, source, target):
 		controller = target
 		new_hp=random.choice([
-			'TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d',
-			'TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h',
+			'TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c',
+			'TB_BaconShop_HP_041d','TB_BaconShop_HP_041f',
+			'TB_BaconShop_HP_041g','TB_BaconShop_HP_041h',
 			'TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',
 			])
 		ChangeHeroPower(controller, new_hp).trigger(source)
@@ -791,56 +794,56 @@ class TB_BaconShop_HP_041a:
 	""" beast """
 	events = [
 		Buy(CONTROLLER, BEAST).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041b:
 	""" mech """
 	events = [
 		Buy(CONTROLLER, MECH).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041c:
 	""" murloc """
 	events = [
 		Buy(CONTROLLER, MURLOC).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041d:
 	""" demon """
 	events = [
 		Buy(CONTROLLER, DEMON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 TB_BaconShop_HP_041e=buff(2,2)
 class TB_BaconShop_HP_041f:
 	""" dragon """
 	events = [
 		Buy(CONTROLLER, DRAGON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041g:
 	""" pirate """
 	events = [
 		Buy(CONTROLLER, PIRATE).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041h:
 	""" elemental """
 	events = [
 		Buy(CONTROLLER, ELEMENTAL).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041i:
 	""" quilboar """
 	events = [
 		Buy(CONTROLLER, QUILBOAR).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 class TB_BaconShop_HP_041j:
 	""" naga """
 	events = [
 		Buy(CONTROLLER, NAGA).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_041'))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 		]
 ######## BUDDY
 class TB_BaconShop_HERO_12_Buddy:# <12>[1453]

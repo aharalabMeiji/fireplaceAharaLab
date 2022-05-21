@@ -1,6 +1,6 @@
 from fireplace.game import Game
 from fireplace.deepcopy import deepcopy_game
-from fireplace.actions import BG_Attack, Deaths, BeginBattle, EndBattle
+from fireplace.actions import BG_Attack, Deaths, BeginBattle, EndBattle, BeginBattleTurn
 import random
 from hearthstone.enums import PlayState, Zone
 
@@ -65,6 +65,7 @@ class BG_Battle(Game):
 			# check if the battle ends
 			if len(self.first.field)==0 or len(self.second.field)==0:
 				break
+			BeginBattleTurn(self.current_player)
 			#attacker
 			attacker = self.current_player.field[self.current_player.attacker_index]
 			if attacker.atk>0:
@@ -179,6 +180,8 @@ class BG_Battle(Game):
 			ret += "(divine_shield)"
 		if card.windfury:
 			ret += "(windfury)"
+		if card.poisonous:
+			ret += "(poisonous)"
 		if card.reborn:
 			ret += "(reborn)"
 		return ret

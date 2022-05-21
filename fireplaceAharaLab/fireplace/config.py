@@ -30,7 +30,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=65 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=66 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=13 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
@@ -98,10 +98,10 @@ class Config:# ()is the default value
 	#62#Tamsin Roame ### HP
 	#63#Tavish Stormpike ### HP
 	#64#Tess Greymane ### HP
-	#65#The Curator
-	#66#The Great Akazamzarak
-	#67#The Lich King
-	#68#The Rat King
+	#65#The Curator ### HP
+	#66#The Great Akazamzarak ### HP
+	#67#The Lich King ###HP
+	#68#The Rat King ### HP
 	#69#Tickatus #HP
 	#70#Trade Prince Gallywix ## HP
 	#71#Vanndar Stormpike ## HP 

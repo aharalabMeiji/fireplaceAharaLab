@@ -1,23 +1,25 @@
 from ..utils import *
 
-BG_Gems=[
-	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',
-	'TB_BaconShop_Triples_01',#### triple card
-	'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
-	'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
-	'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
-	'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
-	'BGS_Treasures_016','BGS_Treasures_018','BGS_Treasures_019',
-	'BGS_Treasures_020','BGS_Treasures_022','BGS_Treasures_023',
-	'BGS_Treasures_025','BGS_Treasures_026',
-	'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030',
-	'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034',
-	'BGS_Treasures_036','BGS_Treasures_037',
-	]
+BG_Gems=[	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',
+		'TB_BaconShop_Triples_01',#### triple card
+		'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
+		'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
+		'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
+		'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
+		'BGS_Treasures_016','BGS_Treasures_018','BGS_Treasures_019',
+		'BGS_Treasures_020','BGS_Treasures_022','BGS_Treasures_023',
+		'BGS_Treasures_025','BGS_Treasures_026',
+		'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030',
+		'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034',
+		'BGS_Treasures_036','BGS_Treasures_037',
+	]+['TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
+			'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
+			'TB_Bacon_Secrets_10','TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
+			'TB_Bacon_Secrets_13',]
 
 ##
 ##  Blood gem
-##
+##TB_Bacon_Secrets
 
 class BG20_GEM:# <12>[1453]
 	""" Blood Gem
@@ -360,68 +362,115 @@ class BGS_Treasures_037:# <12>[1453]
 class TB_Bacon_Secrets_01:# <3>[1453]
 	""" Venomstrike Trap
 	[Secret:] When one of your minions is attacked, summon a 2/3_[Poisonous] Cobra. """
-	#
+	secret = BG_Attack(ENEMY, FRIENDLY_MINIONS).on(
+		Summon(CONTROLLER, 'TB_Bacon_Secrets_01t'),
+		DestroyOriginal(SELF)
+		)
 	pass
-
+@custom_card
+class TB_Bacon_Secrets_01t:
+	tags = {
+		GameTag.CARDNAME: "Poisonous Cobra",
+		GameTag.CARDTEXT: "",
+		GameTag.CARDTYPE: CardType.MINION,
+		GameTag.ATK: 2,
+		GameTag.HEALTH: 3,
+		GameTag.TECH_LEVEL: 1,
+		GameTag.POISONOUS: 1,
+	}
 class TB_Bacon_Secrets_02:# <3>[1453]
 	""" Snake Trap
 	[Secret:] When one of your minions is attacked, summon three 1/1 Snakes. """
-	#
+	secret = BG_Attack(CHARACTER, FRIENDLY_MINIONS).on(
+		Summon(CONTROLLER, 'TB_Bacon_Secrets_02t')*3,
+		DestroyOriginal(SELF)
+	)
 	pass
-
+@custom_card
+class TB_Bacon_Secrets_02t:
+	tags = {
+		GameTag.CARDNAME: "Snake",
+		GameTag.CARDTEXT: "",
+		GameTag.CARDTYPE: CardType.MINION,
+		GameTag.ATK: 1,
+		GameTag.HEALTH: 1,
+		GameTag.TECH_LEVEL: 1,
+	}
 class TB_Bacon_Secrets_04:# <4>[1453]
 	""" Splitting Image
 	[Secret:] When one of your minions is attacked, summon a copy of it. """
-	#
+	secret = BG_Attack(CHARACTER, FRIENDLY_MINIONS).on(
+		Summon(CONTROLLER, ExactCopy(Attack.DEFENDER)),
+		DestroyOriginal(SELF)
+		)
 	pass
-
 class TB_Bacon_Secrets_05:# <4>[1453]
 	""" Effigy
 	[Secret:] When a friendly minion dies, summon a random minion with the same Cost. """
-	#
+	secret = Death(FRIENDLY + MINION).on(
+		Summon(CONTROLLER, RandomBGMinion(tech_level=TECH_LEVEL(Death.ENTITY))),
+		DestroyOriginal(SELF)
+		)
 	pass
 
 class TB_Bacon_Secrets_07:# <5>[1453]
 	""" Autodefense Matrix
 	[Secret:] When one of your minions is attacked, give it [Divine Shield]. """
-	#
+	secret = BG_Attack(CHARACTER, FRIENDLY_MINIONS).on(
+		GiveDivineShield(Attack.DEFENDER),
+		DestroyOriginal(SELF)
+		)
 	pass
 
 class TB_Bacon_Secrets_08:# <5>[1453]
 	""" Avenge
 	[Secret:] When one of your minions dies, give a random friendly minion +3/+2. """
-	#
+	secret = Death(FRIENDLY + MINION).on( 
+		Buff(RANDOM_FRIENDLY_MINION, 'TB_Bacon_Secrets_08e') ,
+		DestroyOriginal(SELF)
+		)
 	pass
+@custom_card
+class TB_Bacon_Secrets_08e:
+	tags = {
+		GameTag.CARDNAME: "Avenge buff",
+		GameTag.CARDTEXT: "",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: 3,
+		GameTag.HEALTH: 2,
+	}
 
 class TB_Bacon_Secrets_10:# <5>[1453]
 	""" Redemption
 	[Secret:] When a friendly minion dies, return it to life with 1 Health. """
-	#
+	secret = Death(FRIENDLY_MINIONS).on(
+		SetAttr(Death.ENTITY, 'reborn', True),
+		DestroyOriginal(SELF)
+		)
 	pass
 
 class TB_Bacon_Secrets_11:# <5>[1453]
 	""" Hand of Salvation
 	[Secret:] When your second minion dies in a turn, return it to life. """
-	#
+	#secret = ?????
 	pass
 
 class TB_Bacon_Secrets_12:# <4>[1453]
 	""" Ice Block
 	[Secret:] When your hero takes fatal damage, prevent it and become [Immune] this turn. """
-	#
+	#?????
 	pass
 
 class TB_Bacon_Secrets_13:# <5>[1453]
 	""" Competitive Spirit
 	[Secret:] When your turn starts, give your minions +1/+1. """
-	#
+	secret = BeginBattleTurn(CONTROLLER).on(
+		Buff(FRIENDLY_MINIONS,'TB_Bacon_Secrets_13e'),
+		DestroyOriginal(SELF)
+		)
 	pass
 
-class TB_Bacon_Secrets_13e:# <12>[1453]
-	""" Competitive Spirit
-	+1/+1. """
-	#
-	pass
+TB_Bacon_Secrets_13e=buff(1,1)# <12>[1453]
 
 ##
 ##  button and others

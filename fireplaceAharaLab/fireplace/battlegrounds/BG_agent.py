@@ -192,6 +192,8 @@ class BG_HumanAgent(BG_Agent):
 		print("----------------------------------------------")
 		for card in controller.field:
 			print("Field : %s"%(self.card_stats(card)))
+		for card in controller.secrets:
+			print("Secret: %s"%(self.card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.hand:
 			print("Hand  : %s"%(self.card_stats(card)))
