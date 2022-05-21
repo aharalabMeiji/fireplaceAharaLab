@@ -22,7 +22,7 @@ BG_Hero4=[
 
 'TB_BaconShop_HERO_22','TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G','TB_BaconShop_HP_024','TB_BaconShop_HP_024e2',#67#The Lich King
 
-'TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i',#68#The Rat King
+'TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',#68#The Rat King
 ]
 
 
@@ -527,7 +527,7 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 
 
 
-#63##Tavish Stormpike ### need check ###
+#63##Tavish Stormpike ### OK ###
 class BG22_HERO_000:# <12>[1453]
 	""" Tavish Stormpike """
 	pass
@@ -535,7 +535,7 @@ class BG22_HERO_000p:# <12>[1453]
 	""" Deadeye
 	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
 	entourage=['BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4']
-	activate = GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*4)
+	activate = GenericChoice(CONTROLLER, RandomEntourage()*4)
 	events = [
 		BeginGame(CONTROLLER).on(SetScriptDataNum1(SELF,0)),
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
@@ -550,14 +550,14 @@ class  BG22_HERO_000p_t1_Action(TargetedAction):
 			return
 		targetcard=field[0]
 		amount=source.script_data_num_1
-		print("Aim Left! by Tavish Stormpike")
+		print("Aim Left! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
 		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t1:# <12>[1453]
 	""" Aim Left!
 	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
 	events = [
 		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t1_Action(CONTROLLER)),
-		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
 class  BG22_HERO_000p_t2_Action(TargetedAction):
@@ -577,14 +577,14 @@ class  BG22_HERO_000p_t2_Action(TargetedAction):
 				targets.append(card)
 		targetcard = random.choice(targets)
 		amount=source.script_data_num_1
-		print("Aim Low! by Tavish Stormpike")
+		print("Aim Low! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
 		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t2:# <12>[1453]
 	""" Aim Low!
 	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
 	events = [
 		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t2_Action(CONTROLLER)),
-		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
 class  BG22_HERO_000p_t3_Action(TargetedAction):
@@ -604,14 +604,14 @@ class  BG22_HERO_000p_t3_Action(TargetedAction):
 				targets.append(card)
 		targetcard = random.choice(targets)
 		amount=source.script_data_num_1
-		print("Aim High! by Tavish Stormpike")
+		print("Aim High! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
 		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t3:# <12>[1453]
 	""" Aim High!
 	[Passive Start of Combat]: Deal@ damage to the highestHealth enemy minion. """
 	events = [
 		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t3_Action(CONTROLLER)),
-		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
 class  BG22_HERO_000p_t4_Action(TargetedAction):
@@ -623,14 +623,14 @@ class  BG22_HERO_000p_t4_Action(TargetedAction):
 			return
 		targetcard=field[-1]
 		amount=source.script_data_num_1
-		print("Aim Right! by Tavish Stormpike")
+		print("Aim Right! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
 		Hit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t4:# <12>[1453]
 	""" Aim Right!
 	[Passive Start of Combat]: Deal@ damage to the right-most enemy minion. """
 	events = [
 		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t4_Action(CONTROLLER)),
-		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]		
 	pass
 ######## BUDDY
@@ -650,7 +650,7 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 
 
 
-#64#Tess Greymane ### need check ###
+#64#Tess Greymane ### OK ###
 class TB_BaconShop_HERO_50:# <12>[1453]
 	""" Tess Greymane """
 	pass
@@ -663,7 +663,7 @@ class TB_BaconShop_HP_077_Action(TargetedAction):
 
 		last_warband = gamemaster.last_warband(controller)
 		for card in reversed(bartender.field):
-			bartender.remove(card)
+			bartender.field.remove(card)
 			card.zone=Zone.GRAVEYARD
 		for cardid in last_warband:
 			card = bartender.card(cardid)
@@ -671,7 +671,7 @@ class TB_BaconShop_HP_077_Action(TargetedAction):
 			card.zone=Zone.PLAY
 		if bartender.len_bobs_field-len(last_warband)>0:
 			for repeat in range(bartender.len_bobs_field-len(last_warband)):
-				card = game.parent.DealCard(bartender, controller.tavern_tier)
+				card = gamemaster.DealCard(bartender, controller.tavern_tier)
 		pass
 class TB_BaconShop_HP_077:
 	"""  

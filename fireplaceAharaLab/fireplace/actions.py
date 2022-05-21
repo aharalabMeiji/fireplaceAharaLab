@@ -447,8 +447,11 @@ class GenericChoice(Choice):
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:
+					script_data_num=self.player.hero.power.script_data_num_1
 					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.PLAY
+					new_card.script_data_num_1 = script_data_num
+					new_card.data.tags[GameTag.TAG_SCRIPT_DATA_NUM_1] = script_data_num
 				elif len(self.player.hand) < self.player.max_hand_size:
 					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.HAND
@@ -516,7 +519,6 @@ class GenericChoiceChangeHeropower(GenericChoice):##
 		controller = self.player
 		if card.type != CardType.HERO_POWER:
 			return
-		card.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]=controller.hero.power.script_data_num_1
 		ChangeHeroPower(controller, card).trigger(controller)
 		pass
 
@@ -2793,7 +2795,9 @@ class ChangeHeroPower(TargetedAction):
 	TARGET = ActionArg()#CONTROLLER
 	CARD = CardArg()
 	def do(self, source, target, card):
-		exh = target.hero.power.activations_this_turn
+		oldHeroPower=target.hero.power
+		exh = oldHeroPower.activations_this_turn
+		script_data_num_1 = oldHeroPower.script_data_num_1
 		#summon card
 		newHeroPower=Summon(target,card).trigger(source)
 		if isinstance(newHeroPower,list):
@@ -2802,6 +2806,8 @@ class ChangeHeroPower(TargetedAction):
 			newHeroPower = newHeroPower[0]
 		#copy exhausted
 		newHeroPower.activations_this_turn = exh
+		newHeroPower.script_data_num_1 = script_data_num_1
+		newHeroPower.data.tags[GameTag.TAG_SCRIPT_DATA_NUM_1] = script_data_num_1
 		pass
 
 class DAL731Duel(TargetedAction):
@@ -3018,6 +3024,41 @@ class AddScriptDataNum1(TargetedAction):
 	def do(self, source, target, amount):
 		if hasattr(target,'script_data_num_1'):
 			target.script_data_num_1 += amount
+		pass
+
+############### player.script_const_1 関連 ########################
+
+def ScriptConst1(card):
+    if hasattr(card.controller,'script_const_1'):
+        return card.controller.script_const_1
+    else:
+        return 0
+    pass
+
+class HitScriptConst1(TargetedAction):
+    CARD=ActionArg()#card
+    TARGET=ActionArg()#target
+    def do(self,source,card,target):
+        amount = ScriptDataNum1(card)
+        if not isinstance(target,list):
+            target = [target]
+        for _card in target:
+            Hit(_card,amount).trigger(source)
+
+class SetScriptConst1(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'script_const_1'):
+			target.script_const_1 = amount
+		pass
+
+class AddScriptConst1(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		if hasattr(target,'script_const_1'):
+			target.script_const_1 += amount
 		pass
 
 ###############################################################

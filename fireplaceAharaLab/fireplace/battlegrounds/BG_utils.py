@@ -66,8 +66,6 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_11',#51 X
 
 	'TB_BaconShop_HERO_23',#56 XX
-	'BG22_HERO_000',#63 X
-	'TB_BaconShop_HERO_50',#64 X
 	'TB_BaconShop_HERO_33',#65 X
 	'TB_BaconShop_HERO_21',#66 X
 	'TB_BaconShop_HERO_22',#67 X
