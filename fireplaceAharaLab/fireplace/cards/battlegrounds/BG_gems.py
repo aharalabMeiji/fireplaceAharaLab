@@ -370,7 +370,7 @@ class TB_Bacon_Secrets_01:# <3>[1453]
 @custom_card
 class TB_Bacon_Secrets_01t:
 	tags = {
-		GameTag.CARDNAME: "Poisonous Cobra",
+		GameTag.CARDNAME: "猛毒コブラ",#猛毒コブラ#Poisonous Cobra
 		GameTag.CARDTEXT: "",
 		GameTag.CARDTYPE: CardType.MINION,
 		GameTag.ATK: 2,
@@ -389,7 +389,7 @@ class TB_Bacon_Secrets_02:# <3>[1453]
 @custom_card
 class TB_Bacon_Secrets_02t:
 	tags = {
-		GameTag.CARDNAME: "Snake",
+		GameTag.CARDNAME: "ヘビ",#ヘビ#Snake
 		GameTag.CARDTEXT: "",
 		GameTag.CARDTYPE: CardType.MINION,
 		GameTag.ATK: 1,

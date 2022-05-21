@@ -1086,12 +1086,14 @@ class Deathrattle(TargetedAction):
 	"""
 	Trigger deathrattles on card targets.
 	"""
+	TARGET = ActionArg()
 	def do(self, source, target):
 		for deathrattle in target.deathrattles:
 			if callable(deathrattle):
 				actions = deathrattle(target)
 			else:
 				actions = deathrattle
+			#self.broadcast(source, EventListener.ON, target)
 			source.game.queue_actions(target, actions)
 
 			if target.controller.extra_deathrattles:

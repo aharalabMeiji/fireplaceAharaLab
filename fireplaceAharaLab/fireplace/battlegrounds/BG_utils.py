@@ -46,9 +46,9 @@ BG_Exclude_Hero=[
 	'BG20_HERO_280',#32 X
 	'TB_BaconShop_HERO_25',#33 X
 	'TB_BaconShop_HERO_72',#34 X
-	'TB_BaconShop_HERO_37',#35 X
-
-	'TB_BaconShop_HERO_62',#36 X demon ban
+	
+	'TB_BaconShop_HERO_37',#35 X demon ban
+	'TB_BaconShop_HERO_62',#36 X 
 	'TB_BaconShop_HERO_58',#37 X
 	'BG20_HERO_202',#38 X
 	'TB_BaconShop_HERO_49',#39 X
