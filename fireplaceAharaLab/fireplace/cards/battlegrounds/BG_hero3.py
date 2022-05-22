@@ -124,23 +124,39 @@ class TB_BaconShop_HERO_37_Buddy_G:
 	pass
 
 
-#36#Maiev Shadowsong
+
+
+#36#Maiev Shadowsong  ### HP OK ###
 class TB_BaconShop_HERO_62:# <12>[1453]
 	""" Maiev Shadowsong """
-class TB_BaconShop_HP_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class TB_BaconShop_HP_068:
 	""" Imprison
 	Make a minion in Bob's Tavern <b>Dormant</b>. After 3 __turns, get it with +2/+2 """
-
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_ENEMY_TARGET:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		}
+	activate = Buff(TARGET,'TB_BaconShop_HP_068pe')
+class TB_BaconShop_HP_068pe_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	TARGET=ActionArg()
+	def do(self, source, controller, target):
+		bartender = target.controller
+		target.zone=Zone.GRAVEYARD
+		target.controller = controller
+		target.zone = Zone.HAND
+		if target in bartender.field:
+			bartender.field.remove(target)
+		Buff(target, 'TB_BaconShop_HP_068e').trigger(source.owner)
+		pass
 class TB_BaconShop_HP_068pe:
 	"""ImprisonedWatcher	"""
+	def apply(self, target):
+		target.dormant=3
+	events = Awaken().on(TB_BaconShop_HP_068pe_Action(CONTROLLER, Awaken.TARGET),Destroy(SELF))
 	pass
-class TB_BaconShop_HP_068e:
-	pass
+TB_BaconShop_HP_068e=buff(2,2)
 class TB_BaconShop_HP_068e2:
 	pass
 ######## BUDDY
@@ -162,17 +178,31 @@ class TB_BaconShop_HERO_62_Buddy_G:# <12>[1453]
 
 
 
-#37#Malygos
+#37#Malygos ###  HP OK ###
 class TB_BaconShop_HERO_58:# <12>[1453]
 	""" Malygos """
-class TB_BaconShop_HP_Action(TargetedAction):
+class TB_BaconShop_HP_052_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+	def do(self, source, controller, target):
+		if hasattr(target,'__iter__'):
+			target = target[0]
+		target.zone=Zone.GRAVEYARD
+		bartender = controller.opponent
+		tier=target.tech_level
+		newcard = RandomBGMinion(tech_level=tier).evaluate(bartender)
+		Summon(CONTROLLER, newcard).trigger(bartender)
 		pass
 class TB_BaconShop_HP_052:
 	""" Arcane Alteration
 	Replace a minion with a random one of the same Tavern Tier. <i>(Twice per turn.)</i>"""
+	tags={GameTag.HEROPOWER_ADDITIONAL_ACTIVATIONS:1}
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		PlayReq.REQ_ENEMY_TARGET:0,
+		}
+	activate = TB_BaconShop_HP_052_Action(CONTROLLER, TARGET)
 ######## BUDDY
 class TB_BaconShop_HERO_58_Buddy:# <12>[1453]
 	""" Nexus Lord
@@ -187,7 +217,7 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 
 
-#38#Master Nguyen
+#38#Master Nguyen ##########################
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
 class TB_BaconShop_HP_Action(TargetedAction):
@@ -223,7 +253,7 @@ class BG20_HERO_202_Buddy_G:# <12>[1453]
 	pass
 
 
-#39#Millhouse Manastorm
+#39#Millhouse Manastorm  ### HP OK ###
 class TB_BaconShop_HERO_49:# <12>[1453]
 	""" Millhouse Manastorm """
 	pass
@@ -253,21 +283,33 @@ class TB_BaconShop_HERO_49_Buddy_G:# <12>[1453]
 
 
 
-#40#Millificent Manastorm
+#40#Millificent Manastorm ### HP ###
 class TB_BaconShop_HERO_17:# <12>[1453]
 	""" Millificent Manastorm """
 	pass
-class TB_BaconShop_HP_Action(TargetedAction):
+class TB_BaconShop_HP_015_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
+		bartender = controller.opponent
+		for card in bartender.field:
+			if card.race==Race.MECHANICAL:
+				for buff in card.buffs:
+					if buff.id=='TB_BaconShop_HP_015e':
+						break
+				else:
+					Buff(card, 'TB_BaconShop_HP_015e').trigger(source)
 		pass
 class TB_BaconShop_HP_015:
 	""" Tinker
 	<b>Passive</b>Mechs in Bob's Tavern have +1/+1."""
+	events = [
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_015_Action(CONTROLLER)),
+		Rerole(CONTROLLER).on(TB_BaconShop_HP_015_Action(CONTROLLER)),
+	]
 TB_BaconShop_HP_015e=buff(1,1)
 ######## BUDDY
-class TB_BaconShop_HERO_17_Buddy:# <12>[1453]
+class TB_BaconShop_HERO_17_Buddy:# <12>[1453] 
 	""" Elementium Squirrel Bomb
 	<b>Deathrattle:</b> Deal 3 damage to a random enemy minion for each of your Mechs that died this combat. """
 	#

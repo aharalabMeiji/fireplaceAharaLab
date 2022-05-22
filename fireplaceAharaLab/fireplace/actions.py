@@ -1408,10 +1408,10 @@ class Give(TargetedAction):
 		if Config.LOGINFO:
 			print("(Give.do)Giving %r to %s", cards, target)
 		ret = []
-		self.broadcast(source, EventListener.ON, target, cards[0])
 		if not hasattr(cards, "__iter__"):
 			# Support Give on multiple cards at once (eg. Echo of Medivh)
 			cards = [cards]
+		self.broadcast(source, EventListener.ON, target, cards[0])
 		for card in cards:
 			if len(target.hand) >= target.max_hand_size:
 				if Config.LOGINFO:
@@ -2225,6 +2225,7 @@ class Awaken(TargetedAction):
 		if Config.LOGINFO:
 			print("(Awaken.do)%s is awaken", target)
 		target.turns_in_play = 1
+		self.broadcast(source, EventListener.ON, target)
 		if target.get_actions("awaken"):
 			source.game.trigger(target, target.get_actions("awaken"), event_args=None)
 
@@ -3151,8 +3152,12 @@ class Buy(TargetedAction): ## battlegrounds
 	CARD = ActionArg()
 	def do(self, source, target, card):
 		controller = target
+		minionprice = controller.game.minionCost
+		if controller.hero.power.id=='TB_BaconShop_HP_054':## Millhouse flag
+			minionprice = 2 ##maybe no need
+			controller.game.minionCost = 2
 		bartender = controller.opponent
-		if controller.mana>=3:
+		if controller.mana>=minionprice:
 			for c in bartender.field:
 				if c==card:
 					bartender.field.remove(c)
@@ -3164,8 +3169,8 @@ class Buy(TargetedAction): ## battlegrounds
 					for buff in buffs:
 						buff.apply(card)
 					card.frozen=False
-					controller.used_mana += 3
-					controller.spentmoney_in_this_turn += 3
+					controller.used_mana += minionprice
+					controller.spentmoney_in_this_turn += minionprice
 					controller.add_buy_log(card)
 					self.broadcast(source, EventListener.ON, controller, card)
 					self.broadcast(source, EventListener.AFTER, controller, card)
@@ -3310,11 +3315,6 @@ class Rerole(TargetedAction): ## battlegrounds
 		controller = target
 		game = controller.game
 		bartender = game.bartender
-		if game.free_rerole>0:
-			game.reroleCost=0
-			game.free_rerole -= 1
-		elif game.free_rerole==0:
-			game.reroleCost=1
 		if controller.mana>=game.reroleCost:
 			self.broadcast(source, EventListener.ON, target)
 			controller.used_mana += game.reroleCost
@@ -3329,6 +3329,14 @@ class Rerole(TargetedAction): ## battlegrounds
 				if controller.hero.power.id=='TB_BaconShop_HP_101':### サイラスフラグ
 					if random.choice([0,1]):
 						card.darkmoon_ticket = True
+			if game.free_rerole>1:
+				game.free_rerole -= 1
+				game.reroleCost=0
+			else:
+				game.free_rerole = 0
+				game.reroleCost=1
+				if controller.hero.power.id=='TB_BaconShop_HP_054':## Millhouse flag
+					game.reroleCost=2
 			self.broadcast(source, EventListener.AFTER, target)
 		pass
 
@@ -3438,6 +3446,8 @@ class UpgradeTier(TargetedAction):
 			controller.used_mana += controller.tavern_tierup_cost
 			controller.spentmoney_in_this_turn += controller.tavern_tierup_cost
 			controller.tavern_tierup_cost = tavern_tierup_cost[controller.tavern_tier]
+			if controller.hero.power.id=='TB_BaconShop_HP_054': #Millhouse flag
+				controller.tavern_tierup_cost += 1
 			self.broadcast(source, EventListener.ON, controller)
 			self.broadcast(source, EventListener.AFTER, controller)
 	pass

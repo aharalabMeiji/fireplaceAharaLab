@@ -47,13 +47,10 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_25',#33 X
 	'TB_BaconShop_HERO_72',#34 X
 	
-	'TB_BaconShop_HERO_37',#35 X demon ban
-	'TB_BaconShop_HERO_62',#36 X 
-	'TB_BaconShop_HERO_58',#37 X
+	'TB_BaconShop_HERO_37',#35 demon ban
 	'BG20_HERO_202',#38 X
-	'TB_BaconShop_HERO_49',#39 X
-	'TB_BaconShop_HERO_17',#40 X
-	'TB_BaconShop_HERO_70',#41 X mech ban
+	'TB_BaconShop_HERO_17',#40 mech ban
+	'TB_BaconShop_HERO_70',#41 X 
 	'BG20_HERO_301',#42 X
 	'TB_BaconShop_HERO_93',#43 X
 	'TB_BaconShop_HERO_57',#44 X
@@ -193,6 +190,10 @@ class BG_main:
 						card = bar.controller.card(Config.CARD_PRESET2)
 						card.zone = Zone.HAND
 			##########
+			if bar.player1.hero.power.id=='TB_BaconShop_HP_054': #Millhouse flag
+				bar.player1.tavern_tierup_cost += 1
+				bar.reroleCost=2
+				bar.minionCost=2
 			BeginGame(bar.controller).trigger(bar.controller)
 			if Config.LOGINFO:
 				print ("==== %s 's bar done ===="% agent)
@@ -228,7 +229,7 @@ class BG_main:
 				for card in reversed(bartender.field):
 					if Config.LOGINFO:
 						print("(BG_MainBG_Main)field card %s is removed."%(card))
-					if not card.frozen:
+					if not card.frozen and not card.dormant>0:
 						self.ReturnCard(card)
 					else:
 						card.frozen=False
@@ -585,7 +586,7 @@ def GetMoveCandidates(bar, controller, bartender):
 	#TURNEND=9
 	ret.append(Move(bar, None, MovePlay.TURNEND, 0))
 	#BUY=3
-	if controller.mana>=3:
+	if controller.mana>=bar.minionCost:
 		for card in bartender.field:
 			ret.append(Move(bar, card, MovePlay.BUY))
 	#PLAY=1
