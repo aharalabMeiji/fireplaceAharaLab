@@ -1,3 +1,4 @@
+from ast import Return
 from ..utils import *
 
 BG_Hero2=[
@@ -121,7 +122,7 @@ BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
 
 
 
-#18#Edwin VanCleef
+#18#Edwin VanCleef ### HP OK ###
 class TB_BaconShop_HERO_01:# <12>[1453]
 	""" Edwin VanCleef  """
 class TB_BaconShop_HP_001_Action(TargetedAction):
@@ -162,15 +163,17 @@ TB_BaconShop_HERO_01_Buddy_G_e=buff(2,2)# <12>[1453]
 
 
 
-#19#Elise Starseeker
+#19#Elise Starseeker #### very difficult ###
 class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
 class TB_BaconShop_HP_047:
 	""" Lead Explorer
 	<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
+	events = Upgrade(CONTROLLER).on(Give(CONTROLLER, 'TB_BaconShop_HP_047t'))
 class TB_BaconShop_HP_047t:
 	""" Recruitment Map
 	<b>Discover</b> a minion from <b>Tavern Tier @</b>."""
+######## BUDDY
 class TB_BaconShop_HERO_42_Buddy:# <12>[1453]
 	""" Jr. Navigator
 	At the start of your turn,get a 'Recruitment Map.'Your Maps cost (1). """
@@ -194,6 +197,7 @@ class TB_BaconShop_HERO_74:# <12>[1453]
 class TB_BaconShop_HP_082:
 	""" Everbloom
 	<b>Passive</b> After you upgrade Bob's Tavern, gain 2 Gold this turn only."""
+######## BUDDY
 class TB_BaconShop_HERO_74_Buddy:# <12>[1453]
 	""" Evergreen Botani
 	At the end of your turn, adda random minion of your_Tavern Tier to your hand. """
@@ -216,6 +220,7 @@ class TB_BaconShop_HP_056:
 	""" Gone Fishing
 	<b>Passive</b> After you sell two minions, add a random Murloc to Bob's Tavern."""
 	pass
+######## BUDDY
 class TB_BaconShop_HERO_55_Buddy:
 	pass
 class TB_BaconShop_HERO_55_Buddy_G:
@@ -230,6 +235,7 @@ class TB_BaconShop_HP_011:
 	""" Galakrond's Greed
 	Choose a minion in Bob's Tavern. <b>Discover</b> a higher Tier minion to replace it."""
 	pass
+######## BUDDY
 class TB_BaconShop_HERO_02_Buddy:# <12>[1453]
 	""" Apostle of Galakrond
 	[Battlecry:] Replace minions in Bob's Tavern with ones of a higher Tavern Tier. """
@@ -269,6 +275,7 @@ class BG20_HERO_283p_t3:# <12>[1453]
 	[Passive.] In 5 turns, your next Tavern Tier upgrade costs (5) less. <i>(@ left!)</i> """
 	#
 	pass
+######## BUDDY
 class BG20_HERO_283_Buddy:# <12>[1453]
 	""" Flight Trainer
 	At the end of your turn, progress your flight path by_1 turn. """
@@ -299,6 +306,7 @@ class TB_BaconShop_HP_010:
 	""" Boon of Light
 	Give a minion <b>Divine Shield</b>."""
 	## divine shield without buff
+######## BUDDY
 class TB_BaconShop_HERO_15_Buddy:# <12>[1453]
 	""" Karl the Lost
 	After you use your Hero Power, give your [Divine Shield] minions +2_Attack. """
@@ -326,6 +334,7 @@ class TB_BaconShop_HP_107:
 	pass
 class TB_BaconShop_HP_107e:
 	pass
+######## BUDDY
 class TB_BaconShop_HERO_95_Buddy:# <12>[1453]
 	""" Wandering Treant
 	Whenever you summon a [Taunt] minion, give it +2/+2. """
@@ -362,6 +371,7 @@ class BG20_HERO_242pe:# <12>[1453]
 	+1/+1. """
 	#
 	pass
+######## BUDDY
 class BG20_HERO_242_Buddy:
 	pass
 class BG20_HERO_242_Buddy_G:
@@ -376,6 +386,7 @@ class TB_BaconShop_HP_069:
 	<b>Passive.</b> <b>Start of Combat:</b> Your left and right-most minions gain +2 Attack __and attack immediately. """
 	pass
 TB_BaconShop_HP_069e=buff(2,0)
+######## BUDDY
 class TB_BaconShop_HERO_08_Buddy:# <12>[1453]
 	""" Eclipsion Illidari
 	Your first minion thatattacks has "[Immune]while Attacking" for oneattack only. """
@@ -417,6 +428,7 @@ class TB_BaconShop_HP_028:
 	<b>Refresh</b> Bob's Tavern. Include a minion from a higher Tavern Tier."""
 	activate = TB_BaconShop_HP_028_Action(CONTROLLER)
 	pass
+######## BUDDY
 class TB_BaconShop_HERO_28_Buddy:# <12>[1453]
 	""" Clockwork Assistant
 	<b>Battlecry:</b> <b>Discover</b> a minion from a higher Tavern Tier. """
@@ -432,12 +444,34 @@ class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
 
 
 
-#29#Jandice Barov
+#29#Jandice Barov #### need check ####
 class TB_BaconShop_HERO_71:# <12>[1453]
 	""" Jandice Barov """
 class TB_BaconShop_HP_084:
 	""" Swap, Lock, &amp; Shop It
 	Swap a friendly non-golden minion with a random one in Bob's Tavern."""
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_FRIENDLY_TARGET:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		}
+	def play(self):
+		controller = self.controller
+		bartender = controller.opponent
+		target = self.target ## minion
+		if bartender.field==[]:
+			return 
+		card = random.choice(bartender.field)
+		target.zone=Zone.GRAVEYARD
+		card.zone=Zone.GRAVEYARD
+		target.controller = bartender
+		for buff in target.buffs:
+			buff.zone=Zone.REMOVEDFROMGAME
+		card.controller = controller
+		target.zone=Zone.PLAY
+		card.zone=Zone.PLAY
+	pass
+######## BUDDY
 class TB_BaconShop_HERO_71_Buddy:# <12>[1453]
 	""" Jandice's Apprentice
 	After you swap minions, give them stats equal to your Tavern Tier. """
@@ -463,6 +497,7 @@ class TB_BaconShop_HP_066:
 	""" Verdant Spheres
 	<b>Passive</b> Every third minion you buy gains +2/+2."""
 TB_BaconShop_HP_066e=buff(2,2)
+######## BUDDY
 class TB_BaconShop_HERO_60_Buddy:# <12>[1453]
 	""" Crimson Hand Centurion
 	After 'Verdant Spheres' triggers, give your hand and board +1/+1. """
@@ -487,7 +522,7 @@ class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
 
 
 
-#31#King Mukla
+#31#King Mukla  #### need check ####
 class UseBanana(TargetedAction):
 	TARGET = ActionArg()#controller
 	OTHER = ActionArg()
@@ -501,22 +536,22 @@ class TB_BaconShop_HERO_38:# <12>[1453]
 class TB_BaconShop_HP_038:
 	""" Bananarama
 	Get 2 Bananas. At the end of your turn, _give everyone else one."""
+	activate = Give(CONTROLLER, 'TB_BaconShop_HP_038t')*2
 	pass
 TB_BaconShop_HP_038e=buff(1,1)##
 class TB_BaconShop_HP_038t:
 	"""
 	Give a friendly Beast +1/+1. """
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0,  PlayReq.REQ_MINION_TARGET:0,  PlayReq.REQ_FRIENDLY_TARGET:0 }
-	def play(self):
-	   Buff(self.target, 'TB_BaconShop_HP_038te').trigger(self.controller)
-	   UseBanana(self.controller, self.target).trigger(self.controller)
-TB_BaconShop_HP_038te=buff(1,1)## 2/2ÇÃî≈Ç‡Ç†ÇÈÇÕÇ∏Ç»ÇÃÇæÇ™ÅEÅEÅEãLèqÇÕ1/1ÇÃÇ›
+	play = Buff(TARGET, 'TB_BaconShop_HP_038te'),UseBanana(CONTROLLER, TARGET)
+TB_BaconShop_HP_038te=buff(1,1)## 1/1 ? or 2/2
+######## BUDDY
 class TB_BaconShop_HERO_38_Buddy:# <12>[1453]
 	""" Crazy Monkey
 	After you feed a minion a Banana, give it +1/+1."""
 	events = UseBanana(CONTROLLER).after(Buff(UseBanana.OTHER, 'TB_BaconShop_HERO_38_Buddy_e'))
 	pass
-TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] ÉoÉiÉiÇÃîÁ
+TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] ÔøΩoÔøΩiÔøΩiÔøΩÃîÔøΩ
 """ Banana Peel,	+1/+1. """
 class TB_BaconShop_HERO_38_Buddy_G:# <12>[1453]
 	""" Crazy Monkey
@@ -527,38 +562,81 @@ TB_BaconShop_HERO_38_Buddy_Ge=buff(2,2)# <12>[1453]
 
 
 
-#32#Kurtrus Ashfallen
+#32#Kurtrus Ashfallen  #### need check #### difficult!
 class BG20_HERO_280:# <14>[1453]
 	""" Kurtrus Ashfallen """
 class BG20_HERO_280e:# <12>[1453]
 	""" Kurtrus Watcher """
-	pass
+class BG20_HERO_280p_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.sidequest_list0.append(target)
+		_sidequest_counter_+=1
+		if _sidequest_counter_>=3:
+			for card in source.sidequest_list0:
+				if card in source.controller.field:
+					Buff(card, 'BG20_HERO_280pe').trigger(source)
+			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p2')
+class BG20_HERO_280p_Action0(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.sidequest_list0=[]
+		target._sidequest_counter_=0
+		pass
 class BG20_HERO_280p:# <14>[1453]
 	""" Final Showdown
-	[Passive]Buy 3 minions in 1 turnto give them +2/+2 and_progress this. <i>(@ left!)</i> """
-	#
+	[Passive]Buy 3 minions in 1 turn to give them +2/+2 and_progress this. <i>(@ left!)</i> """
+	events = [
+		Buy(CONTROLLER).on(BG20_HERO_280p_Action1(Buy.CARD)),
+		OWN_TURN_END.on(BG20_HERO_280p_Action0(SELF))
+	]
 	pass
 BG20_HERO_280pe=buff(2,2)# <12>[1453]
 """ Showdown Preparation+2/+2. """
+class BG20_HERO_280p_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.sidequest_list0.append(target)
+		_sidequest_counter_+=1
+		if _sidequest_counter_>=4:
+			for card in source.controller.field:
+				Buff(card, 'BG20_HERO_280p2e').trigger(source)
+			for card in source.controller.hand:
+				Buff(card, 'BG20_HERO_280p2e').trigger(source)
+			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p3')
 class BG20_HERO_280p2:# <14>[1453]
 	""" Gain Momentum
-	[Passive.] Buy 4 minions in1 turn to give your handand board +2/+2 and_progress this. <i>(@ left!)</i> """
-	#
+	[Passive.] Buy 4 minions in1 turn to give your hand and board +2/+2 and_progress this. <i>(@ left!)</i> """
+	events = [
+		Buy(CONTROLLER).on(BG20_HERO_280p_Action2(Buy.CARD)),
+		OWN_TURN_END.on(BG20_HERO_280p_Action0(SELF))
+	]
 	pass
 BG20_HERO_280p2e=buff(2,2)# <12>[1453]
 """ Momentum,	+2/+2. """
 class BG20_HERO_280p2e2:# <12>[1453]
-	""" Marked for Showdown
-	Will be buffed by Final Showdown. """
-	#
-	pass
+	""" Marked for Showdown,	Will be buffed by Final Showdown. """
+class BG20_HERO_280p_Action3(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.sidequest_list0.append(target)
+		_sidequest_counter_+=1
+		if _sidequest_counter_>=5:
+			for card in source.controller.field:
+				Buff(card, 'BG20_HERO_280p3e2').trigger(source)
+			for card in source.controller.hand:
+				Buff(card, 'BG20_HERO_280p3e2').trigger(source)
 class BG20_HERO_280p3:# <14>[1453]
 	""" Close the Portal
 	[Passive.] Buy 5 minions in1 turn to give ALL yourminions this game +2/+2__and complete this. <i>({0} left!)</i>@[Passive.] Buy 5 minions in1 turn to give ALL yourminions this game +2/+2.<i>(Complete!)</i> """
-	#
+	events = [
+		Buy(CONTROLLER).on(BG20_HERO_280p_Action3(Buy.CARD)),
+		OWN_TURN_END.on(BG20_HERO_280p_Action0(SELF))
+	]
 	pass
 BG20_HERO_280p3e2=buff(2,2)# <12>[1453]
 """ Portal Closure,	+2/+2 """
+######## BUDDY
 class BG20_HERO_280_Buddy:# <12>[1453]
 	""" Living Nightmare
 	After you buy a minion,minions in Bob's Tavern have +1/+1 this turn. """
@@ -579,16 +657,15 @@ class BG20_HERO_280_Buddye2:# <12>[1453]
 
 
 
-#33#Lich Baz'hial
+#33#Lich Baz'hial ### maybe ###
 class TB_BaconShop_HERO_25:# <12>[1453]
-	""" Lich Baz'hial
-	 """
-	#
-	pass
+	""" Lich Baz'hial	 """
 class TB_BaconShop_HP_049:
 	""" Graveyard Shift
 	Take $2_damage and add a Gold Coin to your hand."""
+	activate = Hit(FRIENDLY_HERO, 2), Give(CONTROLLER, 'GAME_005')
 	pass
+######## BUDDY
 class TB_BaconShop_HERO_25_Buddy:# <12>[1453]
 	""" Unearthed Underling
 	Whenever your hero takesdamage, this miniongains +3/+3 instead.<i>(@ left this turn.)</i> """
@@ -607,12 +684,14 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
 
 
 
-#34#Lord Barov
+#34#Lord Barov  #### impossible ###
 class TB_BaconShop_HERO_72:# <12>[1453]
 	""" Lord Barov	 """
 class TB_BaconShop_HP_081:
 	"""Friendly Wager
 	Guess which player will win their next combat. _If they win, get 3 Coins."""
+	#####################
+######## BUDDY
 class TB_BaconShop_HERO_72_Buddy:# <12>[1453]
 	""" Barov's Apprentice
 	After you play a Gold Coin, gain 1 Gold this turn only. """
