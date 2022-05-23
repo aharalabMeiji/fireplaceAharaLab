@@ -173,6 +173,8 @@ class TB_BaconShop_HP_047:
 class TB_BaconShop_HP_047t:
 	""" Recruitment Map
 	<b>Discover</b> a minion from <b>Tavern Tier @</b>."""
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER)))
+	# Here we activate 'choicecard.BG_cost = bar.cardCost'
 ######## BUDDY
 class TB_BaconShop_HERO_42_Buddy:# <12>[1453]
 	""" Jr. Navigator
@@ -191,12 +193,13 @@ TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
 
 
 
-#20#Forest Warden Omu
+#20#Forest Warden Omu #### need check ###
 class TB_BaconShop_HERO_74:# <12>[1453]
 	""" Forest Warden Omu  """
 class TB_BaconShop_HP_082:
 	""" Everbloom
 	<b>Passive</b> After you upgrade Bob's Tavern, gain 2 Gold this turn only."""
+	events = Upgrade(CONTROLLER).after(ManaThisTurn(CONTROLLER,2))
 ######## BUDDY
 class TB_BaconShop_HERO_74_Buddy:# <12>[1453]
 	""" Evergreen Botani
@@ -212,13 +215,16 @@ class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
 	pass
 
 
-#21#Fungalmancer Flurgl
+#21#Fungalmancer Flurgl ### need check ###
 class TB_BaconShop_HERO_55:# <12>[1453]
 	""" Fungalmancer Flurgl  """
 	pass
 class TB_BaconShop_HP_056:
 	""" Gone Fishing
 	<b>Passive</b> After you sell two minions, add a random Murloc to Bob's Tavern."""
+	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 2, 
+		[Give(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))]
+	))
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_55_Buddy:
@@ -228,12 +234,18 @@ class TB_BaconShop_HERO_55_Buddy_G:
 
 
 
-#22#Galakrond
+#22#Galakrond  ### a bit difficult ############################
 class TB_BaconShop_HERO_02:# <12>[1453]
 	""" Galakrond """
 class TB_BaconShop_HP_011:
 	""" Galakrond's Greed
 	Choose a minion in Bob's Tavern. <b>Discover</b> a higher Tier minion to replace it."""
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_ENEMY_TARGET:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		}
+	#activate = ChoiceAndReplaceOnField(CONTROLLER,)
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_02_Buddy:# <12>[1453]
@@ -255,12 +267,12 @@ class BG20_HERO_283:# <12>[1453]
 class BG20_HERO_283p:# <12>[1453]
 	""" Dungar's Gryphon
 	Choose a flightpath. Complete it to get a bonus! """
-	#
+	entourage=['BG20_HERO_283p_t1','BG20_HERO_283p_t2','BG20_HERO_283p_t3']
+	activate = GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*3)
 	pass
-
 class BG20_HERO_283p_t1:# <12>[1453]
 	""" Westfall
-	[Passive.] In 1 turn, giveyour left-most minion+2 Attack. <i>(@ left!)</i> """
+	[Passive.] In 1 turn, give your left-most minion+2 Attack. <i>(@ left!)</i> """
 	#
 	pass
 BG20_HERO_283p_t1e=buff(2,0)# <12>[1453]

@@ -182,6 +182,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	honorable_kill = True
 	honorably_killed = False ##
 	darkmoon_ticket=False #battlegrounds
+	BG_cost=0 #battlegrounds, Recruitment Map
 
 	def __init__(self, data):
 		self.attacker=None
