@@ -668,33 +668,31 @@ class TB_BaconUps_087:# <12>[1453]
 	pass
 
 
-#Lightfang Enforcer	5	2	2		 ### maybe ###
+#Lightfang Enforcer	5	2	2		 ### need check ###
 class BGS_009_Action(TargetedAction):
 	TARGET = ActionArg()
-	AMOUNT = ActionArg()
-	def do(self, source, target, amount):
+	def do(self, source, target):
 		controller = target
 		races=[]
+		cards=[]
 		for card in controller.field:
 			if card.race==Race.INVALID:
 				pass
 			elif card.race==Race.ALL:
 				races.append(card.race)
+				cards.append(card)
 			elif not card.race in races:
 				races.append(card.race)
-		buffsize = len(races)*amount
-		Buff(source, 'BGS_009e').trigger(source)
-		buff = source.buffs[-1]
-		buff.tags[GameTag.ATK] = buffsize
-		buff.tags[GameTag.HEALTH] = buffsize
+				cards.append(card)
+		for card in cards:
+			Buff(source, 'BGS_009e').trigger(source)
 class BGS_009:# <12>[1453]  光牙
 	""" Lightfang Enforcer
 	At the end of your turn, give a friendly minion of each minion type +2/+2. """
-	events = OWN_TURN_END.on(BGS_009_Action(CONTROLLER, 2))
+	events = OWN_TURN_END.on(BGS_009_Action(CONTROLLER))
 	pass
-class BGS_009e:# <7>[1453]
-	""" Blessed
-	Increased stats. """
+BGS_009e=buff(2,2)# <7>[1453]
+""" Blessed,	Increased stats. """
 class TB_BaconUps_082:# <12>[1453]
 	""" Lightfang Enforcer
 	At the end of your turn,give a friendly minionof each minion type+4/+4. """
@@ -790,7 +788,7 @@ class TB_BaconUps_201:# <12>[1453]
 	pass
 
 
-#Amalgadon	6	6	6	*	 	 ### need check ###
+#Amalgadon	6	6	6	*	 	 ### need check ###  banned
 class BGS_069_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()

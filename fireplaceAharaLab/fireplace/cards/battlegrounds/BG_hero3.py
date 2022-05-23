@@ -320,14 +320,9 @@ class TB_BaconShop_HERO_17_Buddy_G:
 
 
 
-#41#Mr. Bigglesworth
+#41#Mr. Bigglesworth  ### impossible ###
 class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
-class TB_BaconShop_HP_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class TB_BaconShop_HP_080:
 	""" Kel'Thuzad's Kitty
 	<b>Passive</b> When a player dies, <b>Discover</b> a minion from their warband. It keeps any enchantments."""
@@ -347,7 +342,7 @@ class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 
 
 
-#42#Mutanus the Devourer
+#42#Mutanus the Devourer ### need check ###
 class BG20_HERO_301: ## 
 	""" Mutanus the Devourer	"""
 class BG20_HERO_301p_Action(TargetedAction):
@@ -363,6 +358,7 @@ class BG20_HERO_301p_Action(TargetedAction):
 		buff = anothercard.buffs[-1]
 		buff.tags[GameTag.ATK]=atk
 		buff.tags[GameTag.HEALTH]=health
+		Give(controller, 'GAME_005').trigger(source)
 		pass
 class BG20_HERO_301p:
 	""" Devour
@@ -387,14 +383,13 @@ class BG20_HERO_301_Buddy_G:
 
 
 
-#43#N'Zoth
+#43#N'Zoth  ### need check ###
 class TB_BaconShop_HERO_93:# <12>[1453]
 	""" N'Zoth 	 """
 class TB_BaconShop_HP_105_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target, card):
-		target.sidequest_list0 += card.deathrattles
-		target.deathrattle = target.sidequest_list0 
+		target.additional_deathrattles += card.deathrattles
 		pass
 class TB_BaconShop_HP_105_Action2(TargetedAction):
 	TARGET=ActionArg()
@@ -424,7 +419,7 @@ class TB_BaconShop_HERO_93_Buddy_G:# <12>[1453]
 
 
 
-#44#Nozdormu
+#44#Nozdormu  ### maybe OK ###
 class TB_BaconShop_HERO_57:# <12>[1453]
 	""" Nozdormu  """
 class TB_BaconShop_HP_063:
@@ -452,7 +447,7 @@ class TB_BaconShop_HERO_57_Buddy_G:# <12>[1453]
 
 
 
-#45#Onyxia
+#45#Onyxia ### need check ###
 class BG22_HERO_305:# <12>[1453]
 	""" Onyxia """
 class TB_BaconShop_HP_Action(TargetedAction):
@@ -495,9 +490,7 @@ class BG22_HERO_305_Buddy_Ge:# <12>[1453]
 
 
 
-
-
-#46#Overlord Saurfang
+#46#Overlord Saurfang ### need check ###
 class BG20_HERO_102:# <12>[1453]
 	""" Overlord Saurfang """
 class BG20_HERO_102pe_Action(TargetedAction):
@@ -554,7 +547,7 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 
 
 
-#47#Patches the Pirate
+#47#Patches the Pirate ### need check ###
 class TB_BaconShop_HERO_18:# <12>[1453]
 	""" Patches the Pirate """
 class TB_BaconShop_HP_Action(TargetedAction):
@@ -591,15 +584,11 @@ class TB_BaconShop_HERO_18_Buddy_G:
 
 
 
-#48#Patchwerk
+#48#Patchwerk  ### maybe OK ###
 class TB_BaconShop_HERO_34:# <12>[1453]
 	""" Patchwerk  """
+	#<Tag enumID="45" name="HEALTH" type="Int" value="55"/>
 	pass
-class TB_BaconShop_HP_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class TB_BaconShop_HP_035:
 	""" All Patched Up
 	<b>Passive</b> Start with 55 Health instead of 40."""
@@ -622,7 +611,7 @@ class TB_BaconShop_HERO_34_Buddy_G:# <12>[1453]
 
 
 
-#49#Pyramad
+#49#Pyramad   ### maybe OK ###
 class TB_BaconShop_HERO_39:# <12>[1453]
 	""" Pyramad	 """
 class TB_BaconShop_HP_Action(TargetedAction):
@@ -633,7 +622,8 @@ class TB_BaconShop_HP_Action(TargetedAction):
 class TB_BaconShop_HP_040:
 	""" Brick by Brick
 	Give a random friendly minion +4_Health."""
-TB_BaconShop_HP_040e=buff(4,4)
+	activate = Buff(RANDOM_FRIENDLY_MINION, 'TB_BaconShop_HP_040e')
+TB_BaconShop_HP_040e=buff(0,4)
 ######## BUDDY
 class TB_BaconShop_HERO_39_Buddy:# <12>[1453]
 	""" Titanic Guardian
@@ -654,17 +644,30 @@ class TB_BaconShop_HERO_39_Buddy_G:# <12>[1453]
 
 
 
-#50#Queen Wagtoggle
+#50#Queen Wagtoggle ### need check ### also check BGS_009 ###
 class TB_BaconShop_HERO_14:# <12>[1453]
 	""" Queen Wagtoggle """
-class TB_BaconShop_HP_Action(TargetedAction):
+class TB_BaconShop_HP_037a_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		controller=target
-		pass
+		controller = target
+		races=[]
+		cards=[]
+		for card in random.shuffle(controller.field):
+			if card.race==Race.INVALID:
+				pass
+			elif card.race==Race.ALL:
+				races.append(card.race)
+				cards.append(card)
+			elif not card.race in races:
+				races.append(card.race)
+				cards.append(card)
+		for card in cards:
+			Buff(source, 'TB_BaconShop_HP_037te').trigger(source)
 class TB_BaconShop_HP_037a:
 	""" Wax Warband
-	Give a friendly minion of each minion type +1/+1."""
+	Give a friendly minion of each minion type +1/+1.""" 
+	activate = TB_BaconShop_HP_037a_Action(CONTROLLER)
 TB_BaconShop_HP_037te=buff(1,1)
 ######## BUDDY
 class TB_BaconShop_HERO_14_Buddy:# <12>[1453]
@@ -682,17 +685,27 @@ class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]
 
 
 
-#51#Ragnaros the Firelord
+#51#Ragnaros the Firelord  ### need check ###
 class TB_BaconShop_HERO_11:# <12>[1453]
 	""" Ragnaros the Firelord """
-class TB_BaconShop_HP_Action(TargetedAction):
+class TB_BaconShop_HP_087t_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
+		if len(controller.field)>0:
+			Buff(controller.field[0], 'TB_BaconShop_HP_087te').trigger(source)
+			if len(controller.field)>1:
+				Buff(controller.field[-1], 'TB_BaconShop_HP_087te').trigger(source)
 		pass
 class TB_BaconShop_HP_087:
 	""" DIE, INSECTS!
 	<b>Passive</b> After you kill 25 enemy minions, get Sulfuras. <i>(@ left!)</i>"""
+	events = Death(ENEMY + MINION).on(SidequestCounter(SELF, 25, [ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_087t')]))
+class TB_BaconShop_HP_087t:
+	""" Sulfuras 
+	&lt;b&gt;Passive&lt;/b&gt; At the end of your turn, give your left- and right- most minions +3/+3."""
+	events = OWN_TURN_END.on(TB_BaconShop_HP_087t_Action(CONTROLLER))
+TB_BaconShop_HP_087te=buff(3,3)
 ######## BUDDY
 class TB_BaconShop_HERO_11_Buddy:# <12>[1453]
 	""" Lucifron
