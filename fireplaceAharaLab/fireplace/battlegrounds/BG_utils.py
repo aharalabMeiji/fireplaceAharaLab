@@ -28,8 +28,6 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_52',#15 X
 	'TB_BaconShop_HERO_43',#16 X
 
-	'BG22_HERO_002',#17 X
-	'TB_BaconShop_HERO_01',#18 X
 	'TB_BaconShop_HERO_42',#19 X
 	'TB_BaconShop_HERO_74',#20 X
 	'TB_BaconShop_HERO_55',#21 X Murloc ban
@@ -93,6 +91,8 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero3.BG_PoolSet_Hero3
 		self.Heroes += cards.battlegrounds.BG_hero4.BG_PoolSet_Hero4
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
+		#for hero in BG_Exclude_Hero:
+		#	self.Heroes.remove(hero)
 		# デッキを作る新しいゲームの始まり。
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:

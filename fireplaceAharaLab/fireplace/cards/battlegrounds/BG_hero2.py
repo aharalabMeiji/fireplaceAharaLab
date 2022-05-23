@@ -69,8 +69,7 @@ BG_Hero2_Buddy_Gold={
 
 ############ source ################################################
 
-#BG22_HERO_002#Drek'Thar
-#17	#Drek'Thar#BG22_HERO_002
+#17	#Drek'Thar#BG22_HERO_002   ### HP OK ###
 class BG22_HERO_002:# <12>[1453]
 	""" Drek'Thar 	 """
 class BG22_HERO_002p_Action(TargetedAction):
@@ -84,7 +83,7 @@ class BG22_HERO_002p_Action(TargetedAction):
 		for card in controller.field:
 			if highest_atk <card.atk:
 				highest_atk = card.atk
-		buffcard.atk = SET(highest_atk)
+		buffcard.tags[GameTag.ATK] = highest_atk-target.atk
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
 	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. """
@@ -125,9 +124,24 @@ BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
 #18#Edwin VanCleef
 class TB_BaconShop_HERO_01:# <12>[1453]
 	""" Edwin VanCleef  """
+class TB_BaconShop_HP_001_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = source.controller
+		amount = len(controller.buy_this_turn_log())
+		if amount>0:
+			Buff(target, 'TB_BaconShop_HP_001e').trigger(source)
+			buff = target.buffs[-1]
+			buff.tags[GameTag.ATK]=2*amount
+			buff.tags[GameTag.HEALTH]=amount
+		pass
 class TB_BaconShop_HP_001:
 	""" Sharpen Blades 
 	Give a friendly minion +2/+1 for each minion _you've bought this turn."""
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0
+		}
+	activate = TB_BaconShop_HP_001_Action(TARGET)
 class TB_BaconShop_HP_001e:
 	pass
 class TB_BaconShop_HERO_01_Buddy:# <12>[1453]

@@ -30,7 +30,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=40 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=18 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=41 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
@@ -50,8 +50,8 @@ class Config:# ()is the default value
 	#14#Death Speaker Blackthorn
 	#15#Deathwing    #HP#BUDDY
 	#16#Dinotamer Brann
-	#17#Drek'Thar
-	#18#Edwin VanCleef
+	#17#Drek'Thar ### HP
+	#18#Edwin VanCleef ### HP
 	#19#Elise Starseeker
 	#20#Forest Warden Omu
 	#21#Fungalmancer Flurgl
