@@ -16,7 +16,7 @@ BG_Hero2=[
 	'TB_BaconShop_HERO_28','TB_BaconShop_HP_028','TB_BaconShop_HERO_28_Buddy','TB_BaconShop_HERO_28_Buddy_G',	#28#Infinite Toki
 	'TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',	#29#Jandice Barov
 	'TB_BaconShop_HERO_60','TB_BaconShop_HP_066','TB_BaconShop_HP_066e','TB_BaconShop_HERO_60_Buddy','TB_BaconShop_HERO_60_Buddy_e','TB_BaconShop_HERO_60_Buddy_G','TB_BaconShop_HERO_60_Buddy_G_e',	#30#Kael'thas Sunstrider
-	'TB_BaconShop_HERO_38','TB_BaconShop_HP_038','TB_BaconShop_HERO_38_Buddy','TB_BaconShop_HERO_38_Buddy_e','TB_BaconShop_HERO_38_Buddy_G','TB_BaconShop_HERO_38_Buddy_Ge',	#31#King Mukla
+	'TB_BaconShop_HERO_38','TB_BaconShop_HP_038','DMF_065t','DMF_065e','TB_BaconShop_HERO_38_Buddy','TB_BaconShop_HERO_38_Buddy_e','TB_BaconShop_HERO_38_Buddy_G','TB_BaconShop_HERO_38_Buddy_Ge',	#31#King Mukla
 	'BG20_HERO_280','BG20_HERO_280e','BG20_HERO_280p','BG20_HERO_280pe','BG20_HERO_280p2','BG20_HERO_280p2e','BG20_HERO_280p2e2','BG20_HERO_280p3','BG20_HERO_280p3e2','BG20_HERO_280_Buddy','BG20_HERO_280_Buddye','BG20_HERO_280_Buddy_G','BG20_HERO_280_Buddye2',	#32#Kurtrus Ashfallen
 	'TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',	#33#Lich Baz'hial
 	'TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',	#34#Lord Barov
@@ -574,41 +574,34 @@ class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
 
 
 
-#31#King Mukla  #### need check ####
-class UseBanana(TargetedAction):
-	TARGET = ActionArg()#controller
-	OTHER = ActionArg()
-	def do(self, source, target, other):
-		if Config.LOGINFO:
-			print("(UseBanana.do)%s feed a banana to %s"%(source, target))
-		self.broadcast(source, EventListener.ON, target, other)
-		self.broadcast(source, EventListener.AFTER, target, other)
+#31#King Mukla  #### half OK, difficult to give a banana to others ####
 class TB_BaconShop_HERO_38:# <12>[1453]
 	""" King Mukla  """
 class TB_BaconShop_HP_038:
 	""" Bananarama
 	Get 2 Bananas. At the end of your turn, _give everyone else one."""
-	activate = Give(CONTROLLER, 'TB_BaconShop_HP_038t')*2
+	activate = Give(CONTROLLER, random.choice(['DMF_065t', 'BGS_Treasures_000'])), Give(CONTROLLER, random.choice(['DMF_065t', 'BGS_Treasures_000'])), SetAttr(CONTROLLER, 'deal_banana', True)
+	events
 	pass
-TB_BaconShop_HP_038e=buff(1,1)##
-class TB_BaconShop_HP_038t:
-	"""
-	Give a friendly Beast +1/+1. """
+TB_BaconShop_HP_038e=buff(1,1)## no use
+class DMF_065t:### alternative TB_BaconShop_HP_038t
+	""" Wild Banana
+	Give a friendly minion +1/+1. """
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0,  PlayReq.REQ_MINION_TARGET:0,  PlayReq.REQ_FRIENDLY_TARGET:0 }
-	play = Buff(TARGET, 'TB_BaconShop_HP_038te'),UseBanana(CONTROLLER, TARGET)
-TB_BaconShop_HP_038te=buff(1,1)## 1/1 ? or 2/2
+	play = ApplyBanana(TARGET, 'DMF_065e')
+DMF_065e=buff(1,1)## 
 ######## BUDDY
 class TB_BaconShop_HERO_38_Buddy:# <12>[1453]
 	""" Crazy Monkey
 	After you feed a minion a Banana, give it +1/+1."""
-	events = UseBanana(CONTROLLER).after(Buff(UseBanana.OTHER, 'TB_BaconShop_HERO_38_Buddy_e'))
+	events = ApplyBanana(FRIENDLY + MINION).after(Buff(ApplyBanana.TARGET, 'TB_BaconShop_HERO_38_Buddy_e'))
 	pass
 TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] �o�i�i�̔�
 """ Banana Peel,	+1/+1. """
 class TB_BaconShop_HERO_38_Buddy_G:# <12>[1453]
 	""" Crazy Monkey
 	After you feed a minion a Banana, give it +2/+2."""
-	events = UseBanana(CONTROLLER).after(Buff(UseBanana.OTHER, 'TB_BaconShop_HERO_38_Buddy_Ge'))
+	events = ApplyBanana(FRIENDLY + MINION).after(Buff(ApplyBanana.TARGET, 'TB_BaconShop_HERO_38_Buddy_Ge'))
 	pass
 TB_BaconShop_HERO_38_Buddy_Ge=buff(2,2)# <12>[1453]
 

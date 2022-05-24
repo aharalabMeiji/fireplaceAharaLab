@@ -3101,9 +3101,16 @@ class ApplyBanana(TargetedAction):
 	TARGET=ActionArg()
 	GEM=ActionArg()
 	def do(self, source, target, gem):
+		if Config.LOGINFO:
+			print("(ApplyBanana.do)%s feed a banana to %s"%(source, target))		
 		if gem=='BGS_Treasures_000e':## big banana
-			Buff(target,'BGS_Treasures_000e').trigger(source)
 			self.broadcast(source, EventListener.ON, target, gem)
+			Buff(target,'BGS_Treasures_000e').trigger(source)
+			self.broadcast(source, EventListener.AFTER, target, gem)
+			target.gem_applied_thisturn=True
+		elif gem=='DMF_065e':## banana
+			self.broadcast(source, EventListener.ON, target, gem)
+			Buff(target,'DMF_065e').trigger(source)
 			self.broadcast(source, EventListener.AFTER, target, gem)
 			target.gem_applied_thisturn=True
 

@@ -1,8 +1,9 @@
 from ..utils import *
 
-BG_Gems=[	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',
+BG_Gems=[	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',##Blood Gem
 		'TB_BaconShop_Triples_01',#### triple card
-		'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
+		'BGS_Treasures_000','BGS_Treasures_000e',## big banana
+		'BGS_Treasures_001','BGS_Treasures_003',
 		'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
 		'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
 		'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
