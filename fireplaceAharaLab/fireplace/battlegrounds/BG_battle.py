@@ -91,7 +91,7 @@ class BG_Battle(Game):
 						defenders = lowest_attack
 					defender=random.choice(defenders)
 					#attack
-					print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
+					#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 					BG_Attack(attacker, defender).trigger(attacker.controller)
 					#move buddy gauge
 					self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5

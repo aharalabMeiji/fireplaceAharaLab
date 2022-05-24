@@ -581,9 +581,9 @@ class TB_BaconShop_HP_075:
 	""" Trash for Treasure
 	Remove a friendly minion. Choose one of two from a Tavern Tier lower to keep."""
 	requirements = {
-		PlayReq.TARGET_TO_PLAY:0,
-		PlayReq.MINION_TARGET:0,
-		PlayReq.FRIENDLY_TARGET:0,
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		PlayReq.REQ_FRIENDLY_TARGET:0,
 		}
 	activate = TB_BaconShop_HP_075_Action(TARGET)
 ######## BUDDY
@@ -672,7 +672,7 @@ class TB_BaconShop_HERO_78:# <12>[1453]
 class TB_BaconShop_HP_088:
 	""" Avalanche
 	<b>Passive</b> After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
-	events = BG_Play(FRIENDLY + ELEMENTAL).SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)])
+	events = BG_Play(FRIENDLY + ELEMENTAL).on(SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)]))
 class TB_BaconShop_HERO_78_Buddy:
 	""" Snow Elemental
 	Bob always offers an extra <b>Frozen</b> Elemental whenever the Tavern is <b>Refreshed</b>."""
@@ -707,9 +707,9 @@ class BG21_HERO_020p:# <12>[1453]
 	""" Stir the Pot
 	Throw a minion in your pot. When you've gathered 3,[Discover] from their minion types. <i>(@ left!)</i> """
 	requirements = {
-		PlayReq.TARGET_TO_PLAY:0,
-		PlayReq.MINION_TARGET:0,
-		PlayReq.FRIENDLY_TARGET:0,
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		PlayReq.REQ_FRIENDLY_TARGET:0,
 		}
 	activate = BG21_HERO_020p_Action(TARGET)
 	pass

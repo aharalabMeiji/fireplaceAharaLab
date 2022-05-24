@@ -30,7 +30,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=18 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=31 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=41 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
@@ -57,13 +57,13 @@ class Config:# ()is the default value
 	#21#Fungalmancer Flurgl
 	#22#Galakrond
 	#23#Galewing
-	#24#George the Fallen
-	#25#Greybough
-	#26#Guff Runetotem
-	#27#Illidan Stormrage
-	#28#Infinite Toki
-	#29#Jandice Barov
-	#30#Kael'thas Sunstrider
+	#24#George the Fallen ### HP
+	#25#Greybough ### HP
+	#26#Guff Runetotem ### HP
+	#27#Illidan Stormrage ### HP
+	#28#Infinite Toki ### HP
+	#29#Jandice Barov ### HP
+	#30#Kael'thas Sunstrider ### HP
 	#31#King Mukla
 	#32#Kurtrus Ashfallen
 	#33#Lich Baz'hial

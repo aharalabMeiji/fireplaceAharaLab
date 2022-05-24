@@ -2585,6 +2585,7 @@ class BG_Attack(TargetedAction):
 			for defcard in other:
 				if attcard.zone == Zone.PLAY and defcard.zone == Zone.PLAY:# if they're alive
 					if attcard.atk>0:
+						print("%s(%s) -> %s(%s) : "%(attcard, attcard.controller, defcard, defcard.controller))
 						Hit(defcard, attcard.atk).trigger(attcard)
 					if defcard.atk>0:
 						Hit(attcard, defcard.atk).trigger(defcard)

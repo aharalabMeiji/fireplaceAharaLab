@@ -261,7 +261,7 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 
 
 
-#23#Galewing
+#23#Galewing   ### under construction ###
 class BG20_HERO_283:# <12>[1453]
 	""" Galewing """
 class BG20_HERO_283p:# <12>[1453]
@@ -311,13 +311,19 @@ class BG20_HERO_283_Buddy_G_e:# <12>[1453]
 
 
 
-#24#George the Fallen
+#24#George the Fallen #### OK ####
 class TB_BaconShop_HERO_15:# <12>[1453]
 	""" George the Fallen  """
 class TB_BaconShop_HP_010:
 	""" Boon of Light
 	Give a minion <b>Divine Shield</b>."""
 	## divine shield without buff
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_FRIENDLY_TARGET:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		}
+	activate = GiveDivineShield(TARGET)
 ######## BUDDY
 class TB_BaconShop_HERO_15_Buddy:# <12>[1453]
 	""" Karl the Lost
@@ -336,16 +342,23 @@ TB_BaconShop_HERO_15_Buddy_G_e=buff(4,0)# <12>[1453]
 
 
 
+from fireplace.battlegrounds.BG_bar import BG_Bar
 
-#25#Greybough
+#25#Greybough  ### HP OK ###
 class TB_BaconShop_HERO_95:# <12>[1453]
 	""" Greybough  """
+class TB_BaconShop_HP_107_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(delf, source, target):
+		controller = source.controller
+		if isinstance(controller.game, BG_Bar):
+			return
+		Buff(target, 'TB_BaconShop_HP_107e').trigger(source)
 class TB_BaconShop_HP_107:
 	""" Sprout It Out!
 	<b>Passive</b> Give +1/+2 and <b>Taunt</b> to minions you summon during combat."""
-	pass
-class TB_BaconShop_HP_107e:
-	pass
+	events = Summon(CONTROLLER, FRIENDLY + MINION).on(TB_BaconShop_HP_107_Action(Summon.CARD))
+TB_BaconShop_HP_107e=buff(1,2,taunt=True)
 ######## BUDDY
 class TB_BaconShop_HERO_95_Buddy:# <12>[1453]
 	""" Wandering Treant
@@ -370,19 +383,28 @@ class TB_BaconShop_HERO_95_Buddy_G_e:# <12>[1453]
 
 
 
-#26#Guff Runetotem
+#26#Guff Runetotem  ### HP OK ###
 class BG20_HERO_242:# <2>[1453]
 	""" Guff Runetotem """
 class BG20_HERO_242p:# <2>[1453]
 	""" Natural Balance
 	Give a friendly minion of each Tavern Tier +1/+1. """
-	#
+	def activate(self):
+		controller = self.controller
+		field = copy(controller.field)
+		random.shuffle(field)
+		tiers=[]
+		cards=[]
+		for card in field:
+			if tiers==[] or not card.tech_level in tiers:
+				tiers.append(card.tech_level)
+				cards.append(card)
+		for card in cards:
+			Buff(card, 'BG20_HERO_242pe').trigger(self)
+		pass
 	pass
-class BG20_HERO_242pe:# <12>[1453]
-	""" Guff's Buff
-	+1/+1. """
-	#
-	pass
+BG20_HERO_242pe=buff(1,1)# <12>[1453]
+""" Guff's Buff,	+1/+1. """
 ######## BUDDY
 class BG20_HERO_242_Buddy:
 	pass
@@ -390,12 +412,29 @@ class BG20_HERO_242_Buddy_G:
 	pass
 
 
-#27#Illidan Stormrage
+
+#27#Illidan Stormrage  ### HP, maybe OK ###
 class TB_BaconShop_HERO_08:# <12>[1453]
 	""" Illidan Stormrage  """
+class TB_BaconShop_HP_069_Action(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		field = controller.field
+		op_field = controller.opponent.field
+		if len(op_field)==0:
+			return
+		if len(field)>0:
+			left = field[0]
+			right = field[-1]
+			Buff(left, 'TB_BaconShop_HP_069e').trigger(source)
+			BG_Attack(left, random.choice(op_field)).trigger(source)
+			if right!=left:
+				Buff(left, 'TB_BaconShop_HP_069e').trigger(source)
+				BG_Attack(right, random.choice(op_field)).trigger(source)
 class TB_BaconShop_HP_069:
 	""" Wingmen
 	<b>Passive.</b> <b>Start of Combat:</b> Your left and right-most minions gain +2 Attack __and attack immediately. """
+	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_069_Action(CONTROLLER))
 	pass
 TB_BaconShop_HP_069e=buff(2,0)
 ######## BUDDY
@@ -456,7 +495,7 @@ class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
 
 
 
-#29#Jandice Barov #### need check ####
+#29#Jandice Barov #### OK ####
 class TB_BaconShop_HERO_71:# <12>[1453]
 	""" Jandice Barov """
 class TB_BaconShop_HP_084:
@@ -467,7 +506,7 @@ class TB_BaconShop_HP_084:
 		PlayReq.REQ_FRIENDLY_TARGET:0,
 		PlayReq.REQ_MINION_TARGET:0,
 		}
-	def play(self):
+	def activate(self):
 		controller = self.controller
 		bartender = controller.opponent
 		target = self.target ## minion
@@ -502,12 +541,13 @@ class TB_BaconShop_HERO_71_Buddy_G:# <12>[1453]
 
 
 
-#30#Kael'thas Sunstrider
+#30#Kael'thas Sunstrider  ### OK ###
 class TB_BaconShop_HERO_60:# <12>[1453]
 	""" Kael'thas Sunstrider """
 class TB_BaconShop_HP_066:
 	""" Verdant Spheres
 	<b>Passive</b> Every third minion you buy gains +2/+2."""
+	events = Buy(CONTROLLER).on(SidequestCounter(SELF, 3, [Buff(Buy.CARD, 'TB_BaconShop_HP_066e' )]))
 TB_BaconShop_HP_066e=buff(2,2)
 ######## BUDDY
 class TB_BaconShop_HERO_60_Buddy:# <12>[1453]
@@ -583,8 +623,8 @@ class BG20_HERO_280p_Action1(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
-		_sidequest_counter_+=1
-		if _sidequest_counter_>=3:
+		source._sidequest_counter_+=1
+		if source._sidequest_counter_>=3:
 			for card in source.sidequest_list0:
 				if card in source.controller.field:
 					Buff(card, 'BG20_HERO_280pe').trigger(source)
