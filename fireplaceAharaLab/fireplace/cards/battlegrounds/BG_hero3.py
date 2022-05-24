@@ -98,7 +98,7 @@ BG_Hero3_Buddy_Gold={
 
 #### source ####################################################
 
-#35#Lord Jaraxxus
+#35#Lord Jaraxxus ### HP ###
 class TB_BaconShop_HERO_37:# <12>[1453]
 	""" Lord Jaraxxus """
 class TB_BaconShop_HP_036:
@@ -217,14 +217,11 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 
 
-#38#Master Nguyen ##########################
+#38#Master Nguyen ##########????????????####
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
-class TB_BaconShop_HP_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
+	entourage=['TB_BaconShop_HP_036','TB_BaconShop_HP_052']
+	events = BeginBar(CONTROLLER).on(GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*2))
 class BG20_HERO_202p:# <12>[1453]
 	""" Power of the Storm
 	[Passive]At the start of every turn, choose from 2 new Hero Powers. """

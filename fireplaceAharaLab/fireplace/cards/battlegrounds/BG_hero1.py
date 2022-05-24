@@ -370,7 +370,7 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 
 
 
-#06##Bru'kan
+#06##Bru'kan   #################################
 class BG22_HERO_001:# <12>[1453]
 	""" Bru'kan 	"""
 class BG22_HERO_001p:# <12>[1453]
@@ -408,10 +408,10 @@ class BG22_HERO_001p_t2_s:# <8>[1453]
 	""" Fire Invocation
 	Double your left-most minion's Attack. """
 	def play(self):
-	   controller = self.controller
-	   if len(controller.field)>0:
-		   card = controller.field[0]
-		   Buff(card, 'BG22_HERO_001p_t2_s').trigger(controller)
+		controller = self.controller
+		if len(controller.field)>0:
+			card = controller.field[0]
+			Buff(card, 'BG22_HERO_001p_t2_s').trigger(controller)
 	pass
 class BG22_HERO_001p_t2e:# <12>[1453]
 	""" Element: Fire
@@ -427,10 +427,10 @@ class BG22_HERO_001p_t3_s:# <8>[1453]
 	""" Water Invocation
 	Give your right-most minion +3 Health and [Taunt]. """
 	def play(self):
-	   controller = self.controller
-	   if len(controller.field)>0:
-		   card = controller.field[-1]
-		   Buff(card, 'BG22_HERO_001p_t3_s').trigger(controller)
+		controller = self.controller
+		if len(controller.field)>0:
+			card = controller.field[-1]
+			Buff(card, 'BG22_HERO_001p_t3_s').trigger(controller)
 	pass
 class BG22_HERO_001p_t3e:# <12>[1453]
 	""" Element: Water
@@ -448,6 +448,7 @@ class BG22_HERO_001p_t4_s:# <8>[1453]
 	Deal 1 damage to 5 random enemy minions. """
 	play = Hit(RANDOM(ENEMY_MINIONS),1) * 5
 	pass
+######## BUDDY
 class BG22_HERO_001_Buddy_Events(TargetedAction):
 	TARGET = ActionArg()
 	CARD = ActionArg()
@@ -492,7 +493,7 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 
 
-#07#C'Thun
+#07#C'Thun   ### not impossible
 class TB_BaconShop_HERO_29:# <12>[1453]
 	""" C'Thun	"""
 class TB_BaconShop_HP_104:
@@ -500,6 +501,7 @@ class TB_BaconShop_HP_104:
 	At end of turn, give a friendly minion +1/+1.__Repeat @ |4(time, times).<i>__(Upgrades after each use!)</i>"""
 	#events = OWN_TUEN_END.on()
 TB_BaconShop_HP_104e=buff(1,1)
+######## BUDDY
 class TB_BaconShop_HERO_29_Buddy:# <12>[1453]
 	""" Tentacle of C'Thun
 	After a different friendly minion gains stats, gain_+1/+1 until your next turn. """
@@ -523,13 +525,33 @@ class TB_BaconShop_HERO_29_Buddy_Ge:# <12>[1453]
 
 
 
-#08#Captain Eudora
+#08#Captain Eudora   #### need check ####
 class TB_BaconShop_HERO_64:# <12>[1453]
 	""" Captain Eudora
 	"""
+class TB_BaconShop_HP_074_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		gamemaster=controller.game.parent
+		source._sidequest_counter_ += 1
+		source.script_data_num_1 -= 1 
+		if source._sidequest_counter_== 5:
+			source._sidequest_counter_ = 0
+			source.script_data_num_1 = 5
+			deck=[]
+			for i in range(1, controller.tavern_tier+1):
+				deck += gamemaster.BG_decks[i]
+			goldcardid=gamemaster.BG_Gold[random.choice(deck)]
+			if goldcardid:
+				card = controller.card(goldcardid)
+				card.zone=Zone.HAND
+
 class TB_BaconShop_HP_074:
 	""" Buried Treasure
 	_Dig for a Golden minion! <i>(@ |4(Dig, Digs) left.)</i>"""
+	activate = TB_BaconShop_HP_074_Action(CONTROLLER)
+######## BUDDY
 class TB_BaconShop_HERO_64_Buddy:
 	""" Dagwik Stickytoe
 	At the end of your turn, give a random friendly Golden minion +5/+5."""
@@ -545,13 +567,26 @@ TB_BaconShop_HERO_64_Buddy_G_e=buff(10,10)# <12>[1453]
 
 
 
-#09#Captain Hooktusk
+#09#Captain Hooktusk  #### need check ####
 class TB_BaconShop_HERO_67:# <12>[1453]
 	""" Captain Hooktusk
 	"""
+class TB_BaconShop_HP_075_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = source.controller
+		tier = max(target.tavern_tier-1, 0)
+		GenericChoice(controller, RandomBGMinion(tech_level=tier)*2).trigger(source)
 class TB_BaconShop_HP_075:
 	""" Trash for Treasure
 	Remove a friendly minion. Choose one of two from a Tavern Tier lower to keep."""
+	requirements = {
+		PlayReq.TARGET_TO_PLAY:0,
+		PlayReq.MINION_TARGET:0,
+		PlayReq.FRIENDLY_TARGET:0,
+		}
+	activate = TB_BaconShop_HP_075_Action(TARGET)
+######## BUDDY
 class TB_BaconShop_HERO_67_Buddy:# <12>[1453]
 	""" Raging Contender
 	'Trash for Treasure' offers 3 options instead of 2. """
@@ -614,6 +649,7 @@ class BG21_HERO_000p3:
 	"""Conviction (Rank 3)
 	Give five random _friendly minions +1/+1."""
 	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 5)
+######## BUDDY
 class BG21_HERO_000_Buddy:# <12>[1453]
 	""" Captain Fairmount
 	At the end of your turn, give five random friendly minions +1/+1. """
@@ -629,13 +665,14 @@ BG21_HERO_000_Buddy_G_e=buff(2,2)
 
 
 
-#11#Chenvaala
+#11#Chenvaala ### need check ###
 class TB_BaconShop_HERO_78:# <12>[1453]
 	""" Chenvaala
 	"""
 class TB_BaconShop_HP_088:
 	""" Avalanche
 	<b>Passive</b> After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
+	events = BG_Play(FRIENDLY + ELEMENTAL).SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)])
 class TB_BaconShop_HERO_78_Buddy:
 	""" Snow Elemental
 	Bob always offers an extra <b>Frozen</b> Elemental whenever the Tavern is <b>Refreshed</b>."""
@@ -645,15 +682,36 @@ class TB_BaconShop_HERO_78_Buddy_G:
 
 
 
-#12#Cookie the Cook
+#12#Cookie the Cook  #### difficult ### must unify minion race 
 class BG21_HERO_020:# <12>[1453]
 	""" Cookie the Cook
 	 """
 	pass
+class BG21_HERO_020p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		race = target.race
+		Destroy(target).trigger(source)
+		gamemaster=controller.game.parent
+		source._sidequest_counter_ += 1
+		source.script_data_num_1 -= 1 
+		if source._sidequest_counter_== 1:
+			source.requirements = {PlayReq.TARGET_TO_PLAY:0,PlayReq.MINION_TARGET:0,PlayReq.FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:race }
+		if source._sidequest_counter_== 3:
+			source._sidequest_counter_ = 0
+			source.script_data_num_1 = 3
+			source.requirements = {PlayReq.TARGET_TO_PLAY:0,PlayReq.MINION_TARGET:0,PlayReq.FRIENDLY_TARGET:0, }
+			Discover(controller, RandomBGMinion(race=race)).trigger(source)
 class BG21_HERO_020p:# <12>[1453]
 	""" Stir the Pot
 	Throw a minion in your pot. When you've gathered 3,[Discover] from their minion types. <i>(@ left!)</i> """
-	#
+	requirements = {
+		PlayReq.TARGET_TO_PLAY:0,
+		PlayReq.MINION_TARGET:0,
+		PlayReq.FRIENDLY_TARGET:0,
+		}
+	activate = BG21_HERO_020p_Action(TARGET)
 	pass
 class BG21_HERO_020_Buddy:# <12>[1453]
 	""" Sous Chef
@@ -668,7 +726,7 @@ class BG21_HERO_020_Buddy_G:# <12>[1453]
 
 
 
-#13#Dancin' Deryl
+#13#Dancin' Deryl ### need check ###
 class TB_BaconShop_HERO_36:# <12>[1453]
 	""" Dancin' Deryl
 	 """
@@ -693,7 +751,7 @@ TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
 """ Dashing Hat,+2/+2. """
 
 
-#14#Death Speaker Blackthorn
+#14#Death Speaker Blackthorn  ### need check ###
 class BG20_HERO_103:# <12>[1453]
 	""" Death Speaker Blackthorn	 """
 class BG20_HERO_103p:# <12>[1453]
@@ -712,7 +770,7 @@ class BG20_HERO_103_Buddy_G:
 
 
 
-#15#Deathwing
+#15#Deathwing    ### need check ###
 class TB_BaconShop_HERO_52:
 	""" Deathwing
 	"""
@@ -733,7 +791,7 @@ class TB_BaconShop_HERO_52_Buddy_G:
 TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
-#16#Dinotamer Brann
+#16#Dinotamer Brann   ### need check ###
 class TB_BaconShop_HERO_43:# <12>[1453]
 	""" Dinotamer Brann
 	 """
@@ -744,6 +802,7 @@ class TB_BaconShop_HP_048:
 		[Give(CONTROLLER,"LOE_077"), SetAttr(SELF,'exhausted',True)]))
 class TB_BaconShop_HP_048e:
 	""" 	"""
+######## BUDDY
 class TB_BaconShop_HERO_43_Buddy_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARD = CardArg()
