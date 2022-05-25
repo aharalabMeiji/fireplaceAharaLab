@@ -169,11 +169,17 @@ class TB_BaconShop_HERO_42:# <12>[1453]
 class TB_BaconShop_HP_047:
 	""" Lead Explorer
 	<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
-	events = Upgrade(CONTROLLER).on(Give(CONTROLLER, 'TB_BaconShop_HP_047t'))
+	events = UpgradeTier(CONTROLLER).on(Give(CONTROLLER, 'TB_BaconShop_HP_047t'))
+class TB_BaconShop_HP_047t_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		card.BG_cost=self.player.game.minionCost
+		card.controller = self.player
+		card.zone=Zone.HAND
 class TB_BaconShop_HP_047t:
 	""" Recruitment Map
 	<b>Discover</b> a minion from <b>Tavern Tier @</b>."""
-	play = Discover(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER)))
+	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*3)
 	# Here we activate 'choicecard.BG_cost = bar.cardCost'
 ######## BUDDY
 class TB_BaconShop_HERO_42_Buddy:# <12>[1453]

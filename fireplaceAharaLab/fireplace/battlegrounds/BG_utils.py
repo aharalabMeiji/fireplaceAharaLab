@@ -499,6 +499,9 @@ class Move(object):
 	def play(self, card, position=-1, targetpos=-1):
 		if card!=None and card.id=='TB_BaconShop_Triples_01':## カードを発見
 			pass
+		if card.BG_cost>0 and card.BG_cost>=self.controller.mana:
+			if Config.LOGINFO:
+				print("This card(%s) need coins to play."%(card))
 		# play a spell card (blood gem, banana, coin, spellcraft)
 		if card!=None and card.type==CardType.SPELL:
 			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:

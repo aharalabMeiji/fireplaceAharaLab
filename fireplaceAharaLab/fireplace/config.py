@@ -17,7 +17,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=0# log.info相当のログ表示
+	LOGINFO=1# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 
 	#battlegrounds option
@@ -30,7 +30,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=22 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=19 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=34 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
