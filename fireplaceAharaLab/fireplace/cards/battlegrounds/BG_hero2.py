@@ -234,9 +234,21 @@ class TB_BaconShop_HERO_55_Buddy_G:
 
 
 
-#22#Galakrond  ### a bit difficult ############################
+#22#Galakrond  ### HP OK ###
 class TB_BaconShop_HERO_02:# <12>[1453]
 	""" Galakrond """
+class TB_BaconShop_HP_011_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		card.controller = card.controller.opponent# bartender
+		card.zone=Zone.PLAY
+class TB_BaconShop_HP_011_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source,target):
+		controller = source.controller
+		tier = min(target.tech_level+1,6)
+		target.zone = Zone.GRAVEYARD ### let deathrattle does not happen
+		TB_BaconShop_HP_011_Choice(controller, RandomBGMinion(tech_level=tier)*3).trigger(source)
 class TB_BaconShop_HP_011:
 	""" Galakrond's Greed
 	Choose a minion in Bob's Tavern. <b>Discover</b> a higher Tier minion to replace it."""
@@ -245,7 +257,7 @@ class TB_BaconShop_HP_011:
 		PlayReq.REQ_ENEMY_TARGET:0,
 		PlayReq.REQ_MINION_TARGET:0,
 		}
-	#activate = ChoiceAndReplaceOnField(CONTROLLER,)
+	activate = TB_BaconShop_HP_011_Action(TARGET)
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_02_Buddy:# <12>[1453]
