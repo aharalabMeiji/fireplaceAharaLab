@@ -33,9 +33,7 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_55',#21 X Murloc ban
 	'TB_BaconShop_HERO_02',#22 X
 	'BG20_HERO_283',#23 X
-	'BG20_HERO_280',#32 X
-	'TB_BaconShop_HERO_25',#33 X
-	'TB_BaconShop_HERO_72',#34 X
+	'TB_BaconShop_HERO_72',#34 XimpossibleXXX
 	
 	'TB_BaconShop_HERO_37',#35 demon ban
 	'BG20_HERO_202',#38 X
@@ -90,7 +88,7 @@ class BG_main:
 		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
 			if Config.PATCH23_2_2:
-				self.BG_races = races = ['naga',] + random.sample(['beast','demon','dragon','elemental','mecha','murloc', 'pirate','quilboar'],4)
+				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar'],5)
 			else:
 				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		else:

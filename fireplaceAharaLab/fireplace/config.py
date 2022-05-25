@@ -30,8 +30,8 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=31 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=32 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=33 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=34 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
 	#01#Al'Akir#HP#BUDDY
@@ -65,8 +65,8 @@ class Config:# ()is the default value
 	#29#Jandice Barov ### HP
 	#30#Kael'thas Sunstrider ### HP
 	#31#King Mukla ### HP
-	#32#Kurtrus Ashfallen
-	#33#Lich Baz'hial
+	#32#Kurtrus Ashfallen ### HP
+	#33#Lich Baz'hial ### HP
 	#34#Lord Barov
 	#35#Lord Jaraxxus ### HP
 	#36#Maiev Shadowsong ### HP

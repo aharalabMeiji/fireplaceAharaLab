@@ -616,7 +616,7 @@ TB_BaconShop_HERO_38_Buddy_Ge=buff(2,2)# <12>[1453]
 
 
 
-#32#Kurtrus Ashfallen  #### need check #### difficult!
+#32#Kurtrus Ashfallen  #### HP OK #### 
 class BG20_HERO_280:# <14>[1453]
 	""" Kurtrus Ashfallen """
 class BG20_HERO_280e:# <12>[1453]
@@ -625,22 +625,19 @@ class BG20_HERO_280p_Action1(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
-		source._sidequest_counter_+=1
 		source.script_data_num_1 -= 1
-		if source._sidequest_counter_>=2:
+		if source.script_data_num_1<=0:
 			for card in source.sidequest_list0:
-				if card in source.controller.field:
+				if card in source.controller.field or card in source.controller.hand:
 					Buff(card, 'BG20_HERO_280pe').trigger(source)
 			source.sidequest_list0=[]
-			source._sidequest_counter_=0
 			source.script_data_num_1 = 4
-			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p2')
+			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p2').trigger(source)
 class BG20_HERO_280p_Action0(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		target.sidequest_list0=[]
-		target._sidequest_counter_=0
-		target.script_data_num_1=target.data.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]
+		target.script_data_num_1=3
 		pass
 class BG20_HERO_280p:# <14>[1453]
 	""" Final Showdown
@@ -656,23 +653,27 @@ class BG20_HERO_280p_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
-		source._sidequest_counter_+=1
 		source.script_data_num_1 -= 1
-		if source._sidequest_counter_>=4:
+		if source.script_data_num_1<=0:
 			for card in source.controller.field:
 				Buff(card, 'BG20_HERO_280p2e').trigger(source)
 			for card in source.controller.hand:
 				Buff(card, 'BG20_HERO_280p2e').trigger(source)
 			source.sidequest_list0=[]
-			source._sidequest_counter_=0
 			source.script_data_num_1 = 5
-			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p3')
+			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p3').trigger(source)
+class BG20_HERO_280p_Action02(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.sidequest_list0=[]
+		target.script_data_num_1=4
+		pass
 class BG20_HERO_280p2:# <14>[1453]
 	""" Gain Momentum
 	[Passive.] Buy 4 minions in1 turn to give your hand and board +2/+2 and_progress this. <i>(@ left!)</i> """
 	events = [
 		Buy(CONTROLLER).on(BG20_HERO_280p_Action2(Buy.CARD)),
-		OWN_TURN_END.on(BG20_HERO_280p_Action0(SELF))
+		OWN_TURN_END.on(BG20_HERO_280p_Action02(SELF))
 	]
 	pass
 BG20_HERO_280p2e=buff(2,2)# <12>[1453]
@@ -683,21 +684,26 @@ class BG20_HERO_280p_Action3(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
-		source._sidequest_counter_+=1
 		source.script_data_num_1 -= 1
-		if source._sidequest_counter_>=5:
+		if source.script_data_num_1<=0:
 			for card in source.controller.field:
 				Buff(card, 'BG20_HERO_280p3e2').trigger(source)
 			for card in source.controller.hand:
 				Buff(card, 'BG20_HERO_280p3e2').trigger(source)
 			source.sidequest_list0=[]
-			source._sidequest_counter_=0
+			source.script_data_num_1 = 5
+class BG20_HERO_280p_Action03(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.sidequest_list0=[]
+		target.script_data_num_1=5
+		pass
 class BG20_HERO_280p3:# <14>[1453]
 	""" Close the Portal
 	[Passive.] Buy 5 minions in1 turn to give ALL yourminions this game +2/+2__and complete this. <i>({0} left!)</i>@[Passive.] Buy 5 minions in1 turn to give ALL yourminions this game +2/+2.<i>(Complete!)</i> """
 	events = [
 		Buy(CONTROLLER).on(BG20_HERO_280p_Action3(Buy.CARD)),
-		OWN_TURN_END.on(BG20_HERO_280p_Action0(SELF))
+		OWN_TURN_END.on(BG20_HERO_280p_Action03(SELF))
 	]
 	pass
 BG20_HERO_280p3e2=buff(2,2)# <12>[1453]
@@ -723,7 +729,7 @@ class BG20_HERO_280_Buddye2:# <12>[1453]
 
 
 
-#33#Lich Baz'hial ### maybe ###
+#33#Lich Baz'hial ### HP OK ###
 class TB_BaconShop_HERO_25:# <12>[1453]
 	""" Lich Baz'hial	 """
 class TB_BaconShop_HP_049:
