@@ -574,14 +574,23 @@ class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
 
 
 
-#31#King Mukla  #### half OK, difficult to give a banana to others ####
+#31#King Mukla  #### half OK  ####
 class TB_BaconShop_HERO_38:# <12>[1453]
 	""" King Mukla  """
+class TB_BaconShop_HP_038_Action(TargetedAction):
+	TARGET=ActionArg()
+	COIN=ActionArg()
+	def do(self, source, target, coin):
+		gamemaster = source.controller.game.parent
+		for bar in gamemaster.BG_Bars:
+			player = bar.controller
+			if player != source.controller:
+				player.gifts.append(coin)
+		pass
 class TB_BaconShop_HP_038:
 	""" Bananarama
 	Get 2 Bananas. At the end of your turn, _give everyone else one."""
-	activate = Give(CONTROLLER, random.choice(['DMF_065t', 'BGS_Treasures_000'])), Give(CONTROLLER, random.choice(['DMF_065t', 'BGS_Treasures_000'])), SetAttr(CONTROLLER, 'deal_banana', True)
-	events
+	activate = Give(CONTROLLER, random.choice(['DMF_065t', 'BGS_Treasures_000'])), Give(CONTROLLER, random.choice(['DMF_065t', 'BGS_Treasures_000'])), TB_BaconShop_HP_038_Action(CONTROLLER, 'DMF_065t')
 	pass
 TB_BaconShop_HP_038e=buff(1,1)## no use
 class DMF_065t:### alternative TB_BaconShop_HP_038t
@@ -617,16 +626,21 @@ class BG20_HERO_280p_Action1(TargetedAction):
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
 		source._sidequest_counter_+=1
-		if source._sidequest_counter_>=3:
+		source.script_data_num_1 -= 1
+		if source._sidequest_counter_>=2:
 			for card in source.sidequest_list0:
 				if card in source.controller.field:
 					Buff(card, 'BG20_HERO_280pe').trigger(source)
+			source.sidequest_list0=[]
+			source._sidequest_counter_=0
+			source.script_data_num_1 = 4
 			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p2')
 class BG20_HERO_280p_Action0(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		target.sidequest_list0=[]
 		target._sidequest_counter_=0
+		target.script_data_num_1=target.data.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]
 		pass
 class BG20_HERO_280p:# <14>[1453]
 	""" Final Showdown
@@ -642,12 +656,16 @@ class BG20_HERO_280p_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
-		_sidequest_counter_+=1
-		if _sidequest_counter_>=4:
+		source._sidequest_counter_+=1
+		source.script_data_num_1 -= 1
+		if source._sidequest_counter_>=4:
 			for card in source.controller.field:
 				Buff(card, 'BG20_HERO_280p2e').trigger(source)
 			for card in source.controller.hand:
 				Buff(card, 'BG20_HERO_280p2e').trigger(source)
+			source.sidequest_list0=[]
+			source._sidequest_counter_=0
+			source.script_data_num_1 = 5
 			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p3')
 class BG20_HERO_280p2:# <14>[1453]
 	""" Gain Momentum
@@ -665,12 +683,15 @@ class BG20_HERO_280p_Action3(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		source.sidequest_list0.append(target)
-		_sidequest_counter_+=1
-		if _sidequest_counter_>=5:
+		source._sidequest_counter_+=1
+		source.script_data_num_1 -= 1
+		if source._sidequest_counter_>=5:
 			for card in source.controller.field:
 				Buff(card, 'BG20_HERO_280p3e2').trigger(source)
 			for card in source.controller.hand:
 				Buff(card, 'BG20_HERO_280p3e2').trigger(source)
+			source.sidequest_list0=[]
+			source._sidequest_counter_=0
 class BG20_HERO_280p3:# <14>[1453]
 	""" Close the Portal
 	[Passive.] Buy 5 minions in1 turn to give ALL yourminions this game +2/+2__and complete this. <i>({0} left!)</i>@[Passive.] Buy 5 minions in1 turn to give ALL yourminions this game +2/+2.<i>(Complete!)</i> """

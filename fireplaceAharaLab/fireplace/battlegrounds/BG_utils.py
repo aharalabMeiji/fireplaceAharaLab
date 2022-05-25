@@ -33,7 +33,6 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_55',#21 X Murloc ban
 	'TB_BaconShop_HERO_02',#22 X
 	'BG20_HERO_283',#23 X
-	'TB_BaconShop_HERO_38',#31 X
 	'BG20_HERO_280',#32 X
 	'TB_BaconShop_HERO_25',#33 X
 	'TB_BaconShop_HERO_72',#34 X
@@ -199,6 +198,10 @@ class BG_main:
 			#in tha final, battles lengtha will be 4 
 			battles = [None,None]
 			### Agent moves start
+			for bar in self.BG_Bars:
+				for card in bar.controller.gifts:
+					Give(bar.controller, card).trigger(bar.controller)
+				bar.controller.gifts=[]
 			for bar in self.BG_Bars:
 				controller = bar.controller
 				print ("==== %s 's thinkng ===="% controller)

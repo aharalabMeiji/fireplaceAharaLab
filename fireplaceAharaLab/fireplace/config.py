@@ -31,7 +31,7 @@ class Config:# ()is the default value
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
 	HERO_1=31 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=41 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=32 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	#00#A. F. Kay, #HP#BUDDY
 	#01#Al'Akir#HP#BUDDY
@@ -64,7 +64,7 @@ class Config:# ()is the default value
 	#28#Infinite Toki ### HP
 	#29#Jandice Barov ### HP
 	#30#Kael'thas Sunstrider ### HP
-	#31#King Mukla
+	#31#King Mukla ### HP
 	#32#Kurtrus Ashfallen
 	#33#Lich Baz'hial
 	#34#Lord Barov

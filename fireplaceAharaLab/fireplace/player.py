@@ -119,6 +119,7 @@ class Player(Entity, TargetableByAuras):
 		self.sells_in_this_turn=0 # battlegrounds
 		self.prev_field=[] # battlegrounds
 		self.script_const_1=0 ## general use
+		self.gifts=[] # battlegrounds
 
 
 	def __str__(self):
