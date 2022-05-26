@@ -47,7 +47,7 @@ BG20_GEMe2=buff(3,3)# <12>[1453]
 class GAME_005:# <12> 1637 #OK
 	""" The Coin
 	Gain 1 Mana Crystal this turn only. """
-	play = ManaThisTurn(CONTROLLER, 1)
+	play = ManaThisTurnOnly(CONTROLLER, 1)
 	pass
 
 

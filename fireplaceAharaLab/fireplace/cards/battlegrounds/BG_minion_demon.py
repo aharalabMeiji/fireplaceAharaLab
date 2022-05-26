@@ -160,7 +160,7 @@ class BGS_059_Action(TargetedAction):
 		buff.atk = target.atk * amount
 		buff.max_health = target.max_health * amount
 		Destroy(target).trigger(source)
-		ManaThisTurn(controller, 3 * amount).trigger(source)
+		ManaThisTurnOnly(controller, 3 * amount).trigger(source)
 class BGS_059:# <12>[1453] ## 動いている感じはある
 	""" Soul Devourer (3)
 	[Battlecry:] Choose a friendly Demon. Remove it to gain its stats and 3 Gold. """

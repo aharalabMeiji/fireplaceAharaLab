@@ -1511,6 +1511,19 @@ class ManaThisTurn(TargetedAction):
 			return
 		target.temp_mana += min(target.max_resources - target.mana, amount)
 
+class ManaThisTurnOnly(TargetedAction):
+	"""
+	Give player targets \a amount Mana this turn.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+
+	def do(self, source, target, amount):
+		if target.type != CardType.PLAYER:
+			return
+		target.used_mana -= amount ### battlegrounds version
+
+
 class Mill(TargetedAction):
 	"""
 	Mill \a count cards from the top of the player targets' deck.

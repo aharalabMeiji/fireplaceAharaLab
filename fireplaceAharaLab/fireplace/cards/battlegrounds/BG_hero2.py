@@ -205,7 +205,7 @@ class TB_BaconShop_HERO_74:# <12>[1453]
 class TB_BaconShop_HP_082:
 	""" Everbloom
 	<b>Passive</b> After you upgrade Bob's Tavern, gain 2 Gold this turn only."""
-	events = Upgrade(CONTROLLER).after(ManaThisTurn(CONTROLLER,2))
+	events = UpgradeTier(CONTROLLER).after(ManaThisTurnOnly(CONTROLLER,2))
 ######## BUDDY
 class TB_BaconShop_HERO_74_Buddy:# <12>[1453]
 	""" Evergreen Botani

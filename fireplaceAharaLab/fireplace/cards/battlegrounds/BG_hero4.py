@@ -395,7 +395,7 @@ class TB_BaconShop_HP_076_Action(TargetedAction):
 		if source._sidequest_counter_<=1:
 			for repeat in range(min(source.script_data_num_1,10)):  
 				#Give(controller, 'GAME_005').trigger(controller)
-				ManaThisTurn(CONTROLLER, 1).trigger(controller)
+				ManaThisTurnOnly(CONTROLLER, 1).trigger(controller)
 			SetAttr(source,'cant_play',True).trigger(controller)
 		pass
 class TB_BaconShop_HP_076:
