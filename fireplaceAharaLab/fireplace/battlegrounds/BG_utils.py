@@ -499,9 +499,14 @@ class Move(object):
 	def play(self, card, position=-1, targetpos=-1):
 		if card!=None and card.id=='TB_BaconShop_Triples_01':## カードを発見
 			pass
-		if card.BG_cost>0 and card.BG_cost>=self.controller.mana:
+		if card.BG_cost>0:
 			if Config.LOGINFO:
 				print("This card(%s) need coins to play."%(card))
+			if card.BG_cost>self.controller.mana:
+				return
+			else:
+				self.controller.used_mana += card.BG_cost
+				card.BG_cost=0
 		# play a spell card (blood gem, banana, coin, spellcraft)
 		if card!=None and card.type==CardType.SPELL:
 			if card.requires_target() and targetpos>=0 and self.controller.field[targetpos] in card.targets:
@@ -589,7 +594,7 @@ def GetMoveCandidates(bar, controller, bartender):
 	for card in controller.hand:
 		if card.type==CardType.MINION:
 			if len(controller.field)<7:
-				if not card.cant_play:
+				if not card.cant_play and card.BG_cost<=controller.mana:
 					for pos in range(len(controller.field)+1):
 						if card.requires_target():
 							for target in card.targets:

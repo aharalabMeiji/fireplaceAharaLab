@@ -235,6 +235,8 @@ class BG_HumanAgent(BG_Agent):
 			ret += '(%d/%d)'%(card.atk,card.health)
 			if card.dormant:
 				ret += "(dormant %d)"%(card.dormant)
+			if card.BG_cost>0:
+				ret += "(cost %d)"%(card.BG_cost)
 			if card.cant_play:
 				ret += "(can't play)"
 			if card.frozen:

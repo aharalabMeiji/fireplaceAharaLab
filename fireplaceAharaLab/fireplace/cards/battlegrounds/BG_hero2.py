@@ -163,13 +163,13 @@ TB_BaconShop_HERO_01_Buddy_G_e=buff(2,2)# <12>[1453]
 
 
 
-#19#Elise Starseeker #### very difficult ###
+#19#Elise Starseeker #### HP OK ###
 class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
 class TB_BaconShop_HP_047:
 	""" Lead Explorer
 	<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
-	events = UpgradeTier(CONTROLLER).on(Give(CONTROLLER, 'TB_BaconShop_HP_047t'))
+	events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
 class TB_BaconShop_HP_047t_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
@@ -179,7 +179,7 @@ class TB_BaconShop_HP_047t_Choice(Choice):
 class TB_BaconShop_HP_047t:
 	""" Recruitment Map
 	<b>Discover</b> a minion from <b>Tavern Tier @</b>."""
-	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*3)
+	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))*3)
 	# Here we activate 'choicecard.BG_cost = bar.cardCost'
 ######## BUDDY
 class TB_BaconShop_HERO_42_Buddy:# <12>[1453]
