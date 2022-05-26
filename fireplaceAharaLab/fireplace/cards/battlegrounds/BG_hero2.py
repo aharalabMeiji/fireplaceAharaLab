@@ -199,7 +199,7 @@ TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
 
 
 
-#20#Forest Warden Omu #### need check ###
+#20#Forest Warden Omu #### HP OK ###
 class TB_BaconShop_HERO_74:# <12>[1453]
 	""" Forest Warden Omu  """
 class TB_BaconShop_HP_082:
@@ -221,7 +221,7 @@ class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
 	pass
 
 
-#21#Fungalmancer Flurgl ### need check ###
+#21#Fungalmancer Flurgl ### OK ###
 class TB_BaconShop_HERO_55:# <12>[1453]
 	""" Fungalmancer Flurgl  """
 	pass
@@ -229,7 +229,7 @@ class TB_BaconShop_HP_056:
 	""" Gone Fishing
 	<b>Passive</b> After you sell two minions, add a random Murloc to Bob's Tavern."""
 	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 2, 
-		[Give(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))]
+		[Summon(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))] #
 	))
 	pass
 ######## BUDDY

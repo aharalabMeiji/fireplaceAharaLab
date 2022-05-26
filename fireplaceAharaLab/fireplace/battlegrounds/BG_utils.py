@@ -28,8 +28,7 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_52',#15 X
 	'TB_BaconShop_HERO_43',#16 X
 
-	'TB_BaconShop_HERO_74',#20 X
-	'TB_BaconShop_HERO_55',#21 X Murloc ban
+	'TB_BaconShop_HERO_55',#21 Murloc ban
 	'BG20_HERO_283',#23 X
 	'TB_BaconShop_HERO_72',#34 XimpossibleXXX
 	

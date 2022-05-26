@@ -2249,7 +2249,6 @@ class Awaken(TargetedAction):
 #
 class SidequestCounter(TargetedAction):
 	"""
-	
 	"""
 	TARGET = ActionArg()# sidequest card
 	AMOUNT = IntArg() #max of call
@@ -2258,8 +2257,10 @@ class SidequestCounter(TargetedAction):
 		if Config.LOGINFO:
 			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r", target, (source._sidequest_counter_+1), targetaction)
 		target._sidequest_counter_ += 1
+		target.script_data_num_1 -= 1
 		if target._sidequest_counter_== amount:
 			target._sidequest_counter_ = 0
+			target.script_data_num_1 = target.data.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
