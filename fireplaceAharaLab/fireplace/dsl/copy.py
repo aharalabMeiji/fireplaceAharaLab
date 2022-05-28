@@ -17,7 +17,7 @@ class Copy(LazyValue):
 		Return a copy of \a entity
 		"""
 		if Config.LOGINFO:
-			Print("Creating a copy of %r"% entity)
+			print("Creating a copy of %r"% entity)
 		return source.controller.card(entity.id, source)
 
 	def evaluate(self, source) -> [str]:

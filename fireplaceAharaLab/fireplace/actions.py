@@ -1051,7 +1051,7 @@ class Damage(TargetedAction):
 		# in method '_hit', we manage divine_shield and damage amount.
 		#if amount>0 and hasattr(target,'divine_shield') and target.divine_shield:
 		#	source.game.trigger_actions(source, [LoseDivineShield(target)])#nothing is done inside 
-		if target.divine_shield:
+		if hasattr(target, 'divine_shield') and target.divine_shield:
 			target.game.trigger_actions(source, [LoseDivineShield(target)])
 			target.divine_shield = False
 			if Config.LOGINFO:
@@ -1411,7 +1411,8 @@ class Give(TargetedAction):
 		if not hasattr(cards, "__iter__"):
 			# Support Give on multiple cards at once (eg. Echo of Medivh)
 			cards = [cards]
-		self.broadcast(source, EventListener.ON, target, cards[0])
+		if len(cards)>0:
+			self.broadcast(source, EventListener.ON, target, cards[0])
 		for card in cards:
 			if len(target.hand) >= target.max_hand_size:
 				if Config.LOGINFO:
@@ -1430,7 +1431,8 @@ class Give(TargetedAction):
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.card_when_drawn(card, card.controller)
 			ret.append(card)
-		self.broadcast(source, EventListener.AFTER, target, cards[0])
+		if len(cards)>0:
+			self.broadcast(source, EventListener.AFTER, target, cards[0])
 		return ret
 
 
@@ -2260,7 +2262,7 @@ class SidequestCounter(TargetedAction):
 		target.script_data_num_1 -= 1
 		if target._sidequest_counter_== amount:
 			target._sidequest_counter_ = 0
-			target.script_data_num_1 = target.data.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]
+			target.script_data_num_1 = target.data.tags.get(GameTag.TAG_SCRIPT_DATA_NUM_1, 0)
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]

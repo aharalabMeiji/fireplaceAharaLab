@@ -774,7 +774,7 @@ class Hero(Character):
 		if self.armor:
 			reduced_damage = min(amount, self.armor)
 			if Config.LOGINFO:
-				print("(BaseCard._hit)%r loses %r armor instead of damage", self, reduced_damage)
+				print("(BaseCard._hit)%r loses %r armor instead of damage"%(self, reduced_damage))
 			self.damage -= reduced_damage
 			self.armor -= reduced_damage
 		return amount
