@@ -47,9 +47,9 @@ if Config.PATCH23_2_2:
 		['BGS_004',],
 		['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
 		['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002','GIL_681',],#3
-		['BGS_111','EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',],#4
-		['FP1_031','LOE_077','BGS_131','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',],#5
-		['BGS_040','BG21_011','BGS_022','BG23_015','BG23_018',],#6
+		['EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',],#4 'BGS_111',
+		['FP1_031','LOE_077','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',],#5 'BGS_131',
+		['BGS_040','BGS_022','BG23_015','BG23_018',],#6 'BGS_069', 'BG21_011',
 	]
 else:
 	BG_Minion=[
@@ -451,19 +451,19 @@ class TB_BaconUps_075:# <9>[1453]
 
 
 #Champion of Y'Shaarj	4	4	4		 ### maybe ###
-class BGS_111:# <12>[1453]  ヤシャラージュ
-	""" Champion of Y'Shaarj
-	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
-	events = BG_Attack(ENEMY, FRIENDLY + TAUNT).on(BuffPermanently(SELF, 'BGS_111e'))
-	pass
-BGS_111e=buff(1,1)# <12>[1453]
-""" Y'Shaarj!!!,  +1/+1. """
-class TB_BaconUps_301:# <12>[1453]
-	""" Champion of Y'Shaarj
-	Whenever a friendly [Taunt] minion is attacked, gain +2/+2 permanently. """
-	events = BG_Attack(ENEMY, FRIENDLY + TAUNT).on(BuffPermanently(SELF, 'TB_BaconUps_301e'))
-	pass
-TB_BaconUps_301e=buff(2,2)# <12>[1453]
+#class BGS_111:# <12>[1453]  ヤシャラージュ
+#	""" Champion of Y'Shaarj
+#	Whenever a friendly [Taunt] minion is attacked, gain +1/+1 permanently. """
+#	events = BG_Attack(ENEMY, FRIENDLY + TAUNT).on(BuffPermanently(SELF, 'BGS_111e'))
+#	pass
+#BGS_111e=buff(1,1)# <12>[1453]
+#""" Y'Shaarj!!!,  +1/+1. """
+#class TB_BaconUps_301:# <12>[1453]
+#	""" Champion of Y'Shaarj
+#	Whenever a friendly [Taunt] minion is attacked, gain +2/+2 permanently. """
+#	events = BG_Attack(ENEMY, FRIENDLY + TAUNT).on(BuffPermanently(SELF, 'TB_BaconUps_301e'))
+#	pass
+#TB_BaconUps_301e=buff(2,2)# <12>[1453]
 """ Y'Shaarj!!!!!!,  +2/+2. """
 
 
@@ -630,15 +630,15 @@ class TB_BaconUps_045e:# <12>[1453]
 
 
 
-#Deadly Spore	5	1	1		 ### OK ###
-class BGS_131:# <12>[1453]  横死の胞子
-	""" Deadly Spore
-	[Poisonous] """
-	pass
-class TB_BaconUps_251:# <12>[1453]
-	""" Deadly Spore
-	[Poisonous] """
-	pass
+##Deadly Spore	5	1	1		 ### OK ###
+#class BGS_131:# <12>[1453]  横死の胞子
+#	""" Deadly Spore
+#	[Poisonous] """
+#	pass
+#class TB_BaconUps_251:# <12>[1453]
+#	""" Deadly Spore
+#	[Poisonous] """
+#	pass
 
 
 
@@ -868,24 +868,24 @@ class TB_BaconUps_154:# <12>[1453]
 
 
 #Seafood Slinger	6	5	5		 ### maybe ###
-class BG21_011:# <12>[1453]　板前
-	""" Seafood Slinger
-	[Battlecry:] Make a Murloc Golden. """
-	requirements={
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	play = MorphGold(TARGET)
-	pass
-BG21_011e=buff(3,3)# <12>[1453] ??????????????
-class BG21_011e2:# <12>[1453]  ??????????????
-	""" Battlecry Self-Trigger [DNT] """
-class BG21_011_G:# <12>[1453]
-	""" Seafood Slinger
-	[Battlecry:] Make a Murloc Golden. """
-	requirements={
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	play = MorphGold(TARGET)
-	pass
-BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
+#class BG21_011:# <12>[1453]　板前
+#	""" Seafood Slinger
+#	[Battlecry:] Make a Murloc Golden. """
+#	requirements={
+#		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+#	play = MorphGold(TARGET)
+#	pass
+#BG21_011e=buff(3,3)# <12>[1453] ??????????????
+#class BG21_011e2:# <12>[1453]  ??????????????
+#	""" Battlecry Self-Trigger [DNT] """
+#class BG21_011_G:# <12>[1453]
+#	""" Seafood Slinger
+#	[Battlecry:] Make a Murloc Golden. """
+#	requirements={
+#		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+#	play = MorphGold(TARGET)
+#	pass
+#BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
 
 
 

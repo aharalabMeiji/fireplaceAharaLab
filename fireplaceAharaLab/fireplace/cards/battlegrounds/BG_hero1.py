@@ -185,7 +185,7 @@ class TB_BaconShop_HP_064_Action(TargetedAction):
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
 	<b>Passive</b>After you upgrade Bob's Tavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
-	events = UpgradeTier(CONTROLLER).on(TB_BaconShop_HP_064_Action(CONTROLLER))
+	events = UpgradeTier(CONTROLLER).on(TB_BaconShop_HP_064_Action(UpgradeTier.TARGET))
 	pass
 class TB_BaconShop_HERO_56_Buddy:
 	""" Vaelastrasz

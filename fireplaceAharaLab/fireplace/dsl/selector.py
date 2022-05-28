@@ -308,7 +308,7 @@ class BoardPositionSelector(Selector):
 				elif self.direction == self.Direction.RIGHT:
 					# Swap the list, reverse the position
 					field = list(reversed(field))
-					position = -(position + 1)
+					position = -(e.zone_position + 1)
 					left = field[:position]
 				elif self.direction == self.Direction.RIGHT_MOST:
 					left = field

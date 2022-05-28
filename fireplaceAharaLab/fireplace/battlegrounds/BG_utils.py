@@ -346,7 +346,10 @@ class BG_main:
 				buff = card.buffs[-1]
 				buff.atk=bartender.opponent.lightspawn_powered_up
 				buff.max_health=bartender.opponent.lightspawn_powered_up
-		self.BG_decks[card.tech_level].remove(cardID)
+		if cardID in self.BG_decks[card.tech_level]:
+			self.BG_decks[card.tech_level].remove(cardID)
+		else:
+			print("cardID=%s, card.tech_level=%d"%(cardID, card.tech_level))
 		card.controller = bartender# maybe deletable
 		card.zone = Zone.PLAY
 		return card

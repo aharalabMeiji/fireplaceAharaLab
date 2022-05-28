@@ -440,7 +440,7 @@ class BG21_HERO_030_Buddy_Action(TargetedAction):
 	def do(self,source,target,buffcard,amount):
 		if target:
 			Buff(source, buffcard).trigger(source)
-			buff=source,buffs[-1]
+			buff=source.buffs[-1]
 			for d in target.deathrattle: ## may be a deepcopy?
 				for repeat in amount:
 					deathrattle.append(d)

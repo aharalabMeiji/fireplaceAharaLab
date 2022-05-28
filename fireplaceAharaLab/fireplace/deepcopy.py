@@ -306,20 +306,33 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card.controller = newPlayer
 		copy_cardattr(card, new_card)
 		new_card.deepcopy_original = card
-		if len(card.game.active_aura_buffs)>0:
-			new_card.game.refresh_auras()
+		#if len(card.game.active_aura_buffs)>0:
+		#	new_card.game.refresh_auras()
 		for buff in card.buffs:
 			if buff not in card.game.active_aura_buffs:
 				new_buff = Enchantment(cards.db[buff.id])
-				#new_buff.source = buff.source
+				new_buff.source = buff.source## it is an original card, but no otherway
 				new_buff.controller = newPlayer
-				new_buff.owner = card
+				new_buff.owner = new_card
+				new_buff.entity = new_card
 				new_buff.tags[GameTag.ATK]=buff.atk## modified buff
 				new_buff.tags[GameTag.HEALTH]=buff.max_health## modified buff
 				new_buff.apply(new_card)
+			else:
+				new_buff = Enchantment(cards.db[buff.id])
+				new_buff.source = buff.source## it is an original card, but no otherway
+				new_buff.controller = newPlayer
+				new_buff.owner = new_card
+				new_buff.entity = new_card
+				new_buff.tags[GameTag.ATK]=buff.atk## modified buff
+				new_buff.tags[GameTag.HEALTH]=buff.max_health## modified buff
+				new_buff.apply(new_card)
+				new_buff.tick = buff.tick+new_card.game.tick-card.game.tick
+				new_card.game.active_aura_buffs.append(new_buff)
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)
+	#new_card.game.refresh_auras()
 	## secret-cards attr.
 	for card in oldPlayer.secrets:
 		new_card = create_vacant_card(card)

@@ -108,9 +108,7 @@ class NEW1_027:
 	Your other Pirates have +1/+1. """
 	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
 	pass
-class NEW1_027e:
-   atk = lambda self,i:i+1
-   max_health = lambda self,i:i+1
+NEW1_027e=buff(1,1)
 class TB_BaconUps_136:
 	""" Southsea Captain
 	Your other Pirates have +2/+2. """

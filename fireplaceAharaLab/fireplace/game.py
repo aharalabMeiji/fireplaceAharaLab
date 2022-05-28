@@ -291,7 +291,12 @@ class BaseGame(Entity):
 				buffs_to_destroy.append(buff)
 		for buff in buffs_to_destroy:
 			if Config.LOGINFO:
-				print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.owner))
+				if hasattr(buff, 'owner'):	
+					print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.owner))
+				elif hasattr(buff, 'entity'):	
+					print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.entity))
+				else:	
+					print("(Game.refresh_auras)buff %s is removed from somthere"%(buff))
 			buff.remove()
 
 		self.tick += 1
