@@ -175,6 +175,13 @@ class BG_HumanAgent(BG_Agent):
 		for race in races:
 			print("[%s]"%(race),end=' ')
 		print("")
+		gamemaster=bar.parent
+		for b in gamemaster.BG_Bars:
+			player = b.controller
+			hero = player.hero
+			heropower = hero.power
+			print("(%s:%s)%s"%(player,hero,heropower.data.description.replace('\n','_')))
+		print("----------------------------------------------")
 		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, controller.tavern_tierup_cost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		buddy = controller.buddy_gauge
 		if buddy>100:

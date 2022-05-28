@@ -493,13 +493,36 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 
 
-#07#C'Thun   ### not impossible
+#07#C'Thun   ### HP OK ####
 class TB_BaconShop_HERO_29:# <12>[1453]
 	""" C'Thun	"""
+class TB_BaconShop_HP_104_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		if len(source.sidequest_list0)>0:
+			target = source.sidequest_list0[0]
+			Buff(target, buff).trigger(source)
+			buff = target.buffs[-1]
+			buff.tags[GameTag.ATK]=source.script_data_num_1
+			buff.tags[GameTag.HEALTH]=source.script_data_num_1
+			source.script_data_num_1 += 1
+			source.sidequest_list0=[]
+		pass
 class TB_BaconShop_HP_104:
 	""" Saturday C'Thuns!
 	At end of turn, give a friendly minion +1/+1.__Repeat @ |4(time, times).<i>__(Upgrades after each use!)</i>"""
-	#events = OWN_TUEN_END.on()
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0,
+		PlayReq.REQ_MINION_TARGET:0,
+		PlayReq.REQ_FRIENDLY_TARGET:0,
+		}
+	def activate(self):
+		self.sidequest_list0.append(self.target)
+	events = [
+		BeginGame(CONTROLLER).on(SetScriptDataNum1(SELF, 1)),
+		OWN_TURN_END.on(TB_BaconShop_HP_104_Action(TARGET,'TB_BaconShop_HP_104e'))
+	]
 TB_BaconShop_HP_104e=buff(1,1)
 ######## BUDDY
 class TB_BaconShop_HERO_29_Buddy:# <12>[1453]

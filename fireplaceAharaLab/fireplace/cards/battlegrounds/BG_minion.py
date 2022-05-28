@@ -250,7 +250,7 @@ TB_BaconUps_144e=buff(2,2)# <12>[1453]
 
 
 
-#Prophet of the Boar	2	3	3	-		 ### maybe ###
+#Prophet of the Boar	2	3	3	-		 ### OK ###
 class BG20_203_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -264,16 +264,16 @@ class BG20_203:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """
 	events = [
-		Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
-		OWN_TURN_BEGIN.on(SetAttr(CONTROLLER, 'once_per_turn', 0))
+		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
+		BeginBar(CONTROLLER).on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
 class BG20_203_G:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
 	events = [
-		Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
-		OWN_TURN_BEGIN.on(SetAttr(CONTROLLER, 'once_per_turn', 0))
+		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
+		BeginBar.on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
 

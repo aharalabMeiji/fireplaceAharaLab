@@ -17,21 +17,24 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 
 	#battlegrounds option
 	PATCH23_2_2 = 1 ## 22年5月以降のレギュレーション（バディーなし）
 
-	HUMAN_PLAY=0 ##人間プレーヤーあり
+	PLAYER1_HUMAN=0 ##人間プレーヤーあり
 	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG22_401'
-	CARD_PRESET2='EX1_507'
+	CARD_PRESET1='BG20_203'
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_1=21 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_PRESET=0 # 人間プレーヤーに最初からヒーローを指定できる
+	HERO_1=7 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=34 #人間プレーヤーはヒーローを指定できる(0~78)
+
+	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 
 	#00#A. F. Kay, #HP#BUDDY
 	#01#Al'Akir#HP#BUDDY
@@ -40,7 +43,7 @@ class Config:# ()is the default value
 	#04#Aranna Starseeker #HP#BUDDY
 	#05#Arch-Villain Rafaam  #HP#BUDDY
 	#06#Bru'kan
-	#07#C'Thun
+	#07#C'Thun    #HP
 	#08#Captain Eudora
 	#09#Captain Hooktusk
 	#10#Cariel Roame  #HP#BUDDY

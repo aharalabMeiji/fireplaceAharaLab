@@ -650,7 +650,9 @@ class TB_BaconShop_HP_037a_Action(TargetedAction):
 		controller = target
 		races=[]
 		cards=[]
-		for card in random.shuffle(controller.field):
+		field = copy(controller.field)
+		random.shuffle(field)
+		for card in field:
 			if card.race==Race.INVALID:
 				pass
 			elif card.race==Race.ALL:
@@ -660,7 +662,7 @@ class TB_BaconShop_HP_037a_Action(TargetedAction):
 				races.append(card.race)
 				cards.append(card)
 		for card in cards:
-			Buff(source, 'TB_BaconShop_HP_037te').trigger(source)
+			Buff(card, 'TB_BaconShop_HP_037te').trigger(source)
 class TB_BaconShop_HP_037a:
 	""" Wax Warband
 	Give a friendly minion of each minion type +1/+1.""" 

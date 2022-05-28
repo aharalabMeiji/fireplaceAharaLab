@@ -19,7 +19,6 @@ BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_56',#2 dragon ban
 	'BG22_HERO_001',#6 X
-	'TB_BaconShop_HERO_29',#7 X
 	'TB_BaconShop_HERO_64',#8 X
 	'TB_BaconShop_HERO_67',#9 X
 	'TB_BaconShop_HERO_78',#11 X elemental ban
@@ -58,7 +57,7 @@ class BG_main:
 		#使用カードの初期化
 		cards.db.BG_initialize()
 		#エージェントのリスト
-		if Config.HUMAN_PLAY:
+		if Config.PLAYER1_HUMAN:
 			self.Agents=[
 			BG_HumanAgent("Human1"),
 			BG_NecoAgent("Neco2"),
@@ -138,6 +137,7 @@ class BG_main:
 		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero3.BG_Hero3_Buddy)
 		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero4.BG_Hero4_Buddy)
 		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero5.BG_Hero5_Buddy)
+		self.size = 4
 		self.prevMatches=[[0,1],[2,3]]# previous combination
 		self.matches=[[0,1],[2,3]]
 	pass
@@ -147,8 +147,14 @@ class BG_main:
 		for agent in self.Agents:
 			if Config.LOGINFO:
 				print ("==== %s 's bar building ===="% agent)
-			if agent.name=='Human1':
-				theHeroes = [self.Heroes[Config.HERO_1],self.Heroes[Config.HERO_2]]
+			if agent.name=='Human1' and Config.HERO_PRESET:
+				theHeroes = []
+				if Config.HERO_1>=0 and Config.HERO_1<=80:
+					theHeroes.append(self.Heroes[Config.HERO_1])
+				if Config.HERO_2>=0 and Config.HERO_2<=80:
+					theHeroes.append(self.Heroes[Config.HERO_2])
+				if len(theHeroes)<2:
+					theHeroes += random.sample(self.Heroes, 4-len(theHeroes))
 			else:
 				theHeroes = random.sample(self.Heroes, 2)
 			self.Heroes.remove(theHeroes[0])
@@ -183,15 +189,33 @@ class BG_main:
 				bar.minionCost=2
 			BeginGame(bar.controller).trigger(bar.controller)
 			if Config.LOGINFO:
-				print ("==== %s 's bar done ===="% agent)
+				print ("==== %s 's bar was built ===="% agent)
 			pass
 		self.prevMatches=[[0,1],[2,3]]# previous combination
 		# Start game
 		while True:	
 			### randomize the combinations(now fixed)
-			self.matches=[[0,1],[2,3]]#
+			draw_list = [[i for i in range(self.size)] for j in range(self.size)]
+			for i in range(self.size):
+				draw_list[i].remove(i)
+			for match in self.matches:
+				draw_list[match[0]].remove(match[1])
+				draw_list[match[1]].remove(match[0])
+			self.matches=[]#
+			for i in range(self.size):
+				if draw_list[i]==[]:
+					continue
+				j=random.choice(draw_list[i])
+				self.matches.append([i,j])
+				draw_list[i]=[]
+				draw_list[j]=[]
+				for ii in range(self.size):
+					if i in draw_list[ii]:
+						draw_list[ii].remove(i)
+					if j in draw_list[ii]:
+						draw_list[ii].remove(j)
 			#in tha final, battles lengtha will be 4 
-			battles = [None,None]
+			battles = [None for i in range(int(self.size/2))]
 			### Agent moves start
 			for bar in self.BG_Bars:
 				for card in bar.controller.gifts:
@@ -243,6 +267,8 @@ class BG_main:
 					candidates = GetMoveCandidates(bar, controller, bartender)
 					##### each agent choose a move
 					choice = agent.moveStrategy(bar, candidates, controller, bartender)
+					if Config.ALL_PLAYERS_LOGINFO:
+						print("(%s) %s"%(controller, choice))
 					if choice.move==MovePlay.TURNEND:#### if the move is 'turnend' then turn to the battle
 						bar.no_drawing_at_turn_begin=True
 						for card in controller.field:
@@ -257,61 +283,63 @@ class BG_main:
 			#self.manager.step(self.next_step, Step.MAIN_NEXT)
 
 			### 対戦
-			i=0
-			battles[i] = BG_Battle([self.BG_Bars[self.matches[i][0]],self.BG_Bars[self.matches[i][1]]])
-			battleplayer0 = self.BG_Bars[self.matches[i][0]].controller
-			battleplayer1 = self.BG_Bars[self.matches[i][1]].controller
-			battles[i].parent = self
-			#for  player in [battleplayer0, battleplayer1]:
-			### begin the battle
-			damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
-			### after the battle
-			for  player in [battleplayer0, battleplayer1]:
-				### バディーゲージが100を超えたらバディーカードを発行する。
-				if player.buddy_gauge>=100 and player.got_buddy==0:
-					player.got_buddy=1
-					buddy = self.BG_Hero_Buddy[player.hero.id]
-					Give(player, buddy).trigger(player)
-				### バディーゲージが200を超えたらバディーカードを2枚発行する。
-				if player.buddy_gauge>=300 and player.got_buddy==1:
-					player.got_buddy=2
-					buddy = self.BG_Hero_Buddy[player.hero.id]
-					Give(player, buddy).trigger(player)
-					Give(player, buddy).trigger(player)
-					gold_card_id = player.game.BG_find_triple()## トリプルを判定
-					if gold_card_id:
-						player.game.BG_deal_gold(gold_card_id)
-			### if agent got a gem card while the battle, we carry it to the bar
-			if damage0>0:
-				hero0 = battleplayer0.hero
-				if hero0.armor>0:# armorも加味する
-					if hero0.armor >= damage0:
-						hero0.armor -= damage0
+			for i in range(int(self.size/2)):
+				battles[i] = BG_Battle([self.BG_Bars[self.matches[i][0]],self.BG_Bars[self.matches[i][1]]])
+				battleplayer0 = self.BG_Bars[self.matches[i][0]].controller
+				battleplayer1 = self.BG_Bars[self.matches[i][1]].controller
+				battles[i].parent = self
+				#for  player in [battleplayer0, battleplayer1]:
+				### begin the battle
+				damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
+				### after the battle
+				if not Config.PATCH23_2_2:
+					for  player in [battleplayer0, battleplayer1]:
+						### バディーゲージが100を超えたらバディーカードを発行する。
+						if player.buddy_gauge>=100 and player.got_buddy==0:
+							player.got_buddy=1
+							buddy = self.BG_Hero_Buddy[player.hero.id]
+							Give(player, buddy).trigger(player)
+						### バディーゲージが200を超えたらバディーカードを2枚発行する。
+						if player.buddy_gauge>=300 and player.got_buddy==1:
+							player.got_buddy=2
+							buddy = self.BG_Hero_Buddy[player.hero.id]
+							Give(player, buddy).trigger(player)
+							Give(player, buddy).trigger(player)
+							gold_card_id = player.game.BG_find_triple()## トリプルを判定
+							if gold_card_id:
+								player.game.BG_deal_gold(gold_card_id)
+				### if agent got a gem card while the battle, we carry it to the bar
+				if damage0>0:
+					hero0 = battleplayer0.hero
+					if hero0.armor>0:# armorも加味する
+						if hero0.armor >= damage0:
+							hero0.armor -= damage0
+						else:
+							hero0.damage += (damage0 - hero0.armor)
+							hero0.armor=0
 					else:
-						hero0.damage += (damage0 - hero0.armor)
-						hero0.armor=0
-				else:
-					hero0.damage += damage0#
-				print_hero_stats(battleplayer0.hero, battleplayer1.hero)
-				if hero0.health<=0:
-					#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
-					#ケルスザードは酒場のムーブを行わない。
-					return
-			if damage1>0:
-				hero1 = battleplayer1.hero
-				if hero1.armor>0:# armorも加味する
-					if hero1.armor >= damage1:
-						hero1.armor -= damage1
+						hero0.damage += damage0#
+					print_hero_stats(battleplayer0.hero, battleplayer1.hero)
+					if hero0.health<=0:
+						#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+						#ケルスザードは酒場のムーブを行わない。
+						return
+				if damage1>0:
+					hero1 = battleplayer1.hero
+					if hero1.armor>0:# armorも加味する
+						if hero1.armor >= damage1:
+							hero1.armor -= damage1
+						else:
+							hero1.damage += (damage1 - hero1.armor)
+							hero1.armor=0
 					else:
-						hero1.damage += (damage1 - hero1.armor)
-						hero1.armor=0
-				else:
-					hero1.damage += damage1#
-				print_hero_stats(battleplayer0.hero, battleplayer1.hero)
-				if hero1.health<=0:
-					#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
-					return
-			pass
+						hero1.damage += damage1#
+					print_hero_stats(battleplayer0.hero, battleplayer1.hero)
+					if hero1.health<=0:
+						#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
+						return
+				pass
+			## 対戦おわり
 			#次のターンへ
 			for bar in self.BG_Bars:
 				controller = bar.controller
@@ -324,7 +352,9 @@ class BG_main:
 				for card in controller.field:
 					controller.prev_field.append(card.id)
 				pass
-
+			self.prevMatches=[]
+			for match in self.matches:
+				self.prevMatches.append(match)
 		# 無限ループ終わり
 		# main おわり
 		pass
