@@ -76,9 +76,7 @@ class BG21_006_Action(TargetedAction):
 			target = target.owner
 		buff_health = source.max_health
 		if target!=None and target!=[]:
-			Buff(target, 'BG21_006e').trigger(controller)
-			buff = target.buffs[-1]
-			buff.max_health = buff_health
+			Buff(target, 'BG21_006e', max_health = buff_health).trigger(controller)
 		pass
 class BG21_006:# <12>[1453]
 	""" Impulsive Trickster(1)
@@ -155,10 +153,10 @@ class BGS_059_Action(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		controller = source.controller
-		Buff(source, 'BGS_059e').trigger(source)
-		buff = source.buffs[-1]
-		buff.atk = target.atk * amount
-		buff.max_health = target.max_health * amount
+		Buff(source, 'BGS_059e',
+			atk = target.atk * amount,
+			max_health = target.max_health * amount
+			).trigger(source)
 		Destroy(target).trigger(source)
 		ManaThisTurnOnly(controller, 3 * amount).trigger(source)
 class BGS_059:# <12>[1453] ## 動いている感じはある

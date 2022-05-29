@@ -502,10 +502,10 @@ class TB_BaconShop_HP_104_Action(TargetedAction):
 	def do(self, source, target, buff):
 		if len(source.sidequest_list0)>0:
 			target = source.sidequest_list0[0]
-			Buff(target, buff).trigger(source)
-			buff = target.buffs[-1]
-			buff.tags[GameTag.ATK]=source.script_data_num_1
-			buff.tags[GameTag.HEALTH]=source.script_data_num_1
+			Buff(target, buff, 
+				atk=source.script_data_num_1, 
+				max_health=source.script_data_num_1
+				).trigger(source)
 			source.script_data_num_1 += 1
 			source.sidequest_list0=[]
 		pass

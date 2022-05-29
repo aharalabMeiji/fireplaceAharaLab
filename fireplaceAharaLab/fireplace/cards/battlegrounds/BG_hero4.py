@@ -101,10 +101,7 @@ class TB_BaconShop_HERO_75_Action(TargetedAction):
 			other = [other]
 		tier = controller.tavern_tier
 		for card in other:
-			Buff(card, 'TB_BaconShop_HP_085e').trigger(controller)
-			buff = card.buffs[-1]
-			buff.tags[GameTag.ATK] = tier*amount
-			buff.tags[GameTag.HEALTH] = tier*amount
+			Buff(card, 'TB_BaconShop_HP_085e', atk=tier*amount, max_health=tier*amount).trigger(controller)
 		pass
 class TB_BaconShop_HP_085:
 	""" Tavern Lighting 
@@ -439,11 +436,11 @@ class BG21_HERO_030_Buddy_Action(TargetedAction):
 	AMOUNT=IntArg()
 	def do(self,source,target,buffcard,amount):
 		if target:
-			Buff(source, buffcard).trigger(source)
-			buff=source.buffs[-1]
+			additional=[]
 			for d in target.deathrattle: ## may be a deepcopy?
 				for repeat in amount:
-					deathrattle.append(d)
+					additional.append(d)
+			Buff(source, buffcard, additional_deathrattles=additional).trigger(source)
 class BG21_HERO_030_Buddy:# <12>[1453]
 	""" Piloted Whirl-O-Tron
 	[Battlecry:] Copy a friendly minion's [Deathrattles]. """
@@ -496,10 +493,7 @@ class BG20_HERO_282p_Action(TargetedAction):
 		else:
 			coleagues = controller.field
 		for card in coleagues:
-			Buff(card, 'BG20_HERO_282pe').trigger(source)
-			buff=card.buffs[-1]
-			buff.tags[GameTag.ATK]=atk
-			buff.tags[GameTag.HEALTH]=health
+			Buff(card, 'BG20_HERO_282pe', atk=atk, max_health=health).trigger(source)
 		pass
 class BG20_HERO_282p:# <9>[1453]
 	""" Fragrant Phylactery

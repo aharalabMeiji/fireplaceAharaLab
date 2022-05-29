@@ -147,9 +147,7 @@ class BG22_HERO_003p_Action(TargetedAction):
 		for card in controller.field:
 			if highest_health<card.max_health:
 				highest_health=card.max_health
-		Buff(target, 'BG22_HERO_003pe').trigger(source)
-		buff = target.buffs[-1]
-		buff.max_health = highest_health - target.max_health
+		Buff(target, 'BG22_HERO_003pe', max_health = highest_health - target.max_health).trigger(source)
 class BG22_HERO_003pe3:# <12>[1453]
 	""" Modified Health Next Combat Only
 	Health is increased or decreased for next combat only. """

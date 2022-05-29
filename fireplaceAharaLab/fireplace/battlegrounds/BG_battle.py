@@ -3,6 +3,7 @@ from fireplace.deepcopy import deepcopy_game
 from fireplace.actions import BG_Attack, Deaths, BeginBattle, EndBattle, BeginBattleTurn
 import random
 from hearthstone.enums import PlayState, Zone
+from fireplace.config import Config
 
 class BG_Battle(Game):
 	def __init__(self, bars):
@@ -93,9 +94,10 @@ class BG_Battle(Game):
 					#attack
 					#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 					BG_Attack(attacker, defender).trigger(attacker.controller)
-					#move buddy gauge
-					self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
-					self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
+					if Config.PATCH23_2_2==0:
+						#move buddy gauge
+						self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
+						self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
 					#procedures of deathrattle
 					Deaths().trigger(self)
 					if attacker.zone==Zone.GRAVEYARD:

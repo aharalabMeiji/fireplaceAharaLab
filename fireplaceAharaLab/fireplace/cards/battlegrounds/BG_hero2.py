@@ -78,13 +78,11 @@ class BG22_HERO_002p_Action(TargetedAction):
 	BUFF=ActionArg()
 	def do(self, source, target, buff):
 		controller = target.controller
-		Buff(target, buff).trigger(controller)
-		buffcard = target.buffs[-1]
 		highest_atk = 0
 		for card in controller.field:
 			if highest_atk <card.atk:
 				highest_atk = card.atk
-		buffcard.tags[GameTag.ATK] = highest_atk-target.atk
+		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
 	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. """
@@ -131,10 +129,9 @@ class TB_BaconShop_HP_001_Action(TargetedAction):
 		controller = source.controller
 		amount = len(controller.buy_this_turn_log())
 		if amount>0:
-			Buff(target, 'TB_BaconShop_HP_001e').trigger(source)
-			buff = target.buffs[-1]
-			buff.tags[GameTag.ATK]=2*amount
-			buff.tags[GameTag.HEALTH]=amount
+			Buff(target, 'TB_BaconShop_HP_001e', 
+				atk=2*amount, max_health=amount
+				).trigger(source)
 		pass
 class TB_BaconShop_HP_001:
 	""" Sharpen Blades 

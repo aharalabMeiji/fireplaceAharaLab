@@ -19,19 +19,20 @@ class Config:# ()is the default value
 
 	LOGINFO=0# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
+	PRINT_HITLOG=1 # Hitイベントを表示する
 
 	#battlegrounds option
 	PATCH23_2_2 = 1 ## 22年5月以降のレギュレーション（バディーなし）
 
-	PLAYER1_HUMAN=0 ##人間プレーヤーあり
-	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG20_203'
-	CARD_PRESET2=''
-	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
+	PLAYER1_HUMAN=1 ##人間プレーヤーあり
+	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
+	CARD_PRESET1='BG21_006'
+	CARD_PRESET2='BGS_059'
+	RANDOM_RACE=0 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
-	RACE_CHOICE=['pirate','quilboar','elemental']
-	HERO_PRESET=0 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=7 #人間プレーヤーはヒーローを指定できる(0~78)
+	RACE_CHOICE=['pirate','quilboar','demon']
+	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
+	HERO_1=62 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=34 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

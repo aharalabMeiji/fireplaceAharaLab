@@ -367,15 +367,15 @@ class BG_main:
 		card = bartender.card(cardID)
 		if card.race==Race.ELEMENTAL:## 
 			if bartender.opponent.nomi_powered_up>0: ### Nomi, Kitchen Nightmare
-				Buff(card, 'BGS_104pe').trigger(bartender)
-				buff = card.buffs[-1]
-				buff.atk=bartender.opponent.nomi_powered_up
-				buff.max_health=bartender.opponent.nomi_powered_up
+				Buff(card, 'BGS_104pe',
+					atk=bartender.opponent.nomi_powered_up,
+					max_health=bartender.opponent.nomi_powered_up
+					).trigger(bartender)
 			if bartender.opponent.lightspawn_powered_up>0: ### Dazzling Lightspawn
-				Buff(card, 'BG21_020pe').trigger(bartender)
-				buff = card.buffs[-1]
-				buff.atk=bartender.opponent.lightspawn_powered_up
-				buff.max_health=bartender.opponent.lightspawn_powered_up
+				Buff(card, 'BG21_020pe',
+					atk=bartender.opponent.lightspawn_powered_up,
+					max_health=bartender.opponent.lightspawn_powered_up
+					).trigger(bartender)
 		if cardID in self.BG_decks[card.tech_level]:
 			self.BG_decks[card.tech_level].remove(cardID)
 		else:

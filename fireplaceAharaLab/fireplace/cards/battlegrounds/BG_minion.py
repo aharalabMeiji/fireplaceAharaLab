@@ -331,6 +331,7 @@ class BG21_013_Action(TargetedAction):## 密輸人
 	def do(self, source, target, buff, targetbuff):
 		if buff.atk>0:
 			Buff(target, targetbuff).trigger(target.controller)
+			pass
 class BG21_013:# <12>[1453]
 	""" Whelp Smuggler
 	After a friendly Dragon gains Attack, give it +1_Health. """
@@ -498,7 +499,7 @@ class BG21_007_G:# <12>[1453]
 	pass
 
 
-#Majordomo Executus	4	6	3		 ### maybe ###
+#Majordomo Executus	4	6	3		 ### OK ###
 class BGS_105_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -509,10 +510,7 @@ class BGS_105_Action(TargetedAction):
 			for card in controller.play_this_turn:
 				if card.type==CardType.MINION and card.race==Race.ELEMENTAL:
 					count += 1
-			Buff(left_card, 'BGS_105e').trigger(source)
-			buff=left_card.buffs[-1]
-			buff.tags[GameTag.ATK] = count
-			buff.tags[GameTag.HEALTH] = count
+			Buff(left_card, 'BGS_105e', atk=count, max_health=count).trigger(source)
 		pass
 	pass
 class BGS_105:# <12>[1453]
@@ -534,10 +532,7 @@ class TB_BaconUps_207_Action(TargetedAction):
 			for card in controller.play_this_turn:
 				if  card.type==CardType.MINION and card.race==Race.ELEMENTAL:
 					count += 1
-			Buff(left_card, 'BGS_105e').trigger(source)
-			buff=left_card.buffs[-1]
-			buff.tags[GameTag.ATK] = count*2
-			buff.tags[GameTag.HEALTH] = count*2
+			Buff(left_card, 'BGS_105e', atk=count*2, max_health=count*2).trigger(source)
 		pass
 	pass
 class TB_BaconUps_207:# <12>[1453]

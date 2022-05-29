@@ -1456,6 +1456,8 @@ class Hit(TargetedAction):
 		#			break;
 		if amount:
 			#if isinstance(source,PlayableCard):
+			if Config.PRINT_HITLOG:
+				print("%s(%s) Hits %s(%s) : %d -> %d"%(source, source.controller, target, target.controller, target.health, max(target.health-amount, 0) ))
 			target.attacker=source ## 
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
 				if target.type==CardType.WEAPON and target==source:## when decreasing durability
@@ -3244,10 +3246,7 @@ class EatsMinion(TargetedAction):
 			target = target[0]
 		if isinstance(card,list):
 			card = card[0]
-		Buff(target,  buff).trigger(target)
-		buff = target.buffs[-1]
-		buff.atk = card.atk * amount
-		buff.max_health = card.max_health * amount
+		Buff(target,  buff, atk=card.atk * amount, max_health = card.max_health * amount).trigger(target)
 		Destroy(card).trigger(target)
 	pass
 

@@ -339,22 +339,23 @@ class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 
 
 
-#42#Mutanus the Devourer ### need check ###
+#42#Mutanus the Devourer ### HP OK ###
 class BG20_HERO_301: ## 
 	""" Mutanus the Devourer	"""
 class BG20_HERO_301p_Action(TargetedAction):
 	TARGET=ActionArg()
 	CARD=ActionArg()
 	def do(self, source, target, card):
+		if hasattr(card, '__iter__') and len(card)>0:
+			card = card[0]
 		controller=target
 		atk = card.atk
 		health = card.max_health
 		Destroy(card).trigger(source)
 		anothercard = random.choice(controller.field)
-		Buff(anothercard, 'BG20_HERO_301pe').trigger(source)
-		buff = anothercard.buffs[-1]
-		buff.tags[GameTag.ATK]=atk
-		buff.tags[GameTag.HEALTH]=health
+		Buff(anothercard, 'BG20_HERO_301pe',
+			atk=atk, max_health=health
+			).trigger(source)
 		Give(controller, 'GAME_005').trigger(source)
 		pass
 class BG20_HERO_301p:
@@ -497,9 +498,7 @@ class BG20_HERO_102pe_Action(TargetedAction):
 		if hasattr(card, '__iter__'):
 			card = card[0]
 		amount = source.script_data_num_1
-		Buff(card, 'BG20_HERO_102pe2').trigger(source)
-		buff = card.buffs[-1]
-		buff.tags[GameTag.ATK]=amount
+		Buff(card, 'BG20_HERO_102pe2', atk=amount).trigger(source)
 		pass
 class BG20_HERO_102p:# <10>[1453]
 	""" For the Horde!

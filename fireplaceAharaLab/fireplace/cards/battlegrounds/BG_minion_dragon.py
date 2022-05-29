@@ -49,9 +49,9 @@ class BG21_027_Buff(TargetedAction):
 	BUFF = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, buff, amount):
-		Buff(target, buff).trigger(source)
-		buff = target.buffs[-1]
-		buff.tags[GameTag.ATK] = target.atk*amount
+		Buff(target, buff, atk=target.atk*amount).trigger(source)
+		#buff = target.buffs[-1]
+		#buff.tags[GameTag.ATK] = target.atk*amount
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, double this minion's Attack. """
@@ -70,15 +70,29 @@ class BG21_027_Ge:
 
 
 #Red Whelp(1) ### need check ###
+class BGS_019_Action(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
+		controller=target
+		if len(controller.opponent.field)==0:
+			return 
+		count=0
+		for card in controller.field:
+			if card.race==Race.DRAGON:
+				count += 1
+		for i in range(amount):
+			target = random.choice(controller.opponent.field)
+			Hit(target, count).trigger(source)
 class BGS_019:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendly Dragon to one random enemy minion. """
-	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)))
+	events = BeginBattle(CONTROLLER).on(BGS_019_Action(CONTROLLER, 1))
 	pass
 class TB_BaconUps_102:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendlyDragon to one randomenemy minion twice. """
-	events = BeginBattle(CONTROLLER).on(Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)),Hit(RANDOM(ENEMY_MINIONS), Count(FRIENDLY_MINIONS + DRAGON)))
+	events = BeginBattle(CONTROLLER).on(BGS_019_Action(CONTROLLER, 2))
 	pass
 
 

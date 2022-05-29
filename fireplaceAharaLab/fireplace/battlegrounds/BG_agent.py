@@ -176,11 +176,17 @@ class BG_HumanAgent(BG_Agent):
 			print("[%s]"%(race),end=' ')
 		print("")
 		gamemaster=bar.parent
+		statstable=[]
 		for b in gamemaster.BG_Bars:
 			player = b.controller
 			hero = player.hero
 			heropower = hero.power
-			print("(%s:%s)%s"%(player,hero,heropower.data.description.replace('\n','_')))
+			herohealth = hero.health+hero.armor
+			playertier = player.tavern_tier
+			statstable.append([100-herohealth, herohealth, playertier, "(%s)[%s]%s"%(hero,player,heropower.data.description.replace('\n','_'))])
+		statstable.sort( key=lambda b: b[0])
+		for b in statstable:
+			print("%d ★%d %s"%(b[1],b[2],b[3]))
 		print("----------------------------------------------")
 		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, controller.tavern_tierup_cost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		buddy = controller.buddy_gauge
