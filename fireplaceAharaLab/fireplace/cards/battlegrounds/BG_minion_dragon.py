@@ -50,8 +50,6 @@ class BG21_027_Buff(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, buff, amount):
 		Buff(target, buff, atk=target.atk*amount).trigger(source)
-		#buff = target.buffs[-1]
-		#buff.tags[GameTag.ATK] = target.atk*amount
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, double this minion's Attack. """
@@ -103,10 +101,7 @@ class BGS_045_Buff(TargetedAction):
 	BUFF = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, buff, amount):
-		Buff(target, buff).trigger(source)
-		buff = target.buffs[-1]
-		atk_buff  = target.atk*amount
-		buff.tags[GameTag.ATK] = atk_buff
+		Buff(target, buff, atk=target.atk*amount).trigger(source)
 class BGS_045:# <4>[1453]
 	""" Glyph Guardian
 	Whenever this attacks, double its Attack. """
@@ -214,10 +209,7 @@ class BG21_014_Action(TargetedAction):
 			if card.race==Race.DRAGON:
 				count += amount
 		for card in target:
-			Buff(card, buff).trigger(target.controller)
-			buff = card.buffs[-1]
-			buff.tags[GameTag.ATK] = count
-			buff.tags[GameTag.HEALTH] = count
+			Buff(card, buff, atk=count, max_health=count).trigger(target.controller)
 class BG21_014:# <12>[1453]
 	""" Prized Promo-Drake
 	[Start of Combat:] Give adjacent minions +1/+1__for each friendly Dragon. """
