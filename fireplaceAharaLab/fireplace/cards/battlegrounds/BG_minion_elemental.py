@@ -132,10 +132,8 @@ class BG21_021:# <12>[1453]
 			if card.race == Race.ELEMENTAL:
 				elementals.append(card)
 		target = random.choice(elementals)
-		Buff(target, 'BG21_021e').trigger(controller)
-		buff = target.buffs[-1]
-		buff.tags[GameTag.ATK] = tier
-		buff.tags[GameTag.HEALTH] = tier
+		Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
+		pass
 	pass
 class BG21_021e:# <12>[1453]
 	""" Smogged
@@ -153,15 +151,9 @@ class BG21_021_G:# <12>[1453]
 			if card.race == Race.ELEMENTAL:
 				elementals.append(card)
 		target = random.choice(elementals)
-		Buff(target, 'BG21_021e').trigger(controller)
-		buff = target.buffs[-1]
-		buff.tags[GameTag.ATK] = tier
-		buff.tags[GameTag.HEALTH] = tier
+		Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
 		target = random.choice(elementals)
-		Buff(target, 'BG21_021e').trigger(controller)
-		buff = target.buffs[-1]
-		buff.tags[GameTag.ATK] = tier
-		buff.tags[GameTag.HEALTH] = tier
+		Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
 	pass
 
 
@@ -353,10 +345,8 @@ class BGS_100_Action(TargetedAction):
 		tier = cards[0].tech_level
 		if controller.field != []:
 			card = random.choice(controller.field)
-			Buff(card, 'BGS_100e').trigger(source)
-			buff = card.buffs[-1]
-			buff.tags[GameTag.ATK] = tier
-			buff.tags[GameTag.HEALTH] = tier
+			Buff(card, 'BGS_100e', atk=tier, max_health=tier).trigger(source)
+			pass
 class BGS_100:# <12>[1453] チビラグ
 	""" Lil' Rag
 	After you play an Elemental,give a friendly minion stats equal to the Elemental's Tavern Tier. """

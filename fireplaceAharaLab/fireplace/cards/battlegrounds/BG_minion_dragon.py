@@ -311,10 +311,8 @@ class BGS_036_Action(TargetedAction):
 		for card in controller.field:
 			if card.race == Race.DRAGON:
 				count += amount
-		Buff(target, 'BGS_036e').trigger(controller)
-		buff = target.buffs[-1]
-		buff.tags[GameTag.ATK] = count
-		buff.tags[GameTag.HEALTH] = count
+		Buff(target, 'BGS_036e', atk=count, max_health=count).trigger(controller)
+		pass
 class BGS_036:# <12>[1453]
 	""" Razorgore, the Untamed
 	At the end of your turn, gain +1/+1 for each Dragon you have. """

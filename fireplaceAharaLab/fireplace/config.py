@@ -24,7 +24,7 @@ class Config:# ()is the default value
 	#battlegrounds option
 	PATCH23_2_2 = 1 ## 22年5月以降のレギュレーション（バディーなし）
 
-	PLAYER1_HUMAN=1 ##人間プレーヤーあり
+	PLAYER1_HUMAN=0 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
 	CARD_PRESET1='BGS_045'
 	CARD_PRESET2='BG21_014'
