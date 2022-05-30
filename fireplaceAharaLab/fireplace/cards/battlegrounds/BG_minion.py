@@ -202,7 +202,7 @@ class TB_BaconUps_255:# <12>[1453]
 
 
 
-#Menagerie Mug	2	2	2	-		 ### maybe ###
+#Menagerie Mug	2	2	2	-		 ### OK ###
 class BGS_082_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
