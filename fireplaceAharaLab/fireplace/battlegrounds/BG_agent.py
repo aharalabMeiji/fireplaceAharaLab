@@ -6,6 +6,7 @@ from fireplace.cards.battlegrounds import BG_hero1
 import random
 from hearthstone.enums import Zone,State, CardClass, CardType, GameTag
 from .BG_enums import MovePlay
+from fireplace.config import Config
 
 class BG_Agent(object):
 	""" バトルグラウンドのエージェントのクラス
@@ -163,7 +164,8 @@ class BG_HumanAgent(BG_Agent):
 		bd=cards.db[bdID]
 		print("[%d] %s "%(count, card.name))
 		print("HeroPower:%s"%(hp.description.replace('\n',' ')))
-		print("Buddy:%s"%(bd.description.replace('\n',' ')))
+		if Config.PATCH23_2_2==0:
+			print("Buddy:%s"%(bd.description.replace('\n',' ')))
 		pass
 	def printMove(self, count, move):
 		print("[%d] %s"%(count, move))

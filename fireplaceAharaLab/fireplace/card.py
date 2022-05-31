@@ -590,7 +590,7 @@ class Character(LiveEntity):
 	divine_shield = boolean_property("divine_shield")
 	cannot_attack_heroes = boolean_property("cannot_attack_heroes")
 	buddy_id = int_property("buddy_id") # ID of buddy # battleground
-	gold_card = int_property("gold_card")
+	#gold_card = int_property("gold_card")
 
 	def __init__(self, data):
 		self.attack_target = None

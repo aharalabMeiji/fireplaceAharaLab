@@ -19,7 +19,7 @@ BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_56',#2 dragon ban
 	'BG22_HERO_001',#6 X
-	'TB_BaconShop_HERO_78',#11 X elemental ban
+	'TB_BaconShop_HERO_78',#11 elemental ban
 	'BG21_HERO_020',#12 X
 	'BG20_HERO_103',#14 X
 	'TB_BaconShop_HERO_52',#15 X
@@ -154,7 +154,7 @@ class BG_main:
 				if len(theHeroes)<2:
 					theHeroes += random.sample(self.Heroes, 4-len(theHeroes))
 			else:
-				theHeroes = random.sample(self.Heroes, 2)
+				theHeroes = random.sample(self.Heroes, 4)
 			self.Heroes.remove(theHeroes[0])
 			self.Heroes.remove(theHeroes[1])
 			theHero = agent.heroChoiceStrategy(theHeroes)

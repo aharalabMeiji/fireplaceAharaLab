@@ -687,14 +687,14 @@ BG21_HERO_000_Buddy_G_e=buff(2,2)
 
 
 
-#11#Chenvaala ### need check ###
+#11#Chenvaala ### HP OK ###
 class TB_BaconShop_HERO_78:# <12>[1453]
 	""" Chenvaala
 	"""
 class TB_BaconShop_HP_088:
 	""" Avalanche
 	<b>Passive</b> After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
-	events = BG_Play(FRIENDLY + ELEMENTAL).on(SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)]))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)]))
 class TB_BaconShop_HERO_78_Buddy:
 	""" Snow Elemental
 	Bob always offers an extra <b>Frozen</b> Elemental whenever the Tavern is <b>Refreshed</b>."""

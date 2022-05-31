@@ -24,14 +24,14 @@ class Config:# ()is the default value
 	#battlegrounds option
 	PATCH23_2_2 = 1 ## 22年5月以降のレギュレーション（バディーなし）
 
-	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG21_013'
-	CARD_PRESET2='ICC_029'
-	RANDOM_RACE=0 #プレーする種族をランダムに選ぶ（default:1）
+	PLAYER1_HUMAN=0 ##人間プレーヤーあり
+	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
+	CARD_PRESET1=''
+	CARD_PRESET2=''
+	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']
-	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
+	HERO_PRESET=0 # 人間プレーヤーに最初からヒーローを指定できる
 	HERO_1=11 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=12 #人間プレーヤーはヒーローを指定できる(0~78)
 
@@ -48,7 +48,7 @@ class Config:# ()is the default value
 	#08#Captain Eudora    #HP
 	#09#Captain Hooktusk   #HP
 	#10#Cariel Roame  #HP#BUDDY
-	#11#Chenvaala
+	#11#Chenvaala   #HP
 	#12#Cookie the Cook
 	#13#Dancin' Deryl  #HP#BUDDY
 	#14#Death Speaker Blackthorn

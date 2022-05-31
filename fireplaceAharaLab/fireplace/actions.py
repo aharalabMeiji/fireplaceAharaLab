@@ -718,10 +718,13 @@ class BG_Play(GameAction):
 		self.broadcast(player, EventListener.ON, player, card, target)
 		#if hasattr(card,'spellcraft_spellcard'):
 		#	self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.ON, player, card))
-		if hasattr(card,'gold_card') and card.gold_card==0:
-			triple_bonus = Give(player, 'TB_BaconShop_Triples_01').trigger(source)
-			triple_bonus = triple_bonus[0][0]
-			triple_bonus.tags[GameTag.TAG_SCRIPT_DATA_NUM_1] = min(player.tavern_tier+1, 6)
+		#if hasattr(card,'gold_card') and card.gold_card==0:## ゴールドとトークンの区別がない
+		for value in player.game.parent.BG_Gold.values():
+			if card.id==value:
+				triple_bonus = Give(player, 'TB_BaconShop_Triples_01').trigger(source)
+				triple_bonus = triple_bonus[0][0]
+				triple_bonus.tags[GameTag.TAG_SCRIPT_DATA_NUM_1] = min(player.tavern_tier+1, 6)
+				break
 			pass
 		self.resolve_broadcasts()
 		#Corrupt(player, card).trigger(player)
@@ -2259,7 +2262,7 @@ class SidequestCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r", target, (source._sidequest_counter_+1), targetaction)
+			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
 		target._sidequest_counter_ += 1
 		target.script_data_num_1 -= 1
 		if target._sidequest_counter_== amount:
@@ -3148,7 +3151,7 @@ class Avenge(TargetedAction):
 	TARGETACTION=ActionArg()
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			print("(Avenge.do)Avenge Counter on %r -> %i, %r", source, (source._sidequest_counter_+1), targetaction)
+			print("(Avenge.do)Avenge Counter on %r -> %i, %r"%(source, (source._sidequest_counter_+1), targetaction)
 		source._sidequest_counter_ += 1
 		if source._sidequest_counter_== amount:
 			source._sidequest_counter_ = 0
