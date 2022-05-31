@@ -588,7 +588,7 @@ TB_BaconShop_HERO_64_Buddy_G_e=buff(10,10)# <12>[1453]
 
 
 
-#09#Captain Hooktusk  #### need check ####
+#09#Captain Hooktusk  #### OK ####
 class TB_BaconShop_HERO_67:# <12>[1453]
 	""" Captain Hooktusk
 	"""
@@ -596,7 +596,8 @@ class TB_BaconShop_HP_075_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = source.controller
-		tier = max(target.tavern_tier-1, 0)
+		tier = max(target.tech_level-1, 1)
+		Destroy(target).trigger(source)
 		GenericChoice(controller, RandomBGMinion(tech_level=tier)*2).trigger(source)
 class TB_BaconShop_HP_075:
 	""" Trash for Treasure

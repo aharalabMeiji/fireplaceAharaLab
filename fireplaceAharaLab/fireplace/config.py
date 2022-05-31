@@ -27,13 +27,13 @@ class Config:# ()is the default value
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
 	CARD_PRESET1='BG21_013'
-	CARD_PRESET2='BG21_027'
+	CARD_PRESET2='ICC_029'
 	RANDOM_RACE=0 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']
 	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=8 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=9 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=11 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=12 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 
@@ -46,7 +46,7 @@ class Config:# ()is the default value
 	#06#Bru'kan
 	#07#C'Thun    #HP
 	#08#Captain Eudora    #HP
-	#09#Captain Hooktusk
+	#09#Captain Hooktusk   #HP
 	#10#Cariel Roame  #HP#BUDDY
 	#11#Chenvaala
 	#12#Cookie the Cook
