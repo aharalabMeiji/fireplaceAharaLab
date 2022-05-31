@@ -548,7 +548,7 @@ class TB_BaconShop_HERO_29_Buddy_Ge:# <12>[1453]
 
 
 
-#08#Captain Eudora   #### need check ####
+#08#Captain Eudora   #### OK ####
 class TB_BaconShop_HERO_64:# <12>[1453]
 	""" Captain Eudora
 	"""
@@ -557,10 +557,8 @@ class TB_BaconShop_HP_074_Action(TargetedAction):
 	def do(self, source, target):
 		controller = target
 		gamemaster=controller.game.parent
-		source._sidequest_counter_ += 1
 		source.script_data_num_1 -= 1 
-		if source._sidequest_counter_== 5:
-			source._sidequest_counter_ = 0
+		if source.script_data_num_1== 0:
 			source.script_data_num_1 = 5
 			deck=[]
 			for i in range(1, controller.tavern_tier+1):

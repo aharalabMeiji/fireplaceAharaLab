@@ -323,7 +323,7 @@ class TB_BaconUps_118:# <12>[1453]
 
 
 
-#Whelp Smuggler	2	2	5	-	 	 ### maybe ###
+#Whelp Smuggler	2	2	5	-	 	 ### OK ###
 class BG21_013_Action(TargetedAction):## 密輸人
 	TARGET = ActionArg()
 	BUFF = ActionArg()

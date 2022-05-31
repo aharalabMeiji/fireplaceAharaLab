@@ -26,8 +26,8 @@ class Config:# ()is the default value
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BGS_082'
-	CARD_PRESET2='BG21_014'
+	CARD_PRESET1='BG21_013'
+	CARD_PRESET2='BG21_027'
 	RANDOM_RACE=0 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']
@@ -45,7 +45,7 @@ class Config:# ()is the default value
 	#05#Arch-Villain Rafaam  #HP#BUDDY
 	#06#Bru'kan
 	#07#C'Thun    #HP
-	#08#Captain Eudora
+	#08#Captain Eudora    #HP
 	#09#Captain Hooktusk
 	#10#Cariel Roame  #HP#BUDDY
 	#11#Chenvaala
