@@ -94,7 +94,7 @@ class BG_Battle(Game):
 					#attack
 					#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 					BG_Attack(attacker, defender).trigger(attacker.controller)
-					if Config.PATCH23_2_2==0:
+					if Config.PATCH_VERSION <= Config.PATCH23_1:
 						#move buddy gauge
 						self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
 						self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5

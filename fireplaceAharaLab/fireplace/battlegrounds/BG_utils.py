@@ -81,7 +81,7 @@ class BG_main:
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
-			if Config.PATCH23_2_2:
+			if Config.PATCH_VERSION >= Config.PATCH23_2_2:
 				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar'],5)
 			else:
 				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
@@ -290,7 +290,7 @@ class BG_main:
 				### begin the battle
 				damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
 				### after the battle
-				if not Config.PATCH23_2_2:
+				if Config.PATCH_VERSION <= Config.PATCH23_1:
 					for  player in [battleplayer0, battleplayer1]:
 						### バディーゲージが100を超えたらバディーカードを発行する。
 						if player.buddy_gauge>=100 and player.got_buddy==0:

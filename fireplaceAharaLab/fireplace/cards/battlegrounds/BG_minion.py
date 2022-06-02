@@ -1,6 +1,6 @@
 from ..utils import *
 
-if Config.PATCH23_2_2:
+if Config.PATCH_VERSION >= Config.PATCH23_2_2:
 	BG_Minion=[
 		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
 		'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2

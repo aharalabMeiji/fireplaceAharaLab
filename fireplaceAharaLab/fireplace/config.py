@@ -22,6 +22,8 @@ class Config:# ()is the default value
 	PRINT_HITLOG=1 # Hitイベントを表示する
 
 	#battlegrounds option
+	PATCH_VERSION = 1
+	PATCH23_1 = 0## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 1 ## 22年5月以降のレギュレーション（バディーなし）
 
 	PLAYER1_HUMAN=0 ##人間プレーヤーあり

@@ -164,7 +164,7 @@ class BG_HumanAgent(BG_Agent):
 		bd=cards.db[bdID]
 		print("[%d] %s "%(count, card.name))
 		print("HeroPower:%s"%(hp.description.replace('\n',' ')))
-		if Config.PATCH23_2_2==0:
+		if Config.PATCH_VERSION <= Config.PATCH23_1:
 			print("Buddy:%s"%(bd.description.replace('\n',' ')))
 		pass
 	def printMove(self, count, move):
