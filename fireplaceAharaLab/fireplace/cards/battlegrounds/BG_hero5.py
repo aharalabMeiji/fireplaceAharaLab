@@ -11,7 +11,8 @@ BG_Hero5=[
 	'TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',#76#Yogg-Saron, Hope's End
 	'TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',#77#Ysera
 	'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',#78#Zephrys, the Great
-	]
+	'BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',#79#Queen Azshara
+]
 
 
 BG_PoolSet_Hero5=[
@@ -25,6 +26,7 @@ BG_PoolSet_Hero5=[
 	'TB_BaconShop_HERO_35',
 	'TB_BaconShop_HERO_53',
 	'TB_BaconShop_HERO_91',
+	'BG22_HERO_007',
 	]
 BG_Hero5_Buddy={
 	'TB_BaconShop_HERO_94':'TB_BaconShop_HERO_94_Buddy',
@@ -545,8 +547,22 @@ class TB_BaconShop_HERO_91_Buddy_G:
 	pass
 
 
-#79#
-
+#79# Queen Axshara
+class BG22_HERO_007:
+	""" Queen Axshara 	"""
+class BG22_HERO_007p:
+	""" Azshara's Ambition
+	&lt;b&gt;Passive.&lt;/b&gt; When your warband reaches 30 total Attack, begin your Naga Conquest.@[x]&lt;b&gt;Passive.&lt;/b&gt; When your warband reaches 30 total Attack, begin your Naga Conquest. &lt;i&gt;({0} left!)&lt;/i&gt;"""
+	pass
+class BG22_HERO_007p2:
+	""" Naga Conquest
+	&lt;b&gt;Discover&lt;/b&gt; a Naga."""
+	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER))
+	pass
+class BG22_HERO_007t:
+	""" Naga Queen Azshara
+	"""
+	pass
 
 
 ####################################################################################
