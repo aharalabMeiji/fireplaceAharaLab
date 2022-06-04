@@ -1,12 +1,13 @@
 from fireplace import cards
 from fireplace.card import Card
-from fireplace.dsl.selector import TARGET
+from fireplace.config import Config
 from fireplace.player import Player
+from fireplace.utils import modify_description
+from fireplace.dsl.selector import TARGET
 from fireplace.cards.battlegrounds import BG_hero1
 import random
 from hearthstone.enums import Zone,State, CardClass, CardType, GameTag
 from .BG_enums import MovePlay
-from fireplace.config import Config
 
 class BG_Agent(object):
 	""" バトルグラウンドのエージェントのクラス
@@ -160,11 +161,12 @@ class BG_HumanAgent(BG_Agent):
 		card = cards.db[cardID]
 		hpID=card.hero_power
 		hp=cards.db[hpID]
-		bdID=BG_hero1.BG_Hero1_Buddy[cardID]
-		bd=cards.db[bdID]
 		print("[%d] %s "%(count, card.name))
-		print("HeroPower:%s"%(hp.description.replace('\n',' ')))
+		print("HeroPower:%s"%(modify_description(hp,hp.description)))
 		if Config.PATCH_VERSION <= Config.PATCH23_1:
+			gamemaster=self.player.game.parent
+			bdID=gamemaster.BG_Hero_Buddy[cardID]
+			bd=cards.db[bdID]
 			print("Buddy:%s"%(bd.description.replace('\n',' ')))
 		pass
 	def printMove(self, count, move):
@@ -185,7 +187,7 @@ class BG_HumanAgent(BG_Agent):
 			heropower = hero.power
 			herohealth = hero.health+hero.armor
 			playertier = player.tavern_tier
-			statstable.append([100-herohealth, herohealth, playertier, "(%s)[%s]%s"%(hero,player,heropower.data.description.replace('\n','_'))])
+			statstable.append([100-herohealth, herohealth, playertier, "(%s)[%s]%s"%(hero,player,modify_description(heropower,heropower.data.description))])
 		statstable.sort( key=lambda b: b[0])
 		for b in statstable:
 			print("%d ★%d %s"%(b[1],b[2],b[3]))
@@ -198,7 +200,7 @@ class BG_HumanAgent(BG_Agent):
 		if controller.hero.power.cant_play:
 			print("パワー　：%s(cost %d) : unplayable"%(controller.hero.power, controller.hero.power.cost,))
 		else:
-			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, controller.hero.power.data.description.replace('\n','_').replace('@','%d'%(controller.hero.power.tags[GameTag.TAG_SCRIPT_DATA_NUM_1]))))
+			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, modify_description(controller.hero.power,controller.hero.power.data.description)))
 		if controller.hero.power.id=='TB_BaconShop_HP_101':
 			print ("ダークムーンチケット (%d/3)"%(controller.hero.power._sidequest_counter_))
 		print("----------------------------------------------")
@@ -268,6 +270,6 @@ class BG_HumanAgent(BG_Agent):
 				ret += "(deathrattle)"
 			if card.darkmoon_ticket:
 				ret += "(darkmoon ticket)"
-		ret += card.data.description.replace('\n','_').replace('@','%d'%(card.script_data_num_1))
+		ret += modify_description(card, card.data.description)
 		return ret
 

@@ -1,5 +1,6 @@
 import os.path
 import random
+import copy
 from bisect import bisect
 from importlib import import_module
 from pkgutil import iter_modules
@@ -261,3 +262,65 @@ class ActionType(IntEnum):
 			return "TRADE"
 		else:
 			return ""
+
+def modify_description(card, text):
+	new_text=copy.deepcopy(text)
+	new_text=new_text.replace('\n','_')
+	new_text=new_text.replace('[x]','')
+	new_text=new_text.replace('[b]','[')
+	new_text=new_text.replace('[/b]',']')
+	new_text=new_text.replace('<b>','[')
+	new_text=new_text.replace('</b>',']')
+	if hasattr(card,'script_data_text_0'):
+		new_text=new_text.replace('{0}',card.script_data_text_0)
+	if hasattr(card,'script_data_text_1'):
+		new_text=new_text.replace('{1}',card.script_data_text_1)
+	if hasattr(card,'script_data_num_1') and '@ 'in text:
+		new_text=new_text.replace('@ ',card.script_data_num_1+' ')
+	elif '@' in text:
+		index=new_text.index('@')
+		new_text=new_text[:index]
+		pass
+	length=len(new_text)
+	for i in range(length-3):
+		if i>=len(new_text):
+			break
+		if '|4('==new_text[i:i+3]:
+			anchor0=i+3
+			for c in range(anchor0,length):
+				if new_text[c]==',':
+					anchor1=c
+					word0=new_text[anchor0:anchor1]
+					break
+			for c in range(anchor1+1,length):
+				if new_text[c]==')':
+					anchor2=c
+					word1=new_text[anchor1+1,anchor2]
+					break
+			if new_text[i-3:i]=='(1 ':
+				new_text=new_text[:i]+word0+new_text[anchor2+1]
+			else:
+				new_text=new_text[:i]+word1+new_text[anchor2+1]
+	length=len(new_text)
+	if hasattr(card,'controller'):
+		player = card.controller
+	else:
+		player=None
+	for i in range(length):
+		if new_text[i]=='$':
+			if i+1<length and new_text[i+1] in ['0','1','2','3','4','5','6','7','8','9']:
+				catch_number = int(new_text[i+1])
+				latter_text = new_text[i+2:]
+				if i+2<length and text[i+2] in ['0','1','2','3','4','5','6','7','8','9']:
+					catch_number *= 10
+					catch_number += int(new_text[i+2])
+					latter_text = new_text[i+3:]
+				if player:
+					if hasattr(card,'spell_school') and card.spell_school == SpellSchool.FIRE:
+						catch_number += player.spellpower_fire
+					else :
+						catch_number += player.spellpower
+					for repeat in range(player.spellpower_double):
+						catch_number *= 2
+				new_text = new_text[:i] + "*" +str(catch_number) +"*" + latter_text
+	return new_text

@@ -160,3 +160,5 @@ def custom_card(cls):
 		GameTag.CARDTEXT_INHAND: {"enUS": ""}
 	}
 	return cls
+
+

@@ -48,6 +48,7 @@ BG_Exclude_Hero=[
 
 	'TB_BaconShop_HERO_94',#69 XX
 	'TB_BaconShop_HERO_53',#77 dragon ban
+	'BG22_HERO_007', #79 X
 	]
 
 class BG_main:

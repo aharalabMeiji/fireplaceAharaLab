@@ -39,6 +39,7 @@ BG_Hero5_Buddy={
 	'TB_BaconShop_HERO_35':'TB_BaconShop_HERO_35_Buddy',
 	'TB_BaconShop_HERO_53':'TB_BaconShop_HERO_53_Buddy',
 	'TB_BaconShop_HERO_91':'TB_BaconShop_HERO_91_Buddy',
+	'BG22_HERO_007':'',
 	}
 BG_Hero5_Buddy_Gold={
 	'TB_BaconShop_HERO_94_Buddy':'TB_BaconShop_HERO_94_Buddy_G',
@@ -51,6 +52,7 @@ BG_Hero5_Buddy_Gold={
 	'TB_BaconShop_HERO_35_Buddy':'TB_BaconShop_HERO_35_Buddy_G',
 	'TB_BaconShop_HERO_53_Buddy':'TB_BaconShop_HERO_53_Buddy_G',
 	'TB_BaconShop_HERO_91_Buddy':'TB_BaconShop_HERO_91_Buddy_G',
+	'BG22_HERO_007':'',
 	}
 
 ######## source #################################################################
@@ -557,7 +559,7 @@ class BG22_HERO_007p:
 class BG22_HERO_007p2:
 	""" Naga Conquest
 	&lt;b&gt;Discover&lt;/b&gt; a Naga."""
-	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER))
+	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
 	pass
 class BG22_HERO_007t:
 	""" Naga Queen Azshara
