@@ -70,6 +70,9 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_TARGET_WITH_RACE:
 			if target.type != CardType.MINION or target.race != param:
 				return False
+		elif req == 1002:## REQ_TARGET_WITHOUT_RACE
+			if target.type != CardType.MINION or target.race == param:
+				return False
 		elif req == PlayReq.REQ_HERO_TARGET:
 			if target.type != CardType.HERO:
 				return False

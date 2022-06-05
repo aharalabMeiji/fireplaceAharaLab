@@ -20,7 +20,6 @@ BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_56',#2 dragon ban
 	'BG22_HERO_001',#6 X
 	'TB_BaconShop_HERO_78',#11 elemental ban
-	'BG21_HERO_020',#12 X
 	'BG20_HERO_103',#14 X
 	'TB_BaconShop_HERO_52',#15 X
 	'TB_BaconShop_HERO_43',#16 X

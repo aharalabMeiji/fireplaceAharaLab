@@ -17,7 +17,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 	PRINT_HITLOG=1 # Hitイベントを表示する
 
@@ -32,10 +32,10 @@ class Config:# ()is the default value
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
-	RACE_CHOICE=['pirate','quilboar','dragon']
+	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
 	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=11 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=79 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=12 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=14 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 

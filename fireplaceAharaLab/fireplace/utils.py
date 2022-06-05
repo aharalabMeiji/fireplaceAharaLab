@@ -275,12 +275,8 @@ def modify_description(card, text):
 		new_text=new_text.replace('{0}',card.script_data_text_0)
 	if hasattr(card,'script_data_text_1'):
 		new_text=new_text.replace('{1}',card.script_data_text_1)
-	if hasattr(card,'script_data_num_1') and '@ 'in text:
-		new_text=new_text.replace('@ ',card.script_data_num_1+' ')
-	elif '@' in text:
-		index=new_text.index('@')
-		new_text=new_text[:index]
-		pass
+	if hasattr(card,'script_data_num_1') and '@'in text:
+		new_text=new_text.replace('@',str(card.script_data_num_1))
 	length=len(new_text)
 	for i in range(length-3):
 		if i>=len(new_text):
