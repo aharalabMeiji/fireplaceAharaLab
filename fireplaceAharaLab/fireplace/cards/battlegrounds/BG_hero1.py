@@ -832,15 +832,15 @@ TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
 
-#16#Dinotamer Brann   ### need check ###
+#16#Dinotamer Brann   ### HP OK ###
 class TB_BaconShop_HERO_43:# <12>[1453]
 	""" Dinotamer Brann
 	 """
 class TB_BaconShop_HP_048:
 	""" Battle Brand
 	<b>Passive.</b> After you buy 5 <b>Battlecry</b> minions, add Brann Bronzebeard to your _hand. <i>(Once per game.)</i>@[x]<b>Passive.</b> After you buy 5 <b>Battlecry</b> minions, add Brann Bronzebeard to your hand. <i>({0} left!)</i>"""
-	events = Buy(CONTROLLER, MINION + BATTLECRY).on(SidequestCounter(SELF, 5, \
-		[Give(CONTROLLER,"LOE_077"), SetAttr(SELF,'exhausted',True)]))
+	events = Buy(CONTROLLER, MINION + BATTLECRY).on(SidequestCounterText0(SELF, 5, \
+		[Give(CONTROLLER,"LOE_077"), SetAttr(SELF,'cant_play',True)]))
 class TB_BaconShop_HP_048e:
 	""" 	"""
 ######## BUDDY

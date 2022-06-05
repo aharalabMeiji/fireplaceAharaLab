@@ -55,7 +55,7 @@ class Config:# ()is the default value
 	#13#Dancin' Deryl  #HP#BUDDY
 	#14#Death Speaker Blackthorn  #HP
 	#15#Deathwing    #HP#BUDDY
-	#16#Dinotamer Brann
+	#16#Dinotamer Brann  #HP
 	#17#Drek'Thar ### HP
 	#18#Edwin VanCleef ### HP
 	#19#Elise Starseeker

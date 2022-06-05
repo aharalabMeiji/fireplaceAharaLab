@@ -18,10 +18,9 @@ BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
 BG_Exclude_Hero=[
 	'TB_BaconShop_HERO_56',#2 dragon ban
-	'BG22_HERO_001',#6 X
+	'BG22_HERO_001',#6 XX
 	'TB_BaconShop_HERO_78',#11 elemental ban
 	'TB_BaconShop_HERO_52',#15 XX
-	'TB_BaconShop_HERO_43',#16 X
 
 	'TB_BaconShop_HERO_55',#21 Murloc ban
 	'BG20_HERO_283',#23 X

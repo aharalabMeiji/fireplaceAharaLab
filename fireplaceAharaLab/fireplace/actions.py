@@ -2265,16 +2265,39 @@ class SidequestCounter(TargetedAction):
 		if Config.LOGINFO:
 			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
 		target._sidequest_counter_ += 1
-		target.script_data_num_1 -= 1
+		target.script_data_num_1 = amount - target._sidequest_counter_
 		if target._sidequest_counter_== amount:
 			target._sidequest_counter_ = 0
-			target.script_data_num_1 = target.data.tags.get(GameTag.TAG_SCRIPT_DATA_NUM_1, 0)
+			target.script_data_num_1 = amount
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
 				for action in targetaction:
-					if isinstance(action, TargetedAction):
+					if isinstance(action, TargetedAction): 
 						action.trigger(source)
+
+class SidequestCounterText0(TargetedAction):
+	"""
+	"""
+	TARGET = ActionArg()# sidequest card
+	AMOUNT = IntArg() #max of call
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target, amount, targetaction):
+		if Config.LOGINFO:
+			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
+		target._sidequest_counter_ += 1
+		target.script_data_num_1 = amount - target._sidequest_counter_
+		target.script_data_text_0 = str(target.script_data_num_1)
+		if target._sidequest_counter_== amount:
+			target._sidequest_counter_ = 0
+			target.script_data_num_1 = amount
+			if targetaction!=None:
+				if not isinstance(targetaction,list):
+					targetaction = [targetaction]
+				for action in targetaction:
+					if isinstance(action, TargetedAction): 
+						action.trigger(source)
+
 
 class SidequestCounterEq(TargetedAction):
 	"""
