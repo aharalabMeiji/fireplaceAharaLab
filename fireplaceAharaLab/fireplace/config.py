@@ -34,8 +34,8 @@ class Config:# ()is the default value
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
 	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=15 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=16 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=38 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=59 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 

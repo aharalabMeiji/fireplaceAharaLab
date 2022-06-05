@@ -221,7 +221,7 @@ class BG_HumanAgent(BG_Agent):
 		print("----------------------------------------------")
 		count=0
 		for choice in choices:
-			if choice.requires_target() and len(choice.targets)>0:
+			if choice.type!=CardType.HERO_POWER and  choice.requires_target() and len(choice.targets)>0:
 				for target in choice.targets:
 					self.printChoice(count, choice, target)
 					count += 1

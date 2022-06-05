@@ -98,7 +98,7 @@ BG_Hero3_Buddy_Gold={
 
 #### source ####################################################
 
-#35#Lord Jaraxxus ### HP ###
+#35#Lord Jaraxxus ### HP OK ###
 class TB_BaconShop_HERO_37:# <12>[1453]
 	""" Lord Jaraxxus """
 class TB_BaconShop_HP_036:
