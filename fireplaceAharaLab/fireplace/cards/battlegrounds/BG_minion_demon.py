@@ -109,7 +109,7 @@ class TB_BaconUps_062:# <12>[1453]
 	""" Nathrezim Overseer
 	[Battlecry:] Give a friendly Demon +4/+4. """
 	requirements = {
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,
+		PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,
 		}
 	play = Buff(TARGET, 'TB_BaconUps_062e')
 	pass

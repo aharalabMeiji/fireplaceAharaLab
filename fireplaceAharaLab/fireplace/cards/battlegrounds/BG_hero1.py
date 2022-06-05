@@ -809,7 +809,7 @@ class BG20_HERO_103_Buddy_G:
 
 
 
-#15#Deathwing    ### need check ###
+#15#Deathwing    ### not good for enemy's minions in the battle ###
 class TB_BaconShop_HERO_52:
 	""" Deathwing
 	"""
@@ -829,6 +829,7 @@ class TB_BaconShop_HERO_52_Buddy_G:
 	Your minions have +6_Attack. """
 	update = Refresh(FRIENDLY_MINIONS, buff='TB_BaconShop_HERO_52_Buddy_G_e')
 TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
+
 
 
 #16#Dinotamer Brann   ### need check ###

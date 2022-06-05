@@ -3175,6 +3175,7 @@ class BeginGame(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
+		controller.game.refresh_auras()## refresh aura_buff
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
 
