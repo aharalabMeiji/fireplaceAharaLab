@@ -34,8 +34,8 @@ class Config:# ()is the default value
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
 	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=12 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=14 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=15 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_2=16 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 
@@ -51,9 +51,9 @@ class Config:# ()is the default value
 	#09#Captain Hooktusk   #HP
 	#10#Cariel Roame  #HP#BUDDY
 	#11#Chenvaala   #HP
-	#12#Cookie the Cook
+	#12#Cookie the Cook  #HP
 	#13#Dancin' Deryl  #HP#BUDDY
-	#14#Death Speaker Blackthorn
+	#14#Death Speaker Blackthorn  #HP
 	#15#Deathwing    #HP#BUDDY
 	#16#Dinotamer Brann
 	#17#Drek'Thar ### HP

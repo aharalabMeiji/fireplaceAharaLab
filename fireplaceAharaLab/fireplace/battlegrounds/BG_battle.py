@@ -61,12 +61,12 @@ class BG_Battle(Game):
 		self.second.controller.deepcopy_original.second_dead_minion=None
 		# starting the infinite loop
 		while True:
+			BeginBattleTurn(self.current_player)
 			# display the field
 			self.printField()
 			# check if the battle ends
 			if len(self.first.field)==0 or len(self.second.field)==0:
 				break
-			BeginBattleTurn(self.current_player)
 			#attacker
 			attacker = self.current_player.field[self.current_player.attacker_index]
 			if attacker.atk>0:

@@ -788,14 +788,16 @@ TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
 """ Dashing Hat,+2/+2. """
 
 
-#14#Death Speaker Blackthorn  ### need check ###
+#14#Death Speaker Blackthorn  ### HP OK ###
 class BG20_HERO_103:# <12>[1453]
 	""" Death Speaker Blackthorn	 """
 class BG20_HERO_103p:# <12>[1453]
 	""" Bloodbound
 	[Passive]After you upgrade Bob's Tavern, gain 2 [Blood Gems]. """
+	tags={GameTag.HIDE_COST:True}
 	events = UpgradeTier(CONTROLLER).on(Give(CONTROLLER, 'BG20_GEM')*2)
 	pass
+########  BUDDY
 class BG20_HERO_103_Buddy:
 	""" Death's Head Sage
 	After you gain a <b>Blood Gem</b>, gain an extra one. """
@@ -816,6 +818,7 @@ class TB_BaconShop_HP_061:
 	[x]<b>Passive</b> ALL minions have +2 Attack."""
 	update = Refresh(ALL_MINIONS, buff='TB_BaconShop_HP_061e')
 TB_BaconShop_HP_061e=buff(2,0)
+########  BUDDY
 class TB_BaconShop_HERO_52_Buddy:
 	""" Lady Sinestra
 	Your minions have +3_Attack. """

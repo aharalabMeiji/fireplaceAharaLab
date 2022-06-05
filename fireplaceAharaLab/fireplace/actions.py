@@ -255,6 +255,7 @@ class BeginBar(GameAction):
 	PLAYER = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, player, amount):
+		player.game.refresh_auras()## refresh aura_buff
 		if source.game.turn==amount:	
 			self.broadcast(source, EventListener.ON, player)
 		pass
@@ -3166,6 +3167,7 @@ class BeginBattleTurn(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		controller = target
+		controller.game.refresh_auras()## refresh aura_buff
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
 
@@ -3201,6 +3203,7 @@ class Buy(TargetedAction): ## battlegrounds
 					controller.used_mana += minionprice
 					controller.spentmoney_in_this_turn += minionprice
 					controller.add_buy_log(card)
+					controller.game.refresh_auras()## refresh aura_buff
 					self.broadcast(source, EventListener.ON, controller, card)
 					self.broadcast(source, EventListener.AFTER, controller, card)
 					gold_card_id = controller.game.BG_find_triple()## トリプルを判定
@@ -3472,6 +3475,7 @@ class UpgradeTier(TargetedAction):
 			controller.used_mana += controller.tavern_tierup_cost
 			controller.spentmoney_in_this_turn += controller.tavern_tierup_cost
 			controller.tavern_tierup_cost = tavern_tierup_cost[controller.tavern_tier]
+			controller.game.refresh_auras()## refresh aura_buff
 			if controller.hero.power.id=='TB_BaconShop_HP_054': #Millhouse flag
 				controller.tavern_tierup_cost += 1
 			self.broadcast(source, EventListener.ON, controller)
