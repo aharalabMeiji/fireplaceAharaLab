@@ -386,8 +386,13 @@ class TB_BaconShop_HERO_93:# <12>[1453]
 	""" N'Zoth 	 """
 class TB_BaconShop_HP_105_Action(TargetedAction):
 	TARGET=ActionArg()
+	CARD=ActionArg()
 	def do(self, source, target, card):
-		target.additional_deathrattles += card.deathrattles
+		new_deathrattles = card.deathrattles
+		deathrattles = source.deathrattles
+		deathrattles.append(new_deathrattles[0][0])
+		source.data.scripts.deathrattle=deathrattles[0]
+		print(source.deathrattles)
 		pass
 class TB_BaconShop_HP_105_Action2(TargetedAction):
 	TARGET=ActionArg()

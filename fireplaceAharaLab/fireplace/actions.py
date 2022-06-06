@@ -1097,7 +1097,7 @@ class Deathrattle(TargetedAction):
 				actions = deathrattle(target)
 			else:
 				actions = deathrattle
-			#self.broadcast(source, EventListener.ON, target)
+			self.broadcast(source, EventListener.ON, target)
 			source.game.queue_actions(target, actions)
 
 			if target.controller.extra_deathrattles:

@@ -27,14 +27,14 @@ class Config:# ()is the default value
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET=0 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1=''
+	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
+	CARD_PRESET1='BG21_029'
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
 	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=38 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1=43 #人間プレーヤーはヒーローを指定できる(0~78)
 	HERO_2=59 #人間プレーヤーはヒーローを指定できる(0~78)
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
