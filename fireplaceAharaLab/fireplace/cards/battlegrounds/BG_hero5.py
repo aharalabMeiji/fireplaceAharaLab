@@ -355,6 +355,8 @@ class TB_BaconShop_HP_103_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller = target # in the battle
+		if controller!=source.controller:
+			return
 		gm = controller.game.parent
 		tier = controller.tavern_tier
 		card = random.choice(gm.BG_decks[tier])
