@@ -390,14 +390,14 @@ class TB_BaconShop_HP_105_Action(TargetedAction):
 	def do(self, source, target, card):
 		new_deathrattles = card.deathrattles
 		deathrattles = source.deathrattles
-		deathrattles.append(new_deathrattles[0][0])
+		deathrattles.append(new_deathrattles[0])
 		source.data.scripts.deathrattle=deathrattles[0]
-		print(source.deathrattles)
+		print("%r->%s"%(source.deathrattles,source))
 		pass
 class TB_BaconShop_HP_105_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		controller=target
+		source.data.scripts.deathrattle=[]
 		pass
 class TB_BaconShop_HP_105:
 	""" Avatar of N'Zoth
@@ -405,7 +405,10 @@ class TB_BaconShop_HP_105:
 	events = BeginGame(CONTROLLER).on(Summon(CONTROLLER,'TB_BaconShop_HP_105t'))
 class TB_BaconShop_HP_105t:
 	""" fish """
-	events = Deathrattle().on(TB_BaconShop_HP_105_Action(SELF, Deathrattle.TARGET))
+	events = [
+		BeginBattle(CONTROLLER).on(TB_BaconShop_HP_105_Action2(SELF)),
+		Deathrattle(FRIENDLY).on(TB_BaconShop_HP_105_Action(SELF, Deathrattle.TARGET))
+	]
 	tags = {GameTag.DEATHRATTLE:True}
 ######## BUDDY
 class TB_BaconShop_HERO_93_Buddy:# <12>[1453]
