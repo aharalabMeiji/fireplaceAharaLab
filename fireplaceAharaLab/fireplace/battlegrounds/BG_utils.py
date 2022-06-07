@@ -278,6 +278,8 @@ class BG_main:
 
 			### 対戦
 			for i in range(int(self.size/2)):
+				self.BG_Bars[self.matches[i][0]].countcards()
+				self.BG_Bars[self.matches[i][1]].countcards()
 				battles[i] = BG_Battle([self.BG_Bars[self.matches[i][0]],self.BG_Bars[self.matches[i][1]]])
 				battleplayer0 = self.BG_Bars[self.matches[i][0]].controller
 				battleplayer1 = self.BG_Bars[self.matches[i][1]].controller
@@ -286,6 +288,8 @@ class BG_main:
 				### begin the battle
 				damage0, damage1, battleplayer0.buddy_gauge, battleplayer1.buddy_gauge  = battles[i].battle()
 				### after the battle
+				self.BG_Bars[self.matches[i][0]].identifycards()
+				self.BG_Bars[self.matches[i][1]].identifycards()
 				if Config.PATCH_VERSION <= Config.PATCH23_1:
 					for  player in [battleplayer0, battleplayer1]:
 						### バディーゲージが100を超えたらバディーカードを発行する。
@@ -336,6 +340,7 @@ class BG_main:
 			## 対戦おわり
 			#次のターンへ
 			for bar in self.BG_Bars:
+				bar.identifycards()
 				controller = bar.controller
 				# グレードアップコストを減らす。
 				controller.tavern_tierup_cost = max(0, controller.tavern_tierup_cost-1) 

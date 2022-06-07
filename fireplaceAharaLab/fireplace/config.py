@@ -17,7 +17,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=0# log.info相当のログ表示
+	LOGINFO=1# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 	PRINT_HITLOG=1 # Hitイベントを表示する
 
@@ -26,7 +26,7 @@ class Config:# ()is the default value
 	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 
-	PLAYER1_HUMAN=1 ##人間プレーヤーあり
+	PLAYER1_HUMAN=0 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
 	CARD_PRESET1='BG23_000'
 	CARD_PRESET2=''

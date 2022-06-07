@@ -7,7 +7,7 @@ BG_Minion_Naga=[
 	'BG23_001','BG23_001e','BG23_001_G','BG23_001_Ge',#Snail Cavalry(2)
 	'BG23_004','BG23_004e','BG23_004t','BG23_004_G','BG23_004_Ge','BG23_004_Gt',#Deep-Sea Angler (2)
 	'BG23_009','BG23_009_G',#Lava Lurker (2)
-	'BG23_005','BG23_005_G',#Stormscale Siren (3)
+	##'BG23_005','BG23_005_G',#Stormscale Siren (3) BANNED!
 	'BG23_014','BG23_014_G',#Pashmar the Vengeful (3)
 	'BGS_200','TB_BaconUps_256',#Warden of Old (3)
 	'BG23_011','BG23_011e','BG23_011t','BG23_011_G','BG23_011_Ge','BG23_011_Gt',#Shoal Commander (3)
@@ -24,7 +24,7 @@ BG_Minion_Naga=[
 BG_PoolSet_Naga=[
 	['BG23_000','BG23_002',],#1
 	['BG23_001','BG23_004','BG23_009',],#2
-	['BG23_005','BG23_011','BG23_014','BGS_200',],#3
+	['BG23_011','BG23_014','BGS_200',],#3 'BG23_005',
 	['BG23_006','BG23_007','BG23_010',],#4
 	['BG23_003','BG23_008','BG23_012',],#5
 	['BG23_013',],#6
@@ -36,7 +36,7 @@ BG_Naga_Gold={
 	'BG23_002':'BG23_002_G',#
 	'BG23_003':'BG23_003_G',#
 	'BG23_004':'BG23_004_G',#
-	'BG23_005':'BG23_005_G',#
+	##'BG23_005':'BG23_005_G',#
 	'BG23_006':'BG23_006_G',#
 	'BG23_007':'BG23_007_G',#
 	'BG23_008':'BG23_008_G',#

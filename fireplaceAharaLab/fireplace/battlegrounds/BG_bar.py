@@ -15,6 +15,8 @@ class BG_Bar(Game):
 		self.minionCost=3
 		self.free_rerole=0
 		self.parent=None
+		self.player_field_number=0
+		self.player_hand_number=0
 	pass
 
 	def BG_setup(self):
@@ -131,3 +133,14 @@ class BG_Bar(Game):
 		newcard._summon_index=index
 		newcard.zone = Zone.PLAY #something wrong? 
 		return newcard
+
+	def countcards(self):
+		self.player_field_number=len(self.controller.field)
+		self.player_hand_number=len(self.controller.hand)
+		pass
+
+	def identifycards(self):
+		if self.player_field_number!=len(self.controller.field):
+			print("The numbers of field cards are not identified.")
+		if self.player_hand_number>len(self.controller.hand):
+			print("The numbers of hand cards are not identified.")
