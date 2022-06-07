@@ -154,14 +154,13 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
-			if Config.CARD_PRESET:
-				if agent.name=='Human1':
-					if Config.CARD_PRESET1!= '':
-						card = bar.controller.card(Config.CARD_PRESET1)
-						card.zone = Zone.HAND
-					if Config.CARD_PRESET2!= '':
-						card = bar.controller.card(Config.CARD_PRESET2)
-						card.zone = Zone.HAND
+			if agent.name=='Human1':
+				if Config.CARD_PRESET1!= '':
+					card = bar.controller.card(Config.CARD_PRESET1)
+					card.zone = Zone.HAND
+				if Config.CARD_PRESET2!= '':
+					card = bar.controller.card(Config.CARD_PRESET2)
+					card.zone = Zone.HAND
 			##########
 			if bar.player1.hero.power.id=='TB_BaconShop_HP_054': #Millhouse flag
 				bar.player1.tavern_tierup_cost += 1

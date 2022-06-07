@@ -874,7 +874,7 @@ class TargetedAction(Action):
 			targets = self.get_targets(source, args[0])
 			args = args[1:]
 			if Config.LOGINFO:
-				print("(TargetedAction.trigger)%r triggering %r targeting %r"%( source, self, targets))
+				print("(TargetedAction.trigger)%s triggering %r targeting %r"%( source, self, targets))
 			for target in targets:
 				target_args = self.get_target_args(source, target)
 				from .player import Player
