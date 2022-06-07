@@ -26,95 +26,16 @@ class Config:# ()is the default value
 	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 
-	PLAYER1_HUMAN=0 ##人間プレーヤーあり
+	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET=1 # 人間プレーヤーに最初からカードを与える
-	CARD_PRESET1='BG23_000'
+	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
-	HERO_PRESET=1 # 人間プレーヤーに最初からヒーローを指定できる
-	HERO_1=75 #人間プレーヤーはヒーローを指定できる(0~78)
-	HERO_2=59 #人間プレーヤーはヒーローを指定できる(0~78)
+	HERO_1='TB_BaconShop_HERO_18' #人間プレーヤーはヒーローを指定できる
+	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 
-	#00#A. F. Kay, #HP#BUDDY
-	#01#Al'Akir#HP#BUDDY
-	#02#Alexstrasza #HP#BUDDY
-	#03#Ambassador Faelin #HP#BUDDY
-	#04#Aranna Starseeker #HP#BUDDY
-	#05#Arch-Villain Rafaam  #HP#BUDDY
-	#06#Bru'kan
-	#07#C'Thun    #HP
-	#08#Captain Eudora    #HP
-	#09#Captain Hooktusk   #HP
-	#10#Cariel Roame  #HP#BUDDY
-	#11#Chenvaala   #HP
-	#12#Cookie the Cook  #HP
-	#13#Dancin' Deryl  #HP#BUDDY
-	#14#Death Speaker Blackthorn  #HP
-	#15#Deathwing    #HP#BUDDY
-	#16#Dinotamer Brann  #HP
-	#17#Drek'Thar ### HP
-	#18#Edwin VanCleef ### HP
-	#19#Elise Starseeker
-	#20#Forest Warden Omu  ### HP
-	#21#Fungalmancer Flurgl  ### HP
-	#22#Galakrond ### HP
-	#23#Galewing
-	#24#George the Fallen ### HP
-	#25#Greybough ### HP
-	#26#Guff Runetotem ### HP
-	#27#Illidan Stormrage ### HP
-	#28#Infinite Toki ### HP
-	#29#Jandice Barov ### HP
-	#30#Kael'thas Sunstrider ### HP
-	#31#King Mukla ### HP
-	#32#Kurtrus Ashfallen ### HP
-	#33#Lich Baz'hial ### HP
-	#34#Lord Barov
-	#35#Lord Jaraxxus ### HP
-	#36#Maiev Shadowsong ### HP
-	#37#Malygos ### HP
-	#38#Master Nguyen
-	#39#Millhouse Manastorm ### HP
-	#40#Millificent Manastorm ### HP
-	#41#Mr. Bigglesworth
-	#42#Mutanus the Devourer
-	#43#N'Zoth ### HP
-	#44#Nozdormu
-	#45#Onyxia
-	#46#Overlord Saurfang
-	#47#Patches the Pirate
-	#48#Patchwerk
-	#49#Pyramad
-	#50#Queen Wagtoggle
-	#51#Ragnaros the Firelord
-	#52#Rakanishu  ### HP
-	#53#Reno Jackson  ### HP
-	#54#Rokara  ### HP
-	#55#Scabbs Cutterbutter  ### HP
-	#56#Shudderwock
-	#57#Silas Darkmoon ### HP
-	#58#Sindragosa ### HP
-	#59#Sir Finley Mrrgglton ### HP
-	#60#Skycap'n Kragg ### HP
-	#61#Sneed ### HP
-	#62#Tamsin Roame ### HP
-	#63#Tavish Stormpike ### HP
-	#64#Tess Greymane ### HP
-	#65#The Curator ### HP
-	#66#The Great Akazamzarak ### HP
-	#67#The Lich King ###HP
-	#68#The Rat King ### HP
-	#69#Tickatus #HP
-	#70#Trade Prince Gallywix ## HP
-	#71#Vanndar Stormpike ## HP 
-	#72#Varden Dawngrasp ## HP 
-	#73#Vol'jin  ### HP 
-	#74#Xyrella  ### HP 
-	#75#Y'Shaarj  ### HP
-	#76#Yogg-Saron, Hope's End  ### HP
-	#77#Ysera  ### HP
-	#78#Zephrys, the Great  ### HP
+	

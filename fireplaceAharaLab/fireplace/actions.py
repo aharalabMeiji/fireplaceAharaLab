@@ -1435,6 +1435,7 @@ class Give(TargetedAction):
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.card_when_drawn(card, card.controller)
 			ret.append(card)
+			## in battlegrounds, we need check if a triple happens
 		if len(cards)>0:
 			self.broadcast(source, EventListener.AFTER, target, cards[0])
 		return ret

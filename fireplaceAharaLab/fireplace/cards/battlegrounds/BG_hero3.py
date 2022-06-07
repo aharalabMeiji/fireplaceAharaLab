@@ -39,23 +39,23 @@ BG_Hero3=[
 	]
 
 BG_PoolSet_Hero3=[
-	'TB_BaconShop_HERO_37',
-	'TB_BaconShop_HERO_62',
-	'TB_BaconShop_HERO_58',
-	'BG20_HERO_202',
-	'TB_BaconShop_HERO_49',
-	'TB_BaconShop_HERO_17',
-	'TB_BaconShop_HERO_70',
-	'BG20_HERO_301',
-	'TB_BaconShop_HERO_93',
-	'TB_BaconShop_HERO_57',
-	'BG22_HERO_305',
-	'BG20_HERO_102',
-	'TB_BaconShop_HERO_18',
-	'TB_BaconShop_HERO_34',
-	'TB_BaconShop_HERO_39',
-	'TB_BaconShop_HERO_14',
-	'TB_BaconShop_HERO_11',
+	'TB_BaconShop_HERO_37',#35 demon ban
+	'TB_BaconShop_HERO_62',#36
+	'TB_BaconShop_HERO_58',#37
+	#'BG20_HERO_202',#38#38 X
+	'TB_BaconShop_HERO_49',#39 
+	'TB_BaconShop_HERO_17',#40 mech ban
+	#'TB_BaconShop_HERO_70',#41 XX
+	#'BG20_HERO_301',#42 x
+	#'TB_BaconShop_HERO_93',#43 x
+	#'TB_BaconShop_HERO_57',#44 x
+	#'BG22_HERO_305',#45 x
+	#'BG20_HERO_102',#46 x
+	'TB_BaconShop_HERO_18',#47 x pirate ban
+	#'TB_BaconShop_HERO_34',#48 X 
+	#'TB_BaconShop_HERO_39',#49 x
+	#'TB_BaconShop_HERO_14',#50 x
+	#'TB_BaconShop_HERO_11',#51 x
 	]
 BG_Hero3_Buddy={
 	'TB_BaconShop_HERO_37':'TB_BaconShop_HERO_37_Buddy',
@@ -549,21 +549,25 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 
 
 
-
-
 #47#Patches the Pirate ### need check ###
 class TB_BaconShop_HERO_18:# <12>[1453]
 	""" Patches the Pirate """
-class TB_BaconShop_HP_Action(TargetedAction):
+class TB_BaconShop_HP_072_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
+		Give(controller, RandomBGPirate(tech_level_less=TIER(CONTROLLER))).trigger(source)
+		gold_card_id = controller.game.BG_find_triple()## ƒgƒŠƒvƒ‹‚ð”»’è
+		if gold_card_id:
+			controller.game.BG_deal_gold(gold_card_id)
+		for i in range(len(source.buffs)):
+			source.buffs.remove(source.buffs[0])
 		pass
 class TB_BaconShop_HP_072:
 	"""Pirate Parrrrty!
 	Get a Pirate. After you buy a Pirate, your next Hero Power costs (1) less."""
-	activate = Give(CONTROLLER, RandomBGPirate(tech_level_less=TIER(CONTROLLER)))
-	events = Buy(CONTROLLER).on(Buff(SELF,'TB_BaconShop_HP_072e'))
+	activate = TB_BaconShop_HP_072_Action(CONTROLLER)
+	events = Buy(CONTROLLER, PIRATE).on(Buff(SELF,'TB_BaconShop_HP_072e'))
 @custom_card
 class TB_BaconShop_HP_072e:
 	tags = {

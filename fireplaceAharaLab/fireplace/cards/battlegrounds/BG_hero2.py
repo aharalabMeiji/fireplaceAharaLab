@@ -23,7 +23,24 @@ BG_Hero2=[
 
 ]
 BG_PoolSet_Hero2=[
-	'BG22_HERO_002','TB_BaconShop_HERO_01','TB_BaconShop_HERO_42','TB_BaconShop_HERO_74','TB_BaconShop_HERO_55','TB_BaconShop_HERO_02','BG20_HERO_283','TB_BaconShop_HERO_15','TB_BaconShop_HERO_95','BG20_HERO_242','TB_BaconShop_HERO_08','TB_BaconShop_HERO_28','TB_BaconShop_HERO_71','TB_BaconShop_HERO_60','TB_BaconShop_HERO_38','BG20_HERO_280','TB_BaconShop_HERO_25','TB_BaconShop_HERO_72',
+	'BG22_HERO_002',#17
+	'TB_BaconShop_HERO_01',#18
+	'TB_BaconShop_HERO_42',#19
+	'TB_BaconShop_HERO_74',#20
+	'TB_BaconShop_HERO_55',#21#21 Murloc ban
+	'TB_BaconShop_HERO_02',#22
+	#'BG20_HERO_283',#23#23 XX
+	'TB_BaconShop_HERO_15',#24
+	'TB_BaconShop_HERO_95',#25
+	'BG20_HERO_242',#26
+	'TB_BaconShop_HERO_08',#27
+	'TB_BaconShop_HERO_28',#28
+	'TB_BaconShop_HERO_71',#29
+	'TB_BaconShop_HERO_60',#30
+	'TB_BaconShop_HERO_38',#31
+	'BG20_HERO_280',#32
+	'TB_BaconShop_HERO_25',#33
+	#'TB_BaconShop_HERO_72',#34#34 XimpossibleXXX
 	]
 
 BG_Hero2_Buddy={

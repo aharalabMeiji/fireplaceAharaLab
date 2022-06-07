@@ -865,6 +865,13 @@ class Minion(Character):
 			return self.controller.field.index(self) + 1
 		return super().zone_position
 
+	@property
+	def BG_is_gold(self):###   battlegrounds
+		for value in self.controller.game.parent.BG_Gold.values():
+			if self.id==value:
+				return True
+		return False
+	
 	def _set_zone(self, value):
 		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
 			if self._summon_index is not None:

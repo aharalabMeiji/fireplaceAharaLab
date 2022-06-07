@@ -219,7 +219,7 @@ class BGS_066_Action(TargetedAction):
 		controller = target
 		count=0
 		for card in controller.field:
-			if card.gold_card==0:## that is, it is gold
+			if card.BG_is_gold:## that is, it is gold
 				count += 1
 		for repeat in range(count):
 			Buff(source, buff).trigger(controller)

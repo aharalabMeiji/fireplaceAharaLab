@@ -1,3 +1,4 @@
+from re import I
 from fireplace import cards
 from fireplace.game import Game
 from fireplace.card import Card
@@ -16,35 +17,6 @@ from fireplace.config import Config
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
-BG_Exclude_Hero=[
-	'TB_BaconShop_HERO_56',#2 dragon ban
-	'BG22_HERO_001',#6 XX
-	'TB_BaconShop_HERO_78',#11 elemental ban
-	'TB_BaconShop_HERO_52',#15 XX
-
-	'TB_BaconShop_HERO_55',#21 Murloc ban
-	'BG20_HERO_283',#23 X
-	'TB_BaconShop_HERO_72',#34 XimpossibleXXX
-	
-	'TB_BaconShop_HERO_37',#35 demon ban
-	'BG20_HERO_202',#38 X
-	'TB_BaconShop_HERO_17',#40 mech ban
-	'TB_BaconShop_HERO_70',#41 XX 
-	'TB_BaconShop_HERO_57',#44 X
-	'BG22_HERO_305',#45 X
-	'BG20_HERO_102',#46 X
-	'TB_BaconShop_HERO_18',#47 X
-	'TB_BaconShop_HERO_34',#48 X pirate ban
-	'TB_BaconShop_HERO_39',#49 X
-	'TB_BaconShop_HERO_14',#50 X
-	'TB_BaconShop_HERO_11',#51 X
-
-	'TB_BaconShop_HERO_23',#56 XX
-
-	'TB_BaconShop_HERO_94',#69 XX
-	'TB_BaconShop_HERO_53',#77 dragon ban
-	'BG22_HERO_007', #79 X
-	]
 
 class BG_main:
 	def __init__(self):
@@ -109,6 +81,21 @@ class BG_main:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
 				if 'quilboar' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_56' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_56')#2 dragon ban
+		if not 'elemental' in self.BG_races and 'TB_BaconShop_HERO_78' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_78')#11 elemental ban
+		if not 'murloc' in self.BG_races and 'TB_BaconShop_HERO_55' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_55')#21 Murloc ban
+		if not 'demon' in self.BG_races and 'TB_BaconShop_HERO_37' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_37')#35 demon ban
+		if not 'mecha' in self.BG_races and 'TB_BaconShop_HERO_17' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_17')#40 mech ban
+		if not 'pirate' in self.BG_races and 'TB_BaconShop_HERO_34' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_34')#48 X pirate ban
+		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_53' in self.BG_races:
+			self.Heroes.remove('TB_BaconShop_HERO_53')#77 dragon ban
+
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_beast.BG_Beast_Gold)
@@ -141,14 +128,13 @@ class BG_main:
 		for agent in self.Agents:
 			if Config.LOGINFO:
 				print ("==== %s 's bar building ===="% agent)
-			if agent.name=='Human1' and Config.HERO_PRESET:
+			if agent.name=='Human1':
 				theHeroes = []
-				if Config.HERO_1>=0 and Config.HERO_1<=80:
-					theHeroes.append(self.Heroes[Config.HERO_1])
-				if Config.HERO_2>=0 and Config.HERO_2<=80:
-					theHeroes.append(self.Heroes[Config.HERO_2])
-				if len(theHeroes)<2:
-					theHeroes += random.sample(self.Heroes, 4-len(theHeroes))
+				if Config.HERO_1 in self.Heroes:
+					theHeroes.append(Config.HERO_1)
+				if Config.HERO_2 in self.Heroes:
+					theHeroes.append(Config.HERO_2)
+				theHeroes += random.sample(self.Heroes, 4-len(theHeroes))
 			else:
 				theHeroes = random.sample(self.Heroes, 4)
 			self.Heroes.remove(theHeroes[0])

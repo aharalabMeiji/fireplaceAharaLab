@@ -16,17 +16,17 @@ BG_Hero5=[
 
 
 BG_PoolSet_Hero5=[
-	'TB_BaconShop_HERO_94',
-	'TB_BaconShop_HERO_10',
-	'BG22_HERO_003',	
-	'BG22_HERO_004',
-	'BG20_HERO_201',
-	'BG20_HERO_101',
-	'TB_BaconShop_HERO_92',
-	'TB_BaconShop_HERO_35',
-	'TB_BaconShop_HERO_53',
-	'TB_BaconShop_HERO_91',
-	'BG22_HERO_007',
+	#'TB_BaconShop_HERO_94',#69
+	'TB_BaconShop_HERO_10',#70
+	'BG22_HERO_003',	#71
+	'BG22_HERO_004',	#72
+	'BG20_HERO_201',	#73
+	'BG20_HERO_101',	#74
+	'TB_BaconShop_HERO_92',#75
+	'TB_BaconShop_HERO_35',#76
+	'TB_BaconShop_HERO_53',#77## dragon ban
+	'TB_BaconShop_HERO_91',#78
+	#'BG22_HERO_007',#79
 	]
 BG_Hero5_Buddy={
 	'TB_BaconShop_HERO_94':'TB_BaconShop_HERO_94_Buddy',
