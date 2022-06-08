@@ -1053,8 +1053,7 @@ class Damage(TargetedAction):
 
 	def do(self, source, target, amount):
 		# in method '_hit', we manage divine_shield and damage amount.
-		#if amount>0 and hasattr(target,'divine_shield') and target.divine_shield:
-		#	source.game.trigger_actions(source, [LoseDivineShield(target)])#nothing is done inside 
+ 
 		if hasattr(target, 'divine_shield') and target.divine_shield:
 			target.game.trigger_actions(source, [LoseDivineShield(target)])
 			target.divine_shield = False

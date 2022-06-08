@@ -44,6 +44,7 @@ class BaseGame(Entity):
 		#self._stage_choice_=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
 		#	'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
 		#	'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
+		self.process_deaths_infinite_loop_check=0
 
 	def __repr__(self):
 		return "%s(players=%r)" % (self.__class__.__name__, self.players)
@@ -101,11 +102,15 @@ class BaseGame(Entity):
 
 	def action_start(self, type, source, index, target):
 		self.manager.action_start(type, source, index, target)
+		if Config.LOGINFO:
+			print("(Game.action_start)type=%s, source=%s"%(type,source))
 		if type != BlockType.PLAY:
 			self._action_stack += 1
 
 	def action_end(self, type, source):
 		self.manager.action_end(type, source)
+		if Config.LOGINFO:
+			print("(Game.action_end)type=%s, source=%s"%(type,source))
 
 		if self.ended:
 			#raise GameOver("The game has ended.")
@@ -114,13 +119,15 @@ class BaseGame(Entity):
 			self._action_stack -= 1
 		if not self._action_stack:
 			if Config.LOGINFO:
-				print("(Game.action_end)Empty stack, refreshing auras and processing deaths")
+				print("(Game.action_end)Empty stack, refreshing auras and processing deaths.")
 			if type ==BlockType.DEATHS:
 				if Config.LOGINFO:
 					print("this case is annoying us.")
-				return## avoid infinte loop
+				##return## avoid infinte loop
+				self.process_deaths_infinite_loop_check+=1
 			self.refresh_auras()
 			self.process_deaths()
+		pass
 
 	def action_block(self, source, actions, type, index=-1, target=None, event_args=None):
 		self.action_start(type, source, index, target)
@@ -179,6 +186,8 @@ class BaseGame(Entity):
 
 		actions = []
 		if cards:
+			if Config.LOGINFO:
+				print("(game.process_deaths) begins a process of death.")
 			self.action_start(type, self, 0, None)
 			for card in cards:
 				card.zone = Zone.GRAVEYARD
@@ -296,7 +305,7 @@ class BaseGame(Entity):
 				elif hasattr(buff, 'entity'):	
 					print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.entity))
 				else:	
-					print("(Game.refresh_auras)buff %s is removed from somthere"%(buff))
+					print("(Game.refresh_auras)buff %s is removed from somewhere"%(buff))
 			buff.remove()
 
 		self.tick += 1

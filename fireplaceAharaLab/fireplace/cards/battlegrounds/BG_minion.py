@@ -313,12 +313,12 @@ TB_BaconUps_025e = buff(2,2)
 class FP1_024:# <12>[1453] ぐうる
 	""" Unstable Ghoul
 	<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions. """
-	deathrattle = Hit(ALL_MINIONS, 1)
+	deathrattle = Hit(ALL_MINIONS, 1),Deaths()
 	pass
 class TB_BaconUps_118:# <12>[1453]
 	""" Unstable Ghoul
 	[Taunt][Deathrattle:] Deal 1 damage to all minions twice. """
-	deathrattle = Hit(ALL_MINIONS, 1) * 2
+	deathrattle = Hit(ALL_MINIONS, 1), Hit(ALL_MINIONS, 1), Deaths()
 	pass
 
 
