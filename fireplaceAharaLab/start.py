@@ -21,20 +21,22 @@ def main():
 		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.WARRIOR)
 	# random agent
-	Random1=StandardAgent("先手",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
-	Random2=StandardAgent("後手",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
+	#Random1=StandardAgent("先手",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
+	#Random2=StandardAgent("後手",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
-	VectorHunter=StandardVectorAgent("VectorHunter",StandardVectorAgent.StandardStep1\
+	VectorHunter1=StandardVectorAgent("先行",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.HUNTER)
-		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
-	VectorDruid=StandardVectorAgent("VectorDruid",StandardVectorAgent.StandardStep1\
-		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,5,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.DRUID)
-		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
-	VectorWarrior=StandardVectorAgent("VectorWarrior",StandardVectorAgent.StandardStep1\
+	VectorHunter2=StandardVectorAgent("後攻",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.HUNTER)		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
+	#VectorDruid=StandardVectorAgent("VectorDruid",StandardVectorAgent.StandardStep1\
+	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,5,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+	#	,myClass=CardClass.DRUID)
+		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
+	#VectorWarrior=StandardVectorAgent("VectorWarrior",StandardVectorAgent.StandardStep1\
+	#	,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+	#	,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 	
 
 	# Maya : モンテカルロによる読み切り
