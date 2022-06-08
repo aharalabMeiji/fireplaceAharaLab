@@ -74,18 +74,18 @@ def main():
 
 	
 
-	for i in range(5,6):
+	for i in range(4,6):
 		a,b,c = play_set_of_games(VectorHunter1,VectorHunter2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=i,P2HAND=3)
 		with open('output.csv', 'a', newline='') as csvfile:
 			writer = csv.writer(csvfile)
 			writer.writerow(['先手勝利数：',a])
-			newName = '10000-1-3-'+str(i)+'-3.csv'
+			newName = '10000-1-'+str(i)+'-1-3(後手こいんありカード増やしなし).csv'
 		os.rename('./output.csv',newName)
 		a,b,c = play_set_of_games(VectorHunter1,VectorHunter2, deck1=BigDeck.faceHunter , deck2=BigDeck.faceHunter, gameNumber=10000, debugLog=False,P1MAXMANA=1, P2MAXMANA=1,P1HAND=3,P2HAND=i)
 		with open('output.csv', 'a', newline='') as csvfile:
 			writer = csv.writer(csvfile)
 			writer.writerow(['先手勝利数：',a])
-			newName =  '10000-1-3-1-'+str(i)+'.csv'
+			newName =  '10000-1-3-1-'+str(i)+'(後手こいんありカード増やしなし).csv'
 		os.rename('./output.csv',newName)
 
 
