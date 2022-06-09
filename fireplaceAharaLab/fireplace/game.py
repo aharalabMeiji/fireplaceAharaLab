@@ -45,6 +45,7 @@ class BaseGame(Entity):
 		#	'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
 		#	'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
 		self.process_deaths_infinite_loop_check=0
+		self.process_death_action_stack=0
 
 	def __repr__(self):
 		return "%s(players=%r)" % (self.__class__.__name__, self.players)
@@ -116,15 +117,14 @@ class BaseGame(Entity):
 			#raise GameOver("The game has ended.")
 			return
 		if type != BlockType.PLAY:
-			self._action_stack -= 1
+			self._action_stack = max(self._action_stack-1,0)
 		if not self._action_stack:
 			if Config.LOGINFO:
 				print("(Game.action_end)Empty stack, refreshing auras and processing deaths.")
-			if type ==BlockType.DEATHS:
-				if Config.LOGINFO:
-					print("this case is annoying us.")
-				##return## avoid infinte loop
-				self.process_deaths_infinite_loop_check+=1
+			#if type ==BlockType.DEATHS:
+			#	#if Config.LOGINFO:
+			#	#	print("this case is annoying us.")
+			#	##return## avoid infinte loop
 			self.refresh_auras()
 			self.process_deaths()
 		pass
