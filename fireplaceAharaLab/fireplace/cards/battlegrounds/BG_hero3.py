@@ -47,8 +47,8 @@ BG_PoolSet_Hero3=[
 	'TB_BaconShop_HERO_17',#40 mech ban
 	#'TB_BaconShop_HERO_70',#41 XX
 	'BG20_HERO_301',#42 
-	'TB_BaconShop_HERO_93',#43 x
-	#'TB_BaconShop_HERO_57',#44 x
+	'TB_BaconShop_HERO_93',#43
+	'TB_BaconShop_HERO_57',#44
 	#'BG22_HERO_305',#45 x
 	#'BG20_HERO_102',#46 x
 	'TB_BaconShop_HERO_18',#47 x pirate ban
@@ -425,7 +425,7 @@ class TB_BaconShop_HERO_93_Buddy_G:# <12>[1453]
 
 
 
-#44#Nozdormu  ### maybe OK ###
+#44#Nozdormu  ### HP OK ###
 class TB_BaconShop_HERO_57:# <12>[1453]
 	""" Nozdormu  """
 class TB_BaconShop_HP_063:
@@ -456,7 +456,7 @@ class TB_BaconShop_HERO_57_Buddy_G:# <12>[1453]
 #45#Onyxia ### need check ###
 class BG22_HERO_305:# <12>[1453]
 	""" Onyxia """
-class TB_BaconShop_HP_Action(TargetedAction):
+class BG22_HERO_305p_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
