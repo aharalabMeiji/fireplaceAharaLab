@@ -98,8 +98,8 @@ class BG_Battle(Game):
 						#move buddy gauge
 						self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
 						self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
-					#procedures of deathrattle
-					Deaths().trigger(self)
+					##procedures of deathrattle
+					#Deaths().trigger(self)
 					if attacker.zone==Zone.GRAVEYARD:
 						if defender.controller.deepcopy_original.first_dead_minion==None:
 							defender.controller.deepcopy_original.first_dead_minion=attacker.id

@@ -1083,6 +1083,7 @@ class Damage(TargetedAction):
 				if Config.LOGINFO:
 					print("(Damage.do)%r destroys %r by poison"%(source, target))
 				target.destroy()
+			Deaths().trigger(source.controller)###ここに追加してみた
 		return amount
 
 
