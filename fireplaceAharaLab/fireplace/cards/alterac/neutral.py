@@ -170,7 +170,8 @@ class AV_135_AmountCounter(TargetedAction):
 	def do(self, source, target, amount, amountgoal, targetaction):
 		if source.controller.game.current_player == source.controller.opponent:
 			target._sidequest_counter_ += amount
-			log.info("Setting Counter on %r -> %i, %r", target, (source._sidequest_counter_), targetaction)
+			if Config.LOGINFO:
+				print("Setting Counter on %r -> %i, %r"%( target, (source._sidequest_counter_), targetaction))
 		if target._sidequest_counter_>= amountgoal:
 			target._sidequest_counter_ = 0
 			if targetaction!=None:
@@ -376,7 +377,8 @@ class ONY_001t:# <12>[1626]
 class ONY_002_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		log.info("now ONY_002_Action")
+		if Config.LOGINFO:
+				print("now ONY_002_Action")
 		unspent_mana = (target.controller.mana>0)
 		if unspent_mana:
 			Buff(target,'ONY_002e').trigger(target)

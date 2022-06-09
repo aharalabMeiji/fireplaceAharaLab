@@ -43,7 +43,8 @@ class GetManaIfSpell(TargetedAction):
 	def do(self, source, target, amount):
 		if target.type == CardType.SPELL:
 			source.controller.used_mana -= amount
-			log.info("Refresh %d Mana for %r"%(amount, source.controller))
+			if Config.LOGINFO:
+				print("Refresh %d Mana for %r"%(amount, source.controller))
 			if source.controller.used_mana<0:
 				source.controller.used_mana=0
 

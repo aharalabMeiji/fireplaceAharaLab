@@ -141,7 +141,8 @@ class SW_460_AttackByAll(TargetedAction):
 		for attacker in source.controller.field:
 			Attack(attacker,target).trigger(source)
 			if attacker.health==0:
-				log.info("%r revives into the hand",attacker)
+				if Config.LOGINFO:
+					print("%r revives into the hand"%attacker)
 				Give(source.controller,Copy(ID(attacker))).trigger(source.controller)
 
 class SW_460:#OK

@@ -134,10 +134,12 @@ from ..utils import *
 #		if len(_highestCostCards)>0:
 #			_card = random.choice(_highestCostCards)
 #			_cost = _card.cost
-#			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
+#			if Config.LOGINFO:
+#				print("Highest cost spell is %r (cost %d)"%(_card, _cost))
 #			Give(target,_card).then(Summon(CONTROLLER,RANDOM(MINION+(COST==Attr(Give.CARD,GameTag.COST))))).trigger(source)
 #		else:
-#			log.info("no spell is in the deck"%())
+#			if Config.LOGINFO:
+#				print("no spell is in the deck"%())
 
 #class BAR_042:###OK barrens-neutral
 #    """Primordial Protector

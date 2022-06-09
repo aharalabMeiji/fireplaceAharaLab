@@ -84,7 +84,8 @@ class AV_113t8_Action(TargetedAction):
 	TARGETACTION = ActionArg()
 	def do(self, source, target, targetaction):
 		if len(target.field)==2:
-			log.info("AV_113t8_action warks!!!")
+			if Config.LOGINFO:
+				print("AV_113t8_action warks!!!")
 			for _action in targetaction:
 				_action.trigger(source)
 

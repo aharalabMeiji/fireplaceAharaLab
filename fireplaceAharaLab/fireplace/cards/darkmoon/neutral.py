@@ -171,10 +171,12 @@ class ShuffleLowestCostCard(TargetedAction):###OK
 		if len(_lowestCostCards)>0:
 			_card = random.choice(_lowestCostCards)##
 			_cost = _card.cost
-			log.info("Lowest cost card is %r (cost %d)"%(_card, _cost))
+			if Config.LOGINFO:
+				print("Lowest cost card is %r (cost %d)"%(_card, _cost))
 			Shuffle(target,_card).trigger(source)
 		else:
-			log.info("no hand"%())
+			if Config.LOGINFO:
+				print("no hand"%())
 
 class DMF_125:###OK
 	"""Safety Inspector"""
@@ -539,7 +541,8 @@ class DMF_254t_Action(TargetedAction):
 		if card.id=='DMF_254t7':
 			controller.piece_of_cthun[3] = 1
 		c = sum(controller.piece_of_cthun)
-		log.info("C'thun counts his pieces (%d/4)"%(c))
+		if Config.LOGINFO:
+			print("C'thun counts his pieces (%d/4)"%(c))
 		if c==4:
 			Shuffle(controller,'DMF_254').trigger(controller)
 		pass

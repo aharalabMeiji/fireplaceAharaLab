@@ -35,7 +35,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	from fireplace.player import Player
 	import random
 	exclude = []# you may exclude some cards to construct a deck
-	log.info("New game settings")
+	if Config.LOGINFO:
+		print("New game settings")
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#random deck wrt its class
 	if len(deck2)==0:
@@ -72,7 +73,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
-	log.info("New game start")
+	if Config.LOGINFO:
+		print("New game start")
 
 	while True:	
 		#game main loop
@@ -516,7 +518,8 @@ def postAction(player):
 					choice = random.choice(player.choice.cards)
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
-			log.info("%r Chooses a card %r" % (player, choice))
+			if Config.LOGINFO:
+				print("%r Chooses a card %r" % (player, choice))
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())

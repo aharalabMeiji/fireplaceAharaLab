@@ -173,7 +173,8 @@ class BaseGame(Entity):
 		if card.id == 'DED_527':
 			actions += [Buff(card, 'DED_527e')]
 		#if hasattr(card.data.scripts, 'trade'):
-		#	self.log ("After trading, %s is triggered by %s"%(card.get_actions('trade'),card.controller))
+		#	if Config.LOGINFO:
+		#		print("(Game.trade_card)After trading, %s is triggered by %s"%(card.get_actions('trade'),card.controller))
 		#	#actions += [card.get_actions('trade')]
 		return self.action_block(trader, actions, type, None, None)
 

@@ -64,7 +64,8 @@ class SCH_162:##OK
 			buff1 = minion1.buffs[0]
 			death = random.choice(deathrattle_log)
 			buff1.additional_deathrattles.append(death.deathrattles[0])
-			log.info ('%s gains deathrattle (%s)'%(minion1, minion1.deathrattles[0]))
+			if Config.LOGINFO:
+				print ('%s gains deathrattle (%s)'%(minion1, minion1.deathrattles[0]))
 			if len(deathrattle_log)>=2:
 				deathrattle_log.remove(death)
 			pass
@@ -75,7 +76,8 @@ class SCH_162:##OK
 			buff2 = minion2.buffs[0]
 			death = random.choice(deathrattle_log)
 			buff2.additional_deathrattles.append(death.deathrattles[0])
-			log.info ('%s gains deathrattle (%s)'%(minion2, minion2.deathrattles[0]))
+			if Config.LOGINFO:
+				print('%s gains deathrattle (%s)'%(minion2, minion2.deathrattles[0]))
 			pass
 	pass
 class SCH_162e:
@@ -219,7 +221,8 @@ class SCH_248:#OK
 class SCH_259_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
-		log.info("%s chooses %r"%(card.controller.name, card))
+		if Config.LOGINFO:
+			print("%s chooses %r"%(card.controller.name, card))
 		cardID = card.id
 		if cardID == 'SCH_259t':
 			if len(self.source.controller.hand)>0:
@@ -288,7 +291,8 @@ class SCH_428:#done
 	""" Lorekeeper Polkelt (Legendary)"""
 	#[x]<b>Battlecry:</b> Reorder your deck from the highest Cost card to the lowest Cost card. 
 	def play(self):
-		log.info("Reorder deck from the highest Cost card.")
+		if Config.LOGINFO:
+			print("Reorder deck from the highest Cost card.")
 		self.controller.deck.sort(key=lambda x:x.cost)
 		pass
 	pass

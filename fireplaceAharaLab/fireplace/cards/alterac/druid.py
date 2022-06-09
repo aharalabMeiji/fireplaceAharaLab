@@ -68,7 +68,8 @@ class AV_291_Count(LazyNum):
 		for card in cardlist:
 			if hasattr(card, 'race') and card.race==Race.BEAST:
 				count += 1
-		log.info("%s costs %d less "%(source, count))
+		if Config.LOGINFO:
+			print("%s costs %d less "%(source, count))
 		return self.num(count)
 class AV_291: #
 	""" Frostsaber Matriarch (7/4/5) beast

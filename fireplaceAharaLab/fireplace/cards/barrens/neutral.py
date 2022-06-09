@@ -49,7 +49,8 @@ class GiveAdventurerWithBonus(TargetedAction):
 			new_minion.data.scripts.atk = lambda self, i: self._atk
 			newHealth = new_minion.health+random.randint(1,3)
 			new_minion.max_health = newHealth
-			log.info("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+			if Config.LOGINFO:
+				print("Give %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
 
 class WC_028:#OK
 	"""
@@ -852,8 +853,9 @@ class BAR_042_Action(TargetedAction):
 		if len(_highestCostCards)>0:
 			_card = random.choice(_highestCostCards)##
 			_cost = _card.cost
-			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
-			log.info("Summon a minion of cost %d"%( _cost))
+			if Config.LOGINFO:
+				print("Highest cost spell is %r (cost %d)"%(_card, _cost))
+				print("Summon a minion of cost %d"%( _cost))
 			Give(target,_card).trigger(source)
 			_highestMinions = []
 			for _card2 in target.deck:
@@ -863,9 +865,11 @@ class BAR_042_Action(TargetedAction):
 				_card2 = random.choice(_highestMinions)##
 				Summon(target,_card2).trigger(source)
 			else:
-				log.info("no minion of cost %d"%( _cost))
+				if Config.LOGINFO:
+					print("no minion of cost %d"%( _cost))
 		else:
-			log.info("no spell is in the deck"%())
+			if Config.LOGINFO:
+				print("no spell is in the deck"%())
 
 class BAR_042:#OK
 	"""

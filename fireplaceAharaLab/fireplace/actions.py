@@ -1462,7 +1462,10 @@ class Hit(TargetedAction):
 		if amount:
 			#if isinstance(source,PlayableCard):
 			if Config.PRINT_HITLOG:
-				print("%s(%s) Hits %s(%s) : %d -> %d"%(source, source.controller, target, target.controller, target.health, max(target.health-amount, 0) ))
+				if hasattr(target,'health'):
+					print("%s(%s) Hits %s(%s) : %d <- damage %d"%(source, source.controller, target, target.controller, target.health, amount ))
+				elif hasattr(target,'durability'):
+					print("%s(%s) Hits %s(%s) : %d <- damage %d"%(source, source.controller, target, target.controller, target.durability, amount ))
 			target.attacker=source ## 
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
 				if target.type==CardType.WEAPON and target==source:## when decreasing durability

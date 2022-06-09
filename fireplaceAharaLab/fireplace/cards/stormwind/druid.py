@@ -188,7 +188,8 @@ class SW_447e_Action(TargetedAction):
 		amount = 3
 		CastSpell(card).trigger(controller)
 		Discard(card).trigger(controller)
-		log.info("Setting Counter on %r -> %i", target, (owner._sidequest_counter_+1))
+		if Config.LOGINFO:
+			print("Setting Counter on %r -> %i"%(target, (owner._sidequest_counter_+1)))
 		owner._sidequest_counter_ += 1
 		if owner._sidequest_counter_== amount:
 			owner.buffs.remove(target)

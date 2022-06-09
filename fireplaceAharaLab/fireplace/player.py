@@ -300,7 +300,8 @@ class Player(Entity, TargetableByAuras):
 
 
 	def discard_hand(self):
-		self.log("%r discards their entire hand!", self)
+		if Config.LOGINFO:
+			print("(Player.discard_hand)%r discards their entire hand!", self)
 		# iterate the list in reverse so we don't skip over cards in the process
 		# yes it's stupid.
 		for card in self.hand[::-1]:
@@ -323,12 +324,14 @@ class Player(Entity, TargetableByAuras):
 		Returns how much mana is spent, after temporary mana adjustments.
 		"""
 		if self.spells_cost_health and source.type == CardType.SPELL:
-			self.log("%s spells cost %i health", self, amount)
+			if Config.LOGINFO:
+				print("(Player.pay_cost)%s spells cost %i health", self, amount)
 			self.game.queue_actions(self, [Hit(self.hero, amount)])
 			return amount
 		if self.murlocs_cost_health:
 			if source.type == CardType.MINION and source.race == Race.MURLOC:
-				self.log("%s murlocs cost %i health", self, amount)
+				if Config.LOGINFO:
+					print("(Player.pay_cost)%s murlocs cost %i health", self, amount)
 				self.game.queue_actions(self, [Hit(self.hero, amount)])
 				return amount
 		if self.temp_mana:
@@ -336,19 +339,20 @@ class Player(Entity, TargetableByAuras):
 			used_temp = min(self.temp_mana, amount)
 			amount -= used_temp
 			self.temp_mana -= used_temp
-		#self.log("%s pays %i mana", self, amount)
 		if Config.LOGINFO:
-			print ("%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
+			print ("(Player.pay_cost)%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
 		self.used_mana += amount
 		return amount
 
 	def shuffle_deck(self):
-		self.log("%r shuffles his deck", self)
+		if Config.LOGINFO:
+			print("(shuffle_deck)%r shuffles his deck"% self)
 		random.shuffle(self.deck)
 
 	def draw(self, count=1):
 		if self.cant_draw:
-			self.log("%s tries to draw %i cards, but can't draw", self, count)
+			if Config.LOGINFO:
+				print("(Player.draw)%s tries to draw %i cards, but can't draw", self, count)
 			return None
 
 		ret = self.game.cheat_action(self, [Draw(self) * count])[0]
@@ -364,7 +368,8 @@ class Player(Entity, TargetableByAuras):
 				return
 			else:
 				card = self.deck[-1]
-			self.log("%s mills %r", self, card)
+			if Config.LOGINFO:
+				print("(Player.mill)%s mills %r", self, card)
 			card.discard()
 			return card
 		else:

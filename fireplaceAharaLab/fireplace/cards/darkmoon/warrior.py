@@ -85,7 +85,8 @@ class DMF_528_Action(TargetedAction):
 			for card in controller.field:
 				if card.race == race:
 					new_cost -=1
-					log.info("%s reduces cost of %s to %d"%(card, source, new_cost))
+					if Config.LOGINFO:
+						print("%s reduces cost of %s to %d"%(card, source, new_cost))
 					break
 		source.cost = new_cost
 	pass
