@@ -46,8 +46,8 @@ BG_PoolSet_Hero3=[
 	'TB_BaconShop_HERO_49',#39 
 	'TB_BaconShop_HERO_17',#40 mech ban
 	#'TB_BaconShop_HERO_70',#41 XX
-	#'BG20_HERO_301',#42 x
-	#'TB_BaconShop_HERO_93',#43 x
+	'BG20_HERO_301',#42 
+	'TB_BaconShop_HERO_93',#43 x
 	#'TB_BaconShop_HERO_57',#44 x
 	#'BG22_HERO_305',#45 x
 	#'BG20_HERO_102',#46 x
@@ -381,7 +381,7 @@ class BG20_HERO_301_Buddy_G:
 
 
 
-#43#N'Zoth  ### need check ###
+#43#N'Zoth  ### HP OK ###
 class TB_BaconShop_HERO_93:# <12>[1453]
 	""" N'Zoth 	 """
 class TB_BaconShop_HP_105_Action(TargetedAction):
