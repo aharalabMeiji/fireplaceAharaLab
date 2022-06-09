@@ -19,6 +19,10 @@ class BG_Battle(Game):
 		self.player1.deepcopy_original = bars[0].controller
 		self.player2.deepcopy_original = bars[1].controller
 		super().__init__([self.player1, self.player2])
+		count=1000
+		for e in self.entities:
+			e.entity_id = count
+			count += 1
 		for player,game in [(self.player1,self.game1), (self.player2,self.game2)]:## オーラバフの再現
 			for buff in game.active_aura_buffs:
 				for card in player.field:
