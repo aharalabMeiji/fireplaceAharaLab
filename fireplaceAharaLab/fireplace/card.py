@@ -882,7 +882,7 @@ class Minion(Character):
 			if self.zone == Zone.PLAY: ## play -> graveyard
 				self.controller.minions_killed_this_turn += 1
 				if Config.LOGINFO:
-					print("(BaseCard._set_zone)%r is removed from the field", self)
+					print("(Minion._set_zone)%r is removed from the field"%(self))
 				self.controller.field.remove(self)
 				if self.damage:
 					self.damage = 0
@@ -893,13 +893,13 @@ class Minion(Character):
 			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
 				if self in self.controller.game.live_entities:
 					if Config.LOGINFO:
-						print("(BaseCard._set_zone)%s must be removed from the field but still left in the list of living entities."%(self.data.name))
+						print("(Minion._set_zone)%s must be removed from the field but still left in the list of living entities."%(self.data.name))
 					if self in self.controller.live_entities:
 						player=self.controller
 					elif self in self.controller.opponent.live_entities:
 						player=self.controller.opponent
 					if Config.LOGINFO:
-						print("(BaseCard._set_zone)Controller is %s"%(player.name))
+						print("(Minion._set_zone)Controller is %s"%(player.name))
 					if self in player.field:
 						#for entity in player.field:
 						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
@@ -914,7 +914,7 @@ class Minion(Character):
 						player.game.setaside.remove(self)
 					else:
 						if Config.LOGINFO:
-							print("(BaseCard._set_zone)Extra-ordinary error happens.  Stop here in set_zone()")
+							print("(Minion._set_zone)Extra-ordinary error happens.  Stop here in set_zone()")
 		super()._set_zone(value)
 
 	def _hit(self, amount):

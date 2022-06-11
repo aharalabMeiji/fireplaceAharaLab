@@ -18,6 +18,8 @@ class BG_Battle(Game):
 		self.player2.buddy_gauge = bars[1].controller.buddy_gauge
 		self.player1.deepcopy_original = bars[0].controller
 		self.player2.deepcopy_original = bars[1].controller
+		self.this_is_battle=True
+
 		super().__init__([self.player1, self.player2])
 		## re-numbering for entity_id's
 		count=1000

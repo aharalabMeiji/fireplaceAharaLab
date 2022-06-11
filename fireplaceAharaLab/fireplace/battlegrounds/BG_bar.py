@@ -17,6 +17,7 @@ class BG_Bar(Game):
 		self.parent=None
 		self.player_field_number=0
 		self.player_hand_number=0
+		self.this_is_tavern=True
 	pass
 
 	def BG_setup(self):

@@ -254,11 +254,6 @@ class BG20_HERO_202_Buddy_G:# <12>[1453]
 class TB_BaconShop_HERO_49:# <12>[1453]
 	""" Millhouse Manastorm """
 	pass
-class TB_BaconShop_HP_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class TB_BaconShop_HP_054:
 	""" Manastorm
 	<b>Passive</b> Minions cost 2 Gold. <b>Refresh</b> costs 2 Gold. _Tavern Tiers cost (1) more."""
@@ -288,14 +283,15 @@ class TB_BaconShop_HP_015_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
-		bartender = controller.opponent
-		for card in bartender.field:
-			if card.race==Race.MECHANICAL:
-				for buff in card.buffs:
-					if buff.id=='TB_BaconShop_HP_015e':
-						break
-				else:
-					Buff(card, 'TB_BaconShop_HP_015e').trigger(source)
+		if hasattr(controller.game,'this_is_tavern'):
+			bartender = controller.opponent
+			for card in bartender.field:
+				if card.race==Race.MECHANICAL:
+					for buff in card.buffs:
+						if buff.id=='TB_BaconShop_HP_015e':
+							break
+					else:
+						Buff(card, 'TB_BaconShop_HP_015e').trigger(source)
 		pass
 class TB_BaconShop_HP_015:
 	""" Tinker
@@ -453,18 +449,23 @@ class TB_BaconShop_HERO_57_Buddy_G:# <12>[1453]
 
 
 
-#45#Onyxia ### need check ###
+#45#Onyxia ### HP OK ###
 class BG22_HERO_305:# <12>[1453]
 	""" Onyxia """
 class BG22_HERO_305p_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
+		newcard = Summon(controller, 'BG22_HERO_305t').trigger(source)
+		newcard = newcard[0][0]
+		if len(controller.opponent.field)>0:
+			target = random.choice(controller.opponent.field)
+			BG_Attack(newcard, target).trigger(source)
 		pass
 class BG22_HERO_305p:# <12>[1453]
 	""" Broodmother
 	[Passive][Avenge (4):] Summona 2/1 Whelp. It attacks immediately. """
-	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [Summon(CONTROLLER, 'BG22_HERO_305t').after(BG_Attack(Summon.CARD, RANDOM_ENEMY_MINION))]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG22_HERO_305p_Action(CONTROLLER)]))
 	pass
 class BG22_HERO_305t:# <12>[1453]
 	""" Onyxian Whelp

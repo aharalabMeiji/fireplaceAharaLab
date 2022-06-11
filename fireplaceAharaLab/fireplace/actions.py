@@ -2429,13 +2429,13 @@ class Reborn(TargetedAction):
 		if Config.LOGINFO:
 			print("(Reborn.do)Reborn on %r", target)
 		controller = target.controller
-		reboran_minion = Summon(controller, target).trigger(source)
-		if isinstance(reboran_minion,list):
-			reboran_minion = reboran_minion[0]
-		if isinstance(reboran_minion,list):
-			reboran_minion = reboran_minion[0]
-		reboran_minion.reborn = False
-		reboran_minion.max_health = 1
+		reborn_minion = Summon(controller, target).trigger(source)
+		if isinstance(reborn_minion,list):
+			reborn_minion = reborn_minion[0]
+		if isinstance(reborn_minion,list):
+			reborn_minion = reborn_minion[0]
+		reborn_minion.reborn = False
+		reborn_minion.max_health = 1
 
 
 class Asphyxia(TargetedAction):
