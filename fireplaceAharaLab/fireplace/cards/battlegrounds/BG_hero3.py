@@ -49,7 +49,7 @@ BG_PoolSet_Hero3=[
 	'BG20_HERO_301',#42 
 	'TB_BaconShop_HERO_93',#43
 	'TB_BaconShop_HERO_57',#44
-	#'BG22_HERO_305',#45 x
+	'BG22_HERO_305',#45 x
 	#'BG20_HERO_102',#46 x
 	'TB_BaconShop_HERO_18',#47 x pirate ban
 	#'TB_BaconShop_HERO_34',#48 X 
