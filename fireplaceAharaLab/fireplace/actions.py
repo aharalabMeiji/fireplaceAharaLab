@@ -1410,7 +1410,7 @@ class Give(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(Give.do)Giving %r to %s", cards, target)
+			print("(Give.do)Giving %r to %s"%(cards, target))
 		ret = []
 		if not hasattr(cards, "__iter__"):
 			# Support Give on multiple cards at once (eg. Echo of Medivh)

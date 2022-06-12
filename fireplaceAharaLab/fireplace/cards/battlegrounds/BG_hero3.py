@@ -49,8 +49,8 @@ BG_PoolSet_Hero3=[
 	'BG20_HERO_301',#42 
 	'TB_BaconShop_HERO_93',#43
 	'TB_BaconShop_HERO_57',#44
-	'BG22_HERO_305',#45 x
-	#'BG20_HERO_102',#46 x
+	'BG22_HERO_305',#45
+	'BG20_HERO_102',#46
 	'TB_BaconShop_HERO_18',#47 x pirate ban
 	#'TB_BaconShop_HERO_34',#48 X 
 	#'TB_BaconShop_HERO_39',#49 x
@@ -465,7 +465,7 @@ class BG22_HERO_305p_Action(TargetedAction):
 class BG22_HERO_305p:# <12>[1453]
 	""" Broodmother
 	[Passive][Avenge (4):] Summona 2/1 Whelp. It attacks immediately. """
-	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG22_HERO_305p_Action(CONTROLLER)]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG22_HERO_305p_Action(CONTROLLER)]))
 	pass
 class BG22_HERO_305t:# <12>[1453]
 	""" Onyxian Whelp
@@ -497,17 +497,19 @@ class BG22_HERO_305_Buddy_Ge:# <12>[1453]
 
 
 
-#46#Overlord Saurfang ### need check ###
+#46#Overlord Saurfang ### HP OK ###
 class BG20_HERO_102:# <12>[1453]
 	""" Overlord Saurfang """
 class BG20_HERO_102pe_Action(TargetedAction):
 	TARGET=ActionArg()
+	CARD=ActionArg()
 	def do(self, source, target, card):
 		controller=target
 		if hasattr(card, '__iter__'):
 			card = card[0]
-		amount = source.script_data_num_1
+		amount = source.source.script_data_num_1
 		Buff(card, 'BG20_HERO_102pe2', atk=amount).trigger(source)
+		#source.destroy()
 		pass
 class BG20_HERO_102p:# <10>[1453]
 	""" For the Horde!
@@ -522,7 +524,10 @@ class BG20_HERO_102pe:# <12>[1453]
 	""" Saurfang Player Enchantment
 	Give extra Attack to the next minion you buy this turn. """
 	events = [
-		Buy(CONTROLLER).on(BG20_HERO_102pe_Action(CONTROLLER, Buy.CARD),Destroy(SELF)),
+		Buy(CONTROLLER).on(
+			BG20_HERO_102pe_Action(CONTROLLER, Buy.CARD),
+			Destroy(SELF)
+			),
 		OWN_TURN_END.on(Destroy(SELF)),
 		]
 class BG20_HERO_102pe2:# <12>[1453]
