@@ -173,13 +173,36 @@ class BG_main:
 		self.prevMatches=[[0,1],[2,3]]# previous combination
 		# Start game
 		while True:	
-			### randomize the combinations(now fixed)
+			### randomize the combinations
 			draw_list = [[i for i in range(self.size)] for j in range(self.size)]
+			count_alive = 0
 			for i in range(self.size):
-				draw_list[i].remove(i)
+				if self.BG_Bars[i].hero_is_alive:
+					count_alive+=1
+			latest_killed=-1
+			latest_killed_rank=9#number more than 8
+			if count_alive%2==1: #odd case
+				for i in range(self.size):
+					b=self.BG_Bars[i]
+					r=b.local_rank
+					if not b.hero_is_alive and r<latest_killed_rank:
+						latest_killed_rank = r
+						latest_killed = i
+			for i in range(self.size):
+				b=self.BG_Bars[i]
+				if not b.hero_is_alive and i!=latest_killed:
+					for j in range(self.size):
+						if i in draw_list[j]:
+							draw_list[j].remove(i)
+					draw_list[i]=[]
+			for i in range(self.size):
+				if i in draw_list[i]:
+					draw_list[i].remove(i)
 			for match in self.matches:
-				draw_list[match[0]].remove(match[1])
-				draw_list[match[1]].remove(match[0])
+				if match[1] in draw_list[match[0]]:
+					draw_list[match[0]].remove(match[1])
+				if match[0] in draw_list[match[1]]:
+					draw_list[match[1]].remove(match[0])
 			self.matches=[]#
 			for i in range(self.size):
 				if draw_list[i]==[]:
@@ -193,7 +216,11 @@ class BG_main:
 						draw_list[ii].remove(i)
 					if j in draw_list[ii]:
 						draw_list[ii].remove(j)
-			#in tha final, battles lengtha will be 4 
+			print("Next battle draw:")
+			for match in self.matches:
+				print("%s(%s)"%(self.BG_Bars[match[0]].controller.hero, self.BG_Bars[match[0]].controller), end=":")
+				print("%s(%s)"%(self.BG_Bars[match[1]].controller.hero, self.BG_Bars[match[1]].controller))
+			#in tha final, battles length will be 4 
 			battles = [None for i in range(int(self.size/2))]
 			### Agent moves start
 			for bar in self.BG_Bars:
@@ -201,68 +228,69 @@ class BG_main:
 					Give(bar.controller, card).trigger(bar.controller)
 				bar.controller.gifts=[]
 			for bar in self.BG_Bars:
-				controller = bar.controller
-				print ("==== %s 's thinkng ===="% controller)
-				controller.game = bar
-				bartender = bar.bartender
-				bar.current_player=controller
-				agent = controller.parent_agent
-				assert agent
-				#if Aranna-flag, 
-				if controller.hero.power.id!='TB_BaconShop_HP_065t2':
-					bartender.len_bobs_field=BobsFieldSize[controller.tavern_tier]
-				else:
-					bartender.len_bobs_field=7
-				controller.max_mana = min(10,bar.turn+2)
-				controller.used_mana = 0
-				if controller.hero.power.id=='TB_BaconShop_HP_008':
-					controller.used_mana = -controller.sells_in_this_turn
-				controller.sells_in_this_turn=0
-				### deal cards to tavern
-				frozencard=0
-				for card in reversed(bartender.field):
-					if Config.LOGINFO:
-						print("(BG_MainBG_Main)field card %s is removed."%(card))
-					if not card.frozen and not card.dormant>0:
-						self.ReturnCard(card)
+				if bar.hero_is_alive:
+					controller = bar.controller
+					print ("==== %s 's thinkng ===="% controller)
+					controller.game = bar
+					bartender = bar.bartender
+					bar.current_player=controller
+					agent = controller.parent_agent
+					assert agent
+					#if Aranna-flag, 
+					if controller.hero.power.id!='TB_BaconShop_HP_065t2':
+						bartender.len_bobs_field=BobsFieldSize[controller.tavern_tier]
 					else:
-						card.frozen=False
-						frozencard += 1
-				for repeat in range(bartender.len_bobs_field-frozencard):
-					card = self.DealCard(bartender, controller.tavern_tier)
-					if controller.hero.power.id=='TB_BaconShop_HP_101':### Silas-flag
-						if random.choice([0,1]):
-							card.darkmoon_ticket = True
-				#start bob's tavern
-				BeginBar(controller, bar.turn).trigger(controller)
-				if controller.hero.power:
-					controller.hero.power.activations_this_turn = 0
-				controller.spentmoney_in_this_turn=0
-				controller.once_per_turn=0
-				# in this timing, some choice may occer.
-				choiceAction(controller)
-				while True:
-					##### get a list of all moves
-					candidates = GetMoveCandidates(bar, controller, bartender)
-					##### each agent choose a move
-					choice = agent.moveStrategy(bar, candidates, controller, bartender)
-					if Config.ALL_PLAYERS_LOGINFO:
-						print("(%s) %s"%(controller, choice))
-					if choice.move==MovePlay.TURNEND:#### if the move is 'turnend' then turn to the battle
-						bar.no_drawing_at_turn_begin=True
-						for card in controller.field:
-							card.gem_applied_thisturn=False
-						EndTurn(controller).trigger(controller)
-						break
-					else: ###execute the move here
-						choice.execute()
-						choiceAction(controller)
-					pass
+						bartender.len_bobs_field=7
+					controller.max_mana = min(10,bar.turn+2)
+					controller.used_mana = 0
+					if controller.hero.power.id=='TB_BaconShop_HP_008':
+						controller.used_mana = -controller.sells_in_this_turn
+					controller.sells_in_this_turn=0
+					### deal cards to tavern
+					frozencard=0
+					for card in reversed(bartender.field):
+						if Config.LOGINFO:
+							print("(BG_MainBG_Main)field card %s is removed."%(card))
+						if not card.frozen and not card.dormant>0:
+							self.ReturnCard(card)
+						else:
+							card.frozen=False
+							frozencard += 1
+					for repeat in range(bartender.len_bobs_field-frozencard):
+						card = self.DealCard(bartender, controller.tavern_tier)
+						if controller.hero.power.id=='TB_BaconShop_HP_101':### Silas-flag
+							if random.choice([0,1]):
+								card.darkmoon_ticket = True
+					#start bob's tavern
+					BeginBar(controller, bar.turn).trigger(controller)
+					if controller.hero.power:
+						controller.hero.power.activations_this_turn = 0
+					controller.spentmoney_in_this_turn=0
+					controller.once_per_turn=0
+					# in this timing, some choice may occer.
+					choiceAction(controller)
+					while True:
+						##### get a list of all moves
+						candidates = GetMoveCandidates(bar, controller, bartender)
+						##### each agent choose a move
+						choice = agent.moveStrategy(bar, candidates, controller, bartender)
+						if Config.ALL_PLAYERS_LOGINFO:
+							print("(%s) %s"%(controller, choice))
+						if choice.move==MovePlay.TURNEND:#### if the move is 'turnend' then turn to the battle
+							bar.no_drawing_at_turn_begin=True
+							for card in controller.field:
+								card.gem_applied_thisturn=False
+							EndTurn(controller).trigger(controller)
+							break
+						else: ###execute the move here
+							choice.execute()
+							choiceAction(controller)
+						pass
 			### end of move turn of agent 
 			#self.manager.step(self.next_step, Step.MAIN_NEXT)
 
 			### 対戦
-			for i in range(int(self.size/2)):
+			for i in range(len(self.matches)):
 				self.BG_Bars[self.matches[i][0]].countcards()
 				self.BG_Bars[self.matches[i][1]].countcards()
 				battles[i] = BG_Battle([self.BG_Bars[self.matches[i][0]],self.BG_Bars[self.matches[i][1]]])
@@ -304,9 +332,13 @@ class BG_main:
 						hero0.damage += damage0#
 					print_hero_stats(battleplayer0.hero, battleplayer1.hero)
 					if hero0.health<=0:
-						#Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
-						#ケルスザードは酒場のムーブを行わない。
-						return
+						hero0.max_health=0
+						hero0.game.hero_is_alive=False
+						#battle時に、Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+						winner = self.refresh_ranks()
+						if winner:
+							print("Winner is %s(%s)"%(winner.controller.hero, winner.controller))
+							return
 				if damage1>0:
 					hero1 = battleplayer1.hero
 					if hero1.armor>0:# armorも加味する
@@ -319,8 +351,13 @@ class BG_main:
 						hero1.damage += damage1#
 					print_hero_stats(battleplayer0.hero, battleplayer1.hero)
 					if hero1.health<=0:
-						#Hero をケルスザード'TB_KTRAF_H_1'に交代する。
-						return
+						hero1.max_health=0
+						hero1.game.hero_is_alive=False
+						#battle時に、Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+						winner = self.refresh_ranks()
+						if winner:
+							print("Winner is %s(%s)"%(winner.controller.hero, winner.controller))
+							return
 				pass
 			## 対戦おわり
 			#次のターンへ
@@ -408,6 +445,38 @@ class BG_main:
 		else:
 			something_is_wrong=1
 		return next_opponent_bar.controller.prev_field
+
+	def refresh_ranks(self):
+		""" refresh the rank table of heroes.
+		if the winner is deteremined, return the hero. else return None
+		"""
+		statstable=[]
+		for b in self.BG_Bars:
+			player = b.controller
+			hero = player.hero
+			herohealth = hero.health+hero.armor
+			if herohealth<=0:
+				herohealth=0
+			local_rank=b.local_rank
+			statstable.append([100-herohealth, local_rank, b])
+		statstable.sort( key=lambda x: x[1])
+		statstable.sort( key=lambda x: x[0])
+		alive_count=0
+		rank=1
+		for x in statstable:
+			x[2].local_rank=rank
+			rank+=1
+			if x[2].hero_is_alive:
+				alive_count+=1
+		if alive_count==1:
+			for x in statstable:
+				if x[2].local_rank==1:
+					return x[2]
+			else:
+				print("No one wins.")
+				return statstable[0][2]
+		else:
+			return None
 
 	#class 終わり
 	pass

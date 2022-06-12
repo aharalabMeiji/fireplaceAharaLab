@@ -719,11 +719,13 @@ class BG_Play(GameAction):
 		self.broadcast(player, EventListener.ON, player, card, target)
 		#if hasattr(card,'spellcraft_spellcard'):
 		#	self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.ON, player, card))
-		#if hasattr(card,'gold_card') and card.gold_card==0:## ゴールドとトークンの区別がない
 		for value in player.game.parent.BG_Gold.values():
 			if card.id==value:
 				triple_bonus = Give(player, 'TB_BaconShop_Triples_01').trigger(source)
-				triple_bonus = triple_bonus[0][0]
+				triple_bonus = triple_bonus[0]
+				if triple_bonus==[]:
+					break
+				triple_bonus = triple_bonus[0]
 				triple_bonus.tags[GameTag.TAG_SCRIPT_DATA_NUM_1] = min(player.tavern_tier+1, 6)
 				break
 			pass
