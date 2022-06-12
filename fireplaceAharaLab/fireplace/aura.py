@@ -62,12 +62,8 @@ class Refresh:
 class TargetableByAuras:
 	def refresh_buff(self, source, id):
 		for buff in self.buffs:
-			if hasattr(buff, 'source') and source:
-				if buff.source == source and buff.id == id:
-					buff.tick = source.game.tick
-					break
-			if hasattr(buff, 'source') and hasattr(buff.source, 'id') and hasattr(source, 'id'):
-				if buff.source.id == source.id and buff.id == id:
+			if hasattr(buff, 'source') and source and hasattr(buff.source, 'entity_id') and hasattr(source, 'entity_id'):
+				if buff.source.entity_id == source.entity_id and buff.id == id:
 					buff.tick = source.game.tick
 					break
 		else:
