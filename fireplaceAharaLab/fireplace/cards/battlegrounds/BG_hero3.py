@@ -51,8 +51,8 @@ BG_PoolSet_Hero3=[
 	'TB_BaconShop_HERO_57',#44
 	'BG22_HERO_305',#45
 	'BG20_HERO_102',#46
-	'TB_BaconShop_HERO_18',#47 x pirate ban
-	#'TB_BaconShop_HERO_34',#48 X 
+	'TB_BaconShop_HERO_18',#47  pirate ban
+	'TB_BaconShop_HERO_34',#48  
 	#'TB_BaconShop_HERO_39',#49 x
 	#'TB_BaconShop_HERO_14',#50 x
 	#'TB_BaconShop_HERO_11',#51 x
@@ -555,7 +555,7 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 
 
 
-#47#Patches the Pirate ### need check ###
+#47#Patches the Pirate ### HP OK ###
 class TB_BaconShop_HERO_18:# <12>[1453]
 	""" Patches the Pirate """
 class TB_BaconShop_HP_072_Action(TargetedAction):
@@ -598,7 +598,7 @@ class TB_BaconShop_HERO_18_Buddy_G:
 
 
 
-#48#Patchwerk  ### maybe OK ###
+#48#Patchwerk  ### HP OK ###
 class TB_BaconShop_HERO_34:# <12>[1453]
 	""" Patchwerk  """
 	#<Tag enumID="45" name="HEALTH" type="Int" value="55"/>

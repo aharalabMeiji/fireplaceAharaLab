@@ -26,13 +26,13 @@ class Config:# ()is the default value
 	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 
-	PLAYER1_HUMAN=0 ##人間プレーヤーあり
-	CARD_PRESET1='NEW1_027'
-	CARD_PRESET2='NEW1_027'
+	PLAYER1_HUMAN=1 ##人間プレーヤーあり
+	CARD_PRESET1=''
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
-	HERO_1='TB_BaconShop_HERO_18' #人間プレーヤーはヒーローを指定できる
+	HERO_1='TB_BaconShop_HERO_34' #人間プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
