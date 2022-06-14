@@ -232,6 +232,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		card=HeroPower(cards.db[oldPlayer.hero.power.id])#デフォルトから変更されている可能性もある。
 		card.controller = newPlayer
 		card.zone = Zone.PLAY
+		card.deepcopy_original = oldPlayer.hero.power
 		## もしくはSummon(newPlayer, card),trigger(newPlayer)
 		card.game.manager.new_entity(card)
 		# heropower's attr

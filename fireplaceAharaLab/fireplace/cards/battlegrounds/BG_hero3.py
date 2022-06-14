@@ -35,7 +35,7 @@ BG_Hero3=[
 
 	'TB_BaconShop_HERO_14','TB_BaconShop_HP_037a','TB_BaconShop_HP_037te','TB_BaconShop_HERO_14_Buddy','TB_BaconShop_HERO_14_Buddy_G',	#50#Queen Wagtoggle
 
-	'TB_BaconShop_HERO_11','TB_BaconShop_HP_087','TB_BaconShop_HERO_11_Buddy','TB_BaconShop_HERO_11_Buddy_e','TB_BaconShop_HERO_11_Buddy_G','TB_BaconShop_HERO_11_Buddy_G_e',	#51#Ragnaros the Firelord
+	'TB_BaconShop_HERO_11','TB_BaconShop_HP_087','TB_BaconShop_HP_087t','TB_BaconShop_HP_087te','TB_BaconShop_HERO_11_Buddy','TB_BaconShop_HERO_11_Buddy_e','TB_BaconShop_HERO_11_Buddy_G','TB_BaconShop_HERO_11_Buddy_G_e',	#51#Ragnaros the Firelord
 	]
 
 BG_PoolSet_Hero3=[
@@ -53,9 +53,9 @@ BG_PoolSet_Hero3=[
 	'BG20_HERO_102',#46
 	'TB_BaconShop_HERO_18',#47  pirate ban
 	'TB_BaconShop_HERO_34',#48  
-	#'TB_BaconShop_HERO_39',#49 x
-	#'TB_BaconShop_HERO_14',#50 x
-	#'TB_BaconShop_HERO_11',#51 x
+	'TB_BaconShop_HERO_39',#49 
+	'TB_BaconShop_HERO_14',#50 
+	'TB_BaconShop_HERO_11',#51 x
 	]
 BG_Hero3_Buddy={
 	'TB_BaconShop_HERO_37':'TB_BaconShop_HERO_37_Buddy',
@@ -625,14 +625,9 @@ class TB_BaconShop_HERO_34_Buddy_G:# <12>[1453]
 
 
 
-#49#Pyramad   ### maybe OK ###
+#49#Pyramad   ### HP OK ###
 class TB_BaconShop_HERO_39:# <12>[1453]
 	""" Pyramad	 """
-class TB_BaconShop_HP_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class TB_BaconShop_HP_040:
 	""" Brick by Brick
 	Give a random friendly minion +4_Health."""
@@ -658,7 +653,7 @@ class TB_BaconShop_HERO_39_Buddy_G:# <12>[1453]
 
 
 
-#50#Queen Wagtoggle ### need check ### also check BGS_009 ###
+#50#Queen Wagtoggle ### HP OK ### 
 class TB_BaconShop_HERO_14:# <12>[1453]
 	""" Queen Wagtoggle """
 class TB_BaconShop_HP_037a_Action(TargetedAction):
@@ -713,10 +708,19 @@ class TB_BaconShop_HP_087t_Action(TargetedAction):
 			if len(controller.field)>1:
 				Buff(controller.field[-1], 'TB_BaconShop_HP_087te').trigger(source)
 		pass
+class TB_BaconShop_HP_087_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		source.deepcopy_original.score_value_1 -= 1
+		source.deepcopy_original.script_data_num_1 = source.deepcopy_original.score_value_1
+		if source.deepcopy_original.script_data_num_1 <= 0: ###25
+			ChangeHeroPower(controller.deepcopy_original, 'TB_BaconShop_HP_087t').trigger(source)
+		pass
 class TB_BaconShop_HP_087:
 	""" DIE, INSECTS!
 	<b>Passive</b> After you kill 25 enemy minions, get Sulfuras. <i>(@ left!)</i>"""
-	events = Death(ENEMY + MINION).on(SidequestCounter(SELF, 25, [ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_087t')]))
+	events = Death(ENEMY + MINION).on(TB_BaconShop_HP_087_Action(CONTROLLER))
 class TB_BaconShop_HP_087t:
 	""" Sulfuras 
 	&lt;b&gt;Passive&lt;/b&gt; At the end of your turn, give your left- and right- most minions +3/+3."""
