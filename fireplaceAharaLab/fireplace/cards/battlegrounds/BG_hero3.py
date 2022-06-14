@@ -55,7 +55,7 @@ BG_PoolSet_Hero3=[
 	'TB_BaconShop_HERO_34',#48  
 	'TB_BaconShop_HERO_39',#49 
 	'TB_BaconShop_HERO_14',#50 
-	'TB_BaconShop_HERO_11',#51 x
+	'TB_BaconShop_HERO_11',#51 
 	]
 BG_Hero3_Buddy={
 	'TB_BaconShop_HERO_37':'TB_BaconShop_HERO_37_Buddy',
@@ -696,7 +696,7 @@ class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]
 
 
 
-#51#Ragnaros the Firelord  ### need check ###
+#51#Ragnaros the Firelord  ### HP OK ###
 class TB_BaconShop_HERO_11:# <12>[1453]
 	""" Ragnaros the Firelord """
 class TB_BaconShop_HP_087t_Action(TargetedAction):
