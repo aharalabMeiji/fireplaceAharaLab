@@ -485,8 +485,8 @@ class BG20_HERO_282p_Action(TargetedAction):
 		lowestcard.zone=Zone.GRAVEYARD
 		if lowestcard in controller.field:
 			controller.field.remove(lowestcard)
-		if len(controller.field)>4:
-			coleagues = random.sample(controller.field, 4)
+		if len(controller.field)>5: ## 23.4.3
+			coleagues = random.sample(controller.field, 5) ## 23.4.3
 		else:
 			coleagues = controller.field
 		for card in coleagues:
@@ -494,7 +494,7 @@ class BG20_HERO_282p_Action(TargetedAction):
 		pass
 class BG20_HERO_282p:# <9>[1453]
 	""" Fragrant Phylactery
-	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to four friendly minions. """
+	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to five friendly minions. """
 	events = BeginBattle(CONTROLLER).on(BG20_HERO_282p_Action(CONTROLLER))
 	pass
 class BG20_HERO_282pe:# <12>[1453]

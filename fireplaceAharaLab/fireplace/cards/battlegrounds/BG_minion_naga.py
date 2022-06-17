@@ -349,7 +349,7 @@ class BG23_006_Gt:
 ## Waverider (4) ### OK ### too hard to manage windfury buff
 class BG23_007:# <12>[1453]
 	""" Waverider (4)
-	[Spellcraft:] Give a minion+1/+1 and [Windfury] until next turn. """
+	[Spellcraft:] Give a minion+2/+2 and [Windfury] until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_007t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_007t'))
 	tags={2359:'BG23_007t'}
@@ -357,7 +357,7 @@ class BG23_007:# <12>[1453]
 class BG23_007e:
 	def apply(self, target):
 		target.windfury=1
-	tags={GameTag.ATK:1, GameTag.HEALTH:1, }
+	tags={GameTag.ATK:2, GameTag.HEALTH:2, } ## 23.4.3
 	events = BeginBar(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
 	pass
 class BG23_007t:
@@ -368,7 +368,7 @@ class BG23_007t:
 	pass
 class BG23_007_G:# <12>[1453]
 	""" Waverider
-	[Spellcraft:] Give a minion+2/+2 and [Windfury]until next turn. """
+	[Spellcraft:] Give a minion+4/+4 and [Windfury]until next turn. """
 	play=Spellcraft(CONTROLLER,'BG23_007_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_007_Gt'))
 	tags={2359:'BG23_007_Gt'}
@@ -376,7 +376,7 @@ class BG23_007_G:# <12>[1453]
 class BG23_007_Ge:
 	def apply(self, target):
 		target.windfury=1
-	tags={GameTag.ATK:2, GameTag.HEALTH:2, }
+	tags={GameTag.ATK:4, GameTag.HEALTH:4, } ## 23.4.3
 	events = BeginBar(CONTROLLER).on(SetAttr(OWNER,'windfury',0), Destroy_spellcraft(SELF))	
 	pass
 class BG23_007_Gt:
@@ -424,13 +424,13 @@ class BG23_003:# <12>[1453]
 	After you cast a [Spellcraft] spell on a minion,give it +2/+2. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_003_Action(CONTROLLER, BG_Play.CARD, BG_Play.TARGET, 'BG23_003e'))
 	pass
-BG23_003e=buff(2,1)
+BG23_003e=buff(2,2) ## 23.4.3
 class BG23_003_G:# <12>[1453]
 	""" Critter Wrangler
 	After you cast a [Spellcraft] spell on a minion,give it +4/+4. """
 	events = BG_Play(CONTROLLER, SPELL).on(BG23_003_Action(CONTROLLER, BG_Play.CARD, BG_Play.TARGET, 'BG23_003_Ge'))
 	pass
-BG23_003_Ge=buff(4,2)
+BG23_003_Ge=buff(4,4) ## 23.4.3
 
 
 ## Glowscale (5)  ### OK ###

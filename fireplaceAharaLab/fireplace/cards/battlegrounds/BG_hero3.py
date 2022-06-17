@@ -464,7 +464,7 @@ class BG22_HERO_305p_Action(TargetedAction):
 		pass
 class BG22_HERO_305p:# <12>[1453]
 	""" Broodmother
-	[Passive][Avenge (4):] Summona 2/1 Whelp. It attacks immediately. """
+	[Passive][Avenge (4):] Summona 3/1 Whelp. It attacks immediately. """
 	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG22_HERO_305p_Action(CONTROLLER)]))
 	pass
 class BG22_HERO_305t:# <12>[1453]
@@ -625,14 +625,32 @@ class TB_BaconShop_HERO_34_Buddy_G:# <12>[1453]
 
 
 
-#49#Pyramad   ### HP OK ###
+#49#Pyramad   ### need implementation ###
 class TB_BaconShop_HERO_39:# <12>[1453]
 	""" Pyramad	 """
+class TB_BaconShop_HP_040_Action1(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		if hasattr(target,'__iter__') and len(target)>0:
+			target=target[0]
+		if target:
+			Buff(target, buff, max_health=source.script_data_num_1).trigger(source)
+		pass
+class TB_BaconShop_HP_040_Action2(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if not target.exhausted:
+			source.script_data_num_1 += 1
 class TB_BaconShop_HP_040:
 	""" Brick by Brick
-	Give a random friendly minion +4_Health."""
-	activate = Buff(RANDOM_FRIENDLY_MINION, 'TB_BaconShop_HP_040e')
-TB_BaconShop_HP_040e=buff(0,4)
+	Give a minion +@ Health. &lt;i&gt;(Gains +1 Health each turn you don't use this!)&lt;/i&gt; """
+	activate = TB_BaconShop_HP_040_Action1(RANDOM_FRIENDLY_MINION, 'TB_BaconShop_HP_040e')
+	events = EndTurn(CONTROLLER).on(TB_BaconShop_HP_040_Action2(SELF))
+	## Give a random friendly minion +4_Health. (old version , -2022.6)
+	## <Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
+class TB_BaconShop_HP_040e:
+	pass
 ######## BUDDY
 class TB_BaconShop_HERO_39_Buddy:# <12>[1453]
 	""" Titanic Guardian
