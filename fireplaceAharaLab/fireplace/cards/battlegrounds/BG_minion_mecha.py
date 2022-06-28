@@ -9,11 +9,12 @@ BG_Minion_Mecha =[
 	'GVG_048','GVG_048e','TB_BaconUps_066','TB_BaconUps_066e',	#Metaltooth Leaper(2)
 	'BGS_071', 'BGS_071e', 'TB_BaconUps_123', 'TB_BaconUps_123e',	#Deflect-o-Bot(3)
 	'BOT_312', 'BOT_312e','BOT_312t','TB_BaconUps_032','TB_BaconUps_032e','TB_BaconUps_032t',	#Replicating Menace(3)
-	'GVG_055', 'GVG_055e', 'TB_BaconUps_069','TB_BaconUps_069e',	#Screwjank Clunker(3)
+	#'GVG_055', 'GVG_055e', 'TB_BaconUps_069','TB_BaconUps_069e',	#Screwjank Clunker(3)
 	'BOT_911', 'BOT_911e', 'TB_BaconUps_099','TB_BaconUps_099e',	#Annoy-o-Module(4)
 	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4)
-	'BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',	#Mechano-Eg'g(4)
+	#'BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',	#Mechano-Eg'g(4)
 	'BG21_023', 'BG21_023_G',	#Mechano-Tank(4)
+	'BG_BOT_563','BG_BOT_563_G', #Wargear(4) # after 23.6
 	'BG20_401', 'BG20_401_G',	#Holy Mecherel(5)
 	'GVG_113', 'TB_BaconUps_153',	#Foe Reaper 4000(6)
 	'BG21_025',	'BG21_025_G',	#Omega Buster(6)
@@ -21,8 +22,8 @@ BG_Minion_Mecha =[
 BG_PoolSet_Mecha=[
 	['ULD_217', 'BG21_022',],
 	['EX1_556', 'BOT_606', 'GVG_048', ],
-	['BGS_071', 'BOT_312', 'GVG_055', ],
-	['BOT_911', 'BG21_024', 'BOT_537', 'BG21_023', ],
+	['BGS_071', 'BOT_312',  ],#3 #'GVG_055',
+	['BOT_911', 'BG21_024', 'BG21_023', 'BG_BOT_563',],#4 #'BOT_537',
 	['BG20_401', ],
 	['GVG_113', 'BG21_025', ],
 	]
@@ -39,6 +40,7 @@ BG_Mecha_Gold={
 	'BG21_024':'BG21_024_G',	#Grease Bot(4)
 	'BOT_537':'TB_BaconUps_039',	#Mechano-Eg'g(4)
 	'BG21_023':'BG21_023_G',	#Mechano-Tank(4)
+	'BG_BOT_563':'BG_BOT_563_G', #Wargear(4) # after 23.6
 	'BG20_401':'BG20_401_G',	#Holy Mecherel(5)
 	'GVG_113':'TB_BaconUps_153',	#Foe Reaper 4000(6)
 	'BG21_025':'BG21_025_G',	#Omega Buster(6)
@@ -270,6 +272,13 @@ class BG21_023_G:# <12>[1453]
 	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5), Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
 
+##  Wargear (4) 23.6
+class BG_BOT_563:
+	""" Wargear
+	&lt;b&gt;Magnetic&lt;/b&gt;"""
+	pass
+class BG_BOT_563_G:
+	pass
 
 
 #Holy Mecherel(5)
@@ -290,12 +299,12 @@ class BG20_401_G:# <12>[1453]
 class GVG_113:## エネリ
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
-	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER))
+	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER, ATK(SELF)))
 	pass
 class TB_BaconUps_153:# <12>[1453]
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
-	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER))
+	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER, ATK(SELF)))
 	pass
 
 

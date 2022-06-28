@@ -666,20 +666,20 @@ class BG21_HERO_000p_Action(TargetedAction):
 class BG21_HERO_000p:
 	""" Conviction (Rank 1)
 	Give a random friendly minion +1/+1. <i>(Upgrades at Tavern Tier 3.)</i>"""
-	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe',1)
+	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe',2)## 1 until 23.4.3, 
 	events = UpgradeTier(CONTROLLER).on(BG21_HERO_000p_Action(CONTROLLER, 3, 'BG21_HERO_000p2')) 
 	pass
 BG21_HERO_000pe=buff(1,1)
 class BG21_HERO_000p2:
 	"""Conviction (Rank 2)
 	Give three random friendly minions +1/+1. <i>(Upgrades at Tavern Tier 5.)</i>"""
-	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 3)
+	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 4)## 4 until 23.4.3
 	events = UpgradeTier(CONTROLLER).on(BG21_HERO_000p_Action(CONTROLLER, 5, 'BG21_HERO_000p3')) 
 	pass
 class BG21_HERO_000p3:
 	"""Conviction (Rank 3)
 	Give five random _friendly minions +1/+1."""
-	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 5)
+	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 7)## 5 until 23.4.3
 ######## BUDDY
 class BG21_HERO_000_Buddy:# <12>[1453]
 	""" Captain Fairmount

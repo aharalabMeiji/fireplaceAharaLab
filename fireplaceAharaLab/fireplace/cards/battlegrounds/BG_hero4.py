@@ -424,7 +424,8 @@ class BG21_HERO_030pe:# <12>[1453]
 	""" Replicate
 	[Deathrattle]: Summon a random minion of the same Tavern Tier. """
 	tags = {GameTag.DEATHRATTLE:True}
-	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TECH_LEVEL(SELF)))
+	#deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TECH_LEVEL(SELF)))#until 23.4.3
+	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=TECH_LEVEL(SELF)-1))## after 23.6
 	pass
 ######## BUDDY 
 class BG21_HERO_030_Buddy_Action(TargetedAction):

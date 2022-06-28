@@ -12,6 +12,7 @@ BG_Hero5=[
 	'TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',#77#Ysera
 	'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',#78#Zephrys, the Great
 	'BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',#79#Queen Azshara
+	'','BG23_HERO_304p', #80#Lady Vashj
 ]
 
 
@@ -27,6 +28,7 @@ BG_PoolSet_Hero5=[
 	'TB_BaconShop_HERO_53',#77## dragon ban
 	'TB_BaconShop_HERO_91',#78
 	#'BG22_HERO_007',#79
+	'BG23_HERO_304', #80#Lady Vashj
 	]
 BG_Hero5_Buddy={
 	'TB_BaconShop_HERO_94':'TB_BaconShop_HERO_94_Buddy',
@@ -131,7 +133,11 @@ class BG22_HERO_003:# <12>[1453]
 class BG22_HERO_003p:# <12>[1453]
 	""" Lead the Stormpikes
 	Choose a friendly minion.It copies the Health of your highest Health minion for next combat only. """
-	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0, 1001:2 }
+	requirements = { 
+		PlayReq.REQ_TARGET_TO_PLAY:0, 
+		#PlayReq.REQ_FRIENDLY_TARGET:0, ## was valid until 23.4.3 
+		PlayReq.REQ_MINION_TARGET:0, 
+		1001:2 }
 	activate = Buff(TARGET,'BG22_HERO_003pe3' )
 	pass
 class BG22_HERO_003pe:# <12>[1453]
@@ -568,6 +574,27 @@ class BG22_HERO_007t:
 	"""
 	pass
 
+
+
+## 
+class BG23_HERO_304:
+	""" Lady Vashj """
+class BG23_HERO_304p_Action(TargetedAction):
+	BUFF=ActionArg()
+	def do(self, source, buff):
+		controller = source.controller
+		if hasattr(buff.source,'spellcraft_spellcard'):
+			if controller.once_per_turn<1:
+				buff.permanent_buff = True
+				controller.once_per_turn+=1
+class BG23_HERO_304p:
+	""" Relics of the Deep
+	&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spellcraft&lt;/b&gt; spell of your Tier or lower. &lt;b&gt;Passive:&lt;/b&gt; Your first one __each turn is permanent."""
+	events = Buff(FRIENDLY).on(BG23_HERO_304p_Action(Buff.BUFF))
+	play = Discover(Controller, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER)))
+	pass
+
+	
 
 ####################################################################################
 

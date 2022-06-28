@@ -1168,7 +1168,7 @@ class HeroPower(PlayableCard):
 			raise InvalidAction("%r can't be used." % (self))
 
 		if Config.LOGINFO:
-			print("(HeroPower.use)%s uses hero power %r on %r", self.controller, self, target)
+			print("(HeroPower.use)%s uses hero power %r on %r"%(self.controller, self, target))
 
 		if self.requires_target():
 			if not target:
@@ -1176,12 +1176,12 @@ class HeroPower(PlayableCard):
 			if self.controller.all_targets_random:
 				new_target = random.choice(self.play_targets)
 				if Config.LOGINFO:
-					print("(HeroPower.use)Retargeting %r from %r to %r", self, target, new_target)
+					print("(HeroPower.use)Retargeting %r from %r to %r"%(self, target, new_target))
 				target = new_target
 			self.target = target
 		elif target:
 			if Config.LOGINFO:
-				print("(HeroPower.use)%r does not require a target, ignoring target %r", self, target)
+				print("(HeroPower.use)%r does not require a target, ignoring target %r"%(self, target))
 
 		ret = self.activate()
 

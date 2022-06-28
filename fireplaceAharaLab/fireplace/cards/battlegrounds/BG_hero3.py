@@ -528,7 +528,7 @@ class BG20_HERO_102pe:# <12>[1453]
 			BG20_HERO_102pe_Action(CONTROLLER, Buy.CARD),
 			Destroy(SELF)
 			),
-		OWN_TURN_END.on(Destroy(SELF)),
+		#OWN_TURN_END.on(Destroy(SELF)),##valid until 23.4.3
 		]
 class BG20_HERO_102pe2:# <12>[1453]
 	""" For the Horde!

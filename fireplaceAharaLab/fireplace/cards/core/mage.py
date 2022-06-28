@@ -1,5 +1,5 @@
 from ..utils import *
-
+Core_Mage=['CORE_AT_003','CORE_AT_008','CORE_BOT_453','CORE_CS2_023','CORE_CS2_029','CORE_CS2_032','CORE_CS2_033','CORE_EX1_275','CORE_EX1_287','CORE_EX1_289','CORE_EX1_294','CORE_GIL_801','CORE_KAR_009','CORE_LOE_003','CORE_UNG_020','CS3_001','CS3_001e','CS3_001e2','NEW1_012','NEW1_012o',]
 class CORE_AT_003:# <4>[1637]
 	""" Fallen Hero
 	Your Hero Power deals 1_extra damage. """

@@ -1,6 +1,67 @@
+from msilib.schema import Class
 from ..utils import *
 
-if Config.PATCH_VERSION >= Config.PATCH23_2_2:
+if Config.PATCH_VERSION >= Config.PATCH23_6:
+	BG_Minion=[
+		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
+		#'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
+		#'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2
+		'BG20_203','BG20_203_G',#Prophet of the Boar	2
+		'OG_221','TB_BaconUps_014',#Selfless Hero	2
+		'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
+		#'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2
+		'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
+		'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
+		'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
+		#'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3
+		'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
+		'DAL_575','TB_BaconUps_034',#Khadgar	3
+		'BGS_002','TB_BaconUps_075',#Soul Juggler	3
+		##'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4
+		#'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4
+		'BG21_007','BG21_007_G',#Impatient Doomsayer	4
+		'BGS_105','BGS_105e','TB_BaconUps_207',#Majordomo Executus	4
+		'BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',#Menagerie Jug	4
+		'ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',#Strongshell Scavenger	4
+		'BG21_038','BG21_038_G',#Witchwing Nestmatron	4
+		'FP1_031','TB_BaconUps_055',#Baron Rivendare	5
+		'LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',#Brann Bronzebeard	5
+		##'BGS_131','TB_BaconUps_251',#Deadly Spore	5
+		'BGS_012','TB_BaconUps_087',#Kangor's Apprentice	5
+		'BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',#Lightfang Enforcer	5
+		'BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',#Master of Realities	5
+		'BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',#Mythrax the Unraveler	5
+		'BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',#Nomi, Kitchen Nightmare	5
+		##'BGS_069','TB_BaconUps_121',#Amalgadon	6
+		'BGS_040','TB_BaconUps_154',#Nadina the Red	6
+		##'BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',#Seafood Slinger	6
+		'BGS_022','TB_BaconUps_091',	#Zapp Slywick	6	
+		### NEW CARDS ####
+		'BG23_015','BG23_015t','BG23_015_G','BG23_015_Gt', #Orgozoa, the Tender 6  NEW
+		'BG23_016','BG23_016_G', # Reef Explorer 4 NEW
+		'BG23_018','BG23_018t','BG23_018_G', # Darkgaze Elder 6 NEW
+		'BG23_318','BG23_318_G', # Leeroy the Reckless 5 NEW
+		'BG23_Spellcraft_e',
+		'GIL_681','BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
+
+		'BG23_352','BG23_352e','BG23_352_G','BG23_352_Ge',## Tavern Tipper (1) >= 23.6
+		'BG_CFM_063','BG_CFM_063e','BG_CFM_063_G',## Kooky Chemist (2) >= 23.6
+		'BG_AT_069','BG_AT_069_G',## Sparring Partner (2) >= 23.6
+		'BG23_350','BG23_350e','BG23_350_G','BG23_350_Ge',##  Yrel (2) >=23.6
+		'BGS_029','BGS_029e','TB_BaconUps_095', ## Shifter Zerus (3) >=23.6
+		'BG_DAL_775','BG_DAL_775_G', ## Tunnel Blaster (4) >= 23.6
+		'BG23_190','BG23_190_e','BG23_190_G','BG23_190_Ge', ## Uther the Lightbringer (6) >= 23.6
+]
+
+	BG_PoolSet_Minion=[
+		['BGS_004','BG23_352',],
+		['BG20_203','OG_221','OG_256','BG21_013','BG_CFM_063','BG_AT_069','BG23_350',], #2 #'BGS_106','BGS_082','FP1_024',
+		['BGS_110','BG21_002','DS1_070','DAL_575','BGS_002','GIL_681','BGS_029',], #3 # 'BG21_030',
+		['BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016','BG_DAL_775',], #4 'BGS_111','EX1_093',
+		['FP1_031','LOE_077','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',], #5 'BGS_131',
+		['BGS_040','BGS_022','BG23_015','BG23_018','BG23_190',], #6 'BGS_069', 'BG21_011',
+	]
+elif Config.PATCH_VERSION >= Config.PATCH23_2_2:
 	BG_Minion=[
 		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
 		'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
@@ -46,12 +107,12 @@ if Config.PATCH_VERSION >= Config.PATCH23_2_2:
 	BG_PoolSet_Minion=[
 		['BGS_004',],
 		['BGS_106','BGS_082','BG20_203','OG_221','OG_256','FP1_024','BG21_013',],
-		['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002','GIL_681',],#3
-		['EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',],#4 'BGS_111',
-		['FP1_031','LOE_077','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',],#5 'BGS_131',
-		['BGS_040','BGS_022','BG23_015','BG23_018',],#6 'BGS_069', 'BG21_011',
+		['BGS_110','BG21_002','BG21_030','DS1_070','DAL_575','BGS_002','GIL_681',], #3
+		['EX1_093','BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016',], #4 'BGS_111',
+		['FP1_031','LOE_077','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',], #5 'BGS_131',
+		['BGS_040','BGS_022','BG23_015','BG23_018',], #6 'BGS_069', 'BG21_011',
 	]
-else:
+else:### < Config.PATCH23_2_2
 	BG_Minion=[
 		'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
 		'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2
@@ -171,7 +232,16 @@ BG_Minon_Gold={
 	'BG23_018':'BG23_018_G', # Darkgaze Elder 6 NEW
 	'BG23_318':'BG23_318_G', # Leeroy the Reckless 5 NEW
 	'GIL_681':'BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
+	'BG23_352':'BG23_352_G',## Tavern Tipper (1) >= 23.6
+	'BG_CFM_063':'BG_CFM_063_G',## Kooky Chemist (2) >= 23.6
+	'BG_AT_069':'BG_AT_069_G',## Sparring Partner (2) >= 23.6
+	'BG23_350':'BG23_350_G',##  Yrel (2) >=23.6
+	'BGS_029':'TB_BaconUps_095', ## Shifter Zerus (3) >=23.6
+	'BG_DAL_775':'BG_DAL_775_G', ## Tunnel Blaster (4) >= 23.6
+	'BG23_190':'BG23_190_G', ## Uther the Lightbringer (6) >= 	
 	}
+
+
 
 #Wrath Weaver	1	1	3	 ### maybe ###
 class BGS_004:# <12>[1453] おりや
@@ -188,7 +258,6 @@ class TB_BaconUps_079:# <12>[1453]
 	pass
 TB_BaconUps_079e=buff(4,4)# <12>[1453]
 """ Wrath Woven,	Increased stats. """
-
 
 #Acolyte of C'Thun	2	2	3	-		 ### OK ###
 class BGS_106:# <12>[1453] クトゥーンのじさい
@@ -346,6 +415,7 @@ class BG21_013_G:# <12>[1453]
 
 
 
+
 #Arm of the Empire	3	4	4	-		 ### maybe ###
 class BGS_110:# <12>[1453] 帝国の腕
 	""" Arm of the Empire
@@ -449,6 +519,7 @@ class TB_BaconUps_075:# <9>[1453]
 	After a friendly Demon dies, deal 3 damage to a random enemy minion twice. """
 	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3) * 2)
 	pass
+
 
 
 #Champion of Y'Shaarj	4	4	4		 ### maybe ###
@@ -1046,3 +1117,104 @@ class BG_GIL_681_G:
 	""" Nightmare Amalgam (3)
 	&lt;i&gt;This has all minion types.&lt;/i&gt;"""
 	pass
+
+
+
+class BG23_352:
+	"""Tavern Tipper (1) >= 23.6
+	If you have any unspent Gold at the end of your turn, gain +1/+2."""
+	pass
+BG23_352e=buff(1,2)
+class BG23_352_G:
+	"""
+	If you have any unspent Gold at the end of __your turn, gain +2/+4."""
+	pass
+BG23_352_Ge=buff(2,4)
+
+
+
+class BG_CFM_063:
+	""" Kooky Chemist (2) >= 23.6
+	Battlecry: Swap the Attack and Health of a minion."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0,
+				 PlayReq.REQ_FRIENDLY_TARGET: 0,
+				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Buff(TARGET, "CFM_063e")
+	pass
+BG_CFM_063e = AttackHealthSwapBuff()
+class BG_CFM_063_G:
+	"""
+	[Battlecry:] Swap the Attack and Health of a minion."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0,
+				 PlayReq.REQ_FRIENDLY_TARGET: 0,
+				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Buff(TARGET, "CFM_063e")
+	pass
+
+
+
+
+class BG_AT_069:
+	"""Sparring Partner (2) >= 23.6
+	Taunt Battlecry: Give a minion Taunt."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Taunt(TARGET)
+class BG_AT_069_G:
+	"""
+	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Give a minion &lt;b&gt;Taunt&lt;/b&gt;."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Taunt(TARGET)
+
+
+
+
+class BG23_350:
+	"""Yrel (2) >=23.6
+	After this attacks, give a friendly minion of each minion type +1/+2."""
+class BG23_350e:
+	pass
+class BG23_350_G:
+	"""Yrel (2) >=23.6
+	After this attacks, give a friendly minion of each minion type +2/+4."""
+class BG23_350_Ge:
+	pass
+
+
+
+class BGS_029:
+	"""Shifter Zerus (3) >=23.6
+	Each turn this is in your hand, transform it into a random minion."""
+class BGS_029e:
+	pass
+class TB_BaconUps_095:
+	"""
+	Each turn this is in your
+hand, transform it into a
+__random Golden minion."""
+
+
+
+
+class BG_DAL_775:
+	"""Tunnel Blaster (4) >= 23.6
+	Taunt Deathrattle: Deal 3 damage to all minions."""
+	deathrattle = Hit(ALL_MINIONS, 3)
+class BG_DAL_775_G:
+	"""
+	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Deathrattle:&lt;/b&gt; Deal 3 damage to all minions twice."""
+	deathrattle = Hit(ALL_MINIONS, 3) * 2
+
+
+
+
+class BG23_190:
+	"""Uther the Lightbringer (6) >= 23.6
+	Battlecry: Set a minion's Attack and Health to 15."""
+class BG23_190_e:
+	pass
+class BG23_190_G:
+	"""
+	&lt;b&gt;Battlecry:&lt;/b&gt; Set a minion's Attack and Health to 30."""
+class BG23_190_Ge:
+	pass
+

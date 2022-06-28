@@ -102,8 +102,12 @@ class BG22_HERO_002p_Action(TargetedAction):
 		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
-	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
+	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
+	Choose a minion. It copies the Attack of the highest Attack minion until next turn.
+	"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 
+				 #PlayReq.REQ_FRIENDLY_TARGET:0, ## valid until 23.4.3 
+				 PlayReq.REQ_MINION_TARGET:0}
 	activate = BG22_HERO_002p_Action(TARGET, 'BG22_HERO_002pe')
 	pass
 class BG22_HERO_002pe:# <12>[1453]
@@ -435,7 +439,8 @@ class BG20_HERO_242p:# <2>[1453]
 			Buff(card, 'BG20_HERO_242pe').trigger(self)
 		pass
 	pass
-BG20_HERO_242pe=buff(1,1)# <12>[1453]
+#BG20_HERO_242pe=buff(1,1)# <12>[1453] ## until 23.4.3
+BG20_HERO_242pe=buff(2,3)### after 23.6
 """ Guff's Buff,	+1/+1. """
 ######## BUDDY
 class BG20_HERO_242_Buddy:

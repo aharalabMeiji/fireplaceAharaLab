@@ -3304,9 +3304,10 @@ class GetFreeRerole(TargetedAction):
 
 class HitAdjacentMinions(TargetedAction):#Cave Hydra, Foe Reaper 4000,
 	TARGET=ActionArg()
-	def do(self, source, target):
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
 		for card in target.adjacent_minions:
-			Hit(card, source.atk).trigger(source)
+			Hit(card, amount).trigger(source)
 
 class LoseDivineShield(GameAction):#聖盾を失ったとき
 	TARGET=ActionArg()

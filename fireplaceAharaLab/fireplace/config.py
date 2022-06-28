@@ -2,8 +2,8 @@
 
 class Config:# ()is the default value
 
-	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
-	BATTLEGROUNDS=1# バトグラをするならこちら
+	HEARTHSTONE=1# ランク戦をするならこちら（バトグラより優先）
+	BATTLEGROUNDS=0# バトグラをするならこちら
 	CARDTEST=0# カードの動作テストをするならこちら
 
 	#ランク戦のオプション

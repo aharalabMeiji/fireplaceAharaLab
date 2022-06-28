@@ -188,7 +188,7 @@ class BG23_009_G:# <12>[1453]
 
 
 
-## Stormscale Siren (3)  ### OK ###
+## Stormscale Siren (3)  ### OK ### ### BANNED ###
 class BG23_005_Action(TargetedAction): ## 
 	TARGET = ActionArg()
 	AMOUNT = IntArg()

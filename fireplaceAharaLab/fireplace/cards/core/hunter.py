@@ -1,5 +1,7 @@
 from ..utils import *
 
+Core_Hunter=['CORE_AT_061','CORE_BRM_013','CORE_DS1_184','CORE_DS1_185','CORE_EX1_531','CORE_EX1_534','CORE_EX1_543','CORE_EX1_554','CORE_EX1_610','CORE_EX1_611','CORE_EX1_617','CORE_FP1_011','CORE_GIL_828','CORE_ICC_419','CORE_TRL_111','CS3_015','AT_061e','EX1_531e','EX1_554t','EX1_611e','EX1_534t','TRL_111e1','GIL_828e','NEW1_031','NEW1_032','NEW1_033','NEW1_033o','NEW1_034',]
+
 class CORE_AT_061:# 3 1637
 	""" Lock and Load
 	Each time you cast a spell this turn, add a random Hunter card to your hand. """
