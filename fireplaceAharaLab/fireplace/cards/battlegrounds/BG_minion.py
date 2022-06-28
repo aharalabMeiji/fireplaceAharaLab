@@ -50,7 +50,7 @@ if Config.PATCH_VERSION >= Config.PATCH23_6:
 		'BG23_350','BG23_350e','BG23_350_G','BG23_350_Ge',##  Yrel (2) >=23.6
 		'BGS_029','BGS_029e','TB_BaconUps_095', ## Shifter Zerus (3) >=23.6
 		'BG_DAL_775','BG_DAL_775_G', ## Tunnel Blaster (4) >= 23.6
-		'BG23_190','BG23_190_e','BG23_190_G','BG23_190_Ge', ## Uther the Lightbringer (6) >= 23.6
+		'BG23_190','BG23_190e','BG23_190_G','BG23_190_Ge', ## Uther the Lightbringer (6) >= 23.6
 ]
 
 	BG_PoolSet_Minion=[
@@ -1119,15 +1119,25 @@ class BG_GIL_681_G:
 	pass
 
 
-
+####Tavern Tipper (1) ### OK ###
+class BG23_352_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller = source.controller
+		if controller.mana>0:
+			Buff(target, buff).trigger(source)
+			pass
 class BG23_352:
 	"""Tavern Tipper (1) >= 23.6
 	If you have any unspent Gold at the end of your turn, gain +1/+2."""
+	events = OWN_TURN_END.on(BG23_352_Action(SELF,'BG23_352e'))
 	pass
 BG23_352e=buff(1,2)
 class BG23_352_G:
 	"""
 	If you have any unspent Gold at the end of __your turn, gain +2/+4."""
+	events = OWN_TURN_END.on(BG23_352_Action(SELF,'BG23_352_Ge'))
 	pass
 BG23_352_Ge=buff(2,4)
 
@@ -1139,7 +1149,7 @@ class BG_CFM_063:
 	requirements = {PlayReq.REQ_MINION_TARGET: 0,
 				 PlayReq.REQ_FRIENDLY_TARGET: 0,
 				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "CFM_063e")
+	play = Buff(TARGET, "BG_CFM_063e")
 	pass
 BG_CFM_063e = AttackHealthSwapBuff()
 class BG_CFM_063_G:
@@ -1148,12 +1158,12 @@ class BG_CFM_063_G:
 	requirements = {PlayReq.REQ_MINION_TARGET: 0,
 				 PlayReq.REQ_FRIENDLY_TARGET: 0,
 				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "CFM_063e")
+	play = Buff(TARGET, "BG_CFM_063e")
 	pass
 
 
 
-
+#### Sparring Partner (2) ###   ####
 class BG_AT_069:
 	"""Sparring Partner (2) >= 23.6
 	Taunt Battlecry: Give a minion Taunt."""
@@ -1210,7 +1220,7 @@ class BG_DAL_775_G:
 class BG23_190:
 	"""Uther the Lightbringer (6) >= 23.6
 	Battlecry: Set a minion's Attack and Health to 15."""
-class BG23_190_e:
+class BG23_190e:
 	pass
 class BG23_190_G:
 	"""

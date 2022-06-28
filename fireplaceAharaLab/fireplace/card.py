@@ -807,6 +807,7 @@ class Minion(Character):
 		self.deathrattle_valid = True
 		self.deepcopy_original = None
 		self.gem_applied_thisturn=False
+		self.tech_level_plus1 = 4
 		super().__init__(data)
 
 	@property

@@ -12,7 +12,7 @@ BG_Hero5=[
 	'TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',#77#Ysera
 	'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',#78#Zephrys, the Great
 	'BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',#79#Queen Azshara
-	'','BG23_HERO_304p', #80#Lady Vashj
+	'BG23_HERO_304','BG23_HERO_304p', #80#Lady Vashj
 ]
 
 

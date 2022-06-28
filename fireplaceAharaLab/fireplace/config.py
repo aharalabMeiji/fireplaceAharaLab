@@ -2,8 +2,8 @@
 
 class Config:# ()is the default value
 
-	HEARTHSTONE=1# ランク戦をするならこちら（バトグラより優先）
-	BATTLEGROUNDS=0# バトグラをするならこちら
+	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
+	BATTLEGROUNDS=1# バトグラをするならこちら
 	CARDTEST=0# カードの動作テストをするならこちら
 
 	#ランク戦のオプション
@@ -22,9 +22,10 @@ class Config:# ()is the default value
 	PRINT_HITLOG=0 # Hitイベントを表示する
 
 	#battlegrounds option
-	PATCH_VERSION = 2322
+	PATCH_VERSION = 2360
 	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
+	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1=''
@@ -32,7 +33,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
-	HERO_1='TB_BaconShop_HERO_39' #人間プレーヤーはヒーローを指定できる
+	HERO_1='' #人間プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

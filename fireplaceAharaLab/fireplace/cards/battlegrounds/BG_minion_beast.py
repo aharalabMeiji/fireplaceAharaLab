@@ -35,7 +35,7 @@ BG_PoolSet_Beast=[
 BG_Beast_Gold={
 	'CFM_315':'TB_BaconUps_093',#Alleycat
 	'EX1_531':'TB_BaconUps_043',#Scavenging Hyena
-	'BG_CS2_127':'BG_CS2_127_G',# Silverback Patriarch (1)	
+	'BG_CS2_127':'BG_CS2_127_G',# Silverback Patriarch (1) 23.6	
 	'BG21_000':'BG21_000_G',#Leapfrogger
 	'BGS_075':'TB_BaconUps_125',#Rabid Saurolisk
 	'BG19_010':'BG19_010_G',#Sewer Rat
@@ -86,6 +86,7 @@ class TB_BaconUps_043: #<3>[1637]
 	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "TB_BaconUps_043e"))
 	pass
 TB_BaconUps_043e=buff(4,2)
+
 
 ## Silverback Patriarch (1) 23.6
 class BG_CS2_127:

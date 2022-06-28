@@ -104,7 +104,10 @@ class BaseGame(Entity):
 	def action_start(self, type, source, index, target):
 		self.manager.action_start(type, source, index, target)
 		if Config.LOGINFO:
-			print("(Game.action_start)type=%s, source=%s"%(type,source))
+			if hasattr(source,'name'):
+				print("(Game.action_start)type=%s, source=%s"%(type,source.name))
+			else:
+				print("(Game.action_start)type=%s, source=%s"%(type,source))
 		if type != BlockType.PLAY:
 			self._action_stack += 1
 

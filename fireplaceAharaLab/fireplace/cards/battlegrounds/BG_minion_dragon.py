@@ -11,7 +11,7 @@ BG_Minion_Dragon =[
 	'ICC_029','ICC_029e','TB_BaconUps_120','TB_BaconUps_120e',#Cobalt Scalebane(4)
 	#'BG21_012','BG21_012_G',#Prestor's Pyrospawn(4)
 	'BG21_014','BG21_014e','BG21_014_G',#Prized Promo-Drake(4)
-	'BG23_362','BG23_362_G',##Atramedes (4)   23.6
+	'BG23_362','BG23_362_G',##Atramedes (4)   23.6 ##OK##
 	'BGS_043','TB_BaconUps_110',#Murozond(5)
 	'BGS_036','BGS_036e','TB_BaconUps_106','TB_BaconUps_106e',#Razorgore, the Untamed (5)
 	'BGS_041','BGS_041e','TB_BaconUps_109','TB_BaconUps_109e',#Kalecgos, Arcane Aspect (6)
@@ -37,7 +37,7 @@ BG_Dragon_Gold={
 	'BG21_012':'BG21_012_G',#Prestor's Pyrospawn(4)
 	'BG21_014':'BG21_014_G',#Prized Promo-Drake(4)
 	'BG21_015':'BG21_015_G',#Tarecgosa(3)
-	'BG23_362':'BG23_362_G',#Atramedes (4)
+	'BG23_362':'BG23_362_G',#Atramedes (4) 23.6
 	'BGS_043':'TB_BaconUps_110',#Murozond(5)
 	'BGS_036':'TB_BaconUps_106',#Razorgore, the Untamed (5)
 	'BGS_041':'TB_BaconUps_109',#Kalecgos, Arcane Aspect (6)
@@ -274,7 +274,7 @@ class BG21_015_G:# <12>[1453]
 	pass
 
 
-#Atramedes (4)   23.6
+#Atramedes (4)   23.6 ### OK ###
 class BG23_362:
 	"""Atramedes
 	Whenever this attacks, deal 3 damage to the __target and its neighbors."""
