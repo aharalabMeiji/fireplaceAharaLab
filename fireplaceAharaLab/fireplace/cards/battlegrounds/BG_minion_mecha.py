@@ -272,7 +272,7 @@ class BG21_023_G:# <12>[1453]
 	events = Death(FRIENDLY_MINIONS).on(Avenge(SELF, 2, [Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5), Hit(HIGHEST_HEALTH(ENEMY_MINIONS), 5)]))
 	pass
 
-##  Wargear (4) 23.6
+##  Wargear (4) 23.6  ### OK ###
 class BG_BOT_563:
 	""" Wargear
 	&lt;b&gt;Magnetic&lt;/b&gt;"""

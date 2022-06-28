@@ -1142,7 +1142,7 @@ class BG23_352_G:
 BG23_352_Ge=buff(2,4)
 
 
-
+## Kooky Chemist (2) ### need check ###
 class BG_CFM_063:
 	""" Kooky Chemist (2) >= 23.6
 	Battlecry: Swap the Attack and Health of a minion."""
@@ -1163,7 +1163,7 @@ class BG_CFM_063_G:
 
 
 
-#### Sparring Partner (2) ###   ####
+#### Sparring Partner (2) ### need check  ####
 class BG_AT_069:
 	"""Sparring Partner (2) >= 23.6
 	Taunt Battlecry: Give a minion Taunt."""
@@ -1177,20 +1177,43 @@ class BG_AT_069_G:
 
 
 
-
+## Yrel (2) ### need check ###
+class BG23_350_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		## in BG battle
+		controller = target
+		races = []
+		for card in controller.field:
+			if hasattr(card, 'race') and not card.race in races:
+				races.append(card.race)
+		if len(races)>0:
+			for race in races:
+				targets=[]
+				if race != Race.ALL:
+					for card in controller.field:
+						if hasattr(card, 'race') and card.race == race:
+							targets.append(card)
+					if len(targets)>0:
+						Buff(random.choice(target),buff).trigger(source)
+				else:
+					for card in controller.field:
+						if hasattr(card, 'race') and card.race == race:
+							Buff(card,buff).trigger(source)
 class BG23_350:
 	"""Yrel (2) >=23.6
 	After this attacks, give a friendly minion of each minion type +1/+2."""
-class BG23_350e:
-	pass
+	events = BG_Attack(SELF).on(BG23_350_Action(CONTROLLER, 'BG23_350e'))
+BG23_350e=buff(1,2)
 class BG23_350_G:
 	"""Yrel (2) >=23.6
 	After this attacks, give a friendly minion of each minion type +2/+4."""
-class BG23_350_Ge:
-	pass
+	events = BG_Attack(SELF).on(BG23_350_Action(CONTROLLER, 'BG23_350_Ge'))
+BG23_350_Ge=buff(2,4)
 
 
-
+## Shifter Zerus (3) ### hard ###
 class BGS_029:
 	"""Shifter Zerus (3) >=23.6
 	Each turn this is in your hand, transform it into a random minion."""
@@ -1204,8 +1227,8 @@ __random Golden minion."""
 
 
 
-
-class BG_DAL_775:
+## Tunnel Blaster (4) ### OK ###
+class BG_DAL_775: 
 	"""Tunnel Blaster (4) >= 23.6
 	Taunt Deathrattle: Deal 3 damage to all minions."""
 	deathrattle = Hit(ALL_MINIONS, 3)
