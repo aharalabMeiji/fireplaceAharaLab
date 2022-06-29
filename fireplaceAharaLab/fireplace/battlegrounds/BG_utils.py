@@ -93,8 +93,10 @@ class BG_main:
 			self.Heroes.remove('TB_BaconShop_HERO_17')#40 mech ban
 		if not 'pirate' in self.BG_races and 'TB_BaconShop_HERO_34' in self.Heroes:
 			self.Heroes.remove('TB_BaconShop_HERO_34')#48 X pirate ban
-		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_53' in self.BG_races:
+		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_53' in self.Heroes:
 			self.Heroes.remove('TB_BaconShop_HERO_53')#77 dragon ban
+		if not 'naga' in self.BG_races and 'BG23_HERO_304' in self.Heroes:
+			self.Heroes.remove('BG23_HERO_304')#80#Lady Vashj
 
 		self.BG_Bars=[]
 		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold

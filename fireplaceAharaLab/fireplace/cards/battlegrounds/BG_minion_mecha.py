@@ -11,13 +11,13 @@ BG_Minion_Mecha =[
 	'BOT_312', 'BOT_312e','BOT_312t','TB_BaconUps_032','TB_BaconUps_032e','TB_BaconUps_032t',	#Replicating Menace(3)
 	#'GVG_055', 'GVG_055e', 'TB_BaconUps_069','TB_BaconUps_069e',	#Screwjank Clunker(3)
 	'BOT_911', 'BOT_911e', 'TB_BaconUps_099','TB_BaconUps_099e',	#Annoy-o-Module(4)
-	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4)
 	#'BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',	#Mechano-Eg'g(4)
 	'BG21_023', 'BG21_023_G',	#Mechano-Tank(4)
 	'BG_BOT_563','BG_BOT_563_G', #Wargear(4) # after 23.6
 	'BG20_401', 'BG20_401_G',	#Holy Mecherel(5)
 	'GVG_113', 'TB_BaconUps_153',	#Foe Reaper 4000(6)
 	'BG21_025',	'BG21_025_G',	#Omega Buster(6)
+	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4->6) 23.6
 	]
 BG_PoolSet_Mecha=[
 	['ULD_217', 'BG21_022',],
@@ -226,19 +226,19 @@ class TB_BaconUps_099e:
 
 
 
-#Grease Bot(4)
+#Grease Bot(4->6) 23.6
 class BG21_024:# <12>[1453]
 	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +1/+1_permanently. """
+	After a friendly minion loses [Divine Shield], give it +3/+2_permanently. """
 	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
 	pass
-BG21_024e=buff(1,1)
+BG21_024e=buff(3,2)
 class BG21_024_G:# <12>[1453]
 	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +2/+2_permanently. """
+	After a friendly minion loses [Divine Shield], give it +6/+4_permanently. """
 	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
 	pass
-BG21_024_Ge=buff(2,2)
+BG21_024_Ge=buff(6,4)
 
 
 
