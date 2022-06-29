@@ -180,6 +180,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.COST: "cost",
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
+	2044: "darkmoon_ticket_tier",
 	GameTag.DEATHRATTLE: "has_deathrattle",
 	GameTag.DEFENDING: "defending",
 	GameTag.DIVINE_SHIELD: "divine_shield",

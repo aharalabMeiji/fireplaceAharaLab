@@ -355,6 +355,9 @@ class BGS_Treasures_037:# <12>[1453]
 	#
 	pass
 
+
+BGS_Treasures_040
+
 ##
 ## secret
 ##

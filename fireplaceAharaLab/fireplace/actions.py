@@ -258,6 +258,7 @@ class BeginBar(GameAction):
 		player.game.refresh_auras()## refresh aura_buff
 		if source.game.turn==amount:	
 			self.broadcast(source, EventListener.ON, player)
+		#### discover a darkmoon tickets see tag{2044} after 23.6
 		pass
 
 class BeginTurn(GameAction):
