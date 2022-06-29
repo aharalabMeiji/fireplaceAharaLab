@@ -44,7 +44,7 @@ if Config.PATCH_VERSION >= Config.PATCH23_6:
 		'BG23_Spellcraft_e',
 		'GIL_681','BG_GIL_681_G', # Nightmare Amalgam 3 RENEW
 
-		'BG23_352','BG23_352e','BG23_352_G','BG23_352_Ge',## Tavern Tipper (1) >= 23.6
+		'BG23_352','BG23_352e','BG23_352_G','BG23_352_Ge',## Tavern Tipper (1) >= 23.6　#OK#
 		'BG_CFM_063','BG_CFM_063e','BG_CFM_063_G',## Kooky Chemist (2) >= 23.6
 		'BG_AT_069','BG_AT_069_G',## Sparring Partner (2) >= 23.6
 		'BG23_350','BG23_350e','BG23_350_G','BG23_350_Ge',##  Yrel (2) >=23.6
@@ -1142,7 +1142,7 @@ class BG23_352_G:
 BG23_352_Ge=buff(2,4)
 
 
-## Kooky Chemist (2) ### need check ###
+## Kooky Chemist (2) ### OK ###
 class BG_CFM_063:
 	""" Kooky Chemist (2) >= 23.6
 	Battlecry: Swap the Attack and Health of a minion."""
@@ -1163,7 +1163,7 @@ class BG_CFM_063_G:
 
 
 
-#### Sparring Partner (2) ### need check  ####
+#### Sparring Partner (2) ### OK ####
 class BG_AT_069:
 	"""Sparring Partner (2) >= 23.6
 	Taunt Battlecry: Give a minion Taunt."""
@@ -1238,16 +1238,29 @@ class BG_DAL_775_G:
 	deathrattle = Hit(ALL_MINIONS, 3) * 2
 
 
-
-
+## Uther the Lightbringer (6) ### OK ###
+class BG23_190_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, buff, amount):
+		if target:
+			atk_buff = amount - target.atk
+			hlt_buff = amount - target.health
+			Buff(target, buff, atk=atk_buff, max_health=hlt_buff).trigger(source)
+			pass
 class BG23_190:
 	"""Uther the Lightbringer (6) >= 23.6
 	Battlecry: Set a minion's Attack and Health to 15."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
+	play = BG23_190_Action(TARGET, 'BG23_190e', 15)
 class BG23_190e:
 	pass
 class BG23_190_G:
 	"""
 	&lt;b&gt;Battlecry:&lt;/b&gt; Set a minion's Attack and Health to 30."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
+	play = BG23_190_Action(TARGET, 'BG23_190Ge', 30)
 class BG23_190_Ge:
 	pass
 
