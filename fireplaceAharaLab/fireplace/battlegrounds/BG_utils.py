@@ -399,6 +399,9 @@ class BG_main:
 					atk=bartender.opponent.lightspawn_powered_up,
 					max_health=bartender.opponent.lightspawn_powered_up
 					).trigger(bartender)
+			for buff in bartender.opponent.buffs:
+				if buff.id == 'BGS_Treasures_013pe':  #(Good stuff, a darkmoon ticket)
+					Buff(card, 'BGS_Treasures_013e1')
 		if cardID in self.BG_decks[card.tech_level]:
 			self.BG_decks[card.tech_level].remove(cardID)
 		else:

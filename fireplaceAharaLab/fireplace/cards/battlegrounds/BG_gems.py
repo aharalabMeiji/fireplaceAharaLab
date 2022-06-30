@@ -4,20 +4,30 @@ BG_Gems=[	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',##Blood Gem
 		'TB_BaconShop_Triples_01',#### triple card
 		'BGS_Treasures_000','BGS_Treasures_000e',## big banana
 		'BGS_Treasures_001','BGS_Treasures_003',
-		'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
-		'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
-		'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
-		'BGS_Treasures_016','BGS_Treasures_018','BGS_Treasures_019',
-		'BGS_Treasures_020','BGS_Treasures_022','BGS_Treasures_023',
-		'BGS_Treasures_025','BGS_Treasures_026',
-		'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030',
-		'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034',
-		'BGS_Treasures_036','BGS_Treasures_037',
+		'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_007e',
+		'BGS_Treasures_009','BGS_Treasures_009e','BGS_Treasures_010','BGS_Treasures_011',
+		'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_013e1','BGS_Treasures_013pe',
+		'BGS_Treasures_014','BGS_Treasures_014e','BGS_Treasures_015',
+		'BGS_Treasures_016','BGS_Treasures_018','BGS_Treasures_018e','BGS_Treasures_019',
+		'BGS_Treasures_020','BGS_Treasures_022','BGS_Treasures_022e','BGS_Treasures_022pe',
+		'BGS_Treasures_023',
+		'BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_026e',
+		'BGS_Treasures_028','BGS_Treasures_028e','BGS_Treasures_029','BGS_Treasures_030',
+		'BGS_Treasures_030e',
+		'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_033e','BGS_Treasures_034',
+		'BGS_Treasures_034e','BGS_Treasures_036','BGS_Treasures_036e','BGS_Treasures_037',
+		'BGS_Treasures_040',
 	]+['TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
 			'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
 			'TB_Bacon_Secrets_10','TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
 			'TB_Bacon_Secrets_13',]
 
+BG_DarkmoonTicket=[
+	[],
+	['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018','BGS_Treasures_020','BGS_Treasures_028',],#1 #BGS_Treasures_032
+	['BGS_Treasures_001','BGS_Treasures_010','BGS_Treasures_013','BGS_Treasures_016','BGS_Treasures_019','BGS_Treasures_022','BGS_Treasures_023','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_029',],#2 ## 'BGS_Treasures_011',
+	['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040'],#3
+	]
 ##
 ##  Blood gem
 ##TB_Bacon_Secrets
@@ -62,7 +72,7 @@ class BG20_GEMt:# <12>[1453]
 ## bananas
 ##
 
-class BGS_Treasures_000:# <12>[1453]
+class BGS_Treasures_000:# <12>[1453] ## OK ##
 	""" Big Banana
 	Give a minion +2/+2. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
@@ -82,25 +92,25 @@ class TB_BaconShop_Triples_01:# <12>[1453]
 #########  appendix  ########
 
 
-class BGS_Treasures_001:# <7>[1453]
+class BGS_Treasures_001:# <7>[1453] ### maybe ##
 	""" Pocket Change
 	Add 2 Gold Coins to your hand. """
-	play = Give(CONTROLLER, 'GAME_005')
+	play = Give(CONTROLLER, 'GAME_005')*2
 	pass
 
-class BGS_Treasures_003:# <12>[1453]
+class BGS_Treasures_003:# <12>[1453] ### maybe ##
 	""" Regular Discount
 	Reduce the cost of upgrading Bob's Tavern by (3). """
 	play = ReduceTierUpCost(CONTROLLER, 3)	
 	pass
 
-class BGS_Treasures_004:# <12>[1453]
+class BGS_Treasures_004:# <12>[1453] ### maybe ##
 	""" Gacha Gift
 	[Discover] a minion from [Tavern Tier 1]. """
 	play = Discover(CONTROLLER, RandomBGMinion(tech_level=1))
 	pass
 
-class BGS_Treasures_006:# <8>[1453]
+class BGS_Treasures_006:# <8>[1453] ### maybe ##
 	""" Evolving Tavern
 	Replace all minions in Bob's Tavern with ones of a higher Tavern Tier. """
 	def play(self):
@@ -119,195 +129,196 @@ class BGS_Treasures_006:# <8>[1453]
 			card.zone = Zone.PLAY
 	pass
 
-class BGS_Treasures_007:# <12>[1453]
+class BGS_Treasures_007:# <12>[1453] ### maybe ##
 	""" Might of Stormwind
 	Give 3 random friendly minions +1/+1. """
-	play = Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_007e') * 3
+	play = Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_007e'),Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_007e'),Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_007e')
 	pass
 BGS_Treasures_007e=buff(1,1)# <12>[1453]
 """ Might of Stormwind, 	+1/+1. """
 
-class BGS_Treasures_009:# <12>[1453]
-	""" Gruul Rules
+class BGS_Treasures_009:# <12>[1453] ### maybe ## 
+	""" Gruul Rules 
 	Give a friendly minion "At the end of your turn, gain +2/+2." """
-	play = Buff(RANDOM(FRIENDLY_MINIONS), 'BGS_Treasures_009e')
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET, 'BGS_Treasures_009e')
 	pass
-
 class BGS_Treasures_009e:# <12>[1453]
 	""" Gruul Rules
 	Gains +2/+2 at the end of your turn. """
 	events = OWN_TURN_END.on(SetTag(SELF, {GameTag.ATK:2, GameTag.HEALTH:2}))
 	pass
 
-class BGS_Treasures_010:# <12>[1453]
+class BGS_Treasures_010:# <12>[1453] ### need check ##
 	""" Time Thief
 	[Discover] a minion from your last opponent's warband. """
-	#
+	def play(self):
+		controller = self.controller
+		gamemaster = controller.game.parent
+		last_warband = gamemaster.last_warband(controller)
+		if len(last_warband)>0:
+			if len(last_warband)>3:
+				self.entourage = random.sample(last_warband,3)
+			else:
+				self.entourage = last_warband
+			Discover(controller, RandomEntourage()).trigger(self)
 	pass
 
-class BGS_Treasures_011:# <12>[1453]
+class BGS_Treasures_011:# <12>[1453] ## put off ###
 	""" Training Session
 	[Discover] a new Hero Power. """
 	#
 	pass
 
-class BGS_Treasures_012:# <12>[1453]
+class BGS_Treasures_012:# <12>[1453] ### maybe ##
 	""" On the House
 	[Discover] a minion from your current [Tavern Tier]. """
-	#
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
 	pass
 
 class BGS_Treasures_013:# <12>[1453]
 	""" The Good Stuff
-	Give minions in Bob's Tavern +2 Health for the rest of the game. """
-	#
+	Give minions in Bob's Tavern +1 Attack for the rest of the game. """
+	play = Buff(CONTROLLER, 'BGS_Treasures_013pe')
 	pass
-
-class BGS_Treasures_013e1:# <12>[1453]
-	""" Good Stuff
-	Increased stats. """
-	#
-	pass
-
-class BGS_Treasures_013e2:# <12>[1453]
-	""" Good Stuff
-	Increased stats. """
-	#
-	pass
-
+BGS_Treasures_013e1=buff(1,0)
+""" Good Stuff, 	Increased stats. """
 class BGS_Treasures_013pe:# <12>[1453]
 	""" The Good Stuff Player Enchant
 	Minions in Bob's Shop have increased stats. """
-	#
+	####  go to Deal
 	pass
 
-class BGS_Treasures_014:# <12>[1453]
+class BGS_Treasures_014:# <12>[1453] ### need check ##
 	""" The Unlimited Coin
 	Gain 1 Gold this turn only. Return this to your hand at end of turn. """
-	#
+	play = ManaThisTurnOnly(CONTROLLER, 1),Buff(CONTROLLER,'BGS_Treasures_014e')
 	pass
-
 class BGS_Treasures_014e:# <12>[1453]
 	""" Unlimited Coin Return to Hand
 	Return the Unlimited Coin to your hand at end of turn. """
-	#
+	events = OWN_TURN_END.on(Give(CONTROLLER, 'BGS_Treasures_014'), Destroy(SELF))
 	pass
 
-class BGS_Treasures_015:# <5>[1453]
+class BGS_Treasures_015:# <5>[1453] ### need check widely ##
 	""" Buy the Holy Light
 	Give a friendly minion [Divine Shield]. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = DIVINE_SHIELD(TARGET) #? 
 	pass
 
-class BGS_Treasures_016:# <12>[1453]
+class BGS_Treasures_016:# <12>[1453] ### maybe ##
 	""" Raise the Stakes
 	Make a friendly minion Golden and return it to your hand. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	def play(self):
+		target = self.target
+		new_card = MorphGold(target).trigger(self.controller)## And bounce it?
+		new_card.zone = Zone.HAND
 	pass
 
-class BGS_Treasures_018:# <12>[1453]
+class BGS_Treasures_018:# <12>[1453] ### need check ##
 	""" I'm Still Just a Rat in a Cage
-	Double a minion's Attack. """
-	#
+	Give a minion +2 Attack, then double its Attack. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	def play(self):
+		target = self.target
+		atkbuff = target.atk + 4
+		Buff(target, 'BGS_Treasures_018e', atk=atkbuff).trigger(source)
 	pass
-
 class BGS_Treasures_018e:# <12>[1453]
 	""" Rat in a Cage
 	This minion's Attack has been doubled. """
-	#
 	pass
 
-class BGS_Treasures_019:# <12>[1453]
+class BGS_Treasures_019:# <12>[1453] ### maybe ##
 	""" B.A.N.A.N.A.S.
 	Fill your hand with Bananas. """
-	#
+	play = Give(CONTROLLER, 'DMF_065t')*10
 	pass
 
-class BGS_Treasures_020:# <12>[1453]
+class BGS_Treasures_020:# <12>[1453] ### maybe ##
 	""" Top Shelf
 	[Discover] a minion from [Tavern Tier 6]. """
-	#
+	play = Discover(CONTROLLER, RandomBGMinion(tech_level=6))
 	pass
 
-class BGS_Treasures_022:# <12>[1453]
+class BGS_Treasures_022:# <12>[1453] ### maybe ##
 	""" Friends and Family Discount
 	For the rest of the game, minions in Bob's Tavern cost (1) less. """
-	#
+	def play(self):
+		self.controller.game.minionCost -= 1  ## BG_Bar
 	pass
-
 class BGS_Treasures_022e:# <12>[1453]
 	""" Discounted
 	Costs less. """
-	#
 	pass
-
 class BGS_Treasures_022pe:# <12>[1453]
 	""" Friends and Family Discount Player Enchant
 	 """
 	#
 	pass
 
+class BGS_Treasures_023_Action(TargetedAction): ### maybe ##
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.game.rerole_free = 5
 class BGS_Treasures_023:# <12>[1453]
 	""" Open Bar
 	Your first 5 [Refreshes]each turn cost (0). """
-	#
+	events = BeginBar(CONTROLLER).on(BGS_Treasures_023_Action(CONTROLLER))
 	pass
-
 class BGS_Treasures_023pe:# <12>[1453]
 	""" Refresh Cost 0
 	[Refresh] costs (0). """
 	#
 	pass
 
-class BGS_Treasures_025:# <12>[1453]
+class BGS_Treasures_025:# <12>[1453] ### maybe ##
 	""" Fresh Tab
 	Refresh your Gold. """
-	#
+	def play(self):
+		self.controller.used_mana = min(self.controller.used_mana, 0)
 	pass
 
 class BGS_Treasures_026:# <12>[1453]
 	""" The Bouncer
-	Give a friendly minion +5/+5 and [Taunt]. """
-	#
+	Give a friendly minion +6/+6 and &lt;b&gt;Taunt&lt;/b&gt;. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET, 'BGS_Treasures_026e')
 	pass
+BGS_Treasures_026e=buff(6,6, taunt=True)# <12>[1453]
+""" Bouncy Bouncy, 	+6/+6 and [Taunt]. """
 
-class BGS_Treasures_026e:# <12>[1453]
-	""" Bouncy Bouncy
-	+5/+5 and [Taunt]. """
-	#
-	pass
-
-class BGS_Treasures_028:# <12>[1453]
+class BGS_Treasures_028:# <12>[1453] ### Maybe ##
 	""" Give A Dog A Bone
 	Give a friendly minion [Divine Shield], [Windfury], and +10/+10. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET, 'BGS_Treasures_028e'), WINDFURY(TARGET), DIVINE_SHIELD(TARGET) 
 	pass
+BGS_Treasures_028e=buff(10,10)# <12>[1453]
+""" Dog Bone, 	Has +10/+10, [Divine Shield], and [Windfury]. """
 
-class BGS_Treasures_028e:# <12>[1453]
-	""" Dog Bone
-	Has +10/+10, [Divine Shield], and [Windfury]. """
-	#
-	pass
-
-class BGS_Treasures_029:# <12>[1453]
+class BGS_Treasures_029:# <12>[1453] ### maybe ##
 	""" Rocking and Rolling
 	Your next three [Refreshes] cost (0). """
-	#
+	def play(self):
+		self.controller.game.rerole_free += 3
 	pass
 
-class BGS_Treasures_030:# <12>[1453]
+class BGS_Treasures_030:# <12>[1453] ### maybe ##
 	""" Brann's Blessing
 	Your [Battlecries] trigger twice this turn. """
-	#
+	play = Buff(CONTROLLER, 'BGS_Treasures_030e')
 	pass
-
 class BGS_Treasures_030e:# <0>[1453]
 	""" Brann's Blessing
 	Your [Battlecries] trigger twice this turn. """
-	#
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_BATTLECRIES_BASE: True})
 	pass
 
-class BGS_Treasures_032:# <12>[1453]
+class BGS_Treasures_032:# <12>[1453] ### put off ##
 	""" Big Winner!
 	[Discover] a Darkmoon Prize from each of the previous Prize turns. """
 	#
@@ -356,7 +367,11 @@ class BGS_Treasures_037:# <12>[1453]
 	pass
 
 
-BGS_Treasures_040
+class BGS_Treasures_040:
+	"""
+	"""
+	pass
+
 
 ##
 ## secret
