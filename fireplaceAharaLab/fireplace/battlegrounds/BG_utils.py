@@ -123,6 +123,8 @@ class BG_main:
 		self.size = 4
 		self.prevMatches=[[0,1],[2,3]]# previous combination
 		self.matches=[[0,1],[2,3]]
+		self.BG_darkmoon_tickets=cards.battlegrounds.BG_DarkmoonTicket
+		self.darkmoon_ticket_by_4=True
 	pass
 
 	def BG_main(self):

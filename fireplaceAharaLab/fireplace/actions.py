@@ -259,6 +259,11 @@ class BeginBar(GameAction):
 		if source.game.turn==amount:	
 			self.broadcast(source, EventListener.ON, player)
 		#### discover a darkmoon tickets see tag{2044} after 23.6
+		if player.game.parent.darkmoon_ticket_by_4 and source.game.turn%4 == 0:
+			k=int(source.game.turn/4)
+			entourage = random.sample(player.game.parent.BG_darkmoon_tickets[k], 3)
+			Discover(player, RandomEntourage()).trigger(source)
+
 		pass
 
 class BeginTurn(GameAction):
