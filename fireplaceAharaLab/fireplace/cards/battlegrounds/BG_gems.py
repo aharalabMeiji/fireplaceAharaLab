@@ -327,9 +327,9 @@ class BGS_Treasures_032:# <12>[1453] ### put off ##
 class BGS_Treasures_033:# <0>[1453]
 	""" New Recruit
 	Add a minion to Bob's Tavern for the rest of the game. """
-	#
+	def play(self):
+		self.controller.opponent.extra_len_bobs_field=1
 	pass
-
 class BGS_Treasures_033e:# <0>[1453]
 	""" New Recruit
 	Add a minion to Bob's Tavern for the rest of the game. """
@@ -339,37 +339,45 @@ class BGS_Treasures_033e:# <0>[1453]
 class BGS_Treasures_034:# <12>[1453]
 	""" Repeat Customer
 	Return a friendly non-golden minion to your hand. Give it +2/+2. """
-	#
+	requirements = {
+		PlayReq.REQ_TARGET_TO_PLAY:0, 
+		PlayReq.REQ_MINION_TARGET:0, 
+		PlayReq.REQ_FRIENDLY_TARGET:0,
+		1003:0 # REQ_NONGOLDEN_TARGET#
+		}
+	play = Bounce(TARGET).on(Buff(Bounce.TARGET, 'BGS_Treasures_034e'))
 	pass
+BGS_Treasures_034e=buff(2,2)# <0>[1453]
+""" Repeat Customer
++2/+2. """
 
-class BGS_Treasures_034e:# <0>[1453]
-	""" Repeat Customer
-	+2/+2. """
-	#
-	pass
-
-class BGS_Treasures_036:# <12>[1453]
+class BGS_Treasures_036:# <12>[1453]### maybe ##
 	""" Great Deal
 	For the rest of the game, reduce the cost of upgrading Bob's Tavern by (3) at the end of your turn. """
-	#
+	def play(self):
+		self.controller.extra_tavern_tierup_reduce_cost=2
 	pass
-
 class BGS_Treasures_036e:# <0>[1453]
 	""" Great Deal
 	At the end of each turn, reduce the cost of upgrading Bob's Tavern by (3). [DNT] """
-	#
 	pass
 
-class BGS_Treasures_037:# <12>[1453]
+class BGS_Treasures_037:# <12>[1453]### maybe ##
 	""" All That Glitters
 	Make a random minion in Bob's Tavern Golden. """
-	#
+	def play(self):
+		bartender = self.controller.opponent
+		tavern = bartender.field
+		if len(tavern)>0:
+			card = random.choice(tavern)
+			MorphGold(card).trigger(self.controller)## 
 	pass
 
 
-class BGS_Treasures_040:
-	"""
-	"""
+class BGS_Treasures_040: ### maybe ##
+	""" Banana Bunch
+	Add 2 Bananas to your hand. """
+	play = Give(CONTROLLER, 'DMF_065t')*2
 	pass
 
 

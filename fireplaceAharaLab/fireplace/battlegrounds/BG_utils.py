@@ -258,7 +258,7 @@ class BG_main:
 						else:
 							card.frozen=False
 							frozencard += 1
-					for repeat in range(bartender.len_bobs_field-frozencard):
+					for repeat in range(bartender.len_bobs_field-frozencard+bartender.extra_len_bobs_field):
 						card = self.DealCard(bartender, controller.tavern_tier)
 						if controller.hero.power.id=='TB_BaconShop_HP_101':### Silas-flag
 							if random.choice([0,1]):
@@ -367,7 +367,7 @@ class BG_main:
 				bar.identifycards()
 				controller = bar.controller
 				# グレードアップコストを減らす。
-				controller.tavern_tierup_cost = max(0, controller.tavern_tierup_cost-1) 
+				controller.tavern_tierup_cost = max(0, controller.tavern_tierup_cost-1-controller.extra_tavern_tierup_reduce_cost) 
 				#ターン更新に伴うコインの補充。
 				#bar.turn += 1
 				controller.used_mana = 0 

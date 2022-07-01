@@ -104,7 +104,9 @@ class Player(Entity, TargetableByAuras):
 		self.carry_cards=[] # YOP_024
 		self.tavern_tier=1# battlegrounds
 		self.tavern_tierup_cost=5 # battlegrounds
+		self.extra_tavern_tierup_reduce_cost=0 # battlegrounds
 		self.len_bobs_field=3 # battlegrounds
+		self.extra_len_bobs_field=0 # battleground
 		self.attacker_index=0 # battlegrounds
 		self.first_dead_minion=None # battlegrounds
 		self.second_dead_minion=None # battlegrounds

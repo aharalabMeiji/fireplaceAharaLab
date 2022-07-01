@@ -969,6 +969,7 @@ class Bounce(TargetedAction):
 	"""
 	Bounce minion targets on the field back into the hand.
 	"""
+	TARGET=ActionArg()
 	def do(self, source, target):
 		if len(target.controller.hand) >= target.controller.max_hand_size:
 			if Config.LOGINFO:
@@ -978,6 +979,7 @@ class Bounce(TargetedAction):
 			if Config.LOGINFO:
 				print("(Bounce.do)%r is bounced back to %s's hand", target, target.controller)
 			target.zone = Zone.HAND
+			self.broadcast(source, EventListener.ON, target)
 
 
 class CopyDeathrattles(TargetedAction):
