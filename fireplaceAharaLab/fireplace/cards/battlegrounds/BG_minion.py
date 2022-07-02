@@ -1100,7 +1100,7 @@ class BG23_350_Action(TargetedAction):
 						if hasattr(card, 'race') and card.race == race:
 							targets.append(card)
 					if len(targets)>0:
-						Buff(random.choice(target),buff).trigger(source)
+						Buff(random.choice(targets),buff).trigger(source)
 				else:
 					for card in controller.field:
 						if hasattr(card, 'race') and card.race == race:

@@ -11,6 +11,7 @@ from .exceptions import InvalidAction
 from .logging import log
 from .utils import random_class
 from .config import Config
+from .dsl.random_picker import RandomEntourage
 
 def _eval_card(source, card):
 	"""
@@ -260,8 +261,8 @@ class BeginBar(GameAction):
 			self.broadcast(source, EventListener.ON, player)
 		#### discover a darkmoon tickets see tag{2044} after 23.6
 		if player.game.parent.darkmoon_ticket_by_4 and source.game.turn%4 == 0:
-			k=int(source.game.turn/4)
-			entourage = random.sample(player.game.parent.BG_darkmoon_tickets[k], 3)
+			k=min(int(source.game.turn/4),3)
+			self.entourage = random.sample(player.game.parent.BG_darkmoon_tickets[k], 3)
 			Discover(player, RandomEntourage()).trigger(source)
 
 		pass
@@ -1254,7 +1255,7 @@ class Discover(TargetedAction):
 		if hasattr(target,'hero') and target.hero.data.card_class != CardClass.NEUTRAL:
 			# use hero class for Discover if not neutral (eg. Ragnaros)
 			discover_class = target.hero.data.card_class
-		elif source.data.card_class != CardClass.NEUTRAL:
+		elif source.data and source.data.card_class != CardClass.NEUTRAL:
 			# use card class for neutral hero classes
 			discover_class = source.data.card_class
 		else:
