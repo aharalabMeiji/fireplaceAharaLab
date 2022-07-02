@@ -62,6 +62,7 @@ class Player(Entity, TargetableByAuras):
 		self.max_deck_size = 60
 		self.cant_draw = False
 		self.cant_fatigue = False
+		self.entourage = []
 		self.fatigue_counter = 0
 		self.last_card_played = None
 		self.cards_drawn_this_turn = 0

@@ -224,7 +224,7 @@ class BGS_Treasures_018:# <12>[1453] ### need check ##
 	def play(self):
 		target = self.target
 		atkbuff = target.atk + 4
-		Buff(target, 'BGS_Treasures_018e', atk=atkbuff).trigger(source)
+		Buff(target, 'BGS_Treasures_018e', atk=atkbuff).trigger(self)
 	pass
 class BGS_Treasures_018e:# <12>[1453]
 	""" Rat in a Cage

@@ -6,7 +6,7 @@ from fireplace.utils import modify_description
 from fireplace.dsl.selector import TARGET
 from fireplace.cards.battlegrounds import BG_hero1
 import random
-from hearthstone.enums import Zone,State, CardClass, CardType, GameTag
+from hearthstone.enums import Zone,State, CardClass, CardType, GameTag, Race
 from .BG_enums import MovePlay
 
 class BG_Agent(object):
@@ -172,6 +172,20 @@ class BG_HumanAgent(BG_Agent):
 	def printMove(self, count, move):
 		print("[%d] %s"%(count, move))
 		pass
+
+	raceName={
+		Race.INVALID:'neutral',
+		Race.MURLOC:'murloc',
+		Race.DEMON:'demon',
+		Race.MECHANICAL:'mechanical',
+		Race.ELEMENTAL:'elemental',
+		Race.BEAST:'beast',
+		Race.PIRATE:'pirate',
+		Race.DRAGON:'dragon',
+		Race.ALL:'all',
+		Race.QUILBOAR:'quilboar',
+		Race.NAGA:'naga'
+	}
 	def printBar(self, bar, controller, bartender):
 		print("----------------------------------------------")
 		races = controller.game.parent.BG_races
@@ -205,7 +219,7 @@ class BG_HumanAgent(BG_Agent):
 			print ("ダークムーンチケット (%d/3)"%(controller.hero.power._sidequest_counter_))
 		print("----------------------------------------------")
 		for card in bartender.field:
-			print("Bar   :%s" %(self.card_stats(card)))
+			print("Bar(*%d):[%s]%s" %(card.tech_level, self.raceName[card.race], self.card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.field:
 			print("Field : %s"%(self.card_stats(card)))
@@ -221,13 +235,13 @@ class BG_HumanAgent(BG_Agent):
 		print("----------------------------------------------")
 		count=0
 		for choice in choices:
-			if choice.type!=CardType.HERO_POWER and  choice.requires_target() and len(choice.targets)>0:
-				for target in choice.targets:
-					self.printChoice(count, choice, target)
-					count += 1
-			else:
-				self.printChoice(count, choice)
-				count += 1
+			#if choice.type!=CardType.HERO_POWER and  choice.requires_target() and len(choice.targets)>0:
+			#	for target in choice.targets:
+			#		self.printChoice(count, choice, target)
+			#		count += 1
+			#else:
+			self.printChoice(count, choice)
+			count += 1
 		print("----------------------------------------------")
 		while True:
 			try :
@@ -270,6 +284,8 @@ class BG_HumanAgent(BG_Agent):
 				ret += "(deathrattle)"
 			if card.darkmoon_ticket:
 				ret += "(darkmoon ticket)"
+		else:
+			ret+=':'
 		ret += modify_description(card, card.data.description)
 		return ret
 

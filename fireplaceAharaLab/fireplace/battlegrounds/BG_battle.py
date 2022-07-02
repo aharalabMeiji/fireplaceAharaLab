@@ -33,6 +33,9 @@ class BG_Battle(Game):
 						buff.tick = self.tick
 						self.active_aura_buffs.append(buff)
 		pass
+	def __str__(self):
+		return "BG_Battle(%s)vs(%s)"%(self.player1.name, self.player2.name)
+
 	def battle(self):
 		print("=============start the battle====================")
 		#set their opponents
@@ -118,6 +121,9 @@ class BG_Battle(Game):
 						elif attacker.controller.deepcopy_original.second_dead_minion==None:
 							attacker.controller.deepcopy_original.second_dead_minion=defender.id
 					if len(self.first.field)==0 or len(self.second.field)==0:
+						break;
+					if attacker.zone==Zone.GRAVEYARD:
+						self.current_player.attacker_index-=1##adjustion
 						break;
 			# change the turn (no freeze nor one_turn_effect)
 			self.current_player.attacker_index+=1

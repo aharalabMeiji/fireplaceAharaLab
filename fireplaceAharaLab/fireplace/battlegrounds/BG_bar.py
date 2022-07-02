@@ -21,6 +21,8 @@ class BG_Bar(Game):
 		self.hero_is_alive=True
 		self.local_rank=0
 	pass
+	def __str__(self):
+		return "BG_Bar(%s)"%(self.controller.name)
 
 	def BG_setup(self):
 		if Config.LOGINFO:

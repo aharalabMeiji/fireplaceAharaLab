@@ -126,7 +126,8 @@ class BG_main:
 		self.BG_darkmoon_tickets=cards.battlegrounds.BG_DarkmoonTicket
 		self.darkmoon_ticket_by_4=True
 	pass
-
+	def __str__(self):
+		return "BG_gamemaster"
 	def BG_main(self):
 		# each agent chooses heroes 
 		for agent in self.Agents:
