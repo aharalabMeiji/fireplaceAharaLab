@@ -54,7 +54,7 @@ BG_Beast_Gold={
 	}
 
 
-##Alleycat <beast> (1/1) ###  MAYBE ###
+##Alleycat <beast> (1/1) ###  OK ###
 class CFM_315:# <3>[25]   
 	""" Alleycat <beast> (1/1)
 	[Battlecry:] Summon a 1/1_Cat."""
@@ -73,13 +73,13 @@ class TB_BaconUps_093t:#
 
 
 
-### Scavenging Hyena (1/2/2)  ### MAYBE ### 
+### Scavenging Hyena (1/2/2)  ### OK ### 
 class EX1_531: #<3>[1637] 
 	"""Scavenging Hyena (1/2/2)
 	Whenever a friendly Beast dies, gain +2/+1."""
 	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
 	pass
-EX1_531=buff(2,1)
+EX1_531e=buff(2,1)
 class TB_BaconUps_043: #<3>[1637]
 	"""Scavenging Hyena (1/2/2)
 	Whenever a friendly Beast dies, gain +4/+2."""
