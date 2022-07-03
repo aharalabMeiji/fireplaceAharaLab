@@ -625,7 +625,7 @@ class TB_BaconShop_HERO_34_Buddy_G:# <12>[1453]
 
 
 
-#49#Pyramad   ### need implementation ###
+#49#Pyramad   ### maybe OK ###
 class TB_BaconShop_HERO_39:# <12>[1453]
 	""" Pyramad	 """
 class TB_BaconShop_HP_040_Action1(TargetedAction):
@@ -644,8 +644,10 @@ class TB_BaconShop_HP_040_Action2(TargetedAction):
 			source.script_data_num_1 += 1
 class TB_BaconShop_HP_040:
 	""" Brick by Brick
-	Give a minion +@ Health. &lt;i&gt;(Gains +1 Health each turn you don't use this!)&lt;/i&gt; """
-	activate = TB_BaconShop_HP_040_Action1(RANDOM_FRIENDLY_MINION, 'TB_BaconShop_HP_040e')
+	Give a minion +@ Health. &lt;i&gt;(Gains +1 Health each turn you don't use this!)&lt;/i&gt; """ #23.6
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, 
+				 PlayReq.REQ_FRIENDLY_TARGET:0,}	
+	activate = TB_BaconShop_HP_040_Action1(TARGET, 'TB_BaconShop_HP_040e')
 	events = EndTurn(CONTROLLER).on(TB_BaconShop_HP_040_Action2(SELF))
 	## Give a random friendly minion +4_Health. (old version , -2022.6)
 	## <Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>

@@ -104,16 +104,16 @@ class TB_BaconUps_028:# <12>[1453]
 	pass
 
 
-#Metaltooth Leaper(2)
+#Metaltooth Leaper(2) ### OK ###
 class GVG_048:
 	"""
 	<b>Battlecry:</b> Give your other Mechs +2 Attack."""
-	play = Buff(FRIENDLY_MINIONS - SELF,'GVG_048e')
+	play = Buff(FRIENDLY_MINIONS + MECH - SELF,'GVG_048e')
 GVG_048e=buff(2,0)
 class TB_BaconUps_066:# <3>[1453]
 	""" Metaltooth Leaper
 	[Battlecry:] Give your other Mechs +4 Attack. """
-	play = Buff(FRIENDLY_MINIONS - SELF, 'TB_BaconUps_066e')
+	play = Buff(FRIENDLY_MINIONS + MECH - SELF, 'TB_BaconUps_066e')
 	pass
 TB_BaconUps_066e=buff(4,0)
 

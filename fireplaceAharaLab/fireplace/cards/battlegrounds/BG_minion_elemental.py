@@ -123,16 +123,19 @@ class TB_BaconUps_159:# <12>[1453]
 class BG21_021:# <12>[1453]
 	""" Smogger
 	[Battlecry:] Give a friendly Elemental stats equal to your Tavern Tier. """
+	requirements = {
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_FRIENDLY_TARGET: 0,
+		PlayReq.REQ_TARGET_IF_AVAILABLE: 0,
+		PlayReq.REQ_TARGET_WITH_RACE:Race.ELEMENTAL,
+		}
 	def play(self):
 		source = self
+		target = self.target
 		controller = self.controller
 		tier = controller.tavern_tier
-		elementals=[]
-		for card in controller.field:
-			if card.race == Race.ELEMENTAL:
-				elementals.append(card)
-		target = random.choice(elementals)
-		Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
+		if target:
+			Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
 		pass
 	pass
 class BG21_021e:# <12>[1453]
@@ -141,20 +144,22 @@ class BG21_021e:# <12>[1453]
 	pass
 class BG21_021_G:# <12>[1453]
 	""" Smogger
-	[Battlecry:] Give a friendlyElemental stats equal to_your Tavern Tier twice. """
+	[Battlecry:] Give a friendly Elemental stats equal to_your Tavern Tier twice. """
+	requirements = {
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_FRIENDLY_TARGET: 0,
+		PlayReq.REQ_TARGET_IF_AVAILABLE: 0,
+		PlayReq.REQ_TARGET_WITH_RACE:Race.ELEMENTAL,
+		}
 	def play(self):
 		source = self
+		target = self.target
 		controller = self.controller
 		tier = controller.tavern_tier
-		elementals=[]
-		for card in controller.field:
-			if card.race == Race.ELEMENTAL:
-				elementals.append(card)
-		target = random.choice(elementals)
-		Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
-		target = random.choice(elementals)
-		Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
-	pass
+		if target:
+			Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
+			Buff(target, 'BG21_021e', atk=tier, max_health=tier).trigger(controller)
+		pass
 
 
 

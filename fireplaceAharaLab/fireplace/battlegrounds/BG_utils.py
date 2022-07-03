@@ -203,11 +203,12 @@ class BG_main:
 			for i in range(self.size):
 				if i in draw_list[i]:
 					draw_list[i].remove(i)
-			for match in self.matches:
-				if match[1] in draw_list[match[0]]:
-					draw_list[match[0]].remove(match[1])
-				if match[0] in draw_list[match[1]]:
-					draw_list[match[1]].remove(match[0])
+			if count_alive>2:
+				for match in self.matches:##previous matches
+					if match[1] in draw_list[match[0]]:
+						draw_list[match[0]].remove(match[1])
+					if match[0] in draw_list[match[1]]:
+						draw_list[match[1]].remove(match[0])
 			self.matches=[]#
 			for i in range(self.size):
 				if draw_list[i]==[]:
@@ -221,7 +222,7 @@ class BG_main:
 						draw_list[ii].remove(i)
 					if j in draw_list[ii]:
 						draw_list[ii].remove(j)
-			print("Next battle draw:")
+			print("Next battle draw:::::::::::::::::::::::::")
 			for match in self.matches:
 				print("%s(%s)"%(self.BG_Bars[match[0]].controller.hero, self.BG_Bars[match[0]].controller), end=":")
 				print("%s(%s)"%(self.BG_Bars[match[1]].controller.hero, self.BG_Bars[match[1]].controller))

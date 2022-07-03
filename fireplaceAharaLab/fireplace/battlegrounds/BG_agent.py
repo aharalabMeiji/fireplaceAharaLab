@@ -131,16 +131,66 @@ class BG_HumanAgent(BG_Agent):
 		pass
 	def HumanMoveChoice(self, bar, candidates, controller, bartender):
 		self.printBar(bar, controller, bartender)
+		self.inputCandidates=[]
+		self.moveDict={}
 		count=0
 		for move in candidates:
-			self.printMove(count, move)
-			count += 1
+			if move.move==MovePlay.TURNEND:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+		count=10
+		for move in candidates:
+			if move.move==MovePlay.BUY:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+				count += 1
+		count=20
+		for move in candidates:
+			if move.move==MovePlay.SELL:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+				count += 1
+		count=30
+		for move in candidates:
+			if move.move==MovePlay.POWER:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+				count += 1
+		count=4
+		for move in candidates:
+			if move.move==MovePlay.TIERUP:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+		count=5
+		for move in candidates:
+			if move.move==MovePlay.REROLE:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+		count=6
+		for move in candidates:
+			if move.move==MovePlay.FREEZE:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+		count=70
+		for move in candidates:
+			if move.move==MovePlay.PLAY:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
+				count += 1
 		while True:
 			try :
 				print("choose from moves ->",end='')
 				inputNum = int(input())
-				if inputNum>=0 and inputNum<len(candidates):
-					return candidates[inputNum]
+				if inputNum in self.inputCandidates:
+					return self.moveDict[inputNum]
 			except ValueError :
 				pass
 		pass
@@ -204,13 +254,16 @@ class BG_HumanAgent(BG_Agent):
 			statstable.append([100-herohealth, herohealth, playertier, "(%s)[%s]%s"%(hero,player,modify_description(heropower,heropower.data.description))])
 		statstable.sort( key=lambda b: b[0])
 		for b in statstable:
-			print("%d ★%d %s"%(b[1],b[2],b[3]))
+			print("%d (*%d) %s"%(b[1],b[2],b[3]))
 		print("----------------------------------------------")
-		print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, controller.tavern_tierup_cost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
+		if controller.tavern_tier<6:
+			print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, controller.tavern_tierup_cost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
+		else:
+			print("グレード[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		buddy = controller.buddy_gauge
 		if buddy>100:
 			buddy = (buddy-100)*0.5
-		print("ヒーロー：%s(%d + %d), buddy : %d"%(controller.hero, controller.hero.health, controller.hero.armor, buddy))
+		print("ヒーロー：%s(%d + %d)"%(controller.hero, controller.hero.health, controller.hero.armor))
 		if controller.hero.power.cant_play:
 			print("パワー　：%s(cost %d) : unplayable"%(controller.hero.power, controller.hero.power.cost,))
 		else:
@@ -219,7 +272,7 @@ class BG_HumanAgent(BG_Agent):
 			print ("ダークムーンチケット (%d/3)"%(controller.hero.power._sidequest_counter_))
 		print("----------------------------------------------")
 		for card in bartender.field:
-			print("Bar(*%d):[%s]%s" %(card.tech_level, self.raceName[card.race], self.card_stats(card)))
+			print("Bar:(*%d)[%s]%s" %(card.tech_level, self.raceName[card.race], self.card_stats(card)))
 		print("----------------------------------------------")
 		for card in controller.field:
 			print("Field : %s"%(self.card_stats(card)))
