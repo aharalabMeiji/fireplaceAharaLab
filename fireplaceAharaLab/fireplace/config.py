@@ -28,8 +28,8 @@ class Config:# ()is the default value
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1='BG23_009'
-	CARD_PRESET2='BG23_000'
+	CARD_PRESET1='BGS_037'
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効

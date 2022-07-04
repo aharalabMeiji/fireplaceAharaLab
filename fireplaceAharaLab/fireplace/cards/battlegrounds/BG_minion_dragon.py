@@ -4,6 +4,7 @@ BG_Minion_Dragon =[
 	'BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',#Evolving Chromawing(1) ###OK
 	'BGS_019','TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e',#Glyph Guardian(2)
+	'BGS_037','BGS_037e','TB_BaconUps_107','TB_BaconUps_107e',#Steward of Time(2)
 	'BGS_034','TB_BaconUps_149',#Bronze Warden(3)
 	'BGS_067','BGS_067e','TB_BaconUps_117','TB_BaconUps_117e',#Drakonid Enforcer(3)
 	'BGS_038','BGS_038e','TB_BaconUps_108','TB_BaconUps_108e',#Twilight Emissary(3)
@@ -19,7 +20,7 @@ BG_Minion_Dragon =[
 
 BG_PoolSet_Dragon=[
 	['BG21_027','BGS_019',],
-	['BGS_045',],
+	['BGS_045','BGS_037',],
 	['BGS_034','BGS_067','BGS_038','BG21_015',],
 	['ICC_029','BG21_014','BG23_362',],#4 #'BG21_012',
 	['BGS_043','BGS_036',],
@@ -30,6 +31,7 @@ BG_Dragon_Gold={
 	'BG21_027':'BG21_027_G',#Evolving Chromawing(1)
 	'BGS_019':'TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045':'TB_BaconUps_115',#Glyph Guardian(2)
+	'BGS_037':'TB_BaconUps_107',#Steward of Time(2)
 	'BGS_034':'TB_BaconUps_149',#Bronze Warden(3)
 	'BGS_067':'TB_BaconUps_117',#Drakonid Enforcer(3)
 	'BGS_038':'TB_BaconUps_108',#Twilight Emissary(3)
@@ -119,6 +121,17 @@ class TB_BaconUps_115e:
 	pass
 
 
+#Steward of Time(2) ### OK ###
+class BGS_037:
+	""" Steward of Time
+	When you sell this minion, give all minions in Bob's Tavern +2/+1."""
+	events = Sell(CONTROLLER, FRIENDLY + ID('BGS_037')).on(Buff(ENEMY_MINIONS, 'BGS_037e'))
+BGS_037e=buff(2,1)
+class TB_BaconUps_107:
+	""" Steward of Time
+	When you sell this minion, give all minions in Bob's Tavern +4/+2."""
+	events = Sell(CONTROLLER, FRIENDLY + ID('TB_BaconUps_107')).on(Buff(ENEMY_MINIONS, 'TB_BaconUps_107e'))
+TB_BaconUps_107e=buff(4,2)
 
 #Bronze Warden(3)  ### OK ###
 class BGS_034:# <12>[1453]
