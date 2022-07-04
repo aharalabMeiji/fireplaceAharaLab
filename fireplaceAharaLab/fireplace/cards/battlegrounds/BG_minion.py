@@ -883,6 +883,7 @@ class BG23_015:# <12>[1453]
 	tags={2359:'BG23_015t'}
 class BG23_015t:
 	play = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
+	tags = {GameTag.TECH_LEVEL:5}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 pass

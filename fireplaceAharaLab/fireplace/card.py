@@ -951,6 +951,7 @@ class Minion(Character):
 class Spell(PlayableCard):
 	spell_school = int_property("spell_school") #
 	freeze = boolean_property('freeze') #
+	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
 
 	def __init__(self, data):
 		self.immune_to_spellpower = False

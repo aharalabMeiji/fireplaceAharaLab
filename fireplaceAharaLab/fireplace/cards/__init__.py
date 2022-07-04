@@ -191,15 +191,18 @@ class CardDB(dict):
 				elif attr == 'has_choose_one':
 					cards = [card for card in cards if hasattr(card,'has_choose_one')]
 				elif attr == 'tech_level':
-					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)==value ]
+					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL,10)==value ]
 				elif attr == 'spellcraft':
 					cards = [card for card in cards if card.tags.get(2359,'')!='' ]
 				elif attr == 'tech_level_less':
-					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL)<=value ]
+					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL,10)<=value ]
 				elif attr == 'bg_collectible':
 					cards = [card for card in cards if card.tags.get(GameTag.IS_BACON_POOL_MINION)==value ]
 				elif attr == 'has_battlecry':
 					cards = [card for card in cards if card.tags.get(GameTag.BATTLECRY,0)==1 ]
+				elif attr == 'spellcraft_spellcard':
+					cards = [card for card in cards 
+								if card.tags.get(2423, 0)==1]
 				else:
 					cards = [
 						card for card in cards if (

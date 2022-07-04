@@ -17,7 +17,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# log.info相当のログ表示
 	DEEPCOPY_LOGINFO=0
 	PRINT_HITLOG=0 # Hitイベントを表示する
 
@@ -28,12 +28,12 @@ class Config:# ()is the default value
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1=''
-	CARD_PRESET2=''
+	CARD_PRESET1='BG23_009'
+	CARD_PRESET2='BG23_000'
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
-	HERO_1='' #人間プレーヤーはヒーローを指定できる
+	HERO_1='BG23_HERO_304' #人間プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

@@ -204,7 +204,7 @@ class BGS_Treasures_015:# <5>[1453] ### need check widely ##
 	""" Buy the Holy Light
 	Give a friendly minion [Divine Shield]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = SetTag(SELF, (GameTag.DIVINE_SHIELD,)) #? 
+	play = SetTag(TARGET, (GameTag.DIVINE_SHIELD,)) #? 
 	pass
 
 class BGS_Treasures_016:# <12>[1453] ### maybe ##

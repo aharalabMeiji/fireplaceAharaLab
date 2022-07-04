@@ -63,6 +63,7 @@ class BG23_000t:
 	Give a minion +2_Attack until next turn."""
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_000e')
+	tags = {GameTag.TECH_LEVEL:1}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 class BG23_000e:
@@ -142,6 +143,7 @@ class BG23_004e:
 class BG23_004t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_004e')	
+	tags = {GameTag.TECH_LEVEL:2}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
@@ -169,21 +171,30 @@ class BG23_009_Action(TargetedAction):
 	BUFF=ActionArg()
 	AMOUNT=ActionArg()
 	def do(self, source, buff, amount):
-		controller = source.controller
 		if hasattr(buff.source,'spellcraft_spellcard'):
-			if controller.once_per_turn<amount:
+			if source.script_data_num_1<amount:
 				buff.permanent_buff = True
-				controller.once_per_turn+=1
+				source.script_data_num_1+=1
+class BG23_009_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.script_data_num_1=0
 class BG23_009:# <12>[1453]
 	""" Lava Lurker (2)
 	The first [Spellcraft] spellcast on this each turn is permanent. """
 	## Only in this case, Buff.on activates for spellcraft spellcasts. 
-	events = Buff(SELF).on(BG23_009_Action(Buff.BUFF, 1))
+	events = [
+		Buff(SELF).on(BG23_009_Action(Buff.BUFF, 1)),
+		BeginBar(CONTROLLER).on(BG23_009_Action2(SELF))
+	]
 	pass
 class BG23_009_G:# <12>[1453]
 	""" Lava Lurker
 	The first 2 [Spellcraft] spellscast on this each turnare permanent. """
-	events = Buff(SELF).on(BG23_009_Action(Buff.BUFF, 2))
+	events = [
+		Buff(SELF).on(BG23_009_Action(Buff.BUFF, 2)),
+		BeginBar(CONTROLLER).on(BG23_009_Action2(SELF))
+	]
 	pass
 
 
@@ -284,6 +295,7 @@ class BG23_011e:
 class BG23_011t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_011e') * Count(FRIENDLY_MINIONS + NAGA)		
+	tags = {GameTag.TECH_LEVEL:3}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
 	pass
@@ -323,6 +335,7 @@ class BG23_006e:
 class BG23_006t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_006e')	
+	tags = {GameTag.TECH_LEVEL:4}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
@@ -363,6 +376,7 @@ class BG23_007e:
 class BG23_007t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_007e')	
+	tags = {GameTag.TECH_LEVEL:4}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
@@ -450,6 +464,7 @@ class BG23_008e:
 class BG23_008t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'BG23_008e')	
+	tags = {GameTag.TECH_LEVEL:5}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass

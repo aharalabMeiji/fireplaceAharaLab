@@ -120,6 +120,7 @@ RandomBGMurloc = lambda **kw: RandomBGMinion(race=Race.MURLOC, **kw)
 RandomBGPirate = lambda **kw: RandomBGMinion(race=Race.PIRATE, **kw)
 RandomBGMinion = lambda **kw: RandomBGCollectible(type=CardType.MINION, **kw)
 RandomBGSpellcraft = lambda **kw: RandomBGCollectible(spellcraft=1, **kw)
+RandomBGSpellcraftSpellcard = lambda **kw: RandomCardPicker(spellcraft_spellcard=1, **kw)
 
 
 class RandomEntourage(RandomCardPicker):

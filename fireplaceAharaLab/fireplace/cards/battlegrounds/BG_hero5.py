@@ -27,7 +27,7 @@ BG_PoolSet_Hero5=[
 	'TB_BaconShop_HERO_35',#76
 	'TB_BaconShop_HERO_53',#77## dragon ban
 	'TB_BaconShop_HERO_91',#78
-	#'BG22_HERO_007',#79
+	#'BG22_HERO_007',#79#Queen Azshara
 	'BG23_HERO_304', #80#Lady Vashj
 	]
 BG_Hero5_Buddy={
@@ -576,22 +576,28 @@ class BG22_HERO_007t:
 
 
 
-## 
+##80##Lady Vashj ### HP OK ##
 class BG23_HERO_304:
 	""" Lady Vashj """
 class BG23_HERO_304p_Action(TargetedAction):
 	BUFF=ActionArg()
 	def do(self, source, buff):
-		controller = source.controller
 		if hasattr(buff.source,'spellcraft_spellcard'):
-			if controller.once_per_turn<1:
+			if source.script_data_num_1<1:
 				buff.permanent_buff = True
-				controller.once_per_turn+=1
+				source.script_data_num_1+=1
+class BG23_HERO_304p_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.script_data_num_1=0
 class BG23_HERO_304p:
 	""" Relics of the Deep
 	&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spellcraft&lt;/b&gt; spell of your Tier or lower. &lt;b&gt;Passive:&lt;/b&gt; Your first one __each turn is permanent."""
-	events = Buff(FRIENDLY).on(BG23_HERO_304p_Action(Buff.BUFF))
-	play = Discover(Controller, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER)))
+	events = [
+		Buff(FRIENDLY).on(BG23_HERO_304p_Action(Buff.BUFF)),
+		BeginBar(CONTROLLER).on(BG23_HERO_304p_Action2(SELF))
+	]
+	activate = Discover(CONTROLLER, RandomBGSpellcraftSpellcard(tech_level_less=TIER(CONTROLLER)))
 	pass
 
 	
