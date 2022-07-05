@@ -135,19 +135,17 @@ class BG20_102:# <12>[1453]
 	pass
 class BG20_102e:# <12>[1453]
 	""" Toughened """
-	events = EndBattle(CONTROLLER).on(SetAttr(OWNER,'divine_shield',False),Destroy(SELF))
+	events = BeginBar(CONTROLLER).on(SetDivineShield(OWNER, False),Destroy(SELF))
 	pass
 class BG20_102_G:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain[Divine Shield]. """
-	events = ApplyGem(SELF).on(Buff(SELF,'BG20_102_Ge'))
+	events = ApplyGem(SELF).on(SetDivineShield(SELF),Buff(SELF,'BG20_102_Ge'))
 	pass
 class BG20_102_Ge:# <12>[1453]
 	""" Real Tough
 	[Divine Shield]. """
-	def apply(self,target):
-		target.divine_shield=True	
-		pass	
+	events = BeginBar(CONTROLLER).on(SetDivineShield(OWNER, False),Destroy(SELF))
 	pass
 
 

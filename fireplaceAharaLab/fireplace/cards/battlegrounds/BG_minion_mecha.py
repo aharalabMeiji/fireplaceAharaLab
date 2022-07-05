@@ -123,7 +123,6 @@ class BGS_071_Action(TargetedAction):
 	TARGET = ActionArg()#SELF
 	BUFF = ActionArg()
 	def do(self, source, target, buff):
-
 		if isinstance(target.game, BG_Battle):##during combat
 			Buff(target, buff).trigger(target.controller)
 			SetDivineShield(target).trigger(target.controller)

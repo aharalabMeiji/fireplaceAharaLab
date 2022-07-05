@@ -385,9 +385,13 @@ class TB_BaconShop_HP_105_Action(TargetedAction):
 	CARD=ActionArg()
 	def do(self, source, target, card):
 		new_deathrattles = card.deathrattles
+		old_deathrattles = source.data.scripts.deathrattle
+		ret = []
+		for deathrattle in old_deathrattles:
+			ret.append(deathrattle)
+		ret += new_deathrattles[0]
+		source.data.scripts.deathrattle=tuple(ret)
 		deathrattles = source.deathrattles
-		deathrattles.append(new_deathrattles[0])
-		source.data.scripts.deathrattle=deathrattles[0]
 		print("%r->%s"%(source.deathrattles,source))
 		pass
 class TB_BaconShop_HP_105_Action2(TargetedAction):
@@ -563,7 +567,7 @@ class TB_BaconShop_HP_072_Action(TargetedAction):
 	def do(self, source, target):
 		controller=target
 		Give(controller, RandomBGPirate(tech_level_less=TIER(CONTROLLER))).trigger(source)
-		gold_card_id = controller.game.BG_find_triple()## ƒgƒŠƒvƒ‹‚ð”»’è
+		gold_card_id = controller.game.BG_find_triple()## ï¿½gï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ð”»’ï¿½
 		if gold_card_id:
 			controller.game.BG_deal_gold(gold_card_id)
 		for i in range(len(source.buffs)):

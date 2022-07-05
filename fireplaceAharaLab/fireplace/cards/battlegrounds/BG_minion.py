@@ -54,11 +54,16 @@ BG_Minion=[
 
 BG_PoolSet_Minion=[
 	['BGS_004','BG23_352',],
-	['BG20_203','OG_221','OG_256','BG21_013','BG_CFM_063','BG_AT_069','BG23_350',], #2 #'BGS_106','BGS_082','FP1_024',
-	['BGS_110','BG21_002','DS1_070','DAL_575','BGS_002','GIL_681','BGS_029',], #3 # 'BG21_030',
-	['BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016','BG_DAL_775',], #4 'BGS_111','EX1_093',
-	['FP1_031','LOE_077','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',], #5 'BGS_131',
-	['BGS_040','BGS_022','BG23_015','BG23_018','BG23_190',], #6 'BGS_069', 'BG21_011',
+	['BG20_203','OG_221','OG_256','BG21_013','BG_CFM_063','BG_AT_069','BG23_350',], #2 
+	#banned 'BGS_106','BGS_082','FP1_024',
+	['BGS_110','BG21_002','DS1_070','DAL_575','BGS_002','GIL_681','BGS_029',], #3 
+	#banned 'BG21_030',
+	['BG21_007','BGS_105','BGS_083','ICC_807','BG21_038','BG23_016','BG_DAL_775',], #4
+	#banned 'BGS_111','EX1_093',
+	['FP1_031','LOE_077','BGS_012','BGS_009','BG21_036','BGS_202','BGS_104','BG23_318',], #5 
+	#banned 'BGS_131',
+	['BGS_040','BGS_022','BG23_015','BG23_018','BG23_190',], #6 
+	#banned 'BGS_069', 'BG21_011',
 ]
 
 
@@ -1091,7 +1096,7 @@ class BG23_350_Action(TargetedAction):
 		controller = target
 		races = []
 		for card in controller.field:
-			if hasattr(card, 'race') and not card.race in races:
+			if hasattr(card, 'race') and card.race != Race.INVALID and not card.race in races:
 				races.append(card.race)
 		if len(races)>0:
 			for race in races:

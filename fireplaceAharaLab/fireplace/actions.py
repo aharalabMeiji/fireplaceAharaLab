@@ -344,6 +344,8 @@ class Death(GameAction):
 			print("(Death.do)Processing Death for %r"% target)
 		source.game.refresh_auras()
 		target.controller.add_death_log(target)
+		if target.id=='TB_BaconShop_HP_105t':
+			ahara=0
 		self.broadcast(source, EventListener.ON, target)
 		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(target)])
@@ -2704,10 +2706,11 @@ class SetAttr(TargetedAction):
 
 class SetDivineShield(TargetedAction):
 	TARGET = ActionArg()
-	def do(self, source, target):
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount=True):
 		if Config.LOGINFO:
 			print("(SetDivineShield.do) Let '%s' have a divine shiled"%(target))
-		setattr(target, 'divine_shield', True)
+		setattr(target, 'divine_shield', amount)
 
 class BuffOnce(TargetedAction):
 	"""

@@ -294,9 +294,9 @@ class BGS_Treasures_028:# <12>[1453] ### Maybe ##
 	""" Give A Dog A Bone
 	Give a friendly minion [Divine Shield], [Windfury], and +10/+10. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
-	play = Buff(TARGET, 'BGS_Treasures_028e',) 
+	play = Buff(TARGET, 'BGS_Treasures_028e'),GiveDivineShield(TARGET) 
 	pass
-BGS_Treasures_028e=buff(10,10, windfury=True, divine_shield=True)# <12>[1453]
+BGS_Treasures_028e=buff(10,10, windfury=True)# <12>[1453]
 """ Dog Bone, 	Has +10/+10, [Divine Shield], and [Windfury]. """
 
 class BGS_Treasures_029:# <12>[1453] ### maybe ##
