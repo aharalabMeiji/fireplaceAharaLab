@@ -1,7 +1,10 @@
-from .BG_agent import BG_Agent
+from .BG_agent import BG_Agent, BG_NecoAgent
 from .BG_enums import MovePlay
 from .BG_battle import BG_Battle
-from fireplace.deepcopy import deepcopy_game
+from .BG_bar import BG_Bar
+from ..deepcopy import deepcopy_game
+from ..player import Player
+from ..actions import Hit
 from hearthstone.enums import Zone,State, CardClass, CardType, GameTag, Race
 import random
 
@@ -15,15 +18,27 @@ class BG_VectorAgent(BG_Agent):
 		self. favorites=[
 			['BG21_000','CFM_316','FP1_031',],## Š^‘lƒoƒƒ“
 			]
+		self.dummyAgent = BG_NecoAgent("Dummy")
+		self.dummyHero = 'BG22_HERO_007'
+		self.dummyPlayer = Player(self.dummyAgent.name, [], self.dummyHero)
+		self.dummyBar = BG_Bar(self.dummyPlayer)
+		self.dummyBar.BG_setup()
+		self.dummyBar.player1 = self.dummyBar.current_player = self.dummyBar.controller
+		self.dummyBar.player2 = self.dummyBar.bartender
 		pass
 	def getStats(self, card):
 		if card.type==CardType.MINION:
 			return card.atk+card.max_health
 		else:
 			return 10
-
+	def defenseStep(self, health, shield, amount):
+		return int(health/amount)+1+shield
+	def attackStep(self, atk, windfury, poisonous, amount):
+		if poisonous: 
+			return 1
+		else:
+			return int(amount/atk/windfury)+1
 	def GetStats(self, controller, new_card=None, old_card=None):
-		self.dummy = Player('dummy', None, None)
 		total_steps=0
 		defense05=0
 		defense10=0
@@ -36,17 +51,42 @@ class BG_VectorAgent(BG_Agent):
 		attack20=0
 		attack40=0
 		poisonous=0
-		self.bar1=controller.game
-		self.game1=deepcopy_game(self.bar1, controller, 0)
-		self.player1 = self.game1.player1
-		self.player1.deepcopy_original = self.bar1.controller
-		self.player2 = self.game2.player1
-		self.player2.deepcopy_original = None
-		self.this_is_battle=True
-		battlefield = BG_Battle(controller, dummy)
-		while:
-			pass
-		pass
+		self.controllerBar=deepcopy_game(controller.game, controller, 0)
+		self.controller=self.controllerBar.controller
+		self.vectorBattle = BG_Battle([self.controllerBar, self.dummyBar])
+		while len(self.controller.field)>0:
+			card = self.controller.field[0]
+			atk = card.atk
+			health = card.health
+			if card.divine_shield:
+				Hit(card, health).trigger(self.dummyPlayer)
+				shield=1
+			else:
+				shield=0
+			if card.windfury:
+				windfury=2
+			else:
+				windfury=1
+			Hit(card, health).trigger(self.dummyPlayer)
+			if card.poisonous:
+				if shield:
+					poisonous += 2
+				else:
+					poisonous += 1
+			total_step += 1
+			defense05 += self.defenseStep(health, shield, 5)
+			defense10 += self.defenseStep(health, shield, 10)
+			defense15 += self.defenseStep(health, shield, 15)
+			defense20 += self.defenseStep(health, shield, 20)
+			defense40 += self.defenseStep(health, shield, 40)
+			attack05 -= self.attackStep(atk, windfury, card.poisonous, 5)
+			attack10 -= self.attackStep(atk, windfury, card.poisonous, 10)
+			attack15 -= self.attackStep(atk, windfury, card.poisonous, 15)
+			attack20 -= self.attackStep(atk, windfury, card.poisonous, 20)
+			attack40 -= self.attackStep(atk, windfury, card.poisonous, 40)
+		return [total_step, defense05, defense10, defense15, defense20, defense40, \
+			attack05, attack10, attack15, attack20, attack40, poisonous]
+
 	def VectorMoveChoice(self, bar, candidates, controller, bartender):
 		if len(candidates)>0:
 			choices=[]
