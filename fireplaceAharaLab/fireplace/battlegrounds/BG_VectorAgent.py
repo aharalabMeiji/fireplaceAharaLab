@@ -1,9 +1,10 @@
-from pickle import NONE
 from .BG_agent import BG_Agent
 from .BG_enums import MovePlay
+from .BG_battle import BG_Battle
+from fireplace.deepcopy import deepcopy_game
 from hearthstone.enums import Zone,State, CardClass, CardType, GameTag, Race
-
 import random
+
 
 class BG_VectorAgent(BG_Agent):
 	def __init__(self, myName, myOption = [], rating =1000 ):
@@ -21,9 +22,31 @@ class BG_VectorAgent(BG_Agent):
 		else:
 			return 10
 
-	def GetStats(controller, new_card=None, old_card=None):
-		return 0
-
+	def GetStats(self, controller, new_card=None, old_card=None):
+		self.dummy = Player('dummy', None, None)
+		total_steps=0
+		defense05=0
+		defense10=0
+		defense15=0
+		defense20=0
+		defense40=0
+		attack05=0
+		attack10=0
+		attack15=0
+		attack20=0
+		attack40=0
+		poisonous=0
+		self.bar1=controller.game
+		self.game1=deepcopy_game(self.bar1, controller, 0)
+		self.player1 = self.game1.player1
+		self.player1.deepcopy_original = self.bar1.controller
+		self.player2 = self.game2.player1
+		self.player2.deepcopy_original = None
+		self.this_is_battle=True
+		battlefield = BG_Battle(controller, dummy)
+		while:
+			pass
+		pass
 	def VectorMoveChoice(self, bar, candidates, controller, bartender):
 		if len(candidates)>0:
 			choices=[]
