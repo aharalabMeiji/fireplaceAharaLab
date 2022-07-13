@@ -1,7 +1,7 @@
 from ..utils import *
 
 BG_Minion_Dragon =[
-	'BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',#Evolving Chromawing(1) ###OK
+	##'BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',#Evolving Chromawing(1) ###OK
 	'BGS_019','TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e',#Glyph Guardian(2)
 	'BGS_037','BGS_037e','TB_BaconUps_107','TB_BaconUps_107e',#Steward of Time(2)
@@ -19,7 +19,7 @@ BG_Minion_Dragon =[
 	]
 
 BG_PoolSet_Dragon=[
-	['BG21_027','BGS_019',],
+	['BGS_019',],##'BG21_027',
 	['BGS_045','BGS_037',],
 	['BGS_034','BGS_067','BGS_038','BG21_015',],
 	['ICC_029','BG21_014','BG23_362',],#4 #'BG21_012',
@@ -28,7 +28,7 @@ BG_PoolSet_Dragon=[
 	]
 
 BG_Dragon_Gold={
-	'BG21_027':'BG21_027_G',#Evolving Chromawing(1)
+	##'BG21_027':'BG21_027_G',#Evolving Chromawing(1)
 	'BGS_019':'TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045':'TB_BaconUps_115',#Glyph Guardian(2)
 	'BGS_037':'TB_BaconUps_107',#Steward of Time(2)

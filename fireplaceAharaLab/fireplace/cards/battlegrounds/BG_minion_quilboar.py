@@ -153,13 +153,19 @@ class BG20_102_Ge:# <12>[1453]
 #Bannerboar	3  ### OK ###
 class BG20_201:# <12>[1453]
 	""" Bannerboar
-	At the end of your turn, play a [Blood Gem] on adjacent Quilboar. """
-	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
+	At the end of your turn, play a &lt;b&gt;Blood Gem&lt;/b&gt; on adjacent minions.
+	"""
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
+	##At the end of your turn, play a [Blood Gem] on adjacent Quilboar. 
+	##events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
 	pass
 class BG20_201_G:# <12>[1453]
 	""" Bannerboar
-	At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar. """
-	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'), ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
+	At the end of your turn, play 2 &lt;b&gt;Blood Gems&lt;/b&gt; on adjacent minions.
+	 """
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENTR, 'BG20_GEM'), ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
+	## At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar.
+	##events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'), ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
 	pass
 
 
