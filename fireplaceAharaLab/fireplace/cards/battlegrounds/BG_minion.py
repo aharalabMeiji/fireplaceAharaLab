@@ -1,18 +1,19 @@
-from msilib.schema import Class
 from ..utils import *
 
+BG_Wrath_Weaver=True
+BG_Acolyte_of_C_Thun=False##banned
+BG_Menagerie_Mug=False##banned 23.6
+BG_Prophet_of_the_Boar=True
+BG_Selfless_Hero=True
+BG_Spawn_of_N_Zoth=True
+BG_Unstable_Ghoul=False
+BG_Whelp_Smuggler=True
+BG_Arm_of_the_Empire=True
+BG_Bird_Buddy=True
+BG_Budding_Greenthumb=False
+
 BG_Minion=[
-	'BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',#Wrath Weaver	1
-	#'BGS_106','TB_BaconUps_255',#Acolyte of C'Thun	2 ##banned 23.6
-	#'BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',#Menagerie Mug	2 ##banned 23.6
-	'BG20_203','BG20_203_G',#Prophet of the Boar	2 
-	'OG_221','TB_BaconUps_014',#Selfless Hero	2
-	'OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',#Spawn of N'Zoth	2
-	#'FP1_024','TB_BaconUps_118',#Unstable Ghoul	2 ##banned 23.6
-	'BG21_013','BG21_013e','BG21_013_G',#Whelp Smuggler	2
-	'BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',#Arm of the Empire	3
-	'BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',#Bird Buddy	3
-	#'BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',#Budding Greenthumb	3 ##banned 23.6
+	
 	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
 	'DAL_575','TB_BaconUps_034',#Khadgar	3
 	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
@@ -68,26 +69,8 @@ BG_PoolSet_Minion=[
 
 
 BG_Minon_Gold={
-	#Wrath Weaver	1	1	3	-	-
-	'BGS_004':'TB_BaconUps_079',
-	#Acolyte of C'Thun	2	2	3	-	Reborn
-	'BGS_106':'TB_BaconUps_255',
-	#Menagerie Mug	2	2	2	-	Battlecry
-	'BGS_082':'TB_BaconUps_144',
-	#Prophet of the Boar	2	3	3	-	Blood Gem
-	'BG20_203':'BG20_203_G',
-	#Selfless Hero	2	2	1	-	Deathrattle
-	'OG_221':'TB_BaconUps_014',
-	#Spawn of N'Zoth	2	2	2	-	Deathrattle
-	'OG_256':'TB_BaconUps_025',
-	#Unstable Ghoul	2	1	3	-	Deathrattle
-	'FP1_024':'TB_BaconUps_118',
-	#Whelp Smuggler	2	2	5	-	-
-	'BG21_013':'BG21_013_G',
-	#Arm of the Empire	3	4	4	-	Taunt
-	'BGS_110':'TB_BaconUps_302',
-	#Bird Buddy	3	2	4	-	Avenge (X)
-	'BG21_002':'BG21_002_G',
+	
+
 	#Budding Greenthumb	3	1	4	-	Avenge (X)
 	'BG21_030':'BG21_030_G',
 	#Houndmaster	3	4	3	-	Battlecry
@@ -151,6 +134,11 @@ BG_Minon_Gold={
 	}
 
 
+if BG_Wrath_Weaver:#Wrath Weaver	1	1	3	-	-
+	BG_Minion += ['BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',]#Wrath Weaver	1
+	BG_PoolSet_Minion[1].append('BGS_004')
+	BG_Minon_Gold['BGS_004']='TB_BaconUps_079'
+	pass
 
 #Wrath Weaver	1	1	3	 ### maybe ###
 class BGS_004:# <12>[1453] おりや
@@ -168,7 +156,14 @@ class TB_BaconUps_079:# <12>[1453]
 TB_BaconUps_079e=buff(4,4)# <12>[1453]
 """ Wrath Woven,	Increased stats. """
 
-#Acolyte of C'Thun	2	2	3	-		 ### OK ###
+
+
+if BG_Acolyte_of_C_Thun:#Acolyte of C'Thun	2	2	3
+	BG_Minion += ['BGS_106','TB_BaconUps_255',]#	1
+	BG_PoolSet_Minion[2].append('BGS_106')
+	BG_Minon_Gold['BGS_106']='TB_BaconUps_255'
+	pass
+#,#Acolyte of C'Thun	2 ##banned 23.6
 class BGS_106:# <12>[1453] クトゥーンのじさい
 	""" Acolyte of C'Thun
 	[Taunt][Reborn] """
@@ -180,6 +175,11 @@ class TB_BaconUps_255:# <12>[1453]
 
 
 
+if BG_Menagerie_Mug:#Menagerie Mug	2	2	2
+	BG_Minion += ['BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',]#	1
+	BG_PoolSet_Minion[2].append('BGS_082')
+	BG_Minon_Gold['BGS_082']='TB_BaconUps_144'
+	pass
 #Menagerie Mug	2	2	2	-		 ### OK ###
 class BGS_082_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -228,6 +228,11 @@ TB_BaconUps_144e=buff(2,2)# <12>[1453]
 
 
 
+if BG_Prophet_of_the_Boar:#Prophet of the Boar	2	3	3
+	BG_Minion += ['BG20_203','BG20_203_G',]#	1
+	BG_PoolSet_Minion[2].append('BG20_203')
+	BG_Minon_Gold['BG20_203']='BG20_203_G'
+	pass
 #Prophet of the Boar	2	3	3	-		 ### OK ###
 class BG20_203_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -256,6 +261,12 @@ class BG20_203_G:# <12>[1453]
 	pass
 
 
+
+if BG_Selfless_Hero:#Selfless Hero	2	2	1
+	BG_Minion += ['OG_221','TB_BaconUps_014',]#	
+	BG_PoolSet_Minion[2].append('OG_221')
+	BG_Minon_Gold['OG_221']='TB_BaconUps_014'
+	pass
 #Selfless Hero	2	2	1	-	### OK ###
 ### 基本的にはこれでよいと思うが、 RANDOM(FRIENDLY_MINIONS - DIVINE_SHIELD)
 ###のほうが筋だと思う。
@@ -271,7 +282,12 @@ class TB_BaconUps_014:# <5>[1453]
 
 
 
-#Spawn of N'Zoth	2	2	2	-　### OK ###
+
+if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	-　### OK ###
+	BG_Minion += ['OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',]#	
+	BG_PoolSet_Minion[2].append('OG_256')
+	BG_Minon_Gold['OG_256']='TB_BaconUps_025'
+	pass
 class OG_256:#　んぞす
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +1/+1. """
@@ -287,7 +303,11 @@ TB_BaconUps_025e = buff(2,2)
 
 
 
-#Unstable Ghoul	2	1	3	-		 ### OK ###
+if BG_Unstable_Ghoul:#Unstable Ghoul	2	1	3	-### OK ### ##banned 23.6
+	BG_Minion += ['FP1_024','TB_BaconUps_118',]#	
+	BG_PoolSet_Minion[2].append('FP1_024')
+	BG_Minon_Gold['FP1_024']='TB_BaconUps_118'
+	pass
 class FP1_024:# <12>[1453] ぐうる
 	""" Unstable Ghoul
 	<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions. """
@@ -301,7 +321,11 @@ class TB_BaconUps_118:# <12>[1453]
 
 
 
-#Whelp Smuggler	2	2	5	-	 	 ### OK ###
+if BG_Whelp_Smuggler:#Whelp Smuggler	2	2	5	- ### OK ###
+	BG_Minion += ['BG21_013','BG21_013e','BG21_013_G',]#	
+	BG_PoolSet_Minion[2].append('BG21_013')
+	BG_Minon_Gold['BG21_013']='BG21_013_G'
+	pass
 class BG21_013_Action(TargetedAction):## 密輸人
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -325,7 +349,11 @@ class BG21_013_G:# <12>[1453]
 
 
 
-#Arm of the Empire	3	4	4	-		 ### maybe ###
+if BG_Arm_of_the_Empire:#Arm of the Empire	3	4	4	-		 ### maybe ###
+	BG_Minion += ['BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',]#	
+	BG_PoolSet_Minion[3].append('BGS_110')
+	BG_Minon_Gold['BGS_110']='TB_BaconUps_302'
+	pass
 class BGS_110:# <12>[1453] 帝国の腕
 	""" Arm of the Empire
 	Whenever a friendly [Taunt]minion is attacked,give it +2 Attack　permanently. """
@@ -343,7 +371,11 @@ TB_BaconUps_302e=buff(4,0)# <12>[1453]
 
 
 
-#Bird Buddy	3	2	4	-		 ### maybe ###
+if BG_Bird_Buddy:#Bird Buddy	3	2	4	-		 ### maybe ###
+	BG_Minion += ['BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',]#	
+	BG_PoolSet_Minion[3].append('BG21_002')
+	BG_Minon_Gold['BG21_002']='BG21_002_G'
+	pass
 class BG21_002:# <12>[1453]  愛鳥家
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +1/+1. """
@@ -365,7 +397,11 @@ BG21_002_Ge=buff(2,2)# <12>[1453]
 
 
 
-#Budding Greenthumb	3	1	4	-	 	 ### maybe ###
+if BG_Budding_Greenthumb:#Budding Greenthumb	3	1	4	-	 	 ### maybe ###
+	BG_Minion += ['BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',]#	
+	BG_PoolSet_Minion[3].append('BG21_030')
+	BG_Minon_Gold['BG21_030']='BG21_030_G'
+	pass
 class BG21_030:# <12>[1453]  栽培家
 	""" Budding Greenthumb
 	[Avenge (3):] Give adjacent minions +2/+1 permanently. """
