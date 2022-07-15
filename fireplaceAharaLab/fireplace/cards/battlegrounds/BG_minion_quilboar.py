@@ -163,7 +163,7 @@ class BG20_201_G:# <12>[1453]
 	""" Bannerboar
 	At the end of your turn, play 2 &lt;b&gt;Blood Gems&lt;/b&gt; on adjacent minions.
 	 """
-	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENTR, 'BG20_GEM'), ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
+	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'), ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
 	## At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar.
 	##events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'), ApplyGem(SELF_ADJACENT + QUILBOAR, 'BG20_GEM'))
 	pass
