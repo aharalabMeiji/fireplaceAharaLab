@@ -1,60 +1,36 @@
-
 from ..utils import *
 
+BG_Alleycat=True
+BG_Scavenging_Hyena=True
+BG_Silverback_Patriarch=True#new 23.6
+BG_Leapfrogger=True
+BG_Rabid_Saurolisk=True
+BG_Sewer_Rat=True
+BG_Monstrous_Macaw=True
+BG_Rat_Pack=True
+BG_Cave_Hydra=True
+BG_Reanimating_Rattler=True
+BG_Savannah_Highmane=True
+BG_Agamaggan_the_Great_Boar=True
+BG_Baby_Krush=True#new 23.2
+BG_Mama_Bear=True
+BG_Palescale_Crocolisk=True
+BG_Ghastcoiler=True
+BG_Goldrinn_the_Great_Wolf=True
+BG_Maexxna=False## banned 23.2
 
-BG_Minion_Beast=[
-	'CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',#Alleycat
-	'EX1_531','EX1_531e','TB_BaconUps_043','TB_BaconUps_043e',#Scavenging Hyena
-	'BG_CS2_127','BG_CS2_127_G',# Silverback Patriarch (1)
-	'BG21_000','BG21_000e','BG21_000_G','BG21_000_Ge',#Leapfrogger
-	'BGS_075','BGS_075e','TB_BaconUps_125','TB_BaconUps_125e',#Rabid Saurolisk
-	'BG19_010','BG19_010t','BG19_010_G','BG19_010_Gt',#Sewer Rat
-	'BGS_078','TB_BaconUps_135',#Monstrous Macaw
-	'CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',#Rat Pack
-	'LOOT_078','TB_BaconUps_151',#Cave Hydra
-	'BG21_003','BG21_003e','BG21_003_G',#Reanimating Rattler
-	'EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',#Savannah Highmane
-	'BG20_205','BG20_205_G',#Agamaggan, the Great Boar
-	'BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',#Baby Krush
-	'BGS_021','BGS_021e','TB_BaconUps_090','TB_BaconUps_090e',#Mama Bear
-	'BG21_001','BG21_001e','BG21_001_G','BG21_001e2',#Palescale Crocolisk
-	'BGS_008','TB_BaconUps_057',#Ghastcoiler
-	'BGS_018','BGS_018e','TB_BaconUps_085','TB_BaconUps_085e'#Goldrinn, the Great Wolf
-	#'FP1_010','TB_BaconUps_155',# Maexxna (BAN)
-	]
-#
-BG_PoolSet_Beast=[
-	['CFM_315','EX1_531','BG_CS2_127',],#1
-	['BG21_000','BGS_075','BG19_010',],#2
-	['BGS_078','CFM_316',],#3
-	['LOOT_078','BG21_003','EX1_534',],#4
-	['BG20_205','BG22_001','BGS_021','BG21_001'],#5
-	['BGS_008','BGS_018',],#6
-	]
 
-BG_Beast_Gold={
-	'CFM_315':'TB_BaconUps_093',#Alleycat
-	'EX1_531':'TB_BaconUps_043',#Scavenging Hyena
-	'BG_CS2_127':'BG_CS2_127_G',# Silverback Patriarch (1) 23.6	
-	'BG21_000':'BG21_000_G',#Leapfrogger
-	'BGS_075':'TB_BaconUps_125',#Rabid Saurolisk
-	'BG19_010':'BG19_010_G',#Sewer Rat
-	'BGS_078':'TB_BaconUps_135',#Monstrous Macaw
-	'CFM_316':'TB_BaconUps_027',#Rat Pack
-	'LOOT_078':'TB_BaconUps_151',#Cave Hydra
-	'BG21_003':'BG21_003_G',#Reanimating Rattler
-	'EX1_534':'TB_BaconUps_049',#Savannah Highmane
-	'BG20_205':'BG20_205_G',#Agamaggan, the Great Boar
-	'BG22_001':'BG22_001_G',#Baby Krush
-	'BGS_021':'TB_BaconUps_090',#Mama Bear
-	'BG21_001':'BG21_001_G',#Palescale Crocolisk
-	'BGS_008':'TB_BaconUps_057',#Ghastcoiler
-	'BGS_018':'TB_BaconUps_085',#Goldrinn, the Great Wolf
-	#'FP1_010','TB_BaconUps_155',# Maexxna (BAN)
-	}
+BG_Minion_Beast = []
+BG_PoolSet_Beast=[ [],[],[],[],[],[],[]]
+BG_Beast_Gold={}
+
 
 
 ##Alleycat <beast> (1/1) ###  OK ###
+if BG_Alleycat:
+	BG_Minion_Beast += ['CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',]#Alleycat
+	BG_PoolSet_Beast[1].append('CFM_315')
+	BG_Beast_Gold['CFM_315']='TB_BaconUps_093'
 class CFM_315:# <3>[25]   
 	""" Alleycat <beast> (1/1)
 	[Battlecry:] Summon a 1/1_Cat."""
@@ -74,6 +50,10 @@ class TB_BaconUps_093t:#
 
 
 ### Scavenging Hyena (1/2/2)  ### OK ### 
+if BG_Scavenging_Hyena:
+	BG_Minion_Beast += ['EX1_531','EX1_531e','TB_BaconUps_043','TB_BaconUps_043e',]#Scavenging Hyena
+	BG_PoolSet_Beast[1].append('EX1_531')
+	BG_Beast_Gold['EX1_531']='TB_BaconUps_043'
 class EX1_531: #<3>[1637] 
 	"""Scavenging Hyena (1/2/2)
 	Whenever a friendly Beast dies, gain +2/+1."""
@@ -89,6 +69,10 @@ TB_BaconUps_043e=buff(4,2)
 
 
 ## Silverback Patriarch (1) 23.6
+if BG_Silverback_Patriarch:
+	BG_Minion_Beast += ['BG_CS2_127','BG_CS2_127_G',]# Silverback Patriarch (1)
+	BG_PoolSet_Beast[1].append('BG_CS2_127')
+	BG_Beast_Gold['BG_CS2_127']='BG_CS2_127_G'
 class BG_CS2_127:
 	""" Silverback Patriarch
 	&lt;b&gt;Taunt&lt;/b&gt; """
@@ -99,6 +83,10 @@ class BG_CS2_127_G:
 
 
 #Leapfrogger(2/3/3)  ###  need check ###
+if BG_Leapfrogger:
+	BG_Minion_Beast += ['BG21_000','BG21_000e','BG21_000_G','BG21_000_Ge',]#Leapfrogger(2)
+	BG_PoolSet_Beast[2].append('BG21_000')
+	BG_Beast_Gold['BG21_000']='BG21_000_G'
 class BG21_000:# <12>[1453]  
 	""" Leapfrogger(2/3/3)
 	[Deathrattle:] Give a friendly Beast +1/+1 and this [Deathrattle]. """
@@ -119,6 +107,10 @@ class BG21_000_Ge:
 
 
 #Rabid Saurolisk (2/3/2)  ### maybe ###
+if BG_Rabid_Saurolisk:
+	BG_Minion_Beast += ['BGS_075','BGS_075e','TB_BaconUps_125','TB_BaconUps_125e',]#Rabid Saurolisk(2)
+	BG_PoolSet_Beast[2].append('BGS_075')
+	BG_Beast_Gold['BGS_075']='TB_BaconUps_125'
 class BGS_075:# <3>[1453]  
 	""" Rabid Saurolisk (2/3/2)
 	After you play a minion with [Deathrattle], gain +1/+2. """
@@ -135,6 +127,10 @@ TB_BaconUps_125e=buff(2,4)
 
 
 #Sewer Rat (2/3/2)  ### maybe ###
+if BG_Sewer_Rat:
+	BG_Minion_Beast += ['BG19_010','BG19_010t','BG19_010_G','BG19_010_Gt',]#Sewer Rat(2)
+	BG_PoolSet_Beast[2].append('BG19_010')
+	BG_Beast_Gold['BG19_010']='BG19_010_G'
 class BG19_010:# <12>[1453]  
 	""" Sewer Rat (2/3/2)
 	[Deathrattle:] Summon a 2/3 Turtle with [Taunt]. """
@@ -161,6 +157,10 @@ class BG19_010_Gt:# <12>[1453]
 
 
 # Monstrous Macaw (3/5/3)  #### need check ###
+if BG_Monstrous_Macaw:
+	BG_Minion_Beast += ['BGS_078','TB_BaconUps_135',]#Monstrous Macaw(3)
+	BG_PoolSet_Beast[3].append('BGS_078')
+	BG_Beast_Gold['BGS_078']='TB_BaconUps_135'
 class BGS_078_Action(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
@@ -192,6 +192,10 @@ class TB_BaconUps_135:
 
 
 #Rat Pack (3/2/2)   ### maybe ###
+if BG_Rat_Pack:
+	BG_Minion_Beast += ['CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',]#Rat Pack(3)
+	BG_PoolSet_Beast[3].append('CFM_316')
+	BG_Beast_Gold['CFM_316']='TB_BaconUps_027'
 class CFM_316:
 	""" Rat Pack (3/2/2)
 	[Deathrattle:] Summon a number of 1/1 Rats equal _to this minion's Attack."""
@@ -211,6 +215,10 @@ class TB_BaconUps_027t:
 
 
 ##Cave Hydra (4/2/4) ### maybe ###
+if BG_Cave_Hydra:
+	BG_Minion_Beast += ['LOOT_078','TB_BaconUps_151',]#Cave Hydra(4)
+	BG_PoolSet_Beast[4].append('LOOT_078')
+	BG_Beast_Gold['LOOT_078']='TB_BaconUps_151'
 class LOOT_078:
 	""" Cave Hydra (4/2/4)
 	Also damages the minions next to whomever this attacks."""
@@ -225,6 +233,10 @@ class TB_BaconUps_151:
 
 
 #Reanimating Rattler (4/5/3)  ### maybe ### 
+if BG_Reanimating_Rattler:
+	BG_Minion_Beast += ['BG21_003','BG21_003e','BG21_003_G',]#Reanimating Rattler(4)
+	BG_PoolSet_Beast[4].append('BG21_003')
+	BG_Beast_Gold['BG21_003']='BG21_003_G'
 class BG21_003:# <12>[1453]
 	""" Reanimating Rattler (4/5/3)
 	[Battlecry:] Give a friendly Beast [Reborn]. """
@@ -242,6 +254,10 @@ class BG21_003_G:# <12>[1453]
 
 
 #Savannah Highmane (4/6/5) ### maybe ###
+if BG_Savannah_Highmane:
+	BG_Minion_Beast += ['EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',]#Savannah Highmane(4)
+	BG_PoolSet_Beast[4].append('EX1_534')
+	BG_Beast_Gold['EX1_534']='TB_BaconUps_049'
 class EX1_534: ## ハイメイン
 	""" Savannah Highmane (4/6/5)
 	[Deathrattle:] Summon two 2/2 Hyenas."""
@@ -262,6 +278,10 @@ class TB_BaconUps_049t:
 
 
 #Agamaggan, the Great Boar (5/6/6)   ### maybe ###
+if BG_Agamaggan_the_Great_Boar:
+	BG_Minion_Beast += ['BG20_205','BG20_205_G',]#Agamaggan, the Great Boar(5)
+	BG_PoolSet_Beast[5].append('BG20_205')
+	BG_Beast_Gold['BG20_205']='BG20_205_G'
 class BG20_205:# <12>[1453] #
 	""" Agamaggan, the Great Boar (5/6/6)
 	Your [Blood Gems] give an extra +1/+1. """
@@ -277,6 +297,10 @@ class BG20_205_G:# <12>[1453] #
 
 
 # Baby Krush (5/7/7)->(5/6/6)　###　OK ###
+if BG_Baby_Krush:
+	BG_Minion_Beast += ['BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',]#Baby Krush(5)
+	BG_PoolSet_Beast[5].append('BG22_001')
+	BG_Beast_Gold['BG22_001']='BG22_001_G'
 class BG22_001_Action(TargetedAction):
 	TARGET = ActionArg()# Attack.DEFENDER
 	OTHER = ActionArg()# 'BG22_001t2'
@@ -304,6 +328,10 @@ class BG22_001t2_G:
 
 
 #Mama Bear (5/5/5) ### maybe ###
+if BG_Mama_Bear:
+	BG_Minion_Beast += ['BGS_021','BGS_021e','TB_BaconUps_090','TB_BaconUps_090e',]#Mama Bear(5)
+	BG_PoolSet_Beast[5].append('BGS_021')
+	BG_Beast_Gold['BGS_021']='TB_BaconUps_090'
 class BGS_021:# <12>[1453]
 	""" Mama Bear (5/5/5)
 	Whenever you summon a Beast, give it +5/+5. """
@@ -319,7 +347,11 @@ TB_BaconUps_090e=buff(10,10)
 
 
 
-#alescale Crocolisk(5/4/5) ### maybe OK ###
+#Palescale Crocolisk(5/4/5) ### maybe OK ###
+if BG_Palescale_Crocolisk:
+	BG_Minion_Beast += ['BG21_001','BG21_001e','BG21_001_G','BG21_001e2',]#Palescale Crocolisk(5)
+	BG_PoolSet_Beast[5].append('BG21_001')
+	BG_Beast_Gold['BG21_001']='BG21_001_G'
 class BG21_001:# <12>[1453] クロコリスク
 	""" Palescale Crocolisk(5/4/5)
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +6/+6. """
@@ -340,6 +372,10 @@ BG21_001e2=buff(12,12)
 
 
 #Ghastcoiler (6/7/7) ### maybe OK ###
+if BG_Ghastcoiler:
+	BG_Minion_Beast += ['BGS_008','TB_BaconUps_057',]#Ghastcoiler(6)
+	BG_PoolSet_Beast[6].append('BGS_008')
+	BG_Beast_Gold['BGS_008']='TB_BaconUps_057'
 class BGS_008:# <6>[1453]
 	""" Ghastcoiler (6/7/7)
 	[Deathrattle:] Summon 2 random [Deathrattle] minions. """
@@ -354,6 +390,10 @@ class TB_BaconUps_057:# <6>[1453]
 
 
 # Goldrinn, the Great Wolf (6/4/4)  ### maybe OK ###
+if BG_Goldrinn_the_Great_Wolf:
+	BG_Minion_Beast += ['BGS_018','BGS_018e','TB_BaconUps_085','TB_BaconUps_085e']#Goldrinn, the Great Wolf(6)
+	BG_PoolSet_Beast[6].append('BGS_018')
+	BG_Beast_Gold['BGS_018']='TB_BaconUps_085'
 class BGS_018:# <12>[1453]
 	""" Goldrinn, the Great Wolf (6/4/4)
 	[Deathrattle:] Give your Beasts +5/+5. """
@@ -369,6 +409,10 @@ TB_BaconUps_085e=buff(10,10)
 
 
 #Maexxna (BAN)   ### I'M WAITING  ###
+if BG_Maexxna:
+	BG_Minion_Beast += ['FP1_010','TB_BaconUps_155',]# Maexxna (BAN)(6)
+	BG_PoolSet_Beast[6].append('FP1_010')
+	BG_Beast_Gold['FP1_010']='TB_BaconUps_155'
 class FP1_010:
 	""" Maexxna (BAN)
 	<b>Poisonous</b> """
