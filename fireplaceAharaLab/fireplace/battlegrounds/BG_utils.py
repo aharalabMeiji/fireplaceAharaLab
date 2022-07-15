@@ -64,7 +64,7 @@ class BG_main:
 			for repeat in range(rep):	
 				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i+1]
 				if 'beast' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i+1]
 				if 'demon' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
 				if 'dragon' in races:
