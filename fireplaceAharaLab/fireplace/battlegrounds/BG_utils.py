@@ -62,7 +62,7 @@ class BG_main:
 			else:
 				rep=4
 			for repeat in range(rep):	
-				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i]
+				self.BG_decks[i+1] += cards.battlegrounds.BG_minion.BG_PoolSet_Minion[i+1]
 				if 'beast' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
 				if 'demon' in races:
@@ -99,7 +99,7 @@ class BG_main:
 			self.Heroes.remove('BG23_HERO_304')#80#Lady Vashj
 
 		self.BG_Bars=[]
-		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minon_Gold
+		self.BG_Gold=cards.battlegrounds.BG_minion.BG_Minion_Gold
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_beast.BG_Beast_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_demon.BG_Demon_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_dragon.BG_Dragon_Gold)

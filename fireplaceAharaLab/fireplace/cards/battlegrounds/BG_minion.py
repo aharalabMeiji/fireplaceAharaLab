@@ -52,13 +52,13 @@ BG_PoolSet_Minion=[
 ]
 
 
-BG_Minon_Gold={}
+BG_Minion_Gold={}
 
 
 if BG_Wrath_Weaver:#Wrath Weaver	1	1	3	-	-
 	BG_Minion += ['BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',]#Wrath Weaver	1
 	BG_PoolSet_Minion[1].append('BGS_004')
-	BG_Minon_Gold['BGS_004']='TB_BaconUps_079'
+	BG_Minion_Gold['BGS_004']='TB_BaconUps_079'
 	pass
 
 #Wrath Weaver	1	1	3	 ### maybe ###
@@ -82,7 +82,7 @@ TB_BaconUps_079e=buff(4,4)# <12>[1453]
 if BG_Acolyte_of_C_Thun:#Acolyte of C'Thun	2	2	3
 	BG_Minion += ['BGS_106','TB_BaconUps_255',]#	1
 	BG_PoolSet_Minion[2].append('BGS_106')
-	BG_Minon_Gold['BGS_106']='TB_BaconUps_255'
+	BG_Minion_Gold['BGS_106']='TB_BaconUps_255'
 	pass
 #,#Acolyte of C'Thun	2 ##banned 23.6
 class BGS_106:# <12>[1453] クトゥーンのじさい
@@ -99,7 +99,7 @@ class TB_BaconUps_255:# <12>[1453]
 if BG_Menagerie_Mug:#Menagerie Mug	2	2	2
 	BG_Minion += ['BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',]#	1
 	BG_PoolSet_Minion[2].append('BGS_082')
-	BG_Minon_Gold['BGS_082']='TB_BaconUps_144'
+	BG_Minion_Gold['BGS_082']='TB_BaconUps_144'
 	pass
 #Menagerie Mug	2	2	2	-		 ### OK ###
 class BGS_082_Action(TargetedAction):
@@ -152,7 +152,7 @@ TB_BaconUps_144e=buff(2,2)# <12>[1453]
 if BG_Prophet_of_the_Boar:#Prophet of the Boar	2	3	3
 	BG_Minion += ['BG20_203','BG20_203_G',]#	1
 	BG_PoolSet_Minion[2].append('BG20_203')
-	BG_Minon_Gold['BG20_203']='BG20_203_G'
+	BG_Minion_Gold['BG20_203']='BG20_203_G'
 	pass
 #Prophet of the Boar	2	3	3	-		 ### OK ###
 class BG20_203_Action(TargetedAction):
@@ -186,7 +186,7 @@ class BG20_203_G:# <12>[1453]
 if BG_Selfless_Hero:#Selfless Hero	2	2	1
 	BG_Minion += ['OG_221','TB_BaconUps_014',]#	
 	BG_PoolSet_Minion[2].append('OG_221')
-	BG_Minon_Gold['OG_221']='TB_BaconUps_014'
+	BG_Minion_Gold['OG_221']='TB_BaconUps_014'
 	pass
 #Selfless Hero	2	2	1	-	### OK ###
 ### 基本的にはこれでよいと思うが、 RANDOM(FRIENDLY_MINIONS - DIVINE_SHIELD)
@@ -207,7 +207,7 @@ class TB_BaconUps_014:# <5>[1453]
 if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	-　### OK ###
 	BG_Minion += ['OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',]#	
 	BG_PoolSet_Minion[2].append('OG_256')
-	BG_Minon_Gold['OG_256']='TB_BaconUps_025'
+	BG_Minion_Gold['OG_256']='TB_BaconUps_025'
 	pass
 class OG_256:#　んぞす
 	""" Spawn of N'Zoth
@@ -227,7 +227,7 @@ TB_BaconUps_025e = buff(2,2)
 if BG_Unstable_Ghoul:#Unstable Ghoul	2	1	3	-### OK ### ##banned 23.6
 	BG_Minion += ['FP1_024','TB_BaconUps_118',]#	
 	BG_PoolSet_Minion[2].append('FP1_024')
-	BG_Minon_Gold['FP1_024']='TB_BaconUps_118'
+	BG_Minion_Gold['FP1_024']='TB_BaconUps_118'
 	pass
 class FP1_024:# <12>[1453] ぐうる
 	""" Unstable Ghoul
@@ -245,7 +245,7 @@ class TB_BaconUps_118:# <12>[1453]
 if BG_Whelp_Smuggler:#Whelp Smuggler	2	2	5	- ### OK ###
 	BG_Minion += ['BG21_013','BG21_013e','BG21_013_G',]#	
 	BG_PoolSet_Minion[2].append('BG21_013')
-	BG_Minon_Gold['BG21_013']='BG21_013_G'
+	BG_Minion_Gold['BG21_013']='BG21_013_G'
 	pass
 class BG21_013_Action(TargetedAction):## 密輸人
 	TARGET = ActionArg()
@@ -273,7 +273,7 @@ class BG21_013_G:# <12>[1453]
 if BG_Arm_of_the_Empire:#Arm of the Empire	3	4	4	-		 ### maybe ###
 	BG_Minion += ['BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',]#	
 	BG_PoolSet_Minion[3].append('BGS_110')
-	BG_Minon_Gold['BGS_110']='TB_BaconUps_302'
+	BG_Minion_Gold['BGS_110']='TB_BaconUps_302'
 	pass
 class BGS_110:# <12>[1453] 帝国の腕
 	""" Arm of the Empire
@@ -295,7 +295,7 @@ TB_BaconUps_302e=buff(4,0)# <12>[1453]
 if BG_Bird_Buddy:#Bird Buddy	3	2	4	-		 ### maybe ###
 	BG_Minion += ['BG21_002','BG21_002e','BG21_002_G','BG21_002_Ge',]#	
 	BG_PoolSet_Minion[3].append('BG21_002')
-	BG_Minon_Gold['BG21_002']='BG21_002_G'
+	BG_Minion_Gold['BG21_002']='BG21_002_G'
 	pass
 class BG21_002:# <12>[1453]  愛鳥家
 	""" Bird Buddy
@@ -321,7 +321,7 @@ BG21_002_Ge=buff(2,2)# <12>[1453]
 if BG_Budding_Greenthumb:#Budding Greenthumb	3	1	4	-### maybe ### ##banned 23.6
 	BG_Minion += ['BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',]#	
 	BG_PoolSet_Minion[3].append('BG21_030')
-	BG_Minon_Gold['BG21_030']='BG21_030_G'
+	BG_Minion_Gold['BG21_030']='BG21_030_G'
 	pass
 class BG21_030:# <12>[1453]  栽培家
 	""" Budding Greenthumb
@@ -341,7 +341,7 @@ BG21_030_Ge=buff(4,2)
 if BG_Houndmaster:#Houndmaster	3	4	3	-		 ### maybe ###
 	BG_Minion += ['DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',]#	
 	BG_PoolSet_Minion[3].append('DS1_070')
-	BG_Minon_Gold['DS1_070']='TB_BaconUps_068'
+	BG_Minion_Gold['DS1_070']='TB_BaconUps_068'
 	pass
 class DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
@@ -367,7 +367,7 @@ TB_BaconUps_068e=buff(4,4,taunt=True)# <3>[1453]
 if BG_Khadgar:#Khadgar	3	2	2	-	  	 ### maybe ###
 	BG_Minion += ['DAL_575','TB_BaconUps_034',]#	
 	BG_PoolSet_Minion[3].append('DAL_575')
-	BG_Minon_Gold['DAL_575']='TB_BaconUps_034'
+	BG_Minion_Gold['DAL_575']='TB_BaconUps_034'
 	pass
 class DAL_575:#カドガー
 	""" Khadgar
@@ -386,7 +386,7 @@ class TB_BaconUps_034:# <4>[1453]
 if BG_Soul_Juggler:#Soul Juggler	3	3	5	-	 	 ### maybe ###
 	BG_Minion += ['BGS_002','TB_BaconUps_075',]#	
 	BG_PoolSet_Minion[3].append('BGS_002')
-	BG_Minon_Gold['BGS_002']='TB_BaconUps_075'
+	BG_Minion_Gold['BGS_002']='TB_BaconUps_075'
 	pass
 class BGS_002:# <9>[1453] ソールジャグラー
 	""" Soul Juggler
@@ -404,7 +404,7 @@ class TB_BaconUps_075:# <9>[1453]
 if BG_Champion_of_Y_Shaarj:#Champion of Y'Shaarj	4	4	4		 ### maybe #####banned 23.6
 	BG_Minion += ['BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',]#	
 	BG_PoolSet_Minion[4].append('BGS_111')
-	BG_Minon_Gold['BGS_111']='TB_BaconUps_301'
+	BG_Minion_Gold['BGS_111']='TB_BaconUps_301'
 	pass
 class BGS_111:# <12>[1453]  ヤシャラージュ
 	""" Champion of Y'Shaarj
@@ -426,7 +426,7 @@ TB_BaconUps_301e=buff(2,2)# <12>[1453]
 if BG_Defender_of_Argus:#Defender of Argus	4	3	3	 	 ### OK ###
 	BG_Minion += ['EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',]#	
 	BG_PoolSet_Minion[4].append('EX1_093')
-	BG_Minon_Gold['EX1_093']='TB_BaconUps_009'
+	BG_Minion_Gold['EX1_093']='TB_BaconUps_009'
 	pass
 class EX1_093:# <12>[1453]   アルガス
 	""" Defender of Argus
@@ -447,7 +447,7 @@ TB_BaconUps_009e=buff(2,2,taunt=True)# <12>[1453]
 if BG_Impatient_Doomsayer:#Impatient Doomsayer	4	2	6		 ### maybe ###
 	BG_Minion += ['BG21_007','BG21_007_G',]#	
 	BG_PoolSet_Minion[4].append('BG21_007')
-	BG_Minon_Gold['BG21_007']='BG21_007_G'
+	BG_Minion_Gold['BG21_007']='BG21_007_G'
 	pass
 	#Impatient Doomsayer	4
 class BG21_007:# <12>[1453]  終魔通予言者
@@ -466,7 +466,7 @@ class BG21_007_G:# <12>[1453]
 if BG_Majordomo_Executus:#Majordomo Executus	4	6	3		 ### OK ###
 	BG_Minion += ['BGS_105','BGS_105e','TB_BaconUps_207',]#	
 	BG_PoolSet_Minion[4].append('BGS_105')
-	BG_Minon_Gold['BGS_105']='TB_BaconUps_207'
+	BG_Minion_Gold['BGS_105']='TB_BaconUps_207'
 	pass
 	#Majordomo Executus	4
 class BGS_105_Action(TargetedAction):
@@ -514,7 +514,7 @@ class TB_BaconUps_207:# <12>[1453]
 if BG_Menagerie_Jug:#Menagerie Jug	4	3	3	-		 ### maybe ###
 	BG_Minion += ['BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',]#	
 	BG_PoolSet_Minion[4].append('BGS_083')
-	BG_Minon_Gold['BGS_083']='TB_BaconUps_145'
+	BG_Minion_Gold['BGS_083']='TB_BaconUps_145'
 	pass
 class BGS_083:# <12>[1453] ミナジェリ
 	""" Menagerie Jug
@@ -536,7 +536,7 @@ TB_BaconUps_145e=buff(4,4)# <12>[1453]
 if BG_Strongshell_Scavenger:#Strongshell Scavenger	4	2	3		 ### OK ###
 	BG_Minion += ['ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',]#	
 	BG_PoolSet_Minion[4].append('ICC_807')
-	BG_Minon_Gold['ICC_807']='TB_BaconUps_072'
+	BG_Minion_Gold['ICC_807']='TB_BaconUps_072'
 	pass
 class ICC_807:# <2>[1453]  クズ拾い
 	""" Strongshell Scavenger
@@ -559,7 +559,7 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 if BG_Witchwing_Nestmatron:#Witchwing Nestmatron	4	3	5		 ### maybe ###
 	BG_Minion += ['BG21_038','BG21_038_G',]#	
 	BG_PoolSet_Minion[4].append('BG21_038')
-	BG_Minon_Gold['BG21_038']='BG21_038_G'
+	BG_Minion_Gold['BG21_038']='BG21_038_G'
 	pass
 class BG21_038:# <12>[1453] 巣母
 	""" Witchwing Nestmatron
@@ -576,7 +576,7 @@ class BG21_038_G:# <12>[1453]
 if BG_Baron_Rivendare:#Baron Rivendare	5	1	7		 ### maybe ###
 	BG_Minion += ['FP1_031','TB_BaconUps_055',]#	
 	BG_PoolSet_Minion[5].append('FP1_031')
-	BG_Minon_Gold['FP1_031']='TB_BaconUps_055'
+	BG_Minion_Gold['FP1_031']='TB_BaconUps_055'
 	pass
 class FP1_031:# ばろん
 	"""Baron Rivendare
@@ -593,7 +593,7 @@ class TB_BaconUps_055:# <12>[1453]
 if BG_Brann_Bronzebeard:#Brann Bronzebeard	5	2	4		 ### maybe ###
 	BG_Minion += ['LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',]#	
 	BG_PoolSet_Minion[5].append('LOE_077')
-	BG_Minon_Gold['LOE_077']='TB_BaconUps_045'
+	BG_Minion_Gold['LOE_077']='TB_BaconUps_045'
 	pass
 class LOE_077:#    ぶらん
 	""" Brann Bronzebeard
@@ -620,7 +620,7 @@ class TB_BaconUps_045e:# <12>[1453]
 if BG_Deadly_Spore:##Deadly Spore	5	1	1	### OK #####banned 23.6
 	BG_Minion += ['BGS_131','TB_BaconUps_251',]#	
 	BG_PoolSet_Minion[5].append('BGS_131')
-	BG_Minon_Gold['BGS_131']='TB_BaconUps_251'
+	BG_Minion_Gold['BGS_131']='TB_BaconUps_251'
 	pass
 class BGS_131:# <12>[1453]  横死の胞子
 	""" Deadly Spore
@@ -636,7 +636,7 @@ class TB_BaconUps_251:# <12>[1453]
 if BG_Kangor_s_Apprentice:#Kangor's Apprentice	5	3	6		 ### maybe ###
 	BG_Minion += ['BGS_012','TB_BaconUps_087',]#	
 	BG_PoolSet_Minion[5].append('BGS_012')
-	BG_Minon_Gold['BGS_012']='TB_BaconUps_087'
+	BG_Minion_Gold['BGS_012']='TB_BaconUps_087'
 	pass
 class BGS_012_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -668,7 +668,7 @@ class TB_BaconUps_087:# <12>[1453]
 if BG_Lightfang_Enforcer:#Lightfang Enforcer	5	2	2		 ### need check ###
 	BG_Minion += ['BGS_009','BGS_009e','TB_BaconUps_082','TB_BaconUps_082e',]#	
 	BG_PoolSet_Minion[5].append('BGS_009')
-	BG_Minon_Gold['BGS_012']='TB_BaconUps_082'
+	BG_Minion_Gold['BGS_012']='TB_BaconUps_082'
 	pass
 class BGS_009_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -708,7 +708,7 @@ class TB_BaconUps_082e:# <7>[1453]
 #Master of Realities	5	6	6	-		 ### maybe ###
 	BG_Minion += ['BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',]#	
 	BG_PoolSet_Minion[5].append('BG21_036')
-	BG_Minon_Gold['BG21_036']='BG21_036_G'
+	BG_Minion_Gold['BG21_036']='BG21_036_G'
 	pass
 class BG21_036_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -736,7 +736,7 @@ BG21_036_Ge=buff(2,2)# <12>[1453]
 if BG_Mythrax_the_Unraveler:#Mythrax the Unraveler	5	4	4		 ### maybe ###
 	BG_Minion += ['BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',]#	
 	BG_PoolSet_Minion[5].append('BGS_202')
-	BG_Minon_Gold['BG21_036']='TB_BaconUps_258'
+	BG_Minion_Gold['BG21_036']='TB_BaconUps_258'
 	pass
 class BGS_202_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -775,7 +775,7 @@ TB_BaconUps_258e=buff(4,4)# <12>[1453]
 if BG_Nomi_Kitchen_Nightmare:#Nomi, Kitchen Nightmare	5	4	4	### OK ###
 	BG_Minion += ['BGS_104','BGS_104e1','BGS_104pe','TB_BaconUps_201',]#	
 	BG_PoolSet_Minion[5].append('BGS_104')
-	BG_Minon_Gold['BGS_104']='TB_BaconUps_201'
+	BG_Minion_Gold['BGS_104']='TB_BaconUps_201'
 	pass
 class BGS_104_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -804,7 +804,7 @@ class TB_BaconUps_201:# <12>[1453]
 if BG_Amalgadon:#Amalgadon	6	6	6	*	 	 ### need check ###  banned 22.3
 	BG_Minion += ['BGS_069','TB_BaconUps_121',]#	
 	BG_PoolSet_Minion[6].append('BGS_069')
-	BG_Minon_Gold['BGS_069']='TB_BaconUps_121'
+	BG_Minion_Gold['BGS_069']='TB_BaconUps_121'
 	pass
 class BGS_069_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -860,7 +860,7 @@ class UNG_999t2t1:## 植物
 if BG_Friend_of_a_Friend:#Friend of a Friend	(BAN)	6	5	6	-	Battlecry   BG22_404 BG22_404_G 
 	BG_Minion += ['BG22_404','BG22_404_G',]#	
 	BG_PoolSet_Minion[6].append('BG22_404')
-	BG_Minon_Gold['BG22_404']='BG22_404_G'
+	BG_Minion_Gold['BG22_404']='BG22_404_G'
 	pass
 class BG22_404:# <12>[1453]　友達の友達　ばん！
 	""" Friend of a Friend(BAN)
@@ -878,7 +878,7 @@ class BG22_404_G:# <12>[1453]
 if BG_Nadina_the_Red:#Nadina the Red	6	7	4		 ### maybe OK ###
 	BG_Minion += ['BGS_040','TB_BaconUps_154',]#	
 	BG_PoolSet_Minion[6].append('BGS_040')
-	BG_Minon_Gold['BGS_040']='TB_BaconUps_154'
+	BG_Minion_Gold['BGS_040']='TB_BaconUps_154'
 	pass
 class BGS_040:# <12>[1453]　　ナディナ
 	""" Nadina the Red
@@ -895,7 +895,7 @@ class TB_BaconUps_154:# <12>[1453]
 if BG_Seafood_Slinger:#Seafood Slinger	6	5	5		 ### maybe ### ##banned
 	BG_Minion += ['BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',]#	
 	BG_PoolSet_Minion[6].append('BG21_011')
-	BG_Minon_Gold['BG21_011']='BG21_011_G'
+	BG_Minion_Gold['BG21_011']='BG21_011_G'
 	pass
 class BG21_011:# <12>[1453]　板前
 	""" Seafood Slinger
@@ -922,7 +922,7 @@ BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
 if BG_Zapp_Slywick:#Zapp Slywick	6	7	10	 	 ### maybe ###
 	BG_Minion += ['BGS_022','TB_BaconUps_091',]#	
 	BG_PoolSet_Minion[6].append('BGS_022')
-	BG_Minon_Gold['BGS_022']='TB_BaconUps_091'
+	BG_Minion_Gold['BGS_022']='TB_BaconUps_091'
 	pass
 class BGS_022:# <12>[1453]　ざっぷ
 	""" Zapp Slywick
@@ -942,7 +942,7 @@ class TB_BaconUps_091:# <12>[1453]
 if BG_Orgozoa_the_Tender:### Orgozoa, the Tender(6) ### OK ### NEW 23.2
 	BG_Minion += ['BG23_015','BG23_015t','BG23_015_G','BG23_015_Gt',]#	
 	BG_PoolSet_Minion[6].append('BG23_015')
-	BG_Minon_Gold['BG23_015']='BG23_015_G'
+	BG_Minion_Gold['BG23_015']='BG23_015_G'
 	pass
 class BG23_015:# <12>[1453]
 	""" Orgozoa, the Tender(6)
@@ -975,7 +975,7 @@ class BG23_015_Gt:
 if BG_Reef_Explorer:### Reef Explorer(4) ### regular card OK, gold card NOT YET ### NEW 23.2
 	BG_Minion += ['BG23_016','BG23_016_G', ]#	
 	BG_PoolSet_Minion[4].append('BG23_016')
-	BG_Minon_Gold['BG23_016']='BG23_016_G'
+	BG_Minion_Gold['BG23_016']='BG23_016_G'
 	# Reef Explorer 4 	
 	pass
 ### WARNING  : we must exclude all of banned cards
@@ -1028,7 +1028,7 @@ class BG23_016_G:# <12>[1453]
 if BG_Darkgaze_Elder:## Darkgaze Elder (6) (quilboar)  ### maybe OK ### NEW 23.2
 	BG_Minion += ['BG23_018','BG23_018t','BG23_018_G', ]#	
 	BG_PoolSet_Minion[6].append('BG23_018')
-	BG_Minon_Gold['BG23_018']='BG23_018_G'
+	BG_Minion_Gold['BG23_018']='BG23_018_G'
 	# Darkgaze Elder 6 NEW 23.2
 	pass
 class BG23_018_Action(TargetedAction):
@@ -1074,7 +1074,7 @@ class BG23_018t:# <12>[1453]
 if BG_Leeroy_the_Reckless:## Leeroy the Reckless (5)  ### maybe ###
 	BG_Minion += ['BG23_318','BG23_318_G', ]#	
 	BG_PoolSet_Minion[5].append('BG23_318')
-	BG_Minon_Gold['BG23_318']='BG23_318_G'
+	BG_Minion_Gold['BG23_318']='BG23_318_G'
 	# Leeroy the Reckless 5 NEW 23.2
 	pass
 class BG23_318_Action(TargetedAction):
@@ -1105,7 +1105,7 @@ class BG23_Spellcraft_e:
 if BG_Nightmare_Amalgam:##Nightmare Amalgam (3) RENEW  23.2
 	BG_Minion += ['GIL_681','BG_GIL_681_G', ]#	
 	BG_PoolSet_Minion[3].append('GIL_681')
-	BG_Minon_Gold['GIL_681']='BG_GIL_681_G'
+	BG_Minion_Gold['GIL_681']='BG_GIL_681_G'
 	# Nightmare Amalgam 3 RENEW  23.2
 	pass
 class GIL_681:
@@ -1123,7 +1123,7 @@ class BG_GIL_681_G:
 if BG_Tavern_Tipper:####Tavern Tipper (1) ### OK ### 23.6 new
 	BG_Minion += ['BG23_352','BG23_352e','BG23_352_G','BG23_352_Ge',]#	
 	BG_PoolSet_Minion[1].append('BG23_352')
-	BG_Minon_Gold['BG23_352']='BG23_352_G'
+	BG_Minion_Gold['BG23_352']='BG23_352_G'
 	## Tavern Tipper (1) >= 23.6　#OK#
 	pass
 class BG23_352_Action(TargetedAction):
@@ -1153,7 +1153,7 @@ BG23_352_Ge=buff(2,4)
 if BG_Kooky_Chemist:## Kooky Chemist (2) ### OK ### ## 23.6 new
 	BG_Minion += ['BG_CFM_063','BG_CFM_063e','BG_CFM_063_G',]#	
 	BG_PoolSet_Minion[2].append('BG_CFM_063')
-	BG_Minon_Gold['BG_CFM_063']='BG_CFM_063_G'
+	BG_Minion_Gold['BG_CFM_063']='BG_CFM_063_G'
 	## Kooky Chemist (2) >= 23.6
 	pass
 class BG_CFM_063:
@@ -1179,7 +1179,7 @@ class BG_CFM_063_G:
 if BG_Sparring_Partner:#### Sparring Partner (2) ### OK ####
 	BG_Minion += ['BG_AT_069','BG_AT_069_G',]#	
 	BG_PoolSet_Minion[2].append('BG_AT_069')
-	BG_Minon_Gold['BG_AT_069']='BG_AT_069_G'
+	BG_Minion_Gold['BG_AT_069']='BG_AT_069_G'
 	## Sparring Partner (2) >= 23.6
 	pass
 class BG_AT_069:
@@ -1198,7 +1198,7 @@ class BG_AT_069_G:
 if BG_Yrel:## Yrel (2) ### need check ###
 	BG_Minion += ['BG23_350','BG23_350e','BG23_350_G','BG23_350_Ge',]#	
 	BG_PoolSet_Minion[2].append('BG23_350')
-	BG_Minon_Gold['BG23_350']='BG23_350_G'
+	BG_Minion_Gold['BG23_350']='BG23_350_G'
 	##  Yrel (2) >=23.6
 	pass
 class BG23_350_Action(TargetedAction):
@@ -1240,7 +1240,7 @@ BG23_350_Ge=buff(2,4)
 if BG_Shifter_Zerus:## Shifter Zerus (3) ### hard ###
 	BG_Minion += ['BGS_029','BGS_029e','TB_BaconUps_095', ]#	
 	BG_PoolSet_Minion[3].append('BGS_029')
-	BG_Minon_Gold['BGS_029']='TB_BaconUps_095'
+	BG_Minion_Gold['BGS_029']='TB_BaconUps_095'
 	## Shifter Zerus (3) >=23.6
 	pass
 class BGS_029:
@@ -1259,7 +1259,7 @@ __random Golden minion."""
 if BG_unnel_Blaster:## Tunnel Blaster (4) ### OK ###
 	BG_Minion += ['BG_DAL_775','BG_DAL_775_G', ]#	
 	BG_PoolSet_Minion[4].append('BG_DAL_775')
-	BG_Minon_Gold['BG_DAL_775']='BG_DAL_775_G'
+	BG_Minion_Gold['BG_DAL_775']='BG_DAL_775_G'
 	## Tunnel Blaster (4) >= 23.6
 	pass
 class BG_DAL_775: 
@@ -1277,7 +1277,7 @@ class BG_DAL_775_G:
 ## Uther the Lightbringer (6) ### OK ###
 	BG_Minion += ['BG23_190','BG23_190e','BG23_190_G','BG23_190_Ge', ]#	
 	BG_PoolSet_Minion[6].append('BG23_190')
-	BG_Minon_Gold['BG23_190']='BG23_190_G'
+	BG_Minion_Gold['BG23_190']='BG23_190_G'
 	## Uther the Lightbringer (6) >= 23.6
 	pass
 class BG23_190_Action(TargetedAction):
