@@ -1,3 +1,4 @@
+from pickle import TRUE
 from ..utils import *
 
 BG_Wrath_Weaver=True
@@ -11,12 +12,12 @@ BG_Whelp_Smuggler=True
 BG_Arm_of_the_Empire=True
 BG_Bird_Buddy=True
 BG_Budding_Greenthumb=False
+BG_Houndmaster=True
+BG_Khadgar=True
+BG_Soul_Juggler=True
 
 BG_Minion=[
 	
-	'DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',#Houndmaster	3
-	'DAL_575','TB_BaconUps_034',#Khadgar	3
-	'BGS_002','TB_BaconUps_075',#Soul Juggler	3
 	##'BGS_111','BGS_111e','TB_BaconUps_301','TB_BaconUps_301e',#Champion of Y'Shaarj	4 ##banned 23.6
 	#'EX1_093','EX1_093e','TB_BaconUps_009','TB_BaconUps_009e',#Defender of Argus	4 ##banned 23.6
 	'BG21_007','BG21_007_G',#Impatient Doomsayer	4
@@ -397,7 +398,7 @@ BG21_002_Ge=buff(2,2)# <12>[1453]
 
 
 
-if BG_Budding_Greenthumb:#Budding Greenthumb	3	1	4	-	 	 ### maybe ###
+if BG_Budding_Greenthumb:#Budding Greenthumb	3	1	4	-### maybe ### ##banned 23.6
 	BG_Minion += ['BG21_030','BG21_030e','BG21_030_G','BG21_030_Ge',]#	
 	BG_PoolSet_Minion[3].append('BG21_030')
 	BG_Minon_Gold['BG21_030']='BG21_030_G'
@@ -417,7 +418,11 @@ BG21_030_Ge=buff(4,2)
 
 
 
-#Houndmaster	3	4	3	-		 ### maybe ###
+if BG_Houndmaster:#Houndmaster	3	4	3	-		 ### maybe ###
+	BG_Minion += ['DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',]#	
+	BG_PoolSet_Minion[3].append('DS1_070')
+	BG_Minon_Gold['DS1_070']='TB_BaconUps_068'
+	pass
 class DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
 	<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>."""
@@ -439,7 +444,11 @@ TB_BaconUps_068e=buff(4,4,taunt=True)# <3>[1453]
 """ Master's Presence, +4/+4 and [Taunt]. """
 
 
-#Khadgar	3	2	2	-	  	 ### maybe ###
+if BG_Khadgar:#Khadgar	3	2	2	-	  	 ### maybe ###
+	BG_Minion += ['DAL_575','TB_BaconUps_034',]#	
+	BG_PoolSet_Minion[3].append('DAL_575')
+	BG_Minon_Gold['DAL_575']='TB_BaconUps_034'
+	pass
 class DAL_575:#カドガー
 	""" Khadgar
 	Your cards that summon minions summon twice_as_many. """
@@ -453,7 +462,12 @@ class TB_BaconUps_034:# <4>[1453]
 	pass
 
 
-#Soul Juggler	3	3	5	-	 	 ### maybe ###
+
+if BG_Soul_Juggler:#Soul Juggler	3	3	5	-	 	 ### maybe ###
+	BG_Minion += ['BGS_002','TB_BaconUps_075',]#	
+	BG_PoolSet_Minion[3].append('BGS_002')
+	BG_Minon_Gold['BGS_002']='TB_BaconUps_075'
+	pass
 class BGS_002:# <9>[1453] ソールジャグラー
 	""" Soul Juggler
 	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
