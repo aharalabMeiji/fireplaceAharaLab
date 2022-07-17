@@ -23,7 +23,7 @@ class HappyCatAgent(Agent):
 	game = None
 	player = None
 	braches=[]
-	HumanInput = True
+	HumanInput = False
 	MLmodel1 = [None]
 	MLmodel2 = [None]
 	# Human input: if true, shows various candidate and allows us to input by hand.
@@ -419,7 +419,7 @@ class HappyCatAgent(Agent):
 			elif self.myClass==CardClass.WARRIOR and self.player.opponent.hero.card_class==CardClass.HUNTER:
 				thisModel=self.MLmodel2
 			pred = thisModel[mn].predict([svec])
-		ret=0
+		ret=-1
 		if len(pred)>0:
 			pred = self.getBest3(pred[0])
 			if self.myClass==CardClass.DRUID:
@@ -431,14 +431,16 @@ class HappyCatAgent(Agent):
 			leng = len(careSet)
 			for i in range(3):
 				if pred[0][i]<leng:
-					mykey=self.clownDruidCard[pred[0][i]]
+					mykey=careSet[pred[0][i]]
 				else:
 					mykey=another[pred[0][i]-leng]
 				cardNr=self.findCardFromKey(mykey, candidate, self.clownDruidCard)
 				if cardNr>=0 and cardNr<leng:
 					ret = cardNr
 					break
-			if ret==0:
+			if ret==-1:
+				return v1[1]
+			elif ret==0:
 				remainingAttack=[]
 				for cand in candidate:
 					if cand.type==BlockType.ATTACK:

@@ -131,13 +131,18 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 			print("winner is %r"%winner)
 		if winner == P1.name:
 			Count1+=1
-			AppendQlist(P1.myClass,P2.myClass,"W",P1.QList)
-			AppendQlist(P2.myClass,P1.myClass,"L",P2.QList)
+			#AppendQlist(P1.myClass,P2.myClass,"W",P1.QList)
+			#AppendQlist(P2.myClass,P1.myClass,"L",P2.QList)
 
 		elif winner == P2.name:
 			Count2+=1
-			AppendQlist(P1.myClass,P2.myClass,"L",P1.QList)
-			AppendQlist(P2.myClass,P1.myClass,"W",P2.QList)
+			#AppendQlist(P1.myClass,P2.myClass,"L",P1.QList)
+			#AppendQlist(P2.myClass,P1.myClass,"W",P2.QList)
+	filename="20220717_result.txt"
+	f = open(filename, 'a')
+	f.write(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
+	f.write(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
+	f.close()
 	print(" %r (%s) wins: %d"%(P1.name, P1.myClass, Count1))
 	print(" %r (%s) wins: %d"%(P2.name, P2.myClass, Count2))
 	print(" Draw: %d"%(gameNumber-Count1-Count2))

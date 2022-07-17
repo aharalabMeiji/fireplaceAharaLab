@@ -29,7 +29,7 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.DRUID)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	# Maya : モンテカルロによる読み切り
@@ -56,16 +56,20 @@ def main():
 
 	#HunterCat : faceHunter専用のエージェント
 	from agent_HappyCat import HappyCatAgent
-	HappyCat=HappyCatAgent("HappyCat", HappyCatAgent.HappyCatAI,myClass=CardClass.WARRIOR)
+	HappyCat=HappyCatAgent("HappyCat", HappyCatAgent.HappyCatAI,myClass=CardClass.DRUID)
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(HappyCat, Vector2, \
-		deck1=BigDeck.bigWarrior, deck2=BigDeck.clownDruid, \
-		gameNumber=1, debugLog=True)
+	decks = { CardClass.DRUID:BigDeck.clownDruid, CardClass.HUNTER:BigDeck.faceHunter, CardClass.WARRIOR:BigDeck.bigWarrior}
+	player1 = Vector1
+	player2 = Vector2
+	deck1 = decks[player1.myClass]
+	deck2 = decks[player2.myClass]
+	for repeat in range(10):
+		a,b,c = play_set_of_games(player1, player2, deck1=deck1, deck2=deck2, gameNumber=1000, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定

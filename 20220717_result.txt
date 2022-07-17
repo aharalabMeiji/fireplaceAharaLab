@@ -1,0 +1,1 @@
+ 'Vector1' (CardClass.DRUID) wins: 3 'Vector2' (CardClass.WARRIOR) wins: 7
