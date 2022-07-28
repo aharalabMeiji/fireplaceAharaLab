@@ -625,13 +625,15 @@ class BG23_HERO_305p_Action2(TargetedAction):
 	def do(self, source, target):
 		controller = target
 		for card in controller.opponent.field:
+			card.zone=Zone.SETASIDE
 			card.controller=controller
 			card.zone=Zone.HAND
+		controller.opponent.field=[]
 		pass
 class BG23_HERO_305p:
 	""" The Perfect Crime
 	Steal all minions in Bob's Tavern. Each turn, your next Hero Power costs (1) less."""
-	events = BeginBar(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
+	events = EndTurn(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
 	activate = BG23_HERO_305p_Action2(CONTROLLER)
 
 

@@ -1,7 +1,9 @@
 from ..utils import *
 
+BG_Evolving_Chromawing=True## banned 23.6, revive 26.0
+
 BG_Minion_Dragon =[
-	'BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',#Evolving Chromawing(1) ## banned 23.6, revive 26.0
+	
 	'BGS_019','TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e',#Glyph Guardian(2)
 	'BGS_037','BGS_037e','TB_BaconUps_107','TB_BaconUps_107e',#Steward of Time(2)
@@ -19,7 +21,7 @@ BG_Minion_Dragon =[
 	]
 
 BG_PoolSet_Dragon=[
-	['BGS_019','BG21_027'],##'BG21_027',
+	['BGS_019',],##'BG21_027',
 	['BGS_045','BGS_037',],
 	['BGS_034','BGS_067','BGS_038','BG21_015',],
 	['ICC_029','BG21_014','BG23_362',],#4 #'BG21_012',
@@ -28,7 +30,7 @@ BG_PoolSet_Dragon=[
 	]
 
 BG_Dragon_Gold={
-	'BG21_027':'BG21_027_G',#Evolving Chromawing(1)
+
 	'BGS_019':'TB_BaconUps_102',#Red Whelp(1)
 	'BGS_045':'TB_BaconUps_115',#Glyph Guardian(2)
 	'BGS_037':'TB_BaconUps_107',#Steward of Time(2)
@@ -45,7 +47,10 @@ BG_Dragon_Gold={
 	'BGS_041':'TB_BaconUps_109',#Kalecgos, Arcane Aspect (6)
 	}
 
-
+if BG_Evolving_Chromawing:#Evolving Chromawing(1) ## banned 23.6, revive 26.0
+	BG_Minion_Dragon+=['BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',]#
+	BG_PoolSet_Dragon[0].append('BG21_027')
+	BG_Dragon_Gold['BG21_027']='BG21_027_G' #	'BG21_027':'BG21_027_G',#Evolving Chromawing(1)
 #Evolving Chromawing(1)  ### OK ###
 class BG21_027_Buff(TargetedAction):
 	TARGET = ActionArg()
@@ -53,10 +58,10 @@ class BG21_027_Buff(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, buff, amount):
 		count=0#>= 26.0
-		for card in target.controller.hand:#>= 26.0
+		for card in target.controller.field:#>= 26.0
 			if card.race==Race.DRAGON:#>= 26.0
 				count += 1#>= 26.0
-		Buff(target, buff, atk=count*amount).trigger(source)#>= 26.0
+		Buff(target, buff, atk=count*amount, max_health=count*amount).trigger(source)#>= 26.0
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
 	After you upgrade your Tavern Tier, gain +1/+1 for each friendly Dragon."""  #>= 26.0

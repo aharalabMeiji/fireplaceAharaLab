@@ -24,9 +24,9 @@ BG_Gems=[	'BG20_GEM','BG20_GEMe','BG20_GEMe2','GAME_005',##Blood Gem
 
 BG_DarkmoonTicket=[
 	[],
-	['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018','BGS_Treasures_028',],#1 #BGS_Treasures_032
+	['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018',],#1 #BGS_Treasures_032
 	['BGS_Treasures_001','BGS_Treasures_010','BGS_Treasures_013','BGS_Treasures_016','BGS_Treasures_019','BGS_Treasures_022','BGS_Treasures_023','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_029',],#2 ## 'BGS_Treasures_011',
-	['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040'],#3
+	['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_028','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040'],#3
 	]
 ##
 ##  Blood gem
