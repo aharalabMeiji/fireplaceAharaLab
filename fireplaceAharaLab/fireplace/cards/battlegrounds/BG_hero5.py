@@ -1,5 +1,7 @@
 from ..utils import *
 
+BG_Heistbaron_Togwaggle=True ## 24.0
+
 BG_Hero5=[
 	'TB_BaconShop_HERO_94','TB_BaconShop_HP_106','TB_BaconShop_HERO_94_Buddy','TB_BaconShop_HERO_94_Buddy_G',#69#Tickatus
 	'TB_BaconShop_HERO_10','TB_BaconShop_HP_008','TB_BaconShop_HP_008a','TB_BaconShop_HERO_10_Buddy','TB_BaconShop_HERO_10_Buddye','TB_BaconShop_HERO_10_Buddy_G',#70#Trade Prince Gallywix
@@ -13,7 +15,7 @@ BG_Hero5=[
 	'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',#78#Zephrys, the Great
 	'BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',#79#Queen Azshara
 	'BG23_HERO_304','BG23_HERO_304p', #80#Lady Vashj
-	'BG23_HERO_305','BG23_HERO_305p',#81#Heistbaron Togwaggle
+
 ]
 
 
@@ -30,6 +32,7 @@ BG_PoolSet_Hero5=[
 	'TB_BaconShop_HERO_91',#78
 	#'BG22_HERO_007',#79#Queen Azshara
 	'BG23_HERO_304', #80#Lady Vashj
+	
 	]
 BG_Hero5_Buddy={
 	'TB_BaconShop_HERO_94':'TB_BaconShop_HERO_94_Buddy',
@@ -605,9 +608,31 @@ class BG23_HERO_304p:
 
 ####################################################################################
 
-#'BG23_HERO_305','BG23_HERO_305p',#81#Heistbaron Togwaggle ## 24.0
+
+if BG_Heistbaron_Togwaggle:
+	BG_Hero5 += ['BG23_HERO_305','BG23_HERO_305p',]	 #81#Heistbaron Togwaggle
+	BG_PoolSet_Hero5.append('BG23_HERO_305') #81#Heistbaron Togwaggle
+#81#Heistbaron Togwaggle ## 24.0
 class BG23_HERO_305:
 	""" Heistbaron Togwaggle """
+class BG23_HERO_305p_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.cost = max(0, source.cost-1)## or use cost_mod
+		pass
+class BG23_HERO_305p_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		for card in controller.opponent.field:
+			card.controller=controller
+			card.zone=Zone.HAND
+		pass
 class BG23_HERO_305p:
 	""" The Perfect Crime
 	Steal all minions in Bob's Tavern. Each turn, your next Hero Power costs (1) less."""
+	events = BeginBar(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
+	activate = BG23_HERO_305p_Action2(CONTROLLER)
+
+
+####################################################################################
