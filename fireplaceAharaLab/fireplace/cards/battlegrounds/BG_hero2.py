@@ -156,9 +156,10 @@ class TB_BaconShop_HP_001_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_001:
 	""" Sharpen Blades 
-	Give a friendly minion +2/+1 for each minion _you've bought this turn."""
+	Give a minion +2/+1 for each minion you've bought this turn."""
+	## Give a friendly minion +2/+1 for each minion _you've bought this turn.""" <= 23.6
 	requirements = {
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0
 		}
 	activate = TB_BaconShop_HP_001_Action(TARGET)
 class TB_BaconShop_HP_001e:

@@ -415,9 +415,10 @@ class BG21_HERO_030:# <10>[1453]
 	""" Sneed """
 	pass
 class BG21_HERO_030p:# <12>[1453]
-	""" Sneed's Replicator
-	Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """
-	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	""" Sneed's Replicator 24.0
+	Give a minion: &quot;&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random minion from a lower Tavern Tier.&quot; """ 
+	#Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """ <= 23.6
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
 	activate = Buff(TARGET,'BG21_HERO_030pe')
 	pass
 class BG21_HERO_030pe:# <12>[1453]
