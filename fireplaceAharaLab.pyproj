@@ -110,6 +110,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\warrior.py">
       <SubType>Code</SubType>
     </Compile>
@@ -128,9 +129,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\mage.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\neutral.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\paladin.py">

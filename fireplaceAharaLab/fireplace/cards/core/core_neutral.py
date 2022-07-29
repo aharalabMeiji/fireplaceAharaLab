@@ -1,11 +1,29 @@
 from ..utils import *
 
+Core_Neutral=[]
+
+Ice_Rager=True
+Toxicologist=True
+Earthen_Ring_Farseer=True
+River_Crocolisk=True
+Raid_Leader=True
+Kobold_Geomancer=True
+Sen_jin_Shieldmasta=True
+Injured_Blademaster=True
+
+
+if Ice_Rager:
+	Core_Neutral+=['CORE_AT_092']
 class CORE_AT_092:# <12> 1637 #OK
 	""" Ice Rager
 	 """
 	#
 	pass
 
+
+
+if Toxicologist:
+	Core_Neutral+=['CORE_BOT_083','BOT_083e']
 class CORE_BOT_083:# <12> 1637 #OK
 	""" Toxicologist
 	[Battlecry:] Give your weapon +1 Attack. """
@@ -13,6 +31,10 @@ class CORE_BOT_083:# <12> 1637 #OK
 	pass
 BOT_083e=buff(atk=1)#<12> 1127
 
+
+
+if Earthen_Ring_Farseer:
+	Core_Neutral+=['CORE_CS2_117',]
 class CORE_CS2_117:# <12> 1637 #OK
 	""" Earthen Ring Farseer
 	[Battlecry:] Restore #3_Health. """
@@ -20,12 +42,20 @@ class CORE_CS2_117:# <12> 1637 #OK
 	play = Heal(TARGET, 3)
 	pass
 
+
+
+if River_Crocolisk:
+	Core_Neutral+=['CORE_CS2_120',]
 class CORE_CS2_120:# <12> 1637 #OK
 	""" River Crocolisk
 	 """
 	#
 	pass
 
+
+
+if Raid_Leader:
+	Core_Neutral+=['CORE_CS2_122','CS2_122e']
 class CORE_CS2_122:# <12> 1637 #OK
 	""" Raid Leader
 	Your other minions have +1 Attack. """
@@ -33,23 +63,36 @@ class CORE_CS2_122:# <12> 1637 #OK
 	pass
 CS2_122e = buff(atk=1)# <12> 1635
 
+
+
+if Kobold_Geomancer:
+	Core_Neutral+=['CORE_CS2_142',]
 class CORE_CS2_142:# <12> 1637 #OK
-	""" Kobold Geomancer
+	""" Kobold_Geomancer
 	[Spell Damage +1] """
 	#
 	pass
 
+
+if Sen_jin_Shieldmasta:
+	Core_Neutral+=['CORE_CS2_179',]
 class CORE_CS2_179:# <12> 1637 #OK
 	""" Sen'jin Shieldmasta
 	[Taunt] """
 	#
 	pass
 
+
+
+if Injured_Blademaster:
+	Core_Neutral+=['CORE_CS2_181',]
 class CORE_CS2_181:# <12> 1637 $OK
 	""" Injured Blademaster
 	[Battlecry:] Deal 4 damage to HIMSELF. """
 	play = Hit(SELF, 4)
 	pass
+
+
 
 class CORE_CS2_182:# <12> 1637 #OK
 	""" Chillwind Yeti
@@ -581,4 +624,8 @@ class GAME_005:# <12> 1637 #OK
 	Gain 1 Mana Crystal this turn only. """
 	play = ManaThisTurn(CONTROLLER, 1)
 	pass
+
+
+
+
 
