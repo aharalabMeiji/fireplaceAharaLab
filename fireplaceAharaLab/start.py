@@ -81,11 +81,11 @@ def main():
 
 def printClasses():
 	from hearthstone import cardxml
-	print('')
-	print('from ..utils import *')
-	print('')
-	myCardSet=CardSet.STORMWIND
-	myCardClass=CardClass.NEUTRAL
+	#print('')
+	#print('from ..utils import *')
+	#print('')
+	myCardSet=CardSet.REVENDRETH
+	myCardClass=CardClass.MAGE
 	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
@@ -192,4 +192,4 @@ def card_test():
 
 
 if __name__ == "__main__":
-	main()
+	printClasses()#main()
