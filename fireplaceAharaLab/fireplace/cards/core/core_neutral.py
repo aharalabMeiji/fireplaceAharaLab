@@ -13,6 +13,17 @@ Injured_Blademaster=True
 Chillwind_Yeti=True
 Abusive_Sergeant=True
 Elven_Archer=True
+Ironbeak_Owl=True
+Stormwind_Champion=True
+Sunreaver_Spy=True
+Young_Priestess=True
+Big_Game_Hunter=True
+Argent_Squire=True
+Worgen_Infiltrator=True
+Voodoo_Doctor=True
+Bloodmage_Thalnos=True
+King_Mukla=True
+Jungle_Panther=True
 
 
 Fogsail_Freebooter=True
@@ -144,10 +155,10 @@ class CORE_CS2_189:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Ironbeak_Owl:
+	Core_Neutral+=['CORE_CS2_203']
 class CORE_CS2_203:# <12> 1637 #OK
-	""" Ironbeak Owl
+	""" Ironbeak_Owl
 	[Battlecry:] [Silence] a_minion. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Silence(TARGET)
@@ -156,10 +167,10 @@ class CORE_CS2_203:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Stormwind_Champion:
+	Core_Neutral+=['CORE_CS2_222','CS2_222o']
 class CORE_CS2_222:# <12> 1637 #OK
-	""" Stormwind Champion
+	""" Stormwind_Champion
 	Your other minions have +1/+1. """
 	update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_222o")
 	pass
@@ -168,10 +179,10 @@ CS2_222o = buff(+1, +1)# <12> 1635
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Sunreaver_Spy:
+	Core_Neutral+=['CORE_DAL_086','DAL_086e']
 class CORE_DAL_086:# <12> 1637 #OK
-	""" Sunreaver Spy
+	""" Sunreaver_Spy
 	[Battlecry:] If you control a [Secret], gain +1/+1. """
 	play = Find(FRIENDLY_SECRETS) & Buff(SELF, "DAL_086e")
 	pass
@@ -180,10 +191,10 @@ DAL_086e=buff(1,1)# <12> 1130
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Young_Priestess:
+	Core_Neutral+=['CORE_EX1_004','EX1_004e']
 class CORE_EX1_004:# <12> 1637 
-	""" Young Priestess
+	""" Young_Priestess
 	At the end of your turn, give another random friendly minion +1 Health. """
 	events = OWN_TURN_END.on(Buff(RANDOM_OTHER_FRIENDLY_MINION, "EX1_004e"))
 	pass
@@ -192,10 +203,10 @@ EX1_004e = buff(health=1)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Big_Game_Hunter:
+	Core_Neutral+=['CORE_EX1_005']
 class CORE_EX1_005:# <12> 1637 #OK
-	""" Big Game Hunter
+	""" Big_Game_Hunter
 	[Battlecry:] Destroy a minion with 7 or more Attack. """
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
@@ -207,10 +218,10 @@ class CORE_EX1_005:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Argent_Squire:
+	Core_Neutral+=['CORE_EX1_008']
 class CORE_EX1_008:# <12> 1637 #OK
-	""" Argent Squire
+	""" Argent_Squire
 	[Divine Shield] """
 	#
 	pass
@@ -218,10 +229,10 @@ class CORE_EX1_008:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Worgen_Infiltrator:
+	Core_Neutral+=['CORE_EX1_010']
 class CORE_EX1_010:# <12> 1637 #OK
-	""" Worgen Infiltrator
+	""" Worgen_Infiltrator
 	[Stealth] """
 	#
 	pass
@@ -229,10 +240,10 @@ class CORE_EX1_010:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Voodoo_Doctor:
+	Core_Neutral+=['CORE_EX1_011']
 class CORE_EX1_011:# <12> 1637 #OK
-	""" Voodoo Doctor
+	""" Voodoo_Doctor
 	[Battlecry:] Restore #2_Health. """
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Heal(TARGET, 2)
@@ -241,10 +252,10 @@ class CORE_EX1_011:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Bloodmage_Thalnos:
+	Core_Neutral+=['CORE_EX1_012']
 class CORE_EX1_012:# <12> 1637 #OK
-	""" Bloodmage Thalnos
+	""" Bloodmage_Thalnos
 	[Spell Damage +1][Deathrattle:] Draw a card. """
 	deathrattle = Draw(CONTROLLER)
 	pass
@@ -252,10 +263,10 @@ class CORE_EX1_012:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if King_Mukla:
+	Core_Neutral+=['CORE_EX1_014','EX1_014t','EX1_014te']
 class CORE_EX1_014:# <12> 1637 #OK
-	""" King Mukla
+	""" King_Mukla
 	[Battlecry:] Give your opponent 2 Bananas. """
 	play = Give(OPPONENT, "EX1_014t") * 2
 	pass
@@ -269,17 +280,17 @@ EX1_014te = buff(+1, +1)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Jungle_Panther:
+	Core_Neutral+=['CORE_EX1_017']
 class CORE_EX1_017:# <12> 1637 #OK
-	""" Jungle Panther
+	""" Jungle_Panther
 	[Stealth] """
 	#
 	pass
 
 
 
-
+#############################################
 if Elven_Archer:
 	Core_Neutral+=['CORE_CS2_189']
 class CORE_EX1_028:# <12> 1637 #OK
@@ -806,7 +817,7 @@ class CORE_UNG_844:# <12> 1637
 
 
 
-
+############################
 if Fogsail_Freebooter:
 	Core_Neutral+=['CS3_022']
 class CS3_022:# <12> 1637 #OK
