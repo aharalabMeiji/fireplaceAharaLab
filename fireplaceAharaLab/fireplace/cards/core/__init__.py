@@ -1,5 +1,5 @@
 from .druid import *
-from .neutral import *
+from .core_neutral import *
 from .hunter import *
 from .mage import *
 #from .priest import *
