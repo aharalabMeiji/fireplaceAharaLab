@@ -24,8 +24,49 @@ Voodoo_Doctor=True
 Bloodmage_Thalnos=True
 King_Mukla=True
 Jungle_Panther=True
-
-
+Stranglethorn_Tiger=True
+Dark_Iron_Dwarf=True
+Youthful_Brewmaster=True
+Crazed_Alchemist=True
+Acidic_Swamp_Ooze=True
+Mad_Bomber=True
+Defender_of_Argus=True
+Gadgetzan_Auctioneer=True
+Loot_Hoarder=True
+Coldlight_Seer=True
+Cairne_Bloodhoof=True
+Dire_Wolf_Alpha=True
+SI_7_Infiltrator=True
+Arcane_Devourer=True
+Barrens_Stablehand=True
+Brightwing=True
+High_Inquisitor_Whitemane=True
+Baron_Geddon=True
+Gurubashi_Berserker=True
+Murloc_Tidehunter=True
+Murloc_Scout=True
+Murloc_Tidecaller=True
+Faceless_Manipulator=True
+Nerubian_Egg=True
+Baron_Rivendare=True
+ElveCogmastern_Archer=True
+Spider_Tank=True
+Explosive_Sheep=True
+Annoy_o_Tron=True
+Mini_Mage=True
+Clockwork_Giant=True
+Grim_Necromancer=True
+Arcane_Anomaly=True
+Murloc_Tinyfin=True
+Lone_Champion=True
+Stoneskin_Basilisk=True
+Sleepy_Dragon=True
+Bloodsail_Raider=True
+Violet_Teacher=True
+Southsea_Captain=True
+Flesheating_Ghoul=True
+Stormwatcher=True
+Humongous_Razorleaf=True
 Fogsail_Freebooter=True
 Taelan_Fordring=True
 Overlord_Runthak=True
@@ -289,12 +330,10 @@ class CORE_EX1_017:# <12> 1637 #OK
 	pass
 
 
-
-#############################################
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Stranglethorn_Tiger:
+	Core_Neutral+=['CORE_EX1_028']
 class CORE_EX1_028:# <12> 1637 #OK
-	""" Stranglethorn Tiger
+	""" Stranglethorn_Tiger
 	[Stealth] """
 	#
 	pass
@@ -302,10 +341,10 @@ class CORE_EX1_028:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Dark_Iron_Dwarf:
+	Core_Neutral+=['CORE_EX1_046','EX1_046e']
 class CORE_EX1_046:# <12> 1637
-	""" Dark Iron Dwarf
+	""" Dark_Iron_Dwarf
 	[Battlecry:] Give a minion +2_Attack this turn. """
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0, 
@@ -317,10 +356,10 @@ EX1_046e = buff(atk=2)# <12> 3 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Youthful_Brewmaster:
+	Core_Neutral+=['CORE_EX1_049']
 class CORE_EX1_049:# <12> 1637 #OK
-	""" Youthful Brewmaster
+	""" Youthful_Brewmaster
 	[Battlecry:] Return a friendly minion from the battlefield to your hand. """
 	requirements = {
 		PlayReq.REQ_FRIENDLY_TARGET: 0,
@@ -333,10 +372,10 @@ class CORE_EX1_049:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Crazed_Alchemist:
+	Core_Neutral+=['CORE_EX1_059','EX1_059e']
 class CORE_EX1_059:# <12> 1637  #OK
-	""" Crazed Alchemist
+	""" Crazed_Alchemist
 	[Battlecry:] Swap the Attack and Health of a minion. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Buff(TARGET, "EX1_059e")
@@ -346,10 +385,10 @@ EX1_059e = AttackHealthSwapBuff()# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Acidic_Swamp_Ooze:
+	Core_Neutral+=['CORE_EX1_066']
 class CORE_EX1_066:# <12> 1637 #OK
-	""" Acidic Swamp Ooze
+	""" Acidic_Swamp_Ooze
 	[Battlecry:] Destroy your opponent's weapon. """
 	play = Destroy(ENEMY_WEAPON)
 	pass
@@ -357,10 +396,10 @@ class CORE_EX1_066:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Mad_Bomber:
+	Core_Neutral+=['CORE_EX1_082']
 class CORE_EX1_082:# <12> 1637 #OK
-	""" Mad Bomber
+	""" Mad_Bomber
 	[Battlecry:] Deal 3 damage randomly split between all other characters. """
 	play = Hit(RANDOM_OTHER_CHARACTER, 1) * 3
 	pass
@@ -368,10 +407,10 @@ class CORE_EX1_082:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Defender_of_Argus:
+	Core_Neutral+=['CORE_EX1_093','EX1_093e']
 class CORE_EX1_093:# <12> 1637 #OK
-	""" Defender of Argus
+	""" Defender_of_Argus
 	[Battlecry:] Give adjacent minions +1/+1 and [Taunt]. """
 	play = Buff(SELF_ADJACENT, "EX1_093e")
 	pass
@@ -380,10 +419,10 @@ EX1_093e = buff(+1, +1, taunt=True)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Gadgetzan_Auctioneer:
+	Core_Neutral+=['CORE_EX1_095']
 class CORE_EX1_095:# <12> 1637 #OK
-	""" Gadgetzan Auctioneer
+	""" Gadgetzan_Auctioneer
 	Whenever you cast a spell, draw a card. """
 	events = OWN_SPELL_PLAY.on(Draw(CONTROLLER))
 	pass
@@ -391,10 +430,10 @@ class CORE_EX1_095:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Loot_Hoarder:
+	Core_Neutral+=['CORE_EX1_096']
 class CORE_EX1_096:# <12> 1637 #OK
-	""" Loot Hoarder
+	""" Loot_Hoarder
 	[Deathrattle:] Draw a card. """
 	deathrattle = Draw(CONTROLLER)
 	pass
@@ -402,10 +441,10 @@ class CORE_EX1_096:# <12> 1637 #OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Coldlight_Seer:
+	Core_Neutral+=['CORE_EX1_103','EX1_103e']
 class CORE_EX1_103:# <12> 1637 #OK
-	""" Coldlight Seer
+	""" Coldlight_Seer
 	[Battlecry:] Give your other Murlocs +2 Health. """
 	play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, "EX1_103e")
 	pass
@@ -414,10 +453,10 @@ EX1_103e = buff(health=2)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Cairne_Bloodhoof:
+	Core_Neutral+=['CORE_EX1_110','EX1_110t']
 class CORE_EX1_110:# <12> 1637 #OK
-	""" Cairne Bloodhoof
+	""" Cairne_Bloodhoof
 	[Deathrattle:] Summon a 5/5 Baine Bloodhoof. """
 	deathrattle = Summon(CONTROLLER, "EX1_110t")
 	pass
@@ -427,10 +466,10 @@ class EX1_110t:# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Dire_Wolf_Alpha:
+	Core_Neutral+=['CORE_EX1_162','EX1_162o']
 class CORE_EX1_162:# <12> 1637
-	""" Dire Wolf Alpha
+	""" Dire_Wolf_Alpha
 	Adjacent minions have +1_Attack. """
 	update = Refresh(SELF_ADJACENT, buff="EX1_162o")
 	pass
@@ -439,10 +478,10 @@ EX1_162o = buff(atk=1)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if SI_7_Infiltrator:
+	Core_Neutral+=['CORE_EX1_186']
 class CORE_EX1_186:# <12> 1637
-	""" SI:7 Infiltrator
+	""" SI:7_Infiltrator
 	[Battlecry:] Destroy a random enemy [Secret]. """
 	play = Destroy(RANDOM(ENEMY_SECRETS))
 	pass
@@ -450,10 +489,10 @@ class CORE_EX1_186:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Arcane_Devourer:
+	Core_Neutral+=['CORE_EX1_187','EX1_187e']
 class CORE_EX1_187:# <12> 1637
-	""" Arcane Devourer
+	""" Arcane_Devourer
 	Whenever you cast a spell, gain +2/+2. """
 	events = OWN_SPELL_PLAY.on(Buff(SELF,'EX1_187e'))
 	pass
@@ -462,10 +501,10 @@ EX1_187e=buff(atk=2,health=2)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Barrens_Stablehand:
+	Core_Neutral+=['CORE_EX1_188']
 class CORE_EX1_188:# <12> 1637
-	""" Barrens Stablehand
+	""" Barrens_Stablehand
 	[Battlecry:] Summon a random Beast. """
 	play = Summon(CONTROLLER, RANDOM(BEAST))
 	pass
@@ -473,8 +512,8 @@ class CORE_EX1_188:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Brightwing:
+	Core_Neutral+=['CORE_EX1_189']
 class CORE_EX1_189:# <12> 1637
 	""" Brightwing
 	[Battlecry:] Add a random [Legendary] minion to your_hand. """
@@ -482,19 +521,19 @@ class CORE_EX1_189:# <12> 1637
 	play = Give(CONTROLLER,RandomMinion(rarity=Rarity.LEGENDARY))
 	pass
 
+
+
+
+
+if High_Inquisitor_Whitemane:
+	Core_Neutral+=['CORE_EX1_190']
 class ResummonMinionDiedThisTurn(TargetedAction):
 	TARGET = ActionArg()#controller
 	def do(self, source, target):
 		for _card in target.died_this_turn:
 			Summon(target,_card).trigger(target)
-
-
-
-
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
 class CORE_EX1_190:# <12> 1637
-	""" High Inquisitor Whitemane
+	""" High_Inquisitor_Whitemane
 	[Battlecry:] Summon all friendly minions that died this turn. """
 	play = ResummonMinionDiedThisTurn(CONTROLLER)
 	pass
@@ -502,10 +541,10 @@ class CORE_EX1_190:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Baron_Geddon:
+	Core_Neutral+=['CORE_EX1_249']
 class CORE_EX1_249:# <12> 1637
-	""" Baron Geddon
+	""" Baron_Geddon
 	At the end of your turn, deal 2 damage to ALL other characters. """
 	events = OWN_TURN_END.on(Hit(ALL_CHARACTERS - SELF, 2))
 	pass
@@ -513,10 +552,10 @@ class CORE_EX1_249:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Gurubashi_Berserker:
+	Core_Neutral+=['CORE_EX1_399','EX1_399e']
 class CORE_EX1_399:# <12> 1637
-	""" Gurubashi Berserker
+	""" Gurubashi_Berserker
 	Whenever this minion takes damage, gain +3_Attack. """
 	events = SELF_DAMAGE.on(Buff(SELF, "EX1_399e"))
 	pass
@@ -525,21 +564,17 @@ EX1_399e = buff(atk=3)# <12> 1635
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Murloc_Tidehunter:
+	Core_Neutral+=['CORE_EX1_506']
 class CORE_EX1_506:# <12> 1637
-	""" Murloc Tidehunter
+	""" Murloc_Tidehunter
 	[Battlecry:] Summon a 1/1_Murloc Scout. """
 	play = Summon(CONTROLLER, "CORE_EX1_506a")
 	pass
-
-
-
-
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Murloc_Scout:
+	Core_Neutral+=['CORE_EX1_506a']
 class CORE_EX1_506a:# <12> 1637
-	""" Murloc Scout
+	""" Murloc_Scout
 	 """
 	#
 	pass
@@ -547,10 +582,10 @@ class CORE_EX1_506a:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Murloc_Tidecaller:
+	Core_Neutral+=['CORE_EX1_509','EX1_509e']
 class CORE_EX1_509:# <12> 1637
-	""" Murloc Tidecaller
+	""" Murloc_Tidecaller
 	Whenever you summon a Murloc, gain +1 Attack. """
 	events = Summon(ALL_PLAYERS, MURLOC).on(Buff(SELF, "EX1_509e"))
 	pass
@@ -559,10 +594,10 @@ EX1_509e = buff(atk=1)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Faceless_Manipulator:
+	Core_Neutral+=['CORE_EX1_564']
 class CORE_EX1_564:# <12> 1637
-	""" Faceless Manipulator
+	""" Faceless_Manipulator
 	[Battlecry:] Choose a minion and become a copy of it. """
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
@@ -574,10 +609,10 @@ class CORE_EX1_564:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Nerubian_Egg:
+	Core_Neutral+=['CORE_FP1_007','FP1_007t']
 class CORE_FP1_007:# <12> 1637
-	""" Nerubian Egg
+	""" Nerubian_Egg
 	[Deathrattle:] Summon a 4/4 Nerubian. """
 	deathrattle = Summon(CONTROLLER, "FP1_007t")
 	pass
@@ -588,10 +623,10 @@ class FP1_007t:# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Baron_Rivendare:
+	Core_Neutral+=['CORE_FP1_031']
 class CORE_FP1_031:# <12> 1637
-	""" Baron Rivendare
+	""" Baron_Rivendare
 	Your minions trigger their [Deathrattles] twice. """
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
 	pass
@@ -599,8 +634,8 @@ class CORE_FP1_031:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if ElveCogmastern_Archer:
+	Core_Neutral+=['CORE_GVG_013']
 class CORE_GVG_013:# <12> 1637
 	""" Cogmaster
 	Has +2 Attack while you have a Mech. """
@@ -610,21 +645,20 @@ class CORE_GVG_013:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Spider_Tank:
+	Core_Neutral+=['CORE_GVG_044']
 class CORE_GVG_044:# <12> 1637
-	""" Spider Tank
+	""" Spider_Tank
 	"""
 	#
 	pass
 
 
 
-
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Explosive_Sheep:
+	Core_Neutral+=['CORE_GVG_076']
 class CORE_GVG_076:# <12> 1637
-	""" Explosive Sheep
+	""" Explosive_Sheep
 	[Deathrattle:] Deal 2 damage to all minions. """
 	deathrattle = Hit(ALL_MINIONS, 2)
 	pass
@@ -632,8 +666,8 @@ class CORE_GVG_076:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Annoy_o_Tron:
+	Core_Neutral+=['CORE_GVG_085']
 class CORE_GVG_085:# <12> 1637
 	""" Annoy-o-Tron
 	[Taunt][Divine Shield] """
@@ -643,8 +677,8 @@ class CORE_GVG_085:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Mini_Mage:
+	Core_Neutral+=['CORE_GVG_109']
 class CORE_GVG_109:# <12> 1637
 	""" Mini-Mage
 	[Stealth][Spell Damage +1] """
@@ -654,8 +688,8 @@ class CORE_GVG_109:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Clockwork_Giant:
+	Core_Neutral+=['CORE_GVG_121']
 class CORE_GVG_121:# <12> 1637
 	""" Clockwork Giant
 	Costs (1) less for each card in your opponent's hand. """
@@ -665,8 +699,8 @@ class CORE_GVG_121:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Grim_Necromancer:
+	Core_Neutral+=['CORE_ICC_026','ICC_026t']
 class CORE_ICC_026:# <12> 1637
 	""" Grim Necromancer
 	[Battlecry:] Summon two 1/1 Skeletons. """
@@ -678,8 +712,8 @@ class ICC_026t:# <12> 1001
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Arcane_Anomaly:
+	Core_Neutral+=['CORE_KAR_036','KAR_036e']
 class CORE_KAR_036:# <12> 1637
 	""" Arcane Anomaly
 	After you cast a spell, give this minion +1 Health. """
@@ -690,8 +724,8 @@ KAR_036e = buff(health=1)# <12> 23
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Murloc_Tinyfin:
+	Core_Neutral+=['CORE_LOEA10_3']
 class CORE_LOEA10_3:# <12> 1637
 	""" Murloc Tinyfin
 	"""
@@ -702,8 +736,8 @@ class CORE_LOEA10_3:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Lone_Champion:
+	Core_Neutral+=['CORE_LOOT_124']
 class CORE_LOOT_124:###OK
 	""" Lone Champion  
 	<b>Battlecry:</b> If you control no other minions, gain <b>Taunt</b> and <b>Divine Shield</b>. """
@@ -717,8 +751,8 @@ class CORE_LOOT_124:###OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Stoneskin_Basilisk:
+	Core_Neutral+=['CORE_LOOT_125']
 class CORE_LOOT_125:###OK
 	""" Stoneskin Basilisk
 	<b>Divine Shield</b>  <b>Poisonous</b>"""
@@ -727,8 +761,8 @@ class CORE_LOOT_125:###OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Sleepy_Dragon:
+	Core_Neutral+=['CORE_LOOT_137']
 class CORE_LOOT_137:###OK
 	""" Sleepy Dragon
 	<b>Taunt</b> """
@@ -738,8 +772,8 @@ class CORE_LOOT_137:###OK
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Bloodsail_Raider:
+	Core_Neutral+=['CORE_NEW1_018','NEW1_018e']
 class CORE_NEW1_018_Action(TargetedAction):
 	def do(self,source,target):
 		player = target
@@ -758,8 +792,8 @@ class NEW1_018e:
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Violet_Teacher:
+	Core_Neutral+=['CORE_NEW1_026','NEW1_026t']
 class CORE_NEW1_026:# <12> 1637
 	""" Violet Teacher
 	Whenever you cast a spell, summon a 1/1 Violet Apprentice. """
@@ -772,8 +806,8 @@ class NEW1_026t:# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Southsea_Captain:
+	Core_Neutral+=['CORE_NEW1_027','NEW1_027e']
 class CORE_NEW1_027:# <12> 1637
 	""" Southsea Captain
 	Your other Pirates have +1/+1. """
@@ -784,8 +818,8 @@ NEW1_027e = buff(+1, +1)
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Flesheating_Ghoul:
+	Core_Neutral+=['CORE_tt_004','tt_004o']
 class CORE_tt_004:# <12> 1637
 	""" Flesheating Ghoul
 	Whenever a minion dies, gain +1 Attack. """
@@ -796,8 +830,8 @@ tt_004o=buff(atk=1)# <12> 3
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Stormwatcher:
+	Core_Neutral+=['CORE_UNG_813']
 class CORE_UNG_813:# <12> 1637
 	""" Stormwatcher
 	[Windfury] """
@@ -807,8 +841,8 @@ class CORE_UNG_813:# <12> 1637
 
 
 
-if Elven_Archer:
-	Core_Neutral+=['CORE_CS2_189']
+if Humongous_Razorleaf:
+	Core_Neutral+=['CORE_UNG_844']
 class CORE_UNG_844:# <12> 1637
 	""" Humongous Razorleaf
 	Can't attack. """
@@ -817,7 +851,6 @@ class CORE_UNG_844:# <12> 1637
 
 
 
-############################
 if Fogsail_Freebooter:
 	Core_Neutral+=['CS3_022']
 class CS3_022:# <12> 1637 #OK
@@ -978,6 +1011,7 @@ class CS3_038:# <12> 1637 #OK
 	#
 	pass
 
+Core_Neutral+=['GAME_005']
 class GAME_005:# <12> 1637 #OK
 	""" The Coin
 	Gain 1 Mana Crystal this turn only. """

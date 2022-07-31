@@ -63,7 +63,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
+	a,b,c = play_set_of_games(Human1, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -81,23 +81,27 @@ def main():
 
 def printClasses():
 	from hearthstone import cardxml
-	#print('')
-	#print('from ..utils import *')
-	#print('')
+	print('')
+	print('from ..utils import *')
+	print('')
 	myCardSet=CardSet.THE_SUNKEN_CITY
-	myCardClass=CardClass.HUNTER
-	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
+	myCardClass=CardClass.MAGE
+	mySetClass='Sunken_Mage'
+	print ("%s=[]"%(mySetClass))
+	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
 		_card = db[_id]
 		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			print("'%s'"%(_card.id), end=",")
+			print("%s=True"%(_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
 		pass
 	pass
-	print(']')
+	#print(']')
 	for _id in db.keys():
 		_card = db[_id]
 		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
+			print('if %s:# '%(_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
+			print("\t %s+=['%s']"%(mySetClass, _card.id))
 			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 			print('\t""" %s'%(_card.name))
 			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
@@ -192,4 +196,5 @@ def card_test():
 
 
 if __name__ == "__main__":
-	printClasses()#main()
+	#printClasses()#
+	main()
