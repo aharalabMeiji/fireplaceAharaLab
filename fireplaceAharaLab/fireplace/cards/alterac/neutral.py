@@ -1,5 +1,208 @@
 from ..utils import *
 
+Alterac_Neutral=[]
+DrekThar=True
+Herald_of_Lokholar=True
+Popsicooler=True
+Snowblind_Harpy=True
+Gnome_Private=True
+Gnomes_Honor=True
+Corporal=True
+Sneaky_Scout=True
+Scouted=True
+Direwolf_Commander=True
+Tower_Sergeant=True
+Shielded=True
+Bunker_Sergeant=True
+Ice_Revenant=True
+Frosty_Spirit=True
+Frozen_Mammoth=True
+Unthawed=True
+Blood_Guard=True
+Incited=True
+Legionnaire=True
+Marching_Orders=True
+Knight_Captain=True
+Armed_to_the_Teeth=True
+Troll_Centurion=True
+Icehoof_Protector=True
+Frostwolf_Warmaster=True
+Stormpike_Marshal=True
+Kobold_Taskmaster=True
+Rusted_Armor=True
+Armor_Scrap=True
+Irondeep_Trogg=True
+Grimtotem_Bounty_Hunter=True
+Abominable_Lieutenant=True
+Tummy_Feel_Funny=True
+Lokholar_the_Ice_Lord=True
+Crystalskin=True
+Uprooted=True
+Forestguard=True
+Imposing=True
+Ivus_the_Forest_Lord=True
+Korrak_the_Bloodrager=True
+Frostwolf_Cub=True
+Frantic_Hippogryph=True
+Sheep=True
+Ram_Commander=True
+Battle_Ram=True
+Spammy_Arcanist=True
+Vanndar_Stormpike=True
+Occupy_the_Keep=True
+Gankster=True
+Reflecto_Engineer=True
+Reflected=True
+Frostbitten=True
+Magical_Shift=True
+Magical_Shift=True
+Piggyback_Imp=True
+Backpiggy_Imp=True
+Stormpike_Quartermaster=True
+Quartered=True
+Humongous_Owl=True
+
+Move=True
+Empty=True
+Wall=True
+Darkness=True
+Angry_Treant=True
+Lava=True
+Cracked_Wall=True
+Chest=True
+Friendly_Vendor=True
+Gold_Coins=True
+Torch=True
+Compass=True
+Axe=True
+Magmawalk_Boots=True
+Dynamite=True
+
+The_Coin=True
+The_Coin=True
+Itll_Fight_Hard=True
+HOGGER_=True
+Boom__Boom_=True
+Grab_Yer_Cutlass=True
+Lets_Buckle_Swash=True
+Breath_of_Fire=True
+Notorious=True
+Notorious=True
+My_Dinner_With_Scabbs=True
+Cooking_With_Cariel=True
+Eating_With_Ashfallen=True
+Dessert_With_Xyrella=True
+Icesnarl_the_Mighty=True
+Greater_Potion=True
+Lesser_Potion=True
+Superior_Potion=True
+Lt._Lewis=True
+Reviving=True
+Mida,_Pure_Void=True
+Wither_Soul=True
+Digest_Magic=True
+Big_Blue_Campfire=True
+Big_Red_Campfire=True
+Blue_Campfire=True
+Choose_An_Ally=True
+Embers=True
+Daelin_Proudmoore=True
+Lethal=True
+Far_From_Mulgore=True
+Insinuations=True
+Setbacks=True
+Savory_Delights=True
+Until_the_End=True
+Board_Clear=True
+Paratroopin=True
+Ivus_the_Forest_Lord=True
+Lokholar_the_Ice_Lord=True
+Recovering=True
+Primal_Magic=True
+Red_Campfire=True
+Snivvles_Supplies=True
+Tough_Blue_Campfire=True
+Tough_Red_Campfire=True
+Blue_eyed_Whelp=True
+Times_Up,_Lets_Do_This=True
+It_All_Ends_Here=True
+Patching_Things_Up=True
+Force_and_Object=True
+Something_Worth_Fighting_For=True
+Oink_Thousand_Truths=True
+A_Game_of_Scabbs_and_Dragon=True
+For_Azeroth!=True
+Green_eyed_Whelp=True
+Guild_Leader=True
+Kazakusan=True
+Lethal=True
+Meeting_of_the_Minds=True
+Mida,_Pure_Void=True
+Deviate_Nightmare=True
+Onyxian_Egg=True
+Red_eyed_Whelp=True
+Runi=True
+Shalamayne=True
+King_Varian=True
+Onyxian_Warder=True
+Onyxian_Whelp=True
+Gear_Grubber=True
+More_Loot!=True
+Whelp_Bonker=True
+Raid_Boss_Onyxia=True
+Kazakusan=True
+Necrotic_Poison=True
+Spyglass=True
+Clockwork_Assistant=True
+Grimmer_Patron=True
+Puzzle_Box=True
+Mutating_Injection=True
+Mutating_Injection=True
+The_Exorcisor=True
+Pure_Cold=True
+Bubba=True
+Bloodhound=True
+Holy_Book=True
+Crusty_the_Crustacean=True
+Om_Nom_Nom=True
+Looming_Presence=True
+Beastly_Beauty=True
+Beautiful_Beast=True
+Hyperblaster=True
+Dr._Booms_Boombox=True
+Wax_Rager=True
+Vampiric_Fangs=True
+Hyperblaster_Enchantment=True
+Gnomish_Army_Knife=True
+Tooled_Up_=True
+LOCUUUUSTS___=True
+Giant_Locust=True
+Wand_of_Disintegration=True
+Staff_of_Scales=True
+Ancient_Snake=True
+Phaoris_Blade=True
+Zephryss_Lamp=True
+Phaoris_Fury=True
+Canopic_Jars=True
+Canopic_Jars=True
+Ancient_Reflections=True
+Titan_Hologram=True
+Banana_Split=True
+Glowing_Green=True
+Embers_of_Ragnaros=True
+Book_of_the_Dead=True
+Annoy_o_Horn=True
+Flex_plosion=True
+Blade_of_QuelDelar=True
+Hilt_of_QuelDelar=True
+Armed=True
+QuelDelar=True
+Forging_QuelDelar=True
+Incensed=True
+Spammy_Arcanist=True
+
+if DrekThar:# 
+	Alterac_Neutral+=['AV_100']
 class AV_100:
 	"""Drek'Thar (4/4/4)
 	[Battlecry]: If this costs more than every minion in your deck, summon 2 of them. """
@@ -24,24 +227,33 @@ class AV_100:
 		pass
 	pass
 
+if Herald_of_Lokholar:# 
+	Alterac_Neutral+=['AV_101']
 class AV_101:
 	""" Herald of Lokholar (4/3/5)
 	[Battlecry]: Draw a Frost spell."""
 	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL + FROST))
 	pass
 
+if Popsicooler:# 
+	Alterac_Neutral+=['AV_102']
 class AV_102:
 	""" Popsicooler (3/3/3) Mech
 	[Deathrattle]: [Freeze] two random enemy minions."""
 	deathrattle = Freeze(RANDOM(ENEMY_MINIONS - FROZEN)) * 2#
 	pass
 
+if Snowblind_Harpy:# 
+	Alterac_Neutral+=['AV_112']
 class AV_112:
 	""" Snowblind Harpy (3/3/4)
 	[Battlecry]: If you're holding a Frost spell, gain 5 Armor."""
 	play = Find(FRIENDLY_HAND + FROST) & GainArmor(FRIENDLY_HERO,5)
 	pass
 
+if Gnome_Private:# 
+	Alterac_Neutral+=['AV_121']
+	Alterac_Neutral+=['AV_121e']
 class AV_121:
 	"""Gnome Private (1/1/3)
 	[Honorable Kill]: Gain +2 Attack. """
@@ -49,12 +261,17 @@ class AV_121:
 	pass
 AV_121e=buff(2,0)
 
+if Corporal:# 
+	Alterac_Neutral+=['AV_122']
 class AV_122:
 	""" Corporal ( 2/2/3)
 	Honorable Kill: Give your other minions Divine Shield."""
 	honorable_kill = SetAttr(FRIENDLY_MINIONS - SELF, 'divine_shield', 1)#
 	pass
 
+if Sneaky_Scout:# 
+	Alterac_Neutral+=['AV_123']
+	Alterac_Neutral+=['AV_123e']
 class AV_123:
 	""" Sneaky Scout (2/3/2)
 	[Stealth] [Honorable Kill]: Your next Hero Power costs (0). """
@@ -64,6 +281,8 @@ class AV_123e:
 	cost = SET(0)
 	pass
 
+if Direwolf_Commander:# 
+	Alterac_Neutral+=['AV_124']
 class AV_124:####OK
 	""" Direwolf Commander (3/2/5)
 	[Honorable Kill]: Summon a 2/2 Wolf with Stealth """
@@ -73,6 +292,9 @@ class AV_211t:##重複を除く
 	""" wolf """
 	pass
 
+if Tower_Sergeant:# 
+	Alterac_Neutral+=['AV_125']
+	Alterac_Neutral+=['AV_125e']
 class AV_125:
 	""" Tower Sergeant (4/4/4)
 	[Battlecry]: If you control at least 2 other minions, gain +2/+2."""
@@ -81,12 +303,19 @@ class AV_125:
 	pass
 AV_125e=buff(2,2)
 
+
+
+if Bunker_Sergeant:# 
+	Alterac_Neutral+=['AV_126']
 class AV_126:###OK
 	""" Bunker Sergeant (3/2/4)
 	[Battlecry]: If your opponent has 2 or more minions, deal 1 damage to all enemy minions."""
 	play = (Count(ENEMY_MINIONS)>=2) & Hit(ENEMY_MINIONS, 1)
 	pass
 
+if Ice_Revenant:# 
+	Alterac_Neutral+=['AV_127']
+	Alterac_Neutral+=['AV_127e']
 class AV_127:
 	""" Ice Revenant (4/4/5)
 	Whenever you cast a Frost spell, gain +2/+2. """
@@ -94,6 +323,21 @@ class AV_127:
 	pass
 AV_127e=buff(2,2)
 
+
+
+if Frozen_Mammoth:# ##############################################
+	Alterac_Neutral+=['AV_128']
+	Alterac_Neutral+=['AV_128e']
+class AV_128:# <12>[1626]
+	""" Frozen Mammoth
+	This is [Frozen] until you cast a Fire spell. """
+	#
+	pass
+
+
+if Blood_Guard:# 
+	Alterac_Neutral+=['AV_129']
+	Alterac_Neutral+=['AV_129e']
 class AV_129:####OK # [1626]<12>
 	""" Blood Guard (5/4/7)
 	Whenever this minion takes damage, give your minions +1 Attack. """
@@ -101,6 +345,9 @@ class AV_129:####OK # [1626]<12>
 	pass
 AV_129e = buff(1,0)
 
+if Legionnaire:# 
+	Alterac_Neutral+=['AV_130']
+	Alterac_Neutral+=['AV_130e']
 class AV_130:
 	""" Legionnaire (6/9/3)
 	Deathrattle: Give all minions in your hand +2/+2. """
@@ -108,6 +355,9 @@ class AV_130:
 	pass
 AV_130e = buff(2,2)
 
+if Knight_Captain:# 
+	Alterac_Neutral+=['AV_131']
+	Alterac_Neutral+=['AV_131e']
 class AV_131:
 	"""Knight-Captain (5/3/3)
 	[Battlecry]: Deal 3 damage. [Honorable Kill]: Gain +3/+3."""
@@ -117,6 +367,8 @@ class AV_131:
 	pass
 AV_131e=buff(3,3)
 
+if Troll_Centurion:# 
+	Alterac_Neutral+=['AV_132']
 class HitWithoutHonorableKill(TargetedAction):
 	"""
 	Hit character targets by \a amount.
@@ -135,12 +387,16 @@ class AV_132:
 	honorable_kill = HitWithoutHonorableKill(ENEMY_HERO, 8)
 	pass
 
+if Icehoof_Protector:# 
+	Alterac_Neutral+=['AV_133']
 class AV_133:
 	""" Icehoof Protector (6/2/10)
 	[Taunt] [Freeze] any character damaged by this minion."""
 	events = Attack(SELF, ALL_CHARACTERS).on(Freeze(Attack.DEFENDER))
 	pass
 
+if Frostwolf_Warmaster:# 
+	Alterac_Neutral+=['AV_134']
 class CountPlayedThisTurn(LazyNum):
 	def __init__(self, selector):
 		super().__init__()
@@ -154,13 +410,14 @@ class CountPlayedThisTurn(LazyNum):
 			if card.turn == turn:
 				count+=1
 		return self.num(count)
-
 class AV_134:
 	""" Frostwolf Warmaster (4/3/5)
 	Costs (1) less for each card you've played this turn."""
 	cost_mod = -CountPlayedThisTurn(CONTROLLER)
 	pass
 
+if Stormpike_Marshal:# 
+	Alterac_Neutral+=['AV_135']
 class AV_135_AmountCounter(TargetedAction):
 	"""	"""
 	TARGET = ActionArg()# sidequest card
@@ -187,6 +444,10 @@ class AV_135:#
 		events = Damage(FRIENDLY_MINIONS).on(AV_135_AmountCounter(SELF, Damage.AMOUNT, 5, [SetCost(SELF,1)]))
 	pass
 
+if Kobold_Taskmaster:# 
+	Alterac_Neutral+=['AV_136']
+	Alterac_Neutral+=['AV_136e']
+	Alterac_Neutral+=['AV_136t']
 class AV_136:#
 	""" Kobold Taskmaster (3/2/4)
 	[Battlecry]: Add 2 Armor Scraps to your hand that give +2 Health to a minion."""
@@ -200,12 +461,17 @@ class AV_136t:
 	play = Buff(TARGET, 'AV_136e')
 	pass
 
+
+if Irondeep_Trogg:# 
+	Alterac_Neutral+=['AV_137']
 class AV_137:
 	""" Irondeep Trogg (1/1/2)
 	After your opponent casts a spell, summon a copy of this."""
 	events = Play(OPPONENT, SPELL).on(Summon(CONTROLLER,ExactCopy(SELF)))
 	pass
 
+if Grimtotem_Bounty_Hunter:# 
+	Alterac_Neutral+=['AV_138']
 class AV_138:
 	""" Grimtotem Bounty Hunter (3/4/2)
 	[Battlecry]: Destroy an enemy [Legendary] minion."""
@@ -215,12 +481,22 @@ class AV_138:
 			self.controller.game.trigger(self.controller, [Destroy(self.target)], event_args=None)
 	pass
 
+if Abominable_Lieutenant:# 
+	Alterac_Neutral+=['AV_139']
+	Alterac_Neutral+=['AV_139e']
 class AV_139:
 	"""Abominable Lieutenant (8/3/5)
 	At the end of your turn, eat a random enemy minion and gain its stats. """
 	events = OWN_TURN_END.on(EatsCard(SELF, RANDOM_ENEMY_MINION))
 	pass
+class AV_139e:# <12>[1626]
+	""" Tummy Feel Funny
+	Increased Stats """
+	#
+	pass
 
+if Lokholar_the_Ice_Lord:# 
+	Alterac_Neutral+=['AV_141t']
 class AV_141t:
 	""" Lokholar the Ice Lord (10/8/8) Elemental
 	[Rush], [Windfury] Costs (5) less if you have 15 Health or less. """
@@ -228,6 +504,13 @@ class AV_141t:
 	cost_mod  = powered_up & -5
 	pass
 
+
+if Ivus_the_Forest_Lord:# 
+	Alterac_Neutral+=['AV_142t']
+	Alterac_Neutral+=['AV_142e']
+	Alterac_Neutral+=['AV_142e2']
+	Alterac_Neutral+=['AV_142e3']
+	Alterac_Neutral+=['AV_142e4']
 class AV_142t:
 	""" Ivus, the Forest Lord(1/1/1)
 	[Battlecry]: Spend the rest of your Mana and gain +2/+2, [Rush], [Divine Shield], or [Taunt] at random for each."""
@@ -251,25 +534,47 @@ AV_142e3=buff(divine_shield=True)
 AV_142e4=buff(taunt=True)
 AV_142e=buff(2,2)
 
+if Korrak_the_Bloodrager:# 
+	Alterac_Neutral+=['AV_143']
 class AV_143_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source,target):
 		controller = target.controller
 		if not target.honorably_killed:
 			Summon(controller, 'AV_143').trigger(controller)
-
 class AV_143:#
 	""" Korrak the Bloodrager (4/3/5)
 	Deathrattle: If this wasn't Honorably Killed, resummon Korrak."""
 	deathrattle = AV_143_Action(SELF)
 	pass
 
+if Frostwolf_Cub:# ##############################################
+	Alterac_Neutral+=['AV_211t']
+class AV_211t:# <12>[1626]
+	""" Frostwolf Cub
+	[Stealth] """
+	#
+	pass
+
+if Frantic_Hippogryph:# 
+	Alterac_Neutral+=['AV_215']
 class AV_215:####OK
 	""" Frantic Hippogryph (5/3/7)
 	[Rush]. [Honorable Kill]: Gain [Windfury]. """
 	honorable_kill = SetTag(SELF, (GameTag.WINDFURY,))
 	pass
 
+if Sheep:# ###################################
+	Alterac_Neutral+=['AV_218t']
+class AV_218t:# <12>[1626]
+	""" Sheep
+	 """
+	#
+	pass
+
+if Ram_Commander:# 
+	Alterac_Neutral+=['AV_219']
+	Alterac_Neutral+=['AV_219t']
 class AV_219:
 	""" Ram Commander (2/2/2)
 	[Battlecry]: Add two 1/1 Rams with Rush to your hand."""
@@ -279,6 +584,8 @@ class AV_219t:
 	""" Ram with Rush (1/1)"""
 	pass
 
+if Spammy_Arcanist:# 
+	Alterac_Neutral+=['AV_222']
 class AV_222:
 	""" Spammy Arcanist (5/3/4)
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
@@ -297,6 +604,9 @@ class AV_222:
 		pass
 	pass
 
+if Vanndar_Stormpike:# 
+	Alterac_Neutral+=['AV_223']
+	Alterac_Neutral+=['AV_223e']
 class AV_223:
 	"""Vanndar Stormpike (4/4/4)
 	[Battlecry]: If this costs less than every minion in your deck, reduce their Cost by (3)."""
@@ -315,12 +625,18 @@ class AV_223:
 	pass
 AV_223e = buff(cost=-3)
 
+
+if Gankster:# 
+	Alterac_Neutral+=['AV_238']
 class AV_238:
 	""" Gankster (2/4/2)
 	[Stealth] After your opponents plays a minion, attack it"""
 	events = Play(OPPONENT, MINION).after(Hit(Play.CARD, ATK(SELF)), Hit(SELF, ATK(Play.CARD)))
 	pass
 
+if Reflecto_Engineer:# 
+	Alterac_Neutral+=['AV_256']
+	Alterac_Neutral+=['AV_256e']
 class AV_256:
 	""" Reflecto Engineer (3/2/4)
 	[Battlecry]: Swap the Attack and Health of all minions in both players' hands."""
@@ -335,7 +651,39 @@ class AV_256:
 				card.max_health = atk
 				card.damage=0
 	pass
+class AV_256e:# <12>[1626]
+	""" Reflected
+	Attack and Health have been swapped. """
+	#
+	pass
 
+if Frostbitten:# #############################
+	Alterac_Neutral+=['AV_259e2']
+class AV_259e2:# <12>[1626]
+	""" Frostbitten
+	Costs (2) more. """
+	#
+	pass
+
+if Magical_Shift:# #######################
+	Alterac_Neutral+=['AV_284e2']
+class AV_284e2:# <12>[1626]
+	""" Magical Shift
+	Swapped Attack. """
+	#
+	pass
+
+if Magical_Shift:# ##########################
+	Alterac_Neutral+=['AV_284e3']
+class AV_284e3:# <12>[1626]
+	""" Magical Shift
+	Swapped Health. """
+	#
+	pass
+
+if Piggyback_Imp:# 
+	Alterac_Neutral+=['AV_309']
+	Alterac_Neutral+=['AV_309t']
 class AV_309:
 	""" Piggyback Imp (3/1/1) deamon
 	Deathrattle: Summon a 4/1 Imp. """
@@ -345,6 +693,9 @@ class AV_309t:
 	""" 4/1 imp """
 	pass
 
+if Stormpike_Quartermaster:# 
+	Alterac_Neutral+=['AV_401']
+	Alterac_Neutral+=['AV_401e']
 class AV_401:
 	""" Stormpike Quartermaster (2/2/2)
 	After you cast a spell, give a random minion in your hand +1/+1."""
@@ -352,27 +703,34 @@ class AV_401:
 	pass
 AV_401e=buff(1,1)
 
+if Humongous_Owl:# 
+	Alterac_Neutral+=['AV_704']
 class AV_704:
 	"""Humongous Owl(7/8/4)
 	Deathrattle: Deal 8 damage to a random enemy."""
 	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 8)
 	pass
 
-
 ##### Onyxian
 
+if Onyxian_Warder:# 
+	Alterac_Neutral+=['ONY_001']
+	Alterac_Neutral+=['ONY_001t']
 class ONY_001:# <12>[1626]
 	""" Onyxian Warder
 	[Battlecry:] If you're holdinga Dragon, summon two2/1 Whelps with [Rush]. """
 	powered_up = Find(FRIENDLY_HAND + DRAGON)
 	play = powered_up & (Summon(CONTROLLER, 'ONY_001t'), Summon(CONTROLLER, 'ONY_001t'))
 	pass
-
 class ONY_001t:# <12>[1626]
 	""" Onyxian Whelp
 	[Rush] """
 	pass
 
+
+if Gear_Grubber:# 
+	Alterac_Neutral+=['ONY_002']
+	Alterac_Neutral+=['ONY_002e']
 class ONY_002_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -381,18 +739,18 @@ class ONY_002_Action(TargetedAction):
 		if unspent_mana:
 			Buff(target,'ONY_002e').trigger(target)
 		pass
-
 class ONY_002:# <12>[1626]
 	""" Gear Grubber
 	[Taunt]. If you end your turn with any unspent mana, reduce this card's Cost by (1). """
 	class Hand:
 		events = OWN_TURN_END.on(ONY_002_Action(SELF))
 	pass
-
 ONY_002e=buff(cost=-1)
 """ More Loot!
 Reduced Cost. """
 
+if Whelp_Bonker:# 
+	Alterac_Neutral+=['ONY_003']
 class ONY_003:# <12>[1626]
 	""" Whelp Bonker
 	[Frenzy and Honorable Kill:] Draw a card. """
@@ -401,6 +759,8 @@ class ONY_003:# <12>[1626]
 	honorable_kill = Draw(CONTROLLER)
 	pass
 
+if Raid_Boss_Onyxia:# 
+	Alterac_Neutral+=['ONY_004']
 class ONY_004:# <12>[1626]
 	""" Raid Boss Onyxia
 	[Rush]. [Immune] while you control a Whelp.[Battlecry:] Summon six_2/1 Whelps with [Rush]. """
@@ -408,6 +768,9 @@ class ONY_004:# <12>[1626]
 	play = Summon(CONTROLLER, 'ONY_001t') * 6
 	pass
 
+########################
+if Kazakusan:# 
+	Alterac_Neutral+=['ONY_005']
 class ONY_005_Action(TargetedAction):# <12>[1626]
 	TARGET=ActionArg()
 	## discover new cards 5 times.(new cards are fed in two.)
@@ -433,6 +796,8 @@ class ONY_005:# <12>[1626]
 	play = ONY_005_Action(CONTROLLER)
 	pass
 
+if Necrotic_Poison:# 
+	Alterac_Neutral+=['ONY_005ta1']
 class ONY_005ta1:# <12>[1626]
 	""" Necrotic Poison
 	Destroy a minion. """
@@ -440,6 +805,8 @@ class ONY_005ta1:# <12>[1626]
 	play = Destroy(TARGET)#
 	pass
 
+if Spyglass:# 
+	Alterac_Neutral+=['ONY_005ta10']
 class ONY_005ta10:# <12>[1626]
 	""" Spyglass
 	Put a copy of a random card in your opponent's hand into yours. It costs (3) less. """
@@ -454,6 +821,8 @@ class ONY_005ta10e:
 	}
 	events = REMOVED_IN_PLAY
 
+if Clockwork_Assistant:# 
+	Alterac_Neutral+=['ONY_005ta11']
 class ONY_005ta11:# <12>[1626]
 	""" Clockwork Assistant
 	Has +1/+1 for each spell you've cast this game. """
@@ -475,12 +844,16 @@ class ONY_005ta11e:
 		GameTag.HEALTH: +1,
 	}
 
+if Grimmer_Patron:# 
+	Alterac_Neutral+=['ONY_005ta12']
 class ONY_005ta12:# <12>[1626]
 	""" Grimmer Patron
 	At the end of your turn, summon a copy of this minion. """
 	events = OWN_TURN_END.on(Summon, ExactCopy(SELF))
 	pass
 
+if Puzzle_Box:# 
+	Alterac_Neutral+=['ONY_005ta13']
 class ONY_005ta13:# <12>[1626]##################################
 	""" Puzzle Box
 	Transform all minions into random ones that cost (3) more. """
@@ -493,6 +866,9 @@ class ONY_005ta13:# <12>[1626]##################################
 		pass
 	pass
 
+if Mutating_Injection:# 
+	Alterac_Neutral+=['ONY_005ta2']
+	Alterac_Neutral+=['ONY_005ta2e']
 class ONY_005ta2:# <12>[1626]
 	""" Mutating Injection
 	Give a minion +4/+4 and [Taunt]. """
@@ -503,30 +879,38 @@ ONY_005ta2e=buff(+4, +4, taunt=True)# <12>[1626]
 """ Mutating Injection
 +4/+4 and [Taunt]. """
 
+if The_Exorcisor:# 
+	Alterac_Neutral+=['ONY_005ta3']
 class ONY_005ta3:# <12>[1626]
 	""" The Exorcisor
 	[Silence] any minion attacked by this weapon. """
 	events = Attack(FRIENDLY_HERO, ENEMY_MINIONS).on(SetTag(Attack.DEFENDER,{GameTag.SILENCED:True}))
 	pass
 
+if Pure_Cold:# 
+	Alterac_Neutral+=['ONY_005ta4']
 class ONY_005ta4:# <12>[1626]
 	""" Pure Cold
 	Deal $8 damage to the enemy hero, and [Freeze] it. """
 	play = Hit(ENEMY_HERO, 8), Freeze(ENEMY_HERO)#
 	pass
 
+if Bubba:# 
+	Alterac_Neutral+=['ONY_005ta5']
+	Alterac_Neutral+=['ONY_005ta5t']
 class ONY_005ta5:# <12>[1626]
 	""" Bubba
 	[Battlecry]: Summon six 1/1 Bloodhounds with[Rush] to attack an enemy minion. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
 	play = Summon(CONTROLLER, 'ONY_005ta5t').then(RegularAttack(Summon.CARD, TARGET)) * 6
 	pass
-
 class ONY_005ta5t:# <12>[1626]
 	""" Bloodhound
 	[Rush] """
 	pass
 
+if Holy_Book:# 
+	Alterac_Neutral+=['ONY_005ta6']
 class ONY_005ta6:# <12>[1626]
 	""" Holy Book
 	[Silence] and destroy a minion. Summon a 10/10 copy of it. """
@@ -534,24 +918,31 @@ class ONY_005ta6:# <12>[1626]
 	play = (Silence(TARGET), Destroy(TARGET),Summon(CONTROLLER, ExactCopy(TARGET)))
 	pass
 
+if Crusty_the_Crustacean:# 
+	Alterac_Neutral+=['ONY_005ta7']
+	Alterac_Neutral+=['ONY_005ta7e']
 class ONY_005ta7:# <12>[1626]
 	""" Crusty the Crustacean
 	[Battlecry:] Destroy a minion.Gain its Attack and Health. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
 	play = (Destroy(TARGET), GainAttackHealth(SELF, ATK(TARGET), MAX_HEALTH(TARGET)))
 	pass
-
 class ONY_005ta7e:# <12>[1626] # dont know how to use this.
 	""" Om Nom Nom
 	Increased stats. """
 	pass
 
+if Looming_Presence:# 
+	Alterac_Neutral+=['ONY_005ta8']
 class ONY_005ta8:# <12>[1626]
 	""" Looming Presence
 	Draw 2 cards. Gain 4 Armor. """
 	play = Draw(CONTROLLER) * 2, GainArmor(FRIENDLY_HERO, 4)#
 	pass
 
+if Beastly_Beauty:# 
+	Alterac_Neutral+=['ONY_005ta9']
+	Alterac_Neutral+=['ONY_005ta9t']
 class ONY_005ta9:# <12>[1626]
 	""" Beastly Beauty
 	[Rush]After this attacks a minion and survives, transform this into an 8/8. """
@@ -563,6 +954,8 @@ class ONY_005ta9t:# <12>[1626]
 	 """
 	pass
 
+if Hyperblaster:# 
+	Alterac_Neutral+=['ONY_005tb1','ONY_005tb1e']
 class ONY_005tb1:# <12>[1626]
 	""" Hyperblaster
 	[Poisonous].Your hero is [Immune] while attacking. """
@@ -574,6 +967,8 @@ ONY_005tb1e=buff(immune_while_attacking = True)# <12>[1626]
 
 ## no class ONY_005tb10,class ONY_005tb11 (but class ONY_005tb610)
 
+if Dr._Booms_Boombox:# 
+	Alterac_Neutral+=['ONY_005tb12','GVG_110t']
 class ONY_005tb12:# <12>[1626]
 	""" Dr. Boom's Boombox
 	Summon 7 'Boom Bots'. """
@@ -584,12 +979,16 @@ class GVG_110t:
 	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1-4 damage to a random enemy."""
 	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
 
+if Wax_Rager:# 
+	Alterac_Neutral+=['ONY_005tb13']
 class ONY_005tb13:# <12>[1626]
 	""" Wax Rager　(3/5/1)
 	[Deathrattle:] Resummon this minion. """
 	deathrattel = Summon(CONTROLLER, Copy(SELF))#なんだこりゃ。
 	pass
 
+if Vampiric_Fangs:# 
+	Alterac_Neutral+=['ONY_005tb14']
 class ONY_005tb14:# <12>[1626]
 	""" Vampiric Fangs
 	Destroy a minion. Restore its Health to your hero. """
@@ -597,6 +996,10 @@ class ONY_005tb14:# <12>[1626]
 	play = Destroy(TARGET), Heal(FRIENDLY_HERO, CURRENT_HEALTH(TARGET))
 	pass
 
+
+if Gnomish_Army_Knife:# 
+	Alterac_Neutral+=['ONY_005tb2']
+	Alterac_Neutral+=['ONY_005tb2e']
 class ONY_005tb2:# <12>[1626]
 	""" Gnomish Army Knife
 	Give a minion [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
@@ -604,12 +1007,15 @@ class ONY_005tb2:# <12>[1626]
 	play = Buff(TARGET, 'ONY_005tb2e')
 	#
 	pass
-
 ONY_005tb2e=buff(rush=True, windfury=True, divine_shield=True, lifesteal=True, taunt=True, stealth=True)
 # <12>[1626]
 """ Tooled Up!
 Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
 
+if LOCUUUUSTS___:# 
+	Alterac_Neutral+=['ONY_005tb3']
+	Alterac_Neutral+=['ONY_005tb3t']
+	Alterac_Neutral+=['ONY_005tb3t2']
 class ONY_005tb3:# <12>[1626]
 	""" LOCUUUUSTS!!!
 	[Twinspell]Choose an enemy.Fill your board with 2/2 Locusts that attack it. """
@@ -640,6 +1046,251 @@ class ONY_005tb3t2:# <12>[1626]
 	""" Giant Locust
 	vanilla """
 	pass
+
+if Wand_of_Disintegration:# 
+	Alterac_Neutral+=['ONY_005tb4']
+class ONY_005tb4:# <12>[1626]
+	""" Wand of Disintegration
+	[Silence] and destroy all enemy minions. """
+	#
+	pass
+
+if Staff_of_Scales:# 
+	Alterac_Neutral+=['ONY_005tb5']
+class ONY_005tb5:# <12>[1626]
+	""" Staff of Scales
+	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
+	#
+	pass
+
+if Ancient_Snake:# 
+	Alterac_Neutral+=['ONY_005tb5t']
+class ONY_005tb5t:# <12>[1626]
+	""" Ancient Snake
+	[Rush][Poisonous][Reborn] """
+	#
+	pass
+
+if Phaoris_Blade:# 
+	Alterac_Neutral+=['ONY_005tb6']
+class ONY_005tb6:# <12>[1626]
+	""" Phaoris' Blade
+	[Windfury].After your hero attacks and kills a minion, this gains +2/+1. """
+	#
+	pass
+
+if Zephryss_Lamp:# 
+	Alterac_Neutral+=['ONY_005tb610']
+class ONY_005tb610:# <12>[1626]
+	""" Zephrys's Lamp
+	Wish for the perfect card. """
+	#
+	pass
+
+if Phaoris_Fury:# 
+	Alterac_Neutral+=['ONY_005tb6e']
+class ONY_005tb6e:# <12>[1626]
+	""" Phaoris' Fury
+	Increased stats. """
+	#
+	pass
+
+if Canopic_Jars:# 
+	Alterac_Neutral+=['ONY_005tb7']
+class ONY_005tb7:# <12>[1626]
+	""" Canopic Jars
+	Give your minions"[Deathrattle:] Summona random [Legendary]minion." """
+	#
+	pass
+
+if Canopic_Jars:# 
+	Alterac_Neutral+=['ONY_005tb7e']
+class ONY_005tb7e:# <12>[1626]
+	""" Canopic Jars
+	[Deathrattle:] Summon a random [Legendary] minion. """
+	#
+	pass
+
+if Ancient_Reflections:# 
+	Alterac_Neutral+=['ONY_005tb8']
+class ONY_005tb8:# <12>[1626]
+	""" Ancient Reflections
+	Choose a minion.Fill your board with 1/1 copies of it. """
+	#
+	pass
+
+if Titan_Hologram:# 
+	Alterac_Neutral+=['ONY_005tb8e']
+class ONY_005tb8e:# <12>[1626]
+	""" Titan Hologram
+	1/1. """
+	#
+	pass
+
+if Banana_Split:# 
+	Alterac_Neutral+=['ONY_005tb9']
+class ONY_005tb9:# <12>[1626]
+	""" Banana Split
+	Give a friendly minion +2/+2. Summon two copies of it. """
+	#
+	pass
+
+if Glowing_Green:# 
+	Alterac_Neutral+=['ONY_005tb9e']
+class ONY_005tb9e:# <12>[1626]
+	""" Glowing Green
+	+2/+2. """
+	#
+	pass
+
+if Embers_of_Ragnaros:# 
+	Alterac_Neutral+=['ONY_005tc1']
+class ONY_005tc1:# <12>[1626]
+	""" Embers of Ragnaros
+	Shoot three fireballs at random enemies that deal $8 damage each. """
+	#
+	pass
+
+if Book_of_the_Dead:# 
+	Alterac_Neutral+=['ONY_005tc2']
+class ONY_005tc2:# <12>[1626]
+	""" Book of the Dead
+	Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game. """
+	#
+	pass
+
+if Annoy_o_Horn:# 
+	Alterac_Neutral+=['ONY_005tc3']
+class ONY_005tc3:# <12>[1626]
+	""" Annoy-o Horn
+	Fill your board with annoying minions. """
+	#
+	pass
+
+if Flex_plosion:# 
+	Alterac_Neutral+=['ONY_005tc4']
+class ONY_005tc4:# <12>[1626]
+	""" Flex-plosion
+	Blow up half your opponent's stuff. """
+	#
+	pass
+
+if Blade_of_QuelDelar:# 
+	Alterac_Neutral+=['ONY_005tc5']
+class ONY_005tc5:# <12>[1626]
+	""" Blade of Quel'Delar
+	 """
+	#
+	pass
+
+if Hilt_of_QuelDelar:# 
+	Alterac_Neutral+=['ONY_005tc6']
+class ONY_005tc6:# <12>[1626]
+	""" Hilt of Quel'Delar
+	Give a minion +3/+3. """
+	#
+	pass
+
+if Armed_:# 
+	Alterac_Neutral+=['ONY_005tc6e']
+class ONY_005tc6e:# <12>[1626]
+	""" Armed?
+	+3/+3. """
+	#
+	pass
+
+if QuelDelar:# 
+	Alterac_Neutral+=['ONY_005tc7']
+class ONY_005tc7:# <12>[1626]
+	""" Quel'Delar
+	After your hero attacks, deal 4 damage to all_enemies. """
+	#
+	pass
+
+if Forging_QuelDelar:# 
+	Alterac_Neutral+=['ONY_005tc7t']
+class ONY_005tc7t:# <12>[1626]
+	""" Forging Quel'Delar
+	 """
+	#
+	pass
+############################
+
+if Incensed:# 
+	Alterac_Neutral+=['ONY_025e']
+class ONY_025e:# <12>[1626]
+	""" Incensed
+	+2/+1 and [Rush]. """
+	#
+	pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class ONY_005tb4:# <12>[1626]
 	""" Wand of Disintegration

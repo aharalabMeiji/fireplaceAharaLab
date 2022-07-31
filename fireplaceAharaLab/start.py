@@ -84,9 +84,9 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.THE_SUNKEN_CITY
-	myCardClass=CardClass.MAGE
-	mySetClass='Sunken_Mage'
+	myCardSet=CardSet.ALTERAC_VALLEY
+	myCardClass=CardClass.NEUTRAL
+	mySetClass='Alterac_Neutral'
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
@@ -101,7 +101,7 @@ def printClasses():
 		_card = db[_id]
 		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
 			print('if %s:# '%(_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
-			print("\t %s+=['%s']"%(mySetClass, _card.id))
+			print("\t%s+=['%s']"%(mySetClass, _card.id))
 			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 			print('\t""" %s'%(_card.name))
 			print('\t%s """'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
@@ -196,5 +196,5 @@ def card_test():
 
 
 if __name__ == "__main__":
-	#printClasses()#
-	main()
+	printClasses()#
+	#main()
