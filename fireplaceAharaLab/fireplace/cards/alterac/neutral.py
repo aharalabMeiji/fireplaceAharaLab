@@ -1,205 +1,84 @@
 from ..utils import *
 
 Alterac_Neutral=[]
-DrekThar=True
-Herald_of_Lokholar=True
-Popsicooler=True
-Snowblind_Harpy=True
-Gnome_Private=True
-Gnomes_Honor=True
-Corporal=True
-Sneaky_Scout=True
-Scouted=True
-Direwolf_Commander=True
-Tower_Sergeant=True
-Shielded=True
-Bunker_Sergeant=True
-Ice_Revenant=True
-Frosty_Spirit=True
-Frozen_Mammoth=True
-Unthawed=True
-Blood_Guard=True
-Incited=True
-Legionnaire=True
-Marching_Orders=True
-Knight_Captain=True
-Armed_to_the_Teeth=True
-Troll_Centurion=True
-Icehoof_Protector=True
-Frostwolf_Warmaster=True
-Stormpike_Marshal=True
-Kobold_Taskmaster=True
-Rusted_Armor=True
-Armor_Scrap=True
-Irondeep_Trogg=True
-Grimtotem_Bounty_Hunter=True
-Abominable_Lieutenant=True
-Tummy_Feel_Funny=True
-Lokholar_the_Ice_Lord=True
-Crystalskin=True
-Uprooted=True
-Forestguard=True
-Imposing=True
-Ivus_the_Forest_Lord=True
-Korrak_the_Bloodrager=True
-Frostwolf_Cub=True
-Frantic_Hippogryph=True
-Sheep=True
-Ram_Commander=True
-Battle_Ram=True
-Spammy_Arcanist=True
-Vanndar_Stormpike=True
-Occupy_the_Keep=True
-Gankster=True
-Reflecto_Engineer=True
-Reflected=True
-Frostbitten=True
-Magical_Shift=True
-Magical_Shift=True
-Piggyback_Imp=True
-Backpiggy_Imp=True
-Stormpike_Quartermaster=True
-Quartered=True
-Humongous_Owl=True
 
-Move=True
-Empty=True
-Wall=True
-Darkness=True
-Angry_Treant=True
-Lava=True
-Cracked_Wall=True
-Chest=True
-Friendly_Vendor=True
-Gold_Coins=True
-Torch=True
-Compass=True
-Axe=True
-Magmawalk_Boots=True
-Dynamite=True
-
-The_Coin=True
-The_Coin=True
-Itll_Fight_Hard=True
-HOGGER_=True
-Boom__Boom_=True
-Grab_Yer_Cutlass=True
-Lets_Buckle_Swash=True
-Breath_of_Fire=True
-Notorious=True
-Notorious=True
-My_Dinner_With_Scabbs=True
-Cooking_With_Cariel=True
-Eating_With_Ashfallen=True
-Dessert_With_Xyrella=True
-Icesnarl_the_Mighty=True
-Greater_Potion=True
-Lesser_Potion=True
-Superior_Potion=True
-Lt._Lewis=True
-Reviving=True
-Mida,_Pure_Void=True
-Wither_Soul=True
-Digest_Magic=True
-Big_Blue_Campfire=True
-Big_Red_Campfire=True
-Blue_Campfire=True
-Choose_An_Ally=True
-Embers=True
-Daelin_Proudmoore=True
-Lethal=True
-Far_From_Mulgore=True
-Insinuations=True
-Setbacks=True
-Savory_Delights=True
-Until_the_End=True
-Board_Clear=True
-Paratroopin=True
-Ivus_the_Forest_Lord=True
-Lokholar_the_Ice_Lord=True
-Recovering=True
-Primal_Magic=True
-Red_Campfire=True
-Snivvles_Supplies=True
-Tough_Blue_Campfire=True
-Tough_Red_Campfire=True
-Blue_eyed_Whelp=True
-Times_Up,_Lets_Do_This=True
-It_All_Ends_Here=True
-Patching_Things_Up=True
-Force_and_Object=True
-Something_Worth_Fighting_For=True
-Oink_Thousand_Truths=True
-A_Game_of_Scabbs_and_Dragon=True
-For_Azeroth!=True
-Green_eyed_Whelp=True
-Guild_Leader=True
-Kazakusan=True
-Lethal=True
-Meeting_of_the_Minds=True
-Mida,_Pure_Void=True
-Deviate_Nightmare=True
-Onyxian_Egg=True
-Red_eyed_Whelp=True
-Runi=True
-Shalamayne=True
-King_Varian=True
-Onyxian_Warder=True
-Onyxian_Whelp=True
-Gear_Grubber=True
-More_Loot!=True
-Whelp_Bonker=True
-Raid_Boss_Onyxia=True
-Kazakusan=True
-Necrotic_Poison=True
-Spyglass=True
-Clockwork_Assistant=True
-Grimmer_Patron=True
-Puzzle_Box=True
-Mutating_Injection=True
-Mutating_Injection=True
-The_Exorcisor=True
-Pure_Cold=True
-Bubba=True
-Bloodhound=True
-Holy_Book=True
-Crusty_the_Crustacean=True
-Om_Nom_Nom=True
-Looming_Presence=True
-Beastly_Beauty=True
-Beautiful_Beast=True
-Hyperblaster=True
-Dr._Booms_Boombox=True
-Wax_Rager=True
-Vampiric_Fangs=True
-Hyperblaster_Enchantment=True
-Gnomish_Army_Knife=True
-Tooled_Up_=True
-LOCUUUUSTS___=True
-Giant_Locust=True
-Wand_of_Disintegration=True
-Staff_of_Scales=True
-Ancient_Snake=True
-Phaoris_Blade=True
-Zephryss_Lamp=True
-Phaoris_Fury=True
-Canopic_Jars=True
-Canopic_Jars=True
-Ancient_Reflections=True
-Titan_Hologram=True
-Banana_Split=True
-Glowing_Green=True
-Embers_of_Ragnaros=True
-Book_of_the_Dead=True
-Annoy_o_Horn=True
-Flex_plosion=True
-Blade_of_QuelDelar=True
-Hilt_of_QuelDelar=True
-Armed=True
-QuelDelar=True
-Forging_QuelDelar=True
-Incensed=True
-Spammy_Arcanist=True
+DrekThar=True#22.6
+Herald_of_Lokholar=True#22.6
+Popsicooler=True#22.6
+Snowblind_Harpy=True#22.6
+Gnome_Private=True#22.6
+Corporal=True#22.6
+Sneaky_Scout=True#22.6
+Direwolf_Commander=True#22.6
+Tower_Sergeant=True#22.6
+Bunker_Sergeant=True#22.6
+Ice_Revenant=True#22.6
+Frozen_Mammoth=False#22.6 ################
+Blood_Guard=True#22.6
+Legionnaire=True#22.6
+Knight_Captain=True#22.6
+Troll_Centurion=True#22.6
+Icehoof_Protector=True#22.6
+Frostwolf_Warmaster=True#22.6
+Stormpike_Marshal=True#22.6
+Kobold_Taskmaster=True#22.6
+Irondeep_Trogg=True#22.6
+Grimtotem_Bounty_Hunter=True#22.6
+Abominable_Lieutenant=True#22.6
+Lokholar_the_Ice_Lord=True#22.6
+Ivus_the_Forest_Lord=True#22.6
+Korrak_the_Bloodrager=True#22.6
+Frostwolf_Cub=False#22.6#???
+Frantic_Hippogryph=True#22.6
+Sheep=False#22.6#???
+Ram_Commander=True#22.6
+Spammy_Arcanist=True#22.6
+Vanndar_Stormpike=True#22.6
+Gankster=True#22.6
+Reflecto_Engineer=True#22.6
+Magical_Shift=False#22.6#???
+Backpiggy_Imp=True#22.6
+Stormpike_Quartermaster=True#22.6
+Humongous_Owl=True#22.6
+Onyxian_Warder=True#22.6
+Gear_Grubber=True#22.6
+Whelp_Bonker=True#22.6
+Raid_Boss_Onyxia=True#22.6
+Kazakusan=False#22.6## no use
+Necrotic_Poison=False#22.6
+Spyglass=False#22.6
+Clockwork_Assistant=False#22.6
+Grimmer_Patron=False#22.6
+Puzzle_Box=False#22.6
+Mutating_Injection=False#22.6
+The_Exorcisor=False#22.6
+Pure_Cold=False#22.6
+Bubba=False#22.6
+Holy_Book=False#22.6
+Crusty_the_Crustacean=False#22.6
+Looming_Presence=False#22.6
+Beastly_Beauty=False#22.6
+Hyperblaster=False#22.6
+Dr_Booms_Boombox=False#22.6
+Wax_Rager=False#22.6
+Vampiric_Fangs=False#22.6
+Gnomish_Army_Knife=False#22.6
+LOCUUUUSTS___=False#22.6
+Wand_of_Disintegration=False#22.6
+Staff_of_Scales=False#22.6
+Phaoris_Blade=False#22.6
+Zephryss_Lamp=False#22.6
+Canopic_Jars=False#22.6
+Ancient_Reflections=False#22.6
+Banana_Split=False#22.6
+Embers_of_Ragnaros=False#22.6
+Book_of_the_Dead=False#22.6
+Annoy_o_Horn=False#22.6
+Flex_plosion=False#22.6
+Blade_of_QuelDelar=False#22.6
+Hilt_of_QuelDelar=False#22.6
+QuelDelar=False#22.6
+Incensed=False#22.6
 
 if DrekThar:# 
 	Alterac_Neutral+=['AV_100']
@@ -548,7 +427,7 @@ class AV_143:#
 	deathrattle = AV_143_Action(SELF)
 	pass
 
-if Frostwolf_Cub:# ##############################################
+if Frostwolf_Cub:# 
 	Alterac_Neutral+=['AV_211t']
 class AV_211t:# <12>[1626]
 	""" Frostwolf Cub
@@ -637,6 +516,7 @@ class AV_238:
 if Reflecto_Engineer:# 
 	Alterac_Neutral+=['AV_256']
 	Alterac_Neutral+=['AV_256e']
+	Alterac_Neutral+=['AV_259e2']
 class AV_256:
 	""" Reflecto Engineer (3/2/4)
 	[Battlecry]: Swap the Attack and Health of all minions in both players' hands."""
@@ -656,9 +536,6 @@ class AV_256e:# <12>[1626]
 	Attack and Health have been swapped. """
 	#
 	pass
-
-if Frostbitten:# #############################
-	Alterac_Neutral+=['AV_259e2']
 class AV_259e2:# <12>[1626]
 	""" Frostbitten
 	Costs (2) more. """
@@ -667,14 +544,12 @@ class AV_259e2:# <12>[1626]
 
 if Magical_Shift:# #######################
 	Alterac_Neutral+=['AV_284e2']
+	Alterac_Neutral+=['AV_284e3']
 class AV_284e2:# <12>[1626]
 	""" Magical Shift
 	Swapped Attack. """
 	#
 	pass
-
-if Magical_Shift:# ##########################
-	Alterac_Neutral+=['AV_284e3']
 class AV_284e3:# <12>[1626]
 	""" Magical Shift
 	Swapped Health. """
@@ -967,7 +842,7 @@ ONY_005tb1e=buff(immune_while_attacking = True)# <12>[1626]
 
 ## no class ONY_005tb10,class ONY_005tb11 (but class ONY_005tb610)
 
-if Dr._Booms_Boombox:# 
+if Dr_Booms_Boombox:# 
 	Alterac_Neutral+=['ONY_005tb12','GVG_110t']
 class ONY_005tb12:# <12>[1626]
 	""" Dr. Boom's Boombox
@@ -1052,19 +927,18 @@ if Wand_of_Disintegration:#
 class ONY_005tb4:# <12>[1626]
 	""" Wand of Disintegration
 	[Silence] and destroy all enemy minions. """
-	#
+	play = Silence(ENEMY_MINIONS),Destroy(ENEMY_MINIONS)
 	pass
 
 if Staff_of_Scales:# 
 	Alterac_Neutral+=['ONY_005tb5']
+	Alterac_Neutral+=['ONY_005tb5t']
 class ONY_005tb5:# <12>[1626]
 	""" Staff of Scales
 	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
-	#
+	play=Summon(CONTROLLER,'ONY_005tb5t')*3#
 	pass
 
-if Ancient_Snake:# 
-	Alterac_Neutral+=['ONY_005tb5t']
 class ONY_005tb5t:# <12>[1626]
 	""" Ancient Snake
 	[Rush][Poisonous][Reborn] """
@@ -1076,84 +950,88 @@ if Phaoris_Blade:#
 class ONY_005tb6:# <12>[1626]
 	""" Phaoris' Blade
 	[Windfury].After your hero attacks and kills a minion, this gains +2/+1. """
-	#
+	events = Attack(SELF, ENEMY_MINIONS).after(Dead(ALL_MINIONS + Attack.DEFENDER) &Buff(SELF, 'ONY_005tb6e'))
 	pass
 
 if Zephryss_Lamp:# 
 	Alterac_Neutral+=['ONY_005tb610']
-class ONY_005tb610:# <12>[1626]
+	Alterac_Neutral+=['ONY_005tb6e']
+class ONY_005tb610:# <12>[1626]#???????? maybe class ONY_005tb10
 	""" Zephrys's Lamp
-	Wish for the perfect card. """
-	#
+	Wish for the perfect card. 
+	[x]「勝利のカード」の願いを叶える。 = ULD_003"""
+	#def play(self):
+	#	entourage=['CS2_046','CS2_011']##Bloodlust, Savage Roar
+	#	if self.controller.opponent.hero.health<10:
+	#		entourage=['BT_512','CORE_CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
+	#	else:
+	#		for card in self.controller.opponent.field:
+	#			if card.taunt == True and card.max_health-card.damage>2:
+	#				entourage=['EX1_626','EX1_303','EX1_332']#Mass Dispel, Shadowflame, Silence
+	#				break
+	#	card = random.choice(entourage)
+	#	Give(self.controller, card).trigger(self.controller)
 	pass
 
-if Phaoris_Fury:# 
-	Alterac_Neutral+=['ONY_005tb6e']
-class ONY_005tb6e:# <12>[1626]
-	""" Phaoris' Fury
-	Increased stats. """
-	#
-	pass
+ONY_005tb6e=buff(2,1)# <12>[1626]
+""" Phaoris' Fury
+Increased stats. """
 
 if Canopic_Jars:# 
 	Alterac_Neutral+=['ONY_005tb7']
-class ONY_005tb7:# <12>[1626]
+	Alterac_Neutral+=['ONY_005tb7e']
+class ONY_005tb7:# <12>[1626]########################################
 	""" Canopic Jars
 	Give your minions"[Deathrattle:] Summona random [Legendary]minion." """
 	#
 	pass
-
-if Canopic_Jars:# 
-	Alterac_Neutral+=['ONY_005tb7e']
 class ONY_005tb7e:# <12>[1626]
 	""" Canopic Jars
 	[Deathrattle:] Summon a random [Legendary] minion. """
-	#
+	tags={GameTag.DEATHRATTLE: True}
+	deathrattle = Summon(RandomMinion(rarity=Rarity.LEGENDARY))
 	pass
 
 if Ancient_Reflections:# 
 	Alterac_Neutral+=['ONY_005tb8']
+	Alterac_Neutral+=['ONY_005tb8e']
 class ONY_005tb8:# <12>[1626]
 	""" Ancient Reflections
 	Choose a minion.Fill your board with 1/1 copies of it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Summon(CONTROLLER, Copy(TARGET)).then(Summon.CARD,'ONY_005tb8e')
 	pass
-
-if Titan_Hologram:# 
-	Alterac_Neutral+=['ONY_005tb8e']
 class ONY_005tb8e:# <12>[1626]
 	""" Titan Hologram
 	1/1. """
-	#
+	atk=SET(1)
+	max_health=SET(1)
 	pass
 
 if Banana_Split:# 
 	Alterac_Neutral+=['ONY_005tb9']
+	Alterac_Neutral+=['ONY_005tb9e']
 class ONY_005tb9:# <12>[1626]
 	""" Banana Split
 	Give a friendly minion +2/+2. Summon two copies of it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	play = Buff(TARGET, 'ONY_005tb9e').then(Summon(CONTROLLER,ExactCopy(Buff.TARGET)) * 2)
 	pass
-
-if Glowing_Green:# 
-	Alterac_Neutral+=['ONY_005tb9e']
-class ONY_005tb9e:# <12>[1626]
-	""" Glowing Green
-	+2/+2. """
-	#
-	pass
+ONY_005tb9e=buff(2,2)# <12>[1626]
+""" Glowing Green
++2/+2. """
 
 if Embers_of_Ragnaros:# 
 	Alterac_Neutral+=['ONY_005tc1']
 class ONY_005tc1:# <12>[1626]
 	""" Embers of Ragnaros
 	Shoot three fireballs at random enemies that deal $8 damage each. """
-	#
+	play = Hit(RANDOM_ENEMY_CHARACTER,8) * 3
 	pass
 
 if Book_of_the_Dead:# 
 	Alterac_Neutral+=['ONY_005tc2']
-class ONY_005tc2:# <12>[1626]
+class ONY_005tc2:# <12>[1626]#######################
 	""" Book of the Dead
 	Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game. """
 	#
@@ -1185,14 +1063,12 @@ class ONY_005tc5:# <12>[1626]
 
 if Hilt_of_QuelDelar:# 
 	Alterac_Neutral+=['ONY_005tc6']
+	Alterac_Neutral+=['ONY_005tc6e']
 class ONY_005tc6:# <12>[1626]
 	""" Hilt of Quel'Delar
 	Give a minion +3/+3. """
 	#
 	pass
-
-if Armed_:# 
-	Alterac_Neutral+=['ONY_005tc6e']
 class ONY_005tc6e:# <12>[1626]
 	""" Armed?
 	+3/+3. """
@@ -1201,19 +1077,18 @@ class ONY_005tc6e:# <12>[1626]
 
 if QuelDelar:# 
 	Alterac_Neutral+=['ONY_005tc7']
+	Alterac_Neutral+=['ONY_005tc7t']
 class ONY_005tc7:# <12>[1626]
 	""" Quel'Delar
 	After your hero attacks, deal 4 damage to all_enemies. """
 	#
 	pass
-
-if Forging_QuelDelar:# 
-	Alterac_Neutral+=['ONY_005tc7t']
 class ONY_005tc7t:# <12>[1626]
 	""" Forging Quel'Delar
 	 """
 	#
 	pass
+
 ############################
 
 if Incensed:# 
@@ -1292,143 +1167,14 @@ class ONY_025e:# <12>[1626]
 
 
 
-class ONY_005tb4:# <12>[1626]
-	""" Wand of Disintegration
-	[Silence] and destroy all enemy minions. """
-	play = Silence(ENEMY_MINIONS),Destroy(ENEMY_MINIONS)
-	pass
 
-class ONY_005tb5:# <12>[1626]
-	""" Staff of Scales
-	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
-	play=Summon(CONTROLLER,'ONY_005tb5t')*3#
-	pass
 
-class ONY_005tb5t:# <12>[1626]
-	""" Ancient Snake
-	[Rush][Poisonous][Reborn] """
-	#
-	pass
 
-class ONY_005tb6:# <12>[1626]
-	""" Phaoris' Blade
-	[Windfury].After your hero attacks and kills a minion, this gains +2/+1. """
-	events = Attack(SELF, ENEMY_MINIONS).after(Dead(ALL_MINIONS + Attack.DEFENDER) &Buff(SELF, 'ONY_005tb6e'))
-	pass
 
-class ONY_005tb610:# <12>[1626]#???????? maybe class ONY_005tb10
-	""" Zephrys's Lamp
-	Wish for the perfect card. 
-	[x]「勝利のカード」の願いを叶える。 = ULD_003"""
-	#def play(self):
-	#	entourage=['CS2_046','CS2_011']##Bloodlust, Savage Roar
-	#	if self.controller.opponent.hero.health<10:
-	#		entourage=['BT_512','CORE_CS2_029','EX1_241','EX1_308']#Inner Demon, Fireball, Lava Burst, Soulfire
-	#	else:
-	#		for card in self.controller.opponent.field:
-	#			if card.taunt == True and card.max_health-card.damage>2:
-	#				entourage=['EX1_626','EX1_303','EX1_332']#Mass Dispel, Shadowflame, Silence
-	#				break
-	#	card = random.choice(entourage)
-	#	Give(self.controller, card).trigger(self.controller)
-	pass
 
-ONY_005tb6e=buff(2,1)# <12>[1626]
-""" Phaoris' Fury
-Increased stats. """
 
-class ONY_005tb7:# <12>[1626]
-	""" Canopic Jars
-	Give your minions "[Deathrattle:] Summon a random [Legendary] minion." """
-	#
-	pass
 
-class ONY_005tb7e:# <12>[1626]
-	""" Canopic Jars
-	[Deathrattle:] Summon a random [Legendary] minion. """
-	tags={GameTag.DEATHRATTLE: True}
-	deathrattle = Summon(RandomMinion(rarity=Rarity.LEGENDARY))
-	pass
 
-class ONY_005tb8:# <12>[1626]
-	""" Ancient Reflections
-	Choose a minion.Fill your board with 1/1 copies of it. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
-	play = Summon(CONTROLLER, Copy(TARGET)).then(Summon.CARD,'ONY_005tb8e')
-	pass
-
-class ONY_005tb8e:# <12>[1626]
-	""" Titan Hologram
-	1/1. """
-	atk=SET(1)
-	max_health=SET(1)
-	pass
-
-class ONY_005tb9:# <12>[1626]
-	""" Banana Split
-	Give a friendly minion +2/+2. Summon two copies of it. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'ONY_005tb9e').then(Summon(CONTROLLER,ExactCopy(Buff.TARGET)) * 2)
-	pass
-
-ONY_005tb9e=buff(2,2)# <12>[1626]
-""" Glowing Green
-+2/+2. """
-
-class ONY_005tc1:# <12>[1626]
-	""" Embers of Ragnaros
-	Shoot three fireballs at random enemies that deal $8 damage each. """
-	play = Hit(RANDOM_ENEMY_CHARACTER,8) * 3
-	pass
-
-class ONY_005tc2:# <12>[1626]#################
-	""" Book of the Dead
-	Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game. """
-	#### whose cost?
-	#play = Hit(ENEMY_CHARACTERS,7), 
-	pass
-
-class ONY_005tc3:# <12>[1626]######################
-	""" Annoy-o Horn
-	Fill your board with annoying minions. """
-	annoying=['CORE_GVG_085','BOT_911',]
-	pass
-
-class ONY_005tc4:# <12>[1626]
-	""" Flex-plosion
-	Blow up half your opponent's stuff. """
-	#
-	pass
-
-class ONY_005tc5:# <12>[1626]
-	""" Blade of Quel'Delar
-	 """
-	#
-	pass
-
-class ONY_005tc6:# <12>[1626]
-	""" Hilt of Quel'Delar
-	Give a minion +3/+3. """
-	#
-	pass
-
-class ONY_005tc7:# <12>[1626]
-	""" Quel'Delar
-	After your hero attacks, deal 4 damage to all_enemies. """
-	#
-	pass
-
-class ONY_005tc7t:# <12>[1626]
-	""" Forging Quel'Delar
-	 """
-	#
-	pass
-
-class ONY_025e:# <12>[1626]
-	""" Incensed
-	+2/+1 and [Rush]. """
-	#
-	pass
 
 
 
