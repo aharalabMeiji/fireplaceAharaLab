@@ -161,9 +161,9 @@ if Raid_Leader:
 class CORE_CS2_122:# <12> 1637 #OK
 	""" Raid Leader
 	Your other minions have +1 Attack. """
-	update = BuffOnce(FRIENDLY_MINIONS - SELF, "CS2_122e")
+	update = Refresh(FRIENDLY_MINIONS - SELF, buff="CS2_122e")
 	pass
-CS2_122e = buff(atk=1)# <12> 1635
+CS2_122e = buff(1,0)# <12> 1635
 
 
 

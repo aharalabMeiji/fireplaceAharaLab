@@ -190,11 +190,12 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.alterac_druid import alterac_druid
-	alterac_druid()
+	from card_test.core_neutral import core_neutral
+	core_neutral()
 	pass
 
 
 if __name__ == "__main__":
-	printClasses()#
+	#printClasses()#
 	#main()
+	card_test()

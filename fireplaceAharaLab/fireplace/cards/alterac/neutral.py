@@ -36,6 +36,7 @@ Spammy_Arcanist=True#22.6
 Vanndar_Stormpike=True#22.6
 Gankster=True#22.6
 Reflecto_Engineer=True#22.6
+Piggyback_Imp=True
 Magical_Shift=False#22.6#???
 Backpiggy_Imp=True#22.6
 Stormpike_Quartermaster=True#22.6
