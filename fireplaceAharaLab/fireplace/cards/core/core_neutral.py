@@ -1,83 +1,109 @@
+from pickle import TRUE
 from ..utils import *
 
 Core_Neutral=[]
 
-Ice_Rager=True
-Toxicologist=True
-Earthen_Ring_Farseer=True
-River_Crocolisk=True
-Raid_Leader=True
-Kobold_Geomancer=True
-Sen_jin_Shieldmasta=True
-Injured_Blademaster=True
-Chillwind_Yeti=True
-Abusive_Sergeant=True
-Elven_Archer=True
-Ironbeak_Owl=True
-Stormwind_Champion=True
-Sunreaver_Spy=True
-Young_Priestess=True
-Big_Game_Hunter=True
-Argent_Squire=True
-Worgen_Infiltrator=True
-Voodoo_Doctor=True
-Bloodmage_Thalnos=True
-King_Mukla=True
-Jungle_Panther=True
-Stranglethorn_Tiger=True
-Dark_Iron_Dwarf=True
-Youthful_Brewmaster=True
-Crazed_Alchemist=True
-Acidic_Swamp_Ooze=True
-Mad_Bomber=True
-Defender_of_Argus=True
-Gadgetzan_Auctioneer=True
-Loot_Hoarder=True
-Coldlight_Seer=True
-Cairne_Bloodhoof=True
-Dire_Wolf_Alpha=True
-SI_7_Infiltrator=True
-Arcane_Devourer=True
-Barrens_Stablehand=True
-Brightwing=True
-High_Inquisitor_Whitemane=True
-Baron_Geddon=True
-Gurubashi_Berserker=True
-Murloc_Tidehunter=True
-Murloc_Scout=True
-Murloc_Tidecaller=True
-Faceless_Manipulator=True
-Nerubian_Egg=True
-Baron_Rivendare=True
-ElveCogmastern_Archer=True
-Spider_Tank=True
-Explosive_Sheep=True
-Annoy_o_Tron=True
-Mini_Mage=True
-Clockwork_Giant=True
-Grim_Necromancer=True
-Arcane_Anomaly=True
-Murloc_Tinyfin=True
-Lone_Champion=True
-Stoneskin_Basilisk=True
-Sleepy_Dragon=True
-Bloodsail_Raider=True
-Violet_Teacher=True
-Southsea_Captain=True
-Flesheating_Ghoul=True
-Stormwatcher=True
-Humongous_Razorleaf=True
-Fogsail_Freebooter=True
-Taelan_Fordring=True
-Overlord_Runthak=True
-Alexstrasza_the_Life_Binder=True
-Onyxia_the_Broodmother=True
-Ysera_the_Dreamer=True
-Malygos_the_Spellweaver=True
-Nozdormu_the_Eternal=True
-Deathwing_the_Destroyer=True
-Emerald_Skytalon=True
-Redgill_Razorjaw=True
+Ice_Rager=False##22.6
+Toxicologist=False##22.6
+Mistress_of_Mixtures=True## 23.6
+Earthen_Ring_Farseer=False##22.6
+River_Crocolisk=False##22.6
+Raid_Leader=True##22.6## 23.6
+Kobold_Geomancer=True##22.6## 23.6
+Sen_jin_Shieldmasta=True##22.6## 23.6
+Injured_Blademaster=False##22.6
+Chillwind_Yeti=True##22.6## 23.6
+Abusive_Sergeant=True##22.6## 23.6
+Elven_Archer=True##22.6## 23.6
+Ironbeak_Owl=True##22.6## 23.6
+Stormwind_Champion=True##22.6## 23.6
+Sunreaver_Spy=True##22.6## 23.6
+Young_Priestess=False##22.6
+Big_Game_Hunter=True##22.6## 23.6
+Acolyte_of_Pain=True## 23.6
+Argent_Squire=False##22.6
+Worgen_Infiltrator=True##22.6## 23.6
+Voodoo_Doctor=True##22.6## 23.6
+Bloodmage_Thalnos=True##22.6## 23.6
+King_Mukla=False##22.6
+Jungle_Panther=True##22.6## 23.6
+Stranglethorn_Tiger=True##22.6## 23.6
+Twilight_Drake=True## 23.6
+Dark_Iron_Dwarf=True##22.6## 23.6
+Youthful_Brewmaster=True##22.6## 23.6
+Crazed_Alchemist=True##22.6## 23.6
+Acidic_Swamp_Ooze=True##22.6## 23.6
+Mad_Bomber=True##22.6## 23.6
+Defender_of_Argus=True##22.6## 23.6
+Gadgetzan_Auctioneer=True##22.6## 23.6
+Loot_Hoarder=True##22.6## 23.6
+Coldlight_Seer=True##22.6## 23.6
+Cairne_Bloodhoof=True##22.6## 23.6
+Dire_Wolf_Alpha=True##22.6## 23.6
+SI_7_Infiltrator=True##22.6## 23.6
+Arcane_Devourer=True##22.6## 23.6
+Barrens_Stablehand=False##22.6
+Brightwing=False##22.6
+High_Inquisitor_Whitemane=False##22.6
+Baron_Geddon=True##22.6## 23.6
+Azure_Drake=True## 23.6
+Gurubashi_Berserker=False##22.6
+Murloc_Tidehunter=True##22.6## 23.6
+Murloc_Scout=True##22.6## 23.6
+Murloc_Warleader=True## 23.6
+Murloc_Tidecaller=True##22.6## 23.6
+Faceless_Manipulator=True##22.6## 23.6
+Sea_Giant=True## 23.6
+Nerubian_Egg=True##22.6## 23.6
+Baron_Rivendare=False##22.6
+Mossy_Horror=True## 23.6
+Lifedrinker=True## 23.6
+ElveCogmastern_Archer=False##22.6
+Spider_Tank=False##22.6
+Explosive_Sheep=True##22.6## 23.6
+Annoy_o_Tron=True##22.6## 23.6
+Mini_Mage=False##22.6
+Clockwork_Giant=False##22.6
+Grim_Necromancer=True##22.6## 23.6
+Cobalt_Scalebane=True## 23.6
+Arcane_Anomaly=False##22.6
+Reno_Jackson=True## 23.6
+Gorillabot_A_3=True## 23.6
+Sir_Finley_Mrrgglton=True## 23.6
+Brann_Bronzebeard=True## 23.6
+Elise_Starseeker=True## 23.6
+Murloc_Tinyfin=True##22.6## 23.6
+Lone_Champion=True##22.6## 23.6
+Stoneskin_Basilisk=True##22.6
+Sleepy_Dragon=True##22.6## 23.6
+Plated_Beetle=True## 23.6
+Zola_the_Gorgon=True## 23.6
+Bloodsail_Raider=True##22.6## 23.6
+Wild_Pyromancer=True## 23.6
+Doomsayer=True## 23.6
+Faerie_Dragon=True## 23.6
+Violet_Teacher=True##22.6## 23.6
+Southsea_Captain=True##22.6## 23.6
+Flesheating_Ghoul=False##22.6
+Beaming_Sidekick=True## 23.6
+Vulpera_Scoundrel=True## 23.6
+Injured_Tolvir=True## 23.6
+Stormwatcher=True##22.6## 23.6
+Humongous_Razorleaf=True##22.6## 23.6
+Primordial_Drake=True## 23.6
+Tar_Creeper=True## 23.6
+Escaped_Manasaber=True## 23.6
+Fogsail_Freebooter=True##22.6## 23.6
+Taelan_Fordring=True##22.6## 23.6
+Overlord_Runthak=True##22.6## 23.6
+Alexstrasza_the_Life_Binder=True##22.6## 23.6
+Onyxia_the_Broodmother=True##22.6## 23.6
+Ysera_the_Dreamer=True##22.6## 23.6
+Malygos_the_Spellweaver=True##22.6## 23.6
+Nozdormu_the_Eternal=True##22.6## 23.6
+Deathwing_the_Destroyer=True##22.6## 23.6
+Emerald_Skytalon=True##22.6## 23.6
+Redgill_Razorjaw=True##22.6## 23.6
 
 
 if Ice_Rager:
@@ -99,6 +125,14 @@ class CORE_BOT_083:# <12> 1637 #OK
 	pass
 BOT_083e=buff(atk=1)#<12> 1127
 
+
+if Mistress_of_Mixtures:# 
+	Core_Neutral+=['CORE_CFM_120']
+class CORE_CFM_120:# <12>[1637]
+	""" Mistress of Mixtures
+	[Deathrattle:] Restore #4 Health to each hero. """
+	deathrattle = Heal(ALL_HEROES, 4)
+	pass
 
 
 if Earthen_Ring_Farseer:
@@ -257,6 +291,13 @@ class CORE_EX1_005:# <12> 1637 #OK
 	pass
 
 
+if Acolyte_of_Pain:# 
+	Core_Neutral+=['CORE_EX1_007']
+class CORE_EX1_007:# <12>[1637]
+	""" Acolyte of Pain
+	Whenever this minion takes damage, draw a_card. """
+	events = SELF_DAMAGE.on(Draw(CONTROLLER))	
+	pass
 
 
 if Argent_Squire:
@@ -339,6 +380,13 @@ class CORE_EX1_028:# <12> 1637 #OK
 	pass
 
 
+if Twilight_Drake:# 
+	Core_Neutral+=['CORE_EX1_043','EX1_043e']
+class CORE_EX1_043:# <12>[1637]
+	""" Twilight Drake
+	[Battlecry:] Gain +1 Health for each card in your hand. """
+	play = Buff(SELF, "EX1_043e") * Count(FRIENDLY_HAND)
+EX1_043e = buff(health=1)
 
 
 if Dark_Iron_Dwarf:
@@ -550,6 +598,13 @@ class CORE_EX1_249:# <12> 1637
 	pass
 
 
+if Azure_Drake:# 
+	Core_Neutral+=['CORE_EX1_284']
+class CORE_EX1_284:# <12>[1637]
+	""" Azure Drake
+	[Spell Damage +1][Battlecry:] Draw a card. """
+	play = Draw(CONTROLLER)	
+	pass
 
 
 if Gurubashi_Berserker:
@@ -580,7 +635,13 @@ class CORE_EX1_506a:# <12> 1637
 	pass
 
 
-
+if Murloc_Warleader:# 
+	Core_Neutral+=['CORE_EX1_507','EX1_507e']
+class CORE_EX1_507:# <12>[1637]
+	""" Murloc Warleader
+	Your other Murlocs have +2 Attack. """
+	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="EX1_507e")
+EX1_507e = buff(atk=2)
 
 if Murloc_Tidecaller:
 	Core_Neutral+=['CORE_EX1_509','EX1_509e']
@@ -607,6 +668,13 @@ class CORE_EX1_564:# <12> 1637
 	pass
 
 
+if Sea_Giant:# 
+	Core_Neutral+=['CORE_EX1_586']
+class CORE_EX1_586:# <12>[1637]
+	""" Sea Giant
+	Costs (1) less for each other minion on the battlefield. """
+	cost_mod = -Count(ALL_MINIONS)
+	pass
 
 
 if Nerubian_Egg:
@@ -632,6 +700,32 @@ class CORE_FP1_031:# <12> 1637
 	pass
 
 
+if Mossy_Horror:# 
+	Core_Neutral+=['CORE_GIL_124']
+class CORE_GIL_124:# <12>[1637]
+	""" Mossy Horror
+	[Battlecry:] Destroy all other_minions with 2_or_less_Attack. """
+	def play(self):
+		controller = self.controller
+		opponent = controller.opponent
+		for card in controller.field:
+			if card != self:
+				if card.atk<=2:
+					card.to_be_destroyed=True
+		for card in opponent.field:
+			if card.atk<=2:
+				card.to_be_destroyed=True
+		controller.game.process_deaths()
+	pass
+
+
+if Lifedrinker:# 
+	Core_Neutral+=['CORE_GIL_622']
+class CORE_GIL_622:# <12>[1637]
+	""" Lifedrinker
+	[Battlecry:] Deal 3 damage to the enemy hero. Restore #3 Health to your hero. """
+	play = Hit(ENEMY_HERO, 3), Heal(FRIENDLY_HERO, 3)
+	pass
 
 
 if ElveCogmastern_Archer:
@@ -710,6 +804,14 @@ class ICC_026t:# <12> 1001
 	""" Skeleton """
 	
 
+if Cobalt_Scalebane:# 
+	Core_Neutral+=['CORE_ICC_029','ICC_029e']
+class CORE_ICC_029:# <12>[1637]
+	""" Cobalt Scalebane
+	At the end of your turn, give another random friendly minion +3 Attack. """
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ICC_029e'))
+	pass
+ICC_029e=buff(3,0)
 
 
 if Arcane_Anomaly:
@@ -722,6 +824,54 @@ class CORE_KAR_036:# <12> 1637
 KAR_036e = buff(health=1)# <12> 23
 
 
+if Reno_Jackson:# 
+	Core_Neutral+=['CORE_LOE_011']
+class CORE_LOE_011:# <12>[1637]
+	""" Reno Jackson
+	[Battlecry:] If your deck has no duplicates, fully heal your hero. """
+	powered_up = -FindDuplicates(FRIENDLY_DECK)
+	play = powered_up & FullHeal(FRIENDLY_HERO)	
+	pass
+
+if Gorillabot_A_3:# 
+	Core_Neutral+=['CORE_LOE_039']
+class CORE_LOE_039:# <12>[1637]
+	""" Gorillabot A-3
+	[Battlecry:] If you control another Mech, [Discover] a Mech. """
+	powered_up = Find(FRIENDLY_MINIONS + MECH - SELF)
+	play = powered_up & DISCOVER(RandomMech())
+	pass
+
+if Sir_Finley_Mrrgglton:# 
+	Core_Neutral+=['CORE_LOE_076']
+class CORE_LOE_076:# <12>[1637]
+	""" Sir Finley Mrrgglton
+	[[Battlecry:] Discover] a new basic Hero Power. """
+	play = GenericChoice(CONTROLLER, RandomBasicHeroPower() * 3)
+	pass
+
+if Brann_Bronzebeard:# 
+	Core_Neutral+=['CORE_LOE_077']
+class CORE_LOE_077:# <12>[1637]
+	""" Brann Bronzebeard
+	Your [Battlecries] trigger twice. """
+	update = Refresh(CONTROLLER, {enums.EXTRA_BATTLECRIES: True})
+	pass
+
+if Elise_Starseeker:# 
+	Core_Neutral+=['CORE_LOE_079','LOE_019t','LOE_019t2']
+class CORE_LOE_079:# <12>[1637]
+	""" Elise Starseeker
+	[Battlecry:] Shuffle the 'Map to the Golden Monkey'   into your deck. """
+	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_MINION_TARGET: 0}
+	play = Shuffle(CONTROLLER, "LOE_019t")
+	pass
+class LOE_019t:
+	"""Map to the Golden Monkey"""
+	play = Shuffle(CONTROLLER, "LOE_019t2"), Draw(CONTROLLER)
+class LOE_019t2:
+	"""Golden Monkey"""
+	play = Morph(FRIENDLY + (IN_HAND | IN_DECK), RandomLegendaryMinion())
 
 
 if Murloc_Tinyfin:
@@ -769,6 +919,25 @@ class CORE_LOOT_137:###OK
 	pass
 
 
+if Plated_Beetle:# 
+	Core_Neutral+=['CORE_LOOT_413']
+class CORE_LOOT_413:# <12>[1637]
+	""" Plated Beetle
+	[Deathrattle:] Gain 3 Armor. """
+	deathrattle = GainArmor(FRIENDLY_HERO, 3)
+	pass
+
+if Zola_the_Gorgon:# 
+	Core_Neutral+=['CORE_LOOT_516']
+class CORE_LOOT_516:# <12>[1637]
+	""" Zola the Gorgon
+	[Battlecry:] Choose a friendly minion. Add a Golden copy of it to your hand. """
+	requirements = {
+		PlayReq.REQ_FRIENDLY_TARGET: 0,
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
+	play = Give(CONTROLLER, ExactCopy(TARGET))
+	pass
 
 
 
@@ -790,6 +959,30 @@ class NEW1_018e:
 	pass
 
 
+if Wild_Pyromancer:# 
+	Core_Neutral+=['CORE_NEW1_020']
+class CORE_NEW1_020:# <12>[1637]
+	""" Wild Pyromancer
+	After you cast a spell, deal 1 damage to ALL minions. """
+	events = OWN_SPELL_PLAY.after(Hit(ALL_MINIONS, 1))
+	pass
+
+if Doomsayer:# 
+	Core_Neutral+=['CORE_NEW1_021']
+class CORE_NEW1_021:# <12>[1637]
+	""" Doomsayer
+	At the start of your turn, destroy ALL minions. """
+	events = OWN_TURN_BEGIN.on(Destroy(ALL_MINIONS))	
+	pass
+
+if Faerie_Dragon:# 
+	Core_Neutral+=['CORE_NEW1_023']
+class CORE_NEW1_023:# <12>[1637]
+	""" Faerie Dragon
+	Can't be targeted by spells or Hero Powers. """
+	#	<Tag enumID="311" name="CANT_BE_TARGETED_BY_SPELLS" type="Int" value="1"/>
+	#	<Tag enumID="332" name="CANT_BE_TARGETED_BY_HERO_POWERS" type="Int" value="1"/>
+	pass
 
 
 if Violet_Teacher:
@@ -828,6 +1021,33 @@ class CORE_tt_004:# <12> 1637
 tt_004o=buff(atk=1)# <12> 3
 
 
+if Beaming_Sidekick:# 
+	Core_Neutral+=['CORE_ULD_191','ULD_191e']
+class CORE_ULD_191:# <12>[1637]
+	""" Beaming Sidekick
+	[Battlecry:] Give a friendly minion +2 Health. """
+	play = Buff(RANDOM(FRIENDLY_MINIONS - SELF), "ULD_191e")
+ULD_191e = buff(0,2)
+
+if Vulpera_Scoundrel:# 
+	Core_Neutral+=['CORE_ULD_209','ULD_209t']
+class CORE_ULD_209:# <12>[1637]
+	""" Vulpera Scoundrel
+	[Battlecry]: [Discover] a spell or pick a mystery choice. """
+	choose = ("ULD_209", "ULD_209t")
+	play = Discover(CONTROLLER, RandomSpell())
+class ULD_209t:
+	"""Mystery Choice!
+	Add a random spell to your hand.""" 
+	play = Give(CONTROLLER, RandomSpell())
+
+if Injured_Tolvir:# 
+	Core_Neutral+=['CORE_ULD_271']
+class CORE_ULD_271:# <12>[1637]
+	""" Injured Tol'vir
+	[Taunt][Battlecry:] Deal 3 damage to this minion. """
+	play = Hit(SELF, 3)
+	pass
 
 
 if Stormwatcher:
@@ -849,6 +1069,37 @@ class CORE_UNG_844:# <12> 1637
 	#
 	pass
 
+if Primordial_Drake:# 
+	Core_Neutral+=['CORE_UNG_848']
+class CORE_UNG_848:# <12>[1637]
+	""" Primordial Drake
+	[Taunt][Battlecry:] Deal 2 damageto all other minions. """
+	play = Hit(ALL_MINIONS - SELF, 2) 
+	pass
+
+if Tar_Creeper:# 
+	Core_Neutral+=['CORE_UNG_928']
+class CORE_UNG_928:# <12>[1637]
+	""" Tar Creeper
+	[Taunt]Has +2 Attack during your opponent's turn. """
+	events = OWN_TURN_END.on(Buff(SELF, 'UNG_928e'))
+	pass
+@custom_card
+class UNG_928e:
+	tags = {
+		GameTag.CARDNAME: "Tar Creeper",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: 2,
+	}
+	events = OWN_TURN_BEGIN.on(Destroy(SELF))
+
+if Escaped_Manasaber:# 
+	Core_Neutral+=['CORE_YOD_006']
+class CORE_YOD_006:# <12>[1637]
+	""" Escaped Manasaber
+	[Stealth]Whenever this attacks,gain 1 Mana Crystalthis turn only. """
+	play = Attack(SELF,ALL_MINIONS).on(ManaThisTurn(CONTROLLER,1))
+	pass
 
 
 if Fogsail_Freebooter:
