@@ -123,7 +123,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\druid.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_druid.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\hunter.py">

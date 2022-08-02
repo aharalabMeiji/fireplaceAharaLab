@@ -85,7 +85,7 @@ def printClasses():
 	print('from ..utils import *')
 	print('')
 	myCardSet=CardSet.CORE
-	myCardClass=CardClass.NEUTRAL
+	myCardClass=CardClass.DRUID
 	mySetClass='Core_Neutral'
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#

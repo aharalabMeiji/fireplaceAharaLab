@@ -1,4 +1,4 @@
-from .druid import *
+from .core_druid import *
 from .core_neutral import *
 from .hunter import *
 from .mage import *
