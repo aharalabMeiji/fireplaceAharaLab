@@ -13,7 +13,8 @@ def core_neutral():
 	#River_Crocolisk=False##22.6
 	if Raid_Leader:##22.6## 23.6
 		PresetGame(pp_CORE_CS2_122)
-	#Kobold_Geomancer=True##22.6## 23.6
+	if Kobold_Geomancer:##22.6## 23.6
+		PresetGame(pp_CORE_CS2_142)
 	#Sen_jin_Shieldmasta=True##22.6## 23.6
 	#Injured_Blademaster=False##22.6
 	#Chillwind_Yeti=True##22.6## 23.6
@@ -160,6 +161,7 @@ class pp_CORE_CS2_122(Preset_Play):# <12> 1637 #OK
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_CS2_122',controller)#
+		self.mark3=self.exchange_card('minionA5',opponent)#
 		super().preset_deck()
 		self.mark2=controller.hand[0]
 		pass
@@ -171,14 +173,17 @@ class pp_CORE_CS2_122(Preset_Play):# <12> 1637 #OK
 		##########controller
 		self.play_card(self.mark2, controller)
 		self.play_card(self.mark1, controller)
+		assert len(self.mark2.buffs)>0, "with buff"
 		assert self.mark2.buffs[0].id=='CS2_122e',"with buff"
 		assert self.mark2.atk == self.mark2.data.atk + 1, "buffed"
-		Hit(self.mark1, 10).trigger(opponent)
-		controller.game.process_deaths()
+		self.change_turn(controller)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
+		self.change_turn(controller)
+		self.attack_card(self.mark3, self.mark1,opponent)
 		assert self.mark1.zone==Zone.GRAVEYARD, "dead"
 		assert self.mark2.buffs==[], "refresh aura buff"
 		assert self.mark2.atk == self.mark2.data.atk, "no buff"
-
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -186,6 +191,38 @@ class pp_CORE_CS2_122(Preset_Play):# <12> 1637 #OK
 		hero = controller.opponent.hero
 		print("CORE_CS2_122 OK")
 		pass
+
+	########
+
+class pp_CORE_CS2_142(Preset_Play):# <12> 1637 #OK
+	""" Kobold_Geomancer
+	[Spell Damage +1] """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_142',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		assert controller.spellpower==0, "default spellpower"
+		##########controller
+		self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.opponent.hero
+		assert controller.spellpower==1, "modified spellpower"
+		pass
+
 
 	##########
 class pp_CORE_EX1_189(Preset_Play):# <6>[1637]

@@ -64,10 +64,10 @@ class Preset_Play:
 	def preset_deck(self):
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
-		print ("")
-		print ("")
-		print ("")
-		print ("")
+		#print ("")
+		#print ("")
+		#print ("")
+		#print ("")
 		pass
 	def preset_play(self):
 		pass

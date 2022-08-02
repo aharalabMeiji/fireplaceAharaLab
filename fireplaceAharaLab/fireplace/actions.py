@@ -214,7 +214,7 @@ class Attack(GameAction):
 		source.game.proposed_attacker = attacker
 		source.game.proposed_defender = defender
 		source.game.manager.step(Step.MAIN_COMBAT, Step.MAIN_ACTION)
-		source.game.refresh_auras()  # XXX Needed for Gorehowl
+		source.game.refresh_auras()  # 
 		self.broadcast(source, EventListener.ON, attacker, defender)
 
 		defender = source.game.proposed_defender
@@ -295,6 +295,7 @@ class Deaths(GameAction):
 	Process all deaths in the PLAY Zone.
 	"""
 	def do(self, source, *args):
+		#source.game.refresh_auras()  # 
 		source.game.process_deaths()
 
 
@@ -307,6 +308,8 @@ class Death(GameAction):
 	def do(self, source, target):
 		log.info("Processing Death for %r", target)
 		target.controller.add_death_log(target)
+		source.game.refresh_auras()  # 
+
 		self.broadcast(source, EventListener.ON, target)
 		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(target)])
@@ -332,6 +335,7 @@ class EndTurn(GameAction):
 				"%r cannot end turn with the open choice %r." % (player, player.choice)
 			)
 		self.broadcast(source, EventListener.ON, player)
+		source.game.refresh_auras()  # XXX 
 		source.game._end_turn()
 
 
