@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from hearthstone.enums import Zone,CardType, Rarity,CardClass
+from hearthstone.enums import Zone,CardType, Rarity,CardClass, GameTag
 
 from fireplace.cards.core.core_neutral import * 
 from fireplace.actions import *
@@ -8,8 +8,8 @@ from fireplace.actions import *
 
 def core_druid():
 	## 23.6
-	PresetGame(pp_CORE_AT_037a)
-	PresetGame(pp_CORE_AT_037b)
+	#PresetGame(pp_CORE_AT_037a)
+	#PresetGame(pp_CORE_AT_037b)
 	PresetGame(pp_CORE_AT_037ab)
 	PresetGame(pp_CORE_CS2_009)
 	PresetGame(pp_CORE_CS2_013)
@@ -109,6 +109,9 @@ class pp_CORE_AT_037ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_AT_037',controller)#
+		#setattr(controller,'choose_both', True)
+		controller.tags[GameTag.CHOOSE_BOTH]=True
+		controller.choose_both=True
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -116,7 +119,13 @@ class pp_CORE_AT_037ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, target=opponent.hero)
+		print ("check 2 damage on opponent's hero")
+		assert opponent.hero.health == 30-2, "damage 2"
+		print("check a summoned minion")
+		assert len(controller.field)==2, "field"
+		assert controller.field[0].id=='AT_037t', "summoned minion 1"
+		assert controller.field[1].id=='AT_037t', "summoned minion 2"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
