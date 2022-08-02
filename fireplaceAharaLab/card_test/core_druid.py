@@ -61,7 +61,9 @@ class pp_CORE_AT_037a(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0], target=opponent.hero)
+		print ("check 2 damage on opponent's hero")
+		assert opponent.hero.health == 30-2, "damage 2"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -86,7 +88,11 @@ class pp_CORE_AT_037b(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])
+		print("check a summoned minion")
+		assert len(controller.field)==2, "field"
+		assert controller.field[0].id=='AT_037t', "summoned minion 1"
+		assert controller.field[1].id=='AT_037t', "summoned minion 2"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
