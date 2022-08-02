@@ -215,6 +215,7 @@ class CORE_CS2_188:# <12> 1637 #this turn OK
 	play = Buff(TARGET, "CS2_188o")
 	pass
 CS2_188o = buff(atk=2)# <12> 3
+#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
 
 

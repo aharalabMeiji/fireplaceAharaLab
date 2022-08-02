@@ -7,21 +7,27 @@ from fireplace.actions import *
 def core_neutral():
 	#if core_neutral.Ice_Rager:##22.6
 	#if core_neutral.Toxicologist=False##22.6
-	if Mistress_of_Mixtures:## 23.6
-		PresetGame(pp_CORE_CFM_120)
+	#if Mistress_of_Mixtures:## 23.6
+	#	PresetGame(pp_CORE_CFM_120)
 	#Earthen_Ring_Farseer=False##22.6
 	#River_Crocolisk=False##22.6
-	if Raid_Leader:##22.6## 23.6
-		PresetGame(pp_CORE_CS2_122)
-	if Kobold_Geomancer:##22.6## 23.6
-		PresetGame(pp_CORE_CS2_142)
-	#Sen_jin_Shieldmasta=True##22.6## 23.6
+	#if Raid_Leader:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_122)
+	#if Kobold_Geomancer:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_142)
+	#if Sen_jin_Shieldmasta:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_179)
 	#Injured_Blademaster=False##22.6
-	#Chillwind_Yeti=True##22.6## 23.6
-	#Abusive_Sergeant=True##22.6## 23.6
-	#Elven_Archer=True##22.6## 23.6
-	#Ironbeak_Owl=True##22.6## 23.6
-	#Stormwind_Champion=True##22.6## 23.6
+	#if Chillwind_Yeti:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_182)
+	#if Abusive_Sergeant:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_188)
+	#if Elven_Archer:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_189)
+	#if Ironbeak_Owl:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_203)
+	if Stormwind_Champion:##22.6## 23.6
+		PresetGame(pp_CORE_CS2_222)
 	#Sunreaver_Spy=True##22.6## 23.6
 	#Young_Priestess=False##22.6
 	#Big_Game_Hunter=True##22.6## 23.6
@@ -224,16 +230,15 @@ class pp_CORE_CS2_142(Preset_Play):# <12> 1637 #OK
 		pass
 
 
-	##########
-class pp_CORE_EX1_189(Preset_Play):# <6>[1637]
-	""" Brightwing
-	[Battlecry:] Add a random [Legendary] minion to your_hand. """
-	class1=CardClass.PRIEST
-	class2=CardClass.PRIEST
+##########
+
+class pp_CORE_CS2_179(Preset_Play):# <12> 1637 #OK
+	""" Sen'jin Shieldmasta
+	[Taunt] """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('CORE_EX1_189',controller)#
+		self.mark1=self.exchange_card('CORE_CS2_179',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -252,9 +257,184 @@ class pp_CORE_EX1_189(Preset_Play):# <6>[1637]
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
-		for card in controller.hand:
+		assert self.mark1.taunt, "taunt card"
+		pass
+
+
+#########
+class pp_CORE_CS2_182(Preset_Play):# <12> 1637 #OK
+	""" Chillwind_Yeti
+	 """
+	#
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_182',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)
+		#self.change_turn(controller)
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.opponent.hero
+		for card in controller.field:
 			self.print_stats ("controller.hand", card)
 		pass
 
 ##################################
 
+class pp_CORE_CS2_188(Preset_Play):# <12> 1637 #this turn OK
+	""" Abusive Sergeant
+	[Battlecry:] Give a minion +2_Attack this turn. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_188',controller)#
+		self.mark2=self.exchange_card('minionH5',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark2, controller)
+		assert self.mark2.atk==self.mark2.data.atk, "attack" 
+		self.play_card(self.mark1, controller, target=self.mark2)
+		assert self.mark2.atk==self.mark2.data.atk+2, "attack" 
+		self.change_turn(controller)
+		assert self.mark2.atk==self.mark2.data.atk, "attack" 
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.opponent.hero
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		pass
+
+
+##########
+class pp_CORE_CS2_189(Preset_Play):# <12> 1637 #OK
+	""" Elven_Archer
+	[Battlecry:] Deal 1 damage. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_189',controller)#
+		self.mark2=self.exchange_card('minionH5',opponent)#
+		self.mark3=self.exchange_card('CORE_CS2_189',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		assert self.mark2.health==self.mark2.data.health, "health" 
+		self.change_turn(opponent)
+		self.play_card(self.mark1, controller, target=self.mark2)
+		assert self.mark2.health==self.mark2.data.health-1, "damage" 
+		self.play_card(self.mark3, controller, target=opponent.hero)
+		assert opponent.hero.health==30-1, "damage" 
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.opponent.hero
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		pass
+
+###########
+class pp_CORE_CS2_203(Preset_Play):# <12> 1637 #OK
+	""" Ironbeak_Owl
+	[Battlecry:] [Silence] a_minion. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_203',controller)#
+		self.mark2=self.exchange_card('taunt',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		assert self.mark2.taunt, "taunt" 
+		self.change_turn(opponent)
+		self.play_card(self.mark1, controller, target=self.mark2)
+		assert self.mark2.taunt==False, "taunt" 
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.opponent.hero
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		pass
+
+#############
+class pp_CORE_CS2_222(Preset_Play):# <12> 1637 #OK
+	""" Stormwind_Champion
+	Your other minions have +1/+1. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_CS2_222',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		assert len(self.mark2.buffs)>0, "with buff"
+		assert self.mark2.buffs[0].id=='CS2_222o',"with buff"
+		assert self.mark2.atk==self.mark2.data.atk+1, "atk" 
+		assert self.mark2.health==self.mark2.data.health+1, "health" 
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		hero = controller.opponent.hero
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		pass
+
+######################
