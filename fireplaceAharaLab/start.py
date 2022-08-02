@@ -196,6 +196,6 @@ def card_test():
 
 
 if __name__ == "__main__":
-	#printClasses()#
+	printClasses()#
 	#main()
-	card_test()
+	#card_test()

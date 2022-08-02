@@ -26,96 +26,96 @@ def core_neutral():
 	#	PresetGame(pp_CORE_CS2_189)
 	#if Ironbeak_Owl:##22.6## 23.6
 	#	PresetGame(pp_CORE_CS2_203)
-	if Stormwind_Champion:##22.6## 23.6
-		PresetGame(pp_CORE_CS2_222)
-	#Sunreaver_Spy=True##22.6## 23.6
+	#if Stormwind_Champion:##22.6## 23.6
+	#	PresetGame(pp_CORE_CS2_222)
+	#if Sunreaver_Spy:##22.6## 23.6
 	#Young_Priestess=False##22.6
-	#Big_Game_Hunter=True##22.6## 23.6
-	#Acolyte_of_Pain=True## 23.6
+	#if Big_Game_Hunter:##22.6## 23.6
+	#if Acolyte_of_Pain:## 23.6
 	#Argent_Squire=False##22.6
-	#Worgen_Infiltrator=True##22.6## 23.6
-	#Voodoo_Doctor=True##22.6## 23.6
-	#Bloodmage_Thalnos=True##22.6## 23.6
+	#if Worgen_Infiltrator##22.6## 23.6
+	#if Voodoo_Doctor:##22.6## 23.6
+	#if Bloodmage_Thalnos:##22.6## 23.6
 	#King_Mukla=False##22.6
-	#Jungle_Panther=True##22.6## 23.6
-	#Stranglethorn_Tiger=True##22.6## 23.6
-	#Twilight_Drake=True## 23.6
-	#Dark_Iron_Dwarf=True##22.6## 23.6
-	#Youthful_Brewmaster=True##22.6## 23.6
-	#Crazed_Alchemist=True##22.6## 23.6
-	#Acidic_Swamp_Ooze=True##22.6## 23.6
-	#Mad_Bomber=True##22.6## 23.6
-	#Defender_of_Argus=True##22.6## 23.6
-	#Gadgetzan_Auctioneer=True##22.6## 23.6
-	#Loot_Hoarder=True##22.6## 23.6
-	#Coldlight_Seer=True##22.6## 23.6
-	#Cairne_Bloodhoof=True##22.6## 23.6
-	#Dire_Wolf_Alpha=True##22.6## 23.6
-	#SI_7_Infiltrator=True##22.6## 23.6
-	#Arcane_Devourer=True##22.6## 23.6
+	#if Jungle_Panther:##22.6## 23.6
+	#if Stranglethorn_Tiger:##22.6## 23.6
+	#if Twilight_Drake:## 23.6
+	#if Dark_Iron_Dwarf:##22.6## 23.6
+	#if Youthful_Brewmaster:##22.6## 23.6
+	#if Crazed_Alchemist:##22.6## 23.6
+	#if Acidic_Swamp_Ooze:##22.6## 23.6
+	#if Mad_Bomber:##22.6## 23.6
+	#if Defender_of_Argus:##22.6## 23.6
+	#if Gadgetzan_Auctioneer:##22.6## 23.6
+	#if Loot_Hoarder:##22.6## 23.6
+	#if Coldlight_Seer:##22.6## 23.6
+	#if Cairne_Bloodhoof:##22.6## 23.6
+	#if Dire_Wolf_Alpha:##22.6## 23.6
+	#if SI_7_Infiltrator:##22.6## 23.6
+	#if Arcane_Devourer:##22.6## 23.6
 	#Barrens_Stablehand=False##22.6
 	#Brightwing=False##22.6
 	#High_Inquisitor_Whitemane=False##22.6
-	#Baron_Geddon=True##22.6## 23.6
-	#Azure_Drake=True## 23.6
+	#if Baron_Geddon:##22.6## 23.6
+	#if Azure_Drake:## 23.6
 	#Gurubashi_Berserker=False##22.6
-	#Murloc_Tidehunter=True##22.6## 23.6
-	#Murloc_Scout=True##22.6## 23.6
-	#Murloc_Warleader=True## 23.6
-	#Murloc_Tidecaller=True##22.6## 23.6
-	#Faceless_Manipulator=True##22.6## 23.6
-	#Sea_Giant=True## 23.6
-	#Nerubian_Egg=True##22.6## 23.6
+	#if Murloc_Tidehunter:##22.6## 23.6
+	#if Murloc_Scout:##22.6## 23.6
+	#if Murloc_Warleader:## 23.6
+	#if Murloc_Tidecaller:##22.6## 23.6
+	#if Faceless_Manipulator:##22.6## 23.6
+	#if Sea_Giant:## 23.6
+	#if Nerubian_Egg:##22.6## 23.6
 	#Baron_Rivendare=False##22.6
-	#Mossy_Horror=True## 23.6
-	#Lifedrinker=True## 23.6
+	#if Mossy_Horror:## 23.6
+	#if Lifedrinker:## 23.6
 	#ElveCogmastern_Archer=False##22.6
 	#Spider_Tank=False##22.6
-	#Explosive_Sheep=True##22.6## 23.6
-	#Annoy_o_Tron=True##22.6## 23.6
+	#if Explosive_Sheep:##22.6## 23.6
+	#if Annoy_o_Tron:##22.6## 23.6
 	#Mini_Mage=False##22.6
 	#Clockwork_Giant=False##22.6
-	#Grim_Necromancer=True##22.6## 23.6
-	#Cobalt_Scalebane=True## 23.6
+	#if Grim_Necromancer:##22.6## 23.6
+	#if Cobalt_Scalebane:## 23.6
 	#Arcane_Anomaly=False##22.6
-	#Reno_Jackson=True## 23.6
-	#Gorillabot_A_3=True## 23.6
-	#Sir_Finley_Mrrgglton=True## 23.6
-	#Brann_Bronzebeard=True## 23.6
-	#Elise_Starseeker=True## 23.6
-	#Murloc_Tinyfin=True##22.6## 23.6
-	#Lone_Champion=True##22.6## 23.6
-	#Stoneskin_Basilisk=True##22.6
-	#Sleepy_Dragon=True##22.6## 23.6
-	#Plated_Beetle=True## 23.6
-	#Zola_the_Gorgon=True## 23.6
-	#Bloodsail_Raider=True##22.6## 23.6
-	#Wild_Pyromancer=True## 23.6
-	#Doomsayer=True## 23.6
-	#Faerie_Dragon=True## 23.6
-	#Violet_Teacher=True##22.6## 23.6
-	#Southsea_Captain=True##22.6## 23.6
+	#if Reno_Jackson:## 23.6
+	#if Gorillabot_A_3:## 23.6
+	#if Sir_Finley_Mrrgglton:## 23.6
+	#if Brann_Bronzebeard:## 23.6
+	#if Elise_Starseeker:## 23.6
+	#if Murloc_Tinyfin:##22.6## 23.6
+	#if Lone_Champion:##22.6## 23.6
+	#Stoneskin_Basilisk:##22.6
+	#if Sleepy_Dragon:##22.6## 23.6
+	#if Plated_Beetle:## 23.6
+	#if Zola_the_Gorgon:## 23.6
+	#if Bloodsail_Raider:##22.6## 23.6
+	#if Wild_Pyromancer:## 23.6
+	#if Doomsayer:## 23.6
+	#if Faerie_Dragon:## 23.6
+	#if Violet_Teacher:##22.6## 23.6
+	#if Southsea_Captain:##22.6## 23.6
 	#Flesheating_Ghoul=False##22.6
-	#Beaming_Sidekick=True## 23.6
-	#Vulpera_Scoundrel=True## 23.6
-	#Injured_Tolvir=True## 23.6
-	#Stormwatcher=True##22.6## 23.6
-	#Humongous_Razorleaf=True##22.6## 23.6
-	#Primordial_Drake=True## 23.6
-	#Tar_Creeper=True## 23.6
-	#Escaped_Manasaber=True## 23.6
-	#Fogsail_Freebooter=True##22.6## 23.6
-	#Taelan_Fordring=True##22.6## 23.6
-	#Overlord_Runthak=True##22.6## 23.6
-	#Alexstrasza_the_Life_Binder=True##22.6## 23.6
-	#Onyxia_the_Broodmother=True##22.6## 23.6
-	#Ysera_the_Dreamer=True##22.6## 23.6
-	#Malygos_the_Spellweaver=True##22.6## 23.6
-	#Nozdormu_the_Eternal=True##22.6## 23.6
-	#Deathwing_the_Destroyer=True##22.6## 23.6
-	#Emerald_Skytalon=True##22.6## 23.6
-	#Redgill_Razorjaw=True##22.6## 23.6
-	#PresetGame(pp_CORE_EX1_189)#OK
+	#if Beaming_Sidekick:## 23.6
+	#if Vulpera_Scoundrel:## 23.6
+	#if Injured_Tolvir:## 23.6
+	#if Stormwatcher:##22.6## 23.6
+	#if Humongous_Razorleaf:##22.6## 23.6
+	#if Primordial_Drake:## 23.6
+	#if Tar_Creeper:## 23.6
+	#if Escaped_Manasaber:## 23.6
+	#if Fogsail_Freebooter:##22.6## 23.6
+	#if Taelan_Fordring:##22.6## 23.6
+	#if Overlord_Runthak:##22.6## 23.6
+	#if Alexstrasza_the_Life_Binder:##22.6## 23.6
+	#if Onyxia_the_Broodmother:##22.6## 23.6
+	#if Ysera_the_Dreamer:##22.6## 23.6
+	#if Malygos_the_Spellweaver:##22.6## 23.6
+	#if Nozdormu_the_Eternal:##22.6## 23.6
+	#if Deathwing_the_Destroyer:##22.6## 23.6
+	#if Emerald_Skytalon:##22.6## 23.6
+	#if Redgill_Razorjaw:##22.6## 23.6
+	#	PresetGame(pp_CORE_EX1_189)#OK
 	pass
 
 ##################################
@@ -432,7 +432,6 @@ class pp_CORE_CS2_222(Preset_Play):# <12> 1637 #OK
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		hero = controller.opponent.hero
 		for card in controller.field:
 			self.print_stats ("controller.field", card)
 		pass
