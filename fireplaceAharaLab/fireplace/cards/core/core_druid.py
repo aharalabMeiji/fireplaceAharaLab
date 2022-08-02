@@ -41,16 +41,16 @@ class AT_037a:
 class AT_037b:
 	play = Summon(CONTROLLER, "AT_037t") * 2
 
-if Landscaping:
+if Landscaping:#22.6
 	Core_Neutral+=['CORE_BOT_420',]
 class CORE_BOT_420:###OK <2>[1637]
 	""" Landscaping
 	Summon two 2/2 Treants. """
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 2}
 	play = Summon(CONTROLLER,'EX1_158t') * 2
 	pass
 
-if Mark_of_the_Wild:# 
+if Mark_of_the_Wild:# #22.6#23.6
 	Core_Neutral+=['CORE_CS2_009','CS2_009e',]
 class CORE_CS2_009:# <2>[1637]
 	""" Mark of the Wild
@@ -60,7 +60,7 @@ class CORE_CS2_009:# <2>[1637]
 	pass
 CS2_009e=buff(atk=2,health=3,taunt=True)
 
-if Wild_Growth:# 
+if Wild_Growth:# #22.6#23.6
 	Core_Neutral+=['CORE_CS2_013','CS2_013t',]
 class CORE_CS2_013:# <2>[1637]
 	""" Wild Growth
@@ -70,7 +70,7 @@ class CORE_CS2_013:# <2>[1637]
 class CS2_013t:##???
 	play = Draw(CONTROLLER)
 
-if Wrath:# 
+if Wrath:# #23.6
 	Core_Neutral+=['CORE_EX1_154','EX1_154a','EX1_154b']
 class CORE_EX1_154:# <2>[1637]##################
 	""" Wrath
@@ -89,7 +89,7 @@ class EX1_154b:
 
 
 
-if Soul_of_the_Forest:# 
+if Soul_of_the_Forest:# #22.6#23.6
 	Core_Neutral+=['CORE_EX1_158','EX1_158e','EX1_158t',]
 class CORE_EX1_158:# <2>[1637]
 	""" Soul of the Forest
@@ -103,7 +103,7 @@ class EX1_158e:
 class EX1_158t:
 	pass
 
-if Power_of_the_Wild:# 
+if Power_of_the_Wild:##22.6#23.6 
 	Core_Neutral+=['CORE_EX1_160','EX1_160a','EX1_160b','EX1_160be','EX1_160t',]
 class CORE_EX1_160:# <2>[1637]
 	""" Power of the Wild
@@ -123,25 +123,25 @@ class EX1_160t:
 	""" 
 	pass
 
-if Nourish:# 
+if Nourish:##22.6#23.6 
 	Core_Neutral+=['CORE_EX1_164','EX1_164a','EX1_164b',]
 class CORE_EX1_164:# <2>[1637]
 	""" Nourish
 	[Choose One -] Gain 2_Mana Crystals; or Draw 3 cards. """
 	choose = ("EX1_164a", "EX1_164b")
-	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER) * 3)
+	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER), Draw(CONTROLLER), Draw(CONTROLLER))
 class EX1_164a:
 	play = GainMana(CONTROLLER, 2)
 class EX1_164b:
 	play = Draw(CONTROLLER) * 3
 
-if Druid_of_the_Claw:# 
+if Druid_of_the_Claw:# #22.6#23.6
 	Core_Neutral+=['CORE_EX1_165','EX1_165a','EX1_165b','EX1_165t1','EX1_165t2',]
 class CORE_EX1_165:# <2>[1637]
 	""" Druid of the Claw
 	[Choose One -] Transforminto a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	choose = ("EX1_165a", "EX1_165b")
-	play = ChooseBoth(SELF) & Morph(SELF, "OG_044a")#####################???
+	play = ChooseBoth(SELF) & (Morph(SELF, "EX1_165t1"), Morph(SELF, "EX1_165t2"))
 class EX1_165a:
 	play = Morph(SELF, "EX1_165t1")
 class EX1_165b:
@@ -151,7 +151,7 @@ class EX1_165t1:
 class EX1_165t2:
 	pass
 
-if Innervate:# 
+if Innervate:##22.6#23.6 
 	Core_Neutral+=['CORE_EX1_169',]
 class CORE_EX1_169:# <2>[1637]
 	""" Innervate
@@ -159,8 +159,8 @@ class CORE_EX1_169:# <2>[1637]
 	play = ManaThisTurn(CONTROLLER, 1)
 	pass
 
-if Ancient_of_War:# 
-	Core_Neutral+='CORE_EX1_178','EX1_178a','EX1_178ae','EX1_178b','EX1_178be',]
+if Ancient_of_War:##22.6 
+	Core_Neutral+=['CORE_EX1_178','EX1_178a','EX1_178ae','EX1_178b','EX1_178be',]
 class CORE_EX1_178:#OK <2>[1637]
 	""" Ancient of War
 	[Choose One -]+5 Attack; or +5 Health and [Taunt]. """
@@ -175,18 +175,18 @@ class EX1_178b:
 	play = Buff(SELF, "EX1_178be")
 EX1_178be = buff(atk=5)
 
-if Force_of_Nature:# 
-	Core_Neutral+=['CORE_EX1_571','EX1_tk9',]
+if Force_of_Nature:##22.6#23.6 
+	Core_Neutral+=['CORE_EX1_571','EX1_158t',]
 class CORE_EX1_571:# <2>[1637]
 	""" Force of Nature
 	Summon three 2/2 Treants. """
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	play = Summon(CONTROLLER, "EX1_tk9") * 3
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 3}
+	play = Summon(CONTROLLER, "EX1_158t") * 3
 	pass
 class EX1_tk9:
 	pass
 
-if Cenarius:# 
+if Cenarius:##22.6#23.6 
 	Core_Neutral+=['CORE_EX1_573','EX1_573a','EX1_573ae','EX1_573b','EX1_573t',]
 class CORE_EX1_573:# <2>[1637]
 	""" Cenarius
@@ -204,7 +204,7 @@ class EX1_573b:
 class EX1_573t:
 	pass
 
-if Menagerie_Warden:
+if Menagerie_Warden:#22.6
 	Core_Neutral+=['CORE_KAR_065',]
 class CORE_KAR_065:#OK <2>[1637]
 	""" Menagerie Warden
@@ -218,7 +218,7 @@ class CORE_KAR_065:#OK <2>[1637]
 	play = Summon(CONTROLLER, ExactCopy(TARGET))
 	pass
 
-if Enchanted_Raven:
+if Enchanted_Raven:#22.6
 	Core_Neutral+=['CORE_KAR_300',]
 class CORE_KAR_300:# <2>[1637]
 	""" Enchanted Raven
@@ -226,7 +226,7 @@ class CORE_KAR_300:# <2>[1637]
 	#
 	pass
 
-if Mounted_Raptor:# 
+if Mounted_Raptor:# #23.6
 	Core_Neutral+=['CORE_LOE_050']
 class CORE_LOE_050:# <2>[1637]############################
 	""" Mounted Raptor
@@ -234,7 +234,7 @@ class CORE_LOE_050:# <2>[1637]############################
 	deathrattle = Summon(CONTROLLER, RandomMinion(cost=1))
 	pass
 
-if Ancient_of_Lore:# 
+if Ancient_of_Lore:##23.6 
 	Core_Neutral+=['CORE_NEW1_008','NEW1_008a','NEW1_008b']
 class CORE_NEW1_008:# <2>[1637##############################
 	""" Ancient of Lore
@@ -248,7 +248,7 @@ class NEW1_008b:
 	play = Heal(TARGET, 5)
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 
-if Fandral_Staghelm:# 
+if Fandral_Staghelm:##23.6 
 	Core_Neutral+=['CORE_OG_044','OG_044a','OG_044b','OG_044c','OG_044e']
 class CORE_OG_044:# <2>[1637]############################
 	""" Fandral Staghelm
@@ -266,7 +266,7 @@ class OG_044c:
 class OG_044e:
 	pass
 
-if Feral_Rage:# 
+if Feral_Rage:# #22.6#23.6
 	Core_Neutral+=['CORE_OG_047','OG_047a','OG_047b','OG_047e',]
 class CORE_OG_047:# <2>[1637]
 	""" Feral Rage
@@ -282,7 +282,7 @@ OG_047e = buff(atk=4)
 class OG_047b:
 	play = GainArmor(FRIENDLY_HERO, 8)
 
-if Pounce:# 
+if Pounce:# #22.6#23.6
 	Core_Neutral+=['CORE_TRL_243','TRL_243e',]
 class CORE_TRL_243:# <2>[1637]
 	""" Pounce
@@ -292,7 +292,7 @@ class CORE_TRL_243:# <2>[1637]
 TRL_243e=buff(atk=2)# ONE_TURN_EFFECT
 
 
-if Earthen_Scales:# 
+if Earthen_Scales:##23.6 
 	Core_Neutral+=['CORE_UNG_108','UNG_108e']
 class CORE_UNG_108:# <2>[1637]#########################
 	""" Earthen Scales
@@ -305,7 +305,7 @@ class CORE_UNG_108:# <2>[1637]#########################
 	pass
 UNG_108e=buff(1,1)
 
-if Nordrassil_Druid:
+if Nordrassil_Druid:#22.6#23.6
 	Core_Neutral+=['CS3_012','CS3_012e', ]
 class CS3_012:#OK <2>[1637]
 	""" Nordrassil Druid
@@ -322,8 +322,6 @@ class CS3_012e:# <2>[1637]
 	   ]
 	pass
 
-
-from ..utils import *
 
 
 

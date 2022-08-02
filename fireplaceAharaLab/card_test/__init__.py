@@ -3,4 +3,4 @@
 #from .alterac_druid import *
 #from .alterac_mage import *
 #from .darkmoon_druid import *
-from .core_neutral import *
+#from .core_neutral import *
