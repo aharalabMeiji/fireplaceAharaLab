@@ -86,9 +86,9 @@ class Preset_Play:
 		self.testNr = testNr
 		self.preset_deck()
 		self.preset_play()
-		print ("")
-		print ("")
-		print ("")
+		#print ("")
+		#print ("")
+		#print ("")
 		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
@@ -134,12 +134,51 @@ class Preset_Play:
 			_card=random.choice(['CORE_EX1_611','CORE_EX1_275','CORE_EX1_289','CORE_GIL_801','BT_072','SCH_509','BAR_305','BAR_305t','BAR_305t2','BAR_812','WC_041',])
 		if _card=='mech':
 			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
+		if _card=='minionH4':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = db[_id]
+					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==4: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		if _card=='minionA4':
+			choices=[]
+			for _id in db.keys():
+				_card = db[_id]
+				if _card.type == CardType.MINION and _card.atk==4: 
+					choices.append(_id)
+			_card=random.choice(choices)
+		if _card=='minionH5':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = db[_id]
+					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==5: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		if _card=='minionA5':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = db[_id]
+					if _card.type == CardType.MINION and _card.atk==5: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
 			_card=random.choice(['CORE_BOT_420','CORE_CS2_009','CORE_CS2_013','CORE_EX1_158','CORE_EX1_164','EX1_164a','EX1_164b','CORE_EX1_169','CORE_EX1_571',\
 						'BT_128','BT_129','BT_130','BT_132','SCH_333','SCH_427','SCH_612','YOP_015','DMF_058','DMF_732','YOP_026','BAR_533','BAR_536','BAR_549',\
 						'SW_422','SW_437','DREAM_02','DREAM_04','CORE_EX1_169',])
+		if _card=='noTaunt':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = db[_id]
+					if _card.type == CardType.MINION and _card.taunt==False: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		if _card=='pirate':
 			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
 		if _card=='rush':
@@ -174,36 +213,6 @@ class Preset_Play:
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
 		if _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
-		if _card=='minionH4':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==4: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionA4':
-			choices=[]
-			for _id in db.keys():
-				_card = db[_id]
-				if _card.type == CardType.MINION and _card.atk==4: 
-					choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionH5':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==5: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionA5':
-			choices=[]
-			for _id in db.keys():
-				_card = db[_id]
-				if _card.type == CardType.MINION and _card.atk==5: 
-					choices.append(_id)
-			_card=random.choice(choices)
 		if _card=='minionH6':
 			_card=random.choice(['CS3_025','CORE_CS2_033','EX1_165b','EX1_165t2','OG_044a','SCH_157','SCH_224','SCH_232','SCH_273','SCH_530','SCH_605','DMF_078','DMF_078t','DMF_254','DMF_254t5t','DMF_734','YOP_025t','BAR_020','BAR_042','BAR_075','BAR_078','BAR_080','BAR_744','WC_029','BAR_034t5','WC_008','BAR_538','BAR_840','BAR_896','SW_057','SW_071','SW_073','SW_459','SW_113','SW_097','DED_515','DREAM_03',])
 		if _card=='minionA6':

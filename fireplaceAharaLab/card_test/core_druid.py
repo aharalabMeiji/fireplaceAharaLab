@@ -10,12 +10,12 @@ def core_druid():
 	## 23.6
 	#PresetGame(pp_CORE_AT_037a)
 	#PresetGame(pp_CORE_AT_037b)
-	PresetGame(pp_CORE_AT_037ab)
-	PresetGame(pp_CORE_CS2_009)
-	PresetGame(pp_CORE_CS2_013)
-	PresetGame(pp_CORE_EX1_154a)
-	PresetGame(pp_CORE_EX1_154b)
-	PresetGame(pp_CORE_EX1_154ab)
+	#PresetGame(pp_CORE_AT_037ab)
+	#PresetGame(pp_CORE_CS2_009)
+	#PresetGame(pp_CORE_CS2_013)
+	#PresetGame(pp_CORE_EX1_154a)
+	#PresetGame(pp_CORE_EX1_154b)
+	#PresetGame(pp_CORE_EX1_154ab)
 	PresetGame(pp_CORE_EX1_158)
 	PresetGame(pp_CORE_EX1_160a)
 	PresetGame(pp_CORE_EX1_160b)
@@ -109,9 +109,7 @@ class pp_CORE_AT_037ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_AT_037',controller)#
-		#setattr(controller,'choose_both', True)
-		controller.tags[GameTag.CHOOSE_BOTH]=True
-		controller.choose_both=True
+		self.mark2=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -119,13 +117,15 @@ class pp_CORE_AT_037ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
+		self.play_card(self.mark2, controller, target=opponent.hero)
+		assert controller.choose_both==True, "tag"
 		self.play_card(self.mark1, controller, target=opponent.hero)
 		print ("check 2 damage on opponent's hero")
 		assert opponent.hero.health == 30-2, "damage 2"
 		print("check a summoned minion")
-		assert len(controller.field)==2, "field"
-		assert controller.field[0].id=='AT_037t', "summoned minion 1"
-		assert controller.field[1].id=='AT_037t', "summoned minion 2"
+		assert len(controller.field)==2+1, "field"
+		assert controller.field[-1].id=='AT_037t', "summoned minion 1"
+		assert controller.field[-2].id=='AT_037t', "summoned minion 2"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -143,6 +143,7 @@ class pp_CORE_CS2_009(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_CS2_009',controller)#
+		self.mark2=self.exchange_card('noTaunt',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -150,12 +151,14 @@ class pp_CORE_CS2_009(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller, target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
-		opponent = controller.opponent
+		assert self.mark2.taunt==True, "Taunt"
+		assert self.mark2.atk==self.mark2.data.atk+2, "atk buff"
+		assert self.mark2.health==self.mark2.data.health+3, "health buff" 
 		pass
 	pass
 ################CORE_CS2_013##################
@@ -168,6 +171,7 @@ class pp_CORE_CS2_013(Preset_Play):# <12>[1637]
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
+		controller.max_mana=6
 		self.mark1=self.exchange_card('CORE_CS2_013',controller)#
 		super().preset_deck()
 		pass
@@ -176,12 +180,15 @@ class pp_CORE_CS2_013(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
+		manaN=controller.mana
 		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		print("check max mana")
+		assert controller.max_mana==6+1, "mana"
 		pass
 	pass
 ##################CORE_EX1_154################
@@ -195,6 +202,7 @@ class pp_CORE_EX1_154a(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_154',controller)#
+		self.mark2=self.exchange_card("minionH4",opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -202,12 +210,17 @@ class pp_CORE_EX1_154a(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0], target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		print("check opponents HP")
+		assert self.mark2.health==self.mark2.data.health-3, "3 damage"
 		pass
 	pass
 class pp_CORE_EX1_154b(Preset_Play):# <12>[1637]
@@ -219,6 +232,7 @@ class pp_CORE_EX1_154b(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_154',controller)#
+		self.mark2=self.exchange_card("minionH4",opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -226,12 +240,23 @@ class pp_CORE_EX1_154b(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		for card in controller.hand:
+			self.print_stats ("controller.hand", card)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1], target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		print("check opponents HP")
+		assert self.mark2.health==self.mark2.data.health-1, "3 damage"
+		print("check number of hands")
+		for card in controller.hand:
+			self.print_stats ("controller.hand", card)
+		assert len(controller.hand)==4, "check number of hands"
 		pass
 	pass
 class pp_CORE_EX1_154ab(Preset_Play):# <12>[1637]
@@ -243,6 +268,8 @@ class pp_CORE_EX1_154ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_154',controller)#
+		self.mark2=self.exchange_card("minionH5",opponent)
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -250,12 +277,25 @@ class pp_CORE_EX1_154ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark3,controller)
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
+		for card in controller.hand:
+			self.print_stats ("controller.hand", card)
+		self.play_card(self.mark1, controller, target=self.mark2)
+		pass
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		print("check opponents HP")
+		assert self.mark2.health==self.mark2.data.health-4, "4 damage"
+		print("check number of hands")
+		for card in controller.hand:
+			self.print_stats ("controller.hand", card)
+		assert len(controller.hand)==3, "check number of hands"
 		pass
 	pass
 #################CORE_EX1_158#################
@@ -269,6 +309,8 @@ class pp_CORE_EX1_158(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_158',controller)#
+		self.mark2=self.exchange_card('minionA5',opponent)#
+		self.mark3=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -276,12 +318,24 @@ class pp_CORE_EX1_158(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
+		self.play_card(self.mark3, controller)
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		self.change_turn(opponent)
 		self.play_card(self.mark1, controller)
+		print("check if mark3 has deathrattle")
+		assert self.mark3.has_deathrattle==True, "deathrattle"
+		assert self.mark3.deathrattles!=[], "deathrattle"
+		self.change_turn(controller)
+		self.attack_card(self.mark2, self.mark3, opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		assert controller.field[-1].id=='EX1_158t', "treant"
 		pass
 	pass
 ################CORE_EX1_160##################
