@@ -109,7 +109,7 @@ class CORE_EX1_160:# <2>[1637]
 	""" Power of the Wild
 	[Choose One -] Give your minions +1/+1; or Summon a 3/2 Panther. """
 	choose = ("EX1_160b", "EX1_160a")
-	play = ChooseBoth(SELF) & (
+	play = ChooseBoth(CONTROLLER) & (
 		Buff(FRIENDLY_MINIONS, "EX1_160be"), Summon(CONTROLLER, "EX1_160t")
 	)
 class EX1_160a:
@@ -125,30 +125,30 @@ class EX1_160t:
 
 if Nourish:##22.6#23.6 
 	Core_Druid+=['CORE_EX1_164','EX1_164a','EX1_164b',]
-class CORE_EX1_164:# <2>[1637]
+class CORE_EX1_164:# <2>[1637]Spell
 	""" Nourish
 	[Choose One -] Gain 2_Mana Crystals; or Draw 3 cards. """
 	choose = ("EX1_164a", "EX1_164b")
-	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER), Draw(CONTROLLER), Draw(CONTROLLER))
-class EX1_164a:
+	play = ChooseBoth(CONTROLLER) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER), Draw(CONTROLLER), Draw(CONTROLLER))
+class EX1_164a:##spell
 	play = GainMana(CONTROLLER, 2)
-class EX1_164b:
+class EX1_164b:##spell
 	play = Draw(CONTROLLER) * 3
 
 if Druid_of_the_Claw:# #22.6#23.6
 	Core_Druid+=['CORE_EX1_165','EX1_165a','EX1_165b','EX1_165t1','EX1_165t2',]
-class CORE_EX1_165:# <2>[1637]
+class CORE_EX1_165:# <2>[1637]Minion
 	""" Druid of the Claw
-	[Choose One -] Transforminto a 5/4 with [Rush];or a 5/6 with [Taunt]. """
+	[Choose One -] Transform into a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	choose = ("EX1_165a", "EX1_165b")
-	play = ChooseBoth(SELF) & (Morph(SELF, "EX1_165t1"), Morph(SELF, "EX1_165t2"))
-class EX1_165a:
+	play = ChooseBoth(CONTROLLER) & (Morph(SELF, "EX1_165t1"), Summon(CONTROLLER, "EX1_165t2"))
+class EX1_165a:##minion
 	play = Morph(SELF, "EX1_165t1")
-class EX1_165b:
+class EX1_165b:##minion
 	play = Morph(SELF, "EX1_165t2")
-class EX1_165t1:
+class EX1_165t1:##minion rush
 	pass
-class EX1_165t2:
+class EX1_165t2:##minion taunt
 	pass
 
 if Innervate:##22.6#23.6 

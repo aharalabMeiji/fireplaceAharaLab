@@ -579,7 +579,7 @@ class Play(GameAction):
 		else:
 			trigger_outcast = False
 
-		card.zone = Zone.PLAY
+		card.zone = Zone.PLAY###  battlecry_card or card?
 		if card.type == CardType.MINION:
 			player.add_summon_log(card)
 

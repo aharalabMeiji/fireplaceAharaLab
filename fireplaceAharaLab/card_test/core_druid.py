@@ -16,13 +16,13 @@ def core_druid():
 	#PresetGame(pp_CORE_EX1_154a)
 	#PresetGame(pp_CORE_EX1_154b)
 	#PresetGame(pp_CORE_EX1_154ab)
-	PresetGame(pp_CORE_EX1_158)
-	PresetGame(pp_CORE_EX1_160a)
-	PresetGame(pp_CORE_EX1_160b)
-	PresetGame(pp_CORE_EX1_160ab)
-	PresetGame(pp_CORE_EX1_164a)
-	PresetGame(pp_CORE_EX1_164b)
-	PresetGame(pp_CORE_EX1_164ab)
+	#PresetGame(pp_CORE_EX1_158)
+	#PresetGame(pp_CORE_EX1_160a)
+	#PresetGame(pp_CORE_EX1_160b)
+	#PresetGame(pp_CORE_EX1_160ab)
+	#PresetGame(pp_CORE_EX1_164a)
+	#PresetGame(pp_CORE_EX1_164b)
+	#PresetGame(pp_CORE_EX1_164ab)
 	PresetGame(pp_CORE_EX1_165a)
 	PresetGame(pp_CORE_EX1_165b)
 	PresetGame(pp_CORE_EX1_165ab)
@@ -350,7 +350,6 @@ class pp_CORE_EX1_160a(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_160',controller)#
 		self.mark2=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
@@ -358,15 +357,12 @@ class pp_CORE_EX1_160a(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
 		self.play_card(self.mark2, controller)
 		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
-		opponent = controller.opponent
 		assert self.mark2.atk==self.mark2.data.atk+1, "atk"
 		assert self.mark2.health==self.mark2.data.health+1, "health"
 		pass
@@ -385,7 +381,6 @@ class pp_CORE_EX1_160b(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
 		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])		
 		pass
@@ -404,7 +399,6 @@ class pp_CORE_EX1_160ab(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_160',controller)#
 		self.mark2=self.exchange_card('minionH4',controller)#
 		self.mark3=self.exchange_card('CORE_OG_044',controller)#
@@ -442,19 +436,20 @@ class pp_CORE_EX1_164a(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_164',controller)#
+		controller.max_mana=6
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		print("count max mana")
+		assert controller.max_mana==6+2, "max mana"
 		pass
 	pass
 class pp_CORE_EX1_164b(Preset_Play):# <12>[1637]
@@ -473,12 +468,15 @@ class pp_CORE_EX1_164b(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		print("more three hand cards")
+		for card in controller.hand:
+			self.print_stats ("controller.hand", card)
+		assert len(controller.hand)==6, "hand cards"
 		pass
 	pass
 class pp_CORE_EX1_164ab(Preset_Play):# <12>[1637]
@@ -490,6 +488,8 @@ class pp_CORE_EX1_164ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_164',controller)#
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
+		controller.max_mana=6
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -497,19 +497,25 @@ class pp_CORE_EX1_164ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
+		self.play_card(self.mark3, controller)
 		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		print("count max mana")
+		assert controller.max_mana==6+2, "max mana"
+		print("more three hand cards")
+		for card in controller.hand:
+			self.print_stats ("controller.hand", card)
+		assert len(controller.hand)==5, "hand cards"
 		pass
 	pass
 ################CORE_EX1_165##################
 
 class pp_CORE_EX1_165a(Preset_Play):# <12>[1637]
 	""" Druid of the Claw
-	[Choose One -] Transforminto a 5/4 with [Rush];or a 5/6 with [Taunt]. """
+	[Choose One -] Transform into a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
@@ -523,12 +529,15 @@ class pp_CORE_EX1_165a(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		card = controller.field[0]
+		assert card.atk==5, "atk"
+		assert card.health==4, "health"
+		assert card.rush==True, "rush"
 		pass
 	pass
 class pp_CORE_EX1_165b(Preset_Play):# <12>[1637]
@@ -547,23 +556,26 @@ class pp_CORE_EX1_165b(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		assert card.atk==5, "atk"
+		assert card.health==6, "health"
+		assert card.taunt==True, "taunt"
 		pass
 	pass
 class pp_CORE_EX1_165ab(Preset_Play):# <12>[1637]
 	""" Druid of the Claw
-	[Choose One -] Transforminto a 5/4 with [Rush];or a 5/6 with [Taunt]. """
+	[Choose One -] Transform into a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	class1=CardClass.DRUID
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_165',controller)#
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -571,12 +583,14 @@ class pp_CORE_EX1_165ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
+		self.play_card(self.mark3, controller)
 		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
 		pass
 	pass
 ################CORE_EX1_169##################
