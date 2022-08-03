@@ -108,7 +108,7 @@ if Power_of_the_Wild:##22.6#23.6
 class CORE_EX1_160:# <2>[1637]
 	""" Power of the Wild
 	[Choose One -] Give your minions +1/+1; or Summon a 3/2 Panther. """
-	choose = ("EX1_160a", "EX1_160b")
+	choose = ("EX1_160b", "EX1_160a")
 	play = ChooseBoth(SELF) & (
 		Buff(FRIENDLY_MINIONS, "EX1_160be"), Summon(CONTROLLER, "EX1_160t")
 	)

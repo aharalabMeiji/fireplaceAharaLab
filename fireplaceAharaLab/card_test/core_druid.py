@@ -333,9 +333,12 @@ class pp_CORE_EX1_158(Preset_Play):# <12>[1637]
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		exist=False
 		for card in controller.field:
 			self.print_stats ("controller.field", card)
-		assert controller.field[-1].id=='EX1_158t', "treant"
+			if card.id=='EX1_158t':
+				exist=True
+		assert exist==True, "treant"
 		pass
 	pass
 ################CORE_EX1_160##################
@@ -349,6 +352,7 @@ class pp_CORE_EX1_160a(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_160',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -356,12 +360,15 @@ class pp_CORE_EX1_160a(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		opponent = controller.opponent
+		assert self.mark2.atk==self.mark2.data.atk+1, "atk"
+		assert self.mark2.health==self.mark2.data.health+1, "health"
 		pass
 	pass
 class pp_CORE_EX1_160b(Preset_Play):# <12>[1637]
@@ -380,12 +387,14 @@ class pp_CORE_EX1_160b(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		assert controller.field[-1].id=='EX1_160t', "panther"
 		pass
 	pass
 class pp_CORE_EX1_160ab(Preset_Play):# <12>[1637]
@@ -397,6 +406,8 @@ class pp_CORE_EX1_160ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_160',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -404,12 +415,20 @@ class pp_CORE_EX1_160ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark3, controller)
+		self.change_turn(controller)
+		self.change_turn(opponent)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller)		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		assert self.mark2.atk==self.mark2.data.atk+1, "atk"
+		assert self.mark2.health==self.mark2.data.health+1, "health"
+		for card in controller.field:
+			self.print_stats ("controller.field", card)
+		assert controller.field[-1].id=='EX1_160t', "panther"
 		pass
 	pass
 ################CORE_EX1_164##################
