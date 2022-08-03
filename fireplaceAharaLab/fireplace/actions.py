@@ -1339,6 +1339,8 @@ class Morph(TargetedAction):
 				card.zone = target_zone
 			target.clear_buffs()
 			target.zone = Zone.SETASIDE
+			if target in target.controller.field:
+				target.controller.field.remove(target)
 			target.morphed = card
 			return card
 

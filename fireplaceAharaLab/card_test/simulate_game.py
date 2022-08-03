@@ -253,8 +253,8 @@ class Preset_Play:
 		sgiw_race: showing the race of the card
 		"""
 		if hasattr(card,'atk') and hasattr(card,'health'):
-			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
-				cat, card.controller, card, card.atk, card.health, 
+			print ("%s(%s): %r(%s): %d/%d (%s) <- %d/%d"%(
+				cat, card.controller, card, card.id, card.atk, card.health, 
 				card.zone,
 				card.data.atk, card.data.health),end=" ")
 		elif hasattr(card,'atk') and hasattr(card,'durability'):

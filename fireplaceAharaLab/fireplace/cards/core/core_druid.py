@@ -136,12 +136,12 @@ class EX1_164b:##spell
 	play = Draw(CONTROLLER) * 3
 
 if Druid_of_the_Claw:# #22.6#23.6
-	Core_Druid+=['CORE_EX1_165','EX1_165a','EX1_165b','EX1_165t1','EX1_165t2',]
+	Core_Druid+=['CORE_EX1_165','EX1_165a','EX1_165b','EX1_165t1','EX1_165t2','OG_044a']
 class CORE_EX1_165:# <2>[1637]Minion
 	""" Druid of the Claw
 	[Choose One -] Transform into a 5/4 with [Rush];or a 5/6 with [Taunt]. """
 	choose = ("EX1_165a", "EX1_165b")
-	play = ChooseBoth(CONTROLLER) & (Morph(SELF, "EX1_165t1"), Summon(CONTROLLER, "EX1_165t2"))
+	play = ChooseBoth(CONTROLLER) & (Morph(SELF, "OG_044a"))
 class EX1_165a:##minion
 	play = Morph(SELF, "EX1_165t1")
 class EX1_165b:##minion
@@ -149,6 +149,8 @@ class EX1_165b:##minion
 class EX1_165t1:##minion rush
 	pass
 class EX1_165t2:##minion taunt
+	pass
+class OG_044a:## minion rush and taunt
 	pass
 
 if Innervate:##22.6#23.6 
@@ -249,22 +251,13 @@ class NEW1_008b:
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 
 if Fandral_Staghelm:##23.6 
-	Core_Druid+=['CORE_OG_044','OG_044a','OG_044b','OG_044c','OG_044e']
+	Core_Druid+=['CORE_OG_044']#,'OG_044a','OG_044b','OG_044c','OG_044e'
 class CORE_OG_044:# <2>[1637]############################
 	""" Fandral Staghelm
 	Your [Choose One] cards and powers have both effects combined. """
-	update = Refresh(CONTROLLER, {
-		GameTag.CHOOSE_BOTH: True,
-	})
+	update = Refresh(CONTROLLER, {GameTag.CHOOSE_BOTH: True,})
 	pass
-class OG_044a:
-	pass
-class OG_044b:
-	pass
-class OG_044c:
-	pass
-class OG_044e:
-	pass
+## we may use OG_044e as a buff card.
 
 if Feral_Rage:# #22.6#23.6
 	Core_Druid+=['CORE_OG_047','OG_047a','OG_047b','OG_047e',]

@@ -23,9 +23,9 @@ def core_druid():
 	#PresetGame(pp_CORE_EX1_164a)
 	#PresetGame(pp_CORE_EX1_164b)
 	#PresetGame(pp_CORE_EX1_164ab)
-	PresetGame(pp_CORE_EX1_165a)
-	PresetGame(pp_CORE_EX1_165b)
-	PresetGame(pp_CORE_EX1_165ab)
+	#PresetGame(pp_CORE_EX1_165a)
+	#PresetGame(pp_CORE_EX1_165b)
+	#PresetGame(pp_CORE_EX1_165ab)
 	PresetGame(pp_CORE_EX1_169)
 	PresetGame(pp_CORE_EX1_571)
 	PresetGame(pp_CORE_EX1_573a)
@@ -561,6 +561,7 @@ class pp_CORE_EX1_165b(Preset_Play):# <12>[1637]
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
+		card = controller.field[0]
 		assert card.atk==5, "atk"
 		assert card.health==6, "health"
 		assert card.taunt==True, "taunt"
