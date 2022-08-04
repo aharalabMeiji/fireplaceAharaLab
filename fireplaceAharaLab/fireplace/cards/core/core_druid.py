@@ -194,7 +194,7 @@ class CORE_EX1_573:# <2>[1637]
 	""" Cenarius
 	[Choose One -] Give your other minions +2/+2; or Summon two 2/2 Treants with [Taunt]. """
 	choose = ("EX1_573a", "EX1_573b")
-	play = ChooseBoth(SELF) & (
+	play = ChooseBoth(CONTROLLER) & (
 		Buff(FRIENDLY_MINIONS - SELF, "EX1_573ae"),
 		Summon(CONTROLLER, "EX1_573t") * 2
 	)

@@ -26,11 +26,11 @@ def core_druid():
 	#PresetGame(pp_CORE_EX1_165a)
 	#PresetGame(pp_CORE_EX1_165b)
 	#PresetGame(pp_CORE_EX1_165ab)
-	PresetGame(pp_CORE_EX1_169)
-	PresetGame(pp_CORE_EX1_571)
-	PresetGame(pp_CORE_EX1_573a)
-	PresetGame(pp_CORE_EX1_573b)
-	PresetGame(pp_CORE_EX1_573ab)
+	#PresetGame(pp_CORE_EX1_169)
+	#PresetGame(pp_CORE_EX1_571)
+	#PresetGame(pp_CORE_EX1_573a)
+	#PresetGame(pp_CORE_EX1_573b)
+	#PresetGame(pp_CORE_EX1_573ab)
 	PresetGame(pp_CORE_LOE_050)
 	PresetGame(pp_CORE_NEW1_008a)
 	PresetGame(pp_CORE_NEW1_008b)
@@ -603,21 +603,20 @@ class pp_CORE_EX1_169(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_169',controller)#
+		controller.max_mana=6
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
 		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		assert controller.mana == 6 - self.mark1.cost + 1, "mana"
 		pass
 	pass
 ################CORE_EX1_571##################
@@ -629,21 +628,23 @@ class pp_CORE_EX1_571(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_571',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
 		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		for card in controller.field:
+			self.print_stats("field", card)
+		assert controller.field[-1].id=='EX1_158t', "treant"
+		assert controller.field[-2].id=='EX1_158t', "treant"
+		assert controller.field[-3].id=='EX1_158t', "treant"
 		pass
 	pass
 ################CORE_EX1_573##################
@@ -657,6 +658,7 @@ class pp_CORE_EX1_573a(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_573',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -664,12 +666,13 @@ class pp_CORE_EX1_573a(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
-		opponent = controller.opponent
+		assert self.mark2.atk==self.mark2.data.atk+2, "atk"
+		assert self.mark2.health==self.mark2.data.health+2, "health"
 		pass
 	pass
 class pp_CORE_EX1_573b(Preset_Play):# <12>[1637]
@@ -679,21 +682,31 @@ class pp_CORE_EX1_573b(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_573',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		id1=id2=-1
+		for card in controller.field:
+			self.print_stats("field", card)
+			if card.id=='EX1_573t':
+				if id1==-1:
+					id1 = controller.field.index(card)
+				else:
+					id2 = controller.field.index(card)
+		assert id2!=-1, "two treants"
+		assert controller.field[id1].id=='EX1_573t', "treant"
+		assert controller.field[id2].id=='EX1_573t', "treant"
+		assert controller.field[id1].taunt==True, "taune"
+		assert controller.field[id2].taunt==True, "taune"
 		pass
 	pass
 class pp_CORE_EX1_573ab(Preset_Play):# <12>[1637]
@@ -703,21 +716,41 @@ class pp_CORE_EX1_573ab(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
+
 		self.mark1=self.exchange_card('CORE_EX1_573',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
+		self.play_card(self.mark3, controller)
+		self.play_card(self.mark2, controller)
+		self.change_turn(controller)
+		self.change_turn(controller.opponent)
 		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		assert self.mark2.buff!=[], "buff"
+		assert self.mark2.atk==self.mark2.data.atk+2, "atk"
+		assert self.mark2.health==self.mark2.data.health+2, "health"
+		id1=id2=-1
+		for card in controller.field:
+			self.print_stats("field", card)
+			if card.id=='EX1_573t':
+				if id1==-1:
+					id1 = controller.field.index(card)
+				else:
+					id2 = controller.field.index(card)
+		assert id2!=-1, "two treants"
+		assert controller.field[id1].id=='EX1_573t', "treant"
+		assert controller.field[id2].id=='EX1_573t', "treant"
+		assert controller.field[id1].taunt==True, "taune"
+		assert controller.field[id2].taunt==True, "taune"
 		pass
 	pass
 ###############CORE_LOE_050###################

@@ -86,7 +86,7 @@ Violet_Teacher=True##22.6## 23.6
 Southsea_Captain=True##22.6## 23.6
 Flesheating_Ghoul=False##22.6
 Beaming_Sidekick=True## 23.6
-Vulpera_Scoundrel=True## 23.6
+Vulpera_Scoundrel=False## 23.6 ############## now preparing
 Injured_Tolvir=True## 23.6
 Stormwatcher=True##22.6## 23.6
 Humongous_Razorleaf=True##22.6## 23.6
@@ -1035,7 +1035,7 @@ if Vulpera_Scoundrel:#
 class CORE_ULD_209:# <12>[1637]
 	""" Vulpera Scoundrel
 	[Battlecry]: [Discover] a spell or pick a mystery choice. """
-	choose = ("ULD_209", "ULD_209t")
+	choose = ("CORE_ULD_209", "ULD_209t")
 	play = Discover(CONTROLLER, RandomSpell())
 class ULD_209t:
 	"""Mystery Choice!
