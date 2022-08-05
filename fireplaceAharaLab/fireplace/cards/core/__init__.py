@@ -1,6 +1,6 @@
 from .core_druid import *
 from .core_neutral import *
-from .hunter import *
+from .core_hunter import *
 from .mage import *
 #from .priest import *
 #from .rogue import *

@@ -1,16 +1,41 @@
 from ..utils import *
 
-class CORE_AT_061:# 3 1637
+
+from ..utils import *
+
+Core_Neutral=[]
+Quick_Shot=True##23.6
+Marked_Shot=True##23.6
+Tracking=True##23.6
+Arcane_Shot=True##23.6
+Savannah_Highmane=True##23.6
+King_Krush=True##23.6
+Snake_Trap=True##23.6
+Explosive_Trap=True##23.6
+Freezing_Trap=True##23.6
+Deadly_Shot=True##23.6
+Houndmaster_Shaw=True##23.6
+Dire_Frenzy=True##23.6
+Cloaked_Huntress=True##23.6
+Candleshot=True##23.6
+Animal_Companion=True##23.6
+Springpaw=True##23.6
+Selective_Breeder=True##23.6
+
+
+class CORE_AT_061:# 3 1637 ##22.6
 	""" Lock and Load
 	Each time you cast a spell this turn, add a random Hunter card to your hand. """
 	play = Buff(CONTROLLER, "AT_061e")
 	pass
-
 class AT_061e:# 3 15 
 	events = OWN_SPELL_PLAY.on(
 		Give(CONTROLLER, RandomCollectible(card_class=CardClass.HUNTER))
 	)
 
+
+if Quick_Shot:# 
+	Core_Neutral+=['CORE_BRM_013']
 class CORE_BRM_013:# 3 1637
 	""" Quick Shot
 	Deal $3 damage.If your hand is empty, draw a card. """
@@ -19,12 +44,24 @@ class CORE_BRM_013:# 3 1637
 	play = Hit(TARGET, 3), EMPTY_HAND & Draw(CONTROLLER)
 	pass
 
-class CORE_DS1_184:# 3 1637 ###############################
+if Marked_Shot:# 
+	Core_Neutral+=['CORE_DAL_371']
+class CORE_DAL_371:# <3>[1637]
+	""" Marked Shot
+	Deal $4 damage to_a_minion. [Discover]_a_spell. """
+	#
+	pass
+
+if Tracking:# 
+	Core_Neutral+=['CORE_DS1_184']
+class CORE_DS1_184:# 3 1637 #
 	""" Tracking
 	[Discover] a card from your deck. """
 	play = GenericChoiceOnDeck(CONTROLLER, FRIENDLY_DECK[:3])
 	pass
 
+if Arcane_Shot:# 
+	Core_Neutral+=['CORE_DS1_185']
 class CORE_DS1_185:# 3 1637
 	""" Arcane Shot
 	Deal $2 damage. """
@@ -32,13 +69,16 @@ class CORE_DS1_185:# 3 1637
 	play = Hit(TARGET, 2)
 	pass
 
-class CORE_EX1_531:# 3 1637
+class CORE_EX1_531:# 3 1637 ## 22.6
 	""" Scavenging Hyena
 	Whenever a friendly Beast dies, gain +2/+1. """
 	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
 	pass
 EX1_531e = buff(+2, +1)# 3 3
 
+
+if Savannah_Highmane:# 
+	Core_Neutral+=['CORE_EX1_534']
 class CORE_EX1_534:# 3 1637
 	""" Savannah Highmane
 	[Deathrattle:] Summon two 2/2 Hyenas. """
@@ -48,12 +88,18 @@ class EX1_534t:# 3 3
 	""" 2/2 Hyenas  """
 	pass
 
+
+if King_Krush:# 
+	Core_Neutral+=['CORE_EX1_543']
 class CORE_EX1_543:# 3 1637
 	""" King Krush
 	[Charge] """
 	#
 	pass
 
+
+if Snake_Trap:# 
+	Core_Neutral+=['CORE_EX1_554','EX1_554t']
 class CORE_EX1_554:# 3 1637
 	""" Snake Trap
 	[Secret:] When one of your minions is attacked, summon three 1/1 Snakes. """
@@ -61,11 +107,13 @@ class CORE_EX1_554:# 3 1637
 		Reveal(SELF), Summon(CONTROLLER, "EX1_554t") * 3
 	))
 	pass
-
 class EX1_554t:# 3 3
 	""" 1/1 snake  """
 	pass
 
+
+if Explosive_Trap:# 
+	Core_Neutral+=['CORE_EX1_610']
 class CORE_EX1_610:# 3 1637
 	""" Explosive Trap
 	[Secret:] When your hero is attacked, deal $2 damage to all enemies. """
@@ -73,6 +121,8 @@ class CORE_EX1_610:# 3 1637
 		Reveal(SELF), Hit(ENEMY_CHARACTERS, 2))
 	pass
 
+if Freezing_Trap:# 
+	Core_Neutral+=['CORE_EX1_611','EX1_611e']
 class CORE_EX1_611:# 3 1637
 	""" Freezing Trap
 	[Secret:] When an enemy minion attacks, return it to its owner's hand. It costs (2) more. """
@@ -86,6 +136,8 @@ class EX1_611e:# 3 3
 	events = REMOVED_IN_PLAY
 	tags = {GameTag.COST: +2}
 
+if Deadly_Shot:# 
+	Core_Neutral+=['CORE_EX1_617']
 class CORE_EX1_617:# 3 1637
 	""" Deadly Shot
 	Destroy a random enemy minion. """
@@ -93,13 +145,23 @@ class CORE_EX1_617:# 3 1637
 	play = Destroy(RANDOM_ENEMY_MINION)
 	pass
 
-class CORE_FP1_011:# 3 1637
+class CORE_FP1_011:# 3 1637 ## 22.6
 	""" Webspinner
 	[Deathrattle:] Add a random Beast card to your hand. """
 	deathrattle = Give(CONTROLLER, RandomBeast())
 	pass
 
-class CORE_GIL_828:# 3 1637
+if Houndmaster_Shaw:# 
+	Core_Neutral+=['CORE_GIL_650']
+class CORE_GIL_650:# <3>[1637]##########################23.6 new
+	""" Houndmaster Shaw
+	Your other minions have[Rush]. """
+	#
+	pass
+
+if Dire_Frenzy:# 
+	Core_Neutral+=['CORE_GIL_828']
+class CORE_GIL_828:# <3>[1637]
 	""" Dire Frenzy
 	Give a Beast +3/+3. Shuffle 3 copies into your deck with +3/+3. """
 	requirements = {
@@ -110,46 +172,73 @@ class CORE_GIL_828:# 3 1637
 	pass
 GIL_828e=buff(atk=3,health=3)# 12 1125
 
-class CORE_ICC_419:# 3 1637
+class CORE_ICC_419:# 3 1637 ## 22.6
 	""" Bearshark
 	Can't be targeted by spells or Hero Powers. """
 	#
 	pass
 
-class CORE_TRL_111:# 3 1637
+if Cloaked_Huntress:# 
+	Core_Neutral+=['CORE_KAR_006']
+class CORE_KAR_006:# <3>[1637] ##########23.6 new
+	""" Cloaked Huntress
+	Your [Secrets] cost (0). """
+	#
+	pass
+
+if Candleshot:# 
+	Core_Neutral+=['CORE_LOOT_222']
+class CORE_LOOT_222:# <3>[1637] ######## 23.6 new
+	""" Candleshot
+	Your hero is [Immune] while attacking. """
+	#
+	pass
+
+if Animal_Companion:# 
+	Core_Neutral+=['CORE_NEW1_031']
+class CORE_NEW1_031:# <3>[1637] ######## 23.6 new
+	""" Animal Companion
+	Summon a random Beast Companion. """
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
+	play = Summon(CONTROLLER, RandomEntourage())
+	pass
+class NEW1_032:
+	""" Misha
+	"""
+	pass
+class NEW1_033:
+	"""Leokk"""
+	update = Refresh(FRIENDLY_MINIONS - SELF, buff="NEW1_033o")
+	pass
+NEW1_033o = buff(atk=1)
+class NEW1_034:
+	""" Huffer
+	"""
+	pass
+
+class CORE_TRL_111:# 3 1637 ## 22.6
 	""" Headhunter's Hatchet
 	[Battlecry:] If youcontrol a Beast, gain+1 Durability. """
 	#
 	pass
 TRL_111e1=buff(health=1)# 12 1129
 
-class CS3_015:# 3 1637 ############################
+if Springpaw:# 
+	Core_Neutral+=['CORE_TRL_348']
+class CORE_TRL_348:# <3>[1637] #### 22.6
+	""" Springpaw
+	[Rush][Battlecry:] Add a 1/1 Lynxwith [Rush] to your hand. """
+	#
+	pass
+
+if Selective_Breeder:# 
+	Core_Neutral+=['CS3_015']
+class CS3_015:# <3>[1637]
 	""" Selective Breeder
 	[Battlecry:] [Discover] a copy of a Beast in your deck. """
 	play = GenericChoice(CONTROLLER, RANDOM(FRIENDLY_DECK+BEAST)*3)
 	pass
 
-class NEW1_031:
-	"""Animal Companion"""
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
-	play = Summon(CONTROLLER, RandomEntourage())
-	pass
-
-class NEW1_032:
-	""" Misha
-	"""
-	pass
-	
-class NEW1_033:
-	"""Leokk"""
-	update = Refresh(FRIENDLY_MINIONS - SELF, buff="NEW1_033o")
-	pass
-NEW1_033o = buff(atk=1)
-
-class NEW1_034:
-	""" Huffer
-	"""
-	pass
-	
+###############################
 
