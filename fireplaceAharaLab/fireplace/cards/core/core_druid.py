@@ -243,9 +243,9 @@ class CORE_NEW1_008:# <2>[1637##############################
 	[Choose One -] Draw 2 cards; or Restore #5 Health. """
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	choose = ("NEW1_008a", "NEW1_008b")
-	play = ChooseBoth(CONTROLLER) & (Draw(CONTROLLER), Heal(TARGET, 5))
+	play = ChooseBoth(CONTROLLER) & (Draw(CONTROLLER), Draw(CONTROLLER), Heal(TARGET, 5))
 class NEW1_008a:
-	play = Draw(CONTROLLER)
+	play = Draw(CONTROLLER)*2
 class NEW1_008b:
 	play = Heal(TARGET, 5)
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}

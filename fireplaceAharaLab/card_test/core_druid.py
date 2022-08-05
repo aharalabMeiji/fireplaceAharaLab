@@ -31,11 +31,11 @@ def core_druid():
 	#PresetGame(pp_CORE_EX1_573a)
 	#PresetGame(pp_CORE_EX1_573b)
 	#PresetGame(pp_CORE_EX1_573ab)
-	PresetGame(pp_CORE_LOE_050)
-	PresetGame(pp_CORE_NEW1_008a)
-	PresetGame(pp_CORE_NEW1_008b)
-	PresetGame(pp_CORE_NEW1_008ab)
-	PresetGame(pp_CORE_OG_044)
+	#PresetGame(pp_CORE_LOE_050)
+	#PresetGame(pp_CORE_NEW1_008a)
+	#PresetGame(pp_CORE_NEW1_008b)
+	#PresetGame(pp_CORE_NEW1_008ab)
+	#PresetGame(pp_CORE_OG_044)
 	PresetGame(pp_CORE_OG_047a)
 	PresetGame(pp_CORE_OG_047b)
 	PresetGame(pp_CORE_OG_047ab)
@@ -764,6 +764,8 @@ class pp_CORE_LOE_050(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_LOE_050',controller)#
+		self.mark2=self.exchange_card('minionA4',opponent)#
+		self.mark3=self.exchange_card('minionA4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -771,12 +773,20 @@ class pp_CORE_LOE_050(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
+		self.change_turn(controller)
+		self.play_card(self.mark2, opponent)
+		self.play_card(self.mark3, opponent)
+		self.change_turn(opponent)
 		self.play_card(self.mark1, controller)
+		self.change_turn(controller)
+		self.attack_card(self.mark3, self.mark1, opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		for card in controller.field:
+			self.print_stats("field", card)
+		assert controller.field[-1].cost==1, "cost"
 		pass
 	pass
 ################CORE_NEW1_008##################
@@ -795,14 +805,16 @@ class pp_CORE_NEW1_008a(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		for card in controller.hand:
+			self.print_stats("hand", card)
+		assert len(controller.hand)==5, "hand cards"
+		
 		pass
 	pass
 class pp_CORE_NEW1_008b(Preset_Play):# <12>[1637]
@@ -819,14 +831,16 @@ class pp_CORE_NEW1_008b(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
+
 		##########controller
-		self.play_card(self.mark1, controller)
+		Hit(controller.hero, 10).trigger(self.mark1)
+		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[1], target=controller.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		hero = controller.hero
+		assert hero.health==30-10+5, "health"
 		pass
 	pass
 class pp_CORE_NEW1_008ab(Preset_Play):# <12>[1637]
@@ -838,6 +852,7 @@ class pp_CORE_NEW1_008ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_NEW1_008',controller)#
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -845,17 +860,23 @@ class pp_CORE_NEW1_008ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark3, controller)
+		Hit(controller.hero, 10).trigger(self.mark1)
+		self.play_card(self.mark1, controller, target=controller.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		for card in controller.hand:
+			self.print_stats("hand", card)
+		assert len(controller.hand)==4, "hand cards"
+		hero = controller.hero
+		assert hero.health==30-10+5, "health"
 		pass
 	pass
 ###############CORE_OG_044###################
 
-class pp_CORE_OG_044(Preset_Play):# <12>[1637]
+class pp_CORE_OG_044(Preset_Play):# <12>[1637](4/3/5)
 	""" Fandral Staghelm
 	Your [Choose One] cards and powers have both effects combined. """
 	class1=CardClass.DRUID
@@ -864,6 +885,8 @@ class pp_CORE_OG_044(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_OG_044',controller)#
+		self.mark2=self.exchange_card('CORE_NEW1_008',controller)#
+		self.mark3=self.exchange_card('minionA5',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -872,11 +895,23 @@ class pp_CORE_OG_044(Preset_Play):# <12>[1637]
 		opponent = controller.opponent
 		##########controller
 		self.play_card(self.mark1, controller)
+		assert controller.choose_both==True, "buff"
+		assert controller.game.active_aura_buffs!=[], "aura-buff"
+		self.change_turn(controller)
+		self.play_card(self.mark3,opponent)
+		self.change_turn(opponent)
+		self.change_turn(controller)
+		self.attack_card(self.mark3, self.mark1, opponent)
+		self.change_turn(opponent)
+		assert controller.game.active_aura_buffs==[], "aura-buff"
+		assert controller.choose_both==False, "buff"
+		self.play_card(self.mark2, controller)
+		
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+
 		pass
 	pass
 ###############CORE_OG_047###################

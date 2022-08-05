@@ -94,14 +94,15 @@ class Preset_Play:
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 
 	def card_choice(self, _card):
-		from hearthstone import cardxml
+		#from hearthstone import cardxml
 		from fireplace.cards.cardlist import All
-		db, xml = cardxml.load(locale='enUS')
+		from fireplace import cards
+		#db, xml = cardxml.load(locale='enUS')
 		if _card=='arcane':
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
-					_card = db[_id]
+					_card = cards.db[_id]
 					if _card.spell_school == SpellSchool.ARCANE: 
 						choices.append(_id)
 			_card=random.choice(choices)		
@@ -111,10 +112,11 @@ class Preset_Play:
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		if _card=='beast':
 			choices=[]
-			for _id in db.keys():
-				_card = db[_id]
-				if _card.race == Race.BEAST: 
-					choices.append(_id)
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.BEAST: 
+						choices.append(_id)
 			_card=random.choice(choices)
 		if _card=='chooseone':
 			_card=random.choice(['CORE_EX1_178','CORE_EX1_165','CORE_EX1_573','CORE_EX1_160','CORE_OG_047','CORE_EX1_164','DMF_061',])
@@ -138,22 +140,23 @@ class Preset_Play:
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
-					_card = db[_id]
+					_card = cards.db[_id]
 					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==4: 
 						choices.append(_id)
 			_card=random.choice(choices)
 		if _card=='minionA4':
 			choices=[]
-			for _id in db.keys():
-				_card = db[_id]
-				if _card.type == CardType.MINION and _card.atk==4: 
-					choices.append(_id)
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.atk==4: 
+						choices.append(_id)
 			_card=random.choice(choices)
 		if _card=='minionH5':
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
-					_card = db[_id]
+					_card = cards.db[_id]
 					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==5: 
 						choices.append(_id)
 			_card=random.choice(choices)
@@ -161,7 +164,7 @@ class Preset_Play:
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
-					_card = db[_id]
+					_card = cards.db[_id]
 					if _card.type == CardType.MINION and _card.atk==5: 
 						choices.append(_id)
 			_card=random.choice(choices)
@@ -175,7 +178,7 @@ class Preset_Play:
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
-					_card = db[_id]
+					_card = cards.db[_id]
 					if _card.type == CardType.MINION and _card.taunt==False: 
 						choices.append(_id)
 			_card=random.choice(choices)
