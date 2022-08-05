@@ -265,7 +265,7 @@ class CORE_OG_047:# <2>[1637]
 	""" Feral Rage
 	[Choose One -] Give your hero +4 Attack this turn; or Gain 8 Armor. """
 	choose = ("OG_047a", "OG_047b")
-	play = ChooseBoth(SELF) & (
+	play = ChooseBoth(CONTROLLER) & (
 		Buff(FRIENDLY_HERO, "OG_047e"),
 		GainArmor(FRIENDLY_HERO, 8)
 	)

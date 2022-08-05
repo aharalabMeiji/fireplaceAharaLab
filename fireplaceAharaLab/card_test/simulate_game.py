@@ -75,12 +75,14 @@ class Preset_Play:
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
 		pass
-	def change_turn(self, player):
+	def change_turn(self, player=None):
+		if player==None:
+			player=self.current
 		game = player.game
 		if player.choice!=None:
 			postAction(player)
 		game.end_turn()
-		current = player.opponent
+		self.current = player.opponent
 		pass
 	def execute(self, testNr = 0):
 		self.testNr = testNr
@@ -189,14 +191,28 @@ class Preset_Play:
 		if _card=='secret':
 			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
 		if _card=='spell':
-			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.SPELL: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		if _card=='spellC4':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.SPELL and _card.cost==4: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		if _card=='spellpower':
 			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
 		if _card=='taunt':
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
-					_card = db[_id]
+					_card = cards.db[_id]
 					if _card.type == CardType.MINION and _card.taunt: 
 						choices.append(_id)
 			_card=random.choice(choices)
@@ -277,7 +293,9 @@ class Preset_Play:
 			print("(race=%r)"%(card.race),end="")
 		print("")
 		pass
-	def play_card(self, card,  player, target = None, choose = None):
+	def play_card(self, card,  player=None, target = None, choose = None):
+		if player==None:
+			player=card.controller
 		if isinstance(card,PlayableCard):
 			if choose != None and target!=None and target in choose.targets:
 				pass
@@ -289,7 +307,9 @@ class Preset_Play:
 				pass
 			Play(card, target, None, choose).trigger(player)
 		pass
-	def attack_card(self, card,  target, player):
+	def attack_card(self, card,  target, player=None):
+		if player==None:
+			player=card.controller
 		if isinstance(card,PlayableCard) and isinstance(target, PlayableCard):
 			if card.can_attack(target):
 				card.attack(target)

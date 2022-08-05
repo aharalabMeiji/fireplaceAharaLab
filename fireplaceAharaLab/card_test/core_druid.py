@@ -36,12 +36,13 @@ def core_druid():
 	#PresetGame(pp_CORE_NEW1_008b)
 	#PresetGame(pp_CORE_NEW1_008ab)
 	#PresetGame(pp_CORE_OG_044)
-	PresetGame(pp_CORE_OG_047a)
-	PresetGame(pp_CORE_OG_047b)
-	PresetGame(pp_CORE_OG_047ab)
+	#PresetGame(pp_CORE_OG_047a)
+	#PresetGame(pp_CORE_OG_047b)
+	#PresetGame(pp_CORE_OG_047ab)
 	PresetGame(pp_CORE_TRL_243)
 	PresetGame(pp_CORE_UNG_108)
-	PresetGame(pp_CS3_012)
+	PresetGame(pp_CS3_012x)
+	PresetGame(pp_CS3_012y)
 	## 22.6
 ##############CORE_AT_037###################
 
@@ -656,7 +657,7 @@ class pp_CORE_EX1_573a(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
+
 		self.mark1=self.exchange_card('CORE_EX1_573',controller)#
 		self.mark2=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
@@ -664,7 +665,7 @@ class pp_CORE_EX1_573a(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
+
 		##########controller
 		self.play_card(self.mark2, controller)
 		self.play_card(self.mark1, controller, choose=self.mark1.choose_cards[0])
@@ -798,7 +799,6 @@ class pp_CORE_NEW1_008a(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_NEW1_008',controller)#
 		super().preset_deck()
 		pass
@@ -824,7 +824,6 @@ class pp_CORE_NEW1_008b(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_NEW1_008',controller)#
 		super().preset_deck()
 		pass
@@ -850,7 +849,6 @@ class pp_CORE_NEW1_008ab(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_NEW1_008',controller)#
 		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
@@ -858,7 +856,6 @@ class pp_CORE_NEW1_008ab(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
 		self.play_card(self.mark3, controller)
 		Hit(controller.hero, 10).trigger(self.mark1)
@@ -923,21 +920,21 @@ class pp_CORE_OG_047a(Preset_Play):# <12>[1637]
 	class2=CardClass.DRUID
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_OG_047',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, choose=self.mark1.choose_cards[0])
+		assert controller.hero.atk==4, "Hero's atk"
+		self.change_turn()
+		self.change_turn()
+		assert controller.hero.atk==0, "Hero's atk"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
-		opponent = controller.opponent
 		pass
 	pass
 class pp_CORE_OG_047b(Preset_Play):# <12>[1637]
@@ -954,14 +951,12 @@ class pp_CORE_OG_047b(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1, choose=self.mark1.choose_cards[1])
+		assert controller.hero.armor==8, "armor"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
-		opponent = controller.opponent
 		pass
 	pass
 class pp_CORE_OG_047ab(Preset_Play):# <12>[1637]
@@ -973,6 +968,7 @@ class pp_CORE_OG_047ab(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_OG_047',controller)#
+		self.mark3=self.exchange_card('CORE_OG_044',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -980,12 +976,17 @@ class pp_CORE_OG_047ab(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark3)
+		self.play_card(self.mark1)
+		assert controller.hero.armor==8, "armor"
+		assert controller.hero.atk==4, "Hero's atk"
+		self.change_turn()
+		self.change_turn()
+		assert controller.hero.armor==8, "armor"
+		assert controller.hero.atk==0, "Hero's atk"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
-		opponent = controller.opponent
 		pass
 	pass
 ###############CORE_TRL_243###################
@@ -1006,12 +1007,15 @@ class pp_CORE_TRL_243(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1)
+		assert controller.hero.atk==2, "Hero's atk"
+		self.change_turn()
+		self.change_turn()
+		assert controller.hero.atk==0, "Hero's atk"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
 		pass
 	pass###############CORE_UNG_108###################
 
@@ -1024,6 +1028,7 @@ class pp_CORE_UNG_108(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_UNG_108',controller)#
+		self.mark2=self.exchange_card('minionA4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1031,17 +1036,24 @@ class pp_CORE_UNG_108(Preset_Play):# <12>[1637]
 		controller = self.player
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark2)
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
+		self.play_card(self.mark1, target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		opponent = controller.opponent
+		assert self.mark2.buffs!=[], "buff"
+		assert self.mark2.buffs[0].id=='UNG_108e', "buff"
+		assert controller.hero.armor==self.mark2.atk, "armor"
 		pass
 	pass
 ###############CS3_012###################
 
-class pp_CS3_012(Preset_Play):# <12>[1637]
+class pp_CS3_012x(Preset_Play):# <12>[1637]
 	""" Nordrassil Druid
 	[Battlecry:] The next spell you cast this turn costs_(3)_less. """
 	class1=CardClass.DRUID
@@ -1050,19 +1062,55 @@ class pp_CS3_012(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CS3_012',controller)#
+		self.mark2=self.exchange_card('spellC4',controller)#
+		self.mark3=self.exchange_card('spellC4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
+		for card in controller.hand:
+			self.print_stats("hand", card)
 		opponent = controller.opponent
 		##########controller
-		self.play_card(self.mark1, controller)
+		self.play_card(self.mark1)
+		assert self.mark2.cost == self.mark2.data.cost-3, "cost"
+		assert self.mark3.cost == self.mark3.data.cost-3, "cost"
+		self.change_turn()
+		assert self.mark3.cost == self.mark3.data.cost, "cost"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
+		pass
+	pass
+class pp_CS3_012y(Preset_Play):# <12>[1637]
+	""" Nordrassil Druid
+	[Battlecry:] The next spell you cast this turn costs_(3)_less. """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
+	def preset_deck(self):
+		controller=self.player
 		opponent = controller.opponent
+		self.mark1=self.exchange_card('CS3_012',controller)#
+		self.mark2=self.exchange_card('spellC4',controller)#
+		self.mark3=self.exchange_card('spellC4',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		for card in controller.hand:
+			self.print_stats("hand", card)
+		opponent = controller.opponent
+		##########controller
+		self.play_card(self.mark1)
+		assert self.mark2.cost == self.mark2.data.cost-3, "cost"
+		assert self.mark3.cost == self.mark3.data.cost-3, "cost"
+		self.play_card(self.mark2)
+		assert self.mark3.cost == self.mark3.data.cost, "cost"
+		pass
+	def result_inspection(self):
+		super().result_inspection()
 		pass
 	pass
 ##################################
