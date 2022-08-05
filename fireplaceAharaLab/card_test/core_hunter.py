@@ -3,12 +3,14 @@ from hearthstone.enums import Zone,CardType, Rarity,CardClass, GameTag
 
 #from fireplace.cards.core.core_hunter import * 
 from fireplace.actions import *
+from utils import postAction
 
 ##################################
 
 def core_hunter():
 	## 23.6
-	PresetGame(pp_CORE_BRM_013)
+	#PresetGame(pp_CORE_BRM_013x)
+	#PresetGame(pp_CORE_BRM_013y)
 	PresetGame(pp_CORE_DAL_371)
 	PresetGame(pp_CORE_DS1_184)
 	PresetGame(pp_CORE_DS1_185)
@@ -35,7 +37,7 @@ def core_hunter():
 
 ################CORE_BRM_013#################
 
-class pp_CORE_BRM_013(Preset_Play):# <12>[1637]
+class pp_CORE_BRM_013x(Preset_Play):# <12>[1637]
 	""" Quick Shot
 	Deal $3 damage.If your hand is empty, draw a card. """
 	class1=CardClass.HUNTER
@@ -49,10 +51,42 @@ class pp_CORE_BRM_013(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		##########controller
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.player.opponent.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.player.opponent.hero.health==30-3, "damage"
+		pass
+	pass
+class pp_CORE_BRM_013y(Preset_Play):# <12>[1637]
+	""" Quick Shot
+	Deal $3 damage.If your hand is empty, draw a card. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		controller=self.player
+		#opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_BRM_013',controller)#
+		for card in self.player.hand:
+			self.print_stats("hand", card)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		##########controller
+		self.play_card(self.player.hand[0])
+		self.play_card(self.player.hand[0])
+		self.change_turn()
+		self.change_turn()
+		self.play_card(self.player.hand[0])
+		self.play_card(self.mark1, target=self.player.opponent.hero)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		assert self.player.opponent.hero.health==30-3, "damage"
+		for card in self.player.hand:
+			self.print_stats("hand", card)
+		assert len(self.player.hand)==1, "hand"
 		pass
 	pass
 
@@ -64,18 +98,27 @@ class pp_CORE_DAL_371(Preset_Play):# <12>[1637]
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
-		controller=self.player
-		#opponent = controller.opponent
-		self.mark1=self.exchange_card('CORE_DAL_371',controller)#
+		self.controller=self.player
+		self.opponent = self.controller.opponent
+		self.mark1=self.exchange_card('CORE_DAL_371',self.controller)#
+		self.mark2=self.exchange_card('minionH5',self.opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
-		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1, target=self.mark2)
+		postAction(self.controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark2.health==5-4, "health=%d"%(self.mark2.health)
+		assert self.controller.hand[-1].type==CardType.SPELL, "draw spell"
 		pass
 	pass
 

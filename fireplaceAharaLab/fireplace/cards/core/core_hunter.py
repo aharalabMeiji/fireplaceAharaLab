@@ -1,9 +1,7 @@
 from ..utils import *
 
 
-from ..utils import *
-
-Core_Neutral=[]
+Core_Hunter=[]
 Quick_Shot=True##23.6
 Marked_Shot=True##23.6
 Tracking=True##23.6
@@ -35,7 +33,7 @@ class AT_061e:# 3 15
 
 
 if Quick_Shot:# 
-	Core_Neutral+=['CORE_BRM_013']
+	Core_Hunter+=['CORE_BRM_013']
 class CORE_BRM_013:# 3 1637
 	""" Quick Shot
 	Deal $3 damage.If your hand is empty, draw a card. """
@@ -45,15 +43,16 @@ class CORE_BRM_013:# 3 1637
 	pass
 
 if Marked_Shot:# 
-	Core_Neutral+=['CORE_DAL_371']
+	Core_Hunter+=['CORE_DAL_371']
 class CORE_DAL_371:# <3>[1637]
 	""" Marked Shot
 	Deal $4 damage to_a_minion. [Discover]_a_spell. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_MINION_TARGET:0,}
+	play = Hit(TARGET, 4), Discover(CONTROLLER, RandomSpell())
 	pass
 
 if Tracking:# 
-	Core_Neutral+=['CORE_DS1_184']
+	Core_Hunter+=['CORE_DS1_184']
 class CORE_DS1_184:# 3 1637 #
 	""" Tracking
 	[Discover] a card from your deck. """
@@ -61,7 +60,7 @@ class CORE_DS1_184:# 3 1637 #
 	pass
 
 if Arcane_Shot:# 
-	Core_Neutral+=['CORE_DS1_185']
+	Core_Hunter+=['CORE_DS1_185']
 class CORE_DS1_185:# 3 1637
 	""" Arcane Shot
 	Deal $2 damage. """
@@ -78,7 +77,7 @@ EX1_531e = buff(+2, +1)# 3 3
 
 
 if Savannah_Highmane:# 
-	Core_Neutral+=['CORE_EX1_534']
+	Core_Hunter+=['CORE_EX1_534']
 class CORE_EX1_534:# 3 1637
 	""" Savannah Highmane
 	[Deathrattle:] Summon two 2/2 Hyenas. """
@@ -90,7 +89,7 @@ class EX1_534t:# 3 3
 
 
 if King_Krush:# 
-	Core_Neutral+=['CORE_EX1_543']
+	Core_Hunter+=['CORE_EX1_543']
 class CORE_EX1_543:# 3 1637
 	""" King Krush
 	[Charge] """
@@ -99,7 +98,7 @@ class CORE_EX1_543:# 3 1637
 
 
 if Snake_Trap:# 
-	Core_Neutral+=['CORE_EX1_554','EX1_554t']
+	Core_Hunter+=['CORE_EX1_554','EX1_554t']
 class CORE_EX1_554:# 3 1637
 	""" Snake Trap
 	[Secret:] When one of your minions is attacked, summon three 1/1 Snakes. """
@@ -113,7 +112,7 @@ class EX1_554t:# 3 3
 
 
 if Explosive_Trap:# 
-	Core_Neutral+=['CORE_EX1_610']
+	Core_Hunter+=['CORE_EX1_610']
 class CORE_EX1_610:# 3 1637
 	""" Explosive Trap
 	[Secret:] When your hero is attacked, deal $2 damage to all enemies. """
@@ -122,7 +121,7 @@ class CORE_EX1_610:# 3 1637
 	pass
 
 if Freezing_Trap:# 
-	Core_Neutral+=['CORE_EX1_611','EX1_611e']
+	Core_Hunter+=['CORE_EX1_611','EX1_611e']
 class CORE_EX1_611:# 3 1637
 	""" Freezing Trap
 	[Secret:] When an enemy minion attacks, return it to its owner's hand. It costs (2) more. """
@@ -137,7 +136,7 @@ class EX1_611e:# 3 3
 	tags = {GameTag.COST: +2}
 
 if Deadly_Shot:# 
-	Core_Neutral+=['CORE_EX1_617']
+	Core_Hunter+=['CORE_EX1_617']
 class CORE_EX1_617:# 3 1637
 	""" Deadly Shot
 	Destroy a random enemy minion. """
@@ -152,7 +151,7 @@ class CORE_FP1_011:# 3 1637 ## 22.6
 	pass
 
 if Houndmaster_Shaw:# 
-	Core_Neutral+=['CORE_GIL_650']
+	Core_Hunter+=['CORE_GIL_650']
 class CORE_GIL_650:# <3>[1637]##########################23.6 new
 	""" Houndmaster Shaw
 	Your other minions have[Rush]. """
@@ -160,7 +159,7 @@ class CORE_GIL_650:# <3>[1637]##########################23.6 new
 	pass
 
 if Dire_Frenzy:# 
-	Core_Neutral+=['CORE_GIL_828']
+	Core_Hunter+=['CORE_GIL_828']
 class CORE_GIL_828:# <3>[1637]
 	""" Dire Frenzy
 	Give a Beast +3/+3. Shuffle 3 copies into your deck with +3/+3. """
@@ -179,7 +178,7 @@ class CORE_ICC_419:# 3 1637 ## 22.6
 	pass
 
 if Cloaked_Huntress:# 
-	Core_Neutral+=['CORE_KAR_006']
+	Core_Hunter+=['CORE_KAR_006']
 class CORE_KAR_006:# <3>[1637] ##########23.6 new
 	""" Cloaked Huntress
 	Your [Secrets] cost (0). """
@@ -187,7 +186,7 @@ class CORE_KAR_006:# <3>[1637] ##########23.6 new
 	pass
 
 if Candleshot:# 
-	Core_Neutral+=['CORE_LOOT_222']
+	Core_Hunter+=['CORE_LOOT_222']
 class CORE_LOOT_222:# <3>[1637] ######## 23.6 new
 	""" Candleshot
 	Your hero is [Immune] while attacking. """
@@ -195,7 +194,7 @@ class CORE_LOOT_222:# <3>[1637] ######## 23.6 new
 	pass
 
 if Animal_Companion:# 
-	Core_Neutral+=['CORE_NEW1_031']
+	Core_Hunter+=['CORE_NEW1_031']
 class CORE_NEW1_031:# <3>[1637] ######## 23.6 new
 	""" Animal Companion
 	Summon a random Beast Companion. """
@@ -225,7 +224,7 @@ class CORE_TRL_111:# 3 1637 ## 22.6
 TRL_111e1=buff(health=1)# 12 1129
 
 if Springpaw:# 
-	Core_Neutral+=['CORE_TRL_348']
+	Core_Hunter+=['CORE_TRL_348']
 class CORE_TRL_348:# <3>[1637] #### 22.6
 	""" Springpaw
 	[Rush][Battlecry:] Add a 1/1 Lynxwith [Rush] to your hand. """
@@ -233,7 +232,7 @@ class CORE_TRL_348:# <3>[1637] #### 22.6
 	pass
 
 if Selective_Breeder:# 
-	Core_Neutral+=['CS3_015']
+	Core_Hunter+=['CS3_015']
 class CS3_015:# <3>[1637]
 	""" Selective Breeder
 	[Battlecry:] [Discover] a copy of a Beast in your deck. """
