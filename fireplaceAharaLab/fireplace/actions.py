@@ -10,7 +10,7 @@ from .entity import Entity
 from .exceptions import InvalidAction
 from .logging import log
 from .utils import random_class
-
+from .config import Config
 
 def _eval_card(source, card):
 	"""
@@ -1242,6 +1242,8 @@ class Hit(TargetedAction):
 	AMOUNT = ActionArg()
 
 	def do(self, source, target, amount):
+		if Config.LOGINFO:
+			Config.LOGINFO_LOG.append("Hit,%s,%s,%d,None"%(source, target, amount))
 		amount = source.get_damage(amount, target)
 		if amount:
 			#if isinstance(source,PlayableCard):

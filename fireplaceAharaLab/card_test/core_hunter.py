@@ -4,29 +4,30 @@ from hearthstone.enums import Zone,CardType, Rarity,CardClass, GameTag, Race
 #from fireplace.cards.core.core_hunter import * 
 from fireplace.actions import *
 from utils import postAction
+from fireplace.config import Config
 
 ##################################
 
 def core_hunter():
 	## 23.6
-	PresetGame(pp_CORE_BRM_013x)
-	PresetGame(pp_CORE_BRM_013y)
-	PresetGame(pp_CORE_DAL_371)
-	PresetGame(pp_CORE_DS1_184)
-	PresetGame(pp_CORE_DS1_185)
-	PresetGame(pp_CORE_EX1_534)
-	PresetGame(pp_CORE_EX1_543)
-	PresetGame(pp_CORE_EX1_554)
-	PresetGame(pp_CORE_EX1_610)
-	PresetGame(pp_CORE_EX1_611)
-	PresetGame(pp_CORE_EX1_617)
-	PresetGame(pp_CORE_GIL_650)
-	PresetGame(pp_CORE_GIL_828)
-	PresetGame(pp_CORE_KAR_006)
-	PresetGame(pp_CORE_LOOT_222)
-	PresetGame(pp_CORE_NEW1_031)
-	PresetGame(pp_NEW1_033)
-	PresetGame(pp_CORE_TRL_348)
+	#PresetGame(pp_CORE_BRM_013x)
+	#PresetGame(pp_CORE_BRM_013y)
+	#PresetGame(pp_CORE_DAL_371)
+	#PresetGame(pp_CORE_DS1_184)
+	#PresetGame(pp_CORE_DS1_185)
+	#PresetGame(pp_CORE_EX1_534)
+	#PresetGame(pp_CORE_EX1_543)
+	#PresetGame(pp_CORE_EX1_554)
+	#PresetGame(pp_CORE_EX1_610)
+	#PresetGame(pp_CORE_EX1_611)
+	#PresetGame(pp_CORE_EX1_617)
+	#PresetGame(pp_CORE_GIL_650)
+	#PresetGame(pp_CORE_GIL_828)
+	#PresetGame(pp_CORE_KAR_006)
+	#PresetGame(pp_CORE_LOOT_222)
+	#PresetGame(pp_CORE_NEW1_031)
+	#PresetGame(pp_NEW1_033)
+	#PresetGame(pp_CORE_TRL_348)
 	PresetGame(pp_CS3_015)
 	## 22.6
 	#PresetGame(pp_CORE_AT_061)
@@ -74,11 +75,10 @@ class pp_CORE_BRM_013y(Preset_Play):# <12>[1637]
 	def preset_play(self):
 		super().preset_play()
 		##########controller
-		self.play_card(self.player.hand[0])
-		self.play_card(self.player.hand[0])
-		self.change_turn()
-		self.change_turn()
-		self.play_card(self.player.hand[0])
+		while True:
+			Destroy(self.player.hand[0]).trigger(self.player)
+			if len(self.player.hand)==1:
+				break;
 		self.play_card(self.mark1, target=self.player.opponent.hero)
 		pass
 	def result_inspection(self):
@@ -315,8 +315,8 @@ class pp_CORE_EX1_610(Preset_Play):# <12>[1637]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		assert self.mark2.health==4-2, "health"
-		assert self.player.opponent.hero.health==30-2, "health=%d"%(self.player.opponent.hero.health)
+		assert "Hit,%s,%s,2,None"%(self.mark1, self.mark2) in Config.LOGINFO_LOG, "loginfo"
+		assert "Hit,%s,%s,2,None"%(self.mark1, self.player.opponent.hero) in Config.LOGINFO_LOG, "loginfo"
 		assert self.player.secrets==[]
 		pass
 	pass
@@ -535,7 +535,7 @@ class pp_CORE_LOOT_222(Preset_Play):# <12>[1637]
 	def result_inspection(self):
 		super().result_inspection()
 		assert self.player.hero.health==self.n1, "health"
-		assert self.mark3.health<self.n0, "health"
+		assert 'Hit,%s,%s,1,None'%(self.player.hero, self.mark3) in Config.LOGINFO_LOG, "loginfo"
 		pass
 	pass
 

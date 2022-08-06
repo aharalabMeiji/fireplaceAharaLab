@@ -68,6 +68,7 @@ class Preset_Play:
 		#print ("")
 		#print ("")
 		#print ("")
+		Config.LOGINFO_LOG=[]
 		pass
 	def preset_play(self):
 		pass
