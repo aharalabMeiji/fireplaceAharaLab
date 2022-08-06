@@ -77,7 +77,7 @@ EX1_531e = buff(+2, +1)# 3 3
 
 
 if Savannah_Highmane:# 
-	Core_Hunter+=['CORE_EX1_534']
+	Core_Hunter+=['CORE_EX1_534','EX1_534t']
 class CORE_EX1_534:# 3 1637
 	""" Savannah Highmane
 	[Deathrattle:] Summon two 2/2 Hyenas. """

@@ -11,14 +11,14 @@ def core_hunter():
 	## 23.6
 	#PresetGame(pp_CORE_BRM_013x)
 	#PresetGame(pp_CORE_BRM_013y)
-	PresetGame(pp_CORE_DAL_371)
-	PresetGame(pp_CORE_DS1_184)
-	PresetGame(pp_CORE_DS1_185)
-	PresetGame(pp_CORE_EX1_534)
-	PresetGame(pp_CORE_EX1_543)
-	PresetGame(pp_CORE_EX1_554)
-	PresetGame(pp_CORE_EX1_610)
-	PresetGame(pp_CORE_EX1_611)
+	#PresetGame(pp_CORE_DAL_371)
+	#PresetGame(pp_CORE_DS1_184)
+	#PresetGame(pp_CORE_DS1_185)
+	#PresetGame(pp_CORE_EX1_534)
+	#PresetGame(pp_CORE_EX1_543)
+	#PresetGame(pp_CORE_EX1_554)
+	#PresetGame(pp_CORE_EX1_610)
+	#PresetGame(pp_CORE_EX1_611)
 	PresetGame(pp_CORE_EX1_617)
 	PresetGame(pp_CORE_GIL_650)
 	PresetGame(pp_CORE_GIL_828)
@@ -130,18 +130,29 @@ class pp_CORE_DS1_184(Preset_Play):# <12>[1637]
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
-		controller=self.player
-		#opponent = controller.opponent
-		self.mark1=self.exchange_card('CORE_DS1_184',controller)#
+		self.controller=self.player
+		self.opponent = self.controller.opponent
+		self.mark1=self.exchange_card('CORE_DS1_184',self.controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
+		self.ids=[]
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+			self.ids.append(card.id)
 		self.play_card(self.mark1)
+		postAction(self.controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		ids2=[]
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+			ids2.append(card.id)
+		assert self.ids[0]==ids2[0] and self.ids[1]==ids2[1] and self.ids[2]==ids2[2], "card"
+		assert len(self.controller.hand)==4, "hand"
 		pass
 	pass
 
@@ -153,41 +164,61 @@ class pp_CORE_DS1_185(Preset_Play):# <12>[1637]
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
-		controller=self.player
-		#opponent = controller.opponent
-		self.mark1=self.exchange_card('CORE_DS1_185',controller)#
+		self.controller=self.player
+		self.opponent = self.controller.opponent
+		self.mark1=self.exchange_card('CORE_DS1_185',self.controller)#
+		self.mark2=self.exchange_card('minionH4',self.opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
-		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1, target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark2.health==self.mark2.data.health-2
 		pass
 	pass
 
 ################CORE_EX1_534#################
 
-class pp_CORE_EX1_534(Preset_Play):# <12>[1637]
-	""" Savannah Highmane
+class pp_CORE_EX1_534(Preset_Play):# <12>[1637] 
+	""" Savannah Highmane (6/6/5)
 	[Deathrattle:] Summon two 2/2 Hyenas. """
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
-		controller=self.player
-		#opponent = controller.opponent
-		self.mark1=self.exchange_card('CORE_EX1_534',controller)#
+		self.controller=self.player
+		self.opponent = self.controller.opponent
+		self.mark1=self.exchange_card('CORE_EX1_534',self.controller)#
+		self.mark2=self.exchange_card('minionA6',self.opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
 		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		self.attack_card(self.mark2, self.mark1)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card)
+		assert self.controller.field[-1].id=='EX1_534t', "field"
+		assert self.controller.field[-2].id=='EX1_534t', "field"
 		pass
 	pass
 
@@ -211,6 +242,8 @@ class pp_CORE_EX1_543(Preset_Play):# <12>[1637]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark1.charge==True, "charge"
+		assert self.mark1.attack_targets[0]==self.player.opponent.hero, "target"
 		pass
 	pass
 
@@ -223,17 +256,33 @@ class pp_CORE_EX1_554(Preset_Play):# <12>[1637]
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_554',controller)#
+		self.mark2=self.exchange_card('minionH5',controller)#
+		self.mark3=self.exchange_card('minionA4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		##########controller
+		##########con
 		self.play_card(self.mark1)
+		self.change_turn()
+		####
+		self.play_card(self.mark3)
+		self.change_turn()
+		####
+		self.play_card(self.mark2)
+		self.change_turn()
+		####
+		self.attack_card(self.mark3, self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		controller=self.player
+		assert controller.secrets==[], "secret"
+		assert controller.field[-1].id=='EX1_554t', 'field'
+		assert controller.field[-2].id=='EX1_554t', 'field'
+		assert controller.field[-3].id=='EX1_554t', 'field'
 		pass
 	pass
 
@@ -246,17 +295,29 @@ class pp_CORE_EX1_610(Preset_Play):# <12>[1637]
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_610',controller)#
+		self.mark2=self.exchange_card('minionH4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		##########controller
+		#### con
 		self.play_card(self.mark1)
+		self.change_turn()
+		#### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		#### con
+		self.change_turn()
+		#### opp
+		self.attack_card(self.mark2, self.player.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark2.health==4-2, "health"
+		assert self.player.opponent.hero.health==30-2, "health=%d"%(self.player.opponent.hero.health)
+		assert self.player.secrets==[]
 		pass
 	pass
 
@@ -269,17 +330,30 @@ class pp_CORE_EX1_611(Preset_Play):# <12>[1637]
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_611',controller)#
+		self.mark2=self.exchange_card('minionH4',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		##########controller
+		### con
 		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.change_turn()
+		### opp
+		self.attack_card(self.mark2, self.player.hero)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert len(self.player.opponent.field)==0, "opp field"
+		assert self.mark2 in self.player.opponent.hand, "hand"
+		assert self.mark2.cost==self.mark2.data.cost+2, "cost"
+		assert self.player.secrets==[], "secret"
 		pass
 	pass
 
@@ -292,8 +366,9 @@ class pp_CORE_EX1_617(Preset_Play):# <12>[1637]
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_617',controller)#
+		self.mark1=self.exchange_card('minionH4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):

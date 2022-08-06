@@ -112,6 +112,10 @@ class BaseCard(BaseEntity):
 			Zone.GRAVEYARD: self.controller.graveyard,
 			Zone.SETASIDE: self.game.setaside,
 		}
+		if old==Zone.PLAY and self.type==CardType.MINION:
+			if self in self.controller.field:
+				self.controller.field.remove(self)
+		## here no way to 'field(play) -> ***' below
 		if caches.get(old) is not None:
 			if self in caches[old]:# 
 				caches[old].remove(self)
