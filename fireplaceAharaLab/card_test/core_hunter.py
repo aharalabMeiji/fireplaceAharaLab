@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from hearthstone.enums import Zone,CardType, Rarity,CardClass, GameTag
+from hearthstone.enums import Zone,CardType, Rarity,CardClass, GameTag, Race
 
 #from fireplace.cards.core.core_hunter import * 
 from fireplace.actions import *
@@ -9,16 +9,16 @@ from utils import postAction
 
 def core_hunter():
 	## 23.6
-	#PresetGame(pp_CORE_BRM_013x)
-	#PresetGame(pp_CORE_BRM_013y)
-	#PresetGame(pp_CORE_DAL_371)
-	#PresetGame(pp_CORE_DS1_184)
-	#PresetGame(pp_CORE_DS1_185)
-	#PresetGame(pp_CORE_EX1_534)
-	#PresetGame(pp_CORE_EX1_543)
-	#PresetGame(pp_CORE_EX1_554)
-	#PresetGame(pp_CORE_EX1_610)
-	#PresetGame(pp_CORE_EX1_611)
+	PresetGame(pp_CORE_BRM_013x)
+	PresetGame(pp_CORE_BRM_013y)
+	PresetGame(pp_CORE_DAL_371)
+	PresetGame(pp_CORE_DS1_184)
+	PresetGame(pp_CORE_DS1_185)
+	PresetGame(pp_CORE_EX1_534)
+	PresetGame(pp_CORE_EX1_543)
+	PresetGame(pp_CORE_EX1_554)
+	PresetGame(pp_CORE_EX1_610)
+	PresetGame(pp_CORE_EX1_611)
 	PresetGame(pp_CORE_EX1_617)
 	PresetGame(pp_CORE_GIL_650)
 	PresetGame(pp_CORE_GIL_828)
@@ -442,15 +442,28 @@ class pp_CORE_GIL_828(Preset_Play):# <12>[1637]
 		controller=self.player
 		#opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_GIL_828',controller)#
+		self.mark2=self.exchange_card('beast',controller)#
+		self.n1=self.mark2.atk
+		self.n2=self.mark2.health
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
-		self.play_card(self.mark1)
+		assert self.mark2.race==Race.BEAST, "race"
+		self.play_card(self.mark2)
+		self.play_card(self.mark1, target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert len(self.mark2.buffs)>0, "buff"
+		assert self.mark2.atk == self.n1+3, "atk up = %d"%(self.mark2.atk - self.n1)
+		assert self.mark2.health== self.n2+3, "health"
+		for card in self.player.deck:
+			if card.id==self.mark2.id:
+				assert len(card.buffs)>0, "buff"
+				assert card.atk == self.n1+3, "atk"
+				assert card.health== self.n2+3, "health"
 		pass
 	pass
 
@@ -465,15 +478,26 @@ class pp_CORE_KAR_006(Preset_Play):# <12>[1637]
 		controller=self.player
 		#opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_KAR_006',controller)#
+		self.mark2=self.exchange_card('secret',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
 		self.play_card(self.mark1)
+		for card in self.player.hand:
+			self.print_stats("hand", card,old_cost=True)
+			if card.data.secret:
+				assert card.cost==0, "cost"
+		Hit(self.mark1, 10).trigger(self.player)
+		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		for card in self.player.hand:
+			self.print_stats("hand", card,old_cost=True)
+			if card.data.secret:
+				assert card.cost!=0, "cost"
 		pass
 	pass
 
@@ -486,17 +510,32 @@ class pp_CORE_LOOT_222(Preset_Play):# <12>[1637]
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_LOOT_222',controller)#
+		self.mark3=self.exchange_card('minionA5',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
 		self.play_card(self.mark1)
+		assert self.player.hero.immune_while_attacking==True, "immune"
+		#self.play_card(self.mark2)
+		assert self.player.hero.atk>0, "hero atk"
+		self.change_turn()
+		### opp
+		self.play_card(self.mark3)
+		self.n0=self.mark3.health
+		self.change_turn()
+		### con
+		self.n1=self.player.hero.health
+		assert self.player.hero.immune_while_attacking==True, "immune"
+		self.attack_card(self.player.hero, self.mark3)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.player.hero.health==self.n1, "health"
+		assert self.mark3.health<self.n0, "health"
 		pass
 	pass
 
@@ -520,6 +559,8 @@ class pp_CORE_NEW1_031(Preset_Play):# <12>[1637]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		card = self.player.field[0]
+		assert card.id=='NEW1_032' or card.id=='NEW1_033' or card.id=='NEW1_034', "beast companion"
 		pass
 	pass
 
@@ -527,30 +568,37 @@ class pp_CORE_NEW1_031(Preset_Play):# <12>[1637]
 
 class pp_NEW1_033(Preset_Play):# <12>[1637]
 	"""Leokk 
-	"""
+	Your other minions have +1 Attack."""
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		controller=self.player
 		#opponent = controller.opponent
 		self.mark1=self.exchange_card('NEW1_033',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
+		self.n1=self.mark2.atk
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		##########controller
 		self.play_card(self.mark1)
+		self.play_card(self.mark2)
+		assert self.mark2.atk==self.n1+1, "attack"
+		Hit(self.mark1,10).trigger(self.player)
+		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark2.atk==self.n1, "attack"
 		pass
 	pass
 
 #################CORE_TRL_348################
 
 class pp_CORE_TRL_348(Preset_Play):# <12>[1637]
-	""" Selective Breeder
-	[Battlecry:] [Discover] a copy of a Beast in your deck. """
+	""" Springpaw
+	[Rush][Battlecry:] Add a 1/1 Lynxwith [Rush] to your hand."""
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
@@ -566,14 +614,20 @@ class pp_CORE_TRL_348(Preset_Play):# <12>[1637]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		exist=False
+		for card in self.player.hand:
+			self.print_stats("hand", card)
+			if card.id=='TRL_348t':
+				exist=True
+		assert exist==True, "exist"
 		pass
 	pass
 
 #################CS3_015################
 
 class pp_CS3_015(Preset_Play):# <12>[1637]
-	""" Living Roots
-	[Choose One -] Deal $2 damage; or Summon two 1/1 Saplings. """
+	""" Selective Breeder
+	[Battlecry:] [Discover] a copy of a Beast in your deck. """
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
@@ -586,9 +640,18 @@ class pp_CS3_015(Preset_Play):# <12>[1637]
 		super().preset_play()
 		##########controller
 		self.play_card(self.mark1)
+		postAction(self.player)
+		self.newcard = self.player.hand[-1]
+		assert self.newcard.race==Race.BEAST, "beast"
+		self.n1=self.newcard.id
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		exist=False
+		for card in self.player.deck:
+			if card.id==self.n1:
+				exist=True
+		assert exist==True, "exist"
 		pass
 	pass
 

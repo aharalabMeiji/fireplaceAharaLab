@@ -205,7 +205,13 @@ class Preset_Play:
 		if _card=='rush':
 			_card=random.choice(['YOP_031'])
 		if _card=='secret':
-			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.SPELL and _card.secret: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		if _card=='spell':
 			choices=[]
 			for cardIDlist in All:

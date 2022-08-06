@@ -159,15 +159,15 @@ class CORE_GIL_650:# <3>[1637]##########################23.6 new
 	pass
 
 if Dire_Frenzy:# 
-	Core_Hunter+=['CORE_GIL_828']
+	Core_Hunter+=['CORE_GIL_828','GIL_828e']
 class CORE_GIL_828:# <3>[1637]
 	""" Dire Frenzy
 	Give a Beast +3/+3. Shuffle 3 copies into your deck with +3/+3. """
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0,
-		PlayReq.REQ_TARGET_WITH_RACE: 20}
-	play = Buff(TARGET,'GIL_828e'),ShuffleBuff(CONTROLLER,Copy(TARGET),'GIL_828e')
+		PlayReq.REQ_TARGET_WITH_RACE: 20,}
+	play = Buff(TARGET,'GIL_828e'),Shuffle(CONTROLLER,ExactCopy(TARGET)),Shuffle(CONTROLLER,ExactCopy(TARGET)),Shuffle(CONTROLLER,ExactCopy(TARGET))
 	pass
 GIL_828e=buff(atk=3,health=3)# 12 1125
 
@@ -182,7 +182,7 @@ if Cloaked_Huntress:#
 class CORE_KAR_006:# <3>[1637] ##########23.6 new
 	""" Cloaked Huntress
 	Your [Secrets] cost (0). """
-	#
+	update = Refresh(FRIENDLY_HAND + SECRET, {GameTag.COST: SET(0)})
 	pass
 
 if Candleshot:# 
@@ -190,11 +190,11 @@ if Candleshot:#
 class CORE_LOOT_222:# <3>[1637] ######## 23.6 new
 	""" Candleshot
 	Your hero is [Immune] while attacking. """
-	#
+	update = Refresh(FRIENDLY_HERO, {GameTag.IMMUNE_WHILE_ATTACKING:True})
 	pass
 
 if Animal_Companion:# 
-	Core_Hunter+=['CORE_NEW1_031']
+	Core_Hunter+=['CORE_NEW1_031','NEW1_032','NEW1_033','NEW1_033o','NEW1_034']
 class CORE_NEW1_031:# <3>[1637] ######## 23.6 new
 	""" Animal Companion
 	Summon a random Beast Companion. """
@@ -218,17 +218,20 @@ class NEW1_034:
 
 class CORE_TRL_111:# 3 1637 ## 22.6
 	""" Headhunter's Hatchet
-	[Battlecry:] If youcontrol a Beast, gain+1 Durability. """
-	#
+	[Battlecry:] If you control a Beast, gain+1 Durability. """
+	powered_up = Find(FRIENDLY_MINIONS + BEAST)
+	play = powered_up & (Buff(SELF, 'TRL_111e1'))
 	pass
 TRL_111e1=buff(health=1)# 12 1129
 
 if Springpaw:# 
-	Core_Hunter+=['CORE_TRL_348']
+	Core_Hunter+=['CORE_TRL_348','TRL_348t']
 class CORE_TRL_348:# <3>[1637] #### 22.6
 	""" Springpaw
-	[Rush][Battlecry:] Add a 1/1 Lynxwith [Rush] to your hand. """
-	#
+	[Rush][Battlecry:] Add a 1/1 Lynx with [Rush] to your hand. """
+	play = Give(CONTROLLER, 'TRL_348t')
+	pass
+class TRL_348t:
 	pass
 
 if Selective_Breeder:# 
