@@ -155,7 +155,7 @@ if Houndmaster_Shaw:#
 class CORE_GIL_650:# <3>[1637]##########################23.6 new
 	""" Houndmaster Shaw
 	Your other minions have[Rush]. """
-	#
+	update = Refresh(FRIENDLY_MINIONS - SELF, {GameTag.RUSH: True})
 	pass
 
 if Dire_Frenzy:# 

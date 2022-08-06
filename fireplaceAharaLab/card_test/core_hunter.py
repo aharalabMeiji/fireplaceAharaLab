@@ -368,16 +368,29 @@ class pp_CORE_EX1_617(Preset_Play):# <12>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_617',controller)#
-		self.mark1=self.exchange_card('minionH4',opponent)#
+		self.mark2=self.exchange_card('minionH4',opponent)#
+		self.mark3=self.exchange_card('minionH4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		##########controller
+		### con
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
+		self.n1 = len(self.player.opponent.field)
+		for card in self.player.opponent.field:
+			self.print_stats("field", card)
+		self.change_turn()
+		### con
 		self.play_card(self.mark1)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		for card in self.player.opponent.field:
+			self.print_stats("field", card)
+		assert len(self.player.opponent.field)==self.n1-1, "field=%d"%(len(self.player.opponent.field))
 		pass
 	pass
 
@@ -392,15 +405,29 @@ class pp_CORE_GIL_650(Preset_Play):# <12>[1637]
 		controller=self.player
 		#opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_GIL_650',controller)#
+		self.mark2=self.exchange_card('minionH4',controller)#
+		self.mark3=self.exchange_card('minionH4',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		##########controller
+		### con
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
 		self.play_card(self.mark1)
+		assert self.mark2.rush==True, "rush"
+		assert self.mark3.rush==True, "rush"
+		Hit(self.mark1,10).trigger(self.player)
+		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark2.rush==False, "rush"
+		assert self.mark3.rush==False, "rush"
 		pass
 	pass
 

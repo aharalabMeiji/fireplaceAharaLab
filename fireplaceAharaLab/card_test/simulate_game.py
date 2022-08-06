@@ -170,6 +170,22 @@ class Preset_Play:
 					if _card.type == CardType.MINION and _card.atk==5: 
 						choices.append(_id)
 			_card=random.choice(choices)
+		if _card=='minionH6':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==6: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		if _card=='minionA6':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.atk==6: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		if _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
 		if _card=='nature':
@@ -232,10 +248,6 @@ class Preset_Play:
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
 		if _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
-		if _card=='minionH6':
-			_card=random.choice(['CS3_025','CORE_CS2_033','EX1_165b','EX1_165t2','OG_044a','SCH_157','SCH_224','SCH_232','SCH_273','SCH_530','SCH_605','DMF_078','DMF_078t','DMF_254','DMF_254t5t','DMF_734','YOP_025t','BAR_020','BAR_042','BAR_075','BAR_078','BAR_080','BAR_744','WC_029','BAR_034t5','WC_008','BAR_538','BAR_840','BAR_896','SW_057','SW_071','SW_073','SW_459','SW_113','SW_097','DED_515','DREAM_03',])
-		if _card=='minionA6':
-			_card=random.choice(['CORE_EX1_534','CORE_AT_008','CORE_LOE_003','SCH_530','SCH_717','DMF_068','DMF_069','DMF_078','DMF_078t','DMF_254','DMF_254t5t','YOP_035','BAR_042','WC_029','BAR_034t5','BAR_538t','SW_078','SW_113','DED_006','DED_515','SW_021','SCH_337',])
 		if _card=='minionH7':
 			_card=random.choice(['CORE_CS2_181','CORE_CS2_222','CORE_EX1_190','CORE_EX1_249','CORE_FP1_031','CORE_AT_008','SCH_709','SCH_709t','SCH_710','DMF_002','DMF_068','BAR_021','BAR_027','BAR_721t2','BAR_538t','WC_006','SW_078','SW_081','SW_322t4','SW_450t4','SW_429t','SW_028t5','SW_024',])
 		if _card=='minionH8':
