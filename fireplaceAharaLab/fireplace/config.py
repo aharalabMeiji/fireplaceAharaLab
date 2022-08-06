@@ -3,6 +3,7 @@ class Config:# ()is the default value
 	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
 	BATTLEGROUNDS=1# バトグラをするならこちら
 	CARDTEST=0# カードの動作テストをするならこちら
+	CARDCLASS=0# カードクラス（core & hunter など）のカードの抽出するモード
 
 	#ランク戦のオプション
 	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
@@ -16,7 +17,7 @@ class Config:# ()is the default value
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
 	LOGINFO=0# log.info相当のログ表示
-    LOGINFO_LOG=[]
+	LOGINFO_LOG=[]
 	DEEPCOPY_LOGINFO=0
 	PRINT_HITLOG=0 # Hitイベントを表示する
 
@@ -27,12 +28,12 @@ class Config:# ()is the default value
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1='BG21_027'
-	CARD_PRESET2='BGS_019'
+	CARD_PRESET1=''
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効
-	HERO_1='BG23_HERO_305' #人間プレーヤーはヒーローを指定できる
+	HERO_1='' #人間プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

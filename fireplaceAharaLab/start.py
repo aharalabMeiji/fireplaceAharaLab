@@ -203,8 +203,10 @@ def battleground_main():
 if __name__ == "__main__":
 	if Config.HEARTHSTONE:
 		main()
-	if Config.BATTLEGROUNDS:
+	elif Config.BATTLEGROUNDS:
 		battleground_main()
-	if Config.CARDTEST:
+	elif Config.CARDTEST:
 		card_test()
+	elif Config.CARDCLASS:
+		printClasses()
 	
