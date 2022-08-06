@@ -112,3 +112,8 @@ class SCH_243:#OK
 	"""Wyrm Weaver	Rare"""
 	#<b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
 	play = OWN_SPELL_PLAY.on(Summon(CONTROLLER,"NEW1_012")* 2) 
+class NEW1_012: #<4>[3]
+	"""Mana Wyrm"""
+	events = OWN_SPELL_PLAY.on(Buff(SELF, "NEW1_012o"))
+	pass
+NEW1_012o = buff(atk=1)

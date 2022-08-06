@@ -85,7 +85,7 @@ def printClasses():
 	print('from ..utils import *')
 	print('')
 	myCardSet=CardSet.CORE
-	myCardClass=CardClass.HUNTER
+	myCardClass=CardClass.MAGE
 	mySetClass='Core_Neutral'
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
@@ -196,6 +196,6 @@ def card_test():
 
 
 if __name__ == "__main__":
-	#printClasses()#
+	printClasses()#
 	#main()
-	card_test()
+	#card_test()

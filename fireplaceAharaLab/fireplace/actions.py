@@ -304,7 +304,7 @@ class Death(GameAction):
 	Move target to the GRAVEYARD Zone.
 	"""
 	ENTITY = ActionArg()
-
+	TARGET = ActionArg()
 	def do(self, source, target):
 		log.info("Processing Death for %r", target)
 		target.controller.add_death_log(target)
@@ -320,8 +320,7 @@ class Death(GameAction):
 		if target.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
 		if target.type == CardType.MINION:
-			if target.guardians_legacy:#CS3_001由来の継承
-				SetGLflag(target.controller).trigger(target.controller)##ガーディアンの継承をプレーヤーに移譲する。
+			self.broadcast(source, EventListener.ON, target)
 
 class EndTurn(GameAction):
 	"""
@@ -1071,10 +1070,6 @@ class Discover(TargetedAction):
 		source.game.queue_actions(source, [GenericChoice(target, cards)])
 
 
-class SetGLflag(TargetedAction):
-    def do(self, source, target):
-        target.guardians_legacy = True
-        log.info("Guardian's legacy flag on (%r)"%(target))
 
 
 class Draw(TargetedAction):
@@ -1096,14 +1091,7 @@ class Draw(TargetedAction):
 			target.fatigue()
 			return []
 		card.draw()
-		#guardian's legacy #CS3_001
-		player = source.controller#
-		if player.guardians_legacy and card.type == CardType.MINION:
-			#引いたばかりのカードにCS3_001のdeathrattleのためのフラグを追加する。
-			card.spellpower = 2
-			card.guardians_legacy = True##ガーディアンの継承をカードに移譲する。
-			player.guardians_legacy=False
-			log.info("Guardian's legacy is inderited by %r"%(card))
+
 		self.broadcast(source, EventListener.ON, target, card, source)
 
 		return [card]
@@ -2482,14 +2470,6 @@ class Freeze(TargetedAction):
 			target.frozen = True
 		else:
 			log.info("Freezing is blocked!")
-
-class FreezeOrDeath(TargetedAction):
-    def do (self, source, target):
-        if target.frozen:
-            Destroy(target).trigger(source)
-        else:
-            Freeze(target).trigger(source)
-        pass
 
 class FreezeOrHit(TargetedAction):
     TARGET = ActionArg()#TARGET
