@@ -224,38 +224,34 @@ if Aegwynn_the_Guardian:# ##23.6
 	Core_Mage+=['CS3_001']
 	Core_Mage+=['CS3_001e']
 	Core_Mage+=['CS3_001e2']
-class SetGLflag(TargetedAction):
-    def do(self, source, target):
-
 class CS3_001_Action(TargetedAction):
 	TARGET=ActionArg()
-	def do(self, source, target):
-		if target.guardians_legacy:#CS3_001
-	        source.controller.guardians_legacy = True# inherit the ability from a card to a player
-	        log.info("Guardian's legacy flag on (%r)"%(target))
+	def do(self, source, target):#target = owner(card)
+		Buff(target.controller, "CS3_001e2").trigger(source)# inherit the ability from a card to a player
+		#print("Guardian's legacy flag on (%r)"%(target))
 		pass
 class CS3_001_Action2(TargetedAction):
-	CARD=ActionArg()
-	def do(self, source, card):
-		#guardian's legacy #CS3_001
-		player = source.controller#
-		if player.guardians_legacy and card.type == CardType.MINION:
-			card.spellpower = 2
-			card.guardians_legacy = True##inherit the ability from a player to a card
-			player.guardians_legacy=False
-			log.info("Guardian's legacy is inderited by %r"%(card))		
+	TARGET=ActionArg()
+	def do(self, source, target):#target = new card
+		player = target.controller#
+		if target.type == CardType.MINION:
+			for buff in player.buffs:
+				if buff.id=='CS3_001e2':
+					player.buffs.remove(buff)
+					break
+			target.spellpower = 2
+			Buff(target, 'CS3_001e').trigger(source)
+			#print("Guardian's legacy is inderited by %r"%(card))		
 		pass
 class CS3_001:# <4>[1637]
 	""" Aegwynn, the Guardian
 	[Spell Damage +2][Deathrattle:] The next minion_you draw inherits these powers. """
-	events = [
-		Death(SELF).on(CS3_001_Action(Death.TARGET)),
-		Draw(CONTROLLER).on(CS3_001_Action2(Draw.CARD))
-	]
-	pass
+	play = Buff(SELF, 'CS3_001e')
 class CS3_001e:# <4>[1637]
+	events = Death(OWNER).on(CS3_001_Action(OWNER)),
 	pass
 class CS3_001e2:# <4>[1637]
+	events = Draw(CONTROLLER).on(CS3_001_Action2(Draw.CARD))
 	pass
 
 
