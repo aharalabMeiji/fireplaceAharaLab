@@ -23,20 +23,20 @@ class AV_113:
 	pass
 class AV_113p:
 	""" Summon Pet (3) (hero power)
-	&lt;b&gt;Hero Power&lt;/b&gt;Summon an Animal Companion. """
+	<b>Hero Power</b>Summon an Animal Companion. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
 	activate = Summon(CONTROLLER, RandomEntourage())	
 	pass
 class AV_113t1:
 	""" Improved Explosive Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When your hero is attacked, deal $3 damage to all enemies. """
+	<b>Secret:</b> When your hero is attacked, deal $3 damage to all enemies. """
 	secret = Attack(ENEMY_CHARACTERS, FRIENDLY_HERO).on(
 		Reveal(SELF), Hit(ENEMY_CHARACTERS, 3))	
 	pass
 class AV_113t2:
 	""" Improved Freezing Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
+	<b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
 	secret = Attack(ENEMY_MINIONS).on(
 		Reveal(SELF),
 		Bounce(Attack.ATTACKER),
@@ -48,7 +48,7 @@ class AV_113t2e:# 3 3
 	tags = {GameTag.COST: +4}
 class AV_113t3:
 	""" Improved Snake Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When one of your minions is attacked, summon three 2/2 Snakes. """
+	<b>Secret:</b> When one of your minions is attacked, summon three 2/2 Snakes. """
 	secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
 		Reveal(SELF), Summon(CONTROLLER, "AV_113t3t2") * 3
 	))
@@ -72,7 +72,7 @@ class AV_113t7_Action(TargetedAction):
 
 class AV_113t7:
 	"""Improved Pack Tactics
-	&lt;b&gt;Secret:&lt;/b&gt; When a friendly minion is attacked, summon two 3/3 copies. """
+	<b>Secret:</b> When a friendly minion is attacked, summon two 3/3 copies. """
 	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(AV_113t7_Action(Attack.DEFENDER))
 	pass
 #class BT_203e: ## AOO_Hunter
@@ -84,13 +84,14 @@ class AV_113t8_Action(TargetedAction):
 	TARGETACTION = ActionArg()
 	def do(self, source, target, targetaction):
 		if len(target.field)==2:
-			log.info("AV_113t8_action warks!!!")
+			if Config.LOGINFO:
+				print("AV_113t8_action warks!!!")
 			for _action in targetaction:
 				_action.trigger(source)
 
 class AV_113t8:
 	""" Improved Open the Cages
-	[x]&lt;b&gt;Secret:&lt;/b&gt; When your turn starts, if you control two minions, summon two Animal Companions."""
+	[x]<b>Secret:</b> When your turn starts, if you control two minions, summon two Animal Companions."""
 	secret = EndTurn(OPPONENT).on(AV_113t8_Action(CONTROLLER,[
 		Reveal(SELF), 
 		Summon(CONTROLLER,random.choice(['NEW1_032','NEW1_033','NEW1_034'])),  
@@ -99,7 +100,7 @@ class AV_113t8:
 	pass
 class AV_113t9:
 	""" Improved Ice Trap
-	&lt;b&gt;Secret:&lt;/b&gt; When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
+	<b>Secret:</b> When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
 	secret = Play(OPPONENT, SPELL).on(
 		Reveal(SELF),
 		Bounce(Play.CARD),
@@ -159,7 +160,8 @@ class AV_334:
 	deathrattle = Buff(FRIENDLY_HAND + BEAST, 'AV_334e')
 	pass
 class AV_334e:
-	cost = lambda self, i : max(0,i-2)
+	#cost = lambda self, i : max(0,i-2)
+	tags = {GameTag.COST:-2,}
 	events = Play(CONTROLLER, MINION + BEAST).on(Destroy(SELF))
 	pass
 
@@ -204,27 +206,41 @@ class AV_337t:
 	"""  """
 	pass
 
+########## update ################
 
 class ONY_008:# <3>[1626]
 	""" Furious Howl
 	Draw a card.Repeat until you have at least 3 cards. """
-	#
+	def play(self):
+		Draw(self.controller).trigger(self.controller)
+		while True:
+			if len(self.controller.hand)>3:
+				break;
+			Draw(self.controller).trigger(self.controller)
+			pass
 	pass
 
 class ONY_009:# <3>[1626]
 	""" Pet Collector
 	[Battlecry:] Summon a Beast from your deck that costs (5) or less. """
-	#
+	def play(self):
+		cards = []
+		for card in self.controller.deck:
+			if card.type==CardType.MINION and card.race==Race.BEAST and card.cost<=5:
+				cards.append(card)
+		if len(cards)>0:
+			Summon(self.controller, random.choice(cards)).trigger(self.controller)
+		pass
 	pass
 
 class ONY_010:# <3>[1626]
 	""" Dragonbane Shot
-	Deal $2 damage.[Honorable Kill:] Add a Dragonbane Shotto your hand. """
-	#
+	Deal $2 damage.[Honorable Kill:] Add a Dragonbane Shot to your hand. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
+	play = Hit(TARGET, 2)
+	honorable_kill = Give(CONTROLLER, 'ONY_010')	
 	pass
 
-class ONY_010e:# <3>[1626]
-	""" Drakeshot
-	Costs (1) less. """
-	#
-	pass
+ONY_010e=buff(cost=-1)# <3>[1626] ##???
+""" Drakeshot
+Costs (1) less. """

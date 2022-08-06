@@ -1,9 +1,12 @@
+from fireplace.cards import core
+
 # CORE <12><3><4>[1637]
-from fireplace.cards.core import core_neutral,core_druid,core_hunter
+from fireplace.cards.core import core_druid,core_hunter,core_mage,core_neutral
 Core_Druid=core_druid.Core_Druid
 Core_Hunter=core_hunter.Core_Hunter
+Core_Mage = core_mage.Core_Mage
 Core_Neutral=core_neutral.Core_Neutral
-Core_Mage=['CORE_AT_003','CORE_AT_008','CORE_BOT_453','CORE_CS2_023','CORE_CS2_029','CORE_CS2_032','CORE_CS2_033','CORE_EX1_275','CORE_EX1_287','CORE_EX1_289','CORE_EX1_294','CORE_GIL_801','CORE_KAR_009','CORE_LOE_003','CORE_UNG_020','CS3_001','CS3_001e','CS3_001e2','NEW1_012','NEW1_012o',]
+
 Core_Warrior=['CORE_CS2_106','CORE_CS2_108','CORE_EX1_084','EX1_084e','CORE_EX1_391','CORE_EX1_400','CORE_EX1_402','CORE_EX1_411','EX1_411e','EX1_411e2','CORE_EX1_414','EX1_414e','CORE_EX1_603','EX1_603e','CORE_EX1_604','EX1_604o','CORE_GVG_053','CS3_008','CS3_008e','CS3_009','CS3_030',]
 Core_Warlock=[	"CORE_AT_021","AT_021e","CORE_CS2_062","CORE_CS2_064","CORE_EX1_302","CORE_EX1_304","EX1_304e","CORE_EX1_309","CORE_EX1_312","CORE_EX1_319","CORE_EX1_323","EX1_323h","EX1_tk33","EX1_tk34","EX1_323w","CORE_GIL_191","CORE_GIL_191t","CORE_ICC_055","CORE_OG_241","OG_241a","CORE_UNG_833","CS3_002","CS3_002t","CS3_003","CS3_021"	]
 Core_Priest=[	"CORE_AT_055","CORE_CS1_112","CORE_CS1_130","CORE_EX1_193","CORE_EX1_194","EX1_194e","CORE_EX1_195","EX1_195e","CORE_EX1_197","CORE_EX1_198",'EX1_198e',"CORE_EX1_335","CORE_EX1_622","CORE_EX1_623","EX1_623e","CORE_EX1_625","EX1_625t","EX1_625t2","CS3_013","CS3_014","CS3_014e","CS3_027","CS3_027e",]
@@ -50,13 +53,13 @@ Alterac_Neutral = ['AV_100','AV_101','AV_102','AV_112','AV_121','AV_121e','AV_12
 Alterac_Neutral += ['ONY_001','ONY_001t','ONY_002','ONY_002e','ONY_003','ONY_004',]
 #Alterac_Neutral += ['ONY_005','ONY_005ta1','ONY_005ta10','ONY_005ta11','ONY_005ta12','ONY_005ta13','ONY_005ta2','ONY_005ta2e','ONY_005ta3','ONY_005ta4','ONY_005ta5','ONY_005ta5t','ONY_005ta6','ONY_005ta7','ONY_005ta7e','ONY_005ta8','ONY_005ta9','ONY_005ta9t','ONY_005tb1','ONY_005tb12','ONY_005tb13','ONY_005tb14','ONY_005tb1e','ONY_005tb2','ONY_005tb2e','ONY_005tb3','ONY_005tb3t','ONY_005tb3t2','ONY_005tb4','ONY_005tb5','ONY_005tb5t','ONY_005tb6','ONY_005tb610','ONY_005tb6e','ONY_005tb7','ONY_005tb7e','ONY_005tb8','ONY_005tb8e','ONY_005tb9','ONY_005tb9e','ONY_005tc1','ONY_005tc2','ONY_005tc3','ONY_005tc4','ONY_005tc5','ONY_005tc6','ONY_005tc7','ONY_005tc7t','ONY_025e','GVG_110t']
 Alterac_Hunter=['AV_113','AV_113p','AV_113t1','AV_113t2','AV_113t2e','AV_113t3','AV_113t3t2','AV_113t7','AV_113t8','AV_113t9','AV_113t9e','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',]
-#Alterac_Hunter += ['ONY_008','ONY_009','ONY_010','ONY_010e',]
+Alterac_Hunter += ['ONY_008','ONY_009','ONY_010','ONY_010e',]
 Alterac_Warrior=['AV_108','AV_109','AV_109e','AV_119','AV_119e','AV_145','AV_145e','AV_202','AV_202p','AV_202t2','AV_321','AV_322','AV_323','AV_323t','AV_565','AV_660',]#
 Alterac_Warrior += ['ONY_023','ONY_023e','ONY_024','ONY_025','ONY_025e',]
 Alteric_Druid=['AV_205','AV_205a','AV_205p','AV_205pb','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]#'AV_210',
 Alteric_Druid += ['ONY_018','ONY_018t','ONY_018t2','ONY_019','ONY_019e','ONY_021',]
 Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_200p2','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
-#Alterac_Mage += ['ONY_006','ONY_007','ONY_029',]
+Alterac_Mage += ['ONY_006','ONY_007','ONY_029',]
 #Alterac_Demonhunter=['AV_118','AV_204','AV_204e','AV_204p','AV_204t2','AV_209','AV_261','AV_261e','AV_262','AV_262e2','AV_264','AV_265','AV_267','AV_267e2','AV_269','AV_269e','AV_269t','AV_661','AV_661e2',]
 #Alterac_Demonhunter += ['ONY_014','ONY_014e','ONY_016','ONY_016t','ONY_016t2','ONY_036',]
 #Alterac_Paladin=['AV_146','AV_146e','AV_146e2','AV_206','AV_206p','AV_206pe','AV_213','AV_338','AV_338e','AV_338e2','AV_339','AV_340','AV_341','AV_342','AV_342t','AV_343','AV_343e','AV_344','AV_344e','AV_345',]
@@ -125,3 +128,5 @@ All=[Core_Hunter, Core_Neutral, Core_Mage,Core_Druid,Core_Warrior,
 	Heroes,Dream,Etc,
 	faceHunter,bigWarrior,clownDruid
 	]
+
+

@@ -70,13 +70,12 @@ class CORE_EX1_402:#OK <10>[1637]
 #	play = Hit(TARGET, 2)#ARMOR(FRIENDLY_HERO))
 #	pass
 
-class CORE_EX1_411:#OK <10>[1637] ## この武器は滅びる？のだろうか？
+class CORE_EX1_411:#OK <10>[1637] ## ##########正しく動作しない。
 	""" Gorehowl
 	Attacking a minion costs 1 Attack instead of 1 Durability. """
-	update = Attacking(FRIENDLY_HERO, MINION) & Refresh(SELF, buff="EX1_411e")
-	events = Attack(FRIENDLY_HERO, MINION).after(Buff(SELF, "EX1_411e2"))
+	events = Attack(FRIENDLY_HERO).after(Heal(SELF, 1), Buff(SELF, 'EX1_411e2'))
 	pass
-EX1_411e = buff(immune=True)
+EX1_411e = buff(durability=1)
 EX1_411e2 = buff(atk=-1)
 
 class CORE_EX1_414:#OK <10>[1637]

@@ -40,9 +40,12 @@ class BaseGame(Entity):
 		self._myLog_=[]
 		self.event_args=None
 		self.zone=Zone.INVALID
+		self.no_drawing_at_turn_begin=False
 		#self._stage_choice_=random.choice([## stage choice for SCH_199, 'SCH_199t23' is excluded.
 		#	'SCH_199t','SCH_199t2','SCH_199t3','SCH_199t4','SCH_199t19','SCH_199t20',
 		#	'SCH_199t21','SCH_199t22','SCH_199t25','SCH_199t26'])
+		self.process_deaths_infinite_loop_check=0
+		self.process_death_action_stack=0
 
 	def __repr__(self):
 		return "%s(players=%r)" % (self.__class__.__name__, self.players)
@@ -100,24 +103,34 @@ class BaseGame(Entity):
 
 	def action_start(self, type, source, index, target):
 		self.manager.action_start(type, source, index, target)
+		if Config.LOGINFO:
+			if hasattr(source,'name'):
+				print("(Game.action_start)type=%s, source=%s"%(type,source.name))
+			else:
+				print("(Game.action_start)type=%s, source=%s"%(type,source))
 		if type != BlockType.PLAY:
 			self._action_stack += 1
 
 	def action_end(self, type, source):
 		self.manager.action_end(type, source)
+		if Config.LOGINFO:
+			print("(Game.action_end)type=%s, source=%s"%(type,source))
 
 		if self.ended:
 			#raise GameOver("The game has ended.")
 			return
 		if type != BlockType.PLAY:
-			self._action_stack -= 1
+			self._action_stack = max(self._action_stack-1,0)
 		if not self._action_stack:
-			self.log("Empty stack, refreshing auras and processing deaths")
-			if type ==BlockType.DEATHS:
-				self.log("this case.")
-				return## avoid infinte loop
+			if Config.LOGINFO:
+				print("(Game.action_end)Empty stack, refreshing auras and processing deaths.")
+			#if type ==BlockType.DEATHS:
+			#	#if Config.LOGINFO:
+			#	#	print("this case is annoying us.")
+			#	##return## avoid infinte loop
 			self.refresh_auras()
 			self.process_deaths()
+		pass
 
 	def action_block(self, source, actions, type, index=-1, target=None, event_args=None):
 		self.action_start(type, source, index, target)
@@ -163,7 +176,8 @@ class BaseGame(Entity):
 		if card.id == 'DED_527':
 			actions += [Buff(card, 'DED_527e')]
 		#if hasattr(card.data.scripts, 'trade'):
-		#	self.log ("After trading, %s is triggered by %s"%(card.get_actions('trade'),card.controller))
+		#	if Config.LOGINFO:
+		#		print("(Game.trade_card)After trading, %s is triggered by %s"%(card.get_actions('trade'),card.controller))
 		#	#actions += [card.get_actions('trade')]
 		return self.action_block(trader, actions, type, None, None)
 
@@ -176,6 +190,8 @@ class BaseGame(Entity):
 
 		actions = []
 		if cards:
+			if Config.LOGINFO:
+				print("(game.process_deaths) begins a process of death.")
 			self.action_start(type, self, 0, None)
 			for card in cards:
 				card.zone = Zone.GRAVEYARD
@@ -244,7 +260,8 @@ class BaseGame(Entity):
 			if isinstance(action, EventListener):
 				# Queuing an EventListener registers it as a one-time event
 				# This allows registering events from eg. play actions
-				self.log("Registering event listener %r on %r", action, self)
+				if Config.LOGINFO:
+					print("(BaseGame.trigger_actions)Registering event listener %r on %r"%(action, self))
 				action.once = True
 				# FIXME: Figure out a cleaner way to get the event listener target
 				if source.type == CardType.SPELL:
@@ -286,12 +303,20 @@ class BaseGame(Entity):
 			if buff.tick < self.tick:
 				buffs_to_destroy.append(buff)
 		for buff in buffs_to_destroy:
+			if Config.LOGINFO:
+				if hasattr(buff, 'owner'):	
+					print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.owner))
+				elif hasattr(buff, 'entity'):	
+					print("(Game.refresh_auras)buff %s is removed from %s"%(buff, buff.entity))
+				else:	
+					print("(Game.refresh_auras)buff %s is removed from somewhere"%(buff))
 			buff.remove()
 
 		self.tick += 1
 
 	def setup(self):
-		self.log("Setting up game %r", self)
+		if Config.LOGINFO:
+			print("(BaseGame.setup)Setting up game %r"%(self))
 		self.state = State.RUNNING
 		self.step = Step.BEGIN_DRAW
 		self.zone = Zone.PLAY
@@ -321,7 +346,8 @@ class BaseGame(Entity):
 		return self.queue_actions(self, [EndTurn(self.current_player)])
 
 	def _end_turn(self):
-		self.log("%s ends turn %i", self.current_player, self.turn)
+		if Config.LOGINFO:
+			print("(BaseGame.end_turn)%s ends turn %i"%(self.current_player, self.turn))
 		self.manager.step(self.next_step, Step.MAIN_CLEANUP)
 		self.current_player.temp_mana = 0
 		self.end_turn_cleanup()
@@ -330,10 +356,12 @@ class BaseGame(Entity):
 		self.manager.step(self.next_step, Step.MAIN_NEXT)
 		for character in self.current_player.characters.filter(frozen=True):
 			if not character.num_attacks and not character.exhausted:
-				self.log("Freeze fades from %r", character)
+				if Config.LOGINFO:
+					print("(BaseGame.end_turn_cleanup)Freeze fades from %r"%character)
 				character.frozen = False
 		for buff in self.entities.filter(one_turn_effect=True):
-			self.log("Ending One-Turn effect: %r", buff)
+			if Config.LOGINFO:
+				print("(BaseGame.end_turn_cleanup)Ending One-Turn effect: %r"%buff)
 			buff.remove()
 		self.begin_turn(self.current_player.opponent)
 
@@ -432,11 +460,12 @@ class BaseGame(Entity):
 		for minion in player.field:
 			if hasattr(minion,'dormant') and minion.dormant:
 				minion.dormant -= 1
-				self.log("while dormant (%d) of %r"%(minion.dormant, minion))
+				if Config.LOGINFO:
+					print("(BaseGame._begin_turn)while dormant (%d) of %r"%(minion.dormant, minion))
 				if not minion.dormant:
 					self.queue_actions(self, [Awaken(minion)])
-
-		drawn_card = player.draw()
+		if self.no_drawing_at_turn_begin==False:
+			drawn_card = player.draw()
 
 		self.manager.step(self.next_step, Step.MAIN_END)
 	pass
@@ -457,14 +486,16 @@ class CoinRules:
 		if Config.FSFIXED == 0: #Aharalab
 			winner = random.choice(self.players)
 			#winner = self.players[1]
-			self.log("Tossing the coin... %s wins!", winner)
+			if Config.LOGINFO:
+				print("(CoinRules.pick_first_player)Tossing the coin... %s wins!"%winner)
 			return winner, winner.opponent
 		else: #Aharalab
 			return self.players[0], self.players[1] #Aharalab
 
 	def begin_turn(self, player):
 		if self.turn == 0 and Config.COIN > 0:
-			self.log("%s gets The Coin (%s)", self.player2, THE_COIN)
+			if Config.LOGINFO:
+				print("(CoinRules.begin_turn)%s gets The Coin (%s)"%(self.player2, THE_COIN))
 			self.player2.give(THE_COIN)
 		super().begin_turn(player)
 
@@ -479,7 +510,8 @@ class MulliganRules:
 		from .actions import MulliganChoice
 		self.setup()
 		self.next_step = Step.BEGIN_MULLIGAN
-		self.log("Entering mulligan phase")
+		if Config.LOGINFO:
+			print("(MulliganRules.start)Entering mulligan phase")
 		self.step, self.next_step = self.next_step, Step.MAIN_READY
 
 		for player in self.players:

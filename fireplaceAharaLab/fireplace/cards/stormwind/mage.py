@@ -66,7 +66,8 @@ class SW_110_Action(TargetedAction):
 	TARGET = ActionArg()#player
 	CARD = CardArg()
 	def do(self, source, target, cards):
-		log.info("%r shuffles into %s's deck", cards, target)
+		if Config.LOGINFO:
+			print("%r shuffles into %s's deck"%(cards, target))
 		if not isinstance(cards, list):
 			cards = [cards]
 		for card in cards:
@@ -75,7 +76,8 @@ class SW_110_Action(TargetedAction):
 				card.zone = Zone.SETASIDE
 				card.controller = target
 			if len(target.deck) >= target.max_deck_size:
-				log.info("Shuffle(%r) fails because %r's deck is full", card, target)
+				if Config.LOGINFO:
+					print("Shuffle(%r) fails because %r's deck is full"%(card, target))
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()

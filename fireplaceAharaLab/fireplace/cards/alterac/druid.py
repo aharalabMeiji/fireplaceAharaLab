@@ -20,7 +20,7 @@ class AV_205a:
 	pass
 class AV_205p:
 	""" Nurture (hero power)
-	&lt;b&gt;Hero Power&lt;/b&gt;&lt;b&gt;Choose One -&lt;/b&gt; Draw a card;or Gain a Mana Crystal."""
+	<b>Hero Power</b><b>Choose One -</b> Draw a card;or Gain a Mana Crystal."""
 	choose=('AV_205a', 'AV_205pb')
 	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 1), Draw(CONTROLLER))
 	pass
@@ -68,7 +68,8 @@ class AV_291_Count(LazyNum):
 		for card in cardlist:
 			if hasattr(card, 'race') and card.race==Race.BEAST:
 				count += 1
-		log.info("%s costs %d less "%(source, count))
+		if Config.LOGINFO:
+			print("%s costs %d less "%(source, count))
 		return self.num(count)
 class AV_291: #
 	""" Frostsaber Matriarch (7/4/5) beast
@@ -105,7 +106,7 @@ class AV_294:
 	play = Buff(FRIENDLY_CHARACTERS - SELF, 'AV_294e')
 	pass
 class AV_294e:#ONE_TURN_EFFECT
-	atk = lambda self, i: i+1
+	tags = {GameTag.ATK:1,}
 	events = OWN_TURN_END.on(Destroy(SELF))
 
 class DrawLowestCost(TargetedAction):

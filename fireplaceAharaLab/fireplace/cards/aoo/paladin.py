@@ -40,7 +40,7 @@ class BT_026e:##<12>[1414]
 
 class BT_334:
 	""" Lady Liadrin
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Add a copy of each spell you cast on friendly characters this game to your hand."""
+	[x]<b>Battlecry:</b> Add a copy of each spell you cast on friendly characters this game to your hand."""
 	play = Give(CONTROLLER, Copy(SPELL + CAST_ON_FRIENDLY_CHARACTERS))#no implementation lol
 
 

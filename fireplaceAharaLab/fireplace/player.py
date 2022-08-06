@@ -10,7 +10,7 @@ from .deck import Deck
 from .entity import Entity, slot_property
 from .managers import PlayerManager
 from .utils import CardList
-from .config import Config #by AharaLab
+from .config import Config #
 
 class PlayLog:
 	card=None
@@ -29,7 +29,9 @@ class Player(Entity, TargetableByAuras):
 	cant_overload = slot_property("cant_overload")
 	choose_both = slot_property("choose_both")
 	extra_battlecries = slot_property("extra_battlecries")
+	extra_extra_battlecries = slot_property("extra_extra_battlecries")
 	extra_deathrattles = slot_property("extra_deathrattles")
+	extra_extra_deathrattles = slot_property("extra_extra_deathrattles") ## TB_BaconUps_055
 	healing_double = slot_property("healing_double", sum)
 	hero_power_double = slot_property("hero_power_double", sum)
 	healing_as_damage = slot_property("healing_as_damage")
@@ -60,6 +62,7 @@ class Player(Entity, TargetableByAuras):
 		self.max_deck_size = 60
 		self.cant_draw = False
 		self.cant_fatigue = False
+		self.entourage = []
 		self.fatigue_counter = 0
 		self.last_card_played = None
 		self.cards_drawn_this_turn = 0
@@ -92,12 +95,35 @@ class Player(Entity, TargetableByAuras):
 		self._summon_log=[]
 		self._reveal_log=[]
 		self._targetedaction_log=[]
+		self._battlecry_log=[]
+		self._buy_log=[] # battlegraounds
 		self.spell_and_damage=False
 		self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
 		self.choiceStrategy = None
 		self.lost_in_the_park=0
 		self.carry_cards=[] # YOP_024
+		self.tavern_tier=1# battlegrounds
+		self.tavern_tierup_cost=5 # battlegrounds
+		self.extra_tavern_tierup_reduce_cost=0 # battlegrounds
+		self.len_bobs_field=3 # battlegrounds
+		self.extra_len_bobs_field=0 # battleground
+		self.attacker_index=0 # battlegrounds
+		self.first_dead_minion=None # battlegrounds
+		self.second_dead_minion=None # battlegrounds
+		self.once_per_turn=0 # battlegrounds
+		self.deepcopy_original=None # battlegrounds
+		self.nomi_powered_up = 0## battlegrounds, Nomi
+		self.lightspawn_powered_up = 0## battlegrounds, lightspoan
+		self.spentmoney_in_this_turn=0 ## battlegrounds, #Captain Flat Tusk
+		self.buddy_gauge=0## battlegrounds, # buddy
+		self.got_buddy=0## battlegrounds, # buddy
+		self.parent_agent=None## # battlegrounds
+		self.sells_in_this_turn=0 # battlegrounds
+		self.prev_field=[] # battlegrounds
+		self.script_const_1=0 ## general use
+		self.gifts=[] # battlegrounds
+
 
 	def __str__(self):
 		return self.name
@@ -125,7 +151,8 @@ class Player(Entity, TargetableByAuras):
 	@max_mana.setter
 	def max_mana(self, amount):
 		self._max_mana = min(self.max_resources, max(0, amount))
-		self.log("%s is now at %i mana crystals", self, self._max_mana)
+		if Config.LOGINFO:
+			print("(Player.max_mana)%s is now at %i mana crystals"%(self, self._max_mana))
 
 	@property
 	def heropower_damage(self):
@@ -276,7 +303,8 @@ class Player(Entity, TargetableByAuras):
 
 
 	def discard_hand(self):
-		self.log("%r discards their entire hand!", self)
+		if Config.LOGINFO:
+			print("(Player.discard_hand)%r discards their entire hand!", self)
 		# iterate the list in reverse so we don't skip over cards in the process
 		# yes it's stupid.
 		for card in self.hand[::-1]:
@@ -299,12 +327,14 @@ class Player(Entity, TargetableByAuras):
 		Returns how much mana is spent, after temporary mana adjustments.
 		"""
 		if self.spells_cost_health and source.type == CardType.SPELL:
-			self.log("%s spells cost %i health", self, amount)
+			if Config.LOGINFO:
+				print("(Player.pay_cost)%s spells cost %i health", self, amount)
 			self.game.queue_actions(self, [Hit(self.hero, amount)])
 			return amount
 		if self.murlocs_cost_health:
 			if source.type == CardType.MINION and source.race == Race.MURLOC:
-				self.log("%s murlocs cost %i health", self, amount)
+				if Config.LOGINFO:
+					print("(Player.pay_cost)%s murlocs cost %i health", self, amount)
 				self.game.queue_actions(self, [Hit(self.hero, amount)])
 				return amount
 		if self.temp_mana:
@@ -312,18 +342,20 @@ class Player(Entity, TargetableByAuras):
 			used_temp = min(self.temp_mana, amount)
 			amount -= used_temp
 			self.temp_mana -= used_temp
-		#self.log("%s pays %i mana", self, amount)
-		self.log("%s pays %i mana to %i", self, amount, (self.used_mana + amount)) #
+		if Config.LOGINFO:
+			print ("(Player.pay_cost)%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
 		self.used_mana += amount
 		return amount
 
 	def shuffle_deck(self):
-		self.log("%r shuffles his deck", self)
+		if Config.LOGINFO:
+			print("(shuffle_deck)%r shuffles his deck"% self)
 		random.shuffle(self.deck)
 
 	def draw(self, count=1):
 		if self.cant_draw:
-			self.log("%s tries to draw %i cards, but can't draw", self, count)
+			if Config.LOGINFO:
+				print("(Player.draw)%s tries to draw %i cards, but can't draw", self, count)
 			return None
 
 		ret = self.game.cheat_action(self, [Draw(self) * count])[0]
@@ -339,7 +371,8 @@ class Player(Entity, TargetableByAuras):
 				return
 			else:
 				card = self.deck[-1]
-			self.log("%s mills %r", self, card)
+			if Config.LOGINFO:
+				print("(Player.mill)%s mills %r", self, card)
 			card.discard()
 			return card
 		else:
@@ -465,4 +498,27 @@ class Player(Entity, TargetableByAuras):
 	def targetedaction_log(self):
 		return self._targetedaction_log
 
-	### d
+	## battlecry_log
+	def add_battlecry_log(self, battlecry):
+		self._battlecry_log.append(battlecry)
+	@property
+	def battlecry_log(self):
+		return self._battlecry_log
+
+
+	### battlegraounds
+	def add_buy_log(self, card):
+		self._buy_log.append(PlayLog(card, card.game.turn))
+	@property
+	def buy_log(self):
+		ret = []
+		for _log in self._buy_log:
+			ret.append(_log.card)
+		return ret
+	def buy_this_turn_log(self):
+		ret = []
+		turn =self.game.turn
+		for _log in self._buy_log:
+			if _log.turn == turn:
+				ret.append(_log.card)
+		return ret

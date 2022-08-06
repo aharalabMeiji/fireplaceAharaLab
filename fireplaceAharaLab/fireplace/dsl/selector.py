@@ -135,7 +135,9 @@ NUM_ATTACKS_THIS_TURN = AttrValue(GameTag.NUM_ATTACKS_THIS_TURN)
 UPGRADE_COUNTER = AttrValue("upgrade_counter")
 NUM_ATTACKS = AttrValue("num_attacks")
 MAX_HAND_SIZE = AttrValue("max_hand_size")
-
+TIER = AttrValue("tavern_tier")
+TECH_LEVEL = AttrValue(GameTag.TECH_LEVEL)
+TAG_SCRIPT_DATA_NUM_1 = AttrValue(GameTag.TAG_SCRIPT_DATA_NUM_1)
 
 class ComparisonSelector(Selector):
 	"""A ComparisonSelector compares values of entities to
@@ -286,6 +288,8 @@ class BoardPositionSelector(Selector):
 	class Direction(IntEnum):
 		LEFT = 1
 		RIGHT = 2
+		LEFT_MOST = 3
+		RIGHT_MOST = 4
 
 	def __init__(self, direction: Direction, child: SelectorLike):
 		if isinstance(child, LazyValue):
@@ -298,13 +302,20 @@ class BoardPositionSelector(Selector):
 		for e in self.child.eval(entities, source):
 			if e.type==CardType.MINION and getattr(e, "zone", None) == Zone.PLAY:
 				field = e.controller.field
-				position = e.zone_position - 1
-				if self.direction == self.Direction.RIGHT:
+				if self.direction == self.Direction.LEFT:
+					position = e.zone_position - 1
+					left = field[:position]
+				elif self.direction == self.Direction.RIGHT:
 					# Swap the list, reverse the position
 					field = list(reversed(field))
-					position = -(position + 1)
-
-				left = field[:position]
+					position = -(e.zone_position + 1)
+					left = field[:position]
+				elif self.direction == self.Direction.RIGHT_MOST:
+					left = field
+					break
+				elif self.direction == self.Direction.LEFT_MOST:
+					left = field[:1]
+					break
 				if left:
 					result.append(left[-1])
 
@@ -316,7 +327,8 @@ RIGHT_OF = lambda s: BoardPositionSelector(BoardPositionSelector.Direction.RIGHT
 ADJACENT = lambda s: LEFT_OF(s) | RIGHT_OF(s)
 SELF_ADJACENT = ADJACENT(SELF)
 TARGET_ADJACENT = ADJACENT(TARGET)
-
+RIGHT_MOST =  lambda s: BoardPositionSelector(BoardPositionSelector.Direction.RIGHT_MOST, s)
+LEFT_MOST =  lambda s: BoardPositionSelector(BoardPositionSelector.Direction.LEFT_MOST, s)
 
 class RandomSelector(Selector):
 	"""
@@ -347,6 +359,15 @@ HIGHEST_ATK = lambda sel: (
 )
 LOWEST_ATK = lambda sel: (
 	RANDOM(sel + (AttrValue(GameTag.ATK) == OpAttr(sel, GameTag.ATK, min)))
+)
+HIGHEST_HEALTH = lambda sel: (
+	RANDOM(sel + (AttrValue(GameTag.HEALTH) == OpAttr(sel, GameTag.HEALTH, max)))
+)
+LOWEST_HEALTH = lambda sel: (
+	RANDOM(sel + (AttrValue(GameTag.HEALTH) == OpAttr(sel, GameTag.HEALTH, min)))
+)
+HIGHEST_TIER = lambda sel: (
+	RANDOM(sel + (AttrValue(GameTag.TECH_LEVEL) == OpAttr(sel, GameTag.TECH_LEVEL, max)))
 )
 
 
@@ -478,6 +499,7 @@ DEMON = EnumSelector(Race.DEMON) | ALL
 DRAGON = EnumSelector(Race.DRAGON) | ALL
 MECH = EnumSelector(Race.MECHANICAL) | ALL
 MURLOC = EnumSelector(Race.MURLOC) | ALL
+NAGA = EnumSelector(Race.NAGA) | ALL
 PIRATE = EnumSelector(Race.PIRATE) | ALL
 TOTEM = EnumSelector(Race.TOTEM) | ALL
 ELEMENTAL = EnumSelector(Race.ELEMENTAL) | ALL
@@ -494,6 +516,8 @@ COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
 EPIC = EnumSelector(Rarity.EPIC)
 LEGENDARY = EnumSelector(Rarity.LEGENDARY)
+
+GOLDEN = FilterSelector(lambda entity, source: getattr(entity, "gold_card", -1)==0 )
 
 ALL_PLAYERS = IN_PLAY + PLAYER
 ALL_HEROES = IN_PLAY + HERO
@@ -540,6 +564,9 @@ RANDOM_ENEMY_CHARACTER = RANDOM(ENEMY_CHARACTERS - MORTALLY_WOUNDED)
 
 DAMAGED_CHARACTERS = ALL_CHARACTERS + DAMAGED
 CTHUN = FRIENDLY + ID("OG_280")
+
+TIER3 = AttrValue(GameTag.TECH_LEVEL)==3
+TIER5 = AttrValue(GameTag.TECH_LEVEL)==5
 
 FRIENDLY_CLASS_CHARACTER = FuncSelector(
 	lambda entities, src: [

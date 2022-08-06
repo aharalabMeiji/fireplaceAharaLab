@@ -63,7 +63,7 @@ BT_213e = buff(atk=2, health=2)
 
 class BT_203:
 	"""Pack Tactics 
-	&lt;b&gt;Secret:&lt;/b&gt; When a friendly minion is attacked, summon a 3/3 copy. """
+	<b>Secret:</b> When a friendly minion is attacked, summon a 3/3 copy. """
 	secret = Attack(CHARACTER, FRIENDLY_MINIONS).on(FULL_BOARD | (
 		Reveal(SELF), Summon(CONTROLLER, ExactCopy(Attack.DEFENDER)).then(
 			Buff(Summon.CARD, "BT_203e")

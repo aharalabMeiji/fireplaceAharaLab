@@ -123,7 +123,7 @@ class DED_009:# <3>[1578] ###OK
 	[Tradeable]Give a minion +2/+3.After you [Trade] this, give a friendly minion [Rush]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	play = Buff(TARGET, 'DED_009e')
-	#trade = Buff(RANDOM(FRIENDLY_MINION),'DED_001at')-> game.trade_card()
+	#trade = Buff(RANDOM(FRIENDLY_MINIONS),'DED_001at')-> game.trade_card()
 	pass
 
 DED_009e = buff(2,3)# <3>[1578]

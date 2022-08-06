@@ -44,7 +44,7 @@ class BT_006e:
 
 class BT_021:
 	"""Font of Power
-	&lt;b&gt;Discover&lt;/b&gt; a Mage minion. If your deck has no minions, keep all 3. """
+	<b>Discover</b> a Mage minion. If your deck has no minions, keep all 3. """
 	powered_up = -Find(FRIENDLY_DECK + MINION)##-FindDuplicates(FRIENDLY_DECK)## 
 	play = powered_up & (Give(CONTROLLER, RandomMinion(card_class=CardClass.MAGE)) * 3) | (
 		DISCOVER(RandomMinion(card_class=CardClass.MAGE)))

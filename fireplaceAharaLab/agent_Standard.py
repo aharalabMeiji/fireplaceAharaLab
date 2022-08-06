@@ -57,7 +57,8 @@ class StandardVectorAgent(Agent):
 			for myChoice in myCandidate:
 				tmpGame = fireplace_deepcopy(game)
 				#tmpGame = copy.deepcopy(game)
-				log.info("Estimate the score for [%s]"%(myChoice))
+				if debugChoice:
+					("Estimate the score for [%s]"%(myChoice))
 				result = executeAction(tmpGame, myChoice, debugLog=False)
 				postAction(tmpGame.current_player)
 				if result==ExceptionPlay.INVALID:

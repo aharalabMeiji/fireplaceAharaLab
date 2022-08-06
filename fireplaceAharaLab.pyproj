@@ -37,6 +37,60 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_agent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_bar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_battle.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_enums.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_VectorAgent.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero4.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero3.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero5.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_demon.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_dragon.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_elemental.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_mecha.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_murloc.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_naga.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_pirate.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_beast.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\demon_hunter.py" />
@@ -107,6 +161,10 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_quilboar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\bigWarrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
       <SubType>Code</SubType>
@@ -248,6 +306,8 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_neutral.py" />
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_priest.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_rogue.py" />
@@ -255,6 +315,8 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\__init__.py" />
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\config.py" />
@@ -318,12 +380,15 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\revendreth\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\battlegrounds\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\" />
     <Folder Include="fireplaceAharaLab\fireplace\dsl" />
     <Folder Include="fireplaceAharaLab\card_test\" />
+    <Folder Include="fireplaceAharaLab\fireplace\battlegrounds\" />
     <Folder Include="fireplaceAharaLab\obj\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\Debug" />

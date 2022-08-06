@@ -151,6 +151,8 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.ATTACKING: "attacking",
 	GameTag.ATTACHED: "owner",
 	GameTag.AURA: "aura",
+	GameTag.BACON_COMPANION_ID: "buddy_id",
+	GameTag.BACON_BUDDY: "buddy",
 	GameTag.BATTLECRY: "has_battlecry",
 	GameTag.CANNOT_ATTACK_HEROES: "cannot_attack_heroes",
 	GameTag.CANT_ATTACK: "cant_attack",
@@ -178,30 +180,39 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.COST: "cost",
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
+	2044: "darkmoon_ticket_tier", 
 	GameTag.DEATHRATTLE: "has_deathrattle",
 	GameTag.DEFENDING: "defending",
 	GameTag.DIVINE_SHIELD: "divine_shield",
 	GameTag.DORMANT: "dormant",
 	GameTag.DURABILITY: "max_durability",
+	GameTag.ELEMENTAL_POWERED_UP: "elemental_powered_up", ## battlegrounds, Nomi, lightsporn
 	GameTag.EMBRACE_THE_SHADOW: "healing_as_damage",
 	GameTag.ENRAGED: "enrage",
 	GameTag.EXHAUSTED: "exhausted",
+	GameTag.EXTRA_BATTLECRIES_BASE: "extra_battlecries",
+	GameTag.EXTRA_BATTLECRIES_ADDITIONAL: "extra_extra_battlecry",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
+	GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: "extra_extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
 	GameTag.FREEZE: 'freeze',#
 	GameTag.FRENZY: "frenzy",#
 	GameTag.FROZEN: "frozen",
+	1587: "gambler_sell_price",# battleground
+	1429: "gold_card", # battlegrounds
 	GameTag.HEALING_DOUBLE: "healing_double",
 	GameTag.HEALTH: "max_health",
 	GameTag.HEALTH_MINIMUM: "min_health",
 	GameTag.HEAVILY_ARMORED: "heavily_armored",
 	GameTag.HEROPOWER_ADDITIONAL_ACTIVATIONS: "additional_activations",
 	GameTag.HEROPOWER_DAMAGE: "heropower_damage",
+	GameTag.HIDE_COST: "passive_power", ## battlegrounds
 	GameTag.HONORABLEKILL: "honorable_kill",##01/Dec/21
 	GameTag.IGNORE_TAUNT: "ignore_taunt",
 	GameTag.INCOMING_DAMAGE_MULTIPLIER: "incoming_damage_multiplier",
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
 	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
+	GameTag.IS_BACON_POOL_MINION:"bg_collectible",
 	GameTag.INSPIRE: "has_inspire",
 	GameTag.JADE_GOLEM: "jade_golem",
 	GameTag.LIFESTEAL: "lifesteal",
@@ -222,11 +233,14 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
 	GameTag.RUSH: "rush",
 	GameTag.TAG_SCRIPT_DATA_NUM_1: 'script_data_num_1',
+	GameTag.SCORE_VALUE_1:'score_value_1',
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
 	GameTag.SIDEQUEST: "sidequest",# 
 	GameTag.SILENCED: "silenced",
+	GameTag.SPELLCRAFT: "spellcraft",
+	2423: "spellcraft_spellcard",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
 	GameTag.SPELL_SCHOOL: "spell_school", # 
@@ -234,6 +248,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",
 	GameTag.TAUNT: "taunt",
+	GameTag.TECH_LEVEL: "tech_level",
 	GameTag.TRADEABLE: "tradeable",
 	GameTag.TRADE_COST: "trade_cost",
 	GameTag.WINDFURY: "windfury",
@@ -259,7 +274,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.FACTION: None,
 	GameTag.FLAVORTEXT: None,
 	GameTag.HealTarget: None,
-	GameTag.HIDE_COST: None,
 	GameTag.HOW_TO_EARN: None,
 	GameTag.HOW_TO_EARN_GOLDEN: None,
 	GameTag.InvisibleDeathrattle: None,
@@ -272,6 +286,8 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.TOPDECK: None,
 	GameTag.TAG_AI_MUST_PLAY: None,
 	GameTag.TRIGGER_VISUAL: None,
+
+
 }
 
 

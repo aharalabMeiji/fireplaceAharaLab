@@ -1,6 +1,6 @@
 from enum import IntEnum
 from fireplace import cards
-from hearthstone.enums import Zone,State,CardType,Step
+from hearthstone.enums import GameTag, Zone,State,CardType,Step
 from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest,Secret
 from .player import Player, PlayLog
 from .game import Game
@@ -9,6 +9,7 @@ import copy
 import random
 from .logging import log
 from .exceptions import InvalidAction
+from .config import Config
 
 class DeepCopyOption(IntEnum):
 	FREE=0# full deepcopy
@@ -31,7 +32,8 @@ def debug_card(oldCard, newCard):
 def deepcopy_game(game, player, option):
 	""" deepcopy a game state. 
 	"""
-	log.info("================deepcopy starts================")
+	if Config.DEEPCOPY_LOGINFO:
+		print("================deepcopy starts================")
 	oldGame = game
 	oldPlayer1 = game.player1
 	oldPlayer2 = game.player2
@@ -67,7 +69,8 @@ def deepcopy_game(game, player, option):
 		pass
 		random.shuffle(itshim.deck)
 		random.shuffle(itshim.hand)
-	log.info("================deepcopy ends================")
+	if Config.DEEPCOPY_LOGINFO:
+		print("================deepcopy ends================")
 	return newGame
 
 def deep_copy_player(player, option):
@@ -225,22 +228,24 @@ def copy_playerattr(oldPlayer, newPlayer):
 	src = getattr(oldPlayer.hero, 'play_counter')
 	setattr(new_hero, 'play_counter', src)
 	## hero power
-	if not newPlayer.hero.power:
-		card=HeroPower(cards.db[oldPlayer.hero.power.id])
+	if oldPlayer.hero.power:
+		card=HeroPower(cards.db[oldPlayer.hero.power.id])#デフォルトから変更されている可能性もある。
 		card.controller = newPlayer
 		card.zone = Zone.PLAY
+		card.deepcopy_original = oldPlayer.hero.power
+		## もしくはSummon(newPlayer, card),trigger(newPlayer)
 		card.game.manager.new_entity(card)
-	# heropower's attr
-	heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
-		'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
-		'lifesteal','morphed','old_power','overload','play_counter',\
-		'requirements','reborn','target','windfury',
-		]
-	for attr in heropowerAttrs:
-		value = getattr(oldPlayer.hero.power,attr)
-		setattr(newPlayer.hero.power,attr, value)
-	for buff in oldPlayer.hero.power.buffs:
-		newPlayer.hero.power.buffs.append(Enchantment(cards.db[buff.id]))
+		# heropower's attr
+		heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
+			'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
+			'lifesteal','morphed','old_power','overload','play_counter',\
+			'requirements','reborn','target','windfury',
+			]
+		for attr in heropowerAttrs:
+			value = getattr(oldPlayer.hero.power,attr)
+			setattr(newPlayer.hero.power,attr, value)
+		for buff in oldPlayer.hero.power.buffs:
+			newPlayer.hero.power.buffs.append(Enchantment(cards.db[buff.id]))
 	#events
 	#play_targets
 	#targets
@@ -254,7 +259,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 				'_activate_log','_summon_log','_reveal_log','carry_cards',
 				'last_card_played','used_mana','overload_locked','temp_mana','times_spell_played_this_game',
 				'times_spells_played_this_turn','spells_played_this_turn',
-				'times_hero_power_used_this_game','times_card_to_play_out_of_deck',]
+				'times_hero_power_used_this_game','times_card_to_play_out_of_deck','tavern_tier',]
 	for attr in playerAttrs:
 		if hasattr(oldPlayer,attr):
 			src = getattr(oldPlayer, attr)
@@ -285,6 +290,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
 		new_card.zone = Zone.DECK
 		new_card.game.manager.new_entity(new_card)
 	#hand-cards attr.
@@ -292,6 +298,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
 		new_card.zone = Zone.HAND
 		new_card.game.manager.new_entity(new_card)
 	#field-cards attr.
@@ -299,22 +306,41 @@ def copy_playerattr(oldPlayer, newPlayer):
 		new_card = Minion(cards.db[card.id])
 		new_card.controller = newPlayer
 		copy_cardattr(card, new_card)
+		new_card.deepcopy_original = card
+		#if len(card.game.active_aura_buffs)>0:
+		#	new_card.game.refresh_auras()
 		for buff in card.buffs:
-			new_buff = Enchantment(cards.db[buff.id])
-			new_buff.source = buff.source
-			new_buff.controller = newPlayer
-			new_buff.owner = card
-			new_buff.apply(new_card)
-			new_card.buffs.append(new_buff)
+			if buff not in card.game.active_aura_buffs:
+				new_buff = Enchantment(cards.db[buff.id])
+				new_buff.source = buff.source## it is an original card, but no otherway
+				new_buff.controller = newPlayer
+				new_buff.owner = new_card
+				new_buff.entity = new_card
+				new_buff.tags[GameTag.ATK]=buff.atk## modified buff
+				new_buff.tags[GameTag.HEALTH]=buff.max_health## modified buff
+				new_buff.apply(new_card)
+			else:
+				new_buff = Enchantment(cards.db[buff.id])
+				new_buff.source = buff.source## it is an original card, but no otherway
+				new_buff.controller = newPlayer
+				new_buff.owner = new_card
+				new_buff.entity = new_card
+				new_buff.tags[GameTag.ATK]=buff.atk## modified buff
+				new_buff.tags[GameTag.HEALTH]=buff.max_health## modified buff
+				new_buff.apply(new_card)
+				new_buff.tick = buff.tick+new_card.game.tick-card.game.tick
+				new_card.game.active_aura_buffs.append(new_buff)
 		new_card._summon_index = len(newPlayer.field)
 		new_card.zone = Zone.PLAY
 		new_card.game.manager.new_entity(new_card)
+	#new_card.game.refresh_auras()
 	## secret-cards attr.
 	for card in oldPlayer.secrets:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		new_card.zone = Zone.SECRET
 		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
 		new_card.game.manager.new_entity(new_card)
 	## graveyard-cards attr.
 	for card in oldPlayer.graveyard:
@@ -322,6 +348,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		if new_card != None:
 			new_card.controller = newPlayer
 			new_card.zone=Zone.GRAVEYARD
+			new_card.deepcopy_original = card
 			copy_cardattr(card,new_card)
 			new_card.game.manager.new_entity(new_card)
 	## setaside-cards attr.
@@ -330,6 +357,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 			new_card = create_vacant_card(card)
 			new_card.controller = newPlayer
 			new_card.zone = Zone.SETASIDE
+			new_card.deepcopy_original = card
 			copy_cardattr(card, new_card)
 			new_card.game.manager.new_entity(new_card)
 		pass
@@ -339,8 +367,9 @@ def copy_gameattr(oldGame,newGame):
 	""" copy game's attr.
 	"""
 	gameAttrs =['next_step','turn','tick','zone','state','step',
-			 'active_aura_buffs','proposed_attacker','proposed_defender',
+			'proposed_attacker','proposed_defender',
 		]
+	#  'active_aura_buffs'のコピーはbuffの追加のところで行っておく。
 	for attr in gameAttrs:
 		if hasattr(oldGame,attr):
 			src = getattr(oldGame, attr)

@@ -5,6 +5,7 @@ from utils import *
 from agent_Standard import *
 from fireplace import cards
 from fireplace.logging import log
+from fireplace.config import Config
 
 sys.path.append("..")
 
@@ -190,12 +191,20 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.core_hunter import core_hunter
-	core_hunter()
+	from card_test.core_mage import test_core_mage
+	test_core_mage()
 	pass
 
+def battleground_main():
+	from fireplace.battlegrounds.BG_utils import  BG_main
+	BG=BG_main()
+	BG.BG_main()
 
 if __name__ == "__main__":
-	printClasses()#
-	#main()
-	#card_test()
+	if Config.HEARTHSTONE:
+		main()
+	if Config.BATTLEGROUNDS:
+		battleground_main()
+	if Config.CARDTEST:
+		card_test()
+	

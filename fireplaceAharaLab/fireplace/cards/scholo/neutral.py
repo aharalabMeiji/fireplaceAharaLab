@@ -64,7 +64,8 @@ class SCH_162:##OK
 			buff1 = minion1.buffs[0]
 			death = random.choice(deathrattle_log)
 			buff1.additional_deathrattles.append(death.deathrattles[0])
-			log.info ('%s gains deathrattle (%s)'%(minion1, minion1.deathrattles[0]))
+			if Config.LOGINFO:
+				print ('%s gains deathrattle (%s)'%(minion1, minion1.deathrattles[0]))
 			if len(deathrattle_log)>=2:
 				deathrattle_log.remove(death)
 			pass
@@ -75,7 +76,8 @@ class SCH_162:##OK
 			buff2 = minion2.buffs[0]
 			death = random.choice(deathrattle_log)
 			buff2.additional_deathrattles.append(death.deathrattles[0])
-			log.info ('%s gains deathrattle (%s)'%(minion2, minion2.deathrattles[0]))
+			if Config.LOGINFO:
+				print('%s gains deathrattle (%s)'%(minion2, minion2.deathrattles[0]))
 			pass
 	pass
 class SCH_162e:
@@ -219,7 +221,8 @@ class SCH_248:#OK
 class SCH_259_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
-		log.info("%s chooses %r"%(card.controller.name, card))
+		if Config.LOGINFO:
+			print("%s chooses %r"%(card.controller.name, card))
 		cardID = card.id
 		if cardID == 'SCH_259t':
 			if len(self.source.controller.hand)>0:
@@ -288,7 +291,8 @@ class SCH_428:#done
 	""" Lorekeeper Polkelt (Legendary)"""
 	#[x]<b>Battlecry:</b> Reorder your deck from the highest Cost card to the lowest Cost card. 
 	def play(self):
-		log.info("Reorder deck from the highest Cost card.")
+		if Config.LOGINFO:
+			print("Reorder deck from the highest Cost card.")
 		self.controller.deck.sort(key=lambda x:x.cost)
 		pass
 	pass
@@ -409,8 +413,8 @@ class SCH_182_Action(TargetedAction):
 
 class SCH_182:###OK
 	""" Speaker Gidra
-	[x]&lt;b&gt;&lt;b&gt;Rush&lt;/b&gt;, Windfury&lt;/b&gt;
-&lt;b&gt;&lt;b&gt;Spellburst&lt;/b&gt;:&lt;/b&gt; Gain Attack
+	[x]<b><b>Rush</b>, Windfury</b>
+<b><b>Spellburst</b>:</b> Gain Attack
 and Health equal to
 the spell's Cost.""" 
 	play = OWN_SPELL_PLAY.on(SCH_182_Action(Play.CARD))
@@ -420,7 +424,7 @@ class SCH_182e:
 
 class SCH_425:###OK
 	""" Doctor Krastinov
-	&lt;b&gt;Rush&lt;/b&gt;
+	<b>Rush</b>
 	Whenever this attacks, give your weapon +1/+1. """ 
 	events = Attack(SELF).on(Buff(FRIENDLY_WEAPON,'SCH_425e'))
 	pass
@@ -428,7 +432,7 @@ SCH_425e = buff(1,1)##<10>[1443]
 
 class SCH_521:###OK
 	""" Coerce
-	Destroy a damaged minion. &lt;b&gt;Combo:&lt;/b&gt; Destroy any minion. """ 
+	Destroy a damaged minion. <b>Combo:</b> Destroy any minion. """ 
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	def play(self):
 		if self.target.damage>0:
@@ -439,7 +443,7 @@ class SCH_521:###OK
 
 class SCH_522:###OK
 	"""  Steeldancer
-	[x]&lt;b&gt;Battlecry:&lt;/b&gt; Summon a random
+	[x]<b>Battlecry:</b> Summon a random
 minion with Cost equal to
 your weapon's Attack. """ 
 	def play(self):

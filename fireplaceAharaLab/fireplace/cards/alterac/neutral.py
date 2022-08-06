@@ -307,7 +307,8 @@ class AV_135_AmountCounter(TargetedAction):
 	def do(self, source, target, amount, amountgoal, targetaction):
 		if source.controller.game.current_player == source.controller.opponent:
 			target._sidequest_counter_ += amount
-			log.info("Setting Counter on %r -> %i, %r", target, (source._sidequest_counter_), targetaction)
+			if Config.LOGINFO:
+				print("Setting Counter on %r -> %i, %r"%( target, (source._sidequest_counter_), targetaction))
 		if target._sidequest_counter_>= amountgoal:
 			target._sidequest_counter_ = 0
 			if targetaction!=None:
@@ -402,7 +403,8 @@ class AV_142t:
 			if choice == 'rush':
 				Buff(self,'AV_142e2').trigger(controller)
 			elif choice == 'shield':
-				Buff(self,'AV_142e3').trigger(controller)
+				#Buff(self,'AV_142e3').trigger(controller)
+				GiveDivineShield(self).trigger(controller)
 			elif choice == 'taunt':
 				Buff(self,'AV_142e4').trigger(controller)
 			else:
@@ -610,7 +612,8 @@ if Gear_Grubber:#
 class ONY_002_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		log.info("now ONY_002_Action")
+		if Config.LOGINFO:
+				print("now ONY_002_Action")
 		unspent_mana = (target.controller.mana>0)
 		if unspent_mana:
 			Buff(target,'ONY_002e').trigger(target)
@@ -852,7 +855,7 @@ class ONY_005tb12:# <12>[1626]
 	pass
 class GVG_110t:
 	"""Boom Bot
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 1-4 damage to a random enemy."""
+	<b>Deathrattle:</b> Deal 1-4 damage to a random enemy."""
 	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
 
 if Wax_Rager:# 
@@ -880,10 +883,10 @@ class ONY_005tb2:# <12>[1626]
 	""" Gnomish Army Knife
 	Give a minion [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,} #
-	play = Buff(TARGET, 'ONY_005tb2e')
+	play = Buff(TARGET, 'ONY_005tb2e'),GiveDivineShield(TARGET)
 	#
 	pass
-ONY_005tb2e=buff(rush=True, windfury=True, divine_shield=True, lifesteal=True, taunt=True, stealth=True)
+ONY_005tb2e=buff(rush=True, windfury=True, lifesteal=True, taunt=True, stealth=True)# divine_shield=True,
 # <12>[1626]
 """ Tooled Up!
 Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """

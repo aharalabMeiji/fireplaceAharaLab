@@ -33,7 +33,8 @@ class PlayOnceMoreTime(TargetedAction):
 	CARD = ActionArg()
 	OTHER = ActionArg()
 	def do(self, source, target, card, other):
-		log.info("Play Once more!")
+		if Config.LOGINFO:
+			print("Play Once more!")
 		Battlecry(card,other).trigger(target)
 
 class DMF_058:#OK <2>[1466]

@@ -6,6 +6,7 @@ from ..logging import log
 from ..utils import get_script_definition
 from hearthstone.enums import GameTag
 
+from fireplace.config import Config
 
 class CardDB(dict):
 	def __init__(self):
@@ -98,12 +99,13 @@ class CardDB(dict):
 
 		return card
 
-
 	def initialize(self, locale="jaJP"):#locale="enUS"):#
-		log.info("Load card database")
+		if Config.LOGINFO:
+			print("[cards.initialize]loading card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
-		log.info("Initializing card database")
+		if Config.LOGINFO:
+			print("[cards.initialize]Initializing card database")
 		from .cardlist import All
 		for cardIDlist in All:
 			for id in cardIDlist:
@@ -119,8 +121,45 @@ class CardDB(dict):
 				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
 				#	print ("%s"%(id))
 				pass
-		log.info("Merged %i cards", len(self))
+		if Config.LOGINFO:
+			print("Merged %i cards"%( len(self)))
 
+	def BG_initialize(self):
+		locale = 'jaJP'
+		self.initialized = True
+		if Config.LOGINFO:
+			print("[cards.BG_initialize]loading card database")
+		db, xml = cardxml.load(locale=locale)
+		if Config.LOGINFO:
+			print("[cards.BG_initialize]Initializing card database")
+		from fireplace.cards import battlegrounds
+		BG=[
+			battlegrounds.BG_gems.BG_Gems,
+			battlegrounds.BG_hero1.BG_Hero1,
+			battlegrounds.BG_hero2.BG_Hero2,
+			battlegrounds.BG_hero3.BG_Hero3,
+			battlegrounds.BG_hero4.BG_Hero4,
+			battlegrounds.BG_hero5.BG_Hero5,
+			battlegrounds.BG_hero1.Bartenders,
+			battlegrounds.BG_minion.BG_Minion,
+			battlegrounds.BG_minion_beast.BG_Minion_Beast,
+			battlegrounds.BG_minion_demon.BG_Minion_Demon,
+			battlegrounds.BG_minion_dragon.BG_Minion_Dragon,
+			battlegrounds.BG_minion_elemental.BG_Minion_Elemental,
+			battlegrounds.BG_minion_mecha.BG_Minion_Mecha,
+			battlegrounds.BG_minion_naga.BG_Minion_Naga,
+			battlegrounds.BG_minion_murloc.BG_Minion_Murloc,
+			battlegrounds.BG_minion_pirate.BG_Minion_Pirate,
+			battlegrounds.BG_minion_quilboar.BG_Minion_Quilboar,
+			]
+		for cardIDlist in BG:
+			for id in cardIDlist:
+				card = db[id]
+				self[id] = self.merge(id, card)
+				pass
+			pass
+		if Config.LOGINFO:
+			print("Merged %i cards"%( len(self)))
 
 	def filter(self, **kwargs):
 		"""
@@ -151,6 +190,19 @@ class CardDB(dict):
 					cards = [card for card in cards if value in card.classes]
 				elif attr == 'has_choose_one':
 					cards = [card for card in cards if hasattr(card,'has_choose_one')]
+				elif attr == 'tech_level':
+					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL,10)==value ]
+				elif attr == 'spellcraft':
+					cards = [card for card in cards if card.tags.get(2359,'')!='' ]
+				elif attr == 'tech_level_less':
+					cards = [card for card in cards if card.tags.get(GameTag.TECH_LEVEL,10)<=value ]
+				elif attr == 'bg_collectible':
+					cards = [card for card in cards if card.tags.get(GameTag.IS_BACON_POOL_MINION)==value ]
+				elif attr == 'has_battlecry':
+					cards = [card for card in cards if card.tags.get(GameTag.BATTLECRY,0)==1 ]
+				elif attr == 'spellcraft_spellcard':
+					cards = [card for card in cards 
+								if card.tags.get(2423, 0)==1]
 				else:
 					cards = [
 						card for card in cards if (

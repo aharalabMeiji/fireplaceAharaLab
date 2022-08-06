@@ -43,7 +43,8 @@ class GetManaIfSpell(TargetedAction):
 	def do(self, source, target, amount):
 		if target.type == CardType.SPELL:
 			source.controller.used_mana -= amount
-			log.info("Refresh %d Mana for %r"%(amount, source.controller))
+			if Config.LOGINFO:
+				print("Refresh %d Mana for %r"%(amount, source.controller))
 			if source.controller.used_mana<0:
 				source.controller.used_mana=0
 
@@ -92,7 +93,9 @@ class BAR_545:#<4> [1525] ##OK
 class BAR_545e:#<4> [1525]
 	""" Conjured Reduction
 	Costs (2) less (but not less than 1). """
-	cost = lambda self, i: max(i-2, 1)
+	#cost = lambda self, i: max(i-2, 1)
+	tags = {GameTag.COST:-2, }
+	
 	pass
 
 class BAR_546:#<4> [1525] ##OK

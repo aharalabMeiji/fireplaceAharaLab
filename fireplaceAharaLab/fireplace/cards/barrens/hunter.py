@@ -72,7 +72,8 @@ class BAR_037_Warsong_Wrangler(Choice):
 	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
 	def choose(self, card):
 		super().choose(card)
-		log.info("%s chooses %r"%(card.controller.name, card))
+		if Config.LOGINFO:
+			print("%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:

@@ -259,7 +259,8 @@ class SW_079t:##OK
 			if main_card.id == 'SW_079':
 				main_card.dormant = 1
 				setattr(main_card.data.scripts, 'awaken', (SummonAdventurerWithBonus(CONTROLLER),))
-				log.info("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
+				if Config.LOGINFO:
+					print("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break;
 		controller.hand[-1].zone = Zone.GRAVEYARD
 SW_079te=buff(0,0)
@@ -272,7 +273,8 @@ class SW_079t2:###OK
 			if main_card.id == 'SW_079':
 				main_card.dormant = 3
 				setattr(main_card.data.scripts, 'awaken', (Heal(FRIENDLY_HERO,10),))
-				log.info("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
+				if Config.LOGINFO:
+					print("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break
 		controller.hand[-1].zone = Zone.GRAVEYARD
 SW_079t2e=buff(0,0)
@@ -285,7 +287,8 @@ class SW_079t3:###OK
 			if main_card.id == 'SW_079':
 				main_card.dormant = 5
 				setattr(main_card.data.scripts, 'awaken', (Hit(RANDOM(ENEMY_CHARACTERS),1) * 12,))
-				log.info("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
+				if Config.LOGINFO:
+					print("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break
 		controller.hand[-1].zone = Zone.GRAVEYARD
 SW_079t3e=buff(0,0)
