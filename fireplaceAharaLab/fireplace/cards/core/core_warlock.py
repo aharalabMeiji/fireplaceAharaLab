@@ -5,6 +5,188 @@ import copy
 #	"CORE_AT_021","AT_021e","CORE_CS2_062","CORE_CS2_064","CORE_EX1_302","CORE_EX1_304","EX1_304e","CORE_EX1_309","CORE_EX1_312","CORE_EX1_319","CORE_EX1_323","EX1_323h","EX1_tk33","EX1_tk34","EX1_323w","CORE_GIL_191","CORE_GIL_191t","CORE_ICC_055","CORE_OG_241","OG_241a","CORE_UNG_833","CS3_002","CS3_002t","CS3_003","CS3_021"
 #	]
 
+
+########################################
+
+Core_Warlock=[]
+Core_Tiny_Knight_of_Evil=True
+Core_Imp_Gang_Boss=True
+Core_Abyssal_Enforcer=True
+Core_Hellfire=True
+Core_Voidwalker=True
+Core_Mortal_Coil=True
+Core_Void_Terror=True
+Core_Siphon_Soul=True
+Core_Twisting_Nether=True
+Core_Flame_Imp=True
+Core_Lord_Jaraxxus=True
+Core_Fiendish_Circle=True
+Core_Imp=True
+Core_Drain_Soul=True
+Core_Darkshire_Librarian=True
+Core_High_Priestess_Jeklik=True
+Core_Lakkari_Felhound=True
+Core_Demonic_Tyrant=True
+Core_Felsoul_Jailer=True
+
+
+
+if Core_Tiny_Knight_of_Evil:# 
+	Core_Warlock+=['CORE_AT_021']
+class CORE_AT_021:# <9>[1637]
+	""" Tiny Knight of Evil
+	Whenever you discard a card, gain +1/+1. """
+	#
+	pass
+
+if Core_Imp_Gang_Boss:# 
+	Core_Warlock+=['CORE_BRM_006']
+class CORE_BRM_006:# <9>[1637]
+	""" Imp Gang Boss
+	Whenever this minion takes damage, summon a 1/1 Imp. """
+	#
+	pass
+
+if Core_Abyssal_Enforcer:# 
+	Core_Warlock+=['CORE_CFM_751']
+class CORE_CFM_751:# <9>[1637]
+	""" Abyssal Enforcer
+	[Battlecry:] Deal 3 damage to all other characters. """
+	#
+	pass
+
+if Core_Hellfire:# 
+	Core_Warlock+=['CORE_CS2_062']
+class CORE_CS2_062:# <9>[1637]
+	""" Hellfire
+	Deal $3 damage to ALL_characters. """
+	#
+	pass
+
+if Core_Voidwalker:# 
+	Core_Warlock+=['CORE_CS2_065']
+class CORE_CS2_065:# <9>[1637]
+	""" Voidwalker
+	[Taunt] """
+	#
+	pass
+
+if Core_Mortal_Coil:# 
+	Core_Warlock+=['CORE_EX1_302']
+class CORE_EX1_302:# <9>[1637]
+	""" Mortal Coil
+	Deal $1 damage to a minion. If that kills it, draw a card. """
+	#
+	pass
+
+if Core_Void_Terror:# 
+	Core_Warlock+=['CORE_EX1_304']
+class CORE_EX1_304:# <9>[1637]
+	""" Void Terror
+	[Battlecry:] Destroy bothadjacent minions and gain their Attack and Health. """
+	#
+	pass
+
+if Core_Siphon_Soul:# 
+	Core_Warlock+=['CORE_EX1_309']
+class CORE_EX1_309:# <9>[1637]
+	""" Siphon Soul
+	Destroy a minion. Restore #3 Health to_your hero. """
+	#
+	pass
+
+if Core_Twisting_Nether:# 
+	Core_Warlock+=['CORE_EX1_312']
+class CORE_EX1_312:# <9>[1637]
+	""" Twisting Nether
+	Destroy all minions. """
+	#
+	pass
+
+if Core_Flame_Imp:# 
+	Core_Warlock+=['CORE_EX1_319']
+class CORE_EX1_319:# <9>[1637]
+	""" Flame Imp
+	[Battlecry:] Deal 3 damage to your hero. """
+	#
+	pass
+
+if Core_Lord_Jaraxxus:# 
+	Core_Warlock+=['CORE_EX1_323']
+class CORE_EX1_323:# <9>[1637]
+	""" Lord Jaraxxus
+	[Battlecry:] Equip a 3/8 Blood Fury. """
+	#
+	pass
+
+if Core_Fiendish_Circle:# 
+	Core_Warlock+=['CORE_GIL_191']
+class CORE_GIL_191:# <9>[1637]
+	""" Fiendish Circle
+	Summon four 1/1 Imps. """
+	#
+	pass
+
+if Core_Imp:# 
+	Core_Warlock+=['CORE_GIL_191t']
+class CORE_GIL_191t:# <9>[1637]
+	""" Imp
+	 """
+	#
+	pass
+
+if Core_Drain_Soul:# 
+	Core_Warlock+=['CORE_ICC_055']
+class CORE_ICC_055:# <9>[1637]
+	""" Drain Soul
+	[Lifesteal]Deal $3 damageto a minion. """
+	#
+	pass
+
+if Core_Darkshire_Librarian:# 
+	Core_Warlock+=['CORE_OG_109']
+class CORE_OG_109:# <9>[1637]
+	""" Darkshire Librarian
+	[Battlecry:]Discard a random card. [Deathrattle:]Draw a card. """
+	#
+	pass
+
+if Core_High_Priestess_Jeklik:# 
+	Core_Warlock+=['CORE_TRL_252']
+class CORE_TRL_252:# <9>[1637]
+	""" High Priestess Jeklik
+	[Taunt], [Lifesteal]When you discard this,add 2 copies of it toyour hand. """
+	#
+	pass
+
+if Core_Lakkari_Felhound:# 
+	Core_Warlock+=['CORE_UNG_833']
+class CORE_UNG_833:# <9>[1637]
+	""" Lakkari Felhound
+	[Taunt][Battlecry:] Discard your two lowest-Cost cards. """
+	#
+	pass
+
+if Core_Demonic_Tyrant:# 
+	Core_Warlock+=['CS3_002t']
+class CS3_002t:# <9>[1637]
+	""" Demonic Tyrant
+	 """
+	#
+	pass
+
+if Core_Felsoul_Jailer:# 
+	Core_Warlock+=['CS3_003']
+class CS3_003:# <9>[1637]
+	""" Felsoul Jailer
+	[Battlecry:] Your opponentdiscards a minion.[Deathrattle:] Return it. """
+	#
+	pass
+
+
+#######################################
+
+
 class CORE_AT_021:# <9>[1637]
 	""" Tiny Knight of Evil
 	Whenever you discard a card, gain +1/+1. """
