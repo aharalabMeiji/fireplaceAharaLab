@@ -86,7 +86,7 @@ def printClasses():
 	print('from ..utils import *')
 	print('')
 	myCardSet=CardSet.CORE
-	myCardClass=CardClass.MAGE
+	myCardClass=CardClass.WARRIOR
 	mySetClass='Core_Neutral'
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
@@ -191,8 +191,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.test_core_mage import core_mage
-	core_mage()
+	from card_test.test_core_warrior import core_warrior
+	core_warrior()
 	pass
 
 def battleground_main():
