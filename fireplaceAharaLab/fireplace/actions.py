@@ -351,12 +351,12 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Asphyxia(target)])
 		if target.deathrattles and target.deathrattle_valid:
 			source.game.queue_actions(source, [Deathrattle(target)])
+		if target.type == CardType.MINION:
+			self.broadcast(source, EventListener.ON, target)
 		if target.reborn:# 
 			source.game.queue_actions(source, [Reborn(target)])
 		if target.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
-		if target.type == CardType.MINION:
-			self.broadcast(source, EventListener.ON, target)
 
 class EndTurn(GameAction):
 	"""
@@ -620,7 +620,7 @@ class Play(GameAction):
 		player = source
 		player.spell_and_damage=False
 		if Config.LOGINFO:
-			print("(Play.do)%s plays %r (target=%r, index=%r)", player, card, target, index)
+			print("(Play.do)%s plays %r (target=%r, index=%r)"%(player, card, target, index))
 
 		player.pay_cost(card, card.cost)
 		player.add_play_log(card)

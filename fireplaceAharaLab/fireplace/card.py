@@ -295,11 +295,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def draw(self):
 		if len(self.controller.hand) >= self.controller.max_hand_size:
 			if Config.LOGINFO:
-				print("(BaseCard.draw)%s overdraws and loses %r!", self.controller, self)
+				print("(BaseCard.draw)%s overdraws and loses %r!"%(self.controller, self))
 			self.discard()
 		else:
 			if Config.LOGINFO:
-				print("(BaseCard.draw)%s draws %r", self.controller, self)
+				print("(BaseCard.draw)%s draws %r"%(self.controller, self))
 			if self.zone != Zone.HAND:
 				self.zone = Zone.HAND
 			# if self is 'casts_when_drawn' then immediately play. 

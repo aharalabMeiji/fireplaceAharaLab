@@ -98,6 +98,18 @@ class ChooseBoth(Evaluator):
 			return True
 		return False
 
+class Frozen(Evaluator):
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
+
+	def check(self, source):
+		entity = self.selector.eval(source.game.entities, source)[0]
+		# entity may be Player or PlayableCard
+		if hasattr(entity,'frozen') and entity.frozen:
+			return True
+		return False
+
 
 class CurrentPlayer(Evaluator):
 	"""

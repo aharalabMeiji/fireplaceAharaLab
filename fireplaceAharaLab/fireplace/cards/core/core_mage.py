@@ -177,7 +177,7 @@ class CORE_LOE_003:# <4>[1637]
 
 if Explosive_Runes:# ##23.6
 	Core_Mage+=['CORE_LOOT_101']
-class CORE_LOOT_101_Action(TArgetedAction)
+class CORE_LOOT_101_Action(TargetedAction):
 	CARDS=ActionArg()
 	def do(self, source, cards):
 		if cards==[]:
@@ -194,7 +194,7 @@ class CORE_LOOT_101_Action(TArgetedAction)
 class CORE_LOOT_101:# <4>[1637]
 	""" Explosive Runes
 	[Secret:] After your opponent plays a minion, deal $6 damage to it and any excess to their hero. """
-	secret = Play(OPPONENT, MINION).on(CORE_LOOT_101_Action(Play.CARDS))
+	secret = Play(OPPONENT, MINION).on(CORE_LOOT_101_Action(Play.CARD))
 	pass
 
 if Pyromaniac:# ##23.6
@@ -226,8 +226,8 @@ if Aegwynn_the_Guardian:# ##23.6
 	Core_Mage+=['CS3_001e2']
 class CS3_001_Action(TargetedAction):
 	TARGET=ActionArg()
-	def do(self, source, target):#target = owner(card)
-		Buff(target.controller, "CS3_001e2").trigger(source)# inherit the ability from a card to a player
+	def do(self, source, target):#target = controller(player)
+		Buff(target, "CS3_001e2").trigger(source)# inherit the ability from a card to a player
 		#print("Guardian's legacy flag on (%r)"%(target))
 		pass
 class CS3_001_Action2(TargetedAction):
@@ -248,7 +248,8 @@ class CS3_001:# <4>[1637]
 	[Spell Damage +2][Deathrattle:] The next minion_you draw inherits these powers. """
 	play = Buff(SELF, 'CS3_001e')
 class CS3_001e:# <4>[1637]
-	events = Death(OWNER).on(CS3_001_Action(OWNER)),
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle = CS3_001_Action(CONTROLLER)
 	pass
 class CS3_001e2:# <4>[1637]
 	events = Draw(CONTROLLER).on(CS3_001_Action2(Draw.CARD))

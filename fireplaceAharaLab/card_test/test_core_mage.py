@@ -8,7 +8,7 @@ from fireplace.config import Config
 
 ##################################
 
-def core_druid():
+def core_mage():
 	## 23.6
 	#PresetGame(pp_CORE_BOT_453)
 	#PresetGame(pp_CORE_CS2_023)
@@ -436,25 +436,45 @@ class pp_CORE_UNG_020(Preset_Play):# <12>[1637]
 ################CS3_001#################
 
 class pp_CS3_001(Preset_Play):# <12>[1637]
-	""" Aegwynn, the Guardian
+	""" Aegwynn, the Guardian (5/5/5)
 	[Spell Damage +2][Deathrattle:] The next minion_you draw inherits these powers. """
 	class1=CardClass.MAGE
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CS3_001',controller)#
+		self.mark2=self.exchange_card('minionA6',opponent)#
+		self.mark3=self.exchange_card('minionA6',opponent)#
+		self.mark4=self.exchange_card('minionA6',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		self.attack_card(self.mark2, self.mark1)
+		self.change_turn()
+		### con
+
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		for card in self.player.hand:
+			self.print_stats("hand", card)
+		card = self.player.hand[-1]
+		assert card.buffs!=[], "buff"
+		assert card.buffs[0].id=='CS3_001e', "buff"
+		assert card.has_deathrattle==True, "deathrattle"
+		print("new_card_deathrattle = %s"%(card.deathrattles[0]))
+
 		pass
 	pass
 

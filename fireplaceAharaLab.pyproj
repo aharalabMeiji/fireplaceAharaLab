@@ -306,8 +306,6 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_neutral.py" />
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_priest.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_rogue.py" />
@@ -315,8 +313,6 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\__init__.py" />
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\config.py" />
