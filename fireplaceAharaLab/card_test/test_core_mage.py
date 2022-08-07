@@ -20,13 +20,13 @@ def core_mage():
 	#PresetGame(pp_CORE_EX1_279)
 	#PresetGame(pp_CORE_EX1_287)
 	#PresetGame(pp_CORE_EX1_289)
-	#PresetGame(pp_CORE_GIL_801)
+	PresetGame(pp_CORE_GIL_801)##OK
 	#PresetGame(pp_CORE_KAR_009)
 	#PresetGame(pp_CORE_LOE_003)
-	#PresetGame(pp_CORE_LOOT_101)
+	#PresetGame(pp_CORE_LOOT_101)##OK
 	#PresetGame(pp_CORE_TRL_315)
 	#PresetGame(pp_CORE_UNG_020)
-	PresetGame(pp_CS3_001)
+	#PresetGame(pp_CS3_001)##OK
 	## 22.6
 
 	pass
@@ -286,22 +286,31 @@ class pp_CORE_EX1_289(Preset_Play):# <12>[1637]
 ################CORE_GIL_801#################
 
 class pp_CORE_GIL_801(Preset_Play):# <12>[1637]
-	""" Snap Freeze
+	""" Snap Freeze (cost-1)
 	[Freeze] a minion.If it's already [Frozen], destroy it. """
 	class1=CardClass.MAGE
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_GIL_801',controller)#
+		self.mark2=self.exchange_card('CORE_GIL_801',controller)#
+		self.mark3=self.exchange_card('minionH4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark3)
+		self.change_turn()
+		### con
+		assert self.mark3.frozen==False, "not frozen"
+		self.play_card(self.mark1, target=self.mark3)
+		assert self.mark3.frozen==True, "frozen"
+		self.play_card(self.mark2, target=self.mark3)
+		assert self.mark3.zone==Zone.GRAVEYARD, "death"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -367,19 +376,26 @@ class pp_CORE_LOOT_101(Preset_Play):# <12>[1637]
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_LOOT_101',controller)#
+		self.mark2=self.exchange_card('minionH4',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		assert len(self.player.secrets)>0, "secrets"
+		assert self.player.secrets[0].id=='CORE_LOOT_101', "secrets"
 		self.change_turn()
 		### opp
+		self.play_card(self.mark2)
+		assert self.mark2.zone==Zone.GRAVEYARD, "zone"
+		assert self.player.opponent.hero.health == 30-6+4, "health"  
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		print("OK")
 		pass
 	pass
 

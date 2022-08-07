@@ -19,7 +19,7 @@ Ethereal_Conjurer=True##23.6
 Explosive_Runes=True##23.6
 Pyromaniac=True##23.6
 Arcanologist=True##23.6
-Aegwynn_the_Guardian=True##23.6
+Aegwynn_the_Guardian=True##23.6 
 #########################
 #CORE_AT_003:# <4>[1637] #22.6
 #CORE_AT_008:# <4>[1637] ##22.6
@@ -144,13 +144,13 @@ class CORE_EX1_294:# <4>[1637] 22.6
 
 if Snap_Freeze:# ##23.6
 	Core_Mage+=['CORE_GIL_801']
-class FreezeOrDeath(TargetedAction):
-	def do (self, source, target):
-		if target.frozen:
-			Destroy(target).trigger(source)
-		else:
-			Freeze(target).trigger(source)
-		pass
+#class FreezeOrDeath(TargetedAction):
+#	def do (self, source, target):
+#		if target.frozen:
+#			Destroy(target).trigger(source)
+#		else:
+#			Freeze(target).trigger(source)
+#		pass
 class CORE_GIL_801:# <4>[1637]
 	""" Snap Freeze
 	[Freeze] a minion.If it's already [Frozen], destroy it. """
@@ -182,7 +182,7 @@ class CORE_LOOT_101_Action(TargetedAction):
 	def do(self, source, cards):
 		if cards==[]:
 			return
-		if hasattr(cards,__iter__):
+		if isinstance(cards,list):
 			card=cards[0]
 		else:
 			card=cards

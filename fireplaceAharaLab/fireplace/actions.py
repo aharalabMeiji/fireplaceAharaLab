@@ -1723,7 +1723,7 @@ class SetTag(TargetedAction):
 
 	def do(self, source, target, tags):
 		if Config.LOGINFO:
-			print("(SetTag.do)Setting current tag on %r to %s", target, tags)
+			print("(SetTag.do)Setting current tag on %r to %s"%(target, tags))
 		if isinstance(tags, dict):
 			for tag, value in tags.items():
 				target.tags[tag] = value
