@@ -86,8 +86,8 @@ def printClasses():
 	print('from ..utils import *')
 	print('')
 	myCardSet=CardSet.CORE
-	myCardClass=CardClass.WARRIOR
-	mySetClass='Core_Neutral'
+	myCardClass=CardClass.SHAMAN
+	mySetClass='Core_Shaman'
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
