@@ -20,15 +20,14 @@ def core_mage():
 	#PresetGame(pp_CORE_EX1_279)
 	#PresetGame(pp_CORE_EX1_287)
 	#PresetGame(pp_CORE_EX1_289)
-	PresetGame(pp_CORE_GIL_801)##OK
+	#PresetGame(pp_CORE_GIL_801)##OK
 	#PresetGame(pp_CORE_KAR_009)
 	#PresetGame(pp_CORE_LOE_003)
 	#PresetGame(pp_CORE_LOOT_101)##OK
-	#PresetGame(pp_CORE_TRL_315)
+	#PresetGame(pp_CORE_TRL_315)##OK
 	#PresetGame(pp_CORE_UNG_020)
 	#PresetGame(pp_CS3_001)##OK
 	## 22.6
-
 	pass
 
 ##################################
@@ -408,8 +407,9 @@ class pp_CORE_TRL_315(Preset_Play):# <12>[1637]
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		controller=self.player
-		#opponent = controller.opponent
+		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_TRL_315',controller)#
+		self.mark2=self.exchange_card('minionH1',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -418,9 +418,17 @@ class pp_CORE_TRL_315(Preset_Play):# <12>[1637]
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.activate_heropower(target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		for card in self.player.hand:
+			self.print_stats("hand", card)
+		assert len(self.player.hand)==4, "hand"
+		assert self.mark2.zone==Zone.GRAVEYARD, "zone"
 		pass
 	pass
 

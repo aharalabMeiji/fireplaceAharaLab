@@ -139,6 +139,14 @@ class Preset_Play:
 			_card=random.choice(['CORE_EX1_611','CORE_EX1_275','CORE_EX1_289','CORE_GIL_801','BT_072','SCH_509','BAR_305','BAR_305t','BAR_305t2','BAR_812','WC_041',])
 		if _card=='mech':
 			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
+		if _card=='minionH1':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==1: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		if _card=='minionH4':
 			choices=[]
 			for cardIDlist in All:
@@ -347,7 +355,9 @@ class Preset_Play:
 			if card.id==cardID:
 				return True
 		return False
-	def activate_heropower(self, player, target=None):
+	def activate_heropower(self, player=None, target=None):
+		if player==None:
+			player=self.player
 		player.hero.power.use(target=target)
 		pass
 

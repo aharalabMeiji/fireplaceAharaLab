@@ -203,7 +203,12 @@ class CORE_TRL_315_Action(TargetedAction):
 	CARD=ActionArg()
 	TARGET=ActionArg()
 	def do(self, source, card, target):
-		atk=card.atk
+		if card.id=='HERO_08bp':
+			atk=1
+		elif card.id=='HERO_08bp2':
+			atk=2
+		else:
+			atk=0
 		if target.health<=atk:
 			Draw(source.controller).trigger(source)
 class CORE_TRL_315:# <4>[1637]
