@@ -1,7 +1,7 @@
 from fireplace.cards import core
 
 # CORE <12><3><4>[1637]
-from fireplace.cards.core import core_druid,core_hunter,core_mage,core_neutral
+from fireplace.cards.core import core_druid,core_hunter,core_mage,core_neutral,core_warrior
 Core_Druid=core_druid.Core_Druid
 Core_Hunter=core_hunter.Core_Hunter
 Core_Mage = core_mage.Core_Mage

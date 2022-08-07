@@ -3,7 +3,7 @@ from hearthstone.enums import Zone,CardType, Rarity, CardClass
 
 def core_warrior():
 	## 23.6
-	PresetGame(pp_CORE_AT_064)##new
+	#PresetGame(pp_CORE_AT_064)##new
 	#PresetGame(pp_CORE_CS2_106)
 	#PresetGame(pp_CORE_CS2_108)
 	#PresetGame(pp_CORE_EX1_391)
@@ -11,14 +11,15 @@ def core_warrior():
 	#PresetGame(pp_CORE_EX1_402)
 	#PresetGame(pp_CORE_EX1_407)
 	#PresetGame(pp_CORE_EX1_410)
-	#PresetGame(pp_CORE_EX1_411)
-	PresetGame(pp_CORE_EX1_414)###difficult
+	#PresetGame(pp_CORE_EX1_411)#OK
+	#PresetGame(pp_CORE_EX1_414)
 	#PresetGame(pp_CORE_EX1_603)
 	#PresetGame(pp_CORE_EX1_604)
-	PresetGame(pp_CORE_EX1_606)##new
-	PresetGame(pp_CORE_GIL_547)##new
+	#PresetGame(pp_CORE_EX1_606)##new
+	PresetGame(pp_CORE_GIL_547x)##OK
+	PresetGame(pp_CORE_GIL_547y)##OK
 	#PresetGame(pp_CORE_GVG_053)
-	PresetGame(pp_CORE_OG_218)##new
+	#PresetGame(pp_CORE_OG_218)##new
 	#PresetGame(pp_CS3_008)
 	##22.6
 	#CORE_EX1_084
@@ -245,28 +246,34 @@ class pp_CORE_EX1_411(Preset_Play):# <6>[1637]
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_EX1_411',controller)#
+		self.mark1.atk=2
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		opponent = controller.opponent
-		game = controller.game
-		##########controller
-		self.play_card(self.mark1, controller)
-		self.attack_card(controller.hero, opponent.hero,controller)
-		self.change_turn(controller)
-		##########opponent
-		#self.play_card(self.mark3, opponent)#
-		self.change_turn(opponent)
-		##########controller
-		self.attack_card(controller.hero, opponent.hero,controller)
+		## con
+		self.play_card(self.mark1, controller)#weapon
+		self.n1=self.mark1.atk
+		self.n2=self.mark1.durability
+		self.attack_card(controller.hero, opponent.hero)
+		assert self.mark1.atk==self.n1-1, "atk"
+		assert self.mark1.durability==self.n2, "durability"
+		self.change_turn()
+		## opp
+		self.change_turn()
+		## con
+		self.attack_card(controller.hero, opponent.hero)
+		assert self.mark1.atk==self.n1-2, "atk"
+		assert self.mark1.durability==self.n2, "durability"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		hero = controller.opponent.hero
 		self.print_stats("weapon",self.mark1)
+		assert self.mark1.zone==Zone.GRAVEYARD, "zone"
 		for card in [controller.hero, controller.opponent.hero]:
 			self.print_stats ("controller.hero", card)
 		pass
@@ -377,15 +384,17 @@ class pp_CORE_EX1_606(Preset_Play):# <6>[1637]
 
 ###############CORE_GIL_547###################
 
-class pp_CORE_GIL_547(Preset_Play):# <6>[1637]
+class pp_CORE_GIL_547x(Preset_Play):# <6>[1637]
 	""" Darius Crowley
-	[Rush]After this attacks and killsa minion, gain +2/+2. """
+	[Rush]After this attacks and kills a minion, gain +2/+2. """
 	class1=CardClass.WARRIOR
 	class2=CardClass.WARRIOR
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
-		self.mark1=self.exchange_card('CORE_GIL_547',controller)#
+		self.mark1=self.exchange_card('CORE_GIL_547',controller)#(5/4/5)
+		self.mark2=self.exchange_card('minionA4',opponent)#
+		self.mark2.max_health=6
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -394,9 +403,47 @@ class pp_CORE_GIL_547(Preset_Play):# <6>[1637]
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.attack_card(self.mark1, self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark1.buffs==[], "buffs"
+		for card in self.player.field:
+			self.print_stats ("field", card)
+		pass
+class pp_CORE_GIL_547y(Preset_Play):# <6>[1637]
+	""" Darius Crowley
+	[Rush]After this attacks and kills a minion, gain +2/+2. """
+	class1=CardClass.WARRIOR
+	class2=CardClass.WARRIOR
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_GIL_547',controller)#(5/4/5)
+		self.mark2=self.exchange_card('minionA4',opponent)#
+		self.mark2.max_health=4
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.attack_card(self.mark1, self.mark2)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		assert len(self.mark1.buffs)==1, "buffs"
+		assert self.mark1.buffs[0].id=='CORE_GIL_547e', "buffs"
+		assert self.mark1.buffs[0].atk==2, "atk"
+		assert self.mark1.buffs[0].max_health==2, "health"
 		for card in self.player.field:
 			self.print_stats ("field", card)
 		pass

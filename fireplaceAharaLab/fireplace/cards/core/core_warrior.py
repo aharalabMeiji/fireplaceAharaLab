@@ -24,9 +24,9 @@ Bloodsail_Deckhand=True##23.6
 
 ###################
 
-if Bash:# 23.6
+if Bash:# 23.6  
 	Core_Warrior+=['CORE_AT_064']
-class CORE_AT_064:# <10>[1637]
+class CORE_AT_064:# <10>[1637] ## maybe OK ##
 	""" Bash
 	Deal $3 damage.Gain 3 Armor. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
@@ -41,21 +41,17 @@ class CORE_CS2_106:# <10>[1637]
 
 if Execute:# 
 	Core_Warrior+=['CORE_CS2_108']
-class CORE_CS2_108:# <10>[1637]
+class CORE_CS2_108:# <10>[1637]  ## maybe OK ##
 	""" Execute
 	Destroy a damaged enemy minion. """
-	requirements = {
-		PlayReq.REQ_DAMAGED_TARGET: 0,
-		PlayReq.REQ_ENEMY_TARGET: 0,
-		PlayReq.REQ_MINION_TARGET: 0,
-		PlayReq.REQ_TARGET_TO_PLAY: 0}
+	requirements = {PlayReq.REQ_DAMAGED_TARGET: 0,PlayReq.REQ_ENEMY_TARGET: 0,PlayReq.REQ_MINION_TARGET: 0,PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Destroy(TARGET)
 	pass
 
 class CORE_EX1_084:#OK <10>[1637] ## 22.6
 	""" Warsong Commander
 	After you summon another minion, give it [Rush]. """
-	events = Summon(FRIENDLY - SELF).on(Buff(Summon.CARD,"EX1_084e"))
+	events = Summon(CONTROLLER, FRIENDLY_MINIONS).on(Buff(Summon.CARD,"EX1_084e"))
 	pass
 EX1_084e = buff(rush=True)
 
@@ -90,11 +86,7 @@ class CORE_EX1_407:# <10>[1637] ## bigWarrior
 	""" Brawl
 	Destroy all minions except one. <i>(chosen randomly)</i> """
 	requirements = {PlayReq.REQ_MINIMUM_TOTAL_MINIONS: 2}
-	play = (
-		Find(ALL_MINIONS + ALWAYS_WINS_BRAWLS) &
-		Destroy(ALL_MINIONS - RANDOM(ALL_MINIONS + ALWAYS_WINS_BRAWLS)) |
-		Destroy(ALL_MINIONS - RANDOM_MINION)#たぶんこれだけでよい、と思う。
-	)
+	play = Destroy(ALL_MINIONS - RANDOM_MINION)#
 	pass
 
 if Shield_Slam:# 
@@ -103,17 +95,32 @@ class CORE_EX1_410:# <10>[1637]
 	""" Shield Slam
 	Deal 1 damage to a minion for each Armor you have. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0,  PlayReq.REQ_MINION_TARGET: 0}
-	play = Hit(TARGET, 2)#ARMOR(FRIENDLY_HERO))
+	play = Hit(TARGET, ARMOR(FRIENDLY_HERO))
 	pass
 
 if Gorehowl:# 
 	Core_Warrior+=['CORE_EX1_411','EX1_411e','EX1_411e2']
+class CORE_EX1_411_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		#target = this weapon
+		target.max_durability += 1
+		pass
+class CORE_EX1_411_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		#target = this weapon
+		target.atk -= 1
+		if target.atk==0:
+			Destroy(target).trigger(source)
+		pass
 class CORE_EX1_411:# <10>[1637] ##########正しく動作しない。
 	""" Gorehowl
 	Attacking a minion costs 1 Attack instead of 1 Durability. """
-	events = Attack(FRIENDLY_HERO).after(Heal(SELF, 1), Buff(SELF, 'EX1_411e2'))
+	events = [Attack(FRIENDLY_HERO).on(CORE_EX1_411_Action1(SELF)), Attack(FRIENDLY_HERO).after(CORE_EX1_411_Action2(SELF))]
 	pass
-EX1_411e = buff(durability=1)
+class EX1_411e:
+	pass
 EX1_411e2 = buff(atk=-1)
 
 if Grommash_Hellscream:# 
@@ -157,10 +164,16 @@ class CORE_EX1_606:# <10>[1637]
 
 if Darius_Crowley:# ##23.6
 	Core_Warrior+=['CORE_GIL_547']
+class CORE_GIL_547_Action(TargetedAction):
+	ATTACKER=ActionArg()
+	DEFENDER=ActionArg()
+	def do(self, source, attacker, defender):
+		if attacker.atk>=defender.health:
+			Buff(SELF,'CORE_GIL_547e').trigger(source)
 class CORE_GIL_547:# <10>[1637]
 	""" Darius Crowley
 	[Rush]After this attacks and kills a minion, gain +2/+2. """
-	events = AttackAndDeath(CONTROLLER, ALL_MINIONS).on(Buff(SELF,'CORE_GIL_547e'))
+	events = Attack(SELF, ENEMY_MINIONS).on(CORE_GIL_547_Action(Attack.ATTACKER, Attack.DEFENDER))
 	pass
 @custom_card
 class CORE_GIL_547e:
@@ -192,7 +205,7 @@ if Bloodsail_Deckhand:#
 	Core_Warrior+=['CS3_008e']
 class CS3_008:# <10>[1637]
 	""" Bloodsail Deckhand
-	[Battlecry:] The nextweapon you play costs(1) less. """
+	[Battlecry:] The next weapon you play costs(1) less. """
 	play = Buff(FRIENDLY_HAND + WEAPON,'CS3_008e')
 	pass
 class CS3_008e:# <10>[1637]## updateが弱いかも

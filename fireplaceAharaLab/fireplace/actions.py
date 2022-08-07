@@ -142,7 +142,7 @@ class Action(metaclass=ActionMeta):
 				continue
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				if Config.LOGINFO:
-					print("(actions.broadcast)%s triggers off %s from %s"%(entity, self, source))
+					print("%s(actions.broadcast)%s triggers off %s from %s"%(Config.LOGINFO_INDENT, entity, self, source))
 				entity.trigger_event(source, event, args)
 	def broadcast(self, source, at, *args):
 		for entity in source.game.entities:
@@ -209,7 +209,7 @@ class Attack(GameAction):
 
 	def do(self, source, attacker, defender):
 		if Config.LOGINFO:
-			print("(Attack.do)%s attacks %s"%(attacker, defender))
+			print("%s(Attack.do)%s attacks %s"%(Config.LOGINFO_INDENT, attacker, defender))
 		if attacker == None or defender == None: ## rarely happens
 			return
 		attacker.attack_target = defender
@@ -227,7 +227,7 @@ class Attack(GameAction):
 		source.game.proposed_defender = None
 		if attacker.should_exit_combat:
 			if Config.LOGINFO:
-				print("Attack has been interrupted.")
+				print("%s(Attack)Attack has been interrupted."%Config.LOGINFO_INDENT)
 			attacker.attack_target = None
 			defender.defending = False
 			return
@@ -277,7 +277,7 @@ class BeginTurn(GameAction):
 		source.manager.step(source.next_step, Step.MAIN_READY)
 		source.turn += 1
 		if Config.LOGINFO:
-			print("(BeginTurn.do)%s begins turn %i"%(player, source.turn))
+			print("%s(BeginTurn.do)%s begins turn %i"%(Config.LOGINFO_INDENT, player, source.turn))
 		source.current_player = player
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
@@ -295,7 +295,7 @@ class BeginBattle(GameAction):
 	def do(self, source, player):
 		source.manager.step(source.next_step, Step.MAIN_READY)
 		if Config.LOGINFO:
-			print("(BeginBattle.do)%s begins a battle"%( player))
+			print("%s(BeginBattle.do)%s begins a battle"%(Config.LOGINFO_INDENT, player))
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
@@ -342,7 +342,7 @@ class Death(GameAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Death.do)Processing Death for %r"% target)
+			print("%s(Death.do)Processing Death for %r"% (Config.LOGINFO_INDENT, target))
 		source.game.refresh_auras()
 		target.controller.add_death_log(target)
 		source.game.refresh_auras()  # 
@@ -390,7 +390,7 @@ class Joust(GameAction):
 
 	def do(self, source, challenger, defender):
 		if Config.LOGINFO:
-			print("(Jouse.do)Jousting %r vs %r", challenger, defender)
+			print("%s(Jouse.do)Jousting %r vs %r"%(Config.LOGINFO_INDENT, challenger, defender))
 		source.game.joust(source, challenger, defender, self.callback)
 
 ########## Choice ##############
@@ -425,10 +425,10 @@ class Choice(GameAction):
 	def do(self, source, player, cards):
 		if len(cards) == 0:
 			if Config.LOGINFO:
-				print("(Choice.do)No choice for this condition.")
+				print("%s(Choice.do)No choice for this condition."%(Config.LOGINFO_INDENT))
 			return
 		if Config.LOGINFO:
-			print("(Choice.do)%r choice from %r", player, cards)
+			print("%s(Choice.do)%r choice from %r"%(Config.LOGINFO_INDENT, player, cards))
 		self.next_choice = player.choice
 		player.choice = self
 		player.choiceText = source.choiceText
@@ -885,7 +885,7 @@ class TargetedAction(Action):
 			targets = self.get_targets(source, args[0])
 			args = args[1:]
 			if Config.LOGINFO:
-				print("(TargetedAction.trigger)%s triggering %r targeting %r"%( source, self, targets))
+				print("%s(TargetedAction.trigger)%s triggering %r targeting %r"%(Config.LOGINFO_INDENT, source, self, targets))
 			for target in targets:
 				target_args = self.get_target_args(source, target)
 				from .player import Player
@@ -898,7 +898,7 @@ class TargetedAction(Action):
 
 				for action in self.callback:
 					if Config.LOGINFO:
-						print("(TargetedAction.trigger)%r queues up callback %r"%( self, action))
+						print("%s(TargetedAction.trigger)%r queues up callback %r"%( Config.LOGINFO_INDENT, self, action))
 					ret += source.game.queue_actions(source, [action], event_args=[target] + target_args)
 
 		self.resolve_broadcasts()
@@ -2774,7 +2774,7 @@ class TentacledMenace(TargetedAction):#DRG_084
 				card2 = cards2[0][0]
 				card1.cost, card2.cost = card2.cost, card1.cost
 				if Config.LOGINFO:
-					print("(TentacledMenace.do)Draw cards and change their costs.")
+					print("(%sTentacledMenace.do)Draw cards and change their costs."%(Config.LOGINFO_INDENT))
 
 class ArgentBraggart(TargetedAction):
 	"""SCH_149

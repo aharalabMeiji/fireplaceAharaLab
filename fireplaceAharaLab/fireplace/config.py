@@ -2,8 +2,8 @@ class Config:# ()is the default value
 
 	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
 	BATTLEGROUNDS=0# バトグラをするならこちら
-	CARDTEST=0# カードの動作テストをするならこちら
-	CARDCLASS=1# カードクラス（core & hunter など）のカードの抽出するモード
+	CARDTEST=1# カードの動作テストをするならこちら
+	CARDCLASS=0# カードクラス（core & hunter など）のカードの抽出するモード
 
 	#ランク戦のオプション
 	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
@@ -17,6 +17,7 @@ class Config:# ()is the default value
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
 	LOGINFO=1# log.info相当のログ表示
+	LOGINFO_INDENT=">"
 	LOGINFO_LOG=[]
 	DEEPCOPY_LOGINFO=0
 	PRINT_HITLOG=0 # Hitイベントを表示する
