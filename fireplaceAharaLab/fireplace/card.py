@@ -806,7 +806,7 @@ class Minion(Character):
 		self.silenced = False
 		self._summon_index = None
 		self.dormant = data.dormant
-		self.guardians_legacy = False
+		#self.guardians_legacy = False
 		self.spellpower_fire = 0
 		self.deathrattle_valid = True
 		self.deepcopy_original = None

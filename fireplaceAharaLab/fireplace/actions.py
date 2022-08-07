@@ -2819,13 +2819,13 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 			new_minion.data.scripts.atk = lambda self, i: self._atk
 			new_minion.max_health = cost
 
-class InheritGuardiansLegacy(TargetedAction):
-	"""   """
-	def do(self, source, target):
-		if Config.LOGINFO:
-			print("(InheritGuardiansLegacy.do)Gardian's Legacy was inherited by %r"%(target))
-		target.guardians_legacy=True
-		pass
+#class InheritGuardiansLegacy(TargetedAction):
+#	"""   """
+#	def do(self, source, target):
+#		if Config.LOGINFO:
+#			print("(InheritGuardiansLegacy.do)Gardian's Legacy was inherited by %r"%(target))
+#		target.guardians_legacy=True
+#		pass
 
 class Freeze(TargetedAction):
 	"""

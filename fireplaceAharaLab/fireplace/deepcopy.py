@@ -253,7 +253,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 	playerAttrs = ['cards_drawn_this_turn','_max_mana','max_mana','playstate','zone',
 				'first_player','mulligan_state','turn_start',
 				'minions_played_this_turn','combo','cards_played_this_turn',
-				'spell_and_damage','guardians_legacy','spellpower_option',
+				'spell_and_damage','spellpower_option',
 				'choiceStrategy','lost_in_the_park','zone',
 				'piece_of_cthun','_death_log','_play_log','_damage_log',
 				'_activate_log','_summon_log','_reveal_log','carry_cards',

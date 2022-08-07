@@ -98,7 +98,7 @@ class Player(Entity, TargetableByAuras):
 		self._battlecry_log=[]
 		self._buy_log=[] # battlegraounds
 		self.spell_and_damage=False
-		self.guardians_legacy = False#CS3_001
+		#self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
 		self.choiceStrategy = None
 		self.lost_in_the_park=0
