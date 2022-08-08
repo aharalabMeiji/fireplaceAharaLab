@@ -3,24 +3,24 @@ from ..utils import *
 
 Core_Shaman=[]
 ##23.6
-Menacing_Nimbus=True
-Windfury=True
-Fire_Elemental=True
-Rockbiter_Weapon=True
-Bloodlust=True
-Far_Sight=True
-Lightning_Bolt=True
-Hex=True
-Feral_Spirit=True
-Lightning_Storm=True
-Flametongue_Totem=True
-Doomhammer=True
-Mana_Tide_Totem=True
-Maelstrom_Portal=True
-AlAkir_the_Windlord=True
-Kragwa,_the_Frog=True
-Tidal_Surge=True
-Novice_Zapper=True
+Core_Menacing_Nimbus=True
+Core_Windfury=True
+Core_Fire_Elemental=True
+Core_Rockbiter_Weapon=True
+Core_Bloodlust=True
+Core_Far_Sight=True
+Core_Lightning_Bolt=True
+Core_Hex=True
+Core_Feral_Spirit=True
+Core_Lightning_Storm=True
+Core_Flametongue_Totem=True
+Core_Doomhammer=True
+Core_Mana_Tide_Totem=True
+Core_Maelstrom_Portal=True
+Core_AlAkir_the_Windlord=True
+Core_Kragwa_the_Frog=True
+Core_Tidal_Surge=True
+Core_Novice_Zapper=True
 
 
 class CORE_AT_047:# <8>[1637]## 22.6
@@ -39,7 +39,7 @@ class CORE_AT_075:# <5>[1637]## 22.6
 AT_075e = buff(atk=1)
 
 
-if Menacing_Nimbus:# ##23.6
+if Core_Menacing_Nimbus:# ##23.6
 	Core_Shaman+=['CORE_BOT_533']
 class CORE_BOT_533:# <8>[1637]##23.6
 	""" Menacing Nimbus
@@ -55,7 +55,7 @@ class CORE_CS2_039:# <8>[1637]## 22.6
 	play = GiveWindfury(TARGET - WINDFURY)
 	pass
 
-if Windfury:# 
+if Core_Windfury:# 
 	Core_Shaman+=['CORE_CS2_039e']
 class CORE_CS2_039e:# <8>[1637]##23.6
 	""" Windfury
@@ -63,7 +63,7 @@ class CORE_CS2_039e:# <8>[1637]##23.6
 	#
 	pass
 
-if Fire_Elemental:# 
+if Core_Fire_Elemental:# 
 	Core_Shaman+=['CORE_CS2_042']
 class CORE_CS2_042:# <8>[1637]##23.6
 	""" Fire Elemental
@@ -72,7 +72,7 @@ class CORE_CS2_042:# <8>[1637]##23.6
 	play = Hit(TARGET, 4)	
 	pass
 
-if Rockbiter_Weapon:# 
+if Core_Rockbiter_Weapon:# 
 	Core_Shaman+=['CORE_CS2_045']
 class CORE_CS2_045:# <8>[1637]##23.6
 	""" Rockbiter Weapon
@@ -82,7 +82,7 @@ class CORE_CS2_045:# <8>[1637]##23.6
 	pass
 CS2_045e = buff(atk=3)## ONE_TURN_EFFECT
 
-if Bloodlust:# 
+if Core_Bloodlust:# 
 	Core_Shaman+=['CORE_CS2_046']
 class CORE_CS2_046:# <8>[1637]##23.6
 	""" Bloodlust
@@ -90,7 +90,7 @@ class CORE_CS2_046:# <8>[1637]##23.6
 	#
 	pass
 
-if Far_Sight:# 
+if Core_Far_Sight:# 
 	Core_Shaman+=['CORE_CS2_053']
 class CORE_CS2_053:# <8>[1637]##23.6
 	""" Far Sight
@@ -98,7 +98,7 @@ class CORE_CS2_053:# <8>[1637]##23.6
 	#
 	pass
 
-if Lightning_Bolt:# 
+if Core_Lightning_Bolt:# 
 	Core_Shaman+=['CORE_EX1_238']
 class CORE_EX1_238:# <8>[1637]##23.6
 	""" Lightning Bolt
@@ -107,7 +107,7 @@ class CORE_EX1_238:# <8>[1637]##23.6
 	play = Hit(TARGET, 3)	
 	pass
 
-if Hex:# 
+if Core_Hex:# 
 	Core_Shaman+=['CORE_EX1_246']
 class CORE_EX1_246:# <8>[1637]##23.6
 	""" Hex
@@ -120,7 +120,7 @@ class hexfrog:
 	""" Frog
 	[Taunt] """
 
-if Feral_Spirit:# 
+if Core_Feral_Spirit:# 
 	Core_Shaman+=['CORE_EX1_248']
 class CORE_EX1_248:# <8>[1637]##23.6
 	""" Feral Spirit
@@ -139,7 +139,7 @@ class CORE_EX1_250:# <8>[1637]## 22.6
 	#
 	pass
 
-if Lightning_Storm:# 
+if Core_Lightning_Storm:# 
 	Core_Shaman+=['CORE_EX1_259']
 class CORE_EX1_259:# <8>[1637]##23.6
 	""" Lightning Storm
@@ -161,7 +161,7 @@ class CORE_EX1_259:# <8>[1637]## 22.6
 	pass
 
 
-if Flametongue_Totem:# 
+if Core_Flametongue_Totem:# 
 	Core_Shaman+=['CORE_EX1_565']
 class CORE_EX1_565:# <8>[1637]##23.6
 	""" Flametongue Totem
@@ -169,7 +169,7 @@ class CORE_EX1_565:# <8>[1637]##23.6
 	#
 	pass
 
-if Doomhammer:# 
+if Core_Doomhammer:# 
 	Core_Shaman+=['CORE_EX1_567']
 class CORE_EX1_567:# <8>[1637]##23.6
 	""" Doomhammer
@@ -177,7 +177,7 @@ class CORE_EX1_567:# <8>[1637]##23.6
 	#
 	pass
 
-if Mana_Tide_Totem:# 
+if Core_Mana_Tide_Totem:# 
 	Core_Shaman+=['CORE_EX1_575']
 class CORE_EX1_575:# <8>[1637]##23.6
 	""" Mana Tide Totem
@@ -185,7 +185,7 @@ class CORE_EX1_575:# <8>[1637]##23.6
 	events = OWN_TURN_END.on(Draw(CONTROLLER))
 	pass
 
-if Maelstrom_Portal:# 
+if Core_Maelstrom_Portal:# 
 	Core_Shaman+=['CORE_KAR_073']
 class CORE_KAR_073:# <8>[1637]##23.6
 	""" Maelstrom Portal
@@ -196,7 +196,7 @@ class CORE_KAR_073:# <8>[1637]##23.6
 
 
 
-if AlAkir_the_Windlord:# 
+if Core_AlAkir_the_Windlord:# 
 	Core_Shaman+=['CORE_NEW1_010']
 class CORE_NEW1_010:# <8>[1637]##23.6
 	""" Al'Akir the Windlord
@@ -204,7 +204,7 @@ class CORE_NEW1_010:# <8>[1637]##23.6
 	#
 	pass
 
-if Kragwa,_the_Frog:# 
+if Core_Kragwa_the_Frog:# 
 	Core_Shaman+=['CORE_TRL_345']
 class CORE_TRL_345:# <8>[1637]##23.6
 	""" Krag'wa, the Frog
@@ -212,7 +212,7 @@ class CORE_TRL_345:# <8>[1637]##23.6
 	#
 	pass
 
-if Tidal_Surge:# 
+if Core_Tidal_Surge:# 
 	Core_Shaman+=['CORE_UNG_817']
 class CORE_UNG_817:# <8>[1637]##23.6
 	""" Tidal Surge
@@ -221,7 +221,7 @@ class CORE_UNG_817:# <8>[1637]##23.6
 	play = Hit(TARGET, 4)
 	pass
 
-if Novice_Zapper:# 
+if Core_Novice_Zapper:# 
 	Core_Shaman+=['CS3_007']
 class CS3_007:# <8>[1637]##23.6
 	""" Novice Zapper

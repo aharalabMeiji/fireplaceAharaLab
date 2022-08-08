@@ -1,13 +1,13 @@
 from fireplace.cards import core
 
 # CORE <12><3><4>[1637]
-from fireplace.cards.core import core_demon_hunter,core_druid,core_hunter,core_mage,core_neutral,cpre_paladin,core_priest,core_rogue,core_shaman,core_warrior,core_warlock
+from fireplace.cards.core import core_demon_hunter,core_druid,core_hunter,core_mage,core_neutral,core_paladin,core_priest,core_rogue,core_shaman,core_warrior,core_warlock
 Core_DemonHunter=core_demon_hunter.Core_DemonHunter
 Core_Druid=core_druid.Core_Druid
 Core_Hunter=core_hunter.Core_Hunter
 Core_Mage = core_mage.Core_Mage
 Core_Neutral=core_neutral.Core_Neutral
-Core_Paladin=cpre_paladin.Core_Paladin
+Core_Paladin=core_paladin.Core_Paladin
 Core_Priest=core_priest.Core_Priest
 Core_Rogue=core_rogue.Core_Rogue
 Core_Shaman=core_shaman.Core_Shaman
