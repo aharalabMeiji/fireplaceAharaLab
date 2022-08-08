@@ -2,7 +2,7 @@ from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import Zone,CardType,Rarity,CardClass
 from fireplace.actions import Hit
 
-def SimulateGames_Core_Rogue():
+def core_rogue():
 	#PresetGame(pp_CORE_CS2_072)#OK
 	#PresetGame(pp_CORE_CS2_073)#OK
 	#PresetGame(pp_CORE_CS2_074)#OK
@@ -10,12 +10,15 @@ def SimulateGames_Core_Rogue():
 	#PresetGame(pp_CORE_CS2_076)#OK
 	#PresetGame(pp_CORE_CS2_077)#OK
 	#PresetGame(pp_CORE_CS2_080)#OK
+	#PresetGame(pp_CORE_DAL_416)#23.6 OK
 	#PresetGame(pp_CORE_EX1_134)#OK
 	#PresetGame(pp_CORE_EX1_144)#OK
 	#PresetGame(pp_CORE_EX1_145)#OK
 	#PresetGame(pp_CORE_EX1_522)#OK
+	PresetGame(pp_CORE_GIL_598x)
+	PresetGame(pp_CORE_GIL_598y)
 	#PresetGame(pp_CORE_ICC_809)#OK
-	#PresetGame(pp_CORE_KAR_069)#OK
+	#PresetGame(pp_CORE_KAR_069)#OK, OK again for 23.6
 	#PresetGame(pp_CORE_LOE_012)#OK
 	#PresetGame(pp_CORE_OG_070)#OK
 	#PresetGame(pp_CS3_005)	#OK
@@ -272,6 +275,37 @@ class pp_CORE_CS2_080(Preset_Play):# <7>[1637]
 			self.print_stats("friendly hand",card)
 		pass
 
+#####################CORE_DAL_416########################
+
+class pp_CORE_DAL_416(Preset_Play):
+	""" Hench-Clan Burglar
+	[Battlecry:] [Discover] a spell from another class. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_DAL_416',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark1, controller)#
+		self.change_turn(controller)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card = controller.hand[-1]
+		self.print_stats("card", card)
+		print("card.card_class=%d"%(card.card_class))
+		assert card.card_class!=CardClass.ROGUE, "card_class"
+
+
 class pp_CORE_EX1_134(Preset_Play):# <7>[1637]
 	""" SI:7 Agent
 	[Combo:] Deal 2 damage. """
@@ -412,6 +446,70 @@ class pp_CORE_EX1_522(Preset_Play):# <7>[1637]#
 		self.print_stats ("card2:",self.mark2)
 		pass
 
+#############################CORE_GIL_598###########
+class pp_CORE_GIL_598x(Preset_Play):
+	""" Tess Greymane
+	[Battlecry:] Replay every card from another class you've played this game <i>(targets chosen randomly)</i>. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_GIL_598',controller)#
+		self.mark2=self.exchange_card('BT_210',controller)# hunter minion card 
+		self.mark3=self.exchange_card('BT_213',controller)# hunter spell card 
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark2)#
+		self.play_card(self.mark1)#
+		##########opponent
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		print(" %r が実行されているかどうかを視認"%(self.mark2))
+		pass
+	pass
+class pp_CORE_GIL_598y(Preset_Play):
+	""" Tess Greymane
+	[Battlecry:] Replay every card from another class you've played this game <i>(targets chosen randomly)</i>. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_GIL_598',controller)#
+		self.mark2=self.exchange_card('BT_210',controller)# hunter minion card 
+		self.mark3=self.exchange_card('BT_213',controller)# hunter spell card 
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.play_card(self.mark3)#
+		self.play_card(self.mark1)#
+		##########opponent
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		card1=self.mark1
+		print(" %r が実行されているかどうかを視認"%(self.mark2))
+		pass
+	pass
+
+#############################
+
 class pp_CORE_ICC_809(Preset_Play):# <7>[1637]#
 	""" Plague Scientist
 	[Combo:] Give a friendly minion [Poisonous]. """
@@ -454,24 +552,17 @@ class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
 	[Battlecry:] Add a random card from another class to_your hand. """
 	class1=CardClass.ROGUE
 	#class2=CardClass.WARRIOR#10
-	class2=CardClass.HUNTER#3
+	class2=CardClass.ROGUE#3
 	def preset_deck(self):
 		controller=self.player
-		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_KAR_069',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
-		opponent = controller.opponent
-		game = controller.game
 		##########controller
 		self.play_card(self.mark1, controller)#
-		#self.change_turn(controller)
-		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		#self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -480,8 +571,8 @@ class pp_CORE_KAR_069(Preset_Play):# <7>[1637]
 		print(" ハンドにカードが入っているかどうかを視認")
 		for card in controller.hand:
 			self.print_stats ("controller hand",card)
-		print("card class = %r"%(controller.hand[-1].card_class))
-		#print ("STATS: %d/%d <- %d/%d"%(card1.atk, card1.health, card1.data.atk, card1.data.health))
+		print("card class : %s != %s"%(controller.hand[-1].card_class,controller.hero.card_class))
+		assert controller.hand[-1].card_class != controller.hero.card_class, "card_class"
 		pass
 
 class pp_CORE_LOE_012(Preset_Play):# <7>[1637]

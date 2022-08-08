@@ -1275,7 +1275,7 @@ class Discover(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(Discover.do)%r discovers %r for %s", source, cards, target)
+			print("(Discover.do)%r discovers %r for %s"%(source, cards, target))
 		source.game.queue_actions(source, [GenericChoice(target, cards)])
 
 

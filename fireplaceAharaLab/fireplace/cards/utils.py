@@ -13,9 +13,7 @@ REMOVED_IN_PLAY = Summon(PLAYER, OWNER).after(Destroy(SELF))
 
 ENEMY_CLASS = Attr(ENEMY_HERO, GameTag.CLASS)
 FRIENDLY_CLASS = Attr(FRIENDLY_HERO, GameTag.CLASS)
-ALL_CLASSES = [2,3,4,5,6,7,8,9,10,14]
-NON_FRIENDLY_CLASSES = ALL_CLASSES.remove(FRIENDLY_CLASS)
-RANDOM_NON_FRIENDLY_CLASS = RANDOM(ALL_CLASSES.remove(FRIENDLY_CLASS))
+
 
 #Freeze = lambda target: SetTag(target, (GameTag.FROZEN, )) ##
 Stealth = lambda target: SetTag(target, (GameTag.STEALTH, ))

@@ -15,7 +15,7 @@ Core_Hench_Clan_Burglar=True ##check
 Core_SI7_Agent=True
 Core_Shadowstep=True
 Core_Preparation=True
-Core_Tess_Greymane=False#### difficult
+Core_Tess_Greymane=True#### difficult
 Core_Plague_Scientist=True  ##check
 Core_Swashburglar=True ##check
 Core_Tomb_Pillager=True
@@ -114,7 +114,7 @@ class CORE_DAL_416_Action(TargetedAction):
 		ccs.remove(cc)
 		cc = random.choice(ccs)
 		Discover(controller , RandomSpell(card_class=cc)).trigger(source)
-class CORE_DAL_416:# <7>[1637] ## 23.6 #################################### need check ######
+class CORE_DAL_416:# <7>[1637] ## 23.6 ## OK
 	""" Hench-Clan Burglar
 	[Battlecry:] [Discover] a spell from another class. """
 	play = CORE_DAL_416_Action(CONTROLLER)
@@ -171,7 +171,19 @@ if Core_Tess_Greymane:#
 class CORE_GIL_598:# <7>[1637] ## 23.6 ####################### difficult
 	""" Tess Greymane
 	[Battlecry:] Replay every card from another class you've played this game <i>(targets chosen randomly)</i>. """
-	#
+	def play(self):
+		controller = self.controller
+		cards=[]
+		for card in controller.play_log:
+			if card.card_class != CardClass.NEUTRAL and card.card_class != controller.hero.card_class:
+				cards.append(card)
+		if len(cards)>0:
+			for card in cards:
+				card.zone=Zone.SETASIDE
+				if card.type==CardType.SPELL:
+					CastSpell(card).trigger(self)
+				elif card.type==CardType.MINION:
+					Summon(card).trigger(self)
 	pass
 
 if Core_Plague_Scientist:# 
@@ -190,11 +202,18 @@ ICC_809e=buff(poisonous=True)
 
 if Core_Swashburglar:# 
 	Core_Rogue+=['CORE_KAR_069']
-class CORE_KAR_069:# <7>[1637] ## 23.6 #################### not correct
+class CORE_KAR_069_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		all_classes = [2,3,4,5,6,7,8,9,10,14]
+		all_classes.remove(controller.hero.card_class)
+		cc=random.choice(all_classes)
+		Give(CONTROLLER, RandomMinion(card_class=cc)).trigger(source)
+class CORE_KAR_069:# <7>[1637] ## 23.6 ## OK
 	""" Swashburglar
 	[Battlecry:] Add a random card from another class to_your hand. """
-	play = Give(CONTROLLER, RandomCollectible(card_class=ENEMY_CLASS))
-	#play = Give(CONTROLLER, RandomCollectible(card_class=RANDOM_NON_FRIENDLY_CLASS))
+	play = CORE_KAR_069_Action(CONTROLLER)
 	pass
 
 if Core_Tomb_Pillager:# 
