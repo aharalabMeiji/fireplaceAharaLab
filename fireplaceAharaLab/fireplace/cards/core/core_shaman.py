@@ -18,7 +18,7 @@ Core_Doomhammer=True
 Core_Mana_Tide_Totem=True
 Core_Maelstrom_Portal=True
 Core_AlAkir_the_Windlord=True
-Core_Kragwa_the_Frog=True
+Core_Kragwa_the_Frog=True ## need check
 Core_Tidal_Surge=True
 Core_Novice_Zapper=True
 
@@ -83,20 +83,20 @@ class CORE_CS2_045:# <8>[1637]##23.6 ##OK
 CS2_045e = buff(atk=3)## ONE_TURN_EFFECT
 
 if Core_Bloodlust:# 
-	Core_Shaman+=['CORE_CS2_046']
-class CORE_CS2_046:# <8>[1637]##23.6 #######################################################
+	Core_Shaman+=['CORE_CS2_046','CS2_046e']
+class CORE_CS2_046:# <8>[1637]##23.6 # visually OK
 	""" Bloodlust
 	Give your minions +3_Attack this turn. """
-	#
-	pass
+	play = Buff(FRIENDLY_MINIONS, "CS2_046e")
+CS2_046e = buff(atk=3)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
 if Core_Far_Sight:# 
-	Core_Shaman+=['CORE_CS2_053']
-class CORE_CS2_053:# <8>[1637]##23.6 ########################################################
+	Core_Shaman+=['CORE_CS2_053','CS2_053e']
+class CORE_CS2_053:# <8>[1637]##23.6 #visually OK
 	""" Far Sight
 	Draw a card. That card costs (3) less. """
-	#
-	pass
+	play = Draw(CONTROLLER).then(Buff(Draw.CARD, "CS2_053e"))
+CS2_053e = buff(cost=-3)
 
 if Core_Lightning_Bolt:# 
 	Core_Shaman+=['CORE_EX1_238']
@@ -158,12 +158,12 @@ class CORE_EX1_259:# <8>[1637]## 23.6 ## OK
 
 
 if Core_Flametongue_Totem:# 
-	Core_Shaman+=['CORE_EX1_565']
-class CORE_EX1_565:# <8>[1637]##23.6 #######################################################
+	Core_Shaman+=['CORE_EX1_565','EX1_565o']
+class CORE_EX1_565:# <8>[1637]##23.6 ## visually OK
 	""" Flametongue Totem
 	Adjacent minions have +2_Attack. """
-	#
-	pass
+	update = Refresh(SELF_ADJACENT, buff="EX1_565o")
+EX1_565o = buff(atk=2)
 
 if Core_Doomhammer:# 
 	Core_Shaman+=['CORE_EX1_567']
@@ -205,7 +205,11 @@ if Core_Kragwa_the_Frog:#
 class CORE_TRL_345:# <8>[1637]##23.6 #####################################################
 	""" Krag'wa, the Frog
 	[Battlecry:] Return all spells you played last turn to_your hand. """
-	#
+	def play(self):
+		cards = self.controller.play_log_of_last_turn
+		for card in cards:
+			if card.type==CardType.SPELL:
+				Give(self.controller, card).trigger(self)
 	pass
 
 if Core_Tidal_Surge:# 
