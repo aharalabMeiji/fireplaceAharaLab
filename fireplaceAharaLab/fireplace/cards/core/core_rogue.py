@@ -179,11 +179,11 @@ class CORE_GIL_598:# <7>[1637] ## 23.6 ####################### difficult
 				cards.append(card)
 		if len(cards)>0:
 			for card in cards:
-				card.zone=Zone.SETASIDE
+				newcardId=card.id
 				if card.type==CardType.SPELL:
 					CastSpell(card).trigger(self)
 				elif card.type==CardType.MINION:
-					Summon(card).trigger(self)
+					Summon(controller, newcardId).trigger(self)
 	pass
 
 if Core_Plague_Scientist:# 

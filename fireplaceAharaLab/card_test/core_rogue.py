@@ -15,8 +15,8 @@ def core_rogue():
 	#PresetGame(pp_CORE_EX1_144)#OK
 	#PresetGame(pp_CORE_EX1_145)#OK
 	#PresetGame(pp_CORE_EX1_522)#OK
-	PresetGame(pp_CORE_GIL_598x)
-	PresetGame(pp_CORE_GIL_598y)
+	#PresetGame(pp_CORE_GIL_598x)#OK
+	#PresetGame(pp_CORE_GIL_598y)#OK
 	#PresetGame(pp_CORE_ICC_809)#OK
 	#PresetGame(pp_CORE_KAR_069)#OK, OK again for 23.6
 	#PresetGame(pp_CORE_LOE_012)#OK
@@ -504,7 +504,7 @@ class pp_CORE_GIL_598y(Preset_Play):
 		super().result_inspection()
 		controller = self.player
 		card1=self.mark1
-		print(" %r が実行されているかどうかを視認"%(self.mark2))
+		print(" %r が実行されているかどうかを視認"%(self.mark3))
 		pass
 	pass
 
