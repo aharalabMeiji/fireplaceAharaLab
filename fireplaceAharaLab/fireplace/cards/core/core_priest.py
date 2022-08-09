@@ -28,7 +28,7 @@ Thrive_in_the_Shadows=True
 
 if Flash_Heal:# 
 	Core_Priest+=['CORE_AT_055']
-class CORE_AT_055:# <6>[1637] ## 23.6
+class CORE_AT_055:# <6>[1637] ## 23.6 ## OK
 	""" Flash Heal
 	Restore #5 Health. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
@@ -39,7 +39,7 @@ if Drakonid_Operative:#
 	Core_Priest+=['CORE_CFM_605']
 class CORE_CFM_605:# <6>[1637]## 23.6
 	""" Drakonid Operative
-	[Battlecry:] If you're holdinga Dragon, [Discover] acopy of a card in youropponent's deck. """
+	[Battlecry:] If you're holdinga Dragon, [Discover] a copy of a card in your opponent's deck. """
 	powered_up = HOLDING_DRAGON
 	def play(self):
 		decklist = [i.id for i in self.controller.opponent.deck]
@@ -48,7 +48,7 @@ class CORE_CFM_605:# <6>[1637]## 23.6
 
 if Holy_Nova:# 
 	Core_Priest+=['CORE_CS1_112']
-class CORE_CS1_112:# <6>[1637]## 23.6
+class CORE_CS1_112:# <6>[1637]## 23.6 ## OK
 	""" Holy Nova
 	Deal $2 damage to all enemy minions. Restore #2 Health to all friendly characters. """
 	play = Hit(ENEMY_MINIONS, 2), Heal(FRIENDLY_CHARACTERS, 2)
@@ -56,7 +56,7 @@ class CORE_CS1_112:# <6>[1637]## 23.6
 
 if Holy_Smite:# 
 	Core_Priest+=['CORE_CS1_130']
-class CORE_CS1_130:# <6>[1637]## 23.6
+class CORE_CS1_130:# <6>[1637]## 23.6 ## OK
 	""" Holy Smite
 	Deal $3 damageto a minion. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
@@ -81,7 +81,7 @@ class CORE_DRG_090:# <6>[1637]## 23.6 ################ not yet ##########
 
 if Psychic_Conjurer:# 
 	Core_Priest+=['CORE_EX1_193']
-class CORE_EX1_193:# <6>[1637]## 23.6
+class CORE_EX1_193:# <6>[1637]## 23.6 ## OK
 	""" Psychic Conjurer
 	[Battlecry:] Copy a card in your opponent’s deck and add it to your hand. """
 	play= Give(CONTROLLER, Copy(RANDOM(ENEMY_DECK)))
@@ -89,7 +89,7 @@ class CORE_EX1_193:# <6>[1637]## 23.6
 
 if Power_Infusion:# 
 	Core_Priest+=['CORE_EX1_194']
-class CORE_EX1_194:# <6>[1637]## 23.6
+class CORE_EX1_194:# <6>[1637]## 23.6 ## OK
 	""" Power Infusion
 	Give a minion +2/+6. """
 	requirements = {
@@ -101,7 +101,7 @@ EX1_194e = buff(2,6)
 
 if Kul_Tiran_Chaplain:# 
 	Core_Priest+=['CORE_EX1_195']
-class CORE_EX1_195:# <6>[1637]## 23.6
+class CORE_EX1_195:# <6>[1637]## 23.6 ## OK
 	""" Kul Tiran Chaplain
 	[Battlecry:] Give a friendly minion +2 Health. """
 	requirements = {
@@ -114,7 +114,7 @@ EX1_195e = buff(health=2)
 
 if Shadow_Word_Ruin:# 
 	Core_Priest+=['CORE_EX1_197']
-class CORE_EX1_197:# <6>[1637]## 23.6
+class CORE_EX1_197:# <6>[1637]## 23.6 ## OK
 	""" Shadow Word: Ruin
 	Destroy all minions with 5 or more Attack. """
 	def play(self):
@@ -126,7 +126,7 @@ class CORE_EX1_197:# <6>[1637]## 23.6
 				Destroy(card).trigger(self)
 	pass
 
-class CORE_EX1_198:# <6>[1637]## ## 22.6
+class CORE_EX1_198:# <6>[1637]## ## 22.6 ## OK
 	""" Natalie Seline
 	[Battlecry:] Destroy a minion and gain its Health. """
 	requirements = {
@@ -139,7 +139,7 @@ class CORE_EX1_198:# <6>[1637]## ## 22.6
 		)
 	pass
 
-class CORE_EX1_335:# <6>[1637] ## 22.6
+class CORE_EX1_335:# <6>[1637] ## 22.6 ## OK
 	""" Lightspawn
 	This minion's Attack is always equal to its Health. """
 	update = Refresh(SELF, {GameTag.ATK: lambda self, i: self.health}, priority=100)
@@ -147,7 +147,7 @@ class CORE_EX1_335:# <6>[1637] ## 22.6
 
 if Shadow_Word_Death:# 
 	Core_Priest+=['CORE_EX1_622']
-class CORE_EX1_622:# <6>[1637]## 23.6
+class CORE_EX1_622:# <6>[1637]## 23.6 ## OK
 	""" Shadow Word: Death
 	Destroy a minion with 5_or more Attack. """
 	requirements = {
@@ -157,7 +157,7 @@ class CORE_EX1_622:# <6>[1637]## 23.6
 	play = Destroy(TARGET)
 	pass
 
-class CORE_EX1_623:# <6>[1637] ## 22.6
+class CORE_EX1_623:# <6>[1637] ## 22.6 ## OK
 	""" Temple Enforcer
 	[Battlecry:] Give a friendly minion +3 Health. """
 	requirements = {
@@ -168,7 +168,7 @@ class CORE_EX1_623:# <6>[1637] ## 22.6
 	pass
 EX1_623e = buff(health=3)
 
-class CORE_EX1_625:# <6>[1637] ## 22.6
+class CORE_EX1_625:# <6>[1637] ## 22.6 ## OK
 	""" Shadowform
 	Your Hero Power becomes 'Deal 2 damage.' """
 	play = Switch(FRIENDLY_HERO_POWER, {
@@ -218,13 +218,13 @@ class CORE_UNG_963:# <6>[1637]## 23.6
 
 if Shadowed_Spirit:# 
 	Core_Priest+=['CS3_013']
-class CS3_013:# <6>[1637]## 23.6
+class CS3_013:# <6>[1637]## 23.6 ## OK
 	""" Shadowed Spirit
 	[Deathrattle:] Deal 3damage to theenemy hero. """
 	deathrattle = Hit(ENEMY_HERO, 3)
 	pass
 
-class CS3_014:# <6>[1637] ## 22.6
+class CS3_014:# <6>[1637] ## 22.6 ## OK
 	""" Crimson Clergy
 	After a friendly character is healed, gain +1 Attack. """
 	events=Heal(FRIENDLY_CHARACTERS).on(Buff(SELF,'CS3_014e'))
@@ -234,7 +234,7 @@ CS3_014e=buff(1,0)
 if Focused_Will:# 
 	Core_Priest+=['CS3_027']
 	Core_Priest+=['CS3_027e']
-class CS3_027:# <6>[1637]## 23.6
+class CS3_027:# <6>[1637]## 23.6 ## OK
 	""" Focused Will
 	[Silence] a minion, then give it +3 Health. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }

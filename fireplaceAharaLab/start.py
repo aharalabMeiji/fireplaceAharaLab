@@ -191,8 +191,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.core_rogue import core_rogue
-	core_rogue()
+	from card_test.core_priest import core_priest
+	core_priest()
 	pass
 
 def battleground_main():
