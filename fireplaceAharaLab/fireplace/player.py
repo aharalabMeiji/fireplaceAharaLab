@@ -65,7 +65,9 @@ class Player(Entity, TargetableByAuras):
 		self.entourage = []
 		self.fatigue_counter = 0
 		self.last_card_played = None
+		self.cards_played_this_turn = 0
 		self.cards_drawn_this_turn = 0
+		self.minions_played_this_turn =0
 		self.overloaded = 0
 		self.overload_locked = 0
 		self._max_mana = 0
