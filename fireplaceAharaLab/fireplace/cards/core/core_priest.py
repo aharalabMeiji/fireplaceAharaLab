@@ -210,7 +210,7 @@ class EX1_625t2:
 
 if Lightbomb:# 
 	Core_Priest+=['CORE_GVG_008']
-class CORE_GVG_008:# <6>[1637]## 23.6
+class CORE_GVG_008:# <6>[1637]## 23.6 # visually OK
 	""" Lightbomb
 	Deal damage to each minion equal to its Attack. """
 	def play(self):
@@ -220,7 +220,7 @@ class CORE_GVG_008:# <6>[1637]## 23.6
 
 if Radiant_Elemental:# 
 	Core_Priest+=['CORE_UNG_034','UNG_034e']
-class CORE_UNG_034:# <6>[1637]## 23.6 ###### not yet #########
+class CORE_UNG_034:# <6>[1637]## 23.6 ## visually OK
 	""" Radiant Elemental
 	Your spells cost (1) less. """
 	play = Buff(FRIENDLY_HAND + SPELL, "UNG_034e")
@@ -230,7 +230,7 @@ class UNG_034e:
 
 if Lyra_the_Sunshard:# 
 	Core_Priest+=['CORE_UNG_963']
-class CORE_UNG_963:# <6>[1637]## 23.6
+class CORE_UNG_963:# <6>[1637]## 23.6 ## visually OK
 	""" Lyra the Sunshard
 	Whenever you cast a spell, add a random Priest spell to your hand. """
 	events = OWN_SPELL_PLAY.on(Give(CONTROLLER, RandomSpell(card_class=CardClass.PRIEST)))

@@ -8,7 +8,7 @@ def core_priest():
 	#PresetGame(pp_CORE_CS1_112)#OK
 	#PresetGame(pp_CORE_CS1_130)#OK
 	#PresetGame(pp_CORE_CS2_235)#visuall ok 
-	PresetGame(pp_CORE_DRG_090) ## not yet
+	#PresetGame(pp_CORE_DRG_090) ## OK
 	#PresetGame(pp_CORE_EX1_193)#OK
 	#PresetGame(pp_CORE_EX1_194)#OK
 	#PresetGame(pp_CORE_EX1_195)#OK
@@ -18,9 +18,9 @@ def core_priest():
 	#PresetGame(pp_CORE_EX1_622)#OK
 	#PresetGame(pp_CORE_EX1_623)#OK 22.6
 	#PresetGame(pp_CORE_EX1_625)#OK 22.6
-	PresetGame(pp_CORE_GVG_008)
-	PresetGame(pp_CORE_UNG_034) # not yet
-	PresetGame(pp_CORE_UNG_963)
+	PresetGame(pp_CORE_GVG_008)#visuall ok
+	PresetGame(pp_CORE_UNG_034)#visuall ok
+	PresetGame(pp_CORE_UNG_963)# visually OK
 	#PresetGame(pp_CS3_013)#OK
 	#PresetGame(pp_CS3_014)#OK 22.6
 	PresetGame(pp_CS3_027)#
