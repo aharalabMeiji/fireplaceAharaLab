@@ -10,25 +10,25 @@ from fireplace.config import Config
 
 def core_hunter():
 	## 23.6
-	#PresetGame(pp_CORE_BRM_013x)
-	#PresetGame(pp_CORE_BRM_013y)
-	#PresetGame(pp_CORE_DAL_371)
-	#PresetGame(pp_CORE_DS1_184)
-	#PresetGame(pp_CORE_DS1_185)
-	#PresetGame(pp_CORE_EX1_534)
-	#PresetGame(pp_CORE_EX1_543)
-	#PresetGame(pp_CORE_EX1_554)
-	#PresetGame(pp_CORE_EX1_610)
-	#PresetGame(pp_CORE_EX1_611)
-	#PresetGame(pp_CORE_EX1_617)
-	#PresetGame(pp_CORE_GIL_650)
-	#PresetGame(pp_CORE_GIL_828)
-	#PresetGame(pp_CORE_KAR_006)
-	#PresetGame(pp_CORE_LOOT_222)
-	#PresetGame(pp_CORE_NEW1_031)
-	#PresetGame(pp_NEW1_033)
-	#PresetGame(pp_CORE_TRL_348)
-	PresetGame(pp_CS3_015)
+	#PresetGame(pp_CORE_BRM_013x)##OK
+	#PresetGame(pp_CORE_BRM_013y)##OK
+	#PresetGame(pp_CORE_DAL_371)##OK
+	#PresetGame(pp_CORE_DS1_184)##OK
+	#PresetGame(pp_CORE_DS1_185)##OK
+	#PresetGame(pp_CORE_EX1_534)##OK
+	#PresetGame(pp_CORE_EX1_543)##OK
+	#PresetGame(pp_CORE_EX1_554)##OK
+	#PresetGame(pp_CORE_EX1_610)##OK
+	#PresetGame(pp_CORE_EX1_611)##OK
+	#PresetGame(pp_CORE_EX1_617)##OK
+	#PresetGame(pp_CORE_GIL_650)##OK
+	#PresetGame(pp_CORE_GIL_828)##OK
+	#PresetGame(pp_CORE_KAR_006)##OK
+	#PresetGame(pp_CORE_LOOT_222)##OK
+	#PresetGame(pp_CORE_NEW1_031)##OK
+	#PresetGame(pp_NEW1_033)##OK
+	#PresetGame(pp_CORE_TRL_348)##OK
+	PresetGame(pp_CS3_015)##OK
 	## 22.6
 	#PresetGame(pp_CORE_AT_061)
 	#PresetGame(pp_CORE_EX1_531)
