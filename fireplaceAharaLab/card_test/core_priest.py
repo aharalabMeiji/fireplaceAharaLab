@@ -4,10 +4,10 @@ from fireplace.actions import Hit, Heal
 
 def core_priest():
 	#PresetGame(pp_CORE_AT_055)#OK
-	PresetGame(pp_CORE_CFM_605)
+	#PresetGame(pp_CORE_CFM_605)#OK
 	#PresetGame(pp_CORE_CS1_112)#OK
 	#PresetGame(pp_CORE_CS1_130)#OK
-	PresetGame(pp_CORE_CS2_235)
+	#PresetGame(pp_CORE_CS2_235)#visuall ok 
 	PresetGame(pp_CORE_DRG_090) ## not yet
 	#PresetGame(pp_CORE_EX1_193)#OK
 	#PresetGame(pp_CORE_EX1_194)#OK
@@ -86,17 +86,19 @@ class pp_CORE_CFM_605(Preset_Play):# <6>[1637]
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark2)
 		self.play_card(self.mark1)
+		assert len(self.player.choice.cards)==3, "choice"
+		decklist = [i.id for i in controller.opponent.deck]
+		for card in self.player.choice.cards:
+			assert card.id in decklist, "deck"
 		self.change_turn()
 		### opp
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		newcard = controller.hand[-1] 
-		for card in controller.field:
-			self.print_stats("field", card)
+		for card in controller.hand:
+			self.print_stats("hand", card)
 		pass
 
 ##################################
@@ -226,22 +228,30 @@ class pp_CORE_DRG_090(Preset_Play):# <6>[1637]
 	class2=CardClass.PRIEST
 	def preset_deck(self):
 		controller=self.player
+		opponent=controller.opponent
 		self.mark1=self.exchange_card('CORE_DRG_090',controller)#
+		self.mark2=self.exchange_card('minionH1',opponent)#
+		self.mark3=self.exchange_card('spell',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark4)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
 		for card in controller.field:
 			self.print_stats("field", card)
+		### mark2 が Summonされていることと、 mark3 がCastSpellされていることを　LOGINFOから目視する。
 		pass
 
 

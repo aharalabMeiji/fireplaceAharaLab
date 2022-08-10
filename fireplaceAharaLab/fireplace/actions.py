@@ -1976,11 +1976,11 @@ class CastSpell(TargetedAction):
 				target = random.choice(card.targets)
 			else:
 				if Config.LOGINFO:
-					print("(CastSpell.do)%s cast spell %s don't have a legal target", source, card)
+					print("(CastSpell.do)%s cast spell %s don't have a legal target"%(source, card))
 				return
 		card.target = target
 		if Config.LOGINFO:
-			print("(CastSpell.do)%s cast spell %s target %s", source, card, target)
+			print("(CastSpell.do)%s cast spell %s target %s"%(source, card, target))
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
 		player.add_play_log(card)

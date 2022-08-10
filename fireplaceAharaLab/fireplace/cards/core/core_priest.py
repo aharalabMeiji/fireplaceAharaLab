@@ -1,5 +1,7 @@
 from ..utils import *
 
+from fireplace.card import Card
+
 
 #########################################
 
@@ -40,11 +42,16 @@ if Drakonid_Operative:#
 class CORE_CFM_605:# <6>[1637]## 23.6
 	""" Drakonid Operative
 	[Battlecry:] If you're holdinga Dragon, [Discover] a copy of a card in your opponent's deck. """
-	powered_up = HOLDING_DRAGON
 	def play(self):
+		holding_dragon=False
+		for card in self.controller.hand:##  hand
+			if card != self and card.type==CardType.MINION and card.race==Race.DRAGON:
+				holding_dragon=True
+				break
 		decklist = [i.id for i in self.controller.opponent.deck]
-		if decklist:
-			yield HOLDING_DRAGON & DISCOVER(RandomID(*decklist))
+		if decklist and holding_dragon:
+			DISCOVER(RandomID(*decklist)).trigger(self)
+			#print(self.controller.choice.cards)
 
 if Holy_Nova:# 
 	Core_Priest+=['CORE_CS1_112']
@@ -65,7 +72,7 @@ class CORE_CS1_130:# <6>[1637]## 23.6 ## OK
 
 if Northshire_Cleric:# 
 	Core_Priest+=['CORE_CS2_235']
-class CORE_CS2_235:# <6>[1637]## 23.6
+class CORE_CS2_235:# <6>[1637]## 23.6 ## visually OK
 	""" Northshire Cleric
 	Whenever a minion is healed, draw a card. """
 	events = Heal(ALL_MINIONS).on(Draw(CONTROLLER))
@@ -77,6 +84,19 @@ class CORE_DRG_090:# <6>[1637]## 23.6 ################ not yet ##########
 	""" Murozond the Infinite
 	[Battlecry:] Play all cards your opponent played last_turn. """
 	#&lt;b&gt;雄叫び:&lt;/b&gt;相手が前のターンに手札から使用した全てのカードを使用する。
+	def play(self):
+		controller=self.controller
+		ret = []
+		for _log in controller.opponent._play_log:
+			if _log.turn == controller.game.turn - 1:
+				ret.append(_log.card)
+		for c in ret:
+			card = controller.card(c.id)
+			card.zone=Zone.HAND
+			if card.type==CardType.MINION:
+				Summon(controller, card).trigger(self)
+			elif card.type==CardType.SPELL:
+				CastSpell(card, None, None).trigger(self)
 	pass
 
 if Psychic_Conjurer:# 
@@ -199,7 +219,7 @@ class CORE_GVG_008:# <6>[1637]## 23.6
 	pass
 
 if Radiant_Elemental:# 
-	Core_Priest+=['CORE_UNG_034']
+	Core_Priest+=['CORE_UNG_034','UNG_034e']
 class CORE_UNG_034:# <6>[1637]## 23.6 ###### not yet #########
 	""" Radiant Elemental
 	Your spells cost (1) less. """
