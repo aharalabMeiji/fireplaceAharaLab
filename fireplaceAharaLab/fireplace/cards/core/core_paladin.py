@@ -199,15 +199,15 @@ class CORE_TRL_307:# <5>[1637]#23.6 ## visually OK
 if Core_Reckoning:# 
 	Core_Paladin+=['CS3_016']
 class CS3_016_Action(TargetedAction):
-	TARGET = ActionArg()
-	AMOUNT = IntArg()
-	def do(self, source, target, amount):
-		if amount>=3:
-			Destroy(target).trigger(source)
+	ATTACKER = ActionArg()
+	DEFENDER = IntArg()
+	def do(self, source, attacker):
+		if attacker.atk>=3:
+			Destroy(attacker).trigger(source)
 class CS3_016:# <5>[1637]#23.6  ########### need to check #################
 	""" Reckoning
 	[Secret:] After an enemy minion deals 3 or more damage, destroy it. """
-	secret = Attack(ENEMY_MINIONS).on(CS3_016_Action(Damage.TARGET, Damage.AMOUNT))
+	secret = Attack(ENEMY_MINIONS).on(CS3_016_Action(Attack.ATTACKER))
 	pass
 
 class CS3_029:# <5>[1637]##.22.6

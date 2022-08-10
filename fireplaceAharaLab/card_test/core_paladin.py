@@ -26,7 +26,7 @@ def core_paladin():
 	#PresetGame(pp_CORE_OG_229)
 	#PresetGame(pp_CORE_OG_273)
 	#PresetGame(pp_CORE_TRL_307)
-	PresetGame(pp_CS3_016) ## need check -> ## 
+	PresetGame(pp_CS3_016) ## need check -> ## OKOK
 	## 22.6
 	#PresetGame(CORE_CS2_088)
 	#PresetGame(CORE_CS2_089)
@@ -451,6 +451,8 @@ class pp_CS3_016(Preset_Play):# <12>[1637]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark1.zone==Zone.GRAVEYARD, "zone"
+		assert self.mark2.zone==Zone.GRAVEYARD, "zone"
 		pass
 	pass
 
