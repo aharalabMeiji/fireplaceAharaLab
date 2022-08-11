@@ -81,6 +81,7 @@ def core_neutral():
 	#if Reno_Jackson:## 23.6
 	#if Gorillabot_A_3:## 23.6
 	#if Sir_Finley_Mrrgglton:## 23.6
+	PresetGame(pp_CORE_LOE_076)
 	#if Brann_Bronzebeard:## 23.6
 	#if Elise_Starseeker:## 23.6
 	#if Murloc_Tinyfin:##22.6## 23.6
@@ -436,4 +437,38 @@ class pp_CORE_CS2_222(Preset_Play):# <12> 1637 #OK
 			self.print_stats ("controller.field", card)
 		pass
 
+
+#############CORE_LOE_076############
+
+class pp_CORE_LOE_076(Preset_Play):# <12> 1637 
+	""" Sir Finley Mrrgglton
+	[[Battlecry:] Discover] a new basic Hero Power. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('CORE_LOE_076',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		##########controller
+		self.old_heropower=controller.hero.power
+		self.play_card(self.mark1)
+		self.change_turn()
+		##########opponent
+		#self.play_card(self.mark3, opponent)#
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		print("old heropower was %s"%(self.old_heropower))
+		print("new heropower is %s"%controller.hero.power)
+		print("Check this heropower was chosen in discovery procedure.")
+		for card in controller.hand:
+			self.print_stats ("hand", card)
+		pass
 ######################

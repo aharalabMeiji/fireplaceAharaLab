@@ -128,7 +128,7 @@ BOT_083e=buff(atk=1)#<12> 1127
 
 if Mistress_of_Mixtures:# 
 	Core_Neutral+=['CORE_CFM_120']
-class CORE_CFM_120:# <12>[1637]
+class CORE_CFM_120:# <12>[1637] ## visually OK
 	""" Mistress of Mixtures
 	[Deathrattle:] Restore #4 Health to each hero. """
 	deathrattle = Heal(ALL_HEROES, 4)
@@ -269,7 +269,7 @@ DAL_086e=buff(1,1)# <12> 1130
 
 if Young_Priestess:
 	Core_Neutral+=['CORE_EX1_004','EX1_004e']
-class CORE_EX1_004:# <12> 1637 
+class CORE_EX1_004:# <12> 1637  ## visually OK
 	""" Young_Priestess
 	At the end of your turn, give another random friendly minion +1 Health. """
 	events = OWN_TURN_END.on(Buff(RANDOM_OTHER_FRIENDLY_MINION, "EX1_004e"))
@@ -294,7 +294,7 @@ class CORE_EX1_005:# <12> 1637 #OK
 
 if Acolyte_of_Pain:# 
 	Core_Neutral+=['CORE_EX1_007']
-class CORE_EX1_007:# <12>[1637]
+class CORE_EX1_007:# <12>[1637] ## visually OK
 	""" Acolyte of Pain
 	Whenever this minion takes damage, draw a_card. """
 	events = SELF_DAMAGE.on(Draw(CONTROLLER))	
@@ -383,7 +383,7 @@ class CORE_EX1_028:# <12> 1637 #OK
 
 if Twilight_Drake:# 
 	Core_Neutral+=['CORE_EX1_043','EX1_043e']
-class CORE_EX1_043:# <12>[1637]
+class CORE_EX1_043:# <12>[1637] ## visually OK
 	""" Twilight Drake
 	[Battlecry:] Gain +1 Health for each card in your hand. """
 	play = Buff(SELF, "EX1_043e") * Count(FRIENDLY_HAND)
@@ -392,7 +392,7 @@ EX1_043e = buff(health=1)
 
 if Dark_Iron_Dwarf:
 	Core_Neutral+=['CORE_EX1_046','EX1_046e']
-class CORE_EX1_046:# <12> 1637
+class CORE_EX1_046:# <12> 1637 ## visually OK
 	""" Dark_Iron_Dwarf
 	[Battlecry:] Give a minion +2_Attack this turn. """
 	requirements = {
@@ -517,7 +517,7 @@ class EX1_110t:# <12> 3
 
 if Dire_Wolf_Alpha:
 	Core_Neutral+=['CORE_EX1_162','EX1_162o']
-class CORE_EX1_162:# <12> 1637
+class CORE_EX1_162:# <12> 1637 ## visually OK
 	""" Dire_Wolf_Alpha
 	Adjacent minions have +1_Attack. """
 	update = Refresh(SELF_ADJACENT, buff="EX1_162o")
@@ -529,7 +529,7 @@ EX1_162o = buff(atk=1)# <12> 3
 
 if SI_7_Infiltrator:
 	Core_Neutral+=['CORE_EX1_186']
-class CORE_EX1_186:# <12> 1637
+class CORE_EX1_186:# <12> 1637 ## visually OK
 	""" SI:7_Infiltrator
 	[Battlecry:] Destroy a random enemy [Secret]. """
 	play = Destroy(RANDOM(ENEMY_SECRETS))
@@ -540,7 +540,7 @@ class CORE_EX1_186:# <12> 1637
 
 if Arcane_Devourer:
 	Core_Neutral+=['CORE_EX1_187','EX1_187e']
-class CORE_EX1_187:# <12> 1637
+class CORE_EX1_187:# <12> 1637 ## visually OK
 	""" Arcane_Devourer
 	Whenever you cast a spell, gain +2/+2. """
 	events = OWN_SPELL_PLAY.on(Buff(SELF,'EX1_187e'))
@@ -552,10 +552,10 @@ EX1_187e=buff(atk=2,health=2)# <12> 3
 
 if Barrens_Stablehand:
 	Core_Neutral+=['CORE_EX1_188']
-class CORE_EX1_188:# <12> 1637
+class CORE_EX1_188:# <12> 1637 ## visually OK
 	""" Barrens_Stablehand
 	[Battlecry:] Summon a random Beast. """
-	play = Summon(CONTROLLER, RANDOM(BEAST))
+	play = Summon(CONTROLLER, RandomBeast())
 	pass
 
 
@@ -563,7 +563,7 @@ class CORE_EX1_188:# <12> 1637
 
 if Brightwing:
 	Core_Neutral+=['CORE_EX1_189']
-class CORE_EX1_189:# <12> 1637
+class CORE_EX1_189:# <12> 1637 ## visually OK
 	""" Brightwing
 	[Battlecry:] Add a random [Legendary] minion to your_hand. """
 	#play = Give(CONTROLLER,RANDOM(FRIENDLY_DECK + MINION + LEGENDARY))
@@ -581,7 +581,7 @@ class ResummonMinionDiedThisTurn(TargetedAction):
 	def do(self, source, target):
 		for _card in target.died_this_turn:
 			Summon(target,_card).trigger(target)
-class CORE_EX1_190:# <12> 1637
+class CORE_EX1_190:# <12> 1637 ## visually OK
 	""" High_Inquisitor_Whitemane
 	[Battlecry:] Summon all friendly minions that died this turn. """
 	play = ResummonMinionDiedThisTurn(CONTROLLER)
@@ -592,7 +592,7 @@ class CORE_EX1_190:# <12> 1637
 
 if Baron_Geddon:
 	Core_Neutral+=['CORE_EX1_249']
-class CORE_EX1_249:# <12> 1637
+class CORE_EX1_249:# <12> 1637 ## visually OK
 	""" Baron_Geddon
 	At the end of your turn, deal 2 damage to ALL other characters. """
 	events = OWN_TURN_END.on(Hit(ALL_CHARACTERS - SELF, 2))
@@ -601,7 +601,7 @@ class CORE_EX1_249:# <12> 1637
 
 if Azure_Drake:# 
 	Core_Neutral+=['CORE_EX1_284']
-class CORE_EX1_284:# <12>[1637]
+class CORE_EX1_284:# <12>[1637] ## visually OK
 	""" Azure Drake
 	[Spell Damage +1][Battlecry:] Draw a card. """
 	play = Draw(CONTROLLER)	
@@ -610,7 +610,7 @@ class CORE_EX1_284:# <12>[1637]
 
 if Gurubashi_Berserker:
 	Core_Neutral+=['CORE_EX1_399','EX1_399e']
-class CORE_EX1_399:# <12> 1637
+class CORE_EX1_399:# <12> 1637 ## visually OK
 	""" Gurubashi_Berserker
 	Whenever this minion takes damage, gain +3_Attack. """
 	events = SELF_DAMAGE.on(Buff(SELF, "EX1_399e"))
@@ -622,7 +622,7 @@ EX1_399e = buff(atk=3)# <12> 1635
 
 if Murloc_Tidehunter:
 	Core_Neutral+=['CORE_EX1_506']
-class CORE_EX1_506:# <12> 1637
+class CORE_EX1_506:# <12> 1637 ## visually OK
 	""" Murloc_Tidehunter
 	[Battlecry:] Summon a 1/1_Murloc Scout. """
 	play = Summon(CONTROLLER, "CORE_EX1_506a")
@@ -638,7 +638,7 @@ class CORE_EX1_506a:# <12> 1637
 
 if Murloc_Warleader:# 
 	Core_Neutral+=['CORE_EX1_507','EX1_507e']
-class CORE_EX1_507:# <12>[1637]
+class CORE_EX1_507:# <12>[1637] ## visually OK
 	""" Murloc Warleader
 	Your other Murlocs have +2 Attack. """
 	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="EX1_507e")
@@ -646,10 +646,10 @@ EX1_507e = buff(atk=2)
 
 if Murloc_Tidecaller:
 	Core_Neutral+=['CORE_EX1_509','EX1_509e']
-class CORE_EX1_509:# <12> 1637
+class CORE_EX1_509:# <12> 1637 ## visually OK
 	""" Murloc_Tidecaller
 	Whenever you summon a Murloc, gain +1 Attack. """
-	events = Summon(ALL_PLAYERS, MURLOC).on(Buff(SELF, "EX1_509e"))
+	events = Summon(CONTROLLER, MURLOC).on(Buff(SELF, "EX1_509e"))
 	pass
 EX1_509e = buff(atk=1)# <12> 3
 
@@ -658,7 +658,7 @@ EX1_509e = buff(atk=1)# <12> 3
 
 if Faceless_Manipulator:
 	Core_Neutral+=['CORE_EX1_564']
-class CORE_EX1_564:# <12> 1637
+class CORE_EX1_564:# <12> 1637 ## visually OK
 	""" Faceless_Manipulator
 	[Battlecry:] Choose a minion and become a copy of it. """
 	requirements = {
@@ -671,7 +671,7 @@ class CORE_EX1_564:# <12> 1637
 
 if Sea_Giant:# 
 	Core_Neutral+=['CORE_EX1_586']
-class CORE_EX1_586:# <12>[1637]
+class CORE_EX1_586:# <12>[1637] ## visually OK
 	""" Sea Giant
 	Costs (1) less for each other minion on the battlefield. """
 	cost_mod = -Count(ALL_MINIONS)
@@ -680,7 +680,7 @@ class CORE_EX1_586:# <12>[1637]
 
 if Nerubian_Egg:
 	Core_Neutral+=['CORE_FP1_007','FP1_007t']
-class CORE_FP1_007:# <12> 1637
+class CORE_FP1_007:# <12> 1637 ## visually OK
 	""" Nerubian_Egg
 	[Deathrattle:] Summon a 4/4 Nerubian. """
 	deathrattle = Summon(CONTROLLER, "FP1_007t")
@@ -694,7 +694,7 @@ class FP1_007t:# <12> 3
 
 if Baron_Rivendare:
 	Core_Neutral+=['CORE_FP1_031']
-class CORE_FP1_031:# <12> 1637
+class CORE_FP1_031:# <12> 1637  ## visually OK
 	""" Baron_Rivendare
 	Your minions trigger their [Deathrattles] twice. """
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
@@ -703,7 +703,7 @@ class CORE_FP1_031:# <12> 1637
 
 if Mossy_Horror:# 
 	Core_Neutral+=['CORE_GIL_124']
-class CORE_GIL_124:# <12>[1637]
+class CORE_GIL_124:# <12>[1637] ## visually OK
 	""" Mossy Horror
 	[Battlecry:] Destroy all other_minions with 2_or_less_Attack. """
 	def play(self):
@@ -722,7 +722,7 @@ class CORE_GIL_124:# <12>[1637]
 
 if Lifedrinker:# 
 	Core_Neutral+=['CORE_GIL_622']
-class CORE_GIL_622:# <12>[1637]
+class CORE_GIL_622:# <12>[1637] ## visually OK
 	""" Lifedrinker
 	[Battlecry:] Deal 3 damage to the enemy hero. Restore #3 Health to your hero. """
 	play = Hit(ENEMY_HERO, 3), Heal(FRIENDLY_HERO, 3)
@@ -731,7 +731,7 @@ class CORE_GIL_622:# <12>[1637]
 
 if ElveCogmastern_Archer:
 	Core_Neutral+=['CORE_GVG_013']
-class CORE_GVG_013:# <12> 1637
+class CORE_GVG_013:# <12> 1637 ## visually OK
 	""" Cogmaster
 	Has +2 Attack while you have a Mech. """
 	update = Find(FRIENDLY_MINIONS + MECH) & Refresh(SELF, {GameTag.ATK: +2})
@@ -742,7 +742,7 @@ class CORE_GVG_013:# <12> 1637
 
 if Spider_Tank:
 	Core_Neutral+=['CORE_GVG_044']
-class CORE_GVG_044:# <12> 1637
+class CORE_GVG_044:# <12> 1637 ## OK
 	""" Spider_Tank
 	"""
 	#
@@ -752,7 +752,7 @@ class CORE_GVG_044:# <12> 1637
 
 if Explosive_Sheep:
 	Core_Neutral+=['CORE_GVG_076']
-class CORE_GVG_076:# <12> 1637
+class CORE_GVG_076:# <12> 1637 ## visually OK
 	""" Explosive_Sheep
 	[Deathrattle:] Deal 2 damage to all minions. """
 	deathrattle = Hit(ALL_MINIONS, 2)
@@ -763,10 +763,9 @@ class CORE_GVG_076:# <12> 1637
 
 if Annoy_o_Tron:
 	Core_Neutral+=['CORE_GVG_085']
-class CORE_GVG_085:# <12> 1637
+class CORE_GVG_085:# <12> 1637 ## OK
 	""" Annoy-o-Tron
 	[Taunt][Divine Shield] """
-	#
 	pass
 
 
@@ -774,10 +773,9 @@ class CORE_GVG_085:# <12> 1637
 
 if Mini_Mage:
 	Core_Neutral+=['CORE_GVG_109']
-class CORE_GVG_109:# <12> 1637
+class CORE_GVG_109:# <12> 1637 ## OK
 	""" Mini-Mage
 	[Stealth][Spell Damage +1] """
-	#
 	pass
 
 
@@ -785,7 +783,7 @@ class CORE_GVG_109:# <12> 1637
 
 if Clockwork_Giant:
 	Core_Neutral+=['CORE_GVG_121']
-class CORE_GVG_121:# <12> 1637
+class CORE_GVG_121:# <12> 1637  ## visually OK
 	""" Clockwork Giant
 	Costs (1) less for each card in your opponent's hand. """
 	cost_mod = -Count(ENEMY_HAND)
@@ -796,7 +794,7 @@ class CORE_GVG_121:# <12> 1637
 
 if Grim_Necromancer:
 	Core_Neutral+=['CORE_ICC_026','ICC_026t']
-class CORE_ICC_026:# <12> 1637
+class CORE_ICC_026:# <12> 1637 ## visually OK
 	""" Grim Necromancer
 	[Battlecry:] Summon two 1/1 Skeletons. """
 	play = Summon(CONTROLLER, 'ICC_026t') * 2
@@ -807,7 +805,7 @@ class ICC_026t:# <12> 1001
 
 if Cobalt_Scalebane:# 
 	Core_Neutral+=['CORE_ICC_029','ICC_029e']
-class CORE_ICC_029:# <12>[1637]
+class CORE_ICC_029:# <12>[1637] ## visually OK
 	""" Cobalt Scalebane
 	At the end of your turn, give another random friendly minion +3 Attack. """
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ICC_029e'))
@@ -817,7 +815,7 @@ ICC_029e=buff(3,0)
 
 if Arcane_Anomaly:
 	Core_Neutral+=['CORE_KAR_036','KAR_036e']
-class CORE_KAR_036:# <12> 1637
+class CORE_KAR_036:# <12> 1637 ## visually OK
 	""" Arcane Anomaly
 	After you cast a spell, give this minion +1 Health. """
 	events = OWN_SPELL_PLAY.on(Buff(SELF, "KAR_036e"))
@@ -827,7 +825,7 @@ KAR_036e = buff(health=1)# <12> 23
 
 if Reno_Jackson:# 
 	Core_Neutral+=['CORE_LOE_011']
-class CORE_LOE_011:# <12>[1637]
+class CORE_LOE_011:# <12>[1637] ## visually OK
 	""" Reno Jackson
 	[Battlecry:] If your deck has no duplicates, fully heal your hero. """
 	powered_up = -FindDuplicates(FRIENDLY_DECK)
@@ -836,7 +834,7 @@ class CORE_LOE_011:# <12>[1637]
 
 if Gorillabot_A_3:# 
 	Core_Neutral+=['CORE_LOE_039']
-class CORE_LOE_039:# <12>[1637]
+class CORE_LOE_039:# <12>[1637] ## visually OK
 	""" Gorillabot A-3
 	[Battlecry:] If you control another Mech, [Discover] a Mech. """
 	powered_up = Find(FRIENDLY_MINIONS + MECH - SELF)
@@ -845,15 +843,15 @@ class CORE_LOE_039:# <12>[1637]
 
 if Sir_Finley_Mrrgglton:# 
 	Core_Neutral+=['CORE_LOE_076']
-class CORE_LOE_076:# <12>[1637]
+class CORE_LOE_076:# <12>[1637] ## OK
 	""" Sir Finley Mrrgglton
 	[[Battlecry:] Discover] a new basic Hero Power. """
-	play = GenericChoice(CONTROLLER, RandomBasicHeroPower() * 3)
+	play = GenericChoiceChangeHeropower(CONTROLLER, RandomBasicHeroPower() * 3)
 	pass
 
 if Brann_Bronzebeard:# 
 	Core_Neutral+=['CORE_LOE_077']
-class CORE_LOE_077:# <12>[1637]
+class CORE_LOE_077:# <12>[1637] ## visually OK
 	""" Brann Bronzebeard
 	Your [Battlecries] trigger twice. """
 	update = Refresh(CONTROLLER, {enums.EXTRA_BATTLECRIES: True})
@@ -861,7 +859,7 @@ class CORE_LOE_077:# <12>[1637]
 
 if Elise_Starseeker:# 
 	Core_Neutral+=['CORE_LOE_079','LOE_019t','LOE_019t2']
-class CORE_LOE_079:# <12>[1637]
+class CORE_LOE_079:# <12>[1637] 
 	""" Elise Starseeker
 	[Battlecry:] Shuffle the 'Map to the Golden Monkey'   into your deck. """
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_MINION_TARGET: 0}

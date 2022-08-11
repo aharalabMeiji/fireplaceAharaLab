@@ -191,8 +191,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.core_paladin import core_paladin
-	core_paladin()
+	from card_test.core_neutral import core_neutral
+	core_neutral()
 	pass
 
 def battleground_main():
