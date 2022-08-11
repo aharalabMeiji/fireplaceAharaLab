@@ -859,7 +859,7 @@ class CORE_LOE_077:# <12>[1637] ## visually OK
 
 if Elise_Starseeker:# 
 	Core_Neutral+=['CORE_LOE_079','LOE_019t','LOE_019t2']
-class CORE_LOE_079:# <12>[1637] 
+class CORE_LOE_079:# <12>[1637] ## OK
 	""" Elise Starseeker
 	[Battlecry:] Shuffle the 'Map to the Golden Monkey'   into your deck. """
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_MINION_TARGET: 0}
@@ -875,7 +875,7 @@ class LOE_019t2:
 
 if Murloc_Tinyfin:
 	Core_Neutral+=['CORE_LOEA10_3']
-class CORE_LOEA10_3:# <12> 1637
+class CORE_LOEA10_3:# <12> 1637 ## OK
 	""" Murloc Tinyfin
 	"""
 	#
@@ -920,7 +920,7 @@ class CORE_LOOT_137:###OK
 
 if Plated_Beetle:# 
 	Core_Neutral+=['CORE_LOOT_413']
-class CORE_LOOT_413:# <12>[1637]
+class CORE_LOOT_413:# <12>[1637] ## visuall OK
 	""" Plated Beetle
 	[Deathrattle:] Gain 3 Armor. """
 	deathrattle = GainArmor(FRIENDLY_HERO, 3)
@@ -928,7 +928,7 @@ class CORE_LOOT_413:# <12>[1637]
 
 if Zola_the_Gorgon:# 
 	Core_Neutral+=['CORE_LOOT_516']
-class CORE_LOOT_516:# <12>[1637]
+class CORE_LOOT_516:# <12>[1637] ## visuall OK
 	""" Zola the Gorgon
 	[Battlecry:] Choose a friendly minion. Add a Golden copy of it to your hand. """
 	requirements = {
@@ -946,9 +946,9 @@ class CORE_NEW1_018_Action(TargetedAction):
 	def do(self,source,target):
 		player = target
 		weapon = player.weapon
-		source.atk += weapon.atk
+		Buff(source, 'NEW1_018e', atk = weapon.atk).trigger(source)
 
-class CORE_NEW1_018:# <12> 1637 #OK
+class CORE_NEW1_018:# <12> 1637 # visually OK
 	""" Bloodsail Raider
 	[Battlecry:] Gain Attack equal to the Attack of your weapon. """
 	play = Find(FRIENDLY_WEAPON) & CORE_NEW1_018_Action(CONTROLLER)
@@ -960,7 +960,7 @@ class NEW1_018e:
 
 if Wild_Pyromancer:# 
 	Core_Neutral+=['CORE_NEW1_020']
-class CORE_NEW1_020:# <12>[1637]
+class CORE_NEW1_020:# <12>[1637] ## visually OK
 	""" Wild Pyromancer
 	After you cast a spell, deal 1 damage to ALL minions. """
 	events = OWN_SPELL_PLAY.after(Hit(ALL_MINIONS, 1))
@@ -968,7 +968,7 @@ class CORE_NEW1_020:# <12>[1637]
 
 if Doomsayer:# 
 	Core_Neutral+=['CORE_NEW1_021']
-class CORE_NEW1_021:# <12>[1637]
+class CORE_NEW1_021:# <12>[1637]  ## visually OK
 	""" Doomsayer
 	At the start of your turn, destroy ALL minions. """
 	events = OWN_TURN_BEGIN.on(Destroy(ALL_MINIONS))	
@@ -976,7 +976,7 @@ class CORE_NEW1_021:# <12>[1637]
 
 if Faerie_Dragon:# 
 	Core_Neutral+=['CORE_NEW1_023']
-class CORE_NEW1_023:# <12>[1637]
+class CORE_NEW1_023:# <12>[1637]  ## OK
 	""" Faerie Dragon
 	Can't be targeted by spells or Hero Powers. """
 	#	<Tag enumID="311" name="CANT_BE_TARGETED_BY_SPELLS" type="Int" value="1"/>
@@ -986,7 +986,7 @@ class CORE_NEW1_023:# <12>[1637]
 
 if Violet_Teacher:
 	Core_Neutral+=['CORE_NEW1_026','NEW1_026t']
-class CORE_NEW1_026:# <12> 1637
+class CORE_NEW1_026:# <12> 1637  ## visually OK
 	""" Violet Teacher
 	Whenever you cast a spell, summon a 1/1 Violet Apprentice. """
 	events = OWN_SPELL_PLAY.on(Summon(CONTROLLER, "NEW1_026t"))
@@ -1000,7 +1000,7 @@ class NEW1_026t:# <12> 3
 
 if Southsea_Captain:
 	Core_Neutral+=['CORE_NEW1_027','NEW1_027e']
-class CORE_NEW1_027:# <12> 1637
+class CORE_NEW1_027:# <12> 1637  ## visually OK
 	""" Southsea Captain
 	Your other Pirates have +1/+1. """
 	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")
@@ -1012,7 +1012,7 @@ NEW1_027e = buff(+1, +1)
 
 if Flesheating_Ghoul:
 	Core_Neutral+=['CORE_tt_004','tt_004o']
-class CORE_tt_004:# <12> 1637
+class CORE_tt_004:# <12> 1637 ## visually OK
 	""" Flesheating Ghoul
 	Whenever a minion dies, gain +1 Attack. """
 	events = Death(MINION).on(Buff(SELF, "tt_004o"))
@@ -1022,7 +1022,7 @@ tt_004o=buff(atk=1)# <12> 3
 
 if Beaming_Sidekick:# 
 	Core_Neutral+=['CORE_ULD_191','ULD_191e']
-class CORE_ULD_191:# <12>[1637]
+class CORE_ULD_191:# <12>[1637]  ## visually OK
 	""" Beaming Sidekick
 	[Battlecry:] Give a friendly minion +2 Health. """
 	play = Buff(RANDOM(FRIENDLY_MINIONS - SELF), "ULD_191e")
@@ -1030,7 +1030,7 @@ ULD_191e = buff(0,2)
 
 if Vulpera_Scoundrel:# 
 	Core_Neutral+=['CORE_ULD_209','ULD_209t']
-class CORE_ULD_209:# <12>[1637]
+class CORE_ULD_209:# <12>[1637]  ## visually OK
 	""" Vulpera Scoundrel
 	[Battlecry]: [Discover] a spell or pick a mystery choice. """
 	choose = ("CORE_ULD_209", "ULD_209t")
@@ -1042,7 +1042,7 @@ class ULD_209t:
 
 if Injured_Tolvir:# 
 	Core_Neutral+=['CORE_ULD_271']
-class CORE_ULD_271:# <12>[1637]
+class CORE_ULD_271:# <12>[1637] ## visually OK
 	""" Injured Tol'vir
 	[Taunt][Battlecry:] Deal 3 damage to this minion. """
 	play = Hit(SELF, 3)
@@ -1051,7 +1051,7 @@ class CORE_ULD_271:# <12>[1637]
 
 if Stormwatcher:
 	Core_Neutral+=['CORE_UNG_813']
-class CORE_UNG_813:# <12> 1637
+class CORE_UNG_813:# <12> 1637 ## visually OK
 	""" Stormwatcher
 	[Windfury] """
 	#
@@ -1062,7 +1062,7 @@ class CORE_UNG_813:# <12> 1637
 
 if Humongous_Razorleaf:
 	Core_Neutral+=['CORE_UNG_844']
-class CORE_UNG_844:# <12> 1637
+class CORE_UNG_844:# <12> 1637  ## visually OK
 	""" Humongous Razorleaf
 	Can't attack. """
 	#
@@ -1070,7 +1070,7 @@ class CORE_UNG_844:# <12> 1637
 
 if Primordial_Drake:# 
 	Core_Neutral+=['CORE_UNG_848']
-class CORE_UNG_848:# <12>[1637]
+class CORE_UNG_848:# <12>[1637] ## visually OK
 	""" Primordial Drake
 	[Taunt][Battlecry:] Deal 2 damageto all other minions. """
 	play = Hit(ALL_MINIONS - SELF, 2) 
@@ -1078,7 +1078,7 @@ class CORE_UNG_848:# <12>[1637]
 
 if Tar_Creeper:# 
 	Core_Neutral+=['CORE_UNG_928']
-class CORE_UNG_928:# <12>[1637]
+class CORE_UNG_928:# <12>[1637] ## visually OK
 	""" Tar Creeper
 	[Taunt]Has +2 Attack during your opponent's turn. """
 	events = OWN_TURN_END.on(Buff(SELF, 'UNG_928e'))
@@ -1094,9 +1094,9 @@ class UNG_928e:
 
 if Escaped_Manasaber:# 
 	Core_Neutral+=['CORE_YOD_006']
-class CORE_YOD_006:# <12>[1637]
+class CORE_YOD_006:# <12>[1637] ## visually OK
 	""" Escaped Manasaber
-	[Stealth]Whenever this attacks,gain 1 Mana Crystalthis turn only. """
+	[Stealth]Whenever this attacks,gain 1 Mana Crystal this turn only. """
 	play = Attack(SELF,ALL_MINIONS).on(ManaThisTurn(CONTROLLER,1))
 	pass
 
