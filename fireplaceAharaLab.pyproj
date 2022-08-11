@@ -49,13 +49,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_VectorAgent.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\demon_hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\druid.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_neutral.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\paladin.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
       <SubType>Code</SubType>

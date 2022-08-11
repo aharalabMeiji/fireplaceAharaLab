@@ -85,10 +85,10 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.STORMWIND
-	myCardClass=CardClass.WARLOCK
-	mySetText="StormWind_"
-	myClassText="Warlock"
+	myCardSet=CardSet.THE_BARRENS
+	myCardClass=CardClass.DEMONHUNTER
+	mySetText="Barrens_"
+	myClassText="DemonHunter"
 	mySetClass=mySetText+myClassText
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
