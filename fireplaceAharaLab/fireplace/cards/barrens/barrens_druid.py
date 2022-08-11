@@ -1,23 +1,46 @@
+﻿from ..utils import *
+
+
 from ..utils import *
 
-#Barrens_Druid=['BAR_533','BAR_533t','BAR_534','BAR_534e',
-#'BAR_535','BAR_536','BAR_536t','BAR_536t2','BAR_536e','BAR_536te','BAR_536t2e',
-#'BAR_537','BAR_537e','BAR_538','BAR_538t',
-#'BAR_539','BAR_539e','BAR_540','BAR_549','BAR_549e','BAR_720','BAR_720e',
-#'WC_004','WC_004t','WC_006','WC_006e','WC_036','WC_036t1',]
+Barrens_Druid=[]
 
+Barrens_Thorngrowth_Sentries=True  ###
+Barrens_Prides_Fury=True  ###
+Barrens_Thickhide_Kodo=True  ###
+Barrens_Living_Seed_Rank_1=True  ###
+Barrens_Razormane_Battleguard=True  ###
+Barrens_Druid_of_the_Plains=True  ###
+Barrens_Celestial_Alignment=True  ###
+Barrens_Plaguemaw_the_Rotting=True  ###
+Barrens_Mark_of_the_Spikeshell=True  ###
+Barrens_Guff_Runetotem=True  ###
+Barrens_Fangbound_Druid=True  ###
+Barrens_Lady_Anacondra=True  ###
+Barrens_Deviate_Dreadfang=True  ###
+
+###########################################
+
+if Barrens_Thorngrowth_Sentries:# 
+	Barrens_Druid+=['BAR_533']
+	Barrens_Druid+=['BAR_533t']
 class BAR_533:#OK <2>[1525]
 	""" Thorngrowth Sentries
 	Summon two 1/2 Turtles with [Taunt]. """
 	play = Summon(CONTROLLER, 'BAR_533t') * 2
 	pass
-
 class BAR_533t:# <2>[1525]
 	""" Thornguard Turtle
 	[Taunt] """
 	#####
 	pass
 
+
+
+
+if Barrens_Prides_Fury:# 
+	Barrens_Druid+=['BAR_534']
+	Barrens_Druid+=['BAR_534e']
 class BAR_534:#OK <2>[1525]
 	""" Pride's Fury
 	Give your minions +1/+3. """
@@ -27,12 +50,25 @@ BAR_534e=buff(1,3)# <2>[1525]
 """ Overrun
 +1/+3. """
 
+
+
+
+if Barrens_Thickhide_Kodo:# 
+	Barrens_Druid+=['BAR_535']
 class BAR_535:#OK <2>[1525]
 	""" Thickhide Kodo
 	[Taunt][Deathrattle:] Gain 5 Armor. """
 	deathrattle = GainArmor(FRIENDLY_HERO, 5)
 	pass
 
+
+
+
+
+if Barrens_Living_Seed_Rank_1:# 
+	Barrens_Druid+=['BAR_536']
+	Barrens_Druid+=['BAR_536t']
+	Barrens_Druid+=['BAR_536t2']
 class BAR_536:#OK <2>[1525]
 	""" Living Seed (Rank 1)
 	Draw a Beast. Reduce its Cost by (1). <i>(Upgrades when you have 5 Mana.)</i> """
@@ -54,6 +90,12 @@ class BAR_536t2:#OK <2>[1525]
 	pass
 BAR_536t2e=buff(cost=-3)#<8>[1525]
 
+
+
+
+if Barrens_Razormane_Battleguard:# 
+	Barrens_Druid+=['BAR_537']
+	Barrens_Druid+=['BAR_537e']
 class BAR_537:#OK <2>[1525]
 	""" Razormane Battleguard
 	The first [Taunt] minion you_play each turn costs_(2) less. """
@@ -72,6 +114,12 @@ class BAR_537e:# <2>[1525]
 		]
 	pass
 
+
+
+
+if Barrens_Druid_of_the_Plains:# 
+	Barrens_Druid+=['BAR_538']
+	Barrens_Druid+=['BAR_538t']
 class BAR_538:#OK <2>[1525]
 	""" Druid of the Plains
 	[Rush][Frenzy:] Transform into a 6/7 Kodo with [Taunt]. """
@@ -84,6 +132,12 @@ class BAR_538t:# <2>[1525]
 	#
 	pass
 
+
+
+
+if Barrens_Celestial_Alignment:# 
+	Barrens_Druid+=['BAR_539']
+	Barrens_Druid+=['BAR_539e']
 class BAR_539:#OK <2>[1525]
 	""" Celestial Alignment
 	Set each player to 0 Mana Crystals. Set the Cost of cards in all hands and decks to (1). """
@@ -104,6 +158,11 @@ class BAR_539e:# <2>[1525]
 	cost = SET(1)
 	pass
 
+
+
+
+if Barrens_Plaguemaw_the_Rotting:# 
+	Barrens_Druid+=['BAR_540']
 class BAR_540_Action(TargetedAction):
 	TARGET = ActionArg
 	def do(self, source, target):
@@ -118,20 +177,29 @@ class BAR_540:#OK <2>[1525]
 	events = Death(FRIENDLY + TAUNT).on(BAR_540_Action(ExactCopy(Death.ENTITY)))
 	pass
 
-class BAR_549:#OK <2>[1525]
+
+
+
+if Barrens_Mark_of_the_Spikeshell:# 
+	Barrens_Druid+=['BAR_549']
+	Barrens_Druid+=['BAR_549e']
+class BAR_549:# <2>[1525]
 	""" Mark of the Spikeshell
 	Give a minion +2/+2.If it has [Taunt], add a copy of it to your hand. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
-	def play(self):
-		yield Buff(TARGET,'BAR_549e')
-		if self.target.taunt:
-			yield Give(CONTROLLER, Copy(TARGET))
+	#
+	pass
+class BAR_549e:# <2>[1525]
+	""" Everbark
+	+2/+2. """
+	#
 	pass
 
-BAR_549e=buff(2,2)# <2>[1525]
-""" Everbark
-+2/+2. """
 
+
+
+if Barrens_Guff_Runetotem:# 
+	Barrens_Druid+=['BAR_720']
+	Barrens_Druid+=['BAR_720e']
 class BAR_720:#OK <2>[1525]
 	""" Guff Runetotem
 	After you cast a Nature spell, give another friendly minion +2/+2. """
@@ -141,6 +209,12 @@ BAR_720e=buff(2,2)# <2>[1525]
 """ Guff's Buff
 +2/+2. """
 
+
+
+
+if Barrens_Fangbound_Druid:# 
+	Barrens_Druid+=['WC_004']
+	Barrens_Druid+=['WC_004t']
 class WC_004:#OK <2>[1525]
 	""" Fangbound Druid
 	[Taunt][Deathrattle:] Reduce the Cost of a Beast in your hand by (2). """
@@ -149,9 +223,13 @@ class WC_004:#OK <2>[1525]
 WC_004t=buff(cost=-2)# <2>[1525]
 """ Nightmare Trapped
 Costs (2) less. """
-#
-pass
 
+
+
+
+if Barrens_Lady_Anacondra:# 
+	Barrens_Druid+=['WC_006']
+	Barrens_Druid+=['WC_006e']
 class WC_006:#OK <2>[1525]
 	""" Lady Anacondra
 	Your Nature spells cost (2) less. """
@@ -161,6 +239,12 @@ WC_006e=buff(cost=-2)# <2>[1525]
 """ Natural Empowerment
 Costs (2) less. """
 
+
+
+
+if Barrens_Deviate_Dreadfang:# 
+	Barrens_Druid+=['WC_036']
+	Barrens_Druid+=['WC_036t1']
 class WC_036:#OK <2>[1525]
 	""" Deviate Dreadfang
 	After you cast a Nature spell, summon a 4/2 Viper with [Rush]. """
@@ -168,8 +252,9 @@ class WC_036:#OK <2>[1525]
 	pass
 
 class WC_036t1:# <2>[1525]
-	""" Deviate Viper
-	[Rush] """
-	#
+	""" Deviate Viper 	[Rush] """
 	pass
+
+
+#############################################################
 
