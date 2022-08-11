@@ -486,25 +486,6 @@ class GenericChoiceOnDeck(Choice):
 				_card.discard()
 
 
-class BAR_081_Southsea_Scoundrel(Choice):## 
-	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
-	def choose(self, card):
-		super().choose(card)
-		if Config.LOGINFO:
-			print("(BAR_081_Southsea_Scoundrel.choose)%s chooses %r"%(card.controller.name, card))
-		for _card in self.cards:
-			if _card is card:
-				if card.type == CardType.HERO_POWER:
-					_card.zone = Zone.PLAY
-				elif len(self.player.hand) < self.player.max_hand_size:
-					Give(card.controller,card.id).trigger(card.controller)
-				else:
-					_card.discard()
-			else:
-				_card.discard()
-		controller = card.controller.opponent##もともと相手のもの->これは自分
-		Give(controller,card.id).trigger(controller)
-		pass
 
 
 class GenericChoiceBuff(GenericChoice):## SW_059  ## callbackで対応可能

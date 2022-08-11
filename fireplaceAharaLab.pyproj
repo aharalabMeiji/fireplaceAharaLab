@@ -49,6 +49,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_VectorAgent.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
       <SubType>Code</SubType>
     </Compile>
@@ -133,9 +141,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_neutral.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\warrior.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\hero_dream\dream.py">
       <SubType>Code</SubType>
     </Compile>
@@ -172,25 +177,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\demon_hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\druid.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\mage.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\neutral.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\paladin.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\hunter.py">
@@ -296,6 +282,22 @@
     <Compile Include="fireplaceAharaLab\utils.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\demon_hunter.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\demon_hunter.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\druid.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\druid.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\hunter.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\hunter.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\mage.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\mage.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\neutral.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\neutral.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\paladin.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\paladin.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\warrior.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\warrior.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\__init__.cpython-39.pyc" />
     <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\druid.cpython-38.pyc" />
     <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\hunter.cpython-38.pyc" />
     <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\mage.cpython-38.pyc" />
@@ -311,11 +313,12 @@
     <Folder Include="fireplaceAharaLab\fireplace" />
     <Folder Include="fireplaceAharaLab\fireplace\brawls" />
     <Folder Include="fireplaceAharaLab\fireplace\cards" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\bigWarrior\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\alterac\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\clownDruid\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\darkmoon\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\revendreth\" />
