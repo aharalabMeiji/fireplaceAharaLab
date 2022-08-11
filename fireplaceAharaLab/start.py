@@ -85,23 +85,25 @@ def printClasses():
 	print('')
 	print('from ..utils import *')
 	print('')
-	myCardSet=CardSet.THE_BARRENS
-	myCardClass=CardClass.NEUTRAL
-	mySetClass='Barrens_Neutral'
+	myCardSet=CardSet.STORMWIND
+	myCardClass=CardClass.WARLOCK
+	mySetText="StormWind_"
+	myClassText="Warlock"
+	mySetClass=mySetText+myClassText
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
 	db, xml = cardxml.load(locale='enUS')
 	for _id in db.keys():
 		_card = db[_id]
 		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			print("Barrens_%s=True"%(_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
+			print("%s%s=True"%(mySetText,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
 		pass
 	pass
 	#print(']')
 	for _id in db.keys():
 		_card = db[_id]
 		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			print('if Barrens_%s:# '%(_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
+			print('if %s%s:# '%(mySetText,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','')))
 			print("\t%s+=['%s']"%(mySetClass, _card.id))
 			print('class %s:# <%d>[%d]'%(_card.id, _card.card_class, _card.card_set))
 			print('\t""" %s'%(_card.name))

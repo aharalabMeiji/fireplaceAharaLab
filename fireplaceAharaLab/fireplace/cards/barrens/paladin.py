@@ -138,64 +138,55 @@ class WC_034:
 	#
 	pass
 
-if Barrens_Deadly_Adventurer:# 
-	Barrens_Neutral+=['WC_034t']
 class WC_034t:# <12>[1525]
 	""" Deadly Adventurer
 	[Poisonous] """
 	#
 	pass
 
-if Barrens_Burly_Adventurer:# 
-	Barrens_Neutral+=['WC_034t2']
+
 class WC_034t2:# <12>[1525]
 	""" Burly Adventurer
 	[Taunt] """
 	#
 	pass
 
-if Barrens_Devout_Adventurer:# 
-	Barrens_Neutral+=['WC_034t3']
+
 class WC_034t3:# <12>[1525]
 	""" Devout Adventurer
 	[Divine Shield] """
 	#
 	pass
 
-if Barrens_Relentless_Adventurer:# 
-	Barrens_Neutral+=['WC_034t4']
+
 class WC_034t4:# <12>[1525]
 	""" Relentless Adventurer
 	[Windfury] """
 	#
 	pass
 
-if Barrens_Arcane_Adventurer:# 
-	Barrens_Neutral+=['WC_034t5']
+
 class WC_034t5:# <12>[1525]
 	""" Arcane Adventurer
 	[Spell Damage +1] """
 	#
 	pass
 
-if Barrens_Sneaky_Adventurer:# 
-	Barrens_Neutral+=['WC_034t6']
+
 class WC_034t6:# <12>[1525]
 	""" Sneaky Adventurer
 	[Stealth] """
 	#
 	pass
 
-if Barrens_Vital_Adventurer:# 
-	Barrens_Neutral+=['WC_034t7']
+
 class WC_034t7:# <12>[1525]
 	""" Vital Adventurer
 	[Lifesteal] """
 	#
 	pass
 
-if Barrens_Swift_Adventurer:# 
-	Barrens_Neutral+=['WC_034t8']
+
 class WC_034t8:# <12>[1525]
 	""" Swift Adventurer
 	[Rush] """

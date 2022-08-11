@@ -207,28 +207,29 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_demonhunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\ded.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\demon_hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_druid.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\druid.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_mage.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\mage.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_neutral.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\neutral.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_paladin.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\paladin.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\warrior.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\__init__.py" />
