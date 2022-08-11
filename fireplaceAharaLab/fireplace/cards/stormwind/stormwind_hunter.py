@@ -6,276 +6,50 @@ from ..utils import *
 
 
 StormWind_Hunter=[]
-StormWind_Sniper_Tavish=True
-StormWind_Crabby=True
-StormWind_Tavish_Stormpike=True
-StormWind_Defias_Blastfisher=True
-StormWind_Monstrous_Parrot=True
-StormWind_Doggie_Biscuit=True
+
+StormWind_Defias_Blastfisher=True#OK
+StormWind_Monstrous_Parrot=True#OK
+StormWind_Doggie_Biscuit=True#OK
 
 
-StormWind_Rats_of_Extraordinary_Size=True
-StormWind_Extraordinarily_Sized=True
-StormWind_Aimed_Shot=True
-StormWind_Aiming=True
-StormWind_Defend_the_Dwarven_District=True
-StormWind_Take_the_High_Ground=True
-StormWind_Knock_Em_Down=True
-StormWind_Tavish_Master_Marksman=True
-StormWind_The_Rat_King=True
-StormWind_Rat_Kings_Slumber=True
-StormWind_Rodent_Nest=True
-StormWind_Rat=True
-StormWind_Leatherworking_Kit=True
-StormWind_Ramming_Mount=True
-StormWind_On_a_Ram=True
-StormWind_Tavishs_Ram=True
-StormWind_Stormwind_Piper=True
-StormWind_Entranced=True
-StormWind_Devouring_Swarm=True
-StormWind_Imported_Tarantula=True
-StormWind_Invasive_Spiderling=True
-StormWind_Tavish=True
-if StormWind_Sniper_Tavish:# 
-	StormWind_Hunter+=['BOM_06_SniperTavish_004t']
-class BOM_06_SniperTavish_004t:# <3>[1578]
-	""" Sniper Tavish
-	Can't Attack. At the endof your turn, deal 3 damageto the enemy hero.[Deathrattle:]_Lose_the_game. """
-	#
-	pass
+StormWind_Rats_of_Extraordinary_Size=True#OK
 
-if StormWind_Crabby:# 
-	StormWind_Hunter+=['BOM_07_Crabby_007t']
-class BOM_07_Crabby_007t:# <3>[1578]
-	""" Crabby
-	[Taunt] """
-	#
-	pass
+StormWind_Aimed_Shot=True#OK
 
-if StormWind_Tavish_Stormpike:# 
-	StormWind_Hunter+=['BOM_07_Scabbs_Tavish_008t']
-class BOM_07_Scabbs_Tavish_008t:# <3>[1578]
-	""" Tavish Stormpike
-	[Deathrattle]: Return this to your hand and deal 1 damage_to_all_enemies. """
-	#
-	pass
+StormWind_Defend_the_Dwarven_District=True#OK
+
+StormWind_The_Rat_King=True#OK
+
+StormWind_Rodent_Nest=True#OK
+
+StormWind_Leatherworking_Kit=True#OK
+StormWind_Ramming_Mount=True#OK
+
+StormWind_Stormwind_Piper=True#OK
+
+StormWind_Devouring_Swarm=True#OK
+StormWind_Imported_Tarantula=True#OK
+
+
+
+
+
+
+############################################################
 
 if StormWind_Defias_Blastfisher:# 
 	StormWind_Hunter+=['DED_007']
-class DED_007:# <3>[1578]
-	""" Defias Blastfisher
-	[Battlecry:] Deal 2 damageto a random enemy. Repeatfor each of your Beasts. """
-	#
-	pass
-
-if StormWind_Monstrous_Parrot:# 
-	StormWind_Hunter+=['DED_008']
-class DED_008:# <3>[1578]
-	""" Monstrous Parrot
-	[Battlecry:] Repeat the lastfriendly [Deathrattle]that triggered. """
-	#
-	pass
-
-if StormWind_Doggie_Biscuit:# 
-	StormWind_Hunter+=['DED_009']
-class DED_009:# <3>[1578]
-	""" Doggie Biscuit
-	[Tradeable]Give a minion +2/+3.After you [Trade] this, givea friendly minion [Rush]. """
-	#
-	pass
-
-class DED_009e:# <3>[1578]
-	""" Good Doggie!
-	+2/+3. """
-	#
-	pass
-
-if StormWind_Rats_of_Extraordinary_Size:# 
-	StormWind_Hunter+=['SW_320']
-class SW_320:# <3>[1578]
-	""" Rats of Extraordinary Size
-	Summon seven 1/1Rats. Any that can't fiton the battlefield go toyour hand with +4/+4. """
-	#
-	pass
-
-if StormWind_Extraordinarily_Sized:# 
-	StormWind_Hunter+=['SW_320e']
-class SW_320e:# <3>[1578]
-	""" Extraordinarily Sized
-	+4/+4 """
-	#
-	pass
-
-if StormWind_Aimed_Shot:# 
-	StormWind_Hunter+=['SW_321']
-class SW_321:# <3>[1578]
-	""" Aimed Shot
-	Deal $3 damage. Your next Hero Power deals 2 more damage. """
-	#
-	pass
-
-if StormWind_Aiming:# 
-	StormWind_Hunter+=['SW_321e']
-class SW_321e:# <3>[1578]
-	""" Aiming
-	Your next Hero Power deals 2 more damage. """
-	#
-	pass
-
-if StormWind_Defend_the_Dwarven_District:# 
-	StormWind_Hunter+=['SW_322']
-class SW_322:# <3>[1578]
-	""" Defend the Dwarven District
-	[Questline:] Deal damage with 2 spells. [Reward:] Your Hero Power can target minions. """
-	#
-	pass
-
-if StormWind_Take_the_High_Ground:# 
-	StormWind_Hunter+=['SW_322t']
-class SW_322t:# <3>[1578]
-	""" Take the High Ground
-	[Questline:] Deal damagewith 2 spells.[Reward:] Set the Cost ofyour Hero Power to (0). """
-	#
-	pass
-
-if StormWind_Knock_Em_Down:# 
-	StormWind_Hunter+=['SW_322t2']
-class SW_322t2:# <3>[1578]
-	""" Knock 'Em Down
-	[Questline:] Dealdamage with 2 spells.[Reward:] Tavish,Master Marksman. """
-	#
-	pass
-
-if StormWind_Tavish_Master_Marksman:# 
-	StormWind_Hunter+=['SW_322t4']
-class SW_322t4:# <3>[1578]
-	""" Tavish, Master Marksman
-	[Battlecry:] For the rest ofthe game, spells you castrefresh your Hero Power. """
-	#
-	pass
-
-if StormWind_The_Rat_King:# 
-	StormWind_Hunter+=['SW_323']
-class SW_323:# <3>[1578]
-	""" The Rat King
-	[Rush]. [Deathrattle:] Go[Dormant]. Revive after 5friendly minions die. """
-	#
-	pass
-
-if StormWind_Rat_Kings_Slumber:# 
-	StormWind_Hunter+=['SW_323e']
-class SW_323e:# <3>[1578]
-	""" Rat King's Slumber
-	[Dormant]. Awaken after @ |4(friendly minion dies., friendly minions die.) """
-	#
-	pass
-
-if StormWind_Rodent_Nest:# 
-	StormWind_Hunter+=['SW_455']
-class SW_455:# <3>[1578]
-	""" Rodent Nest
-	[Deathrattle:] Summon five 1/1 Rats. """
-	#
-	pass
-
-if StormWind_Rat:# 
-	StormWind_Hunter+=['SW_455t']
-class SW_455t:# <3>[1578]
-	""" Rat
-	 """
-	#
-	pass
-
-if StormWind_Leatherworking_Kit:# 
-	StormWind_Hunter+=['SW_457']
-class SW_457:# <3>[1578]
-	""" Leatherworking Kit
-	After three friendlyBeasts die, draw a Beastand give it +1/+1.Lose 1 Durability. """
-	#
-	pass
-
-if StormWind_Ramming_Mount:# 
-	StormWind_Hunter+=['SW_458']
-class SW_458:# <3>[1578]
-	""" Ramming Mount
-	Give a minion +2/+2and [Immune] whileattacking. When it dies,summon a Ram. """
-	#
-	pass
-
-if StormWind_On_a_Ram:# 
-	StormWind_Hunter+=['SW_458e']
-class SW_458e:# <3>[1578]
-	""" On a Ram
-	+2/+2 and [Immune] while attacking. [Deathrattle:] Summon a Ram. """
-	#
-	pass
-
-if StormWind_Tavishs_Ram:# 
-	StormWind_Hunter+=['SW_458t']
-class SW_458t:# <3>[1578]
-	""" Tavish's Ram
-	[Immune] while attacking. """
-	#
-	pass
-
-if StormWind_Stormwind_Piper:# 
-	StormWind_Hunter+=['SW_459']
-class SW_459:# <3>[1578]
-	""" Stormwind Piper
-	After this minion attacks,give your Beasts +1/+1. """
-	#
-	pass
-
-if StormWind_Entranced:# 
-	StormWind_Hunter+=['SW_459e']
-class SW_459e:# <3>[1578]
-	""" Entranced
-	+1/+1. """
-	#
-	pass
-
-if StormWind_Devouring_Swarm:# 
-	StormWind_Hunter+=['SW_460']
-class SW_460:# <3>[1578]
-	""" Devouring Swarm
-	Choose an enemy minion.Your minions attack it,then return any that die to your hand. """
-	#
-	pass
-
-if StormWind_Imported_Tarantula:# 
-	StormWind_Hunter+=['SW_463']
-class SW_463:# <3>[1578]
-	""" Imported Tarantula
-	[Tradeable] [Deathrattle:] Summon two1/1 Spiders with[Poisonous] and [Rush]. """
-	#
-	pass
-
-if StormWind_Invasive_Spiderling:# 
-	StormWind_Hunter+=['SW_463t']
-class SW_463t:# <3>[1578]
-	""" Invasive Spiderling
-	[Poisonous][Rush] """
-	#
-	pass
-
-if StormWind_Tavish:# 
-	StormWind_Hunter+=['TB_01_BOM_Mercs_Tavish_001h']
-class TB_01_BOM_Mercs_Tavish_001h:# <3>[1578]
-	""" Tavish
-	 """
-	#
-	pass
-
-
-###############################
-
-
 class DED_007:# <3>[1578] ###OK
 	""" Defias Blastfisher
 	[Battlecry:] Deal 2 damage to a random enemy. Repeat for each of your Beasts. """
 	play = Hit(RANDOM(ENEMY_CHARACTERS),2), Hit(RANDOM(ENEMY_CHARACTERS),2) * Count(FRIENDLY_MINIONS + BEAST)
 	pass
 
+
+
+
+if StormWind_Monstrous_Parrot:# 
+	StormWind_Hunter+=['DED_008']
 class DED_008:# <3>[1578] ###OK
 	""" Monstrous Parrot
 	[Battlecry:] Repeat the last friendly [Deathrattle] that triggered. """
@@ -292,6 +66,10 @@ class DED_008:# <3>[1578] ###OK
 		pass
 	pass
 
+
+
+if StormWind_Doggie_Biscuit:# 
+	StormWind_Hunter+=['DED_009','DED_009e']
 class DED_009:# <3>[1578] ###OK
 	""" Doggie Biscuit
 	[Tradeable]Give a minion +2/+3.After you [Trade] this, give a friendly minion [Rush]. """
@@ -305,6 +83,10 @@ DED_009e = buff(2,3)# <3>[1578]
 +2/+3. """
 
 
+
+
+if StormWind_Rats_of_Extraordinary_Size:# 
+	StormWind_Hunter+=['SW_320','SW_320e']
 class SW_320:#OK
 	""" Rats of Extraordinary Size
 	[x]Summon seven 1/1 Rats. Any that can't fit on the battlefield go to your hand with +4/+4. """
@@ -321,19 +103,27 @@ class SW_320:#OK
 SW_320e=buff(atk=4,health=4)
 
 
+
+
+if StormWind_Aimed_Shot:# 
+	StormWind_Hunter+=['SW_321','SW_321e']
 class SW_321:#OK
 	""" Aimed Shot
 	Deal $3 damage. Your next Hero Power deals 2 more damage. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
 	play = (Hit(TARGET,3),Buff(CONTROLLER,'SW_321e'))
 	pass
-
 class SW_321e:
 	""" Aiming
 	Your next Hero Power deals 2 more damage. """
 	events=Activate(CONTROLLER, HERO_POWER).on(Hit(ENEMY_HERO, 2),Destroy(SELF))
 	pass
 
+
+
+
+if StormWind_Defend_the_Dwarven_District:# 
+	StormWind_Hunter+=['SW_322','SW_322t','SW_322t2','SW_322t4']
 class SW_322:#OK
 	""" Defend the Dwarven District
 	[Questline:] Deal damage with 2 spells. [Reward:] Your Hero Power can target minions. """
@@ -371,6 +161,11 @@ class SW_322t4:#OK
 	events = OWN_SPELL_PLAY.on(RefreshHeroPower(FRIENDLY_HERO_POWER))
 	pass
 
+
+
+
+if StormWind_The_Rat_King:# 
+	StormWind_Hunter+=['SW_323','SW_323e']
 class SW_323:#OK できた気がする。
 	""" The Rat King
 	[Rush]. [Deathrattle:] Go[Dormant]. Revive after 5 friendly minions die. """
@@ -381,8 +176,13 @@ class SW_323e:
 	""" Rat King's Slumber
 		[Dormant]. Awaken after @ |4(friendly minion dies., friendly minions die.) """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	#pass
+	pass
 
+
+
+
+if StormWind_Rodent_Nest:# 
+	StormWind_Hunter+=['SW_455','SW_455t']
 class SW_455:#OK
 	""" Rodent Nest
 	[Deathrattle:] Summon five 1/1 Rats. """
@@ -395,6 +195,11 @@ class SW_455t:
 	#
 	pass
 
+
+
+
+if StormWind_Leatherworking_Kit:# 
+	StormWind_Hunter+=['SW_457','SW_457e']
 class SW_457:#OK
 	""" Leatherworking Kit
 	After three friendly Beasts die, draw a Beast and give it +1/+1.Lose 1 Durability. """
@@ -403,6 +208,9 @@ class SW_457:#OK
 SW_457e=buff(atk=1,health=1)
 
 
+
+if StormWind_Ramming_Mount:# 
+	StormWind_Hunter+=['SW_458','SW_458e','SW_458t']
 class SW_458:#
 	""" Ramming Mount
 	Give a minion +2/+2 and [Immune] while attacking. When it dies,summon a Ram. """
@@ -427,6 +235,11 @@ class SW_458t:###
 	#<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>
 	pass
 
+
+
+
+if StormWind_Stormwind_Piper:# 
+	StormWind_Hunter+=['SW_459','SW_459e']
 class SW_459:#OK
 	""" Stormwind Piper
 	After this minion attacks,give your Beasts +1/+1. """
@@ -434,10 +247,13 @@ class SW_459:#OK
 	pass
 
 SW_459e=buff(atk=1,health=1)
-""" Entranced
-	+1/+1. """
-#
+""" Entranced +1/+1. """
 
+
+
+
+if StormWind_Devouring_Swarm:# 
+	StormWind_Hunter+=['SW_460']
 class SW_460_AttackByAll(TargetedAction):
 	"""   """
 	TARGET = ActionArg()
@@ -456,6 +272,11 @@ class SW_460:#OK
 	play = SW_460_AttackByAll(TARGET)
 	pass
 
+
+
+
+if StormWind_Imported_Tarantula:# 
+	StormWind_Hunter+=['SW_463','SW_463t']
 class SW_463:#OK
 	""" Imported Tarantula
 	[Tradeable] [Deathrattle:] Summon two1/1 Spiders with[Poisonous] and [Rush]. """
@@ -467,4 +288,9 @@ class SW_463t:
 	[Poisonous][Rush] """
 	#
 	pass
+
+
+
+###############################
+
 
