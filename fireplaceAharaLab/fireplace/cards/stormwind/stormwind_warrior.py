@@ -1,21 +1,8 @@
 
 from ..utils import *
 
-Stormwind_Warrior=[
-'SW_027',
-'SW_028','SW_028t','SW_028t2','SW_028t5','SW_028t6',
-'SW_029','SW_030','SW_093','SW_093e','SW_097','SW_097t','skele21']
-#'SW_021','SW_023','SW_024','SW_094',
 
 ################################################
-
-
-
-
-
-
-
-
 
 from ..utils import *
 
