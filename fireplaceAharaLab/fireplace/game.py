@@ -382,7 +382,7 @@ class BaseGame(Entity):
 		self.manager.turn(player)
 		return ret
 
-	def card_when_drawn(self, drawn_card, player):
+	def casts_when_drawn(self, drawn_card, player):
 		from .card import Minion
 		from fireplace import cards
 		# if drawn_card is 'casts_when_drawn' then immediately play.  

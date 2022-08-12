@@ -1416,7 +1416,7 @@ class Give(TargetedAction):
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
 			# if card is 'casts_when_drawn' then immediately play.  
-			card.game.card_when_drawn(card, card.controller)
+			card.game.casts_when_drawn(card, card.controller)
 			ret.append(card)
 			## in battlegrounds, we need check if a triple happens
 		if len(cards)>0:
