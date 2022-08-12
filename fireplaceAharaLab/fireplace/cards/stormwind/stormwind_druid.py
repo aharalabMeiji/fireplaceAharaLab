@@ -17,7 +17,7 @@ StormWind_Wickerclaw=True## 24.0
 StormWind_Composting=True## 24.0
 StormWind_Vibrant_Squirrel=True## 24.0
 StormWind_Sheldras_Moontree=True## 24.0
-
+StormWind_Elunes_Guidance=True## 24.0
 
 
 if StormWind_Druid_of_the_Reef:# 

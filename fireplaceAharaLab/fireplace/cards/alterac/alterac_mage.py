@@ -13,7 +13,7 @@ Alterac_Rune_of_the_Archmage=True  ###
 Alterac_Balinda_Stonehearth=True  ###
 Alterac_Iceblood_Tower=True  ###
 Alterac_Deep_Breath=True  ###
-Alterac_Haleh,_Matron_Protectorate=True  ###
+Alterac_Haleh_Matron_Protectorate=True  ###
 Alterac_Drakefire_Amulet=True  ###
 
 ################################
@@ -302,7 +302,7 @@ class ONY_006:# <4>[1626]
 
 
 
-if Alterac_Haleh,_Matron_Protectorate:# 
+if Alterac_Haleh_Matron_Protectorate:# 
 	Alterac_Mage+=['ONY_007']
 class ONY_007:# <4>[1626]
 	""" Haleh, Matron Protectorate

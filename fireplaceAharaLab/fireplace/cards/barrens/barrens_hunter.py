@@ -1,3 +1,5 @@
+from asyncio import Handle
+from logging import Handler
 from ..utils import *
 
 #################################################
@@ -88,11 +90,15 @@ class BAR_034:#OK
 	Summon a 2/2 Beast with <b>Rush</b>. <i>(Upgrades when you
 have 5 Mana.)</i>	"""
 	play = Summon(CONTROLLER,"BAR_034t3")
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_034t'))
 	pass
 class BAR_034t:
 	""" Summon a 4/4 Beast with <b>Rush</b>. <i>(Upgrades when you
 have 10 Mana.)</i>"""
 	play = Summon(CONTROLLER,"BAR_034t4")
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_034t2'))
 	pass
 class BAR_034t2:
 	""" Summon a 6/6 Beast with <b>Rush</b>."""

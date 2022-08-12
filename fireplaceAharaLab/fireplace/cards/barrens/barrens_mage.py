@@ -30,12 +30,16 @@ class BAR_305:#<4> [1525] ##OK
 	""" Flurry (Rank 1)
 	[Freeze] a random enemy minion. <i>(Upgrades when you have 5 Mana.)</i> """
 	play = Freeze(RANDOM(ENEMY_MINIONS - FROZEN))
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_305t'))	
 	pass
 
 class BAR_305t:#<4> [1525] ##OK 
 	""" Flurry (Rank 2)
 	[Freeze] two random enemy minions. <i>(Upgradeswhen you have 10 Mana.)</i> """
 	play = Freeze(RANDOM(ENEMY_MINIONS - FROZEN)) * 2
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_305t2'))	
 	pass
 
 class BAR_305t2:#<4> [1525] ##OK

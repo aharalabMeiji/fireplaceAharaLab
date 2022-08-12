@@ -204,18 +204,18 @@ if Alterac_Wings_of_Hate_Rank_1:#
 	Alterac_DemonHunter+=['ONY_016t2']
 class ONY_016:# <14>[1626]
 	""" Wings of Hate (Rank 1)
-	Summon two 1/1Felwings. <i>(Upgradeswhen you have 5 Mana.)</i> """
-	#
+	Summon two 1/1Felwings. <i>(Upgrades when you have 5 Mana.)</i> """
+	play = Summon(CONTROLLER, 'BT_922t')
 	pass
 class ONY_016t:# <14>[1626]
 	""" Wings of Hate (Rank 2)
 	Summon three 1/1Felwings. <i>(Upgradeswhen you have 10 Mana.)</i> """
-	#
+	play = Summon(CONTROLLER, 'BT_922t')*2
 	pass
 class ONY_016t2:# <14>[1626]
 	""" Wings of Hate (Rank 3)
 	Summon four1/1 Felwings. """
-	#
+	play = Summon(CONTROLLER, 'BT_922t')*4
 	pass
 
 
@@ -226,7 +226,7 @@ if Alterac_Razorglaive_Sentinel:#
 class ONY_036:# <14>[1626]
 	""" Razorglaive Sentinel
 	After you play the left or right-most card in your hand, draw a card. """
-	#
+	events = Play(CONTROLLER, OUTERMOST_HAND).on(Draw(CONTROLLER))
 	pass
 
 

@@ -193,8 +193,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.core_neutral import core_neutral
-	core_neutral()
+	from card_test.barrens_hunter import barrens_hunter
+	barrens_hunter()
 	pass
 
 def battleground_main():

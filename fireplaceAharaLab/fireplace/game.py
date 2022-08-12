@@ -15,7 +15,7 @@ from .utils import CardList,ActionType
 from .config import Config 
 from .dsl.random_picker import *
 
-
+from .actions import GradeupByMana
 
 class BaseGame(Entity):
 	type = CardType.GAME
@@ -394,38 +394,7 @@ class BaseGame(Entity):
 			new_card = Minion(cards.db[drawn_card.id])
 			new_card.controller = player
 			new_card.zone = Zone.HAND
-		# if 'BAR_034' is in hand and mana >=5 then change 'BAR_034' to 'BAR_034t'
-		# if 'BAR_034t' is in hand and mana >=10 then change 'BAR_034t' to 'BAR_034t2'
-		for card in player.hand:
-			if card.id == 'BAR_034' and player.mana>=5:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_034t')])
-			if card.id == 'BAR_034t' and player.mana>=10:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_034t2')])
-		for card in player.hand:
-			if card.id == 'BAR_305' and player.mana>=5:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_305t')])
-			if card.id == 'BAR_305t' and player.mana>=10:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_305t2')])
-		for card in player.hand:
-			if card.id == 'BAR_536' and player.mana>=5:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_536t')])
-			if card.id == 'BAR_536t' and player.mana>=10:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_536t2')])
-		for card in player.hand:##Conditioning
-			if card.id == 'BAR_842' and player.mana>=5:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_842t')])
-			if card.id == 'BAR_842t' and player.mana>=10:
-				self.queue_actions(player,[Destroy(card)])
-				self.queue_actions(player,[Give(player, 'BAR_842t2')])
-
-
+		pass
 
 	def _begin_turn(self, player):
 		self.manager.step(self.next_step, Step.MAIN_START)
@@ -448,6 +417,7 @@ class BaseGame(Entity):
 		player.combo = False
 		player.max_mana += 1
 		player.used_mana = 0
+		GradeupByMana(player, player.max_mana).trigger(player)
 		player.overload_locked = player.overloaded
 		player.overloaded = 0
 		for entity in self.live_entities:

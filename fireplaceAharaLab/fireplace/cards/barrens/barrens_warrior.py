@@ -97,12 +97,16 @@ class BAR_842:##OK <10>[1525]
 	""" Conditioning (Rank 1)
 	Give minions in your hand +1/+1. <i>(Upgrades when you have 5 Mana.)</i> """
 	play = Buff(FRIENDLY_HAND, 'BAR_842e')
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_842t'))	
 	pass
 BAR_842e=buff(1,1)# <12>[1525]
 class BAR_842t:# <10>[1525]
 	""" Conditioning (Rank 2)
 	Give minions in your hand +2/+2. <i>(Upgradeswhen you have 10 Mana.)</i> """
 	play = Buff(FRIENDLY_HAND, 'BAR_842e2')
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_842t2'))	
 	pass
 BAR_842e2=buff(2,2)# <12>[1525]
 class BAR_842t2:# <10>[1525]

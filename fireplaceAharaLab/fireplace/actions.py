@@ -171,6 +171,8 @@ class Action(metaclass=ActionMeta):
 			if arg is None:
 				# We got an arg of None and a match not None. Bad.
 				return False
+			if isinstance(match, int):
+				return match==arg
 			if callable(match):
 				res = match(arg)
 				if not res:
@@ -3314,6 +3316,16 @@ class MakeCardUnplayable(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		target.cant_play = True
+	pass
+
+class GradeupByMana(GameAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		self.broadcast(source, EventListener.ON, target, amount)
+		self.broadcast(source, EventListener.AFTER, target, amount)
+	pass
+
 
 class MorphGold(TargetedAction):
 	TARGET = ActionArg()

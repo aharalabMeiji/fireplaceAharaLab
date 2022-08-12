@@ -4,7 +4,7 @@ Alterac_Warrior=[]
 
 Alterac_Shield_Shatter=True  ###
 Alterac_Frozen_Buckler=True  ###
-Alterac_To_the_Front!=True  ###
+Alterac_To_the_Front=True  ###
 Alterac_Captain_Galvangar=True  ###
 Alterac_Rokara_the_Valorous=True  ###
 Alterac_Glory_Chaser=True  ###
@@ -44,7 +44,7 @@ class AV_109e:
 
 
 
-if Alterac_To_the_Front!:# 
+if Alterac_To_the_Front:# 
 	Alterac_Warrior+=['AV_119']
 	Alterac_Warrior+=['AV_119e']
 class AV_119:

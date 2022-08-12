@@ -13,7 +13,9 @@ StormWind_Blessed_Goods=True  ###
 StormWind_First_Blade_of_Wrynn=True  ### 
 StormWind_Rise_to_the_Occasion=True  ### 
 StormWind_Lightbringers_Hammer=True  ### 
+StormWind_Alliance_Bannerman=True  ### 
 StormWind_Noble_Mount=True  ### 
+StormWind_Catacomb_Guard=True  ### 
 
 
 

@@ -2,38 +2,21 @@ from ..utils import *
 
 ###############################
 
-
-
-
 StormWind_Hunter=[]
 
 StormWind_Defias_Blastfisher=True#OK
 StormWind_Monstrous_Parrot=True#OK
 StormWind_Doggie_Biscuit=True#OK
-
-
 StormWind_Rats_of_Extraordinary_Size=True#OK
-
 StormWind_Aimed_Shot=True#OK
-
 StormWind_Defend_the_Dwarven_District=True#OK
-
 StormWind_The_Rat_King=True#OK
-
 StormWind_Rodent_Nest=True#OK
-
 StormWind_Leatherworking_Kit=True#OK
 StormWind_Ramming_Mount=True#OK
-
 StormWind_Stormwind_Piper=True#OK
-
 StormWind_Devouring_Swarm=True#OK
 StormWind_Imported_Tarantula=True#OK
-
-
-
-
-
 
 ############################################################
 

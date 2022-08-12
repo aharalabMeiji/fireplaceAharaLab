@@ -368,9 +368,9 @@ if Sunken_Amalgam_of_the_Deep:#
 	Sunken_Neutral+=['TSC_069']
 class TSC_069:# <12>[1658] ####### need check ##########
 	""" Amalgam of the Deep
-	[Battlecry:] Choose a friendlyminion. [Discover] a minionof the same minion type. """
+	[Battlecry:] Choose a friendly minion. [Discover] a minionof the same minion type. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
-	play = Discover(CONTROLLER, RandomMinion(type=CARDTYPE(TARGET)))
+	play = Discover(CONTROLLER, RandomMinion(race=RACE(TARGET)))
 	pass
 
 
