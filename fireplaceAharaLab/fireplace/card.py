@@ -812,6 +812,7 @@ class Minion(Character):
 		self.deepcopy_original = None
 		self.gem_applied_thisturn=False
 		self.tech_level_plus1 = 4
+		self.stop_attack=False## if another minion attacks instead of self, this flag will be True
 		super().__init__(data)
 
 	@property

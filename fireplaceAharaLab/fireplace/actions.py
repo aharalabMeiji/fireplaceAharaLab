@@ -218,7 +218,10 @@ class Attack(GameAction):
 		source.game.proposed_defender = defender
 		source.game.manager.step(Step.MAIN_COMBAT, Step.MAIN_ACTION)
 		source.game.refresh_auras()  # 
+		attacker.stop_attack=False
 		self.broadcast(source, EventListener.ON, attacker, defender)
+		if attacker.stop_attack:# in the broadcast, it may happen
+			return
 
 		defender = source.game.proposed_defender
 		if defender == None: ## rarely happens
