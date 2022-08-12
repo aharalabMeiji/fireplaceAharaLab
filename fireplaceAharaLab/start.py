@@ -86,9 +86,9 @@ def printClasses():
 	print('from ..utils import *')
 	print('')
 	myCardSet=CardSet.THE_BARRENS
-	myCardClass=CardClass.HUNTER##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	myCardClass=CardClass.MAGE##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	mySetText="Barrens_"
-	myClassText="Hunter"##DemonHunter,Druid,Hunter,Mage,Neutral,Paladin,Priest,Rogue,Shaman,Warlock,Warrior
+	myClassText="Mage"##DemonHunter,Druid,Hunter,Mage,Neutral,Paladin,Priest,Rogue,Shaman,Warlock,Warrior
 	mySetClass=mySetText+myClassText
 	print ("%s=[]"%(mySetClass))
 	#print('#%s_%s='%(myCardSet,myCardClass),end='[')#
