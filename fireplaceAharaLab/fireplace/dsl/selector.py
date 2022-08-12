@@ -138,6 +138,7 @@ MAX_HAND_SIZE = AttrValue("max_hand_size")
 TIER = AttrValue("tavern_tier")
 TECH_LEVEL = AttrValue(GameTag.TECH_LEVEL)
 TAG_SCRIPT_DATA_NUM_1 = AttrValue(GameTag.TAG_SCRIPT_DATA_NUM_1)
+CARDTYPE = AttrValue(GameTag.CARDTYPE)
 
 class ComparisonSelector(Selector):
 	"""A ComparisonSelector compares values of entities to

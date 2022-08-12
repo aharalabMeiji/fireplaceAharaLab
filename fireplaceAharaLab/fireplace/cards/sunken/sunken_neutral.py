@@ -168,14 +168,21 @@ class TID_713:# <12>[1658]
 if Sunken_Coilfang_Constrictor:# 
 	Sunken_Neutral+=['TID_744']
 	Sunken_Neutral+=['TID_744e']
-class TID_744:# <12>[1658]
+class TID_744_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		Buff(card,'TID_744e').trigger(self.source)
+
+class TID_744:# <12>[1658] ########## need check #############
 	""" Coilfang Constrictor
-	[Battlecry:] Look at 3 cardsin your opponent's hand and choose one. It can'tbe played next turn. """
-	#
+	[Battlecry:] Look at 3 cards in your opponent's hand and choose one. It can't be played next turn. """
+	play = TID_744_Choice(CONTROLLER, RANDOM(ENEMY_HAND)*3)
 	pass
 class TID_744e:# <12>[1658]
 	""" Constricted
 	Can't be played next turn. """
+	tags={GameTag.CANT_PLAY:True}
+	events=EndTurn(OPPONENT).on(Destroy(SELF))
 	#
 	pass
 
@@ -267,17 +274,19 @@ if Sunken_Blademaster_Okani:#
 class TSC_032:# <12>[1658]
 	""" Blademaster Okani
 	[Battlecry:] [Secretly] choose to[Counter] the next minion orspell your opponent playswhile this is alive. """
-	#
-	pass
+	play = GenericChoicePlay(CONTROLLER, RandomID('TSC_032t','TSC_032t2'))
+	events = Death(SELF).on(Destroy(FRIENDLY + SECRET + ID('TSC_032t')), Destroy(FRIENDLY + SECRET + ID('TSC_032t2')))
 class TSC_032t:# <12>[1658]
-	""" Minion Counter
+	""" Minion Counter (spell)-> secret
 	[Counter] the next minionyour opponent plays. """
-	#
+	tags = { GameTag.SECRET: True}
+	secret = Play(OPPONENT, MINION).on(Reveal(SELF), Counter(Play.CARD))
 	pass
 class TSC_032t2:# <12>[1658]
-	""" Spell Counter
+	""" Spell Counter (spell)-> secret
 	[Counter] the next spell your opponent plays. """
-	#
+	tags = { GameTag.SECRET: True}
+	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Counter(Play.CARD))
 	pass
 
 
@@ -357,10 +366,11 @@ class TSC_067:# <12>[1658]
 
 if Sunken_Amalgam_of_the_Deep:# 
 	Sunken_Neutral+=['TSC_069']
-class TSC_069:# <12>[1658]
+class TSC_069:# <12>[1658] ####### need check ##########
 	""" Amalgam of the Deep
 	[Battlecry:] Choose a friendlyminion. [Discover] a minionof the same minion type. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
+	play = Discover(CONTROLLER, RandomMinion(type=CARDTYPE(TARGET)))
 	pass
 
 
@@ -369,16 +379,12 @@ class TSC_069:# <12>[1658]
 if Sunken_Click_Clocker:# 
 	Sunken_Neutral+=['TSC_632']
 	Sunken_Neutral+=['TSC_632e']
-class TSC_632:# <12>[1658]
+class TSC_632:# <12>[1658] ## visually OK
 	""" Click-Clocker
 	[Divine Shield]. [Battlecry:]Give a random Mech inyour hand +1/+1. """
-	#
+	play = Buff(RANDOM(FRIENDLY_HAND + MECH), 'TSC_632e')
 	pass
-class TSC_632e:# <12>[1658]
-	""" Robo-claws
-	+1/+1. """
-	#
-	pass
+TSC_632e=buff(1,1)# <12>[1658]
 
 
 
@@ -426,10 +432,11 @@ class TSC_638t4:# <12>[1658]
 
 if Sunken_Reefwalker:# 
 	Sunken_Neutral+=['TSC_640']
-class TSC_640:# <12>[1658]
+class TSC_640:# <12>[1658] ## visually OK
 	""" Reefwalker
 	[Battlecry and Deathrattle:] Summon a 1/1 Piranha Swarmer. """
-	#
+	play = Summon(CONTROLLER,'TSC_638')
+	deathrattle = Summon(CONTROLLER,'TSC_638')
 	pass
 
 
@@ -484,10 +491,10 @@ class TSC_641tde:# <12>[1658]
 
 if Sunken_Mothership:# 
 	Sunken_Neutral+=['TSC_645']
-class TSC_645:# <12>[1658]
+class TSC_645:# <12>[1658] ############## need check #####
 	""" Mothership
 	[Rush][Deathrattle:] Summon two random Mechs that cost (3) or less. """
-	#
+	deathrattle=Summon(CONTROLLER, RandomMech(cost=RandomNumber(1, 2, 3)))
 	pass
 
 
@@ -499,13 +506,10 @@ if Sunken_Seascout_Operator:#
 class TSC_646:# <12>[1658]
 	""" Seascout Operator
 	[Battlecry:] If you control a Mech, summon two 2/1 Mechafish. """
-	#
+	play = Find(FRIENDLY_MINIONS + MECH) & (Summon(CONTROLLER, 'TSC_646t')*2)
 	pass
 class TSC_646t:# <12>[1658]
-	""" Mechafish
-	 """
-	#
-	pass
+	""" Mechafish """
 
 
 
@@ -578,12 +582,12 @@ if Sunken_Vicious_Slitherspear:#
 class TSC_827:# <12>[1658]
 	""" Vicious Slitherspear
 	After you cast a spell,gain +1 Attack untilyour next turn. """
-	#
+	events = OWN_SPELL_PLAY.after(Buff(SELF, 'TSC_827e'))
 	pass
 class TSC_827e:# <12>[1658]
 	""" Vicious
 	+1 Attack until your next turn. """
-	#
+	tags = {GameTag.TAG_ONE_TURN_EFFECT:True , GameTag.ATK:1, }
 	pass
 
 
