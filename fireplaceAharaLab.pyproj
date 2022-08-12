@@ -56,6 +56,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_paladin.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_rogue.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
