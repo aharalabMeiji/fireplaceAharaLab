@@ -1,8 +1,59 @@
 from ..utils import *
 
 
-#Alteric_Druid=['AV_205','AV_210','AV_210e','AV_211','AV_211t','AV_291','AV_292','AV_292e','AV_292e2','AV_293','AV_293e','AV_294','AV_294e','AV_293t','AV_295','AV_295a','AV_295b','AV_296','AV_296e','AV_296e2','AV_360',   ]
+from ..utils import *
 
+Alterac_Druid=[]
+
+
+Alterac_Wildheart_Guff=True
+Alterac_Ice_Blossom=True
+Alterac_Nurture=True
+Alterac_Valley_Root=True
+Alterac_Pathmaker=True
+Alterac_Path_Tracker=True
+Alterac_Dire_Frostwolf=True
+Alterac_Frostsaber_Matriarch=True
+Alterac_Heart_of_the_Wild=True
+Alterac_Pack_Alpha=True
+Alterac_Pack_Member=True
+Alterac_Wing_Commander_Mulverick=True
+Alterac_Air_Strike=True
+Alterac_Strike_Wyvern=True
+Alterac_Clawfury_Adept=True
+Alterac_Snowcapped=True
+Alterac_Capture_Coldtooth_Mine=True
+Alterac_More_Resources=True
+Alterac_More_Supplies=True
+Alterac_Pride_Seeker=True
+Alterac_Grown_Up=True
+Alterac_Proud=True
+Alterac_Frostwolf_Kennels=True
+Alterac_Guff=True
+Alterac_Guff=True
+Alterac_Cmdr._Mulverick=True
+Alterac_Guff=True
+Alterac_Buff_Runetotem=True
+Alterac_Guff=True
+Alterac_Guff=True
+Alterac_Broll_Bearmantle=True
+Alterac_Broll_Bearmantle=True
+Alterac_Guild_Mascot_Guff=True
+Alterac_Whelp_Hugger_Guff=True
+Alterac_Boomkin=True
+Alterac_Eyes_of_the_Moon=True
+Alterac_Heart_of_the_Sun=True
+Alterac_Raid_Negotiator=True
+Alterac_Decisive=True
+Alterac_Scale_of_Onyxia=True
+Alterac_Guff=True
+
+
+if Alterac_Wildheart_Guff:# 
+	Alterac_Druid+=['AV_205']
+	Alterac_Druid+=['AV_205a']
+	Alterac_Druid+=['AV_205p']
+	Alterac_Druid+=['AV_205pb']
 class AV_205:##
 	""" Wildheart Guff ( 5/*/5) Hero
 	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
@@ -30,6 +81,12 @@ class AV_205pb:
 	play = Draw(CONTROLLER)
 	pass
 
+
+
+
+if Alterac_Pathmaker:# 
+	Alterac_Druid+=['AV_210']
+	Alterac_Druid+=['AV_210e']
 class AV_210:###########################
 	""" Pathmaker (3/3/4) 
 	Battlecry: Cast the other choice from the last [Choose One] spell you've cast.  """
@@ -40,6 +97,11 @@ class AV_210e:
 	Tracking Sub-Spell. """
 	pass
 
+
+
+
+if Alterac_Dire_Frostwolf:# 
+	Alterac_Druid+=['AV_211','AV_211t']
 class AV_211:
 	""" Dire Frostwolf (4/4/4) beast
 	[Stealth] [Deathrattle]: Summon a 2/2 Wolf with Stealth. """
@@ -49,6 +111,10 @@ class AV_211t:
 	""" Frostwolf Cub (2/2/2) """
 	pass
 
+
+
+if Alterac_Frostsaber_Matriarch:# 
+	Alterac_Druid+=['AV_291']
 class AV_291_Count(LazyNum):
 	"""
 	Lazily count the matches in a selector
@@ -77,6 +143,13 @@ class AV_291: #
 	cost_mod = -AV_291_Count(SELF)
 	pass
 
+
+
+
+if Alterac_Heart_of_the_Wild:# 
+	Alterac_Druid+=['AV_292']
+	Alterac_Druid+=['AV_292e']
+	Alterac_Druid+=['AV_292e2']
 class AV_292:#70249
 	""" Heart of the Wild (3)
 	Give a minion +2/+2, then give your Beasts +1/+1."""
@@ -86,6 +159,13 @@ class AV_292:#70249
 AV_292e=buff(2,2)
 AV_292e2=buff(1,1)
 
+
+
+
+if Alterac_Wing_Commander_Mulverick:# 
+	Alterac_Druid+=['AV_293']
+	Alterac_Druid+=['AV_293e']
+	Alterac_Druid+=['AV_293t']
 class AV_293:
 	""" Wing Commander Mulverick (4/2/5)
 	[Rush]. Your minions have "Honorable Kill: Summon a 2/2 Wyvern with Rush." """
@@ -100,6 +180,12 @@ class AV_293t:
 	Rush """
 	pass
 
+
+
+
+if Alterac_Clawfury_Adept:# 
+	Alterac_Druid+=['AV_294']
+	Alterac_Druid+=['AV_294e']
 class AV_294:
 	""" Clawfury Adept (2/2/3) beast
 	[Battlecry]: Give all other friendly characters +1 Attack this turn. """
@@ -109,6 +195,13 @@ class AV_294e:#ONE_TURN_EFFECT
 	tags = {GameTag.ATK:1,}
 	events = OWN_TURN_END.on(Destroy(SELF))
 
+
+
+
+if Alterac_Capture_Coldtooth_Mine:# 
+	Alterac_Druid+=['AV_295']
+	Alterac_Druid+=['AV_295a']
+	Alterac_Druid+=['AV_295b']
 class DrawLowestCost(TargetedAction):
 	TARGET = ActionArg()
 	def do(self,source, target):
@@ -156,6 +249,13 @@ class AV_295b: ## More Resources
 	play = DrawHighestCost(CONTROLLER)
 	pass
 
+
+
+
+if Alterac_Pride_Seeker:# 
+	Alterac_Druid+=['AV_296']
+	Alterac_Druid+=['AV_296e']
+	Alterac_Druid+=['AV_296e2']
 class AV_296:
 	""" Pride Seeker (3/2/4)
 	[Battlecry]: Your next [Choose One] card costs (2) less."""
@@ -166,6 +266,11 @@ class AV_296e:
 	events = Play(CONTROLLER, FRIENDLY + CHOOSE_ONE).on(Destroy(SELF))
 AV_296e2=buff(cost=-2)
 
+
+
+
+if Alterac_Frostwolf_Kennels:# 
+	Alterac_Druid+=['AV_360']
 class AV_360:#
 	""" Frostwolf Kennels (3) Lasts
 	At the end of your turn, summon a 2/2 Wolf with Stealth. Lasts 3 turns. """
@@ -177,6 +282,12 @@ class AV_360:#
 	pass
 
 
+
+
+if Alterac_Boomkin:# 
+	Alterac_Druid+=['ONY_018']
+	Alterac_Druid+=['ONY_018t']
+	Alterac_Druid+=['ONY_018t2']
 class ONY_018:# <2>[1626]
 	""" Boomkin
 	[Choose One - ]Restore8 Health to your hero; or Deal 4 damage. """
@@ -196,6 +307,12 @@ class ONY_018t2:# <2>[1626]
 	play = Hit(FRIENDLY_HERO, 4)
 	pass
 
+
+
+
+if Alterac_Raid_Negotiator:# 
+	Alterac_Druid+=['ONY_019']
+	Alterac_Druid+=['ONY_019e']
 class ONY_019_Discover(GenericChoice):##
 	def choose(self, card):
 		super().choose(card)
@@ -220,9 +337,15 @@ class ONY_019e:
 """ Decisive
 Your next [Choose One] card is combined. """
 
+
+
+
+if Alterac_Scale_of_Onyxia:# 
+	Alterac_Druid+=['ONY_021']
 class ONY_021:# <2>[1626]
 	""" Scale of Onyxia
 	Fill your board with 2/1 Whelps with [Rush]. """
 	play = Summon(CONTROLLER, 'ONY_001t') * 7
 	pass
 
+##################################

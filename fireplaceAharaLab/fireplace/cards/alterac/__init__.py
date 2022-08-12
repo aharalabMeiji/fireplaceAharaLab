@@ -1,6 +1,6 @@
-from .druid import *
-from .hunter import *
-from .mage import *
-from .neutral import *
-from .warrior import *
+from .alterac_druid import *
+from .alterac_hunter import *
+from .alterac_mage import *
+from .alterac_neutral import *
+from .alterac_warrior import *
 
