@@ -130,7 +130,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warlock.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warrior.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\__init__.py">
