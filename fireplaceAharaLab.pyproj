@@ -104,7 +104,7 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_druid.py">
       <SubType>Code</SubType>
     </Compile>
