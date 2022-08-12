@@ -1,53 +1,22 @@
 from ..utils import *
 
-
-from ..utils import *
-
 Alterac_Druid=[]
 
+Alterac_Wildheart_Guff=True  ###
+Alterac_Pathmaker=False  ###difficult
+Alterac_Dire_Frostwolf=True  ###
+Alterac_Frostsaber_Matriarch=True  ###
+Alterac_Heart_of_the_Wild=True  ###
+Alterac_Wing_Commander_Mulverick=True  ###
+Alterac_Clawfury_Adept=True  ###
+Alterac_Capture_Coldtooth_Mine=True  ###
+Alterac_Pride_Seeker=True  ###
+Alterac_Frostwolf_Kennels=True  ###
+Alterac_Boomkin=True  ###
+Alterac_Raid_Negotiator=True  ###
+Alterac_Scale_of_Onyxia=True  ###
 
-Alterac_Wildheart_Guff=True
-Alterac_Ice_Blossom=True
-Alterac_Nurture=True
-Alterac_Valley_Root=True
-Alterac_Pathmaker=True
-Alterac_Path_Tracker=True
-Alterac_Dire_Frostwolf=True
-Alterac_Frostsaber_Matriarch=True
-Alterac_Heart_of_the_Wild=True
-Alterac_Pack_Alpha=True
-Alterac_Pack_Member=True
-Alterac_Wing_Commander_Mulverick=True
-Alterac_Air_Strike=True
-Alterac_Strike_Wyvern=True
-Alterac_Clawfury_Adept=True
-Alterac_Snowcapped=True
-Alterac_Capture_Coldtooth_Mine=True
-Alterac_More_Resources=True
-Alterac_More_Supplies=True
-Alterac_Pride_Seeker=True
-Alterac_Grown_Up=True
-Alterac_Proud=True
-Alterac_Frostwolf_Kennels=True
-Alterac_Guff=True
-Alterac_Guff=True
-Alterac_Cmdr._Mulverick=True
-Alterac_Guff=True
-Alterac_Buff_Runetotem=True
-Alterac_Guff=True
-Alterac_Guff=True
-Alterac_Broll_Bearmantle=True
-Alterac_Broll_Bearmantle=True
-Alterac_Guild_Mascot_Guff=True
-Alterac_Whelp_Hugger_Guff=True
-Alterac_Boomkin=True
-Alterac_Eyes_of_the_Moon=True
-Alterac_Heart_of_the_Sun=True
-Alterac_Raid_Negotiator=True
-Alterac_Decisive=True
-Alterac_Scale_of_Onyxia=True
-Alterac_Guff=True
-
+##########################################
 
 if Alterac_Wildheart_Guff:# 
 	Alterac_Druid+=['AV_205']

@@ -1,7 +1,38 @@
 from ..utils import *
 
-Alterac_Hunter=['AV_113','AV_113p','AV_113t1','AV_113t2','AV_113t2e','AV_113t3','AV_113t3t2','AV_113t7','AV_113t8','AV_113t9','AV_113t9e','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',
-	]
+
+
+from ..utils import *
+
+Alterac_Hunter=[]
+
+Alterac_Beaststalker_Tavish=True  ###
+Alterac_Dun_Baldar_Bunker=True  ###
+Alterac_Spring_the_Trap=True  ###
+Alterac_Ice_Trap=True  ###
+Alterac_Bloodseeker=True  ###
+Alterac_Revive_Pet=True  ###
+Alterac_Stormpike_Battle_Ram=True  ###
+Alterac_Ram_Tamer=True  ###
+Alterac_Wing_Commander_Ichman=False  ###difficult
+Alterac_Mountain_Bear=True  ###
+Alterac_Furious_Howl=True  ###
+Alterac_Pet_Collector=True  ###
+Alterac_Dragonbane_Shot=True  ###
+
+
+if Alterac_Beaststalker_Tavish:# 
+	Alterac_Hunter+=['AV_113']
+	Alterac_Hunter+=['AV_113p']
+	Alterac_Hunter+=['AV_113t1']
+	Alterac_Hunter+=['AV_113t2']
+	Alterac_Hunter+=['AV_113t2e']
+	Alterac_Hunter+=['AV_113t3']
+	Alterac_Hunter+=['AV_113t3t2']
+	Alterac_Hunter+=['AV_113t7']
+	Alterac_Hunter+=['AV_113t8']
+	Alterac_Hunter+=['AV_113t9']
+	Alterac_Hunter+=['AV_113t9e']
 class AV_113_Choice(Choice):
 	def choose(self, card):
 		self.source._sidequest_counter_ += 1
@@ -109,6 +140,12 @@ class AV_113t9:
 	pass
 AV_113t9e=buff(cost=2)
 
+
+
+
+if Alterac_Dun_Baldar_Bunker:# 
+	Alterac_Hunter+=['AV_147']
+	Alterac_Hunter+=['AV_147e']
 class AV_147:
 	""" Dun Baldar Bunker (2) Lasts
 	At the end of your turn, draw a Secret and set its Cost to (1). Lasts 3 turns."""
@@ -122,6 +159,11 @@ class AV_147e:
 	cost=SET(1)
 	pass
 
+
+
+
+if Alterac_Spring_the_Trap:# 
+	Alterac_Hunter+=['AV_224']
 class AV_224:##
 	""" Spring the Trap (4)
 	Deal 3 damage to a minion and cast a Secret from your deck. Honorable Kill: Cast 2."""
@@ -130,6 +172,12 @@ class AV_224:##
 	honorable_kill = CastSecret(RANDOM(FRIENDLY_DECK + SECRET))
 	pass
 
+
+
+
+if Alterac_Ice_Trap:# 
+	Alterac_Hunter+=['AV_226']
+	Alterac_Hunter+=['AV_226e']
 class AV_226:
 	""" Ice Trap (2) frost
 	Secret: When your opponent casts a spell, return it to their hand instead. It costs (1) more."""
@@ -141,6 +189,12 @@ class AV_226:
 	pass
 AV_226e=buff(cost=1)
 
+
+
+
+if Alterac_Bloodseeker:# 
+	Alterac_Hunter+=['AV_244']
+	Alterac_Hunter+=['AV_244e']
 class AV_244:
 	""" Bloodseeker (2/2/2) weapon
 	Honorable Kill: Gain +1/+1."""
@@ -148,12 +202,24 @@ class AV_244:
 	pass
 AV_244e=buff(1,1)
 
+
+
+
+if Alterac_Revive_Pet:# 
+	Alterac_Hunter+=['AV_333']
 class AV_333: ##
 	""" Revive Pet (3) nature
 	Discover a friendly Beast that died this game. Summon it. """
 	play = GenericChoicePlay(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST)*3)# not GenericChoiceBattlecry
 	pass
 
+
+
+
+if Alterac_Stormpike_Battle_Ram:# 
+	Alterac_Hunter+=['AV_334']
+	Alterac_Hunter+=['AV_334e']
+	#Alterac_Hunter+=['AV_334e2']
 class AV_334:
 	""" Stormpike Battle Ram (4/4/3) beast
 	Rush Deathrattle: Your next Beast costs (2) less."""
@@ -165,6 +231,12 @@ class AV_334e:
 	events = Play(CONTROLLER, MINION + BEAST).on(Destroy(SELF))
 	pass
 
+
+
+
+if Alterac_Ram_Tamer:# 
+	Alterac_Hunter+=['AV_335']
+	Alterac_Hunter+=['AV_335e']
 class AV_335:
 	""" Ram Tamer (3/4/3)
 	Battlecry: If you control a Secret, gain +1/+1 and Stealth."""
@@ -172,6 +244,12 @@ class AV_335:
 	pass
 AV_335e=buff(atk=1,health=1,stealth=True)
 
+
+
+
+if Alterac_Wing_Commander_Ichman:# 
+	Alterac_Hunter+=['AV_336']
+	Alterac_Hunter+=['AV_336e']
 class AV_336: ################################ need the latter half
 	""" Wing Commander Ichman (9/5/4)
 	[Battlecry]: Summon a Beast from your deck and give it [Rush]. If it kills a minion this turn, repeat."""
@@ -197,6 +275,12 @@ class AV_336e:
 		]
 	pass
 
+
+
+
+if Alterac_Mountain_Bear:# 
+	Alterac_Hunter+=['AV_337']
+	Alterac_Hunter+=['AV_337t']
 class AV_337:
 	""" Mountain Bear (7/5/6) beast
 	[Taunt] [Deathrattle]: Summon two 2/4 Cubs with [Taunt]."""
@@ -206,8 +290,11 @@ class AV_337t:
 	"""  """
 	pass
 
-########## update ################
 
+
+
+if Alterac_Furious_Howl:# 
+	Alterac_Hunter+=['ONY_008']
 class ONY_008:# <3>[1626]
 	""" Furious Howl
 	Draw a card.Repeat until you have at least 3 cards. """
@@ -220,6 +307,11 @@ class ONY_008:# <3>[1626]
 			pass
 	pass
 
+
+
+
+if Alterac_Pet_Collector:# 
+	Alterac_Hunter+=['ONY_009']
 class ONY_009:# <3>[1626]
 	""" Pet Collector
 	[Battlecry:] Summon a Beast from your deck that costs (5) or less. """
@@ -233,6 +325,11 @@ class ONY_009:# <3>[1626]
 		pass
 	pass
 
+
+
+if Alterac_Dragonbane_Shot:# 
+	Alterac_Hunter+=['ONY_010']
+	Alterac_Hunter+=['ONY_010e']
 class ONY_010:# <3>[1626]
 	""" Dragonbane Shot
 	Deal $2 damage.[Honorable Kill:] Add a Dragonbane Shot to your hand. """
@@ -244,3 +341,7 @@ class ONY_010:# <3>[1626]
 ONY_010e=buff(cost=-1)# <3>[1626] ##???
 """ Drakeshot
 Costs (1) less. """
+
+
+
+###############################################
