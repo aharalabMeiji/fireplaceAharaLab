@@ -1,12 +1,30 @@
 
 from ..utils import *
 
-Barrens_Warrior=['BAR_334','BAR_840','BAR_841','BAR_841e',
-'BAR_842','BAR_842e','BAR_842e2','BAR_842e3','BAR_842t','BAR_842t2','BAR_843',
-'BAR_846','BAR_847','BAR_847e','BAR_896','BAR_896e',
-'WC_024','WC_024e','WC_025','WC_025e','WC_026','WC_026t',]
-#'BAR_844','BAR_845',
 
+from ..utils import *
+
+Barrens_Warrior=[]
+
+Barrens_Overlord_Saurfang=True  ###
+Barrens_Whirling_Combatant=True  ###
+Barrens_Bulk_Up=True  ###
+Barrens_Conditioning_Rank_1=True  ###
+Barrens_Warsong_Envoy=True  ###
+Barrens_Outriders_Axe=True  ###
+Barrens_Rancor=True  ###
+Barrens_Morshan_Elite=True  ###
+Barrens_Rokara=True  ###
+Barrens_Stonemaul_Anchorman=True  ###
+Barrens_Man_at_Arms=True  ###
+Barrens_Whetstone_Hatchet=True  ###
+Barrens_Kresh_Lord_of_Turtling=True  ###
+
+
+####################################################
+
+if Barrens_Overlord_Saurfang:# 
+	Barrens_Warrior+=['BAR_334']
 class BAR_334:##OK <10>[1525]
 	""" Overlord Saurfang
 	[Battlecry:] Resurrect 2 friendly [Frenzy] minions. Deal 1 damage to all other minions. """
@@ -27,11 +45,23 @@ class BAR_334:##OK <10>[1525]
 		pass
 	pass
 
+
+
+
+if Barrens_Whirling_Combatant:# 
+	Barrens_Warrior+=['BAR_840']
 class BAR_840:##OK <10>[1525]
 	""" Whirling Combatant
 	[Battlecry and Frenzy:]Deal 1 damage to allother minions. """
 	events = Damage(SELF).on(Frenzy(SELF, Hit(ALL_MINIONS - SELF, 1)))
 	pass
+
+
+
+
+if Barrens_Bulk_Up:# 
+	Barrens_Warrior+=['BAR_841']
+	Barrens_Warrior+=['BAR_841e']
 
 class BAR_841:##OK <10>[1525]
 	""" Bulk Up
@@ -56,6 +86,13 @@ BAR_841e=buff(1,1)# <10>[1525]
 #	""" Swoll
 #	+1/+1. """
 
+
+
+
+if Barrens_Conditioning_Rank_1:# 
+	Barrens_Warrior+=['BAR_842','BAR_842e']
+	Barrens_Warrior+=['BAR_842t','BAR_842e2']
+	Barrens_Warrior+=['BAR_842t2','BAR_842e3']
 class BAR_842:##OK <10>[1525]
 	""" Conditioning (Rank 1)
 	Give minions in your hand +1/+1. <i>(Upgrades when you have 5 Mana.)</i> """
@@ -75,6 +112,11 @@ class BAR_842t2:# <10>[1525]
 	pass
 BAR_842e3=buff(3,3)# <12>[1525]
 
+
+
+
+if Barrens_Warsong_Envoy:# 
+	Barrens_Warrior+=['BAR_843']
 class BAR_843_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARDS = CardArg()
@@ -92,21 +134,36 @@ class BAR_843:##OK <10>[1525]
 		))
 	pass
 
-#class BAR_844:### bigWarrior
-#	"""Outrider's Axe
-#	After your hero attacks and kills a minion, draw a card."""
-#	events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
-#		Dead(ALL_MINIONS + Attack.DEFENDER) & Draw(CONTROLLER))
-#	pass
 
-#class BAR_845:###OK   bigWarrior
-#	"""Rancor
-#	Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
-#	# 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
-#	# これでよいなら・・・動いているような感じはある。
-#	play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
-#	pass
 
+
+if Barrens_Outriders_Axe:# 
+	Barrens_Warrior+=['BAR_844']
+class BAR_844:### bigWarrior
+	"""Outrider's Axe
+	After your hero attacks and kills a minion, draw a card."""
+	events = Attack(FRIENDLY_HERO, ALL_MINIONS).after(
+		Dead(ALL_MINIONS + Attack.DEFENDER) & Draw(CONTROLLER))
+	pass
+
+
+
+
+if Barrens_Rancor:# 
+	Barrens_Warrior+=['BAR_845']
+class BAR_845:###OK   bigWarrior
+	"""Rancor
+	Deal 2 damage to all minions. Gain 2 Armor for each destroyed."""
+	# 生の苦悩、ケルスザード校長らへんが参考になりそうだがわからん
+	# これでよいなら・・・動いているような感じはある。
+	play = Hit(ALL_MINIONS, 2).then( Dead(ALL_MINIONS + Hit.TARGET) & GainArmor(FRIENDLY_HERO, 2))
+	pass
+
+
+
+
+if Barrens_Morshan_Elite:# 
+	Barrens_Warrior+=['BAR_846']
 class BAR_846:##OK <10>[1525]
 	""" Mor'shan Elite
 	[Taunt]. [Battlecry:] If your hero attacked this turn, summon a copy of this. """
@@ -121,6 +178,11 @@ class BAR_846:##OK <10>[1525]
 		pass
 	pass
 
+
+
+
+if Barrens_Rokara:# 
+	Barrens_Warrior+=['BAR_847','BAR_847e']
 class BAR_847:##OK <10>[1525]
 	""" Rokara
 	[Rush]After a friendly minion attacks and survives, give it +1/+1. """
@@ -129,6 +191,12 @@ class BAR_847:##OK <10>[1525]
 	pass
 BAR_847e=buff(1,1)# <12>[1525]
 
+
+
+
+if Barrens_Stonemaul_Anchorman:# 
+	Barrens_Warrior+=['BAR_896']
+	Barrens_Warrior+=['BAR_896e']
 class BAR_896:##OK <10>[1525]
 	""" Stonemaul Anchorman
 	[Rush][Frenzy:] Draw a card. """
@@ -140,6 +208,12 @@ BAR_896e=buff(atk=1)# <10>[1525] # no use
 """ Incensed
 Increased Attack. """
 
+
+
+
+if Barrens_Man_at_Arms:# 
+	Barrens_Warrior+=['WC_024']
+	Barrens_Warrior+=['WC_024e']
 class WC_024:##OK <10>[1525]
 	""" Man-at-Arms
 	[Battlecry:] If you have a weapon equipped, gain +1/+1. """
@@ -150,6 +224,12 @@ WC_024e=buff(1,1)# <10>[1525]
 """ Armed
 +1/+1 """
 
+
+
+
+if Barrens_Whetstone_Hatchet:# 
+	Barrens_Warrior+=['WC_025']
+	Barrens_Warrior+=['WC_025e']
 class WC_025:##OK <10>[1525]
 	""" Whetstone Hatchet
 	After your hero attacks, give a minion in your hand +1 Attack. """
@@ -160,6 +240,9 @@ WC_025e=buff(atk=1)# <10>[1525]
 """ Armed
 +1 Attack """
 
+if Barrens_Kresh_Lord_of_Turtling:# 
+	Barrens_Warrior+=['WC_026']
+	Barrens_Warrior+=['WC_026t']
 class WC_026:##OK <10>[1525]
 	""" Kresh, Lord of Turtling
 	[Frenzy:] Gain 8 Armor. [Deathrattle:] Equip a 2/5 Turtle Spike. """
@@ -172,6 +255,6 @@ class WC_026:##OK <10>[1525]
 class WC_026t:# <10>[1525]
 	""" Turtle Spike
 	 """
-	#
 	pass
 
+############################################
