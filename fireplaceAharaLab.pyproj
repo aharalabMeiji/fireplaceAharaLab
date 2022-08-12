@@ -111,7 +111,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\mage.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_mage.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_neutral.py">

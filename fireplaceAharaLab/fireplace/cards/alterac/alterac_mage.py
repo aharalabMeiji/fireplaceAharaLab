@@ -1,7 +1,27 @@
 from ..utils import *
 
-#Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
+Alterac_Mage=[]
 
+Alterac_Shivering_Sorceress=True  ###
+Alterac_Amplified_Snowflurry=True  ###
+Alterac_Arcane_Brilliance=True  ###
+Alterac_Magister_Dawngrasp=True  ###
+Alterac_Siphon_Mana=True  ###
+Alterac_Mass_Polymorph=True  ###
+Alterac_Build_a_Snowman=True  ###
+Alterac_Rune_of_the_Archmage=True  ###
+Alterac_Balinda_Stonehearth=True  ###
+Alterac_Iceblood_Tower=True  ###
+Alterac_Deep_Breath=True  ###
+Alterac_Haleh,_Matron_Protectorate=True  ###
+Alterac_Drakefire_Amulet=True  ###
+
+################################
+
+
+if Alterac_Shivering_Sorceress:# 
+	Alterac_Mage+=['AV_114']
+	Alterac_Mage+=['AV_114e']
 class AV_114_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -25,6 +45,12 @@ class AV_114:
 	pass
 AV_114e=buff(cost=-1)
 
+
+
+
+if Alterac_Amplified_Snowflurry:# 
+	Alterac_Mage+=['AV_115']
+	Alterac_Mage+=['AV_115e5']
 class AV_115:
 	""" Amplified Snowflurry (2/2/3)
 	Battlecry: Your next Hero Power costs (0) and Freezes the target.
@@ -35,6 +61,11 @@ class AV_115e5:
 	update = Refresh(FRIENDLY_HERO_POWER, {GameTag.COST:SET(0)})
 	events = Activate(CONTROLLER, HERO_POWER).on(Freeze(Activate.TARGET), Destroy(SELF))
 
+
+
+
+if Alterac_Arcane_Brilliance:# 
+	Alterac_Mage+=['AV_116']
 class AV_116_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -55,6 +86,12 @@ class AV_116:
 	play = AV_116_Action(CONTROLLER)
 	pass
 
+
+
+
+if Alterac_Magister_Dawngrasp:# 
+	Alterac_Mage+=['AV_200']
+	Alterac_Mage+=['AV_200p2']
 class AV_200:
 	""" Magister Dawngrasp (8/*/5) Hero
 	Battlecry: Recast a spell from each spell school you've cast this game.
@@ -81,6 +118,12 @@ class AV_200p2:
 	honorable_kill = AddScriptDataNum1(SELF, 2)
 	pass
 
+
+
+
+if Alterac_Siphon_Mana:# 
+	Alterac_Mage+=['AV_212']
+	Alterac_Mage+=['AV_212e']
 class AV_212:
 	""" Siphon Mana (2) Arcane
 	Deal 2 damage. Honorable Kill: Reduce the Cost of spells in your hand by (1).
@@ -91,6 +134,11 @@ class AV_212:
 	pass
 AV_212e=buff(cost=-1)
 
+
+
+
+if Alterac_Mass_Polymorph:# 
+	Alterac_Mage+=['AV_218','AV_218t']
 class AV_218:
 	""" Mass Polymorph (7) Arcane
 	Transform all minions into 1/1 Sheep."""
@@ -100,6 +148,16 @@ class AV_218t:
 	"""  sheep """
 	pass
 
+
+
+
+if Alterac_Build_a_Snowman:# 
+	Alterac_Mage+=['AV_282']
+	Alterac_Mage+=['AV_282t']
+	Alterac_Mage+=['AV_282t2']
+	Alterac_Mage+=['AV_282t3']
+	Alterac_Mage+=['AV_282t4']
+	Alterac_Mage+=['AV_282t5']
 class AV_282:
 	""" Build a Snowman (3) Frost
 	Summon a 3/3 Snowman that Freezes.  Add 'Build a Snowbrute' to your hand.
@@ -137,6 +195,11 @@ class AV_282t5:
 	events = Attack(SELF, ENEMY_CHARACTERS).on(Freeze(Attack.DEFENDER))
 	pass
 
+
+
+
+if Alterac_Rune_of_the_Archmage:# 
+	Alterac_Mage+=['AV_283']
 class AV_283_Action(TargetedAction):#
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -162,6 +225,13 @@ class AV_283:
 	play = AV_283_Action(CONTROLLER)
 	pass
 
+
+
+
+if Alterac_Balinda_Stonehearth:# 
+	Alterac_Mage+=['AV_284']
+	#Alterac_Mage+=['AV_284e']
+	#Alterac_Mage+=['AV_284e2']
 class AV_284:
 	""" Balinda Stonehearth (6/5/5)
 	Battlecry: Draw 2 spells. Swap their Costs with this minion's stats."""
@@ -183,6 +253,11 @@ class AV_284:
 #AV_284e=buff(cost=SET(5))
 #AV_284e2=buff(atk=SET(1),health=SET(1))
 
+
+
+
+if Alterac_Iceblood_Tower:# 
+	Alterac_Mage+=['AV_290']
 class AV_290:
 	""" Iceblood Tower (10) lasts 3 turns
 	At the end of your turn, cast another spell from your deck. Lasts 3 turns.	"""
@@ -194,6 +269,10 @@ class AV_290:
 	pass
 
 
+
+
+if Alterac_Deep_Breath:# 
+	Alterac_Mage+=['ONY_006']
 class ONY_006:# <4>[1626]
 	""" Deep Breath
 	Deal $@ damage to aminion and its neighbors.<i>(Improved by number of_other spells in your hand.)</i> """
@@ -220,12 +299,22 @@ class ONY_006:# <4>[1626]
 			Hit(card, amount).trigger(controller)
 	pass
 
+
+
+
+if Alterac_Haleh,_Matron_Protectorate:# 
+	Alterac_Mage+=['ONY_007']
 class ONY_007:# <4>[1626]
 	""" Haleh, Matron Protectorate
 	After you cast a spell, deal 4 damage randomly split among all enemies. """
 	events = OWN_SPELL_PLAY.on(Hit(RANDOM_ENEMY_CHARACTER,1) * 4)
 	pass
 
+
+
+
+if Alterac_Drakefire_Amulet:# 
+	Alterac_Mage+=['ONY_029']
 class ONY_029_Choice(Choice):
 	def choose(self, card):
 		self.source._sidequest_counter_ += 1
@@ -243,3 +332,9 @@ class ONY_029:# <4>[1626]
 	[Tradeable][Discover] 2 Dragons. Summon them. """
 	play = 	ONY_029_Choice(CONTROLLER, RandomMinion(race=Race.DRAGON)*3)
 	pass
+
+
+
+
+###################################################
+
