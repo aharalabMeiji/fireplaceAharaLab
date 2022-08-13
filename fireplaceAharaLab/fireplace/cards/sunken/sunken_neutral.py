@@ -51,7 +51,7 @@ Sunken_Twin_fin_Fin_Twin=True  ###
 
 
 
-if Sunken_Snapdragon:# 
+if Sunken_Snapdragon:# OK
 	Sunken_Neutral+=['TID_710']
 	Sunken_Neutral+=['TID_710e']
 class TID_710:# <12>[1658]
@@ -70,7 +70,7 @@ TID_710e=buff(1,1)# <12>[1658]
 
 
 
-if Sunken_Ozumat:# 
+if Sunken_Ozumat:# OK
 	Sunken_Neutral+=['TID_711']
 	Sunken_Neutral+=['TID_711t','TID_711t2','TID_711t3','TID_711t4','TID_711t5','TID_711t6']
 class TID_711_Deathrattle(TargetedAction):
@@ -123,7 +123,7 @@ class TID_711t6:# <12>[1658]
 
 
 
-if Sunken_Neptulon_the_Tidehunter:# 
+if Sunken_Neptulon_the_Tidehunter:# OK
 	Sunken_Neutral+=['TID_712']
 	Sunken_Neutral+=['TID_712t','TID_712t2']
 class TID_712_Attack(TargetedAction):
@@ -133,9 +133,15 @@ class TID_712_Attack(TargetedAction):
 		if isinstance(target,list):
 			target = target[0]
 		for card in controller.field:
-			if card.id in ['TID_712t','TID_712t2']:
-				RegularAttack(card, target)
+			if card.id == 'TID_712t':
+				RegularAttack(card, target).trigger(source)
+				controller.game.process_deaths()
 				source.stop_attack=True
+		for card in controller.field:
+			if card.id == 'TID_712t2' and target.zone==Zone.PLAY:
+				RegularAttack(card, target).trigger(source)
+				source.stop_attack=True
+				controller.game.process_deaths()
 		pass
 class TID_712:# <12>[1658]
 	""" Neptulon the Tidehunter
@@ -155,7 +161,7 @@ class TID_712t2:# <12>[1658]
 
 
 
-if Sunken_Bubbler:# 
+if Sunken_Bubbler:# OK
 	Sunken_Neutral+=['TID_713']
 class TID_713:# <12>[1658]
 	""" Bubbler
@@ -182,7 +188,8 @@ class TID_744:# <12>[1658] ########## need check #############
 class TID_744e:# <12>[1658]
 	""" Constricted
 	Can't be played next turn. """
-	tags={GameTag.CANT_PLAY:True}
+	def apply(self, target):
+		target.cant_play=True
 	events=EndTurn(OPPONENT).on(Destroy(SELF))
 	#
 	pass
@@ -190,12 +197,12 @@ class TID_744e:# <12>[1658]
 
 
 
-if Sunken_Naval_Mine:# 
+if Sunken_Naval_Mine:# visually OK
 	Sunken_Neutral+=['TSC_001']
 class TSC_001:# <12>[1658]
 	""" Naval Mine
-	[Deathrattle:] Deal 4 damageto the enemy hero. """
-	#
+	[Deathrattle:] Deal 4 damage to the enemy hero. """
+	deathrattle = Hit(ENEMY_HERO, 4)
 	pass
 
 

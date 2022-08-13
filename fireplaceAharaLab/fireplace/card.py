@@ -1087,7 +1087,7 @@ class Enchantment(BaseCard):
 			self.data.scripts.apply(self, target)
 		if hasattr(self.data.scripts, "max_health"):
 			if Config.LOGINFO:
-					print("(Enchantment.apply)%r removes all damage from %r", self, target)
+					print("(Enchantment.apply)%r removes all damage from %r"%(self, target))
 			target.damage = 0
 		self.zone = Zone.PLAY
 		if self.id == 'YOP_012e':

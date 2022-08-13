@@ -144,68 +144,22 @@ class Preset_Play:
 			_card=random.choice(['CORE_EX1_611','CORE_EX1_275','CORE_EX1_289','CORE_GIL_801','BT_072','SCH_509','BAR_305','BAR_305t','BAR_305t2','BAR_812','WC_041',])
 		if _card=='mech':
 			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
-		if _card=='minionH1':
+		if _card[:-1]=='minionH':
+			amount=int(_card[-1])
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
 					_card = cards.db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==1: 
+					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==amount: 
 						choices.append(_id)
 			_card=random.choice(choices)
-		if _card=='minionH3':
+		if _card[:-1]=='minionA':
+			amount=int(_card[-1])
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
 					_card = cards.db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==3: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionH4':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = cards.db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==4: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionA4':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = cards.db[_id]
-					if _card.type == CardType.MINION and _card.atk==4: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionH5':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = cards.db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==5: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionA5':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = cards.db[_id]
-					if _card.type == CardType.MINION and _card.atk==5: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionH6':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = cards.db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==6: 
-						choices.append(_id)
-			_card=random.choice(choices)
-		if _card=='minionA6':
-			choices=[]
-			for cardIDlist in All:
-				for _id in cardIDlist:
-					_card = cards.db[_id]
-					if _card.type == CardType.MINION and _card.atk==6: 
+					if _card.type == CardType.MINION and _card.atk==amount: 
 						choices.append(_id)
 			_card=random.choice(choices)
 		if _card=='murloc':
