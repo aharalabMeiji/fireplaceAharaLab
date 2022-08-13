@@ -605,6 +605,11 @@ class Play(GameAction):
 		return super()._broadcast(entity, source, at, *args)
 
 	def do(self, source, card, target, index, choose):
+		if card.cant_play:
+			if Config.LOGINFO:
+				print("(Play.do)%r can't be played "%(card))
+			return
+
 		player = source
 		player.spell_and_damage=False
 		if Config.LOGINFO:
@@ -648,7 +653,7 @@ class Play(GameAction):
 		#corrupt:
 		Corrupt(player, card).trigger(player)
 
-		# "Can't Play" (aka Counter) means triggers don't happen either
+		# "Can't Play" (aka Counter) means triggers don't happen either-> resign
 		if not card.cant_play:
 			if trigger_outcast and card.get_actions("outcast"):
 				source.game.trigger(card, card.get_actions("outcast"), event_args=None)
@@ -1848,6 +1853,32 @@ class ShuffleBuff(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
+
+class ShuffleBottom(TargetedAction):
+	"""
+	Shuffle card targets into player target's deck into its bottom.
+	"""
+	TARGET = ActionArg()#controller
+	CARD = CardArg()
+
+	def do(self, source, target, cards):
+		if Config.LOGINFO:
+			print("(ShuffleBottom.do)%r shuffles into %s's deck's bottom"%(cards, target))
+		if not isinstance(cards, list):
+			cards = [cards]
+		if cards[0]==None or cards[0]==[]:
+			return
+		for card in cards:
+			if card.controller != target:
+				card.zone = Zone.SETASIDE
+				card.controller = target
+			if len(target.deck) >= target.max_deck_size:
+				if Config.LOGINFO:
+					print("(ShuffleBottom.do)Shuffle(%r) fails because %r's deck is full"%(card, target))
+				continue
+			card.zone = Zone.DECK
+			target.shiftdown_deck()## make the top card to botom
+		return cards
 
 
 class Swap(TargetedAction):

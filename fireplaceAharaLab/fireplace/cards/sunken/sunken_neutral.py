@@ -180,7 +180,7 @@ class TID_744_Choice(Choice):
 		super().choose(card)
 		Buff(card,'TID_744e').trigger(self.source)
 
-class TID_744:# <12>[1658] ########## need check #############
+class TID_744:# <12>[1658] ##OK
 	""" Coilfang Constrictor
 	[Battlecry:] Look at 3 cards in your opponent's hand and choose one. It can't be played next turn. """
 	play = TID_744_Choice(CONTROLLER, RANDOM(ENEMY_HAND)*3)
@@ -189,7 +189,7 @@ class TID_744e:# <12>[1658]
 	""" Constricted
 	Can't be played next turn. """
 	def apply(self, target):
-		target.cant_play=True
+		target.cant_play=True##
 	events=EndTurn(OPPONENT).on(Destroy(SELF))
 	#
 	pass
@@ -208,45 +208,51 @@ class TSC_001:# <12>[1658]
 
 
 
-if Sunken_Pufferfist:# 
+if Sunken_Pufferfist:# visually OK
 	Sunken_Neutral+=['TSC_002']
 class TSC_002:# <12>[1658]
 	""" Pufferfist
 	After your hero attacks, deal 1 damage to all enemies. """
-	#
+	events = Attack(FRIENDLY_HERO).after(Hit(ENEMY_CHARACTERS, 1))
 	pass
 
 
 
 
-if Sunken_Gangplank_Diver:# 
+if Sunken_Gangplank_Diver:# maybe OK
 	Sunken_Neutral+=['TSC_007']
 class TSC_007:# <12>[1658]
 	""" Gangplank Diver
 	[Dormant] for 1 turn.[Rush]. [Immune] while attacking. """
-	#
+	dormant=1
+	#<Tag enumID="791" name="RUSH" type="Int" value="1"/>
+	#<ReferencedTag enumID="1518" name="DORMANT" type="Int" value="1"/>
+	#<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>
 	pass
 
 
 
 
-if Sunken_Slimescale_Diver:# 
+if Sunken_Slimescale_Diver:# maybe OK
 	Sunken_Neutral+=['TSC_013']
 class TSC_013:# <12>[1658]
 	""" Slimescale Diver
 	[Dormant] for 1 turn.[Rush], [Poisonous] """
-	#
+	dormant=1
 	pass
 
 
 
 
-if Sunken_Baba_Naga:# 
+if Sunken_Baba_Naga:# #### need check
 	Sunken_Neutral+=['TSC_017']
 class TSC_017:# <12>[1658]
 	""" Baba Naga
-	[Battlecry:] If you've casta spell while holding this, deal 3 damage. """
-	#
+	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SetScriptConst1(SELF, True))
+	requirements = { PlayReq.REQ_TARGET_IF_AVAILABLE:0, }
+	play = ScriptConst1True(SELF) & Hit(TARGET, 3)
 	pass
 
 
@@ -256,20 +262,29 @@ if Sunken_Barbaric_Sorceress:#
 	Sunken_Neutral+=['TSC_020']
 	Sunken_Neutral+=['TSC_020e']
 	Sunken_Neutral+=['TSC_020e2']
-class TSC_020:# <12>[1658]
+class TSC_020:# <12>[1658] ####################### need check
 	""" Barbaric Sorceress
 	[Taunt]. [Battlecry:] Swap the Cost of a random spell in each player's hand. """
-	#
+	def play(self):
+		controller_spells=[card for card in self.controller.hand if card.type==CardType.SPELL]
+		opponent_spells=[card for card in self.controller.opponent.hand if card.type==CardType.SPELL]
+		if len(controller_spells)==0 or len(opponent_spells)==0:
+			return
+		controller_spell=random.choice(controller_spells)
+		opponent_spell=random.choice(opponent_spells)
+		con_cost=controller_spell.cost
+		opp_cost=opponent_spell.cost
+		Buff(controller_spell, TSC_020e, cost=SET(opp_cost)).trigger(self)
+		Buff(opponent_spell, TSC_020e2, cost=SET(con_cost)).trigger(self)
+		pass
 	pass
 class TSC_020e:# <12>[1658]
 	""" Barbarous
 	Attack was swapped. """
-	#
 	pass
 class TSC_020e2:# <12>[1658]
 	""" Barbarous
 	Cost was swapped. """
-	#
 	pass
 
 
@@ -302,10 +317,10 @@ class TSC_032t2:# <12>[1658]
 
 if Sunken_Gorloc_Ravager:# 
 	Sunken_Neutral+=['TSC_034']
-class TSC_034:# <12>[1658]
+class TSC_034:# <12>[1658] ##### OK?
 	""" Gorloc Ravager
 	[Battlecry:] Draw 3 Murlocs. """
-	#
+	play = Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC))
 	pass
 
 
@@ -645,74 +660,72 @@ class TSC_911:# <12>[1658]
 
 
 
-if Sunken_Azsharan_Sentinel:# 
+if Sunken_Azsharan_Sentinel:#  OK
 	Sunken_Neutral+=['TSC_919']
 	Sunken_Neutral+=['TSC_919t']
 class TSC_919:# <12>[1658]
 	""" Azsharan Sentinel
 	[Taunt]. [Deathrattle:] Put a'Sunken Sentinel' on thebottom of your deck. """
-	#
+	deathrattle = ShuffleBottom(CONTROLLER, 'TSC_919t')
 	pass
 class TSC_919t:# <12>[1658]
 	""" Sunken Sentinel
 	[[Divine Shield],] [[Taunt],][Lifesteal] """
-	#
 	pass
 
 
 
 
-if Sunken_Smothering_Starfish:# 
+if Sunken_Smothering_Starfish:# visually OK
 	Sunken_Neutral+=['TSC_926']
 class TSC_926:# <12>[1658]
 	""" Smothering Starfish
 	[Battlecry:] [Silence] ALL other minions. """
-	#
+	play = Silence(ALL_MINIONS - SELF)
 	pass
 
 
 
 
-if Sunken_Security_Automaton:# 
-	Sunken_Neutral+=['TSC_928']
+if Sunken_Security_Automaton:# visually OK
+	Sunken_Neutral+=['TSC_928','TSC_928e']
 class TSC_928:# <12>[1658]
 	""" Security Automaton
 	After you summon a Mech, gain +1/+1. """
-	#
+	events = Summon(CONTROLLER, MECH).after(Buff(SELF, 'TSC_928e'))
 	pass
+TSC_928e=buff(1,1)
 
 
 
-
-if Sunken_Selfish_Shellfish:# 
+if Sunken_Selfish_Shellfish:# visually OK
 	Sunken_Neutral+=['TSC_935']
 class TSC_935:# <12>[1658]
 	""" Selfish Shellfish
 	[Deathrattle:] Your opponent draws 2 cards. """
-	#
+	deathrattle = Draw(OPPONENT) * 2
 	pass
 
 
 
 
-if Sunken_Treasure_Guard:# 
+if Sunken_Treasure_Guard:# visually OK
 	Sunken_Neutral+=['TSC_938']
 class TSC_938:# <12>[1658]
-
 	""" Treasure Guard
 	[Taunt][Deathrattle:] Draw a card. """
-	#
+	deathrattle = Draw(CONTROLLER)
 	pass
 
 
 
 
-if Sunken_Twin_fin_Fin_Twin:# 
+if Sunken_Twin_fin_Fin_Twin:# visually OK
 	Sunken_Neutral+=['TSC_960']
 class TSC_960:# <12>[1658]
 	""" Twin-fin Fin Twin
 	[Rush]. [Battlecry:] Summon a copy of this. """
-	#
+	play = Summon(CONTROLLER, ExactCopy(SELF))
 	pass
 
 

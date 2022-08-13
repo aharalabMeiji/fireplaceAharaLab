@@ -354,6 +354,14 @@ class Player(Entity, TargetableByAuras):
 			print("(shuffle_deck)%r shuffles his deck"% self)
 		random.shuffle(self.deck)
 
+	def shiftdown_deck(self):
+		if Config.LOGINFO:
+			print("(shiftdown_deck)%r makes the top card to bottom of his deck"% self)
+		topcard = self.deck[-1]
+		self.deck.remove(topcard)
+		self.deck.insert(0, topcard)
+		pass
+
 	def draw(self, count=1):
 		if self.cant_draw:
 			if Config.LOGINFO:

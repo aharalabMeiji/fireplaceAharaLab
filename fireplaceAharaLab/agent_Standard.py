@@ -15,7 +15,7 @@ class StandardAgent(Agent):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
 
-	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+	def StandardRandom(self, thisgame: "fireplace.game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
 		while loopCount<20:
@@ -238,7 +238,7 @@ class StandardVectorAgent(Agent):
 #
 #   Original random
 #
-def Original_random(game: ".game.Game"):
+def Original_random(game):
 	player = game.current_player
 	while True:
 		for card in player.hand:

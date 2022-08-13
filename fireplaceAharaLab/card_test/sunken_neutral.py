@@ -9,7 +9,9 @@ def sunken_neutral():
 	#PresetGame(pp_TID_712y)#OK
 	#PresetGame(pp_TID_713x)#OK
 	#PresetGame(pp_TID_713y)#OK
-	PresetGame(pp_TID_744)#OK
+	#PresetGame(pp_TID_744)#OK
+	
+	PresetGame(pp_TSC_919)#OK
 	pass
 
 ################TID_710##################
@@ -274,14 +276,14 @@ class pp_TSC_001(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_002##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_002(Preset_Play):
+	""" Pufferfist
+	After your hero attacks, deal 1 damage to all enemies. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_002',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -299,14 +301,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_007##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_007(Preset_Play):
+	""" Gangplank Diver
+	[Dormant] for 1 turn.[Rush]. [Immune] while attacking. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_007',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -324,14 +326,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_013##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_013(Preset_Play):
+	""" Slimescale Diver
+	[Dormant] for 1 turn.[Rush], [Poisonous] """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_013',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -349,14 +351,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_017##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_017(Preset_Play):
+	""" Baba Naga
+	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_017',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -374,14 +376,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_020##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_020(Preset_Play):
+	""" Barbaric Sorceress
+	[Taunt]. [Battlecry:] Swap the Cost of a random spell in each player's hand. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_020',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -399,14 +401,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_032##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_032(Preset_Play):
+	""" Blademaster Okani
+	[Battlecry:] [Secretly] choose to[Counter] the next minion orspell your opponent playswhile this is alive. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_032',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -424,14 +426,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_034##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_034(Preset_Play):
+	""" Gorloc Ravager
+	[Battlecry:] Draw 3 Murlocs. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_034',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -449,14 +451,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_052##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_052(Preset_Play):
+	""" School Teacher
+	[Battlecry:] Add a 1/1 Nagaling to your hand. [Discover] a spell that costs (3) or less to teach it. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_052',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -474,14 +476,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_053##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_053(Preset_Play):
+	""" Rainbow Glowscale
+	[Spell Damage +1] """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_053',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -499,14 +501,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_064##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_064(Preset_Play):
+	""" Slithering Deathscale
+	[Battlecry:] If you've cast three spells while holding this, deal 3 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_064',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -524,14 +526,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_065##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_065(Preset_Play):
+	""" Helmet Hermit
+	Can't attack. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_065',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -549,14 +551,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_067##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_067(Preset_Play):
+	""" Ambassador Faelin
+	[Battlecry:] Put 3 [Colossal] minions on the bottom of your deck. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_067',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -574,14 +576,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_069##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_069(Preset_Play):
+	""" Amalgam of the Deep
+	[Battlecry:] Choose a friendly minion. [Discover] a minionof the same minion type. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_069',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -599,14 +601,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_632##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_632(Preset_Play):
+	""" Click-Clocker
+	[Divine Shield]. [Battlecry:]Give a random Mech inyour hand +1/+1. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_632',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -624,14 +626,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_638##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_638(Preset_Play):
+	""" Piranha Swarmer
+	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_638',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -649,14 +651,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_640##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_640(Preset_Play):
+	""" Reefwalker
+	[Battlecry and Deathrattle:] Summon a 1/1 Piranha Swarmer. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_640',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -674,14 +676,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_641##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_641(Preset_Play):
+	""" Queen Azshara
+	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_641',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -699,14 +701,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_645##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_645(Preset_Play):
+	""" Mothership
+	[Rush][Deathrattle:] Summon two random Mechs that cost (3) or less. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_645',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -724,14 +726,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_646##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_646(Preset_Play):
+	""" Seascout Operator
+	[Battlecry:] If you control a Mech, summon two 2/1 Mechafish. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_646',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -749,14 +751,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_647##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_647(Preset_Play):
+	""" Pelican Diver
+	[Dormant] for 1 turn.[Rush] """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_647',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -774,14 +776,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_649##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_649(Preset_Play):
+	""" Ini Stormcoil
+	[Battlecry:] Choose a friendlyMech. Summon a copy of itwith [Rush], [Windfury], and[Divine Shield]. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_649',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -799,14 +801,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_823##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_823(Preset_Play):
+	""" Murkwater Scribe
+	[Battlecry:] The next spell you play costs (1) less. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_823',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -824,14 +826,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_826##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_826(Preset_Play):
+	""" Crushclaw Enforcer
+	[Battlecry:] If you've cast a spell while holding this, draw a Naga. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_826',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -849,14 +851,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_827##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_827(Preset_Play):
+	""" Vicious Slitherspear
+	After you cast a spell,gain +1 Attack untilyour next turn. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_827',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -874,14 +876,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_829##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_829(Preset_Play):
+	""" Naga Giant
+	Costs (1) less for each Mana you've spent on spells this game. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_829',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -899,14 +901,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_908##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_908(Preset_Play):
+	""" Sir Finley, Sea Guide
+	[Battlecry:] Swap yourhand with the bottom ofyour deck. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_908',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -924,14 +926,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_909##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_909(Preset_Play):
+	""" Tuskarrrr Trawler
+	[Battlecry:] [Dredge]. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_909',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -949,14 +951,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_911##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_911(Preset_Play):
+	""" Excavation Specialist
+	[Battlecry:] [Dredge].Reduce its Cost by (1). """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_911',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -974,14 +976,41 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_919##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_919(Preset_Play):
+	""" Azsharan Sentinel
+	[Taunt]. [Deathrattle:] Put a'Sunken Sentinel' on the bottom of your deck. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_919',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		Hit(self.mark1, 10).trigger(self.player.opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.deck:
+			self.print_stats("controller.deck", card)
+		assert controller.deck[0].id=='TSC_919t', "deck"
+		pass
+
+################TSC_926##################
+
+class pp_TSC_926(Preset_Play):
+	""" Smothering Starfish
+	[Battlecry:] [Silence] ALL other minions. """
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('TSC_926',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -999,14 +1028,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_928##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_928(Preset_Play):
+	""" Security Automaton
+	After you summon a Mech, gain +1/+1. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_928',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1024,14 +1053,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_935##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_935(Preset_Play):
+	""" Selfish Shellfish
+	[Deathrattle:] Your opponent draws 2 cards. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_935',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1049,14 +1078,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_938##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_938(Preset_Play):
+	""" Treasure Guard
+	[Taunt][Deathrattle:] Draw a card. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_938',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1074,14 +1103,14 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
+################TSC_960##################
 
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
+class pp_TSC_960(Preset_Play):
+	""" Twin-fin Fin Twin
+	[Rush]. [Battlecry:] Summon a copy of this. """
 	def preset_deck(self):
 		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
+		self.mark1=self.exchange_card('TSC_960',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1099,55 +1128,6 @@ class pp_XXXX(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
-################XXXX##################
-
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
-	def preset_deck(self):
-		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		controller = self.player
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
-		pass
-
-################XXXX##################
-
-class pp_XXXX(Preset_Play):
-	""" T
-	M"""
-	def preset_deck(self):
-		controller=self.player
-		self.mark1=self.exchange_card('XXXX',controller)#
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		controller = self.player
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
-		pass
 
 
 ##################################1

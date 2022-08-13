@@ -225,3 +225,17 @@ class CostUp(Evaluator):
 				if target>self.amount:
 					return True
 		return False
+
+class ScriptConst1True(Evaluator):
+	"""
+	Evaluates to True if script_const_1 is True
+	"""
+	def __init__(self, selector, count=1):
+		super().__init__()
+		self.selector = selector
+
+	def check(self, source):
+		targets = self.selector.eval(source.game.entities, source)
+		if len(targets)>0:
+			return bool(targets[0].script_const_1)
+		return False
