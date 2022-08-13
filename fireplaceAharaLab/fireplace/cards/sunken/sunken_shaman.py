@@ -17,7 +17,7 @@ class TSC_631:# <8>[1658]
 class TSC_633:# <8>[1658]
 	""" Piranha Poacher
 	At the end of your turn,add a 1/1 Piranha Swarmer to your hand. """
-	#
+	
 	pass
 
 class TSC_635:# <8>[1658]

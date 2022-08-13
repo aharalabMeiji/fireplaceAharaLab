@@ -370,7 +370,7 @@ if Sunken_Helmet_Hermit:#
 class TSC_065:# <12>[1658]
 	""" Helmet Hermit
 	Can't attack. """
-	#
+	#<Tag enumID="227" name="CANT_ATTACK" type="Int" value="1"/>
 	pass
 
 
@@ -415,40 +415,36 @@ TSC_632e=buff(1,1)# <12>[1658]
 if Sunken_Piranha_Swarmer:# 
 	Sunken_Neutral+=['TSC_638']
 	Sunken_Neutral+=['TSC_638e']
-	Sunken_Neutral+=['TSC_638t']
-	Sunken_Neutral+=['TSC_638t2']
-	Sunken_Neutral+=['TSC_638t3']
-	Sunken_Neutral+=['TSC_638t4']
+	#Sunken_Neutral+=['TSC_638t']
+	#Sunken_Neutral+=['TSC_638t2']
+	#Sunken_Neutral+=['TSC_638t3']
+	#Sunken_Neutral+=['TSC_638t4']
 class TSC_638:# <12>[1658]
 	""" Piranha Swarmer
-	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
+	[Rush]After you summon a Piranha Swarmer, gain +1 Attack. """
+	events = Summon(CONTROLLER, ID('TSC_638')).after(Buff(SELF,'TSC_638e'))
 	pass
-class TSC_638e:# <12>[1658]
-	""" Swarming
-	Increased Attack. """
-	#
-	pass
-class TSC_638t:# <12>[1658]
-	""" Piranha Swarmer
-	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
-	pass
-class TSC_638t2:# <12>[1658]
-	""" Piranha Swarmer
-	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
-	pass
-class TSC_638t3:# <12>[1658]
-	""" Piranha Swarmer
-	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
-	pass
-class TSC_638t4:# <12>[1658]
-	""" Piranha Swarmer
-	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
-	#
-	pass
+TSC_638e=buff(1,0)
+#class TSC_638t:# <12>[1658] ## with different colours
+#	""" Piranha Swarmer
+#	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
+#	events = Summon(CONTROLLER, ID('TSC_638')).after(Buff(SELF,'TSC_638e'))
+#	pass
+#class TSC_638t2:# <12>[1658]
+#	""" Piranha Swarmer
+#	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
+#	events = Summon(CONTROLLER, ID('TSC_638')).after(Buff(SELF,'TSC_638e'))
+#	pass
+#class TSC_638t3:# <12>[1658]
+#	""" Piranha Swarmer
+#	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
+#	events = Summon(CONTROLLER, ID('TSC_638')).after(Buff(SELF,'TSC_638e'))
+#	pass
+#class TSC_638t4:# <12>[1658]
+#	""" Piranha Swarmer
+#	[Rush]After you summon a PiranhaSwarmer, gain +1 Attack. """
+#	events = Summon(CONTROLLER, ID('TSC_638')).after(Buff(SELF,'TSC_638e'))
+#	pass
 
 
 
