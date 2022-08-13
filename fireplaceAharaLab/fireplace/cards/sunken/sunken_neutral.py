@@ -243,15 +243,15 @@ class TSC_013:# <12>[1658]
 
 
 
-if Sunken_Baba_Naga:# #### need check
+if Sunken_Baba_Naga:# #### OK
 	Sunken_Neutral+=['TSC_017']
 class TSC_017:# <12>[1658]
 	""" Baba Naga
 	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
 	class Hand:
-		events = OWN_SPELL_PLAY.on(SetScriptConst1(SELF, True))
+		events = OWN_SPELL_PLAY.on(SetScriptDataNum1(SELF, True))
 	requirements = { PlayReq.REQ_TARGET_IF_AVAILABLE:0, }
-	play = ScriptConst1True(SELF) & Hit(TARGET, 3)
+	play = ScriptDataNum1True(SELF) & Hit(TARGET, 3)
 	pass
 
 
@@ -593,9 +593,9 @@ class TSC_826:# <12>[1658]
 	""" Crushclaw Enforcer
 	[Battlecry:] If you've cast a spell while holding this, draw a Naga. """
 	class Hand:
-		events = OWN_SPELL_PLAY.on(SetScriptConst1(SELF, True))
+		events = OWN_SPELL_PLAY.on(SetScriptDataNum1(SELF, True))
 	requirements = { PlayReq.REQ_TARGET_IF_AVAILABLE:0, }
-	play = ScriptConst1True(SELF) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + NAGA))
+	play = ScriptDataNum1True(SELF) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + NAGA))
 	pass
 
 

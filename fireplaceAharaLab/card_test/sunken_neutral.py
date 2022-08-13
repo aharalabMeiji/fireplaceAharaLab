@@ -10,9 +10,12 @@ def sunken_neutral():
 	#PresetGame(pp_TID_713x)#OK
 	#PresetGame(pp_TID_713y)#OK
 	#PresetGame(pp_TID_744)#OK
+	#PresetGame(pp_TSC_017x)#OK
+	#PresetGame(pp_TSC_017y)#OK
 	#PresetGame(pp_TSC_020)#OK
+	PresetGame(pp_TSC_032)#
 	#PresetGame(pp_TSC_829)#OK
-	PresetGame(pp_TSC_908)#OK
+	#PresetGame(pp_TSC_908)#OK
 	#PresetGame(pp_TSC_909)#OK
 	#PresetGame(pp_TSC_911)#OK
 	#PresetGame(pp_TSC_919)#OK
@@ -357,25 +360,65 @@ class pp_TSC_013(Preset_Play):
 
 ################TSC_017##################
 
-class pp_TSC_017(Preset_Play):
+class pp_TSC_017x(Preset_Play):
 	""" Baba Naga
 	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
 	def preset_deck(self):
 		controller=self.player
+		opponent=controller.opponent
 		self.mark1=self.exchange_card('TSC_017',controller)#
+		self.mark2=self.exchange_card('minionH4',opponent)#
+		self.mark3=self.exchange_card('spellC3',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark3)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1, target=self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
+		self.print_stats("opp mark2", self.mark2)
+		assert self.mark2.health==self.mark2.data.health-3, "health"
+		for card in controller.hand:
+			self.print_stats("controller.hand", card, old_cost=True)
+		pass
+class pp_TSC_017y(Preset_Play):
+	""" Baba Naga
+	[Battlecry:] If you've cast a spell while holding this, deal 3 damage. """
+	def preset_deck(self):
+		controller=self.player
+		opponent=controller.opponent
+		self.mark1=self.exchange_card('TSC_017',controller)#
+		self.mark2=self.exchange_card('minionH4',opponent)#
+		self.mark3=self.exchange_card('spellC3',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		#self.play_card(self.mark3)
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1, target=self.mark2)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		self.print_stats("opp mark2", self.mark2)
+		assert self.mark2.health==self.mark2.data.health, "health"
 		for card in controller.hand:
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
