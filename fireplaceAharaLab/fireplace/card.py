@@ -304,7 +304,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			if self.zone != Zone.HAND:
 				self.zone = Zone.HAND
 			# if self is 'casts_when_drawn' then immediately play. 
-			self.game.card_when_drawn(self, self.controller)
+			self.game.casts_when_drawn(self, self.controller)
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:

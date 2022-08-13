@@ -5,6 +5,7 @@ from ..utils import *
 BG_Minion_Elemental =[
 	'BGS_116','TB_BaconUps_167',#Refreshing Anomaly(1)
 	'BGS_115','BGS_115t','TB_BaconUps_156',#Sellemental(1)
+	'BG_TID_713','BG_TID_713_G',
 	'BGS_127','BGS_127e','TB_Baconups_202','TB_Baconups_202e',#Molten Rock(2)
 	'BGS_120','BGS_120e','TB_BaconUps_160',#Party Elemental(2)
 	'BGS_119','TB_BaconUps_159',#Crackling Cyclone(3)
@@ -19,7 +20,7 @@ BG_Minion_Elemental =[
 ]
 
 BG_PoolSet_Elemental=[
-	['BGS_116','BGS_115',],
+	['BGS_116','BGS_115','BG_TID_713',],
 	['BGS_127','BGS_120',],
 	['BGS_119','BG21_021','BGS_122',],
 	['BG21_020','BG21_040','BGS_126',],
@@ -30,6 +31,7 @@ BG_PoolSet_Elemental=[
 BG_Elemental_Gold={
 	'BGS_116':'TB_BaconUps_167',#Refreshing Anomaly(1)
 	'BGS_115':'TB_BaconUps_156',#Sellemental(1)
+	'BG_TID_713':'BG_TID_713_G',
 	'BGS_127':'TB_Baconups_202',#Molten Rock(2)
 	'BGS_120':'TB_BaconUps_160',#Party Elemental(2)
 	'BGS_119':'TB_BaconUps_159',#Crackling Cyclone(3)
@@ -74,6 +76,15 @@ class TB_BaconUps_156:# <12>[1453]
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BGS_115t') * 2)
 	pass
 
+
+class BG_TID_713:#あわわわ
+	""" Bubblette
+	After this minion takes  exactly one damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
+	events = Damage(SELF, 1).on(Destroy(SELF))
+class BG_TID_713_G:#あわわわ
+	""" Bubblette
+	After this minion takes  exactly two damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
+	events = Damage(SELF, 2).on(Destroy(SELF))
 
 
 #Molten Rock(2)  ### MAYBE ###

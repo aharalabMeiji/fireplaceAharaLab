@@ -45,7 +45,8 @@ Onyxian_Warder=True#22.6
 Gear_Grubber=True#22.6
 Whelp_Bonker=True#22.6
 Raid_Boss_Onyxia=True#22.6
-Kazakusan=False#22.6## no use
+##############################
+Kazakusan=False#22.6## no use below
 Necrotic_Poison=False#22.6
 Spyglass=False#22.6
 Clockwork_Assistant=False#22.6

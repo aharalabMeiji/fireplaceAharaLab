@@ -47,8 +47,11 @@ class BaseGame(Entity):
 		self.process_deaths_infinite_loop_check=0
 		self.process_death_action_stack=0
 
+	def __str__(self):
+		return "Game(%s, %s)"%(self.players[0].name, self.players[1].name)
+
 	def __repr__(self):
-		return "%s(players=%r)" % (self.__class__.__name__, self.players)
+		return "%s(players=%s, %s)" % (self.__class__.__name__, self.players[0].name, self.players[1].name)
 
 	def __iter__(self):
 		return chain(self.entities, self.hands, self.decks, self.graveyard, self.setaside)

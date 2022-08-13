@@ -173,6 +173,8 @@ class Action(metaclass=ActionMeta):
 				return False
 			if isinstance(match, int):
 				return match==arg
+			if isinstance(match, list) and isinstance(match[0], int):
+				return arg in match
 			if callable(match):
 				res = match(arg)
 				if not res:

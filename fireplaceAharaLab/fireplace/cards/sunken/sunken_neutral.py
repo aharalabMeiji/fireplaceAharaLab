@@ -79,12 +79,13 @@ class TID_711_Deathrattle(TargetedAction):
 		controller = target
 		for card in controller.field:
 			if card.id in ['TID_711t','TID_711t2','TID_711t3','TID_711t4','TID_711t5','TID_711t6']:
-				if len(controller.opponent.field)>0:
-					target = random.choice(controller.opponent.field)
+				alive_minions=[card for card in controller.opponent.field if card._to_be_destroyed==False]
+				if len(alive_minions)>0:
+					target = random.choice(alive_minions)
 					Destroy(target).trigger(self)
 class TID_711:# <12>[1658]
 	""" Ozumat
-	[Colossal +6] [Deathrattle:] For each of Ozumat's Tentacles, destroy   a random enemy minion. """
+	[Colossal +6] [Deathrattle:] For each of Ozumat's Tentacles, destroy a random enemy minion. """
 	play = (
 		Summon(CONTROLLER,'TID_711t'),
 		Summon(CONTROLLER,'TID_711t2'),
@@ -158,8 +159,8 @@ if Sunken_Bubbler:#
 	Sunken_Neutral+=['TID_713']
 class TID_713:# <12>[1658]
 	""" Bubbler
-	After this minion takes exactly one damage,destroy it. <i>(Pop!)</i> """
-	#
+	After this minion takes exactly one damage, destroy it. <i>(Pop!)</i> """
+	events = Damage(SELF, 1).on(Destroy(SELF))
 	pass
 
 
