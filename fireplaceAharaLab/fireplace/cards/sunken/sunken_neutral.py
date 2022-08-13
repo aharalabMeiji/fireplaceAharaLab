@@ -612,29 +612,54 @@ class TSC_827e:# <12>[1658]
 
 
 
-if Sunken_Naga_Giant:# 
+if Sunken_Naga_Giant:# ##OK
 	Sunken_Neutral+=['TSC_829']
-class TSC_829:# <12>[1658]
+class TSC_829_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		amount = controller.total_spell_cost
+		source._cost=source.data.cost-amount
+class TSC_829:# <12>[1658](20/8/8)
 	""" Naga Giant
 	Costs (1) less for each Mana you've spent on spells this game. """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(TSC_829_Action(CONTROLLER))
 	pass
 
 
 
 
-if Sunken_Sir_Finley_Sea_Guide:# 
+if Sunken_Sir_Finley_Sea_Guide:# ##OK
 	Sunken_Neutral+=['TSC_908']
 class TSC_908:# <12>[1658]
 	""" Sir Finley, Sea Guide
-	[Battlecry:] Swap yourhand with the bottom ofyour deck. """
-	#
+	[Battlecry:] Swap your hand with the bottom of your deck. """
+	def play(self):
+		controller = self.controller
+		num = len(controller.hand)
+		hand=[]
+		for repeat in range(num):
+			c=controller.deck[0]
+			controller.deck.remove(c)
+			c.zone=Zone.SETASIDE
+			hand.append(c)
+		for repeat in range(num):
+			c=controller.hand[0]
+			controller.hand.remove(c)
+			c.zone=Zone.SETASIDE
+			controller.deck.insert(0,c)
+			c.zone=Zone.DECK
+		for c in hand:
+			c.zone=Zone.HAND
+			#controller.hand.append(c)
+		pass
 	pass
 
 
 
 
-if Sunken_Tuskarrrr_Trawler:# 
+if Sunken_Tuskarrrr_Trawler:# OK
 	Sunken_Neutral+=['TSC_909']
 class TSC_909:# <12>[1658] ##OK
 	""" Tuskarrrr Trawler

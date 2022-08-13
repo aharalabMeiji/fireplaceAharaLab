@@ -16,9 +16,10 @@ class PlayLog:
 	card=None
 	turn=0
 	amount=0
-	def __init__(self, _card, _turn, _amount=0):
+	def __init__(self, _card, _turn, _cost, _amount=0):
 		self.card = _card
 		self.turn = _turn
+		self.cost = _cost
 		self.amount = _amount
 		pass
 	pass
@@ -92,6 +93,7 @@ class Player(Entity, TargetableByAuras):
 		self.piece_of_cthun = [0,0,0,0]
 		self._death_log=[]
 		self._play_log=[]
+		self._spell_log=[]
 		self._damage_log=[]
 		self._activate_log=[]
 		self._summon_log=[]
@@ -432,7 +434,7 @@ class Player(Entity, TargetableByAuras):
 
 	##play_log
 	def add_play_log(self, card):
-		self._play_log.append(PlayLog(card, card.game.turn))
+		self._play_log.append(PlayLog(card, card.game.turn, card.cost))
 	@property
 	def play_log(self):
 		_ret = []
@@ -453,10 +455,17 @@ class Player(Entity, TargetableByAuras):
 			if _log.turn == self.game.turn:
 				_ret.append(_log.card)
 		return _ret
+	@property
+	def total_spell_cost(self):
+		amount=0
+		for _log in self._play_log:
+			if _log.card.type==CardType.SPELL:
+				amount += _log.cost
+		return amount
 
 	##activate_log
 	def add_activate_log(self, card, amount):
-		self._activate_log.append(PlayLog(card,card.game.turn,amount))
+		self._activate_log.append(PlayLog(card,card.game.turn, card.cost, amount))
 	@property
 	def activate_log(self):
 		_ret = []
@@ -466,7 +475,7 @@ class Player(Entity, TargetableByAuras):
 
 	##damage_log
 	def add_damage_log(self, card, amount):
-		self._damage_log.append(PlayLog(card, card.game.turn, amount))
+		self._damage_log.append(PlayLog(card, card.game.turn, card.cost, amount))
 	@property
 	def damage_log(self):
 		_ret = []
@@ -483,7 +492,7 @@ class Player(Entity, TargetableByAuras):
 
 	##sammon_log
 	def add_summon_log(self, card):
-		self._summon_log.append(PlayLog(card, card.game.turn))
+		self._summon_log.append(PlayLog(card, card.game.turn, card.cost ))
 	@property
 	def summon_log(self):
 		_ret = []
@@ -493,7 +502,7 @@ class Player(Entity, TargetableByAuras):
 
 	##reveal_log
 	def add_reveal_log(self, card):
-		self._reveal_log.append(PlayLog(card, card.game.turn))
+		self._reveal_log.append(PlayLog(card, card.game.turn, card.cost))
 	@property
 	def reveal_log(self):
 		_ret = []
@@ -518,7 +527,7 @@ class Player(Entity, TargetableByAuras):
 
 	### battlegraounds
 	def add_buy_log(self, card):
-		self._buy_log.append(PlayLog(card, card.game.turn))
+		self._buy_log.append(PlayLog(card, card.game.turn, 0))
 	@property
 	def buy_log(self):
 		ret = []

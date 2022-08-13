@@ -33,7 +33,7 @@ class CORE_BT_035:# <14>[1637]##23.6 ## visually OK
 BT_035e = buff(atk=2)#ONE_TURN_EFFECT
 
 if Coordinated_Strike:# 
-	Core_DemonHunter+=['CORE_BT_036']
+	Core_DemonHunter+=['CORE_BT_036','BT_036t']
 class CORE_BT_036:# <14>[1637]##23.6 ## visually OK
 	""" Coordinated Strike
 	Summon three 1/1_Illidari with [Rush]. """
