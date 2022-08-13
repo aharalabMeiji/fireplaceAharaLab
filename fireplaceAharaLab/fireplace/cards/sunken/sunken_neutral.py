@@ -172,15 +172,14 @@ class TID_713:# <12>[1658]
 
 
 
-if Sunken_Coilfang_Constrictor:# 
+if Sunken_Coilfang_Constrictor:# ##OK
 	Sunken_Neutral+=['TID_744']
 	Sunken_Neutral+=['TID_744e']
 class TID_744_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
 		Buff(card,'TID_744e').trigger(self.source)
-
-class TID_744:# <12>[1658] ##OK
+class TID_744:# <12>[1658] 
 	""" Coilfang Constrictor
 	[Battlecry:] Look at 3 cards in your opponent's hand and choose one. It can't be played next turn. """
 	play = TID_744_Choice(CONTROLLER, RANDOM(ENEMY_HAND)*3)
@@ -258,11 +257,11 @@ class TSC_017:# <12>[1658]
 
 
 
-if Sunken_Barbaric_Sorceress:# 
+if Sunken_Barbaric_Sorceress:# ##OK
 	Sunken_Neutral+=['TSC_020']
 	Sunken_Neutral+=['TSC_020e']
 	Sunken_Neutral+=['TSC_020e2']
-class TSC_020:# <12>[1658] ####################### need check
+class TSC_020:# <12>[1658] ##
 	""" Barbaric Sorceress
 	[Taunt]. [Battlecry:] Swap the Cost of a random spell in each player's hand. """
 	def play(self):
@@ -274,8 +273,8 @@ class TSC_020:# <12>[1658] ####################### need check
 		opponent_spell=random.choice(opponent_spells)
 		con_cost=controller_spell.cost
 		opp_cost=opponent_spell.cost
-		Buff(controller_spell, TSC_020e, cost=SET(opp_cost)).trigger(self)
-		Buff(opponent_spell, TSC_020e2, cost=SET(con_cost)).trigger(self)
+		Buff(controller_spell, 'TSC_020e', cost=opp_cost-con_cost).trigger(self)
+		Buff(opponent_spell, 'TSC_020e2', cost=con_cost-opp_cost).trigger(self)
 		pass
 	pass
 class TSC_020e:# <12>[1658]

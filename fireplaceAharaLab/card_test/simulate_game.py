@@ -196,12 +196,13 @@ class Preset_Play:
 					if _card.type == CardType.SPELL: 
 						choices.append(_id)
 			_card=random.choice(choices)
-		if _card=='spellC4':
+		if _card[:-1]=='spellC':
+			amount=int(_card[-1:])
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
 					_card = cards.db[_id]
-					if _card.type == CardType.SPELL and _card.cost==4: 
+					if _card.type == CardType.SPELL and _card.cost==amount: 
 						choices.append(_id)
 			_card=random.choice(choices)
 		if _card=='spellpower':
@@ -224,18 +225,12 @@ class Preset_Play:
 	'DREAM_03','SCH_337t',])####
 		if _card=='vanillaH1':
 			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
-		if _card=='vanillaH2' or _card=='minionH2':
+		if _card=='vanillaH2':
 			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
 		if _card=='vanillaH3':
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
 		if _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
-		if _card=='minionH7':
-			_card=random.choice(['CORE_CS2_181','CORE_CS2_222','CORE_EX1_190','CORE_EX1_249','CORE_FP1_031','CORE_AT_008','SCH_709','SCH_709t','SCH_710','DMF_002','DMF_068','BAR_021','BAR_027','BAR_721t2','BAR_538t','WC_006','SW_078','SW_081','SW_322t4','SW_450t4','SW_429t','SW_028t5','SW_024',])
-		if _card=='minionH8':
-			_card=random.choice(['CORE_EX1_543','CORE_EX1_187','CORE_EX1_399','CORE_GVG_121','CORE_UNG_813','CORE_UNG_844','CS3_031','CS3_032','CS3_035','CORE_EX1_573','BT_720','BT_138','SCH_711','SCH_717','SCH_400','DMF_080t','DMF_104t','BAR_071','BAR_072t','BAR_547','SW_068','SW_428t4','DED_521','DED_525','AV_132','AV_141t','SCH_337','SW_068',])
-		if _card=='minionA7':
-			_card=random.choice(['CORE_EX1_543','CORE_CS2_222','CORE_EX1_249','CORE_GVG_121','CS3_031','CS3_032','CS3_035','CS3_036','BT_155','BT_155t','BT_728t','BT_734','BT_735','BT_850','BT_028t','BT_133','BT_136t','BT_136tt','BT_136tt2','BT_136tt3','BT_123t','SCH_711','DMF_004','DMF_080t','DMF_188','YOP_034','DMF_085','DMF_104t','DMF_059','BAR_079_m3','BAR_547','BAR_538','SW_068','SW_081','SW_322t4','SW_450t4','SW_428t4','SW_028t5','DED_521','DED_525','AV_130','AV_132','AV_141t','AV_704','DREAM_03','SW_024','SW_068','SCH_621',])
 		if _card=='weapon':
 			_card=random.choice(['WC_037','DMF_088','DMF_521t'])
 		return _card

@@ -10,8 +10,9 @@ def sunken_neutral():
 	#PresetGame(pp_TID_713x)#OK
 	#PresetGame(pp_TID_713y)#OK
 	#PresetGame(pp_TID_744)#OK
+	PresetGame(pp_TSC_020)#OK
 	#PresetGame(pp_TSC_909)#OK
-	PresetGame(pp_TSC_911)#OK
+	#PresetGame(pp_TSC_911)#OK
 	#PresetGame(pp_TSC_919)#OK
 	pass
 
@@ -384,13 +385,23 @@ class pp_TSC_020(Preset_Play):
 	[Taunt]. [Battlecry:] Swap the Cost of a random spell in each player's hand. """
 	def preset_deck(self):
 		controller=self.player
+		opponent=controller.opponent
 		self.mark1=self.exchange_card('TSC_020',controller)#
+		self.mark2=self.exchange_card('spellC3',controller)#
+		self.mark3=self.exchange_card('spellC5',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
+		opponent=controller.opponent
 		### con
+		for card in controller.hand: 
+			if card.type==CardType.SPELL:
+				self.print_stats("con hand", card, old_cost=True)
+		for card in opponent.hand: 
+			if card.type==CardType.SPELL:
+				self.print_stats("opp hand", card, old_cost=True)
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
@@ -398,8 +409,13 @@ class pp_TSC_020(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		opponent=controller.opponent
+		for card in controller.hand: 
+			if card.type==CardType.SPELL:
+				self.print_stats("con hand", card, old_cost=True)
+		for card in opponent.hand: 
+			if card.type==CardType.SPELL:
+				self.print_stats("opp hand", card, old_cost=True)
 		pass
 
 ################TSC_032##################
