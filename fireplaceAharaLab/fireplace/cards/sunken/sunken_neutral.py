@@ -343,12 +343,11 @@ class TSC_052t:# <12>[1658]
 
 
 
-if Sunken_Rainbow_Glowscale:# 
+if Sunken_Rainbow_Glowscale:# OK
 	Sunken_Neutral+=['TSC_053']
 class TSC_053:# <12>[1658]
 	""" Rainbow Glowscale
 	[Spell Damage +1] """
-	#
 	pass
 
 
@@ -365,7 +364,7 @@ class TSC_064:# <12>[1658]
 
 
 
-if Sunken_Helmet_Hermit:# 
+if Sunken_Helmet_Hermit:# OK
 	Sunken_Neutral+=['TSC_065']
 class TSC_065:# <12>[1658]
 	""" Helmet Hermit
@@ -535,17 +534,16 @@ class TSC_646t:# <12>[1658]
 
 if Sunken_Pelican_Diver:# 
 	Sunken_Neutral+=['TSC_647']
-	Sunken_Neutral+=['TSC_647e']
+	#Sunken_Neutral+=['TSC_647e']
 class TSC_647:# <12>[1658]
 	""" Pelican Diver
 	[Dormant] for 1 turn.[Rush] """
-	#
+	dormant=1
 	pass
-class TSC_647e:# <12>[1658]
-	""" Diving
-	[Dormant]. Awaken in @ |4(turn, turns). """
-	#
-	pass
+#class TSC_647e:# <12>[1658]
+#	""" Diving
+#	[Dormant]. Awaken in @ |4(turn, turns). """
+#	pass
 
 
 
@@ -589,7 +587,10 @@ if Sunken_Crushclaw_Enforcer:#
 class TSC_826:# <12>[1658]
 	""" Crushclaw Enforcer
 	[Battlecry:] If you've cast a spell while holding this, draw a Naga. """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SetScriptConst1(SELF, True))
+	requirements = { PlayReq.REQ_TARGET_IF_AVAILABLE:0, }
+	play = ScriptConst1True(SELF) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + NAGA))
 	pass
 
 
@@ -636,10 +637,10 @@ class TSC_908:# <12>[1658]
 
 if Sunken_Tuskarrrr_Trawler:# 
 	Sunken_Neutral+=['TSC_909']
-class TSC_909:# <12>[1658]
+class TSC_909:# <12>[1658] ##OK
 	""" Tuskarrrr Trawler
 	[Battlecry:] [Dredge]. """
-	#
+	play = Dredge(CONTROLLER)
 	pass
 
 
@@ -647,10 +648,29 @@ class TSC_909:# <12>[1658]
 
 if Sunken_Excavation_Specialist:# 
 	Sunken_Neutral+=['TSC_911']
-class TSC_911:# <12>[1658]
+class TSC_911_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				c.cost -= 1
+				break
+		pass
+class TSC_911_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_911_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
+class TSC_911:# <12>[1658] ## OK
 	""" Excavation Specialist
 	[Battlecry:] [Dredge].Reduce its Cost by (1). """
-	#
+	play = TSC_911_Dredge(CONTROLLER)
 	pass
 
 

@@ -10,8 +10,9 @@ def sunken_neutral():
 	#PresetGame(pp_TID_713x)#OK
 	#PresetGame(pp_TID_713y)#OK
 	#PresetGame(pp_TID_744)#OK
-	
-	PresetGame(pp_TSC_919)#OK
+	#PresetGame(pp_TSC_909)#OK
+	PresetGame(pp_TSC_911)#OK
+	#PresetGame(pp_TSC_919)#OK
 	pass
 
 ################TID_710##################
@@ -940,6 +941,10 @@ class pp_TSC_909(Preset_Play):
 		super().preset_play()
 		controller = self.player
 		### con
+		for card in controller.deck[:3]:
+			self.print_stats("deck(bottom)", card)
+		for card in controller.deck[-3:]:
+			self.print_stats("deck(top)", card)
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
@@ -947,8 +952,11 @@ class pp_TSC_909(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.deck[:3]:
+			self.print_stats("deck(bottom)", card)
+		for card in controller.deck[-3:]:
+			self.print_stats("deck(top)", card)
+		print("Check the phenomenon visually.")
 		pass
 
 ################TSC_911##################
@@ -965,6 +973,10 @@ class pp_TSC_911(Preset_Play):
 		super().preset_play()
 		controller = self.player
 		### con
+		for card in controller.deck[:3]:
+			self.print_stats("deck(bottom)", card)
+		for card in controller.deck[-3:]:
+			self.print_stats("deck(top)", card)
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
@@ -972,8 +984,11 @@ class pp_TSC_911(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.deck[:3]:
+			self.print_stats("deck(bottom)", card)
+		for card in controller.deck[-3:]:
+			self.print_stats("deck(top)", card, old_cost=True)
+		print("Check the phenomenon visually.")
 		pass
 
 ################TSC_919##################

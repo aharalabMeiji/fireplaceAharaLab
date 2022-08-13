@@ -11,7 +11,7 @@ from .exceptions import InvalidAction
 from .logging import log
 from .utils import random_class
 from .config import Config
-from .dsl.random_picker import RandomEntourage
+from .dsl.random_picker import RandomEntourage, RandomID
 
 def _eval_card(source, card):
 	"""
@@ -2754,6 +2754,28 @@ class PermanentBuff(TargetedAction):
 		target.max_health += buffhealth
 		return target
 		pass
+
+class DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				break
+		pass
+
+class Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
+
+
 
 ###SCH_714
 class EducatedElekkMemory(TargetedAction):
