@@ -550,16 +550,21 @@ class TSC_647:# <12>[1658]
 if Sunken_Ini_Stormcoil:# 
 	Sunken_Neutral+=['TSC_649']
 	Sunken_Neutral+=['TSC_649e2']
+class TSC_649_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(TSC_649_Choice.choose)%s chooses %r"%(card.controller.name, card))
+		newcard=(Summon(self.controller, Copy(card)).trigger(self.controller))[0][0]
+		Buff(newcard, 'TSC_649e2').trigger(self.controller)
+		pass
 class TSC_649:# <12>[1658]
 	""" Ini Stormcoil
-	[Battlecry:] Choose a friendlyMech. Summon a copy of itwith [Rush], [Windfury], and[Divine Shield]. """
-	#
+	[Battlecry:] Choose a friendly Mech. Summon a copy of it with [Rush], [Windfury], and[Divine Shield]. """
+	play = TSC_649_Choice(CONTROLLER, RANDOM(FRIENDLY_CHARACTERS + MECH)*3)
 	pass
-class TSC_649e2:# <12>[1658]
-	""" Enhanced!
-	Granted [Rush], [Divine Shield] and [Windfury]. """
-	#
-	pass
+TSC_649e2=buff(rush=True, divine_shield=True, windfury=True)
+""" Enhanced! 	Granted [Rush], [Divine Shield] and [Windfury]. """
 
 
 
@@ -570,12 +575,13 @@ if Sunken_Murkwater_Scribe:#
 class TSC_823:# <12>[1658]
 	""" Murkwater Scribe
 	[Battlecry:] The next spell you play costs (1) less. """
-	#
+	play = Buff(FRIENDLY_HAND + SPELL, 'TSC_823e')
 	pass
 class TSC_823e:# <12>[1658]
 	""" Murky
 	Your next spell costs (1) less. """
-	#
+	tags={GameTag.COST:-1,}
+	events=OWN_SPELL_PLAY.on(Destroy(SELF))
 	pass
 
 
