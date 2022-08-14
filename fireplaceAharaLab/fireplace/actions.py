@@ -2284,6 +2284,7 @@ class Awaken(TargetedAction):
 #
 class SidequestCounter(TargetedAction):
 	"""
+	target, amount, targetaction
 	"""
 	TARGET = ActionArg()# sidequest card
 	AMOUNT = IntArg() #max of call

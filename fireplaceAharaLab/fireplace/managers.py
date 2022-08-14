@@ -173,7 +173,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CHOOSE_ONE: "has_choose_one",
 	GameTag.CHOOSE_BOTH: "choose_both",
 	GameTag.CLASS: "card_class",
-	GameTag.COLOSSAL:'colossal',
+	GameTag.COLOSSAL:'colossal', #
 	GameTag.COMBO: "has_combo",
 	GameTag.CONTROLLER: "controller",
 	GameTag.CORRUPT: 'corrupt',

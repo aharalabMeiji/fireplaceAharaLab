@@ -303,7 +303,9 @@ class Preset_Play:
 			if card.can_attack(target):
 				card.attack(target)
 		pass
-	def cast_spell(self, card, player):
+	def cast_spell(self, card, player=None):
+		if player==None:
+			player=card.controller
 		if card.type==CardType.SPELL:
 			CastSpell(card).trigger(player)
 		pass

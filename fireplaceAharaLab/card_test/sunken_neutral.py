@@ -15,7 +15,23 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_020)#OK
 	#PresetGame(pp_TSC_032x)#OK
 	#PresetGame(pp_TSC_032y)#OK
+	#PresetGame(pp_TSC_034)#OK
 	#PresetGame(pp_TSC_052)#giving up
+	PresetGame(pp_TSC_064)#OK
+	PresetGame(pp_TSC_067)#
+	PresetGame(pp_TSC_069)#
+	PresetGame(pp_TSC_638)#
+	PresetGame(pp_TSC_641)#
+	PresetGame(pp_TSC_641ta)#
+	PresetGame(pp_TSC_641tb)#
+	PresetGame(pp_TSC_641tc)#
+	PresetGame(pp_TSC_641td)#
+	PresetGame(pp_TSC_645)#
+	PresetGame(pp_TSC_646)#
+	PresetGame(pp_TSC_649)#
+	PresetGame(pp_TSC_823)#
+	PresetGame(pp_TSC_826)#
+	PresetGame(pp_TSC_827)#
 	#PresetGame(pp_TSC_829)#OK
 	#PresetGame(pp_TSC_908)#OK
 	#PresetGame(pp_TSC_909)#OK
@@ -608,17 +624,29 @@ class pp_TSC_064(Preset_Play):
 	""" Slithering Deathscale
 	[Battlecry:] If you've cast three spells while holding this, deal 3 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
 	def preset_deck(self):
+		from fireplace.actions import Give
 		controller=self.player
-		self.mark1=self.exchange_card('TSC_064',controller)#
+		opponent=controller.opponent
+		self.mark2=self.exchange_card('spellC2',controller)#
+		self.mark3=self.exchange_card('spellC2',controller)#
+		self.mark4=self.exchange_card('spellC2',controller)#
+		self.mark1=(Give(controller,'TSC_064').trigger(controller))[0][0]#
+		self.mark5=self.exchange_card('minionH3',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
+		self.play_card(self.mark4)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark5)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -785,6 +813,94 @@ class pp_TSC_641(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_641',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.hand:
+			self.print_stats("controller.hand", card, old_cost=True)
+		pass
+class pp_TSC_641ta(Preset_Play):
+	""" Queen Azshara
+	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('TSC_641ta',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.hand:
+			self.print_stats("controller.hand", card, old_cost=True)
+		pass
+class pp_TSC_641tb(Preset_Play):
+	""" Queen Azshara
+	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('TSC_641tb',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.hand:
+			self.print_stats("controller.hand", card, old_cost=True)
+		pass
+class pp_TSC_641tc(Preset_Play):
+	""" Queen Azshara
+	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('TSC_641tc',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.hand:
+			self.print_stats("controller.hand", card, old_cost=True)
+		pass
+class pp_TSC_641td(Preset_Play):
+	""" Queen Azshara
+	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('TSC_641td',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):

@@ -316,10 +316,15 @@ class TSC_032t2:# <12>[1658]
 
 if Sunken_Gorloc_Ravager:# 
 	Sunken_Neutral+=['TSC_034']
-class TSC_034:# <12>[1658] ##### OK?
+class TSC_034:# <12>[1658] ##### OK OK
 	""" Gorloc Ravager
 	[Battlecry:] Draw 3 Murlocs. """
-	play = Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC))
+	play = (
+		Find(FRIENDLY_DECK + MURLOC) & Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),
+		Find(FRIENDLY_DECK + MURLOC) & Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),
+		Find(FRIENDLY_DECK + MURLOC) & Draw(CONTROLLER, RANDOM(FRIENDLY_DECK + MURLOC)),
+	)
+	#play = Give(CONTROLLER, RandomMinion(race=Race.MURLOC)) * 3
 	pass
 
 
@@ -380,12 +385,14 @@ class TSC_053:# <12>[1658]
 
 
 
-if Sunken_Slithering_Deathscale:# 
+if Sunken_Slithering_Deathscale:# OK
 	Sunken_Neutral+=['TSC_064']
 class TSC_064:# <12>[1658]
 	""" Slithering Deathscale
 	[Battlecry:] If you've cast three spells while holding this, deal 3 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 3, [SetScriptDataNum1(SELF, True)]))
+	play = ScriptDataNum1True(SELF) & Hit(ENEMY_CHARACTERS, 3)
 	pass
 
 
@@ -407,7 +414,7 @@ if Sunken_Ambassador_Faelin:#
 class TSC_067:# <12>[1658]
 	""" Ambassador Faelin
 	[Battlecry:] Put 3 [Colossal] minions on the bottom of your deck. """
-	#
+	play= ShuffleBottom(CONTROLLER, RandomMinion(colossal=True)) * 3
 	pass
 
 
@@ -498,38 +505,40 @@ if Sunken_Queen_Azshara:#
 class TSC_641:# <12>[1658]
 	""" Queen Azshara
 	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 3, [SetScriptDataNum1(SELF, True)]))
+	play = ScriptDataNum1True(SELF) & Discover(CONTROLLER, RandomID('TSC_641ta','TSC_641tb','TSC_641tc','TSC_641td')*3)
 	pass
+class TSC_641ta_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=ActionArg()
+	def do(self,source,target,card):
+		card=Give(target,Copy(card)).trigger(source)
+		card=card[0][0]
+		Buff(card, 'TSC_641tde')
 class TSC_641ta:# <12>[1658]
 	""" Ring of Tides
 	After you cast a spell, this becomes a copy of it that costs (1). """
-	#
+	events = OWN_SPELL_PLAY.on(TSC_641ta_Action(CONTROLLER, Play.CARD), Destroy(SELF))
 	pass
-class TSC_641tae:# <12>[1658]
-	""" Shifting
-	Transforming into your spells. """
-	#
+class TSC_641tae:
 	pass
 class TSC_641tb:# <12>[1658]
 	""" Horn of Ancients
 	Add a random [Colossal] minion to your hand.It costs (1). """
-	#
+	play = TSC_641ta_Action(CONTROLLER, RandomMinion(colossal=True))
 	pass
-class TSC_641tc:# <12>[1658]
+class TSC_641tc:# <12>[1658] ## weapon
 	""" Xal'atath
 	After you cast a spell, deal 2 damage to the enemy hero and lose 1 Durability. """
-	#
+	events = OWN_SPELL_PLAY.after(Hit(ENEMY_HERO,2), Hit(FRIENDLY_WEAPON,1))	
 	pass
 class TSC_641td:# <12>[1658]
 	""" Tidestone of Golganneth
-	Shuffle 5 randomspells into your deck.Set their Cost to (1).Draw two cards. """
-	#
+	Shuffle 5 random spells into your deck.Set their Cost to (1).Draw two cards. """
+	play = (Shuffle(CONTROLLER, RandomSpell()).then(Buff(Shuffle.CARD, 'TSC_641tde'))) * 5, Draw(CONTROLLER) * 2
 	pass
-class TSC_641tde:# <12>[1658]
-	""" Reduced
-	Costs (1). """
-	#
-	pass
+TSC_641tde=buff(cost=SET(1))
 
 
 
@@ -548,7 +557,7 @@ class TSC_645:# <12>[1658] ############## need check #####
 if Sunken_Seascout_Operator:# 
 	Sunken_Neutral+=['TSC_646']
 	Sunken_Neutral+=['TSC_646t']
-class TSC_646:# <12>[1658]
+class TSC_646:# <12>[1658] ############## need check #########
 	""" Seascout Operator
 	[Battlecry:] If you control a Mech, summon two 2/1 Mechafish. """
 	play = Find(FRIENDLY_MINIONS + MECH) & (Summon(CONTROLLER, 'TSC_646t')*2)
