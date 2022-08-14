@@ -347,6 +347,7 @@ if Sunken_Rainbow_Glowscale:# OK
 class TSC_053:# <12>[1658]
 	""" Rainbow Glowscale
 	[Spell Damage +1] """
+	#<Tag enumID="192" name="SPELLPOWER" type="Int" value="1"/>
 	pass
 
 
