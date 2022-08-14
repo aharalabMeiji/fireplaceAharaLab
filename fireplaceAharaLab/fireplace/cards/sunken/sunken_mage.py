@@ -181,10 +181,30 @@ class TSC_620:# <4>[1658]
 
 if Sunken_Trench_Surveyor:# 
 	Sunken_Mage+=['TSC_642']
+class TSC_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if hasattr(c, 'race') and c.race==Race.MECHANICAL:
+					Draw(controller, c).trigger(controller)
+				break
+		pass
+class TSC_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TSC_642:# <4>[1658]
 	""" Trench Surveyor
 	[Battlecry:] [Dredge].If it's a Mech, draw it. """
-	#
+	play = TSC_Dredge(CONTROLLER)
 	pass
 
 

@@ -20,17 +20,34 @@ Sunken_The_Fires_of_Zin_Azshari=True  ###
 
 if Sunken_Igneous_Lavagorger:# 
 	Sunken_Warrior+=['TID_714']
-	Sunken_Warrior+=['TID_714e']
+	#Sunken_Warrior+=['TID_714e']
+class TID_714_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				GainArmor(controller.hero, c.cost).trigger(controller)
+				break
+		pass
+class TID_714_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TID_714_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TID_714:# <10>[1658]
 	""" Igneous Lavagorger
 	[Taunt] [Battlecry:] [Dredge]. Gain_Armor equal to its Cost. """
-	#
+	play = TID_714_Dredge(CONTROLLER)
 	pass
-class TID_714e:# <10>[1658]
-	""" Gorged
-	Increased attack. """
-	#
-	pass
+#class TID_714e:# <10>[1658]
+#	""" Gorged	Increased attack. """
+#	pass
 
 
 
@@ -151,17 +168,18 @@ class TSC_939:# <10>[1658]
 if Sunken_From_the_Depths:# 
 	Sunken_Warrior+=['TSC_940']
 	Sunken_Warrior+=['TSC_940e2']
+class TSC_940_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		for card in controller.deck[:5]:
+			Buff(card, 'TSC_940e2').trigger(controller)
 class TSC_940:# <10>[1658]
 	""" From the Depths
 	Reduce the Cost of thebottom five cards in your_deck by (3), then [Dredge]. """
-	#
+	play = TSC_940_Action(CONTROLLER), Dredge(CONTROLLER)
 	pass
-
-class TSC_940e2:# <10>[1658]
-	""" Current Events
-	Costs (3) less. """
-	#
-	pass
+TSC_940e2=buff(cost=-3)
 
 
 
@@ -186,17 +204,33 @@ class TSC_941t:# <10>[1658]
 if Sunken_Obsidiansmith:# 
 	Sunken_Warrior+=['TSC_942']
 	Sunken_Warrior+=['TSC_942e']
+class TSC_942_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if c.type==CardType.MINION or c.type==CardType.WEAPON:
+					Buff(c, 'TSC_942e').trigger(controller)
+				break
+		pass
+
+class TSC_942_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_942_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TSC_942:# <10>[1658]
 	""" Obsidiansmith
-	[Battlecry:] [Dredge]. If it'sa minion or a weapon,give it +1/+1. """
-	#
+	[Battlecry:] [Dredge]. If it's a minion or a weapon, give it +1/+1. """
+	play = TSC_942_Dredge(CONTROLLER)
 	pass
-
-class TSC_942e:# <10>[1658]
-	""" Flameforged
-	+1/+1. """
-	#
-	pass
+TSC_942e=buff(1,1)
 
 
 

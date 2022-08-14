@@ -23,8 +23,11 @@ if Sunken_Ancient_Krakenbane:#
 	Sunken_Hunter+=['TID_074']
 class TID_074:# <3>[1658]
 	""" Ancient Krakenbane
-	[Battlecry:] If you've castthree spells while holdingthis, deal 5 damage.@<i>({0} left!)</i>@<i>(Ready!)</i> """
-	#
+	[Battlecry:] If you've cast three spells while holding this, deal 5 damage.@<i>({0} left!)</i>@<i>(Ready!)</i> """
+	requirements={PlayReq.REQ_TARGET_IF_AVAILABLE:0,}
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SidequestCounter(SELF, 3, SetScriptDataNum1(SELF, True)))
+	play = ScriptDataNum1True(SELF) & Hit(TARGET, 5)
 	pass
 
 
@@ -34,8 +37,12 @@ if Sunken_Shellshot:#
 	Sunken_Hunter+=['TID_075']
 class TID_075:# <3>[1658]
 	""" Shellshot
-	Deal $3 damage to arandom enemy minion.Repeat this with 1less damage. """
-	#
+	Deal $3 damage to a random enemy minion. Repeat this with 1 less damage. """
+	play = (
+		Hit(RANDOM(ENEMY_MINIONS), 3),
+		Find(ENEMY_MINIONS) & Hit(RANDOM(ENEMY_MINIONS), 2),
+		Find(ENEMY_MINIONS) & Hit(RANDOM(ENEMY_MINIONS), 1),
+	)
 	pass
 
 
@@ -43,10 +50,32 @@ class TID_075:# <3>[1658]
 
 if Sunken_K9_0tron:# 
 	Sunken_Hunter+=['TID_099']
+class TID_099_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if c.cost==1:
+					c.zone=Zone.SETASIDE
+					Summon(controller,c).trigger(controller)
+					#c.zone=Zone.PLAY# ???
+				break
+		pass
+class TID_099_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TID_099_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TID_099:# <3>[1658]
 	""" K9_0tron
-	[Battlecry:] [Dredge].If it's a 1-Cost minion,summon it. """
-	#
+	[Battlecry:] [Dredge].If it's a 1-Cost minion, summon it. """
+	play = TID_099_Dredge(CONTROLLER)
 	pass
 
 
@@ -65,10 +94,31 @@ class TSC_023:# <3>[1658]
 
 if Sunken_Harpoon_Gun:# 
 	Sunken_Hunter+=['TSC_070']
-class TSC_070:# <3>[1658]
+class TSC_070_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if hasattr(c,'race') and c.race==Race.BEAST:
+					c.cost-=3## c._cost-=3
+				break
+		pass
+
+class TSC_070_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_070_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
+class TSC_070:# <3>[1658] weapon
 	""" Harpoon Gun
 	After your hero attacks, [Dredge]. If it's a Beast, reduce its Cost by (3). """
-	#
+	events = Attack(FRIENDLY_HERO).after(TSC_070_Dredge(CONTROLLER))
 	pass
 
 

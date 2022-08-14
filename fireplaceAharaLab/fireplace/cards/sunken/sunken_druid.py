@@ -156,10 +156,30 @@ class TSC_653:# <2>[1658]
 
 if Sunken_Aquatic_Form:# 
 	Sunken_Druid+=['TSC_654']
+class TSC_654_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if controller.mana >= c.cost:
+					c.zone=Zone.HAND# draw it
+				break
+		pass
+class TSC_654_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_654_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TSC_654:# <2>[1658]
 	""" Aquatic Form
 	[Dredge]. If you have the Mana to play the card this turn, draw it. """
-	#
+	play = TSC_654_Dredge(CONTROLLER)
 	pass
 
 
