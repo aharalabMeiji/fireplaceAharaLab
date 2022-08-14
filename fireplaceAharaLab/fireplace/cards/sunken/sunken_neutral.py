@@ -409,7 +409,7 @@ class TSC_065:# <12>[1658]
 
 
 
-if Sunken_Ambassador_Faelin:# 
+if Sunken_Ambassador_Faelin:# OK
 	Sunken_Neutral+=['TSC_067']
 class TSC_067:# <12>[1658]
 	""" Ambassador Faelin
@@ -513,13 +513,16 @@ class TSC_641ta_Action(TargetedAction):
 	TARGET=ActionArg()
 	CARD=ActionArg()
 	def do(self,source,target,card):
-		card=Give(target,Copy(card)).trigger(source)
+		if isinstance(card,list):
+			card=card[0]
+		card=Give(target,card.id).trigger(source)
 		card=card[0][0]
-		Buff(card, 'TSC_641tde')
+		Buff(card, 'TSC_641tde').trigger(source)
 class TSC_641ta:# <12>[1658]
 	""" Ring of Tides
 	After you cast a spell, this becomes a copy of it that costs (1). """
-	events = OWN_SPELL_PLAY.on(TSC_641ta_Action(CONTROLLER, Play.CARD), Destroy(SELF))
+	class Hand:
+		events = OWN_SPELL_PLAY.on(TSC_641ta_Action(CONTROLLER, Play.CARD), Destroy(SELF))
 	pass
 class TSC_641tae:
 	pass
@@ -538,7 +541,9 @@ class TSC_641td:# <12>[1658]
 	Shuffle 5 random spells into your deck.Set their Cost to (1).Draw two cards. """
 	play = (Shuffle(CONTROLLER, RandomSpell()).then(Buff(Shuffle.CARD, 'TSC_641tde'))) * 5, Draw(CONTROLLER) * 2
 	pass
-TSC_641tde=buff(cost=SET(1))
+class TSC_641tde:
+	cost=lambda self, i: 1
+	pass
 
 
 

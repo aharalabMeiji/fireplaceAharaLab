@@ -17,15 +17,16 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_032y)#OK
 	#PresetGame(pp_TSC_034)#OK
 	#PresetGame(pp_TSC_052)#giving up
-	PresetGame(pp_TSC_064)#OK
-	PresetGame(pp_TSC_067)#
-	PresetGame(pp_TSC_069)#
-	PresetGame(pp_TSC_638)#
-	PresetGame(pp_TSC_641)#
-	PresetGame(pp_TSC_641ta)#
-	PresetGame(pp_TSC_641tb)#
-	PresetGame(pp_TSC_641tc)#
-	PresetGame(pp_TSC_641td)#
+	#PresetGame(pp_TSC_064)#OK
+	#PresetGame(pp_TSC_067)#OK
+	#PresetGame(pp_TSC_069x)#OK
+	#PresetGame(pp_TSC_069y)#OK
+	#PresetGame(pp_TSC_638)#OK
+	#PresetGame(pp_TSC_641)#OK
+	#PresetGame(pp_TSC_641ta)#OK
+	#PresetGame(pp_TSC_641tb)#OK
+	#PresetGame(pp_TSC_641tc)#OK
+	#PresetGame(pp_TSC_641td)#OK
 	PresetGame(pp_TSC_645)#
 	PresetGame(pp_TSC_646)#
 	PresetGame(pp_TSC_649)#
@@ -701,33 +702,64 @@ class pp_TSC_067(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.deck[:5]:
+			self.print_stats("controller.deck(bottom)", card)
+		assert controller.deck[0].colossal==True, "colossal"
+		assert controller.deck[1].colossal==True, "colossal"
+		assert controller.deck[2].colossal==True, "colossal"
 		pass
 
 ################TSC_069##################
 
-class pp_TSC_069(Preset_Play):
+class pp_TSC_069x(Preset_Play):
 	""" Amalgam of the Deep
-	[Battlecry:] Choose a friendly minion. [Discover] a minionof the same minion type. """
+	[Battlecry:] Choose a friendly minion. [Discover] a minion of the same minion type. """
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_069',controller)#
+		self.mark2=self.exchange_card('beast',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark2)		
+		self.play_card(self.mark1, target=self.mark2)
 		self.change_turn()
 		### opp
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
+		print("self.mark2.race=%s"%(self.mark2.race))
 		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+			self.print_stats("controller.hand", card, show_race=True)
+		pass
+class pp_TSC_069y(Preset_Play):
+	""" Amalgam of the Deep
+	[Battlecry:] Choose a friendly minion. [Discover] a minion of the same minion type. """
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('TSC_069',controller)#
+		self.mark2=self.exchange_card('dragon',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark2)		
+		self.play_card(self.mark1, target=self.mark2)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		print("self.mark2.race=%s"%(self.mark2.race))
+		for card in controller.hand:
+			self.print_stats("controller.hand", card, show_race=True)
 		pass
 
 ################TSC_632##################
@@ -763,6 +795,7 @@ class pp_TSC_638(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_638',controller)#
+		self.mark2=self.exchange_card('TSC_638',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -770,14 +803,16 @@ class pp_TSC_638(Preset_Play):
 		controller = self.player
 		### con
 		self.play_card(self.mark1)
+		self.play_card(self.mark2)
 		self.change_turn()
 		### opp
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.field:
+			self.print_stats("controller.field", card, old_cost=True)
+		assert self.mark1.atk==self.mark1.data.atk+1, "atk"
 		pass
 
 ################TSC_640##################
@@ -807,21 +842,32 @@ class pp_TSC_640(Preset_Play):
 
 ################TSC_641##################
 
+from fireplace.actions import Give
 class pp_TSC_641(Preset_Play):
 	""" Queen Azshara
 	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
 	def preset_deck(self):
+
 		controller=self.player
-		self.mark1=self.exchange_card('TSC_641',controller)#
+		self.mark2=self.exchange_card('spellC2',controller)#
+		self.mark3=self.exchange_card('spellC2',controller)#
+		self.mark4=self.exchange_card('spellC2',controller)#
+		self.mark1=(Give(controller,'TSC_641').trigger(controller))[0][0]#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark4)
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
 		self.change_turn()
 		### opp
+		self.change_turn()
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -830,18 +876,19 @@ class pp_TSC_641(Preset_Play):
 			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 class pp_TSC_641ta(Preset_Play):
-	""" Queen Azshara
-	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	""" Ring of Tides
+	After you cast a spell, this becomes a copy of it that costs (1). """
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_641ta',controller)#
+		self.mark2=self.exchange_card('spellC3',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark2)
 		self.change_turn()
 		### opp
 		pass
@@ -850,10 +897,13 @@ class pp_TSC_641ta(Preset_Play):
 		controller = self.player
 		for card in controller.hand:
 			self.print_stats("controller.hand", card, old_cost=True)
+			if card.type==CardType.SPELL and card.buffs!=[] and card.buffs[0].id=='TSC_641tde':
+				assert card.id==self.mark2.id, "id"
+				assert card.cost==1, "cost"
 		pass
 class pp_TSC_641tb(Preset_Play):
-	""" Queen Azshara
-	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	""" Horn of Ancients
+	Add a random [Colossal] minion to your hand.It costs (1). """
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_641tb',controller)#
@@ -872,13 +922,16 @@ class pp_TSC_641tb(Preset_Play):
 		controller = self.player
 		for card in controller.hand:
 			self.print_stats("controller.hand", card, old_cost=True)
+		assert controller.hand[-1].colossal==True, "colossal"
+		assert controller.hand[-1].cost==1, "cost"
 		pass
 class pp_TSC_641tc(Preset_Play):
-	""" Queen Azshara
-	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	""" Xal'atath
+	After you cast a spell, deal 2 damage to the enemy hero and lose 1 Durability. """
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_641tc',controller)#
+		self.mark2=self.exchange_card('spellC2',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -886,6 +939,7 @@ class pp_TSC_641tc(Preset_Play):
 		controller = self.player
 		### con
 		self.play_card(self.mark1)
+		self.play_card(self.mark2)
 		self.change_turn()
 		### opp
 		pass
@@ -894,10 +948,12 @@ class pp_TSC_641tc(Preset_Play):
 		controller = self.player
 		for card in controller.hand:
 			self.print_stats("controller.hand", card, old_cost=True)
+		weapon = controller.weapon
+		assert weapon.durability==weapon.data.durability-1, "durability"
 		pass
 class pp_TSC_641td(Preset_Play):
-	""" Queen Azshara
-	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	""" Tidestone of Golganneth
+	Shuffle 5 random spells into your deck.Set their Cost to (1).Draw two cards. """
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_641td',controller)#
@@ -914,8 +970,18 @@ class pp_TSC_641td(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
+		count=0
+		for card in controller.deck:
+			self.print_stats("controller.deck", card, old_cost=True)
+			if card.buffs!=[]:
+				assert card.cost==1, "cost"
+				count += 1
 		for card in controller.hand:
 			self.print_stats("controller.hand", card, old_cost=True)
+			if card.buffs!=[]:
+				assert card.cost==1, "cost"
+				count += 1
+		assert count==5, "count"
 		pass
 
 ################TSC_645##################

@@ -278,7 +278,7 @@ class Preset_Play:
 		if show_buff and len(card.buffs):
 			for buff in card.buffs:
 				print("[%r]" % buff,end="")
-		if show_race:
+		if show_race and hasattr(card,'race'):
 			print("(race=%r)"%(card.race),end="")
 		print("")
 		pass
