@@ -1,6 +1,6 @@
 from .simulate_game import Preset_Play,PresetGame
-from hearthstone.enums import Zone,CardType, Rarity, PlayReq
-from fireplace.actions import Hit, Summon
+from hearthstone.enums import Zone,CardType, Rarity, PlayReq, Race
+from fireplace.actions import Hit, Summon , Shuffle
 
 def sunken_neutral():
 	#PresetGame(pp_TID_710)#OK
@@ -27,12 +27,12 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_641tb)#OK
 	#PresetGame(pp_TSC_641tc)#OK
 	#PresetGame(pp_TSC_641td)#OK
-	PresetGame(pp_TSC_645)#
-	PresetGame(pp_TSC_646)#
-	PresetGame(pp_TSC_649)#
-	PresetGame(pp_TSC_823)#
-	PresetGame(pp_TSC_826)#
-	PresetGame(pp_TSC_827)#
+	#PresetGame(pp_TSC_645)#OK
+	#PresetGame(pp_TSC_646)#OK
+	#PresetGame(pp_TSC_649)#OK
+	#PresetGame(pp_TSC_823)#OK
+	#PresetGame(pp_TSC_826)#OK
+	#PresetGame(pp_TSC_827)#OK
 	#PresetGame(pp_TSC_829)#OK
 	#PresetGame(pp_TSC_908)#OK
 	#PresetGame(pp_TSC_909)#OK
@@ -1001,12 +1001,15 @@ class pp_TSC_645(Preset_Play):
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		Hit(self.mark1, 10).trigger(controller.opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.field:
+			if card.type==CardType.MINION and card.race==Race.MECHANICAL and card.cost<=3:
+				print("**",end="")
+			self.print_stats("controller.field", card, old_cost=True)
 		pass
 
 ################TSC_646##################
@@ -1017,6 +1020,8 @@ class pp_TSC_646(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_646',controller)#
+		self.mark2 = Summon(controller, self.card_choice('mech')).trigger(self.player)
+		self.mark2 = self.mark2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1030,8 +1035,12 @@ class pp_TSC_646(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		count=0
+		for card in controller.field:
+			self.print_stats("controller.field", card, old_cost=True)
+			if card.id=='TSC_646t':
+				count+=1
+		assert count==2, "mechafish"
 		pass
 
 ################TSC_647##################
@@ -1067,21 +1076,27 @@ class pp_TSC_649(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_649',controller)#
+		self.mark2=Summon(controller,self.card_choice('mech')).trigger(controller)
+		self.mark2=self.mark2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.mark2)
 		self.change_turn()
 		### opp
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.field:
+			self.print_stats("controller.field", card, show_buff=True)
+			if card.buffs!=[]:
+				assert card.rush==True,"buff"
+				assert card.windfury==True,"buff"
+				assert card.divine_shield==True,"buff"
 		pass
 
 ################TSC_823##################
@@ -1092,6 +1107,8 @@ class pp_TSC_823(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_823',controller)#
+		self.mark2=self.exchange_card('spellC3',controller)#
+		self.mark3=self.exchange_card('spellC2',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1099,6 +1116,10 @@ class pp_TSC_823(Preset_Play):
 		controller = self.player
 		### con
 		self.play_card(self.mark1)
+		assert self.mark2.cost==self.mark2.data.cost-1, "cost"
+		assert self.mark3.cost==self.mark3.data.cost-1, "cost"
+		self.play_card(self.mark2)
+		assert self.mark3.cost==self.mark3.data.cost, "cost"
 		self.change_turn()
 		### opp
 		pass
@@ -1117,12 +1138,15 @@ class pp_TSC_826(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_826',controller)#
+		self.mark2=self.exchange_card('spell',controller)#
+		Shuffle(self.controller, self.card_choice('naga')).trigger(self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		controller = self.player
 		### con
+		self.play_card(self.mark2)
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
@@ -1130,8 +1154,13 @@ class pp_TSC_826(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
+		last_action = controller._targetedaction_log[-1]['class']
+		assert isinstance(last_action, Give)==True, "Give"
+		last_target = controller._targetedaction_log[-1]['target_args']
+		assert last_target[0][0].race==Race.NAGA, "naga"
 		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+			self.print_stats("controller.hand", card, show_race=True)
+
 		pass
 
 ################TSC_827##################
@@ -1142,6 +1171,7 @@ class pp_TSC_827(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('TSC_827',controller)#
+		self.mark2=self.exchange_card("spellC3",controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1149,14 +1179,20 @@ class pp_TSC_827(Preset_Play):
 		controller = self.player
 		### con
 		self.play_card(self.mark1)
+		self.play_card(self.mark2)
+		assert self.mark1.atk==self.mark1.data.atk+1, "atk"
 		self.change_turn()
+		assert self.mark1.atk==self.mark1.data.atk+1, "atk"
 		### opp
+		self.change_turn()
+		assert self.mark1.atk==self.mark1.data.atk, "atk"
+		### con
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.field:
+			self.print_stats("controller.field", card)
 		pass
 
 ################TSC_829##################

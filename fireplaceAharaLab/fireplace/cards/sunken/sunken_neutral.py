@@ -422,7 +422,7 @@ class TSC_067:# <12>[1658]
 
 if Sunken_Amalgam_of_the_Deep:# 
 	Sunken_Neutral+=['TSC_069']
-class TSC_069:# <12>[1658] ####### need check ##########
+class TSC_069:# <12>[1658]  ##OK
 	""" Amalgam of the Deep
 	[Battlecry:] Choose a friendly minion. [Discover] a minionof the same minion type. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,}
@@ -445,7 +445,7 @@ TSC_632e=buff(1,1)# <12>[1658]
 
 
 
-if Sunken_Piranha_Swarmer:# 
+if Sunken_Piranha_Swarmer:#  ##OK
 	Sunken_Neutral+=['TSC_638']
 	Sunken_Neutral+=['TSC_638e']
 	#Sunken_Neutral+=['TSC_638t']
@@ -482,7 +482,7 @@ TSC_638e=buff(1,0)
 
 
 
-if Sunken_Reefwalker:# 
+if Sunken_Reefwalker:#  
 	Sunken_Neutral+=['TSC_640']
 class TSC_640:# <12>[1658] ## visually OK
 	""" Reefwalker
@@ -502,7 +502,7 @@ if Sunken_Queen_Azshara:#
 	Sunken_Neutral+=['TSC_641tc']
 	Sunken_Neutral+=['TSC_641td']
 	Sunken_Neutral+=['TSC_641tde']
-class TSC_641:# <12>[1658]
+class TSC_641:# <12>[1658] ##OK
 	""" Queen Azshara
 	[Battlecry:] If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
 	class Hand:
@@ -518,7 +518,7 @@ class TSC_641ta_Action(TargetedAction):
 		card=Give(target,card.id).trigger(source)
 		card=card[0][0]
 		Buff(card, 'TSC_641tde').trigger(source)
-class TSC_641ta:# <12>[1658]
+class TSC_641ta:# <12>[1658] ##OK
 	""" Ring of Tides
 	After you cast a spell, this becomes a copy of it that costs (1). """
 	class Hand:
@@ -526,17 +526,17 @@ class TSC_641ta:# <12>[1658]
 	pass
 class TSC_641tae:
 	pass
-class TSC_641tb:# <12>[1658]
+class TSC_641tb:# <12>[1658] ##OK
 	""" Horn of Ancients
 	Add a random [Colossal] minion to your hand.It costs (1). """
 	play = TSC_641ta_Action(CONTROLLER, RandomMinion(colossal=True))
 	pass
-class TSC_641tc:# <12>[1658] ## weapon
+class TSC_641tc:# <12>[1658] ## weapon ##OK
 	""" Xal'atath
 	After you cast a spell, deal 2 damage to the enemy hero and lose 1 Durability. """
 	events = OWN_SPELL_PLAY.after(Hit(ENEMY_HERO,2), Hit(FRIENDLY_WEAPON,1))	
 	pass
-class TSC_641td:# <12>[1658]
+class TSC_641td:# <12>[1658] ##OK
 	""" Tidestone of Golganneth
 	Shuffle 5 random spells into your deck.Set their Cost to (1).Draw two cards. """
 	play = (Shuffle(CONTROLLER, RandomSpell()).then(Buff(Shuffle.CARD, 'TSC_641tde'))) * 5, Draw(CONTROLLER) * 2
@@ -550,7 +550,7 @@ class TSC_641tde:
 
 if Sunken_Mothership:# 
 	Sunken_Neutral+=['TSC_645']
-class TSC_645:# <12>[1658] ############## need check #####
+class TSC_645:# <12>[1658] ## OK
 	""" Mothership
 	[Rush][Deathrattle:] Summon two random Mechs that cost (3) or less. """
 	deathrattle=Summon(CONTROLLER, RandomMech(cost=RandomNumber(1, 2, 3)))
@@ -562,7 +562,7 @@ class TSC_645:# <12>[1658] ############## need check #####
 if Sunken_Seascout_Operator:# 
 	Sunken_Neutral+=['TSC_646']
 	Sunken_Neutral+=['TSC_646t']
-class TSC_646:# <12>[1658] ############## need check #########
+class TSC_646:# <12>[1658] ### OK
 	""" Seascout Operator
 	[Battlecry:] If you control a Mech, summon two 2/1 Mechafish. """
 	play = Find(FRIENDLY_MINIONS + MECH) & (Summon(CONTROLLER, 'TSC_646t')*2)
@@ -573,7 +573,7 @@ class TSC_646t:# <12>[1658]
 
 
 
-if Sunken_Pelican_Diver:# 
+if Sunken_Pelican_Diver:# visually OK
 	Sunken_Neutral+=['TSC_647']
 	#Sunken_Neutral+=['TSC_647e']
 class TSC_647:# <12>[1658]
@@ -589,7 +589,7 @@ class TSC_647:# <12>[1658]
 
 
 
-if Sunken_Ini_Stormcoil:# 
+if Sunken_Ini_Stormcoil:# OK
 	Sunken_Neutral+=['TSC_649']
 	Sunken_Neutral+=['TSC_649e2']
 class TSC_649_Choice(Choice):
@@ -597,21 +597,25 @@ class TSC_649_Choice(Choice):
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(TSC_649_Choice.choose)%s chooses %r"%(card.controller.name, card))
-		newcard=(Summon(self.controller, Copy(card)).trigger(self.controller))[0][0]
-		Buff(newcard, 'TSC_649e2').trigger(self.controller)
+		newcard=Summon(card.controller, card.id).trigger(card.controller)
+		newcard=newcard[0][0]
+		Buff(newcard, 'TSC_649e2').trigger(card.controller)
 		pass
 class TSC_649:# <12>[1658]
 	""" Ini Stormcoil
 	[Battlecry:] Choose a friendly Mech. Summon a copy of it with [Rush], [Windfury], and[Divine Shield]. """
 	play = TSC_649_Choice(CONTROLLER, RANDOM(FRIENDLY_CHARACTERS + MECH)*3)
 	pass
-TSC_649e2=buff(rush=True, divine_shield=True, windfury=True)
+#TSC_649e2=buff(rush=True, divine_shield=True, windfury=True)
 """ Enhanced! 	Granted [Rush], [Divine Shield] and [Windfury]. """
+class TSC_649e2:
+	tags = {GameTag.DIVINE_SHIELD:1, GameTag.RUSH:1}
+	windfury = SET(1)
+	pass
 
 
 
-
-if Sunken_Murkwater_Scribe:# 
+if Sunken_Murkwater_Scribe:# OK
 	Sunken_Neutral+=['TSC_823']
 	Sunken_Neutral+=['TSC_823e']
 class TSC_823:# <12>[1658]
@@ -629,32 +633,32 @@ class TSC_823e:# <12>[1658]
 
 
 
-if Sunken_Crushclaw_Enforcer:# 
+if Sunken_Crushclaw_Enforcer:# OK
 	Sunken_Neutral+=['TSC_826']
 class TSC_826:# <12>[1658]
 	""" Crushclaw Enforcer
 	[Battlecry:] If you've cast a spell while holding this, draw a Naga. """
 	class Hand:
 		events = OWN_SPELL_PLAY.on(SetScriptDataNum1(SELF, True))
-	requirements = { PlayReq.REQ_TARGET_IF_AVAILABLE:0, }
 	play = ScriptDataNum1True(SELF) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + NAGA))
 	pass
 
 
 
 
-if Sunken_Vicious_Slitherspear:# 
+if Sunken_Vicious_Slitherspear:#  OK
 	Sunken_Neutral+=['TSC_827']
 	Sunken_Neutral+=['TSC_827e']
 class TSC_827:# <12>[1658]
 	""" Vicious Slitherspear
-	After you cast a spell,gain +1 Attack untilyour next turn. """
+	After you cast a spell,gain +1 Attack until your next turn. """
 	events = OWN_SPELL_PLAY.after(Buff(SELF, 'TSC_827e'))
 	pass
 class TSC_827e:# <12>[1658]
 	""" Vicious
 	+1 Attack until your next turn. """
-	tags = {GameTag.TAG_ONE_TURN_EFFECT:True , GameTag.ATK:1, }
+	tags = {GameTag.ATK:1, }
+	events = BeginTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
