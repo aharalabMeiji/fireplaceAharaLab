@@ -143,7 +143,7 @@ class EX1_383t:
 	pass
 
 if Core_Equality:# 
-	Core_Paladin+=['CORE_EX1_619']
+	Core_Paladin+=['CORE_EX1_619','EX1_619e']
 class CORE_EX1_619:# <5>[1637]#23.6 ## visually OK
 	""" Equality
 	Change the Health of ALL minions to 1. """

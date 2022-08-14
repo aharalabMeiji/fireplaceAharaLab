@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from hearthstone.enums import Zone,CardType, Rarity
+from hearthstone.enums import Zone,CardType, Rarity, PlayReq
 from fireplace.actions import Hit, Summon
 
 def sunken_neutral():
@@ -13,8 +13,9 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_017x)#OK
 	#PresetGame(pp_TSC_017y)#OK
 	#PresetGame(pp_TSC_020)#OK
-	PresetGame(pp_TSC_032x)#OK
-	PresetGame(pp_TSC_032y)#OK
+	#PresetGame(pp_TSC_032x)#OK
+	#PresetGame(pp_TSC_032y)#OK
+	#PresetGame(pp_TSC_052)#giving up
 	#PresetGame(pp_TSC_829)#OK
 	#PresetGame(pp_TSC_908)#OK
 	#PresetGame(pp_TSC_909)#OK
@@ -549,22 +550,31 @@ class pp_TSC_052(Preset_Play):
 	[Battlecry:] Add a 1/1 Nagaling to your hand. [Discover] a spell that costs (3) or less to teach it. """
 	def preset_deck(self):
 		controller=self.player
+		opponent=controller.opponent
 		self.mark1=self.exchange_card('TSC_052',controller)#
+		self.mark3=(Summon(opponent, self.card_choice('minionH4')).trigger(opponent))[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
+
+		import random
 		super().preset_play()
 		controller = self.player
 		### con
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		for card in controller.hand:
+			#self.print_stats("controller.hand", card, old_cost=True)
+			if card.id=='TSC_052t':
+				self.mark2=card
+				break
+		self.play_card(self.mark2, target=self.mark3)
+		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
 		pass
 
 ################TSC_053##################
