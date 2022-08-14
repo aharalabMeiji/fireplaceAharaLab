@@ -605,10 +605,10 @@ class Play(GameAction):
 		return super()._broadcast(entity, source, at, *args)
 
 	def do(self, source, card, target, index, choose):
-		if card.cant_play:
-			if Config.LOGINFO:
-				print("(Play.do)%r can't be played "%(card))
-			return
+		#if card.cant_play:
+		#	if Config.LOGINFO:
+		#		print("(Play.do)%r can't be played "%(card))
+		#	return
 
 		player = source
 		player.spell_and_damage=False
@@ -650,11 +650,11 @@ class Play(GameAction):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
 		self.resolve_broadcasts()
-		#corrupt:
-		Corrupt(player, card).trigger(player)
 
 		# "Can't Play" (aka Counter) means triggers don't happen either-> resign
 		if not card.cant_play:
+			#corrupt:
+			Corrupt(player, card).trigger(player)
 			if trigger_outcast and card.get_actions("outcast"):
 				source.game.trigger(card, card.get_actions("outcast"), event_args=None)
 			elif trigger_battlecry:
@@ -666,6 +666,9 @@ class Play(GameAction):
 			if played_card.type in (CardType.MINION, CardType.WEAPON):
 				summon_action.broadcast(player, EventListener.AFTER, player, played_card)
 			self.broadcast(player, EventListener.AFTER, player, played_card, target)
+		elif card.zone!=Zone.GRAVEYARD: ## if card.cant_play
+			card.zone=Zone.GRAVEYARD
+			
 
 		player.combo = True
 		player.last_card_played = card

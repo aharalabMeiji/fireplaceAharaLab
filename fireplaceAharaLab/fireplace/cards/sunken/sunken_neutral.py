@@ -289,14 +289,14 @@ class TSC_020e2:# <12>[1658]
 
 
 
-if Sunken_Blademaster_Okani:# 
+if Sunken_Blademaster_Okani:# OK
 	Sunken_Neutral+=['TSC_032']
 	Sunken_Neutral+=['TSC_032t']
 	Sunken_Neutral+=['TSC_032t2']
 class TSC_032:# <12>[1658]
 	""" Blademaster Okani
 	[Battlecry:] [Secretly] choose to[Counter] the next minion orspell your opponent playswhile this is alive. """
-	play = GenericChoicePlay(CONTROLLER, RandomID('TSC_032t','TSC_032t2'))
+	play = GenericChoicePlay(CONTROLLER, RandomID('TSC_032t2'))
 	events = Death(SELF).on(Destroy(FRIENDLY + SECRET + ID('TSC_032t')), Destroy(FRIENDLY + SECRET + ID('TSC_032t2')))
 class TSC_032t:# <12>[1658]
 	""" Minion Counter (spell)-> secret

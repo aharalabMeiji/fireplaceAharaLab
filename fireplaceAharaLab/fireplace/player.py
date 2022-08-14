@@ -93,7 +93,6 @@ class Player(Entity, TargetableByAuras):
 		self.piece_of_cthun = [0,0,0,0]
 		self._death_log=[]
 		self._play_log=[]
-		self._spell_log=[]
 		self._damage_log=[]
 		self._activate_log=[]
 		self._summon_log=[]

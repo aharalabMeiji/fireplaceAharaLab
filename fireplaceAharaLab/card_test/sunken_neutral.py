@@ -13,7 +13,8 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_017x)#OK
 	#PresetGame(pp_TSC_017y)#OK
 	#PresetGame(pp_TSC_020)#OK
-	PresetGame(pp_TSC_032)#
+	PresetGame(pp_TSC_032x)#OK
+	PresetGame(pp_TSC_032y)#OK
 	#PresetGame(pp_TSC_829)#OK
 	#PresetGame(pp_TSC_908)#OK
 	#PresetGame(pp_TSC_909)#OK
@@ -465,12 +466,14 @@ class pp_TSC_020(Preset_Play):
 
 ################TSC_032##################
 
-class pp_TSC_032(Preset_Play):
+class pp_TSC_032x(Preset_Play):
 	""" Blademaster Okani
-	[Battlecry:] [Secretly] choose to[Counter] the next minion orspell your opponent playswhile this is alive. """
+	[Battlecry:] [Secretly] choose to [Counter] the next minion or spell your opponent plays while this is alive. """
 	def preset_deck(self):
 		controller=self.player
+		opponent=controller.opponent
 		self.mark1=self.exchange_card('TSC_032',controller)#
+		self.mark2=self.exchange_card('minionH3',opponent)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -480,12 +483,38 @@ class pp_TSC_032(Preset_Play):
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		self.play_card(self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller = self.player
-		for card in controller.hand:
-			self.print_stats("controller.hand", card, old_cost=True)
+		for card in controller.opponent.hand:
+			self.print_stats("opponent.hand", card, old_cost=True)
+		pass
+class pp_TSC_032y(Preset_Play):
+	""" Blademaster Okani
+	[Battlecry:] [Secretly] choose to [Counter] the next minion or spell your opponent plays while this is alive. """
+	def preset_deck(self):
+		controller=self.player
+		opponent=controller.opponent
+		self.mark1=self.exchange_card('TSC_032',controller)#
+		self.mark2=self.exchange_card('spellC3',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.opponent.hand:
+			self.print_stats("opponent.hand", card, old_cost=True)
 		pass
 
 ################TSC_034##################

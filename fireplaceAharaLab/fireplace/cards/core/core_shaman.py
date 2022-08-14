@@ -121,7 +121,7 @@ class hexfrog:
 	[Taunt] """
 
 if Core_Feral_Spirit:# 
-	Core_Shaman+=['CORE_EX1_248']
+	Core_Shaman+=['CORE_EX1_248','EX1_tk11']
 class CORE_EX1_248:# <8>[1637]##23.6 ##OK
 	""" Feral Spirit
 	Summon two 2/3 Spirit Wolves with [Taunt]. [Overload:] (1) """
