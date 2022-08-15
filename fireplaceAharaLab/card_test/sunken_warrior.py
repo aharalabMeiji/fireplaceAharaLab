@@ -4,6 +4,7 @@ from fireplace.actions import Summon, Hit, Shuffle
 
 def sunken_warrior():
 	#PresetGame(pp_TSC_660)###OK!
+	PresetGame(pp_TSC_944)
 	pass
 
 ##########TSC_660###############
@@ -37,6 +38,30 @@ class pp_TSC_660(Preset_Play):#
 		print("The last three must be the new comers (Nellie's Pirate crew)")
 	pass
 
+##########TSC_944###############
+
+class pp_TSC_944(Preset_Play):# 
+	""" The Fires of Zin-Azshari
+	Replace your deck with minions that cost (5) or more. They cost (5). """
+	def preset_deck(self):
+		self.mark1=self.exchange_card('TSC_944', self.controller)
+		self.mark4=Summon(self.controller, self.card_choice('minionH3')).trigger(self.controller)
+		self.mark4=self.mark4[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.deck:
+			self.print_stats("deck", card, old_cost=True)
+	pass
+		
 ##########ZZZZ###############
 
 class pp_ZZZZ(Preset_Play):# 

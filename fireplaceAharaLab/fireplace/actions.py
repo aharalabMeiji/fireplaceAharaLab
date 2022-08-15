@@ -1772,6 +1772,8 @@ class Summon(TargetedAction):
 	"""
 	Make player targets summon \a id onto their field.
 	This works for equipping weapons as well as summoning minions.
+	TARGET = ActionArg()#CONTROLLER
+	CARD = CardArg()
 	"""
 	TARGET = ActionArg()
 	CARD = CardArg()

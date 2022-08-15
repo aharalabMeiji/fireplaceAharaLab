@@ -210,13 +210,10 @@ if Sunken_Guard_the_City:#
 class TSC_941:# <10>[1658]
 	""" Guard the City
 	Gain 3 Armor.Summon a 2/3 Naga with [Taunt]. """
-	#
-
+	play = GainArmor(FRIENDLY_HERO,3), Summon(CONTROLLER, 'TSC_941t')
 class TSC_941t:# <10>[1658]
 	""" Naga Centaur
 	[Taunt] """
-	#
-	pass
 
 
 
@@ -260,14 +257,9 @@ if Sunken_Lady_Ashvane:#
 	Sunken_Warrior+=['TSC_943e']
 class TSC_943:# <10>[1658]
 	""" Lady Ashvane
-	[Battlecry:] Give all weaponsin your hand, deck, and battlefield +1/+1. """
-	#
-
-class TSC_943e:# <10>[1658]
-	""" Rigid Carapace
-	+1/+1. """
-	#
-	pass
+	[Battlecry:] Give all weapons in your hand, deck, and battlefield +1/+1. """
+	play = Buff(FRIENDLY_WEAPON, 'TSC_943e'),Buff(FRIENDLY_HAND + WEAPON, 'TSC_943e'),Buff(FRIENDLY_DECK + WEAPON, 'TSC_943e')
+TSC_943e=buff(1,1)
 
 
 
@@ -278,12 +270,15 @@ if Sunken_The_Fires_of_Zin_Azshari:#
 class TSC_944:# <10>[1658]
 	""" The Fires of Zin-Azshari
 	Replace your deck with minions that cost (5) or more. They cost (5). """
-	#
+	def play(self):
+		repeat = len(self.controller.deck)
+		for i in range(repeat):
+			self.controller.deck.remove(self.controller.deck[0])
+			card = RandomMinion(cost=[5,6,7,8,9,10]).evaluate(self)
+			card=card[0]
+			Buff(card,'TSC_944e').trigger(self)
+			card.zone=Zone.DECK## may need
 	pass
-
-class TSC_944e:# <10>[1658]
-	""" The Fiery Deep
-	Costs (5). """
-	#
-	pass
+class TSC_944e:
+	cost=SET(5)# <10>[1658]
 
