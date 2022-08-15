@@ -426,7 +426,7 @@ class Choice(GameAction):
 				else:
 					eval_cards.append(card)
 			cards = eval_cards
-		if len(self._args)==3:
+		if len(self._args)>=3:
 			option = self._args[2]
 		else: 
 			option=None

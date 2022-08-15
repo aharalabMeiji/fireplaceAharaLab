@@ -1,4 +1,4 @@
-from hearthstone.enums import CardClass,BlockType, CardType ,PlayState, State, Race, SpellSchool
+from hearthstone.enums import CardClass, BlockType, CardType ,PlayState, State, Race, SpellSchool
 from fireplace.game import Game
 from fireplace.card import Card, PlayableCard
 from fireplace.actions import *
@@ -70,13 +70,16 @@ class Preset_Play:
 		#print ("")
 		#print ("")
 		#print ("")
-		Config.LOGINFO_LOG=[]
 		pass
 	def preset_play(self):
 		pass
 	def result_inspection(self):
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
+		pass
+	def choose_action(self):
+		if self.controller.choice!=None:
+			postAction(self.controller)
 		pass
 	def change_turn(self, player=None):
 		if player==None:
@@ -123,21 +126,21 @@ class Preset_Play:
 						choices.append(_id)
 			_card=random.choice(choices)
 		### spell
-		elif _card=='spell':
+		elif _card=='spell':# except secret cards
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
 					_card = cards.db[_id]
-					if _card.type == CardType.SPELL: 
+					if _card.type == CardType.SPELL and _card.secret==False: 
 						choices.append(_id)
 			_card=random.choice(choices)
-		elif _card[:-1]=='spellC':
+		elif _card[:-1]=='spellC':# except secret cards
 			amount=int(_card[-1:])
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
 					_card = cards.db[_id]
-					if _card.type == CardType.SPELL and _card.cost==amount: 
+					if _card.type == CardType.SPELL and _card.secret==False and _card.cost==amount: 
 						choices.append(_id)
 			_card=random.choice(choices)
 		## race
@@ -158,8 +161,13 @@ class Preset_Play:
 						choices.append(_id)
 			_card=random.choice(choices)
 		elif _card=='elemental':
-			_card=random.choice(['CORE_AT_092','CORE_EX1_187','CORE_EX1_249','CORE_KAR_036','CORE_UNG_813','CORE_CS2_033','BT_155','BT_155t','BT_735','SCH_143',\
-						'SCH_245','DMF_044','DMF_062','DMF_190','YOP_021','DMF_100','DMF_100t','DMF_101','DMF_059','BAR_042','BAR_854','BAR_545','SW_111',])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.ELEMENTAL: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='mech':
 			choices=[]
 			for cardIDlist in All:
@@ -182,8 +190,7 @@ class Preset_Play:
 			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
 		elif _card=='totem':
 			_card=random.choice(['CORE_EX1_575','SCH_537','SCH_612t','CS2_050','CS2_051','CS2_052','NEW1_009'])
-		### etc
-
+		### spell school
 		elif _card=='arcane':
 			choices=[]
 			for cardIDlist in All:
@@ -192,6 +199,33 @@ class Preset_Play:
 					if _card.spell_school == SpellSchool.ARCANE: 
 						choices.append(_id)
 			_card=random.choice(choices)		
+		elif _card=='fire':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.FIRE: 
+						choices.append(_id)
+			_card=random.choice(choices)		
+		elif _card=='frost':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.FROST: 
+						choices.append(_id)
+			_card=random.choice(choices)		
+		elif _card=='nature':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.NATURE: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		### HOLY, SHADOW, FEL
+		### etc
+
 		elif _card=='armor':
 			_card=random.choice(['SW_030','SW_094',])
 		elif _card=='attackspell':
@@ -202,14 +236,6 @@ class Preset_Play:
 			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
 		elif _card=='deathrattle':
 			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
-		elif _card=='fire':
-			_card=random.choice(['CORE_EX1_610','CORE_CS2_029','CORE_CS2_032','SCH_348','DMF_104','BAR_546','SW_107','SW_108','SW_108t','SW_110','SW_462','CORE_EX1_610',])
-		elif _card=='frost':
-			_card=random.choice(['CORE_EX1_611','CORE_EX1_275','CORE_EX1_289','CORE_GIL_801','BT_072','SCH_509','BAR_305','BAR_305t','BAR_305t2','BAR_812','WC_041',])
-		elif _card=='nature':
-			_card=random.choice(['CORE_BOT_420','CORE_CS2_009','CORE_CS2_013','CORE_EX1_158','CORE_EX1_164','EX1_164a','EX1_164b','CORE_EX1_169','CORE_EX1_571',\
-						'BT_128','BT_129','BT_130','BT_132','SCH_333','SCH_427','SCH_612','YOP_015','DMF_058','DMF_732','YOP_026','BAR_533','BAR_536','BAR_549',\
-						'SW_422','SW_437','DREAM_02','DREAM_04','CORE_EX1_169',])
 		elif _card=='noTaunt':
 			choices=[]
 			for cardIDlist in All:

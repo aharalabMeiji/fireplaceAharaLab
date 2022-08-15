@@ -204,7 +204,7 @@ class TSC_945t:# <3>[1658]
 
 
 if Sunken_Urchin_Spines:# 
-	unken_Hunter+=['TSC_946']
+	Sunken_Hunter+=['TSC_946']
 	Sunken_Hunter+=['TSC_946e']
 	Sunken_Hunter+=['TSC_946e2']
 class TSC_946:# <3>[1658]
@@ -264,7 +264,7 @@ class TSC_950:# <3>[1658]
 class TSC_950t:# <3>[1658]
 	""" Hydralodon Head
 	[Deathrattle:] If you control Hydralodon, summon 2 Hydralodon Heads. """
-	deathrattle = Find(FRIENDLY * ID('TSC_950')) & (
+	deathrattle = Find(FRIENDLY + ID('TSC_950')) & (
 		Summon(CONTROLLER, 'TSC_950t'),
 		Summon(CONTROLLER, 'TSC_950t2')
 		)
@@ -273,7 +273,7 @@ class TSC_950t:# <3>[1658]
 class TSC_950t2:# <3>[1658]
 	""" Hydralodon Head
 	[Deathrattle:] If you control Hydralodon, summon 2 Hydralodon Heads. """
-	deathrattle = Find(FRIENDLY * ID('TSC_950')) & (
+	deathrattle = Find(FRIENDLY + ID('TSC_950')) & (
 		Summon(CONTROLLER, 'TSC_950t'),
 		Summon(CONTROLLER, 'TSC_950t2')
 		)

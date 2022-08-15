@@ -193,8 +193,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.sunken_neutral import sunken_neutral
-	sunken_neutral()
+	from card_test.sunken_warrior import sunken_warrior
+	sunken_warrior()
 	pass
 
 def battleground_main():

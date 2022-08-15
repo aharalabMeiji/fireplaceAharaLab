@@ -104,7 +104,7 @@ class TSC_660_Choice(Choice):
 			self.next_choice=self
 		super().choose(card)
 		Buff(card, 'TSC_660e').trigger(self.source)
-		self.source.sidequest_list0.append(card)
+		self.option.sidequest_list0.append(card)#self.option=ship!
 		cards = self._args[1]
 		if isinstance(cards, LazyValue):
 			self.cards = cards.evaluate(self.source)
@@ -112,18 +112,26 @@ class TSC_660_Choice(Choice):
 class TSC_660:# <10>[1658]
 	""" Nellie, the Great Thresher
 	[Colossal +1][Battlecry:] [Discover] 3 Pirates to crew Nellie's Ship! """
-	play = (
-		Summon(CONTROLLER, 'TSC_660t'),
-		TSC_660_Choice(CONTROLLER, RandomPirate()*3, ),
-		)
+	def play(self):
+		ship=Summon(self.controller, 'TSC_660t').trigger(self)
+		ship=ship[0][0]
+		TSC_660_Choice(self.controller, RandomPirate()*3, ship).trigger(self)
+		pass		
 TSC_660e=buff(cost=-1)
 class TSC_660e2:# <10>[1658]
 	pass
-
+class TSC_660t_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		cards=source.sidequest_list0
+		for card in cards:
+			card.zone=Zone.HAND
+			# controller.hand.appen(card) ## no need
 class TSC_660t:# <10>[1658]
 	""" Nellie's Pirate Ship
-	[[Taunt].] [Deathrattle:] AddNellie's Pirate crew to your hand. They cost (1) less. """
-	#
+	[[Taunt].] [Deathrattle:] Add Nellie's Pirate crew to your hand. They cost (1) less. """
+	deathrattle = TSC_660t_Action(CONTROLLER)
 	pass
 
 

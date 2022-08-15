@@ -28,6 +28,8 @@
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
+    <Compile Include="fireplaceAharaLab\card_test\simulate_sample.py" />
+    <Compile Include="fireplaceAharaLab\card_test\sunken_warrior.py" />
     <Compile Include="fireplaceAharaLab\card_test\__init__.py">
       <SubType>Code</SubType>
     </Compile>
