@@ -1866,6 +1866,8 @@ class ShuffleBuff(TargetedAction):
 class ShuffleBottom(TargetedAction):
 	"""
 	Shuffle card targets into player target's deck into its bottom.
+	TARGET = ActionArg()#controller
+	CARD = CardArg()
 	"""
 	TARGET = ActionArg()#controller
 	CARD = CardArg()
@@ -2628,6 +2630,10 @@ class SwapMinionAndHand(TargetedAction):
 
 
 class RegularAttack(TargetedAction):
+	""" attack without paying the cost.
+	TARGET = ActionArg()#ATTACKER
+	OTHER = ActionArg()#DEFENDER
+	"""
 	TARGET = ActionArg()#ATTACKER
 	OTHER = ActionArg()#DEFENDER
 	def do(self, source, target, other):

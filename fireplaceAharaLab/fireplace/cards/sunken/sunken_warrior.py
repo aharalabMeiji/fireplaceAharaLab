@@ -73,7 +73,8 @@ if Sunken_Tidal_Revenant:#
 class TID_716:# <10>[1658]
 	""" Tidal Revenant
 	[Battlecry:] Deal 5 damage. Gain 5 Armor. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0,PlayReq.REQ_MINION_TARGET:0,  }
+	play = Hit(TARGET, 5), GainArmor(FRIENDLY_HERO, 5) 
 	pass
 
 
@@ -84,7 +85,11 @@ if Sunken_Trenchstalker:#
 class TSC_659:# <10>[1658]
 	""" Trenchstalker
 	[Battlecry:] Attack three different random enemies. """
-	#
+	def play(self):
+		cards = random.sample(self.controller.opponent.characters, 3)
+		for card in cards:
+			RegularAttack(self, card).trigger(self)
+		pass
 	pass
 
 
@@ -142,13 +147,13 @@ if Sunken_Azsharan_Trident:#
 	Sunken_Warrior+=['TSC_913t']
 class TSC_913:# <10>[1658]
 	""" Azsharan Trident
-	[Deathrattle:] Puta 'Sunken Trident' on the_bottom of your deck. """
-	#
+	[Deathrattle:] Put a 'Sunken Trident' on the_bottom of your deck. """
+	deathrattle = ShuffleBottom(CONTROLLER, 'TSC_913t')
 	pass
 class TSC_913t:# <10>[1658]
 	""" Sunken Trident
 	After your hero attacks, deal 2 damage to all enemy minions. """
-	#
+	events = Attack(FRIENDLY_HERO).after(Hit(ENEMY_MINIONS, 2))
 	pass
 
 
@@ -159,13 +164,11 @@ if Sunken_Blackscale_Brute:#
 	Sunken_Warrior+=['TSC_917t']
 class TSC_917:# <10>[1658]
 	""" Blackscale Brute
-	[Taunt]. [Battlecry:] If youhave a weapon equipped, summon a 5/6 Naga with [Rush]. """
-	#
-
+	[Taunt]. [Battlecry:] If you have a weapon equipped, summon a 5/6 Naga with [Rush]. """
+	play = Find(FRIENDLY_WEAPON) & Summon(CONTROLLER, 'TSC_917t')
 class TSC_917t:# <10>[1658]
 	""" Firescale Berserker
 	[Rush] """
-	#
 	pass
 
 
@@ -176,7 +179,7 @@ if Sunken_Forged_in_Flame:#
 class TSC_939:# <10>[1658]
 	""" Forged in Flame
 	Destroy your weapon, then draw cards equal to its Attack. """
-	#
+	play = Draw(CONTROLLER) * ATK(FRIENDLY_WEAPON), Destroy(FRIENDLY_WEAPON) 
 	pass
 
 
