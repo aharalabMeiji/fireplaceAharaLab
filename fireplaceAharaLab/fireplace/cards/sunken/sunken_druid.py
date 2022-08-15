@@ -53,13 +53,11 @@ if Sunken_Herald_of_Nature:#
 class TID_002:# <2>[1658]
 	""" Herald of Nature
 	[Battlecry:] If you've cast a Nature spell while holding this, give your other minions +1/+2. """
-	#
+	class Hand:
+		events = Play(CONTROLLER, SPELL + NATURE).on(SetScriptDataNum1(SELF, True))
+	play = ScriptDataNum1True(SELF) & Buff(FRIENDLY_MINIONS - SELF, 'TID_002e')
 	pass
-class TID_002e:# <2>[1658]
-	""" Nature's Bounty
-	+1/+2. """
-	#
-	pass
+TID_002e=buff(1,2)
 
 
 

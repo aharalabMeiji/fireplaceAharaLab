@@ -82,11 +82,11 @@ Alterac_Mage += ['ONY_006','ONY_007','ONY_029',]
 #Alterac_Warlock=['AV_277','AV_281','AV_285','AV_286','AV_286e2','AV_308','AV_312','AV_313','AV_313e','AV_316','AV_316hp','AV_316t','AV_316t4','AV_317','AV_317e','AV_657','AV_657e','AV_657t',]
 #Alterac_Warlock+= ['ONY_033','ONY_034','ONY_034t','ONY_035',]
 ## Sunke City
-from fireplace.cards.sunken import sunken_neutral,sunken_warrior
+from fireplace.cards.sunken import sunken_hunter,sunken_neutral,sunken_warrior
 Sunken_Neutral=sunken_neutral.Sunken_Neutral
 Sunken_Warrior=sunken_warrior.Sunken_Warrior
-
-Sunken_Cards=[Sunken_Neutral,Sunken_Warrior]
+Sunken_Hunter=sunken_hunter.Sunken_Hunter
+Sunken_Cards=[Sunken_Hunter,Sunken_Neutral,Sunken_Warrior]
 # Hero
 Heroes=[
 	'HERO_01',

@@ -663,6 +663,10 @@ class Play(GameAction):
 				source.game.trigger(card, card.get_actions("outcast"), event_args=None)
 			elif trigger_battlecry:
 				source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
+				if hasattr(player,'spell_cast_twice') and player.spell_cast_twice:
+					if Config.LOGINFO:
+						print("(Play.do)spell %r is casted twice." % card)
+					source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
 
 			# If the play action transforms the card (eg. Druid of the Claw), we
 			# have to broadcast the morph result as minion instead.

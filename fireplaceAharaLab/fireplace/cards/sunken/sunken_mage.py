@@ -217,7 +217,9 @@ if Sunken_Spellcoiler:#
 class TSC_643:# <4>[1658]
 	""" Spellcoiler
 	[Battlecry:] If you've cast aspell while holding this,[Discover] a spell. """
-	#
+	class Hand:
+		events = OWN_SPELL_PLAY.on(SetScriptDataNum1(SELF, True))
+	play = ScriptDataNum1True(SELF) & Discover(CONTROLLER, RandomSpell())
 	pass
 
 
@@ -245,6 +247,8 @@ if Sunken_Gifts_of_Azshara:#
 class TSC_948:# <4>[1658]
 	""" Gifts of Azshara
 	Draw a card. If you played a Naga while holding this, do it again. """
-	#
+	class Hand:
+		events = Play(CONTROLLER, NAGA).on(SetScriptDataNum1(SELF, True))
+	play = ScriptDataNum1True(SELF) & Draw(CONTROLLER) * 2 | Draw(CONTROLLER)
 	pass
 

@@ -193,8 +193,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.sunken_warrior import sunken_warrior
-	sunken_warrior()
+	from card_test.sunken_hunter import sunken_hunter
+	sunken_hunter()
 	pass
 
 def battleground_main():

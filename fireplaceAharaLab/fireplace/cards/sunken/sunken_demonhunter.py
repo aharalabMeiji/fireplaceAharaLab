@@ -35,13 +35,15 @@ class TSC_057t:# <14>[1658]
 class TSC_058:# <14>[1658]
 	""" Predation
 	Deal $3 damage.Costs (0) if you played a Naga while holding this. """
-	#
+	class Hand:
+		events = Play(CONTROLLER, NAGA).on(Buff(FRIENDLY_HAND + ID('TSC_058'), 'TSC_058e'))
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, }
+	play = Hit(TARGET, 3)
 	pass
-
 class TSC_058e:# <14>[1658]
 	""" Looting
 	Costs (0). """
-	#
+	cost = SET(0)#
 	pass
 
 class TSC_217:# <14>[1658]
