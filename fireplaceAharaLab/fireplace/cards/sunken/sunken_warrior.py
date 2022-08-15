@@ -58,12 +58,11 @@ if Sunken_Clash_of_the_Colossals:#
 class TID_715:# <10>[1658]
 	""" Clash of the Colossals
 	Add a random [Colossal] minion to both players' hands. Yours costs (2) less. """
-	#
-
+	play = Give(CONTROLLER, RandomMinion(colossal=True)).then(Buff(Give.CARD, 'TID_715e')),Give(OPPONENT, RandomMinion(colossal=True))
 class TID_715e:# <10>[1658]
 	""" Colossal Advantage
 	Costs (2) less. """
-	#
+	cost=lambda self, i: max(i-2,0)
 	pass
 
 
@@ -96,24 +95,34 @@ if Sunken_Nellie_the_Great_Thresher:#
 	Sunken_Warrior+=['TSC_660e']
 	Sunken_Warrior+=['TSC_660e2']
 	Sunken_Warrior+=['TSC_660t']
+class TSC_660_Choice(Choice):
+	def choose(self, card):
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=3:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		Buff(card, 'TSC_660e').trigger(self.source)
+		self.source.sidequest_list0.append(card)
+		cards = self._args[1]
+		if isinstance(cards, LazyValue):
+			self.cards = cards.evaluate(self.source)
+
 class TSC_660:# <10>[1658]
 	""" Nellie, the Great Thresher
-	[Colossal +1][Battlecry:] [Discover] 3 Piratesto crew Nellie's Ship! """
-	#
-
-class TSC_660e:# <10>[1658]
-	""" Mercenary's Fee
-	Costs (1) less. """
-	#
-
+	[Colossal +1][Battlecry:] [Discover] 3 Pirates to crew Nellie's Ship! """
+	play = (
+		Summon(CONTROLLER, 'TSC_660t'),
+		TSC_660_Choice(CONTROLLER, RandomPirate()*3, ),
+		)
+TSC_660e=buff(cost=-1)
 class TSC_660e2:# <10>[1658]
-	""" Pirate Crew
-	Holding Nellie's Pirate Crew. """
-	#
+	pass
 
 class TSC_660t:# <10>[1658]
 	""" Nellie's Pirate Ship
-	[[Taunt].] [Deathrattle:] AddNellie's Pirate crew to yourhand. They cost (1) less. """
+	[[Taunt].] [Deathrattle:] AddNellie's Pirate crew to your hand. They cost (1) less. """
 	#
 	pass
 

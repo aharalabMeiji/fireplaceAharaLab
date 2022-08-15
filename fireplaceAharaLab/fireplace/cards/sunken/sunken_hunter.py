@@ -256,17 +256,27 @@ if Sunken_Hydralodon:#
 class TSC_950:# <3>[1658]
 	""" Hydralodon
 	[Colossal +2][Battlecry:] Give your_Hydralodon Heads [Rush]. """
-	#
+	play = (
+		Summon(CONTROLLER, 'TSC_950t').then(Buff(Summon.CARD, {GameTag.RUSH:1, })),
+		Summon(CONTROLLER, 'TSC_950t2').then(Buff(Summon.CARD, {GameTag.RUSH:1, }))
+		)
 
 class TSC_950t:# <3>[1658]
 	""" Hydralodon Head
 	[Deathrattle:] If you control Hydralodon, summon 2 Hydralodon Heads. """
+	deathrattle = Find(FRIENDLY * ID('TSC_950')) & (
+		Summon(CONTROLLER, 'TSC_950t'),
+		Summon(CONTROLLER, 'TSC_950t2')
+		)
 	#
 
 class TSC_950t2:# <3>[1658]
 	""" Hydralodon Head
 	[Deathrattle:] If you control Hydralodon, summon 2 Hydralodon Heads. """
-	#
+	deathrattle = Find(FRIENDLY * ID('TSC_950')) & (
+		Summon(CONTROLLER, 'TSC_950t'),
+		Summon(CONTROLLER, 'TSC_950t2')
+		)
 	pass
 
 

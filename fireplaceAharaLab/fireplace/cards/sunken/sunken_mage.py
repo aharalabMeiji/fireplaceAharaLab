@@ -95,18 +95,20 @@ if Sunken_Gaia_the_Techtonic:#
 	Sunken_Mage+=['TSC_029t2']
 class TSC_029:# <4>[1658]
 	""" Gaia, the Techtonic
-	[Colossal +2]After a friendly Mechattacks, deal 1 damageto all enemies. """
-	#
+	[Colossal +2]After a friendly Mech attacks, deal 1 damage to all enemies. """
+	play = (
+		Summon(CONTROLLER, 'TSC_029t'),
+		Summon(CONTROLLER, 'TSC_029t2')
+		)
+	events = Attack(FRIENDLY + MECH).after(Hit(ENEMY_CHARACTERS, 1))
 
 class TSC_029t:# <4>[1658]
 	""" Gaia's Drill
 	[Rush] """
-	#
 	pass
 class TSC_029t2:# <4>[1658]
 	""" Gaia's Drill
 	[Rush] """
-	#
 	pass
 
 

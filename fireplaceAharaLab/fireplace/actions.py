@@ -426,10 +426,13 @@ class Choice(GameAction):
 				else:
 					eval_cards.append(card)
 			cards = eval_cards
+		if len(self._args)==3:
+			option = self._args[2]
+		else: 
+			option=None
+		return player, cards, option
 
-		return player, cards
-
-	def do(self, source, player, cards):
+	def do(self, source, player, cards, option=None):
 		if len(cards) == 0:
 			if Config.LOGINFO:
 				print("%s(Choice.do)No choice for this condition."%(Config.LOGINFO_INDENT))
@@ -442,6 +445,7 @@ class Choice(GameAction):
 		self.source = source
 		self.player = player
 		self.cards = cards
+		self.option = option
 		self.min_count = 1
 		self.max_count = 1
 
@@ -822,7 +826,7 @@ class TargetedAction(Action):
 
 	def __repr__(self):
 		args = ["%s=%r" % (k, v) for k, v in zip(self.ARGS[1:], self._args[1:])]
-		return "<TargetedAction: %s(%s)>" % (self.__class__.__name__, ", ".join(args))
+		return "<Action: %s(%s)>" % (self.__class__.__name__, ", ".join(args))
 
 	def __mul__(self, value):
 		self.times = value
@@ -1352,6 +1356,8 @@ class FullHeal(TargetedAction):
 class GainArmor(TargetedAction):
 	"""
 	Make hero targets gain \a amount armor.
+	TARGET = ActionArg(): hero
+	AMOUNT = IntArg()
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -2668,6 +2674,10 @@ class BG_Attack(TargetedAction):
 				self.broadcast(source, EventListener.AFTER, attcard, defcard)
 
 class Dormant(TargetedAction):
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):

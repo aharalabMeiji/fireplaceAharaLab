@@ -58,44 +58,51 @@ class TSC_217e:# <14>[1658]
 
 class TSC_218:# <14>[1658]
 	""" Lady S'theno
-	[Immune] while attacking.After you cast a spell, attackthe lowest Health enemy. """
-	#
+	[Immune] while attacking.After you cast a spell, attack the lowest Health enemy. """
+
 	pass
 
 class TSC_219:# <14>[1658]
 	""" Xhilag of the Abyss
-	[Colossal +4]At the start of your turn,increase the damage ofXhilag's Stalks by 1. """
-	#
+	[Colossal +4]At the start of your turn,increase the damage of Xhilag's Stalks by 1. """
+	play=(
+		Summon(CONTROLLER,'TSC_219t'),
+		Summon(CONTROLLER,'TSC_219t2'),
+		Summon(CONTROLLER,'TSC_219t3'),
+		Summon(CONTROLLER,'TSC_219t4')
+	)
+	events = OWN_TURN_BEGIN.on(
+		AddScriptDataNum1(FRIENDLY_MINIONS+ID('TSC_219t'), 1),
+		AddScriptDataNum1(FRIENDLY_MINIONS+ID('TSC_219t2'), 1),
+		AddScriptDataNum1(FRIENDLY_MINIONS+ID('TSC_219t3'), 1),
+		AddScriptDataNum1(FRIENDLY_MINIONS+ID('TSC_219t4'), 1)
+		)
 	pass
-
 class TSC_219e:# <14>[1658]
-	""" Eye-Laser Surgery
-	Improved damage. """
-	#
 	pass
 
 class TSC_219t:# <14>[1658]
 	""" Xhilag's Stalk
 	At the end of your turn, deal @ damage to a random enemy. """
-	#
+	events = OWN_TURN_END.on(HitScriptDataNum1(SELF, RANDOM(ENEMY_MINIONS)))
 	pass
 
 class TSC_219t2:# <14>[1658]
 	""" Xhilag's Stalk
 	At the end of your turn, deal @ damage to a random enemy. """
-	#
+	events = OWN_TURN_END.on(HitScriptDataNum1(SELF, RANDOM(ENEMY_MINIONS)))
 	pass
 
 class TSC_219t3:# <14>[1658]
 	""" Xhilag's Stalk
 	At the end of your turn, deal @ damage to a random enemy. """
-	#
+	events = OWN_TURN_END.on(HitScriptDataNum1(SELF, RANDOM(ENEMY_MINIONS)))
 	pass
 
 class TSC_219t4:# <14>[1658]
 	""" Xhilag's Stalk
 	At the end of your turn, deal @ damage to a random enemy. """
-	#
+	events = OWN_TURN_END.on(HitScriptDataNum1(SELF, RANDOM(ENEMY_MINIONS)))
 	pass
 
 class TSC_608:# <14>[1658]

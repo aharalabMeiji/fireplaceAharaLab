@@ -69,14 +69,15 @@ if Sunken_Colaque:#
 	Sunken_Druid+=['TSC_026t']
 class TSC_026:# <2>[1658]
 	""" Colaque
-	[Colossal +1] [Immune] while you controlColaque's Shell. """
-	#
+	[Colossal +1] [Immune] while you control Colaque's Shell. """
+	play=Summon(CONTROLLER, 'TSC_026t')
+	update = Find(FRIENDLY + ID('TSC_026t')) & Refresh(CONTROLLER, {GameTag.IMMUNE: True, })
 	pass
 
 class TSC_026t:# <2>[1658]
 	""" Colaque's Shell
 	[Taunt][Deathrattle:] Gain 8 Armor. """
-	#
+	deathrattle = GainArmor(FRIENDLY_HERO, 8)
 	pass
 
 
