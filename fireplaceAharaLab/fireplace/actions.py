@@ -2387,6 +2387,12 @@ class SidequestCounterClear(TargetedAction):
 		target._sidequest_counter_ = 0
 
 class SidequestManaCounter(TargetedAction):
+	"""
+	TARGET = ActionArg()# sidequest card
+	CARD = ActionArg()# spell card
+	AMOUNT = IntArg() #max of mana
+	TARGETACTION = ActionArg()# sidequest action
+	"""
 	TARGET = ActionArg()# sidequest card
 	CARD = ActionArg()# spell card
 	AMOUNT = IntArg() #max of mana
@@ -3160,6 +3166,10 @@ class SetScriptDataNum1(TargetedAction):
 		pass
 
 class AddScriptDataNum1(TargetedAction):
+	"""
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	"""
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount):
