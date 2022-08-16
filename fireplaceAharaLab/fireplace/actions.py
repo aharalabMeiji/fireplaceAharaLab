@@ -1464,6 +1464,8 @@ class Hit(TargetedAction):
 		#			else:
 		#				amount = (amount+1)/2
 		#			break;
+		if source.type==CardType.SPELL and source.poisonous:
+			killed_by_poisonous_spell=True
 		if amount:
 			#if isinstance(source,PlayableCard):
 			if Config.PRINT_HITLOG:
@@ -1555,6 +1557,8 @@ class Mill(TargetedAction):
 class Morph(TargetedAction):
 	"""
 	Morph minion target into \a minion id
+	TARGET = ActionArg()
+	CARD = CardArg()
 	"""
 	TARGET = ActionArg()
 	CARD = CardArg()

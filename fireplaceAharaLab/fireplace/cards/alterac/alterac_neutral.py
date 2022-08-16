@@ -668,7 +668,7 @@ class ONY_005_Action(TargetedAction):# <12>[1626]
 			for card in controller.deck:
 				Destroy(card).trigger(self)
 			for card in new_deck:
-				Shuffle(controller, new_deck).trigger(self)
+				Shuffle(controller, card).trigger(self)
 			pass
 class ONY_005:# <12>[1626]
 	""" Kazakusan
