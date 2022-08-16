@@ -1,5 +1,7 @@
 from ..utils import *
 
+#Scholo_Mage=['SCH_241','SCH_243','SCH_310','SCH_348','SCH_353','SCH_400','SCH_400e2',]
+
 class SCH_509:#OK
 	"""Brain Freeze	Rare"""
 	#<b>Freeze</b> a minion. <b>Combo:</b> Also deal $3 damage to it.	

@@ -7,6 +7,7 @@ Darkmoon_Warrior=['DMF_521','DMF_521t','DMF_522',
 'DMF_529','DMF_530','DMF_530e','DMF_531','DMF_531e',
 'YOP_013','YOP_013e','YOP_014','YOP_014e',]
 
+#Darkmoon_Warrior=['DMF_521','DMF_521t','DMF_522','DMF_523','DMF_524','DMF_524e','DMF_525','DMF_526','DMF_526a','DMF_526e','DMF_528','DMF_529','DMF_530','DMF_530e','DMF_531','DMF_531e','YOP_013','YOP_013e','YOP_014','YOP_014e',]
 
 class DMF_521:#OK <10>[1466]
 	""" Sword Eater

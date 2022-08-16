@@ -1,5 +1,6 @@
 from ..utils import *
 
+#AOO_Mage=['BT_002','BT_002e','BT_003','BT_004','BT_006','BT_006e','BT_014','BT_021','BT_022','BT_028','BT_028t','BT_072','BT_291',]
 
 ##
 # Minions

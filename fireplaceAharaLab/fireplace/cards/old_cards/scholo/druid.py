@@ -1,5 +1,7 @@
 from ..utils import *
 
+#Scholo_Druid=['SCH_242','SCH_333','SCH_333e','SCH_333e2','SCH_427','SCH_606','SCH_609','SCH_609e','SCH_612','SCH_612a','SCH_612b','SCH_612t','SCH_613','SCH_614','SCH_616',]
+
 #'SCH_182e','SCH_617e',
 #class SCH_182e:# <2>[1443] <-> <12>[1443]
 #	""" Outspoken

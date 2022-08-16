@@ -186,18 +186,19 @@ class HERO_09bp2:#OK
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 	activate = Heal(TARGET, 4)
 
-
+	
 class HERO_10:#
-	""" >Illidan Stormrage  """
+	""" Illidan Stormrage  """
 	pass
 class HERO_10bp:#
 	"""Demon Claws
 	[x]&lt;b&gt;Hero Power&lt;/b&gt;+1 Attack this turn."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Heal(TARGET, 2)
+	activate = buff(FRIENDLY_HERO, 'HERO_10bpe')
+HERO_10bpe=buff(1,0)
+#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 class HERO_10bp2:#OK
 	"""Demon's Bite
 	&lt;b&gt;Hero Power&lt;/b&gt; +2 Attack this turn."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-	activate = Heal(TARGET, 4)
+	activate = buff(FRIENDLY_HERO, 'HERO_10pe2')
+HERO_10pe2=buff(2,0)
 

@@ -1,5 +1,6 @@
 from ..utils import *
 
+#Darkmoon_Hunter=['DMF_083','DMF_083t','DMF_084','DMF_085','DMF_086','DMF_086e','DMF_087','DMF_088','DMF_089','DMF_090','DMF_090e','DMF_090e2','DMF_090t','DMF_122','DMF_123','DMF_734e','YOP_027','YOP_028',]
 
 class DMF_083:#OK
 	""" Dancing Cobra

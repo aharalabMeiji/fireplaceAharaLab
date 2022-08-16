@@ -3,6 +3,7 @@ from ..utils import *
 AOO_Warrior=['BT_120','BT_121','BT_123','BT_123t',
 'BT_138','BT_140','BT_140e','BT_233','BT_249',]
 #bigWarrior:'BT_117','BT_124','BT_124e','BT_781',
+#AOO_Warrior=['BT_120','BT_121','BT_123','BT_123t','BT_138','BT_140','BT_140e','BT_233','BT_249',]
 
 #'BTA_BOSS_04h','BTA_BOSS_04s','BTA_BOSS_06h',
 #'BTA_BOSS_08h','BTA_BOSS_08p','BTA_BOSS_11p','BTA_BOSS_12t',

@@ -1,6 +1,7 @@
 from ..utils import *
 
 ####  paladin @ scholomance, 14 cards  ####
+#Scholo_Paladin=['SCH_138','SCH_138e','SCH_138e2']
 
 class SCH_247:#OK
 	"""First Day of School		0	-	-	Spell	Common	-	-

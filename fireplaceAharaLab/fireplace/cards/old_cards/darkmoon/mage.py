@@ -1,4 +1,5 @@
 from ..utils import *
+#Darkmoon_Mage=['DMF_100','DMF_100t','DMF_101','DMF_101t','DMF_102','DMF_103','DMF_104','DMF_104t','DMF_105','DMF_105t','DMF_106','DMF_107','DMF_108','DMF_109','YOP_019','YOP_019t','YOP_020',]
 
 class DMF_100:# <4>[1466] ###OK
 	""" Confection Cyclone

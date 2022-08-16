@@ -1,5 +1,6 @@
 from ..utils import *
 
+#Scholo_Hunter=['SCH_133','SCH_239','SCH_244','SCH_279','SCH_300','SCH_340','SCH_340t','SCH_538e','SCH_539','SCH_600','SCH_600t1','SCH_600t2','SCH_600t3','SCH_600t3e','SCH_604','SCH_607','SCH_607a','SCH_607b','SCH_607e','SCH_610','SCH_617','SCH_617e','SCH_617t','SCH_618e',]
 
 class SCH_133:
 ##Wolpertinger OK 

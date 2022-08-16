@@ -1,5 +1,6 @@
 from ..utils import *
 
+#AOO_Hunter=['BT_163','BT_163t','BT_201','BT_202','BT_202e','BT_203','BT_203e','BT_205','BT_210','BT_210t','BT_211','BT_212',"BT_212e",'BT_213','BT_214',]
 
 ##
 # Minions
