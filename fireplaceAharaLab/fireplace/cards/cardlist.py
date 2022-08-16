@@ -16,8 +16,6 @@ Core_Warrior=core_warrior.Core_Warrior
 
 Core_Cards=[Core_DemonHunter,Core_Druid,Core_Hunter,Core_Mage,Core_Neutral,Core_Paladin,Core_Priest,Core_Priest,Core_Rogue,Core_Shaman,Core_Warlock,Core_Warrior]
 
-
-
 ## DALARAN = 1130  # Rise of Shadows
 ## fireplace.cards.old_cards.shadows
 ## hunter,mage,neutral,paladin
@@ -59,22 +57,22 @@ Barrens_Cards=[Barrens_Druid,Barrens_Hunter,Barrens_Mage,Barrens_Neutral,Barrens
 
 ## STORMWIND = 1578  # United in Stormwind
 from fireplace.cards.stormwind import stormwind_druid, stormwind_hunter, stormwind_mage, stormwind_neutral, stormwind_warrior
-Stormwind_Druid=stormwind_druid.Stormwind_Druid
-Stormwind_Hunter=stormwind_hunter.Stormwind_Hunter
-Stormwind_Mage=stormwind_mage.Stormwind_Mage
-Stormwind_Neutral = stormwind_neutral.Stormwind_Neutral
-Stormwind_Warrior=stormwind_warrior.Stormwind_Warrior
-#Stormwind_Demonhunter=
-#Stormwind_Paladin=
-#Stormwind_Priest=
-#Stormwind_Rogue=
-#Stormwind_Shaman =
-#Stormwind_Warlock=
-Stormwind_Cards=[Stormwind_Druid,Stormwind_Hunter,Stormwind_Mage,Stormwind_Neutral,Stormwind_Warrior]
+StormWind_Druid=stormwind_druid.StormWind_Druid
+StormWind_Hunter=stormwind_hunter.StormWind_Hunter
+StormWind_Mage=stormwind_mage.StormWind_Mage
+StormWind_Neutral = stormwind_neutral.StormWind_Neutral
+StormWind_Warrior=stormwind_warrior.StormWind_Warrior
+#StormWind_Demonhunter=
+#StormWind_Paladin=
+#StormWind_Priest=
+#StormWind_Rogue=
+#StormWind_Shaman =
+#StormWind_Warlock=
+StormWind_Cards=[StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral,StormWind_Warrior]
 
 ## ALTERAC_VALLEY = 1626  # Fractured in Alterac Valley
 from fireplace.cards.alterac import alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_warrior
-Alteric_Druid=alterac_druid.Alteric_Druid
+Alterac_Druid=alterac_druid.Alterac_Druid
 Alterac_Hunter=alterac_hunter.Alterac_Hunter
 Alterac_Mage=alterac_mage.Alterac_Mage
 Alterac_Neutral = alterac_neutral.Alterac_Neutral
@@ -85,7 +83,7 @@ Alterac_Warrior=alterac_warrior.Alterac_Warrior
 #Alterac_Rogue=
 #Alterac_Shaman =
 #Alterac_Warlock=
-Alterac_Cards=[Alteric_Druid,Alterac_Hunter,Alterac_Mage,Alterac_Neutral,Alterac_Warrior,]
+Alterac_Cards=[Alterac_Druid,Alterac_Hunter,Alterac_Mage,Alterac_Neutral,Alterac_Warrior,]
 
 ## THE_SUNKEN_CITY = 1658  # Voyage to the Sunken City
 from fireplace.cards.sunken import sunken_druid,sunken_hunter,sunken_mage,sunken_neutral,sunken_warrior
@@ -150,7 +148,7 @@ clownDruid = [
 ]
 All=Core_Cards\
 	+Barrens_Cards\
-	+Stormwind_Cards\
+	+StormWind_Cards\
 	+Alterac_Cards\
 	+[Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
 	+Sunken_Cards

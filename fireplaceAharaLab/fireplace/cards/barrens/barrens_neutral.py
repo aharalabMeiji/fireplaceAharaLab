@@ -195,7 +195,8 @@ class BAR_063:# <12>[1525] ##OK
 BAR_063e=buff(atk=1, rush=True)
 
 if Barrens_Talented_Arcanist:# 
-	Barrens_Neutral+=['BAR_064','BAR_0642','BAR_064e2']
+	Barrens_Neutral+=['BAR_064']
+	#Barrens_Neutral+=['BAR_064e','BAR_064e2']
 class BAR_064:# <12>[1525]###OK
 	""" Talented Arcanist
 	[Battlecry:] Your next spell_this turn has [Spell_Damage +2]. """

@@ -230,6 +230,7 @@ class TSC_946e:# <3>[1658]
 	poisonous = True
 	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 class TSC_946e2:# <3>[1658]
+	pass
 
 
 

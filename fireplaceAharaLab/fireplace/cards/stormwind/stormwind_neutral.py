@@ -4,48 +4,48 @@ from ..utils import *
 
 from ..utils import *
 
-Stormwind_Neutral=[]
+StormWind_Neutral=[]
 
-Stormwind_Mr_Smite=True  ####OK
-Stormwind_Maddest_Bomber=True  ####OK
-Stormwind_Golakka_Glutton=True  ####OK
-Stormwind_Multicaster=True  ####OK
-Stormwind_Goliath_Sneeds_Masterpiece=True  ####OK
-Stormwind_Stubborn_Suspect=True  ####OK
-Stormwind_Two_Faced_Investor=True  ####OK
-Stormwind_Auctioneer_Jaxon=True  ####OK
-Stormwind_Stormwind_Guard=True  ####OK
-Stormwind_Impatient_Shopkeep=True  ####OK
-Stormwind_Spice_Bread_Baker=True  ####OK
-Stormwind_Package_Runner=True  ####OK
-Stormwind_Deeprun_Engineer=True  ####OK
-Stormwind_Florist=True  ####OK
-Stormwind_Guild_Trader=True  ####OK
-Stormwind_Goldshire_Gnoll=True  ####OK
-Stormwind_Battleground_Battlemaster=True  ####OK
-Stormwind_Northshire_Farmer=True  ####OK
-Stormwind_Pandaren_Importer=True  ####OK
-Stormwind_Royal_Librarian=True  ####OK
-Stormwind_Stockades_Guard=True  ####OK
-Stormwind_Moarg_Forgefiend=True  ####OK
-Stormwind_Enthusiastic_Banker=True  ####OK
-Stormwind_Mailbox_Dancer=True  ####OK
-Stormwind_Lions_Guard=True  ####OK
-Stormwind_Rustrot_Viper=True  ####OK
-Stormwind_Cheesemonger=True  ####OK
-Stormwind_Nobleman=True  ####OK
-Stormwind_Elwynn_Boar=True  ####OK
-Stormwind_City_Architect=True  ####OK
-Stormwind_Stockades_Prisoner=True  ####OK
-Stormwind_Lady_Prestor=True  ####OK
-Stormwind_Flightmaster_Dungar=True  ####OK
-Stormwind_Cornelius_Roame=True  ####OK
-Stormwind_Varian_King_of_Stormwind=True  ####OK
-Stormwind_Encumbered_Pack_Mule=True  ####OK
-Stormwind_Traveling_Merchant=True  ####OK
-Stormwind_Peasant=True  ####OK
-Stormwind_Entrapped_Sorceress=True  ####OK
-Stormwind_SI7_Skulker=True  ####OK
+StormWind_Mr_Smite=True  ####OK
+StormWind_Maddest_Bomber=True  ####OK
+StormWind_Golakka_Glutton=True  ####OK
+StormWind_Multicaster=True  ####OK
+StormWind_Goliath_Sneeds_Masterpiece=True  ####OK
+StormWind_Stubborn_Suspect=True  ####OK
+StormWind_Two_Faced_Investor=True  ####OK
+StormWind_Auctioneer_Jaxon=True  ####OK
+StormWind_StormWind_Guard=True  ####OK
+StormWind_Impatient_Shopkeep=True  ####OK
+StormWind_Spice_Bread_Baker=True  ####OK
+StormWind_Package_Runner=True  ####OK
+StormWind_Deeprun_Engineer=True  ####OK
+StormWind_Florist=True  ####OK
+StormWind_Guild_Trader=True  ####OK
+StormWind_Goldshire_Gnoll=True  ####OK
+StormWind_Battleground_Battlemaster=True  ####OK
+StormWind_Northshire_Farmer=True  ####OK
+StormWind_Pandaren_Importer=True  ####OK
+StormWind_Royal_Librarian=True  ####OK
+StormWind_Stockades_Guard=True  ####OK
+StormWind_Moarg_Forgefiend=True  ####OK
+StormWind_Enthusiastic_Banker=True  ####OK
+StormWind_Mailbox_Dancer=True  ####OK
+StormWind_Lions_Guard=True  ####OK
+StormWind_Rustrot_Viper=True  ####OK
+StormWind_Cheesemonger=True  ####OK
+StormWind_Nobleman=True  ####OK
+StormWind_Elwynn_Boar=True  ####OK
+StormWind_City_Architect=True  ####OK
+StormWind_Stockades_Prisoner=True  ####OK
+StormWind_Lady_Prestor=True  ####OK
+StormWind_Flightmaster_Dungar=True  ####OK
+StormWind_Cornelius_Roame=True  ####OK
+StormWind_Varian_King_of_Stormwind=True  ####OK
+StormWind_Encumbered_Pack_Mule=True  ####OK
+StormWind_Traveling_Merchant=True  ####OK
+StormWind_Peasant=True  ####OK
+StormWind_Entrapped_Sorceress=True  ####OK
+StormWind_SI7_Skulker=True  ####OK
 
 
 
@@ -54,9 +54,9 @@ Stormwind_SI7_Skulker=True  ####OK
 
 
 
-if Stormwind_Mr_Smite:# 
-	Stormwind_Neutral+=['DED_006']
-	Stormwind_Neutral+=['DED_006e2']
+if StormWind_Mr_Smite:# 
+	StormWind_Neutral+=['DED_006']
+	StormWind_Neutral+=['DED_006e2']
 class DED_006:# <12>[1578] ###OK
 	""" Mr. Smite
 	Your Pirates have [Charge]. """
@@ -71,8 +71,8 @@ DED_006e2 = buff(charge=True)# <12>[1578]
 
 
 
-if Stormwind_Maddest_Bomber:# 
-	Stormwind_Neutral+=['DED_521']
+if StormWind_Maddest_Bomber:# 
+	StormWind_Neutral+=['DED_521']
 class DED_521:# <12>[1578] ####OK
 	""" Maddest Bomber
 	[Battlecry:] Deal 12 damage randomly split among all other characters. """
@@ -82,8 +82,8 @@ class DED_521:# <12>[1578] ####OK
 
 
 
-if Stormwind_Golakka_Glutton:# 
-	Stormwind_Neutral+=['DED_523']
+if StormWind_Golakka_Glutton:# 
+	StormWind_Neutral+=['DED_523']
 class DED_523:# <12>[1578] ###OK
 	""" Golakka Glutton
 	[Battlecry:] Destroy a Beast and gain +1/+1. """
@@ -97,8 +97,8 @@ DED_523e = buff(1,1)# <12>[1578]
 
 
 
-if Stormwind_Multicaster:# 
-	Stormwind_Neutral+=['DED_524']
+if StormWind_Multicaster:# 
+	StormWind_Neutral+=['DED_524']
 class DED_524:# <12>[1578]###OK
 	""" Multicaster
 	[Battlecry:] Draw a card for each different spell school_you've cast this game. """
@@ -130,8 +130,8 @@ class DED_524:# <12>[1578]###OK
 
 
 
-if Stormwind_Goliath_Sneeds_Masterpiece:# 
-	Stormwind_Neutral+=['DED_525']
+if StormWind_Goliath_Sneeds_Masterpiece:# 
+	StormWind_Neutral+=['DED_525']
 class DED_525Choice(Choice):
 	def choose(self, card):
 		self.source._sidequest_counter_ += 1
@@ -154,8 +154,8 @@ class DED_525:# <12>[1578] #### maybe success
 
 
 
-if Stormwind_Stubborn_Suspect:# 
-	Stormwind_Neutral+=['SW_006']
+if StormWind_Stubborn_Suspect:# 
+	StormWind_Neutral+=['SW_006']
 class SW_006:#OK
 	""" Stubborn Suspect
 	<b>Deathrattle:</b> Summon a random 3-Cost minion. """
@@ -164,10 +164,10 @@ class SW_006:#OK
 
 
 
-if Stormwind_Two_Faced_Investor:# 
-	Stormwind_Neutral+=['SW_036']
-	Stormwind_Neutral+=['SW_036e']
-	Stormwind_Neutral+=['SW_036e2']
+if StormWind_Two_Faced_Investor:# 
+	StormWind_Neutral+=['SW_036']
+	StormWind_Neutral+=['SW_036e']
+	StormWind_Neutral+=['SW_036e2']
 class SW_036:#OK
 	""" Two-Faced Investor
 	[x]At the end of your turn,reduce the Cost of a cardin your hand by (1). <i>(50%chance to increase.)</i> """
@@ -181,8 +181,8 @@ SW_036e2=buff(cost=1)
 
 
 
-if Stormwind_Auctioneer_Jaxon:# 
-	Stormwind_Neutral+=['SW_045']
+if StormWind_Auctioneer_Jaxon:# 
+	StormWind_Neutral+=['SW_045']
 class SW_045:#OK
 	""" Auctioneer Jaxon
 	[x]Whenever you <b>Trade</b>,<b>Discover</b> a card from your_deck to draw instead. """
@@ -190,9 +190,9 @@ class SW_045:#OK
 
 
 
-if Stormwind_Stormwind_Guard:# 
-	Stormwind_Neutral+=['SW_054']
-	Stormwind_Neutral+=['SW_054e']
+if StormWind_StormWind_Guard:# 
+	StormWind_Neutral+=['SW_054']
+	StormWind_Neutral+=['SW_054e']
 class SW_054:#OK
 	""" Stormwind Guard
 	<b>Taunt</b><b>Battlecry:</b> Give adjacent minions +1/+1. """
@@ -202,8 +202,8 @@ class SW_054:#OK
 SW_054e=buff(atk=1,health=1)
 
 
-if Stormwind_Impatient_Shopkeep:# 
-	Stormwind_Neutral+=['SW_055']
+if StormWind_Impatient_Shopkeep:# 
+	StormWind_Neutral+=['SW_055']
 class SW_055:#OK
 	""" Impatient Shopkeep
 	<b>Tradeable</b><b>Rush</b> """
@@ -212,8 +212,8 @@ class SW_055:#OK
 
 
 
-if Stormwind_Spice_Bread_Baker:# 
-	Stormwind_Neutral+=['SW_056']
+if StormWind_Spice_Bread_Baker:# 
+	StormWind_Neutral+=['SW_056']
 class SW_056:#OK
 	""" Spice Bread Baker
 	<b>Battlecry:</b> Restore Health to your hero equal to your hand size. """
@@ -223,8 +223,8 @@ class SW_056:#OK
 
 
 
-if Stormwind_Package_Runner:# 
-	Stormwind_Neutral+=['SW_057']
+if StormWind_Package_Runner:# 
+	StormWind_Neutral+=['SW_057']
 class SW_057:#OK
 	""" Package Runner
 	Can only attack if you have at least 8 cards in hand. """
@@ -234,8 +234,8 @@ class SW_057:#OK
 
 
 
-if Stormwind_Deeprun_Engineer:# 
-	Stormwind_Neutral+=['SW_059','SW_059e']
+if StormWind_Deeprun_Engineer:# 
+	StormWind_Neutral+=['SW_059','SW_059e']
 class SW_059:####OK
 	""" Deeprun Engineer
 	<b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
@@ -246,9 +246,9 @@ SW_059e=buff(cost=-1)#<4>[1578]
 
 
 
-if Stormwind_Florist:# 
-	Stormwind_Neutral+=['SW_060']
-	Stormwind_Neutral+=['SW_060t']
+if StormWind_Florist:# 
+	StormWind_Neutral+=['SW_060']
+	StormWind_Neutral+=['SW_060t']
 class SW_060:#OK
 	""" Florist
 	[x]At then end of your turn, reduce the cost of a Nature spell in your hand by (1). """
@@ -259,8 +259,8 @@ SW_060t=buff(cost=-1)
 
 
 
-if Stormwind_Guild_Trader:# 
-	Stormwind_Neutral+=['SW_061']
+if StormWind_Guild_Trader:# 
+	StormWind_Neutral+=['SW_061']
 class SW_061:#OK
 	""" Guild Trader
 	<b>Tradeable</b><b>Spell Damage +2</b> """
@@ -270,8 +270,8 @@ class SW_061:#OK
 
 
 
-if Stormwind_Goldshire_Gnoll:# 
-	Stormwind_Neutral+=['SW_062']
+if StormWind_Goldshire_Gnoll:# 
+	StormWind_Neutral+=['SW_062']
 class SW_062:#OK
 	""" Goldshire Gnoll
 	[x]<b>Rush</b>Costs (1) less for each__other card in your hand. """
@@ -281,9 +281,9 @@ class SW_062:#OK
 
 
 
-if Stormwind_Battleground_Battlemaster:# 
-	Stormwind_Neutral+=['SW_063']
-	#Stormwind_Neutral+=['SW_063e']
+if StormWind_Battleground_Battlemaster:# 
+	StormWind_Neutral+=['SW_063']
+	#StormWind_Neutral+=['SW_063e']
 class SW_063:#OK
 	""" Battleground Battlemaster
 	Adjacent minions have <b>Windfury</b>. """
@@ -294,8 +294,8 @@ class SW_063:#OK
 
 
 
-if Stormwind_Northshire_Farmer:# 
-	Stormwind_Neutral+=['SW_064']
+if StormWind_Northshire_Farmer:# 
+	StormWind_Neutral+=['SW_064']
 class SW_064:#OK
 	""" Northshire Farmer
 	<b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
@@ -307,8 +307,8 @@ SW_064e=buff(atk=3,health=3)
 
 
 
-if Stormwind_Pandaren_Importer:# 
-	Stormwind_Neutral+=['SW_065']
+if StormWind_Pandaren_Importer:# 
+	StormWind_Neutral+=['SW_065']
 class SW_065:###OK
 	""" Pandaren Importer
 	[x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
@@ -318,8 +318,8 @@ class SW_065:###OK
 
 
 
-if Stormwind_Royal_Librarian:# 
-	Stormwind_Neutral+=['SW_066']
+if StormWind_Royal_Librarian:# 
+	StormWind_Neutral+=['SW_066']
 class SW_066:##動作はしているが、silencedがそもそも動いていない気がする。
 	""" Royal Librarian
 	[x]<b>Tradeable</b><b>Battlecry:</b> <b>Silence</b>a minion. """
@@ -330,8 +330,8 @@ class SW_066:##動作はしているが、silencedがそもそも動いていな
 
 
 
-if Stormwind_Stockades_Guard:# 
-	Stormwind_Neutral+=['SW_067']
+if StormWind_Stockades_Guard:# 
+	StormWind_Neutral+=['SW_067']
 class SW_067:#OK
 	""" Stockades Guard
 	[x]<b>Battlecry:</b> Give a friendly minion <b>Taunt</b>. """
@@ -342,8 +342,8 @@ class SW_067:#OK
 
 
 
-if Stormwind_Moarg_Forgefiend:# 
-	Stormwind_Neutral+=['SW_068']
+if StormWind_Moarg_Forgefiend:# 
+	StormWind_Neutral+=['SW_068']
 class SW_068:#OK bigWarrior
 	""" Mo'arg Forgefiend
 	<b>Taunt</b><b>Deathrattle:</b> Gain 8 Armor. """
@@ -353,8 +353,8 @@ class SW_068:#OK bigWarrior
 
 
 
-if Stormwind_Enthusiastic_Banker:# 
-	Stormwind_Neutral+=['SW_069','SW_069e']
+if StormWind_Enthusiastic_Banker:# 
+	StormWind_Neutral+=['SW_069','SW_069e']
 class Deposite_Payment(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -387,8 +387,8 @@ class SW_069e:
 
 
 
-if Stormwind_Mailbox_Dancer:# 
-	Stormwind_Neutral+=['SW_070']
+if StormWind_Mailbox_Dancer:# 
+	StormWind_Neutral+=['SW_070']
 class SW_070:#OK
 	""" Mailbox Dancer
 	[x]<b>Battlecry:</b> Add a Coin to your hand. <b>Deathrattle:</b> Give your opponent one. """
@@ -398,9 +398,9 @@ class SW_070:#OK
 
 
 
-if Stormwind_Lions_Guard:# 
-	Stormwind_Neutral+=['SW_071']
-	Stormwind_Neutral+=['SW_071e']
+if StormWind_Lions_Guard:# 
+	StormWind_Neutral+=['SW_071']
+	StormWind_Neutral+=['SW_071e']
 class SW_071:#OK
 	""" Lion's Guard
 	[x]<b>Battlecry:</b> If you have 15 or less Health, gain +2/+4 and <b>Taunt</b>. """
@@ -412,8 +412,8 @@ SW_071e=buff(atk=2,health=4,taunt=True)
 
 
 
-if Stormwind_Rustrot_Viper:# 
-	Stormwind_Neutral+=['SW_072']
+if StormWind_Rustrot_Viper:# 
+	StormWind_Neutral+=['SW_072']
 class SW_072:#OK
 	""" Rustrot Viper
 	[x]<b>Tradeable</b><b>Battlecry:</b> Destroy your opponent's weapon. """
@@ -423,8 +423,8 @@ class SW_072:#OK
 
 
 
-if Stormwind_Cheesemonger:# 
-	Stormwind_Neutral+=['SW_073']
+if StormWind_Cheesemonger:# 
+	StormWind_Neutral+=['SW_073']
 class SW_073:#OK
 	""" Cheesemonger
 	[x]Whenever your opponent casts a spell, add a random spell with the same Cost to your hand. """
@@ -434,8 +434,8 @@ class SW_073:#OK
 
 
 
-if Stormwind_Nobleman:# 
-	Stormwind_Neutral+=['SW_074']
+if StormWind_Nobleman:# 
+	StormWind_Neutral+=['SW_074']
 class SW_074:#OK
 	""" Nobleman
 	<b>Battlecry:</b> Create a Golden copy of a random card in your hand. """
@@ -445,8 +445,8 @@ class SW_074:#OK
 
 
 
-if Stormwind_Elwynn_Boar:# 
-	Stormwind_Neutral+=['SW_075','SW_075t']
+if StormWind_Elwynn_Boar:# 
+	StormWind_Neutral+=['SW_075','SW_075t']
 class SW_075:#OK
 	""" Elwynn Boar
 	[x]<b>Deathrattle:</b> If you had 7 Elwynn Boars die this game, equip a 15/3 Sword of a ___Thousand Truths.@ <i>(@/7)</i> """
@@ -461,8 +461,8 @@ class SW_075t: #OK
 
 
 
-if Stormwind_City_Architect:# 
-	Stormwind_Neutral+=['SW_076','SW_076t']
+if StormWind_City_Architect:# 
+	StormWind_Neutral+=['SW_076','SW_076t']
 class SW_076:#OK
 	""" City Architect
 	[x]<b>Battlecry:</b> Summon two 0/5 Castle Walls with <b>Taunt</b>. """
@@ -474,8 +474,8 @@ class SW_076t:
 
 
 
-if Stormwind_Stockades_Prisoner:# 
-	Stormwind_Neutral+=['SW_077','SW_077e']
+if StormWind_Stockades_Prisoner:# 
+	StormWind_Neutral+=['SW_077','SW_077e']
 class SW_077:#OK
 	""" Stockades Prisoner
 	[x]Starts <b>Dormant</b>. After you play 3 cards, this awakens. """ 
@@ -490,8 +490,8 @@ class SW_077e:
 
 
 
-if Stormwind_Lady_Prestor:# 
-	Stormwind_Neutral+=['SW_078','SW_078e','SW_078e2']
+if StormWind_Lady_Prestor:# 
+	StormWind_Neutral+=['SW_078','SW_078e','SW_078e2']
 class SW_078:#OK
 	""" Lady Prestor
 	[x]<b>Battlecry:</b> Transform minions in your deck into random Dragons. <i>(They keep their
@@ -504,8 +504,8 @@ SW_078e2=buff(0,0)
 
 
 
-if Stormwind_Flightmaster_Dungar:# 
-	Stormwind_Neutral+=['SW_079']
+if StormWind_Flightmaster_Dungar:# 
+	StormWind_Neutral+=['SW_079']
 class SW_079:###OK
 	""" Flightmaster Dungar
 	[x]<b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b> Awaken with a bonus __when you complete it! """
@@ -561,8 +561,8 @@ SW_079t3e=buff(0,0)
 
 
 
-if Stormwind_Cornelius_Roame:# 
-	Stormwind_Neutral+=['SW_080']
+if StormWind_Cornelius_Roame:# 
+	StormWind_Neutral+=['SW_080']
 class SW_080:#OK
 	""" Cornelius Roame
 	[x]At the start and end
@@ -574,8 +574,8 @@ draw a card. """
 
 
 
-if Stormwind_Varian_King_of_Stormwind:# 
-	Stormwind_Neutral+=['SW_081']
+if StormWind_Varian_King_of_Stormwind:# 
+	StormWind_Neutral+=['SW_081']
 class SW_081:#OK
 	""" Varian, King of Stormwind
 	[x]<b>Battlecry:</b> Draw a <b>Rush</b> minion to gain <b>Rush</b>. Repeat for <b>Taunt</b> and <b>Divine Shield</b>. """
@@ -592,8 +592,8 @@ class SW_081:#OK
 
 
 
-if Stormwind_Encumbered_Pack_Mule:# 
-	Stormwind_Neutral+=['SW_306']
+if StormWind_Encumbered_Pack_Mule:# 
+	StormWind_Neutral+=['SW_306']
 class SW_306:#OK
 	# CASTSWHENDRAWN タグなし
 	#description が無限ループを含んでいるが・・・・GiveとDrawを区別して解決。
@@ -605,8 +605,8 @@ class SW_306:#OK
 
 
 
-if Stormwind_Traveling_Merchant:# 
-	Stormwind_Neutral+=['SW_307','SW_307e']
+if StormWind_Traveling_Merchant:# 
+	StormWind_Neutral+=['SW_307','SW_307e']
 class SW_307:#OK
 	""" Traveling Merchant
 	[x]<b>Tradeable</b><b>Battlecry:</b> Gain +1/+1 for each other friendly _minion you control. """
@@ -616,8 +616,8 @@ SW_307e=buff(atk=1,health=1)
 
 
 
-if Stormwind_Peasant:# 
-	Stormwind_Neutral+=['SW_319']
+if StormWind_Peasant:# 
+	StormWind_Neutral+=['SW_319']
 class SW_319:#OK
 	""" Peasant
 	At the start of your turn, draw a card. """
@@ -628,8 +628,8 @@ class SW_319:#OK
 
 
 
-if Stormwind_Entrapped_Sorceress:# 
-	Stormwind_Neutral+=['SW_400']
+if StormWind_Entrapped_Sorceress:# 
+	StormWind_Neutral+=['SW_400']
 class SW_400:#OK
 	""" Entrapped Sorceress
 	[x]<b>Battlecry:</b> If you control a _<b>Quest</b>, <b>Discover</b> a spell. """
@@ -640,8 +640,8 @@ class SW_400:#OK
 
 
 
-if Stormwind_SI7_Skulker:# 
-	Stormwind_Neutral+=['SW_418']
+if StormWind_SI7_Skulker:# 
+	StormWind_Neutral+=['SW_418']
 class SW_418:#OK
 	""" SI:7 Skulker
 	[x]<b>Stealth</b><b>Battlecry:</b> The next card _you draw costs (1) less. """

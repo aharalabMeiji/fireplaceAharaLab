@@ -1087,8 +1087,9 @@ class VAN_EX1_097:# <12>[1646]
 if Classic_Lorewalker_Cho:# OK
 	Classic_Neutral+=['VAN_EX1_100']
 class VAN_EX1_100:# <12>[1646]
-	""" Lorewalker Cho
-	Whenever a player casts a spell, put a copy into the other playerÅfs hand. """
+	""" Lorewalker Cho 
+	Whenever a player casts a spell, put a copy into the other player's hand. """
+	
 	events = Play(ALL_PLAYERS, SPELL).on(Give(Opponent(Play.PLAYER), Copy(Play.CARD)))	#
 	pass
 
@@ -1268,7 +1269,7 @@ class VAN_EX1_405:# <12>[1646]
 	pass
 
 if Classic_Raging_Worgen:# OK
-	Classic_Neutral+=['VAN_EX1_412',EX1_412e]
+	Classic_Neutral+=['VAN_EX1_412','EX1_412e']
 class VAN_EX1_412:# <12>[1646]
 	""" Raging Worgen
 	[Enrage:] [Windfury] and +1 Attack """

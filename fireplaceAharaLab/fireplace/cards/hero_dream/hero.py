@@ -130,18 +130,27 @@ class HERO_06:
 	pass
 class HERO_06bp:
 	"""Shapeshift"""
-	activate = Buff(FRIENDLY_HERO, "CS2_017o"), GainArmor(FRIENDLY_HERO, 1)
-#HERO_06ebp = buff(atk=1)
-CS2_017o = buff(atk=1)
+	activate = Buff(FRIENDLY_HERO, "HERO_06bpe"), GainArmor(FRIENDLY_HERO, 1)
+@custom_card
+class HERO_06bpe:
+	tags = {
+		GameTag.CARDNAME: "Dire Shapeshift",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: 1,
+		GameTag.TAG_ONE_TURN_EFFECT: 1,}
 class HERO_06bp2:#OK
 	"""Dire Shapeshift
 	<b>Hero Power</b>
 	+2 Attack this turn.
 	+2 Armor."""
-	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
-#HERO_06ebp2 = buff(atk=2)
-AT_132_DRUIDe = buff(atk=2)
-
+	activate = Buff(FRIENDLY_HERO, "HERO_06bp2e"), GainArmor(FRIENDLY_HERO, 2)
+@custom_card
+class HERO_06bp2e:
+	tags = {
+		GameTag.CARDNAME: "Dire Shapeshift",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: 2,
+		GameTag.TAG_ONE_TURN_EFFECT: 1,}
 class HERO_07:
 	""" Gul'dan
 	"""
