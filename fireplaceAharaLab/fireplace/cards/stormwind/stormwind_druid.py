@@ -57,7 +57,7 @@ class DED_001c:# <2>[1578]
 
 
 if StormWind_Moonlit_Guidance:# 
-	StormWind_Druid+=['DED_002']
+	StormWind_Druid+=['DED_002','DED_002e']
 class DED_002:# <2>[1578]####OK
 	""" Moonlit Guidance
 	[Discover] a copy of a card in your deck.If you play it this turn,draw the original. """

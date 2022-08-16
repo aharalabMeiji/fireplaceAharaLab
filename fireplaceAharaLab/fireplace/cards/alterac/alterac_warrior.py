@@ -198,6 +198,7 @@ class ONY_024:# <10>[1626]
 
 if Alterac_Shoulder_Check:# 
 	Alterac_Warrior+=['ONY_025']
+	Alterac_Warrior+=['ONY_025e']
 class ONY_025:# <10>[1626]
 	""" Shoulder Check
 	[Tradeable]Give a minion +2/+1 and [Rush]. """

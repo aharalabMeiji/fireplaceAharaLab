@@ -83,7 +83,7 @@ class DED_521:# <12>[1578] ####OK
 
 
 if StormWind_Golakka_Glutton:# 
-	StormWind_Neutral+=['DED_523']
+	StormWind_Neutral+=['DED_523','DED_523e']
 class DED_523:# <12>[1578] ###OK
 	""" Golakka Glutton
 	[Battlecry:] Destroy a Beast and gain +1/+1. """
@@ -505,7 +505,8 @@ SW_078e2=buff(0,0)
 
 
 if StormWind_Flightmaster_Dungar:# 
-	StormWind_Neutral+=['SW_079']
+	StormWind_Neutral+=['SW_079','SW_079te','SW_079t2e','SW_079t3e']
+	StormWind_Neutral+=['SW_079t', 'SW_079t2', 'SW_079t3','SW_079e4','SW_079e5','SW_079e6']
 class SW_079:###OK
 	""" Flightmaster Dungar
 	[x]<b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b> Awaken with a bonus __when you complete it! """
@@ -641,7 +642,7 @@ class SW_400:#OK
 
 
 if StormWind_SI7_Skulker:# 
-	StormWind_Neutral+=['SW_418']
+	StormWind_Neutral+=['SW_418','SW_418e','SW_418e2']
 class SW_418:#OK
 	""" SI:7 Skulker
 	[x]<b>Stealth</b><b>Battlecry:</b> The next card _you draw costs (1) less. """

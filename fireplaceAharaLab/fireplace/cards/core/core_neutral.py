@@ -1129,10 +1129,12 @@ class GiveHighestCostMinion(TargetedAction):
 		if len(_highestCostCards)>0:
 			_card = random.choice(_highestCostCards)##
 			_cost = _card.cost
-			log.info("Highest cost minion is %r (cost %d)"%(_card, _cost))
+			if Config.LOGINFO:
+				print("Highest cost minion is %r (cost %d)"%(_card, _cost))
 			Give(target,_card).trigger(source)
 		else:
-			log.info("no minion is in the deck"%())
+			if Config.LOGINFO:
+				print("no minion is in the deck"%())
 class CS3_024:# <12> 1637 #OK
 	""" Taelan Fordring
 	[[Taunt], Divine Shield][Deathrattle:] Draw your highest Cost minion. """

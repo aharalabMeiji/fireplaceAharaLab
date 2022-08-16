@@ -216,11 +216,26 @@ class WC_033e:# <5>[1525]
 
 
 if Barrens_Party_Up:# 
-	Barrens_Paladin+=['WC_034']
+	Barrens_Paladin+=['WC_034','WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7']
 class WC_034:# <5>[1525]
 	""" Party Up!
 	Summon five 2/2 Adventurers with random bonus effects. """
 	#
 	pass
-
+class WC_034t:
+	pass
+class WC_034t2:
+	pass
+class WC_034t3:
+	pass
+class WC_034t4:
+	pass
+class WC_034t5:
+	pass
+class WC_034t6:
+	pass
+class WC_034t7:
+	pass
+class WC_034t8:
+	pass
 

@@ -66,9 +66,9 @@ class BAR_535:#OK <2>[1525]
 
 
 if Barrens_Living_Seed_Rank_1:# 
-	Barrens_Druid+=['BAR_536']
-	Barrens_Druid+=['BAR_536t']
-	Barrens_Druid+=['BAR_536t2','BAR_536te','BAR_536t2e']
+	Barrens_Druid+=['BAR_536','BAR_536e']
+	Barrens_Druid+=['BAR_536t','BAR_536te']
+	Barrens_Druid+=['BAR_536t2','BAR_536t2e']
 class BAR_536:#OK <2>[1525]
 	""" Living Seed (Rank 1)
 	Draw a Beast. Reduce its Cost by (1). <i>(Upgrades when you have 5 Mana.)</i> """

@@ -1096,13 +1096,6 @@ class ONY_005tc7t:# <12>[1626]
 
 ############################
 
-if Incensed:# 
-	Alterac_Neutral+=['ONY_025e']
-class ONY_025e:# <12>[1626]
-	""" Incensed
-	+2/+1 and [Rush]. """
-	#
-	pass
 
 
 

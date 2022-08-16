@@ -144,7 +144,9 @@ class TSC_652:# <2>[1658]
 			if card.type==CardType.SPELL and card.cost>amount:
 				amount = card.cost
 		if amount>0:
-			GainEmptyMana(CONTROLLER, amount).trigger(self)
+			actions=GainEmptyMana(CONTROLLER, amount)
+			for action in actions:
+				action.trigger(self)
 	pass
 
 
@@ -157,6 +159,7 @@ class TSC_653:# <2>[1658]
 	[Deathrattle:] Add a Bottomfeeder to the bottom of your deck with permanent +2/+2. """
 	deathrattle = ShuffleBottom(CONTROLLER, 'TSC_653').then(Buff(ShuffleBottom.CARD, 'TSC_653e'))
 	pass
+@custom_card
 class TSC_653e:
 	tags = {
 		GameTag.CARDNAME: "Miracle Growth enchantment",
@@ -252,7 +255,7 @@ class TSC_658_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		for cost in source.sidequest_list0:
-			Summon(CONTROLLER, RandomMinion(cost=cost)).trigger(self)
+			Summon(controller, RandomMinion(cost=cost)).trigger(self)
 		pass
 class TSC_658:# <2>[1658]
 	""" Hedra the Heretic

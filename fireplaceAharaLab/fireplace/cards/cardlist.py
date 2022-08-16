@@ -154,7 +154,7 @@ All=Core_Cards\
 	+Sunken_Cards
 
 # VANILLA = 1646
-from fireplace.cards.core import classic_druid, classic_neutral
+from fireplace.cards.classic import classic_druid, classic_neutral
 #from fireplace.cards.core import classic_demon_hunter, classic_hunter, classic_mage, classic_paladin, classic_priest, classic_rogue, classic_shaman, classic_warrior, classic_warlock
 #Classic_DemonHunter=classic_demon_hunter.Classic_DemonHunter
 Classic_Druid=classic_druid.Classic_Druid

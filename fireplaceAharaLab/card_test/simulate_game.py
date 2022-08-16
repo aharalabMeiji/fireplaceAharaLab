@@ -508,15 +508,11 @@ class pp_DED_523(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		if self.testNr == 0:
-			if self.contains_buff(self.mark1, 'DED_523e'):
-				print ("OK : contains_buff(mark3, 'DED_523e')")
-			else:
-				print ("NG")
+			assert self.contains_buff(self.mark1, 'DED_523e')==True,'buff'
+			print ("OK : contains_buff(mark1, 'DED_523e')")
 		elif self.testNr == 1:
-			if not self.contains_buff(self.mark1, 'DED_523e'):
-				print ("OK : not contains_buff(mark3, 'DED_523e')")
-			else:
-				print ("NG")
+			assert self.contains_buff(self.mark1, 'DED_523e')==False, 'buff'
+			print ("OK : not contains_buff(mark1, 'DED_523e')")
 
 class pp_DED_524(Preset_Play):
 	""" Multicaster

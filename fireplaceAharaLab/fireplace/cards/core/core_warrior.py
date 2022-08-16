@@ -133,7 +133,7 @@ class CORE_EX1_414:# <10>[1637]
 EX1_414e = buff(atk=6)
 
 if Cruel_Taskmaster:# 
-	Core_Warrior+=['CORE_EX1_603']
+	Core_Warrior+=['CORE_EX1_603','EX1_603e']
 class CORE_EX1_603:# <10>[1637]
 	""" Cruel Taskmaster
 	[Battlecry:] Deal 1 damage to a minion and give it +2_Attack. """
@@ -146,7 +146,7 @@ class CORE_EX1_603:# <10>[1637]
 EX1_603e = buff(atk=2)
 
 if Frothing_Berserker:# 
-	Core_Warrior+=['CORE_EX1_604']
+	Core_Warrior+=['CORE_EX1_604','EX1_604o']
 class CORE_EX1_604:# <10>[1637]
 	""" Frothing Berserker
 	Whenever a minion takes damage, gain +1 Attack. """

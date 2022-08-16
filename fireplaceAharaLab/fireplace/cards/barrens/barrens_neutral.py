@@ -43,7 +43,7 @@ Barrens_Drag_To_Move=True## 24.0
 Barrens_Kindling_Elemental=True## 24.0
 Barrens_Crossroads_Gossiper=True## 24.0
 Barrens_Devouring_Ectoplasm=True## 24.0
-Barrens_Meeting_Stone=True## 24.0
+Barrens_Meeting_Stone=False## 24.0 Adventurerwith a random bonus の準備ができていない。
 Barrens_Selfless_Sidekick=True## 24.0
 Barrens_Mutanus_the_Devourer=True## 24.0
 Barrens_Archdruid_Naralex=True## 24.0
@@ -258,7 +258,7 @@ class BAR_072t:
 	pass
 
 if Barrens_Barrens_Blacksmith:# 
-	Barrens_Neutral+=['BAR_073']
+	Barrens_Neutral+=['BAR_073','BAR_073e']
 class BAR_073:#OK
 	"""
 	Barrens Blacksmith
@@ -292,7 +292,7 @@ class BAR_075:#OK (2回やれば2つつく。)
 BAR_075e=buff(atk=1,health=1)
 
 if Barrens_Morshan_Watch_Post:# 
-	Barrens_Neutral+=['BAR_076']
+	Barrens_Neutral+=['BAR_076','BAR_076t']
 class BAR_076:#OK
 	"""	Mor'shan Watch Post
 	[x]Can't attack. After your opponent plays a minion, _summon a 2/2 Grunt."""
@@ -771,7 +771,7 @@ class BAR_081:#OK
 
 
 if Barrens_Barrens_Trapper:# 
-	Barrens_Neutral+=['BAR_082']
+	Barrens_Neutral+=['BAR_082','BAR_082e']
 class BAR_082:#OK
 	"""
 	Barrens Trapper
@@ -795,7 +795,7 @@ class BAR_430:#OK
 	pass
 
 if Barrens_Mankrik:# 
-	Barrens_Neutral+=['BAR_721']
+	Barrens_Neutral+=['BAR_721','BAR_721t','BAR_721t2']
 class BAR_721:#OK
 	"""
 	Mankrik
@@ -808,7 +808,7 @@ class BAR_721t:#OK
 	[x]<b>Casts When Drawn</b>	Summon a 3/7 Mankrik,		who immediately attacks		the enemy hero.
 		<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
 	"""
-	play = Summon(CONTROLLER,'BAR_721t2'),Attack(FRIENDLY_MINIONS+ID('BAR_721t2'),ENEMY_HERO)
+	play = Summon(CONTROLLER,'BAR_721t2'),RegularAttack(FRIENDLY_MINIONS+ID('BAR_721t2'),ENEMY_HERO)
 	pass
 class BAR_721t2:
 	"""Mankrik, Consumed by Hatred
@@ -819,7 +819,7 @@ class BAR_721t2:
 
 
 if Barrens_Toad_of_the_Wilds:# 
-	Barrens_Neutral+=['BAR_743']
+	Barrens_Neutral+=['BAR_743','BAR_743e']
 class BAR_743:#OK 
 	#******NATUREはドルイド、シャーマンの特性****たとえば自然学の予習(SCH_333)**
 	"""
@@ -858,7 +858,7 @@ class BAR_745:# <12>[1525] ## OK
 
 
 if Barrens_Kindling_Elemental:# 
-	Barrens_Neutral+=['BAR_854']
+	Barrens_Neutral+=['BAR_854','BAR_854e']
 class BAR_854:# <12>[1525] ##OK
 	""" Kindling Elemental
 	[Battlecry:] The next Elemental you playcosts (1) less. """
@@ -938,7 +938,7 @@ WC_030e=buff()
 
 
 if Barrens_Archdruid_Naralex:# 
-	Barrens_Neutral+=['WC_035']
+	Barrens_Neutral+=['WC_035','WC_035e','WC_035e2']
 class WC_035_Archdruid_Naralex(TargetedAction):
 	TARGET = ActionArg()#self
 	def do(self, source, target):
@@ -956,7 +956,8 @@ class WC_035:#OK
 class WC_035e:
 	events = OWN_TURN_END.on(WC_035_Archdruid_Naralex(CONTROLLER))
 	pass
-
+class WC_035e2:
+	pass
 
 
 ######

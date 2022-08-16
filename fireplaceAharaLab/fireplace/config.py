@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
+	HEARTHSTONE=1# ランク戦をするならこちら（バトグラより優先）
 	BATTLEGROUNDS=0# バトグラをするならこちら
 	CARDTEST=0# カードの動作テストをするならこちら
 	CARDCLASS=1# カードクラス（core & hunter など）のカードの抽出するモード
@@ -16,7 +16,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# log.info相当のログ表示
 	LOGINFO_INDENT=">"
 	LOGINFO_LOG=[]
 	DEEPCOPY_LOGINFO=0
