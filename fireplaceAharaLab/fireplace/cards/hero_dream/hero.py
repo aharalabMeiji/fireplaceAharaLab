@@ -185,3 +185,19 @@ class HERO_09bp2:#OK
 	Restore #4 Health."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 	activate = Heal(TARGET, 4)
+
+
+class HERO_10:#
+	""" >Illidan Stormrage  """
+	pass
+class HERO_10bp:#
+	"""Demon Claws
+	[x]&lt;b&gt;Hero Power&lt;/b&gt;+1 Attack this turn."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Heal(TARGET, 2)
+class HERO_10bp2:#OK
+	"""Demon's Bite
+	&lt;b&gt;Hero Power&lt;/b&gt; +2 Attack this turn."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	activate = Heal(TARGET, 4)
+
