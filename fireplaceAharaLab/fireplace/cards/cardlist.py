@@ -153,5 +153,21 @@ All=Core_Cards\
 	+[Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
 	+Sunken_Cards
 
+# VANILLA = 1646
+from fireplace.cards.core import classic_druid, classic_neutral
+#from fireplace.cards.core import classic_demon_hunter, classic_hunter, classic_mage, classic_paladin, classic_priest, classic_rogue, classic_shaman, classic_warrior, classic_warlock
+#Classic_DemonHunter=classic_demon_hunter.Classic_DemonHunter
+Classic_Druid=classic_druid.Classic_Druid
+#Classic_Hunter=classic_hunter.Classic_Hunter
+#Classic_Mage = classic_mage.Classic_Mage
+Classic_Neutral=classic_neutral.Classic_Neutral
+#Classic_Paladin=classic_paladin.Classic_Paladin
+#Classic_Priest=classic_priest.Classic_Priest
+#Classic_Rogue=classic_rogue.Classic_Rogue
+#Classic_Shaman=classic_shaman.Classic_Shaman
+#Classic_Warlock=classic_warlock.Classic_Warlock
+#Classic_Warrior=classic_warrior.Classic_Warrior
+
+#Classic_Cards=[Classic_DemonHunter,Classic_Druid,Classic_Hunter,Classic_Mage,Classic_Neutral,Classic_Paladin,Classic_Priest,Classic_Priest,Classic_Rogue,Classic_Shaman,Classic_Warlock,Classic_Warrior]
 
 
