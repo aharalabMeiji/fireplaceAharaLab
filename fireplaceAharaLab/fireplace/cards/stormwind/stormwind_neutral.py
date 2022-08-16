@@ -507,11 +507,22 @@ SW_078e2=buff(0,0)
 if StormWind_Flightmaster_Dungar:# 
 	StormWind_Neutral+=['SW_079','SW_079te','SW_079t2e','SW_079t3e']
 	StormWind_Neutral+=['SW_079t', 'SW_079t2', 'SW_079t3','SW_079e4','SW_079e5','SW_079e6']
+class SW_079_Choice(Choice):
+	def choose(self,card):
+		#controller = self.player
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(SW_079_Choice.choose)%s chooses %r"%(card.controller.name, card))
+		new_card = self.player.card(card.id)# make a new copy
+		new_card.zone = Zone.HAND
+		Battlecry(new_card, new_card.target).trigger(new_card)
+		#new_card.zone=Zone.PLAY# 必要？
+		pass
 class SW_079:###OK
 	""" Flightmaster Dungar
 	[x]<b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b> Awaken with a bonus __when you complete it! """
 	entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
-	play = GenericChoiceBattlecry(CONTROLLER,RandomEntourage()*3)
+	play = SW_079_Choice(CONTROLLER,RandomEntourage()*3)
 	pass
 SW_079e4=buff(0,0)
 SW_079e5=buff(0,0)

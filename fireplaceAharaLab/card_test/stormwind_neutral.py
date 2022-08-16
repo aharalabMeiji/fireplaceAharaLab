@@ -2,7 +2,7 @@ from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import Zone,CardType, Rarity, CardClass
 from utils import postAction
 
-def SimulateGames_Stormwind_Neutral():
+def stormwind_neutral():
 	PresetGame(pp_SW_079)#OK
 
 ##################################
@@ -24,9 +24,9 @@ class pp_SW_079(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		##########controller
-		self.play_card(self.mark1, controller)#
+		self.play_card(self.mark1)#
 		postAction(controller)
-		self.change_turn(controller)
+		self.change_turn()
 		##########opponent
 		#self.play_card(self.mark1, opponent)#
 		self.change_turn(opponent)
