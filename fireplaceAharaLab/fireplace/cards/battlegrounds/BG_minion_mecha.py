@@ -1,6 +1,10 @@
 from ..utils import *
 from fireplace.battlegrounds.BG_battle import BG_Battle
 
+
+Omega_Buster=True#Omega Buster(6)
+
+
 BG_Minion_Mecha =[
 	'ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)
 	'BG21_022','BG21_022_G',	#Pupbot(1)
@@ -17,15 +21,16 @@ BG_Minion_Mecha =[
 	'BG20_401', 'BG20_401_G',	#Holy Mecherel(5)
 	'GVG_113', 'TB_BaconUps_153',	#Foe Reaper 4000(6)
 	'BG21_025',	'BG21_025_G',	#Omega Buster(6)
-	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4->6) 23.6
+	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4->6) 23.6, 24.0.3
 	]
 BG_PoolSet_Mecha=[
-	['ULD_217', 'BG21_022',],
-	['EX1_556', 'BOT_606', 'GVG_048', ],
+	[],#0
+	['ULD_217', 'BG21_022',],#1
+	['EX1_556', 'BOT_606', 'GVG_048', ],#2
 	['BGS_071', 'BOT_312',  ],#3 #'GVG_055',
 	['BOT_911', 'BG21_024', 'BG21_023', 'BG_BOT_563',],#4 #'BOT_537',
-	['BG20_401', ],
-	['GVG_113', 'BG21_025','BG21_024', ],
+	['BG20_401', ],#5
+	['GVG_113', 'BG21_025','BG21_024', ],#6
 	]
 BG_Mecha_Gold={
 	'ULD_217':'TB_BaconUps_250',	#Micro Mummy(1)
@@ -226,22 +231,6 @@ class TB_BaconUps_099e:
 
 
 
-#Grease Bot(4->6) 23.6
-class BG21_024:# <12>[1453]
-	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +3/+2_permanently. """
-	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
-	pass
-BG21_024e=buff(2,2)#24.0.3
-#BG21_024e=buff(3,2)# until 23.6
-class BG21_024_G:# <12>[1453]
-	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +6/+4_permanently. """
-	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
-	pass
-BG21_024_Ge=buff(4,4)# 24.0.3
-#BG21_024_Ge=buff(6,4)# until 23.6
-
 
 
 #Mechano-Egg(4) ### OK ###
@@ -312,6 +301,8 @@ class TB_BaconUps_153:# <12>[1453]
 
 
 #Omega Buster(6)
+if Omega_Buster: #
+	pass
 class BG21_025_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source,target):
@@ -348,5 +339,21 @@ class TB_BaconUps_032t:
 	""" Microbot (2/2)
 	"""
 	pass
+
+#Grease Bot(4->6) 23.6
+class BG21_024:# <12>[1453]
+	""" Grease Bot
+	After a friendly minion loses [Divine Shield], give it +3/+2_permanently. """
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
+	pass
+BG21_024e=buff(2,2)#24.0.3
+#BG21_024e=buff(3,2)# until 23.6
+class BG21_024_G:# <12>[1453]
+	""" Grease Bot
+	After a friendly minion loses [Divine Shield], give it +6/+4_permanently. """
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
+	pass
+BG21_024_Ge=buff(4,4)# 24.0.3
+#BG21_024_Ge=buff(6,4)# until 23.6
 
 

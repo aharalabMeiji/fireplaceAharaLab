@@ -353,9 +353,12 @@ BGS_Treasures_034e=buff(2,2)# <0>[1453]
 
 class BGS_Treasures_036:# <12>[1453]### maybe ##
 	""" Great Deal
-	For the rest of the game, reduce the cost of upgrading Bob's Tavern by (3) at the end of your turn. """
+	Reduce the cost of upgrading Bob's Tavern by (5). (24.0.3)"""
+	##Reduce the cost of upgrading Bob's Tavern by (6). (24.0)"""
+	##For the rest of the game, reduce the cost of upgrading Bob's Tavern by (3) at the end of your turn. """
 	def play(self):
-		self.controller.extra_tavern_tierup_reduce_cost=2
+		self.controller.tavern_tierup_cost = max(self.controller.tavern_tierup_cost-5, 0)
+		#self.controller.extra_tavern_tierup_reduce_cost=2
 	pass
 class BGS_Treasures_036e:# <0>[1453]
 	""" Great Deal

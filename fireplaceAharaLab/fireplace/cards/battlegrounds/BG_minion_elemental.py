@@ -1,52 +1,31 @@
 
 from ..utils import *
 
+BG_Refreshing_Anomaly=True
+BG_Sellemental=True
+BG_Molten_Rock=True
+BG_Party_Elemental=True
+BG_Crackling_Cyclone=True
+BG_Smogger=True
+BG_Stasis_Elemental=True
+BG_Dazzling_Lightspawn=True
+BG_Recycling_Wraith=True
+BG_Wildfire_Elemental=True
+BG_Tavern_Tempest=True
+BG_Gentle_Djinni=True
+BG_Lil_Rag=True
+BG_Lieutenant_Garr=True
 
-BG_Minion_Elemental =[
-	'BGS_116','TB_BaconUps_167',#Refreshing Anomaly(1)
-	'BGS_115','BGS_115t','TB_BaconUps_156',#Sellemental(1)
-	'BGS_127','BGS_127e','TB_Baconups_202','TB_Baconups_202e',#Molten Rock(2)
-	'BGS_120','BGS_120e','TB_BaconUps_160',#Party Elemental(2)
-	'BGS_119','TB_BaconUps_159',#Crackling Cyclone(3)
-	'BG21_021','BG21_021e','BG21_021_G',#Smogger(3)
-	'BGS_122','TB_BaconUps_161',#Stasis Elemental(3)
-	'BG21_020','BG21_020e','BG21_020pe','BG21_020_G',#Dazzling Lightspawn(4)
-	'BG21_040','BG21_040_G',#Recycling Wraith(4)
-	'BGS_126','TB_BaconUps_166',#Wildfire Elemental(4)
-	'BGS_123','TB_BaconUps_162',#Tavern Tempest(5)
-	'BGS_121','TB_BaconUps_165',#Gentle Djinni(6)
-	'BGS_100','BGS_100e','TB_BaconUps_200',#Lil' Rag (6->5) 24.0.3
-	'BGS_124','BGS_124e','TB_BaconUps_163','TB_BaconUps_163e',# Lieutenant Garr (6)
-]
 
-BG_PoolSet_Elemental=[
-	['BGS_116','BGS_115',],
-	['BGS_127','BGS_120',],
-	['BGS_119','BG21_021','BGS_122',],
-	['BG21_020','BG21_040','BGS_126',],
-	['BGS_123','BGS_100',],
-	['BGS_121','BGS_124',],
-	]
-
-BG_Elemental_Gold={
-	'BGS_116':'TB_BaconUps_167',#Refreshing Anomaly(1)
-	'BGS_115':'TB_BaconUps_156',#Sellemental(1)
-	'BGS_127':'TB_Baconups_202',#Molten Rock(2)
-	'BGS_120':'TB_BaconUps_160',#Party Elemental(2)
-	'BGS_119':'TB_BaconUps_159',#Crackling Cyclone(3)
-	'BG21_021':'BG21_021_G',#Smogger(3)
-	'BGS_122':'TB_BaconUps_161',#Stasis Elemental(3)
-	'BG21_020':'BG21_020_G',#Dazzling Lightspawn(4)
-	'BG21_040':'BG21_040_G',#Recycling Wraith(4)
-	'BGS_126':'TB_BaconUps_166',#Wildfire Elemental(4)
-	'BGS_123':'TB_BaconUps_162',#Tavern Tempest(5)
-	'BGS_121':'TB_BaconUps_165',#Gentle Djinni(6)
-	'BGS_100':'TB_BaconUps_200',#Lil' Rag (6->5)
-	'BGS_124':'TB_BaconUps_163',# Lieutenant Garr (6)
-	}
-
+BG_Minion_Elemental =[]
+BG_PoolSet_Elemental=[[],[],[],[],[],[],[]]
+BG_Elemental_Gold={}
 
 #Refreshing Anomaly(1)  ### OK ###
+if BG_Refreshing_Anomaly: # 
+	BG_Minion_Elemental+=['BGS_116','TB_BaconUps_167']
+	BG_PoolSet_Elemental[1].append('BGS_116')
+	BG_Elemental_Gold['BGS_116']='TB_BaconUps_167'
 class BGS_116:# <12>[1453]　
 	""" Refreshing Anomaly
 	[Battlecry:] Your next [Refresh] costs (0). """
@@ -59,8 +38,11 @@ class TB_BaconUps_167:# <12>[1453]
 	pass
 
 
-
 #Sellemental(1)  ### OK ###
+if BG_Sellemental: # 
+	BG_Minion_Elemental+=['BGS_115','BGS_115t','TB_BaconUps_156']
+	BG_PoolSet_Elemental[1].append('BGS_115')
+	BG_Elemental_Gold['BGS_115']='TB_BaconUps_156'
 class BGS_115:# <12>[1453]　ウレメンタル
 	""" Sellemental
 	When you sell this,add a 2/2 Elementalto your hand. """
@@ -78,7 +60,11 @@ class TB_BaconUps_156:# <12>[1453]
 
 
 
+if BG_Molten_Rock: # 
 #Molten Rock(2)  ### MAYBE ###
+	BG_Minion_Elemental+=['BGS_127','BGS_127e','TB_Baconups_202','TB_Baconups_202e']
+	BG_PoolSet_Elemental[2].append('BGS_127')
+	BG_Elemental_Gold['BGS_127']='TB_Baconups_202'
 class BGS_127:# <12>[1453] ようがん
 	""" Molten Rock
 	[Taunt]. After you play an Elemental, gain +1 Health. """
@@ -94,7 +80,11 @@ TB_Baconups_202e=buff(0,2)
 
 
 
+if BG_Party_Elemental: # 
 #Party Elemental(2)  ### MAYBE ###
+	BG_Minion_Elemental+=['BGS_120','BGS_120e','TB_BaconUps_160']
+	BG_PoolSet_Elemental[2].append('BGS_120')
+	BG_Elemental_Gold['BGS_120']='TB_BaconUps_160'
 class BGS_120:# <12>[1453]
 	""" Party Elemental
 	After you play an Elemental, give another random friendly Elemental +1/+1. """
@@ -109,7 +99,11 @@ class TB_BaconUps_160:# <12>[1453]
 
 
 
+if BG_Crackling_Cyclone: # 
 #Crackling Cyclone(3)   ### OK ###
+	BG_Minion_Elemental+=['BGS_119','TB_BaconUps_159']
+	BG_PoolSet_Elemental[3].append('BGS_119')
+	BG_Elemental_Gold['BGS_119']='TB_BaconUps_159'
 class BGS_119:# <12>[1453] ばりばり
 	""" Crackling Cyclone
 	[Divine Shield][Windfury] """
@@ -121,7 +115,11 @@ class TB_BaconUps_159:# <12>[1453]
 	pass
 
 
+if BG_Smogger: # 
 #Smogger(3)   ### need check ###
+	BG_Minion_Elemental+=['BG21_021','BG21_021e','BG21_021_G',]
+	BG_PoolSet_Elemental[3].append('BG21_021')
+	BG_Elemental_Gold['BG21_021']='BG21_021_G'
 class BG21_021:# <12>[1453]
 	""" Smogger
 	[Battlecry:] Give a friendly Elemental stats equal to your Tavern Tier. """
@@ -166,6 +164,10 @@ class BG21_021_G:# <12>[1453]
 
 
 #Stasis Elemental(3)   ### need check ###
+if BG_Stasis_Elemental: # 
+	BG_Minion_Elemental+=['BGS_122','TB_BaconUps_161']
+	BG_PoolSet_Elemental[3].append('BGS_122')
+	BG_Elemental_Gold['BGS_122']='TB_BaconUps_161'
 class BGS_122:# <12>[1453] ###
 	""" Stasis Elemental 
 	[Battlecry:] Add another random Elemental to Bob's Tavern and [Freeze] it. """
@@ -205,6 +207,10 @@ class TB_BaconUps_161:# <12>[1453]
 
 
 #Dazzling Lightspawn(4) ### OK ###
+if BG_Dazzling_Lightspawn: # 
+	BG_Minion_Elemental+=['BG21_020','BG21_020e','BG21_020pe','BG21_020_G']
+	BG_PoolSet_Elemental[4].append('BG21_020')
+	BG_Elemental_Gold['BG21_020']='BG21_020_G'
 class BG21_020_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -235,6 +241,10 @@ class BG21_020_G:# <12>[1453]
 
 
 #Recycling Wraith(4)   ### maybe ###
+if BG_Recycling_Wraith: # 
+	BG_Minion_Elemental+=['BG21_040','BG21_040_G']
+	BG_PoolSet_Elemental[4].append('BG21_040')
+	BG_Elemental_Gold['BG21_040']='BG21_040_G'
 class BG21_040:# <12>[1453] レイス
 	""" Recycling Wraith
 	After you play an Elemental, your next [Refresh] costs (1) less. """
@@ -249,6 +259,10 @@ class BG21_040_G:# <12>[1453]
 
 
 #Wildfire Elemental(4) ### OK ###
+if BG_Wildfire_Elemental: # 
+	BG_Minion_Elemental+=['BGS_126','TB_BaconUps_166']
+	BG_PoolSet_Elemental[4].append('BGS_126')
+	BG_Elemental_Gold['BGS_126']='TB_BaconUps_166'
 class BGS_126_Action(TargetedAction):
 	TARGET = ActionArg()
 	LVL = IntArg()
@@ -277,6 +291,10 @@ class TB_BaconUps_166:# <12>[1453]
 
 
 #Tavern Tempest(5)   ### need check ###
+if BG_Tavern_Tempest: # 
+	BG_Minion_Elemental+=['BGS_123','TB_BaconUps_162']
+	BG_PoolSet_Elemental[5].append('BGS_123')
+	BG_Elemental_Gold['BGS_123']='TB_BaconUps_162'
 class BGS_123:# <12>[1453] 逆巻き風
 	""" Tavern Tempest
 	[Battlecry:] Add another random Elemental to your hand. """
@@ -311,6 +329,10 @@ class TB_BaconUps_162:# <12>[1453]
 
 
 #Gentle Djinni(6)   ### OK ###
+if BG_Gentle_Djinni: # 
+	BG_Minion_Elemental+=['BGS_121','TB_BaconUps_165']
+	BG_PoolSet_Elemental[6].append('BGS_121')
+	BG_Elemental_Gold['BGS_121']='TB_BaconUps_165'
 class BGS_121_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -341,7 +363,11 @@ class TB_BaconUps_165:# <12>[1453]
 
 
 
-#Lil' Rag (6)   ### OK ###
+#Lil' Rag (6->5, 24.0.3)   ### OK ###
+if BG_Lil_Rag: # 
+	BG_Minion_Elemental+=['BGS_100','BGS_100e','TB_BaconUps_200']
+	BG_PoolSet_Elemental[5].append('BGS_100')
+	BG_Elemental_Gold['BGS_100']='TB_BaconUps_200'
 class BGS_100_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARDS = CardArg()
@@ -367,17 +393,30 @@ class TB_BaconUps_200:# <12>[1453]
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD)*2)
 	pass
 
-
-class BGS_124: ## Lieutenant Garr (6)(8/8)
+# Lieutenant Garr (6)(8/8) ### HP OK ###
+if BG_Lieutenant_Garr: # 
+	BG_Minion_Elemental+=['BGS_124','BGS_124e','TB_BaconUps_163','TB_BaconUps_163e']
+	BG_PoolSet_Elemental[6].append('BGS_124')
+	BG_Elemental_Gold['BGS_124']='TB_BaconUps_163'
+class BGS_124_Action(TargetedAction):
+	TARGET = ActionArg()# SELF
+	BUFF = ActionArg()#'BGS_124e'
+	AMOUNT = IntArg()
+	def do(self, source, target, buff, amount):
+		count = len([card for card in source.controller.field if card.race==Race.ELEMENTAL])
+		Buff(target, buff, max_health=count*amount).trigger(source)
+class BGS_124: #
 	""" Lieutenant Garr
 	&lt;b&gt;Taunt&lt;/b&gt;. After you play an Elemental, gain +1 Health for each Elemental you have """
-	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(Buff(SELF, 'BGS_124e', max_health=Count(FRIENDLY_MINIONS + ELEMENTAL) ))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(BGS_124_Action(SELF, 'BGS_124e', 1))
 	pass
-BGS_124e=buff(0,1)
+class BGS_124e:
+	pass
 class TB_BaconUps_163:
-	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(Buff(SELF, 'BGS_124e', max_health=Count(FRIENDLY_MINIONS + ELEMENTAL) ))
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(BGS_124_Action(SELF, 'TB_BaconUps_163e', 2))
 	pass
-TB_BaconUps_163e=buff(0,2)
+class TB_BaconUps_163e:
+	pass
 
 
 

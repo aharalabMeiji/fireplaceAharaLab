@@ -1,6 +1,6 @@
 from ..utils import *
 
-BG_Evolving_Chromawing=True## banned 23.6, revive 26.0
+BG_Evolving_Chromawing=True## banned 23.6, revive 24.0, revised 24.0.3
 
 BG_Minion_Dragon =[
 	
@@ -58,13 +58,15 @@ class BG21_027_Buff(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, buff, amount):
 		count=0#>= 26.0
-		for card in target.controller.field:#>= 26.0
-			if card.race==Race.DRAGON:#>= 26.0
-				count += 1#>= 26.0
-		Buff(target, buff, atk=count*amount, max_health=count*amount).trigger(source)#>= 26.0
+		for card in target.controller.field:#>= 24.0
+			if card.race==Race.DRAGON:#>= 24.0
+				count += 1#>= 24.0
+		Buff(target, buff, atk=count*amount).trigger(source)#>= 24.0.3
+		#Buff(target, buff, atk=count*amount, max_health=count*amount).trigger(source)#>= 24.0
 class BG21_027:# <12>[1453]
 	""" Evolving Chromawing
-	After you upgrade your Tavern Tier, gain +1/+1 for each friendly Dragon."""  #>= 26.0
+	After you upgrade your Tavern Tier, gain +1 Attack __for each friendly Dragon.."""  #>= 24.0.3
+	##After you upgrade your Tavern Tier, gain +1/+1 for each friendly Dragon."""  #>= 24.0
 	##After you upgrade your Tavern Tier, double this minion's Attack. """ #<= 23.4
 	events = UpgradeTier(CONTROLLER).after(BG21_027_Buff(SELF, 'BG21_027e',1 ))
 	pass
@@ -72,7 +74,7 @@ class BG21_027e:
 	pass
 class BG21_027_G:# <12>[1453]
 	""" Evolving Chromawing
-	After you upgrade your Tavern Tier, triple this minion's Attack. """
+	After you upgrade your Tavern Tier, gain +2 Attack __for each friendly Dragon. """
 	events = UpgradeTier(CONTROLLER).after(BG21_027_Buff(SELF, 'BG21_027_Ge', 2))
 	pass
 class BG21_027_Ge:
