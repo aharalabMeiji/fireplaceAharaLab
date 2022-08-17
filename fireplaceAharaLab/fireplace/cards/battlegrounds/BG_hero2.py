@@ -182,13 +182,16 @@ TB_BaconShop_HERO_01_Buddy_G_e=buff(2,2)# <12>[1453]
 
 
 
-#19#Elise Starseeker #### HP OK ###
+#19#Elise Starseeker #### HP 
 class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
 class TB_BaconShop_HP_047:
-	""" Lead Explorer
-	<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
-	events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
+	""" Lead Explorer 
+	&lt;b&gt;Discover&lt;/b&gt; a minion from your Tavern tier. Costs (1) more after each use."""
+	
+	## until 24.0
+	##<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
+	##events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
 class TB_BaconShop_HP_047t_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
@@ -425,7 +428,7 @@ class BG20_HERO_242:# <2>[1453]
 	""" Guff Runetotem """
 class BG20_HERO_242p:# <2>[1453]
 	""" Natural Balance
-	Give a friendly minion of each Tavern Tier +1/+1. """
+	Give a friendly minion of each Tavern Tier +2/+2. """
 	def activate(self):
 		controller = self.controller
 		field = copy(controller.field)
@@ -441,7 +444,8 @@ class BG20_HERO_242p:# <2>[1453]
 		pass
 	pass
 #BG20_HERO_242pe=buff(1,1)# <12>[1453] ## until 23.4.3
-BG20_HERO_242pe=buff(2,3)### after 23.6
+#BG20_HERO_242pe=buff(2,3)### until 24.0
+BG20_HERO_242pe=buff(2,2)### 24.0.3
 """ Guff's Buff,	+1/+1. """
 ######## BUDDY
 class BG20_HERO_242_Buddy:
@@ -584,8 +588,9 @@ class TB_BaconShop_HERO_60:# <12>[1453]
 	""" Kael'thas Sunstrider """
 class TB_BaconShop_HP_066:
 	""" Verdant Spheres
-	<b>Passive</b> Every third minion you buy gains +2/+2."""
-	events = Buy(CONTROLLER).on(SidequestCounter(SELF, 3, [Buff(Buy.CARD, 'TB_BaconShop_HP_066e' )]))
+	&lt;b&gt;Passive&lt;/b&gt;Every third minion you play gains +2/+2."""
+	## <b>Passive</b> Every third minion you buy gains +2/+2. until 24.0
+	events = BG_Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 3, [Buff(Buy.CARD, 'TB_BaconShop_HP_066e' )]))
 TB_BaconShop_HP_066e=buff(2,2)
 ######## BUDDY
 class TB_BaconShop_HERO_60_Buddy:# <12>[1453]
@@ -772,8 +777,9 @@ class TB_BaconShop_HERO_25:# <12>[1453]
 	""" Lich Baz'hial	 """
 class TB_BaconShop_HP_049:
 	""" Graveyard Shift
-	Take $2_damage and add a Gold Coin to your hand."""
-	activate = Hit(FRIENDLY_HERO, 2), Give(CONTROLLER, 'GAME_005')
+	Take $4 damage. Gain 2 Gold this turn only.""" # 24.0.3
+	## Take $2_damage and add a Gold Coin to your hand. 24.0
+	activate = Hit(FRIENDLY_HERO, 4), Give(CONTROLLER, 'GAME_005')*2
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_25_Buddy:# <12>[1453]

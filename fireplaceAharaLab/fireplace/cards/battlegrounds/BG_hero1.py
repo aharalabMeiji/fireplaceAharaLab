@@ -833,7 +833,8 @@ class TB_BaconShop_HP_061:
 	""" ALL Will Burn!
 	[x]<b>Passive</b> ALL minions have +2 Attack."""
 	update = Refresh(ALL_MINIONS, buff='TB_BaconShop_HP_061e')
-TB_BaconShop_HP_061e=buff(2,0)
+#TB_BaconShop_HP_061e=buff(2,0) ## until 24.0
+TB_BaconShop_HP_061e=buff(3,0) ## 24.0.3
 ########  BUDDY
 class TB_BaconShop_HERO_52_Buddy:
 	""" Lady Sinestra

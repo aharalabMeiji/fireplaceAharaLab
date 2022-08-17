@@ -15,7 +15,8 @@ BG_Minion_Elemental =[
 	'BGS_126','TB_BaconUps_166',#Wildfire Elemental(4)
 	'BGS_123','TB_BaconUps_162',#Tavern Tempest(5)
 	'BGS_121','TB_BaconUps_165',#Gentle Djinni(6)
-	'BGS_100','BGS_100e','TB_BaconUps_200',#Lil' Rag (6)
+	'BGS_100','BGS_100e','TB_BaconUps_200',#Lil' Rag (6->5) 24.0.3
+	'BGS_124','BGS_124e','TB_BaconUps_163','TB_BaconUps_163e',# Lieutenant Garr (6)
 ]
 
 BG_PoolSet_Elemental=[
@@ -23,8 +24,8 @@ BG_PoolSet_Elemental=[
 	['BGS_127','BGS_120',],
 	['BGS_119','BG21_021','BGS_122',],
 	['BG21_020','BG21_040','BGS_126',],
-	['BGS_123',],
-	['BGS_121','BGS_100',],
+	['BGS_123','BGS_100',],
+	['BGS_121','BGS_124',],
 	]
 
 BG_Elemental_Gold={
@@ -40,7 +41,8 @@ BG_Elemental_Gold={
 	'BGS_126':'TB_BaconUps_166',#Wildfire Elemental(4)
 	'BGS_123':'TB_BaconUps_162',#Tavern Tempest(5)
 	'BGS_121':'TB_BaconUps_165',#Gentle Djinni(6)
-	'BGS_100':'TB_BaconUps_200',#Lil' Rag (6)
+	'BGS_100':'TB_BaconUps_200',#Lil' Rag (6->5)
+	'BGS_124':'TB_BaconUps_163',# Lieutenant Garr (6)
 	}
 
 
@@ -364,6 +366,19 @@ class TB_BaconUps_200:# <12>[1453]
 	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier twice. """
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD)*2)
 	pass
+
+
+class BGS_124: ## Lieutenant Garr (6)(8/8)
+	""" Lieutenant Garr
+	&lt;b&gt;Taunt&lt;/b&gt;. After you play an Elemental, gain +1 Health for each Elemental you have """
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(Buff(SELF, 'BGS_124e', max_health=Count(FRIENDLY_MINIONS + ELEMENTAL) ))
+	pass
+BGS_124e=buff(0,1)
+class TB_BaconUps_163:
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(Buff(SELF, 'BGS_124e', max_health=Count(FRIENDLY_MINIONS + ELEMENTAL) ))
+	pass
+TB_BaconUps_163e=buff(0,2)
+
 
 
 
