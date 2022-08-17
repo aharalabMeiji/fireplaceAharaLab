@@ -177,6 +177,7 @@ if Sunken_Coilfang_Constrictor:# ##OK
 	Sunken_Neutral+=['TID_744e']
 class TID_744_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		Buff(card,'TID_744e').trigger(self.source)
 class TID_744:# <12>[1658] 
@@ -341,6 +342,7 @@ class TSC_052_Action(TargetedAction):
 		TSC_052_Choice(CONTROLLER, RandomSpell(cost=[1,2,3])*3).trigger(source)
 class TSC_052_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller=card.controller
 		for pupil in controller.hand:
@@ -594,6 +596,7 @@ if Sunken_Ini_Stormcoil:# OK
 	Sunken_Neutral+=['TSC_649e2']
 class TSC_649_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(TSC_649_Choice.choose)%s chooses %r"%(card.controller.name, card))
@@ -726,6 +729,7 @@ if Sunken_Excavation_Specialist:#
 	Sunken_Neutral+=['TSC_911']
 class TSC_911_DredgeChoice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))

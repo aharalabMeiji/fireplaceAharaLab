@@ -23,6 +23,7 @@ if Sunken_Igneous_Lavagorger:#
 	#Sunken_Warrior+=['TID_714e']
 class TID_714_DredgeChoice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
@@ -223,6 +224,7 @@ if Sunken_Obsidiansmith:#
 	Sunken_Warrior+=['TSC_942e']
 class TSC_942_DredgeChoice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))

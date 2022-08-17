@@ -26,17 +26,16 @@ class pp_SW_079(Preset_Play):
 		##########controller
 		self.play_card(self.mark1)#
 		postAction(controller)
-		self.change_turn()
-		##########opponent
-		#self.play_card(self.mark1, opponent)#
-		self.change_turn(opponent)
-		##########controller
-		self.change_turn(controller)
-		##########opponent
-		self.change_turn(opponent)
+		dormant = self.mark1.dormant
+		assert dormant==1 or dormant==3 or dormant==5, "dormant"
+		print("dormant==1 or dormant==3 or dormant==5")
+		for count in dormant:
+			self.change_turn()
+			self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+
 		controller = self.player
 		print("There are three patterns of dormant with 1,3,5 turns.")
 		pass

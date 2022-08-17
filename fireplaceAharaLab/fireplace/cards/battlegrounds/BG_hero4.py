@@ -201,6 +201,7 @@ class BG21_HERO_010p_Action(Choice):
 			cards.append(controller.card(card))
 		return player, cards
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(BG21_HERO_010p_Action.choose)%s chooses %r"%(card.controller.name, card))

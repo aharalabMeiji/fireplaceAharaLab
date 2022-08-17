@@ -509,12 +509,12 @@ if StormWind_Flightmaster_Dungar:#
 	StormWind_Neutral+=['SW_079t', 'SW_079t2', 'SW_079t3','SW_079e4','SW_079e5','SW_079e6']
 class SW_079_Choice(Choice):
 	def choose(self,card):
-		#controller = self.player
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(SW_079_Choice.choose)%s chooses %r"%(card.controller.name, card))
 		new_card = self.player.card(card.id)# make a new copy
-		new_card.zone = Zone.HAND
+		new_card.zone = Zone.HAND# 必要？
 		Battlecry(new_card, new_card.target).trigger(new_card)
 		#new_card.zone=Zone.PLAY# 必要？
 		pass
@@ -538,7 +538,9 @@ class SW_079t:##OK
 				if Config.LOGINFO:
 					print("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break;
-		controller.hand[-1].zone = Zone.GRAVEYARD
+		for del_card in controller.hand:
+			if del_card.id == 'SW_079t3':
+				del_card.zone = Zone.GRAVEYARD
 SW_079te=buff(0,0)
 class SW_079t2:###OK
 	""" Ironforge
@@ -552,7 +554,9 @@ class SW_079t2:###OK
 				if Config.LOGINFO:
 					print("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break
-		controller.hand[-1].zone = Zone.GRAVEYARD
+		for del_card in controller.hand:
+			if del_card.id == 'SW_079t2':
+				del_card.zone = Zone.GRAVEYARD
 SW_079t2e=buff(0,0)
 class SW_079t3:###OK
 	""" Eastern Plaguelands
@@ -566,7 +570,9 @@ class SW_079t3:###OK
 				if Config.LOGINFO:
 					print("%r has dormant %d with awaken %r"%(main_card, main_card.dormant, main_card.get_actions("awaken")))
 				break
-		controller.hand[-1].zone = Zone.GRAVEYARD
+		for del_card in controller.hand:
+			if del_card.id == 'SW_079t3':
+				del_card.zone = Zone.GRAVEYARD
 SW_079t3e=buff(0,0)
 
 

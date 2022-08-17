@@ -222,6 +222,7 @@ class SCH_248:#OK
 
 class SCH_259_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("%s chooses %r"%(card.controller.name, card))

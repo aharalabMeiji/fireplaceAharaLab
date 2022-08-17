@@ -210,6 +210,7 @@ if Sunken_Trench_Surveyor:#
 	Sunken_Mage+=['TSC_642']
 class TSC_DredgeChoice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))

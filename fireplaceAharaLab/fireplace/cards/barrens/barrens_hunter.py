@@ -137,6 +137,7 @@ if Barrens_Warsong_Wrangler:#
 class BAR_037_Warsong_Wrangler(Choice):
 	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("%s chooses %r"%(card.controller.name, card))

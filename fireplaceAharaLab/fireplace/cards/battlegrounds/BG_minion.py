@@ -994,6 +994,7 @@ class BG23_016_Choice(Choice):
 				cards = random.sample(cards,3)
 		return player, cards
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(BG23_016_Choice.choose)%s chooses %r"%(card.controller.name, card))

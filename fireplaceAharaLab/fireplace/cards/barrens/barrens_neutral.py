@@ -747,6 +747,7 @@ if Barrens_Southsea_Scoundrel:#
 class BAR_081_Southsea_Scoundrel(Choice):## 
 	#Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(BAR_081_Southsea_Scoundrel.choose)%s chooses %r"%(card.controller.name, card))
