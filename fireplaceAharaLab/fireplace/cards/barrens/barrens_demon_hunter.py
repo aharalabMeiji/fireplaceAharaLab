@@ -24,7 +24,7 @@ if Barrens_Sigil_of_Flame:#
 class BAR_306:# <14>[1525]
 	""" Sigil of Flame
 	At the start of your next turn, deal $3 damageto all minions. """
-	#
+	events = OWN_TURN_BEGIN.on(Hit(ENEMY_MINIONS, 3))
 	pass
 
 
@@ -32,10 +32,16 @@ class BAR_306:# <14>[1525]
 
 if Barrens_Razorboar:# 
 	Barrens_DemonHunter+=['BAR_325']
+class BAR_325_Summon(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		cards=[card for card in target.hand if card.cost<=3 and card.has_deathrattle==True]
+		if len(cards)>0:
+			Summon(target, random.choice(cards)).trigger(source)
 class BAR_325:# <14>[1525]
 	""" Razorboar
 	[Deathrattle:] Summon a [Deathrattle] minion that costs (3) or less from your hand. """
-	#
+	deathrattle = BAR_325_Summon(CONTROLLER)
 	pass
 
 
@@ -43,10 +49,16 @@ class BAR_325:# <14>[1525]
 
 if Barrens_Razorfen_Beastmaster:# 
 	Barrens_DemonHunter+=['BAR_326']
+class BAR_326_Summon(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		cards=[card for card in target.hand if card.cost<=4 and card.has_deathrattle==True]
+		if len(cards)>0:
+			Summon(target, random.choice(cards)).trigger(source)
 class BAR_326:# <14>[1525]
 	""" Razorfen Beastmaster
 	[Deathrattle:] Summon a [Deathrattle] minion that costs (4) or less from your hand. """
-	#
+	deathrattle = BAR_326_Summon(CONTROLLER)
 	pass
 
 
@@ -58,9 +70,8 @@ if Barrens_Vile_Call:#
 class BAR_327:# <14>[1525]
 	""" Vile Call
 	Summon two 2/2 Demons with [Lifesteal]. """
-	#
+	play = Summon(CONTROLLER, 'BAR_327t')
 	pass
-
 class BAR_327t:# <14>[1525]
 	""" Ravenous Vilefiend
 	[Lifesteal] """
@@ -72,10 +83,18 @@ class BAR_327t:# <14>[1525]
 
 if Barrens_Vengeful_Spirit:# 
 	Barrens_DemonHunter+=['BAR_328']
+class BAR_328_Give(TargetedAction):
+	TARGET=ActionArg()#CONTROLLER
+	def do(self,source,target):
+		cards=[card for card in source.target.deck if card.has_deathrattle==True]
+		if len(cards)>=2:
+			cards=random.sampl(cards, 2)
+		for card in cards:
+			Summon(target, card).trigger(source)
 class BAR_328:# <14>[1525]
 	""" Vengeful Spirit
 	[Outcast:] Draw 2 [Deathrattle] minions. """
-	#
+	outcast = BAR_328_Give(CONTROLLER)
 	pass
 
 
@@ -83,10 +102,18 @@ class BAR_328:# <14>[1525]
 
 if Barrens_Death_Speaker_Blackthorn:# 
 	Barrens_DemonHunter+=['BAR_329']
+class BAR_329_Summon(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		cards=[card for card in target.deck if card.cost<=5 and card.has_deathrattle==True]
+		if len(cards)>3:
+			cards=random.sampl(cards, 3)
+		for card in cards:
+			Summon(target, card).trigger(source)
 class BAR_329:# <14>[1525]
 	""" Death Speaker Blackthorn
 	[Battlecry:] Summon 3 [Deathrattle] minions that cost (5) or less from your deck. """
-	#
+	play = BAR_329_Summon(CONTROLLER)#
 	pass
 
 

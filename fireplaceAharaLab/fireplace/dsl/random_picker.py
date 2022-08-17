@@ -111,6 +111,8 @@ RandomTotem = lambda **kw: RandomCardPicker(race=Race.TOTEM)
 RandomWeapon = lambda **kw: RandomCollectible(type=CardType.WEAPON, **kw)
 RandomLegendaryMinion = lambda **kw: RandomMinion(rarity=Rarity.LEGENDARY, **kw)
 RandomSparePart = lambda: RandomCardPicker(spare_part=True)
+RandomDeathrattle = lambda **kw: RandomMinion(deathrattle=True)
+
 
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
 RandomBGDemon = lambda **kw: RandomBGMinion(race=Race.DEMON, **kw)
