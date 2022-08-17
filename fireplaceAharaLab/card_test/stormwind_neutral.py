@@ -1,10 +1,12 @@
 from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import Zone,CardType, Rarity, CardClass
 from utils import postAction
-from fireplace.actions import Hit, Heal, Summon
+from fireplace.actions import Buff, Hit, Heal, Summon
 
 def stormwind_neutral():
-	PresetGame(pp_SW_079)#OK
+	#PresetGame(pp_SW_059)#OK
+	#PresetGame(pp_SW_079)#OK
+	pass
 
 ##################################
 
@@ -59,6 +61,39 @@ class pp_SW_079(Preset_Play):
 			print("SW_079t OK")
 		print("There are three patterns of dormant with 1,3,5 turns.")
 		pass
+
+
+##########SW_059 ###############
+
+class pp_SW_059 (Preset_Play):# 
+	""" Deeprun Engineer
+	<b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
+	def preset_deck(self):
+		self.mark1=self.exchange_card('SW_059', self.controller)
+		self.mark4=Summon(self.controller, self.card_choice('minionH3')).trigger(self.opponent)
+		self.mark4=self.mark4[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1)
+		self.choose_action()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card, old_cost=True)
+			buffIds=[buff.id for buff in card.buffs]
+			if 'SW_059e' in buffIds:
+				assert card.cost == card.data.cost-1, "cost"
+				theCard=card
+		for action in self.controller._targetedaction_log:
+			if isinstance(action['class'],Buff) and action['target'].id==theCard.id:
+				assert action['source'].id=="SW_059", "source"
+				print("'source' is SW_059")
+	pass
 
 ##################################
 

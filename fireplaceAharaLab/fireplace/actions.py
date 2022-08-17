@@ -499,11 +499,6 @@ class GenericChoiceOnDeck(Choice):
 
 
 
-class GenericChoiceBuff(GenericChoice):## SW_059  ## callbackで対応可能
-	def choose(self, card):
-		super().choose(card)
-		Buff(card,'SW_059e').trigger(card.controller)
-		pass
 
 class GenericChoicePlay(GenericChoice):## 
 	def choose(self, card):

@@ -18,7 +18,7 @@ StormWind_StormWind_Guard=True  ####OK
 StormWind_Impatient_Shopkeep=True  ####OK
 StormWind_Spice_Bread_Baker=True  ####OK
 StormWind_Package_Runner=True  ####OK
-StormWind_Deeprun_Engineer=True  ####OK
+StormWind_Deeprun_Engineer=True  ####OK 059
 StormWind_Florist=True  ####OK
 StormWind_Guild_Trader=True  ####OK
 StormWind_Goldshire_Gnoll=True  ####OK
@@ -234,14 +234,26 @@ class SW_057:#OK
 
 
 
-if StormWind_Deeprun_Engineer:# 
+if StormWind_Deeprun_Engineer:#  ### OK ###
 	StormWind_Neutral+=['SW_059','SW_059e']
+class SW_059_Choice(Choice):## 
+	def choose(self, card):
+		super().choose(card)
+		cardId=card.id
+		if Config.LOGINFO:
+			print("(SW_059_Choice.choose)%s chooses %r"%(card.controller.name, card))
+		if len(self.player.hand) < self.player.max_hand_size:
+			new_card = self.player.card(cardId)# make a new copy
+			new_card.zone = Zone.HAND
+			Buff(new_card,'SW_059e').trigger(self.source)
+		pass
 class SW_059:####OK
 	""" Deeprun Engineer
 	<b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
-	play = GenericChoiceBuff(CONTROLLER, RandomMech()*3) # cost 1 less
+	play = SW_059_Choice(CONTROLLER, RandomMech()*3, 'SW_059e') # cost 1 less
 	pass
-SW_059e=buff(cost=-1)#<4>[1578]
+class SW_059e:
+	tags={GameTag.COST:-1}#<4>[1578]
 
 
 
