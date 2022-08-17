@@ -183,7 +183,7 @@ class TSC_087_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		for cardid in target.sidequest_list0:
-			Give(CONTROLLER, cardid).trigger(self)
+			Give(CONTROLLER, cardid).trigger(source)
 class TSC_087:# <4>[1658]
 	""" Commander Sivara
 	[Battlecry:] If you've castthree spells while holding this, add those spells backto your hand.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
@@ -197,10 +197,21 @@ class TSC_087:# <4>[1658]
 
 if Sunken_Spitelash_Siren:# 
 	Sunken_Mage+=['TSC_620']
+class TSC_620_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		if source._sidequest_counter_==0:
+			if target.type==CardType.MINION and target.race==Race.NAGA:
+				RefreshMana(CONTROLLER,2).trigger(source)
+				source._sidequest_counter_=1
+		else:
+			if target.type==CardType.SPELL:
+				RefreshMana(CONTROLLER,2).trigger(source)
+				source._sidequest_counter_=0
 class TSC_620:# <4>[1658] #
 	""" Spitelash Siren
 	After you play a Naga,refresh two Mana Crystals.<i>(Then switch to spell!)</i>@After you cast a spell,refresh two Mana Crystals.<i>(Then switch to Naga!)</i> """
-	events = ScriptDataNum1True(CONTROLLER) & Play(CONTROLLER, SPELL).after(RefreshMana(CONTROLLER,2), SetScriptDataNum1(CONTROLLER, False)) | Play(CONTROLLER, NAGA).after(RefreshMana(CONTROLLER,2), SetScriptDataNum1(CONTROLLER, True)) 
+	events = Play(CONTROLLER).on( TSC_620_Action(Play.CARD))
 	pass
 
 

@@ -64,8 +64,13 @@ class DED_009:# <3>[1578] ###OK
 DED_009e = buff(2,3)# <3>[1578]
 """ Good Doggie!
 +2/+3. """
-
-
+@custom_card
+class DED_009e2:
+	tags={
+		GameTag.CARDNAME: "Doggie Biscuit",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.RUSH:True
+		}
 
 
 if StormWind_Rats_of_Extraordinary_Size:# 

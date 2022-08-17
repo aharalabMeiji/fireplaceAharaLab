@@ -99,7 +99,7 @@ class DED_517t:# <4>[1578]
 
 
 if StormWind_Celestial_Ink_Set:# 
-	StormWind_Mage+=['SW_001']
+	StormWind_Mage+=['SW_001','SW_001e','SW_001e2']
 class SW_001:#<4>[1578]###OK
 	""" Celestial Ink Set
 	After you spend 5 Mana on spells, reduce the cost of a spell in your hand by (5).Lose 1 Durability. """
@@ -360,7 +360,7 @@ class SW_450t4e:#<4>[1578]
 
 
 if StormWind_Hot_Streak:# 
-	StormWind_Mage+=['SW_462']
+	StormWind_Mage+=['SW_462','SW_462e']
 class SW_462:#<4>[1578]###OK
 	""" Hot Streak
 	Your next Fire spell this turn costs (2) less. """

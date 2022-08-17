@@ -264,8 +264,8 @@ class TSC_950:# <3>[1658]
 	""" Hydralodon
 	[Colossal +2][Battlecry:] Give your_Hydralodon Heads [Rush]. """
 	play = (
-		Summon(CONTROLLER, 'TSC_950t').then(Buff(Summon.CARD, {GameTag.RUSH:1, })),
-		Summon(CONTROLLER, 'TSC_950t2').then(Buff(Summon.CARD, {GameTag.RUSH:1, }))
+		Summon(CONTROLLER, 'TSC_950t').then(Buff(Summon.CARD, 'TSC_950e2')),
+		Summon(CONTROLLER, 'TSC_950t2').then(Buff(Summon.CARD, 'TSC_950e2'))
 		)
 
 class TSC_950t:# <3>[1658]
@@ -275,7 +275,13 @@ class TSC_950t:# <3>[1658]
 		Summon(CONTROLLER, 'TSC_950t'),
 		Summon(CONTROLLER, 'TSC_950t2')
 		)
-	#
+@custom_card
+class TSC_950e2:
+	tags={
+		GameTag.CARDNAME: "Doggie Biscuit",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.RUSH:True
+		}
 
 class TSC_950t2:# <3>[1658]
 	""" Hydralodon Head

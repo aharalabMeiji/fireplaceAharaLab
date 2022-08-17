@@ -243,7 +243,7 @@ class TSC_657:# <2>[1658]
 
 
 
-if Sunken_Hedra_the_Heretic:# 
+if Sunken_Hedra_the_Heretic:# ### OK 
 	Sunken_Druid+=['TSC_658']
 class TSC_658_Action1(TargetedAction):
 	TARGET=ActionArg()
@@ -256,7 +256,7 @@ class TSC_658_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		for cost in source.sidequest_list0:
-			Summon(controller, RandomMinion(cost=cost)).trigger(self)
+			Summon(target , RandomMinion(cost=cost)).trigger(source)
 		pass
 class TSC_658:# <2>[1658]
 	""" Hedra the Heretic
