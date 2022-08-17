@@ -76,7 +76,8 @@ class BAR_536:#OK <2>[1525]
 	class Hand:
 		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_536t'))	
 	pass
-BAR_536e=buff(cost=-1)#<8>[1525]
+class BAR_536e:
+	tags = {GameTag.COST:-1, }#<8>[1525]
 
 class BAR_536t:#OK <2>[1525]
 	""" Living Seed (Rank 2)
@@ -85,14 +86,16 @@ class BAR_536t:#OK <2>[1525]
 	class Hand:
 		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_536t2'))	
 	pass
-BAR_536te=buff(cost=-2)#<8>[1525]
+class BAR_536e:
+	tags = {GameTag.COST:-2, }#<8>[1525]
 
 class BAR_536t2:#OK <2>[1525]
 	""" Living Seed (Rank 3)
 	Draw a Beast.Reduce its Cost by (3). """
 	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(Buff(Give.CARD, "BAR_536t2e"))
 	pass
-BAR_536t2e=buff(cost=-3)#<8>[1525]
+class BAR_536e:
+	tags = {GameTag.COST:-3, }#<8>[1525]
 
 
 

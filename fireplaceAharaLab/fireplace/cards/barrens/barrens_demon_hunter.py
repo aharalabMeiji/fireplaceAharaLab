@@ -135,37 +135,39 @@ if Barrens_Fury_Rank_1:#
 class BAR_891:# <14>[1525]
 	""" Fury (Rank 1)
 	Give your hero +2 Attack this turn. <i>(Upgrades when you have 5 Mana.)</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_891t'))	
+	play = Buff(FRIENDLY_HERO, 'BAR_891e')
 	pass
-
 class BAR_891e:# <14>[1525]
-	""" Fury
-	+2 Attack this turn. """
-	#
-	pass
-
-class BAR_891e2:# <14>[1525]
-	""" Fury
-	+3 Attack this turn. """
-	#
-	pass
-
-class BAR_891e3:# <14>[1525]
-	""" Fury
-	+4 Attack this turn. """
-	#
+	""" Fury +2 Attack this turn. """
+	tags = {GameTag.ATK:2, }
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
 
 class BAR_891t:# <14>[1525]
 	""" Fury (Rank 2)
 	Give your hero +3 Attackthis turn. <i>(Upgrades whenyou have 10 Mana.)</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_891t2'))	
+	play = Buff(FRIENDLY_HERO, 'BAR_891e2')
+	pass
+class BAR_891e2:# <14>[1525]
+	""" Fury 	+3 Attack this turn. """
+	tags = {GameTag.ATK:3, }
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
 
 class BAR_891t2:# <14>[1525]
 	""" Fury (Rank 3)
 	Give your hero +4_Attack this turn. """
+	play = Buff(FRIENDLY_HERO, 'BAR_891e3')
 	#
+	pass
+class BAR_891e3:# <14>[1525]
+	""" Fury 	+4 Attack this turn. """
+	tags = {GameTag.ATK:4, }
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
 
 

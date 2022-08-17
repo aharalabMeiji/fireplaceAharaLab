@@ -70,17 +70,21 @@ if Barrens_Imp_Swarm_Rank_1:#
 class BAR_914:# <9>[1525]
 	""" Imp Swarm Rank 1
 	Summon a 3/2 Imp. <i>Upgrades when you have 5 Mana.</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_914t'))	
+	play = Summon(CONTROLLER, 'BAR_914t3')#
 	pass
 class BAR_914t:# <9>[1525]
 	""" Imp Swarm Rank 2
 	Summon two 3/2 Imps. <i>Upgrades when you have 10 Mana.</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_914t2'))	
+	play = Summon(CONTROLLER, 'BAR_914t3')*2#
 	pass
 class BAR_914t2:# <9>[1525]
 	""" Imp Swarm Rank 3
 	Summon three 3/2 Imps. """
-	#
+	play = Summon(CONTROLLER, 'BAR_914t3')*3#
 	pass
 class BAR_914t3:# <9>[1525]
 	""" Imp Familiar

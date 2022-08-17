@@ -110,17 +110,21 @@ if Barrens_Condemn_Rank_1:#
 class BAR_314:# <6>[1525]
 	""" Condemn (Rank 1)
 	Deal $1 damage toall enemy minions.<i>(Upgrades when youhave 5 Mana.)</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_314t'))	
+	play = Hit(ENEMY_MINIONS, 1)
 	pass
 class BAR_314t:# <6>[1525]
 	""" Condemn (Rank 2)
 	Deal $2 damage toall enemy minions.<i>(Upgrades when youhave 10 Mana.)</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_314t2'))	
+	play = Hit(ENEMY_MINIONS, 2)
 	pass
 class BAR_314t2:# <6>[1525]
 	""" Condemn (Rank 3)
 	Deal $3 damage to all enemy minions. """
-	#
+	play = Hit(ENEMY_MINIONS, 3)
 	pass
 
 

@@ -24,7 +24,7 @@ if Barrens_Galloping_Savior:#
 	Barrens_Paladin+=['BAR_550t']
 class BAR_550:# <5>[1525]
 	""" Galloping Savior
-	[Secret:] After youropponent plays threecards in a turn, summon a3/4 Steed with [Taunt]. """
+	[Secret:] After your opponent plays three cards in a turn, summon a 3/4 Steed with [Taunt]. """
 	#
 	pass
 
@@ -131,23 +131,26 @@ if Barrens_Conviction_Rank_1:#
 	Barrens_Paladin+=['BAR_880t2']
 class BAR_880:# <5>[1525]
 	""" Conviction (Rank 1)
-	Give a random friendlyminion +3 Attack.<i>(Upgrades when youhave 5 Mana.)</i> """
-	#
+	Give a random friendly minion +3 Attack.<i>(Upgrades when you have 5 Mana.)</i> """
+	play = Buff(RANDOM(FRIENDLY_MINIONS), "BAR_880e")
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_880t'))
 	pass
 class BAR_880e:# <5>[1525]
-	""" Blessed
-	+3 Attack. """
-	#
+	""" Blessed 	+3 Attack. """
+	tags = {GameTag.ATK:3, }
 	pass
 class BAR_880t:# <5>[1525]
 	""" Conviction (Rank 2)
 	Give two random friendlyminions +3 Attack.<i>(Upgrades when youhave 10 Mana.)</i> """
-	#
+	play = Buff(RANDOM(FRIENDLY_MINIONS), "BAR_880e")*2
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_880t2'))	
 	pass
 class BAR_880t2:# <5>[1525]
 	""" Conviction (Rank 3)
 	Give three random friendly minions +3_Attack. """
-	#
+	play = Buff(RANDOM(FRIENDLY_MINIONS), "BAR_880e")*3
 	pass
 
 

@@ -59,17 +59,24 @@ if Barrens_Wicked_Stab_Rank_1:#
 class BAR_319:# <7>[1525]
 	""" Wicked Stab (Rank 1)
 	Deal $2 damage. <i>(Upgrades when you have 5 Mana.)</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_319t'))	
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	play=Hit(TARGET, 2)
 	pass
 class BAR_319t:# <7>[1525]
 	""" Wicked Stab (Rank 2)
 	Deal $4 damage. <i>(Upgrades when you have 10 Mana.)</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_319t2'))	
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	play=Hit(TARGET, 4)
 	pass
 class BAR_319t2:# <7>[1525]
 	""" Wicked Stab (Rank 3)
 	Deal $6 damage. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	play=Hit(TARGET, 6)
 	pass
 
 

@@ -60,16 +60,25 @@ if Barrens_Chain_Lightning_Rank_1:#
 class BAR_044:# <8>[1525]
 	""" Chain Lightning Rank 1
 	Deal $2 damage to a minion and a random adjacent one. <i>Upgrades when you have 5 Mana.</i> """
-	#
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_044t'))	
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	play=Hit(TARGET, 2), Hit(RANDOM(TARGET_ADJACENT),2)
 	pass
 class BAR_044t:# <8>[1525]
 	""" Chain Lightning Rank 2
 	Deal $3 damage to a minion and a random adjacent one. <i>Upgrades when you have 10 Mana.</i> """
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_044t2'))	
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	play=Hit(TARGET, 3), Hit(RANDOM(TARGET_ADJACENT),3)
 	#
 	pass
 class BAR_044t2:# <8>[1525]
 	""" Chain Lightning Rank 3
 	Deal $4 damage to a minion and a random adjacent one. """
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	play=Hit(TARGET, 4), Hit(RANDOM(TARGET_ADJACENT),4)
 	#
 	pass
 
