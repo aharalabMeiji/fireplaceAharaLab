@@ -3,7 +3,7 @@ import time
 from calendar import timegm
 from itertools import chain
 
-from hearthstone.enums import BlockType, CardType, PlayState, State, Step, Zone
+from hearthstone.enums import BlockType, CardType, GameTag, PlayState, State, Step, Zone
 
 from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
 	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff
@@ -178,7 +178,7 @@ class BaseGame(Entity):
 			actions = [PayCost(trader, card, 1), Discover(trader,RandomCard()), Shuffle(trader,card)]
 		## callback
 		if card.id == 'DED_009' and len(card.controller.field)>0:
-			actions += [Buff(random.choice(card.controller.field),'EX1_084e')]#rush
+			actions += [Buff(random.choice(card.controller.field),{GameTag.RUSH:1, })]#rush
 		if card.id == 'DED_527':
 			actions += [Buff(card, 'DED_527e')]
 		#if hasattr(card.data.scripts, 'trade'):

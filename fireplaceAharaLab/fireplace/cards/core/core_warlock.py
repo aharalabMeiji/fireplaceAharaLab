@@ -84,7 +84,7 @@ class CORE_EX1_302:# <9>[1637] ##23.6  ## OK
 	pass
 
 if Core_Void_Terror:# 
-	Core_Warlock+=['CORE_EX1_304']
+	Core_Warlock+=['CORE_EX1_304','EX1_304e']
 class CORE_EX1_304:# <9>[1637] ##23.6 ## OK 
 	""" Void Terror
 	[Battlecry:] Destroy bothadjacent minions and gain their Attack and Health. """
@@ -92,6 +92,8 @@ class CORE_EX1_304:# <9>[1637] ##23.6 ## OK
 		Buff(SELF, "EX1_304e", atk=ATK(SELF_ADJACENT), max_health=CURRENT_HEALTH(SELF_ADJACENT)),
 		Destroy(SELF_ADJACENT)
 	)
+	pass
+class EX1_304e:
 	pass
 
 if Core_Siphon_Soul:# 

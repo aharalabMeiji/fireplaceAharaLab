@@ -51,7 +51,9 @@ Barrens_Archdruid_Naralex=True## 24.0
 
 ###################################
 
-
+## paladin が有効になるまで
+Barrens_Neutral+=['WC_034','WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7']
+###################################
 if Barrens_Razormane_Raider:# 
 	Barrens_Neutral+=['BAR_020']
 class BAR_020:# <12>[1525] ##OK
@@ -245,7 +247,7 @@ class BAR_071:#OK
 
 
 if Barrens_Burning_Blade_Acolyte:# 
-	Barrens_Neutral+=['BAR_072']
+	Barrens_Neutral+=['BAR_072','BAR_072t']
 class BAR_072:#OK
 	"""
 	Burning Blade Acolyte
@@ -269,7 +271,7 @@ BAR_073e=buff(atk=2,health=2)
 
 
 if Barrens_Far_Watch_Post:# 
-	Barrens_Neutral+=['BAR_074']
+	Barrens_Neutral+=['BAR_074','BAR_074e']
 class BAR_074:# <12>[1525] ##OK
 	""" Far Watch Post
 	Can't attack. After youropponent draws a card, it___costs (1) more <i>(up to 10)</i>.__ """
@@ -281,7 +283,7 @@ class BAR_074e:# <12>[1525]
 	pass
 
 if Barrens_Crossroads_Watch_Post:# 
-	Barrens_Neutral+=['BAR_075']
+	Barrens_Neutral+=['BAR_075','BAR_075e']
 class BAR_075:#OK (2回やれば2つつく。)
 	"""
 	Crossroads Watch Post
@@ -305,7 +307,7 @@ class BAR_076t:
 	pass
 
 if Barrens_Kargal_Battlescar:# 
-	Barrens_Neutral+=['BAR_077']
+	Barrens_Neutral+=['BAR_077','BAR_077t']
 class BAR_077:#OK
 	"""	Kargal Battlescar
 	[x]<b>Battlecry:</b> Summon a 5/5 Lookout for each Watch Post you've __summoned this game.	"""
@@ -833,7 +835,7 @@ BAR_743e=buff(health=2)
 
 
 if Barrens_Spirit_Healer:# 
-	Barrens_Neutral+=['BAR_744']
+	Barrens_Neutral+=['BAR_744','BAR_744e']
 class BAR_744:#OK
 	"""
 	Spirit Healer
@@ -872,7 +874,7 @@ class BAR_854e:
 	pass 
 
 if Barrens_Crossroads_Gossiper:# 
-	Barrens_Neutral+=['BAR_890']
+	Barrens_Neutral+=['BAR_890','BAR_890e']
 class BAR_890:#OK
 	"""	Crossroads Gossiper
 	After a friendly <b>Secret</b> is revealed, gain +2/+2.	"""
@@ -928,7 +930,7 @@ class WC_029:#OK
 
 
 if Barrens_Mutanus_the_Devourer:# 
-	Barrens_Neutral+=['WC_030']
+	Barrens_Neutral+=['WC_030','WC_030e']
 class WC_030:#OK
 	"""	Mutanus the Devourer
 	[x]<b>Battlecry:</b> Eat a minion in your opponent's hand. Gain its stats.	"""

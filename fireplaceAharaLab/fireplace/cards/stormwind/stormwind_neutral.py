@@ -295,7 +295,7 @@ class SW_063:#OK
 
 
 if StormWind_Northshire_Farmer:# 
-	StormWind_Neutral+=['SW_064']
+	StormWind_Neutral+=['SW_064','SW_064e']
 class SW_064:#OK
 	""" Northshire Farmer
 	<b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
@@ -509,7 +509,7 @@ if StormWind_Flightmaster_Dungar:#
 	StormWind_Neutral+=['SW_079t', 'SW_079t2', 'SW_079t3','SW_079e4','SW_079e5','SW_079e6']
 class SW_079_Choice(Choice):
 	def choose(self,card):
-		self.next_choice=None
+		self.next_choice=None# avoiding infinite loop
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(SW_079_Choice.choose)%s chooses %r"%(card.controller.name, card))
