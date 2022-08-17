@@ -27,91 +27,22 @@ class TB_BaconShop_HERO_KelThuzad:# <12>[1453]
 	"""
 	pass
 
-BG_Hero1=[
-	'TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',#00#A. F. Kay 
-	'TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',#01#Al'Akir
-	'TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy',#02#Alexstrasza
-	'BG22_HERO_201','BG22_HERO_201p','BG22_HERO_201pe','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G',#03#Ambassador Faelin
-	'TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',#04#Aranna Starseeker
-	'TB_BaconShop_HERO_45','TB_BaconShop_HP_053','TB_BaconShop_HERO_45_Buddy','TB_BaconShop_HERO_45_Buddy_G',#05#Arch-Villain Rafaam
-	'BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',#BG22_HERO_001#06#Bru'kan
-	'TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',#07#C'Thun
-	'TB_BaconShop_HERO_64','TB_BaconShop_HP_074','TB_BaconShop_HERO_64_Buddy','TB_BaconShop_HERO_64_Buddy_e','TB_BaconShop_HERO_64_Buddy_G','TB_BaconShop_HERO_64_Buddy_G_e',#08#Captain Eudora
-	'TB_BaconShop_HERO_67','TB_BaconShop_HP_075','TB_BaconShop_HERO_67_Buddy','TB_BaconShop_HERO_67_Buddy_G',#09#Captain Hooktusk
-	'BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',#10#Cariel Roame
-	'TB_BaconShop_HERO_78','TB_BaconShop_HP_088','TB_BaconShop_HERO_78_Buddy','TB_BaconShop_HERO_78_Buddy_G',#11#Chenvaala
-	'BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',#12#Cookie the Cook
-	'TB_BaconShop_HERO_36','TB_BaconShop_HP_042','TB_BaconShop_HP_042e','TB_BaconShop_HERO_36_Buddy','TB_BaconShop_HERO_36_Buddy_e','TB_BaconShop_HERO_36_Buddy_G','TB_BaconShop_HERO_36_Buddy_Ge',#13#Dancin' Deryl
-	'BG20_HERO_103','BG20_HERO_103p','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G',#14#Death Speaker Blackthorn
-	'TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',#15#Deathwing
-	'TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e','TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',#16#Dinotamer Brann
-]
+BG_Hero1=[]
 
-BG_PoolSet_Hero1=[
-	'TB_BaconShop_HERO_16',#00
-	'TB_BaconShop_HERO_76',#01
-	'TB_BaconShop_HERO_56',#02#2 dragon ban
-	'BG22_HERO_201',#03
-	'TB_BaconShop_HERO_59',#04
-	'TB_BaconShop_HERO_45',#05
-	#'BG22_HERO_001',#06
-	'TB_BaconShop_HERO_29',#07
-	'TB_BaconShop_HERO_64',#08
-	'TB_BaconShop_HERO_67',#09
-	'BG21_HERO_000',#10
-	'TB_BaconShop_HERO_78',#11 elemental ban
-	'BG21_HERO_020',#12
-	'TB_BaconShop_HERO_36',#13
-	'BG20_HERO_103',#14
-	#'TB_BaconShop_HERO_52',#15
-	'TB_BaconShop_HERO_43',#16
-	]
+BG_PoolSet_Hero1=[]
 
-BG_Hero1_Buddy={
-	'TB_BaconShop_HERO_16':'TB_BaconShop_HERO_16_Buddy',#00#A. F. Kay 
-	'TB_BaconShop_HERO_76':'TB_BaconShop_HERO_76_Buddy',#01#Al'Akir
-	'TB_BaconShop_HERO_56':'TB_BaconShop_HERO_56_Buddy',#02#Alexstrasza
-	'BG22_HERO_201':'BG22_HERO_201_Buddy',#03#Ambassador Faelin
-	'TB_BaconShop_HERO_59':'TB_BaconShop_HERO_59_Buddy',#04#Aranna 
-	'TB_BaconShop_HERO_45':'TB_BaconShop_HERO_45_Buddy',#05#Arch-Villain Rafaam
-	'BG22_HERO_001':'BG22_HERO_001_Buddy',#BG22_HERO_001#06#Bru'kan
-	'TB_BaconShop_HERO_29':'TB_BaconShop_HERO_29_Buddy',#07#C'Thun
-	'TB_BaconShop_HERO_64':'TB_BaconShop_HERO_64_Buddy',#08#Captain Eudora
-	'TB_BaconShop_HERO_67':'TB_BaconShop_HERO_67_Buddy',#09#Captain Hooktusk
-	'BG21_HERO_000':'BG21_HERO_000_Buddy',#10#Cariel Roame
-	'TB_BaconShop_HERO_78':'TB_BaconShop_HERO_78_Buddy',#11#Chenvaala
-	'BG21_HERO_020':'BG21_HERO_020_Buddy',#12#Cookie the Cook
-	'TB_BaconShop_HERO_36':'TB_BaconShop_HERO_36_Buddy',#13#Dancin' Deryl
-	'BG20_HERO_103':'BG20_HERO_103_Buddy',#14#Death Speaker Blackthorn
-	'TB_BaconShop_HERO_52':'TB_BaconShop_HERO_52_Buddy',#15#Deathwing
-	'TB_BaconShop_HERO_43':'TB_BaconShop_HERO_43_Buddy',#16#Dinotamer Brann
-	}
+BG_Hero1_Buddy={}
 
-BG_Hero1_Buddy_Gold={
-	'TB_BaconShop_HERO_16_Buddy':'TB_BaconShop_HERO_16_Buddy_G',#
-	'TB_BaconShop_HERO_76_Buddy':'TB_BaconShop_HERO_76_Buddy_G',#
-	'TB_BaconShop_HERO_56_Buddy':'TB_BaconShop_HERO_56_Buddy_G',#
-	'BG22_HERO_201_Buddy':'BG22_HERO_201_Buddy_G',#
-	'TB_BaconShop_HERO_59_Buddy':'TB_BaconShop_HERO_59_Buddy_G',#
-	'TB_BaconShop_HERO_45_Buddy':'TB_BaconShop_HERO_45_Buddy_G',#
-	'BG22_HERO_001_Buddy':'BG22_HERO_001_Buddy_G',##
-	'TB_BaconShop_HERO_29_Buddy':'TB_BaconShop_HERO_29_Buddy_G',#
-	'TB_BaconShop_HERO_64_Buddy':'TB_BaconShop_HERO_64_Buddy_G',#
-	'TB_BaconShop_HERO_67_Buddy':'TB_BaconShop_HERO_67_Buddy_G',#
-	'BG21_HERO_000_Buddy':'BG21_HERO_000_Buddy_G',#
-	'TB_BaconShop_HERO_78_Buddy':'TB_BaconShop_HERO_78_Buddy_G',#
-	'BG21_HERO_020_Buddy':'BG21_HERO_020_Buddy_G',#
-	'TB_BaconShop_HERO_36_Buddy':'TB_BaconShop_HERO_36_Buddy_G',#
-	'BG20_HERO_103_Buddy':'BG20_HERO_103_Buddy_G',#
-	'TB_BaconShop_HERO_52_Buddy':'TB_BaconShop_HERO_52_Buddy_G',#
-	'TB_BaconShop_HERO_43_Buddy':'TB_BaconShop_HERO_43_Buddy_G',#
-	}
+BG_Hero1_Buddy_Gold={}
 
 
 ########### source
 
-
 #00#A. F. Kay   ### OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',]#00#A. F. Kay 
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_16',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_16']='TB_BaconShop_HERO_16_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_16_Buddy_G'
 class TB_BaconShop_HERO_16:# <12>[1453]
 	""" A. F. Kay	 """
 	pass
@@ -148,8 +79,11 @@ TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453]
 """ Snack-Filled
 +2/+4. """
 
-
 #01#Al'Akir  ### OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',]#01#Al'Akir
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_76',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_76_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_76_Buddy']='TB_BaconShop_HERO_76_Buddy_G'
 class TB_BaconShop_HERO_76:# <12>[1453]
 	""" Al'Akir	 """
 class TB_BaconShop_HP_086_Action(TargetedAction):
@@ -188,8 +122,11 @@ class TB_BaconShop_HERO_76_Buddy_G:
 	pass
 
 
-
 #02#Alexstrasza   ### OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy',]#02#Alexstrasza]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_56',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_56']='TB_BaconShop_HERO_56_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_56_Buddy']='TB_BaconShop_HERO_56_Buddy_G'
 class TB_BaconShop_HERO_56:# <12>[1453]
 	""" Alexstrasza	"""
 class TB_BaconShop_HP_064_Action(TargetedAction):
@@ -213,8 +150,11 @@ class TB_BaconShop_HERO_56_Buddy_G:
 	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER))) * 2
 
 
-
 #03##Ambassador Faelin ### OK ###
+BG_Hero1 += ['BG22_HERO_201','BG22_HERO_201p','BG22_HERO_201pe','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G',]#03#Ambassador Faelin]
+BG_PoolSet_Hero1 +=['BG22_HERO_201',]
+BG_Hero1_Buddy['BG22_HERO_201']='BG22_HERO_201_Buddy'
+BG_Hero1_Buddy_Gold['BG22_HERO_201_Buddy']='BG22_HERO_201_Buddy_G'
 class BG22_HERO_201:# <12>[1453]
 	""" Ambassador Faelin	"""
 class BG22_HERO_201p_Choice(Choice):
@@ -299,8 +239,11 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 	pass
 
 
-
 #04#Aranna Starseeker # アランナ ### OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',]#04#Aranna Starseeker]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_59',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_59']='TB_BaconShop_HERO_59_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_59_Buddy']='TB_BaconShop_HERO_59_Buddy_G'
 class TB_BaconShop_HERO_59:# <12>[1453]
 	""" Aranna Starseeker
 	"""
@@ -337,6 +280,10 @@ class TB_BaconShop_HERO_59t:# <12>[1453]
 
 
 #05#Arch-Villain Rafaam ### OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_45','TB_BaconShop_HP_053','TB_BaconShop_HERO_45_Buddy','TB_BaconShop_HERO_45_Buddy_G',]#05#Arch-Villain Rafaam]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_45',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_45']='TB_BaconShop_HERO_45_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_45_Buddy']='TB_BaconShop_HERO_45_Buddy_G'
 class TB_BaconShop_HERO_45:# <12>[1453]
 	""" Arch-Villain Rafaam
 	"""
@@ -387,9 +334,13 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 
 
 #06##Bru'kan   #################################
+BG_Hero1 += ['BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',]#BG22_HERO_001#06#Bru'kan]
+#BG_PoolSet_Hero1 +=['BG22_HERO_001',]
+BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
+BG_Hero1_Buddy_Gold['BG22_HERO_001_Buddy']='BG22_HERO_001_Buddy_G'
 class BG22_HERO_001:# <12>[1453]
 	""" Bru'kan 	"""
-class BG22_HERO_001p:# <12>[1453]
+class BG22_HERO_001p:# <12>[1453]######################### difficult
 	""" Embrace the Elements
 	Choose an Element.[Start of Combat:] Call upon that Element. """
 	#<ReferencedTag enumID="1531" name="START_OF_COMBAT" type="Int" value="1"/>
@@ -510,6 +461,10 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 
 #07#C'Thun   ### HP OK ####
+BG_Hero1 += ['TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',]#07#C'Thun]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_29',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_29']='TB_BaconShop_HERO_29_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_29_Buddy']='TB_BaconShop_HERO_29_Buddy_G'
 class TB_BaconShop_HERO_29:# <12>[1453]
 	""" C'Thun	"""
 class TB_BaconShop_HP_104_Action(TargetedAction):
@@ -558,6 +513,10 @@ class TB_BaconShop_HERO_29_Buddy_Ge:# <12>[1453]
 
 
 #08#Captain Eudora   #### OK ####
+BG_Hero1 += ['TB_BaconShop_HERO_64','TB_BaconShop_HP_074','TB_BaconShop_HERO_64_Buddy','TB_BaconShop_HERO_64_Buddy_e','TB_BaconShop_HERO_64_Buddy_G','TB_BaconShop_HERO_64_Buddy_G_e',]#08#Captain Eudora
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_64',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_64']='TB_BaconShop_HERO_64_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_64_Buddy']='TB_BaconShop_HERO_64_Buddy_G'
 class TB_BaconShop_HERO_64:# <12>[1453]
 	""" Captain Eudora
 	"""
@@ -598,6 +557,10 @@ TB_BaconShop_HERO_64_Buddy_G_e=buff(10,10)# <12>[1453]
 
 
 #09#Captain Hooktusk  #### OK ####
+BG_Hero1 += ['TB_BaconShop_HERO_67','TB_BaconShop_HP_075','TB_BaconShop_HERO_67_Buddy','TB_BaconShop_HERO_67_Buddy_G',]#09#Captain Hooktusk]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_67',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_67']='TB_BaconShop_HERO_67_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_67_Buddy']='TB_BaconShop_HERO_67_Buddy_G'
 class TB_BaconShop_HERO_67:# <12>[1453]
 	""" Captain Hooktusk
 	"""
@@ -632,6 +595,10 @@ class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 
 
 #10#Cariel Roame ### OK ###
+BG_Hero1 += ['BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',]#10#Cariel Roame]
+BG_PoolSet_Hero1 +=['BG21_HERO_000',]
+BG_Hero1_Buddy['BG21_HERO_000']='BG21_HERO_000_Buddy'
+BG_Hero1_Buddy_Gold['BG21_HERO_000_Buddy']='BG21_HERO_000_Buddy_G'
 class BG21_HERO_000:# <5>[1453]
 	""" Cariel Roame	"""
 	pass
@@ -697,6 +664,10 @@ BG21_HERO_000_Buddy_G_e=buff(2,2)
 
 
 #11#Chenvaala ### HP OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_78','TB_BaconShop_HP_088','TB_BaconShop_HERO_78_Buddy','TB_BaconShop_HERO_78_Buddy_G',]#11#Chenvaala]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_78',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_78']='TB_BaconShop_HERO_78_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_78_Buddy']='TB_BaconShop_HERO_78_Buddy_G'
 class TB_BaconShop_HERO_78:# <12>[1453]
 	""" Chenvaala
 	"""
@@ -714,6 +685,10 @@ class TB_BaconShop_HERO_78_Buddy_G:
 
 
 #12#Cookie the Cook  #### difficult ###  
+BG_Hero1 += ['BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',]#12#Cookie the Cook]
+#BG_PoolSet_Hero1 +=['BG21_HERO_020',]
+BG_Hero1_Buddy['BG21_HERO_020']='BG21_HERO_020_Buddy'
+BG_Hero1_Buddy_Gold['BG21_HERO_020_Buddy']='BG21_HERO_020_Buddy_G'
 class BG21_HERO_020:# <12>[1453]
 	""" Cookie the Cook
 	 """
@@ -755,7 +730,7 @@ class BG21_HERO_020p_Action(TargetedAction):
 			source.sidequest_list0=[]
 			source.entourage = random.sample(deck,3)
 			Discover(controller, RandomEntourage()).trigger(source)
-class BG21_HERO_020p:# <12>[1453]
+class BG21_HERO_020p:# <12>[1453] ####### difficult
 	""" Stir the Pot
 	Throw a minion in your pot. When you've gathered 3,[Discover] from their minion types. <i>(@ left!)</i> """
 	requirements = {
@@ -780,6 +755,10 @@ class BG21_HERO_020_Buddy_G:# <12>[1453]
 
 
 #13#Dancin' Deryl ### need check ###
+BG_Hero1 += ['TB_BaconShop_HERO_36','TB_BaconShop_HP_042','TB_BaconShop_HP_042e','TB_BaconShop_HERO_36_Buddy','TB_BaconShop_HERO_36_Buddy_e','TB_BaconShop_HERO_36_Buddy_G','TB_BaconShop_HERO_36_Buddy_Ge',]#13#Dancin' Deryl]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_36']
+BG_Hero1_Buddy['TB_BaconShop_HERO_36']='TB_BaconShop_HERO_36_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_36_Buddy']='TB_BaconShop_HERO_36_Buddy_G'
 class TB_BaconShop_HERO_36:# <12>[1453]
 	""" Dancin' Deryl
 	 """
@@ -805,6 +784,10 @@ TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
 
 
 #14#Death Speaker Blackthorn  ### HP OK ###
+BG_Hero1 += ['BG20_HERO_103','BG20_HERO_103p','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G',]#14#Death Speaker Blackthorn]
+BG_PoolSet_Hero1 +=['BG20_HERO_103',]
+BG_Hero1_Buddy['BG20_HERO_103']='BG20_HERO_103_Buddy'
+BG_Hero1_Buddy_Gold['BG20_HERO_103_Buddy']='BG20_HERO_103_Buddy_G'
 class BG20_HERO_103:# <12>[1453]
 	""" Death Speaker Blackthorn	 """
 class BG20_HERO_103p:# <12>[1453]
@@ -826,12 +809,16 @@ class BG20_HERO_103_Buddy_G:
 
 
 #15#Deathwing    ### not good for enemy's minions in the battle ###
+BG_Hero1 += ['TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',]#15#Deathwing]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_52',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_52']='TB_BaconShop_HERO_52_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_52_Buddy']='TB_BaconShop_HERO_52_Buddy_G'
 class TB_BaconShop_HERO_52:
 	""" Deathwing
 	"""
 class TB_BaconShop_HP_061:
 	""" ALL Will Burn!
-	[x]<b>Passive</b> ALL minions have +2 Attack."""
+	[x]<b>Passive</b> ALL minions have +3 Attack."""
 	update = Refresh(ALL_MINIONS, buff='TB_BaconShop_HP_061e')
 #TB_BaconShop_HP_061e=buff(2,0) ## until 24.0
 TB_BaconShop_HP_061e=buff(3,0) ## 24.0.3
@@ -850,6 +837,10 @@ TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
 #16#Dinotamer Brann   ### HP OK ###
+BG_Hero1 += ['TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e','TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',]#16#Dinotamer Brann]
+BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_43',]
+BG_Hero1_Buddy['TB_BaconShop_HERO_43']='TB_BaconShop_HERO_43_Buddy'
+BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_43_Buddy']='TB_BaconShop_HERO_43_Buddy_G'
 class TB_BaconShop_HERO_43:# <12>[1453]
 	""" Dinotamer Brann
 	 """

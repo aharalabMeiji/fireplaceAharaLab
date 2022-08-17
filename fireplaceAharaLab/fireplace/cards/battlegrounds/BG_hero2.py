@@ -1,93 +1,18 @@
 from ast import Return
 from ..utils import *
 
-BG_Hero2=[
-	'BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge',	#17	#Drek'Thar#BG22_HERO_002
-	'TB_BaconShop_HERO_01','TB_BaconShop_HP_001','TB_BaconShop_HP_001e','TB_BaconShop_HERO_01_Buddy','TB_BaconShop_HERO_01_Buddy_e','TB_BaconShop_HERO_01_Buddy_G','TB_BaconShop_HERO_01_Buddy_G_e',	#18#Edwin VanCleef
-	'TB_BaconShop_HERO_42','TB_BaconShop_HP_047','TB_BaconShop_HP_047t','TB_BaconShop_HERO_42_Buddy','TB_BaconShop_HERO_42_Buddy_e','TB_BaconShop_HERO_42_Buddy_G','TB_BaconShop_HERO_42_Buddy_G_e',	#19#Elise Starseeker
-	'TB_BaconShop_HERO_74','TB_BaconShop_HP_082','TB_BaconShop_HERO_74_Buddy','TB_BaconShop_HERO_74_Buddy_e','TB_BaconShop_HERO_74_Buddy_G',	#20#Forest Warden Omu
-	'TB_BaconShop_HERO_55','TB_BaconShop_HP_056','TB_BaconShop_HERO_55_Buddy','TB_BaconShop_HERO_55_Buddy_G',	#21#Fungalmancer Flurgl
-	'TB_BaconShop_HERO_02','TB_BaconShop_HP_011','TB_BaconShop_HERO_02_Buddy','TB_BaconShop_HERO_02_Buddy_G',	#22#Galakrond
-	'BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',	#23#Galewing
-	'TB_BaconShop_HERO_15','TB_BaconShop_HP_010','TB_BaconShop_HERO_15_Buddy','TB_BaconShop_HERO_15_Buddy_e','TB_BaconShop_HERO_15_Buddy_G','TB_BaconShop_HERO_15_Buddy_G_e',	#24#George the Fallen
-	'TB_BaconShop_HERO_95','TB_BaconShop_HP_107','TB_BaconShop_HP_107e','TB_BaconShop_HERO_95_Buddy','TB_BaconShop_HERO_95_Buddy_e','TB_BaconShop_HERO_95_Buddy_G','TB_BaconShop_HERO_95_Buddy_G_e',	#25#Greybough
-	'BG20_HERO_242','BG20_HERO_242p','BG20_HERO_242pe','BG20_HERO_242_Buddy','BG20_HERO_242_Buddy_G',	#26#Guff Runetotem
-	'TB_BaconShop_HERO_08','TB_BaconShop_HP_069','TB_BaconShop_HP_069e','TB_BaconShop_HERO_08_Buddy','TB_BaconShop_HERO_08_Buddy_e','TB_BaconShop_HERO_08_Buddy_G',	#27#Illidan Stormrage
-	'TB_BaconShop_HERO_28','TB_BaconShop_HP_028','TB_BaconShop_HERO_28_Buddy','TB_BaconShop_HERO_28_Buddy_G',	#28#Infinite Toki
-	'TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',	#29#Jandice Barov
-	'TB_BaconShop_HERO_60','TB_BaconShop_HP_066','TB_BaconShop_HP_066e','TB_BaconShop_HERO_60_Buddy','TB_BaconShop_HERO_60_Buddy_e','TB_BaconShop_HERO_60_Buddy_G','TB_BaconShop_HERO_60_Buddy_G_e',	#30#Kael'thas Sunstrider
-	'TB_BaconShop_HERO_38','TB_BaconShop_HP_038','DMF_065t','DMF_065e','TB_BaconShop_HERO_38_Buddy','TB_BaconShop_HERO_38_Buddy_e','TB_BaconShop_HERO_38_Buddy_G','TB_BaconShop_HERO_38_Buddy_Ge',	#31#King Mukla
-	'BG20_HERO_280','BG20_HERO_280e','BG20_HERO_280p','BG20_HERO_280pe','BG20_HERO_280p2','BG20_HERO_280p2e','BG20_HERO_280p2e2','BG20_HERO_280p3','BG20_HERO_280p3e2','BG20_HERO_280_Buddy','BG20_HERO_280_Buddye','BG20_HERO_280_Buddy_G','BG20_HERO_280_Buddye2',	#32#Kurtrus Ashfallen
-	'TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',	#33#Lich Baz'hial
-	'TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',	#34#Lord Barov
-
-]
-BG_PoolSet_Hero2=[
-	'BG22_HERO_002',#17
-	'TB_BaconShop_HERO_01',#18
-	'TB_BaconShop_HERO_42',#19
-	'TB_BaconShop_HERO_74',#20
-	'TB_BaconShop_HERO_55',#21#21 Murloc ban
-	'TB_BaconShop_HERO_02',#22
-	#'BG20_HERO_283',#23#23 XX
-	'TB_BaconShop_HERO_15',#24
-	'TB_BaconShop_HERO_95',#25
-	'BG20_HERO_242',#26
-	'TB_BaconShop_HERO_08',#27
-	'TB_BaconShop_HERO_28',#28
-	'TB_BaconShop_HERO_71',#29
-	'TB_BaconShop_HERO_60',#30
-	'TB_BaconShop_HERO_38',#31
-	'BG20_HERO_280',#32
-	'TB_BaconShop_HERO_25',#33
-	#'TB_BaconShop_HERO_72',#34#34 XimpossibleXXX
-	]
-
-BG_Hero2_Buddy={
-	'BG22_HERO_002':'BG22_HERO_002_Buddy',
-	'TB_BaconShop_HERO_01':'TB_BaconShop_HERO_01_Buddy',
-	'TB_BaconShop_HERO_42':'TB_BaconShop_HERO_42_Buddy',
-	'TB_BaconShop_HERO_74':'TB_BaconShop_HERO_74_Buddy',
-	'TB_BaconShop_HERO_55':'TB_BaconShop_HERO_55_Buddy',
-	'TB_BaconShop_HERO_02':'TB_BaconShop_HERO_02_Buddy',
-	'BG20_HERO_283':'BG20_HERO_283_Buddy',
-	'TB_BaconShop_HERO_15':'TB_BaconShop_HERO_15_Buddy',
-	'TB_BaconShop_HERO_95':'TB_BaconShop_HERO_95_Buddy',
-	'BG20_HERO_242':'BG20_HERO_242_Buddy',
-	'TB_BaconShop_HERO_08':'TB_BaconShop_HERO_08_Buddy',
-	'TB_BaconShop_HERO_28':'TB_BaconShop_HERO_28_Buddy',
-	'TB_BaconShop_HERO_71':'TB_BaconShop_HERO_71_Buddy',
-	'TB_BaconShop_HERO_60':'TB_BaconShop_HERO_60_Buddy',
-	'TB_BaconShop_HERO_38':'TB_BaconShop_HERO_38_Buddy',
-	'BG20_HERO_280':'BG20_HERO_280_Buddy',
-	'TB_BaconShop_HERO_25':'TB_BaconShop_HERO_25_Buddy',
-	'TB_BaconShop_HERO_72':'TB_BaconShop_HERO_72_Buddy',
-	}
-
-BG_Hero2_Buddy_Gold={
-	'BG22_HERO_002_Buddy':'BG22_HERO_002_Buddy_G',
-	'TB_BaconShop_HERO_01_Buddy':'TB_BaconShop_HERO_01_Buddy_G',
-	'TB_BaconShop_HERO_42_Buddy':'TB_BaconShop_HERO_42_Buddy_G',
-	'TB_BaconShop_HERO_74_Buddy':'TB_BaconShop_HERO_74_Buddy_G',
-	'TB_BaconShop_HERO_55_Buddy':'TB_BaconShop_HERO_55_Buddy_G',
-	'TB_BaconShop_HERO_02_Buddy':'TB_BaconShop_HERO_02_Buddy_G',
-	'BG20_HERO_283_Buddy':'BG20_HERO_283_Buddy_G',
-	'TB_BaconShop_HERO_15_Buddy':'TB_BaconShop_HERO_15_Buddy_G',
-	'TB_BaconShop_HERO_95_Buddy':'TB_BaconShop_HERO_95_Buddy_G',
-	'BG20_HERO_242_Buddy':'BG20_HERO_242_Buddy_G',
-	'TB_BaconShop_HERO_08_Buddy':'TB_BaconShop_HERO_08_Buddy_G',
-	'TB_BaconShop_HERO_28_Buddy':'TB_BaconShop_HERO_28_Buddy_G',
-	'TB_BaconShop_HERO_71_Buddy':'TB_BaconShop_HERO_71_Buddy_G',
-	'TB_BaconShop_HERO_60_Buddy':'TB_BaconShop_HERO_60_Buddy_G',
-	'TB_BaconShop_HERO_38_Buddy':'TB_BaconShop_HERO_38_Buddy_G',
-	'BG20_HERO_280_Buddy':'BG20_HERO_280_Buddy_G',
-	'TB_BaconShop_HERO_25_Buddy':'TB_BaconShop_HERO_25_Buddy_G',
-	'TB_BaconShop_HERO_72_Buddy':'TB_BaconShop_HERO_72_Buddy_G',
-	}
+BG_Hero2=[]
+BG_PoolSet_Hero2=[]
+BG_Hero2_Buddy={}
+BG_Hero2_Buddy_Gold={}
 
 ############ source ################################################
 
 #17	#Drek'Thar#BG22_HERO_002   ### HP OK ###
+BG_Hero2+=['BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge']
+BG_PoolSet_Hero2+=['BG22_HERO_002']
+BG_Hero2_Buddy['BG22_HERO_002']='BG22_HERO_002_Buddy'
+BG_Hero2_Buddy_Gold['BG22_HERO_002_Buddy']='BG22_HERO_002_Buddy_G'
 class BG22_HERO_002:# <12>[1453]
 	""" Drek'Thar 	 """
 class BG22_HERO_002p_Action(TargetedAction):
@@ -142,6 +67,10 @@ BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
 
 
 #18#Edwin VanCleef ### HP OK ###
+BG_Hero2+=['TB_BaconShop_HERO_01','TB_BaconShop_HP_001','TB_BaconShop_HP_001e','TB_BaconShop_HERO_01_Buddy','TB_BaconShop_HERO_01_Buddy_e','TB_BaconShop_HERO_01_Buddy_G','TB_BaconShop_HERO_01_Buddy_G_e']
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_01']
+BG_Hero2_Buddy['TB_BaconShop_HERO_01']='TB_BaconShop_HERO_01_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_01_Buddy']='TB_BaconShop_HERO_01_Buddy_G'
 class TB_BaconShop_HERO_01:# <12>[1453]
 	""" Edwin VanCleef  """
 class TB_BaconShop_HP_001_Action(TargetedAction):
@@ -182,13 +111,17 @@ TB_BaconShop_HERO_01_Buddy_G_e=buff(2,2)# <12>[1453]
 
 
 
-#19#Elise Starseeker #### HP 
+#19#Elise Starseeker #### HP OK 24.0.3
+BG_Hero2+=['TB_BaconShop_HERO_42','TB_BaconShop_HP_047','TB_BaconShop_HP_047t','TB_BaconShop_HERO_42_Buddy','TB_BaconShop_HERO_42_Buddy_e','TB_BaconShop_HERO_42_Buddy_G','TB_BaconShop_HERO_42_Buddy_G_e',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_42']
+BG_Hero2_Buddy['TB_BaconShop_HERO_42']='TB_BaconShop_HERO_42_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_42_Buddy']='TB_BaconShop_HERO_42_Buddy_G'
 class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
 class TB_BaconShop_HP_047:
 	""" Lead Explorer 
-	&lt;b&gt;Discover&lt;/b&gt; a minion from your Tavern tier. Costs (1) more after each use."""
-	
+	<b>Discover</b> a minion from your Tavern tier. Costs (1) more after each use."""
+	activate = Discover(CONTROLLER, RandomMinion(tech_level=TIER(CONTROLLER))*3),Buff(SELF,'TB_BaconShop_HP_047e')
 	## until 24.0
 	##<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
 	##events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
@@ -203,6 +136,14 @@ class TB_BaconShop_HP_047t:
 	<b>Discover</b> a minion from <b>Tavern Tier @</b>."""
 	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))*3)
 	# Here we activate 'choicecard.BG_cost = bar.cardCost'
+@custom_card
+class TB_BaconShop_HP_047e:
+	tags = {
+		GameTag.CARDNAME: "Lead Explorer",
+		GameTag.CARDTEXT: "Costs (1) more",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.COST: 1,
+	}
 ######## BUDDY
 class TB_BaconShop_HERO_42_Buddy:# <12>[1453]
 	""" Jr. Navigator
@@ -222,6 +163,10 @@ TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
 
 
 #20#Forest Warden Omu #### HP OK ###
+BG_Hero2+=['TB_BaconShop_HERO_74','TB_BaconShop_HP_082','TB_BaconShop_HERO_74_Buddy','TB_BaconShop_HERO_74_Buddy_e','TB_BaconShop_HERO_74_Buddy_G',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_74']
+BG_Hero2_Buddy['TB_BaconShop_HERO_74']='TB_BaconShop_HERO_74_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_74_Buddy']='TB_BaconShop_HERO_74_Buddy_G'
 class TB_BaconShop_HERO_74:# <12>[1453]
 	""" Forest Warden Omu  """
 class TB_BaconShop_HP_082:
@@ -244,6 +189,10 @@ class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
 
 
 #21#Fungalmancer Flurgl ### OK ###
+BG_Hero2+=['TB_BaconShop_HERO_55','TB_BaconShop_HP_056','TB_BaconShop_HERO_55_Buddy','TB_BaconShop_HERO_55_Buddy_G',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_55']
+BG_Hero2_Buddy['TB_BaconShop_HERO_55']='TB_BaconShop_HERO_55_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_55_Buddy']='TB_BaconShop_HERO_55_Buddy_G'
 class TB_BaconShop_HERO_55:# <12>[1453]
 	""" Fungalmancer Flurgl  """
 	pass
@@ -263,6 +212,10 @@ class TB_BaconShop_HERO_55_Buddy_G:
 
 
 #22#Galakrond  ### HP OK ###
+BG_Hero2+=['TB_BaconShop_HERO_02','TB_BaconShop_HP_011','TB_BaconShop_HERO_02_Buddy','TB_BaconShop_HERO_02_Buddy_G',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_02']
+BG_Hero2_Buddy['TB_BaconShop_HERO_02']='TB_BaconShop_HERO_02_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_02_Buddy']='TB_BaconShop_HERO_02_Buddy_G'
 class TB_BaconShop_HERO_02:# <12>[1453]
 	""" Galakrond """
 class TB_BaconShop_HP_011_Choice(Choice):
@@ -302,9 +255,13 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 
 
 #23#Galewing   ### under construction ###
+BG_Hero2+=['BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',]
+#BG_PoolSet_Hero2+=['BG20_HERO_283']
+BG_Hero2_Buddy['BG20_HERO_283']='BG20_HERO_283_Buddy'
+BG_Hero2_Buddy_Gold['BG20_HERO_283_Buddy']='BG20_HERO_283_Buddy_G'
 class BG20_HERO_283:# <12>[1453]
 	""" Galewing """
-class BG20_HERO_283p:# <12>[1453]
+class BG20_HERO_283p:# <12>[1453]################difficult
 	""" Dungar's Gryphon
 	Choose a flightpath. Complete it to get a bonus! """
 	entourage=['BG20_HERO_283p_t1','BG20_HERO_283p_t2','BG20_HERO_283p_t3']
@@ -352,6 +309,10 @@ class BG20_HERO_283_Buddy_G_e:# <12>[1453]
 
 
 #24#George the Fallen #### OK ####
+BG_Hero2+=['TB_BaconShop_HERO_15','TB_BaconShop_HP_010','TB_BaconShop_HERO_15_Buddy','TB_BaconShop_HERO_15_Buddy_e','TB_BaconShop_HERO_15_Buddy_G','TB_BaconShop_HERO_15_Buddy_G_e',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_15']
+BG_Hero2_Buddy['TB_BaconShop_HERO_15']='TB_BaconShop_HERO_15_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_15_Buddy']='TB_BaconShop_HERO_15_Buddy_G'
 class TB_BaconShop_HERO_15:# <12>[1453]
 	""" George the Fallen  """
 class TB_BaconShop_HP_010:
@@ -385,6 +346,10 @@ TB_BaconShop_HERO_15_Buddy_G_e=buff(4,0)# <12>[1453]
 from fireplace.battlegrounds.BG_bar import BG_Bar
 
 #25#Greybough  ### HP OK ###
+BG_Hero2+=['TB_BaconShop_HERO_95','TB_BaconShop_HP_107','TB_BaconShop_HP_107e','TB_BaconShop_HERO_95_Buddy','TB_BaconShop_HERO_95_Buddy_e','TB_BaconShop_HERO_95_Buddy_G','TB_BaconShop_HERO_95_Buddy_G_e',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_95']
+BG_Hero2_Buddy['TB_BaconShop_HERO_95']='TB_BaconShop_HERO_95_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_95_Buddy']='TB_BaconShop_HERO_95_Buddy_G'
 class TB_BaconShop_HERO_95:# <12>[1453]
 	""" Greybough  """
 class TB_BaconShop_HP_107_Action(TargetedAction):
@@ -424,6 +389,10 @@ class TB_BaconShop_HERO_95_Buddy_G_e:# <12>[1453]
 
 
 #26#Guff Runetotem  ### HP OK ###
+BG_Hero2+=['BG20_HERO_242','BG20_HERO_242p','BG20_HERO_242pe','BG20_HERO_242_Buddy','BG20_HERO_242_Buddy_G',]
+BG_PoolSet_Hero2+=['BG20_HERO_242']
+BG_Hero2_Buddy['BG20_HERO_242']='BG20_HERO_242_Buddy'
+BG_Hero2_Buddy_Gold['BG20_HERO_242_Buddy']='BG20_HERO_242_Buddy_G'
 class BG20_HERO_242:# <2>[1453]
 	""" Guff Runetotem """
 class BG20_HERO_242p:# <2>[1453]
@@ -456,6 +425,10 @@ class BG20_HERO_242_Buddy_G:
 
 
 #27#Illidan Stormrage  ### HP, maybe OK ###
+BG_Hero2+=['TB_BaconShop_HERO_08','TB_BaconShop_HP_069','TB_BaconShop_HP_069e','TB_BaconShop_HERO_08_Buddy','TB_BaconShop_HERO_08_Buddy_e','TB_BaconShop_HERO_08_Buddy_G',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_08']
+BG_Hero2_Buddy['TB_BaconShop_HERO_08']='TB_BaconShop_HERO_08_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_08_Buddy']='TB_BaconShop_HERO_08_Buddy_G'
 class TB_BaconShop_HERO_08:# <12>[1453]
 	""" Illidan Stormrage  """
 class TB_BaconShop_HP_069_Action(TargetedAction):
@@ -500,6 +473,10 @@ class TB_BaconShop_HERO_08_Buddy_G:# <12>[1453]
 
 
 #28#Infinite Toki  ### OK ###
+BG_Hero2+=['TB_BaconShop_HERO_28','TB_BaconShop_HP_028','TB_BaconShop_HERO_28_Buddy','TB_BaconShop_HERO_28_Buddy_G',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_28']
+BG_Hero2_Buddy['TB_BaconShop_HERO_28']='TB_BaconShop_HERO_28_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_28_Buddy']='TB_BaconShop_HERO_28_Buddy_G'
 class TB_BaconShop_HERO_28:# <12>[1453]
 	""" Infinite Toki  """
 class TB_BaconShop_HP_028_Action(TargetedAction):
@@ -538,6 +515,10 @@ class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
 
 
 #29#Jandice Barov #### OK ####
+BG_Hero2+=['TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_71']
+BG_Hero2_Buddy['TB_BaconShop_HERO_71']='TB_BaconShop_HERO_71_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_71_Buddy']='TB_BaconShop_HERO_71_Buddy_G'
 class TB_BaconShop_HERO_71:# <12>[1453]
 	""" Jandice Barov """
 class TB_BaconShop_HP_084:
@@ -583,12 +564,16 @@ class TB_BaconShop_HERO_71_Buddy_G:# <12>[1453]
 
 
 
-#30#Kael'thas Sunstrider  ### OK ###
+#30#Kael'thas Sunstrider  ### OK  24.0.3###
+BG_Hero2+=['TB_BaconShop_HERO_60','TB_BaconShop_HP_066','TB_BaconShop_HP_066e','TB_BaconShop_HERO_60_Buddy','TB_BaconShop_HERO_60_Buddy_e','TB_BaconShop_HERO_60_Buddy_G','TB_BaconShop_HERO_60_Buddy_G_e',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_60']
+BG_Hero2_Buddy['TB_BaconShop_HERO_60']='TB_BaconShop_HERO_60_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_60_Buddy']='TB_BaconShop_HERO_60_Buddy_G'
 class TB_BaconShop_HERO_60:# <12>[1453]
 	""" Kael'thas Sunstrider """
 class TB_BaconShop_HP_066:
 	""" Verdant Spheres
-	&lt;b&gt;Passive&lt;/b&gt;Every third minion you play gains +2/+2."""
+	<b>Passive</b>Every third minion you play gains +2/+2.""" #24.0.3
 	## <b>Passive</b> Every third minion you buy gains +2/+2. until 24.0
 	events = BG_Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 3, [Buff(Buy.CARD, 'TB_BaconShop_HP_066e' )]))
 TB_BaconShop_HP_066e=buff(2,2)
@@ -618,6 +603,10 @@ class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
 
 
 #31#King Mukla  #### half OK  ####
+BG_Hero2+=['TB_BaconShop_HERO_38','TB_BaconShop_HP_038','DMF_065t','DMF_065e','TB_BaconShop_HERO_38_Buddy','TB_BaconShop_HERO_38_Buddy_e','TB_BaconShop_HERO_38_Buddy_G','TB_BaconShop_HERO_38_Buddy_Ge',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_38']
+BG_Hero2_Buddy['TB_BaconShop_HERO_38']='TB_BaconShop_HERO_38_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_38_Buddy']='TB_BaconShop_HERO_38_Buddy_G'
 class TB_BaconShop_HERO_38:# <12>[1453]
 	""" King Mukla  """
 class TB_BaconShop_HP_038_Action(TargetedAction):
@@ -660,6 +649,10 @@ TB_BaconShop_HERO_38_Buddy_Ge=buff(2,2)# <12>[1453]
 
 
 #32#Kurtrus Ashfallen  #### HP OK #### 
+BG_Hero2+=['BG20_HERO_280','BG20_HERO_280e','BG20_HERO_280p','BG20_HERO_280pe','BG20_HERO_280p2','BG20_HERO_280p2e','BG20_HERO_280p2e2','BG20_HERO_280p3','BG20_HERO_280p3e2','BG20_HERO_280_Buddy','BG20_HERO_280_Buddye','BG20_HERO_280_Buddy_G','BG20_HERO_280_Buddye2',]
+BG_PoolSet_Hero2+=['BG20_HERO_280']
+BG_Hero2_Buddy['BG20_HERO_280']='BG20_HERO_280_Buddy'
+BG_Hero2_Buddy_Gold['BG20_HERO_280_Buddy']='BG20_HERO_280_Buddy_G'
 class BG20_HERO_280:# <14>[1453]
 	""" Kurtrus Ashfallen """
 class BG20_HERO_280e:# <12>[1453]
@@ -773,6 +766,10 @@ class BG20_HERO_280_Buddye2:# <12>[1453]
 
 
 #33#Lich Baz'hial ### HP OK ###
+BG_Hero2+=['TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',]
+BG_PoolSet_Hero2+=['TB_BaconShop_HERO_25']
+BG_Hero2_Buddy['TB_BaconShop_HERO_25']='TB_BaconShop_HERO_25_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_25_Buddy']='TB_BaconShop_HERO_25_Buddy_G'
 class TB_BaconShop_HERO_25:# <12>[1453]
 	""" Lich Baz'hial	 """
 class TB_BaconShop_HP_049:
@@ -801,9 +798,13 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
 
 
 #34#Lord Barov  #### impossible ###
+BG_Hero2+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
+#BG_PoolSet_Hero2+=['TB_BaconShop_HERO_72']
+BG_Hero2_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
+BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
 class TB_BaconShop_HERO_72:# <12>[1453]
 	""" Lord Barov	 """
-class TB_BaconShop_HP_081:
+class TB_BaconShop_HP_081: ############# impossible
 	"""Friendly Wager
 	Guess which player will win their next combat. _If they win, get 3 Coins."""
 	#####################
