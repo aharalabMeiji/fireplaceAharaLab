@@ -113,28 +113,67 @@ class SW_305:# <5>[1578]
 
 
 if StormWind_Rise_to_the_Occasion:# 
-	StormWind_Paladin+=['SW_313']
-	StormWind_Paladin+=['SW_313e1']
+	StormWind_Paladin+=['SW_313','CS2_091']
+	#StormWind_Paladin+=['SW_313e1']
 	StormWind_Paladin+=['SW_313t']
 	StormWind_Paladin+=['SW_313t2']
 	StormWind_Paladin+=['SW_313t4']
 	StormWind_Paladin+=['SW_313t4e']
+class SW_313_Questline(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	TARGETEDACTION=ActionArg()
+	def do(self, source, target, amount, targetedaction):
+		if not target.id in source.sidequest_list0:
+			if target.cost==1:
+				source.sidequest_list0.append(target.id)
+				if len(source.sidequest_list0)>=3:
+					for action in targetedaction:
+						action.trigger(source)
+					Destroy(source).trigger(source)
+		pass
+	pass
 class SW_313:# <5>[1578]
 	""" Rise to the Occasion
 	[Questline:] Play 3 different 1-Cost cards.[Reward:] Equip a 1/4 Light's Justice. """
-	#
+	# Light's Justice  VAN_CS2_091 CS2_091 weapon
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	
+	events = Play(CONTROLLER).on(SW_313_Questline(Play.CARD, 3, [
+		Summon(CONTROLLER, 'CS2_091'), 
+		Summon(CONTROLLER, 'SW_313t')
+		]))
 	pass
-class SW_313e1:# <5>[1578]
+#class SW_313e1:# <5>[1578]
+#	""" Costs (1) less """
+#	pass
+class CS2_091:
+	""" Light's Justice """
 	pass
 class SW_313t:# <5>[1578]
+	""" Pave the Way
+	&lt;b&gt;Questline: &lt;/b&gt; Play 3 different 1-Cost cards. &lt;b&gt;Reward:&lt;/b&gt; Upgrade your Hero Power."""
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	
+	events = Play(CONTROLLER).on(SW_313_Questline(Play.CARD, 3, [
+		ChangeHeroPower(CONTROLLER, 'HERO_04bp2'),
+		Summon(CONTROLLER, 'SW_313t2'), 
+		]))
 	pass
 class SW_313t2:# <5>[1578]
+	""" Avenge the Fallen
+	&lt;b&gt;Questline:&lt;/b&gt; Play 3 different 1-Cost cards. &lt;b&gt;Reward:&lt;/b&gt; Lightborn Cariel."""
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	
+	events = Play(CONTROLLER).on(SW_313_Questline(Play.CARD, 3, [
+		Give(CONTROLLER, 'SW_313t4') 
+		]))
 	pass
 
 class SW_313t4:# <5>[1578]
+	""" Lightborn Cariel
+	&lt;b&gt;Battlecry:&lt;/b&gt; For the rest of the game, your Silver Hand Recruits have +2/+2."""
 	pass
 
 class SW_313t4e:# <5>[1578]
+	tags={GameTag.ATL:2, GameTag.HEALTH:2}
 	pass
 
 

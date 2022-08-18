@@ -2937,6 +2937,8 @@ class FreezeOrHit(TargetedAction):
 
 class ChangeHeroPower(TargetedAction):
 	"""
+	TARGET = ActionArg()#CONTROLLER
+	CARD = CardArg()
 	"""
 	TARGET = ActionArg()#CONTROLLER
 	CARD = CardArg()
