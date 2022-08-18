@@ -51,8 +51,7 @@ Barrens_Archdruid_Naralex=True## 24.0
 
 ###################################
 
-## paladin が有効になるまで
-Barrens_Neutral+=['WC_034','WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7']
+
 ###################################
 if Barrens_Razormane_Raider:# 
 	Barrens_Neutral+=['BAR_020']

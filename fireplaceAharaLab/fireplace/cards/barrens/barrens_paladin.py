@@ -196,12 +196,14 @@ if Barrens_Invigorating_Sermon:#
 class BAR_881:# <5>[1525]
 	""" Invigorating Sermon
 	Give +1/+1 to all minions in your hand, deck, and battlefield. """
-	#
+	play = Buff(FRIENDLY_HAND, 'BAR_881e'), Buff(FRIENDLY_DECK, 'BAR_881e'), Buff(FRIENDLY_MINIONS, 'BAR_881e')
 	pass
 class BAR_881e:# <5>[1525]
-	""" Holy Might
-	+1/+1 """
-	#
+	""" Holy Might 	+1/+1 """
+	tags = {
+		GameTag.ATK:1,
+		GameTag.HEALTH:1
+		}
 	pass
 
 
@@ -212,13 +214,12 @@ if Barrens_Cariel_Roame:#
 	Barrens_Paladin+=['BAR_902e']
 class BAR_902:# <5>[1525]
 	""" Cariel Roame
-	[Rush], [Divine Shield]Whenever this attacks,reduce the Cost of Holy______spells in your hand by (1).___ """
-	#
+	[Rush], [Divine Shield] Whenever this attacks,reduce the Cost of Holy______spells in your hand by (1).___ """
+	Events = Attack(SELF).on(Buff(FRIENDLY_HAND + HOLY, 'BAR_902e'))
 	pass
 class BAR_902e:# <5>[1525]
-	""" Light's Strength
-	Costs (1) less. """
-	#
+	""" Light's Strength 	Costs (1) less. """
+	tags = { GameTag.COST:-1, }
 	pass
 
 
@@ -229,9 +230,15 @@ if Barrens_Seedcloud_Buckler:#
 class WC_032:# <5>[1525]
 	""" Seedcloud Buckler
 	[Deathrattle:] Give your_minions [Divine Shield]. """
-	#
+	deathrattle = Buff(FRIENDLY_MINIONS, 'WC_032e')
 	pass
-
+@custom_card
+class WC_032e:
+	tags={
+		GameTag.CARDNAME:"Seedcloud Buckler",
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,
+		GameTag.DIVINE_SHIELD: 1
+		}
 
 
 
@@ -241,38 +248,58 @@ if Barrens_Judgment_of_Justice:#
 class WC_033:# <5>[1525]
 	""" Judgment of Justice
 	[Secret:] When an enemy minion attacks, set its Attack and Health to 1. """
-	#
+	secret = Attack(ENEMY_MINIONS).on(Buff(Attack.ATTACKER, 'WC_033e'))
 	pass
 class WC_033e:# <5>[1525]
-	""" Judged
-	1/1. """
-	#
+	""" Judged 	1/1. """
+	atk = lambda self, i : 1
+	max_health = lambda self, i : 1
 	pass
 
 
 
 
 if Barrens_Party_Up:# 
-	Barrens_Paladin+=['WC_034','WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7']
+	Barrens_Paladin+=['WC_034','WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t8']
 class WC_034:# <5>[1525]
 	""" Party Up!
 	Summon five 2/2 Adventurers with random bonus effects. """
-	#
+	def play(self):
+		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],5)
+		for card in cards:
+			newcard=Summon(self.controller, card).trigger(self)
+			newcard=newcard[0][0]
+			Buff(newcard, "WC_034e", atk=random.randint(1,3), max_health=random.randint(1,3))
 	pass
 class WC_034t:
+	"""&lt;b&gt;Poisonous&lt;/b&gt;"""
 	pass
 class WC_034t2:
+	"""&lt;b&gt;Taunt&lt;/b&gt;"""
 	pass
 class WC_034t3:
+	"""&lt;b&gt;Divine Shield&lt;/b&gt;"""
 	pass
 class WC_034t4:
+	"""&lt;b&gt;Windfury&lt;/b&gt;"""
 	pass
 class WC_034t5:
+	""" &lt;b&gt;Spell Damage +1&lt;/b&gt; """
 	pass
 class WC_034t6:
+	""" &lt;b&gt;Stealth&lt;/b&gt; """
 	pass
 class WC_034t7:
+	""" &lt;b&gt;Lifesteal&lt;/b&gt; """
 	pass
 class WC_034t8:
+	""" &lt;b&gt;Rush&lt;/b&gt; """
+	pass
+@custom_card
+class WC_034e:# <5>[1525]
+	""" Judged 	1/1. """
+	tags={
+		GameTag.CARDNAME:"Seedcloud Buckler",
+		GameTag.CARDTYPE:CardType.ENCHANTMENT}
 	pass
 
