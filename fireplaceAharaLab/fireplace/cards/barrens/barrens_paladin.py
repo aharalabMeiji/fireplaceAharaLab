@@ -22,12 +22,23 @@ Barrens_Party_Up=True  ###
 if Barrens_Galloping_Savior:# 
 	Barrens_Paladin+=['BAR_550']
 	Barrens_Paladin+=['BAR_550t']
+class BAR_550_Action(GameAction):
+	previous_turn=0
+	card_count=0
+	def do(self, source):
+		if self.previous_turn!=source.controller.game.turn:
+			self.card_count=1
+			self.previous_turn=source.controller.game.turn
+		else:
+			self.card_count += 1
+			if self.card_count>=3:
+				Summon(source.controller, 'BAR_550t').trigger(source)
+		source.sidequest_list0
 class BAR_550:# <5>[1525]
 	""" Galloping Savior
 	[Secret:] After your opponent plays three cards in a turn, summon a 3/4 Steed with [Taunt]. """
-	#
+	secret = Play(OPPONENT).on(BAR_550_Action())
 	pass
-
 class BAR_550t:# <5>[1525]
 	""" Holy Steed
 	[Taunt] """
@@ -42,7 +53,7 @@ if Barrens_Soldiers_Caravan:#
 class BAR_871:# <5>[1525]
 	""" Soldier's Caravan
 	At the start of your turn,summon two 1/1Silver Hand Recruits. """
-	#
+	events = OWN_TURN_BEGIN.on(Summon(CONTROLLER, 'CS2_101t')*2)
 	pass
 
 
@@ -53,7 +64,11 @@ if Barrens_Knight_of_Anointment:#
 class BAR_873:# <5>[1525]
 	""" Knight of Anointment
 	[Battlecry:] Draw aHoly spell. """
-	#
+	def play(self):
+		controller = self.controller
+		cards=[card for card in controller.deck if card.type==CardType.SPELL and hasattr(card,'spell_school') and card.spell_school==SpellSchool.HOLY]
+		if len(cards)>0:
+			Give(controller, random.choice(cards)).trigger(self)
 	pass
 
 
@@ -61,10 +76,17 @@ class BAR_873:# <5>[1525]
 
 if Barrens_Sword_of_the_Fallen:# 
 	Barrens_Paladin+=['BAR_875']
+class BAR_875_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		controller = target
+		cards = [card for card in controller.deck if card.type==CardType.SPELL and hasattr(card,'secret') and card.secret==True]
+		if len(cards)>0:
+			Play(controller, random.choice(cards),None,None).trigger(source)
 class BAR_875:# <5>[1525]
 	""" Sword of the Fallen
-	After your hero attacks,cast a [Secret] fromyour deck. """
-	#
+	After your hero attacks,cast a [Secret] from your deck. """
+	events = Attack(FRIENDLY_HERO).after(BAR_875_Action(CONTROLLER))
 	pass
 
 
@@ -75,7 +97,7 @@ if Barrens_Northwatch_Commander:#
 class BAR_876:# <5>[1525]
 	""" Northwatch Commander
 	[Battlecry:] If you control a [Secret], draw a minion. """
-	#
+	play = Find(FRIENDLY_SECRETS) & Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION))
 	pass
 
 
@@ -86,10 +108,9 @@ if Barrens_Veteran_Warmedic:#
 	Barrens_Paladin+=['BAR_878t']
 class BAR_878:# <5>[1525]
 	""" Veteran Warmedic
-	After you cast a Holy spell,summon a 2/2 Medicwith [Lifesteal]. """
-	#
+	After you cast a Holy spell,summon a 2/2 Medic with [Lifesteal]. """
+	events = Play(CONTROLLER, SPELL+HOLY).after(Summon(CONTROLLER, 'BAR_878t'))
 	pass
-
 class BAR_878t:# <5>[1525]
 	""" Battlefield Medic
 	[Lifesteal] """
