@@ -224,7 +224,7 @@ if Barrens_Sigil_of_Summoning:#
 class WC_003:# <14>[1525]
 	""" Sigil of Summoning
 	At the start of your next turn, summon two 2/2 Demons with [Taunt]. """
-	events = OWN_TURN_BEGIN/on(Buff(CONTROLLER, 'WC_003t'))
+	events = OWN_TURN_BEGIN.on(Buff(CONTROLLER, 'WC_003t'))
 	pass
 
 class WC_003t:# <14>[1525]

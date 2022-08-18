@@ -9,7 +9,7 @@ Barrens_Knight_of_Anointment=True  ###
 Barrens_Sword_of_the_Fallen=True  ###
 Barrens_Northwatch_Commander=True  ###
 Barrens_Veteran_Warmedic=True  ###
-Barrens_Cannonmaster_Smythe=True  ###
+Barrens_Cannonmaster_Smythe=True  ###OK
 Barrens_Conviction_Rank_1=True  ###
 Barrens_Invigorating_Sermon=True  ###
 Barrens_Cariel_Roame=True  ###
@@ -120,26 +120,39 @@ class BAR_878t:# <5>[1525]
 
 
 
-if Barrens_Cannonmaster_Smythe:# 
+if Barrens_Cannonmaster_Smythe:#  ######## OK
 	Barrens_Paladin+=['BAR_879']
 	Barrens_Paladin+=['BAR_879e']
 	Barrens_Paladin+=['BAR_879t']
 class BAR_879:# <5>[1525]
 	""" Cannonmaster Smythe
 	[Battlecry:] Transform your [Secrets] into 3/3 Soldiers. They transform back when they die. """
-	#
+	def play(self):
+		for secret in self.controller.secrets:
+			newcard=Summon(self.controller, 'BAR_879t').trigger(self)
+			newcard=newcard[0][0]
+			Buff(newcard, 'BAR_879e').trigger(self)
+			newbuff=newcard.buffs[-1]
+			newbuff.smallbox.append(secret.id)
+			newbuff.script_data_text_0=secret.data.name
+			Destroy(secret).trigger(self)
 	pass
-
+class BAR_879e_Deathrattle(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		for buff in source.buffs:
+			if buff.id=='BAR_879e':
+				secretId=buff.smallbox[0]
+				#newcard=target.card()
+				Summon(target,secretId).trigger(source)
 class BAR_879e:# <5>[1525]
 	""" Secrecy
 	It's a secret...@{0} is inside! <i>(Only you can see this.)</i> """
-	#
 	pass
-
 class BAR_879t:# <5>[1525]
 	""" Northwatch Soldier
 	[Deathrattle:] Transform back into a [Secret]. """
-	#
+	deathrattle = BAR_879e_Deathrattle(CONTROLLER)#
 	pass
 
 

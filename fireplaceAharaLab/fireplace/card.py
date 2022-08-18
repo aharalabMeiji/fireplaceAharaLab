@@ -56,6 +56,7 @@ class BaseCard(BaseEntity):
 		self.tags.update(data.tags)
 		self.frenzyFlag = 0
 		self.choiceText = 'Choose one.'
+		self.smallbox=[]#utility
 
 	def __str__(self):
 		return self.data.name

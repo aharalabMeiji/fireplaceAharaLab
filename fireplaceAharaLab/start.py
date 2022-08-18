@@ -193,8 +193,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.stormwind_neutral import stormwind_neutral
-	stormwind_neutral()
+	from card_test.barrens_paladin import barrens_paladin
+	barrens_paladin()
 	pass
 
 def battleground_main():
