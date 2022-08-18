@@ -121,23 +121,42 @@ class BAR_329:# <14>[1525]
 
 if Barrens_Tuskpiercer:# 
 	Barrens_DemonHunter+=['BAR_330']
+class BAR_330_Draw(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		cards=[card for card in target.deck if card.has_deathrattle==True]
+		card = random.choice(cards)
+		Summon(target, card).trigger(source)
 class BAR_330:# <14>[1525]
 	""" Tuskpiercer
 	[Deathrattle:] Draw a[Deathrattle] minion. """
-	#
+	deathrattle = BAR_330_Draw(CONTROLLER)
 	pass
 
 
 
 
 if Barrens_Kurtrus_Ashfallen:# 
-	Barrens_DemonHunter+=['BAR_333']
+	Barrens_DemonHunter+=['BAR_333','BAR_333e']
+class BAR_333_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		target.cant_be_damaged=True
 class BAR_333:# <14>[1525]
 	""" Kurtrus Ashfallen
 	[Battlecry:] Attack the left andright-most enemy minions.[Outcast:] [Immune] this turn. """
-	#
+	def play(self):
+		controller = self.controller
+		enemy_minions=controller.opponent.field
+		if len(enemy_minions)>=2:
+			RegularAttack(SELF, enemy_minions[-1]).trigger(self)
+		if len(enemy_minions)>=1:
+			RegularAttack(SELF, enemy_minions[0]).trigger(self)
+	outcast = Buff(SELF, 'BAR_333e')
 	pass
-
+class BAR_333e:
+	tags={GameTag.CANT_BE_DAMAGED: True}
+	#Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
 
 
@@ -146,7 +165,7 @@ if Barrens_Sigil_of_Silence:#
 class BAR_705:# <14>[1525]
 	""" Sigil of Silence
 	At the start of yournext turn, [Silence] allenemy minions. """
-	#
+	events = OWN_TURN_BEGIN.on(Silence(ENEMY_MINIONS))
 	pass
 
 
@@ -205,7 +224,7 @@ if Barrens_Sigil_of_Summoning:#
 class WC_003:# <14>[1525]
 	""" Sigil of Summoning
 	At the start of your next turn, summon two 2/2 Demons with [Taunt]. """
-	#
+	events = OWN_TURN_BEGIN/on(Buff(CONTROLLER, 'WC_003t'))
 	pass
 
 class WC_003t:# <14>[1525]
@@ -222,9 +241,10 @@ if Barrens_Taintheart_Tormenter:#
 class WC_040:# <14>[1525]
 	""" Taintheart Tormenter
 	[Taunt]Your opponent's spells cost (2) more. """
-	#
+	update=Refresh(ENEMY_MINIONS, 'WC_040e')
 	pass
-
+class WC_040e:
+	tags={GameTag.COST:2,}
 
 
 
@@ -233,6 +253,6 @@ if Barrens_Felrattler:#
 class WC_701:# <14>[1525]
 	""" Felrattler
 	[Rush][Deathrattle:] Deal 1 damageto all enemy minions. """
-	#
+	deathrattle = Hit(ENEMY_MINIONS, 1)
 	pass
 
