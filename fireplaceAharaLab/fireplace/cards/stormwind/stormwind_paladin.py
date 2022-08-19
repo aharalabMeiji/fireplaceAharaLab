@@ -170,10 +170,19 @@ class SW_313t2:# <5>[1578]
 class SW_313t4:# <5>[1578]
 	""" Lightborn Cariel
 	&lt;b&gt;Battlecry:&lt;/b&gt; For the rest of the game, your Silver Hand Recruits have +2/+2."""
+	play = Buff(CONTROLLER, 'SW_313t4e')
 	pass
 
 class SW_313t4e:# <5>[1578]
-	tags={GameTag.ATL:2, GameTag.HEALTH:2}
+	events = Summon(CONTROLLER, MINION+ID('CS2_101t')).on(Summon.CARD, 'SW_313t4e2')
+	pass
+@custom_card
+class SW_313t4e2:# <5>[1578]
+	tags={
+		GameTag.CARDNAME:"Lightborn Cariel",
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,
+		GameTag.ATL:2, GameTag.HEALTH:2
+		}
 	pass
 
 
@@ -184,32 +193,41 @@ if StormWind_Lightbringers_Hammer:#
 class SW_314:# <5>[1578]
 	""" Lightbringer's Hammer
 	[Lifesteal]Can't attack heroes. """
-	#
+	tags = {GameTag.CANNOT_ATTACK_HEROES:True, }
 	pass
 
 
 
 
 if StormWind_Alliance_Bannerman:# 
-	StormWind_Paladin+=['SW_315']
+	StormWind_Paladin+=['SW_315','SW_315e']
 class SW_315:# <5>[1578]
 	""" Alliance Bannerman
 	[Battlecry:] Draw a minion.Give minions in yourhand +1/+1. """
-	#
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK+MINION)), Buff(FRIENDLY_HAND + MINION, 'SW_315e')
 	pass
-
-
+class SW_315e:
+	tags={
+		GameTag.ATL:1, GameTag.HEALTH:1		
+		}
 
 
 if StormWind_Noble_Mount:# 
-	StormWind_Paladin+=['SW_316']
+	StormWind_Paladin+=['SW_316','SW_316e']
 	StormWind_Paladin+=['SW_316t']
 class SW_316:# <5>[1578]
 	""" Noble Mount
-	Give a minion +1/+1and [Divine Shield].When it dies, summona Warhorse. """
-	#
+	Give a minion +1/+1and [Divine Shield].When it dies, summon a Warhorse. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Buff(TARGET, 'SW_316e'), GiveDivineShield(TARGET), 
 	pass
-
+class SW_316e:
+	tags={
+		GameTag.ATL:1, 
+		GameTag.HEALTH:1		
+		}
+	events = Death(OWNER).on(Summon(CONTROLLER, 'SW_316t'))
+	pass
 class SW_316t:# <5>[1578]
 	pass
 
@@ -220,8 +238,9 @@ if StormWind_Catacomb_Guard:#
 	StormWind_Paladin+=['SW_317']
 class SW_317:# <5>[1578]
 	""" Catacomb Guard
-	[Lifesteal][Battlecry:] Deal damageequal to this minion's Attackto an enemy minion. """
-	#
+	[Lifesteal][Battlecry:] Deal damage equal to this minion's Attack to an enemy minion. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}	
+	play = Hit(TARGET, ATK(SELF))
 	pass
 
 
