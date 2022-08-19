@@ -45,7 +45,10 @@ if Barrens_Field_Contact:#
 class BAR_317:# <7>[1525]
 	""" Field Contact
 	After you play a [Battlecry]or [Combo] card, draw a card. """
-	#
+	events = [
+		Play(CONTROLLER, FRIENDLY + BATTLECRY).Draw(CONTROLLER),
+		Play(CONTROLLER, FRIENDLY + COMBO).Draw(CONTROLLER)
+	]
 	pass
 
 
@@ -55,10 +58,12 @@ if Barrens_Silverleaf_Poison:#
 	Barrens_Rogue+=['BAR_318']
 class BAR_318:# <7>[1525]
 	""" Silverleaf Poison
-	Give your weapon"After your hero attacks,draw a card." """
-	#
+	Give your weapon "After your hero attacks, draw a card." """
+	play = Buff(FRIENDLY_WEAPON, 'BAR_318e')
 	pass
-
+class BAR_318e:
+	events = Attack(FRIENDLY_HERO).after(Draw(CONTROLLER))
+	pass
 
 
 
@@ -97,9 +102,10 @@ if Barrens_Efficient_Octo_bot:#
 class BAR_320:# <7>[1525]
 	""" Efficient Octo-bot
 	[Frenzy:] Reduce the cost of cards in your hand by (1). """
-	#
+	events = Damage(SELF).on(Frenzy(SELF, Buff(FRIENDLY_HAND, 'BAR_320e')))	#
 	pass
-
+class BAR_320e:
+	tags={GameTag.COST:-1}
 
 
 
@@ -108,13 +114,16 @@ if Barrens_Paralytic_Poison:#
 	Barrens_Rogue+=['BAR_321e']
 class BAR_321:# <7>[1525]
 	""" Paralytic Poison
-	Give your weapon +1Attack and "Your hero is[Immune] while attacking." """
-	#
+	Give your weapon +1 Attack and "Your hero is[Immune] while attacking." """
+	play = Buff(FRIENDLY_WEAPON, 'BAR_321e')
 	pass
 class BAR_321e:# <7>[1525]
 	""" Paralytic Poison
 	+1 Attack and [Immune] while attacking. """
-	#
+	tags={
+		GameTag.ATK:1,
+		GameTag.IMMUNE_WHILE_ATTACKING:1
+	}
 	pass
 
 
@@ -125,10 +134,12 @@ if Barrens_Swinetusk_Shank:#
 class BAR_322:# <7>[1525]
 	""" Swinetusk Shank
 	After you play a Poison,_gain +1 Durability. """
-	#
+	events = Play(CONTROLLER, POISONOUS).after(Buff(FRIENDLY_WEAPON, 'BAR_322e'))
 	pass
-
-
+class BAR_322e:
+	tags={
+		GameTag.DURABILITY:1,
+	}
 
 
 if Barrens_Yoink:# 
@@ -214,7 +225,7 @@ if Barrens_Savory_Deviate_Delight:#
 	Barrens_Rogue+=['WC_017']
 class WC_017:# <7>[1525]
 	""" Savory Deviate Delight
-	Transform a minion inboth players' hands into aPirate or [Stealth] minion. """
+	Transform a minion in both players' hands into a Pirate or [Stealth] minion. """
 	#
 	pass
 
