@@ -890,9 +890,9 @@ class TargetedAction(Action):
 				from .player import Player
 				from .card import PlayableCard
 				if isinstance(source, Player):
-					source.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args})## log for action
+					source.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args, 'turn':source.controller.game.turn})## log for action
 				elif isinstance(source, PlayableCard):
-					source.controller.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args})## log for action
+					source.controller.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args, 'turn':source.controller.game.turn})## log for action
 				ret.append(self.do(source, target, *target_args))
 
 				for action in self.callback:

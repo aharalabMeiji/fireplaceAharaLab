@@ -24,7 +24,17 @@ if Barrens_Oil_Rig_Ambusher:#
 class BAR_316:# <7>[1525]
 	""" Oil Rig Ambusher
 	[Battlecry:] Deal 2 damage.If this entered your hand_this turn, deal 4 instead. """
-	#
+	requirements ={PlayReq.REQ_MINION_TARGET:0,PlayReq.REQ_TARGET_TO_PLAY:0,PlayReq.REQ_ENEMY_TARGET:0,}
+	def play(self):
+		actions = [action for action in self.controller._targetedaction_log \
+			if isinstance(action['class'], Give) and action['target'].id=='BAR_316']
+		actions += [action for action in self.controller._targetedaction_log \
+			if isinstance(action['class'], Draw) and action['target_arg'][0].id=='BAR_316']
+		if len(actions)>0:
+			Hit(TARGET,4)
+		else:
+			Hit(TARGET,2)
+
 	pass
 
 

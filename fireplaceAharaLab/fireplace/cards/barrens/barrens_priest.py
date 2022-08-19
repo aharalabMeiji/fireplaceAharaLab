@@ -24,8 +24,8 @@ if Barrens_Void_Flayer:#
 	Barrens_Priest+=['BAR_307']
 class BAR_307:# <6>[1525]
 	""" Void Flayer
-	[Battlecry:] For each spellin your hand, deal 1damage to a randomenemy minion. """
-	#
+	[Battlecry:] For each spell in your hand, deal 1 damage to a random enemy minion. """
+	play = Hit(RANDOM(ENEMY_MINIONS),1) * COUNT(FRIENDLY_HAND + SPELL)
 	pass
 
 
@@ -36,9 +36,19 @@ if Barrens_Power_Word_Fortitude:#
 class BAR_308:# <6>[1525]
 	""" Power Word: Fortitude
 	Give a minion +3/+5. Costs (1) less for each spell in your hand. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
+	def play(self):
+		amount = -len([card for card in self.controller.hand if card.type==CardType.SPELL])
+		Buff(TARGET, 'BAR_308e', cost = amount).trigger(self)
 	pass
-
+@custom_card
+class BAR_308e:
+	tags={
+		GameTag.CARDNAME:'Power Word: Fortitude',
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,
+		GameTag.ATL:3,
+		GameTag.HEALTH:5
+		}
 
 
 
@@ -47,7 +57,7 @@ if Barrens_Desperate_Prayer:#
 class BAR_309:# <6>[1525]
 	""" Desperate Prayer
 	Restore #5 Health to each hero. """
-	#
+	play = Heal(FRIENDLY_HERO,5), Heal(ENEMY_HERO,5)
 	pass
 
 
@@ -58,7 +68,7 @@ if Barrens_Lightshower_Elemental:#
 class BAR_310:# <6>[1525]
 	""" Lightshower Elemental
 	[Taunt][Deathrattle:] Restore #8 Healthto all friendly characters. """
-	#
+	deathrattle = Heal(FRIENDLY_CHARACTERS, 8)
 	pass
 
 
@@ -69,7 +79,7 @@ if Barrens_Devouring_Plague:#
 class BAR_311:# <6>[1525]
 	""" Devouring Plague
 	[Lifesteal]. Deal $4 damagerandomly split amongall enemy minions. """
-	#
+	play = Hit(RANDOM(ENEMY_MINIONS),1) * 4
 	pass
 
 
@@ -80,7 +90,7 @@ if Barrens_Soothsayers_Caravan:#
 class BAR_312:# <6>[1525]
 	""" Soothsayer's Caravan
 	At the start of your turn, copy a spell from your opponent's deck to your hand. """
-	#
+	events = OWN_TURN_BEGIN.on(Give(CONTROLLER, RANDOM(ENEMY_DECK)))
 	pass
 
 
@@ -92,12 +102,19 @@ if Barrens_Priest_of_Anshe:#
 class BAR_313:# <6>[1525]
 	""" Priest of An'she
 	[Taunt]. [Battlecry:] If you've restored Health this turn, gain +3/+3. """
-	#
+	def plat(self):
+		#this turn
+		actions=[action for action in self.controller._targetedaction_log
+		   if isinstance(action['class'],Heal) and action['turn']==self.controller.game.turn]
+		if len(actions)>0:
+			Buff(self, 'BAR_313e').trigger(self)
 	pass
 class BAR_313e:# <6>[1525]
-	""" Sun's Strength
-	+3/+3. """
-	#
+	""" Sun's Strength 	+3/+3. """
+	tags ={
+		GameTag.ATK:3,
+		GameTag.HEALTH:3
+		}
 	pass
 
 
@@ -135,9 +152,20 @@ if Barrens_Serena_Bloodfeather:#
 class BAR_315:# <6>[1525]
 	""" Serena Bloodfeather
 	[Battlecry:] Choose an enemy minion. Steal Attack and Health from it until this has more. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0,  }
+	def play(self):
+		controller = self.controller
+		target = self.target
+		Buff(self, 'BAR_315e', atk=target.atk, max_health=target.max_health).trigger(self)
 	pass
-
+@custom_card
+class BAR_315e:
+	tags={
+		GameTag.CARDNAME:'Serena Bloodfeather',
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,
+	}
+	events = Find(SELF.BUFF - SELF).Destroy(SELF)
+	pass
 
 
 
@@ -146,7 +174,12 @@ if Barrens_Xyrella:#
 class BAR_735:# <6>[1525]
 	""" Xyrella
 	[Battlecry:] If you've restored Health this turn, deal that much damage to all enemy minions. """
-	#
+	def plat(self):
+		#this turn
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'],Heal) and action['turn']==self.controller.game.turn]
+		if len(actions)>0:
+			for action in actions:
+				Hit(ENEMY_MINIONS, action['target_arg'][0]).trigger(self)
 	pass
 
 
@@ -157,8 +190,20 @@ if Barrens_Devout_Dungeoneer:#
 class WC_013:# <6>[1525]
 	""" Devout Dungeoneer
 	[Battlecry:] Draw a spell.If it's a Holy spell,reduce its Cost by (2). """
-	#
+	def play(self):
+		cards = [card for card in self.controller.deck if card.type==CardType.SPELL]
+		if len(cards)>0:
+			card = random.choice(cards)
+			Give(self.controller, card).trigger(self)
+			if card.spell_school==SpellSchool.HOLY:
+				Buff(card, 'WC_013e').trigger(self)
 	pass
+@custom_card
+class WC_013e:
+	tags={
+		GameTag.CARDNAME:"I",
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,
+		GameTag.COST:-1,}
 
 
 
@@ -167,8 +212,13 @@ if Barrens_Against_All_Odds:#
 	Barrens_Priest+=['WC_014']
 class WC_014:# <6>[1525]
 	""" Against All Odds
-	Destroy ALLodd-Attack minions. """
-	#
+	Destroy ALL odd-Attack minions. """
+	def play(self):
+		cards = [card for card in self.controller.field if card.atk%2==1]
+		cards += [card for card in self.controller.opponent.field if card.atk%2==1]
+		amount=len(cards)
+		for i in range(amount):
+			Destroy(cards[-1]).trigger(self)
 	pass
 
 
@@ -179,7 +229,11 @@ if Barrens_Cleric_of_Anshe:#
 class WC_803:# <6>[1525]
 	""" Cleric of An'she
 	[Battlecry:] If you've restored Health this turn, [Discover] a spell from your deck. """
-	#
+	def play(self):
+		#this turn
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'],Heal and action['turn']==self.controller.game.turn)]
+		if len(actions)>0:
+			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)*3).trigger(self)
 	pass
 
 
