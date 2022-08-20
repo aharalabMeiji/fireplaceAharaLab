@@ -145,15 +145,23 @@ class BAR_322e:
 if Barrens_Yoink:# 
 	Barrens_Rogue+=['BAR_323']
 	Barrens_Rogue+=['BAR_323e']
+class BAR_323_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		card.cost=0
+		Buff(card, 'BAR_323e').trigger(card)
 class BAR_323:# <7>[1525]
 	""" Yoink!
 	[Discover] a Hero Power and set its Cost to (0). Swap back after 2 uses. """
-	#
+	entourage = ['HERO_01bp', 'HERO_03bp', 'HERO_04bp','HERO_05bp','HERO_06bp', 'HERO_07bp', 'HERO_08bp', 'HERO_09bp']
+	play = BAR_323_Choice(CONTROLLER, RandomEntourage())
 	pass
 class BAR_323e:# <7>[1525]
 	""" Yoink!
 	 """
-	#
+	events = Play(CONTROLLER, HERO_POWER).SidequestCounter(SELF, 2, [ChangeHeroPower(CONTROLLER,  'HERO_02bp'), Destroy(SELF)])
 	pass
 
 
@@ -164,7 +172,8 @@ if Barrens_Apothecary_Helbrim:#
 class BAR_324:# <7>[1525]
 	""" Apothecary Helbrim
 	[Battlecry and Deathrattle:] Add a random Poison to your hand. """
-	#
+	play = Give(CONTROLLER, RandomMinion(poisonous=True))
+	deathrattle = Give(CONTROLLER, RandomMinion(poisonous=True))
 	pass
 
 
@@ -175,13 +184,21 @@ if Barrens_Scabbs_Cutterbutter:#
 	Barrens_Rogue+=['BAR_552o']
 class BAR_552:# <7>[1525]
 	""" Scabbs Cutterbutter
-	[Combo:] The next twocards you play this turncost (3) less. """
-	#
+	[Combo:] The next two cards you play this turn cost (3) less. """
+	combo = Buff(FRIENDLY_HAND, 'BAR_552e'), Buff(SELF, 'BAR_552o')
 	pass
+class BAR_552e:
+	tags = {
+		GameTag.COST:-3
+		}
+	events = OWN_TURN_END.on(Destroy(SELF))
 class BAR_552o:# <7>[1525]
 	""" Cookin!
 	The next two cards you play this turn costs (3) less. """
-	#
+	events = [
+		Play(CONTROLLER).on(SidequestCounter(SELF, 2, [Destroy(SELF)])),
+		OWN_TURN_END.on(Destroy(SELF))
+		]
 	pass
 
 
@@ -192,7 +209,7 @@ if Barrens_Water_Moccasin:#
 class WC_015:# <7>[1525]
 	""" Water Moccasin
 	[Stealth]Has [Poisonous] while you_have no other minions. """
-	#
+	update = -Find(FRIENDLY_MINIONS - SELF) & Refresh(SELF, tags={GameTag.POISONOUS:1, })
 	pass
 
 
@@ -205,17 +222,22 @@ if Barrens_Shroud_of_Concealment:#
 class WC_016:# <7>[1525]
 	""" Shroud of Concealment
 	Draw 2 minions. Any played this turn gain [Stealth] for 1 turn. """
-	#
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION)).after(Buff(Give.CARD, 'WC_016e')),\
+		Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION)).after(Buff(Give.CARD, 'WC_016e'))
 	pass
 class WC_016e:# <7>[1525]
 	""" Cloaking
 	Play this turn to gain [Stealth] for 1 turn. """
-	#
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+	events = Play(CONTROLLER, OWNER).on(Buff(Play.CARD, 'WC_016e2'))
 	pass
 class WC_016e2:# <7>[1525]
 	""" Cloaked
 	[Stealth] for 1 turn. """
-	#
+	tags = {
+		GameTag.STEALTH:1,
+		GameTag.TAG_ONE_TURN_EFFECT:1, 
+		}
 	pass
 
 
@@ -226,7 +248,23 @@ if Barrens_Savory_Deviate_Delight:#
 class WC_017:# <7>[1525]
 	""" Savory Deviate Delight
 	Transform a minion in both players' hands into a Pirate or [Stealth] minion. """
-	#
+	def play(self):
+		if self.controller.hand!=[]:
+			card1=random.choice(self.controller.hand)
+			Destroy(card1)
+			c=random.choice(['pirate', 'stealth'])
+			if c=='pirate':
+				Give(self.controller, RandomPirate()).trigger(self)
+			else:
+				Give(self.controller, RandomMinion(stealth=True)).trigger(self)
+		if self.controller.opponent.hand!=[]:
+			card2=random.choice(self.controller.opponent.hand)
+			Destroy(card2)
+			c=random.choice(['pirate', 'stealth'])
+			if c=='pirate':
+				Give(self.controller.opponent, RandomPirate()).trigger(self)
+			else:
+				Give(self.controller.opponent, RandomMinion(stealth=True)).trigger(self)
 	pass
 
 
