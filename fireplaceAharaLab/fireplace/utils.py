@@ -314,6 +314,8 @@ def modify_description(card, text):
 				if player:
 					if hasattr(card,'spell_school') and card.spell_school == SpellSchool.FIRE:
 						catch_number += player.spellpower_fire
+					elif hasattr(card,'spell_school') and card.spell_school == SpellSchool.NATURE:
+						catch_number += player.spellpower_nature
 					else :
 						catch_number += player.spellpower
 					for repeat in range(player.spellpower_double):

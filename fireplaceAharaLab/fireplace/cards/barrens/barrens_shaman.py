@@ -101,7 +101,7 @@ if Barrens_Brukan:#
 class BAR_048:# <8>[1525]
 	""" Bru'kan
 	[Nature Spell Damage +3] """
-	#
+	play = SetAttr(SELF,'spellpower_nature',3)
 	pass
 
 

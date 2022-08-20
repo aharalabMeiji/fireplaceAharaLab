@@ -810,6 +810,7 @@ class Minion(Character):
 		self.dormant = data.dormant
 		#self.guardians_legacy = False
 		self.spellpower_fire = 0
+		self.spellpower_nature = 0
 		self.deathrattle_valid = True
 		self.deepcopy_original = None
 		self.gem_applied_thisturn=False
@@ -970,6 +971,8 @@ class Spell(PlayableCard):
 		if not self.immune_to_spellpower:
 			if self.spell_school==SpellSchool.FIRE:
 				amount = self.controller.get_spell_damage_fire(amount)
+			elif self.spell_school==SpellSchool.NATURE:
+				amount = self.controller.get_spell_damage_nature(amount)
 			else:
 				amount = self.controller.get_spell_damage(amount)
 		if self.receives_double_spelldamage_bonus:

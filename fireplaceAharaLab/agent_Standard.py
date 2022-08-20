@@ -302,6 +302,8 @@ def adjust_text_by_spellpower(text, player, card):
 					_latter_text = _new_text[_i+3:]
 				if hasattr(card,'spell_school') and card.spell_school == SpellSchool.FIRE:
 					_catch_number += player.spellpower_fire
+				elif hasattr(card,'spell_school') and card.spell_school == SpellSchool.NATURE:
+					_catch_number += player.spellpower_nature
 				else :
 					_catch_number += player.spellpower
 				for _repeat in range(player.spellpower_double):

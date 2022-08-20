@@ -182,6 +182,15 @@ class Player(Entity, TargetableByAuras):
 				minion_power += minion.spellpower_fire
 		return minion_power
 	@property
+	def spellpower_nature(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
+		minion_power = 0
+		for minion in self.field:
+			if hasattr(minion,'spellpower_nature'):
+				if hasattr(minion,'dormant') and minion.dormant>0:
+					continue
+				minion_power += minion.spellpower_nature
+		return minion_power
+	@property
 	def start_hand_size(self):
 		# old version
 		if Config.EX_CARD and not self.first_player:
@@ -301,6 +310,15 @@ class Player(Entity, TargetableByAuras):
 		SPELLPOWER and SPELLPOWER_DOUBLE into account.
 		"""
 		amount += (self.spellpower+self.spellpower_fire)
+		amount <<= self.controller.spellpower_double
+		return amount
+
+	def get_spell_damage_nature(self, amount: int) -> int:
+		"""
+		Returns the amount of damage for only nature card \a amount will do, taking
+		SPELLPOWER and SPELLPOWER_DOUBLE into account.
+		"""
+		amount += (self.spellpower+self.spellpower_nature)
 		amount <<= self.controller.spellpower_double
 		return amount
 
