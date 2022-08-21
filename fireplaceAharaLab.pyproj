@@ -150,6 +150,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\hero_dream\dream.py">
       <SubType>Code</SubType>
