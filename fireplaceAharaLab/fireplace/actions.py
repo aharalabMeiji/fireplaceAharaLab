@@ -1298,6 +1298,7 @@ class Draw(TargetedAction):
 			return []
 		card.draw()
 		self.broadcast(source, EventListener.ON, target, card, source)
+		self.broadcast(source, EventListener.AFTER, target, card, source)
 
 		return [card]
 

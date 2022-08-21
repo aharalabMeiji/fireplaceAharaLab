@@ -67,34 +67,55 @@ if Stormwind_Final_Showdown:#
 	Stormwind_DemonHunter+=['SW_039t']
 	Stormwind_DemonHunter+=['SW_039t2e']
 	Stormwind_DemonHunter+=['SW_039t3']
-	Stormwind_DemonHunter+=['SW_039t3_t']
+	Stormwind_DemonHunter+=['SW_039t3_t','SW_039t3_te']
+class SW_039_Action1(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target,amount):
+		controller=target
+		if controller.cards_drawn_this_turn==amount:
+			for action in controller._targetedaction_log:
+				if isinstance(action['class'],Draw) and action['turn']==controller.game.turn:
+					card = action['target_args'][0]
+					Buff(card, 'SW_039t2e').trigger(source)
 class SW_039:# <14>[1578]
 	""" Final Showdown
 	[Questline:] Draw 4 cards in one turn. [Reward:] Reduce the Cost of the cards drawn by (1). """
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Draw(CONTROLLER).on(SW_039_Action1(CONTROLLER,4 ), Summon(CONTROLLER,'SW_039t'),Destroy(SELF))
 	#
 	pass
 class SW_039t:# <14>[1578]
 	""" Gain Momentum
 	[Questline:] Draw 5 cards in one turn. [Reward:] Reduce the Cost of the cards drawn by (1). """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Draw(CONTROLLER).on(SW_039_Action1(CONTROLLER, 5), Summon(CONTROLLER,'SW_039t3'),Destroy(SELF))
 	pass
 
 class SW_039t2e:# <14>[1578]
-	""" Faster Moves
-	Costs (2) less. """
-	#
+	""" Faster Moves Costs (1) less. """
+	cost = lambda self, i: max(i-1,0)
 	pass
-
+class SW_039_Action2(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target,amount):
+		controller=target
+		if controller.cards_drawn_this_turn==amount:
+			Give(CONTROLLER, 'SW_039t3_t').trigger(source)
 class SW_039t3:# <14>[1578]
 	""" Close the Portal
 	[Questline:] Draw 5 cards in one turn.[Reward:] Demonslayer Kurtrus. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Draw(CONTROLLER).on(SW_039_Action2(CONTROLLER, 5),Destroy(SELF))
 	pass
-
 class SW_039t3_t:# <14>[1578]
 	""" Demonslayer Kurtrus
 	[Battlecry:] For the rest of the game, cards you draw cost (2) less. """
 	#
+	pass
+class SW_039t3_te:
+	cost = lambda self, i: max(i-2,0)
 	pass
 
 
