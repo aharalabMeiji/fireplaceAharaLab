@@ -23,7 +23,8 @@ if Barrens_Grimoire_of_Sacrifice:#
 class BAR_910:# <9>[1525]
 	""" Grimoire of Sacrifice
 	Destroy a friendly minion. Deal $2 damage to all enemy minions. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	play = Destroy(TARGET), Hit(ENEMY_MINIONS, 2)
 	pass
 
 
@@ -34,7 +35,17 @@ if Barrens_Soul_Rend:#
 class BAR_911:# <9>[1525]
 	""" Soul Rend
 	Deal $5 damage to allminions. Destroy a card inyour deck for each killed. """
-	#
+	def play(self): 
+		cardnum=0
+		for card in self.controller.field+self.controller.opponent.field:
+			amount = 5
+			amount = self.get_damage(amount, card)	
+			if amount>=card.health:
+				cardnum+=1
+		Hit(ALL_MINIONS, 5).trigger(self)
+		for i in range(cardnum):
+			card = random.choice(self.controller.deck)
+			self.controller.deck.remove(card)
 	pass
 
 
@@ -42,10 +53,19 @@ class BAR_911:# <9>[1525]
 
 if Barrens_Apothecarys_Caravan:# 
 	Barrens_Warlock+=['BAR_912']
+class BAR_912_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		cards = [card for card in controller.deck if card.cost==1 and card.type==CardType.MINION]
+		if len(cards)>0:
+			card = random.choice(cards)
+			Summon(controller, card).trigger(source)
+
 class BAR_912:# <9>[1525]
 	""" Apothecary's Caravan
-	At the start of your turn,summon a 1-Cost minionfrom your deck. """
-	#
+	At the start of your turn,summon a 1-Cost minion from your deck. """
+	events = OWN_TURN_BEGIN.on(BAR_912_Action(CONTROLLER))
 	pass
 
 
@@ -56,7 +76,10 @@ if Barrens_Altar_of_Fire:#
 class BAR_913:# <9>[1525]
 	""" Altar of Fire
 	Destroy the top 3 cards of each deck. """
-	#
+	def play(self):
+		for i in range(3):
+			Destroy(self.controller.deck[-1]).trigger(self)
+			Destroy(self.controller.opponent.deck[-1]).trigger(self)
 	pass
 
 
@@ -101,12 +124,12 @@ if Barrens_Kabal_Outfitter:#
 class BAR_915:# <9>[1525]
 	""" Kabal Outfitter
 	[Battlecry and Deathrattle:]Give another random_friendly minion +1/+1. """
-	#
+	play = Buff(FRIENDLY_MINIONS - SELF, 'BAR_915e')
+	deathrattle = Buff(FRIENDLY_MINIONS - SELF, 'BAR_915e')
 	pass
 class BAR_915e:# <9>[1525]
-	""" Outfitted
-	+1/+1. """
-	#
+	""" Outfitted 	+1/+1. """
+	tags = {GameTag.ATK:1, GameTag.HEALTH:1, }
 	pass
 
 
