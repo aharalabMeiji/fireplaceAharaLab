@@ -139,8 +139,12 @@ if Barrens_Blood_Shard_Bristleback:#
 	Barrens_Warlock+=['BAR_916']
 class BAR_916:# <9>[1525]
 	""" Blood Shard Bristleback
-	[Lifesteal]. [Battlecry:] If yourdeck contains 10 or fewercards, deal 6 damageto a minion. """
-	#
+	[Lifesteal]. [Battlecry:] If your deck contains 10 or fewer cards, deal 6 damage to a minion. """
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0,  }
+	def play(self):
+		decksize = len(self.controller.deck)
+		if self.target and decksize<=10:
+			Hit(self.target, 6).trigger(self)
 	pass
 
 
@@ -150,25 +154,31 @@ if Barrens_Barrens_Scavenger:#
 	Barrens_Warlock+=['BAR_917']
 class BAR_917:# <9>[1525]
 	""" Barrens Scavenger
-	[Taunt]Costs 1 while your deckhas 10 or fewer cards. """
-	#
+	[Taunt]Costs 1 while your deck has 10 or fewer cards. """
+	class Hand:
+		events = (Count(FRIENDLY_DECK)<11) & Refresh(SELF, 'BAR_918e')## BAR_918e: a simple mistake
 	pass
-
 
 
 
 if Barrens_Tamsin_Roame:# 
 	Barrens_Warlock+=['BAR_918']
 	Barrens_Warlock+=['BAR_918e']
+class BAR_918_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self,source,target):
+		if target.cost>=1:
+			newcard = Give(source.controller, target.id).trigger(source)
+			newcard=newcard[0][0]
+			newcard.cost = 0
 class BAR_918:# <9>[1525]
 	""" Tamsin Roame
-	Whenever you cast a Shadowspell that costs 1 or more,add a copy to your handthat costs 0. """
-	#
+	Whenever you cast a Shadow spell that costs 1 or more,add a copy to your hand that costs 0. """
+	events = Play(CONTROLLER, FRIENDLY + SPELL + SHADOW).on(BAR_918_Action(Play.CARD))
 	pass
 class BAR_918e:# <9>[1525]
-	""" Gathered Shadows
-	Costs 1. """
-	#
+	""" Gathered Shadows 	Costs 1. """
+	cost = lambda self, i : 1
 	pass
 
 
@@ -180,12 +190,12 @@ if Barrens_Neeru_Fireblade:#
 class BAR_919:# <9>[1525]
 	""" Neeru Fireblade
 	[Battlecry:] If your deck is empty, open a portal that fills your board with 3/2 Imps each turn. """
-	#
+	play = -Find(FRIENDLY_DECK) & Summon(CONTROLLER, 'BAR_919t')
 	pass
 class BAR_919t:# <9>[1525]
 	""" Burning Blade Portal
 	At the end of your turn,fill your board with 3/2 Imps. """
-	#
+	events = OWN_TURN_END.on(Summon(CONTROLLER, 'DMF_533t')*5)
 	pass
 
 
