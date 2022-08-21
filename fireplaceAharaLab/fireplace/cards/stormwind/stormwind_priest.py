@@ -71,25 +71,66 @@ if StormWind_Seek_Guidance:#
 	StormWind_Priest+=['SW_433t2']
 	StormWind_Priest+=['SW_433t3']
 	StormWind_Priest+=['SW_433t3a']
+class SW_433_Quest1(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		if isinstance(card,list):
+			card = card[0]
+		self.record = [None,None,None]
+		if card.cost in [2,3,4]:
+			if self.record[card.cost-2]==None:
+				self.recore[card.cost-2]=card
+		if self.record[0]!=None and self.record[1]!=None and self.record[2]!=None: 
+			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).trigger(source)
+			Summon(source.controller, 'SW_433t').trigger(source)
+			Destroy(source).trigger(source)
 class SW_433:# <6>[1578]
 	""" Seek Guidance
 	[Questline:] Play a 2, 3,and 4-Cost card.[Reward:] [Discover] a cardfrom your deck. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER).on(SW_433_Quest1(Play.CARD))
 	pass
+class SW_433_Quest2(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		if isinstance(card,list):
+			card = card[0]
+		self.record = [None,None]
+		if card.cost in [5,6]:
+			if self.record[card.cost-5]==None:
+				self.recore[card.cost-5]=card
+		if self.record[0]!=None and self.record[1]!=None: 
+			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).trigger(source)
+			Summon(source.controller, 'SW_433t2').trigger(source)
+			Destroy(source).trigger(source)
 class SW_433t:# <6>[1578]
 	""" Discover the Void Shard
-	[Questline:] Play a 5and 6-Cost card.[Reward:] [Discover] a cardfrom your deck. """
-	#
+	[Questline:] Play a 5and 6-Cost card.[Reward:] [Discover] a card from your deck. """
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	#
+	events = Play(CONTROLLER).on(SW_433_Quest2(Play.CARD))
 	pass
+class SW_433_Quest3(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		if isinstance(card,list):
+			card = card[0]
+		self.record = [None,None]
+		if card.cost in [7,8]:
+			if self.record[card.cost-7]==None:
+				self.recore[card.cost-7]=card
+		if self.record[0]!=None and self.record[1]!=None: 
+			Give(CONTROLLER, 'SW_433t3').trigger(source)
+			Destroy(source).trigger(source)
 class SW_433t2:# <6>[1578]
 	""" Illuminate the Void
 	[Questline:] Play a 7and 8-Cost card.[Reward:] Xyrella,the Sanctified. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	#
+	events = Play(CONTROLLER).on(SW_433_Quest3(Play.CARD))
 	pass
 class SW_433t3:# <6>[1578]
 	""" Xyrella, the Sanctified
-	[Taunt][Battlecry:] Shuffle thePurified Shard intoyour deck. """
-	#
+	[Taunt][Battlecry:] Shuffle the Purified Shard into your deck. """
+	play = Shuffle(CONTROLLER, 'SW_433t3a')
 	pass
 class SW_433t3a:# <6>[1578]
 	""" Purified Shard

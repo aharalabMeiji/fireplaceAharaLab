@@ -100,28 +100,63 @@ if StormWind_Find_the_Imposter:#
 	StormWind_Rogue+=['SW_052t6e']
 	StormWind_Rogue+=['SW_052t7']
 	StormWind_Rogue+=['SW_052t8_t']
+class SW_052_Quest1(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		if isinstance(card, list):
+			card = card[0]
+		if card.SI7_minion:
+			source._sidequest_counter_ += 1
+			if source._sidequest_counter_==2:
+				card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
+				Give(source.controller, card).trigger(source)
+				Summon(source.controller, 'SW_052t')
+				Destroy(source).trigger(source)
 class SW_052:# <7>[1578]
 	""" Find the Imposter
-	[Questline:] Play 2SI:7 cards.[Reward:] Add a Spy Gizmo to your hand. """
-	#
+	[Questline:] Play 2 SI:7 cards.[Reward:] Add a Spy Gizmo to your hand. """
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	#
+	events = Play(CONTROLLER).on(SW_052_Quest1(Play.CARD))
 	pass
-
+class SW_052_Quest2(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		if isinstance(card, list):
+			card = card[0]
+		if card.SI7_minion:
+			source._sidequest_counter_ += 1
+			if source._sidequest_counter_==2:
+				card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
+				Give(source.controller, card).trigger(source)
+				Summon(source.controller, 'SW_052t2')
+				Destroy(source).trigger(source)
 class SW_052t:# <7>[1578]
 	""" Learn the Truth
 	[Questline:] Play 2SI:7 cards.[Reward:] Add a Spy Gizmo to your hand. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	#
+	events = Play(CONTROLLER).on(SW_052_Quest2(Play.CARD))
 	pass
-
+class SW_052_Quest3(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		if isinstance(card, list):
+			card = card[0]
+		if card.SI7_minion:
+			source._sidequest_counter_ += 1
+			if source._sidequest_counter_==2:
+				card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
+				Summon(source.controller, 'SW_052t3').trigger(source)
+				Destroy(source).trigger(source)
 class SW_052t2:# <7>[1578]
 	""" Marked a Traitor
 	[Questline:] Play 2SI:7 cards.[Reward:] Spymaster Scabbs. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	#
+	events = Play(CONTROLLER).on(SW_052_Quest2(Play.CARD))
 	pass
-
 class SW_052t3:# <7>[1578]
 	""" Spymaster Scabbs
-	[Battlecry:] Add one ofeach Spy Gizmo toyour hand. """
-	#
+	[Battlecry:] Add one ofeach Spy Gizmo to your hand. """
+	play = 
 	pass
 
 class SW_052t4:# <7>[1578]

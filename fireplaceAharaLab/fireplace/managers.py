@@ -241,6 +241,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
 	GameTag.SIDEQUEST: "sidequest",# 
+	1678: "SI7_minion",
 	GameTag.SILENCED: "silenced",
 	GameTag.SPELLS_CAST_TWICE: "spell_cast_twice",
 	GameTag.SPELLCRAFT: "spellcraft",

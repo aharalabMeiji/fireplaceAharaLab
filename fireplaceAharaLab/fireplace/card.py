@@ -180,6 +180,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	tradeable = boolean_property("tradeable")#stormwind
 	windfury = int_property("windfury")
 	colossal = boolean_property("colossal")##sunken
+	SI7_minion = boolean_property("SI7_minion") ## stormwind_rogue 
+
 	sidequest_list0 = []# Sidequest
 	_sidequest_list1_ = []# Sidequest
 	_sidequest_list2_ = []# Sidequest
