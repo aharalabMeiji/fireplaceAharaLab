@@ -182,7 +182,7 @@ class Player(Entity, TargetableByAuras):
 				minion_power += minion.spellpower_fire
 		return minion_power
 	@property
-	def spellpower_nature(self):# There is a referenced tag in SW_112, but this is the only card for this tag.
+	def spellpower_nature(self):# 
 		minion_power = 0
 		for minion in self.field:
 			if hasattr(minion,'spellpower_nature'):
