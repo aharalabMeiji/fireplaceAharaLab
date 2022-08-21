@@ -151,30 +151,34 @@ class SW_052t2:# <7>[1578]
 	""" Marked a Traitor
 	[Questline:] Play 2SI:7 cards.[Reward:] Spymaster Scabbs. """
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	#
-	events = Play(CONTROLLER).on(SW_052_Quest2(Play.CARD))
+	events = Play(CONTROLLER).on(SW_052_Quest3(Play.CARD))
 	pass
 class SW_052t3:# <7>[1578]
 	""" Spymaster Scabbs
 	[Battlecry:] Add one ofeach Spy Gizmo to your hand. """
-	play = 
+	def play(self):
+		card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
+		Give(self.controller, 'SW_052t3').trigger(self)
 	pass
 
 class SW_052t4:# <7>[1578]
 	""" Fizzflash Distractor
-	Return an enemy minionto its owner's hand.They can't play it next turn. """
-	#
+	Return an enemy minion to its owner's hand.They can't play it next turn. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Bounce(TARGET).on(Buff(Bounce.CARD, 'SW_052t4e'))
 	pass
 
 class SW_052t4e:# <7>[1578]
 	""" Distracted
 	Can't be played. """
-	#
+	tags = {GameTag.CANT_PLAY:1}
+	events = OWN_TURN_END.on(Destroy(SELF))
 	pass
 
 class SW_052t5:# <7>[1578]
 	""" Spy-o-matic
-	[Battlecry:] Look at 3 cards inyour opponent's deck.Pick one to put on top. """
-	#
+	[Battlecry:] Look at 3 cards in your opponent's deck. Pick one to put on top. """
+	
 	pass
 
 class SW_052t6:# <7>[1578]
