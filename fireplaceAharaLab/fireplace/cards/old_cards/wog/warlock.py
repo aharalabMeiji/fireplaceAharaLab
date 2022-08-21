@@ -21,6 +21,7 @@ OG_113e = buff(atk=1)
 class OG_121:
 	"""Cho'gall"""
 	play = Buff(CONTROLLER, "OG_121e")
+	## gametag.SPELLS_COST_HEALTH was diversed in case any cards costs hero's health instead of manas
 
 
 class OG_121e:

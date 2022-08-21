@@ -3027,18 +3027,16 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 class SummonAdventurerWithBonus(TargetedAction):
 	""" Devouring Ectoplasm """
 	TARGET = ActionArg()#the controller
-	def do(self,source,target):
-		new_minion =  random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t7',])
-		new_minion =  Summon(target, new_minion).trigger(source)
-		if new_minion[0] != []:
-			new_minion = new_minion[0][0]
-			newAtk=new_minion.atk+random.randint(1,3)
-			new_minion._atk = new_minion.atk = newAtk
-			new_minion.data.scripts.atk = lambda self, i: self._atk
-			newHealth = new_minion.health+random.randint(1,3)
-			new_minion.max_health = newHealth
+	def do(self,source,target,amount=1):
+		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],amount)
+		for card in cards:
+			newcard=Summon(self.controller, card).trigger(self)
+			newcard=newcard[0][0]
+			newAtk=random.randint(1,3)
+			newHealth=random.randint(1,3)
+			Buff(newcard, "WC_034e", atk=newAtk, max_health=newHealth)
 			if Config.LOGINFO:
-				print("(SummonAdventurerWithBonus.do)Summon %s with atk=%d, health=%d"%(new_minion.data.name, newAtk, newHealth))
+				print("(SummonAdventurerWithBonus.do)Summon %s with atk=%d, health=%d"%(newcard.data.name, newAtk, newHealth))
 
 class Frenzy(TargetedAction):
 	""" Frenzy """

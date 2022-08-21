@@ -39,7 +39,7 @@ class Player(Entity, TargetableByAuras):
 	shadowform = slot_property("shadowform")
 	spellpower_double = slot_property("spellpower_double", sum)
 	spellpower_adjustment = slot_property("spellpower", sum)
-	spells_cost_health = slot_property("spells_cost_health")
+	cards_cost_health = slot_property("cards_cost_health") #### <---- spells_cost_health
 	murlocs_cost_health = slot_property("murlocs_cost_health")
 	type = CardType.PLAYER
 
@@ -335,7 +335,7 @@ class Player(Entity, TargetableByAuras):
 		"""
 		Returns whether the player can pay the resource cost of a card.
 		"""
-		if self.spells_cost_health and card.type == CardType.SPELL:
+		if self.cards_cost_health:# and card.type == CardType.SPELL: <---diversion for WC_023e
 			return self.hero.health > card.cost
 		if self.murlocs_cost_health:
 			if card.type == CardType.MINION and card.race == Race.MURLOC:
@@ -347,7 +347,10 @@ class Player(Entity, TargetableByAuras):
 		Make player pay \a amount mana.
 		Returns how much mana is spent, after temporary mana adjustments.
 		"""
-		if self.spells_cost_health and source.type == CardType.SPELL:
+
+		#strictly, if buff = OG_121e then the source must be a SPELL, if buff = WC_023e, no condition here.
+		## OG_121 is very old card and more, not a classic card nor a core card.
+		if self.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
 			if Config.LOGINFO:
 				print("(Player.pay_cost)%s spells cost %i health", self, amount)
 			self.game.queue_actions(self, [Hit(self.hero, amount)])

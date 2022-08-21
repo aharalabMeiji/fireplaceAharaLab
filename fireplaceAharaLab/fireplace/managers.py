@@ -106,6 +106,9 @@ class BaseObserver:
 		pass
 
 
+class GameTag(GameTag):
+	CARDS_COST_HEALTH=9000
+
 class PlayerManager(Manager):
 	map = {
 		GameTag.CANT_DRAW: "cant_draw",
@@ -167,6 +170,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARD_TARGET: "target",
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
+	GameTag.CARDS_COST_HEALTH:"cards_cost_health", ## <---- spells_cost_health
 	GameTag.CARDTYPE: "type",
 	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",
@@ -246,7 +250,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
 	GameTag.SPELL_SCHOOL: "spell_school", # 
-	GameTag.SPELLS_COST_HEALTH: "spells_cost_health",
+	#GameTag.SPELLS_COST_HEALTH: "spells_cost_health", no_use ---> cards_cost_health
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",
 	GameTag.TAUNT: "taunt",

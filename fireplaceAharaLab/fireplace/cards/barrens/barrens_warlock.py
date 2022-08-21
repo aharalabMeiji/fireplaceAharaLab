@@ -172,7 +172,16 @@ if Barrens_Unstable_Shadow_Blast:#
 	Barrens_Warlock+=['WC_021']
 class WC_021:# <9>[1525]
 	""" Unstable Shadow Blast
-	Deal $6 damage to aminion. Excess damagehits your hero. """
+	Deal $6 damage to aminion. Excess damage hits your hero. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	def play(self):
+		target = self.target
+		amount = 6
+		amount = self.get_damage(amount, target)
+		excess = amount - target.health
+		Hit(self.target, 6).trigger(self)
+		if excess>0:
+			Hit(self.controller.hero, excess).trigger(self)
 	#
 	pass
 
@@ -183,18 +192,28 @@ if Barrens_Final_Gasp:#
 	Barrens_Warlock+=['WC_022']
 class WC_022:# <9>[1525]
 	""" Final Gasp
-	Deal $1 damage to aminion. If it dies, summona 2/2 Adventurer with arandom bonus effect. """
-	#
+	Deal $1 damage to aminion. If it dies, summon a 2/2 Adventurer with a random bonus effect. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0 }	
+	def plat(self):
+		target = self.target
+		amount=1
+		amount = self.get_damage(amount, target)
+		Hit(target, 1).trigger(self)
+		if amount>1:
+			SummonAdventurerWithBonus(CONTROLLER).trigger(self)
 	pass
 
 
 
 
-if Barrens_Stealer_of_Souls:# 
+if Barrens_Stealer_of_Souls:# #### need check 
 	Barrens_Warlock+=['WC_023']
 class WC_023:# <9>[1525]
 	""" Stealer of Souls
 	After you draw a card, change its Cost to Health instead of Mana. """
-	#
+	events = Draw(CONTROLLER).on(Buff(Draw.CARD, 'WC_023e'))
 	pass
-
+class WC_023e:
+	"""
+	Costs Health instead of Mana."""
+	tags = {GameTag.CARDS_COST_HEALTH: True}
