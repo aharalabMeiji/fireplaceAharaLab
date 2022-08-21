@@ -193,8 +193,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.barrens_paladin import barrens_paladin
-	barrens_paladin()
+	from card_test.barrens_warlock import barrens_warlock
+	barrens_warlock()
 	pass
 
 def battleground_main():

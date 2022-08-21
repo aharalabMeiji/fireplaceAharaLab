@@ -181,7 +181,7 @@ class SW_313t4e2:# <5>[1578]
 	tags={
 		GameTag.CARDNAME:"Lightborn Cariel",
 		GameTag.CARDTYPE:CardType.ENCHANTMENT,
-		GameTag.ATL:2, GameTag.HEALTH:2
+		GameTag.ATK:2, GameTag.HEALTH:2
 		}
 	pass
 
@@ -208,7 +208,7 @@ class SW_315:# <5>[1578]
 	pass
 class SW_315e:
 	tags={
-		GameTag.ATL:1, GameTag.HEALTH:1		
+		GameTag.ATK:1, GameTag.HEALTH:1		
 		}
 
 
@@ -223,7 +223,7 @@ class SW_316:# <5>[1578]
 	pass
 class SW_316e:
 	tags={
-		GameTag.ATL:1, 
+		GameTag.ATK:1, 
 		GameTag.HEALTH:1		
 		}
 	events = Death(OWNER).on(Summon(CONTROLLER, 'SW_316t'))

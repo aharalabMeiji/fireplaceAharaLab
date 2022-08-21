@@ -46,8 +46,8 @@ class BAR_317:# <7>[1525]
 	""" Field Contact
 	After you play a [Battlecry]or [Combo] card, draw a card. """
 	events = [
-		Play(CONTROLLER, FRIENDLY + BATTLECRY).Draw(CONTROLLER),
-		Play(CONTROLLER, FRIENDLY + COMBO).Draw(CONTROLLER)
+		Play(CONTROLLER, FRIENDLY + BATTLECRY).on(Draw(CONTROLLER)),
+		Play(CONTROLLER, FRIENDLY + COMBO).on(Draw(CONTROLLER))
 	]
 	pass
 
@@ -161,7 +161,7 @@ class BAR_323:# <7>[1525]
 class BAR_323e:# <7>[1525]
 	""" Yoink!
 	 """
-	events = Play(CONTROLLER, HERO_POWER).SidequestCounter(SELF, 2, [ChangeHeroPower(CONTROLLER,  'HERO_02bp'), Destroy(SELF)])
+	events = Play(CONTROLLER, HERO_POWER).on(SidequestCounter(SELF, 2, [ChangeHeroPower(CONTROLLER,  'HERO_02bp'), Destroy(SELF)]))
 	pass
 
 

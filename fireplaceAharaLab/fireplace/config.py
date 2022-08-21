@@ -16,7 +16,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=0# log.info相当のログ表示
+	LOGINFO=1# log.info相当のログ表示
 	LOGINFO_INDENT=">"
 	LOGINFO_LOG=[]
 	DEEPCOPY_LOGINFO=0

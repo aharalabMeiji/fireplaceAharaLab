@@ -39,7 +39,6 @@ class Player(Entity, TargetableByAuras):
 	shadowform = slot_property("shadowform")
 	spellpower_double = slot_property("spellpower_double", sum)
 	spellpower_adjustment = slot_property("spellpower", sum)
-	cards_cost_health = slot_property("cards_cost_health") #### <---- spells_cost_health
 	murlocs_cost_health = slot_property("murlocs_cost_health")
 	type = CardType.PLAYER
 
@@ -350,7 +349,7 @@ class Player(Entity, TargetableByAuras):
 
 		#strictly, if buff = OG_121e then the source must be a SPELL, if buff = WC_023e, no condition here.
 		## OG_121 is very old card and more, not a classic card nor a core card.
-		if self.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
+		if source.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
 			if Config.LOGINFO:
 				print("(Player.pay_cost)%s spells cost %i health", self, amount)
 			self.game.queue_actions(self, [Hit(self.hero, amount)])

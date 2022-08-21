@@ -207,7 +207,7 @@ class WC_022:# <9>[1525]
 
 
 if Barrens_Stealer_of_Souls:# #### need check 
-	Barrens_Warlock+=['WC_023']
+	Barrens_Warlock+=['WC_023','WC_023e']
 class WC_023:# <9>[1525]
 	""" Stealer of Souls
 	After you draw a card, change its Cost to Health instead of Mana. """
@@ -216,4 +216,7 @@ class WC_023:# <9>[1525]
 class WC_023e:
 	"""
 	Costs Health instead of Mana."""
-	tags = {GameTag.CARDS_COST_HEALTH: True}
+	def apply(self,target):
+		target.cards_cost_health=True
+		pass
+	tags = {9000: 1}#9000=GameTag.CARDS_COST_HEALTH

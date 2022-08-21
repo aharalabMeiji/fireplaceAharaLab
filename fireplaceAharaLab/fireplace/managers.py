@@ -106,8 +106,6 @@ class BaseObserver:
 		pass
 
 
-class GameTag(GameTag):
-	CARDS_COST_HEALTH=9000
 
 class PlayerManager(Manager):
 	map = {
@@ -170,7 +168,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARD_TARGET: "target",
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
-	GameTag.CARDS_COST_HEALTH:"cards_cost_health", ## <---- spells_cost_health
+	9000:"cards_cost_health", ## <---- spells_cost_health‚Ì‚©‚í‚è
 	GameTag.CARDTYPE: "type",
 	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",

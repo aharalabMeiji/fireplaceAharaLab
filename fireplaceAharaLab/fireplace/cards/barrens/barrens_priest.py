@@ -25,7 +25,7 @@ if Barrens_Void_Flayer:#
 class BAR_307:# <6>[1525]
 	""" Void Flayer
 	[Battlecry:] For each spell in your hand, deal 1 damage to a random enemy minion. """
-	play = Hit(RANDOM(ENEMY_MINIONS),1) * COUNT(FRIENDLY_HAND + SPELL)
+	play = Hit(RANDOM(ENEMY_MINIONS),1) * Count(FRIENDLY_HAND + SPELL)
 	pass
 
 
@@ -46,7 +46,7 @@ class BAR_308e:
 	tags={
 		GameTag.CARDNAME:'Power Word: Fortitude',
 		GameTag.CARDTYPE:CardType.ENCHANTMENT,
-		GameTag.ATL:3,
+		GameTag.ATK:3,
 		GameTag.HEALTH:5
 		}
 
@@ -164,7 +164,7 @@ class BAR_315e:
 		GameTag.CARDNAME:'Serena Bloodfeather',
 		GameTag.CARDTYPE:CardType.ENCHANTMENT,
 	}
-	events = Find(SELF.BUFF - SELF).Destroy(SELF)
+	events = Find(FRIENDLY_BUFF - SELF) & Destroy(SELF)
 	pass
 
 

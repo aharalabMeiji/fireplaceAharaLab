@@ -41,7 +41,7 @@ Core_Cards=[Core_DemonHunter,Core_Druid,Core_Hunter,Core_Mage,Core_Neutral,Core_
 ## druid,hunter,mage,neutral,warrior
 
 # THE_BARRENS = 1525  # Forged in the Barrens
-from fireplace.cards.barrens import barrens_demon_hunter, barrens_druid, barrens_hunter, barrens_mage, barrens_neutral, barrens_paladin, barrens_warrior
+from fireplace.cards.barrens import barrens_demon_hunter, barrens_druid, barrens_hunter, barrens_mage, barrens_neutral, barrens_paladin, barrens_priest, barrens_rogue, barrens_shaman, barrens_warlock, barrens_warrior
 Barrens_DemonHunter=barrens_demon_hunter.Barrens_DemonHunter
 Barrens_Druid=barrens_druid.Barrens_Druid
 Barrens_Hunter=barrens_hunter.Barrens_Hunter
@@ -49,11 +49,11 @@ Barrens_Mage=barrens_mage.Barrens_Mage
 Barrens_Neutral = barrens_neutral.Barrens_Neutral
 Barrens_Warrior=barrens_warrior.Barrens_Warrior
 Barrens_Paladin=barrens_paladin.Barrens_Paladin
-#Barrens_Priest=
-#Barrens_Rogue=
-#Barrens_Shaman =
-#Barrens_Warlock=
-Barrens_Cards=[Barrens_DemonHunter, Barrens_Druid,Barrens_Hunter,Barrens_Mage,Barrens_Neutral, Barrens_Paladin, Barrens_Warrior]
+Barrens_Priest=barrens_priest.Barrens_Priest
+Barrens_Rogue=barrens_rogue.Barrens_Rogue
+Barrens_Shaman = barrens_shaman.Barrens_Shaman
+Barrens_Warlock = barrens_warlock.Barrens_Warlock
+Barrens_Cards=[Barrens_DemonHunter, Barrens_Druid,Barrens_Hunter,Barrens_Mage,Barrens_Neutral, Barrens_Paladin, Barrens_Priest, Barrens_Rogue, Barrens_Shaman, Barrens_Warlock, Barrens_Warrior]
 
 ## STORMWIND = 1578  # United in Stormwind
 from fireplace.cards.stormwind import stormwind_druid, stormwind_hunter, stormwind_mage, stormwind_neutral, stormwind_warrior
