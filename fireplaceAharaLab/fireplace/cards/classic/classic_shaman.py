@@ -30,8 +30,7 @@ Classic_Doomhammer=True
 Classic_Mana_Tide_Totem=True
 Classic_Windspeaker=True
 Classic_Spirit_Wolf=True
-Classic_Totemic_Call=True
-Classic_Strength_of_Earth=True
+Classic_Totemic_Call=False ## HP
 Classic_Healing_Totem=True
 Classic_AlAkir_the_Windlord=True
 
@@ -41,56 +40,68 @@ if Classic_Frost_Shock:#
 class VAN_CS2_037:# <8>[1646]
 	""" Frost Shock
 	Deal $1 damage to an enemy character and [Freeze] it. """
-	#
+	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 1), Freeze(TARGET)
 	pass
 
 if Classic_Ancestral_Spirit:# 
-	Classic_Shaman+=['VAN_CS2_038']
+	Classic_Shaman+=['VAN_CS2_038','CS2_038e']
 class VAN_CS2_038:# <8>[1646]
 	""" Ancestral Spirit
 	Choose a minion. When that minion is destroyed, return it to the battlefield. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "CS2_038e")
 	pass
+class CS2_038e:
+	deathrattle = Summon(CONTROLLER, Copy(SELF))
+	tags = {GameTag.DEATHRATTLE: True}
 
 if Classic_Windfury:# 
 	Classic_Shaman+=['VAN_CS2_039']
 class VAN_CS2_039:# <8>[1646]
 	""" Windfury
 	Give a minion [Windfury]. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = GiveWindfury(TARGET - WINDFURY)
 	pass
 
 if Classic_Ancestral_Healing:# 
-	Classic_Shaman+=['VAN_CS2_041']
+	Classic_Shaman+=['VAN_CS2_041','CS2_041e']
 class VAN_CS2_041:# <8>[1646]
 	""" Ancestral Healing
 	Restore a minionto full Health andgive it [Taunt]. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = FullHeal(TARGET), Buff(TARGET, "CS2_041e")
 	pass
+CS2_041e = buff(taunt=True)
 
 if Classic_Fire_Elemental:# 
 	Classic_Shaman+=['VAN_CS2_042']
 class VAN_CS2_042:# <8>[1646]
 	""" Fire Elemental
 	[Battlecry:] Deal 3 damage. """
-	#
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Hit(TARGET, 3)
 	pass
 
 if Classic_Rockbiter_Weapon:# 
-	Classic_Shaman+=['VAN_CS2_045']
+	Classic_Shaman+=['VAN_CS2_045','CS2_045e']
 class VAN_CS2_045:# <8>[1646]
 	""" Rockbiter Weapon
 	Give a friendly character +3 Attack this turn. """
-	#
+	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Buff(TARGET, "CS2_045e")
 	pass
+CS2_045e = buff(atk=3)
 
 if Classic_Bloodlust:# 
-	Classic_Shaman+=['VAN_CS2_046']
+	Classic_Shaman+=['VAN_CS2_046','CS2_046e']
 class VAN_CS2_046:# <8>[1646]
 	""" Bloodlust
 	Give your minions +3_Attack this turn. """
-	#
+	play = Buff(FRIENDLY_MINIONS, "CS2_046e")
 	pass
+CS2_046e = buff(atk=3)
 
 if Classic_Searing_Totem:# 
 	Classic_Shaman+=['VAN_CS2_050']
@@ -117,19 +128,21 @@ class VAN_CS2_052:# <8>[1646]
 	pass
 
 if Classic_Far_Sight:# 
-	Classic_Shaman+=['VAN_CS2_053']
+	Classic_Shaman+=['VAN_CS2_053','CS2_053e']
 class VAN_CS2_053:# <8>[1646]
 	""" Far Sight
 	Draw a card. That card costs (3) less. """
-	#
+	play = Draw(CONTROLLER).then(Buff(Draw.CARD, "CS2_053e"))
 	pass
+CS2_053e = buff(cost=-3)
 
 if Classic_Lightning_Bolt:# 
 	Classic_Shaman+=['VAN_EX1_238']
 class VAN_EX1_238:# <8>[1646]
 	""" Lightning Bolt
 	Deal $3 damage. [Overload:] (1) """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 3)
 	pass
 
 if Classic_Lava_Burst:# 
@@ -137,7 +150,8 @@ if Classic_Lava_Burst:#
 class VAN_EX1_241:# <8>[1646]
 	""" Lava Burst
 	Deal $5 damage. [Overload:] (2) """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Hit(TARGET, 5)
 	pass
 
 if Classic_Dust_Devil:# 
@@ -149,19 +163,21 @@ class VAN_EX1_243:# <8>[1646]
 	pass
 
 if Classic_Totemic_Might:# 
-	Classic_Shaman+=['VAN_EX1_244']
+	Classic_Shaman+=['VAN_EX1_244','EX1_244e']
 class VAN_EX1_244:# <8>[1646]
 	""" Totemic Might
 	Give your Totems +2_Health. """
-	#
+	play = Buff(FRIENDLY_MINIONS + TOTEM, "EX1_244e")
 	pass
+EX1_244e = buff(health=2)
 
 if Classic_Earth_Shock:# 
 	Classic_Shaman+=['VAN_EX1_245']
-class VAN_EX1_245:# <8>[1646]
+class VAN_EX1_245:# <8>[1646] ##
 	""" Earth Shock
 	[Silence] a minion, then deal $1 damage to it. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Silence(TARGET), Hit(TARGET, 1)
 	pass
 
 if Classic_Hex:# 
@@ -169,7 +185,8 @@ if Classic_Hex:#
 class VAN_EX1_246:# <8>[1646]
 	""" Hex
 	Transform a minion into a 0/1 Frog with [Taunt]. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
+	play = Morph(TARGET, "hexfrog")
 	pass
 
 if Classic_Stormforged_Axe:# 
@@ -185,7 +202,8 @@ if Classic_Feral_Spirit:#
 class VAN_EX1_248:# <8>[1646]
 	""" Feral Spirit
 	Summon two 2/3 Spirit Wolves with [Taunt]. [Overload:] (2) """
-	#
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	play = Summon(CONTROLLER, "EX1_tk11") * 2
 	pass
 
 if Classic_Earth_Elemental:# 
@@ -201,32 +219,36 @@ if Classic_Forked_Lightning:#
 class VAN_EX1_251:# <8>[1646]
 	""" Forked Lightning
 	Deal $2 damage to 2_random enemy minions. [Overload:] (2) """
-	#
+	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1}
+	play = Hit(RANDOM_ENEMY_MINION * 2, 2)
 	pass
 
 if Classic_Unbound_Elemental:# 
-	Classic_Shaman+=['VAN_EX1_258']
+	Classic_Shaman+=['VAN_EX1_258','EX1_258e']
 class VAN_EX1_258:# <8>[1646]
 	""" Unbound Elemental
 	Whenever you play a card_with [Overload], gain_+1/+1. """
-	#
+	events = Play(CONTROLLER, OVERLOAD).on(Buff(SELF, "EX1_258e"))
 	pass
+EX1_258e = buff(+1, +1)
+
 
 if Classic_Lightning_Storm:# 
 	Classic_Shaman+=['VAN_EX1_259']
 class VAN_EX1_259:# <8>[1646]
 	""" Lightning Storm
 	Deal $2-$3 damage to all enemy minions. [Overload:] (2) """
-	#
+	play = Hit(ENEMY_MINIONS, RandomNumber(2, 3))
 	pass
 
 if Classic_Flametongue_Totem:# 
-	Classic_Shaman+=['VAN_EX1_565']
+	Classic_Shaman+=['VAN_EX1_565','EX1_565o']
 class VAN_EX1_565:# <8>[1646]
 	""" Flametongue Totem
 	Adjacent minions have +2_Attack. """
-	#
+	update = Refresh(SELF_ADJACENT, buff="EX1_565o")
 	pass
+EX1_565o = buff(atk=2)
 
 if Classic_Doomhammer:# 
 	Classic_Shaman+=['VAN_EX1_567']
@@ -241,7 +263,7 @@ if Classic_Mana_Tide_Totem:#
 class VAN_EX1_575:# <8>[1646]
 	""" Mana Tide Totem
 	At the end of your turn, draw a card. """
-	#
+	events = OWN_TURN_END.on(Draw(CONTROLLER))
 	pass
 
 if Classic_Windspeaker:# 
@@ -249,7 +271,11 @@ if Classic_Windspeaker:#
 class VAN_EX1_587:# <8>[1646]
 	""" Windspeaker
 	[Battlecry:] Give a friendly minion [Windfury]. """
-	#
+	requirements = {
+		PlayReq.REQ_FRIENDLY_TARGET: 0,
+		PlayReq.REQ_MINION_TARGET: 0,
+		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = GiveWindfury(TARGET - WINDFURY)
 	pass
 
 if Classic_Spirit_Wolf:# 
@@ -262,21 +288,18 @@ class VAN_EX1_tk11:# <8>[1646]
 
 if Classic_Totemic_Call:# 
 	Classic_Shaman+=['VAN_HERO_02bp']
+	Classic_Shaman+=['VAN_HERO_02bp2']
+	Classic_Shaman+=['VAN_HERO_02e2']
 class VAN_HERO_02bp:# <8>[1646]
 	""" Totemic Call
 	[Hero Power]Summon a random Totem. """
 	#
 	pass
-
-	Classic_Shaman+=['VAN_HERO_02bp2']
 class VAN_HERO_02bp2:# <8>[1646]
 	""" Totemic Slam
 	[Hero Power]Summon a Totem of your choice. """
 	#
 	pass
-
-if Classic_Strength_of_Earth:# 
-	Classic_Shaman+=['VAN_HERO_02e2']
 class VAN_HERO_02e2:# <8>[1646]
 	""" Strength of Earth
 	+1 Attack. """
@@ -288,7 +311,7 @@ if Classic_Healing_Totem:#
 class VAN_NEW1_009:# <8>[1646]
 	""" Healing Totem
 	At the end of your turn, restore #1 Health to all friendly minions. """
-	#
+	events = OWN_TURN_END.on(Heal(FRIENDLY_MINIONS, 1))
 	pass
 
 if Classic_AlAkir_the_Windlord:# 
