@@ -255,7 +255,13 @@ class Preset_Play:
 						choices.append(_id)
 			_card=random.choice(choices)
 		elif _card=='spellpower':
-			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and hasattr(_card, 'spellpower') and _card.spellpower: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='taunt':
 			choices=[]
 			for cardIDlist in All:

@@ -15,7 +15,7 @@ from .dsl.random_picker import RandomEntourage, RandomID
 
 def _eval_card(source, card):
 	"""
-	Return a Card instance from \a card
+	Return a Card instance from a card
 	The card argument can be:
 	- A Card instance (nothing is done)
 	- The string ID of the card (the card is created)
@@ -195,7 +195,7 @@ class GameAction(Action):
 
 class Attack(GameAction):
 	"""
-	Make \a ATTACKER attack \a DEFENDER
+	Make a ATTACKER attack a DEFENDER
 	"""
 	ATTACKER = ActionArg()
 	DEFENDER = ActionArg()
@@ -276,7 +276,7 @@ class BeginBar(GameAction):
 
 class BeginTurn(GameAction):
 	"""
-	Make \a player begin the turn
+	Make a player begin the turn
 	"""
 	PLAYER = ActionArg()
 
@@ -296,7 +296,7 @@ class BeginTurn(GameAction):
 
 class BeginBattle(GameAction):
 	"""
-	Make \a player begin the battle ( battlegrounds )
+	Make a player begin the battle ( battlegrounds )
 	"""
 	PLAYER = ActionArg()
 	def do(self, source, player):
@@ -313,7 +313,7 @@ class BeginBattle(GameAction):
 
 class Concede(GameAction):
 	"""
-	Make \a player concede
+	Make a player concede
 	"""
 	PLAYER = ActionArg()
 
@@ -324,7 +324,7 @@ class Concede(GameAction):
 
 class Disconnect(GameAction):
 	"""
-	Make \a player disconnect
+	Make a player disconnect
 	"""
 	PLAYER = ActionArg()
 
@@ -383,7 +383,7 @@ class EndTurn(GameAction):
 
 class Joust(GameAction):
 	"""
-	Perform a joust between \a challenger and \a defender.
+	Perform a joust between a challenger and a defender.
 	Note that this does not evaluate the results of the joust. For that,
 	see dsl.evaluators.JoustEvaluator.
 	"""
@@ -588,8 +588,8 @@ class MulliganChoice(GameAction):
 
 class Play(GameAction):
 	"""
-	Make the source player play \a card, on \a target or None.
-	Choose play action from \a choose or None.
+	Make the source player play a card, on a target or None.
+	Choose play action from a choose or None.
 	"""
 	PLAYER = ActionArg()
 	CARD = CardArg()
@@ -684,8 +684,8 @@ class Play(GameAction):
 
 class BG_Play(GameAction):
 	"""
-	Make the source player play \a card, on \a target or None.
-	Choose play action from \a choose or None.
+	Make the source player play a card, on a target or None.
+	Choose play action from a choose or None.
 	"""
 	PLAYER = ActionArg()
 	CARD = CardArg()
@@ -907,7 +907,7 @@ class TargetedAction(Action):
 
 class Buff(TargetedAction):
 	"""
-	Buff character targets with Enchantment \a id
+	Buff character targets with Enchantment an id
 	NOTE: Any Card can buff any other Card. The controller of the
 	Card that buffs the target becomes the controller of the buff.
 	"""
@@ -1012,7 +1012,7 @@ class Counter(TargetedAction):
 
 class Predamage(TargetedAction):
 	"""
-	Predamage target by \a amount.
+	Predamage target by an amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1055,7 +1055,7 @@ class PutOnTop(TargetedAction):
 
 class Damage(TargetedAction):
 	"""
-	Damage target by \a amount.
+	Damage target by an amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1333,7 +1333,7 @@ class ForceDraw(TargetedAction):
 
 class DrawUntil(TargetedAction):
 	"""
-	Make target player target draw up to \a amount cards minus their hand count.
+	Make target player target draw up to an amount cards minus their hand count.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1355,7 +1355,7 @@ class FullHeal(TargetedAction):
 
 class GainArmor(TargetedAction):
 	"""
-	Make hero targets gain \a amount armor.
+	Make hero targets gain an amount armor.
 	TARGET = ActionArg(): hero
 	AMOUNT = IntArg()
 	"""
@@ -1379,7 +1379,7 @@ class GainAttackHealth(TargetedAction):
 
 class GainMana(TargetedAction):
 	"""
-	Give player targets \a Mana crystals.
+	Give player targets a Mana crystals.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1390,7 +1390,7 @@ class GainMana(TargetedAction):
 
 class SpendMana(TargetedAction):
 	"""
-	Make player targets spend \a amount Mana.
+	Make player targets spend an amount Mana.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1402,7 +1402,7 @@ class SpendMana(TargetedAction):
 
 class Give(TargetedAction):
 	"""
-	Give player targets card \a id.
+	Give player targets card an id.
 	"""
 	TARGET = ActionArg()
 	CARD = CardArg()
@@ -1442,14 +1442,14 @@ class Give(TargetedAction):
 
 class Hit(TargetedAction):
 	"""
-	Hit character targets by \a amount.
+	Hit character targets by an amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
 
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			Config.LOGINFO_LOG.append("Hit,%s,%s,%d,None"%(source, target, amount))
+			print("Hit,%s,%s,%d,None"%(source, target, amount))
 		amount = source.get_damage(amount, target)
 		# if target is hero and target has buff 'AV_146e'(Take half damage, rounded up)
 		#if target.type==CardType.HERO:
@@ -1492,10 +1492,52 @@ class Hit(TargetedAction):
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
+class SplitHit(TargetedAction):
+	"""
+	Hit character targets by  an amount.
+	"""
+	TARGET = ActionArg()
+	TARGETS = ActionArg()
+	AMOUNT = ActionArg()
+
+	def do(self, source, target, targets, amount):
+		if Config.LOGINFO:
+			print("SplitHit,%s,%s,%d,None"%(source, targets, amount))
+		if not isinstance(targets, list):
+			targets = [targets]
+		ret = []
+		amount = source.controller.get_spell_damage(amount)## adding spellpower.
+		if amount:
+			for repeat in range(amount):
+				target = random.choice(targets)
+				if source.get_damage(1, target)>0:
+					target.attacker=source ## 
+					if hasattr(source, 'honorable_kill') and source.honorable_kill:
+						if target.type==CardType.WEAPON and target==source:## when decreasing durability
+							pass
+						else:
+							target_health = target.health
+							if target_health == 1:
+								if Config.LOGINFO:
+									print("(Hit.do)%s hits %s and gets honorable kill"%(source, target))
+								target.honorably_killed = True
+								if source.type==CardType.HERO and source.controller.weapon!=None :
+									actions = source.controller.weapon.get_actions("honorable_kill")
+									source.game.trigger(source.controller.weapon, actions,event_args=None)
+								else:
+									actions = source.get_actions("honorable_kill")
+									source.game.trigger(source, actions,event_args=None)
+								for buff in source.buffs:
+									if hasattr(buff, 'honorable_kill'):
+										actions = buff.get_actions('honorable_kill')
+										source.game.trigger(source, actions, event_args=None)
+					ret.append(Predamage(target, 1))
+			return source.game.queue_actions(source, ret)[0][0]
+		return 0
 
 class Heal(TargetedAction):
 	"""
-	Heal character targets by \a amount.
+	Heal character targets by a amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1516,7 +1558,7 @@ class Heal(TargetedAction):
 
 class ManaThisTurn(TargetedAction):
 	"""
-	Give player targets \a amount Mana this turn.
+	Give player targets a amount Mana this turn.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1528,7 +1570,7 @@ class ManaThisTurn(TargetedAction):
 
 class ManaThisTurnOnly(TargetedAction):
 	"""
-	Give player targets \a amount Mana this turn.
+	Give player targets a amount Mana this turn.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1541,7 +1583,7 @@ class ManaThisTurnOnly(TargetedAction):
 
 class Mill(TargetedAction):
 	"""
-	Mill \a count cards from the top of the player targets' deck.
+	Mill a count cards from the top of the player targets' deck.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1552,7 +1594,7 @@ class Mill(TargetedAction):
 
 class Morph(TargetedAction):
 	"""
-	Morph minion target into \a minion id
+	Morph minion target into a minion id
 	TARGET = ActionArg()
 	CARD = CardArg()
 	"""
@@ -1589,7 +1631,7 @@ class Morph(TargetedAction):
 
 class SW_078_Morph(TargetedAction):
 	"""
-	Morph minion target into \a minion id
+	Morph minion target into a minion id
 	"""
 	TARGET = ActionArg()
 	CARD = CardArg()
@@ -1654,7 +1696,7 @@ class DMF_108_Morph(TargetedAction):
 
 class FillMana(TargetedAction):
 	"""
-	Refill \a amount mana crystals from player targets.
+	Refill a amount mana crystals from player targets.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1699,7 +1741,7 @@ class Reveal(TargetedAction):
 
 class SetCurrentHealth(TargetedAction):
 	"""
-	Sets the current health of the character target to \a amount.
+	Sets the current health of the character target to a amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -1774,7 +1816,7 @@ class Silence(TargetedAction):
 
 class Summon(TargetedAction):
 	"""
-	Make player targets summon \a id onto their field.
+	Make player targets summon a id onto their field.
 	This works for equipping weapons as well as summoning minions.
 	TARGET = ActionArg()#CONTROLLER
 	CARD = CardArg()
@@ -1900,7 +1942,7 @@ class ShuffleBottom(TargetedAction):
 
 class Swap(TargetedAction):
 	"""
-	Swap minion target with \a other.
+	Swap minion target with another.
 	Behaviour is undefined when swapping more than two minions.
 	"""
 	TARGET = ActionArg()
@@ -1922,7 +1964,7 @@ class Swap(TargetedAction):
 
 class SwapHealth(TargetedAction):
 	"""
-	Swap health between two minions using \a buff.
+	Swap health between two minions using a buff.
 	"""
 	TARGET = ActionArg()
 	OTHER = ActionArg()
@@ -2077,7 +2119,7 @@ class CastSpellTargetsEnemiesIfPossible(TargetedAction):
 
 class Evolve(TargetedAction):
 	"""
-	Transform your minions into random minions that cost (\a amount) more
+	Transform your minions into random minions that cost ( an amount) more
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -2105,7 +2147,7 @@ class ExtraAttack(TargetedAction):
 
 class SwapState(TargetedAction):
 	"""
-	Swap stats between two minions using \a buff.
+	Swap stats between two minions using a buff.
 	"""
 	TARGET = ActionArg()
 	OTHER = ActionArg()
@@ -2433,7 +2475,7 @@ class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
 
 class SetMaxHealth(TargetedAction):
 	"""
-	Sets the max health of the character target to \a amount.
+	Sets the max health of the character target to  an amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -2444,7 +2486,7 @@ class SetMaxHealth(TargetedAction):
 
 class SetAtk(TargetedAction):
 	"""
-	Sets the current health of the character target to \a amount.
+	Sets the current health of the character target to a amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -2454,7 +2496,7 @@ class SetAtk(TargetedAction):
 		target.atk = amount
 class SetCost(TargetedAction):
 	"""
-	Sets the cost of the character target to \a amount.
+	Sets the cost of the character target to an amount.
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -3538,7 +3580,7 @@ class StealGem(TargetedAction):
 
 class SummonOnce(Summon):
 	"""
-	Make player targets summon \a id onto their field.
+	Make player targets summon an id onto their field.
 	This works for equipping weapons as well as summoning minions.
 	"""
 	TARGET = ActionArg()

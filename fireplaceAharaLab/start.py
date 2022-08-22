@@ -270,8 +270,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.classic_priest import classic_priest
-	classic_priest()
+	from card_test.alterac_mage import alterac_mage
+	alterac_mage()
 	pass
 
 def battleground_main():

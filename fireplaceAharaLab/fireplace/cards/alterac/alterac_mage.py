@@ -307,7 +307,8 @@ if Alterac_Haleh_Matron_Protectorate:#
 class ONY_007:# <4>[1626]
 	""" Haleh, Matron Protectorate
 	After you cast a spell, deal 4 damage randomly split among all enemies. """
-	events = OWN_SPELL_PLAY.on(Hit(RANDOM_ENEMY_CHARACTER,1) * 4)
+	#events = OWN_SPELL_PLAY.on(Hit(RANDOM_ENEMY_CHARACTER,1) * 4)
+	events = OWN_SPELL_PLAY.on(SplitHit(CONTROLLER, ENEMY_CHARACTERS, 4))
 	pass
 
 

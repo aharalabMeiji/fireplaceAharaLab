@@ -16,9 +16,11 @@ Core_Warrior=core_warrior.Core_Warrior
 
 Core_Cards=[Core_DemonHunter,Core_Druid,Core_Hunter,Core_Mage,Core_Neutral,Core_Paladin,Core_Priest,Core_Priest,Core_Rogue,Core_Shaman,Core_Warlock,Core_Warrior]
 
-from fireplace.cards.classic import *
-Classic_Priest=classic_priest.Classic_Priest
-Classic_Cards=[Classic_Priest]
+#from fireplace.cards.classic import classic_priest
+#Classic_Priest=classic_priest.Classic_Priest
+#Classic_Cards=[Classic_Priest]
+
+
 ## DALARAN = 1130  # Rise of Shadows
 ## fireplace.cards.old_cards.shadows
 ## hunter,mage,neutral,paladin
@@ -149,14 +151,9 @@ clownDruid = [
 	#'CORE_EX1_169','CORE_CS2_013','CS2_013t',
 	#'BAR_042',	
 ]
-All=Core_Cards\
-	+Classic_Cards\
-	+Barrens_Cards\
-	+StormWind_Cards\
-	+Alterac_Cards\
-	+[Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
-	+Sunken_Cards
-
+All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
+	
+#+Classic_Cards\
 # VANILLA = 1646
 from fireplace.cards.classic import classic_druid, classic_neutral
 #from fireplace.cards.core import classic_demon_hunter, classic_hunter, classic_mage, classic_paladin, classic_priest, classic_rogue, classic_shaman, classic_warrior, classic_warlock
