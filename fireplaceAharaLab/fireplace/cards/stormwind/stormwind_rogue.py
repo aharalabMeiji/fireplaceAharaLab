@@ -165,7 +165,7 @@ class SW_052t4:# <7>[1578]
 	""" Fizzflash Distractor
 	Return an enemy minion to its owner's hand.They can't play it next turn. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
-	play = Bounce(TARGET).on(Buff(Bounce.CARD, 'SW_052t4e'))
+	play = Bounce(TARGET).on(Buff(Bounce.TARGET, 'SW_052t4e'))
 	pass
 
 class SW_052t4e:# <7>[1578]

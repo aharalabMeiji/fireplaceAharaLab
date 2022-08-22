@@ -1,15 +1,15 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit, Summon, Give
+from fireplace.actions import Hit, Summon, Give, Draw
 from hearthstone.enums import Zone, CardType, Rarity
 
 def classic_priest():
 
-	#PresetGame(pp_VAN_CS1_112)##
-	#PresetGame(pp_VAN_CS1_113)##
-	#PresetGame(pp_VAN_CS1_129)##
-	#PresetGame(pp_VAN_CS1_130)##
-	#PresetGame(pp_VAN_CS2_003)##
-	#PresetGame(pp_VAN_CS2_004)##
+	#PresetGame(pp_VAN_CS1_112)##OK
+	#PresetGame(pp_VAN_CS1_113)##OK
+	#PresetGame(pp_VAN_CS1_129)##OK
+	#PresetGame(pp_VAN_CS1_130)##OK
+	#PresetGame(pp_VAN_CS2_003)##OK
+	#PresetGame(pp_VAN_CS2_004)##OK
 	#PresetGame(pp_VAN_CS2_234)##
 	#PresetGame(pp_VAN_CS2_235)##
 	#PresetGame(pp_VAN_CS2_236)##
@@ -32,7 +32,7 @@ def classic_priest():
 	#PresetGame(pp_VAN_EX1_tk31)##
 	#PresetGame(pp_VAN_HERO_09bp)##
 	#PresetGame(pp_VAN_HERO_09e1)##
-
+	pass
 
 ##########VAN_CS1_112##########
 
@@ -41,22 +41,32 @@ class pp_VAN_CS1_112(Preset_Play):
 	Deal $2 damage to all enemies. Restore #2 Health to all friendly characters. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS1_112", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=Summon(self.controller, self.card_choice("minionH5")).trigger(self.controller)
+		self.mark2=self.mark2[0][0]
+		self.mark3=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		Hit(self.mark2, 3).trigger(self.opponent)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		assert self.mark2.health==4, "health"
+		assert self.mark3.zone==Zone.GRAVEYARD, "zone"
+		assert self.mark4.health==1, "health"
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -67,22 +77,26 @@ class pp_VAN_CS1_113(Preset_Play):
 	Take control of an enemy minion. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS1_113", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark4)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark4.controller == self.controller, "controller"
+		assert self.mark4.zone==Zone.PLAY, "zone"
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -100,15 +114,16 @@ class pp_VAN_CS1_129(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark4)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		assert self.mark4.atk == self.mark4.health, "atk"
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -119,20 +134,21 @@ class pp_VAN_CS1_130(Preset_Play):
 	Deal $2 damage. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS1_130", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark4)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark4.health==1, "health"
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass
@@ -152,13 +168,19 @@ class pp_VAN_CS2_003(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.myhandId=[card.id for card in self.controller.hand]
+		self.hishandId=[card.id for card in self.opponent.hand]
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.newmyhandId=[card.id for card in self.controller.hand]
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		diff = [card for card in self.newmyhandId if not card in self.myhandId]
+		diff=diff[0]
+		assert diff in self.hishandId, "copy card"
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass
@@ -178,13 +200,16 @@ class pp_VAN_CS2_004(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark4)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark4.health==3+2, "mark4"
+		assert isinstance(self.controller._targetedaction_log[-1]['class'], Draw)==True, "draw"
+		assert self.controller._targetedaction_log[-1]['target_args'][0]==self.controller.hand[-1] , "hand"
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass

@@ -164,7 +164,7 @@ class BaseCard(BaseEntity):
 
 class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cant_be_frozen = boolean_property("cant_be_frozen")# 
-	cards_cost_health = int_property("cards_cost_health") #### <---- spells_cost_health
+	cards_cost_health = boolean_property("cards_cost_health") #### <---- spells_cost_health
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	has_choose_one = boolean_property("has_choose_one")
@@ -516,6 +516,7 @@ class LiveEntity(PlayableCard, Entity):
 	immune_while_attacking = boolean_property("immune_while_attacking")
 	incoming_damage_multiplier = int_property("incoming_damage_multiplier")
 	max_health = int_property("max_health")
+
 
 	def __init__(self, data):
 		super().__init__(data)
