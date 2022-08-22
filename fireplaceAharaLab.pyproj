@@ -149,6 +149,12 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_neutral.py" />
