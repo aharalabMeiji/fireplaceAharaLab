@@ -16,7 +16,7 @@ Alterac_Saidan_the_Scarlet=True
 Alterac_Stormwind_Avenger=True
 Alterac_Battle_Vicar=True
 Alterac_Ring_of_Courage=True
-Alterac_Cariel=True
+
 
 
 if Alterac_The_Immovable_Object:# #### OKOK ####
@@ -109,7 +109,7 @@ if Alterac_Brasswing:#
 	Alterac_Paladin+=['AV_340']
 class AV_340:# <5>[1626]
 	""" Brasswing
-	At the end of your turn, deal2 damage to all enemies.[Honorable Kill:] Restore 4Health to your hero. """
+	At the end of your turn, deal2 damage to all enemies.[Honorable Kill:] Restore 4 Health to your hero. """
 	#
 	pass
 
@@ -152,7 +152,7 @@ class AV_343:# <5>[1626]
 class AV_343e:# <5>[1626]
 	""" Stone Fortitude
 	Costs (0)  this turn. """
-	#
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
 
 if Alterac_Dun_Baldar_Bridge:# 
@@ -163,19 +163,22 @@ class AV_344:# <5>[1626]
 	After you summon aminion, give it +2/+2.Lasts 3 turns. """
 	#
 	pass
-
-class AV_344e:# <5>[1626]
-	""" Coldtooth Supplies
-	+2/+2. """
-	#
-	pass
+AV_344e=buff(2,2)
 
 if Alterac_Saidan_the_Scarlet:# 
 	Alterac_Paladin+=['AV_345']
+class AV_345_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self,source,target, buff):
+		if buff.atk>0 or buff.health>0:
+			Buff(target, buff.id).trigger(source)
 class AV_345:# <5>[1626]
 	""" Saidan the Scarlet
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """
-	#
+	class Hand:
+		events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
+	events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
 	pass
 
 
@@ -185,21 +188,16 @@ if Alterac_Stormwind_Avenger:#
 class ONY_020:# <5>[1626]
 	""" Stormwind Avenger
 	After you cast a spell on this minion, it gains +2 Attack. """
-	#
+	events = Play(CONTROLLER, SPELL, SELF).after(Buff(SELF,'ONY_020e'))
 	pass
-
-class ONY_020e:# <5>[1626]
-	""" En Garde!
-	+2 Attack. """
-	#
-	pass
+ONY_020e=buff(2,0)
 
 if Alterac_Battle_Vicar:# 
 	Alterac_Paladin+=['ONY_022']
 class ONY_022:# <5>[1626]
 	""" Battle Vicar
-	[Battlecry:] [Discover] aHoly spell. """
-	#
+	[Battlecry:] [Discover] a Holy spell. """
+	play = Discover(CONTROLLER, RandomSpell(spell_school=SpellSchool.HOLY))
 	pass
 
 if Alterac_Ring_of_Courage:# 
@@ -208,22 +206,11 @@ if Alterac_Ring_of_Courage:#
 class ONY_027:# <5>[1626]
 	""" Ring of Courage
 	[Tradeable]Give a minion +1/+1. Repeat for each enemy minion. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}	
+	play = Buff(TARGET,'ONY_027e'),Buff(TARGET,'ONY_027e')*Count(ENEMY_MINIONS)
 	pass
+ONY_027e=buff(1,1)
 
-class ONY_027e:# <5>[1626]
-	""" Heroic
-	+1/+1. """
-	#
-	pass
-
-if Alterac_Cariel:# 
-	Alterac_Paladin+=['TB_01_BOM_Mercs_Cariel_001p']
-class TB_01_BOM_Mercs_Cariel_001p:# <5>[1626]
-	""" Cariel
-	[Hero Power]Summon a friendly minion that died this game with 1 Health. """
-	#
-	pass
 
 #######################
 
