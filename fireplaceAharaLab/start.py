@@ -82,11 +82,11 @@ def main():
 
 def printClasses():
 	from hearthstone import cardxml
-	myCardSet=CardSet.VANILLA##ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.WARRIOR##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	myCardSet=CardSet.STORMWIND#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
+	myCardClass=CardClass.PALADIN##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	setText={
 		CardSet.VANILLA:'Classic_',
-		CardSet.STORMWIND:'StormWind',
+		CardSet.STORMWIND:'StormWind_',
 		CardSet.ALTERAC_VALLEY:'Alterac_',
 		CardSet.THE_SUNKEN_CITY:'Sunken_',
 		CardSet.REVENDRETH:'Revendreth_',
@@ -270,8 +270,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.alterac_mage import alterac_mage
-	alterac_mage()
+	from card_test.stormwind_paladin import stormwind_paladin
+	stormwind_paladin()
 	pass
 
 def battleground_main():

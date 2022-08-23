@@ -26,10 +26,28 @@ if StormWind_Wealth_Redistributor:#
 	StormWind_Paladin+=['DED_500e']
 class DED_500:# <5>[1578]
 	""" Wealth Redistributor
-	[Taunt]. [Battlecry:] Swap theAttack of the highest andlowest Attack minion. """
-	#
+	[Taunt]. [Battlecry:] Swap the Attack of the highest and lowest Attack minion. """
+	def play(self):
+		lowest = []
+		highest = []
+		for card in self.controller.field:
+			if lowest==[] or lowest[0].atk>card.atk:
+				lowest=[card]
+			elif lowest[0].atk==card.atk:
+				lowest.append(card)
+			if highest==[] or highest[0].atk<card.atk:
+				highest=[card]
+			elif highest[0].atk==card.atk:
+				highest.append(card)
+			lowest=random.choice(lowest)
+			highest=random.choice(highest)
+			if lowest.atk!=highest.atk:
+				diff=highest.atk-lowest.atk
+				Buff(lowest,'DED_500e', atk=diff).trigger(self)
+				Buff(highest,'DED_500e', atk=-diff).trigger(self)
 	pass
-
+class DED_500e:
+	pass
 
 
 
@@ -37,8 +55,15 @@ if StormWind_Sunwing_Squawker:#
 	StormWind_Paladin+=['DED_501']
 class DED_501:# <5>[1578]
 	""" Sunwing Squawker
-	[Battlecry:] Repeat the lastspell you've cast on a__friendly minion on this. """
-	#
+	[Battlecry:] Repeat the last spell you've cast on a__friendly minion on this. """
+	def play(self):	
+		actions = [action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['target'].controller==self.controller and action['source'].type==CardType.SPELL]
+		if len(actions)>0:
+			action=actions[-1]
+			newcard = Give(self.controller, action['source'].id).trigger(self)
+			newcard=newcard[0][0]
+			Battlecry(newcard, self).trigger(self)
+			newcard.zone=Zone.GRAVEYARD
 	pass
 
 
