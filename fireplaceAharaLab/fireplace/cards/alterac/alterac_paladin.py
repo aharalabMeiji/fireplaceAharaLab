@@ -19,7 +19,7 @@ Alterac_Ring_of_Courage=True
 Alterac_Cariel=True
 
 
-if Alterac_The_Immovable_Object:# 
+if Alterac_The_Immovable_Object:# #### OKOK ####
 	Alterac_Paladin+=['AV_146']
 	Alterac_Paladin+=['AV_146e']
 	Alterac_Paladin+=['AV_146e2']
@@ -75,27 +75,34 @@ if Alterac_Hold_the_Bridge:#
 class AV_338:# <5>[1626]
 	""" Hold the Bridge
 	Give a minion +2/+1and [Divine Shield].It gains [Lifesteal] untilend of turn. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
+	play = Buff(TARGET, 'AV_338e'), Buff(SELF, 'AV_338e2')
 	pass
 
 class AV_338e:# <5>[1626]
 	""" High Morale
 	+2/+1. """
-	#
+	tags={
+		GameTag.ATK:2,
+		GameTag.HEALTH:1,
+		}
+	def apply(self, target):
+		target.divine_shield=True
 	pass
 
 class AV_338e2:# <5>[1626]
 	""" High Morale
 	[Lifesteal] this turn. """
-	#
+	tags={GameTag.LIFESTEAL:True, }
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
 
 if Alterac_Templar_Captain:# 
 	Alterac_Paladin+=['AV_339']
 class AV_339:# <5>[1626]
 	""" Templar Captain
-	[Rush]. After this attacksa minion, summon a 5/5Defender with [Taunt]. """
-	#
+	[Rush]. After this attacks a minion, summon a 5/5 Defender(AV_342t) with [Taunt]. """
+	events = Attack(SELF, ENEMY_MINIONS).after(Summon(CONTROLLER, 'AV_342t'))
 	pass
 
 if Alterac_Brasswing:# 
@@ -120,7 +127,11 @@ if Alterac_Protect_the_Innocent:#
 class AV_342:# <5>[1626]
 	""" Protect the Innocent
 	Summon a 5/5 Defender with [Taunt]. If your hero was healed this turn, summon another. """
-	#
+	def play(self): 
+		Summon(CONTROLLER, 'AV_342t').trigger(self)
+		actions=[action for action in self.controller._targetaction_log if isinstance(action['class'],Heal) and action['target']==self.controller.hero]
+		if len(actions)>0:
+			Summon(CONTROLLER, 'AV_342t').trigger(self)
 	pass
 
 class AV_342t:# <5>[1626]

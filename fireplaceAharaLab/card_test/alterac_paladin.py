@@ -4,7 +4,7 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def alterac_paladin():
 
-	PresetGame(pp_AV_146)##OK
+	#PresetGame(pp_AV_146)##OKOK
 	#PresetGame(pp_AV_206)##
 	#PresetGame(pp_AV_213)##
 	#PresetGame(pp_AV_338)##
@@ -52,9 +52,12 @@ class pp_AV_146(Preset_Play):# <5>[1626] (7/2/5)
 	def result_inspection(self):
 		super().result_inspection()
 		print("controller.hero.health=%d"%(self.controller.hero.health))
+		assert self.controller.hero.health==30-3, "health"
 		print("opponent.hero.health=%d"%(self.opponent.hero.health))
-		controller=self.player
-		for card in controller.hand:
+		assert self.opponent.hero.health==30-2, "health"
+		print("%d"%(self.controller.weapon.durability))
+		assert self.controller.weapon.durability== self.controller.weapon.data.durability, "no less durability"
+		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass
 

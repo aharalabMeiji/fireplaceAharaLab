@@ -320,7 +320,7 @@ class Preset_Play:
 				card.data.atk, card.data.health),end=" ")
 		elif hasattr(card,'atk') and hasattr(card,'durability'):
 			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
-				card, card.controller, card, card.atk, card.durability, 
+				cat, card.controller, card, card.atk, card.durability, 
 				card.zone,
 				card.data.atk, card.data.durability),end=" ")
 		else: 
