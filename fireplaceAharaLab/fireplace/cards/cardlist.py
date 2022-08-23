@@ -76,19 +76,19 @@ StormWind_Paladin=stormwind_paladin.StormWind_Paladin
 StormWind_Cards=[StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral, StormWind_Paladin, StormWind_Warrior]
 
 ## ALTERAC_VALLEY = 1626  # Fractured in Alterac Valley
-from fireplace.cards.alterac import alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_warrior
+from fireplace.cards.alterac import alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_warrior
 Alterac_Druid=alterac_druid.Alterac_Druid
 Alterac_Hunter=alterac_hunter.Alterac_Hunter
 Alterac_Mage=alterac_mage.Alterac_Mage
 Alterac_Neutral = alterac_neutral.Alterac_Neutral
 Alterac_Warrior=alterac_warrior.Alterac_Warrior
 #Alterac_Demonhunter=
-#Alterac_Paladin=
+Alterac_Paladin=alterac_paladin.Alterac_Paladin
 #Alterac_Priest=
 #Alterac_Rogue=
 #Alterac_Shaman =
 #Alterac_Warlock=
-Alterac_Cards=[Alterac_Druid,Alterac_Hunter,Alterac_Mage,Alterac_Neutral,Alterac_Warrior,]
+Alterac_Cards=[Alterac_Druid,Alterac_Hunter,Alterac_Mage,Alterac_Neutral, Alterac_Paladin, Alterac_Warrior,]
 
 ## THE_SUNKEN_CITY = 1658  # Voyage to the Sunken City
 from fireplace.cards.sunken import sunken_druid,sunken_hunter,sunken_mage,sunken_neutral,sunken_warrior
@@ -155,13 +155,13 @@ All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards 
 	
 #+Classic_Cards\
 # VANILLA = 1646
-from fireplace.cards.classic import classic_druid, classic_neutral
+#from fireplace.cards.classic import classic_druid, classic_neutral
 #from fireplace.cards.core import classic_demon_hunter, classic_hunter, classic_mage, classic_paladin, classic_priest, classic_rogue, classic_shaman, classic_warrior, classic_warlock
 #Classic_DemonHunter=classic_demon_hunter.Classic_DemonHunter
-Classic_Druid=classic_druid.Classic_Druid
+#Classic_Druid=classic_druid.Classic_Druid
 #Classic_Hunter=classic_hunter.Classic_Hunter
 #Classic_Mage = classic_mage.Classic_Mage
-Classic_Neutral=classic_neutral.Classic_Neutral
+#Classic_Neutral=classic_neutral.Classic_Neutral
 #Classic_Paladin=classic_paladin.Classic_Paladin
 #Classic_Priest=classic_priest.Classic_Priest
 #Classic_Rogue=classic_rogue.Classic_Rogue

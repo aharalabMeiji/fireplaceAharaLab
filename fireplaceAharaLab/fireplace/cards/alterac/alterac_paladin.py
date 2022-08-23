@@ -13,14 +13,6 @@ Alterac_Protect_the_Innocent=True
 Alterac_Stonehearth_Vindicator=True
 Alterac_Dun_Baldar_Bridge=True
 Alterac_Saidan_the_Scarlet=True
-Alterac_Cariel=True
-Alterac_Cariel=True
-Alterac_Immovable_Cariel=True
-Alterac_Cariel_Roame=True
-Alterac_Cariel=True
-Alterac_Cariel=True
-Alterac_Back_to_Back=True
-Alterac_Cariel,_Conflicted=True
 Alterac_Stormwind_Avenger=True
 Alterac_Battle_Vicar=True
 Alterac_Ring_of_Courage=True
@@ -30,23 +22,25 @@ Alterac_Cariel=True
 if Alterac_The_Immovable_Object:# 
 	Alterac_Paladin+=['AV_146']
 	Alterac_Paladin+=['AV_146e']
+	Alterac_Paladin+=['AV_146e2']
 class AV_146:# <5>[1626]
-	""" The Immovable Object
-	This doesn't loseDurability. Your herotakes half damage,rounded up. """
-	play = Buff(SELF, 'AV_146e2'), Buff(FRIENDLY_HERO,'AV_146e')
+	""" The Immovable Object  (7/2/5)
+	This doesn't loseDurability. Your hero takes half damage,rounded up. """
+	play = Buff(SELF, 'AV_146e2'), Buff(CONTROLLER,'AV_146e')
 	pass
 
-class AV_146e:# <5>[1626]
+class AV_146e:# <5>[1626]##############################
 	""" Tough
 	Take half damage, rounded up. """
-	#
+	def apply(self, target):
+		target.take_half_damage=True
 	pass
 
-	Alterac_Paladin+=['AV_146e2']
 class AV_146e2:# <5>[1626]
 	""" Resilient Weapon
 	No durability loss. """
-	#
+	def apply(self, target):
+		target.no_durability_loss=True
 	pass
 
 if Alterac_Lightforged_Cariel:# 
@@ -76,20 +70,20 @@ class AV_213:# <5>[1626]
 
 if Alterac_Hold_the_Bridge:# 
 	Alterac_Paladin+=['AV_338']
+	Alterac_Paladin+=['AV_338e']
+	Alterac_Paladin+=['AV_338e2']
 class AV_338:# <5>[1626]
 	""" Hold the Bridge
 	Give a minion +2/+1and [Divine Shield].It gains [Lifesteal] untilend of turn. """
 	#
 	pass
 
-	Alterac_Paladin+=['AV_338e']
 class AV_338e:# <5>[1626]
 	""" High Morale
 	+2/+1. """
 	#
 	pass
 
-	Alterac_Paladin+=['AV_338e2']
 class AV_338e2:# <5>[1626]
 	""" High Morale
 	[Lifesteal] this turn. """
@@ -122,13 +116,13 @@ class AV_341:# <5>[1626]
 
 if Alterac_Protect_the_Innocent:# 
 	Alterac_Paladin+=['AV_342']
+	Alterac_Paladin+=['AV_342t']
 class AV_342:# <5>[1626]
 	""" Protect the Innocent
 	Summon a 5/5 Defender with [Taunt]. If your hero was healed this turn, summon another. """
 	#
 	pass
 
-	Alterac_Paladin+=['AV_342t']
 class AV_342t:# <5>[1626]
 	""" Stormpike Defender
 	[Taunt] """
@@ -137,13 +131,13 @@ class AV_342t:# <5>[1626]
 
 if Alterac_Stonehearth_Vindicator:# 
 	Alterac_Paladin+=['AV_343']
+	Alterac_Paladin+=['AV_343e']
 class AV_343:# <5>[1626]
 	""" Stonehearth Vindicator
 	[Battlecry:] Draw a spellthat costs (3) or less.It costs (0) this turn. """
 	#
 	pass
 
-	Alterac_Paladin+=['AV_343e']
 class AV_343e:# <5>[1626]
 	""" Stone Fortitude
 	Costs (0)  this turn. """
@@ -152,13 +146,13 @@ class AV_343e:# <5>[1626]
 
 if Alterac_Dun_Baldar_Bridge:# 
 	Alterac_Paladin+=['AV_344']
+	Alterac_Paladin+=['AV_344e']
 class AV_344:# <5>[1626]
 	""" Dun Baldar Bridge
 	After you summon aminion, give it +2/+2.Lasts 3 turns. """
 	#
 	pass
 
-	Alterac_Paladin+=['AV_344e']
 class AV_344e:# <5>[1626]
 	""" Coldtooth Supplies
 	+2/+2. """
@@ -173,79 +167,16 @@ class AV_345:# <5>[1626]
 	#
 	pass
 
-if Alterac_Cariel:# 
-	Alterac_Paladin+=['BOM_08_Cariel_002t']
-class BOM_08_Cariel_002t:# <5>[1626]
-	""" Cariel
-	[Taunt][Revive]: (3) """
-	#
-	pass
-
-if Alterac_Cariel:# 
-	Alterac_Paladin+=['BOM_08_Cariel_003t']
-class BOM_08_Cariel_003t:# <5>[1626]
-	""" Cariel
-	[Taunt][Revive]: (3) """
-	#
-	pass
-
-if Alterac_Immovable_Cariel:# 
-	Alterac_Paladin+=['BOM_08_Cariel_006t']
-class BOM_08_Cariel_006t:# <5>[1626]
-	""" Immovable Cariel
-	[Taunt][Deathrattle]: You lose the game. """
-	#
-	pass
-
-if Alterac_Cariel_Roame:# 
-	Alterac_Paladin+=['BOM_09_Cariel_004t']
-class BOM_09_Cariel_004t:# <5>[1626]
-	""" Cariel Roame
-	[Taunt][Revive:] (3) """
-	#
-	pass
-
-if Alterac_Cariel:# 
-	Alterac_Paladin+=['BOM_09_Cariel_006t']
-class BOM_09_Cariel_006t:# <5>[1626]
-	""" Cariel
-	[Taunt][Revive:] (3) """
-	#
-	pass
-
-if Alterac_Cariel:# 
-	Alterac_Paladin+=['BOM_09_Cariel_008t']
-class BOM_09_Cariel_008t:# <5>[1626]
-	""" Cariel
-	[Taunt][Revive:] (3) """
-	#
-	pass
-
-if Alterac_Back_to_Back:# 
-	Alterac_Paladin+=['BOM_10_BackToBack_004s']
-class BOM_10_BackToBack_004s:# <5>[1626]
-	""" Back to Back
-	Kurtrus and Cariel are both [Immune] until your next turn. """
-	#
-	pass
-
-if Alterac_Cariel,_Conflicted:# 
-	Alterac_Paladin+=['BOM_10_Cariel_004t']
-class BOM_10_Cariel_004t:# <5>[1626]
-	""" Cariel, Conflicted
-	[Taunt] """
-	#
-	pass
 
 if Alterac_Stormwind_Avenger:# 
 	Alterac_Paladin+=['ONY_020']
+	Alterac_Paladin+=['ONY_020e']
 class ONY_020:# <5>[1626]
 	""" Stormwind Avenger
 	After you cast a spell on this minion, it gains +2 Attack. """
 	#
 	pass
 
-	Alterac_Paladin+=['ONY_020e']
 class ONY_020e:# <5>[1626]
 	""" En Garde!
 	+2 Attack. """
@@ -262,13 +193,13 @@ class ONY_022:# <5>[1626]
 
 if Alterac_Ring_of_Courage:# 
 	Alterac_Paladin+=['ONY_027']
+	Alterac_Paladin+=['ONY_027e']
 class ONY_027:# <5>[1626]
 	""" Ring of Courage
 	[Tradeable]Give a minion +1/+1. Repeat for each enemy minion. """
 	#
 	pass
 
-	Alterac_Paladin+=['ONY_027e']
 class ONY_027e:# <5>[1626]
 	""" Heroic
 	+1/+1. """

@@ -4,7 +4,7 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def alterac_paladin():
 
-	#PresetGame(pp_AV_146)##OK
+	PresetGame(pp_AV_146)##OK
 	#PresetGame(pp_AV_206)##
 	#PresetGame(pp_AV_213)##
 	#PresetGame(pp_AV_338)##
@@ -27,33 +27,32 @@ def alterac_paladin():
 	#PresetGame(pp_ONY_022)##
 	#PresetGame(pp_ONY_027)##
 	#PresetGame(pp_TB_01_BOM_Mercs_Cariel_001p)##
-
+	pass
 
 ##########AV_146##########
 
-class pp_AV_146(Preset_Play):
 class pp_AV_146(Preset_Play):# <5>[1626] (7/2/5)
 	""" The Immovable Object
 	This doesn't lose Durability. Your hero takes half damage, rounded up. """
 	def preset_deck(self):
-		controller=self.player
-		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_146',controller)
+		self.mark1=self.exchange_card('AV_146',self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		controller = self.player
-		opponent = controller.opponent
 		########## controller
-		self.play_card(self.mark1, controller)
-		#self.change_turn(controller)
+		self.play_card(self.mark1)
+		self.attack_card(self.controller.hero, self.opponent.hero)
+		self.change_turn()
 		########## opponent
+		Hit(self.controller.hero,5).trigger(self.opponent)
 		#self.play_card(self.mark2, opponent)
 		#self.change_turn(opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		print("controller.hero.health=%d"%(self.controller.hero.health))
+		print("opponent.hero.health=%d"%(self.opponent.hero.health))
 		controller=self.player
 		for card in controller.hand:
 			self.print_stats("hand", card)

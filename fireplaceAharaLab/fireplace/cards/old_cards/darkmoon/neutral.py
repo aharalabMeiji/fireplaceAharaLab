@@ -307,6 +307,8 @@ class YOP_012:###OK
 
 
 class YOP_012e:
+	def apply(self, target):
+		target.deathrattle_valid = False
 	pass
 
 class DMF_062:###OK

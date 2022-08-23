@@ -1451,24 +1451,16 @@ class Hit(TargetedAction):
 		if Config.LOGINFO:
 			print("Hit,%s,%s,%d,None"%(source, target, amount))
 		amount = source.get_damage(amount, target)
-		# if target is hero and target has buff 'AV_146e'(Take half damage, rounded up)
-		#if target.type==CardType.HERO:
-		#	for buff in target.buffs:
-		#		if buff.id=='AV_146e':
-		#			if amount%2==0:
-		#				amount = amount/2
-		#			else:
-		#				amount = (amount+1)/2
-		#			break;
+		# if target is hero and target.controller has buff 'AV_146e'(Take half damage, rounded up)
+		if target.type==CardType.HERO and target.controller.take_half_damage:
+			if amount%2==0:
+				amount = amount/2
+			else:
+				amount = (amount+1)/2
 		#if source.type==CardType.SPELL and source.poisonous:
 		#	killed_by_poisonous_spell=True
 		if amount:
 			#if isinstance(source,PlayableCard):
-			if Config.PRINT_HITLOG:
-				if hasattr(target,'health'):
-					print("%s(%s) Hits %s(%s) : %d <- damage %d"%(source, source.controller, target, target.controller, target.health, amount ))
-				elif hasattr(target,'durability'):
-					print("%s(%s) Hits %s(%s) : %d <- damage %d"%(source, source.controller, target, target.controller, target.durability, amount ))
 			target.attacker=source ## 
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
 				if target.type==CardType.WEAPON and target==source:## when decreasing durability

@@ -270,8 +270,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.stormwind_paladin import stormwind_paladin
-	stormwind_paladin()
+	from card_test.alterac_paladin import alterac_paladin
+	alterac_paladin()
 	pass
 
 def battleground_main():

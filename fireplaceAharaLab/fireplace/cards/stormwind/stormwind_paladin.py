@@ -152,7 +152,7 @@ if StormWind_First_Blade_of_Wrynn:#
 class SW_305:# <5>[1578]
 	""" First Blade of Wrynn (4/3/5)
 	[Divine Shield][Battlecry:] Gain [Rush] if this has at least 4 Attack. """
-	play = bool(ATK(SELF)>3) & SetTag(SELF, {GameTag.RUSH:True, })
+	play = (ATK(SELF)>3) & SetTag(SELF, {GameTag.RUSH:True, })
 	pass
 
 

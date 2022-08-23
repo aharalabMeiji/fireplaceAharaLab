@@ -208,7 +208,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.cast_on_friendly_characters = False
 		self.script_data_text_0=' '
 		self.script_data_text_1=' '
-		self.no_base_events=False
+		self.no_durability_loss=False
 		if hasattr(self, 'trade_cost') and self.trade_cost>0:## because of CardDefs's bug
 			self.tradeable = True## because of CardDefs's bug
 		super().__init__(data)
@@ -220,7 +220,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		if self.zone == Zone.DECK:## EX1_295, SW_072 occurs an error
 			# in existing cards, there isn't one with Deck class.  However, rarely they come here.
 			return self.data.scripts.Deck.events
-		if self.no_base_events:#AV_146e2
+		if self.no_durability_loss:#AV_146e2
 			return self._events # No durability loss. 
 		return self.base_events + self._events
 
@@ -1098,12 +1098,7 @@ class Enchantment(BaseCard):
 					print("(Enchantment.apply)%r removes all damage from %r"%(self, target))
 			target.damage = 0
 		self.zone = Zone.PLAY
-		if self.id == 'YOP_012e':
-			if hasattr(self.owner,'deathrattle_valid'):
-				self.owner.deathrattle_valid = False
-		#if self.id == 'AV_146e2':
-		#	if hasattr(self.owner,'no_base_events'):
-		#		self.owner.no_base_events=True
+
 
 	def remove(self):
 		self.zone = Zone.REMOVEDFROMGAME
