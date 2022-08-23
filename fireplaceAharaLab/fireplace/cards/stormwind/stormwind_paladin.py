@@ -44,16 +44,22 @@ class DED_500:# <5>[1578]
 			if lowest.atk!=highest.atk:
 				diff=highest.atk-lowest.atk
 				Buff(lowest,'DED_500e', atk=diff).trigger(self)
-				Buff(highest,'DED_500e', atk=-diff).trigger(self)
+				Buff(highest,'DED_500e2', atk=-diff).trigger(self)
 	pass
 class DED_500e:
+	pass
+@custom_card
+class DED_500e2:
+	tags={
+		GameTag.CARDNAME:"Wealth Redistributor",
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,}
 	pass
 
 
 
 if StormWind_Sunwing_Squawker:# 
 	StormWind_Paladin+=['DED_501']
-class DED_501:# <5>[1578]
+class DED_501:# <5>[1578] OK
 	""" Sunwing Squawker
 	[Battlecry:] Repeat the last spell you've cast on a__friendly minion on this. """
 	def play(self):	
@@ -76,9 +82,19 @@ if StormWind_Righteous_Defense:#
 class DED_502:# <5>[1578]
 	""" Righteous Defense
 	Set a minion's Attack and Health to 1. Give the stats it lost to a minion in your hand. """
-	#
+	requirements = {PlayReq.REQ_MINION_TARGET: 0,PlayReq.REQ_TARGET_TO_PLAY: 0}
+	def play(self):
+		atk=self.target.atk
+		hlt=self.target.health
+		Buff(self.target, 'DED_502e', atk=1-atk, max_health=1-hlt).trigger(self)
+		if len(self.controller.hand)>0:
+			card = random.choice(self.controller.hand)
+			Buff(card, 'DED_502e2', atk=atk-1, max_health=hlt-1).trigger(self)
 	pass
-
+class DED_502e:
+	pass
+class DED_502e2:
+	pass
 
 
 
@@ -86,21 +102,21 @@ if StormWind_City_Tax:#
 	StormWind_Paladin+=['SW_046']
 class SW_046:# <5>[1578]
 	""" City Tax
-	[Tradeable][Lifesteal]. Deal $1 damageto all enemy minions. """
-	#
+	[Tradeable][Lifesteal]. Deal $1 damage to all enemy minions. """
+	play = Hit(ENEMY_MINIONS, 1)
 	pass
 
 
 
 
 if StormWind_Highlord_Fordragon:# 
-	StormWind_Paladin+=['SW_047']
+	StormWind_Paladin+=['SW_047','SW_047e']
 class SW_047:# <5>[1578]
 	""" Highlord Fordragon
 	[Divine Shield]After a friendly minion loses[Divine Shield], give a minion__in your hand +5/+5. """
-	#
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(Buff(RANDOM(FRIENDLY_MINIONS), 'SW_047e'))
 	pass
-
+SW_047e=buff(5,5)
 
 
 
@@ -237,7 +253,7 @@ class SW_315e:
 		}
 
 
-if StormWind_Noble_Mount:# 
+if StormWind_Noble_Mount:# first half OK
 	StormWind_Paladin+=['SW_316','SW_316e']
 	StormWind_Paladin+=['SW_316t']
 class SW_316:# <5>[1578]
