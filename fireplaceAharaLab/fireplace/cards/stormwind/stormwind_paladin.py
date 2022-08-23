@@ -114,7 +114,7 @@ if StormWind_Highlord_Fordragon:#
 class SW_047:# <5>[1578]
 	""" Highlord Fordragon
 	[Divine Shield]After a friendly minion loses[Divine Shield], give a minion__in your hand +5/+5. """
-	events = LoseDivineShield(FRIENDLY_MINIONS).on(Buff(RANDOM(FRIENDLY_MINIONS), 'SW_047e'))
+	events = LoseDivineShield(FRIENDLY_MINIONS).after(Buff(RANDOM(FRIENDLY_MINIONS), 'SW_047e'))
 	pass
 SW_047e=buff(5,5)
 
@@ -124,19 +124,24 @@ if StormWind_Prismatic_Jewel_Kit:#
 	StormWind_Paladin+=['SW_048']
 class SW_048:# <5>[1578]
 	""" Prismatic Jewel Kit
-	After a friendly minion loses[Divine Shield], give minionsin your hand  +1/+1.Lose 1 Durability. """
-	#
+	After a friendly minion loses[Divine Shield], give minions in your hand  +1/+1. Lose 1 Durability. """
+	events = LoseDivineShield(FRIENDLY_MINIONS).after(Buff(FRIENDLY_HAND + MINION, 'SW_047e'), Predamage(SELF,1))
 	pass
+SW_048e=buff(1,1)
 
 
 
-
-if StormWind_Blessed_Goods:# 
+if StormWind_Blessed_Goods:# ### OK ###
 	StormWind_Paladin+=['SW_049']
 class SW_049:# <5>[1578]
 	""" Blessed Goods
 	[Discover] a [Secret], weapon, or [Divine Shield] minion. """
-	#
+	def play(self):
+		secrets = RandomSpell(secret=True).evaluate(self)
+		weapons = RandomWeapon().evaluate(self)
+		shield_minions = RandomMinion(divine_shield=True).evaluate(self)
+		self.entourage = [secrets[0].id, weapons[0].id, shield_minions[0].id]
+		Discover(self.controller, RandomEntourage()).trigger(self)
 	pass
 
 
@@ -145,9 +150,9 @@ class SW_049:# <5>[1578]
 if StormWind_First_Blade_of_Wrynn:# 
 	StormWind_Paladin+=['SW_305']
 class SW_305:# <5>[1578]
-	""" First Blade of Wrynn
-	[Divine Shield][Battlecry:] Gain [Rush] if thishas at least 4 Attack. """
-	#
+	""" First Blade of Wrynn (4/3/5)
+	[Divine Shield][Battlecry:] Gain [Rush] if this has at least 4 Attack. """
+	play = bool(ATK(SELF)>3) & SetTag(SELF, {GameTag.RUSH:True, })
 	pass
 
 

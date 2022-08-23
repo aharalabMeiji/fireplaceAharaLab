@@ -5,12 +5,12 @@ from hearthstone.enums import Zone, CardType, Rarity
 def stormwind_paladin():
 
 	#PresetGame(pp_DED_500)##
-	PresetGame(pp_DED_501)##OKOK
+	#PresetGame(pp_DED_501)##OKOK
 	#PresetGame(pp_DED_502)##
 	#PresetGame(pp_SW_046)##
 	#PresetGame(pp_SW_047)##
 	#PresetGame(pp_SW_048)##
-	#PresetGame(pp_SW_049)##
+	PresetGame(pp_SW_049)##OK
 	#PresetGame(pp_SW_305)##
 	#PresetGame(pp_SW_313)##
 	#PresetGame(pp_SW_314)##
@@ -201,7 +201,7 @@ class pp_SW_049(Preset_Play):
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
