@@ -2491,6 +2491,8 @@ class SetAtk(TargetedAction):
 class SetCost(TargetedAction):
 	"""
 	Sets the cost of the character target to an amount.
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
 	"""
 	TARGET = ActionArg()
 	AMOUNT = IntArg()

@@ -22,18 +22,25 @@ Stormwind_Lions_Frenzy=True###
 
 if Stormwind_Need_for_Greed:# 
 	Stormwind_DemonHunter+=['DED_506']
-class DED_506:# <14>[1578]
+class DED_506:# <14>[1578] spell(5)
 	""" Need for Greed
 	[Tradeable]Draw 3 cards. If drawn this turn, this costs (3). """
-	#
+	cost = lambda self, i : 3
+	play = Draw(CONTROLLER) * 3
+	events = OWN_TURN_END.on(SetCost(CONTROLLER, 5))
 	pass
 
 if Stormwind_Crows_Nest_Lookout:# 
 	Stormwind_DemonHunter+=['DED_507']
 class DED_507:# <14>[1578]
 	""" Crow's Nest Lookout
-	[Battlecry:] Deal 2 damageto the left and right-mostenemy minions. """
-	#
+	[Battlecry:] Deal 2 damage to the left and right-most enemy minions. """
+	def play(self):
+		leftmost = self.controller.opponent.field[0]
+		rightmost = self.controller.opponent.field[-1]
+		if leftmost!=rightmost:
+			Hit(leftmost, 2).trigger(self)
+		Hit(rightmost, 2).trigger(self)
 	pass
 
 if Stormwind_Proving_Grounds:# 
@@ -41,7 +48,12 @@ if Stormwind_Proving_Grounds:#
 class DED_508:# <14>[1578]
 	""" Proving Grounds
 	Summon two minions from your deck.They fight! """
-	#
+	def play(self):
+		minions = [card for card in self.controller.deck if card.type==CardType.MINION]
+		cards=random.sample(minions, 2)
+		for card in cards:
+			card.zone=Zone.PLAY
+			card.rush=True
 	pass
 
 
