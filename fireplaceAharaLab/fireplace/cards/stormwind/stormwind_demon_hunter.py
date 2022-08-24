@@ -166,9 +166,10 @@ if Stormwind_Felgorger:#
 class SW_043:# <14>[1578]
 	""" Felgorger
 	[Battlecry:] Draw a Fel spell. Reduce its Cost by (2). """
-	#
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + FEL)).on(Buff(Give.CARD,'SW_043e'))
 	pass
-
+class SW_043e:
+	cost=lambda self, i: max(i-2,0)
 
 
 
@@ -177,7 +178,17 @@ if Stormwind_Jace_Darkweaver:#
 class SW_044:# <14>[1578]
 	""" Jace Darkweaver
 	[Battlecry:] Cast all Fel spells you've played this game <i>(targets enemies if possible)</i>. """
-	#
+	def play(self):
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Play) and action['source'].type==CardType.SPELL and action['source'].spell_school==SpellSchool.FEL ]
+		for action in actions:
+			newcard = self.controller.card(action['source'].id)
+			if newcard.targets!=[]:
+				newcard.target=random.choice(newcard.targets)
+				Battlecry(newcard, newcard.target).trigger(self)
+			else:
+				newcard.target=None
+				Battlecry(newcard, None).trigger(self)
+
 	pass
 
 
@@ -189,14 +200,12 @@ if Stormwind_Metamorfin:#
 class SW_451:# <14>[1578]
 	""" Metamorfin
 	[Taunt][Battlecry:] If you've cast a Fel spell this turn, gain +2/+2. """
-	#
+	def play(self):
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Play) and action['source'].type==CardType.SPELL and action['source'].spell_school==SpellSchool.FEL and action['turn']==self.controller.game.turn]
+		if len(actions)>0:
+			Buff(self, 'SW_451e').trigger(self)
 	pass
-
-class SW_451e:# <14>[1578]
-	""" Mighty Morphing
-	+2/+2. """
-	#
-	pass
+SW_451e=buff(2,2)
 
 
 
@@ -206,7 +215,10 @@ if Stormwind_Chaos_Leech:#
 class SW_452:# <14>[1578]
 	""" Chaos Leech
 	[Lifesteal]. Deal $3 damage to a minion.[Outcast:] Deal $5 instead. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, 3)
+	outcast = Hit(TARGET, 5)
+	
 	pass
 
 
@@ -214,12 +226,19 @@ class SW_452:# <14>[1578]
 
 if Stormwind_Lions_Frenzy:# 
 	Stormwind_DemonHunter+=['SW_454']
-class SW_454:# <14>[1578]
+class SW_454_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Draw) and action['turn']==self.controller.game.turn]
+		source.atk = len(actions)
+class SW_454:# <14>[1578] weapon (3/0/2)
 	""" Lion's Frenzy
 	Has Attack equal to the number of cards you've drawn this turn. """
-	#
+	events = [
+		Draw(CONTROLLER).on(SW_454_Action(CONTROLLER)),
+		OWN_TURN_BEGIN.on(SW_454_Action(CONTROLLER))
+	]
 	pass
-
 
 
 ##############################################################################

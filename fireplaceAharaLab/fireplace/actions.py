@@ -1403,6 +1403,8 @@ class SpendMana(TargetedAction):
 class Give(TargetedAction):
 	"""
 	Give player targets card an id.
+	TARGET = ActionArg()
+	CARD = CardArg()	
 	"""
 	TARGET = ActionArg()
 	CARD = CardArg()
