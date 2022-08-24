@@ -108,7 +108,7 @@ class CORE_EX1_193:# <6>[1637]## 23.6 ## OK
 	pass
 
 if Power_Infusion:# 
-	Core_Priest+=['CORE_EX1_194']
+	Core_Priest+=['CORE_EX1_194','EX1_194e']
 class CORE_EX1_194:# <6>[1637]## 23.6 ## OK
 	""" Power Infusion
 	Give a minion +2/+6. """

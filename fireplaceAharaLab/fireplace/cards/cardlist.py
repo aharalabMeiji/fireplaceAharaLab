@@ -91,19 +91,19 @@ Alterac_Paladin=alterac_paladin.Alterac_Paladin
 Alterac_Cards=[Alterac_Druid,Alterac_Hunter,Alterac_Mage,Alterac_Neutral, Alterac_Paladin, Alterac_Warrior,]
 
 ## THE_SUNKEN_CITY = 1658  # Voyage to the Sunken City
-from fireplace.cards.sunken import sunken_druid,sunken_hunter,sunken_mage,sunken_neutral,sunken_warrior
+from fireplace.cards.sunken import sunken_druid,sunken_hunter,sunken_mage,sunken_neutral, sunken_paladin, sunken_warrior
 Sunken_Druid=sunken_druid.Sunken_Druid
 Sunken_Hunter=sunken_hunter.Sunken_Hunter
 Sunken_Mage=sunken_mage.Sunken_Mage
 Sunken_Neutral=sunken_neutral.Sunken_Neutral
 Sunken_Warrior=sunken_warrior.Sunken_Warrior
 #Sunken_Demonhunter=
-#Sunken_Paladin=
+Sunken_Paladin=sunken_paladin.Sunken_Paladin
 #Sunken_Priest=
 #Sunken_Rogue=
 #Sunken_Shaman =
 #Sunken_Warlock=
-Sunken_Cards=[Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral,Sunken_Warrior]
+Sunken_Cards=[Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Warrior]
 
 ## REVENDRETH = 1691  # Murder at Castle Nathria
 # Hero

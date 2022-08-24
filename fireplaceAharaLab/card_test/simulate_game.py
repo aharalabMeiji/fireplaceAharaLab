@@ -168,7 +168,7 @@ class Preset_Play:
 					if _card.race == Race.ELEMENTAL: 
 						choices.append(_id)
 			_card=random.choice(choices)
-		elif _card=='mech':
+		elif _card=='mech' or _card=='mecha':
 			choices=[]
 			for cardIDlist in All:
 				for _id in cardIDlist:
@@ -215,6 +215,14 @@ class Preset_Play:
 					if _card.spell_school == SpellSchool.FROST: 
 						choices.append(_id)
 			_card=random.choice(choices)		
+		elif _card=='holy':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.HOLY: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='nature':
 			choices=[]
 			for cardIDlist in All:

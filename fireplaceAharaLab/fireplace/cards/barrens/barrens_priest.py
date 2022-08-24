@@ -39,7 +39,7 @@ class BAR_308:# <6>[1525]
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
 	def play(self):
 		amount = -len([card for card in self.controller.hand if card.type==CardType.SPELL])
-		Buff(TARGET, 'BAR_308e', cost = amount).trigger(self)
+		Buff(self.target, 'BAR_308e', cost = amount).trigger(self)
 	pass
 @custom_card
 class BAR_308e:

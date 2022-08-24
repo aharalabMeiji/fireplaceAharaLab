@@ -64,7 +64,7 @@ class TID_949:# <5>[1658]
 				break
 	pass
 
-if Sunken_The_Leviathan:# 
+if Sunken_The_Leviathan:# ### OK
 	Sunken_Paladin+=['TSC_030']
 	Sunken_Paladin+=['TSC_030t2']
 class TSC_030:# <5>[1658]
@@ -79,7 +79,7 @@ class TSC_030t2:# <5>[1658]
 	events = Attack(SELF).after(Draw(CONTROLLER))
 	pass
 
-if Sunken_Bubblebot:# 
+if Sunken_Bubblebot:# ### OK
 	Sunken_Paladin+=['TSC_059']
 class TSC_059:# <5>[1658]
 	""" Bubblebot
@@ -96,30 +96,60 @@ if Sunken_Shimmering_Sunfish:#
 class TSC_060:# <5>[1658]
 	""" Shimmering Sunfish
 	[Battlecry:] If you're holding a Holy Spell, gain [Taunt] and [Divine Shield]. """
-	play = Find(FRIENDLY_HAND + SPELL + HOLY) & (SetDivineShield(SELF), SetAttr(SELF, 'taunt', True))
+	play = Find((FRIENDLY_HAND + SPELL) + HOLY) & (SetDivineShield(SELF), SetAttr(SELF, 'taunt', True))
 	pass
 
-if Sunken_The_Gardens_Grace:# 
+if Sunken_The_Gardens_Grace:#  ### OK
 	Sunken_Paladin+=['TSC_061']
 	Sunken_Paladin+=['TSC_061e']
+class TSC_061_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		newcost = target.data.cost
+		for card in target.controller.play_log:
+			if card.type==CardType.SPELL and card.spell_school==SpellSchool.HOLY:
+				newcost -= card.cost
+		newcost = max(newcost, 0)
+		target.cost = newcost
 class TSC_061:# <5>[1658]
 	""" The Garden's Grace
 	Give a minion +5/+5 and [Divine Shield]. Costs (1) less for each Mana you've spent on Holy spells this game. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}	
+	play = Buff(TARGET, 'TSC_061e2'), Buff(TARGET, 'TSC_061e')
+	class Hand:
+		update = TSC_061_Action(SELF)
 	pass
 
-class TSC_061e:# <5>[1658]
-	""" Graced
-	+5/+5 and [Divine Shield]. """
-	#
-	pass
+class TSC_061e:
+	def apply(self, target):
+		target.divine_shield=True
+@custom_card
+class TSC_061e2:# <5>[1658]
+	tags={
+		GameTag.CARDNAME:"+",
+		GameTag.CARDTYPE:CardType.ENCHANTMENT,
+		GameTag.ATK:5,
+		GameTag.HEALTH:5,
+	}
 
-if Sunken_Kotori_Lightblade:# 
+if Sunken_Kotori_Lightblade:# ### OK
 	Sunken_Paladin+=['TSC_074']
+class TSC_074_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		newtargets=[card for card in source.controller.field if card != source]
+		if newtargets!=[]:
+			newcard=Give(source.controller, target.id).trigger(source)
+			newcard=newcard[0][0]
+			newtarget=random.choice(newtargets)
+			newcard.target = newtarget
+			Battlecry(newcard,newtarget).trigger(source)
+			Destroy(newcard).trigger(source)
+
 class TSC_074:# <5>[1658]
 	""" Kotori Lightblade
-	After you cast a Holy spellon this, cast it again on__another friendly minion. """
-	#
+	After you cast a Holy spell on this, cast it again on__another friendly minion. """
+	events = Play(CONTROLLER, SPELL + HOLY, SELF).after(TSC_074_Action(Play.CARD))
 	pass
 
 if Sunken_Immortalized_in_Stone:# 
@@ -210,7 +240,7 @@ class TSC_952_Action1(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		Heal(FRIENDLY_HERO, 2).trigger(source)
-		newcard=Give(source.controller, 'TSC_952')
+		newcard=Give(source.controller, 'TSC_952').trigger(source)
 		newcard=newcard[0][0]
 		newcard.repeatable=True
 		pass
