@@ -968,6 +968,7 @@ class Spell(PlayableCard):
 	def __init__(self, data):
 		self.immune_to_spellpower = False
 		self.receives_double_spelldamage_bonus = False
+		self.repeatable=False # TSC_952
 		super().__init__(data)
 
 	def get_damage(self, amount, target):

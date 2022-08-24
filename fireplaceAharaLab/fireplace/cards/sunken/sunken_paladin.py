@@ -73,7 +73,6 @@ class TSC_030:# <5>[1658]
 	play = Summon(CONTROLLER, 'TSC_030t2')
 	events = Attack(SELF).after(Dredge(CONTROLLER))
 	pass
-
 class TSC_030t2:# <5>[1658]
 	""" The Leviathan's Claw
 	[Rush], [Divine Shield]After this attacks,draw a card. """
@@ -84,8 +83,12 @@ if Sunken_Bubblebot:#
 	Sunken_Paladin+=['TSC_059']
 class TSC_059:# <5>[1658]
 	""" Bubblebot
-	[Battlecry:] Give your otherMechs [Divine Shield]and [Taunt]. """
-	#
+	[Battlecry:] Give your other Mechs [Divine Shield]and [Taunt]. """
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_TARGET_WITH_RACE:Race.MECHANICAL, }
+	def play(self):
+		if self.target:
+			self.target.divine_shield=True
+			self.target.taunt=True
 	pass
 
 if Sunken_Shimmering_Sunfish:# 
@@ -93,18 +96,18 @@ if Sunken_Shimmering_Sunfish:#
 class TSC_060:# <5>[1658]
 	""" Shimmering Sunfish
 	[Battlecry:] If you're holding a Holy Spell, gain [Taunt] and [Divine Shield]. """
-	#
+	play = Find(FRIENDLY_HAND + SPELL + HOLY) & (SetDivineShield(SELF), SetAttr(SELF, 'taunt', True))
 	pass
 
 if Sunken_The_Gardens_Grace:# 
 	Sunken_Paladin+=['TSC_061']
+	Sunken_Paladin+=['TSC_061e']
 class TSC_061:# <5>[1658]
 	""" The Garden's Grace
-	Give a minion +5/+5 and[Divine Shield]. Costs (1) lessfor each Mana you've spenton Holy spells this game. """
+	Give a minion +5/+5 and [Divine Shield]. Costs (1) less for each Mana you've spent on Holy spells this game. """
 	#
 	pass
 
-	Sunken_Paladin+=['TSC_061e']
 class TSC_061e:# <5>[1658]
 	""" Graced
 	+5/+5 and [Divine Shield]. """
@@ -127,21 +130,18 @@ if Sunken_Immortalized_in_Stone:#
 class TSC_076:# <5>[1658]
 	""" Immortalized in Stone
 	Summon a 1/2, 2/4 and 4/8 Elemental with [Taunt]. """
-	#
+	play = Summon(CONTROLLER, 'TSC_076t'), Summon(CONTROLLER, 'TSC_076t2'), Summon(CONTROLLER, 'TSC_076t3')
 	pass
-
 class TSC_076t:# <5>[1658]
 	""" Worn Statue
 	[Taunt] """
 	#
 	pass
-
 class TSC_076t2:# <5>[1658]
 	""" Living Statue
 	[Taunt] """
 	#
 	pass
-
 class TSC_076t3:# <5>[1658]
 	""" Pristine Statue
 	[Taunt] """
@@ -152,16 +152,39 @@ if Sunken_Radar_Detector:#
 	Sunken_Paladin+=['TSC_079']
 class TSC_079:# <5>[1658]
 	""" Radar Detector
-	Scan the bottom 5 cardsof your deck. Draw anyMechs found this way,then shuffle your deck. """
+	Scan the bottom 5 cards of your deck. Draw anyMechs found this way,then shuffle your deck. """
 	#
 	pass
 
 if Sunken_Seafloor_Savior:# 
-	Sunken_Paladin+=['TSC_083']
+	Sunken_Paladin+=['TSC_083','TSC_083e']
+class TSC_083_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if c.type==CardType.MINION:
+					Buff(c, 'TSC_083e', atk=2, max_health=2)
+				break
+		pass
+
+class TSC_083_Dredge(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_083_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TSC_083:# <5>[1658]
-	""" Seafloor Savior
-	[Battlecry:] [Dredge].If it's a minion, give itthis minion's Attackand Health. """
-	#
+	""" Seafloor Savior (2/2/2)
+	[Battlecry:] [Dredge].If it's a minion, give it this minion's Attack and Health. """
+	play = TSC_083_Dredge(CONTROLLER)
+	pass
+class TSC_083e:
 	pass
 
 if Sunken_Azsharan_Mooncatcher:# 
@@ -169,23 +192,39 @@ if Sunken_Azsharan_Mooncatcher:#
 	Sunken_Paladin+=['TSC_644t']
 class TSC_644:# <5>[1658]
 	""" Azsharan Mooncatcher
-	[Divine Shield]. [Battlecry:] Puta 'Sunken Mooncatcher' onthe bottom of your deck. """
-	#
+	[Divine Shield]. [Battlecry:] Put a 'Sunken Mooncatcher' on the bottom of your deck. """
+	play = ShuffleBottom(CONTROLLER, 'TSC_644t')
 	pass
 
 class TSC_644t:# <5>[1658]
 	""" Sunken Mooncatcher
 	[Divine Shield]. [Battlecry:] Summon a copy of this. """
-	#
+	play = Summon(CONTROLLER, ExactCopy(SELF))
 	pass
 
 
 
 if Sunken_Holy_Maki_Roll:# 
 	Sunken_Paladin+=['TSC_952']
+class TSC_952_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Heal(FRIENDLY_HERO, 2).trigger(source)
+		newcard=Give(source.controller, 'TSC_952')
+		newcard=newcard[0][0]
+		newcard.repeatable=True
+		pass
+class TSC_952_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if target.repeatable:
+			Destroy(target).trigger(source)
+		pass
 class TSC_952:# <5>[1658]
 	""" Holy Maki Roll
 	Restore #2 Health. Repeatable this turn. """
-	#
+	play = TSC_952_Action1(SELF)
+	class Hand:
+		events = OWN_TURN_END.on(TSC_952_Action2(SELF))
 	pass
 
