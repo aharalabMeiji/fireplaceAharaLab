@@ -61,19 +61,19 @@ Barrens_Warlock = barrens_warlock.Barrens_Warlock
 Barrens_Cards=[Barrens_DemonHunter, Barrens_Druid,Barrens_Hunter,Barrens_Mage,Barrens_Neutral, Barrens_Paladin, Barrens_Priest, Barrens_Rogue, Barrens_Shaman, Barrens_Warlock, Barrens_Warrior]
 
 ## STORMWIND = 1578  # United in Stormwind
-from fireplace.cards.stormwind import stormwind_druid, stormwind_hunter, stormwind_mage, stormwind_neutral, stormwind_paladin, stormwind_warrior
+from fireplace.cards.stormwind import stormwind_demon_hunter, stormwind_druid, stormwind_hunter, stormwind_mage, stormwind_neutral, stormwind_paladin, stormwind_warrior
 StormWind_Druid=stormwind_druid.StormWind_Druid
 StormWind_Hunter=stormwind_hunter.StormWind_Hunter
 StormWind_Mage=stormwind_mage.StormWind_Mage
 StormWind_Neutral = stormwind_neutral.StormWind_Neutral
 StormWind_Warrior=stormwind_warrior.StormWind_Warrior
-#StormWind_Demonhunter=
+StormWind_Demonhunter=stormwind_demon_hunter.StormWind_Demonhunter
 StormWind_Paladin=stormwind_paladin.StormWind_Paladin
 #StormWind_Priest=
 #StormWind_Rogue=
 #StormWind_Shaman =
 #StormWind_Warlock=
-StormWind_Cards=[StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral, StormWind_Paladin, StormWind_Warrior]
+StormWind_Cards=[StormWind_Demonhunter, StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral, StormWind_Paladin, StormWind_Warrior]
 
 ## ALTERAC_VALLEY = 1626  # Fractured in Alterac Valley
 from fireplace.cards.alterac import alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_warrior
