@@ -60,15 +60,26 @@ class DED_508:# <14>[1578]
 
 if Stormwind_Irebound_Brute:# 
 	Stormwind_DemonHunter+=['SW_037','SW_037e']
+class SW_037_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		while True:
+			thisbuffs=[buff for buff in source.buffs if buff.id=='SW_037e']
+			if thisbuffs!=[]:
+				source.thisbuffs[-1].remove()
+			else:
+				break
 class SW_037:# <14>[1578]
 	""" Irebound Brute
-	[Taunt]Costs (1) less for eachcard drawn this turn. """
-	#
+	[Taunt]Costs (1) less for each card drawn this turn. """
+	events =[
+		OWN_TURN_BEGIN.on(SW_037_Action1(CONTROLLER)),
+		Draw(CONTROLLER).on(Buff(SELF, 'SW_037e'))
+		]
 	pass
 class SW_037e:# <14>[1578]
-	""" Prepped to Strike
-	Costs (1) less. """
-	#
+	""" Prepped to Strike Costs (1) less. """
+	cost = lambda self, i: max(i-1,0)
 	pass
 
 
@@ -138,8 +149,17 @@ if Stormwind_Fel_Barrage:#
 	Stormwind_DemonHunter+=['SW_040']
 class SW_040:# <14>[1578]
 	""" Fel Barrage
-	Deal $2 damage tothe lowest Healthenemy, twice. """
-	#
+	Deal $2 damage to the lowest Health enemy, twice. """
+	def play(self):
+		for repeat in range(2):
+			lowest=[]
+			for card in self.controller.opponent.field:
+				if lowest==[] or lowest[0].health > card.health:
+					lowest=[card]
+				elif lowest[0].health == card.health:
+					lowest.append(card)
+			if lowest!=[]:
+				Hit(random.choice(lowest), 2).trigger(self)
 	pass
 
 
@@ -149,14 +169,13 @@ if Stormwind_Sigil_of_Alacrity:#
 	Stormwind_DemonHunter+=['SW_041']
 class SW_041:# <14>[1578]
 	""" Sigil of Alacrity
-	At the start of your nextturn, draw a card and_reduce its Cost by (1). """
-	#
+	At the start of your next turn, draw a card and_reduce its Cost by (1). """
+	events = OWN_TURN_BEGIN.on(Draw(CONTROLLER).after(Buff(Draw.CARD,'SW_041e2')))
 	pass
 
 class SW_041e2:# <14>[1578]
-	""" Light as a Feather
-	Costs (1) less. """
-	#
+	""" Light as a Feather 	Costs (1) less. """
+	cost = lambda self, i: max(i-1,0)	
 	pass
 
 
@@ -166,8 +185,8 @@ if Stormwind_Persistent_Peddler:#
 	Stormwind_DemonHunter+=['SW_042']
 class SW_042:# <14>[1578]
 	""" Persistent Peddler
-	[Tradeable][Deathrattle:] Summon a Persistent Peddler from your deck. """
-	#
+	[Tradeable][Deathrattle:] Summon a Persistent Peddler(SW_042) from your deck. """
+	deathrattle = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + ID('SW_042')))
 	pass
 
 
