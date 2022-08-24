@@ -29,7 +29,7 @@ class AV_146:# <5>[1626]
 	play = Buff(SELF, 'AV_146e2'), Buff(CONTROLLER,'AV_146e')
 	pass
 
-class AV_146e:# <5>[1626]##############################
+class AV_146e:# <5>[1626]#
 	""" Tough
 	Take half damage, rounded up. """
 	def apply(self, target):
@@ -110,15 +110,30 @@ if Alterac_Brasswing:#
 class AV_340:# <5>[1626]
 	""" Brasswing
 	At the end of your turn, deal2 damage to all enemies.[Honorable Kill:] Restore 4 Health to your hero. """
-	#
+	events = OWN_TURN_END.on(Hit(ENEMY_CHARACTERS, 2))
+	honorable_kill = Heal(FRIENDLY_HERO, 4)
 	pass
 
 if Alterac_Cavalry_Horn:# 
 	Alterac_Paladin+=['AV_341']
+class AV_341_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		lowest=[]
+		for card in target.hand:
+			if card.type==CardType.MINION:
+				if lowest==[] or lowest[0].cost>card.cost:
+					lowest=[card]
+				elif lowest[0].cost==card.cost:
+					lowest.append(card)
+		if len(lowest)==0:
+			return
+		Summon(target, random.choice(lowest)).trigger(source)
+		pass
 class AV_341:# <5>[1626]
 	""" Cavalry Horn
 	[Deathrattle:] Summon the lowest Cost minion in your hand. """
-	#
+	deathrattle=AV_341_Action(CONTROLLER)
 	pass
 
 if Alterac_Protect_the_Innocent:# 
@@ -145,14 +160,20 @@ if Alterac_Stonehearth_Vindicator:#
 	Alterac_Paladin+=['AV_343e']
 class AV_343:# <5>[1626]
 	""" Stonehearth Vindicator
-	[Battlecry:] Draw a spellthat costs (3) or less.It costs (0) this turn. """
-	#
+	[Battlecry:] Draw a spell that costs (3) or less.It costs (0) this turn. """
+	def play(self):
+		cards=[card for card in self.controller.deck if card.cost<=3]
+		if len(cards)>0:
+			card = random.choice(cards)
+			Buff(card,'AV_343e').trigger(self)
+			card.zone=Zone.HAND
 	pass
 
 class AV_343e:# <5>[1626]
 	""" Stone Fortitude
 	Costs (0)  this turn. """
 	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+	cost = lambda self, i : 0
 	pass
 
 if Alterac_Dun_Baldar_Bridge:# 
@@ -160,8 +181,12 @@ if Alterac_Dun_Baldar_Bridge:#
 	Alterac_Paladin+=['AV_344e']
 class AV_344:# <5>[1626]
 	""" Dun Baldar Bridge
-	After you summon aminion, give it +2/+2.Lasts 3 turns. """
-	#
+	After you summon a minion, give it +2/+2.Lasts 3 turns. """
+	tags={GameTag.SIDEQUEST:True, }	
+	events = [
+		Summon(CONTROLLER, FRIENDLY + MINION).after(Buff(Summon.CARD, 'AV_344e')),
+		OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),
+	]
 	pass
 AV_344e=buff(2,2)
 
@@ -178,7 +203,7 @@ class AV_345:# <5>[1626]
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """
 	class Hand:
 		events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
-	events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
+	events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF)),
 	pass
 
 
