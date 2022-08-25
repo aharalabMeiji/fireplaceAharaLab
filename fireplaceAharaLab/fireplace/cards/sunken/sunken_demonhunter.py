@@ -104,18 +104,17 @@ class TSC_006e2:# <14>[1658]
 
 if Sunken_Azsharan_Defector:# 
 	Sunken_DemonHunter+=['TSC_057']
- 
 	Sunken_DemonHunter+=['TSC_057t']
 class TSC_057:# <14>[1658]
 	""" Azsharan Defector
 	[Rush]. [Deathrattle:] Put a'Sunken Defector' on the_bottom of your deck. """
-	#
+	deathrattle = ShuffleBottom(CONTROLLER, 'TSC_057t')
 	pass
 
 class TSC_057t:# <14>[1658]
 	""" Sunken Defector
 	[Charge]. After this attacks, deal 5 damage to a random enemy minion. """
-	#
+	events = Attack(SELF).after(Hit(RANDOM(ENEMY_MINIONS), 5))
 	pass
 
 
@@ -142,18 +141,23 @@ class TSC_058e:# <14>[1658]
 
 if Sunken_Wayward_Sage:# 
 	Sunken_DemonHunter+=['TSC_217']
- 
 	Sunken_DemonHunter+=['TSC_217e']
+class RSC_217_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		left = target.hand[0]
+		right = target.hand[-1]
+		if left!=right:
+			Buff(left, 'TSC_217e')
+		Buff(right, 'TSC_217e')
 class TSC_217:# <14>[1658]
 	""" Wayward Sage
-	[Outcast:] Reduce the Costof the left and right-most_cards in your hand by (1). """
-	#
+	[Outcast:] Reduce the Cost of the left and right-most_cards in your hand by (1). """
+	outcast = RSC_217_Action(CONTROLLER)
 	pass
-
 class TSC_217e:# <14>[1658]
-	""" Found the Wrong Way
-	Costs (1) less. """
-	#
+	""" Found the Wrong Way Costs (1) less. """
+	cost = lambda self, i : max(i-1,0)
 	pass
 
 
@@ -161,10 +165,21 @@ class TSC_217e:# <14>[1658]
 
 if Sunken_Lady_Stheno:# 
 	Sunken_DemonHunter+=['TSC_218']
+class TSC_218_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		low=[]
+		for card in target.opponent.field:
+			if low==[] or low[0].health>card.health:
+				low=[card]
+			elif low[0].health==card.health:
+				low.append(card)
+		RegularAttack(target.hero, random.choice(low)).trigger(source)
 class TSC_218:# <14>[1658]
 	""" Lady S'theno
-	[Immune] while attacking.After you cast a spell, attackthe lowest Health enemy. """
-	#
+	[Immune] while attacking. After you cast a spell, attackthe lowest Health enemy. """
+	#<Tag enumID="373" name="IMMUNE_WHILE_ATTACKING" type="Int" value="1"/>
+	events = Play(CONTROLLER, SPELL).after(TSC_218_Action(CONTROLLER))
 	pass
 
 
@@ -224,7 +239,17 @@ if Sunken_Abyssal_Depths:#
 class TSC_608:# <14>[1658]
 	""" Abyssal Depths
 	Draw your two lowest Cost minions. """
-	#
+	def play(self):
+		for repeat in range(2):
+			low=[]
+			for card in self.controller.deck:
+				if card.type == CardType.MINION:
+					if low==[] or low[0].cost>card.cost:
+						low=[card]
+					if low[0].cost==card.cost:
+						low.append(card)
+			random.choice(low).zone = Zone.HAND
+
 	pass
 
 
@@ -235,8 +260,9 @@ if Sunken_Coilskar_Commander:#
 	Sunken_DemonHunter+=['TSC_609']
 class TSC_609:# <14>[1658]
 	""" Coilskar Commander
-	[Taunt]. [Battlecry:] If you'vecast three spells whileholding this, summon two__copies of this.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
-	#
+	[Taunt]. [Battlecry:] If you've cast three spells while holding this, summon two__copies of this.@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
+	class Hand:
+		events = Play(CONTROLLER, SPELL).on(SidequestCounter(SELF, 3, [Summon(CONTROLLER, 'TSC_609'), Summon(CONTROLLER, 'TSC_609')]))
 	pass
 
 
@@ -247,8 +273,13 @@ if Sunken_Glaiveshark:#
 	Sunken_DemonHunter+=['TSC_610']
 class TSC_610:# <14>[1658]
 	""" Glaiveshark
-	[Battlecry:] If your heroattacked this turn, deal 2damage to all enemies. """
-	#
+	[Battlecry:] If your hero attacked this turn, deal 2 damage to all enemies. """
+	def play(self):
+		actions = [action for action in self.controller._targetedaction_log \
+			if isinstance(action['class'],Attack) and action['source']==self.controller.hero and \
+			action['turn']==self.controller.game.turn]
+		if len(actions):
+			Hit(ENEMY_CHARACTERS, 2).trigger(self)
 	pass
 
 
@@ -260,6 +291,6 @@ if Sunken_Bone_Glaive:#
 class TSC_915:# <14>[1658]
 	""" Bone Glaive
 	[Battlecry:] [Dredge]. """
-	#
+	play = Dredge(CONTROLLER)
 	pass
 
