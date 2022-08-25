@@ -27,6 +27,7 @@ class AV_118:# <14>[1626]
 	events = Attack(FRIENDLY_HERO).after(Summon(CONTROLLER, 'BT_922t')*2)
 	pass
 class BT_922t:
+	""" Felwing """
 	pass
 
 
@@ -211,12 +212,16 @@ if Alterac_Wings_of_Hate_Rank_1:#
 class ONY_016:# <14>[1626]
 	""" Wings of Hate (Rank 1)
 	Summon two 1/1Felwings. <i>(Upgrades when you have 5 Mana.)</i> """
-	play = Summon(CONTROLLER, 'BT_922t')
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'ONY_016t'))	
+	play = Summon(CONTROLLER, 'BT_922t')*2
 	pass
 class ONY_016t:# <14>[1626]
 	""" Wings of Hate (Rank 2)
 	Summon three 1/1Felwings. <i>(Upgradeswhen you have 10 Mana.)</i> """
-	play = Summon(CONTROLLER, 'BT_922t')*2
+	class Hand:
+		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'ONY_016t2'))	
+	play = Summon(CONTROLLER, 'BT_922t')*3
 	pass
 class ONY_016t2:# <14>[1626]
 	""" Wings of Hate (Rank 3)
