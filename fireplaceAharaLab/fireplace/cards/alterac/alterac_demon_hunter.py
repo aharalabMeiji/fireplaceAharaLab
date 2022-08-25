@@ -31,29 +31,30 @@ class BT_922t:
 
 
 
-#### TO DO ####  find the way to get 'after ****, refresh the hero power.'
+
 if Alterac_Kurtrus_Demon_Render:# 
 	Alterac_DemonHunter+=['AV_204']
 	Alterac_DemonHunter+=['AV_204e']
 	Alterac_DemonHunter+=['AV_204p']
 	Alterac_DemonHunter+=['AV_204t2']
-class AV_204:# <14>[1626]  Hero (6/*/30)
+class AV_204:# <14>[1626]  Hero (6/*/30) ##OK
 	""" Kurtrus, Demon-Render
 	[Battlecry:] Summon two@/4 Demons with [Rush].<i>(Improved by your hero attacks this game.)</i> """
 	play = Summon(CONTROLLER, 'AV_204t2')*2
 	pass
-class AV_204e:# <14>[1626]
+class AV_204e:# <14>[1626] ##OK
 	""" Ashfallen's Power
 	+2 Attack this turn. """
 	tags={GameTag.ATK:2, }
 	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
-class AV_204p:# <14>[1626]
+class AV_204p:# <14>[1626] ###### need check
 	""" Ashfallen's Fury
 	[Hero Power]+2 Attack this turn.After a friendly minion attacks, refresh this. """
 	activate = Buff(FRIENDLY_HERO, 'AV_204e')
+	events = Attack(FRIENDLY_MINIONS).after(RefreshHeroPower(FRIENDLY_HERO_POWER))
 	pass
-class AV_204t2:# <14>[1626]
+class AV_204t2:# <14>[1626] ##OK
 	""" Felbat Shrieker
 	[Rush] """
 	#
@@ -90,10 +91,13 @@ AV_261e=buff(1,0)# <14>[1626]
 if Alterac_Warden_of_Chains:# 
 	Alterac_DemonHunter+=['AV_262']
 	Alterac_DemonHunter+=['AV_262e2']
-class AV_262:# <14>[1626] ###############################
+class AV_262:# <14>[1626] #
 	""" Warden of Chains
 	[Taunt][Battlecry:] If you're holdinga Demon that costs (5) or more, gain +1/+2. """
-	play = Find(FRIENDLY_MINIONS + DEMON + (COST>4)).on(Buff(SELF, 'AV_262e2'))### (COST>=5)?
+	def play(self):
+		cards=[card for card in self.controller.hand if card.type==CardType.MINION and card.race==Race.DEMON and card.cost>=5]
+		if len(cards)>0:
+			Buff(SELF, 'AV_262e2').trigger(self)
 	pass
 AV_262e2=buff(1,2)# <14>[1626]
 """ Terrifying	+1/+2. """
@@ -117,7 +121,7 @@ if Alterac_Urzul_Giant:#
 class AV_265:# <14>[1626]
 	""" Ur'zul Giant
 	Costs (1) less for each friendly minion that died this game. """
-	cost_mod = -Count(FIRENDLY+ KILLED)	
+	cost_mod = -Count(FRIENDLY+ KILLED)	
 	pass
 
 
@@ -148,17 +152,17 @@ if Alterac_Flanking_Maneuver:#
 class AV_269:# <14>[1626]
 	""" Flanking Maneuver
 	Summon a 4/2 Demon with [Rush]. If it dies this turn, summon another. """
-	#
+	play = Summon(CONTROLLER, 'AV_269t').then(Buff(Summon.CARD, 'AV_269e'))
 	pass
 class AV_269e:# <14>[1626]
 	""" Woe Is Me
 	If this dies summon another. """
-	#
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>### if in this turn
+	events = Death(OWNER).on(Summon(CONTROLLER, 'AV_269t'))  
 	pass
 class AV_269t:# <14>[1626]
 	""" Snowy Satyr
 	[Rush] """
-	#
 	pass
 
 
@@ -170,12 +174,13 @@ if Alterac_Field_of_Strife:#
 class AV_661:# <14>[1626]
 	""" Field of Strife
 	Your minions have+1 Attack.Lasts 3 turns. """
-	#
+	tags={GameTag.SIDEQUEST:True, }
+	update = Refresh(FRIENDLY_MINIONS, 'AV_661e2')
+	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),]	
 	pass
 class AV_661e2:# <14>[1626]
-	""" Empowered
-	+1 Attack from {0}. """
-	#
+	""" Empowered 	+1 Attack from {0}. """
+	tags = {GameTag.ATK:1,}
 	pass
 
 
@@ -186,13 +191,14 @@ if Alterac_Keen_Reflex:#
 	Alterac_DemonHunter+=['ONY_014e']
 class ONY_014:# <14>[1626]
 	""" Keen Reflex
-	Deal $1 damage to allminions. [Honorable Kill:]Gain +1 Attack this turn. """
-	#
+	Deal $1 damage to all minions. [Honorable Kill:]Gain +1 Attack this turn. """
+	play = Hit(ALL_MINIONS, 1)
+	honorable_kill = Buff(FRIENDLY_HERO, 'ONY_014e')
 	pass
 class ONY_014e:# <14>[1626]
-	""" Keen Reflex
-	+1 Attack this turn. """
-	#
+	""" Keen Reflex 	+1 Attack this turn. """
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+	atk = lambda self,i: i+1
 	pass
 
 
