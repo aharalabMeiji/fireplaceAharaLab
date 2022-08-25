@@ -19,10 +19,33 @@ Sunken_Bone_Glaive=True  ###
 
 if Sunken_Topple_the_Idol:# 
 	Sunken_DemonHunter+=['TID_703']
+class TID_703_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				Hit(ALL_MINIONS, c.cost)
+				break
+		pass
+
+class TID_703_Dredge(TargetedAction):
+	"""
+	TARGET=ActionArg()#CONTROLLER
+	"""
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TID_703_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TID_703:# <14>[1658]
 	""" Topple the Idol
 	[Dredge]. Reveal it anddeal damage equal to_its Cost to all minions. """
-	#
+	play = TID_703_Dredge(CONTROLLER)
 	pass
 
 
@@ -33,7 +56,7 @@ if Sunken_Fossil_Fanatic:#
 class TID_704:# <14>[1658]
 	""" Fossil Fanatic
 	After your hero attacks, draw a Fel spell. """
-	#
+	events = Attack(FRIENDLY_HERO).after(Give(CONTROLLER, RANDOM(FRIENDLY_DECK + FEL)))
 	pass
 
 
@@ -41,18 +64,17 @@ class TID_704:# <14>[1658]
 
 if Sunken_Herald_of_Chaos:# 
 	Sunken_DemonHunter+=['TID_706']
-
 	Sunken_DemonHunter+=['TID_706e']
 class TID_706:# <14>[1658]
 	""" Herald of Chaos
 	[Lifesteal][Battlecry:] If you've cast aFel spell while holding this,gain [Rush]. """
-	#
+	class Hand:
+		events = Play(CONTROLLER, FEL).after(Buff(SELF, 'TID_706e'))
 	pass
 
 class TID_706e:# <14>[1658]
-	""" Felfused
-	Has [Rush]. """
-	#
+	""" Felfused Has [Rush]. """
+	tags = {GameTag.RUSH:True,}
 	pass
 
 
@@ -60,26 +82,21 @@ class TID_706e:# <14>[1658]
 
 if Sunken_Multi_Strike:# 
 	Sunken_DemonHunter+=['TSC_006']
-
 	Sunken_DemonHunter+=['TSC_006e']
-
 	Sunken_DemonHunter+=['TSC_006e2']
 class TSC_006:# <14>[1658]
 	""" Multi-Strike
 	Give your hero +2 Attack this turn. They may attack an additional enemy minion. """
-	#
+	play = Buff(FRIENDLY_HERO, "TSC_006e"), Buff(FRIENDLY_HERO, "TSC_006e2")
 	pass
 
-class TSC_006e:# <14>[1658]
-	""" Soulbound
-	+2 Attack this turn. """
-	#
-	pass
+TSC_006e=buff(2,0)
+#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
 class TSC_006e2:# <14>[1658]
-	""" Multi-Strike enchant
-	Attack +2. """
-	#
+	""" Multi-Strike enchant Attack +2. """
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+	tags = { GameTag.WINDFURY:1, }
 	pass
 
 

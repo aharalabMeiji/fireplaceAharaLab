@@ -2839,6 +2839,9 @@ class DredgeChoice(Choice):
 		pass
 
 class Dredge(TargetedAction):
+	"""
+	TARGET=ActionArg()#CONTROLLER
+	"""
 	TARGET=ActionArg()
 	def do(self, source, target):
 		bottom3ID=[card.id for card in target.deck[:3]]
