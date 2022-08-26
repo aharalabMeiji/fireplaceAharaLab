@@ -243,7 +243,13 @@ class Preset_Play:
 		elif _card=='corrupt':
 			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
 		elif _card=='deathrattle':
-			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.deathrattle==True: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='noTaunt':
 			choices=[]
 			for cardIDlist in All:

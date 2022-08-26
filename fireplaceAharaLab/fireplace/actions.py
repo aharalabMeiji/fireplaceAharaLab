@@ -889,10 +889,13 @@ class TargetedAction(Action):
 				target_args = self.get_target_args(source, target)
 				from .player import Player
 				from .card import PlayableCard
+				from .game import Game
 				if isinstance(source, Player):
 					source.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args, 'turn':source.controller.game.turn})## log for action
 				elif isinstance(source, PlayableCard):
 					source.controller.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args, 'turn':source.controller.game.turn})## log for action
+				elif isinstance(source, Game):
+					target.controller.add_targetedaction_log({'class':self,'source':source,'target':target,'target_args':target_args, 'turn':source.turn})## log for action
 				ret.append(self.do(source, target, *target_args))
 
 				for action in self.callback:
@@ -1451,7 +1454,7 @@ class Hit(TargetedAction):
 
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			print("Hit,%s,%s,%d,None"%(source, target, amount))
+			print("(Hit.do),%s hits %s by %d"%(source, target, amount))
 		amount = source.get_damage(amount, target)
 		# if target is hero and target.controller has buff 'AV_146e'(Take half damage, rounded up)
 		if target.type==CardType.HERO and target.controller.take_half_damage:
@@ -1497,7 +1500,7 @@ class SplitHit(TargetedAction):
 
 	def do(self, source, target, targets, amount):
 		if Config.LOGINFO:
-			print("SplitHit,%s,%s,%d,None"%(source, targets, amount))
+			print("(SplitHit.do),%s hits %s splitly by %d"%(source, targets, amount))
 		if not isinstance(targets, list):
 			targets = [targets]
 		ret = []

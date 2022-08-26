@@ -1,27 +1,27 @@
 
 from ..utils import *
 
-Stormwind_DemonHunter=[]
+StormWind_DemonHunter=[]
 
 
-Stormwind_Need_for_Greed=True###
-Stormwind_Crows_Nest_Lookout=True###
-Stormwind_Proving_Grounds=True###
-Stormwind_Irebound_Brute=True###
-Stormwind_Final_Showdown=True###
-Stormwind_Fel_Barrage=True###
-Stormwind_Sigil_of_Alacrity=True###
-Stormwind_Persistent_Peddler=True###
-Stormwind_Felgorger=True###
-Stormwind_Jace_Darkweaver=True###
-Stormwind_Metamorfin=True###
-Stormwind_Chaos_Leech=True###
-Stormwind_Lions_Frenzy=True###
+StormWind_Need_for_Greed=True###
+StormWind_Crows_Nest_Lookout=True###
+StormWind_Proving_Grounds=True###
+StormWind_Irebound_Brute=True###
+StormWind_Final_Showdown=True###
+StormWind_Fel_Barrage=True###
+StormWind_Sigil_of_Alacrity=True###
+StormWind_Persistent_Peddler=True###
+StormWind_Felgorger=True###
+StormWind_Jace_Darkweaver=True###
+StormWind_Metamorfin=True###
+StormWind_Chaos_Leech=True###
+StormWind_Lions_Frenzy=True###
 
 
 
-if Stormwind_Need_for_Greed:# 
-	Stormwind_DemonHunter+=['DED_506']
+if StormWind_Need_for_Greed:# 
+	StormWind_DemonHunter+=['DED_506']
 class DED_506:# <14>[1578] spell(5)
 	""" Need for Greed
 	[Tradeable]Draw 3 cards. If drawn this turn, this costs (3). """
@@ -30,8 +30,8 @@ class DED_506:# <14>[1578] spell(5)
 	events = OWN_TURN_END.on(SetCost(CONTROLLER, 5))
 	pass
 
-if Stormwind_Crows_Nest_Lookout:# 
-	Stormwind_DemonHunter+=['DED_507']
+if StormWind_Crows_Nest_Lookout:# 
+	StormWind_DemonHunter+=['DED_507']
 class DED_507:# <14>[1578]
 	""" Crow's Nest Lookout
 	[Battlecry:] Deal 2 damage to the left and right-most enemy minions. """
@@ -43,8 +43,8 @@ class DED_507:# <14>[1578]
 		Hit(rightmost, 2).trigger(self)
 	pass
 
-if Stormwind_Proving_Grounds:# 
-	Stormwind_DemonHunter+=['DED_508']
+if StormWind_Proving_Grounds:# 
+	StormWind_DemonHunter+=['DED_508']
 class DED_508:# <14>[1578]
 	""" Proving Grounds
 	Summon two minions from your deck.They fight! """
@@ -58,8 +58,8 @@ class DED_508:# <14>[1578]
 
 
 
-if Stormwind_Irebound_Brute:# 
-	Stormwind_DemonHunter+=['SW_037','SW_037e']
+if StormWind_Irebound_Brute:# 
+	StormWind_DemonHunter+=['SW_037','SW_037e']
 class SW_037_Action1(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -85,12 +85,12 @@ class SW_037e:# <14>[1578]
 
 
 
-if Stormwind_Final_Showdown:# 
-	Stormwind_DemonHunter+=['SW_039']
-	Stormwind_DemonHunter+=['SW_039t']
-	Stormwind_DemonHunter+=['SW_039t2e']
-	Stormwind_DemonHunter+=['SW_039t3']
-	Stormwind_DemonHunter+=['SW_039t3_t','SW_039t3_te']
+if StormWind_Final_Showdown:# 
+	StormWind_DemonHunter+=['SW_039']
+	StormWind_DemonHunter+=['SW_039t']
+	StormWind_DemonHunter+=['SW_039t2e']
+	StormWind_DemonHunter+=['SW_039t3']
+	StormWind_DemonHunter+=['SW_039t3_t','SW_039t3_te']
 class SW_039_Action1(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
@@ -145,8 +145,8 @@ class SW_039t3_te:
 
 
 
-if Stormwind_Fel_Barrage:# 
-	Stormwind_DemonHunter+=['SW_040']
+if StormWind_Fel_Barrage:# 
+	StormWind_DemonHunter+=['SW_040']
 class SW_040:# <14>[1578]
 	""" Fel Barrage
 	Deal $2 damage to the lowest Health enemy, twice. """
@@ -165,8 +165,8 @@ class SW_040:# <14>[1578]
 
 
 
-if Stormwind_Sigil_of_Alacrity:# 
-	Stormwind_DemonHunter+=['SW_041']
+if StormWind_Sigil_of_Alacrity:# 
+	StormWind_DemonHunter+=['SW_041']
 class SW_041:# <14>[1578]
 	""" Sigil of Alacrity
 	At the start of your next turn, draw a card and_reduce its Cost by (1). """
@@ -181,8 +181,8 @@ class SW_041e2:# <14>[1578]
 
 
 
-if Stormwind_Persistent_Peddler:# 
-	Stormwind_DemonHunter+=['SW_042']
+if StormWind_Persistent_Peddler:# 
+	StormWind_DemonHunter+=['SW_042']
 class SW_042:# <14>[1578]
 	""" Persistent Peddler
 	[Tradeable][Deathrattle:] Summon a Persistent Peddler(SW_042) from your deck. """
@@ -192,8 +192,8 @@ class SW_042:# <14>[1578]
 
 
 
-if Stormwind_Felgorger:# 
-	Stormwind_DemonHunter+=['SW_043']
+if StormWind_Felgorger:# 
+	StormWind_DemonHunter+=['SW_043']
 class SW_043:# <14>[1578]
 	""" Felgorger
 	[Battlecry:] Draw a Fel spell. Reduce its Cost by (2). """
@@ -204,8 +204,8 @@ class SW_043e:
 
 
 
-if Stormwind_Jace_Darkweaver:# 
-	Stormwind_DemonHunter+=['SW_044']
+if StormWind_Jace_Darkweaver:# 
+	StormWind_DemonHunter+=['SW_044']
 class SW_044:# <14>[1578]
 	""" Jace Darkweaver
 	[Battlecry:] Cast all Fel spells you've played this game <i>(targets enemies if possible)</i>. """
@@ -225,9 +225,9 @@ class SW_044:# <14>[1578]
 
 
 
-if Stormwind_Metamorfin:# 
-	Stormwind_DemonHunter+=['SW_451']
-	Stormwind_DemonHunter+=['SW_451e']
+if StormWind_Metamorfin:# 
+	StormWind_DemonHunter+=['SW_451']
+	StormWind_DemonHunter+=['SW_451e']
 class SW_451:# <14>[1578]
 	""" Metamorfin
 	[Taunt][Battlecry:] If you've cast a Fel spell this turn, gain +2/+2. """
@@ -241,8 +241,8 @@ SW_451e=buff(2,2)
 
 
 
-if Stormwind_Chaos_Leech:# 
-	Stormwind_DemonHunter+=['SW_452']
+if StormWind_Chaos_Leech:# 
+	StormWind_DemonHunter+=['SW_452']
 class SW_452:# <14>[1578]
 	""" Chaos Leech
 	[Lifesteal]. Deal $3 damage to a minion.[Outcast:] Deal $5 instead. """
@@ -255,8 +255,8 @@ class SW_452:# <14>[1578]
 
 
 
-if Stormwind_Lions_Frenzy:# 
-	Stormwind_DemonHunter+=['SW_454']
+if StormWind_Lions_Frenzy:# 
+	StormWind_DemonHunter+=['SW_454']
 class SW_454_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):

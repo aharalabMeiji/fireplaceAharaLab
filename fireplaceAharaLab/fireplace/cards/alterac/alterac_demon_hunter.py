@@ -177,7 +177,7 @@ class AV_661:# <14>[1626]
 	Your minions have+1 Attack.Lasts 3 turns. """
 	tags={GameTag.SIDEQUEST:True, }
 	update = Refresh(FRIENDLY_MINIONS, 'AV_661e2')
-	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)])),]	
+	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)]))	
 	pass
 class AV_661e2:# <14>[1626]
 	""" Empowered 	+1 Attack from {0}. """

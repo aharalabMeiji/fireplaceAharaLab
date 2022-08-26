@@ -220,37 +220,48 @@ class SW_052t8_t:# <7>[1578]
 
 
 
-if StormWind_Counterfeit_Blade:# 
+if StormWind_Counterfeit_Blade:# ### OK 
 	StormWind_Rogue+=['SW_310']
 	StormWind_Rogue+=['SW_310e']
 class SW_310:# <7>[1578]
 	""" Counterfeit Blade
-	[Battlecry:] Gain a randomfriendly [Deathrattle] that_triggered this game. """
-	#
+	[Battlecry:] Gain a random friendly [Deathrattle] that_triggered this game. """
+	def play(self):
+		actions=[action for action in self.controller._targetedaction_log if\
+			isinstance(action['class'], Deathrattle) ]
+		if len(actions)>0:
+			action = random.choice(actions)
+			new_deathrattles = action['target'].deathrattles
+			ret = new_deathrattles[0]
+			self.has_deathrattle=True
+			self.data.tags[GameTag.DEATHRATTLE]=True
+			self.data.scripts.deathrattle=tuple(ret)
+			print("Copy [deathrattle] %s->%s"%(action['target'], self))
 	pass
 
 class SW_310e:# <7>[1578]
 	""" Counterfeit Blade
 	Copied [Deathrattle] from {0}. """
-	#
+	tags = {GameTag.DEATHRATTLE:True}
 	pass
 
 
 
 
-if StormWind_Garrote:# 
+if StormWind_Garrote:# ### OK
 	StormWind_Rogue+=['SW_311']
 	StormWind_Rogue+=['SW_311t']
 class SW_311:# <7>[1578]
 	""" Garrote
-	Deal $2 damage to theenemy hero. Shuffle 2Bleeds into your deck thatdeal $2 more when drawn. """
-	#
+	Deal $2 damage to the enemy hero. Shuffle 2 Bleeds into your deck that deal $2 more when drawn. """
+	play = Hit(ENEMY_HERO, 2), Shuffle(CONTROLLER, 'SW_311t') * 2
 	pass
 
 class SW_311t:# <7>[1578]
 	""" Bleed
 	[Casts When Drawn]Deal $2 damage to the enemy hero. """
-	#
+	#<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
+	play = Hit(ENEMY_HERO, 2)
 	pass
 
 

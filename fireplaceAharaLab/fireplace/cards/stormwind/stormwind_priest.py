@@ -54,7 +54,7 @@ class DED_513:# <6>[1578]
 if StormWind_Copycat:# 
 	StormWind_Priest+=['DED_514','DED_514e']
 class DED_514:# <6>[1578]
-	""" Copycat ÇÀÇ±Ç“Å[
+	""" Copycat 
 	[Battlecry:] Add a copy of the next card your opponent plays to your hand. """
 	play = buff(CONTROLLER, 'DED_514e')
 	pass
