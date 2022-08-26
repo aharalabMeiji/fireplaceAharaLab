@@ -139,6 +139,7 @@ TIER = AttrValue("tavern_tier")
 TECH_LEVEL = AttrValue(GameTag.TECH_LEVEL)
 TAG_SCRIPT_DATA_NUM_1 = AttrValue(GameTag.TAG_SCRIPT_DATA_NUM_1)
 RACE = AttrValue(GameTag.CARDRACE)
+CARDCLASS = AttrValue(GameTag.CLASS)
 
 class ComparisonSelector(Selector):
 	"""A ComparisonSelector compares values of entities to

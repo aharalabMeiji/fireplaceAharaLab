@@ -175,34 +175,46 @@ class SW_052t4e:# <7>[1578]
 	events = OWN_TURN_END.on(Destroy(SELF))
 	pass
 
+
+class SW_052t5_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		for cd in self.source.controller.opponent.deck:
+			if cd.id==card.id:
+				cd.zone=Zone.GRAVEYARD## discard
+				break
+		card.zone=Zone.DECK
+		# card.controller.deck.append(card)
 class SW_052t5:# <7>[1578]
 	""" Spy-o-matic
 	[Battlecry:] Look at 3 cards in your opponent's deck. Pick one to put on top. """
-	
+	def play(self):
+		cards=[card.id for card in self.controller.opponent.deck]
+		SW_052t5_Choice(self.controller, RandomID(cards)*3).trigger(self)
 	pass
 
 class SW_052t6:# <7>[1578]
 	""" Noggen-Fog Generator
 	Give a minion +2 Attack and [Stealth]. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Buff(TARGET, 'SW_052t6e')#
 	pass
 
 class SW_052t6e:# <7>[1578]
-	""" Noggen-Fog
-	+2 Attack and [Stealth]. """
-	#
+	""" Noggen-Fog +2 Attack and [Stealth]. """
+	tags ={GameTag.ATK:2, GameTag.STEALTH:True}
 	pass
 
 class SW_052t7:# <7>[1578]
 	""" Hidden Gyroblade
 	[Deathrattle:] Throw this at a random enemy minion. """
-	#
+	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 3)
 	pass
 
 class SW_052t8_t:# <7>[1578]
 	""" Undercover Mole
 	[Stealth]. After this attacks,add a random card toyour hand <i>(from youropponent's class).</i> """
-	#
+	events = Attack(SELF).after(Give(CONTROLLER, RandomCollectible(card_class=CARDCLASS(OPPONENT))))
 	pass
 
 
