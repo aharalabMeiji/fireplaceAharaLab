@@ -269,10 +269,14 @@ class SW_311t:# <7>[1578]
 
 if StormWind_Sketchy_Information:# 
 	StormWind_Rogue+=['SW_405']
-class SW_405:# <7>[1578]
+class SW_405:# <7>[1578] spell(3)
 	""" Sketchy Information
-	Draw a [Deathrattle] cardthat costs (4) or less.Trigger its [Deathrattle.] """
-	#
+	Draw a [Deathrattle] card that costs (4) or less.Trigger its [Deathrattle.] """
+	def play(self):
+		newcard = Give(self.controller, RandomDeathrattle(cost=[1,2,3,4])).trigger(self)
+		newcard=newcard[0][0]
+		action = newcard.deathrattles[0]
+		action.trigger(self)
 	pass
 
 
@@ -284,13 +288,12 @@ if StormWind_SI7_Informant:#
 class SW_411:# <7>[1578]
 	""" SI:7 Informant
 	[Battlecry:] Gain +1/+1 for each other SI:7 card you've played this game. """
-	#
+	def play(self):
+		cards = [card for card in self.controller.play_log if card.SI7_minion==True]
+		Buff(self, 'SW_411e', atk=len(cards), max_health=len(cards))
 	pass
-
 class SW_411e:# <7>[1578]
-	""" Well Informed
-	+1/+1 """
-	#
+	""" Well Informed 	+1/+1 """
 	pass
 
 
@@ -301,6 +304,8 @@ if StormWind_SI7_Extortion:#
 class SW_412:# <7>[1578]
 	""" SI:7 Extortion
 	[Tradeable]Deal $3 damage to an undamaged character. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_UNDAMAGED_TARGET: 0}
+	play = Hit(TARGET, 3)
 	#
 	pass
 
@@ -312,7 +317,7 @@ if StormWind_SI7_Operative:#
 class SW_413:# <7>[1578]
 	""" SI:7 Operative
 	[Rush]After this attacks a minion, gain [Stealth]. """
-	#
+	events = Attack(SELF, ENEMY_MINIONS).after(SetAttr(SELF, 'stealth', True))
 	pass
 
 
@@ -323,7 +328,9 @@ if StormWind_SI7_Assassin:#
 class SW_417:# <7>[1578]
 	""" SI:7 Assassin
 	Costs (1) less for each SI:7card you've played this game.[Combo:] Destroy anenemy minion. """
-	#
+	cost_mod = -Count((FRIENDLY_MINIONS | FRIENDLY_KILLED) + SI7_MINION)
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	combo = Destroy(TARGET)
 	pass
 
 
@@ -334,7 +341,8 @@ if StormWind_Loan_Shark:#
 class SW_434:# <7>[1578]
 	""" Loan Shark
 	[Battlecry:] Give youropponent a Coin.__[Deathrattle:] You get two. """
-	#
+	play = Give(OPPONENT, 'GAME_005')
+	deathrattle = Give(CONTROLLER, 'GAME_005') * 2
 	pass
 
 

@@ -175,7 +175,7 @@ class SW_440_Choice(Choice):
 class SW_440:# <6>[1578]
 	""" Call of the Grave
 	[Discover] a [Deathrattle] minion. If you have enough Mana to play it, trigger its [Deathrattle]. """
-	play = SW_440_Choice(CONTROLLER, RandomMinion(has_deathrattle=True))
+	play = SW_440_Choice(CONTROLLER, RandomDeathrattle())
 	pass
 
 
