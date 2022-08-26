@@ -75,7 +75,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	#mulligan exchange end
 	if Config.LOGINFO:
 		print("New game start")
-
+	for player in game.players:
+		BeginGame(player).trigger(player)
 	while True:	
 		#game main loop
 		player = game.current_player

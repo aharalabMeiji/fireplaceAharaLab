@@ -212,12 +212,18 @@ if StormWind_Elekk_Mount:#
 class SW_443:# <6>[1578]
 	""" Elekk Mount
 	Give a minion +4/+7 and [Taunt]. When it dies, summon an Elekk. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}	
+	play = Buff(TARGET, 'SW_443e')
 	pass
 class SW_443e:# <6>[1578]
 	""" On an Elekk
 	+4/+7 and [Taunt]. [Deathrattle:] Summon an Elekk. """
-	#
+	tags = {
+		GameTag.ATK:4,
+		GameTag.HEALTH:7,
+		GameTag.TAUNT:True
+		}
+	deathrattle = Summon(CONTROLLER, 'SW_443t')
 	pass
 class SW_443t:# <6>[1578]
 	""" Xyrella's Elekk
@@ -233,7 +239,14 @@ if StormWind_Twilight_Deceptor:#
 class SW_444:# <6>[1578]
 	""" Twilight Deceptor
 	[Battlecry:] If any hero took damage this turn, draw a Shadow spell. """
-	#
+	def play(self):
+		controller = self.controller
+		actions = [action for action in controller._targetedaction_log if\
+			isinstance(action['class'],Hit) and action['target'].type==CardType.HERO and action['target_args'][0]>0 and action['turn']==controller.game.turn]
+		if len(actions)>0:
+			cards = [card for card in controller.deck if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
+			if len(cards)>0:
+				Give(controller, random.choice(cards)).trigger(self)
 	pass
 
 
@@ -244,7 +257,7 @@ if StormWind_Psyfiend:#
 class SW_445:# <6>[1578]
 	""" Psyfiend
 	After you cast a Shadow spell, deal 2 damage to each hero. """
-	#
+	events = Play(CONTROLLER, SHADOW).after(Hit(ALL_HEROES, 2))
 	pass
 
 
@@ -256,7 +269,7 @@ if StormWind_Voidtouched_Attendant:#
 class SW_446:# <6>[1578]
 	""" Voidtouched Attendant
 	Both heroes take one extra damage from all sources. """
-	#
+	play = SetAttr(ALL_HEROES, 'get_extra_damage', 1)
 	pass
 class SW_446e:# <6>[1578]
 	""" Voidtouched
@@ -269,10 +282,20 @@ class SW_446e:# <6>[1578]
 
 if StormWind_Darkbishop_Benedictus:# 
 	StormWind_Priest+=['SW_448']
+class SW_448_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		cards = [card for card in target.deck if card.type==CardType.SPELL and card.spell_school!=SpellSchool.SHADOW]
+		if len(cards)==0:
+			Morph(source, 'CORE_EX1_625')
+
 class SW_448:# <6>[1578]
 	""" Darkbishop Benedictus
-	[Start of Game:] If the spells in your deck are all Shadow, enter Shadowform. """
-	#
+	[Start of Game:] If the spells in your deck are all Shadow, enter Shadowform(CORE_EX1_625). """
+	class Hand:
+		events = BeginGame(CONTROLLER).on(SW_448_Action(CONTROLLER))
+	class Deck:
+		events = BeginGame(CONTROLLER).on(SW_448_Action(CONTROLLER))
 	pass
 
 #####################################

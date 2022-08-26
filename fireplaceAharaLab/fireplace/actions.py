@@ -1463,6 +1463,7 @@ class Hit(TargetedAction):
 		#	killed_by_poisonous_spell=True
 		if amount:
 			#if isinstance(source,PlayableCard):
+			#self.broadcast(source, EventListener.ON, target, amount)
 			target.attacker=source ## 
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
 				if target.type==CardType.WEAPON and target==source:## when decreasing durability

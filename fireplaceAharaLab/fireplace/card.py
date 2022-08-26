@@ -199,6 +199,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.choose_both = False
 		self.choose_cards = CardList()
 		self.entourage = CardList(data.entourage)
+		self.get_extra_damage = 0
 		self.has_combo = False
 		self.overload = 0
 		self.target = None
@@ -507,6 +508,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def trade(self,option=0):
 		self.game.trade_card(self, option)
 		pass
+
+	def get_damage(self, amount, target):
+		amount = super().get_damage(amount, target)
+		return amount + target.get_extra_damage
 
 
 class LiveEntity(PlayableCard, Entity):
