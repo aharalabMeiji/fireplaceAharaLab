@@ -2,7 +2,7 @@ class Config:# ()is the default value
 
 	HEARTHSTONE=0# ランク戦をするならこちら（バトグラより優先）
 	BATTLEGROUNDS=0# バトグラをするならこちら
-	CARDTEST=0# カードの動作テストをするならこちら
+	CARDTEST=1# カードの動作テストをするならこちら
 	CARDCLASS=1# カードクラス（core & hunter など）のカードの抽出するモード
 
 	#ランク戦のオプション
@@ -20,7 +20,6 @@ class Config:# ()is the default value
 	LOGINFO_INDENT=">"
 	LOGINFO_LOG=[]
 	DEEPCOPY_LOGINFO=0
-	PRINT_HITLOG=0 # Hitイベントを表示する
 
 	#battlegrounds option
 	PATCH_VERSION = 2360

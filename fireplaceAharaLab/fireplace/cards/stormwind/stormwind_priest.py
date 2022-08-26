@@ -26,7 +26,13 @@ if StormWind_Amulet_of_Undying:#
 class DED_512:# <6>[1578]
 	""" Amulet of Undying
 	[Tradeable]Resurrect @ friendly[Deathrattle] |4(minion, minions).<i>(Upgrades when [Traded]!)</i> """
-	#
+	#@ = self.script_data_num_1
+	#resurrect = 一度死んだものをフィールドにもどす。← summon
+	def play(self):
+		cards=[card for card in self.controller.graveyard if card.has_deathrattle==True]
+		repeat = min(len(cards), self.script_data_num_1+1)
+	class Hand:
+		events = Trade(CONTROLLER).after(AddScriptDataNum1(SELF))
 	pass
 
 
@@ -35,8 +41,10 @@ class DED_512:# <6>[1578]
 if StormWind_Defias_Leper:# 
 	StormWind_Priest+=['DED_513']
 class DED_513:# <6>[1578]
-	""" Defias Leper
+	""" Defias Leper  (2/3/2)
 	[Battlecry:] If you're holdinga Shadow spell, deal2 damage. """
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	play = Find(FRIENDLY_HAND + SHADOW) & Hit(TARGET, 2)
 	#
 	pass
 
@@ -44,13 +52,18 @@ class DED_513:# <6>[1578]
 
 
 if StormWind_Copycat:# 
-	StormWind_Priest+=['DED_514']
+	StormWind_Priest+=['DED_514','DED_514e']
 class DED_514:# <6>[1578]
-	""" Copycat
+	""" Copycat ねこぴー
 	[Battlecry:] Add a copy of the next card your opponent plays to your hand. """
-	#
+	play = buff(CONTROLLER, 'DED_514e')
 	pass
-
+class DED_514e:
+	events = Play(OPPONENT).after(
+		Give(CONTROLLER, Copy(Play.CARD)),
+		Destroy(SELF)
+		)
+	pass
 
 
 
@@ -59,7 +72,10 @@ if StormWind_Shadowcloth_Needle:#
 class SW_012:# <6>[1578]
 	""" Shadowcloth Needle
 	After you cast a Shadowspell, deal 1 damageto all enemies.Lose 1 Durability. """
-	#
+	events = Play(CONTROLLER, SHADOW).after(
+		Hit(ENEMY_CHARACTERS, 1),
+		Hit(FRIENDLY_WEAPON, 1)
+		)
 	pass
 
 
@@ -135,7 +151,7 @@ class SW_433t3:# <6>[1578]
 class SW_433t3a:# <6>[1578]
 	""" Purified Shard
 	Destroy the enemy hero. """
-	#
+	play=Hit(ENEMY_HERO,10000)#Destroy(ENEMY_HERO)
 	pass
 
 
@@ -143,10 +159,23 @@ class SW_433t3a:# <6>[1578]
 
 if StormWind_Call_of_the_Grave:# 
 	StormWind_Priest+=['SW_440']
+class SW_440_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(GenericChoice.choose)%s chooses %r"%(card.controller.name, card))
+		for _card in self.cards:
+			if _card is card:
+				if len(self.player.hand) < self.player.max_hand_size:
+					new_card = self.player.card(_card.id)# make a new copy
+					new_card.zone = Zone.HAND
+					if new_card.cost <= new_card.controller.mana:
+						actions = new_card.cost.deathrattle
+						actions.trigger(new_card.controller)
 class SW_440:# <6>[1578]
 	""" Call of the Grave
-	[Discover] a [Deathrattle]minion. If you haveenough Mana to play it,trigger its [Deathrattle]. """
-	#
+	[Discover] a [Deathrattle] minion. If you have enough Mana to play it, trigger its [Deathrattle]. """
+	play = SW_440_Choice(CONTROLLER, RandomMinion(has_deathrattle=True))
 	pass
 
 
@@ -157,7 +186,7 @@ if StormWind_Shard_of_the_Naaru:#
 class SW_441:# <6>[1578]
 	""" Shard of the Naaru
 	[Tradeable][Silence] all enemy minions. """
-	#
+	play = Silence(ENEMY_MINIONS)
 	pass
 
 
@@ -168,7 +197,9 @@ if StormWind_Void_Shard:#
 class SW_442:# <6>[1578]
 	""" Void Shard
 	[Lifesteal]Deal $4 damage. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
+	play = Hit(TARGET, 4)
+	#<Tag enumID="685" name="LIFESTEAL" type="Int" value="1"/>
 	pass
 
 

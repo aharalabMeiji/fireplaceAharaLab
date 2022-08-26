@@ -6,7 +6,7 @@ from itertools import chain
 from hearthstone.enums import BlockType, CardType, GameTag, PlayState, State, Step, Zone
 
 from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
-	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff
+	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
@@ -181,11 +181,10 @@ class BaseGame(Entity):
 			actions += [Buff(random.choice(card.controller.field),'DED_009e2')]#rush
 		if card.id == 'DED_527':
 			actions += [Buff(card, 'DED_527e')]
-		#if hasattr(card.data.scripts, 'trade'):
-		#	if Config.LOGINFO:
-		#		print("(Game.trade_card)After trading, %s is triggered by %s"%(card.get_actions('trade'),card.controller))
-		#	#actions += [card.get_actions('trade')]
-		return self.action_block(trader, actions, type, None, None)
+		Trade(card.controller, card).broadcast(card.controller, EventListener.ON, card.controller, card)
+		ret = self.action_block(trader, actions, type, None, None)
+		Trade(card.controller, card).broadcast(card.controller, EventListener.AFTER, card.controller, card)
+		return ret
 
 	def process_deaths(self):
 		type = BlockType.DEATHS

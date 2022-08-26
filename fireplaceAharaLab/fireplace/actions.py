@@ -2505,6 +2505,7 @@ class SetCost(TargetedAction):
 class Reborn(TargetedAction):
 	"""
 	Reborn!
+	TARGET = ActionArg()
 	"""
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -2518,7 +2519,18 @@ class Reborn(TargetedAction):
 			reborn_minion = reborn_minion[0]
 		reborn_minion.reborn = False
 		reborn_minion.max_health = 1
+	pass
 
+class Trade(TargetedAction):
+	""" Trade
+	TARGET = ActionArg() ## CONTROLLER
+	CARD = ActionArg()
+	"""
+	TARGET = ActionArg() ## CONTROLLER
+	CARD = ActionArg()
+	# to do is in game.grade_card()
+	def do(self, source, target, card):
+		pass
 
 class Asphyxia(TargetedAction):
 	TARGET = ActionArg()# the card

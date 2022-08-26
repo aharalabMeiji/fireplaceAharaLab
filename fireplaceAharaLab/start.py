@@ -82,8 +82,8 @@ def main():
 
 def printClasses():
 	from hearthstone import cardxml
-	myCardSet=CardSet.THE_SUNKEN_CITY#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.DEMONHUNTER##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	myCardSet=CardSet.STORMWIND#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
+	myCardClass=CardClass.WARLOCK##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	setText={
 		CardSet.VANILLA:'Classic_',
 		CardSet.STORMWIND:'StormWind_',
@@ -134,7 +134,7 @@ def printClasses():
 			f.write("\t%s+=['%s']\n"%(mySetClass, _card.id))
 			f.write('class %s:# <%d>[%d]\n'%(_card.id, _card.card_class, _card.card_set))
 			f.write('\t""" %s\n'%(_card.name))
-			f.write('\t%s """\n'%(_card.description.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')))
+			f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace('<b>','[').replace('</b>',']')))
 			f.write('\t#\n'%())
 			f.write('\tpass\n'%())
 			f.write('\n'%())
@@ -166,17 +166,19 @@ def printClasses():
 				f.write('##########%s##########\n\n'%(_card.id))
 				f.write('class pp_%s(Preset_Play):\n'%(_card.id))
 				f.write('\t""" %s\n'%(_card.name))
-				f.write('\t%s """\n'%(_card.description.replace('\n','').replace('[x]','').replace  ('<b>','[').replace('</b>',']')))
+				f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace  ('<b>','[').replace('</b>',']')))
 				f.write('\tdef preset_deck(self):\n')
-				f.write('\t\tself.mark1=self.exchange_card("%s", self.controller)\n'%(_card.id))
-				f.write('\t\tself.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)\n'%())
-				f.write('\t\tself.mark4=self.mark4[0][0]\n'%())
+				f.write('\t\tself.con1=self.exchange_card("%s", self.controller)\n'%(_card.id))
+				f.write('\t\tself.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)\n'%())
+				f.write('\t\tself.con4=self.con4[0][0]\n'%())
+				f.write('\t\tself.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)\n'%())
+				f.write('\t\tself.opp1=self.opp1[0][0]\n'%())
 				f.write('\t\tsuper().preset_deck()\n'%())
 				f.write('\t\tpass\n'%())
 				f.write('\tdef preset_play(self):\n'%())
 				f.write('\t\tsuper().preset_play()\n'%())
 				f.write('\t\t### con\n'%())
-				f.write('\t\tself.play_card(self.mark1)\n'%())
+				f.write('\t\tself.play_card(self.con1)\n'%())
 				f.write('\t\tself.change_turn()\n'%())
 				f.write('\t\t### opp\n'%())
 				f.write('\t\tself.change_turn()\n'%())
