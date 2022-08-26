@@ -1299,8 +1299,8 @@ class Draw(TargetedAction):
 		if card is None:
 			target.fatigue()
 			return []
-		card.draw()
 		self.broadcast(source, EventListener.ON, target, card, source)
+		card.draw()
 		self.broadcast(source, EventListener.AFTER, target, card, source)
 
 		return [card]

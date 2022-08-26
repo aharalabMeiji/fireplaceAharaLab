@@ -162,3 +162,14 @@ def custom_card(cls):
 	return cls
 
 
+#sample 
+
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		pass
+
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+
+	def play(self):
+		target=self.target

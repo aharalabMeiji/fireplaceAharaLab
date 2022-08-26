@@ -38,4 +38,6 @@ class Config:# ()is the default value
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 
-	
+
+
+

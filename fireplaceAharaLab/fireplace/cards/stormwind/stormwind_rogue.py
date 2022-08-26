@@ -28,14 +28,13 @@ if StormWind_Blackwater_Cutlass:#
 	StormWind_Rogue+=['DED_004e']
 class DED_004:# <7>[1578]
 	""" Blackwater Cutlass
-	[Tradeable]After you [Trade] this,reduce the cost of a spellin your hand by (1). """
-	#
+	[Tradeable]After you [Trade] this,reduce the cost of a spell in your hand by (1). """
+	events = Trade(CONTROLLER, SELF).after(Buff(FRIENDLY_HAND + SPELL, 'DED_004e'))
 	pass
 
 class DED_004e:# <7>[1578]
-	""" Blackwater Treasure
-	Costs (1) less. """
-	#
+	""" Blackwater Treasure		Costs (1) less. """
+	cost = lambda self, i: max(i-1,0)
 	pass
 
 
@@ -46,7 +45,18 @@ if StormWind_Parrrley:#
 class DED_005:# <7>[1578]
 	""" Parrrley
 	Swap this for a card in your opponent's deck. """
-	#
+	def play(self):
+		controller = self.controller
+		if controller.opponent.deck!=[]:
+			card = random.choice(controller.opponent.deck)
+			index=controller.opponent.deck.index(card)
+			controller.opponent.deck.remove(card)
+			card.controller=controller
+			card.zone=Zone.HAND
+			controller.opponent.deck.insert(index, self)
+			self.controller = controller.opponent
+			self.zone=Zone.DECK
+		pass
 	pass
 
 
@@ -58,31 +68,57 @@ if StormWind_Edwin_Defias_Kingpin:#
 	StormWind_Rogue+=['DED_510e2']
 class DED_510:# <7>[1578]
 	""" Edwin, Defias Kingpin
-	[Battlecry:] Draw a card. If youplay it this turn, gain +2/+2and repeat this effect. """
-	#
+	[Battlecry:] Draw a card. If you play it this turn, gain +2/+2 and repeat this effect. """
+	play = Draw(CONTROLLER).on(Buff(Draw.CARD, 'DED_510e'))
 	pass
 
 class DED_510e:# <7>[1578]
 	""" Defias Supplies
 	If played this turn, draw a card and give Edwin +2/+2. """
-	#
+	events=[
+		Play(CONTROLLER, OWNER)on(Buff(FRIENDLY_MINIONS+ID('DED_510'), 'DED_510e2'), Draw(CONTROLLER).on(Buff(Draw.CARD, 'DED_510e')))
+		OWN_TURN_END.on(Destroy(SELF))
+		]
 	pass
-
-class DED_510e2:# <7>[1578]
-	""" King of the Brotherhood
-	Increased stats. """
-	#
-	pass
+DED_510e2=buff(2,2)# <7>[1578]
 
 
 
 
 if StormWind_Maestra_of_the_Masquerade:# 
 	StormWind_Rogue+=['SW_050']
+class SW_050_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		classes = [CardClass.DEMONHUNTER, CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST, CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR,]
+		myclass=controller.hero.data.card_class
+		classes.remove(myclass)
+		temporaryClass = random.choice(classes)
+		temporaryHeroID=temporaryClass.default_hero
+		controller.summon(temporaryHeroID)
+		pass
+class SW_050_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		originalClass = controller.hero.data.card_class
+		originalHeroID=originalClass.default_hero
+		controller.summon(originalHeroID)
+		pass
 class SW_050:# <7>[1578]
 	""" Maestra of the Masquerade
 	You start the game as a different class until you play a Rogue card. """
-	#
+	class Hand:
+		events=[
+			BeginGame(CONTROLLER).on(SW_050_Action1(CONTROLLER)),
+			Play(CONTROLLER, ROGUE).SW_050_Action2(CONTROLLER)]
+	class Deck:
+		events=[
+			BeginGame(CONTROLLER).on(SW_050_Action1(CONTROLLER)),
+			Play(CONTROLLER, ROGUE).SW_050_Action2(CONTROLLER)]
+	events = Play(CONTROLLER, ROGUE).SW_050_Action2(CONTROLLER)## exceptional case
+
 	pass
 
 
