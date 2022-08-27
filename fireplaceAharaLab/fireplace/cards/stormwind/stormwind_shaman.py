@@ -87,13 +87,14 @@ class SW_025e:# <8>[1578]
 
 
 if StormWind_Spirit_Alpha:# 
-	StormWind_Shaman+=['SW_026']
+	StormWind_Shaman+=['SW_026','EX1_tk11']
 class SW_026:# <8>[1578]
 	""" Spirit Alpha
-	After you play a card with[Overload], summon a 2/3Spirit Wolf with [Taunt]. """
-	#
+	After you play a card with[Overload], summon a 2/3 Spirit Wolf(EX1_tk11) with [Taunt]. """
+	events = Play(CONTROLLER, OVERLOADED).after(Summon(CONTROLLER, 'EX1_tk11'))
 	pass
-
+class EX1_tk11:
+	pass
 
 
 
@@ -148,13 +149,13 @@ if StormWind_Granite_Forgeborn:#
 class SW_032:# <8>[1578]
 	""" Granite Forgeborn
 	[Battlecry:] Reduce the cost of Elementals in your hand and deck by (1). """
-	#
+	play = Buff(FRIENDLY_HAND + ELEMENTAL, 'SW_032e'), Buff(FRIENDLY_DECK + ELEMENTAL, 'SW_032e')
 	pass
 
 class SW_032e:# <8>[1578]
 	""" Forged
 	Costs (1) less. """
-	#
+	cost = lambda self , i: max(i-1,0)
 	pass
 
 
@@ -176,9 +177,14 @@ if StormWind_Tiny_Toys:#
 class SW_034:# <8>[1578]
 	""" Tiny Toys
 	Summon four random 5-Cost minions.Make them 2/2. """
-	#
+	play =(
+		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
+		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
+		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
+		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
+		)
 	pass
-
+SW_034e=buff(2,2)
 
 
 
@@ -186,8 +192,11 @@ if StormWind_Charged_Call:#
 	StormWind_Shaman+=['SW_035']
 class SW_035:# <8>[1578]
 	""" Charged Call
-	[Discover] a @-Costminion and summon it. <i>(Upgraded for each [Overload] card you played this game!)</i> """
-	#
+	[Discover] a @-Cost minion and summon it. <i>(Upgraded for each [Overload] card you played this game!)</i> """
+	def play(self):
+		cards=[card for card in self.controller.play_log if card.overload==True]
+		amount = len(cards)+1
+		GenericChoicePlay(self.controller, RandomMinion(cost = amount))
 	pass
 
 
@@ -198,7 +207,7 @@ if StormWind_Investment_Opportunity:#
 class SW_095:# <8>[1578]
 	""" Investment Opportunity
 	Draw an [Overload] card. """
-	#
+	play = Give(CONTROLLER, FRIENDLY_DECK + OVERLOAD)
 	pass
 
 
@@ -208,8 +217,9 @@ if StormWind_Overdraft:#
 	StormWind_Shaman+=['SW_114']
 class SW_114:# <8>[1578]
 	""" Overdraft
-	[Tradeable]Unlock your [Overloaded]Mana Crystals to dealthat much damage. """
-	#
+	[Tradeable]Unlock your [Overloaded] Mana Crystals to deal that much damage. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, OVERLOADED(CONTROLLER)),	SetAttr(CONTROLLER, 'overloaded', 0)
 	pass
 
 
@@ -217,10 +227,17 @@ class SW_114:# <8>[1578]
 
 if StormWind_Bolner_Hammerbeak:# 
 	StormWind_Shaman+=['SW_115']
+class SW_115_Action(TargetedAction):
+	TARGET=ActionArg()#CONTROLLER
+	def do(self, source, target):
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['turn']==target.game.turn]
+		if len(actions)>0:
+			actions[0].trigger(source)
+		pass
 class SW_115:# <8>[1578]
 	""" Bolner Hammerbeak
 	After you play a [Battlecry]minion, repeat the first__[Battlecry] played this turn._ """
-	#
+	events = Play(CONTROLLER, BATTLECRY).after(SW_115_Action(CONTROLLER))
 	pass
 
 
