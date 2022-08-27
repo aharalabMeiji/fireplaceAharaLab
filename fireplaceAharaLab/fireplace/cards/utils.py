@@ -173,3 +173,4 @@ class original_Action(TargetedAction):
 
 	def play(self):
 		target=self.target
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]

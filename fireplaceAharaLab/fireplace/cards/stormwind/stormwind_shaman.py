@@ -25,7 +25,10 @@ if StormWind_Brilliant_Macaw:#
 class DED_509:# <8>[1578]
 	""" Brilliant Macaw
 	[Battlecry:] Repeat the last [Battlecry] you played. """
-	#
+	def play(self):
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
+		if len(actions)>0:
+			actions[-1].trigger(self)
 	pass
 
 
@@ -33,10 +36,18 @@ class DED_509:# <8>[1578]
 
 if StormWind_Suckerhook:# 
 	StormWind_Shaman+=['DED_511']
+class DED_511_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		cost = target.weapon.cost
+		newweapon=RandomWeapon(cost=cost+1).evaluate(self)
+		Destroy(target.weapon).trigger(self)
+		Summon(target, newweapon).trigger(self)
+		pass
 class DED_511:# <8>[1578]
 	""" Suckerhook
-	At the end of your turn,transform your weapon intoone that costs (1) more. """
-	#
+	At the end of your turn,transform your weapon into one that costs (1) more. """
+	OWN_TURN_END.on(DED_511_Action(CONTROLLER))
 	pass
 
 
@@ -48,9 +59,8 @@ if StormWind_Cookie_the_Cook:#
 class DED_522:# <8>[1578]
 	""" Cookie the Cook
 	[Lifesteal][Deathrattle:] Equip a 2/3__Stirring Rod with [Lifesteal]._ """
-	#
+	deathrattle = Summon(CONTROLLER, 'DED_522t') 
 	pass
-
 class DED_522t:# <8>[1578]
 	""" Cookie's Stirring Rod
 	[Lifesteal] """
@@ -66,13 +76,11 @@ if StormWind_Auctionhouse_Gavel:#
 class SW_025:# <8>[1578]
 	""" Auctionhouse Gavel
 	After your hero attacks,reduce the Cost of a[Battlecry] minion inyour hand by (1). """
-	#
+	events = Attack(FRIENDLY_HERO).after(Buff(FRIENDLY_HAND + BATTLECRY, 'SW_025e'))
 	pass
-
 class SW_025e:# <8>[1578]
-	""" Sold!
-	Costs (1) less. """
-	#
+	""" Sold! 	Costs (1) less. """
+	cost = lambda self,i: max(i-1, 0)
 	pass
 
 
@@ -99,37 +107,36 @@ if StormWind_Command_the_Elements:#
 class SW_031:# <8>[1578]
 	""" Command the Elements
 	[Questline:] Play 3 cards with [Overload].[Reward:] Unlock your[Overloaded] Mana Crystals. """
-	#
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER, FRIENDLY + OVERLOAD).on(SidequestCounter(SELF, 3, [SetAttr(CONTROLLER, 'overloaded', 0)]))	#
 	pass
 
 class SW_031t:# <8>[1578]
 	""" Stir the Stones
-	[Questline:] Play 3 cards with [Overload].[Reward:] Summon a 3/3Elemental with [Taunt]. """
+	[Questline:] Play 3 cards with [Overload].[Reward:] Summon a 3/3 Elemental(SW_031t8) with [Taunt]. """
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER, FRIENDLY + OVERLOAD).on(SidequestCounter(SELF, 3, [Summon(CONTROLLER, 'SW_031t8') ]))	#
 	#
 	pass
 
 class SW_031t2:# <8>[1578]
 	""" Tame the Flames
-	[Questline:] Play 3 cardswith [Overload].[Reward:] StormcallerBru'kan. """
+	[Questline:] Play 3 cards with [Overload].[Reward:] Stormcaller Bru'kan(SW_031t7). """
+	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
+	events = Play(CONTROLLER, FRIENDLY + OVERLOAD).on(SidequestCounter(SELF, 3, [Give(CONTROLLER, 'SW_031t7') ]))	#
 	#
 	pass
-
 class SW_031t7:# <8>[1578]
 	""" Stormcaller Bru'kan
-	[Battlecry:] For the rest ofthe game, your spellscast twice. """
-	#
+	[Battlecry:] For the rest of the game, your spells cast twice. """
+	play = SetAttr(CONTROLLER, 'spell_cast_twice', True)
 	pass
-
 class SW_031t7e:# <8>[1578]
-	""" Stormcaller
-	Spells cast twice. """
-	#
+	""" Stormcaller 	Spells cast twice. """
 	pass
-
 class SW_031t8:# <8>[1578]
 	""" Living Earth
 	[Taunt] """
-	#
 	pass
 
 

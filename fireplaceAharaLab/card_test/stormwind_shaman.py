@@ -4,17 +4,9 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def stormwind_shaman():
 
-	#PresetGame(pp_BOM_05_Brukan_004hb)##
-	#PresetGame(pp_BOM_05_Brukan_004p)##
-	#PresetGame(pp_BOM_05_Brukan_03t)##
-	#PresetGame(pp_BOM_07_Scabbs_Brukan_007t)##
-	#PresetGame(pp_BOM_07_Scabbs_Brukan_008t)##
-	#PresetGame(pp_BOM_07_Scabbs_Cookie_007hb)##
 	#PresetGame(pp_DED_509)##
 	#PresetGame(pp_DED_511)##
 	#PresetGame(pp_DED_522)##
-	#PresetGame(pp_Story_10_SageInvisibility)##
-	#PresetGame(pp_Story_10_ShadowStrike)##
 	#PresetGame(pp_SW_025)##
 	#PresetGame(pp_SW_026)##
 	#PresetGame(pp_SW_031)##
@@ -25,163 +17,7 @@ def stormwind_shaman():
 	#PresetGame(pp_SW_095)##
 	#PresetGame(pp_SW_114)##
 	#PresetGame(pp_SW_115)##
-
-
-##########BOM_05_Brukan_004hb##########
-
-class pp_BOM_05_Brukan_004hb(Preset_Play):
-	""" Bru'kan
-	Bru'kan, Rokara, and Guffwill not sit by and let Tamsindestroy a whole city. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Brukan_004hb", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
 	pass
-
-
-##########BOM_05_Brukan_004p##########
-
-class pp_BOM_05_Brukan_004p(Preset_Play):
-	""" For the Darkspear!
-	[Hero Power]Deal 1-3 damage toall enemy minions. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Brukan_004p", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_05_Brukan_03t##########
-
-class pp_BOM_05_Brukan_03t(Preset_Play):
-	""" Bru'kan
-	[Spell Damage +3] [Deathrattle:] Go [Dormant] for 2 turns. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Brukan_03t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_07_Scabbs_Brukan_007t##########
-
-class pp_BOM_07_Scabbs_Brukan_007t(Preset_Play):
-	""" Bru'kan
-	[Windfury][Deathrattle]: Return thisto_your_hand. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_07_Scabbs_Brukan_007t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_07_Scabbs_Brukan_008t##########
-
-class pp_BOM_07_Scabbs_Brukan_008t(Preset_Play):
-	""" Bru'kan
-	[Windfury][Deathrattle]: Return thisto_your_hand. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_07_Scabbs_Brukan_008t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_07_Scabbs_Cookie_007hb##########
-
-class pp_BOM_07_Scabbs_Cookie_007hb(Preset_Play):
-	""" Cookie
-	<i>Every Defias pirate will stand between the mercenaries and the shards of naaru.</i> """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_07_Scabbs_Cookie_007hb", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
 
 ##########DED_509##########
 
@@ -242,58 +78,6 @@ class pp_DED_522(Preset_Play):
 	[Lifesteal][Deathrattle:] Equip a 2/3__Stirring Rod with [Lifesteal]._ """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("DED_522", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_10_SageInvisibility##########
-
-class pp_Story_10_SageInvisibility(Preset_Play):
-	""" Sage Invisibility
-	Your minions with [Stealth] are [Immune] this turn. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_10_SageInvisibility", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_10_ShadowStrike##########
-
-class pp_Story_10_ShadowStrike(Preset_Play):
-	""" Shadow Strike
-	Give a friendly minion [Stealth] and deal its Attack damage to the enemy hero. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_10_ShadowStrike", self.controller)
 		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
