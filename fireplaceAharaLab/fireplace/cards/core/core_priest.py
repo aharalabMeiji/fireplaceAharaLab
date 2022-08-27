@@ -120,7 +120,7 @@ class CORE_EX1_194:# <6>[1637]## 23.6 ## OK
 EX1_194e = buff(2,6)
 
 if Kul_Tiran_Chaplain:# 
-	Core_Priest+=['CORE_EX1_195']
+	Core_Priest+=['CORE_EX1_195','EX1_195e']
 class CORE_EX1_195:# <6>[1637]## 23.6 ## OK
 	""" Kul Tiran Chaplain
 	[Battlecry:] Give a friendly minion +2 Health. """

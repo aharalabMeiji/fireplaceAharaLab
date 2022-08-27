@@ -23,7 +23,7 @@ if Sunken_Lightray:#
 class TID_077_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		cards = [card for card in target.play_log if card.type==CardType.MINION and card.race==Race.PALADIN]
+		cards = [card for card in target.play_log if card.type==CardType.MINION and card.card_class==CardClass.PALADIN]
 		if len(cards)>0:
 			source.cost = max(source.cost-len(cards),0)
 class TID_077:# <5>[1658]

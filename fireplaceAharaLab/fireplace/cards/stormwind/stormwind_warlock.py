@@ -258,7 +258,7 @@ class SW_092:# <9>[1578]
 	""" Anetheron
 	Costs (1) if your hand is full. """
 	powered_up = Count(FRIENDLY_HAND)==10
-	update = powered_up & Refresh(SELF, {GameTag.Cost:SET(1)})
+	update = powered_up & Refresh(SELF, {GameTag.COST:SET(1)})
 	pass
 
 

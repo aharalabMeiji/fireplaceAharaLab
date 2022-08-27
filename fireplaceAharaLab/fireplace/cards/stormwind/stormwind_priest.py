@@ -26,13 +26,14 @@ if StormWind_Amulet_of_Undying:#
 class DED_512:# <6>[1578]
 	""" Amulet of Undying
 	[Tradeable]Resurrect @ friendly[Deathrattle] |4(minion, minions).<i>(Upgrades when [Traded]!)</i> """
-	#@ = self.script_data_num_1
-	#resurrect = 一度死んだものをフィールドにもどす。← summon
 	def play(self):
 		cards=[card for card in self.controller.graveyard if card.has_deathrattle==True]
-		repeat = min(len(cards), self.script_data_num_1+1)
+		amount = min(len(cards), self.script_data_num_1+1)
+		cards = random.sample(cards, amount)
+		for card in cards:
+			Summon(self.controller, card.id).trigger(self)
 	class Hand:
-		events = Trade(CONTROLLER).after(AddScriptDataNum1(SELF))
+		events = Trade(CONTROLLER).after(AddScriptDataNum1(SELF, 1))
 	pass
 
 
@@ -56,7 +57,7 @@ if StormWind_Copycat:#
 class DED_514:# <6>[1578]
 	""" Copycat 
 	[Battlecry:] Add a copy of the next card your opponent plays to your hand. """
-	play = buff(CONTROLLER, 'DED_514e')
+	play = Buff(CONTROLLER, 'DED_514e')
 	pass
 class DED_514e:
 	events = Play(OPPONENT).after(
@@ -170,12 +171,12 @@ class SW_440_Choice(Choice):
 					new_card = self.player.card(_card.id)# make a new copy
 					new_card.zone = Zone.HAND
 					if new_card.cost <= new_card.controller.mana:
-						actions = new_card.cost.deathrattle
+						actions = new_card.deathrattles
 						actions.trigger(new_card.controller)
 class SW_440:# <6>[1578]
 	""" Call of the Grave
 	[Discover] a [Deathrattle] minion. If you have enough Mana to play it, trigger its [Deathrattle]. """
-	play = SW_440_Choice(CONTROLLER, RandomDeathrattle())
+	play = SW_440_Choice(CONTROLLER, RandomDeathrattle()*3)
 	pass
 
 

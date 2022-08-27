@@ -164,7 +164,7 @@ class BAR_315e:
 		GameTag.CARDNAME:'Serena Bloodfeather',
 		GameTag.CARDTYPE:CardType.ENCHANTMENT,
 	}
-	events = Find(FRIENDLY_BUFF - SELF) & Destroy(SELF)
+	events = Buff(OWNER).on(Destroy(SELF))
 	pass
 
 
@@ -231,7 +231,7 @@ class WC_803:# <6>[1525]
 	[Battlecry:] If you've restored Health this turn, [Discover] a spell from your deck. """
 	def play(self):
 		#this turn
-		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'],Heal and action['turn']==self.controller.game.turn)]
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'],Heal) and action['turn']==self.controller.game.turn]
 		if len(actions)>0:
 			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)*3).trigger(self)
 	pass

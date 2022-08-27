@@ -76,8 +76,11 @@ class DED_510e:# <7>[1578]
 	""" Defias Supplies
 	If played this turn, draw a card and give Edwin +2/+2. """
 	events=[
-		Play(CONTROLLER, OWNER)on(Buff(FRIENDLY_MINIONS+ID('DED_510'), 'DED_510e2'), Draw(CONTROLLER).on(Buff(Draw.CARD, 'DED_510e')))
-		OWN_TURN_END.on(Destroy(SELF))
+		Play(CONTROLLER, OWNER).on(
+			Buff(FRIENDLY_MINIONS+ID('DED_510'), 'DED_510e2'), 
+			Draw(CONTROLLER).on(Buff(Draw.CARD, 'DED_510e'))
+		),
+		OWN_TURN_END.on(Destroy(SELF)),
 		]
 	pass
 DED_510e2=buff(2,2)# <7>[1578]
@@ -112,12 +115,12 @@ class SW_050:# <7>[1578]
 	class Hand:
 		events=[
 			BeginGame(CONTROLLER).on(SW_050_Action1(CONTROLLER)),
-			Play(CONTROLLER, ROGUE).SW_050_Action2(CONTROLLER)]
+			Play(CONTROLLER, ROGUE).on(SW_050_Action2(CONTROLLER))]
 	class Deck:
 		events=[
 			BeginGame(CONTROLLER).on(SW_050_Action1(CONTROLLER)),
-			Play(CONTROLLER, ROGUE).SW_050_Action2(CONTROLLER)]
-	events = Play(CONTROLLER, ROGUE).SW_050_Action2(CONTROLLER)## exceptional case
+			Play(CONTROLLER, ROGUE).on(SW_050_Action2(CONTROLLER))]
+	events = Play(CONTROLLER, ROGUE).on(SW_050_Action2(CONTROLLER))## exceptional case
 
 	pass
 

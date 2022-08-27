@@ -144,7 +144,7 @@ class AV_342:# <5>[1626]
 	Summon a 5/5 Defender with [Taunt]. If your hero was healed this turn, summon another. """
 	def play(self): 
 		Summon(CONTROLLER, 'AV_342t').trigger(self)
-		actions=[action for action in self.controller._targetaction_log if isinstance(action['class'],Heal) and action['target']==self.controller.hero]
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'],Heal) and action['target']==self.controller.hero]
 		if len(actions)>0:
 			Summon(CONTROLLER, 'AV_342t').trigger(self)
 	pass
@@ -203,7 +203,7 @@ class AV_345:# <5>[1626]
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """
 	class Hand:
 		events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
-	events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF)),
+	events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
 	pass
 
 
