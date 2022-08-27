@@ -174,3 +174,9 @@ class original_Action(TargetedAction):
 	def play(self):
 		target=self.target
 		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
+@custom_card
+class original_e:
+	tags = {
+		GameTag.CARDNAME: "ZZZZ",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}

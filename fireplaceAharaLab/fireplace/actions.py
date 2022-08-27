@@ -1075,7 +1075,13 @@ class Damage(TargetedAction):
 			if Config.LOGINFO:
 				print("(Damage.do)%r's divine shield prevents %i damage."%( target, amount))
 			return 0
-
+		if 'SW_091t5' in [buff.id for buff in target.controller.buffs]:
+			controller = target.controller
+			if controller==controller.game.current_player:
+				if Config.LOGINFO:
+					print("(Damage.do)%r has a buff Blightborn and it prevents %i damage."%( target, amount))
+				Hit(controller.opponent.hero, amount).trigger(controller)
+			return 0
 		amount = target._hit(target.predamage)
 		target.predamage = 0
 		if source.type == CardType.MINION and source.stealthed:
