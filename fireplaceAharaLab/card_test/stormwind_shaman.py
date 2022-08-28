@@ -1,10 +1,10 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit, Summon, Give
-from hearthstone.enums import Zone, CardType, Rarity
+from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def stormwind_shaman():
 
-	#PresetGame(pp_DED_509)##
+	PresetGame(pp_DED_509)##
 	#PresetGame(pp_DED_511)##
 	#PresetGame(pp_DED_522)##
 	#PresetGame(pp_SW_025)##
@@ -24,22 +24,26 @@ def stormwind_shaman():
 class pp_DED_509(Preset_Play):
 	""" Brilliant Macaw
 	[Battlecry:] Repeat the last [Battlecry] you played. """
+	class1 = CardClass.SHAMAN
+	class2 = CardClass.SHAMAN
 	def preset_deck(self):
 		self.mark1=self.exchange_card("DED_509", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card("battlecry", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark2)
 		self.change_turn()
 		### opp
 		self.change_turn()
+		### con
+		self.play_card(self.mark1)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		print ("Check if mark1 battlecry is similar as that of mark2.")
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass

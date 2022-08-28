@@ -31,7 +31,11 @@ class DED_509:# <8>[1578]
 			card = actions[-1]["source"]
 			if hasattr(card.data.scripts, 'play'):
 				action = getattr(card.data.scripts, 'play')
-				action.trigger(self)
+				print(type(action))
+				if isinstance(action, list) or isinstance(action, tuple):
+					self.controller.game.queue_actions(self, action)
+				else:
+					action()
 			elif hasattr(card, 'play'):
 				card.play()
 	pass

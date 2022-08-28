@@ -273,8 +273,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.core_mage import core_mage
-	core_mage()
+	from card_test.stormwind_shaman import stormwind_shaman
+	stormwind_shaman()
 	pass
 
 def battleground_main():

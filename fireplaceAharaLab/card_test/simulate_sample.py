@@ -10,6 +10,8 @@ def XXX_YYY():
 class pp_ZZZZ(Preset_Play):# 
 	""" Z
 	Z """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER	
 	def preset_deck(self):
 		self.mark1=self.exchange_card('ZZZZ', self.controller)
 		self.mark4=Summon(self.controller, self.card_choice('minionH3')).trigger(self.controller)

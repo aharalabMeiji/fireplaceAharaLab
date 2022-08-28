@@ -243,7 +243,7 @@ class WC_016e2:# <7>[1525]
 
 
 
-if Barrens_Savory_Deviate_Delight:# 
+if Barrens_Savory_Deviate_Delight:# ### OKOK
 	Barrens_Rogue+=['WC_017']
 class WC_017:# <7>[1525]
 	""" Savory Deviate Delight
@@ -251,7 +251,7 @@ class WC_017:# <7>[1525]
 	def play(self):
 		if self.controller.hand!=[]:
 			card1=random.choice(self.controller.hand)
-			Destroy(card1)
+			Destroy(card1).trigger(self)
 			c=random.choice(['pirate', 'stealth'])
 			if c=='pirate':
 				Give(self.controller, RandomPirate()).trigger(self)
@@ -259,7 +259,7 @@ class WC_017:# <7>[1525]
 				Give(self.controller, RandomMinion(stealthed=True)).trigger(self)
 		if self.controller.opponent.hand!=[]:
 			card2=random.choice(self.controller.opponent.hand)
-			Destroy(card2)
+			Destroy(card2).trigger(self)
 			c=random.choice(['pirate', 'stealth'])
 			if c=='pirate':
 				Give(self.controller.opponent, RandomPirate()).trigger(self)

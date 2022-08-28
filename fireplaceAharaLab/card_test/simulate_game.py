@@ -238,6 +238,14 @@ class Preset_Play:
 			_card=random.choice(['SW_030','SW_094',])
 		elif _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
+		elif _card=='battlecry':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if hasattr(_card, 'battlecry') and _card.battlecry: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='chooseone':
 			_card=random.choice(['CORE_EX1_178','CORE_EX1_165','CORE_EX1_573','CORE_EX1_160','CORE_OG_047','CORE_EX1_164','DMF_061',])
 		elif _card=='corrupt':
@@ -267,6 +275,16 @@ class Preset_Play:
 					_card = cards.db[_id]
 					if _card.type == CardType.SPELL and _card.secret: 
 						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='SI7':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.tags.get(1678): 
+						choices.append(_id)
+					if _card.id=='SW_411' or _card.id=='SW_413':
+						assert _card.tags.get(1678)==1, '_card.SI7_minion'
 			_card=random.choice(choices)
 		elif _card=='spellpower':
 			choices=[]

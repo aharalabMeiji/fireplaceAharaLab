@@ -9,13 +9,14 @@ def stormwind_rogue():
 	#PresetGame(pp_SW_050)##
 	#PresetGame(pp_SW_052)##
 	#PresetGame(pp_SW_310)##  OK
-	PresetGame(pp_SW_311x)##  OK
-	PresetGame(pp_SW_311y)##  OK
+	#PresetGame(pp_SW_311x)##  OK
+	#PresetGame(pp_SW_311y)##  OK
 	#PresetGame(pp_SW_405)##
 	#PresetGame(pp_SW_411)##
 	#PresetGame(pp_SW_412)##
 	#PresetGame(pp_SW_413)##
-	#PresetGame(pp_SW_417)##
+	PresetGame(pp_SW_417_1)##
+	PresetGame(pp_SW_417_2)##
 	#PresetGame(pp_SW_434)##
 	pass
 
@@ -423,22 +424,55 @@ class pp_SW_413(Preset_Play):
 
 ##########SW_417##########
 
-class pp_SW_417(Preset_Play):
+class pp_SW_417_1(Preset_Play):
 	""" SI:7 Assassin
-	Costs (1) less for each SI:7card you've played this game.[Combo:] Destroy anenemy minion. """
+	Costs (1) less for each SI:7card you've played this game.[Combo:] Destroy an enemy minion. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.mark1=self.exchange_card("SW_417", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=self.exchange_card("SI7", self.controller)
+		self.mark3=self.exchange_card("SI7", self.controller)
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark2)
+		self.play_card(self.mark1, target=self.mark4)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		assert self.mark4.zone==Zone.GRAVEYARD, "death"
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_SW_417_2(Preset_Play):
+	""" SI:7 Assassin
+	Costs (1) less for each SI:7card you've played this game.[Combo:] Destroy an enemy minion. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		self.mark2=self.exchange_card("SI7", self.controller)
+		self.mark1=self.exchange_card("SW_417", self.controller)
+		self.mark3=self.exchange_card("SI7", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
 		self.change_turn()
 		### opp
+		Hit(self.mark3, 10).trigger(self.opponent)
 		self.change_turn()
+		assert self.mark1.cost==self.mark1.data.cost-2, "cost=%d"%(self.mark1.cost)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
