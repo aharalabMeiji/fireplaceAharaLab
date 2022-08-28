@@ -28,7 +28,8 @@ class DED_509:# <8>[1578]
 	def play(self):
 		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
 		if len(actions)>0:
-			actions[-1].trigger(self)
+			action = actions[-1]["source"].get_actions('play')
+			action.trigger(self)
 	pass
 
 
@@ -230,7 +231,7 @@ if StormWind_Bolner_Hammerbeak:#
 class SW_115_Action(TargetedAction):
 	TARGET=ActionArg()#CONTROLLER
 	def do(self, source, target):
-		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['turn']==target.game.turn]
+		actions=[action for action in source.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['turn']==target.game.turn]
 		if len(actions)>0:
 			actions[0].trigger(source)
 		pass

@@ -65,7 +65,7 @@ class CORE_CS2_042:# <8>[1637]##23.6 ##OK
 	pass
 
 if Core_Rockbiter_Weapon:# 
-	Core_Shaman+=['CORE_CS2_045']
+	Core_Shaman+=['CORE_CS2_045','CS2_045e']
 class CORE_CS2_045:# <8>[1637]##23.6 ##OK
 	""" Rockbiter Weapon
 	Give a friendly character +3 Attack this turn. """
@@ -100,7 +100,7 @@ class CORE_EX1_238:# <8>[1637]##23.6 ##OK
 	pass
 
 if Core_Hex:# 
-	Core_Shaman+=['CORE_EX1_246']
+	Core_Shaman+=['CORE_EX1_246','hexfrog']
 class CORE_EX1_246:# <8>[1637]##23.6 ##OK
 	""" Hex
 	Transform a minion into a 0/1 Frog with [Taunt]. """

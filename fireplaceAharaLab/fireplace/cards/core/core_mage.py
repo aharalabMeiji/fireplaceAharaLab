@@ -252,9 +252,9 @@ class CS3_001:# <4>[1637]
 	""" Aegwynn, the Guardian
 	[Spell Damage +2][Deathrattle:] The next minion_you draw inherits these powers. """
 	play = Buff(SELF, 'CS3_001e')
+	deathrattle = CS3_001_Action(CONTROLLER)
 class CS3_001e:# <4>[1637]
 	tags={GameTag.DEATHRATTLE:True}
-	deathrattle = CS3_001_Action(CONTROLLER)
 	pass
 class CS3_001e2:# <4>[1637]
 	events = Draw(CONTROLLER).on(CS3_001_Action2(Draw.CARD))

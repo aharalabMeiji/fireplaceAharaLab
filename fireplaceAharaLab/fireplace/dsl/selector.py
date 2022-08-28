@@ -15,6 +15,9 @@ from .lazynum import Attr, LazyValue, OpAttr
 SelectorLike = Union["Selector", LazyValue]
 BinaryOp = Callable[[Any, Any], bool]
 
+class ExtendedGameTag(IntEnum):
+	SI7_MINION = 1678
+
 
 class Selector:
 	"""
@@ -417,6 +420,9 @@ CONTROLLED_BY_OWNER_OPPONENT = CONTROLLER == Opponent(OWNER)
 GameTag.test = lambda self, entity, *args: (
 	entity is not None and bool(entity.tags.get(self))
 )
+ExtendedGameTag.test = lambda self, entity, *args: (
+	entity is not None and bool(entity.tags.get(self))
+)
 CardType.test = lambda self, entity, *args: (
 	entity is not None and self == entity.type
 )
@@ -462,7 +468,7 @@ CHOOSE_ONE = EnumSelector(GameTag.CHOOSE_ONE)
 OUTCAST = EnumSelector(GameTag.OUTCAST)
 COMBO = EnumSelector(GameTag.COMBO)
 POISONOUS = EnumSelector(GameTag.POISONOUS)
-SI7_MINION = EnumSelector(1678)
+SI7_MINION = EnumSelector(ExtendedGameTag.SI7_MINION)
 
 ALWAYS_WINS_BRAWLS = AttrValue(enums.ALWAYS_WINS_BRAWLS) == True  # noqa
 KILLED_THIS_TURN = AttrValue(enums.KILLED_THIS_TURN) == True  # noqa

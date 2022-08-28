@@ -55,7 +55,7 @@ class BAR_317:# <7>[1525]
 
 
 if Barrens_Silverleaf_Poison:# 
-	Barrens_Rogue+=['BAR_318']
+	Barrens_Rogue+=['BAR_318','BAR_318e']
 class BAR_318:# <7>[1525]
 	""" Silverleaf Poison
 	Give your weapon "After your hero attacks, draw a card." """
@@ -180,7 +180,7 @@ class BAR_324:# <7>[1525]
 
 
 if Barrens_Scabbs_Cutterbutter:# 
-	Barrens_Rogue+=['BAR_552']
+	Barrens_Rogue+=['BAR_552','BAR_552e']
 	Barrens_Rogue+=['BAR_552o']
 class BAR_552:# <7>[1525]
 	""" Scabbs Cutterbutter
@@ -256,7 +256,7 @@ class WC_017:# <7>[1525]
 			if c=='pirate':
 				Give(self.controller, RandomPirate()).trigger(self)
 			else:
-				Give(self.controller, RandomMinion(stealth=True)).trigger(self)
+				Give(self.controller, RandomMinion(stealthed=True)).trigger(self)
 		if self.controller.opponent.hand!=[]:
 			card2=random.choice(self.controller.opponent.hand)
 			Destroy(card2)
@@ -264,7 +264,7 @@ class WC_017:# <7>[1525]
 			if c=='pirate':
 				Give(self.controller.opponent, RandomPirate()).trigger(self)
 			else:
-				Give(self.controller.opponent, RandomMinion(stealth=True)).trigger(self)
+				Give(self.controller.opponent, RandomMinion(stealthed=True)).trigger(self)
 	pass
 
 

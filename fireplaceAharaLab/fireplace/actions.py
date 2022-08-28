@@ -804,7 +804,7 @@ class Overload(GameAction):
 				Config.log("Overload.do","%r cannot overload %s", source, player)
 			return
 		if Config.LOGINFO:
-			Config.log("Overload.do","%r overloads %s for %i", source, player, amount)
+			Config.log("Overload.do","%r overloads %s for %i"%(source, player, amount))
 		self.broadcast(source, EventListener.ON, player, amount)
 		player.overloaded += amount
 
@@ -2973,7 +2973,7 @@ class Freeze(TargetedAction):
 	TARGET = ActionArg()#TARGET
 	def do(self, source, target):
 		if Config.LOGINFO:
-			Config.log("Freeze.do","%r Freezes %r", self, target)
+			Config.log("Freeze.do","%r Freezes %r"%(self, target))
 		if not target.tags[GameTag.CANT_BE_FROZEN]:
 			##SetTag(target, (GameTag.FROZEN, )).trigger(source)
 			target.frozen = True

@@ -316,7 +316,10 @@ class SW_405:# <7>[1578] spell(3)
 		newcard = Give(self.controller, RandomDeathrattle(cost=[1,2,3,4])).trigger(self)
 		newcard=newcard[0][0]
 		action = newcard.deathrattles[0]
-		action.trigger(self)
+		if isinstance(action, tuple) or isinstance(action, list):
+			action[0].trigger(self)
+		else:
+			action.trigger(self)
 	pass
 
 
