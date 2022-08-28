@@ -173,7 +173,12 @@ class SW_440_Choice(Choice):
 					new_card.zone = Zone.HAND
 					if new_card.cost <= new_card.controller.mana:
 						actions = new_card.deathrattles
-						actions.trigger(new_card.controller)
+						for action in actions:
+							if isinstance(action, Action):
+								action.trigger(new_card.controller)
+							else:
+								action[0].trigger(new_card.controller)
+
 class SW_440:# <6>[1578]
 	""" Call of the Grave
 	[Discover] a [Deathrattle] minion. If you have enough Mana to play it, trigger its [Deathrattle]. """

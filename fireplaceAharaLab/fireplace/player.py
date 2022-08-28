@@ -155,7 +155,7 @@ class Player(Entity, TargetableByAuras):
 	def max_mana(self, amount):
 		self._max_mana = min(self.max_resources, max(0, amount))
 		if Config.LOGINFO:
-			print("(Player.max_mana)%s is now at %i mana crystals"%(self, self._max_mana))
+			Config.log("Player.max_mana","%s is now at %i mana crystals"%(self, self._max_mana))
 
 	@property
 	def heropower_damage(self):
@@ -325,7 +325,7 @@ class Player(Entity, TargetableByAuras):
 
 	def discard_hand(self):
 		if Config.LOGINFO:
-			print("(Player.discard_hand)%r discards their entire hand!", self)
+			Config.log("Player.discard_hand","%r discards their entire hand!", self)
 		# iterate the list in reverse so we don't skip over cards in the process
 		# yes it's stupid.
 		for card in self.hand[::-1]:
@@ -352,13 +352,13 @@ class Player(Entity, TargetableByAuras):
 		## OG_121 is very old card and more, not a classic card nor a core card.
 		if source.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
 			if Config.LOGINFO:
-				print("(Player.pay_cost)%s spells cost %i health", self, amount)
+				Config.log("Player.pay_cost","%s spells cost %i health", self, amount)
 			self.game.queue_actions(self, [Hit(self.hero, amount)])
 			return amount
 		if self.murlocs_cost_health:
 			if source.type == CardType.MINION and source.race == Race.MURLOC:
 				if Config.LOGINFO:
-					print("(Player.pay_cost)%s murlocs cost %i health", self, amount)
+					Config.log("Player.pay_cost","%s murlocs cost %i health", self, amount)
 				self.game.queue_actions(self, [Hit(self.hero, amount)])
 				return amount
 		if self.temp_mana:
@@ -367,18 +367,18 @@ class Player(Entity, TargetableByAuras):
 			amount -= used_temp
 			self.temp_mana -= used_temp
 		if Config.LOGINFO:
-			print ("(Player.pay_cost)%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
+			Config.log("Player.pay_cost","%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
 		self.used_mana += amount
 		return amount
 
 	def shuffle_deck(self):
 		if Config.LOGINFO:
-			print("(shuffle_deck)%r shuffles his deck"% self)
+			Config.log("shuffle_deck","%r shuffles his deck"% self)
 		random.shuffle(self.deck)
 
 	def shiftdown_deck(self):
 		if Config.LOGINFO:
-			print("(shiftdown_deck)%r makes the top card to bottom of his deck"% self)
+			Config.log("shiftdown_deck","%r makes the top card to bottom of his deck"% self)
 		topcard = self.deck[-1]
 		self.deck.remove(topcard)
 		self.deck.insert(0, topcard)
@@ -387,7 +387,7 @@ class Player(Entity, TargetableByAuras):
 	def draw(self, count=1):
 		if self.cant_draw:
 			if Config.LOGINFO:
-				print("(Player.draw)%s tries to draw %i cards, but can't draw", self, count)
+				Config.log("Player.draw","%s tries to draw %i cards, but can't draw", self, count)
 			return None
 
 		ret = self.game.cheat_action(self, [Draw(self) * count])[0]
@@ -404,7 +404,7 @@ class Player(Entity, TargetableByAuras):
 			else:
 				card = self.deck[-1]
 			if Config.LOGINFO:
-				print("(Player.mill)%s mills %r", self, card)
+				Config.log("Player.mill","%s mills %r", self, card)
 			card.discard()
 			return card
 		else:

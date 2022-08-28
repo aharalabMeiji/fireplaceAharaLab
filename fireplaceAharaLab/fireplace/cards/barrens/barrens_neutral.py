@@ -752,7 +752,7 @@ class BAR_081_Southsea_Scoundrel(Choice):##
 		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
-			print("(BAR_081_Southsea_Scoundrel.choose)%s chooses %r"%(card.controller.name, card))
+			Config.log("BAR_081_Southsea_Scoundrel.choose","%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:

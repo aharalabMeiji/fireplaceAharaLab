@@ -17,7 +17,7 @@ class AuraBuff:
 
 	def remove(self):
 		if Config.LOGINFO:
-			print("Destroying %r"% self)
+			Config.log("AuraBuff.remove","Destroying %r"% self)
 		if self in self.entity.slots:
 			self.entity.slots.remove(self)
 		if self in self.source.game.active_aura_buffs:
@@ -68,7 +68,7 @@ class TargetableByAuras:
 					break
 		else:
 			if Config.LOGINFO:
-				print("(TargetableByAuras.refresh_buff)Aura from %r buffs %r with %r"%( source, self, id))
+				Config.log("TargetableByAuras.refresh_buff","Aura from %r buffs %r with %r"%( source, self, id))
 			buff = source.buff(self, id)
 			buff.tick = source.game.tick
 			source.game.active_aura_buffs.append(buff)
@@ -81,7 +81,7 @@ class TargetableByAuras:
 		else:
 			buff = AuraBuff(source, self)
 			if Config.LOGINFO:
-				print("(TargetableByAuras.refresh_tags)Creating %r"% buff)
+				Config.log("TargetableByAuras.refresh_tags","Creating %r"% buff)
 			buff.update_tags(tags)
 			self.slots.append(buff)
 			source.game.active_aura_buffs.append(buff)

@@ -213,7 +213,7 @@ class Attack(GameAction):
 
 	def do(self, source, attacker, defender):
 		if Config.LOGINFO:
-			print("%s(Attack.do)%s attacks %s"%(Config.LOGINFO_INDENT, attacker, defender))
+			Config.log("Attack.do","%s attacks %s"%(attacker, defender))
 		if attacker == None or defender == None: ## rarely happens
 			return
 		attacker.attack_target = defender
@@ -234,7 +234,7 @@ class Attack(GameAction):
 		source.game.proposed_defender = None
 		if attacker.should_exit_combat:
 			if Config.LOGINFO:
-				print("%s(Attack)Attack has been interrupted."%Config.LOGINFO_INDENT)
+				Config.log("Attack.do","Attack has been interrupted."%())
 			attacker.attack_target = None
 			defender.defending = False
 			return
@@ -284,7 +284,7 @@ class BeginTurn(GameAction):
 		source.manager.step(source.next_step, Step.MAIN_READY)
 		source.turn += 1
 		if Config.LOGINFO:
-			print("%s(BeginTurn.do)%s begins turn %i"%(Config.LOGINFO_INDENT, player, source.turn))
+			Config.log("BeginTurn.do","%s begins turn %i"%(player, source.turn))
 		source.current_player = player
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
@@ -302,7 +302,7 @@ class BeginBattle(GameAction):
 	def do(self, source, player):
 		source.manager.step(source.next_step, Step.MAIN_READY)
 		if Config.LOGINFO:
-			print("%s(BeginBattle.do)%s begins a battle"%(Config.LOGINFO_INDENT, player))
+			Config.log("BeginBattle.do","%s begins a battle"%(player))
 		source.manager.step(source.next_step, Step.MAIN_START_TRIGGERS)
 		source.manager.step(source.next_step, source.next_step)
 		self.broadcast(source, EventListener.ON, player)
@@ -349,7 +349,7 @@ class Death(GameAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("%s(Death.do)Processing Death for %r"% (Config.LOGINFO_INDENT, target))
+			Config.log("Death.do","Processing Death for %r"% ( target))
 		source.game.refresh_auras()
 		target.controller.add_death_log(target)
 		source.game.refresh_auras()  # 
@@ -397,7 +397,7 @@ class Joust(GameAction):
 
 	def do(self, source, challenger, defender):
 		if Config.LOGINFO:
-			print("%s(Jouse.do)Jousting %r vs %r"%(Config.LOGINFO_INDENT, challenger, defender))
+			Config.log("Jouse.do","Jousting %r vs %r"%(challenger, defender))
 		source.game.joust(source, challenger, defender, self.callback)
 
 ########## Choice ##############
@@ -435,10 +435,10 @@ class Choice(GameAction):
 	def do(self, source, player, cards, option=None):
 		if len(cards) == 0:
 			if Config.LOGINFO:
-				print("%s(Choice.do)No choice for this condition."%(Config.LOGINFO_INDENT))
+				Config.log("Choice.do","No choice for this condition."%())
 			return
 		if Config.LOGINFO:
-			print("%s(Choice.do)%r choice from %r"%(Config.LOGINFO_INDENT, player, cards))
+			Config.log("Choice.do","%r choice from %r"%(player, cards))
 		self.next_choice = player.choice
 		player.choice = self
 		player.choiceText = source.choiceText
@@ -464,7 +464,7 @@ class GenericChoice(Choice):
 		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
 			return
 		if Config.LOGINFO:
-			print("(GenericChoice.choose)%s chooses %r"%(card.controller.name, card))
+			Config.log("GenericChoice.choose","%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:
 			if _card is card:
 				if card.type == CardType.HERO_POWER:
@@ -486,7 +486,7 @@ class GenericChoiceOnDeck(Choice):
 	def choose(self, card):
 		super().choose(card)
 		if Config.LOGINFO:
-			print("(GenericChoiceOnDeck.choose)%s chooses %r"%(card.controller.name, card))
+			Config.log("GenericChoiceOnDeck.choose","%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:# cards are from Deck
 			if _card is card:
 				if len(self.player.hand) < self.player.max_hand_size:
@@ -606,13 +606,13 @@ class Play(GameAction):
 	def do(self, source, card, target, index, choose):
 		#if card.cant_play:
 		#	if Config.LOGINFO:
-		#		print("(Play.do)%r can't be played "%(card))
+		#		Config.log("Play.do)%r can't be played "%(card))
 		#	return
 
 		player = source
 		player.spell_and_damage=False
 		if Config.LOGINFO:
-			print("(Play.do)%s plays %r (target=%r, index=%r)"%(player, card, target, index))
+			Config.log("Play.do","%s plays %r (target=%r, index=%r)"%(player, card, target, index))
 
 		player.pay_cost(card, card.cost)
 		player.add_play_log(card)
@@ -624,7 +624,7 @@ class Play(GameAction):
 		# We check whether the battlecry will trigger, before the card.zone changes
 		if battlecry_card.battlecry_requires_target() and not target:
 			if Config.LOGINFO:
-				print("(Play.do)%r requires a target for its battlecry. Will not trigger." % card)
+				Config.log("Play.do","%r requires a target for its battlecry. Will not trigger." % card)
 			trigger_battlecry = False
 		else:
 			trigger_battlecry = True
@@ -660,7 +660,7 @@ class Play(GameAction):
 				source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
 				if hasattr(player,'spell_cast_twice') and player.spell_cast_twice:
 					if Config.LOGINFO:
-						print("(Play.do)spell %r is casted twice." % card)
+						Config.log("Play.do","spell %r is casted twice." % card)
 					source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
 
 			# If the play action transforms the card (eg. Druid of the Claw), we
@@ -702,7 +702,7 @@ class BG_Play(GameAction):
 	def do(self, source, card, target, index, choose):
 		player = source
 		if Config.LOGINFO:
-			print("(BG_Play.do)%s plays %r (target=%r, index=%r)"%(player, card, target, index))
+			Config.log("BG_Play.do","%s plays %r (target=%r, index=%r)"%(player, card, target, index))
 		player.add_play_log(card)
 
 		card.target = target
@@ -711,7 +711,7 @@ class BG_Play(GameAction):
 		# We check whether the battlecry will trigger, before the card.zone changes
 		if battlecry_card.battlecry_requires_target() and not target:
 			if Config.LOGINFO:
-				print("(BG_Play.do)%r requires a target for its battlecry. Will not trigger." % card)
+				Config.log("BG_Play.do","%r requires a target for its battlecry. Will not trigger." % card)
 			trigger_battlecry = False
 		else:
 			trigger_battlecry = True
@@ -801,10 +801,10 @@ class Overload(GameAction):
 	def do(self, source, player, amount):
 		if player.cant_overload:
 			if Config.LOGINFO:
-				print("(Overload.do)%r cannot overload %s", source, player)
+				Config.log("Overload.do","%r cannot overload %s", source, player)
 			return
 		if Config.LOGINFO:
-			print("(Overload.do)%r overloads %s for %i", source, player, amount)
+			Config.log("Overload.do","%r overloads %s for %i", source, player, amount)
 		self.broadcast(source, EventListener.ON, player, amount)
 		player.overloaded += amount
 
@@ -884,7 +884,7 @@ class TargetedAction(Action):
 			targets = self.get_targets(source, args[0])
 			args = args[1:]
 			if Config.LOGINFO:
-				print("%s(TargetedAction.trigger)%s triggering %r targeting %r"%(Config.LOGINFO_INDENT, source, self, targets))
+				Config.log("TargetedAction.trigger","%s triggering %r targeting %r"%(source, self, targets))
 			for target in targets:
 				target_args = self.get_target_args(source, target)
 				from .player import Player
@@ -900,7 +900,7 @@ class TargetedAction(Action):
 
 				for action in self.callback:
 					if Config.LOGINFO:
-						print("%s(TargetedAction.trigger)%r queues up callback %r"%( Config.LOGINFO_INDENT, self, action))
+						Config.log("TargetedAction.trigger","%r queues up callback %r"%(self, action))
 					ret += source.game.queue_actions(source, [action], event_args=[target] + target_args)
 
 		self.resolve_broadcasts()
@@ -970,8 +970,8 @@ class EatsCard(TargetedAction):
 		target.atk += other.atk
 		target.max_health += other.max_health
 		if Config.LOGINFO:
-			print("(EatsCard.do)ate %r from opponent's hand"%(other))
-			print("(EatsCard.do)%r gains +%d/+%d"%(target, other.atk,other.max_health))
+			Config.log("EatsCard.do","ate %r from opponent's hand"%(other))
+			Config.log("EatsCard.do","%r gains +%d/+%d"%(target, other.atk,other.max_health))
 		other.discard()
 		pass
 
@@ -983,11 +983,11 @@ class Bounce(TargetedAction):
 	def do(self, source, target):
 		if len(target.controller.hand) >= target.controller.max_hand_size:
 			if Config.LOGINFO:
-				print("(Bounce.do)%r is bounced to a full hand and gets destroyed", target)
+				Config.log("Bounce.do","%r is bounced to a full hand and gets destroyed", target)
 			return source.game.queue_actions(source, [Destroy(target)])
 		else:
 			if Config.LOGINFO:
-				print("(Bounce.do)%r is bounced back to %s's hand", target, target.controller)
+				Config.log("Bounce.do","%r is bounced back to %s's hand"%(target, target.controller))
 			target.zone = Zone.HAND
 			self.broadcast(source, EventListener.ON, target)
 
@@ -1040,7 +1040,7 @@ class PutOnTop(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(PutOnTop.do)%r put on %s's deck top", cards, target)
+			Config.log("PutOnTop.do","%r put on %s's deck top", cards, target)
 		if not isinstance(cards, list):
 			cards = [cards]
 
@@ -1050,7 +1050,7 @@ class PutOnTop(TargetedAction):
 				card.controller = target
 			if len(target.deck) >= target.max_deck_size:
 				if Config.LOGINFO:
-					print("(PutOnTop.do)Put(%r) fails because %r's deck is full", card, target)
+					Config.log("PutOnTop.do","Put (%r) fails because %r's deck is full", card, target)
 				continue
 			card.zone = Zone.DECK
 			card, card.controller.deck[-1] = card.controller.deck[-1], card
@@ -1073,13 +1073,13 @@ class Damage(TargetedAction):
 			target.game.trigger_actions(source, [LoseDivineShield(target)])
 			target.divine_shield = False
 			if Config.LOGINFO:
-				print("(Damage.do)%r's divine shield prevents %i damage."%( target, amount))
+				Config.log("Damage.do","%r's divine shield prevents %i damage."%( target, amount))
 			return 0
 		if 'SW_091t5' in [buff.id for buff in target.controller.buffs]:
 			controller = target.controller
 			if controller==controller.game.current_player:
 				if Config.LOGINFO:
-					print("(Damage.do)%r has a buff Blightborn and it prevents %i damage."%( target, amount))
+					Config.log("Damage.do","%r has a buff Blightborn and it prevents %i damage."%( target, amount))
 				Hit(controller.opponent.hero, amount).trigger(controller)
 			return 0
 		amount = target._hit(target.predamage)
@@ -1101,7 +1101,7 @@ class Damage(TargetedAction):
 			if hasattr(source, "poisonous") and source.poisonous and (
 				target.type != CardType.HERO and source.type != CardType.WEAPON):
 				if Config.LOGINFO:
-					print("(Damage.do)%r destroys %r by poison"%(source, target))
+					Config.log("Damage.do","%r destroys %r by poison"%(source, target))
 				target.destroy()
 			Deaths().trigger(source.controller)###ここに追加してみた
 		return amount
@@ -1123,11 +1123,11 @@ class Deathrattle(TargetedAction):
 
 			if target.controller.extra_deathrattles:
 				if Config.LOGINFO:
-					print("(Deathrattle.do)Triggering deathrattles for %r again"%target)
+					Config.log("Deathrattle.do","Triggering deathrattles for %r again"%target)
 				source.game.queue_actions(target, actions)
 			if target.controller.extra_extra_deathrattles: ## TB_BaconUps_055
 				if Config.LOGINFO:
-					print("(Deathrattle.do)Triggering deathrattles for %r again and again"% target)
+					Config.log("Deathrattle.do","Triggering deathrattles for %r again and again"% target)
 				source.game.queue_actions(target, actions)
 				source.game.queue_actions(target, actions)
 
@@ -1151,11 +1151,11 @@ class Battlecry(TargetedAction):
 
 		if card.has_combo and player.combo:
 			if Config.LOGINFO:
-				print("(Battlecry.do)Activating %r combo targeting %r"%(card, target))
+				Config.log("Battlecry.do","Activating %r combo targeting %r"%(card, target))
 			actions = card.get_actions("combo")
 		else:
 			if Config.LOGINFO:
-				print("(Battlecry.do)Activating %r action targeting %r"%(card, target))
+				Config.log("Battlecry.do","Activating %r action targeting %r"%(card, target))
 			actions = card.get_actions("play")
 
 		source.target = target
@@ -1213,11 +1213,11 @@ class Destroy(TargetedAction):
 			#  If the card is in PLAY, it is instead scheduled to be destroyed
 			# It will be moved to the graveyard on the next Death event
 			if Config.LOGINFO:
-				print("(Destroy.do)%r marks %r for imminent death"%(source, target))
+				Config.log("Destroy.do","%r marks %r for imminent death"%(source, target))
 			target.to_be_destroyed = True
 		else:
 			if Config.LOGINFO:
-				print("(Destroy.do)%r destroys %r"%(source, target))
+				Config.log("Destroy.do","%r destroys %r"%(source, target))
 			if target.type == CardType.ENCHANTMENT:
 				target.remove()
 			else:
@@ -1234,7 +1234,7 @@ class DestroyOriginal(TargetedAction):
 		if not target.deepcopy_original:
 			return
 		if Config.LOGINFO:
-			print("(Destroy.do)%r destroys %r"%(source, target.deepcopy_original))
+			Config.log("Destroy.do","%r destroys %r"%(source, target.deepcopy_original))
 		if target.deepcopy_original.type == CardType.ENCHANTMENT:
 			target.remove()
 			target.deepcopy_original.remove()
@@ -1283,7 +1283,7 @@ class Discover(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(Discover.do)%r discovers %r for %s"%(source, cards, target))
+			Config.log("Discover.do","%r discovers %r for %s"%(source, cards, target))
 		source.game.queue_actions(source, [GenericChoice(target, cards)])
 
 
@@ -1319,11 +1319,11 @@ class Fatigue(TargetedAction):
 	def do(self, source, target):
 		if target.cant_fatigue:
 			if Config.LOGINFO:
-				print("(Fatigue.do)%s can't fatigue and does not take damage", target)
+				Config.log("Fatigue.do","%s can't fatigue and does not take damage", target)
 			return
 		target.fatigue_counter += 1
 		if Config.LOGINFO:
-			print("(Fatigue.do)%s takes %i fatigue damage", target, target.fatigue_counter)
+			Config.log("Fatigue.do","%s takes %i fatigue damage", target, target.fatigue_counter)
 		return source.game.queue_actions(source, [Hit(target.hero, target.fatigue_counter)])
 
 
@@ -1420,7 +1420,7 @@ class Give(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(Give.do)Giving %r to %s"%(cards, target))
+			Config.log("Give.do","Giving %r to %s"%(cards, target))
 		ret = []
 		if not hasattr(cards, "__iter__"):
 			# Support Give on multiple cards at once (eg. Echo of Medivh)
@@ -1430,7 +1430,7 @@ class Give(TargetedAction):
 		for card in cards:
 			if len(target.hand) >= target.max_hand_size:
 				if Config.LOGINFO:
-					print("(Give.do)Give(%r) fails because %r's hand is full", card, target)
+					Config.log("Give.do","Give(%r) fails because %r's hand is full", card, target)
 				continue
 			## when card==[]  ## 
 			if hasattr(card, "__iter__") and len(card)==0:
@@ -1460,7 +1460,7 @@ class Hit(TargetedAction):
 
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			print("(Hit.do),%s hits %s by %d"%(source, target, amount))
+			Config.log("Hit.do","%s hits %s by %d"%(source, target, amount))
 		amount = source.get_damage(amount, target)
 		# if target is hero and target.controller has buff 'AV_146e'(Take half damage, rounded up)
 		if target.type==CardType.HERO and target.controller.take_half_damage:
@@ -1481,7 +1481,7 @@ class Hit(TargetedAction):
 					target_health = target.health
 					if target_health == amount:
 						if Config.LOGINFO:
-							print("(Hit.do)%s hits %s and gets honorable kill"%(source, target))
+							Config.log("Hit.do","%s hits %s and gets honorable kill"%(source, target))
 						target.honorably_killed = True
 						if source.type==CardType.HERO and source.controller.weapon!=None :
 							actions = source.controller.weapon.get_actions("honorable_kill")
@@ -1506,7 +1506,7 @@ class SplitHit(TargetedAction):
 
 	def do(self, source, target, targets, amount):
 		if Config.LOGINFO:
-			print("(SplitHit.do),%s hits %s splitly by %d"%(source, targets, amount))
+			Config.log("SplitHit.do","%s hits %s splitly by %d"%(source, targets, amount))
 		if not isinstance(targets, list):
 			targets = [targets]
 		ret = []
@@ -1523,7 +1523,7 @@ class SplitHit(TargetedAction):
 							target_health = target.health
 							if target_health == 1:
 								if Config.LOGINFO:
-									print("(Hit.do)%s hits %s and gets honorable kill"%(source, target))
+									Config.log("Hit.do","%s hits %s and gets honorable kill"%(source, target))
 								target.honorably_killed = True
 								if source.type==CardType.HERO and source.controller.weapon!=None :
 									actions = source.controller.weapon.get_actions("honorable_kill")
@@ -1555,7 +1555,7 @@ class Heal(TargetedAction):
 		if amount:
 			# Undamaged targets do not receive heals
 			if Config.LOGINFO:
-				print("(Heal.do)%r heals %r for %i", source, target, amount)
+				Config.log("Heal.do","%r heals %r for %i"%(source, target, amount))
 			target.damage -= amount
 			self.queue_broadcast(self, (source, EventListener.ON, target, amount))
 
@@ -1619,7 +1619,7 @@ class Morph(TargetedAction):
 	def do(self, source, target, card):
 		if target.type == CardType.MINION:
 			if Config.LOGINFO:
-				print("(Morph.do)Morphing %r into %r", target, card)
+				Config.log("Morph.do","Morphing %r into %r"%(target, card))
 			target_zone = target.zone
 			if card.zone != target_zone:
 				# Transfer the zone position
@@ -1650,7 +1650,7 @@ class SW_078_Morph(TargetedAction):
 	def do(self, source, target, card):
 		if target.type == CardType.MINION:
 			if Config.LOGINFO:
-				print("(SW_078_Morph.do)Morphing %r into %r", target, card)
+				Config.log("SW_078_Morph.do","Morphing %r into %r"%(target, card))
 			target_zone = target.zone
 			if card.zone != target_zone:
 				# Transfer the zone position
@@ -1684,7 +1684,7 @@ class DMF_108_Morph(TargetedAction):
 	def do(self, source, target, card):
 		if target.type == CardType.MINION:
 			if Config.LOGINFO:
-				print("(DMF_108_Morph.do)Morphing %r into %r", target, card)
+				Config.log("DMF_108_Morph.do","Morphing %r into %r", target, card)
 			target_zone = target.zone
 			if card.zone != target_zone:
 				# Transfer the zone position
@@ -1720,12 +1720,12 @@ class Retarget(TargetedAction):
 		new_target = new_target[0]
 		if target.type in (CardType.HERO, CardType.MINION) and target.attacking:
 			if Config.LOGINFO:
-				print("(Retarget.do)Retargeting %r's attack to %r", target, new_target)
+				Config.log("Retarget.do","Retargeting %r's attack to %r", target, new_target)
 			source.game.proposed_defender.defending = False
 			source.game.proposed_defender = new_target
 		else:
 			if Config.LOGINFO:
-				print("(Retarget.do)Retargeting %r from %r to %r", target, target.target, new_target)
+				Config.log("Retarget.do","Retargeting %r from %r to %r", target, target.target, new_target)
 			target.target = new_target
 
 		return new_target
@@ -1737,7 +1737,7 @@ class Reveal(TargetedAction):
 	"""
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Reveal.do)Revealing secret %r", target)
+			Config.log("Reveal.do","Revealing secret %r"%target)
 		target.controller.add_reveal_log(target)
 		self.broadcast(source, EventListener.ON, target)
 		target.zone = Zone.GRAVEYARD
@@ -1752,7 +1752,7 @@ class SetCurrentHealth(TargetedAction):
 
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			print("(SetCurrentHealth.do))Setting current health on %r to %i", target, amount)
+			Config.log("SetCurrentHealth.do","Setting current health on %r to %i", target, amount)
 		maxhp = target.max_health
 		target.damage = max(0, maxhp - amount)
 
@@ -1761,7 +1761,7 @@ class SetMaxMana(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self,source, target, amount):
 		if Config.LOGINFO:
-			print("(SetMaxMana.do)Setting max_mana on %r to %i"%(target, amount))
+			Config.log("SetMaxMana.do","Setting max_mana on %r to %i"%(target, amount))
 		target._max_mana = amount
 		pass
 
@@ -1775,7 +1775,7 @@ class SetTag(TargetedAction):
 
 	def do(self, source, target, tags):
 		if Config.LOGINFO:
-			print("(SetTag.do)Setting current tag on %r to %s"%(target, tags))
+			Config.log("SetTag.do","Setting current tag on %r to %s"%(target, tags))
 		if isinstance(tags, dict):
 			for tag, value in tags.items():
 				target.tags[tag] = value
@@ -1794,7 +1794,7 @@ class UnsetTag(TargetedAction):
 	def do(self, source, target, tags):
 		for tag in tags:
 			if Config.LOGINFO:
-				print("(UnsetTag.do)%s unset tag %s"%(target, tag))
+				Config.log("UnsetTag.do","%s unset tag %s"%(target, tag))
 			target.tags[tag] = False
 
 
@@ -1804,7 +1804,7 @@ class Silence(TargetedAction):
 	"""
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Silence.do)Silencing %r", target)
+			Config.log("Silence.do","Silencing %r"%target)
 		self.broadcast(source, EventListener.ON, target)
 
 		target.clear_buffs()
@@ -1837,12 +1837,12 @@ class Summon(TargetedAction):
 	def do(self, source, target, cards):
 		if target.type != CardType.PLAYER:
 			if Config.LOGINFO:
-				print("(Summon.do)<><><><><><><><><><><><>")
-				print("(Summon.do)%s is not a player, he/she cannot summon anything"% target)
-				print("(Summon.do)<><><><><><><><><><><><>")
+				Config.log("Summon.do","<><><><><><><><><><><><>")
+				Config.log("Summon.do","%s is not a player, he/she cannot summon anything"% target)
+				Config.log("Summon.do","<><><><><><><><><><><><>")
 			return
 		if Config.LOGINFO:
-			print("(Summon.do)%s summons %r"%(target, cards))
+			Config.log("Summon.do","%s summons %r"%(target, cards))
 
 		if not isinstance(cards, list):
 			cards = [cards]
@@ -1874,7 +1874,7 @@ class Shuffle(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(Shuffle.do)%r shuffles into %s's deck"%(cards, target))
+			Config.log("Shuffle.do","%r shuffles into %s's deck"%(cards, target))
 		if not isinstance(cards, list):
 			cards = [cards]
 		if cards[0]==None:
@@ -1885,7 +1885,7 @@ class Shuffle(TargetedAction):
 				card.controller = target
 			if len(target.deck) >= target.max_deck_size:
 				if Config.LOGINFO:
-					print("(Shuffle.do)Shuffle(%r) fails because %r's deck is full"%(card, target))
+					Config.log("Shuffle.do","Shuffle(%r) fails because %r's deck is full"%(card, target))
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
@@ -1900,7 +1900,7 @@ class ShuffleBuff(TargetedAction):
 	BUFF = ActionArg()
 	def do(self, source, target, cards, buff):
 		if Config.LOGINFO:
-			print("(ShuffleBuff.do)%r shuffles into %s's deck"%( cards, target))
+			Config.log("ShuffleBuff.do","%r shuffles into %s's deck"%( cards, target))
 		if not isinstance(cards, list):
 			cards = [cards]
 		for card in cards:
@@ -1910,7 +1910,7 @@ class ShuffleBuff(TargetedAction):
 				card.controller = target
 			if len(target.deck) >= target.max_deck_size:
 				if Config.LOGINFO:
-					print("ShuffleBuff.do)Shuffle(%r) fails because %r's deck is full", card, target)
+					Config.log("ShuffleBuff.do","Shuffle(%r) fails because %r's deck is full", card, target)
 				continue
 			card.zone = Zone.DECK
 			target.shuffle_deck()
@@ -1926,7 +1926,7 @@ class ShuffleBottom(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			print("(ShuffleBottom.do)%r shuffles into %s's deck's bottom"%(cards, target))
+			Config.log("ShuffleBottom.do","%r shuffles into %s's deck's bottom"%(cards, target))
 		if not isinstance(cards, list):
 			cards = [cards]
 		if cards[0]==None or cards[0]==[]:
@@ -1937,7 +1937,7 @@ class ShuffleBottom(TargetedAction):
 				card.controller = target
 			if len(target.deck) >= target.max_deck_size:
 				if Config.LOGINFO:
-					print("(ShuffleBottom.do)Shuffle(%r) fails because %r's deck is full"%(card, target))
+					Config.log("ShuffleBottom.do","Shuffle(%r) fails because %r's deck is full"%(card, target))
 				continue
 			card.zone = Zone.DECK
 			target.shiftdown_deck()## make the top card to botom
@@ -2005,7 +2005,7 @@ class Steal(TargetedAction):
 
 	def do(self, source, target, controller):
 		if Config.LOGINFO:
-			print("(Steal.do)%s takes control of %r", controller, target)
+			Config.log("Steal.do","%s takes control of %r", controller, target)
 		zone = target.zone
 		target.zone = Zone.SETASIDE
 		target.controller = controller
@@ -2019,7 +2019,7 @@ class UnlockOverload(TargetedAction):
 	"""
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(UnlockOverload.do)%s overload gets cleared", target)
+			Config.log("UnlockOverload.do","%s overload gets cleared", target)
 		target.overloaded = 0
 		target.overload_locked = 0
 
@@ -2037,7 +2037,7 @@ class SummonJadeGolem(TargetedAction):
 
 	def do(self, source, target, card):
 		if Config.LOGINFO:
-			print("(SummonJadeGolem.do)%s summons a Jade Golem for %s", source, target)
+			Config.log("SummonJadeGolem.do","%s summons a Jade Golem for %s", source, target)
 		target.jade_golem = target.jade_golem + 1 if target.jade_golem <= 29 else 30
 		if card.is_summonable():
 			source.game.queue_actions(source, [Summon(target, card)])
@@ -2058,11 +2058,11 @@ class CastSpell(TargetedAction):
 				target = random.choice(card.targets)
 			else:
 				if Config.LOGINFO:
-					print("(CastSpell.do)%s cast spell %s don't have a legal target"%(source, card))
+					Config.log("CastSpell.do","%s cast spell %s don't have a legal target"%(source, card))
 				return
 		card.target = target
 		if Config.LOGINFO:
-			print("(CastSpell.do)%s cast spell %s target %s"%(source, card, target))
+			Config.log("CastSpell.do","%s cast spell %s target %s"%(source, card, target))
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
 		player.add_play_log(card)
@@ -2074,12 +2074,12 @@ class CastSpell(TargetedAction):
 
 class CastSecret(TargetedAction):
 	"""
-	Cast a spell target random
+	Cast a secret
 	"""
 	CARD = CardArg()
 	def do(self, source, cards):
 		if Config.LOGINFO:
-			print("(CastSecret.do)%s cast secret %s ", source, cards)
+			Config.log("CastSecret.do","%s cast secret %s ", source, cards)
 		if not isinstance(cards,list):
 			cards = [cards]
 		for card in cards:
@@ -2107,11 +2107,11 @@ class CastSpellTargetsEnemiesIfPossible(TargetedAction):
 					target = random.choice(targets)
 			else:
 				if Config.LOGINFO:
-					print("(CastSpellTargetsEnemiesIfPossible.do)%s cast spell %s don't have a legal target", source, card)
+					Config.log("CastSpellTargetsEnemiesIfPossible.do","%s cast spell %s don't have a legal target", source, card)
 				return
 		card.target = target
 		if Config.LOGINFO:
-			print("(CastSpellTargetsEnemiesIfPossible.do)%s cast spell %s target %s", source, card, target)
+			Config.log("CastSpellTargetsEnemiesIfPossible.do","%s cast spell %s target %s", source, card, target)
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
 		while player.choice:
@@ -2145,7 +2145,7 @@ class ExtraAttack(TargetedAction):
 
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(ExtraAttack.do)%s gets an extra attack change.", target)
+			Config.log("ExtraAttack.do","%s gets an extra attack change.", target)
 		target.num_attacks -= 1
 
 
@@ -2159,7 +2159,7 @@ class SwapState(TargetedAction):
 
 	def do(self, source, target, other, buff):
 		if Config.LOGINFO:
-			print("(SwapState.do)swap state %s and %s", target, other)
+			Config.log("SwapState.do","swap state %s and %s", target, other)
 		other = other[0]
 		buff1 = source.controller.card(buff)
 		buff1._atk = other.atk
@@ -2198,7 +2198,7 @@ class RefreshHeroPower(TargetedAction):
 
 	def do(self, source, heropower):
 		if Config.LOGINFO:
-			print("(RefreshHeroPower.do)Refresh Hero Power %s.", heropower)
+			Config.log("RefreshHeroPower.do","Refresh Hero Power %s.", heropower)
 		heropower.activations_this_turn = 0
 		return heropower
 
@@ -2210,7 +2210,7 @@ class RefreshMana(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target,amount):
 		if Config.LOGINFO:
-			print("(RefreshMana.do)Refresh Mana by %s.", amount)
+			Config.log("RefreshMana.do","Refresh Mana by %s.", amount)
 		source.controller.used_mana = max(source.controller.used_mana-amount,0)
 
 
@@ -2318,7 +2318,7 @@ class Upgrade(TargetedAction):
 
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Upgrade.do)Upgrade %s counter to %s", target, target.upgrade_counter + 1)
+			Config.log("Upgrade.do","Upgrade %s counter to %s", target, target.upgrade_counter + 1)
 		target.upgrade_counter += 1
 		self.broadcast(source, EventListener.AFTER, target, target.upgrade_counter)
 
@@ -2331,7 +2331,7 @@ class Awaken(TargetedAction):
 
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Awaken.do)%s is awaken", target)
+			Config.log("Awaken.do","%s is awaken"% target)
 		target.turns_in_play = 1
 		self.broadcast(source, EventListener.ON, target)
 		if target.get_actions("awaken"):
@@ -2351,7 +2351,7 @@ class SidequestCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
 		target._sidequest_counter_ += 1
 		target.script_data_num_1 = amount - target._sidequest_counter_
 		if target._sidequest_counter_== amount:
@@ -2372,7 +2372,7 @@ class SidequestCounterText0(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			print("(SidequestCounter.do)Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
 		target._sidequest_counter_ += 1
 		target.script_data_num_1 = amount - target._sidequest_counter_
 		target.script_data_text_0 = str(target.script_data_num_1)
@@ -2397,7 +2397,7 @@ class SidequestCounterEq(TargetedAction):
 	def do(self, source, target, amount, targetaction):
 		if target._sidequest_counter_== amount:
 			if Config.LOGINFO:
-				print("(SidequestCounterEq)Setting Counter on %r :%i== %i, %r", target, target._sidequest_counter_, amount, targetaction)
+				Config.log("SidequestCounterEq","Setting Counter on %r :%i== %i, %r", target, target._sidequest_counter_, amount, targetaction)
 			target._sidequest_counter_ = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
@@ -2416,7 +2416,7 @@ class SidequestCounterNeq(TargetedAction):
 	def do(self, source, target, amount, targetaction):
 		if target._sidequest_counter_ != amount:
 			if Config.LOGINFO:
-				print("(SidequestCounterNeq.do)Setting Counter on %r :%i!= %i, %r", target, target._sidequest_counter_, amount, targetaction)
+				Config.log("SidequestCounterNeq.do","Setting Counter on %r :%i!= %i, %r", target, target._sidequest_counter_, amount, targetaction)
 			target._sidequest_counter_ = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
@@ -2429,7 +2429,7 @@ class SidequestCounterClear(TargetedAction):
 	TARGET = ActionArg()# sidequest card
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(SidequestCounterClear.do)Setting Counter on %r to be 0", target)
+			Config.log("SidequestCounterClear.do","Setting Counter on %r to be 0", target)
 		target._sidequest_counter_ = 0
 
 class SidequestManaCounter(TargetedAction):
@@ -2445,7 +2445,7 @@ class SidequestManaCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, card, amount, targetaction):
 		if Config.LOGINFO:
-			print("(SidequestManaCounter.do)Setting Counter on %r is added by %d->%d, %r", target, card.cost, (target._sidequest_counter_+card.cost), targetaction)
+			Config.log("SidequestManaCounter.do","Setting Counter on %r is added by %d->%d, %r", target, card.cost, (target._sidequest_counter_+card.cost), targetaction)
 		target._sidequest_counter_ += card.cost
 		if target._sidequest_counter_>= amount:
 			i=0
@@ -2463,7 +2463,7 @@ class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			print("(SidequestLostInTheParkCounter.do)Setting Counter on %r rolls by %d->%d, %r", target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction)
+			Config.log("SidequestLostInTheParkCounter.do","Setting Counter on %r rolls by %d->%d, %r", target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction)
 		target._sidequest_counter_ += target.controller.lost_in_the_park
 		target.controller.lost_in_the_park = 0 # to avoid a double count
 		if target._sidequest_counter_>= amount:
@@ -2485,7 +2485,7 @@ class SetMaxHealth(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			print("(SetMaxHealth.do)Setting max_health on %r to %i", target, amount)
+			Config.log("SetMaxHealth.do","Setting max_health on %r to %i", target, amount)
 		target.max_health = amount
 
 class SetAtk(TargetedAction):
@@ -2496,7 +2496,7 @@ class SetAtk(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			print("(SetAtk.do)Setting atk on %r to %i", target, amount)
+			Config.log("SetAtk.do","Setting atk on %r to %i", target, amount)
 		target.atk = amount
 class SetCost(TargetedAction):
 	"""
@@ -2508,7 +2508,7 @@ class SetCost(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			print("(SetCost)Setting cost on %r to %i", target, amount)
+			Config.log("SetCost","Setting cost on %r to %i", target, amount)
 		target.cost = amount
 
 
@@ -2520,7 +2520,7 @@ class Reborn(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Reborn.do)Reborn on %r", target)
+			Config.log("Reborn.do","Reborn on %r", target)
 		controller = target.controller
 		reborn_minion = Summon(controller, target).trigger(source)
 		if isinstance(reborn_minion,list):
@@ -2548,7 +2548,7 @@ class Asphyxia(TargetedAction):
 		_score_limit = 5
 		if target._Asphyxia_ == 'alive' and target.dead:
 			if Config.LOGINFO:
-				print("(Asphyxia.do)The King Rat turns death.")
+				Config.log("Asphyxia.do","The King Rat turns death.")
 			ret = Summon(target.controller, "SW_323").trigger(target.controller)
 			if ret[0]!=[]:
 				ret = ret[0][0]
@@ -2562,7 +2562,7 @@ class Asphyxia(TargetedAction):
 		elif target._Asphyxia_ == 'asphyxia':
 			target._sidequest_counter_ += 1
 			if Config.LOGINFO:
-				print("(Asphyxia.do)The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
+				Config.log("Asphyxia.do","The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
 			if target._sidequest_counter_ == _score_limit:
 				target._sidequest_counter_ = 0
 				target._Asphyxia_= 'alive'
@@ -2677,7 +2677,7 @@ class SwapController(TargetedAction):
 		target.controller = other_controller
 		other.controller = target_controller
 		if Config.LOGINFO:
-			print("(SwapController.do)%s and %s swap their controllers.",target, other)
+			Config.log("SwapController.do","%s and %s swap their controllers.",target, other)
 
 class SwapMinionAndHand(TargetedAction):
 	TARGET = ActionArg()# minion
@@ -2698,7 +2698,7 @@ class SwapMinionAndHand(TargetedAction):
 		other.controller = newOtherController
 		other.zone = newOtherZone
 		if Config.LOGINFO:
-			print("(SwapMinionAndHand.do)%r and %r swap their positions.",target, other)
+			Config.log("SwapMinionAndHand.do","%r and %r swap their positions."%(target, other))
 
 
 class RegularAttack(TargetedAction):
@@ -2780,11 +2780,11 @@ class CastSpellMe(TargetedAction):
 					target = random.choice(card.targets)
 			else:
 				if Config.LOGINFO:
-					print("(CastSpellMe.do)%s cast spell %s don't have a legal target", source, card)
+					Config.log("CastSpellMe.do","%s cast spell %s don't have a legal target", source, card)
 				return
 		card.target = target
 		if Config.LOGINFO:
-			print("(CastSpellMe.do)%s cast spell %s target %s", source, card, target)
+			Config.log("CastSpellMe.do","%s cast spell %s target %s", source, card, target)
 		source.game.queue_actions(source, [Battlecry(card, card.target)])
 		player = source.controller
 		while player.choice:
@@ -2800,7 +2800,7 @@ class SetAttr(TargetedAction):
 	def do(self, source, target, attr, amount):
 		if hasattr(target, attr):
 			if Config.LOGINFO:
-				print("(SetAttr.do)%s set attr '%s' into %d"%(target, attr, amount ))
+				Config.log("SetAttr.do","%s set attr '%s' into %d"%(target, attr, amount ))
 			setattr(target, attr, amount)
 
 class SetDivineShield(TargetedAction):
@@ -2811,7 +2811,7 @@ class SetDivineShield(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount=True):
 		if Config.LOGINFO:
-			print("(SetDivineShield.do) Let '%s' have a divine shiled"%(target))
+			Config.log("SetDivineShield.do"," Let '%s' have a divine shiled"%(target))
 		setattr(target, 'divine_shield', amount)
 
 class BuffOnce(TargetedAction):
@@ -2854,7 +2854,7 @@ class DredgeChoice(Choice):
 	def choose(self, card):
 		super().choose(card)
 		if Config.LOGINFO:
-			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
+			Config.log("DredgeChoice.choose","%s chooses %r"%(card.controller.name, card))
 		controller = card.controller
 		for c in controller.deck[:3]:
 			if card.id==c.id:
@@ -2884,7 +2884,7 @@ class EducatedElekkMemory(TargetedAction):
 	TARGET = ActionArg()# spell card just played
 	def do(self,source,target,card):
 		if Config.LOGINFO:
-			print("(EducatedElekkMemory)%s remember the card: %s",target,card)
+			Config.log("EducatedElekkMemory","%s remember the card: %s",target,card)
 		target._sidequest_list1_.append(card)
 
 class EducatedElekkDeathrattle(TargetedAction):
@@ -2893,7 +2893,7 @@ class EducatedElekkDeathrattle(TargetedAction):
 	#<b>Deathrattle:</b> Shuffle the spells into your deck.
 	def do(self,source,target):
 		if Config.LOGINFO:
-			print("(EducatedElekkDeathrattle.do)%s Deathrattle",target)
+			Config.log("EducatedElekkDeathrattle.do","%s Deathrattle",target)
 		for card in target._sidequest_list1_:
 			Shuffle(target.controller, card).trigger(source)
 
@@ -2913,7 +2913,7 @@ class TentacledMenace(TargetedAction):#DRG_084
 				card2 = cards2[0][0]
 				card1.cost, card2.cost = card2.cost, card1.cost
 				if Config.LOGINFO:
-					print("(%sTentacledMenace.do)Draw cards and change their costs."%(Config.LOGINFO_INDENT))
+					Config.log("TentacledMenace.do","Draw cards and change their costs."%())
 
 class ArgentBraggart(TargetedAction):
 	"""SCH_149
@@ -2962,7 +2962,7 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 #	"""   """
 #	def do(self, source, target):
 #		if Config.LOGINFO:
-#			print("(InheritGuardiansLegacy.do)Gardian's Legacy was inherited by %r"%(target))
+#			Config.log("InheritGuardiansLegacy.do","Gardian's Legacy was inherited by %r"%(target))
 #		target.guardians_legacy=True
 #		pass
 
@@ -2973,13 +2973,13 @@ class Freeze(TargetedAction):
 	TARGET = ActionArg()#TARGET
 	def do(self, source, target):
 		if Config.LOGINFO:
-			print("(Freeze.do)%r Freezes %r", self, target)
+			Config.log("Freeze.do","%r Freezes %r", self, target)
 		if not target.tags[GameTag.CANT_BE_FROZEN]:
 			##SetTag(target, (GameTag.FROZEN, )).trigger(source)
 			target.frozen = True
 		else:
 			if Config.LOGINFO:
-				print("(Freeze.do)Freezing is blocked!")
+				Config.log("Freeze.do","Freezing is blocked!")
 
 class FreezeOrHit(TargetedAction):
     TARGET = ActionArg()#TARGET
@@ -3041,7 +3041,7 @@ class DAL731Duel(TargetedAction):
 		Summon(other.controller,other).trigger(other.controller)
 		Summon(target.controller,target).trigger(target.controller)
 		if Config.LOGINFO:
-			print("(DAL731Duel.do)Duel: %r vs. %r", target, other)
+			Config.log("DAL731Duel.do","Duel: %r vs. %r", target, other)
 		Hit(other, target.atk).trigger(target.controller)
 		Hit(target, other.atk).trigger(other.controller)
 
@@ -3099,13 +3099,13 @@ class SummonAdventurerWithBonus(TargetedAction):
 	def do(self,source,target,amount=1):
 		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],amount)
 		for card in cards:
-			newcard=Summon(target, card).trigger(self)
+			newcard=Summon(target, card).trigger(source)
 			newcard=newcard[0][0]
 			newAtk=random.randint(1,3)
 			newHealth=random.randint(1,3)
 			Buff(newcard, "WC_034e", atk=newAtk, max_health=newHealth)
 			if Config.LOGINFO:
-				print("(SummonAdventurerWithBonus.do)Summon %s with atk=%d, health=%d"%(newcard.data.name, newAtk, newHealth))
+				Config.log("SummonAdventurerWithBonus.do","Summon %s with atk=%d, health=%d"%(newcard.data.name, newAtk, newHealth))
 
 class Frenzy(TargetedAction):
 	""" Frenzy """
@@ -3116,7 +3116,7 @@ class Frenzy(TargetedAction):
 		if target.frenzy==1 and target.frenzyFlag==0:
 		#if target.frenzyFlag==0:
 			if Config.LOGINFO:
-				print("(Frenzy.do)Frenzy action of %r "%(target))
+				Config.log("Frenzy.do","Frenzy action of %r "%(target))
 			if not isinstance(targetaction, list):
 				targetaction = [targetaction]
 			for action in targetaction:
@@ -3200,7 +3200,7 @@ class Moribund(TargetedAction):
 	def do(self, source, target, targetactions):
 		if target.health<=target.predamage: 
 			if Config.LOGINFO:
-				print("(Moribund.do)%r is moribund."%target)
+				Config.log("Moribund.do","%r is moribund."%target)
 			for action in targetactions:
 				action.trigger(source)
 		pass
@@ -3290,7 +3290,7 @@ class ApplyBanana(TargetedAction):
 	GEM=ActionArg()
 	def do(self, source, target, gem):
 		if Config.LOGINFO:
-			print("(ApplyBanana.do)%s feed a banana to %s"%(source, target))		
+			Config.log("ApplyBanana.do","%s feed a banana to %s"%(source, target))		
 		if gem=='BGS_Treasures_000e':## big banana
 			self.broadcast(source, EventListener.ON, target, gem)
 			Buff(target,'BGS_Treasures_000e').trigger(source)
@@ -3318,7 +3318,7 @@ class Avenge(TargetedAction):
 	TARGETACTION=ActionArg()
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			print("(Avenge.do)Avenge Counter on %r -> %i, %r"%(source, (source._sidequest_counter_+1), targetaction))
+			Config.log("Avenge.do","Avenge Counter on %r -> %i, %r"%(source, (source._sidequest_counter_+1), targetaction))
 		source._sidequest_counter_ += 1
 		if source._sidequest_counter_== amount:
 			source._sidequest_counter_ = 0
@@ -3503,7 +3503,7 @@ class MorphGold(TargetedAction):
 		for buff in buffs:## inheriting all buffs
 			buff.apply(newcard)
 		if Config.LOGINFO:
-			print("Gold card!!! by %s"%(target.controller))
+			print("Gold card!!!"," by %s"%(target.controller))
 
 		newcard.zone = myzone # 必要か？PLAY?
 		return newcard
@@ -3615,12 +3615,12 @@ class SummonOnce(Summon):
 	def do(self, source, target, cards):
 		if target.type != CardType.PLAYER:
 			if Config.LOGINFO:
-				print("(SummonOnce.do)<><><><><><><><><><><><>")
-				print("(SummonOnce.do)%s is not a player, he/she cannot summon anything", target)
-				print("(SummonOnce.do)<><><><><><><><><><><><>")
+				Config.log("SummonOnce.do","<><><><><><><><><><><><>")
+				Config.log("SummonOnce.do","%s is not a player, he/she cannot summon anything", target)
+				Config.log("SummonOnce.do","<><><><><><><><><><><><>")
 			return
 		if Config.LOGINFO:
-			print("(SummonOnce.do)%s summons %r", target, cards)
+			Config.log("SummonOnce.do","%s summons %r", target, cards)
 
 		if not isinstance(cards, list):
 			cards = [cards]

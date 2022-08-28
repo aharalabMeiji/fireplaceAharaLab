@@ -98,7 +98,7 @@ class BAR_319t2:# <7>[1525]
 
 
 if Barrens_Efficient_Octo_bot:# 
-	Barrens_Rogue+=['BAR_320']
+	Barrens_Rogue+=['BAR_320','BAR_320e']
 class BAR_320:# <7>[1525]
 	""" Efficient Octo-bot
 	[Frenzy:] Reduce the cost of cards in your hand by (1). """

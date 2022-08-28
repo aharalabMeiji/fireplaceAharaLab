@@ -26,6 +26,8 @@ class BAR_550_Action(GameAction):
 	previous_turn=0
 	card_count=0
 	def do(self, source):
+		if Config.LOGINFO:
+			Config.log("BAR_550_Action","After your opponent plays three cards in a turn")
 		if self.previous_turn!=source.controller.game.turn:
 			self.card_count=1
 			self.previous_turn=source.controller.game.turn
@@ -82,7 +84,7 @@ class BAR_875_Action(TargetedAction):
 		controller = target
 		cards = [card for card in controller.deck if card.type==CardType.SPELL and hasattr(card,'secret') and card.secret==True]
 		if len(cards)>0:
-			Play(controller, random.choice(cards),None,None).trigger(source)
+			Summon(controller, random.choice(cards)).trigger(source)
 class BAR_875:# <5>[1525]
 	""" Sword of the Fallen
 	After your hero attacks,cast a [Secret] from your deck. """
