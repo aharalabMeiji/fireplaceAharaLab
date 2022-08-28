@@ -104,12 +104,12 @@ class BaseCard(BaseEntity):
 				self.controller.hand.append(self)
 			elif old==Zone.HAND:
 				if Config.LOGINFO:
-					print("%s(BaseCard._set_zone)[warning]%r attempted a same-zone move in %r"% (Config.LOGINFO_INDENT, self, old))
+					Config.log("BaseCard._set_zone","[warning]%r attempted a same-zone move in %r"% (self, old))
 			return
 
 		if old:
 			if Config.LOGINFO:
-				print("%s(BaseCard._set_zone)%r moves from %r to %r"%(Config.LOGINFO_INDENT, self, old, value))
+				onfig.log("BaseCard._set_zone","%r moves from %r to %r"%(self, old, value))
 
 		caches = {
 			Zone.HAND: self.controller.hand,
@@ -900,7 +900,7 @@ class Minion(Character):
 			if self.zone == Zone.PLAY: ## play -> graveyard
 				self.controller.minions_killed_this_turn += 1
 				if Config.LOGINFO:
-					print("%s(Minion._set_zone)%r is removed from the field"%(Config.LOGINFO_INDENT, self))
+					Config.log("Minion._set_zone","%r is removed from the field"%(self))
 				self.controller.field.remove(self)
 				if self.damage:
 					self.damage = 0
@@ -911,13 +911,13 @@ class Minion(Character):
 			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
 				if self in self.controller.game.live_entities:
 					if Config.LOGINFO:
-						print("%s(Minion._set_zone)%s must be removed from the field but still left in the list of living entities."%(Config.LOGINFO_INDENT, self.data.name))
+						Config.log("Minion._set_zone","%s must be removed from the field but still left in the list of living entities."%(self.data.name))
 					if self in self.controller.live_entities:
 						player=self.controller
 					elif self in self.controller.opponent.live_entities:
 						player=self.controller.opponent
 					if Config.LOGINFO:
-						print("%s(Minion._set_zone)Controller is %s"%(Config.LOGINFO_INDENT, player.name))
+						Config.log("Minion._set_zone","Controller is %s"%(player.name))
 					if self in player.field:
 						#for entity in player.field:
 						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
@@ -932,7 +932,7 @@ class Minion(Character):
 						player.game.setaside.remove(self)
 					else:
 						if Config.LOGINFO:
-							print("%s(Minion._set_zone)Extra-ordinary error happens.  Stop here in set_zone()"%(Config.LOGINFO_INDENT))
+							Config.log("Minion._set_zone","Extra-ordinary error happens.  Stop here in set_zone()"%())
 		super()._set_zone(value)
 
 	def _hit(self, amount):
@@ -1116,6 +1116,7 @@ class Weapon(rules.WeaponRules, LiveEntity):
 	def __init__(self, *args):
 		super().__init__(*args)
 		self.damage = 0
+		self.deathrattle_valid = True
 
 	@property
 	def durability(self):

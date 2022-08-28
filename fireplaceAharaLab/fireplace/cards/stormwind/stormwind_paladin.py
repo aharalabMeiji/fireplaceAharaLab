@@ -21,7 +21,7 @@ StormWind_Catacomb_Guard=True  ###
 
 
 
-if StormWind_Wealth_Redistributor:# 
+if StormWind_Wealth_Redistributor:# ### OK ###
 	StormWind_Paladin+=['DED_500']
 	StormWind_Paladin+=['DED_500e']
 class DED_500:# <5>[1578]
@@ -39,6 +39,7 @@ class DED_500:# <5>[1578]
 				highest=[card]
 			elif highest[0].atk==card.atk:
 				highest.append(card)
+		if lowest!=[] and highest!=[]:
 			lowest=random.choice(lowest)
 			highest=random.choice(highest)
 			if lowest.atk!=highest.atk:

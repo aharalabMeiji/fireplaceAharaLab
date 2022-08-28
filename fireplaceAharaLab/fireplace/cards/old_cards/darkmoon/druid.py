@@ -121,6 +121,7 @@ class DMF_061t2:# <2>[1466]
 class DMF_075_Choice(GenericChoice):
     def choose(self, card):
         super().choose(card)
+        self.next_choice=None
         controller = self.player
         choiceCard = controller.hand[-1]
         choiceCardId = choiceCard.id

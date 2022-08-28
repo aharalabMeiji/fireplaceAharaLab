@@ -226,7 +226,7 @@ class BAR_069:# <12>[1525]
 	play = Hit(SELF,6)
 	pass
 
-if Barrens_Gruntled_Patron:# 
+if Barrens_Gruntled_Patron:# ### OK 
 	Barrens_Neutral+=['BAR_070']
 class BAR_070:# <12>[1525] ##OK
 	""" Gruntled Patron
@@ -333,6 +333,7 @@ if Barrens_Kazakus_Golem_Shaper:#
 class BAR_079_firstChoice(GenericChoice):
 	secondChoice = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# first choice
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		choiceCard = controller.hand[-1]
 		choiceCardId = choiceCard.id

@@ -2,6 +2,7 @@ from ..utils import *
 
 
 Core_Shaman=[]
+##22.6
 ##23.6
 Core_Menacing_Nimbus=True
 Core_Windfury=True
@@ -29,15 +30,6 @@ class CORE_AT_047:# <8>[1637]## 22.6 ##OK
 	play = Buff(SELF, "AT_047e") * Count(FRIENDLY_MINIONS + TOTEM)
 	pass
 AT_047e = buff(+1, +1)
-
-
-class CORE_AT_075:# <5>[1637]## 22.6 ## OK
-	""" Warhorse Trainer
-	Your Silver Hand Recruits have +1 Attack. """
-	update = Refresh(FRIENDLY + ID("CS2_101t"), buff="AT_075e")	
-	pass
-AT_075e = buff(atk=1)
-
 
 if Core_Menacing_Nimbus:# ##23.6
 	Core_Shaman+=['CORE_BOT_533']

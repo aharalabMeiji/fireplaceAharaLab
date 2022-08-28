@@ -107,20 +107,19 @@ class BaseGame(Entity):
 	def action_start(self, type, source, index, target):
 		self.manager.action_start(type, source, index, target)
 		if Config.LOGINFO:
+			Config.LOGINFO_INDENT+=1
 			if hasattr(source,'name'):
-				Config.LOGINFO_INDENT+="--->"
-				print("%s(Game.action_start)type=%s, source=%s"%(Config.LOGINFO_INDENT,type,source.name))
+				Config.log("Game.action_start","type=%s, source=%s"%(type,source.name))
 			else:
-				Config.LOGINFO_INDENT+="--->"
-				print("%s(Game.action_start)type=%s, source=%s"%(Config.LOGINFO_INDENT, type,source))
+				Config.log("Game.action_start","type=%s, source=%s"%(type,source))
 		if type != BlockType.PLAY:
 			self._action_stack += 1
 
 	def action_end(self, type, source):
 		self.manager.action_end(type, source)
 		if Config.LOGINFO:
-			print("%s(Game.action_end)type=%s, source=%s"%(Config.LOGINFO_INDENT, type, source))
-			Config.LOGINFO_INDENT=Config.LOGINFO_INDENT[:-4]
+			Config.log("Game.action_end","type=%s, source=%s"%(type, source))
+			Config.LOGINFO_INDENT-=1
 		if self.ended:
 			#raise GameOver("The game has ended.")
 			return
@@ -128,8 +127,8 @@ class BaseGame(Entity):
 			self._action_stack = max(self._action_stack-1,0)
 		if not self._action_stack:
 			if Config.LOGINFO:
-				print("%s(Game.action_end)Empty stack, refreshing auras and processing deaths."%(Config.LOGINFO_INDENT))
-				Config.LOGINFO_INDENT=Config.LOGINFO_INDENT[:-4]
+				Config.log("Game.action_end","Empty stack, refreshing auras and processing deaths."%())
+				Config.LOGINFO_INDENT-=1
 			#if type ==BlockType.DEATHS:
 			#	#if Config.LOGINFO:
 			#	#	print("this case is annoying us.")
@@ -196,7 +195,7 @@ class BaseGame(Entity):
 		actions = []
 		if cards:
 			if Config.LOGINFO:
-				print("%s(game.process_deaths) begins a process of death."%(Config.LOGINFO_INDENT))
+				Config.log("game.process_deaths","The game manager begins a process of death."%())
 			self.action_start(type, self, 0, None)
 			for card in cards:
 				card.zone = Zone.GRAVEYARD

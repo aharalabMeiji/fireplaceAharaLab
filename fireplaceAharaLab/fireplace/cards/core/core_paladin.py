@@ -25,15 +25,14 @@ Core_Reckoning=True
 
 
 
-if Core_Warhorse_Trainer:# 
-	Core_Paladin+=['CORE_AT_075']
-class CORE_AT_075:# <5>[1637]#23.6 ## visually OK
+if Core_Warhorse_Trainer:
+	Core_Paladin+=['CORE_AT_075','AT_075e']
+class CORE_AT_075:# <5>[1637]## 22.6 ## OK
 	""" Warhorse Trainer
 	Your Silver Hand Recruits have +1 Attack. """
-	update = Refresh(FRIENDLY_MINIONS+ID('CS2_101t'),{GameTag.ATK: +1})
+	update = Refresh(FRIENDLY + ID("CS2_101t"), buff="AT_075e")	
 	pass
-#class CS2_101t:
-""" Silver Hand Recruit (1/1/1)"""
+AT_075e = buff(atk=1)
 
 
 class CORE_CS2_088:# <5>[1637]##.22.6  ## visually OK
@@ -120,7 +119,7 @@ class CORE_EX1_362:# <5>[1637]#23.6 ## visually OK
 	pass
 
 if Core_Aldor_Peacekeeper:# 
-	Core_Paladin+=['CORE_EX1_382']
+	Core_Paladin+=['CORE_EX1_382','EX1_382e']
 class CORE_EX1_382:# <5>[1637]#23.6 ## visually OK
 	""" Aldor Peacekeeper
 	[Battlecry:] Change an_enemy minion's Attack to 1. """
@@ -152,7 +151,7 @@ class EX1_619e:
 	max_health = SET(1)
 
 if Core_Avenge:# 
-	Core_Paladin+=['CORE_FP1_020']
+	Core_Paladin+=['CORE_FP1_020','FP1_020e']
 class CORE_FP1_020:# <5>[1637]#23.6 ## visually OK
 	""" Avenge
 	[Secret:] When one of your minions dies, give a random friendly minion +3/+2. """

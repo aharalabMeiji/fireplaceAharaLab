@@ -225,20 +225,13 @@ class BAR_902e:# <5>[1525]
 
 
 
-if Barrens_Seedcloud_Buckler:# 
+if Barrens_Seedcloud_Buckler:# ### OKOK ###
 	Barrens_Paladin+=['WC_032']
 class WC_032:# <5>[1525]
-	""" Seedcloud Buckler
+	""" Seedcloud Buckler   (weapon)
 	[Deathrattle:] Give your_minions [Divine Shield]. """
-	deathrattle = Buff(FRIENDLY_MINIONS, 'WC_032e')
+	deathrattle = SetDivineShield(FRIENDLY_MINIONS, True)
 	pass
-@custom_card
-class WC_032e:
-	tags={
-		GameTag.CARDNAME:"Seedcloud Buckler",
-		GameTag.CARDTYPE:CardType.ENCHANTMENT,
-		GameTag.DIVINE_SHIELD: 1
-		}
 
 
 

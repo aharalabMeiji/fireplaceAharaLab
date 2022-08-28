@@ -239,6 +239,7 @@ if StormWind_Deeprun_Engineer:#  ### OK ###
 class SW_059_Choice(Choice):## 
 	def choose(self, card):
 		super().choose(card)
+		self.next_choice=None
 		cardId=card.id
 		if Config.LOGINFO:
 			print("(SW_059_Choice.choose)%s chooses %r"%(card.controller.name, card))

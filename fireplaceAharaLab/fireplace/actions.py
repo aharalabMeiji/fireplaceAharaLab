@@ -142,7 +142,7 @@ class Action(metaclass=ActionMeta):
 				continue
 			if isinstance(event.trigger, self.__class__) and event.trigger.matches(entity, args):
 				if Config.LOGINFO:
-					print("%s(actions.broadcast)%s triggers off %s from %s"%(Config.LOGINFO_INDENT, entity, self, source))
+					Config.log("actions.broadcast","%s triggers off %s from %s"%(entity, self, source))
 				entity.trigger_event(source, event, args)
 	def broadcast(self, source, at, *args):
 		for entity in source.game.entities:
@@ -2804,6 +2804,9 @@ class SetAttr(TargetedAction):
 			setattr(target, attr, amount)
 
 class SetDivineShield(TargetedAction):
+	"""
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()"""
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount=True):
@@ -3089,12 +3092,14 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 		pass
 
 class SummonAdventurerWithBonus(TargetedAction):
-	""" Devouring Ectoplasm """
+	""" Devouring Ectoplasm 
+	TARGET = ActionArg()#the controller
+	"""
 	TARGET = ActionArg()#the controller
 	def do(self,source,target,amount=1):
 		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],amount)
 		for card in cards:
-			newcard=Summon(self.controller, card).trigger(self)
+			newcard=Summon(target, card).trigger(self)
 			newcard=newcard[0][0]
 			newAtk=random.randint(1,3)
 			newHealth=random.randint(1,3)

@@ -27,7 +27,7 @@ class DED_512:# <6>[1578]
 	""" Amulet of Undying
 	[Tradeable]Resurrect @ friendly[Deathrattle] |4(minion, minions).<i>(Upgrades when [Traded]!)</i> """
 	def play(self):
-		cards=[card for card in self.controller.graveyard if card.has_deathrattle==True]
+		cards=[card for card in self.controller.graveyard if card.type==CardType.MINION and card.has_deathrattle==True]
 		amount = min(len(cards), self.script_data_num_1+1)
 		cards = random.sample(cards, amount)
 		for card in cards:
@@ -96,7 +96,7 @@ class SW_433_Quest1(TargetedAction):
 		self.record = [None,None,None]
 		if card.cost in [2,3,4]:
 			if self.record[card.cost-2]==None:
-				self.recore[card.cost-2]=card
+				self.record[card.cost-2]=card
 		if self.record[0]!=None and self.record[1]!=None and self.record[2]!=None: 
 			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).trigger(source)
 			Summon(source.controller, 'SW_433t').trigger(source)
@@ -115,7 +115,7 @@ class SW_433_Quest2(TargetedAction):
 		self.record = [None,None]
 		if card.cost in [5,6]:
 			if self.record[card.cost-5]==None:
-				self.recore[card.cost-5]=card
+				self.record[card.cost-5]=card
 		if self.record[0]!=None and self.record[1]!=None: 
 			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).trigger(source)
 			Summon(source.controller, 'SW_433t2').trigger(source)
@@ -134,7 +134,7 @@ class SW_433_Quest3(TargetedAction):
 		self.record = [None,None]
 		if card.cost in [7,8]:
 			if self.record[card.cost-7]==None:
-				self.recore[card.cost-7]=card
+				self.record[card.cost-7]=card
 		if self.record[0]!=None and self.record[1]!=None: 
 			Give(CONTROLLER, 'SW_433t3').trigger(source)
 			Destroy(source).trigger(source)
@@ -163,6 +163,7 @@ if StormWind_Call_of_the_Grave:#
 class SW_440_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		self.next_choice=None
 		if Config.LOGINFO:
 			print("(GenericChoice.choose)%s chooses %r"%(card.controller.name, card))
 		for _card in self.cards:

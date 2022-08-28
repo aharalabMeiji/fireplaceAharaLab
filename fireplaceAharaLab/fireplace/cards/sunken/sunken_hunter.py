@@ -52,8 +52,8 @@ if Sunken_K9_0tron:#  ###OK
 	Sunken_Hunter+=['TID_099']
 class TID_099_DredgeChoice(Choice):
 	def choose(self, card):
-		self.next_choice=None
 		super().choose(card)
+		self.next_choice=None
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
 		controller = card.controller
@@ -100,8 +100,8 @@ if Sunken_Harpoon_Gun:#
 	Sunken_Hunter+=['TSC_070']
 class TSC_070_DredgeChoice(Choice):
 	def choose(self, card):
-		self.next_choice=None
 		super().choose(card)
+		self.next_choice=None
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
 		controller = card.controller

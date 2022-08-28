@@ -4,13 +4,13 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def stormwind_paladin():
 
-	#PresetGame(pp_DED_500)##
+	#PresetGame(pp_DED_500)##  OKOK
 	#PresetGame(pp_DED_501)##OKOK
 	#PresetGame(pp_DED_502)##
 	#PresetGame(pp_SW_046)##
 	#PresetGame(pp_SW_047)##
 	#PresetGame(pp_SW_048)##
-	PresetGame(pp_SW_049)##OK
+	#PresetGame(pp_SW_049)##OK
 	#PresetGame(pp_SW_305)##
 	#PresetGame(pp_SW_313)##
 	#PresetGame(pp_SW_314)##
@@ -28,20 +28,27 @@ class pp_DED_500(Preset_Play):
 	[Taunt]. [Battlecry:] Swap theAttack of the highest andlowest Attack minion. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("DED_500", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.controller, self.card_choice("minionA1")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
+		self.mark5=Summon(self.controller, self.card_choice("minionA3")).trigger(self.controller)
+		self.mark5=self.mark5[0][0]
+		self.mark6=Summon(self.controller, self.card_choice("minionA5")).trigger(self.controller)
+		self.mark6=self.mark6[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		assert self.mark4.atk==5, "atk"
+		assert self.mark5.atk==3, "atk"
+		assert self.mark6.atk==1, "atk"
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass

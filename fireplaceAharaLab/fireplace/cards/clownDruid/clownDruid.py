@@ -33,6 +33,7 @@ from ..utils import *
 
 #class DMF_075_Choice(GenericChoice):
 #    def choose(self, card):
+#		self.next_choice=None
 #        super().choose(card)
 #        controller = self.player
 #        choiceCard = controller.hand[-1]

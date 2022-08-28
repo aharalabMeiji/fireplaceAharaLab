@@ -196,7 +196,7 @@ class AV_345_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
 	def do(self,source,target, buff):
-		if buff.atk>0 or buff.health>0:
+		if buff.atk>0 or buff.max_health>0:
 			Buff(target, buff.id).trigger(source)
 class AV_345:# <5>[1626]
 	""" Saidan the Scarlet

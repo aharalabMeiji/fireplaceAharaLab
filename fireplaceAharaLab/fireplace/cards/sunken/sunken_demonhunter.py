@@ -22,6 +22,7 @@ if Sunken_Topple_the_Idol:#
 class TID_703_DredgeChoice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		self.next_choice=None
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
 		controller = card.controller
@@ -174,7 +175,8 @@ class TSC_218_Action(TargetedAction):
 				low=[card]
 			elif low[0].health==card.health:
 				low.append(card)
-		RegularAttack(target.hero, random.choice(low)).trigger(source)
+		if low!=[]:
+			RegularAttack(target.hero, random.choice(low)).trigger(source)
 class TSC_218:# <14>[1658]
 	""" Lady S'theno
 	[Immune] while attacking. After you cast a spell, attackthe lowest Health enemy. """

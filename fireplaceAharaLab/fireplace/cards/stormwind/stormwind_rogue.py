@@ -218,6 +218,7 @@ class SW_052t4e:# <7>[1578]
 class SW_052t5_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		self.next_choice=None
 		for cd in self.source.controller.opponent.deck:
 			if cd.id==card.id:
 				cd.zone=Zone.GRAVEYARD## discard

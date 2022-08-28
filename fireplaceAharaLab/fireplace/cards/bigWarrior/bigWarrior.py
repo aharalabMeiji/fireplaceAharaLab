@@ -18,6 +18,7 @@ class SW_023:###OK <10>[1578]
 
 class SCH_237_Choice(GenericChoice):## SCH_237
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller = self.player
 		for handcard in controller.hand:

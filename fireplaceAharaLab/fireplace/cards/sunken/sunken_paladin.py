@@ -191,6 +191,7 @@ if Sunken_Seafloor_Savior:#
 class TSC_083_DredgeChoice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		self.next_choice=None
 		if Config.LOGINFO:
 			print("(DredgeChoice.choose)%s chooses %r"%(card.controller.name, card))
 		controller = card.controller
