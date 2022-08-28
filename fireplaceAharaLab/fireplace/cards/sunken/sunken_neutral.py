@@ -555,7 +555,7 @@ if Sunken_Mothership:#
 class TSC_645:# <12>[1658] ## OK
 	""" Mothership
 	[Rush][Deathrattle:] Summon two random Mechs that cost (3) or less. """
-	deathrattle=Summon(CONTROLLER, RandomMech(cost=RandomNumber(1, 2, 3)))
+	deathrattle=Summon(CONTROLLER, RandomMech(cost=[1,2,3]))*2
 	pass
 
 

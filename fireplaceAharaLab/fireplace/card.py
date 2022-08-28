@@ -65,7 +65,7 @@ class BaseCard(BaseEntity):
 		return self.id.__hash__()
 
 	def __repr__(self):
-		return "<%s (%r)>" % (self.__class__.__name__, self.__str__())
+		return "<%s %r(%s)>" % (self.__class__.__name__, self.__str__(), self.id)
 
 	def __eq__(self, other):
 		if isinstance(other, BaseCard):

@@ -107,30 +107,8 @@ Sunken_Cards=[Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Pala
 
 ## REVENDRETH = 1691  # Murder at Castle Nathria
 # Hero
-Heroes=[
-	'HERO_01',
-	'HERO_01bp','HERO_01bp2',#Armor Up!
-	'HERO_02',
-	'HERO_02bp','HERO_02bp2',#Totemic Call
-	"CS2_050", "CS2_051", "CS2_052", "NEW1_009",
-	'HERO_03',
-	'HERO_03bp','HERO_03bp2',#Dagger Mastery
-	'AT_034','AT_034e','CS2_082','AT_132_ROGUEt',
-	'HERO_04',
-	'HERO_04bp','HERO_04bp2','CS2_101t',#steady shot
-	'HERO_05',
-	'HERO_05bp','HERO_05bp2','HERO_05dbp',#Reinforce 
-	'HERO_06',	
-	'HERO_06bp','CS2_017o','HERO_06bp2','AT_132_DRUIDe',#Shapeshift
-	'HERO_07',
-	'HERO_07bp','HERO_07bp2',#Life Tap
-	'HERO_08',
-	'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
-	'HERO_09',
-	'HERO_09bp','HERO_09bp2',# Lesser Heal
-	'HERO_10',
-	'HERO_10bp','HERO_10bpe','HERO_10bp2','HERO_10pe2',##Demon Claws
-	]
+from fireplace.cards.hero_dream import hero, dream
+Heroes=hero.Heroes
 Dream= ['DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']
 Etc = ['SCH_307t']
 faceHunter =[#old faceHunter

@@ -190,14 +190,15 @@ class AV_344:# <5>[1626]
 	pass
 AV_344e=buff(2,2)
 
-if Alterac_Saidan_the_Scarlet:# 
+if Alterac_Saidan_the_Scarlet:# ### OKOK
 	Alterac_Paladin+=['AV_345']
 class AV_345_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
 	def do(self,source,target, buff):
 		if buff.atk>0 or buff.max_health>0:
-			Buff(target, buff.id).trigger(source)
+			buff.atk += buff.atk
+			buff.max_health += buff.max_health
 class AV_345:# <5>[1626]
 	""" Saidan the Scarlet
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """

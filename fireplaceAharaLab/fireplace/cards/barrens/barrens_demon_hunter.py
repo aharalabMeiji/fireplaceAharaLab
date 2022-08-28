@@ -86,9 +86,9 @@ if Barrens_Vengeful_Spirit:#
 class BAR_328_Give(TargetedAction):
 	TARGET=ActionArg()#CONTROLLER
 	def do(self,source,target):
-		cards=[card for card in source.target.deck if card.has_deathrattle==True]
+		cards=[card for card in target.deck if card.has_deathrattle==True]
 		if len(cards)>=2:
-			cards=random.sampl(cards, 2)
+			cards=random.sample(cards, 2)
 		for card in cards:
 			Summon(target, card).trigger(source)
 class BAR_328:# <14>[1525]
@@ -105,9 +105,9 @@ if Barrens_Death_Speaker_Blackthorn:#
 class BAR_329_Summon(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
-		cards=[card for card in target.deck if card.cost<=5 and card.has_deathrattle==True]
+		cards=[card for card in target.deck if card.cost<=5 and card.type==CardType.MINION and card.has_deathrattle==True]
 		if len(cards)>3:
-			cards=random.sampl(cards, 3)
+			cards=random.sample(cards, 3)
 		for card in cards:
 			Summon(target, card).trigger(source)
 class BAR_329:# <14>[1525]

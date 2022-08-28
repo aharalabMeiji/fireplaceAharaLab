@@ -4,18 +4,12 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def stormwind_priest():
 
-	#PresetGame(pp_BOM_05_Bolvar_007p)##
-	#PresetGame(pp_BOM_05_Xyrella_006e)##
-	#PresetGame(pp_BOM_05_Xyrella_006hb)##
-	#PresetGame(pp_BOM_05_Xyrella_006p)##
-	#PresetGame(pp_BOM_07_Scabbs_Xyrella_008t)##
 	#PresetGame(pp_DED_512)##
 	#PresetGame(pp_DED_513)##
 	#PresetGame(pp_DED_514)##
-	#PresetGame(pp_Story_10_Tyrande)##
 	#PresetGame(pp_SW_012)##
 	#PresetGame(pp_SW_433)##
-	#PresetGame(pp_SW_440)##
+	PresetGame(pp_SW_440)##
 	#PresetGame(pp_SW_441)##
 	#PresetGame(pp_SW_442)##
 	#PresetGame(pp_SW_443)##
@@ -23,136 +17,6 @@ def stormwind_priest():
 	#PresetGame(pp_SW_445)##
 	#PresetGame(pp_SW_446)##
 	#PresetGame(pp_SW_448)##
-
-
-##########BOM_05_Bolvar_007p##########
-
-class pp_BOM_05_Bolvar_007p(Preset_Play):
-	""" For the Alliance!
-	[Hero Power]Summon five minions from your deck. Give them +3 Health and [Taunt]. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Bolvar_007p", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_05_Xyrella_006e##########
-
-class pp_BOM_05_Xyrella_006e(Preset_Play):
-	""" Holy Empowerment
-	Costs (2) less. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Xyrella_006e", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_05_Xyrella_006hb##########
-
-class pp_BOM_05_Xyrella_006hb(Preset_Play):
-	""" Xyrella
-	Xyrella sought knowledgeof the naaru's power, butfound Tamsin at StormwindCathedral instead. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Xyrella_006hb", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_05_Xyrella_006p##########
-
-class pp_BOM_05_Xyrella_006p(Preset_Play):
-	""" Naaru's Light
-	[Passive Hero Power]Your Holy Spellscost (2) less. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_05_Xyrella_006p", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_07_Scabbs_Xyrella_008t##########
-
-class pp_BOM_07_Scabbs_Xyrella_008t(Preset_Play):
-	""" Xyrella
-	[Lifesteal][Deathrattle]: Return thisto your hand. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_07_Scabbs_Xyrella_008t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
 ##########DED_512##########
@@ -233,32 +97,6 @@ class pp_DED_514(Preset_Play):
 	pass
 
 
-##########Story_10_Tyrande##########
-
-class pp_Story_10_Tyrande(Preset_Play):
-	""" Tyrande Whisperwind
-	 """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_10_Tyrande", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
 ##########SW_012##########
 
 class pp_SW_012(Preset_Play):
@@ -315,25 +153,28 @@ class pp_SW_433(Preset_Play):
 
 class pp_SW_440(Preset_Play):
 	""" Call of the Grave
-	[Discover] a [Deathrattle]minion. If you haveenough Mana to play it,trigger its [Deathrattle]. """
+	[Discover] a [Deathrattle]minion. If you have enough Mana to play it, trigger its [Deathrattle]. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("SW_440", self.controller)
 		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
+		self.mark5=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.mark5=self.mark5[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.choose_action()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

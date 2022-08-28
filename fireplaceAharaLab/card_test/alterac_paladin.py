@@ -14,19 +14,10 @@ def alterac_paladin():
 	#PresetGame(pp_AV_342)##
 	#PresetGame(pp_AV_343)##
 	#PresetGame(pp_AV_344)##
-	#PresetGame(pp_AV_345)##
-	#PresetGame(pp_BOM_08_Cariel_002t)##
-	#PresetGame(pp_BOM_08_Cariel_003t)##
-	#PresetGame(pp_BOM_08_Cariel_006t)##
-	#PresetGame(pp_BOM_09_Cariel_004t)##
-	#PresetGame(pp_BOM_09_Cariel_006t)##
-	#PresetGame(pp_BOM_09_Cariel_008t)##
-	#PresetGame(pp_BOM_10_BackToBack_004s)##
-	#PresetGame(pp_BOM_10_Cariel_004t)##
+	PresetGame(pp_AV_345)## ### OKOK
 	#PresetGame(pp_ONY_020)##
 	#PresetGame(pp_ONY_022)##
 	#PresetGame(pp_ONY_027)##
-	#PresetGame(pp_TB_01_BOM_Mercs_Cariel_001p)##
 	pass
 
 ##########AV_146##########
@@ -303,225 +294,31 @@ class pp_AV_345(Preset_Play):
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("AV_345", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card("CORE_CS2_092", self.controller)
+		self.mark3=self.exchange_card("CORE_CS2_188", self.controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		print("stats=%d/%d"%(self.mark1.atk, self.mark1.health))#(2/2)
+		self.play_card(self.mark2, target=self.mark1)
+		print("(2,2)->(+4/+4)*2-> %d/%d"%(self.mark1.atk, self.mark1.health))
+		assert self.mark1.atk==10, "stats"
+		assert self.mark1.health==10, "stats"
 		self.change_turn()
 		### opp
 		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Cariel_002t##########
-
-class pp_BOM_08_Cariel_002t(Preset_Play):
-	""" Cariel
-	[Taunt][Revive]: (3) """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_08_Cariel_002t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark3, target=self.mark1)
+		print("(10,10)->(+2/0)*2->%d/%d"%(self.mark1.atk, self.mark1.health))
+		assert self.mark1.atk==14, "stats"
+		assert self.mark1.health==10, "stats"
 		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Cariel_003t##########
-
-class pp_BOM_08_Cariel_003t(Preset_Play):
-	""" Cariel
-	[Taunt][Revive]: (3) """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_08_Cariel_003t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Cariel_006t##########
-
-class pp_BOM_08_Cariel_006t(Preset_Play):
-	""" Immovable Cariel
-	[Taunt][Deathrattle]: You lose the game. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_08_Cariel_006t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Cariel_004t##########
-
-class pp_BOM_09_Cariel_004t(Preset_Play):
-	""" Cariel Roame
-	[Taunt][Revive:] (3) """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_09_Cariel_004t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Cariel_006t##########
-
-class pp_BOM_09_Cariel_006t(Preset_Play):
-	""" Cariel
-	[Taunt][Revive:] (3) """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_09_Cariel_006t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Cariel_008t##########
-
-class pp_BOM_09_Cariel_008t(Preset_Play):
-	""" Cariel
-	[Taunt][Revive:] (3) """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_09_Cariel_008t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_10_BackToBack_004s##########
-
-class pp_BOM_10_BackToBack_004s(Preset_Play):
-	""" Back to Back
-	Kurtrus and Cariel are both [Immune] until your next turn. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_10_BackToBack_004s", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_10_Cariel_004t##########
-
-class pp_BOM_10_Cariel_004t(Preset_Play):
-	""" Cariel, Conflicted
-	[Taunt] """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("BOM_10_Cariel_004t", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		print("(10,10)->(0/0)->%d/%d"%(self.mark1.atk, self.mark1.health))
+		assert self.mark1.atk==10, "stats"
+		assert self.mark1.health==10, "stats"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -607,31 +404,6 @@ class pp_ONY_027(Preset_Play):
 			self.print_stats("hand", card)
 	pass
 
-
-##########TB_01_BOM_Mercs_Cariel_001p##########
-
-class pp_TB_01_BOM_Mercs_Cariel_001p(Preset_Play):
-	""" Cariel
-	[Hero Power]Summon a friendly minion that died this game with 1 Health. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("TB_01_BOM_Mercs_Cariel_001p", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
 

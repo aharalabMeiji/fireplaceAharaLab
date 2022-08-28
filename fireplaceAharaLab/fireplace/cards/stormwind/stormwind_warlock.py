@@ -34,11 +34,12 @@ class DED_503:# <9>[1578]
 
 
 if StormWind_Wicked_Shipment:# 
-	StormWind_Warlock+=['DED_504']
+	StormWind_Warlock+=['DED_504','EX1_598']
 class DED_504:# <9>[1578]
 	""" Wicked Shipment
 	[Tradeable]Summon @ 1/1 |4(Imp, Imps)(EX1_598).<i>(Upgrades by 2when [Traded]!)</i> """
-	script_data_num_1=1
+	def __init__(self):
+		self.script_data_num_1=1
 	def play(self):
 		for i in range(self.script_data_num_1):
 			Summon(self.controller, 'EX1_598').trigger(self)
@@ -61,7 +62,7 @@ class DED_505:# <9>[1578]
 
 
 if StormWind_Runed_Mithril_Rod:# 
-	StormWind_Warlock+=['SW_003']
+	StormWind_Warlock+=['SW_003','SW_003e']
 class SW_003:# <9>[1578]
 	""" Runed Mithril Rod
 	After you draw 4 cards,reduce the Cost of cards in your hand by (1).Lose 1 Durability. """

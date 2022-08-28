@@ -1,5 +1,9 @@
 from ..utils import *
 
+Heroes=[
+	'HERO_01',
+	'HERO_01bp','HERO_01bp2',#Armor Up!
+]
 class HERO_01:
 	""" Garrosh Hellscream
 	"""
@@ -15,6 +19,11 @@ class HERO_01bp2:#OK
 	activate = GainArmor(FRIENDLY_HERO, 4)
 	pass
 
+Heroes+=[
+	'HERO_02',
+	'HERO_02bp','HERO_02bp2',#Totemic Call
+	"CS2_050", "CS2_051", "CS2_052", "NEW1_009",
+	]
 class HERO_02:
 	pass
 class HERO_02bp:
@@ -52,6 +61,10 @@ class HERO_02bp2:################################# pass, need to modify
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	choose = ("CS2_050", "CS2_051", "CS2_052", "NEW1_009")
 
+Heroes+=[	'HERO_03',
+	'HERO_03bp','HERO_03bp2',#Dagger Mastery
+	'AT_034','AT_034e','CS2_082','AT_132_ROGUEt',
+]
 class HERO_03:
 	""" Valeera Sanguinar
 	"""
@@ -79,7 +92,9 @@ class AT_132_ROGUEt:
 	""" Poisoned Dagger
 	(weapon) """
 	pass
-
+Heroes+=[	'HERO_04',
+	'HERO_04bp','HERO_04bp2','CS2_101t',#steady shot
+]
 class HERO_04:
 	""" Uther Lightbringer
 	"""
@@ -97,6 +112,9 @@ class HERO_04bp2:#OK
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	activate = Summon(CONTROLLER, "CS2_101t") * 2
 
+Heroes+=[	'HERO_05',
+	'HERO_05bp','HERO_05bp2','HERO_05dbp',#Reinforce 
+]
 class HERO_05:
 	""" Garrosh Hellscream
 	"""
@@ -123,7 +141,9 @@ class HERO_05dbp:
 	activate = Hit(TARGET, 2)
 	pass
 
-
+Heroes+=[	'HERO_06',	
+	'HERO_06bp','CS2_017o','HERO_06bp2','AT_132_DRUIDe',#Shapeshift
+]
 class HERO_06:
 	""" Malfurion Stormrage
 	"""
@@ -151,6 +171,11 @@ class HERO_06bp2e:
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 		GameTag.ATK: 2,
 		GameTag.TAG_ONE_TURN_EFFECT: 1,}
+
+
+Heroes+=[	'HERO_07',
+	'HERO_07bp','HERO_07bp2',#Life Tap
+]
 class HERO_07:
 	""" Gul'dan
 	"""
@@ -163,6 +188,9 @@ class HERO_07bp2:#OK
 	<b>Hero Power</b>	Draw a card."""
 	activate = Draw(CONTROLLER)
 
+Heroes+=[	'HERO_08',
+	'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
+]
 class HERO_08:
 	"""  Jaina Proudmoore
 	"""
@@ -180,6 +208,9 @@ class HERO_08bp2:#OK
 	activate = Hit(TARGET, 2)
 	pass
 
+Heroes+=[	'HERO_09',
+	'HERO_09bp','HERO_09bp2',# Lesser Heal
+	]
 class HERO_09:#
 	""" Anduin Wrynn  """
 	pass
@@ -196,18 +227,21 @@ class HERO_09bp2:#OK
 	activate = Heal(TARGET, 4)
 
 	
+Heroes+=['HERO_10',
+	'HERO_10bp','HERO_10bpe','HERO_10bp2','HERO_10pe2',##Demon Claws
+	]
 class HERO_10:#
 	""" Illidan Stormrage  """
 	pass
 class HERO_10bp:#
 	"""Demon Claws
 	[x]&lt;b&gt;Hero Power&lt;/b&gt;+1 Attack this turn."""
-	activate = buff(FRIENDLY_HERO, 'HERO_10bpe')
+	activate = Buff(FRIENDLY_HERO, 'HERO_10bpe')
 HERO_10bpe=buff(1,0)
 #<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 class HERO_10bp2:#OK
 	"""Demon's Bite
 	&lt;b&gt;Hero Power&lt;/b&gt; +2 Attack this turn."""
-	activate = buff(FRIENDLY_HERO, 'HERO_10pe2')
+	activate = Buff(FRIENDLY_HERO, 'HERO_10pe2')
 HERO_10pe2=buff(2,0)
 
