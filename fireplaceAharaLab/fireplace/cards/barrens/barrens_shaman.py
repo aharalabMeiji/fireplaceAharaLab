@@ -170,6 +170,8 @@ class WC_005:# <8>[1525]
 	[Battlecry:] Draw a spell.If it's a Nature spell, also draw an Elemental. """
 	def play(self):
 		newcard = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self)#
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		if hasattr(newcard, 'spell_school') and newcard.spell_school==SpellSchool.NATURE:
 			Give(CONTROLLER, RANDOM(FRIENDLY_DECK+ELEMENTAL)).trigger(self)

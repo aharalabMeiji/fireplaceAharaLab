@@ -273,8 +273,8 @@ def print_deck():
 		pass
 
 def card_test():
-	from card_test.barrens_paladin import barrens_paladin
-	barrens_paladin()
+	from card_test.core_mage import core_mage
+	core_mage()
 	pass
 
 def battleground_main():

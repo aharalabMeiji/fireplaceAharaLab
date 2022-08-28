@@ -460,6 +460,7 @@ class Choice(GameAction):
 class GenericChoice(Choice):
 	def choose(self, card):
 		private_casts_when_chosen = ['YOP_024t']
+		self.next_choice=None
 		super().choose(card)
 		if not hasattr(card, 'controller') or not hasattr(card, 'type'):
 			return
@@ -1430,7 +1431,7 @@ class Give(TargetedAction):
 		for card in cards:
 			if len(target.hand) >= target.max_hand_size:
 				if Config.LOGINFO:
-					Config.log("Give.do","Give(%r) fails because %r's hand is full", card, target)
+					Config.log("Give.do","Give(%r) fails because %r's hand is full"%(card, target))
 				continue
 			## when card==[]  ## 
 			if hasattr(card, "__iter__") and len(card)==0:

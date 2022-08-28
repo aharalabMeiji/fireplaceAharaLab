@@ -461,7 +461,7 @@ if Ram_Commander:#
 class AV_219:
 	""" Ram Commander (2/2/2)
 	[Battlecry]: Add two 1/1 Rams with Rush to your hand."""
-	play = Give(CONTROLLER, 'AV_219t') * 2
+	play = Give(CONTROLLER, 'AV_219t'),Give(CONTROLLER, 'AV_219t')
 	pass
 class AV_219t:
 	""" Ram with Rush (1/1)"""

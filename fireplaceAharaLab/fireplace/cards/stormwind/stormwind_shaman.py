@@ -26,10 +26,14 @@ class DED_509:# <8>[1578]
 	""" Brilliant Macaw
 	[Battlecry:] Repeat the last [Battlecry] you played. """
 	def play(self):
-		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['source'].id!='DED_509']
 		if len(actions)>0:
-			action = actions[-1]["source"].get_actions('play')
-			action.trigger(self)
+			card = actions[-1]["source"]
+			if hasattr(card.data.scripts, 'play'):
+				action = getattr(card.data.scripts, 'play')
+				action.trigger(self)
+			elif hasattr(card, 'play'):
+				card.play()
 	pass
 
 
@@ -233,7 +237,12 @@ class SW_115_Action(TargetedAction):
 	def do(self, source, target):
 		actions=[action for action in source.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['turn']==target.game.turn]
 		if len(actions)>0:
-			actions[0].trigger(source)
+			card = actions[0]['source']
+			if hasattr(card.data.scripts, 'play'):
+				action = card.get_actions('play')
+				action.trigger(source)
+			elif hasattr(card, 'play'):
+				card.play()
 		pass
 class SW_115:# <8>[1578]
 	""" Bolner Hammerbeak

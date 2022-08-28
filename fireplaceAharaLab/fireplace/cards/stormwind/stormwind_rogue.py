@@ -315,7 +315,13 @@ class SW_405:# <7>[1578] spell(3)
 	def play(self):
 		newcard = Give(self.controller, RandomDeathrattle(cost=[1,2,3,4])).trigger(self)
 		newcard=newcard[0][0]
-		action = newcard.deathrattles[0]
+		if newcard.deathrattles==[]:
+			buffs=[buff.deathrattles for buff in newcard.buffs if buff.deathrattles!=[]]
+			if buffs==[]:
+				return
+			action = buffs[0][0]
+		else:
+			action = newcard.deathrattles[0]
 		if isinstance(action, tuple) or isinstance(action, list):
 			action[0].trigger(self)
 		else:

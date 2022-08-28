@@ -203,6 +203,8 @@ class CardDB(dict):
 				elif attr == 'spellcraft_spellcard':
 					cards = [card for card in cards 
 								if card.tags.get(2423, 0)==1]
+				elif attr == 'stealthed':
+					cards = [card for card in cards if card.tags.get(GameTag.STEALTH,0)==1 ]
 				else:
 					cards = [
 						card for card in cards if (

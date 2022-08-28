@@ -26,7 +26,7 @@ def core_mage():
 	#PresetGame(pp_CORE_LOOT_101)##OK
 	#PresetGame(pp_CORE_TRL_315)##OK
 	#PresetGame(pp_CORE_UNG_020)
-	#PresetGame(pp_CS3_001)##OK
+	PresetGame(pp_CS3_001)##OK re-OK
 	## 22.6
 	pass
 
@@ -494,7 +494,7 @@ class pp_CS3_001(Preset_Play):# <12>[1637]
 		for card in self.player.hand:
 			self.print_stats("hand", card)
 		card = self.player.hand[-1]
-		assert card.buffs!=[], "buff"
+		assert card.buffs!=[], "buff"## stops if the last drawn card is a spell.
 		assert card.buffs[0].id=='CS3_001e', "buff"
 		assert card.has_deathrattle==True, "deathrattle"
 		print("new_card_deathrattle = %s"%(card.deathrattles[0]))
