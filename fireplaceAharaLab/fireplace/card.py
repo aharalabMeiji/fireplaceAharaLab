@@ -511,7 +511,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 
 	def get_damage(self, amount, target):
 		amount = super().get_damage(amount, target)
-		return amount + target.get_extra_damage
+		if target!=None and hasattr(target,'get_extra_damage'):
+			return amount + target.get_extra_damage
+		else:
+			return amount
 
 
 class LiveEntity(PlayableCard, Entity):

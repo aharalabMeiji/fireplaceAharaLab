@@ -237,7 +237,7 @@ class WC_003t:# <14>[1525]
 
 
 if Barrens_Taintheart_Tormenter:# 
-	Barrens_DemonHunter+=['WC_040']
+	Barrens_DemonHunter+=['WC_040','WC_040e']
 class WC_040:# <14>[1525]
 	""" Taintheart Tormenter
 	[Taunt]Your opponent's spells cost (2) more. """
