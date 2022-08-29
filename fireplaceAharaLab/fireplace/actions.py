@@ -1484,16 +1484,17 @@ class Hit(TargetedAction):
 						if Config.LOGINFO:
 							Config.log("Hit.do","%s hits %s and gets honorable kill"%(source, target))
 						target.honorably_killed = True
+						event_args=[target]
 						if source.type==CardType.HERO and source.controller.weapon!=None :
 							actions = source.controller.weapon.get_actions("honorable_kill")
-							source.game.trigger(source.controller.weapon, actions,event_args=None)
+							source.game.trigger(source.controller.weapon, actions,event_args=event_args)
 						else:
 							actions = source.get_actions("honorable_kill")
-							source.game.trigger(source, actions,event_args=None)
+							source.game.trigger(source, actions,event_args=event_args)
 						for buff in source.buffs:
 							if hasattr(buff, 'honorable_kill'):
 								actions = buff.get_actions('honorable_kill')
-								source.game.trigger(source, actions, event_args=None)
+								source.game.trigger(source, actions, event_args=event_args)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 

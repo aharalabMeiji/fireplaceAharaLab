@@ -22,7 +22,7 @@ if Alterac_Seeds_of_Destruction:#
 class AV_277:# <9>[1626]
 	""" Seeds of Destruction
 	Shuffle four Rifts(AV_316t4) into your deck. They summon a 3/3 Dread Imp(AV_316t) when drawn. """
-	#
+	play = Shuffle(CONTROLLER, 'AV_316t4')*4 
 	pass
 
 if Alterac_Felfire_in_the_Hole:# 
@@ -30,7 +30,13 @@ if Alterac_Felfire_in_the_Hole:#
 class AV_281:# <9>[1626]
 	""" Felfire in the Hole!
 	Draw a spell and deal $2 damage to all enemies. If it's a Fel spell, deal $1 more. """
-	#
+	def play(self):
+		newcard=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self)
+		newcard=newcard[0][0]
+		if newcard.type==CardType.SPELL and newcard.spell_school==SpellSchool.FEL:
+			Hit(ENEMY_CHARACTERS, 3).trigger(self)
+		else:
+			Hit(ENEMY_CHARACTERS, 2).trigger(self)
 	pass
 
 if Alterac_Full_Blown_Evil:# 
@@ -40,7 +46,7 @@ class AV_285:# <9>[1626]
 	Deal 5 damage randomly split among all enemy minions. Repeatable this turn. """
 	play = (
 		SplitHit(CONTROLLER, ENEMY_MINIONS, 5),
-		Give(CONTROLLER, 'AV_285_3').on(Buff(Give.CARD, 'AV_285_e'))
+		Give(CONTROLLER, 'AV_285').on(Buff(Give.CARD, 'AV_285_e'))
 		)
 	pass
 @custom_card
@@ -90,6 +96,13 @@ class AV_312:# <9>[1626]
 	""" Sacrificial Summoner
 	[Battlecry:] Destroy a friendly minion. Summon a minion from your deck that costs (1) more. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	#
+	def play(self):
+		if self.target!=None:
+			cost = self.target.cost+1
+			Destroy(self.target).trigger(self)
+			cards=[card for card in self.controller.deck if card.type==CardType.MINION and card.cost==cost]
+			if cards!=[]:
+				Summon(self.controller, random.choice(cards)).trigger(self)
 	pass
 
 if Alterac_Hollow_Abomination:# 
@@ -98,12 +111,11 @@ if Alterac_Hollow_Abomination:#
 class AV_313:# <9>[1626]
 	""" Hollow Abomination
 	[Battlecry:] Deal 1 damage to all enemy minions. [Honorable Kill:] Gain the minion's Attack. """
-	#
+	play = Hit(ENEMY_MINIONS, 1)
+	#honorable_kill = Buff(SELF, 'AV_313e', atk=1)
 	pass
 class AV_313e:# <9>[1626]
-	""" Consumed
-	Increased attack. """
-	#
+	""" Consumed 	Increased attack. """
 	pass
 
 if Alterac_Dreadlich_Tamsin:# 
@@ -120,30 +132,44 @@ class AV_316:# <9>[1626]
 		Draw(CONTROLLER) * 3
 		)
 	pass
-
 class AV_316hp:# <9>[1626]
 	""" Chains of Dread
 	[Hero Power] Shuffle a Rift(AV_316t4) into your deck. Draw a card. """
-	#
+	activate=Shuffle(CONTROLLER, 'AV_316t4'), Draw(CONTROLLER)
 	pass
-
 class AV_316t:# <9>[1626]
 	""" Dread Imp """
 	pass
-
 class AV_316t4:# <9>[1626]
 	""" Fel Rift
 	[Casts When Drawn] Summon a 3/3 Dread Imp(AV_316t). """
 	#<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
+	play = Summon(CONTROLLER, 'AV_316t')
 	pass
 
 if Alterac_Tamsins_Phylactery:# 
 	Alterac_Warlock+=['AV_317']
 	Alterac_Warlock+=['AV_317e']
+class AV_317_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		new_deathrattles = card.deathrattles
+		ret = new_deathrattles[0]
+		for minion in card.controller.field:
+			minion.has_deathrattle=True
+			minion.data.tags[GameTag.DEATHRATTLE]=True
+			minion.data.scripts.deathrattle=tuple(ret)
+			print("Copy [deathrattle] %s->%s"%(card, minion))
 class AV_317:# <9>[1626]
 	""" Tamsin's Phylactery
 	[Discover] a friendly [Deathrattle] minion that died this game. Give your minions its [Deathrattle]. """
 	#See SW_310
+	def play(self):
+		cards=[card.id for card in self.controller.death_log if card.has_deathrattle==True]
+		if cards!=[]:
+			AV_317_Choice(self.controller, RandomID(cards)*3).trigger(self)
 	pass
 class AV_317e:# <9>[1626]
 	""" Lich Perfume
@@ -169,9 +195,7 @@ class AV_657e:# <9>[1626]
 	#
 	pass
 class AV_657t:# <9>[1626]
-	""" Desecrated Shade
-	 """
-	#
+	""" Desecrated Shade """
 	pass
 
 if Alterac_Impfestation:# 
@@ -180,6 +204,7 @@ class ONY_033:# <9>[1626]
 	""" Impfestation
 	Summon a 3/3 Dread Imp(AV_316t) to attack each enemy minion. """
 	#(Summoned Imp number = len of opponent's field)
+	play = (Summon(CONTROLLER, 'AV_316t').after(RegularAttack(Summon.CARD, RANDOM(ENEMY_MINIONS)))) * Count(ENEMY_MINIONS)
 	pass
 
 if Alterac_Curse_of_Agony:# 
@@ -188,13 +213,14 @@ if Alterac_Curse_of_Agony:#
 class ONY_034:# <9>[1626]
 	""" Curse of Agony
 	Shuffle three Agonies into the opponent's deck. They deal Fatigue damage when drawn. """
-	#
+	play = Shuffle(OPPONENT, 'ONY_034t')*3
 	pass
 class ONY_034t:# <9>[1626]
 	""" Agony
 	[Casts When Drawn] Take @ Fatigue damage. """
 	#<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
 	# Fatigue damage -> see Fatigue(OPPONENT)
+	play = Fatigue(OPPONENT)
 	pass
 
 if Alterac_Spawn_of_Deathwing:# 
@@ -203,5 +229,6 @@ class ONY_035:# <9>[1626]
 	""" Spawn of Deathwing
 	[Battlecry:] Destroy a random enemy minion. Discard a random card. """
 	#random card means what? -> friendly hand cards
+	play = Destroy(RANDOM(ENEMY_MINIONS)), Discard(RANDOM(FRIENDLY_HAND))
 	pass
 

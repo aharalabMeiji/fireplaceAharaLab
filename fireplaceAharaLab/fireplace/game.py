@@ -6,7 +6,7 @@ from itertools import chain
 from hearthstone.enums import BlockType, CardType, GameTag, PlayState, State, Step, Zone
 
 from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
-	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade
+	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade, Battlecry
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
@@ -390,7 +390,7 @@ class BaseGame(Entity):
 		from fireplace import cards
 		# if drawn_card is 'casts_when_drawn' then immediately play.  
 		if hasattr(drawn_card, "casts_when_drawn"):
-			self.queue_actions(player, [Play(drawn_card, None, None, None)])
+			self.queue_actions(player, [Battlecry(drawn_card, None)])
 			self.queue_actions(player, [Draw(player)])
 		#When you draw this, add a _copy of it to your hand
 		if drawn_card.id == 'SW_306':
