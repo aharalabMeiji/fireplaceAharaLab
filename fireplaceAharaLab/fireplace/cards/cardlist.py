@@ -76,19 +76,19 @@ StormWind_Warrior=stormwind_warrior.StormWind_Warrior
 StormWind_Cards=[StormWind_DemonHunter, StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral, StormWind_Paladin, StormWind_Priest, StormWind_Rogue, StormWind_Shaman, StormWind_Warlock, StormWind_Warrior]
 
 ## ALTERAC_VALLEY = 1626  # Fractured in Alterac Valley
-from fireplace.cards.alterac import alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_warrior
+from fireplace.cards.alterac import alterac_demon_hunter, alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_warrior
 Alterac_Druid=alterac_druid.Alterac_Druid
 Alterac_Hunter=alterac_hunter.Alterac_Hunter
 Alterac_Mage=alterac_mage.Alterac_Mage
 Alterac_Neutral = alterac_neutral.Alterac_Neutral
 Alterac_Warrior=alterac_warrior.Alterac_Warrior
-#Alterac_Demonhunter=
+Alterac_DemonHunter=alterac_demon_hunter.Alterac_DemonHunter
 Alterac_Paladin=alterac_paladin.Alterac_Paladin
 #Alterac_Priest=
 #Alterac_Rogue=
 #Alterac_Shaman =
 #Alterac_Warlock=
-Alterac_Cards=[Alterac_Druid,Alterac_Hunter,Alterac_Mage,Alterac_Neutral, Alterac_Paladin, Alterac_Warrior,]
+Alterac_Cards=[Alterac_DemonHunter, Alterac_Druid, Alterac_Hunter, Alterac_Mage, Alterac_Neutral, Alterac_Paladin, Alterac_Warrior,]
 
 ## THE_SUNKEN_CITY = 1658  # Voyage to the Sunken City
 from fireplace.cards.sunken import sunken_druid,sunken_hunter,sunken_mage,sunken_neutral, sunken_paladin, sunken_warrior
@@ -130,7 +130,8 @@ clownDruid = [
 	#'BAR_042',	
 ]
 All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
-	
+
+
 #+Classic_Cards\
 # VANILLA = 1646
 #from fireplace.cards.classic import classic_druid, classic_neutral

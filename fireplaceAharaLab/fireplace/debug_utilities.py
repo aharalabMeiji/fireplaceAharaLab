@@ -4,8 +4,8 @@ from .cards.cardlist import All
 
 def printClasses():
 	from hearthstone import cardxml
-	myCardSet=CardSet.THE_BARRENS#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.NEUTRAL##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	myCardSet=CardSet.ALTERAC_VALLEY#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
+	myCardClass=CardClass.PRIEST##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	setText={
 		CardSet.VANILLA:'Classic_',
 		CardSet.THE_BARRENS:'Barrens_',
@@ -91,8 +91,8 @@ def printClasses():
 				f.write('class pp_%s(Preset_Play):\n'%(_card.id))
 				f.write('\t""" %s\n'%(_card.name))
 				f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace  ('<b>','[').replace('</b>',']')))
-				f.write('\tclass1=%r'%(myCardClass))
-				f.write('\tclass2=%r'%(myCardClass))
+				f.write('\tclass1=%s\n'%(myCardClass))
+				f.write('\tclass2=%s\n'%(myCardClass))
 				f.write('\tdef preset_deck(self):\n')
 				f.write('\t\tself.con1=self.exchange_card("%s", self.controller)\n'%(_card.id))
 				f.write('\t\tself.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)\n'%())

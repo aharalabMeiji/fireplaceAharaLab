@@ -50,6 +50,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_VectorAgent.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_hunter.py" />
@@ -119,18 +123,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_paladin.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\priest.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\rogue.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\shaman.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warlock.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warrior.py">
       <SubType>Code</SubType>
     </Compile>

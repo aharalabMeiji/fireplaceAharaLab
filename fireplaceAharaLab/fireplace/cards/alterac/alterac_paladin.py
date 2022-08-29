@@ -65,7 +65,7 @@ if Alterac_Vitality_Surge:#
 class AV_213:# <5>[1626]
 	""" Vitality Surge
 	Draw a minion.Restore Health to your hero equal to its Cost. """
-	#
+	play = Draw(CONTROLLER).on(Heal(FRIENDLY_HERO, COST(Draw.CARD)))
 	pass
 
 if Alterac_Hold_the_Bridge:# 
