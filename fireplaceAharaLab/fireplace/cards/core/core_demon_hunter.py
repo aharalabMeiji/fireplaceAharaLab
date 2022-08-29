@@ -68,7 +68,7 @@ class CORE_BT_323:# <14>[1637]##23.6 # visually OK # may check
 	pass
 
 if Battlefiend:# 
-	Core_DemonHunter+=['CORE_BT_351']
+	Core_DemonHunter+=['CORE_BT_351','BT_351e']
 class CORE_BT_351:# <14>[1637]##23.6  # visually OK
 	""" Battlefiend
 	After your hero attacks, gain +1 Attack. """

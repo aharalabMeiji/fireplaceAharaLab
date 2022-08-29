@@ -86,7 +86,7 @@ if Barrens_Vengeful_Spirit:#
 class BAR_328_Give(TargetedAction):
 	TARGET=ActionArg()#CONTROLLER
 	def do(self,source,target):
-		cards=[card for card in target.deck if card.has_deathrattle==True]
+		cards=[card for card in target.deck if card.type==CardType.MINION and card.has_deathrattle==True]
 		if len(cards)>=2:
 			cards=random.sample(cards, 2)
 		for card in cards:
@@ -124,7 +124,7 @@ if Barrens_Tuskpiercer:#
 class BAR_330_Draw(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
-		cards=[card for card in target.deck if card.has_deathrattle==True]
+		cards=[card for card in target.deck if card.type==CardType.MINION and card.has_deathrattle==True]
 		card = random.choice(cards)
 		Summon(target, card).trigger(source)
 class BAR_330:# <14>[1525]

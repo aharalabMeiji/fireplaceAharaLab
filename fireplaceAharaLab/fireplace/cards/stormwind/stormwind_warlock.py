@@ -26,8 +26,8 @@ class DED_503:# <9>[1578]
 	""" Shadowblade Slinger
 	[Battlecry:] If you've taken damage this turn, deal that_much to an enemy minion. """
 	def play(self):
-		if self.controller.damage_log_of_this_turn>0:
-			Hit(RANDOM(ENEMY_MINIONS), self.controller.damage_log_of_this_turn).trigger(self)
+		if self.controller.damage_amount_of_this_turn>0:
+			Hit(RANDOM(ENEMY_MINIONS), self.controller.damage_amount_of_this_turn).trigger(self)
 	pass
 
 

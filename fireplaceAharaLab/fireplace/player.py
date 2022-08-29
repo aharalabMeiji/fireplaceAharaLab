@@ -509,6 +509,13 @@ class Player(Entity, TargetableByAuras):
 			if _log.turn == self.game.turn:
 				_ret.append(_log.card)
 		return _ret
+	@property
+	def damage_amount_of_this_turn(self):
+		_ret = 0
+		for _log in self._damage_log:
+			if _log.turn == self.game.turn:
+				_ret += _log.amount
+		return _ret
 
 	##sammon_log
 	def add_summon_log(self, card):

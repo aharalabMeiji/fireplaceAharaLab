@@ -1324,7 +1324,7 @@ class Fatigue(TargetedAction):
 			return
 		target.fatigue_counter += 1
 		if Config.LOGINFO:
-			Config.log("Fatigue.do","%s takes %i fatigue damage", target, target.fatigue_counter)
+			Config.log("Fatigue.do","%s takes %i fatigue damage"%(target, target.fatigue_counter))
 		return source.game.queue_actions(source, [Hit(target.hero, target.fatigue_counter)])
 
 
