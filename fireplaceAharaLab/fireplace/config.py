@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=5
+	HEARTHSTONE=4
 	#1: ランク戦をするならこちら
 	#2: クラシック環境をするならこちら
 	#3: バトグラをするならこちら

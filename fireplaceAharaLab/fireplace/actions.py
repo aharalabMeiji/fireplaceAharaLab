@@ -2047,6 +2047,7 @@ class SummonJadeGolem(TargetedAction):
 class CastSpell(TargetedAction):
 	"""
 	Cast a spell target random
+	CARD = CardArg()
 	"""
 	CARD = CardArg()
 
