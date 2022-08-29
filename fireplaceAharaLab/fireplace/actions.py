@@ -2541,6 +2541,7 @@ class Trade(TargetedAction):
 	CARD = ActionArg()
 	# to do is in game.grade_card()
 	def do(self, source, target, card):
+		self.broadcast(source, EventListener.ON, target, card)
 		pass
 
 class Asphyxia(TargetedAction):

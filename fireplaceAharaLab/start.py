@@ -6,7 +6,7 @@ from agent_Standard import *
 from fireplace import cards
 from fireplace.logging import log
 from fireplace.config import Config
-
+from fireplace.debug_utilities import printClasses
 sys.path.append("..")
 
 #
@@ -33,15 +33,31 @@ def main():
 		,myClass=CardClass.WARLOCK)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
-	# Maya : モンテカルロによる読み切り
-	#from agent_Maya import MayaAgent
-	#Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS,myClass=CardClass.MAGE)
-
+	
 	# Miyaryo
 	# winner of the 1st competition of the fixed deck
 	#from agent_Miyaryo import MiyaryoAgent
 	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI,myClass=CardClass.WARRIOR)
 
+
+	####################################################################
+
+	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
+	#from utils import BigDeck
+	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
+	#デッキを固定しての総当たり戦
+	#デッキ種類は関数内で設定
+
+	####################################################################
+
+	### その他
+
+	# Maya : モンテカルロによる読み切り
+	#from agent_Maya import MayaAgent
+	#Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS,myClass=CardClass.MAGE)
+	
 	# Takasho001
 	#from agent_takasho001 import takasho001Agent
 	#takasho001=takasho001Agent("Takasho",takasho001Agent.takashoAI)
@@ -59,15 +75,6 @@ def main():
 	#from agent_HunterCat import HunterCatAgent
 	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
 
-	####################################################################
-
-	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#from utils import BigDeck
-	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
-	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
-	#デッキを固定しての総当たり戦
-	#デッキ種類は関数内で設定
 	#レーティングを表示する。
 	#from competition import play_round_robin_competition
 	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
@@ -80,201 +87,9 @@ def main():
 	#print("test_branch_yamadamaya")
 	pass
 
-def printClasses():
-	from hearthstone import cardxml
-	myCardSet=CardSet.THE_BARRENS#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.NEUTRAL##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
-	setText={
-		CardSet.VANILLA:'Classic_',
-		CardSet.THE_BARRENS:'Barrens_',
-		CardSet.STORMWIND:'StormWind_',
-		CardSet.ALTERAC_VALLEY:'Alterac_',
-		CardSet.THE_SUNKEN_CITY:'Sunken_',
-		CardSet.REVENDRETH:'Revendreth_',
-		}
-	classText={
-		CardClass.DEMONHUNTER:'DemonHunter',
-		CardClass.DRUID:'Druid',
-		CardClass.HUNTER:'Hunter',
-		CardClass.MAGE:'Mage',
-		CardClass.NEUTRAL:'Neutral',
-		CardClass.PALADIN:'Paladin',
-		CardClass.PRIEST:'Priest',
-		CardClass.ROGUE:'Rogue',
-		CardClass.SHAMAN:'Shaman',
-		CardClass.WARLOCK:'Warlock',
-		CardClass.WARRIOR:'Warrior',
-		}
-	mySetText=setText[myCardSet]
-	myClassText=classText[myCardClass]
-	mySetClass=mySetText+myClassText
-	filename=mySetClass.lower()
-	f = open("%s.py"%filename, 'w')
-	f.write('from ..utils import *\n')
-	f.write('\n')
-	f.write ("%s=[]\n\n"%(mySetClass))
-	db, xml = cardxml.load(locale='enUS')
-	keyID='XXX_000'
-	for _id in db.keys():
-		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			if not keyID in _card.id:
-				f.write("%s%s=True\n"%(mySetText,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','').replace('!','').replace('=','')))
-				keyID=_card.id
-		pass
-	pass
-	f.write('\n'%())
-	f.write('\n'%())
-	keyID='XXX_000'
-	for _id in db.keys():
-		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			if not keyID in _card.id:
-				f.write('if %s%s:# \n'%(mySetText,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','').replace('!','').replace('=','')))
-				keyID=_card.id		
-			f.write("\t%s+=['%s']\n"%(mySetClass, _card.id))
-			f.write('class %s:# <%d>[%d]\n'%(_card.id, _card.card_class, _card.card_set))
-			f.write('\t""" %s\n'%(_card.name))
-			f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace('<b>','[').replace('</b>',']')))
-			f.write('\t#\n'%())
-			f.write('\tpass\n'%())
-			f.write('\n'%())
-		pass
-	f.close()
-	f = open("t_%s.py"%filename, 'w')
-	f.write('from .simulate_game import Preset_Play,PresetGame\n')
-	f.write('from fireplace.actions import Hit, Summon, Give\n')
-	f.write('from hearthstone.enums import Zone, CardType, Rarity\n\n')
-	f.write ("def %s():\n\n"%(filename))
-	db, xml = cardxml.load(locale='enUS')
-	keyID='XXX_000'
-	for _id in db.keys():
-		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			if not keyID in _card.id:
-				f.write("\t#PresetGame(pp_%s)##\n"%(_card.id))
-				keyID=_card.id
-		pass
-	pass
-	f.write('\n'%())
-	f.write('\n'%())
-	keyID='XXX_000'
-	for _id in db.keys():
-		_card = db[_id]
-		if _card.card_set== myCardSet and _card.card_class == myCardClass: 
-			if not keyID in _card.id:
-				keyID=_card.id		
-				f.write('##########%s##########\n\n'%(_card.id))
-				f.write('class pp_%s(Preset_Play):\n'%(_card.id))
-				f.write('\t""" %s\n'%(_card.name))
-				f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace  ('<b>','[').replace('</b>',']')))
-				f.write('\tdef preset_deck(self):\n')
-				f.write('\t\tself.con1=self.exchange_card("%s", self.controller)\n'%(_card.id))
-				f.write('\t\tself.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)\n'%())
-				f.write('\t\tself.con4=self.con4[0][0]\n'%())
-				f.write('\t\tself.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)\n'%())
-				f.write('\t\tself.opp1=self.opp1[0][0]\n'%())
-				f.write('\t\tsuper().preset_deck()\n'%())
-				f.write('\t\tpass\n'%())
-				f.write('\tdef preset_play(self):\n'%())
-				f.write('\t\tsuper().preset_play()\n'%())
-				f.write('\t\t### con\n'%())
-				f.write('\t\tself.play_card(self.con1)\n'%())
-				f.write('\t\tself.change_turn()\n'%())
-				f.write('\t\t### opp\n'%())
-				f.write('\t\tself.change_turn()\n'%())
-				f.write('\t\tpass\n'%())
-				f.write('\tdef result_inspection(self):\n'%())
-				f.write('\t\tsuper().result_inspection()\n'%())
-				f.write('\t\tfor card in self.controller.hand:\n'%())
-				f.write('\t\t\tself.print_stats("hand", card)\n'%())
-				f.write('\tpass\n\n'%())
-				f.write('\n'%())
-		pass
-	f.close()
-	pass
-
-def printMissedCards():
-	#from hearthstone import cardxml
-	from importlib import import_module
-	from fireplace.cards.cardlist import All
-	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
-	for cardIDlist in All:
-		for id in cardIDlist:
-			#card = cardxml.CardXML(id)
-			ok=False
-			for cardset in CARD_SETS:
-				module = import_module("fireplace.cards.%s" % (cardset))
-				if hasattr(module, id):
-					ok=True
-					break
-			if not ok:
-				print("%s"%(id))
-		pass
-	pass
-
-def printCards():
-	from hearthstone import cardxml
-	from fireplace.cards.cardlist import All
-	CARD_SETS=['core','hero_dream','aoo','scholo','darkmoon','barrens','stormwind','faceHunter','clownDruid','bigWarrior',]
-	myCardSchool=SpellSchool.NATURE
-	myCardSet=CardSet.STORMWIND
-	myCardClass=CardClass.NEUTRAL
-	print('#%s_%s='%(myCardSet,myCardClass),end='[')#
-	db, xml = cardxml.load(locale='enUS')
-	for cardIDlist in All:
-		for id in cardIDlist:
-			card = db[id]
-			tag = card.tags.get(GameTag.CARDRACE)
-			if card.tags.get(GameTag.CARDTYPE)==CardType.MINION and card.tags.get(GameTag.TAUNT,0)!=0: #tag == Race.ELEMENTAL:#card.card_set== myCardSet and card.card_class == myCardClass: 
-				print("'%s'"%(card.id), end=",")
-			pass
-		pass
-	pass
-	print(']')
-
-def print_deck():
-	from tkinter import filedialog
-	from hearthstone import cardxml
-	db, xml = cardxml.load(locale='jaJP')
-	typ = [('テキストファイル','*.txt')] 
-	dir = 'D:\\'
-	fle = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
-	try:
-		f = open(fle, 'r')
-		datalist = f.readlines()
-		print("[",end='')
-		for line in datalist:
-			if len(line)>10:
-				number = line[2:4]
-				if number == '1x':
-					name = line[9:-1]
-					for id in db.keys():
-						card = db[id]
-						if card.name == name: 
-							print("'%s'"%(card.id), end=",")
-							break
-						pass
-					pass
-				elif number == '2x':
-					name = line[9:-1]
-					for id in db.keys():
-						card = db[id]
-						if card.name == name: 
-							print("'%s'"%(card.id), end=",")
-							print("'%s'"%(card.id), end=",")
-							break
-						pass
-					pass
-				pass
-		f.close()
-		print("]")
-	except FileNotFoundError:
-		pass
-
 def card_test():
-	from card_test.alterac_paladin import alterac_paladin
-	alterac_paladin()
+	from card_test.stormwind_warlock import stormwind_warlock
+	stormwind_warlock()
 	pass
 
 def battleground_main():
@@ -283,12 +98,12 @@ def battleground_main():
 	BG.BG_main()
 
 if __name__ == "__main__":
-	if Config.HEARTHSTONE:
+	if Config.HEARTHSTONE==1:
 		main()
-	elif Config.BATTLEGROUNDS:
+	elif Config.HEARTHSTONE==3:
 		battleground_main()
-	elif Config.CARDTEST:
+	elif Config.HEARTHSTONE==4:
 		card_test()
-	elif Config.CARDCLASS:
+	elif Config.HEARTHSTONE==5:
 		printClasses()
 	

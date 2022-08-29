@@ -302,6 +302,14 @@ class Preset_Play:
 					if _card.type == CardType.MINION and _card.taunt: 
 						choices.append(_id)
 			_card=random.choice(choices)
+		elif _card=='tradable':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.tradeable: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='vanilla':
 			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
 	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',
@@ -408,6 +416,12 @@ class Preset_Play:
 		if player==None:
 			player=self.player
 		player.hero.power.use(target=target)
+		pass
+	def trade_card(self, card, player=None):
+		if player==None:
+			player=card.controller
+		if card.can_trade()==(True, 0):
+			card.trade()
 		pass
 
 

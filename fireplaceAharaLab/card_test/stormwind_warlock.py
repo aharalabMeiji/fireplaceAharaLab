@@ -1,11 +1,12 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit, Summon, Give
-from hearthstone.enums import Zone, CardType, Rarity
+from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def stormwind_warlock():
 
 	#PresetGame(pp_DED_503)##
-	#PresetGame(pp_DED_504)##
+	PresetGame(pp_DED_504_1)## OK
+	PresetGame(pp_DED_504_2)## OK
 	#PresetGame(pp_DED_505)##
 	#PresetGame(pp_SW_003)##
 	#PresetGame(pp_SW_084)##
@@ -47,29 +48,55 @@ class pp_DED_503(Preset_Play):
 
 ##########DED_504##########
 
-class pp_DED_504(Preset_Play):
+class pp_DED_504_1(Preset_Play):
 	""" Wicked Shipment
 	[Tradeable]Summon @ 1/1 |4(Imp, Imps).<i>(Upgrades by 2when [Traded]!)</i> """
+	class1=CardClass.WARLOCK
+	class2=CardClass.WARLOCK	
 	def preset_deck(self):
 		self.mark1=self.exchange_card("DED_504", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		#self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		print("check if there is one Imp on the field.")
+		cards = [card for card in self.controller.field if card.id=='EX1_598']
+		assert len(cards)==1, "imp"
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
-
+class pp_DED_504_2(Preset_Play):
+	""" Wicked Shipment
+	[Tradeable]Summon @ 1/1 |4(Imp, Imps).<i>(Upgrades by 2when [Traded]!)</i> """
+	def preset_deck(self):
+		self.mark1=self.exchange_card("DED_504", self.controller)
+		self.mark2=self.exchange_card("tradable", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.trade_card(self.mark2)
+		self.play_card(self.mark1)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		cards = [card for card in self.controller.field if card.id=='EX1_598']
+		assert len(cards)==3, "imp"
+		for card in self.controller.field:
+			self.print_stats("field", card)
+	pass
 
 ##########DED_505##########
 

@@ -156,7 +156,8 @@ class BAR_917:# <9>[1525]
 	""" Barrens Scavenger
 	[Taunt]Costs 1 while your deck has 10 or fewer cards. """
 	class Hand:
-		events = (Count(FRIENDLY_DECK)<11) & Refresh(SELF, 'BAR_918e')## BAR_918e: a simple mistake
+		powered_up=Count(FRIENDLY_DECK)<11
+		events = powered_up & Refresh(SELF, 'BAR_918e')## BAR_918e: a simple mistake
 	pass
 
 

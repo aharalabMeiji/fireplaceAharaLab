@@ -33,17 +33,24 @@ class DED_503:# <9>[1578]
 
 
 
-if StormWind_Wicked_Shipment:# 
+if StormWind_Wicked_Shipment:#  ### OK
 	StormWind_Warlock+=['DED_504','EX1_598']
+class DED_504_AddSidequestCounter(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount=1):
+		if hasattr(target,'_sidequest_counter_'):
+			target._sidequest_counter_ += amount
+		pass
 class DED_504:# <9>[1578]
 	""" Wicked Shipment
 	[Tradeable]Summon @ 1/1 |4(Imp, Imps)(EX1_598).<i>(Upgrades by 2when [Traded]!)</i> """
-	def __init__(self):
-		self.script_data_num_1=1
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
 	def play(self):
-		for i in range(self.script_data_num_1):
+		for i in range(self._sidequest_counter_+1):
 			Summon(self.controller, 'EX1_598').trigger(self)
-	events = Trade(CONTROLLER).on(AddScriptDataNum1(SELF, 2))
+	class Hand:
+		events = Trade(CONTROLLER).on(DED_504_AddSidequestCounter(SELF, 2))
 	pass
 class EX1_598:
 	pass

@@ -1,9 +1,11 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1# ランク戦をするならこちら（バトグラより優先）
-	BATTLEGROUNDS=0# バトグラをするならこちら
-	CARDTEST=1# カードの動作テストをするならこちら
-	CARDCLASS=0# カードクラス（core & hunter など）のカードの抽出するモード
+	HEARTHSTONE=4
+	#1: ランク戦をするならこちら
+	#2: クラシック環境をするならこちら
+	#3: バトグラをするならこちら
+	#4: カードの動作テストをするならこちら
+	#5: カードクラス（core & hunter など）のカードの抽出するモード
 
 	#ランク戦のオプション
 	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 

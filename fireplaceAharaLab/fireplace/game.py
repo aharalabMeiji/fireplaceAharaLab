@@ -183,9 +183,8 @@ class BaseGame(Entity):
 			actions += [Buff(random.choice(card.controller.field),'DED_009e2')]#rush
 		if card.id == 'DED_527':
 			actions += [Buff(card, 'DED_527e')]
-		Trade(card.controller, card).broadcast(card.controller, EventListener.ON, card.controller, card)
+		Trade(card.controller, card).trigger(self)
 		ret = self.action_block(trader, actions, type, None, None)
-		Trade(card.controller, card).broadcast(card.controller, EventListener.AFTER, card.controller, card)
 		return ret
 
 	def process_deaths(self):
