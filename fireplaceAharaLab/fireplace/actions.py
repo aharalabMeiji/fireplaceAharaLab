@@ -1041,7 +1041,7 @@ class PutOnTop(TargetedAction):
 
 	def do(self, source, target, cards):
 		if Config.LOGINFO:
-			Config.log("PutOnTop.do","%r put on %s's deck top", cards, target)
+			Config.log("PutOnTop.do","%r put on %s's deck top"%(cards, target))
 		if not isinstance(cards, list):
 			cards = [cards]
 

@@ -152,19 +152,23 @@ class BAR_916:# <9>[1525]
 
 if Barrens_Barrens_Scavenger:# 
 	Barrens_Warlock+=['BAR_917']
+	Barrens_Warlock+=['BAR_918e']
 class BAR_917:# <9>[1525]
 	""" Barrens Scavenger
 	[Taunt]Costs 1 while your deck has 10 or fewer cards. """
 	class Hand:
 		powered_up=Count(FRIENDLY_DECK)<11
-		events = powered_up & Refresh(SELF, 'BAR_918e')## BAR_918e: a simple mistake
+		update = powered_up & Refresh(SELF, buff='BAR_918e')## BAR_918e: a simple mistake
+	pass
+class BAR_918e:# <9>[1525]
+	""" Gathered Shadows 	Costs 1. """
+	cost = lambda self, i : 1
 	pass
 
 
 
 if Barrens_Tamsin_Roame:# 
 	Barrens_Warlock+=['BAR_918']
-	Barrens_Warlock+=['BAR_918e']
 class BAR_918_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
@@ -176,10 +180,6 @@ class BAR_918:# <9>[1525]
 	""" Tamsin Roame
 	Whenever you cast a Shadow spell that costs 1 or more,add a copy to your hand that costs 0. """
 	events = Play(CONTROLLER, FRIENDLY + SPELL + SHADOW).on(BAR_918_Action(Play.CARD))
-	pass
-class BAR_918e:# <9>[1525]
-	""" Gathered Shadows 	Costs 1. """
-	cost = lambda self, i : 1
 	pass
 
 

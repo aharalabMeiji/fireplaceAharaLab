@@ -35,7 +35,7 @@ if Barrens_Razorboar:#
 class BAR_325_Summon(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
-		cards=[card for card in target.hand if card.cost<=3 and card.has_deathrattle==True]
+		cards=[card for card in target.hand if card.cost<=3 and card.type==CardType.MINION and card.has_deathrattle==True]
 		if len(cards)>0:
 			Summon(target, random.choice(cards)).trigger(source)
 class BAR_325:# <14>[1525]
@@ -241,7 +241,7 @@ if Barrens_Taintheart_Tormenter:#
 class WC_040:# <14>[1525]
 	""" Taintheart Tormenter
 	[Taunt]Your opponent's spells cost (2) more. """
-	update=Refresh(ENEMY_MINIONS, 'WC_040e')
+	update=Refresh(ENEMY_MINIONS, buff='WC_040e')
 	pass
 class WC_040e:
 	tags={GameTag.COST:2,}
