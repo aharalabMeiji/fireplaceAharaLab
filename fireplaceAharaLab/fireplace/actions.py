@@ -2981,6 +2981,7 @@ class Freeze(TargetedAction):
 		if not target.tags[GameTag.CANT_BE_FROZEN]:
 			##SetTag(target, (GameTag.FROZEN, )).trigger(source)
 			target.frozen = True
+			self.broadcast(source, EventListener.ON, target)
 		else:
 			if Config.LOGINFO:
 				Config.log("Freeze.do","Freezing is blocked!")

@@ -19,13 +19,23 @@ Alterac_Bracing_Cold=True
 
 if Alterac_Glaciate:# 
 	Alterac_Shaman+=['AV_107']
+class AV_107_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		controller = card.controller
+		newcard=Summon(controller, card).trigger(controller)
+		newcard=newcard[0][0]
+		Freeze(newcard).trigger(controller)
+		pass
+	pass
 class AV_107:# <8>[1626]
 	""" Glaciate
 	[Discover] an 8-Cost minion. Summon and [Freeze] it. """
-	#
+	play = AV_107_Choice(CONTROLLER, RandomMinion(cost=8))
 	pass
 
-if Alterac_Snowball_Fight:# 
+if Alterac_Snowball_Fight:# ###### difficult (indicate a target twice)
 	Alterac_Shaman+=['AV_250']
 class AV_250:# <8>[1626]
 	""" Snowball Fight!
@@ -38,37 +48,37 @@ if Alterac_Cheaty_Snobold:#
 class AV_251:# <8>[1626]
 	""" Cheaty Snobold
 	After an enemy is [Frozen], deal 3 damage to it. """
-	#
+	events = Freeze(ENEMY_CHARACTERS).after(Hit(Freeze.TARGET, 3))
 	pass
 
 if Alterac_Snowfall_Guardian:# 
 	Alterac_Shaman+=['AV_255']
-
-	Alterac_Shaman+=['AV_255e']
+	#Alterac_Shaman+=['AV_255e']
 class AV_255:# <8>[1626]
 	""" Snowfall Guardian
 	[Battlecry:] [Freeze] all other minions. """
-	#
+	play = Freeze(ALL_MINIONS - SELF)
 	pass
 class AV_255e:# <8>[1626]
-	""" Chilled
-	Increased stats. """
-	#
+	""" Chilled 	Increased stats. """
 	pass
 
 if Alterac_Bearon_Glashear:# 
 	Alterac_Shaman+=['AV_257']
-
 	Alterac_Shaman+=['AV_257t']
 class AV_257:# <8>[1626]
 	""" Bearon Gla'shear
-	[Battlecry:] For each Frost spell you've cast this game, summon a 3/4 Elemental that [Freezes].@ <i>(@)</i> """
-	#
+	[Battlecry:] For each Frost spell you've cast this game, summon a 3/4 Elemental(AV_257t) that [Freezes].@ <i>(@)</i> """
+	def play(self):
+		cards = [card for card in self.controller.play_log if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		if len(cards)>0:
+			for repeat in range(len(cards)):
+				Summon(self.controller, 'AV_257t').trigger(self)
 	pass
 class AV_257t:# <8>[1626]
 	""" Frozen Stagguard
 	[Freeze] any character damaged by this minion. """
-	#
+	events = Attack(SELF).after(Freeze(Attack.DEFENDER))
 	pass
 
 if Alterac_Brukan_of_the_Elements:# 
@@ -84,15 +94,33 @@ if Alterac_Brukan_of_the_Elements:#
 	Alterac_Shaman+=['AV_258t3']
 	Alterac_Shaman+=['AV_258t4']
 	Alterac_Shaman+=['AV_258t6']
-class AV_258:# <8>[1626]
+class AV_258_Choice1(Choice):
+	def choose(self,card):
+		super().choose(card)
+		cards = ['AV_258t','AV_258t2','AV_258t3','AV_258t4']
+		cards.remove(card)
+		cards = tuple(cards)
+		self.next_choice = AV_258_Choice2(CONTROLLER, RandomID(*cards))
+		Activate(card).trigger(card.controller)
+class AV_258_Choice2(Choice):
+	def choose(self,card):
+		super().choose(card)
+		self.next_choice=None
+		Activate(card).trigger(card.controller)
+class AV_258:# <8>[1626] ### hero
 	""" Bru'kan of the Elements
 	[Battlecry:] Call upon the power of two Elements! """
-	#
+	play = AV_258_Choice1(CONTROLLER, RandomID('AV_258t','AV_258t2','AV_258t3','AV_258t4')*4)
 	pass
+class AV_258p_Choice(Choice):
+	def choose(self,card):
+		super().choose(card)
+		self.next_choice=None
+		Summon()
 class AV_258p:# <8>[1626]
 	""" Elemental Mastery
 	[Hero Power] Call upon a different Element every turn! """
-	#
+	activate = AV_258p_Choice(CONTROLLER, RandomID('AV_258pt','AV_258p2','AV_258pt3','AV_258pt4'))
 	pass
 class AV_258p2:# <8>[1626]
 	""" Water Invocation
@@ -102,7 +130,7 @@ class AV_258p2:# <8>[1626]
 
 class AV_258pt:# <8>[1626]
 	""" Earth Invocation
-	[Hero Power] Summon two 2/3 Elementals with [Taunt]. Swaps each turn. """
+	[Hero Power] Summon two 2/3 Elementals(AV_258t6) with [Taunt]. Swaps each turn. """
 	#
 	pass
 class AV_258pt3:# <8>[1626]
@@ -123,7 +151,7 @@ class AV_258pt7:# <8>[1626]
 	pass
 class AV_258t:# <8>[1626]
 	""" Earth Invocation
-	Summon two 2/3 Elementals with [Taunt]. """
+	Summon two 2/3 Elementals(AV_258t6) with [Taunt]. """
 	#
 	pass
 class AV_258t2:# <8>[1626]
@@ -148,19 +176,24 @@ class AV_258t6:# <8>[1626]
 	pass
 
 if Alterac_Frostbite:# 
-	Alterac_Shaman+=['AV_259']
+	Alterac_Shaman+=['AV_259','AV_259e','AV_259e2']
 class AV_259:# <8>[1626]
 	""" Frostbite
 	Deal $3 damage. [Honorable Kill:] Your opponent's next spell costs (2) more. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	play = Hit(TARGET, 3)
+	honorable_kill=Buff(ENEMY_HAND + SPELL, 'AV_259e')
 	pass
+class AV_259e:
+	cost = lambda self, i:i+2
+	events = Play(ENEMY, SPELL).after(Destroy(SELF))
 
 if Alterac_Sleetbreaker:# 
 	Alterac_Shaman+=['AV_260']
 class AV_260:# <8>[1626]
 	""" Sleetbreaker
-	[Battlecry:] Add a Windchill to your hand. """
-	#
+	[Battlecry:] Add a Windchill(AV_266) to your hand. """
+	play = Give(CONTROLLER, 'AV_266')
 	pass
 
 if Alterac_Windchill:# 
@@ -168,15 +201,19 @@ if Alterac_Windchill:#
 class AV_266:# <8>[1626]
 	""" Windchill
 	[Freeze] a minion. Draw a card. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	Play = Freeze(TARGET), Draw(CONTROLLER)
 	pass
 
 if Alterac_Wildpaw_Cavern:# 
 	Alterac_Shaman+=['AV_268']
 class AV_268:# <8>[1626]
 	""" Wildpaw Cavern
-	At the end of your turn, summon a 3/4 Elemental that [Freezes]. Lasts 3 turns. """
-	#
+	At the end of your turn, summon a 3/4 Elemental(AV_257t) that [Freezes]. Lasts 3 turns. """
+	events=[
+		OWN_TURN_END.on(Summon(CONTROLLER, 'AV_257t')),
+		OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)]))
+		]
 	pass
 
 if Alterac_Dont_Stand_in_the_Fire:# 
@@ -184,7 +221,7 @@ if Alterac_Dont_Stand_in_the_Fire:#
 class ONY_011:# <8>[1626]
 	""" Don't Stand in the Fire!
 	Deal $10 damage randomly split among all enemy minions. [Overload:] (1) """
-	#
+	play = SplitHit(SELF, ENEMY_MINIONS, 10)
 	pass
 
 if Alterac_Spirit_Mount:# 
@@ -193,20 +230,23 @@ if Alterac_Spirit_Mount:#
 	Alterac_Shaman+=['ONY_012t']
 class ONY_012:# <8>[1626]
 	""" Spirit Mount
-	Give a minion +1/+2 and [Spell Damage +1]. When it dies, summon a Spirit Raptor. """
-	#
+	Give a minion +1/+2 and [Spell Damage +1]. When it dies, summon a Spirit Raptor(ONY_012t). """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	play = Buff(TARGET, 'ONY_012e')	
 	pass
-
 class ONY_012e:# <8>[1626]
 	""" With Da Spirits
-	+1/+2 and [Spell Damage +1]. [Deathrattle:] Summon a Spirit Raptor. """
-	#
+	+1/+2 and [Spell Damage +1]. [Deathrattle:] Summon a Spirit Raptor(ONY_012t). """
+	tags={
+		GameTag.ATK:1,
+		GameTag.HEALTH:2,
+		GameTag.SPELLPOWER:1,
+		GameTag.DEATHRATTLE:1	
+		}
+	deathrattle = Summon(CONTROLLER, 'ONY_012t')
 	pass
-
 class ONY_012t:# <8>[1626]
-	""" Bru'kan's Raptor
-	[Spell Damage +1] """
-	#
+	""" Bru'kan's Raptor 	[Spell Damage +1] """
 	pass
 
 if Alterac_Bracing_Cold:# 
@@ -215,12 +255,10 @@ if Alterac_Bracing_Cold:#
 class ONY_013:# <8>[1626]
 	""" Bracing Cold
 	Restore #5 Health to your hero. Reduce the Cost of a random spell in your hand by (2). """
-	#
+	play = Heal(FRIENDLY_HERO, 5), Buff(RANDOM(FRIENDLY_HAND + SPELL), 'ONY_013e')
 	pass
-
 class ONY_013e:# <8>[1626]
-	""" Shivers
-	Costs (2) less. """
-	#
+	""" Shivers 	Costs (2) less. """
+	cost = lambda self, i: max(i-2,0)
 	pass
 
