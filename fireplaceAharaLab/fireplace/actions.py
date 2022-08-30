@@ -1498,6 +1498,16 @@ class Hit(TargetedAction):
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
 
+class Honorable_kill(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	TARGETEDACTION=ActionArg()
+	def do(self, source, target, amount, targetedaction):
+		if target.health==amount:
+			self.broadcast(source, EventListener.ON, target, amount, targetedaction)
+			for action in targetedaction:
+				action.trigger(source)
+
 class SplitHit(TargetedAction):
 	"""
 	Hit character targets by  an amount.
