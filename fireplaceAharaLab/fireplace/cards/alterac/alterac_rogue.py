@@ -25,12 +25,7 @@ class AV_201:# <7>[1626]
 	[Combo:] Gain +3 Attack. """
 	#
 	pass
-
-class AV_201e:# <7>[1626]
-	""" Yeti Rage
-	+3 Attack. """
-	#
-	pass
+AV_201e=buff(3,0)
 
 if Alterac_Shadowcrafter_Scabbs:# 
 	Alterac_Rogue+=['AV_203']
@@ -39,21 +34,20 @@ if Alterac_Shadowcrafter_Scabbs:#
 	Alterac_Rogue+=['AV_203po']
 	Alterac_Rogue+=['AV_203t']
 class AV_203:# <7>[1626]
-	""" Shadowcrafter Scabbs
-	[Battlecry:] Return all minions to their owner's  hands. Summon two 4/2 Shadows with [Stealth]. """
+	""" Shadowcrafter Scabbs (Hero)
+	[Battlecry:] Return all minions to their owner's  hands. Summon two 4/2 Shadows(AV_203t) with [Stealth]. """
 	#
 	pass
-
 class AV_203p:# <7>[1626]
 	""" Sleight of Hand
 	[Hero Power] The next card you play this turn costs (2) less. """
 	#
 	pass
-
 class AV_203pe:# <7>[1626]
 	""" Sleight of Hand
 	The next card you play this turn costs (2) less. """
-	#
+	cost = lambda self, i: max(i-2,0)
+	tags = {GameTag.TAG_ONE_TURN_EFFECT:1 }
 	pass
 
 class AV_203po:# <7>[1626]
@@ -82,9 +76,9 @@ if Alterac_Snowfall_Graveyard:#
 class AV_400:# <7>[1626]
 	""" Snowfall Graveyard
 	Your [Deathrattles] trigger twice. Lasts 3 turns. """
-	#
+	#see barron(FP1_031)
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})	
 	pass
-
 class AV_400e:# <7>[1626]
 	""" Bunkered Up
 	Deathrattles trigger twice. """
@@ -107,11 +101,10 @@ class AV_403:# <7>[1626]
 	[Battlecry:] Replace your minions in hand and deck  with ones from other classes. They cost (2) less. """
 	#
 	pass
-
 class AV_403e2:# <7>[1626]
 	""" Quickfooted
 	Costs (2) less. """
-	#
+	cost = lambda self, i: max(i-2,0)
 	pass
 
 if Alterac_Contraband_Stash:# 
@@ -119,7 +112,7 @@ if Alterac_Contraband_Stash:#
 class AV_405:# <7>[1626]
 	""" Contraband Stash
 	Replay 5 cards from other classes you've played this game. """
-	#
+	#Replay = give to hand and play.
 	pass
 
 if Alterac_Forsaken_Lieutenant:# 
@@ -130,12 +123,7 @@ class AV_601:# <7>[1626]
 	[[Stealth].] After you play a [Deathrattle] minion, become a 2/2 copy of it with [Rush]. """
 	#
 	pass
-
-class AV_601e:# <7>[1626]
-	""" Forsaken
-	2/2. """
-	#
-	pass
+AV_601e=buff(2,2)
 
 if Alterac_Reconnaissance:# 
 	Alterac_Rogue+=['AV_710']
@@ -147,9 +135,8 @@ class AV_710:# <7>[1626]
 	pass
 
 class AV_710e:# <7>[1626]
-	""" Contracted
-	Costs (2) less. """
-	#
+	""" Contracted	Costs (2) less. """
+	cost = lambda self, i: max(i-2,0)
 	pass
 
 if Alterac_Double_Agent:# 
