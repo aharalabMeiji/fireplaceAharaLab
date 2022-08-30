@@ -1308,6 +1308,7 @@ class Draw(TargetedAction):
 			return []
 		self.broadcast(source, EventListener.ON, target, card, source)
 		card.draw()
+		card.controller.add_give_log(card)
 		self.broadcast(source, EventListener.AFTER, target, card, source)
 
 		return [card]
@@ -1443,6 +1444,8 @@ class Give(TargetedAction):
 			card.controller = target
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
+			card.controller.add_give_log(card)
+
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.casts_when_drawn(card, card.controller)
 			ret.append(card)
