@@ -1958,6 +1958,33 @@ class ShuffleBottom(TargetedAction):
 			target.shiftdown_deck()## make the top card to botom
 		return cards
 
+class ShuffleTop(TargetedAction):
+	"""
+	Shuffle card targets into player target's deck into its top.
+	TARGET = ActionArg()#controller
+	CARD = CardArg()
+	"""
+	TARGET = ActionArg()#controller
+	CARD = CardArg()
+
+	def do(self, source, target, cards):
+		if Config.LOGINFO:
+			Config.log("ShuffleTop.do","%r shuffles into %s's deck's top"%(cards, target))
+		if not isinstance(cards, list):
+			cards = [cards]
+		if cards[0]==None or cards[0]==[]:
+			return
+		for card in cards:
+			if card.controller != target:
+				card.zone = Zone.SETASIDE
+				card.controller = target
+			if len(target.deck) >= target.max_deck_size:
+				if Config.LOGINFO:
+					Config.log("ShuffleTop.do","Shuffle(%r) fails because %r's deck is full"%(card, target))
+				continue
+			card.zone = Zone.DECK
+		return cards
+
 
 class Swap(TargetedAction):
 	"""

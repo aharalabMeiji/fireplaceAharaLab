@@ -105,10 +105,17 @@ class AV_400e:# <7>[1626]
 
 if Alterac_The_Lobotomizer:# 
 	Alterac_Rogue+=['AV_402']
+class AV_402_Give(TargetedAction):
+	TARGET=ActionArg()
+	CARDS=CardArg()
+	def do(self, source, target, cards):
+		card = cards[0]
+		Give(target, card.id).trigger(source)
+		pass
 class AV_402:# <7>[1626]
 	""" The Lobotomizer
 	[Honorable Kill:] Get a copy of the top card of your opponent's deck. """
-	honorable_kill = Give(CONTROLLER, )
+	honorable_kill = AV_402_Give(CONTROLLER, FRIENDLY_DECK)
 	pass
 
 if Alterac_Cerathine_Fleetrunner:# 
@@ -117,7 +124,19 @@ if Alterac_Cerathine_Fleetrunner:#
 class AV_403:# <7>[1626]
 	""" Cera'thine Fleetrunner
 	[Battlecry:] Replace your minions in hand and deck  with ones from other classes. They cost (2) less. """
-	#
+	def play(self):
+		other_classes=CARDCLASSES.remove(CardClass.ROGUE)
+		for repeat in range(self.controller.hand):
+			self.controller.hand[0].discard()
+			cardclass = random.choice(other_classes)
+			newcard=Give(self.controller, RandomCollectible(card_class=cardclass)).trigger(self)
+			Buff(newcard[0][0],'AV_403e2').trigger(self)
+		for repeat in range(self.controller.deck):
+			self.controller.hand[0].discard()
+			cardclass = random.choice(other_classes)
+			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=cardclass)).trigger(self)
+			Buff(newcard[0],'AV_403e2').trigger(self)
+
 	pass
 class AV_403e2:# <7>[1626]
 	""" Quickfooted
@@ -130,7 +149,13 @@ if Alterac_Contraband_Stash:#
 class AV_405:# <7>[1626]
 	""" Contraband Stash
 	Replay 5 cards from other classes you've played this game. """
-	#Replay = give to hand and play.
+	#Replay = give to hand. (and play? to whom?)
+	def play(self):
+		cards=[card for card in self.controller.play_log if card.card_class!=CardClass.ROGUE and card.card_class!=CardClass.NEUTRAL]
+		if len(cards)>5:
+			cards = cards.random.sample(cards, 5)
+		for card in cards:
+			Give(self.controller, card.id).trigger(self)
 	pass
 
 if Alterac_Forsaken_Lieutenant:# 
