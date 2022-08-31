@@ -203,6 +203,7 @@ class original_Action(TargetedAction):
 	def play(self):
 		target=self.target
 		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
+		cards=[card for card in self.controller.play_log if card.type==CardType.SPELL]
 @custom_card
 class original_e:
 	tags = {

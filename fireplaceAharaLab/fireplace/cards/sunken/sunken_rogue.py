@@ -18,19 +18,27 @@ Sunken_Filletfighter=True  ###
 
 
 if Sunken_Shattershambler:# 
-	Sunken_Rogue+=['TID_078']
+	Sunken_Rogue+=['TID_078','TID_078e','TID_078e2',]
 class TID_078:# <7>[1658]
 	""" Shattershambler
 	[Battlecry:] Your next [Deathrattle] minion costs (1) less, but immediately dies when played. """
-	#
+	play = Buff(FRIENDLY_HAND + DEATHRATTLE, 'TID_078e'),Buff(FRIENDLY_HAND + DEATHRATTLE, 'TID_078e2')
 	pass
-
+class TID_078e:
+	events = [
+		Play(CONTROLLER, OWNER).Destroy(OWNER),
+		Play(CONTROLLER, MINION+DEATHRATTLE).Destroy(SELF)
+	]
+	pass
+class TID_078e2:
+	cost = lambda self, i:max(i-1,0)
+	events = Play(CONTROLLER, MINION+DEATHRATTLE).Destroy(SELF)
+	pass
 
 
 
 if Sunken_Inkveil_Ambusher:# 
 	Sunken_Rogue+=['TID_080']
-
 	Sunken_Rogue+=['TID_080e2']
 class TID_080:# <7>[1658]
 	""" Inkveil Ambusher
