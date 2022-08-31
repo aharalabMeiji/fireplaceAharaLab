@@ -1819,6 +1819,7 @@ class Silence(TargetedAction):
 	"""
 	Silence minion targets.
 	"""
+	TARGET = ActionArg()
 	def do(self, source, target):
 		if Config.LOGINFO:
 			Config.log("Silence.do","Silencing %r"%target)
