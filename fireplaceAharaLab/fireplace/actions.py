@@ -2250,6 +2250,8 @@ class RefreshHeroPower(TargetedAction):
 class RefreshMana(TargetedAction):
 	"""
 	Helper to Refresh MANA
+	TARGET = ActionArg()#controller
+	AMOUNT = IntArg()
 	"""
 	TARGET = ActionArg()#controller
 	AMOUNT = IntArg()
