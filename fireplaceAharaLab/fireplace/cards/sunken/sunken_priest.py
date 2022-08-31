@@ -23,8 +23,9 @@ if Sunken_Herald_of_Light:#
 	Sunken_Priest+=['TID_085']
 class TID_085:# <6>[1658]
 	""" Herald of Light
-	[Battlecry:] If you've cast aHoly spell while holding this,restore #6 Health to allfriendly characters. """
-	#
+	[Battlecry:] If you've cast a Holy spell while holding this,restore #6 Health to all friendly characters. """
+	class Hand:
+		events = Play(CONTROLLER, SPELL+HOLY).on(Heal(FRIENDLY_CHARACTERS, 6))
 	pass
 
 
@@ -32,18 +33,39 @@ class TID_085:# <6>[1658]
 
 if Sunken_Disarming_Elemental:# 
 	Sunken_Priest+=['TID_700']
-
 	Sunken_Priest+=['TID_700e']
+class TID_700_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			Config.log("TID_700_DredgeChoice.choose","%s chooses %r"%(card.controller.opponent.name, card))
+		opponent = card.controller
+		for c in opponent.deck[:3]:
+			if card.id==c.id:
+				opponent.deck.remove(c)
+				opponent.deck.append(c)
+				Buff(c,'TID_700e').trigger(card.controller.opponent)
+				break
+		pass
+class TID_700_Dredge(TargetedAction):
+	"""
+	TARGET=ActionArg()#CONTROLLER
+	"""
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.opponent.deck[:3]]
+		TID_700_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TID_700:# <6>[1658]
 	""" Disarming Elemental
-	[Battlecry:] [Dredge] foryour opponent. Set itsCost to (6). """
-	#
+	[Battlecry:] [Dredge] for your opponent. Set its Cost to (6). """
+	play = TID_700_Dredge(CONTROLLER)
 	pass
 
 class TID_700e:# <6>[1658]
 	""" Disarmed
 	Costs (6). """
-	#
+	cost = lambda self,i:6
 	pass
 
 
@@ -54,7 +76,13 @@ if Sunken_Drown:#
 class TID_920:# <6>[1658]
 	""" Drown
 	Put an enemy minion on the bottom of your deck. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	def play(self):
+		target=self.target
+		target.zone=Zone.SETASIDE
+		target.controller=self.controller
+		target.zone = Zone.DECK
+		self.controller.shiftdown_deck()## make the top card to botom
 	pass
 
 
