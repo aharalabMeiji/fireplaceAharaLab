@@ -53,6 +53,19 @@ CARDCLASSES=[
 	CardClass.WARLOCK,
 	CardClass.WARRIOR,
    ]
+CLASSES_EXCEPT_ROGUE=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PALADIN,
+	CardClass.PRIEST,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+
+
 
 OTHERCLASSES = lambda myclass: CARDCLASSES.remove(myclass)
 

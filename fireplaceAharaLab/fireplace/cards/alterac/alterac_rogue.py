@@ -164,9 +164,12 @@ if Alterac_Forsaken_Lieutenant:#
 class AV_601:# <7>[1626]
 	""" Forsaken Lieutenant
 	[[Stealth].] After you play a [Deathrattle] minion, become a 2/2 copy of it with [Rush]. """
-	#
+	events = Play(CONTROLLER, MINION+DEATHRATTLE).after(Morph(SELF, Play.CARD).after(Buff(Morph.CARD,'AV_601e')))
 	pass
-AV_601e=buff(2,2)
+class AV_601e:
+	atk = lambda self,i:2
+	max_health=lambda self,i:2
+	tags={GameTag.RUSH:True, }
 
 if Alterac_Reconnaissance:# 
 	Alterac_Rogue+=['AV_710']
@@ -203,7 +206,13 @@ if Alterac_Smokescreen:#
 class ONY_031:# <7>[1626]
 	""" Smokescreen
 	Draw 5 cards. Trigger any [Deathrattles] drawn. """
-	#
+	def play(self):
+		for repeat in range(5):
+			newcard=Draw(CONTROLLER).trigger(self)
+			newcard=newcard[0][0]
+			if newcard.deathrattles!=[]:
+				for action in newcard.deathrattles:
+					action.trigger(self)
 	pass
 
 if Alterac_Tooth_of_Nefarian:# 
@@ -211,7 +220,9 @@ if Alterac_Tooth_of_Nefarian:#
 class ONY_032:# <7>[1626]
 	""" Tooth of Nefarian
 	Deal $3 damage. [Honorable Kill:] [Discover] a spell from another class. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, 3)#
+	honorable_kill = Discover(CONTROLLER, RandomSpell(card_class=CLASSES_EXCEPT_ROGUE))
 	pass
 
 

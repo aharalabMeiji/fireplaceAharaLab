@@ -1646,6 +1646,8 @@ class Morph(TargetedAction):
 			if target in target.controller.field:
 				target.controller.field.remove(target)
 			target.morphed = card
+			self.broadcast(source, EventListener.ON, target, card)
+			self.broadcast(source, EventListener.AFTER, target, card)
 			return card
 
 class SW_078_Morph(TargetedAction):
