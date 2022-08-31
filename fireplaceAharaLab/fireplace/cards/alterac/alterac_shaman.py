@@ -98,76 +98,81 @@ class AV_258_Choice1(Choice):
 	def choose(self,card):
 		super().choose(card)
 		cards = ['AV_258t','AV_258t2','AV_258t3','AV_258t4']
-		cards.remove(card)
+		cards.remove(card.id)
 		cards = tuple(cards)
 		self.next_choice = AV_258_Choice2(CONTROLLER, RandomID(*cards))
-		Activate(card).trigger(card.controller)
+		Give(self.controller, card).trigger(card.controller)
 class AV_258_Choice2(Choice):
 	def choose(self,card):
 		super().choose(card)
 		self.next_choice=None
-		Activate(card).trigger(card.controller)
+		Give(self.controller, card).trigger(card.controller)
 class AV_258:# <8>[1626] ### hero
 	""" Bru'kan of the Elements
 	[Battlecry:] Call upon the power of two Elements! """
 	play = AV_258_Choice1(CONTROLLER, RandomID('AV_258t','AV_258t2','AV_258t3','AV_258t4')*4)
 	pass
-class AV_258p_Choice(Choice):
-	def choose(self,card):
-		super().choose(card)
-		self.next_choice=None
-		Summon()
 class AV_258p:# <8>[1626]
 	""" Elemental Mastery
 	[Hero Power] Call upon a different Element every turn! """
-	activate = AV_258p_Choice(CONTROLLER, RandomID('AV_258pt','AV_258p2','AV_258pt3','AV_258pt4'))
 	pass
 class AV_258p2:# <8>[1626]
 	""" Water Invocation
 	[Hero Power] Restore #6 Health to all friendly characters. Swaps each turn. """
-	#
+	activate = Heal(FRIENDLY_MINIONS, 6)
+	events = OWN_TURN_END.on(ChangeHeroPower(CONTROLLER, 'AV_258pt7'))
 	pass
 
 class AV_258pt:# <8>[1626]
 	""" Earth Invocation
 	[Hero Power] Summon two 2/3 Elementals(AV_258t6) with [Taunt]. Swaps each turn. """
-	#
+	activate = Summon(CONTROLLER, 'AV_258t6')*2
+	events = OWN_TURN_END.on(ChangeHeroPower(CONTROLLER, 'AV_258pt7'))
 	pass
 class AV_258pt3:# <8>[1626]
 	""" Fire Invocation
 	[Hero Power] Deal $6 damage to the enemy hero. Swaps each turn. """
-	#
+	activate = Hit(ENEMY_HERO, 6)
+	events = OWN_TURN_END.on(ChangeHeroPower(CONTROLLER, 'AV_258pt7'))
 	pass
 
 class AV_258pt4:# <8>[1626]
 	""" Lightning Invocation
 	[Hero Power] Deal $2 damage to all enemy minions. Swaps each turn. """
-	#
+	activate = Hit(ENEMY_MINIONS, 2)
+	events = OWN_TURN_END.on(ChangeHeroPower(CONTROLLER, 'AV_258pt7'))
 	pass
+class AV_258pt7_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		card = random.choice(['AV_258pt','AV_258p2','AV_258pt3','AV_258pt4'])
+		ChangeHeroPower(controller, card).trigger(source)
+		pass
 class AV_258pt7:# <8>[1626]
 	""" Command the Elements
 	[Hero Power] Call upon a different Element every turn! """
-	#
+	events = OWN_TURN_BEGIN.on(AV_258pt7_Action(CONTROLLER))
 	pass
 class AV_258t:# <8>[1626]
 	""" Earth Invocation
 	Summon two 2/3 Elementals(AV_258t6) with [Taunt]. """
-	#
+	play = Summon(CONTROLLER, 'AV_258t6')*2
 	pass
 class AV_258t2:# <8>[1626]
 	""" Water Invocation
 	Restore 6 Health to all friendly characters. """
-	#
+	play = Heal(FRIENDLY_MINIONS, 6)
 	pass
 class AV_258t3:# <8>[1626]
 	""" Fire Invocation
 	Deal 6 damage to the enemy hero. """
-	#
+	play = Hit(ENEMY_HERO, 6)
 	pass
 class AV_258t4:# <8>[1626]
 	""" Lightning Invocation
 	Deal 2 damage to all enemy minions. """
-	#
+	play = Hit(ENEMY_MINIONS, 2)
 	pass
 class AV_258t6:# <8>[1626]
 	""" Earthen Guardian

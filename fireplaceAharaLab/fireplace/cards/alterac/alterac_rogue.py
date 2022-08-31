@@ -151,7 +151,7 @@ class AV_405:# <7>[1626]
 	Replay 5 cards from other classes you've played this game. """
 	#Replay = give to hand. (and play? to whom?)
 	def play(self):
-		cards=[card for card in self.controller.play_log if card.card_class!=CardClass.ROGUE and card.card_class!=CardClass.NEUTRAL]
+		cards=[card for card in self.controller.play_log if card.card_class in CLASSES_EXCEPT_ROGUE]
 		if len(cards)>5:
 			cards = cards.random.sample(cards, 5)
 		for card in cards:
@@ -174,12 +174,17 @@ class AV_601e:
 if Alterac_Reconnaissance:# 
 	Alterac_Rogue+=['AV_710']
 	Alterac_Rogue+=['AV_710e']
+class AV_710_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		Buff(card, 'AV_710e').trigger(card.controller)
 class AV_710:# <7>[1626]
 	""" Reconnaissance
 	[Discover] a [Deathrattle] minion from another class. It costs (2) less. """
-	#
+	play = AV_710_Choice(CONTROLLER, RandomDeathrattle(card_class=CLASSES_EXCEPT_ROGUE))
 	pass
-
 class AV_710e:# <7>[1626]
 	""" Contracted	Costs (2) less. """
 	cost = lambda self, i: max(i-2,0)
@@ -190,7 +195,11 @@ if Alterac_Double_Agent:#
 class AV_711:# <7>[1626]
 	""" Double Agent
 	[Battlecry:] If you're holding a card from another class, _summon a copy of this. """
-	#
+	def play(self):
+		cards = [card for card in self.controller.hand if card.card_class in CLASSES_EXCEPT_ROGUE] 
+		if len(cards)>0:
+			card = random.choice(cards)
+			Summon(self.controller, card.id).trigger(self)
 	pass
 
 if Alterac_SI7_Smuggler:# 
@@ -198,7 +207,10 @@ if Alterac_SI7_Smuggler:#
 class ONY_030:# <7>[1626]
 	""" SI:7 Smuggler
 	[Battlecry:] Summon a random @-Cost minion. <i>(Upgraded for each other SI:7 card you _have played this game.)</i> """
-	#
+	def play(self):
+		cards = [card for card in self.controller.play_log if card.SI7_minion==True]
+		amount =len(cards)+1
+		Summon(self.controller, RandomMinion(cost=amount)).trigger(self)
 	pass
 
 if Alterac_Smokescreen:# 

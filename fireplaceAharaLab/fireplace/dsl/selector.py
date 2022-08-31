@@ -486,6 +486,7 @@ WARRIOR = EnumSelector(CardClass.WARRIOR)
 DREAM = EnumSelector(CardClass.DREAM)
 NEUTRAL = EnumSelector(CardClass.NEUTRAL)
 DEMONHUNTER = EnumSelector(CardClass.DEMONHUNTER)
+EXCEPT_ROGUE = (((((((DRUID | HUNTER) | MAGE) | PALADIN) | PRIEST) | SHAMAN) | WARLOCK) | WARRIOR) | DEMONHUNTER
 
 IN_PLAY = EnumSelector(Zone.PLAY)
 IN_BUFF = IN_PLAY + EnumSelector(CardType.ENCHANTMENT)
