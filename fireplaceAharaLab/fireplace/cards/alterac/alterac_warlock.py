@@ -204,7 +204,10 @@ class ONY_033:# <9>[1626]
 	""" Impfestation
 	Summon a 3/3 Dread Imp(AV_316t) to attack each enemy minion. """
 	#(Summoned Imp number = len of opponent's field)
-	play = (Summon(CONTROLLER, 'AV_316t').after(RegularAttack(Summon.CARD, RANDOM(ENEMY_MINIONS)))) * Count(ENEMY_MINIONS)
+	def play(self):
+		amount = len(self.controller.opponent.field)
+		for repeat in range(amount):
+			(Summon(CONTROLLER, 'AV_316t').after(RegularAttack(Summon.CARD, RANDOM(ENEMY_MINIONS)))).trigger(self)
 	pass
 
 if Alterac_Curse_of_Agony:# 

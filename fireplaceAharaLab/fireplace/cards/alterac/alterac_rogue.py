@@ -82,8 +82,8 @@ class AV_298:# <7>[1626]
 	[Rush] Costs (1) less for each card you've added to your hand _from another class. """
 	class Hand:
 		events = [
-			Give(CONTROLLER).AV_298_Action(CONTROLLER),
-			Draw(CONTROLLER).AV_298_Action(CONTROLLER)
+			Give(CONTROLLER).on(AV_298_Action(CONTROLLER)),
+			Draw(CONTROLLER).on(AV_298_Action(CONTROLLER))
 			]
 	pass
 
