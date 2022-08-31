@@ -41,6 +41,21 @@ BASIC_HERO_POWERS = [
 	#"HERO_10bp",
 ]
 
+CARDCLASSES=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PALADIN,
+	CardClass.PRIEST,
+	CardClass.ROGUE,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+
+OTHERCLASSES = lambda myclass: CARDCLASSES.remove(myclass)
+
 POTIONS = [
 	"CFM_021",  # Freezing Potion
 	"CFM_065",  # Volcanic Potion

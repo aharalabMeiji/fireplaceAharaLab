@@ -23,14 +23,9 @@ if Alterac_Coldtooth_Yeti:#
 class AV_201:# <7>[1626]
 	""" Coldtooth Yeti
 	[Combo:] Gain +3 Attack. """
-	#
+	combo = Buff(SELF, 'AV_201e')
 	pass
-
-class AV_201e:# <7>[1626]
-	""" Yeti Rage
-	+3 Attack. """
-	#
-	pass
+AV_201e=buff(3,0)
 
 if Alterac_Shadowcrafter_Scabbs:# 
 	Alterac_Rogue+=['AV_203']
@@ -39,29 +34,35 @@ if Alterac_Shadowcrafter_Scabbs:#
 	Alterac_Rogue+=['AV_203po']
 	Alterac_Rogue+=['AV_203t']
 class AV_203:# <7>[1626]
-	""" Shadowcrafter Scabbs
-	[Battlecry:] Return all minions to their owner's  hands. Summon two 4/2 Shadows with [Stealth]. """
-	#
+	""" Shadowcrafter Scabbs (Hero)
+	[Battlecry:] Return all minions to their owner's  hands. Summon two 4/2 Shadows(AV_203t) with [Stealth]. """
+	def play(self):
+		for card in self.controller.field:
+			Bounce(card).trigger(self)
+		for card in self.controller.opponent.field:
+			Bounce(card).trigger(self)
+		Summon(self.controller, 'AV_203t').trigger(self)
+		Summon(self.controller, 'AV_203t').trigger(self)
 	pass
-
 class AV_203p:# <7>[1626]
 	""" Sleight of Hand
 	[Hero Power] The next card you play this turn costs (2) less. """
-	#
+	activate = Buff(FRIENDLY_HAND, 'AV_203pe')
 	pass
-
 class AV_203pe:# <7>[1626]
 	""" Sleight of Hand
 	The next card you play this turn costs (2) less. """
-	#
+	cost = lambda self, i: max(i-2,0)
+	events =[
+		Play(CONTROLLER).after(Destroy(SELF)),
+		OWN_TURN_END.on(Destroy(SELF))
+		]
 	pass
-
 class AV_203po:# <7>[1626]
 	""" Sleight of Hand
 	The next card you play this turn costs (2) less. """
 	#
 	pass
-
 class AV_203t:# <7>[1626]
 	""" Shadow
 	[Stealth] """
@@ -70,10 +71,20 @@ class AV_203t:# <7>[1626]
 
 if Alterac_Wildpaw_Gnoll:# 
 	Alterac_Rogue+=['AV_298']
+class AV_298_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		source.cost_mod = -len( [card for card in controller.give_log if card.card_class in CARDCLASSES.remove(CardClass.ROGUE)])
+		pass
 class AV_298:# <7>[1626]
 	""" Wildpaw Gnoll
 	[Rush] Costs (1) less for each card you've added to your hand _from another class. """
-	#
+	class Hand:
+		events = [
+			Give(CONTROLLER).AV_298_Action(CONTROLLER),
+			Draw(CONTROLLER).AV_298_Action(CONTROLLER)
+			]
 	pass
 
 if Alterac_Snowfall_Graveyard:# 
@@ -82,21 +93,29 @@ if Alterac_Snowfall_Graveyard:#
 class AV_400:# <7>[1626]
 	""" Snowfall Graveyard
 	Your [Deathrattles] trigger twice. Lasts 3 turns. """
-	#
+	#see barron(FP1_031)
+	play = Buff(CONTROLLER, 'AV_400e')
 	pass
-
 class AV_400e:# <7>[1626]
 	""" Bunkered Up
 	Deathrattles trigger twice. """
-	#
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})	
+	events = OWN_TURN_END.on(SidequestCounter(SELF, 3, [Destroy(SELF)]))
 	pass
 
 if Alterac_The_Lobotomizer:# 
 	Alterac_Rogue+=['AV_402']
+class AV_402_Give(TargetedAction):
+	TARGET=ActionArg()
+	CARDS=CardArg()
+	def do(self, source, target, cards):
+		card = cards[0]
+		Give(target, card.id).trigger(source)
+		pass
 class AV_402:# <7>[1626]
 	""" The Lobotomizer
 	[Honorable Kill:] Get a copy of the top card of your opponent's deck. """
-	#
+	honorable_kill = AV_402_Give(CONTROLLER, FRIENDLY_DECK)
 	pass
 
 if Alterac_Cerathine_Fleetrunner:# 
@@ -105,13 +124,24 @@ if Alterac_Cerathine_Fleetrunner:#
 class AV_403:# <7>[1626]
 	""" Cera'thine Fleetrunner
 	[Battlecry:] Replace your minions in hand and deck  with ones from other classes. They cost (2) less. """
-	#
-	pass
+	def play(self):
+		other_classes=CARDCLASSES.remove(CardClass.ROGUE)
+		for repeat in range(self.controller.hand):
+			self.controller.hand[0].discard()
+			cardclass = random.choice(other_classes)
+			newcard=Give(self.controller, RandomCollectible(card_class=cardclass)).trigger(self)
+			Buff(newcard[0][0],'AV_403e2').trigger(self)
+		for repeat in range(self.controller.deck):
+			self.controller.hand[0].discard()
+			cardclass = random.choice(other_classes)
+			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=cardclass)).trigger(self)
+			Buff(newcard[0],'AV_403e2').trigger(self)
 
+	pass
 class AV_403e2:# <7>[1626]
 	""" Quickfooted
 	Costs (2) less. """
-	#
+	cost = lambda self, i: max(i-2,0)
 	pass
 
 if Alterac_Contraband_Stash:# 
@@ -119,7 +149,13 @@ if Alterac_Contraband_Stash:#
 class AV_405:# <7>[1626]
 	""" Contraband Stash
 	Replay 5 cards from other classes you've played this game. """
-	#
+	#Replay = give to hand. (and play? to whom?)
+	def play(self):
+		cards=[card for card in self.controller.play_log if card.card_class!=CardClass.ROGUE and card.card_class!=CardClass.NEUTRAL]
+		if len(cards)>5:
+			cards = cards.random.sample(cards, 5)
+		for card in cards:
+			Give(self.controller, card.id).trigger(self)
 	pass
 
 if Alterac_Forsaken_Lieutenant:# 
@@ -130,12 +166,7 @@ class AV_601:# <7>[1626]
 	[[Stealth].] After you play a [Deathrattle] minion, become a 2/2 copy of it with [Rush]. """
 	#
 	pass
-
-class AV_601e:# <7>[1626]
-	""" Forsaken
-	2/2. """
-	#
-	pass
+AV_601e=buff(2,2)
 
 if Alterac_Reconnaissance:# 
 	Alterac_Rogue+=['AV_710']
@@ -147,9 +178,8 @@ class AV_710:# <7>[1626]
 	pass
 
 class AV_710e:# <7>[1626]
-	""" Contracted
-	Costs (2) less. """
-	#
+	""" Contracted	Costs (2) less. """
+	cost = lambda self, i: max(i-2,0)
 	pass
 
 if Alterac_Double_Agent:# 

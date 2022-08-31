@@ -99,6 +99,7 @@ class Player(Entity, TargetableByAuras):
 		self._reveal_log=[]
 		self._targetedaction_log=[]
 		self._battlecry_log=[]
+		self._give_log=[]
 		self._buy_log=[] # battlegraounds
 		self.spell_and_damage=False
 		#self.guardians_legacy = False#CS3_001
@@ -551,6 +552,12 @@ class Player(Entity, TargetableByAuras):
 	def battlecry_log(self):
 		return self._battlecry_log
 
+	## Draw and Give
+	def add_give_log(self, card):
+		self._give_log.append({'card':card, 'turn':card.game.turn})
+	@property
+	def give_log(self):
+		return [log['card'] for log in self._give_log]
 
 	### battlegraounds
 	def add_buy_log(self, card):

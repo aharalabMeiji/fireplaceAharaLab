@@ -1308,6 +1308,7 @@ class Draw(TargetedAction):
 			return []
 		self.broadcast(source, EventListener.ON, target, card, source)
 		card.draw()
+		card.controller.add_give_log(card)
 		self.broadcast(source, EventListener.AFTER, target, card, source)
 
 		return [card]
@@ -1443,6 +1444,8 @@ class Give(TargetedAction):
 			card.controller = target
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
+			card.controller.add_give_log(card)
+
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.casts_when_drawn(card, card.controller)
 			ret.append(card)
@@ -1497,6 +1500,16 @@ class Hit(TargetedAction):
 								source.game.trigger(source, actions, event_args=event_args)
 			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
 		return 0
+
+class Honorable_kill(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	TARGETEDACTION=ActionArg()
+	def do(self, source, target, amount, targetedaction):
+		if target.health==amount:
+			self.broadcast(source, EventListener.ON, target, amount, targetedaction)
+			for action in targetedaction:
+				action.trigger(source)
 
 class SplitHit(TargetedAction):
 	"""
@@ -1943,6 +1956,33 @@ class ShuffleBottom(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			target.shiftdown_deck()## make the top card to botom
+		return cards
+
+class ShuffleTop(TargetedAction):
+	"""
+	Shuffle card targets into player target's deck into its top.
+	TARGET = ActionArg()#controller
+	CARD = CardArg()
+	"""
+	TARGET = ActionArg()#controller
+	CARD = CardArg()
+
+	def do(self, source, target, cards):
+		if Config.LOGINFO:
+			Config.log("ShuffleTop.do","%r shuffles into %s's deck's top"%(cards, target))
+		if not isinstance(cards, list):
+			cards = [cards]
+		if cards[0]==None or cards[0]==[]:
+			return
+		for card in cards:
+			if card.controller != target:
+				card.zone = Zone.SETASIDE
+				card.controller = target
+			if len(target.deck) >= target.max_deck_size:
+				if Config.LOGINFO:
+					Config.log("ShuffleTop.do","Shuffle(%r) fails because %r's deck is full"%(card, target))
+				continue
+			card.zone = Zone.DECK
 		return cards
 
 
