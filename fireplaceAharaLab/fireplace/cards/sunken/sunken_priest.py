@@ -265,9 +265,9 @@ class TSC_775t:# <6>[1658]
 
 if Sunken_Priestess_Valishj:# 
 	Sunken_Priest+=['TSC_828']
-class TSC_828:# <6>[1658]
-	""" Priestess Valishj
-	[Battlecry:] Refresh an emptyÅ@Mana Crystal for each spell___you've cast this turn.@ <i>(@)</i> """
+class TSC_828:# <6>[1658]	
+	""" Priestess Valishj	
+	[Battlecry:] Refresh an empty Mana Crystal for each spell___you've cast this turn.@ <i>(@)</i> """
 	def play(self):
 		cards=[card for card in self.cotroller.play_this_turn if card.type==CardType.SPELL]
 		if len(cards)>0:

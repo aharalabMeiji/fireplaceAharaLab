@@ -76,34 +76,34 @@ StormWind_Warrior=stormwind_warrior.StormWind_Warrior
 StormWind_Cards=[StormWind_DemonHunter, StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral, StormWind_Paladin, StormWind_Priest, StormWind_Rogue, StormWind_Shaman, StormWind_Warlock, StormWind_Warrior]
 
 ## ALTERAC_VALLEY = 1626  # Fractured in Alterac Valley
-from fireplace.cards.alterac import alterac_demon_hunter, alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_warrior
+from fireplace.cards.alterac import alterac_demon_hunter, alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_priest, alterac_rogue, alterac_shaman, alterac_warlock, alterac_warrior
 Alterac_DemonHunter=alterac_demon_hunter.Alterac_DemonHunter
 Alterac_Druid=alterac_druid.Alterac_Druid
 Alterac_Hunter=alterac_hunter.Alterac_Hunter
 Alterac_Mage=alterac_mage.Alterac_Mage
 Alterac_Neutral=alterac_neutral.Alterac_Neutral
-Alterac_Warrior=alterac_warrior.Alterac_Warrior
 Alterac_Paladin=alterac_paladin.Alterac_Paladin
-#Alterac_Priest=
-#Alterac_Rogue=
-#Alterac_Shaman =
-#Alterac_Warlock=
-Alterac_Cards=[Alterac_DemonHunter, Alterac_Druid, Alterac_Hunter, Alterac_Mage, Alterac_Neutral, Alterac_Paladin, Alterac_Warrior,]
+Alterac_Priest=alterac_priest.Alterac_Priest
+Alterac_Rogue=alterac_rogue.Alterac_Rogue
+Alterac_Shaman=alterac_shaman.Alterac_Shaman
+Alterac_Warlock=alterac_warlock.Alterac_Warlock
+Alterac_Warrior=alterac_warrior.Alterac_Warrior
+Alterac_Cards=[Alterac_DemonHunter, Alterac_Druid, Alterac_Hunter, Alterac_Mage, Alterac_Neutral, Alterac_Paladin, Alterac_Priest, Alterac_Rogue, Alterac_Shaman, Alterac_Warlock, Alterac_Warrior,]
 
 ## THE_SUNKEN_CITY = 1658  # Voyage to the Sunken City
-from fireplace.cards.sunken import sunken_druid, sunken_hunter, sunken_mage, sunken_neutral, sunken_paladin, sunken_warrior
-#Sunken_Demonhunter=
+from fireplace.cards.sunken import sunken_demon_hunter, sunken_druid, sunken_hunter, sunken_mage, sunken_neutral, sunken_paladin, sunken_priest, sunken_rogue, sunken_shaman, sunken_warlock, sunken_warrior
+Sunken_DemonHunter=sunken_demon_hunter.Sunken_DemonHunter
 Sunken_Druid=sunken_druid.Sunken_Druid
 Sunken_Hunter=sunken_hunter.Sunken_Hunter
 Sunken_Mage=sunken_mage.Sunken_Mage
 Sunken_Neutral=sunken_neutral.Sunken_Neutral
-Sunken_Warrior=sunken_warrior.Sunken_Warrior
 Sunken_Paladin=sunken_paladin.Sunken_Paladin
-#Sunken_Priest=
-#Sunken_Rogue=
-#Sunken_Shaman =
-#Sunken_Warlock=
-Sunken_Cards=[Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Warrior]
+Sunken_Priest=sunken_priest.Sunken_Priest
+Sunken_Rogue=sunken_rogue.Sunken_Rogue
+Sunken_Shaman=sunken_shaman.Sunken_Shaman
+Sunken_Warlock=sunken_warlock.Sunken_Warlock
+Sunken_Warrior=sunken_warrior.Sunken_Warrior
+Sunken_Cards=[Sunken_DemonHunter, Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Priest, Sunken_Rogue, Sunken_Shaman, Sunken_Warlock, Sunken_Warrior]
 
 ## REVENDRETH = 1691  # Murder at Castle Nathria
 # Hero

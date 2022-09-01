@@ -242,7 +242,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_demonhunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_mage.py" />

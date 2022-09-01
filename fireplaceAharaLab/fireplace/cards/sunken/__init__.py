@@ -1,4 +1,4 @@
-from .sunken_demonhunter import *
+from .sunken_demon_hunter import *
 from .sunken_druid import *
 from .sunken_hunter import *
 from .sunken_mage import *
