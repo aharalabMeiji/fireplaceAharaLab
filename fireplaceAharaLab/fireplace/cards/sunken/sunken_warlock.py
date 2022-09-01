@@ -92,13 +92,14 @@ if Sunken_Commander_Ulthok:#
 class TID_719:# <9>[1658]
 	""" Commander Ulthok
 	[Battlecry:] Your opponent's cards cost Health instead of Mana next turn. """
-	#
+	play = Buff(ENEMY_HAND, 'TID_719e')
 	pass
 
 class TID_719e:# <9>[1658]
 	""" Blood Squeeze
 	Your cards cost Health instead of Mana this turn. """
-	#
+	apply = SetAttr(OWNER, 'cards_cost_health', True)
+	events = OWN_TURN_END.on(SetAttr(OWNER, 'cards_cost_health', False),Destroy(SELF))
 	pass
 
 if Sunken_Azsharan_Scavenger:# 
@@ -108,20 +109,17 @@ if Sunken_Azsharan_Scavenger:#
 class TSC_039:# <9>[1658]
 	""" Azsharan Scavenger
 	[Battlecry:] Put a 'Sunken Scavenger' on the bottom of your deck. """
-	#
+	play = ShuffleBottom(CONTROLLER, 'TSC_039t')
 	pass
-
 class TSC_039t:# <9>[1658]
 	""" Sunken Scavenger
 	[Battlecry:] Give your other Murlocs +1/+1 <i>(wherever they are)</i>. """
-	#
+	def play(self):
+		for card in self.controller.hand + self.controller.field + self.controller.deck:
+			if card.type==CardType.MINION and card.race==Race.MURLOC:
+				Buff(card, 'TSC_039te').trigger(self)
 	pass
-
-class TSC_039te:# <9>[1658]
-	""" Mllgggrrrr
-	+1/+1. """
-	#
-	pass
+TSC_039te=buff(1,1)
 
 if Sunken_Voidgill:# 
 	Sunken_Warlock+=['TSC_614']
@@ -129,27 +127,45 @@ if Sunken_Voidgill:#
 class TSC_614:# <9>[1658]
 	""" Voidgill
 	[Deathrattle:] Give all Murlocs in your hand +1/+1. """
-	#
+	deathrattle = Buff(FRIENDLY_HAND + MURLOC, 'TSC_614e')
 	pass
-
-class TSC_614e:# <9>[1658]
-	""" Void Powered
-	+1/+1. """
-	#
-	pass
+TSC_614e=buff(1,1)
 
 if Sunken_Bloodscent_Vilefin:# 
 	Sunken_Warlock+=['TSC_753']
 	Sunken_Warlock+=['TSC_753e']
+class TSC_753_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			Config.log("DredgeChoice.choose","%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if c.type==CardType.MINION and c.race==Race.MURLOC:
+					Buff(c, 'TSC_753e').trigger(controller)
+				break
+		pass
+class TSC_753_Dredge(TargetedAction):
+	"""
+	TARGET=ActionArg()#CONTROLLER
+	"""
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_753_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TSC_753:# <9>[1658]
 	""" Bloodscent Vilefin
-	[Battlecry:] [Dredge]. If it's aMurloc, change its Cost to_Health instead of Mana. """
-	#
+	[Battlecry:] [Dredge]. If it's a Murloc, change its Cost to_Health instead of Mana. """
+	play = TSC_753_Dredge(CONTROLLER)
 	pass
-
 class TSC_753e:# <9>[1658]
 	""" Fresh Scent
 	Costs Health instead of Mana. """
+	apply = SetAttr(OWNER, 'cards_cost_health', True)
 	#
 	pass
 
@@ -157,23 +173,44 @@ if Sunken_Abyssal_Wave:#
 	Sunken_Warlock+=['TSC_924']
 class TSC_924:# <9>[1658]
 	""" Abyssal Wave
-	Deal $4 damage toall minions. Give youropponent an AbyssalCurse. """
-	#
+	Deal $4 damage to all minions. Give your opponent an Abyssal Curse(TSC_955t). """
+	play = Hit(ENEMY_MINIONS, 4), Give(OPPONENT, 'TSC_955t')
 	pass
 
 if Sunken_Rock_Bottom:# 
 	Sunken_Warlock+=['TSC_925']
 	Sunken_Warlock+=['TSC_925t']
+class TSC_925_DredgeChoice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			Config.log("DredgeChoice.choose","%s chooses %r"%(card.controller.name, card))
+		controller = card.controller
+		for c in controller.deck[:3]:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				controller.deck.append(c)
+				if c.type==CardType.MINION and c.race==Race.MURLOC:
+					Summon(controller, 'TSC_925t').trigger(controller)
+				break
+		pass
+class TSC_925_Dredge(TargetedAction):
+	"""
+	TARGET=ActionArg()#CONTROLLER
+	"""
+	TARGET=ActionArg()
+	def do(self, source, target):
+		bottom3ID=[card.id for card in target.deck[:3]]
+		TSC_925_DredgeChoice(target, RandomID(*bottom3ID)*3).trigger(source)
+	pass
 class TSC_925:# <9>[1658]
 	""" Rock Bottom
 	Summon a 1/1Murloc, then [Dredge].If it's also a Murloc,summon one more. """
-	#
+	play = Summon(CONTROLLER, 'TSC_925t'), TSC_925_Dredge(CONTROLLER)
 	pass
-
 class TSC_925t:# <9>[1658]
 	""" Coldlight Lurker
 	 """
-	#
 	pass
 
 if Sunken_Sirakess_Cultist:# 
@@ -190,7 +227,10 @@ class TSC_955t_Action(TargetedAction):
 	def do(self, source, target):
 		controller=target
 		amount = controller.abyssal_curse
-		Hit(controller.hero, amount).trigger(source)
+		if 'TSC_959e' in [buff.id for buff in source.buffs]:
+			Heal(controller.opponent.hero, amount).trigger(source)
+		else:
+			Hit(controller.hero, amount).trigger(source)
 		controller.abyssal_curse+=1
 		pass
 class TSC_955t:# <9>[1658]
@@ -230,21 +270,19 @@ class TSC_957e:# <9>[1658]
 if Sunken_Zaqul:# 
 	Sunken_Warlock+=['TSC_959']
 	Sunken_Warlock+=['TSC_959e']
-	Sunken_Warlock+=['TSC_959e2']
+	#Sunken_Warlock+=['TSC_959e2']
 class TSC_959:# <9>[1658]
 	""" Za'qul
-	Your Abyssal Curses heal you for the damage they deal.[Battlecry:] Give your opponentan Abyssal Curse. """
-	#
+	Your Abyssal Curses heal you for the damage they deal.[Battlecry:] Give your opponent an Abyssal Curse. """
+	update = Refresh(ENEMY_HAND + ID('TSC_955t'), buff='TSC_959e')
 	pass
 class TSC_959e:# <9>[1658]
 	""" Cursed
-	Your Abyssal Curses heal youfor the damage they deal. """
-	#
+	Your Abyssal Curses(TSC_955t) heal you for the damage they deal. """
 	pass
 class TSC_959e2:# <9>[1658]
 	""" Cursed
 	Your Curses cost (2) more this game. """
-	#
 	pass
 
 if Sunken_Gigafin:# 
