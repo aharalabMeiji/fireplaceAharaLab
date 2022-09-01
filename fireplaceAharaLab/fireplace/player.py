@@ -107,6 +107,8 @@ class Player(Entity, TargetableByAuras):
 		self.choiceStrategy = None
 		self.lost_in_the_park=0
 		self.carry_cards=[] # YOP_024
+		self.abyssal_curse=1## TSC_955t
+		
 		self.tavern_tier=1# battlegrounds
 		self.tavern_tierup_cost=5 # battlegrounds
 		self.extra_tavern_tierup_reduce_cost=0 # battlegrounds

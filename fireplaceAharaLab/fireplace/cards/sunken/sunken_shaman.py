@@ -122,41 +122,35 @@ if Sunken_Glugg_the_Gulper:#
 	Sunken_Shaman+=['TSC_639t']
 	Sunken_Shaman+=['TSC_639t2']
 	Sunken_Shaman+=['TSC_639t3']
+class TSC_639_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=ActionArg()
+	def do(self, source, target, card):
+		Buff(target, 'TSC_639e', atk = card.atk, max_health=card.max_health).trigger(source)
+		pass
 class TSC_639:# <8>[1658]
 	""" Glugg the Gulper
 	[Colossal +3] After a friendly minion dies,gain its original stats. """
-	#
+	play = Summon(CONTROLLER, 'TSC_639t'), Summon(CONTROLLER, 'TSC_639t2'), Summon(CONTROLLER, 'TSC_639t3')
+	events = Death(FRIENDLY_MINIONS).after(TSC_639_Action(SELF, Death.TARGET))
 	pass
-
 class TSC_639e:# <8>[1658]
 	""" Gulped
 	Increased stats. """
 	#
 	pass
-
 class TSC_639e2:# <8>[1658]
 	""" Gulped
 	Increased stats. """
 	#
 	pass
-
 class TSC_639t:# <8>[1658]
-	""" Glugg's Tail
-	[Taunt] """
-	#
-	pass
-
+	""" Glugg's Tail 	[Taunt] """
 class TSC_639t2:# <8>[1658]
-	""" Glugg's Tail
-	[Taunt] """
-	#
-	pass
-
+	""" Glugg's Tail 	[Taunt] """
 class TSC_639t3:# <8>[1658]
-	""" Glugg's Tail
-	[Taunt] """
-	#
-	pass
+	""" Glugg's Tail 	[Taunt] """
+
 
 if Sunken_Coral_Keeper:# 
 	Sunken_Shaman+=['TSC_648']

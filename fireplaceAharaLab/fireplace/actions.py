@@ -344,6 +344,7 @@ class Deaths(GameAction):
 class Death(GameAction):
 	"""
 	Move target to the GRAVEYARD Zone.
+	TARGET = ActionArg()
 	"""
 	ENTITY = ActionArg()
 	TARGET = ActionArg()
