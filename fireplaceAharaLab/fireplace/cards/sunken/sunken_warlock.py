@@ -26,7 +26,13 @@ if Sunken_Herald_of_Shadows:#
 class TID_717:# <9>[1658]
 	""" Herald of Shadows
 	[Battlecry:] If you've cast a Shadow spell while holding this, steal 2 Health from a minion. """
-	#
+	class Hand:
+		events = Play(CONTROLLER, SPELL + SHADOW).on(SetScriptDataNum1(SELF, 1))
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
+	def play(self):
+		if self.script_data_num_1>0:
+			Buff(self, 'TID_717e2', health=2).trigger()
+			Buff(self.target, 'TID_717e', health=-2).trigger()
 	pass
 class TID_717e:# <9>[1658]
 	""" Siphoned
@@ -58,16 +64,22 @@ if Sunken_Immolate:#
 	Sunken_Warlock+=['TID_718e2']
 class TID_718:# <9>[1658]
 	""" Immolate
-	Light every card in the opponent's hand on fire. In 3 turns, any stillin hand are destroyed! """
-	#
+	Light every card in the opponent's hand on fire. In 3 turns, any still in hand are destroyed! """
+	play = Buff(ENEMY_HAND, 'TID_718e2'),Buff(CONTROLLER, 'TID_718e')
 	pass
-
+class TID_718_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		for card in target.opponent.hand:
+			if 'TID_718e2' in [buff.id for buff in card.buffs]:
+				card.to_be_destroyed=True
+		target.game.process_deaths()
+		pass
 class TID_718e:# <9>[1658]
 	""" Engulfed in Flame
 	In 3 turns, destroy the opponent's cards that are on fire. """
-	#
+	events = OWN_TURN_END.on(SidequestCounter(SELF, 3, [TID_718_Action(CONTROLLER)] ))
 	pass
-
 class TID_718e2:# <9>[1658]
 	""" Engulfed in Flame
 	This card is on fire! """
