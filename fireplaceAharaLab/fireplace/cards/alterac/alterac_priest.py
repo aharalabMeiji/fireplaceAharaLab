@@ -172,7 +172,7 @@ class AV_331:# <6>[1626]
 	def play(self):
 		self.target.zone=Zone.SETASIDE
 		self.target.controller=self.controller
-		self.target.zone.Zone.PLAY
+		self.target.zone=Zone.PLAY
 		#how about its buffs?
 	deathrattle = AV_331_Action(TARGET)
 	pass

@@ -1063,6 +1063,7 @@ class Enchantment(BaseCard):
 		self.one_turn_effect = False
 		self.permanent_buff = False ## for spellcraft in battleground 
 		self.additional_deathrattles = []
+		self._sidequest_counter_ = 0# Sidequest
 		super().__init__(data)
 
 	@property

@@ -176,7 +176,7 @@ class AV_661:# <14>[1626]
 	""" Field of Strife
 	Your minions have+1 Attack.Lasts 3 turns. """
 	tags={GameTag.SIDEQUEST:True, }
-	update = Refresh(FRIENDLY_MINIONS, 'AV_661e2')
+	update = Refresh(FRIENDLY_MINIONS, buff='AV_661e2')
 	events = OWN_TURN_BEGIN.on(SidequestCounter(SELF, 3, [Destroy(SELF)]))	
 	pass
 class AV_661e2:# <14>[1626]

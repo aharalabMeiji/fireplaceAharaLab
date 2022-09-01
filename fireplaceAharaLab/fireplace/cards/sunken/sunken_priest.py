@@ -229,9 +229,9 @@ class TSC_702:# <6>[1658]
 	""" Switcheroo
 	Draw 2 minions. Swap their Health. """
 	def play(self):
-		card1=Draw(self.controller).trigger(self)#
+		card1=Give(self.controller, RANDOM(FRIENDLY_DECK + MINION)).trigger(self)#
 		card1=card1[0][0]
-		card2=Draw(self.controller).trigger(self)#
+		card2=Give(self.controller, RANDOM(FRIENDLY_DECK + MINION)).trigger(self)#
 		card2=card2[0][0]
 		diff = card1.max_health-card2.max_health
 		Buff(card1, 'TSC_702e', max_health=-diff).trigger(self)
@@ -269,7 +269,7 @@ class TSC_828:# <6>[1658]
 	""" Priestess Valishj	
 	[Battlecry:] Refresh an empty Mana Crystal for each spell___you've cast this turn.@ <i>(@)</i> """
 	def play(self):
-		cards=[card for card in self.cotroller.play_this_turn if card.type==CardType.SPELL]
+		cards=[card for card in self.controller.play_this_turn if card.type==CardType.SPELL]
 		if len(cards)>0:
 			RefreshMana(self.controller,len(cards)).trigger(self)
 	pass

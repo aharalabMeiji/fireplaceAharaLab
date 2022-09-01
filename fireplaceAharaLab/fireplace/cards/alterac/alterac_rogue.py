@@ -125,18 +125,14 @@ class AV_403:# <7>[1626]
 	""" Cera'thine Fleetrunner
 	[Battlecry:] Replace your minions in hand and deck  with ones from other classes. They cost (2) less. """
 	def play(self):
-		other_classes=CARDCLASSES.remove(CardClass.ROGUE)
 		for repeat in range(self.controller.hand):
 			self.controller.hand[0].discard()
-			cardclass = random.choice(other_classes)
-			newcard=Give(self.controller, RandomCollectible(card_class=cardclass)).trigger(self)
+			newcard=Give(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
 			Buff(newcard[0][0],'AV_403e2').trigger(self)
 		for repeat in range(self.controller.deck):
 			self.controller.hand[0].discard()
-			cardclass = random.choice(other_classes)
-			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=cardclass)).trigger(self)
+			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
 			Buff(newcard[0],'AV_403e2').trigger(self)
-
 	pass
 class AV_403e2:# <7>[1626]
 	""" Quickfooted
@@ -223,8 +219,12 @@ class ONY_031:# <7>[1626]
 			newcard=Draw(CONTROLLER).trigger(self)
 			newcard=newcard[0][0]
 			if newcard.deathrattles!=[]:
-				for action in newcard.deathrattles:
-					action.trigger(self)
+				if isinstance(newcard.deathrattles[0], tuple):
+					for action in newcard.deathrattles[0]:
+						action.trigger(self)
+				else: 
+					for action in newcard.deathrattles:
+						action.trigger(self)
 	pass
 
 if Alterac_Tooth_of_Nefarian:# 

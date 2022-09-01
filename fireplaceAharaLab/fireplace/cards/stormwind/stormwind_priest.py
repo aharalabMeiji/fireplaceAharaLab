@@ -177,7 +177,7 @@ class SW_440_Choice(Choice):
 							if isinstance(action, Action):
 								action.trigger(new_card.controller)
 							else:
-								action[0].trigger(new_card.controller)
+								action[0].trigger(self.source)
 
 class SW_440:# <6>[1578]
 	""" Call of the Grave

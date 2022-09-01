@@ -52,7 +52,7 @@ if Barrens_Razorfen_Beastmaster:#
 class BAR_326_Summon(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
-		cards=[card for card in target.hand if card.cost<=4 and card.has_deathrattle==True]
+		cards=[card for card in target.hand if card.type==CardType.MINION and card.cost<=4 and card.has_deathrattle==True]
 		if len(cards)>0:
 			Summon(target, random.choice(cards)).trigger(source)
 class BAR_326:# <14>[1525]
