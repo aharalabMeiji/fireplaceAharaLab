@@ -194,14 +194,19 @@ if Sunken_Coral_Keeper:#
 	Sunken_Shaman+=['TSC_648t']
 class TSC_648:# <8>[1658]
 	""" Coral Keeper
-	[Battlecry:] Summon a3/3 Elemental for eachspell school you'vecast this game. """
-	#
+	[Battlecry:] Summon a 3/3 Elemental(TSC_648t) for each spell school you've cast this game. """
+	def play(self):
+		cards=[]
+		schools=[]
+		for card in self.controller.play_log:
+			if card.type==CardType.SPELL and not card.spell_school in schools:
+				cards.append(card)
+				schools.append(card.spell_school)
+		for repeat in range(len(cards)+1):
+			Summon(self.controller, 'TSC_648t').trigger(self)
 	pass
-
 class TSC_648t:# <8>[1658]
-	""" Coral Elemental
-	 """
-	#
+	""" Coral Elemental 	 """
 	pass
 
 if Sunken_Azsharan_Scroll:# 
@@ -209,10 +214,15 @@ if Sunken_Azsharan_Scroll:#
 	Sunken_Shaman+=['TSC_772t']
 class TSC_772:# <8>[1658]
 	""" Azsharan Scroll
-	[Discover] a Fire, Frost or Nature spell. Put a 'Sunken Scroll' on the bottom of your deck. """
-	#
+	[Discover] a Fire, Frost or Nature spell. Put a 'Sunken Scroll'(TSC_772t) on the bottom of your deck. """
+	def play(self):
+		card1 = (RandomSpell(spell_school=SpellSchool.FIRE).evaluate(self))[0]
+		card2 = (RandomSpell(spell_school=SpellSchool.FROST).evaluate(self))[0]
+		card3 = (RandomSpell(spell_school=SpellSchool.NATURE).evaluate(self))[0]
+		cards=(card1, card2, card3)
+		ShuffleBottom(CONTROLLER, 'TSC_772t').trigger(self)
+		Discover(CONTROLLER, RandomID(*cards)).trigger(self)
 	pass
-
 class TSC_772t:# <8>[1658]
 	""" Sunken Scroll
 	Add a Fire, Frost, and Nature spell from your class to your hand. """
@@ -225,27 +235,22 @@ if Sunken_Anchored_Totem:#
 class TSC_922:# <8>[1658]
 	""" Anchored Totem
 	After you summon a 1-Cost minion, give it +2/+1. """
-	#
+	events = Summon(CONTROLLER, MINION + (COST == 1)).on(Buff(Summon.CARD, 'TSC_922e'))
 	pass
-
-class TSC_922e:# <8>[1658]
-	""" Sink or Swim
-	+2/+1 """
-	#
-	pass
+TSC_922e=buff(2,1)
 
 if Sunken_Bioluminescence:# 
 	Sunken_Shaman+=['TSC_923']
 	Sunken_Shaman+=['TSC_923e']
 class TSC_923:# <8>[1658]
 	""" Bioluminescence
-	Give your minions[Spell Damage +1]. """
+	Give your minions [Spell Damage +1]. """
+	play = Buff(FRIENDLY_MINIONS, 'TSC_923e')
 	#
 	pass
-
 class TSC_923e:# <8>[1658]
 	""" Bioluminescent
 	[Spell Damage +1]. """
-	#
+	apply = SetAttr(OWNER, 'spellpower', 1) 
 	pass
 
