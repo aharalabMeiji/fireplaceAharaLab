@@ -94,11 +94,11 @@ class TSC_209:# <6>[1658]
 	""" Whirlpool
 	Destroy all minions and all copies of them <i>(wherever they are)</i>. """
 	def play(self):
-		for c in len(self.controller.hand + self.controller.opponent.hand):
+		for c in self.controller.hand + self.controller.opponent.hand:
 			for card in self.controller.field + self.controller.opponent.field:
 				if self.controller.hand[0].id==card.id:
 					c.to_be_destroyed=True
-		for c in len(self.controller.deck + self.controller.opponent.deck):
+		for c in self.controller.deck + self.controller.opponent.deck:
 			for card in self.controller.field + self.controller.opponent.field:
 				if self.controller.hand[0].id==card.id:
 					c.to_be_destroyed=True

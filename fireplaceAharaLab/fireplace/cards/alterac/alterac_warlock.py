@@ -75,7 +75,7 @@ class AV_286:# <9>[1626]
 		if hand!=[]:
 			high=[]
 			for card in hand:
-				if card.card_school==SpellSchool.FEL:
+				if card.type==CardType.SPELL and card.spell_school==SpellSchool.FEL:
 					if high==[] or high[0].cost<card.cost:
 						high=[card]
 					elif high[0].cost==card.cost:
@@ -216,7 +216,7 @@ class ONY_033:# <9>[1626]
 			newcard=Summon(CONTROLLER, 'AV_316t').trigger(self)
 			newcard=newcard[0][0]
 			if self.controller.opponent.field!=[]:
-				target = random.choice(self.controller.opponent)
+				target = random.choice(self.controller.opponent.field)
 				RegularAttack(newcard, target).trigger(self)
 	pass
 
