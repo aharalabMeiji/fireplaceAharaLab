@@ -98,7 +98,9 @@ class TID_719:# <9>[1658]
 class TID_719e:# <9>[1658]
 	""" Blood Squeeze
 	Your cards cost Health instead of Mana this turn. """
-	apply = SetAttr(OWNER, 'cards_cost_health', True)
+	def apply(self, target):
+		target.cards_cost_health=True
+		pass
 	events = OWN_TURN_END.on(SetAttr(OWNER, 'cards_cost_health', False),Destroy(SELF))
 	pass
 
@@ -165,7 +167,9 @@ class TSC_753:# <9>[1658]
 class TSC_753e:# <9>[1658]
 	""" Fresh Scent
 	Costs Health instead of Mana. """
-	apply = SetAttr(OWNER, 'cards_cost_health', True)
+	def apply(self, target):
+		target.cards_cost_health=True
+		pass
 	#
 	pass
 
@@ -258,7 +262,7 @@ class TSC_957:# <9>[1658]
 	""" Chum Bucket
 	Give all Murlocs in your hand +1/+1. Repeat foreach Murloc you control. """
 	def play(self):
-		amount=([card for card in self.controller.hand if card.type==CardType.MINION and card.race==Race.MURLOC])+1
+		amount=len([card for card in self.controller.hand if card.type==CardType.MINION and card.race==Race.MURLOC])+1
 		for card in self.controller.hand:
 			if card.type==CardType.MINION and card.race==Race.MURLOC:
 				Buff(card, 'TSC_957e', atk=amount, max_health=amount).trigger(self)

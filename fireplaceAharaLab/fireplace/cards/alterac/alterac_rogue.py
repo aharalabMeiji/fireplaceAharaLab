@@ -125,11 +125,11 @@ class AV_403:# <7>[1626]
 	""" Cera'thine Fleetrunner
 	[Battlecry:] Replace your minions in hand and deck  with ones from other classes. They cost (2) less. """
 	def play(self):
-		for repeat in range(self.controller.hand):
+		for repeat in range(len(self.controller.hand)):
 			self.controller.hand[0].discard()
 			newcard=Give(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
 			Buff(newcard[0][0],'AV_403e2').trigger(self)
-		for repeat in range(self.controller.deck):
+		for repeat in range(len(self.controller.deck)):
 			self.controller.hand[0].discard()
 			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
 			Buff(newcard[0],'AV_403e2').trigger(self)

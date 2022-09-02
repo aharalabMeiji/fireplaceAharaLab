@@ -159,10 +159,11 @@ if Alterac_Najak_Hexxen:#
 class AV_331_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		target.zone=Zone.SETASIDE
-		target.controller=self.controller.opponent
-		target.zone.Zone.PLAY
-		#how about its buffs?
+		if target!=None:
+			target.zone=Zone.SETASIDE
+			target.controller=self.controller.opponent
+			target.zone.Zone.PLAY
+			#how about its buffs?
 		pass
 
 class AV_331:# <6>[1626]

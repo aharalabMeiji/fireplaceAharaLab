@@ -226,6 +226,18 @@ class WC_014:# <6>[1525]
 
 if Barrens_Cleric_of_Anshe:# 
 	Barrens_Priest+=['WC_803']
+class WC_803_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		controller = card.controller
+		for c in controller.deck:
+			if card.id==c.id:
+				controller.deck.remove(c)
+				c.zone=Zone.HAND
+				break
+		pass
+
 class WC_803:# <6>[1525]
 	""" Cleric of An'she
 	[Battlecry:] If you've restored Health this turn, [Discover] a spell from your deck. """
@@ -233,7 +245,10 @@ class WC_803:# <6>[1525]
 		#this turn
 		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'],Heal) and action['turn']==self.controller.game.turn]
 		if len(actions)>0:
-			Discover(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)*3).trigger(self)
+			cards=[card.id for card in self.controller.deck if card.type==CardType.SPELL]
+			if len(cards)>3:
+				cards = random.sample(cards, 3)
+			WC_803_Choice(self.controller, RandomID(*cards)*3).trigger(self)
 	pass
 
 

@@ -244,6 +244,8 @@ class SW_115_Action(TargetedAction):
 			card = actions[0]['source']
 			if hasattr(card.data.scripts, 'play'):
 				action = card.get_actions('play')
+				if isinstance(action, tuple) or isinstance(action, list):
+					action = action[0]
 				action.trigger(source)
 			elif hasattr(card, 'play'):
 				card.play()

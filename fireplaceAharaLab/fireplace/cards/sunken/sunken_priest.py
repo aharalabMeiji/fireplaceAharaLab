@@ -176,7 +176,7 @@ class TSC_213:# <6>[1658]
 	""" Queensguard
 	[Battlecry:] Gain +1/+1 for each spell you've cast this turn. """
 	def play(self):
-		cards=[card for card in self.controller.play_log_this_turn if card.type==CardType.SPELL]
+		cards=[card for card in self.controller.play_this_turn if card.type==CardType.SPELL]
 		amount=len(cards)
 		if amount>0:
 			Buff(self, 'TSC_213e', atk=amount, max_health=amount).trigger(self)

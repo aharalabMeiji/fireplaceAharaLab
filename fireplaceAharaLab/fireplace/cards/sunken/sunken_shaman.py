@@ -251,6 +251,8 @@ class TSC_923:# <8>[1658]
 class TSC_923e:# <8>[1658]
 	""" Bioluminescent
 	[Spell Damage +1]. """
-	apply = SetAttr(OWNER, 'spellpower', 1) 
+	def apply(self, target):
+		target.spellpower=1
+		pass	
 	pass
 

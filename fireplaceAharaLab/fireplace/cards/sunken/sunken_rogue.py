@@ -232,7 +232,7 @@ if Sunken_Swiftscale_Trickster:#
 class TSC_936:# <7>[1658]
 	""" Swiftscale Trickster
 	[Battlecry:] Your next spell this turn costs (0). """
-	play = Buff(FRIENDLY_HAND + SPELL)
+	play = Buff(FRIENDLY_HAND + SPELL, 'TSC_936e')
 	pass
 class TSC_936e:# <7>[1658]
 	""" Fooled the Audience
