@@ -31,12 +31,16 @@ class AV_281:# <9>[1626]
 	""" Felfire in the Hole!
 	Draw a spell and deal $2 damage to all enemies. If it's a Fel spell, deal $1 more. """
 	def play(self):
-		newcard=Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)).trigger(self)
-		newcard=newcard[0][0]
-		if newcard.type==CardType.SPELL and newcard.spell_school==SpellSchool.FEL:
-			Hit(ENEMY_CHARACTERS, 3).trigger(self)
-		else:
-			Hit(ENEMY_CHARACTERS, 2).trigger(self)
+		cards = [card for card in self.controller.deck if card.type==CardType.SPELL]
+		if len(cards)>0:
+			newcard = random.choice(cards)
+			newcard.zone=Zone.HAND
+			if newcard.type==CardType.SPELL and newcard.spell_school==SpellSchool.FEL:
+				amount=3
+			else:
+				amount=2
+			for enemy in self.controller.opponent.characters:
+				Hit(enemy, amount).trigger(self)
 	pass
 
 if Alterac_Full_Blown_Evil:# 
@@ -46,8 +50,10 @@ class AV_285:# <9>[1626]
 	Deal 5 damage randomly split among all enemy minions. Repeatable this turn. """
 	play = (
 		SplitHit(CONTROLLER, ENEMY_MINIONS, 5),
-		Give(CONTROLLER, 'AV_285').on(Buff(Give.CARD, 'AV_285_e'))
+		Give(CONTROLLER, 'AV_285')
 		)
+	events = Give(CONTROLLER, ID('AV_285')).on(Buff(Give.CARD, 'AV_285_e'))
+		
 	pass
 @custom_card
 class AV_285_e:
@@ -207,7 +213,11 @@ class ONY_033:# <9>[1626]
 	def play(self):
 		amount = len(self.controller.opponent.field)
 		for repeat in range(amount):
-			(Summon(CONTROLLER, 'AV_316t').after(RegularAttack(Summon.CARD, RANDOM(ENEMY_MINIONS)))).trigger(self)
+			newcard=Summon(CONTROLLER, 'AV_316t').trigger(self)
+			newcard=newcard[0][0]
+			if self.controller.opponent.field!=[]:
+				target = random.choice(self.controller.opponent)
+				RegularAttack(newcard, target).trigger(self)
 	pass
 
 if Alterac_Curse_of_Agony:# 

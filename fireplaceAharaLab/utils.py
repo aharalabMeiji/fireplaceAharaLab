@@ -176,15 +176,15 @@ class Candidate(object):
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
-				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
+				return "{card}({id}):{cost} -> plays".format(card=self.card, cost = self.card.cost,id=self.card.id)
 			else :
 				atk2=self.target.atk
 				health2=self.target.health
 				if self.target.type==CardType.HERO:
 					health2 += self.target.armor
-				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(
+				return "{card}({id}):{cost} -> plays -> {target}({atk2}/{health2})".format(
 					card=self.card, cost = self.card.cost,
-					target=self.target, atk2=atk2, health2=health2)
+					target=self.target, atk2=atk2, health2=health2,id=self.card.id)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)

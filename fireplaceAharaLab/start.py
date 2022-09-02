@@ -13,7 +13,10 @@ sys.path.append("..")
 #		main()
 #
 def main():
-	cards.db.initialize()
+	if Config.HEARTHSTONE==1:
+		cards.db.initialize()
+	else:
+		cards.db.classic_initialize()
 	#manual input(if you don't specify a class, it will be a hunter)
 	Human1=HumanAgent("Human1",HumanAgent.HumanInput,myClass=CardClass.DRUID,
 		choiceStrategy=HumanAgent.HumanInputChoice)
@@ -26,11 +29,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.SHAMAN)
+		,myClass=CardClass.WARLOCK)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARLOCK)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	
@@ -45,7 +48,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -98,7 +101,7 @@ def battleground_main():
 	BG.BG_main()
 
 if __name__ == "__main__":
-	if Config.HEARTHSTONE==1:
+	if Config.HEARTHSTONE==1 or Config.HEARTHSTONE==2:
 		main()
 	elif Config.HEARTHSTONE==3:
 		battleground_main()

@@ -1525,6 +1525,8 @@ class SplitHit(TargetedAction):
 			Config.log("SplitHit.do","%s hits %s splitly by %d"%(source, targets, amount))
 		if not isinstance(targets, list):
 			targets = [targets]
+		if targets==[]:
+			return
 		ret = []
 		amount = source.controller.get_spell_damage(amount)## adding spellpower.
 		if amount:

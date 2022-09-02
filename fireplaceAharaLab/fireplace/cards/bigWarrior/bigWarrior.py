@@ -211,8 +211,9 @@ class SCH_337_Troublemaker(TargetedAction):
 				new_minion2 = new_minion2[0][0]
 				enemy = source.controller.opponent
 				if len(enemy.field)>0:
-					Attack(new_minion1, random.choice(enemy.field)).trigger(source.controller)##
-					Attack(new_minion2, random.choice(enemy.field)).trigger(source.controller)##
+					Attack(new_minion1, random.choice(enemy.field)).trigger(source)##
+				if len(enemy.field)>0:
+					Attack(new_minion2, random.choice(enemy.field)).trigger(source)##
 		pass
 class SCH_337:###OK
 	"""Troublemaker

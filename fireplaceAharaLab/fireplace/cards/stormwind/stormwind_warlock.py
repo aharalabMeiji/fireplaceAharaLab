@@ -113,7 +113,7 @@ class SW_085t:# <9>[1578]
 
 
 if StormWind_Shady_Bartender:# 
-	StormWind_Warlock+=['SW_086']
+	StormWind_Warlock+=['SW_086','SW_086e']
 class SW_086:# <9>[1578]
 	""" Shady Bartender
 	[Tradeable][Battlecry:] Give your Demons +2/+2. """

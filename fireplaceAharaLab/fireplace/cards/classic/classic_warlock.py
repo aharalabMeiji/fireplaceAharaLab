@@ -260,7 +260,7 @@ if Classic_Demonfire:#
 	Classic_Warlock+=['VAN_EX1_596','EX1_596e']
 class VAN_EX1_596:# <9>[1646]
 	""" Demonfire
-	Deal $2 damage to a minion. If itÅfs a friendly Demon, give it +2/+2 instead. """
+	Deal $2 damage to a minion. If it's a friendly Demon, give it +2/+2 instead. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Find(TARGET + FRIENDLY + DEMON) & Buff(TARGET, "EX1_596e") | Hit(TARGET, 2)
 	pass
