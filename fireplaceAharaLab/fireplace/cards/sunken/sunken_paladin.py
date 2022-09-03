@@ -49,7 +49,7 @@ class TID_949:# <5>[1658]
 	def play(self):
 		while True:
 			cards1 = [card for card in self.controller.deck if card.type==CardType.MINION]
-			cards2 = [card for card in self.controller.opponentdeck if card.type==CardType.MINION]
+			cards2 = [card for card in self.controller.opponent.deck if card.type==CardType.MINION]
 			if len(cards1)>0 and len(cards2)>0:
 				if len(self.controller.field)<7 and len(self.controller.opponent.field)<7:
 					card1 = random.choice(cards1)

@@ -104,7 +104,7 @@ class TSC_209:# <6>[1658]
 					c.to_be_destroyed=True
 		for card in self.controller.field + self.controller.opponent.field:
 			card.to_be_destroyed=True
-		self.controller.game.process_death()
+		self.controller.game.process_deaths()
 	pass
 
 
