@@ -59,6 +59,15 @@ class TB_BaconUps_156:# <12>[1453]
 	pass
 
 
+class BG_TID_713:#あわわわ
+	""" Bubblette
+	After this minion takes  exactly one damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
+	events = Damage(SELF, 1).on(Destroy(SELF))
+class BG_TID_713_G:#あわわわ
+	""" Bubblette
+	After this minion takes  exactly two damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
+	events = Damage(SELF, 2).on(Destroy(SELF))
+
 
 if BG_Molten_Rock: # 
 #Molten Rock(2)  ### MAYBE ###

@@ -37,12 +37,13 @@ class DREAM_05: # <11> 3
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0
 		}
-	play = (Buff(TARGET,"DREAM_05e"), Buff(TARGET,"WC_035e2"))
+	play = Buff(TARGET,"DREAM_05e")
 	
 	pass
 
 class DREAM_05e:#=buff(atk=4, health=4) # <12> 3
+	tags={GameTag.ATK:4, GameTag.HEALTH:4, }
 	events = OWN_TURN_BEGIN.on(Destroy(OWNER), Destroy(SELF))
-WC_035e2=buff(atk=4,health=4)#借りてきた
+#WC_035e2=buff(atk=4,health=4)#借りてきた
 
 

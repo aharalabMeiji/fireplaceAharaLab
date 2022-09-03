@@ -15,7 +15,7 @@ class StandardAgent(Agent):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
 
-	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+	def StandardRandom(self, thisgame: "fireplace.game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
 		while loopCount<20:
@@ -238,7 +238,7 @@ class StandardVectorAgent(Agent):
 #
 #   Original random
 #
-def Original_random(game: ".game.Game"):
+def Original_random(game):
 	player = game.current_player
 	while True:
 		for card in player.hand:
@@ -302,6 +302,8 @@ def adjust_text_by_spellpower(text, player, card):
 					_latter_text = _new_text[_i+3:]
 				if hasattr(card,'spell_school') and card.spell_school == SpellSchool.FIRE:
 					_catch_number += player.spellpower_fire
+				elif hasattr(card,'spell_school') and card.spell_school == SpellSchool.NATURE:
+					_catch_number += player.spellpower_nature
 				else :
 					_catch_number += player.spellpower
 				for _repeat in range(player.spellpower_double):

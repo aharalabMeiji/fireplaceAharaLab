@@ -38,8 +38,36 @@ BASIC_HERO_POWERS = [
 	"HERO_01bp", "HERO_02bp", "HERO_03bp",
 	"HERO_04bp", "HERO_05bp", "HERO_06bp",
 	"HERO_07bp", "HERO_08bp", "HERO_09bp",
-	"HERO_10bp",
+	#"HERO_10bp",
 ]
+
+CARDCLASSES=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PALADIN,
+	CardClass.PRIEST,
+	CardClass.ROGUE,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+CLASSES_EXCEPT_ROGUE=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PALADIN,
+	CardClass.PRIEST,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+
+
+
+OTHERCLASSES = lambda myclass: CARDCLASSES.remove(myclass)
 
 POTIONS = [
 	"CFM_021",  # Freezing Potion
@@ -162,3 +190,23 @@ def custom_card(cls):
 	return cls
 
 
+#sample 
+
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		pass
+
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+
+	def play(self):
+		target=self.target
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
+		cards=[card for card in self.controller.play_log if card.type==CardType.SPELL]
+@custom_card
+class original_e:
+	tags = {
+		GameTag.CARDNAME: "ZZZZ",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}

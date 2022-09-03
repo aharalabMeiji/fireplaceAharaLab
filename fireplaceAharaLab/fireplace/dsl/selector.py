@@ -15,6 +15,9 @@ from .lazynum import Attr, LazyValue, OpAttr
 SelectorLike = Union["Selector", LazyValue]
 BinaryOp = Callable[[Any, Any], bool]
 
+class ExtendedGameTag(IntEnum):
+	SI7_MINION = 1678
+
 
 class Selector:
 	"""
@@ -138,6 +141,9 @@ MAX_HAND_SIZE = AttrValue("max_hand_size")
 TIER = AttrValue("tavern_tier")
 TECH_LEVEL = AttrValue(GameTag.TECH_LEVEL)
 TAG_SCRIPT_DATA_NUM_1 = AttrValue(GameTag.TAG_SCRIPT_DATA_NUM_1)
+RACE = AttrValue(GameTag.CARDRACE)
+CARDCLASS = AttrValue(GameTag.CLASS)
+OVERLOADED = AttrValue("overloaded")
 
 class ComparisonSelector(Selector):
 	"""A ComparisonSelector compares values of entities to
@@ -414,6 +420,9 @@ CONTROLLED_BY_OWNER_OPPONENT = CONTROLLER == Opponent(OWNER)
 GameTag.test = lambda self, entity, *args: (
 	entity is not None and bool(entity.tags.get(self))
 )
+ExtendedGameTag.test = lambda self, entity, *args: (
+	entity is not None and bool(entity.tags.get(self))
+)
 CardType.test = lambda self, entity, *args: (
 	entity is not None and self == entity.type
 )
@@ -457,6 +466,9 @@ DORMANT = EnumSelector(GameTag.DORMANT)
 FRENZY = EnumSelector(GameTag.FRENZY)
 CHOOSE_ONE = EnumSelector(GameTag.CHOOSE_ONE)
 OUTCAST = EnumSelector(GameTag.OUTCAST)
+COMBO = EnumSelector(GameTag.COMBO)
+POISONOUS = EnumSelector(GameTag.POISONOUS)
+SI7_MINION = EnumSelector(ExtendedGameTag.SI7_MINION)
 
 ALWAYS_WINS_BRAWLS = AttrValue(enums.ALWAYS_WINS_BRAWLS) == True  # noqa
 KILLED_THIS_TURN = AttrValue(enums.KILLED_THIS_TURN) == True  # noqa
@@ -474,8 +486,10 @@ WARRIOR = EnumSelector(CardClass.WARRIOR)
 DREAM = EnumSelector(CardClass.DREAM)
 NEUTRAL = EnumSelector(CardClass.NEUTRAL)
 DEMONHUNTER = EnumSelector(CardClass.DEMONHUNTER)
+EXCEPT_ROGUE = (((((((DRUID | HUNTER) | MAGE) | PALADIN) | PRIEST) | SHAMAN) | WARLOCK) | WARRIOR) | DEMONHUNTER
 
 IN_PLAY = EnumSelector(Zone.PLAY)
+IN_BUFF = IN_PLAY + EnumSelector(CardType.ENCHANTMENT)
 ALIVE=EnumSelector(Alive.ALIVE)+IN_PLAY
 IN_DECK = EnumSelector(Zone.DECK)
 IN_HAND = EnumSelector(Zone.HAND)
@@ -511,6 +525,7 @@ FIRE = EnumSelector(SpellSchool.FIRE)
 FROST = EnumSelector(SpellSchool.FROST)
 ARCANE = EnumSelector(SpellSchool.ARCANE)
 FEL = EnumSelector(SpellSchool.FEL)
+SHADOW = EnumSelector(SpellSchool.SHADOW)
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
@@ -543,6 +558,7 @@ FRIENDLY_WEAPON = ALL_WEAPONS + FRIENDLY
 FRIENDLY_SECRETS = ALL_SECRETS + FRIENDLY
 FRIENDLY_HERO_POWER = ALL_HERO_POWERS + FRIENDLY
 FRIENDLY_KILLED = KILLED + FRIENDLY
+FRIENDLY_BUFF = IN_BUFF + FRIENDLY
 
 ENEMY_HAND = IN_HAND + ENEMY
 ENEMY_DECK = IN_DECK + ENEMY

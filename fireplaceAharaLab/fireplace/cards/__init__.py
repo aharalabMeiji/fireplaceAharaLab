@@ -101,11 +101,11 @@ class CardDB(dict):
 
 	def initialize(self, locale="jaJP"):#locale="enUS"):#
 		if Config.LOGINFO:
-			print("[cards.initialize]loading card database")
+			Config.log("cards.initialize","loading card database")
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
 		if Config.LOGINFO:
-			print("[cards.initialize]Initializing card database")
+			Config.log("cards.initialize","Initializing card database")
 		from .cardlist import All
 		for cardIDlist in All:
 			for id in cardIDlist:
@@ -122,16 +122,41 @@ class CardDB(dict):
 				#	print ("%s"%(id))
 				pass
 		if Config.LOGINFO:
-			print("Merged %i cards"%( len(self)))
+			Config.log("init.initialize","Merged %i cards"%( len(self)))
+
+	def classic_initialize(self, locale="jaJP"):#locale="enUS"):#
+		if Config.LOGINFO:
+			Config.log("cards.initialize","loading card database")
+		self.initialized = True
+		db, xml = cardxml.load(locale=locale)
+		if Config.LOGINFO:
+			Config.log("cards.initialize","Initializing card database")
+		from .cardlist import Classic_Cards
+		for cardIDlist in Classic_Cards:
+			for id in cardIDlist:
+				card = db[id]
+				spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
+				if spellpowervalue is not None:
+					setattr(card, 'spellpower', spellpowervalue)
+				else:
+					setattr(card, 'spellpower', 0)
+				if card.tags.get(GameTag.CHOOSE_ONE) is not None:
+					setattr(card, 'has_choose_one', True)
+				self[id] = self.merge(id, card)
+				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
+				#	print ("%s"%(id))
+				pass
+		if Config.LOGINFO:
+			Config.log("init.initialize","Merged %i cards"%( len(self)))
 
 	def BG_initialize(self):
 		locale = 'jaJP'
 		self.initialized = True
 		if Config.LOGINFO:
-			print("[cards.BG_initialize]loading card database")
+			Config.log("cards.BG_initialize","loading card database")
 		db, xml = cardxml.load(locale=locale)
 		if Config.LOGINFO:
-			print("[cards.BG_initialize]Initializing card database")
+			Config.log("cards.BG_initialize","Initializing card database")
 		from fireplace.cards import battlegrounds
 		BG=[
 			battlegrounds.BG_gems.BG_Gems,
@@ -159,7 +184,7 @@ class CardDB(dict):
 				pass
 			pass
 		if Config.LOGINFO:
-			print("Merged %i cards"%( len(self)))
+			Config.log("BG_initialize","Merged %i cards"%( len(self)))
 
 	def filter(self, **kwargs):
 		"""
@@ -203,6 +228,8 @@ class CardDB(dict):
 				elif attr == 'spellcraft_spellcard':
 					cards = [card for card in cards 
 								if card.tags.get(2423, 0)==1]
+				elif attr == 'stealthed':
+					cards = [card for card in cards if card.tags.get(GameTag.STEALTH,0)==1 ]
 				else:
 					cards = [
 						card for card in cards if (

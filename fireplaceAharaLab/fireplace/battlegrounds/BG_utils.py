@@ -259,7 +259,7 @@ class BG_main:
 					frozencard=0
 					for card in reversed(bartender.field):
 						if Config.LOGINFO:
-							print("(BG_MainBG_Main)field card %s is removed."%(card))
+							Config.log("BG_MainBG_Main","field card %s is removed."%(card))
 						if not card.frozen and not card.dormant>0:
 							self.ReturnCard(card)
 						else:
@@ -511,7 +511,7 @@ def choiceAction(player):
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
 			if Config.LOGINFO:
-				print("%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
+				Config.log("BG_utils.choiceAction","%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())
@@ -597,7 +597,7 @@ class Move(object):
 			pass
 		if card.BG_cost>0:
 			if Config.LOGINFO:
-				print("This card(%s) need coins to play."%(card))
+				Config.log("BG_utils.Move.play","This card(%s) need coins to play."%(card))
 			if card.BG_cost>self.controller.mana:
 				return
 			else:

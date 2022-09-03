@@ -1,4 +1,4 @@
-from hearthstone.enums import CardClass,BlockType, CardType ,PlayState, State, Race
+from hearthstone.enums import CardClass, BlockType, CardType ,PlayState, State, Race, SpellSchool
 from fireplace.game import Game
 from fireplace.card import Card, PlayableCard
 from fireplace.actions import *
@@ -14,7 +14,7 @@ class DummyAgent(Agent):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
 
-	def DummyAI(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+	def DummyAI(self, thisgame, option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
 		##########
@@ -60,14 +60,16 @@ class Preset_Play:
 		self.game = player.game
 		self.testNr = 0
 		self.current=player
+		self.controller=player
+		self.opponent=player.opponent
 		pass
 	def preset_deck(self):
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
-		print ("")
-		print ("")
-		print ("")
-		print ("")
+		#print ("")
+		#print ("")
+		#print ("")
+		#print ("")
 		pass
 	def preset_play(self):
 		pass
@@ -75,109 +77,254 @@ class Preset_Play:
 		#self.print_hand(self.player)
 		#self.print_hand(self.player.opponent)
 		pass
-	def change_turn(self, player):
+	def choose_action(self):
+		if self.controller.choice!=None:
+			postAction(self.controller)
+		pass
+	def change_turn(self, player=None):
+		if player==None:
+			player=self.current
 		game = player.game
 		if player.choice!=None:
 			postAction(player)
 		game.end_turn()
-		current = player.opponent
+		self.current = player.opponent
 		pass
 	def execute(self, testNr = 0):
 		self.testNr = testNr
 		self.preset_deck()
 		self.preset_play()
-		print ("")
-		print ("")
-		print ("")
+		#print ("")
+		#print ("")
+		#print ("")
 		print ("####### results: %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 		self.result_inspection()
 		print ("####### end    : %s  (%d)#######"%(self.__class__.__name__, self.testNr))
 
 	def card_choice(self, _card):
-		if _card=='arcane':
-			_card=random.choice(['CORE_DS1_185','CORE_BOT_453','CORE_CS2_023','CORE_EX1_287','CORE_EX1_294','BT_002','BT_003','BT_006','BT_021','SCH_235','SCH_270',\
-						'SCH_352','SCH_353','YOP_019','DMF_057','BAR_541','BAR_539','DED_517','DED_002',])
-		if _card=='armor':
-			_card=random.choice(['SW_030','SW_094',])
-		if _card=='attackspell':
-			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
-		if _card=='beast':
-			_card=random.choice(['CORE_EX1_531','CORE_EX1_534','CORE_EX1_543','CORE_FP1_011','CORE_ICC_419','NEW1_032','NEW1_033','NEW1_034','CORE_CS2_120',\
-						'CORE_CS2_203','CORE_EX1_014','CORE_EX1_017','CORE_EX1_028','CORE_EX1_162','CORE_LOOT_125','CS3_037','CORE_KAR_300','BT_717','BT_163t',\
-						'BT_201','BT_202','BT_210','BT_210t','BT_212','BT_133','SCH_283','SCH_605','SCH_714','SCH_133','SCH_239','SCH_244','SCH_340','SCH_617t',\
-						'SCH_616','DMF_070','DMF_080','DMF_080t','YOP_035','DMF_083','DMF_083t','DMF_086e','DMF_087','DMF_060','BAR_024','BAR_060t','BAR_065',\
-						'BAR_743','BAR_745','BAR_030','BAR_031','BAR_034t3','BAR_034t4','BAR_034t5','BAR_035t','BAR_533t','BAR_535','BAR_538','BAR_538t','WC_036',\
-						'WC_036t1','WC_026','SW_072','SW_075','SW_306','SW_323','SW_455t','SW_458t','SW_463','SW_463t','SW_428t4','SW_429t','SW_431','SW_432t',\
-						'SW_436','SW_439','SW_439t2','DED_008','DED_515','DED_001a','DED_001at','DED_001b','DED_001bt','DED_001c','DRG_252',])
-		if _card=='chooseone':
-			_card=random.choice(['CORE_EX1_178','CORE_EX1_165','CORE_EX1_573','CORE_EX1_160','CORE_OG_047','CORE_EX1_164','DMF_061',])
-		if _card=='corrupt':
-			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
-		if _card=='deathrattle':
-			_card=random.choice(['SW_070','CORE_FP1_007','CORE_EX1_012'])
-		if _card=='dragon':
-			_card=random.choice(['CORE_EX1_189','CORE_LOOT_137','CS3_031','CS3_032','CS3_033','CS3_034','CS3_035','CS3_036','EX1_116t','CORE_AT_008','BT_726',\
-					   'SCH_162t','SCH_230','SCH_232','SCH_711','YOP_034','YOP_025','YOP_025t','DMF_528','DREAM_03',])
-		if _card=='elemental':
-			_card=random.choice(['CORE_AT_092','CORE_EX1_187','CORE_EX1_249','CORE_KAR_036','CORE_UNG_813','CORE_CS2_033','BT_155','BT_155t','BT_735','SCH_143',\
-						'SCH_245','DMF_044','DMF_062','DMF_190','YOP_021','DMF_100','DMF_100t','DMF_101','DMF_059','BAR_042','BAR_854','BAR_545','SW_111',])
-		if _card=='fire':
-			_card=random.choice(['CORE_EX1_610','CORE_CS2_029','CORE_CS2_032','SCH_348','DMF_104','BAR_546','SW_107','SW_108','SW_108t','SW_110','SW_462','CORE_EX1_610',])
-		if _card=='frost':
-			_card=random.choice(['CORE_EX1_611','CORE_EX1_275','CORE_EX1_289','CORE_GIL_801','BT_072','SCH_509','BAR_305','BAR_305t','BAR_305t2','BAR_812','WC_041',])
-		if _card=='mech':
-			_card=random.choice(['CORE_GVG_085','CORE_GVG_076','CORE_GVG_044'])
-		if _card=='murloc':
+		#from hearthstone import cardxml
+		from fireplace.cards.cardlist import All
+		from fireplace import cards
+		#db, xml = cardxml.load(locale='enUS')
+		### minion
+		if _card[:-1]=='minionH':
+			amount=int(_card[-1])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==amount: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card[:-1]=='minionA':
+			amount=int(_card[-1])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.atk==amount: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		### spell
+		elif _card=='spell':# except secret cards
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.SPELL and _card.secret==False: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card[:-1]=='spellC':# except secret cards
+			amount=int(_card[-1:])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.SPELL and _card.secret==False and _card.cost==amount: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		## race
+		elif _card=='beast':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.BEAST: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='dragon':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.DRAGON: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='elemental':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.ELEMENTAL: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='mech' or _card=='mecha':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.MECHANICAL: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='murloc':
 			_card=random.choice(['BAR_063','BAR_062','WC_030'])
-		if _card=='nature':
-			_card=random.choice(['CORE_BOT_420','CORE_CS2_009','CORE_CS2_013','CORE_EX1_158','CORE_EX1_164','EX1_164a','EX1_164b','CORE_EX1_169','CORE_EX1_571',\
-						'BT_128','BT_129','BT_130','BT_132','SCH_333','SCH_427','SCH_612','YOP_015','DMF_058','DMF_732','YOP_026','BAR_533','BAR_536','BAR_549',\
-						'SW_422','SW_437','DREAM_02','DREAM_04','CORE_EX1_169',])
-		if _card=='pirate':
+		elif _card=='naga':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.NAGA: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='pirate':
 			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
-		if _card=='rush':
-			_card=random.choice(['YOP_031'])
-		if _card=='secret':
-			_card=random.choice(['DMF_123','CORE_EX1_554','CORE_EX1_611'])
-		if _card=='spell':
-			_card=random.choice(['BAR_305','BAR_541','BAR_546','WC_041','BAR_542'])
-		if _card=='spellpower':
-			_card=random.choice(['CORE_CS2_142','CORE_EX1_012','CORE_GVG_109','CS3_001','BT_008t','BT_028','SCH_245','SCH_310','YOP_021','SW_061','CS2_052',])
-		if _card=='taunt':
-			_card=random.choice(['NEW1_032','CORE_CS2_179','CORE_GVG_085','CORE_LOOT_137','CS3_024','EX1_165t2','OG_044a','EX1_573t','SCH_709','SCH_709t','SCH_710t','SCH_244','SCH_600t2','SCH_613','DMF_044','DMF_078','DMF_078t','DMF_081','DMF_163','DMF_163t','DMF_254t5t','DMF_532','YOP_005t','DMF_059','DMF_734','YOP_025','YOP_025t','DMF_521','BAR_021','BAR_026','BAR_069','BAR_072t','BAR_743','WC_034t2','BAR_533t','BAR_535','BAR_538t','WC_004','BAR_846','SW_054','SW_068','SW_076t','SW_428t4','SW_429t','DED_001b','DED_001bt','DED_001c','CS2_051','YOP_005t','SW_068',])
-		if _card=='totem':
+		elif _card=='totem':
 			_card=random.choice(['CORE_EX1_575','SCH_537','SCH_612t','CS2_050','CS2_051','CS2_052','NEW1_009'])
-		if _card=='vanilla':
+		### spell school
+		elif _card=='arcane':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.ARCANE: 
+						choices.append(_id)
+			_card=random.choice(choices)		
+		elif _card=='fire':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.FIRE: 
+						choices.append(_id)
+			_card=random.choice(choices)		
+		elif _card=='frost':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.FROST: 
+						choices.append(_id)
+			_card=random.choice(choices)		
+		elif _card=='holy':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.HOLY: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='nature':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.NATURE: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		### HOLY, SHADOW, FEL
+		### etc
+
+		elif _card=='armor':
+			_card=random.choice(['SW_030','SW_094',])
+		elif _card=='attackspell':
+			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
+		elif _card=='battlecry':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if hasattr(_card, 'battlecry') and _card.battlecry: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='chooseone':
+			_card=random.choice(['CORE_EX1_178','CORE_EX1_165','CORE_EX1_573','CORE_EX1_160','CORE_OG_047','CORE_EX1_164','DMF_061',])
+		elif _card=='corrupt':
+			_card=random.choice(['DMF_124','DMF_082','DMF_073'])
+		elif _card=='deathrattle':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.deathrattle==True: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='noTaunt':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.taunt==False: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='rush':
+			_card=random.choice(['YOP_031'])
+		elif _card=='secret':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.SPELL and _card.secret: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='SI7':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.tags.get(1678): 
+						choices.append(_id)
+					if _card.id=='SW_411' or _card.id=='SW_413':
+						assert _card.tags.get(1678)==1, '_card.SI7_minion'
+			_card=random.choice(choices)
+		elif _card=='spellpower':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and hasattr(_card, 'spellpower') and _card.spellpower: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='taunt':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.taunt: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='tradable':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.tradeable: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		elif _card=='vanilla':
 			_card=random.choice(['EX1_554t','EX1_534t','CORE_AT_092','CORE_CS2_120','CORE_CS2_182','CORE_GVG_044','ICC_026t','EX1_110t','FP1_007t',
 	'EX1_116t','NEW1_026t','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','CORE_CS2_106','BT_159t','BT_160t','BT_721t',
 	'BT_726t','BT_728t','BT_163t','BT_135t','SCH_145','SCH_162t','SCH_224t','SCH_340t','SCH_617t','SCH_612t','DMF_100t',
 	'DMF_104t','DMF_061t2','BAR_076t','BAR_077t','BAR_721t2','SW_455t','SW_422t','SW_439t2','DED_517t',
 	'DREAM_03','SCH_337t',])####
-		if _card=='vanillaH1' or _card=='minionH1':
+		elif _card=='vanillaH1':
 			_card=random.choice(['EX1_554t','CORE_EX1_506a','ICC_026t','CORE_LOEA10_3','EX1_116t','NEW1_026t','BT_159t','BT_160t','BT_721t','BT_728t','SCH_145','SCH_162t','SCH_224t','SCH_617t','SW_455t','SW_439t2','skele21','DED_517t','CS2_050',])
-		if _card=='vanillaH2' or _card=='minionH2':
+		elif _card=='vanillaH2':
 			_card=random.choice(['EX1_534t','CORE_AT_092','EX1_158t','EX1_160t','EX1_tk9','CORE_KAR_300','BT_135t','SCH_612t','DMF_100t','DMF_061t2','BAR_076t','SW_422t',])
-		if _card=='vanillaH3' or _card=='minionH3':
+		elif _card=='vanillaH3':
 			_card=random.choice(['CORE_CS2_120','DMF_086e','SCH_337t',])
-		if _card=='vanillaA3':
+		elif _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
-		if _card=='minionH4':
-			_card=random.choice(['NEW1_032','NEW1_033','CORE_EX1_046','CORE_EX1_095','CORE_EX1_186','CORE_GVG_044','CORE_ICC_026','CORE_LOOT_124','FP1_007t','CORE_LOE_003','CORE_EX1_165','EX1_165a','EX1_165t1','CORE_KAR_065','CORE_EX1_402','CORE_EX1_604','CS3_030','SCH_146','SCH_162','SCH_182','SCH_245','SCH_425','SCH_522','SCH_714','SCH_340t','SCH_539','SCH_241','SCH_614','SCH_616','DMF_065','DMF_066','DMF_074','DMF_080','DMF_081','DMF_163','DMF_163t','DMF_174','DMF_174t','YOP_003','YOP_003t','YOP_005t','YOP_031','DMF_089','YOP_028','DMF_106','DMF_060','YOP_025','DMF_529','YOP_014','BAR_025','BAR_026','BAR_076','BAR_082','BAR_430','BAR_721','BAR_745','WC_030','BAR_034t4','BAR_035','BAR_037','BAR_888','BAR_540','BAR_720','BAR_334','BAR_846','SW_036','SW_061','SW_062','SW_066','SW_072','SW_076','SW_077','SW_400','SW_419','SW_431','SW_436','SW_030','SW_093','DED_524','DED_008','DED_516','YOP_005t',])
-		if _card=='minionH5':
-			_card=random.choice(['CORE_EX1_534','CORE_CS2_179','CORE_CS2_182','CORE_EX1_014','CORE_EX1_028','CORE_EX1_110','CORE_EX1_188','CORE_NEW1_026','EX1_110t','CS3_001','CORE_EX1_178','CS3_012','CORE_GVG_053','SCH_313','SCH_428','SCH_239','SCH_244','SCH_243','SCH_613','DMF_004','DMF_082','DMF_082t','DMF_190','DMF_532','YOP_012','YOP_018','DMF_083','DMF_083t','DMF_085','DMF_087','DMF_101','DMF_101t','DMF_109','DMF_521','DMF_525','DMF_528','BAR_073','BAR_077','BAR_077t','BAR_081','BAR_079_m2','BAR_038','BAR_551','BAR_544','WC_806','BAR_535','SW_054','SW_063','SW_076t','SW_080','SW_323','SW_463','SW_109','SW_111','SW_447','DED_006','DREAM_01','DRG_256',])
-		if _card=='minionA5':
-			_card=random.choice(['CORE_AT_092','CORE_EX1_014','CORE_EX1_028','CORE_EX1_110','CORE_EX1_186','CORE_EX1_188','CORE_EX1_190','EX1_110t','CS3_001','CORE_EX1_165','EX1_165a','EX1_165b','EX1_165t1','EX1_165t2','OG_044a','CORE_EX1_178','CORE_EX1_573','CORE_GVG_053','CS3_030','SCH_143','SCH_709','SCH_709t','SCH_614','SCH_616','DMF_002','DMF_044','DMF_087','DMF_109','YOP_025t','DMF_528','BAR_020','BAR_027','BAR_069','BAR_072t','BAR_077','BAR_077t','BAR_081','BAR_079_m2','WC_806','BAR_334','SW_057','SW_062','SW_063','SW_077','SW_323','SW_447',])
-		if _card=='minionH6':
-			_card=random.choice(['CS3_025','CORE_CS2_033','EX1_165b','EX1_165t2','OG_044a','SCH_157','SCH_224','SCH_232','SCH_273','SCH_530','SCH_605','DMF_078','DMF_078t','DMF_254','DMF_254t5t','DMF_734','YOP_025t','BAR_020','BAR_042','BAR_075','BAR_078','BAR_080','BAR_744','WC_029','BAR_034t5','WC_008','BAR_538','BAR_840','BAR_896','SW_057','SW_071','SW_073','SW_459','SW_113','SW_097','DED_515','DREAM_03',])
-		if _card=='minionA6':
-			_card=random.choice(['CORE_EX1_534','CORE_AT_008','CORE_LOE_003','SCH_530','SCH_717','DMF_068','DMF_069','DMF_078','DMF_078t','DMF_254','DMF_254t5t','YOP_035','BAR_042','WC_029','BAR_034t5','BAR_538t','SW_078','SW_113','DED_006','DED_515','SW_021','SCH_337',])
-		if _card=='minionH7':
-			_card=random.choice(['CORE_CS2_181','CORE_CS2_222','CORE_EX1_190','CORE_EX1_249','CORE_FP1_031','CORE_AT_008','SCH_709','SCH_709t','SCH_710','DMF_002','DMF_068','BAR_021','BAR_027','BAR_721t2','BAR_538t','WC_006','SW_078','SW_081','SW_322t4','SW_450t4','SW_429t','SW_028t5','SW_024',])
-		if _card=='minionH8':
-			_card=random.choice(['CORE_EX1_543','CORE_EX1_187','CORE_EX1_399','CORE_GVG_121','CORE_UNG_813','CORE_UNG_844','CS3_031','CS3_032','CS3_035','CORE_EX1_573','BT_720','BT_138','SCH_711','SCH_717','SCH_400','DMF_080t','DMF_104t','BAR_071','BAR_072t','BAR_547','SW_068','SW_428t4','DED_521','DED_525','AV_132','AV_141t','SCH_337','SW_068',])
-		if _card=='minionA7':
-			_card=random.choice(['CORE_EX1_543','CORE_CS2_222','CORE_EX1_249','CORE_GVG_121','CS3_031','CS3_032','CS3_035','CS3_036','BT_155','BT_155t','BT_728t','BT_734','BT_735','BT_850','BT_028t','BT_133','BT_136t','BT_136tt','BT_136tt2','BT_136tt3','BT_123t','SCH_711','DMF_004','DMF_080t','DMF_188','YOP_034','DMF_085','DMF_104t','DMF_059','BAR_079_m3','BAR_547','BAR_538','SW_068','SW_081','SW_322t4','SW_450t4','SW_428t4','SW_028t5','DED_521','DED_525','AV_130','AV_132','AV_141t','AV_704','DREAM_03','SW_024','SW_068','SCH_621',])
-		if _card=='weapon':
+		elif _card=='weapon':
 			_card=random.choice(['WC_037','DMF_088','DMF_521t'])
 		return _card
 
@@ -207,28 +354,30 @@ class Preset_Play:
 		sgiw_race: showing the race of the card
 		"""
 		if hasattr(card,'atk') and hasattr(card,'health'):
-			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
+			print ("%s(%s) %r %d/%d (%s) <- %d/%d"%(
 				cat, card.controller, card, card.atk, card.health, 
 				card.zone,
 				card.data.atk, card.data.health),end=" ")
 		elif hasattr(card,'atk') and hasattr(card,'durability'):
-			print ("%s(%s): %r: %d/%d (%s) <- %d/%d"%(
-				card, card.controller, card, card.atk, card.durability, 
+			print ("%s(%s) %r %d/%d (%s) <- %d/%d"%(
+				cat, card.controller, card, card.atk, card.durability, 
 				card.zone,
 				card.data.atk, card.data.durability),end=" ")
 		else: 
-			print ("%s(%s): %r: cost:%d"%(
+			print ("%s(%s) %r cost:%d"%(
 				cat, card.controller, card, card.cost),end=" ")
 		if old_cost:
 			print("(cost:%d<-%d)"%(card.cost, card.data.cost),end="")
 		if show_buff and len(card.buffs):
 			for buff in card.buffs:
 				print("[%r]" % buff,end="")
-		if show_race:
+		if show_race and hasattr(card,'race'):
 			print("(race=%r)"%(card.race),end="")
 		print("")
 		pass
-	def play_card(self, card,  player, target = None, choose = None):
+	def play_card(self, card,  player=None, target = None, choose = None):
+		if player==None:
+			player=card.controller
 		if isinstance(card,PlayableCard):
 			if choose != None and target!=None and target in choose.targets:
 				pass
@@ -240,12 +389,16 @@ class Preset_Play:
 				pass
 			Play(card, target, None, choose).trigger(player)
 		pass
-	def attack_card(self, card,  target, player):
+	def attack_card(self, card,  target, player=None):
+		if player==None:
+			player=card.controller
 		if isinstance(card,PlayableCard) and isinstance(target, PlayableCard):
 			if card.can_attack(target):
 				card.attack(target)
 		pass
-	def cast_spell(self, card, player):
+	def cast_spell(self, card, player=None):
+		if player==None:
+			player=card.controller
 		if card.type==CardType.SPELL:
 			CastSpell(card).trigger(player)
 		pass
@@ -259,8 +412,16 @@ class Preset_Play:
 			if card.id==cardID:
 				return True
 		return False
-	def activate_heropower(self, player, target=None):
+	def activate_heropower(self, player=None, target=None):
+		if player==None:
+			player=self.player
 		player.hero.power.use(target=target)
+		pass
+	def trade_card(self, card, player=None):
+		if player==None:
+			player=card.controller
+		if card.can_trade()==(True, 0):
+			card.trade()
 		pass
 
 
@@ -399,15 +560,11 @@ class pp_DED_523(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		if self.testNr == 0:
-			if self.contains_buff(self.mark1, 'DED_523e'):
-				print ("OK : contains_buff(mark3, 'DED_523e')")
-			else:
-				print ("NG")
+			assert self.contains_buff(self.mark1, 'DED_523e')==True,'buff'
+			print ("OK : contains_buff(mark1, 'DED_523e')")
 		elif self.testNr == 1:
-			if not self.contains_buff(self.mark1, 'DED_523e'):
-				print ("OK : not contains_buff(mark3, 'DED_523e')")
-			else:
-				print ("NG")
+			assert self.contains_buff(self.mark1, 'DED_523e')==False, 'buff'
+			print ("OK : not contains_buff(mark1, 'DED_523e')")
 
 class pp_DED_524(Preset_Play):
 	""" Multicaster

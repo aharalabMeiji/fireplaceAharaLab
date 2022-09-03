@@ -106,6 +106,7 @@ class BaseObserver:
 		pass
 
 
+
 class PlayerManager(Manager):
 	map = {
 		GameTag.CANT_DRAW: "cant_draw",
@@ -167,12 +168,14 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARD_TARGET: "target",
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
+	9000:"cards_cost_health", ## <---- spells_cost_health‚Ì‚©‚í‚è
 	GameTag.CARDTYPE: "type",
 	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",
 	GameTag.CHOOSE_ONE: "has_choose_one",
 	GameTag.CHOOSE_BOTH: "choose_both",
 	GameTag.CLASS: "card_class",
+	GameTag.COLOSSAL:'colossal', #
 	GameTag.COMBO: "has_combo",
 	GameTag.CONTROLLER: "controller",
 	GameTag.CORRUPT: 'corrupt',
@@ -238,13 +241,15 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SHADOWFORM: "shadowform",
 	GameTag.SHOULDEXITCOMBAT: "should_exit_combat",
 	GameTag.SIDEQUEST: "sidequest",# 
+	1678: "SI7_minion",
 	GameTag.SILENCED: "silenced",
+	GameTag.SPELLS_CAST_TWICE: "spell_cast_twice",
 	GameTag.SPELLCRAFT: "spellcraft",
 	2423: "spellcraft_spellcard",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
 	GameTag.SPELL_SCHOOL: "spell_school", # 
-	GameTag.SPELLS_COST_HEALTH: "spells_cost_health",
+	#GameTag.SPELLS_COST_HEALTH: "spells_cost_health", no_use ---> cards_cost_health
 	GameTag.STEALTH: "stealthed",
 	GameTag.HERO_POWER_DOUBLE: "hero_power_double",
 	GameTag.TAUNT: "taunt",

@@ -1,4 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
+from fireplace.actions import Predamage, Summon
 
 #Alterac_Mage=['AV_114','AV_114e','AV_115','AV_115e5','AV_116','AV_200','AV_212','AV_212e','AV_218','AV_218t','AV_282','AV_282t','AV_282t2','AV_282t3','AV_282t4','AV_282t5','AV_283','AV_284','AV_290',]
 
@@ -14,8 +15,8 @@ def alterac_mage():
 	#PresetGame(pp_AV_284)##OK
 	#PresetGame(pp_AV_290)##OK
 	#PresetGame(pp_ONY_006)##OK
-	#PresetGame(pp_ONY_007)##OK
-	PresetGame(pp_ONY_029)#
+	#PresetGame(pp_ONY_007)##OK (SplitHit OK)
+	#PresetGame(pp_ONY_029)#
 	pass
 
 #########################
@@ -452,31 +453,31 @@ class pp_ONY_007(Preset_Play):
 	""" Haleh, Matron Protectorate
 	After you cast a spell, deal 4 damage randomly split among all enemies. """
 	def preset_deck(self):
-		controller=self.player
-		opponent = controller.opponent
-		self.mark1=self.exchange_card('ONY_007',controller)
-		self.mark2=self.exchange_card('nature',controller)
-		self.mark3=self.exchange_card('minionH5',opponent)
+		self.mark1=self.exchange_card('ONY_007',self.controller)
+		self.mark2=self.exchange_card('nature',self.controller)
+		self.mark3=self.exchange_card('minionH5',self.opponent)
+		self.mark4=Summon(self.controller, self.card_choice("spellpower")).trigger(self.controller)
+		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		controller = self.player
-		opponent = controller.opponent
-		game = controller.game
 		########## controller
-		self.play_card(self.mark1, controller)
-		self.change_turn(controller)
+		self.play_card(self.mark1)
+		self.change_turn()
 		########## opponent
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
+		self.play_card(self.mark3)
+		self.change_turn()
 		########## controller
-		self.play_card(self.mark2, controller)
+		self.play_card(self.mark2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		print("After casting a spell, check if 4 times 1 damage to enemy.")
+		print("After casting a spell, check if 4(+spellpower) times 1 damage to enemy.")
+		for action in self.controller._targetedaction_log:
+			if isinstance(action['class'],Predamage):
+				print("damage %d to %s:"%(action['target_args'][0], action['target']))
 		for card in controller.opponent.field:
 			self.print_stats("opponent.field",card)
 	pass

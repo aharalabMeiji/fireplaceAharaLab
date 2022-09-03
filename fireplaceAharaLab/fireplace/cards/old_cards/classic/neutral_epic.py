@@ -18,7 +18,7 @@ class EX1_105:
 class EX1_507:
 	"""Murloc Warleader"""
 	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="EX1_507e")
-
+	pass
 
 EX1_507e = buff(atk=2)
 

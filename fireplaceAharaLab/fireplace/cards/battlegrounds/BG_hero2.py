@@ -127,6 +127,7 @@ class TB_BaconShop_HP_047:
 	##events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
 class TB_BaconShop_HP_047t_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		card.BG_cost=self.player.game.minionCost
 		card.controller = self.player
@@ -220,6 +221,7 @@ class TB_BaconShop_HERO_02:# <12>[1453]
 	""" Galakrond """
 class TB_BaconShop_HP_011_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		card.controller = card.controller.opponent# bartender
 		card.zone=Zone.PLAY

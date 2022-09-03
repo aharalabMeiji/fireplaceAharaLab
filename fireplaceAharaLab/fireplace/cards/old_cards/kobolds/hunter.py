@@ -59,5 +59,7 @@ class LOOT_085:
 
 
 class LOOT_222:
-	"""Candleshot"""
+	""" Candleshot
+	Your hero is [Immune] while attacking. """
+	update = Refresh(FRIENDLY_HERO, {GameTag.IMMUNE_WHILE_ATTACKING:True})
 	pass

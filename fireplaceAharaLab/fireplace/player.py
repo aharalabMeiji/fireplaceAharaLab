@@ -16,9 +16,10 @@ class PlayLog:
 	card=None
 	turn=0
 	amount=0
-	def __init__(self, _card, _turn, _amount=0):
+	def __init__(self, _card, _turn, _cost, _amount=0):
 		self.card = _card
 		self.turn = _turn
+		self.cost = _cost
 		self.amount = _amount
 		pass
 	pass
@@ -38,7 +39,6 @@ class Player(Entity, TargetableByAuras):
 	shadowform = slot_property("shadowform")
 	spellpower_double = slot_property("spellpower_double", sum)
 	spellpower_adjustment = slot_property("spellpower", sum)
-	spells_cost_health = slot_property("spells_cost_health")
 	murlocs_cost_health = slot_property("murlocs_cost_health")
 	type = CardType.PLAYER
 
@@ -65,7 +65,9 @@ class Player(Entity, TargetableByAuras):
 		self.entourage = []
 		self.fatigue_counter = 0
 		self.last_card_played = None
+		self.cards_played_this_turn = 0
 		self.cards_drawn_this_turn = 0
+		self.minions_played_this_turn =0
 		self.overloaded = 0
 		self.overload_locked = 0
 		self._max_mana = 0
@@ -79,6 +81,7 @@ class Player(Entity, TargetableByAuras):
 		self.weapon = None
 		self.zone = Zone.INVALID
 		self.jade_golem = 1
+		self.take_half_damage=False
 		self.times_spell_played_this_game = 0
 		self.times_secret_played_this_game = 0
 		self.times_spell_to_friendly_minion_this_game = 0 #
@@ -96,13 +99,16 @@ class Player(Entity, TargetableByAuras):
 		self._reveal_log=[]
 		self._targetedaction_log=[]
 		self._battlecry_log=[]
+		self._give_log=[]
 		self._buy_log=[] # battlegraounds
 		self.spell_and_damage=False
-		self.guardians_legacy = False#CS3_001
+		#self.guardians_legacy = False#CS3_001
 		self.spellpower_option=0 # SW_450t4
 		self.choiceStrategy = None
 		self.lost_in_the_park=0
 		self.carry_cards=[] # YOP_024
+		self.abyssal_curse=1## TSC_955t
+		
 		self.tavern_tier=1# battlegrounds
 		self.tavern_tierup_cost=5 # battlegrounds
 		self.extra_tavern_tierup_reduce_cost=0 # battlegrounds
@@ -152,7 +158,7 @@ class Player(Entity, TargetableByAuras):
 	def max_mana(self, amount):
 		self._max_mana = min(self.max_resources, max(0, amount))
 		if Config.LOGINFO:
-			print("(Player.max_mana)%s is now at %i mana crystals"%(self, self._max_mana))
+			Config.log("Player.max_mana","%s is now at %i mana crystals"%(self, self._max_mana))
 
 	@property
 	def heropower_damage(self):
@@ -177,6 +183,15 @@ class Player(Entity, TargetableByAuras):
 				if hasattr(minion,'dormant') and minion.dormant>0:
 					continue
 				minion_power += minion.spellpower_fire
+		return minion_power
+	@property
+	def spellpower_nature(self):# 
+		minion_power = 0
+		for minion in self.field:
+			if hasattr(minion,'spellpower_nature'):
+				if hasattr(minion,'dormant') and minion.dormant>0:
+					continue
+				minion_power += minion.spellpower_nature
 		return minion_power
 	@property
 	def start_hand_size(self):
@@ -301,10 +316,19 @@ class Player(Entity, TargetableByAuras):
 		amount <<= self.controller.spellpower_double
 		return amount
 
+	def get_spell_damage_nature(self, amount: int) -> int:
+		"""
+		Returns the amount of damage for only nature card \a amount will do, taking
+		SPELLPOWER and SPELLPOWER_DOUBLE into account.
+		"""
+		amount += (self.spellpower+self.spellpower_nature)
+		amount <<= self.controller.spellpower_double
+		return amount
+
 
 	def discard_hand(self):
 		if Config.LOGINFO:
-			print("(Player.discard_hand)%r discards their entire hand!", self)
+			Config.log("Player.discard_hand","%r discards their entire hand!", self)
 		# iterate the list in reverse so we don't skip over cards in the process
 		# yes it's stupid.
 		for card in self.hand[::-1]:
@@ -314,7 +338,7 @@ class Player(Entity, TargetableByAuras):
 		"""
 		Returns whether the player can pay the resource cost of a card.
 		"""
-		if self.spells_cost_health and card.type == CardType.SPELL:
+		if card.cards_cost_health:# and card.type == CardType.SPELL: <---diversion for WC_023e
 			return self.hero.health > card.cost
 		if self.murlocs_cost_health:
 			if card.type == CardType.MINION and card.race == Race.MURLOC:
@@ -326,15 +350,18 @@ class Player(Entity, TargetableByAuras):
 		Make player pay \a amount mana.
 		Returns how much mana is spent, after temporary mana adjustments.
 		"""
-		if self.spells_cost_health and source.type == CardType.SPELL:
+
+		#strictly, if buff = OG_121e then the source must be a SPELL, if buff = WC_023e, no condition here.
+		## OG_121 is very old card and more, not a classic card nor a core card.
+		if source.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
 			if Config.LOGINFO:
-				print("(Player.pay_cost)%s spells cost %i health", self, amount)
+				Config.log("Player.pay_cost","%s spells cost %i health", self, amount)
 			self.game.queue_actions(self, [Hit(self.hero, amount)])
 			return amount
 		if self.murlocs_cost_health:
 			if source.type == CardType.MINION and source.race == Race.MURLOC:
 				if Config.LOGINFO:
-					print("(Player.pay_cost)%s murlocs cost %i health", self, amount)
+					Config.log("Player.pay_cost","%s murlocs cost %i health", self, amount)
 				self.game.queue_actions(self, [Hit(self.hero, amount)])
 				return amount
 		if self.temp_mana:
@@ -343,19 +370,27 @@ class Player(Entity, TargetableByAuras):
 			amount -= used_temp
 			self.temp_mana -= used_temp
 		if Config.LOGINFO:
-			print ("(Player.pay_cost)%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
+			Config.log("Player.pay_cost","%s pays %i mana to %i"%( self, amount, (self.used_mana + amount))) #
 		self.used_mana += amount
 		return amount
 
 	def shuffle_deck(self):
 		if Config.LOGINFO:
-			print("(shuffle_deck)%r shuffles his deck"% self)
+			Config.log("shuffle_deck","%r shuffles his deck"% self)
 		random.shuffle(self.deck)
+
+	def shiftdown_deck(self):
+		if Config.LOGINFO:
+			Config.log("shiftdown_deck","%r makes the top card to bottom of his deck"% self)
+		topcard = self.deck[-1]
+		self.deck.remove(topcard)
+		self.deck.insert(0, topcard)
+		pass
 
 	def draw(self, count=1):
 		if self.cant_draw:
 			if Config.LOGINFO:
-				print("(Player.draw)%s tries to draw %i cards, but can't draw", self, count)
+				Config.log("Player.draw","%s tries to draw %i cards, but can't draw", self, count)
 			return None
 
 		ret = self.game.cheat_action(self, [Draw(self) * count])[0]
@@ -372,7 +407,7 @@ class Player(Entity, TargetableByAuras):
 			else:
 				card = self.deck[-1]
 			if Config.LOGINFO:
-				print("(Player.mill)%s mills %r", self, card)
+				Config.log("Player.mill","%s mills %r", self, card)
 			card.discard()
 			return card
 		else:
@@ -422,7 +457,7 @@ class Player(Entity, TargetableByAuras):
 
 	##play_log
 	def add_play_log(self, card):
-		self._play_log.append(PlayLog(card, card.game.turn))
+		self._play_log.append(PlayLog(card, card.game.turn, card.cost))
 	@property
 	def play_log(self):
 		_ret = []
@@ -443,10 +478,17 @@ class Player(Entity, TargetableByAuras):
 			if _log.turn == self.game.turn:
 				_ret.append(_log.card)
 		return _ret
+	@property
+	def total_spell_cost(self):
+		amount=0
+		for _log in self._play_log:
+			if _log.card.type==CardType.SPELL:
+				amount += _log.cost
+		return amount
 
 	##activate_log
 	def add_activate_log(self, card, amount):
-		self._activate_log.append(PlayLog(card,card.game.turn,amount))
+		self._activate_log.append(PlayLog(card,card.game.turn, card.cost, amount))
 	@property
 	def activate_log(self):
 		_ret = []
@@ -456,7 +498,7 @@ class Player(Entity, TargetableByAuras):
 
 	##damage_log
 	def add_damage_log(self, card, amount):
-		self._damage_log.append(PlayLog(card, card.game.turn, amount))
+		self._damage_log.append(PlayLog(card, card.game.turn, card.cost, amount))
 	@property
 	def damage_log(self):
 		_ret = []
@@ -470,10 +512,17 @@ class Player(Entity, TargetableByAuras):
 			if _log.turn == self.game.turn:
 				_ret.append(_log.card)
 		return _ret
+	@property
+	def damage_amount_of_this_turn(self):
+		_ret = 0
+		for _log in self._damage_log:
+			if _log.turn == self.game.turn:
+				_ret += _log.amount
+		return _ret
 
 	##sammon_log
 	def add_summon_log(self, card):
-		self._summon_log.append(PlayLog(card, card.game.turn))
+		self._summon_log.append(PlayLog(card, card.game.turn, card.cost ))
 	@property
 	def summon_log(self):
 		_ret = []
@@ -483,7 +532,7 @@ class Player(Entity, TargetableByAuras):
 
 	##reveal_log
 	def add_reveal_log(self, card):
-		self._reveal_log.append(PlayLog(card, card.game.turn))
+		self._reveal_log.append(PlayLog(card, card.game.turn, card.cost))
 	@property
 	def reveal_log(self):
 		_ret = []
@@ -505,10 +554,16 @@ class Player(Entity, TargetableByAuras):
 	def battlecry_log(self):
 		return self._battlecry_log
 
+	## Draw and Give
+	def add_give_log(self, card):
+		self._give_log.append({'card':card, 'turn':card.game.turn})
+	@property
+	def give_log(self):
+		return [log['card'] for log in self._give_log]
 
 	### battlegraounds
 	def add_buy_log(self, card):
-		self._buy_log.append(PlayLog(card, card.game.turn))
+		self._buy_log.append(PlayLog(card, card.game.turn, 0))
 	@property
 	def buy_log(self):
 		ret = []

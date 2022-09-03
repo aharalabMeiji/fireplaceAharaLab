@@ -18,6 +18,7 @@ class SW_023:###OK <10>[1578]
 
 class SCH_237_Choice(GenericChoice):## SCH_237
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller = self.player
 		for handcard in controller.hand:
@@ -210,8 +211,9 @@ class SCH_337_Troublemaker(TargetedAction):
 				new_minion2 = new_minion2[0][0]
 				enemy = source.controller.opponent
 				if len(enemy.field)>0:
-					Attack(new_minion1, random.choice(enemy.field)).trigger(source.controller)##
-					Attack(new_minion2, random.choice(enemy.field)).trigger(source.controller)##
+					Attack(new_minion1, random.choice(enemy.field)).trigger(source)##
+				if len(enemy.field)>0:
+					Attack(new_minion2, random.choice(enemy.field)).trigger(source)##
 		pass
 class SCH_337:###OK
 	"""Troublemaker
