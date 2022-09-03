@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=5
 	#1: ランク戦をするならこちら
 	#2: クラシック環境をするならこちら
 	#3: バトグラをするならこちら
@@ -30,7 +30,7 @@ class Config:# ()is the default value
 
 
 	#battlegrounds option
-	PATCH_VERSION = 2360
+	PATCH_VERSION = 2420
 	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション

@@ -6,7 +6,6 @@ from agent_Standard import *
 from fireplace import cards
 from fireplace.logging import log
 from fireplace.config import Config
-from fireplace.debug_utilities import printClasses
 sys.path.append("..")
 
 #
@@ -100,6 +99,8 @@ def battleground_main():
 	BG=BG_main()
 	BG.BG_main()
 
+from fireplace.debug_utilities import printClasses, printClasses_BG24
+
 if __name__ == "__main__":
 	if Config.HEARTHSTONE==1 or Config.HEARTHSTONE==2:
 		main()
@@ -108,5 +109,5 @@ if __name__ == "__main__":
 	elif Config.HEARTHSTONE==4:
 		card_test()
 	elif Config.HEARTHSTONE==5:
-		printClasses()
+		printClasses_BG24()
 	
