@@ -1,104 +1,25 @@
 from ..utils import *
 
+############# L - R
 
+BG_Hero3=[]
 
-BG_Hero3=[
-	'TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',	#35#Lord Jaraxxus
-
-	'TB_BaconShop_HERO_62','TB_BaconShop_HP_068','TB_BaconShop_HP_068pe','TB_BaconShop_HP_068e','TB_BaconShop_HP_068e2','TB_BaconShop_HERO_62_Buddy','TB_BaconShop_HERO_62_Buddy_e','TB_BaconShop_HERO_62_Buddy_G',	#36#Maiev Shadowsong
-
-	'TB_BaconShop_HERO_58','TB_BaconShop_HP_052','TB_BaconShop_HERO_58_Buddy','TB_BaconShop_HERO_58_Buddy_G',	#37#Malygos
-
-	'BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',	#38#Master Nguyen
-
-	'TB_BaconShop_HERO_49','TB_BaconShop_HP_054','TB_Baconshop_HP_054e','TB_BaconShop_HERO_49_Buddy','TB_BaconShop_HERO_49_Buddy_G',	#39#Millhouse Manastorm
-
-	'TB_BaconShop_HERO_17','TB_BaconShop_HP_015','TB_BaconShop_HP_015e','TB_BaconShop_HERO_17_Buddy','TB_BaconShop_HERO_17_Buddy_G',	#40#Millificent Manastorm
-
-	'TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',	#41#Mr. Bigglesworth
-
-	'BG20_HERO_301','BG20_HERO_301p','BG20_HERO_301_Buddy','BG20_HERO_301_Buddy_G',	#42#Mutanus the Devourer
-
-	'TB_BaconShop_HERO_93','TB_BaconShop_HP_105','TB_BaconShop_HP_105t','TB_BaconShop_HERO_93_Buddy','TB_BaconShop_HERO_93_Buddy_G',	#43#N'Zoth
-
-	'TB_BaconShop_HERO_57','TB_BaconShop_HP_063','TB_BaconShop_HERO_57_Buddy','TB_BaconShop_HERO_57_Buddy_e','TB_BaconShop_HERO_57_Buddy_G',	#44#Nozdormu
-
-	
-	'BG22_HERO_305','BG22_HERO_305p','BG22_HERO_305t','BG22_HERO_305_Buddy','BG22_HERO_305_Buddy_e','BG22_HERO_305_Buddy_G','BG22_HERO_305_Buddy_Ge',#45#Onyxia
-
-	'BG20_HERO_102','BG20_HERO_102p','BG20_HERO_102pe','BG20_HERO_102pe2','BG20_HERO_102pe3','BG20_HERO_102_Buddy','BG20_HERO_102_Buddy_G','BG20_HERO_102pe_Buddy',	#46#Overlord Saurfang
-
-	'TB_BaconShop_HERO_18','TB_BaconShop_HP_072','TB_BaconShop_HERO_18_Buddy','TB_BaconShop_HERO_18_Buddy_e','TB_BaconShop_HERO_18_Buddy_G',	#47#Patches the Pirate
-	'TB_BaconShop_HERO_34','TB_BaconShop_HP_035','TB_BaconShop_HERO_34_Buddy','TB_BaconShop_HERO_34_Buddy_e','TB_BaconShop_HERO_34_Buddy_G',	#48#Patchwerk
-
-	'TB_BaconShop_HERO_39','TB_BaconShop_HP_040','TB_BaconShop_HP_040e','TB_BaconShop_HERO_39_Buddy','TB_BaconShop_HERO_39_Buddy_e','TB_BaconShop_HERO_39_Buddy_G',	#49#Pyramad
-
-	'TB_BaconShop_HERO_14','TB_BaconShop_HP_037a','TB_BaconShop_HP_037te','TB_BaconShop_HERO_14_Buddy','TB_BaconShop_HERO_14_Buddy_G',	#50#Queen Wagtoggle
-
-	'TB_BaconShop_HERO_11','TB_BaconShop_HP_087','TB_BaconShop_HP_087t','TB_BaconShop_HP_087te','TB_BaconShop_HERO_11_Buddy','TB_BaconShop_HERO_11_Buddy_e','TB_BaconShop_HERO_11_Buddy_G','TB_BaconShop_HERO_11_Buddy_G_e',	#51#Ragnaros the Firelord
-	]
-
-BG_PoolSet_Hero3=[
-	'TB_BaconShop_HERO_37',#35 demon ban
-	'TB_BaconShop_HERO_62',#36
-	'TB_BaconShop_HERO_58',#37
-	#'BG20_HERO_202',#38#38 X
-	'TB_BaconShop_HERO_49',#39 
-	'TB_BaconShop_HERO_17',#40 mech ban
-	#'TB_BaconShop_HERO_70',#41 XX
-	'BG20_HERO_301',#42 
-	'TB_BaconShop_HERO_93',#43
-	'TB_BaconShop_HERO_57',#44
-	'BG22_HERO_305',#45
-	'BG20_HERO_102',#46
-	'TB_BaconShop_HERO_18',#47  pirate ban
-	'TB_BaconShop_HERO_34',#48  
-	'TB_BaconShop_HERO_39',#49 
-	'TB_BaconShop_HERO_14',#50 
-	'TB_BaconShop_HERO_11',#51 
-	]
-BG_Hero3_Buddy={
-	'TB_BaconShop_HERO_37':'TB_BaconShop_HERO_37_Buddy',
-	'TB_BaconShop_HERO_62':'TB_BaconShop_HERO_62_Buddy',
-	'TB_BaconShop_HERO_58':'TB_BaconShop_HERO_58_Buddy',
-	'BG20_HERO_202':'BG20_HERO_202_Buddy',
-	'TB_BaconShop_HERO_49':'TB_BaconShop_HERO_49_Buddy',
-	'TB_BaconShop_HERO_17':'TB_BaconShop_HERO_17_Buddy',
-	'TB_BaconShop_HERO_70':'TB_BaconShop_HERO_70_Buddy',
-	'BG20_HERO_301':'BG20_HERO_301_Buddy',
-	'TB_BaconShop_HERO_93':'TB_BaconShop_HERO_93_Buddy',
-	'TB_BaconShop_HERO_57':'TB_BaconShop_HERO_57_Buddy',
-	'BG22_HERO_305':'BG22_HERO_305_Buddy',
-	'BG20_HERO_102':'BG20_HERO_102_Buddy',
-	'TB_BaconShop_HERO_18':'TB_BaconShop_HERO_18_Buddy',
-	'TB_BaconShop_HERO_34':'TB_BaconShop_HERO_34_Buddy',
-	'TB_BaconShop_HERO_39':'TB_BaconShop_HERO_39_Buddy',
-	'TB_BaconShop_HERO_14':'TB_BaconShop_HERO_14_Buddy',
-	'TB_BaconShop_HERO_11':'TB_BaconShop_HERO_11_Buddy',
-	}
-BG_Hero3_Buddy_Gold={
-	'TB_BaconShop_HERO_37_Buddy':'TB_BaconShop_HERO_37_Buddy_G',
-	'TB_BaconShop_HERO_62_Buddy':'TB_BaconShop_HERO_62_Buddy_G',
-	'TB_BaconShop_HERO_58_Buddy':'TB_BaconShop_HERO_58_Buddy_G',
-	'BG20_HERO_202_Buddy':'BG20_HERO_202_Buddy_G',
-	'TB_BaconShop_HERO_49_Buddy':'TB_BaconShop_HERO_49_Buddy_G',
-	'TB_BaconShop_HERO_17_Buddy':'TB_BaconShop_HERO_17_Buddy_G',
-	'TB_BaconShop_HERO_70_Buddy':'TB_BaconShop_HERO_70_Buddy_G',
-	'BG20_HERO_301_Buddy':'BG20_HERO_301_Buddy_G',
-	'TB_BaconShop_HERO_93_Buddy':'TB_BaconShop_HERO_93_Buddy_G',
-	'TB_BaconShop_HERO_57_Buddy':'TB_BaconShop_HERO_57_Buddy_G',
-	'BG22_HERO_305_Buddy':'BG22_HERO_305_Buddy_G',
-	'BG20_HERO_102_Buddy':'BG20_HERO_102_Buddy_G',
-	'TB_BaconShop_HERO_18_Buddy':'TB_BaconShop_HERO_18_Buddy_G',
-	'TB_BaconShop_HERO_34_Buddy':'TB_BaconShop_HERO_34_Buddy_G',
-	'TB_BaconShop_HERO_39_Buddy':'TB_BaconShop_HERO_39_Buddy_G',
-	'TB_BaconShop_HERO_14_Buddy':'TB_BaconShop_HERO_14_Buddy_G',
-	'TB_BaconShop_HERO_11_Buddy':'TB_BaconShop_HERO_11_Buddy_G',
-	}
+BG_PoolSet_Hero3=[]
+#35 demon ban
+#'BG20_HERO_202',#38#38 X
+#40 mech ban
+#'TB_BaconShop_HERO_70',#41 XX
+#47  pirate ban
+BG_Hero3_Buddy={}
+BG_Hero3_Buddy_Gold={}
 
 #### source ####################################################
 
-#35#Lord Jaraxxus ### HP OK ###
+#Lord Jaraxxus ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',	]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_37',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_37']='TB_BaconShop_HERO_37_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_37_Buddy']='TB_BaconShop_HERO_37_Buddy_G'#
 class TB_BaconShop_HERO_37:# <12>[1453]
 	""" Lord Jaraxxus """
 class TB_BaconShop_HP_036:
@@ -127,6 +48,10 @@ class TB_BaconShop_HERO_37_Buddy_G:
 
 
 #36#Maiev Shadowsong  ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_62','TB_BaconShop_HP_068','TB_BaconShop_HP_068pe','TB_BaconShop_HP_068e','TB_BaconShop_HP_068e2','TB_BaconShop_HERO_62_Buddy','TB_BaconShop_HERO_62_Buddy_e','TB_BaconShop_HERO_62_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_62',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_62']='TB_BaconShop_HERO_62_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_62_Buddy']='TB_BaconShop_HERO_62_Buddy_G'#
 class TB_BaconShop_HERO_62:# <12>[1453]
 	""" Maiev Shadowsong """
 class TB_BaconShop_HP_068:
@@ -179,6 +104,10 @@ class TB_BaconShop_HERO_62_Buddy_G:# <12>[1453]
 
 
 #37#Malygos ###  HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_58','TB_BaconShop_HP_052','TB_BaconShop_HERO_58_Buddy','TB_BaconShop_HERO_58_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_58',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_58']='TB_BaconShop_HERO_58_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_58_Buddy']='TB_BaconShop_HERO_58_Buddy_G'#
 class TB_BaconShop_HERO_58:# <12>[1453]
 	""" Malygos """
 class TB_BaconShop_HP_052_Action(TargetedAction):
@@ -218,6 +147,10 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 
 #38#Master Nguyen ##########????????????####
+BG_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
+BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
+BG_Hero3_Buddy_Gold['BG20_HERO_202_Buddy']='BG20_HERO_202_Buddy_G'#
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
 	entourage=['TB_BaconShop_HP_036','TB_BaconShop_HP_052']
@@ -251,6 +184,10 @@ class BG20_HERO_202_Buddy_G:# <12>[1453]
 
 
 #39#Millhouse Manastorm  ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_49','TB_BaconShop_HP_054','TB_Baconshop_HP_054e','TB_BaconShop_HERO_49_Buddy','TB_BaconShop_HERO_49_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_49',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_49']='TB_BaconShop_HERO_49_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_49_Buddy']='TB_BaconShop_HERO_49_Buddy_G'#
 class TB_BaconShop_HERO_49:# <12>[1453]
 	""" Millhouse Manastorm """
 	pass
@@ -276,6 +213,10 @@ class TB_BaconShop_HERO_49_Buddy_G:# <12>[1453]
 
 
 #40#Millificent Manastorm ### HP ###
+BG_Hero3 += ['TB_BaconShop_HERO_17','TB_BaconShop_HP_015','TB_BaconShop_HP_015e','TB_BaconShop_HERO_17_Buddy','TB_BaconShop_HERO_17_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_17',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_17']='TB_BaconShop_HERO_17_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_17_Buddy']='TB_BaconShop_HERO_17_Buddy_G'#
 class TB_BaconShop_HERO_17:# <12>[1453]
 	""" Millificent Manastorm """
 	pass
@@ -314,6 +255,10 @@ class TB_BaconShop_HERO_17_Buddy_G:
 
 
 #41#Mr. Bigglesworth  ### impossible ###
+BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
 class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
 class TB_BaconShop_HP_080:
@@ -336,6 +281,10 @@ class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 
 
 #42#Mutanus the Devourer ### HP OK ###
+BG_Hero3 += ['BG20_HERO_301','BG20_HERO_301p','BG20_HERO_301_Buddy','BG20_HERO_301_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['BG20_HERO_301',]#
+BG_Hero3_Buddy['BG20_HERO_301']='BG20_HERO_301_Buddy'#
+BG_Hero3_Buddy_Gold['BG20_HERO_301_Buddy']='BG20_HERO_301_Buddy_G'#
 class BG20_HERO_301: ## 
 	""" Mutanus the Devourer	"""
 class BG20_HERO_301p_Action(TargetedAction):
@@ -378,6 +327,10 @@ class BG20_HERO_301_Buddy_G:
 
 
 #43#N'Zoth  ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_93','TB_BaconShop_HP_105','TB_BaconShop_HP_105t','TB_BaconShop_HERO_93_Buddy','TB_BaconShop_HERO_93_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_93',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_93']='TB_BaconShop_HERO_93_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_93_Buddy']='TB_BaconShop_HERO_93_Buddy_G'#
 class TB_BaconShop_HERO_93:# <12>[1453]
 	""" N'Zoth 	 """
 class TB_BaconShop_HP_105_Action(TargetedAction):
@@ -426,6 +379,10 @@ class TB_BaconShop_HERO_93_Buddy_G:# <12>[1453]
 
 
 #44#Nozdormu  ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_57','TB_BaconShop_HP_063','TB_BaconShop_HERO_57_Buddy','TB_BaconShop_HERO_57_Buddy_e','TB_BaconShop_HERO_57_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_57',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_57']='TB_BaconShop_HERO_57_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_57_Buddy']='TB_BaconShop_HERO_57_Buddy_G'#
 class TB_BaconShop_HERO_57:# <12>[1453]
 	""" Nozdormu  """
 class TB_BaconShop_HP_063:
@@ -454,6 +411,10 @@ class TB_BaconShop_HERO_57_Buddy_G:# <12>[1453]
 
 
 #45#Onyxia ### HP OK ###
+BG_Hero3 += ['BG22_HERO_305','BG22_HERO_305p','BG22_HERO_305t','BG22_HERO_305_Buddy','BG22_HERO_305_Buddy_e','BG22_HERO_305_Buddy_G','BG22_HERO_305_Buddy_Ge',]# 
+BG_PoolSet_Hero3 +=['BG22_HERO_305',]#
+BG_Hero3_Buddy['BG22_HERO_305']='BG22_HERO_305_Buddy'#
+BG_Hero3_Buddy_Gold['BG22_HERO_305_Buddy']='BG22_HERO_305_Buddy_G'#
 class BG22_HERO_305:# <12>[1453]
 	""" Onyxia """
 class BG22_HERO_305p_Action(TargetedAction):
@@ -502,6 +463,10 @@ class BG22_HERO_305_Buddy_Ge:# <12>[1453]
 
 
 #46#Overlord Saurfang ### HP OK ###
+BG_Hero3 += ['BG20_HERO_102','BG20_HERO_102p','BG20_HERO_102pe','BG20_HERO_102pe2','BG20_HERO_102pe3','BG20_HERO_102_Buddy','BG20_HERO_102_Buddy_G','BG20_HERO_102pe_Buddy',]# 
+BG_PoolSet_Hero3 +=['BG20_HERO_102',]#
+BG_Hero3_Buddy['BG20_HERO_102']='BG20_HERO_102_Buddy'#
+BG_Hero3_Buddy_Gold['BG20_HERO_102_Buddy']='BG20_HERO_102_Buddy_G'#
 class BG20_HERO_102:# <12>[1453]
 	""" Overlord Saurfang """
 class BG20_HERO_102pe_Action(TargetedAction):
@@ -560,6 +525,10 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 
 
 #47#Patches the Pirate ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_18','TB_BaconShop_HP_072','TB_BaconShop_HERO_18_Buddy','TB_BaconShop_HERO_18_Buddy_e','TB_BaconShop_HERO_18_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_18',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_18']='TB_BaconShop_HERO_18_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_18_Buddy']='TB_BaconShop_HERO_18_Buddy_G'#
 class TB_BaconShop_HERO_18:# <12>[1453]
 	""" Patches the Pirate """
 class TB_BaconShop_HP_072_Action(TargetedAction):
@@ -603,6 +572,10 @@ class TB_BaconShop_HERO_18_Buddy_G:
 
 
 #48#Patchwerk  ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_34','TB_BaconShop_HP_035','TB_BaconShop_HERO_34_Buddy','TB_BaconShop_HERO_34_Buddy_e','TB_BaconShop_HERO_34_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_34',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_34']='TB_BaconShop_HERO_34_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_34_Buddy']='TB_BaconShop_HERO_34_Buddy_G'#
 class TB_BaconShop_HERO_34:# <12>[1453]
 	""" Patchwerk  """
 	#<Tag enumID="45" name="HEALTH" type="Int" value="55"/>
@@ -630,6 +603,10 @@ class TB_BaconShop_HERO_34_Buddy_G:# <12>[1453]
 
 
 #49#Pyramad   ### maybe OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_39','TB_BaconShop_HP_040','TB_BaconShop_HP_040e','TB_BaconShop_HERO_39_Buddy','TB_BaconShop_HERO_39_Buddy_e','TB_BaconShop_HERO_39_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_39',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_39']='TB_BaconShop_HERO_39_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_39_Buddy']='TB_BaconShop_HERO_39_Buddy_G'#
 class TB_BaconShop_HERO_39:# <12>[1453]
 	""" Pyramad	 """
 class TB_BaconShop_HP_040_Action1(TargetedAction):
@@ -678,6 +655,10 @@ class TB_BaconShop_HERO_39_Buddy_G:# <12>[1453]
 
 
 #50#Queen Wagtoggle ### HP OK ### 
+BG_Hero3 += ['TB_BaconShop_HERO_14','TB_BaconShop_HP_037a','TB_BaconShop_HP_037te','TB_BaconShop_HERO_14_Buddy','TB_BaconShop_HERO_14_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_14',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_14']='TB_BaconShop_HERO_14_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_14_Buddy']='TB_BaconShop_HERO_14_Buddy_G'#
 class TB_BaconShop_HERO_14:# <12>[1453]
 	""" Queen Wagtoggle """
 class TB_BaconShop_HP_037a_Action(TargetedAction):
@@ -721,6 +702,10 @@ class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]
 
 
 #51#Ragnaros the Firelord  ### HP OK ###
+BG_Hero3 += ['TB_BaconShop_HERO_11','TB_BaconShop_HP_087','TB_BaconShop_HP_087t','TB_BaconShop_HP_087te','TB_BaconShop_HERO_11_Buddy','TB_BaconShop_HERO_11_Buddy_e','TB_BaconShop_HERO_11_Buddy_G','TB_BaconShop_HERO_11_Buddy_G_e',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_11',]#
+BG_Hero3_Buddy['TB_BaconShop_HERO_11']='TB_BaconShop_HERO_11_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_11_Buddy']='TB_BaconShop_HERO_11_Buddy_G'#
 class TB_BaconShop_HERO_11:# <12>[1453]
 	""" Ragnaros the Firelord """
 class TB_BaconShop_HP_087t_Action(TargetedAction):
