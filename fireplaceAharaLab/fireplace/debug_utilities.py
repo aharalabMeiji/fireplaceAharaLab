@@ -121,8 +121,8 @@ def printClasses():
 
 def printClasses_BG24():
 	from hearthstone import cardxml
-	mySet="BG24_Reward"# "BG24", "BG24_Reward",BG24_Quest
-	filename=mySet.lower()
+	mySet="BG24_"# "BG24", "BG24_Reward",BG24_Quest
+	filename=mySet.lower()+"minion"
 	f = open("%s.py"%filename, 'w')
 	f.write('from ..utils import *\n')
 	f.write('\n')
@@ -131,7 +131,7 @@ def printClasses_BG24():
 	keyID='XXX_000'
 	for _id in db.keys():
 		_card = db[_id]
-		if mySet in _card.id: 
+		if mySet in _card.id and _card.id[5] in ['0','1','2','3','4','5','6','7','8','9']: 
 			if not keyID in _card.id:
 				f.write("%s_%s=True\n"%(mySet,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','').replace('!','').replace('=','')))
 				keyID=_card.id
@@ -140,19 +140,29 @@ def printClasses_BG24():
 	f.write('\n'%())
 	f.write('\n'%())
 	keyID='XXX_000'
-	QuestTag=[2466,2496,2580,2642,2643,2644,2646,2647,2650,2651,2653,2674,2732]
-	RewardTag=[1500,1927,2467,2594,2571,2581,2641,2643,2644,2646,2647,2649,2653,2673,2677,2727]
+	#QuestTag=[2466,2496,2580,2642,2643,2644,2646,2647,2650,2651,2653,2674,2732]
+	#RewardTag=[1500,1927,2467,2594,2571,2581,2641,2643,2644,2646,2647,2649,2653,2673,2677,2727]
 	for _id in db.keys():
 		_card = db[_id]
-		if mySet in _card.id: 
+		if mySet in _card.id and _card.id[5] in ['0','1','2','3','4','5','6','7','8','9']: 
 			if not keyID in _card.id:
 				f.write('if %s_%s:# \n'%(mySet,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','').replace('!','').replace('=','')))
 				keyID=_card.id		
 			f.write("\t%s+=['%s']\n"%(mySet, _card.id))
 			f.write('class %s:# '%(_card.id))
-			for tag in RewardTag:
-				if tag in _card.tags:
-					f.write("[%d]=%d, "%(tag, _card.tags[tag]))
+			#for tag in RewardTag:
+			#	if tag in _card.tags:
+			#		f.write("[%d]=%d, "%(tag, _card.tags[tag]))
+			if _card.type==4:
+				f.write("(minion)")
+			if _card.type==5:
+				f.write("(spell)")
+			if _card.type==6:
+				f.write("(enchantment)")
+			if _card.race==15:
+				f.write("(demon)")
+			if _card.race==14:
+				f.write("(murloc)")
 			f.write("\n")
 			f.write('\t""" %s\n'%(_card.name))
 			f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace('<b>','[').replace('</b>',']')))

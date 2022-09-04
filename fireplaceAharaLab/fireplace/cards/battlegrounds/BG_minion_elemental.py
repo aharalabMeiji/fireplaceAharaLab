@@ -3,6 +3,7 @@ from ..utils import *
 
 BG_Refreshing_Anomaly=True
 BG_Sellemental=True
+BG_Bubblette=False ## new 24.0 banned 24.2
 BG_Molten_Rock=True
 BG_Party_Elemental=True
 BG_Crackling_Cyclone=True
@@ -58,8 +59,11 @@ class TB_BaconUps_156:# <12>[1453]
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BGS_115t') * 2)
 	pass
 
-
-class BG_TID_713:#あわわわ
+if BG_Bubblette:
+	BG_Minion_Elemental+=['BG_TID_713','BG_TID_713_G']
+	BG_PoolSet_Elemental[1].append('BG_TID_713')
+	BG_Elemental_Gold['BG_TID_713']='BG_TID_713_G'
+class BG_TID_713:#あわわわ ## banned 24.2
 	""" Bubblette
 	After this minion takes  exactly one damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
 	events = Damage(SELF, 1).on(Destroy(SELF))

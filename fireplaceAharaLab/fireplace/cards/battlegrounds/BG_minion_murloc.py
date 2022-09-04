@@ -1,5 +1,8 @@
 from ..utils import *
 
+BG_SI_Sefin=False ## (5) banned 4.2
+
+
 BG_Minion_Murloc =[
 'UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',#Rockpool Hunter (1)
 'BG22_401','BG22_401e','BG22_401_G','BG22_401_Ge',#Swampstriker (1)
@@ -11,8 +14,8 @@ BG_Minion_Murloc =[
 'BG21_010','BG21_010e','BG21_010_G','BG21_010_Ge',#Swolefin (3)
 'BGS_020','TB_BaconUps_089',#Primalfin Lookout (4)
 'BGS_030','BGS_030e','TB_BaconUps_100','TB_BaconUps_100e',#King Bagurgle (5)
-'BG21_009','BG21_009e','BG21_009_G',#SI:Sefin (5)
-'BG22_403',
+#'BG21_009','BG21_009e','BG21_009_G',#SI:Sefin (5)
+'BG22_403',## Young Murk-Eye (6) 
 	]
 
 BG_PoolSet_Murloc=[
@@ -34,7 +37,7 @@ BG_Murloc_Gold={
 	'BG21_010':'BG21_010_G',#Swolefin (3)
 	'BGS_020':'TB_BaconUps_089',#Primalfin Lookout (4)
 	'BGS_030':'TB_BaconUps_100',#King Bagurgle (5)
-	'BG21_009':'BG21_009_G',#SI:Sefin (5)	
+#	'BG21_009':'BG21_009_G',#SI:Sefin (5)	
 	}
 
 
@@ -204,7 +207,11 @@ TB_BaconUps_100e=buff(4,4)
 
 
 
-#SI:Sefin (5)  ### maybe ###
+#SI:Sefin (5)  ### maybe ### banned 24.2
+if BG_SI_Sefin:
+	BG_Minion_Murloc+=[]
+	BG_PoolSet_Murloc[5].append('')
+	BG_Murloc_Gold['']=''
 class BG21_009:# <12>[1453] セブリ
 	""" SI:Sefin
 	[Avenge (3):] Give a friendly Murloc [Poisonous] permanently. """

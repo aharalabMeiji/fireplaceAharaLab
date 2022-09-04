@@ -20,13 +20,13 @@ BG_Impatient_Doomsayer=True
 BG_Majordomo_Executus=True
 BG_Menagerie_Jug=True
 BG_Strongshell_Scavenger=True
-BG_Witchwing_Nestmatron=True
+BG_Witchwing_Nestmatron=False ## banned 24.2
 BG_Baron_Rivendare=True
 BG_Brann_Bronzebeard=True
 BG_Deadly_Spore=False##banned 23.6
 BG_Kangor_s_Apprentice=True
 BG_Lightfang_Enforcer=True
-BG_Mythrax_the_Unraveler=True
+BG_Mythrax_the_Unraveler=False ## banned 24.2
 BG_Nomi_Kitchen_Nightmare=True
 BG_Amalgadon=False##banned 22.3
 BG_Friend_of_a_Friend=False##  banned 22.3
@@ -39,10 +39,10 @@ BG_Darkgaze_Elder=True## NEW 23.2 -> quilboar
 BG_Leeroy_the_Reckless=True## NEW 23.2
 BG_Nightmare_Amalgam=True## RENEW  23.2
 BG_Tavern_Tipper=True ## new 23.6
-BG_Kooky_Chemist=True## new 23.6
+BG_Kooky_Chemist=False## new 23.6 banned 24.2
 BG_Sparring_Partner=True## new 23.6
 BG_Yrel=True## new 23.6
-BG_Shifter_Zerus=True## new 23.6
+BG_Shifter_Zerus=False## new 23.6 banned 24.2 (hard)
 BG_unnel_Blaster=True## new 23.6
 
 BG_Minion=[]
@@ -556,7 +556,7 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 
 
 
-if BG_Witchwing_Nestmatron:#Witchwing Nestmatron	4	3	5		 ### maybe ###
+if BG_Witchwing_Nestmatron:#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2
 	BG_Minion += ['BG21_038','BG21_038_G',]#	
 	BG_PoolSet_Minion[4].append('BG21_038')
 	BG_Minion_Gold['BG21_038']='BG21_038_G'
@@ -733,7 +733,7 @@ BG21_036_Ge=buff(2,2)# <12>[1453]
 
 
 
-if BG_Mythrax_the_Unraveler:#Mythrax the Unraveler	5	4	4		 ### maybe ###
+if BG_Mythrax_the_Unraveler:#Mythrax the Unraveler	5	4	4		 ### maybe ### banned 24.2
 	BG_Minion += ['BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',]#	
 	BG_PoolSet_Minion[5].append('BGS_202')
 	BG_Minion_Gold['BG21_036']='TB_BaconUps_258'
@@ -1238,7 +1238,7 @@ BG23_350_Ge=buff(2,4)
 
 
 
-if BG_Shifter_Zerus:## Shifter Zerus (3) ### hard ###
+if BG_Shifter_Zerus:## Shifter Zerus (3) ### hard ### banned 24.2
 	BG_Minion += ['BGS_029','BGS_029e','TB_BaconUps_095', ]#	
 	BG_PoolSet_Minion[3].append('BGS_029')
 	BG_Minion_Gold['BGS_029']='TB_BaconUps_095'

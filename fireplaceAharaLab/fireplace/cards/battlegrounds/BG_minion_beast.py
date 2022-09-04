@@ -2,7 +2,7 @@ from ..utils import *
 
 BG_Alleycat=True
 BG_Scavenging_Hyena=True
-BG_Silverback_Patriarch=True#new 23.6
+BG_Silverback_Patriarch=False#new 23.6 banned 24.2 
 BG_Leapfrogger=True
 BG_Rabid_Saurolisk=True
 BG_Sewer_Rat=True
@@ -68,7 +68,7 @@ class TB_BaconUps_043: #<3>[1637]
 TB_BaconUps_043e=buff(4,2)
 
 
-## Silverback Patriarch (1) 23.6
+## Silverback Patriarch (1) new 23.6 banned 24.2 
 if BG_Silverback_Patriarch:
 	BG_Minion_Beast += ['BG_CS2_127','BG_CS2_127_G',]# Silverback Patriarch (1)
 	BG_PoolSet_Beast[1].append('BG_CS2_127')

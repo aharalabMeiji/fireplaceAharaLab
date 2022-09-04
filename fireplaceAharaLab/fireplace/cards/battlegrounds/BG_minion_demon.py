@@ -1,48 +1,30 @@
 from ..utils import *
 
+BG_Icky_Imp=False ##(1) banned 24.2
+BG_Impulsive_Trickster=True ##(1)
+BG_Nathrezim_Overseer=False ##(2) banned 24.2
+BG_Imprisoner=True ##(2)
+BG_Kathra_natir=True ##(3)
+BG_Soul_Devourer=False ##(3) banned 24.2
+BG_Bigfernal=True ##(4)
+BG_Ring_Matron=True ##(4)
+BG_Insatiable_Ur_zul=True ##(5)
+BG_Annihilan_Battlemaster=True ##(5)
+BG_Voidlord=True ##(5)
+BG_Famished_Felbat=True ##(6)
+BG_Imp_Mama=True ##(6)
 
-BG_Minion_Demon =[
-	'BG21_029','BRM_006t','BG21_029_G','TB_BaconUps_030t',#Icky Imp(1)
-	'BG21_006','BG21_006e','BG21_006_G',#Impulsive Trickster(1)
-	'BGS_001','BGS_001e','TB_BaconUps_062','TB_BaconUps_062e',#Nathrezim Overseer(2)
-	'BGS_014','TB_BaconUps_113',#Imprisoner(2)
-	'BG21_039','BG21_039e','BG21_039_G','BG21_039_Ge',#Kathra'natir(3)
-	'BGS_059','BGS_059e','TB_BaconUps_119',#Soul Devourer(3)
-	'BGS_204','BGS_204e','TB_BaconUps_304','TB_BaconUps_304e',#Bigfernal(4)
-	'DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t',#Ring Matron(4)
-	'BG21_004','BG21_004e','BG21_004_G',#Insatiable Ur'zul(5)
-	'BGS_010','TB_BaconUps_083',#Annihilan Battlemaster(5)
-	'LOOT_368','CS2_065','TB_BaconUps_059','TB_BaconUps_059t',#Voidlord(5)
-	'BG21_005','BG21_005e','BG21_005_G',#Famished Felbat(6)
-	'BGS_044','TB_BaconUps_116',#Imp Mama(6)
-	]
+BG_Minion_Demon =[]
 
-BG_PoolSet_Demon=[
-	['BG21_029','BG21_006',],##1
-	['BGS_001','BGS_014',],##2
-	['BG21_039','BGS_059',],#3
-	['BGS_204','DMF_533',],#4
-	['BG21_004','BGS_010','LOOT_368'],#5
-	['BG21_005','BGS_044',],#6
-	]
+BG_PoolSet_Demon=[[],[],[],[],[],[],[]]
 
-BG_Demon_Gold={
-	'BG21_029':'BG21_029_G',#Icky Imp(1)
-	'BG21_006':'BG21_006_G',#Impulsive Trickster(1)
-	'BGS_001':'TB_BaconUps_062',#Nathrezim Overseer(2)
-	'BGS_014':'TB_BaconUps_113',#Imprisoner(2)
-	'BG21_039':'BG21_039_G',#Kathra'natir(3)
-	'BGS_059':'TB_BaconUps_119',#Soul Devourer(3)
-	'BGS_204':'TB_BaconUps_304',#Bigfernal(4)
-	'DMF_533':'TB_BaconUps_309',#Ring Matron(4)
-	'BG21_004':'BG21_004_G',#Insatiable Ur'zul(5)
-	'BGS_010':'TB_BaconUps_083',#Annihilan Battlemaster(5)
-	'LOOT_368':'TB_BaconUps_059',#Voidlord(5)
-	'BG21_005':'BG21_005_G',#Famished Felbat(6)
-	'BGS_044':'TB_BaconUps_116',#Imp Mama(6)
-	}
+BG_Demon_Gold={}
 
-####################　インプ ### OK ###
+####################　インプ ### OK ### banned 24.2
+if BG_Icky_Imp:
+	BG_Minion_Demon +=['BG21_029','BRM_006t','BG21_029_G','TB_BaconUps_030t']
+	BG_PoolSet_Demon[1]+='BG21_029'
+	BG_Demon_Gold['BG21_029']='BG21_029_G'
 class BG21_029:# <12>[1453]
 	""" Icky Imp (1)
 	[Deathrattle:] Summon two 1/1 Imps. """
@@ -61,7 +43,11 @@ class TB_BaconUps_030t:#
 	""" Imp (2/2)
 	"""
 
-#################### トリックスター  ### OK ###
+#################### トリックスター(1)  ### OK ###
+if BG_Impulsive_Trickster:
+	BG_Minion_Demon +=['BG21_006','BG21_006e','BG21_006_G']
+	BG_PoolSet_Demon[1]+='BG21_006'
+	BG_Demon_Gold['BG21_006']='BG21_006_G'
 class BG21_006_Action(TargetedAction):
 	TARGET = ActionArg()
 	CONTRO = ActionArg()
@@ -95,7 +81,11 @@ class BG21_006_G:# <12>[1453]
 
 
 
-####################ナスレズィム ### OK ###
+####################ナスレズィム (2)### OK ### banned 24.2
+if BG_Nathrezim_Overseer:
+	BG_Minion_Demon +=['BGS_001','BGS_001e','TB_BaconUps_062','TB_BaconUps_062e']
+	BG_PoolSet_Demon[2]+='BGS_001'
+	BG_Demon_Gold['BGS_001']='TB_BaconUps_062'
 class BGS_001:# <12>[1453] 
 	""" Nathrezim Overseer (2)
 	[Battlecry:] Give a friendly Demon +2/+2. """
@@ -118,6 +108,10 @@ TB_BaconUps_062e=buff(4,4)
 
 
 ####################  禁固番  ### OK ###
+if BG_Imprisoner:
+	BG_Minion_Demon +=['BGS_014','TB_BaconUps_113']
+	BG_PoolSet_Demon[2]+='BGS_014'
+	BG_Demon_Gold['BGS_014']='TB_BaconUps_113'
 class BGS_014:# <12>[1453]
 	""" Imprisoner (2)
 	[Taunt][Deathrattle:] Summon a 1/1 Imp. """
@@ -131,7 +125,11 @@ class TB_BaconUps_113:# <12>[1453]
 
 
 
-#################### カスラナティール（カステラ） ### maybe OK ###
+#################### カスラナティール（カステラ） (3)### maybe OK ###
+if BG_Kathra_natir:
+	BG_Minion_Demon +=['BG21_039','BG21_039e','BG21_039_G','BG21_039_Ge']
+	BG_PoolSet_Demon[3]+='BG21_039'
+	BG_Demon_Gold['BG21_039']='BG21_039_G'
 class BG21_039:# <12>[1453]
 	""" Kathra'natir (3)
 	Your other Demons have +2 Attack.Your Hero is [Immune]. """
@@ -147,7 +145,11 @@ BG21_039_Ge=buff(4,0)
 
 
 
-####################   魂喰らい魔 ### maybe OK ###
+####################   魂喰らい魔 (3)### maybe OK ### banned 24.2
+if BG_Soul_Devourer:
+	BG_Minion_Demon +=['BGS_059','BGS_059e','TB_BaconUps_119']
+	BG_PoolSet_Demon[3]+='BGS_059'
+	BG_Demon_Gold['BGS_059']='TB_BaconUps_119'
 class BGS_059_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -182,7 +184,11 @@ class TB_BaconUps_119:# <12>[1453]
 
 
 
-###################　焦熱の圧鬼（あっき）### maybe ###
+###################　焦熱の圧鬼（あっき）(4)### maybe ###
+if BG_Bigfernal:
+	BG_Minion_Demon +=['BGS_204','BGS_204e','TB_BaconUps_304','TB_BaconUps_304e']
+	BG_PoolSet_Demon[4]+='BGS_204'
+	BG_Demon_Gold['BGS_204']='TB_BaconUps_304'
 class BGS_204:# <12>[1453]
 	""" Bigfernal (4)
 	After you summon a Demon, gain +1/+1 permanently. """
@@ -197,7 +203,11 @@ class TB_BaconUps_304:# <12>[1453]
 TB_BaconUps_304e=buff(2,2)
 
 
-###################　　火の輪くぐらせ嬢  ### OK ###
+###################　　火の輪くぐらせ嬢  (4)### OK ###
+if BG_Ring_Matron:
+	BG_Minion_Demon +=['DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t']
+	BG_PoolSet_Demon[4]+='DMF_533'
+	BG_Demon_Gold['DMF_533']='TB_BaconUps_309'
 class DMF_533:# <9>[1453]
 	""" Ring Matron (4)
 	[Taunt][Deathrattle:] Summon　two 3/2 Imps. """
@@ -217,7 +227,11 @@ class TB_BaconUps_309t:# <9>[1453]
 
 
 
-####################　　　ウルズール  ### need check ###
+####################　　　ウルズール  (5)### need check ###
+if BG_Insatiable_Ur_zul:
+	BG_Minion_Demon +=['BG21_004','BG21_004e','BG21_004_G']
+	BG_PoolSet_Demon[5]+='BG21_004'
+	BG_Demon_Gold['BG21_004']='BG21_004_G'
 class BG21_004:# <12>[1453]
 	""" Insatiable Ur'zul (5)
 	[[Taunt].] After you play a Demon, consume a minion in Bob's Tavern to gain its stats. """
@@ -237,7 +251,11 @@ class BG21_004_G:# <12>[1453]
 
 
 
-####################　　　アニヒラン  ### OK ###
+####################　　　アニヒラン  (5)### OK ###
+if BG_Annihilan_Battlemaster:
+	BG_Minion_Demon +=['BGS_010','TB_BaconUps_083']
+	BG_PoolSet_Demon[5]+='BGS_010'
+	BG_Demon_Gold['BGS_010']='TB_BaconUps_083'
 class BGS_010:# <12>[1453]
 	""" Annihilan Battlemaster (5)
 	[Battlecry:] Gain +1 Health for each Health your hero_is missing. """
@@ -255,7 +273,11 @@ class TB_BaconUps_083:# <12>[1453]
 
 
 
-#################### ヴォイドロード ### OK ###
+#################### ヴォイドロード (5)### OK ###
+if BG_Voidlord:
+	BG_Minion_Demon +=['LOOT_368','CS2_065','TB_BaconUps_059','TB_BaconUps_059t']
+	BG_PoolSet_Demon[5]+='LOOT_368'
+	BG_Demon_Gold['LOOT_368']='TB_BaconUps_059'
 class LOOT_368:# <9>[1453]
 	""" Voidlord (5)
 	[Taunt] [Deathrattle:] Summon three 1/3 Demons with [Taunt]. """
@@ -274,7 +296,11 @@ class TB_BaconUps_059t:# <9>[1453]
 	[Taunt] """
 	pass
 
-####################　　　フェルバット ### need check ###
+####################　　　フェルバット (6)### need check ###
+if BG_Famished_Felbat:
+	BG_Minion_Demon +=['BG21_005','BG21_005e','BG21_005_G']
+	BG_PoolSet_Demon[6]+='BG21_005'
+	BG_Demon_Gold['BG21_005']='BG21_005_G'
 class BG21_005:# <12>[1453]
 	""" Famished Felbat (6)
 	At the end of your turn, eachfriendly Demon consumes aminion in Bob's Tavern to__gain its stats. """
@@ -292,7 +318,11 @@ class BG21_005_G:# <12>[1453]
 	pass
 
 
-#################### ママ  ### maybe ###
+#################### ママ  (6)### maybe ###
+if BG_Imp_Mama:
+	BG_Minion_Demon +=['BGS_044','BGS_044e','TB_BaconUps_116']
+	BG_PoolSet_Demon[6]+='BGS_044'
+	BG_Demon_Gold['BGS_044']='TB_BaconUps_116'
 class BGS_044:# <9>[1453]
 	""" Imp Mama (6)
 	Whenever this minion takes damage, summon a random Demon and give it [Taunt]. """

@@ -66,9 +66,9 @@ class BG_main:
 				if 'beast' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i+1]
 				if 'demon' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i+1]
 				if 'dragon' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i+1]
 				if 'elemental' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i+1]
 				if 'mecha' in races:
@@ -78,7 +78,7 @@ class BG_main:
 				if 'naga' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_naga.BG_PoolSet_Naga[i]
 				if 'pirate' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i+1]
 				if 'quilboar' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_56' in self.Heroes:

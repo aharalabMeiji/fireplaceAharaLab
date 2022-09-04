@@ -1,56 +1,31 @@
 from ..utils import *
 
-BG_Evolving_Chromawing=True## banned 23.6, revive 24.0, revised 24.0.3
+BG_Red_Whelp=True ## ##(1)
+BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
+BG_Glyph_Guardian=True ## ##(2)
+BG_Steward_of_Time=False ####(2) ##banned 24.2
+BG_Bronze_Warden=True ##(3)
+BG_Drakonid_Enforcer=True ##(3)
+BG_Twilight_Emissary=True ##(3)
+BG_Tarecgosa=True ##(3)
+BG_Cobalt_Scalebane=False ##(4) banned 24.2
+BG_Prestor_s_Pyrospawn=False ## (4) banned
+BG_Prized_Promo_Drake=True ##(4)
+BG_Atramedes=True ## (4)  23.6 ##OK##
+BG_Murozond=True ##(5)
+BG_Razorgore_the_Untamed=True ## (5)
+BG_Kalecgos_Arcane_Aspect=True ## (6)
 
-BG_Minion_Dragon =[
-	
-	'BGS_019','TB_BaconUps_102',#Red Whelp(1)
-	'BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e',#Glyph Guardian(2)
-	'BGS_037','BGS_037e','TB_BaconUps_107','TB_BaconUps_107e',#Steward of Time(2)
-	'BGS_034','TB_BaconUps_149',#Bronze Warden(3)
-	'BGS_067','BGS_067e','TB_BaconUps_117','TB_BaconUps_117e',#Drakonid Enforcer(3)
-	'BGS_038','BGS_038e','TB_BaconUps_108','TB_BaconUps_108e',#Twilight Emissary(3)
-	'BG21_015','BG21_015_G',#Tarecgosa(3)
-	'ICC_029','ICC_029e','TB_BaconUps_120','TB_BaconUps_120e',#Cobalt Scalebane(4)
-	#'BG21_012','BG21_012_G',#Prestor's Pyrospawn(4)
-	'BG21_014','BG21_014e','BG21_014_G',#Prized Promo-Drake(4)
-	'BG23_362','BG23_362_G',##Atramedes (4)   23.6 ##OK##
-	'BGS_043','TB_BaconUps_110',#Murozond(5)
-	'BGS_036','BGS_036e','TB_BaconUps_106','TB_BaconUps_106e',#Razorgore, the Untamed (5)
-	'BGS_041','BGS_041e','TB_BaconUps_109','TB_BaconUps_109e',#Kalecgos, Arcane Aspect (6)
-	]
+BG_Minion_Dragon =[]
 
-BG_PoolSet_Dragon=[
-	['BGS_019',],##'BG21_027',
-	['BGS_045','BGS_037',],
-	['BGS_034','BGS_067','BGS_038','BG21_015',],
-	['ICC_029','BG21_014','BG23_362',],#4 #'BG21_012',
-	['BGS_043','BGS_036',],
-	['BGS_041',],
-	]
+BG_PoolSet_Dragon=[[],[],[],[],[],[],[]]
 
-BG_Dragon_Gold={
-
-	'BGS_019':'TB_BaconUps_102',#Red Whelp(1)
-	'BGS_045':'TB_BaconUps_115',#Glyph Guardian(2)
-	'BGS_037':'TB_BaconUps_107',#Steward of Time(2)
-	'BGS_034':'TB_BaconUps_149',#Bronze Warden(3)
-	'BGS_067':'TB_BaconUps_117',#Drakonid Enforcer(3)
-	'BGS_038':'TB_BaconUps_108',#Twilight Emissary(3)
-	'ICC_029':'TB_BaconUps_120',#Cobalt Scalebane(4)
-	'BG21_012':'BG21_012_G',#Prestor's Pyrospawn(4)
-	'BG21_014':'BG21_014_G',#Prized Promo-Drake(4)
-	'BG21_015':'BG21_015_G',#Tarecgosa(3)
-	'BG23_362':'BG23_362_G',#Atramedes (4) 23.6
-	'BGS_043':'TB_BaconUps_110',#Murozond(5)
-	'BGS_036':'TB_BaconUps_106',#Razorgore, the Untamed (5)
-	'BGS_041':'TB_BaconUps_109',#Kalecgos, Arcane Aspect (6)
-	}
+BG_Dragon_Gold={}
 
 if BG_Evolving_Chromawing:#Evolving Chromawing(1) ## banned 23.6, revive 26.0
 	BG_Minion_Dragon+=['BG21_027','BG21_027e','BG21_027_G','BG21_027_Ge',]#
-	BG_PoolSet_Dragon[0].append('BG21_027')
-	BG_Dragon_Gold['BG21_027']='BG21_027_G' #	'BG21_027':'BG21_027_G',#Evolving Chromawing(1)
+	BG_PoolSet_Dragon[1].append('BG21_027')
+	BG_Dragon_Gold['BG21_027']='BG21_027_G' #	
 #Evolving Chromawing(1)  ### OK ###
 class BG21_027_Buff(TargetedAction):
 	TARGET = ActionArg()
@@ -81,8 +56,11 @@ class BG21_027_Ge:
 	pass
 
 
-
 #Red Whelp(1) ### need check ###
+if BG_Red_Whelp:
+	BG_Minion_Dragon+=['BGS_019','TB_BaconUps_102']#
+	BG_PoolSet_Dragon[1].append('BGS_019')
+	BG_Dragon_Gold['BGS_019']='TB_BaconUps_102' #	
 class BGS_019_Action(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
@@ -111,6 +89,10 @@ class TB_BaconUps_102:# <12>[1453]
 
 
 #Glyph Guardian(2)   ### need check ###
+if BG_Glyph_Guardian:
+	BG_Minion_Dragon+=['BGS_045','BGS_045e','TB_BaconUps_115','TB_BaconUps_115e']#
+	BG_PoolSet_Dragon[2].append('BGS_045')
+	BG_Dragon_Gold['BGS_045']='TB_BaconUps_115' #	
 class BGS_045_Buff(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -133,7 +115,11 @@ class TB_BaconUps_115e:
 	pass
 
 
-#Steward of Time(2) ### OK ###
+#Steward of Time(2) ### OK ### ### banned 24.2
+if BG_Steward_of_Time:
+	BG_Minion_Dragon+=['BGS_037','BGS_037e','TB_BaconUps_107','TB_BaconUps_107e']#
+	BG_PoolSet_Dragon[2].append('BGS_037')
+	BG_Dragon_Gold['BGS_037']='TB_BaconUps_107' #	
 class BGS_037:
 	""" Steward of Time
 	When you sell this minion, give all minions in Bob's Tavern +2/+1."""
@@ -145,7 +131,14 @@ class TB_BaconUps_107:
 	events = Sell(CONTROLLER, FRIENDLY + ID('TB_BaconUps_107')).on(Buff(ENEMY_MINIONS, 'TB_BaconUps_107e'))
 TB_BaconUps_107e=buff(4,2)
 
+
+
+
 #Bronze Warden(3)  ### OK ###
+if BG_Bronze_Warden:
+	BG_Minion_Dragon+=['BGS_034','TB_BaconUps_149']#
+	BG_PoolSet_Dragon[3].append('BGS_034')
+	BG_Dragon_Gold['BGS_034']='TB_BaconUps_149' #	
 class BGS_034:# <12>[1453]
 	""" Bronze Warden
 	[Divine Shield][Reborn] """
@@ -159,7 +152,12 @@ class TB_BaconUps_149:# <12>[1453]
 
 
 
+
 #Drakonid Enforcer(3)  ### OK ##
+if BG_Drakonid_Enforcer:
+	BG_Minion_Dragon+=['BGS_067','BGS_067e','TB_BaconUps_117','TB_BaconUps_117e']#
+	BG_PoolSet_Dragon[3].append('BGS_067')
+	BG_Dragon_Gold['BGS_067']='TB_BaconUps_117' #	
 class BGS_067:# <12>[1453]
 	""" Drakonid Enforcer
 	After a friendly minion loses [Divine Shield], gain_+2/+2. """
@@ -177,6 +175,10 @@ TB_BaconUps_117e=buff(4,4)
 
 
 #Twilight Emissary(3)  ### OK ###
+if BG_Twilight_Emissary:
+	BG_Minion_Dragon+=['BGS_038','BGS_038e','TB_BaconUps_108','TB_BaconUps_108e']#
+	BG_PoolSet_Dragon[3].append('BGS_038')
+	BG_Dragon_Gold['BGS_038']='TB_BaconUps_108' #	
 class BGS_038:# <12>[1453]
 	""" Twilight Emissary
 	[Taunt][Battlecry:] Give a friendly Dragon +2/+2. """
@@ -194,7 +196,11 @@ TB_BaconUps_108e=buff(4,4)
 
 
 
-#Cobalt Scalebane(4)  ### OK ###
+#Cobalt Scalebane(4)  ### OK ### banned 24.2
+if BG_Cobalt_Scalebane:
+	BG_Minion_Dragon+=['ICC_029','ICC_029e','TB_BaconUps_120','TB_BaconUps_120e']#
+	BG_PoolSet_Dragon[4].append('ICC_029')
+	BG_Dragon_Gold['ICC_029']='TB_BaconUps_120' #	
 class ICC_029:
 	""" Cobalt Scalebane
 	At the end of your turn, give another random friendly minion +3 Attack. """
@@ -209,6 +215,10 @@ TB_BaconUps_120e=buff(6,0)
 
 
 #Prestor's Pyrospawn(4)  ### maybe ###
+if BG_Prestor_s_Pyrospawn:
+	BG_Minion_Dragon+=['BG21_012','BG21_012_G']#
+	BG_PoolSet_Dragon[4].append('BG21_012')
+	BG_Dragon_Gold['BG21_012']='BG21_012_G' #	
 class BG21_012:# <12>[1453]
 	""" Prestor's Pyrospawn
 	Whenever another friendlyDragon attacks, deal 3 damage to its target. """
@@ -223,6 +233,10 @@ class BG21_012_G:# <12>[1453]
 
 
 #Prized Promo-Drake(4)   ### maybe ###
+if BG_Prized_Promo_Drake:
+	BG_Minion_Dragon+=['BG21_014','BG21_014e','BG21_014_G']#
+	BG_PoolSet_Dragon[4].append('BG21_014')
+	BG_Dragon_Gold['BG21_014']='BG21_014_G' #	
 class BG21_014_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -253,7 +267,12 @@ class BG21_014_G:# <12>[1453]
 
 
 
-#Tarecgosa(4)    ## OK ###
+
+#Tarecgosa(3)    ## OK ###
+if BG_Tarecgosa:
+	BG_Minion_Dragon+=['BG21_015','BG21_015_G']#
+	BG_PoolSet_Dragon[3].append('BG21_015')
+	BG_Dragon_Gold['BG21_015']='BG21_015_G' #	
 class BG21_015_Action0(TargetedAction):
 	TARGET = ActionArg()# self
 	def do(self, source, target):
@@ -300,6 +319,10 @@ class BG21_015_G:# <12>[1453]
 
 
 #Atramedes (4)   23.6 ### OK ###
+if BG_Atramedes:
+	BG_Minion_Dragon+=['BG23_362','BG23_362_G']#
+	BG_PoolSet_Dragon[4].append('BG23_362')
+	BG_Dragon_Gold['BG23_362']='BG23_362_G' #	
 class BG23_362:
 	"""Atramedes
 	Whenever this attacks, deal 3 damage to the __target and its neighbors."""
@@ -311,7 +334,13 @@ class BG23_362_G:
 	pass
 
 
+
+
 #Murozond(5)   ### OK ####
+if BG_Murozond:
+	BG_Minion_Dragon+=['BGS_043','TB_BaconUps_110']#
+	BG_PoolSet_Dragon[5].append('BGS_043')
+	BG_Dragon_Gold['BGS_043']='TB_BaconUps_110' #	
 class BGS_043:# <12>[1453]
 	""" Murozond
 	[Battlecry:] Add a minion from your last opponent's warband to your hand. """
@@ -339,6 +368,10 @@ class TB_BaconUps_110:# <12>[1453]
 
 
 #Razorgore, the Untamed (5)  ### need check (alternative) ###
+if BG_Razorgore_the_Untamed:
+	BG_Minion_Dragon+=['BGS_036','BGS_036e','TB_BaconUps_106','TB_BaconUps_106e']#
+	BG_PoolSet_Dragon[5].append('BGS_036')
+	BG_Dragon_Gold['BGS_036']='TB_BaconUps_106' #	
 class BGS_036_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -368,6 +401,10 @@ TB_BaconUps_106e=buff(2,2)
 
 
 #Kalecgos, Arcane Aspect (6)  ### maybe ###
+if BG_Kalecgos_Arcane_Aspect:
+	BG_Minion_Dragon+=['BGS_041','BGS_041e','TB_BaconUps_109','TB_BaconUps_109e']#
+	BG_PoolSet_Dragon[6].append('BGS_041')
+	BG_Dragon_Gold['BGS_041']='TB_BaconUps_109' #	
 class BGS_041:# <12>[1453]
 	""" Kalecgos, Arcane Aspect
 	After you play a minion with [Battlecry], give your Dragons +1/+1. """

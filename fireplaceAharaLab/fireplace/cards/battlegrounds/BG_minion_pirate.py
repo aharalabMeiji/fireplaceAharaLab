@@ -1,53 +1,32 @@
 from ..utils import *
 
+BG_Deck_Swabbie=True ## (1)
+BG_Scallywag=True ##,1
+BG_Freedealing_Gambler=True ##,2
+BG_Southsea_Captain=True ##,2
+BG_Yo_Ho_Ogre=True ##,2
+BG_Briny_Bootlegger=False ##,3 banned 24.2
+BG_Salty_Looter=True ##,3
+BG_Southsea_Strongarm=True ##,3,
+BG_Goldgrubber=True ##,4
+BG_Peggy_Brittlebone=True ##,4
+BG_Ripsnarl_Captain=True ##,4
+BG_Cap_n_Hoggarr=True ##,5
+BG_Tony_Two_Tusk=True ##,5
+BG_Dread_Admiral_Eliza=True ##,6
+BG_Nosy_Looter=True ##,6
 
-BG_Minion_Pirate=[
-	'BGS_055','TB_BaconUps_126',#Deck Swabbie (1)
-	'BGS_061','BGS_061t','TB_BaconUps_141','TB_BaconUps_141t',#Scallywag,1
-	'BGS_049','TB_BaconUps_127',#Freedealing Gambler,2
-	'NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e',#Southsea Captain,2
-	'BGS_060','TB_BaconUps_150',#Yo-Ho-Ogre,2
-	'BG21_017','BG21_017_G',#Briny Bootlegger,3
-	'BGS_081','BGS_081e','TB_BaconUps_143','TB_BaconUps_143e',#Salty Looter,3
-	'BGS_048','BGS_048e','TB_BaconUps_140','TB_BaconUps_140e',#Southsea Strongarm,3,
-	'BGS_066','BGS_066e','TB_BaconUps_130','TB_BaconUps_130e',#Goldgrubber,4
-	'BG21_016','BG21_016e','BG21_016_G','BG21_016_Ge',#Peggy Brittlebone,4
-	'BGS_056','BGS_056e','TB_BaconUps_139','TB_BaconUps_139e',#Ripsnarl Captain,4,
-	'BGS_072','TB_BaconUps_133',#Cap'n Hoggarr,5
-	'BG21_031','BG21_031_G',#Tony Two-Tusk,5
-	'BGS_047','BGS_047e','TB_BaconUps_134','TB_BaconUps_134e',#Dread Admiral Eliza,6
-	'BG21_019','BG21_019_G',#Nosy Looter,6
-	]
+BG_Minion_Pirate=[]
 
-BG_PoolSet_Pirate=[
-	['BGS_055','BGS_061',],
-	['BGS_049','NEW1_027','BGS_060',],
-	['BG21_017','BGS_081','BGS_048',],
-	['BGS_066','BG21_016','BGS_056',],
-	['BGS_072','BG21_031',],
-	['BGS_047', 'BG21_019',],
-	]
+BG_PoolSet_Pirate=[[],[],[],[],[],[],[]]
 
-BG_Pirate_Gold={
-	'BGS_055':'TB_BaconUps_126',#Deck Swabbie (1)
-	'BGS_061':'TB_BaconUps_141',#Scallywag,1
-	'BGS_049':'TB_BaconUps_127',#Freedealing Gambler,2
-	'NEW1_027':'TB_BaconUps_136',#Southsea Captain,2
-	'BGS_060':'TB_BaconUps_150',#Yo-Ho-Ogre,2
-	'BG21_017':'BG21_017_G',#Briny Bootlegger,3
-	'BGS_081':'TB_BaconUps_143',#Salty Looter,3
-	'BGS_048':'TB_BaconUps_140',#Southsea Strongarm,3,
-	'BGS_066':'TB_BaconUps_130',#Goldgrubber,4
-	'BG21_016':'BG21_016_G',#Peggy Brittlebone,4
-	'BGS_056':'TB_BaconUps_139',#Ripsnarl Captain,4,
-	'BGS_072':'TB_BaconUps_133',#Cap'n Hoggarr,5
-	'BG21_031':'BG21_031_G',#Tony Two-Tusk,5
-	'BGS_047':'TB_BaconUps_134',#Dread Admiral Eliza,6
-	'BG21_019':'BG21_019_G',#Nosy Looter,6
-	}
-
+BG_Pirate_Gold={}
 
 #Deck Swabbie,1,2,2,Pirate,Battlecry ### OK ###
+if BG_Deck_Swabbie:
+	BG_Minion_Pirate +=['BGS_055','TB_BaconUps_126']
+	BG_PoolSet_Pirate[1]+='BGS_055'
+	BG_Pirate_Gold['BGS_055']='TB_BaconUps_126'
 class BGS_055:#
 	""" Deck Swabbie <pirate>  (2/2)
 	<b>Battlecry:</b> Reduce the cost of upgrading Bob's Tavern by (1). """
@@ -61,6 +40,10 @@ class TB_BaconUps_126:
 
 
 #Scallywag,1,3,1,Pirate,Deathrattle  ### OK ###
+if BG_Scallywag:
+	BG_Minion_Pirate +=['BGS_061','BGS_061t','TB_BaconUps_141','TB_BaconUps_141t']
+	BG_PoolSet_Pirate[1]+='BGS_061'
+	BG_Pirate_Gold['BGS_061']='TB_BaconUps_141'
 class BGS_061_Action(TargetedAction):
 	TARGET=ActionArg()
 	CARDID=ActionArg()
@@ -91,6 +74,10 @@ class TB_BaconUps_141t:# <7>[1453]
 
 
 #Freedealing Gambler,2,3,3,Pirate,- ### OK ###
+if BG_Freedealing_Gambler:
+	BG_Minion_Pirate +=['BGS_049','TB_BaconUps_127']
+	BG_PoolSet_Pirate[2]+='BGS_049'
+	BG_Pirate_Gold['BGS_049']='TB_BaconUps_127'
 class BGS_049:# <12>[1453]
 	""" Freedealing Gambler
 	This minion sells for 3 Gold. """
@@ -102,7 +89,13 @@ class TB_BaconUps_127:# <12>[1453]
 	#		<Tag enumID="1587" name="6" type="Int" value="6"/> #quiz tag
 	pass
 
+
+
 #Southsea Captain,2,3,3,Pirate,- ### OK ###
+if BG_Southsea_Captain:
+	BG_Minion_Pirate +=['NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e']
+	BG_PoolSet_Pirate[2]+='NEW1_027'
+	BG_Pirate_Gold['NEW1_027']='TB_BaconUps_136'
 class NEW1_027:
 	""" Southsea Captain
 	Your other Pirates have +1/+1. """
@@ -116,7 +109,13 @@ class TB_BaconUps_136:
 	pass
 TB_BaconUps_136e = buff(+2, +2)
 
+
+
 #Yo-Ho-Ogre,2,3,5,Pirate,Taunt  ### OK ###
+if BG_Yo_Ho_Ogre:
+	BG_Minion_Pirate +=['BGS_060','TB_BaconUps_150']
+	BG_PoolSet_Pirate[2]+='BGS_060'
+	BG_Pirate_Gold['BGS_060']='TB_BaconUps_150'
 class BGS_060_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -136,7 +135,13 @@ class TB_BaconUps_150:# <12>[1453]
 	events = BG_Attack(ENEMY_MINIONS, SELF).after(BGS_060_Action(SELF)) 
 	pass
 
-#Briny Bootlegger,3,4,4,Pirate,- ### OK ###
+
+
+#Briny Bootlegger,3,4,4,Pirate,- ### OK ### banned 24.2
+if BG_Briny_Bootlegger:
+	BG_Minion_Pirate +=['BG21_017','BG21_017_G']
+	BG_PoolSet_Pirate[3]+='BG21_017'
+	BG_Pirate_Gold['BG21_017']='BG21_017_G'
 class BG21_017_Action(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
@@ -163,6 +168,10 @@ class BG21_017_G:# <12>[1453]
 
 
 #Salty Looter,3,4,5,Pirate,- ### OK ###
+if BG_Salty_Looter:
+	BG_Minion_Pirate +=['BGS_081','BGS_081e','TB_BaconUps_143','TB_BaconUps_143e']
+	BG_PoolSet_Pirate[3]+='BGS_081'
+	BG_Pirate_Gold['BGS_081']='TB_BaconUps_143'
 class BGS_081:# <7>[1453]
 	""" Salty Looter
 	Whenever you play a Pirate, gain +1/+1. """
@@ -179,6 +188,10 @@ TB_BaconUps_143e=buff(2,2)
 
 
 #Southsea Strongarm,3,4,3,Pirate,Battlecry  ### OK ###
+if BG_Southsea_Strongarm:
+	BG_Minion_Pirate +=['BGS_048','BGS_048e','TB_BaconUps_140','TB_BaconUps_140e']
+	BG_PoolSet_Pirate[3]+='BGS_048'
+	BG_Pirate_Gold['BGS_048']='TB_BaconUps_140'
 class BGS_048:# <12>[1453]
 	""" Southsea Strongarm
 	[Battlecry:] Give a friendly Pirate +1/+1. Repeat foreach Pirate you bought this turn. """
@@ -212,6 +225,10 @@ TB_BaconUps_140e=buff(2,2)
 
 
 #Goldgrubber,4,4,4,Pirate,- 金ぴか ### OK ###
+if BG_Goldgrubber:
+	BG_Minion_Pirate +=['BGS_066','BGS_066e','TB_BaconUps_130','TB_BaconUps_130e']
+	BG_PoolSet_Pirate[4]+='BGS_066'
+	BG_Pirate_Gold['BGS_066']='TB_BaconUps_130'
 class BGS_066_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
@@ -241,6 +258,10 @@ TB_BaconUps_130e=buff(4,4)
 
 
 #Peggy Brittlebone,4,6,5,Pirate,- ### OK ###
+if BG_Peggy_Brittlebone:
+	BG_Minion_Pirate +=['BG21_016','BG21_016e','BG21_016_G','BG21_016_Ge']
+	BG_PoolSet_Pirate[4]+='BG21_016'
+	BG_Pirate_Gold['BG21_016']='BG21_016_G'
 class BG21_016:# <12>[1453] 義足
 	""" Peggy Brittlebone
 	After a card is added to your hand, give another friendly Pirate +1/+1. """
@@ -263,6 +284,10 @@ BG21_016_Ge=buff(2,2)
 
 
 #Ripsnarl Captain,4,4,6,Pirate,- ### OK ###
+if BG_Ripsnarl_Captain:
+	BG_Minion_Pirate +=['BGS_056','BGS_056e','TB_BaconUps_139','TB_BaconUps_139e']
+	BG_PoolSet_Pirate[4]+='BGS_056'
+	BG_Pirate_Gold['BGS_056']='TB_BaconUps_139'
 class BGS_056:# <12>[1453] ギリガルル
 	""" Ripsnarl Captain
 	Whenever another friendly Pirate attacks, give it +2/+2. """
@@ -279,6 +304,10 @@ TB_BaconUps_139e=buff(4,4)
 
 
 #Cap'n Hoggarr,5,6,6,Pirate,-　### OK ###
+if BG_Cap_n_Hoggarr:
+	BG_Minion_Pirate +=['BGS_072','TB_BaconUps_133']
+	BG_PoolSet_Pirate[5]+='BGS_072'
+	BG_Pirate_Gold['BGS_072']='TB_BaconUps_133'
 class BGS_072:# <12>[1453] ホガァ
 	""" Cap'n Hoggarr
 	Whenever you buy a Pirate,gain 1 Gold this turn only. """
@@ -293,6 +322,10 @@ class TB_BaconUps_133:# <12>[1453]
 
 
 #Tony Two-Tusk,5,4,6,Pirate,Avenge (X) ### OK ###
+if BG_Tony_Two_Tusk:
+	BG_Minion_Pirate +=['BG21_031','BG21_031_G']
+	BG_PoolSet_Pirate[5]+='BG21_031'
+	BG_Pirate_Gold['BG21_031']='BG21_031_G'
 class BG21_031_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -324,6 +357,10 @@ class BG21_031_G:# <12>[1453]
 
 
 #Dread Admiral Eliza,6,6,7,Pirate,-　### OK ###
+if BG_Dread_Admiral_Eliza:
+	BG_Minion_Pirate +=['BGS_047','BGS_047e','TB_BaconUps_134','TB_BaconUps_134e']
+	BG_PoolSet_Pirate[6]+='BGS_047'
+	BG_Pirate_Gold['BGS_047']='TB_BaconUps_134'
 class BGS_047:# <12>[1453]  イライザ
 	""" Dread Admiral Eliza
 	Whenever a friendly Pirate attacks, give all friendly minions +2/+1. """
@@ -341,6 +378,10 @@ TB_BaconUps_134e=buff(4,2)
 
 
 #Nosy Looter,6,9,8,Pirate,-  ### OK ###
+if BG_Nosy_Looter:
+	BG_Minion_Pirate +=['BG21_019','BG21_019_G']
+	BG_PoolSet_Pirate[6]+='BG21_019'
+	BG_Pirate_Gold['BG21_019']='BG21_019_G'
 class BG21_019_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
