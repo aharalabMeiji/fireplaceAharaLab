@@ -122,7 +122,7 @@ class CORE_EX1_248:# <8>[1637]##23.6 ##OK
 	pass
 class EX1_tk11:
 	""" Spirit Wolf
-	<b>Taunt</b> """
+	[Taunt] """
 	pass
 
 class CORE_EX1_250:# <8>[1637]## 22.6 ##OK

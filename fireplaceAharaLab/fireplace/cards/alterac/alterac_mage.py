@@ -111,8 +111,8 @@ class AV_200:
 	pass
 class AV_200p2:
 	""" >Arcane Burst (Hero power)
-	[x]<b>Hero Power</b> Deal $@ damage. 
-	<b>Honorable Kill:</b> Gain +2 damage."""
+	[x][Hero Power] Deal $@ damage. 
+	[Honorable Kill:] Gain +2 damage."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, }
 	activate = HitScriptDataNum1(SELF, TARGET)
 	honorable_kill = AddScriptDataNum1(SELF, 2)

@@ -10,7 +10,7 @@ def barrens_hunter():
 
 class pp_BAR_034x(Preset_Play):
 	""" Tame Beast (Rank 1)
-	Summon a 2/2 Beast with <b>Rush</b>. <i>(Upgrades when you have 5 Mana.)</i>	"""
+	Summon a 2/2 Beast with [Rush]. <i>(Upgrades when you have 5 Mana.)</i>	"""
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('BAR_034',controller)#
@@ -38,7 +38,7 @@ class pp_BAR_034x(Preset_Play):
 		pass
 class pp_BAR_034y(Preset_Play):
 	""" Tame Beast (Rank 1)
-	Summon a 2/2 Beast with <b>Rush</b>. <i>(Upgrades when you have 5 Mana.)</i>	"""
+	Summon a 2/2 Beast with [Rush]. <i>(Upgrades when you have 5 Mana.)</i>	"""
 	def preset_deck(self):
 		controller=self.player
 		self.mark1=self.exchange_card('BAR_034t',controller)#

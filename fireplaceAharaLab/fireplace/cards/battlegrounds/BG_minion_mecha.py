@@ -55,7 +55,7 @@ BG_Mecha_Gold={
 #Micro Mummy(1) ### OK ###
 class ULD_217:
 	"""
-	<b>Reborn</b>At the end of your turn, giveanother random friendlyminion +1 Attack."""
+	[Reborn]At the end of your turn, giveanother random friendlyminion +1 Attack."""
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ULD_217e'))
 	pass
 ULD_217e=buff(1,0)
@@ -80,7 +80,7 @@ class BG21_022_G:# <12>[1453]
 #Harvest Golem(2) ### OK ###
 class EX1_556:
 	"""
-	<b>Deathrattle:</b> Summon a 2/1 Damaged Golem."""
+	[Deathrattle:] Summon a 2/1 Damaged Golem."""
 	deathrattle = Summon(CONTROLLER, "skele21")
 	pass
 class skele21:
@@ -100,7 +100,7 @@ class TB_BaconUps_006t:# <12>[1453]
 #Kaboom Bot(2)  ### OK ###
 class BOT_606:
 	"""
-	<b>Deathrattle:</b> Deal 4_damage to a random enemy minion. """
+	[Deathrattle:] Deal 4_damage to a random enemy minion. """
 	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 4)
 	pass
 class TB_BaconUps_028:# <12>[1453]
@@ -113,7 +113,7 @@ class TB_BaconUps_028:# <12>[1453]
 #Metaltooth Leaper(2) ### OK ###
 class GVG_048:
 	"""
-	<b>Battlecry:</b> Give your other Mechs +2 Attack."""
+	[Battlecry:] Give your other Mechs +2 Attack."""
 	play = Buff(FRIENDLY_MINIONS + MECH - SELF,'GVG_048e')
 GVG_048e=buff(2,0)
 class TB_BaconUps_066:# <3>[1453]
@@ -151,7 +151,7 @@ TB_BaconUps_123e=buff(4,0)
 #Replicating Menace(3)  ### OK ###
 class BOT_312:
 	"""Replicating Menace
-	<b>Magnetic</b><b>Deathrattle:</b> Summon three 1/1 Microbots."""
+	[Magnetic][Deathrattle:] Summon three 1/1 Microbots."""
 	play = Magnetic(SELF, ['BOT_312e'])
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 class BOT_312e:
@@ -188,7 +188,7 @@ class TB_BaconUps_032t:# <12>[1453]
 #Screwjank Clunker(3) ### OK ###
 class GVG_055:
 	""" Screwjank Clunker
-	<b>Battlecry:</b> Give a friendly Mech +2/+2 """
+	[Battlecry:] Give a friendly Mech +2/+2 """
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MECHANICAL} 
 	play = Buff(TARGET, 'GVG_055e')
 	pass
@@ -205,7 +205,7 @@ TB_BaconUps_069e=buff(4,4)
 #Annoy-o-Module(4)　### OK ###
 class BOT_911:
 	"""
-	<b>Magnetic</b><b>Divine Shield</b><b>Taunt</b>"""
+	[Magnetic][Divine Shield][Taunt]"""
 	## divine shield is a consumable buff. taunt is not
 	play = Magnetic(SELF, ['BOT_911e'])
 	pass
@@ -236,7 +236,7 @@ class TB_BaconUps_099e:
 #Mechano-Egg(4) ### OK ###
 class BOT_537:
 	"""
-	<b>Deathrattle:</b> Summon an 8/8 Robosaur."""
+	[Deathrattle:] Summon an 8/8 Robosaur."""
 	deathrattle = Summon(CONTROLLER, 'BOT_537t')
 class BOT_537t:
 	""" Robosaur """
@@ -266,7 +266,7 @@ class BG21_023_G:# <12>[1453]
 ##  Wargear (4) 23.6  ### OK ###
 class BG_BOT_563:
 	""" Wargear
-	&lt;b&gt;Magnetic&lt;/b&gt;"""
+	[Magnetic]"""
 	pass
 class BG_BOT_563_G:
 	pass

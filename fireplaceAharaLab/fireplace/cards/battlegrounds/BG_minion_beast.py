@@ -75,10 +75,10 @@ if BG_Silverback_Patriarch:
 	BG_Beast_Gold['BG_CS2_127']='BG_CS2_127_G'
 class BG_CS2_127:
 	""" Silverback Patriarch
-	&lt;b&gt;Taunt&lt;/b&gt; """
+	[Taunt] """
 class BG_CS2_127_G:
 	""" Silverback Patriarch
-	&lt;b&gt;Taunt&lt;/b&gt; """
+	[Taunt] """
 	pass
 
 
@@ -415,9 +415,9 @@ if BG_Maexxna:
 	BG_Beast_Gold['FP1_010']='TB_BaconUps_155'
 class FP1_010:
 	""" Maexxna (BAN)
-	<b>Poisonous</b> """
+	[Poisonous] """
 	pass
 class TB_BaconUps_155:
 	""" Maexxna (BAN)
-	<b>Poisonous</b> """
+	[Poisonous] """
 	pass

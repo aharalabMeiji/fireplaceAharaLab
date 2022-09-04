@@ -74,7 +74,7 @@ class pp_AV_113(Preset_Play):
 
 class pp_AV_113t1(Preset_Play):
 	""" Improved Explosive Trap
-	<b>Secret:</b> When your hero is attacked, deal $3 damage to all enemies. """
+	[Secret:] When your hero is attacked, deal $3 damage to all enemies. """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -110,7 +110,7 @@ class pp_AV_113t1(Preset_Play):
 #########################
 class pp_AV_113t2(Preset_Play):
 	""" Improved Freezing Trap
-	<b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
+	[Secret:] When an enemy minion attacks, return it to its owner's hand. It costs (4) more. """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -145,7 +145,7 @@ class pp_AV_113t2(Preset_Play):
 #########################
 class pp_AV_113t3(Preset_Play):
 	""" Improved Snake Trap
-	<b>Secret:</b> When one of your minions is attacked, summon three 2/2 Snakes. """
+	[Secret:] When one of your minions is attacked, summon three 2/2 Snakes. """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -183,7 +183,7 @@ class pp_AV_113t3(Preset_Play):
 #########################
 class pp_AV_113t7(Preset_Play):
 	"""Improved Pack Tactics
-	<b>Secret:</b> When a friendly minion is attacked, summon two 3/3 copies. """
+	[Secret:] When a friendly minion is attacked, summon two 3/3 copies. """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -221,7 +221,7 @@ class pp_AV_113t7(Preset_Play):
 #########################
 class pp_AV_113t8(Preset_Play):
 	""" Improved Open the Cages
-	[x]<b>Secret:</b> When your turn starts, if you control two minions, summon two Animal Companions."""
+	[x][Secret:] When your turn starts, if you control two minions, summon two Animal Companions."""
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
@@ -262,7 +262,7 @@ class pp_AV_113t8(Preset_Play):
 
 class pp_AV_113t9(Preset_Play):
 	""" Improved Ice Trap
-	<b>Secret:</b> When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
+	[Secret:] When your opponent casts a spell, return it to their hand instead. It costs (2) more. """
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent

@@ -269,8 +269,8 @@ def modify_description(card, text):
 	new_text=new_text.replace('[x]','')
 	new_text=new_text.replace('[b]','[')
 	new_text=new_text.replace('[/b]',']')
-	new_text=new_text.replace('<b>','[')
-	new_text=new_text.replace('</b>',']')
+	new_text=new_text.replace('[','[')
+	new_text=new_text.replace(']',']')
 	if hasattr(card,'script_data_text_0'):
 		new_text=new_text.replace('{0}',card.script_data_text_0)
 	if hasattr(card,'script_data_text_1'):

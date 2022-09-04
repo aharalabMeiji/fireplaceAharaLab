@@ -12,7 +12,7 @@ def stormwind_neutral():
 
 class pp_SW_079(Preset_Play):
 	""" Flightmaster Dungar
-	[x]<b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b> Awaken with a bonus __when you complete it! """
+	[x][Battlecry:] Choose a flightpath and go [Dormant.] Awaken with a bonus __when you complete it! """
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
@@ -67,7 +67,7 @@ class pp_SW_079(Preset_Play):
 
 class pp_SW_059 (Preset_Play):# 
 	""" Deeprun Engineer
-	<b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
+	[Battlecry:] [Discover] a Mech. It costs (1) less. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card('SW_059', self.controller)
 		self.mark4=Summon(self.controller, self.card_choice('minionH3')).trigger(self.opponent)

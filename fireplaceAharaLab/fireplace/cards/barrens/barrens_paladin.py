@@ -267,28 +267,28 @@ class WC_034:# <5>[1525]
 			Buff(newcard, "WC_034e", atk=random.randint(1,3), max_health=random.randint(1,3))
 	pass
 class WC_034t:
-	"""&lt;b&gt;Poisonous&lt;/b&gt;"""
+	"""[Poisonous]"""
 	pass
 class WC_034t2:
-	"""&lt;b&gt;Taunt&lt;/b&gt;"""
+	"""[Taunt]"""
 	pass
 class WC_034t3:
-	"""&lt;b&gt;Divine Shield&lt;/b&gt;"""
+	"""[Divine Shield]"""
 	pass
 class WC_034t4:
-	"""&lt;b&gt;Windfury&lt;/b&gt;"""
+	"""[Windfury]"""
 	pass
 class WC_034t5:
-	""" &lt;b&gt;Spell Damage +1&lt;/b&gt; """
+	""" [Spell Damage +1] """
 	pass
 class WC_034t6:
-	""" &lt;b&gt;Stealth&lt;/b&gt; """
+	""" [Stealth] """
 	pass
 class WC_034t7:
-	""" &lt;b&gt;Lifesteal&lt;/b&gt; """
+	""" [Lifesteal] """
 	pass
 class WC_034t8:
-	""" &lt;b&gt;Rush&lt;/b&gt; """
+	""" [Rush] """
 	pass
 @custom_card
 class WC_034e:# <5>[1525]

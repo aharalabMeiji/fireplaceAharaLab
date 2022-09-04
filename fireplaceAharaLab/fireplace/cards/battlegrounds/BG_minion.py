@@ -234,7 +234,7 @@ if BG_Selfless_Hero:#Selfless Hero	2	2	1
 ###のほうが筋だと思う。
 class OG_221:
 	"""Selfless Hero:  けんしん
-	<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>."""
+	[Deathrattle:] Give a random friendly minion [Divine Shield]."""
 	deathrattle = GiveDivineShield(RANDOM_FRIENDLY_MINION)
 class TB_BaconUps_014:# <5>[1453]
 	""" Selfless Hero
@@ -272,7 +272,7 @@ if BG_Unstable_Ghoul:#Unstable Ghoul	2	1	3	-### OK ### ##banned 23.6
 	pass
 class FP1_024:# <12>[1453] ぐうる
 	""" Unstable Ghoul
-	<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions. """
+	[Taunt]. [Deathrattle:] Deal 1 damage to all minions. """
 	deathrattle = Hit(ALL_MINIONS, 1),Deaths()
 	pass
 class TB_BaconUps_118:# <12>[1453]
@@ -348,7 +348,7 @@ class BG_AT_069:
 	play = Taunt(TARGET)
 class BG_AT_069_G:
 	"""
-	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Give a minion &lt;b&gt;Taunt&lt;/b&gt;."""
+	[Taunt] [Battlecry:] Give a minion [Taunt]."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Taunt(TARGET)
 
@@ -471,7 +471,7 @@ if BG_Houndmaster:#Houndmaster	3	4	3	-		 ### maybe ###
 	pass
 class DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
-	<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>."""
+	[Battlecry:] Give a friendly Beast +2/+2 and [Taunt]."""
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
 		PlayReq.REQ_TARGET_WITH_RACE:Race.BEAST }
@@ -534,11 +534,11 @@ if BG_Nightmare_Amalgam:##Nightmare Amalgam (3) RENEW  23.2
 	pass
 class GIL_681:
 	""" Nightmare Amalgam (3)
-	&lt;i&gt;This has all minion types.&lt;/i&gt;"""
+	<i>This has all minion types.</i>"""
 	pass
 class BG_GIL_681_G:
 	""" Nightmare Amalgam (3)
-	&lt;i&gt;This has all minion types.&lt;/i&gt;"""
+	<i>This has all minion types.</i>"""
 	pass
 
 
@@ -703,7 +703,7 @@ if BG_Strongshell_Scavenger:#Strongshell Scavenger	4	2	3		 ### OK ###
 	pass
 class ICC_807:# <2>[1453]  クズ拾い
 	""" Strongshell Scavenger
-	<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2. """
+	[Battlecry:] Give your [Taunt] minions +2/+2. """
 	play = Buff(FRIENDLY + TAUNT, 'ICC_807e')
 	pass
 ICC_807e=buff(2,2)# <12>[1453]
@@ -764,7 +764,7 @@ class BG23_016_Choice(Choice):
 		card.zone=Zone.HAND
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
-	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a minion from a minion type you don't control."""
+	[Battlecry: Discover] a minion from a minion type you don't control."""
 	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*12)
 	pass
 class BG23_016_G_Choice(DiscoverTwice):
@@ -783,7 +783,7 @@ class BG23_016_G_Choice(DiscoverTwice):
 		return player, cards
 class BG23_016_G:# <12>[1453]
 	"""
-	&lt;b&gt;Battlecry: Discover&lt;/b&gt; 2 minions from minion types you don't control."""
+	[Battlecry: Discover] 2 minions from minion types you don't control."""
 	play = BG23_016_G_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*12)
 	pass
 
@@ -816,7 +816,7 @@ class BG_DAL_775:
 	deathrattle = Hit(ALL_MINIONS, 3)
 class BG_DAL_775_G:
 	"""
-	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Deathrattle:&lt;/b&gt; Deal 3 damage to all minions twice."""
+	[Taunt] [Deathrattle:] Deal 3 damage to all minions twice."""
 	deathrattle = Hit(ALL_MINIONS, 3) * 2
 
 
@@ -829,7 +829,7 @@ if BG_Baron_Rivendare:#Baron Rivendare	5	1	7		 ### maybe ###
 	pass
 class FP1_031:# ばろん
 	"""Baron Rivendare
-	Your minions trigger their <b>Deathrattles</b> twice."""
+	Your minions trigger their [Deathrattles] twice."""
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
 	pass
 class TB_BaconUps_055:# <12>[1453]
@@ -846,12 +846,12 @@ if BG_Brann_Bronzebeard:#Brann Bronzebeard	5	2	4		 ### maybe ###
 	pass
 class LOE_077:#    ぶらん
 	""" Brann Bronzebeard
-	Your <b>Battlecries</b> trigger twice. """
+	Your [Battlecries] trigger twice. """
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_BATTLECRIES_BASE: True})
 	pass
 class LOE_077e:# 
 	""" Bronzebeard Battlecry
-	Your <b>Battlecries</b> trigger twice. """
+	Your [Battlecries] trigger twice. """
 	pass
 class TB_BaconUps_045:# <12>[1453]
 	""" Brann Bronzebeard
@@ -1066,12 +1066,12 @@ class BG23_318_Action(TargetedAction):
 		pass
 class BG23_318:# <12>[1453]
 	""" Leeroy the Reckless (5)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Destroy the minion that killed this."""
+	[Deathrattle:] Destroy the minion that killed this."""
 	deathrattle = BG23_318_Action(SELF)
 	pass
 class BG23_318_G:# <12>[1453]
 	"""
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Destroy the minion that killed this."""
+	[Deathrattle:] Destroy the minion that killed this."""
 	deathrattle = BG23_318_Action(SELF)
 	pass
 
@@ -1122,12 +1122,12 @@ class BGS_069_Action(TargetedAction):
 		pass
 class BGS_069:##  アマルガドン　(アルマゲドンではない）
 	""" Amalgadon
-	<b>Battlecry:</b> For each different minion type you have among other minions, <b>Adapt</b> randomly."""
+	[Battlecry:] For each different minion type you have among other minions, [Adapt] randomly."""
 	play = BGS_069_Action(CONTROLLER, 1)	
 	pass
 class TB_BaconUps_121:
 	""" Amalgadon
-	<b>Battlecry:</b> For each different minion type you have among other minions, <b>Adapt</b> randomly twice."""
+	[Battlecry:] For each different minion type you have among other minions, [Adapt] randomly twice."""
 	play = BGS_069_Action(CONTROLLER, 2)
 	pass
 
@@ -1143,7 +1143,7 @@ UNG_999t6e=buff(taunt=True)## 巨体 # 挑発
 #class UNG_999t5e:## 液状膜 ## 呪文とヒーローパワーの標的にならない。
 UNG_999t4e=buff(0,3)## 岩状の甲殻 ## 体力+3
 UNG_999t3e=buff(3,0)## 炎熱の爪 ##攻撃力+3
-class UNG_999t2e:## 動き回る胞子 ##;断末魔:</b>1/1の植物を2体召喚する。
+class UNG_999t2e:## 動き回る胞子 ##;断末魔:]1/1の植物を2体召喚する。
 	tags={GameTag.DEATHRATTLE:True}
 	deathrattle=Summon(CONTROLLER, 'UNG_999t2t1')*2
 class UNG_999t2t1:## 植物
@@ -1241,7 +1241,7 @@ if BG_Orgozoa_the_Tender:### Orgozoa, the Tender(6) ### OK ### NEW 23.2
 	pass
 class BG23_015:# <12>[1453]
 	""" Orgozoa, the Tender(6)
-	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; a Naga."""
+	[Spellcraft: Discover] a Naga."""
 	play = Spellcraft(CONTROLLER,'BG23_015t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_015t'))
 	tags={2359:'BG23_015t'}
@@ -1253,7 +1253,7 @@ class BG23_015t:
 pass
 class BG23_015_G:# <12>[1453]
 	"""
-	&lt;b&gt;Spellcraft: Discover&lt;/b&gt; 2 Naga.</enUS>"""
+	[Spellcraft: Discover] 2 Naga.</enUS>"""
 	play = Spellcraft(CONTROLLER,'BG23_015_Gt')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG23_015_Gt'))
 	tags={2359:'BG23_015_Gt'}
@@ -1291,7 +1291,7 @@ class BG23_190e:
 	pass
 class BG23_190_G:
 	"""
-	&lt;b&gt;Battlecry:&lt;/b&gt; Set a minion's Attack and Health to 30."""
+	[Battlecry:] Set a minion's Attack and Health to 30."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
 	play = BG23_190_Action(TARGET, 'BG23_190Ge', 30)
 class BG23_190_Ge:

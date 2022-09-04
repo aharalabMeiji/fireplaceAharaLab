@@ -889,7 +889,7 @@ if Lone_Champion:
 	Core_Neutral+=['CORE_LOOT_124']
 class CORE_LOOT_124:###OK
 	""" Lone Champion  
-	<b>Battlecry:</b> If you control no other minions, gain <b>Taunt</b> and <b>Divine Shield</b>. """
+	[Battlecry:] If you control no other minions, gain [Taunt] and [Divine Shield]. """
 	def play(self):
 		controller = self.controller
 		if len(controller.field)==1:
@@ -904,7 +904,7 @@ if Stoneskin_Basilisk:
 	Core_Neutral+=['CORE_LOOT_125']
 class CORE_LOOT_125:###OK
 	""" Stoneskin Basilisk
-	<b>Divine Shield</b>  <b>Poisonous</b>"""
+	[Divine Shield]  [Poisonous]"""
 	pass
 
 
@@ -914,7 +914,7 @@ if Sleepy_Dragon:
 	Core_Neutral+=['CORE_LOOT_137']
 class CORE_LOOT_137:###OK
 	""" Sleepy Dragon
-	<b>Taunt</b> """
+	[Taunt] """
 	pass
 
 

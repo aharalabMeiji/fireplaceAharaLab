@@ -160,10 +160,10 @@ if BG_Mind_Muck: #(2) new 24.2
 	BG_Demon_Gold['BG23_357']='BG23_357_G'
 class BG23_357:# 
 	""" Mind Muck(2)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Demon. It consumes a minion in Bob's Tavern to gain its stats."""
+	[Battlecry:] Choose a friendly Demon. It consumes a minion in Bob's Tavern to gain its stats."""
 class BG23_357_G:# 
 	""" Mind Muck
-	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
+	[Battlecry:] Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
 
 
 ####### BG_AV_309 ############
@@ -173,12 +173,12 @@ if BG_Piggyback_Imp: #(2) new 24.2
 	BG_Demon_Gold['BG_AV_309']='BG_AV_309_G'
 class BG_AV_309:# 
 	""" Piggyback Imp(2)
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 4/1 Imp."""
+	[Deathrattle:] Summon a 4/1 Imp."""
 class BG_AV_309t:
 	pass
 class BG_AV_309_G:# 
 	""" Mind Muck
-	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
+	[Battlecry:] Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
 class BG_AV_309_Gt:
 	pass
 

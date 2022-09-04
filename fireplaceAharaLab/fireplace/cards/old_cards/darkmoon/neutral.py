@@ -15,14 +15,14 @@ from ..utils import *
 
 class YOP_003:##OK
 	""" Luckysoul Hoarder
-	[x]<b>Battlecry:</b> Shuffle 2 Soul
+	[x][Battlecry:] Shuffle 2 Soul
 Fragments into your deck.
-<b>Corrupt:</b> Draw a card."""
+[Corrupt:] Draw a card."""
 	play = Shuffle(CONTROLLER,'SCH_307t') * 2
 	pass
 class YOP_003t:#OK
 	"""Luckysoul Hoarder
-	[x]<b>Corrupted</b> <b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck and draw a card."""
+	[x][Corrupted] [Battlecry:] Shuffle 2 Soul Fragments into your deck and draw a card."""
 	play = Shuffle(CONTROLLER,'SCH_307t') * 2, Draw(CONTROLLER)
 	pass
 class YOP_006:#OK
@@ -83,7 +83,7 @@ class YOP_009:#OK
 
 class YOP_015:#OK
 	""" Nitroboost Poison
-	Give a minion +2 Attack. <b>Corrupt:</b> And your weapon. """
+	Give a minion +2 Attack. [Corrupt:] And your weapon. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
 	play = Buff(TARGET, 'YOP_015e')
 	pass
@@ -98,9 +98,9 @@ class YOP_015t:#OK
 
 class YOP_018:################################
 	"""Keywarden Ivory
-	[x]<b>Battlecry:</b> <b>Discover</b> a
+	[x][Battlecry:] [Discover] a
 Dual Class spell from
-any class. <b><b>Spellburst</b>:</b>
+any class. [[Spellburst]:]
 Get another copy. """
 	play = Discover(CONTROLLER, RandomSpell())#multiple_classes=True
 	#.then(
@@ -113,12 +113,12 @@ class YOP_018e:
 	pass
 class YOP_021:
 	"""Imprisoned Phoenix
-	<b>Dormant</b> for 2 turns. <b>Spell Damage +2</b>"""
+	[Dormant] for 2 turns. [Spell Damage +2]"""
 	dormant = 2
 	pass
 class YOP_024:#OK
 	"""Guidance
-	Look at two spells. Add one to your hand or <b>Overload:</b> (1) to get both."""
+	Look at two spells. Add one to your hand or [Overload:] (1) to get both."""
 	def play(self):
 		card1 = (RandomSpell().evaluate(self.controller))[0]
 		card2 = (RandomSpell().evaluate(self.controller))[0]
@@ -130,7 +130,7 @@ class YOP_024:#OK
 	pass
 class YOP_024t:
 	"""Spirit Path
-	Add both spells to your hand. <b>Overload</b> (1)"""
+	Add both spells to your hand. [Overload] (1)"""
 	#no use #tags = {GameTag.CASTSWHENDRAWN: True}
 	def play(self):## casts_when_chosen
 		cards = self.controller.carry_cards
@@ -140,7 +140,7 @@ class YOP_024t:
 	pass
 class YOP_029:#OK
 	"""Resizing Pouch
-	[x]<b>Discover</b> a card with Cost equal to your remaining Mana Crystals."""
+	[x][Discover] a card with Cost equal to your remaining Mana Crystals."""
 	def play(self):
 		remain_mana = self.controller.mana 
 		yield Discover(CONTROLLER, RandomCollectible(cost=remain_mana))
@@ -157,7 +157,7 @@ Costs (1) less."""
 
 class YOP_032:###OK
 	"""Armor Vendor"""
-	## <b>Battlecry:</b> Give 4 Armor to_each hero.
+	## [Battlecry:] Give 4 Armor to_each hero.
 	play = (GainArmor(FRIENDLY_HERO,4),GainArmor(ENEMY_HERO,4))
 	pass
 
@@ -183,21 +183,21 @@ class ShuffleLowestCostCard(TargetedAction):###OK
 
 class DMF_125:###OK
 	"""Safety Inspector"""
-	##[x]<b>Battlecry:</b> Shuffle the_lowest-Cost card from your hand into your deck. Draw a card.
+	##[x][Battlecry:] Shuffle the_lowest-Cost card from your hand into your deck. Draw a card.
 	play = ShuffleLowestCostCard(CONTROLLER),Draw(CONTROLLER)
 	pass
 #ULD_706のようにかけるかも？
 
 class DMF_189:###OK
 	"""Costumed Entertainer"""
-	##[x]<b>Battlecry:</b> Give a random minion in your hand +2/+2.
+	##[x][Battlecry:] Give a random minion in your hand +2/+2.
 	play = Buff(RANDOM(FRIENDLY_HAND + MINION), "DMF_189e")
 	pass
 DMF_189e = buff(atk=2, health=2)
 
 class YOP_031:###OK
 	"""Crabrider"""
-	##[x]<b>Rush</b> <b>Battlecry:</b> Gain <b>Windfury</b> this turn only.
+	##[x][Rush] [Battlecry:] Gain [Windfury] this turn only.
 	play = Buff(SELF, "YOP_031e")
 	pass
 class YOP_031e:
@@ -205,48 +205,48 @@ class YOP_031e:
 
 class DMF_124:###OK
 	"""Horrendous Growth"""
-	##<b>Corrupt:</b> Gain +1/+1. Can be <b>Corrupted</b> endlessly.
+	##[Corrupt:] Gain +1/+1. Can be [Corrupted] endlessly.
 	pass
 
 class DMF_124t:###OK
 	"""Horrendous Growth"""
-	##<b>Corrupt:</b> Gain +1/+1. Can be <b>Corrupted</b> endlessly.
+	##[Corrupt:] Gain +1/+1. Can be [Corrupted] endlessly.
 	pass
 
 class DMF_520:###OK
 	"""Parade Leader"""
-	##After you summon a <b>Rush</b> minion, give it +2 Attack.
+	##After you summon a [Rush] minion, give it +2 Attack.
 	events = Summon(CONTROLLER,rush=True).on(Buff(Summon.CARD,"DMF_520e"))
 	pass
 DMF_520e = buff(atk=2)
 
 class DMF_067:###OK
 	"""Prize Vendor"""
-	##<b>Battlecry:</b> Each player draws a card.
+	##[Battlecry:] Each player draws a card.
 	play = Draw(CONTROLLER),Draw(OPPONENT)
 	pass
 
 class DMF_044:###OK
 	"""Rock Rager"""
-	##<b>Taunt</b>
+	##[Taunt]
 	pass
 
 class DMF_191:###OK
 	"""Showstopper"""
-	##<b>Deathrattle:</b> <b>Silence</b> all_minions.
+	##[Deathrattle:] [Silence] all_minions.
 	deathrattle = Silence(ALL_MINIONS)
 	pass
 
 class DMF_091:###OK
 	"""Wriggling Horror"""
-	##<b>Battlecry:</b> Give adjacent minions +1/+1.
+	##[Battlecry:] Give adjacent minions +1/+1.
 	play = Buff(SELF_ADJACENT, "DMF_091e2")
 	pass
 DMF_091e2 = buff(atk=1,health=1)
 
 class DMF_065:###OK
 	"""Banana Vendor"""
-	##<b>Battlecry:</b> Add 2 Bananas to each player's hand.
+	##[Battlecry:] Add 2 Bananas to each player's hand.
 	play = Give(CONTROLLER, "DMF_065t") * 2, Give(OPPONENT, "DMF_065t") * 2
 	pass
 DMF_065e=buff(1,1)#no use
@@ -259,24 +259,24 @@ class DMF_065t:
 
 class DMF_073:###OK
 	"""Darkmoon Dirigible"""
-	##<b>Divine Shield</b> <b>Corrupt:</b> Gain <b>Rush</b>.
+	##[Divine Shield] [Corrupt:] Gain [Rush].
 	pass
 
 class DMF_073t:###OK
 	"""Darkmoon Dirigible"""
-	##<b>Corrupted</b> <b>Rush</b>, <b>Divine Shield</b>
+	##[Corrupted] [Rush], [Divine Shield]
 	pass
 
 class DMF_082: ###OK ## not implementation for 'This gains +4 attack'
 	"""Darkmoon Statue"""
-	##Your other minions have +1 Attack. <b>Corrupt:</b> This gains +4 Attack.
+	##Your other minions have +1 Attack. [Corrupt:] This gains +4 Attack.
 	update = Refresh(FRIENDLY_MINIONS - SELF, buff="DMF_082e")
 	pass
 DMF_082e = buff(atk=1)
 
 class DMF_082t:
 	"""Darkmoon Statue"""
-	##lt;b>Corrupted</b> Your other minions have +1 Attack.
+	##lt;b>Corrupted] Your other minions have +1 Attack.
 	update = Refresh(FRIENDLY_MINIONS - SELF, buff="DMF_082e")
 	pass
 
@@ -300,7 +300,7 @@ class YOP_012_Deathrattle(TargetedAction):
 
 class YOP_012:###OK
 	"""Deathwarden"""
-	##<b>Deathrattles</b> can't trigger.
+	##[Deathrattles] can't trigger.
 	update = Refresh(ALL_MINIONS - SELF, buff='YOP_012e')
 	tags = {GameTag.DEATHRATTLE: True}
 	deathrattle = YOP_012_Deathrattle(CONTROLLER)
@@ -313,7 +313,7 @@ class YOP_012e:
 
 class DMF_062:###OK
 	"""Gyreworm"""
-	##<b>Battlecry:</b> If you played an Elemental last turn, deal 3_damage.
+	##[Battlecry:] If you played an Elemental last turn, deal 3_damage.
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	def play(self):
 		current_turn = self.controller.game.turn
@@ -327,54 +327,54 @@ class DMF_062:###OK
 
 class DMF_081:###OK
 	"""K'thir Ritualist"""
-	##[x]<b>Taunt</b> <b>Battlecry:</b> Add a random 4-Cost minion to your opponent's hand.
+	##[x][Taunt] [Battlecry:] Add a random 4-Cost minion to your opponent's hand.
 	play = Give(OPPONENT, RandomMinion(cost=4))
 	pass
 
 class DMF_532:###OK
 	"""Circus Amalgam"""
-	##<b>Taunt</b> <i>This has all minion types.</i>
+	##[Taunt] <i>This has all minion types.</i>
 	pass
 
 class DMF_174:###OK
 	"""Circus Medic"""
-	##<b>Battlecry:</b> Restore #4 Health. <b>Corrupt:</b> Deal 4 damage instead.
+	##[Battlecry:] Restore #4 Health. [Corrupt:] Deal 4 damage instead.
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Heal(TARGET,4)
 	pass
 
 class DMF_174t:###OK
 	"""Circus Medic"""
-	##<b>Corrupted</b> <b>Battlecry:</b> Deal 4 damage.
+	##[Corrupted] [Battlecry:] Deal 4 damage.
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Hit(TARGET,4)
 	pass
 
 class DMF_190:###OK
 	"""Fantastic Firebird"""
-	##<b>Windfury</b>
+	##[Windfury]
 	pass
 
 class DMF_066:###OK
 	"""Knife Vendor"""
-	##<b>Battlecry:</b> Deal 4 damage to each hero.
+	##[Battlecry:] Deal 4 damage to each hero.
 	play = Hit(FRIENDLY_HERO, 4),Hit(ENEMY_HERO, 4)
 	pass
 
 class DMF_202:###OK
 	"""Derailed Coaster"""
-	##<b>Battlecry:</b> Summon a 1/1 Rider with <b>Rush</b> for each minion in your hand.
+	##[Battlecry:] Summon a 1/1 Rider with [Rush] for each minion in your hand.
 	play = Summon(CONTROLLER, "DMF_523t") * Count(FRIENDLY_HAND + MINION)
 	pass
 
 class DMF_080:
 	"""Fleethoof Pearltusk"""
-	##<b>Rush</b> <b>Corrupt:</b> Gain +4/+4.
+	##[Rush] [Corrupt:] Gain +4/+4.
 	pass
 
 class DMF_080t:
 	"""Fleethoof Pearltusk"""
-	##<b>Corrupted</b> <b>Rush</b>
+	##[Corrupted] [Rush]
 	pass
 
 class YOP_035:
@@ -391,7 +391,7 @@ class DMF_068:###OK
 
 class DMF_069:###OK
 	"""Claw Machine"""
-	##<b>Rush</b>. <b>Deathrattle:</b> Draw a minion and give it +3/+3.
+	##[Rush]. [Deathrattle:] Draw a minion and give it +3/+3.
 	deathrattle = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION)).then(
 		Buff(Give.CARD, "BT_213e"))
 	pass
@@ -399,7 +399,7 @@ DMF_069e = buff(atk=3,health=3)
 
 class DMF_074: #don't consider about chooseboth #OK
 	"""Silas Darkmoon"""
-	##<b>Battlecry:</b> Choose a direction to rotate all minions.
+	##[Battlecry:] Choose a direction to rotate all minions.
 	choose = ("DMF_074a", "DMF_074b")
 	pass
 
@@ -478,29 +478,29 @@ class DMF_074b:
 
 class DMF_078:###OK
 	"""Strongman"""
-	##<b>Taunt</b> <b>Corrupt:</b> This costs (0).
+	##[Taunt] [Corrupt:] This costs (0).
 	pass
 DMF_078e=buff(cost=0)
 class DMF_078t:###OK
 	"""Strongman"""
-	##<b>Corrupted</b> <b>Taunt</b>
+	##[Corrupted] [Taunt]
 	pass
 
 class DMF_163:###OK
 	"""Carnival Clown"""
-	##[x]<b>Taunt</b> <b>Battlecry:</b> Summon 2 copies of this. <b>Corrupt:</b> Fill your board with copies.
+	##[x][Taunt] [Battlecry:] Summon 2 copies of this. [Corrupt:] Fill your board with copies.
 	play = Summon(CONTROLLER, ExactCopy(SELF)) * 2
 	pass
 
 class DMF_163t:###OK
 	"""Carnival Clown"""
-	##[x]<b>Corrupted</b> <b>Taunt</b> <b>Battlecry:</b> Fill your board with copies of this.
+	##[x][Corrupted] [Taunt] [Battlecry:] Fill your board with copies of this.
 	play = Summon(CONTROLLER, ExactCopy(SELF)) * 6
 	pass
 
 class DMF_002:###OK
 	"""N'Zoth, God of the Deep"""
-	##<b>Battlecry:</b> Resurrect a friendly minion of each minion type.
+	##[Battlecry:] Resurrect a friendly minion of each minion type.
 	def summonRace(self, myRace, exclude):
 		friendly_graveyard = self.controller.graveyard
 		choice = []
@@ -554,45 +554,45 @@ class DMF_254t_Action(TargetedAction):
 
 class DMF_254:###OK
 	"""C'Thun, the Shattered"""
-	##[x]<b>Start of Game:</b> Break into pieces. <b>Battlecry:</b> Deal 30 damage randomly split among all enemies.
+	##[x][Start of Game:] Break into pieces. [Battlecry:] Deal 30 damage randomly split among all enemies.
 	play = Hit(RANDOM_ENEMY_CHARACTER,1) * 30
 	pass
 
 class DMF_254t3:###OK
 	""" Eye of C'Thun
-	[x]<b>Piece_of_C'Thun_(@/4)</b>Deal $7 damage randomly split among all enemies. """
+	[x][Piece_of_C'Thun_(@/4)]Deal $7 damage randomly split among all enemies. """
 	play = DMF_254t_Action(SELF),Hit(RANDOM_ENEMY_CHARACTER,1) * 7
 	pass
 class DMF_254t4:###OK
 	""" Heart of C'Thun
-	<b>Piece of C'Thun (@/4)</b> Deal $3 damage to all minions. """
+	[Piece of C'Thun (@/4)] Deal $3 damage to all minions. """
 	play = DMF_254t_Action(SELF),Hit(ENEMY_MINIONS,3)
 	pass
 class DMF_254t5:###OK
 	""" Body of C'Thun
-	<b>Piece of C'Thun (@/4)</b> Summon a 6/6 C'Thun's Body with <b>Taunt</b>. """
+	[Piece of C'Thun (@/4)] Summon a 6/6 C'Thun's Body with [Taunt]. """
 	play = DMF_254t_Action(SELF),Summon(CONTROLLER,'DMF_254t5t')
 	pass
 class DMF_254t5t:
 	""" C'Thun's Body
-	<b>Taunt</b> """
+	[Taunt] """
 	pass
 class DMF_254t7:###OK
 	""" Maw of C'Thun
-	<b>Piece of C'Thun (@/4)</b> Destroy a minion. """
+	[Piece of C'Thun (@/4)] Destroy a minion. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	play = DMF_254t_Action(SELF),Destroy(TARGET)
 	pass
 
 class DMF_070:###OK
 	"""Darkmoon Rabbit"""
-	##<b>Rush</b>, <b>Poisonous</b> Also damages the minions next to whomever this attacks.
+	##[Rush], [Poisonous] Also damages the minions next to whomever this attacks.
 	events = Attack(SELF, ENEMY_MINIONS).on(RegularAttack(SELF, ADJACENT(Attack.DEFENDER)))
 	pass
 
 class DMF_188: #this turn only??# yes! ##OK
 	"""Y'Shaarj, the Defiler"""
-	##[x]<b>Battlecry:</b> Add a copy of each <b>Corrupted</b> card you've played this game to your hand. They cost (0) this turn.
+	##[x][Battlecry:] Add a copy of each [Corrupted] card you've played this game to your hand. They cost (0) this turn.
 	def play(self):
 		for card in self.controller.play_log:
 			if hasattr(card,'corruptedcard') and card.corruptedcard:
@@ -634,7 +634,7 @@ class CountSpells(TargetedAction):
 
 class DMF_004:###OK
 	"""Yogg-Saron, Master of Fate"""
-	##[x]<b>Battlecry:</b> If you've cast 10 spells this game, spin the Wheel of Yogg-Saron.
+	##[x][Battlecry:] If you've cast 10 spells this game, spin the Wheel of Yogg-Saron.
 	#@ <i>({0} left!)</i>@ <i>(Ready!)</i>
 	play = Find10SpellsAndSpin(CONTROLLER)
 	class Hand:
@@ -678,7 +678,7 @@ class DMF_004t2:###OK
 	pass
 class DMF_004t3:###OK
 	"""Curse of Flesh
-	Fill the board with random minions, then give yours <b>Rush</b> """
+	Fill the board with random minions, then give yours [Rush] """
 	play = (Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
 		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),

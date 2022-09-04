@@ -4,13 +4,13 @@ from ..utils import *
 
 class SCH_700:#<9>[1443]WARLOCK
 	""" Spirit Jailer
-	<b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck."""
+	[Battlecry:] Shuffle 2 Soul Fragments into your deck."""
 	play = Shuffle(CONTROLLER,"SCH_307t")*2 
 	pass
 
 class SCH_307t:# <9>[1443]WARLOCK
 	""" Soul Fragment
-	<b>Casts When Drawn</b>
+	[Casts When Drawn]
 	Restore #2 Health to your hero.""" 
 	play = Heal(FRIENDLY_HERO,2)
 

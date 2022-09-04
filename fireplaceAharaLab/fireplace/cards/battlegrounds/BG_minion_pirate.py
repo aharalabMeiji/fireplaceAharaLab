@@ -8,6 +8,7 @@ BG_Yo_Ho_Ogre=True ##,2
 BG_Briny_Bootlegger=False ##,3 banned 24.2
 BG_Salty_Looter=True ##,3
 BG_Southsea_Strongarm=True ##,3,
+BG_First_Mate_Pip=True ##(3) new 24.2
 BG_Goldgrubber=True ##,4
 BG_Peggy_Brittlebone=True ##,4
 BG_Ripsnarl_Captain=True ##,4
@@ -29,12 +30,12 @@ if BG_Deck_Swabbie:
 	BG_Pirate_Gold['BGS_055']='TB_BaconUps_126'
 class BGS_055:#
 	""" Deck Swabbie <pirate>  (2/2)
-	<b>Battlecry:</b> Reduce the cost of upgrading Bob's Tavern by (1). """
+	[Battlecry:] Reduce the cost of upgrading Bob's Tavern by (1). """
 	play = ReduceTierUpCost(CONTROLLER,1)
 	pass
 class TB_BaconUps_126:
 	""" Deck Swabbie <pirate>  (4/4)
-	<b>Battlecry:</b> Reduce the cost of upgrading Bob's Tavern by (2). """
+	[Battlecry:] Reduce the cost of upgrading Bob's Tavern by (2). """
 	play = ReduceTierUpCost(CONTROLLER,2)
 	pass
 
@@ -66,7 +67,7 @@ class BGS_061t:# <7>[1453]
 	""" Sky Pirate,	 """
 class TB_BaconUps_141:# <12>[1453]
 	""" Scallywag
-	<b>Deathrattle:</b> Summon a 2/2 Pirate. It attacks immediately. """
+	[Deathrattle:] Summon a 2/2 Pirate. It attacks immediately. """
 	deathrattle = BGS_061_Action(CONTROLLER, 'TB_BaconUps_141t')
 	pass
 class TB_BaconUps_141t:# <7>[1453]
@@ -224,7 +225,7 @@ TB_BaconUps_140e=buff(2,2)
 
 
 ##### BG23_192 #######
-if BG_: ##(3) new 24.2
+if BG_First_Mate_Pip: ##(3) new 24.2
 	BG_Minion_Pirate +=['BG23_192','BG23_192_G']
 	BG_PoolSet_Pirate[3]+='BG23_192'
 	BG_Pirate_Gold['BG23_192']='BG23_192_G'
@@ -234,7 +235,7 @@ class BG23_192:
 	pass
 class BG23_192_G:
 	""" First Mate Pip (3)
-	&lt;i&gt;(Only 2 copies of this minion were needed to make it Golden.)&lt;/i&gt;"""
+	<i>(Only 2 copies of this minion were needed to make it Golden.)</i>"""
 	pass
 
 #Goldgrubber,4,4,4,Pirate,- 金ぴか ### OK ###

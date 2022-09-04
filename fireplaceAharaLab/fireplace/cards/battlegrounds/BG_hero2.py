@@ -120,10 +120,10 @@ class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
 class TB_BaconShop_HP_047:
 	""" Lead Explorer 
-	<b>Discover</b> a minion from your Tavern tier. Costs (1) more after each use."""
+	[Discover] a minion from your Tavern tier. Costs (1) more after each use."""
 	activate = Discover(CONTROLLER, RandomMinion(tech_level=TIER(CONTROLLER))*3),Buff(SELF,'TB_BaconShop_HP_047e')
 	## until 24.0
-	##<b>Passive</b> When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
+	##[Passive] When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
 	##events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
 class TB_BaconShop_HP_047t_Choice(Choice):
 	def choose(self, card):
@@ -134,7 +134,7 @@ class TB_BaconShop_HP_047t_Choice(Choice):
 		card.zone=Zone.HAND
 class TB_BaconShop_HP_047t:
 	""" Recruitment Map
-	<b>Discover</b> a minion from <b>Tavern Tier @</b>."""
+	[Discover] a minion from [Tavern Tier @]."""
 	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))*3)
 	# Here we activate 'choicecard.BG_cost = bar.cardCost'
 @custom_card
@@ -172,7 +172,7 @@ class TB_BaconShop_HERO_74:# <12>[1453]
 	""" Forest Warden Omu  """
 class TB_BaconShop_HP_082:
 	""" Everbloom
-	<b>Passive</b> After you upgrade Bob's Tavern, gain 2 Gold this turn only."""
+	[Passive] After you upgrade Bob's Tavern, gain 2 Gold this turn only."""
 	events = UpgradeTier(CONTROLLER).after(ManaThisTurnOnly(CONTROLLER,2))
 ######## BUDDY
 class TB_BaconShop_HERO_74_Buddy:# <12>[1453]
@@ -199,7 +199,7 @@ class TB_BaconShop_HERO_55:# <12>[1453]
 	pass
 class TB_BaconShop_HP_056:
 	""" Gone Fishing
-	<b>Passive</b> After you sell two minions, add a random Murloc to Bob's Tavern."""
+	[Passive] After you sell two minions, add a random Murloc to Bob's Tavern."""
 	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 2, 
 		[Summon(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))] #
 	))
@@ -234,7 +234,7 @@ class TB_BaconShop_HP_011_Action(TargetedAction):
 		TB_BaconShop_HP_011_Choice(controller, RandomBGMinion(tech_level=tier)*3).trigger(source)
 class TB_BaconShop_HP_011:
 	""" Galakrond's Greed
-	Choose a minion in Bob's Tavern. <b>Discover</b> a higher Tier minion to replace it."""
+	Choose a minion in Bob's Tavern. [Discover] a higher Tier minion to replace it."""
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0,
 		PlayReq.REQ_ENEMY_TARGET:0,
@@ -319,7 +319,7 @@ class TB_BaconShop_HERO_15:# <12>[1453]
 	""" George the Fallen  """
 class TB_BaconShop_HP_010:
 	""" Boon of Light
-	Give a minion <b>Divine Shield</b>."""
+	Give a minion [Divine Shield]."""
 	## divine shield without buff
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0,
@@ -363,7 +363,7 @@ class TB_BaconShop_HP_107_Action(TargetedAction):
 		Buff(target, 'TB_BaconShop_HP_107e').trigger(source)
 class TB_BaconShop_HP_107:
 	""" Sprout It Out!
-	<b>Passive</b> Give +1/+2 and <b>Taunt</b> to minions you summon during combat."""
+	[Passive] Give +1/+2 and [Taunt] to minions you summon during combat."""
 	events = Summon(CONTROLLER, FRIENDLY + MINION).on(TB_BaconShop_HP_107_Action(Summon.CARD))
 TB_BaconShop_HP_107e=buff(1,2,taunt=True)
 ######## BUDDY
@@ -450,7 +450,7 @@ class TB_BaconShop_HP_069_Action(TargetedAction):
 				BG_Attack(right, random.choice(op_field)).trigger(source)
 class TB_BaconShop_HP_069:
 	""" Wingmen
-	<b>Passive.</b> <b>Start of Combat:</b> Your left and right-most minions gain +2 Attack __and attack immediately. """
+	[Passive.] [Start of Combat:] Your left and right-most minions gain +2 Attack __and attack immediately. """
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_069_Action(CONTROLLER))
 	pass
 TB_BaconShop_HP_069e=buff(2,0)
@@ -497,18 +497,18 @@ class TB_BaconShop_HP_028_Action(TargetedAction):
 		controller.game.parent.BG_decks[tier].remove(cardID)
 class TB_BaconShop_HP_028:
 	"""  Temporal Tavern
-	<b>Refresh</b> Bob's Tavern. Include a minion from a higher Tavern Tier."""
+	[Refresh] Bob's Tavern. Include a minion from a higher Tavern Tier."""
 	activate = TB_BaconShop_HP_028_Action(CONTROLLER)
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_28_Buddy:# <12>[1453]
 	""" Clockwork Assistant
-	<b>Battlecry:</b> <b>Discover</b> a minion from a higher Tavern Tier. """
+	[Battlecry:] [Discover] a minion from a higher Tavern Tier. """
 	play = Discover(CONTROLLER, RandomBGMinion(tech_level=(TIER(CONTROLLER)+1)))
 	pass
 class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
 	"""
-	&lt;b&gt;Battlecry:&lt;/b&gt; &lt;b&gt;Discover&lt;/b&gt; two minions from a higher Tavern Tier."""
+	[Battlecry:] [Discover] two minions from a higher Tavern Tier."""
 	play = DiscoverTwice(CONTROLLER, RandomBGMinion(tech_level=(TIER(CONTROLLER)+1))*3)
 	pass
 
@@ -575,8 +575,8 @@ class TB_BaconShop_HERO_60:# <12>[1453]
 	""" Kael'thas Sunstrider """
 class TB_BaconShop_HP_066:
 	""" Verdant Spheres
-	<b>Passive</b>Every third minion you play gains +2/+2.""" #24.0.3
-	## <b>Passive</b> Every third minion you buy gains +2/+2. until 24.0
+	[Passive]Every third minion you play gains +2/+2.""" #24.0.3
+	## [Passive] Every third minion you buy gains +2/+2. until 24.0
 	events = BG_Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 3, [Buff(Buy.CARD, 'TB_BaconShop_HP_066e' )]))
 TB_BaconShop_HP_066e=buff(2,2)
 ######## BUDDY

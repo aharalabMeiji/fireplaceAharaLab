@@ -40,7 +40,7 @@ class AV_205a:
 	pass
 class AV_205p:
 	""" Nurture (hero power)
-	<b>Hero Power</b><b>Choose One -</b> Draw a card;or Gain a Mana Crystal."""
+	[Hero Power][Choose One -] Draw a card;or Gain a Mana Crystal."""
 	choose=('AV_205a', 'AV_205pb')
 	play = ChooseBoth(SELF) & (GainMana(CONTROLLER, 1), Draw(CONTROLLER))
 	pass

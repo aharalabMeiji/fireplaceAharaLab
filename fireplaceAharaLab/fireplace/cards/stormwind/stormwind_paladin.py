@@ -198,7 +198,7 @@ class CS2_091:
 	pass
 class SW_313t:# <5>[1578]
 	""" Pave the Way
-	&lt;b&gt;Questline: &lt;/b&gt; Play 3 different 1-Cost cards. &lt;b&gt;Reward:&lt;/b&gt; Upgrade your Hero Power."""
+	[Questline: ] Play 3 different 1-Cost cards. [Reward:] Upgrade your Hero Power."""
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	
 	events = Play(CONTROLLER).on(SW_313_Questline(Play.CARD, 3, [
 		ChangeHeroPower(CONTROLLER, 'HERO_04bp2'),
@@ -207,7 +207,7 @@ class SW_313t:# <5>[1578]
 	pass
 class SW_313t2:# <5>[1578]
 	""" Avenge the Fallen
-	&lt;b&gt;Questline:&lt;/b&gt; Play 3 different 1-Cost cards. &lt;b&gt;Reward:&lt;/b&gt; Lightborn Cariel."""
+	[Questline:] Play 3 different 1-Cost cards. [Reward:] Lightborn Cariel."""
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}	
 	events = Play(CONTROLLER).on(SW_313_Questline(Play.CARD, 3, [
 		Give(CONTROLLER, 'SW_313t4') 
@@ -216,7 +216,7 @@ class SW_313t2:# <5>[1578]
 
 class SW_313t4:# <5>[1578]
 	""" Lightborn Cariel
-	&lt;b&gt;Battlecry:&lt;/b&gt; For the rest of the game, your Silver Hand Recruits have +2/+2."""
+	[Battlecry:] For the rest of the game, your Silver Hand Recruits have +2/+2."""
 	play = Buff(CONTROLLER, 'SW_313t4e')
 	pass
 

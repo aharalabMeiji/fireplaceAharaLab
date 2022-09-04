@@ -71,7 +71,7 @@ class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
 class TB_BaconShop_HP_106:
 	""" Prize Wall 
-	&lt;b&gt;Passive&lt;/b&gt; Every 4 turns, &lt;b&gt;Discover&lt;/b&gt; a Darkmoon Prize. &lt;i&gt;(@ |4(turn, turns) left!)&lt;/i&gt;"""
+	[Passive] Every 4 turns, [Discover] a Darkmoon Prize. <i>(@ |4(turn, turns) left!)</i>"""
 	entourage = [
 	'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
 	'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
@@ -107,7 +107,7 @@ class TB_BaconShop_HERO_10:# <12>[1453]
 	""" Trade Prince Gallywix """
 class TB_BaconShop_HP_008:
 	""" 
-	&lt;b&gt;Passive&lt;/b&gt; After you sell a minion, get 1 extra Gold next turn. &lt;i&gt;(Can exceed 10.)&lt;/i&gt;"""
+	[Passive] After you sell a minion, get 1 extra Gold next turn. <i>(Can exceed 10.)</i>"""
 	### proceed in BG_main
 	pass
 class TB_BaconShop_HP_008a:
@@ -375,7 +375,7 @@ class TB_BaconShop_HP_103_Action(TargetedAction):
 			Give(controller.deepcopy_original, card).trigger(controller.deepcopy_original)
 class TB_BaconShop_HP_103:
 	"""  Embrace Your Rage
-	&lt;b&gt;Start of Combat:&lt;/b&gt; Summon a minion from your Tavern Tier. Add a copy to your hand."""
+	[Start of Combat:] Summon a minion from your Tavern Tier. Add a copy to your hand."""
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_103_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_92_Buddy:# <12>[1453]
@@ -513,7 +513,7 @@ class TB_BaconShop_HP_062_Action(TargetedAction):
 
 class TB_BaconShop_HP_062:
 	"""  Dream Portal
-	&lt;b&gt;Passive&lt;/b&gt; Bob always offers an extra Dragon whenever the Tavern is &lt;b&gt;Refreshed&lt;/b&gt;."""
+	[Passive] Bob always offers an extra Dragon whenever the Tavern is [Refreshed]."""
 	events = Rerole(CONTROLLER).after(TB_BaconShop_HP_062_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_53_Buddy:
@@ -550,7 +550,7 @@ class TB_BaconShop_HP_102_Action(TargetedAction):
 
 class TB_BaconShop_HP_102:
 	"""  Three Wishes
-	If you have two copies of a minion, find the third. &lt;i&gt;(@ |4(Wish, Wishes) left!)&lt;/i&gt;"""
+	If you have two copies of a minion, find the third. <i>(@ |4(Wish, Wishes) left!)</i>"""
 	activate = TB_BaconShop_HP_102_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HERO_91_Buddy:
@@ -566,11 +566,11 @@ class BG22_HERO_007:
 	""" Queen Axshara 	"""
 class BG22_HERO_007p:
 	""" Azshara's Ambition
-	&lt;b&gt;Passive.&lt;/b&gt; When your warband reaches 30 total Attack, begin your Naga Conquest.@[x]&lt;b&gt;Passive.&lt;/b&gt; When your warband reaches 30 total Attack, begin your Naga Conquest. &lt;i&gt;({0} left!)&lt;/i&gt;"""
+	[Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest.@[x][Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest. <i>({0} left!)</i>"""
 	pass
 class BG22_HERO_007p2:
 	""" Naga Conquest
-	&lt;b&gt;Discover&lt;/b&gt; a Naga."""
+	[Discover] a Naga."""
 	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
 	pass
 class BG22_HERO_007t:
@@ -596,7 +596,7 @@ class BG23_HERO_304p_Action2(TargetedAction):
 		source.script_data_num_1=0
 class BG23_HERO_304p:
 	""" Relics of the Deep
-	&lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Spellcraft&lt;/b&gt; spell of your Tier or lower. &lt;b&gt;Passive:&lt;/b&gt; Your first one __each turn is permanent."""
+	[Discover] a [Spellcraft] spell of your Tier or lower. [Passive:] Your first one __each turn is permanent."""
 	events = [
 		Buff(FRIENDLY).on(BG23_HERO_304p_Action(Buff.BUFF)),
 		BeginBar(CONTROLLER).on(BG23_HERO_304p_Action2(SELF))

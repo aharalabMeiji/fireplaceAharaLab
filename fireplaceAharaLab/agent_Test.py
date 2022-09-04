@@ -157,7 +157,7 @@ class TestHumanAgent(Agent):
             if player.hero.power.is_usable():
                 print("%s" % player.hero.power, end='   : ')
                 print("<%2d>" % player.hero.power.cost, end=' ')
-                print("%s"%player.hero.power.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']'))
+                print("%s"%player.hero.power.data.description.replace('\n', '').replace('[x]', '').replace('[','[').replace(']',']'))
                 if player.hero.power.requires_target():
                     for target in player.hero.power.targets:
                         if player.hero.power.is_usable():
@@ -222,11 +222,11 @@ class TestHumanAgent(Agent):
         for card in choiceCards:
             print("%d : %s" %(myCount, card), end='   : ')
             if card.data.type == CardType.MINION:
-                print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
+                print("%2d(%2d/%2d)%s"%(card.cost, card.atk, card.health, card.data.description.replace('\n', '').replace('[x]', '').replace('[','[').replace(']',']')))
             elif card.data.type == CardType.SPELL:
-                print("%2d : %s"%(card.cost, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
+                print("%2d : %s"%(card.cost, card.data.description.replace('\n', '').replace('[x]', '').replace('[','[').replace(']',']')))
             elif card.data.type == CardType.WEAPON:
-                print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n', '').replace('[x]', '').replace('<b>','[').replace('</b>',']')))
+                print("%2d(%2d/%2d) : %s"%(card.cost, card.atk, card.durability, card.data.description.replace('\n', '').replace('[x]', '').replace('[','[').replace(']',']')))
             myCount += 1
         print("Choose exchange cards (e.g. '1 3 4') ->")
         str = input()  # やり直しはなし
@@ -257,7 +257,7 @@ class TestHumanAgent(Agent):
 
 def adjust_text_bt_spellpower(text, player):
 	_catch_number=-1
-	_new_text=text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+	_new_text=text.replace('\n','').replace('[x]','').replace('[','[').replace(']',']')
 	_len=len(_new_text)
 	for _i in range(_len):
 		if _new_text[_i]=='$':

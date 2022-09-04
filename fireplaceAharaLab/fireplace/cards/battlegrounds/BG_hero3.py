@@ -117,10 +117,10 @@ class TB_Bacon_Secrets_08e:
 ######## BUDDY
 class TB_BaconShop_HERO_37_Buddy:
 	"""Kil'rek
-	<b>Taunt</b> <b>Deathrattle:</b> Add a random Demon to your hand."""
+	[Taunt] [Deathrattle:] Add a random Demon to your hand."""
 class TB_BaconShop_HERO_37_Buddy_G:
 	""" Kil'rek
-	<b>Taunt</b> <b>Deathrattle:</b> Add 2 random Demons to your hand."""
+	[Taunt] [Deathrattle:] Add 2 random Demons to your hand."""
 	pass
 
 
@@ -131,7 +131,7 @@ class TB_BaconShop_HERO_62:# <12>[1453]
 	""" Maiev Shadowsong """
 class TB_BaconShop_HP_068:
 	""" Imprison
-	Make a minion in Bob's Tavern <b>Dormant</b>. After 3 __turns, get it with +2/+2 """
+	Make a minion in Bob's Tavern [Dormant]. After 3 __turns, get it with +2/+2 """
 	requirements = {
 		PlayReq.REQ_TARGET_TO_PLAY:0,
 		PlayReq.REQ_ENEMY_TARGET:0,
@@ -256,7 +256,7 @@ class TB_BaconShop_HERO_49:# <12>[1453]
 	pass
 class TB_BaconShop_HP_054:
 	""" Manastorm
-	<b>Passive</b> Minions cost 2 Gold. <b>Refresh</b> costs 2 Gold. _Tavern Tiers cost (1) more."""
+	[Passive] Minions cost 2 Gold. [Refresh] costs 2 Gold. _Tavern Tiers cost (1) more."""
 class TB_Baconshop_HP_054e:
 	""" Costs (1) less."""
 ######## BUDDY
@@ -295,7 +295,7 @@ class TB_BaconShop_HP_015_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_015:
 	""" Tinker
-	<b>Passive</b>Mechs in Bob's Tavern have +1/+1."""
+	[Passive]Mechs in Bob's Tavern have +1/+1."""
 	events = [
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_015_Action(CONTROLLER)),
 		Rerole(CONTROLLER).on(TB_BaconShop_HP_015_Action(CONTROLLER)),
@@ -304,12 +304,12 @@ TB_BaconShop_HP_015e=buff(1,1)
 ######## BUDDY
 class TB_BaconShop_HERO_17_Buddy:# <12>[1453] 
 	""" Elementium Squirrel Bomb
-	<b>Deathrattle:</b> Deal 3 damage to a random enemy minion for each of your Mechs that died this combat. """
+	[Deathrattle:] Deal 3 damage to a random enemy minion for each of your Mechs that died this combat. """
 	#
 	pass
 class TB_BaconShop_HERO_17_Buddy_G:
 	""" 
-	<b>Deathrattle:</b> Deal 6 damage to a random enemy minion for each of your Mechs that died this combat.""" 
+	[Deathrattle:] Deal 6 damage to a random enemy minion for each of your Mechs that died this combat.""" 
 
 
 
@@ -318,7 +318,7 @@ class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
 class TB_BaconShop_HP_080:
 	""" Kel'Thuzad's Kitty
-	<b>Passive</b> When a player dies, <b>Discover</b> a minion from their warband. It keeps any enchantments."""
+	[Passive] When a player dies, [Discover] a minion from their warband. It keeps any enchantments."""
 ######## BUDDY
 class TB_BaconShop_HERO_70_Buddy:# <12>[1453]
 	""" Lil' K.T.
@@ -401,7 +401,7 @@ class TB_BaconShop_HP_105_Action2(TargetedAction):
 		pass
 class TB_BaconShop_HP_105:
 	""" Avatar of N'Zoth
-	<b>Passive</b> Start the game with a 2/2 Fish that gains all your <b>Deathrattles</b> in combat."""
+	[Passive] Start the game with a 2/2 Fish that gains all your [Deathrattles] in combat."""
 	events = BeginGame(CONTROLLER).on(Summon(CONTROLLER,'TB_BaconShop_HP_105t'))
 class TB_BaconShop_HP_105t:
 	""" fish """
@@ -430,7 +430,7 @@ class TB_BaconShop_HERO_57:# <12>[1453]
 	""" Nozdormu  """
 class TB_BaconShop_HP_063:
 	""" Clairvoyance
-	<b>Passive</b> Your first <b>Refresh</b> each turn costs (0)"""
+	[Passive] Your first [Refresh] each turn costs (0)"""
 	events = BeginBar(CONTROLLER).on(GetFreeRerole(CONTROLLER))
 ######## BUDDY
 class TB_BaconShop_HERO_57_Buddy:# <12>[1453]
@@ -590,7 +590,7 @@ class TB_BaconShop_HP_072e:
 ######## BUDDY
 class TB_BaconShop_HERO_18_Buddy:# <12>[1453]
 	"""Tuskarr Raider
-	<b>Battlecry:</b> Give a minion +1/+1 for each Pirate you played this game."""
+	[Battlecry:] Give a minion +1/+1 for each Pirate you played this game."""
 class TB_BaconShop_HERO_18_Buddy_e:# <12>[1453]
 	""" Raiding with Tuskarr
 	Increased stats. """
@@ -598,7 +598,7 @@ class TB_BaconShop_HERO_18_Buddy_e:# <12>[1453]
 	pass
 class TB_BaconShop_HERO_18_Buddy_G:
 	"""
-	<b>Battlecry:</b> Give a minion +2/+2 for each Pirate you played this game."""
+	[Battlecry:] Give a minion +2/+2 for each Pirate you played this game."""
 
 
 
@@ -609,7 +609,7 @@ class TB_BaconShop_HERO_34:# <12>[1453]
 	pass
 class TB_BaconShop_HP_035:
 	""" All Patched Up
-	<b>Passive</b> Start with 55 Health instead of 40."""
+	[Passive] Start with 55 Health instead of 40."""
 ######## BUDDY
 class TB_BaconShop_HERO_34_Buddy:# <12>[1453]
 	""" Weebomination
@@ -648,7 +648,7 @@ class TB_BaconShop_HP_040_Action2(TargetedAction):
 			source.script_data_num_1 += 1
 class TB_BaconShop_HP_040:
 	""" Brick by Brick
-	Give a minion +@ Health. &lt;i&gt;(Gains +1 Health each turn you don't use this!)&lt;/i&gt; """ #23.6
+	Give a minion +@ Health. <i>(Gains +1 Health each turn you don't use this!)</i> """ #23.6
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, 
 				 PlayReq.REQ_FRIENDLY_TARGET:0,}	
 	activate = TB_BaconShop_HP_040_Action1(TARGET, 'TB_BaconShop_HP_040e')
@@ -743,11 +743,11 @@ class TB_BaconShop_HP_087_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_087:
 	""" DIE, INSECTS!
-	<b>Passive</b> After you kill 25 enemy minions, get Sulfuras. <i>(@ left!)</i>"""
+	[Passive] After you kill 25 enemy minions, get Sulfuras. <i>(@ left!)</i>"""
 	events = Death(ENEMY + MINION).on(TB_BaconShop_HP_087_Action(CONTROLLER))
 class TB_BaconShop_HP_087t:
 	""" Sulfuras 
-	&lt;b&gt;Passive&lt;/b&gt; At the end of your turn, give your left- and right- most minions +3/+3."""
+	[Passive] At the end of your turn, give your left- and right- most minions +3/+3."""
 	events = OWN_TURN_END.on(TB_BaconShop_HP_087t_Action(CONTROLLER))
 TB_BaconShop_HP_087te=buff(3,3)
 ######## BUDDY

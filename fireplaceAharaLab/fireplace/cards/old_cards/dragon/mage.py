@@ -5,16 +5,16 @@ from ..utils import *
 
 class DRG_106:#OK
 	"""Arcane Breath
-	Deal $2 damage to a minion. If you're holding a Dragon, <b>Discover</b> a spell."""
+	Deal $2 damage to a minion. If you're holding a Dragon, [Discover] a spell."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 2), HOLDING_DRAGON & Discover(CONTROLLER, RandomSpell())
 	pass 
 
 class DRG_324:#OK
 	"""Elemental Allies
-	[x]<b>Sidequest:</b> Play an
+	[x][Sidequest:] Play an
 	Elemental 2 turns in a row.
-	<b>Reward:</b> Draw 3 spells
+	[Reward:] Draw 3 spells
 	from your deck."""
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="2"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="395"/>
@@ -24,9 +24,9 @@ class DRG_324:#OK
 
 class DRG_323:#OK
 	"""Learn Draconic
-	[x]<b>Sidequest:</b> Spend
+	[x][Sidequest:] Spend
 	8 Mana on spells.
-	<b>Reward:</b> Summon a
+	[Reward:] Summon a
 	6/6 Dragon."""
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="8"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="55282"/>
@@ -40,7 +40,7 @@ class DRG_323t:# 55282
 
 class DRG_107:#OK
 	"""Violet Spellwing
-	<b>Deathrattle:</b> Add an 'Arcane Missiles' spell to_your hand."""
+	[Deathrattle:] Add an 'Arcane Missiles' spell to_your hand."""
 	deathrattle = Give(CONTROLLER, "EX1_277")
 
 class DRG_104:#OK
@@ -55,14 +55,14 @@ class DRG_104t2:
 
 class DRG_102:#OK
 	"""Azure Explorer
-	<b>Spell Damage +2</b>
-	<b>Battlecry:</b> <b>Discover</b> a Dragon."""
+	[Spell Damage +2]
+	[Battlecry:] [Discover] a Dragon."""
 	play = DISCOVER(RandomDragon())
 
 class DRG_270:#OK
 	"""Malygos, Aspect of Magic
-	[x]<b>Battlecry:</b> If you're holding
-	a Dragon, <b>Discover</b> an
+	[x][Battlecry:] If you're holding
+	a Dragon, [Discover] an
 	upgraded Mage spell."""
 	entourage = ["DRG_270t1","DRG_270t2","DRG_270t4","DRG_270t5","DRG_270t6","DRG_270t7","DRG_270t8","DRG_270t9","DRG_270t11"]
 	play = HOLDING_DRAGON & Discover(CONTROLLER, RandomEntourage())
@@ -83,7 +83,7 @@ class DRG_270t4:#OK
 	pass
 class DRG_270t5:#OK
 	""" Malygos's Nova
-	<b>Freeze</b> all enemy minions."""
+	[Freeze] all enemy minions."""
 	play = Freeze(ENEMY_MINIONS)
 	pass
 class DRG_270t6:#OK
@@ -101,7 +101,7 @@ class DRG_270t7:#OK
 	pass
 class DRG_270t8:#OK
 	""" Malygos's Frostbolt
-	Deal $3 damage to a_character and <b>Freeze</b> it."""
+	Deal $3 damage to a_character and [Freeze] it."""
 	requirements = { PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 3), Freeze(TARGET)
 	pass
@@ -128,7 +128,7 @@ class DRG_321:#OK
 
 class DRG_322:#OK
 	"""Dragoncaster
-	<b>Battlecry:</b> If you're holding a Dragon, your next spell this turn costs (0)."""
+	[Battlecry:] If you're holding a Dragon, your next spell this turn costs (0)."""
 	play = HOLDING_DRAGON & Buff(CONTROLLER, "DRG_322e")
 class DRG_322e:
 	""" Draconic Magic

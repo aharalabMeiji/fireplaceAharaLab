@@ -158,7 +158,7 @@ if StormWind_Stubborn_Suspect:#
 	StormWind_Neutral+=['SW_006']
 class SW_006:#OK
 	""" Stubborn Suspect
-	<b>Deathrattle:</b> Summon a random 3-Cost minion. """
+	[Deathrattle:] Summon a random 3-Cost minion. """
 	deathrattle = Summon(CONTROLLER, RANDOM(MINION+(COST==3)))
 	pass
 
@@ -185,7 +185,7 @@ if StormWind_Auctioneer_Jaxon:#
 	StormWind_Neutral+=['SW_045']
 class SW_045:#OK
 	""" Auctioneer Jaxon
-	[x]Whenever you <b>Trade</b>,<b>Discover</b> a card from your_deck to draw instead. """
+	[x]Whenever you [Trade],[Discover] a card from your_deck to draw instead. """
 	pass
 
 
@@ -195,7 +195,7 @@ if StormWind_StormWind_Guard:#
 	StormWind_Neutral+=['SW_054e']
 class SW_054:#OK
 	""" Stormwind Guard
-	<b>Taunt</b><b>Battlecry:</b> Give adjacent minions +1/+1. """
+	[Taunt][Battlecry:] Give adjacent minions +1/+1. """
 	update = BuffOnce(SELF_ADJACENT,'SW_054e')
 	#play = Buff(SELF_ADJACENT,'SW_054e')
 	pass
@@ -206,7 +206,7 @@ if StormWind_Impatient_Shopkeep:#
 	StormWind_Neutral+=['SW_055']
 class SW_055:#OK
 	""" Impatient Shopkeep
-	<b>Tradeable</b><b>Rush</b> """
+	[Tradeable][Rush] """
 	pass
 
 
@@ -216,7 +216,7 @@ if StormWind_Spice_Bread_Baker:#
 	StormWind_Neutral+=['SW_056']
 class SW_056:#OK
 	""" Spice Bread Baker
-	<b>Battlecry:</b> Restore Health to your hero equal to your hand size. """
+	[Battlecry:] Restore Health to your hero equal to your hand size. """
 	play = Heal(FRIENDLY_HERO, Count(FRIENDLY_HAND))
 	pass
 
@@ -250,7 +250,7 @@ class SW_059_Choice(Choice):##
 		pass
 class SW_059:####OK
 	""" Deeprun Engineer
-	<b>Battlecry:</b> <b>Discover</b> a Mech. It costs (1) less. """
+	[Battlecry:] [Discover] a Mech. It costs (1) less. """
 	play = SW_059_Choice(CONTROLLER, RandomMech()*3, 'SW_059e') # cost 1 less
 	pass
 class SW_059e:
@@ -276,7 +276,7 @@ if StormWind_Guild_Trader:#
 	StormWind_Neutral+=['SW_061']
 class SW_061:#OK
 	""" Guild Trader
-	<b>Tradeable</b><b>Spell Damage +2</b> """
+	[Tradeable][Spell Damage +2] """
 	#
 	pass
 
@@ -287,7 +287,7 @@ if StormWind_Goldshire_Gnoll:#
 	StormWind_Neutral+=['SW_062']
 class SW_062:#OK
 	""" Goldshire Gnoll
-	[x]<b>Rush</b>Costs (1) less for each__other card in your hand. """
+	[x][Rush]Costs (1) less for each__other card in your hand. """
 	update = Refresh(FRIENDLY_HAND - SELF, {GameTag.COST:-1})
 	pass
 
@@ -299,7 +299,7 @@ if StormWind_Battleground_Battlemaster:#
 	#StormWind_Neutral+=['SW_063e']
 class SW_063:#OK
 	""" Battleground Battlemaster
-	Adjacent minions have <b>Windfury</b>. """
+	Adjacent minions have [Windfury]. """
 	update = Refresh(SELF_ADJACENT,{GameTag.WINDFURY:True})
 	pass
 #SW_63e=buff({GameTag.WINDFURY:True})
@@ -311,7 +311,7 @@ if StormWind_Northshire_Farmer:#
 	StormWind_Neutral+=['SW_064','SW_064e']
 class SW_064:#OK
 	""" Northshire Farmer
-	<b>Battlecry:</b> Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
+	[Battlecry:] Choose a friendly Beast. Shuffle three 3/3 copies_into_your_deck. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
 	play= ShuffleBuff(CONTROLLER, Copy(TARGET),'SW_064e')*3
 	pass
@@ -324,7 +324,7 @@ if StormWind_Pandaren_Importer:#
 	StormWind_Neutral+=['SW_065']
 class SW_065:###OK
 	""" Pandaren Importer
-	[x]<b>Battlecry:</b> <b>Discover</b> a spell that didn't start in your deck. """
+	[x][Battlecry:] [Discover] a spell that didn't start in your deck. """
 	play=GenericChoice(CONTROLLER,RANDOM(SPELL-FRIENDLY_DECK)*3)
 	pass
 
@@ -335,7 +335,7 @@ if StormWind_Royal_Librarian:#
 	StormWind_Neutral+=['SW_066']
 class SW_066:##動作はしているが、silencedがそもそも動いていない気がする。
 	""" Royal Librarian
-	[x]<b>Tradeable</b><b>Battlecry:</b> <b>Silence</b>a minion. """
+	[x][Tradeable][Battlecry:] [Silence]a minion. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	play = SetTag(TARGET,{GameTag.SILENCED:True})
 	pass
@@ -347,7 +347,7 @@ if StormWind_Stockades_Guard:#
 	StormWind_Neutral+=['SW_067']
 class SW_067:#OK
 	""" Stockades Guard
-	[x]<b>Battlecry:</b> Give a friendly minion <b>Taunt</b>. """
+	[x][Battlecry:] Give a friendly minion [Taunt]. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
 	play = SetTag(TARGET,{GameTag.TAUNT:True})
 	pass
@@ -359,7 +359,7 @@ if StormWind_Moarg_Forgefiend:#
 	StormWind_Neutral+=['SW_068']
 class SW_068:#OK bigWarrior
 	""" Mo'arg Forgefiend
-	<b>Taunt</b><b>Deathrattle:</b> Gain 8 Armor. """
+	[Taunt][Deathrattle:] Gain 8 Armor. """
 	deathrattle = GainArmor(FRIENDLY_HERO,8)
 #	pass
 
@@ -389,7 +389,7 @@ class Deposite_Withdrawal(TargetedAction):
 	pass
 class SW_069:#OK
 	""" Enthusiastic Banker
-	[x]At the end of your turn, store a card from your deck. <b>Deathrattle:</b> Add the stored cards to your hand. """
+	[x]At the end of your turn, store a card from your deck. [Deathrattle:] Add the stored cards to your hand. """
 	events = OWN_TURN_END.on(Deposite_Payment(RANDOM(FRIENDLY_DECK)))
 	deathrattle = Deposite_Withdrawal(CONTROLLER)
 	pass
@@ -404,7 +404,7 @@ if StormWind_Mailbox_Dancer:#
 	StormWind_Neutral+=['SW_070']
 class SW_070:#OK
 	""" Mailbox Dancer
-	[x]<b>Battlecry:</b> Add a Coin to your hand. <b>Deathrattle:</b> Give your opponent one. """
+	[x][Battlecry:] Add a Coin to your hand. [Deathrattle:] Give your opponent one. """
 	play = Give(CONTROLLER, 'GAME_005')
 	deathrattle = Give(OPPONENT, 'GAME_005')
 	pass
@@ -416,7 +416,7 @@ if StormWind_Lions_Guard:#
 	StormWind_Neutral+=['SW_071e']
 class SW_071:#OK
 	""" Lion's Guard
-	[x]<b>Battlecry:</b> If you have 15 or less Health, gain +2/+4 and <b>Taunt</b>. """
+	[x][Battlecry:] If you have 15 or less Health, gain +2/+4 and [Taunt]. """
 	def play(self):
 		if self.controller.hero.health <= 15:
 			yield Buff(SELF,'SW_071e')
@@ -429,7 +429,7 @@ if StormWind_Rustrot_Viper:#
 	StormWind_Neutral+=['SW_072']
 class SW_072:#OK
 	""" Rustrot Viper
-	[x]<b>Tradeable</b><b>Battlecry:</b> Destroy your opponent's weapon. """
+	[x][Tradeable][Battlecry:] Destroy your opponent's weapon. """
 	play = Destroy(ENEMY_WEAPON)
 	pass
 
@@ -451,7 +451,7 @@ if StormWind_Nobleman:#
 	StormWind_Neutral+=['SW_074']
 class SW_074:#OK
 	""" Nobleman
-	<b>Battlecry:</b> Create a Golden copy of a random card in your hand. """
+	[Battlecry:] Create a Golden copy of a random card in your hand. """
 	play = Give(CONTROLLER,Copy(RANDOM(FRIENDLY_HAND)))#gold?
 	pass
 
@@ -462,7 +462,7 @@ if StormWind_Elwynn_Boar:#
 	StormWind_Neutral+=['SW_075','SW_075t']
 class SW_075:#OK
 	""" Elwynn Boar
-	[x]<b>Deathrattle:</b> If you had 7 Elwynn Boars die this game, equip a 15/3 Sword of a ___Thousand Truths.@ <i>(@/7)</i> """
+	[x][Deathrattle:] If you had 7 Elwynn Boars die this game, equip a 15/3 Sword of a ___Thousand Truths.@ <i>(@/7)</i> """
 	# if we use LazyNum, we are able to make in much more general way.
 	deathrattle = CountDeathAction(CONTROLLER,['SW_075'], 7, Summon(CONTROLLER,'SW_075t'))
 	pass
@@ -478,7 +478,7 @@ if StormWind_City_Architect:#
 	StormWind_Neutral+=['SW_076','SW_076t']
 class SW_076:#OK
 	""" City Architect
-	[x]<b>Battlecry:</b> Summon two 0/5 Castle Walls with <b>Taunt</b>. """
+	[x][Battlecry:] Summon two 0/5 Castle Walls with [Taunt]. """
 	play = Summon(CONTROLLER, 'SW_076t')*2
 	pass
 class SW_076t:
@@ -491,7 +491,7 @@ if StormWind_Stockades_Prisoner:#
 	StormWind_Neutral+=['SW_077','SW_077e']
 class SW_077:#OK
 	""" Stockades Prisoner
-	[x]Starts <b>Dormant</b>. After you play 3 cards, this awakens. """ 
+	[x]Starts [Dormant]. After you play 3 cards, this awakens. """ 
 	dormant = -1 #infinite dormant
 	events = Play(CONTROLLER).on(SidequestCounter(SELF,3,[SetAttr(SELF, 'dormant',0), Awaken(SELF)]))
 	#play = Buff(SELF, "SW_077e")
@@ -507,7 +507,7 @@ if StormWind_Lady_Prestor:#
 	StormWind_Neutral+=['SW_078','SW_078e','SW_078e2']
 class SW_078:#OK
 	""" Lady Prestor
-	[x]<b>Battlecry:</b> Transform minions in your deck into random Dragons. <i>(They keep their
+	[x][Battlecry:] Transform minions in your deck into random Dragons. <i>(They keep their
 __original stats and Cost.)</I> """
 	play = SW_078_Morph(FRIENDLY_DECK,RandomDragon())
 	pass
@@ -533,7 +533,7 @@ class SW_079_Choice(Choice):
 		pass
 class SW_079:###OK
 	""" Flightmaster Dungar
-	[x]<b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b> Awaken with a bonus __when you complete it! """
+	[x][Battlecry:] Choose a flightpath and go [Dormant.] Awaken with a bonus __when you complete it! """
 	entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
 	play = SW_079_Choice(CONTROLLER,RandomEntourage()*3)
 	pass
@@ -609,7 +609,7 @@ if StormWind_Varian_King_of_Stormwind:#
 	StormWind_Neutral+=['SW_081']
 class SW_081:#OK
 	""" Varian, King of Stormwind
-	[x]<b>Battlecry:</b> Draw a <b>Rush</b> minion to gain <b>Rush</b>. Repeat for <b>Taunt</b> and <b>Divine Shield</b>. """
+	[x][Battlecry:] Draw a [Rush] minion to gain [Rush]. Repeat for [Taunt] and [Divine Shield]. """
 	play = [
 		Find(FRIENDLY_DECK + RUSH) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + RUSH)).then(SetAttr(SELF,'rush', True)),
 		Find(FRIENDLY_DECK + TAUNT) & Give(CONTROLLER,RANDOM(FRIENDLY_DECK + TAUNT)).then(SetAttr(SELF,'taunt', True)),
@@ -629,7 +629,7 @@ class SW_306:#OK
 	# CASTSWHENDRAWN タグなし
 	#description が無限ループを含んでいるが・・・・GiveとDrawを区別して解決。
 	""" Encumbered Pack Mule
-	[x]<b>Taunt</b> When you draw this, add a _copy of it to your hand. """
+	[x][Taunt] When you draw this, add a _copy of it to your hand. """
 	#
 	pass
 
@@ -640,7 +640,7 @@ if StormWind_Traveling_Merchant:#
 	StormWind_Neutral+=['SW_307','SW_307e']
 class SW_307:#OK
 	""" Traveling Merchant
-	[x]<b>Tradeable</b><b>Battlecry:</b> Gain +1/+1 for each other friendly _minion you control. """
+	[x][Tradeable][Battlecry:] Gain +1/+1 for each other friendly _minion you control. """
 	play = Buff(SELF,'SW_307e') * Count(FRIENDLY_MINIONS - SELF)
 	pass
 SW_307e=buff(atk=1,health=1)
@@ -663,7 +663,7 @@ if StormWind_Entrapped_Sorceress:#
 	StormWind_Neutral+=['SW_400']
 class SW_400:#OK
 	""" Entrapped Sorceress
-	[x]<b>Battlecry:</b> If you control a _<b>Quest</b>, <b>Discover</b> a spell. """
+	[x][Battlecry:] If you control a _[Quest], [Discover] a spell. """
 	powered_up = Find(FRIENDLY + EnumSelector(GameTag.SIDEQUEST))
 	play = powered_up & Discover(CONTROLLER, RandomSpell())
 	pass
@@ -675,7 +675,7 @@ if StormWind_SI7_Skulker:#
 	StormWind_Neutral+=['SW_418','SW_418e','SW_418e2']
 class SW_418:#OK
 	""" SI:7 Skulker
-	[x]<b>Stealth</b><b>Battlecry:</b> The next card _you draw costs (1) less. """
+	[x][Stealth][Battlecry:] The next card _you draw costs (1) less. """
 	play = Buff(CONTROLLER,'SW_418e')
 	pass
 class SW_418e:

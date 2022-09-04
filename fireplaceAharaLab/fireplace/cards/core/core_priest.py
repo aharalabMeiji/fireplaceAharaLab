@@ -83,7 +83,7 @@ if Murozond_the_Infinite:#
 class CORE_DRG_090:# <6>[1637]## 23.6 ################ not yet ##########
 	""" Murozond the Infinite
 	[Battlecry:] Play all cards your opponent played last_turn. """
-	#&lt;b&gt;雄叫び:&lt;/b&gt;相手が前のターンに手札から使用した全てのカードを使用する。
+	#[雄叫び:]相手が前のターンに手札から使用した全てのカードを使用する。
 	def play(self):
 		controller=self.controller
 		ret = []

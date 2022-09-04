@@ -1,85 +1,44 @@
 from ..utils import *
 
 
+## NEW 23.2 -> quilboarDarkgaze_Elder=True
+
+
+
+BG_Razorfen_Geomancer=True##	1
+BG_Sun_Bacon_Relaxer=True##	1
+BG_Roadboar=True##	2
+BG_Tough_Tusk=True##	2
+BG_Bannerboar=True##	3
+BG_Bristleback_Brute=True## Brute	3
+BG_Gemsplitter=True##	3
+BG_Thorncaller=True##	3
+BG_Bonker=True##	4
+BG_Dynamic_Duo=True##	4
+BG_Groundshaker=True##	4
+BG_Necrolyte=True##	4
+BG_Aggem_Thorncurse=True##	5
+BG_Bristleback_Knight=True## 5 BG20_204
+BG_Captain_Flat_Tusk=False##	6 banned
+BG_Charlga=True##	6
 BG_Darkgaze_Elder=True## NEW 23.2 -> quilboar
 
 
-if Config.PATCH_VERSION >= Config.PATCH23_2_2:
-	BG_Minion_Quilboar=[
-		'BG20_100','BG20_100_G',#Razorfen Geomancer	1
-		'BG20_301','BG20_301_G',#Sun-Bacon Relaxer	1
-		'BG20_101','BG20_101_G',#Roadboar	2
-		'BG20_102','BG20_102e','BG20_102_G','BG20_102_Ge',#Tough Tusk	2
-		'BG20_201','BG20_201_G',#Bannerboar	3
-		'BG20_103','BG20_103_G',#Bristleback Brute	3
-		'BG21_037','BG21_037_G',#Gemsplitter	3
-		'BG20_105','BG20_105_G',#Thorncaller	3
-		'BG20_104','BG20_104_G',#Bonker	4
-		'BG20_207','BG20_207e','BG20_207_G','BG20_207_Ge',#Dynamic Duo	4
-		'BG20_106','BG20_106e','BG20_106_G',#Groundshaker	4
-		'BG20_202','BG20_202_G',#Necrolyte	4
-		'BG20_302','BG20_302e','BG20_302_G','BG20_302_Ge',#Aggem Thorncurse	5
-		##'BG20_206','BG20_206_G',#Captain Flat Tusk	6
-		'BG20_303','BG20_303_G',#Charlga	6
-		]
 
-	BG_PoolSet_Quilboar=[
-		['BG20_100','BG20_301',],
-		['BG20_101','BG20_102',],
-		['BG20_201','BG20_103','BG21_037','BG20_105',],
-		['BG20_104','BG20_207','BG20_106','BG20_202',],
-		['BG20_302',],
-		['BG20_303',],##'BG20_206',
-		]
-else:
-	BG_Minion_Quilboar=[
-		'BG20_100','BG20_100_G',#Razorfen Geomancer	1
-		'BG20_301','BG20_301_G',#Sun-Bacon Relaxer	1
-		'BG20_101','BG20_101_G',#Roadboar	2
-		'BG20_102','BG20_102e','BG20_102_G','BG20_102_Ge',#Tough Tusk	2
-		'BG20_201','BG20_201_G',#Bannerboar	3
-		'BG20_103','BG20_103_G',#Bristleback Brute	3
-		'BG21_037','BG21_037_G',#Gemsplitter	3
-		'BG20_105','BG20_105_G',#Thorncaller	3
-		'BG20_104','BG20_104_G',#Bonker	4
-		'BG20_207','BG20_207e','BG20_207_G','BG20_207_Ge',#Dynamic Duo	4
-		'BG20_106','BG20_106e','BG20_106_G',#Groundshaker	4
-		'BG20_202','BG20_202_G',#Necrolyte	4
-		'BG20_302','BG20_302e','BG20_302_G','BG20_302_Ge',#Aggem Thorncurse	5
-		'BG20_206','BG20_206_G',#Captain Flat Tusk	6
-		'BG20_303','BG20_303_G',#Charlga	6
-		]
+BG_Minion_Quilboar=[]
 
-	BG_PoolSet_Quilboar=[
-		['BG20_100','BG20_301',],
-		['BG20_101','BG20_102',],
-		['BG20_201','BG20_103','BG21_037','BG20_105',],
-		['BG20_104','BG20_207','BG20_106','BG20_202',],
-		['BG20_302',],
-		['BG20_206','BG20_303',],
-		]
+BG_PoolSet_Quilboar=[[],[],[],[],[],[],[]]
 
-BG_Quilboar_Gold={
-	'BG20_100':'BG20_100_G',#Razorfen Geomancer	1
-	'BG20_301':'BG20_301_G',#Sun-Bacon Relaxer	1
-	'BG20_101':'BG20_101_G',#Roadboar	2
-	'BG20_102':'BG20_102_G',#Tough Tusk	2
-	'BG20_201':'BG20_201_G',#Bannerboar	3
-	'BG20_103':'BG20_103_G',#Bristleback Brute	3
-	'BG21_037':'BG21_037_G',#Gemsplitter	3
-	'BG20_105':'BG20_105_G',#Thorncaller	3
-	'BG20_104':'BG20_104_G',#Bonker	4
-	'BG20_207':'BG20_207_G',#Dynamic Duo	4
-	'BG20_106':'BG20_106_G',#Groundshaker	4
-	'BG20_202':'BG20_202_G',#Necrolyte	4
-	'BG20_302':'BG20_302_G',#Aggem Thorncurse	5
-	'BG20_206':'BG20_206_G',#Captain Flat Tusk	6
-	'BG20_303':'BG20_303_G',#Charlga	6	
-	}
+BG_Quilboar_Gold={}
+
 
 # BG20_GEM : blood gem
 
 #Razorfen Geomancer	1　### OK ###
+if BG_Razorfen_Geomancer:
+	BG_Minion_Quilboar += [ 'BG20_100','BG20_100_G',]#	
+	BG_PoolSet_Quilboar[1].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_100:# <12>[1453]
 	""" Razorfen Geomancer
 	[Battlecry:] Gain a[Blood Gem]. """
@@ -94,6 +53,10 @@ class BG20_100_G:# <12>[1453]
 
 
 #Sun-Bacon Relaxer	1 ### OK ###
+if BG_Sun_Bacon_Relaxer:
+	BG_Minion_Quilboar += [ 'BG20_301','BG20_301_G',]#	
+	BG_PoolSet_Quilboar[1].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_301:# <12>[1453] コンガリ 
 	""" Sun-Bacon Relaxer
 	When you sell this, gain 2_[Blood Gems]. """
@@ -109,6 +72,10 @@ class BG20_301_G:# <12>[1453]
 
 
 #Roadboar	2  ### OK ###
+if BG_Roadboar:
+	BG_Minion_Quilboar += [ 'BG20_101','BG20_101_G',]#	
+	BG_PoolSet_Quilboar[2].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_101_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARD = ActionArg()
@@ -132,6 +99,10 @@ class BG20_101_G:# <12>[1453]
 
 
 #Tough Tusk	2 ### OK ###
+if BG_Tough_Tusk:
+	BG_Minion_Quilboar += [ 'BG20_102','BG20_102e','BG20_102_G','BG20_102_Ge',]#	
+	BG_PoolSet_Quilboar[3].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_102:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """
@@ -155,9 +126,13 @@ class BG20_102_Ge:# <12>[1453]
 
 
 #Bannerboar	3  ### OK ###
+if BG_Bannerboar:
+	BG_Minion_Quilboar += [ 'BG20_201','BG20_201_G',]#	
+	BG_PoolSet_Quilboar[3].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_201:# <12>[1453]
 	""" Bannerboar
-	At the end of your turn, play a &lt;b&gt;Blood Gem&lt;/b&gt; on adjacent minions.
+	At the end of your turn, play a [Blood Gem] on adjacent minions.
 	"""
 	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
 	##At the end of your turn, play a [Blood Gem] on adjacent Quilboar. 
@@ -165,7 +140,7 @@ class BG20_201:# <12>[1453]
 	pass
 class BG20_201_G:# <12>[1453]
 	""" Bannerboar
-	At the end of your turn, play 2 &lt;b&gt;Blood Gems&lt;/b&gt; on adjacent minions.
+	At the end of your turn, play 2 [Blood Gems] on adjacent minions.
 	 """
 	events = OWN_TURN_END.on(ApplyGem(SELF_ADJACENT, 'BG20_GEM'), ApplyGem(SELF_ADJACENT, 'BG20_GEM'))
 	## At the end of your turn, play 2 [Blood Gems] on adjacent Quilboar.
@@ -175,6 +150,10 @@ class BG20_201_G:# <12>[1453]
 
 
 #Bristleback Brute	3   ### OK ###
+if BG_Bristleback_Brute:
+	BG_Minion_Quilboar += [ 'BG20_103','BG20_103_G',]#	
+	BG_PoolSet_Quilboar[3].append('')
+	BG_Quilboar_Gold['']=''
 class GB20_103_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
@@ -198,6 +177,10 @@ class BG20_103_G:# <12>[1453]
 
 
 #Gemsplitter	3 ### OK ###
+if BG_Gemsplitter:
+	BG_Minion_Quilboar += [ 'BG21_037','BG21_037_G',]#	
+	BG_PoolSet_Quilboar[3].append('')
+	BG_Quilboar_Gold['']=''
 class BG21_037:# <12>[1453] 宝石割
 	""" Gemsplitter
 	After a friendly minion loses [Divine Shield], gain a_[Blood Gem]. """
@@ -212,6 +195,10 @@ class BG21_037_G:# <12>[1453]
 
 
 #Thorncaller	3  ### OK ###
+if BG_Thorncaller:
+	BG_Minion_Quilboar += [ 'BG20_105','BG20_105_G',]#	
+	BG_PoolSet_Quilboar[3].append('')
+	BG_Quilboar_Gold['']=''
 class GiveGemToOriginal(TargetedAction):
 	TARGET = ActionArg()
 	CARD = CardArg()
@@ -235,6 +222,10 @@ class BG20_105_G:# <12>[1453]
 
 
 #Bonker	4  ### OK ###
+if BG_Bonker:
+	BG_Minion_Quilboar += [ 'BG20_104','BG20_104_G',]#	
+	BG_PoolSet_Quilboar[4].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_104:# <12>[1453]
 	""" Bonker
 	[Windfury]After this attacks, gain a [Blood Gem]. """
@@ -250,6 +241,10 @@ class BG20_104_G:# <12>[1453]
 
 
 #Dynamic Duo	4 ### OK ###
+if BG_Dynamic_Duo:
+	BG_Minion_Quilboar += [ 'BG20_207','BG20_207e','BG20_207_G','BG20_207_Ge',]#	
+	BG_PoolSet_Quilboar[4].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_207:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on another Quilboar, gain +1/+1. """
@@ -268,6 +263,10 @@ BG20_207_Ge=buff(2,2)# <12>[1453]
 
 
 #Groundshaker	4  ## OK ###
+if BG_Groundshaker:
+	BG_Minion_Quilboar += [ 'BG20_106','BG20_106e','BG20_106_G',]#	
+	BG_PoolSet_Quilboar[4].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_106:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
@@ -288,6 +287,10 @@ class BG20_106_G:# <12>[1453]
 
 
 #Necrolyte	4  ### OK ###
+if BG_Necrolyte:
+	BG_Minion_Quilboar += [ 'BG20_202','BG20_202_G',]#	
+	BG_PoolSet_Quilboar[4].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_202:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 2 [BloodGems] on a friendly minion. It steals all [Blood Gems]from its neighbors. """
@@ -310,6 +313,10 @@ class BG20_202_G:# <12>[1453]
 
 
 #Aggem Thorncurse	5  ### OK ###
+if BG_Aggem_Thorncurse:
+	BG_Minion_Quilboar += [ 'BG20_302','BG20_302e','BG20_302_G','BG20_302_Ge',]#	
+	BG_PoolSet_Quilboar[5].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_302_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -352,11 +359,28 @@ BG20_302_Ge=buff(2,2)# <12>[1453]
 """ Thorncursed
 +2/+2 """
 
+###BG_Bristleback_Knight
+if BG_Bristleback_Knight:
+	BG_Minion_Quilboar += [ 'BG20_204','BG20_302e','BG20_302_G','BG20_302_Ge',]#	
+	BG_PoolSet_Quilboar[5].append('BG20_204')
+	BG_Quilboar_Gold['BG20_204']=''
+class BG20_204:
+	"""Bristleback_Knight
+	[Windfury], [Divine Shield] [Frenzy:] Gain [Divine Shield]."""
+	pass
+class BG20_204_G:
+	"""Bristleback_Knight
+	[Mega-Windfury], [[Divine Shield].] [Frenzy:] Gain [Divine Shield]."""
+	pass
 
 
 
 
 #Captain Flat Tusk	6  ### OK ###
+if BG_Captain_Flat_Tusk:
+	BG_Minion_Quilboar += [ 'BG20_206','BG20_206_G',]#	
+	BG_PoolSet_Quilboar[6].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_206_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -387,6 +411,10 @@ class BG20_206_G:# <12>[1453]
 
 
 #Charlga	6 ### OK ###
+if BG_Charlga:
+	BG_Minion_Quilboar += [ 'BG20_303','BG20_303_G',]#	
+	BG_PoolSet_Quilboar[6].append('')
+	BG_Quilboar_Gold['']=''
 class BG20_303:# <12>[1453] ちゃるが
 	""" Charlga
 	At the end of your turn, play a [Blood Gem] on all friendly minions. """
@@ -399,10 +427,11 @@ class BG20_303_G:# <12>[1453]
 	events = OWN_TURN_END.on(ApplyGem(FRIENDLY_MINIONS, 'BG20_GEM')*2)
 	pass
 
+
 if BG_Darkgaze_Elder:## Darkgaze Elder (6) (quilboar)  ### maybe OK ### NEW 23.2
-	BG_Minion += ['BG23_018','BG23_018t','BG23_018_G', ]#	
-	BG_PoolSet_Minion[6].append('BG23_018')
-	BG_Minion_Gold['BG23_018']='BG23_018_G'
+	BG_Minion_Quilboar += ['BG23_018','BG23_018t','BG23_018_G', ]#	
+	BG_PoolSet_Quilboar[6].append('BG23_018')
+	BG_Quilboar_Gold['BG23_018']='BG23_018_G'
 	# Darkgaze Elder 6 NEW 23.2
 	pass
 class BG23_018_Action(TargetedAction):
@@ -425,7 +454,7 @@ class BG23_018_Action(TargetedAction):
 			source.script_data_num_1 = 5-controller.spentmoney_in_this_turn
 class BG23_018:# <12>[1453]
 	""" Darkgaze Elder (6)
-	After you spend 5 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	After you spend 5 Gold, play a [Blood Gem] on four friendly Quilboar. <i>(@ Gold left!)</i>"""
 	events = [
 		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
 		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
@@ -434,7 +463,7 @@ class BG23_018:# <12>[1453]
 	pass
 class BG23_018_G:# <12>[1453]
 	"""
-	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar twice. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	After you spend 4 Gold, play a [Blood Gem] on four friendly Quilboar twice. <i>(@ Gold left!)</i>"""
 	events = [
 		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
 		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),

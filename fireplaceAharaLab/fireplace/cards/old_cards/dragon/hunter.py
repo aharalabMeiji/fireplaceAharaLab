@@ -4,10 +4,10 @@ from ..utils import *
 
 class DRG_251:#OK
 	"""Clear the Way
-	[x]<b>Sidequest:</b> Summon
-	3 <b>Rush</b> minions.
-	<b>Reward:</b> Summon a
-	4/4 Gryphon with <b>Rush</b>."""
+	[x][Sidequest:] Summon
+	3 [Rush] minions.
+	[Reward:] Summon a
+	4/4 Gryphon with [Rush]."""
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1192" name="SIDEQUEST" type="Int" value="1"/>
 	#<ReferencedTag enumID="791" name="RUSH" type="Int" value="1"/>
@@ -39,9 +39,9 @@ class DRG_251t:
 
 class DRG_255:#OK
 	"""Toxic Reinforcements
-	[x]<b>Sidequest:</b> Use your Hero
+	[x][Sidequest:] Use your Hero
 	Power three times.
-	<b>Reward:</b> Summon three
+	[Reward:] Summon three
 	1/1 Leper Gnomes."""
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="3"/>
 	#<Tag enumID="1089" name="QUEST_REWARD_DATABASE_ID" type="Int" value="41127"/>
@@ -63,20 +63,20 @@ class DRG_006:#OK
 #class DRG_252:#OK
 #	"""Phase Stalker
 #	[x]After you use your Hero
-#	Power, cast a <b>Secret</b>
+#	Power, cast a [Secret]
 #	from your deck."""
 #	events = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 
 class DRG_010:#OK
 	"""Diving Gryphon
-	<b>Rush</b>
-	<b>Battlecry:</b> Draw a <b>Rush</b> minion_from_your_deck."""
+	[Rush]
+	[Battlecry:] Draw a [Rush] minion_from_your_deck."""
 	play = Draw(CONTROLLER,RANDOM(FRIENDLY_DECK + EnumSelector(GameTag.RUSH)))
 
 class DRG_254:#OK
 	"""Primordial Explorer
-	<b>Poisonous</b>
-	<b>Battlecry:</b> <b>Discover</b> a Dragon."""
+	[Poisonous]
+	[Battlecry:] [Discover] a Dragon."""
 	play = DISCOVER(RandomDragon())
 
 class DRG_007:#OK
@@ -92,5 +92,5 @@ DRG_007e = buff(health=+1)# fixing 'durability=health'
 
 class DRG_095:#OK
 	"""Veranus
-	<b>Battlecry:</b> Change the Health of all enemy minions to 1"""
+	[Battlecry:] Change the Health of all enemy minions to 1"""
 	play = SetCurrentHealth(ENEMY_MINIONS,1) 

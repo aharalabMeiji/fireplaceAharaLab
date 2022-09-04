@@ -4,7 +4,7 @@ from ..utils import *
 
 class DAL_373:#OK
 	"""Rapid Fire	Spell	Common
-	<b>Twinspell</b>
+	[Twinspell]
 	Deal $1 damage."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0,
 			PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
@@ -17,13 +17,13 @@ class DAL_373ts:
 
 class DAL_587:#OK
 	"""Shimmerfly	Minion	Rare
-	<b>Deathrattle:</b> Add a random Hunter spell to your hand."""
+	[Deathrattle:] Add a random Hunter spell to your hand."""
 	deathrattle = Give(CONTROLLER, RandomSpell(card_class=CardClass.HUNTER))
 
 class DAL_377:#OK
 	"""Nine Lives	Spell	Epic	
-	<b>Discover</b> a friendly <b>Deathrattle</b> 
-	minion that died this game. Also trigger its <b>Deathrattle</b>."""
+	[Discover] a friendly [Deathrattle] 
+	minion that died this game. Also trigger its [Deathrattle]."""
 	play = Choice(CONTROLLER, RANDOM(FRIENDLY+KILLED+DEATHRATTLE)*3).then(
 		Give(CONTROLLER, Copy(Choice.CARD)).then(
 			Deathrattle(Give.CARD)
@@ -32,7 +32,7 @@ class DAL_377:#OK
 
 class DAL_604:#OK
 	"""Ursatron	Minion	Common
-	<b>Deathrattle:</b> Draw a Mech from your deck."""
+	[Deathrattle:] Draw a Mech from your deck."""
 	deathrattle = ForceDraw(CONTROLLER, RANDOM(FRIENDLY_DECK + MECH))
 
 class DAL_372:#OK
@@ -44,7 +44,7 @@ class DAL_372:#OK
 
 class DAL_371:#OK
 	"""Marked Shot	Spell	Common
-	Deal $4 damage to_a_minion. <b>Discover</b>_a_spell."""
+	Deal $4 damage to_a_minion. [Discover]_a_spell."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
@@ -57,15 +57,15 @@ class DAL_589:#OK
 
 class DAL_376:#OK ## MECH + DEATHRATTLE = ['DAL_376:Oblivitron','DAL_604:Ursatron']
 	"""Oblivitron	Minion	Legendary
-	[x]<b>Deathrattle:</b> Summon a
+	[x][Deathrattle:] Summon a
 	Mech from your hand and
-	trigger its <b>Deathrattle</b>."""
+	trigger its [Deathrattle]."""
 	deathrattle = Summon(CONTROLLER, RANDOM(FRIENDLY_HAND + MECH)).then(Deathrattle(Summon.CARD))
 
 class DAL_378:#OK
 	"""Unleash the Beast	Spell	Rare
-	<b>Twinspell</b>
-	Summon a 5/5 Wyvern with <b>Rush</b>."""
+	[Twinspell]
+	Summon a 5/5 Wyvern with [Rush]."""
 	play = Summon(CONTROLLER, "DAL_378t1"),Give(CONTROLLER, "DAL_378ts")
 class DAL_378t1:
 	""" Wyvern""" 
@@ -75,7 +75,7 @@ class DAL_378ts:
 
 class DAL_379:#OK
 	"""Vereesa Windrunner	Minion	Legendary
-	<b>Battlecry:</b> Equip Thori'dal, the Stars' Fury."""
+	[Battlecry:] Equip Thori'dal, the Stars' Fury."""
 	play = Summon(CONTROLLER, "DAL_379t")
 #DAL_379e
 class DAL_379t:

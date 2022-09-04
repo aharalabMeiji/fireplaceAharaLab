@@ -27,7 +27,7 @@ if Barrens_Pack_Kodo:#
 	Barrens_Hunter+=['BAR_030']
 class BAR_030:###OK
 	""" Pack Kodo
-	<b>Battlecry:</b> <b>Discover</b> a Beast, <b>Secret</b>, or weapon.
+	[Battlecry:] [Discover] a Beast, [Secret], or weapon.
 	"""
 	play = GenericChoice(CONTROLLER, [
 		RandomCollectible(race=Race.BEAST),
@@ -43,7 +43,7 @@ if Barrens_Sunscale_Raptor:#
 	Barrens_Hunter+=['BAR_031']
 class BAR_031:#OK
 	""" Sunscale Raptor
-	<b>Frenzy:</b> Shuffle a Sunscale Raptor into your deck with permanent +2/+1.
+	[Frenzy:] Shuffle a Sunscale Raptor into your deck with permanent +2/+1.
 	"""
 	events = Damage(SELF).on(Frenzy(SELF,Shuffle(CONTROLLER,PermanentBuff(Copy(SELF),2,1))))
 	pass
@@ -87,21 +87,21 @@ if Barrens_Tame_Beast_Rank_1:#
 	Barrens_Hunter+=['BAR_034t5']
 class BAR_034:#OK
 	""" Tame Beast (Rank 1)
-	Summon a 2/2 Beast with <b>Rush</b>. <i>(Upgrades when you
+	Summon a 2/2 Beast with [Rush]. <i>(Upgrades when you
 have 5 Mana.)</i>	"""
 	play = Summon(CONTROLLER,"BAR_034t3")
 	class Hand:
 		events = GradeupByMana(CONTROLLER, 5).on(Destroy(SELF),Give(CONTROLLER, 'BAR_034t'))
 	pass
 class BAR_034t:
-	""" Summon a 4/4 Beast with <b>Rush</b>. <i>(Upgrades when you
+	""" Summon a 4/4 Beast with [Rush]. <i>(Upgrades when you
 have 10 Mana.)</i>"""
 	play = Summon(CONTROLLER,"BAR_034t4")
 	class Hand:
 		events = GradeupByMana(CONTROLLER, 10).on(Destroy(SELF),Give(CONTROLLER, 'BAR_034t2'))
 	pass
 class BAR_034t2:
-	""" Summon a 6/6 Beast with <b>Rush</b>."""
+	""" Summon a 6/6 Beast with [Rush]."""
 	play = Summon(CONTROLLER,"BAR_034t5")
 	pass
 class BAR_034t3:
@@ -121,7 +121,7 @@ class BAR_035:#OK
 	""" Kolkar Pack Runner
 	[x]After you cast a spell,
 summon a 1/1 Hyena
-with <b>Rush</b>.
+with [Rush].
 	"""
 	events = OWN_SPELL_PLAY.on(Summon(CONTROLLER,'BAR_035t'))
 	pass
@@ -158,7 +158,7 @@ class BAR_037_Warsong_Wrangler(Choice):
 
 class BAR_037:#OK
 	""" Warsong Wrangler
-	[x]<b>Battlecry:</b> <b>Discover</b> a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
+	[x][Battlecry:] [Discover] a Beast from your deck. Give all copies of it +2/+1 <i>(wherever_they_are)</i>.
 	"""
 	play = BAR_037_Warsong_Wrangler(CONTROLLER,RANDOM(FRIENDLY_DECK + BEAST)*3)
 	pass
@@ -183,7 +183,7 @@ if Barrens_Barak_Kodobane:#
 	Barrens_Hunter+=['BAR_551']
 class BAR_551:#OK
 	""" Barak Kodobane
-	[x]<b>Battlecry:</b> Draw a 1, 2,__and 3-Cost spell.
+	[x][Battlecry:] Draw a 1, 2,__and 3-Cost spell.
 	"""
 	play = (
 		Give(CONTROLLER,RANDOM(FRIENDLY_DECK+SPELL+(COST==1))),
@@ -199,7 +199,7 @@ if Barrens_Wound_Prey:#
 	Barrens_Hunter+=['BAR_801']
 class BAR_801:#OK
 	""" Wound Prey
-	Deal $1 damage. Summon a 1/1 Hyena with <b>Rush</b>.
+	Deal $1 damage. Summon a 1/1 Hyena with [Rush].
 	"""
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
 	play = (Hit(TARGET,1),Summon(CONTROLLER,'BAR_035t'))
@@ -214,7 +214,7 @@ if Barrens_Serpentbloom:#
 class WC_007:#OK
 	""" Serpentbloom
 	Give a friendly
-Beast <b>Poisonous</b>.
+Beast [Poisonous].
 	"""
 	play = SetAttr(RANDOM(FRIENDLY_HAND+BEAST),'poisonous',True)
 	pass
@@ -226,7 +226,7 @@ if Barrens_Sindorei_Scentfinder:#
 	Barrens_Hunter+=['WC_008']
 class WC_008:#OK
 	""" Sin'dorei Scentfinder
-	<b>Frenzy:</b> Summon four 1/1 Hyenas with <b>Rush</b>.
+	[Frenzy:] Summon four 1/1 Hyenas with [Rush].
 	"""
 	events = Damage(SELF).on(Frenzy(SELF,Summon(CONTROLLER,'BAR_035t')*4))
 	pass
@@ -237,7 +237,7 @@ if Barrens_Venomstrike_Bow:#
 	Barrens_Hunter+=['WC_037']
 class WC_037:
 	""" Venomstrike Bow
-	<b>Poisonous</b>
+	[Poisonous]
 	"""
 	#
 	pass

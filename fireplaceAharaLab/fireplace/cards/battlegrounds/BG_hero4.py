@@ -164,7 +164,7 @@ class BG20_HERO_100_Action(TargetedAction):
 		pass
 class BG20_HERO_100p:# <10>[1453]
 	""" Glory of Combat
-	<b>Passive.</b> After a friendly minion kills an enemy, give it +1 Attack permanently. """
+	[Passive.] After a friendly minion kills an enemy, give it +1 Attack permanently. """
 	events =  BG_Attack(FRIENDLY).after(BG20_HERO_100_Action(BG_Attack.TARGET, BG_Attack.OTHER, 'BG20_HERO_100p_e2'))
 	pass
 BG20_HERO_100p_e2=buff(1,0)
@@ -239,7 +239,7 @@ class TB_BaconShop_HP_022_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_022:
 	""" Snicker-snack
-	Add a 1/1 Shudderling to your hand that repeats all &lt;b&gt;Battlecries&lt;/b&gt; you've played. &lt;i&gt;(Twice per game.)&lt;/i&gt;"""
+	Add a 1/1 Shudderling to your hand that repeats all [Battlecries] you've played. <i>(Twice per game.)</i>"""
 	activate = TB_BaconShop_HP_022_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HP_022e:
@@ -260,7 +260,7 @@ class TB_BaconShop_HP_022t_Action(TargetedAction):
 					battlecry['action'].trigger(source)
 				else:
 					battlecry['action'].trigger(source)
-class TB_BaconShop_HP_022t:##&lt;b&gt;Battlecry:&lt;/b&gt; Repeat all other &lt;b&gt;Battlecries&lt;/b&gt; from cards you played this game &lt;i&gt;(targets chosen randomly)&lt;/i&gt;.
+class TB_BaconShop_HP_022t:##[Battlecry:] Repeat all other [Battlecries] from cards you played this game <i>(targets chosen randomly)</i>.
 	play = TB_BaconShop_HP_022t_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HP_022t_G:
@@ -306,7 +306,7 @@ class TB_BaconShop_HP_101_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_101:
 	"""  Come One, Come All!
-	&lt;b&gt;Passive.&lt;/b&gt; Darkmoon Tickets are in the Tavern! Get 3 to &lt;b&gt;Discover&lt;/b&gt; a minion from your Tavern Tier."""
+	[Passive.] Darkmoon Tickets are in the Tavern! Get 3 to [Discover] a minion from your Tavern Tier."""
 	### when reroling cards, put some of minions the enchantment below
 	events = Buy(CONTROLLER).on(TB_BaconShop_HP_101_Action(CONTROLLER, Buy.CARD))
 class TB_BaconShop_HP_101e:
@@ -342,7 +342,7 @@ class TB_BaconShop_HP_014_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_014:
 	"""  
-	&lt;b&gt;Freeze&lt;/b&gt; a minion in Bob's Tavern. &lt;b&gt;Frozen&lt;/b&gt; minions get +2/+1 each turn."""
+	[Freeze] a minion in Bob's Tavern. [Frozen] minions get +2/+1 each turn."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
 	activate = Freeze(TARGET)
 	events = OWN_TURN_END.on(TB_BaconShop_HP_014_Action(CONTROLLER))
@@ -366,7 +366,7 @@ class TB_BaconShop_HERO_40:# <12>[1453]
 	pass
 class TB_BaconShop_HP_057:
 	"""  
-	&lt;b&gt;Passive&lt;/b&gt; At the start of the game, &lt;b&gt;Discover&lt;/b&gt; a Hero Power."""
+	[Passive] At the start of the game, [Discover] a Hero Power."""
 	entourage=['TB_BaconShop_HP_085','TB_BaconShop_HP_046','BG20_HERO_100p',]
 	events = BeginGame(CONTROLLER).on(GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*3))
 ######## BUDDY
@@ -395,7 +395,7 @@ class TB_BaconShop_HP_076_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_076:
 	"""  
-	Gain @ Gold this turn. Increases each turn. &lt;i&gt;(Once per game.)&lt;/i&gt;"""
+	Gain @ Gold this turn. Increases each turn. <i>(Once per game.)</i>"""
 	activate = TB_BaconShop_HP_076_Action(CONTROLLER)
 	events = OWN_TURN_END.on(AddScriptDataNum1(SELF,1))
 	pass
@@ -417,7 +417,7 @@ class BG21_HERO_030:# <10>[1453]
 	pass
 class BG21_HERO_030p:# <12>[1453]
 	""" Sneed's Replicator 24.0
-	Give a minion: &quot;&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random minion from a lower Tavern Tier.&quot; """ 
+	Give a minion: &quot;[Deathrattle:] Summon a random minion from a lower Tavern Tier.&quot; """ 
 	#Give a friendly minion:"[Deathrattle]: Summon a random minion of the same Tavern Tier." """ <= 23.6
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
 	activate = Buff(TARGET,'BG21_HERO_030pe')
@@ -669,7 +669,7 @@ class TB_BaconShop_HP_077_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_077:
 	"""  
-	&lt;b&gt;Refresh&lt;/b&gt; Bob's Tavern with your last opponent's warband."""
+	[Refresh] Bob's Tavern with your last opponent's warband."""
 	activate = TB_BaconShop_HP_077_Action(CONTROLLER)
 	pass
 ######## BUDDY
@@ -694,7 +694,7 @@ class TB_BaconShop_HERO_33:# <12>[1453]
 	pass
 class TB_BaconShop_HP_033:
 	"""  
-	&lt;b&gt;Passive&lt;/b&gt; Start the game with a 2/2 Amalgam with all minion types."""
+	[Passive] Start the game with a 2/2 Amalgam with all minion types."""
 	events = BeginGame(CONTROLLER).on(Summon(CONTROLLER, 'TB_BaconShop_HP_033t'))
 class TB_BaconShop_HP_033t:
 	"""  2/2 Amalgam """
@@ -718,7 +718,7 @@ class TB_BaconShop_HERO_21:# <12>[1453]
 	""" The Great Akazamzarak """
 	pass
 class TB_BaconShop_HP_020:
-	"""  &lt;b&gt;Discover&lt;/b&gt; a &lt;b&gt;Secret&lt;/b&gt;. Put it into the battlefield."""
+	"""  [Discover] a [Secret]. Put it into the battlefield."""
 	entourage=[
 		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
 		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
@@ -748,7 +748,7 @@ class TB_BaconShop_HERO_22:# <12>[1453]
 	pass
 class TB_BaconShop_HP_024:
 	"""  
-	Give a friendly minion &lt;b&gt;Reborn&lt;/b&gt; until next turn."""
+	Give a friendly minion [Reborn] until next turn."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
 	activate = Buff(TARGET, 'TB_BaconShop_HP_024e2')
 class TB_BaconShop_HP_024e2:
@@ -781,7 +781,7 @@ class TB_BaconShop_HP_041_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_041:
 	"""  
-	&lt;b&gt;Passive&lt;/b&gt; Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
+	[Passive] Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
 	pass	
 class TB_BaconShop_HP_041a:

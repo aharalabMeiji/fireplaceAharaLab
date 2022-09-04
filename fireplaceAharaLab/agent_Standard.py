@@ -271,7 +271,7 @@ def Original_random(game):
 		break
 
 def adjust_text(text):
-	return text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+	return text.replace('\n','').replace('[x]','').replace('[','[').replace(']',']')
 
 def adjust_text_by_spellpower(text, player, card):
 	_catch_number=-1

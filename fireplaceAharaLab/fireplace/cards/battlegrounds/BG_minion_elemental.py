@@ -65,11 +65,11 @@ if BG_Bubblette:
 	BG_Elemental_Gold['BG_TID_713']='BG_TID_713_G'
 class BG_TID_713:#あわわわ ## banned 24.2
 	""" Bubblette
-	After this minion takes  exactly one damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
+	After this minion takes  exactly one damage, destroy it. <i>(Pop!)</i>"""
 	events = Damage(SELF, 1).on(Destroy(SELF))
 class BG_TID_713_G:#あわわわ
 	""" Bubblette
-	After this minion takes  exactly two damage, destroy it. &lt;i&gt;(Pop!)&lt;/i&gt;"""
+	After this minion takes  exactly two damage, destroy it. <i>(Pop!)</i>"""
 	events = Damage(SELF, 2).on(Destroy(SELF))
 
 
@@ -420,7 +420,7 @@ class BGS_124_Action(TargetedAction):
 		Buff(target, buff, max_health=count*amount).trigger(source)
 class BGS_124: #
 	""" Lieutenant Garr
-	&lt;b&gt;Taunt&lt;/b&gt;. After you play an Elemental, gain +1 Health for each Elemental you have """
+	[Taunt]. After you play an Elemental, gain +1 Health for each Elemental you have """
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).after(BGS_124_Action(SELF, 'BGS_124e', 1))
 	pass
 class BGS_124e:

@@ -5,18 +5,18 @@ from ..utils import *
 class SCH_133:
 ##Wolpertinger OK 
 	""" Wolpertinger 
-	<b>Battlecry:</b> Summon a copy of this."""
+	[Battlecry:] Summon a copy of this."""
 	play = Summon(CONTROLLER, ExactCopy(SELF))
 
 class SCH_239:#OK
 	##Krolusk Barkstripper SCH_239
-	#<b>Spellburst:</b> Destroy a random enemy minion.
+	#[Spellburst:] Destroy a random enemy minion.
 	play = OWN_SPELL_PLAY.on(Destroy(RANDOM_ENEMY_MINION))
 	pass
 
 class SCH_244:#OK
 	##Teacher's Pet  SCH_244
-	#[x]<b>Taunt</b> <b>Deathrattle:</b> Summon a random 3-Cost Beast.
+	#[x][Taunt] [Deathrattle:] Summon a random 3-Cost Beast.
 	deathrattle = Summon(CONTROLLER, RandomBeast(cost=3))
 	pass
 
@@ -48,7 +48,7 @@ SCH_300e2 = buff(cost=-1)
 
 class SCH_340:#OK
 	##Bloated Python SCH_340
-	#<b>Deathrattle:</b> Summon a 4/4 Hapless Handler.
+	#[Deathrattle:] Summon a 4/4 Hapless Handler.
 	deathrattle = Summon(CONTROLLER, "SCH_340t")
 	pass
 class SCH_340t:
@@ -57,14 +57,14 @@ class SCH_340t:
 	
 class SCH_538:
 	##Ace Hunter Kreen SCH_538
-	#Your other characters are <b>Immune</b> while attacking.
+	#Your other characters are [Immune] while attacking.
 	update = Refresh(FRIENDLY_MINIONS-SELF,buff='SCH_538e')#OK
 	pass
 SCH_538e=buff(immune_while_attacking=True)#
 
 class SCH_539:#OK
 	##Professor Slate  SCH_539
-	#Your spells are <b>Poisonous</b>.
+	#Your spells are [Poisonous].
 	update = SetTag(FRIENDLY_HAND + SPELL,(GameTag.POISONOUS, ))# is it OK???????
 	pass
 
@@ -99,7 +99,7 @@ class SCH_604:#OK
 
 class SCH_607:#OK
 	##Shan'do Wildclaw SCH_607
-	# [x]<b>Choose One -</b> Give Beasts in your deck +1/+1; or Transform into a copy of a friendly Beast.
+	# [x][Choose One -] Give Beasts in your deck +1/+1; or Transform into a copy of a friendly Beast.
 	choose = ("SCH_607a", "SCH_607b")#OK
 	play =ChooseBoth(SELF) & Morph(SELF, RANDOM((FRIENDLY + BEAST) - FRIENDLY_HERO));#OK
 	pass
@@ -123,7 +123,7 @@ SCH_607e = buff(1,1);
 
 class SCH_610:#OK
 	"""Guardian Animals SCH_610
-	Summon two Beasts that cost (5) or less from your deck. Give_them <b>Rush</b>."""
+	Summon two Beasts that cost (5) or less from your deck. Give_them [Rush]."""
 	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST + (COST <= 5))).then(
 		SetTag(Summon.CARD, (GameTag.RUSH,))
 	)*2

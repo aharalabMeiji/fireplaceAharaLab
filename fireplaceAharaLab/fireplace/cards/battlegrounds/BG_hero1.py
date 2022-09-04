@@ -59,7 +59,7 @@ class TB_BaconShop_HP_044_Action(TargetedAction):
 			DiscoverTwice(controller, RandomBGMinion(tech_level = 3)*3).trigger(source)#tech_level=3
 class TB_BaconShop_HP_044:#<12>[1453]
 	""" Procrastinate
-	<b>Passive</b> Skip your first two turns.Start with two minions from Tavern Tier 3."""
+	[Passive] Skip your first two turns.Start with two minions from Tavern Tier 3."""
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_044_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_16_Buddy:# <12>[1453]
@@ -96,7 +96,7 @@ class TB_BaconShop_HP_086_Action(TargetedAction):
 			card.taunt=True
 class TB_BaconShop_HP_086:
 	""" Swatting Insects
-	<b>Passive</b><b>Start of Combat:</b> Give yourleft-most minion <b>Windfury</b>,___<b>Divine Shield</b>, and <b>Taunt</b>."""
+	[Passive][Start of Combat:] Give yourleft-most minion [Windfury],___[Divine Shield], and [Taunt]."""
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action(CONTROLLER))
 	pass
 class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
@@ -110,14 +110,14 @@ class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
 			card.taunt=True
 class TB_BaconShop_HERO_76_Buddy:
 	"""Spirit of Air
-	<b>Deathrattle:</b> Give a random friendly minion <b>Windfury</b>,___<b>Divine Shield</b>, and <b>Taunt</b>.___"""
+	[Deathrattle:] Give a random friendly minion [Windfury],___[Divine Shield], and [Taunt].___"""
 	deathrattle = TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION)
 	pass
 class TB_BaconShop_HERO_76_Buddy_e:# <12>[1453]
 	""" Blessing of Air,[Windfury], [Divine Shield], and [Taunt]. """
 class TB_BaconShop_HERO_76_Buddy_G:
 	""" Spirit of Air
-	<b>Deathrattle:</b> Give 2 random friendly minions <b>Windfury</b>,<b>Divine Shield</b>, and <b>Taunt</b>."""
+	[Deathrattle:] Give 2 random friendly minions [Windfury],[Divine Shield], and [Taunt]."""
 	deathrattle =  TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION) * 2
 	pass
 
@@ -137,16 +137,16 @@ class TB_BaconShop_HP_064_Action(TargetedAction):
 			DiscoverTwice(controller, RandomBGDragon()*3).trigger(source)
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
-	<b>Passive</b>After you upgrade Bob's Tavern to Tavern Tier 5,_<b>Discover</b> two Dragons."""
+	[Passive]After you upgrade Bob's Tavern to Tavern Tier 5,_[Discover] two Dragons."""
 	events = UpgradeTier(CONTROLLER).on(TB_BaconShop_HP_064_Action(UpgradeTier.TARGET))
 	pass
 class TB_BaconShop_HERO_56_Buddy:
 	""" Vaelastrasz
-	<b>Battlecry:</b> Add a random Dragon of your Tavern Tier to your hand."""
+	[Battlecry:] Add a random Dragon of your Tavern Tier to your hand."""
 	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER)))
 class TB_BaconShop_HERO_56_Buddy_G:
 	""" Vaelastrasz
-	<b>Battlecry:</b> Add two random Dragons of your Tavern Tier to your hand."""
+	[Battlecry:] Add two random Dragons of your Tavern Tier to your hand."""
 	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER))) * 2
 
 
@@ -249,7 +249,7 @@ class TB_BaconShop_HERO_59:# <12>[1453]
 	"""
 class TB_BaconShop_HP_065:
 	""" Demon Hunter Training
-	<b>Passive</b> After you <b>Refresh</b> 5 times, Bob always has 7 minions.
+	[Passive] After you [Refresh] 5 times, Bob always has 7 minions.
 <i>(@ left!)</i>"""
 	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, \
 		[ ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_065t2'),\
@@ -261,7 +261,7 @@ class TB_BaconShop_HP_065pe:
 	"""
 class TB_BaconShop_HP_065t2:### 条件が満たされるとヒロパが交代になる
 	""" Spectral Sight
-	<b>Passive</b>Bob's Tavern refreshes with 7 minions."""
+	[Passive]Bob's Tavern refreshes with 7 minions."""
 class TB_BaconShop_HERO_59_Buddy:# <12>[1453]
 	""" Sklibb, Demon Hunter
 	After you play a minion,your next [Refresh] costs (0). """
@@ -673,14 +673,14 @@ class TB_BaconShop_HERO_78:# <12>[1453]
 	"""
 class TB_BaconShop_HP_088:
 	""" Avalanche
-	<b>Passive</b> After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
+	[Passive] After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)]))
 class TB_BaconShop_HERO_78_Buddy:
 	""" Snow Elemental
-	Bob always offers an extra <b>Frozen</b> Elemental whenever the Tavern is <b>Refreshed</b>."""
+	Bob always offers an extra [Frozen] Elemental whenever the Tavern is [Refreshed]."""
 class TB_BaconShop_HERO_78_Buddy_G:
 	""" Snow Elemental
-	Bob always offers 2 extra <b>Frozen</b> Elementals whenever the Tavern is <b>Refreshed</b>."""
+	Bob always offers 2 extra [Frozen] Elementals whenever the Tavern is [Refreshed]."""
 
 
 
@@ -764,7 +764,7 @@ class TB_BaconShop_HERO_36:# <12>[1453]
 	 """
 class TB_BaconShop_HP_042:
 	""" Hat Trick
-	<b>Passive.</b> After you sell a minion, randomly give a minion in Bob's Tavern +1/+1 three times."""
+	[Passive.] After you sell a minion, randomly give a minion in Bob's Tavern +1/+1 three times."""
 	events = Sell(CONTROLLER).after(Buff(RANDOM(ENEMY_MINIONS), 'TB_BaconShop_HERO_36_Buddy_e')*3)
 TB_BaconShop_HP_042e=buff(1,1)
 class TB_BaconShop_HERO_36_Buddy:# <12>[1453]
@@ -799,11 +799,11 @@ class BG20_HERO_103p:# <12>[1453]
 ########  BUDDY
 class BG20_HERO_103_Buddy:
 	""" Death's Head Sage
-	After you gain a <b>Blood Gem</b>, gain an extra one. """
+	After you gain a [Blood Gem], gain an extra one. """
 	events = Give(CONTROLLER, ID('BG20_GEM')).after(Give(CONTROLLER, 'BG20_GEM'))
 class BG20_HERO_103_Buddy_G:
 	""" Death's Head Sage
-	After you gain a <b>Blood Gem</b>, gain two extra. """
+	After you gain a [Blood Gem], gain two extra. """
 	events = Give(CONTROLLER, ID('BG20_GEM')).after(Give(CONTROLLER, 'BG20_GEM')*2)
 
 
@@ -818,7 +818,7 @@ class TB_BaconShop_HERO_52:
 	"""
 class TB_BaconShop_HP_061:
 	""" ALL Will Burn!
-	[x]<b>Passive</b> ALL minions have +3 Attack."""
+	[x][Passive] ALL minions have +3 Attack."""
 	update = Refresh(ALL_MINIONS, buff='TB_BaconShop_HP_061e')
 #TB_BaconShop_HP_061e=buff(2,0) ## until 24.0
 TB_BaconShop_HP_061e=buff(3,0) ## 24.0.3
@@ -846,7 +846,7 @@ class TB_BaconShop_HERO_43:# <12>[1453]
 	 """
 class TB_BaconShop_HP_048:
 	""" Battle Brand
-	<b>Passive.</b> After you buy 5 <b>Battlecry</b> minions, add Brann Bronzebeard to your _hand. <i>(Once per game.)</i>@[x]<b>Passive.</b> After you buy 5 <b>Battlecry</b> minions, add Brann Bronzebeard to your hand. <i>({0} left!)</i>"""
+	[Passive.] After you buy 5 [Battlecry] minions, add Brann Bronzebeard to your _hand. <i>(Once per game.)</i>@[x][Passive.] After you buy 5 [Battlecry] minions, add Brann Bronzebeard to your hand. <i>({0} left!)</i>"""
 	events = Buy(CONTROLLER, MINION + BATTLECRY).on(SidequestCounterText0(SELF, 5, \
 		[Give(CONTROLLER,"LOE_077"), SetAttr(SELF,'cant_play',True)]))
 class TB_BaconShop_HP_048e:

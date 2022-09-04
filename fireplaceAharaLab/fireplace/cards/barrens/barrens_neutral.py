@@ -239,7 +239,7 @@ if Barrens_Taurajo_Brave:#
 class BAR_071:#OK
 	"""
 	Taurajo Brave
-	<b>Frenzy:</b> Destroy a random enemy minion.
+	[Frenzy:] Destroy a random enemy minion.
 	"""
 	events = Damage(SELF).on(Frenzy(SELF,Destroy(RANDOM(ENEMY_MINIONS))))
 	pass
@@ -250,7 +250,7 @@ if Barrens_Burning_Blade_Acolyte:#
 class BAR_072:#OK
 	"""
 	Burning Blade Acolyte
-	<b>Deathrattle:</b> Summon a 5/8 Demonspawn with <b>Taunt</b>.	"""
+	[Deathrattle:] Summon a 5/8 Demonspawn with [Taunt].	"""
 	deathrattle = Summon(CONTROLLER, "BAR_072t")
 	pass
 class BAR_072t:
@@ -263,7 +263,7 @@ if Barrens_Barrens_Blacksmith:#
 class BAR_073:#OK
 	"""
 	Barrens Blacksmith
-	<b>Frenzy:</b> Give your other minions +2/+2.	"""
+	[Frenzy:] Give your other minions +2/+2.	"""
 	events = SELF_DAMAGE.on(Frenzy(SELF,Buff(FRIENDLY_MINIONS - SELF,"BAR_073e")))
 	pass
 BAR_073e=buff(atk=2,health=2)
@@ -309,7 +309,7 @@ if Barrens_Kargal_Battlescar:#
 	Barrens_Neutral+=['BAR_077','BAR_077t']
 class BAR_077:#OK
 	"""	Kargal Battlescar
-	[x]<b>Battlecry:</b> Summon a 5/5 Lookout for each Watch Post you've __summoned this game.	"""
+	[x][Battlecry:] Summon a 5/5 Lookout for each Watch Post you've __summoned this game.	"""
 	play = Summon(CONTROLLER,"BAR_077t") * CountSummon(SELF,["BAR_074","BAR_075","BAR_076"])
 	pass
 class BAR_077t:
@@ -319,7 +319,7 @@ if Barrens_Blademaster_Samuro:#
 	Barrens_Neutral+=['BAR_078']
 class BAR_078:#OK
 	"""	Blademaster Samuro
-	[x]<b>Rush</b> <b>Frenzy:</b> Deal damage equal to this minion's Attack _to all enemy minions.	"""
+	[x][Rush] [Frenzy:] Deal damage equal to this minion's Attack _to all enemy minions.	"""
 	events = SELF_DAMAGE.on(Frenzy(SELF,Hit(ENEMY_MINIONS,Attr(SELF, GameTag.ATK))))
 	pass
 
@@ -343,7 +343,7 @@ class BAR_079_firstChoice(GenericChoice):
 class BAR_079:###OK
 	"""
 	Kazakus, Golem Shaper
-	<b>Battlecry:</b> If your deck has no 4-Cost cards, build a custom Golem.
+	[Battlecry:] If your deck has no 4-Cost cards, build a custom Golem.
 	First, choose one of 'cost 1, cost 5, cost 10'
 	Next, choose one of 'rush, taunt, divine shield, life steal,  stealth, poisonous'
 
@@ -390,7 +390,7 @@ class BAR_079_m3:
 
 class BAR_079t4:
 	""" Swifthistle
-	<b>Rush</b> """
+	[Rush] """
 	def play(self):
 		controller = self.controller
 		choice1 = controller.hand[-2].id
@@ -405,7 +405,7 @@ class BAR_079t4:
 
 class BAR_079t5:
 	""" Earthroot
-	<b>Taunt</b> """
+	[Taunt] """
 	def play(self):
 		controller = self.controller
 		choice1 = controller.hand[-2].id
@@ -420,7 +420,7 @@ class BAR_079t5:
 
 class BAR_079t6:
 	""" Sungrass
-	<b>Divine Shield</b> """
+	[Divine Shield] """
 	def play(self):
 		controller = self.controller
 		choice1 = controller.hand[-2].id
@@ -435,7 +435,7 @@ class BAR_079t6:
 
 class BAR_079t7:
 	""" Liferoot
-	<b>Lifesteal</b> """
+	[Lifesteal] """
 	def play(self):
 		controller = self.controller
 		choice1 = controller.hand[-2].id
@@ -450,7 +450,7 @@ class BAR_079t7:
 
 class BAR_079t8:
 	""" Fadeleaf
-	<b>Stealth</b> """
+	[Stealth] """
 	def play(self):
 		controller = self.controller
 		choice1 = controller.hand[-2].id
@@ -465,7 +465,7 @@ class BAR_079t8:
 
 class BAR_079t9:
 	""" Grave Moss
-	<b>Poisonous</b> """
+	[Poisonous] """
 	def play(self):
 		controller = self.controller
 		choice1 = controller.hand[-2].id
@@ -499,11 +499,11 @@ def BAR_079Buff(card, buffId):
 		card.script_data_text_0='[猛毒]'
 
 def adjust_text(text):
-	return text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+	return text.replace('\n','').replace('[x]','').replace('[','[').replace(']',']')
 
 class BAR_079t10:
 	""" Wildvine
-	<b>Battlecry:</b> Give your other minions +1/+1. """
+	[Battlecry:] Give your other minions +1/+1. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -518,7 +518,7 @@ BAR_079t10e=buff(1,1)
 
 class BAR_079t10b:###OK
 	""" Wildvine
-	<b>Battlecry:</b> Give your other minions +2/+2. """
+	[Battlecry:] Give your other minions +2/+2. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -532,7 +532,7 @@ BAR_079t10be=buff(2,2)
 
 class bar_079t10c:
 	""" Wildvine
-	<b>Battlecry:</b> Give your other minions +4/+4. """
+	[Battlecry:] Give your other minions +4/+4. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -547,7 +547,7 @@ BAR_079t10ce=buff(4,4)
 
 class BAR_079t11:###OK
 	""" Gromsblood
-	<b>Battlecry:</b> Summon a copy of this. """
+	[Battlecry:] Summon a copy of this. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -562,7 +562,7 @@ class BAR_079t11:###OK
 
 class BAR_079t12:
 	""" Icecap
-	<b>Battlecry:</b> <b>Freeze</b> a random enemy minion. """
+	[Battlecry:] [Freeze] a random enemy minion. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -576,7 +576,7 @@ class BAR_079t12:
 
 class BAR_079t12b:###OK
 	""" Icecap
-	<b>Battlecry:</b> <b>Freeze</b> two random enemy minions. """
+	[Battlecry:] [Freeze] two random enemy minions. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -590,7 +590,7 @@ class BAR_079t12b:###OK
 
 class BAR_079t12c:
 	""" Icecap
-	<b>Battlecry:</b> <b>Freeze</b> all enemy minions. """
+	[Battlecry:] [Freeze] all enemy minions. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -604,7 +604,7 @@ class BAR_079t12c:
 
 class BAR_079t13:###OK
 	""" Firebloom
-	<b>Battlecry:</b> Deal 3 damage to a random enemy minion. """
+	[Battlecry:] Deal 3 damage to a random enemy minion. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -618,7 +618,7 @@ class BAR_079t13:###OK
 
 class BAR_079t13b:
 	""" Firebloom
-	<b>Battlecry:</b> Deal 3 damage to two random enemy minions. """
+	[Battlecry:] Deal 3 damage to two random enemy minions. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -632,7 +632,7 @@ class BAR_079t13b:
 
 class BAR_079t13c:
 	""" Firebloom
-	<b>Battlecry:</b> Deal 3 damage to all enemy minions. """
+	[Battlecry:] Deal 3 damage to all enemy minions. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -646,7 +646,7 @@ class BAR_079t13c:
 
 class BAR_079t14:
 	""" Mageroyal
-	<b>Spell Damage +1</b>. """
+	[Spell Damage +1]. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -661,7 +661,7 @@ class BAR_079t14:
 
 class BAR_079t14b:
 	""" Mageroyal
-	<b>Spell Damage +2</b>. """
+	[Spell Damage +2]. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -676,7 +676,7 @@ class BAR_079t14b:
 
 class BAR_079t14c:
 	""" Mageroyal
-	<b>Spell Damage +4</b>. """
+	[Spell Damage +4]. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -691,7 +691,7 @@ class BAR_079t14c:
 
 class BAR_079t15:
 	""" Kingsblood
-	<b>Battlecry:</b> Draw a card. """
+	[Battlecry:] Draw a card. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -705,7 +705,7 @@ class BAR_079t15:
 
 class BAR_079t15b:###OK
 	""" Kingsblood
-	<b>Battlecry:</b> Draw 2 cards. """
+	[Battlecry:] Draw 2 cards. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -719,7 +719,7 @@ class BAR_079t15b:###OK
 
 class BAR_079t15c:
 	""" Kingsblood
-	<b>Battlecry:</b> Draw 4 cards. """
+	[Battlecry:] Draw 4 cards. """
 	def play(self):
 		controller = self.controller
 		card = controller.hand[-3]
@@ -737,7 +737,7 @@ if Barrens_Shadow_Hunter_Voljin:#
 	Barrens_Neutral+=['BAR_080']
 class BAR_080:#OK
 	"""	Shadow Hunter Vol'jin
-	<b>Battlecry:</b> Choose a minion. Swap it with a random one in its owner's hand.	"""
+	[Battlecry:] Choose a minion. Swap it with a random one in its owner's hand.	"""
 	requirements = { PlayReq.REQ_MINION_TARGET: 0,	PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = SwapMinionAndHand(TARGET, RANDOM(FRIENDLY_HAND))
 	pass
@@ -768,7 +768,7 @@ class BAR_081_Southsea_Scoundrel(Choice):##
 		pass
 class BAR_081:#OK
 	"""	Southsea Scoundrel
-	<b>Battlecry:</b> <b>Discover</b> a card in your opponent's deck. They draw theirs as well.	"""
+	[Battlecry:] [Discover] a card in your opponent's deck. They draw theirs as well.	"""
 	play = BAR_081_Southsea_Scoundrel(CONTROLLER,RANDOM(ENEMY_DECK)*3)
 	pass
 
@@ -778,7 +778,7 @@ if Barrens_Barrens_Trapper:#
 class BAR_082:#OK
 	"""
 	Barrens Trapper
-	Your <b>Deathrattle</b> cards cost (1) less.
+	Your [Deathrattle] cards cost (1) less.
 	"""
 	play = Buff(FRIENDLY_HAND+DEATHRATTLE,"BAR_082e")
 	pass
@@ -792,7 +792,7 @@ if Barrens_Horde_Operative:#
 class BAR_430:#OK
 	"""
 	Horde Operative
-	<b>Battlecry:</b> Copy your opponent's <b>Secrets</b> and put them into play.
+	[Battlecry:] Copy your opponent's [Secrets] and put them into play.
 	"""
 	play = Summon(CONTROLLER,Copy(ENEMY_SECRETS))
 	pass
@@ -802,13 +802,13 @@ if Barrens_Mankrik:#
 class BAR_721:#OK
 	"""
 	Mankrik
-	[x]<b>Battlecry:</b> Help Mankrik find his wife! She was last seen somewhere in your deck.
+	[x][Battlecry:] Help Mankrik find his wife! She was last seen somewhere in your deck.
 	"""
 	play = Shuffle(CONTROLLER,"BAR_721t"),
 	pass
 class BAR_721t:#OK
 	"""Olgra, Mankrik's Wife
-	[x]<b>Casts When Drawn</b>	Summon a 3/7 Mankrik,		who immediately attacks		the enemy hero.
+	[x][Casts When Drawn]	Summon a 3/7 Mankrik,		who immediately attacks		the enemy hero.
 		<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
 	"""
 	play = Summon(CONTROLLER,'BAR_721t2'),RegularAttack(FRIENDLY_MINIONS+ID('BAR_721t2'),ENEMY_HERO)
@@ -826,7 +826,7 @@ if Barrens_Toad_of_the_Wilds:#
 class BAR_743:#OK 
 	#******NATUREはドルイド、シャーマンの特性****たとえば自然学の予習(SCH_333)**
 	"""
-	[x]<b>Taunt</b> <b>Battlecry:</b> If you're holding a Nature spell, gain +2 Health.
+	[x][Taunt] [Battlecry:] If you're holding a Nature spell, gain +2 Health.
 	"""
 	play = Find(FRIENDLY_HAND+SPELL+NATURE) & Buff(SELF,'BAR_743e')
 	pass
@@ -877,7 +877,7 @@ if Barrens_Crossroads_Gossiper:#
 	Barrens_Neutral+=['BAR_890','BAR_890e']
 class BAR_890:#OK
 	"""	Crossroads Gossiper
-	After a friendly <b>Secret</b> is revealed, gain +2/+2.	"""
+	After a friendly [Secret] is revealed, gain +2/+2.	"""
 	events = Reveal(FRIENDLY_SECRETS).on(Buff(SELF, "BAR_890e"))
 	pass
 BAR_890e=buff(atk=2,health=2)
@@ -890,7 +890,7 @@ if Barrens_Devouring_Ectoplasm:#
 	Barrens_Neutral+=['WC_027']
 class WC_027:#OK
 	"""	Devouring Ectoplasm
-	[x]<b>Deathrattle:</b> Summon a 2/2 Adventurer with_a random bonus effect.	"""
+	[x][Deathrattle:] Summon a 2/2 Adventurer with_a random bonus effect.	"""
 	deathrattle = SummonAdventurerWithBonus(CONTROLLER)
 	pass
 
@@ -923,7 +923,7 @@ if Barrens_Selfless_Sidekick:#
 	Barrens_Neutral+=['WC_029']
 class WC_029:#OK
 	"""	Selfless Sidekick
-	<b>Battlecry:</b> Equip a random weapon from your deck.	"""
+	[Battlecry:] Equip a random weapon from your deck.	"""
 	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK+WEAPON))
 	pass
 
@@ -933,7 +933,7 @@ if Barrens_Mutanus_the_Devourer:#
 	Barrens_Neutral+=['WC_030','WC_030e']
 class WC_030:#OK
 	"""	Mutanus the Devourer
-	[x]<b>Battlecry:</b> Eat a minion in your opponent's hand. Gain its stats.	"""
+	[x][Battlecry:] Eat a minion in your opponent's hand. Gain its stats.	"""
 	play = EatsCard(SELF, RANDOM(ENEMY_HAND + MINION))
 	pass
 WC_030e=buff()
@@ -951,7 +951,7 @@ class WC_035_Archdruid_Naralex(TargetedAction):
 		pass
 class WC_035:#OK
 	"""	Archdruid Naralex
-	[x]<b>Dormant</b> for 2 turns. While <b>Dormant</b>, 	add a Dream card to your hand __at the end of your turn.	"""
+	[x][Dormant] for 2 turns. While [Dormant], 	add a Dream card to your hand __at the end of your turn.	"""
 	play = Buff(CONTROLLER,"WC_035e")
 	dormant = 2
 	awaken = Destroy(FRIENDLY + ID("WC_035e"))

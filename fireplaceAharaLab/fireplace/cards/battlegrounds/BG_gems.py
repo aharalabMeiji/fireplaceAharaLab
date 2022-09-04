@@ -283,7 +283,7 @@ class BGS_Treasures_025:# <12>[1453] ### maybe ##
 
 class BGS_Treasures_026:# <12>[1453]
 	""" The Bouncer
-	Give a friendly minion +6/+6 and &lt;b&gt;Taunt&lt;/b&gt;. """
+	Give a friendly minion +6/+6 and [Taunt]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,}
 	play = Buff(TARGET, 'BGS_Treasures_026e')
 	pass

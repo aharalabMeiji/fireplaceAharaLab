@@ -14,7 +14,7 @@ class HERO_01bp:
 	activate = GainArmor(FRIENDLY_HERO, 2)
 class HERO_01bp2:#OK
 	""" Tank Up!
-	<b>Hero Power</b>
+	[Hero Power]
 	Gain 4 Armor."""
 	activate = GainArmor(FRIENDLY_HERO, 4)
 	pass
@@ -43,11 +43,11 @@ class CS2_050:
 	pass
 class CS2_051: 
 	""" Stoneclaw Totem
-	<b>Taunt</b> """
+	[Taunt] """
 	pass
 class CS2_052: 
 	""" Wrath of Air Totem
-	<b>Spell Damage +1</b> """ 
+	[Spell Damage +1] """ 
 	pass
 class NEW1_009:
 	""" Healing Totem
@@ -56,7 +56,7 @@ class NEW1_009:
 	pass
 class HERO_02bp2:################################# pass, need to modify 
 	""" Totemic Slam
-	<b>Hero Power</b>
+	[Hero Power]
 	Summon a Totem of your choice."""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	choose = ("CS2_050", "CS2_051", "CS2_052", "NEW1_009")
@@ -75,7 +75,7 @@ class HERO_03bp:
 	pass
 class HERO_03bp2:#OK
 	""" Poisoned Daggers
-	<b>Hero Power</b>
+	[Hero Power]
 	Equip a 2/2 Weapon."""
 	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
 	pass
@@ -107,7 +107,7 @@ class CS2_101t:
 	"""
 class HERO_04bp2:#OK
 	""" The Silver Hand
-	<b>Hero Power</b>
+	[Hero Power]
 	Summon two 1/1 Recruits."""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	activate = Summon(CONTROLLER, "CS2_101t") * 2
@@ -126,8 +126,8 @@ class HERO_05bp:
 	pass
 class HERO_05bp2:#OK
 	"""Ballista Shot
-	<b>Hero Power</b>
-	Deal $3 damage to the enemy hero.@<b>Hero Power</b>
+	[Hero Power]
+	Deal $3 damage to the enemy hero.@[Hero Power]
 	Deal $3 damage."""
 	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
 	activate = Hit(ENEMY_HERO, 3)
@@ -160,7 +160,7 @@ class HERO_06bpe:
 		GameTag.TAG_ONE_TURN_EFFECT: 1,}
 class HERO_06bp2:#OK
 	"""Dire Shapeshift
-	<b>Hero Power</b>
+	[Hero Power]
 	+2 Attack this turn.
 	+2 Armor."""
 	activate = Buff(FRIENDLY_HERO, "HERO_06bp2e"), GainArmor(FRIENDLY_HERO, 2)
@@ -185,7 +185,7 @@ class HERO_07bp:
 	activate = Hit(FRIENDLY_HERO, 2), Draw(CONTROLLER)
 class HERO_07bp2:#OK
 	"""Soul Tap
-	<b>Hero Power</b>	Draw a card."""
+	[Hero Power]	Draw a card."""
 	activate = Draw(CONTROLLER)
 
 Heroes+=[	'HERO_08',
@@ -202,7 +202,7 @@ class HERO_08bp:
 	pass
 class HERO_08bp2:#OK
 	"""Fireblast Rank 2
-	<b>Hero Power</b>
+	[Hero Power]
 	Deal $2 damage."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
 	activate = Hit(TARGET, 2)
@@ -221,7 +221,7 @@ class HERO_09bp:#
 	activate = Heal(TARGET, 2)
 class HERO_09bp2:#OK
 	"""Heal
-	<b>Hero Power</b>
+	[Hero Power]
 	Restore #4 Health."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 	activate = Heal(TARGET, 4)
@@ -235,13 +235,13 @@ class HERO_10:#
 	pass
 class HERO_10bp:#
 	"""Demon Claws
-	[x]&lt;b&gt;Hero Power&lt;/b&gt;+1 Attack this turn."""
+	[x][Hero Power]+1 Attack this turn."""
 	activate = Buff(FRIENDLY_HERO, 'HERO_10bpe')
 HERO_10bpe=buff(1,0)
 #<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 class HERO_10bp2:#OK
 	"""Demon's Bite
-	&lt;b&gt;Hero Power&lt;/b&gt; +2 Attack this turn."""
+	[Hero Power] +2 Attack this turn."""
 	activate = Buff(FRIENDLY_HERO, 'HERO_10pe2')
 HERO_10pe2=buff(2,0)
 
