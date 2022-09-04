@@ -89,7 +89,11 @@ class BG_Bar(Game):
 			for jd in characters:
 				if id==jd:
 					count+=1
-					if count>=3:
+					# First Mate Pip (BG23_192) (3)
+					#You only need 2 copies of this minion to make it Golden.
+					if id=='BG23_192' and count>=2:#
+						return id
+					elif count>=3:
 						return id
 				pass
 			pass
@@ -107,8 +111,8 @@ class BG_Bar(Game):
 		for card in self.controller.field + self.controller.hand:
 			if card.id==id:
 				buffs += card.buffs
-				decks = self.parent.BG_decks
-				gr = card.tech_level-1
+				#decks = self.parent.BG_decks
+				#gr = card.tech_level-1
 				#decks[gr].append(card.id) #no need to back to deck
 				card.zone=Zone.GRAVEYARD
 		newcard = self.controller.card(gold_id)

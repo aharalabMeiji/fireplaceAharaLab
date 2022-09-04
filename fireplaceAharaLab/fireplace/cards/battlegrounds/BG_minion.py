@@ -31,6 +31,7 @@ BG_Menagerie_Jug=True##(4)
 BG_Strongshell_Scavenger=True##(4)
 BG_Witchwing_Nestmatron=False ##(4) banned 24.2
 BG_Reef_Explorer=True##(4)# NEW 23.2
+BG_Treasure_Seeker_Elise=True ##(4) new 24.2
 BG_Tunnel_Blaster=True##(4) new 23.6
 BG24__Rendle_the_Mistermind=True ## (4) new 24.2
 
@@ -43,7 +44,7 @@ BG_Master_of_Realities=True ##(5)
 BG_Mythrax_the_Unraveler=False ##(5) banned 24.2
 BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
-BG24__Tortollan_Blue_Shell=True ## (5) new 24.2
+BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### difficult
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
@@ -792,15 +793,63 @@ if BG24__Rendle_the_Mistermind:# # (4) new 24.2
 	BG_Minion+=['BG24_022','BG24_022_G']
 	BG_PoolSet_Minion[4].append('BG24_022')
 	BG_Minion_Gold['BG24_022']='BG24_022_G'
+class BG24_022_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		if len(controller.opponent.field)>0:
+			high=[]
+			for card in controller.opponent.field:
+				if high==[] or high[0].tech_level<card.tech_level:
+					high=[card]
+				elif high[0].tech_level==card.tech_level:
+					high.append(card)
+			card.zone=Zone.SETASIDE
+			card.controller=controller
+			card.zone=Zone.HAND
+		pass
 class BG24_022:# (minion)
 	""" Rendle the Mistermind
 	At the end of your turn, steal the highest Tier minion from Bob's_Tavern. """
-	#
+	events = OWN_TURN_END.on(BG24_022_Action(CONTROLLER))
 	pass
+class BG24_022_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		for repeat in range(2):
+			if len(controller.opponent.field)>0:
+				high=[]
+				for card in controller.opponent.field:
+					if high==[] or high[0].tech_level<card.tech_level:
+						high=[card]
+					elif high[0].tech_level==card.tech_level:
+						high.append(card)
+				card.zone=Zone.SETASIDE
+				card.controller=controller
+				card.zone=Zone.HAND
+		pass
 class BG24_022_G:# (minion)
 	""" Rendle the Mistermind
 	At the end of your turn, steal the 2 highest Tier minions from Bob's_Tavern. """
+	events = OWN_TURN_END.on(BG24_022_G_Action(CONTROLLER))
 	#
+	pass
+
+
+if BG_Treasure_Seeker_Elise: ##(4) new 24.2
+	BG_Minion += ['','', ]#	
+	BG_PoolSet_Minion[4].append('')
+	BG_Minion_Gold['']=''
+class BG23_353:
+	""" Treasure-Seeker Elise
+	After you [Refresh] 5 times, find the [Golden] Monkey(BG23_353_Gt)! [(@ left!)]"""
+	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [Give(CONTROLLER, 'BG23_353_Gt')]))
+	pass
+class BG23_353_G:
+	""" Treasure-Seeker Elise
+	After you [Refresh] 5 times, find two [Golden] Monkeys!(BG23_353_Gt) [(@ left!)]"""
+	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [Give(CONTROLLER, 'BG23_353_Gt'), Give(CONTROLLER, 'BG23_353_Gt')]))
 	pass
 
 
@@ -1077,7 +1126,7 @@ class BG23_318_G:# <12>[1453]
 
 
 
-if BG24__Tortollan_Blue_Shell:# new 24.2 (5)
+if BG24__Tortollan_Blue_Shell:# new 24.2 (5) ##### difficult
 	BG_Minion+=['BG24_018','BG24_018_G']
 	BG_PoolSet_Minion[5].append('BG24_018')
 	BG_Minion_Gold['BG24_018']='BG24_018_G'
@@ -1301,23 +1350,33 @@ if BG24__Tea_Master_Theotar: # (6) new 24.2
 	BG_Minion += ['BG24_020','BG24_020e','BG24_020_G','BG24_020_Ge', ]#	
 	BG_PoolSet_Minion[6].append('BG24_020')
 	BG_Minion_Gold['BG24_020']='BG24_020_G'
+class BG24_020_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		if target.type==CardType.MINION and target.race==Race.INVALID:
+			races=[]
+			controller = source.controller
+			for card in controller.field:
+				if races==[] or not card.race in races:
+					races.append(card.race)
+			if len(races)>3:
+				races = random.sample(races, 3)
+			for race in races:
+				cards = [card for card in controller.field if card.race==race]
+				card = random.choice(cards)
+				Buff(card, buff).trigger(source)
+		pass
 class BG24_020:	
 	""" Tea Master Theotar
 	After you play a minion with no_minion_type, give 3_friendly minions of different types +2/+2. """
-	#
+	events = Play(CONTROLLER, MINION).on(BG24_020_Action(Play.CARD,'BG24_020e'))
 	pass
-class BG24_020e:# (enchantment)
-	""" Tea Time
-	+2/+2 """
-	#
-	pass
+BG24_020e=buff(2,2)
 class BG24_020_G:# (minion)
 	""" Tea Master Theotar
 	After you play a minion with no_minion_type, give 3_friendly minions of different types +4/+4. """
+	events = Play(CONTROLLER, MINION).on(BG24_020_Action(Play.CARD,'BG24_020_Ge'))
 	#
 	pass
-class BG24_020_Ge:# (enchantment)
-	""" Tea Time
-	+4/+4 """
-	#
-	pass
+BG24_020_Ge=buff(4,4)

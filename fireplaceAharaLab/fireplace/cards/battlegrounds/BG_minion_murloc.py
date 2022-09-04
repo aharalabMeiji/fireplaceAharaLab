@@ -211,11 +211,14 @@ if BG_Toxfin: ##(4) new 24.2
 	BG_Murloc_Gold['BG_DAL_077']='TB_BaconUps_152'
 class BG_DAL_077:
 	""" Toxfin (4)
-	[Battlecry:] Give a friendly Murloc lt;b>Poisonous].""" 
-
+	[Battlecry:] Give a friendly Murloc [Poisonous].""" 
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.MURLOC }	
+	play = SetTag(TARGET, (GameTag.POISONOUS,))
 class TB_BaconUps_152:
 	""" Toxfin
 	[Battlecry:] Give a friendly Murloc [Poisonous]."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.MURLOC }
+	play = SetTag(TARGET, (GameTag.POISONOUS,))
 
 
 
