@@ -18,7 +18,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=0# log.info相当のログ表示
+	LOGINFO=1# log.info相当のログ表示
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
@@ -36,8 +36,8 @@ class Config:# ()is the default value
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1=''
-	CARD_PRESET2=''
+	CARD_PRESET1='BG21_037'
+	CARD_PRESET2='BG20_204'
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効

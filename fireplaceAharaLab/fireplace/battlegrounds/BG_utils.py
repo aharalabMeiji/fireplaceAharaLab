@@ -80,7 +80,7 @@ class BG_main:
 				if 'pirate' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i+1]
 				if 'quilboar' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i+1]
 		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_56' in self.Heroes:
 			self.Heroes.remove('TB_BaconShop_HERO_56')#2 dragon ban
 		if not 'elemental' in self.BG_races and 'TB_BaconShop_HERO_78' in self.Heroes:

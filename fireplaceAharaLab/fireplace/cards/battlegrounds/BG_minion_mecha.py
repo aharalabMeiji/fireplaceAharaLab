@@ -343,15 +343,15 @@ class TB_BaconUps_032t:
 #Grease Bot(4->6) 23.6
 class BG21_024:# <12>[1453]
 	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +3/+2_permanently. """
+	After a friendly minion loses [Divine Shield], give it +2/+2_permanently. """
 	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
 	pass
 BG21_024e=buff(2,2)#24.0.3
 #BG21_024e=buff(3,2)# until 23.6
 class BG21_024_G:# <12>[1453]
 	""" Grease Bot
-	After a friendly minion loses [Divine Shield], give it +6/+4_permanently. """
-	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024e'))
+	After a friendly minion loses [Divine Shield], give it +4/+4_permanently. """
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(BuffPermanently(LoseDivineShield.TARGET, 'BG21_024_Ge'))
 	pass
 BG21_024_Ge=buff(4,4)# 24.0.3
 #BG21_024_Ge=buff(6,4)# until 23.6

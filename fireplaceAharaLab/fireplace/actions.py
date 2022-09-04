@@ -1455,6 +1455,13 @@ class Give(TargetedAction):
 			self.broadcast(source, EventListener.AFTER, target, cards[0])
 		return ret
 
+class GiveInBattle(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller=target.deepcopy_original
+		Give(controller, card).trigger(source)
+
 
 class Hit(TargetedAction):
 	"""

@@ -32,21 +32,19 @@ BG_PoolSet_Quilboar=[[],[],[],[],[],[],[]]
 BG_Quilboar_Gold={}
 
 
-# BG20_GEM : blood gem
-
 #Razorfen Geomancer	1　### OK ###
 if BG_Razorfen_Geomancer:
 	BG_Minion_Quilboar += [ 'BG20_100','BG20_100_G',]#	
-	BG_PoolSet_Quilboar[1].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[1].append('BG20_100')
+	BG_Quilboar_Gold['BG20_100']='BG20_100_G'
 class BG20_100:# <12>[1453]
 	""" Razorfen Geomancer
-	[Battlecry:] Gain a[Blood Gem]. """
+	[Battlecry:] Gain a[Blood Gem](BG20_GEM). """
 	play = Give(CONTROLLER, 'BG20_GEM')
 	pass
 class BG20_100_G:# <12>[1453]
 	""" Razorfen Geomancer
-	[Battlecry:] Gain 2[Blood Gems]. """
+	[Battlecry:] Gain 2[Blood Gems](BG20_GEM). """
 	play = Give(CONTROLLER, 'BG20_GEM') * 2
 	pass
 
@@ -55,16 +53,16 @@ class BG20_100_G:# <12>[1453]
 #Sun-Bacon Relaxer	1 ### OK ###
 if BG_Sun_Bacon_Relaxer:
 	BG_Minion_Quilboar += [ 'BG20_301','BG20_301_G',]#	
-	BG_PoolSet_Quilboar[1].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[1].append('BG20_301')
+	BG_Quilboar_Gold['BG20_301']='BG20_301_G'
 class BG20_301:# <12>[1453] コンガリ 
 	""" Sun-Bacon Relaxer
-	When you sell this, gain 2_[Blood Gems]. """
+	When you sell this, gain 2_[Blood Gems](BG20_GEM). """
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 2)
 	pass
 class BG20_301_G:# <12>[1453]
 	""" Sun-Bacon Relaxer
-	When you sell this, gain 4_[Blood Gems]. """
+	When you sell this, gain 4_[Blood Gems](BG20_GEM). """
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 4)
 	pass
 
@@ -74,8 +72,8 @@ class BG20_301_G:# <12>[1453]
 #Roadboar	2  ### OK ###
 if BG_Roadboar:
 	BG_Minion_Quilboar += [ 'BG20_101','BG20_101_G',]#	
-	BG_PoolSet_Quilboar[2].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[2].append('BG20_101')
+	BG_Quilboar_Gold['BG20_101']='BG20_101_G'
 class BG20_101_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARD = ActionArg()
@@ -101,8 +99,8 @@ class BG20_101_G:# <12>[1453]
 #Tough Tusk	2 ### OK ###
 if BG_Tough_Tusk:
 	BG_Minion_Quilboar += [ 'BG20_102','BG20_102e','BG20_102_G','BG20_102_Ge',]#	
-	BG_PoolSet_Quilboar[3].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[3].append('BG20_102')
+	BG_Quilboar_Gold['BG20_102']='BG20_102_G'
 class BG20_102:# <12>[1453]
 	""" Tough Tusk
 	After a [Blood Gem] is played on this, gain [Divine Shield] for the next combat. """
@@ -128,8 +126,8 @@ class BG20_102_Ge:# <12>[1453]
 #Bannerboar	3  ### OK ###
 if BG_Bannerboar:
 	BG_Minion_Quilboar += [ 'BG20_201','BG20_201_G',]#	
-	BG_PoolSet_Quilboar[3].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[3].append('BG20_201')
+	BG_Quilboar_Gold['BG20_201']='BG20_201_G'
 class BG20_201:# <12>[1453]
 	""" Bannerboar
 	At the end of your turn, play a [Blood Gem] on adjacent minions.
@@ -152,16 +150,16 @@ class BG20_201_G:# <12>[1453]
 #Bristleback Brute	3   ### OK ###
 if BG_Bristleback_Brute:
 	BG_Minion_Quilboar += [ 'BG20_103','BG20_103_G',]#	
-	BG_PoolSet_Quilboar[3].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[3].append('BG20_103')
+	BG_Quilboar_Gold['BG20_103']='BG20_103_G'
 class GB20_103_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		if not target.gem_applied_thisturn:
 			buff=target.buffs[-1]
-			buff.atk+=3
-			buff.max_health+=3
+			buff.atk+=amount
+			buff.max_health+=amount
 		pass
 class BG20_103:# <12>[1453]
 	""" Bristleback Brute
@@ -179,17 +177,23 @@ class BG20_103_G:# <12>[1453]
 #Gemsplitter	3 ### OK ###
 if BG_Gemsplitter:
 	BG_Minion_Quilboar += [ 'BG21_037','BG21_037_G',]#	
-	BG_PoolSet_Quilboar[3].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[3].append('BG21_037')
+	BG_Quilboar_Gold['BG21_037']='BG21_037_G'
+class BG21_037_Action(TargetedAction):
+	TARGET = ActionArg()
+	CARD = ActionArg()
+	def do(self, source, target, card):
+		controller=target.deepcopy_original
+		Give(controller, card).trigger(controller)
 class BG21_037:# <12>[1453] 宝石割
 	""" Gemsplitter
 	After a friendly minion loses [Divine Shield], gain a_[Blood Gem]. """
-	events = LoseDivineShield(FRIENDLY).on(Give(CONTROLLER, 'BG20_GEM'))
+	events = LoseDivineShield(FRIENDLY).on(GiveInBattle(CONTROLLER, 'BG20_GEM'))
 	pass
 class BG21_037_G:# <12>[1453]
 	""" Gemsplitter
 	After a friendly minion loses [Divine Shield], gain 2_[Blood Gems]. """
-	events = LoseDivineShield(FRIENDLY_MINIONS).on(Give(CONTROLLER, 'BG20_GEM')*2)
+	events = LoseDivineShield(FRIENDLY_MINIONS).on(GiveInBattle(CONTROLLER, 'BG20_GEM')*2)
 	pass
 
 
@@ -367,10 +371,14 @@ if BG_Bristleback_Knight:
 class BG20_204:
 	"""Bristleback_Knight
 	[Windfury], [Divine Shield] [Frenzy:] Gain [Divine Shield]."""
+	events = Damage(SELF).on(Frenzy(SELF,SetDivineShield(SELF, True)))
+	#<Tag enumID="189" name="WINDFURY" type="Int" value="1"/>
 	pass
 class BG20_204_G:
 	"""Bristleback_Knight
 	[Mega-Windfury], [[Divine Shield].] [Frenzy:] Gain [Divine Shield]."""
+	events = Damage(SELF).on(Frenzy(SELF,SetDivineShield(SELF, True)))
+	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/>
 	pass
 
 

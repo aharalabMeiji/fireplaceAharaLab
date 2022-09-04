@@ -26,7 +26,7 @@ class BG_Bar(Game):
 
 	def BG_setup(self):
 		if Config.LOGINFO:
-			Config.log("BG.Bar.BG_setup","Setting up game %r", self)
+			Config.log("BG.Bar.BG_setup","Setting up game %r"%(self))
 		self.state = State.RUNNING
 		#self.step = Step.BEGIN_DRAW
 		self.zone = Zone.PLAY

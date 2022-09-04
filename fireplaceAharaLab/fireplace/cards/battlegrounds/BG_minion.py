@@ -616,12 +616,12 @@ if BG_Impatient_Doomsayer:#Impatient Doomsayer	4	2	6		 ### maybe ###
 class BG21_007:# <12>[1453]  終魔通予言者
 	""" Impatient Doomsayer
 	[Avenge (4):] Add a random Demon to your hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomBGDemon())]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [GiveInBattle(CONTROLLER, RandomBGDemon())]))
 	pass
 class BG21_007_G:# <12>[1453]
 	""" Impatient Doomsayer
 	[Avenge (4):] Add 2 random Demons to your hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 4, [Give(CONTROLLER, RandomBGDemon()), Give(CONTROLLER, RandomBGDemon())]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 4, [GiveInBattle(CONTROLLER, RandomBGDemon()), GiveInBattle(CONTROLLER, RandomBGDemon())]))
 	pass
 
 
@@ -727,12 +727,12 @@ if BG_Witchwing_Nestmatron:#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2
 class BG21_038:# <12>[1453] 巣母
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGMinion(has_battlecry=True))]))
 	pass
 class BG21_038_G:# <12>[1453]
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [Give(CONTROLLER, RandomBGMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
 
 if BG_Reef_Explorer:### Reef Explorer(4) ### regular card OK, gold card NOT YET ### NEW 23.2
