@@ -135,30 +135,22 @@ TB_BaconUps_107e=buff(4,2)
 
 
 
-if BG24__Nether_Drake:# (2)
+if BG24__Nether_Drake:# (2)  new 24.2 ### visually OK
 	BG_Minion_Dragon+=['BG24_003','BG24_003e','BG24_003_G','BG24_003_Ge']
 	BG_PoolSet_Dragon[2].append('BG24_003')
 	BG_Dragon_Gold['BG24_003']='BG24_003_G'
 class BG24_003:# (minion)
 	""" Nether Drake
 	At the end of your turn, give your Dragons +1 Attack. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + DRAGON, 'BG24_003e'))
 	pass
+BG24_003e=buff(1,0)
 class BG24_003_G:# (minion)
 	""" Nether Drake
 	At the end of your turn, give your Dragons +2 Attack. """
-	#
+	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + DRAGON, 'BG24_003_Ge'))
 	pass
-class BG24_003_Ge:# (enchantment)
-	""" Nether Again
-	+2 Attack. """
-	#
-	pass
-class BG24_003e:# (enchantment)
-	""" Nether Again
-	+1 Attack. """
-	#
-	pass
+BG24_003_Ge=buff(2,0)
 
 
 
@@ -225,33 +217,35 @@ class TB_BaconUps_108:# <12>[1453]
 TB_BaconUps_108e=buff(4,4)
 
 
-if BG24__Amber_Guardian:# (3) new 24.2
+if BG24__Amber_Guardian:# (3) new 24.2 ## check around divine_shield
 	BG_Minion_Dragon+=['BG24_500','BG24_500e','BG24_500_G','BG24_500_Ge']
 	BG_PoolSet_Dragon[3].append('BG24_500')
 	BG_Dragon_Gold['BG24_500']='BG24_500_G'
 class BG24_500:# (minion)
 	""" Amber Guardian
 	[Start of Combat:] Give another friendly Dragon +3/+3 and [Divine Shield]. """
-	#
+	events = BeginBattle(CONTROLLER).on(Buff(RANDOM(FRIENDLY_MINIONS + DRAGON - SELF), 'BG24_500e'))
 	pass
-
+#BG24_500e=buff(3,3,divine_shield=True)
+class BG24_500e:
+	tags={
+		GameTag.ATK:3,
+		GameTag.HEALTH:3
+		}
+	def apply(self, target):
+		SetDivineShield(target, True).trigger(self)
 class BG24_500_G:# (minion)
 	""" Amber Guardian
 	[Start of Combat:] Give another friendly Dragon +6/+6 and [Divine Shield]. """
-	#
+	events = BeginBattle(CONTROLLER).on(Buff(RANDOM(FRIENDLY_MINIONS + DRAGON - SELF), 'BG24_500_Ge'))
 	pass
-
-class BG24_500_Ge:# (enchantment)
-	""" Guarded by Amber
-	+6/+6 """
-	#
-	pass
-
-class BG24_500e:# (enchantment)
-	""" Guarded by Amber
-	+3/+3 """
-	#
-	pass
+class BG24_500_Ge:
+	tags={
+		GameTag.ATK:6,
+		GameTag.HEALTH:6
+		}
+	def apply(self, target):
+		SetDivineShield(target, True).trigger(self)
 
 
 

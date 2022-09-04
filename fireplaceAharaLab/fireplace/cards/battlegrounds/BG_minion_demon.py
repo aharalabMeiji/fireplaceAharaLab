@@ -35,8 +35,7 @@ class BG21_029:# <12>[1453]
 	deathrattle = Summon(CONTROLLER, 'BRM_006t') * 2
 	pass
 class BRM_006t:#
-	""" imp (1/1)
-	"""
+	""" imp (1/1)"""
 	pass
 class BG21_029_G:# <12>[1453]
 	""" Icky Imp
@@ -66,7 +65,7 @@ class BG21_006_Action(TargetedAction):
 			target = target.owner
 		buff_health = source.max_health
 		if target!=None and target!=[]:
-			Buff(target, 'BG21_006e', max_health = buff_health).trigger(controller)
+			Buff(target, 'BG21_006e', max_health = buff_health).trigger(source)
 		pass
 class BG21_006:# <12>[1453]
 	""" Impulsive Trickster(1)
@@ -87,24 +86,31 @@ class BG21_006_G:# <12>[1453]
 
 
 
-if BG24__Picky_Eater:# (1)
+if BG24__Picky_Eater:# (1) #### visually OK###
 	BG_Minion_Demon+=['BG24_009','BG24_009e','BG24_009_G']
 	BG_PoolSet_Demon[2].append('BG24_009')
 	BG_Demon_Gold['BG24_009']='BG24_009_G'
 class BG24_009:# (minion)(demon)
 	""" Picky Eater
 	[Battlecry:] Consume a random minion in Bob's_Tavern to gain its stats. """
-	#
+	def play(self):
+		if len(self.controller.opponent.field)>0:
+			card=random.choice(self.controller.opponent.field)
+			Buff(self, 'BG24_009e', atk=card.atk, max_health=card.max_health).trigger(self)
+			Destroy(card).trigger(self)
 	pass
 class BG24_009e:# (enchantment)
 	""" Ate a Taverngoer
 	Consumed the stats of minion. """
-	#
 	pass
 class BG24_009_G:# (minion)(demon)
 	""" Picky Eater
 	[Battlecry:] Consume a random minion in Bob's_Tavern to gain double its stats. """
-	#
+	def play(self):
+		if len(self.controller.opponent.field)>0:
+			card=random.choice(self.controller.opponent.field)
+			Buff(self, 'BG24_009e', atk=card.atk*2, max_health=card.max_health*2).trigger(self)
+			Destroy(card).trigger(self)
 	pass
 
 
@@ -138,7 +144,7 @@ TB_BaconUps_062e=buff(4,4)
 
 ####################  禁固番  (2) ### OK ###
 if BG_Imprisoner:
-	BG_Minion_Demon +=['BGS_014','TB_BaconUps_113']
+	BG_Minion_Demon +=['BGS_014','BRM_006t','TB_BaconUps_113','TB_BaconUps_030t']
 	BG_PoolSet_Demon[2].append('BGS_014')
 	BG_Demon_Gold['BGS_014']='TB_BaconUps_113'
 class BGS_014:# <12>[1453]
@@ -156,29 +162,45 @@ class TB_BaconUps_113:# <12>[1453]
 #########BG23_357(2)############
 if BG_Mind_Muck: #(2) new 24.2
 	BG_Minion_Demon +=['BG23_357','BG23_357_G']
-	BG_PoolSet_Demon[3].append('BG23_357')
+	BG_PoolSet_Demon[2].append('BG23_357')
 	BG_Demon_Gold['BG23_357']='BG23_357_G'
 class BG23_357:# 
 	""" Mind Muck(2)
 	[Battlecry:] Choose a friendly Demon. It consumes a minion in Bob's Tavern to gain its stats."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	def play(self):
+		if self.target!=None and len(self.controller.opponent.field)>0:
+			card=random.choice(self.controller.opponent.field)
+			Buff(self.target, 'BG24_009e', atk=card.atk, max_health=card.max_health).trigger(self)
+			Destroy(card).trigger(self)
+	pass
 class BG23_357_G:# 
 	""" Mind Muck
 	[Battlecry:] Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	def play(self):
+		if self.target!=None and len(self.controller.opponent.field)>0:
+			card=random.choice(self.controller.opponent.field)
+			Buff(self.target, 'BG24_009e', atk=card.atk*2, max_health=card.max_health*2).trigger(self)
+			Destroy(card).trigger(self)
+	pass
 
 
 ####### BG_AV_309 ############
 if BG_Piggyback_Imp: #(2) new 24.2
 	BG_Minion_Demon +=['BG_AV_309','BG_AV_309t','BG_AV_309_G','BG_AV_309_Gt']
-	BG_PoolSet_Demon[3].append('BG_AV_309')
+	BG_PoolSet_Demon[2].append('BG_AV_309')
 	BG_Demon_Gold['BG_AV_309']='BG_AV_309_G'
 class BG_AV_309:# 
 	""" Piggyback Imp(2)
-	[Deathrattle:] Summon a 4/1 Imp."""
+	[Deathrattle:] Summon a 4/1 Imp(BG_AV_309t)."""
+	deathrattle=Summon(CONTROLLER, 'BG_AV_309t')
 class BG_AV_309t:
 	pass
 class BG_AV_309_G:# 
 	""" Mind Muck
-	[Battlecry:] Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
+	[Deathrattle:] Summon a 8/2 Imp."""
+	deathrattle=Summon(CONTROLLER, 'BG_AV_309_Gt')
 class BG_AV_309_Gt:
 	pass
 
@@ -250,14 +272,22 @@ if BG_Legion_Overseer:## (3) new 24.2
 class BG23_361:
 	""" Legion Overseer (3)
 	Minions in Bob's_Tavern have +2/+2."""
+	update = Refresh(ENEMY_MINIONS, buff='BG23_361e')
 	pass
-class BG23_361e:
-	pass
+BG23_361e=buff(2,2)
 class BG23_361_G:
 	""" Legion Overseer (3)
 	Minions in Bob's_Tavern have +4/+4."""
+	update = Refresh(ENEMY_MINIONS, buff='BG23_361_Ge')
 	pass
-
+@custom_card
+class BG23_361_Ge:
+	tags = {
+		GameTag.CARDNAME: "Legion Overseer",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK:4,
+		GameTag.HEALTH:4
+	}
 
 ###################　焦熱の圧鬼（あっき）(4)### maybe ###
 if BG_Bigfernal:
