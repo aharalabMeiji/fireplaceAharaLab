@@ -223,6 +223,19 @@ class TB_BaconUps_140:# <12>[1453]
 TB_BaconUps_140e=buff(2,2)
 
 
+##### BG23_192 #######
+if BG_: ##(3) new 24.2
+	BG_Minion_Pirate +=['BG23_192','BG23_192_G']
+	BG_PoolSet_Pirate[3]+='BG23_192'
+	BG_Pirate_Gold['BG23_192']='BG23_192_G'
+class BG23_192:
+	""" First Mate Pip (3)
+	You only need 2 copies of this minion to make it Golden. """
+	pass
+class BG23_192_G:
+	""" First Mate Pip (3)
+	&lt;i&gt;(Only 2 copies of this minion were needed to make it Golden.)&lt;/i&gt;"""
+	pass
 
 #Goldgrubber,4,4,4,Pirate,- 金ぴか ### OK ###
 if BG_Goldgrubber:

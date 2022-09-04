@@ -44,6 +44,12 @@ BG_Sparring_Partner=True## new 23.6
 BG_Yrel=True## new 23.6
 BG_Shifter_Zerus=False## new 23.6 banned 24.2 (hard)
 BG_unnel_Blaster=True## new 23.6
+BG24__Rendle_the_Mistermind=True ## (4) new 24.2
+
+BG24__Tortollan_Blue_Shell=True ## (5) new 24.2
+BG24__Tea_Master_Theotar=True# (6) new 24.2
+
+
 
 BG_Minion=[]
 
@@ -573,6 +579,24 @@ class BG21_038_G:# <12>[1453]
 	pass
 
 
+
+if BG24__Rendle_the_Mistermind:# # (4) new 24.2
+	BG_Minion+=['BG24_022','BG24_022_G']
+	BG_PoolSet_Minion[4].append('BG24_022')
+	BG_Minion_Gold['BG24_022']='BG24_022_G'
+class BG24_022:# (minion)
+	""" Rendle the Mistermind
+	At the end of your turn, steal the highest Tier minion from Bob's_Tavern. """
+	#
+	pass
+class BG24_022_G:# (minion)
+	""" Rendle the Mistermind
+	At the end of your turn, steal the 2 highest Tier minions from Bob's_Tavern. """
+	#
+	pass
+
+
+
 if BG_Baron_Rivendare:#Baron Rivendare	5	1	7		 ### maybe ###
 	BG_Minion += ['FP1_031','TB_BaconUps_055',]#	
 	BG_PoolSet_Minion[5].append('FP1_031')
@@ -1026,6 +1050,22 @@ class BG23_016_G:# <12>[1453]
 
 
 
+
+if BG24__Tortollan_Blue_Shell:# new 24.2 (5)
+	BG_Minion+=['BG24_018','BG24_018_G']
+	BG_PoolSet_Minion[5].append('BG24_018')
+	BG_Minion_Gold['BG24_018']='BG24_018_G'
+class BG24_018:# (minion, 5)
+	""" Tortollan Blue Shell
+	If you lost your last combat, this minion sells for 5 Gold. """
+	#
+	pass
+class BG24_018_G:# (minion)
+	""" Tortollan Blue Shell
+	If you lost your last combat, this minion sells for 10 Gold. """
+	#
+	pass
+
 if BG_Darkgaze_Elder:## Darkgaze Elder (6) (quilboar)  ### maybe OK ### NEW 23.2
 	BG_Minion += ['BG23_018','BG23_018t','BG23_018_G', ]#	
 	BG_PoolSet_Minion[6].append('BG23_018')
@@ -1070,6 +1110,37 @@ class BG23_018_G:# <12>[1453]
 	pass
 class BG23_018t:# <12>[1453]
 	pass
+
+
+if BG24__Tea_Master_Theotar:# (6) new 24.2
+	BG_Minion+=['BG24_020','BG24_020e','BG24_020_G','BG24_020_Ge']
+	BG_PoolSet_Minion[6].append('BG24_020')
+	BG_Minion_Gold['BG24_020']='BG24_020_G'
+class BG24_020:# (minion)
+	""" Tea Master Theotar
+	After you play a minion with no_minion_type, give 3_friendly minions of different types +2/+2. """
+	#
+	pass
+
+class BG24_020_G:# (minion)
+	""" Tea Master Theotar
+	After you play a minion with no_minion_type, give 3_friendly minions of different types +4/+4. """
+	#
+	pass
+
+class BG24_020_Ge:# (enchantment)
+	""" Tea Time
+	+4/+4 """
+	#
+	pass
+
+class BG24_020e:# (enchantment)
+	""" Tea Time
+	+2/+2 """
+	#
+	pass
+
+
 
 
 if BG_Leeroy_the_Reckless:## Leeroy the Reckless (5)  ### maybe ###

@@ -2,10 +2,14 @@ from ..utils import *
 
 BG_Icky_Imp=False ##(1) banned 24.2
 BG_Impulsive_Trickster=True ##(1)
+BG24__Picky_Eater=True ## (1) new 24.2
 BG_Nathrezim_Overseer=False ##(2) banned 24.2
 BG_Imprisoner=True ##(2)
+BG_Mind_Muck=True #(2) new 24.2
+BG_Piggyback_Imp=True #(2) new 24.2
 BG_Kathra_natir=True ##(3)
 BG_Soul_Devourer=False ##(3) banned 24.2
+BG_Legion_Overseer=True## (3) new 24.2 
 BG_Bigfernal=True ##(4)
 BG_Ring_Matron=True ##(4)
 BG_Insatiable_Ur_zul=True ##(5)
@@ -81,6 +85,31 @@ class BG21_006_G:# <12>[1453]
 
 
 
+
+
+if BG24__Picky_Eater:# (1)
+	BG_Minion_Demon+=['BG24_009','BG24_009e','BG24_009_G']
+	BG_PoolSet_Demon[2]+='BG24_009'
+	BG_Demon_Gold['BG24_009']='BG24_009_G'
+class BG24_009:# (minion)(demon)
+	""" Picky Eater
+	[Battlecry:] Consume a random minion in Bob's_Tavern to gain its stats. """
+	#
+	pass
+class BG24_009e:# (enchantment)
+	""" Ate a Taverngoer
+	Consumed the stats of minion. """
+	#
+	pass
+class BG24_009_G:# (minion)(demon)
+	""" Picky Eater
+	[Battlecry:] Consume a random minion in Bob's_Tavern to gain double its stats. """
+	#
+	pass
+
+
+
+
 ####################ナスレズィム (2)### OK ### banned 24.2
 if BG_Nathrezim_Overseer:
 	BG_Minion_Demon +=['BGS_001','BGS_001e','TB_BaconUps_062','TB_BaconUps_062e']
@@ -107,7 +136,7 @@ TB_BaconUps_062e=buff(4,4)
 
 
 
-####################  禁固番  ### OK ###
+####################  禁固番  (2) ### OK ###
 if BG_Imprisoner:
 	BG_Minion_Demon +=['BGS_014','TB_BaconUps_113']
 	BG_PoolSet_Demon[2]+='BGS_014'
@@ -121,6 +150,36 @@ class TB_BaconUps_113:# <12>[1453]
 	""" Imprisoner
 	[Taunt][Deathrattle:] Summon a 2/2 Imp. """
 	deathrattle = Summon(CONTROLLER, 'TB_BaconUps_030t')
+	pass
+
+
+#########BG23_357(2)############
+if BG_Mind_Muck: #(2) new 24.2
+	BG_Minion_Demon +=['BG23_357','BG23_357_G']
+	BG_PoolSet_Demon[3]+='BG23_357'
+	BG_Demon_Gold['BG23_357']='BG23_357_G'
+class BG23_357:# 
+	""" Mind Muck(2)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Demon. It consumes a minion in Bob's Tavern to gain its stats."""
+class BG23_357_G:# 
+	""" Mind Muck
+	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
+
+
+####### BG_AV_309 ############
+if BG_Piggyback_Imp: #(2) new 24.2
+	BG_Minion_Demon +=['BG_AV_309','BG_AV_309t','BG_AV_309_G','BG_AV_309_Gt']
+	BG_PoolSet_Demon[3]+='BG_AV_309'
+	BG_Demon_Gold['BG_AV_309']='BG_AV_309_G'
+class BG_AV_309:# 
+	""" Piggyback Imp(2)
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a 4/1 Imp."""
+class BG_AV_309t:
+	pass
+class BG_AV_309_G:# 
+	""" Mind Muck
+	&lt;b&gt;Battlecry:&lt;/b&gt; Choose a friendly Demon. It consumes a _minion in Bob's Tavern __to gain double its stats."""
+class BG_AV_309_Gt:
 	pass
 
 
@@ -182,6 +241,22 @@ class TB_BaconUps_119:# <12>[1453]
 	#play = EatsMinion(SELF, TARGET, 2, 'BGS_059e'),ManaThisTurn(controller, 6)
 	pass
 
+
+#### BG23_361 #####
+if BG_Legion_Overseer:## (3) new 24.2 
+	BG_Minion_Demon +=['BG23_361','BG23_361e','BG23_361_G']
+	BG_PoolSet_Demon[3]+='BG23_361'
+	BG_Demon_Gold['BG23_361']='BG23_361_G'
+class BG23_361:
+	""" Legion Overseer (3)
+	Minions in Bob's_Tavern have +2/+2."""
+	pass
+class BG23_361e:
+	pass
+class BG23_361_G:
+	""" Legion Overseer (3)
+	Minions in Bob's_Tavern have +4/+4."""
+	pass
 
 
 ###################　焦熱の圧鬼（あっき）(4)### maybe ###

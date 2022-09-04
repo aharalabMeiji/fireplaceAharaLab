@@ -4,10 +4,12 @@ BG_Red_Whelp=True ## ##(1)
 BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
 BG_Glyph_Guardian=True ## ##(2)
 BG_Steward_of_Time=False ####(2) ##banned 24.2
+BG24__Nether_Drake=True# (2) new 24.2
 BG_Bronze_Warden=True ##(3)
 BG_Drakonid_Enforcer=True ##(3)
 BG_Twilight_Emissary=True ##(3)
 BG_Tarecgosa=True ##(3)
+BG24__Amber_Guardian=True# (3) new 24.2
 BG_Cobalt_Scalebane=False ##(4) banned 24.2
 BG_Prestor_s_Pyrospawn=False ## (4) banned
 BG_Prized_Promo_Drake=True ##(4)
@@ -133,6 +135,34 @@ TB_BaconUps_107e=buff(4,2)
 
 
 
+if BG24__Nether_Drake:# (2)
+	BG_Minion_Dragon+=['BG24_003','BG24_003e','BG24_003_G','BG24_003_Ge']
+	BG_PoolSet_Dragon[2].append('BG24_003')
+	BG_Dragon_Gold['BG24_003']='BG24_003_G'
+class BG24_003:# (minion)
+	""" Nether Drake
+	At the end of your turn, give your Dragons +1 Attack. """
+	#
+	pass
+class BG24_003_G:# (minion)
+	""" Nether Drake
+	At the end of your turn, give your Dragons +2 Attack. """
+	#
+	pass
+class BG24_003_Ge:# (enchantment)
+	""" Nether Again
+	+2 Attack. """
+	#
+	pass
+class BG24_003e:# (enchantment)
+	""" Nether Again
+	+1 Attack. """
+	#
+	pass
+
+
+
+
 
 #Bronze Warden(3)  ### OK ###
 if BG_Bronze_Warden:
@@ -193,6 +223,35 @@ class TB_BaconUps_108:# <12>[1453]
 	play = Buff(TARGET, 'TB_BaconUps_108e')
 	pass
 TB_BaconUps_108e=buff(4,4)
+
+
+if BG24__Amber_Guardian:# (3) new 24.2
+	BG_Minion_Dragon+=['BG24_500','BG24_500e','BG24_500_G','BG24_500_Ge']
+	BG_PoolSet_Dragon[3].append('BG24_500')
+	BG_Dragon_Gold['BG24_500']='BG24_500_G'
+class BG24_500:# (minion)
+	""" Amber Guardian
+	[Start of Combat:] Give another friendly Dragon +3/+3 and [Divine Shield]. """
+	#
+	pass
+
+class BG24_500_G:# (minion)
+	""" Amber Guardian
+	[Start of Combat:] Give another friendly Dragon +6/+6 and [Divine Shield]. """
+	#
+	pass
+
+class BG24_500_Ge:# (enchantment)
+	""" Guarded by Amber
+	+6/+6 """
+	#
+	pass
+
+class BG24_500e:# (enchantment)
+	""" Guarded by Amber
+	+3/+3 """
+	#
+	pass
 
 
 
