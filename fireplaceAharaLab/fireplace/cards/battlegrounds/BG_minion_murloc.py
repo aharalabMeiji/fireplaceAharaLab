@@ -1,47 +1,32 @@
 from ..utils import *
 
+BG_Rockpool_Hunter=True ##(1) 
+BG_Swampstriker=True ## (1)
+BG_Murloc_Warleader=True ## (2)
+BG_Saltscale_Honcho=True ## (2)
+BG_Tad=True ## (2)
+BG_Coldlight_Seer=True ## (3)
+BG_Felfin_Navigator=True ## (3)
+BG_Swolefin=True ## (3)
+BG_Primalfin_Lookout=True ## (4)
+BG_Toxfin=True ##(4) new 24.2
+BG_King_Bagurgle=True ## (5)
 BG_SI_Sefin=False ## (5) banned 4.2
+BG_Young_Murk_Eye=True ## (6) 
 
 
-BG_Minion_Murloc =[
-'UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',#Rockpool Hunter (1)
-'BG22_401','BG22_401e','BG22_401_G','BG22_401_Ge',#Swampstriker (1)
-'EX1_507','EX1_507e','TB_BaconUps_008','TB_BaconUps_008e',#Murloc Warleader (2)
-'BG21_008','BG21_008e','BG21_008_G','BG21_008_Ge',#Saltscale Honcho (2)
-'BG22_202','BG22_202_G',#Tad (2)
-'EX1_103','EX1_103e','TB_BaconUps_064','TB_BaconUps_064e',#Coldlight Seer (3)
-'BT_010','BT_010e','TB_BaconUps_124','TB_BaconUps_124e',#Felfin Navigator (3)
-'BG21_010','BG21_010e','BG21_010_G','BG21_010_Ge',#Swolefin (3)
-'BGS_020','TB_BaconUps_089',#Primalfin Lookout (4)
-'BGS_030','BGS_030e','TB_BaconUps_100','TB_BaconUps_100e',#King Bagurgle (5)
-#'BG21_009','BG21_009e','BG21_009_G',#SI:Sefin (5)
-'BG22_403',## Young Murk-Eye (6) 
-	]
+BG_Minion_Murloc =[]
 
-BG_PoolSet_Murloc=[
-	['UNG_073','BG22_401', ],
-	['EX1_507', 'BG21_008', 'BG22_202', ],
-	['BT_010', 'BG21_010', 'EX1_103',], ##3
-	['BGS_020',],
-	['BGS_030','BG21_009', ],
-	[],
-	]
-BG_Murloc_Gold={
-	'UNG_073':'TB_BaconUps_061',#Rockpool Hunter (1)
-	'BG22_401':'BG22_401_G',#Swampstriker (1)
-	'EX1_507':'TB_BaconUps_008',#Murloc Warleader (2)
-	'BG21_008':'BG21_008_G',#Saltscale Honcho (2)
-	'BG22_202':'BG22_202_G',#Tad (2)
-	'EX1_103':'TB_BaconUps_064',#Coldlight Seer (3)
-	'BT_010':'TB_BaconUps_124',#Felfin Navigator (3)
-	'BG21_010':'BG21_010_G',#Swolefin (3)
-	'BGS_020':'TB_BaconUps_089',#Primalfin Lookout (4)
-	'BGS_030':'TB_BaconUps_100',#King Bagurgle (5)
-#	'BG21_009':'BG21_009_G',#SI:Sefin (5)	
-	}
+BG_PoolSet_Murloc=[[],[],[],[],[],[],[]]
+
+BG_Murloc_Gold={}
 
 
 #Rockpool Hunter (1)  ## OK ##
+if BG_Rockpool_Hunter:
+	BG_Minion_Murloc=['UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',]
+	BG_PoolSet_Murloc[1]='UNG_073'
+	BG_Murloc_Gold['UNG_073']='TB_BaconUps_061'
 class UNG_073:
 	""" >Rockpool Hunter
 	<b>Battlecry:</b> Give a friendly Murloc +1/+1. """
@@ -59,6 +44,10 @@ TB_BaconUps_061e=buff(2,2)
 
 
 #Swampstriker (1)  ## OK ##
+if BG_Swampstriker:
+	BG_Minion_Murloc=['BG22_401','BG22_401e','BG22_401_G','BG22_401_Ge',]
+	BG_PoolSet_Murloc[1]='BG22_401'
+	BG_Murloc_Gold['BG22_401']='BG22_401_G'
 class BG22_401:# <12>[1453]
 	""" Swampstriker
 	After you summon a Murloc, gain +1 Attack. """
@@ -75,6 +64,10 @@ BG22_401_Ge=buff(2,0)
 
 
 #Murloc Warleader (2)  ### maybe ###
+if BG_Murloc_Warleader:
+	BG_Minion_Murloc=['EX1_507','EX1_507e','TB_BaconUps_008','TB_BaconUps_008e',]
+	BG_PoolSet_Murloc[1]='EX1_507'
+	BG_Murloc_Gold['EX1_507']='TB_BaconUps_008'
 class EX1_507:
 	"""Murloc Warleader 戦隊長
 	"""
@@ -92,6 +85,10 @@ TB_BaconUps_008e=buff(4,0)# <12>[1453]
 
 
 #Saltscale Honcho (2) ### maybe ###
+if BG_Saltscale_Honcho:
+	BG_Minion_Murloc=['BG21_008','BG21_008e','BG21_008_G','BG21_008_Ge',]
+	BG_PoolSet_Murloc[2]='BG21_008'
+	BG_Murloc_Gold['BG21_008']='BG21_008_G'
 class BG21_008:# <12>[1453] そるとすけいる
 	""" Saltscale Honcho
 	After you play a Murloc, give two other friendly Murlocs +1 Health. """
@@ -111,6 +108,10 @@ BG21_008_Ge=buff(0,2)# <12>[1453]
 
 
 #Tad (2) ### maybe ###
+if BG_Tad:
+	BG_Minion_Murloc=['BG22_202','BG22_202_G',]
+	BG_PoolSet_Murloc[2]='BG22_202'
+	BG_Murloc_Gold['BG22_202']='BG22_202_G'
 class BG22_202:# <12>[1453]
 	""" Tad
 	When you sell this,add another random Murloc to your hand. """
@@ -125,6 +126,10 @@ class BG22_202_G:# <12>[1453]
 
 
 #Coldlight Seer (3)
+if BG_Coldlight_Seer:
+	BG_Minion_Murloc=['EX1_103','EX1_103e','TB_BaconUps_064','TB_BaconUps_064e',]
+	BG_PoolSet_Murloc[3]='EX1_103'
+	BG_Murloc_Gold['EX1_103']='TB_BaconUps_064'
 class EX1_103:
 	""" Coldlight Seer
 	[Battlecry:] Give your other Murlocs +2 Health. """
@@ -141,6 +146,10 @@ TB_BaconUps_064e=buff(0,4)
 
 
 #Felfin Navigator (3) ### maybe ###
+if BG_Felfin_Navigator:
+	BG_Minion_Murloc=['BT_010','BT_010e','TB_BaconUps_124','TB_BaconUps_124e',]
+	BG_PoolSet_Murloc[3]='BT_010'
+	BG_Murloc_Gold['BT_010']='TB_BaconUps_124'
 class BT_010:
 	""" Felfin Navigator
 	[Battlecry:] Give your other Murlocs +1/+1. """
@@ -156,6 +165,10 @@ TB_BaconUps_124e=buff(2,2)
 
 
 #Swolefin (3) ### need check ###
+if BG_Swolefin:
+	BG_Minion_Murloc=['BG21_010','BG21_010e','BG21_010_G','BG21_010_Ge',]
+	BG_PoolSet_Murloc[3]='BG21_010'
+	BG_Murloc_Gold['BG21_010']='BG21_010_G'
 class BG21_010:# <12>[1453] ムキムキ
 	""" Swolefin
 	[Battlecry:] Gain +2/+1 for each other friendly Murloc. """
@@ -176,6 +189,10 @@ BG21_010_Ge=buff(4,2)# <12>[1453]
 
 
 #Primalfin Lookout (4) ### maybe ###
+if BG_Primalfin_Lookout:
+	BG_Minion_Murloc=['BGS_020','TB_BaconUps_089',]
+	BG_PoolSet_Murloc[4]='BGS_020'
+	BG_Murloc_Gold['BGS_020']='TB_BaconUps_089'
 class BGS_020:# <12>[1453] 見張り番
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] a_Murloc. """
@@ -188,8 +205,25 @@ class TB_BaconUps_089:# <12>[1453]
 	pass
 
 
+if BG_Toxfin: ##(4) new 24.2
+	BG_Minion_Murloc+=['BG_DAL_077','TB_BaconUps_152']
+	BG_PoolSet_Murloc[4].append('BG_DAL_077')
+	BG_Murloc_Gold['BG_DAL_077']='TB_BaconUps_152'
+class BG_DAL_077:
+	""" Toxfin (4)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Murloc lt;b&gt;Poisonous&lt;/b&gt;.""" 
+
+class TB_BaconUps_152:
+	""" Toxfin
+	&lt;b&gt;Battlecry:&lt;/b&gt; Give a friendly Murloc &lt;b&gt;Poisonous&lt;/b&gt;."""
+
+
 
 #King Bagurgle (5) ### OK ###
+if BG_King_Bagurgle:
+	BG_Minion_Murloc=['BGS_030','BGS_030e','TB_BaconUps_100','TB_BaconUps_100e',]
+	BG_PoolSet_Murloc[5]='BGS_030'
+	BG_Murloc_Gold['BGS_030']='TB_BaconUps_100'
 class BGS_030:# <12>[1453] バガァグル
 	""" King Bagurgle
 	[Battlecry and Deathrattle:] Give your other Murlocs +2/+2. """
@@ -209,9 +243,9 @@ TB_BaconUps_100e=buff(4,4)
 
 #SI:Sefin (5)  ### maybe ### banned 24.2
 if BG_SI_Sefin:
-	BG_Minion_Murloc+=[]
-	BG_PoolSet_Murloc[5].append('')
-	BG_Murloc_Gold['']=''
+	BG_Minion_Murloc+=['BG21_009','BG21_009e','BG21_009_G',]
+	BG_PoolSet_Murloc[5].append('BG21_009')
+	BG_Murloc_Gold['BG21_009']='BG21_009_G'
 class BG21_009:# <12>[1453] セブリ
 	""" SI:Sefin
 	[Avenge (3):] Give a friendly Murloc [Poisonous] permanently. """
@@ -228,7 +262,11 @@ class BG21_009_G:# <12>[1453]
 
 
 
-## oung Murk-Eye (6) 
+## Young Murk-Eye (6) 
+if BG_Young_Murk_Eye:
+	BG_Minion_Murloc=['BG22_403','BG22_403_G']
+	BG_PoolSet_Murloc[6]='BG22_403'
+	BG_Murloc_Gold['BG22_403']='BG22_403_G'
 class BG22_403:
 	""" Young Murk-Eye (6) 
 	At the end of your turn, the Murloc to the left of this triggers its &lt;b&gt;Battlecry&lt;/b&gt;."""
@@ -237,3 +275,6 @@ class BG22_403_G:
 	""" (6) 
 	At the end of your turn, adjacent Murlocs trigger their &lt;b&gt;Battlecries&lt;/b&gt;."""
 	pass
+
+
+

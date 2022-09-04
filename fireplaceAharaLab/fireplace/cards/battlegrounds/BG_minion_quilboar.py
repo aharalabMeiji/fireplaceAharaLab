@@ -1,5 +1,9 @@
 from ..utils import *
 
+
+BG_Darkgaze_Elder=True## NEW 23.2 -> quilboar
+
+
 if Config.PATCH_VERSION >= Config.PATCH23_2_2:
 	BG_Minion_Quilboar=[
 		'BG20_100','BG20_100_G',#Razorfen Geomancer	1
@@ -395,3 +399,47 @@ class BG20_303_G:# <12>[1453]
 	events = OWN_TURN_END.on(ApplyGem(FRIENDLY_MINIONS, 'BG20_GEM')*2)
 	pass
 
+if BG_Darkgaze_Elder:## Darkgaze Elder (6) (quilboar)  ### maybe OK ### NEW 23.2
+	BG_Minion += ['BG23_018','BG23_018t','BG23_018_G', ]#	
+	BG_PoolSet_Minion[6].append('BG23_018')
+	BG_Minion_Gold['BG23_018']='BG23_018_G'
+	# Darkgaze Elder 6 NEW 23.2
+	pass
+class BG23_018_Action(TargetedAction):
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+	def do(self, source, target, amount):
+		controller = target
+		source.script_data_num_1 = 5-controller.spentmoney_in_this_turn
+		if controller.spentmoney_in_this_turn>=5:
+			quilboars=[]
+			for card in controller.field:
+				if card.race==Race.QUILBOAR:
+					quilboars.append(card)
+			if len(quilboars)>4:
+				quilboars=random.select(quilboars,4)
+			for card in quilboars:
+				for repeat in range(amount):
+					ApplyGem(card,'BG20_GEM').trigger(source)
+			controller.spentmoney_in_this_turn -= 5
+			source.script_data_num_1 = 5-controller.spentmoney_in_this_turn
+class BG23_018:# <12>[1453]
+	""" Darkgaze Elder (6)
+	After you spend 5 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	events = [
+		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
+		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
+		UpgradeTier(CONTROLLER).on(BG23_018_Action(CONTROLLER, 1)),
+		]
+	pass
+class BG23_018_G:# <12>[1453]
+	"""
+	After you spend 4 Gold, play a &lt;b&gt;Blood Gem&lt;/b&gt; on four friendly Quilboar twice. &lt;i&gt;(@ Gold left!)&lt;/i&gt;"""
+	events = [
+		Buy(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
+		Rerole(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
+		UpgradeTier(CONTROLLER).on(BG23_018_Action(CONTROLLER, 2)),
+		]
+	pass
+class BG23_018t:# <12>[1453]
+	pass
