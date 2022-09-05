@@ -2,71 +2,451 @@ from ..utils import *
 
 BG_Heistbaron_Togwaggle=True ## 24.0
 
-BG_Hero5=[
-	'TB_BaconShop_HERO_94','TB_BaconShop_HP_106','TB_BaconShop_HERO_94_Buddy','TB_BaconShop_HERO_94_Buddy_G',#69#Tickatus
-	'TB_BaconShop_HERO_10','TB_BaconShop_HP_008','TB_BaconShop_HP_008a','TB_BaconShop_HERO_10_Buddy','TB_BaconShop_HERO_10_Buddye','TB_BaconShop_HERO_10_Buddy_G',#70#Trade Prince Gallywix
-	'BG22_HERO_003','BG22_HERO_003p','BG22_HERO_003pe','BG22_HERO_003pe2','BG22_HERO_003pe3','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_e','BG22_HERO_003_Buddy_G','BG22_HERO_003_Buddy_Ge',#71#Vanndar Stormpike
-	'BG22_HERO_004','BG22_HERO_004p','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_e2','BG22_HERO_004_Buddy_G',#72#Varden Dawngrasp
-	'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',#73#Vol'jin
-	'BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',#74#Xyrella
-	'TB_BaconShop_HERO_92','TB_BaconShop_HP_103','TB_BaconShop_HERO_92_Buddy','TB_BaconShop_HERO_92_Buddy_e','TB_BaconShop_HERO_92_Buddy_G','TB_BaconShop_HERO_92_Buddy_G_e',#75#Y'Shaarj
-	'TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',#76#Yogg-Saron, Hope's End
-	'TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',#77#Ysera
-	'TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',#78#Zephrys, the Great
-	'BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',#79#Queen Azshara
-	'BG23_HERO_304','BG23_HERO_304p', #80#Lady Vashj
-
-]
+BG_Hero5=[]
+	#69#Tickatus
+	#70#Trade Prince Gallywix
+	#71#Vanndar Stormpike
+	#72#Varden Dawngrasp
+	#73#Vol'jin
+	#74#Xyrella
+	#75#Y'Shaarj
+	#76#Yogg-Saron, Hope's End
+	#77#Ysera
+	#78#Zephrys, the Great
+	#79#Queen Azshara
+	#80#Lady Vashj
 
 
-BG_PoolSet_Hero5=[
-	#'TB_BaconShop_HERO_94',#69
-	'TB_BaconShop_HERO_10',#70
-	'BG22_HERO_003',	#71
-	'BG22_HERO_004',	#72
-	'BG20_HERO_201',	#73
-	'BG20_HERO_101',	#74
-	'TB_BaconShop_HERO_92',#75
-	'TB_BaconShop_HERO_35',#76
-	'TB_BaconShop_HERO_53',#77## dragon ban
-	'TB_BaconShop_HERO_91',#78
-	#'BG22_HERO_007',#79#Queen Azshara
-	'BG23_HERO_304', #80#Lady Vashj
-	
-	]
-BG_Hero5_Buddy={
-	'TB_BaconShop_HERO_94':'TB_BaconShop_HERO_94_Buddy',
-	'TB_BaconShop_HERO_10':'TB_BaconShop_HERO_10_Buddy',
-	'BG22_HERO_003':'BG22_HERO_003_Buddy',
-	'BG22_HERO_004':'BG22_HERO_004_Buddy',
-	'BG20_HERO_201':'BG20_HERO_201_Buddy',
-	'BG20_HERO_101':'BG20_HERO_101_Buddy',
-	'TB_BaconShop_HERO_92':'TB_BaconShop_HERO_92_Buddy',
-	'TB_BaconShop_HERO_35':'TB_BaconShop_HERO_35_Buddy',
-	'TB_BaconShop_HERO_53':'TB_BaconShop_HERO_53_Buddy',
-	'TB_BaconShop_HERO_91':'TB_BaconShop_HERO_91_Buddy',
-	'BG22_HERO_007':'',
-	}
-BG_Hero5_Buddy_Gold={
-	'TB_BaconShop_HERO_94_Buddy':'TB_BaconShop_HERO_94_Buddy_G',
-	'TB_BaconShop_HERO_10_Buddy':'TB_BaconShop_HERO_10_Buddy_G',
-	'BG22_HERO_003_Buddy':'BG22_HERO_003_Buddy_G',
-	'BG22_HERO_004_Buddy':'BG22_HERO_004_Buddy_G',
-	'BG20_HERO_201_Buddy':'BG20_HERO_201_Buddy_G',
-	'BG20_HERO_101_Buddy':'BG20_HERO_101_Buddy_G',
-	'TB_BaconShop_HERO_92_Buddy':'TB_BaconShop_HERO_92_Buddy_G',
-	'TB_BaconShop_HERO_35_Buddy':'TB_BaconShop_HERO_35_Buddy_G',
-	'TB_BaconShop_HERO_53_Buddy':'TB_BaconShop_HERO_53_Buddy_G',
-	'TB_BaconShop_HERO_91_Buddy':'TB_BaconShop_HERO_91_Buddy_G',
-	'BG22_HERO_007':'',
-	}
+BG_PoolSet_Hero5=[]
+
+BG_Hero5_Buddy={}
+
+BG_Hero5_Buddy_Gold={}
 
 ######## source #################################################################
+
+#62#Tamsin Roame ### OK ###
+BG_Hero5+=['BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',]
+BG_PoolSet_Hero5.append('BG20_HERO_282')
+BG_Hero5_Buddy['BG20_HERO_282']='BG20_HERO_282_Buddy'
+BG_Hero5_Buddy_Gold['BG20_HERO_282_Buddy']='BG20_HERO_282_Buddy_G'
+class BG20_HERO_282:# <9>[1453]
+	""" Tamsin Roame """
+	pass
+class BG20_HERO_282p_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		lowesthealth=[]
+		if len(controller.field)<2:
+			return
+		for card in controller.field:
+			if lowesthealth==[]:
+				lowesthealth=[card]
+			elif card.max_health<lowesthealth[0].max_health:
+				lowesthealth=[card]
+			elif card.max_health==lowesthealth[0].max_health:
+				lowesthealth.append(card)
+		lowestcard = random.choice(lowesthealth)
+		atk=lowestcard.atk
+		health=lowestcard.max_health
+		lowestcard.zone=Zone.GRAVEYARD
+		if lowestcard in controller.field:
+			controller.field.remove(lowestcard)
+		if len(controller.field)>5: ## 23.4.3
+			coleagues = random.sample(controller.field, 5) ## 23.4.3
+		else:
+			coleagues = controller.field
+		for card in coleagues:
+			Buff(card, 'BG20_HERO_282pe', atk=atk, max_health=health).trigger(source)
+		pass
+class BG20_HERO_282p:# <9>[1453]
+	""" Fragrant Phylactery
+	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to five friendly minions. """
+	events = BeginBattle(CONTROLLER).on(BG20_HERO_282p_Action(CONTROLLER))
+	pass
+class BG20_HERO_282pe:# <12>[1453]
+	""" Fragrant
+	Increased stats. """
+	pass
+######## BUDDY
+class BG20_HERO_282_Buddy:# <12>[1453]
+	""" Monstrosity
+	After a friendly minion dies, gain its Attack. """
+	pass
+class BG20_HERO_282_Buddye:# <12>[1453]
+	""" Consumed
+	Increased Attack. """
+class BG20_HERO_282_Buddy_G:# <12>[1453]
+	""" Monstrosity
+	After a friendly minion dies, gain its Attack twice. """
+	pass
+
+
+
+
+
+#63##Tavish Stormpike ### OK ###
+BG_Hero5+=['BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',]
+BG_PoolSet_Hero5.append('BG22_HERO_000')
+BG_Hero5_Buddy['BG22_HERO_000']='BG22_HERO_000_Buddy'
+BG_Hero5_Buddy_Gold['BG22_HERO_000_Buddy']='BG22_HERO_000_Buddy'
+class BG22_HERO_000:# <12>[1453]
+	""" Tavish Stormpike """
+	pass
+class BG22_HERO_000p:# <12>[1453]
+	""" Deadeye
+	Take aim![Start of Combat]: Deal@ damage to your target.<i>(Upgrades each turn!)</i> """
+	entourage=['BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4']
+	activate = GenericChoice(CONTROLLER, RandomEntourage()*4)
+	events = [
+		BeginGame(CONTROLLER).on(SetScriptDataNum1(SELF,0)),
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
+		]
+	pass
+class  BG22_HERO_000p_t1_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targetcard=field[0]
+		amount=source.script_data_num_1
+		print("Aim Left! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
+		Hit(targetcard, amount).trigger(source)
+class BG22_HERO_000p_t1:# <12>[1453]
+	""" Aim Left!
+	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t1_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]
+	pass
+class  BG22_HERO_000p_t2_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targets=[]
+		for card in field:
+			if targets==[]:
+				targets=[card]
+			elif targets[0].max_health>card.max_health:
+				targets=[card]
+			elif targets[0].max_health==card.max_health:
+				targets.append(card)
+		targetcard = random.choice(targets)
+		amount=source.script_data_num_1
+		print("Aim Low! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
+		Hit(targetcard, amount).trigger(source)
+class BG22_HERO_000p_t2:# <12>[1453]
+	""" Aim Low!
+	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t2_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]
+	pass
+class  BG22_HERO_000p_t3_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targets=[]
+		for card in field:
+			if targets==[]:
+				targets=[card]
+			elif targets[0].max_health<card.max_health:
+				targets=[card]
+			elif targets[0].max_health==card.max_health:
+				targets.append(card)
+		targetcard = random.choice(targets)
+		amount=source.script_data_num_1
+		print("Aim High! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
+		Hit(targetcard, amount).trigger(source)
+class BG22_HERO_000p_t3:# <12>[1453]
+	""" Aim High!
+	[Passive Start of Combat]: Deal@ damage to the highestHealth enemy minion. """
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t3_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]
+	pass
+class  BG22_HERO_000p_t4_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		field=controller.opponent.field
+		if len(field)==0:
+			return
+		targetcard=field[-1]
+		amount=source.script_data_num_1
+		print("Aim Right! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
+		Hit(targetcard, amount).trigger(source)
+class BG22_HERO_000p_t4:# <12>[1453]
+	""" Aim Right!
+	[Passive Start of Combat]: Deal@ damage to the right-most enemy minion. """
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t4_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
+		]		
+	pass
+######## BUDDY
+class BG22_HERO_000_Buddy:# <12>[1453]
+	""" Crabby
+	After your Hero Power fires,give adjacent minions stats__equal to the damage dealt._ """
+	pass
+class BG22_HERO_000_Buddy_e:# <12>[1453]
+	""" Crabby
+	Increased stats. """
+	pass
+class BG22_HERO_000_Buddy_G:# <12>[1453]
+	""" Crabby
+	After your Hero Power fires, give adjacent minions stats equal to twice the damage dealt. """
+	pass
+
+
+
+
+#64#Tess Greymane ### OK ###
+BG_Hero5+=['TB_BaconShop_HERO_50','TB_BaconShop_HERO_50_Buddy','TB_BaconShop_HERO_50_Buddy_G','TB_BaconShop_HP_077',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_50')
+BG_Hero5_Buddy['TB_BaconShop_HERO_50']='TB_BaconShop_HERO_50_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_50_Buddy']='TB_BaconShop_HERO_50_Buddy_G'
+class TB_BaconShop_HERO_50:# <12>[1453]
+	""" Tess Greymane """
+	pass
+class TB_BaconShop_HP_077_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		gamemaster = controller.game.parent
+		bartender = controller.opponent
+
+		last_warband = gamemaster.last_warband(controller)
+		for card in reversed(bartender.field):
+			bartender.field.remove(card)
+			card.zone=Zone.GRAVEYARD
+		for cardid in last_warband:
+			card = bartender.card(cardid)
+			card.controller = bartender
+			card.zone=Zone.PLAY
+		if bartender.len_bobs_field-len(last_warband)>0:
+			for repeat in range(bartender.len_bobs_field-len(last_warband)):
+				card = gamemaster.DealCard(bartender, controller.tavern_tier)
+		pass
+class TB_BaconShop_HP_077:
+	"""  
+	[Refresh] Bob's Tavern with your last opponent's warband."""
+	activate = TB_BaconShop_HP_077_Action(CONTROLLER)
+	pass
+######## BUDDY
+class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
+	""" Hunter of Old
+	At the start of your turn,add your last opponent's Buddy to your hand. """
+	#
+	pass
+class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
+	""" Hunter of Old
+	At the start of your turn, add 2 of your last opponent's Buddy to your hand. """
+	#
+	pass
+
+
+
+
+
+#65#The Curator   ### need check ###
+BG_Hero5+=['TB_BaconShop_HERO_33','TB_BaconShop_HERO_33_Buddy','TB_BaconShop_HERO_33_Buddy_e','TB_BaconShop_HERO_33_Buddy_G','TB_BaconShop_HP_033','TB_BaconShop_HP_033t',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_33')
+BG_Hero5_Buddy['TB_BaconShop_HERO_33']='TB_BaconShop_HERO_33_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_33_Buddy']='TB_BaconShop_HERO_33_Buddy_G'
+class TB_BaconShop_HERO_33:# <12>[1453]
+	""" The Curator	 """
+	pass
+class TB_BaconShop_HP_033:
+	"""  
+	[Passive] Start the game with a 2/2 Amalgam with all minion types."""
+	events = BeginGame(CONTROLLER).on(Summon(CONTROLLER, 'TB_BaconShop_HP_033t'))
+class TB_BaconShop_HP_033t:
+	"""  2/2 Amalgam """
+########  BUDDY
+class TB_BaconShop_HERO_33_Buddy:# <12>[1453]
+	"""  """
+class TB_BaconShop_HERO_33_Buddy_e:# <12>[1453]
+	""" Amalfam
+	Increased stats. """
+	#
+	pass
+class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
+	"""  """
+
+
+
+
+
+#66#The Great Akazamzarak  ### OK ###
+BG_Hero5+=['TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_21')
+BG_Hero5_Buddy['TB_BaconShop_HERO_21']='TB_BaconShop_HERO_21_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_21_Buddy']='TB_BaconShop_HERO_21_Buddy_G'
+class TB_BaconShop_HERO_21:# <12>[1453]
+	""" The Great Akazamzarak """
+	pass
+class TB_BaconShop_HP_020:
+	"""  [Discover] a [Secret]. Put it into the battlefield."""
+	entourage=[
+		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
+		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
+			#'TB_Bacon_Secrets_10',#'TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
+			#'TB_Bacon_Secrets_13',
+		]
+	activate=GenericChoiceSecret(CONTROLLER, RandomEntourage()*3)
+########  BUDDY
+class TB_BaconShop_HERO_21_Buddy:# <12>[1453]
+	""" Street Magician
+	[Deathrattle:] Put a random [Secret] into the battlefield. """
+	#
+	pass
+class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
+	""" Street Magician
+	[Deathrattle:] Put 2 random[Secrets] into the battlefield. """
+	#
+	pass
+
+
+
+
+
+#67#The Lich King  ### need check ###
+BG_Hero5+=['TB_BaconShop_HERO_22','TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G','TB_BaconShop_HP_024','TB_BaconShop_HP_024e2',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_22')
+BG_Hero5_Buddy['TB_BaconShop_HERO_22']='TB_BaconShop_HERO_22_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_22_Buddy']='TB_BaconShop_HERO_22_Buddy_G'
+class TB_BaconShop_HERO_22:# <12>[1453]
+	""" The Lich King """
+	pass
+class TB_BaconShop_HP_024:
+	"""  
+	Give a friendly minion [Reborn] until next turn."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	activate = Buff(TARGET, 'TB_BaconShop_HP_024e2')
+class TB_BaconShop_HP_024e2:
+	tags={GameTag.REBORN:True,}
+	events=BeginBar(CONTROLLER).on(Destroy(SELF))
+########  BUDDY
+class TB_BaconShop_HERO_22_Buddy:
+	"""  """
+class TB_BaconShop_HERO_22_Buddy_G:
+	"""  """
+
+
+
+
+#68#The Rat King ##   ### OK ###
+BG_Hero5+=['TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_12')
+BG_Hero5_Buddy['TB_BaconShop_HERO_12']='TB_BaconShop_HERO_12_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_12_Buddy']='TB_BaconShop_HERO_12_Buddy_G'
+class TB_BaconShop_HERO_12:# <12>[1453]
+	""" The Rat King """
+	pass
+class TB_BaconShop_HP_041_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		controller = target
+		new_hp=random.choice([
+			'TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c',
+			'TB_BaconShop_HP_041d','TB_BaconShop_HP_041f',
+			'TB_BaconShop_HP_041g','TB_BaconShop_HP_041h',
+			'TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',
+			])
+		ChangeHeroPower(controller, new_hp).trigger(source)
+		pass
+class TB_BaconShop_HP_041:
+	"""  
+	[Passive] Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+	pass	
+class TB_BaconShop_HP_041a:
+	""" beast """
+	events = [
+		Buy(CONTROLLER, BEAST).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041b:
+	""" mech """
+	events = [
+		Buy(CONTROLLER, MECH).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041c:
+	""" murloc """
+	events = [
+		Buy(CONTROLLER, MURLOC).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041d:
+	""" demon """
+	events = [
+		Buy(CONTROLLER, DEMON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+TB_BaconShop_HP_041e=buff(2,2)
+class TB_BaconShop_HP_041f:
+	""" dragon """
+	events = [
+		Buy(CONTROLLER, DRAGON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041g:
+	""" pirate """
+	events = [
+		Buy(CONTROLLER, PIRATE).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041h:
+	""" elemental """
+	events = [
+		Buy(CONTROLLER, ELEMENTAL).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041i:
+	""" quilboar """
+	events = [
+		Buy(CONTROLLER, QUILBOAR).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+class TB_BaconShop_HP_041j:
+	""" naga """
+	events = [
+		Buy(CONTROLLER, NAGA).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		]
+######## BUDDY
+class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
+	""" Pigeon Lord
+	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
+	pass
+class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
+	""" Pigeon Lord
+	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
+	#
+	pass
 
 
 
 
 #69#Tickatus   ### HP OK, prize not yet ###
+BG_Hero5+=['TB_BaconShop_HERO_94','TB_BaconShop_HP_106','TB_BaconShop_HERO_94_Buddy','TB_BaconShop_HERO_94_Buddy_G',]#
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_94')
+BG_Hero5_Buddy['TB_BaconShop_HERO_94']='TB_BaconShop_HERO_94_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_94_Buddy']='TB_BaconShop_HERO_94_Buddy_G'
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
 class TB_BaconShop_HP_106:
@@ -103,6 +483,10 @@ class TB_BaconShop_HERO_94_Buddy_G:# <12>[1453]
 
 
 #70#Trade Prince Gallywix  ### HP OK ###
+BG_Hero5+=['TB_BaconShop_HERO_10','TB_BaconShop_HP_008','TB_BaconShop_HP_008a','TB_BaconShop_HERO_10_Buddy','TB_BaconShop_HERO_10_Buddye','TB_BaconShop_HERO_10_Buddy_G',]#
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_10')
+BG_Hero5_Buddy['TB_BaconShop_HERO_10']='TB_BaconShop_HERO_10_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_10_Buddy']='TB_BaconShop_HERO_10_Buddy_G'
 class TB_BaconShop_HERO_10:# <12>[1453]
 	""" Trade Prince Gallywix """
 class TB_BaconShop_HP_008:
@@ -132,6 +516,10 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 #71#Vanndar Stormpike   ## HP OK ##
+BG_Hero5+=['BG22_HERO_003','BG22_HERO_003p','BG22_HERO_003pe','BG22_HERO_003pe2','BG22_HERO_003pe3','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_e','BG22_HERO_003_Buddy_G','BG22_HERO_003_Buddy_Ge',]#
+BG_PoolSet_Hero5.append('BG22_HERO_003')
+BG_Hero5_Buddy['BG22_HERO_003']='BG22_HERO_003_Buddy'
+BG_Hero5_Buddy_Gold['BG22_HERO_003_Buddy']='BG22_HERO_003_Buddy_G'
 class BG22_HERO_003:# <12>[1453]
 	""" Vanndar Stormpike """
 class BG22_HERO_003p:# <12>[1453]
@@ -193,6 +581,10 @@ class BG22_HERO_003_Buddy_Ge:# <12>[1453]
 
 
 #72#Varden Dawngrasp ## HP OK ##
+BG_Hero5+=['BG22_HERO_004','BG22_HERO_004p','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_e2','BG22_HERO_004_Buddy_G',]#
+BG_PoolSet_Hero5.append('BG22_HERO_004')
+BG_Hero5_Buddy['BG22_HERO_004']='BG22_HERO_004_Buddy'
+BG_Hero5_Buddy_Gold['BG22_HERO_004_Buddy']='BG22_HERO_004_Buddy_G'
 class BG22_HERO_004:# <4>[1453]
 	""" Varden Dawngrasp """
 class BG22_HERO_004p_Action(TargetedAction):
@@ -234,6 +626,10 @@ class BG22_HERO_004_Buddy_G:# <12>[1453]
 
 
 #73#Vol'jin   ### HP OK ###
+BG_Hero5+=['BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',]#
+BG_PoolSet_Hero5.append('BG20_HERO_201')
+BG_Hero5_Buddy['BG20_HERO_201']='BG20_HERO_201_Buddy'
+BG_Hero5_Buddy_Gold['BG20_HERO_201_Buddy']='BG20_HERO_201_Buddy_G'
 class ChooseTwice(Choice):
 	card1=None
 	card2=None
@@ -316,6 +712,10 @@ class BG20_HERO_201_Buddy_G:# <12>[1453]
 
 
 #74#Xyrella  ### HP OK ###
+BG_Hero5+=['BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',]#
+BG_PoolSet_Hero5.append('BG20_HERO_101')
+BG_Hero5_Buddy['BG20_HERO_101']='BG20_HERO_101_Buddy'
+BG_Hero5_Buddy_Gold['BG20_HERO_101_Buddy']='BG20_HERO_101_Buddy_G'
 class BG20_HERO_101:# <12>[1453]
 	""" Xyrella """
 class BG20_HERO_101p_Action(TargetedAction):
@@ -359,6 +759,10 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 
 
 #75#Y'Shaarj   ### HP OK ###
+BG_Hero5+=['TB_BaconShop_HERO_92','TB_BaconShop_HP_103','TB_BaconShop_HERO_92_Buddy','TB_BaconShop_HERO_92_Buddy_e','TB_BaconShop_HERO_92_Buddy_G','TB_BaconShop_HERO_92_Buddy_G_e',]#
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_92')
+BG_Hero5_Buddy['TB_BaconShop_HERO_92']='TB_BaconShop_HERO_92_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_92_Buddy']='TB_BaconShop_HERO_92_Buddy_G'
 class TB_BaconShop_HERO_92:# <12>[1453]
 	""" Y'Shaarj """
 class TB_BaconShop_HP_103_Action(TargetedAction):
@@ -404,6 +808,10 @@ class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
 
 
 #76#Yogg-Saron, Hope's End #   ### HP OK ###
+BG_Hero5+=['TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',]#
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_35')
+BG_Hero5_Buddy['TB_BaconShop_HERO_35']='TB_BaconShop_HERO_35_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_35_Buddy']='TB_BaconShop_HERO_35_Buddy_G'
 class TB_BaconShop_HERO_35:# <12>[1453]
 	""" Yogg-Saron, Hope's End """
 class TB_BaconShop_HP_039_Action(TargetedAction):
@@ -491,6 +899,10 @@ class TB_BaconShop_HERO_35_Buddy_G:
 
 
 #77#Ysera
+BG_Hero5+=['TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',]#
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_53')
+BG_Hero5_Buddy['TB_BaconShop_HERO_53']='TB_BaconShop_HERO_53_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_53_Buddy']='TB_BaconShop_HERO_53_Buddy_G'
 class TB_BaconShop_HERO_53:# <12>[1453]  ## if dragon is not banned
 	""" Ysera """
 class TB_BaconShop_HP_062_Action(TargetedAction):
@@ -532,6 +944,10 @@ class TB_BaconShop_HERO_53_Buddy_G:
 
 
 #78#Zephrys, the Great
+BG_Hero5+=['TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',]#
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_91')
+BG_Hero5_Buddy['TB_BaconShop_HERO_91']='TB_BaconShop_HERO_91_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_91_Buddy']='TB_BaconShop_HERO_91_Buddy_G'
 class TB_BaconShop_HERO_91:# <12>[1453]
 	""" Zephrys, the Great """
 class TB_BaconShop_HP_102_Action(TargetedAction):
@@ -561,80 +977,8 @@ class TB_BaconShop_HERO_91_Buddy_G:
 	pass
 
 
-#79# Queen Axshara
-class BG22_HERO_007:
-	""" Queen Axshara 	"""
-class BG22_HERO_007p:
-	""" Azshara's Ambition
-	[Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest.@[x][Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest. <i>({0} left!)</i>"""
-	pass
-class BG22_HERO_007p2:
-	""" Naga Conquest
-	[Discover] a Naga."""
-	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
-	pass
-class BG22_HERO_007t:
-	""" Naga Queen Azshara
-	"""
-	pass
 
 
-
-##80##Lady Vashj ### HP OK ##
-class BG23_HERO_304:
-	""" Lady Vashj """
-class BG23_HERO_304p_Action(TargetedAction):
-	BUFF=ActionArg()
-	def do(self, source, buff):
-		if hasattr(buff.source,'spellcraft_spellcard'):
-			if source.script_data_num_1<1:
-				buff.permanent_buff = True
-				source.script_data_num_1+=1
-class BG23_HERO_304p_Action2(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		source.script_data_num_1=0
-class BG23_HERO_304p:
-	""" Relics of the Deep
-	[Discover] a [Spellcraft] spell of your Tier or lower. [Passive:] Your first one __each turn is permanent."""
-	events = [
-		Buff(FRIENDLY).on(BG23_HERO_304p_Action(Buff.BUFF)),
-		BeginBar(CONTROLLER).on(BG23_HERO_304p_Action2(SELF))
-	]
-	activate = Discover(CONTROLLER, RandomBGSpellcraftSpellcard(tech_level_less=TIER(CONTROLLER)))
-	pass
-
-	
-
-####################################################################################
-
-
-if BG_Heistbaron_Togwaggle:
-	BG_Hero5 += ['BG23_HERO_305','BG23_HERO_305p',]	 #81#Heistbaron Togwaggle
-	BG_PoolSet_Hero5.append('BG23_HERO_305') #81#Heistbaron Togwaggle
-#81#Heistbaron Togwaggle ## 24.0
-class BG23_HERO_305:
-	""" Heistbaron Togwaggle """
-class BG23_HERO_305p_Action1(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		source.cost = max(0, source.cost-1)## or use cost_mod
-		pass
-class BG23_HERO_305p_Action2(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
-		for card in controller.opponent.field:
-			card.zone=Zone.SETASIDE
-			card.controller=controller
-			card.zone=Zone.HAND
-		controller.opponent.field=[]
-		pass
-class BG23_HERO_305p:
-	""" The Perfect Crime
-	Steal all minions in Bob's Tavern. Each turn, your next Hero Power costs (1) less."""
-	events = EndTurn(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
-	activate = BG23_HERO_305p_Action2(CONTROLLER)
 
 
 ####################################################################################

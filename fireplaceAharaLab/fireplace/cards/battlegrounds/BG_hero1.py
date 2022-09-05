@@ -35,6 +35,9 @@ BG_Hero1_Buddy={}
 
 BG_Hero1_Buddy_Gold={}
 
+########### index 
+
+# A - D
 
 ########### source
 
@@ -875,6 +878,62 @@ class TB_BaconShop_HERO_43_Buddy_G:# <12>[1453]
 		Summon(CONTROLLER, RandomBGMinion(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD)))\
 	)
 	pass
+
+
+#17	#Drek'Thar#BG22_HERO_002   ### HP OK ###
+BG_Hero1+=['BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge']
+BG_PoolSet_Hero1+=['BG22_HERO_002']
+BG_Hero1_Buddy['BG22_HERO_002']='BG22_HERO_002_Buddy'
+BG_Hero1_Buddy_Gold['BG22_HERO_002_Buddy']='BG22_HERO_002_Buddy_G'
+class BG22_HERO_002:# <12>[1453]
+	""" Drek'Thar 	 """
+class BG22_HERO_002p_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller = target.controller
+		highest_atk = 0
+		for card in controller.field:
+			if highest_atk <card.atk:
+				highest_atk = card.atk
+		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
+class BG22_HERO_002p:# <12>[1453]
+	""" Lead the Frostwolves
+	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
+	Choose a minion. It copies the Attack of the highest Attack minion until next turn.
+	"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 
+				 #PlayReq.REQ_FRIENDLY_TARGET:0, ## valid until 23.4.3 
+				 PlayReq.REQ_MINION_TARGET:0}
+	activate = BG22_HERO_002p_Action(TARGET, 'BG22_HERO_002pe')
+	pass
+class BG22_HERO_002pe:# <12>[1453]
+	""" Frostwolf Fervor
+	Copied highest Attack. """
+	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+	pass
+class BG22_HERO_002pe2:# <12>[1453]
+	""" Attack Set Next Combat Only
+	 """
+	pass
+class BG22_HERO_002pe3:# <12>[1453]
+	""" Modified Attack Next Combat Only
+	Attack is increased or decreased for next combat only. """
+	pass
+class BG22_HERO_002_Buddy:# <12>[1453]
+	""" Frostwolf Lieutenant
+	[Avenge (2):] Give your minions +1 Attack permanently. """
+	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002_Buddy_e')]))
+	pass
+BG22_HERO_002_Buddy_e=buff(1,0)# <12>[1453]
+""" Lieutenant's Leadership, +1 Attack. """
+class BG22_HERO_002_Buddy_G:# <12>[1453]
+	""" Frostwolf Lieutenant
+	[Avenge (2):] Give your minions +2 Attack permanently. """
+	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002_Buddy_Ge')]))
+	pass
+BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
+""" Lieutenant's Leadership,+2 Attack. """
 
 
 

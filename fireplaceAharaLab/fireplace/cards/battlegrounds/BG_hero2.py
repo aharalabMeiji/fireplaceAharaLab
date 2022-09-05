@@ -6,63 +6,11 @@ BG_PoolSet_Hero2=[]
 BG_Hero2_Buddy={}
 BG_Hero2_Buddy_Gold={}
 
+############ index  #################################################
+
+#  E - K
+
 ############ source ################################################
-
-#17	#Drek'Thar#BG22_HERO_002   ### HP OK ###
-BG_Hero2+=['BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge']
-BG_PoolSet_Hero2+=['BG22_HERO_002']
-BG_Hero2_Buddy['BG22_HERO_002']='BG22_HERO_002_Buddy'
-BG_Hero2_Buddy_Gold['BG22_HERO_002_Buddy']='BG22_HERO_002_Buddy_G'
-class BG22_HERO_002:# <12>[1453]
-	""" Drek'Thar 	 """
-class BG22_HERO_002p_Action(TargetedAction):
-	TARGET=ActionArg()
-	BUFF=ActionArg()
-	def do(self, source, target, buff):
-		controller = target.controller
-		highest_atk = 0
-		for card in controller.field:
-			if highest_atk <card.atk:
-				highest_atk = card.atk
-		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
-class BG22_HERO_002p:# <12>[1453]
-	""" Lead the Frostwolves
-	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
-	Choose a minion. It copies the Attack of the highest Attack minion until next turn.
-	"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 
-				 #PlayReq.REQ_FRIENDLY_TARGET:0, ## valid until 23.4.3 
-				 PlayReq.REQ_MINION_TARGET:0}
-	activate = BG22_HERO_002p_Action(TARGET, 'BG22_HERO_002pe')
-	pass
-class BG22_HERO_002pe:# <12>[1453]
-	""" Frostwolf Fervor
-	Copied highest Attack. """
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
-	pass
-class BG22_HERO_002pe2:# <12>[1453]
-	""" Attack Set Next Combat Only
-	 """
-	pass
-class BG22_HERO_002pe3:# <12>[1453]
-	""" Modified Attack Next Combat Only
-	Attack is increased or decreased for next combat only. """
-	pass
-class BG22_HERO_002_Buddy:# <12>[1453]
-	""" Frostwolf Lieutenant
-	[Avenge (2):] Give your minions +1 Attack permanently. """
-	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002_Buddy_e')]))
-	pass
-BG22_HERO_002_Buddy_e=buff(1,0)# <12>[1453]
-""" Lieutenant's Leadership, +1 Attack. """
-class BG22_HERO_002_Buddy_G:# <12>[1453]
-	""" Frostwolf Lieutenant
-	[Avenge (2):] Give your minions +2 Attack permanently. """
-	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002_Buddy_Ge')]))
-	pass
-BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
-""" Lieutenant's Leadership,+2 Attack. """
-
 
 
 
@@ -425,6 +373,33 @@ class BG20_HERO_242_Buddy_G:
 	pass
 
 
+##Heistbaron Togwaggle
+BG_Hero2 += ['BG23_HERO_305','BG23_HERO_305p',]	 
+BG_PoolSet_Hero2.append('BG23_HERO_305') #81#Heistbaron Togwaggle
+#81#Heistbaron Togwaggle ## 24.0
+class BG23_HERO_305:
+	""" Heistbaron Togwaggle """
+class BG23_HERO_305p_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.cost = max(0, source.cost-1)## or use cost_mod
+		pass
+class BG23_HERO_305p_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		for card in controller.opponent.field:
+			card.zone=Zone.SETASIDE
+			card.controller=controller
+			card.zone=Zone.HAND
+		controller.opponent.field=[]
+		pass
+class BG23_HERO_305p:
+	""" The Perfect Crime
+	Steal all minions in Bob's Tavern. Each turn, your next Hero Power costs (1) less."""
+	events = EndTurn(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
+	activate = BG23_HERO_305p_Action2(CONTROLLER)
+
 
 #27#Illidan Stormrage  ### HP, maybe OK ###
 BG_Hero2+=['TB_BaconShop_HERO_08','TB_BaconShop_HP_069','TB_BaconShop_HP_069e','TB_BaconShop_HERO_08_Buddy','TB_BaconShop_HERO_08_Buddy_e','TB_BaconShop_HERO_08_Buddy_G',]
@@ -765,62 +740,6 @@ class BG20_HERO_280_Buddye2:# <12>[1453]
 	pass
 
 
-
-
-#33#Lich Baz'hial ### HP OK ###
-BG_Hero2+=['TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',]
-BG_PoolSet_Hero2+=['TB_BaconShop_HERO_25']
-BG_Hero2_Buddy['TB_BaconShop_HERO_25']='TB_BaconShop_HERO_25_Buddy'
-BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_25_Buddy']='TB_BaconShop_HERO_25_Buddy_G'
-class TB_BaconShop_HERO_25:# <12>[1453]
-	""" Lich Baz'hial	 """
-class TB_BaconShop_HP_049:
-	""" Graveyard Shift
-	Take $4 damage. Gain 2 Gold this turn only.""" # 24.0.3
-	## Take $2_damage and add a Gold Coin to your hand. 24.0
-	activate = Hit(FRIENDLY_HERO, 4), Give(CONTROLLER, 'GAME_005')*2
-	pass
-######## BUDDY
-class TB_BaconShop_HERO_25_Buddy:# <12>[1453]
-	""" Unearthed Underling
-	Whenever your hero takesdamage, this miniongains +3/+3 instead.<i>(@ left this turn.)</i> """
-	#
-	pass
-TB_BaconShop_HERO_25_Buddy_e=buff(3,3)# <12>[1453]
-""" Recovery,+3/+3. """
-class TB_BaconShop_HERO_25_Buddy_G:# <12>[1453]
-	""" Unearthed Underling
-	Whenever your hero takesdamage, this miniongains +6/+6 instead.<i>(@ left this turn.)</i> """
-	#
-	pass
-TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
-""" Recovery,+6/+6. """
-
-
-
-
-#34#Lord Barov  #### impossible ###
-BG_Hero2+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
-#BG_PoolSet_Hero2+=['TB_BaconShop_HERO_72']
-BG_Hero2_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
-BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
-class TB_BaconShop_HERO_72:# <12>[1453]
-	""" Lord Barov	 """
-class TB_BaconShop_HP_081: ############# impossible
-	"""Friendly Wager
-	Guess which player will win their next combat. _If they win, get 3 Coins."""
-	#####################
-######## BUDDY
-class TB_BaconShop_HERO_72_Buddy:# <12>[1453]
-	""" Barov's Apprentice
-	After you play a Gold Coin, gain 1 Gold this turn only. """
-	#
-	pass
-class TB_BaconShop_HERO_72_Buddy_G:# <12>[1453]
-	""" Barov's Apprentice
-	After you play a Gold Coin, gain 2 Gold this turn only. """
-	#
-	pass
 
 
 

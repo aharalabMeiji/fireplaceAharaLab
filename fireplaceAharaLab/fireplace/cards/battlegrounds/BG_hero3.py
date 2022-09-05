@@ -15,6 +15,93 @@ BG_Hero3_Buddy_Gold={}
 
 #### source ####################################################
 
+
+####Lady Vashj ### HP OK ##
+BG_Hero3+=['BG23_HERO_304','BG23_HERO_304p', ]#
+BG_PoolSet_Hero3.append('BG23_HERO_304')
+class BG23_HERO_304:
+	""" Lady Vashj """
+class BG23_HERO_304p_Action(TargetedAction):
+	BUFF=ActionArg()
+	def do(self, source, buff):
+		if hasattr(buff.source,'spellcraft_spellcard'):
+			if source.script_data_num_1<1:
+				buff.permanent_buff = True
+				source.script_data_num_1+=1
+class BG23_HERO_304p_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.script_data_num_1=0
+class BG23_HERO_304p:
+	""" Relics of the Deep
+	[Discover] a [Spellcraft] spell of your Tier or lower. [Passive:] Your first one __each turn is permanent."""
+	events = [
+		Buff(FRIENDLY).on(BG23_HERO_304p_Action(Buff.BUFF)),
+		BeginBar(CONTROLLER).on(BG23_HERO_304p_Action2(SELF))
+	]
+	activate = Discover(CONTROLLER, RandomBGSpellcraftSpellcard(tech_level_less=TIER(CONTROLLER)))
+	pass
+
+
+
+
+#33#Lich Baz'hial ### HP OK ###
+BG_Hero3+=['TB_BaconShop_HERO_25','TB_BaconShop_HP_049','TB_BaconShop_HERO_25_Buddy','TB_BaconShop_HERO_25_Buddy_e','TB_BaconShop_HERO_25_Buddy_G','TB_BaconShop_HERO_25_Buddy_Ge',]
+BG_PoolSet_Hero3+=['TB_BaconShop_HERO_25']
+BG_Hero3_Buddy['TB_BaconShop_HERO_25']='TB_BaconShop_HERO_25_Buddy'
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_25_Buddy']='TB_BaconShop_HERO_25_Buddy_G'
+class TB_BaconShop_HERO_25:# <12>[1453]
+	""" Lich Baz'hial	 """
+class TB_BaconShop_HP_049:
+	""" Graveyard Shift
+	Take $4 damage. Gain 2 Gold this turn only.""" # 24.0.3
+	## Take $2_damage and add a Gold Coin to your hand. 24.0
+	activate = Hit(FRIENDLY_HERO, 4), Give(CONTROLLER, 'GAME_005')*2
+	pass
+######## BUDDY
+class TB_BaconShop_HERO_25_Buddy:# <12>[1453]
+	""" Unearthed Underling
+	Whenever your hero takesdamage, this miniongains +3/+3 instead.<i>(@ left this turn.)</i> """
+	#
+	pass
+TB_BaconShop_HERO_25_Buddy_e=buff(3,3)# <12>[1453]
+""" Recovery,+3/+3. """
+class TB_BaconShop_HERO_25_Buddy_G:# <12>[1453]
+	""" Unearthed Underling
+	Whenever your hero takesdamage, this miniongains +6/+6 instead.<i>(@ left this turn.)</i> """
+	#
+	pass
+TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
+""" Recovery,+6/+6. """
+
+
+
+
+#34#Lord Barov  #### impossible ###
+##BG_Hero3+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
+##BG_PoolSet_Hero3+=['TB_BaconShop_HERO_72']
+##BG_Hero3_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
+##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
+class TB_BaconShop_HERO_72:# <12>[1453]
+	""" Lord Barov	 """
+class TB_BaconShop_HP_081: ############# impossible
+	"""Friendly Wager
+	Guess which player will win their next combat. _If they win, get 3 Coins."""
+	#####################
+######## BUDDY
+class TB_BaconShop_HERO_72_Buddy:# <12>[1453]
+	""" Barov's Apprentice
+	After you play a Gold Coin, gain 1 Gold this turn only. """
+	#
+	pass
+class TB_BaconShop_HERO_72_Buddy_G:# <12>[1453]
+	""" Barov's Apprentice
+	After you play a Gold Coin, gain 2 Gold this turn only. """
+	#
+	pass
+
+
+
 #Lord Jaraxxus ### HP OK ###
 BG_Hero3 += ['TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',	]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_37',]#
@@ -653,6 +740,25 @@ class TB_BaconShop_HERO_39_Buddy_G:# <12>[1453]
 
 
 
+## Queen Axshara
+BG_Hero3+=['BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',]#
+BG_PoolSet_Hero3.append('BG22_HERO_007')
+class BG22_HERO_007:
+	""" Queen Axshara 	"""
+class BG22_HERO_007p:
+	""" Azshara's Ambition
+	[Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest.@[x][Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest. <i>({0} left!)</i>"""
+	pass
+class BG22_HERO_007p2:
+	""" Naga Conquest
+	[Discover] a Naga."""
+	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
+	pass
+class BG22_HERO_007t:
+	""" Naga Queen Azshara
+	"""
+	pass
+
 
 #50#Queen Wagtoggle ### HP OK ### 
 BG_Hero3 += ['TB_BaconShop_HERO_14','TB_BaconShop_HP_037a','TB_BaconShop_HP_037te','TB_BaconShop_HERO_14_Buddy','TB_BaconShop_HERO_14_Buddy_G',]# 
@@ -701,61 +807,6 @@ class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]
 
 
 
-#51#Ragnaros the Firelord  ### HP OK ###
-BG_Hero3 += ['TB_BaconShop_HERO_11','TB_BaconShop_HP_087','TB_BaconShop_HP_087t','TB_BaconShop_HP_087te','TB_BaconShop_HERO_11_Buddy','TB_BaconShop_HERO_11_Buddy_e','TB_BaconShop_HERO_11_Buddy_G','TB_BaconShop_HERO_11_Buddy_G_e',]# 
-BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_11',]#
-BG_Hero3_Buddy['TB_BaconShop_HERO_11']='TB_BaconShop_HERO_11_Buddy'#
-BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_11_Buddy']='TB_BaconShop_HERO_11_Buddy_G'#
-class TB_BaconShop_HERO_11:# <12>[1453]
-	""" Ragnaros the Firelord """
-class TB_BaconShop_HP_087t_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		if len(controller.field)>0:
-			Buff(controller.field[0], 'TB_BaconShop_HP_087te').trigger(source)
-			if len(controller.field)>1:
-				Buff(controller.field[-1], 'TB_BaconShop_HP_087te').trigger(source)
-		pass
-class TB_BaconShop_HP_087_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
-		source.deepcopy_original.score_value_1 -= 1
-		source.deepcopy_original.script_data_num_1 = source.deepcopy_original.score_value_1
-		if source.deepcopy_original.script_data_num_1 <= 0: ###25
-			ChangeHeroPower(controller.deepcopy_original, 'TB_BaconShop_HP_087t').trigger(source)
-		pass
-class TB_BaconShop_HP_087:
-	""" DIE, INSECTS!
-	[Passive] After you kill 25 enemy minions, get Sulfuras. <i>(@ left!)</i>"""
-	events = Death(ENEMY + MINION).on(TB_BaconShop_HP_087_Action(CONTROLLER))
-class TB_BaconShop_HP_087t:
-	""" Sulfuras 
-	[Passive] At the end of your turn, give your left- and right- most minions +3/+3."""
-	events = OWN_TURN_END.on(TB_BaconShop_HP_087t_Action(CONTROLLER))
-TB_BaconShop_HP_087te=buff(3,3)
-######## BUDDY
-class TB_BaconShop_HERO_11_Buddy:# <12>[1453]
-	""" Lucifron
-	Your end of turn effects trigger twice. """
-	#
-	pass
-class TB_BaconShop_HERO_11_Buddy_e:# <12>[1453]
-	""" Dark Magics
-	Your end of turn effects trigger twice. """
-	#
-	pass
-class TB_BaconShop_HERO_11_Buddy_G:# <12>[1453]
-	""" Lucifron
-	Your end of turn effects trigger three times. """
-	#
-	pass
-class TB_BaconShop_HERO_11_Buddy_G_e:# <12>[1453]
-	""" Dark Magics
-	Your end of turn effects trigger three times. """
-	#
-	pass
 
 
 
