@@ -838,9 +838,9 @@ class BG24_022_G:# (minion)
 
 
 if BG_Treasure_Seeker_Elise: ##(4) new 24.2
-	BG_Minion += ['','', ]#	
-	BG_PoolSet_Minion[4].append('')
-	BG_Minion_Gold['']=''
+	BG_Minion += ['BG23_353','BG23_353_G', 'BG23_353_Gt']#	
+	BG_PoolSet_Minion[4].append('BG23_353')
+	BG_Minion_Gold['BG23_353']='BG23_353_G'
 class BG23_353:
 	""" Treasure-Seeker Elise
 	After you [Refresh] 5 times, find the [Golden] Monkey(BG23_353_Gt)! [(@ left!)]"""
@@ -851,7 +851,8 @@ class BG23_353_G:
 	After you [Refresh] 5 times, find two [Golden] Monkeys!(BG23_353_Gt) [(@ left!)]"""
 	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, [Give(CONTROLLER, 'BG23_353_Gt'), Give(CONTROLLER, 'BG23_353_Gt')]))
 	pass
-
+class BG23_353_Gt:
+	pass
 
 if BG_Tunnel_Blaster:## Tunnel Blaster (4) ### OK ###
 	BG_Minion += ['BG_DAL_775','BG_DAL_775_G', ]#	

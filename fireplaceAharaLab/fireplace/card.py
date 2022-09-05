@@ -1090,7 +1090,7 @@ class Enchantment(BaseCard):
 			if self.zone == zone:
 				# Can happen if a Destroy is queued after a bounce, for example
 				if Config.LOGINFO:
-					Config.log("Enchantment._set_zone","Trying to remove %r which is already gone", self)
+					Config.log("Enchantment._set_zone","Trying to remove %r which is already gone"%(self))
 				return
 			self.owner.buffs.remove(self)
 			if self in self.game.active_aura_buffs:

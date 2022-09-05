@@ -124,7 +124,7 @@ class BG_main:
 		self.prevMatches=[[0,1],[2,3]]# previous combination
 		self.matches=[[0,1],[2,3]]
 		self.BG_darkmoon_tickets=cards.battlegrounds.BG_DarkmoonTicket
-		self.darkmoon_ticket_by_4=True
+		self.darkmoon_ticket_by_4=False# 24.2 (until 24.0, random.choice([True,False]))
 	pass
 	def __str__(self):
 		return "BG_gamemaster"

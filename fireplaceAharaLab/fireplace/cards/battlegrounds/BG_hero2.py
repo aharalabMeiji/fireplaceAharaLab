@@ -207,9 +207,9 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 
 
 
-#23#Galewing   ### under construction ###
-##BG_Hero2+=['BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',]
-##BG_PoolSet_Hero2+=['BG20_HERO_283']
+#23#Galewing   ### HP OK ###
+BG_Hero2+=['BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',]
+BG_PoolSet_Hero2+=['BG20_HERO_283']
 ##BG_Hero2_Buddy['BG20_HERO_283']='BG20_HERO_283_Buddy'
 ##BG_Hero2_Buddy_Gold['BG20_HERO_283_Buddy']='BG20_HERO_283_Buddy_G'
 class BG20_HERO_283:# <12>[1453]
@@ -230,22 +230,33 @@ class BG20_HERO_283p:# <12>[1453]################difficult
 	entourage=['BG20_HERO_283p_t1','BG20_HERO_283p_t2','BG20_HERO_283p_t3']
 	activate = BG20_HERO_283p_Choice(CONTROLLER, RandomEntourage()*3)
 	pass
+class BG20_HERO_283p_t1_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		if controller.field!=[]:
+			Buff(controller.field[0], 'BG20_HERO_283p_t1e').trigger(source)
+		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
+		pass
 class BG20_HERO_283p_t1:# <12>[1453]
 	""" Westfall
-	[Passive.] In 1 turn, give your left-most minion+2 Attack. <i>(@ left!)</i> """
+	[Passive.] In 1 turn, give your left-most minion +2/+1. <i>(@ left!)</i> """
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 1, [BG20_HERO_283p_t1_Action(CONTROLLER)]))
 	#
 	pass
-BG20_HERO_283p_t1e=buff(2,0)# <12>[1453]
+BG20_HERO_283p_t1e=buff(2,1)# new 24.2
+#BG20_HERO_283p_t1e=buff(2,0)# 
 """ Westfall,	+2 Attack. """
 class BG20_HERO_283p_t2:# <12>[1453]
 	""" Ironforge
 	[Passive.] In 3 turns,[Discover] a minion of yourTavern Tier. <i>(@ left!)</i> """
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 3, [Discover(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))]))
 	#
 	pass
 class BG20_HERO_283p_t3:# <12>[1453]
 	""" Eastern Plaguelands
-	[Passive.] In 5 turns, your next Tavern Tier upgrade costs (5) less. <i>(@ left!)</i> """
-	#
+	[Passive.] In 5 turns, your next Tavern Tier upgrade costs (6) less. <i>(@ left!)</i> """
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 5, [ReduceTierUpCost(CONTROLLER, 6)]))
 	pass
 ######## BUDDY
 class BG20_HERO_283_Buddy:# <12>[1453]
