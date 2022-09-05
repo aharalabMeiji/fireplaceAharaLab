@@ -1,11 +1,10 @@
 from ..utils import *
 
-############# L - R
+############# L - Q
 
 BG_Hero3=[]
 
 BG_PoolSet_Hero3=[]
-#35 demon ban
 #'BG20_HERO_202',#38#38 X
 #40 mech ban
 #'TB_BaconShop_HERO_70',#41 XX

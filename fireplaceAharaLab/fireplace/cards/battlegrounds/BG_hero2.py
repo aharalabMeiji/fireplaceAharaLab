@@ -1,6 +1,5 @@
-from ast import Return
-from pickle import NONE
 from ..utils import *
+
 
 BG_Hero2=[]
 BG_PoolSet_Hero2=[]
@@ -224,7 +223,7 @@ class BG20_HERO_283p_Choice(Choice):
 		ChangeHeroPower(controller, card).trigger(self.source)
 		card.activate()
 	pass
-class BG20_HERO_283p:# <12>[1453]################difficult
+class BG20_HERO_283p:# <12>[1453]#
 	""" Dungar's Gryphon
 	Choose a flightpath. Complete it to get a bonus! """
 	entourage=['BG20_HERO_283p_t1','BG20_HERO_283p_t2','BG20_HERO_283p_t3']
@@ -247,16 +246,37 @@ class BG20_HERO_283p_t1:# <12>[1453]
 BG20_HERO_283p_t1e=buff(2,1)# new 24.2
 #BG20_HERO_283p_t1e=buff(2,0)# 
 """ Westfall,	+2 Attack. """
+class BG20_HERO_283p_t2_Choice(Choice):
+	def do(self, source, player, cards, option=None):
+		controller = player
+		super().do(source,player,cards)
+		choiceAction(controller)
+		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
+		pass
+	def choose(self, card):
+		self.next_choice=None
+		super().choose
+		card.zone=Zone.HAND
+		self.player.choice=None
+		pass
 class BG20_HERO_283p_t2:# <12>[1453]
 	""" Ironforge
 	[Passive.] In 3 turns,[Discover] a minion of yourTavern Tier. <i>(@ left!)</i> """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 3, [Discover(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 3, [\
+		BG20_HERO_283p_t2_Choice(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))*3)
+	]))
 	#
 	pass
+class BG20_HERO_283p_t3_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		ReduceTierUpCost(target, 6).trigger(source)
+		ChangeHeroPower(target, 'BG20_HERO_283p').trigger(source)
+		pass
 class BG20_HERO_283p_t3:# <12>[1453]
 	""" Eastern Plaguelands
 	[Passive.] In 5 turns, your next Tavern Tier upgrade costs (6) less. <i>(@ left!)</i> """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 5, [ReduceTierUpCost(CONTROLLER, 6)]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 5, [BG20_HERO_283p_t3_Action(CONTROLLER)]))
 	pass
 ######## BUDDY
 class BG20_HERO_283_Buddy:# <12>[1453]

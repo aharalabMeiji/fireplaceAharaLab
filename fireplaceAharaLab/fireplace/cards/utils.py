@@ -7,6 +7,7 @@ from ..aura import Refresh
 from ..dsl import *
 from ..events import *
 
+
 # For buffs which are removed when the card is moved to play (eg. cost buffs)
 # This needs to be Summon, because of Summon from the hand
 REMOVED_IN_PLAY = Summon(PLAYER, OWNER).after(Destroy(SELF))
@@ -188,6 +189,31 @@ def custom_card(cls):
 		GameTag.CARDTEXT_INHAND: {"enUS": ""}
 	}
 	return cls
+
+def choiceAction(player):
+	while True:
+		if player.choice == None:
+			return
+		else:
+			if player.choiceStrategy==None:
+				if len(player.choice.cards)==0:
+					choice = None
+				else:
+					choice = random.choice(player.choice.cards)
+			else:
+				choice = player.choiceStrategy(player,player.choice.cards)
+			if Config.LOGINFO:
+				Config.log("BG_utils.choiceAction","%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
+			#myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				myCardID =  random.choice(choice.find_cards())
+				Give(player,myCardID).trigger(player)
+				player.choice = None
+			else :
+				if choice == None:
+					player.choice=None##return
+				else:
+					player.choice.choose(choice)
 
 
 #sample 
