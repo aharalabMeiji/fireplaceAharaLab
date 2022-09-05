@@ -14,7 +14,7 @@ BG24_Quest_Balance_the_Scales=True
 BG24_Quest_Cry_for_Help=True
 BG24_Quest_Invite_the_Guests=True
 BG24_Quest_Dust_for_Prints=True
-BG24_Quest_Witness_Protection=True
+BG24_Quest_Witness_Protection=False## banned 24.2.1
 BG24_Quest_Exhume_the_Bones=True
 BG24_Quest_Close_the_Case=True
 BG24_Quest_An_Investigation=True
@@ -26,7 +26,8 @@ if BG24_Quest_Track_the_Footprints:#
 class BG24_Quest_112:# [2466]=1, [2580]=1, 
 	""" Track the Footprints
 	[Quest:] Have Bob's Tavern [Refreshed] {0} times. """
-	#
+	#{0}=script_data_text_0=10
+	
 	pass
 
 if BG24_Quest_Assemble_a_Lineup:# 
@@ -117,7 +118,7 @@ class BG24_Quest_314:# [2466]=1, [2650]=70, [2651]=70,
 	#
 	pass
 
-if BG24_Quest_Witness_Protection:# 
+if BG24_Quest_Witness_Protection:#  ## banned 24.2.1
 	BG24_Quest+=['BG24_Quest_318']
 class BG24_Quest_318:# [2466]=1, 
 	""" Witness Protection

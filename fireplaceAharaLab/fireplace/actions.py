@@ -1137,6 +1137,8 @@ class Deathrattle(TargetedAction):
 class Battlecry(TargetedAction):
 	"""
 	Trigger Battlecry on card targets
+	CARD = CardArg()
+	TARGET = ActionArg()
 	"""
 	CARD = CardArg()
 	TARGET = ActionArg()
@@ -2098,6 +2100,26 @@ class SummonJadeGolem(TargetedAction):
 		if card.is_summonable():
 			source.game.queue_actions(source, [Summon(target, card)])
 
+class PlayBattlecry(TargetedAction):
+	"""
+	Play a battlecry target random
+	CARD = CardArg()	"""
+	CARD = CardArg()
+	def do(self, source, card):
+		target = None
+		if card.type!=CardType.MINION:
+			return
+		if card.has_battlecry!=True:
+			return
+		if card.requires_target():
+			if len(card.targets):
+				target = random.choice(card.targets)
+			else:
+				if Config.LOGINFO:
+					Config.log("PlayBattlecry.do","%s play battlecry %s don't have a legal target"%(source, card))
+				return
+		Battlecry(card, target).trigger(source)
+		pass
 
 class CastSpell(TargetedAction):
 	"""

@@ -24,7 +24,7 @@ BG24_Reward_Cooked_Book=True
 BG24_Reward_Teal_Tiger_Sapphire=True
 BG24_Reward_Devils_in_the_Details=True
 BG24_Reward_Partner_in_Crime=True
-BG24_Reward_Another_Hidden_Body=True
+BG24_Reward_Another_Hidden_Body=False## banned 24.2.1
 BG24_Reward_Staff_of_Origination=True
 BG24_Reward_Wondrous_Wisdomball=True
 BG24_Reward_To_The_Moon_Almost=True
@@ -39,10 +39,20 @@ BG24_Reward_Un_Murloc_Your_Potential=True
 
 if BG24_Reward_Snicker_Snacks:# 
 	BG24_Reward+=['BG24_Reward_107']
+class BG24_Reward_107_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		cards = [card for card in controller.field if card.has_battlecry==True]
+		if len(cards)>2:
+			cards = random.sample(cards, 2)
+		for card in cards:
+			PlayBattlecry(card).trigger(source)
+		pass
 class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50, 
 	""" Snicker Snacks
 	At the end of your turn, 2 friendly minions trigger their [Battlecries]. """
-	#
+	events = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
 	pass
 
 if BG24_Reward_Stolen_Gold:# 
@@ -297,7 +307,7 @@ class BG24_Reward_310:# [2467]=100, [2653]=10000,
 	#
 	pass
 
-if BG24_Reward_Another_Hidden_Body:# 
+if BG24_Reward_Another_Hidden_Body:# banned 24.2.1
 	BG24_Reward+=['BG24_Reward_311']
 class BG24_Reward_311:# [2467]=70, [2581]=1, [2641]=1, 
 	""" Another Hidden Body
