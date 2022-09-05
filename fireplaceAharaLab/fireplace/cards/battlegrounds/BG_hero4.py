@@ -1,88 +1,39 @@
 from ..utils import *
 
-BG_Hero4=[
-	'TB_BaconShop_HERO_75','TB_BaconShop_HP_085','TB_BaconShop_HP_085e','TB_BaconShop_HERO_75_Buddy','TB_BaconShop_HERO_75_Buddy_G',#52#Rakanishu
-	'TB_BaconShop_HERO_41','TB_BaconShop_HERO_41_Buddy','TB_BaconShop_HERO_41_Buddy_G','TB_BaconShop_HP_046',#53#Reno Jackson
-	'BG20_HERO_100','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge','BG20_HERO_100p','BG20_HERO_100p_e2',#54#Rokara
-	'BG21_HERO_010','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G','BG21_HERO_010p',#55#Scabbs Cutterbutter
-	'TB_BaconShop_HERO_23','TB_BaconShop_HERO_23_Buddy','TB_BaconShop_HERO_23_Buddy_e','TB_BaconShop_HERO_23_Buddy_G','TB_BaconShop_HERO_23_Buddy_Ge','TB_BaconShop_HP_022','TB_BaconShop_HP_022e','TB_BaconShop_HP_022t','TB_BaconShop_HP_022t_G',#56#Shudderwock
-	'TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2',#57#Silas Darkmoon
-	'TB_BaconShop_HERO_27','TB_BaconShop_HERO_27_Buddy','TB_BaconShop_HERO_27_Buddy_G','TB_BaconShop_HP_014','TB_BaconShop_HP_014e',#58#Sindragosa
-	'TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',#59#Sir Finley Mrrgglton
-	'TB_BaconShop_HERO_68','TB_BaconShop_HERO_68_Buddy','TB_BaconShop_HERO_68_Buddy_G','TB_BaconShop_HP_076',#60#Skycap'n Kragg
-	'BG21_HERO_030','BG21_HERO_030_Buddy','BG21_HERO_030_Buddy_e','BG21_HERO_030_Buddy_G','BG21_HERO_030p','BG21_HERO_030pe',#61#Sneed
-	'BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',#62#Tamsin Roame
-	'BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',#63#Tavish Stormpike
-	'TB_BaconShop_HERO_50','TB_BaconShop_HERO_50_Buddy','TB_BaconShop_HERO_50_Buddy_G','TB_BaconShop_HP_077',#64#Tess Greymane
-	'TB_BaconShop_HERO_33','TB_BaconShop_HERO_33_Buddy','TB_BaconShop_HERO_33_Buddy_e','TB_BaconShop_HERO_33_Buddy_G','TB_BaconShop_HP_033','TB_BaconShop_HP_033t',#65#The Curator
-	'TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',#66#The Great Akazamzarak
-	'TB_BaconShop_HERO_22','TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G','TB_BaconShop_HP_024','TB_BaconShop_HP_024e2',#67#The Lich King
-	'TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',#68#The Rat King
-]
+BG_Hero4=[]
 
 
-BG_PoolSet_Hero4=[
-	'TB_BaconShop_HERO_75',#52
-	'TB_BaconShop_HERO_41',#53
-	'BG20_HERO_100',#54
-	'BG21_HERO_010',#55
-	#'TB_BaconShop_HERO_23',#56
-	'TB_BaconShop_HERO_90',#57
-	'TB_BaconShop_HERO_27',#58
-	'TB_BaconShop_HERO_40',#59
-	'TB_BaconShop_HERO_68',#60
-	'BG21_HERO_030',#61
-	'BG20_HERO_282',#62
-	'BG22_HERO_000',#63
-	'TB_BaconShop_HERO_50',#64
-	'TB_BaconShop_HERO_33',#65
-	'TB_BaconShop_HERO_21',#66
-	'TB_BaconShop_HERO_22',#67
-	'TB_BaconShop_HERO_12',#68
-	]
-BG_Hero4_Buddy={
-	'TB_BaconShop_HERO_75':'TB_BaconShop_HERO_75_Buddy',
-	'TB_BaconShop_HERO_41':'TB_BaconShop_HERO_41_Buddy',
-	'BG20_HERO_100':'BG20_HERO_100_Buddy',
-	'BG21_HERO_010':'BG21_HERO_010_Buddy',
-	'TB_BaconShop_HERO_23':'TB_BaconShop_HERO_23_Buddy',
-	'TB_BaconShop_HERO_90':'TB_BaconShop_HERO_90_Buddy',
-	'TB_BaconShop_HERO_27':'TB_BaconShop_HERO_27_Buddy',
-	'TB_BaconShop_HERO_40':'TB_BaconShop_HERO_40_Buddy',
-	'TB_BaconShop_HERO_68':'TB_BaconShop_HERO_68_Buddy',
-	'BG21_HERO_030':'BG21_HERO_030_Buddy',
-	'BG20_HERO_282':'BG20_HERO_282_Buddy',
-	'BG22_HERO_000':'BG22_HERO_000_Buddy',
-	'TB_BaconShop_HERO_50':'TB_BaconShop_HERO_50_Buddy',
-	'TB_BaconShop_HERO_33':'TB_BaconShop_HERO_33_Buddy',
-	'TB_BaconShop_HERO_21':'TB_BaconShop_HERO_21_Buddy',
-	'TB_BaconShop_HERO_22':'TB_BaconShop_HERO_22_Buddy',
-	'TB_BaconShop_HERO_12':'TB_BaconShop_HERO_12_Buddy',
-	}
-BG_Hero4_Buddy_Gold={
-	'TB_BaconShop_HERO_75_Buddy':'TB_BaconShop_HERO_75_Buddy_G',
-	'TB_BaconShop_HERO_41_Buddy':'TB_BaconShop_HERO_41_Buddy_G',
-	'BG20_HERO_100_Buddy':'BG20_HERO_100_Buddy_G',
-	'BG21_HERO_010_Buddy':'BG21_HERO_010_Buddy_G',
-	'TB_BaconShop_HERO_23_Buddy':'TB_BaconShop_HERO_23_Buddy_G',
-	'TB_BaconShop_HP_022t':'TB_BaconShop_HP_022t_G',
-	'TB_BaconShop_HERO_90_Buddy':'TB_BaconShop_HERO_90_Buddy_G',
-	'TB_BaconShop_HERO_27_Buddy':'TB_BaconShop_HERO_27_Buddy_G',
-	'TB_BaconShop_HERO_40_Buddy':'TB_BaconShop_HERO_40_Buddy_G',
-	'TB_BaconShop_HERO_68_Buddy':'TB_BaconShop_HERO_68_Buddy_G',
-	'BG21_HERO_030_Buddy':'BG21_HERO_030_Buddy_G',
-	'BG20_HERO_282_Buddy':'BG20_HERO_282_Buddy_G',
-	'BG22_HERO_000_Buddy':'BG22_HERO_000_Buddy_G',
-	'TB_BaconShop_HERO_50_Buddy':'TB_BaconShop_HERO_50_Buddy_G',
-	'TB_BaconShop_HERO_33_Buddy':'TB_BaconShop_HERO_33_Buddy_G',
-	'TB_BaconShop_HERO_21_Buddy':'TB_BaconShop_HERO_21_Buddy_G',
-	'TB_BaconShop_HERO_22_Buddy':'TB_BaconShop_HERO_22_Buddy_G',
-	'TB_BaconShop_HERO_12_Buddy':'TB_BaconShop_HERO_12_Buddy_G',
-	}
+BG_PoolSet_Hero4=[]
+BG_Hero4_Buddy={}
+BG_Hero4_Buddy_Gold={}
+
+## R - T
+
+	#52#Rakanishu
+	#53#Reno Jackson
+	#54#Rokara
+	#55#Scabbs Cutterbutter
+	#56#Shudderwock
+	#57#Silas Darkmoon
+	#58#Sindragosa
+	#59#Sir Finley Mrrgglton
+	#60#Skycap'n Kragg
+	#61#Sneed
+	#62#Tamsin Roame
+	#63#Tavish Stormpike
+	#64#Tess Greymane
+	#65#The Curator
+	#66#The Great Akazamzarak
+	#67#The Lich King
+	#68#The Rat King
 
 ######## source #################################################################
 
 #52#Rakanishu #  ### HP OK ###
+BG_Hero4+=['TB_BaconShop_HERO_75','TB_BaconShop_HP_085','TB_BaconShop_HP_085e','TB_BaconShop_HERO_75_Buddy','TB_BaconShop_HERO_75_Buddy_G',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_75')
+BG_Hero4_Buddy['TB_BaconShop_HERO_75']='TB_BaconShop_HERO_75_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_75_Buddy']='TB_BaconShop_HERO_75_Buddy_G'
 class TB_BaconShop_HERO_75:# <12>[1453]
 	""" Rakanishu """
 	pass
@@ -122,6 +73,10 @@ class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
 
 
 #53#Reno Jackson #  ### HP OK ###
+BG_Hero4+=['TB_BaconShop_HERO_41','TB_BaconShop_HERO_41_Buddy','TB_BaconShop_HERO_41_Buddy_G','TB_BaconShop_HP_046',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_41')
+BG_Hero4_Buddy['TB_BaconShop_HERO_41']='TB_BaconShop_HERO_41_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_41_Buddy']='TB_BaconShop_HERO_41_Buddy_G'
 class TB_BaconShop_HERO_41:# <12>[1453]
 	""" Reno Jackson """
 	pass
@@ -150,6 +105,10 @@ class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 
 
 #54#Rokara # 
+BG_Hero4+=['BG20_HERO_100','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge','BG20_HERO_100p','BG20_HERO_100p_e2']
+BG_PoolSet_Hero4.append('BG20_HERO_100')
+BG_Hero4_Buddy['BG20_HERO_100']='BG20_HERO_100_Buddy'
+BG_Hero4_Buddy_Gold['BG20_HERO_100_Buddy']='BG20_HERO_100_Buddy_G'
 class BG20_HERO_100:# <10>[1453] #### HP OK ####
 	""" Rokara
 	 """
@@ -185,6 +144,10 @@ BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
 
 
 #55#Scabbs Cutterbutter ### OK ###
+BG_Hero4+=['BG21_HERO_010','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G','BG21_HERO_010p',]
+BG_PoolSet_Hero4.append('BG21_HERO_010')
+BG_Hero4_Buddy['BG21_HERO_010']='BG21_HERO_010_Buddy'
+BG_Hero4_Buddy_Gold['BG21_HERO_010_Buddy']='BG21_HERO_010_Buddy_G'
 class BG21_HERO_010:# <7>[1453]
 	""" Scabbs Cutterbutter	 """
 	pass
@@ -226,6 +189,10 @@ class BG21_HERO_010_Buddy_G:# <12>[1453]
 
 
 #56#Shudderwock ### need check ###
+BG_Hero4+=['TB_BaconShop_HERO_23','TB_BaconShop_HERO_23_Buddy','TB_BaconShop_HERO_23_Buddy_e','TB_BaconShop_HERO_23_Buddy_G','TB_BaconShop_HERO_23_Buddy_Ge','TB_BaconShop_HP_022','TB_BaconShop_HP_022e','TB_BaconShop_HP_022t','TB_BaconShop_HP_022t_G',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_23')
+BG_Hero4_Buddy['TB_BaconShop_HERO_23']='TB_BaconShop_HERO_23_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_23_Buddy']='TB_BaconShop_HERO_23_Buddy_G'
 class TB_BaconShop_HERO_23:# <12>[1453]
 	""" Shudderwock """
 	pass
@@ -286,6 +253,10 @@ class TB_BaconShop_HERO_23_Buddy_Ge:# <12>[1453]
 
 
 #57#Silas Darkmoon # ## OK ##
+BG_Hero4+=['TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_90')
+BG_Hero4_Buddy['TB_BaconShop_HERO_90']='TB_BaconShop_HERO_90_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_90_Buddy']='TB_BaconShop_HERO_90_Buddy_G'
 class TB_BaconShop_HERO_90:# <12>[1453]
 	""" Silas Darkmoon """
 	pass
@@ -328,6 +299,10 @@ class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
 
 
 #58#Sindragosa  ### HP OK ###
+BG_Hero4+=['TB_BaconShop_HERO_27','TB_BaconShop_HERO_27_Buddy','TB_BaconShop_HERO_27_Buddy_G','TB_BaconShop_HP_014','TB_BaconShop_HP_014e',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_27')
+BG_Hero4_Buddy['TB_BaconShop_HERO_27']='TB_BaconShop_HERO_27_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_27_Buddy']='TB_BaconShop_HERO_27_Buddy_G'
 class TB_BaconShop_HERO_27:# <12>[1453]
 	""" Sindragosa """
 	pass
@@ -361,6 +336,10 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 
 
 #59#Sir Finley Mrrgglton     ### OK ###
+BG_Hero4+=['TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_40')
+BG_Hero4_Buddy['TB_BaconShop_HERO_40']='TB_BaconShop_HERO_40_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_40_Buddy']='TB_BaconShop_HERO_40_Buddy_G'
 class TB_BaconShop_HERO_40:# <12>[1453]
 	""" Sir Finley Mrrgglton """
 	pass
@@ -379,6 +358,10 @@ class TB_BaconShop_HERO_40_Buddy_G:
 
 
 #60#Skycap'n Kragg     ### HP OK ###
+BG_Hero4+=['TB_BaconShop_HERO_68','TB_BaconShop_HERO_68_Buddy','TB_BaconShop_HERO_68_Buddy_G','TB_BaconShop_HP_076',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_68')
+BG_Hero4_Buddy['TB_BaconShop_HERO_68']='TB_BaconShop_HERO_68_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_68_Buddy']='TB_BaconShop_HERO_68_Buddy_G'
 class TB_BaconShop_HERO_68:# <12>[1453]
 	""" Skycap'n Kragg """
 	pass
@@ -412,6 +395,10 @@ class TB_BaconShop_HERO_68_Buddy_G:
 
 
 #61#Sneed    ### OK ###
+BG_Hero4+=['BG21_HERO_030','BG21_HERO_030_Buddy','BG21_HERO_030_Buddy_e','BG21_HERO_030_Buddy_G','BG21_HERO_030p','BG21_HERO_030pe',]
+BG_PoolSet_Hero4.append('BG21_HERO_030')
+BG_Hero4_Buddy['BG21_HERO_030']='BG21_HERO_030_Buddy'
+BG_Hero4_Buddy_Gold['BG21_HERO_030_Buddy']='BG21_HERO_030_Buddy_G'
 class BG21_HERO_030:# <10>[1453]
 	""" Sneed """
 	pass
@@ -465,6 +452,10 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 
 
 #62#Tamsin Roame ### OK ###
+BG_Hero4+=['BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',]
+BG_PoolSet_Hero4.append('BG20_HERO_282')
+BG_Hero4_Buddy['BG20_HERO_282']='BG20_HERO_282_Buddy'
+BG_Hero4_Buddy_Gold['BG20_HERO_282_Buddy']='BG20_HERO_282_Buddy_G'
 class BG20_HERO_282:# <9>[1453]
 	""" Tamsin Roame """
 	pass
@@ -522,6 +513,10 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 
 
 #63##Tavish Stormpike ### OK ###
+BG_Hero4+=['BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',]
+BG_PoolSet_Hero4.append('BG22_HERO_000')
+BG_Hero4_Buddy['BG22_HERO_000']='BG22_HERO_000_Buddy'
+BG_Hero4_Buddy_Gold['BG22_HERO_000_Buddy']='BG22_HERO_000_Buddy'
 class BG22_HERO_000:# <12>[1453]
 	""" Tavish Stormpike """
 	pass
@@ -645,6 +640,10 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 
 
 #64#Tess Greymane ### OK ###
+BG_Hero4+=['TB_BaconShop_HERO_50','TB_BaconShop_HERO_50_Buddy','TB_BaconShop_HERO_50_Buddy_G','TB_BaconShop_HP_077',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_50')
+BG_Hero4_Buddy['TB_BaconShop_HERO_50']='TB_BaconShop_HERO_50_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_50_Buddy']='TB_BaconShop_HERO_50_Buddy_G'
 class TB_BaconShop_HERO_50:# <12>[1453]
 	""" Tess Greymane """
 	pass
@@ -689,6 +688,10 @@ class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
 
 
 #65#The Curator   ### need check ###
+BG_Hero4+=['TB_BaconShop_HERO_33','TB_BaconShop_HERO_33_Buddy','TB_BaconShop_HERO_33_Buddy_e','TB_BaconShop_HERO_33_Buddy_G','TB_BaconShop_HP_033','TB_BaconShop_HP_033t',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_33')
+BG_Hero4_Buddy['TB_BaconShop_HERO_33']='TB_BaconShop_HERO_33_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_33_Buddy']='TB_BaconShop_HERO_33_Buddy_G'
 class TB_BaconShop_HERO_33:# <12>[1453]
 	""" The Curator	 """
 	pass
@@ -714,6 +717,10 @@ class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
 
 
 #66#The Great Akazamzarak  ### OK ###
+BG_Hero4+=['TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_21')
+BG_Hero4_Buddy['TB_BaconShop_HERO_21']='TB_BaconShop_HERO_21_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_21_Buddy']='TB_BaconShop_HERO_21_Buddy_G'
 class TB_BaconShop_HERO_21:# <12>[1453]
 	""" The Great Akazamzarak """
 	pass
@@ -743,6 +750,10 @@ class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
 
 
 #67#The Lich King  ### need check ###
+BG_Hero4+=['TB_BaconShop_HERO_22','TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G','TB_BaconShop_HP_024','TB_BaconShop_HP_024e2',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_22')
+BG_Hero4_Buddy['TB_BaconShop_HERO_22']='TB_BaconShop_HERO_22_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_22_Buddy']='TB_BaconShop_HERO_22_Buddy_G'
 class TB_BaconShop_HERO_22:# <12>[1453]
 	""" The Lich King """
 	pass
@@ -764,6 +775,10 @@ class TB_BaconShop_HERO_22_Buddy_G:
 
 
 #68#The Rat King ##   ### OK ###
+BG_Hero4+=['TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_12')
+BG_Hero4_Buddy['TB_BaconShop_HERO_12']='TB_BaconShop_HERO_12_Buddy'
+BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_12_Buddy']='TB_BaconShop_HERO_12_Buddy_G'
 class TB_BaconShop_HERO_12:# <12>[1453]
 	""" The Rat King """
 	pass
