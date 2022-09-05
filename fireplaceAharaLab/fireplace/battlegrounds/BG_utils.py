@@ -74,7 +74,7 @@ class BG_main:
 				if 'mecha' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i+1]
 				if 'murloc' in races:
-					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i+1]
 				if 'naga' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_naga.BG_PoolSet_Naga[i]
 				if 'pirate' in races:
