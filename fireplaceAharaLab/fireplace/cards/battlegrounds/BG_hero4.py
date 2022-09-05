@@ -7,7 +7,7 @@ BG_PoolSet_Hero4=[]
 BG_Hero4_Buddy={}
 BG_Hero4_Buddy_Gold={}
 
-## R - T
+## R - S
 
 	#52#Rakanishu
 	#53#Reno Jackson
@@ -19,13 +19,7 @@ BG_Hero4_Buddy_Gold={}
 	#59#Sir Finley Mrrgglton
 	#60#Skycap'n Kragg
 	#61#Sneed
-	#62#Tamsin Roame
-	#63#Tavish Stormpike
-	#64#Tess Greymane
-	#65#The Curator
-	#66#The Great Akazamzarak
-	#67#The Lich King
-	#68#The Rat King
+
 
 ######## source #################################################################
 
@@ -108,8 +102,9 @@ class TB_BaconShop_HERO_75_Action(TargetedAction):
 		pass
 class TB_BaconShop_HP_085:
 	""" Tavern Lighting 
-	Give a friendly minion stats equal to your Tavern Tier."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, }
+	Give a minion stats equal to its Tavern Tier.""" # 24.2
+	##Give a friendly minion stats equal to your Tavern Tier.""" ## old
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, }
 	activate =  TB_BaconShop_HERO_75_Action(CONTROLLER, TARGET, 1)
 class TB_BaconShop_HP_085e:
 	"""  """
@@ -389,6 +384,19 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 	At the end of your turn, add2 random [Frozen] minionsfrom Bob's Tavernto your hand. """
 	pass
 
+
+
+
+### Sire Denathrius ### BG24_HERO_100 ### new 24.2 ####### difficult
+BG_Hero4+=['TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',]
+BG_PoolSet_Hero4.append('TB_BaconShop_HERO_40')
+class BG24_HERO_100:
+	""" Sire Denathrius
+	"""
+class BG24_HERO_100p:
+	""" Whodunit?
+	[Passive.] At the start of the game, choose one of two [Quests]."""
+	pass
 
 
 

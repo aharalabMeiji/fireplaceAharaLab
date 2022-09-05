@@ -939,6 +939,7 @@ class Buff(TargetedAction):
 class BuffPermanently(Buff):
 	def do(self, source, target, buff):
 		ret = super().do(source, target, buff)
+		buff.apply(target)
 		if target.deepcopy_original:
 			buff.apply(target.deepcopy_original)
 		return ret

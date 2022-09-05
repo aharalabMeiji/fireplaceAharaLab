@@ -3,6 +3,13 @@ from ..utils import *
 BG_Heistbaron_Togwaggle=True ## 24.0
 
 BG_Hero5=[]
+	#62#Tamsin Roame
+	#63#Tavish Stormpike
+	#64#Tess Greymane
+	#65#The Curator
+	#66#The Great Akazamzarak
+	#67#The Lich King
+	#68#The Rat King	
 	#69#Tickatus
 	#70#Trade Prince Gallywix
 	#71#Vanndar Stormpike
@@ -13,8 +20,6 @@ BG_Hero5=[]
 	#76#Yogg-Saron, Hope's End
 	#77#Ysera
 	#78#Zephrys, the Great
-	#79#Queen Azshara
-	#80#Lady Vashj
 
 
 BG_PoolSet_Hero5=[]
@@ -524,19 +529,22 @@ class BG22_HERO_003:# <12>[1453]
 	""" Vanndar Stormpike """
 class BG22_HERO_003p:# <12>[1453]
 	""" Lead the Stormpikes
-	Choose a friendly minion.It copies the Health of your highest Health minion for next combat only. """
-	requirements = { 
-		PlayReq.REQ_TARGET_TO_PLAY:0, 
-		#PlayReq.REQ_FRIENDLY_TARGET:0, ## was valid until 23.4.3 
-		PlayReq.REQ_MINION_TARGET:0, 
-		1001:2 }
-	activate = Buff(TARGET,'BG22_HERO_003pe3' )
+	[Passive] [Avenge (2):] Give your minions +1 Health permanently.""" ## new 24.2
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_003pe')]))
+	#Choose a friendly minion.It copies the Health of your highest Health minion for next combat only. ### old 
+	#requirements = { 
+	#	PlayReq.REQ_TARGET_TO_PLAY:0, 
+	#	#PlayReq.REQ_FRIENDLY_TARGET:0, ## was valid until 23.4.3 
+	#	PlayReq.REQ_MINION_TARGET:0, 
+	#	1001:2 }
+	#activate = Buff(TARGET,'BG22_HERO_003pe3' )
 	pass
-class BG22_HERO_003pe:# <12>[1453]
-	""" Stormpike Strength
-	Copied highest Health. """
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
-	pass
+BG22_HERO_003pe=buff(0,1)
+#class BG22_HERO_003pe:# <12>[1453]
+#	""" Stormpike Strength
+#	Copied highest Health. """
+#	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+#	pass
 class BG22_HERO_003pe2:# <12>[1453]
 	""" Health Set Next Combat Only
 	 """

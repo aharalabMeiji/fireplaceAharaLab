@@ -1,4 +1,5 @@
 from ast import Return
+from pickle import NONE
 from ..utils import *
 
 BG_Hero2=[]
@@ -147,10 +148,12 @@ class TB_BaconShop_HERO_55:# <12>[1453]
 	pass
 class TB_BaconShop_HP_056:
 	""" Gone Fishing
-	[Passive] After you sell two minions, add a random Murloc to Bob's Tavern."""
-	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 2, 
-		[Summon(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))] #
-	))
+	[Passive.] After you sell 4 minions, get a random Murloc. (@ left.) """ ## new 24.2
+	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 4, [Give(CONTROLLER, RandomBGMurloc())]))
+	##[Passive] After you sell two minions, add a random Murloc to Bob's Tavern. old 
+	#events = Sell(CONTROLLER).on(SidequestCounter(SELF, 2, 
+	#	[Summon(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))] #
+	#))
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_55_Buddy:
@@ -205,17 +208,27 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 
 
 #23#Galewing   ### under construction ###
-BG_Hero2+=['BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',]
-#BG_PoolSet_Hero2+=['BG20_HERO_283']
-BG_Hero2_Buddy['BG20_HERO_283']='BG20_HERO_283_Buddy'
-BG_Hero2_Buddy_Gold['BG20_HERO_283_Buddy']='BG20_HERO_283_Buddy_G'
+##BG_Hero2+=['BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',]
+##BG_PoolSet_Hero2+=['BG20_HERO_283']
+##BG_Hero2_Buddy['BG20_HERO_283']='BG20_HERO_283_Buddy'
+##BG_Hero2_Buddy_Gold['BG20_HERO_283_Buddy']='BG20_HERO_283_Buddy_G'
 class BG20_HERO_283:# <12>[1453]
 	""" Galewing """
+class BG20_HERO_283p_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		controller = self.player
+		if card.type != CardType.HERO_POWER:
+			return
+		ChangeHeroPower(controller, card).trigger(self.source)
+		card.activate()
+	pass
 class BG20_HERO_283p:# <12>[1453]################difficult
 	""" Dungar's Gryphon
 	Choose a flightpath. Complete it to get a bonus! """
 	entourage=['BG20_HERO_283p_t1','BG20_HERO_283p_t2','BG20_HERO_283p_t3']
-	activate = GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*3)
+	activate = BG20_HERO_283p_Choice(CONTROLLER, RandomEntourage()*3)
 	pass
 class BG20_HERO_283p_t1:# <12>[1453]
 	""" Westfall

@@ -342,10 +342,10 @@ class TB_BaconShop_HERO_17_Buddy_G:
 
 
 #41#Mr. Bigglesworth  ### impossible ###
-BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
-BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
-BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
-BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
+##BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
+##BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
+##BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
+##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
 class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
 class TB_BaconShop_HP_080:
@@ -364,6 +364,19 @@ class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 	pass
 
 
+
+### Murloc Holmes ###BG23_HERO_303## new 24.2 ####################################
+BG_Hero3 += ['BG23_HERO_303','BG23_HERO_303p2','BG23_HERO_303pt']# 
+BG_PoolSet_Hero3 +=['BG23_HERO_303',]#
+class BG23_HERO_303:
+	""" Murloc Holmes
+	"""
+class BG23_HERO_303p2:
+	""" Detective for Hire
+	Look at 2 minions. Guess which one your next opponent had last combat for a Coin."""
+	pass
+class BG23_HERO_303pt:
+	pass
 
 
 
@@ -665,11 +678,12 @@ BG_Hero3_Buddy['TB_BaconShop_HERO_34']='TB_BaconShop_HERO_34_Buddy'#
 BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_34_Buddy']='TB_BaconShop_HERO_34_Buddy_G'#
 class TB_BaconShop_HERO_34:# <12>[1453]
 	""" Patchwerk  """
-	#<Tag enumID="45" name="HEALTH" type="Int" value="55"/>
+	#<Tag enumID="45" name="HEALTH" type="Int" value="60"/>
 	pass
 class TB_BaconShop_HP_035:
 	""" All Patched Up
-	[Passive] Start with 55 Health instead of 40."""
+	[Passive] Start with 60 Health instead of 40."""  ### new 24.2
+	##[Passive] Start with 55 Health instead of 40.""" old
 ######## BUDDY
 class TB_BaconShop_HERO_34_Buddy:# <12>[1453]
 	""" Weebomination

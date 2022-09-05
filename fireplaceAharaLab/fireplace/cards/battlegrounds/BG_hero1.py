@@ -39,6 +39,11 @@ BG_Hero1_Buddy_Gold={}
 
 # A - D
 
+#00#A. F. Kay
+#01#Al'Akir
+
+#17	#Drek'Thar
+
 ########### source
 
 #00#A. F. Kay   ### OK ###
@@ -899,19 +904,21 @@ class BG22_HERO_002p_Action(TargetedAction):
 		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
-	Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
-	Choose a minion. It copies the Attack of the highest Attack minion until next turn.
-	"""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 
-				 #PlayReq.REQ_FRIENDLY_TARGET:0, ## valid until 23.4.3 
-				 PlayReq.REQ_MINION_TARGET:0}
-	activate = BG22_HERO_002p_Action(TARGET, 'BG22_HERO_002pe')
+	[Passive] [Avenge (3):] Give your minions +1 Attack permanently.""" ### new 24.2
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002pe')]))
+	##Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
+	##Choose a minion. It copies the Attack of the highest Attack minion until next turn.(until 24.0.3)
+	#requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 
+	#			 #PlayReq.REQ_FRIENDLY_TARGET:0, ## valid until 23.4.3 
+	#			 PlayReq.REQ_MINION_TARGET:0}
+	#activate = BG22_HERO_002p_Action(TARGET, 'BG22_HERO_002pe')
 	pass
-class BG22_HERO_002pe:# <12>[1453]
-	""" Frostwolf Fervor
-	Copied highest Attack. """
-	events = EndBattle(CONTROLLER).on(Destroy(SELF))
-	pass
+BG22_HERO_002pe=buff(1,0)
+#class BG22_HERO_002pe:# <12>[1453]
+#	""" Frostwolf Fervor
+#	Copied highest Attack. """
+#	events = EndBattle(CONTROLLER).on(Destroy(SELF))
+#	pass
 class BG22_HERO_002pe2:# <12>[1453]
 	""" Attack Set Next Combat Only
 	 """

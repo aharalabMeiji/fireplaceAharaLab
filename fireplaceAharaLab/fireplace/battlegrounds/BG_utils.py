@@ -91,8 +91,8 @@ class BG_main:
 			self.Heroes.remove('TB_BaconShop_HERO_37')#35 demon ban
 		if not 'mecha' in self.BG_races and 'TB_BaconShop_HERO_17' in self.Heroes:
 			self.Heroes.remove('TB_BaconShop_HERO_17')#40 mech ban
-		if not 'pirate' in self.BG_races and 'TB_BaconShop_HERO_34' in self.Heroes:
-			self.Heroes.remove('TB_BaconShop_HERO_34')#48 X pirate ban
+		if not 'pirate' in self.BG_races and 'TB_BaconShop_HERO_18' in self.Heroes:
+			self.Heroes.remove('TB_BaconShop_HERO_18')#48 pirate ban
 		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_53' in self.Heroes:
 			self.Heroes.remove('TB_BaconShop_HERO_53')#77 dragon ban
 		if not 'naga' in self.BG_races and 'BG23_HERO_304' in self.Heroes:
