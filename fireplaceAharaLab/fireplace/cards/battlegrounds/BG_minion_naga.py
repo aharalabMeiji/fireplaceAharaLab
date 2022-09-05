@@ -1,7 +1,6 @@
 from fireplace.card import THE_COIN
 from ..utils import *
 
-BG_Minion_Naga=[]
 
 BG_Mini_Myrmidon=True##(1)
 BG_Shell_Collector=True##(1)
@@ -20,8 +19,9 @@ BG_Glowscale=True## (5)
 BG_Corrupted_Myrmidon=True## (5)
 BG_Tidemistress_Athissa=True## (6)
 
+BG_Minion_Naga=[]
 
-BG_PoolSet_Naga=[]
+BG_PoolSet_Naga=[[],[],[],[],[],[],[]]
 
 BG_Naga_Gold={}
 

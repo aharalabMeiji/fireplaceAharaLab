@@ -39,14 +39,19 @@ BG_Hero1_Buddy_Gold={}
 
 # A - D
 
-#00#A. F. Kay
-#01#Al'Akir
+##A. F. Kay TB_BaconShop_HERO_16
+##Al'Akir TB_BaconShop_HERO_76
+##Alexstrasza  TB_BaconShop_HERO_56
+##Ambassador Faelin BG22_HERO_201
+##Aranna Starseeker TB_BaconShop_HERO_59
+##Arch-Villain Rafaam TB_BaconShop_HERO_45
+###Bru'kan 
 
-#17	#Drek'Thar
+##Drek'Thar
 
 ########### source
 
-#00#A. F. Kay   ### OK ###
+##A. F. Kay   ### OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',]#00#A. F. Kay 
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_16',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_16']='TB_BaconShop_HERO_16_Buddy'
@@ -87,7 +92,7 @@ TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453]
 """ Snack-Filled
 +2/+4. """
 
-#01#Al'Akir  ### OK ###
+##Al'Akir  ### OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',]#01#Al'Akir
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_76',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_76_Buddy'
@@ -130,7 +135,7 @@ class TB_BaconShop_HERO_76_Buddy_G:
 	pass
 
 
-#02#Alexstrasza   ### OK ###
+##Alexstrasza   ### OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy',]#02#Alexstrasza]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_56',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_56']='TB_BaconShop_HERO_56_Buddy'
@@ -158,7 +163,7 @@ class TB_BaconShop_HERO_56_Buddy_G:
 	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER))) * 2
 
 
-#03##Ambassador Faelin ### OK ###
+##Ambassador Faelin ### OK ###
 BG_Hero1 += ['BG22_HERO_201','BG22_HERO_201p','BG22_HERO_201pe','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G',]#03#Ambassador Faelin]
 BG_PoolSet_Hero1 +=['BG22_HERO_201',]
 BG_Hero1_Buddy['BG22_HERO_201']='BG22_HERO_201_Buddy'
@@ -247,7 +252,7 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 	pass
 
 
-#04#Aranna Starseeker # アランナ ### OK ###
+##Aranna Starseeker # アランナ ### OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',]#04#Aranna Starseeker]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_59',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_59']='TB_BaconShop_HERO_59_Buddy'
@@ -287,7 +292,7 @@ class TB_BaconShop_HERO_59t:# <12>[1453]
 
 
 
-#05#Arch-Villain Rafaam ### OK ###
+##Arch-Villain Rafaam ### OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_45','TB_BaconShop_HP_053','TB_BaconShop_HERO_45_Buddy','TB_BaconShop_HERO_45_Buddy_G',]#05#Arch-Villain Rafaam]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_45',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_45']='TB_BaconShop_HERO_45_Buddy'
@@ -341,32 +346,59 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 
 
 
-#06##Bru'kan   #################################
+###Bru'kan   #################################
 BG_Hero1 += ['BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',]#BG22_HERO_001#06#Bru'kan]
-#BG_PoolSet_Hero1 +=['BG22_HERO_001',]
-BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
-BG_Hero1_Buddy_Gold['BG22_HERO_001_Buddy']='BG22_HERO_001_Buddy_G'
+BG_PoolSet_Hero1 +=['BG22_HERO_001',]
+#BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
+#BG_Hero1_Buddy_Gold['BG22_HERO_001_Buddy']='BG22_HERO_001_Buddy_G'
 class BG22_HERO_001:# <12>[1453]
 	""" Bru'kan 	"""
+class BG22_HERO_001p_Choice(Choice):
+	def do(self, source, target, cards, option=None):
+		super().do(source, target, cards, option)
+		choiceAction(target)
+		pass
+	def choose(self, card):
+		super().choose(card)
+		if card.type != CardType.HERO_POWER:
+			return
+		ChangeHeroPower(self.player, card).trigger(self.source)
+		card.activate()
+		self.next_choice=None
+		self.player.choice=None
+		pass
 class BG22_HERO_001p:# <12>[1453]######################### difficult
 	""" Embrace the Elements
 	Choose an Element.[Start of Combat:] Call upon that Element. """
 	#<ReferencedTag enumID="1531" name="START_OF_COMBAT" type="Int" value="1"/>
 	entourage=['BG22_HERO_001p_t1','BG22_HERO_001p_t2','BG22_HERO_001p_t3','BG22_HERO_001p_t4']
-	activate = GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*4)
+	activate = BG22_HERO_001p_Choice(CONTROLLER, RandomEntourage()*4)
 	pass
+class BG22_HERO_001_CastSpell(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller = target
+		card = controller.card(buff)
+		CastSpell(card).trigger(source)
+		pass
 class BG22_HERO_001p_t1:# <12>[1453]
-	""" Earth Invocation
+	""" Earth Invocation (hero power)
 	[Start of Combat:] Give 4random friendly minions"[Deathrattle:] Summona 1/1 Elemental." """
-	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t1_s'))
+	events = BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t1_s'))
 	pass
 class BG22_HERO_001p_t1_s:# <8>[1453]
-	""" Earth Invocation
+	""" Earth Invocation (spell)
 	Give 4 random friendly minions "[Deathrattle:] Summon a 1/1 Elemental." """
-	play = Buff(RANDOM_FRIENDLY_MINION, 'BG22_HERO_001p_t1e') * 4
+	def play(self):
+		cards = [card for card in self.controller.field]
+		if len(cards)>4:
+			cards=random.sample(cards,4)
+		for card in cards:
+			Buff(card, 'BG22_HERO_001p_t1e').trigger(self)
 	pass
 class BG22_HERO_001p_t1e:# <12>[1453]
-	""" Element: Earth
+	""" Element: Earth (enchantment)
 	[Deathrattle:] Summon a 1/1 Elemental. """
 	tags={GameTag.DEATHRATTLE:1}
 	deathrattle = Summon(CONTROLLER,'BG22_HERO_001p_t1et')
@@ -375,28 +407,27 @@ class BG22_HERO_001p_t1et:# <12>[1453]
 	""" Stone Elemental 	 """
 	pass
 class BG22_HERO_001p_t2:# <12>[1453]
-	""" Fire Invocation
+	""" Fire Invocation (hero power)
 	[Start of Combat:] Double your left-most minion's Attack. """
-	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t2_s'))
+	events = BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t2_s'))
 	pass
 class BG22_HERO_001p_t2_s:# <8>[1453]
-	""" Fire Invocation
+	""" Fire Invocation (spell)
 	Double your left-most minion's Attack. """
 	def play(self):
 		controller = self.controller
 		if len(controller.field)>0:
 			card = controller.field[0]
-			Buff(card, 'BG22_HERO_001p_t2_s').trigger(controller)
+			Buff(card, 'BG22_HERO_001p_t2e', atk=card.atk).trigger(controller)
 	pass
 class BG22_HERO_001p_t2e:# <12>[1453]
 	""" Element: Fire
 	This minion's Attack has been doubled. """
-	atk = lambda self, k : k*2
 	pass
 class BG22_HERO_001p_t3:# <12>[1453]
 	""" Water Invocation
 	[Start of Combat:] Giveyour right-most minion+3 Health and [Taunt]. """
-	events = BeginBattle(CONTROLLER).on(CastSpell(ID('BG22_HERO_001p_t3_s')))
+	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t3_s'))
 	pass
 class BG22_HERO_001p_t3_s:# <8>[1453]
 	""" Water Invocation
