@@ -454,7 +454,7 @@ class BG_main:
 			if my_bar == self.BG_Bars[the_match[0]]:
 				next_opponent_bar = self.BG_Bars[the_match[1]]
 				break
-			elif my_bar == gamemaster.self.BG_Bars[the_match[1]]:
+			elif my_bar == self.BG_Bars[the_match[1]]:
 				next_opponent_bar = self.BG_Bars[the_match[0]]
 				break
 		else:

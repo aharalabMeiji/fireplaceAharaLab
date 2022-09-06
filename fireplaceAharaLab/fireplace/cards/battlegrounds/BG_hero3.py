@@ -1,3 +1,4 @@
+from pickle import NONE
 from ..utils import *
 
 ############# L - Q
@@ -22,7 +23,7 @@ from ..utils import *
 ##Patches the Pirate TB_BaconShop_HERO_18
 ##Patchwerk TB_BaconShop_HERO_34
 ##Pyramad TB_BaconShop_HERO_39
-## Queen Axshara BG22_HERO_007 ### not yest ####
+##Queen Axshara BG22_HERO_007 ### not yet ####
 ##Queen Wagtoggle  TB_BaconShop_HERO_14
 
 BG_Hero3=[]
@@ -388,9 +389,35 @@ BG_PoolSet_Hero3 +=['BG23_HERO_303',]#
 class BG23_HERO_303:
 	""" Murloc Holmes
 	"""
+class BG23_HERO_303p2_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		self.next_choice=None
+		self.player.choice=None
+class BG23_HERO_303p2_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		gamemaster = controller.game.parent
+		next_warband = gamemaster.next_warband(controller)
+		nextcardsID=[card.id for card in next_warband]
+		if len(next_warband)>0:
+			card1 = random.choice(next_warband)
+			cardID1 = card1.id
+			tavern_tier=card1.tech_level
+			cardID2=None
+			for repeat in range(10):
+				card2=RandomBGMinion(tech_level=tavern_tier).evaluate()
+				if not card2.id in nextcardsID:
+					cardID2 = card2.id
+					break
+			if cardID2!=None:
+				BG23_HERO_303p2_Choice(CONTROLLER, RandomID(cardID1, cardID2)*2).trigger(source)
+		pass
 class BG23_HERO_303p2:
 	""" Detective for Hire
 	Look at 2 minions. Guess which one your next opponent had last combat for a Coin."""
+	activate = BG23_HERO_303p2_Action(CONTROLLER)
 	pass
 class BG23_HERO_303pt:
 	pass
