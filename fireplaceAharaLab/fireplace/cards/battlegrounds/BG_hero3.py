@@ -622,6 +622,7 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 	pass
 
 
+## Ozumat ######### #########
 
 #47#Patches the Pirate ### HP OK ###
 BG_Hero3 += ['TB_BaconShop_HERO_18','TB_BaconShop_HP_072','TB_BaconShop_HERO_18_Buddy','TB_BaconShop_HERO_18_Buddy_e','TB_BaconShop_HERO_18_Buddy_G',]# 

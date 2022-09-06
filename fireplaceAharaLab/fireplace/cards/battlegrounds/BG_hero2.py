@@ -21,6 +21,7 @@ BG_Hero2_Buddy_Gold={}
 ##Heistbaron BG23_HERO_305
 ##Illidan Stormrage  TB_BaconShop_HERO_08
 ##Infinite Toki  TB_BaconShop_HERO_28
+##Ini Stormcoil ******************
 ##Jandice Barov TB_BaconShop_HERO_71
 ##Kael'thas Sunstrider  TB_BaconShop_HERO_60
 ##King Mukla  TB_BaconShop_HERO_38
