@@ -27,6 +27,7 @@ def Card(id):
 		CardType.ENCHANTMENT: Enchantment,
 		CardType.WEAPON: Weapon,
 		CardType.HERO_POWER: HeroPower,
+		40: QuestReward,
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
@@ -34,6 +35,8 @@ def Card(id):
 		if hasattr(data,'sidequest') and data.sidequest:
 			subclass = Sidequest# 
 		if hasattr(data,'questline') and data.questline:
+			subclass = Sidequest# 
+		if hasattr(data,'quest') and data.quest:
 			subclass = Sidequest# 
 	return subclass(data)
 
@@ -1218,6 +1221,9 @@ class HeroPower(PlayableCard):
 		if self.passive_power:## if hero.power is passive, there are no need to activate
 			return False
 		return super().is_playable()
+
+class QuestReward(PlayableCard):
+	pass
 
 class Sidequest(Spell):
 	_sidequest_counter_=0

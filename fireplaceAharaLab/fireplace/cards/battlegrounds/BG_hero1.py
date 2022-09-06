@@ -45,9 +45,18 @@ BG_Hero1_Buddy_Gold={}
 ##Ambassador Faelin BG22_HERO_201
 ##Aranna Starseeker TB_BaconShop_HERO_59
 ##Arch-Villain Rafaam TB_BaconShop_HERO_45
-###Bru'kan 
-
-##Drek'Thar
+##Bru'kan BG22_HERO_001
+##C'Thun TB_BaconShop_HERO_29
+##Captain Eudora TB_BaconShop_HERO_64
+##Captain Hooktusk TB_BaconShop_HERO_67
+##Cariel Roame BG21_HERO_000
+##Chenvaala TB_BaconShop_HERO_78
+##Cookie the Cook BG21_HERO_020
+##Dancin' Deryl TB_BaconShop_HERO_36
+##Death Speaker Blackthorn BG20_HERO_103
+##Deathwing TB_BaconShop_HERO_52
+##Dinotamer Brann TB_BaconShop_HERO_43
+##Drek'Thar BG22_HERO_002
 
 ########### source
 
@@ -346,7 +355,7 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 
 
 
-###Bru'kan   #################################
+###Bru'kan   ############### HP OK ############
 BG_Hero1 += ['BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',]#BG22_HERO_001#06#Bru'kan]
 BG_PoolSet_Hero1 +=['BG22_HERO_001',]
 #BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
@@ -367,7 +376,7 @@ class BG22_HERO_001p_Choice(Choice):
 		self.next_choice=None
 		self.player.choice=None
 		pass
-class BG22_HERO_001p:# <12>[1453]######################### difficult
+class BG22_HERO_001p:# <12>[1453]#
 	""" Embrace the Elements
 	Choose an Element.[Start of Combat:] Call upon that Element. """
 	#<ReferencedTag enumID="1531" name="START_OF_COMBAT" type="Int" value="1"/>
@@ -385,7 +394,9 @@ class BG22_HERO_001_CastSpell(TargetedAction):
 class BG22_HERO_001p_t1:# <12>[1453]
 	""" Earth Invocation (hero power)
 	[Start of Combat:] Give 4random friendly minions"[Deathrattle:] Summona 1/1 Elemental." """
-	events = BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t1_s'))
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t1_s')),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_001p'))]
 	pass
 class BG22_HERO_001p_t1_s:# <8>[1453]
 	""" Earth Invocation (spell)
@@ -409,7 +420,9 @@ class BG22_HERO_001p_t1et:# <12>[1453]
 class BG22_HERO_001p_t2:# <12>[1453]
 	""" Fire Invocation (hero power)
 	[Start of Combat:] Double your left-most minion's Attack. """
-	events = BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t2_s'))
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t2_s')),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_001p'))]
 	pass
 class BG22_HERO_001p_t2_s:# <8>[1453]
 	""" Fire Invocation (spell)
@@ -427,7 +440,9 @@ class BG22_HERO_001p_t2e:# <12>[1453]
 class BG22_HERO_001p_t3:# <12>[1453]
 	""" Water Invocation
 	[Start of Combat:] Giveyour right-most minion+3 Health and [Taunt]. """
-	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t3_s'))
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t3_s')),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_001p'))]
 	pass
 class BG22_HERO_001p_t3_s:# <8>[1453]
 	""" Water Invocation
@@ -436,23 +451,27 @@ class BG22_HERO_001p_t3_s:# <8>[1453]
 		controller = self.controller
 		if len(controller.field)>0:
 			card = controller.field[-1]
-			Buff(card, 'BG22_HERO_001p_t3_s').trigger(controller)
+			Buff(card, 'BG22_HERO_001p_t3e').trigger(controller)
 	pass
 class BG22_HERO_001p_t3e:# <12>[1453]
 	""" Element: Water
 	+3 Health and [Taunt]. """
-	max_health = lambda self, i : i+3
-	taunt = True
+	tags = {
+		GameTag.HEALTH:3,
+		GameTag.TAUNT:1
+		}
 	pass
 class BG22_HERO_001p_t4:# <12>[1453]
 	""" Lightning Invocation
 	[Start of Combat:] Deal 1 damage to 5 random enemy minions. """
-	events = BeginBattle(CONTROLLER).on(CastSpell('BG22_HERO_001p_t4_s'))
+	events = [
+		BeginBattle(CONTROLLER).on(BG22_HERO_001_CastSpell(CONTROLLER, 'BG22_HERO_001p_t4_s')),
+		BeginBar(CONTROLLER).on(ChangeHeroPower(CONTROLLER, 'BG22_HERO_001p'))]
 	pass
 class BG22_HERO_001p_t4_s:# <8>[1453]
 	""" Lightning Invocation
 	Deal 1 damage to 5 random enemy minions. """
-	play = Hit(RANDOM(ENEMY_MINIONS),1) * 5
+	play = SplitHit(CONTROLLER, ENEMY_MINIONS,5)
 	pass
 ######## BUDDY
 class BG22_HERO_001_Buddy_Events(TargetedAction):
@@ -499,7 +518,7 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 
 
-#07#C'Thun   ### HP OK ####
+##C'Thun   ### HP OK ####
 BG_Hero1 += ['TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',]#07#C'Thun]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_29',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_29']='TB_BaconShop_HERO_29_Buddy'
@@ -551,7 +570,7 @@ class TB_BaconShop_HERO_29_Buddy_Ge:# <12>[1453]
 
 
 
-#08#Captain Eudora   #### OK ####
+##Captain Eudora   #### OK ####
 BG_Hero1 += ['TB_BaconShop_HERO_64','TB_BaconShop_HP_074','TB_BaconShop_HERO_64_Buddy','TB_BaconShop_HERO_64_Buddy_e','TB_BaconShop_HERO_64_Buddy_G','TB_BaconShop_HERO_64_Buddy_G_e',]#08#Captain Eudora
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_64',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_64']='TB_BaconShop_HERO_64_Buddy'
@@ -595,7 +614,7 @@ TB_BaconShop_HERO_64_Buddy_G_e=buff(10,10)# <12>[1453]
 
 
 
-#09#Captain Hooktusk  #### OK ####
+##Captain Hooktusk  #### OK ####
 BG_Hero1 += ['TB_BaconShop_HERO_67','TB_BaconShop_HP_075','TB_BaconShop_HERO_67_Buddy','TB_BaconShop_HERO_67_Buddy_G',]#09#Captain Hooktusk]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_67',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_67']='TB_BaconShop_HERO_67_Buddy'
@@ -633,7 +652,7 @@ class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 
 
 
-#10#Cariel Roame ### OK ###
+##Cariel Roame ### OK ###
 BG_Hero1 += ['BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',]#10#Cariel Roame]
 BG_PoolSet_Hero1 +=['BG21_HERO_000',]
 BG_Hero1_Buddy['BG21_HERO_000']='BG21_HERO_000_Buddy'
@@ -702,7 +721,7 @@ BG21_HERO_000_Buddy_G_e=buff(2,2)
 
 
 
-#11#Chenvaala ### HP OK ###
+##Chenvaala ### HP OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_78','TB_BaconShop_HP_088','TB_BaconShop_HERO_78_Buddy','TB_BaconShop_HERO_78_Buddy_G',]#11#Chenvaala]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_78',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_78']='TB_BaconShop_HERO_78_Buddy'
@@ -714,6 +733,7 @@ class TB_BaconShop_HP_088:
 	""" Avalanche
 	[Passive] After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)]))
+#### BUDDY ####
 class TB_BaconShop_HERO_78_Buddy:
 	""" Snow Elemental
 	Bob always offers an extra [Frozen] Elemental whenever the Tavern is [Refreshed]."""
@@ -723,7 +743,7 @@ class TB_BaconShop_HERO_78_Buddy_G:
 
 
 
-#12#Cookie the Cook  #### difficult ###  
+##Cookie the Cook  #### difficult ###  
 BG_Hero1 += ['BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',]#12#Cookie the Cook]
 #BG_PoolSet_Hero1 +=['BG21_HERO_020',]
 BG_Hero1_Buddy['BG21_HERO_020']='BG21_HERO_020_Buddy'
@@ -793,7 +813,7 @@ class BG21_HERO_020_Buddy_G:# <12>[1453]
 
 
 
-#13#Dancin' Deryl ### need check ###
+##Dancin' Deryl ### need check ###
 BG_Hero1 += ['TB_BaconShop_HERO_36','TB_BaconShop_HP_042','TB_BaconShop_HP_042e','TB_BaconShop_HERO_36_Buddy','TB_BaconShop_HERO_36_Buddy_e','TB_BaconShop_HERO_36_Buddy_G','TB_BaconShop_HERO_36_Buddy_Ge',]#13#Dancin' Deryl]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_36']
 BG_Hero1_Buddy['TB_BaconShop_HERO_36']='TB_BaconShop_HERO_36_Buddy'
@@ -822,7 +842,7 @@ TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
 """ Dashing Hat,+2/+2. """
 
 
-#14#Death Speaker Blackthorn  ### HP OK ###
+##Death Speaker Blackthorn  ### HP OK ###
 BG_Hero1 += ['BG20_HERO_103','BG20_HERO_103p','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G',]#14#Death Speaker Blackthorn]
 BG_PoolSet_Hero1 +=['BG20_HERO_103',]
 BG_Hero1_Buddy['BG20_HERO_103']='BG20_HERO_103_Buddy'
@@ -847,8 +867,8 @@ class BG20_HERO_103_Buddy_G:
 
 
 
-#15#Deathwing    ### not good for enemy's minions in the battle ###
-BG_Hero1 += ['TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',]#15#Deathwing]
+##Deathwing    ## HP OK
+BG_Hero1 += ['TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_52',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_52']='TB_BaconShop_HERO_52_Buddy'
 BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_52_Buddy']='TB_BaconShop_HERO_52_Buddy_G'
@@ -875,7 +895,7 @@ TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
 
-#16#Dinotamer Brann   ### HP OK ###
+##Dinotamer Brann   ### HP OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e','TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',]#16#Dinotamer Brann]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_43',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_43']='TB_BaconShop_HERO_43_Buddy'
@@ -916,7 +936,7 @@ class TB_BaconShop_HERO_43_Buddy_G:# <12>[1453]
 	pass
 
 
-#17	#Drek'Thar#BG22_HERO_002   ### HP OK ###
+##Drek'Thar #BG22_HERO_002   ### HP OK ###
 BG_Hero1+=['BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge']
 BG_PoolSet_Hero1+=['BG22_HERO_002']
 BG_Hero1_Buddy['BG22_HERO_002']='BG22_HERO_002_Buddy'
