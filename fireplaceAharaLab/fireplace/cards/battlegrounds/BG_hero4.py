@@ -8,22 +8,24 @@ BG_Hero4_Buddy={}
 BG_Hero4_Buddy_Gold={}
 
 ## R - S
-
-	#52#Rakanishu
-	#53#Reno Jackson
-	#54#Rokara
-	#55#Scabbs Cutterbutter
-	#56#Shudderwock
-	#57#Silas Darkmoon
-	#58#Sindragosa
-	#59#Sir Finley Mrrgglton
-	#60#Skycap'n Kragg
-	#61#Sneed
+	
+##Ragnaros the Firelord TB_BaconShop_HERO_11	
+##Rakanishu TB_BaconShop_HERO_75
+##Reno Jackson TB_BaconShop_HERO_41
+##Rokara BG20_HERO_100
+##Scabbs Cutterbutter BG21_HERO_010
+##Shudderwock TB_BaconShop_HERO_23
+##Silas Darkmoon TB_BaconShop_HERO_90
+##Sindragosa TB_BaconShop_HERO_27
+##Sir Finley Mrrgglton TB_BaconShop_HERO_40
+##Sire Denathrius  BG24_HERO_100 #####difficult#####
+##Skycap'n Kragg TB_BaconShop_HERO_68
+##Sneed BG21_HERO_030
 
 
 ######## source #################################################################
 
-#51#Ragnaros the Firelord  ### HP OK ###
+##Ragnaros the Firelord  ### HP OK ###
 BG_Hero4 += ['TB_BaconShop_HERO_11','TB_BaconShop_HP_087','TB_BaconShop_HP_087t','TB_BaconShop_HP_087te','TB_BaconShop_HERO_11_Buddy','TB_BaconShop_HERO_11_Buddy_e','TB_BaconShop_HERO_11_Buddy_G','TB_BaconShop_HERO_11_Buddy_G_e',]# 
 BG_PoolSet_Hero4 +=['TB_BaconShop_HERO_11',]#
 BG_Hero4_Buddy['TB_BaconShop_HERO_11']='TB_BaconShop_HERO_11_Buddy'#
@@ -80,7 +82,7 @@ class TB_BaconShop_HERO_11_Buddy_G_e:# <12>[1453]
 	pass
 
 
-#52#Rakanishu #  ### HP OK ###
+##Rakanishu #  ### HP OK ###
 BG_Hero4+=['TB_BaconShop_HERO_75','TB_BaconShop_HP_085','TB_BaconShop_HP_085e','TB_BaconShop_HERO_75_Buddy','TB_BaconShop_HERO_75_Buddy_G',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_75')
 BG_Hero4_Buddy['TB_BaconShop_HERO_75']='TB_BaconShop_HERO_75_Buddy'
@@ -124,7 +126,7 @@ class TB_BaconShop_HERO_75_Buddy_G:# <12>[1453]
 
 
 
-#53#Reno Jackson #  ### HP OK ###
+##Reno Jackson #  ### HP OK ###
 BG_Hero4+=['TB_BaconShop_HERO_41','TB_BaconShop_HERO_41_Buddy','TB_BaconShop_HERO_41_Buddy_G','TB_BaconShop_HP_046',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_41')
 BG_Hero4_Buddy['TB_BaconShop_HERO_41']='TB_BaconShop_HERO_41_Buddy'
@@ -156,7 +158,7 @@ class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 
 
 
-#54#Rokara # 
+##Rokara #  ### visually OK
 BG_Hero4+=['BG20_HERO_100','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge','BG20_HERO_100p','BG20_HERO_100p_e2']
 BG_PoolSet_Hero4.append('BG20_HERO_100')
 BG_Hero4_Buddy['BG20_HERO_100']='BG20_HERO_100_Buddy'
@@ -171,7 +173,7 @@ class BG20_HERO_100_Action(TargetedAction):
 	BUFF=ActionArg()
 	def do(self, source, attacker, defender, buff):
 		if defender.to_be_destroyed:
-			BuffPermanently(attacker, buff).trigger(source.controller)
+			BuffPermanently(attacker, buff).trigger(source)
 		pass
 class BG20_HERO_100p:# <10>[1453]
 	""" Glory of Combat
@@ -195,7 +197,7 @@ BG20_HERO_100_Buddy_Ge=buff(0,2)# <12>[1453]
 
 
 
-#55#Scabbs Cutterbutter ### OK ###
+##Scabbs Cutterbutter ### OK ###
 BG_Hero4+=['BG21_HERO_010','BG21_HERO_010_Buddy','BG21_HERO_010_Buddy_G','BG21_HERO_010p',]
 BG_PoolSet_Hero4.append('BG21_HERO_010')
 BG_Hero4_Buddy['BG21_HERO_010']='BG21_HERO_010_Buddy'
@@ -240,7 +242,7 @@ class BG21_HERO_010_Buddy_G:# <12>[1453]
 
 
 
-#56#Shudderwock ### need check ###
+##Shudderwock ### OK ###
 BG_Hero4+=['TB_BaconShop_HERO_23','TB_BaconShop_HERO_23_Buddy','TB_BaconShop_HERO_23_Buddy_e','TB_BaconShop_HERO_23_Buddy_G','TB_BaconShop_HERO_23_Buddy_Ge','TB_BaconShop_HP_022','TB_BaconShop_HP_022e','TB_BaconShop_HP_022t','TB_BaconShop_HP_022t_G',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_23')
 BG_Hero4_Buddy['TB_BaconShop_HERO_23']='TB_BaconShop_HERO_23_Buddy'
@@ -268,17 +270,17 @@ class TB_BaconShop_HP_022t_Action(TargetedAction):
 	def do(self, source, target):
 		from fireplace.card import is_valid_target
 		controller = target
-		for battlecry in controller.battlecry_log:## does it contain itself? 
-			if battlecry['card'].id != source.id:
-				if battlecry['requirements']!={}:
-					targets=[]
-					for card in source.controller.field:
-						if is_valid_target(source, card, requirements=battlecry['requirements']):
-							targets.append(card)  
-					target = random.choice(source.targets)## set random targets
-					battlecry['action'].trigger(source)
-				else:
-					battlecry['action'].trigger(source)
+		cards=[]
+		for action in controller._targetedaction_log: 
+			card = action['target']
+			if isinstance(action['class'], Battlecry)==True and card.id != source.id:## does it contain itself?
+				if card.type==CardType.MINION and card.has_battlecry==True:
+					newcard = controller.card(action['target'].id)
+					cards.append(newcard)
+		for card in cards:
+			PlayBattlecry(card).trigger(source)
+			newcard.discard()
+		source.discard()
 class TB_BaconShop_HP_022t:##[Battlecry:] Repeat all other [Battlecries] from cards you played this game <i>(targets chosen randomly)</i>.
 	play = TB_BaconShop_HP_022t_Action(CONTROLLER)
 	pass
@@ -304,7 +306,7 @@ class TB_BaconShop_HERO_23_Buddy_Ge:# <12>[1453]
 
 
 
-#57#Silas Darkmoon # ## OK ##
+##Silas Darkmoon # ## OK ##
 BG_Hero4+=['TB_BaconShop_HERO_90','TB_BaconShop_HERO_90_Buddy','TB_BaconShop_HERO_90_Buddy_G','TB_BaconShop_HP_101','TB_BaconShop_HP_101e','TB_BaconShop_HP_101t2',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_90')
 BG_Hero4_Buddy['TB_BaconShop_HERO_90']='TB_BaconShop_HERO_90_Buddy'
@@ -350,7 +352,7 @@ class TB_BaconShop_HERO_90_Buddy_G:# <12>[1453]
 
 
 
-#58#Sindragosa  ### HP OK ###
+##Sindragosa  ### HP OK ###
 BG_Hero4+=['TB_BaconShop_HERO_27','TB_BaconShop_HERO_27_Buddy','TB_BaconShop_HERO_27_Buddy_G','TB_BaconShop_HP_014','TB_BaconShop_HP_014e',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_27')
 BG_Hero4_Buddy['TB_BaconShop_HERO_27']='TB_BaconShop_HERO_27_Buddy'
@@ -387,20 +389,10 @@ class TB_BaconShop_HERO_27_Buddy_G:# <12>[1453]
 
 
 
-### Sire Denathrius ### BG24_HERO_100 ### new 24.2 ####### difficult
-BG_Hero4+=['TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',]
-BG_PoolSet_Hero4.append('TB_BaconShop_HERO_40')
-class BG24_HERO_100:
-	""" Sire Denathrius
-	"""
-class BG24_HERO_100p:
-	""" Whodunit?
-	[Passive.] At the start of the game, choose one of two [Quests]."""
-	pass
 
 
 
-#59#Sir Finley Mrrgglton     ### OK ###
+##Sir Finley Mrrgglton     ### OK ###
 BG_Hero4+=['TB_BaconShop_HERO_40','TB_BaconShop_HERO_40_Buddy','TB_BaconShop_HERO_40_Buddy_G','TB_BaconShop_HP_057',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_40')
 BG_Hero4_Buddy['TB_BaconShop_HERO_40']='TB_BaconShop_HERO_40_Buddy'
@@ -420,9 +412,19 @@ class TB_BaconShop_HERO_40_Buddy_G:
 	"""  """
 
 
+### Sire Denathrius ### BG24_HERO_100 ### new 24.2 ####### difficult
+##BG_Hero4+=['BG24_HERO_100','BG24_HERO_100p',]
+##BG_PoolSet_Hero4.append('BG24_HERO_100')
+class BG24_HERO_100:
+	""" Sire Denathrius
+	"""
+class BG24_HERO_100p:
+	""" Whodunit?
+	[Passive.] At the start of the game, choose one of two [Quests]."""
+	pass
 
 
-#60#Skycap'n Kragg     ### HP OK ###
+##Skycap'n Kragg     ### HP OK ###
 BG_Hero4+=['TB_BaconShop_HERO_68','TB_BaconShop_HERO_68_Buddy','TB_BaconShop_HERO_68_Buddy_G','TB_BaconShop_HP_076',]
 BG_PoolSet_Hero4.append('TB_BaconShop_HERO_68')
 BG_Hero4_Buddy['TB_BaconShop_HERO_68']='TB_BaconShop_HERO_68_Buddy'
@@ -459,7 +461,7 @@ class TB_BaconShop_HERO_68_Buddy_G:
 
 
 
-#61#Sneed    ### OK ###
+##Sneed    ### OK ###
 BG_Hero4+=['BG21_HERO_030','BG21_HERO_030_Buddy','BG21_HERO_030_Buddy_e','BG21_HERO_030_Buddy_G','BG21_HERO_030p','BG21_HERO_030pe',]
 BG_PoolSet_Hero4.append('BG21_HERO_030')
 BG_Hero4_Buddy['BG21_HERO_030']='BG21_HERO_030_Buddy'

@@ -2118,6 +2118,8 @@ class PlayBattlecry(TargetedAction):
 				if Config.LOGINFO:
 					Config.log("PlayBattlecry.do","%s play battlecry %s don't have a legal target"%(source, card))
 				return
+		if Config.LOGINFO:
+			Config.log("PlayBattlecry.do","%s play battlecry of %s for a legal target"%(source, card))
 		Battlecry(card, target).trigger(source)
 		pass
 
