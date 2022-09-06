@@ -434,9 +434,9 @@ class BG20_HERO_242_Buddy_G:
 	pass
 
 
-##Heistbaron Togwaggle ### new 24.2  ## maybe OK ###
+##Heistbaron Togwaggle ### new 24.2  ## visually OK ###
 BG_Hero2 += ['BG23_HERO_305','BG23_HERO_305p',]	 
-BG_PoolSet_Hero2.append('BG23_HERO_305') #81#Heistbaron Togwaggle
+BG_PoolSet_Hero2.append('BG23_HERO_305') 
 #81#Heistbaron Togwaggle ## 24.0
 class BG23_HERO_305:
 	""" Heistbaron Togwaggle """

@@ -2,25 +2,25 @@ from ..utils import *
 
 BG_Heistbaron_Togwaggle=True ## 24.0
 
-BG_Hero5=[]
-	#62#Tamsin Roame
-	#63#Tavish Stormpike
-	#64#Tess Greymane
-	#65#The Curator
-	#66#The Great Akazamzarak
-	#67#The Lich King
-	#68#The Rat King	
-	#69#Tickatus
-	#70#Trade Prince Gallywix
-	#71#Vanndar Stormpike
-	#72#Varden Dawngrasp
-	#73#Vol'jin
-	#74#Xyrella
-	#75#Y'Shaarj
-	#76#Yogg-Saron, Hope's End
-	#77#Ysera
-	#78#Zephrys, the Great
+##Tamsin Roame
+##Tavish Stormpike
+##Tess Greymane
+##The Curator
+##The Great Akazamzarak
+##The Lich King
+##The Rat King	
+##Tickatus
+##Trade Prince Gallywix TB_BaconShop_HERO_10
+##Vanndar Stormpike BG22_HERO_003
+##Varden Dawngrasp BG22_HERO_004
+##Vol'jin BG20_HERO_201
+##Xyrella BG20_HERO_101
+##Y'Shaarj TB_BaconShop_HERO_92
+##Yogg-Saron, Hope's End TB_BaconShop_HERO_35
+##Ysera TB_BaconShop_HERO_53
+##Zephrys, the Great TB_BaconShop_HERO_91
 
+BG_Hero5=[]
 
 BG_PoolSet_Hero5=[]
 
@@ -30,7 +30,7 @@ BG_Hero5_Buddy_Gold={}
 
 ######## source #################################################################
 
-#62#Tamsin Roame ### OK ###
+##Tamsin Roame ### OK ###
 BG_Hero5+=['BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',]
 BG_PoolSet_Hero5.append('BG20_HERO_282')
 BG_Hero5_Buddy['BG20_HERO_282']='BG20_HERO_282_Buddy'
@@ -91,7 +91,7 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 
 
 
-#63##Tavish Stormpike ### OK ###
+###Tavish Stormpike ### OK ###
 BG_Hero5+=['BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',]
 BG_PoolSet_Hero5.append('BG22_HERO_000')
 BG_Hero5_Buddy['BG22_HERO_000']='BG22_HERO_000_Buddy'
@@ -218,7 +218,7 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 
 
 
-#64#Tess Greymane ### OK ###
+##Tess Greymane ### OK ###
 BG_Hero5+=['TB_BaconShop_HERO_50','TB_BaconShop_HERO_50_Buddy','TB_BaconShop_HERO_50_Buddy_G','TB_BaconShop_HP_077',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_50')
 BG_Hero5_Buddy['TB_BaconShop_HERO_50']='TB_BaconShop_HERO_50_Buddy'
@@ -266,7 +266,7 @@ class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
 
 
 
-#65#The Curator   ### need check ###
+##The Curator   ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_33','TB_BaconShop_HERO_33_Buddy','TB_BaconShop_HERO_33_Buddy_e','TB_BaconShop_HERO_33_Buddy_G','TB_BaconShop_HP_033','TB_BaconShop_HP_033t',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_33')
 BG_Hero5_Buddy['TB_BaconShop_HERO_33']='TB_BaconShop_HERO_33_Buddy'
@@ -295,7 +295,7 @@ class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
 
 
 
-#66#The Great Akazamzarak  ### OK ###
+##The Great Akazamzarak  ### OK ###
 BG_Hero5+=['TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_21')
 BG_Hero5_Buddy['TB_BaconShop_HERO_21']='TB_BaconShop_HERO_21_Buddy'
@@ -328,7 +328,7 @@ class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
 
 
 
-#67#The Lich King  ### need check ###
+##The Lich King  ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_22','TB_BaconShop_HERO_22_Buddy','TB_BaconShop_HERO_22_Buddy_G','TB_BaconShop_HP_024','TB_BaconShop_HP_024e2',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_22')
 BG_Hero5_Buddy['TB_BaconShop_HERO_22']='TB_BaconShop_HERO_22_Buddy'
@@ -353,7 +353,7 @@ class TB_BaconShop_HERO_22_Buddy_G:
 
 
 
-#68#The Rat King ##   ### OK ###
+##The Rat King ##   ### OK ###
 BG_Hero5+=['TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_12')
 BG_Hero5_Buddy['TB_BaconShop_HERO_12']='TB_BaconShop_HERO_12_Buddy'
@@ -447,31 +447,34 @@ class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
 
 
 
-#69#Tickatus   ### HP OK, prize not yet ###
+##Tickatus   ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_94','TB_BaconShop_HP_106','TB_BaconShop_HERO_94_Buddy','TB_BaconShop_HERO_94_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_94')
 BG_Hero5_Buddy['TB_BaconShop_HERO_94']='TB_BaconShop_HERO_94_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_94_Buddy']='TB_BaconShop_HERO_94_Buddy_G'
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
+class TB_BaconShop_HP_106_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		darkmoon_ticket4=['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018',]#1 #BGS_Treasures_032
+		darkmoon_ticket8=['BGS_Treasures_001','BGS_Treasures_010','BGS_Treasures_013','BGS_Treasures_016','BGS_Treasures_019','BGS_Treasures_022','BGS_Treasures_023','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_029',]#2 ## 'BGS_Treasures_011',
+		darkmoon_ticket12=['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_028','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040']#3
+		source.script_data_num_1 = (103-target.game.turn)%4+1
+		if target.game.turn==4:
+			Discover(CONTROLLER, RandomID(*darkmoon_ticket4)).trigger(source)
+		elif target.game.turn==8:
+			Discover(CONTROLLER, RandomID(*darkmoon_ticket8)).trigger(source)
+		elif target.game.turn%4==0:
+			Discover(CONTROLLER, RandomID(*darkmoon_ticket12)).trigger(source)
+		pass
 class TB_BaconShop_HP_106:
 	""" Prize Wall 
 	[Passive] Every 4 turns, [Discover] a Darkmoon Prize. <i>(@ |4(turn, turns) left!)</i>"""
-	entourage = [
-	'BGS_Treasures_000','BGS_Treasures_001','BGS_Treasures_003',
-	'BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007',
-	'BGS_Treasures_009','BGS_Treasures_010','BGS_Treasures_011',
-	'BGS_Treasures_012','BGS_Treasures_013','BGS_Treasures_014','BGS_Treasures_015',
-	'BGS_Treasures_016','BGS_Treasures_018','BGS_Treasures_019',
-	'BGS_Treasures_020','BGS_Treasures_022','BGS_Treasures_023',
-	'BGS_Treasures_025','BGS_Treasures_026',
-	'BGS_Treasures_028','BGS_Treasures_029','BGS_Treasures_030',
-	'BGS_Treasures_032','BGS_Treasures_033','BGS_Treasures_034',
-	'BGS_Treasures_036','BGS_Treasures_037',
-	]
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 4, [Discover(CONTROLLER, RandomEntourage())]))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_106_Action(CONTROLLER))
 	pass
 ## darkmoon prize -> BGS_Treasures_000 ~ BGS_Treasures_037
+############# BUDDY
 class TB_BaconShop_HERO_94_Buddy:# <12>[1453]
 	""" Ticket Collector
 	[Battlecry:] [Discover] aDarkmoon Prize fromthe next Prize turn. """
@@ -487,7 +490,7 @@ class TB_BaconShop_HERO_94_Buddy_G:# <12>[1453]
 
 
 
-#70#Trade Prince Gallywix  ### HP OK ###
+##Trade Prince Gallywix  ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_10','TB_BaconShop_HP_008','TB_BaconShop_HP_008a','TB_BaconShop_HERO_10_Buddy','TB_BaconShop_HERO_10_Buddye','TB_BaconShop_HERO_10_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_10')
 BG_Hero5_Buddy['TB_BaconShop_HERO_10']='TB_BaconShop_HERO_10_Buddy'
@@ -520,7 +523,7 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 
-#71#Vanndar Stormpike   ## HP OK ##
+##Vanndar Stormpike   ## HP OK ##
 BG_Hero5+=['BG22_HERO_003','BG22_HERO_003p','BG22_HERO_003pe','BG22_HERO_003pe2','BG22_HERO_003pe3','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_e','BG22_HERO_003_Buddy_G','BG22_HERO_003_Buddy_Ge',]#
 BG_PoolSet_Hero5.append('BG22_HERO_003')
 BG_Hero5_Buddy['BG22_HERO_003']='BG22_HERO_003_Buddy'
@@ -588,7 +591,7 @@ class BG22_HERO_003_Buddy_Ge:# <12>[1453]
 	pass
 
 
-#72#Varden Dawngrasp ## HP OK ##
+##Varden Dawngrasp ## HP OK ##
 BG_Hero5+=['BG22_HERO_004','BG22_HERO_004p','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_e2','BG22_HERO_004_Buddy_G',]#
 BG_PoolSet_Hero5.append('BG22_HERO_004')
 BG_Hero5_Buddy['BG22_HERO_004']='BG22_HERO_004_Buddy'
@@ -633,7 +636,7 @@ class BG22_HERO_004_Buddy_G:# <12>[1453]
 
 
 
-#73#Vol'jin   ### HP OK ###
+##Vol'jin   ### HP OK ###
 BG_Hero5+=['BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',]#
 BG_PoolSet_Hero5.append('BG20_HERO_201')
 BG_Hero5_Buddy['BG20_HERO_201']='BG20_HERO_201_Buddy'
@@ -719,7 +722,7 @@ class BG20_HERO_201_Buddy_G:# <12>[1453]
 
 
 
-#74#Xyrella  ### HP OK ###
+##Xyrella  ### HP OK ###
 BG_Hero5+=['BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',]#
 BG_PoolSet_Hero5.append('BG20_HERO_101')
 BG_Hero5_Buddy['BG20_HERO_101']='BG20_HERO_101_Buddy'
@@ -766,7 +769,7 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 
 
 
-#75#Y'Shaarj   ### HP OK ###
+##Y'Shaarj   ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_92','TB_BaconShop_HP_103','TB_BaconShop_HERO_92_Buddy','TB_BaconShop_HERO_92_Buddy_e','TB_BaconShop_HERO_92_Buddy_G','TB_BaconShop_HERO_92_Buddy_G_e',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_92')
 BG_Hero5_Buddy['TB_BaconShop_HERO_92']='TB_BaconShop_HERO_92_Buddy'
@@ -815,7 +818,7 @@ class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
 
 
 
-#76#Yogg-Saron, Hope's End #   ### HP OK ###
+##Yogg-Saron, Hope's End #   ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_35')
 BG_Hero5_Buddy['TB_BaconShop_HERO_35']='TB_BaconShop_HERO_35_Buddy'
@@ -906,7 +909,7 @@ class TB_BaconShop_HERO_35_Buddy_G:
 
 
 
-#77#Ysera
+##Ysera ####### HP OK #####
 BG_Hero5+=['TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_53')
 BG_Hero5_Buddy['TB_BaconShop_HERO_53']='TB_BaconShop_HERO_53_Buddy'
@@ -923,7 +926,7 @@ class TB_BaconShop_HP_062_Action(TargetedAction):
 		tier = controller.tavern_tier
 		dk=[]
 		for i in range(1,tier+1):
-			dk += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i-1]
+			dk += cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
 		cardID=random.choice(dk)
 		card = bartender.card(cardID)
 		if cardID in gm.BG_decks[card.tech_level]:
@@ -951,7 +954,7 @@ class TB_BaconShop_HERO_53_Buddy_G:
 
 
 
-#78#Zephrys, the Great
+##Zephrys, the Great  ##### HP OK ####
 BG_Hero5+=['TB_BaconShop_HERO_91','TB_BaconShop_HP_102','TB_BaconShop_HERO_91_Buddy','TB_BaconShop_HERO_91_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_91')
 BG_Hero5_Buddy['TB_BaconShop_HERO_91']='TB_BaconShop_HERO_91_Buddy'

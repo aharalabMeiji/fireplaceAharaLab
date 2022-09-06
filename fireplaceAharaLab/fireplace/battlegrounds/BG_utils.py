@@ -257,19 +257,22 @@ class BG_main:
 					controller.sells_in_this_turn=0
 					### deal cards to tavern
 					frozencard=0
-					for card in reversed(bartender.field):
+					for card in bartender.field:
 						if Config.LOGINFO:
 							Config.log("BG_MainBG_Main","field card %s is removed."%(card))
 						if not card.frozen and not card.dormant>0:
-							self.ReturnCard(card)
+							card.to_be_destroyed=True
 						else:
 							card.frozen=False
 							frozencard += 1
-					for repeat in range(bartender.len_bobs_field-frozencard+bartender.extra_len_bobs_field):
-						card = self.DealCard(bartender, controller.tavern_tier)
-						if controller.hero.power.id=='TB_BaconShop_HP_101':### Silas-flag
-							if random.choice([0,1]):
-								card.darkmoon_ticket = True
+					bar.process_deaths()
+					if bartender.len_bobs_field-frozencard+bartender.extra_len_bobs_field>0:
+						for repeat in range(bartender.len_bobs_field-frozencard+bartender.extra_len_bobs_field):
+							card = self.DealCard(bartender, controller.tavern_tier)
+							if controller.hero.power.id=='TB_BaconShop_HP_101':### Silas-flag
+								if random.choice([0,1]):
+									card.darkmoon_ticket = True
+						Rerole(controller).broadcast(controller, EventListener.AFTER, controller)
 					#start bob's tavern
 					BeginBar(controller, bar.turn).trigger(controller)
 					if controller.hero.power:
@@ -549,9 +552,9 @@ class Move(object):
 			return "%s を売る"%(self.target)
 		elif self.move==MovePlay.POWER:# 
 			if self.target != None:
-				return "%s （ヒーローパワー）を発動する（コスト%d）"%(self.target, self.controller.hero.power.cost)
+				return "ヒーローパワー （%s）を発動する（コスト%d）"%(self.target, self.controller.hero.power.cost)
 			else:
-				return "（ヒーローパワー）を発動する（コスト%d）"%(self.controller.hero.power.cost)
+				return "ヒーローパワーを発動する（コスト%d）"%(self.controller.hero.power.cost)
 		elif self.move==MovePlay.TIERUP:#
 			return "グレードを上げる（コスト%d）"%(self.controller.tavern_tierup_cost)
 		elif self.move==MovePlay.REROLE:# 

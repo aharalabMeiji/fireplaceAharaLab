@@ -24,10 +24,10 @@ BG_Murloc_Gold={}
 
 #Rockpool Hunter (1)  ## OK ##
 if BG_Rockpool_Hunter:
-	BG_Minion_Murloc+=['UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',]
-	BG_PoolSet_Murloc[1].append('UNG_073')
-	BG_Murloc_Gold['UNG_073']='TB_BaconUps_061'
-class UNG_073:
+	BG_Minion_Murloc+=['BG_UNG_073','UNG_073e','TB_BaconUps_061','TB_BaconUps_061e',]
+	BG_PoolSet_Murloc[1].append('BG_UNG_073')
+	BG_Murloc_Gold['BG_UNG_073']='TB_BaconUps_061'
+class BG_UNG_073:
 	""" >Rockpool Hunter
 	[Battlecry:] Give a friendly Murloc +1/+1. """
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
