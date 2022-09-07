@@ -13,17 +13,17 @@ from ..utils import *
 ##Millhouse Manastorm TB_BaconShop_HERO_49
 ##Millificent Manastorm TB_BaconShop_HERO_17
 ##Mr. Bigglesworth TB_BaconShop_HERO_70  ### impossible ###
-##Murloc Holmes BG23_HERO_303 ########## not yet
+##Murloc Holmes BG23_HERO_303 
 ##Mutanus the Devourer BG20_HERO_301
 ##N'Zoth TB_BaconShop_HERO_93
 ##Nozdormu TB_BaconShop_HERO_57
 ##Onyxia BG22_HERO_305
 ##Overlord Saurfang BG20_HERO_102
-##Ozumat BG23_HERO_201 ######### not yet #########
+##Ozumat BG23_HERO_201 
 ##Patches the Pirate TB_BaconShop_HERO_18
 ##Patchwerk TB_BaconShop_HERO_34
 ##Pyramad TB_BaconShop_HERO_39
-##Queen Axshara BG22_HERO_007 ### not yet ####
+##Queen Axshara BG22_HERO_007
 ##Queen Wagtoggle  TB_BaconShop_HERO_14
 
 BG_Hero3=[]
@@ -102,10 +102,31 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
 ##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
 class TB_BaconShop_HERO_72:# <12>[1453]
 	""" Lord Barov	 """
+class TB_BaconShop_HP_081_Choice(Choice):
+	def choose(self, card):
+		#record the card data in self.source.source.script_data_text_1
+		pass
+class TB_BaconShop_HP_081_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		gamemaster=controller.game.parent
+		# choose randomly a next battle
+		# make a choice data from the next battle
+		# trigger TB_BaconShop_HP_081_Choice 
+		pass
+class TB_BaconShop_HP_081_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		#from gamemaster investigate the result of the battle
+		#match it with source.sctipt_data_text_1
+		#if correct, give the controller three coins.
 class TB_BaconShop_HP_081: ############# impossible
 	"""Friendly Wager
 	Guess which player will win their next combat. _If they win, get 3 Coins."""
-	#####################
+	activate=TB_BaconShop_HP_081_Action1(CONTROLLER)
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_081_Action2(CONTROLLER))
 ######## BUDDY
 class TB_BaconShop_HERO_72_Buddy:# <12>[1453]
 	""" Barov's Apprentice
@@ -252,18 +273,23 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 
 ##Master Nguyen ##########????????????####
-BG_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
-BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
-BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
-BG_Hero3_Buddy_Gold['BG20_HERO_202_Buddy']='BG20_HERO_202_Buddy_G'#
+##G_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
+##BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
+##BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
+##BG_Hero3_Buddy_Gold['BG20_HERO_202_Buddy']='BG20_HERO_202_Buddy_G'#
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
-	entourage=['TB_BaconShop_HP_036','TB_BaconShop_HP_052']
-	events = BeginBar(CONTROLLER).on(GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*2))
+
 class BG20_HERO_202p:# <12>[1453]
 	""" Power of the Storm
 	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
-	#
+	entourage=random.sample([
+		'TB_BaconShop_HP_036','TB_BaconShop_HP_052'
+		],2)
+	events = [
+		BeginBar(CONTROLLER).on(GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*2)),	#
+		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER,'BG20_HERO_202p'))
+	]
 	pass
 class BG20_HERO_202pe:# <12>[1453]
 	""" Shifting Hero Power
@@ -381,9 +407,9 @@ class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 	#
 	pass
 
+from fireplace.cards import db
 
-
-## Murloc Holmes ###BG23_HERO_303## new 24.2 ####################################
+## Murloc Holmes ###BG23_HERO_303## new 24.2 #### HP OK ##################
 BG_Hero3 += ['BG23_HERO_303','BG23_HERO_303p2','BG23_HERO_303pt']# 
 BG_PoolSet_Hero3 +=['BG23_HERO_303',]#
 class BG23_HERO_303:
@@ -392,6 +418,8 @@ class BG23_HERO_303:
 class BG23_HERO_303p2_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
+		if card.id==self.source.sidequest_list0[0]:
+			Give(self.source.controller, 'GAME_005').trigger(self.source)
 		self.next_choice=None
 		self.player.choice=None
 class BG23_HERO_303p2_Action(TargetedAction):
@@ -400,19 +428,20 @@ class BG23_HERO_303p2_Action(TargetedAction):
 		controller = target
 		gamemaster = controller.game.parent
 		next_warband = gamemaster.next_warband(controller)
-		nextcardsID=[card.id for card in next_warband]
 		if len(next_warband)>0:
-			card1 = random.choice(next_warband)
-			cardID1 = card1.id
-			tavern_tier=card1.tech_level
+			cardID1 = random.choice(next_warband)
+			tavern_tier=db[cardID1].tags.get(GameTag.TECH_LEVEL,1)
 			cardID2=None
 			for repeat in range(10):
-				card2=RandomBGMinion(tech_level=tavern_tier).evaluate()
-				if not card2.id in nextcardsID:
+				card2=RandomBGMinion(tech_level=tavern_tier).evaluate(source)
+				card2 = card2[0]
+				if not card2.id in next_warband:
 					cardID2 = card2.id
 					break
 			if cardID2!=None:
+				source.sidequest_list0.append(cardID1)
 				BG23_HERO_303p2_Choice(CONTROLLER, RandomID(cardID1, cardID2)*2).trigger(source)
+				choiceAction(controller)
 		pass
 class BG23_HERO_303p2:
 	""" Detective for Hire
@@ -667,15 +696,31 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 	pass
 
 
-## Ozumat ######### not yet #########
+## Ozumat ######### HP OK #########
 BG_Hero3 += ['BG23_HERO_201','BG23_HERO_201p','BG23_HERO_201pt',]# 
 BG_PoolSet_Hero3 +=['BG23_HERO_201',]#
 class BG23_HERO_201:
 	""" Ozumat
 	"""
+class BG23_HERO_201p_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		#summon a tentacle with enchantment BG23_HERO_201pte
+		newcard=Summon(target, 'BG23_HERO_201pt').trigger(source)
+		newcard=newcard[0][0]
+		Buff(newcard, 'BG23_HERO_201pte', atk=source.script_data_num_1-2, max_health=source.script_data_num_1-2 ).trigger(source)
+		ahara=0
+		pass
 class BG23_HERO_201p:
 	""" Tentacular
 	[Passive. Start of Combat:] Summon a @/@ Tentacle with [Taunt]. (Gains +1/+1 after you sell a minion!)"""
+	#after selling a minion, add 1 to self.script_data_num_1
+	# at BeginBattle, summon a tentacle with enchantment BG23_HERO_201pte
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
+	events=[
+		Sell(CONTROLLER).after(AddScriptDataNum1(SELF, 1)),	
+		BeginBattle(CONTROLLER).on(BG23_HERO_201p_Action(CONTROLLER))
+		]
 class BG23_HERO_201pt:
 	""" Ozumat's Tentacle
 	"""
@@ -830,14 +875,29 @@ class TB_BaconShop_HERO_39_Buddy_G:# <12>[1453]
 
 
 
-## Queen Axshara
+## Queen Axshara #### HP OK ####
 BG_Hero3+=['BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',]#
 BG_PoolSet_Hero3.append('BG22_HERO_007')
 class BG22_HERO_007:
 	""" Queen Axshara 	"""
+class BG22_HERO_007p_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if hasattr(target.game,'this_is_tavern'):
+			amount = sum([card.atk for card in target.field])
+			if amount>= 30:#source.script_data_num_2:
+				ChangeHeroPower(target, 'BG22_HERO_007p2').trigger(source)
+		pass
 class BG22_HERO_007p:
 	""" Azshara's Ambition
 	[Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest.@[x][Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest. <i>({0} left!)</i>"""
+	#<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="30"/>
+	events = [
+		Play(CONTROLLER).on(BG22_HERO_007p_Action(CONTROLLER)),
+		Summon(CONTROLLER).on(BG22_HERO_007p_Action(CONTROLLER)),
+		Buff(FRIENDLY_MINIONS).on(BG22_HERO_007p_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(BG22_HERO_007p_Action(CONTROLLER))
+		]
 	pass
 class BG22_HERO_007p2:
 	""" Naga Conquest

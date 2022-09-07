@@ -237,6 +237,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
 	GameTag.RUSH: "rush",
 	GameTag.TAG_SCRIPT_DATA_NUM_1: 'script_data_num_1',
+	GameTag.TAG_SCRIPT_DATA_NUM_2: 'script_data_num_2',
 	GameTag.SCORE_VALUE_1:'score_value_1',
 	GameTag.SECRET: "secret",
 	GameTag.SHADOWFORM: "shadowform",

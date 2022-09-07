@@ -6,7 +6,7 @@ Omega_Buster=True#Omega Buster(6)
 
 
 BG_Minion_Mecha =[
-	'ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)
+	'BG_ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)
 	'BG21_022','BG21_022_G',	#Pupbot(1)
 	'EX1_556', 'skele21','TB_BaconUps_006','TB_BaconUps_006t',	#Harvest Golem(2)
 	'BOT_606', 'TB_BaconUps_028',	#Kaboom Bot(2)
@@ -25,7 +25,7 @@ BG_Minion_Mecha =[
 	]
 BG_PoolSet_Mecha=[
 	[],#0
-	['ULD_217', 'BG21_022',],#1
+	['BG_ULD_217', 'BG21_022',],#1
 	['EX1_556', 'BOT_606', 'GVG_048', ],#2
 	['BGS_071', 'BOT_312',  ],#3 #'GVG_055',
 	['BOT_911', 'BG21_024', 'BG21_023', 'BG_BOT_563',],#4 #'BOT_537',
@@ -33,7 +33,7 @@ BG_PoolSet_Mecha=[
 	['GVG_113', 'BG21_025','BG21_024', ],#6
 	]
 BG_Mecha_Gold={
-	'ULD_217':'TB_BaconUps_250',	#Micro Mummy(1)
+	'BG_ULD_217':'TB_BaconUps_250',	#Micro Mummy(1)
 	'BG21_022':'BG21_022_G',	#Pupbot(1)
 	'EX1_556':'TB_BaconUps_006',	#Harvest Golem(2)
 	'BOT_606':'TB_BaconUps_028',	#Kaboom Bot(2)
@@ -53,7 +53,7 @@ BG_Mecha_Gold={
 	}
 
 #Micro Mummy(1) ### OK ###
-class ULD_217:
+class BG_ULD_217:
 	"""
 	[Reborn]At the end of your turn, giveanother random friendlyminion +1 Attack."""
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ULD_217e'))

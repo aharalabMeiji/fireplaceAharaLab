@@ -239,7 +239,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 		heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
 			'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
 			'lifesteal','morphed','old_power','overload','play_counter',\
-			'requirements','reborn','target','windfury',
+			'requirements','reborn','script_data_num_1','target','windfury',
 			]
 		for attr in heropowerAttrs:
 			value = getattr(oldPlayer.hero.power,attr)

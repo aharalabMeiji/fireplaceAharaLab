@@ -51,9 +51,9 @@ class TB_BaconUps_093t:#
 
 ### Scavenging Hyena (1/2/2)  ### OK ### 
 if BG_Scavenging_Hyena:
-	BG_Minion_Beast += ['EX1_531','EX1_531e','TB_BaconUps_043','TB_BaconUps_043e',]#Scavenging Hyena
-	BG_PoolSet_Beast[1].append('EX1_531')
-	BG_Beast_Gold['EX1_531']='TB_BaconUps_043'
+	BG_Minion_Beast += ['BG_EX1_531','EX1_531e','TB_BaconUps_043','TB_BaconUps_043e',]#Scavenging Hyena
+	BG_PoolSet_Beast[1].append('BG_EX1_531')
+	BG_Beast_Gold['BG_EX1_531']='TB_BaconUps_043'
 class EX1_531: #<3>[1637] 
 	"""Scavenging Hyena (1/2/2)
 	Whenever a friendly Beast dies, gain +2/+1."""
