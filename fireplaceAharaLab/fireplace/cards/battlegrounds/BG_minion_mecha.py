@@ -6,7 +6,6 @@ from fireplace.battlegrounds.BG_battle import BG_Battle
 Omega_Buster=True#Omega Buster(6)
 
 
-BG_Minion_Mecha =[]
 
 BG_Micro_Mummy=True#(1)
 BG_Pupbot=True#(1)
@@ -25,34 +24,9 @@ BG_Foe_Reaper_4000=True#(6)
 BG_Omega_Buster=True#(6)
 BG_Grease_Bot=True#(4->6) 23.6, 24.0.3
 	
-BG_PoolSet_Mecha=[
-	[],#0
-	['BG_ULD_217', 'BG21_022',],#1
-	['EX1_556', 'BOT_606', 'GVG_048', ],#2
-	['BGS_071', 'BOT_312',  ],#3 #'GVG_055',
-	['BG_BOT_911', 'BG21_024', 'BG21_023', 'BG_BOT_563',],#4 #'BOT_537',
-	['BG20_401', ],#5
-	['GVG_113', 'BG21_025','BG21_024', ],#6
-	]
-BG_Mecha_Gold={
-	'BG_ULD_217':'TB_BaconUps_250',	#Micro Mummy(1)
-	'BG21_022':'BG21_022_G',	#Pupbot(1)
-	'EX1_556':'TB_BaconUps_006',	#Harvest Golem(2)
-	'BOT_606':'TB_BaconUps_028',	#Kaboom Bot(2)
-	'GVG_048':'TB_BaconUps_066',	#Metaltooth Leaper(2)
-	'BGS_071':'TB_BaconUps_123',	#Deflect-o-Bot(3)
-	'BOT_312':'TB_BaconUps_032',	#Replicating Menace(3)
-	'GVG_055':'TB_BaconUps_069',	#Screwjank Clunker(3)
-	'BG_BOT_911':'TB_BaconUps_099',	#Annoy-o-Module(4)
-	'BG21_024':'BG21_024_G',	#Grease Bot(4)
-	'BOT_537':'TB_BaconUps_039',	#Mechano-Eg'g(4)
-	'BG21_023':'BG21_023_G',	#Mechano-Tank(4)
-	'BG_BOT_563':'BG_BOT_563_G', #Wargear(4) # after 23.6
-	'BG20_401':'BG20_401_G',	#Holy Mecherel(5)
-	'GVG_113':'TB_BaconUps_153',	#Foe Reaper 4000(6)
-	'BG21_025':'BG21_025_G',	#Omega Buster(6)
-	'BG21_024':'BG21_024_G',# #Grease Bot(6)
-	}
+BG_Minion_Mecha =[]
+BG_PoolSet_Mecha=[[],[],[],[],[],[],[]]
+BG_Mecha_Gold={}
 
 #Micro Mummy(1) ### OK ###
 if BG_Micro_Mummy:

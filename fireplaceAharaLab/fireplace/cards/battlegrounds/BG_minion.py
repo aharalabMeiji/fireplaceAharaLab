@@ -766,7 +766,7 @@ class BG23_016_Choice(Choice):
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	[Battlecry: Discover] a minion from a minion type you don't control."""
-	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*12)
+	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*3)
 	pass
 class BG23_016_G_Choice(DiscoverTwice):
 	def get_args(self, source):

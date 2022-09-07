@@ -425,7 +425,7 @@ class TB_BaconShop_HP_080_Action(TargetedAction):
 	def do(self, source, target):
 		controller=target
 		for field in controller.game.parent.warbandDeceased:
-			Discover(controller, RandomID(*field)).trigger(source)
+			TB_BaconShop_HP_080_Choice(controller, RandomID(*field)*3).trigger(source)
 			choiceAction(controller)
 		controller.game.parent.warbandDeceased = []
 		pass
