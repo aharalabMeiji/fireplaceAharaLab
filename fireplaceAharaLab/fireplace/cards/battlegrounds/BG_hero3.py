@@ -96,8 +96,8 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
 
 
 ##Lord Barov  #### impossible ###
-##BG_Hero3+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
-##BG_PoolSet_Hero3+=['TB_BaconShop_HERO_72']
+BG_Hero3+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
+BG_PoolSet_Hero3+=['TB_BaconShop_HERO_72']
 ##BG_Hero3_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
 ##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
 class TB_BaconShop_HERO_72:# <12>[1453]
@@ -105,15 +105,30 @@ class TB_BaconShop_HERO_72:# <12>[1453]
 class TB_BaconShop_HP_081_Choice(Choice):
 	def choose(self, card):
 		#record the card data in self.source.source.script_data_text_1
+		super().choose(card)
+		self.next_choice=None
+		self.player.choice=None
+		self.source.sidequest_list0=[card.id]	
 		pass
 class TB_BaconShop_HP_081_Action1(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
 		gamemaster=controller.game.parent
+		thisMatch=[]
 		# choose randomly a next battle
+		for match in gamemaster.matches:
+			if gamemaster.BG_Bars[match[0]].controller!=controller and gamemaster.BG_Bars[match[1]].controller!=controller:
+				thisMatch.append(match)
+		thisMatch = random.choice(thisMatch)
 		# make a choice data from the next battle
+		matchChoice=[
+			self.BG_Bars[match[0]].controller.hero.id,
+			self.BG_Bars[match[1]].controller.hero.id
+			]	
 		# trigger TB_BaconShop_HP_081_Choice 
+		TB_BaconShop_HP_081_Choice(controller, RandomID(*matchChoice)*2).trigger(source)
+		choiceAction(controller)
 		pass
 class TB_BaconShop_HP_081_Action2(TargetedAction):
 	TARGET=ActionArg()
@@ -121,7 +136,11 @@ class TB_BaconShop_HP_081_Action2(TargetedAction):
 		controller=target
 		#from gamemaster investigate the result of the battle
 		#match it with source.sctipt_data_text_1
-		#if correct, give the controller three coins.
+		if source.sidequest_list0[0] in controller.game.parent.winners:
+			#if correct, give the controller three coins.
+			Give(controller, 'GAME_005').trigger(source)
+			Give(controller, 'GAME_005').trigger(source)
+			Give(controller, 'GAME_005').trigger(source)
 class TB_BaconShop_HP_081: ############# impossible
 	"""Friendly Wager
 	Guess which player will win their next combat. _If they win, get 3 Coins."""

@@ -125,6 +125,7 @@ class BG_main:
 		self.matches=[[0,1],[2,3]]
 		self.BG_darkmoon_tickets=cards.battlegrounds.BG_DarkmoonTicket
 		self.darkmoon_ticket_by_4=False# 24.2 (until 24.0, random.choice([True,False]))
+		self.winners=[] # for Load Barov TB_BaconShop_HERO_72
 	pass
 	def __str__(self):
 		return "BG_gamemaster"
@@ -302,6 +303,7 @@ class BG_main:
 			#self.manager.step(self.next_step, Step.MAIN_NEXT)
 
 			### 対戦
+			self.winners=[]
 			for i in range(len(self.matches)):
 				self.BG_Bars[self.matches[i][0]].countcards()
 				self.BG_Bars[self.matches[i][1]].countcards()
@@ -333,6 +335,7 @@ class BG_main:
 								player.game.BG_deal_gold(gold_card_id)
 				### if agent got a gem card while the battle, we carry it to the bar
 				if damage0>0:
+					self.winners.append(battleplayer1.hero.id)
 					hero0 = battleplayer0.hero
 					if hero0.armor>0:# armorも加味する
 						if hero0.armor >= damage0:
@@ -352,6 +355,7 @@ class BG_main:
 							print("Winner is %s(%s)"%(winner.controller.hero, winner.controller))
 							return
 				if damage1>0:
+					self.winners.append(battleplayer0.hero.id)
 					hero1 = battleplayer1.hero
 					if hero1.armor>0:# armorも加味する
 						if hero1.armor >= damage1:
