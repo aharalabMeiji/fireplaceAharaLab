@@ -126,6 +126,7 @@ class BG_main:
 		self.BG_darkmoon_tickets=cards.battlegrounds.BG_DarkmoonTicket
 		self.darkmoon_ticket_by_4=False# 24.2 (until 24.0, random.choice([True,False]))
 		self.winners=[] # for Load Barov TB_BaconShop_HERO_72
+		self.warbandDeceased=[] # for Bigglesworth TB_BaconShop_HERO_70
 	pass
 	def __str__(self):
 		return "BG_gamemaster"
@@ -351,6 +352,7 @@ class BG_main:
 						hero0.game.hero_is_alive=False
 						#battle時に、Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
 						winner = self.refresh_ranks()
+						self.warbandDeceased.append(battleplayer0.field)
 						if winner:
 							print("Winner is %s(%s)"%(winner.controller.hero, winner.controller))
 							return
@@ -371,6 +373,7 @@ class BG_main:
 						hero1.game.hero_is_alive=False
 						#battle時に、Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
 						winner = self.refresh_ranks()
+						self.warbandDeceased.append(battleplayer1.field)
 						if winner:
 							print("Winner is %s(%s)"%(winner.controller.hero, winner.controller))
 							return

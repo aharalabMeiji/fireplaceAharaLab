@@ -1,4 +1,5 @@
 from pickle import NONE
+from types import NoneType
 from ..utils import *
 
 ############# L - Q
@@ -411,9 +412,30 @@ class TB_BaconShop_HERO_17_Buddy_G:
 ##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
 class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
+class TB_BaconShop_HP_080_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		card.zone=Zone.SETASIDE
+		card.controller=self.player
+		card.zone=Zone.HAND
+		self.next_choice=None
+		self.player.choice=None
+		pass
+	pass
+class TB_BaconShop_HP_080_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		for field in controller.game.parent.warbandDeceased:
+			Discover(controller, RandomID(*field)).trigger(source)
+			choiceAction(controller)
+		controller.game.parent.warbandDeceased = []
+		pass
 class TB_BaconShop_HP_080:
 	""" Kel'Thuzad's Kitty
 	[Passive] When a player dies, [Discover] a minion from their warband. It keeps any enchantments."""
+	# controller.game.parent.warbandDeceased : list of the field cards of killed heroes.
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_080_Action(CONTROLLER))
 ######## BUDDY
 class TB_BaconShop_HERO_70_Buddy:# <12>[1453]
 	""" Lil' K.T.
