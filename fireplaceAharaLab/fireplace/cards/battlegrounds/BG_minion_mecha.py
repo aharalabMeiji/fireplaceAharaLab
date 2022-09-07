@@ -156,15 +156,15 @@ if BG_Replicating_Menace:
 class BG_BOT_312:
 	"""Replicating Menace
 	[Magnetic][Deathrattle:] Summon three 1/1 Microbots."""
-	play = Magnetic(SELF, ['BOT_312e'])
-	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
+	play = Magnetic(SELF, ['BG_BOT_312e'])
+	deathrattle = Summon(CONTROLLER, 'BG_BOT_312t' ) * 3
 class BG_BOT_312e:
 	"""Replicating Menace
 	"""
 	tags = {GameTag.DEATHRATTLE:True, 
 		GameTag.ATK:3,
 		GameTag.HEALTH:1}
-	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
+	deathrattle = Summon(CONTROLLER, 'BG_BOT_312t' ) * 3
 	pass
 class BG_BOT_312t:
 	""" Microbot
@@ -334,7 +334,7 @@ class TB_BaconUps_153:# <12>[1453]
 
 #Omega Buster(6)
 if BG_Omega_Buster:
-	BG_Minion_Mecha+=['BG21_025','BG21_025_G',]
+	BG_Minion_Mecha+=['BG21_025','BG21_025e','BG21_025_G',]
 	BG_PoolSet_Mecha[6].append('BG21_025')
 	BG_Mecha_Gold['BG21_025']='BG21_025_G'
 if Omega_Buster: #
@@ -345,7 +345,7 @@ class BG21_025_Action(TargetedAction):
 		controller = target
 		summonnumber = 8-len(controller.field)# or 7-len(***) ?
 		for repeat in range(summonnumber):
-			yield Summon(CONTROLLER, 'BOT_312t')
+			yield Summon(CONTROLLER, 'BG_BOT_312t')
 		if summonnumber<5:
 			for repeat in range(5-summonnumber):
 				yield Buff(FRIENDLY + MECH, 'BG21_025e')
@@ -355,9 +355,6 @@ class BG21_025:# <12>[1453]　オメバス
 	deathrattle = BG21_025_Action(CONTROLLER)
 	pass
 BG21_025e=buff(1,1)
-class BOT_312t:
-	""" Microbot (1/1)
-	"""
 class BG21_025_G:# <12>[1453]
 	""" Omega Buster
 	[Deathrattle:] Summon five 2/2 Microbots. For each that doesn't fit, give your Mechs +2/+2. """
