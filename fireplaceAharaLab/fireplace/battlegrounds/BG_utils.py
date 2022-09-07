@@ -32,7 +32,7 @@ class BG_main:
 			]
 		else:
 			self.Agents=[
-			BG_NecoAgent("Neco1"),
+			BG_NecoAgent("Human1"),
 			BG_NecoAgent("Neco2"),
 			BG_NecoAgent("Random3"),
 			BG_NecoAgent("Random4")
@@ -149,7 +149,10 @@ class BG_main:
 			for hero in theHeroes:
 				if hero in self.Heroes:
 					self.Heroes.remove(hero)
-			theHero = agent.heroChoiceStrategy(theHeroes)
+			if Config.HERO_1!='':
+				theHero = theHeroes[0]
+			else:
+				theHero = agent.heroChoiceStrategy(theHeroes)
 			#heroCard=Card(theHero)
 			thePlayer = Player(agent.name, self.BG_decks[1], theHero)#
 			# building a Tavern

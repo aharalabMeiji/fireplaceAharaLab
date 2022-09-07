@@ -1067,6 +1067,7 @@ class Enchantment(BaseCard):
 		self.permanent_buff = False ## for spellcraft in battleground 
 		self.additional_deathrattles = []
 		self._sidequest_counter_ = 0# Sidequest
+		self.deepcopy_original = None
 		super().__init__(data)
 
 	@property

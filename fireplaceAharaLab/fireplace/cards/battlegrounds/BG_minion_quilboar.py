@@ -201,8 +201,8 @@ class BG21_037_G:# <12>[1453]
 #Thorncaller	3  ### OK ###
 if BG_Thorncaller:
 	BG_Minion_Quilboar += [ 'BG20_105','BG20_105_G',]#	
-	BG_PoolSet_Quilboar[3].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[3].append('BG20_105')
+	BG_Quilboar_Gold['BG20_105']='BG20_105_G'
 class GiveGemToOriginal(TargetedAction):
 	TARGET = ActionArg()
 	CARD = CardArg()
@@ -228,8 +228,8 @@ class BG20_105_G:# <12>[1453]
 #Bonker	4  ### OK ###
 if BG_Bonker:
 	BG_Minion_Quilboar += [ 'BG20_104','BG20_104_G',]#	
-	BG_PoolSet_Quilboar[4].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[4].append('BG20_104')
+	BG_Quilboar_Gold['BG20_104']='BG20_104_G'
 class BG20_104:# <12>[1453]
 	""" Bonker
 	[Windfury]After this attacks, gain a [Blood Gem]. """
@@ -247,8 +247,8 @@ class BG20_104_G:# <12>[1453]
 #Dynamic Duo	4 ### OK ###
 if BG_Dynamic_Duo:
 	BG_Minion_Quilboar += [ 'BG20_207','BG20_207e','BG20_207_G','BG20_207_Ge',]#	
-	BG_PoolSet_Quilboar[4].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[4].append('BG20_207')
+	BG_Quilboar_Gold['BG20_207']='BG20_207_G'
 class BG20_207:# <12>[1453]
 	""" Dynamic Duo
 	[[Taunt].] After a [Blood Gem]is played on another Quilboar, gain +1/+1. """
@@ -269,8 +269,8 @@ BG20_207_Ge=buff(2,2)# <12>[1453]
 #Groundshaker	4  ## OK ###
 if BG_Groundshaker:
 	BG_Minion_Quilboar += [ 'BG20_106','BG20_106e','BG20_106_G',]#	
-	BG_PoolSet_Quilboar[4].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[4].append('BG20_106')
+	BG_Quilboar_Gold['BG20_106']='BG20_106_G'
 class BG20_106:# <12>[1453]
 	""" Groundshaker
 	After a [Blood Gem] is played on this, give your other minions +2 Attack for next combat only. """
@@ -293,8 +293,8 @@ class BG20_106_G:# <12>[1453]
 #Necrolyte	4  ### OK ###
 if BG_Necrolyte:
 	BG_Minion_Quilboar += [ 'BG20_202','BG20_202_G',]#	
-	BG_PoolSet_Quilboar[4].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[4].append('BG20_202')
+	BG_Quilboar_Gold['BG20_202']='BG20_202_G'
 class BG20_202:# <12>[1453]
 	""" Necrolyte
 	[Battlecry:] Play 2 [BloodGems] on a friendly minion. It steals all [Blood Gems]from its neighbors. """
@@ -319,8 +319,8 @@ class BG20_202_G:# <12>[1453]
 #Aggem Thorncurse	5  ### OK ###
 if BG_Aggem_Thorncurse:
 	BG_Minion_Quilboar += [ 'BG20_302','BG20_302e','BG20_302_G','BG20_302_Ge',]#	
-	BG_PoolSet_Quilboar[5].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[5].append('BG20_302')
+	BG_Quilboar_Gold['BG20_302']='BG20_302_G'
 class BG20_302_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
@@ -387,8 +387,8 @@ class BG20_204_G:
 #Captain Flat Tusk	6  ### OK ###
 if BG_Captain_Flat_Tusk:
 	BG_Minion_Quilboar += [ 'BG20_206','BG20_206_G',]#	
-	BG_PoolSet_Quilboar[6].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[6].append('BG20_206')
+	BG_Quilboar_Gold['BG20_206']='BG20_206_G'
 class BG20_206_Action(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
@@ -421,8 +421,8 @@ class BG20_206_G:# <12>[1453]
 #Charlga	6 ### OK ###
 if BG_Charlga:
 	BG_Minion_Quilboar += [ 'BG20_303','BG20_303_G',]#	
-	BG_PoolSet_Quilboar[6].append('')
-	BG_Quilboar_Gold['']=''
+	BG_PoolSet_Quilboar[6].append('BG20_303')
+	BG_Quilboar_Gold['BG20_303']='BG20_303_G'
 class BG20_303:# <12>[1453] ちゃるが
 	""" Charlga
 	At the end of your turn, play a [Blood Gem] on all friendly minions. """

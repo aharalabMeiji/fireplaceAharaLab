@@ -1,3 +1,4 @@
+from ast import If
 from ..utils import *
 from fireplace.battlegrounds.BG_battle import BG_Battle
 
@@ -5,30 +6,31 @@ from fireplace.battlegrounds.BG_battle import BG_Battle
 Omega_Buster=True#Omega Buster(6)
 
 
-BG_Minion_Mecha =[
-	'BG_ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',	#Micro Mummy(1)
-	'BG21_022','BG21_022_G',	#Pupbot(1)
-	'EX1_556', 'skele21','TB_BaconUps_006','TB_BaconUps_006t',	#Harvest Golem(2)
-	'BOT_606', 'TB_BaconUps_028',	#Kaboom Bot(2)
-	'GVG_048','GVG_048e','TB_BaconUps_066','TB_BaconUps_066e',	#Metaltooth Leaper(2)
-	'BGS_071', 'BGS_071e', 'TB_BaconUps_123', 'TB_BaconUps_123e',	#Deflect-o-Bot(3)
-	'BOT_312', 'BOT_312e','BOT_312t','TB_BaconUps_032','TB_BaconUps_032e','TB_BaconUps_032t',	#Replicating Menace(3)
-	#'GVG_055', 'GVG_055e', 'TB_BaconUps_069','TB_BaconUps_069e',	#Screwjank Clunker(3)
-	'BOT_911', 'BOT_911e', 'TB_BaconUps_099','TB_BaconUps_099e',	#Annoy-o-Module(4)
-	#'BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',	#Mechano-Eg'g(4)
-	'BG21_023', 'BG21_023_G',	#Mechano-Tank(4)
-	'BG_BOT_563','BG_BOT_563_G', #Wargear(4) # after 23.6
-	'BG20_401', 'BG20_401_G',	#Holy Mecherel(5)
-	'GVG_113', 'TB_BaconUps_153',	#Foe Reaper 4000(6)
-	'BG21_025',	'BG21_025_G',	#Omega Buster(6)
-	'BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',	#Grease Bot(4->6) 23.6, 24.0.3
-	]
+BG_Minion_Mecha =[]
+
+BG_Micro_Mummy=True#(1)
+BG_Pupbot=True#(1)
+BG_Harvest_Golem=True#(2)
+BG_Kaboom_Bot=True#(2)
+BG_Metaltooth_Leaper=True#(2)
+BG_Deflect_o_Bot=True#(3)
+BG_Replicating_Menace=True#(3)
+BG_Screwjank_Clunker=False#(3)banned
+BG_Annoy_o_Module=True#(4)
+BG_Mechano_Eg_g=False#(4) banned
+BG_Mechano_Tank=True#(4)
+BG_Wargear=True#(4) # after 23.6
+BG_Holy_Mecherel=True#(5)
+BG_Foe_Reaper_4000=True#(6)
+BG_Omega_Buster=True#(6)
+BG_Grease_Bot=True#(4->6) 23.6, 24.0.3
+	
 BG_PoolSet_Mecha=[
 	[],#0
 	['BG_ULD_217', 'BG21_022',],#1
 	['EX1_556', 'BOT_606', 'GVG_048', ],#2
 	['BGS_071', 'BOT_312',  ],#3 #'GVG_055',
-	['BOT_911', 'BG21_024', 'BG21_023', 'BG_BOT_563',],#4 #'BOT_537',
+	['BG_BOT_911', 'BG21_024', 'BG21_023', 'BG_BOT_563',],#4 #'BOT_537',
 	['BG20_401', ],#5
 	['GVG_113', 'BG21_025','BG21_024', ],#6
 	]
@@ -41,7 +43,7 @@ BG_Mecha_Gold={
 	'BGS_071':'TB_BaconUps_123',	#Deflect-o-Bot(3)
 	'BOT_312':'TB_BaconUps_032',	#Replicating Menace(3)
 	'GVG_055':'TB_BaconUps_069',	#Screwjank Clunker(3)
-	'BOT_911':'TB_BaconUps_099',	#Annoy-o-Module(4)
+	'BG_BOT_911':'TB_BaconUps_099',	#Annoy-o-Module(4)
 	'BG21_024':'BG21_024_G',	#Grease Bot(4)
 	'BOT_537':'TB_BaconUps_039',	#Mechano-Eg'g(4)
 	'BG21_023':'BG21_023_G',	#Mechano-Tank(4)
@@ -53,6 +55,10 @@ BG_Mecha_Gold={
 	}
 
 #Micro Mummy(1) ### OK ###
+if BG_Micro_Mummy:
+	BG_Minion_Mecha+=['BG_ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',]
+	BG_PoolSet_Mecha[1].append('BG_ULD_217')
+	BG_Mecha_Gold['BG_ULD_217']='TB_BaconUps_250'
 class BG_ULD_217:
 	"""
 	[Reborn]At the end of your turn, giveanother random friendlyminion +1 Attack."""
@@ -67,6 +73,10 @@ class TB_BaconUps_250:# <5>[1453]
 TB_BaconUps_250e=buff(2,0)
 
 #Pupbot(1) ### OK ###
+if BG_Pupbot:
+	BG_Minion_Mecha+=['BG21_022','BG21_022_G',]
+	BG_PoolSet_Mecha[1].append('BG21_022')
+	BG_Mecha_Gold['BG21_022']='BG21_022_G'
 class BG21_022:# <12>[1453]
 	""" Pupbot
 	[Divine Shield] """
@@ -78,7 +88,11 @@ class BG21_022_G:# <12>[1453]
 	pass
 
 #Harvest Golem(2) ### OK ###
-class EX1_556:
+if BG_Harvest_Golem:
+	BG_Minion_Mecha+=['BG_EX1_556', 'skele21','TB_BaconUps_006','TB_BaconUps_006t',]
+	BG_PoolSet_Mecha[2].append('BG_EX1_556')
+	BG_Mecha_Gold['BG_EX1_556']='TB_BaconUps_006'
+class BG_EX1_556:
 	"""
 	[Deathrattle:] Summon a 2/1 Damaged Golem."""
 	deathrattle = Summon(CONTROLLER, "skele21")
@@ -98,7 +112,11 @@ class TB_BaconUps_006t:# <12>[1453]
 	pass
 
 #Kaboom Bot(2)  ### OK ###
-class BOT_606:
+if BG_Kaboom_Bot:
+	BG_Minion_Mecha+=['BG_BOT_606', 'TB_BaconUps_028',]
+	BG_PoolSet_Mecha[2].append('BG_BOT_606')
+	BG_Mecha_Gold['BG_BOT_606']='TB_BaconUps_028'
+class BG_BOT_606:
 	"""
 	[Deathrattle:] Deal 4_damage to a random enemy minion. """
 	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 4)
@@ -111,7 +129,11 @@ class TB_BaconUps_028:# <12>[1453]
 
 
 #Metaltooth Leaper(2) ### OK ###
-class GVG_048:
+if BG_Metaltooth_Leaper:
+	BG_Minion_Mecha+=['BG_GVG_048','GVG_048e','TB_BaconUps_066','TB_BaconUps_066e',]
+	BG_PoolSet_Mecha[2].append('BG_GVG_048')
+	BG_Mecha_Gold['BG_GVG_048']='TB_BaconUps_066'
+class BG_GVG_048:
 	"""
 	[Battlecry:] Give your other Mechs +2 Attack."""
 	play = Buff(FRIENDLY_MINIONS + MECH - SELF,'GVG_048e')
@@ -125,6 +147,10 @@ TB_BaconUps_066e=buff(4,0)
 
 
 #Deflect-o-Bot(3) ### OK ###
+if BG_Deflect_o_Bot:
+	BG_Minion_Mecha+=['BGS_071', 'BGS_071e', 'TB_BaconUps_123', 'TB_BaconUps_123e',]
+	BG_PoolSet_Mecha[3].append('BGS_071')
+	BG_Mecha_Gold['BGS_071']='TB_BaconUps_123'
 class BGS_071_Action(TargetedAction):
 	TARGET = ActionArg()#SELF
 	BUFF = ActionArg()
@@ -149,12 +175,16 @@ TB_BaconUps_123e=buff(4,0)
 
 
 #Replicating Menace(3)  ### OK ###
-class BOT_312:
+if BG_Replicating_Menace:
+	BG_Minion_Mecha+=['BG_BOT_312', 'BG_BOT_312e','BG_BOT_312t','TB_BaconUps_032','TB_BaconUps_032e','TB_BaconUps_032t',]
+	BG_PoolSet_Mecha[3].append('BG_BOT_312')
+	BG_Mecha_Gold['BG_BOT_312']='TB_BaconUps_032'
+class BG_BOT_312:
 	"""Replicating Menace
 	[Magnetic][Deathrattle:] Summon three 1/1 Microbots."""
 	play = Magnetic(SELF, ['BOT_312e'])
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
-class BOT_312e:
+class BG_BOT_312e:
 	"""Replicating Menace
 	"""
 	tags = {GameTag.DEATHRATTLE:True, 
@@ -162,7 +192,7 @@ class BOT_312e:
 		GameTag.HEALTH:1}
 	deathrattle = Summon(CONTROLLER, 'BOT_312t' ) * 3
 	pass
-class BOT_312t:
+class BG_BOT_312t:
 	""" Microbot
 	"""
 	pass
@@ -186,6 +216,10 @@ class TB_BaconUps_032t:# <12>[1453]
 
 
 #Screwjank Clunker(3) ### OK ###
+if BG_Screwjank_Clunker:
+	BG_Minion_Mecha+=['GVG_055', 'GVG_055e', 'TB_BaconUps_069','TB_BaconUps_069e',]
+	BG_PoolSet_Mecha[3].append('GVG_055')
+	BG_Mecha_Gold['GVG_055']='TB_BaconUps_069'
 class GVG_055:
 	""" Screwjank Clunker
 	[Battlecry:] Give a friendly Mech +2/+2 """
@@ -203,13 +237,17 @@ TB_BaconUps_069e=buff(4,4)
 
 
 #Annoy-o-Module(4)　### OK ###
-class BOT_911:
+if BG_Annoy_o_Module:
+	BG_Minion_Mecha+=['BG_BOT_911', 'BG_BOT_911e', 'TB_BaconUps_099','TB_BaconUps_099e',]
+	BG_PoolSet_Mecha[4].append('BG_BOT_911')
+	BG_Mecha_Gold['BG_BOT_911']='TB_BaconUps_099'
+class BG_BOT_911:
 	"""
 	[Magnetic][Divine Shield][Taunt]"""
 	## divine shield is a consumable buff. taunt is not
 	play = Magnetic(SELF, ['BOT_911e'])
 	pass
-class BOT_911e:
+class BG_BOT_911e:
 	def apply(self,target):
 		target.divine_shield=True
 		target.taunt=True
@@ -234,6 +272,10 @@ class TB_BaconUps_099e:
 
 
 #Mechano-Egg(4) ### OK ###
+if BG_Mechano_Eg_g:
+	BG_Minion_Mecha+=['BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',]
+	BG_PoolSet_Mecha[4].append('BOT_537')
+	BG_Mecha_Gold['BOT_537']='TB_BaconUps_039'
 class BOT_537:
 	"""
 	[Deathrattle:] Summon an 8/8 Robosaur."""
@@ -252,6 +294,10 @@ class TB_BaconUps_039t:
 
 
 #Mechano-Tank(4)
+if BG_Mechano_Tank:
+	BG_Minion_Mecha+=['BG21_023', 'BG21_023_G',]
+	BG_PoolSet_Mecha[4].append('BG21_023')
+	BG_Mecha_Gold['BG21_023']='BG21_023_G'
 class BG21_023:# <12>[1453]
 	""" Mechano-Tank
 	[Avenge (2):] Deal 5 damage to the highest Health enemy minion. """
@@ -264,6 +310,10 @@ class BG21_023_G:# <12>[1453]
 	pass
 
 ##  Wargear (4) 23.6  ### OK ###
+if BG_Wargear:
+	BG_Minion_Mecha+=['BG_BOT_563','BG_BOT_563_G',]
+	BG_PoolSet_Mecha[4].append('BG_BOT_563')
+	BG_Mecha_Gold['BG_BOT_563']='BG_BOT_563_G'
 class BG_BOT_563:
 	""" Wargear
 	[Magnetic]"""
@@ -273,6 +323,10 @@ class BG_BOT_563_G:
 
 
 #Holy Mecherel(5)
+if BG_Holy_Mecherel:
+	BG_Minion_Mecha+=['BG20_401', 'BG20_401_G',]
+	BG_PoolSet_Mecha[5].append('BG20_401')
+	BG_Mecha_Gold['BG20_401']='BG20_401_G'
 class BG20_401:# <12>[1453]
 	""" Holy Mecherel  さば
 	After another friendly minion loses [Divine Shield], gain [Divine Shield]. """
@@ -287,7 +341,11 @@ class BG20_401_G:# <12>[1453]
 
 
 #Foe Reaper 4000(6)
-class GVG_113:## エネリ
+if BG_Foe_Reaper_4000:
+	BG_Minion_Mecha+=['BG_GVG_113', 'TB_BaconUps_153',]
+	BG_PoolSet_Mecha[6].append('BG_GVG_113')
+	BG_Mecha_Gold['BG_GVG_113']='TB_BaconUps_153'
+class BG_GVG_113:## エネリ
 	""" Foe Reaper 4000
 	Also damages the minions next to whomever it attacks. """
 	events = BG_Attack(SELF, ENEMY_MINIONS).on(HitAdjacentMinions(BG_Attack.OTHER, ATK(SELF)))
@@ -301,6 +359,10 @@ class TB_BaconUps_153:# <12>[1453]
 
 
 #Omega Buster(6)
+if BG_Omega_Buster:
+	BG_Minion_Mecha+=['BG21_025','BG21_025_G',]
+	BG_PoolSet_Mecha[6].append('BG21_025')
+	BG_Mecha_Gold['BG21_025']='BG21_025_G'
 if Omega_Buster: #
 	pass
 class BG21_025_Action(TargetedAction):
@@ -341,6 +403,10 @@ class TB_BaconUps_032t:
 	pass
 
 #Grease Bot(4->6) 23.6
+if BG_Grease_Bot:
+	BG_Minion_Mecha+=['BG21_024', 'BG21_024e','BG21_024_G','BG21_024_Ge',]
+	BG_PoolSet_Mecha[6].append('BG21_024')
+	BG_Mecha_Gold['BG21_024']='BG21_024_G'
 class BG21_024:# <12>[1453]
 	""" Grease Bot
 	After a friendly minion loses [Divine Shield], give it +2/+2_permanently. """

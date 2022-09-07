@@ -1,5 +1,3 @@
-from pickle import NONE
-from types import NoneType
 from ..utils import *
 
 ############# L - Q
@@ -406,8 +404,8 @@ class TB_BaconShop_HERO_17_Buddy_G:
 
 
 ##Mr. Bigglesworth  ### impossible ###
-##BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
-##BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
+BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
 ##BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
 ##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
 class TB_BaconShop_HERO_70:# <12>[1453]

@@ -466,9 +466,9 @@ BG21_030_Ge=buff(4,2)
 
 
 if BG_Houndmaster:#Houndmaster	3	4	3	-		 ### maybe ###
-	BG_Minion += ['DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',]#	
-	BG_PoolSet_Minion[3].append('DS1_070')
-	BG_Minion_Gold['DS1_070']='TB_BaconUps_068'
+	BG_Minion += ['BG_DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',]#	
+	BG_PoolSet_Minion[3].append('BG_DS1_070')
+	BG_Minion_Gold['BG_DS1_070']='TB_BaconUps_068'
 	pass
 class DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
