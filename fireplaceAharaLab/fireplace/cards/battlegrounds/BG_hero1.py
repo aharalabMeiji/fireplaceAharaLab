@@ -78,7 +78,7 @@ class TB_BaconShop_HP_044_Action(TargetedAction):
 			SetMaxMana(controller,0).trigger(bar)
 		if turn==3:
 			SetMaxMana(controller,5).trigger(bar)
-			DiscoverTwice(controller, RandomBGMinion(tech_level = 3)*3).trigger(source)#tech_level=3
+			DiscoverTwice(controller, RandomBGAdmissible(tech_level = 3)*3).trigger(source)#tech_level=3
 class TB_BaconShop_HP_044:#<12>[1453]
 	""" Procrastinate
 	[Passive] Skip your first two turns.Start with two minions from Tavern Tier 3."""
@@ -192,10 +192,10 @@ class BG22_HERO_201p_Choice(Choice):
 		cards = self._args[1]
 		if source._sidequest_counter_==1:
 			Buff(card, 'BG22_HERO_201pe').trigger(source)		
-			cards = RandomBGMinion(tech_level=4)*3
+			cards = RandomBGAdmissible(tech_level=4)*3
 		elif source._sidequest_counter_==2:
 			Buff(card, 'BG22_HERO_201pe').trigger(source)		
-			cards = RandomBGMinion(tech_level=6)*3
+			cards = RandomBGAdmissible(tech_level=6)*3
 		elif source._sidequest_counter_==3:
 			Buff(card, 'BG22_HERO_201pe').trigger(source)	
 			pass	
@@ -209,7 +209,7 @@ class BG22_HERO_201p_Action(TargetedAction):
 		turn = bar.turn
 		if turn==1:
 			controller.max_mana = 0
-			BG22_HERO_201p_Choice(controller, RandomBGMinion(tech_level=2)*3).trigger(source)
+			BG22_HERO_201p_Choice(controller, RandomBGAdmissible(tech_level=2)*3).trigger(source)
 		if turn==2:# maybe no need
 			controller.max_mana = 4# maybe no need
 		pass
@@ -244,20 +244,20 @@ class BG22_HERO_201_Buddy:# <12>[1453]
 	""" Submersible Chef
 	[Battlecry:] Add a random Tier 1, 3, and 5 minion to your hand. """
 	play = (
-		Give(CONTROLLER, RandomBGMinion(tech_level=1)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=5)),)
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=1)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=3)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=5)),)
 	pass
 class BG22_HERO_201_Buddy_G:# <12>[1453]
 	""" Submersible Chef
 	[Battlecry:] Add a random Tier 1, 3, and 5 minion to your hand twice. """
 	play = (
-		Give(CONTROLLER, RandomBGMinion(tech_level=1)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=5)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=1)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=3)),
-		Give(CONTROLLER, RandomBGMinion(tech_level=5)),)
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=1)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=3)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=5)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=1)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=3)),
+		Give(CONTROLLER, RandomBGAdmissible(tech_level=5)),)
 	pass
 
 
@@ -628,7 +628,7 @@ class TB_BaconShop_HP_075_Action(TargetedAction):
 		controller = source.controller
 		tier = max(target.tech_level-1, 1)
 		Destroy(target).trigger(source)
-		GenericChoice(controller, RandomBGMinion(tech_level=tier)*2).trigger(source)
+		GenericChoice(controller, RandomBGAdmissible(tech_level=tier)*2).trigger(source)
 class TB_BaconShop_HP_075:
 	""" Trash for Treasure
 	Remove a friendly minion. Choose one of two from a Tavern Tier lower to keep."""
@@ -924,14 +924,14 @@ class TB_BaconShop_HERO_43_Buddy_Action(TargetedAction):
 class TB_BaconShop_HERO_43_Buddy:# <12>[1453]
 	""" Brann's Epic Egg
 	[Taunt]. [Deathrattle:] Summon a random [Battlecry] minion and add a copy of it to your hand. """
-	deathrattle = TB_BaconShop_HERO_43_Buddy_Action(CONTROLLER, RandomBGMinion(has_battlecry=True, tech_level_less=TIER(CONTROLLER)))
+	deathrattle = TB_BaconShop_HERO_43_Buddy_Action(CONTROLLER, RandomBGAdmissible(has_battlecry=True, tech_level_less=TIER(CONTROLLER)))
 	pass
 class TB_BaconShop_HERO_43_Buddy_G:# <12>[1453]
 	""" Brann's Epic Egg
 	[Taunt]. [Deathrattle:] Summon2 random [Battlecry] minionsand add copies of themto your hand. """
 	deathrattle = (\
-		Summon(CONTROLLER, RandomBGMinion(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD))),\
-		Summon(CONTROLLER, RandomBGMinion(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD)))\
+		Summon(CONTROLLER, RandomBGAdmissible(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD))),\
+		Summon(CONTROLLER, RandomBGAdmissible(has_battlecry=True)).then(Give(CONTROLLER,Copy(Summon.CARD)))\
 	)
 	pass
 

@@ -113,8 +113,9 @@ RandomLegendaryMinion = lambda **kw: RandomMinion(rarity=Rarity.LEGENDARY, **kw)
 RandomSparePart = lambda: RandomCardPicker(spare_part=True)
 RandomDeathrattle = lambda **kw: RandomMinion(deathrattle=True)
 
-
+BG_races=[]
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
+RandomBGAdmissible = lambda **kw: RandomBGMinion(race=BG_races, **kw)
 RandomBGDemon = lambda **kw: RandomBGMinion(race=Race.DEMON, **kw)
 RandomBGDragon = lambda **kw: RandomBGMinion(race=Race.DRAGON, **kw)
 RandomBGElemental = lambda **kw: RandomBGMinion(race=Race.ELEMENTAL, **kw)

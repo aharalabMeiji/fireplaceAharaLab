@@ -263,7 +263,7 @@ class TB_BaconShop_HP_052_Action(TargetedAction):
 		target.zone=Zone.GRAVEYARD
 		bartender = controller.opponent
 		tier=target.tech_level
-		newcard = RandomBGMinion(tech_level=tier).evaluate(bartender)
+		newcard = RandomBGAdmissible(tech_level=tier).evaluate(bartender)
 		Summon(CONTROLLER, newcard).trigger(bartender)
 		pass
 class TB_BaconShop_HP_052:
@@ -472,7 +472,7 @@ class BG23_HERO_303p2_Action(TargetedAction):
 			tavern_tier=db[cardID1].tags.get(GameTag.TECH_LEVEL,1)
 			cardID2=None
 			for repeat in range(10):
-				card2=RandomBGMinion(tech_level=tavern_tier).evaluate(source)
+				card2=RandomBGAdmissible(tech_level=tavern_tier).evaluate(source)
 				card2 = card2[0]
 				if not card2.id in next_warband:
 					cardID2 = card2.id

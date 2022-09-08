@@ -728,12 +728,12 @@ if BG_Witchwing_Nestmatron:#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2
 class BG21_038:# <12>[1453] 巣母
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True))]))
 	pass
 class BG21_038_G:# <12>[1453]
 	""" Witchwing Nestmatron
 	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGMinion(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
 
 if BG_Reef_Explorer:### Reef Explorer(4) ### regular card OK, gold card NOT YET ### NEW 23.2
@@ -766,7 +766,7 @@ class BG23_016_Choice(Choice):
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	[Battlecry: Discover] a minion from a minion type you don't control."""
-	play = BG23_016_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*3)
+	play = BG23_016_Choice(CONTROLLER, RandomBGAdmissible(tech_level_less=TIER(CONTROLLER))*3)
 	pass
 class BG23_016_G_Choice(DiscoverTwice):
 	def get_args(self, source):
@@ -785,7 +785,7 @@ class BG23_016_G_Choice(DiscoverTwice):
 class BG23_016_G:# <12>[1453]
 	"""
 	[Battlecry: Discover] 2 minions from minion types you don't control."""
-	play = BG23_016_G_Choice(CONTROLLER, RandomBGMinion(tech_level_less=TIER(CONTROLLER))*12)
+	play = BG23_016_G_Choice(CONTROLLER, RandomBGAdmissible(tech_level_less=TIER(CONTROLLER))*12)
 	pass
 
 

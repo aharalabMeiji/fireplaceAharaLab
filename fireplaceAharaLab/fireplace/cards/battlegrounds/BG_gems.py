@@ -84,7 +84,7 @@ BGS_Treasures_000e=buff(2,2)# <12>[1453]
 class TB_BaconShop_Triples_01:# <12>[1453]
 	""" Triple Reward
 	[Discover] a minionfrom [Tavern Tier @]. """
-	play = Discover(CONTROLLER, RandomBGMinion(tech_level=TAG_SCRIPT_DATA_NUM_1(SELF)))
+	play = Discover(CONTROLLER, RandomBGAdmissible(tech_level=TAG_SCRIPT_DATA_NUM_1(SELF)))
 	pass
 
 
@@ -107,7 +107,7 @@ class BGS_Treasures_003:# <12>[1453] ### maybe ##
 class BGS_Treasures_004:# <12>[1453] ### maybe ##
 	""" Gacha Gift
 	[Discover] a minion from [Tavern Tier 1]. """
-	play = Discover(CONTROLLER, RandomBGMinion(tech_level=1))
+	play = Discover(CONTROLLER, RandomBGAdmissible(tech_level=1))
 	pass
 
 class BGS_Treasures_006:# <8>[1453] ### maybe ##
@@ -119,7 +119,7 @@ class BGS_Treasures_006:# <8>[1453] ### maybe ##
 		new_field = []
 		for card in bartender.field:
 			tier = min(card.tech_level+1, 6)
-			new_card = RandomBGMinion(tech_level=tier).evaluate(self)
+			new_card = RandomBGAdmissible(tech_level=tier).evaluate(self)
 			if hasattr(new_card, '__iter__'):
 				new_card=new_card[0]
 			new_field.append(bartender.card(new_card))
@@ -173,7 +173,7 @@ class BGS_Treasures_011:# <12>[1453] ## put off ###
 class BGS_Treasures_012:# <12>[1453] ### maybe ##
 	""" On the House
 	[Discover] a minion from your current [Tavern Tier]. """
-	play = Discover(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER)))
+	play = Discover(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER)))
 	pass
 
 class BGS_Treasures_013:# <12>[1453]
@@ -240,7 +240,7 @@ class BGS_Treasures_019:# <12>[1453] ### maybe ##
 class BGS_Treasures_020:# <12>[1453] ### maybe ##
 	""" Top Shelf
 	[Discover] a minion from [Tavern Tier 6]. """
-	play = Discover(CONTROLLER, RandomBGMinion(tech_level=6))
+	play = Discover(CONTROLLER, RandomBGAdmissible(tech_level=6))
 	pass
 
 class BGS_Treasures_022:# <12>[1453] ### maybe ##
@@ -438,7 +438,7 @@ class TB_Bacon_Secrets_05:# <4>[1453]
 	""" Effigy
 	[Secret:] When a friendly minion dies, summon a random minion with the same Cost. """
 	secret = Death(FRIENDLY + MINION).on(
-		Summon(CONTROLLER, RandomBGMinion(tech_level=TECH_LEVEL(Death.ENTITY))),
+		Summon(CONTROLLER, RandomBGAdmissible(tech_level=TECH_LEVEL(Death.ENTITY))),
 		DestroyOriginal(SELF)
 		)
 	pass

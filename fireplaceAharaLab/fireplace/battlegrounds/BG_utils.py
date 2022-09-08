@@ -4,6 +4,7 @@ from fireplace.game import Game
 from fireplace.card import Card
 from fireplace.actions import *
 from fireplace.player import Player
+from fireplace.dsl import random_picker
 import random
 from hearthstone.enums import Zone, State, Race
 
@@ -56,6 +57,26 @@ class BG_main:
 		else:
 			# 特定の種族のみを指定(config.py内で指定)
 			self.BG_races = races=Config.RACE_CHOICE
+		random_picker.BG_races=[]
+		random_picker.BG_races.append(Race.INVALID)
+		if 'beast' in self.BG_races:
+			random_picker.BG_races.append(Race.BEAST)
+		if 'demon' in self.BG_races:
+			random_picker.BG_races.append(Race.DEMON)
+		if 'dragon' in self.BG_races:
+			random_picker.BG_races.append(Race.DRAGON)
+		if 'elemental' in self.BG_races:
+			random_picker.BG_races.append(Race.ELEMENTAL)
+		if 'mecha' in self.BG_races:
+			random_picker.BG_races.append(Race.MECHANICAL)
+		if 'murloc' in self.BG_races:
+			random_picker.BG_races.append(Race.MURLOC)
+		if 'naga' in self.BG_races:
+			random_picker.BG_races.append(Race.NAGA)
+		if 'pirate' in self.BG_races:
+			random_picker.BG_races.append(Race.PIRATE)
+		if 'quilboar' in self.BG_races:
+			random_picker.BG_races.append(Race.QUILBOAR)
 		for i in range(6):
 			if i<5:
 				rep=8
@@ -167,6 +188,12 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
+
+			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
+			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
+			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
+			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
+
 			if agent.name=='Human1':
 				if Config.CARD_PRESET1!= '':
 					card = bar.controller.card(Config.CARD_PRESET1)

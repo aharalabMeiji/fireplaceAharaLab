@@ -101,7 +101,7 @@ class TB_BaconShop_HP_047t_Choice(Choice):
 class TB_BaconShop_HP_047t:
 	""" Recruitment Map
 	[Discover] a minion from [Tavern Tier @]."""
-	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))*3)
+	play = TB_BaconShop_HP_047t_Choice(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER))*3)
 	# Here we activate 'choicecard.BG_cost = bar.cardCost'
 @custom_card
 class TB_BaconShop_HP_047e:
@@ -199,7 +199,7 @@ class TB_BaconShop_HP_011_Action(TargetedAction):
 		controller = source.controller
 		tier = min(target.tech_level+1,6)
 		target.zone = Zone.GRAVEYARD ### let deathrattle does not happen
-		TB_BaconShop_HP_011_Choice(controller, RandomBGMinion(tech_level=tier)*3).trigger(source)
+		TB_BaconShop_HP_011_Choice(controller, RandomBGAdmissible(tech_level=tier)*3).trigger(source)
 class TB_BaconShop_HP_011:
 	""" Galakrond's Greed
 	Choose a minion in Bob's Tavern. [Discover] a higher Tier minion to replace it."""
@@ -281,7 +281,7 @@ class BG20_HERO_283p_t2:# <12>[1453]
 	""" Ironforge
 	[Passive.] In 3 turns,[Discover] a minion of yourTavern Tier. <i>(@ left!)</i> """
 	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 3, [\
-		BG20_HERO_283p_t2_Choice(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))*3)
+		BG20_HERO_283p_t2_Choice(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER))*3)
 	]))
 	#
 	pass
@@ -541,12 +541,12 @@ class TB_BaconShop_HP_028:
 class TB_BaconShop_HERO_28_Buddy:# <12>[1453]
 	""" Clockwork Assistant
 	[Battlecry:] [Discover] a minion from a higher Tavern Tier. """
-	play = Discover(CONTROLLER, RandomBGMinion(tech_level=(TIER(CONTROLLER)+1)))
+	play = Discover(CONTROLLER, RandomBGAdmissible(tech_level=(TIER(CONTROLLER)+1)))
 	pass
 class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
 	"""
 	[Battlecry:] [Discover] two minions from a higher Tavern Tier."""
-	play = DiscoverTwice(CONTROLLER, RandomBGMinion(tech_level=(TIER(CONTROLLER)+1))*3)
+	play = DiscoverTwice(CONTROLLER, RandomBGAdmissible(tech_level=(TIER(CONTROLLER)+1))*3)
 	pass
 
 
