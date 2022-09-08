@@ -719,8 +719,8 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 
 
 
-
-if BG_Witchwing_Nestmatron:#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2
+#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2
+if BG_Witchwing_Nestmatron:#
 	BG_Minion += ['BG21_038','BG21_038_G',]#	
 	BG_PoolSet_Minion[4].append('BG21_038')
 	BG_Minion_Gold['BG21_038']='BG21_038_G'
@@ -736,56 +736,67 @@ class BG21_038_G:# <12>[1453]
 	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
 
-if BG_Reef_Explorer:### Reef Explorer(4) ### regular card OK, gold card NOT YET ### NEW 23.2
+
+
+## Reef Explorer(4) ### OK,  ### NEW 23.2
+if BG_Reef_Explorer:#
 	BG_Minion += ['BG23_016','BG23_016_G', ]#	
 	BG_PoolSet_Minion[4].append('BG23_016')
 	BG_Minion_Gold['BG23_016']='BG23_016_G'
 	# Reef Explorer 4 	
 	pass
-### WARNING  : we must exclude all of banned cards
 class BG23_016_Choice(Choice):
-	def get_args(self, source):
-		player, cards = super().get_args(source)
-		controller = source.controller
-		for fcard in controller.field:
-			exclude_race = fcard.race
-			for card in reversed(cards):
-				if card.race==exclude_race:
-					cards.remove(card)
-			pass
-		if len(cards)>0:
-			if len(cards)>3:
-				cards = random.sample(cards,3)
-		return player, cards
 	def choose(self, card):
 		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			print("(BG23_016_Choice.choose)%s chooses %r"%(card.controller.name, card))
 		card.zone=Zone.HAND
+		self.player.choice=None
+class BG23_016_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		races = copy(random_picker.BG_races)
+		tier=controller.tavern_tier
+		for card in controller.field:
+			if card.race in races:
+				races.remove(card.race)
+		BG23_016_Choice(controller, RandomBGMinion(race=races, tech_level_less=tier)*3).trigger(source)
+		pass
+
 class BG23_016:# <12>[1453]
 	""" Reef Explorer(4)
 	[Battlecry: Discover] a minion from a minion type you don't control."""
-	play = BG23_016_Choice(CONTROLLER, RandomBGAdmissible(tech_level_less=TIER(CONTROLLER))*3)
+	play = BG23_016_Action(CONTROLLER)
 	pass
-class BG23_016_G_Choice(DiscoverTwice):
-	def get_args(self, source):
-		player, cards = super().get_args(source)
-		controller = source.controller
-		for fcard in controller.field:
-			exclude_race = fcard.race
-			for card in reversed(cards):
-				if card.race==exclude_race:
-					cards.remove(card)
-			pass
-		if len(cards)>0:
-			if len(cards)>3:
-				cards = random.sample(cards,3)
-		return player, cards
+class BG23_016_G_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		if Config.LOGINFO:
+			print("(BG23_016_Choice.choose)%s chooses %r"%(card.controller.name, card))
+		card.zone=Zone.HAND
+		if self.source._sidequest_counter_>=1:
+			self.next_choice=None
+			self.player.choice=None
+		else:
+			self.player.choice=self.next_choice=self
+			self.source._sidequest_counter_=1
+class BG23_016_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		races = copy(random_picker.BG_races)
+		tier=controller.tavern_tier
+		for card in controller.field:
+			if card.race in races:
+				races.remove(card.race)
+		BG23_016_G_Choice(controller, RandomBGMinion(race=races, tech_level_less=tier)*3).trigger(source)
+		pass
 class BG23_016_G:# <12>[1453]
 	"""
 	[Battlecry: Discover] 2 minions from minion types you don't control."""
-	play = BG23_016_G_Choice(CONTROLLER, RandomBGAdmissible(tech_level_less=TIER(CONTROLLER))*12)
+	play = BG23_016_G_Action(CONTROLLER)
 	pass
 
 

@@ -188,12 +188,6 @@ class BG_main:
 			bar.player1.choiceStrategy = agent.choiceStrategy
 			self.BG_Bars.append(bar)
 			########## FOR DEBUGGIN! Default dealing a specific card
-
-			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
-			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
-			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
-			newcard = random_picker.RandomBGAdmissible(tech_level=5).evaluate(bar.player1)
-
 			if agent.name=='Human1':
 				if Config.CARD_PRESET1!= '':
 					card = bar.controller.card(Config.CARD_PRESET1)
