@@ -11,7 +11,7 @@ from ..utils import *
 ##Master Nguyen BG20_HERO_202 ########????????????####
 ##Millhouse Manastorm TB_BaconShop_HERO_49
 ##Millificent Manastorm TB_BaconShop_HERO_17
-##Mr. Bigglesworth TB_BaconShop_HERO_70  ### impossible ###
+##Mr. Bigglesworth TB_BaconShop_HERO_70 
 ##Murloc Holmes BG23_HERO_303 
 ##Mutanus the Devourer BG20_HERO_301
 ##N'Zoth TB_BaconShop_HERO_93
@@ -291,21 +291,34 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 
 ##Master Nguyen ##########????????????####
-##G_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
-##BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
+BG_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
+BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
 ##BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
 ##BG_Hero3_Buddy_Gold['BG20_HERO_202_Buddy']='BG20_HERO_202_Buddy_G'#
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
-
+class BG20_HERO_202p_Choice(Choice):
+	def choose(self, card):
+		super().choose(card)
+		ChangeHeroPower(self.player, card.id).trigger(self.source)
+		self.next_choice=None
+		self.player.choice=None
+class BG20_HERO_202p_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		heroes=copy(controller.game.parent.BG_Heroes)
+		heroes.remove('BG20_HERO_202')#Master Nguyen
+		random.sample(heroes,2)
+		BG20_HERO_202p_Choice(controller, RandomID(*heroes)*2).trigger(source)
+		choiceAction(controller)
+		pass
 class BG20_HERO_202p:# <12>[1453]
 	""" Power of the Storm
 	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
-	entourage=random.sample([
-		'TB_BaconShop_HP_036','TB_BaconShop_HP_052'
-		],2)
+
 	events = [
-		BeginBar(CONTROLLER).on(GenericChoiceChangeHeropower(CONTROLLER, RandomEntourage()*2)),	#
+		BeginBar(CONTROLLER).on(BG20_HERO_202p_Action(CONTROLLER)),	#
 		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER,'BG20_HERO_202p'))
 	]
 	pass
