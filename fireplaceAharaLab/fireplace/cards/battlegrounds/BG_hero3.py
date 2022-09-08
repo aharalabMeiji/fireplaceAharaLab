@@ -4,11 +4,11 @@ from ..utils import *
 
 ##Lady Vashj BG23_HERO_304
 ##Lich Baz'hial TB_BaconShop_HERO_25
-##Lord Barov TB_BaconShop_HERO_72 #### impossible ###
+##Lord Barov TB_BaconShop_HERO_72 
 ##Lord Jaraxxus TB_BaconShop_HERO_37
 ##Maiev Shadowsong TB_BaconShop_HERO_62
 ##Malygos TB_BaconShop_HERO_58
-##Master Nguyen BG20_HERO_202 ########????????????####
+##Master Nguyen BG20_HERO_202 
 ##Millhouse Manastorm TB_BaconShop_HERO_49
 ##Millificent Manastorm TB_BaconShop_HERO_17
 ##Mr. Bigglesworth TB_BaconShop_HERO_70 
@@ -122,8 +122,8 @@ class TB_BaconShop_HP_081_Action1(TargetedAction):
 		thisMatch = random.choice(thisMatch)
 		# make a choice data from the next battle
 		matchChoice=[
-			self.BG_Bars[match[0]].controller.hero.id,
-			self.BG_Bars[match[1]].controller.hero.id
+			gamemaster.BG_Bars[match[0]].controller.hero.id,
+			gamemaster.BG_Bars[match[1]].controller.hero.id
 			]	
 		# trigger TB_BaconShop_HP_081_Choice 
 		TB_BaconShop_HP_081_Choice(controller, RandomID(*matchChoice)*2).trigger(source)
@@ -135,10 +135,13 @@ class TB_BaconShop_HP_081_Action2(TargetedAction):
 		controller=target
 		#from gamemaster investigate the result of the battle
 		#match it with source.sctipt_data_text_1
-		if source.sidequest_list0[0] in controller.game.parent.winners:
+		if source.sidequest_list0!=[] and source.sidequest_list0[0] in controller.game.parent.winners:
 			#if correct, give the controller three coins.
 			Give(controller, 'GAME_005').trigger(source)
 			Give(controller, 'GAME_005').trigger(source)
+			Give(controller, 'GAME_005').trigger(source)
+		if source.sidequest_list0!=[] and source.sidequest_list0[0] in controller.game.parent.drawers:
+			#if correct, give the controller three coins.
 			Give(controller, 'GAME_005').trigger(source)
 class TB_BaconShop_HP_081: ############# impossible
 	"""Friendly Wager
@@ -290,7 +293,7 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 
 
 
-##Master Nguyen ##########????????????####
+##Master Nguyen ### same phenomena ###
 BG_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
 ##BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
@@ -301,14 +304,17 @@ class BG20_HERO_202p_Choice(Choice):
 	def choose(self, card):
 		super().choose(card)
 		ChangeHeroPower(self.player, card.id).trigger(self.source)
+		if not 'BG20_HERO_202pe' in [buff.id for buff in self.source.controller.buffs]:
+			Buff(self.source.controller,'BG20_HERO_202pe').trigger(self.source)
 		self.next_choice=None
 		self.player.choice=None
 class BG20_HERO_202p_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
-		heroes=copy(controller.game.parent.BG_Heroes)
-		heroes.remove('BG20_HERO_202')#Master Nguyen
+		heroes=copy(controller.game.parent.Heroes)
+		if 'BG20_HERO_202' in heroes:
+			heroes.remove('BG20_HERO_202')#Master Nguyen
 		random.sample(heroes,2)
 		BG20_HERO_202p_Choice(controller, RandomID(*heroes)*2).trigger(source)
 		choiceAction(controller)
@@ -316,16 +322,13 @@ class BG20_HERO_202p_Action(TargetedAction):
 class BG20_HERO_202p:# <12>[1453]
 	""" Power of the Storm
 	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
-
-	events = [
-		BeginBar(CONTROLLER).on(BG20_HERO_202p_Action(CONTROLLER)),	#
-		EndBattle(CONTROLLER).on(ChangeHeroPower(CONTROLLER,'BG20_HERO_202p'))
-	]
+	events = BeginBar(CONTROLLER).on(BG20_HERO_202p_Action(CONTROLLER))	#
 	pass
 class BG20_HERO_202pe:# <12>[1453]
 	""" Shifting Hero Power
 	Each turn, transform into a random Hero Power. """
 	#
+	events = BeginBar(CONTROLLER).on(BG20_HERO_202p_Action(CONTROLLER))
 	pass
 class BG20_HERO_202pt:# <12>[1453]
 	""" Shift your Hero Power

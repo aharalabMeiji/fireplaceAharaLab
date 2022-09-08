@@ -329,6 +329,7 @@ class BG_main:
 
 			### 対戦
 			self.winners=[]
+			self.drawers=[]
 			for i in range(len(self.matches)):
 				self.BG_Bars[self.matches[i][0]].countcards()
 				self.BG_Bars[self.matches[i][1]].countcards()
@@ -401,6 +402,9 @@ class BG_main:
 						if winner:
 							print("Winner is %s(%s)"%(winner.controller.hero, winner.controller))
 							return
+				if damage0==0 and damage1==0:
+					self.drawers.append(battleplayer0.hero.id)
+					self.drawers.append(battleplayer1.hero.id)
 				pass
 			## 対戦おわり
 			#次のターンへ
