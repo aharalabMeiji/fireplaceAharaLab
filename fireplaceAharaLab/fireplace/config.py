@@ -6,6 +6,7 @@ class Config:# ()is the default value
 	#3: バトグラをするならこちら
 	#4: カードの動作テストをするならこちら
 	#5: カードクラス（core & hunter など）のカードの抽出するモード
+	#10: デッキ文字列からデッキのデータを復元する
 
 	#ランク戦のオプション
 	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 

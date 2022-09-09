@@ -1,6 +1,8 @@
 from hearthstone.enums import CardSet, CardClass, SpellSchool, GameTag, CardType
 from hearthstone import cardxml
 from .cards.cardlist import All
+from hearthstone.deckstrings import parse_deckstring
+
 
 def printClasses():
 	from hearthstone import cardxml
@@ -248,3 +250,8 @@ def print_deck():
 		pass
 
 
+def parse():
+	deckstring="AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
+	a,b,c = parse_deckstring(deckstring)
+	print(a)
+	pass

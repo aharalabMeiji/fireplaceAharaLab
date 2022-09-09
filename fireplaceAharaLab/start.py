@@ -99,7 +99,7 @@ def battleground_main():
 	BG=BG_main()
 	BG.BG_main()
 
-from fireplace.debug_utilities import printClasses, printClasses_BG24
+from fireplace.debug_utilities import printClasses, printClasses_BG24,parse
 
 if __name__ == "__main__":
 	if Config.HEARTHSTONE==1 or Config.HEARTHSTONE==2:
@@ -110,4 +110,6 @@ if __name__ == "__main__":
 		card_test()
 	elif Config.HEARTHSTONE==5:
 		printClasses_BG24()
+	elif Config.HEARTHSTONE==10:
+		parse()
 	
