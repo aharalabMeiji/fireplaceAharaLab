@@ -362,6 +362,8 @@ class BG_main:
 				### if agent got a gem card while the battle, we carry it to the bar
 				if damage0>0:
 					self.winners.append(battleplayer1.hero.id)
+					LoseGame(battleplayer0).trigger(battleplayer0)	
+					WinGame(battleplayer1).trigger(battleplayer1)	
 					hero0 = battleplayer0.hero
 					if hero0.armor>0:# armorも加味する
 						if hero0.armor >= damage0:
@@ -383,6 +385,8 @@ class BG_main:
 							return
 				if damage1>0:
 					self.winners.append(battleplayer0.hero.id)
+					WinGame(battleplayer0).trigger(battleplayer0)	
+					LoseGame(battleplayer1).trigger(battleplayer1)	
 					hero1 = battleplayer1.hero
 					if hero1.armor>0:# armorも加味する
 						if hero1.armor >= damage1:
@@ -405,7 +409,9 @@ class BG_main:
 				if damage0==0 and damage1==0:
 					self.drawers.append(battleplayer0.hero.id)
 					self.drawers.append(battleplayer1.hero.id)
-				pass
+					TieGame(battleplayer0).trigger(battleplayer0)	
+					TieGame(battleplayer1).trigger(battleplayer1)	
+					pass
 			## 対戦おわり
 			#次のターンへ
 			for bar in self.BG_Bars:

@@ -2449,6 +2449,32 @@ class SidequestCounter(TargetedAction):
 					if isinstance(action, Choice): 
 						action.trigger(source)
 
+class QuestCounter(TargetedAction):
+	"""
+	target, targetaction
+	"""
+	TARGET = ActionArg()# sidequest card
+	TARGETACTION = ActionArg()# sidequest action
+	def do(self, source, target):
+		if hasattr(target.controller.game,'this_is_battle'):
+			target = target.deepcopy_original
+		amount = target.quest_progress_tatal
+		targetaction = target.sidequest_list0
+		if Config.LOGINFO:
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
+		target._sidequest_counter_ += 1
+		target.script_data_num_1 = amount - target._sidequest_counter_
+		if target._sidequest_counter_== amount:
+			target._sidequest_counter_ = 0
+			target.script_data_num_1 = amount
+			if targetaction!=None:
+				for action in targetaction:
+					if isinstance(action, TargetedAction): 
+						action.trigger(source)
+					if isinstance(action, Choice): 
+						action.trigger(source)
+
+
 class SidequestCounterText0(TargetedAction):
 	"""
 	"""
@@ -3746,4 +3772,25 @@ class UpgradeTier(TargetedAction):
 			self.broadcast(source, EventListener.ON, controller)
 			self.broadcast(source, EventListener.AFTER, controller)
 	pass
+
+class TieGame(TargetedAction):
+	TARGET=ActionArg()#controller
+	def do(self, source, target):
+		self.broadcast(source, EventListener.ON, target)
+		self.broadcast(source, EventListener.AFTER, target)		
+		pass
+
+class WinGame(TargetedAction):
+	TARGET=ActionArg()#controller
+	def do(self, source, target):
+		self.broadcast(source, EventListener.ON, target)
+		self.broadcast(source, EventListener.AFTER, target)		
+		pass
+
+class LoseGame(TargetedAction):
+	TARGET=ActionArg()#controller
+	def do(self, source, target):
+		self.broadcast(source, EventListener.ON, target)
+		self.broadcast(source, EventListener.AFTER, target)		
+		pass
 

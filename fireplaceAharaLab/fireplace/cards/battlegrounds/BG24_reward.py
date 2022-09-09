@@ -53,6 +53,7 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 	""" Snicker Snacks
 	At the end of your turn, 2 friendly minions trigger their [Battlecries]. """
 	events = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
+	#<Tag enumID="201" name="FACTION" type="Int" value="3"/>
 	pass
 
 if BG24_Reward_Stolen_Gold:# 
