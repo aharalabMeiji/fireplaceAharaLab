@@ -112,8 +112,8 @@ TB_BaconUps_136e = buff(+2, +2)
 
 
 
-#Yo-Ho-Ogre,2,3,5,Pirate,Taunt  ### OK ###
-if BG_Yo_Ho_Ogre:
+#Yo-Ho-Ogre,2/3/5,Pirate,Taunt  ### OK ###
+if BG_Yo_Ho_Ogre:# 2/3/6 24.2.2
 	BG_Minion_Pirate +=['BGS_060','TB_BaconUps_150']
 	BG_PoolSet_Pirate[2].append('BGS_060')
 	BG_Pirate_Gold['BGS_060']='TB_BaconUps_150'

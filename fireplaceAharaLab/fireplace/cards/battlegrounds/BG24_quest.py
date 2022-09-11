@@ -26,7 +26,7 @@ if BG24_Quest_Track_the_Footprints:#
 class BG24_Quest_112:# [2466]=1, [2580]=1, 
 	""" Track the Footprints
 	[Quest:] Have Bob's Tavern [Refreshed] {0} times. """
-	#{0}=script_data_text_0=10
+	#{0}=script_data_text_0=10 -> 9 24.2.2
 	events = Rerole(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
@@ -73,7 +73,7 @@ if BG24_Quest_Reenact_the_Murder:#
 class BG24_Quest_124:# [2466]=1, [2643]=80, [2644]=80, [2646]=90, 
 	""" Reenact the Murder
 	[Quest:] Have {0} friendly minions die. """
-	#{0}=18
+	#{0}=18->19 (24.2.2)
 	events = Death(FRIENDLY_MINIONS).on(QuestCounter(SELF))
 	pass
 
@@ -91,7 +91,8 @@ if BG24_Quest_Follow_the_Money:#
 class BG24_Quest_126:# [2466]=1, 
 	""" Follow the Money
 	[Quest:] Spend {0} Gold. """
-	#{0}=25
+	#{0}=30
+	## 30->33 (24.2.2)
 	pass
 
 if BG24_Quest_Unlikely_Duo:# 

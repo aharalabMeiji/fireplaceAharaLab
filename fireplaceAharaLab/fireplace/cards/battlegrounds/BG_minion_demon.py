@@ -274,7 +274,8 @@ class BG23_361:
 	Minions in Bob's_Tavern have +2/+2."""
 	update = Refresh(ENEMY_MINIONS, buff='BG23_361e')
 	pass
-BG23_361e=buff(2,2)
+#BG23_361e=buff(2,2)
+BG23_361e=buff(2,1) #24.2.2
 class BG23_361_G:
 	""" Legion Overseer (3)
 	Minions in Bob's_Tavern have +4/+4."""
@@ -285,8 +286,10 @@ class BG23_361_Ge:
 	tags = {
 		GameTag.CARDNAME: "Legion Overseer",
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		#GameTag.ATK:4,
+		#GameTag.HEALTH:4
 		GameTag.ATK:4,
-		GameTag.HEALTH:4
+		GameTag.HEALTH:2
 	}
 
 ###################　焦熱の圧鬼（あっき）(4)### maybe ###

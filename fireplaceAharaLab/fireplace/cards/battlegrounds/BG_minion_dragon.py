@@ -139,7 +139,7 @@ if BG24__Nether_Drake:# (2)  new 24.2 ### visually OK
 	BG_Minion_Dragon+=['BG24_003','BG24_003e','BG24_003_G','BG24_003_Ge']
 	BG_PoolSet_Dragon[2].append('BG24_003')
 	BG_Dragon_Gold['BG24_003']='BG24_003_G'
-class BG24_003:# (minion)
+class BG24_003:# (minion) (2/0/4)
 	""" Nether Drake
 	At the end of your turn, give your Dragons +1 Attack. """
 	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + DRAGON, 'BG24_003e'))
@@ -217,7 +217,7 @@ class TB_BaconUps_108:# <12>[1453]
 TB_BaconUps_108e=buff(4,4)
 
 
-if BG24__Amber_Guardian:# (3) new 24.2 ## check around divine_shield
+if BG24__Amber_Guardian:# (3) new 24.2 ## 
 	BG_Minion_Dragon+=['BG24_500','BG24_500e','BG24_500_G','BG24_500_Ge']
 	BG_PoolSet_Dragon[3].append('BG24_500')
 	BG_Dragon_Gold['BG24_500']='BG24_500_G'
@@ -229,8 +229,10 @@ class BG24_500:# (minion)
 #BG24_500e=buff(3,3,divine_shield=True)
 class BG24_500e:
 	tags={
-		GameTag.ATK:3,
-		GameTag.HEALTH:3
+		#GameTag.ATK:3,
+		#GameTag.HEALTH:3
+		GameTag.ATK:2,#24.2.2
+		GameTag.HEALTH:2#24.2.2
 		}
 	def apply(self, target):
 		SetDivineShield(target, True).trigger(self)
@@ -241,8 +243,10 @@ class BG24_500_G:# (minion)
 	pass
 class BG24_500_Ge:
 	tags={
-		GameTag.ATK:6,
-		GameTag.HEALTH:6
+		#GameTag.ATK:6,
+		#GameTag.HEALTH:6
+		GameTag.ATK:4,#24.2.2
+		GameTag.HEALTH:4#24.2.2
 		}
 	def apply(self, target):
 		SetDivineShield(target, True).trigger(self)

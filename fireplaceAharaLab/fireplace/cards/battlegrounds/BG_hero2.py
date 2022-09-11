@@ -459,6 +459,7 @@ class BG23_HERO_305p_Action2(TargetedAction):
 class BG23_HERO_305p:
 	""" The Perfect Crime
 	Steal all minions in Bob's Tavern. Each turn, your next Hero Power costs (1) less."""
+	## cost 9 -> 10 in 24.2.2
 	events = EndTurn(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
 	activate = BG23_HERO_305p_Action2(CONTROLLER)
 

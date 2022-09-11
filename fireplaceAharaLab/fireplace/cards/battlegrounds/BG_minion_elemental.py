@@ -93,8 +93,8 @@ TB_Baconups_202e=buff(0,2)
 
 
 
-if BG_Party_Elemental: # 
-#Party Elemental(2)  ### MAYBE ###
+if BG_Party_Elemental: # ## MAYBE ###
+#Party Elemental(2)  #(2/4/2)
 	BG_Minion_Elemental+=['BGS_120','BGS_120e','TB_BaconUps_160']
 	BG_PoolSet_Elemental[2].append('BGS_120')
 	BG_Elemental_Gold['BGS_120']='TB_BaconUps_160'

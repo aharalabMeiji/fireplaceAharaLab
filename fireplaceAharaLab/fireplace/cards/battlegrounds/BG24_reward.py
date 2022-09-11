@@ -50,6 +50,7 @@ class BG24_Reward_107_Action(TargetedAction):
 			PlayBattlecry(card).trigger(source)
 		pass
 class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50, 
+	# -> [2467]=120, [2641]=1, [2647]=60 (24.2.2) (easy to obtain)
 	""" Snicker Snacks
 	At the end of your turn, 2 friendly minions trigger their [Battlecries]. """
 	events = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
@@ -58,7 +59,8 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 
 if BG24_Reward_Stolen_Gold:# 
 	BG24_Reward+=['BG24_Reward_109']
-class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [2727]=1, 
+class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [2727]=1,
+	# [1500]=1, [2467]=140, [2641]=1, [2643]=90, [2645]=90, [2646]=90, [2727]=1,(24.2.2 harder)
 	""" Stolen Gold
 	[Start of Combat:] Make your left and right- most minions Golden. """
 	#
@@ -126,13 +128,14 @@ class BG24_Reward_123:# [2467]=80, [2647]=50,
 
 if BG24_Reward_The_Smoking_Gun:# 
 	BG24_Reward+=['BG24_Reward_125']
+	BG24_Reward+=['BG24_Reward_125e']
 class BG24_Reward_125:# [2467]=110, [2641]=1, [2643]=70, [2646]=80, 
+	# [2467]=150, [2641]=1, [2643]=70, [2646]=80, (harder to obtain it)
 	""" The Smoking Gun
 	Your minions have +5 Attack. """
 	#
 	pass
 
-	BG24_Reward+=['BG24_Reward_125e']
 class BG24_Reward_125e:# 
 	""" Armed and Still Smoking
 	+5 Attack. """
@@ -142,6 +145,7 @@ class BG24_Reward_125e:#
 if BG24_Reward_Mirror_Shield:# 
 	BG24_Reward+=['BG24_Reward_128']
 class BG24_Reward_128:# [2467]=75, [2641]=1, 
+	# [2467]=130, [2641]=1, [2647]=85 (harder to obatain it)
 	""" Mirror Shield
 	After each [Refresh], give a minion in Bob's Tavern +4/+4 and [Divine Shield]. """
 	#
@@ -172,7 +176,8 @@ class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1,
 
 if BG24_Reward_Red_Hand:# 
 	BG24_Reward+=['BG24_Reward_131']
-class BG24_Reward_131:# [2467]=110, [2641]=1, 
+class BG24_Reward_131:# [2467]=110, [2641]=1
+	# -> [2467]=90, [2641]=1 (24.2.2, easier to obtain)
 	""" Red Hand
 	At the start of your turn, give a minion in your hand +12/+12. """
 	#
@@ -210,11 +215,8 @@ class BG24_Reward_136:# [2467]=100, [2641]=1,
 	pass
 
 	BG24_Reward+=['BG24_Reward_136e']
-class BG24_Reward_136e:# 
-	""" Less Tiny
-	+2/+2 """
-	#
-	pass
+	# 2/2->3/3 (24.2.2)
+BG24_Reward_136e=buff(3,3)# 
 
 if BG24_Reward_Victims_Specter:# 
 	BG24_Reward+=['BG24_Reward_138']
@@ -273,6 +275,7 @@ class BG24_Reward_306e:#
 if BG24_Reward_Teal_Tiger_Sapphire:# 
 	BG24_Reward+=['BG24_Reward_308']
 class BG24_Reward_308:# [2467]=140, [2641]=1, [2644]=60, 
+	# ->  [2467]=100, [2641]=1, [2644]=70, (24.2.2) 
 	""" Teal Tiger Sapphire
 	Minions in Bob's Tavern have +1/+1 for each time it was [Refreshed] this turn. """
 	#
@@ -325,11 +328,8 @@ class BG24_Reward_312:# [1500]=1, [2467]=275, [2641]=1, [2653]=300, [2727]=1,
 	pass
 
 	BG24_Reward+=['BG24_Reward_312e']
-class BG24_Reward_312e:# 
-	""" Well Staffed
-	+15/+15 """
-	#
-	pass
+#+15/+15 -> +12/+12 (24.2.2)
+BG24_Reward_312e=buff(12,12)# 
 
 if BG24_Reward_Wondrous_Wisdomball:# 
 	BG24_Reward+=['BG24_Reward_313']
@@ -363,11 +363,8 @@ class BG24_Reward_321:# [2467]=120, [2641]=1,
 	pass
 
 	BG24_Reward+=['BG24_Reward_321e']
-class BG24_Reward_321e:# 
-	""" Altered Ego
-	+6/+6 """
-	#
-	pass
+## +6/+6 -> +7/+7 (24.2.2)
+BG24_Reward_321e=buff(7,7)# 
 
 	BG24_Reward+=['BG24_Reward_321t']
 class BG24_Reward_321t:# 

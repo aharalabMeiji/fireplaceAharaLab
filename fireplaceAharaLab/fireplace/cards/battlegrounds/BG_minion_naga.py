@@ -159,7 +159,7 @@ class BG23_004_Gt:
 
 
 ## Lava Lurker (2)  ### OK ###
-if BG_Lava_Lurker:
+if BG_Lava_Lurker:#(2/2/5)
 	BG_Minion_Naga+=['BG23_009','BG23_009_G', ]#
 	BG_PoolSet_Naga[2].append('BG23_009')
 	BG_Naga_Gold['BG23_009']='BG23_009_G'
