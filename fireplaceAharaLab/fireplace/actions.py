@@ -1113,6 +1113,7 @@ class Damage(TargetedAction):
 class Deathrattle(TargetedAction):
 	"""
 	Trigger deathrattles on card targets.
+	TARGET = ActionArg()
 	"""
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -2454,15 +2455,15 @@ class QuestCounter(TargetedAction):
 	target, targetaction
 	"""
 	TARGET = ActionArg()# sidequest card
-	TARGETACTION = ActionArg()# sidequest action
-	def do(self, source, target):
+	STEP=IntArg()
+	def do(self, source, target, step=1):
 		if hasattr(target.controller.game,'this_is_battle'):
 			target = target.deepcopy_original
 		amount = target.quest_progress_tatal
 		targetaction = target.sidequest_list0
 		if Config.LOGINFO:
-			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
-		target._sidequest_counter_ += 1
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+step), targetaction))
+		target._sidequest_counter_ += step
 		target.script_data_num_1 = amount - target._sidequest_counter_
 		if target._sidequest_counter_== amount:
 			target._sidequest_counter_ = 0

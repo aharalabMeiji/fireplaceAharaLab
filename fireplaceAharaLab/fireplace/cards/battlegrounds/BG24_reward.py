@@ -133,17 +133,13 @@ class BG24_Reward_125:# [2467]=110, [2641]=1, [2643]=70, [2646]=80,
 	# [2467]=150, [2641]=1, [2643]=70, [2646]=80, (harder to obtain it)
 	""" The Smoking Gun
 	Your minions have +5 Attack. """
-	#
+	update = Refresh(FRIENDLY_MINIONS , buff='BG24_Reward_125e')
 	pass
-
-class BG24_Reward_125e:# 
-	""" Armed and Still Smoking
-	+5 Attack. """
-	#
-	pass
+BG24_Reward_125e=buff(5,0)# 
 
 if BG24_Reward_Mirror_Shield:# 
 	BG24_Reward+=['BG24_Reward_128']
+	BG24_Reward+=['BG24_Reward_128e']
 class BG24_Reward_128:# [2467]=75, [2641]=1, 
 	# [2467]=130, [2641]=1, [2647]=85 (harder to obatain it)
 	""" Mirror Shield
@@ -151,7 +147,6 @@ class BG24_Reward_128:# [2467]=75, [2641]=1,
 	#
 	pass
 
-	BG24_Reward+=['BG24_Reward_128e']
 class BG24_Reward_128e:# 
 	""" Mirror Shield
 	+4/+4 and [Divine Shield]. """

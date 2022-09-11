@@ -79,11 +79,21 @@ class BG24_Quest_124:# [2466]=1, [2643]=80, [2644]=80, [2646]=90,
 
 if BG24_Quest_Sort_It_All_Out:# 
 	BG24_Quest+=['BG24_Quest_125']
+class BG24_Quest_125_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target.controller
+		amount = len(controller.field)
+		for i in range(amount-1):
+			if controller.field[i].atk > controller.field[i+1].atk:
+				return
+		QuestCounter(target).trigger(source)
+		pass
 class BG24_Quest_125:# [2466]=1, [2580]=1, [2642]=88, [2653]=300, [2674]=2, 
 	""" Sort It All Out
 	[Quest:] Order your minions from lowest to highest Attack for {0} combats. """
-
 	#{0}=4
+	events = BeginBattle(CONTROLLER).on(BG24_Quest_125_Action(SELF))
 	pass
 
 if BG24_Quest_Follow_the_Money:# 
@@ -93,6 +103,7 @@ class BG24_Quest_126:# [2466]=1,
 	[Quest:] Spend {0} Gold. """
 	#{0}=30
 	## 30->33 (24.2.2)
+
 	pass
 
 if BG24_Quest_Unlikely_Duo:# 
@@ -141,6 +152,7 @@ class BG24_Quest_318:# [2466]=1,
 	""" Witness Protection
 	[Quest:] Have a friendly [Taunt] minion attacked {0} times. """
 	#{0}=8 <Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="8"/>
+	events = Attack(ENEMY, FRIENDLY_MINIONS + TAUNT).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Exhume_the_Bones:# 
@@ -149,6 +161,7 @@ class BG24_Quest_320:# [2466]=1, [2580]=1, [2643]=80, [2644]=90, [2646]=90,
 	""" Exhume the Bones
 	[Quest:] Trigger {0} friendly [Deathrattles]. """
 	#{0}=6 <Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="6"/>
+	events = Deathrattle(FRIENDLY_MINIONS).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Close_the_Case:# ???????????
