@@ -59,63 +59,83 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 
 if BG24_Reward_Stolen_Gold:# 
 	BG24_Reward+=['BG24_Reward_109']
+class BG24_Reward_109_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		if len(controller.field)>0:
+			card1 = controller.field[0]
+			controller.game.BG_morph_gold(card1)
+			if len(controller.field)>1:
+				card2 = controller.field[-1]
+				controller.game.BG_morph_gold(card2)
+		pass
 class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [2727]=1,
 	# [1500]=1, [2467]=140, [2641]=1, [2643]=90, [2645]=90, [2646]=90, [2727]=1,(24.2.2 harder)
 	""" Stolen Gold
 	[Start of Combat:] Make your left and right- most minions Golden. """
-	#
+	events = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
 	pass
 
 if BG24_Reward_Evil_Twin:# 
 	BG24_Reward+=['BG24_Reward_111']
+class BG24_Reward_111_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		if len(controller.field)<7:
+			high=[]
+			for card in controller.field:
+				if high==[] or high[0].health<card.health:
+					high=[card]
+				elif high[0].health==card.health:
+					high.append(card)
+			card = random.choice(high)
+			Summon(controller, ExactCopy(card)).trigger(source)
 class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1, 
 	""" Evil Twin
 	[Start of Combat:] Summon a copy of your highest-Health minion. """
-	#
+	events = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action(CONTROLLER))
 	pass
 
 if BG24_Reward_Ritual_Dagger:# 
 	BG24_Reward+=['BG24_Reward_113']
+	#BG24_Reward+=['BG24_Reward_113_ALT']
+	BG24_Reward+=['BG24_Reward_113e']
 class BG24_Reward_113:# [2467]=80, [2641]=1, 
 	""" Ritual Dagger
 	After a friendly [Deathrattle] minion dies, give it +4/+4 permanently. """
-	#
+	events = Death(FRIENDLY + DEATHRATTLE).on(BuffPermanently(Death.TARGET, 'BG24_Reward_113e'))
 	pass
-
-	BG24_Reward+=['BG24_Reward_113_ALT']
 class BG24_Reward_113_ALT:# [2467]=70, [2643]=90, [2646]=90, 
 	""" Ritual Dagger
 	Your first [Deathrattle] each combat triggers an extra time. """
-	#
 	pass
-
-	BG24_Reward+=['BG24_Reward_113e']
-class BG24_Reward_113e:# [1927]=1, 
-	""" "Noble" Sacrifice
-	+4/+4 """
-	#
-	pass
+BG24_Reward_113e=buff(4,4)
 
 if BG24_Reward_Theotars_Parasol:# 
 	BG24_Reward+=['BG24_Reward_115']
+	BG24_Reward+=['BG24_Reward_115e']
+	BG24_Reward+=['BG24_Reward_115e2']
+class BG24_Reward_115_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		if len(controller.field)>0:
+			card = controller.field[-1]
+			BuffPermanently(card, 'BG24_Reward_115e').trigger(source)
+			Buff(card, 'BG24_Reward_115e2').trigger(source)
 class BG24_Reward_115:# [2467]=70, [2641]=1, 
 	""" Theotar's Parasol
 	At the end of your turn, give your right-most minion [Stealth] until next turn and +8 Health. """
-	#
+	events = BeginBattle(CONTROLLER).on(BG24_Reward_115_Action(CONTROLLER))
 	pass
-
-	BG24_Reward+=['BG24_Reward_115e']
-class BG24_Reward_115e:# 
-	""" Shaded
-	+8 Health. """
-	#
-	pass
-
-	BG24_Reward+=['BG24_Reward_115e2']
+BG24_Reward_115e=buff(0,8)
 class BG24_Reward_115e2:# [2594]=1, 
 	""" Shady
 	[Stealth] until next turn. """
-	#
+	def apply(self, target):
+		target.stealthed=True
 	pass
 
 if BG24_Reward_Exquisite_Conch:# 
@@ -351,17 +371,15 @@ class BG24_Reward_320:# [2467]=130,
 
 if BG24_Reward_Alter_Ego:# 
 	BG24_Reward+=['BG24_Reward_321']
+	BG24_Reward+=['BG24_Reward_321t']
+	BG24_Reward+=['BG24_Reward_321e']
 class BG24_Reward_321:# [2467]=120, [2641]=1, 
 	""" Alter Ego
 	Even Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Odd next turn!)</i> """
 	#
 	pass
-
-	BG24_Reward+=['BG24_Reward_321e']
 ## +6/+6 -> +7/+7 (24.2.2)
 BG24_Reward_321e=buff(7,7)# 
-
-	BG24_Reward+=['BG24_Reward_321t']
 class BG24_Reward_321t:# 
 	""" Alter Ego
 	Odd Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Even next turn!)</i> """
