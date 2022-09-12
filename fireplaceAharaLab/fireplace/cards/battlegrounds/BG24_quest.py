@@ -10,7 +10,7 @@ BG24_Quest_Reenact_the_Murder=True
 BG24_Quest_Sort_It_All_Out=True
 BG24_Quest_Follow_the_Money=True
 BG24_Quest_Unlikely_Duo=True
-BG24_Quest_Balance_the_Scales=True
+BG24_Quest_Balance_the_Scales=False
 BG24_Quest_Cry_for_Help=True
 BG24_Quest_Invite_the_Guests=True
 BG24_Quest_Dust_for_Prints=True
@@ -98,20 +98,48 @@ class BG24_Quest_125:# [2466]=1, [2580]=1, [2642]=88, [2653]=300, [2674]=2,
 
 if BG24_Quest_Follow_the_Money:# 
 	BG24_Quest+=['BG24_Quest_126']
+class BG24_Quest_126_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target, amount):
+		pass
+
 class BG24_Quest_126:# [2466]=1, 
 	""" Follow the Money
 	[Quest:] Spend {0} Gold. """
 	#{0}=30
 	## 30->33 (24.2.2)
-
+	events = [
+		Buy(CONTROLLER).on(QuestCounter(CONTROLLER, 3)),
+		Activate(CONTROLLER).on(QuestCounter(CONTROLLER, COST(FRIENDLY_HERO_POWER)))
+	]
 	pass
 
 if BG24_Quest_Unlikely_Duo:# 
 	BG24_Quest+=['BG24_Quest_151']
+class BG24_Quest_151_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.sidequest_list0=random.sample(random_picker.BG_races, 2)
+		pass
+class BG24_Quest_151_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if source.sidequest_list0==[]:
+			source.sidequest_list0=random.sample(random_picker.BG_races, 2)
+		if isinstance(target,list):
+			target=target[0]
+		if target!=[]:
+			if target.type==CardType.MINION and target.race in source.sidequest_list0:
+				QuestCounter(source.controller).trigger(source)
+		pass
 class BG24_Quest_151:# [2466]=1, [2496]=1, 
 	""" Unlikely Duo
 	[Quest:] Play {0} {2} or {3}. """
 	#{0}=5, {2}{3}:Ží‘°
+	events=[
+		Play(CONTROLLER, SELF).on(BG24_Quest_151_Action1(CONTROLLER)),
+		Play(CONTROLLER, FRIENDLY - SELF).on(BG24_Quest_151_Action2(Play.CARD))
+	]
 	pass
 
 if BG24_Quest_Balance_the_Scales:# ????????????????
@@ -128,6 +156,7 @@ class BG24_Quest_311:# [2466]=1, [2642]=92, [2647]=80,
 	""" Cry for Help
 	[Quest:] Play {0} [Battlecry] minions. """
 	#{0}=6
+	events = Play(CONRTOLLER, FRIENDLY+BATTLECRY).on(QuestCounter(CONTROLLER))
 	pass
 
 if BG24_Quest_Invite_the_Guests:# 
@@ -136,6 +165,7 @@ class BG24_Quest_313:# [2466]=1,
 	""" Invite the Guests
 	[Quest:] Buy {0} minions. """
 	#{0}=7
+	events = Buy(CONTROLLER).on(QuestCounter(CONTROLLER))
 	pass
 
 if BG24_Quest_Dust_for_Prints:# 
@@ -144,6 +174,10 @@ class BG24_Quest_314:# [2466]=1, [2650]=70, [2651]=70,
 	""" Dust for Prints
 	[Quest:] Add {0} cards to your hand. """
 	#{0}=15
+	events = [
+		Draw(CONTROLLER).on(QuestCounter(CONTROLLER)),
+		Give(CONTROLLER).on(QuestCounter(CONTROLLER))
+		]
 	pass
 
 if BG24_Quest_Witness_Protection:#  ## banned 24.2.1

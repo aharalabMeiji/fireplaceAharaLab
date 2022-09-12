@@ -3460,6 +3460,10 @@ class BeginGame(TargetedAction):
 		self.broadcast(source, EventListener.AFTER, target)
 
 class Buy(TargetedAction): ## battlegrounds
+	""" Buy a minion 
+	TARGET = ActionArg()# controller
+	CARD = ActionArg()
+	"""
 	TARGET = ActionArg()
 	CARD = ActionArg()
 	def do(self, source, target, card):
