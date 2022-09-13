@@ -211,7 +211,8 @@ if BG24_Quest_An_Investigation:# ***********
 class BG24_Quest_Bob:# [2732]=1, 
 	""" An Investigation!
 	In @ |4(turn, turns), [Discover] a [Quest]! """
-	#
+	dormant = 3
+	awake = Discover(CONTROLLER, RandomQuest()*3)
 	pass
 
 if BG24_Quest_Discover_Quest__Reward_DNT:# 

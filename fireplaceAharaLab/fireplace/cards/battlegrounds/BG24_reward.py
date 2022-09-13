@@ -164,13 +164,18 @@ class BG24_Reward_128:# [2467]=75, [2641]=1,
 	# [2467]=130, [2641]=1, [2647]=85 (harder to obatain it)
 	""" Mirror Shield
 	After each [Refresh], give a minion in Bob's Tavern +4/+4 and [Divine Shield]. """
-	#
+	events = Rerole(CONTROLLER).on(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_128e'))
 	pass
 
-class BG24_Reward_128e:# 
+class BG24_Reward_128e:#
 	""" Mirror Shield
 	+4/+4 and [Divine Shield]. """
-	#
+	tags = {
+		GameTag.ATK:4,
+		GameTag.HEALTH:4
+		}
+	def apply(self, target):
+		target.divine_shield=True
 	pass
 
 if BG24_Reward_Secret_Sinstone:# 
@@ -178,39 +183,36 @@ if BG24_Reward_Secret_Sinstone:#
 class BG24_Reward_129:# [2467]=130, [2641]=1, 
 	""" Secret Sinstone
 	After you [Discover] a card, get an extra copy of it. """
-	#
+	events = Choice(CONTROLLER).after(Give(CONTROLLER, ExactCopy(Choice.CARD)))
 	pass
 
-if BG24_Reward_Ghastly_Mask:# 
+if BG24_Reward_Ghastly_Mask:#  ######### difficult ################
 	BG24_Reward+=['BG24_Reward_130']
 class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1, 
 	""" Ghastly Mask
 	Add '{0}' to your hand. Your end of turn effects trigger twice. """
-	#
+	# 
 	pass
 
 if BG24_Reward_Red_Hand:# 
 	BG24_Reward+=['BG24_Reward_131']
+	BG24_Reward+=['BG24_Reward_131e']
 class BG24_Reward_131:# [2467]=110, [2641]=1
 	# -> [2467]=90, [2641]=1 (24.2.2, easier to obtain)
 	""" Red Hand
 	At the start of your turn, give a minion in your hand +12/+12. """
-	#
+	events = BeginBar(CONTROLLER).on(Buff(RANDOM(FRIENDLY_HAND), 'BG24_Reward_131e'))
 	pass
-
-	BG24_Reward+=['BG24_Reward_131e']
-class BG24_Reward_131e:# 
-	""" Caught Red Handed
-	+12/+12 """
-	#
-	pass
+BG24_Reward_131e=buff(12,12)
 
 if BG24_Reward_The_Friends_Along_the_Way:# 
 	BG24_Reward+=['BG24_Reward_134']
 class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1, 
 	""" The Friends Along the Way
 	At the start of your turn, get 2 random {0}. """
-	#
+	#{0} = Race.SOMETHING
+	events = BeginBar(CONTROLLER).on(Give(CONTROLLER, RandomBGAdmissible(race=Race.BEAST)),
+								  Give(CONTROLLER, RandomBGAdmissible(race=Race.BEAST)))
 	pass
 
 if BG24_Reward_Yogg_tastic_Tasties:# 
@@ -223,14 +225,13 @@ class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300,
 
 if BG24_Reward_Tiny_Henchmen:# 
 	BG24_Reward+=['BG24_Reward_136']
+	BG24_Reward+=['BG24_Reward_136e']
 class BG24_Reward_136:# [2467]=100, [2641]=1, 
 	""" Tiny Henchmen
 	At the end of your turn, give +2/+2 to 3 friendly minions of Tier 3 or lower. """
 	#
 	pass
-
-	BG24_Reward+=['BG24_Reward_136e']
-	# 2/2->3/3 (24.2.2)
+# 2/2->3/3 (24.2.2)
 BG24_Reward_136e=buff(3,3)# 
 
 if BG24_Reward_Victims_Specter:# 
