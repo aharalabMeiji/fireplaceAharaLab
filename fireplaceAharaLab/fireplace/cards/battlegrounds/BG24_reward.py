@@ -14,7 +14,7 @@ BG24_Reward_Secret_Sinstone=True
 BG24_Reward_Ghastly_Mask=True
 BG24_Reward_Red_Hand=True
 BG24_Reward_The_Friends_Along_the_Way=True
-BG24_Reward_Yogg_tastic_Tasties=True
+BG24_Reward_Yogg_tastic_Tasties=False# # under preparation
 BG24_Reward_Tiny_Henchmen=True
 BG24_Reward_Victims_Specter=True
 BG24_Reward_A_Good_Time=True
@@ -207,29 +207,51 @@ BG24_Reward_131e=buff(12,12)
 
 if BG24_Reward_The_Friends_Along_the_Way:# 
 	BG24_Reward+=['BG24_Reward_134']
+class BG24_Reward_134_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.script_data_num_1=random.choice(random_picker.BG_races)
+		pass
+class BG24_Reward_134_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Give(target, RandomBGAdmissible(race=target.script_data_num_1)).trigger(source)
+		Give(target, RandomBGAdmissible(race=target.script_data_num_1)).trigger(source)
+		pass
 class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1, 
 	""" The Friends Along the Way
 	At the start of your turn, get 2 random {0}. """
 	#{0} = Race.SOMETHING
-	events = BeginBar(CONTROLLER).on(Give(CONTROLLER, RandomBGAdmissible(race=Race.BEAST)),
-								  Give(CONTROLLER, RandomBGAdmissible(race=Race.BEAST)))
+	events = [
+		Play(CONTROLLER, SELF).on(BG24_Reward_134_Action1(CONTROLLER)),
+		BeginBar(CONTROLLER).on(BG24_Reward_134_Action2(CONTROLLER))
+	]
 	pass
 
-if BG24_Reward_Yogg_tastic_Tasties:# 
+if BG24_Reward_Yogg_tastic_Tasties:### under construction 
 	BG24_Reward+=['BG24_Reward_135']
 class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300, 
 	""" Yogg-tastic Tasties
 	At the start of your turn, spin the Wheel of Yogg-Saron. """
-	#
+	#### see TB_BaconShop_HERO_35_Buddy
 	pass
 
 if BG24_Reward_Tiny_Henchmen:# 
 	BG24_Reward+=['BG24_Reward_136']
 	BG24_Reward+=['BG24_Reward_136e']
+class BG24_Reward_136_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		cards=[card for card in target.field if target.tech_level<=3]
+		if len(cards)>3:
+			cards=random.sample(cards, 3)
+		for card in cards:
+			Buff(card, 'BG24_Reward_136e').trigger(source)
+		pass
 class BG24_Reward_136:# [2467]=100, [2641]=1, 
 	""" Tiny Henchmen
 	At the end of your turn, give +2/+2 to 3 friendly minions of Tier 3 or lower. """
-	#
+	events = OWN_TURN_END.on(BG24_Reward_136_Action(CONTROLLER))
 	pass
 # 2/2->3/3 (24.2.2)
 BG24_Reward_136e=buff(3,3)# 
