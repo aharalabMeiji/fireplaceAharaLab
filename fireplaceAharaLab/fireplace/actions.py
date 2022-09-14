@@ -457,7 +457,7 @@ class Choice(GameAction):
 			self.source.game.trigger(
 				self.source, [action], [self.player, self.cards, card])
 		self.player.choice = self.next_choice
-		self.broadcast(self.player, EventListener.after, self.player, self.cards, card)
+		self.broadcast(self.player, EventListener.AFTER, self.player, self.cards, card)
 
 class GenericChoice(Choice):
 	def choose(self, card):
@@ -2460,7 +2460,7 @@ class QuestCounter(TargetedAction):
 	def do(self, source, target, step=1):
 		if hasattr(target.controller.game,'this_is_battle'):
 			target = target.deepcopy_original
-		amount = target.quest_progress_tatal
+		amount = target.quest_progress_total
 		targetaction = target.sidequest_list0
 		if Config.LOGINFO:
 			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+step), targetaction))

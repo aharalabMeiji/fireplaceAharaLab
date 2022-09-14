@@ -1228,7 +1228,7 @@ class QuestReward(PlayableCard):
 
 class Sidequest(Spell):
 	_sidequest_counter_=0
-	quest_progress_tatal=int_property('quest_progress_total')
+	quest_progress_total=int_property('quest_progress_total')
 	@property
 	def events(self):
 		ret = super().events

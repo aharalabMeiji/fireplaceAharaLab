@@ -231,13 +231,13 @@ class BG24_Quest_Bob_Choice(Choice):
 	def do(self, source, player, cards, option=None):
 		super().do(source, player, cards, option=None)
 		for card in cards:
-			card.script_data_text_0=card.quest_progress_tatal
+			card.script_data_text_0=str(card.quest_progress_total)
 			rewardID = random.choice(BG24_Reward_Pool)
 			reward = player.card(rewardID)## zone=SETASIDE
 			card.sidequest_list0=[reward]
 			## change the parameter in the card
 			##130=reward.data.get(2467,0)
-			#card.quest_progress_tatal= int(card.quest_progress_tatal*130/100)
+			#card.quest_progress_total= int(card.quest_progress_total*130/100)
 	def choose(self, card):
 		self.next_choice=None
 		super().choose(card)
