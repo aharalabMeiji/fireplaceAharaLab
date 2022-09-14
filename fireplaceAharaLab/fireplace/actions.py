@@ -2453,7 +2453,7 @@ class SidequestCounter(TargetedAction):
 
 class QuestCounter(TargetedAction):
 	"""
-	target, targetaction
+	target, targetaction 
 	"""
 	TARGET = ActionArg()# sidequest card
 	STEP=IntArg()

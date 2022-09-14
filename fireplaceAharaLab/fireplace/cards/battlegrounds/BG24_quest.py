@@ -224,19 +224,24 @@ class BG24_Quest_328:#
 	pass
 
 
-from fireplace.cards.battlegrounds.BG24_reward import BG24_Reward_Pool
+from .BG24_reward import BG24_Reward_Pool
 if BG24_Quest_An_Investigation:# 
 	BG24_Quest+=['BG24_Quest_Bob']
 class BG24_Quest_Bob_Choice(Choice):
 	def do(self, source, player, cards, option=None):
 		super().do(source, player, cards, option=None)
 		for card in cards:
+			card.script_data_text_0=card.quest_progress_tatal
 			rewardID = random.choice(BG24_Reward_Pool)
 			reward = player.card(rewardID)## zone=SETASIDE
 			card.sidequest_list0=[reward]
 			## change the parameter in the card
 			##130=reward.data.get(2467,0)
 			#card.quest_progress_tatal= int(card.quest_progress_tatal*130/100)
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		CastSpell(card).trigger(self.source)
 	pass
 class BG24_Quest_Bob_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -244,6 +249,7 @@ class BG24_Quest_Bob_Action(TargetedAction):
 		controller=target
 		quests=random.sample(BG24_Quest_Pool,3)
 		BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
+		choiceAction(controller)
 		Destroy(source).trigger(source)
 		pass
 class BG24_Quest_Bob:# [2732]=1, 
