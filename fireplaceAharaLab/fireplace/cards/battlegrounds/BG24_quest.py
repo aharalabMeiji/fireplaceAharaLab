@@ -144,7 +144,7 @@ class BG24_Quest_151_Action2(TargetedAction):
 class BG24_Quest_151:# [2466]=1, [2496]=1, 
 	""" Unlikely Duo
 	[Quest:] Play {0} {2} or {3}. """
-	#{0}=5, {2}{3}:�푰
+	#{0}=5, {2}{3}:種族
 	events=[
 		Play(CONTROLLER, SELF).on(BG24_Quest_151_Action1(CONTROLLER)),
 		Play(CONTROLLER, FRIENDLY - SELF).on(BG24_Quest_151_Action2(Play.CARD))
@@ -163,14 +163,12 @@ class BG24_Quest_152:#
 if BG24_Quest_Cry_for_Help:# 
 	BG24_Quest+=['BG24_Quest_311']
 	BG24_Quest_Pool+=['BG24_Quest_311']
-
-class BG24_Quest_311:
-
+class BG24_Quest_311:# 
 	""" Cry for Help
 	[Quest:] Play {0} [Battlecry] minions. """
 	# [2466]=1, [2642]=92, [2647]=80, 
 	# 	#{0}=6
-	events = Play(CONRTOLLER, FRIENDLY+BATTLECRY).on(QuestCounter(CONTROLLER))
+	events = Play(CONTROLLER, FRIENDLY+BATTLECRY).on(QuestCounter(CONTROLLER))
 	pass
 
 if BG24_Quest_Invite_the_Guests:# 
@@ -245,13 +243,13 @@ class BG24_Quest_Bob_Action(TargetedAction):
 	def do(self, source, target):
 		controller=target
 		quests=random.sample(BG24_Quest_Pool,3)
-		BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3)
+		BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
+		Destroy(source).trigger(source)
 		pass
 class BG24_Quest_Bob:# [2732]=1, 
 	""" An Investigation!
 	In @ |4(turn, turns), [Discover] a [Quest]! """
-	dormant = 3
-	awake = BG24_Quest_Bob_Action(CONTROLLER)
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 4, [BG24_Quest_Bob_Action(CONTROLLER)]))
 	pass
 
 if BG24_Quest_Discover_Quest__Reward_DNT:# 

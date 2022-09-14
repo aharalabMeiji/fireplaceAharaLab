@@ -270,9 +270,6 @@ class BG_HumanAgent(BG_Agent):
 			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, modify_description(controller.hero.power,controller.hero.power.data.description)))
 		if controller.hero.power.id=='TB_BaconShop_HP_101':
 			print ("ダークムーンチケット (%d/3)"%(controller.hero.power._sidequest_counter_))
-		if controller.secrets!=[]:
-			for secret in controller.secrets:
-				print("秘策：%s"%(secret.name))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar:(*%d)[%s]%s" %(card.tech_level, self.raceName[card.race], self.card_stats(card)))
@@ -310,8 +307,8 @@ class BG_HumanAgent(BG_Agent):
 		pass
 	def printChoice(self, count, choice, target=None):
 		if hasattr(choice, 'quest') and len(choice.sidequest_list0)>0:
-			print ("[%d] %s : %s : [ %s ]"%(count, choice, target, choice.data.description.replace('\n','_'), choice.sidequest_list0[0].data.description.replace('\n','_')))
-		if target:
+			print ("[%d] %s : [ %s ]"%(count, self.card_stats(choice), self.card_stats(choice.sidequest_list0[0])))
+		elif target:
 			print ("[%d] %s (target: %s) : %s"%(count, choice, target, choice.data.description.replace('\n','_')))
 		else :
 			print ("[%d] %s : %s"%(count, choice, choice.data.description.replace('\n','_')))

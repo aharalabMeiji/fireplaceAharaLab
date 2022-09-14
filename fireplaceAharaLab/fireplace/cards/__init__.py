@@ -176,6 +176,8 @@ class CardDB(dict):
 			battlegrounds.BG_minion_murloc.BG_Minion_Murloc,
 			battlegrounds.BG_minion_pirate.BG_Minion_Pirate,
 			battlegrounds.BG_minion_quilboar.BG_Minion_Quilboar,
+			battlegrounds.BG24_quest.BG24_Quest,
+			battlegrounds.BG24_reward.BG24_Reward,
 			]
 		for cardIDlist in BG:
 			for id in cardIDlist:
