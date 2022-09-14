@@ -201,6 +201,9 @@ class BG_main:
 				bar.reroleCost=2
 				bar.minionCost=2
 			BeginGame(bar.controller).trigger(bar.controller)
+			################### 24.2 battlegrounds quest=reward
+			secret = bar.player1.card('BG24_Quest_Bob')
+			CastSecret(secret).trigger(bar.player1)
 			if Config.LOGINFO:
 				print ("==== %s 's bar was built ===="% agent)
 			pass
