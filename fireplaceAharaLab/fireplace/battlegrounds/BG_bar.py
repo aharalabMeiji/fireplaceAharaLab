@@ -21,6 +21,7 @@ class BG_Bar(Game):
 		self.this_is_battle=False		
 		self.hero_is_alive=True
 		self.local_rank=0
+		self.turn_end_effects_twice=False
 	pass
 	def __str__(self):
 		return "BG_Bar(%s)"%(self.controller.name)

@@ -119,7 +119,7 @@ class BGS_Treasures_006:# <8>[1453] ### maybe ##
 		new_field = []
 		for card in bartender.field:
 			tier = min(card.tech_level+1, 6)
-			new_card = RandomBGAdmissible(tech_level=tier).evaluate(self)
+			new_card = RandomBGAdmissible(tech_level=tier).evaluate(controller)
 			if hasattr(new_card, '__iter__'):
 				new_card=new_card[0]
 			new_field.append(bartender.card(new_card))

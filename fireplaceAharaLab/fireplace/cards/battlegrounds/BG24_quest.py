@@ -29,7 +29,7 @@ class BG24_Quest_112:# [2466]=1, [2580]=1,
 	""" Track the Footprints
 	[Quest:] Have Bob's Tavern [Refreshed] {0} times. """
 	#{0}=script_data_text_0=10 -> 9 24.2.2
-	events = Rerole(CONTROLLER).on(QuestCounter(SELF))
+	secret = Rerole(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Assemble_a_Lineup:# 
@@ -39,7 +39,7 @@ class BG24_Quest_114:# [2466]=1, [2643]=80, [2644]=90, [2646]=90,
 	""" Assemble a Lineup
 	[Quest:] Summon {0} minions. """
 	#{0}=14
-	events = Summon(CONTROLLER).on(QuestCounter(SELF))
+	secret = Summon(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Unmask_the_Culprit:# 
@@ -49,7 +49,7 @@ class BG24_Quest_120:# [2466]=1, [2580]=1, [2674]=2,
 	""" Unmask the Culprit
 	[Quest:] Lose or tie {0} combats. """
 	#{0}=3
-	events = [
+	secret = [
 		TieGame(CONTROLLER).on(QuestCounter(SELF)),
 		LoseGame(CONTROLLER).on(QuestCounter(SELF))
 	]
@@ -70,7 +70,7 @@ class BG24_Quest_123:# [2466]=1, [2580]=1,
 	""" Find the Murder Weapon
 	[Quest:] Increase a friendly minion's stats {0} times. """
 	#{0}=15
-	events = Buff(FRIENDLY_MINIONS).on(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
+	secret = Buff(FRIENDLY_MINIONS).on(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
 	pass
 
 if BG24_Quest_Reenact_the_Murder:# 
@@ -80,7 +80,7 @@ class BG24_Quest_124:# [2466]=1, [2643]=80, [2644]=80, [2646]=90,
 	""" Reenact the Murder
 	[Quest:] Have {0} friendly minions die. """
 	#{0}=18->19 (24.2.2)
-	events = Death(FRIENDLY_MINIONS).on(QuestCounter(SELF))
+	secret = Death(FRIENDLY_MINIONS).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Sort_It_All_Out:# 
@@ -100,7 +100,7 @@ class BG24_Quest_125:# [2466]=1, [2580]=1, [2642]=88, [2653]=300, [2674]=2,
 	""" Sort It All Out
 	[Quest:] Order your minions from lowest to highest Attack for {0} combats. """
 	#{0}=4
-	events = BeginBattle(CONTROLLER).on(BG24_Quest_125_Action(SELF))
+	secret = BeginBattle(CONTROLLER).on(BG24_Quest_125_Action(SELF))
 	pass
 
 if BG24_Quest_Follow_the_Money:# 
@@ -110,13 +110,12 @@ class BG24_Quest_126_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target, amount):
 		pass
-
 class BG24_Quest_126:# [2466]=1, 
 	""" Follow the Money
 	[Quest:] Spend {0} Gold. """
 	#{0}=30
 	## 30->33 (24.2.2)
-	events = [
+	secert = [
 		Buy(CONTROLLER).on(QuestCounter(SELF, 3)),
 		Activate(CONTROLLER).on(QuestCounter(SELF, COST(FRIENDLY_HERO_POWER)))
 	]
@@ -234,6 +233,9 @@ class BG24_Quest_Bob_Choice(Choice):
 			card.script_data_text_0=str(card.quest_progress_total)
 			rewardID = random.choice(BG24_Reward_Pool)
 			reward = player.card(rewardID)## zone=SETASIDE
+			if reward.id=='BG24_Reward_130':
+				card = RandomBGAdmissible().evaluate(player)
+				reward.script_data_text_0=card[0]
 			card.sidequest_list0=[reward]
 			## change the parameter in the card
 			##130=reward.data.get(2467,0)

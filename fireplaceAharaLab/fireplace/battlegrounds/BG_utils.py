@@ -321,7 +321,7 @@ class BG_main:
 							bar.no_drawing_at_turn_begin=True
 							for card in controller.field:
 								card.gem_applied_thisturn=False
-							EndTurn(controller).trigger(controller)
+							EndTurn(controller).trigger(controller)## EndBar
 							break
 						else: ###execute the move here
 							choice.execute()

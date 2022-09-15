@@ -12,19 +12,19 @@ BG24_Reward_Exquisite_Conch=True
 BG24_Reward_The_Smoking_Gun=True
 BG24_Reward_Mirror_Shield=True
 BG24_Reward_Secret_Sinstone=True
-BG24_Reward_Ghastly_Mask=False### difficult
+BG24_Reward_Ghastly_Mask=True### difficult
 BG24_Reward_Red_Hand=True
 BG24_Reward_The_Friends_Along_the_Way=True
 BG24_Reward_Yogg_tastic_Tasties=False# # under preparation
 BG24_Reward_Tiny_Henchmen=True
 BG24_Reward_Victims_Specter=True
-BG24_Reward_A_Good_Time=True
+BG24_Reward_A_Good_Time=False
 BG24_Reward_Avatar_of_the_Coin=False
 BG24_Reward_Anima_Bribe=True
 BG24_Reward_Cooked_Book=True
 BG24_Reward_Teal_Tiger_Sapphire=True
 BG24_Reward_Devils_in_the_Details=True
-BG24_Reward_Partner_in_Crime=True
+BG24_Reward_Partner_in_Crime=False
 BG24_Reward_Another_Hidden_Body=False## banned 24.2.1
 BG24_Reward_Staff_of_Origination=True
 BG24_Reward_Wondrous_Wisdomball=True
@@ -195,13 +195,30 @@ class BG24_Reward_129:# [2467]=130, [2641]=1,
 	events = Choice(CONTROLLER).after(Give(CONTROLLER, ExactCopy(Choice.CARD)))
 	pass
 
-if BG24_Reward_Ghastly_Mask:#  ######### difficult ################
+if BG24_Reward_Ghastly_Mask:#
 	BG24_Reward+=['BG24_Reward_130']
 	BG24_Reward_Pool+=['BG24_Reward_130']
+class BG24_Reward_130_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		card = RandomBGAdmissible().evaluate(controller)
+		source.script_data_text_0=card[0].id	
+		pass
+class BG24_Reward_130_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		Give(controller, source.script_data_text_0).trigger(controller)
+		controller.game.turn_end_effect_twice=True
+		pass
 class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1, 
 	""" Ghastly Mask
 	Add '{0}' to your hand. Your end of turn effects trigger twice. """
-	# 
+	secret = [
+		BeginBar().on(BG24_Reward_130_Action2(CONTROLLER)),
+		OWN_TURN_END.on(BG24_Reward_130_Action1(CONTROLLER))
+		]
 	pass
 
 if BG24_Reward_Red_Hand:# 
@@ -286,7 +303,7 @@ class BG24_Reward_138:# [2467]=80, [2641]=1,
 	events = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
 	pass
 
-if BG24_Reward_A_Good_Time:# 
+if BG24_Reward_A_Good_Time:# #### no wervice
 	BG24_Reward+=['BG24_Reward_210']
 	BG24_Reward_Pool+=['BG24_Reward_210']
 class BG24_Reward_210:# [2467]=150, 
@@ -295,7 +312,7 @@ class BG24_Reward_210:# [2467]=150,
 	#
 	pass
 
-if BG24_Reward_Avatar_of_the_Coin:# 
+if BG24_Reward_Avatar_of_the_Coin:#  ## no service
 	BG24_Reward+=['BG24_Reward_211']
 	BG24_Reward_Pool+=['BG24_Reward_211']
 class BG24_Reward_211:# [2467]=51, 
@@ -311,29 +328,31 @@ if BG24_Reward_Anima_Bribe:#
 class BG24_Reward_305:# [2467]=190, [2641]=1, [2649]=80, 
 	""" Anima Bribe
 	After you sell a minion, give its stats to a minion in Bob's Tavern. """
-	#
+	secret = Sell(CONTROLLER).after(Buff(ENEMY_MINIONS, 'BG24_Reward_305e', atk=ATK(Sell.CARD), max_health=MAX_HEALTH(Sell.CARD)))
 	pass
-
 class BG24_Reward_305e:# 
-	""" Anima Bribed
-	Increased stats. """
-	#
+	""" Anima Bribed	Increased stats. """
 	pass
 
 if BG24_Reward_Cooked_Book:# 
 	BG24_Reward+=['BG24_Reward_306']
 	BG24_Reward+=['BG24_Reward_306e']
 	BG24_Reward_Pool+=['BG24_Reward_306']
+class BG24_Reward_306_Action(TargetedAction):
+	#TARGET=ActionArg()
+	CARD=ActionArg()
+	def do(self, source, card):
+		#controller=target
+		Buff(card, 'BG24_Reward_306e', atk=source.script_data_num_1, max_health=source.script_data_num_1).trigger(source)
+		source.script_data_num_1 += 1
+		pass
 class BG24_Reward_306:# [2467]=150, [2641]=1, 
 	""" Cooked Book
 	After you buy a minion, give it +@/+@ and upgrade this. """
-	#
+	secret = Buy(CONTROLLER).on(BG24_Reward_306_Action(Buy.CARD))
 	pass
-
 class BG24_Reward_306e:# 
-	""" Cooked
-	Increased stats. """
-	#
+	""" Cooked 	Increased stats. """
 	pass
 
 if BG24_Reward_Teal_Tiger_Sapphire:# 
@@ -344,32 +363,38 @@ class BG24_Reward_308:# [2467]=140, [2641]=1, [2644]=60,
 	# ->  [2467]=100, [2641]=1, [2644]=70, (24.2.2) 
 	""" Teal Tiger Sapphire
 	Minions in Bob's Tavern have +1/+1 for each time it was [Refreshed] this turn. """
-	#
+	secret = Rerole(CONTROLLER).on(Buff(ENEMY_MINIONS, 'BG24_Reward_308e'))
 	pass
+BG24_Reward_308e=buff(1,1)
 
-class BG24_Reward_308e:# 
-	""" Tiger Spirit
-	Increased stats. """
-	#
-	pass
 
 if BG24_Reward_Devils_in_the_Details:# 
 	BG24_Reward+=['BG24_Reward_309']
 	BG24_Reward+=['BG24_Reward_309e']
 	BG24_Reward_Pool+=['BG24_Reward_309']
+class BG24_Reward_309_Action(TargetedAction):
+	#TARGET=ActionArg()
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		if len(controller.field)>0:
+			if len(controller.opponent.field)>0:
+				card = random.choice(controller.opponent.field)
+				EatsMinion(controller[0],card,1,'BG24_Reward_309e')
+			if len(controller.field)>1:
+				if len(controller.opponent.field)>0:
+					card = random.choice(controller.opponent.field)
+					EatsMinion(controller[-1],card,1,'BG24_Reward_309e')
 class BG24_Reward_309:# [2467]=110, [2641]=1, 
 	""" Devils in the Details
 	At the end of your turn, Your left and right-most minions consume a minion in Bob's Tavern. """
-	#
+	secret = OWN_TURN_END.on(BG24_Reward_309_Action(CONTROLLER))
 	pass
-
 class BG24_Reward_309e:# 
-	""" Satisfied. For Now...
-	Consumed the stats of minion. """
-	#
+	""" Satisfied. For Now...Consumed the stats of minion. """
 	pass
 
-if BG24_Reward_Partner_in_Crime:# 
+if BG24_Reward_Partner_in_Crime:# no service
 	BG24_Reward+=['BG24_Reward_310']
 	BG24_Reward_Pool+=['BG24_Reward_310']
 class BG24_Reward_310:# [2467]=100, [2653]=10000, 

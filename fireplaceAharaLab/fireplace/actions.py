@@ -378,6 +378,8 @@ class EndTurn(GameAction):
 				"%r cannot end turn with the open choice %r." % (player, player.choice)
 			)
 		self.broadcast(source, EventListener.ON, player)
+		if getattr(player.game,'turn_end_effects_twice',False)==True:
+			self.broadcast(source, EventListener.ON, player)
 		source.game.refresh_auras()  # XXX 
 		source.game._end_turn()
 
@@ -3667,6 +3669,10 @@ class Rerole(TargetedAction): ## battlegrounds
 		pass
 
 class Sell(TargetedAction):
+	""" Sell a minion (battlegrounds)
+	TARGET = ActionArg()#controller
+	CARD = CardArg()#card
+	"""
 	TARGET = ActionArg()
 	CARD = CardArg()
 	def do(self, source, target, card):
