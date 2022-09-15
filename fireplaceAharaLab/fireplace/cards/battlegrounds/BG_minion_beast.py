@@ -28,13 +28,13 @@ BG_Beast_Gold={}
 
 ##Alleycat <beast> (1/1) ###  OK ###
 if BG_Alleycat:
-	BG_Minion_Beast += ['CFM_315','CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',]#Alleycat
-	BG_PoolSet_Beast[1].append('CFM_315')
-	BG_Beast_Gold['CFM_315']='TB_BaconUps_093'
+	BG_Minion_Beast += ['BG_CFM_315','BG_CFM_315t','TB_BaconUps_093','TB_BaconUps_093t',]#Alleycat
+	BG_PoolSet_Beast[1].append('BG_CFM_315')
+	BG_Beast_Gold['BG_CFM_315']='TB_BaconUps_093'
 class CFM_315:# <3>[25]   
 	""" Alleycat <beast> (1/1)
 	[Battlecry:] Summon a 1/1_Cat."""
-	play = Summon(CONTROLLER, 'CFM_315t')
+	play = Summon(CONTROLLER, 'BG_CFM_315t')
 	pass
 class CFM_315t:# <3>[25]
 	""" Tabbycat <beast>, 	"""

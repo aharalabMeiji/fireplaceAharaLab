@@ -2458,7 +2458,7 @@ class QuestCounter(TargetedAction):
 	TARGET = ActionArg()# sidequest card
 	STEP=IntArg()
 	def do(self, source, target, step=1):
-		if hasattr(target.controller.game,'this_is_battle'):
+		if getattr(target.controller.game,'this_is_battle', False):
 			target = target.deepcopy_original
 		amount = target.quest_progress_total
 		targetaction = target.sidequest_list0

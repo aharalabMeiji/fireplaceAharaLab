@@ -44,11 +44,12 @@ class TB_BaconShop_HP_087t_Action(TargetedAction):
 class TB_BaconShop_HP_087_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		controller = target
-		source.deepcopy_original.score_value_1 -= 1
-		source.deepcopy_original.script_data_num_1 = source.deepcopy_original.score_value_1
-		if source.deepcopy_original.script_data_num_1 <= 0: ###25
-			ChangeHeroPower(controller.deepcopy_original, 'TB_BaconShop_HP_087t').trigger(source)
+		if hasattr(source.controller.game,'this_is_battle') and source.controller.game.this_is_battle:
+			controller = target
+			source.deepcopy_original.score_value_1 -= 1
+			source.deepcopy_original.script_data_num_1 = source.deepcopy_original.score_value_1
+			if source.deepcopy_original.script_data_num_1 <= 0: ###25
+				ChangeHeroPower(controller.deepcopy_original, 'TB_BaconShop_HP_087t').trigger(source)
 		pass
 class TB_BaconShop_HP_087:
 	""" DIE, INSECTS!

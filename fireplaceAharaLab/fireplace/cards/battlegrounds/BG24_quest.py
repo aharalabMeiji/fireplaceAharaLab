@@ -117,8 +117,8 @@ class BG24_Quest_126:# [2466]=1,
 	#{0}=30
 	## 30->33 (24.2.2)
 	events = [
-		Buy(CONTROLLER).on(QuestCounter(CONTROLLER, 3)),
-		Activate(CONTROLLER).on(QuestCounter(CONTROLLER, COST(FRIENDLY_HERO_POWER)))
+		Buy(CONTROLLER).on(QuestCounter(SELF, 3)),
+		Activate(CONTROLLER).on(QuestCounter(SELF, COST(FRIENDLY_HERO_POWER)))
 	]
 	pass
 
@@ -139,7 +139,7 @@ class BG24_Quest_151_Action2(TargetedAction):
 			target=target[0]
 		if target!=[]:
 			if target.type==CardType.MINION and target.race in source.sidequest_list0:
-				QuestCounter(source.controller).trigger(source)
+				QuestCounter(source).trigger(source)
 		pass
 class BG24_Quest_151:# [2466]=1, [2496]=1, 
 	""" Unlikely Duo
@@ -168,7 +168,7 @@ class BG24_Quest_311:#
 	[Quest:] Play {0} [Battlecry] minions. """
 	# [2466]=1, [2642]=92, [2647]=80, 
 	# 	#{0}=6
-	events = Play(CONTROLLER, FRIENDLY+BATTLECRY).on(QuestCounter(CONTROLLER))
+	events = Play(CONTROLLER, FRIENDLY+BATTLECRY).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Invite_the_Guests:# 
@@ -178,7 +178,7 @@ class BG24_Quest_313:# [2466]=1,
 	""" Invite the Guests
 	[Quest:] Buy {0} minions. """
 	#{0}=7
-	events = Buy(CONTROLLER).on(QuestCounter(CONTROLLER))
+	events = Buy(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Dust_for_Prints:# 
@@ -189,8 +189,8 @@ class BG24_Quest_314:# [2466]=1, [2650]=70, [2651]=70,
 	[Quest:] Add {0} cards to your hand. """
 	#{0}=15
 	events = [
-		Draw(CONTROLLER).on(QuestCounter(CONTROLLER)),
-		Give(CONTROLLER).on(QuestCounter(CONTROLLER))
+		Draw(CONTROLLER).on(QuestCounter(SELF)),
+		Give(CONTROLLER).on(QuestCounter(SELF))
 		]
 	pass
 
@@ -241,7 +241,7 @@ class BG24_Quest_Bob_Choice(Choice):
 	def choose(self, card):
 		self.next_choice=None
 		super().choose(card)
-		CastSpell(card).trigger(self.source)
+		CastSecret(card).trigger(self.source)
 	pass
 class BG24_Quest_Bob_Action(TargetedAction):
 	TARGET=ActionArg()

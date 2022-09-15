@@ -19,6 +19,7 @@ class BG_Battle(Game):
 		self.player1.deepcopy_original = bars[0].controller
 		self.player2.deepcopy_original = bars[1].controller
 		self.this_is_battle=True
+		self.this_is_tavern=False
 
 		super().__init__([self.player1, self.player2])
 		## re-numbering for entity_id's

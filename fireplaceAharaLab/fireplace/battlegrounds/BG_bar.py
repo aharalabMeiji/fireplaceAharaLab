@@ -18,6 +18,7 @@ class BG_Bar(Game):
 		self.player_field_number=0
 		self.player_hand_number=0
 		self.this_is_tavern=True
+		self.this_is_battle=False		
 		self.hero_is_alive=True
 		self.local_rank=0
 	pass
