@@ -12,7 +12,7 @@ BG24_Reward_Exquisite_Conch=True
 BG24_Reward_The_Smoking_Gun=True
 BG24_Reward_Mirror_Shield=True
 BG24_Reward_Secret_Sinstone=True
-BG24_Reward_Ghastly_Mask=True
+BG24_Reward_Ghastly_Mask=False### difficult
 BG24_Reward_Red_Hand=True
 BG24_Reward_The_Friends_Along_the_Way=True
 BG24_Reward_Yogg_tastic_Tasties=False# # under preparation
@@ -33,9 +33,9 @@ BG24_Reward_Alter_Ego=True
 BG24_Reward_9_Lives=True
 BG24_Reward_Menagerie_Mayhem=True
 BG24_Reward_Pilfered_Lamps=True
-BG24_Reward_Totemic_Tavern=True
-BG24_Reward_Purified_Shard=True
-BG24_Reward_Un_Murloc_Your_Potential=True
+BG24_Reward_Totemic_Tavern=False
+BG24_Reward_Purified_Shard=False
+BG24_Reward_Un_Murloc_Your_Potential=False
 
 
 if BG24_Reward_Snicker_Snacks:# 
@@ -175,7 +175,6 @@ class BG24_Reward_128:# [2467]=75, [2641]=1,
 	After each [Refresh], give a minion in Bob's Tavern +4/+4 and [Divine Shield]. """
 	events = Rerole(CONTROLLER).on(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_128e'))
 	pass
-
 class BG24_Reward_128e:#
 	""" Mirror Shield
 	+4/+4 and [Divine Shield]. """
@@ -274,10 +273,17 @@ BG24_Reward_136e=buff(3,3)#
 if BG24_Reward_Victims_Specter:# 
 	BG24_Reward+=['BG24_Reward_138']
 	BG24_Reward_Pool+=['BG24_Reward_138']
+class BG24_Reward_138_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if len(target.death_log)>0:
+			card = target.death_log[-1]
+			Give(target.deepcopy_original, card.id).trigger(source)
+		pass
 class BG24_Reward_138:# [2467]=80, [2641]=1, 
 	""" Victim's Specter
 	 After each combat, get a plain copy of the last friendly minion that died. """
-	#
+	events = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
 	pass
 
 if BG24_Reward_A_Good_Time:# 
@@ -471,7 +477,7 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 	#
 	pass
 
-if BG24_Reward_Totemic_Tavern:# 
+if BG24_Reward_Totemic_Tavern:# XXXXXXXXXXXXXXXXXX
 	BG24_Reward+=['BG24_Reward_351']
 	BG24_Reward_Pool+=['BG24_Reward_351']
 class BG24_Reward_351:# [2467]=30, 
@@ -480,7 +486,7 @@ class BG24_Reward_351:# [2467]=30,
 	#
 	pass
 
-if BG24_Reward_Purified_Shard:# 
+if BG24_Reward_Purified_Shard:# ????????????????????
 	BG24_Reward+=['BG24_Reward_352']
 	BG24_Reward_Pool+=['BG24_Reward_352']
 class BG24_Reward_352:# [2467]=999, 
@@ -489,7 +495,7 @@ class BG24_Reward_352:# [2467]=999,
 	#
 	pass
 
-if BG24_Reward_Un_Murloc_Your_Potential:# 
+if BG24_Reward_Un_Murloc_Your_Potential:#???????????????
 	BG24_Reward+=['BG24_Reward_535']
 	BG24_Reward_Pool+=['BG24_Reward_535']
 class BG24_Reward_535:# [2467]=80, 
