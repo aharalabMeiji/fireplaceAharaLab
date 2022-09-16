@@ -36,6 +36,12 @@ class Config:# ()is the default value
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
 
+	DARKMOON_TICKET_FOR_ALL=0 ## 全員にダークムーンチケットを配布
+	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
+	QUEST_REWARD=1 ## クエストルール（24.2）
+	QUEST_PRESET=''
+	REWARD_PRESET=''
+
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1=''
 	CARD_PRESET2=''

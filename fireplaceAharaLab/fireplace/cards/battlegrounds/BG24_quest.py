@@ -231,7 +231,10 @@ class BG24_Quest_Bob_Choice(Choice):
 		super().do(source, player, cards, option=None)
 		for card in cards:
 			card.script_data_text_0=str(card.quest_progress_total)
-			rewardID = random.choice(BG24_Reward_Pool)
+			if card.id==Config.QUEST_PRESET:
+				rewardID=Config.REWARD_PRESET
+			else:
+				rewardID = random.choice(BG24_Reward_Pool)
 			reward = player.card(rewardID)## zone=SETASIDE
 			if reward.id=='BG24_Reward_130':
 				card = RandomBGAdmissible().evaluate(player)
@@ -249,7 +252,10 @@ class BG24_Quest_Bob_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
-		quests=random.sample(BG24_Quest_Pool,3)
+		if Config.QUEST_PRESET!='':
+			quests=random.sample(BG24_Quest_Pool,3)
+		else:
+			quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
 		BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
 		choiceAction(controller)
 		Destroy(source).trigger(source)
