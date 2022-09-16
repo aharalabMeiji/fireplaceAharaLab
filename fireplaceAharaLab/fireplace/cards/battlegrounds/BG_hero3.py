@@ -143,6 +143,7 @@ class TB_BaconShop_HP_081_Action2(TargetedAction):
 		if source.sidequest_list0!=[] and source.sidequest_list0[0] in controller.game.parent.drawers:
 			#if correct, give the controller three coins.
 			Give(controller, 'GAME_005').trigger(source)
+		source.sidequest_list0=[]## clear the guess
 class TB_BaconShop_HP_081: ############# impossible
 	"""Friendly Wager
 	Guess which player will win their next combat. _If they win, get 3 Coins."""

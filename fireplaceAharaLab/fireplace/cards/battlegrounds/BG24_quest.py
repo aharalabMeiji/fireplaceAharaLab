@@ -231,7 +231,7 @@ class BG24_Quest_Bob_Choice(Choice):
 		super().do(source, player, cards, option=None)
 		for card in cards:
 			card.script_data_text_0=str(card.quest_progress_total)
-			if card.id==Config.QUEST_PRESET:
+			if card.id==Config.QUEST_PRESET and Config.REWARD_PRESET!='':
 				rewardID=Config.REWARD_PRESET
 			else:
 				rewardID = random.choice(BG24_Reward_Pool)
@@ -252,7 +252,7 @@ class BG24_Quest_Bob_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
-		if Config.QUEST_PRESET!='':
+		if Config.QUEST_PRESET=='':
 			quests=random.sample(BG24_Quest_Pool,3)
 		else:
 			quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
