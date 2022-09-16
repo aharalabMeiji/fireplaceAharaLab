@@ -8,7 +8,7 @@ BG24_Reward_Stolen_Gold=True
 BG24_Reward_Evil_Twin=True
 BG24_Reward_Ritual_Dagger=True
 BG24_Reward_Theotars_Parasol=True
-BG24_Reward_Exquisite_Conch=True
+BG24_Reward_Exquisite_Conch=False # not in service
 BG24_Reward_The_Smoking_Gun=True
 BG24_Reward_Mirror_Shield=True
 BG24_Reward_Secret_Sinstone=True
@@ -18,13 +18,13 @@ BG24_Reward_The_Friends_Along_the_Way=True
 BG24_Reward_Yogg_tastic_Tasties=False# # under preparation
 BG24_Reward_Tiny_Henchmen=True
 BG24_Reward_Victims_Specter=True
-BG24_Reward_A_Good_Time=False
-BG24_Reward_Avatar_of_the_Coin=False
+BG24_Reward_A_Good_Time=False# not in service
+BG24_Reward_Avatar_of_the_Coin=False# not in service
 BG24_Reward_Anima_Bribe=True
 BG24_Reward_Cooked_Book=True
 BG24_Reward_Teal_Tiger_Sapphire=True
 BG24_Reward_Devils_in_the_Details=True
-BG24_Reward_Partner_in_Crime=False
+BG24_Reward_Partner_in_Crime=False# not in service
 BG24_Reward_Another_Hidden_Body=False## banned 24.2.1
 BG24_Reward_Staff_of_Origination=True
 BG24_Reward_Wondrous_Wisdomball=True
@@ -55,7 +55,7 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 	# -> [2467]=120, [2641]=1, [2647]=60 (24.2.2) (easy to obtain)
 	""" Snicker Snacks
 	At the end of your turn, 2 friendly minions trigger their [Battlecries]. """
-	events = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
+	secret = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
 	#<Tag enumID="201" name="FACTION" type="Int" value="3"/>
 	pass
 
@@ -77,7 +77,7 @@ class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [27
 	# [1500]=1, [2467]=140, [2641]=1, [2643]=90, [2645]=90, [2646]=90, [2727]=1,(24.2.2 harder)
 	""" Stolen Gold
 	[Start of Combat:] Make your left and right- most minions Golden. """
-	events = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
+	secret = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
 	pass
 
 if BG24_Reward_Evil_Twin:# 
@@ -99,7 +99,7 @@ class BG24_Reward_111_Action(TargetedAction):
 class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1, 
 	""" Evil Twin
 	[Start of Combat:] Summon a copy of your highest-Health minion. """
-	events = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action(CONTROLLER))
+	secret = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action(CONTROLLER))
 	pass
 
 if BG24_Reward_Ritual_Dagger:# 
@@ -110,7 +110,7 @@ if BG24_Reward_Ritual_Dagger:#
 class BG24_Reward_113:# [2467]=80, [2641]=1, 
 	""" Ritual Dagger
 	After a friendly [Deathrattle] minion dies, give it +4/+4 permanently. """
-	events = Death(FRIENDLY + DEATHRATTLE).on(BuffPermanently(Death.TARGET, 'BG24_Reward_113e'))
+	secret = Death(FRIENDLY + DEATHRATTLE).on(BuffPermanently(Death.TARGET, 'BG24_Reward_113e'))
 	pass
 class BG24_Reward_113_ALT:# [2467]=70, [2643]=90, [2646]=90, 
 	""" Ritual Dagger
@@ -134,7 +134,7 @@ class BG24_Reward_115_Action(TargetedAction):
 class BG24_Reward_115:# [2467]=70, [2641]=1, 
 	""" Theotar's Parasol
 	At the end of your turn, give your right-most minion [Stealth] until next turn and +8 Health. """
-	events = BeginBattle(CONTROLLER).on(BG24_Reward_115_Action(CONTROLLER))
+	secret = BeginBattle(CONTROLLER).on(BG24_Reward_115_Action(CONTROLLER))
 	pass
 BG24_Reward_115e=buff(0,8)
 class BG24_Reward_115e2:# [2594]=1, 
@@ -144,7 +144,7 @@ class BG24_Reward_115e2:# [2594]=1,
 		target.stealthed=True
 	pass
 
-if BG24_Reward_Exquisite_Conch:# 
+if BG24_Reward_Exquisite_Conch:# not in service
 	BG24_Reward+=['BG24_Reward_123']
 	BG24_Reward_Pool+=['BG24_Reward_123']
 class BG24_Reward_123:# [2467]=80, [2647]=50, 
@@ -173,7 +173,7 @@ class BG24_Reward_128:# [2467]=75, [2641]=1,
 	# [2467]=130, [2641]=1, [2647]=85 (harder to obatain it)
 	""" Mirror Shield
 	After each [Refresh], give a minion in Bob's Tavern +4/+4 and [Divine Shield]. """
-	events = Rerole(CONTROLLER).on(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_128e'))
+	secret = Rerole(CONTROLLER).on(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_128e'))
 	pass
 class BG24_Reward_128e:#
 	""" Mirror Shield
@@ -192,7 +192,7 @@ if BG24_Reward_Secret_Sinstone:#
 class BG24_Reward_129:# [2467]=130, [2641]=1, 
 	""" Secret Sinstone
 	After you [Discover] a card, get an extra copy of it. """
-	events = Choice(CONTROLLER).after(Give(CONTROLLER, ExactCopy(Choice.CARD)))
+	secret = Choice(CONTROLLER).after(Give(CONTROLLER, ExactCopy(Choice.CARD)))
 	pass
 
 if BG24_Reward_Ghastly_Mask:#
@@ -229,7 +229,7 @@ class BG24_Reward_131:# [2467]=110, [2641]=1
 	# -> [2467]=90, [2641]=1 (24.2.2, easier to obtain)
 	""" Red Hand
 	At the start of your turn, give a minion in your hand +12/+12. """
-	events = BeginBar(CONTROLLER).on(Buff(RANDOM(FRIENDLY_HAND), 'BG24_Reward_131e'))
+	secret = BeginBar(CONTROLLER).on(Buff(RANDOM(FRIENDLY_HAND), 'BG24_Reward_131e'))
 	pass
 BG24_Reward_131e=buff(12,12)
 
@@ -251,7 +251,7 @@ class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1,
 	""" The Friends Along the Way
 	At the start of your turn, get 2 random {0}. """
 	#{0} = Race.SOMETHING
-	events = [
+	secret = [
 		Play(CONTROLLER, SELF).on(BG24_Reward_134_Action1(CONTROLLER)),
 		BeginBar(CONTROLLER).on(BG24_Reward_134_Action2(CONTROLLER))
 	]
@@ -282,7 +282,7 @@ class BG24_Reward_136_Action(TargetedAction):
 class BG24_Reward_136:# [2467]=100, [2641]=1, 
 	""" Tiny Henchmen
 	At the end of your turn, give +2/+2 to 3 friendly minions of Tier 3 or lower. """
-	events = OWN_TURN_END.on(BG24_Reward_136_Action(CONTROLLER))
+	secret = OWN_TURN_END.on(BG24_Reward_136_Action(CONTROLLER))
 	pass
 # 2/2->3/3 (24.2.2)
 BG24_Reward_136e=buff(3,3)# 
@@ -300,10 +300,10 @@ class BG24_Reward_138_Action(TargetedAction):
 class BG24_Reward_138:# [2467]=80, [2641]=1, 
 	""" Victim's Specter
 	 After each combat, get a plain copy of the last friendly minion that died. """
-	events = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
+	secret = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
 	pass
 
-if BG24_Reward_A_Good_Time:# #### no wervice
+if BG24_Reward_A_Good_Time:# #### no service
 	BG24_Reward+=['BG24_Reward_210']
 	BG24_Reward_Pool+=['BG24_Reward_210']
 class BG24_Reward_210:# [2467]=150, 
@@ -409,7 +409,6 @@ if BG24_Reward_Another_Hidden_Body:# banned 24.2.1
 class BG24_Reward_311:# [2467]=70, [2581]=1, [2641]=1, 
 	""" Another Hidden Body
 	[Discover] a minion of your Tavern Tier. <i>(Can be earned endlessly!)</i> """
-	#
 	pass
 
 if BG24_Reward_Staff_of_Origination:# 
@@ -419,7 +418,7 @@ if BG24_Reward_Staff_of_Origination:#
 class BG24_Reward_312:# [1500]=1, [2467]=275, [2641]=1, [2653]=300, [2727]=1, 
 	""" Staff of Origination
 	[Start of Combat:] Give your minions +12/+12. """
-	#
+	secret = BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'BG24_Reward_312e'))
 	pass
 
 #+15/+15 -> +12/+12 (24.2.2)
@@ -458,14 +457,16 @@ if BG24_Reward_Alter_Ego:#
 class BG24_Reward_321:# [2467]=120, [2641]=1, 
 	""" Alter Ego
 	Even Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Odd next turn!)</i> """
-	#
+	update = Refresh(FRIENDLY_MINIONS + EVEN_TECH_LEVEL, 'BG24_Reward_321e')
+	events = OWN_TURN_BEGIN.on(CastSecret(CONTROLLER, 'BG24_Reward_321t'),Destroy(SELF))
 	pass
 ## +6/+6 -> +7/+7 (24.2.2)
 BG24_Reward_321e=buff(7,7)# 
 class BG24_Reward_321t:# 
 	""" Alter Ego
 	Odd Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Even next turn!)</i> """
-	#
+	update = Refresh(FRIENDLY_MINIONS + ODD_TECH_LEVEL, 'BG24_Reward_321e')
+	events = OWN_TURN_BEGIN.on(CastSecret(CONTROLLER, 'BG24_Reward_321'),Destroy(SELF))
 	pass
 
 if BG24_Reward_9_Lives:# 
@@ -481,17 +482,26 @@ if BG24_Reward_Menagerie_Mayhem:#
 	BG24_Reward+=['BG24_Reward_331']
 	BG24_Reward+=['BG24_Reward_331e']
 	BG24_Reward_Pool+=['BG24_Reward_331']
+class BG24_Reward_331_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		targets=[]
+		for race in random_picker.BG_races:
+			if race!=Race.INVALID:
+				cards = [card for card in controller.field if card.race==race]
+				if len(cards)>0:
+					targets.append(random.choice(cards))
+		for card in targets:
+			Buff(card, 'BG24_Reward_331e').trigger(source)
+		pass
 class BG24_Reward_331:# [2467]=150, [2641]=1, 
 	""" Menagerie Mayhem
 	At the end of your turn, give your minions +1 Attack for each friendly minion type. """
-	#
+	secret = OWN_TURN_END.on(BG24_Reward_331_Action(CONTROLLER))
 	pass
+BG24_Reward_331e=buff(1,0)
 
-class BG24_Reward_331e:# 
-	""" Mischievous Mayhem
-	Increased Attack. """
-	#
-	pass
 
 if BG24_Reward_Pilfered_Lamps:# 
 	BG24_Reward+=['BG24_Reward_350']
