@@ -4,7 +4,7 @@ BG_Icky_Imp=False ##(1) banned 24.2
 BG_Impulsive_Trickster=True ##(1)
 BG24__Picky_Eater=True ## (1) new 24.2
 BG_Nathrezim_Overseer=False ##(2) banned 24.2
-BG_Imprisoner=True ##(2)
+BG_Imprisoner=True ##(2)->(1) when? 
 BG_Mind_Muck=True #(2) new 24.2
 BG_Piggyback_Imp=True #(2) new 24.2
 BG_Kathra_natir=True ##(3)
@@ -142,10 +142,10 @@ TB_BaconUps_062e=buff(4,4)
 
 
 
-####################  禁固番  (2) ### OK ###
+####################  禁固番  (1) ### OK ###
 if BG_Imprisoner:
 	BG_Minion_Demon +=['BGS_014','BRM_006t','TB_BaconUps_113','TB_BaconUps_030t']
-	BG_PoolSet_Demon[2].append('BGS_014')
+	BG_PoolSet_Demon[1].append('BGS_014')
 	BG_Demon_Gold['BGS_014']='TB_BaconUps_113'
 class BGS_014:# <12>[1453]
 	""" Imprisoner (2)

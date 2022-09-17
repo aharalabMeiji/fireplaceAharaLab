@@ -247,11 +247,11 @@ class TB_BaconUps_014:# <5>[1453]
 
 
 if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	-　### OK ###
-	BG_Minion += ['OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',]#	
-	BG_PoolSet_Minion[2].append('OG_256')
-	BG_Minion_Gold['OG_256']='TB_BaconUps_025'
+	BG_Minion += ['BG_OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',]#	
+	BG_PoolSet_Minion[2].append('BG_OG_256')
+	BG_Minion_Gold['BG_OG_256']='TB_BaconUps_025'
 	pass
-class OG_256:#　んぞす
+class BG_OG_256:#　んぞす
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +1/+1. """
 	deathrattle = Buff(FRIENDLY_MINIONS, 'OG_256e')#
