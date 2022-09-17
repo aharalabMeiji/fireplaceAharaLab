@@ -2474,10 +2474,13 @@ class QuestCounter(TargetedAction):
 			target.script_data_num_1 = amount
 			if targetaction!=None:
 				for action in targetaction:
-					if isinstance(action, TargetedAction): 
-						action.trigger(source)
-					if isinstance(action, Choice): 
-						action.trigger(source)
+					if getattr(action,'type', 0)==40:
+						CastSecret(action).trigger(source)
+					target.destroy()
+					#if isinstance(action, TargetedAction): 
+					#	action.trigger(source)
+					#if isinstance(action, Choice): 
+					#	action.trigger(source)
 
 
 class SidequestCounterText0(TargetedAction):
