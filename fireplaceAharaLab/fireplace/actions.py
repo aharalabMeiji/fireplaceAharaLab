@@ -2468,6 +2468,7 @@ class QuestCounter(TargetedAction):
 			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+step), targetaction))
 		target._sidequest_counter_ += step
 		target.script_data_num_1 = amount - target._sidequest_counter_
+		target.script_data_text_0 = str(target.script_data_num_1)
 		if target._sidequest_counter_== amount:
 			target._sidequest_counter_ = 0
 			target.script_data_num_1 = amount
