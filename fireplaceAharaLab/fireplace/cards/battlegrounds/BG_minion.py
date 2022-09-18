@@ -528,12 +528,12 @@ class TB_BaconUps_075:# <9>[1453]
 
 
 if BG_Nightmare_Amalgam:##Nightmare Amalgam (3) RENEW  23.2
-	BG_Minion += ['GIL_681','BG_GIL_681_G', ]#	
-	BG_PoolSet_Minion[3].append('GIL_681')
-	BG_Minion_Gold['GIL_681']='BG_GIL_681_G'
+	BG_Minion += ['BG_GIL_681','BG_GIL_681_G', ]#	
+	BG_PoolSet_Minion[3].append('BG_GIL_681')
+	BG_Minion_Gold['BG_GIL_681']='BG_GIL_681_G'
 	# Nightmare Amalgam 3 RENEW  23.2
 	pass
-class GIL_681:
+class BG_GIL_681:
 	""" Nightmare Amalgam (3)
 	<i>This has all minion types.</i>"""
 	pass
@@ -884,11 +884,11 @@ class BG_DAL_775_G:
 
 
 if BG_Baron_Rivendare:#Baron Rivendare	5	1	7		 ### maybe ###
-	BG_Minion += ['FP1_031','TB_BaconUps_055',]#	
-	BG_PoolSet_Minion[5].append('FP1_031')
-	BG_Minion_Gold['FP1_031']='TB_BaconUps_055'
+	BG_Minion += ['BG_FP1_031','TB_BaconUps_055',]#	
+	BG_PoolSet_Minion[5].append('BG_FP1_031')
+	BG_Minion_Gold['BG_FP1_031']='TB_BaconUps_055'
 	pass
-class FP1_031:# ばろん
+class BG_FP1_031:# ばろん
 	"""Baron Rivendare
 	Your minions trigger their [Deathrattles] twice."""
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})

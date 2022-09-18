@@ -54,7 +54,7 @@ if BG_Scavenging_Hyena:
 	BG_Minion_Beast += ['BG_EX1_531','EX1_531e','TB_BaconUps_043','TB_BaconUps_043e',]#Scavenging Hyena
 	BG_PoolSet_Beast[1].append('BG_EX1_531')
 	BG_Beast_Gold['BG_EX1_531']='TB_BaconUps_043'
-class EX1_531: #<3>[1637] 
+class BG_EX1_531: #<3>[1637] 
 	"""Scavenging Hyena (1/2/2)
 	Whenever a friendly Beast dies, gain +2/+1."""
 	events = Death(FRIENDLY + BEAST).on(Buff(SELF, "EX1_531e"))
@@ -255,15 +255,15 @@ class BG21_003_G:# <12>[1453]
 
 #Savannah Highmane (4/6/5) ### maybe ###
 if BG_Savannah_Highmane:
-	BG_Minion_Beast += ['EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',]#Savannah Highmane(4)
-	BG_PoolSet_Beast[4].append('EX1_534')
-	BG_Beast_Gold['EX1_534']='TB_BaconUps_049'
-class EX1_534: ## ハイメイン
+	BG_Minion_Beast += ['BG_EX1_534','EX1_534t','TB_BaconUps_049','TB_BaconUps_049t',]#Savannah Highmane(4)
+	BG_PoolSet_Beast[4].append('BG_EX1_534')
+	BG_Beast_Gold['BG_EX1_534']='TB_BaconUps_049'
+class BG_EX1_534: ## ハイメイン
 	""" Savannah Highmane (4/6/5)
 	[Deathrattle:] Summon two 2/2 Hyenas."""
 	deathrattle = Summon(CONTROLLER, 'EX1_534t')
 	pass
-class EX1_534t:
+class BG_EX1_534t:
 	""" Hyenta	"""
 	pass
 class TB_BaconUps_049:

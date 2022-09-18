@@ -65,10 +65,10 @@ BG22_401_Ge=buff(2,0)
 
 #Murloc Warleader (2)  ### maybe ###
 if BG_Murloc_Warleader:
-	BG_Minion_Murloc+=['EX1_507','EX1_507e','TB_BaconUps_008','TB_BaconUps_008e',]
-	BG_PoolSet_Murloc[2].append('EX1_507')
-	BG_Murloc_Gold['EX1_507']='TB_BaconUps_008'
-class EX1_507:
+	BG_Minion_Murloc+=['BG_EX1_507','EX1_507e','TB_BaconUps_008','TB_BaconUps_008e',]
+	BG_PoolSet_Murloc[2].append('BG_EX1_507')
+	BG_Murloc_Gold['BG_EX1_507']='TB_BaconUps_008'
+class BG_EX1_507:
 	"""Murloc Warleader 戦隊長
 	"""
 	update = Refresh(FRIENDLY_MINIONS + MURLOC - SELF, buff="EX1_507e")

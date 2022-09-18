@@ -49,14 +49,15 @@ class BGS_061_Action(TargetedAction):
 	TARGET=ActionArg()
 	CARDID=ActionArg()
 	def do(self, source, target, cardid):
-		controller = target
-		newcard=Summon(controller, cardid).trigger(controller)
-		newcard=newcard[0][0]
-		if len(controller.opponent.field)>0:
-			defender=random.choice(controller.opponent.field)
-			#print("%s attacks %s"%(newcard,defender))
-			BG_Attack(newcard, defender).trigger(source)
-			Deaths().trigger(source)
+		if getattr(source.game, 'this_is_battle', False):
+			controller = target
+			newcard=Summon(controller, cardid).trigger(controller)
+			newcard=newcard[0][0]
+			if len(controller.opponent.field)>0:
+				defender=random.choice(controller.opponent.field)
+				#print("%s attacks %s"%(newcard,defender))
+				BG_Attack(newcard, defender).trigger(source)
+				source.game.process_deaths()
 class BGS_061:# <12>[1453]
 	""" Scallywag
 	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """
@@ -94,10 +95,10 @@ class TB_BaconUps_127:# <12>[1453]
 
 #Southsea Captain,2,3,3,Pirate,- ### OK ###
 if BG_Southsea_Captain:
-	BG_Minion_Pirate +=['NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e']
-	BG_PoolSet_Pirate[2].append('NEW1_027')
-	BG_Pirate_Gold['NEW1_027']='TB_BaconUps_136'
-class NEW1_027:
+	BG_Minion_Pirate +=['BG_NEW1_027','NEW1_027e','TB_BaconUps_136','TB_BaconUps_136e']
+	BG_PoolSet_Pirate[2].append('BG_NEW1_027')
+	BG_Pirate_Gold['BG_NEW1_027']='TB_BaconUps_136'
+class BG_NEW1_027:
 	""" Southsea Captain
 	Your other Pirates have +1/+1. """
 	update = Refresh(FRIENDLY_MINIONS + PIRATE - SELF, buff="NEW1_027e")

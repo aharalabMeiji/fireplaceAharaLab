@@ -287,11 +287,11 @@ class BG_main:
 					controller.sells_in_this_turn=0
 					### deal cards to tavern
 					frozencard=0
-					for card in bartender.field:
+					for card in reversed(bartender.field):
 						if Config.LOGINFO:
 							Config.log("BG_MainBG_Main","field card %s is removed."%(card))
 						if not card.frozen and not card.dormant>0:
-							card.to_be_destroyed=True
+							card.discard()
 						else:
 							card.frozen=False
 							frozencard += 1

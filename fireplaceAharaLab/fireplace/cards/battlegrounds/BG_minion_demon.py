@@ -1,7 +1,7 @@
 from ..utils import *
 
 BG_Icky_Imp=False ##(1) banned 24.2
-BG_Impulsive_Trickster=True ##(1)
+BG_Impulsive_Trickster=True ##(1)->(2)
 BG24__Picky_Eater=True ## (1) new 24.2
 BG_Nathrezim_Overseer=False ##(2) banned 24.2
 BG_Imprisoner=True ##(2)->(1) when? 
@@ -46,10 +46,10 @@ class TB_BaconUps_030t:#
 	""" Imp (2/2)
 	"""
 
-#################### トリックスター(1)  ### OK ###
+#################### トリックスター(1)->(2)  ### OK ###
 if BG_Impulsive_Trickster:
 	BG_Minion_Demon +=['BG21_006','BG21_006e','BG21_006_G']
-	BG_PoolSet_Demon[1].append('BG21_006')
+	BG_PoolSet_Demon[2].append('BG21_006')
 	BG_Demon_Gold['BG21_006']='BG21_006_G'
 class BG21_006_Action(TargetedAction):
 	TARGET = ActionArg()

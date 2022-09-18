@@ -129,7 +129,7 @@ class Player(Entity, TargetableByAuras):
 		self.prev_field=[] # battlegrounds
 		self.script_const_1=0 ## general use
 		self.gifts=[] # battlegrounds
-
+		self.im_a_player=True # battlegrounds
 
 	def __str__(self):
 		return self.name

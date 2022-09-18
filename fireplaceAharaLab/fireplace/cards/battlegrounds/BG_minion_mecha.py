@@ -15,6 +15,7 @@ BG_Metaltooth_Leaper=True#(2)
 BG_Deflect_o_Bot=True#(3)
 BG_Replicating_Menace=True#(3)
 BG_Screwjank_Clunker=False#(3)banned
+BG_Iron_Sensei=True#(3)
 BG_Annoy_o_Module=True#(4)
 BG_Mechano_Eg_g=False#(4) banned
 BG_Mechano_Tank=True#(4)
@@ -63,15 +64,15 @@ class BG21_022_G:# <12>[1453]
 
 #Harvest Golem(2) ### OK ###
 if BG_Harvest_Golem:
-	BG_Minion_Mecha+=['BG_EX1_556', 'skele21','TB_BaconUps_006','TB_BaconUps_006t',]
+	BG_Minion_Mecha+=['BG_EX1_556', 'BG_EX1_556t','TB_BaconUps_006','TB_BaconUps_006t',]
 	BG_PoolSet_Mecha[2].append('BG_EX1_556')
 	BG_Mecha_Gold['BG_EX1_556']='TB_BaconUps_006'
 class BG_EX1_556:
 	"""
 	[Deathrattle:] Summon a 2/1 Damaged Golem."""
-	deathrattle = Summon(CONTROLLER, "skele21")
+	deathrattle = Summon(CONTROLLER, "BG_EX1_556t")
 	pass
-class skele21:
+class BG_EX1_556t:
 	"""
 	"""
 class TB_BaconUps_006:# <12>[1453]
@@ -209,6 +210,22 @@ class TB_BaconUps_069:# <10>[1453]
 	pass
 TB_BaconUps_069e=buff(4,4)
 
+
+
+
+if BG_Iron_Sensei:
+	BG_Minion_Mecha+=['BG_GVG_027', 'GVG_027e', 'TB_BaconUps_044','TB_BaconUps_044e',]
+	BG_PoolSet_Mecha[3].append('BG_GVG_027')
+	BG_Mecha_Gold['BG_GVG_027']='TB_BaconUps_044'
+class BG_GVG_027:
+	"""Iron Sensei"""
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS + MECH - SELF), "GVG_027e"))
+GVG_027e = buff(+2, +2)
+class TB_BaconUps_044:
+	""" Iron Sensei
+	At the end of your turn, give another friendly Mech +4/+4."""
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS + MECH - SELF), "TB_BaconUps_044e"))
+TB_BaconUps_044e = buff(4,4)
 
 #Annoy-o-Module(4)　### OK ###
 if BG_Annoy_o_Module:

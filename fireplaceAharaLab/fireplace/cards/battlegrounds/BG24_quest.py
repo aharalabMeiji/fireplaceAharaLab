@@ -22,7 +22,7 @@ BG24_Quest_An_Investigation=True
 BG24_Quest_Discover_Quest__Reward_DNT=False
 
 
-if BG24_Quest_Track_the_Footprints:# 
+if BG24_Quest_Track_the_Footprints:# ### OK ###
 	BG24_Quest+=['BG24_Quest_112']
 	BG24_Quest_Pool+=['BG24_Quest_112']
 class BG24_Quest_112:# [2466]=1, [2580]=1, 
@@ -32,7 +32,7 @@ class BG24_Quest_112:# [2466]=1, [2580]=1,
 	secret = Rerole(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
-if BG24_Quest_Assemble_a_Lineup:# 
+if BG24_Quest_Assemble_a_Lineup:# ### OK ###
 	BG24_Quest+=['BG24_Quest_114']
 	BG24_Quest_Pool+=['BG24_Quest_114']
 class BG24_Quest_114:# [2466]=1, [2643]=80, [2644]=90, [2646]=90, 
@@ -237,8 +237,8 @@ class BG24_Quest_Bob_Choice(Choice):
 				rewardID = random.choice(BG24_Reward_Pool)
 			reward = player.card(rewardID)## zone=SETASIDE
 			if reward.id=='BG24_Reward_130':
-				card = RandomBGAdmissible().evaluate(player)
-				reward.script_data_text_0=card[0]
+				reward_card = RandomBGAdmissible().evaluate(player)
+				reward.script_data_text_0=reward_card[0]
 			card.sidequest_list0=[reward]
 			## change the parameter in the card
 			##130=reward.data.get(2467,0)
@@ -251,14 +251,16 @@ class BG24_Quest_Bob_Choice(Choice):
 class BG24_Quest_Bob_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		controller=target
-		if Config.QUEST_PRESET=='':
-			quests=random.sample(BG24_Quest_Pool,3)
-		else:
-			quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
-		BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
-		choiceAction(controller)
-		Destroy(source).trigger(source)
+		## may need to check if target is the controller
+		if getattr(target, 'im_a_player', False):
+			controller=target
+			if Config.QUEST_PRESET=='':
+				quests=random.sample(BG24_Quest_Pool,3)
+			else:
+				quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
+			BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
+			choiceAction(controller)
+			Destroy(source).trigger(source)
 		pass
 class BG24_Quest_Bob:# [2732]=1, 
 	""" An Investigation!

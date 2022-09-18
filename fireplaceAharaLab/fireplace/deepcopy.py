@@ -88,7 +88,11 @@ def create_vacant_card(card):
 	if card.type==CardType.MINION:
 		return Minion(cards.db[card.id])
 	if card.type==CardType.SPELL:
-		if hasattr(card.data,'sidequest') and card.data.sidequest or hasattr(card.data,'questline') and card.data.questline:
+		if hasattr(card.data,'sidequest') and card.data.sidequest:
+			return Sidequest(cards.db[card.id])
+		elif hasattr(card.data,'questline') and card.data.questline:
+			return Sidequest(cards.db[card.id])
+		elif hasattr(card.data,'quest') and card.data.quest:
 			return Sidequest(cards.db[card.id])
 		elif hasattr(card.data,'secret') and card.data.secret:
 			return Secret(cards.db[card.id])
