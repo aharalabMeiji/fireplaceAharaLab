@@ -354,13 +354,12 @@ class Death(GameAction):
 		source.game.refresh_auras()
 		target.controller.add_death_log(target)
 		source.game.refresh_auras()  # 
-		self.broadcast(source, EventListener.ON, target)
+		if target.type == CardType.MINION:
+			self.broadcast(source, EventListener.ON, target)
 		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(target)])
 		if target.deathrattles and target.deathrattle_valid:
 			source.game.queue_actions(source, [Deathrattle(target)])
-		if target.type == CardType.MINION:
-			self.broadcast(source, EventListener.ON, target)
 		if target.reborn:# 
 			source.game.queue_actions(source, [Reborn(target)])
 		if target.id== 'DRG_253':#  Dwarven Sharpshooter

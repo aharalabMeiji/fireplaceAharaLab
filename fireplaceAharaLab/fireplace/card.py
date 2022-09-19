@@ -210,8 +210,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.morphed = None
 		self.upgrade_counter = 0
 		self.cast_on_friendly_characters = False
-		self.script_data_text_0=' '
-		self.script_data_text_1=' '
+		self.script_data_text_0=''
+		self.script_data_text_1=''
+		self.script_data_text_2=''
+		self.script_data_text_3=''
 		self.no_durability_loss=False
 		if hasattr(self, 'trade_cost') and self.trade_cost>0:## because of CardDefs's bug
 			self.tradeable = True## because of CardDefs's bug

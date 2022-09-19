@@ -73,7 +73,7 @@ class BG24_Quest_123:# [2466]=1, [2580]=1,
 	secret = Buff(FRIENDLY_MINIONS).after(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
 	pass
 
-if BG24_Quest_Reenact_the_Murder:# 
+if BG24_Quest_Reenact_the_Murder:# ### visually OK ###
 	BG24_Quest+=['BG24_Quest_124']
 	BG24_Quest_Pool+=['BG24_Quest_124']
 class BG24_Quest_124:# [2466]=1, [2643]=80, [2644]=80, [2646]=90, 
@@ -124,11 +124,12 @@ class BG24_Quest_126:# [2466]=1,
 if BG24_Quest_Unlikely_Duo:# 
 	BG24_Quest+=['BG24_Quest_151']
 	BG24_Quest_Pool+=['BG24_Quest_151']
-class BG24_Quest_151_Action1(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+def BG24_Quest_151_Initialize(source):
+	if source.id=='BG24_Quest_151':
 		source.sidequest_list0=random.sample(random_picker.BG_races, 2)
-		pass
+		source.script_data_text_2=str(source.sidequest_list0[0])
+		source.script_data_text_3=str(source.sidequest_list0[1])
+	pass
 class BG24_Quest_151_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -231,6 +232,8 @@ class BG24_Quest_Bob_Choice(Choice):
 		super().do(source, player, cards, option=None)
 		for card in cards:
 			card.script_data_text_0=str(card.quest_progress_total)
+			if card.id=='BG24_Quest_151':
+				BG24_Quest_151_Initialize(card)
 			if card.id==Config.QUEST_PRESET and Config.REWARD_PRESET!='':
 				rewardID=Config.REWARD_PRESET
 			else:
