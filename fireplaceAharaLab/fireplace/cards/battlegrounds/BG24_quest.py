@@ -42,7 +42,7 @@ class BG24_Quest_114:# [2466]=1, [2643]=80, [2644]=90, [2646]=90,
 	secret = Summon(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
-if BG24_Quest_Unmask_the_Culprit:# 
+if BG24_Quest_Unmask_the_Culprit:# ### if lose, OK ###
 	BG24_Quest+=['BG24_Quest_120']
 	BG24_Quest_Pool+=['BG24_Quest_120']
 class BG24_Quest_120:# [2466]=1, [2580]=1, [2674]=2, 

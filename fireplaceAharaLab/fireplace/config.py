@@ -39,7 +39,7 @@ class Config:# ()is the default value
 	DARKMOON_TICKET_FOR_ALL=0 ## 全員にダークムーンチケットを配布
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
 	QUEST_REWARD=1 ## クエストルール（24.2）
-	QUEST_PRESET='BG24_Quest_120'
+	QUEST_PRESET='BG24_Quest_123'
 	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
