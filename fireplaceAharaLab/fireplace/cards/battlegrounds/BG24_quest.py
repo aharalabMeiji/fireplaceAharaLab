@@ -55,7 +55,7 @@ class BG24_Quest_120:# [2466]=1, [2580]=1, [2674]=2,
 	]
 	pass
 
-if BG24_Quest_Find_the_Murder_Weapon:# 
+if BG24_Quest_Find_the_Murder_Weapon:# ### OK ###
 	BG24_Quest+=['BG24_Quest_123']
 	BG24_Quest_Pool+=['BG24_Quest_123']
 class BG24_Quest_123_Action(TargetedAction):
@@ -70,7 +70,7 @@ class BG24_Quest_123:# [2466]=1, [2580]=1,
 	""" Find the Murder Weapon
 	[Quest:] Increase a friendly minion's stats {0} times. """
 	#{0}=15
-	secret = Buff(FRIENDLY_MINIONS).on(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
+	secret = Buff(FRIENDLY_MINIONS).after(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
 	pass
 
 if BG24_Quest_Reenact_the_Murder:# 

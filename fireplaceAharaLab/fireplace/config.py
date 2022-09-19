@@ -43,8 +43,8 @@ class Config:# ()is the default value
 	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1=''
-	CARD_PRESET2=''
+	CARD_PRESET1='BG20_GEM'
+	CARD_PRESET2='BG20_GEM'
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効

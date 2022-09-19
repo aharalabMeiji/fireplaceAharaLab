@@ -937,7 +937,9 @@ class Buff(TargetedAction):
 		if source.controller==target.controller and target.type==CardType.HERO:##FRIENDLY_HERO
 			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
 		self.broadcast(source, EventListener.ON, target, buff)
-		return buff.apply(target)
+		ret = buff.apply(target)
+		self.broadcast(source, EventListener.AFTER, target, buff)
+		return ret
 
 class BuffPermanently(Buff):
 	def do(self, source, target, buff):
