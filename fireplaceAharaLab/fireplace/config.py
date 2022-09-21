@@ -39,12 +39,12 @@ class Config:# ()is the default value
 	DARKMOON_TICKET_FOR_ALL=0 ## 全員にダークムーンチケットを配布
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
 	QUEST_REWARD=1 ## クエストルール（24.2）
-	QUEST_PRESET='BG24_Quest_123'
-	REWARD_PRESET=''
+	QUEST_PRESET=''
+	REWARD_PRESET='BG24_Reward_107'
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1='BG20_GEM'
-	CARD_PRESET2='BG20_GEM'
+	CARD_PRESET1=''
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate','quilboar','dragon']#RANDOM_RACE=0のときに有効

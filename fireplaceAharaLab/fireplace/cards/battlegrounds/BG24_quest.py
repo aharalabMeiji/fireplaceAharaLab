@@ -145,10 +145,7 @@ class BG24_Quest_151:# [2466]=1, [2496]=1,
 	""" Unlikely Duo
 	[Quest:] Play {0} {2} or {3}. """
 	#{0}=5, {2}{3}:種族
-	events=[
-		Play(CONTROLLER, SELF).on(BG24_Quest_151_Action1(CONTROLLER)),
-		Play(CONTROLLER, FRIENDLY - SELF).on(BG24_Quest_151_Action2(Play.CARD))
-	]
+	events = Play(CONTROLLER, FRIENDLY - SELF).on(BG24_Quest_151_Action2(Play.CARD))
 	pass
 
 if BG24_Quest_Balance_the_Scales:# ????????????????
