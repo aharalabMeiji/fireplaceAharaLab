@@ -41,10 +41,10 @@ class Config:# ()is the default value
 	QUEST_REWARD=1 ## クエストルール（24.2）
 	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=1 ## 人間プレーヤに、最初からrewardをセットする。
-	REWARD_PRESET='BG24_Reward_107'
+	REWARD_PRESET='BG24_Reward_111'
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
-	CARD_PRESET1='BG23_002'
+	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ

@@ -215,7 +215,7 @@ class BG_Battle(Game):
 		buffs=[]
 		for buff in card.buffs:## inherits buffs
 			buffs.append(buff)
-		card.zone=Zone.GRAVEYARD
+		card.discard()
 		newcard = controller.card(gold_id)
 		for buff in buffs:## inherits buffs
 			buff.apply(newcard)

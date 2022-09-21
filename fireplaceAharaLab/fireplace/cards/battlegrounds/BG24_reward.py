@@ -38,7 +38,7 @@ BG24_Reward_Purified_Shard=False
 BG24_Reward_Un_Murloc_Your_Potential=False
 
 
-if BG24_Reward_Snicker_Snacks:# 
+if BG24_Reward_Snicker_Snacks:# ### OK ###
 	BG24_Reward+=['BG24_Reward_107']
 	BG24_Reward_Pool+=['BG24_Reward_107']
 class BG24_Reward_107_Action(TargetedAction):
@@ -59,7 +59,7 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 	#<Tag enumID="201" name="FACTION" type="Int" value="3"/>
 	pass
 
-if BG24_Reward_Stolen_Gold:# 
+if BG24_Reward_Stolen_Gold:# ### OK ###
 	BG24_Reward+=['BG24_Reward_109']
 	BG24_Reward_Pool+=['BG24_Reward_109']
 class BG24_Reward_109_Action(TargetedAction):
