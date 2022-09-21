@@ -195,6 +195,9 @@ class BG_main:
 				if Config.CARD_PRESET2!= '':
 					card = bar.controller.card(Config.CARD_PRESET2)
 					card.zone = Zone.HAND
+				if Config.REWARD_PRESET_FIRST>0:
+					card = bar.controller.card(Config.REWARD_PRESET)
+					CastSecret(card).trigger(bar.controller)
 			##########
 			if bar.player1.hero.power.id=='TB_BaconShop_HP_054': #Millhouse flag
 				bar.player1.tavern_tierup_cost += 1

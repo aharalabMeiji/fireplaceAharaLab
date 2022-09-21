@@ -2162,7 +2162,7 @@ class CastSecret(TargetedAction):
 	"""
 	Cast a secret
 	"""
-	CARD = CardArg()
+	CARDS = CardArg()
 	def do(self, source, cards):
 		if Config.LOGINFO:
 			Config.log("CastSecret.do","%s cast secret %s ", source, cards)
