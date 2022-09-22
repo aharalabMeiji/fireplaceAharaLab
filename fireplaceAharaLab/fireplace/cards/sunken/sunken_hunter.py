@@ -191,12 +191,12 @@ class TSC_929_Action(TargetedAction):
 class TSC_929:# <3>[1658]
 	""" Emergency Maneuvers
 	[Secret:] When a friendly minion dies, summon a copy of it.It's [Dormant] for 1 turn. """
-	secret = Death(FRIENDLY_MINIONS).on(TSC_929_Action(CONTROLLER, Death.TARGET, 1))
+	secret = Death(FRIENDLY_MINIONS).on(TSC_929_Action(CONTROLLER, Death.ENTITY, 1))
 
 class TSC_929t:# <3>[1658]
 	""" Improved Emergency Maneuvers
 	[Secret:] When a friendly minion dies, summon two copies of it.They're [Dormant] for 1 turn. """
-	secret = Death(FRIENDLY_MINIONS).on(TSC_929_Action(CONTROLLER, Death.TARGET, 2))
+	secret = Death(FRIENDLY_MINIONS).on(TSC_929_Action(CONTROLLER, Death.ENTITY, 2))
 	pass
 
 

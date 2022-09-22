@@ -169,7 +169,7 @@ class TSC_639:# <8>[1658]
 	""" Glugg the Gulper
 	[Colossal +3] After a friendly minion dies,gain its original stats. """
 	play = Summon(CONTROLLER, 'TSC_639t'), Summon(CONTROLLER, 'TSC_639t2'), Summon(CONTROLLER, 'TSC_639t3')
-	events = Death(FRIENDLY_MINIONS).after(TSC_639_Action(SELF, Death.TARGET))
+	events = Death(FRIENDLY_MINIONS).after(TSC_639_Action(SELF, Death.ENTITY))
 	pass
 class TSC_639e:# <8>[1658]
 	""" Gulped

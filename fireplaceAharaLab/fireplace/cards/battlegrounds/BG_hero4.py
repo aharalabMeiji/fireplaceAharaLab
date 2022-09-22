@@ -269,7 +269,7 @@ class TB_BaconShop_HP_022e:
 class TB_BaconShop_HP_022t_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
-		from fireplace.card import is_valid_target
+		#from fireplace.card import is_valid_target
 		controller = target
 		cards=[]
 		for action in controller._targetedaction_log: 

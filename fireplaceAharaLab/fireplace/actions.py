@@ -347,23 +347,22 @@ class Death(GameAction):
 	TARGET = ActionArg()
 	"""
 	ENTITY = ActionArg()
-	TARGET = ActionArg()
-	def do(self, source, target):
+	def do(self, source, entity):
 		if Config.LOGINFO:
-			Config.log("Death.do","Processing Death for %r"% ( target))
+			Config.log("Death.do","Processing Death for %r"% ( entity))
 		source.game.refresh_auras()
-		target.controller.add_death_log(target)
+		entity.controller.add_death_log(entity)
 		source.game.refresh_auras()  # 
-		if target.type == CardType.MINION:
-			self.broadcast(source, EventListener.ON, target)
-		if target.id == 'SW_323'and target._Asphyxia_=='alive': #The king rat
-			source.game.queue_actions(source, [Asphyxia(target)])
-		if target.deathrattles and target.deathrattle_valid:
-			source.game.queue_actions(source, [Deathrattle(target)])
-		if target.reborn:# 
-			source.game.queue_actions(source, [Reborn(target)])
-		if target.id== 'DRG_253':#  Dwarven Sharpshooter
-			ChangeHeroPower(target.controller, "HERO_05bp").trigger(target)
+		if entity.type == CardType.MINION:
+			self.broadcast(source, EventListener.ON, entity)
+		if entity.id == 'SW_323'and entity._Asphyxia_=='alive': #The king rat
+			source.game.queue_actions(source, [Asphyxia(entity)])
+		if entity.deathrattles and entity.deathrattle_valid:
+			source.game.queue_actions(source, [Deathrattle(entity)])
+		if entity.reborn:# 
+			source.game.queue_actions(source, [Reborn(entity)])
+		if entity.id== 'DRG_253':#  Dwarven Sharpshooter
+			ChangeHeroPower(entity.controller, "HERO_05bp").trigger(entity)
 
 class EndTurn(GameAction):
 	"""
@@ -943,7 +942,7 @@ class Buff(TargetedAction):
 class BuffPermanently(Buff):
 	def do(self, source, target, buff):
 		ret = super().do(source, target, buff)
-		buff.apply(target)
+		#buff.apply(target)
 		if target.deepcopy_original:
 			buff.apply(target.deepcopy_original)
 		return ret

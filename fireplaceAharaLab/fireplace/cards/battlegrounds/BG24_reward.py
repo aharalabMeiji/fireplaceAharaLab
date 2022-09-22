@@ -80,7 +80,7 @@ class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [27
 	secret = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
 	pass
 
-if BG24_Reward_Evil_Twin:# 
+if BG24_Reward_Evil_Twin:# ### OK ###
 	BG24_Reward+=['BG24_Reward_111']
 	BG24_Reward_Pool+=['BG24_Reward_111']
 class BG24_Reward_111_Action(TargetedAction):
@@ -95,14 +95,25 @@ class BG24_Reward_111_Action(TargetedAction):
 				elif high[0].health==card.health:
 					high.append(card)
 			card = random.choice(high)
-			Summon(controller, ExactCopy(card)).trigger(source)
+			#ret = ExactCopy(card)
+			ret = source.controller.card(card.id, source)
+			ret.zone=Zone.PLAY
+			for k in card.silenceable_attributes:
+				v = getattr(card, k)
+				setattr(ret, k, v)
+			ret.silenced = card.silenced
+			ret.damage = card.damage
+			for buff in card.buffs:
+				# Recreate the buff stack
+				card.buff(ret, buff.id)
+			ret.script_data_text_0=card.script_data_text_0
 class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1, 
 	""" Evil Twin
 	[Start of Combat:] Summon a copy of your highest-Health minion. """
 	secret = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action(CONTROLLER))
 	pass
 
-if BG24_Reward_Ritual_Dagger:# 
+if BG24_Reward_Ritual_Dagger:# ### OK ###
 	BG24_Reward+=['BG24_Reward_113']
 	#BG24_Reward+=['BG24_Reward_113_ALT']
 	BG24_Reward+=['BG24_Reward_113e']
@@ -110,7 +121,7 @@ if BG24_Reward_Ritual_Dagger:#
 class BG24_Reward_113:# [2467]=80, [2641]=1, 
 	""" Ritual Dagger
 	After a friendly [Deathrattle] minion dies, give it +4/+4 permanently. """
-	secret = Death(FRIENDLY + DEATHRATTLE).on(BuffPermanently(Death.TARGET, 'BG24_Reward_113e'))
+	secret = Death(FRIENDLY + DEATHRATTLE).on(BuffPermanently(Death.ENTITY, 'BG24_Reward_113e'))
 	pass
 class BG24_Reward_113_ALT:# [2467]=70, [2643]=90, [2646]=90, 
 	""" Ritual Dagger
@@ -118,7 +129,7 @@ class BG24_Reward_113_ALT:# [2467]=70, [2643]=90, [2646]=90,
 	pass
 BG24_Reward_113e=buff(4,4)
 
-if BG24_Reward_Theotars_Parasol:# 
+if BG24_Reward_Theotars_Parasol:# ### OK ###
 	BG24_Reward+=['BG24_Reward_115']
 	BG24_Reward+=['BG24_Reward_115e']
 	BG24_Reward+=['BG24_Reward_115e2']
@@ -131,6 +142,7 @@ class BG24_Reward_115_Action(TargetedAction):
 			card = controller.field[-1]
 			BuffPermanently(card, 'BG24_Reward_115e').trigger(source)
 			Buff(card, 'BG24_Reward_115e2').trigger(source)
+		pass
 class BG24_Reward_115:# [2467]=70, [2641]=1, 
 	""" Theotar's Parasol
 	At the end of your turn, give your right-most minion [Stealth] until next turn and +8 Health. """

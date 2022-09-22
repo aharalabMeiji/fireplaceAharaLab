@@ -4,6 +4,7 @@ from fireplace.actions import BG_Attack, Deaths, BeginBattle, EndBattle, BeginBa
 import random
 from hearthstone.enums import PlayState, Zone
 from fireplace.config import Config
+from fireplace.targeting import is_valid_target
 
 class BG_Battle(Game):
 	def __init__(self, bars):
@@ -90,42 +91,43 @@ class BG_Battle(Game):
 					if len(taunts)>0:
 						defenders = taunts
 					else:
-						defenders = self.current_player.opponent.field
-					if attacker.id =='BGS_022' or attacker.id=='TB_BaconUps_091':## Zapp Slywick
-						lowest_attack=[]
-						for card in defenders:
-							if lowest_attack==[]:
-								lowest_attack = [card]
-							elif lowest_attack[0].atk>card.atk:
-								lowest_attack = [card]
-							elif lowest_attack[0].atk==card.atk:
-								lowest_attack.append(card)
-						defenders = lowest_attack
-					defender=random.choice(defenders)
-					#attack
-					#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
-					BG_Attack(attacker, defender).trigger(attacker.controller)
-					if Config.PATCH_VERSION <= Config.PATCH23_1:
-						#move buddy gauge
-						self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
-						self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
-					##procedures of deathrattle
-					#Deaths().trigger(self)
-					if attacker.zone==Zone.GRAVEYARD:
-						if defender.controller.deepcopy_original.first_dead_minion==None:
-							defender.controller.deepcopy_original.first_dead_minion=attacker.id
-						elif defender.controller.deepcopy_original.second_dead_minion==None:
-							defender.controller.deepcopy_original.second_dead_minion=attacker.id
-					if defender.zone==Zone.GRAVEYARD:
-						if attacker.controller.deepcopy_original.first_dead_minion==None:
-							attacker.controller.deepcopy_original.first_dead_minion=defender.id
-						elif attacker.controller.deepcopy_original.second_dead_minion==None:
-							attacker.controller.deepcopy_original.second_dead_minion=defender.id
-					if len(self.first.field)==0 or len(self.second.field)==0:
-						break;
-					if attacker.zone==Zone.GRAVEYARD:
-						self.current_player.attacker_index-=1##adjustion
-						break;
+						defenders = [card for card in attacker.attack_targets if card in self.current_player.opponent.field]
+					if len(defenders)>0:
+						if attacker.id =='BGS_022' or attacker.id=='TB_BaconUps_091':## Zapp Slywick
+							lowest_attack=[]
+							for card in defenders:
+								if lowest_attack==[]:
+									lowest_attack = [card]
+								elif lowest_attack[0].atk>card.atk:
+									lowest_attack = [card]
+								elif lowest_attack[0].atk==card.atk:
+									lowest_attack.append(card)
+							defenders = lowest_attack
+						defender=random.choice(defenders)
+						#attack
+						#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
+						BG_Attack(attacker, defender).trigger(attacker.controller)
+						if Config.PATCH_VERSION <= Config.PATCH23_1:
+							#move buddy gauge
+							self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
+							self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
+						##procedures of deathrattle
+						#Deaths().trigger(self)
+						if attacker.zone==Zone.GRAVEYARD:
+							if defender.controller.deepcopy_original.first_dead_minion==None:
+								defender.controller.deepcopy_original.first_dead_minion=attacker.id
+							elif defender.controller.deepcopy_original.second_dead_minion==None:
+								defender.controller.deepcopy_original.second_dead_minion=attacker.id
+						if defender.zone==Zone.GRAVEYARD:
+							if attacker.controller.deepcopy_original.first_dead_minion==None:
+								attacker.controller.deepcopy_original.first_dead_minion=defender.id
+							elif attacker.controller.deepcopy_original.second_dead_minion==None:
+								attacker.controller.deepcopy_original.second_dead_minion=defender.id
+						if len(self.first.field)==0 or len(self.second.field)==0:
+							break;
+						if attacker.zone==Zone.GRAVEYARD:
+							self.current_player.attacker_index-=1##adjustion
+							break;
 			# change the turn (no freeze nor one_turn_effect)
 			self.current_player.attacker_index+=1
 			if self.current_player.attacker_index>= len(self.current_player.field):
@@ -200,6 +202,8 @@ class BG_Battle(Game):
 			ret += "(poisonous)"
 		if card.reborn:
 			ret += "(reborn)"
+		if card.stealthed:
+			ret += "(stealthed)"
 		return ret
 
 	def BG_morph_gold(self, card):
