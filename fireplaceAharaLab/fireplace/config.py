@@ -41,7 +41,7 @@ class Config:# ()is the default value
 	QUEST_REWARD=1 ## クエストルール（24.2）
 	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=1 ## 人間プレーヤに、最初からrewardをセットする。
-	REWARD_PRESET='BG24_Reward_115'
+	REWARD_PRESET='BG24_Reward_125'
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1='BG_AV_309'

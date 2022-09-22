@@ -165,7 +165,7 @@ class BG24_Reward_123:# [2467]=80, [2647]=50,
 	#
 	pass
 
-if BG24_Reward_The_Smoking_Gun:# 
+if BG24_Reward_The_Smoking_Gun:# ### OK ###
 	BG24_Reward+=['BG24_Reward_125']
 	BG24_Reward+=['BG24_Reward_125e']
 	BG24_Reward_Pool+=['BG24_Reward_125']
