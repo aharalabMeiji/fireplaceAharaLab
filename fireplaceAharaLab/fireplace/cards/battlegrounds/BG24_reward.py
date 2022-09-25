@@ -305,7 +305,7 @@ class BG24_Reward_138:# [2467]=80, [2641]=1,
 	secret = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
 	pass
 
-if BG24_Reward_A_Good_Time:# #### no service
+if BG24_Reward_A_Good_Time:# #### not in service
 	BG24_Reward+=['BG24_Reward_210']
 	BG24_Reward_Pool+=['BG24_Reward_210']
 class BG24_Reward_210:# [2467]=150, 
@@ -314,7 +314,7 @@ class BG24_Reward_210:# [2467]=150,
 	#
 	pass
 
-if BG24_Reward_Avatar_of_the_Coin:#  ## no service
+if BG24_Reward_Avatar_of_the_Coin:#  ## not in service
 	BG24_Reward+=['BG24_Reward_211']
 	BG24_Reward_Pool+=['BG24_Reward_211']
 class BG24_Reward_211:# [2467]=51, 
