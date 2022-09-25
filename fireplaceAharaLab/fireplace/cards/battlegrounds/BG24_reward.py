@@ -289,7 +289,7 @@ class BG24_Reward_136:# [2467]=100, [2641]=1,
 # 2/2->3/3 (24.2.2)
 BG24_Reward_136e=buff(3,3)# 
 
-if BG24_Reward_Victims_Specter:# 
+if BG24_Reward_Victims_Specter:#### OK ### 
 	BG24_Reward+=['BG24_Reward_138']
 	BG24_Reward_Pool+=['BG24_Reward_138']
 class BG24_Reward_138_Action(TargetedAction):
