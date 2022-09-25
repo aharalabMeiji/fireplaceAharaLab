@@ -268,14 +268,14 @@ class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300,
 	#### see TB_BaconShop_HERO_35_Buddy
 	pass
 
-if BG24_Reward_Tiny_Henchmen:# 
+if BG24_Reward_Tiny_Henchmen:# ### OK ###
 	BG24_Reward+=['BG24_Reward_136']
 	BG24_Reward+=['BG24_Reward_136e']
 	BG24_Reward_Pool+=['BG24_Reward_136']
 class BG24_Reward_136_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		cards=[card for card in target.field if target.tech_level<=3]
+		cards=[card for card in target.field if card.tech_level<=3]
 		if len(cards)>3:
 			cards=random.sample(cards, 3)
 		for card in cards:
