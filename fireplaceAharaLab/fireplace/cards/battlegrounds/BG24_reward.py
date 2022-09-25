@@ -177,7 +177,7 @@ class BG24_Reward_125:# [2467]=110, [2641]=1, [2643]=70, [2646]=80,
 	pass
 BG24_Reward_125e=buff(5,0)# 
 
-if BG24_Reward_Mirror_Shield:# 
+if BG24_Reward_Mirror_Shield:# ### OK ###
 	BG24_Reward+=['BG24_Reward_128']
 	BG24_Reward+=['BG24_Reward_128e']
 	BG24_Reward_Pool+=['BG24_Reward_128']
@@ -185,7 +185,7 @@ class BG24_Reward_128:# [2467]=75, [2641]=1,
 	# [2467]=130, [2641]=1, [2647]=85 (harder to obatain it)
 	""" Mirror Shield
 	After each [Refresh], give a minion in Bob's Tavern +4/+4 and [Divine Shield]. """
-	secret = Rerole(CONTROLLER).on(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_128e'))
+	secret = Rerole(CONTROLLER).after(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_128e'))
 	pass
 class BG24_Reward_128e:#
 	""" Mirror Shield
