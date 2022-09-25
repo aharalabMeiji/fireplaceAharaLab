@@ -197,6 +197,7 @@ class BG_main:
 					card.zone = Zone.HAND
 				if Config.REWARD_PRESET_FIRST>0:
 					card = bar.controller.card(Config.REWARD_PRESET)
+					card.script_data_num_1=random.choice(random_picker.BG_races)
 					CastSecret(card).trigger(bar.controller)
 			##########
 			if bar.player1.hero.power.id=='TB_BaconShop_HP_054': #Millhouse flag

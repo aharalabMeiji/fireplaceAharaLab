@@ -462,6 +462,8 @@ class Choice(GameAction):
 			self.source.game.trigger(
 				self.source, [action], [self.player, self.cards, card])
 		self.player.choice = self.next_choice
+
+	def broadcast_after(self, card):
 		self.broadcast(self.player, EventListener.AFTER, self.player, self.cards, card)
 
 class GenericChoice(Choice):

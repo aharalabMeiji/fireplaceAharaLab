@@ -95,18 +95,8 @@ class BG24_Reward_111_Action(TargetedAction):
 				elif high[0].health==card.health:
 					high.append(card)
 			card = random.choice(high)
-			#ret = ExactCopy(card)
-			ret = source.controller.card(card.id, source)
+			ret = exactCopy(card, source)
 			ret.zone=Zone.PLAY
-			for k in card.silenceable_attributes:
-				v = getattr(card, k)
-				setattr(ret, k, v)
-			ret.silenced = card.silenced
-			ret.damage = card.damage
-			for buff in card.buffs:
-				# Recreate the buff stack
-				card.buff(ret, buff.id)
-			ret.script_data_text_0=card.script_data_text_0
 class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1, 
 	""" Evil Twin
 	[Start of Combat:] Summon a copy of your highest-Health minion. """
@@ -218,6 +208,9 @@ class BG24_Reward_129:# [2467]=130, [2641]=1,
 if BG24_Reward_Ghastly_Mask:#### OK ###
 	BG24_Reward+=['BG24_Reward_130']
 	BG24_Reward_Pool+=['BG24_Reward_130']
+def BG24_Reward_130_Action1(player, reward):
+	reward_card = RandomBGAdmissible(tech_level=[5,6]).evaluate(player)
+	reward.script_data_text_0=reward_card[0]
 class BG24_Reward_130_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -245,28 +238,25 @@ class BG24_Reward_131:# [2467]=110, [2641]=1
 	pass
 BG24_Reward_131e=buff(12,12)
 
-if BG24_Reward_The_Friends_Along_the_Way:# 
+if BG24_Reward_The_Friends_Along_the_Way:# ## OK ###
 	BG24_Reward+=['BG24_Reward_134']
 	BG24_Reward_Pool+=['BG24_Reward_134']
-class BG24_Reward_134_Action1(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		target.script_data_num_1=random.choice(random_picker.BG_races)
-		pass
+def BG24_Reward_134_Action1(source):
+	source.script_data_num_1=random.choice(random_picker.BG_races)
+	pass
 class BG24_Reward_134_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		Give(target, RandomBGAdmissible(race=target.script_data_num_1)).trigger(source)
-		Give(target, RandomBGAdmissible(race=target.script_data_num_1)).trigger(source)
+		controller=source.controller
+		tier = controller.tavern_tier
+		Give(controller, RandomBGMinion(race=target.script_data_num_1,tech_level_less=tier)).trigger(source)
+		Give(controller, RandomBGMinion(race=target.script_data_num_1,tech_level_less=tier)).trigger(source)
 		pass
 class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1, 
 	""" The Friends Along the Way
 	At the start of your turn, get 2 random {0}. """
 	#{0} = Race.SOMETHING
-	secret = [
-		Play(CONTROLLER, SELF).on(BG24_Reward_134_Action1(CONTROLLER)),
-		BeginBar(CONTROLLER).on(BG24_Reward_134_Action2(CONTROLLER))
-	]
+	secret = BeginBar(CONTROLLER).on(BG24_Reward_134_Action2(SELF))
 	pass
 
 if BG24_Reward_Yogg_tastic_Tasties:### under construction 
