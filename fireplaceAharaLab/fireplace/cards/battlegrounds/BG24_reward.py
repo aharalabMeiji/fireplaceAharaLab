@@ -198,13 +198,21 @@ class BG24_Reward_128e:#
 		target.divine_shield=True
 	pass
 
-if BG24_Reward_Secret_Sinstone:# 
+if BG24_Reward_Secret_Sinstone:# ### similar but not perfect
 	BG24_Reward+=['BG24_Reward_129']
 	BG24_Reward_Pool+=['BG24_Reward_129']
+class BG24_Reward_129_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = source.controller
+		if hasattr(target, 'type') and target.type==CardType.MINION:
+			card = exactCopy(target, source)
+			card.zone=Zone.HAND
+		pass
 class BG24_Reward_129:# [2467]=130, [2641]=1, 
 	""" Secret Sinstone
 	After you [Discover] a card, get an extra copy of it. """
-	secret = Choice(CONTROLLER).after(Give(CONTROLLER, ExactCopy(Choice.CARD)))
+	secret = Choice(CONTROLLER).after(BG24_Reward_129_Action(Choice.CARD))
 	pass
 
 if BG24_Reward_Ghastly_Mask:#

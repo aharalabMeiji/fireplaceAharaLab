@@ -144,6 +144,10 @@ class Action(metaclass=ActionMeta):
 				if Config.LOGINFO:
 					Config.log("actions.broadcast","%s triggers off %s from %s"%(entity, self, source))
 				entity.trigger_event(source, event, args)
+			elif isinstance(self, event.trigger.__class__) and event.trigger.matches(entity, args):#or its inverse
+				if Config.LOGINFO:
+					Config.log("actions.broadcast","%s triggers off %s from %s"%(entity, self, source))
+				entity.trigger_event(source, event, args)
 	def broadcast(self, source, at, *args):
 		for entity in source.game.entities:
 			self._broadcast(entity, source, at, *args)
@@ -449,6 +453,7 @@ class Choice(GameAction):
 		self.option = option
 		self.min_count = 1
 		self.max_count = 1
+		self.broadcast(self.player, EventListener.ON, self.player, self.cards, None)
 
 	def choose(self, card):
 		if card not in self.cards:

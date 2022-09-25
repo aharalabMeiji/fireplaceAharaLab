@@ -216,6 +216,20 @@ def choiceAction(player):
 					player.choice.choose(choice)
 
 
+def exactCopy(card, source):
+	ret = source.controller.card(card.id, source)
+	ret.zone=Zone.SETASIDE
+	for k in card.silenceable_attributes:
+		v = getattr(card, k)
+		setattr(ret, k, v)
+	ret.silenced = card.silenced
+	ret.damage = card.damage
+	for buff in card.buffs:
+		# Recreate the buff stack
+		card.buff(ret, buff.id)
+	ret.script_data_text_0=card.script_data_text_0
+	return ret
+
 #sample 
 
 class original_Action(TargetedAction):
