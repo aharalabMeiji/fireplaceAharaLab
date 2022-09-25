@@ -237,7 +237,7 @@ class BG24_Quest_Bob_Choice(Choice):
 				rewardID = random.choice(BG24_Reward_Pool)
 			reward = player.card(rewardID)## zone=SETASIDE
 			if reward.id=='BG24_Reward_130':
-				reward_card = RandomBGAdmissible().evaluate(player)
+				reward_card = RandomBGAdmissible(tech_level=[5,6]).evaluate(player)
 				reward.script_data_text_0=reward_card[0]
 			card.sidequest_list0=[reward]
 			## change the parameter in the card
