@@ -233,7 +233,7 @@ class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1,
 	secret = BeginBar().on(BG24_Reward_130_Action2(CONTROLLER))
 	pass
 
-if BG24_Reward_Red_Hand:# 
+if BG24_Reward_Red_Hand:# ### OK ###
 	BG24_Reward+=['BG24_Reward_131']
 	BG24_Reward+=['BG24_Reward_131e']
 	BG24_Reward_Pool+=['BG24_Reward_131']
