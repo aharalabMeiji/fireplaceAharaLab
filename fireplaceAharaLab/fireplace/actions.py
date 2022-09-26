@@ -458,13 +458,11 @@ class Choice(GameAction):
 	def choose(self, card):
 		if card not in self.cards:
 			raise InvalidAction("%r is not a valid choice (one of %r)" % (card, self.cards))
+		self.broadcast(self.player, EventListener.AFTER, self.player, self.cards, card)
 		for action in self.callback:
 			self.source.game.trigger(
 				self.source, [action], [self.player, self.cards, card])
 		self.player.choice = self.next_choice
-
-	def broadcast_after(self, card):
-		self.broadcast(self.player, EventListener.AFTER, self.player, self.cards, card)
 
 class GenericChoice(Choice):
 	def choose(self, card):

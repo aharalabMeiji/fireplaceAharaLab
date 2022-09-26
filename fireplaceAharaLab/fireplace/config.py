@@ -41,7 +41,7 @@ class Config:# ()is the default value
 	QUEST_REWARD=1 ## クエストルール（24.2）
 	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=1 ## 人間プレーヤに、最初からrewardをセットする。
-	REWARD_PRESET='BG24_Reward_308'
+	REWARD_PRESET='BG24_Reward_129'
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1=''
@@ -49,7 +49,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate']#RANDOM_RACE=0のときに有効
-	HERO_1='' #第1プレーヤーはヒーローを指定できる
+	HERO_1='TB_BaconShop_HERO_42' #第1プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

@@ -188,7 +188,7 @@ class BG24_Reward_128e:#
 		target.divine_shield=True
 	pass
 
-if BG24_Reward_Secret_Sinstone:# ### similar but not perfect
+if BG24_Reward_Secret_Sinstone:# ### visually OK ###
 	BG24_Reward+=['BG24_Reward_129']
 	BG24_Reward_Pool+=['BG24_Reward_129']
 class BG24_Reward_129_Action(TargetedAction):

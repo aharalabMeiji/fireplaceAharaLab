@@ -84,10 +84,25 @@ BG_Hero2_Buddy['TB_BaconShop_HERO_42']='TB_BaconShop_HERO_42_Buddy'
 BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_42_Buddy']='TB_BaconShop_HERO_42_Buddy_G'
 class TB_BaconShop_HERO_42:# <12>[1453]
 	""" Elise Starseeker """
+class TB_BaconShop_HP_047_Choice(Choice):
+	def do(self, source, player, cards, option=None):
+		if len(cards)==1 and cards[0]==[]:
+			if random_picker.BG_races==[]:
+				random_picker.BG_races=player.game.parent.BG_races
+			cards=[]
+			for repeat in range(3):
+				cards += RandomBGAdmissible(tech_level=player.tavern_tier).evaluate(source)
+		super().do(source, player, cards, option)
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.controller = self.player
+		card.zone=Zone.HAND
+
 class TB_BaconShop_HP_047:
 	""" Lead Explorer 
 	[Discover] a minion from your Tavern tier. Costs (1) more after each use."""
-	activate = Discover(CONTROLLER, RandomMinion(tech_level=TIER(CONTROLLER))*3),Buff(SELF,'TB_BaconShop_HP_047e')
+	activate = TB_BaconShop_HP_047_Choice(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER))*3),Buff(SELF,'TB_BaconShop_HP_047e')
 	## until 24.0
 	##[Passive] When you upgrade  Bob's Tavern get a 'Recruitment Map'."""
 	##events = UpgradeTier(CONTROLLER).after(Give(CONTROLLER, 'TB_BaconShop_HP_047t').then(SetScriptDataNum1(Give.CARD, TIER(CONTROLLER))))
