@@ -966,6 +966,14 @@ class RemoveBuff(TargetedAction):
 		pass
 	pass
 
+class RemoveAllBuff(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		buffList = target.buffs
+		for bf in reversed(buffList):
+			target.buffs.remove(bf)
+		pass
+	pass
 
 
 class EatsCard(TargetedAction):

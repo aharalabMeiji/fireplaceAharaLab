@@ -359,17 +359,28 @@ class BG24_Reward_306e:#
 	""" Cooked 	Increased stats. """
 	pass
 
-if BG24_Reward_Teal_Tiger_Sapphire:# 
+if BG24_Reward_Teal_Tiger_Sapphire:# ### OK ###
 	BG24_Reward+=['BG24_Reward_308']
 	BG24_Reward+=['BG24_Reward_308e']
 	BG24_Reward_Pool+=['BG24_Reward_308']
+class BG24_Reward_308_Action(TargetedAction):
+	CARD=ActionArg()
+	def do(self, source, card):
+		#controller=target
+		RemoveAllBuff(card).trigger(source)
+		Buff(card, 'BG24_Reward_308e', atk=source.script_data_num_1, max_health=source.script_data_num_1).trigger(source)
+		pass
 class BG24_Reward_308:# [2467]=140, [2641]=1, [2644]=60, 
 	# ->  [2467]=100, [2641]=1, [2644]=70, (24.2.2) 
 	""" Teal Tiger Sapphire
 	Minions in Bob's Tavern have +1/+1 for each time it was [Refreshed] this turn. """
-	secret = Rerole(CONTROLLER).on(Buff(ENEMY_MINIONS, 'BG24_Reward_308e'))
+	secret = [
+		Rerole(CONTROLLER).after(BG24_Reward_308_Action(ENEMY_MINIONS),AddScriptDataNum1(SELF, 1)),
+		BeginBar(CONTROLLER).on(RemoveAllBuff(ENEMY_MINIONS),SetScriptDataNum1(SELF, 1))
+	]
 	pass
-BG24_Reward_308e=buff(1,1)
+class BG24_Reward_308e:
+	pass
 
 
 if BG24_Reward_Devils_in_the_Details:# 
