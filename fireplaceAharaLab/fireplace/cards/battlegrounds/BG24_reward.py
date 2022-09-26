@@ -336,10 +336,12 @@ class BG24_Reward_305e:#
 	""" Anima Bribed	Increased stats. """
 	pass
 
-if BG24_Reward_Cooked_Book:# 
+if BG24_Reward_Cooked_Book:# ### OK ###
 	BG24_Reward+=['BG24_Reward_306']
 	BG24_Reward+=['BG24_Reward_306e']
 	BG24_Reward_Pool+=['BG24_Reward_306']
+def BG24_Reward_306_Action(source):
+	source.script_data_num_1 = 1
 class BG24_Reward_306_Action(TargetedAction):
 	#TARGET=ActionArg()
 	CARD=ActionArg()
