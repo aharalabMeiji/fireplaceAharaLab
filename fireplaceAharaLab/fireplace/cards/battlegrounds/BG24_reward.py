@@ -323,14 +323,14 @@ class BG24_Reward_211:# [2467]=51,
 	#
 	pass
 
-if BG24_Reward_Anima_Bribe:# 
+if BG24_Reward_Anima_Bribe:# ### OK ###
 	BG24_Reward+=['BG24_Reward_305']
 	BG24_Reward+=['BG24_Reward_305e']
 	BG24_Reward_Pool+=['BG24_Reward_305']
 class BG24_Reward_305:# [2467]=190, [2641]=1, [2649]=80, 
 	""" Anima Bribe
 	After you sell a minion, give its stats to a minion in Bob's Tavern. """
-	secret = Sell(CONTROLLER).after(Buff(ENEMY_MINIONS, 'BG24_Reward_305e', atk=ATK(Sell.CARD), max_health=MAX_HEALTH(Sell.CARD)))
+	secret = Sell(CONTROLLER).after(Buff(RANDOM(ENEMY_MINIONS), 'BG24_Reward_305e', atk=ATK(Sell.CARD), max_health=MAX_HEALTH(Sell.CARD)))
 	pass
 class BG24_Reward_305e:# 
 	""" Anima Bribed	Increased stats. """
