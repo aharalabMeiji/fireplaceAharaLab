@@ -518,4 +518,37 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 
 
 
-
+##Sylvanas Windrunner    ### OK ###
+#BG_Hero4+=['TB_BaconShop_HERO_44','TB_BaconShop_HP_050']
+#BG_PoolSet_Hero4.append('TB_BaconShop_HERO_44')
+class TB_BaconShop_HERO_44:
+	""" Sylvanas Windrunner """
+	pass
+class TB_BaconShop_HP_050_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		for card in controller.field:
+			if card.killed_in_former_battle:
+				Buff(card, 'TB_BaconShop_HP_050e').trigger(source)
+		pass
+class TB_BaconShop_HP_050_Action0(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = target
+		for card in controller.field:
+			card.killed_in_former_battle=False
+		pass
+def TB_BaconShop_HP_050_Action2(card):
+	if card.controller.hero.power.id=='TB_BaconShop_HP_050':
+		if card.deepcopy_original!=None:
+			card.deepcopy_original.killed_in_former_battle=True
+	pass
+class TB_BaconShop_HP_050:
+	""" Banshee's Blessing
+	"""
+	############  直前の戦闘で死んだ味方のミニオン全てに+2/+1を付与する
+	activate = TB_BaconShop_HP_050_Action1(CONTROLLER)
+	events=OWN_TURN_END.on(TB_BaconShop_HP_050_Action0(CONTROLLER))
+	pass
+TB_BaconShop_HP_050e=buff(2,1)
