@@ -27,8 +27,8 @@ BG24_Reward_Devils_in_the_Details=True
 BG24_Reward_Partner_in_Crime=False# not in service
 BG24_Reward_Another_Hidden_Body=False## banned 24.2.1
 BG24_Reward_Staff_of_Origination=True
-BG24_Reward_Wondrous_Wisdomball=True
-BG24_Reward_To_The_Moon_Almost=True
+BG24_Reward_Wondrous_Wisdomball=False# ""\\### duffucykt
+BG24_Reward_To_The_Moon_Almost=False# not in service
 BG24_Reward_Alter_Ego=True
 BG24_Reward_9_Lives=True
 BG24_Reward_Menagerie_Mayhem=True
@@ -409,7 +409,7 @@ class BG24_Reward_309e:#
 	""" Satisfied. For Now...Consumed the stats of minion. """
 	pass
 
-if BG24_Reward_Partner_in_Crime:# no service
+if BG24_Reward_Partner_in_Crime:# not in service
 	BG24_Reward+=['BG24_Reward_310']
 	BG24_Reward_Pool+=['BG24_Reward_310']
 class BG24_Reward_310:# [2467]=100, [2653]=10000, 
@@ -426,7 +426,7 @@ class BG24_Reward_311:# [2467]=70, [2581]=1, [2641]=1,
 	[Discover] a minion of your Tavern Tier. <i>(Can be earned endlessly!)</i> """
 	pass
 
-if BG24_Reward_Staff_of_Origination:# 
+if BG24_Reward_Staff_of_Origination:# ### visually OK ###
 	BG24_Reward+=['BG24_Reward_312']
 	BG24_Reward+=['BG24_Reward_312e']
 	BG24_Reward_Pool+=['BG24_Reward_312']
@@ -435,7 +435,6 @@ class BG24_Reward_312:# [1500]=1, [2467]=275, [2641]=1, [2653]=300, [2727]=1,
 	[Start of Combat:] Give your minions +12/+12. """
 	secret = BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'BG24_Reward_312e'))
 	pass
-
 #+15/+15 -> +12/+12 (24.2.2)
 BG24_Reward_312e=buff(12,12)# 
 
@@ -446,16 +445,17 @@ if BG24_Reward_Wondrous_Wisdomball:#
 class BG24_Reward_313:# [2467]=160, [2641]=1, [2653]=300, 
 	""" Wondrous Wisdomball
 	Occasionally gives helpful [Refreshes]. """
-	#
+	#summon 7 tier 3 minions
+	#summon 2 tier 6 minions
+	#buff 2/2 to all minions
 	pass
-
 class BG24_Reward_313e:# 
 	""" Wisdom and Wonder
 	Increased stats. """
 	#
 	pass
 
-if BG24_Reward_To_The_Moon_Almost:# 
+if BG24_Reward_To_The_Moon_Almost:# not in service
 	BG24_Reward+=['BG24_Reward_320']
 	BG24_Reward_Pool+=['BG24_Reward_320']
 class BG24_Reward_320:# [2467]=130, 
@@ -472,16 +472,16 @@ if BG24_Reward_Alter_Ego:#
 class BG24_Reward_321:# [2467]=120, [2641]=1, 
 	""" Alter Ego
 	Even Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Odd next turn!)</i> """
-	update = Refresh(FRIENDLY_MINIONS + EVEN_TECH_LEVEL, 'BG24_Reward_321e')
-	events = OWN_TURN_BEGIN.on(CastSecret(CONTROLLER, 'BG24_Reward_321t'),Destroy(SELF))
+	update = Refresh(ENEMY_MINIONS + EVEN_TECH_LEVEL, buff='BG24_Reward_321e')
+	events = OWN_TURN_BEGIN.on(CastSecret('BG24_Reward_321t'),Destroy(SELF))
 	pass
 ## +6/+6 -> +7/+7 (24.2.2)
 BG24_Reward_321e=buff(7,7)# 
 class BG24_Reward_321t:# 
 	""" Alter Ego
 	Odd Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Even next turn!)</i> """
-	update = Refresh(FRIENDLY_MINIONS + ODD_TECH_LEVEL, 'BG24_Reward_321e')
-	events = OWN_TURN_BEGIN.on(CastSecret(CONTROLLER, 'BG24_Reward_321'),Destroy(SELF))
+	update = Refresh(FRIENDLY_MINIONS + ODD_TECH_LEVEL, buff='BG24_Reward_321e')
+	events = OWN_TURN_BEGIN.on(CastSecret('BG24_Reward_321'),Destroy(SELF))
 	pass
 
 if BG24_Reward_9_Lives:# 

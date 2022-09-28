@@ -226,9 +226,9 @@ class BG20_203_G:# <12>[1453]
 
 
 if BG_Selfless_Hero:#Selfless Hero	2	2	1
-	BG_Minion += ['OG_221','TB_BaconUps_014',]#	
-	BG_PoolSet_Minion[2].append('OG_221')
-	BG_Minion_Gold['OG_221']='TB_BaconUps_014'
+	BG_Minion += ['BG_OG_221','TB_BaconUps_014',]#	
+	BG_PoolSet_Minion[2].append('BG_OG_221')
+	BG_Minion_Gold['BG_OG_221']='TB_BaconUps_014'
 	pass
 #Selfless Hero	2	2	1	-	### OK ###
 ### 基本的にはこれでよいと思うが、 RANDOM(FRIENDLY_MINIONS - DIVINE_SHIELD)
