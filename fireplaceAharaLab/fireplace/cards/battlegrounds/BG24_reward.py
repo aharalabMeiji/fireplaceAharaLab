@@ -383,7 +383,7 @@ class BG24_Reward_308e:
 	pass
 
 
-if BG24_Reward_Devils_in_the_Details:# 
+if BG24_Reward_Devils_in_the_Details:# ### OK ###
 	BG24_Reward+=['BG24_Reward_309']
 	BG24_Reward+=['BG24_Reward_309e']
 	BG24_Reward_Pool+=['BG24_Reward_309']
@@ -395,11 +395,11 @@ class BG24_Reward_309_Action(TargetedAction):
 		if len(controller.field)>0:
 			if len(controller.opponent.field)>0:
 				card = random.choice(controller.opponent.field)
-				EatsMinion(controller[0],card,1,'BG24_Reward_309e').trigger(source)
+				EatsMinion(controller.field[0],card,1,'BG24_Reward_309e').trigger(source)
 			if len(controller.field)>1:
 				if len(controller.opponent.field)>0:
 					card = random.choice(controller.opponent.field)
-					EatsMinion(controller[-1],card,1,'BG24_Reward_309e').trigger(source)
+					EatsMinion(controller.field[-1],card,1,'BG24_Reward_309e').trigger(source)
 class BG24_Reward_309:# [2467]=110, [2641]=1, 
 	""" Devils in the Details
 	At the end of your turn, Your left and right-most minions consume a minion in Bob's Tavern. """
