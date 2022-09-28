@@ -540,15 +540,20 @@ class BG23_HERO_306p_Action1(TargetedAction):
 			if card.killed_in_former_battle:
 				Buff(card, 'BG23_HERO_306e').trigger(source)
 		pass
-def BG23_HERO_306p_Action2(card):## in actions.Death()
-	if card.controller.hero.power.id=='BG23_HERO_306p':
-		if card.deepcopy_original!=None:
-			card.deepcopy_original.killed_in_former_battle=True
+class BG23_HERO_306p_Action2(TargetedAction):
+	ENTITY=ActionArg()
+	def do(self, source, entity):## in actions.Death()
+		if entity.controller.hero.power.id=='BG23_HERO_306p':
+			if entity.game.this_is_battle and entity.deepcopy_original!=None:
+				entity.deepcopy_original.killed_in_former_battle=True
 	pass
 class BG23_HERO_306p:
 	""" Reclaimed Souls
 	Give +2/+1 to your minions that died last combat."""
 	activate = BG23_HERO_306p_Action1(CONTROLLER)
-	events=OWN_TURN_END.on(BG23_HERO_306p_Action0(CONTROLLER))
+	events=[
+		OWN_TURN_END.on(BG23_HERO_306p_Action0(CONTROLLER)),
+		Death(FRIENDLY + MINION).on(BG23_HERO_306p_Action2(Death.ENTITY))
+	]
 	pass
 BG23_HERO_306e=buff(2,1)
