@@ -833,7 +833,7 @@ class Minion(Character):
 		self.gem_applied_thisturn=False
 		self.tech_level_plus1 = 4
 		self.stop_attack=False## if another minion attacks instead of self, this flag will be True
-		self.killed_in_former_battle=False ## battlegrounds
+		self.killed_in_former_battle=False ## battlegrounds new 24.4
 		super().__init__(data)
 
 	@property

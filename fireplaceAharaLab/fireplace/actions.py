@@ -367,7 +367,7 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Reborn(entity)])
 		if entity.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(entity.controller, "HERO_05bp").trigger(entity)
-		if entity.controller.hero.power.id=='BG23_HERO_306p': ## battlegrounds
+		if entity.controller.hero.power.id=='BG23_HERO_306p': ## battlegrounds new 24.4
 			if entity.game.this_is_battle and entity.deepcopy_original!=None:
 				entity.deepcopy_original.killed_in_former_battle=True
 class EndTurn(GameAction):

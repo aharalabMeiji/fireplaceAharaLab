@@ -519,9 +519,9 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 
 
 
-##Sylvanas Windrunner    ### OK ###
-#BG_Hero4+=['TB_BaconShop_HERO_44','TB_BaconShop_HP_050']
-#BG_PoolSet_Hero4.append('TB_BaconShop_HERO_44')
+##Sylvanas Windrunner    ### OK ### new 24.4
+BG_Hero4+=['BG23_HERO_306','BG23_HERO_306p','BG23_HERO_306e']
+BG_PoolSet_Hero4.append('BG23_HERO_306')
 class BG23_HERO_306:
 	""" Sylvanas Windrunner """
 	pass

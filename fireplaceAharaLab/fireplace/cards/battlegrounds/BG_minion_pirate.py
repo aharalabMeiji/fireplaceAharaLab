@@ -53,7 +53,7 @@ class BGS_061_Action(TargetedAction):
 			controller = target
 			newcard=Summon(controller, cardid).trigger(controller)
 			newcard=newcard[0][0]
-			defenders = [card for card in newcard.attack_targets if card in self.controller.opponent.field]
+			defenders = [card for card in newcard.attack_targets if card in controller.opponent.field]
 			if len(defenders)>0:
 				defender=random.choice(defenders)
 				#print("%s attacks %s"%(newcard,defender))
