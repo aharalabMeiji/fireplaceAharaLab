@@ -464,24 +464,50 @@ class BG24_Reward_320:# [2467]=130,
 	#
 	pass
 
-if BG24_Reward_Alter_Ego:# 
+if BG24_Reward_Alter_Ego:# ### OK ###
 	BG24_Reward+=['BG24_Reward_321']
 	BG24_Reward+=['BG24_Reward_321t']
 	BG24_Reward+=['BG24_Reward_321e']
 	BG24_Reward_Pool+=['BG24_Reward_321']
+class BG24_Reward_321_Action0(TargetedAction):
+	TARGET=ActionArg()
+	CARDID=ActionArg()
+	def do(self, source, target, cardid):
+		controller=target
+		newcard=Give(controller, cardid).trigger(source)
+		newcard=newcard[0][0]
+		CastSecret(newcard).trigger(source)
+		source.destroy()
+		pass
+class BG24_Reward_321_Action1(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	BUFF=ActionArg()
+	def do(self, source, target, amount, buff):
+		if target.game.this_is_tavern:
+			for card in target.opponent.field:
+				if card.type==CardType.MINION and card.tech_level%2==amount:
+					Buff(card, buff).trigger(source)
+		pass
 class BG24_Reward_321:# [2467]=120, [2641]=1, 
 	""" Alter Ego
 	Even Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Odd next turn!)</i> """
-	update = Refresh(ENEMY_MINIONS + EVEN_TECH_LEVEL, buff='BG24_Reward_321e')
-	events = OWN_TURN_BEGIN.on(CastSecret('BG24_Reward_321t'),Destroy(SELF))
+	events = [
+		BeginBar(CONTROLLER).on(BG24_Reward_321_Action1(CONTROLLER,1,'BG24_Reward_321e')),
+		Rerole(CONTROLLER).on(BG24_Reward_321_Action1(CONTROLLER,1,'BG24_Reward_321e')),
+		OWN_TURN_END.on(BG24_Reward_321_Action0(CONTROLLER,'BG24_Reward_321t'))
+	]
 	pass
 ## +6/+6 -> +7/+7 (24.2.2)
 BG24_Reward_321e=buff(7,7)# 
 class BG24_Reward_321t:# 
 	""" Alter Ego
 	Odd Tier minions in Bob's Tavern have +6/+6. <i>(Swaps to Even next turn!)</i> """
-	update = Refresh(FRIENDLY_MINIONS + ODD_TECH_LEVEL, buff='BG24_Reward_321e')
-	events = OWN_TURN_BEGIN.on(CastSecret('BG24_Reward_321'),Destroy(SELF))
+	events = [
+		BeginBar(CONTROLLER).on(BG24_Reward_321_Action1(CONTROLLER,0,'BG24_Reward_321e')),
+		Rerole(CONTROLLER).on(BG24_Reward_321_Action1(CONTROLLER,0,'BG24_Reward_321e')),
+		OWN_TURN_END.on(BG24_Reward_321_Action0(CONTROLLER,'BG24_Reward_321'))
+	]
 	pass
 
 if BG24_Reward_9_Lives:# 
