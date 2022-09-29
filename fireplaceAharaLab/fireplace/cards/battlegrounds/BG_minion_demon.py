@@ -383,10 +383,10 @@ class TB_BaconUps_083:# <12>[1453]
 
 #################### ヴォイドロード (5)### OK ###
 if BG_Voidlord:
-	BG_Minion_Demon +=['LOOT_368','CS2_065','TB_BaconUps_059','TB_BaconUps_059t']
-	BG_PoolSet_Demon[5].append('LOOT_368')
-	BG_Demon_Gold['LOOT_368']='TB_BaconUps_059'
-class LOOT_368:# <9>[1453]
+	BG_Minion_Demon +=['BG_LOOT_368','CS2_065','TB_BaconUps_059','TB_BaconUps_059t']
+	BG_PoolSet_Demon[5].append('BG_LOOT_368')
+	BG_Demon_Gold['BG_LOOT_368']='TB_BaconUps_059'
+class BG_LOOT_368:# <9>[1453]
 	""" Voidlord (5)
 	[Taunt] [Deathrattle:] Summon three 1/3 Demons with [Taunt]. """
 	deathrattle = Summon(CONTROLLER, 'CS2_065')*3

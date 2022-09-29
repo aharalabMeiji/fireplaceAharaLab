@@ -135,7 +135,8 @@ class BG24_Quest_151_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		if source.sidequest_list0==[]:
-			source.sidequest_list0=random.sample(random_picker.BG_races, 2)
+			source.sidequest_list0=[race for race in random_picker.BG_races if race != Race.INVALID]
+			source.sidequest_list0=random.sample(source.sidequest_list0, 2)
 		if isinstance(target,list):
 			target=target[0]
 		if target!=[]:

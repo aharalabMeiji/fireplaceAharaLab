@@ -939,8 +939,9 @@ class BG22_HERO_007:
 class BG22_HERO_007p_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		if hasattr(target.game,'this_is_tavern'):
+		if getattr(target.game,'this_is_tavern',False):
 			amount = sum([card.atk for card in target.field])
+			source.script_data_text_0=max(30-amount,0)
 			if amount>= 30:#source.script_data_num_2:
 				ChangeHeroPower(target, 'BG22_HERO_007p2').trigger(source)
 		pass

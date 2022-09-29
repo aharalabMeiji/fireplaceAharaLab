@@ -39,7 +39,7 @@ class Config:# ()is the default value
 	DARKMOON_TICKET_FOR_ALL=0 ## 全員にダークムーンチケットを配布
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
 	QUEST_REWARD=1 ## クエストルール（24.2）
-	QUEST_PRESET='BG24_Quest_124'
+	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=0 ## 人間プレーヤに、最初からrewardをセットする。
 	REWARD_PRESET=''
 
@@ -49,7 +49,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
 	RACE_CHOICE=['pirate']#RANDOM_RACE=0のときに有効
-	HERO_1='' #第1プレーヤーはヒーローを指定できる
+	HERO_1='BG22_HERO_007' #第1プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
