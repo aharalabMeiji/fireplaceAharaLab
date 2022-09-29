@@ -195,7 +195,7 @@ class BG_main:
 				if Config.CARD_PRESET2!= '':
 					card = bar.controller.card(Config.CARD_PRESET2)
 					card.zone = Zone.HAND
-				if Config.REWARD_PRESET_FIRST>0:
+				if Config.REWARD_PRESET_FIRST>0 and Config.REWARD_PRESET!='':
 					card = bar.controller.card(Config.REWARD_PRESET)
 					#if card.id=='BG24_Reward_130':
 					#	card.script_data_num_1=random.choice(random_picker.BG_races)

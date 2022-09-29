@@ -149,7 +149,10 @@ class BG_Battle(Game):
 			#move buddy gauge
 			self.player1.buddy_gauge += 1
 			self.player2.buddy_gauge += 1
-			return 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge #
+			ret = 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge
+			del self.game1
+			del self.game2
+			return ret #
 		elif len(self.player1.field)==0:
 			# get "sum of tech_levels of the winner + winners tier"
 			damage = self.player2.tavern_tier
@@ -161,7 +164,10 @@ class BG_Battle(Game):
 			# return the damages for heroes
 			self.player1.buddy_gauge += (damage)
 			self.player1.buddy_gauge += 3
-			return damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
+			ret = damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
+			del self.game1
+			del self.game2
+			return ret #
 		else:#if len(self.player2.field)==0:
 			# get "sum of tech_levels of the winner + winners tier"
 			damage = self.player1.tavern_tier
@@ -173,7 +179,10 @@ class BG_Battle(Game):
 			# return the damages for heroes
 			self.player2.buddy_gauge += (damage)
 			self.player2.buddy_gauge += 3
-			return 0, damage,self.player1.buddy_gauge,self.player2.buddy_gauge
+			ret= 0, damage,self.player1.buddy_gauge,self.player2.buddy_gauge
+			del self.game1
+			del self.game2
+			return ret #
 		pass
 
 	def printField(self):
