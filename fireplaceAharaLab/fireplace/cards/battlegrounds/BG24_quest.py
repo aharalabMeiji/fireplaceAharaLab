@@ -74,14 +74,14 @@ class BG24_Quest_123:# [2466]=1, [2580]=1,
 	secret = Buff(FRIENDLY_MINIONS).after(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
 	pass
 
-if BG24_Quest_Reenact_the_Murder:# ### visually OK ###
+if BG24_Quest_Reenact_the_Murder:# ### OK ###
 	BG24_Quest+=['BG24_Quest_124']
 	BG24_Quest_Pool+=['BG24_Quest_124']
 class BG24_Quest_124:# [2466]=1, [2643]=80, [2644]=80, [2646]=90, 
 	""" Reenact the Murder
 	[Quest:] Have {0} friendly minions die. """
 	#{0}=18->19 (24.2.2)
-	secret = Death(FRIENDLY_MINIONS).on(QuestCounter(SELF))
+	secret = Death(FRIENDLY + MINION).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Sort_It_All_Out:# 

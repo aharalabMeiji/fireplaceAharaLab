@@ -302,7 +302,7 @@ class BG21_014_Action(TargetedAction):
 		if not isinstance(target, list):
 			target = [target]
 		count=0
-		for card in target.controller.field:
+		for card in source.controller.field:
 			if card.race==Race.DRAGON:
 				count += amount
 		for card in target:

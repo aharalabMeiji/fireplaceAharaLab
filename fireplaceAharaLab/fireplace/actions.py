@@ -1452,6 +1452,7 @@ class Give(TargetedAction):
 		if len(cards)>0:
 			self.broadcast(source, EventListener.ON, target, cards[0])
 		for card in cards:
+			assert hasattr(target, 'hand'), "target must have attr -hand-"
 			if len(target.hand) >= target.max_hand_size:
 				if Config.LOGINFO:
 					Config.log("Give.do","Give(%r) fails because %r's hand is full"%(card, target))

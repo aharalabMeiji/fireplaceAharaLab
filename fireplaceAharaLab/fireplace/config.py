@@ -31,7 +31,7 @@ class Config:# ()is the default value
 
 
 	#battlegrounds option
-	PATCH_VERSION = 2420
+	PATCH_VERSION = 2440
 	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
 	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
 	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
@@ -39,11 +39,11 @@ class Config:# ()is the default value
 	DARKMOON_TICKET_FOR_ALL=0 ## 全員にダークムーンチケットを配布
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
 	QUEST_REWARD=1 ## クエストルール（24.2）
-	QUEST_PRESET=''
+	QUEST_PRESET='BG24_Quest_124'
 	REWARD_PRESET_FIRST=0 ## 人間プレーヤに、最初からrewardをセットする。
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=0 ##人間プレーヤーあり
+	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）

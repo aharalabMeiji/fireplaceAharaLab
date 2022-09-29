@@ -357,7 +357,7 @@ class BG21_001:# <12>[1453] クロコリスク
 	[Avenge (2) and Deathrattle:] Give another friendly Beast +6/+6. """
 	#<Tag enumID="2129" name="AVENGE" type="Int" value="1"/>
 	#<Tag enumID="451" name="SCORE_VALUE_1" type="Int" value="2"/>
-	events = Death(FRIENDLY).on(Avenge(2, Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e')))
+	events = Death(FRIENDLY).on(Avenge(SELF, 2, [Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e')]))
 	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + BEAST - SELF), 'BG21_001e')
 	pass
 BG21_001e=buff(6,6)

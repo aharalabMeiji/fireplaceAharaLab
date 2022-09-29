@@ -165,6 +165,21 @@ def deepcopy_spell(oldCards, oldCard, newCard):
 		ret.append(Ncard)
 	return ret
 
+def deepcopy_reward(oldCards, oldCard, newCard):
+	"""
+	oldCards: 
+	"""
+	ret=[]
+	for card in oldCards:
+		is_reward=(card.type==CardType.BATTLEGROUND_QUEST_REWARD)
+		assert is_reward, ""
+		Ncard = QuestReward(cards.db[card.id])
+		Ncard.controller = newCard.controller
+		newCard.game.manager.new_entity(Ncard)
+		ret.append(Ncard)
+	return ret
+
+
 def deepcopy_log(oldLog):
 	ret=[]
 	for log in oldLog:
@@ -185,20 +200,26 @@ def copy_cardattr(oldCard, newCard):
 			else:
 				if src==[]:
 					setattr(newCard, attr, [])
-				elif isinstance(src[0], AuraBuff):
-					setattr(newCard, attr, deepcopy_aurabuff(src))
-				elif isinstance(src[0], Enchantment):## 
-					setattr(newCard, attr, deepcopy_enchantment(src, oldCard, newCard))
-				elif isinstance(src[0], Minion):##choose one card
-					setattr(newCard, attr, deepcopy_minion(src, oldCard, newCard))
-				elif isinstance(src[0], Spell):##choose one card
-					setattr(newCard, attr, deepcopy_spell(src, oldCard, newCard))
-				elif isinstance(src[0], PlayLog):
-					setattr(newCard, attr, deepcopy_log(src))
-				elif isinstance(src[0], str):##discover,entourage
-					setattr(newCard, attr, copy.deepcopy(src))
 				else:
-					setattr(newCard, attr, copy.deepcopy(src))
+					newSrc=[]
+					for card in src:
+						if isinstance(card, AuraBuff):
+							newSrc += deepcopy_aurabuff([card])
+						elif isinstance(card, Enchantment):## 
+							newSrc += deepcopy_enchantment([card], oldCard, newCard)
+						elif isinstance(card, Minion):##choose one card
+							newSrc += deepcopy_minion([card], oldCard, newCard)
+						elif isinstance(card, Spell):##choose one card
+							newSrc += deepcopy_spell([card], oldCard, newCard)
+						elif isinstance(card, QuestReward):##
+							newSrc += deepcopy_reward([card], oldCard, newCard)
+						elif isinstance(card, PlayLog):
+							newSrc += deepcopy_log([card])
+						elif isinstance(card, str):##discover,entourage
+							newSrc += [copy.deepcopy(src)]
+						else:
+							newSrc += [copy.deepcopy(src)]
+					setattr(newCard, attr, newSrc)
 			pass
 		pass
 
