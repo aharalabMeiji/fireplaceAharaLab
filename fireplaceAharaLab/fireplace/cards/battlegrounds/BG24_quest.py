@@ -127,9 +127,12 @@ if BG24_Quest_Unlikely_Duo:#
 	BG24_Quest_Pool+=['BG24_Quest_151']
 def BG24_Quest_151_Initialize(source):
 	if source.id=='BG24_Quest_151':
-		source.sidequest_list0=random.sample(random_picker.BG_races, 2)
-		source.script_data_text_2=str(source.sidequest_list0[0])
-		source.script_data_text_3=str(source.sidequest_list0[1])
+		source.sidequest_list0=[race for race in random_picker.BG_races if race != Race.INVALID]
+		source.sidequest_list0=random.sample(source.sidequest_list0, 2)
+		names={Race.BEAST:'獣', Race.DEMON:'悪魔', Race.DRAGON:'ドラゴン', Race.ELEMENTAL:'エレメンタル', 
+		Race.MECHANICAL:'メカ', Race.MURLOC:'マーロック', Race.PIRATE:'海賊', Race.NAGA:'ナーガ', Race.QUILBOAR:'キルボア'}
+		source.script_data_text_2=names[source.sidequest_list0[0]]
+		source.script_data_text_3=names[source.sidequest_list0[1]]
 	pass
 class BG24_Quest_151_Action2(TargetedAction):
 	TARGET=ActionArg()
@@ -147,7 +150,7 @@ class BG24_Quest_151:# [2466]=1, [2496]=1,
 	""" Unlikely Duo
 	[Quest:] Play {0} {2} or {3}. """
 	#{0}=5, {2}{3}:種族
-	events = Play(CONTROLLER, FRIENDLY - SELF).on(BG24_Quest_151_Action2(Play.CARD))
+	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG24_Quest_151_Action2(Play.CARD))
 	pass
 
 if BG24_Quest_Balance_the_Scales:# ????????????????
