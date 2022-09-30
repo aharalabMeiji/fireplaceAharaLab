@@ -122,7 +122,7 @@ class BG24_Quest_126:# [2466]=1,
 	]
 	pass
 
-if BG24_Quest_Unlikely_Duo:# 
+if BG24_Quest_Unlikely_Duo:# ### OK ###
 	BG24_Quest+=['BG24_Quest_151']
 	BG24_Quest_Pool+=['BG24_Quest_151']
 def BG24_Quest_151_Initialize(source):
