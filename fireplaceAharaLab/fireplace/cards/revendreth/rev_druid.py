@@ -1,135 +1,274 @@
 from ..utils import *
 
-#CardSet.REVENDRETH_CardClass.DRUID=['REV_307','REV_310','REV_310e','REV_311','REV_311t','REV_311t2','REV_313','REV_313e','REV_314','REV_314e','REV_314t','REV_318','REV_318e','REV_318e2','REV_319','REV_319e','REV_333','REV_336','REV_336t2','REV_336t3','REV_336t4','REV_365',]
+Rev_Druid=[]
+
+Rev_Dew_Process=True
+Rev_Attorney_at_Maw=True
+Rev_Incarceration=True
+Rev_Natural_Causes=True
+Rev_Death_Blossom_Whomper=True
+Rev_Nightshade_Bud=True
+Rev_Planted_Evidence=True
+Rev_Topior_the_Shrubbagazzor=True
+Rev_Widowbloom_Seedsman=True
+Rev_Sesselie_of_the_Fae_Court=True
+Rev_Hedge_Maze=True
+Rev_Plot_of_Sin=True
+Rev_Convoke_the_Spirits=True
+Rev_Sesselie_of_the_Fae_Court=True
+Rev_Hedge_Maze=True
+
+
+if Rev_Dew_Process:# 
+	Rev_Druid+=['MAW_024']
+class MAW_024:# <2>[1691]
+	""" Dew Process
+	For the rest of the game, players draw an extra card at the start of their turn. """
+	#
+	pass
+
+	Rev_Druid+=['MAW_024e2']
+class MAW_024e2:# <2>[1691]
+	""" Maw Rules
+	Player draws an extra card at the start of their turn. """
+	#
+	pass
+
+	Rev_Druid+=['MAW_024e3']
+class MAW_024e3:# <2>[1691]
+	""" Maw Rules
+	Draw an extra card at the start of your turn. """
+	#
+	pass
+
+if Rev_Attorney_at_Maw:# 
+	Rev_Druid+=['MAW_025']
+class MAW_025:# <2>[1691]
+	""" Attorney-at-Maw
+	<b>Choose One -</b> <b>Silence</b> a minion; or Give a minion <b>Immune</b> this turn. """
+	#
+	pass
+
+	Rev_Druid+=['MAW_025a']
+class MAW_025a:# <2>[1691]
+	""" Guilty!
+	<b>Silence</b> a minion. """
+	#
+	pass
+
+	Rev_Druid+=['MAW_025b']
+class MAW_025b:# <2>[1691]
+	""" Innocent!
+	Give a minion <b>Immune</b> this turn. """
+	#
+	pass
+
+	Rev_Druid+=['MAW_025e']
+class MAW_025e:# <2>[1691]
+	""" Proven Innocent
+	<b>Immune</b> this turn. """
+	#
+	pass
+
+if Rev_Incarceration:# 
+	Rev_Druid+=['MAW_026']
+class MAW_026:# <2>[1691]
+	""" Incarceration
+	Choose a minion. It goes <b>Dormant</b> for 3 turns. """
+	#
+	pass
+
+	Rev_Druid+=['MAW_026e']
+class MAW_026e:# <2>[1691]
+	""" Doing Time
+	<b>Dormant</b>. Awaken in @ |4(turn, turns). """
+	#
+	pass
+
+	Rev_Druid+=['MAW_026e2']
+class MAW_026e2:# <2>[1691]
+	""" Doing Time
+	 """
+	#
+	pass
+
+if Rev_Natural_Causes:# 
+	Rev_Druid+=['REV_307']
 class REV_307:# <2>[1691]
 	""" Natural Causes
 	Deal $2 damage. Summon a 2/2 Treant. """
 	#
 	pass
 
+if Rev_Death_Blossom_Whomper:# 
+	Rev_Druid+=['REV_310']
 class REV_310:# <2>[1691]
 	""" Death Blossom Whomper
-	[Battlecry:] Draw a [Deathrattle] minion and gain its [Deathrattle.] """
+	<b>Battlecry:</b> Draw a <b>Deathrattle</b> minion and gain its <b>Deathrattle.</b> """
 	#
 	pass
 
+	Rev_Druid+=['REV_310e']
 class REV_310e:# <2>[1691]
 	""" Whomping
-	Copied [Deathrattle] from {0}. """
+	Copied <b>Deathrattle</b> from {0}. """
 	#
 	pass
 
+if Rev_Nightshade_Bud:# 
+	Rev_Druid+=['REV_311']
 class REV_311:# <2>[1691]
 	""" Nightshade Bud
-	[Choose One - ][Discover] a minion from your deck to summon;or a spell to cast. """
+	<b>Choose One - </b><b>Discover</b> a minion from your deck to summon; or a spell to cast. """
 	#
 	pass
 
+	Rev_Druid+=['REV_311t']
 class REV_311t:# <2>[1691]
 	""" Sunlight Blossom
-	[Discover] a spell fromyour deck to cast. """
+	<b>Discover</b> a spell from your deck to cast. """
 	#
 	pass
 
+	Rev_Druid+=['REV_311t2']
 class REV_311t2:# <2>[1691]
 	""" Moonlight Blossom
-	[Discover] a minion fromyour deck to summon. """
+	<b>Discover</b> a minion from your deck to summon. """
 	#
 	pass
 
+if Rev_Planted_Evidence:# 
+	Rev_Druid+=['REV_313']
 class REV_313:# <2>[1691]
 	""" Planted Evidence
-	[Discover] a spell. It costs (2) less this turn. """
+	<b>Discover</b> a spell. It costs (2) less this turn. """
 	#
 	pass
 
+	Rev_Druid+=['REV_313e']
 class REV_313e:# <2>[1691]
 	""" Ripe Spell
 	Costs (2) less this turn. """
 	#
 	pass
 
+if Rev_Topior_the_Shrubbagazzor:# 
+	Rev_Druid+=['REV_314']
 class REV_314:# <2>[1691]
 	""" Topior the Shrubbagazzor
-	[Battlecry:] For the rest ofthe game, after you cast aNature spell, summon a3/3 Whelp with [Rush]. """
+	<b>Battlecry:</b> For the rest of the game, after you cast a Nature spell, summon a 3/3 Whelp with <b>Rush</b>. """
 	#
 	pass
 
+	Rev_Druid+=['REV_314e']
 class REV_314e:# <2>[1691]
 	""" Winter Queen's Blessing
 	For the rest of the game, after you play a Nature spell summon a 3/3 Dragon. """
 	#
 	pass
 
+	Rev_Druid+=['REV_314t']
 class REV_314t:# <2>[1691]
 	""" Whelpagazzor
-	[Rush] """
+	<b>Rush</b> """
 	#
 	pass
 
+if Rev_Widowbloom_Seedsman:# 
+	Rev_Druid+=['REV_318']
 class REV_318:# <2>[1691]
 	""" Widowbloom Seedsman
-	[Battlecry:] Draw a Naturespell. Gain an empty Mana Crystal. """
+	<b>Battlecry:</b> Draw a Nature spell. Gain an empty Mana Crystal. """
 	#
 	pass
 
+	Rev_Druid+=['REV_318e']
 class REV_318e:# <2>[1691]
 	""" Cycle of Life
 	Play the card to gain an empty Mana Crystal. """
 	#
 	pass
 
+	Rev_Druid+=['REV_318e2']
 class REV_318e2:# <2>[1691]
 	""" Play This Game Enchantment
 	 """
 	#
 	pass
 
+if Rev_Sesselie_of_the_Fae_Court:# 
+	Rev_Druid+=['REV_319']
 class REV_319:# <2>[1691]
 	""" Sesselie of the Fae Court
-	[Taunt][Deathrattle]: Draw a minion.Reduce its Cost by (8). """
+	<b>Taunt</b> <b>Deathrattle</b>: Draw a minion. Reduce its Cost by (8). """
 	#
 	pass
 
+	Rev_Druid+=['REV_319e']
 class REV_319e:# <2>[1691]
 	""" Sesselie's Blessing
 	Costs (8) less. """
 	#
 	pass
 
+if Rev_Hedge_Maze:# 
+	Rev_Druid+=['REV_333']
 class REV_333:# <2>[1691]
 	""" Hedge Maze
-	Trigger a friendly minion's [Deathrattle]. """
+	Trigger a friendly minion's <b>Deathrattle</b>. """
 	#
 	pass
 
+if Rev_Plot_of_Sin:# 
+	Rev_Druid+=['REV_336']
 class REV_336:# <2>[1691]
 	""" Plot of Sin
-	Summon two 2/2 Treants. [Infuse (@):] Two 5/5 Ancients instead. """
+	Summon two 2/2  Treants. <b>Infuse (@):</b> Two  5/5 Ancients instead. """
 	#
 	pass
 
+	Rev_Druid+=['REV_336t2']
 class REV_336t2:# <2>[1691]
 	""" Treant
 	 """
 	#
 	pass
 
+	Rev_Druid+=['REV_336t3']
 class REV_336t3:# <2>[1691]
 	""" Ancient
 	 """
 	#
 	pass
 
+	Rev_Druid+=['REV_336t4']
 class REV_336t4:# <2>[1691]
 	""" Plot of Sin
-	[Infused]Summon two 5/5 Ancients. """
+	<b>Infused</b> Summon two 5/5 Ancients. """
 	#
 	pass
 
+if Rev_Convoke_the_Spirits:# 
+	Rev_Druid+=['REV_365']
 class REV_365:# <2>[1691]
 	""" Convoke the Spirits
-	Cast 8 randomDruid spells <i>(targetschosen randomly)</i>. """
+	Cast 8 random Druid spells <i>(targets chosen randomly)</i>. """
+	#
+	pass
+
+if Rev_Sesselie_of_the_Fae_Court:# 
+	Rev_Druid+=['REV_782']
+class REV_782:# <2>[1691]
+	""" Sesselie of the Fae Court
+	{0} {1} {2} {3} """
+	#
+	pass
+
+if Rev_Hedge_Maze:# 
+	Rev_Druid+=['REV_792']
+class REV_792:# <2>[1691]
+	""" Hedge Maze
+	{0} {1} """
 	#
 	pass
 

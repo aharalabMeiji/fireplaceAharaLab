@@ -6,15 +6,15 @@ from hearthstone.deckstrings import parse_deckstring
 
 def printClasses():
 	from hearthstone import cardxml
-	myCardSet=CardSet.THE_SUNKEN_CITY#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.WARLOCK##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	myCardSet=CardSet.REVENDRETH#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
+	myCardClass=CardClass.WARRIOR##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	setText={
 		CardSet.VANILLA:'Classic_',
 		CardSet.THE_BARRENS:'Barrens_',
 		CardSet.STORMWIND:'StormWind_',
 		CardSet.ALTERAC_VALLEY:'Alterac_',
 		CardSet.THE_SUNKEN_CITY:'Sunken_',
-		CardSet.REVENDRETH:'Revendreth_',
+		CardSet.REVENDRETH:'Rev_',
 		}
 	classText={
 		CardClass.DEMONHUNTER:'DemonHunter',

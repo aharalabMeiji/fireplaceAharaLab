@@ -106,6 +106,10 @@ Sunken_Warrior=sunken_warrior.Sunken_Warrior
 Sunken_Cards=[Sunken_DemonHunter, Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Priest, Sunken_Rogue, Sunken_Shaman, Sunken_Warlock, Sunken_Warrior]
 
 ## REVENDRETH = 1691  # Murder at Castle Nathria
+from fireplace.cards.revendreth import rev_neutral
+Revendreth_Neutral=rev_neutral.Rev_Neutral
+Revendreth_Cards=[Revendreth_Neutral]
+
 # Hero
 from fireplace.cards.hero_dream import hero, dream
 Heroes=hero.Heroes
@@ -129,7 +133,7 @@ clownDruid = [
 	#'CORE_EX1_169','CORE_CS2_013','CS2_013t',
 	#'BAR_042',	
 ]
-All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
+All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
 
 
 #+Classic_Cards\

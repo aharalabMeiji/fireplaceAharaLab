@@ -47,7 +47,7 @@ def main():
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 	#from utils import BigDeck
 	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=1, debugLog=True)
 	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
 	#デッキを固定しての総当たり戦
 	#デッキ種類は関数内で設定
@@ -99,7 +99,7 @@ def battleground_main():
 	BG=BG_main()
 	BG.BG_main()
 
-from fireplace.debug_utilities import printClasses, printClasses_BG24,parse
+from fireplace.debug_utilities import printClasses, printClasses_BG24, parse
 
 if __name__ == "__main__":
 	if Config.HEARTHSTONE==1 or Config.HEARTHSTONE==2:
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 	elif Config.HEARTHSTONE==4:
 		card_test()
 	elif Config.HEARTHSTONE==5:
-		printClasses_BG24()
+		printClasses()
 	elif Config.HEARTHSTONE==10:
 		parse()
 	
