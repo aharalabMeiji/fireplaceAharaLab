@@ -231,7 +231,7 @@ class BG24_Quest_328:#
 
 
 from .BG24_reward import BG24_Reward_Pool
-if BG24_Quest_An_Investigation:# 
+if BG24_Quest_An_Investigation:# ### OK ### no weight for the parameter of quests
 	BG24_Quest+=['BG24_Quest_Bob']
 class BG24_Quest_Bob_Choice(Choice):
 	def do(self, source, player, cards, option=None):
