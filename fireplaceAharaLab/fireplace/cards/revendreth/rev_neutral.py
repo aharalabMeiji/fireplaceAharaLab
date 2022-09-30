@@ -170,15 +170,22 @@ class REV_012t:# <12>[1691]
 
 
 
-
-
+class Infuse(TargetedAction):
+	INFUSED=ActionArg()
+	def do(self, source, infused):
+		source.script_data_num_1 -= 1
+		if source.script_data_num_1<= 0:
+			Morph(source, infused).trigger(source)
 if Rev_Stoneborn_Accuser:# 
 	Rev_Neutral+=['REV_013']
 	Rev_Neutral+=['REV_013t']
 class REV_013:# <12>[1691]
 	""" Stoneborn Accuser
 	<b>Infuse (@):</b> Gain "<b>Battlecry:</b> Deal 5 damage." """
-	#
+	#<Tag enumID="2456" name="INFUSE" type="Int" value="1"/>
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="5"/>
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse('REV_013t'))
 	pass
 
 class REV_013t:# <12>[1691]
