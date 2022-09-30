@@ -137,13 +137,17 @@ def BG24_Quest_151_Initialize(source):
 class BG24_Quest_151_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
+		names={Race.BEAST:'獣', Race.DEMON:'悪魔', Race.DRAGON:'ドラゴン', Race.ELEMENTAL:'エレメンタル', 
+		Race.MECHANICAL:'メカ', Race.MURLOC:'マーロック', Race.PIRATE:'海賊', Race.NAGA:'ナーガ', Race.QUILBOAR:'キルボア'}		
 		if source.sidequest_list0==[]:
 			source.sidequest_list0=[race for race in random_picker.BG_races if race != Race.INVALID]
 			source.sidequest_list0=random.sample(source.sidequest_list0, 2)
 		if isinstance(target,list):
 			target=target[0]
 		if target!=[]:
-			if target.type==CardType.MINION and target.race in source.sidequest_list0:
+			if target.type==CardType.MINION and names[target.race] == source.script_data_text_2:
+				QuestCounter(source).trigger(source)
+			if target.type==CardType.MINION and names[target.race] == source.script_data_text_3:
 				QuestCounter(source).trigger(source)
 		pass
 class BG24_Quest_151:# [2466]=1, [2496]=1, 
