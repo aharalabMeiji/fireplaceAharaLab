@@ -54,6 +54,7 @@ class BAR_840:##OK <10>[1525]
 	""" Whirling Combatant
 	[Battlecry and Frenzy:]Deal 1 damage to allother minions. """
 	events = Damage(SELF).on(Frenzy(SELF, Hit(ALL_MINIONS - SELF, 1)))
+	play = Hit(ALL_MINIONS - SELF, 1)
 	pass
 
 

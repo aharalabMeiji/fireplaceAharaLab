@@ -90,8 +90,8 @@ def main():
 	pass
 
 def card_test():
-	from card_test.stormwind_warlock import stormwind_warlock
-	stormwind_warlock()
+	from card_test.t_rev_neutral import rev_neutral
+	rev_neutral()
 	pass
 
 def battleground_main():

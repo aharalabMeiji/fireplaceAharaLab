@@ -10,11 +10,14 @@ def rev_neutral():
 	#PresetGame(pp_MAW_033)##
 	#PresetGame(pp_MAW_034)##
 	#PresetGame(pp_REV_012)##
-	#PresetGame(pp_REV_013)##
+	#PresetGame(pp_REV_013)## OK
+	#PresetGame(pp_REV_013t)## OK
 	#PresetGame(pp_REV_014)##
 	#PresetGame(pp_REV_015)##
 	#PresetGame(pp_REV_016)##
-	#PresetGame(pp_REV_017)##
+	#PresetGame(pp_REV_017a)## OK
+	#PresetGame(pp_REV_017b)## OK
+	#PresetGame(pp_REV_017c)## OK
 	#PresetGame(pp_REV_018)##
 	#PresetGame(pp_REV_019)##
 	#PresetGame(pp_REV_020)##
@@ -237,10 +240,13 @@ class pp_REV_012(Preset_Play):
 class pp_REV_013(Preset_Play):
 	""" Stoneborn Accuser
 	<b>Infuse (@):</b> Gain "<b>Battlecry:</b> Deal 5 damage." """
-	class1=CardClass.NEUTRAL
-	class2=CardClass.NEUTRAL
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_013", self.controller)
+		self.con1.script_data_num_1=2## originally it is 5
+		self.con2=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con2=self.con2[0][0]
+		self.con3=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con3=self.con3[0][0]
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
@@ -250,15 +256,36 @@ class pp_REV_013(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		Hit(self.con2,3).trigger(self.opponent)
+		Hit(self.con3,3).trigger(self.opponent)
+		Hit(self.con3,3).trigger(self.opponent)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+	pass
+class pp_REV_013t(Preset_Play):
+	""" Stoneborn Accuser
+	<b>Infused</b> <b>Battlecry:</b> Deal 5 damage. """
+	def preset_deck(self):
+		self.con1=self.exchange_card("REV_013t", self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH6")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1, target=self.opp1)
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.opponent.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -354,15 +381,11 @@ class pp_REV_016(Preset_Play):
 
 ##########REV_017##########
 
-class pp_REV_017(Preset_Play):
+class pp_REV_017a(Preset_Play):
 	""" Insatiable Devourer
 	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _<b>Infuse (@):</b> And its neighbors. """
-	class1=CardClass.NEUTRAL
-	class2=CardClass.NEUTRAL
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_017", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
@@ -370,15 +393,76 @@ class pp_REV_017(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
+		self.play_card(self.con1, target=self.opp1)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
+		
+	pass
+class pp_REV_017b(Preset_Play):
+	""" Insatiable Devourer
+	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _<b>Infuse (@):</b> And its neighbors. """
+	def preset_deck(self):
+		self.con1=self.exchange_card("REV_017", self.controller)
+		self.con1.script_data_num_1=2
+		self.con2=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con2=self.con2[0][0]
+		self.con3=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con3=self.con3[0][0]
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		#self.play_card(self.con1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		Hit(self.con2,3).trigger(self.opponent)
+		Hit(self.con3,3).trigger(self.opponent)
+		Hit(self.con4,3).trigger(self.opponent)
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+	pass
+class pp_REV_017c(Preset_Play):
+	""" Insatiable Devourer
+	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _<b>Infuse (@):</b> And its neighbors. """
+	def preset_deck(self):
+		self.con1=self.exchange_card("REV_017t", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
+		self.opp3=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp3=self.opp3[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1, target=self.opp2)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
+		for card in self.opponent.field:
+			self.print_stats("field", card)
 	pass
 
 

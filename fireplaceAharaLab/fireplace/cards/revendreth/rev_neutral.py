@@ -114,13 +114,28 @@ if Rev_Sylvanas_the_Accused:#
 	Rev_Neutral+=['MAW_033t']
 class MAW_033:# <12>[1691]
 	""" Sylvanas, the Accused
-	<b>Battlecry:</b> Destroy an enemy minion. <b>Infuse (@):</b> Take control of it instead. """
-	#
+	<b>Battlecry:</b> Destroy an enemy minion. 
+	<b>Infuse (@):</b> Take control of it instead. """
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="7"/>
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Destroy(TARGET)
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'MAW_033t'))
 	pass
-
+class MAW_033t_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		assert target.type==CardType.MINION
+		assert target.zone==Zone.PLAY
+		target.zone=Zone.SETASIDE
+		target.controller=source.controller
+		target.zone=Zone.PLAY
+		pass
 class MAW_033t:# <12>[1691]
 	""" Sylvanas, the Accused
 	<b>Infused</b> <b>Battlecry:</b> Take control of an enemy minion. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = MAW_033t_Action(TARGET)
 	#
 	pass
 
@@ -170,13 +185,7 @@ class REV_012t:# <12>[1691]
 
 
 
-class Infuse(TargetedAction):
-	INFUSED=ActionArg()
-	def do(self, source, infused):
-		source.script_data_num_1 -= 1
-		if source.script_data_num_1<= 0:
-			Morph(source, infused).trigger(source)
-if Rev_Stoneborn_Accuser:# 
+if Rev_Stoneborn_Accuser:# ### OK ###
 	Rev_Neutral+=['REV_013']
 	Rev_Neutral+=['REV_013t']
 class REV_013:# <12>[1691]
@@ -185,13 +194,14 @@ class REV_013:# <12>[1691]
 	#<Tag enumID="2456" name="INFUSE" type="Int" value="1"/>
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="5"/>
 	class Hand:
-		events = Death(FRIENDLY+MINION).on(Infuse('REV_013t'))
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_013t'))
 	pass
 
 class REV_013t:# <12>[1691]
 	""" Stoneborn Accuser
 	<b>Infused</b> <b>Battlecry:</b> Deal 5 damage. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, 5)
 	pass
 
 
@@ -248,26 +258,40 @@ class REV_016e:# <12>[1691]
 
 
 
-if Rev_Insatiable_Devourer:# 
+if Rev_Insatiable_Devourer:# ### OK ###
 	Rev_Neutral+=['REV_017']
 	Rev_Neutral+=['REV_017e']
 	Rev_Neutral+=['REV_017t']
 class REV_017:# <12>[1691]
 	""" Insatiable Devourer
-	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _<b>Infuse (@):</b> And its neighbors. """
-	#
+	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _
+	<b>Infuse (@):</b> And its neighbors. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = EatsMinion(SELF, TARGET, 1, 'REV_017e')#
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_017t'))
 	pass
-
 class REV_017e:# <12>[1691]
 	""" Satiated
 	Increased Stats """
 	#
 	pass
-
+class REV_017t_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		if target in controller.opponent.field:
+			index = controller.opponent.field.index(target)
+			EatsMinion(source, controller.opponent.field[index+1], 1, 'REV_017e').trigger(source)
+			EatsMinion(source, target, 1, 'REV_017e').trigger(source)
+			if index>0:
+				EatsMinion(source, controller.opponent.field[index-1], 1, 'REV_017e').trigger(source)
+		pass
 class REV_017t:# <12>[1691]
 	""" Insatiable Devourer
 	<b>Infused</b> <b>Battlecry:</b> Devour an enemy minion and its neighbors to gain their stats. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play=REV_017t_Action(TARGET)
 	pass
 
 

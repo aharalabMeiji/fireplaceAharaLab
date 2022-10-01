@@ -117,13 +117,15 @@ class REV_352t:# <3>[1691]
 
 if Rev_Huntsman_Altimor:# 
 	Rev_Hunter+=['REV_353']
+	Rev_Hunter+=['REV_353t']
 class REV_353:# <3>[1691]
 	""" Huntsman Altimor
-	<b>Battlecry:</b> Summon a Gargon Companion. <b>Infuse ({0}):</b> Summon another. _<b>Infuse ({1}):</b> And another! """
+	<b>Battlecry:</b> Summon a Gargon Companion. 
+	<b>Infuse ({0}):</b> Summon another. _
+	<b>Infuse ({1}):</b> And another! """
 	#
 	pass
 
-	Rev_Hunter+=['REV_353t']
 class REV_353t:# <3>[1691]
 	""" Huntsman Altimor
 	<b>Infused</b> <b>Battlecry:</b> Summon 2  Gargon Companions.  _______<b>Infuse (@):</b> Summon all 3!___ """

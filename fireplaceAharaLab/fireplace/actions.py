@@ -3260,6 +3260,27 @@ class Frenzy(TargetedAction):
 			target.frenzyFlag=1
 			pass 
 
+class Infuse(TargetedAction):### new 24.2
+	TARGET=ActionArg()
+	INFUSED=ActionArg()
+	def do(self, source, target, infused):
+		controller=target
+		source.script_data_num_1 -= 1
+		if Config.LOGINFO:
+			Config.log("Infuse.do","Infusing %d -> %d for %r"%(source.script_data_num_1+1, source.script_data_num_1, infused))
+		if source.script_data_num_1<= 0:
+			self.broadcast(source, EventListener.ON, target, infused)
+			target = controller.card(infused)
+			if target.type == CardType.MINION:
+				target.zone = Zone.HAND
+				for buff in source.buffs:
+					buff.apply(target)
+				target.morphed = source
+				source.discard()
+			self.broadcast(source, EventListener.AFTER, target, infused)
+			return target
+
+
 #class HonorableKill(TargetedAction):
 #	""" Honorable Kill """
 #	TARGET = ActionArg() # predamaged minion
