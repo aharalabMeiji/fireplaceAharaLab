@@ -99,6 +99,11 @@ class MAW_031e:# <12>[1691]
 
 if Rev_Tight_Lipped_Witness:# 
 	Rev_Neutral+=['MAW_032']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class MAW_032:# <12>[1691]
 	""" Tight-Lipped Witness
 	<b>Secrets</b> can't be revealed. """
@@ -149,6 +154,11 @@ if Rev_The_Jailer:#
 	Rev_Neutral+=['MAW_034']
 	Rev_Neutral+=['MAW_034e']
 	Rev_Neutral+=['MAW_034e2']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class MAW_034:# <12>[1691]
 	""" The Jailer
 	<b>Battlecry:</b> Destroy your  deck. For the rest of the game, your minions are <b>Immune</b>. """
@@ -173,6 +183,11 @@ class MAW_034e2:# <12>[1691]
 if Rev_Bog_Beast:# 
 	Rev_Neutral+=['REV_012']
 	Rev_Neutral+=['REV_012t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_012:# <12>[1691]
 	""" Bog Beast
 	<b><b>Taunt</b></b>  <b>Deathrattle:</b> Summon a 2/4  Muckmare with <b>Taunt</b>. """
@@ -214,6 +229,11 @@ class REV_013t:# <12>[1691]
 
 if Rev_Red_Herring:# 
 	Rev_Neutral+=['REV_014']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_014:# <12>[1691]
 	""" Red Herring
 	<b>Taunt</b> Your non-Red Herring minions have <b>Stealth</b>. """
@@ -227,6 +247,11 @@ class REV_014:# <12>[1691]
 if Rev_Masked_Reveler:# 
 	Rev_Neutral+=['REV_015']
 	Rev_Neutral+=['REV_015t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_015:# <12>[1691]
 	""" Masked Reveler
 	<b>Rush</b> <b>Deathrattle:</b> Summon a 2/2 copy of another minion in your deck. """
@@ -246,6 +271,11 @@ class REV_015t:# <12>[1691]
 if Rev_Crooked_Cook:# 
 	Rev_Neutral+=['REV_016']
 	Rev_Neutral+=['REV_016e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_016:# <12>[1691]
 	""" Crooked Cook
 	At the end of your turn,  if you dealt 3 or more  damage to the enemy  hero, draw a card. """
@@ -266,6 +296,11 @@ if Rev_Insatiable_Devourer:# ### OK ###
 	Rev_Neutral+=['REV_017']
 	Rev_Neutral+=['REV_017e']
 	Rev_Neutral+=['REV_017t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_017:# <12>[1691]
 	""" Insatiable Devourer
 	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _
@@ -306,6 +341,11 @@ class REV_017t:# <12>[1691]
 
 if Rev_Prince_Renathal:# 
 	Rev_Neutral+=['REV_018']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_018:# <12>[1691]
 	""" Prince Renathal
 	Your deck size and  starting Health are 40. """
@@ -319,6 +359,11 @@ class REV_018:# <12>[1691]
 if Rev_Famished_Fool:# 
 	Rev_Neutral+=['REV_019']
 	Rev_Neutral+=['REV_019t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_019:# <12>[1691]
 	""" Famished Fool
 	<b>Battlecry:</b> Draw a card. 
@@ -342,6 +387,11 @@ class REV_019t:# <12>[1691]
 
 if Rev_Dinner_Performer:# 
 	Rev_Neutral+=['REV_020']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_020:# <12>[1691]
 	""" Dinner Performer
 	<b>Battlecry:</b> Summon a random minion from your deck that you can afford to play. """
@@ -355,6 +405,11 @@ class REV_020:# <12>[1691]
 if Rev_Kaelthas_Sinstrider:# 
 	Rev_Neutral+=['REV_021']
 	Rev_Neutral+=['REV_021e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_021:# <12>[1691]
 	""" Kael'thas Sinstrider
 	Every third minion you play each turn costs (0). """
@@ -373,6 +428,11 @@ class REV_021e:# <12>[1691]
 
 if Rev_Murloc_Holmes:# 
 	Rev_Neutral+=['REV_022']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_022:# <12>[1691]
 	""" Murloc Holmes
 	<b>Battlecry:</b> Solve 3 Clues  about your opponent's cards  to get copies of them. """
@@ -385,6 +445,11 @@ class REV_022:# <12>[1691]
 
 if Rev_Demolition_Renovator:# 
 	Rev_Neutral+=['REV_023']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_023:# <12>[1691]
 	""" Demolition Renovator
 	<b>Battlecry:</b> Destroy  an enemy location. """
@@ -397,6 +462,11 @@ class REV_023:# <12>[1691]
 
 if Rev_Theotar_the_Mad_Duke:# 
 	Rev_Neutral+=['REV_238']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_238:# <12>[1691]
 	""" Theotar, the Mad Duke
 	<b>Battlecry:</b> <b>Discover</b> a card in each player's hand and swap them. """
@@ -409,6 +479,11 @@ class REV_238:# <12>[1691]
 
 if Rev_Sinrunner:# 
 	Rev_Neutral+=['REV_251']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_251:# <12>[1691]
 	""" Sinrunner
 	<b>Deathrattle:</b> Destroy a random enemy minion. """
@@ -421,6 +496,11 @@ class REV_251:# <12>[1691]
 
 if Rev_Maze_Guide:# 
 	Rev_Neutral+=['REV_308']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_308:# <12>[1691]
 	""" Maze Guide
 	<b>Battlecry</b>: Summon a random 2-Cost minion. """
@@ -434,6 +514,11 @@ class REV_308:# <12>[1691]
 if Rev_Dredger_Staff:# 
 	Rev_Neutral+=['REV_338']
 	Rev_Neutral+=['REV_338e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_338:# <12>[1691]
 	""" Dredger Staff
 	<b>Battlecry:</b> Give minions  in your hand +1 Health. """
@@ -453,6 +538,11 @@ class REV_338e:# <12>[1691]
 if Rev_Roosting_Gargoyle:# 
 	Rev_Neutral+=['REV_351']
 	Rev_Neutral+=['REV_351e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_351:# <12>[1691]
 	""" Roosting Gargoyle
 	<b>Battlecry:</b> Give a friendly Beast +2 Attack. """
@@ -471,6 +561,11 @@ class REV_351e:# <12>[1691]
 
 if Rev_Party_Crasher:# 
 	Rev_Neutral+=['REV_370']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_370:# <12>[1691]
 	""" Party Crasher
 	<b>Battlecry:</b> Choose an enemy minion. Throw a random minion from your hand at it. """
@@ -484,6 +579,11 @@ class REV_370:# <12>[1691]
 if Rev_Stoneborn_General:# 
 	Rev_Neutral+=['REV_375']
 	Rev_Neutral+=['REV_375t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_375:# <12>[1691]
 	""" Stoneborn General
 	<b>Rush</b>  __<b>Deathrattle:</b> Summon an  ___8/8 Gravewing with <b>Rush</b>._ """
@@ -502,6 +602,11 @@ class REV_375t:# <12>[1691]
 
 if Rev_Invitation_Courier:# 
 	Rev_Neutral+=['REV_377']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_377:# <12>[1691]
 	""" Invitation Courier
 	After a card is added to your hand from another class, copy it. """
@@ -516,6 +621,11 @@ if Rev_Forensic_Duster:#
 	Rev_Neutral+=['REV_378']
 	Rev_Neutral+=['REV_378e']
 	Rev_Neutral+=['REV_378e2']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_378:# <12>[1691]
 	""" Forensic Duster
 	<b>Battlecry:</b> Your  opponent's minions  cost (1) more next turn. """
@@ -541,6 +651,11 @@ class REV_378e2:# <12>[1691]
 if Rev_Murloc_Holmes:# 
 	Rev_Neutral+=['REV_770']
 	Rev_Neutral+=['REV_770hp']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_770:# <12>[1691]
 	""" Murloc Holmes	 """
 	#
@@ -558,6 +673,11 @@ class REV_770hp:# <12>[1691]
 
 if Rev_Investigate:# 
 	Rev_Neutral+=['REV_771']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_771:# <12>[1691]
 	""" Investigate
 	Search for clues. """
@@ -571,6 +691,11 @@ class REV_771:# <12>[1691]
 if Rev_Muck_Plumber:# 
 	Rev_Neutral+=['REV_837']
 	Rev_Neutral+=['REV_837e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_837:# <12>[1691]
 	""" Muck Plumber
 	ALL minions cost (2) more. """
@@ -590,6 +715,11 @@ class REV_837e:# <12>[1691]
 if Rev_Sinstone_Totem:# 
 	Rev_Neutral+=['REV_839']
 	Rev_Neutral+=['REV_839e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_839:# <12>[1691]
 	""" Sinstone Totem
 	At the end of your turn, gain +1 Health. """
@@ -609,6 +739,11 @@ class REV_839e:# <12>[1691]
 if Rev_Anonymous_Informant:# 
 	Rev_Neutral+=['REV_841']
 	Rev_Neutral+=['REV_841e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_841:# <12>[1691]
 	""" Anonymous Informant
 	<b>Battlecry:</b> The next <b>Secret</b> you play costs (0). """
@@ -666,6 +801,11 @@ class REV_843t:# <12>[1691]
 
 if Rev_Volatile_Skeleton:# 
 	Rev_Neutral+=['REV_845']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_845:# <12>[1691]
 	""" Volatile Skeleton
 	<b>Deathrattle:</b> Deal 2 damage to a random enemy. """
@@ -678,6 +818,11 @@ class REV_845:# <12>[1691]
 
 if Rev_Scuttlebutt_Ghoul:# 
 	Rev_Neutral+=['REV_900']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_900:# <12>[1691]
 	""" Scuttlebutt Ghoul
 	<b>Taunt</b> <b>Battlecry:</b> If you control a <b>Secret</b>, summon a copy of this. """
@@ -690,6 +835,11 @@ class REV_900:# <12>[1691]
 
 if Rev_Dispossessed_Soul:# 
 	Rev_Neutral+=['REV_901']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_901:# <12>[1691]
 	""" Dispossessed Soul
 	<b>Battlecry:</b> If you control a location, <b>Discover</b> a copy of a card in your deck. """
@@ -703,6 +853,11 @@ class REV_901:# <12>[1691]
 if Rev_Sire_Denathrius:# 
 	Rev_Neutral+=['REV_906']
 	Rev_Neutral+=['REV_906t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_906:# <12>[1691]
 	""" Sire Denathrius
 	<b><b>Lifesteal</b>.</b> <b>Battlecry:</b> Deal 5 damage amongst enemies. <b>Endlessly Infuse (1):</b> Deal 1 more. """
@@ -721,6 +876,11 @@ class REV_906t:# <12>[1691]
 
 if Rev_Creepy_Painting:# 
 	Rev_Neutral+=['REV_916']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_916:# <12>[1691]
 	""" Creepy Painting
 	After another minion dies, become a copy of it. """
@@ -733,6 +893,11 @@ class REV_916:# <12>[1691]
 
 if Rev_Sketchy_Stranger:# 
 	Rev_Neutral+=['REV_945']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_945:# <12>[1691]
 	""" Sketchy Stranger
 	<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b> from another class. """
@@ -745,6 +910,11 @@ class REV_945:# <12>[1691]
 
 if Rev_Steamcleaner:# 
 	Rev_Neutral+=['REV_946']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_946:# <12>[1691]
 	""" Steamcleaner
 	<b>Battlecry:</b> Destroy ALL cards in both players' decks that didn't start there. """
@@ -758,6 +928,11 @@ class REV_946:# <12>[1691]
 if Rev_Priest_of_the_Deceased:# 
 	Rev_Neutral+=['REV_956']
 	Rev_Neutral+=['REV_956t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_956:# <12>[1691]
 	""" Priest of the Deceased
 	<b>Taunt</b> <b>Infuse (@):</b> Gain +2/+2. """
@@ -779,6 +954,11 @@ class REV_956t:# <12>[1691]
 if Rev_Murlocula:# 
 	Rev_Neutral+=['REV_957']
 	Rev_Neutral+=['REV_957t']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_957:# <12>[1691]
 	""" Murlocula
 	<b>Lifesteal</b> 
@@ -797,6 +977,11 @@ class REV_957t:# <12>[1691]
 if Rev_Ashen_Elemental:# 
 	Rev_Neutral+=['REV_960']
 	Rev_Neutral+=['REV_960e']
+class original_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
 class REV_960:# <12>[1691]
 	""" Ashen Elemental
 	<b>Battlecry:</b> Whenever your opponent draws a card next turn, they take 2 damage. """
