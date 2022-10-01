@@ -3279,6 +3279,7 @@ class Infuse(TargetedAction):### new 24.2
 				source.discard()
 			self.broadcast(source, EventListener.AFTER, target, infused)
 			return target
+		return None
 
 
 #class HonorableKill(TargetedAction):

@@ -618,22 +618,31 @@ if Rev_Sinfueled_Golem:#
 	Rev_Neutral+=['REV_843']
 	Rev_Neutral+=['REV_843e']
 	Rev_Neutral+=['REV_843t']
+class REV_843_Action(TargetedAction):
+	TARGET=ActionArg()
+	ENTITY=ActionArg()
+	def do(self, source, target, entity):
+		controller=target
+		source._sidequest_list1_.append(entity.atk)
+		newcard=Infuse(CONTROLLER, 'REV_017t')
+		if newcard!=None:
+			amount=sum(source._sidequest_list1_)
+			Buff(amount, 'REV_843e', atk=amount, max_health=amount).trigger(source)
+		pass
 class REV_843:# <12>[1691]
 	""" Sinfueled Golem
 	<b>Infuse (@):</b> Gain stats equal to the Attack of the minions that <b>Infused</b> this. """
-	#
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(REV_843_Action(CONTROLLER, Death.ENTITY))
 	pass
-
 class REV_843e:# <12>[1691]
 	""" Animated
 	Increased stats. """
 	#
 	pass
-
 class REV_843t:# <12>[1691]
 	""" Sinfueled Golem
 	<b>Infused</b> """
-	#
 	pass
 
 
@@ -737,9 +746,9 @@ if Rev_Priest_of_the_Deceased:#
 class REV_956:# <12>[1691]
 	""" Priest of the Deceased
 	<b>Taunt</b> <b>Infuse (@):</b> Gain +2/+2. """
-	#
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_013t'))
 	pass
-
 class REV_956t:# <12>[1691]
 	""" Priest of the Deceased
 	<b>Infused</b> <b>Taunt</b> """
