@@ -107,6 +107,10 @@ if Rev_Mischievous_Imp:#
 class REV_244:# <9>[1691]
 	""" Mischievous Imp
 	<b>Battlecry:</b> Summon a copy of this. <b>Infuse (@):</b> Summon two copies instead. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_244t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_244t', 1))
 	#
 	pass
 
@@ -213,6 +217,10 @@ if Rev_Imp_King_Rafaam:#
 class REV_835:# <9>[1691]
 	""" Imp King Rafaam
 	<b>Battlecry:</b> Resurrect four friendly Imps. <b>Infuse (@):</b> Give your Imps +2/+2. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_835t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_835t', 1))
 	#
 	pass
 

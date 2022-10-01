@@ -183,6 +183,10 @@ if Rev_Buffet_Biggun:#
 class REV_958:# <5>[1691]
 	""" Buffet Biggun
 	<b>Battlecry:</b> Summon two Silver  Hand Recruits. <b>Infuse (@):</b>  Give them +2 Attack  and <b>Divine Shield</b>. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_958t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_958t', 1))
 	#
 	pass
 

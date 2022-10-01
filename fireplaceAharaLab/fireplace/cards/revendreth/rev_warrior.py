@@ -187,20 +187,22 @@ class REV_931:# <10>[1691]
 
 if Rev_Imbued_Axe:# 
 	Rev_Warrior+=['REV_933']
+	Rev_Warrior+=['REV_933e']
+	Rev_Warrior+=['REV_933e2']
 class REV_933:# <10>[1691]
 	""" Imbued Axe
 	After your hero attacks, give your damaged minions +1/+2. <b>Infuse (@):</b> +2/+2 instead. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_933t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_933t', 1))
 	#
 	pass
-
-	Rev_Warrior+=['REV_933e']
 class REV_933e:# <10>[1691]
 	""" Thirst for Blood
 	+1/+2. """
 	#
 	pass
-
-	Rev_Warrior+=['REV_933e2']
 class REV_933e2:# <10>[1691]
 	""" Thirst for Blood
 	+2/+2. """

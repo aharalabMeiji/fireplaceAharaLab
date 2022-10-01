@@ -124,6 +124,10 @@ if Rev_Convincing_Disguise:#
 class REV_920:# <8>[1691]
 	""" Convincing Disguise
 	Transform a friendly minion into one that costs (2) more. <b>Infuse (@):</b> Transform all friendly minions instead. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_920t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_920t', 1))
 	#
 	pass
 
@@ -178,6 +182,10 @@ if Rev_Party_Favor_Totem:#
 class REV_935:# <8>[1691]
 	""" Party Favor Totem
 	At the end of your turn,  summon a random basic  Totem. <b>Infuse (@):</b>  Summon two instead. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_935t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_935t', 1))
 	#
 	pass
 

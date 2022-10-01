@@ -161,6 +161,10 @@ if Rev_Door_of_Shadows:#
 class REV_938:# <7>[1691]
 	""" Door of Shadows
 	Draw a spell. <b>Infuse (@):</b> Add a temporary copy of it to your hand. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_938t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_938t', 1))
 	#
 	pass
 

@@ -637,7 +637,7 @@ class REV_843_Action(TargetedAction):
 		if option==1 and controller.infuse_in_deck==False:
 			return
 		source._sidequest_list1_.append(entity.atk)
-		newcard=Infuse(CONTROLLER, 'REV_017t')
+		newcard=Infuse(CONTROLLER, 'REV_843t')
 		if newcard!=None:
 			amount=sum(source._sidequest_list1_)
 			Buff(amount, 'REV_843e', atk=amount, max_health=amount).trigger(source)

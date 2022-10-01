@@ -181,6 +181,10 @@ if Rev_Clean_the_Scene:#
 class REV_252:# <6>[1691]
 	""" Clean the Scene
 	Destroy all minions with 3 or less Attack. <b>Infuse (@):</b> 6 or less. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_252t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_252t', 1))
 	#
 	pass
 

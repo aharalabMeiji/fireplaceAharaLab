@@ -122,13 +122,17 @@ class REV_516:# <4>[1691]
 
 if Rev_Frozen_Touch:# 
 	Rev_Mage+=['REV_601']
+	Rev_Mage+=['REV_601t']
 class REV_601:# <4>[1691]
 	""" Frozen Touch
 	Deal $3 damage. <b>Infuse (@):</b> Add a Frozen Touch to your hand. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_601t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_601t', 1))
 	#
 	pass
 
-	Rev_Mage+=['REV_601t']
 class REV_601t:# <4>[1691]
 	""" Frozen Touch
 	<b>Infused</b> Deal $3 damage.  Add a Frozen Touch  to your hand. """
