@@ -78,19 +78,26 @@ if Rev_Afterlife_Attendant:#
 	Rev_Neutral+=['MAW_031']
 	Rev_Neutral+=['MAW_031e']
 class MAW_031_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		for buff in controller.buffs:
+			if buff.id=='MAW_031e':
+				controller.buffs.remove(buff)
+				buff.discard()
+				controller.infuse_in_deck=False
 class MAW_031:# <12>[1691]
 	""" Afterlife Attendant
 	Your <b>Infuse</b> cards also <b>Infuse</b> while in your deck. """
-	#
+	play=Buff(CONTROLLER, 'MAW_031e')
+	events = Death(MINION + SELF).on(MAW_031_Action(CONTROLLER))
 	pass
 
 class MAW_031e:# <12>[1691]
 	""" Afterlife
 	Your <b>Infuse</b> cards also <b>Infuse</b> in your deck. """
-	#
+	def apply(self, target):
+		if hasattr(target, 'infuse_in_deck'):
+			target.infuse_in_deck=True
 	pass
 
 
@@ -99,15 +106,19 @@ class MAW_031e:# <12>[1691]
 
 if Rev_Tight_Lipped_Witness:# 
 	Rev_Neutral+=['MAW_032']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class MAW_032_Action0(TargetedAction):
+	def do(self, source, controller):
+		controller.cant_reveal_secret=True
+		pass
+class MAW_032_Action1(TargetedAction):
+	def do(self, source, controller):
+		controller.cant_reveal_secret=True
 		pass
 class MAW_032:# <12>[1691]
 	""" Tight-Lipped Witness
 	<b>Secrets</b> can't be revealed. """
-	#
+	play = MAW_032_Action0(CONTROLLER)
+	events=Death(MINION + SELF).on(MAW_032_Action1(CONTROLLER))
 	pass
 
 
