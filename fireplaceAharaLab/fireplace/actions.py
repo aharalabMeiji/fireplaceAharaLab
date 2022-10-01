@@ -3263,8 +3263,10 @@ class Frenzy(TargetedAction):
 class Infuse(TargetedAction):### new 24.2
 	TARGET=ActionArg()
 	INFUSED=ActionArg()
-	def do(self, source, target, infused):
+	def do(self, source, target, infused, infuse_in_deck=0):
 		controller=target
+		if infuse_in_deck==1 and controller.infuse_in_deck==False:
+			return None
 		source.script_data_num_1 -= 1
 		if Config.LOGINFO:
 			Config.log("Infuse.do","Infusing %d -> %d for %r"%(source.script_data_num_1+1, source.script_data_num_1, infused))

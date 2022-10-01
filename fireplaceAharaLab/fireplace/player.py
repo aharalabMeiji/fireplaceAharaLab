@@ -108,6 +108,7 @@ class Player(Entity, TargetableByAuras):
 		self.lost_in_the_park=0
 		self.carry_cards=[] # YOP_024
 		self.abyssal_curse=1## TSC_955t
+		self.infuse_in_deck=False ## new 24.4
 		
 		self.tavern_tier=1# battlegrounds
 		self.tavern_tierup_cost=5 # battlegrounds

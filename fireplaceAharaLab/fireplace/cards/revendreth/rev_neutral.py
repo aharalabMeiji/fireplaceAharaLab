@@ -121,6 +121,8 @@ class MAW_033:# <12>[1691]
 	play = Destroy(TARGET)
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'MAW_033t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'MAW_033t',1))
 	pass
 class MAW_033t_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -195,6 +197,8 @@ class REV_013:# <12>[1691]
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="5"/>
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_013t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_013t', 1))
 	pass
 
 class REV_013t:# <12>[1691]
@@ -270,6 +274,8 @@ class REV_017:# <12>[1691]
 	play = EatsMinion(SELF, TARGET, 1, 'REV_017e')#
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_017t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_017t', 1))
 	pass
 class REV_017e:# <12>[1691]
 	""" Satiated
@@ -315,14 +321,19 @@ if Rev_Famished_Fool:#
 	Rev_Neutral+=['REV_019t']
 class REV_019:# <12>[1691]
 	""" Famished Fool
-	<b>Battlecry:</b> Draw a card. <b>Infuse (@):</b> Draw 3 instead. """
-	#
+	<b>Battlecry:</b> Draw a card. 
+	<b>Infuse (@):</b> Draw 3 instead. """
+	play = Draw(CONTROLLER)
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_019t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_019t', 1))
 	pass
 
 class REV_019t:# <12>[1691]
 	""" Famished Fool
 	<b>Infused</b> <b>Battlecry:</b> Draw 3 cards. """
-	#
+	play = Draw(CONTROLLER),Draw(CONTROLLER),Draw(CONTROLLER)
 	pass
 
 
@@ -621,8 +632,10 @@ if Rev_Sinfueled_Golem:#
 class REV_843_Action(TargetedAction):
 	TARGET=ActionArg()
 	ENTITY=ActionArg()
-	def do(self, source, target, entity):
+	def do(self, source, target, entity, option):
 		controller=target
+		if option==1 and controller.infuse_in_deck==False:
+			return
 		source._sidequest_list1_.append(entity.atk)
 		newcard=Infuse(CONTROLLER, 'REV_017t')
 		if newcard!=None:
@@ -633,7 +646,9 @@ class REV_843:# <12>[1691]
 	""" Sinfueled Golem
 	<b>Infuse (@):</b> Gain stats equal to the Attack of the minions that <b>Infused</b> this. """
 	class Hand:
-		events = Death(FRIENDLY+MINION).on(REV_843_Action(CONTROLLER, Death.ENTITY))
+		events = Death(FRIENDLY+MINION).on(REV_843_Action(CONTROLLER, Death.ENTITY, 0))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(REV_843_Action(CONTROLLER, Death.ENTITY, 1))
 	pass
 class REV_843e:# <12>[1691]
 	""" Animated
@@ -747,7 +762,9 @@ class REV_956:# <12>[1691]
 	""" Priest of the Deceased
 	<b>Taunt</b> <b>Infuse (@):</b> Gain +2/+2. """
 	class Hand:
-		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_013t'))
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_956t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_956t', 1))
 	pass
 class REV_956t:# <12>[1691]
 	""" Priest of the Deceased
@@ -764,10 +781,13 @@ if Rev_Murlocula:#
 	Rev_Neutral+=['REV_957t']
 class REV_957:# <12>[1691]
 	""" Murlocula
-	<b>Lifesteal</b> <b>Infuse (@):</b> This costs (0). """
-	#
+	<b>Lifesteal</b> 
+	<b>Infuse (@):</b> This costs (0). """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_957t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_957t', 1))
 	pass
-
 class REV_957t:# <12>[1691]
 	""" Murlocula
 	<b>Infused Lifesteal</b> """

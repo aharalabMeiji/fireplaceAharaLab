@@ -27,20 +27,26 @@ class MAW_008:# <14>[1691]
 	#
 	pass
 
+
+
+
 if Rev_All_Fel_Breaks_Loose:# 
 	Rev_DemonHunter+=['MAW_012']
+	Rev_DemonHunter+=['MAW_012t']
 class MAW_012:# <14>[1691]
 	""" All Fel Breaks Loose
-	Summon a friendly Demon that died this game. <b>Infuse (@ Demons):</b> Summon three instead. """
+	Summon a friendly Demon that died this game. 
+	<b>Infuse (@ Demons):</b> Summon three instead. """
 	#
 	pass
-
-	Rev_DemonHunter+=['MAW_012t']
 class MAW_012t:# <14>[1691]
 	""" All Fel Breaks Loose
 	<b>Infused</b> Summon three friendly Demons that died this game. """
 	#
 	pass
+
+
+
 
 if Rev_Prosecutor_Meltranix:# 
 	Rev_DemonHunter+=['MAW_014']
