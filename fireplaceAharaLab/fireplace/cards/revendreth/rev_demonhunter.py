@@ -33,16 +33,31 @@ class MAW_008:# <14>[1691]
 if Rev_All_Fel_Breaks_Loose:# 
 	Rev_DemonHunter+=['MAW_012']
 	Rev_DemonHunter+=['MAW_012t']
+class MAW_012_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	AMOUNT=ActionArg()
+	def do(self, source, controller, amount):
+		killed_demon=[card for card in controller.death_log if card.type==CardType.MINION and card.race==Race.DEMON]
+		if len(killed_demon)>0:
+			if len(killed_demon)>amount:
+				killed_demon=random.sample(killed_demon,amount)
+			for card in killed_demon:
+				Summon(controller, card.id).trigger(source)
+		pass
 class MAW_012:# <14>[1691]
 	""" All Fel Breaks Loose
 	Summon a friendly Demon that died this game. 
 	<b>Infuse (@ Demons):</b> Summon three instead. """
-	#
+	play = MAW_012_Action(CONTROLLER, 1)
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'MAW_012t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'MAW_012t', 1))
 	pass
 class MAW_012t:# <14>[1691]
 	""" All Fel Breaks Loose
 	<b>Infused</b> Summon three friendly Demons that died this game. """
-	#
+	play = MAW_012_Action(CONTROLLER, 3)
 	pass
 
 
@@ -139,21 +154,21 @@ class REV_511:# <14>[1691]
 	#
 	pass
 
-if Rev_Artificer_Xymox:# 
-	Rev_DemonHunter+=['REV_787']
-class REV_787:# <14>[1691]
-	""" Artificer Xy'mox
-	{0} {1} {2} {3} """
-	#
-	pass
+#if Rev_Artificer_Xymox:# 
+#	Rev_DemonHunter+=['REV_787']
+#class REV_787:# <14>[1691]
+#	""" Artificer Xy'mox
+#	{0} {1} {2} {3} """
+#	#
+#	pass
 
-if Rev_Relic_Vault:# 
-	Rev_DemonHunter+=['REV_797']
-class REV_797:# <14>[1691]
-	""" Relic Vault
-	{0} {1} """
-	#
-	pass
+#if Rev_Relic_Vault:# 
+#	Rev_DemonHunter+=['REV_797']
+#class REV_797:# <14>[1691]
+#	""" Relic Vault
+#	{0} {1} """
+#	#
+#	pass
 
 if Rev_Relic_of_Extinction:# 
 	Rev_DemonHunter+=['REV_834']
@@ -167,7 +182,13 @@ if Rev_Artificer_Xymox:#
 	Rev_DemonHunter+=['REV_937']
 class REV_937:# <14>[1691]
 	""" Artificer Xy'mox
-	<b>Battlecry:</b> <b>Discover</b> and  cast a Relic. <b>Infuse (@):</b>  Cast all three instead. """
+	<b>Battlecry:</b> <b>Discover</b> and  cast a Relic. 
+	<b>Infuse (@):</b>  Cast all three instead. """
+	entourage=['REV_508','REV_797','REV_834','REV_942','REV_943']
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_937t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_937t', 1))
 	#
 	pass
 

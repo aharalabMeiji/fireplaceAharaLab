@@ -221,27 +221,31 @@ class REV_333:# <2>[1691]
 
 if Rev_Plot_of_Sin:# 
 	Rev_Druid+=['REV_336']
+	Rev_Druid+=['REV_336t2']
+	Rev_Druid+=['REV_336t3']
+	Rev_Druid+=['REV_336t4']
 class REV_336:# <2>[1691]
 	""" Plot of Sin
-	Summon two 2/2  Treants. <b>Infuse (@):</b> Two  5/5 Ancients instead. """
+	Summon two 2/2  Treants. 
+	<b>Infuse (@):</b> Two  5/5 Ancients instead. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_336t4'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_336t4', 1))
 	#
 	pass
-
-	Rev_Druid+=['REV_336t2']
 class REV_336t2:# <2>[1691]
 	""" Treant
 	 """
 	#
 	pass
 
-	Rev_Druid+=['REV_336t3']
 class REV_336t3:# <2>[1691]
 	""" Ancient
 	 """
 	#
 	pass
 
-	Rev_Druid+=['REV_336t4']
 class REV_336t4:# <2>[1691]
 	""" Plot of Sin
 	<b>Infused</b> Summon two 5/5 Ancients. """

@@ -73,95 +73,116 @@ class MAW_011e:# <3>[1691]
 
 if Rev_Frenzied_Fangs:# 
 	Rev_Hunter+=['REV_350']
+	Rev_Hunter+=['REV_350e']
+	Rev_Hunter+=['REV_350t']
+	Rev_Hunter+=['REV_350t2']
 class REV_350:# <3>[1691]
 	""" Frenzied Fangs
 	Summon two 2/1 Bats. <b>Infuse (@):</b> Give them +1/+2. """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_350t2'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_350t2', 1))
 	#
 	pass
 
-	Rev_Hunter+=['REV_350e']
 class REV_350e:# <3>[1691]
 	""" Bloodthirsty
 	+1/+2. """
 	#
 	pass
 
-	Rev_Hunter+=['REV_350t']
 class REV_350t:# <3>[1691]
 	""" Thirsty Bat
 	 """
 	#
 	pass
 
-	Rev_Hunter+=['REV_350t2']
 class REV_350t2:# <3>[1691]
 	""" Frenzied Fangs
 	<b>Infused</b> Summon two 2/1 Bats. Give them +1/+2. """
 	#
 	pass
 
+
+
+
 if Rev_Stonebound_Gargon:# 
 	Rev_Hunter+=['REV_352']
+	Rev_Hunter+=['REV_352t']
 class REV_352:# <3>[1691]
 	""" Stonebound Gargon
 	<b>Rush</b> <b>Infuse (@):</b> Also damages the minions next to __whomever this attacks. """
-	#
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_352t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_352t', 1))
 	pass
 
-	Rev_Hunter+=['REV_352t']
 class REV_352t:# <3>[1691]
 	""" Stonebound Gargon
 	<b>Infused</b> <b>Rush</b>. Also damages the minions next to __whomever this attacks. """
 	#
 	pass
 
+
+
+
+
 if Rev_Huntsman_Altimor:# 
 	Rev_Hunter+=['REV_353']
 	Rev_Hunter+=['REV_353t']
+	Rev_Hunter+=['REV_353t2']
+	Rev_Hunter+=['REV_353t3']
+	Rev_Hunter+=['REV_353t4']
+	Rev_Hunter+=['REV_353t4e']
+	Rev_Hunter+=['REV_353t5']
 class REV_353:# <3>[1691]
 	""" Huntsman Altimor
 	<b>Battlecry:</b> Summon a Gargon Companion. 
 	<b>Infuse ({0}):</b> Summon another. _
 	<b>Infuse ({1}):</b> And another! """
-	#
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t', 1))
 	pass
-
 class REV_353t:# <3>[1691]
 	""" Huntsman Altimor
-	<b>Infused</b> <b>Battlecry:</b> Summon 2  Gargon Companions.  _______<b>Infuse (@):</b> Summon all 3!___ """
+	<b>Infused</b> <b>Battlecry:</b> Summon 2  Gargon Companions.  _______
+	<b>Infuse (@):</b> Summon all 3!___ """
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t2'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t2', 1))
 	#
 	pass
 
-	Rev_Hunter+=['REV_353t2']
 class REV_353t2:# <3>[1691]
 	""" Huntsman Altimor
 	<b>Infused</b> <b>Battlecry:</b> Summon all 3 Gargon Companions. """
-	#
+	play=Summon(CONTROLLER, 'REV_353t3'),Summon(CONTROLLER, 'REV_353t4'),Summon(CONTROLLER, 'REV_353t5')
 	pass
 
-	Rev_Hunter+=['REV_353t3']
-class REV_353t3:# <3>[1691]
+class REV_353t3:# <3>[1691] Gargon Companions
 	""" Hecutis
 	<b>Taunt</b> """
 	#
 	pass
 
-	Rev_Hunter+=['REV_353t4']
-class REV_353t4:# <3>[1691]
+class REV_353t4:# <3>[1691] Gargon Companions
 	""" Barghast
 	Your other minions have +1 Attack. """
 	#
 	pass
 
-	Rev_Hunter+=['REV_353t4e']
 class REV_353t4e:# <3>[1691]
 	""" Bone from the Stone
 	Barghast is granting this minion +1 Attack. """
 	#
 	pass
 
-	Rev_Hunter+=['REV_353t5']
-class REV_353t5:# <3>[1691]
+class REV_353t5:# <3>[1691] Gargon Companions
 	""" Margore
 	<b>Charge</b> """
 	#
