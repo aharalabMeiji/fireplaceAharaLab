@@ -165,23 +165,24 @@ if Rev_The_Jailer:#
 	Rev_Neutral+=['MAW_034']
 	Rev_Neutral+=['MAW_034e']
 	Rev_Neutral+=['MAW_034e2']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class MAW_034_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		for card in reversed(controller.deck):
+			card.discard()
+		for card in controller.field:
+			card.cant_be_damaged=True
 		pass
 class MAW_034:# <12>[1691]
 	""" The Jailer
 	<b>Battlecry:</b> Destroy your  deck. For the rest of the game, your minions are <b>Immune</b>. """
-	#
+	play = MAW_034_Action(CONTROLLER)
 	pass
-
 class MAW_034e:# <12>[1691]
 	""" Mawsworn
 	Your minions are <b>Immune</b> """
 	#
 	pass
-
 class MAW_034e2:# <12>[1691]
 	""" Mawsworn
 	Can't die. """
@@ -202,9 +203,8 @@ class original_Action(TargetedAction):
 class REV_012:# <12>[1691]
 	""" Bog Beast
 	<b><b>Taunt</b></b>  <b>Deathrattle:</b> Summon a 2/4  Muckmare with <b>Taunt</b>. """
-	#
+	deathrattle = Summon(CONTROLLER, 'REV_012t')
 	pass
-
 class REV_012t:# <12>[1691]
 	""" Muckmare
 	<b>Taunt</b> """
@@ -226,7 +226,6 @@ class REV_013:# <12>[1691]
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_013t', 1))
 	pass
-
 class REV_013t:# <12>[1691]
 	""" Stoneborn Accuser
 	<b>Infused</b> <b>Battlecry:</b> Deal 5 damage. """
@@ -240,15 +239,16 @@ class REV_013t:# <12>[1691]
 
 if Rev_Red_Herring:# 
 	Rev_Neutral+=['REV_014']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_014_Action(TargetedAction):
+	def do(self, source, controller):
+		for card in controller.field:
+			if card.id!='REV_014':
+				care.stealthed=True
 		pass
 class REV_014:# <12>[1691]
 	""" Red Herring
 	<b>Taunt</b> Your non-Red Herring minions have <b>Stealth</b>. """
-	#
+	play = REV_014_Action(CONTROLLER)
 	pass
 
 
@@ -258,21 +258,25 @@ class REV_014:# <12>[1691]
 if Rev_Masked_Reveler:# 
 	Rev_Neutral+=['REV_015']
 	Rev_Neutral+=['REV_015t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_015_Action(TargetedAction):
+	def do(self, source, controller):
+		cardIDs = [card.id for card in controller.deck if card.type==CardType.MINION and card.id!='REV_015']
+		if len(cardIDs)>2:
+			cardIDs=random.sample(cardIDs)
+		for cardID in cardIDs:
+			newcard=Summon(controller, cardID).trigger(source)
+			newcard=newcard[0][0]
+			Buff(newcard, 'REV_015t')
 		pass
 class REV_015:# <12>[1691]
 	""" Masked Reveler
 	<b>Rush</b> <b>Deathrattle:</b> Summon a 2/2 copy of another minion in your deck. """
-	#
+	deathrattle = REV_015_Action(CONTROLLER)
 	pass
-
-class REV_015t:# <12>[1691]
-	""" Masked
-	2/2. """
-	#
+class REV_015t:# <12>[1691] enchantment
+	""" Masked 	2/2. """
+	atk=lambda self,i:2
+	max_health=lambda self,i:2
 	pass
 
 

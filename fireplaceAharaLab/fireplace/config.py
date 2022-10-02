@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=3
+	HEARTHSTONE=4
 	#1: ランク戦をするならこちら
 	#2: クラシック環境をするならこちら
 	#3: バトグラをするならこちら
@@ -19,7 +19,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# log.info相当のログ表示
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
@@ -41,7 +41,7 @@ class Config:# ()is the default value
 	QUEST_REWARD=1 ## クエストルール（24.2）
 	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=1 ## 人間プレーヤに、最初からrewardをセットする。
-	REWARD_PRESET='BG24_Reward_107'
+	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1=''

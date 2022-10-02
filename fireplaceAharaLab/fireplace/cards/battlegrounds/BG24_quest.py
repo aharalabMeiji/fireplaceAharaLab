@@ -30,7 +30,7 @@ class BG24_Quest_112:# [2466]=1, [2580]=1,
 	""" Track the Footprints
 	[Quest:] Have Bob's Tavern [Refreshed] {0} times. """
 	#{0}=script_data_text_0=10 -> 9 24.2.2
-	secret = Rerole(CONTROLLER).on(QuestCounter(SELF))
+	events = Rerole(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Assemble_a_Lineup:# ### OK ###
@@ -40,7 +40,7 @@ class BG24_Quest_114:# [2466]=1, [2643]=80, [2644]=90, [2646]=90,
 	""" Assemble a Lineup
 	[Quest:] Summon {0} minions. """
 	#{0}=14
-	secret = Summon(CONTROLLER).on(QuestCounter(SELF))
+	events = Summon(CONTROLLER).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Unmask_the_Culprit:# ### if lose, OK ###
@@ -50,7 +50,7 @@ class BG24_Quest_120:# [2466]=1, [2580]=1, [2674]=2,
 	""" Unmask the Culprit
 	[Quest:] Lose or tie {0} combats. """
 	#{0}=3
-	secret = [
+	events = [
 		TieGame(CONTROLLER).on(QuestCounter(SELF)),
 		LoseGame(CONTROLLER).on(QuestCounter(SELF))
 	]
@@ -71,7 +71,7 @@ class BG24_Quest_123:# [2466]=1, [2580]=1,
 	""" Find the Murder Weapon
 	[Quest:] Increase a friendly minion's stats {0} times. """
 	#{0}=15
-	secret = Buff(FRIENDLY_MINIONS).after(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
+	events = Buff(FRIENDLY_MINIONS).after(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
 	pass
 
 if BG24_Quest_Reenact_the_Murder:# ### OK ###
@@ -81,7 +81,7 @@ class BG24_Quest_124:# [2466]=1, [2643]=80, [2644]=80, [2646]=90,
 	""" Reenact the Murder
 	[Quest:] Have {0} friendly minions die. """
 	#{0}=18->19 (24.2.2)
-	secret = Death(FRIENDLY + MINION).on(QuestCounter(SELF))
+	events = Death(FRIENDLY + MINION).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Sort_It_All_Out:# 
@@ -101,7 +101,7 @@ class BG24_Quest_125:# [2466]=1, [2580]=1, [2642]=88, [2653]=300, [2674]=2,
 	""" Sort It All Out
 	[Quest:] Order your minions from lowest to highest Attack for {0} combats. """
 	#{0}=4
-	secret = BeginBattle(CONTROLLER).on(BG24_Quest_125_Action(SELF))
+	events = BeginBattle(CONTROLLER).on(BG24_Quest_125_Action(SELF))
 	pass
 
 if BG24_Quest_Follow_the_Money:# 
