@@ -163,8 +163,8 @@ class MAW_033t:# <12>[1691]
 
 if Rev_The_Jailer:# 
 	Rev_Neutral+=['MAW_034']
-	Rev_Neutral+=['MAW_034e']
-	Rev_Neutral+=['MAW_034e2']
+	#Rev_Neutral+=['MAW_034e']
+	#Rev_Neutral+=['MAW_034e2']
 class MAW_034_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -178,16 +178,16 @@ class MAW_034:# <12>[1691]
 	<b>Battlecry:</b> Destroy your  deck. For the rest of the game, your minions are <b>Immune</b>. """
 	play = MAW_034_Action(CONTROLLER)
 	pass
-class MAW_034e:# <12>[1691]
-	""" Mawsworn
-	Your minions are <b>Immune</b> """
-	#
-	pass
-class MAW_034e2:# <12>[1691]
-	""" Mawsworn
-	Can't die. """
-	#
-	pass
+#class MAW_034e:# <12>[1691]
+#	""" Mawsworn
+#	Your minions are <b>Immune</b> """
+#	#
+#	pass
+#class MAW_034e2:# <12>[1691]
+#	""" Mawsworn
+#	Can't die. """
+#	#
+#	pass
 
 
 
@@ -285,23 +285,22 @@ class REV_015t:# <12>[1691] enchantment
 
 if Rev_Crooked_Cook:# 
 	Rev_Neutral+=['REV_016']
-	Rev_Neutral+=['REV_016e']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+	#Rev_Neutral+=['REV_016e']
+class REV_016_Action(TargetedAction):
+	def do(self, source, controller):
+		if controller.opponent.hero.damage>=3:
+			Draw(controller).trigger(source)
 		pass
 class REV_016:# <12>[1691]
 	""" Crooked Cook
 	At the end of your turn,  if you dealt 3 or more  damage to the enemy  hero, draw a card. """
-	#
+	events = OWN_TURN_END.on(REV_016_Action(CONTROLLER))
 	pass
-
-class REV_016e:# <12>[1691]
-	""" Suspicious Soup
-	<b>Poisonous</b> """
-	#
-	pass
+#class REV_016e:# <12>[1691]
+#	""" Suspicious Soup
+#	<b>Poisonous</b> """
+#	#
+#	pass
 
 
 
@@ -311,11 +310,6 @@ if Rev_Insatiable_Devourer:# ### OK ###
 	Rev_Neutral+=['REV_017']
 	Rev_Neutral+=['REV_017e']
 	Rev_Neutral+=['REV_017t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_017:# <12>[1691]
 	""" Insatiable Devourer
 	<b>Battlecry:</b> Devour an enemy  minion and gain its stats.  _
@@ -338,7 +332,8 @@ class REV_017t_Action(TargetedAction):
 		controller=source.controller
 		if target in controller.opponent.field:
 			index = controller.opponent.field.index(target)
-			EatsMinion(source, controller.opponent.field[index+1], 1, 'REV_017e').trigger(source)
+			if index<len(controller.opponent.field)-1:
+				EatsMinion(source, controller.opponent.field[index+1], 1, 'REV_017e').trigger(source)
 			EatsMinion(source, target, 1, 'REV_017e').trigger(source)
 			if index>0:
 				EatsMinion(source, controller.opponent.field[index-1], 1, 'REV_017e').trigger(source)
