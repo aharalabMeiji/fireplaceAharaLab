@@ -353,7 +353,7 @@ if Rev_Prince_Renathal:#
 	Rev_Neutral+=['REV_018']
 class REV_018:# <12>[1691]
 	""" Prince Renathal
-	Your deck size and  starting Health are 40. """
+	Your deck size and starting Health are 40. """
 	#
 	pass
 
@@ -364,11 +364,6 @@ class REV_018:# <12>[1691]
 if Rev_Famished_Fool:# 
 	Rev_Neutral+=['REV_019']
 	Rev_Neutral+=['REV_019t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_019:# <12>[1691]
 	""" Famished Fool
 	<b>Battlecry:</b> Draw a card. 
@@ -392,15 +387,17 @@ class REV_019t:# <12>[1691]
 
 if Rev_Dinner_Performer:# 
 	Rev_Neutral+=['REV_020']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_020_Action(TargetedAction):
+	def do(self, source, controller):
+		cards = [card for card in controller.deck if card.type==CardType.MINION and card.cost<=controller.mana]
+		if len(cards)>0:
+			card = random.choice(cards)
+			card.zone = Zone.HAND
 		pass
 class REV_020:# <12>[1691]
 	""" Dinner Performer
 	<b>Battlecry:</b> Summon a random minion from your deck that you can afford to play. """
-	#
+	play = REV_020_Action(CONTROLLER)
 	pass
 
 
@@ -410,21 +407,21 @@ class REV_020:# <12>[1691]
 if Rev_Kaelthas_Sinstrider:# 
 	Rev_Neutral+=['REV_021']
 	Rev_Neutral+=['REV_021e']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_021_Action(TargetedAction):
+	def do(self, source, controller):
+		if len(controller.play_this_turn)%3==2:
+			for card in controller.hand:
+				Buff(card, 'REV_021e').trigger(source)
 		pass
 class REV_021:# <12>[1691]
 	""" Kael'thas Sinstrider
 	Every third minion you play each turn costs (0). """
-	#
+	events = Play(CONTROLLER, MINION).on(REV_021_Action(CONTROLLER))
 	pass
-
 class REV_021e:# <12>[1691]
-	""" Sinstrider
-	Costs (0). """
-	#
+	""" Sinstrider 	Costs (0). """
+	cost = lambda self, i: 0
+	events = Play(CONTROLLER, MINION).on(Destroy(SELF))
 	pass
 
 
@@ -433,14 +430,16 @@ class REV_021e:# <12>[1691]
 
 if Rev_Murloc_Holmes:# 
 	Rev_Neutral+=['REV_022']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_022_Choice(Choice):
+	def choose(self, card):
+		pass
+class REV_022_Action(TargetedAction):
+	def do(self, source, controller):
+
 		pass
 class REV_022:# <12>[1691]
 	""" Murloc Holmes
-	<b>Battlecry:</b> Solve 3 Clues  about your opponent's cards  to get copies of them. """
+	<b>Battlecry:</b> Solve 3 Clues about your opponent's cards  to get copies of them. """
 	#
 	pass
 
