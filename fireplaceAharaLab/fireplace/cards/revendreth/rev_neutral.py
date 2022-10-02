@@ -351,11 +351,6 @@ class REV_017t:# <12>[1691]
 
 if Rev_Prince_Renathal:# 
 	Rev_Neutral+=['REV_018']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_018:# <12>[1691]
 	""" Prince Renathal
 	Your deck size and  starting Health are 40. """

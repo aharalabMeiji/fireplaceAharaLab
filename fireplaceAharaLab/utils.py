@@ -73,6 +73,20 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
+	##
+	if 'REV_018' in [card.id for card in player1.controller.deck]:
+		player1.hero.max_health=40
+		#for repeat in range(10):
+		#	newcard = RandomCollectible().evaluate()
+		#	newcard=newcard[0]
+		#	Shuffle(player1, newcard).trigger(player1)
+	if 'REV_018' in [card.id for card in player2.controller.deck]:
+		player2.hero.max_health=40
+		#for repeat in range(10):
+		#	newcard = RandomCollectible().evaluate()
+		#	newcard=newcard[0]
+		#	Shuffle(player1, newcard).trigger(player1)
+	##
 	if Config.LOGINFO:
 		print("New game start")
 	for player in game.players:
