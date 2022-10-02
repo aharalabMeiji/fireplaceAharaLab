@@ -2179,7 +2179,7 @@ class CastSecret(TargetedAction):
 	CARDS = CardArg()
 	def do(self, source, cards):
 		if Config.LOGINFO:
-			Config.log("CastSecret.do","%s cast secret %s ", source, cards)
+			Config.log("CastSecret.do","%s cast secret %s "%(source, cards))
 		if not isinstance(cards,list):
 			cards = [cards]
 		for card in cards:

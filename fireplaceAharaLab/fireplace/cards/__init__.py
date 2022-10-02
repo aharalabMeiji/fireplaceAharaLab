@@ -44,7 +44,7 @@ class CardDB(dict):
 					# Ensure the actions are always iterable
 					setattr(card.scripts, script, (actions, ))
 
-		for script in ("events", "secret"):
+		for script in ("events", "secret", "quest", "reward"):
 			events = getattr(card.scripts, script, None)
 			if events is None:
 				setattr(card.scripts, script, [])

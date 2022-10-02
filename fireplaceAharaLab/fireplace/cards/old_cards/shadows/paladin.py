@@ -51,7 +51,7 @@ class DAL_727:#OK
 	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + (AttrValue(GameTag.COST) == OpAttr(FRIENDLY_DECK, GameTag.COST, min)))).then(Buff(Give.CARD  ,"DAL_727e"))
 DAL_727e = buff(2,2)
 
-class DAL_573:#baybe OK
+class DAL_573:# not in service
 	"""Commander Rhyssa,,3,4,3,Minion,Legendary,-,Secret
 	Your [Secrets] trigger twice."""
 	############## implemented in fireplace.card.Secret

@@ -112,7 +112,7 @@ class MAW_032_Action0(TargetedAction):
 		pass
 class MAW_032_Action1(TargetedAction):
 	def do(self, source, controller):
-		controller.cant_reveal_secret=True
+		controller.cant_reveal_secret=False
 		pass
 class MAW_032:# <12>[1691]
 	""" Tight-Lipped Witness

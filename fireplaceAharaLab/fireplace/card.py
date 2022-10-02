@@ -1030,16 +1030,8 @@ class Secret(Spell):
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
-			self.secret_twice=False# aharalab  want to make a new flag for this part.
-			for card in self.controller.field:# aharalab 
-				if 'DAL_573'==card.id :# aharalab 
-					self.secret_twice=True #  
 		if self.zone == Zone.SECRET:
-			if hasattr(self,'secret_twice') and self.secret_twice:# aharalab 
-				self.secret_twice=False
-				return
-			else:
-				self.controller.secrets.remove(self)
+			self.controller.secrets.remove(self)
 		if value == Zone.SECRET:
 			self.controller.secrets.append(self)
 		super()._set_zone(value)
@@ -1233,7 +1225,7 @@ class QuestReward(PlayableCard):
 	def events(self):
 		ret = super().events
 		if self.zone == Zone.SECRET:
-			ret += self.data.scripts.secret
+			ret += self.data.scripts.reward
 		return ret
 	@property
 	def exhausted(self):
@@ -1248,9 +1240,9 @@ class QuestReward(PlayableCard):
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
 		if self.zone == Zone.SECRET:
-			self.controller.secrets.remove(self)
+			self.controller.rewards.remove(self)
 		if value == Zone.SECRET:
-			self.controller.secrets.append(self)
+			self.controller.rewards.append(self)
 		super()._set_zone(value)
 	def is_summonable(self):
 		# secrets are all unique
@@ -1287,9 +1279,9 @@ class Sidequest(Spell):
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
 		if self.zone == Zone.SECRET:
-			self.controller.secrets.remove(self)
+			self.controller.quests.remove(self)
 		if value == Zone.SECRET:
-			self.controller.secrets.append(self)
+			self.controller.quests.append(self)
 		super()._set_zone(value)
 
 	def is_summonable(self):

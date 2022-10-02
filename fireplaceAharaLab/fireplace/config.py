@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=4
+	HEARTHSTONE=3
 	#1: ランク戦をするならこちら
 	#2: クラシック環境をするならこちら
 	#3: バトグラをするならこちら
@@ -40,10 +40,10 @@ class Config:# ()is the default value
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
 	QUEST_REWARD=1 ## クエストルール（24.2）
 	QUEST_PRESET=''
-	REWARD_PRESET_FIRST=0 ## 人間プレーヤに、最初からrewardをセットする。
-	REWARD_PRESET=''
+	REWARD_PRESET_FIRST=1 ## 人間プレーヤに、最初からrewardをセットする。
+	REWARD_PRESET='BG24_Reward_107'
 
-	PLAYER1_HUMAN=0 ##人間プレーヤーあり
+	PLAYER1_HUMAN=1 ##人間プレーヤーあり
 	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）

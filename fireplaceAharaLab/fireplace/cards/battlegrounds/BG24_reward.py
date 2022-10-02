@@ -55,7 +55,7 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 	# -> [2467]=120, [2641]=1, [2647]=60 (24.2.2) (easy to obtain)
 	""" Snicker Snacks
 	At the end of your turn, 2 friendly minions trigger their [Battlecries]. """
-	secret = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
+	reward = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
 	#<Tag enumID="201" name="FACTION" type="Int" value="3"/>
 	pass
 
