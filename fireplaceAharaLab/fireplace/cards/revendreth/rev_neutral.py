@@ -605,15 +605,20 @@ class REV_375t:# <12>[1691]
 
 if Rev_Invitation_Courier:# 
 	Rev_Neutral+=['REV_377']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_377_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	CARD=ActionArg()
+	def do(self, source, controller, card):
+		if card.card_class != CardClass.NEUTRAL and card.card_class != controller.hero.card_class:
+			Give(controller, card.id).trigger(source)
 		pass
 class REV_377:# <12>[1691]
 	""" Invitation Courier
 	After a card is added to your hand from another class, copy it. """
-	#
+	events = [
+		Draw(CONTROLLER).on(REV_377_Action(CONTROLLER, Draw.CARD)),
+		Give(CONTROLLER).on(REV_377_Action(CONTROLLER, Give.CARD))
+		]
 	pass
 
 
@@ -624,27 +629,24 @@ if Rev_Forensic_Duster:#
 	Rev_Neutral+=['REV_378']
 	Rev_Neutral+=['REV_378e']
 	Rev_Neutral+=['REV_378e2']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_378:# <12>[1691]
 	""" Forensic Duster
 	<b>Battlecry:</b> Your  opponent's minions  cost (1) more next turn. """
-	#
+	play = Buff(CONTROLLER, 'REV_378e')
 	pass
-
 class REV_378e:# <12>[1691]
 	""" Dusting
 	Your minions cost (1) more this turn. """
-	#
+	def apply(self, target):
+		controller = target
+		for card in controller.opponent.field:
+			Buff(card, 'REV_378e2').trigger(self.source)
 	pass
-
 class REV_378e2:# <12>[1691]
 	""" Discovered!
 	Costs (1) more. """
-	#
+	cost = lambda self, i : i+1
+	events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
 
 
@@ -683,21 +685,15 @@ class REV_771:# <12>[1691]
 if Rev_Muck_Plumber:# 
 	Rev_Neutral+=['REV_837']
 	Rev_Neutral+=['REV_837e']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_837:# <12>[1691]
 	""" Muck Plumber
 	ALL minions cost (2) more. """
-	#
+	play = Buff(FRIENDLY_HAND, 'REV_837e'), Buff(ENEMY_HAND, 'REV_837e')
 	pass
-
 class REV_837e:# <12>[1691]
 	""" Yuck!
 	Costs (2) more. """
-	#
+	cost = lambda self, i : i+2
 	pass
 
 
@@ -715,14 +711,9 @@ class original_Action(TargetedAction):
 class REV_839:# <12>[1691]
 	""" Sinstone Totem
 	At the end of your turn, gain +1 Health. """
-	#
+	events = EndTurn(CONTROLLER).on(Buff(SELF, 'REV_839e'))
 	pass
-
-class REV_839e:# <12>[1691]
-	""" Sinful Stones
-	Increased Health. """
-	#
-	pass
+REV_839e=buff(0,1)
 
 
 
@@ -739,13 +730,14 @@ class original_Action(TargetedAction):
 class REV_841:# <12>[1691]
 	""" Anonymous Informant
 	<b>Battlecry:</b> The next <b>Secret</b> you play costs (0). """
-	#
+	play = Buff(FRIENDLY_HAND + SECRET, 'REV_841e')
 	pass
 
 class REV_841e:# <12>[1691]
 	""" Informed
 	Your next Secret costs (0). """
-	#
+	cost = lambda self, i : 0
+	events = Play(CONTROLLER, SECRET).on(Destroy(SELF))
 	pass
 
 
@@ -793,15 +785,10 @@ class REV_843t:# <12>[1691]
 
 if Rev_Volatile_Skeleton:# 
 	Rev_Neutral+=['REV_845']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_845:# <12>[1691]
 	""" Volatile Skeleton
 	<b>Deathrattle:</b> Deal 2 damage to a random enemy. """
-	#
+	deathrattle = Hit(RANDOM(ENEMY_MINIONS), 2)
 	pass
 
 
@@ -810,15 +797,17 @@ class REV_845:# <12>[1691]
 
 if Rev_Scuttlebutt_Ghoul:# 
 	Rev_Neutral+=['REV_900']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_900_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		if len(controller.secrets)>0:
+			card = random.choice(controller.secrets)
+			Give(controller, card.id).trigger(source)
 		pass
 class REV_900:# <12>[1691]
 	""" Scuttlebutt Ghoul
 	<b>Taunt</b> <b>Battlecry:</b> If you control a <b>Secret</b>, summon a copy of this. """
-	#
+	play = REV_900_Action(CONTROLLER)
 	pass
 
 
@@ -827,15 +816,17 @@ class REV_900:# <12>[1691]
 
 if Rev_Dispossessed_Soul:# 
 	Rev_Neutral+=['REV_901']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_901_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		cards=[card.id for card in controller.field if card.type==CardType.LOCATION]
+		if len(cards)>0:
+			Shuffle(controller, random.choice(cards)).trigger(source)
 		pass
 class REV_901:# <12>[1691]
 	""" Dispossessed Soul
 	<b>Battlecry:</b> If you control a location, <b>Discover</b> a copy of a card in your deck. """
-	#
+	play = REV_901_Action(CONTROLLER)
 	pass
 
 
