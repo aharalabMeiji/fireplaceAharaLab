@@ -2,49 +2,48 @@ from ..utils import *
 
 Rev_Neutral=[]
 
-Rev_Soul_Seeker=True## new 24.4
-Rev_Afterlife_Attendant=True## new 24.4
-Rev_Tight_Lipped_Witness=True## new 24.4
-Rev_Sylvanas_the_Accused=True## new 24.4
-Rev_The_Jailer=True## new 24.4
-Rev_Bog_Beast=True
-Rev_Stoneborn_Accuser=True
-Rev_Red_Herring=True
-Rev_Masked_Reveler=True
-Rev_Crooked_Cook=True
-Rev_Insatiable_Devourer=True
-Rev_Prince_Renathal=True
-Rev_Famished_Fool=True
-Rev_Dinner_Performer=True
-Rev_Kaelthas_Sinstrider=True
-Rev_Murloc_Holmes=True
-Rev_Demolition_Renovator=True
-Rev_Theotar_the_Mad_Duke=True
-Rev_Sinrunner=True
-Rev_Maze_Guide=True
-Rev_Dredger_Staff=True
-Rev_Roosting_Gargoyle=True
-Rev_Party_Crasher=True
-Rev_Stoneborn_General=True
-Rev_Invitation_Courier=True
-Rev_Forensic_Duster=True
-Rev_Cosmic_Power=True
-Rev_Murloc_Holmes=True
-Rev_Investigate=True
-Rev_Muck_Plumber=True
-Rev_Sinstone_Totem=True
-Rev_Anonymous_Informant=True
-Rev_Sinfueled_Golem=True
-Rev_Volatile_Skeleton=True
-Rev_Scuttlebutt_Ghoul=True
-Rev_Dispossessed_Soul=True
-Rev_Sire_Denathrius=True
-Rev_Creepy_Painting=True
-Rev_Sketchy_Stranger=True
-Rev_Steamcleaner=True
-Rev_Priest_of_the_Deceased=True
-Rev_Murlocula=True
-Rev_Ashen_Elemental=True
+Rev_Soul_Seeker=True## new 24.4#
+Rev_Afterlife_Attendant=True## new 24.4#
+Rev_Tight_Lipped_Witness=True## new 24.4#
+Rev_Sylvanas_the_Accused=True## new 24.4#
+Rev_The_Jailer=True## new 24.4#
+Rev_Bog_Beast=True#
+Rev_Stoneborn_Accuser=True#
+Rev_Red_Herring=True#
+Rev_Masked_Reveler=True#
+Rev_Crooked_Cook=True#
+Rev_Insatiable_Devourer=True#
+Rev_Prince_Renathal=True#
+Rev_Famished_Fool=True#
+Rev_Dinner_Performer=True#
+Rev_Kaelthas_Sinstrider=True#
+Rev_Murloc_Holmes=False ### difficult!#
+Rev_Demolition_Renovator=True#
+Rev_Theotar_the_Mad_Duke=True#
+Rev_Sinrunner=True#
+Rev_Maze_Guide=True#
+Rev_Dredger_Staff=True#
+Rev_Roosting_Gargoyle=True#
+Rev_Party_Crasher=True#
+Rev_Stoneborn_General=True#
+Rev_Invitation_Courier=True#
+Rev_Forensic_Duster=True#
+Rev_Murloc_Holmes=False#not in service
+Rev_Investigate=False#not in service
+Rev_Muck_Plumber=True#
+Rev_Sinstone_Totem=True#
+Rev_Anonymous_Informant=True#
+Rev_Sinfueled_Golem=True#
+Rev_Volatile_Skeleton=True#
+Rev_Scuttlebutt_Ghoul=True#
+Rev_Dispossessed_Soul=True#
+Rev_Sire_Denathrius=True#
+Rev_Creepy_Painting=True#
+Rev_Sketchy_Stranger=True#
+Rev_Steamcleaner=True#
+Rev_Priest_of_the_Deceased=True#
+Rev_Murlocula=True#
+Rev_Ashen_Elemental=True#
 
 
 if Rev_Soul_Seeker:# 
@@ -428,7 +427,7 @@ class REV_021e:# <12>[1691]
 
 
 
-if Rev_Murloc_Holmes:# 
+if Rev_Murloc_Holmes:# ####  difficult ###
 	Rev_Neutral+=['REV_022']
 class REV_022_Choice(Choice):
 	def choose(self, card):
@@ -449,15 +448,17 @@ class REV_022:# <12>[1691]
 
 if Rev_Demolition_Renovator:# 
 	Rev_Neutral+=['REV_023']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_023_Action(TargetedAction):
+	def do(self, source, controller):
+		cards = [card for card in controller.opponent.field if card.type==CardType.LOCATION]
+		if len(cards)>0:
+			card = random.choice(cards)
+			Destroy(card).trigger(source)
 		pass
 class REV_023:# <12>[1691]
 	""" Demolition Renovator
 	<b>Battlecry:</b> Destroy  an enemy location. """
-	#
+	play = REV_023_Action(CONTROLLER)
 	pass
 
 
@@ -466,15 +467,44 @@ class REV_023:# <12>[1691]
 
 if Rev_Theotar_the_Mad_Duke:# 
 	Rev_Neutral+=['REV_238']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_238_Choice(Choice):
+	def choose(self, card):
+		source = self.source
+		controller = source.controller
+		source._sidequest_counter_ += 1
+		if source._sidequest_counter_==1:
+			source.sidequest_list0=[card]
+			self.next_choice = REV_238_Choice(controller, RandomID(source._sidequest_list2_)*3)
+		elif source._sidequest_counter_==2:
+			source.sidequest_list0+=[card]
+			self.next_choice = None
+			## call back
+			cards1=[card for card in controller.hand if card.id==source.sidequest_list0[0].id]
+			if len(cards1)>0:
+				card1=random.choice(cards1)
+				cards2=[card for card in controller.opponent.hand if card.id==source.sidequest_list0[1].id]
+				if len(cards2)>0:
+					card2=random.choice(cards2)
+					## swapping
+					card1.zone=Zone.SETASIDE
+					card2.zone=Zone.SETASIDE
+					card1.controller=controller.opponent
+					card2.controller=controller
+					card1.zone=Zone.HAND
+					card2.zone=Zone.HAND
+		else:
+			self.next_choice = None ## does not occur
+		super().choose(card)
+class REV_238_Action(TargetedAction):
+	def do(self, source, controller):
+		source._sidequest_list1_=[card.id for card in controller.hand]
+		source._sidequest_list2_=[card.id for card in controller.opponent.hand]
+		REV_238_Choice(controller, RandomID(source._sidequest_list1_)*3).trigger(source)
 		pass
 class REV_238:# <12>[1691]
 	""" Theotar, the Mad Duke
 	<b>Battlecry:</b> <b>Discover</b> a card in each player's hand and swap them. """
-	#
+	play = REV_238_Action(CONTROLLER)
 	pass
 
 
@@ -483,15 +513,10 @@ class REV_238:# <12>[1691]
 
 if Rev_Sinrunner:# 
 	Rev_Neutral+=['REV_251']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_251:# <12>[1691]
 	""" Sinrunner
 	<b>Deathrattle:</b> Destroy a random enemy minion. """
-	#
+	deathrattle = Destroy(RANDOM(ENEMY_MINIONS))
 	pass
 
 
@@ -500,15 +525,10 @@ class REV_251:# <12>[1691]
 
 if Rev_Maze_Guide:# 
 	Rev_Neutral+=['REV_308']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_308:# <12>[1691]
 	""" Maze Guide
 	<b>Battlecry</b>: Summon a random 2-Cost minion. """
-	#
+	play = Summon(CONTROLLER, RandomMinion(cost=2))
 	pass
 
 
@@ -518,22 +538,12 @@ class REV_308:# <12>[1691]
 if Rev_Dredger_Staff:# 
 	Rev_Neutral+=['REV_338']
 	Rev_Neutral+=['REV_338e']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_338:# <12>[1691]
 	""" Dredger Staff
 	<b>Battlecry:</b> Give minions  in your hand +1 Health. """
-	#
+	play = Buff(FRIENDLY_HAND, 'REV_338e')
 	pass
-
-class REV_338e:# <12>[1691]
-	""" Carving Time
-	+1 Health. """
-	#
-	pass
+REV_338e=buff(0,1)
 
 
 
@@ -542,22 +552,13 @@ class REV_338e:# <12>[1691]
 if Rev_Roosting_Gargoyle:# 
 	Rev_Neutral+=['REV_351']
 	Rev_Neutral+=['REV_351e']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_351:# <12>[1691]
 	""" Roosting Gargoyle
 	<b>Battlecry:</b> Give a friendly Beast +2 Attack. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.BEAST }	
+	play = Buff(TARGET, 'REV_338e')
 	pass
-
-class REV_351e:# <12>[1691]
-	""" Invigorated
-	+2 Attack. """
-	#
-	pass
+REV_351e=buff(2,0)
 
 
 
@@ -565,15 +566,20 @@ class REV_351e:# <12>[1691]
 
 if Rev_Party_Crasher:# 
 	Rev_Neutral+=['REV_370']
-class original_Action(TargetedAction):
+class REV_370_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		controller=target
+		controller=source.controller
+		if len(controller.hand)>0:
+			card = random.choice(controller.hand)
+			Hit(target. card.atk).triegger(source)# throw
+			card.discard()
 		pass
 class REV_370:# <12>[1691]
 	""" Party Crasher
 	<b>Battlecry:</b> Choose an enemy minion. Throw a random minion from your hand at it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = REV_370_Action(TARGET)
 	pass
 
 
@@ -583,21 +589,14 @@ class REV_370:# <12>[1691]
 if Rev_Stoneborn_General:# 
 	Rev_Neutral+=['REV_375']
 	Rev_Neutral+=['REV_375t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_375:# <12>[1691]
 	""" Stoneborn General
 	<b>Rush</b>  __<b>Deathrattle:</b> Summon an  ___8/8 Gravewing with <b>Rush</b>._ """
-	#
+	deathrattle = Summon(CONTROLLER, 'REV_375t')
 	pass
-
 class REV_375t:# <12>[1691]
 	""" Gravewing
 	<b>Rush</b> """
-	#
 	pass
 
 
@@ -652,19 +651,13 @@ class REV_378e2:# <12>[1691]
 
 
 
-if Rev_Murloc_Holmes:# 
+if Rev_Murloc_Holmes:# #not in service
 	Rev_Neutral+=['REV_770']
 	Rev_Neutral+=['REV_770hp']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_770:# <12>[1691]
 	""" Murloc Holmes	 """
 	#
 	pass
-
 class REV_770hp:# <12>[1691]
 	""" Accuse
 	<b>Hero Power</b> Make an accusation! """
@@ -675,13 +668,8 @@ class REV_770hp:# <12>[1691]
 
 
 
-if Rev_Investigate:# 
+if Rev_Investigate:# #not in service
 	Rev_Neutral+=['REV_771']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_771:# <12>[1691]
 	""" Investigate
 	Search for clues. """

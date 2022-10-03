@@ -27,7 +27,8 @@ def Card(id):
 		CardType.ENCHANTMENT: Enchantment,
 		CardType.WEAPON: Weapon,
 		CardType.HERO_POWER: HeroPower,
-		40: QuestReward,
+		CardType.LOCATION: Location,
+		CardType.BATTLEGROUND_QUEST_REWARD: QuestReward,
 	}[data.type]
 	if subclass is Spell and data.secret:
 		subclass = Secret
@@ -1217,6 +1218,46 @@ class HeroPower(PlayableCard):
 		if self.passive_power:## if hero.power is passive, there are no need to activate
 			return False
 		return super().is_playable()
+
+class Location(Character):
+
+	@property
+	def events(self):
+		ret = super().events
+		if self.zone == Zone.SECRET:
+			ret += self.data.scripts.secret
+		return ret
+
+	@property
+	def exhausted(self):
+		return self.zone == Zone.SECRET and self.controller.current_player
+
+	@property
+	def zone_position(self):
+		if self.zone == Zone.SECRET:
+			return self.controller.secrets.index(self) + 1
+		return super().zone_position
+
+	def _set_zone(self, value):
+		if value == Zone.PLAY:
+			# Move secrets to the SECRET Zone when played
+			value = Zone.SECRET
+		if self.zone == Zone.SECRET:
+			self.controller.quests.remove(self)
+		if value == Zone.SECRET:
+			self.controller.quests.append(self)
+		super()._set_zone(value)
+
+	def is_summonable(self):
+		# secrets are all unique
+		if self.controller.secrets.contains(self):
+			return False
+		return super().is_summonable()
+
+	def play(self, target=None, index=None, choose=None):
+		self.controller.times_secret_played_this_game += 1
+		return super().play(target, index, choose)
+
 
 class QuestReward(PlayableCard):
 	_sidequest_counter_=0
