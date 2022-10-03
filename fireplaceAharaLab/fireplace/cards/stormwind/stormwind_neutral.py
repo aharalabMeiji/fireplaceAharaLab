@@ -535,7 +535,8 @@ class SW_079:###OK
 	""" Flightmaster Dungar
 	[x][Battlecry:] Choose a flightpath and go [Dormant.] Awaken with a bonus __when you complete it! """
 	entourage = ['SW_079t', 'SW_079t2', 'SW_079t3']
-	play = SW_079_Choice(CONTROLLER,RandomEntourage()*3)
+	#play = SW_079_Choice(CONTROLLER,RandomEntourage()*3)
+	play = SW_079_Choice(CONTROLLER,RandomID('SW_079t', 'SW_079t2', 'SW_079t3')*3)
 	pass
 SW_079e4=buff(0,0)
 SW_079e5=buff(0,0)

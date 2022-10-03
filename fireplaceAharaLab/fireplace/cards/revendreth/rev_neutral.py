@@ -261,7 +261,7 @@ class REV_015_Action(TargetedAction):
 	def do(self, source, controller):
 		cardIDs = [card.id for card in controller.deck if card.type==CardType.MINION and card.id!='REV_015']
 		if len(cardIDs)>2:
-			cardIDs=random.sample(cardIDs)
+			cardIDs=random.sample(cardIDs, 2)
 		for cardID in cardIDs:
 			newcard=Summon(controller, cardID).trigger(source)
 			newcard=newcard[0][0]

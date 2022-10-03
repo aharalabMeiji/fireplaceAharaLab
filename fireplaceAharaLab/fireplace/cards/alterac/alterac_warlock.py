@@ -175,7 +175,7 @@ class AV_317:# <9>[1626]
 	def play(self):
 		cards=[card.id for card in self.controller.death_log if card.has_deathrattle==True]
 		if cards!=[]:
-			AV_317_Choice(self.controller, RandomID(cards)*3).trigger(self)
+			AV_317_Choice(self.controller, RandomID(*cards)*3).trigger(self)
 	pass
 class AV_317e:# <9>[1626]
 	""" Lich Perfume
