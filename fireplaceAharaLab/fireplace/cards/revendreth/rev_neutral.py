@@ -106,10 +106,12 @@ class MAW_031e:# <12>[1691]
 if Rev_Tight_Lipped_Witness:# 
 	Rev_Neutral+=['MAW_032']
 class MAW_032_Action0(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		controller.cant_reveal_secret=True
 		pass
 class MAW_032_Action1(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		controller.cant_reveal_secret=False
 		pass
@@ -239,10 +241,11 @@ class REV_013t:# <12>[1691]
 if Rev_Red_Herring:# 
 	Rev_Neutral+=['REV_014']
 class REV_014_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		for card in controller.field:
 			if card.id!='REV_014':
-				care.stealthed=True
+				card.stealthed=True
 		pass
 class REV_014:# <12>[1691]
 	""" Red Herring
@@ -258,6 +261,7 @@ if Rev_Masked_Reveler:#
 	Rev_Neutral+=['REV_015']
 	Rev_Neutral+=['REV_015t']
 class REV_015_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		cardIDs = [card.id for card in controller.deck if card.type==CardType.MINION and card.id!='REV_015']
 		if len(cardIDs)>2:
@@ -286,6 +290,7 @@ if Rev_Crooked_Cook:#
 	Rev_Neutral+=['REV_016']
 	#Rev_Neutral+=['REV_016e']
 class REV_016_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		if controller.opponent.hero.damage>=3:
 			Draw(controller).trigger(source)
@@ -387,6 +392,7 @@ class REV_019t:# <12>[1691]
 if Rev_Dinner_Performer:# 
 	Rev_Neutral+=['REV_020']
 class REV_020_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		cards = [card for card in controller.deck if card.type==CardType.MINION and card.cost<=controller.mana]
 		if len(cards)>0:
@@ -407,6 +413,7 @@ if Rev_Kaelthas_Sinstrider:#
 	Rev_Neutral+=['REV_021']
 	Rev_Neutral+=['REV_021e']
 class REV_021_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		if len(controller.play_this_turn)%3==2:
 			for card in controller.hand:
@@ -433,6 +440,7 @@ class REV_022_Choice(Choice):
 	def choose(self, card):
 		pass
 class REV_022_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 
 		pass
@@ -449,6 +457,7 @@ class REV_022:# <12>[1691]
 if Rev_Demolition_Renovator:# 
 	Rev_Neutral+=['REV_023']
 class REV_023_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		cards = [card for card in controller.opponent.field if card.type==CardType.LOCATION]
 		if len(cards)>0:
@@ -496,6 +505,7 @@ class REV_238_Choice(Choice):
 			self.next_choice = None ## does not occur
 		super().choose(card)
 class REV_238_Action(TargetedAction):
+	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		source._sidequest_list1_=[card.id for card in controller.hand]
 		source._sidequest_list2_=[card.id for card in controller.opponent.hand]
@@ -751,6 +761,7 @@ if Rev_Sinfueled_Golem:#
 class REV_843_Action(TargetedAction):
 	TARGET=ActionArg()
 	ENTITY=ActionArg()
+	OPTION=IntArg()
 	def do(self, source, target, entity, option):
 		controller=target
 		if option==1 and controller.infuse_in_deck==False:
@@ -759,7 +770,7 @@ class REV_843_Action(TargetedAction):
 		newcard=Infuse(CONTROLLER, 'REV_843t')
 		if newcard!=None:
 			amount=sum(source._sidequest_list1_)
-			Buff(amount, 'REV_843e', atk=amount, max_health=amount).trigger(source)
+			Buff(newcard, 'REV_843e', atk=amount, max_health=amount).trigger(source)
 		pass
 class REV_843:# <12>[1691]
 	""" Sinfueled Golem
@@ -883,11 +894,6 @@ class REV_906t:# <12>[1691]
 
 if Rev_Creepy_Painting:# 
 	Rev_Neutral+=['REV_916']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_916:# <12>[1691]
 	""" Creepy Painting
 	After another minion dies, become a copy of it. """
@@ -900,10 +906,19 @@ class REV_916:# <12>[1691]
 
 if Rev_Sketchy_Stranger:# 
 	Rev_Neutral+=['REV_945']
+class REV_945_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		cc = controller.hero.card_class
+		ccs=[2,3,4,5,6,7,8,9,10,14]
+		ccs.remove(cc)
+		cc = random.choice(ccs)
+		Discover(controller, RandomSecret(card_class=cc)).trigger(source)
+		pass
 class REV_945:# <12>[1691]
 	""" Sketchy Stranger
 	<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b> from another class. """
-	play =  Discover(CONTROLLER, RandomSecret(card_class=CARDCLASS(OPPONENT)))
+	play =  REV_945_Action(CONTROLLER)
 	pass
 
 
