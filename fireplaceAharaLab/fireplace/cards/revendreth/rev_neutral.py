@@ -845,21 +845,45 @@ class REV_901:# <12>[1691]
 if Rev_Sire_Denathrius:# 
 	Rev_Neutral+=['REV_906']
 	Rev_Neutral+=['REV_906t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_906:# <12>[1691]
 	""" Sire Denathrius
-	<b><b>Lifesteal</b>.</b> <b>Battlecry:</b> Deal 5 damage amongst enemies. <b>Endlessly Infuse (1):</b> Deal 1 more. """
-	#
+	<b><b>Lifesteal</b>.</b> <b>Battlecry:</b> Deal 5 damage amongst enemies. 
+	<b>Endlessly Infuse (1):</b> Deal 1 more. """
+	#	<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
+	#	<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="5"/>	#
+	play = SplitHit(SELF, ENEMY_MINIONS, 5)
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_906t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_906t', 1))
 	pass
-
+class REV_906t_Infuse(TargetedAction):
+	TARGET=ActionArg()
+	INFUSED=ActionArg()
+	def do(self, source, target, infused, infuse_in_deck=0):
+		controller=target
+		if infuse_in_deck==1 and controller.infuse_in_deck==False:
+			return None
+		source.script_data_num_1 -= 1
+		if Config.LOGINFO:
+			Config.log("Infuse.do","Infusing %d -> %d for %r"%(source.script_data_num_1+1, source.script_data_num_1, infused))
+		if source.script_data_num_1<= 0:
+			self.broadcast(source, EventListener.ON, target, infused)
+			source.script_data_num_1=1
+			source.script_data_num_2+=1
+			self.broadcast(source, EventListener.AFTER, target, infused)
+			return target
+		return None
 class REV_906t:# <12>[1691]
 	""" Sire Denathrius
 	<b>Lifesteal</b>. <b>Battlecry:</b> Deal {1} damage amongst enemies. <b>Endlessly Infuse ({0}):</b> Deal 1 more. """
-	#
+	#	<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
+	#	<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="6"/>
+	play = SplitHit(SELF, ENEMY_MINIONS, TAG_SCRIPT_DATA_NUM_2(CONTROLLER))
+	class Hand:
+		events = Death(FRIENDLY+MINION).on(REV_906t_Infuse(CONTROLLER, 'REV_906t'))
+	class Deck:
+		events = Death(FRIENDLY+MINION).on(REV_906t_Infuse(CONTROLLER, 'REV_906t', 1))
 	pass
 
 
@@ -876,7 +900,7 @@ class original_Action(TargetedAction):
 class REV_916:# <12>[1691]
 	""" Creepy Painting
 	After another minion dies, become a copy of it. """
-	#
+	events = Death(FRIENDLY + MINION).on(Morph(SELF, Copy(Death.ENTITY)))
 	pass
 
 
@@ -885,15 +909,10 @@ class REV_916:# <12>[1691]
 
 if Rev_Sketchy_Stranger:# 
 	Rev_Neutral+=['REV_945']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_945:# <12>[1691]
 	""" Sketchy Stranger
 	<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b> from another class. """
-	#
+	play =  Discover(CONTROLLER, RandomSecret(card_class=CARDCLASS(OPPONENT)))
 	pass
 
 
@@ -902,15 +921,23 @@ class REV_945:# <12>[1691]
 
 if Rev_Steamcleaner:# 
 	Rev_Neutral+=['REV_946']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_946_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		assert controller==source.controller, "controller"
+		cards1=[card for card in controller.deck if card.id not in controller.starting_deck]
+		if len(cards1)>0:
+			for card in cards1:
+				card.discard()
+		cards2=[card for card in controller.opponent.deck if card.id not in controller.opponent.starting_deck]
+		if len(cards2)>0:
+			for card in cards2:
+				card.discard()
 		pass
 class REV_946:# <12>[1691]
 	""" Steamcleaner
 	<b>Battlecry:</b> Destroy ALL cards in both players' decks that didn't start there. """
-	#
+	play = REV_946_Action(CONTROLLER)
 	pass
 
 
@@ -920,11 +947,6 @@ class REV_946:# <12>[1691]
 if Rev_Priest_of_the_Deceased:# 
 	Rev_Neutral+=['REV_956']
 	Rev_Neutral+=['REV_956t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_956:# <12>[1691]
 	""" Priest of the Deceased
 	<b>Taunt</b> <b>Infuse (@):</b> Gain +2/+2. """
@@ -936,7 +958,7 @@ class REV_956:# <12>[1691]
 class REV_956t:# <12>[1691]
 	""" Priest of the Deceased
 	<b>Infused</b> <b>Taunt</b> """
-	#
+	## this card has the stats +2/+2
 	pass
 
 
@@ -946,11 +968,6 @@ class REV_956t:# <12>[1691]
 if Rev_Murlocula:# 
 	Rev_Neutral+=['REV_957']
 	Rev_Neutral+=['REV_957t']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
-		pass
 class REV_957:# <12>[1691]
 	""" Murlocula
 	<b>Lifesteal</b> 
@@ -963,26 +980,28 @@ class REV_957:# <12>[1691]
 class REV_957t:# <12>[1691]
 	""" Murlocula
 	<b>Infused Lifesteal</b> """
-	#
+	# The cost of this card is zero.
 	pass
 
 if Rev_Ashen_Elemental:# 
 	Rev_Neutral+=['REV_960']
 	Rev_Neutral+=['REV_960e']
-class original_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class REV_960e_Action(TargetedAction):
+	CARD = ActionArg()
+	def do(self, source, card):
+		Hit(card, 2).trigger(source)
 		pass
 class REV_960:# <12>[1691]
 	""" Ashen Elemental
 	<b>Battlecry:</b> Whenever your opponent draws a card next turn, they take 2 damage. """
-	#
+	play = Buff(CONTROLLER, 'REV_960e')
 	pass
-
 class REV_960e:# <12>[1691]
 	""" Ashy
 	Whenever your opponent draws a card next turn, they take 2 damage. """
-	#
+	events = [
+		Draw(OPPONENT).on(REV_960e_Action(Draw.CARD)),
+		BeginTurn(CONTROLLER).on(Destroy(SELF))
+	]
 	pass
 
