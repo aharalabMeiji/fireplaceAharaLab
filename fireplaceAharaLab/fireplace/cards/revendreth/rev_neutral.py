@@ -483,7 +483,7 @@ class REV_238_Choice(Choice):
 		source._sidequest_counter_ += 1
 		if source._sidequest_counter_==1:
 			source.sidequest_list0=[card]
-			self.next_choice = REV_238_Choice(controller, RandomID(source._sidequest_list2_)*3)
+			self.next_choice = REV_238_Choice(controller, RandomID(*(source._sidequest_list2_))*3)
 		elif source._sidequest_counter_==2:
 			source.sidequest_list0+=[card]
 			self.next_choice = None
@@ -509,7 +509,7 @@ class REV_238_Action(TargetedAction):
 	def do(self, source, controller):
 		source._sidequest_list1_=[card.id for card in controller.hand]
 		source._sidequest_list2_=[card.id for card in controller.opponent.hand]
-		REV_238_Choice(controller, RandomID(source._sidequest_list1_)*3).trigger(source)
+		REV_238_Choice(controller, RandomID(*(source._sidequest_list1_))*3).trigger(source)
 		pass
 class REV_238:# <12>[1691]
 	""" Theotar, the Mad Duke
@@ -580,9 +580,10 @@ class REV_370_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=source.controller
-		if len(controller.hand)>0:
-			card = random.choice(controller.hand)
-			Hit(target. card.atk).triegger(source)# throw
+		cards=[card for card in controller.hand if card.type==CardType.MINION]
+		if len(cards)>0:
+			card = random.choice(cards)
+			Hit(target, card.atk).trigger(source)# throw
 			card.discard()
 		pass
 class REV_370:# <12>[1691]
@@ -767,7 +768,9 @@ class REV_843_Action(TargetedAction):
 		if option==1 and controller.infuse_in_deck==False:
 			return
 		source._sidequest_list1_.append(entity.atk)
-		newcard=Infuse(CONTROLLER, 'REV_843t')
+		newcard=Infuse(CONTROLLER, 'REV_843t').trigger(source)
+		if isinstance(newcard, list):
+			newcard = newcard[0]
 		if newcard!=None:
 			amount=sum(source._sidequest_list1_)
 			Buff(newcard, 'REV_843e', atk=amount, max_health=amount).trigger(source)
@@ -881,7 +884,11 @@ class REV_906t:# <12>[1691]
 	<b>Lifesteal</b>. <b>Battlecry:</b> Deal {1} damage amongst enemies. <b>Endlessly Infuse ({0}):</b> Deal 1 more. """
 	#	<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
 	#	<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="6"/>
-	play = SplitHit(SELF, ENEMY_MINIONS, TAG_SCRIPT_DATA_NUM_2(CONTROLLER))
+	#play = SplitHit(SELF, ENEMY_MINIONS, TAG_SCRIPT_DATA_NUM_2(CONTROLLER))
+	def play(self):
+		controller = self.controller
+		amount = controller.script_data_num_2
+		SplitHit(controller, controller.opponent.field, amount).trigger(self)
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(REV_906t_Infuse(CONTROLLER, 'REV_906t'))
 	class Deck:

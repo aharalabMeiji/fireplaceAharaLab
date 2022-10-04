@@ -82,11 +82,11 @@ class CORE_CS2_032:# <4>[1637]
 	play = Hit(ENEMY_MINIONS, 5)
 	pass
 
-class CORE_CS2_033:# <4>[1637] 22.6
-	""" Water Elemental
-	[Freeze] any character damaged by this minion. """
-	events = Damage(CHARACTER, None, SELF).on(Freeze(Damage.TARGET))
-	pass
+#class CORE_CS2_033:# <4>[1637] 22.6 banned
+#	""" Water Elemental
+#	[Freeze] any character damaged by this minion. """
+#	events = Damage(CHARACTER, None, SELF).on(Freeze(Damage.TARGET))
+#	pass
 
 if Kalecgos:# ##23.6
 	Core_Mage+=['CORE_DAL_609','DAL_609e']

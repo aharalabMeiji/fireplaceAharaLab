@@ -205,11 +205,16 @@ class BAR_748:#<4> [1525] ##OK
 
 
 if Barrens_Oasis_Ally:# 
-	Barrens_Mage+=['BAR_812']
+	Barrens_Mage+=['BAR_812','CORE_CS2_033']
 class BAR_812:#<4> [1525] ##OK
 	""" Oasis Ally
 	[Secret:] When a friendly minion is attacked, summon a 3/6 Water Elemental. """
 	secret = Attack(ENEMY, FRIENDLY_MINIONS).on(Summon(CONTROLLER, 'CORE_CS2_033'))
+	pass
+class CORE_CS2_033:# <4>[1637] 22.6, banned 23.6
+	""" Water Elemental
+	[Freeze] any character damaged by this minion. """
+	events = Damage(CHARACTER, None, SELF).on(Freeze(Damage.TARGET))
 	pass
 
 

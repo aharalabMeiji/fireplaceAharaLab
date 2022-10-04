@@ -353,7 +353,8 @@ class BAR_079:###OK
 	def play(self):
 		controller = self.controller
 		if self.powered_up:
-			GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			#GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("BAR_079_m1","BAR_079_m2","BAR_079_m3")*3).trigger(self)
 	pass
 
 
