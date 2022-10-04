@@ -237,6 +237,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.RARITY: "rarity",
 	GameTag.REBORN: "reborn", # aharalab, 19.12.2020
 	GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS: "receives_double_spelldamage_bonus",
+	2431: "relic", ##24.2
 	GameTag.RUSH: "rush",
 	GameTag.TAG_SCRIPT_DATA_NUM_1: 'script_data_num_1',
 	GameTag.TAG_SCRIPT_DATA_NUM_2: 'script_data_num_2',

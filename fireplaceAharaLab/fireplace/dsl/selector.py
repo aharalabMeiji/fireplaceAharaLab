@@ -528,6 +528,8 @@ ARCANE = EnumSelector(SpellSchool.ARCANE)
 FEL = EnumSelector(SpellSchool.FEL)
 SHADOW = EnumSelector(SpellSchool.SHADOW)
 
+RELIC = EnumSelector(2431)## (GameTag)2431 ?
+
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
 EPIC = EnumSelector(Rarity.EPIC)

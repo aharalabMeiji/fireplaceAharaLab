@@ -758,7 +758,7 @@ class REV_841e:# <12>[1691]
 
 
 
-if Rev_Sinfueled_Golem:# 
+if Rev_Sinfueled_Golem:# ### OK ###
 	Rev_Neutral+=['REV_843']
 	Rev_Neutral+=['REV_843e']
 	Rev_Neutral+=['REV_843t']
@@ -781,6 +781,7 @@ class REV_843_Action(TargetedAction):
 class REV_843:# <12>[1691]
 	""" Sinfueled Golem
 	<b>Infuse (@):</b> Gain stats equal to the Attack of the minions that <b>Infused</b> this. """
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="3"/>
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(REV_843_Action(CONTROLLER, Death.ENTITY, 0))
 	class Deck:

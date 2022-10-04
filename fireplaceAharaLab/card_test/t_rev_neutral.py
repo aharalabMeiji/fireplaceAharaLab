@@ -39,7 +39,7 @@ def rev_neutral():
 	#PresetGame(pp_REV_837)##
 	#PresetGame(pp_REV_839)##
 	#PresetGame(pp_REV_841)##
-	#PresetGame(pp_REV_843)##
+	#PresetGame(pp_REV_843)## OK
 	#PresetGame(pp_REV_845)##
 	#PresetGame(pp_REV_900)##
 	#PresetGame(pp_REV_901)##
@@ -1102,10 +1102,14 @@ class pp_REV_841(Preset_Play):
 class pp_REV_843(Preset_Play):
 	""" Sinfueled Golem
 	<b>Infuse (@):</b> Gain stats equal to the Attack of the minions that <b>Infused</b> this. """
-	class1=CardClass.NEUTRAL
-	class2=CardClass.NEUTRAL
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_843", self.controller)
+		self.con2=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con2=self.con2[0][0]
+		self.con3=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con3=self.con3[0][0]
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
@@ -1115,15 +1119,18 @@ class pp_REV_843(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
 		self.change_turn()
 		### opp
+		Hit(self.con2, 3).trigger(self.opponent)
+		Hit(self.con3, 3).trigger(self.opponent)
+		Hit(self.con4, 3).trigger(self.opponent)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		print("See REV_843t. It has a big buff by infusion")
 	pass
 
 

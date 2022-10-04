@@ -112,6 +112,7 @@ class Player(Entity, TargetableByAuras):
 		self.abyssal_curse=1## TSC_955t
 		self.infuse_in_deck=False ## new 24.4
 		self.cant_reveal_secret=False ## new 24.4
+		self.relic_improvision=1 ## new 24.2
 		
 		self.tavern_tier=1# battlegrounds
 		self.tavern_tierup_cost=5 # battlegrounds
