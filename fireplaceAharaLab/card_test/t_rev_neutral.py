@@ -31,7 +31,7 @@ def rev_neutral():
 	#PresetGame(pp_REV_351)##
 	#PresetGame(pp_REV_370)##
 	#PresetGame(pp_REV_375)##
-	#PresetGame(pp_REV_377)##
+	#PresetGame(pp_REV_377)## OK
 	#PresetGame(pp_REV_378)##
 	#PresetGame(pp_REV_515e)##
 	#PresetGame(pp_REV_770)##
@@ -861,28 +861,29 @@ class pp_REV_375(Preset_Play):
 class pp_REV_377(Preset_Play):
 	""" Invitation Courier
 	After a card is added to your hand from another class, copy it. """
-	class1=CardClass.NEUTRAL
-	class2=CardClass.NEUTRAL
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_377", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		Give(self.controller, 'TSC_643').trigger(self.controller)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		count=0
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+			if card.id=='TSC_643':
+				count+=1
+		assert count==2, "count"
 	pass
 
 

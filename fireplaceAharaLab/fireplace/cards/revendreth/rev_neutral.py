@@ -614,23 +614,24 @@ class REV_375t:# <12>[1691]
 
 
 
-if Rev_Invitation_Courier:# ### something strange
+if Rev_Invitation_Courier:# ### OK ###
 	Rev_Neutral+=['REV_377']
 class REV_377_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	CARD=ActionArg()
 	def do(self, source, controller, card):
 		if card.card_class != CardClass.NEUTRAL and card.card_class != controller.hero.card_class:
-			if card.id not in source.sidequest_list0:
-				source.sidequest_list0.append(card.id)
-				Give(controller, card.id).trigger(source)
+			if card not in source.sidequest_list0:
+				newcard = controller.card(card.id)
+				newcard.controller=controller
+				newcard.zone=Zone.HAND
 		pass
 class REV_377:# <12>[1691]
 	""" Invitation Courier
 	After a card is added to your hand from another class, copy it. """
 	events = [
-		Draw(CONTROLLER).on(REV_377_Action(CONTROLLER, Draw.CARD)),
-		Give(CONTROLLER).on(REV_377_Action(CONTROLLER, Give.CARD))
+		Draw(CONTROLLER).after(REV_377_Action(CONTROLLER, Draw.CARD)),
+		Give(CONTROLLER).after(REV_377_Action(CONTROLLER, Give.CARD))
 		]
 	pass
 
@@ -770,7 +771,7 @@ class REV_843_Action(TargetedAction):
 		if option==1 and controller.infuse_in_deck==False:
 			return
 		source._sidequest_list1_.append(entity.atk)
-		newcard=Infuse(CONTROLLER, 'REV_843t').trigger(source)
+		newcard=Infuse(controller, 'REV_843t').trigger(source)
 		if isinstance(newcard, list):
 			newcard = newcard[0]
 		if newcard!=None:
