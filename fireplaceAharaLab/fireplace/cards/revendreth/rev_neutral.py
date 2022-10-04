@@ -614,14 +614,16 @@ class REV_375t:# <12>[1691]
 
 
 
-if Rev_Invitation_Courier:# 
+if Rev_Invitation_Courier:# ### something strange
 	Rev_Neutral+=['REV_377']
 class REV_377_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	CARD=ActionArg()
 	def do(self, source, controller, card):
 		if card.card_class != CardClass.NEUTRAL and card.card_class != controller.hero.card_class:
-			Give(controller, card.id).trigger(source)
+			if card.id not in source.sidequest_list0:
+				source.sidequest_list0.append(card.id)
+				Give(controller, card.id).trigger(source)
 		pass
 class REV_377:# <12>[1691]
 	""" Invitation Courier
