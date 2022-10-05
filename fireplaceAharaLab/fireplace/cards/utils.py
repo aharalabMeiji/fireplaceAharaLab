@@ -232,10 +232,15 @@ def exactCopy(card, source):
 
 #sample 
 
-class original_Action(TargetedAction):
+class t_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
+		pass
+
+class c_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
 		pass
 
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
