@@ -193,14 +193,18 @@ class REV_508e:# <14>[1691]
 
 if Rev_Magnifying_Glaive:# 
 	Rev_DemonHunter+=['REV_509']
-class _Action(TargetedAction):
+class REV_509_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		if len(controller.hand)<3:
+			amount=3-len(controller.hand)
+			for i in range(amount):
+				Draw(controller).trigger(source)
 		pass
 class REV_509:# <14>[1691]
 	""" Magnifying Glaive
 	After your hero attacks, draw until you have 3 cards. """
-	#
+	events = Attack(FRIENDLY_HERO, ENEMY).after(REV_509_Action(CONTROLLER))
 	pass
 
 
@@ -209,14 +213,11 @@ class REV_509:# <14>[1691]
 
 if Rev_Kryxis_the_Voracious:# 
 	Rev_DemonHunter+=['REV_510']
-class _Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
 class REV_510:# <14>[1691]
 	""" Kryxis the Voracious
 	<b>Battlecry</b>: Discard your hand. <b>Deathrattle:</b> Draw 3 cards. """
-	#
+	play = Discard(FRIENDLY_HAND)
+	deathrattle = Draw(CONTROLLER), Draw(CONTROLLER), Draw(CONTROLLER)
 	pass
 
 
@@ -225,14 +226,28 @@ class REV_510:# <14>[1691]
 
 if Rev_Bibliomite:# 
 	Rev_DemonHunter+=['REV_511']
-class _Action(TargetedAction):
+class REV_511_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		for hand in self.source.controller.hand:
+			if hand.id==card.id:
+				hand.zone=Zone.SETASIDE
+				hand.zone=Zone.DECK
+				self.source.controller.shuffle_deck()
+				break
+		pass
+class REV_511_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		cards=[card.id for card in controller.hand]
+		if len(cards)>3:
+			cards=random.sample(cards, 3)
+		REV_511_Choice(controller, RandomID(*cards)).trigger(source)
 		pass
 class REV_511:# <14>[1691]
 	""" Bibliomite
 	<b>Battlecry</b>: Choose a card  in your hand to shuffle  into your deck. """
-	#
+	play = REV_511_Action(CONTROLLER)
 	pass
 
 #if Rev_Artificer_Xymox:# 
@@ -280,25 +295,36 @@ if Rev_Artificer_Xymox:#
 	Rev_DemonHunter+=['REV_937']
 
 	Rev_DemonHunter+=['REV_937t']
+class REV_937_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		CastSpell(card).trigger(self.source)
+		pass
 class REV_937:# <14>[1691]
 	""" Artificer Xy'mox
 	<b>Battlecry:</b> <b>Discover</b> and  cast a Relic. 
 	<b>Infuse (@):</b>  Cast all three instead. """
-	entourage=['REV_508','REV_834','REV_943']
+	play = REV_937_Choice(CONTROLLER, RandomID('REV_508','REV_834','REV_943')*3)
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_937t'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_937t', 1))
 	#
 	pass
-class _Action(TargetedAction):
+class REV_937t_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		card = controller.card('REV_508')
+		CastSpell(card).trigger(source)
+		card = controller.card('REV_834')
+		CastSpell(card).trigger(source)
+		card = controller.card('REV_943')
+		CastSpell(card).trigger(source)
 		pass
 class REV_937t:# <14>[1691]
 	""" Artificer Xy'mox
 	<b>Infused</b> <b>Battlecry:</b> Cast all three Relics. """
-	#
+	play = REV_937t_Action(CONTROLLER)
 	pass
 
 
@@ -307,7 +333,6 @@ class REV_937t:# <14>[1691]
 
 if Rev_Relic_Vault:# 
 	Rev_DemonHunter+=['REV_942']
-
 	Rev_DemonHunter+=['REV_942e']
 class REV_942_Action(TargetedAction):
 	CONTROLLER=ActionArg()
