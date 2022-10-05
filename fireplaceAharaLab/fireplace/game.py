@@ -442,6 +442,8 @@ class BaseGame(Entity):
 					self.queue_actions(self, [Awaken(minion)])
 		if self.no_drawing_at_turn_begin==False:
 			drawn_card = player.draw()
+			if self.draw_extra_card==True: ## 24.4
+				drawn_card2 = player.draw() ## 24.4
 
 		self.manager.step(self.next_step, Step.MAIN_END)
 	pass

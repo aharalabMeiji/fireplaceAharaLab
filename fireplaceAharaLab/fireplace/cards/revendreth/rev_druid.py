@@ -22,6 +22,8 @@ Rev_Hedge_Maze=False ## not in service
 
 if Rev_Dew_Process:# 
 	Rev_Druid+=['MAW_024']
+	Rev_Druid+=['MAW_024e2']
+	#Rev_Druid+=['MAW_024e3']
 class REV__Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -29,22 +31,19 @@ class REV__Action(TargetedAction):
 class MAW_024:# <2>[1691]
 	""" Dew Process
 	For the rest of the game, players draw an extra card at the start of their turn. """
-	#
+	play = Buff(CONTROLLER, 'MAW_024e2')
 	pass
-
-	Rev_Druid+=['MAW_024e2']
 class MAW_024e2:# <2>[1691]
 	""" Maw Rules
 	Player draws an extra card at the start of their turn. """
-	#
+	def apply(self, target):
+		target.draw_extra_card=True
 	pass
-
-	Rev_Druid+=['MAW_024e3']
-class MAW_024e3:# <2>[1691]
-	""" Maw Rules
-	Draw an extra card at the start of your turn. """
-	#
-	pass
+#class MAW_024e3:# <2>[1691]
+#	""" Maw Rules
+#	Draw an extra card at the start of your turn. """
+#	#
+#	pass
 
 
 
