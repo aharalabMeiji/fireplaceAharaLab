@@ -249,6 +249,7 @@ class ActionType(IntEnum):
 	POWER=3
 	PASS=4
 	TRADE=14
+	LOCATION=15
 
 
 	def __str__(self):

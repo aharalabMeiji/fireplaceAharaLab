@@ -18,7 +18,7 @@ def rev_demonhunter():
 	#PresetGame(pp_REV_834)##
 	#PresetGame(pp_REV_937)##
 	#PresetGame(pp_REV_942)##
-	#PresetGame(pp_REV_943)##
+	PresetGame(pp_REV_943)##
 	pass
 
 
@@ -421,7 +421,7 @@ class pp_REV_942(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_942", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=Summon(self.controller, self.card_choice("REV_943")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
@@ -451,10 +451,6 @@ class pp_REV_943(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_943", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):

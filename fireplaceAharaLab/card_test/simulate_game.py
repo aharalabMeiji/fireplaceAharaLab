@@ -423,6 +423,11 @@ class Preset_Play:
 		if card.can_trade()==(True, 0):
 			card.trade()
 		pass
+	def play_location(self, player=None, target=None):
+		if player==None:
+			player=self.player
+		player.location(target=target)
+		pass
 
 
 def PresetGame(pp, testNr=1):

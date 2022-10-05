@@ -201,6 +201,13 @@ class Candidate(object):
 					target=self.target, atk2=atk2, health2=health2,id=self.card.id)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
+		elif self.type==ActionType.LOCATION:
+			if self.target==None:
+				return "{card}({id}): location".format(card=self.card,id=self.card.id)
+			else:
+				return "{card}({id}): location -> {target}({atk2}/{health2})".format(
+					card=self.card,id=self.card.id,
+					target=self.target, atk2=atk2, health2=health2)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
 		pass
 
@@ -262,6 +269,14 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		if _yes:
 			myCandidate.append(Candidate(character, type=ActionType.TRADE, target=None, turn=mygame.turn))
 			pass
+	for card in player.characters:
+		if card.type==CardType.LOCATION:
+			if card.is_playable():
+				if len(card.location_targets)>0:
+					for target in card.location_targets:
+						myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=target, turn=mygame.turn))
+				else:
+					myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=None, turn=mygame.turn))	
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、
@@ -486,6 +501,14 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			theCard.trade(_option)#
 			return ExceptionPlay.VALID
 		except GameOver:#まあこれはないと思うけど。
+			return ExceptionPlay.GAMEOVER
+	if action.type==ActionType.LOCATION:
+		if not theCard.is_playable():
+			return ExceptionPlay.INVALID
+		try:
+			theCard.location(target=theTarget)#
+			return ExceptionPlay.VALID
+		except GameOver:
 			return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.INVALID
 
