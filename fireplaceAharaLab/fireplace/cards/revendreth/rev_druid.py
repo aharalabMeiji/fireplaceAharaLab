@@ -92,6 +92,8 @@ class MAW_025e:# <2>[1691]
 
 if Rev_Incarceration:# 
 	Rev_Druid+=['MAW_026']
+	Rev_Druid+=['MAW_026e']
+	#Rev_Druid+=['MAW_026e2']
 class REV__Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -99,22 +101,20 @@ class REV__Action(TargetedAction):
 class MAW_026:# <2>[1691]
 	""" Incarceration
 	Choose a minion. It goes <b>Dormant</b> for 3 turns. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}	#
+	play = Buff(TARGET, 'MAW_026e')
 	pass
-
-	Rev_Druid+=['MAW_026e']
 class MAW_026e:# <2>[1691]
 	""" Doing Time
 	<b>Dormant</b>. Awaken in @ |4(turn, turns). """
-	#
+	def apply(self, target):
+		target.dormant = 3
 	pass
-
-	Rev_Druid+=['MAW_026e2']
-class MAW_026e2:# <2>[1691]
-	""" Doing Time
-	 """
-	#
-	pass
+#class MAW_026e2:# <2>[1691]
+#	""" Doing Time
+#	 """
+#	#
+#	pass
 
 
 

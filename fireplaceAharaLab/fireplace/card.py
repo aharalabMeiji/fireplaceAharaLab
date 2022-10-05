@@ -1219,8 +1219,7 @@ class HeroPower(PlayableCard):
 			return False
 		return super().is_playable()
 
-class Location(Character):
-
+class Location(PlayableCard):
 	@property
 	def events(self):
 		ret = super().events
@@ -1239,24 +1238,20 @@ class Location(Character):
 		return super().zone_position
 
 	def _set_zone(self, value):
-		if value == Zone.PLAY:
-			# Move secrets to the SECRET Zone when played
-			value = Zone.SECRET
-		if self.zone == Zone.SECRET:
-			self.controller.quests.remove(self)
-		if value == Zone.SECRET:
-			self.controller.quests.append(self)
 		super()._set_zone(value)
 
 	def is_summonable(self):
-		# secrets are all unique
-		if self.controller.secrets.contains(self):
-			return False
 		return super().is_summonable()
 
 	def play(self, target=None, index=None, choose=None):
-		self.controller.times_secret_played_this_game += 1
 		return super().play(target, index, choose)
+
+	def location(self, target):
+		actions = card.get_actions("location")
+		if not isinstance(actions, list):
+			actions = [actions]
+		for action in actions:
+			action.trigger(self)
 
 
 class QuestReward(PlayableCard):

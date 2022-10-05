@@ -344,7 +344,7 @@ class REV_942_Action(TargetedAction):
 class REV_942:# <14>[1691]
 	""" Relic Vault
 	The next Relic you play this turn casts twice. """
-	play = REV_942_Action(CONTROLLER)
+	location = REV_942_Action(CONTROLLER)
 	pass
 class REV_942e_Action(TargetedAction):
 	CONTROLLER=ActionArg()

@@ -65,13 +65,13 @@ class REV_784:# <5>[1691]
 	#
 	pass
 
-if Rev_Great_Hall:# 
-	Rev_Paladin+=['REV_794']
-class REV_794:# <5>[1691]
-	""" Great Hall
-	{0} {1} """
-	#
-	pass
+#if Rev_Great_Hall:# 
+#	Rev_Paladin+=['REV_794']
+#class REV_794:# <5>[1691]
+#	""" Great Hall
+#	{0} {1} """
+#	#
+#	pass
 
 if Rev_Promotion:# 
 	Rev_Paladin+=['REV_842']

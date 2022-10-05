@@ -31,7 +31,7 @@ class CardDB(dict):
 
 		scriptnames = (
 			"activate", "combo", "deathrattle", "draw", "inspire", "play",
-			"enrage", "update", "powered_up", "outcast", "awaken","trade", "honorable_kill",
+			"enrage", "update", "powered_up", "outcast", "awaken","trade", "honorable_kill","location"
 		)
 
 		for script in scriptnames:
@@ -44,7 +44,7 @@ class CardDB(dict):
 					# Ensure the actions are always iterable
 					setattr(card.scripts, script, (actions, ))
 
-		for script in ("events", "secret", "quest", "reward"):
+		for script in ("events", "secret", "quest"):
 			events = getattr(card.scripts, script, None)
 			if events is None:
 				setattr(card.scripts, script, [])
