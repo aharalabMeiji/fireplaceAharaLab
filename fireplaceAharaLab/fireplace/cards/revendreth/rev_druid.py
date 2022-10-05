@@ -51,6 +51,9 @@ class MAW_024e2:# <2>[1691]
 
 if Rev_Attorney_at_Maw:# 
 	Rev_Druid+=['MAW_025']
+	Rev_Druid+=['MAW_025a']
+	Rev_Druid+=['MAW_025b']
+	Rev_Druid+=['MAW_025e']
 class REV__Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -58,28 +61,29 @@ class REV__Action(TargetedAction):
 class MAW_025:# <2>[1691]
 	""" Attorney-at-Maw
 	<b>Choose One -</b> <b>Silence</b> a minion; or Give a minion <b>Immune</b> this turn. """
-	#
+	choose = ('MAW_025a', 'MAW_025b')
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}	
+	play = ChooseBoth(CONTROLLER) & (Silence(RANDOM(ENEMY_MINIONS)), Buff(TARGET, 'MAW_025e'))
 	pass
-
-	Rev_Druid+=['MAW_025a']
 class MAW_025a:# <2>[1691]
 	""" Guilty!
 	<b>Silence</b> a minion. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	play = Silence(TARGET)
 	pass
 
-	Rev_Druid+=['MAW_025b']
 class MAW_025b:# <2>[1691]
 	""" Innocent!
 	Give a minion <b>Immune</b> this turn. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	#
+	play = Buff(TARGET, 'MAW_025e')
 	pass
 
-	Rev_Druid+=['MAW_025e']
 class MAW_025e:# <2>[1691]
 	""" Proven Innocent
 	<b>Immune</b> this turn. """
-	#
+	tags = { GameTag.CANT_BE_DAMAGED:1 }
+	events = OWN_TURN_END.on(Destroy(SELF))
 	pass
 
 
