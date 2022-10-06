@@ -17,7 +17,9 @@ def rev_demonhunter():
 	#PresetGame(pp_REV_797)##
 	#PresetGame(pp_REV_834)##
 	#PresetGame(pp_REV_937)##
-	#PresetGame(pp_REV_942)## OK
+	PresetGame(pp_REV_942a)## OK
+	#PresetGame(pp_REV_942b)## OK
+	#PresetGame(pp_REV_942c)## OK
 	#PresetGame(pp_REV_943)## OK
 	pass
 
@@ -414,7 +416,51 @@ class pp_REV_937(Preset_Play):
 
 ##########REV_942##########
 
-class pp_REV_942(Preset_Play):
+class pp_REV_942a(Preset_Play):
+	""" Relic Vault
+	The next Relic you play this turn casts twice. """
+	class1=CardClass.DEMONHUNTER
+	class2=CardClass.DEMONHUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("REV_942", self.controller)
+		self.con2=self.exchange_card("REV_943", self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		self.play_location(self.con1)
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
+		print("dormant=%d"%(self.con1.dormant))
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
+		print("dormant=%d"%(self.con1.dormant))
+		self.play_location(self.con1)
+		self.print_stats("hand", self.con2, show_buff=True)
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
+		print("dormant=%d"%(self.con1.dormant))
+		self.play_location(self.con1)
+		self.print_stats("hand", self.con2, show_buff=True)
+		print("dormant=%d"%(self.con1.dormant))
+		self.play_card(self.con2)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card)
+	pass
+class pp_REV_942b(Preset_Play):
 	""" Relic Vault
 	The next Relic you play this turn casts twice. """
 	class1=CardClass.DEMONHUNTER
@@ -436,12 +482,42 @@ class pp_REV_942(Preset_Play):
 		### opp
 		self.change_turn()
 		### con
-		self.play_card(self.con2)
+		self.play_card(self.con2)## doesn't work
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.field:
 			self.print_stats("field", card)
+		print("(REV_942 didn't work. REV_943 was summoned twice.)")
+	pass
+class pp_REV_942c(Preset_Play):
+	""" Relic Vault
+	The next Relic you play this turn casts twice. """
+	class1=CardClass.DEMONHUNTER
+	class2=CardClass.DEMONHUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("REV_942", self.controller)
+		self.con2=self.exchange_card("REV_943", self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		self.play_location(self.con1)
+		self.play_card(self.con2)
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card)
+		print("(REV_943 was summoned four times.)")
 	pass
 
 

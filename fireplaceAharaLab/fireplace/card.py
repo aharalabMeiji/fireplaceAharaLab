@@ -1,3 +1,4 @@
+from genericpath import samefile
 import random
 from itertools import chain
 
@@ -1223,7 +1224,8 @@ class HeroPower(PlayableCard):
 class Location(PlayableCard):
 	to_be_destroyed=False
 	turns_in_play=0
-
+	dormant=0
+	
 	@property
 	def events(self):
 		ret = super().events
@@ -1255,19 +1257,26 @@ class Location(PlayableCard):
 	def play(self, target=None, index=None, choose=None):
 		return super().play(target, index, choose)
 
+	@property
+	def attackable(self):
+		return False
+	@property
+	def can_attack(self, target=None):
+		return False
+
 	def location(self, target):
 		actions = self.get_actions("location")
-		if target.domant!=0:
+		if self.dormant!=0:
 			return
 		if not isinstance(actions, list) and not isinstance(actions, tuple):
 			actions = [actions]
 		for action in actions:
 			action.trigger(self)
-		target.damage += 1
-		if target.health<=0:
-			target.destroy()
+		self.max_health -= 1
+		if self.max_health<=0:
+			self.destroy()
 		else:
-			target.dormant=2
+			self.dormant=3
 
 
 class QuestReward(PlayableCard):
