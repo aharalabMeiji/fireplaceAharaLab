@@ -17,7 +17,7 @@ def rev_demonhunter():
 	#PresetGame(pp_REV_797)##
 	#PresetGame(pp_REV_834)##
 	#PresetGame(pp_REV_937)##
-	PresetGame(pp_REV_942)##
+	#PresetGame(pp_REV_942)## OK
 	#PresetGame(pp_REV_943)## OK
 	pass
 
@@ -431,6 +431,7 @@ class pp_REV_942(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.play_location(self.con1)
+		#self.play_card(self.con2)
 		self.change_turn()
 		### opp
 		self.change_turn()
