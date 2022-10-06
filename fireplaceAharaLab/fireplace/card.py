@@ -984,6 +984,7 @@ class Spell(PlayableCard):
 		self.immune_to_spellpower = False
 		self.receives_double_spelldamage_bonus = False
 		self.repeatable=False # TSC_952
+		self.spell_cast_twice=False
 		super().__init__(data)
 
 	def get_damage(self, amount, target):
@@ -1220,6 +1221,9 @@ class HeroPower(PlayableCard):
 		return super().is_playable()
 
 class Location(PlayableCard):
+	to_be_destroyed=False
+	turns_in_play=0
+
 	@property
 	def events(self):
 		ret = super().events
@@ -1238,6 +1242,11 @@ class Location(PlayableCard):
 		return super().zone_position
 
 	def _set_zone(self, value):
+		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
+			if self._summon_index is not None:
+				self.controller.field.insert(self._summon_index, self)
+			else:
+				self.controller.field.append(self)
 		super()._set_zone(value)
 
 	def is_summonable(self):
@@ -1247,8 +1256,8 @@ class Location(PlayableCard):
 		return super().play(target, index, choose)
 
 	def location(self, target):
-		actions = card.get_actions("location")
-		if not isinstance(actions, list):
+		actions = self.get_actions("location")
+		if not isinstance(actions, list) and not isinstance(actions, tuple):
 			actions = [actions]
 		for action in actions:
 			action.trigger(self)

@@ -671,6 +671,10 @@ class Play(GameAction):
 					if Config.LOGINFO:
 						Config.log("Play.do","spell %r is casted twice." % card)
 					source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
+				elif hasattr(battlecry_card,'spell_cast_twice') and battlecry_card.spell_cast_twice:
+					if Config.LOGINFO:
+						Config.log("Play.do","spell %r is casted twice." % card)
+					source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
 
 			# If the play action transforms the card (eg. Druid of the Claw), we
 			# have to broadcast the morph result as minion instead.

@@ -17,8 +17,8 @@ def rev_demonhunter():
 	#PresetGame(pp_REV_797)##
 	#PresetGame(pp_REV_834)##
 	#PresetGame(pp_REV_937)##
-	#PresetGame(pp_REV_942)##
-	PresetGame(pp_REV_943)##
+	PresetGame(pp_REV_942)##
+	#PresetGame(pp_REV_943)## OK
 	pass
 
 
@@ -421,8 +421,7 @@ class pp_REV_942(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_942", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("REV_943")).trigger(self.controller)
-		self.con4=self.con4[0][0]
+		self.con2=self.exchange_card("REV_943", self.controller)
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
@@ -431,14 +430,17 @@ class pp_REV_942(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.play_location(self.con1)
 		self.change_turn()
 		### opp
 		self.change_turn()
+		### con
+		self.play_card(self.con2)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -451,20 +453,22 @@ class pp_REV_943(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_943", self.controller)
+		self.con2=self.exchange_card("REV_943", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		self.play_card(self.con2)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

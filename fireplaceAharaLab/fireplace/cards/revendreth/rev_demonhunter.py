@@ -331,7 +331,7 @@ class REV_937t:# <14>[1691]
 
 
 
-if Rev_Relic_Vault:# 
+if Rev_Relic_Vault:# ### OK ###
 	Rev_DemonHunter+=['REV_942']
 	Rev_DemonHunter+=['REV_942e']
 class REV_942_Action(TargetedAction):
@@ -341,27 +341,32 @@ class REV_942_Action(TargetedAction):
 			if getattr(card, 'relic', False):
 				Buff(card, 'REV_942e').trigger(source)
 		pass
+class REV_942_Action2(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		for card in controller.hand:
+			if getattr(card, 'relic', False):
+				for buff in reversed(card.buffs):
+					if buff.id=='REV_942e':
+						card.spell_cast_twice=False
+						card.buffs.remove(buff)
+		pass
 class REV_942:# <14>[1691]
 	""" Relic Vault
 	The next Relic you play this turn casts twice. """
-	location_requirements = {}
 	location = REV_942_Action(CONTROLLER)
+	events = OWN_TURN_END.on(REV_942_Action2(CONTROLLER))
 	pass
-class REV_942e_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		Battlecry(source.owner, None).trigger(source)
-		Destroy(source).trigger(source)
-		pass
 class REV_942e:# <14>[1691]
 	""" Relic Empowerment
 	Your Relics cast twice. """
-	events = Play(CONTROLLER, OWNER).on(REV_942e_Action(CONTROLLER))
+	def apply(self, target):
+		target.spell_cast_twice=True
 	pass
 
 
 
-if Rev_Relic_of_Phantasms:# 
+if Rev_Relic_of_Phantasms:# ### OK ###
 	Rev_DemonHunter+=['REV_943']
 	Rev_DemonHunter+=['REV_943t']
 class REV_943_Action(TargetedAction):
@@ -369,10 +374,14 @@ class REV_943_Action(TargetedAction):
 	def do(self, source, controller):
 		amount = controller.relic_improvision
 		source.script_data_num_1 = amount
-		card=Summon(controller, 'REV_943t').trigger(source)
-		card=card[0][0]
-		card.data.tags[GameTag.ATK]=amount
-		card.data.tags[GameTag.HEALTH]=amount
+		card1=Summon(controller, 'REV_943t').trigger(source)
+		card1=card1[0][0]
+		card1.atk=card1.data.tags[GameTag.ATK]=amount
+		card1.max_health=card1.data.tags[GameTag.HEALTH]=amount
+		card2=Summon(controller, 'REV_943t').trigger(source)
+		card2=card2[0][0]
+		card2.atk=card2.data.tags[GameTag.ATK]=amount
+		card2.max_health=card2.data.tags[GameTag.HEALTH]=amount
 		controller.relic_improvision+=1
 		pass
 class REV_943:# <14>[1691]
