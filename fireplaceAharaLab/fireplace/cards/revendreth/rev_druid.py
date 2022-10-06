@@ -13,7 +13,7 @@ Rev_Planted_Evidence=True
 Rev_Topior_the_Shrubbagazzor=True
 Rev_Widowbloom_Seedsman=True
 Rev_Sesselie_of_the_Fae_Court=True
-Rev_Hedge_Maze=True
+Rev_Hedge_Maze=True### location ###
 Rev_Plot_of_Sin=True
 Rev_Convoke_the_Spirits=True
 Rev_Sesselie_of_the_Fae_Court=False ## not in service
@@ -297,16 +297,20 @@ class REV_319e:# <2>[1691]
 
 
 
-if Rev_Hedge_Maze:# 
+if Rev_Hedge_Maze:# ### location ###
 	Rev_Druid+=['REV_333']
-class REV__Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+class REV_333_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if len(target.deathrattles)>0:
+			for action in target.deathrattles:
+				action.trigger(source)
 		pass
 class REV_333:# <2>[1691]
 	""" Hedge Maze
 	Trigger a friendly minion's <b>Deathrattle</b>. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_DEATHRATTLE:0 }	
+	location = REV_333_Action(TARGET)
 	pass
 
 

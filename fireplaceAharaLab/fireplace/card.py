@@ -1257,10 +1257,17 @@ class Location(PlayableCard):
 
 	def location(self, target):
 		actions = self.get_actions("location")
+		if target.domant!=0:
+			return
 		if not isinstance(actions, list) and not isinstance(actions, tuple):
 			actions = [actions]
 		for action in actions:
 			action.trigger(self)
+		target.damage += 1
+		if target.health<=0:
+			target.destroy()
+		else:
+			target.dormant=2
 
 
 class QuestReward(PlayableCard):
