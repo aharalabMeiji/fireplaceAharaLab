@@ -17,7 +17,7 @@ def rev_demonhunter():
 	#PresetGame(pp_REV_797)##
 	#PresetGame(pp_REV_834)##
 	#PresetGame(pp_REV_937)##
-	PresetGame(pp_REV_942a)## OK
+	#PresetGame(pp_REV_942a)## OK
 	#PresetGame(pp_REV_942b)## OK
 	#PresetGame(pp_REV_942c)## OK
 	#PresetGame(pp_REV_943)## OK

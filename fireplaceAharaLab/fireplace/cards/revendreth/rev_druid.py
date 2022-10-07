@@ -122,6 +122,7 @@ class MAW_026e:# <2>[1691]
 
 if Rev_Natural_Causes:# 
 	Rev_Druid+=['REV_307']
+	#Rev_Druid+=['REV_336t2']#Treant
 class REV__Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -129,7 +130,8 @@ class REV__Action(TargetedAction):
 class REV_307:# <2>[1691]
 	""" Natural Causes
 	Deal $2 damage. Summon a 2/2 Treant. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, 2), Summon(CONTROLLER, 'REV_336t2')#
 	pass
 
 
@@ -138,22 +140,31 @@ class REV_307:# <2>[1691]
 
 if Rev_Death_Blossom_Whomper:# 
 	Rev_Druid+=['REV_310']
-class REV__Action(TargetedAction):
+class REV_310_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		cards=[card for card in controller.deck if card.deathrattles!=[]]
+		if len(cards)>0:
+			card = random.choice(cards)
+			card.zone=Zone.SETASIDE
+			card.zone=Zone.HAND
+			for action in card.deathrattles:
+				source.deathrattles.append(action)
+			source.data.tags[GameTag.DEATHRATTLE]=1
+			source.has_deathrattle=True
 		pass
 class REV_310:# <2>[1691]
 	""" Death Blossom Whomper
 	<b>Battlecry:</b> Draw a <b>Deathrattle</b> minion and gain its <b>Deathrattle.</b> """
-	#
+	play = REV_310_Action(CONTROLLER)
 	pass
 
 	Rev_Druid+=['REV_310e']
-class REV_310e:# <2>[1691]
-	""" Whomping
-	Copied <b>Deathrattle</b> from {0}. """
-	#
-	pass
+#class REV_310e:# <2>[1691]
+#	""" Whomping
+#	Copied <b>Deathrattle</b> from {0}. """
+#	#
+#	pass
 
 
 
@@ -161,28 +172,35 @@ class REV_310e:# <2>[1691]
 
 if Rev_Nightshade_Bud:# 
 	Rev_Druid+=['REV_311']
-class REV__Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
+	Rev_Druid+=['REV_311t']
+	Rev_Druid+=['REV_311t2']
 class REV_311:# <2>[1691]
 	""" Nightshade Bud
 	<b>Choose One - </b><b>Discover</b> a minion from your deck to summon; or a spell to cast. """
+	choose=("REV_311t","REV_311t2")
 	#
 	pass
-
-	Rev_Druid+=['REV_311t']
+class REV_311t_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		CastSpell(card).trigger(self.source)
+		pass
 class REV_311t:# <2>[1691]
 	""" Sunlight Blossom
 	<b>Discover</b> a spell from your deck to cast. """
-	#
+	play = REV_311t_Choice(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL)*3)
 	pass
-
-	Rev_Druid+=['REV_311t2']
+class REV_311t2_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Summon(self.controller, card).trigger(self.source)
+		pass
 class REV_311t2:# <2>[1691]
 	""" Moonlight Blossom
 	<b>Discover</b> a minion from your deck to summon. """
-	#
+	play = REV_311t2_Choice(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION)*3)
 	pass
 
 
@@ -191,21 +209,23 @@ class REV_311t2:# <2>[1691]
 
 if Rev_Planted_Evidence:# 
 	Rev_Druid+=['REV_313']
-class REV__Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	Rev_Druid+=['REV_313e']
+class REV_313_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Buff(card, 'REV_313e').trigger(self.source)
 		pass
 class REV_313:# <2>[1691]
 	""" Planted Evidence
 	<b>Discover</b> a spell. It costs (2) less this turn. """
-	#
+	play = REV_313_Choice(CONTROLLER, RandomSpell()*3)
 	pass
-
-	Rev_Druid+=['REV_313e']
 class REV_313e:# <2>[1691]
 	""" Ripe Spell
 	Costs (2) less this turn. """
-	#
+	cost = lambda self,i: max(i-2, 0)
+	events = OWN_TURN_END.on(Destroy(SELF))## maybe this doesnt work
 	pass
 
 
@@ -214,6 +234,8 @@ class REV_313e:# <2>[1691]
 
 if Rev_Topior_the_Shrubbagazzor:# 
 	Rev_Druid+=['REV_314']
+	Rev_Druid+=['REV_314e']
+	Rev_Druid+=['REV_314t']
 class REV__Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -221,17 +243,13 @@ class REV__Action(TargetedAction):
 class REV_314:# <2>[1691]
 	""" Topior the Shrubbagazzor
 	<b>Battlecry:</b> For the rest of the game, after you cast a Nature spell, summon a 3/3 Whelp with <b>Rush</b>. """
-	#
+	play = Buff(CONTROLLER, 'REV_314e')
 	pass
-
-	Rev_Druid+=['REV_314e']
 class REV_314e:# <2>[1691]
 	""" Winter Queen's Blessing
 	For the rest of the game, after you play a Nature spell summon a 3/3 Dragon. """
-	#
+	events = Play(CONTROLLER, SPELL + NATURE).on(Summon(CONTROLLER, 'REV_314t')) 
 	pass
-
-	Rev_Druid+=['REV_314t']
 class REV_314t:# <2>[1691]
 	""" Whelpagazzor
 	<b>Rush</b> """
