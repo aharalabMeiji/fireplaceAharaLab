@@ -262,6 +262,7 @@ class REV_314t:# <2>[1691]
 
 if Rev_Widowbloom_Seedsman:# 
 	Rev_Druid+=['REV_318']
+	#Rev_Druid+=['REV_318e']
 class REV__Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -269,15 +270,12 @@ class REV__Action(TargetedAction):
 class REV_318:# <2>[1691]
 	""" Widowbloom Seedsman
 	<b>Battlecry:</b> Draw a Nature spell. Gain an empty Mana Crystal. """
-	#
+	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + SPELL + NATURE)), GainEmptyMana(CONTROLLER, 1)
 	pass
-
-	Rev_Druid+=['REV_318e']
-class REV_318e:# <2>[1691]
-	""" Cycle of Life
-	Play the card to gain an empty Mana Crystal. """
-	#
-	pass
+#class REV_318e:# <2>[1691]
+#	""" Cycle of Life
+#	Play the card to gain an empty Mana Crystal. """
+#	pass
 
 	Rev_Druid+=['REV_318e2']
 class REV_318e2:# <2>[1691]
@@ -296,8 +294,10 @@ if Rev_Sesselie_of_the_Fae_Court:#
 class REV_319_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-		card=Draw(controller).trigger(source)
-		card=card[0]
+		cards = [card for card in controller.deck if card.type==CardType.MINION]
+		card = random.choice(cards)
+		card.zone=Zone.SETASIDE
+		card.zone=Zone.HAND
 		Buff(card, 'REV_319e').trigger(source)
 		pass
 class REV_319:# <2>[1691]
@@ -348,40 +348,40 @@ class REV_336:# <2>[1691]
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_336t4'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_336t4', 1))
-	#
+	play = Summon(CONTROLLER, 'REV_336t2'), Summon(CONTROLLER, 'REV_336t2')#
 	pass
 class REV_336t2:# <2>[1691]
 	""" Treant
 	 """
-	#
 	pass
-
 class REV_336t3:# <2>[1691]
 	""" Ancient
 	 """
-	#
 	pass
-
 class REV_336t4:# <2>[1691]
 	""" Plot of Sin
 	<b>Infused</b> Summon two 5/5 Ancients. """
-	#
+	play = Summon(CONTROLLER, 'REV_336t3'), Summon(CONTROLLER, 'REV_336t3')#
 	pass
 
 
 
 
 
-if Rev_Convoke_the_Spirits:# 
+if Rev_Convoke_the_Spirits:# (10, spell)
 	Rev_Druid+=['REV_365']
-class REV__Action(TargetedAction):
+class REV_365_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		for repeat in range(8):
+			card = RandomSpell(card_class=CardClass.DRUID).evaluate(source)
+			card = card[0]
+			CastSpell(card).trigger(source)
 		pass
 class REV_365:# <2>[1691]
 	""" Convoke the Spirits
 	Cast 8 random Druid spells <i>(targets chosen randomly)</i>. """
-	#
+	play = REV_365_Action(CONTROLLER)
 	pass
 
 
