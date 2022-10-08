@@ -36,11 +36,12 @@ class DED_507:# <14>[1578]
 	""" Crow's Nest Lookout
 	[Battlecry:] Deal 2 damage to the left and right-most enemy minions. """
 	def play(self):
-		leftmost = self.controller.opponent.field[0]
-		rightmost = self.controller.opponent.field[-1]
-		if leftmost!=rightmost:
+		if len(self.controller.opponent.field)>0:
+			leftmost = self.controller.opponent.field[0]
 			Hit(leftmost, 2).trigger(self)
-		Hit(rightmost, 2).trigger(self)
+			if len(self.controller.opponent.field)>1:
+				rightmost = self.controller.opponent.field[-1]
+				Hit(rightmost, 2).trigger(self)
 	pass
 
 if StormWind_Proving_Grounds:# 

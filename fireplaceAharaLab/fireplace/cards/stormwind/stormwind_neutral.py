@@ -366,7 +366,7 @@ class SW_068:#OK bigWarrior
 
 
 
-if StormWind_Enthusiastic_Banker:# 
+if StormWind_Enthusiastic_Banker:# ### OK ###
 	StormWind_Neutral+=['SW_069','SW_069e']
 class Deposite_Payment(TargetedAction):
 	TARGET = ActionArg()
@@ -384,7 +384,8 @@ class Deposite_Withdrawal(TargetedAction):
 	def do(self, source, target):
 		cards = source.sidequest_list0
 		for card in cards:
-			Give(target, card.id).trigger(source)
+			if hasattr(card, 'id'):
+				Give(target, card.id).trigger(source)
 		pass
 	pass
 class SW_069:#OK
