@@ -244,10 +244,11 @@ class REV_353t5:# <3>[1691] Gargon Companions
 
 if Rev_Batty_Guest:# 
 	Rev_Hunter+=['REV_356']
+	#Rev_Hunter+=['REV_350t']# Rat
 class REV_356:# <3>[1691]
 	""" Batty Guest
 	<b>Deathrattle:</b> Summon a 2/1 Bat. """
-	#
+	deathrattle = Summon(CONTROLLER, 'REV_350t')
 	pass
 
 
@@ -255,6 +256,13 @@ class REV_356:# <3>[1691]
 
 if Rev_Spirit_Poacher:# 
 	Rev_Hunter+=['REV_360']
+	Rev_Hunter+=['REV_360t']
+	Rev_Hunter+=['REV_360t1']
+	Rev_Hunter+=['REV_360t1e']
+	Rev_Hunter+=['REV_360t2']
+	Rev_Hunter+=['REV_360t2e']
+	Rev_Hunter+=['REV_360t4']
+	Rev_Hunter+=['REV_360te']
 class c_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -262,52 +270,45 @@ class c_Action(TargetedAction):
 class REV_360:# <3>[1691]
 	""" Spirit Poacher
 	<b>Battlecry:</b> Summon a random <b>Dormant</b> Wildseed. """
-	#
+	def play(self):
+		controller=self.controller
+		source = self
+		cards=['REV_360t','REV_360t1','REV_360t2']
+		card1 = random.choice(cards)
+		Summon(controller, card1).trigger(source)
 	pass
 
-	Rev_Hunter+=['REV_360t']
 class REV_360t:# <3>[1691]
 	""" Fox Spirit Wildseed
 	<b>Dormant</b> for 1 turn. <b>Rush</b> """
-	#
+	dormant = 1
 	pass
-
-	Rev_Hunter+=['REV_360t1']
 class REV_360t1:# <3>[1691]
 	""" Bear Spirit Wildseed
 	<b>Dormant</b> for 2 turns. <b>Taunt</b> """
-	#
+	dormant = 2#
 	pass
-
-	Rev_Hunter+=['REV_360t1e']
 class REV_360t1e:# <3>[1691]
 	""" Mature Wildseed
 	<b>Dormant</b>. Awaken in @ |4(turn, turns). """
 	#
 	pass
-
-	Rev_Hunter+=['REV_360t2']
 class REV_360t2:# <3>[1691]
 	""" Stag Spirit Wildseed
 	<b>Dormant</b> for 3 turns.  When this awakens, equip a 3/2 Greatbow. """
-	#
+	dormant = 3#
+	awaken = Summon(CONTROLLER, 'REV_360t4')
 	pass
-
-	Rev_Hunter+=['REV_360t2e']
 class REV_360t2e:# <3>[1691]
 	""" Elder Wildseed
 	<b>Dormant</b>. Awaken in @ |4(turn, turns). """
 	#
 	pass
-
-	Rev_Hunter+=['REV_360t4']
 class REV_360t4:# <3>[1691]
 	""" Stagpoint Wildbow
 	 """
 	#
 	pass
-
-	Rev_Hunter+=['REV_360te']
 class REV_360te:# <3>[1691]
 	""" Young Wildseed
 	<b>Dormant</b>. Awaken in @ |4(turn, turns). """
