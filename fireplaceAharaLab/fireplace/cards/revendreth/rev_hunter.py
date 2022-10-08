@@ -47,20 +47,24 @@ class MAW_009t:# <3>[1691]
 if Rev_Motion_Denied:# 
 	Rev_Hunter+=['MAW_010']
 	Rev_Hunter+=['MAW_010t']
-class c_Action(TargetedAction):
+class MAW_010_Action(TargetedAction):
 	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	AMOUNT=IntArg()
+	def do(self, source, controller, amount):
+		opponent=controller.opponent
+		if len(opponent.play_this_turn)==3:
+			Reveal(source).trigger(source)
+			Hit(opponent.hero, amount).trigger(source)
 		pass
 class MAW_010:# <3>[1691]
 	""" Motion Denied
 	<b>Secret:</b> After your opponent plays three cards in a turn, deal $6 damage to the enemy hero. """
-	secret = 
+	secret = Play(OPPONENT).after(MAW_010_Action(CONTROLLER, 6))
 	pass
-
-class MAW_010t:# <3>[1691]
+class MAW_010t:# <3>[1691] ## extended version?
 	""" Improved Motion Denied
 	<b>Secret:</b> After your opponent plays three cards in a turn, deal $9 damage to the enemy hero. """
-	#
+	secret = Play(OPPONENT).after(MAW_010_Action(CONTROLLER, 9))
 	pass
 
 
@@ -68,17 +72,25 @@ class MAW_010t:# <3>[1691]
 
 if Rev_Defense_Attorney_Nathanos:# 
 	Rev_Hunter+=['MAW_011']
-class c_Action(TargetedAction):
+	Rev_Hunter+=['MAW_011e']
+class MAW_011_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		for action in card.deathrattles:
+			action.trigger(self.source)
+		super().choose(card)
+class MAW_011_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		cards=[card.id for card in controller.death_log if card.has_deathrattle==True]
+		if len(cards)>0:
+			MAW_011_Choice(controller, RandomID(*(cards)))
 		pass
 class MAW_011:# <3>[1691]
 	""" Defense Attorney Nathanos
 	<b>Battlecry:</b> <b>Discover</b> a friendly <b>Deathrattle</b> minion that died this game. Trigger and gain its <b>Deathrattle</b>. """
-	#
+	play = MAW_011_Action(CONTROLLER)
 	pass
-
-	Rev_Hunter+=['MAW_011e']
 class MAW_011e:# <3>[1691]
 	""" Defending Death
 	Copied <b>Deathrattle</b> from {0}. """
@@ -93,10 +105,6 @@ if Rev_Frenzied_Fangs:#
 	Rev_Hunter+=['REV_350e']
 	Rev_Hunter+=['REV_350t']
 	Rev_Hunter+=['REV_350t2']
-class c_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
 class REV_350:# <3>[1691]
 	""" Frenzied Fangs
 	Summon two 2/1 Bats. <b>Infuse (@):</b> Give them +1/+2. """
@@ -105,25 +113,27 @@ class REV_350:# <3>[1691]
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_350t2', 1))
 	#
+	play = Summon(CONTROLLER, 'REV_350t'), Summon(CONTROLLER, 'REV_350t')
 	pass
-
-class REV_350e:# <3>[1691]
-	""" Bloodthirsty
-	+1/+2. """
-	#
-	pass
-
+REV_350e=buff(1,2)
 class REV_350t:# <3>[1691]
-	""" Thirsty Bat
+	""" Thirsty Bat (1/2/1)
 	 """
-	#
 	pass
-
+class REV_350t2_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		card1=Summon(controller, 'REV_350t').trigger(source)
+		card1=card1[0][0]
+		Buff(card1, 'REV_350e').trigger(source)
+		card2=Summon(controller, 'REV_350t').trigger(source)
+		card2=card2[0][0]
+		Buff(card2, 'REV_350e').trigger(source)
+	pass
 class REV_350t2:# <3>[1691]
 	""" Frenzied Fangs
 	<b>Infused</b> Summon two 2/1 Bats. Give them +1/+2. """
-	#
-	pass
+	play = REV_350t2_Action(CONTROLLER)
 
 
 
@@ -139,11 +149,24 @@ class REV_352:# <3>[1691]
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_352t', 1))
 	pass
-
+class REV_352t_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	TARGET=ActionArg()
+	def do(self, source, controller, target):
+		opponent = controller.opponent
+		amount = source.atk
+		index = opponent.field.index(target)
+		if index>0:
+			card1 = opponent.field[index-1]
+			Hit(card1, amount).trigger(source)
+		if index<len(opponent.field)-1:
+			card2 = opponent.field[index+1]
+			Hit(card2, amount).trigger(source)
+		pass
 class REV_352t:# <3>[1691]
 	""" Stonebound Gargon
 	<b>Infused</b> <b>Rush</b>. Also damages the minions next to __whomever this attacks. """
-	#
+	events = Attack(SELF, ENEMY + MINION).after(REV_352t_Action(CONTROLLER, Attack.DEFENDER))
 	pass
 
 
