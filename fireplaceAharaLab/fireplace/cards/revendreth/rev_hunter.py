@@ -186,10 +186,17 @@ class REV_353:# <3>[1691]
 	<b>Battlecry:</b> Summon a Gargon Companion. 
 	<b>Infuse ({0}):</b> Summon another. _
 	<b>Infuse ({1}):</b> And another! """
+	#{0}=4, {1}=8
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t', 1))
+	def play(self):
+		controller=self.controller
+		source = self
+		cards=['REV_353t3','REV_353t4','REV_353t5']
+		card = random.choice(cards)
+		Summon(controller, card).trigger(source)
 	pass
 class REV_353t:# <3>[1691]
 	""" Huntsman Altimor
@@ -199,37 +206,37 @@ class REV_353t:# <3>[1691]
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t2'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_353t2', 1))
+	def play(self):
+		controller=self.controller
+		source = self
+		cards=['REV_353t3','REV_353t4','REV_353t5']
+		card1 = random.choice(cards)
+		Summon(controller, card1).trigger(source)
+		card2 = random.choice(cards)
+		Summon(controller, card2).trigger(source)
 	#
 	pass
-
 class REV_353t2:# <3>[1691]
 	""" Huntsman Altimor
 	<b>Infused</b> <b>Battlecry:</b> Summon all 3 Gargon Companions. """
 	play=Summon(CONTROLLER, 'REV_353t3'),Summon(CONTROLLER, 'REV_353t4'),Summon(CONTROLLER, 'REV_353t5')
 	pass
-
 class REV_353t3:# <3>[1691] Gargon Companions
 	""" Hecutis
 	<b>Taunt</b> """
 	#
 	pass
-
 class REV_353t4:# <3>[1691] Gargon Companions
 	""" Barghast
 	Your other minions have +1 Attack. """
-	#
+	update = Refresh(FRIENDLY_MINIONS, buff='REV_353t4e')
 	pass
-
-class REV_353t4e:# <3>[1691]
-	""" Bone from the Stone
-	Barghast is granting this minion +1 Attack. """
-	#
-	pass
-
+REV_353t4e=buff(1,0)
+""" Bone from the Stone
+Barghast is granting this minion +1 Attack. """
 class REV_353t5:# <3>[1691] Gargon Companions
 	""" Margore
 	<b>Charge</b> """
-	#
 	pass
 
 
