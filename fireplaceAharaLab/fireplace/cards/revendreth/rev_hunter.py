@@ -320,14 +320,20 @@ class REV_360te:# <3>[1691]
 
 if Rev_Wild_Spirits:# 
 	Rev_Hunter+=['REV_361']
-class c_Action(TargetedAction):
+class REV_361_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		cards=['REV_360t','REV_360t1','REV_360t2']
+		cards = random.sample(cards, 2)
+		for card in cards:
+			newcard=Summon(controller, card).trigger(source)
+			newcard=newcard[0][0]
+			newcard.dormant -= 1
 		pass
 class REV_361:# <3>[1691]
 	""" Wild Spirits
 	Summon two different  <b>Dormant</b> Wildseeds.  Make your Wildseeds  awaken 1 turn sooner. """
-	#
+	play = REV_361_Action(CONTROLLER)
 	pass
 
 
