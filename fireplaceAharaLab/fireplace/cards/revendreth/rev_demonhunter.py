@@ -235,6 +235,7 @@ class REV_511_Choice(Choice):
 				hand.zone=Zone.DECK
 				self.source.controller.shuffle_deck()
 				break
+		super().choose(card)
 		pass
 class REV_511_Action(TargetedAction):
 	CONTROLLER=ActionArg()
@@ -274,8 +275,10 @@ class REV_834_Action(TargetedAction):
 		if len(controller.opponent.field)>0:
 			amount = controller.relic_improvision
 			source.script_data_num_1 = amount
-			Hit(random.choice(controller.opponent.field), amount).trigger(source)
-			Hit(random.choice(controller.opponent.field), amount).trigger(source)
+			if len(controller.opponent.field)>0:
+				Hit(random.choice(controller.opponent.field), amount).trigger(source)
+			if len(controller.opponent.field)>0:
+				Hit(random.choice(controller.opponent.field), amount).trigger(source)
 			controller.relic_improvision+=1
 		pass
 class REV_834:# <14>[1691]
@@ -299,6 +302,7 @@ class REV_937_Choice(Choice):
 	def choose(self, card):
 		self.next_choice=None
 		CastSpell(card).trigger(self.source)
+		super().choose(card)
 		pass
 class REV_937:# <14>[1691]
 	""" Artificer Xy'mox

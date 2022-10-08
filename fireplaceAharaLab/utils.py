@@ -250,7 +250,14 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 				else:
 					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None, turn=mygame.turn))
 	for character in player.characters:
-		if character.can_attack():
+		if character.type==CardType.LOCATION:
+			if character.is_playable():
+				if len(character.location_targets)>0:
+					for target in character.location_targets:
+						myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=target, turn=mygame.turn))
+				else:
+					myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=None, turn=mygame.turn))	
+		elif character.can_attack():
 			for target in character.targets:
 				if target.zone==Zone.PLAY and character.can_attack(target) and character != target:
 					myH=character.health
@@ -269,14 +276,6 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		if _yes:
 			myCandidate.append(Candidate(character, type=ActionType.TRADE, target=None, turn=mygame.turn))
 			pass
-	for card in player.characters:
-		if card.type==CardType.LOCATION:
-			if card.is_playable():
-				if len(card.location_targets)>0:
-					for target in card.location_targets:
-						myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=target, turn=mygame.turn))
-				else:
-					myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=None, turn=mygame.turn))	
 	if _includeTurnEnd:
 		#この選択肢は「何もしない」選択肢ですが、
 		#ターンを終了することはできないので、

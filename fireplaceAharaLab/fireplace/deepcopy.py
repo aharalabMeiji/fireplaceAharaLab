@@ -1,7 +1,7 @@
 from enum import IntEnum
 from fireplace import cards
 from hearthstone.enums import GameTag, Zone,State,CardType,Step
-from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest,Secret,QuestReward
+from .card import Hero,HeroPower,Minion,Spell,Weapon,Enchantment,Sidequest,Secret,Location,QuestReward
 from .player import Player, PlayLog
 from .game import Game
 from .aura import AuraBuff
@@ -106,6 +106,8 @@ def create_vacant_card(card):
 		return Hero(cards.db[card.id])
 	if card.type==CardType.HERO_POWER:
 		return HeroPower(cards.db[card.id])
+	if card.type==CardType.LOCATION: ##QuestReward
+		return Location(cards.db[card.id])
 	if card.type==40: ##QuestReward
 		return QuestReward(cards.db[card.id])
 	raise InvalidAction("This card is not supported in deepcopy: %s" % card)

@@ -22,17 +22,17 @@ def main():
 		# ,mulliganStrategy=HumanAgent.HumanInputMulligan)
 	Human2=HumanAgent("Human2",HumanAgent.HumanInput,myClass=CardClass.WARRIOR)
 	# random agent
-	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.MAGE) 
-	Random2=StandardAgent("Random2",StandardAgent.StandardRandom, myClass=CardClass.HUNTER) 
+	Random1=StandardAgent("Random1",StandardAgent.StandardRandom, myClass=CardClass.DEMONHUNTER) 
+	Random2=StandardAgent("Random2",StandardAgent.StandardRandom, myClass=CardClass.DRUID) 
 
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.PALADIN)
+		,myClass=CardClass.DEMONHUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.PRIEST)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 
 	
@@ -90,8 +90,8 @@ def main():
 	pass
 
 def card_test():
-	from card_test.t_rev_demonhunter import rev_demonhunter
-	rev_demonhunter()
+	from card_test.t_rev_neutral import rev_neutral
+	rev_neutral()
 	pass
 
 def battleground_main():

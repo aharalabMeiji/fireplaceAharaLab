@@ -1225,7 +1225,8 @@ class Location(PlayableCard):
 	to_be_destroyed=False
 	turns_in_play=0
 	dormant=0
-	
+	cant_be_targeted_by_opponents=True
+
 	@property
 	def events(self):
 		ret = super().events

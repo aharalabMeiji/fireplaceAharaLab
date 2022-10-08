@@ -106,10 +106,11 @@ Sunken_Warrior=sunken_warrior.Sunken_Warrior
 Sunken_Cards=[Sunken_DemonHunter, Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Priest, Sunken_Rogue, Sunken_Shaman, Sunken_Warlock, Sunken_Warrior]
 
 ## REVENDRETH = 1691  # Murder at Castle Nathria
-from fireplace.cards.revendreth import rev_neutral, rev_demonhunter
+from fireplace.cards.revendreth import rev_neutral, rev_demonhunter, rev_druid
 Revendreth_DemonHunter=rev_demonhunter.Rev_DemonHunter
+Revendreth_Druid=rev_druid.Rev_Druid
 Revendreth_Neutral=rev_neutral.Rev_Neutral
-Revendreth_Cards=[Revendreth_DemonHunter, Revendreth_Neutral]
+Revendreth_Cards=[Revendreth_DemonHunter, Revendreth_DemonHunter, Revendreth_Neutral]
 
 # Hero
 from fireplace.cards.hero_dream import hero, dream

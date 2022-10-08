@@ -1,5 +1,5 @@
 from .rev_demonhunter import *
-#from .rev_druid import *
+from .rev_druid import *
 #from .rev_hunter import *
 #from .rev_mage import *
 from .rev_neutral import *

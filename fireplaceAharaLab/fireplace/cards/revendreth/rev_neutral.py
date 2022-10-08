@@ -19,7 +19,7 @@ Rev_Dinner_Performer=True#
 Rev_Kaelthas_Sinstrider=True#
 Rev_Murloc_Holmes=False ### difficult!#
 Rev_Demolition_Renovator=True#
-Rev_Theotar_the_Mad_Duke=True#
+Rev_Theotar_the_Mad_Duke=True# ### OK ###
 Rev_Sinrunner=True#
 Rev_Maze_Guide=True#
 Rev_Dredger_Staff=True#
@@ -474,7 +474,7 @@ class REV_023:# <12>[1691]
 
 
 
-if Rev_Theotar_the_Mad_Duke:# 
+if Rev_Theotar_the_Mad_Duke:# ### OK ###
 	Rev_Neutral+=['REV_238']
 class REV_238_Choice(Choice):
 	def choose(self, card):
@@ -484,6 +484,8 @@ class REV_238_Choice(Choice):
 		if source._sidequest_counter_==1:
 			source.sidequest_list0=[card]
 			self.next_choice = REV_238_Choice(controller, RandomID(*(source._sidequest_list2_))*3)
+			self.next_choice.trigger(self.source)
+			pass
 		elif source._sidequest_counter_==2:
 			source.sidequest_list0+=[card]
 			self.next_choice = None
