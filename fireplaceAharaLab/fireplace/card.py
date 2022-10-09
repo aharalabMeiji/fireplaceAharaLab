@@ -1061,11 +1061,12 @@ class Enchantment(BaseCard):
 	slots = []
 
 	def __init__(self, data):
+		self.deepcopy_original = None
 		self.one_turn_effect = False
 		self.permanent_buff = False ## for spellcraft in battleground 
 		self.additional_deathrattles = []
 		self._sidequest_counter_ = 0# Sidequest
-		self.deepcopy_original = None
+		self.sidequest_list0=[]# sidequest, #REV_000e
 		super().__init__(data)
 
 	@property

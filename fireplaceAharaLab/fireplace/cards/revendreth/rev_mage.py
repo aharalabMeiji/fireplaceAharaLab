@@ -5,7 +5,7 @@ Rev_Mage=[]
 Rev_Objection=True
 Rev_Life_Sentence=True
 Rev_Contract_Conjurer=True
-Rev_Suspicious_Alchemist=True
+Rev_Suspicious_Alchemist=False### difficult
 Rev_Solid_Alibi=True
 Rev_Cold_Case=True
 Rev_Chatty_Bartender=True
@@ -62,19 +62,50 @@ class MAW_101:# <4>[1691]
 
 
 
-if Rev_Suspicious_Alchemist:# 
+if Rev_Suspicious_Alchemist:# ### difficult ###
 	Rev_Mage+=['REV_000']
+	Rev_Mage+=['REV_000e']
+class REV_000_Choice(Choice):
+	def do(self, source, player, cards, option=None):
+		self.source.sidequest_list0=[[card.id for card in cards]]
+		super().do(source, player, cards, option)
+	def choose(self, card):
+		self.next_choice=None
+		self.source.sidequest_list0.append(card.id)
+		super().choose(card)
 class REV_000:# <4>[1691]
 	""" Suspicious Alchemist
 	<b>Battlecry:</b> <b>Discover</b> a spell. If your opponent guesses your choice, they get a copy. """
-	#
+	def play(self):
+		source=self
+		controller=self.controller
+		opponent=controller.opponent
+		choice=REV_000_Choice(CONTROLLER, RandomSpell())
+		choice.trigger(source)
+		buff=Buff(opponent, 'REV_000e')
+		buff.trigger(source)
+		enchant=buff.BUFF.evaluate(source)
+		enchant.sidequest_list0=[self.sidequest_list0[0],self.sidequest_list0[1]]
+		pass
 	pass
-
-	Rev_Mage+=['REV_000e']
+class REV_000e_Choice(Choice):
+	def choose(self, card):
+		source = self.source
+		answer=source.sidequest_list0[1]
+		if card.id==answer:
+			card.zone=Zone.SETASIDE
+			card.controller=source.controller
+			card.zone=Zone.HAND
+		pass
+class REV_000e_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		REV_000e_Choice(controller, RandomID(*(source.sidequest_list0[0]))).trigger(source)
+	pass
 class REV_000e:# <4>[1691]
 	""" A Mystery!
 	At the start of your turn, guess what card your opponent chose to get a copy of it. """
-	#
+	events = BeginTurn(CONTROLLER).on(REV_000e_Action(CONTROLLER))
 	pass
 
 if Rev_Solid_Alibi:# 
