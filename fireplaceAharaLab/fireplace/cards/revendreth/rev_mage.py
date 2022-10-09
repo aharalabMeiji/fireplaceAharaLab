@@ -136,11 +136,21 @@ class REV_505:# <4>[1691]
 
 if Rev_Chatty_Bartender:# 
 	Rev_Mage+=['REV_513']
+class REV_513_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		if len(controller.secrets)>0:
+			for card in controller.opponent.characters:
+				Hit(card, 2).trigger(source)
+		pass
 class REV_513:# <4>[1691]
 	""" Chatty Bartender
 	At the end of your turn, if you control a <b>Secret</b>, deal 2 damage to all enemies. """
-	#
+	events = OWN_TURN_END.on(REV_513_Action(CONTROLLER))
 	pass
+
+
+
 
 if Rev_KelThuzad_the_Inevitable:# 
 	Rev_Mage+=['REV_514']
