@@ -108,6 +108,9 @@ class REV_000e:# <4>[1691]
 	events = BeginTurn(CONTROLLER).on(REV_000e_Action(CONTROLLER))
 	pass
 
+
+
+
 if Rev_Solid_Alibi:# 
 	Rev_Mage+=['REV_504']
 class REV_504:# <4>[1691]
@@ -128,7 +131,7 @@ if Rev_Cold_Case:#
 class REV_505:# <4>[1691]
 	""" Cold Case
 	Summon two 2/2 Volatile Skeletons. Gain 4 Armor. """
-	#
+	play = Summon(CONTROLLER, 'REV_845'), Summon(CONTROLLER, 'REV_845'), GainArmor(FRIENDLY_HERO)
 	pass
 
 if Rev_Chatty_Bartender:# 
@@ -188,36 +191,42 @@ class REV_601t:# <4>[1691]
 	#
 	pass
 
-if Rev_Nightcloak_Sanctum:# 
+
+
+if Rev_Nightcloak_Sanctum:# ### location ###
 	Rev_Mage+=['REV_602']
 class REV_602:# <4>[1691]
 	""" Nightcloak Sanctum
-	<b>Freeze</b> a minion. Summon a 2/2 Volatile Skeleton. """
+	<b>Freeze</b> a minion. Summon a 2/2 Volatile Skeleton(REV_845). """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	location = Freeze(TARGET), Summon(CONTROLLER, 'REV_845')
 	#
 	pass
 
-if Rev_KelThuzad_the_Inevitable:# 
-	Rev_Mage+=['REV_786']
-class REV_786:# <4>[1691]
-	""" Kel'Thuzad, the Inevitable
-	{0} {1} {2} {3} """
-	#
-	pass
 
-if Rev_Nightcloak_Sanctum:# 
-	Rev_Mage+=['REV_796']
-class REV_796:# <4>[1691]
-	""" Nightcloak Sanctum
-	{0} {1} """
-	#
-	pass
+
+#if Rev_KelThuzad_the_Inevitable:# 
+#	Rev_Mage+=['REV_786']
+#class REV_786:# <4>[1691]
+#	""" Kel'Thuzad, the Inevitable
+#	{0} {1} {2} {3} """
+#	#
+#	pass
+#
+#if Rev_Nightcloak_Sanctum:# 
+#	Rev_Mage+=['REV_796']
+#class REV_796:# <4>[1691]
+#	""" Nightcloak Sanctum
+#	{0} {1} """
+#	#
+#	pass
 
 if Rev_Deathborne:# 
 	Rev_Mage+=['REV_840']
 class REV_840:# <4>[1691]
 	""" Deathborne
 	Deal $2 damage to all minions. Summon a 2/2 Volatile Skeleton  for each killed. """
-	#
+	#Summon(CONTROLLER, 'REV_845')
 	pass
 
 if Rev_Informed:# 
