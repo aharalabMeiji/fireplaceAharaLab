@@ -36,16 +36,31 @@ if Rev_Life_Sentence:#
 class MAW_013:# <4>[1691]
 	""" Life Sentence
 	Remove a minion from the game. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Destroy(TARGET)
 	#
 	pass
 
+
+
+
 if Rev_Contract_Conjurer:# 
 	Rev_Mage+=['MAW_101']
+class MAW_101_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		amount = len(controller.secrets)*3
+		source.cost_mod=-amount
+		pass
 class MAW_101:# <4>[1691]
 	""" Contract Conjurer
 	Costs (3) less for each <b>Secret</b> you control. """
-	#
+	class Hand:
+		events = MAW_101_Action(CONTROLLER)
 	pass
+
+
+
 
 if Rev_Suspicious_Alchemist:# 
 	Rev_Mage+=['REV_000']
