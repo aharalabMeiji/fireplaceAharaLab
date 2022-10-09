@@ -17,7 +17,7 @@ Rev_Nightcloak_Sanctum=True
 Rev_Deathborne=True
 
 
-if Rev_Objection:# 
+if Rev_Objection:# ### 
 	Rev_Mage+=['MAW_006']
 class MAW_006:# <4>[1691]
 	""" Objection!
@@ -28,20 +28,19 @@ class MAW_006:# <4>[1691]
 
 
 
-if Rev_Life_Sentence:# 
+if Rev_Life_Sentence:# ### 
 	Rev_Mage+=['MAW_013']
 class MAW_013:# <4>[1691]
 	""" Life Sentence
 	Remove a minion from the game. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
 	play = Destroy(TARGET)
-	#
 	pass
 
 
 
 
-if Rev_Contract_Conjurer:# 
+if Rev_Contract_Conjurer:# ### 
 	Rev_Mage+=['MAW_101']
 class MAW_101_Action(TargetedAction):
 	CONTROLLER=ActionArg()
@@ -59,7 +58,7 @@ class MAW_101:# <4>[1691]
 
 
 
-if Rev_Suspicious_Alchemist:# ### difficult ###
+if Rev_Suspicious_Alchemist:# ### 
 	Rev_Mage+=['REV_000']
 	Rev_Mage+=['REV_000e']
 class REV_000_Choice(Choice):
@@ -114,9 +113,7 @@ class REV_504:# <4>[1691]
 	""" Solid Alibi
 	Until your next turn, your hero can only take 1 damage at a time. """
 	play = Buff(FRIENDLY_HERO, 'REV_504e'), SetAttr(FRIENDLY_HERO, 'take_only_one_damage', True)
-
 	pass
-
 	Rev_Mage+=['REV_504e']
 class REV_504e:# <4>[1691]
 	""" Solid Alibi
@@ -127,7 +124,7 @@ class REV_504e:# <4>[1691]
 
 
 
-if Rev_Cold_Case:# 
+if Rev_Cold_Case:# ### 
 	Rev_Mage+=['REV_505']
 class REV_505:# <4>[1691]
 	""" Cold Case
@@ -138,7 +135,7 @@ class REV_505:# <4>[1691]
 
 
 
-if Rev_Chatty_Bartender:# 
+if Rev_Chatty_Bartender:# ### 
 	Rev_Mage+=['REV_513']
 class REV_513_Action(TargetedAction):
 	CONTROLLER=ActionArg()
@@ -156,7 +153,7 @@ class REV_513:# <4>[1691]
 
 
 
-if Rev_KelThuzad_the_Inevitable:# 
+if Rev_KelThuzad_the_Inevitable:# ### 
 	Rev_Mage+=['REV_514']
 class REV_514:# <4>[1691]
 	""" Kel'Thuzad, the Inevitable
@@ -180,41 +177,66 @@ class REV_514:# <4>[1691]
 if Rev_Orion_Mansion_Manager:# 
 	Rev_Mage+=['REV_515']
 	Rev_Mage+=['REV_515e']
+class REV_515_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	CARD=CardArg()
+	def do(self, source, controller,card):
+		while True:
+			newcard = RandomSecret(card_class=CardClass.MAGE).evaluate(source)
+			newcard = newcard[0]
+			if newcard.id!=card.id:
+				break
+		Buff(newcard, 'REV_515e').trigger(source)
+		pass
 class REV_515:# <4>[1691]
 	""" Orion, Mansion Manager
 	After a friendly <b>Secret</b> is revealed, cast a different Mage <b>Secret</b> and gain +2/+2. """
-	#
+	events =Reveal(FRIENDLY + SECRET).after(REV_515_Action(CONTROLLER, Reveal.TARGET))
 	pass
-class REV_515e:# <12>[1691]
-	""" Cosmic Power
-	+2/+2. """
-	#
-	pass
+REV_515e=buff(2,2)
 
-if Rev_Vengeful_Visage:# 
+
+
+
+if Rev_Vengeful_Visage:# ### 
 	Rev_Mage+=['REV_516']
+class REV_516_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	ATTACKER=ActionArg()
+	def do(self, source, controller, attacker):
+		card = Summon(controller, attacker.id).trigger(source)
+		card=card[0][0]
+		Attack(card, controller.opponent.hero).trigger(source)
+		pass
 class REV_516:# <4>[1691]
 	""" Vengeful Visage
 	<b>Secret:</b> After an enemy minion attacks your hero, summon a copy of it to attack the enemy hero. """
-	#
+	secret = Attack(ENEMY+MINION, FRIENDLY_HERO).after(Reveal(SELF), REV_516_Action(CONTROLLER, Attack.ATTACKER))
 	pass
 
-if Rev_Frozen_Touch:# 
+
+
+
+if Rev_Frozen_Touch:# ### 
 	Rev_Mage+=['REV_601']
 	Rev_Mage+=['REV_601t']
 class REV_601:# <4>[1691]
 	""" Frozen Touch
-	Deal $3 damage. <b>Infuse (@):</b> Add a Frozen Touch to your hand. """
+	Deal $3 damage. 
+	<b>Infuse (@):</b> Add a Frozen Touch to your hand. """
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_601t'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_601t', 1))
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, 3)#
 	pass
 
 class REV_601t:# <4>[1691]
 	""" Frozen Touch
 	<b>Infused</b> Deal $3 damage.  Add a Frozen Touch  to your hand. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Hit(TARGET, 3), Give(CONTROLLER, 'REV_601')#
 	#
 	pass
 
@@ -227,7 +249,6 @@ class REV_602:# <4>[1691]
 	<b>Freeze</b> a minion. Summon a 2/2 Volatile Skeleton(REV_845). """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
 	location = Freeze(TARGET), Summon(CONTROLLER, 'REV_845')
-	#
 	pass
 
 

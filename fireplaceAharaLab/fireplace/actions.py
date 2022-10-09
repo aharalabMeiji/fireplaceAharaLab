@@ -1791,12 +1791,14 @@ class Reveal(TargetedAction):
 	"""
 	Reveal secret targets.
 	"""
+	TARGET = ActionArg()
 	def do(self, source, target):
 		if Config.LOGINFO:
 			Config.log("Reveal.do","Revealing secret %r"%target)
 		target.controller.add_reveal_log(target)
 		self.broadcast(source, EventListener.ON, target)
 		target.zone = Zone.GRAVEYARD
+		self.broadcast(source, EventListener.AFTER, target)
 
 
 class SetCurrentHealth(TargetedAction):
