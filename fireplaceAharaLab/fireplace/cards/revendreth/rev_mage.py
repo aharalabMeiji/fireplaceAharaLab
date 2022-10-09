@@ -147,8 +147,21 @@ if Rev_KelThuzad_the_Inevitable:#
 class REV_514:# <4>[1691]
 	""" Kel'Thuzad, the Inevitable
 	<b>Battlecry:</b> Resurrect your  Volatile Skeletons. Any that  can't fit on the battlefield  instantly explode! @<i>(@)</i> """
-	#
+	def play(self):
+		source = self
+		controller = self.controller
+		amount = len([card for card in controller.death_log if card.id=='REV_845'])
+		amount1 = 7-len(controller.field)
+		amount2=amount-amount1
+		for repeat in range(amount1):
+			Summon(controller, 'REV_845').trigger(source)
+		for repeat in range(amount2):
+			target = random.choice(controller.opponent.characters)
+			Hit(target, 2)
 	pass
+
+
+
 
 if Rev_Orion_Mansion_Manager:# 
 	Rev_Mage+=['REV_515']
