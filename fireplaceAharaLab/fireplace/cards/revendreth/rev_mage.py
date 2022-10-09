@@ -25,8 +25,11 @@ if Rev_Objection:#
 class MAW_006:# <4>[1691]
 	""" Objection!
 	<b>Secret:</b> When your opponent plays a _minion, <b>Counter</b> it. """
-	#
+	secret = Play(OPPONENT, MINION).after(Counter(Play.CARD))
 	pass
+
+
+
 
 if Rev_Life_Sentence:# 
 	Rev_Mage+=['MAW_013']
