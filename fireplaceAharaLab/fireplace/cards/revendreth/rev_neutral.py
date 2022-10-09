@@ -737,7 +737,7 @@ REV_839e=buff(0,1)
 
 if Rev_Anonymous_Informant:# 
 	Rev_Neutral+=['REV_841']
-	Rev_Neutral+=['REV_841e']
+	Rev_Neutral+=['REV_841e','REV_841e2']
 class original_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -755,7 +755,11 @@ class REV_841e:# <12>[1691]
 	cost = lambda self, i : 0
 	events = Play(CONTROLLER, SECRET).on(Destroy(SELF))
 	pass
-
+class REV_841e2:# <4>[1691]
+	""" Informed
+	Your next Secret costs (0). """
+	#
+	pass
 
 
 

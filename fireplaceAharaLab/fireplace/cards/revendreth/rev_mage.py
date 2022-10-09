@@ -14,10 +14,7 @@ Rev_Orion_Mansion_Manager=True
 Rev_Vengeful_Visage=True
 Rev_Frozen_Touch=True
 Rev_Nightcloak_Sanctum=True
-Rev_KelThuzad_the_Inevitable=True
-Rev_Nightcloak_Sanctum=True
 Rev_Deathborne=True
-Rev_Informed=True
 
 
 if Rev_Objection:# 
@@ -256,14 +253,16 @@ if Rev_Deathborne:#
 class REV_840:# <4>[1691]
 	""" Deathborne
 	Deal $2 damage to all minions. Summon a 2/2 Volatile Skeleton  for each killed. """
-	#Summon(CONTROLLER, 'REV_845')
+	def play(self):
+		source = self
+		controller = self.controller
+		for card in controller.opponent.characters:
+			Hit(card, 2).trigger(source)
+		controller.game.process_deaths()
+		amount = len(controller.opponent.death_this_turn)
+		for repeat in amount:
+			Summon(controller, 'REV_845').trigger(source)
 	pass
 
-if Rev_Informed:# 
-	Rev_Mage+=['REV_841e2']
-class REV_841e2:# <4>[1691]
-	""" Informed
-	Your next Secret costs (0). """
-	#
-	pass
+
 
