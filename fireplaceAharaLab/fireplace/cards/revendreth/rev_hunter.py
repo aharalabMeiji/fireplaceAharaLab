@@ -15,8 +15,6 @@ Rev_Castle_Kennels=True
 Rev_Aralon=True
 Rev_Stag_Charge=True
 Rev_Collateral_Damage=True
-Rev_Aralon=True
-Rev_Castle_Kennels=True
 
 
 if Rev_Shadehound:# 
@@ -263,10 +261,6 @@ if Rev_Spirit_Poacher:#
 	Rev_Hunter+=['REV_360t2e']
 	Rev_Hunter+=['REV_360t4']
 	Rev_Hunter+=['REV_360te']
-class c_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
 class REV_360:# <3>[1691]
 	""" Spirit Poacher
 	<b>Battlecry:</b> Summon a random <b>Dormant</b> Wildseed. """
@@ -369,14 +363,15 @@ REV_362e=buff(2,0)
 
 if Rev_Aralon:# 
 	Rev_Hunter+=['REV_363']
-class c_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
 class REV_363:# <3>[1691]
 	""" Ara'lon
 	<b>Battlecry:</b> Summon one of each <b>Dormant</b> Wildseed. """
-	#
+	def play(self):
+		controller=self.controller
+		source = self
+		cards=['REV_360t','REV_360t1','REV_360t2']
+		for card in cards: 
+			Summon(controller, card).trigger(source)
 	pass
 
 
@@ -384,14 +379,17 @@ class REV_363:# <3>[1691]
 
 if Rev_Stag_Charge:# 
 	Rev_Hunter+=['REV_364']
-class c_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
 class REV_364:# <3>[1691]
 	""" Stag Charge
 	Deal $3 damage. Summon a random <b>Dormant</b> Wildseed. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	def play(self):
+		controller=self.controller
+		source = self
+		cards=['REV_360t','REV_360t1','REV_360t2']
+		Hit(self.target, 3).trigger(source)
+		card1 = random.choice(cards)
+		Summon(controller, card1).trigger(source)
 	pass
 
 
@@ -399,14 +397,21 @@ class REV_364:# <3>[1691]
 
 if Rev_Collateral_Damage:# 
 	Rev_Hunter+=['REV_369']
-class c_Action(TargetedAction):
+class REV_369_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		for repeat in range(3):
+			if len(controller.opponent.field)>0:
+				target = random.choice(controller.opponent.field)
+				amount = 6-target.health
+				Hit(target, min(6, target.health)).trigger(source)
+				Hit(controller.opponent.hero, amount).trigger(source)
+				controller.game.process_deaths()
 		pass
 class REV_369:# <3>[1691]
 	""" Collateral Damage
 	Deal $6 damage to three  random enemy minions.  Excess damage hits  the enemy hero. """
-	#
+	play = REV_369_Action(CONTROLLER)
 	pass
 
 
