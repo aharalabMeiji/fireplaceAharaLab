@@ -1506,6 +1506,9 @@ class Hit(TargetedAction):
 				amount = amount/2
 			else:
 				amount = (amount+1)/2
+		if target.type==CardType.HERO and target.take_only_one_damage:
+			if amount>0:
+				amount=1
 		#if source.type==CardType.SPELL and source.poisonous:
 		#	killed_by_poisonous_spell=True
 		if amount:

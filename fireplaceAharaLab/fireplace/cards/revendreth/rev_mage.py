@@ -116,15 +116,19 @@ if Rev_Solid_Alibi:#
 class REV_504:# <4>[1691]
 	""" Solid Alibi
 	Until your next turn, your hero can only take 1 damage at a time. """
-	#
+	play = Buff(FRIENDLY_HERO, 'REV_504e'), SetAttr(FRIENDLY_HERO, 'take_only_one_damage', True)
+
 	pass
 
 	Rev_Mage+=['REV_504e']
 class REV_504e:# <4>[1691]
 	""" Solid Alibi
 	Your hero only takes 1 damage at a time until the start of your next turn. """
-	#
+	events = BeginTurn(CONTROLLER).on(SetAttr(FRIENDLY_HERO, 'take_only_one_damage', False), Destroy(SELF))
 	pass
+
+
+
 
 if Rev_Cold_Case:# 
 	Rev_Mage+=['REV_505']
@@ -133,6 +137,9 @@ class REV_505:# <4>[1691]
 	Summon two 2/2 Volatile Skeletons. Gain 4 Armor. """
 	play = Summon(CONTROLLER, 'REV_845'), Summon(CONTROLLER, 'REV_845'), GainArmor(FRIENDLY_HERO)
 	pass
+
+
+
 
 if Rev_Chatty_Bartender:# 
 	Rev_Mage+=['REV_513']

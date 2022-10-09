@@ -736,6 +736,7 @@ class Hero(Character):
 		self.armor = 0
 		self.power = None
 		self.tatal_armor = 0
+		self.take_only_one_damage = False
 		super().__init__(data)
 
 	@property
