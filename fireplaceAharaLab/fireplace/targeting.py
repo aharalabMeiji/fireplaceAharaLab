@@ -70,9 +70,6 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_TARGET_WITH_RACE:
 			if target.type != CardType.MINION or target.race != param:
 				return False
-		elif req == 1002:## REQ_TARGET_WITHOUT_RACE
-			if target.type != CardType.MINION or target.race == param:
-				return False
 		elif req == PlayReq.REQ_HERO_TARGET:
 			if target.type != CardType.HERO:
 				return False
@@ -100,8 +97,14 @@ def is_valid_target(self, target, requirements=None):
 		elif req == PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:# 
 			if len(target.controller.field)<param:
 				return False
+		elif req == 1002:## REQ_TARGET_WITHOUT_RACE
+			if target.type != CardType.MINION or target.race == param:
+				return False
 		elif req == 1003:# REQ_NONGOLDEN_TARGET# 
 			if target.id in target.controller.game.parent.BG_Gold.values():
+				return False
+		elif req == 1004:## REQ_TARGET_ID
+			if target.type != CardType.MINION or target.id != param:
 				return False
 		
 

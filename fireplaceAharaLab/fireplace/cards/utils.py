@@ -65,6 +65,17 @@ CLASSES_EXCEPT_ROGUE=[
 	CardClass.WARLOCK,
 	CardClass.WARRIOR,
    ]
+CLASSES_EXCEPT_PALADIN=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PRIEST,
+	CardClass.ROGUE,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
 
 
 
