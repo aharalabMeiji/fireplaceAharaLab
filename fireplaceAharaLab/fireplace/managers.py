@@ -163,6 +163,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CANT_BE_TARGETED_BY_ABILITIES: "cant_be_targeted_by_abilities",
 	GameTag.CANT_BE_TARGETED_BY_HERO_POWERS: "cant_be_targeted_by_hero_powers",
 	GameTag.CANT_BE_TARGETED_BY_OPPONENTS: "cant_be_targeted_by_opponents",
+	GameTag.CANT_BE_TARGETED_BY_SPELLS: "cant_be_targeted_by_spells",
 	GameTag.CANT_PLAY: "cant_play",
 	GameTag.CARD_ID: "id",
 	GameTag.CARD_TARGET: "target",

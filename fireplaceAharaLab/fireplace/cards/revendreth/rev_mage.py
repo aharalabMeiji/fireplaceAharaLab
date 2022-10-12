@@ -76,7 +76,7 @@ class REV_000:# <4>[1691]
 		source=self
 		controller=self.controller
 		opponent=controller.opponent
-		choice=REV_000_Choice(CONTROLLER, RandomSpell())
+		choice=REV_000_Choice(controller, RandomSpell()*3)
 		choice.trigger(source)
 		buff=Buff(opponent, 'REV_000e')
 		buff.trigger(source)
@@ -96,7 +96,7 @@ class REV_000e_Choice(Choice):
 class REV_000e_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-		REV_000e_Choice(controller, RandomID(*(source.sidequest_list0[0]))).trigger(source)
+		REV_000e_Choice(controller, RandomID(*(source.sidequest_list0[0]))*3).trigger(source)
 	pass
 class REV_000e:# <4>[1691]
 	""" A Mystery!

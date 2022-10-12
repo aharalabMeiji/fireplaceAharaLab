@@ -606,6 +606,7 @@ class Character(LiveEntity):
 	cant_be_targeted_by_opponents = boolean_property("cant_be_targeted_by_opponents")
 	cant_be_targeted_by_abilities = boolean_property("cant_be_targeted_by_abilities")
 	cant_be_targeted_by_hero_powers = boolean_property("cant_be_targeted_by_hero_powers")
+	cant_be_targeted_by_spells=boolean_property("cant_be_targeted_by_spells")
 	heavily_armored = boolean_property("heavily_armored")
 	ignore_taunt = boolean_property("ignore_taunt")
 	min_health = boolean_property("min_health")
@@ -817,7 +818,8 @@ class Minion(Character):
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
-		"cant_be_targeted_by_hero_powers", "charge", "divine_shield", "enrage",
+		"cant_be_targeted_by_hero_powers", "cant_be_targeted_by_spells", "charge", 
+		"divine_shield", "enrage",
 		"forgetful", "frozen", "has_deathrattle", "has_inspire", "poisonous",
 		"stealthed", "taunt", "windfury", "cannot_attack_heroes", "rush", "frenzy", "honorable_kill",
 	)
@@ -837,6 +839,7 @@ class Minion(Character):
 		self.tech_level_plus1 = 4
 		self.stop_attack=False## if another minion attacks instead of self, this flag will be True
 		self.killed_in_former_battle=False ## battlegrounds new 24.4
+		self.copied_from_opponent = False
 		super().__init__(data)
 
 	@property
@@ -987,6 +990,7 @@ class Spell(PlayableCard):
 		self.receives_double_spelldamage_bonus = False
 		self.repeatable=False # TSC_952
 		self.spell_cast_twice=False
+		self.copied_from_opponent = False		
 		super().__init__(data)
 
 	def get_damage(self, amount, target):
