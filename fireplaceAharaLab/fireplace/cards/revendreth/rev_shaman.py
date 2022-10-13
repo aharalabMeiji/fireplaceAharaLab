@@ -37,21 +37,31 @@ class MorphCostup(TargetedAction):
 			Summon(source.controller, card).trigger(self)
 	pass
 
+ALL_BASIC_TOTEM = ["CS2_050", "CS2_051", "CS2_052", "NEW1_009"] ## hero.py
 
 if Rev_Totemic_Evidence:# 
 	Rev_Shaman+=['MAW_003']
-	#["CS2_050", "CS2_051", "CS2_052", "NEW1_009",] Hero.py
+	Rev_Shaman+=['MAW_003t']
+class MAW_003_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Summon(self.controller, card).trigger(self)
+	pass
 class MAW_003:# <8>[1691]
 	""" Totemic Evidence
 	Choose a basic Totem and summon it. <b>Infuse (@ Totems):</b> Summon all 4 instead. """
-	#
+	class Hand:
+		events = Death(FRIENDLY+TOTEM).on(Infuse(CONTROLLER, 'MAW_003t'))
+	class Deck:
+		events = Death(FRIENDLY+TOTEM).on(Infuse(CONTROLLER, 'MAW_003t', 1))
+	plat = MAW_003_Choice(CONTROLLER, RandomID(*ALL_BASIC_TOTEM))
 	pass
 
-	Rev_Shaman+=['MAW_003t']
 class MAW_003t:# <8>[1691]
 	""" Totemic Evidence
 	<b>Infused</b> Summon all 4 basic Totems. """
-	#
+	play = Summon(CONTROLLER, ALL_BASIC_TOTEM)
 	pass
 
 if Rev_Framester:# 
