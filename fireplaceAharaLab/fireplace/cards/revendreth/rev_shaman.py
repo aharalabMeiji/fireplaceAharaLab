@@ -22,6 +22,7 @@ Rev_Relics_of_Old=True
 
 if Rev_Totemic_Evidence:# 
 	Rev_Shaman+=['MAW_003']
+	#["CS2_050", "CS2_051", "CS2_052", "NEW1_009",] Hero.py
 class MAW_003:# <8>[1691]
 	""" Totemic Evidence
 	Choose a basic Totem and summon it. <b>Infuse (@ Totems):</b> Summon all 4 instead. """
