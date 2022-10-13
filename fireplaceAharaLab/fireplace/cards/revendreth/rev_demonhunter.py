@@ -367,6 +367,12 @@ class REV_942e:# <14>[1691]
 	def apply(self, target):
 		target.spell_cast_twice=True
 	pass
+#	Rev_Shaman+=['REV_942e2']
+#class REV_942e2:# <8>[1691]
+#	""" Relics of Old
+#	Your next spell this turn casts twice. """
+#	#
+#	pass
 
 
 
