@@ -449,6 +449,14 @@ class Alive(IntEnum):
 Alive.test = lambda self, entity, *arges: (
 	entity is not None and hasattr(entity,'health') and entity.health>0
 )
+class Summoned(IntEnum):
+	INVALID=0
+	SUMMONED=1
+	pass
+Summoned.test = lambda self, entity, *arges: (
+	entity is not None and hasattr(entity.controller,'summon_log') and entity in entity.controller.summon_log
+)
+SUMMONED=EnumSelector(Summoned.SUMMONED)
 
 BATTLECRY = EnumSelector(GameTag.BATTLECRY)
 CHARGE = EnumSelector(GameTag.CHARGE)
