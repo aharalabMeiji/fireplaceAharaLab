@@ -1434,6 +1434,7 @@ class SpendMana(TargetedAction):
 
 	def do(self, source, target, amount):
 		target.used_mana = max(target.used_mana + amount, 0)
+		self.broadcast(source, EventListener.AFTER, target, amount)
 
 
 
