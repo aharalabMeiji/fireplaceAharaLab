@@ -1690,6 +1690,7 @@ class Morph(TargetedAction):
 			self.broadcast(source, EventListener.AFTER, target, card)
 			return card
 
+
 class SW_078_Morph(TargetedAction):
 	"""
 	Morph minion target into a minion id

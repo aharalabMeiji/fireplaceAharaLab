@@ -20,6 +20,24 @@ Rev_Crud_Caretaker=True
 Rev_Relics_of_Old=True
 
 
+class MorphCostup(TargetedAction):
+	"""
+	Morph minion target into a cost-up minion
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	"""
+	TARGET = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		amount = max(target.cost+amount, 0)
+		card = RandomMinion(cost=amount).execute(self)
+		if target.id!='REV_925':
+			Morph(target, card).trigger(source)
+		else:
+			Summon(source.controller, card).trigger(self)
+	pass
+
+
 if Rev_Totemic_Evidence:# 
 	Rev_Shaman+=['MAW_003']
 	#["CS2_050", "CS2_051", "CS2_052", "NEW1_009",] Hero.py
