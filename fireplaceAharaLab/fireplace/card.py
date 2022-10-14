@@ -815,6 +815,7 @@ class Minion(Character):
 	frenzy = boolean_property("frenzy")
 	tech_level = int_property("tech_level") # battlegrounds
 	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
+	imp = boolean_property("imp")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",

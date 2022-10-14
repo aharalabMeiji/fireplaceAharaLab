@@ -108,6 +108,9 @@ def is_valid_target(self, target, requirements=None):
 		elif req == 1004:## REQ_TARGET_ID
 			if target.type != CardType.MINION or target.id != param:
 				return False
+		elif req == 1005:## PlayReq.REQ_TARGET_IMP:
+			if target.type != CardType.MINION or getattr(target,'race', False) != True:
+				return False
 		
 
 	return True

@@ -15,61 +15,79 @@ Rev_Shadow_Waltz=True
 Rev_Lady_Darkvein=True
 Rev_Shadowborn=True
 Rev_Imp_King_Rafaam=True
-Rev_Vile_Library=True
-Rev_Imp_King_Rafaam=True
 
 
-if Rev_Imp_oster:# 
+if Rev_Imp_oster:# ###
 	Rev_Warlock+=['MAW_000']
 class MAW_000:# <9>[1691]
 	""" Imp-oster
 	<b>Battlecry:</b> Choose a friendly Imp. Transform into a copy of it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, 1005:0 }
+	#req == 1005:## PlayReq.REQ_TARGET_IMP:
+	def play(self):
+		Morph(self, self.target.id).trigger(self)
 	pass
 
-if Rev_Arson_Accusation:# 
+
+
+
+if Rev_Arson_Accusation:# ###
 	Rev_Warlock+=['MAW_001']
+	Rev_Warlock+=['MAW_001e']
 class MAW_001:# <9>[1691]
 	""" Arson Accusation
 	Choose a minion. Destroy it after your hero takes damage. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = Buff(TARGET, 'MAW_001e')	
 	pass
-
-	Rev_Warlock+=['MAW_001e']
 class MAW_001e:# <9>[1691]
 	""" Arson Trial
 	When your hero takes damage, destroy the accused. """
-	#
+	events = Hit(FRIENDLY_HERO).after(Destroy(OWNER))
 	pass
+#	Rev_Warlock+=['MAW_001e2']
+#class MAW_001e2:# <9>[1691]
+#	""" Accused of Arson
+#	When the accuser takes damage, this minion dies. """
+#	#
+#	pass
 
-	Rev_Warlock+=['MAW_001e2']
-class MAW_001e2:# <9>[1691]
-	""" Accused of Arson
-	When the accuser takes damage, this minion dies. """
-	#
-	pass
+
+
 
 if Rev_Habeas_Corpses:# 
 	Rev_Warlock+=['MAW_002']
+	Rev_Warlock+=['MAW_002e']
+class MAW_002_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.rush=True
+		card.zone=Zone.PLAY#ressurect
 class MAW_002:# <9>[1691]
 	""" Habeas Corpses
 	<b>Discover</b> a friendly minion to resurrect and give it <b>Rush</b>. It dies at the end of turn. """
-	#
+	def play(self):
+		controller=self.controller
+		cards=[card.id for card in controller.death_log]
+		MAW_002_Choice(controller, RandomID(*cards)*3).trigger(self)
 	pass
-
-	Rev_Warlock+=['MAW_002e']
 class MAW_002e:# <9>[1691]
 	""" Habeas Corpse
 	Dies at the end of turn. """
-	#
+	events = OWN_TURN_END.on(Destroy(OWNER))
 	pass
+
+
+
 
 if Rev_Suffocating_Shadows:# 
 	Rev_Warlock+=['REV_239']
 class REV_239:# <9>[1691]
 	""" Suffocating Shadows
 	When you play or  discard this, destroy a  random enemy minion. """
-	#
+	play = Destroy(RANDOM(ENEMY_MINIONS))
+	events = Destroy(SELF).on(Destroy(RANDOM(ENEMY_MINIONS)))
 	pass
 
 	Rev_Warlock+=['REV_239e']
@@ -196,21 +214,21 @@ class REV_374e:# <9>[1691]
 	#
 	pass
 
-if Rev_Imp_King_Rafaam:# 
-	Rev_Warlock+=['REV_789']
-class REV_789:# <9>[1691]
-	""" Imp King Rafaam
-	{0} {1} {2} {3} """
-	#
-	pass
+#if Rev_Imp_King_Rafaam:# 
+#	Rev_Warlock+=['REV_789']
+#class REV_789:# <9>[1691]
+#	""" Imp King Rafaam
+#	{0} {1} {2} {3} """
+#	#
+#	pass
 
-if Rev_Vile_Library:# 
-	Rev_Warlock+=['REV_799']
-class REV_799:# <9>[1691]
-	""" Vile Library
-	{0} {1} """
-	#
-	pass
+#if Rev_Vile_Library:# 
+#	Rev_Warlock+=['REV_799']
+#class REV_799:# <9>[1691]
+#	""" Vile Library
+#	{0} {1} """
+#	#
+#	pass
 
 if Rev_Imp_King_Rafaam:# 
 	Rev_Warlock+=['REV_835']

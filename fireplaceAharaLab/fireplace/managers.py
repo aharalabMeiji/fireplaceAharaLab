@@ -218,6 +218,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.INFUSED: "infused", ## new 24.2
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
 	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
+	1965: "imp", #it is not a kind of races
 	GameTag.IS_BACON_POOL_MINION:"bg_collectible",
 	GameTag.INSPIRE: "has_inspire",
 	GameTag.JADE_GOLEM: "jade_golem",
