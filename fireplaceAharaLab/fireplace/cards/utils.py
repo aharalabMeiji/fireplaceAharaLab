@@ -257,7 +257,10 @@ class c_Action(TargetedAction):
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
 
+
 	def play(self):
+		controller=self.controller
+		source=self
 		target=self.target
 		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
 		cards=[card for card in self.controller.play_log if card.type==CardType.SPELL]

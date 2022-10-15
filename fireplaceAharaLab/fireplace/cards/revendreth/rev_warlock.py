@@ -177,21 +177,26 @@ class REV_245:# <9>[1691]
 if Rev_Vile_Library:# ###
 	Rev_Warlock+=['REV_371']
 	Rev_Warlock+=['REV_371e']
+class REV_371_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		amount = len([card for card in controller.field if getattr(card, 'imp', 0)])
+		if amount>0:
+			Buff(self.target, 'REV_371e', atk=amount, max_health=amount).triger(source)
+		pass
 class REV_371:# <9>[1691]
 	""" Vile Library
 	Give a friendly minion +1/+1 for each Imp you control. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
-	def play(self):
-		controller=self.controller
-		amount = len([card for card in controller.field if getattr(card, 'imp', 0)])
-		Buff(self.target, 'REV_371e', atk=amount, max_health=amount).triger(self)
+	location = REV_371_Action(CONTROLLER)
 	pass
-REV_371e=buff(1,1)
+class REV_371e:
+	pass
 
 
 
 
-if Rev_Shadow_Waltz:# 
+if Rev_Shadow_Waltz:# ###
 	Rev_Warlock+=['REV_372']
 	Rev_Warlock+=['REV_372t']
 class REV_372:# <9>[1691]
@@ -203,48 +208,78 @@ class REV_372:# <9>[1691]
 		if len(controller.death_this_turn)>0:
 			Summon(controller, 'REV_372t').trigger(self)
 	pass
-
 class REV_372t:# <9>[1691]
 	""" Twirling Shadow
 	<b>Taunt</b> """
 	#
 	pass
 
+
+
+
 if Rev_Lady_Darkvein:# 
 	Rev_Warlock+=['REV_373']
+	Rev_Warlock+=['REV_373e']
+	Rev_Warlock+=['REV_373t']
 class REV_373:# <9>[1691]
 	""" Lady Darkvein
 	<b>Battlecry:</b> Summon two 2/1 Shades. Each gains a <b>Deathrattle</b> to cast your  last Shadow spell. """
-	#
+	def play(self):
+		controller=self.controller
+		for repeat in range(2):
+			shade = Summon(controller, 'REV_373t').trigger(self)
+			shade=shade[0][0]
+			shadows=[card for card in controller.play_log if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
+			if len(shadows)>0:
+				lastshadow=shadows[-1]
+				buff=Buff(shade,'REV_373e')
+				buff.script_data_0=lastshadow.id
 	pass
-
-	Rev_Warlock+=['REV_373e']
+class REV_373t_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		buff=source.script_data_text_0
+		card=controller.card(buff)
+		CastSpell(card).trigger(source)
+	pass
 class REV_373e:# <9>[1691]
 	""" Dark Bidding
 	Spell: {0} is inside! """
-	#
+	tags={GameTag.DEATHRATTLE:1, }
+	deathrattle=REV_373t_Action(CONTROLLER)
 	pass
-
-	Rev_Warlock+=['REV_373t']
 class REV_373t:# <9>[1691]
 	""" Shadow Manifestation
 	 """
 	#
 	pass
 
+
+
+
 if Rev_Shadowborn:# 
 	Rev_Warlock+=['REV_374']
+	Rev_Warlock+=['REV_374e']
 class REV_374:# <9>[1691]
 	""" Shadowborn
 	<b>Deathrattle:</b> Reduce the Cost of the highest Cost Shadow spell in your hand by (3). """
+	def play(self):
+		controller=self.controller
+		high=[]
+		for card in controller.hand:
+			if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW:
+				if high==[] or high[0].cost<card.cost:
+					high=[card]
+				elif high[0].cost==card.cost:
+					high.append(card)
+		if len(high)>0:
+			Buff(random.choice(high), 'REV_374e').trigger(self)
 	#
 	pass
-
-	Rev_Warlock+=['REV_374e']
 class REV_374e:# <9>[1691]
 	""" In Shadow
 	Costs (3) less. """
-	#
+	cost=lambda self, i:max(0, i-3)#
 	pass
 
 #if Rev_Imp_King_Rafaam:# 
@@ -265,6 +300,8 @@ class REV_374e:# <9>[1691]
 
 if Rev_Imp_King_Rafaam:# 
 	Rev_Warlock+=['REV_835']
+	Rev_Warlock+=['REV_835e']
+	Rev_Warlock+=['REV_835t']
 class REV_835:# <9>[1691]
 	""" Imp King Rafaam
 	<b>Battlecry:</b> Resurrect four friendly Imps. <b>Infuse (@):</b> Give your Imps +2/+2. """
@@ -272,20 +309,27 @@ class REV_835:# <9>[1691]
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_835t'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_835t', 1))
-	#
-	pass
-
-	Rev_Warlock+=['REV_835e']
-class REV_835e:# <9>[1691]
-	""" Impfused Anima
-	+2/+2. """
-	#
-	pass
-
-	Rev_Warlock+=['REV_835t']
+	def play(self):
+		controller=self.controller
+		source=self
+		cards=[card for card in controller.death_log if getattr(card,'imp',0)]
+		if len(cards)>4:
+			cards=random.sample(cards)
+		for card in cards:
+			Summon(controller, card.id).trigger(source)
+REV_835e=buff(2,2)
 class REV_835t:# <9>[1691]
 	""" Imp King Rafaam
 	<b>Infused.</b> <b>Battlecry:</b> Summon four friendly Imps that died this game. __Give your Imps +2/+2. """
-	#
+	def play(self):
+		controller=self.controller
+		source=self
+		cards=[card for card in controller.death_log if getattr(card,'imp',0)]
+		if len(cards)>4:
+			cards=random.sample(cards)
+		for card in cards:
+			newcard=Summon(controller, card.id).trigger(source)
+			newcard=newcard[0][0]
+			Buff(newcard,'REV_835e').trigger(source)
 	pass
 

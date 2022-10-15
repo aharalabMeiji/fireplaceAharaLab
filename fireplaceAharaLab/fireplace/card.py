@@ -1117,7 +1117,7 @@ class Enchantment(BaseCard):
 					Config.log("Enchantment.apply","%r removes all damage from %r"%(self, target))
 			target.damage = 0
 		self.zone = Zone.PLAY
-
+		return self
 
 	def remove(self):
 		self.zone = Zone.REMOVEDFROMGAME
