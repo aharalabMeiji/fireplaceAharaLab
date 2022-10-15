@@ -55,7 +55,7 @@ class MAW_001e:# <9>[1691]
 
 
 
-if Rev_Habeas_Corpses:# 
+if Rev_Habeas_Corpses:# ###
 	Rev_Warlock+=['MAW_002']
 	Rev_Warlock+=['MAW_002e']
 class MAW_002_Choice(Choice):
@@ -81,7 +81,7 @@ class MAW_002e:# <9>[1691]
 
 
 
-if Rev_Suffocating_Shadows:# 
+if Rev_Suffocating_Shadows:# ###
 	Rev_Warlock+=['REV_239']
 class REV_239:# <9>[1691]
 	""" Suffocating Shadows
@@ -90,38 +90,56 @@ class REV_239:# <9>[1691]
 	events = Destroy(SELF).on(Destroy(RANDOM(ENEMY_MINIONS)))
 	pass
 
-	Rev_Warlock+=['REV_239e']
-class REV_239e:# <9>[1691]
-	""" Suffocation
-	Costs (3) less. """
-	#
-	pass
+#	Rev_Warlock+=['REV_239e']
+#class REV_239e:# <9>[1691]
+#	""" Suffocation
+#	Costs (3) less. """
+#	#
+#	pass
 
-if Rev_Tome_Tampering:# 
+
+
+
+if Rev_Tome_Tampering:# ###
 	Rev_Warlock+=['REV_240']
+	Rev_Warlock+=['REV_240e']
 class REV_240:# <9>[1691]
 	""" Tome Tampering
 	Shuffle 1-Cost  copies of cards in your  hand into your deck,  then discard your hand. """
-	#
+	def play(self):
+		controller=self.controller
+		for card in reversed(controller.hand):
+			Buff(card,'REV_240e').trigger(self)
+			card.zone=Zone.SETASIDE
+			card.zone=Zone.DECK
+		controller.deck.shuffle()
 	pass
-
-	Rev_Warlock+=['REV_240e']
 class REV_240e:# <9>[1691]
 	""" Cost Curse
 	Costs (1). """
-	#
+	cost = lambda self, i: 1
 	pass
+
+
+
 
 if Rev_Flustered_Librarian:# 
 	Rev_Warlock+=['REV_242']
 class REV_242:# <9>[1691]
-	""" Flustered Librarian
+	""" Flustered Librarian (maybe an aura-buff?)
 	Has +1 Attack for each Imp you control. """
-	#
+	def play(self):
+		controller=self.controller
+		amount = len([card for card in controller.field if getattr(card, 'imp', 0)])
+		self.atk += amount
 	pass
 
-if Rev_Mischievous_Imp:# 
+
+
+
+if Rev_Mischievous_Imp:# ###
 	Rev_Warlock+=['REV_244']
+	Rev_Warlock+=['REV_244t']
 class REV_244:# <9>[1691]
 	""" Mischievous Imp
 	<b>Battlecry:</b> Summon a copy of this. <b>Infuse (@):</b> Summon two copies instead. """
@@ -129,48 +147,63 @@ class REV_244:# <9>[1691]
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_244t'))
 	class Deck:
 		events = Death(FRIENDLY+MINION).on(Infuse(CONTROLLER, 'REV_244t', 1))
-	#
+	play = Summon(CONTROLLER, Copy(SELF))
 	pass
 
-	Rev_Warlock+=['REV_244t']
 class REV_244t:# <9>[1691]
 	""" Mischievous Imp
 	<b>Infused Battlecry:</b> Summon two  copies of this. """
-	#
+	play = Summon(CONTROLLER, Copy(SELF)), Summon(CONTROLLER, Copy(SELF))
 	pass
 
-if Rev_Impending_Catastrophe:# 
+
+
+
+if Rev_Impending_Catastrophe:# ###
 	Rev_Warlock+=['REV_245']
 class REV_245:# <9>[1691]
 	""" Impending Catastrophe
 	Draw a card. Repeat for each Imp you control. """
-	#
+	def play(self):
+		controller=self.controller
+		amount = len([card for card in controller.field if getattr(card, 'imp', 0)])
+		for repeat in range(amount+1):
+			Draw(controller).trigger(self)
 	pass
 
-if Rev_Vile_Library:# 
+
+
+
+if Rev_Vile_Library:# ###
 	Rev_Warlock+=['REV_371']
+	Rev_Warlock+=['REV_371e']
 class REV_371:# <9>[1691]
 	""" Vile Library
 	Give a friendly minion +1/+1 for each Imp you control. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	def play(self):
+		controller=self.controller
+		amount = len([card for card in controller.field if getattr(card, 'imp', 0)])
+		Buff(self.target, 'REV_371e', atk=amount, max_health=amount).triger(self)
 	pass
+REV_371e=buff(1,1)
 
-	Rev_Warlock+=['REV_371e']
-class REV_371e:# <9>[1691]
-	""" Imp Power
-	+1/+1. """
-	#
-	pass
+
+
 
 if Rev_Shadow_Waltz:# 
 	Rev_Warlock+=['REV_372']
+	Rev_Warlock+=['REV_372t']
 class REV_372:# <9>[1691]
 	""" Shadow Waltz
 	Summon a 3/5 Shadow with <b>Taunt</b>. If a minion died this turn, summon another. """
-	#
+	def play(self):
+		controller=self.controller
+		Summon(controller, 'REV_372t').trigger(self)
+		if len(controller.death_this_turn)>0:
+			Summon(controller, 'REV_372t').trigger(self)
 	pass
 
-	Rev_Warlock+=['REV_372t']
 class REV_372t:# <9>[1691]
 	""" Twirling Shadow
 	<b>Taunt</b> """
