@@ -46,7 +46,10 @@ class MAW_022_Action(TargetedAction):
 		if len(controller.opponent.hand)>0:
 			card = random.choice(controller.opponent.hand)
 			card = Give(controller, card.id).trigger(source)
-			card = card[0]
+			if isinstance(card, list):
+				card = card[0]
+			if isinstance(card, list):
+				card = card[0]
 			card.copied_from_opponent = True
 		pass
 class MAW_022:# <6>[1691]

@@ -321,6 +321,6 @@ class REV_959:# <7>[1691]
 			card=random.choice(controller.opponent.hand)
 			card.zone=Zone.SETASIDE
 			card.zone=Zone.DECK
-			controller.opponent.deck.shuffle()
+			random.shuffle(controller.opponent.deck)
 	pass
 

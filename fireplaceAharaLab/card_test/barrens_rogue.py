@@ -1,9 +1,11 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Summon, Hit, Shuffle
-from hearthstone.enums import CardClass, Race
+from hearthstone.enums import CardClass, Race, CardType
 
 def barrens_rogue():
-	PresetGame(pp_WC_017)#### OKOK
+	#PresetGame(pp_WC_017)#### OKOK
+	#PresetGame(pp_BAR_323a)##
+	PresetGame(pp_BAR_323b)##
 	pass
 
 
@@ -81,6 +83,68 @@ class pp_WC_032(Preset_Play):
 		super().result_inspection()
 		for card in self.controller.field:
 			self.print_stats("field", card)
+	pass
+
+##########pp_BAR_323##########
+
+class pp_BAR_323a(Preset_Play):
+	""" Yoink!
+	[Discover] a Hero Power and set its Cost to (0). Swap back after 2 uses. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		self.con1=self.exchange_card("BAR_323", self.controller)
+		#self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		#self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		#self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		self.change_turn()
+		### opp
+		self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+		print("Check if a heropower card is in hand")
+	pass
+
+class pp_BAR_323b(Preset_Play):
+	""" Yoink!
+	[Discover] a Hero Power and set its Cost to (0). Swap back after 2 uses. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		self.con1=self.exchange_card("BAR_323", self.controller)
+		#self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		#self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		#self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		self.choose_action()
+		for card in self.controller.hand:
+			if card.type==CardType.HERO_POWER:
+				self.con2=card
+				self.play_card(self.con2)
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+		self.print_stats("heropower", self.controller.hero.power)
+		print("Check if a heropower is in a proper position.")
 	pass
 
 

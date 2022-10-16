@@ -75,7 +75,7 @@ class AV_298_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller = target
-		source.cost_mod = -len( [card for card in controller.give_log if card.card_class in CARDCLASSES.remove(CardClass.ROGUE)])
+		source.cost_mod = -len( [card for card in controller.give_log if card.card_class in CLASSES_EXCEPT_ROGUE])
 		pass
 class AV_298:# <7>[1626]
 	""" Wildpaw Gnoll
@@ -128,11 +128,13 @@ class AV_403:# <7>[1626]
 		for repeat in range(len(self.controller.hand)):
 			self.controller.hand[0].discard()
 			newcard=Give(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
-			Buff(newcard[0][0],'AV_403e2').trigger(self)
+			if newcard[0]!=[]:
+				Buff(newcard[0][0],'AV_403e2').trigger(self)
 		for repeat in range(len(self.controller.deck)):
-			self.controller.hand[0].discard()
+			self.controller.deck[0].discard()
 			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
-			Buff(newcard[0],'AV_403e2').trigger(self)
+			if newcard[0]!=[]:
+				Buff(newcard[0],'AV_403e2').trigger(self)
 	pass
 class AV_403e2:# <7>[1626]
 	""" Quickfooted
@@ -218,7 +220,7 @@ class ONY_031:# <7>[1626]
 		for repeat in range(5):
 			newcard=Draw(CONTROLLER).trigger(self)
 			newcard=newcard[0][0]
-			if newcard.deathrattles!=[]:
+			if newcard.type==CardType.MINION and newcard.deathrattles!=[]:
 				if isinstance(newcard.deathrattles[0], tuple):
 					for action in newcard.deathrattles[0]:
 						action.trigger(self)

@@ -454,7 +454,7 @@ class Summoned(IntEnum):
 	SUMMONED=1
 	pass
 Summoned.test = lambda self, entity, *arges: (
-	entity is not None and hasattr(entity.controller,'summon_log') and entity in entity.controller.summon_log
+	entity is not None and hasattr(entity,'controller') and hasattr(entity.controller,'summon_log') and entity in entity.controller.summon_log
 )
 SUMMONED=EnumSelector(Summoned.SUMMONED)
 

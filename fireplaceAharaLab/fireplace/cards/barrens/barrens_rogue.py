@@ -27,9 +27,9 @@ class BAR_316:# <7>[1525]
 	requirements ={PlayReq.REQ_MINION_TARGET:0,PlayReq.REQ_TARGET_TO_PLAY:0,PlayReq.REQ_ENEMY_TARGET:0,}
 	def play(self):
 		actions = [action for action in self.controller._targetedaction_log \
-			if isinstance(action['class'], Give) and action['target'].id=='BAR_316']
+			if isinstance(action['class'], Give) and getattr(action['target'],'id', None)=='BAR_316']
 		actions += [action for action in self.controller._targetedaction_log \
-			if isinstance(action['class'], Draw) and action['target_arg'][0].id=='BAR_316']
+			if isinstance(action['class'], Draw) and getattr(action['target'],'id', None)=='BAR_316']
 		if len(actions)>0:
 			Hit(TARGET,4)
 		else:
@@ -142,7 +142,7 @@ class BAR_322e:
 	}
 
 
-if Barrens_Yoink:# 
+if Barrens_Yoink:# ### OK for feeding a heropower card.
 	Barrens_Rogue+=['BAR_323']
 	Barrens_Rogue+=['BAR_323e']
 class BAR_323_Choice(Choice):
@@ -155,8 +155,7 @@ class BAR_323_Choice(Choice):
 class BAR_323:# <7>[1525]
 	""" Yoink!
 	[Discover] a Hero Power and set its Cost to (0). Swap back after 2 uses. """
-	entourage = ['HERO_01bp', 'HERO_03bp', 'HERO_04bp','HERO_05bp','HERO_06bp', 'HERO_07bp', 'HERO_08bp', 'HERO_09bp']
-	play = BAR_323_Choice(CONTROLLER, RandomEntourage())
+	play = BAR_323_Choice(CONTROLLER, RandomID('HERO_01bp', 'HERO_03bp', 'HERO_04bp','HERO_05bp','HERO_06bp', 'HERO_07bp', 'HERO_08bp', 'HERO_09bp')*3)
 	pass
 class BAR_323e:# <7>[1525]
 	""" Yoink!

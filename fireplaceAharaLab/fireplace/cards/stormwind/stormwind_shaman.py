@@ -186,12 +186,15 @@ if StormWind_Tiny_Toys:#
 class SW_034:# <8>[1578]
 	""" Tiny Toys
 	Summon four random 5-Cost minions.Make them 2/2. """
-	play =(
-		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
-		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
-		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
-		Summon(CONTROLLER, RandomMinion(cost=5)).after(Summon.CARD, 'SW_034e'),
-		)
+	def play(self):
+		for repeat in range(4):
+			card = RandomMinion(cost=5).evaluate(self)
+			if isinstance(card, list):
+				card=card[0]
+			if isinstance(card, list):
+				card=card[0]
+			Buff(card, 'SW_034e').trigger(self)
+			Summon(self.controller, card).trigger(self)
 	pass
 SW_034e=buff(2,2)
 

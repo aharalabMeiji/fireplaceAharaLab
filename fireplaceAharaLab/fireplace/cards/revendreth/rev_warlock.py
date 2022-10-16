@@ -112,7 +112,7 @@ class REV_240:# <9>[1691]
 			Buff(card,'REV_240e').trigger(self)
 			card.zone=Zone.SETASIDE
 			card.zone=Zone.DECK
-		controller.deck.shuffle()
+		random.shuffle(controller.deck)
 	pass
 class REV_240e:# <9>[1691]
 	""" Cost Curse
