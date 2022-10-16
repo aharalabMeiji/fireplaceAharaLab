@@ -116,10 +116,10 @@ class StandardVectorAgent(Agent):
 		#w[4]=myTauntCharA = 0
 		#w[5]=myTauntCharH = 0
 		for char in me.characters:
-			w[2] += char.atk
-			if char.taunt:
-				w[4] += char.atk
 			if char.type == CardType.MINION:
+				w[2] += char.atk
+				if char.taunt:
+					w[4] += char.atk
 				w[3] += char.health
 				if char.taunt:
 					w[5] += char.health
@@ -128,10 +128,10 @@ class StandardVectorAgent(Agent):
 		#w[8]=hisTauntCharA = 0
 		#w[9]=hisTauntCharH = 0
 		for char in he.characters:
-			w[6] += char.atk
-			if char.taunt:
-				w[8] += char.atk
 			if char.type == CardType.MINION:
+				w[6] += char.atk
+				if char.taunt:
+					w[8] += char.atk
 				w[7] += char.health
 				if char.taunt:
 					w[9] += char.health

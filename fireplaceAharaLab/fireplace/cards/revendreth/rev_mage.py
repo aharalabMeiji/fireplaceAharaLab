@@ -122,7 +122,7 @@ if Rev_Cold_Case:# ###
 class REV_505:# <4>[1691]
 	""" Cold Case
 	Summon two 2/2 Volatile Skeletons. Gain 4 Armor. """
-	play = Summon(CONTROLLER, 'REV_845'), Summon(CONTROLLER, 'REV_845'), GainArmor(FRIENDLY_HERO)
+	play = Summon(CONTROLLER, 'REV_845'), Summon(CONTROLLER, 'REV_845'), GainArmor(FRIENDLY_HERO, 4)
 	pass
 
 

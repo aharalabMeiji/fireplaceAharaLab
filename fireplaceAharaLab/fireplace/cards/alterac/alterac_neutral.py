@@ -474,7 +474,7 @@ class AV_222:
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
 	def play(self):
 		while True:	
-			fields = self.controller.field + self.controller.opponent.field
+			fields = [card for card in self.controller.field + self.controller.opponent.field if card.type==CardType.MINION]
 			cont=False
 			for card in fields:
 				if card != self:
