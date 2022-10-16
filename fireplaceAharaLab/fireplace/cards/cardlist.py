@@ -106,11 +106,26 @@ Sunken_Warrior=sunken_warrior.Sunken_Warrior
 Sunken_Cards=[Sunken_DemonHunter, Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Priest, Sunken_Rogue, Sunken_Shaman, Sunken_Warlock, Sunken_Warrior]
 
 ## REVENDRETH = 1691  # Murder at Castle Nathria
-from fireplace.cards.revendreth import rev_neutral, rev_demonhunter, rev_druid
+from fireplace.cards.revendreth import rev_neutral,\
+	rev_demonhunter, rev_druid, rev_hunter, rev_mage,\
+	rev_paladin, rev_priest, rev_rogue, rev_shaman, \
+	rev_warlock, rev_warrior
 Revendreth_DemonHunter=rev_demonhunter.Rev_DemonHunter
 Revendreth_Druid=rev_druid.Rev_Druid
 Revendreth_Neutral=rev_neutral.Rev_Neutral
-Revendreth_Cards=[Revendreth_DemonHunter, Revendreth_DemonHunter, Revendreth_Neutral]
+Revendreth_Hunter=rev_hunter.Rev_Hunter
+Revendreth_Mage = rev_mage.Rev_Mage
+Revendreth_Neutral=rev_neutral.Rev_Neutral
+Revendreth_Paladin=rev_paladin.Rev_Paladin
+Revendreth_Priest=rev_priest.Rev_Priest
+Revendreth_Rogue=rev_rogue.Rev_Rogue
+Revendreth_Shaman=rev_shaman.Rev_Shaman
+Revendreth_Warlock=rev_warlock.Rev_Warlock
+Revendreth_Warrior=rev_warrior.Rev_Warrior
+Revendreth_Cards=[Revendreth_DemonHunter,Revendreth_Druid,Revendreth_Hunter,\
+	Revendreth_Mage,Revendreth_Neutral,Revendreth_Paladin,\
+	Revendreth_Priest,Revendreth_Priest,Revendreth_Rogue,\
+	Revendreth_Shaman,Revendreth_Warlock,Revendreth_Warrior]
 
 # Hero
 from fireplace.cards.hero_dream import hero, dream

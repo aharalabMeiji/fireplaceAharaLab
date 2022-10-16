@@ -195,12 +195,18 @@ class CORE_LOOT_222:# <3>[1637] ######## 23.6 new
 
 if Animal_Companion:# 
 	Core_Hunter+=['CORE_NEW1_031','NEW1_032','NEW1_033','NEW1_033o','NEW1_034']
+class CORE_NEW1_031_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		card = random.choice(["NEW1_032", "NEW1_033", "NEW1_034"])
+		Summon(controller, card).trigger(source)
+		pass
+
 class CORE_NEW1_031:# <3>[1637] ######## 23.6 new
 	""" Animal Companion
 	Summon a random Beast Companion. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["NEW1_032", "NEW1_033", "NEW1_034"]
-	play = Summon(CONTROLLER, RandomEntourage())
+	play = CORE_NEW1_031_Action(CONTROLLER)
 	pass
 class NEW1_032:
 	""" Misha

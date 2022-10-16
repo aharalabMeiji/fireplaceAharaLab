@@ -474,14 +474,14 @@ class AV_222:
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
 	def play(self):
 		while True:	
-			list = self.controller.field + self.controller.opponent.field
+			fields = self.controller.field + self.controller.opponent.field
 			cont=False
-			for card in list:
+			for card in fields:
 				if card != self:
 					if card.health==1:
 						cont = True
-					Hit(card,1).trigger(self.controller)##これだけでは死亡処理が行われない。
-			Deaths().trigger(self.controller)#死亡処理
+					Hit(card,1).trigger(self)##これだけでは死亡処理が行われない。
+			Deaths().trigger(self)#死亡処理
 			if not cont:
 				return
 		pass

@@ -53,9 +53,10 @@ class MAW_004_Action(TargetedAction):
 	def do(self, source, target):
 		controller=target
 		opponent=controller.opponent
-		if len(opponent.deck)>0:
+		deck_minion=[card for card in opponent.deck if card.type==CardType.MINION]
+		if len(deck_minion)>0:
 			mycard=source
-			hiscard=random.choice(opponent.deck)
+			hiscard=random.choice(deck_minion)
 			mycard.zone=Zone.SETASIDE
 			hiscard.zone=Zone.SETASIDE
 			mycard.controller=opponent

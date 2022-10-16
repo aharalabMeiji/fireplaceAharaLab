@@ -164,7 +164,7 @@ class REV_352t_Action(TargetedAction):
 class REV_352t:# <3>[1691]
 	""" Stonebound Gargon
 	<b>Infused</b> <b>Rush</b>. Also damages the minions next to __whomever this attacks. """
-	events = Attack(SELF, ENEMY + MINION).after(REV_352t_Action(CONTROLLER, Attack.DEFENDER))
+	events = Attack(SELF, ENEMY + MINION).on(REV_352t_Action(CONTROLLER, Attack.DEFENDER))
 	pass
 
 

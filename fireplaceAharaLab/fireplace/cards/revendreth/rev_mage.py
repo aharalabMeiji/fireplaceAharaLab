@@ -42,17 +42,10 @@ class MAW_013:# <4>[1691]
 
 if Rev_Contract_Conjurer:# ### 
 	Rev_Mage+=['MAW_101']
-class MAW_101_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		amount = len(controller.secrets)*3
-		source.cost_mod=-amount
-		pass
 class MAW_101:# <4>[1691]
 	""" Contract Conjurer
 	Costs (3) less for each <b>Secret</b> you control. """
-	class Hand:
-		events = MAW_101_Action(CONTROLLER)
+	cost_mod = - Count(FRIENDLY_SECRETS) * 3
 	pass
 
 
