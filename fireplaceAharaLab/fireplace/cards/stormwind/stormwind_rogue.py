@@ -323,9 +323,15 @@ class SW_405:# <7>[1578] spell(3)
 		else:
 			action = newcard.deathrattles[0]
 		if isinstance(action, tuple) or isinstance(action, list):
-			action[0].trigger(self)
+			try:
+				action[0].trigger(self)
+			except IndexError as e:
+				pass
 		else:
-			action.trigger(self)
+			try:
+				action.trigger(self)
+			except IndexError as e:
+				pass
 	pass
 
 

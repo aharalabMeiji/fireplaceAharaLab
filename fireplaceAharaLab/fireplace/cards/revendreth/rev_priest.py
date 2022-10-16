@@ -196,11 +196,11 @@ if Rev_Boon_of_the_Ascended:#
 class REV_248_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-		Buff(self.target,'REV_248e').trigger(source)
+		Buff(source.target,'REV_248e').trigger(source)
 		card=Summon(controller, 'REV_248t').trigger(source)
 		card=card[0][0]
-		card.atk=self.target.atk
-		card.max_health=self.target.max_health
+		card.atk=source.target.atk
+		card.max_health=source.target.max_health
 		pass
 class REV_248:# <6>[1691]
 	""" Boon of the Ascended

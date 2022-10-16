@@ -233,13 +233,14 @@ class SCH_621_Action(TargetedAction):
 	TARGET = ActionArg()
 	CARD = ActionArg()
 	def do(self, source, target):
-		new_atk = source.atk - 1
-		new_health = source.max_health - 1
-		new_minion = Summon(target, source.id).trigger(source.controller)
-		if new_minion[0] != []:
-			new_minion = new_minion[0][0]
-			new_minion.atk = new_atk
-			new_minion.max_health = new_health
+		if hasattr(source, 'atk') and hasattr(source, 'max_health'):
+			new_atk = source.atk - 1
+			new_health = source.max_health - 1
+			new_minion = Summon(target, source.id).trigger(source.controller)
+			if new_minion[0] != []:
+				new_minion = new_minion[0][0]
+				new_minion.atk = new_atk
+				new_minion.max_health = new_health
 		pass
 
 class SCH_621:###OK

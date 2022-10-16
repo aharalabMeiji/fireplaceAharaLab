@@ -128,12 +128,12 @@ class AV_403:# <7>[1626]
 		for repeat in range(len(self.controller.hand)):
 			self.controller.hand[0].discard()
 			newcard=Give(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
-			if newcard[0]!=[]:
+			if newcard[0]!=[] and newcard[0]!=None:
 				Buff(newcard[0][0],'AV_403e2').trigger(self)
 		for repeat in range(len(self.controller.deck)):
 			self.controller.deck[0].discard()
 			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=CLASSES_EXCEPT_ROGUE)).trigger(self)
-			if newcard[0]!=[]:
+			if newcard[0]!=[] and newcard[0]!=None:
 				Buff(newcard[0],'AV_403e2').trigger(self)
 	pass
 class AV_403e2:# <7>[1626]

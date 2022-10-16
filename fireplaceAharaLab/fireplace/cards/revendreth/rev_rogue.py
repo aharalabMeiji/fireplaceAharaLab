@@ -181,12 +181,12 @@ class REV_828e:# <7>[1691]
 	pass
 class REV_828t_Action(TargetedAction):
 	CONTROLLER=ActionArg()
-	CARD=CardArg()
-	def do(self, source, controller, card):
+	def do(self, source, controller):
 		Give(controller, source.script_data_num_1).trigger(source)
 class REV_828t:# <7>[1691]
 	""" Kidnapper's Sack
 	<b>Deathrattle:</b> Return your opponent's kidnapped minion to their hand. """
+	#<Tag enumID="217" name="DEATHRATTLE" type="Int" value="1"/>
 	deathrattle = REV_828t_Action(CONTROLLER)
 	pass
 

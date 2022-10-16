@@ -99,15 +99,15 @@ class TSC_630:# <8>[1658]
 		cards=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FIRE]
 		if len(cards)>0:
 			card=random.choice(cards)
-			CastSpell(card.id).trigger(self)
+			CastSpell(card).trigger(self)
 		cards=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
 		if len(cards)>0:
 			card=random.choice(cards)
-			CastSpell(card.id).trigger(self)
+			CastSpell(card).trigger(self)
 		cards=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.NATURE]
 		if len(cards)>0:
 			card=random.choice(cards)
-			CastSpell(card.id).trigger(self)
+			CastSpell(card).trigger(self)
 	pass
 
 if Sunken_Schooling:# 

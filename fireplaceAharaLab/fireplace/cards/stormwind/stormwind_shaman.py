@@ -182,7 +182,7 @@ class SW_033:# <8>[1578]
 
 
 if StormWind_Tiny_Toys:# 
-	StormWind_Shaman+=['SW_034']
+	StormWind_Shaman+=['SW_034','SW_034e']
 class SW_034:# <8>[1578]
 	""" Tiny Toys
 	Summon four random 5-Cost minions.Make them 2/2. """
@@ -247,9 +247,12 @@ class SW_115_Action(TargetedAction):
 			card = actions[0]['source']
 			if hasattr(card.data.scripts, 'play'):
 				action = card.get_actions('play')
-				if isinstance(action, tuple) or isinstance(action, list):
-					action = action[0]
-				action.trigger(source)
+				try:
+					if isinstance(action, tuple) or isinstance(action, list):
+						action = action[0]
+					action.trigger(source)
+				except :
+					pass
 			elif hasattr(card, 'play'):
 				card.play()
 		pass
