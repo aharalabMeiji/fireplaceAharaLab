@@ -80,17 +80,22 @@ if StormWind_Righteous_Defense:#
 	StormWind_Paladin+=['DED_502']
 	StormWind_Paladin+=['DED_502e']
 	StormWind_Paladin+=['DED_502e2']
+class DED_502_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		atk=target.atk
+		hlt=target.health
+		Buff(target, 'DED_502e', atk=1-atk, max_health=1-hlt).trigger(self)
+		if len(source.controller.hand)>0:
+			card = random.choice(source.controller.hand)
+			Buff(card, 'DED_502e2', atk=atk-1, max_health=hlt-1).trigger(self)
+		pass
+
 class DED_502:# <5>[1578]
 	""" Righteous Defense
 	Set a minion's Attack and Health to 1. Give the stats it lost to a minion in your hand. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0,PlayReq.REQ_TARGET_TO_PLAY: 0}
-	def play(self):
-		atk=self.target.atk
-		hlt=self.target.health
-		Buff(self.target, 'DED_502e', atk=1-atk, max_health=1-hlt).trigger(self)
-		if len(self.controller.hand)>0:
-			card = random.choice(self.controller.hand)
-			Buff(card, 'DED_502e2', atk=atk-1, max_health=hlt-1).trigger(self)
+	play=DED_502_Action(TARGET)
 	pass
 class DED_502e:
 	pass

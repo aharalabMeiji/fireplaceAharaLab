@@ -63,7 +63,7 @@ class MAW_017:# <5>[1691]
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
 	def play(self):
 		controller=self.controller
-		cards=[card for card in controller.deck if card.type==CardType.NEUTRAL]
+		cards=[card for card in controller.deck if card.card_class==CardClass.NEUTRAL]
 		if len(cards)==0:
 			Buff(self.target, 'MAW_017e')
 	pass
@@ -254,7 +254,7 @@ class REV_961:# <5>[1691]
 		amount=len([card for card in controller.hand if card.card_class==CardClass.PALADIN])
 		buffs=['divine_shield','lifesteal','rush','taunt']
 		if amount<4:
-			buffs=random.sample(buffs)
+			buffs=random.sample(buffs, amount)
 		for b in buffs:
 			if b=='divine_shield':
 				self.divine_shield=True

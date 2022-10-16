@@ -64,7 +64,7 @@ MAW_029e2=buff(1,1)
 
 
 if Rev_Suspicious_Pirate:# ###
-	Rev_Warrior+=['REV_006']
+	Rev_Warrior+=['REV_006', 'REV_000e']
 class REV_006_Choice(Choice):
 	def do(self, source, player, cards, option=None):
 		self.source.sidequest_list0=[[card.id for card in cards]]

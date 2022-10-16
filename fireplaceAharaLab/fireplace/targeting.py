@@ -103,8 +103,9 @@ def is_valid_target(self, target, requirements=None):
 			if target.type != CardType.MINION or target.race == param:
 				return False
 		elif req == 1003:# REQ_NONGOLDEN_TARGET# 
-			if target.id in target.controller.game.parent.BG_Gold.values():
-				return False
+			if hasattr(target.controller.game, 'parent'):
+				if target.id in target.controller.game.parent.BG_Gold.values():
+					return False
 		elif req == 1004:## REQ_TARGET_ID
 			if target.type != CardType.MINION or target.id != param:
 				return False

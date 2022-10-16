@@ -90,10 +90,10 @@ class MAW_023e:# <6>[1691]
 
 
 if Rev_Suspicious_Usher:# 
-	Rev_Priest+=['REV_002']
+	Rev_Priest+=['REV_002', 'REV_000e']
 class REV_002_Choice(Choice):
 	def do(self, source, player, cards, option=None):
-		self.source.sidequest_list0=[[card.id for card in cards]]
+		source.sidequest_list0=[[card.id for card in cards]]
 		super().do(source, player, cards, option)
 	def choose(self, card):
 		self.next_choice=None
