@@ -181,6 +181,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	playable_zone = Zone.HAND
 	reborn = boolean_property("reborn")# 
 	script_data_num_1 = int_property("script_data_num_1")
+	script_data_num_2 = int_property("script_data_num_2")
 	trade_cost = int_property("trade_cost")#stormwind
 	tradeable = boolean_property("tradeable")#stormwind
 	windfury = int_property("windfury")

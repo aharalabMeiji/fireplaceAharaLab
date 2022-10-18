@@ -1,7 +1,7 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit
 
-def SimulateGames_Alterac_Neutral():
+def alterac_neutral():
 
 	#PresetGame(pp_AV_100,1)####OK
 	#PresetGame(pp_AV_101,1)####OK###OK(2-10-22)
@@ -31,7 +31,7 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_143,1)####OK
 	#PresetGame(pp_AV_215,2)####OK
 	#PresetGame(pp_AV_219,1)####OK
-	#PresetGame(pp_AV_222,1)####OK
+	PresetGame(pp_AV_222,1)####OK
 	#PresetGame(pp_AV_223,1)####OK
 	#PresetGame(pp_AV_238,1)####OK
 	#PresetGame(pp_AV_256,1)####OK
@@ -1083,7 +1083,7 @@ class pp_AV_222(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_222',controller)
-		self.mark2=self.exchange_card('vanillaH1',controller)###(1,2,3), (1,2,4), (1,3,4), etc
+		self.mark2=self.exchange_card('vanillaH2',controller)###(1,2,3), (1,2,4), (1,3,4), etc
 		self.mark3=self.exchange_card('vanillaH2',opponent)
 		self.mark4=self.exchange_card('vanillaH3',opponent)
 		#self.mark4=self.exchange_card('minionH4',opponent)

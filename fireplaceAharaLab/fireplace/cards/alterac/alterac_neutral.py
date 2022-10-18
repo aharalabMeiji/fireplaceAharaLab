@@ -481,7 +481,7 @@ class AV_222:
 					if card.health==1:
 						cont = True
 					Hit(card,1).trigger(self)##これだけでは死亡処理が行われない。
-			Deaths().trigger(self)#死亡処理
+					self.controller.game.process_deaths()
 			if not cont:
 				return
 		pass

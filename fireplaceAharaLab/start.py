@@ -90,8 +90,8 @@ def main():
 	pass
 
 def card_test():
-	from card_test.t_rev_rogue import rev_rogue
-	rev_rogue()
+	from card_test.alterac_neutral import alterac_neutral
+	alterac_neutral()
 	pass
 
 def battleground_main():
