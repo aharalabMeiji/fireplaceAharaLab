@@ -13,7 +13,7 @@ def rev_rogue():
 	#PresetGame(pp_REV_825)##
 	#PresetGame(pp_REV_826)##
 	#PresetGame(pp_REV_827)##
-	#PresetGame(pp_REV_828)##
+	PresetGame(pp_REV_828a)### OK
 	#PresetGame(pp_REV_829)##
 	#PresetGame(pp_REV_938)##
 	#PresetGame(pp_REV_939)##
@@ -294,31 +294,41 @@ class pp_REV_827(Preset_Play):
 
 ##########REV_828##########
 
-class pp_REV_828(Preset_Play):
+class pp_REV_828a(Preset_Play):
 	""" Kidnap
 	<b>Secret:</b> After your opponent plays a minion, stuff it in a 0/4 Sack. """
 	class1=CardClass.ROGUE
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_828", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		#elf.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		self.opp1=self.exchange_card(self.card_choice("minionH3"), self.opponent)
+		#self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		for card in self.controller.secrets:
+			self.print_stats("secrets", card)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.play_card(self.opp1)
+		assert self.controller.secrets==[], 'secrets'
+		assert self.opponent.field==[], 'opponent field'
+		self.con2=self.controller.field[0]
+		assert self.con2.id=='REV_828t', 'REV_828t'
+		print(self.con2.script_data_text_0)
+		Hit(self.con2, 4).trigger(self.opponent)
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		print("See controller has a kidnapped card in his hand from opponent.")
 	pass
 
 

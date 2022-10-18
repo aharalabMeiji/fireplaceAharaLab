@@ -44,7 +44,7 @@ if Execute:#
 class CORE_CS2_108:# <10>[1637]  ## maybe OK ##
 	""" Execute
 	Destroy a damaged enemy minion. """
-	requirements = {PlayReq.REQ_DAMAGED_TARGET: 0,PlayReq.REQ_ENEMY_TARGET: 0,PlayReq.REQ_MINION_TARGET: 0,PlayReq.REQ_TARGET_TO_PLAY: 0}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_MINION_TARGET: 0,PlayReq.REQ_DAMAGED_TARGET: 0}
 	play = Destroy(TARGET)
 	pass
 

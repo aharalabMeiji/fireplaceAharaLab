@@ -155,7 +155,7 @@ class REV_827t:# <7>[1691]
 
 
 
-if Rev_Kidnap:# ###
+if Rev_Kidnap:# ### OK ###
 	Rev_Rogue+=['REV_828']
 	Rev_Rogue+=['REV_828e']
 	Rev_Rogue+=['REV_828t']
@@ -165,7 +165,7 @@ class REV_828_Action(TargetedAction):
 	def do(self, source, controller, card):
 		newcard=Summon(controller, 'REV_828t').trigger(source)
 		newcard=newcard[0][0]
-		newcard.script_data_num_1=card.id
+		newcard.script_data_text_0=card.id
 		card.discard()
 		pass
 class REV_828:# <7>[1691]
@@ -182,7 +182,7 @@ class REV_828e:# <7>[1691]
 class REV_828t_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-		Give(controller, source.script_data_num_1).trigger(source)
+		Give(controller, source.script_data_text_0).trigger(source)
 class REV_828t:# <7>[1691]
 	""" Kidnapper's Sack
 	<b>Deathrattle:</b> Return your opponent's kidnapped minion to their hand. """
