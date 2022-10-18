@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit
+from fireplace.actions import Hit, Summon
 
 def alterac_neutral():
 
@@ -1083,9 +1083,12 @@ class pp_AV_222(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_222',controller)
-		self.mark2=self.exchange_card('vanillaH2',controller)###(1,2,3), (1,2,4), (1,3,4), etc
-		self.mark3=self.exchange_card('vanillaH2',opponent)
-		self.mark4=self.exchange_card('vanillaH3',opponent)
+		self.mark2=Summon(self.opponent, self.card_choice("minionH2")).trigger(self.opponent)
+		self.mark2=self.mark2[0][0]
+		self.mark3=Summon(self.opponent, self.card_choice("minionH2")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.mark4=self.mark4[0][0]
 		#self.mark4=self.exchange_card('minionH4',opponent)
 		super().preset_deck()
 		pass
@@ -1095,14 +1098,11 @@ class pp_AV_222(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		##########start
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
+		self.play_card(self.mark1)
+		#self.change_turn(controller)
 		##########
-		self.play_card(self.mark3, opponent)
-		self.play_card(self.mark4, opponent)
-		self.change_turn(controller)
+		#self.change_turn(controller)
 		##########
-		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
