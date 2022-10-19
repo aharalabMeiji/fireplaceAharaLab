@@ -102,6 +102,9 @@ class REV_002_Choice(Choice):
 		self.next_choice=None
 		self.source.sidequest_list0.append(card.id)
 		super().choose(card)
+		buff=Buff(self.player.opponent, 'REV_000e')
+		buff.trigger(self.player.opponent)
+		buff.buff.sidequest_list0=[self.source.sidequest_list0[0],self.source.sidequest_list0[1]]
 class REV_002:# <4>[1691]
 	""" Suspicious Usher
 	<b>Battlecry:</b> <b>Discover</b> a <b>Legendary</b> minion. If your opponent guesses your __choice, they get a copy. """	
@@ -111,10 +114,6 @@ class REV_002:# <4>[1691]
 		opponent=controller.opponent
 		choice=REV_002_Choice(controller, RandomLegendaryMinion()*3)
 		choice.trigger(source)
-		buff=Buff(opponent, 'REV_000e')
-		buff.trigger(source)
-		enchant=buff.BUFF.evaluate(source)
-		enchant.sidequest_list0=[self.sidequest_list0[0],self.sidequest_list0[1]]
 		pass
 	pass
 

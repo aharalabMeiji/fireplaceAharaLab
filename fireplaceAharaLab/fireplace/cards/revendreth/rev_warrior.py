@@ -63,17 +63,20 @@ MAW_029e2=buff(1,1)
 
 
 
-if Rev_Suspicious_Pirate:# ###
+if Rev_Suspicious_Pirate:# ### OK ###
 	Rev_Warrior+=['REV_006', 'REV_000e']
 class REV_006_Choice(Choice):
 	def do(self, source, player, cards, option=None):
-		self.source=source
 		source.sidequest_list0=[[card.id for card in cards]]
 		super().do(source, player, cards, option)
 	def choose(self, card):
 		self.next_choice=None
 		self.source.sidequest_list0.append(card.id)
 		super().choose(card)
+		buff=Buff(self.player.opponent, 'REV_000e')
+		buff.trigger(self.player.opponent)
+		buff.buff.sidequest_list0=[self.source.sidequest_list0[0],self.source.sidequest_list0[1]]
+
 class REV_006:# <10>[1691]
 	""" Suspicious Pirate
 	<b>Battlecry:</b> <b>Discover</b> a weapon. If your opponent guesses your choice, they get a copy. """
@@ -83,10 +86,6 @@ class REV_006:# <10>[1691]
 		opponent=controller.opponent
 		choice=REV_006_Choice(controller, RandomWeapon()*3)
 		choice.trigger(source)
-		buff=Buff(opponent, 'REV_000e')
-		buff.trigger(source)
-		enchant=buff.BUFF.evaluate(source)
-		enchant.sidequest_list0=[self.sidequest_list0[0],self.sidequest_list0[1]]
 		pass
 	pass
 

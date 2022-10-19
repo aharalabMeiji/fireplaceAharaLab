@@ -1,3 +1,4 @@
+from pickle import NONE
 from ..utils import *
 
 Rev_Mage=[]
@@ -56,12 +57,15 @@ if Rev_Suspicious_Alchemist:# ###
 	Rev_Mage+=['REV_000e']
 class REV_000_Choice(Choice):
 	def do(self, source, player, cards, option=None):
-		self.source.sidequest_list0=[[card.id for card in cards]]
+		source.sidequest_list0=[[card.id for card in cards]]
 		super().do(source, player, cards, option)
 	def choose(self, card):
 		self.next_choice=None
 		self.source.sidequest_list0.append(card.id)
 		super().choose(card)
+		buff=Buff(self.player.opponent, 'REV_000e')
+		buff.trigger(self.player.opponent)
+		buff.buff.sidequest_list0=[self.source.sidequest_list0[0],self.source.sidequest_list0[1]]
 class REV_000:# <4>[1691]
 	""" Suspicious Alchemist
 	<b>Battlecry:</b> <b>Discover</b> a spell. If your opponent guesses your choice, they get a copy. """
@@ -71,10 +75,6 @@ class REV_000:# <4>[1691]
 		opponent=controller.opponent
 		choice=REV_000_Choice(controller, RandomSpell()*3)
 		choice.trigger(source)
-		buff=Buff(opponent, 'REV_000e')
-		buff.trigger(source)
-		enchant=buff.BUFF.evaluate(source)
-		enchant.sidequest_list0=[self.sidequest_list0[0],self.sidequest_list0[1]]
 		pass
 	pass
 class REV_000e_Choice(Choice):
@@ -85,6 +85,8 @@ class REV_000e_Choice(Choice):
 			card.zone=Zone.SETASIDE
 			card.controller=source.controller
 			card.zone=Zone.HAND
+		self.next_choice=None
+		super().choose(card)
 		pass
 class REV_000e_Action(TargetedAction):
 	CONTROLLER=ActionArg()

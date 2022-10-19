@@ -7,7 +7,7 @@ def rev_warrior():
 	#PresetGame(pp_MAW_027)##
 	#PresetGame(pp_MAW_028)##
 	#PresetGame(pp_MAW_029)##
-	#PresetGame(pp_REV_006)##
+	#PresetGame(pp_REV_006)## ### OK ###
 	#PresetGame(pp_REV_316)##
 	#PresetGame(pp_REV_332)##
 	#PresetGame(pp_REV_334)##
@@ -121,24 +121,25 @@ class pp_REV_006(Preset_Play):
 	class2=CardClass.WARRIOR
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_006", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		#self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		#self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		#self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.choose_action()
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.choose_action()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.hand:
+			self.print_stats("opponent.hand", card)
 	pass
 
 

@@ -78,15 +78,15 @@ class Preset_Play:
 		#self.print_hand(self.player.opponent)
 		pass
 	def choose_action(self):
-		if self.controller.choice!=None:
-			postAction(self.controller)
+		if self.current.choice!=None:
+			postAction(self.current)
 		pass
 	def change_turn(self, player=None):
 		if player==None:
 			player=self.current
 		game = player.game
-		if player.choice!=None:
-			postAction(player)
+		if self.current.choice!=None:
+			postAction(self.current)
 		game.end_turn()
 		self.current = player.opponent
 		pass

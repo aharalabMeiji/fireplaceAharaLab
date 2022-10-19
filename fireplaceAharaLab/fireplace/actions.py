@@ -934,6 +934,7 @@ class Buff(TargetedAction):
 		buff = self._args[1]
 		buff = source.controller.card(buff)
 		buff.source = source
+		self.buff=buff
 		return [buff]
 
 	def do(self, source, target, buff):
