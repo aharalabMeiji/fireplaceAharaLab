@@ -31,7 +31,7 @@ def alterac_neutral():
 	#PresetGame(pp_AV_143,1)####OK
 	#PresetGame(pp_AV_215,2)####OK
 	#PresetGame(pp_AV_219,1)####OK
-	PresetGame(pp_AV_222,1)####OK
+	#PresetGame(pp_AV_222,1)####OK### OK(22/10/19) 
 	#PresetGame(pp_AV_223,1)####OK
 	#PresetGame(pp_AV_238,1)####OK
 	#PresetGame(pp_AV_256,1)####OK
@@ -1085,7 +1085,7 @@ class pp_AV_222(Preset_Play):
 		self.mark1=self.exchange_card('AV_222',controller)
 		self.mark2=Summon(self.opponent, self.card_choice("minionH2")).trigger(self.opponent)
 		self.mark2=self.mark2[0][0]
-		self.mark3=Summon(self.opponent, self.card_choice("minionH2")).trigger(self.opponent)
+		self.mark3=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
 		self.mark3=self.mark3[0][0]
 		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]

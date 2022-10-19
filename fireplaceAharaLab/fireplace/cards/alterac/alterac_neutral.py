@@ -467,24 +467,27 @@ class AV_219t:
 	""" Ram with Rush (1/1)"""
 	pass
 
-if Spammy_Arcanist:# 
+if Spammy_Arcanist:# ### OK ###
 	Alterac_Neutral+=['AV_222']
+class AV_222_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		while True:	
+			fields = [card for card in controller.field + controller.opponent.field if card.type==CardType.MINION]
+			cont=False
+			for card in fields:
+				if card != source:
+					if card.health==1:
+						cont = True
+					Hit(card,1).trigger(source)##これだけでは死亡処理が行われない。
+					controller.game.process_deaths()
+			if not cont:
+				return
+	pass
 class AV_222:
 	""" Spammy Arcanist (5/3/4)
 	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
-	def play(self):
-		while True:	
-			fields = [card for card in self.controller.field + self.controller.opponent.field if card.type==CardType.MINION]
-			cont=False
-			for card in fields:
-				if card != self:
-					if card.health==1:
-						cont = True
-					Hit(card,1).trigger(self)##これだけでは死亡処理が行われない。
-					self.controller.game.process_deaths()
-			if not cont:
-				return
-		pass
+	play = AV_222_Action(CONTROLLER)
 	pass
 
 if Vanndar_Stormpike:# 

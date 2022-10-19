@@ -898,7 +898,7 @@ class REV_906t:# <12>[1691]
 	#play = SplitHit(SELF, ENEMY_MINIONS, TAG_SCRIPT_DATA_NUM_2(CONTROLLER))
 	def play(self):
 		controller = self.controller
-		amount = controller.script_data_num_2
+		amount = self.script_data_num_2
 		SplitHit(controller, controller.opponent.field, amount).trigger(self)
 	class Hand:
 		events = Death(FRIENDLY+MINION).on(REV_906t_Infuse(CONTROLLER, 'REV_906t'))

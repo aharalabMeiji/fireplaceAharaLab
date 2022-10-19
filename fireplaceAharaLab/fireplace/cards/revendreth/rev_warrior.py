@@ -67,7 +67,8 @@ if Rev_Suspicious_Pirate:# ###
 	Rev_Warrior+=['REV_006', 'REV_000e']
 class REV_006_Choice(Choice):
 	def do(self, source, player, cards, option=None):
-		self.source.sidequest_list0=[[card.id for card in cards]]
+		self.source=source
+		source.sidequest_list0=[[card.id for card in cards]]
 		super().do(source, player, cards, option)
 	def choose(self, card):
 		self.next_choice=None
