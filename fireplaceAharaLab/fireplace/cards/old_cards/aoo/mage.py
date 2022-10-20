@@ -19,6 +19,39 @@ class BT_028:
 	"""Astromancer Solarian"""
 	deathrattle = Shuffle(CONTROLLER, "BT_028t")
 
+class CastSpellTargetsEnemiesIfPossible(TargetedAction):
+	"""
+	Cast a spell target random targets enemies if possible
+	"""
+	CARD = CardArg()
+
+	def do(self, source, card):
+		target = None
+		if card.must_choose_one:
+			card = random.choice(card.choose_cards)
+		if card.requires_target():
+			targets = card.targets
+			if len(targets) > 0:
+				enemy_targets = list(filter(
+					lambda item: item.controller != source.controller, targets))
+				if len(enemy_targets) > 0:
+					target = random.choice(enemy_targets)
+				else:
+					target = random.choice(targets)
+			else:
+				if Config.LOGINFO:
+					Config.log("CastSpellTargetsEnemiesIfPossible.do","%s cast spell %s don't have a legal target", source, card)
+				return
+		card.target = target
+		if Config.LOGINFO:
+			Config.log("CastSpellTargetsEnemiesIfPossible.do","%s cast spell %s target %s", source, card, target)
+		source.game.queue_actions(source, [Battlecry(card, card.target)])
+		player = source.controller
+		while player.choice:
+			choice = random.choice(player.choice.cards)
+			print("Choosing card %r" % (choice))
+			player.choice.choose(choice)
+		source.game.queue_actions(source, [Deaths()])
 
 class BT_028t:
 	play = CastSpellTargetsEnemiesIfPossible(RandomSpell()) * 5

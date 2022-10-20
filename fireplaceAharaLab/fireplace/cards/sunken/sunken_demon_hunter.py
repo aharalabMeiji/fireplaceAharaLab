@@ -122,7 +122,7 @@ class TSC_057t:# <14>[1658]
 
 
 if Sunken_Predation:# 
-	Sunken_DemonHunter+=['TSC_058']
+	Sunken_DemonHunter+=['TSC_058','TSC_058e']
 class TSC_058:# <14>[1658]
 	""" Predation
 	Deal $3 damage.Costs (0) if you played a Naga while holding this. """

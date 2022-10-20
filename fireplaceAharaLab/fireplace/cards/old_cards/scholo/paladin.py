@@ -62,6 +62,42 @@ class SCH_526:#OK
 	deathrattle = Hit(ALL_MINIONS - SELF, 1)
 class SCH_526e:
 	max_health=SET(1)
+
+
+
+class CastSpellMe(TargetedAction):
+	"""
+	Cast a spell target to me
+	"""
+	CARD = CardArg()
+	AIMEDTARGET = CardArg()
+	### we might modify CastSpell itself, but no get any risk
+	def do(self, source, card, aimedtarget):
+		target = None
+		if card.must_choose_one:
+			card = random.choice(card.choose_cards)
+		if card.requires_target():
+			if len(card.targets):
+				if aimedtarget in card.targets:
+					target = aimedtarget
+				else:
+					target = random.choice(card.targets)
+			else:
+				if Config.LOGINFO:
+					Config.log("CastSpellMe.do","%s cast spell %s don't have a legal target", source, card)
+				return
+		card.target = target
+		if Config.LOGINFO:
+			Config.log("CastSpellMe.do","%s cast spell %s target %s", source, card, target)
+		source.game.queue_actions(source, [Battlecry(card, card.target)])
+		player = source.controller
+		while player.choice:
+			choice = random.choice(player.choice.cards)
+			print("Choosing card %r" % (choice))
+			player.choice.choose(choice)
+		source.game.queue_actions(source, [Deaths()])
+
+
 class SCH_141:#OK
 	"""High Abbess Alura		4	3	6	Minion	Legendary	-	Spellburst	
 	[Spellburst:] Cast a spell from your deck <i>(targets this if possible)</i>."""

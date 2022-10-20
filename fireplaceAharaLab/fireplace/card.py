@@ -1,4 +1,5 @@
 from genericpath import samefile
+from pickle import NONE
 import random
 from itertools import chain
 
@@ -1234,6 +1235,7 @@ class Location(PlayableCard):
 	turns_in_play=0
 	dormant=0
 	cant_be_targeted_by_opponents=True
+	_summon_index=None
 
 	@property
 	def events(self):

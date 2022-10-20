@@ -139,12 +139,15 @@ class CORE_EX1_197:# <6>[1637]## 23.6 ## OK
 	Destroy all minions with 5 or more Attack. """
 	def play(self):
 		for  card in self.controller.field:
-			if card.atk>=5:
+			if hasattr(card,'atk') and card.atk>=5:
 				Destroy(card).trigger(self)
 		for  card in self.controller.opponent.field:
 			if card.atk>=5:
 				Destroy(card).trigger(self)
 	pass
+
+
+
 
 class CORE_EX1_198:# <6>[1637]## ## 22.6 ## OK
 	""" Natalie Seline

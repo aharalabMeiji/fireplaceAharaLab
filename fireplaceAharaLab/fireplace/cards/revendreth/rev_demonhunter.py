@@ -300,8 +300,8 @@ if Rev_Artificer_Xymox:#
 	Rev_DemonHunter+=['REV_937t']
 class REV_937_Choice(Choice):
 	def choose(self, card):
-		self.next_choice=None
 		CastSpell(card).trigger(self.source)
+		self.next_choice=None
 		super().choose(card)
 		pass
 class REV_937:# <14>[1691]

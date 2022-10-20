@@ -187,60 +187,60 @@ def setup_game():
 	return game
 
 
-def play_turn(game):
-	player = game.current_player
+#def play_turn(game):
+#	player = game.current_player
+#
+#	while True:
+#		heropower = player.hero.power
+#		if heropower.is_usable() and random.random() < 0.1:
+#			if heropower.requires_target():
+#				heropower.use(target=random.choice(heropower.targets))
+#			else:
+#				heropower.use()
+#			continue
+#
+#		# iterate over our hand and play whatever is playable
+#		for card in player.hand:
+#			if card.is_playable() and random.random() < 0.5:
+#				target = None
+#				if card.must_choose_one:
+#					card = random.choice(card.choose_cards)
+#				if card.requires_target():
+#					target = random.choice(card.targets)
+#				print("Playing %r on %r" % (card, target))
+#				card.play(target=target)
+#
+#				if player.choice:
+#					choice = random.choice(player.choice.cards)
+#					print("Choosing card %r" % (choice))
+#					player.choice.choose(choice)
+#
+#				continue
+#
+#		# Randomly attack with whatever can attack
+#		for character in player.characters:
+#			if character.can_attack():
+#				character.attack(random.choice(character.targets))
+#
+#		break
+#
+#	game.end_turn()
+#	return game
 
-	while True:
-		heropower = player.hero.power
-		if heropower.is_usable() and random.random() < 0.1:
-			if heropower.requires_target():
-				heropower.use(target=random.choice(heropower.targets))
-			else:
-				heropower.use()
-			continue
 
-		# iterate over our hand and play whatever is playable
-		for card in player.hand:
-			if card.is_playable() and random.random() < 0.5:
-				target = None
-				if card.must_choose_one:
-					card = random.choice(card.choose_cards)
-				if card.requires_target():
-					target = random.choice(card.targets)
-				print("Playing %r on %r" % (card, target))
-				card.play(target=target)
-
-				if player.choice:
-					choice = random.choice(player.choice.cards)
-					print("Choosing card %r" % (choice))
-					player.choice.choose(choice)
-
-				continue
-
-		# Randomly attack with whatever can attack
-		for character in player.characters:
-			if character.can_attack():
-				character.attack(random.choice(character.targets))
-
-		break
-
-	game.end_turn()
-	return game
-
-
-def play_full_game():
-	game = setup_game()
-
-	for player in game.players:
-		print("Can mulligan %r" % (player.choice.cards))
-		mull_count = random.randint(0, len(player.choice.cards))
-		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-		player.choice.choose(*cards_to_mulligan)
-
-	while True:
-		play_turn(game)
-
-	return game
+#def play_full_game():
+#	game = setup_game()
+#
+#	for player in game.players:
+#		print("Can mulligan %r" % (player.choice.cards))
+#		mull_count = random.randint(0, len(player.choice.cards))
+#		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+#		player.choice.choose(*cards_to_mulligan)
+#
+#	while True:
+#		play_turn(game)
+#
+#	return game
 
 
 class ActionType(IntEnum):

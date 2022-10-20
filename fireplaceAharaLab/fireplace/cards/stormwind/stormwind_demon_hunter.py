@@ -261,7 +261,7 @@ if StormWind_Lions_Frenzy:#
 class SW_454_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		actions=[action for action in target._targetedaction_log if isinstance(action['class'], Draw) and action['turn']==self.controller.game.turn]
+		actions=[action for action in target._targetedaction_log if isinstance(action['class'], Draw) and action['turn']==source.controller.game.turn]
 		source.atk = len(actions)
 class SW_454:# <14>[1578] weapon (3/0/2)
 	""" Lion's Frenzy

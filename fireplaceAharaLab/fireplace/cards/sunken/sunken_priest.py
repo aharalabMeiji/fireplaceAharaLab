@@ -151,7 +151,7 @@ class TSC_211:# <6>[1658]
 	[Silence] a friendly minion,then deal damage equal to its Attack randomly split
 	among all enemy minions. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
-	play = Silence(TARGET).on(SplitHit(CONTROLLER, ENEMY_MINIONS, ATK(Silence.TARGET)))
+	play = Silence(TARGET), SplitHit(CONTROLLER, ENEMY_MINIONS, ATK(Silence.TARGET))
 	pass
 
 

@@ -246,7 +246,7 @@ class REV_250_Action(TargetedAction):
 class REV_250:# <6>[1691]
 	""" Pelagos
 	After you cast a spell  on a friendly minion, set  its Attack and Health to  the higher of the two. """
-	events = Play(CONTROLLER, SPELL, FRIENDLY + MINION).after(REV_250_Action(CONTROLLER, Play.CARD))
+	events = Play(CONTROLLER, SPELL, FRIENDLY + MINION).after(REV_250_Action(CONTROLLER, Play.TARGET))
 	pass
 class REV_250e1:# <6>[1691]
 	""" Pelagos' Blessing
@@ -305,7 +305,7 @@ if Rev_Identity_Theft:#
 	Rev_Priest+=['REV_253']
 class REV_253_Choice(Choice):
 	def choose(self, card):
-		controller=self.controller
+		controller=self.source.controller
 		self.source._sidequest_counter_+=1
 		if self.source._sidequest_counter_==1:
 			cards = [card.id for card in controller.opponent.deck]
@@ -322,7 +322,8 @@ class REV_253_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		cards = [card.id for card in controller.opponent.hand]
-		cards = random.sample(cards, 3)
+		if len(cards)>3:
+			cards = random.sample(cards, 3)
 		REV_253_Choice(controller, RandomID(*cards)*3).trigger(source)
 		pass
 class REV_253:# <6>[1691]
