@@ -275,6 +275,9 @@ class BaseGame(Entity):
 				else:
 					listener = source
 				listener._events.append(action)
+			elif isinstance(action, tuple) or isinstance(action, list):
+				for act in action:
+					ret.append(act.trigger(source))
 			else:
 				ret.append(action.trigger(source))
 		return ret

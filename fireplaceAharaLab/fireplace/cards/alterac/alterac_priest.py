@@ -143,11 +143,12 @@ class AV_330:# <6>[1626]
 	""" Gift of the Naaru
 	Restore #3 Health to all characters. If any are still damaged, draw a card. """
 	def play(self):
-		all_characters = self.controller.field+self.controller.opponent.field+[self.controller.hero, self.controller.opponent.hero]
+		#all_characters = self.controller.field+self.controller.opponent.field+[self.controller.hero, self.controller.opponent.hero]
+		all_characters=[card for card in self.controller.game.characters if card.type==CardType.MINION or card.type==CardType.HERO]
 		for card in all_characters:
 			Heal(card, 3).trigger(self)
 		for card in all_characters:
-			if card.damaged>0:
+			if hasattr(card, 'damaged') and card.damaged>0:
 				Draw(self.controller).trigger(self)
 				return
 	pass

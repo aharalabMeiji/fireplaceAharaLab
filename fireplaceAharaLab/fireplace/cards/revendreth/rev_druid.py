@@ -143,7 +143,7 @@ if Rev_Death_Blossom_Whomper:#
 class REV_310_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-		cards=[card for card in controller.deck if card.deathrattles!=[]]
+		cards=[card for card in controller.deck if hasattr(card, 'deathrattles') and card.deathrattles!=[]]
 		if len(cards)>0:
 			card = random.choice(cards)
 			card.zone=Zone.SETASIDE
@@ -195,7 +195,7 @@ class REV_311t2_Choice(Choice):
 	def choose(self, card):
 		self.next_choice=None
 		super().choose(card)
-		Summon(self.controller, card).trigger(self.source)
+		Summon(self.player, card).trigger(self.source)
 		pass
 class REV_311t2:# <2>[1691]
 	""" Moonlight Blossom

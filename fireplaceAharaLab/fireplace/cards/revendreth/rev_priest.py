@@ -75,7 +75,7 @@ class MAW_023_Action(TargetedAction):
 	CARD=CardArg()
 	def do(self, source, controller, card):
 		if getattr(card, 'copied_from_opponent', False):
-			Destroy(source).trigger(source)
+			Destroy(source.owner).trigger(source.owner)
 		pass
 class MAW_023e:# <6>[1691]
 	""" Theft Trial
@@ -239,9 +239,9 @@ class REV_250_Action(TargetedAction):
 		atk=card.atk
 		health=card.max_health 
 		if atk<health:
-			Buff(card, REV_250e1, atk=health-atk).trigger(source)
+			Buff(card, 'REV_250e1', atk=health-atk).trigger(source)
 		if atk>health:
-			Buff(card, REV_250e1, max_health=atk-health).trigger(source)
+			Buff(card, 'REV_250e1', max_health=atk-health).trigger(source)
 		pass
 class REV_250:# <6>[1691]
 	""" Pelagos
