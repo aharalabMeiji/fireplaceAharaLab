@@ -258,7 +258,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		"""
 		if self.controller.choose_both and self.has_choose_one:
 			self.choose_cards = []
-		return bool(self.choose_cards)
+		elif self.has_choose_one and self.choose_cards==[]:
+			for id in self.data.choose_cards:
+				card = self.controller.card(id, source=self, parent=self)
+				self.choose_cards.append(card)
+		return bool(self.data.choose_cards)
 
 	@property
 	def powered_up(self):

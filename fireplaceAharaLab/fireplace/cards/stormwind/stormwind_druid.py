@@ -90,8 +90,8 @@ class DED_003:# <2>[1578]### it doesn't work for CORE_EX1_178 (Ancient of War)
 				# DED_001, SW_422, SCH_612, DMF_061, CORE_EX1_164, CORE_OG_047,CORE_EX1_160, CORE_EX1_573, CORE_EX1_165
 				if card_id[:5]=='CORE_':
 					card_id = card_id[5:]
-				nameA = card_id + 'a'
-				nameB = card_id + 'b'
+				nameA = card.data.choose_cards[0]
+				nameB = card.data.choose_cards[1]
 				card.zone = Zone.GRAVEYARD
 				Give(controller, nameA).trigger(controller)
 				Give(controller, nameB).trigger(controller)
