@@ -276,7 +276,7 @@ class REV_840:# <4>[1691]
 			Hit(card, 2).trigger(source)
 		controller.game.process_deaths()
 		amount = len(controller.opponent.death_this_turn)
-		for repeat in amount:
+		for repeat in range(amount):
 			Summon(controller, 'REV_845').trigger(source)
 	pass
 

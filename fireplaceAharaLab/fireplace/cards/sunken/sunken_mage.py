@@ -76,7 +76,7 @@ class TID_709:# <4>[1658]
 		events = OWN_SPELL_PLAY.on(TID_709_Action(CONTROLLER, Play.CARD))
 class TID_709e:# <4>[1658]
 	""" Naz'jar's Gift 	Costs (1) less. """
-	cost=lambda self,i: max(i-1.0)
+	cost=lambda self,i: max(i-1,0)
 class TID_709t:# <4>[1658]
 	""" Lady Naz'jar
 	[Battlecry:] Reduce the Cost of spells in your hand by (1). """

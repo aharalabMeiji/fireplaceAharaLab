@@ -44,8 +44,9 @@ class BAR_911:# <9>[1525]
 				cardnum+=1
 		Hit(ALL_MINIONS, 5).trigger(self)
 		for i in range(cardnum):
-			card = random.choice(self.controller.deck)
-			self.controller.deck.remove(card)
+			if len(self.controller.deck)>0:
+				card = random.choice(self.controller.deck)
+				self.controller.deck.remove(card)
 	pass
 
 

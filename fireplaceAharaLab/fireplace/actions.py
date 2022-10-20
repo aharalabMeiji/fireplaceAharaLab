@@ -2291,7 +2291,7 @@ class RefreshMana(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target,amount):
 		if Config.LOGINFO:
-			Config.log("RefreshMana.do","Refresh Mana by %s.", amount)
+			Config.log("RefreshMana.do","Refresh Mana by %s."%(amount))
 		source.controller.used_mana = max(source.controller.used_mana-amount,0)
 
 
@@ -2621,7 +2621,7 @@ class SetCost(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			Config.log("SetCost","Setting cost on %r to %i", target, amount)
+			Config.log("SetCost","Setting cost on %r to %i"%(target, amount))
 		target.cost = amount
 
 

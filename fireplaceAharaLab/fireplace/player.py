@@ -363,13 +363,13 @@ class Player(Entity, TargetableByAuras):
 		## OG_121 is very old card and more, not a classic card nor a core card.
 		if source.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
 			if Config.LOGINFO:
-				Config.log("Player.pay_cost","%s spells cost %i health", self, amount)
+				Config.log("Player.pay_cost","%s spells cost %i health"%(self, amount))
 			self.game.queue_actions(self, [Hit(self.hero, amount)])
 			return amount
 		if self.murlocs_cost_health:
 			if source.type == CardType.MINION and source.race == Race.MURLOC:
 				if Config.LOGINFO:
-					Config.log("Player.pay_cost","%s murlocs cost %i health", self, amount)
+					Config.log("Player.pay_cost","%s murlocs cost %i health"%(self, amount))
 				self.game.queue_actions(self, [Hit(self.hero, amount)])
 				return amount
 		if self.temp_mana:
@@ -398,7 +398,7 @@ class Player(Entity, TargetableByAuras):
 	def draw(self, count=1):
 		if self.cant_draw:
 			if Config.LOGINFO:
-				Config.log("Player.draw","%s tries to draw %i cards, but can't draw", self, count)
+				Config.log("Player.draw","%s tries to draw %i cards, but can't draw"%(self, count))
 			return None
 
 		ret = self.game.cheat_action(self, [Draw(self) * count])[0]
@@ -415,7 +415,7 @@ class Player(Entity, TargetableByAuras):
 			else:
 				card = self.deck[-1]
 			if Config.LOGINFO:
-				Config.log("Player.mill","%s mills %r", self, card)
+				Config.log("Player.mill","%s mills %r"%(self, card))
 			card.discard()
 			return card
 		else:
