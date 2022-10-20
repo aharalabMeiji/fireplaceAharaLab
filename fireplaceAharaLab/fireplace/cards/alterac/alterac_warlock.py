@@ -43,6 +43,9 @@ class AV_281:# <9>[1626]
 				Hit(enemy, amount).trigger(self)
 	pass
 
+
+
+
 if Alterac_Full_Blown_Evil:# 
 	Alterac_Warlock+=['AV_285']
 class AV_285:# <9>[1626]
@@ -62,6 +65,9 @@ class AV_285_e:
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
 	events = OWN_TURN_END.on(Destroy(OWNER),Destroy(SELF))
+
+
+
 
 if Alterac_Felwalker:# 
 	Alterac_Warlock+=['AV_286']
