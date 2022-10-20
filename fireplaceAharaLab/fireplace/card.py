@@ -394,7 +394,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			else:
 				raise InvalidAction("%r cannot be played with choice %r" % (self, choose))
 		else:
-			if self.must_choose_one:
+			if self.must_choose_one and len(self.choose_cards)>0:
+				choose=random.choice(self.choose_cards)
 				raise InvalidAction("%r requires a choice (one of %r)" % (self, self.choose_cards))
 			card = self
 		if not self.is_playable():
