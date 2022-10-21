@@ -46,25 +46,41 @@ class AV_281:# <9>[1626]
 
 
 
-if Alterac_Full_Blown_Evil:# 
+if Alterac_Full_Blown_Evil:# ### OK ###
 	Alterac_Warlock+=['AV_285']
+class AV_285_Action1(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		SplitHit(controller, controller.opponent.field, 5).trigger(source)
+		card =Give(controller, 'AV_285').trigger(source)
+		if isinstance(card, list):
+			card=card[0]
+		if isinstance(card, list):
+			card=card[0]
+		Buff(card, 'AV_285e').trigger(source)
+		pass
+class AV_285_Action2(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		for card in controller.hand:
+			if card.id=='AV_285':
+				buffs = [buff.id for buff in card.buffs if buff.id=='AV_285e']
+				if len(buffs)>0:
+					card.destroy()
+		pass
 class AV_285:# <9>[1626]
 	""" Full-Blown Evil (3) Fel
 	Deal 5 damage randomly split among all enemy minions. Repeatable this turn. """
-	play = (
-		SplitHit(CONTROLLER, ENEMY_MINIONS, 5),
-		Give(CONTROLLER, 'AV_285')
-		)
-	events = Give(CONTROLLER, ID('AV_285')).on(Buff(Give.CARD, 'AV_285_e'))
+	play = AV_285_Action1(CONTROLLER)
 		
 	pass
 @custom_card
-class AV_285_e:
+class AV_285e:
 	tags = {
 		GameTag.CARDNAME: "Full-Blown Evil",
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
-	events = OWN_TURN_END.on(Destroy(OWNER),Destroy(SELF))
+	events = OWN_TURN_END.on(AV_285_Action2(CONTROLLER))
 
 
 

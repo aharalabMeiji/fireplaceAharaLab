@@ -6,7 +6,7 @@ def alterac_warlock():
 
 	#PresetGame(pp_AV_277)##
 	#PresetGame(pp_AV_281)##
-	#PresetGame(pp_AV_285)##
+	#PresetGame(pp_AV_285a)### OK ###
 	#PresetGame(pp_AV_286)##
 	#PresetGame(pp_AV_308)##
 	#PresetGame(pp_AV_312)##
@@ -14,17 +14,6 @@ def alterac_warlock():
 	#PresetGame(pp_AV_316)##
 	#PresetGame(pp_AV_317)##
 	#PresetGame(pp_AV_657)##
-	#PresetGame(pp_BOM_08_Grummus_006t)##
-	#PresetGame(pp_BOM_08_LichTamsin_008hb)##
-	#PresetGame(pp_BOM_08_Tamsin_008t)##
-	#PresetGame(pp_BOM_08_Tavish_Kazakus_007p)##
-	#PresetGame(pp_BOM_08_Tavish_Kazakusan_008p)##
-	#PresetGame(pp_BOM_08_Vanndar_001hpe)##
-	#PresetGame(pp_BOM_09_Tamsin_001hb)##
-	#PresetGame(pp_BOM_09_Tamsin_001p)##
-	#PresetGame(pp_BOM_09_Tamsin_008hb)##
-	#PresetGame(pp_BOM_09_Tamsin_008p)##
-	#PresetGame(pp_BOM_09_Vanndar_007p)##
 	#PresetGame(pp_ONY_033)##
 	#PresetGame(pp_ONY_034)##
 	#PresetGame(pp_ONY_035)##
@@ -93,7 +82,7 @@ class pp_AV_281(Preset_Play):
 
 ##########AV_285##########
 
-class pp_AV_285(Preset_Play):
+class pp_AV_285a(Preset_Play):
 	""" Full-Blown Evil
 	Deal $5 damage randomly split among all enemy minions. Repeatable this turn. """
 	class1=CardClass.WARLOCK
@@ -104,15 +93,26 @@ class pp_AV_285(Preset_Play):
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
+		self.opp3=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp3=self.opp3[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		for card in self.controller.hand:
+			self.print_stats("hand", card, show_buff=True)
+			if card.id=='AV_285':
+				self.con2=card
+		self.play_card(self.con2)
+		for card in self.controller.hand:
+			self.print_stats("hand", card, show_buff=True)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -310,336 +310,6 @@ class pp_AV_657(Preset_Play):
 	class2=CardClass.WARLOCK
 	def preset_deck(self):
 		self.con1=self.exchange_card("AV_657", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Grummus_006t##########
-
-class pp_BOM_08_Grummus_006t(Preset_Play):
-	""" Lt. Grummus
-	Your hero is [Immune]. Can't be targets by Spells or Hero Powers. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Grummus_006t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_LichTamsin_008hb##########
-
-class pp_BOM_08_LichTamsin_008hb(Preset_Play):
-	""" LichTamsin
-	 """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_LichTamsin_008hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Tamsin_008t##########
-
-class pp_BOM_08_Tamsin_008t(Preset_Play):
-	""" Dreadlich Tamsin
-	<i>She's baaack!</i> """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Tamsin_008t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Tavish_Kazakus_007p##########
-
-class pp_BOM_08_Tavish_Kazakus_007p(Preset_Play):
-	""" Potion
-	[Hero Power] Create a potion with random effects. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Tavish_Kazakus_007p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Tavish_Kazakusan_008p##########
-
-class pp_BOM_08_Tavish_Kazakusan_008p(Preset_Play):
-	""" Dragon's Roar
-	[Hero Power] Draw a Dragon. It costs (2) less. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Tavish_Kazakusan_008p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Vanndar_001hpe##########
-
-class pp_BOM_08_Vanndar_001hpe(Preset_Play):
-	""" High Marshall
-	Cost reduced by (3). """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Vanndar_001hpe", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Tamsin_001hb##########
-
-class pp_BOM_09_Tamsin_001hb(Preset_Play):
-	""" Dreadlich Tamsin
-	<i>Tamsin has returned, empowered by the naaru's_void_energy.</i> """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Tamsin_001hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Tamsin_001p##########
-
-class pp_BOM_09_Tamsin_001p(Preset_Play):
-	""" Chains of Dread
-	[Hero Power] Shuffle a Rift into your  deck. Draw a card. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Tamsin_001p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Tamsin_008hb##########
-
-class pp_BOM_09_Tamsin_008hb(Preset_Play):
-	""" Dreadlich Tamsin
-	<i>Destroy the phylactery. Defeat the lich. Save the world. Simple, right?</i> """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Tamsin_008hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Tamsin_008p##########
-
-class pp_BOM_09_Tamsin_008p(Preset_Play):
-	""" Defile
-	[Hero Power] Deal 1 damage to all minions. If any die, refresh this. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Tamsin_008p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Vanndar_007p##########
-
-class pp_BOM_09_Vanndar_007p(Preset_Play):
-	""" Ramming Speed
-	Add a Ram Commander to your hand. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Vanndar_007p", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
