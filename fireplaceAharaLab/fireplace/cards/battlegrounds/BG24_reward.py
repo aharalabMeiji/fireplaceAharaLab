@@ -162,10 +162,12 @@ if BG24_Reward_The_Smoking_Gun:# ### OK ###
 class BG24_Reward_125:# [2467]=110, [2641]=1, [2643]=70, [2646]=80, 
 	# [2467]=150, [2641]=1, [2643]=70, [2646]=80, (harder to obtain it)
 	""" The Smoking Gun
-	Your minions have +5 Attack. """
+	Your minions have +4 Attack. """ ## new 24.4.3
+	##Your minions have +5 Attack. """
 	update = Refresh(FRIENDLY_MINIONS , buff='BG24_Reward_125e')
 	pass
-BG24_Reward_125e=buff(5,0)# 
+BG24_Reward_125e=buff(4,0)# new 24.4.3
+##BG24_Reward_125e=buff(5,0)# 
 
 if BG24_Reward_Mirror_Shield:# ### OK ###
 	BG24_Reward+=['BG24_Reward_128']

@@ -180,8 +180,9 @@ class TB_BaconShop_HERO_55:# <12>[1453]
 	pass
 class TB_BaconShop_HP_056:
 	""" Gone Fishing
-	[Passive.] After you sell 4 minions, get a random Murloc. (@ left.) """ ## new 24.2
-	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 4, [Give(CONTROLLER, RandomBGMurloc())]))
+	[Passive.] After you sell 5 minions, get a random Murloc. (@ left.) """ ## new 24.4.3
+	events = Sell(CONTROLLER).on(SidequestCounter(SELF, 5, [Give(CONTROLLER, RandomBGMurloc())]))
+	##[Passive.] After you sell 4 minions, get a random Murloc. (@ left.) """ ## new 24.2
 	##[Passive] After you sell two minions, add a random Murloc to Bob's Tavern. old 
 	#events = Sell(CONTROLLER).on(SidequestCounter(SELF, 2, 
 	#	[Summon(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))] #

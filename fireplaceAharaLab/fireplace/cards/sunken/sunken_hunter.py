@@ -110,7 +110,7 @@ class TSC_070_DredgeChoice(Choice):
 				controller.deck.remove(c)
 				controller.deck.append(c)
 				if hasattr(c,'race') and c.race==Race.BEAST:
-					c.cost-=3## c._cost-=3
+					c.cost-=2## c._cost-=3
 				break
 		pass
 class TSC_070_Dredge(TargetedAction):
@@ -121,7 +121,8 @@ class TSC_070_Dredge(TargetedAction):
 	pass
 class TSC_070:# <3>[1658] weapon
 	""" Harpoon Gun
-	After your hero attacks, [Dredge]. If it's a Beast, reduce its Cost by (3). """
+	After your hero attacks, [Dredge]. If it's a Beast, reduce its Cost by (2). """#24.4.3
+	#After your hero attacks, [Dredge]. If it's a Beast, reduce its Cost by (3). """
 	events = Attack(FRIENDLY_HERO).after(TSC_070_Dredge(CONTROLLER))
 	pass
 
