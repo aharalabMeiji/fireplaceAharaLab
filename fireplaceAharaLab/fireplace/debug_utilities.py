@@ -254,4 +254,24 @@ def parse():
 	deckstring="AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
 	a,b,c = parse_deckstring(deckstring)
 	print(a)
+	print(b)
+	print(c)
 	pass
+
+def parseDeck(code: str):
+	deck=[]
+	cards,b,c = parse_deckstring(code)
+	db, xml = cardxml.load(locale='enUS')
+	for _id in db.keys():
+		card_defs = db[_id]
+		for card in cards:
+			card_code=card[0]
+			amount=card[1]
+			if card_defs.dbf_id==card_code:
+				if amount==1:
+					deck.append(card_defs.id)
+				elif amount==2:
+					deck.append(card_defs.id)
+					deck.append(card_defs.id)
+	return deck
+

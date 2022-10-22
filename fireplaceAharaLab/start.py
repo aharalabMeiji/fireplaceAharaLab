@@ -4,7 +4,7 @@ from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
 from fireplace import cards
-from fireplace.logging import log
+from fireplace.debug_utilities import printClasses, printClasses_BG24, parse, parseDeck
 from fireplace.config import Config
 sys.path.append("..")
 
@@ -28,7 +28,7 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -41,16 +41,20 @@ def main():
 	#from agent_Miyaryo import MiyaryoAgent
 	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI,myClass=CardClass.WARRIOR)
 
+	#from utils import BigDeck
+	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
-	#from utils import BigDeck
-	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
-	#a,b,c = play_set_of_games(Human1, Human2, deck1=[], deck2=[],gameNumber=1, debugLog=True,)# P1MAXMANA=10, P2MAXMANA=10)
-	#デッキを固定しての総当たり戦
-	#デッキ種類は関数内で設定
+
+	beastDruid = "AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
+	impWarlock = "AAECAf0GBvLtA7CRBOa9BJjUBJvkBIfqBAzX7QOD+wPFgASEoATmoAT+tATcvQTivQT/2QSA2gSB2gSr6gQA"
+	deck1=parseDeck(beastDruid)
+	deck2=parseDeck(impWarlock)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=deck1, deck2=deck2, gameNumber=10, debugLog=True)
+	
+
 
 	####################################################################
 
@@ -99,7 +103,6 @@ def battleground_main():
 	BG=BG_main()
 	BG.BG_main()
 
-from fireplace.debug_utilities import printClasses, printClasses_BG24, parse
 
 if __name__ == "__main__":
 	if Config.HEARTHSTONE==1 or Config.HEARTHSTONE==2:
@@ -112,4 +115,5 @@ if __name__ == "__main__":
 		printClasses()
 	elif Config.HEARTHSTONE==10:
 		parse()
+		#parseDeck("AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA")
 	
