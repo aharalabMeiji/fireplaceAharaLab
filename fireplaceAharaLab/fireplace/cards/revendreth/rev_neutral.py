@@ -17,7 +17,7 @@ Rev_Prince_Renathal=True#
 Rev_Famished_Fool=True#
 Rev_Dinner_Performer=True#
 Rev_Kaelthas_Sinstrider=True#
-Rev_Murloc_Holmes=False ### difficult!#
+Rev_Murloc_Holmes=True ### difficult!#
 Rev_Demolition_Renovator=True#
 Rev_Theotar_the_Mad_Duke=True# ### OK ###
 Rev_Sinrunner=True#
@@ -433,7 +433,7 @@ class REV_021e:# <12>[1691]
 
 
 
-if Rev_Murloc_Holmes:# ####  difficult ###
+if Rev_Murloc_Holmes:# ####  OK ###
 	Rev_Neutral+=['REV_022']
 def REV_022_Sub(opponent):
 	if len(opponent.hand)==0:
@@ -443,7 +443,14 @@ def REV_022_Sub(opponent):
 	hand_id=[c.id for c in opponent.hand]
 	for repeat in range(10):
 		if card.type==CardType.MINION:
-			card2 = RandomMinion(card_class=[card_class, CardClass.INVALID]).evaluate(opponent)
+			card2 = RandomMinion(card_class=card_class).evaluate(opponent)
+			card2 = card2[0]
+			if hand_id in hand_id:
+				continue
+			else:
+				return [card.id, card2.id]
+		else:
+			card2 = RandomSpell(card_class=card_class).evaluate(opponent)
 			card2 = card2[0]
 			if hand_id in hand_id:
 				continue
@@ -466,7 +473,9 @@ class REV_022_Choice(Choice):
 				self.next_choice=None
 			else:
 				self.next_choice=REV_022_Choice(self.player, RandomID(*cards)*2)
+				self.next_choice.trigger(self.source)
 			pass
+		super().choose(card)
 class REV_022_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
@@ -703,30 +712,30 @@ class REV_378e2:# <12>[1691]
 
 
 
-if Rev_Murloc_Holmes:# #not in service
-	Rev_Neutral+=['REV_770']
-	Rev_Neutral+=['REV_770hp']
-class REV_770:# <12>[1691]
-	""" Murloc Holmes	 """
-	#
-	pass
-class REV_770hp:# <12>[1691]
-	""" Accuse
-	<b>Hero Power</b> Make an accusation! """
-	#
-	pass
+#if Rev_Murloc_Holmes:# #not in service
+#	Rev_Neutral+=['REV_770']
+#	Rev_Neutral+=['REV_770hp']
+#class REV_770:# <12>[1691]
+#	""" Murloc Holmes	 """
+#	#
+#	pass
+#class REV_770hp:# <12>[1691]
+#	""" Accuse
+#	<b>Hero Power</b> Make an accusation! """
+#	#
+#	pass
 
 
 
 
 
-if Rev_Investigate:# #not in service
-	Rev_Neutral+=['REV_771']
-class REV_771:# <12>[1691]
-	""" Investigate
-	Search for clues. """
-	#
-	pass
+#if Rev_Investigate:# #not in service
+#	Rev_Neutral+=['REV_771']
+#class REV_771:# <12>[1691]
+#	""" Investigate
+#	Search for clues. """
+#	#
+#	pass
 
 
 

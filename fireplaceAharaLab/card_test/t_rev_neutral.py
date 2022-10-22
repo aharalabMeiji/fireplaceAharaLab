@@ -22,7 +22,7 @@ def rev_neutral():
 	#PresetGame(pp_REV_019)##
 	#PresetGame(pp_REV_020)##
 	#PresetGame(pp_REV_021)##
-	#PresetGame(pp_REV_022)##
+	#PresetGame(pp_REV_022)## OK
 	#PresetGame(pp_REV_023)##
 	#PresetGame(pp_REV_238)## ### OK ###
 	#PresetGame(pp_REV_251)##
@@ -595,24 +595,30 @@ class pp_REV_022(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_022", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		#self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		#self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		#self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		for card in self.opponent.hand:
+			self.print_stats("opponent hand", card)
 		self.play_card(self.con1)
-		self.change_turn()
+		self.choose_action()
+		self.choose_action()
+		self.choose_action()
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		print("See three Choices in a row. If the choise is correct (is included in opponent hand), 'Give' it")
 	pass
 
 

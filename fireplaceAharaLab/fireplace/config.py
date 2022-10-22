@@ -1,12 +1,13 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=4
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic circumstance
 	#3: Hearthstone battleground
+
 	#4: Checking a specific card for debugging
 	#5: List up cards data (to build a new cards file.)
-	#10: Decoding a 'deckcode' to list of cards.
+	#10: Decoding from a 'deckcode' to list of cards.
 
 	#ランク戦のオプション
 	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
@@ -19,7 +20,7 @@ class Config:# ()is the default value
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=0# log.info相当のログ表示
+	LOGINFO=1# log.info相当のログ表示
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
@@ -30,7 +31,7 @@ class Config:# ()is the default value
 	DEEPCOPY_LOGINFO=0
 
 
-	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 22
+	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
 	QUEST_REWARD=1 ## quest and reward system（24.2 - ）
