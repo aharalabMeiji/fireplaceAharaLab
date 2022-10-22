@@ -50,10 +50,8 @@ class BG_main:
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
 			# BAN される raceはここで除外
-			if Config.PATCH_VERSION >= Config.PATCH23_2_2:
-				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar'],5)
-			else:
-				self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar'],5)## 23.2.2
+			#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		else:
 			# 特定の種族のみを指定(config.py内で指定)
 			self.BG_races = races=Config.RACE_CHOICE
@@ -352,22 +350,22 @@ class BG_main:
 				### after the battle
 				self.BG_Bars[self.matches[i][0]].identifycards()
 				self.BG_Bars[self.matches[i][1]].identifycards()
-				if Config.PATCH_VERSION <= Config.PATCH23_1:
-					for  player in [battleplayer0, battleplayer1]:
-						### バディーゲージが100を超えたらバディーカードを発行する。
-						if player.buddy_gauge>=100 and player.got_buddy==0:
-							player.got_buddy=1
-							buddy = self.BG_Hero_Buddy[player.hero.id]
-							Give(player, buddy).trigger(player)
-						### バディーゲージが200を超えたらバディーカードを2枚発行する。
-						if player.buddy_gauge>=300 and player.got_buddy==1:
-							player.got_buddy=2
-							buddy = self.BG_Hero_Buddy[player.hero.id]
-							Give(player, buddy).trigger(player)
-							Give(player, buddy).trigger(player)
-							gold_card_id = player.game.BG_find_triple()## トリプルを判定
-							if gold_card_id:
-								player.game.BG_deal_gold(gold_card_id)
+				## buddy mechanism, before 23.1
+				#for  player in [battleplayer0, battleplayer1]:
+				#	### バディーゲージが100を超えたらバディーカードを発行する。
+				#	if player.buddy_gauge>=100 and player.got_buddy==0:
+				#		player.got_buddy=1
+				#		buddy = self.BG_Hero_Buddy[player.hero.id]
+				#		Give(player, buddy).trigger(player)
+				#	### バディーゲージが200を超えたらバディーカードを2枚発行する。
+				#	if player.buddy_gauge>=300 and player.got_buddy==1:
+				#		player.got_buddy=2
+				#		buddy = self.BG_Hero_Buddy[player.hero.id]
+				#		Give(player, buddy).trigger(player)
+				#		Give(player, buddy).trigger(player)
+				#		gold_card_id = player.game.BG_find_triple()## トリプルを判定
+				#		if gold_card_id:
+				#			player.game.BG_deal_gold(gold_card_id)
 				### if agent got a gem card while the battle, we carry it to the bar
 				if damage0>0:
 					self.winners.append(battleplayer1.hero.id)

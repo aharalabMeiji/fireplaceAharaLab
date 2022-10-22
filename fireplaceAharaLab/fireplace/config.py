@@ -1,12 +1,12 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=4
-	#1: ランク戦をするならこちら
-	#2: クラシック環境をするならこちら
-	#3: バトグラをするならこちら
-	#4: カードの動作テストをするならこちら
-	#5: カードクラス（core & hunter など）のカードの抽出するモード
-	#10: デッキ文字列からデッキのデータを復元する
+	HEARTHSTONE=1
+	#1: Hearthstone standard battle
+	#2: Hearthstone classic circumstance
+	#3: Hearthstone battleground
+	#4: Checking a specific card for debugging
+	#5: List up cards data (to build a new cards file.)
+	#10: Decoding a 'deckcode' to list of cards.
 
 	#ランク戦のオプション
 	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
@@ -30,25 +30,20 @@ class Config:# ()is the default value
 	DEEPCOPY_LOGINFO=0
 
 
-	#battlegrounds option
-	PATCH_VERSION = 2440
-	PATCH23_1 = 2310## 22年4月以前のレギュレーション（バディーあり）
-	PATCH23_2_2 = 2322 ## 22年5月以降のレギュレーション（バディーなし）
-	PATCH23_6 = 2360 ## 22年6月28日のレギュレーション
-
-	DARKMOON_TICKET_FOR_ALL=0 ## 全員にダークムーンチケットを配布
-	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## 2ゲームに1回、全員にダークムーンチケットを配布
-	QUEST_REWARD=1 ## クエストルール（24.2）
+	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 22
+	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
+	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
+	QUEST_REWARD=1 ## quest and reward system（24.2 - ）
 	QUEST_PRESET=''
-	REWARD_PRESET_FIRST=1 ## 人間プレーヤに、最初からrewardをセットする。
+	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=1 ##人間プレーヤーあり
+	PLAYER1_HUMAN=1 ## battleground with human player
 	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
-	#['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']から選ぶ
-	RACE_CHOICE=['pirate']#RANDOM_RACE=0のときに有効
+	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']
+	RACE_CHOICE=['pirate']# valid when RANDOM_RACE=0
 	HERO_1='' #第1プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 

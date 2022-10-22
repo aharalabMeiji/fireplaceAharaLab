@@ -107,10 +107,9 @@ class BG_Battle(Game):
 						#attack
 						#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 						BG_Attack(attacker, defender).trigger(attacker.controller)
-						if Config.PATCH_VERSION <= Config.PATCH23_1:
-							#move buddy gauge
-							self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
-							self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
+						#move buddy gauge, before 23.1
+						#self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
+						#self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
 						##procedures of deathrattle
 						#Deaths().trigger(self)
 						if attacker.zone==Zone.GRAVEYARD:
