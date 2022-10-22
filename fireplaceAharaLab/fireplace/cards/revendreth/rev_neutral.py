@@ -28,8 +28,6 @@ Rev_Party_Crasher=True#
 Rev_Stoneborn_General=True#
 Rev_Invitation_Courier=True#
 Rev_Forensic_Duster=True#
-Rev_Murloc_Holmes=False#not in service
-Rev_Investigate=False#not in service
 Rev_Muck_Plumber=True#
 Rev_Sinstone_Totem=True#
 Rev_Anonymous_Informant=True#
@@ -437,18 +435,53 @@ class REV_021e:# <12>[1691]
 
 if Rev_Murloc_Holmes:# ####  difficult ###
 	Rev_Neutral+=['REV_022']
+def REV_022_Sub(opponent):
+	if len(opponent.hand)==0:
+		return []
+	card = random.choice(opponent.hand)
+	card_class = opponent.hero.data.card_class
+	hand_id=[c.id for c in opponent.hand]
+	for repeat in range(10):
+		if card.type==CardType.MINION:
+			card2 = RandomMinion(card_class=[card_class, CardClass.INVALID]).evaluate(opponent)
+			card2 = card2[0]
+			if hand_id in hand_id:
+				continue
+			else:
+				return [card.id, card2.id]
+		pass
+	return []
 class REV_022_Choice(Choice):
 	def choose(self, card):
-		pass
+		if card!=None:
+			hand_id=[c.id for c in self.player.opponent.hand]
+			if card.id in hand_id:
+				Give(self.player, card.id).trigger(self.source)
+		self.source._sidequest_counter_ += 1
+		if self.source._sidequest_counter_>=3:
+			self.next_choice=None
+		else:
+			cards=REV_022_Sub(self.player.opponent)
+			if cards==[]:
+				self.next_choice=None
+			else:
+				self.next_choice=REV_022_Choice(self.player, RandomID(*cards)*2)
+			pass
 class REV_022_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-
+		opponent = controller.opponent
+		cards=REV_022_Sub(opponent)
+		if cards==[]:
+			return
+		else:
+			choice=REV_022_Choice(controller, RandomID(*cards)*2)
+			choice.trigger(source)
 		pass
 class REV_022:# <12>[1691]
 	""" Murloc Holmes
 	<b>Battlecry:</b> Solve 3 Clues about your opponent's cards  to get copies of them. """
-	#
+	play = REV_022_Action(CONTROLLER)
 	pass
 
 
