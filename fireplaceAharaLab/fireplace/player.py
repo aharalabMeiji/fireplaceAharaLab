@@ -16,8 +16,9 @@ class PlayLog:
 	card=None
 	turn=0
 	amount=0
-	def __init__(self, _card, _turn, _cost, _amount=0):
+	def __init__(self, _card, _turn, _cost, _amount=0, card2=None):
 		self.card = _card
+		self.card2 = card2
 		self.turn = _turn
 		self.cost = _cost
 		self.amount = _amount
@@ -471,8 +472,8 @@ class Player(Entity, TargetableByAuras):
 
 
 	##play_log
-	def add_play_log(self, card):
-		self._play_log.append(PlayLog(card, card.game.turn, card.cost))
+	def add_play_log(self, card, card2=None):
+		self._play_log.append(PlayLog(card, card.game.turn, card.cost, card2=card2))
 	@property
 	def play_log(self):
 		_ret = []
@@ -500,6 +501,17 @@ class Player(Entity, TargetableByAuras):
 			if _log.card.type==CardType.SPELL:
 				amount += _log.cost
 		return amount
+	@property
+	def last_choose_one(self):
+		for playlog in reversed(self._play_log):
+			card = playlog.card
+			card2 = playlog.card2
+			if getattr(card,'has_choose_one', 0) and card2!=None:
+				return [card, card2]
+		return []
+
+
+
 
 	##activate_log
 	def add_activate_log(self, card, amount):

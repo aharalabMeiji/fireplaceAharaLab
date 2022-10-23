@@ -206,7 +206,7 @@ AV_127e=buff(2,2)
 
 
 
-if Frozen_Mammoth:# ##visually OK ##
+if Frozen_Mammoth:# ##visually OK ## wait checking
 	Alterac_Neutral+=['AV_128']
 	Alterac_Neutral+=['AV_128e']
 class AV_128_Action1(TargetedAction):

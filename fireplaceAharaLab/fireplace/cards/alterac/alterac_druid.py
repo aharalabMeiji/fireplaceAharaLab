@@ -3,7 +3,7 @@ from ..utils import *
 Alterac_Druid=[]
 
 Alterac_Wildheart_Guff=True  ###
-Alterac_Pathmaker=False  ########difficult
+Alterac_Pathmaker=True  ###
 Alterac_Dire_Frostwolf=True  ###
 Alterac_Frostsaber_Matriarch=True  ###
 Alterac_Heart_of_the_Wild=True  ###
@@ -53,13 +53,29 @@ class AV_205pb:
 
 
 
-if Alterac_Pathmaker:# 
+if Alterac_Pathmaker:# wait checkin
 	Alterac_Druid+=['AV_210']
 	Alterac_Druid+=['AV_210e']
-class AV_210:###########################
+class AV_210_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		answer=controller.last_choose_one
+		if answer!=[]:
+			card = answer[0]
+			card2 = answer[1]
+			choice = card.choose_cards
+			if len(choice)>=2:
+				if card2.id==choice[0].id:
+					card = choice[1]
+					CastSpell(card).trigger(source)
+				else:
+					card = choice[0]
+					CastSpell(card).trigger(source)
+		pass
+class AV_210:##
 	""" Pathmaker (3/3/4) 
 	Battlecry: Cast the other choice from the last [Choose One] spell you've cast.  """
-	#
+	play = AV_210_Action(CONTROLLER)
 	pass
 class AV_210e:
 	""" Path Tracker
