@@ -12,7 +12,7 @@ Battlefiend=True##23.6
 Wrathscale_Naga=True##23.6
 Raging_Felscreamer=True##23.6
 Feast_of_Souls=True##23.6
-Metamorphosis=False##23.6 ## wait checking
+Metamorphosis=True##23.6 ## wait checking
 Crimson_Sigil_Runner=True##23.6
 Spectral_Sight=True##23.6
 Eye_Beam=True##23.6
@@ -104,7 +104,7 @@ class CORE_BT_427:# <14>[1637]##23.6 # visually OK
 	pass
 
 if Metamorphosis:# ### wait checking
-	Core_DemonHunter+=['CORE_BT_429']
+	Core_DemonHunter+=['CORE_BT_429','BT_429p','BT_429p2']
 class CORE_BT_429:# <14>[1637]##23.6 ### not yet 
 	""" Metamorphosis
 	Swap your Hero Power to "Deal 4 damage." After 2 uses, swap it back. """
@@ -113,7 +113,7 @@ class CORE_BT_429:# <14>[1637]##23.6 ### not yet
 	pass
 class BT_429p:
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
-	activate = Hit(TARGET, 4), ChangeHeroPower(CONTROLLER, 'BT_429e2')
+	activate = Hit(TARGET, 4), ChangeHeroPower(CONTROLLER, 'BT_429p2')
 class BT_429p2:
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
 	activate = Hit(TARGET, 4), ChangeHeroPower(CONTROLLER, 'HERO_10bp')

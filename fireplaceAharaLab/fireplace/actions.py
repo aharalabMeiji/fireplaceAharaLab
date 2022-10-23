@@ -624,7 +624,7 @@ class Play(GameAction):
 			Config.log("Play.do","%s plays %r (target=%r, index=%r)"%(player, card, target, index))
 
 		player.pay_cost(card, card.cost)
-		player.add_play_log(card, _card2=choose)
+		player.add_play_log(card, card2=choose)
 
 		card.target = target
 		card._summon_index = index

@@ -8,7 +8,7 @@ from fireplace.config import Config
 
 ################################
 
-def core_hunter():
+def core_demonhunter():
 	## 23.6
 	#PresetGame(pp_CORE_BT_035)##
 	#PresetGame(pp_CORE_BT_036)##
@@ -19,7 +19,7 @@ def core_hunter():
 	#PresetGame(pp_CORE_BT_355)#### not yet #
 	#PresetGame(pp_CORE_BT_416)##
 	#PresetGame(pp_CORE_BT_427)##
-	#PresetGame(pp_CORE_BT_429)##difficult
+	PresetGame(pp_CORE_BT_429)##
 	#PresetGame(pp_CORE_BT_480)##
 	#PresetGame(pp_CORE_BT_491)##
 	#PresetGame(pp_CORE_BT_801)##
@@ -277,12 +277,21 @@ class pp_CORE_BT_429(Preset_Play):# <12>[1637]
 		controller=self.player
 		#opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_BT_429',controller)#
+		self.mark2=self.exchange_card('minionH2',controller)#
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.play_card(self.mark2)
 		self.play_card(self.mark1)
+		self.activate_heropower(target=self.mark2)
+		self.change_turn()
+		self.change_turn()
+		self.activate_heropower(target=self.mark1)
+		self.change_turn()
+		self.change_turn()
+		assert self.controller.hero.power.id == 'HERO_10bp', "heropower"
 		pass
 	def result_inspection(self):
 		super().result_inspection()
