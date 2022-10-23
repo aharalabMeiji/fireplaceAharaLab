@@ -97,6 +97,14 @@ def card_test():
 	from card_test.alterac_hunter import alterac_hunter
 	alterac_hunter()
 	pass
+### wait checking
+# 'CORE_BT_429', 'CORE_ULD_209', 'CORE_GIL_598', 'TSC_023', 'AV_250', 'AV_128', 'AV_210', 
+#
+#
+#
+#
+#
+
 
 def battleground_main():
 	from fireplace.battlegrounds.BG_utils import  BG_main

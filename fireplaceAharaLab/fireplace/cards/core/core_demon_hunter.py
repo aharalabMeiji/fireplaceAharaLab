@@ -12,7 +12,7 @@ Battlefiend=True##23.6
 Wrathscale_Naga=True##23.6
 Raging_Felscreamer=True##23.6
 Feast_of_Souls=True##23.6
-Metamorphosis=False##23.6 ##difficult
+Metamorphosis=False##23.6 ## wait checking
 Crimson_Sigil_Runner=True##23.6
 Spectral_Sight=True##23.6
 Eye_Beam=True##23.6
@@ -96,20 +96,34 @@ class BT_416e:
 	events = Play(CONTROLLER, DEMON).on(Destroy(SELF))
 
 if Feast_of_Souls:# 
-	Core_DemonHunter+=['CORE_BT_427']
+	Core_DemonHunter+=['CORE_BT_427','BT_429p','BT_429p2']
 class CORE_BT_427:# <14>[1637]##23.6 # visually OK
 	""" Feast of Souls
 	Draw a card for each friendly minion that died this turn. """
 	play = Draw(CONTROLLER) * Count(FRIENDLY + MINION + KILLED_THIS_TURN)
 	pass
 
-if Metamorphosis:# 
+if Metamorphosis:# ### wait checking
 	Core_DemonHunter+=['CORE_BT_429']
 class CORE_BT_429:# <14>[1637]##23.6 ### not yet 
 	""" Metamorphosis
 	Swap your Hero Power to "Deal 4 damage." After 2 uses, swap it back. """
 	#ChangeHeroPower
+	play = ChangeHeroPower(CONTROLLER, 'BT_429p')
 	pass
+class BT_429p:
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	activate = Hit(TARGET, 4), ChangeHeroPower(CONTROLLER, 'BT_429e2')
+class BT_429p2:
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0,}
+	activate = Hit(TARGET, 4), ChangeHeroPower(CONTROLLER, 'HERO_10bp')
+#class HERO_10bp:#
+#	"""Demon Claws
+#	[x][Hero Power]+1 Attack this turn."""
+#	activate = Buff(FRIENDLY_HERO, 'HERO_10bpe')
+#HERO_10bpe=buff(1,0)	
+# BT_429p, BT_429e2
+
 
 class CORE_BT_430:# <14>[1637] ##22.6 
 	""" Warglaives of Azzinoth

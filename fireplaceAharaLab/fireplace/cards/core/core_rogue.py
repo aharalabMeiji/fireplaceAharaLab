@@ -168,7 +168,7 @@ EX1_145o=buff(cost=-2)#ONE_TURN_EFFECT
 
 if Core_Tess_Greymane:# 
 	Core_Rogue+=['CORE_GIL_598']
-class CORE_GIL_598:# <7>[1637] ## 23.6 ####################### difficult
+class CORE_GIL_598:# <7>[1637] ## 23.6 ##wait checking
 	""" Tess Greymane
 	[Battlecry:] Replay every card from another class you've played this game <i>(targets chosen randomly)</i>. """
 	def play(self):
@@ -185,6 +185,8 @@ class CORE_GIL_598:# <7>[1637] ## 23.6 ####################### difficult
 				elif card.type==CardType.MINION:
 					Summon(controller, newcardId).trigger(self)
 	pass
+
+
 
 if Core_Plague_Scientist:# 
 	Core_Rogue+=['CORE_ICC_809','ICC_809e']
