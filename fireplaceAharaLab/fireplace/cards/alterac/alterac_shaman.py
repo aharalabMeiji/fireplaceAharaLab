@@ -35,12 +35,31 @@ class AV_107:# <8>[1626]
 	play = AV_107_Choice(CONTROLLER, RandomMinion(cost=8))
 	pass
 
-if Alterac_Snowball_Fight:# ###### difficult (indicate a target twice)
+if Alterac_Snowball_Fight:# ####wait checking
 	Alterac_Shaman+=['AV_250']
+class AV_250_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Hit(card, 1).trigger(self.source)
+	pass
+class AV_250_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Hit(target, 1).trigger(source)
+		target.frozen=True
+		if target.health>1:#if it survives
+			cards=[card.id for card in source.controller.opponent.field]
+			amount=len(cards)
+			if amount>0:
+				AV_250_Choice(source.controller, RandomID(*cards)*amount).trigger(source)
+		pass
+	pass
 class AV_250:# <8>[1626]
 	""" Snowball Fight!
 	Deal $1 damage to a minion and [Freeze] it. If it survives, repeat this on another minion! """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = AV_250_Action(TARGET)
 	pass
 
 if Alterac_Cheaty_Snobold:# 

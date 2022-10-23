@@ -84,13 +84,27 @@ class TID_099:# <3>[1658]
 
 if Sunken_Barbed_Nets:# 
 	Sunken_Hunter+=['TSC_023']
-class TSC_023:# <3>[1658]######################## difficult
+class TSC_023_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Hit(card, 2).trigger(self.source)
+		pass
+class TSC_023_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		controller=self.controller
+		Hit(self.target, 2).trigger(source)
+		if self.script_data_num_1:
+			TSC_023_Choice(controller, ENEMY_MINIONS).trigger(source)
+		pass
+class TSC_023:# <3>[1658]##
 	""" Barbed Nets
 	Deal $2 damage to an enemy. If you played a Naga while holding this,choose a second target. """
 	class Hand:
 		events = Play(CONTROLLER, NAGA).on(SetScriptDataNum1(SELF, True))
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, }
-	play = ScriptDataNum1True(SELF) & Hit(TARGET, 4) | Hit(TARGET, 2)
+	play = TSC_023_Action(CONTROLLER)
 	pass
 
 

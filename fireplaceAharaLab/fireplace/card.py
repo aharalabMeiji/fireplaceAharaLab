@@ -876,7 +876,7 @@ class Minion(Character):
 		return super().attackable
 
 	@property
-	def asleep(self):## need to add something on ULD_180 ##### aharalab
+	def asleep(self):## need to add something on ULD_180 ####
 		return self.zone == Zone.PLAY and not self.turns_in_play and (
 			not self.charge and not self.rush)
 

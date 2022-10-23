@@ -206,13 +206,26 @@ AV_127e=buff(2,2)
 
 
 
-if Frozen_Mammoth:# ##############################################
+if Frozen_Mammoth:# ##visually OK ##
 	Alterac_Neutral+=['AV_128']
 	Alterac_Neutral+=['AV_128e']
+class AV_128_Action1(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		source.frozen=True
+		pass
+class AV_128_Action2(TargetedAction):
+	CONTROLLER=ActionArg()
+	CARD=CardArg()
+	def do(self, source, controller, card):
+		if card.type==CardType.SPELL and card.spell_schoo==SpellSchool.FIRE:
+			source.frozen=False
+		pass
 class AV_128:# <12>[1626]
 	""" Frozen Mammoth
 	This is [Frozen] until you cast a Fire spell. """
-	#
+	play = AV_128_Action1(CONTROLLER)
+	events = Play(CONTROLLER, SPELL).on(AV_128_Action2(CONTROLLER, Play.CARD))
 	pass
 
 

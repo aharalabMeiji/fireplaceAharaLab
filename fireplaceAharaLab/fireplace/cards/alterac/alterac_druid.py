@@ -3,7 +3,7 @@ from ..utils import *
 Alterac_Druid=[]
 
 Alterac_Wildheart_Guff=True  ###
-Alterac_Pathmaker=False  ###difficult
+Alterac_Pathmaker=False  ########difficult
 Alterac_Dire_Frostwolf=True  ###
 Alterac_Frostsaber_Matriarch=True  ###
 Alterac_Heart_of_the_Wild=True  ###

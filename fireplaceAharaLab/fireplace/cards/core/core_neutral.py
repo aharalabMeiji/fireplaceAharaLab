@@ -86,7 +86,7 @@ Violet_Teacher=True##22.6## 23.6
 Southsea_Captain=True##22.6## 23.6
 Flesheating_Ghoul=False##22.6
 Beaming_Sidekick=True## 23.6
-Vulpera_Scoundrel=False## 23.6 ############## now preparing
+Vulpera_Scoundrel=True## 23.6 ############## now preparing
 Injured_Tolvir=True## 23.6
 Stormwatcher=True##22.6## 23.6
 Humongous_Razorleaf=True##22.6## 23.6
@@ -1028,7 +1028,7 @@ class CORE_ULD_191:# <12>[1637]  ## visually OK
 	play = Buff(RANDOM(FRIENDLY_MINIONS - SELF), "ULD_191e")
 ULD_191e = buff(0,2)
 
-if Vulpera_Scoundrel:# 
+if Vulpera_Scoundrel:# ##### what's a mistery choice?
 	Core_Neutral+=['CORE_ULD_209','ULD_209t']
 class CORE_ULD_209:# <12>[1637]  ## visually OK
 	""" Vulpera Scoundrel
