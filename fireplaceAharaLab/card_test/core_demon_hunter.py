@@ -19,7 +19,7 @@ def core_demonhunter():
 	#PresetGame(pp_CORE_BT_355)#### not yet #
 	#PresetGame(pp_CORE_BT_416)##
 	#PresetGame(pp_CORE_BT_427)##
-	PresetGame(pp_CORE_BT_429)##
+	#PresetGame(pp_CORE_BT_429)### OK ###
 	#PresetGame(pp_CORE_BT_480)##
 	#PresetGame(pp_CORE_BT_491)##
 	#PresetGame(pp_CORE_BT_801)##
@@ -288,7 +288,7 @@ class pp_CORE_BT_429(Preset_Play):# <12>[1637]
 		self.activate_heropower(target=self.mark2)
 		self.change_turn()
 		self.change_turn()
-		self.activate_heropower(target=self.mark1)
+		self.activate_heropower(target=self.opponent.hero)
 		self.change_turn()
 		self.change_turn()
 		assert self.controller.hero.power.id == 'HERO_10bp', "heropower"
