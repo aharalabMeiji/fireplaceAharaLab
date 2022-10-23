@@ -11,7 +11,7 @@ def rev_paladin():
 	#PresetGame(pp_REV_794)##
 	#PresetGame(pp_REV_842)##
 	#PresetGame(pp_REV_947)##
-	#PresetGame(pp_REV_948)##
+	#PresetGame(pp_REV_948)## OK
 	#PresetGame(pp_REV_950)##
 	#PresetGame(pp_REV_951)##
 	#PresetGame(pp_REV_952)##
@@ -241,24 +241,26 @@ class pp_REV_948(Preset_Play):
 	class2=CardClass.PALADIN
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_948", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		#self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		#self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		#self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		self.choose_action()
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		rpint("See if the chosen card was moved to controller's hand.")
 	pass
 
 

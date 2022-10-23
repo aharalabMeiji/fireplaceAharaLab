@@ -6,7 +6,7 @@ Rev_Mage=[]
 Rev_Objection=True
 Rev_Life_Sentence=True
 Rev_Contract_Conjurer=True
-Rev_Suspicious_Alchemist=False### difficult
+Rev_Suspicious_Alchemist=True
 Rev_Solid_Alibi=True
 Rev_Cold_Case=True
 Rev_Chatty_Bartender=True
@@ -52,7 +52,7 @@ class MAW_101:# <4>[1691]
 
 
 
-if Rev_Suspicious_Alchemist:# ### 
+if Rev_Suspicious_Alchemist:# ### OK  
 	Rev_Mage+=['REV_000']
 	Rev_Mage+=['REV_000e']
 class REV_000_Choice(Choice):

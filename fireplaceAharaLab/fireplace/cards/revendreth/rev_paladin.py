@@ -7,7 +7,7 @@ Rev_Order_in_the_Court=True
 Rev_Class_Action_Lawyer=True
 Rev_Promotion=True
 Rev_Muckborn_Servant=True
-Rev_Service_Bell=False## ???
+Rev_Service_Bell=True## OK ##
 Rev_Divine_Toll=True
 Rev_The_Countess=True
 Rev_Sinful_Sous_Chef=True
@@ -116,13 +116,35 @@ class REV_947:# <5>[1691]
 	play = Discover(CONTROLLER, RandomCollectible(card_class=CardClass.PALADIN))
 	pass
 
-if Rev_Service_Bell:# 
+
+
+
+if Rev_Service_Bell:# ### OK ###
 	Rev_Paladin+=['REV_948']
+class REV_948_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		for deckcard in self.player.deck:
+			if deckcard.id==card.id:
+				Give(self.player, deckcard).trigger(self.source)
+		super().choose(card)
+class REV_948_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		card_class = controller.hero.card_class
+		cards=[card.id for card in controller.deck if card.card_class==card_class]
+		if len(cards)>0:
+			REV_948_Choice(controller, RandomID(*cards)*3).trigger(source)
+		pass
+
 class REV_948:# <5>[1691]
 	""" Service Bell
 	<b>Discover</b> a Class card from your deck and draw all copies of it. """
-	#?#?#?#?#?#?#?#?#?
+	play = REV_948_Action(CONTROLLER)
 	pass
+
+
+
 
 if Rev_Divine_Toll:# 
 	Rev_Paladin+=['REV_950']
