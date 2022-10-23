@@ -14,7 +14,7 @@ Alterac_Bloodseeker=True  ###
 Alterac_Revive_Pet=True  ###
 Alterac_Stormpike_Battle_Ram=True  ###
 Alterac_Ram_Tamer=True  ###
-Alterac_Wing_Commander_Ichman=False  ###difficult
+Alterac_Wing_Commander_Ichman=True  ###
 Alterac_Mountain_Bear=True  ###
 Alterac_Furious_Howl=True  ###
 Alterac_Pet_Collector=True  ###
@@ -247,32 +247,43 @@ AV_335e=buff(atk=1,health=1,stealth=True)
 
 
 
-if Alterac_Wing_Commander_Ichman:# 
+if Alterac_Wing_Commander_Ichman:# ### OK ###
 	Alterac_Hunter+=['AV_336']
 	Alterac_Hunter+=['AV_336e']
-class AV_336: ################################ need the latter half
+class AV_336_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		cards = [card for card in controller.deck if card.type==CardType.MINION and card.race==Race.BEAST]
+		if len(cards)>0:
+			card = random.choice(cards)
+			card = Summon(controller, card).trigger(source)
+			card=card[0][0]
+			card.rush=True
+			Buff(card, 'AV_336e').trigger(source)
+		pass
+class AV_336: #
 	""" Wing Commander Ichman (9/5/4)
 	[Battlecry]: Summon a Beast from your deck and give it [Rush]. If it kills a minion this turn, repeat."""
-	play = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(
-		SetAttr(Summon.CARD, 'rush', True),
-		Buff(Summon.CARD, 'AV_336e')
-		)
+	play = AV_336_Action(CONTROLLER)
 	pass
-class AV_336_Action(TargetedAction):
+class AV_336e_Action(TargetedAction):
 	ATTACKER=ActionArg()
 	DEFENDER=ActionArg()
-	TARGETEDACTION=ActionArg()
-	def do(self, source, attacker, defender, targetedaction):
+	def do(self, source, attacker, defender):
 		if hasattr(attacker, 'atk') and hasattr(defender,'health'):
-			if attacker.atk>=defender.health:
-				targetedaction.trigger(source)
-
+			if attacker.atk>=defender.health:## attacker kills the defender
+				controller = source.controller
+				cards = [card for card in controller.deck if card.type==CardType.MINION and card.race==Race.BEAST]
+				if len(cards)>0:
+					card = random.choice(cards)
+					card = Summon(controller, card).trigger(source)
+					card=card[0][0]
+					card.rush=True
+					Buff(card, 'AV_336e').trigger(source)
+		RemoveBuff(source.owner, 'AV_336e').trigger(source)
 class AV_336e:
-	next_action = Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + BEAST)).then(SetAttr(Summon.CARD, 'rush', True), Buff(Summon.CARD, 'AV_336e'))
-	events =[
-		Attack(OWNER, ENEMY_MINIONS).on(AV_336_Action(Attack.ATTACKER, Attack.DEFENDER, next_action)),
-		OWN_TURN_END.on(Destroy(SELF))
-		]
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+	events = Attack(OWNER, ENEMY_MINIONS).on(AV_336e_Action(Attack.ATTACKER, Attack.DEFENDER))
 	pass
 
 

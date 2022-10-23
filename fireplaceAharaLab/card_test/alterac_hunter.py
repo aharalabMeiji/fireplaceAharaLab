@@ -1,6 +1,7 @@
 from .simulate_game import Preset_Play,PresetGame
 from utils import postAction
 from hearthstone.enums import CardClass 
+from fireplace.actions import Summon
 
 #Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
 def alterac_hunter():
@@ -19,7 +20,7 @@ def alterac_hunter():
 	#PresetGame(pp_AV_333)##OK
 	#PresetGame(pp_AV_334)##OK
 	#PresetGame(pp_AV_335)##OK
-	PresetGame(pp_AV_336)##
+	#PresetGame(pp_AV_336)### OK ###
 	#PresetGame(pp_AV_337)##OK
 	#PresetGame(pp_ONY_008)##OK
 	#PresetGame(pp_ONY_009)##OK
@@ -580,14 +581,17 @@ class pp_AV_335(Preset_Play):
 class pp_AV_336(Preset_Play):
 	""" Wing Commander Ichman (9/5/4)
 	[Battlecry]: Summon a Beast from your deck and give it [Rush]. If it kills a minion this turn, repeat."""
-	mark5 = None
-	mark6 = None
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER	
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_336',controller)
 		self.mark2=self.append_deck_shuffle('beast',controller)
-		self.mark3=self.exchange_card('vanillaH2',opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
 		self.mark4=self.append_deck_shuffle('beast',controller)
 		super().preset_deck()
 		pass
@@ -595,28 +599,28 @@ class pp_AV_336(Preset_Play):
 		super().preset_play()
 		controller = self.player
 		opponent = controller.opponent
-		game = controller.game
 		########## controller
-		self.change_turn(controller)
+		self.play_card(self.mark1)
+		for card in controller.field:
+			if 'AV_336e' in [b.id for b in card.buffs]:
+				self.mark3 = card
+				break
+		self.attack_card(self.mark3, self.opp1)
+		for card in controller.field:
+			if 'AV_336e' in [b.id for b in card.buffs] and card!=self.mark3:
+				self.mark5 = card
+				break
+		self.attack_card(self.mark5, self.opp2)
+		#self.change_turn(controller)
 		########## opponent
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
-		########## controller
-		self.play_card(self.mark1, controller)
-		self.mark5 = controller.field[-1]
-		self.attack_card(self.mark5, self.mark3, controller)
-		self.change_turn(controller)
-		########## opponent
-		#self.play_card(self.mark2, opponent)
 		#self.change_turn(opponent)
+		########## controller
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
 		for card in controller.field:
-			print("(C) %s : stats %d/%d, rush : %s"%(card, card.atk, card.health, card.rush))
-		#for card in controller.hand:
-		#	print("%s :  cost %d <= %d"%(card, card.cost, card.data.cost))
+			self.print_stats("field", card)
 	pass
 		
 #########################

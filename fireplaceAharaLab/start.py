@@ -94,8 +94,8 @@ def main():
 	pass
 
 def card_test():
-	from card_test.t_sunken_neutral import sunken_neutral
-	sunken_neutral()
+	from card_test.alterac_hunter import alterac_hunter
+	alterac_hunter()
 	pass
 
 def battleground_main():
