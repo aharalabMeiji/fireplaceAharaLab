@@ -16,7 +16,7 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_032x)#OK
 	#PresetGame(pp_TSC_032y)#OK
 	#PresetGame(pp_TSC_034)#OK
-	#PresetGame(pp_TSC_052)#giving up
+	#PresetGame(pp_TSC_052)#OK
 	#PresetGame(pp_TSC_064)#OK
 	#PresetGame(pp_TSC_067)#OK
 	#PresetGame(pp_TSC_069x)#OK
@@ -566,32 +566,34 @@ class pp_TSC_052(Preset_Play):
 	""" School Teacher
 	[Battlecry:] Add a 1/1 Nagaling to your hand. [Discover] a spell that costs (3) or less to teach it. """
 	def preset_deck(self):
-		controller=self.player
-		opponent=controller.opponent
-		self.mark1=self.exchange_card('TSC_052',controller)#
-		self.mark3=(Summon(opponent, self.card_choice('minionH4')).trigger(opponent))[0][0]
+		controller = self.controller
+		self.mark1=self.exchange_card('TSC_052', controller) 
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
-
-		import random
 		super().preset_play()
-		controller = self.player
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		for card in controller.hand:
+		self.choose_action()
+		for card in self.controller.hand:
 			#self.print_stats("controller.hand", card, old_cost=True)
 			if card.id=='TSC_052t':
 				self.mark2=card
 				break
-		self.play_card(self.mark2, target=self.mark3)
-		self.change_turn()
+		self.play_card(self.mark2)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		controller = self.player
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+		print("When TSC_052t was played, something spell would be casted.")
 		pass
 
 ################TSC_053##################

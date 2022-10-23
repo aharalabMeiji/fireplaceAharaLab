@@ -19,7 +19,7 @@ def alterac_hunter():
 	#PresetGame(pp_AV_333)##OK
 	#PresetGame(pp_AV_334)##OK
 	#PresetGame(pp_AV_335)##OK
-	#PresetGame(pp_AV_336)##OK
+	PresetGame(pp_AV_336)##
 	#PresetGame(pp_AV_337)##OK
 	#PresetGame(pp_ONY_008)##OK
 	#PresetGame(pp_ONY_009)##OK

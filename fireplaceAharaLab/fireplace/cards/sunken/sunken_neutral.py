@@ -18,7 +18,7 @@ Sunken_Baba_Naga=True  ###
 Sunken_Barbaric_Sorceress=True  ###
 Sunken_Blademaster_Okani=True  ###
 Sunken_Gorloc_Ravager=True  ###
-Sunken_School_Teacher=False  ### too difficult
+Sunken_School_Teacher=True  ### OK ###
 Sunken_Rainbow_Glowscale=True  ###
 Sunken_Slithering_Deathscale=True  ###
 Sunken_Helmet_Hermit=True  ###
@@ -330,47 +330,43 @@ class TSC_034:# <12>[1658] ##### OK OK
 
 
 
-if Sunken_School_Teacher:# 
+if Sunken_School_Teacher:# ### OK ###
 	Sunken_Neutral+=['TSC_052']
 	Sunken_Neutral+=['TSC_052t']
-class TSC_052_Action(TargetedAction):
-	TARGET=ActionArg()
-	BUFF=ActionArg()
-	def do(self, source, target, buff):
-		controller=target
-		Give(controller, buff).trigger(source)
-		TSC_052_Choice(CONTROLLER, RandomSpell(cost=[1,2,3])*3).trigger(source)
 class TSC_052_Choice(Choice):
 	def choose(self, card):
-		super().choose(card)
 		self.next_choice=None
-		controller=card.controller
+		super().choose(card)
+		controller=self.player
 		for pupil in controller.hand:
 			if pupil.id=='TSC_052t':
 				break
 		else:
 			return
 		pupil.has_battlecry=True## maybe no use
-		if hasattr(card.data.scripts,"requirements"):
-			requirements=card.get_actions("requirements")
-			setattr(pupil.data.scripts, "requirements", requirements)
-		if card.data.secret:
-			pupil.data.tags[GameTag.SECRET]=1
-			actions = card.get_actions("secret")
-			setattr(pupil.data.scripts, "secret", actions)
-			pupil=Secret(pupil)
-		else:
-			actions = card.get_actions("play")
-			setattr(pupil.data.scripts, "play", actions)
 		pupil.script_data_text_0 = card.data.description
-class TSC_052:# <12>[1658] ########## too difficult
+		pupil.script_data_text_1 = card.id
+class TSC_052_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		Give(controller, 'TSC_052t').trigger(source)
+		TSC_052_Choice(CONTROLLER, RandomSpell(cost=[1,2,3])*3).trigger(source)
+class TSC_052:# <12>[1658] ### 
 	""" School Teacher
 	[Battlecry:] Add a 1/1 Nagaling to your hand. [Discover] a spell that costs (3) or less to teach it. """
-	play = TSC_052_Action(CONTROLLER, 'TSC_052t') 
+	play = TSC_052_Action(CONTROLLER) 
 	pass
+class TSC_052t_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		spell_id=source.script_data_text_1
+		card=controller.card(spell_id)
+		CastSpell(card).trigger(source)
+		pass
 class TSC_052t:# <12>[1658]
 	""" Nagaling
 	[Battlecry:] Cast {0}. """
+	play = TSC_052t_Action(CONTROLLER)
 	pass
 
 

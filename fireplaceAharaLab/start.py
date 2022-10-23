@@ -94,8 +94,8 @@ def main():
 	pass
 
 def card_test():
-	from card_test.t_rev_paladin import rev_paladin
-	rev_paladin()
+	from card_test.t_sunken_neutral import sunken_neutral
+	sunken_neutral()
 	pass
 
 def battleground_main():
