@@ -14,6 +14,7 @@ def alterac_neutral():
 	#PresetGame(pp_AV_125,1)####OK
 	#PresetGame(pp_AV_126,1)####OK
 	#PresetGame(pp_AV_127,1)####OK
+	PresetGame(pp_AV_128)###
 	#PresetGame(pp_AV_129,1)####OK
 	#PresetGame(pp_AV_130,1)####OK
 	#PresetGame(pp_AV_131,1)####OK
@@ -392,6 +393,31 @@ class pp_AV_127(Preset_Play):
 		if self.contains_buff(self.mark1,'AV_127e'):
 			print ("check 1 OK: stats is %d/%d (8/9)"%(self.mark1.atk, self.mark1.health))
 	pass
+
+class pp_AV_128(Preset_Play):
+	""" Frozen Mammoth
+	This is [Frozen] until you cast a Fire spell. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_128',controller)
+		self.mark2=self.exchange_card('fire',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark1)
+		assert self.mark1.frozen==True, "frozen"
+		self.play_card(self.mark2)
+		assert self.mark1.frozen==False, "not frozen"
+	def result_inspection(self):
+		super().result_inspection()
+		## AV_127eがついているか
+	pass
+
 
 class pp_AV_129(Preset_Play):
 	const = 0

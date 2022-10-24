@@ -13,7 +13,7 @@ Direwolf_Commander=True#22.6
 Tower_Sergeant=True#22.6
 Bunker_Sergeant=True#22.6
 Ice_Revenant=True#22.6
-Frozen_Mammoth=False#22.6 ################
+Frozen_Mammoth=True#22.6 
 Blood_Guard=True#22.6
 Legionnaire=True#22.6
 Knight_Captain=True#22.6
@@ -206,7 +206,7 @@ AV_127e=buff(2,2)
 
 
 
-if Frozen_Mammoth:# ##visually OK ## wait checking
+if Frozen_Mammoth:# ### OK ###
 	Alterac_Neutral+=['AV_128']
 	Alterac_Neutral+=['AV_128e']
 class AV_128_Action1(TargetedAction):
@@ -218,7 +218,7 @@ class AV_128_Action2(TargetedAction):
 	CONTROLLER=ActionArg()
 	CARD=CardArg()
 	def do(self, source, controller, card):
-		if card.type==CardType.SPELL and card.spell_schoo==SpellSchool.FIRE:
+		if card.type==CardType.SPELL and card.spell_school==SpellSchool.FIRE:
 			source.frozen=False
 		pass
 class AV_128:# <12>[1626]
