@@ -5,7 +5,8 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 def alterac_shaman():
 
 	#PresetGame(pp_AV_107)##
-	#PresetGame(pp_AV_250)##
+	PresetGame(pp_AV_250)### OK ###
+	PresetGame(pp_AV_250b)### OK ###
 	#PresetGame(pp_AV_251)##
 	#PresetGame(pp_AV_255)##
 	#PresetGame(pp_AV_257)##
@@ -97,15 +98,47 @@ class pp_AV_250(Preset_Play):
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
+		self.play_card(self.con1, target=self.opp1)
+		self.choose_action()
+		###self.change_turn()
 		### opp
-		self.change_turn()
+		###self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_AV_250b(Preset_Play):
+	""" Snowball Fight!
+	Deal $1 damage to a minion and [Freeze] it. If it survives, repeat this on another minion! """
+	class1=CardClass.SHAMAN
+	class2=CardClass.SHAMAN
+	def preset_deck(self):
+		self.con1=self.exchange_card("AV_250", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1, target=self.opp2)
+		self.choose_action()
+		###self.change_turn()
+		### opp
+		###self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()

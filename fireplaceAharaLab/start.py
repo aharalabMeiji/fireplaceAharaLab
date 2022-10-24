@@ -94,11 +94,11 @@ def main():
 	pass
 
 def card_test():
-	from card_test.sunken_hunter import sunken_hunter
-	sunken_hunter()
+	from card_test.alterac_shaman import alterac_shaman
+	alterac_shaman()
 	pass
 ### wait checking
-# 'TSC_023', 'AV_250', 'AV_128', 'AV_210', 
+#  'AV_128', 'AV_210', 
 #
 #
 #
