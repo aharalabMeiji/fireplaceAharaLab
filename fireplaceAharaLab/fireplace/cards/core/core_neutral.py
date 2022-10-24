@@ -1028,7 +1028,10 @@ class CORE_ULD_191:# <12>[1637]  ## visually OK
 	play = Buff(RANDOM(FRIENDLY_MINIONS - SELF), "ULD_191e")
 ULD_191e = buff(0,2)
 
-if Vulpera_Scoundrel:# ##### wait checking
+
+
+
+if Vulpera_Scoundrel:# ### OK ###
 	Core_Neutral+=['CORE_ULD_209','ULD_209t']
 class CORE_ULD_209:# <12>[1637]  ## visually OK
 	""" Vulpera Scoundrel
@@ -1039,6 +1042,9 @@ class ULD_209t:
 	"""Mystery Choice!
 	Add a random spell to your hand.""" 
 	play = Give(CONTROLLER, RandomSpell())
+
+
+
 
 if Injured_Tolvir:# 
 	Core_Neutral+=['CORE_ULD_271']

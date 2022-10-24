@@ -103,6 +103,9 @@ class CORE_BT_427:# <14>[1637]##23.6 # visually OK
 	play = Draw(CONTROLLER) * Count(FRIENDLY + MINION + KILLED_THIS_TURN)
 	pass
 
+
+
+
 if Metamorphosis:# ### OK ###
 	Core_DemonHunter+=['CORE_BT_429','BT_429p','BT_429p2']
 class CORE_BT_429:# <14>[1637]##23.6 ### not yet 

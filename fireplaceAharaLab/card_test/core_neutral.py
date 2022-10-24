@@ -81,7 +81,7 @@ def core_neutral():
 	#if Reno_Jackson:## 23.6
 	#if Gorillabot_A_3:## 23.6
 	#if Sir_Finley_Mrrgglton:## 23.6
-	PresetGame(pp_CORE_LOE_076)
+	#PresetGame(pp_CORE_LOE_076)
 	#if Brann_Bronzebeard:## 23.6
 	#if Elise_Starseeker:## 23.6
 	#if Murloc_Tinyfin:##22.6## 23.6
@@ -99,6 +99,8 @@ def core_neutral():
 	#Flesheating_Ghoul=False##22.6
 	#if Beaming_Sidekick:## 23.6
 	#if Vulpera_Scoundrel:## 23.6
+	PresetGame(pp_CORE_ULD_209a) ### OK ###
+	PresetGame(pp_CORE_ULD_209b) ### OK ###
 	#if Injured_Tolvir:## 23.6
 	#if Stormwatcher:##22.6## 23.6
 	#if Humongous_Razorleaf:##22.6## 23.6
@@ -471,4 +473,65 @@ class pp_CORE_LOE_076(Preset_Play):# <12> 1637
 		for card in controller.hand:
 			self.print_stats ("hand", card)
 		pass
+
+##########CORE_ULD_209##########
+
+class pp_CORE_ULD_209a(Preset_Play):
+	""" Sketchy Stranger
+	<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b> from another class. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("CORE_ULD_209", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1, choose=self.con1.choose_cards[0])
+		self.choose_action()
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+		print("given a spell card")
+	pass
+
+class pp_CORE_ULD_209b(Preset_Play):
+	""" Sketchy Stranger
+	<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b> from another class. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("CORE_ULD_209", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1, choose=self.con1.choose_cards[1])
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+		print("given a random spell card")
+	pass
+
+
 ######################
