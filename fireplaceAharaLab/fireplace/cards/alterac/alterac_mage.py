@@ -252,6 +252,8 @@ class AV_284:
 	pass
 #AV_284e=buff(cost=SET(5))
 #AV_284e2=buff(atk=SET(1),health=SET(1))
+#class AV_284e2:# <12>[1626]
+#class AV_284e3:# <12>[1626]
 
 
 

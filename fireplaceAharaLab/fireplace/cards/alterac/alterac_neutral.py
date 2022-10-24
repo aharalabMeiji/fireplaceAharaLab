@@ -28,16 +28,15 @@ Abominable_Lieutenant=True#22.6
 Lokholar_the_Ice_Lord=True#22.6
 Ivus_the_Forest_Lord=True#22.6
 Korrak_the_Bloodrager=True#22.6
-Frostwolf_Cub=False#22.6#???
+Frostwolf_Cub=True#22.6#
 Frantic_Hippogryph=True#22.6
-Sheep=False#22.6#???
+Sheep=True#22.6#
 Ram_Commander=True#22.6
 Spammy_Arcanist=True#22.6
 Vanndar_Stormpike=True#22.6
 Gankster=True#22.6
 Reflecto_Engineer=True#22.6
 Piggyback_Imp=True
-Magical_Shift=False#22.6#???
 Backpiggy_Imp=True#22.6
 Stormpike_Quartermaster=True#22.6
 Humongous_Owl=True#22.6
@@ -47,40 +46,6 @@ Whelp_Bonker=True#22.6
 Raid_Boss_Onyxia=True#22.6
 ##############################
 Kazakusan=False#22.6## no use below
-Necrotic_Poison=False#22.6
-Spyglass=False#22.6
-Clockwork_Assistant=False#22.6
-Grimmer_Patron=False#22.6
-Puzzle_Box=False#22.6
-Mutating_Injection=False#22.6
-The_Exorcisor=False#22.6
-Pure_Cold=False#22.6
-Bubba=False#22.6
-Holy_Book=False#22.6
-Crusty_the_Crustacean=False#22.6
-Looming_Presence=False#22.6
-Beastly_Beauty=False#22.6
-Hyperblaster=False#22.6
-Dr_Booms_Boombox=False#22.6
-Wax_Rager=False#22.6
-Vampiric_Fangs=False#22.6
-Gnomish_Army_Knife=False#22.6
-LOCUUUUSTS___=False#22.6
-Wand_of_Disintegration=False#22.6
-Staff_of_Scales=False#22.6
-Phaoris_Blade=False#22.6
-Zephryss_Lamp=False#22.6
-Canopic_Jars=False#22.6
-Ancient_Reflections=False#22.6
-Banana_Split=False#22.6
-Embers_of_Ragnaros=False#22.6
-Book_of_the_Dead=False#22.6
-Annoy_o_Horn=False#22.6
-Flex_plosion=False#22.6
-Blade_of_QuelDelar=False#22.6
-Hilt_of_QuelDelar=False#22.6
-QuelDelar=False#22.6
-Incensed=False#22.6
 
 if DrekThar:# 
 	Alterac_Neutral+=['AV_100']
@@ -444,6 +409,7 @@ class AV_143:#
 	deathrattle = AV_143_Action(SELF)
 	pass
 
+
 if Frostwolf_Cub:# 
 	Alterac_Neutral+=['AV_211t']
 class AV_211t:# <12>[1626]
@@ -451,6 +417,7 @@ class AV_211t:# <12>[1626]
 	[Stealth] """
 	#
 	pass
+
 
 if Frantic_Hippogryph:# 
 	Alterac_Neutral+=['AV_215']
@@ -460,7 +427,7 @@ class AV_215:####OK
 	honorable_kill = SetTag(SELF, (GameTag.WINDFURY,))
 	pass
 
-if Sheep:# ###################################
+if Sheep:# 
 	Alterac_Neutral+=['AV_218t']
 class AV_218t:# <12>[1626]
 	""" Sheep
@@ -562,19 +529,6 @@ class AV_259e2:# <12>[1626]
 	#
 	pass
 
-if Magical_Shift:# #######################
-	Alterac_Neutral+=['AV_284e2']
-	Alterac_Neutral+=['AV_284e3']
-class AV_284e2:# <12>[1626]
-	""" Magical Shift
-	Swapped Attack. """
-	#
-	pass
-class AV_284e3:# <12>[1626]
-	""" Magical Shift
-	Swapped Health. """
-	#
-	pass
 
 if Piggyback_Imp:# 
 	Alterac_Neutral+=['AV_309']
