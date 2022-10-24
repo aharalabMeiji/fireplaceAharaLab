@@ -175,6 +175,17 @@ class Candidate(object):
 			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(
 				card=self.card, atk1=atk1, health1=health1, 
 				target=self.target, atk2=atk2, health2=health2)
+		elif self.type==ActionType.LOCATION:
+			health1=self.card.health
+			if self.card.type==CardType.HERO:
+				health1 += self.card.armor
+			atk2=self.target.atk
+			health2=self.target.health
+			if self.target.type==CardType.HERO:
+				health2 += self.target.armor
+			return "{card}(**/{health1}) -> attacks -> {target}({atk2}/{health2})".format(
+				card=self.card, health1=health1, 
+				target=self.target, atk2=atk2, health2=health2)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:

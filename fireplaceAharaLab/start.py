@@ -48,11 +48,11 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 
-	beastDruid = "AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
-	impWarlock = "AAECAf0GBvLtA7CRBOa9BJjUBJvkBIfqBAzX7QOD+wPFgASEoATmoAT+tATcvQTivQT/2QSA2gSB2gSr6gQA"
-	deck1=parseDeck(beastDruid)
-	deck2=parseDeck(impWarlock)
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=deck1, deck2=deck2, gameNumber=10, debugLog=True)
+	#beastDruid = "AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
+	#impWarlock = "AAECAf0GBvLtA7CRBOa9BJjUBJvkBIfqBAzX7QOD+wPFgASEoATmoAT+tATcvQTivQT/2QSA2gSB2gSr6gQA"
+	#deck1=parseDeck(beastDruid)
+	#deck2=parseDeck(impWarlock)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
 	
 
 
