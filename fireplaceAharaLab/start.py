@@ -94,16 +94,9 @@ def main():
 	pass
 
 def card_test():
-	from card_test.alterac_neutral import alterac_neutral
-	alterac_neutral()
+	from card_test.alterac_druid import alterac_druid
+	alterac_druid()
 	pass
-### wait checking
-# 'AV_210', 
-#
-#
-#
-#
-#
 
 
 def battleground_main():

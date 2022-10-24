@@ -53,7 +53,7 @@ class AV_205pb:
 
 
 
-if Alterac_Pathmaker:# wait checkin
+if Alterac_Pathmaker:# ### OK ###
 	Alterac_Druid+=['AV_210']
 	Alterac_Druid+=['AV_210e']
 class AV_210_Action(TargetedAction):
@@ -67,10 +67,16 @@ class AV_210_Action(TargetedAction):
 			if len(choice)>=2:
 				if card2.id==choice[0].id:
 					card = choice[1]
-					CastSpell(card).trigger(source)
+					if card.type==CardType.SPELL:
+						CastSpell(card).trigger(source)
+					elif card.type==CardType.MINION:
+						Summon(controller, card).trigger(source)
 				else:
 					card = choice[0]
-					CastSpell(card).trigger(source)
+					if card.type==CardType.SPELL:
+						CastSpell(card).trigger(source)
+					elif card.type==CardType.MINION:
+						Summon(controller, card).trigger(source)
 		pass
 class AV_210:##
 	""" Pathmaker (3/3/4) 

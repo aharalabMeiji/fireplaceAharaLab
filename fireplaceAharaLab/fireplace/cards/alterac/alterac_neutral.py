@@ -621,6 +621,53 @@ class ONY_004:# <12>[1626]
 ########################
 if Kazakusan:# 
 	Alterac_Neutral+=['ONY_005']
+	Alterac_Neutral+=['ONY_005ta1']
+	Alterac_Neutral+=['ONY_005ta2']
+	Alterac_Neutral+=['ONY_005ta2e']
+	Alterac_Neutral+=['ONY_005ta3']
+	Alterac_Neutral+=['ONY_005ta4']
+	Alterac_Neutral+=['ONY_005ta5']
+	Alterac_Neutral+=['ONY_005ta5t']
+	Alterac_Neutral+=['ONY_005ta10']
+	Alterac_Neutral+=['ONY_005ta11']
+	Alterac_Neutral+=['ONY_005ta12']
+	Alterac_Neutral+=['ONY_005ta13']
+	Alterac_Neutral+=['ONY_005ta6']
+	Alterac_Neutral+=['ONY_005ta7']
+	Alterac_Neutral+=['ONY_005ta7e']
+	Alterac_Neutral+=['ONY_005ta8']
+	Alterac_Neutral+=['ONY_005ta9']
+	Alterac_Neutral+=['ONY_005ta9t']
+	Alterac_Neutral+=['ONY_005tb1','ONY_005tb1e']
+	Alterac_Neutral+=['ONY_005tb2']
+	Alterac_Neutral+=['ONY_005tb2e']
+	Alterac_Neutral+=['ONY_005tb3']
+	Alterac_Neutral+=['ONY_005tb3t']
+	Alterac_Neutral+=['ONY_005tb3t2']
+	Alterac_Neutral+=['ONY_005tb4']
+	Alterac_Neutral+=['ONY_005tb5']
+	Alterac_Neutral+=['ONY_005tb5t']
+	Alterac_Neutral+=['ONY_005tb6']
+	Alterac_Neutral+=['ONY_005tb610']
+	Alterac_Neutral+=['ONY_005tb6e']
+	Alterac_Neutral+=['ONY_005tb7']
+	Alterac_Neutral+=['ONY_005tb7e']
+	Alterac_Neutral+=['ONY_005tb8']
+	Alterac_Neutral+=['ONY_005tb8e']
+	Alterac_Neutral+=['ONY_005tb9']
+	Alterac_Neutral+=['ONY_005tb9e']
+	Alterac_Neutral+=['ONY_005tb12','GVG_110t']
+	Alterac_Neutral+=['ONY_005tb13']
+	Alterac_Neutral+=['ONY_005tb14']
+	Alterac_Neutral+=['ONY_005tc1']
+	Alterac_Neutral+=['ONY_005tc2']
+	Alterac_Neutral+=['ONY_005tc3']
+	Alterac_Neutral+=['ONY_005tc4']
+	Alterac_Neutral+=['ONY_005tc5']
+	Alterac_Neutral+=['ONY_005tc6']
+	Alterac_Neutral+=['ONY_005tc6e']
+	Alterac_Neutral+=['ONY_005tc7']
+	Alterac_Neutral+=['ONY_005tc7t']
 class ONY_005_Action(TargetedAction):# <12>[1626]
 	TARGET=ActionArg()
 	## discover new cards 5 times.(new cards are fed in two.)
@@ -646,8 +693,6 @@ class ONY_005:# <12>[1626]
 	play = ONY_005_Action(CONTROLLER)
 	pass
 
-if Necrotic_Poison:# 
-	Alterac_Neutral+=['ONY_005ta1']
 class ONY_005ta1:# <12>[1626]
 	""" Necrotic Poison
 	Destroy a minion. """
@@ -655,8 +700,6 @@ class ONY_005ta1:# <12>[1626]
 	play = Destroy(TARGET)#
 	pass
 
-if Spyglass:# 
-	Alterac_Neutral+=['ONY_005ta10']
 class ONY_005ta10:# <12>[1626]
 	""" Spyglass
 	Put a copy of a random card in your opponent's hand into yours. It costs (3) less. """
@@ -671,8 +714,6 @@ class ONY_005ta10e:
 	}
 	events = REMOVED_IN_PLAY
 
-if Clockwork_Assistant:# 
-	Alterac_Neutral+=['ONY_005ta11']
 class ONY_005ta11:# <12>[1626]
 	""" Clockwork Assistant
 	Has +1/+1 for each spell you've cast this game. """
@@ -694,16 +735,12 @@ class ONY_005ta11e:
 		GameTag.HEALTH: +1,
 	}
 
-if Grimmer_Patron:# 
-	Alterac_Neutral+=['ONY_005ta12']
 class ONY_005ta12:# <12>[1626]
 	""" Grimmer Patron
 	At the end of your turn, summon a copy of this minion. """
 	events = OWN_TURN_END.on(Summon, ExactCopy(SELF))
 	pass
 
-if Puzzle_Box:# 
-	Alterac_Neutral+=['ONY_005ta13']
 class ONY_005ta13:# <12>[1626]##################################
 	""" Puzzle Box
 	Transform all minions into random ones that cost (3) more. """
@@ -716,9 +753,6 @@ class ONY_005ta13:# <12>[1626]##################################
 		pass
 	pass
 
-if Mutating_Injection:# 
-	Alterac_Neutral+=['ONY_005ta2']
-	Alterac_Neutral+=['ONY_005ta2e']
 class ONY_005ta2:# <12>[1626]
 	""" Mutating Injection
 	Give a minion +4/+4 and [Taunt]. """
@@ -729,25 +763,18 @@ ONY_005ta2e=buff(+4, +4, taunt=True)# <12>[1626]
 """ Mutating Injection
 +4/+4 and [Taunt]. """
 
-if The_Exorcisor:# 
-	Alterac_Neutral+=['ONY_005ta3']
 class ONY_005ta3:# <12>[1626]
 	""" The Exorcisor
 	[Silence] any minion attacked by this weapon. """
 	events = Attack(FRIENDLY_HERO, ENEMY_MINIONS).on(SetTag(Attack.DEFENDER,{GameTag.SILENCED:True}))
 	pass
 
-if Pure_Cold:# 
-	Alterac_Neutral+=['ONY_005ta4']
 class ONY_005ta4:# <12>[1626]
 	""" Pure Cold
 	Deal $8 damage to the enemy hero, and [Freeze] it. """
 	play = Hit(ENEMY_HERO, 8), Freeze(ENEMY_HERO)#
 	pass
 
-if Bubba:# 
-	Alterac_Neutral+=['ONY_005ta5']
-	Alterac_Neutral+=['ONY_005ta5t']
 class ONY_005ta5:# <12>[1626]
 	""" Bubba
 	[Battlecry]: Summon six 1/1 Bloodhounds with[Rush] to attack an enemy minion. """
@@ -759,8 +786,6 @@ class ONY_005ta5t:# <12>[1626]
 	[Rush] """
 	pass
 
-if Holy_Book:# 
-	Alterac_Neutral+=['ONY_005ta6']
 class ONY_005ta6:# <12>[1626]
 	""" Holy Book
 	[Silence] and destroy a minion. Summon a 10/10 copy of it. """
@@ -768,9 +793,6 @@ class ONY_005ta6:# <12>[1626]
 	play = (Silence(TARGET), Destroy(TARGET),Summon(CONTROLLER, ExactCopy(TARGET)))
 	pass
 
-if Crusty_the_Crustacean:# 
-	Alterac_Neutral+=['ONY_005ta7']
-	Alterac_Neutral+=['ONY_005ta7e']
 class ONY_005ta7:# <12>[1626]
 	""" Crusty the Crustacean
 	[Battlecry:] Destroy a minion.Gain its Attack and Health. """
@@ -782,17 +804,12 @@ class ONY_005ta7e:# <12>[1626] # dont know how to use this.
 	Increased stats. """
 	pass
 
-if Looming_Presence:# 
-	Alterac_Neutral+=['ONY_005ta8']
 class ONY_005ta8:# <12>[1626]
 	""" Looming Presence
 	Draw 2 cards. Gain 4 Armor. """
 	play = Draw(CONTROLLER) * 2, GainArmor(FRIENDLY_HERO, 4)#
 	pass
 
-if Beastly_Beauty:# 
-	Alterac_Neutral+=['ONY_005ta9']
-	Alterac_Neutral+=['ONY_005ta9t']
 class ONY_005ta9:# <12>[1626]
 	""" Beastly Beauty
 	[Rush]After this attacks a minion and survives, transform this into an 8/8. """
@@ -804,8 +821,6 @@ class ONY_005ta9t:# <12>[1626]
 	 """
 	pass
 
-if Hyperblaster:# 
-	Alterac_Neutral+=['ONY_005tb1','ONY_005tb1e']
 class ONY_005tb1:# <12>[1626]
 	""" Hyperblaster
 	[Poisonous].Your hero is [Immune] while attacking. """
@@ -817,8 +832,6 @@ ONY_005tb1e=buff(immune_while_attacking = True)# <12>[1626]
 
 ## no class ONY_005tb10,class ONY_005tb11 (but class ONY_005tb610)
 
-if Dr_Booms_Boombox:# 
-	Alterac_Neutral+=['ONY_005tb12','GVG_110t']
 class ONY_005tb12:# <12>[1626]
 	""" Dr. Boom's Boombox
 	Summon 7 'Boom Bots'. """
@@ -829,16 +842,12 @@ class GVG_110t:
 	[Deathrattle:] Deal 1-4 damage to a random enemy."""
 	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
 
-if Wax_Rager:# 
-	Alterac_Neutral+=['ONY_005tb13']
 class ONY_005tb13:# <12>[1626]
 	""" Wax Rager　(3/5/1)
 	[Deathrattle:] Resummon this minion. """
 	deathrattel = Summon(CONTROLLER, Copy(SELF))#なんだこりゃ。
 	pass
 
-if Vampiric_Fangs:# 
-	Alterac_Neutral+=['ONY_005tb14']
 class ONY_005tb14:# <12>[1626]
 	""" Vampiric Fangs
 	Destroy a minion. Restore its Health to your hero. """
@@ -847,9 +856,6 @@ class ONY_005tb14:# <12>[1626]
 	pass
 
 
-if Gnomish_Army_Knife:# 
-	Alterac_Neutral+=['ONY_005tb2']
-	Alterac_Neutral+=['ONY_005tb2e']
 class ONY_005tb2:# <12>[1626]
 	""" Gnomish Army Knife
 	Give a minion [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
@@ -862,10 +868,6 @@ ONY_005tb2e=buff(rush=True, windfury=True, lifesteal=True, taunt=True, stealth=T
 """ Tooled Up!
 Granted [Rush],[Windfury], [Divine Shield],[Lifesteal], [Poisonous],[Taunt], and [Stealth]. """
 
-if LOCUUUUSTS___:# 
-	Alterac_Neutral+=['ONY_005tb3']
-	Alterac_Neutral+=['ONY_005tb3t']
-	Alterac_Neutral+=['ONY_005tb3t2']
 class ONY_005tb3:# <12>[1626]
 	""" LOCUUUUSTS!!!
 	[Twinspell]Choose an enemy.Fill your board with 2/2 Locusts that attack it. """
@@ -897,17 +899,12 @@ class ONY_005tb3t2:# <12>[1626]
 	vanilla """
 	pass
 
-if Wand_of_Disintegration:# 
-	Alterac_Neutral+=['ONY_005tb4']
 class ONY_005tb4:# <12>[1626]
 	""" Wand of Disintegration
 	[Silence] and destroy all enemy minions. """
 	play = Silence(ENEMY_MINIONS),Destroy(ENEMY_MINIONS)
 	pass
 
-if Staff_of_Scales:# 
-	Alterac_Neutral+=['ONY_005tb5']
-	Alterac_Neutral+=['ONY_005tb5t']
 class ONY_005tb5:# <12>[1626]
 	""" Staff of Scales
 	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
@@ -920,17 +917,12 @@ class ONY_005tb5t:# <12>[1626]
 	#
 	pass
 
-if Phaoris_Blade:# 
-	Alterac_Neutral+=['ONY_005tb6']
 class ONY_005tb6:# <12>[1626]
 	""" Phaoris' Blade
 	[Windfury].After your hero attacks and kills a minion, this gains +2/+1. """
 	events = Attack(SELF, ENEMY_MINIONS).after(Dead(ALL_MINIONS + Attack.DEFENDER) &Buff(SELF, 'ONY_005tb6e'))
 	pass
 
-if Zephryss_Lamp:# 
-	Alterac_Neutral+=['ONY_005tb610']
-	Alterac_Neutral+=['ONY_005tb6e']
 class ONY_005tb610:# <12>[1626]#???????? maybe class ONY_005tb10
 	""" Zephrys's Lamp
 	Wish for the perfect card. 
@@ -952,9 +944,6 @@ ONY_005tb6e=buff(2,1)# <12>[1626]
 """ Phaoris' Fury
 Increased stats. """
 
-if Canopic_Jars:# 
-	Alterac_Neutral+=['ONY_005tb7']
-	Alterac_Neutral+=['ONY_005tb7e']
 class ONY_005tb7:# <12>[1626]########################################
 	""" Canopic Jars
 	Give your minions"[Deathrattle:] Summona random [Legendary]minion." """
@@ -967,9 +956,6 @@ class ONY_005tb7e:# <12>[1626]
 	deathrattle = Summon(RandomMinion(rarity=Rarity.LEGENDARY))
 	pass
 
-if Ancient_Reflections:# 
-	Alterac_Neutral+=['ONY_005tb8']
-	Alterac_Neutral+=['ONY_005tb8e']
 class ONY_005tb8:# <12>[1626]
 	""" Ancient Reflections
 	Choose a minion.Fill your board with 1/1 copies of it. """
@@ -983,9 +969,6 @@ class ONY_005tb8e:# <12>[1626]
 	max_health=SET(1)
 	pass
 
-if Banana_Split:# 
-	Alterac_Neutral+=['ONY_005tb9']
-	Alterac_Neutral+=['ONY_005tb9e']
 class ONY_005tb9:# <12>[1626]
 	""" Banana Split
 	Give a friendly minion +2/+2. Summon two copies of it. """
@@ -996,49 +979,36 @@ ONY_005tb9e=buff(2,2)# <12>[1626]
 """ Glowing Green
 +2/+2. """
 
-if Embers_of_Ragnaros:# 
-	Alterac_Neutral+=['ONY_005tc1']
 class ONY_005tc1:# <12>[1626]
 	""" Embers of Ragnaros
 	Shoot three fireballs at random enemies that deal $8 damage each. """
 	play = Hit(RANDOM_ENEMY_CHARACTER,8) * 3
 	pass
 
-if Book_of_the_Dead:# 
-	Alterac_Neutral+=['ONY_005tc2']
 class ONY_005tc2:# <12>[1626]#######################
 	""" Book of the Dead
 	Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game. """
 	#
 	pass
 
-if Annoy_o_Horn:# 
-	Alterac_Neutral+=['ONY_005tc3']
 class ONY_005tc3:# <12>[1626]
 	""" Annoy-o Horn
 	Fill your board with annoying minions. """
 	#
 	pass
 
-if Flex_plosion:# 
-	Alterac_Neutral+=['ONY_005tc4']
 class ONY_005tc4:# <12>[1626]
 	""" Flex-plosion
 	Blow up half your opponent's stuff. """
 	#
 	pass
 
-if Blade_of_QuelDelar:# 
-	Alterac_Neutral+=['ONY_005tc5']
 class ONY_005tc5:# <12>[1626]
 	""" Blade of Quel'Delar
 	 """
 	#
 	pass
 
-if Hilt_of_QuelDelar:# 
-	Alterac_Neutral+=['ONY_005tc6']
-	Alterac_Neutral+=['ONY_005tc6e']
 class ONY_005tc6:# <12>[1626]
 	""" Hilt of Quel'Delar
 	Give a minion +3/+3. """
@@ -1050,9 +1020,6 @@ class ONY_005tc6e:# <12>[1626]
 	#
 	pass
 
-if QuelDelar:# 
-	Alterac_Neutral+=['ONY_005tc7']
-	Alterac_Neutral+=['ONY_005tc7t']
 class ONY_005tc7:# <12>[1626]
 	""" Quel'Delar
 	After your hero attacks, deal 4 damage to all_enemies. """
