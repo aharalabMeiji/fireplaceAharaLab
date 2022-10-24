@@ -82,7 +82,7 @@ class TID_099:# <3>[1658]
 
 
 
-if Sunken_Barbed_Nets:# 
+if Sunken_Barbed_Nets:# ### OK ###
 	Sunken_Hunter+=['TSC_023']
 class TSC_023_Choice(Choice):
 	def choose(self, card):
@@ -92,10 +92,12 @@ class TSC_023_Choice(Choice):
 		pass
 class TSC_023_Action(TargetedAction):
 	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		controller=self.controller
-		Hit(self.target, 2).trigger(source)
-		if self.script_data_num_1:
+	TARGET=ActionArg()
+	def do(self, source, controller, target):
+		if isinstance(target, list):
+			target=target[0]
+		Hit(target, 2).trigger(source)
+		if source.script_data_num_1:
 			TSC_023_Choice(controller, ENEMY_MINIONS).trigger(source)
 		pass
 class TSC_023:# <3>[1658]##
@@ -104,7 +106,7 @@ class TSC_023:# <3>[1658]##
 	class Hand:
 		events = Play(CONTROLLER, NAGA).on(SetScriptDataNum1(SELF, True))
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, }
-	play = TSC_023_Action(CONTROLLER)
+	play = TSC_023_Action(CONTROLLER, TARGET)
 	pass
 
 

@@ -456,8 +456,8 @@ class pp_CORE_GIL_598x(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_GIL_598',controller)#
-		self.mark2=self.exchange_card('BT_210',controller)# hunter minion card 
-		self.mark3=self.exchange_card('BT_213',controller)# hunter spell card 
+		self.mark2=self.exchange_card('CORE_EX1_534',controller)# hunter minion card 
+		self.mark3=self.exchange_card('CORE_BRM_013',controller)# hunter spell card 
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -486,8 +486,8 @@ class pp_CORE_GIL_598y(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('CORE_GIL_598',controller)#
-		self.mark2=self.exchange_card('BT_210',controller)# hunter minion card 
-		self.mark3=self.exchange_card('BT_213',controller)# hunter spell card 
+		self.mark2=self.exchange_card('CORE_EX1_534',controller)# hunter minion card 
+		self.mark3=self.exchange_card('CORE_BRM_013',controller)# hunter spell card 
 		super().preset_deck()
 		pass
 	def preset_play(self):

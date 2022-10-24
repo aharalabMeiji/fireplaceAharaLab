@@ -113,7 +113,7 @@ class Preset_Play:
 			for cardIDlist in All:
 				for _id in cardIDlist:
 					_card = cards.db[_id]
-					if _card.type == CardType.MINION and hasattr(_card,'health') and _card.health==amount: 
+					if _card.type == CardType.MINION and getattr(_card,'health',0)==amount and getattr(_card, 'collectible',0)==True: 
 						choices.append(_id)
 			_card=random.choice(choices)
 		elif _card[:-1]=='minionA':

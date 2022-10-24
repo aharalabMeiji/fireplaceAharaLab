@@ -166,9 +166,9 @@ class EX1_145e:
 EX1_145o=buff(cost=-2)#ONE_TURN_EFFECT
 
 
-if Core_Tess_Greymane:# 
+if Core_Tess_Greymane:# ### OK ###
 	Core_Rogue+=['CORE_GIL_598']
-class CORE_GIL_598:# <7>[1637] ## 23.6 ##wait checking
+class CORE_GIL_598:# <7>[1637] ## 23.6 ##
 	""" Tess Greymane
 	[Battlecry:] Replay every card from another class you've played this game <i>(targets chosen randomly)</i>. """
 	def play(self):

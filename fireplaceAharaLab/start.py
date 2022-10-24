@@ -94,11 +94,11 @@ def main():
 	pass
 
 def card_test():
-	from card_test.core_neutral import core_neutral
-	core_neutral()
+	from card_test.sunken_hunter import sunken_hunter
+	sunken_hunter()
 	pass
 ### wait checking
-# 'CORE_ULD_209', 'CORE_GIL_598', 'TSC_023', 'AV_250', 'AV_128', 'AV_210', 
+# 'TSC_023', 'AV_250', 'AV_128', 'AV_210', 
 #
 #
 #
