@@ -85,10 +85,10 @@ class DED_502_Action(TargetedAction):
 	def do(self, source, target):
 		atk=target.atk
 		hlt=target.health
-		Buff(target, 'DED_502e', atk=1-atk, max_health=1-hlt).trigger(self)
+		Buff(target, 'DED_502e', atk=1-atk, max_health=1-hlt).trigger(source)
 		if len(source.controller.hand)>0:
 			card = random.choice(source.controller.hand)
-			Buff(card, 'DED_502e2', atk=atk-1, max_health=hlt-1).trigger(self)
+			Buff(card, 'DED_502e2', atk=atk-1, max_health=hlt-1).trigger(source)
 		pass
 
 class DED_502:# <5>[1578]
