@@ -2576,7 +2576,7 @@ class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("SidequestLostInTheParkCounter.do","Setting Counter on %r rolls by %d->%d, %r", target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction)
+			Config.log("SidequestLostInTheParkCounter.do","Setting Counter on %r rolls by %d->%d, %r"%( target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction))
 		target._sidequest_counter_ += target.controller.lost_in_the_park
 		target.controller.lost_in_the_park = 0 # to avoid a double count
 		if target._sidequest_counter_>= amount:
