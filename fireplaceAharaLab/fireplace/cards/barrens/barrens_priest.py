@@ -214,8 +214,8 @@ class WC_014:# <6>[1525]
 	""" Against All Odds
 	Destroy ALL odd-Attack minions. """
 	def play(self):
-		cards = [card for card in self.controller.field if card.atk%2==1]
-		cards += [card for card in self.controller.opponent.field if card.atk%2==1]
+		cards = [card for card in self.controller.field if card.type==CardType.MINION and card.atk%2==1]
+		cards += [card for card in self.controller.opponent.field if card.type==CardType.MINION and card.atk%2==1]
 		amount=len(cards)
 		for i in range(amount):
 			Destroy(cards[-1]).trigger(self)
