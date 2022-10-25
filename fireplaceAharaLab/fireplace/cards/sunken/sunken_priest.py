@@ -229,13 +229,16 @@ class TSC_702:# <6>[1658]
 	""" Switcheroo
 	Draw 2 minions. Swap their Health. """
 	def play(self):
-		card1=Give(self.controller, RANDOM(FRIENDLY_DECK + MINION)).trigger(self)#
-		card1=card1[0][0]
-		card2=Give(self.controller, RANDOM(FRIENDLY_DECK + MINION)).trigger(self)#
-		card2=card2[0][0]
-		diff = card1.max_health-card2.max_health
-		Buff(card1, 'TSC_702e', max_health=-diff).trigger(self)
-		Buff(card2, 'TSC_702e', max_health=diff).trigger(self)
+		cards=[card for card in self.controller.deck if card.type==CardType.MINION]
+		if len(cards)>=2:
+			cards=random.sample(cards, 2)
+			card1=Give(self.controller, cards[0]).trigger(self)#
+			card1=card1[0][0]
+			card2=Give(self.controller, cards[1]).trigger(self)#
+			card2=card2[0][0]
+			diff = card1.max_health-card2.max_health
+			Buff(card1, 'TSC_702e', max_health=-diff).trigger(self)
+			Buff(card2, 'TSC_702e', max_health=diff).trigger(self)
 	pass
 class TSC_702e:# <6>[1658]
 	""" Switcheroo'd Swapped Health. """
