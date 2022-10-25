@@ -176,7 +176,7 @@ class REV_951:# <5>[1691]
 	<b>Battlecry:</b> If your deck  has no Neutral cards, add  3 <b>Legendary </b>Invitations  to your hand. """
 	def play(self):
 		controller=self.controller
-		cards=[card for card in controller.deck if card.type==CardType.NEUTRAL]
+		cards=[card for card in controller.deck if card.card_class==CardClass.NEUTRAL]
 		if len(cards)==0:
 			Give(controller, 'REV_951t')
 	pass
