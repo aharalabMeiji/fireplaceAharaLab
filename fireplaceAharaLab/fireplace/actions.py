@@ -2558,7 +2558,7 @@ class SidequestManaCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, card, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("SidequestManaCounter.do","Setting Counter on %r is added by %d->%d, %r", target, card.cost, (target._sidequest_counter_+card.cost), targetaction)
+			Config.log("SidequestManaCounter.do","Setting Counter on %r is added by %d->%d, %r"%(target, card.cost, (target._sidequest_counter_+card.cost), targetaction))
 		target._sidequest_counter_ += card.cost
 		if target._sidequest_counter_>= amount:
 			i=0
