@@ -1008,7 +1008,7 @@ class Bounce(TargetedAction):
 	def do(self, source, target):
 		if len(target.controller.hand) >= target.controller.max_hand_size:
 			if Config.LOGINFO:
-				Config.log("Bounce.do","%r is bounced to a full hand and gets destroyed", target)
+				Config.log("Bounce.do","%r is bounced to a full hand and gets destroyed"%(target))
 			return source.game.queue_actions(source, [Destroy(target)])
 		else:
 			if Config.LOGINFO:
