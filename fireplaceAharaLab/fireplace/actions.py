@@ -3098,10 +3098,9 @@ class ChangeHeroPower(TargetedAction):
 		script_data_num_1 = oldHeroPower.script_data_num_1
 		#summon card
 		newHeroPower=Summon(target,card).trigger(source)
-		if isinstance(newHeroPower,list):
-			newHeroPower = newHeroPower[0]
-		if isinstance(newHeroPower,list):
-			newHeroPower = newHeroPower[0]
+		if newHeroPower[0]==[]:
+			return
+		newHeroPower = newHeroPower[0][0]
 		#copy exhausted
 		newHeroPower.activations_this_turn = exh
 		newHeroPower.script_data_num_1 = script_data_num_1
@@ -3183,6 +3182,8 @@ class SummonAdventurerWithBonus(TargetedAction):
 		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],amount)
 		for card in cards:
 			newcard=Summon(target, card).trigger(source)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			newAtk=random.randint(1,3)
 			newHealth=random.randint(1,3)

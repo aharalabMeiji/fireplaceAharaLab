@@ -385,10 +385,14 @@ class REV_943_Action(TargetedAction):
 		amount = controller.relic_improvision
 		source.script_data_num_1 = amount
 		card1=Summon(controller, 'REV_943t').trigger(source)
+		if card1[0]==[]:
+			return
 		card1=card1[0][0]
 		card1.atk=card1.data.tags[GameTag.ATK]=amount
 		card1.max_health=card1.data.tags[GameTag.HEALTH]=amount
 		card2=Summon(controller, 'REV_943t').trigger(source)
+		if card2[0]==[]:
+			return
 		card2=card2[0][0]
 		card2.atk=card2.data.tags[GameTag.ATK]=amount
 		card2.max_health=card2.data.tags[GameTag.HEALTH]=amount

@@ -223,7 +223,7 @@ class REV_955:# <5>[1691]
 class REV_955e:# <5>[1691]
 	""" Open Position
 	Your next Silver Hand Recruit carries on Stewart's legacy. """
-	events = Summon(FRIENDLY + ID('CS2_101t')).after(Buff(Summon.CARD,'REV_955e2'), RemoveBuff(CONTROLLER, 'REV_955e'))
+	events = Summon(CONTROLLER, FRIENDLY + ID('CS2_101t')).after(Buff(Summon.CARD,'REV_955e2'), RemoveBuff(CONTROLLER, 'REV_955e'))
 	pass
 class REV_955e2:# <5>[1691]
 	""" Stewart's Legacy
@@ -256,10 +256,14 @@ class REV_958t:# <5>[1691]
 		controller=self.controller
 		source=self
 		card=Summon(controller, 'CS2_101t').trigger(source)
+		if card[0]==[]:
+			return
 		card=card[0][0]
 		Buff(card, 'REV_958e').trigger(source)
 		card.divine_shield=True
 		card2=Summon(controller, 'CS2_101t').trigger(source)
+		if card2[0]==[]:
+			return
 		card2=card2[0][0]
 		Buff(card2, 'REV_958e').trigger(source)
 		card2.divine_shield=True

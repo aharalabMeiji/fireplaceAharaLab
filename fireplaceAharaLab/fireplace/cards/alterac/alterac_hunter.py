@@ -95,9 +95,13 @@ class AV_113t7_Action(TargetedAction):
 		if isinstance(target, list):
 			target = target[0]
 		card00 = Summon(source.controller, ExactCopy(FuncSelector(lambda entities, source: [target]))).trigger(source)
+		if card00[0]==[]:
+			return
 		card = card00[0][0]
 		Buff(card,"BT_203e" ).trigger(source)
 		card00 = Summon(source.controller, ExactCopy(FuncSelector(lambda entities, source: [target]))).trigger(source)
+		if card00[0]==[]:
+			return
 		card = card00[0][0]
 		Buff(card,"BT_203e" ).trigger(source)
 
@@ -257,6 +261,8 @@ class AV_336_Action(TargetedAction):
 		if len(cards)>0:
 			card = random.choice(cards)
 			card = Summon(controller, card).trigger(source)
+			if card[0]==[]:
+				return
 			card=card[0][0]
 			card.rush=True
 			Buff(card, 'AV_336e').trigger(source)
@@ -277,6 +283,8 @@ class AV_336e_Action(TargetedAction):
 				if len(cards)>0:
 					card = random.choice(cards)
 					card = Summon(controller, card).trigger(source)
+					if card[0]==[]:
+						return
 					card=card[0][0]
 					card.rush=True
 					Buff(card, 'AV_336e').trigger(source)

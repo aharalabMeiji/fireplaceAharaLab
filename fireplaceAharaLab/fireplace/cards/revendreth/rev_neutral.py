@@ -267,6 +267,8 @@ class REV_015_Action(TargetedAction):
 			cardIDs=random.sample(cardIDs, 2)
 		for cardID in cardIDs:
 			newcard=Summon(controller, cardID).trigger(source)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			Buff(newcard, 'REV_015t')
 		pass

@@ -197,6 +197,8 @@ class REV_248_Action(TargetedAction):
 	def do(self, source, controller):
 		Buff(source.target,'REV_248e').trigger(source)
 		card=Summon(controller, 'REV_248t').trigger(source)
+		if card[0]==[]:
+			return
 		card=card[0][0]
 		card.atk=source.target.atk
 		card.max_health=source.target.max_health

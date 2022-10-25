@@ -651,6 +651,8 @@ class BG22_HERO_305p_Action(TargetedAction):
 	def do(self, source, target):
 		controller=target
 		newcard = Summon(controller, 'BG22_HERO_305t').trigger(source)
+		if newcard[0]==[]:
+			return
 		newcard = newcard[0][0]
 		if len(controller.opponent.field)>0:
 			target = random.choice(controller.opponent.field)
@@ -763,9 +765,10 @@ class BG23_HERO_201p_Action(TargetedAction):
 	def do(self, source, target):
 		#summon a tentacle with enchantment BG23_HERO_201pte
 		newcard=Summon(target, 'BG23_HERO_201pt').trigger(source)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		Buff(newcard, 'BG23_HERO_201pte', atk=source.script_data_num_1-2, max_health=source.script_data_num_1-2 ).trigger(source)
-		ahara=0
 		pass
 class BG23_HERO_201p:
 	""" Tentacular

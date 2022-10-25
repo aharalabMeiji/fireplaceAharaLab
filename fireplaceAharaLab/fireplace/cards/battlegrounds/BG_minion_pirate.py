@@ -52,6 +52,8 @@ class BGS_061_Action(TargetedAction):
 		if getattr(source.game, 'this_is_battle', False):
 			controller = target
 			newcard=Summon(controller, cardid).trigger(controller)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			defenders = [card for card in newcard.attack_targets if card in controller.opponent.field]
 			if len(defenders)>0:

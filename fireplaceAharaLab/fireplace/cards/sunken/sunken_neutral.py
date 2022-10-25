@@ -599,6 +599,8 @@ class TSC_649_Choice(Choice):
 		if Config.LOGINFO:
 			print("(TSC_649_Choice.choose)%s chooses %r"%(card.controller.name, card))
 		newcard=Summon(card.controller, card.id).trigger(card.controller)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		Buff(newcard, 'TSC_649e2').trigger(card.controller)
 		pass

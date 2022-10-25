@@ -31,6 +31,8 @@ class TID_003_DredgeChoice(Choice):
 				controller.deck.append(c)
 				if c.type==CardType.MINION and c.race==Race.MURLOC:
 					newcard=Summon(controller, c.id).trigger(controller)
+					if newcard[0]==[]:
+						return
 					newcard=newcard[0][0]
 					Buff(newcard, 'TID_003e2').trigger(controller)
 				break

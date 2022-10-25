@@ -214,8 +214,9 @@ class TSC_656:# <2>[1658]
 		Draw(self.controller).trigger(self)
 		amount = len(self.controller.hand)
 		newcard = Summon(self.controller, 'TSC_656t').trigger(self)
-		newcard=newcard[0][0]
-		Buff(newcard, 'TSC_656e', atk=amount-1, max_health=amount-1).trigger(self)
+		if newcard[0]!=[]:
+			newcard=newcard[0][0]
+			Buff(newcard, 'TSC_656e', atk=amount-1, max_health=amount-1).trigger(self)
 class TSC_656t:# <2>[1658]
 	""" Kelp Creeper 	[Taunt] """
 @custom_card

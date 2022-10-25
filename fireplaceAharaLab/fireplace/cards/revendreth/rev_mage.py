@@ -200,8 +200,9 @@ class REV_516_Action(TargetedAction):
 	ATTACKER=ActionArg()
 	def do(self, source, controller, attacker):
 		card = Summon(controller, attacker.id).trigger(source)
-		card=card[0][0]
-		Attack(card, controller.opponent.hero).trigger(source)
+		if card[0]!=[]:
+			card=card[0][0]
+			Attack(card, controller.opponent.hero).trigger(source)
 		pass
 class REV_516:# <4>[1691]
 	""" Vengeful Visage

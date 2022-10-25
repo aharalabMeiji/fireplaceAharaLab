@@ -83,14 +83,12 @@ class DED_517:# <4>[1578] ###OK
 		excess = 8 + self.controller.spellpower - target.health
 		Hit(target, target.health).trigger(self.controller)
 		new_card = Summon(self.controller, 'DED_517t').trigger(self.controller)
-		if isinstance(new_card,list) and len(new_card)>0:
-			new_card = new_card[0]
-		if isinstance(new_card,list) and len(new_card)>0:
-			new_card = new_card[0]
-		#assert isinstance(new_card, Card)
-		if excess>0:
-			new_card.atk = excess
-			new_card.max_health = excess 
+		if new_card[0]!=[]:
+			new_card = new_card[0][0]
+			#assert isinstance(new_card, Card)
+			if excess>0:
+				new_card.atk = excess
+				new_card.max_health = excess 
 	pass
 class DED_517t:# <4>[1578]
 	""" Arcane Remnant 	 """

@@ -101,6 +101,8 @@ class REV_316_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		newcard=Summon(controller, 'REV_316t').trigger(source)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		newcard.damage=source.damage
 		for buff in source.buffs:
@@ -122,10 +124,11 @@ class REV_316t_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		newcard=Summon(controller, 'REV_316').trigger(source)
-		newcard=newcard[0][0]
-		newcard.damage=source.damage
-		for buff in source.buffs:
-			buff.apply(newcard)
+		if newcard[0]!=[]:
+			newcard=newcard[0][0]
+			newcard.damage=source.damage
+			for buff in source.buffs:
+				buff.apply(newcard)
 		source.discard()
 		pass
 class REV_316t:# <10>[1691]
@@ -163,9 +166,12 @@ class REV_334:# <10>[1691]
 		card2 = Summon(controller,'REV_334t').trigger(self)
 		card3 = Summon(controller,'REV_334t').trigger(self)
 		if sum([card.health for card in controller.field])<=20:
-			Buff(card1[0][0], 'REV_334e').trigger(self)
-			Buff(card2[0][0], 'REV_334e').trigger(self)
-			Buff(card3[0][0], 'REV_334e').trigger(self)
+			if card1[0]!=[]:
+				Buff(card1[0][0], 'REV_334e').trigger(self)
+			if card2[0]!=[]:
+				Buff(card2[0][0], 'REV_334e').trigger(self)
+			if card3[0]!=[]:
+				Buff(card3[0][0], 'REV_334e').trigger(self)
 	pass
 REV_334e=buff(1,1)
 class REV_334t:# <10>[1691]

@@ -203,8 +203,9 @@ class TSC_929_Action(TargetedAction):
 			card=card[0]
 		for i in range(amount):
 			newcard = Summon(controller, card.id).trigger(source)
-			newcard = newcard[0][0]
-			newcard.dormant = 1
+			if newcard[0]!=[]:
+				newcard = newcard[0][0]
+				newcard.dormant = 1
 class TSC_929:# <3>[1658]
 	""" Emergency Maneuvers
 	[Secret:] When a friendly minion dies, summon a copy of it.It's [Dormant] for 1 turn. """
