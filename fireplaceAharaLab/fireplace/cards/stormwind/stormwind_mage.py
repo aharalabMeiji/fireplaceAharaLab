@@ -64,8 +64,9 @@ class DED_516:# <4>[1578] ###OK
 	[Battlecry:] Draw a spell. Gain Armor equal to its Cost. """
 	def play(self):
 		new_card = Give(self.controller, RandomSpell()).trigger(self.controller)
-		new_card_cost = new_card[0][0].cost
-		GainArmor(self.controller.hero, new_card_cost).trigger(self.controller)
+		if new_card[0]!=[]:
+			new_card_cost = new_card[0][0].cost
+			GainArmor(self.controller.hero, new_card_cost).trigger(self.controller)
 	pass
 
 

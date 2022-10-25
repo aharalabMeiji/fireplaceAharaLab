@@ -233,8 +233,12 @@ class TSC_702:# <6>[1658]
 		if len(cards)>=2:
 			cards=random.sample(cards, 2)
 			card1=Give(self.controller, cards[0]).trigger(self)#
+			if card1[0]==[]:
+				return
 			card1=card1[0][0]
 			card2=Give(self.controller, cards[1]).trigger(self)#
+			if card2[0]==[]:
+				return
 			card2=card2[0][0]
 			diff = card1.max_health-card2.max_health
 			Buff(card1, 'TSC_702e', max_health=-diff).trigger(self)

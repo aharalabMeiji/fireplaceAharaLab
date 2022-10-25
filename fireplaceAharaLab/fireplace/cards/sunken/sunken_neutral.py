@@ -514,6 +514,8 @@ class TSC_641ta_Action(TargetedAction):
 		if isinstance(card,list):
 			card=card[0]
 		card=Give(target,card.id).trigger(source)
+		if card[0]==[]:
+			return
 		card=card[0][0]
 		Buff(card, 'TSC_641tde').trigger(source)
 class TSC_641ta:# <12>[1658] ##OK

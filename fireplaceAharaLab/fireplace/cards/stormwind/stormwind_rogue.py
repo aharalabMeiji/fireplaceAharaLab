@@ -314,6 +314,8 @@ class SW_405:# <7>[1578] spell(3)
 	Draw a [Deathrattle] card that costs (4) or less.Trigger its [Deathrattle.] """
 	def play(self):
 		newcard = Give(self.controller, RandomDeathrattle(cost=[1,2,3,4])).trigger(self)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		if newcard.deathrattles==[]:
 			buffs=[buff.deathrattles for buff in newcard.buffs if buff.deathrattles!=[]]

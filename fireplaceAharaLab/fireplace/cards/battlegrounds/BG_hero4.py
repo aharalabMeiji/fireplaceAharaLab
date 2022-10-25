@@ -327,9 +327,8 @@ class TB_BaconShop_HP_101_Action(TargetedAction):
 			if source._sidequest_counter_==3:
 				source._sidequest_counter_=0
 				newcard=Give(controller, 'TB_BaconShop_HP_101t2').trigger(source)
-				if len(newcard[0])==0:
-					return
-				newcard[0][0].script_data_num_1=controller.tavern_tier
+				if newcard[0]!=[]:
+					newcard[0][0].script_data_num_1=controller.tavern_tier
 		pass
 class TB_BaconShop_HP_101:
 	"""  Come One, Come All!
