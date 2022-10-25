@@ -1781,12 +1781,12 @@ class Retarget(TargetedAction):
 		new_target = new_target[0]
 		if target.type in (CardType.HERO, CardType.MINION) and target.attacking:
 			if Config.LOGINFO:
-				Config.log("Retarget.do","Retargeting %r's attack to %r", target, new_target)
+				Config.log("Retarget.do","Retargeting %r's attack to %r"%(target, new_target))
 			source.game.proposed_defender.defending = False
 			source.game.proposed_defender = new_target
 		else:
 			if Config.LOGINFO:
-				Config.log("Retarget.do","Retargeting %r from %r to %r", target, target.target, new_target)
+				Config.log("Retarget.do","Retargeting %r from %r to %r"%(target, target.target, new_target))
 			target.target = new_target
 
 		return new_target
@@ -1815,7 +1815,7 @@ class SetCurrentHealth(TargetedAction):
 
 	def do(self, source, target, amount):
 		if Config.LOGINFO:
-			Config.log("SetCurrentHealth.do","Setting current health on %r to %i", target, amount)
+			Config.log("SetCurrentHealth.do","Setting current health on %r to %i"%(target, amount))
 		maxhp = target.max_health
 		target.damage = max(0, maxhp - amount)
 
