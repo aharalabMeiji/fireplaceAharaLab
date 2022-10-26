@@ -23,16 +23,21 @@ if Sunken_Herald_of_Shadows:#
 	Sunken_Warlock+=['TID_717e2']
 	Sunken_Warlock+=['TID_717e2b']
 	Sunken_Warlock+=['TID_717eb']
+class TID_717_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	TARGET=ActionArg()
+	def do(self, source, controller, target):
+		if source.script_data_num_1>0:
+			Buff(source, 'TID_717e2', max_health=2).trigger(source)
+			Buff(target, 'TID_717e', max_health=-2).trigger(source)
+		pass
 class TID_717:# <9>[1658]
 	""" Herald of Shadows
 	[Battlecry:] If you've cast a Shadow spell while holding this, steal 2 Health from a minion. """
 	class Hand:
 		events = Play(CONTROLLER, SPELL + SHADOW).on(SetScriptDataNum1(SELF, 1))
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
-	def play(self):
-		if self.script_data_num_1>0:
-			Buff(self, 'TID_717e2', health=2).trigger()
-			Buff(self.target, 'TID_717e', health=-2).trigger()
+	play = TID_717_Action(CONTROLLER, TARGET)
 	pass
 class TID_717e:# <9>[1658]
 	""" Siphoned
