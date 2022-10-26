@@ -29,6 +29,8 @@ class TID_717_Action(TargetedAction):
 	def do(self, source, controller, target):
 		if source.script_data_num_1>0:
 			Buff(source, 'TID_717e2', max_health=2).trigger(source)
+			if isinstance(target, list):
+				target=target[0]
 			Buff(target, 'TID_717e', max_health=-2).trigger(source)
 		pass
 class TID_717:# <9>[1658]

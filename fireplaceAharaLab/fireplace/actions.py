@@ -2224,7 +2224,7 @@ class ExtraAttack(TargetedAction):
 
 	def do(self, source, target):
 		if Config.LOGINFO:
-			Config.log("ExtraAttack.do","%s gets an extra attack change.", target)
+			Config.log("ExtraAttack.do","%s gets an extra attack change."%(target))
 		target.num_attacks -= 1
 
 

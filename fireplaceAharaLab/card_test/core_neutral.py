@@ -43,6 +43,7 @@ def core_neutral():
 	#if Dark_Iron_Dwarf:##22.6## 23.6
 	#if Youthful_Brewmaster:##22.6## 23.6
 	#if Crazed_Alchemist:##22.6## 23.6
+	#PresetGame(pp_CORE_EX1_059)### OK ###
 	#if Acidic_Swamp_Ooze:##22.6## 23.6
 	#if Mad_Bomber:##22.6## 23.6
 	#if Defender_of_Argus:##22.6## 23.6
@@ -99,8 +100,8 @@ def core_neutral():
 	#Flesheating_Ghoul=False##22.6
 	#if Beaming_Sidekick:## 23.6
 	#if Vulpera_Scoundrel:## 23.6
-	PresetGame(pp_CORE_ULD_209a) ### OK ###
-	PresetGame(pp_CORE_ULD_209b) ### OK ###
+	#PresetGame(pp_CORE_ULD_209a) ### OK ###
+	#PresetGame(pp_CORE_ULD_209b) ### OK ###
 	#if Injured_Tolvir:## 23.6
 	#if Stormwatcher:##22.6## 23.6
 	#if Humongous_Razorleaf:##22.6## 23.6
@@ -439,6 +440,37 @@ class pp_CORE_CS2_222(Preset_Play):# <12> 1637 #OK
 			self.print_stats ("controller.field", card)
 		pass
 
+
+##########CORE_EX1_059##########
+
+class pp_CORE_EX1_059(Preset_Play):
+	""" Crazed_Alchemist
+	[Battlecry:] Swap the Attack and Health of a minion. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("CORE_EX1_059", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.print_stats("field", self.con4)
+		self.play_card(self.con1, target=self.con4)
+		self.print_stats("field", self.con4)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
 
 #############CORE_LOE_076############
 

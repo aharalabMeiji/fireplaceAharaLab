@@ -964,7 +964,7 @@ class Minion(Character):
 
 		if self.health < self.min_health:
 			if Config.LOGINFO:
-				Config.log("BaseCard._hit","%r has HEALTH_MINIMUM of %i", self, self.min_health)
+				Config.log("BaseCard._hit","%r has HEALTH_MINIMUM of %i"%(self, self.min_health))
 			self.damage = self.max_health - self.min_health
 
 		return amount

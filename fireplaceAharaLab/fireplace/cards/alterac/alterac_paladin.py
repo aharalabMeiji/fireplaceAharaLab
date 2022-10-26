@@ -196,9 +196,9 @@ class AV_345_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
 	def do(self,source,target, buff):
-		if buff.atk>0 or buff.max_health>0:
-			buff.atk += buff.atk
-			buff.max_health += buff.max_health
+		if getattr(buff.data, 'atk',0)>0 or getattr(buff.data, 'health', 0)>0:
+			buff.atk = getattr(buff.data, 'atk',0)*2
+			buff.max_health = getattr(buff.data, 'health',0)*2
 class AV_345:# <5>[1626]
 	""" Saidan the Scarlet
 	[Rush.] Whenever this minion gains Attack or Health, double that amount <i>(wherever this is)</i>. """
@@ -206,7 +206,6 @@ class AV_345:# <5>[1626]
 		events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
 	events = Buff(SELF).on(AV_345_Action(SELF, Buff.BUFF))
 	pass
-
 
 if Alterac_Stormwind_Avenger:# 
 	Alterac_Paladin+=['ONY_020']

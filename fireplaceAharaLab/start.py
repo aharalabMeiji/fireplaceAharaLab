@@ -52,7 +52,7 @@ def main():
 	#impWarlock = "AAECAf0GBvLtA7CRBOa9BJjUBJvkBIfqBAzX7QOD+wPFgASEoATmoAT+tATcvQTivQT/2QSA2gSB2gSr6gQA"
 	#deck1=parseDeck(beastDruid)
 	#deck2=parseDeck(impWarlock)
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=100, debugLog=True)
 	
 
 

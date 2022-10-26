@@ -421,15 +421,23 @@ class CORE_EX1_049:# <12> 1637 #OK
 
 
 
-if Crazed_Alchemist:
+if Crazed_Alchemist:### OK ###
 	Core_Neutral+=['CORE_EX1_059','EX1_059e']
+class CORE_EX1_059_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if target!=None:
+			amount=target.health-target.atk
+			Buff(TARGET, "EX1_059e", atk=amount, max_health=-amount).trigger(source)
+		pass
 class CORE_EX1_059:# <12> 1637  #OK
 	""" Crazed_Alchemist
 	[Battlecry:] Swap the Attack and Health of a minion. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "EX1_059e")
+	play = CORE_EX1_059_Action(TARGET)
 	pass
-EX1_059e = AttackHealthSwapBuff()# <12> 3
+class EX1_059e:
+	pass
 
 
 

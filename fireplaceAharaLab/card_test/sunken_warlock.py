@@ -4,14 +4,8 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def sunken_warlock():
 
-	#PresetGame(pp_AIBot_WarlockTrainee_009_hb)##
-	#PresetGame(pp_Story_11_Handmaiden_011hb)##
-	#PresetGame(pp_Story_11_Jailor_013p)##
-	#PresetGame(pp_Story_11_Murloc_009hb)##
-	#PresetGame(pp_Story_11_Ozumat_007hb)##
-	#PresetGame(pp_Story_11_Ozumat_007p)##
-	#PresetGame(pp_Story_11_Ruins_011hb)##
-	#PresetGame(pp_TID_717)##
+
+	#PresetGame(pp_TID_717)### OK ###
 	#PresetGame(pp_TID_718)##
 	#PresetGame(pp_TID_719)##
 	#PresetGame(pp_TSC_039)##
@@ -246,6 +240,7 @@ class pp_TID_717(Preset_Play):
 	class2=CardClass.WARLOCK
 	def preset_deck(self):
 		self.con1=self.exchange_card("TID_717", self.controller)
+		self.con2=self.exchange_card("shadow", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
@@ -255,15 +250,16 @@ class pp_TID_717(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
+		self.play_card(self.con2)
+		self.play_card(self.con1, target=self.opp1)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

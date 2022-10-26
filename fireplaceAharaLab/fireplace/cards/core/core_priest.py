@@ -142,7 +142,7 @@ class CORE_EX1_197:# <6>[1637]## 23.6 ## OK
 			if hasattr(card,'atk') and card.atk>=5:
 				Destroy(card).trigger(self)
 		for  card in self.controller.opponent.field:
-			if card.atk>=5:
+			if card.type==CardType.MINION and card.atk>=5:
 				Destroy(card).trigger(self)
 	pass
 

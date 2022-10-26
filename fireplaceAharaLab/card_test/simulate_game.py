@@ -231,7 +231,15 @@ class Preset_Play:
 					if _card.spell_school == SpellSchool.NATURE: 
 						choices.append(_id)
 			_card=random.choice(choices)
-		### HOLY, SHADOW, FEL
+		elif _card=='shadow':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.spell_school == SpellSchool.SHADOW: 
+						choices.append(_id)
+			_card=random.choice(choices)
+		### HOLY, FEL
 		### etc
 
 		elif _card=='armor':

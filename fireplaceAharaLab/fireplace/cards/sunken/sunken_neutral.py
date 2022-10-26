@@ -330,7 +330,7 @@ class TSC_034:# <12>[1658] ##### OK OK
 
 
 
-if Sunken_School_Teacher:# ### OK ###
+if Sunken_School_Teacher:# ### OK ### OK ###
 	Sunken_Neutral+=['TSC_052']
 	Sunken_Neutral+=['TSC_052t']
 class TSC_052_Choice(Choice):
@@ -360,8 +360,12 @@ class TSC_052t_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		spell_id=source.script_data_text_1
-		card=controller.card(spell_id)
-		CastSpell(card).trigger(source)
+		try:
+			card=controller.card(spell_id)
+			CastSpell(card).trigger(source)
+			card.discard()
+		except:
+			return
 		pass
 class TSC_052t:# <12>[1658]
 	""" Nagaling

@@ -16,7 +16,7 @@ def sunken_neutral():
 	#PresetGame(pp_TSC_032x)#OK
 	#PresetGame(pp_TSC_032y)#OK
 	#PresetGame(pp_TSC_034)#OK
-	#PresetGame(pp_TSC_052)#OK
+	PresetGame(pp_TSC_052)#OK#OK
 	#PresetGame(pp_TSC_064)#OK
 	#PresetGame(pp_TSC_067)#OK
 	#PresetGame(pp_TSC_069x)#OK
