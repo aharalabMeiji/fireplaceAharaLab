@@ -25,6 +25,8 @@ class AV_107_Choice(Choice):
 		super().choose(card)
 		controller = card.controller
 		newcard=Summon(controller, card).trigger(controller)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		Freeze(newcard).trigger(controller)
 		pass

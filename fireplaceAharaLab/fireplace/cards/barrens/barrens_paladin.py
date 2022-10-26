@@ -132,6 +132,8 @@ class BAR_879:# <5>[1525]
 	def play(self):
 		for secret in self.controller.secrets:
 			newcard=Summon(self.controller, 'BAR_879t').trigger(self)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			Buff(newcard, 'BAR_879e').trigger(self)
 			newbuff=newcard.buffs[-1]
@@ -263,6 +265,8 @@ class WC_034:# <5>[1525]
 		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],5)
 		for card in cards:
 			newcard=Summon(self.controller, card).trigger(self)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			Buff(newcard, "WC_034e", atk=random.randint(1,3), max_health=random.randint(1,3))
 	pass

@@ -43,7 +43,7 @@ Barrens_Drag_To_Move=True## 24.0
 Barrens_Kindling_Elemental=True## 24.0
 Barrens_Crossroads_Gossiper=True## 24.0
 Barrens_Devouring_Ectoplasm=True## 24.0
-Barrens_Meeting_Stone=False## 24.0 Adventurerwith a random bonus の準備ができていない。
+Barrens_Meeting_Stone=False## 24.0 Adventurer with a random bonus の準備ができていない。
 Barrens_Selfless_Sidekick=True## 24.0
 Barrens_Mutanus_the_Devourer=True## 24.0
 Barrens_Archdruid_Naralex=True## 24.0
@@ -57,7 +57,7 @@ if Barrens_Razormane_Raider:#
 	Barrens_Neutral+=['BAR_020']
 class BAR_020:# <12>[1525] ##OK
 	""" Razormane Raider
-	[Frenzy:] Attack arandom enemy. """
+	[Frenzy:] Attack a random enemy. """
 	events = Damage(SELF).on(Frenzy(SELF,Attack(SELF,RANDOM_ENEMY_CHARACTER)))
 	pass
 
@@ -904,7 +904,7 @@ class GiveAdventurerWithBonus(TargetedAction):
 	TARGET = ActionArg()#the controller
 	def do(self,source,target):
 		new_minion = random.choice(['WC_034t','WC_034t2','WC_034t3','WC_034t4','WC_034t5','WC_034t6','WC_034t7','WC_034t8',])##
-		new_minion =  Give(target, new_minion).trigger(source)
+		new_minion = Give(target, new_minion).trigger(source)
 		if new_minion[0] != []:# the hand may be full
 			new_minion = new_minion[0][0]
 			newAtk=new_minion.atk+random.randint(1,3)

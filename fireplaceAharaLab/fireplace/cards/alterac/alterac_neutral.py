@@ -908,7 +908,7 @@ class ONY_005tb4:# <12>[1626]
 class ONY_005tb5:# <12>[1626]
 	""" Staff of Scales
 	Summon three 1/1 Snakes with [Rush], [Poisonous] and [Reborn]. """
-	play=Summon(CONTROLLER,'ONY_005tb5t')*3#
+	play = Summon(CONTROLLER,'ONY_005tb5t')*3#
 	pass
 
 class ONY_005tb5t:# <12>[1626]

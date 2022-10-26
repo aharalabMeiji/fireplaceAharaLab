@@ -1206,7 +1206,7 @@ UNG_999t4e=buff(0,3)## 岩状の甲殻 ## 体力+3
 UNG_999t3e=buff(3,0)## 炎熱の爪 ##攻撃力+3
 class UNG_999t2e:## 動き回る胞子 ##;断末魔:]1/1の植物を2体召喚する。
 	tags={GameTag.DEATHRATTLE:True}
-	deathrattle=Summon(CONTROLLER, 'UNG_999t2t1')*2
+	deathrattle = Summon(CONTROLLER, 'UNG_999t2t1')*2
 class UNG_999t2t1:## 植物
 	""" """
 

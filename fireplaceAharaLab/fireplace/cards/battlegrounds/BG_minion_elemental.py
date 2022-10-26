@@ -195,6 +195,8 @@ class BGS_122:# <12>[1453] ###
 		if len(elementals)>0:
 			newcard_id = random.choice(elementals)
 			newcard = Summon(bartender,newcard_id).trigger(self)
+			if newcard[0]==[]:
+				return
 			newcard[0][0].frozen=True
 	pass
 class TB_BaconUps_161:# <12>[1453]
@@ -211,9 +213,13 @@ class TB_BaconUps_161:# <12>[1453]
 		if len(elementals)>0:		
 			newcard_id = random.choice(elementals)
 			newcard = Summon(bartender,newcard_id).trigger(self)
+			if newcard[0]==[]:
+				return
 			newcard[0][0].frozen=True
 			newcard_id = random.choice(elementals)
 			newcard = Summon(bartender,newcard_id).trigger(self)
+			if newcard[0]==[]:
+				return
 			newcard[0][0].frozen=True
 	pass
 

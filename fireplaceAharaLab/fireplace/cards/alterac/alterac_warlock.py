@@ -236,6 +236,8 @@ class ONY_033:# <9>[1626]
 		amount = len(self.controller.opponent.field)
 		for repeat in range(amount):
 			newcard=Summon(CONTROLLER, 'AV_316t').trigger(self)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			if self.controller.opponent.field!=[]:
 				target = random.choice(self.controller.opponent.field)

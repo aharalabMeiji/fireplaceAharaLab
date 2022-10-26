@@ -228,12 +228,13 @@ class REV_373:# <9>[1691]
 		controller=self.controller
 		for repeat in range(2):
 			shade = Summon(controller, 'REV_373t').trigger(self)
-			shade=shade[0][0]
-			shadows=[card for card in controller.play_log if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
-			if len(shadows)>0:
-				lastshadow=shadows[-1]
-				buff=Buff(shade,'REV_373e')
-				buff.script_data_0=lastshadow.id
+			if shade[0]!=[]:
+				shade=shade[0][0]
+				shadows=[card for card in controller.play_log if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
+				if len(shadows)>0:
+					lastshadow=shadows[-1]
+					buff=Buff(shade,'REV_373e')
+					buff.script_data_0=lastshadow.id
 	pass
 class REV_373t_Action(TargetedAction):
 	CONTROLLER=ActionArg()
@@ -329,6 +330,8 @@ class REV_835t:# <9>[1691]
 			cards=random.sample(cards)
 		for card in cards:
 			newcard=Summon(controller, card.id).trigger(source)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			Buff(newcard,'REV_835e').trigger(source)
 	pass

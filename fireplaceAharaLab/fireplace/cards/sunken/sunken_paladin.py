@@ -140,6 +140,8 @@ class TSC_074_Action(TargetedAction):
 		newtargets=[card for card in source.controller.field if card != source]
 		if newtargets!=[]:
 			newcard=Give(source.controller, target.id).trigger(source)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			newtarget=random.choice(newtargets)
 			newcard.target = newtarget
@@ -242,6 +244,8 @@ class TSC_952_Action1(TargetedAction):
 	def do(self, source, target):
 		Heal(FRIENDLY_HERO, 2).trigger(source)
 		newcard=Give(source.controller, 'TSC_952').trigger(source)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		newcard.repeatable=True
 		pass

@@ -175,8 +175,9 @@ class BAR_918_Action(TargetedAction):
 	def do(self,source,target):
 		if target.cost>=1:
 			newcard = Give(source.controller, target.id).trigger(source)
-			newcard=newcard[0][0]
-			newcard.cost = 0
+			if newcard[0]!=[]:
+				newcard=newcard[0][0]
+				newcard.cost = 0
 class BAR_918:# <9>[1525]
 	""" Tamsin Roame
 	Whenever you cast a Shadow spell that costs 1 or more,add a copy to your hand that costs 0. """

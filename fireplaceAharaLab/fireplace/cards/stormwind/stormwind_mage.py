@@ -64,8 +64,9 @@ class DED_516:# <4>[1578] ###OK
 	[Battlecry:] Draw a spell. Gain Armor equal to its Cost. """
 	def play(self):
 		new_card = Give(self.controller, RandomSpell()).trigger(self.controller)
-		new_card_cost = new_card[0][0].cost
-		GainArmor(self.controller.hero, new_card_cost).trigger(self.controller)
+		if new_card[0]!=[]:
+			new_card_cost = new_card[0][0].cost
+			GainArmor(self.controller.hero, new_card_cost).trigger(self.controller)
 	pass
 
 
@@ -82,14 +83,12 @@ class DED_517:# <4>[1578] ###OK
 		excess = 8 + self.controller.spellpower - target.health
 		Hit(target, target.health).trigger(self.controller)
 		new_card = Summon(self.controller, 'DED_517t').trigger(self.controller)
-		if isinstance(new_card,list) and len(new_card)>0:
-			new_card = new_card[0]
-		if isinstance(new_card,list) and len(new_card)>0:
-			new_card = new_card[0]
-		#assert isinstance(new_card, Card)
-		if excess>0:
-			new_card.atk = excess
-			new_card.max_health = excess 
+		if new_card[0]!=[]:
+			new_card = new_card[0][0]
+			#assert isinstance(new_card, Card)
+			if excess>0:
+				new_card.atk = excess
+				new_card.max_health = excess 
 	pass
 class DED_517t:# <4>[1578]
 	""" Arcane Remnant 	 """

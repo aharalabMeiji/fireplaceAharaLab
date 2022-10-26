@@ -20,7 +20,7 @@ StormWind_Bolner_Hammerbeak=True  ###
 ###################################################
 
 
-if StormWind_Brilliant_Macaw:# 
+if StormWind_Brilliant_Macaw:# ### OK ###
 	StormWind_Shaman+=['DED_509']
 class DED_509:# <8>[1578]
 	""" Brilliant Macaw
@@ -28,16 +28,10 @@ class DED_509:# <8>[1578]
 	def play(self):
 		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry) and action['source'].id!='DED_509']
 		if len(actions)>0:
-			card = actions[-1]["source"]
-			if hasattr(card.data.scripts, 'play'):
-				action = getattr(card.data.scripts, 'play')
-				print(type(action))
-				if isinstance(action, list) or isinstance(action, tuple):
-					self.controller.game.queue_actions(self, action)
-				else:
-					action()
-			elif hasattr(card, 'play'):
-				card.play()
+			cardID = actions[-1]["source"].id
+			card=self.controller.card(cardID)
+			PlayBattlecry(card).trigger(self)
+			#card.discards
 	pass
 
 

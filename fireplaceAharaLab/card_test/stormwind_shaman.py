@@ -4,7 +4,7 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def stormwind_shaman():
 
-	PresetGame(pp_DED_509)##
+	#PresetGame(pp_DED_509)### OK ###
 	#PresetGame(pp_DED_511)##
 	#PresetGame(pp_DED_522)##
 	#PresetGame(pp_SW_025)##
@@ -28,13 +28,15 @@ class pp_DED_509(Preset_Play):
 	class2 = CardClass.SHAMAN
 	def preset_deck(self):
 		self.mark1=self.exchange_card("DED_509", self.controller)
-		self.mark2=self.exchange_card("battlecry", self.controller)
+		self.mark2=self.exchange_card("DED_523", self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("beast")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]		
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark2)
+		self.play_card(self.mark2, target=self.opp1)
 		self.change_turn()
 		### opp
 		self.change_turn()

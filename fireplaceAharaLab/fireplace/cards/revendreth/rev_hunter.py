@@ -122,9 +122,13 @@ class REV_350t2_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		card1=Summon(controller, 'REV_350t').trigger(source)
+		if card1[0]==[]:
+			return
 		card1=card1[0][0]
 		Buff(card1, 'REV_350e').trigger(source)
 		card2=Summon(controller, 'REV_350t').trigger(source)
+		if card2[0]==[]:
+			return
 		card2=card2[0][0]
 		Buff(card2, 'REV_350e').trigger(source)
 	pass
@@ -321,6 +325,8 @@ class REV_361_Action(TargetedAction):
 		cards = random.sample(cards, 2)
 		for card in cards:
 			newcard=Summon(controller, card).trigger(source)
+			if newcard[0]==[]:
+				return
 			newcard=newcard[0][0]
 			newcard.dormant -= 1
 		pass

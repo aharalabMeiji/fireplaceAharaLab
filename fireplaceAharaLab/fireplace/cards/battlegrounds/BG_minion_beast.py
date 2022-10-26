@@ -309,6 +309,8 @@ class BG22_001_Action(TargetedAction):
 		if len(controller.field)<7 and source in controller.field:
 			index = controller.field.index(source)
 			newcard = Summon(controller, other).trigger(controller)
+			if newcard[0]==[]:
+				return
 			newcard = newcard[0][0]
 			BG_Attack(newcard, target).trigger(controller)
 class BG22_001:# <12>[1453]

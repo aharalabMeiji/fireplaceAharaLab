@@ -477,8 +477,9 @@ class BG24_Reward_321_Action0(TargetedAction):
 	def do(self, source, target, cardid):
 		controller=target
 		newcard=Give(controller, cardid).trigger(source)
-		newcard=newcard[0][0]
-		CastSecret(newcard).trigger(source)
+		if newcard[0]!=[]:
+			newcard=newcard[0][0]
+			CastSecret(newcard).trigger(source)
 		source.destroy()
 		pass
 class BG24_Reward_321_Action1(TargetedAction):

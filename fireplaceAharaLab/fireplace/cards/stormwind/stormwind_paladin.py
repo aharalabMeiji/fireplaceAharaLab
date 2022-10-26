@@ -68,9 +68,10 @@ class DED_501:# <5>[1578] OK
 		if len(actions)>0:
 			action=actions[-1]
 			newcard = Give(self.controller, action['source'].id).trigger(self)
-			newcard=newcard[0][0]
-			Battlecry(newcard, self).trigger(self)
-			newcard.zone=Zone.GRAVEYARD
+			if newcard[0]!=[]:
+				newcard=newcard[0][0]
+				Battlecry(newcard, self).trigger(self)
+				newcard.zone=Zone.GRAVEYARD
 	pass
 
 

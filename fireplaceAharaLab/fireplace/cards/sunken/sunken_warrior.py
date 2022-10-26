@@ -120,6 +120,8 @@ class TSC_660:# <10>[1658]
 	[Colossal +1][Battlecry:] [Discover] 3 Pirates to crew Nellie's Ship! """
 	def play(self):
 		ship=Summon(self.controller, 'TSC_660t').trigger(self)
+		if ship[0]==[]:
+			return
 		ship=ship[0][0]
 		TSC_660_Choice(self.controller, RandomPirate()*3, ship).trigger(self)
 		pass		

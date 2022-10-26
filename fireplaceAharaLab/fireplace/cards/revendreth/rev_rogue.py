@@ -79,9 +79,10 @@ class REV_750_Action(TargetedAction):
 	def do(self, source, controller):
 		amount = len(controller.play_this_turn)
 		card = Summon(controller,'REV_750t2').trigger(source)
-		card = card[0][0]
-		card.atk+=amount
-		card.max_health+=amount
+		if card[0]!=[]:
+			card = card[0][0]
+			card.atk+=amount
+			card.max_health+=amount
 		pass
 class REV_750:# <7>[1691]
 	""" Sinstone Graveyard
@@ -164,6 +165,8 @@ class REV_828_Action(TargetedAction):
 	CARD=CardArg()
 	def do(self, source, controller, card):
 		newcard=Summon(controller, 'REV_828t').trigger(source)
+		if newcard[0]==[]:
+			return
 		newcard=newcard[0][0]
 		newcard.script_data_text_0=card.id
 		card.discard()
@@ -296,6 +299,8 @@ class REV_940:# <7>[1691]
 		source=self
 		amount = len(controller.play_this_turn)
 		card=Summon(controller, 'REV_940t').trigger(source)
+		if card[0]==[]:
+			return
 		card=card[0][0]
 		card.atk += amount
 	pass
