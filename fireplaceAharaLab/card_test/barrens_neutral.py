@@ -19,7 +19,7 @@ def barrens_neutral():
 	#PresetGame(pp_BAR_064)##
 	#PresetGame(pp_BAR_065)##
 	#PresetGame(pp_BAR_069)##
-	PresetGame(pp_BAR_070)## OKOK
+	#PresetGame(pp_BAR_070)## OKOK
 	#PresetGame(pp_BAR_071)##
 	#PresetGame(pp_BAR_072)##
 	#PresetGame(pp_BAR_073)##
@@ -33,7 +33,7 @@ def barrens_neutral():
 	#PresetGame(pp_BAR_081)##
 	#PresetGame(pp_BAR_082)##
 	#PresetGame(pp_BAR_430)##
-	#PresetGame(pp_BAR_721)##
+	PresetGame(pp_BAR_721)## OK
 	#PresetGame(pp_BAR_730)##
 	#PresetGame(pp_BAR_731)##
 	#PresetGame(pp_BAR_732)##
@@ -1636,7 +1636,8 @@ class pp_BAR_721(Preset_Play):
 	""" Mankrik
 	[Battlecry:] Help Mankrik find his wife! She was last seen somewhere in your deck. """
 	def preset_deck(self):
-		self.con1=self.exchange_card("BAR_721", self.controller)
+		self.con1=self.controller.card('BAR_721t')
+		self.con1.zone=Zone.DECK## Shuffled
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
@@ -1646,10 +1647,14 @@ class pp_BAR_721(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
+		assert self.controller.deck[-1].id=='BAR_721t'
+		self.controller.draw()
+		## Summon 'BAR_721t2'
+		## 'BAR_721t2' attacks opponent's hero
+		## controller draws again and get another card from the deck
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()

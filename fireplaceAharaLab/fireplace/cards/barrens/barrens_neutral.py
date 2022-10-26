@@ -798,6 +798,9 @@ class BAR_430:#OK
 	play = Summon(CONTROLLER,Copy(ENEMY_SECRETS))
 	pass
 
+
+
+
 if Barrens_Mankrik:# 
 	Barrens_Neutral+=['BAR_721','BAR_721t','BAR_721t2']
 class BAR_721:#OK
@@ -805,19 +808,18 @@ class BAR_721:#OK
 	Mankrik
 	[x][Battlecry:] Help Mankrik find his wife! She was last seen somewhere in your deck.
 	"""
-	play = Shuffle(CONTROLLER,"BAR_721t"),
+	play = Shuffle(CONTROLLER,"BAR_721t")
 	pass
-class BAR_721t:#OK
+class BAR_721t:#OK OK 22_10_27
 	"""Olgra, Mankrik's Wife
 	[x][Casts When Drawn]	Summon a 3/7 Mankrik,		who immediately attacks		the enemy hero.
 		<Tag enumID="1077" name="CASTSWHENDRAWN" type="Int" value="1"/>
 	"""
-	play = Summon(CONTROLLER,'BAR_721t2'),RegularAttack(FRIENDLY_MINIONS+ID('BAR_721t2'),ENEMY_HERO)
+	play = Summon(CONTROLLER,'BAR_721t2'), RegularAttack(FRIENDLY_MINIONS+ID('BAR_721t2'),ENEMY_HERO)
 	pass
 class BAR_721t2:
 	"""Mankrik, Consumed by Hatred
-	vanilla
-	"""
+	vanilla 	"""
 	pass
 
 

@@ -394,6 +394,7 @@ class BaseGame(Entity):
 		# if drawn_card is 'casts_when_drawn' then immediately play.  
 		if hasattr(drawn_card, "casts_when_drawn"):
 			self.queue_actions(player, [Battlecry(drawn_card, None)])
+			drawn_card.discard()
 			self.queue_actions(player, [Draw(player)])
 		#When you draw this, add a _copy of it to your hand
 		if drawn_card.id == 'SW_306':
