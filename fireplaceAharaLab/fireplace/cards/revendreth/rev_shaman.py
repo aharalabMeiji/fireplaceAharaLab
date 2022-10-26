@@ -32,18 +32,24 @@ class MorphCostup(TargetedAction):
 		if isinstance(target, list):
 			for tgt in [tgt for tgt in target]:
 				amount = max(tgt.cost+amount, 0)
+				amount = min(10,amount)
 				card = RandomMinion(cost=amount).evaluate(source)
 				if isinstance(card, list):
 					card=card[0]
+				if card==None:
+					return
 				if tgt.id!='REV_925':
 					Morph(target, card).trigger(card)
 				else:
 					Summon(source.controller, card).trigger(card)
 		else:
 			amount = max(target.cost+amount, 0)
+			amount = min(10,amount)
 			card = RandomMinion(cost=amount).evaluate(source)
 			if isinstance(card, list):
 				card=card[0]
+			if card==None:
+				return
 			if target.id!='REV_925':
 				Morph(target, card).trigger(card)
 			else:
