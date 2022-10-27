@@ -325,8 +325,9 @@ class BGS_123:# <12>[1453] 逆巻き風
 			elemental += BG_PoolSet_Elemental[gr-1]
 		if 'BGS_123' in elemental:
 			elemental.remove('BGS_123')
-		newcard_id = random.choice(elemental)
-		Give(controller,newcard_id).trigger(self)
+		if len(elemental):
+			newcard_id = random.choice(elemental)
+			Give(controller,newcard_id).trigger(self)
 	pass
 class TB_BaconUps_162:# <12>[1453]
 	""" Tavern Tempest
@@ -339,10 +340,11 @@ class TB_BaconUps_162:# <12>[1453]
 			elemental += BG_PoolSet_Elemental[gr-1]
 		if 'BGS_123' in elemental:
 			elemental.remove('BGS_123')
-		newcard_id = random.choice(elemental)
-		Give(controller,newcard_id).trigger(self)
-		newcard_id = random.choice(elemental)
-		Give(controller,newcard_id).trigger(self)
+		if len(elemental):
+			newcard_id = random.choice(elemental)
+			Give(controller,newcard_id).trigger(self)
+			newcard_id = random.choice(elemental)
+			Give(controller,newcard_id).trigger(self)
 	pass
 
 
@@ -363,10 +365,11 @@ class BGS_121_Action(TargetedAction):
 			elemental += BG_PoolSet_Elemental[gr]
 		if 'BGS_121' in elemental:
 			elemental.remove('BGS_121')
-		for repeat in range(amount):
-			newcard_id = random.choice(elemental)
-			Summon(controller,newcard_id).trigger(source)
-			Give(controller.deepcopy_original, newcard_id).trigger(source)
+		if len(elemental):
+			for repeat in range(amount):
+				newcard_id = random.choice(elemental)
+				Summon(controller,newcard_id).trigger(source)
+				Give(controller.deepcopy_original, newcard_id).trigger(source)
 	pass
 class BGS_121:# <12>[1453] ランプの精
 	""" Gentle Djinni
