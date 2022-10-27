@@ -218,7 +218,7 @@ class BG21_HERO_010p_Action(Choice):
 		cards=[]
 		for card in next_warband:
 			cards.append(controller.card(card))
-		return player, cards
+		return controller, cards
 	def choose(self, card):
 		self.next_choice=None
 		super().choose(card)

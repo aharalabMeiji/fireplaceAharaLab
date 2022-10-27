@@ -64,7 +64,8 @@ class AV_100:
 					go = False
 					break
 		if go:
-			choices = random.sample(choices,2)
+			if len(choices)>2:
+				choices = random.sample(choices,2)
 			for card in choices:
 				Summon(self.controller, card).trigger(self)
 		else:

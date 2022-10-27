@@ -50,8 +50,9 @@ class DED_508:# <14>[1578]
 	""" Proving Grounds
 	Summon two minions from your deck.They fight! """
 	def play(self):
-		minions = [card for card in self.controller.deck if card.type==CardType.MINION]
-		cards=random.sample(minions, 2)
+		cards = [card for card in self.controller.deck if card.type==CardType.MINION]
+		if len(cards)>2:
+			cards=random.sample(cards, 2)
 		for card in cards:
 			card.zone=Zone.PLAY
 			card.rush=True

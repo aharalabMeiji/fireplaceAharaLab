@@ -49,7 +49,7 @@ class CFM_672:
 	def play(self):
 		targets = self.controller.deck.filter(type=CardType.MINION)
 		if targets:
-			target = random.sample(targets, 1)
+			target = random.choice(targets)
 			target = target[0]
 			target.zone = Zone.SETASIDE
 			yield Shuffle(CONTROLLER, TARGET)

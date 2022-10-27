@@ -787,7 +787,10 @@ class BG21_HERO_020p_Action(TargetedAction):
 				if Race.QUILBOAR in source.sidequest_list0:
 					deck += battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
 			source.sidequest_list0=[]
-			source.entourage = random.sample(deck,3)
+			if len(deck)<3:
+				source.entourage = deck
+			else:
+				source.entourage = random.sample(deck,3)
 			Discover(controller, RandomEntourage()).trigger(source)
 class BG21_HERO_020p:# <12>[1453] ####### difficult
 	""" Stir the Pot

@@ -28,8 +28,8 @@ class DED_512:# <6>[1578]
 	[Tradeable]Resurrect @ friendly[Deathrattle] |4(minion, minions).<i>(Upgrades when [Traded]!)</i> """
 	def play(self):
 		cards=[card for card in self.controller.graveyard if card.type==CardType.MINION and card.has_deathrattle==True]
-		amount = min(len(cards), self.script_data_num_1+1)
-		cards = random.sample(cards, amount)
+		if len(cards)>self.script_data_num_1+1:
+			cards = random.sample(cards, self.script_data_num_1+1)
 		for card in cards:
 			Summon(self.controller, card.id).trigger(self)
 	class Hand:

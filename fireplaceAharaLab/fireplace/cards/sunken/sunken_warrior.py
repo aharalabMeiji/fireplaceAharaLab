@@ -87,7 +87,9 @@ class TSC_659:# <10>[1658]
 	""" Trenchstalker
 	[Battlecry:] Attack three different random enemies. """
 	def play(self):
-		cards = random.sample(self.controller.opponent.characters, 3)
+		cards = [card for card in self.controller.opponent.characters]
+		if len(cards)>3:
+			cards=random.sample(cards, 3)
 		for card in cards:
 			RegularAttack(self, card).trigger(self)
 		pass

@@ -315,7 +315,7 @@ class REV_835:# <9>[1691]
 		source=self
 		cards=[card for card in controller.death_log if getattr(card,'imp',0)]
 		if len(cards)>4:
-			cards=random.sample(cards)
+			cards=random.sample(cards, 4)
 		for card in cards:
 			Summon(controller, card.id).trigger(source)
 REV_835e=buff(2,2)
@@ -327,7 +327,7 @@ class REV_835t:# <9>[1691]
 		source=self
 		cards=[card for card in controller.death_log if getattr(card,'imp',0)]
 		if len(cards)>4:
-			cards=random.sample(cards)
+			cards=random.sample(cards, 4)
 		for card in cards:
 			newcard=Summon(controller, card.id).trigger(source)
 			if newcard[0]==[]:

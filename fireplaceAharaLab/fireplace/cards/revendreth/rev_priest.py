@@ -311,7 +311,8 @@ class REV_253_Choice(Choice):
 		self.source._sidequest_counter_+=1
 		if self.source._sidequest_counter_==1:
 			cards = [card.id for card in controller.opponent.deck]
-			cards = random.sample(cards, 3)
+			if len(cards)>3:
+				cards = random.sample(cards, 3)
 			choice=REV_253_Choice(controller, RandomID(*cards)*3)
 			choice.trigger(self.source)
 			self.next_choice=choice

@@ -155,7 +155,9 @@ class REV_950:# <5>[1691]
 	def play(self):
 		controller=self.controller
 		source=self
-		cards=random.sample(controller.field + controller.opponent.field , 5)
+		cards=controller.field + controller.opponent.field
+		if len(cards)>5:
+			cards=random.sample(cards , 5)
 		for card in cards:
 			if card.controller==controller:
 				Buff(card, 'REV_950e').trigger(source)

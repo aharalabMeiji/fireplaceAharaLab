@@ -265,7 +265,9 @@ class BG24_Quest_Bob_Action(TargetedAction):
 		if getattr(target, 'im_a_player', False):
 			controller=target
 			if Config.QUEST_PRESET=='':
-				quests=random.sample(BG24_Quest_Pool,3)
+				quests=BG24_Quest_Pool
+				if len(quests)>3:
+					quests=random.sample(quests,3)
 			else:
 				quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
 			BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)

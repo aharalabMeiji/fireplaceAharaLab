@@ -313,10 +313,9 @@ class BG20_HERO_202p_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller=target
-		heroes=copy(controller.game.parent.Heroes)
-		if 'BG20_HERO_202' in heroes:
-			heroes.remove('BG20_HERO_202')#Master Nguyen
-		random.sample(heroes,2)
+		heroes=[hero for hero in controller.game.parent.Heroes if hero!='BG20_HERO_202']
+		if len(heroes)>2:
+			heroes = random.sample(heroes,2)
 		BG20_HERO_202p_Choice(controller, RandomID(*heroes)*2).trigger(source)
 		choiceAction(controller)
 		pass
