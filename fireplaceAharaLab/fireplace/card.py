@@ -409,7 +409,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				raise InvalidAction("%r requires a target to play." % (self))
 			elif target not in self.play_targets:
 				raise InvalidAction("%r is not a valid target for %r." % (target, self))
-			if self.controller.all_targets_random:
+			if self.controller.all_targets_random and len(self.play_targets):
 				new_target = random.choice(self.play_targets)
 				if Config.LOGINFO:
 					Config.log("BaseCard.play","Retargeting %r from %r to %r", self, target, new_target)
@@ -1211,7 +1211,7 @@ class HeroPower(PlayableCard):
 		if self.requires_target():
 			if not target:
 				raise InvalidAction("%r requires a target." % (self))
-			if self.controller.all_targets_random:
+			if self.controller.all_targets_random and len(self.play_targets):
 				new_target = random.choice(self.play_targets)
 				if Config.LOGINFO:
 					Config.log("HeroPower.use","Retargeting %r from %r to %r"%(self, target, new_target))

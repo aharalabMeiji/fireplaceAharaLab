@@ -44,7 +44,7 @@ class WordStrategyAgent(Agent):
 			for card in player.hand:
 				if card.is_playable():
 					target = None
-					if card.must_choose_one:
+					if card.must_choose_one and len(card.choose_cards):
 						card = random.choice(card.choose_cards)
 					if card.requires_target():
 						for target in card.targets:

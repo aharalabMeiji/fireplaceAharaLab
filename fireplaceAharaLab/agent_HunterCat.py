@@ -97,9 +97,9 @@ class HunterCatAgent(Agent):
 					if 'help' in conditions[4] and choice.target.controller != player:
 						score -= 5000
 				if eval(conditions[5]):
-				  score+=1000
+					score+=1000
 				if eval(conditions[6]):
-				  score+=1000
+					score+=1000
 				score+=(eval(conditions[7])*1000)
 			#if debugLog:
 			#	print(" %f"%score)

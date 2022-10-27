@@ -2165,7 +2165,7 @@ class CastSpell(TargetedAction):
 
 	def do(self, source, card):
 		target = None
-		if card.must_choose_one:
+		if card.must_choose_one and len(card.choose_cards):
 			card = random.choice(card.choose_cards)
 		if card.requires_target():
 			if len(card.targets):
@@ -2211,7 +2211,7 @@ class Evolve(TargetedAction):
 		from . import cards
 		cost = target.cost + amount
 		card_set = cards.filter(collectible=True, cost=cost, type=CardType.MINION)
-		if card_set:
+		if card_set and len(card_set):
 			card = random.choice(card_set)
 			return source.game.queue_actions(source, [Morph(target, card)])
 
@@ -3140,7 +3140,8 @@ class ULD703DesertObelisk(TargetedAction):
 		if count >= 3:
 			enemy=controller.opponent
 			enemy_characters=enemy.characters
-			Hit(random.choice(enemy_characters),5).trigger(source)
+			if len(enemy_characters):
+				Hit(random.choice(enemy_characters),5).trigger(source)
 
 class DAL558ArchmageVargoth(TargetedAction):
 	TARGET = ActionArg()#controller
