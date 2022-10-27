@@ -221,8 +221,16 @@ if Barrens_Shroud_of_Concealment:#
 class WC_016:# <7>[1525]
 	""" Shroud of Concealment
 	Draw 2 minions. Any played this turn gain [Stealth] for 1 turn. """
-	play = Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION)).after(Buff(Give.CARD, 'WC_016e')),\
-		Give(CONTROLLER, RANDOM(FRIENDLY_DECK + MINION)).after(Buff(Give.CARD, 'WC_016e'))
+	def play(self):
+		controller=self.controller
+		cards=[card for card in controller.deck if card.type==CardType.MINION]
+		if len(cards)>2:
+			cards = random.sample(cards, 2)
+		for card in cards:
+			card=Give(controller, card)
+			if card[0]!=[]:
+				card=card[0][0]
+				Buff(card, 'WC_016e').trigger(self)
 	pass
 class WC_016e:# <7>[1525]
 	""" Cloaking
