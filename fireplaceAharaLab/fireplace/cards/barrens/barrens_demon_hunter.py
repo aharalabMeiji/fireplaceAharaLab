@@ -125,8 +125,9 @@ class BAR_330_Draw(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
 		cards=[card for card in target.deck if card.type==CardType.MINION and card.has_deathrattle==True]
-		card = random.choice(cards)
-		Summon(target, card).trigger(source)
+		if len(cards):
+			card = random.choice(cards)
+			Summon(target, card).trigger(source)
 class BAR_330:# <14>[1525]
 	""" Tuskpiercer
 	[Deathrattle:] Draw a[Deathrattle] minion. """
