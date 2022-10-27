@@ -524,12 +524,13 @@ class BG20_HERO_301p_Action(TargetedAction):
 		controller=target
 		atk = card.atk
 		health = card.max_health
-		Destroy(card).trigger(source)
-		anothercard = random.choice(controller.field)
-		Buff(anothercard, 'BG20_HERO_301pe',
-			atk=atk, max_health=health
-			).trigger(source)
-		Give(controller, 'GAME_005').trigger(source)
+		if len(controller.field)>=2:
+			Destroy(card).trigger(source)
+			anothercard = random.choice(controller.field)
+			Buff(anothercard, 'BG20_HERO_301pe',
+				atk=atk, max_health=health
+				).trigger(source)
+			Give(controller, 'GAME_005').trigger(source)
 		pass
 class BG20_HERO_301p:
 	""" Devour

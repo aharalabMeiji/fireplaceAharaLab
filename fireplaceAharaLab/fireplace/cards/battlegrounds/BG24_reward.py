@@ -94,9 +94,10 @@ class BG24_Reward_111_Action(TargetedAction):
 					high=[card]
 				elif high[0].health==card.health:
 					high.append(card)
-			card = random.choice(high)
-			ret = exactCopy(card, source)
-			ret.zone=Zone.PLAY
+			if len(high):
+				card = random.choice(high)
+				ret = exactCopy(card, source)
+				ret.zone=Zone.PLAY
 class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1, 
 	""" Evil Twin
 	[Start of Combat:] Summon a copy of your highest-Health minion. """
