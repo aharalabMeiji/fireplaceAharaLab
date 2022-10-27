@@ -8,7 +8,7 @@ def alterac_druid():
 	#PresetGame(pp_AV_205)# Hero ####OK
 	#PresetGame(pp_AV_210) ### OK
 	#PresetGame(pp_AV_210b) ### OK
-	#PresetGame(pp_AV_211)####OK
+	PresetGame(pp_AV_211)####OK
 	#PresetGame(pp_AV_291)####OK
 	#PresetGame(pp_AV_292)####OK
 	#PresetGame(pp_AV_293)####OK

@@ -4,9 +4,18 @@ from fireplace.card import Card, PlayableCard
 from fireplace.actions import *
 from fireplace.utils import random_draft
 from fireplace.player import Player
+from fireplace.config import Config
 import random
 from agent_Standard import *
 from utils import postAction
+
+
+def card_test():
+	if Config.CARD_TEST_SET=='ALTERAC_VALLEY':
+		if Config.CARD_TEST_CLASS=='DRUID':
+			from card_test.alterac_druid import alterac_druid
+			alterac_druid()
+	pass
 
 
 class DummyAgent(Agent):

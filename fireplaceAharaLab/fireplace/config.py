@@ -30,6 +30,13 @@ class Config:# ()is the default value
 		print(" %s"%(message))
 	DEEPCOPY_LOGINFO=0
 
+	#4: Checking a specific card for debugging
+	CARD_TEST_SET='ALTERAC_VALLEY'
+	## VANILLA,THE_BARRENS,STORMWIND,ALTERAC_VALLEY,THE_SUNKEN_CITY,REVENDRETH
+	CARD_TEST_CLASS='DRUID'
+	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
+
+
 
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime

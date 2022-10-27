@@ -93,11 +93,7 @@ def main():
 	#print("test_branch_yamadamaya")
 	pass
 
-def card_test():
-	from card_test.alterac_druid import alterac_druid
-	alterac_druid()
-	pass
-
+from card_test.simulate_game import card_test
 
 def battleground_main():
 	from fireplace.battlegrounds.BG_utils import  BG_main
