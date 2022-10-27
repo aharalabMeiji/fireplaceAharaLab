@@ -214,7 +214,7 @@ class WC_015:# <7>[1525]
 
 
 
-if Barrens_Shroud_of_Concealment:# 
+if Barrens_Shroud_of_Concealment:# ### OK ###
 	Barrens_Rogue+=['WC_016']
 	Barrens_Rogue+=['WC_016e']
 	Barrens_Rogue+=['WC_016e2']
@@ -227,7 +227,7 @@ class WC_016:# <7>[1525]
 		if len(cards)>2:
 			cards = random.sample(cards, 2)
 		for card in cards:
-			card=Give(controller, card)
+			card=Give(controller, card).trigger(self)
 			if card[0]!=[]:
 				card=card[0][0]
 				Buff(card, 'WC_016e').trigger(self)

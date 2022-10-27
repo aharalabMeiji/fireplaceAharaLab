@@ -3,11 +3,43 @@ from fireplace.actions import Summon, Hit, Shuffle
 from hearthstone.enums import CardClass, Race, CardType
 
 def barrens_rogue():
+	#PresetGame(pp_WC_016)## OK
 	#PresetGame(pp_WC_017)#### OKOK
-	#PresetGame(pp_BAR_323a)##
-	PresetGame(pp_BAR_323b)##
+	#PresetGame(pp_BAR_323a)## OK
+	#PresetGame(pp_BAR_323b)## OK
 	pass
 
+##########WC_016###############
+
+class pp_WC_016(Preset_Play):# 
+	""" Shroud of Concealment
+	Draw 2 minions. Any played this turn gain [Stealth] for 1 turn. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE	
+	def preset_deck(self):
+		self.mark1=self.exchange_card('WC_016', self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1)
+		for card in self.controller.hand:
+			self.print_stats("hand", card, show_buff=True)
+			if 'WC_016e' in [buff.id for buff in card.buffs]:
+				self.mark2=card
+		self.play_card(self.mark2)
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
+	pass
+		
 
 ##########WC_017###############
 
