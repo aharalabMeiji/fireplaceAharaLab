@@ -15,6 +15,9 @@ def card_test():
 		if Config.CARD_TEST_CLASS=='DRUID':
 			from card_test.alterac_druid import alterac_druid
 			alterac_druid()
+		elif Config.CARD_TEST_CLASS=='ROGUE':
+			from card_test.alterac_rogue import alterac_rogue
+			alterac_rogue()
 	elif Config.CARD_TEST_SET=='THE_BARRENS':
 		if Config.CARD_TEST_CLASS=='ROGUE':
 			from card_test.barrens_rogue import barrens_rogue

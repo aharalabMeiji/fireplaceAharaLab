@@ -118,7 +118,7 @@ class AV_402:# <7>[1626]
 	honorable_kill = AV_402_Give(CONTROLLER, FRIENDLY_DECK)
 	pass
 
-if Alterac_Cerathine_Fleetrunner:# 
+if Alterac_Cerathine_Fleetrunner:# ### OK ###
 	Alterac_Rogue+=['AV_403']
 	Alterac_Rogue+=['AV_403e2']
 class AV_403:# <7>[1626]
@@ -136,7 +136,7 @@ class AV_403:# <7>[1626]
 			new_class = random.choice(CLASSES_EXCEPT_ROGUE)
 			newcard=ShuffleTop(self.controller, RandomCollectible(card_class=new_class)).trigger(self)
 			if newcard[0]!=[] and newcard[0]!=None:
-				Buff(newcard[0],'AV_403e2').trigger(self)
+				Buff(newcard[0][0],'AV_403e2').trigger(self)
 	pass
 class AV_403e2:# <7>[1626]
 	""" Quickfooted

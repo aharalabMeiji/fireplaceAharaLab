@@ -9,20 +9,12 @@ def alterac_rogue():
 	#PresetGame(pp_AV_298)##
 	#PresetGame(pp_AV_400)##
 	#PresetGame(pp_AV_402)##
-	#PresetGame(pp_AV_403)##
+	PresetGame(pp_AV_403)## OK
 	#PresetGame(pp_AV_405)##
 	#PresetGame(pp_AV_601)##
 	#PresetGame(pp_AV_710)##
 	#PresetGame(pp_AV_711)##
-	#PresetGame(pp_BOM_08_Scabbs_002t)##
-	#PresetGame(pp_BOM_08_Scabbs_003t)##
-	#PresetGame(pp_BOM_08_Scabbs_005t)##
-	#PresetGame(pp_BOM_08_Scabbs_008t)##
-	#PresetGame(pp_BOM_09_Scabbs_008t)##
-	#PresetGame(pp_BOM_09_Snivvle_004hb)##
-	#PresetGame(pp_BOM_09_Togwaggle_004t)##
-	#PresetGame(pp_BOM_10_Scabbs_001t)##
-	#PresetGame(pp_BOM_10_Valeera_003t)##
+
 	#PresetGame(pp_ONY_030)##
 	#PresetGame(pp_ONY_031)##
 	#PresetGame(pp_ONY_032)##
@@ -189,24 +181,22 @@ class pp_AV_403(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("AV_403", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		##self.change_turn()
 		### opp
-		self.change_turn()
+		##self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		print("class of deck cards=%r"%([card.card_class for card in self.controller.deck]))
 		for card in self.controller.hand:
-			self.print_stats("hand", card)
+			self.print_stats("hand", card, show_buff=True)
+		print("class of hand cards=%r"%([card.card_class for card in self.controller.hand]))
 	pass
 
 
@@ -309,276 +299,6 @@ class pp_AV_711(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("AV_711", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Scabbs_002t##########
-
-class pp_BOM_08_Scabbs_002t(Preset_Play):
-	""" Scabbs
-	[Honorable Kill]: Draw a card. [Revive]: (3) """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Scabbs_002t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Scabbs_003t##########
-
-class pp_BOM_08_Scabbs_003t(Preset_Play):
-	""" Scabbs
-	[Honorable Kill]: Draw a card. [Revive]: (3) """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Scabbs_003t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Scabbs_005t##########
-
-class pp_BOM_08_Scabbs_005t(Preset_Play):
-	""" Scabbs
-	[Honorable Kill]: Draw a card. [Revive]: (3) """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Scabbs_005t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_08_Scabbs_008t##########
-
-class pp_BOM_08_Scabbs_008t(Preset_Play):
-	""" Scabbs
-	[Honorable Kill]: Draw a card. [Revive]: (2) """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_08_Scabbs_008t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Scabbs_008t##########
-
-class pp_BOM_09_Scabbs_008t(Preset_Play):
-	""" Scabbs
-	[Honorable Kill]: Draw a card. [Revive]: (3) """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Scabbs_008t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Snivvle_004hb##########
-
-class pp_BOM_09_Snivvle_004hb(Preset_Play):
-	""" Taskmaster Snivvle
-	<i>They say whoever wears the lantern crown is the kobold king.</i> """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Snivvle_004hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_09_Togwaggle_004t##########
-
-class pp_BOM_09_Togwaggle_004t(Preset_Play):
-	""" Miner Togwaggle
-	[Revive:] (2) """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_09_Togwaggle_004t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_10_Scabbs_001t##########
-
-class pp_BOM_10_Scabbs_001t(Preset_Play):
-	""" Scabbs, Top Agent
-	[Honorable Kill:] Draw a card. """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_10_Scabbs_001t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########BOM_10_Valeera_003t##########
-
-class pp_BOM_10_Valeera_003t(Preset_Play):
-	""" Valeera Sanguinar
-	Whenever this is attacked, throw a Fan of Knives. [Deathrattle:] Advance fight. """
-	class1=CardClass.ROGUE
-	class2=CardClass.ROGUE
-	def preset_deck(self):
-		self.con1=self.exchange_card("BOM_10_Valeera_003t", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
