@@ -323,6 +323,8 @@ class BAR_078:#OK
 	events = SELF_DAMAGE.on(Frenzy(SELF,Hit(ENEMY_MINIONS,Attr(SELF, GameTag.ATK))))
 	pass
 
+
+
 if Barrens_Kazakus_Golem_Shaper:# 
 	Barrens_Neutral+=['BAR_079','BAR_079_m1','BAR_079_m2','BAR_079_m3']
 	Barrens_Neutral+=['BAR_079t4','BAR_079t5','BAR_079t6','BAR_079t7','BAR_079t8','BAR_079t9']
@@ -348,12 +350,10 @@ class BAR_079:###OK
 	Next, choose one of 'rush, taunt, divine shield, life steal,  stealth, poisonous'
 
 	"""
-	entourage = ["BAR_079_m1","BAR_079_m2","BAR_079_m3"]# first choice
 	powered_up = -Find(FRIENDLY_DECK + (COST==4))
 	def play(self):
 		controller = self.controller
 		if self.powered_up:
-			#GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
 			GenericChoiceBattlecry(controller,RandomID("BAR_079_m1","BAR_079_m2","BAR_079_m3")*3).trigger(self)
 	pass
 
@@ -361,32 +361,21 @@ class BAR_079:###OK
 class BAR_079_m1:
 	""" Lesser Golem
 	{0}{1} """
-	#
-	entourage = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# second choice
-	def play(self):
-		controller = self.controller
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
-		pass
+	## second choice
+	play = GenericChoiceBattlecry(CONTROLLER, RandomID("BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9")*3)
 	pass
 
 class BAR_079_m2:
 	""" Greater Golem
 	{0}{1} """
-	entourage = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# second choice
-	def play(self):
-		controller = self.controller
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
-		pass
+	# second choice
+	play = GenericChoiceBattlecry(CONTROLLER, RandomID("BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9")*3)
 	pass
 
 class BAR_079_m3:
 	""" Superior Golem
 	{0}{1} """
-	entourage = ["BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9"]# second choice
-	def play(self):
-		controller = self.controller
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
-		pass
+	play = GenericChoiceBattlecry(CONTROLLER ,RandomID("BAR_079t4","BAR_079t5","BAR_079t6","BAR_079t7","BAR_079t8","BAR_079t9")*3)
 	pass
 
 class BAR_079t4:
@@ -396,12 +385,11 @@ class BAR_079t4:
 		controller = self.controller
 		choice1 = controller.hand[-2].id
 		if choice1 == 'BAR_079_m1':
-			self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12")*3).trigger(self)
 		elif choice1 == 'BAR_079_m2':
-			self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b")*3).trigger(self)
 		elif choice1 == 'BAR_079_m3':
-			self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c")*3).trigger(self)
 	pass
 
 class BAR_079t5:
@@ -411,12 +399,11 @@ class BAR_079t5:
 		controller = self.controller
 		choice1 = controller.hand[-2].id
 		if choice1 == 'BAR_079_m1':
-			self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12")*3).trigger(self)
 		elif choice1 == 'BAR_079_m2':
-			self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b")*3).trigger(self)
 		elif choice1 == 'BAR_079_m3':
-			self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c")*3).trigger(self)
 	pass
 
 class BAR_079t6:
@@ -426,12 +413,11 @@ class BAR_079t6:
 		controller = self.controller
 		choice1 = controller.hand[-2].id
 		if choice1 == 'BAR_079_m1':
-			self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12")*3).trigger(self)
 		elif choice1 == 'BAR_079_m2':
-			self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b")*3).trigger(self)
 		elif choice1 == 'BAR_079_m3':
-			self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c")*3).trigger(self)
 	pass
 
 class BAR_079t7:
@@ -441,12 +427,11 @@ class BAR_079t7:
 		controller = self.controller
 		choice1 = controller.hand[-2].id
 		if choice1 == 'BAR_079_m1':
-			self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12")*3).trigger(self)
 		elif choice1 == 'BAR_079_m2':
-			self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b")*3).trigger(self)
 		elif choice1 == 'BAR_079_m3':
-			self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c")*3).trigger(self)
 	pass
 
 class BAR_079t8:
@@ -456,12 +441,11 @@ class BAR_079t8:
 		controller = self.controller
 		choice1 = controller.hand[-2].id
 		if choice1 == 'BAR_079_m1':
-			self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12")*3).trigger(self)
 		elif choice1 == 'BAR_079_m2':
-			self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b")*3).trigger(self)
 		elif choice1 == 'BAR_079_m3':
-			self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c")*3).trigger(self)
 	pass
 
 class BAR_079t9:
@@ -471,12 +455,11 @@ class BAR_079t9:
 		controller = self.controller
 		choice1 = controller.hand[-2].id
 		if choice1 == 'BAR_079_m1':
-			self.entourage = ["BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10","BAR_079t11","BAR_079t14","BAR_079t13","BAR_079t15","BAR_079t12")*3).trigger(self)
 		elif choice1 == 'BAR_079_m2':
-			self.entourage = ["BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b"]
+			GenericChoiceBattlecry(controller,RandomID("BAR_079t10b","BAR_079t11","BAR_079t14b","BAR_079t13b","BAR_079t15b","BAR_079t12b")*3).trigger(self)
 		elif choice1 == 'BAR_079_m3':
-			self.entourage = ["bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c",]
-		GenericChoiceBattlecry(controller,RandomEntourage()*3).trigger(self)
+			GenericChoiceBattlecry(controller,RandomID("bar_079t10c","BAR_079t11","BAR_079t14c","BAR_079t13c","BAR_079t15c","BAR_079t12c")*3).trigger(self)
 	pass
 
 def BAR_079Buff(card, buffId):
