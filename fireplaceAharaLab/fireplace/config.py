@@ -1,8 +1,8 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=4
+	HEARTHSTONE=3
 	#1: Hearthstone standard battle
-	#2: Hearthstone classic circumstance
+	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
 
 	#4: Checking a specific card for debugging
@@ -10,17 +10,17 @@ class Config:# ()is the default value
 	#10: Decoding from a 'deckcode' to list of cards.
 
 	#ランク戦のオプション
-	FSFIXED=0 # fixing first and second (先攻と後攻を固定) YES:>0 NO:0(0) 
-	COIN=1 # giving a coin to the second (後攻にコインを与えるか) YES:>0 NO:0(1)
-	EX_CARD=1 # giving an extra ard to the second (後攻にカードを与えるか) YES:>0 NO:0(1)
-	# 以下はplay_set_of_games()のオプションへ移動
+	FSFIXED=0 # fixing first and second YES:>0 NO:0(0) #(先攻と後攻を固定) 
+	COIN=1 # giving a coin to the second  YES:>0 NO:0(1) #(後攻にコインを与えるか)
+	EX_CARD=1 # giving an extra ard to the second  YES:>0 NO:0(1) #(後攻にカードを与えるか)
+	# options of play_set_of_games()
 	#HEROHPOPTION=30 #ヒーロー体力(30)
 	#P1MAXMANA=1 # 先攻マナ(1) 1~10
 	#P2MAXMANA=1 # 後攻マナ(1) 1~10
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
-	LOGINFO=1# log.info相当のログ表示
+	LOGINFO=0# as log.info
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
@@ -46,7 +46,7 @@ class Config:# ()is the default value
 	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=1 ## battleground with human player
+	PLAYER1_HUMAN=0 ## battleground with human player
 	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）

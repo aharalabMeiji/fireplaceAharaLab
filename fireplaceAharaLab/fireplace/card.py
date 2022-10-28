@@ -1301,7 +1301,7 @@ class QuestReward(PlayableCard):
 	@property
 	def events(self):
 		ret = super().events
-		if self.zone == Zone.SECRET:
+		if self.zone == Zone.SECRET and hasattr(self.data.scripts, 'reward'):
 			ret += self.data.scripts.reward
 		return ret
 	@property
