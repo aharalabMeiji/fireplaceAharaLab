@@ -905,6 +905,127 @@ class TB_BaconShop_HERO_35_Buddy_G:
 	pass
 
 
+##### Wheel of Yogg-Saron #####
+BG_Hero5+=[]
+class BG_SpinWheelOfYoggSaron(TargetedAction):
+	"""
+	spin the Wheel of Yogg-Saron 
+	ヨグ＝サロンの車輪の効果は以下から選ばれる(各19％、焙り焼きロッドのみ5％)
+	・ボブの酒場のランダムなミニオン1体をゴールデンにする。	
+	・ランダムなダークムーンの景品を自分の手札に2枚加える。
+	・味方のミニオン全てに+3/+3を付与した後、それらの攻撃力・体力をランダムに入れ替える。
+	・このゲーム中、ボブの酒場のミニオンに+3/+3を付与する。
+	・ボブの酒場のミニオン全てを吸収し、味方の戦団にその攻撃力・体力を付与する。その後、酒場を入れ替える。
+	・焙り焼きロッド：自分のヒーローかバーテンダーに当たるまで+4/+4を付与するパイロバフをランダムに使い続ける。"""
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		pass
+class CastRandomSpell(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source,controller):
+		count = 0
+		for card in controller.play_log:
+			if card.type==CardType.SPELL:
+				count+=1
+		for repeat in range(count-1):
+			spell = RandomSpell().evaluate(controller)
+			spell = spell[0]
+			spell.zone = Zone.HAND
+			spell.cost = 0
+			if spell.requires_target():
+				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])##
+				spell.play(target=target)
+			else:
+				spell.play()
+		pass
+class DMF_004t1:###OK
+	"""Mysterybox
+	Cast a random spell for every spell you've cast this game <i>(targets chosen randomly)</i>. """
+	play = CastRandomSpell(CONTROLLER)
+	pass
+DMF_004t1e=buff(0,0)
+class DMF_004t2:###OK
+	"""Hand of Fate
+	Fill your hand with random spells. They cost (0) this turn. """
+	play = (Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),#借りてきた
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
+		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')))
+	pass
+class DMF_004t3:###OK
+	"""Curse of Flesh
+	Fill the board with random minions, then give yours [Rush] """
+	play = (Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION)),
+		 Summon(OPPONENT,RANDOM(MINION))
+		 )
+	pass
+class DMF_004t4:###OK
+	"""Mindflayer Goggles
+	Take control of three random enemy minions """
+	play = (Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET))),
+		 Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET))),
+		 Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET)))
+		 )
+	pass
+class DestroyAll_GainStats(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		minions = controller.field+controller.opponent.field
+		new_atk=0
+		new_health=0
+		master = None
+		for card in minions:
+			if card.id != 'DMF_004':
+				new_atk += card.atk
+				new_health += card.max_health
+				card.destroy()
+			else:
+				master = card
+		if master != None:
+			master.atk += new_atk
+			master.max_health += new_health
+		pass
+	pass
+
+class DMF_004t5:###OK
+	"""Devouring Hunger
+	Destroy all other minions. Gain their Attack and Health. """
+	play = DestroyAll_GainStats(CONTROLLER)
+	pass
+DMF_004t5e=buff(0,0)
+
+class RandomPyroblast(TargetedAction):
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		while True:
+			x = random.choice([controller.hero,controller.opponent.hero])##
+			if x.health<10:
+				Hit(x,10).trigger(source)
+				# do something here?
+				return
+			else:
+				Hit(x,10).trigger(source)
+		pass
+	pass
+class DMF_004t6:### OK
+	"""Rod of Roasting
+	Cast 'Pyroblast' randomly until a hero dies."""
+	play = RandomPyroblast(CONTROLLER)
+	pass
 
 
 

@@ -12,15 +12,15 @@ BG24_Quest_Reenact_the_Murder=True
 BG24_Quest_Sort_It_All_Out=True
 BG24_Quest_Follow_the_Money=True
 BG24_Quest_Unlikely_Duo=True
-BG24_Quest_Balance_the_Scales=False
+BG24_Quest_Balance_the_Scales=False #not in service
 BG24_Quest_Cry_for_Help=True
 BG24_Quest_Invite_the_Guests=True
 BG24_Quest_Dust_for_Prints=True
 BG24_Quest_Witness_Protection=False## banned 24.2.1
 BG24_Quest_Exhume_the_Bones=True
-BG24_Quest_Close_the_Case=False
+BG24_Quest_Close_the_Case=False #not in service
 BG24_Quest_An_Investigation=True
-BG24_Quest_Discover_Quest__Reward_DNT=False
+BG24_Quest_Discover_Quest__Reward_DNT=False #not in service
 
 
 if BG24_Quest_Track_the_Footprints:# ### OK ###
@@ -157,7 +157,7 @@ class BG24_Quest_151:# [2466]=1, [2496]=1,
 	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG24_Quest_151_Action2(Play.CARD))
 	pass
 
-if BG24_Quest_Balance_the_Scales:# ????????????????
+if BG24_Quest_Balance_the_Scales:# ????not in service
 	BG24_Quest+=['BG24_Quest_152']
 	BG24_Quest_Pool+=['BG24_Quest_152']
 class BG24_Quest_152:# 
@@ -220,7 +220,7 @@ class BG24_Quest_320:# [2466]=1, [2580]=1, [2643]=80, [2644]=90, [2646]=90,
 	events = Deathrattle(FRIENDLY_MINIONS).on(QuestCounter(SELF))
 	pass
 
-if BG24_Quest_Close_the_Case:# ???????????
+if BG24_Quest_Close_the_Case:# ? not in service
 	BG24_Quest+=['BG24_Quest_328']
 	BG24_Quest_Pool+=['BG24_Quest_328']
 class BG24_Quest_328:# 
