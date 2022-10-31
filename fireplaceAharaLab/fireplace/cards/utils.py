@@ -76,7 +76,19 @@ CLASSES_EXCEPT_PALADIN=[
 	CardClass.WARLOCK,
 	CardClass.WARRIOR,
    ]
-
+RACES=[
+	Race.INVALID,
+	Race.MURLOC,
+	Race.DEMON,
+	Race.MECHANICAL,
+	Race.ELEMENTAL,
+	Race.BEAST,
+	Race.PIRATE,
+	Race.DRAGON,
+	Race.ALL,
+	Race.QUILBOAR,
+	Race.NAGA 
+]
 
 
 OTHERCLASSES = lambda myclass: CARDCLASSES.remove(myclass)
