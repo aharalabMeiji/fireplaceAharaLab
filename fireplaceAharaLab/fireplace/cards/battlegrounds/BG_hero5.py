@@ -819,7 +819,14 @@ class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
 
 
 ##Yogg-Saron, Hope's End #   ### HP OK ###
-BG_Hero5+=['TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e','TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t','TB_BaconShop_HERO_35_Buddy_G',]#
+BG_Hero5+=['TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e',
+		   'TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e',
+		   'TB_BaconShop_HERO_35_Buddy_t2',
+		   'TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t3e','TB_BaconShop_HERO_35_Buddy_t3f',
+		   'TB_BaconShop_HERO_35_Buddy_t4',
+		   'TB_BaconShop_HERO_35_Buddy_t5',
+		   'TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t6e','TB_BaconShop_HERO_35_Buddy_t6t',
+		   'TB_BaconShop_HERO_35_Buddy_t7','TB_BaconShop_HERO_35_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_35')
 BG_Hero5_Buddy['TB_BaconShop_HERO_35']='TB_BaconShop_HERO_35_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_35_Buddy']='TB_BaconShop_HERO_35_Buddy_G'
@@ -847,58 +854,130 @@ class TB_BaconShop_HERO_35_Buddy:
 	pass
 class TB_BaconShop_HERO_35_Buddy_t1:# <12>[1453]
 	""" Mysterybox
-	For the rest of the game,your Hero Power triggersan extra time when used. """
-	#
+	For the rest of the game,your Hero Power triggers an extra time when used. """
 	pass
 class TB_BaconShop_HERO_35_Buddy_t1e:# <12>[1453]
 	""" Mysterybox
 	Your Hero Power triggers an extra time. """
 	#
 	pass
+class TB_BaconShop_HERO_35_Buddy_t2_Action(TargetedAction):
+	"""Hand of Fate """
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		cards=['BGS_Treasures_004', 'BGS_Treasures_006', 'BGS_Treasures_007', 'BGS_Treasures_012', 'BGS_Treasures_015', 'BGS_Treasures_018', 'BGS_Treasures_001', 'BGS_Treasures_010', 'BGS_Treasures_013', 'BGS_Treasures_016', 'BGS_Treasures_019', 'BGS_Treasures_022', 'BGS_Treasures_023', 'BGS_Treasures_025', 'BGS_Treasures_026', 'BGS_Treasures_029', 'BGS_Treasures_000', 'BGS_Treasures_009', 'BGS_Treasures_014', 'BGS_Treasures_020', 'BGS_Treasures_028', 'BGS_Treasures_030', 'BGS_Treasures_033', 'BGS_Treasures_036', 'BGS_Treasures_037', 'BGS_Treasures_040']
+		cards=random.sample(cards, 3)
+		Give(controller, cards[0]).trigger(source)
+		Give(controller, cards[1]).trigger(source)
+		pass
 class TB_BaconShop_HERO_35_Buddy_t2:# <12>[1453]
 	""" Hand of Fate
 	Add 3 random Darkmoon Prizes to your hand. """
-	#
+	play = TB_BaconShop_HERO_35_Buddy_t2_Action(CONTROLLER)
 	pass
+class TB_BaconShop_HERO_35_Buddy_t3_Action(TargetedAction):
+	"""Curse of Flesh """
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		cards=[card for card in controller.field if card.type==CardType.MINION]
+		for card in cards:
+			Buff(card, 'TB_BaconShop_HERO_35_Buddy_t3e', atk=3, max_health=3).trigger(source)
+		if len(cards)>=2:
+			cards=random.sample(cards, 2)
+			atk=cards[1].atk-cards[0].atk
+			hlt=cards[1].max_health-cards[0].max_health
+			Buff(cards[0], 'TB_BaconShop_HERO_35_Buddy_t3f', atk=atk, max_health=hlt)
+			Buff(cards[1], 'TB_BaconShop_HERO_35_Buddy_t3f', atk=-atk, max_health=-hlt)
+		pass
+
 class TB_BaconShop_HERO_35_Buddy_t3:# <12>[1453]
 	""" Curse of Flesh
 	Give your minions +3/+3, then randomly shuffle their stats. """
-	#
+	play = TB_BaconShop_HERO_35_Buddy_t3_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HERO_35_Buddy_t3e:# <12>[1453]
 	""" Fleshy
 	+3/+3 """
-	#
 	pass
 class TB_BaconShop_HERO_35_Buddy_t3f:# <12>[1453]
 	""" Curse of Fleshed
 	Stats shuffled with other minions. """
 	#
 	pass
+class TB_BaconShop_HERO_35_Buddy_t4_Action(TargetedAction):
+	"""Curse of Flesh """
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		for card in controller.opponent.field:
+			card.zone=Zone.SETASIDE
+			card.controller=controller
+			card.zone=Zone.HAND
+		Rerole(CONTROLLER).trigger(source)
+		pass
 class TB_BaconShop_HERO_35_Buddy_t4:# <12>[1453]
 	""" Mindflayer Goggles
 	Steal all minions in Bob's Tavern, then [Refresh] it. """
-	#
+	play = TB_BaconShop_HERO_35_Buddy_t4_Action(CONTROLLER)
 	pass
+class TB_BaconShop_HERO_35_Buddy_t5_Action(TargetedAction):
+	"""Curse of Flesh """
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		if len(controller.field)>0 and len(controller.opponent.field)>0:
+			for card in reversed(controller.opponent.field):
+				card2 = random.choice(controller.field)
+				if card.type==CardType.MINION and card2.type==CardType.MINION:
+					Buff(card2, 'TB_BaconShop_HERO_35_Buddy_t5e', atk=card.atk, max_health=card.max_health).trigger(source)
+					card.discard()	
+			Rerole(controller).trigger(source)
+		pass
+@custom_card
+class TB_BaconShop_HERO_35_Buddy_t5e:
+	tags = {
+		GameTag.CARDNAME: "Devouring Hunger",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}
 class TB_BaconShop_HERO_35_Buddy_t5:# <12>[1453]
 	""" Devouring Hunger
-	Consume Bob's Tavern and give thestats to your minions.Then [Refresh] it. """
-	#
+	Consume Bob's Tavern and give the stats to your minions.Then [Refresh] it. """
+	play=TB_BaconShop_HERO_35_Buddy_t5_Action(CONTROLLER)
 	pass
+class TB_BaconShop_HERO_35_Buddy_t6_Action(TargetedAction):
+	"""Curse of Flesh """
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		cards = controller.game.character
+		for repeat in range(len(cards)):
+			card = random.choice(cards)
+			if card==controller or card==controller.opponent:
+				break
+			else:
+				Buff(card, 'TB_BaconShop_HERO_35_Buddy_t6e').trigger(source)
+		pass
 class TB_BaconShop_HERO_35_Buddy_t6:# <12>[1453]
 	""" Rod of Roasting
 	Cast 'Pyrobuff' randomly to give minions +4/+4 until one hits your bartender or hero. """
 	#
 	pass
-class TB_BaconShop_HERO_35_Buddy_t6e:# <12>[1453]
-	""" Pyrobuffed
-	+4/+4 """
-	#
-	pass
+TB_BaconShop_HERO_35_Buddy_t6e=buff(4,4)
+""" Pyrobuffed	+4/+4 """
 class TB_BaconShop_HERO_35_Buddy_t6t:# <12>[1453]
 	""" Pyrobuff
 	Give a minion +4/+4. """
-	#
+	pass
+class TB_BaconShop_HERO_35_Buddy_t7_Action(TargetedAction):
+	"""  Mysterybox """
+	CONTROLLER = ActionArg()
+	def do(self, source, controller):
+		if controller.game.this_is_tavern:
+			if len(controller.opponent.field):
+				card = random.choice(controller.opponent.field)
+				controller.game.BG_morph_gold(card)
+		pass
+class TB_BaconShop_HERO_35_Buddy_t7:#
+	""" Mysterybox
+	Make a random minion in Bob's Tavern Golden."""
+	play = TB_BaconShop_HERO_35_Buddy_t7_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HERO_35_Buddy_G:
 	""" """
@@ -910,122 +989,12 @@ BG_Hero5+=[]
 class BG_SpinWheelOfYoggSaron(TargetedAction):
 	"""
 	spin the Wheel of Yogg-Saron 
-	ヨグ＝サロンの車輪の効果は以下から選ばれる(各19％、焙り焼きロッドのみ5％)
-	・ボブの酒場のランダムなミニオン1体をゴールデンにする。	
-	・ランダムなダークムーンの景品を自分の手札に2枚加える。
-	・味方のミニオン全てに+3/+3を付与した後、それらの攻撃力・体力をランダムに入れ替える。
-	・このゲーム中、ボブの酒場のミニオンに+3/+3を付与する。
-	・ボブの酒場のミニオン全てを吸収し、味方の戦団にその攻撃力・体力を付与する。その後、酒場を入れ替える。
-	・焙り焼きロッド：自分のヒーローかバーテンダーに当たるまで+4/+4を付与するパイロバフをランダムに使い続ける。"""
+	ヨグ＝サロンの車輪の効果は以下から選ばれる(各19％、焙り焼きロッドのみ5％)"""
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
 		pass
-class CastRandomSpell(TargetedAction):
-	CONTROLLER = ActionArg()
-	def do(self, source,controller):
-		count = 0
-		for card in controller.play_log:
-			if card.type==CardType.SPELL:
-				count+=1
-		for repeat in range(count-1):
-			spell = RandomSpell().evaluate(controller)
-			spell = spell[0]
-			spell.zone = Zone.HAND
-			spell.cost = 0
-			if spell.requires_target():
-				target = random.choice(controller.field + controller.opponent.field + [controller.hero] + [controller.opponent.hero])##
-				spell.play(target=target)
-			else:
-				spell.play()
-		pass
-class DMF_004t1:###OK
-	"""Mysterybox
-	Cast a random spell for every spell you've cast this game <i>(targets chosen randomly)</i>. """
-	play = CastRandomSpell(CONTROLLER)
-	pass
-DMF_004t1e=buff(0,0)
-class DMF_004t2:###OK
-	"""Hand of Fate
-	Fill your hand with random spells. They cost (0) this turn. """
-	play = (Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),#借りてきた
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')),
-		 Give(CONTROLLER,RANDOM(SPELL)).then(Buff(Give.CARD,'DMF_188e2')))
-	pass
-class DMF_004t3:###OK
-	"""Curse of Flesh
-	Fill the board with random minions, then give yours [Rush] """
-	play = (Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(CONTROLLER,RANDOM(MINION)).then(SetTag(Give.CARD, (GameTag.RUSH,))),
-		 Summon(OPPONENT,RANDOM(MINION)),
-		 Summon(OPPONENT,RANDOM(MINION)),
-		 Summon(OPPONENT,RANDOM(MINION)),
-		 Summon(OPPONENT,RANDOM(MINION)),
-		 Summon(OPPONENT,RANDOM(MINION)),
-		 Summon(OPPONENT,RANDOM(MINION))
-		 )
-	pass
-class DMF_004t4:###OK
-	"""Mindflayer Goggles
-	Take control of three random enemy minions """
-	play = (Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET))),
-		 Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET))),
-		 Destroy(RANDOM(ENEMY_MINIONS)).then(Summon(CONTROLLER,ExactCopy(Destroy.TARGET)))
-		 )
-	pass
-class DestroyAll_GainStats(TargetedAction):
-	CONTROLLER = ActionArg()
-	def do(self, source, controller):
-		minions = controller.field+controller.opponent.field
-		new_atk=0
-		new_health=0
-		master = None
-		for card in minions:
-			if card.id != 'DMF_004':
-				new_atk += card.atk
-				new_health += card.max_health
-				card.destroy()
-			else:
-				master = card
-		if master != None:
-			master.atk += new_atk
-			master.max_health += new_health
-		pass
-	pass
 
-class DMF_004t5:###OK
-	"""Devouring Hunger
-	Destroy all other minions. Gain their Attack and Health. """
-	play = DestroyAll_GainStats(CONTROLLER)
-	pass
-DMF_004t5e=buff(0,0)
 
-class RandomPyroblast(TargetedAction):
-	CONTROLLER = ActionArg()
-	def do(self, source, controller):
-		while True:
-			x = random.choice([controller.hero,controller.opponent.hero])##
-			if x.health<10:
-				Hit(x,10).trigger(source)
-				# do something here?
-				return
-			else:
-				Hit(x,10).trigger(source)
-		pass
-	pass
-class DMF_004t6:### OK
-	"""Rod of Roasting
-	Cast 'Pyroblast' randomly until a hero dies."""
-	play = RandomPyroblast(CONTROLLER)
-	pass
 
 
 
