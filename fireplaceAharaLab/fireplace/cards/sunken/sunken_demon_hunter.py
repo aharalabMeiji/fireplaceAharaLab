@@ -143,18 +143,19 @@ class TSC_058e:# <14>[1658]
 if Sunken_Wayward_Sage:# 
 	Sunken_DemonHunter+=['TSC_217']
 	Sunken_DemonHunter+=['TSC_217e']
-class RSC_217_Action(TargetedAction):
+class TSC_217_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		left = target.hand[0]
-		right = target.hand[-1]
-		if left!=right:
-			Buff(left, 'TSC_217e')
-		Buff(right, 'TSC_217e')
+		if len(target.hand)>0:
+			left = target.hand[0]
+			Buff(left, 'TSC_217e').trigger(source)
+			if len(target.hand)>1:
+				right = target.hand[-1]
+				Buff(right, 'TSC_217e').trigger(source)
 class TSC_217:# <14>[1658]
 	""" Wayward Sage
 	[Outcast:] Reduce the Cost of the left and right-most_cards in your hand by (1). """
-	outcast = RSC_217_Action(CONTROLLER)
+	outcast = TSC_217_Action(CONTROLLER)
 	pass
 class TSC_217e:# <14>[1658]
 	""" Found the Wrong Way Costs (1) less. """
