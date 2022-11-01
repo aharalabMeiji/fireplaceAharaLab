@@ -82,7 +82,9 @@ def is_valid_target(self, target, requirements=None):
 			if not target.taunt:
 				return False
 		elif req == PlayReq.REQ_UNDAMAGED_TARGET:
-			if target.damage:
+			if hasattr(target, 'damage')==False:
+				return False
+			elif hasattr(target, 'damage') and target.damage:
 				return False
 		elif req == PlayReq.REQ_LEGENDARY_TARGET:
 			if target.rarity != Rarity.LEGENDARY:

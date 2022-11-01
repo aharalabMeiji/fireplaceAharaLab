@@ -361,7 +361,7 @@ if StormWind_SI7_Extortion:#
 class SW_412:# <7>[1578]
 	""" SI:7 Extortion
 	[Tradeable]Deal $3 damage to an undamaged character. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_UNDAMAGED_TARGET: 0}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_UNDAMAGED_TARGET: 0}
 	play = Hit(TARGET, 3)
 	#
 	pass
