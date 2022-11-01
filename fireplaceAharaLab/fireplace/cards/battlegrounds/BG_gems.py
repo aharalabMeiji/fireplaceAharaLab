@@ -81,10 +81,15 @@ class BGS_Treasures_000:# <12>[1453] ## OK ##
 BGS_Treasures_000e=buff(2,2)# <12>[1453]
 """ Big Banana , Has +2/+2. """
 
+class TB_BaconShop_Triples_01_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		tech_level = min(controller.tavern_tier+1,6)
+		Discover(CONTROLLER, RandomBGAdmissible(tech_level=tech_level)).trigger(source)
 class TB_BaconShop_Triples_01:# <12>[1453]
 	""" Triple Reward
-	[Discover] a minionfrom [Tavern Tier @]. """
-	play = Discover(CONTROLLER, RandomBGAdmissible(tech_level=TAG_SCRIPT_DATA_NUM_1(SELF)))
+	[Discover] a minion from [Tavern Tier @]. """
+	play = TB_BaconShop_Triples_01_Action(CONTROLLER)
 	pass
 
 

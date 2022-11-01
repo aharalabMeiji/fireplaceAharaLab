@@ -870,7 +870,7 @@ class TB_BaconShop_HERO_35_Buddy_t2_Action(TargetedAction):
 		Give(controller, cards[0]).trigger(source)
 		Give(controller, cards[1]).trigger(source)
 		pass
-class TB_BaconShop_HERO_35_Buddy_t2:# <12>[1453]
+class TB_BaconShop_HERO_35_Buddy_t2:# <12>[1453]### OK ##
 	""" Hand of Fate
 	Add 3 random Darkmoon Prizes to your hand. """
 	play = TB_BaconShop_HERO_35_Buddy_t2_Action(CONTROLLER)
@@ -886,11 +886,13 @@ class TB_BaconShop_HERO_35_Buddy_t3_Action(TargetedAction):
 			cards=random.sample(cards, 2)
 			atk=cards[1].atk-cards[0].atk
 			hlt=cards[1].max_health-cards[0].max_health
-			Buff(cards[0], 'TB_BaconShop_HERO_35_Buddy_t3f', atk=atk, max_health=hlt)
-			Buff(cards[1], 'TB_BaconShop_HERO_35_Buddy_t3f', atk=-atk, max_health=-hlt)
+			Buff(cards[0], 'TB_BaconShop_HERO_35_Buddy_t3f', atk=atk, max_health=hlt).trigger(source)
+			Buff(cards[1], 'TB_BaconShop_HERO_35_Buddy_t3f', atk=-atk, max_health=-hlt).trigger(source)
+			if Config.LOGINFO:
+				Config.log("TB_BaconShop_HERO_35_Buddy_t3_Action.do","changes stats of %s and %s "%(cards[0],cards[1]))
 		pass
 
-class TB_BaconShop_HERO_35_Buddy_t3:# <12>[1453]
+class TB_BaconShop_HERO_35_Buddy_t3:# <12>[1453] ### OK ###
 	""" Curse of Flesh
 	Give your minions +3/+3, then randomly shuffle their stats. """
 	play = TB_BaconShop_HERO_35_Buddy_t3_Action(CONTROLLER)
@@ -908,13 +910,14 @@ class TB_BaconShop_HERO_35_Buddy_t4_Action(TargetedAction):
 	"""Curse of Flesh """
 	CONTROLLER = ActionArg()
 	def do(self, source, controller):
-		for card in controller.opponent.field:
+		for card in reversed(controller.opponent.field):
 			card.zone=Zone.SETASIDE
 			card.controller=controller
 			card.zone=Zone.HAND
-		Rerole(CONTROLLER).trigger(source)
+		controller.game.free_rerole=1	
+		Rerole(controller).trigger(source)
 		pass
-class TB_BaconShop_HERO_35_Buddy_t4:# <12>[1453]
+class TB_BaconShop_HERO_35_Buddy_t4:# <12>[1453] ### OK ###
 	""" Mindflayer Goggles
 	Steal all minions in Bob's Tavern, then [Refresh] it. """
 	play = TB_BaconShop_HERO_35_Buddy_t4_Action(CONTROLLER)
@@ -929,6 +932,7 @@ class TB_BaconShop_HERO_35_Buddy_t5_Action(TargetedAction):
 				if card.type==CardType.MINION and card2.type==CardType.MINION:
 					Buff(card2, 'TB_BaconShop_HERO_35_Buddy_t5e', atk=card.atk, max_health=card.max_health).trigger(source)
 					card.discard()	
+			controller.game.free_rerole=1
 			Rerole(controller).trigger(source)
 		pass
 @custom_card
@@ -937,7 +941,7 @@ class TB_BaconShop_HERO_35_Buddy_t5e:
 		GameTag.CARDNAME: "Devouring Hunger",
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
-class TB_BaconShop_HERO_35_Buddy_t5:# <12>[1453]
+class TB_BaconShop_HERO_35_Buddy_t5:# <12>[1453] ### OK ###
 	""" Devouring Hunger
 	Consume Bob's Tavern and give the stats to your minions.Then [Refresh] it. """
 	play=TB_BaconShop_HERO_35_Buddy_t5_Action(CONTROLLER)
@@ -946,18 +950,22 @@ class TB_BaconShop_HERO_35_Buddy_t6_Action(TargetedAction):
 	"""Curse of Flesh """
 	CONTROLLER = ActionArg()
 	def do(self, source, controller):
-		cards = controller.game.character
+		cards = controller.game.characters
 		for repeat in range(len(cards)):
 			card = random.choice(cards)
-			if card==controller or card==controller.opponent:
+			if card==controller.hero or card==controller.opponent.hero:
+				if Config.LOGINFO:
+					Config.log("TB_BaconShop_HERO_35_Buddy_t6_Action.do","Choice is hero and quits.")
 				break
 			else:
+				if Config.LOGINFO:
+					Config.log("TB_BaconShop_HERO_35_Buddy_t6_Action.do","Choice is a minion and buffs Pyrobuff.")
 				Buff(card, 'TB_BaconShop_HERO_35_Buddy_t6e').trigger(source)
 		pass
-class TB_BaconShop_HERO_35_Buddy_t6:# <12>[1453]
+class TB_BaconShop_HERO_35_Buddy_t6:# <12>[1453] ### OK ###
 	""" Rod of Roasting
 	Cast 'Pyrobuff' randomly to give minions +4/+4 until one hits your bartender or hero. """
-	#
+	play = TB_BaconShop_HERO_35_Buddy_t6_Action(CONTROLLER)
 	pass
 TB_BaconShop_HERO_35_Buddy_t6e=buff(4,4)
 """ Pyrobuffed	+4/+4 """
@@ -974,7 +982,7 @@ class TB_BaconShop_HERO_35_Buddy_t7_Action(TargetedAction):
 				card = random.choice(controller.opponent.field)
 				controller.game.BG_morph_gold(card)
 		pass
-class TB_BaconShop_HERO_35_Buddy_t7:#
+class TB_BaconShop_HERO_35_Buddy_t7:### OK ###
 	""" Mysterybox
 	Make a random minion in Bob's Tavern Golden."""
 	play = TB_BaconShop_HERO_35_Buddy_t7_Action(CONTROLLER)

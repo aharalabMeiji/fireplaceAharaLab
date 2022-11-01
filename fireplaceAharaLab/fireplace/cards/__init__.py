@@ -6,6 +6,7 @@ from hearthstone.enums import CardType, CardSet, CardClass, GameTag
 from ..utils import get_script_definition
 
 from fireplace.config import Config
+from fireplace.dsl import random_picker
 
 class CardDB(dict):
 	def __init__(self):
@@ -231,6 +232,8 @@ class CardDB(dict):
 								if card.tags.get(2423, 0)==1]
 				elif attr == 'stealthed':
 					cards = [card for card in cards if card.tags.get(GameTag.STEALTH,0)==1 ]
+				elif attr == 'admissible':
+					cards = [card for card in cards if card.race in random_picker.BG_races ]
 				else:
 					cards = [
 						card for card in cards if (

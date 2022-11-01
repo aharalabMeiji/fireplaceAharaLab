@@ -4,7 +4,7 @@ import collections
 BG24_Reward=[]
 BG24_Reward_Pool=[]
 
-BG24_Reward_Snicker_Snacks=True
+BG24_Reward_Snicker_Snacks=True ### OK ###
 BG24_Reward_Stolen_Gold=True
 BG24_Reward_Evil_Twin=True
 BG24_Reward_Ritual_Dagger=True
@@ -16,7 +16,7 @@ BG24_Reward_Secret_Sinstone=True
 BG24_Reward_Ghastly_Mask=True### difficult
 BG24_Reward_Red_Hand=True
 BG24_Reward_The_Friends_Along_the_Way=True
-BG24_Reward_Yogg_tastic_Tasties=True# 
+BG24_Reward_Yogg_tastic_Tasties=True# ### OK ###
 BG24_Reward_Tiny_Henchmen=True
 BG24_Reward_Victims_Specter=True
 BG24_Reward_A_Good_Time=False# not in service
@@ -28,7 +28,7 @@ BG24_Reward_Devils_in_the_Details=True
 BG24_Reward_Partner_in_Crime=False# not in service
 BG24_Reward_Another_Hidden_Body=False## banned 24.2.1
 BG24_Reward_Staff_of_Origination=True
-BG24_Reward_Wondrous_Wisdomball=False# ""\\### duffucykt
+BG24_Reward_Wondrous_Wisdomball=True# ### difficult
 BG24_Reward_To_The_Moon_Almost=False# not in service
 BG24_Reward_Alter_Ego=True
 BG24_Reward_9_Lives=True
@@ -263,7 +263,7 @@ class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1,
 	events = BeginBar(CONTROLLER).on(BG24_Reward_134_Action2(SELF))
 	pass
 
-if BG24_Reward_Yogg_tastic_Tasties:### under construction 
+if BG24_Reward_Yogg_tastic_Tasties:###  ### OK ###
 	BG24_Reward+=['BG24_Reward_135']
 	BG24_Reward_Pool+=['BG24_Reward_135']
 class BG24_Reward_135_Action(TargetedAction):
@@ -291,7 +291,7 @@ class BG24_Reward_135_Action(TargetedAction):
 			card='TB_BaconShop_HERO_35_Buddy_t6'
 		Give(controller, card).trigger(source)
 		pass
-class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300, 
+class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300,  
 	""" Yogg-tastic Tasties
 	At the start of your turn, spin the Wheel of Yogg-Saron. """
 	#### see TB_BaconShop_HERO_35_Buddy
@@ -468,7 +468,7 @@ class BG24_Reward_312:# [1500]=1, [2467]=275, [2641]=1, [2653]=300, [2727]=1,
 #+15/+15 -> +12/+12 (24.2.2)
 BG24_Reward_312e=buff(12,12)# 
 
-if BG24_Reward_Wondrous_Wisdomball:# 
+if BG24_Reward_Wondrous_Wisdomball:# ### OK ###
 	BG24_Reward+=['BG24_Reward_313']
 	BG24_Reward+=['BG24_Reward_313e']
 	BG24_Reward_Pool+=['BG24_Reward_313']
@@ -477,7 +477,7 @@ class BG24_Reward_313_Action(TargetedAction):
 	def do(self, source, controller):
 		if random.choice([0,1]):
 			choice=random.choice(range(9))
-			if choice==0:
+			if choice==0:### OK ###
 				#10．酒場のミニオン全てがグレード６ミニオンとなる		
 				amount=len(controller.opponent.field)
 				for card in reversed(controller.opponent.field):
@@ -485,7 +485,7 @@ class BG24_Reward_313_Action(TargetedAction):
 				for repeat in range(amount):
 					Summon(controller.opponent, RandomBGAdmissible(tech_level=6).evaluate(controller.opponent)).trigger(controller.opponent)
 				pass
-			elif choice==1:
+			elif choice==1:### OK ###
 				#１．酒場のミニオン1体がゴールデンとなる
 				if len(controller.opponent.field):
 					card = random.choice(controller.opponent.field)
@@ -502,34 +502,34 @@ class BG24_Reward_313_Action(TargetedAction):
 						card=random.choice(controller.field)
 						Summon(controller.opponent, card.id).trigger(controller.opponent)
 				pass
-			elif choice==3:
+			elif choice==3:### OK ###
 				#３．酒場のミニオン全てが自陣で最も多い種族のミニオンとなる
-				races=[card.race for card in controller.field]
-				race=collections.Counter(races).most_common()[0][0]
-				amount=len(controller.opponent.field)	
-				for card in reversed(controller.opponent.field):
-					card.discard()
-				for repeat in range(amount):
-					Summon(controller.opponent, RandomBGAdmissible(race=race)).trigger(controller.opponent)
+				if len(controller.field):
+					races=[card.race for card in controller.field]
+					race=collections.Counter(races).most_common()[0][0]
+					amount=len(controller.opponent.field)	
+					for card in reversed(controller.opponent.field):
+						card.discard()
+					for repeat in range(amount):
+						Summon(controller.opponent, RandomBGAdmissible(race=race)).trigger(controller.opponent)
 				pass
-			elif choice==4:
+			elif choice==4:### OK ###
 				#４．酒場のミニオン全てが自陣のミラーとなる#
-				amount=len(controller.opponent.field)	
-				for card in reversed(controller.opponent.field):
-					card.discard()
-				for card in controller.field:
-					Summon(controller.opponent, card.id).trigger(controller.opponent)
+				if len(controller.field):	
+					for card in reversed(controller.opponent.field):
+						card.discard()
+					for card in controller.field:
+						Summon(controller.opponent, card.id).trigger(controller.opponent)
 				pass
-			elif choice==5:
+			elif choice==5:### OK ###
 				#５．酒場のミニオン全てが同じミニオンとなる
-				amount=len(controller.opponent.field)	
 				minion_id=controller.opponent.field[0].id
 				for card in reversed(controller.opponent.field):
 					card.discard()
-				for card in controller.field:
+				for repeat in range(7):
 					Summon(controller.opponent, minion_id).trigger(controller.opponent)
 				pass
-			elif choice==6:
+			elif choice==6:### OK ###
 				#６．酒場のミニオン全てが厳選中立ミニオン(ザップ、バロン、献身、トンネル爆破、ブラン、15/15/、taunt)となる
 				amount=len(controller.opponent.field)
 				cards=['BGS_022','BG_FP1_031','OG_221','BG_DAL_775','LOE_077','BG23_190','BG_AT_069']
@@ -541,12 +541,12 @@ class BG24_Reward_313_Action(TargetedAction):
 			#elif choice==7:
 			#	#７．酒場のミニオン全てがレジェンドミニオンとなる
 			#	pass
-			elif choice==7:
+			elif choice==7:### OK ###
 				#８．酒場のミニオン全てに聖なる盾を付与する
 				for card in controller.opponent.field:
 					SetDivineShield(card, True).trigger(source)
 				pass
-			elif choice==8:
+			elif choice==8:### OK ###
 				#９．酒場のミニオン全てに酒場のグレードと同じだけ+X/+X付与する
 				amount = controller.tavern_tier
 				for card in controller.opponent.field:

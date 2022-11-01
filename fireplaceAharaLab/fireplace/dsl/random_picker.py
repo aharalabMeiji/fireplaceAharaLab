@@ -116,7 +116,7 @@ RandomSecret = lambda **kw: RandomSpell(secret=1, **kw)
 
 BG_races=[]
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
-RandomBGAdmissible = lambda **kw: RandomBGMinion(race=BG_races, **kw)
+RandomBGAdmissible = lambda **kw: RandomBGMinion(admissible=True, **kw)
 RandomBGDemon = lambda **kw: RandomBGMinion(race=Race.DEMON, **kw)
 RandomBGDragon = lambda **kw: RandomBGMinion(race=Race.DRAGON, **kw)
 RandomBGElemental = lambda **kw: RandomBGMinion(race=Race.ELEMENTAL, **kw)
