@@ -28,11 +28,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.DEMONHUNTER)
+		,myClass=CardClass.MAGE)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 		
@@ -52,7 +52,7 @@ def main():
 	#impWarlock = "AAECAf0GBvLtA7CRBOa9BJjUBJvkBIfqBAzX7QOD+wPFgASEoATmoAT+tATcvQTivQT/2QSA2gSB2gSr6gQA"
 	#deck1=parseDeck(beastDruid)
 	#deck2=parseDeck(impWarlock)
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=30, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
 	
 
 
