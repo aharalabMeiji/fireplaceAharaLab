@@ -956,10 +956,19 @@ class BG22_HERO_002p_Action(TargetedAction):
 			if highest_atk <card.atk:
 				highest_atk = card.atk
 		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
+class BG22_HERO_002p_Action2(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		if controller!=source.controller:
+			controller=source.controller
+		cards = [card for card in controller.field if card.type==CardType.MINION]
+		for card in cards:
+			BuffPermanently(card, 'BG22_HERO_002pe').trigger(source)
+		pass
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
 	[Passive] [Avenge (3):] Give your minions +1 Attack permanently.""" ### new 24.2
-	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002pe')]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 3, [BG22_HERO_002p_Action2(CONTROLLER)]))
 	##Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
 	##Choose a minion. It copies the Attack of the highest Attack minion until next turn.(until 24.0.3)
 	#requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 

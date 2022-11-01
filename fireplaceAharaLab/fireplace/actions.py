@@ -3686,22 +3686,22 @@ class Sell(TargetedAction):
 		pass
 
 class Spellcraft(TargetedAction):
-	TARGET = ActionArg()
+	CONTROLLER = ActionArg()
 	SPELLCARD = ActionArg()
-	def do(self, source, target, spellcard):
-		controller = target
-		self.broadcast(source, EventListener.ON, target, spellcard)
+	def do(self, source, controller, spellcard):
+		if controller!=source.controller:
+			controller=source.controller## why! no way.
+		self.broadcast(source, EventListener.ON, controller, spellcard)
 		Give(controller, spellcard).trigger(source)
-		self.broadcast(source, EventListener.AFTER, target, spellcard)
+		self.broadcast(source, EventListener.AFTER, controller, spellcard)
 		pass
 
 class SpellcraftSpell(TargetedAction):
-	TARGET = ActionArg()
+	CONTROLLER = ActionArg()
 	SPELLCARD = ActionArg()
-	def do(self, source, target, spellcard):
-		controller = target
-		self.broadcast(source, EventListener.ON, target, spellcard)
-		self.broadcast(source, EventListener.AFTER, target, spellcard)
+	def do(self, source, controller, spellcard):
+		self.broadcast(source, EventListener.ON, controller, spellcard)
+		self.broadcast(source, EventListener.AFTER, controller, spellcard)
 		pass
 
 class StealGem(TargetedAction):
