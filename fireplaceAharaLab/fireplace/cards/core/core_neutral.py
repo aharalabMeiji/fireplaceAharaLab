@@ -1219,12 +1219,27 @@ class CS3_033:# <12> 1637 #OK
 
 
 
-if Malygos_the_Spellweaver:
+if Malygos_the_Spellweaver:### OK ###
 	Core_Neutral+=['CS3_034']
+class CS3_034_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		amount = 10-len(controller.hand)
+		for repeat in range(amount):
+			cards = [card for card in controller.deck if card.type==CardType.SPELL]
+			if len(cards):
+				if Config.LOGINFO:
+					Config.log("CS3_034_Action.do","moves a spell card to hand.")
+				card = random.choice(cards)
+				card.zone=Zone.HAND
+			else:
+				if Config.LOGINFO:
+					Config.log("CS3_034_Action.do","No spell card in the deck.")
+				return
 class CS3_034:# <12> 1637 #OK
 	""" Malygos the Spellweaver
 	[Battlecry:] Draw spells until your hand is full. """
-	play = Give(CONTROLLER,RANDOM(FRIENDLY_DECK + SPELL)) * 10
+	play = CS3_034_Action(CONTROLLER)
 	pass
 
 

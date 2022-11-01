@@ -7,27 +7,27 @@ from fireplace.actions import *
 def core_neutral():
 	#if core_neutral.Ice_Rager:##22.6
 	#if core_neutral.Toxicologist=False##22.6
-	#if Mistress_of_Mixtures:## 23.6
-	#	PresetGame(pp_CORE_CFM_120)
+
+	#	PresetGame(pp_CORE_CFM_120)	#if Mistress_of_Mixtures:## 23.6
 	#Earthen_Ring_Farseer=False##22.6
 	#River_Crocolisk=False##22.6
-	#if Raid_Leader:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_122)
-	#if Kobold_Geomancer:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_142)
-	#if Sen_jin_Shieldmasta:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_179)
+
+	#	PresetGame(pp_CORE_CS2_122)	#if Raid_Leader:##22.6## 23.6
+
+	#	PresetGame(pp_CORE_CS2_142)	#if Kobold_Geomancer:##22.6## 23.6
+
+	#	PresetGame(pp_CORE_CS2_179)	#if Sen_jin_Shieldmasta:##22.6## 23.6
 	#Injured_Blademaster=False##22.6
-	#if Chillwind_Yeti:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_182)
-	#if Abusive_Sergeant:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_188)
-	#if Elven_Archer:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_189)
-	#if Ironbeak_Owl:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_203)
-	#if Stormwind_Champion:##22.6## 23.6
-	#	PresetGame(pp_CORE_CS2_222)
+
+	#	PresetGame(pp_CORE_CS2_182)	#if Chillwind_Yeti:##22.6## 23.6
+
+	#	PresetGame(pp_CORE_CS2_188)	#if Abusive_Sergeant:##22.6## 23.6
+
+	#	PresetGame(pp_CORE_CS2_189)	#if Elven_Archer:##22.6## 23.6
+
+	#	PresetGame(pp_CORE_CS2_203)	#if Ironbeak_Owl:##22.6## 23.6
+
+	#	PresetGame(pp_CORE_CS2_222)	#if Stormwind_Champion:##22.6## 23.6
 	#if Sunreaver_Spy:##22.6## 23.6
 	#Young_Priestess=False##22.6
 	#if Big_Game_Hunter:##22.6## 23.6
@@ -42,8 +42,8 @@ def core_neutral():
 	#if Twilight_Drake:## 23.6
 	#if Dark_Iron_Dwarf:##22.6## 23.6
 	#if Youthful_Brewmaster:##22.6## 23.6
-	#if Crazed_Alchemist:##22.6## 23.6
-	#PresetGame(pp_CORE_EX1_059)### OK ###
+
+	#PresetGame(pp_CORE_EX1_059)### OK ###	#if Crazed_Alchemist:##22.6## 23.6
 	#if Acidic_Swamp_Ooze:##22.6## 23.6
 	#if Mad_Bomber:##22.6## 23.6
 	#if Defender_of_Argus:##22.6## 23.6
@@ -99,8 +99,7 @@ def core_neutral():
 	#if Southsea_Captain:##22.6## 23.6
 	#Flesheating_Ghoul=False##22.6
 	#if Beaming_Sidekick:## 23.6
-	#if Vulpera_Scoundrel:## 23.6
-	#PresetGame(pp_CORE_ULD_209a) ### OK ###
+	#PresetGame(pp_CORE_ULD_209a) ### OK ###	#if Vulpera_Scoundrel:## 23.6
 	#PresetGame(pp_CORE_ULD_209b) ### OK ###
 	#if Injured_Tolvir:## 23.6
 	#if Stormwatcher:##22.6## 23.6
@@ -114,12 +113,12 @@ def core_neutral():
 	#if Alexstrasza_the_Life_Binder:##22.6## 23.6
 	#if Onyxia_the_Broodmother:##22.6## 23.6
 	#if Ysera_the_Dreamer:##22.6## 23.6
-	#if Malygos_the_Spellweaver:##22.6## 23.6
+	#PresetGame(pp_CS3_034)### OK ####if Malygos_the_Spellweaver:##22.6## 23.6
 	#if Nozdormu_the_Eternal:##22.6## 23.6
 	#if Deathwing_the_Destroyer:##22.6## 23.6
 	#if Emerald_Skytalon:##22.6## 23.6
-	#if Redgill_Razorjaw:##22.6## 23.6
-	#	PresetGame(pp_CORE_EX1_189)#OK
+
+	#	PresetGame(pp_CORE_EX1_189)#OK	#if Redgill_Razorjaw:##22.6## 23.6
 	pass
 
 ##################################
@@ -563,6 +562,29 @@ class pp_CORE_ULD_209b(Preset_Play):
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 		print("given a random spell card")
+	pass
+
+##########CS3_034##########
+
+class pp_CS3_034(Preset_Play):
+	""" Malygos the Spellweaver
+	[Battlecry:] Draw spells until your hand is full. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("CS3_034", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
 	pass
 
 

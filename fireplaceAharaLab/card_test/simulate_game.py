@@ -11,7 +11,11 @@ from utils import postAction
 
 
 def card_test():
-	if Config.CARD_TEST_SET=='ALTERAC_VALLEY':
+	if Config.CARD_TEST_SET=='CORE':
+		if Config.CARD_TEST_CLASS=='NEUTRAL':
+			from card_test.core_neutral import core_neutral
+			core_neutral()
+	elif Config.CARD_TEST_SET=='ALTERAC_VALLEY':
 		if Config.CARD_TEST_CLASS=='DRUID':
 			from card_test.alterac_druid import alterac_druid
 			alterac_druid()

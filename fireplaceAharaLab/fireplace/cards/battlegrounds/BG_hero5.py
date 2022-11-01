@@ -984,19 +984,6 @@ class TB_BaconShop_HERO_35_Buddy_G:
 	pass
 
 
-##### Wheel of Yogg-Saron #####
-BG_Hero5+=[]
-class BG_SpinWheelOfYoggSaron(TargetedAction):
-	"""
-	spin the Wheel of Yogg-Saron 
-	ヨグ＝サロンの車輪の効果は以下から選ばれる(各19％、焙り焼きロッドのみ5％)"""
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		pass
-
-
-
-
 
 
 ##Ysera ####### HP OK #####

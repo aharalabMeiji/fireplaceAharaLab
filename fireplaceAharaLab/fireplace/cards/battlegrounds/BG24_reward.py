@@ -275,7 +275,20 @@ class BG24_Reward_135_Action(TargetedAction):
 		   'TB_BaconShop_HERO_35_Buddy_t5',
 		   'TB_BaconShop_HERO_35_Buddy_t6',
 		   'TB_BaconShop_HERO_35_Buddy_t7']
-		card = random.choice(cards)
+		## 19% for each, 5% for t6
+		point = random.choice(range(100))
+		if point<19:
+			card='TB_BaconShop_HERO_35_Buddy_t2'
+		elif point<38:
+			card='TB_BaconShop_HERO_35_Buddy_t3'
+		elif point<57:
+			card='TB_BaconShop_HERO_35_Buddy_t4'
+		elif point<76:
+			card='TB_BaconShop_HERO_35_Buddy_t5'
+		elif point<95:
+			card='TB_BaconShop_HERO_35_Buddy_t7'
+		else:
+			card='TB_BaconShop_HERO_35_Buddy_t6'
 		Give(controller, card).trigger(source)
 		pass
 class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300, 
