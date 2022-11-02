@@ -14,6 +14,7 @@ BG_Peggy_Brittlebone=True ##,4
 BG_Ripsnarl_Captain=True ##,4
 BG_Cap_n_Hoggarr=True ##,5
 BG_Tony_Two_Tusk=True ##,5
+BG_Vanessa_VanCleef=True ##, 5 ## new 24.6
 BG_Dread_Admiral_Eliza=True ##,6
 BG_Nosy_Looter=False ##,6 ### banned 24.6
 
@@ -372,9 +373,23 @@ class BG21_031_G:# <12>[1453]
 	pass
 
 
-#ヴァネッサ・ヴァンクリーフ（酒場グレード5、海賊）Vanessa VanCleef(BG24_708)
-#攻撃力3、体力7。これが攻撃する度、味方の海賊に+2/+1を永続的に付与する。
-#Whenever this attacks, give your Pirates +2/+1 permanently.
+#Vanessa VanCleef( parate 5, BG24_708)### OK ###
+if BG_Vanessa_VanCleef:
+	BG_Minion_Pirate +=['BG24_708','BG24_708e','BG24_708_G','BG24_708e_G']
+	BG_PoolSet_Pirate[6].append('BG24_708')
+	BG_Pirate_Gold['BG24_708']='BG24_708_G'
+class BG24_708:
+	""" Vanessa VanCleef (3/7)
+	Whenever this attacks, give your Pirates +2/+1 permanently."""
+	events = Attack(SELF, ENEMY).on(BuffPermanently(FRIENDLY_MINIONS + PIRATE, 'BG24_708e'))
+	pass
+BG24_708e=buff(2,1)
+class BG24_708_G:
+	""" Vanessa VanCleef
+	Whenever this attacks, give your Pirates +4/+2 permanently."""
+	events = Attack(SELF, ENEMY).on(BuffPermanently(FRIENDLY_MINIONS + PIRATE, 'BG24_708e_G'))
+BG24_708e_G=buff(4,2)
+
 
 
 

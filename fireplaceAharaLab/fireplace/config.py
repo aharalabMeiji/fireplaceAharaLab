@@ -47,8 +47,8 @@ class Config:# ()is the default value
 	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=1 ## battleground with human player
-	CARD_PRESET1='BG24_300'
-	CARD_PRESET2='BG24_707_G'
+	CARD_PRESET1=''
+	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']
 	RACE_CHOICE=['pirate']# valid when RANDOM_RACE=0
