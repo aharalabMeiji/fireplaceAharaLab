@@ -21,7 +21,7 @@ BG_Houndmaster=True##(3)
 BG_Khadgar=True##(3)
 BG_Soul_Juggler=True##(3)
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
-BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 (hard)
+BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6
 
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
 BG_Defender_of_Argus=False##(4)banned 23.6
@@ -551,22 +551,32 @@ class BG_GIL_681_G:
 	pass
 
 
-if BG_Shifter_Zerus:## Shifter Zerus (3) ### hard ### banned 24.2
+if BG_Shifter_Zerus:## Shifter Zerus (3) ### hard ### banned 24.2 ## come back 24.6
 	BG_Minion += ['BGS_029','BGS_029e','TB_BaconUps_095', ]#	
 	BG_PoolSet_Minion[3].append('BGS_029')
 	BG_Minion_Gold['BGS_029']='TB_BaconUps_095'
 	## Shifter Zerus (3) >=23.6
 	pass
-class BGS_029:
+class BGS_029_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller = source.controller
+		card = RandomMinion(tech_level_less=controller.tavern_tier).evaluate(controller)
+		Buff(card, 'BGS_029e').trigger(source)
+		source.discard()
+		pass
+class BGS_029:############################################ wait for checking
 	"""Shifter Zerus (3) >=23.6
 	Each turn this is in your hand, transform it into a random minion."""
+	class Hand:
+		events = WhenDrawn(CONTROLLER, SELF).after(BGS_029_Action(SELF))
 class BGS_029e:
+	class Hand:
+		events = BeginBar(CONTROLLER).on(BGS_029_Action(SELF))
 	pass
 class TB_BaconUps_095:
 	"""
-	Each turn this is in your
-hand, transform it into a
-__random Golden minion."""
+	Each turn this is in your hand, transform it into a random Golden minion."""
 
 
 #無貌の門弟（酒場グレード3）Faceless Disciple(BG24_719)

@@ -15,7 +15,7 @@ from .targeting import TARGETING_PREREQUISITES, is_valid_target
 from .utils import CardList 
 from .logging import log
 from .config import Config
-from .actions import LoseDivineShield
+from .actions import LoseDivineShield, WhenDrawn
 
 THE_COIN = "GAME_005"
 
@@ -323,6 +323,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				self.zone = Zone.HAND
 			# if self is 'casts_when_drawn' then immediately play. 
 			self.game.casts_when_drawn(self, self.controller)
+			WhenDrawn(self.controller, self).trigger(self.controller)
 			self.controller.cards_drawn_this_turn += 1
 
 			if self.game.step > Step.BEGIN_MULLIGAN:

@@ -1477,11 +1477,19 @@ class Give(TargetedAction):
 
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.casts_when_drawn(card, card.controller)
+			WhenDrawn(card.controller, card).trigger(source)
 			ret.append(card)
 			## in battlegrounds, we need check if a triple happens
 		if len(cards)>0:
 			self.broadcast(source, EventListener.AFTER, target, cards[0])
 		return ret
+
+class WhenDrawn(TargetedAction):
+	TARGET = ActionArg()
+	CARD = CardArg()
+	def do(self, source, target, card):
+		self.broadcast(source, EventListener.ON, target, card)
+		self.broadcast(source, EventListener.AFTER, target, card)
 
 class GiveInBattle(TargetedAction):
 	TARGET = ActionArg()
