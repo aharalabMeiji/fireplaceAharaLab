@@ -21,7 +21,7 @@ BG_Houndmaster=True##(3)
 BG_Khadgar=True##(3)
 BG_Soul_Juggler=True##(3)
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
-BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6
+BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6 ##############check#################
 
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
 BG_Defender_of_Argus=False##(4)banned 23.6
@@ -44,7 +44,7 @@ BG_Master_of_Realities=True ##(5)
 BG_Mythrax_the_Unraveler=False ##(5) banned 24.2
 BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
-BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### difficult
+BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### difficult#################################
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
@@ -54,7 +54,7 @@ BG_Zapp_Slywick=True##(6)
 BG_Orgozoa_the_Tender=True###(6) NEW 23.2
 BG_Uther_the_Lightbringer=True ##(6) new 23.6
 BG24__Tea_Master_Theotar=True# (6) new 24.2
-
+BG24_The_Walking_Fort=True ##(6) new 24.6 ####################check################
 
 
 
@@ -1435,4 +1435,31 @@ BG24_020_Ge=buff(4,4)
 
 #歩く要塞（酒場グレード6）The Walking Fort(BG24_712)
 #攻撃力4、体力6。自分のターンの終了時、味方の挑発ミニオン4体に+4/+4を付与する
-#At the end of your turn, give 4 friendly &lt;b&gt;Taunt&lt;/b&gt; minions +4/+4.
+#
+if BG24_The_Walking_Fort: # (6) new 24.2
+	BG_Minion += ['BG24_712','BG24_712e','BG24_712_G','BG24_712e_G', ]#	
+	BG_PoolSet_Minion[6].append('BG24_712')
+	BG_Minion_Gold['BG24_712']='BG24_712_G'
+class BG24_712_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller=target
+		cards = [card for card in controller.field if card.type==CardType.MINION and card.taunt==True]
+		if len(cards)>4:
+			cards=random.sample(cards, 4)
+		for card in cards:
+			Buff(card, buff).trigger(source)
+		pass
+class BG24_712:
+	""" The Walking Fort(BG24_712) 4/6
+	At the end of your turn, give 4 friendly &lt;b&gt;Taunt&lt;/b&gt; minions +4/+4. """
+	events = OWN_TURN_END.on(BG24_712_Action(CONTROLLER, 'BG24_712e'))
+	pass
+BG24_712e=buff(4,4)
+class BG24_712_G:
+	"""
+	At the end of your turn, give 4 friendly &lt;b&gt;Taunt&lt;/b&gt; minions +8/+8."""
+	events = OWN_TURN_END.on(BG24_712_Action(CONTROLLER, 'BG24_712e_G'))
+	pass
+BG24_712e_G=buff(8,8)
