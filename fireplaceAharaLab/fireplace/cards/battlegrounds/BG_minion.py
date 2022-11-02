@@ -13,6 +13,7 @@ BG_Whelp_Smuggler=True##(2)
 BG_Kooky_Chemist=False##(2) new 23.6 banned 24.2
 BG_Sparring_Partner=True##(2) new 23.6
 BG_Yrel=False##(2) new 23.6 ### banned 24.6
+BG_Patient_Scout=True ## new 24.6
 
 BG_Arm_of_the_Empire=True##(3)
 BG_Bird_Buddy=True##(3)
@@ -202,26 +203,26 @@ class BG20_203_Action(TargetedAction):
 	AMOUNT = IntArg()
 	def do(self, source, target, amount):
 		controller = target
-		if controller.once_per_turn==0:
-			for repeat in range(amount):
-				Give(controller, 'BG20_GEM').trigger(source)
-			controller.once_per_turn=1
+		#if controller.once_per_turn==0:
+		for repeat in range(amount):
+			Give(controller, 'BG20_GEM').trigger(source)
+		#controller.once_per_turn=1
 class BG20_203:# <12>[1453]
-	""" Prophet of the Boar
-	[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """
+	""" Prophet of the Boar # renew 24.6
+	&lt;b&gt;Taunt&lt;/b&gt; After you play a Quilboar, get a &lt;b&gt;Blood Gem&lt;/b&gt;. """
+	##[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """ # 
 	events = [
 		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
-		BeginBar(CONTROLLER).on(SetAttr(CONTROLLER, 'once_per_turn', 0))
+		#BeginBar(CONTROLLER).on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
-#旧：攻撃力3、体力3。1ターン1回：キルボアを手札から使用した後、血の宝石1個を獲得する。
-#新：攻撃力2、体力3。挑発。キルボアを手札から使用した後、血の宝石1個を得る。 24.6
 class BG20_203_G:# <12>[1453]
-	""" Prophet of the Boar
-	[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
+	""" Prophet of the Boar # renew 24.6
+	&lt;b&gt;Taunt&lt;/b&gt; After you play a Quilboar, get 2 &lt;b&gt;Blood Gems&lt;/b&gt;."""
+	#[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
 	events = [
 		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
-		BeginBar.on(SetAttr(CONTROLLER, 'once_per_turn', 0))
+		#BeginBar.on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
 
@@ -398,15 +399,58 @@ class BG23_350_G:
 BG23_350_Ge=buff(2,4)
 
 
-#辛抱強い斥候（酒場グレード2）Patient Scout(BG24_715)
-#攻撃力1、体力1。これを売る時、グレード1ミニオン1体を発見する。（毎ターンアップグレード！）
-#When you sell this, &lt;b&gt;Discover&lt;/b&gt; a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;
+#Patient Scout(BG24_715) ## new 24.6
+if BG_Patient_Scout:#Patient Scout	2	1	1	
+	BG_Minion += ['BG24_715','BG24_715_G',]#	
+	BG_PoolSet_Minion[3].append('BG24_715')
+	BG_Minion_Gold['BG24_715']='BG24_715_G'
+class BG24_715_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().chooce(card)
+		card.zone=Zone.HAND
+class BG24_715_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		BG24_715_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
+		pass
+class BG24_715:##################################check#######################
+	""" Patient Scout
+	When you sell this, &lt;b&gt;Discover&lt;/b&gt; a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	# @ = self.script_data_num_1
+	events = [
+		Sell(CONTROLLER, SELF).on(BG24_715_Action(SELF)),
+		BeginTurn(CONTROLLER).on(AddScriptDataNum1(CONTROLLER, 1))
+	]
+	pass
+class BG24_715_G_Choice(Choice):
+	def choose(self, card):
+		if self.source.sidequest_counter_1==0:
+			self.next_choice=self
+			self.source.sidequest_counter_1=1
+		else:
+			self.next_choice=None
+		super().chooce(card)
+		card.zone=Zone.HAND
+class BG24_715_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		BG24_715_G_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
+		pass
+class BG24_715_G:
+	""" Patient Scout
+	When you sell this, &lt;b&gt;Discover&lt;/b&gt; two Tier @ minions. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	events = [
+		Sell(CONTROLLER, SELF).on(BG24_715_G_Action(SELF)),
+		BeginTurn(CONTROLLER).on(AddScriptDataNum1(CONTROLLER, 1))
+	]
+	pass
 
 
 ##################### TIER 3 ###################################
 
 if BG_Arm_of_the_Empire:#Arm of the Empire	3	4	4	-		 ### maybe ###
-	BG_Minion += ['BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',]#	
+	BG_Minion += ['BGS_110','BGS_110e','BG24_715_G','TB_BaconUps_302e',]#	
 	BG_PoolSet_Minion[3].append('BGS_110')
 	BG_Minion_Gold['BGS_110']='TB_BaconUps_302'
 	pass
