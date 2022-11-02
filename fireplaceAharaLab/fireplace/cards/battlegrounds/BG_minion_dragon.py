@@ -2,6 +2,7 @@ from ..utils import *
 
 BG_Red_Whelp=True ## ##(1)
 BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
+BG_Dozy_Whelp=True #(1) new 24.6 ### OK ###
 BG_Glyph_Guardian=True ## ##(2)
 BG_Steward_of_Time=False ####(2) ##banned 24.2
 BG24__Nether_Drake=True# (2) new 24.2
@@ -91,10 +92,28 @@ class TB_BaconUps_102:# <12>[1453]
 	pass
 
 
-#おねむのチビドラゴン（酒場グレード1、ドラゴン）(BG24_300)
-#攻撃力0、体力3。挑発。これが攻撃される度永続的に攻撃力+1を獲得する。
-#&lt;b&gt;&lt;b&gt;Taunt&lt;/b&gt;.&lt;/b&gt; Whenever this is attacked, gain +1 Attack permanently.
-
+#Dozy Whelp（dragon 1）(BG24_300) ### OK ###
+if BG_Dozy_Whelp:
+	BG_Minion_Dragon+=['BG24_300','BG24_300e','BG24_300_G','BG24_300_Ge']#
+	BG_PoolSet_Dragon[2].append('BG24_300')
+	BG_Dragon_Gold['BG24_300']='BG24_300_G' #	
+class BG24_300_Target(TargetedAction):
+	CARD=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, card, buff):
+		assert source.game.this_is_battle==True, 'This is a battle.'
+		Buff(card, buff).trigger(source)
+		Buff(card.deepcopy_original, buff).trigger(source)
+class BG24_300:
+	""" Dozy Whelp (1) (0/3)
+	&lt;b&gt;&lt;b&gt;Taunt&lt;/b&gt;.&lt;/b&gt; Whenever this is attacked, gain +1 Attack permanently."""
+	events = Attack(ENEMY, SELF).on(BG24_300_Target(SELF, 'BG24_300e'))
+	pass
+BG24_300e=buff(1,0)
+class BG24_300_G:
+	events = Attack(ENEMY, SELF).on(BG24_300_Target(SELF, 'BG24_300_Ge'))
+	pass
+BG24_300_Ge=buff(2,0)
 
 
 #Glyph Guardian(2)   ### need check ###

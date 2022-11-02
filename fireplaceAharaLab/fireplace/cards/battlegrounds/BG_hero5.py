@@ -6,6 +6,7 @@ BG_Heistbaron_Togwaggle=True ## 24.0
 ##Tavish Stormpike
 ##Tess Greymane
 ##The Curator
+##The Jailer TB_BaconShop_HERO_702 ## new 24.6
 ##The Great Akazamzarak
 ##The Lich King
 ##The Rat King	
@@ -292,8 +293,57 @@ class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
 	"""  """
 
 
-
-
+##The Jailer TB_BaconShop_HERO_702 ## new 24.6 ### OK ###
+BG_Hero5+=['TB_BaconShop_HERO_702','TB_BaconShop_HP_702',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_702')
+class TB_BaconShop_HERO_702:
+	""" The Jailer """
+class TB_BaconShop_HP_702_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		#controller=source.controller
+		amount = source.script_data_num_1
+		if Config.LOGINFO:
+			Config.log("TB_BaconShop_HP_702_Action1.do","Buff %d/%d on %r"%(amount, amount, target))
+		source.script_data_num_1 += 1
+		source.script_data_text_0 = str(source.script_data_num_1)
+		source.script_data_text_1 = str(source.script_data_num_2)
+		Buff(target, 'TB_BaconShop_HP_702e', atk=amount, max_health=amount).trigger(source)
+		source.cant_play=True
+		pass
+class TB_BaconShop_HP_702_Action2(TargetedAction):
+	CONTROLLER=ActionArg()
+	def do(self, source, controller):
+		amount = 9
+		if Config.LOGINFO:
+			Config.log("TB_BaconShop_HP_702_Action2.do","Setting Counter on %r -> %i"%(source, (source._sidequest_counter_+1)))
+		if source.game.this_is_battle:
+			original_source=source.deepcopy_original
+			if original_source.cant_play==True:
+				original_source._sidequest_counter_ += 1
+				original_source.script_data_num_2 = amount - original_source._sidequest_counter_
+				original_source.script_data_text_1 = str(original_source.script_data_num_2)
+				if original_source._sidequest_counter_== amount:
+					original_source._sidequest_counter_ = 0
+					original_source.script_data_num_2 = amount
+					original_source.cant_play=False
+		pass
+class TB_BaconShop_HP_702:
+	""" Runic Empowerment
+	Give a minion +{0}/+{0}. Upgrades after nine  friendly minions die.  &lt;i&gt;({1} left!)&lt;/i&gt;"""
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
+	#<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="9"/>
+	#<Tag enumID="48" name="COST" type="Int" value="1"/>
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	activate = TB_BaconShop_HP_702_Action1(TARGET)
+	events = Death(FRIENDLY + MINION).on(TB_BaconShop_HP_702_Action2(CONTROLLER))
+@custom_card
+class TB_BaconShop_HP_702e:
+	tags = {
+		GameTag.CARDNAME: "Runic Empowerment",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}
+	pass
 
 ##The Great Akazamzarak  ### OK ###
 BG_Hero5+=['TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',]

@@ -84,6 +84,7 @@ BGS_Treasures_000e=buff(2,2)# <12>[1453]
 class TB_BaconShop_Triples_01_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
+		controller=source.controller
 		tech_level = min(controller.tavern_tier+1,6)
 		Discover(CONTROLLER, RandomBGAdmissible(tech_level=tech_level)).trigger(source)
 class TB_BaconShop_Triples_01:# <12>[1453]

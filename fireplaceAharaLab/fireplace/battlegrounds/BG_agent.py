@@ -265,7 +265,7 @@ class BG_HumanAgent(BG_Agent):
 			buddy = (buddy-100)*0.5
 		print("ヒーロー：%s(%d + %d)"%(controller.hero, controller.hero.health, controller.hero.armor))
 		if controller.hero.power.cant_play:
-			print("パワー　：%s(cost %d) : unplayable"%(controller.hero.power, controller.hero.power.cost,))
+			print("パワー　：%s(unplayable) : %s"%(controller.hero.power, modify_description(controller.hero.power,controller.hero.power.data.description)))
 		else:
 			print("パワー　：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, modify_description(controller.hero.power,controller.hero.power.data.description)))
 		if controller.hero.power.id=='TB_BaconShop_HP_101':

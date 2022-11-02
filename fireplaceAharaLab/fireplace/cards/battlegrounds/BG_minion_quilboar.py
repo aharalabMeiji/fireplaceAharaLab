@@ -13,6 +13,7 @@ BG_Bannerboar=True##	3
 BG_Bristleback_Brute=True## Brute	3
 BG_Gemsplitter=False##	3 ### banned 24.6
 BG_Thorncaller=True##	3
+BG_Bristlemane_Scrapsmith=True ## 3 ## new 24.6 ### OK ###
 BG_Bonker=True##	4
 BG_Dynamic_Duo=True##	4
 BG_Groundshaker=True##	4
@@ -122,10 +123,30 @@ class BG20_102_Ge:# <12>[1453]
 	pass
 
 
-#ブリスルメインの叩き直し職人（酒場グレード3、キルボア）Bristlemane Scrapsmith(BG24_707)
-#攻撃力4、体力4。味方の挑発ミニオンが死んだ後、血の宝石1個を得る。
-#After a friendly &lt;b&gt;Taunt&lt;/b&gt; minion dies, get a &lt;b&gt;Blood Gem&lt;/b&gt;.
-
+#Bristlemane Scrapsmith (quilboar 3) (BG24_707)# ### OK ###
+if BG_Bristlemane_Scrapsmith:
+	BG_Minion_Quilboar += [ 'BG24_707','BG24_707_G',]#	
+	BG_PoolSet_Quilboar[3].append('BG24_707')
+	BG_Quilboar_Gold['BG24_707']='BG24_707_G'
+class BG24_707_Action(TargetedAction):
+	CONTROLLER=ActionArg()
+	AMOUNT=ActionArg()
+	def do(self, source, controller, amount):
+		assert source.game.this_is_battle==True, "This is a battle."
+		controller=controller.deepcopy_original
+		for repeat in range(amount):
+			Give(controller, 'BG20_GEM').trigger(source)
+		pass
+class BG24_707:
+	""" Bristlemane Scrapsmith (quilboar 3) (4/4)
+	After a friendly &lt;b&gt;Taunt&lt;/b&gt; minion dies, get a &lt;b&gt;Blood Gem&lt;/b&gt;."""
+	events = Death(FRIENDLY + TAUNT).on(BG24_707_Action(CONTROLLER, 1))
+	pass
+class BG24_707_G:
+	"""
+	After a friendly &lt;b&gt;Taunt&lt;/b&gt; minion dies,get 2 &lt;b&gt; Blood Gems&lt;/b&gt;."""
+	events = Death(FRIENDLY + TAUNT).on(BG24_707_Action(CONTROLLER, 2))
+	pass
 
 
 #Bannerboar	3  ### OK ###
