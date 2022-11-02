@@ -8,7 +8,7 @@ BG24_Reward_Snicker_Snacks=True ### OK ###
 BG24_Reward_Stolen_Gold=True
 BG24_Reward_Evil_Twin=True
 BG24_Reward_Ritual_Dagger=True
-BG24_Reward_Theotars_Parasol=True
+BG24_Reward_Theotars_Parasol=True ## banned ## renew 24.6
 BG24_Reward_Exquisite_Conch=False # not in service
 BG24_Reward_The_Smoking_Gun=True
 BG24_Reward_Mirror_Shield=True
@@ -21,7 +21,7 @@ BG24_Reward_Tiny_Henchmen=True
 BG24_Reward_Victims_Specter=True
 BG24_Reward_A_Good_Time=False# not in service
 BG24_Reward_Avatar_of_the_Coin=False# not in service
-BG24_Reward_Anima_Bribe=True
+BG24_Reward_Anima_Bribe=False ## banned 24.6
 BG24_Reward_Cooked_Book=True
 BG24_Reward_Teal_Tiger_Sapphire=True
 BG24_Reward_Devils_in_the_Details=True
@@ -37,6 +37,14 @@ BG24_Reward_Pilfered_Lamps=True
 BG24_Reward_Totemic_Tavern=False
 BG24_Reward_Purified_Shard=False
 BG24_Reward_Un_Murloc_Your_Potential=False
+BG24_Reward_Hidden_Treasure_Vault=True # new 24.6
+BG24_Reward_Essence_of_Zerus=True # new 24.6
+BG24_Reward_Ethereal_Evidence=True # new 24.6
+BG24_Reward_Volatile_Venom=True # new 24.6
+BG24_Reward_Blood_Goblet=True # new 24.6
+BG24_Reward_Sinfall_Medallion=True # new 24.6
+BG24_Reward_Kidnap_Sack=True # new 24.6
+BG24_Reward_The_Golden_Hammer=True # new 24.6
 
 
 if BG24_Reward_Snicker_Snacks:# ### OK ###
@@ -76,6 +84,7 @@ class BG24_Reward_109_Action(TargetedAction):
 		pass
 class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [2727]=1,
 	# [1500]=1, [2467]=140, [2641]=1, [2643]=90, [2645]=90, [2646]=90, [2727]=1,(24.2.2 harder)
+	# [2467]=160 (24.6 harder)
 	""" Stolen Gold
 	[Start of Combat:] Make your left and right- most minions Golden. """
 	events = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
@@ -121,7 +130,7 @@ class BG24_Reward_113_ALT:# [2467]=70, [2643]=90, [2646]=90,
 	pass
 BG24_Reward_113e=buff(4,4)
 
-if BG24_Reward_Theotars_Parasol:# ### OK ###
+if BG24_Reward_Theotars_Parasol:# ### OK ### renew 24.6
 	BG24_Reward+=['BG24_Reward_115']
 	BG24_Reward+=['BG24_Reward_115e']
 	BG24_Reward+=['BG24_Reward_115e2']
@@ -353,7 +362,7 @@ class BG24_Reward_211:# [2467]=51,
 	#
 	pass
 
-if BG24_Reward_Anima_Bribe:# ### OK ###
+if BG24_Reward_Anima_Bribe:# ### OK ### banned 24.6
 	BG24_Reward+=['BG24_Reward_305']
 	BG24_Reward+=['BG24_Reward_305e']
 	BG24_Reward_Pool+=['BG24_Reward_305']
@@ -689,4 +698,90 @@ class BG24_Reward_535:# [2467]=80,
 	Transform your hero into a Murloc. """
 	#
 	pass
+
+
+##隠された宝物庫：自分のターンの開始時、1ゴールドを獲得する。（毎ターンアップグレード！）
+if BG24_Reward_Hidden_Treasure_Vault:################
+	BG24_Reward+=['BG24_Reward_361']
+	BG24_Reward_Pool+=['BG24_Reward_361']
+class BG24_Reward_361:# , 
+	"""Hidden Treasure Vault(BG24_Reward_361)
+	At the start of your turn, gain @ Gold. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	#
+	pass
+
+##ゼラスの精髄：自分のターンの終了時「変身者ゼラス」1体を得る。「変身者ゼラス」はランダムなミニオンに変身する。
+if BG24_Reward_Essence_of_Zerus:################
+	BG24_Reward+=['BG24_Reward_362']
+	BG24_Reward_Pool+=['BG24_Reward_362']
+class BG24_Reward_362:# , 
+	"""Essence of Zerus BG24_Reward_362 
+	At the end of your turn, get a 'Shifter Zerus' which transforms into random minions."""
+	#
+	pass
+
+#不定的な証拠：各ターンの開始時、2つの新しい報酬から1つを選択する。
+if BG24_Reward_Ethereal_Evidence:################
+	BG24_Reward+=['BG24_Reward_363']
+	BG24_Reward_Pool+=['BG24_Reward_363']
+class BG24_Reward_363:# , 
+	"""Ethereal Evidence(BG24_Reward_363)
+	At the start of every turn, choose from 2 new Rewards."""
+	#
+	pass
+
+
+#凄まじき死毒：味方のミニオン全ては+8/+8を得る。それらのミニオンは攻撃した後死ぬ。凄まじく。
+if BG24_Reward_Volatile_Venom:################
+	BG24_Reward+=['BG24_Reward_364']
+	BG24_Reward_Pool+=['BG24_Reward_364']
+class BG24_Reward_364:# , 
+	"""Volatile Venom(BG24_Reward_364)
+	Your minions have +8/+8. After they attack, they die. Horribly."""
+	#
+	pass
+
+
+##血のゴブレット：自分のターンの終了時、自分が失っている体力に等しい攻撃力を、自陣の右端のミニオンに付与する。
+if BG24_Reward_Blood_Goblet:################
+	BG24_Reward+=['BG24_Reward_708']
+	BG24_Reward_Pool+=['BG24_Reward_708']
+class BG24_Reward_708:# , 
+	"""Blood Goblet BG24_Reward_708 
+	At the end of your turn, give your right-most minion Attack equal to your missing Health."""
+	#
+	pass
+
+#シンフォールのメダリオン：自分がミニオンを手札から使用した後、同じ酒場グレードの味方のミニオン2体に+2/+2を付与する。
+if BG24_Reward_Sinfall_Medallion:################
+	BG24_Reward+=['BG24_Reward_712']
+	BG24_Reward_Pool+=['BG24_Reward_712']
+class BG24_Reward_712:# , 
+	"""Sinfall Medallion(BG24_Reward_712)
+	After you play a minion, give 2 other friendly minions of its Tavern Tier +2/+2."""
+	#
+	pass
+
+#誘拐袋：呪文錬成：ゴールデンではないミニオン1体を選択する。それを自分の手札に追加する。
+if BG24_Reward_Kidnap_Sack:################
+	BG24_Reward+=['BG24_Reward_718']
+	BG24_Reward_Pool+=['BG24_Reward_718']
+class BG24_Reward_718:# , 
+	"""Kidnap Sack(BG24_Reward_718)
+	&lt;b&gt;Spellcraft:&lt;/b&gt; Choose a non-golden minion. Add it to your hand."""
+	#
+	pass
+
+#ゴールデンハンマー：呪文錬成：味方のミニオン1体を次のターンまでゴールデンにする。
+if BG24_Reward_The_Golden_Hammer:################
+	BG24_Reward+=['BG24_Reward_719']
+	BG24_Reward_Pool+=['BG24_Reward_719']
+class BG24_Reward_719:# , 
+	"""The Golden Hammer(BG24_Reward_719)
+	&lt;b&gt;Spellcraft:&lt;/b&gt; Make a friendly minion Golden until next turn."""
+	#
+	pass
+
+
+
 

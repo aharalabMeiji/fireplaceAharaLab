@@ -91,6 +91,11 @@ class TB_BaconUps_102:# <12>[1453]
 	pass
 
 
+#おねむのチビドラゴン（酒場グレード1、ドラゴン）(BG24_300)
+#攻撃力0、体力3。挑発。これが攻撃される度永続的に攻撃力+1を獲得する。
+#&lt;b&gt;&lt;b&gt;Taunt&lt;/b&gt;.&lt;/b&gt; Whenever this is attacked, gain +1 Attack permanently.
+
+
 
 #Glyph Guardian(2)   ### need check ###
 if BG_Glyph_Guardian:
@@ -357,6 +362,8 @@ class BG21_015_Action3(TargetedAction):
 		for buff in target.sidequest_list0:
 			buff.apply(target.deepcopy_original)
 			buff.apply(target.deepcopy_original)
+#旧：これは戦闘時に受ける付与効果を永続的に維持する。
+#新：これは自分が戦闘時に付与した効果を永続的に維持する。
 class BG21_015:# <12>[1453]
 	""" Tarecgosa
 	This permanently keeps enchantments from combat. """

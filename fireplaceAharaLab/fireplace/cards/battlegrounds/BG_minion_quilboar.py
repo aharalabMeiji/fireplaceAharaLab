@@ -11,7 +11,7 @@ BG_Roadboar=True##	2
 BG_Tough_Tusk=True##	2
 BG_Bannerboar=True##	3
 BG_Bristleback_Brute=True## Brute	3
-BG_Gemsplitter=True##	3
+BG_Gemsplitter=False##	3 ### banned 24.6
 BG_Thorncaller=True##	3
 BG_Bonker=True##	4
 BG_Dynamic_Duo=True##	4
@@ -122,6 +122,11 @@ class BG20_102_Ge:# <12>[1453]
 	pass
 
 
+#ブリスルメインの叩き直し職人（酒場グレード3、キルボア）Bristlemane Scrapsmith(BG24_707)
+#攻撃力4、体力4。味方の挑発ミニオンが死んだ後、血の宝石1個を得る。
+#After a friendly &lt;b&gt;Taunt&lt;/b&gt; minion dies, get a &lt;b&gt;Blood Gem&lt;/b&gt;.
+
+
 
 #Bannerboar	3  ### OK ###
 if BG_Bannerboar:
@@ -174,7 +179,7 @@ class BG20_103_G:# <12>[1453]
 
 
 
-#Gemsplitter	3 ### OK ###
+#Gemsplitter	3 ### OK ### banned 24.6
 if BG_Gemsplitter:
 	BG_Minion_Quilboar += [ 'BG21_037','BG21_037_G',]#	
 	BG_PoolSet_Quilboar[3].append('BG21_037')

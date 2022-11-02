@@ -15,7 +15,7 @@ BG_Ripsnarl_Captain=True ##,4
 BG_Cap_n_Hoggarr=True ##,5
 BG_Tony_Two_Tusk=True ##,5
 BG_Dread_Admiral_Eliza=True ##,6
-BG_Nosy_Looter=True ##,6
+BG_Nosy_Looter=False ##,6 ### banned 24.6
 
 BG_Minion_Pirate=[]
 
@@ -372,6 +372,13 @@ class BG21_031_G:# <12>[1453]
 	pass
 
 
+#ヴァネッサ・ヴァンクリーフ（酒場グレード5、海賊）Vanessa VanCleef(BG24_708)
+#攻撃力3、体力7。これが攻撃する度、味方の海賊に+2/+1を永続的に付与する。
+#Whenever this attacks, give your Pirates +2/+1 permanently.
+
+
+
+###### TIER 6 ######
 
 
 #Dread Admiral Eliza,6,6,7,Pirate,-　### OK ###
@@ -395,7 +402,7 @@ TB_BaconUps_134e=buff(4,2)
 
 
 
-#Nosy Looter,6,9,8,Pirate,-  ### OK ###
+#Nosy Looter,6,9,8,Pirate,-  ### OK ### banned 24.6
 if BG_Nosy_Looter:
 	BG_Minion_Pirate +=['BG21_019','BG21_019_G']
 	BG_PoolSet_Pirate[6].append('BG21_019')

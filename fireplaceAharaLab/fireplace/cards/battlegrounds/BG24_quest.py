@@ -21,6 +21,9 @@ BG24_Quest_Exhume_the_Bones=True
 BG24_Quest_Close_the_Case=False #not in service
 BG24_Quest_An_Investigation=True
 BG24_Quest_Discover_Quest__Reward_DNT=False #not in service
+BG24_Quest_Hire_an_Investigator=True # new 24.6
+BG24_Quest_Crack_the_Case=True #new 24.6
+
 
 
 if BG24_Quest_Track_the_Footprints:# ### OK ###
@@ -70,7 +73,7 @@ class BG24_Quest_123_Action(TargetedAction):
 class BG24_Quest_123:# [2466]=1, [2580]=1, 
 	""" Find the Murder Weapon
 	[Quest:] Increase a friendly minion's stats {0} times. """
-	#{0}=15
+	#{0}=15 -> 14 (new 24.6)
 	events = Buff(FRIENDLY_MINIONS).after(BG24_Quest_123_Action(Buff.TARGET, Buff.BUFF))
 	pass
 
@@ -228,6 +231,30 @@ class BG24_Quest_328:#
 	[Quest:] Win the game. """
 	#
 	pass
+
+
+
+
+if BG24_Quest_Hire_an_Investigator:# #########################
+	BG24_Quest+=['BG24_Quest_351']
+	BG24_Quest_Pool+=['BG24_Quest_351']
+class BG24_Quest_351:# 
+	""" Hire an Investigator
+	&lt;b&gt;Quest:&lt;/b&gt; End your turn with unspent Gold {0} times. """
+	#{0}=3
+	pass
+
+
+
+
+if BG24_Quest_Crack_the_Case:###########################
+	BG24_Quest+=['BG24_Quest_352']
+	BG24_Quest_Pool+=['BG24_Quest_352']
+class BG24_Quest_352:#
+	""" Crack the Case
+	&lt;b&gt;Quest:&lt;/b&gt; Have friendly minions attack {0} times."""
+	## {0}=11
+
 
 
 from .BG24_reward import BG24_Reward_Pool

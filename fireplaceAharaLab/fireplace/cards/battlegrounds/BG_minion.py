@@ -4,15 +4,15 @@ BG_Wrath_Weaver=True #(1)
 BG_Tavern_Tipper=True ##(1) new 23.6
 
 BG_Acolyte_of_C_Thun=False## (2) banned 23.6
-BG_Menagerie_Mug=False##(2) banned 23.6
+BG_Menagerie_Mug=True##(2) banned 23.6 ### renew 24.6
 BG_Prophet_of_the_Boar=True##(2)
 BG_Selfless_Hero=True##(2)
-BG_Spawn_of_N_Zoth=True##(2)
+BG_Spawn_of_N_Zoth=False##(2) ### banned 24.6
 BG_Unstable_Ghoul=False##(2) banned 23.6
 BG_Whelp_Smuggler=True##(2)
 BG_Kooky_Chemist=False##(2) new 23.6 banned 24.2
 BG_Sparring_Partner=True##(2) new 23.6
-BG_Yrel=True##(2) new 23.6
+BG_Yrel=False##(2) new 23.6 ### banned 24.6
 
 BG_Arm_of_the_Empire=True##(3)
 BG_Bird_Buddy=True##(3)
@@ -20,7 +20,7 @@ BG_Budding_Greenthumb=False##(3) banned 23.6
 BG_Houndmaster=True##(3)
 BG_Khadgar=True##(3)
 BG_Soul_Juggler=True##(3)
-BG_Nightmare_Amalgam=True##(3) RENEW  23.2
+BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
 BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 (hard)
 
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
@@ -30,7 +30,7 @@ BG_Majordomo_Executus=True##(4)
 BG_Menagerie_Jug=True##(4)
 BG_Strongshell_Scavenger=True##(4)
 BG_Witchwing_Nestmatron=False ##(4) banned 24.2
-BG_Reef_Explorer=True##(4)# NEW 23.2
+BG_Reef_Explorer=False##(4)# NEW 23.2 ### banned 24.6
 BG_Treasure_Seeker_Elise=True ##(4) new 24.2
 BG_Tunnel_Blaster=True##(4) new 23.6
 BG24__Rendle_the_Mistermind=True ## (4) new 24.2
@@ -138,7 +138,7 @@ class TB_BaconUps_255:# <12>[1453]
 
 
 
-if BG_Menagerie_Mug:#Menagerie Mug	2	2	2
+if BG_Menagerie_Mug:#Menagerie Mug	2	2	2 ### renew 24.6
 	BG_Minion += ['BGS_082','BGS_082e','TB_BaconUps_144','TB_BaconUps_144e',]#	1
 	BG_PoolSet_Minion[2].append('BGS_082')
 	BG_Minion_Gold['BGS_082']='TB_BaconUps_144'
@@ -214,6 +214,8 @@ class BG20_203:# <12>[1453]
 		BeginBar(CONTROLLER).on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
+#旧：攻撃力3、体力3。1ターン1回：キルボアを手札から使用した後、血の宝石1個を獲得する。
+#新：攻撃力2、体力3。挑発。キルボアを手札から使用した後、血の宝石1個を得る。 24.6
 class BG20_203_G:# <12>[1453]
 	""" Prophet of the Boar
 	[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
@@ -246,7 +248,7 @@ class TB_BaconUps_014:# <5>[1453]
 
 
 
-if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	-　### OK ###
+if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	-　### OK ### banned 24.6
 	BG_Minion += ['BG_OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',]#	
 	BG_PoolSet_Minion[2].append('BG_OG_256')
 	BG_Minion_Gold['BG_OG_256']='TB_BaconUps_025'
@@ -355,7 +357,7 @@ class BG_AT_069_G:
 
 
 
-if BG_Yrel:## Yrel (2) ### need check ###
+if BG_Yrel:## Yrel (2) ### need check ### banned 24.6
 	BG_Minion += ['BG23_350','BG23_350e','BG23_350_G','BG23_350_Ge',]#	
 	BG_PoolSet_Minion[2].append('BG23_350')
 	BG_Minion_Gold['BG23_350']='BG23_350_G'
@@ -394,6 +396,12 @@ class BG23_350_G:
 	After this attacks, give a friendly minion of each minion type +2/+4."""
 	events = BG_Attack(SELF).on(BG23_350_Action(CONTROLLER, 'BG23_350_Ge'))
 BG23_350_Ge=buff(2,4)
+
+
+#辛抱強い斥候（酒場グレード2）Patient Scout(BG24_715)
+#攻撃力1、体力1。これを売る時、グレード1ミニオン1体を発見する。（毎ターンアップグレード！）
+#When you sell this, &lt;b&gt;Discover&lt;/b&gt; a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;
+
 
 ##################### TIER 3 ###################################
 
@@ -527,7 +535,7 @@ class TB_BaconUps_075:# <9>[1453]
 	pass
 
 
-if BG_Nightmare_Amalgam:##Nightmare Amalgam (3) RENEW  23.2
+if BG_Nightmare_Amalgam:##Nightmare Amalgam (3) RENEW  23.2 ## banned 24.6
 	BG_Minion += ['BG_GIL_681','BG_GIL_681_G', ]#	
 	BG_PoolSet_Minion[3].append('BG_GIL_681')
 	BG_Minion_Gold['BG_GIL_681']='BG_GIL_681_G'
@@ -559,6 +567,12 @@ class TB_BaconUps_095:
 	Each turn this is in your
 hand, transform it into a
 __random Golden minion."""
+
+
+#無貌の門弟（酒場グレード3）Faceless Disciple(BG24_719)
+#攻撃力6、体力4。雄叫び：ミニオン1体を、酒場グレードが1高いミニオンに変身させる。
+#&lt;b&gt;Battlecry:&lt;/b&gt; Transform a minion into one from a Tavern Tier higher.
+
 
 
 
@@ -738,7 +752,7 @@ class BG21_038_G:# <12>[1453]
 
 
 
-## Reef Explorer(4) ### OK,  ### NEW 23.2
+## Reef Explorer(4) ### OK,  ### NEW 23.2 ### banned 24.6
 if BG_Reef_Explorer:#
 	BG_Minion += ['BG23_016','BG23_016_G', ]#	
 	BG_PoolSet_Minion[4].append('BG23_016')
@@ -881,7 +895,17 @@ class BG_DAL_775_G:
 	deathrattle = Hit(ALL_MINIONS, 3) * 2
 
 
+#用心ストーンボーン（酒場グレード4）Vigilant Stoneborn(BG24_023)
+#攻撃力2、体力6。雄叫び：ミニオン1体に体力+6と挑発を付与する。
+#&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +6 Health and &lt;b&gt;Taunt&lt;/b&gt;.
 
+#ミニオン団子（酒場グレード4、全て）Ball of Minions(BG24_017)
+#攻撃力5、体力5。これを売った時、その攻撃力・体力をランダムな味方のミニオン1体に付与する。
+#When you sell this, give its stats to a random friendly minion.
+
+
+
+######## TIER 5 ################
 
 if BG_Baron_Rivendare:#Baron Rivendare	5	1	7		 ### maybe ###
 	BG_Minion += ['BG_FP1_031','TB_BaconUps_055',]#	
@@ -1154,7 +1178,12 @@ class BG24_018_G:# (minion)
 	pass
 
 
-############################TIER 6#######################################
+#尋問官ホワイトメイン（酒場グレード5）Interrogator Whitemane(BG24_704)
+#攻撃力8、体力5。戦闘開始時：これに対面している敵に挑発を付与する。それは2倍ダメージを受ける。
+#[x]&lt;b&gt;Start of Combat:&lt;/b&gt; Give the enemies opposite this &lt;b&gt;Taunt&lt;/b&gt;. They take double damage.
+
+
+#############TIER 6######################
 
 
 if BG_Amalgadon:#Amalgadon	6	6	6	*	 	 ### need check ###  banned 22.3
@@ -1392,3 +1421,8 @@ class BG24_020_G:# (minion)
 	#
 	pass
 BG24_020_Ge=buff(4,4)
+
+
+#歩く要塞（酒場グレード6）The Walking Fort(BG24_712)
+#攻撃力4、体力6。自分のターンの終了時、味方の挑発ミニオン4体に+4/+4を付与する
+#At the end of your turn, give 4 friendly &lt;b&gt;Taunt&lt;/b&gt; minions +4/+4.
