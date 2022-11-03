@@ -1229,14 +1229,23 @@ class BG23_318_G:# <12>[1453]
 
 
 
-if BG24__Tortollan_Blue_Shell:# new 24.2 (5) ##### difficult
+if BG24__Tortollan_Blue_Shell:# new 24.2 (5) ##### need check #############################
 	BG_Minion+=['BG24_018','BG24_018_G']
 	BG_PoolSet_Minion[5].append('BG24_018')
 	BG_Minion_Gold['BG24_018']='BG24_018_G'
+class BG24_018_Action(TargetedAction):
+	TARGET=ActionArg()#controller
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
+		controller=source.controller
+		## tag 1587 gambler_sell_price
+		setattr(source, 'gambler_sell_price', amount)
 class BG24_018:# (minion, 5)
 	""" Tortollan Blue Shell
 	If you lost your last combat, this minion sells for 5 Gold. """
-	#
+	events = [
+		LoseGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,5)),
+		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1)))
 	pass
 class BG24_018_G:# (minion)
 	""" Tortollan Blue Shell
