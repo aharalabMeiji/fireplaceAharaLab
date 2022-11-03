@@ -1,3 +1,4 @@
+from ast import If
 from ..utils import *
 
 BG_Wrath_Weaver=True #(1)
@@ -22,7 +23,7 @@ BG_Houndmaster=True##(3)
 BG_Khadgar=True##(3)
 BG_Soul_Juggler=True##(3)
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
-BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6 ##############check#################
+BG_Shifter_Zerus=True##(3) new 23.6 banned 24.2 ## revive 24.6 ## OK 
 
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
 BG_Defender_of_Argus=False##(4)banned 23.6
@@ -605,18 +606,30 @@ class BGS_029_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller = source.controller
-		card = RandomMinion(tech_level_less=controller.tavern_tier).evaluate(controller)
-		Buff(card, 'BGS_029e').trigger(source)
-		source.discard()
+		card = RandomBGAdmissible(tech_level_less=controller.tavern_tier).evaluate(controller)
+		if card[0]!=[]:
+			Buff(card[0], 'BGS_029e').trigger(source)
+			card[0].zone=Zone.HAND
+			source.discard()
 		pass
-class BGS_029:############################################ wait for checking
+class BGS_029:## OK
 	"""Shifter Zerus (3) >=23.6
 	Each turn this is in your hand, transform it into a random minion."""
 	class Hand:
 		events = WhenDrawn(CONTROLLER, SELF).after(BGS_029_Action(SELF))
+class BGS_029_Action2(TargetedAction):
+	TARGET=ActionArg()## target = owner
+	def do(self, source, target):
+		controller = source.controller
+		card = RandomBGAdmissible(tech_level_less=controller.tavern_tier).evaluate(controller)
+		if card[0]!=[]:
+			Buff(card[0], 'BGS_029e').trigger(source)
+			card[0].zone=Zone.HAND
+			target.discard()
+		pass
 class BGS_029e:
 	class Hand:
-		events = BeginBar(CONTROLLER).on(BGS_029_Action(SELF))
+		events = BeginBar(CONTROLLER,0).on(BGS_029_Action2(OWNER))
 	pass
 class TB_BaconUps_095:
 	"""

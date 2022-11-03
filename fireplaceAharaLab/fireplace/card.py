@@ -1084,6 +1084,15 @@ class Enchantment(BaseCard):
 		super().__init__(data)
 
 	@property
+	def events(self):
+		if self.owner!=None and self.owner.zone == Zone.HAND:
+			return self.data.scripts.Hand.events
+		if self.owner!=None and self.owner.zone == Zone.DECK:## EX1_295, SW_072 occurs an error
+			# in existing cards, there isn't one with Deck class.  However, rarely they come here.
+			return self.data.scripts.Deck.events
+		return self.base_events + self._events
+
+	@property
 	def deathrattles(self):
 		if not self.has_deathrattle:
 			return []

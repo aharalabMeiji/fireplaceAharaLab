@@ -186,7 +186,7 @@ class Action(metaclass=ActionMeta):
 			else:
 				# this stuff is stupidslow
 				res = match.eval([arg], source)
-				if not res or res[0] is not arg:
+				if not res or (res[0] != arg and res!=arg):
 					return False
 		return True
 
@@ -268,7 +268,7 @@ class BeginBar(GameAction):
 	AMOUNT = IntArg()
 	def do(self, source, player, amount):
 		player.game.refresh_auras()## refresh aura_buff
-		if source.game.turn==amount:	
+		if source.game.turn==amount or amount==0:	
 			self.broadcast(source, EventListener.ON, player)
 		#### discover a darkmoon tickets see tag{2044}(darkmoon_ticket_tier) after 23.6
 		if player.game.parent.darkmoon_ticket_by_4 and source.game.turn%4 == 0:

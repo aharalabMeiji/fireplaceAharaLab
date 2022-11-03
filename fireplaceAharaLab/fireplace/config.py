@@ -44,7 +44,7 @@ class Config:# ()is the default value
 	QUEST_REWARD=1 ## quest and reward system（24.2 - ）
 	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
-	REWARD_PRESET=''
+	REWARD_PRESET='BG24_Reward_362'
 
 	PLAYER1_HUMAN=1 ## battleground with human player
 	CARD_PRESET1=''

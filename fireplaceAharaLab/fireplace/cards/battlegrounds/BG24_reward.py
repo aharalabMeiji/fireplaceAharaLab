@@ -38,7 +38,7 @@ BG24_Reward_Totemic_Tavern=False
 BG24_Reward_Purified_Shard=False
 BG24_Reward_Un_Murloc_Your_Potential=False
 BG24_Reward_Hidden_Treasure_Vault=True # new 24.6
-BG24_Reward_Essence_of_Zerus=True # new 24.6
+BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
 BG24_Reward_Ethereal_Evidence=True # new 24.6
 BG24_Reward_Volatile_Venom=True # new 24.6
 BG24_Reward_Blood_Goblet=True # new 24.6
@@ -710,14 +710,14 @@ class BG24_Reward_361:# ,
 	#
 	pass
 
-##ゼラスの精髄：自分のターンの終了時「変身者ゼラス」1体を得る。「変身者ゼラス」はランダムなミニオンに変身する。
-if BG24_Reward_Essence_of_Zerus:################
+
+if BG24_Reward_Essence_of_Zerus:## OK ###
 	BG24_Reward+=['BG24_Reward_362']
 	BG24_Reward_Pool+=['BG24_Reward_362']
 class BG24_Reward_362:# , 
 	"""Essence of Zerus BG24_Reward_362 
 	At the end of your turn, get a 'Shifter Zerus' which transforms into random minions."""
-	#
+	events = OWN_TURN_END.on(Give(CONTROLLER, 'BGS_029'))
 	pass
 
 #不定的な証拠：各ターンの開始時、2つの新しい報酬から1つを選択する。
