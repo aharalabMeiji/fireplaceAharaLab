@@ -46,7 +46,7 @@ BG_Master_of_Realities=True ##(5)
 BG_Mythrax_the_Unraveler=False ##(5) banned 24.2
 BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
-BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### difficult#################################
+BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### OK ###
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
@@ -1229,7 +1229,7 @@ class BG23_318_G:# <12>[1453]
 
 
 
-if BG24__Tortollan_Blue_Shell:# new 24.2 (5) ##### need check #############################
+if BG24__Tortollan_Blue_Shell:# new 24.2 (5) ### OK ###
 	BG_Minion+=['BG24_018','BG24_018_G']
 	BG_PoolSet_Minion[5].append('BG24_018')
 	BG_Minion_Gold['BG24_018']='BG24_018_G'
@@ -1239,18 +1239,23 @@ class BG24_018_Action(TargetedAction):
 	def do(self, source, target, amount):
 		controller=source.controller
 		## tag 1587 gambler_sell_price
-		setattr(source, 'gambler_sell_price', amount)
+		SetAttr(source, 'gambler_sell_price', amount).trigger(source)
 class BG24_018:# (minion, 5)
 	""" Tortollan Blue Shell
 	If you lost your last combat, this minion sells for 5 Gold. """
+	tags={1587:1}
 	events = [
 		LoseGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,5)),
-		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1)))
+		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1))
+	]
 	pass
 class BG24_018_G:# (minion)
 	""" Tortollan Blue Shell
 	If you lost your last combat, this minion sells for 10 Gold. """
-	#
+	events = [
+		LoseGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,10)),
+		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1))
+	]
 	pass
 
 
