@@ -36,6 +36,8 @@ BG_Reef_Explorer=False##(4)# NEW 23.2 ### banned 24.6
 BG_Treasure_Seeker_Elise=True ##(4) new 24.2
 BG_Tunnel_Blaster=True##(4) new 23.6
 BG24__Rendle_the_Mistermind=True ## (4) new 24.2
+BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
+
 
 BG_Baron_Rivendare=True##(5)
 BG_Brann_Bronzebeard=True##(5)
@@ -966,10 +968,36 @@ class BG_DAL_775_G:
 #攻撃力2、体力6。雄叫び：ミニオン1体に体力+6と挑発を付与する。
 #&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +6 Health and &lt;b&gt;Taunt&lt;/b&gt;.
 
-#ミニオン団子（酒場グレード4、全て）Ball of Minions(BG24_017)
-#攻撃力5、体力5。これを売った時、その攻撃力・体力をランダムな味方のミニオン1体に付与する。
-#When you sell this, give its stats to a random friendly minion.
-
+### Ball of Minions(BG24_017) ### OK ###
+if BG_Ball_of_Minions:#Baron Rivendare	4	5	5		
+	BG_Minion += ['BG24_017','BG24_017e','BG24_017_G',]#	
+	BG_PoolSet_Minion[4].append('BG24_017')
+	BG_Minion_Gold['BG24_017']='BG24_017_G'
+	pass
+class BG24_017_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=CardArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, card, amount):
+		controller=source.controller
+		if isinstance(card, list):
+			card=card[0]
+		if len(controller.field):
+			for repeat in range(amount):
+				minion = random.choice(controller.field)
+				Buff(minion, 'BG24_017e', atk=card.atk, max_health=card.max_health).trigger(source)
+		pass
+class BG24_017:
+	""" Ball of Minions (4  5  5)
+	When you sell this, give its stats to a random friendly minion."""
+	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 1))
+class BG24_017e:
+	pass
+class BG24_017_G:
+	""" Ball of Minions
+	When you sell this, give its stats to two random friendly minions.""" 
+	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 2))
+	pass
 
 
 ######## TIER 5 ################
