@@ -199,6 +199,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	honorably_killed = False ##
 	darkmoon_ticket=False #battlegrounds
 	BG_cost=0 #battlegrounds, Recruitment Map
+	double_damage=0## ##BG24_704 'take double( triple) damage'
 
 	def __init__(self, data):
 		self.attacker=None
@@ -526,6 +527,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 
 	def get_damage(self, amount, target):
 		amount = super().get_damage(amount, target)
+		if target!=None and getattr(target,'double_damage', 0)==1:
+			amount += amount
+		if target!=None and getattr(target,'double_damage', 0)==2:
+			amount += (2*amount)
 		if target!=None and hasattr(target,'get_extra_damage'):
 			return amount + target.get_extra_damage
 		else:

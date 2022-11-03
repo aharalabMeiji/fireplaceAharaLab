@@ -49,6 +49,7 @@ BG_Mythrax_the_Unraveler=False ##(5) banned 24.2
 BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
 BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### OK ###
+BG_Interrogator_Whitemane=True ## (5) new 24.6  ### OK ###
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
@@ -1301,9 +1302,52 @@ class BG24_018_G:# (minion)
 	pass
 
 
-#尋問官ホワイトメイン（酒場グレード5）Interrogator Whitemane(BG24_704)
-#攻撃力8、体力5。戦闘開始時：これに対面している敵に挑発を付与する。それは2倍ダメージを受ける。
-#[x]&lt;b&gt;Start of Combat:&lt;/b&gt; Give the enemies opposite this &lt;b&gt;Taunt&lt;/b&gt;. They take double damage.
+#Interrogator Whitemane 5  5  8 (BG24_704) ## new 24.6 ### OK ###
+if BG_Interrogator_Whitemane:#Interrogator Whitemane 5  5  8 (BG24_704) 
+	BG_Minion += ['BG24_704','BG24_704_e','BG24_704_e_G','BG24_704_G']#	
+	BG_PoolSet_Minion[6].append('BG24_704')
+	BG_Minion_Gold['BG24_704']='BG24_704_G'
+	pass
+class BG24_704_Action1(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller=source.controller
+		opponent=controller.opponent
+		size1=len(controller.field)
+		size2=len(opponent.field)
+		index1 = controller.field.index(source)
+		index2=int(-index1*1.0+(size1-1)*0.5+(size2-1)*0.5)
+		if 0<=index2 and index2<size2:
+			card=opponent.field[index2]
+			Buff(card, buff).trigger(source)
+		pass
+class BG24_704:
+	""" Interrogator Whitemane
+	#[x]&lt;b&gt;Start of Combat:&lt;/b&gt; Give the enemies opposite this &lt;b&gt;Taunt&lt;/b&gt;. They take double damage."""
+	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e'))
+class BG24_704_e:
+	def apply(self, target):
+		if target==None:
+			return
+		if hasattr(target, 'double_damage'):
+			target.double_damage=1
+		target.taunt=True
+	pass
+
+class BG24_704_G:
+	""" Interrogator Whitemane
+	#&lt;b&gt;Start of Combat:&lt;/b&gt; Give the enemies opposite this &lt;b&gt;Taunt&lt;/b&gt;. They take triple damage."""
+	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e_G'))
+class BG24_704_e_G:
+	def apply(self, target):
+		if target==None:
+			return
+		if hasattr(target, 'double_damage'):
+			target.double_damage=2
+		target.taunt=True
+	pass
+
 
 
 #############TIER 6######################
