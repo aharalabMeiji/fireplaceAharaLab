@@ -36,6 +36,7 @@ BG_Reef_Explorer=False##(4)# NEW 23.2 ### banned 24.6
 BG_Treasure_Seeker_Elise=True ##(4) new 24.2
 BG_Tunnel_Blaster=True##(4) new 23.6
 BG24__Rendle_the_Mistermind=True ## (4) new 24.2
+BG_Vigilant_Stoneborn=True ## (4) new 24.6 ### OK ###
 BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
 
 
@@ -979,9 +980,24 @@ class BG_DAL_775_G:
 	deathrattle = Hit(ALL_MINIONS, 3) * 2
 
 
-#用心ストーンボーン（酒場グレード4）Vigilant Stoneborn(BG24_023)
-#攻撃力2、体力6。雄叫び：ミニオン1体に体力+6と挑発を付与する。
-#&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +6 Health and &lt;b&gt;Taunt&lt;/b&gt;.
+#Vigilant Stoneborn(4)(2/6)(BG24_023) ### OK ###
+if BG_Vigilant_Stoneborn:#Vigilant Stoneborn	4	2	6		
+	BG_Minion += ['BG24_023','BG24_023_G','BG24_023_Ge','BG24_023e']#	
+	BG_PoolSet_Minion[4].append('BG24_023')
+	BG_Minion_Gold['BG24_023']='BG24_023_G'
+class BG24_023:
+	""" Vigilant Stoneborn
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +6 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	play = Buff(TARGET, 'BG24_023e')
+BG24_023e=buff(0,6, taunt=True)
+class BG24_023_G:
+	""" Vigilant Stoneborn
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +12 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	# 
+	play = Buff(TARGET, 'BG24_023_Ge')
+BG24_023_Ge=buff(0,12, taunt=True)
+
 
 ### Ball of Minions(BG24_017) ### OK ###
 if BG_Ball_of_Minions:#Ball of Minions	4	5	5		
