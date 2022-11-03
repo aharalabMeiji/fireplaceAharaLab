@@ -14,7 +14,7 @@ BG_Whelp_Smuggler=True##(2)
 BG_Kooky_Chemist=False##(2) new 23.6 banned 24.2
 BG_Sparring_Partner=True##(2) new 23.6
 BG_Yrel=False##(2) new 23.6 ### banned 24.6
-BG_Patient_Scout=True ## new 24.6
+BG_Patient_Scout=True ## new 24.6 ### OK ###
 
 BG_Arm_of_the_Empire=True##(3)
 BG_Bird_Buddy=True##(3)
@@ -237,16 +237,25 @@ if BG_Selfless_Hero:#Selfless Hero	2	2	1
 	BG_Minion_Gold['BG_OG_221']='TB_BaconUps_014'
 	pass
 #Selfless Hero	2	2	1	-	### OK ###
-### 基本的にはこれでよいと思うが、 RANDOM(FRIENDLY_MINIONS - DIVINE_SHIELD)
-###のほうが筋だと思う。
-class OG_221:
+class BG_OG_221_Action(TargetedAction):
+	TARGET = ActionArg()# controller
+	AMOUNT = IntArg()
+	def do(self, source, target, amount):
+		controller=source.controller
+		## assert controller==target
+		cards = [card for card in controller.field if card.divine_shield==False]
+		if len(cards)>amount:
+			cards=random.sample(cards, amount)
+		for card in cards:
+			card.divine_shield=True
+class BG_OG_221:
 	"""Selfless Hero:  けんしん
 	[Deathrattle:] Give a random friendly minion [Divine Shield]."""
-	deathrattle = GiveDivineShield(RANDOM_FRIENDLY_MINION)
+	deathrattle = BG_OG_221_Action(CONTROLLER, 1)
 class TB_BaconUps_014:# <5>[1453]
 	""" Selfless Hero
 	[Deathrattle:] Give 2_random friendly minions [Divine Shield]. """
-	deathrattle = GiveDivineShield(RANDOM_FRIENDLY_MINION) * 2
+	deathrattle = BG_OG_221_Action(CONTROLLER, 2)
 	pass
 
 
@@ -402,7 +411,7 @@ class BG23_350_G:
 BG23_350_Ge=buff(2,4)
 
 
-#Patient Scout(BG24_715) ## new 24.6
+#Patient Scout(BG24_715) ## new 24.6 ### OK ###
 if BG_Patient_Scout:#Patient Scout	2	1	1	
 	BG_Minion += ['BG24_715','BG24_715_G',]#	
 	BG_PoolSet_Minion[3].append('BG24_715')
@@ -410,20 +419,25 @@ if BG_Patient_Scout:#Patient Scout	2	1	1
 class BG24_715_Choice(Choice):
 	def choose(self, card):
 		self.next_choice=None
-		super().chooce(card)
+		super().choose(card)
 		card.zone=Zone.HAND
 class BG24_715_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		BG24_715_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
 		pass
-class BG24_715:##################################check#######################
+class BG24_715_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.script_data_num_1=min(source.script_data_num_1+1, 6)
+		pass
+class BG24_715:##
 	""" Patient Scout
 	When you sell this, &lt;b&gt;Discover&lt;/b&gt; a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
 	# @ = self.script_data_num_1
 	events = [
 		Sell(CONTROLLER, SELF).on(BG24_715_Action(SELF)),
-		BeginTurn(CONTROLLER).on(AddScriptDataNum1(CONTROLLER, 1))
+		BeginBar(CONTROLLER).on(BG24_715_Action2(SELF))
 	]
 	pass
 class BG24_715_G_Choice(Choice):
@@ -445,7 +459,7 @@ class BG24_715_G:
 	When you sell this, &lt;b&gt;Discover&lt;/b&gt; two Tier @ minions. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
 	events = [
 		Sell(CONTROLLER, SELF).on(BG24_715_G_Action(SELF)),
-		BeginTurn(CONTROLLER).on(AddScriptDataNum1(CONTROLLER, 1))
+		BeginTurn(CONTROLLER).on(BG24_715_Action2(SELF))
 	]
 	pass
 
@@ -969,7 +983,7 @@ class BG_DAL_775_G:
 #&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +6 Health and &lt;b&gt;Taunt&lt;/b&gt;.
 
 ### Ball of Minions(BG24_017) ### OK ###
-if BG_Ball_of_Minions:#Baron Rivendare	4	5	5		
+if BG_Ball_of_Minions:#Ball of Minions	4	5	5		
 	BG_Minion += ['BG24_017','BG24_017e','BG24_017_G',]#	
 	BG_PoolSet_Minion[4].append('BG24_017')
 	BG_Minion_Gold['BG24_017']='BG24_017_G'
