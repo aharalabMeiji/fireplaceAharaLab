@@ -56,7 +56,7 @@ BG_Zapp_Slywick=True##(6)
 BG_Orgozoa_the_Tender=True###(6) NEW 23.2
 BG_Uther_the_Lightbringer=True ##(6) new 23.6
 BG24__Tea_Master_Theotar=True# (6) new 24.2
-BG24_The_Walking_Fort=True ##(6) new 24.6 ####################check################
+BG24_The_Walking_Fort=True ##(6) new 24.6 ### OK ###
 
 
 
@@ -1504,10 +1504,7 @@ class BG24_020_G:# (minion)
 BG24_020_Ge=buff(4,4)
 
 
-#歩く要塞（酒場グレード6）The Walking Fort(BG24_712)
-#攻撃力4、体力6。自分のターンの終了時、味方の挑発ミニオン4体に+4/+4を付与する
-#
-if BG24_The_Walking_Fort: # (6) new 24.2
+if BG24_The_Walking_Fort: # (6) new 24.2 ### OK ###
 	BG_Minion += ['BG24_712','BG24_712e','BG24_712_G','BG24_712e_G', ]#	
 	BG_PoolSet_Minion[6].append('BG24_712')
 	BG_Minion_Gold['BG24_712']='BG24_712_G'
