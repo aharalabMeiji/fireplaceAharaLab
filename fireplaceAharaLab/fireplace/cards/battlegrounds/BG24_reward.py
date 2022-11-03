@@ -4,47 +4,47 @@ import collections
 BG24_Reward=[]
 BG24_Reward_Pool=[]
 
-BG24_Reward_Snicker_Snacks=True ### OK ###
-BG24_Reward_Stolen_Gold=True
-BG24_Reward_Evil_Twin=True
-BG24_Reward_Ritual_Dagger=True
-BG24_Reward_Theotars_Parasol=True ## banned ## renew 24.6
+BG24_Reward_Snicker_Snacks=True ### OK ### #>>>
+BG24_Reward_Stolen_Gold=True#>>>
+BG24_Reward_Evil_Twin=True#>>>
+BG24_Reward_Ritual_Dagger=True  #>>>
+BG24_Reward_Theotars_Parasol=True ## banned ## renew 24.6 #>>>
 BG24_Reward_Exquisite_Conch=False # not in service
-BG24_Reward_The_Smoking_Gun=True
-BG24_Reward_Mirror_Shield=True
-BG24_Reward_Secret_Sinstone=True
-BG24_Reward_Ghastly_Mask=True### difficult
-BG24_Reward_Red_Hand=True
-BG24_Reward_The_Friends_Along_the_Way=True
-BG24_Reward_Yogg_tastic_Tasties=True# ### OK ###
-BG24_Reward_Tiny_Henchmen=True
-BG24_Reward_Victims_Specter=True
+BG24_Reward_The_Smoking_Gun=True#>>>
+BG24_Reward_Mirror_Shield=True#>>>
+BG24_Reward_Secret_Sinstone=True#>>>
+BG24_Reward_Ghastly_Mask=True### difficult  >>>
+BG24_Reward_Red_Hand=True#>>>
+BG24_Reward_The_Friends_Along_the_Way=True #>>>
+BG24_Reward_Yogg_tastic_Tasties=True# ### OK ####>>>
+BG24_Reward_Tiny_Henchmen=True #>>>
+BG24_Reward_Victims_Specter=True#>>>
 BG24_Reward_A_Good_Time=False# not in service
 BG24_Reward_Avatar_of_the_Coin=False# not in service
 BG24_Reward_Anima_Bribe=False ## banned 24.6
-BG24_Reward_Cooked_Book=True
-BG24_Reward_Teal_Tiger_Sapphire=True
-BG24_Reward_Devils_in_the_Details=True
+BG24_Reward_Cooked_Book=True#>>>
+BG24_Reward_Teal_Tiger_Sapphire=True#>>>
+BG24_Reward_Devils_in_the_Details=True#>>>
 BG24_Reward_Partner_in_Crime=False# not in service
-BG24_Reward_Another_Hidden_Body=False## banned 24.2.1
-BG24_Reward_Staff_of_Origination=True
-BG24_Reward_Wondrous_Wisdomball=True# ### difficult
+BG24_Reward_Another_Hidden_Body=False## banned 24.2.1 # renew #>>>
+BG24_Reward_Staff_of_Origination=True#>>>
+BG24_Reward_Wondrous_Wisdomball=True# ### difficult#>>>
 BG24_Reward_To_The_Moon_Almost=False# not in service
-BG24_Reward_Alter_Ego=True
-BG24_Reward_9_Lives=True
-BG24_Reward_Menagerie_Mayhem=True
-BG24_Reward_Pilfered_Lamps=True
-BG24_Reward_Totemic_Tavern=False
-BG24_Reward_Purified_Shard=False
-BG24_Reward_Un_Murloc_Your_Potential=False
-BG24_Reward_Hidden_Treasure_Vault=True # new 24.6
+BG24_Reward_Alter_Ego=True #>>>
+BG24_Reward_9_Lives=False ### not in service
+BG24_Reward_Menagerie_Mayhem=True #>>>
+BG24_Reward_Pilfered_Lamps=True #>>>
+BG24_Reward_Totemic_Tavern=False ### not in service
+BG24_Reward_Purified_Shard=False ### not in service
+BG24_Reward_Un_Murloc_Your_Potential=False ### not in service
+BG24_Reward_Hidden_Treasure_Vault=True # new 24.6#>>>
 BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
-BG24_Reward_Ethereal_Evidence=True # new 24.6
-BG24_Reward_Volatile_Venom=True # new 24.6
-BG24_Reward_Blood_Goblet=True # new 24.6
-BG24_Reward_Sinfall_Medallion=True # new 24.6
-BG24_Reward_Kidnap_Sack=True # new 24.6
-BG24_Reward_The_Golden_Hammer=True # new 24.6
+BG24_Reward_Ethereal_Evidence=True # new 24.6  #>>>
+BG24_Reward_Volatile_Venom=True # new 24.6 #>>>
+BG24_Reward_Blood_Goblet=True # new 24.6#>>>
+BG24_Reward_Sinfall_Medallion=True # new 24.6  #>>>
+BG24_Reward_Kidnap_Sack=True # new 24.6#>>>
+BG24_Reward_The_Golden_Hammer=True # new 24.6 #>>>
 
 
 if BG24_Reward_Snicker_Snacks:# ### OK ###
@@ -628,6 +628,8 @@ class BG24_Reward_321t:#
 		OWN_TURN_END.on(BG24_Reward_321_Action0(CONTROLLER,'BG24_Reward_321'))
 	]
 	pass
+
+
 
 if BG24_Reward_9_Lives:# 
 	BG24_Reward+=['BG24_Reward_323']
