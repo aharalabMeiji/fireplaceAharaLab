@@ -376,7 +376,7 @@ class BG21_031_G:# <12>[1453]
 #Vanessa VanCleef( parate 5, BG24_708)### OK ###
 if BG_Vanessa_VanCleef:
 	BG_Minion_Pirate +=['BG24_708','BG24_708e','BG24_708_G','BG24_708e_G']
-	BG_PoolSet_Pirate[6].append('BG24_708')
+	BG_PoolSet_Pirate[5].append('BG24_708')
 	BG_Pirate_Gold['BG24_708']='BG24_708_G'
 class BG24_708:
 	""" Vanessa VanCleef (3/7)

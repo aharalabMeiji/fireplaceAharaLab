@@ -95,7 +95,7 @@ class TB_BaconUps_102:# <12>[1453]
 #Dozy WhelpÅidragon 1Åj(BG24_300) ### OK ###
 if BG_Dozy_Whelp:
 	BG_Minion_Dragon+=['BG24_300','BG24_300e','BG24_300_G','BG24_300_Ge']#
-	BG_PoolSet_Dragon[2].append('BG24_300')
+	BG_PoolSet_Dragon[1].append('BG24_300')
 	BG_Dragon_Gold['BG24_300']='BG24_300_G' #	
 class BG24_300_Target(TargetedAction):
 	CARD=ActionArg()

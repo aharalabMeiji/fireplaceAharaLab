@@ -24,6 +24,8 @@ BG_Khadgar=True##(3)
 BG_Soul_Juggler=True##(3)
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
 BG_Shifter_Zerus=True##(3) new 23.6 banned 24.2 ## revive 24.6 ## OK 
+BG_Faceless_Disciple=True ## (3) new 24.6 ### OK ###
+
 
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
 BG_Defender_of_Argus=False##(4)banned 23.6
@@ -416,7 +418,7 @@ BG23_350_Ge=buff(2,4)
 #Patient Scout(BG24_715) ## new 24.6 ### OK ###
 if BG_Patient_Scout:#Patient Scout	2	1	1	
 	BG_Minion += ['BG24_715','BG24_715_G',]#	
-	BG_PoolSet_Minion[3].append('BG24_715')
+	BG_PoolSet_Minion[2].append('BG24_715')
 	BG_Minion_Gold['BG24_715']='BG24_715_G'
 class BG24_715_Choice(Choice):
 	def choose(self, card):
@@ -654,10 +656,37 @@ class TB_BaconUps_095:
 	Each turn this is in your hand, transform it into a random Golden minion."""
 
 
-#無貌の門弟（酒場グレード3）Faceless Disciple(BG24_719)
-#攻撃力6、体力4。雄叫び：ミニオン1体を、酒場グレードが1高いミニオンに変身させる。
-#&lt;b&gt;Battlecry:&lt;/b&gt; Transform a minion into one from a Tavern Tier higher.
-
+#Faceless Disciple(3) (6/4) (BG24_719) ### OK ###
+if BG_Faceless_Disciple:#Faceless Disciple(3) 
+	BG_Minion += ['BG24_719','BG24_719_G',]#	
+	BG_PoolSet_Minion[3].append('BG24_719')
+	BG_Minion_Gold['BG24_719']='BG24_719_G'
+class BG24_719_Target(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		tier=min(controller.tavern_tier+1,6)
+		newcard=RandomBGAdmissible(tech_level=tier).evaluate(controller)
+		Morph(target, newcard[0]).trigger(source)
+		pass
+class BG24_719:
+	""" Faceless Disciple
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Transform a minion into one from a Tavern Tier higher."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
+	play = BG24_719_Target(TARGET)
+class BG24_719_G_Target(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		tier=min(controller.tavern_tier+2,6)
+		newcard=RandomBGAdmissible(tech_level=tier).evaluate(controller)
+		Morph(target, newcard[0]).trigger(source)
+		pass
+class BG24_719_G:
+	""" Faceless Disciple
+	#&lt;b&gt;Battlecry:&lt;/b&gt; Transform a minion into one from 2 Tavern Tiers higher."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
+	play = BG24_719_G_Target(TARGET)
 
 
 
@@ -1321,7 +1350,7 @@ class BG24_018_G:# (minion)
 #Interrogator Whitemane 5  5  8 (BG24_704) ## new 24.6 ### OK ###
 if BG_Interrogator_Whitemane:#Interrogator Whitemane 5  5  8 (BG24_704) 
 	BG_Minion += ['BG24_704','BG24_704_e','BG24_704_e_G','BG24_704_G']#	
-	BG_PoolSet_Minion[6].append('BG24_704')
+	BG_PoolSet_Minion[5].append('BG24_704')
 	BG_Minion_Gold['BG24_704']='BG24_704_G'
 	pass
 class BG24_704_Action1(TargetedAction):
