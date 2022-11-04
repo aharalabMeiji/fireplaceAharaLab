@@ -89,6 +89,11 @@ class BaseGame(Entity):
 		return CardList(chain([self], self.players[0].entities, self.players[1].entities))
 
 	@property
+	def broadcast_entities(self):
+		return CardList(chain([self], self.players[0].broadcast_entities, self.players[1].broadcast_entities))
+
+
+	@property
 	def live_entities(self):
 		return CardList(chain(self.players[0].live_entities, self.players[1].live_entities))
 

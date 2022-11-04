@@ -149,7 +149,8 @@ class Action(metaclass=ActionMeta):
 					Config.log("actions.broadcast","%s triggers off %s from %s"%(entity, self, source))
 				entity.trigger_event(source, event, args)
 	def broadcast(self, source, at, *args):
-		for entity in source.game.entities:
+		broadcast_entities = source.game.broadcast_entities
+		for entity in broadcast_entities:
 			self._broadcast(entity, source, at, *args)
 
 		for hand in source.game.hands:

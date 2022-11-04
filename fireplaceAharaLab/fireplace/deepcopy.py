@@ -211,6 +211,10 @@ def copy_cardattr(oldCard, newCard):
 							newSrc += deepcopy_enchantment([card], oldCard, newCard)
 						elif isinstance(card, Minion):##choose one card
 							newSrc += deepcopy_minion([card], oldCard, newCard)
+						elif isinstance(card, Secret):##choose one card
+							newSrc += deepcopy_spell([card], oldCard, newCard)
+						elif isinstance(card, Sidequest):##choose one card
+							newSrc += deepcopy_spell([card], oldCard, newCard)
 						elif isinstance(card, Spell):##choose one card
 							newSrc += deepcopy_spell([card], oldCard, newCard)
 						elif isinstance(card, QuestReward):##
@@ -365,6 +369,14 @@ def copy_playerattr(oldPlayer, newPlayer):
 	#new_card.game.refresh_auras()
 	## secret-cards attr.
 	for card in oldPlayer.secrets:
+		new_card = create_vacant_card(card)
+		new_card.controller=newPlayer
+		new_card.zone = Zone.SECRET
+		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
+		new_card.game.manager.new_entity(new_card)
+	## quest-cards attr.
+	for card in oldPlayer.quests:
 		new_card = create_vacant_card(card)
 		new_card.controller=newPlayer
 		new_card.zone = Zone.SECRET

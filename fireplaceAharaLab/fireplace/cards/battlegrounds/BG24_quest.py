@@ -213,7 +213,10 @@ class BG24_Quest_318:# [2466]=1,
 	events = Attack(ENEMY, FRIENDLY + MINION + TAUNT).on(QuestCounter(SELF))
 	pass
 
-if BG24_Quest_Exhume_the_Bones:# 
+
+
+
+if BG24_Quest_Exhume_the_Bones:# ### OK ###
 	BG24_Quest+=['BG24_Quest_320']
 	BG24_Quest_Pool+=['BG24_Quest_320']
 class BG24_Quest_320:# [2466]=1, [2580]=1, [2643]=80, [2644]=90, [2646]=90, 

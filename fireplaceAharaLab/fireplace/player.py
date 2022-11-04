@@ -226,6 +226,18 @@ class Player(Entity, TargetableByAuras):
 		yield self
 
 	@property
+	def broadcast_entities(self):
+		for entity in self.field:
+			yield from entity.entities
+		yield from self.secrets
+		yield from self.quests
+		yield from self.rewards
+		yield from self.buffs
+		if self.hero:
+			yield from self.hero.entities
+		yield self
+
+	@property
 	def live_entities(self):
 		yield from self.field
 		if self.hero:
