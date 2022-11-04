@@ -42,11 +42,11 @@ class Config:# ()is the default value
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
 	QUEST_REWARD=1 ## quest and reward system（24.2 - ）
-	QUEST_PRESET=''
+	QUEST_PRESET='BG24_Quest_320'
 	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=0 ## battleground with human player
+	PLAYER1_HUMAN=1 ## battleground with human player
 	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）

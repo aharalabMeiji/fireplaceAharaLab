@@ -68,6 +68,9 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 	#<Tag enumID="201" name="FACTION" type="Int" value="3"/>
 	pass
 
+
+
+
 if BG24_Reward_Stolen_Gold:# ### OK ###
 	BG24_Reward+=['BG24_Reward_109']
 	BG24_Reward_Pool+=['BG24_Reward_109']
@@ -89,6 +92,8 @@ class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [27
 	[Start of Combat:] Make your left and right- most minions Golden. """
 	events = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
 	pass
+
+
 
 if BG24_Reward_Evil_Twin:# ### OK ###
 	BG24_Reward+=['BG24_Reward_111']
@@ -114,6 +119,9 @@ class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1,
 	events = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action(CONTROLLER))
 	pass
 
+
+
+
 if BG24_Reward_Ritual_Dagger:# ### OK ###
 	BG24_Reward+=['BG24_Reward_113']
 	#BG24_Reward+=['BG24_Reward_113_ALT']
@@ -129,6 +137,9 @@ class BG24_Reward_113_ALT:# [2467]=70, [2643]=90, [2646]=90,
 	Your first [Deathrattle] each combat triggers an extra time. """
 	pass
 BG24_Reward_113e=buff(4,4)
+
+
+
 
 if BG24_Reward_Theotars_Parasol:# ### OK ### renew 24.6
 	BG24_Reward+=['BG24_Reward_115']
@@ -157,14 +168,14 @@ class BG24_Reward_115e2:# [2594]=1,
 		target.stealthed=True
 	pass
 
-if BG24_Reward_Exquisite_Conch:# not in service
-	BG24_Reward+=['BG24_Reward_123']
-	BG24_Reward_Pool+=['BG24_Reward_123']
-class BG24_Reward_123:# [2467]=80, [2647]=50, 
-	""" Exquisite Conch
-	Your first [Battlecry] each turn triggers 2 extra times. """
-	#
-	pass
+#if BG24_Reward_Exquisite_Conch:# not in service
+#	BG24_Reward+=['BG24_Reward_123']
+#	BG24_Reward_Pool+=['BG24_Reward_123']
+#class BG24_Reward_123:# [2467]=80, [2647]=50, ### not in service
+#	""" Exquisite Conch
+#	Your first [Battlecry] each turn triggers 2 extra times. """
+#	#
+#	pass
 
 if BG24_Reward_The_Smoking_Gun:# ### OK ###
 	BG24_Reward+=['BG24_Reward_125']
@@ -179,6 +190,9 @@ class BG24_Reward_125:# [2467]=110, [2641]=1, [2643]=70, [2646]=80,
 	pass
 BG24_Reward_125e=buff(4,0)# new 24.4.3
 ##BG24_Reward_125e=buff(5,0)# 
+
+
+
 
 if BG24_Reward_Mirror_Shield:# ### OK ###
 	BG24_Reward+=['BG24_Reward_128']
@@ -201,7 +215,10 @@ class BG24_Reward_128e:#
 		target.divine_shield=True
 	pass
 
-if BG24_Reward_Secret_Sinstone:# ### visually OK ###
+
+
+
+if BG24_Reward_Secret_Sinstone:# ### OK ###
 	BG24_Reward+=['BG24_Reward_129']
 	BG24_Reward_Pool+=['BG24_Reward_129']
 class BG24_Reward_129_Action(TargetedAction):
@@ -347,7 +364,7 @@ class BG24_Reward_138:# [2467]=80, [2641]=1,
 if BG24_Reward_A_Good_Time:# #### not in service
 	BG24_Reward+=['BG24_Reward_210']
 	BG24_Reward_Pool+=['BG24_Reward_210']
-class BG24_Reward_210:# [2467]=150, 
+class BG24_Reward_210:# [2467]=150, ### not in service
 	""" A Good Time
 	You have unlimited Gold but only 15 second turns. """
 	#
@@ -356,7 +373,7 @@ class BG24_Reward_210:# [2467]=150,
 if BG24_Reward_Avatar_of_the_Coin:#  ## not in service
 	BG24_Reward+=['BG24_Reward_211']
 	BG24_Reward_Pool+=['BG24_Reward_211']
-class BG24_Reward_211:# [2467]=51, 
+class BG24_Reward_211:# [2467]=51, ### not in service
 	""" Avatar of the Coin
 	Combat is replaced with a coin flip. """
 	#
@@ -451,7 +468,7 @@ class BG24_Reward_309e:#
 if BG24_Reward_Partner_in_Crime:# not in service
 	BG24_Reward+=['BG24_Reward_310']
 	BG24_Reward_Pool+=['BG24_Reward_310']
-class BG24_Reward_310:# [2467]=100, [2653]=10000, 
+class BG24_Reward_310:# [2467]=100, [2653]=10000, ### not in service
 	""" Partner in Crime
 	Get your Golden Buddy. """
 	#
@@ -576,7 +593,7 @@ class BG24_Reward_313e:#
 if BG24_Reward_To_The_Moon_Almost:# not in service
 	BG24_Reward+=['BG24_Reward_320']
 	BG24_Reward_Pool+=['BG24_Reward_320']
-class BG24_Reward_320:# [2467]=130, 
+class BG24_Reward_320:# [2467]=130, ### not in service
 	""" To The Moon... Almost
 	Skip to Tavern Tier 5. You can't upgrade to Tavern Tier 6. """
 	#
@@ -631,7 +648,7 @@ class BG24_Reward_321t:#
 
 
 
-if BG24_Reward_9_Lives:# 
+if BG24_Reward_9_Lives:# ### not in service
 	BG24_Reward+=['BG24_Reward_323']
 	BG24_Reward_Pool+=['BG24_Reward_323']
 class BG24_Reward_323:# [2467]=99, 
@@ -674,7 +691,7 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 	#
 	pass
 
-if BG24_Reward_Totemic_Tavern:# XXXXXXXXXXXXXXXXXX
+if BG24_Reward_Totemic_Tavern:# XXXX### not in service
 	BG24_Reward+=['BG24_Reward_351']
 	BG24_Reward_Pool+=['BG24_Reward_351']
 class BG24_Reward_351:# [2467]=30, 
@@ -683,7 +700,7 @@ class BG24_Reward_351:# [2467]=30,
 	#
 	pass
 
-if BG24_Reward_Purified_Shard:# ????????????????????
+if BG24_Reward_Purified_Shard:# ?????### not in service
 	BG24_Reward+=['BG24_Reward_352']
 	BG24_Reward_Pool+=['BG24_Reward_352']
 class BG24_Reward_352:# [2467]=999, 
@@ -692,7 +709,7 @@ class BG24_Reward_352:# [2467]=999,
 	#
 	pass
 
-if BG24_Reward_Un_Murloc_Your_Potential:#???????????????
+if BG24_Reward_Un_Murloc_Your_Potential:#??### not in service
 	BG24_Reward+=['BG24_Reward_535']
 	BG24_Reward_Pool+=['BG24_Reward_535']
 class BG24_Reward_535:# [2467]=80, 

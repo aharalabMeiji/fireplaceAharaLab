@@ -210,7 +210,7 @@ class BG24_Quest_318:# [2466]=1,
 	""" Witness Protection
 	[Quest:] Have a friendly [Taunt] minion attacked {0} times. """
 	#{0}=8 <Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="8"/>
-	events = Attack(ENEMY, FRIENDLY_MINIONS + TAUNT).on(QuestCounter(SELF))
+	events = Attack(ENEMY, FRIENDLY + MINION + TAUNT).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Exhume_the_Bones:# 
@@ -220,7 +220,7 @@ class BG24_Quest_320:# [2466]=1, [2580]=1, [2643]=80, [2644]=90, [2646]=90,
 	""" Exhume the Bones
 	[Quest:] Trigger {0} friendly [Deathrattles]. """
 	#{0}=6 <Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="6"/>
-	events = Deathrattle(FRIENDLY_MINIONS).on(QuestCounter(SELF))
+	events = Deathrattle(FRIENDLY + MINION).on(QuestCounter(SELF))
 	pass
 
 if BG24_Quest_Close_the_Case:# ? not in service
