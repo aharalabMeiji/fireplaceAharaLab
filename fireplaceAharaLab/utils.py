@@ -149,7 +149,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	return Count1, Count2, (gameNumber-Count1-Count2)
 
 class Candidate(object):
-	"""　アクションの候補手のクラス　
+	""" アクションの候補手のクラス 
 	"""
 	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
 		#super(myAction, self).__init__()
@@ -236,9 +236,9 @@ class GameWithLog(Game):
 #  getCandidates
 #
 def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
-	"""　アクションの候補をすべてリスト化して返す　
-	_smartCombat=True,　スマートコンバットなもののみをリストアップする
-	_includeTurnEnd=False　「何もしない」というアクションを候補に入れない
+	""" アクションの候補をすべてリスト化して返す 
+	_smartCombat=True, スマートコンバットなもののみをリストアップする
+	_includeTurnEnd=False 「何もしない」というアクションを候補に入れない
 	"""
 	player = mygame.current_player
 	myCandidate = []
@@ -339,7 +339,7 @@ def identifyTargetCard(card1, card2):
 #  executeAction
 #
 def executeAction(mygame, action: Candidate, debugLog=True):
-	"""　Candidate型のアクションを実行する　"""
+	""" Candidate型のアクションを実行する """
 	mygame.add_log(action)
 	if mygame.ended:
 		return ExceptionPlay.GAMEOVER
@@ -523,7 +523,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 	return ExceptionPlay.INVALID
 
 class ExceptionPlay(IntEnum):
-	""" ゲームの例外処理に使うフラグ　"""
+	""" ゲームの例外処理に使うフラグ """
 	VALID=0
 	GAMEOVER=1
 	INVALID=2

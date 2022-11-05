@@ -99,7 +99,7 @@ class SCH_199:###how we execute 'battlecry'?####
 		yield Morph(self, self.controller.game.__stage_choice__)
 		pass
 class SCH_199t:
-	"""Stormwind,　Standard
+	"""Stormwind, Standard
 	#Divine Shield"""  
 	pass
 class SCH_199t2:#OK
@@ -131,7 +131,7 @@ class SCH_199t19:#OK
 	play = Draw(CONTROLLER, RandomEntourage())
 	pass
 class SCH_199t20:#OK
-	"""Saviors of Uldum,　Standard
+	"""Saviors of Uldum, Standard
 	#Reborn"""
 	pass
 class SCH_199t21:#OK

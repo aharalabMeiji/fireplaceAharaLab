@@ -251,7 +251,7 @@ class pp_CORE_DRG_090(Preset_Play):# <6>[1637]
 		controller = self.player
 		for card in controller.field:
 			self.print_stats("field", card)
-		### mark2 が Summonされていることと、 mark3 がCastSpellされていることを　LOGINFOから目視する。
+		### mark2 が Summonされていることと、 mark3 がCastSpellされていることを LOGINFOから目視する。
 		pass
 
 

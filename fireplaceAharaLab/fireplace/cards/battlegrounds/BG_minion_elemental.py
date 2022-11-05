@@ -27,7 +27,7 @@ if BG_Refreshing_Anomaly: #
 	BG_Minion_Elemental+=['BGS_116','TB_BaconUps_167']
 	BG_PoolSet_Elemental[1].append('BGS_116')
 	BG_Elemental_Gold['BGS_116']='TB_BaconUps_167'
-class BGS_116:# <12>[1453]　
+class BGS_116:# <12>[1453] 
 	""" Refreshing Anomaly
 	[Battlecry:] Your next [Refresh] costs (0). """
 	play = GetFreeRerole(CONTROLLER)
@@ -44,12 +44,12 @@ if BG_Sellemental: #
 	BG_Minion_Elemental+=['BGS_115','BGS_115t','TB_BaconUps_156']
 	BG_PoolSet_Elemental[1].append('BGS_115')
 	BG_Elemental_Gold['BGS_115']='TB_BaconUps_156'
-class BGS_115:# <12>[1453]　ウレメンタル
+class BGS_115:# <12>[1453] ウレメンタル
 	""" Sellemental
 	When you sell this,add a 2/2 Elementalto your hand. """
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BGS_115t'))
 	pass
-class BGS_115t:# <12>[1453]　おつりちゃん
+class BGS_115t:# <12>[1453] おつりちゃん
 	""" Water Droplet  
 	 """
 	pass

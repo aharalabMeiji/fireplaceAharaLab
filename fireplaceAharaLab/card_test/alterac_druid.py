@@ -364,7 +364,7 @@ class pp_AV_295(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+		print("引いたカードは %s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
 		for card in controller.hand:
 			self.print_stats("hand",card, old_cost=True)
 	pass
@@ -404,7 +404,7 @@ class pp_AV_296(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+		print("引いたカードは %s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
 	pass
 		
 #########################

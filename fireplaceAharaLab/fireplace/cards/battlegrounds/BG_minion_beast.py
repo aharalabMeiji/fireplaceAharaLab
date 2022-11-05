@@ -296,7 +296,7 @@ class BG20_205_G:# <12>[1453] #
 
 
 
-# Baby Krush (5/7/7)->(5/6/6)　###　OK ###
+# Baby Krush (5/7/7)->(5/6/6) ### OK ###
 if BG_Baby_Krush:
 	BG_Minion_Beast += ['BG22_001','BG22_001t2','BG22_001_G','BG22_001t2_G',]#Baby Krush(5)
 	BG_PoolSet_Beast[5].append('BG22_001')

@@ -41,8 +41,8 @@ BG24_Reward_Hidden_Treasure_Vault=True # new 24.6#>>>
 BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
 BG24_Reward_Ethereal_Evidence=True # new 24.6  #>>>
 BG24_Reward_Volatile_Venom=True # new 24.6 #>>>
-BG24_Reward_Blood_Goblet=True # new 24.6#>>>
-BG24_Reward_Sinfall_Medallion=True # new 24.6  #>>>
+BG24_Reward_Blood_Goblet=True # new 24.6#### OK ###
+BG24_Reward_Sinfall_Medallion=True # new 24.6  ### OK ###
 BG24_Reward_Kidnap_Sack=True # new 24.6### OK ###
 BG24_Reward_The_Golden_Hammer=True # new 24.6 ### OK ###
 
@@ -754,7 +754,7 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 if BG24_Reward_Hidden_Treasure_Vault:################
 	BG24_Reward+=['BG24_Reward_361']
 	BG24_Reward_Pool+=['BG24_Reward_361']
-class BG24_Reward_361_Action(GameAction):
+class BG24_Reward_361_Action(TargetedAction):
 	PLAYER=ActionArg()
 	def do(self, source, player):
 		amount = source.script_data_num_1
@@ -804,7 +804,7 @@ class BG24_Reward_363_Choice(Choice):
 		else:
 			self.source.discard()
 		pass
-class BG24_Reward_363_Action(GameAction):
+class BG24_Reward_363_Action(TargetedAction):
 	PLAYER=ActionArg()
 	def do(self, source, player):
 		if len(BG24_Reward_Pool)>=2:
@@ -823,7 +823,6 @@ class BG24_Reward_363e:
 
 
 
-#凄まじき死毒：味方のミニオン全ては+8/+8を得る。それらのミニオンは攻撃した後死ぬ。凄まじく。
 if BG24_Reward_Volatile_Venom:################
 	BG24_Reward+=['BG24_Reward_364','BG24_Reward_364e']
 	BG24_Reward_Pool+=['BG24_Reward_364']
@@ -834,16 +833,17 @@ class BG24_Reward_364:# ,
 	pass
 class BG24_Reward_364e:
 	""" Volatile """
+	tags = {GameTag.ATL:8, GameTag.HEALTH:8, }
 	events = Attack(OWNER, ENEMY).after(Destroy(OWNER))
 	pass
 
 
 
-##血のゴブレット：自分のターンの終了時、自分が失っている体力に等しい攻撃力を、自陣の右端のミニオンに付与する。
-if BG24_Reward_Blood_Goblet:################
+
+if BG24_Reward_Blood_Goblet:### OK ###
 	BG24_Reward+=['BG24_Reward_708','BG24_Reward_708_e']
 	BG24_Reward_Pool+=['BG24_Reward_708']
-class BG24_Reward_708_Action(GameAction):
+class BG24_Reward_708_Action(TargetedAction):
 	PLAYER=ActionArg()
 	def do(self, source, player):
 		if len(player.field):
@@ -861,14 +861,15 @@ class BG24_Reward_708_e:
 	pass
 
 
-#シンフォールのメダリオン：自分がミニオンを手札から使用した後、同じ酒場グレードの味方のミニオン2体に+2/+2を付与する。
-if BG24_Reward_Sinfall_Medallion:################
+#
+if BG24_Reward_Sinfall_Medallion:### OK ###
 	BG24_Reward+=['BG24_Reward_712','BG24_Reward_712e']
 	BG24_Reward_Pool+=['BG24_Reward_712']
-class BG24_Reward_712_Action(GameAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
-		cards = [card for card in player.field if card.type==CardType.MINION and card.tech_level==player.tavern_tier]
+class BG24_Reward_712_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		cards = [card for card in controller.field if card.type==CardType.MINION and card != target and card.tech_level==target.tech_level]
 		if len(cards):
 			if len(cards)>2:
 				cards=random.sample(cards, 2)
@@ -878,7 +879,7 @@ class BG24_Reward_712_Action(GameAction):
 class BG24_Reward_712:# , 
 	"""Sinfall Medallion(BG24_Reward_712)
 	After you play a minion, give 2 other friendly minions of its Tavern Tier +2/+2."""
-	events = BG_Play(CONTROLLER, MINION).after(BG24_Reward_712_Action(CONTROLLER))
+	events = BG_Play(CONTROLLER, MINION).after(BG24_Reward_712_Action(BG_Play.CARD))
 	pass
 BG24_Reward_712e=buff(2,2)
 

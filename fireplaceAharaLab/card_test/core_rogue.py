@@ -59,7 +59,7 @@ class pp_CORE_CS2_072(Preset_Play):# <7>[1637]
 		card1=self.mark1
 		card2=self.mark2
 		print(" %r が%rに2ダメージ与えているかどうかを視認"%(card1,card2))
-		print(" Hit があるならNO,　HitがないならYES が正しい")
+		print(" Hit があるならNO, HitがないならYES が正しい")
 		#print ("%s:"%(card1.buffs))
 		for card in [card2]:
 			print ("%r: %d/%d <- %d/%d"%(

@@ -460,7 +460,7 @@ def HunterCat_CardStatus(ID):
 		ret += 'hasHeroPowerMerrit(player):'#must condition
 		ret += 'False:'#condition for better
 		ret += '0:'#condition in turn
-		# ヒーローパワー　敵のヒーローに\n$2ダメージを\n与える。
+		# ヒーローパワー 敵のヒーローに\n$2ダメージを\n与える。
 	else:
 		ret += 'None:'#type
 		ret += 'False:'#must condition

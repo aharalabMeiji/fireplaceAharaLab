@@ -24,7 +24,7 @@ BG_PoolSet_Demon=[[],[],[],[],[],[],[]]
 
 BG_Demon_Gold={}
 
-####################　インプ ### OK ### banned 24.2
+#################### インプ ### OK ### banned 24.2
 if BG_Icky_Imp:
 	BG_Minion_Demon +=['BG21_029','BRM_006t','BG21_029_G','TB_BaconUps_030t']
 	BG_PoolSet_Demon[1].append('BG21_029')
@@ -292,7 +292,7 @@ class BG23_361_Ge:
 		GameTag.HEALTH:2
 	}
 
-###################　焦熱の圧鬼（あっき）(4)### maybe ###
+################### 焦熱の圧鬼（あっき）(4)### maybe ###
 if BG_Bigfernal:
 	BG_Minion_Demon +=['BGS_204','BGS_204e','TB_BaconUps_304','TB_BaconUps_304e']
 	BG_PoolSet_Demon[4].append('BGS_204')
@@ -311,14 +311,14 @@ class TB_BaconUps_304:# <12>[1453]
 TB_BaconUps_304e=buff(2,2)
 
 
-###################　　火の輪くぐらせ嬢  (4)### OK ###
+###################  火の輪くぐらせ嬢  (4)### OK ###
 if BG_Ring_Matron:
 	BG_Minion_Demon +=['DMF_533','DMF_533t','TB_BaconUps_309','TB_BaconUps_309t']
 	BG_PoolSet_Demon[4].append('DMF_533')
 	BG_Demon_Gold['DMF_533']='TB_BaconUps_309'
 class DMF_533:# <9>[1453]
 	""" Ring Matron (4)
-	[Taunt][Deathrattle:] Summon　two 3/2 Imps. """
+	[Taunt][Deathrattle:] Summon two 3/2 Imps. """
 	deathrattle = Summon(CONTROLLER, 'DMF_533t')*2
 	pass
 class DMF_533t:
@@ -359,7 +359,7 @@ class BG21_004_G:# <12>[1453]
 
 
 
-####################　　　アニヒラン  (5)### OK ###
+####################   アニヒラン  (5)### OK ###
 if BG_Annihilan_Battlemaster:
 	BG_Minion_Demon +=['BGS_010','TB_BaconUps_083']
 	BG_PoolSet_Demon[5].append('BGS_010')
@@ -404,7 +404,7 @@ class TB_BaconUps_059t:# <9>[1453]
 	[Taunt] """
 	pass
 
-####################　　　フェルバット (6)### need check ###
+####################   フェルバット (6)### need check ###
 if BG_Famished_Felbat:
 	BG_Minion_Demon +=['BG21_005','BG21_005e','BG21_005_G']
 	BG_PoolSet_Demon[6].append('BG21_005')

@@ -227,7 +227,7 @@ class TB_BaconUps_044:
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS + MECH - SELF), "TB_BaconUps_044e"))
 TB_BaconUps_044e = buff(4,4)
 
-#Annoy-o-Module(4)　### OK ###
+#Annoy-o-Module(4) ### OK ###
 if BG_Annoy_o_Module:
 	BG_Minion_Mecha+=['BG_BOT_911', 'BG_BOT_911e', 'TB_BaconUps_099','TB_BaconUps_099e',]
 	BG_PoolSet_Mecha[4].append('BG_BOT_911')
@@ -366,7 +366,7 @@ class BG21_025_Action(TargetedAction):
 		if summonnumber<5:
 			for repeat in range(5-summonnumber):
 				yield Buff(FRIENDLY + MECH, 'BG21_025e')
-class BG21_025:# <12>[1453]　オメバス
+class BG21_025:# <12>[1453] オメバス
 	""" Omega Buster
 	[Deathrattle:] Summon five 1/1 Microbots. For each that doesn't fit, give your Mechs +1/+1. """
 	deathrattle = BG21_025_Action(CONTROLLER)

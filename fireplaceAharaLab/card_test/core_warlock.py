@@ -272,7 +272,7 @@ class pp_CORE_EX1_309(Preset_Play):
 		#mark2が破壊されていること
 		print ("%s: (%d/%d) zone->%s"%(card2, card2.atk, card2.health,card2.zone))
 		##hero に +3 がついていること（基本目視）
-		print ("%s: %d/%d　=30 - 5 + 3"%(hero, hero.atk, hero.health))
+		print ("%s: %d/%d =30 - 5 + 3"%(hero, hero.atk, hero.health))
 		pass
 
 ####################

@@ -104,7 +104,7 @@ if BG_Tavern_Tipper:####Tavern Tipper (1) ### OK ### 23.6 new
 	BG_Minion += ['BG23_352','BG23_352e','BG23_352_G','BG23_352_Ge',]#	
 	BG_PoolSet_Minion[1].append('BG23_352')
 	BG_Minion_Gold['BG23_352']='BG23_352_G'
-	## Tavern Tipper (1) >= 23.6　#OK#
+	## Tavern Tipper (1) >= 23.6 #OK#
 	pass
 class BG23_352_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -265,12 +265,12 @@ class TB_BaconUps_014:# <5>[1453]
 
 
 
-if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	-　### OK ### banned 24.6
+if BG_Spawn_of_N_Zoth:#Spawn of N'Zoth	2	2	2	- ### OK ### banned 24.6
 	BG_Minion += ['BG_OG_256','OG_256e','TB_BaconUps_025','TB_BaconUps_025e',]#	
 	BG_PoolSet_Minion[2].append('BG_OG_256')
 	BG_Minion_Gold['BG_OG_256']='TB_BaconUps_025'
 	pass
-class BG_OG_256:#　んぞす
+class BG_OG_256:# んぞす
 	""" Spawn of N'Zoth
 	[Deathrattle:] Give your minions +1/+1. """
 	deathrattle = Buff(FRIENDLY_MINIONS, 'OG_256e')#
@@ -477,7 +477,7 @@ if BG_Arm_of_the_Empire:#Arm of the Empire	3	4	4	-		 ### maybe ###
 	pass
 class BGS_110:# <12>[1453] 帝国の腕
 	""" Arm of the Empire
-	Whenever a friendly [Taunt]minion is attacked,give it +2 Attack　permanently. """
+	Whenever a friendly [Taunt]minion is attacked,give it +2 Attack permanently. """
 	events = BG_Attack(ENEMY, FRIENDLY + TAUNT).on(BuffPermanently(BG_Attack.OTHER,'BGS_110e'))
 	pass
 BGS_110e=buff(2,0)# <12>[1453]
@@ -1422,7 +1422,7 @@ class BGS_069_Action(TargetedAction):
 			buff = random.choice(['UNG_999t2e','UNG_999t3e','UNG_999t4e','UNG_999t6e','UNG_999t7e','UNG_999t8e','UNG_999t13e','UNG_999t14e'])
 			Buff(source, buff).trigger(source)
 		pass
-class BGS_069:##  アマルガドン　(アルマゲドンではない）
+class BGS_069:##  アマルガドン (アルマゲドンではない）
 	""" Amalgadon
 	[Battlecry:] For each different minion type you have among other minions, [Adapt] randomly."""
 	play = BGS_069_Action(CONTROLLER, 1)	
@@ -1459,7 +1459,7 @@ if BG_Friend_of_a_Friend:#Friend of a Friend	(BAN)	6	5	6	-	Battlecry   BG22_404 
 	BG_PoolSet_Minion[6].append('BG22_404')
 	BG_Minion_Gold['BG22_404']='BG22_404_G'
 	pass
-class BG22_404:# <12>[1453]　友達の友達　ばん！
+class BG22_404:# <12>[1453] 友達の友達 ばん！
 	""" Friend of a Friend(BAN)
 	[Battlecry: Discover] a Buddy. """
 	#
@@ -1477,7 +1477,7 @@ if BG_Nadina_the_Red:#Nadina the Red	6	7	4		 ### maybe OK ###
 	BG_PoolSet_Minion[6].append('BGS_040')
 	BG_Minion_Gold['BGS_040']='TB_BaconUps_154'
 	pass
-class BGS_040:# <12>[1453]　　ナディナ
+class BGS_040:# <12>[1453]  ナディナ
 	""" Nadina the Red
 	[Deathrattle:] Give your Dragons [Divine Shield]. """
 	deathrattle = GiveDivineShield(FRIENDLY_MINIONS + DRAGON)
@@ -1494,7 +1494,7 @@ if BG_Seafood_Slinger:#Seafood Slinger	6	5	5		 ### maybe ### ##banned
 	BG_PoolSet_Minion[6].append('BG21_011')
 	BG_Minion_Gold['BG21_011']='BG21_011_G'
 	pass
-class BG21_011:# <12>[1453]　板前
+class BG21_011:# <12>[1453] 板前
 	""" Seafood Slinger
 	[Battlecry:] Make a Murloc Golden. """
 	requirements={
@@ -1521,7 +1521,7 @@ if BG_Zapp_Slywick:#Zapp Slywick	6	7	10	 	 ### maybe ###
 	BG_PoolSet_Minion[6].append('BGS_022')
 	BG_Minion_Gold['BGS_022']='TB_BaconUps_091'
 	pass
-class BGS_022:# <12>[1453]　ざっぷ
+class BGS_022:# <12>[1453] ざっぷ
 	""" Zapp Slywick
 	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """
 	#<ReferencedTag enumID="189" name="WINDFURY" type="Int" value="1"/> ### REF-TAGだ！
@@ -1531,7 +1531,7 @@ class BGS_022:# <12>[1453]　ざっぷ
 class TB_BaconUps_091:# <12>[1453]
 	""" Zapp Slywick
 	[Mega-Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
-	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/>　###これはオケ
+	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/> ###これはオケ
 	pass
 
 

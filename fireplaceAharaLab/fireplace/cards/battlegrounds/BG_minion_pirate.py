@@ -322,7 +322,7 @@ TB_BaconUps_139e=buff(4,4)
 
 
 
-#Cap'n Hoggarr,5,6,6,Pirate,-　### OK ###
+#Cap'n Hoggarr,5,6,6,Pirate,- ### OK ###
 if BG_Cap_n_Hoggarr:
 	BG_Minion_Pirate +=['BGS_072','TB_BaconUps_133']
 	BG_PoolSet_Pirate[5].append('BGS_072')
@@ -396,7 +396,7 @@ BG24_708e_G=buff(4,2)
 ###### TIER 6 ######
 
 
-#Dread Admiral Eliza,6,6,7,Pirate,-　### OK ###
+#Dread Admiral Eliza,6,6,7,Pirate,- ### OK ###
 if BG_Dread_Admiral_Eliza:
 	BG_Minion_Pirate +=['BGS_047','BGS_047e','TB_BaconUps_134','TB_BaconUps_134e']
 	BG_PoolSet_Pirate[6].append('BGS_047')

@@ -847,7 +847,7 @@ class GVG_110t:
 	deathrattle = Hit(RANDOM_ENEMY_CHARACTER, RandomNumber(1, 2, 3, 4))
 
 class ONY_005tb13:# <12>[1626]
-	""" Wax Rager　(3/5/1)
+	""" Wax Rager (3/5/1)
 	[Deathrattle:] Resummon this minion. """
 	deathrattel = Summon(CONTROLLER, Copy(SELF))#なんだこりゃ。
 	pass

@@ -29,7 +29,7 @@ This needs python 3.8, hearthstone 5.23.4, and fireplace 0.1.
 
 * ログ表示をやめる方法
 
-> fireplaceフォルダのファイルlogging.py の　line 18あたり
+> fireplaceフォルダのファイルlogging.py の line 18あたり
 >
 >     #logger.addHandler(ch)
 

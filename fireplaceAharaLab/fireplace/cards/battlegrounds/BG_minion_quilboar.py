@@ -33,7 +33,7 @@ BG_PoolSet_Quilboar=[[],[],[],[],[],[],[]]
 BG_Quilboar_Gold={}
 
 
-#Razorfen Geomancer	1　### OK ###
+#Razorfen Geomancer	1 ### OK ###
 if BG_Razorfen_Geomancer:
 	BG_Minion_Quilboar += [ 'BG20_100','BG20_100_G',]#	
 	BG_PoolSet_Quilboar[1].append('BG20_100')
@@ -81,7 +81,7 @@ class BG20_101_Action(TargetedAction):
 	def do(self, source, target, card):
 		controller=target.deepcopy_original
 		Give(controller, card).trigger(controller)
-class BG20_101:# <12>[1453]　
+class BG20_101:# <12>[1453] 
 	""" Roadboar
 	[Frenzy:] Gain a [Blood Gem]. """
 	tags={GameTag.FRENZY:1, }
@@ -372,7 +372,7 @@ class BG20_302_Action(TargetedAction):
 			pass
 		for c in ret:
 			Buff(c,buff).trigger(source)
-class BG20_302:# <12>[1453]　そーんかーす
+class BG20_302:# <12>[1453] そーんかーす
 	""" Aggem Thorncurse
 	After a [Blood Gem] is played on this, give a friendly minion of each minion type +1/+1. """
 	events = ApplyGem(SELF).on(BG20_302_Action(CONTROLLER, 'BG20_302e'))
