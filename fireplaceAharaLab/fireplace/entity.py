@@ -98,10 +98,12 @@ class BuffableEntity(BaseEntity):
 
 	def _getattr(self, attr, i):
 		i += getattr(self, "_" + attr, 0)
-		for buff in self.buffs:
-			i = buff._getattr(attr, i)
-		for slot in self.slots:
-			i = slot._getattr(attr, i)
+		if hasattr(self, 'buffs'):
+			for buff in self.buffs:
+				i = buff._getattr(attr, i)
+		if hasattr(self, 'slots'):
+			for slot in self.slots:
+				i = slot._getattr(attr, i)
 		if self.ignore_scripts:
 			return i
 		return getattr(self.data.scripts, attr, lambda s, x: x)(self, i)

@@ -220,7 +220,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.script_data_text_2=''
 		self.script_data_text_3=''
 		self.no_durability_loss=False
-		if hasattr(self, 'trade_cost') and self.trade_cost>0:## because of CardDefs's bug
+		#if hasattr(self, 'trade_cost') and self.trade_cost>0:## because of CardDefs's bug
+		if getattr(self, 'trade_cost',0)>0:## because of CardDefs's bug
 			self.tradeable = True## because of CardDefs's bug
 		super().__init__(data)
 

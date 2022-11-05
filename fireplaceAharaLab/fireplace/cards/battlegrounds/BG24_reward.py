@@ -806,8 +806,8 @@ class BG24_Reward_363_Action(TargetedAction):
 	PLAYER=ActionArg()
 	def do(self, source, player):
 		if len(BG24_Reward_Pool)>=2:
-			cards=random.sample(BG24_Reward_Pool)
-			BG24_Reward_363_Choice(CONTROLLER, RandomID(cards)*2).trigger(source)
+			cards=random.sample(BG24_Reward_Pool, 2)
+			BG24_Reward_363_Choice(source.controller, RandomID(cards)*2).trigger(source)
 		pass
 class BG24_Reward_363:# , 
 	"""Ethereal Evidence(BG24_Reward_363)
