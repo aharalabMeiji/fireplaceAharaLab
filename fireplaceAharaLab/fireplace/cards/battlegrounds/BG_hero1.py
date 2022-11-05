@@ -957,8 +957,9 @@ class BG22_HERO_002p_Action(TargetedAction):
 				highest_atk = card.atk
 		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
 class BG22_HERO_002p_Action2(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		if controller!=source.controller:
 			controller=source.controller
 		cards = [card for card in controller.field if card.type==CardType.MINION]

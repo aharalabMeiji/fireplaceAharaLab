@@ -49,8 +49,9 @@ class AV_281:# <9>[1626]
 if Alterac_Full_Blown_Evil:# ### OK ###
 	Alterac_Warlock+=['AV_285']
 class AV_285_Action1(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		SplitHit(controller, controller.opponent.field, 5).trigger(source)
 		card =Give(controller, 'AV_285').trigger(source)
 		if isinstance(card, list):
@@ -60,8 +61,9 @@ class AV_285_Action1(TargetedAction):
 		Buff(card, 'AV_285e').trigger(source)
 		pass
 class AV_285_Action2(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		for card in controller.hand:
 			if card.id=='AV_285':
 				buffs = [buff.id for buff in card.buffs if buff.id=='AV_285e']

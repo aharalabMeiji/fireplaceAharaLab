@@ -312,8 +312,9 @@ class TB_BaconShop_HP_702_Action1(TargetedAction):
 		source.cant_play=True
 		pass
 class TB_BaconShop_HP_702_Action2(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		amount = 9
 		if Config.LOGINFO:
 			Config.log("TB_BaconShop_HP_702_Action2.do","Setting Counter on %r -> %i"%(source, (source._sidequest_counter_+1)))

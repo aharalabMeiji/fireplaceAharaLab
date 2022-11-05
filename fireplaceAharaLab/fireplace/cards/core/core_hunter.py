@@ -196,8 +196,9 @@ class CORE_LOOT_222:# <3>[1637] ######## 23.6 new
 if Animal_Companion:# 
 	Core_Hunter+=['CORE_NEW1_031','NEW1_032','NEW1_033','NEW1_033o','NEW1_034']
 class CORE_NEW1_031_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		card = random.choice(["NEW1_032", "NEW1_033", "NEW1_034"])
 		Summon(controller, card).trigger(source)
 		pass

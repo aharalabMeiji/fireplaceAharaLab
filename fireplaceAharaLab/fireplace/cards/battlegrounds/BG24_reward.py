@@ -302,14 +302,15 @@ if BG24_Reward_Yogg_tastic_Tasties:###  ### OK ###
 	BG24_Reward+=['BG24_Reward_135']
 	BG24_Reward_Pool+=['BG24_Reward_135']
 class BG24_Reward_135_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
-		cards=['TB_BaconShop_HERO_35_Buddy_t2',
-		   'TB_BaconShop_HERO_35_Buddy_t3',
-		   'TB_BaconShop_HERO_35_Buddy_t4',
-		   'TB_BaconShop_HERO_35_Buddy_t5',
-		   'TB_BaconShop_HERO_35_Buddy_t6',
-		   'TB_BaconShop_HERO_35_Buddy_t7']
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
+		#cards=['TB_BaconShop_HERO_35_Buddy_t2',
+		#   'TB_BaconShop_HERO_35_Buddy_t3',
+		#   'TB_BaconShop_HERO_35_Buddy_t4',
+		#   'TB_BaconShop_HERO_35_Buddy_t5',
+		#   'TB_BaconShop_HERO_35_Buddy_t6',
+		#   'TB_BaconShop_HERO_35_Buddy_t7']
 		## 19% for each, 5% for t6
 		point = random.choice(range(100))
 		if point<19:
@@ -528,8 +529,9 @@ if BG24_Reward_Wondrous_Wisdomball:# ### OK ###
 	BG24_Reward+=['BG24_Reward_313e']
 	BG24_Reward_Pool+=['BG24_Reward_313']
 class BG24_Reward_313_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		if random.choice([0,1]):
 			choice=random.choice(range(9))
 			if choice==0:### OK ###
@@ -752,10 +754,17 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 if BG24_Reward_Hidden_Treasure_Vault:################
 	BG24_Reward+=['BG24_Reward_361']
 	BG24_Reward_Pool+=['BG24_Reward_361']
+class BG24_Reward_361_Action(GameAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+
+		pass
 class BG24_Reward_361:# , 
 	"""Hidden Treasure Vault(BG24_Reward_361)
 	At the start of your turn, gain @ Gold. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
-	#
+	events = [
+		BeginBar(CONTROLLER).on(BG24_Reward_361_Action(CONTROLLER))
+		]
 	pass
 
 

@@ -82,8 +82,9 @@ BGS_Treasures_000e=buff(2,2)# <12>[1453]
 """ Big Banana , Has +2/+2. """
 
 class TB_BaconShop_Triples_01_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		controller=source.controller
 		tech_level = min(controller.tavern_tier+1,6)
 		Discover(CONTROLLER, RandomBGAdmissible(tech_level=tech_level)).trigger(source)

@@ -1222,8 +1222,9 @@ class CS3_033:# <12> 1637 #OK
 if Malygos_the_Spellweaver:### OK ###
 	Core_Neutral+=['CS3_034']
 class CS3_034_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		amount = 10-len(controller.hand)
 		for repeat in range(amount):
 			cards = [card for card in controller.deck if card.type==CardType.SPELL]

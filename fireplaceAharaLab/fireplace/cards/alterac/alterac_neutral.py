@@ -176,14 +176,16 @@ if Frozen_Mammoth:# ### OK ###
 	Alterac_Neutral+=['AV_128']
 	Alterac_Neutral+=['AV_128e']
 class AV_128_Action1(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		source.frozen=True
 		pass
 class AV_128_Action2(TargetedAction):
-	CONTROLLER=ActionArg()
+	PLAYER=ActionArg()
 	CARD=CardArg()
-	def do(self, source, controller, card):
+	def do(self, source, player, card):
+		controller=player
 		if card.type==CardType.SPELL and card.spell_school==SpellSchool.FIRE:
 			source.frozen=False
 		pass
@@ -451,8 +453,9 @@ class AV_219t:
 if Spammy_Arcanist:# ### OK ###
 	Alterac_Neutral+=['AV_222']
 class AV_222_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		while True:	
 			fields = [card for card in controller.field + controller.opponent.field if card.type==CardType.MINION]
 			cont=False

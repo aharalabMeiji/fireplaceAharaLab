@@ -22,8 +22,9 @@ Rev_Relic_of_Phantasms=True##
 if Rev_Sightless_Magistrate:# 
 	Rev_DemonHunter+=['MAW_008']
 class MAW_008_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		if len(controller.hand)<5:
 			amount=5-len(controller.hand)
 			for repeat in range(amount):
@@ -339,15 +340,17 @@ if Rev_Relic_Vault:# ### OK ###
 	Rev_DemonHunter+=['REV_942']
 	Rev_DemonHunter+=['REV_942e']
 class REV_942_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		for card in controller.hand:
 			if getattr(card, 'relic', False):
 				Buff(card, 'REV_942e').trigger(source)
 		pass
 class REV_942_Action2(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		for card in controller.hand:
 			if getattr(card, 'relic', False):
 				for buff in reversed(card.buffs):
@@ -380,8 +383,9 @@ if Rev_Relic_of_Phantasms:# ### OK ###
 	Rev_DemonHunter+=['REV_943']
 	Rev_DemonHunter+=['REV_943t']
 class REV_943_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		amount = controller.relic_improvision
 		source.script_data_num_1 = amount
 		card1=Summon(controller, 'REV_943t').trigger(source)

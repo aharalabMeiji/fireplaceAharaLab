@@ -57,8 +57,9 @@ if Alterac_Pathmaker:# ### OK ###
 	Alterac_Druid+=['AV_210']
 	Alterac_Druid+=['AV_210e']
 class AV_210_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		answer=controller.last_choose_one
 		if answer!=[]:
 			card = answer[0]

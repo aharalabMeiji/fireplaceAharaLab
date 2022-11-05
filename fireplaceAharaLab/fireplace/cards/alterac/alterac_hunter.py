@@ -255,8 +255,9 @@ if Alterac_Wing_Commander_Ichman:# ### OK ###
 	Alterac_Hunter+=['AV_336']
 	Alterac_Hunter+=['AV_336e']
 class AV_336_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		controller=player
 		cards = [card for card in controller.deck if card.type==CardType.MINION and card.race==Race.BEAST]
 		if len(cards)>0:
 			card = random.choice(cards)
