@@ -383,6 +383,14 @@ def copy_playerattr(oldPlayer, newPlayer):
 		copy_cardattr(card,new_card)
 		new_card.deepcopy_original = card
 		new_card.game.manager.new_entity(new_card)
+	## reward-cards attr.
+	for card in oldPlayer.rewards:
+		new_card = create_vacant_card(card)
+		new_card.controller=newPlayer
+		new_card.zone = Zone.SECRET
+		copy_cardattr(card,new_card)
+		new_card.deepcopy_original = card
+		new_card.game.manager.new_entity(new_card)
 	## graveyard-cards attr.
 	for card in oldPlayer.graveyard:
 		new_card = create_vacant_card(card)

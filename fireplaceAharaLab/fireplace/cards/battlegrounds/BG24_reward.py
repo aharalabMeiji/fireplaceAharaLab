@@ -40,7 +40,7 @@ BG24_Reward_Pilfered_Lamps=True #>>>
 BG24_Reward_Hidden_Treasure_Vault=True # new 24.6#>>>
 BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
 BG24_Reward_Ethereal_Evidence=True # new 24.6  #>>>
-BG24_Reward_Volatile_Venom=True # new 24.6 #>>>
+BG24_Reward_Volatile_Venom=True # new 24.6 ### OK ###
 BG24_Reward_Blood_Goblet=True # new 24.6#### OK ###
 BG24_Reward_Sinfall_Medallion=True # new 24.6  ### OK ###
 BG24_Reward_Kidnap_Sack=True # new 24.6### OK ###
@@ -713,7 +713,7 @@ class BG24_Reward_331:# [2467]=150, [2641]=1,
 BG24_Reward_331e=buff(1,0)
 
 
-if BG24_Reward_Pilfered_Lamps:# 
+if BG24_Reward_Pilfered_Lamps:# ###########################################
 	BG24_Reward+=['BG24_Reward_350']
 	BG24_Reward_Pool+=['BG24_Reward_350']
 class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300, 
@@ -750,7 +750,6 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 #	pass
 
 
-##隠された宝物庫：自分のターンの開始時、1ゴールドを獲得する。（毎ターンアップグレード！）
 if BG24_Reward_Hidden_Treasure_Vault:################
 	BG24_Reward+=['BG24_Reward_361']
 	BG24_Reward_Pool+=['BG24_Reward_361']
@@ -774,7 +773,7 @@ class BG24_Reward_361:# ,
 
 
 
-if BG24_Reward_Essence_of_Zerus:## OK ###
+if BG24_Reward_Essence_of_Zerus:### OK ###
 	BG24_Reward+=['BG24_Reward_362']
 	BG24_Reward_Pool+=['BG24_Reward_362']
 class BG24_Reward_362:# , 
@@ -786,7 +785,6 @@ class BG24_Reward_362:# ,
 
 
 
-#不定的な証拠：各ターンの開始時、2つの新しい報酬から1つを選択する。
 if BG24_Reward_Ethereal_Evidence:################
 	BG24_Reward+=['BG24_Reward_363','BG24_Reward_363e']
 	BG24_Reward_Pool+=['BG24_Reward_363']
@@ -823,20 +821,19 @@ class BG24_Reward_363e:
 
 
 
-if BG24_Reward_Volatile_Venom:################
-	BG24_Reward+=['BG24_Reward_364','BG24_Reward_364e']
+if BG24_Reward_Volatile_Venom:### OK ###
+	BG24_Reward+=['BG24_Reward_364', 'BG24_Reward_364e']
 	BG24_Reward_Pool+=['BG24_Reward_364']
-class BG24_Reward_364:# , 
+class BG24_Reward_364:# 
 	"""Volatile Venom(BG24_Reward_364)
 	Your minions have +8/+8. After they attack, they die. Horribly."""
 	events = BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'BG24_Reward_364e'))
 	pass
 class BG24_Reward_364e:
 	""" Volatile """
-	tags = {GameTag.ATL:8, GameTag.HEALTH:8, }
+	tags = {GameTag.ATK:8, GameTag.HEALTH:8, }
 	events = Attack(OWNER, ENEMY).after(Destroy(OWNER))
 	pass
-
 
 
 

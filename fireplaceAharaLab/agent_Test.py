@@ -214,7 +214,7 @@ class TestHumanAgent(Agent):
 			if inputNum > 0 and inputNum<=len(myCandidate):
 				myChoice = myCandidate[inputNum-1]
 				executeAction(game, myChoice)
-					ostAction(player)
+				postAction(player)
 
 	def HumanInputMulligan(self, choiceCards):
 		myCount = 1
