@@ -750,7 +750,7 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 #	pass
 
 
-if BG24_Reward_Hidden_Treasure_Vault:################
+if BG24_Reward_Hidden_Treasure_Vault:### OK ###
 	BG24_Reward+=['BG24_Reward_361']
 	BG24_Reward_Pool+=['BG24_Reward_361']
 class BG24_Reward_361_Action(TargetedAction):
