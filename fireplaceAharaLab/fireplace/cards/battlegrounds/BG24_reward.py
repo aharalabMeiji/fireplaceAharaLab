@@ -39,7 +39,7 @@ BG24_Reward_Pilfered_Lamps=True #>>>
 #BG24_Reward_Un_Murloc_Your_Potential=False ### not in service
 BG24_Reward_Hidden_Treasure_Vault=True # new 24.6#>>>
 BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
-BG24_Reward_Ethereal_Evidence=True # new 24.6  #>>>
+BG24_Reward_Ethereal_Evidence=True # new 24.6  ### OK ###
 BG24_Reward_Volatile_Venom=True # new 24.6 ### OK ###
 BG24_Reward_Blood_Goblet=True # new 24.6#### OK ###
 BG24_Reward_Sinfall_Medallion=True # new 24.6  ### OK ###
@@ -785,7 +785,7 @@ class BG24_Reward_362:# ,
 
 
 
-if BG24_Reward_Ethereal_Evidence:################
+if BG24_Reward_Ethereal_Evidence:### OK ###
 	BG24_Reward+=['BG24_Reward_363','BG24_Reward_363e']
 	BG24_Reward_Pool+=['BG24_Reward_363']
 class BG24_Reward_363_Choice(Choice):
@@ -807,7 +807,7 @@ class BG24_Reward_363_Action(TargetedAction):
 	def do(self, source, player):
 		if len(BG24_Reward_Pool)>=2:
 			cards=random.sample(BG24_Reward_Pool, 2)
-			BG24_Reward_363_Choice(source.controller, RandomID(cards)*2).trigger(source)
+			BG24_Reward_363_Choice(source.controller, RandomID(*cards)*2).trigger(source)
 		pass
 class BG24_Reward_363:# , 
 	"""Ethereal Evidence(BG24_Reward_363)

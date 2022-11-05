@@ -231,7 +231,8 @@ class Player(Entity, TargetableByAuras):
 			yield from entity.entities
 		yield from self.secrets
 		yield from self.quests
-		yield from self.rewards
+		for entity in self.rewards:
+			yield from entity.entities
 		yield from self.buffs
 		if self.hero:
 			yield from self.hero.entities
