@@ -4,12 +4,12 @@ import collections
 BG24_Reward=[]
 BG24_Reward_Pool=[]
 
-BG24_Reward_Snicker_Snacks=True ### OK ### #>>>
-BG24_Reward_Stolen_Gold=True#>>>
+BG24_Reward_Snicker_Snacks=True ### OK ### 
+BG24_Reward_Stolen_Gold=True### OK ###
 BG24_Reward_Evil_Twin=True#>>>
 BG24_Reward_Ritual_Dagger=True  #>>>
 BG24_Reward_Theotars_Parasol=True ## banned ## renew 24.6 #>>>
-BG24_Reward_Exquisite_Conch=False # not in service
+#BG24_Reward_Exquisite_Conch=False # not in service
 BG24_Reward_The_Smoking_Gun=True#>>>
 BG24_Reward_Mirror_Shield=True#>>>
 BG24_Reward_Secret_Sinstone=True#>>>
@@ -19,32 +19,32 @@ BG24_Reward_The_Friends_Along_the_Way=True #>>>
 BG24_Reward_Yogg_tastic_Tasties=True# ### OK ####>>>
 BG24_Reward_Tiny_Henchmen=True #>>>
 BG24_Reward_Victims_Specter=True#>>>
-BG24_Reward_A_Good_Time=False# not in service
-BG24_Reward_Avatar_of_the_Coin=False# not in service
+#BG24_Reward_A_Good_Time=False# not in service
+#BG24_Reward_Avatar_of_the_Coin=False# not in service
 BG24_Reward_Anima_Bribe=False ## banned 24.6
 BG24_Reward_Cooked_Book=True#>>>
 BG24_Reward_Teal_Tiger_Sapphire=True#>>>
 BG24_Reward_Devils_in_the_Details=True#>>>
-BG24_Reward_Partner_in_Crime=False# not in service
-BG24_Reward_Another_Hidden_Body=False## banned 24.2.1 # renew #>>>
+#BG24_Reward_Partner_in_Crime=False# not in service
+BG24_Reward_Another_Hidden_Body=True## banned 24.2.1 # renew #>>>
 BG24_Reward_Staff_of_Origination=True#>>>
-BG24_Reward_Wondrous_Wisdomball=True# ### difficult#>>>
-BG24_Reward_To_The_Moon_Almost=False# not in service
+BG24_Reward_Wondrous_Wisdomball=True# ### #>>>
+#BG24_Reward_To_The_Moon_Almost=False# not in service
 BG24_Reward_Alter_Ego=True #>>>
-BG24_Reward_9_Lives=False ### not in service
+#BG24_Reward_9_Lives=False ### not in service
 BG24_Reward_Menagerie_Mayhem=True #>>>
 BG24_Reward_Pilfered_Lamps=True #>>>
-BG24_Reward_Totemic_Tavern=False ### not in service
-BG24_Reward_Purified_Shard=False ### not in service
-BG24_Reward_Un_Murloc_Your_Potential=False ### not in service
+#BG24_Reward_Totemic_Tavern=False ### not in service
+#BG24_Reward_Purified_Shard=False ### not in service
+#BG24_Reward_Un_Murloc_Your_Potential=False ### not in service
 BG24_Reward_Hidden_Treasure_Vault=True # new 24.6#>>>
 BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
 BG24_Reward_Ethereal_Evidence=True # new 24.6  #>>>
 BG24_Reward_Volatile_Venom=True # new 24.6 #>>>
 BG24_Reward_Blood_Goblet=True # new 24.6#>>>
 BG24_Reward_Sinfall_Medallion=True # new 24.6  #>>>
-BG24_Reward_Kidnap_Sack=True # new 24.6#>>>
-BG24_Reward_The_Golden_Hammer=True # new 24.6 #>>>
+BG24_Reward_Kidnap_Sack=True # new 24.6### OK ###
+BG24_Reward_The_Golden_Hammer=True # new 24.6 ### OK ###
 
 
 if BG24_Reward_Snicker_Snacks:# ### OK ###
@@ -757,15 +757,21 @@ if BG24_Reward_Hidden_Treasure_Vault:################
 class BG24_Reward_361_Action(GameAction):
 	PLAYER=ActionArg()
 	def do(self, source, player):
-
+		amount = source.script_data_num_1
+		for repeat in range(amount):
+			Give(player, 'GAME_005').trigger(source)
+		source.script_data_num_1 += 1
 		pass
 class BG24_Reward_361:# , 
 	"""Hidden Treasure Vault(BG24_Reward_361)
 	At the start of your turn, gain @ Gold. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
 	events = [
 		BeginBar(CONTROLLER).on(BG24_Reward_361_Action(CONTROLLER))
 		]
 	pass
+
+
 
 
 if BG24_Reward_Essence_of_Zerus:## OK ###
@@ -776,6 +782,9 @@ class BG24_Reward_362:# ,
 	At the end of your turn, get a 'Shifter Zerus' which transforms into random minions."""
 	events = OWN_TURN_END.on(Give(CONTROLLER, 'BGS_029'))
 	pass
+
+
+
 
 #不定的な証拠：各ターンの開始時、2つの新しい報酬から1つを選択する。
 if BG24_Reward_Ethereal_Evidence:################
@@ -811,6 +820,9 @@ class BG24_Reward_363e:
 	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action(CONTROLLER))
 	pass
 
+
+
+
 #凄まじき死毒：味方のミニオン全ては+8/+8を得る。それらのミニオンは攻撃した後死ぬ。凄まじく。
 if BG24_Reward_Volatile_Venom:################
 	BG24_Reward+=['BG24_Reward_364','BG24_Reward_364e']
@@ -824,6 +836,8 @@ class BG24_Reward_364e:
 	""" Volatile """
 	events = Attack(OWNER, ENEMY).after(Destroy(OWNER))
 	pass
+
+
 
 ##血のゴブレット：自分のターンの終了時、自分が失っている体力に等しい攻撃力を、自陣の右端のミニオンに付与する。
 if BG24_Reward_Blood_Goblet:################
@@ -851,35 +865,88 @@ class BG24_Reward_708_e:
 if BG24_Reward_Sinfall_Medallion:################
 	BG24_Reward+=['BG24_Reward_712','BG24_Reward_712e']
 	BG24_Reward_Pool+=['BG24_Reward_712']
+class BG24_Reward_712_Action(GameAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		cards = [card for card in player.field if card.type==CardType.MINION and card.tech_level==player.tavern_tier]
+		if len(cards):
+			if len(cards)>2:
+				cards=random.sample(cards, 2)
+			for card in cards:
+				Buff(card, 'BG24_Reward_712e').trigger(source)
+		pass
 class BG24_Reward_712:# , 
 	"""Sinfall Medallion(BG24_Reward_712)
 	After you play a minion, give 2 other friendly minions of its Tavern Tier +2/+2."""
-	#
+	events = BG_Play(CONTROLLER, MINION).after(BG24_Reward_712_Action(CONTROLLER))
 	pass
-class BG24_Reward_712e:
-	""" """
-	pass
+BG24_Reward_712e=buff(2,2)
 
-#誘拐袋：呪文錬成：ゴールデンではないミニオン1体を選択する。それを自分の手札に追加する。
-if BG24_Reward_Kidnap_Sack:################
-	BG24_Reward+=['BG24_Reward_718']
+
+
+
+#
+if BG24_Reward_Kidnap_Sack:### OK ###
+	BG24_Reward+=['BG24_Reward_718','BG24_Reward_718t']
 	BG24_Reward_Pool+=['BG24_Reward_718']
 class BG24_Reward_718:# , 
 	"""Kidnap Sack(BG24_Reward_718)
-	&lt;b&gt;Spellcraft:&lt;/b&gt; Choose a non-golden minion. Add it to your hand."""
-	#
+	[Spellcraft:] Choose a non-golden minion. Add it to your hand."""
+	play = Spellcraft(CONTROLLER,'BG24_Reward_718t')
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG24_Reward_718t'))
+	tags={2359:'BG24_Reward_718t'}	
 	pass
+class BG24_Reward_718t_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.zone=Zone.HAND
+		pass
+class BG24_Reward_718t:## spell craft card
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, 1003:0,}
+	## 1003:# REQ_NONGOLDEN_TARGET# 
+	play = BG24_Reward_718t_Action(TARGET)
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 
-#ゴールデンハンマー：呪文錬成：味方のミニオン1体を次のターンまでゴールデンにする。
-if BG24_Reward_The_Golden_Hammer:################
-	BG24_Reward+=['BG24_Reward_719']
+
+
+
+if BG24_Reward_The_Golden_Hammer:### OK #####
+	BG24_Reward+=['BG24_Reward_719','BG24_Reward_719t','BG24_Reward_719te']
 	BG24_Reward_Pool+=['BG24_Reward_719']
 class BG24_Reward_719:# , 
 	"""The Golden Hammer(BG24_Reward_719)
 	&lt;b&gt;Spellcraft:&lt;/b&gt; Make a friendly minion Golden until next turn."""
-	#
+	play = Spellcraft(CONTROLLER,'BG24_Reward_719t')
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG24_Reward_719t'))
+	tags={2359:'BG24_Reward_719t'}		
 	pass
-
-
-
+class BG24_Reward_719t_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		assert target.controller.game.this_is_tavern, "bar"
+		gold_id=target.controller.game.parent.BG_Gold[target.id]
+		newcard=target.controller.card(gold_id)
+		newcard.zone=Zone.PLAY
+		Buff(newcard, 'BG24_Reward_719te').trigger(source)
+		target.discard()
+		pass
+class BG24_Reward_719t:
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, 1003:0,}	
+	play = BG24_Reward_719t_Action(TARGET)
+	class Hand:
+		events = EndTurn(CONTROLLER).on(Destroy(SELF))
+class BG24_Reward_719te_Action(TargetedAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		target=source.owner
+		cards = [cardId for cardId in player.game.parent.BG_Gold.keys() if player.game.parent.BG_Gold[cardId]==target.id]
+		if len(cards):
+			newcard=player.card(cards[0])
+			newcard.zone=Zone.PLAY
+		target.discard()
+		Destroy_spellcraft(source)
+		pass
+class BG24_Reward_719te:
+	events = BeginBar(CONTROLLER).on(BG24_Reward_719te_Action(CONTROLLER))
 
