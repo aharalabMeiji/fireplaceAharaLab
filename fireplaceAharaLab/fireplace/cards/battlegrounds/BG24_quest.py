@@ -107,7 +107,7 @@ class BG24_Quest_125:# [2466]=1, [2580]=1, [2642]=88, [2653]=300, [2674]=2,
 	events = BeginBattle(CONTROLLER).on(BG24_Quest_125_Action(SELF))
 	pass
 
-if BG24_Quest_Follow_the_Money:# 
+if BG24_Quest_Follow_the_Money:# ### looks OK ###
 	BG24_Quest+=['BG24_Quest_126']
 	BG24_Quest_Pool+=['BG24_Quest_126']
 class BG24_Quest_126_Action(TargetedAction):
@@ -119,7 +119,7 @@ class BG24_Quest_126:# [2466]=1,
 	[Quest:] Spend {0} Gold. """
 	#{0}=30
 	## 30->33 (24.2.2)
-	secert = [
+	events = [
 		Buy(CONTROLLER).on(QuestCounter(SELF, 3)),
 		Activate(CONTROLLER).on(QuestCounter(SELF, COST(FRIENDLY_HERO_POWER)))
 	]
@@ -160,7 +160,7 @@ class BG24_Quest_151:# [2466]=1, [2496]=1,
 	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG24_Quest_151_Action2(Play.CARD))
 	pass
 
-if BG24_Quest_Balance_the_Scales:# ????not in service
+if BG24_Quest_Balance_the_Scales:# ### not in service
 	BG24_Quest+=['BG24_Quest_152']
 	BG24_Quest_Pool+=['BG24_Quest_152']
 class BG24_Quest_152:# 
@@ -169,7 +169,7 @@ class BG24_Quest_152:#
 	#
 	pass
 
-if BG24_Quest_Cry_for_Help:# 
+if BG24_Quest_Cry_for_Help:# ### visually OK ###
 	BG24_Quest+=['BG24_Quest_311']
 	BG24_Quest_Pool+=['BG24_Quest_311']
 class BG24_Quest_311:# 
@@ -180,7 +180,10 @@ class BG24_Quest_311:#
 	events = Play(CONTROLLER, FRIENDLY+BATTLECRY).on(QuestCounter(SELF))
 	pass
 
-if BG24_Quest_Invite_the_Guests:# 
+
+
+
+if BG24_Quest_Invite_the_Guests:# ### visually OK ###
 	BG24_Quest+=['BG24_Quest_313']
 	BG24_Quest_Pool+=['BG24_Quest_313']
 class BG24_Quest_313:# [2466]=1, 
@@ -189,6 +192,9 @@ class BG24_Quest_313:# [2466]=1,
 	#{0}=7
 	events = Buy(CONTROLLER).on(QuestCounter(SELF))
 	pass
+
+
+
 
 if BG24_Quest_Dust_for_Prints:# 
 	BG24_Quest+=['BG24_Quest_314']
@@ -225,6 +231,9 @@ class BG24_Quest_320:# [2466]=1, [2580]=1, [2643]=80, [2644]=90, [2646]=90,
 	#{0}=6 <Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="6"/>
 	events = Deathrattle(FRIENDLY + MINION).on(QuestCounter(SELF))
 	pass
+
+
+
 
 if BG24_Quest_Close_the_Case:# ? not in service
 	BG24_Quest+=['BG24_Quest_328']

@@ -256,6 +256,9 @@ class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1,
 	events = BeginBar().on(BG24_Reward_130_Action2(CONTROLLER))
 	pass
 
+
+
+
 if BG24_Reward_Red_Hand:# ### OK ###
 	BG24_Reward+=['BG24_Reward_131']
 	BG24_Reward+=['BG24_Reward_131e']
@@ -267,6 +270,9 @@ class BG24_Reward_131:# [2467]=110, [2641]=1
 	events = BeginBar(CONTROLLER).on(Buff(RANDOM(FRIENDLY_HAND), 'BG24_Reward_131e'))
 	pass
 BG24_Reward_131e=buff(12,12)
+
+
+
 
 if BG24_Reward_The_Friends_Along_the_Way:# ## OK ###
 	BG24_Reward+=['BG24_Reward_134']
@@ -288,6 +294,9 @@ class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1,
 	#{0} = Race.SOMETHING
 	events = BeginBar(CONTROLLER).on(BG24_Reward_134_Action2(SELF))
 	pass
+
+
+
 
 if BG24_Reward_Yogg_tastic_Tasties:###  ### OK ###
 	BG24_Reward+=['BG24_Reward_135']
@@ -324,6 +333,9 @@ class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300,
 	events = BeginBar(CONTROLLER).on(BG24_Reward_135_Action(CONTROLLER))
 	pass
 
+
+
+
 if BG24_Reward_Tiny_Henchmen:# ### OK ###
 	BG24_Reward+=['BG24_Reward_136']
 	BG24_Reward+=['BG24_Reward_136e']
@@ -345,6 +357,9 @@ class BG24_Reward_136:# [2467]=100, [2641]=1,
 # 2/2->3/3 (24.2.2)
 BG24_Reward_136e=buff(3,3)# 
 
+
+
+
 if BG24_Reward_Victims_Specter:#### OK ### 
 	BG24_Reward+=['BG24_Reward_138']
 	BG24_Reward_Pool+=['BG24_Reward_138']
@@ -361,23 +376,23 @@ class BG24_Reward_138:# [2467]=80, [2641]=1,
 	events = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
 	pass
 
-if BG24_Reward_A_Good_Time:# #### not in service
-	BG24_Reward+=['BG24_Reward_210']
-	BG24_Reward_Pool+=['BG24_Reward_210']
-class BG24_Reward_210:# [2467]=150, ### not in service
-	""" A Good Time
-	You have unlimited Gold but only 15 second turns. """
-	#
-	pass
+#if BG24_Reward_A_Good_Time:# #### not in service
+#	BG24_Reward+=['BG24_Reward_210']
+#	BG24_Reward_Pool+=['BG24_Reward_210']
+#class BG24_Reward_210:# [2467]=150, ### not in service
+#	""" A Good Time
+#	You have unlimited Gold but only 15 second turns. """
+#	#
+#	pass
 
-if BG24_Reward_Avatar_of_the_Coin:#  ## not in service
-	BG24_Reward+=['BG24_Reward_211']
-	BG24_Reward_Pool+=['BG24_Reward_211']
-class BG24_Reward_211:# [2467]=51, ### not in service
-	""" Avatar of the Coin
-	Combat is replaced with a coin flip. """
-	#
-	pass
+#if BG24_Reward_Avatar_of_the_Coin:#  ## not in service
+#	BG24_Reward+=['BG24_Reward_211']
+#	BG24_Reward_Pool+=['BG24_Reward_211']
+#class BG24_Reward_211:# [2467]=51, ### not in service
+#	""" Avatar of the Coin
+#	Combat is replaced with a coin flip. """
+#	#
+#	pass
 
 if BG24_Reward_Anima_Bribe:# ### OK ### banned 24.6
 	BG24_Reward+=['BG24_Reward_305']
@@ -391,6 +406,9 @@ class BG24_Reward_305:# [2467]=190, [2641]=1, [2649]=80,
 class BG24_Reward_305e:# 
 	""" Anima Bribed	Increased stats. """
 	pass
+
+
+
 
 if BG24_Reward_Cooked_Book:# ### OK ###
 	BG24_Reward+=['BG24_Reward_306']
@@ -415,6 +433,9 @@ class BG24_Reward_306e:#
 	""" Cooked 	Increased stats. """
 	pass
 
+
+
+
 if BG24_Reward_Teal_Tiger_Sapphire:# ### OK ###
 	BG24_Reward+=['BG24_Reward_308']
 	BG24_Reward+=['BG24_Reward_308e']
@@ -437,6 +458,8 @@ class BG24_Reward_308:# [2467]=140, [2641]=1, [2644]=60,
 	pass
 class BG24_Reward_308e:
 	pass
+
+
 
 
 if BG24_Reward_Devils_in_the_Details:# ### OK ###
@@ -465,14 +488,14 @@ class BG24_Reward_309e:#
 	""" Satisfied. For Now...Consumed the stats of minion. """
 	pass
 
-if BG24_Reward_Partner_in_Crime:# not in service
-	BG24_Reward+=['BG24_Reward_310']
-	BG24_Reward_Pool+=['BG24_Reward_310']
-class BG24_Reward_310:# [2467]=100, [2653]=10000, ### not in service
-	""" Partner in Crime
-	Get your Golden Buddy. """
-	#
-	pass
+#if BG24_Reward_Partner_in_Crime:# not in service
+#	BG24_Reward+=['BG24_Reward_310']
+#	BG24_Reward_Pool+=['BG24_Reward_310']
+#class BG24_Reward_310:# [2467]=100, [2653]=10000, ### not in service
+#	""" Partner in Crime
+#	Get your Golden Buddy. """
+#	#
+#	pass
 
 if BG24_Reward_Another_Hidden_Body:# banned 24.2.1
 	BG24_Reward+=['BG24_Reward_311']
@@ -481,6 +504,9 @@ class BG24_Reward_311:# [2467]=70, [2581]=1, [2641]=1,
 	""" Another Hidden Body
 	[Discover] a minion of your Tavern Tier. <i>(Can be earned endlessly!)</i> """
 	pass
+
+
+
 
 if BG24_Reward_Staff_of_Origination:# ### visually OK ###
 	BG24_Reward+=['BG24_Reward_312']
@@ -493,6 +519,9 @@ class BG24_Reward_312:# [1500]=1, [2467]=275, [2641]=1, [2653]=300, [2727]=1,
 	pass
 #+15/+15 -> +12/+12 (24.2.2)
 BG24_Reward_312e=buff(12,12)# 
+
+
+
 
 if BG24_Reward_Wondrous_Wisdomball:# ### OK ###
 	BG24_Reward+=['BG24_Reward_313']
@@ -590,14 +619,14 @@ class BG24_Reward_313e:#
 	#
 	pass
 
-if BG24_Reward_To_The_Moon_Almost:# not in service
-	BG24_Reward+=['BG24_Reward_320']
-	BG24_Reward_Pool+=['BG24_Reward_320']
-class BG24_Reward_320:# [2467]=130, ### not in service
-	""" To The Moon... Almost
-	Skip to Tavern Tier 5. You can't upgrade to Tavern Tier 6. """
-	#
-	pass
+#if BG24_Reward_To_The_Moon_Almost:# not in service
+#	BG24_Reward+=['BG24_Reward_320']
+#	BG24_Reward_Pool+=['BG24_Reward_320']
+#class BG24_Reward_320:# [2467]=130, ### not in service
+#	""" To The Moon... Almost
+#	Skip to Tavern Tier 5. You can't upgrade to Tavern Tier 6. """
+#	#
+#	pass
 
 if BG24_Reward_Alter_Ego:# ### OK ###
 	BG24_Reward+=['BG24_Reward_321']
@@ -648,14 +677,14 @@ class BG24_Reward_321t:#
 
 
 
-if BG24_Reward_9_Lives:# ### not in service
-	BG24_Reward+=['BG24_Reward_323']
-	BG24_Reward_Pool+=['BG24_Reward_323']
-class BG24_Reward_323:# [2467]=99, 
-	""" 9 Lives
-	Set your Health to 1. Add 8 'Iceblocks' to your hand. """
-	#
-	pass
+#if BG24_Reward_9_Lives:# ### not in service
+#	BG24_Reward+=['BG24_Reward_323']
+#	BG24_Reward_Pool+=['BG24_Reward_323']
+#class BG24_Reward_323:# [2467]=99, 
+#	""" 9 Lives
+#	Set your Health to 1. Add 8 'Iceblocks' to your hand. """
+#	#
+#	pass
 
 if BG24_Reward_Menagerie_Mayhem:# 
 	BG24_Reward+=['BG24_Reward_331']
@@ -691,32 +720,32 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 	#
 	pass
 
-if BG24_Reward_Totemic_Tavern:# XXXX### not in service
-	BG24_Reward+=['BG24_Reward_351']
-	BG24_Reward_Pool+=['BG24_Reward_351']
-class BG24_Reward_351:# [2467]=30, 
-	""" Totemic Tavern
-	The Totem minion type is added to Bob's Tavern. """
-	#
-	pass
+#if BG24_Reward_Totemic_Tavern:# XXXX### not in service
+#	BG24_Reward+=['BG24_Reward_351']
+#	BG24_Reward_Pool+=['BG24_Reward_351']
+#class BG24_Reward_351:# [2467]=30, 
+#	""" Totemic Tavern
+#	The Totem minion type is added to Bob's Tavern. """
+#	#
+#	pass
 
-if BG24_Reward_Purified_Shard:# ?????### not in service
-	BG24_Reward+=['BG24_Reward_352']
-	BG24_Reward_Pool+=['BG24_Reward_352']
-class BG24_Reward_352:# [2467]=999, 
-	""" Purified Shard
-	Win the game. """
-	#
-	pass
+#if BG24_Reward_Purified_Shard:# ?????### not in service
+#	BG24_Reward+=['BG24_Reward_352']
+#	BG24_Reward_Pool+=['BG24_Reward_352']
+#class BG24_Reward_352:# [2467]=999, 
+#	""" Purified Shard
+#	Win the game. """
+#	#
+#	pass
 
-if BG24_Reward_Un_Murloc_Your_Potential:#??### not in service
-	BG24_Reward+=['BG24_Reward_535']
-	BG24_Reward_Pool+=['BG24_Reward_535']
-class BG24_Reward_535:# [2467]=80, 
-	""" Un-Murloc Your Potential
-	Transform your hero into a Murloc. """
-	#
-	pass
+#if BG24_Reward_Un_Murloc_Your_Potential:#??### not in service
+#	BG24_Reward+=['BG24_Reward_535']
+#	BG24_Reward_Pool+=['BG24_Reward_535']
+#class BG24_Reward_535:# [2467]=80, 
+#	""" Un-Murloc Your Potential
+#	Transform your hero into a Murloc. """
+#	#
+#	pass
 
 
 ##隠された宝物庫：自分のターンの開始時、1ゴールドを獲得する。（毎ターンアップグレード！）
@@ -741,44 +770,85 @@ class BG24_Reward_362:# ,
 
 #不定的な証拠：各ターンの開始時、2つの新しい報酬から1つを選択する。
 if BG24_Reward_Ethereal_Evidence:################
-	BG24_Reward+=['BG24_Reward_363']
+	BG24_Reward+=['BG24_Reward_363','BG24_Reward_363e']
 	BG24_Reward_Pool+=['BG24_Reward_363']
+class BG24_Reward_363_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Buff(card, 'BG24_Reward_363e').trigger(self.player)
+		card.zone=Zone.HAND
+		CastSecret(card).trigger(self.player)
+		if getattr(self.source, 'this_is_enchantment', False):
+			self.source.owner.discard()
+		elif getattr(self.source, 'this_is_questreward', False):
+			self.source.discard()
+		else:
+			self.source.discard()
+		pass
+class BG24_Reward_363_Action(GameAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		if len(BG24_Reward_Pool)>=2:
+			cards=random.sample(BG24_Reward_Pool)
+			BG24_Reward_363_Choice(CONTROLLER, RandomID(cards)*2).trigger(source)
+		pass
 class BG24_Reward_363:# , 
 	"""Ethereal Evidence(BG24_Reward_363)
 	At the start of every turn, choose from 2 new Rewards."""
-	#
+	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action(CONTROLLER))
 	pass
-
+class BG24_Reward_363e:
+	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action(CONTROLLER))
+	pass
 
 #凄まじき死毒：味方のミニオン全ては+8/+8を得る。それらのミニオンは攻撃した後死ぬ。凄まじく。
 if BG24_Reward_Volatile_Venom:################
-	BG24_Reward+=['BG24_Reward_364']
+	BG24_Reward+=['BG24_Reward_364','BG24_Reward_364e']
 	BG24_Reward_Pool+=['BG24_Reward_364']
 class BG24_Reward_364:# , 
 	"""Volatile Venom(BG24_Reward_364)
 	Your minions have +8/+8. After they attack, they die. Horribly."""
-	#
+	events = BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'BG24_Reward_364e'))
 	pass
-
+class BG24_Reward_364e:
+	""" Volatile """
+	events = Attack(OWNER, ENEMY).after(Destroy(OWNER))
+	pass
 
 ##血のゴブレット：自分のターンの終了時、自分が失っている体力に等しい攻撃力を、自陣の右端のミニオンに付与する。
 if BG24_Reward_Blood_Goblet:################
-	BG24_Reward+=['BG24_Reward_708']
+	BG24_Reward+=['BG24_Reward_708','BG24_Reward_708_e']
 	BG24_Reward_Pool+=['BG24_Reward_708']
+class BG24_Reward_708_Action(GameAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		if len(player.field):
+			amount=player.hero.damage
+			card=player.field[-1]
+			Buff(card, 'BG24_Reward_708_e', atk=amount).trigger(source)
+		pass
 class BG24_Reward_708:# , 
 	"""Blood Goblet BG24_Reward_708 
 	At the end of your turn, give your right-most minion Attack equal to your missing Health."""
-	#
+	events = OWN_TURN_END.on(BG24_Reward_708_Action(CONTROLLER))
 	pass
+class BG24_Reward_708_e:
+	""" """
+	pass
+
 
 #シンフォールのメダリオン：自分がミニオンを手札から使用した後、同じ酒場グレードの味方のミニオン2体に+2/+2を付与する。
 if BG24_Reward_Sinfall_Medallion:################
-	BG24_Reward+=['BG24_Reward_712']
+	BG24_Reward+=['BG24_Reward_712','BG24_Reward_712e']
 	BG24_Reward_Pool+=['BG24_Reward_712']
 class BG24_Reward_712:# , 
 	"""Sinfall Medallion(BG24_Reward_712)
 	After you play a minion, give 2 other friendly minions of its Tavern Tier +2/+2."""
 	#
+	pass
+class BG24_Reward_712e:
+	""" """
 	pass
 
 #誘拐袋：呪文錬成：ゴールデンではないミニオン1体を選択する。それを自分の手札に追加する。

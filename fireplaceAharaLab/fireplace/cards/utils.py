@@ -1,3 +1,4 @@
+from pickle import NONE
 import random
 
 from hearthstone.enums import CardClass, CardType, GameTag, PlayReq, Race, Rarity
@@ -261,13 +262,21 @@ class t_Action(TargetedAction):
 		controller=target
 		pass
 
-class c_Action(TargetedAction):
-	CONTROLLER=ActionArg()
-	def do(self, source, controller):
+class c_Action(GameAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		pass
+
+class c_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
 		pass
 
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+
 
 
 	def play(self):
@@ -282,3 +291,4 @@ class original_e:
 		GameTag.CARDNAME: "ZZZZ",
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
+

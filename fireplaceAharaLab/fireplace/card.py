@@ -1086,6 +1086,7 @@ class Enchantment(BaseCard):
 		self.additional_deathrattles = []
 		self._sidequest_counter_ = 0# Sidequest
 		self.sidequest_list0=[]# sidequest, #REV_000e
+		self.this_is_enchantment=True
 		super().__init__(data)
 
 	@property
@@ -1313,6 +1314,8 @@ class Location(PlayableCard):
 class QuestReward(PlayableCard):
 	_sidequest_counter_=0
 	quest_progress_total=int_property('quest_progress_total')
+	this_is_questreward=True
+
 	@property
 	def events(self):
 		ret = super().events
