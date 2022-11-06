@@ -193,9 +193,9 @@ class TB_BaconUps_135:
 
 #Rat Pack (3/2/2)   ### maybe ###
 if BG_Rat_Pack:
-	BG_Minion_Beast += ['CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',]#Rat Pack(3)
-	BG_PoolSet_Beast[3].append('CFM_316')
-	BG_Beast_Gold['CFM_316']='TB_BaconUps_027'
+	BG_Minion_Beast += ['BG_CFM_316','CFM_316t','TB_BaconUps_027','TB_BaconUps_027t',]#Rat Pack(3)
+	BG_PoolSet_Beast[3].append('BG_CFM_316')
+	BG_Beast_Gold['BG_CFM_316']='TB_BaconUps_027'
 class CFM_316:
 	""" Rat Pack (3/2/2)
 	[Deathrattle:] Summon a number of 1/1 Rats equal _to this minion's Attack."""
@@ -216,9 +216,9 @@ class TB_BaconUps_027t:
 
 ##Cave Hydra (4/2/4) ### maybe ###
 if BG_Cave_Hydra:
-	BG_Minion_Beast += ['LOOT_078','TB_BaconUps_151',]#Cave Hydra(4)
-	BG_PoolSet_Beast[4].append('LOOT_078')
-	BG_Beast_Gold['LOOT_078']='TB_BaconUps_151'
+	BG_Minion_Beast += ['BG_LOOT_078','TB_BaconUps_151',]#Cave Hydra(4)
+	BG_PoolSet_Beast[4].append('BG_LOOT_078')
+	BG_Beast_Gold['BG_LOOT_078']='TB_BaconUps_151'
 class LOOT_078:
 	""" Cave Hydra (4/2/4)
 	Also damages the minions next to whomever this attacks."""

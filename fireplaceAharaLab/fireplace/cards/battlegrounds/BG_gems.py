@@ -81,17 +81,15 @@ class BGS_Treasures_000:# <12>[1453] ## OK ##
 BGS_Treasures_000e=buff(2,2)# <12>[1453]
 """ Big Banana , Has +2/+2. """
 
-class TB_BaconShop_Triples_01_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
-		controller=player
+class TB_BaconShop_Triples_01_Action(GameAction):
+	def do(self, source):
 		controller=source.controller
 		tech_level = min(controller.tavern_tier+1,6)
-		Discover(CONTROLLER, RandomBGAdmissible(tech_level=tech_level)).trigger(source)
+		Discover(controller, RandomBGAdmissible(tech_level=tech_level)).trigger(source)
 class TB_BaconShop_Triples_01:# <12>[1453]
 	""" Triple Reward
 	[Discover] a minion from [Tavern Tier @]. """
-	play = TB_BaconShop_Triples_01_Action(CONTROLLER)
+	play = TB_BaconShop_Triples_01_Action()
 	pass
 
 
@@ -266,14 +264,14 @@ class BGS_Treasures_022pe:# <12>[1453]
 	#
 	pass
 
-class BGS_Treasures_023_Action(TargetedAction): ### maybe ##
-	TARGET=ActionArg()
-	def do(self, source, target):
-		target.game.rerole_free = 5
+class BGS_Treasures_023_Action(GameAction): ### maybe ##
+	def do(self, source):
+		controller=source.controller
+		controller.game.rerole_free = 5
 class BGS_Treasures_023:# <12>[1453]
 	""" Open Bar
 	Your first 5 [Refreshes]each turn cost (0). """
-	events = BeginBar(CONTROLLER).on(BGS_Treasures_023_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BGS_Treasures_023_Action())
 	pass
 class BGS_Treasures_023pe:# <12>[1453]
 	""" Refresh Cost 0
