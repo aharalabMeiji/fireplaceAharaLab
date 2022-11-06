@@ -309,10 +309,9 @@ class BG20_HERO_202p_Choice(Choice):
 			Buff(self.source.controller,'BG20_HERO_202pe').trigger(self.source)
 		self.next_choice=None
 		self.player.choice=None
-class BG20_HERO_202p_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG20_HERO_202p_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		heroes=[hero for hero in controller.game.parent.Heroes if hero!='BG20_HERO_202']
 		if len(heroes)>2:
 			heroes = random.sample(heroes,2)
@@ -322,13 +321,13 @@ class BG20_HERO_202p_Action(TargetedAction):
 class BG20_HERO_202p:# <12>[1453]
 	""" Power of the Storm
 	[Passive]At the start of every turn, choose from 2 new Hero Powers. """
-	events = BeginBar(CONTROLLER).on(BG20_HERO_202p_Action(CONTROLLER))	#
+	events = BeginBar(CONTROLLER).on(BG20_HERO_202p_Action())	#
 	pass
 class BG20_HERO_202pe:# <12>[1453]
 	""" Shifting Hero Power
 	Each turn, transform into a random Hero Power. """
 	#
-	events = BeginBar(CONTROLLER).on(BG20_HERO_202p_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG20_HERO_202p_Action())
 	pass
 class BG20_HERO_202pt:# <12>[1453]
 	""" Shift your Hero Power
@@ -385,10 +384,9 @@ BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_17_Buddy']='TB_BaconShop_HERO_17_Buddy_G'
 class TB_BaconShop_HERO_17:# <12>[1453]
 	""" Millificent Manastorm """
 	pass
-class TB_BaconShop_HP_015_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class TB_BaconShop_HP_015_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if hasattr(controller.game,'this_is_tavern'):
 			bartender = controller.opponent
 			for card in bartender.field:
@@ -403,8 +401,8 @@ class TB_BaconShop_HP_015:
 	""" Tinker
 	[Passive]Mechs in Bob's Tavern have +1/+1."""
 	events = [
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_015_Action(CONTROLLER)),
-		Rerole(CONTROLLER).on(TB_BaconShop_HP_015_Action(CONTROLLER)),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_015_Action()),
+		Rerole(CONTROLLER).on(TB_BaconShop_HP_015_Action()),
 	]
 TB_BaconShop_HP_015e=buff(1,1)
 ######## BUDDY
@@ -436,10 +434,9 @@ class TB_BaconShop_HP_080_Choice(Choice):
 		self.player.choice=None
 		pass
 	pass
-class TB_BaconShop_HP_080_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class TB_BaconShop_HP_080_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		for field in controller.game.parent.warbandDeceased:
 			TB_BaconShop_HP_080_Choice(controller, RandomID(*field)*3).trigger(source)
 			choiceAction(controller)
@@ -449,7 +446,7 @@ class TB_BaconShop_HP_080:
 	""" Kel'Thuzad's Kitty
 	[Passive] When a player dies, [Discover] a minion from their warband. It keeps any enchantments."""
 	# controller.game.parent.warbandDeceased : list of the field cards of killed heroes.
-	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_080_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_080_Action())
 ######## BUDDY
 class TB_BaconShop_HERO_70_Buddy:# <12>[1453]
 	""" Lil' K.T.
@@ -477,10 +474,9 @@ class BG23_HERO_303p2_Choice(Choice):
 			Give(self.source.controller, 'GAME_005').trigger(self.source)
 		self.next_choice=None
 		self.player.choice=None
-class BG23_HERO_303p2_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class BG23_HERO_303p2_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		gamemaster = controller.game.parent
 		next_warband = gamemaster.next_warband(controller)
 		if len(next_warband)>0:
@@ -495,13 +491,13 @@ class BG23_HERO_303p2_Action(TargetedAction):
 					break
 			if cardID2!=None:
 				source.sidequest_list0.append(cardID1)
-				BG23_HERO_303p2_Choice(CONTROLLER, RandomID(cardID1, cardID2)*2).trigger(source)
+				BG23_HERO_303p2_Choice(controller, RandomID(cardID1, cardID2)*2).trigger(source)
 				choiceAction(controller)
 		pass
 class BG23_HERO_303p2:
 	""" Detective for Hire
 	Look at 2 minions. Guess which one your next opponent had last combat for a Coin."""
-	activate = BG23_HERO_303p2_Action(CONTROLLER)
+	activate = BG23_HERO_303p2_Action()
 	pass
 class BG23_HERO_303pt:
 	pass

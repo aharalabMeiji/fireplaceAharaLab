@@ -33,20 +33,18 @@ BG_Hero4_Buddy['TB_BaconShop_HERO_11']='TB_BaconShop_HERO_11_Buddy'#
 BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_11_Buddy']='TB_BaconShop_HERO_11_Buddy_G'#
 class TB_BaconShop_HERO_11:# <12>[1453]
 	""" Ragnaros the Firelord """
-class TB_BaconShop_HP_087t_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class TB_BaconShop_HP_087t_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if len(controller.field)>0:
 			Buff(controller.field[0], 'TB_BaconShop_HP_087te').trigger(source)
 			if len(controller.field)>1:
 				Buff(controller.field[-1], 'TB_BaconShop_HP_087te').trigger(source)
 		pass
-class TB_BaconShop_HP_087_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class TB_BaconShop_HP_087_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if hasattr(source.controller.game,'this_is_battle') and source.controller.game.this_is_battle:
-			controller = target
 			source.deepcopy_original.score_value_1 -= 1
 			source.deepcopy_original.script_data_num_1 = source.deepcopy_original.score_value_1
 			if source.deepcopy_original.script_data_num_1 <= 0: ###25
@@ -55,11 +53,11 @@ class TB_BaconShop_HP_087_Action(TargetedAction):
 class TB_BaconShop_HP_087:
 	""" DIE, INSECTS!
 	[Passive] After you kill 25 enemy minions, get Sulfuras. <i>(@ left!)</i>"""
-	events = Death(ENEMY + MINION).on(TB_BaconShop_HP_087_Action(CONTROLLER))
+	events = Death(ENEMY + MINION).on(TB_BaconShop_HP_087_Action())
 class TB_BaconShop_HP_087t:
 	""" Sulfuras 
 	[Passive] At the end of your turn, give your left- and right- most minions +3/+3."""
-	events = OWN_TURN_END.on(TB_BaconShop_HP_087t_Action(CONTROLLER))
+	events = OWN_TURN_END.on(TB_BaconShop_HP_087t_Action())
 TB_BaconShop_HP_087te=buff(3,3)
 ######## BUDDY
 class TB_BaconShop_HERO_11_Buddy:# <12>[1453]
@@ -252,10 +250,9 @@ BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_23_Buddy']='TB_BaconShop_HERO_23_Buddy_G'
 class TB_BaconShop_HERO_23:# <12>[1453]
 	""" Shudderwock """
 	pass
-class TB_BaconShop_HP_022_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_022_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		if source.script_data_num_1>0:
 			Give(controller, 'TB_BaconShop_HP_022t').trigger(source)
 			source.script_data_num_1-=1
@@ -263,15 +260,14 @@ class TB_BaconShop_HP_022_Action(TargetedAction):
 class TB_BaconShop_HP_022:
 	""" Snicker-snack
 	Add a 1/1 Shudderling to your hand that repeats all [Battlecries] you've played. <i>(Twice per game.)</i>"""
-	activate = TB_BaconShop_HP_022_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_022_Action()
 	pass
 class TB_BaconShop_HP_022e:
 	pass
-class TB_BaconShop_HP_022t_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
+class TB_BaconShop_HP_022t_Action(GameAction):
+	def do(self, source):
 		#from fireplace.card import is_valid_target
-		controller = target
+		controller = source.controller
 		cards=[]
 		for action in controller._targetedaction_log: 
 			card = action['target']
@@ -284,7 +280,7 @@ class TB_BaconShop_HP_022t_Action(TargetedAction):
 			newcard.discard()
 		source.discard()
 class TB_BaconShop_HP_022t:##[Battlecry:] Repeat all other [Battlecries] from cards you played this game <i>(targets chosen randomly)</i>.
-	play = TB_BaconShop_HP_022t_Action(CONTROLLER)
+	play = TB_BaconShop_HP_022t_Action()
 	pass
 class TB_BaconShop_HP_022t_G:
 	pass
@@ -361,10 +357,9 @@ BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_27_Buddy']='TB_BaconShop_HERO_27_Buddy_G'
 class TB_BaconShop_HERO_27:# <12>[1453]
 	""" Sindragosa """
 	pass
-class TB_BaconShop_HP_014_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_014_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		bartender = controller.opponent
 		for card in bartender.field:
 			if card.frozen:
@@ -375,7 +370,7 @@ class TB_BaconShop_HP_014:
 	[Freeze] a minion in Bob's Tavern. [Frozen] minions get +2/+1 each turn."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_ENEMY_TARGET:0, PlayReq.REQ_MINION_TARGET:0}
 	activate = Freeze(TARGET)
-	events = OWN_TURN_END.on(TB_BaconShop_HP_014_Action(CONTROLLER))
+	events = OWN_TURN_END.on(TB_BaconShop_HP_014_Action())
 TB_BaconShop_HP_014e=buff(2,1)
 ######## BUDDY
 class TB_BaconShop_HERO_27_Buddy:# <12>[1453]
@@ -433,10 +428,9 @@ BG_Hero4_Buddy_Gold['TB_BaconShop_HERO_68_Buddy']='TB_BaconShop_HERO_68_Buddy_G'
 class TB_BaconShop_HERO_68:# <12>[1453]
 	""" Skycap'n Kragg """
 	pass
-class TB_BaconShop_HP_076_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_076_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		source._sidequest_counter_+=1
 		if source._sidequest_counter_<=1:
 			for repeat in range(min(source.script_data_num_1,10)):  
@@ -447,7 +441,7 @@ class TB_BaconShop_HP_076_Action(TargetedAction):
 class TB_BaconShop_HP_076:
 	"""  
 	Gain @ Gold this turn. Increases each turn. <i>(Once per game.)</i>"""
-	activate = TB_BaconShop_HP_076_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_076_Action()
 	events = OWN_TURN_END.on(AddScriptDataNum1(SELF,1))
 	pass
 ######## BUDDY
@@ -524,17 +518,15 @@ BG_PoolSet_Hero4.append('BG23_HERO_306')
 class BG23_HERO_306:
 	""" Sylvanas Windrunner """
 	pass
-class BG23_HERO_306p_Action0(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class BG23_HERO_306p_Action0(GameAction):
+	def do(self, source):
+		controller = source.controller
 		for card in controller.field:
 			card.killed_in_former_battle=False
 		pass
-class BG23_HERO_306p_Action1(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class BG23_HERO_306p_Action1(GameAction):
+	def do(self, source):
+		controller = source.controller
 		for card in controller.field:
 			if card.killed_in_former_battle:
 				Buff(card, 'BG23_HERO_306e').trigger(source)
@@ -549,9 +541,9 @@ class BG23_HERO_306p_Action2(TargetedAction):
 class BG23_HERO_306p:
 	""" Reclaimed Souls
 	Give +2/+1 to your minions that died last combat."""
-	activate = BG23_HERO_306p_Action1(CONTROLLER)
+	activate = BG23_HERO_306p_Action1()
 	events=[
-		OWN_TURN_END.on(BG23_HERO_306p_Action0(CONTROLLER)),
+		OWN_TURN_END.on(BG23_HERO_306p_Action0()),
 		Death(FRIENDLY + MINION).on(BG23_HERO_306p_Action2(Death.ENTITY))
 	]
 	pass

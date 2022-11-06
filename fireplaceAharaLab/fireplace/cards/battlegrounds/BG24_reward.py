@@ -50,10 +50,9 @@ BG24_Reward_The_Golden_Hammer=True # new 24.6 ### OK ###
 if BG24_Reward_Snicker_Snacks:# ### OK ###
 	BG24_Reward+=['BG24_Reward_107']
 	BG24_Reward_Pool+=['BG24_Reward_107']
-class BG24_Reward_107_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class BG24_Reward_107_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		cards = [card for card in controller.field if card.has_battlecry==True]
 		if len(cards)>2:
 			cards = random.sample(cards, 2)
@@ -64,7 +63,7 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 	# -> [2467]=120, [2641]=1, [2647]=60 (24.2.2) (easy to obtain)
 	""" Snicker Snacks
 	At the end of your turn, 2 friendly minions trigger their [Battlecries]. """
-	events = OWN_TURN_END.on(BG24_Reward_107_Action(CONTROLLER))
+	events = OWN_TURN_END.on(BG24_Reward_107_Action())
 	#<Tag enumID="201" name="FACTION" type="Int" value="3"/>
 	pass
 
@@ -74,10 +73,9 @@ class BG24_Reward_107:# [2467]=140, [2641]=1, [2647]=50,
 if BG24_Reward_Stolen_Gold:# ### OK ###
 	BG24_Reward+=['BG24_Reward_109']
 	BG24_Reward_Pool+=['BG24_Reward_109']
-class BG24_Reward_109_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG24_Reward_109_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if len(controller.field)>0:
 			card1 = controller.field[0]
 			controller.game.BG_morph_gold(card1)
@@ -90,7 +88,7 @@ class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [27
 	# [2467]=160 (24.6 harder)
 	""" Stolen Gold
 	[Start of Combat:] Make your left and right- most minions Golden. """
-	events = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(BG24_Reward_109_Action())
 	pass
 
 
@@ -98,10 +96,9 @@ class BG24_Reward_109:# [1500]=1, [2467]=80, [2641]=1, [2643]=90, [2646]=90, [27
 if BG24_Reward_Evil_Twin:# ### OK ###
 	BG24_Reward+=['BG24_Reward_111']
 	BG24_Reward_Pool+=['BG24_Reward_111']
-class BG24_Reward_111_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG24_Reward_111_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if len(controller.field)<7:
 			high=[]
 			for card in controller.field:
@@ -116,7 +113,7 @@ class BG24_Reward_111_Action(TargetedAction):
 class BG24_Reward_111:# [1500]=1, [2467]=150, [2641]=1, [2647]=120, [2727]=1, 
 	""" Evil Twin
 	[Start of Combat:] Summon a copy of your highest-Health minion. """
-	events = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(BG24_Reward_111_Action())
 	pass
 
 
@@ -146,10 +143,9 @@ if BG24_Reward_Theotars_Parasol:# ### OK ### renew 24.6
 	BG24_Reward+=['BG24_Reward_115e']
 	BG24_Reward+=['BG24_Reward_115e2']
 	BG24_Reward_Pool+=['BG24_Reward_115']
-class BG24_Reward_115_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG24_Reward_115_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if len(controller.field)>0:
 			card = controller.field[-1]
 			BuffPermanently(card, 'BG24_Reward_115e').trigger(source)
@@ -158,7 +154,7 @@ class BG24_Reward_115_Action(TargetedAction):
 class BG24_Reward_115:# [2467]=70, [2641]=1, 
 	""" Theotar's Parasol
 	At the end of your turn, give your right-most minion [Stealth] until next turn and +8 Health. """
-	events = BeginBattle(CONTROLLER).on(BG24_Reward_115_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(BG24_Reward_115_Action())
 	pass
 BG24_Reward_115e=buff(0,8)
 class BG24_Reward_115e2:# [2594]=1, 
@@ -224,7 +220,7 @@ if BG24_Reward_Secret_Sinstone:# ### OK ###
 class BG24_Reward_129_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		controller = source.controller
+		#controller = source.controller
 		if hasattr(target, 'type') and target.type==CardType.MINION:
 			card = exactCopy(target, source)
 			card.zone=Zone.HAND
@@ -301,10 +297,9 @@ class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1,
 if BG24_Reward_Yogg_tastic_Tasties:###  ### OK ###
 	BG24_Reward+=['BG24_Reward_135']
 	BG24_Reward_Pool+=['BG24_Reward_135']
-class BG24_Reward_135_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
-		controller=player
+class BG24_Reward_135_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		#cards=['TB_BaconShop_HERO_35_Buddy_t2',
 		#   'TB_BaconShop_HERO_35_Buddy_t3',
 		#   'TB_BaconShop_HERO_35_Buddy_t4',
@@ -331,7 +326,7 @@ class BG24_Reward_135:# [2467]=150, [2641]=1, [2653]=300,
 	""" Yogg-tastic Tasties
 	At the start of your turn, spin the Wheel of Yogg-Saron. """
 	#### see TB_BaconShop_HERO_35_Buddy
-	events = BeginBar(CONTROLLER).on(BG24_Reward_135_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG24_Reward_135_Action())
 	pass
 
 
@@ -341,10 +336,10 @@ if BG24_Reward_Tiny_Henchmen:# ### OK ###
 	BG24_Reward+=['BG24_Reward_136']
 	BG24_Reward+=['BG24_Reward_136e']
 	BG24_Reward_Pool+=['BG24_Reward_136']
-class BG24_Reward_136_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		cards=[card for card in target.field if card.tech_level<=3]
+class BG24_Reward_136_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[card for card in controller.field if card.tech_level<=3]
 		if len(cards)>3:
 			cards=random.sample(cards, 3)
 		for card in cards:
@@ -353,7 +348,7 @@ class BG24_Reward_136_Action(TargetedAction):
 class BG24_Reward_136:# [2467]=100, [2641]=1, 
 	""" Tiny Henchmen
 	At the end of your turn, give +2/+2 to 3 friendly minions of Tier 3 or lower. """
-	events = OWN_TURN_END.on(BG24_Reward_136_Action(CONTROLLER))
+	events = OWN_TURN_END.on(BG24_Reward_136_Action())
 	pass
 # 2/2->3/3 (24.2.2)
 BG24_Reward_136e=buff(3,3)# 
@@ -364,17 +359,17 @@ BG24_Reward_136e=buff(3,3)#
 if BG24_Reward_Victims_Specter:#### OK ### 
 	BG24_Reward+=['BG24_Reward_138']
 	BG24_Reward_Pool+=['BG24_Reward_138']
-class BG24_Reward_138_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		if len(target.death_log)>0:
-			card = target.death_log[-1]
-			Give(target.deepcopy_original, card.id).trigger(source)
+class BG24_Reward_138_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		if len(controller.death_log)>0:
+			card = controller.death_log[-1]
+			Give(controller.deepcopy_original, card.id).trigger(source)
 		pass
 class BG24_Reward_138:# [2467]=80, [2641]=1, 
 	""" Victim's Specter
 	 After each combat, get a plain copy of the last friendly minion that died. """
-	events = EndBattle(CONTROLLER).on(BG24_Reward_138_Action(CONTROLLER))
+	events = EndBattle(CONTROLLER).on(BG24_Reward_138_Action())
 	pass
 
 #if BG24_Reward_A_Good_Time:# #### not in service
@@ -467,11 +462,9 @@ if BG24_Reward_Devils_in_the_Details:# ### OK ###
 	BG24_Reward+=['BG24_Reward_309']
 	BG24_Reward+=['BG24_Reward_309e']
 	BG24_Reward_Pool+=['BG24_Reward_309']
-class BG24_Reward_309_Action(TargetedAction):
-	#TARGET=ActionArg()
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG24_Reward_309_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if len(controller.field)>0:
 			if len(controller.opponent.field)>0:
 				card = random.choice(controller.opponent.field)
@@ -483,7 +476,7 @@ class BG24_Reward_309_Action(TargetedAction):
 class BG24_Reward_309:# [2467]=110, [2641]=1, 
 	""" Devils in the Details
 	At the end of your turn, Your left and right-most minions consume a minion in Bob's Tavern. """
-	events = OWN_TURN_END.on(BG24_Reward_309_Action(CONTROLLER))
+	events = OWN_TURN_END.on(BG24_Reward_309_Action())
 	pass
 class BG24_Reward_309e:# 
 	""" Satisfied. For Now...Consumed the stats of minion. """
@@ -528,10 +521,9 @@ if BG24_Reward_Wondrous_Wisdomball:# ### OK ###
 	BG24_Reward+=['BG24_Reward_313']
 	BG24_Reward+=['BG24_Reward_313e']
 	BG24_Reward_Pool+=['BG24_Reward_313']
-class BG24_Reward_313_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
-		controller=player
+class BG24_Reward_313_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		if random.choice([0,1]):
 			choice=random.choice(range(9))
 			if choice==0:### OK ###
@@ -613,7 +605,7 @@ class BG24_Reward_313_Action(TargetedAction):
 class BG24_Reward_313:# [2467]=160, [2641]=1, [2653]=300, 
 	""" Wondrous Wisdomball
 	Occasionally gives helpful [Refreshes]. """
-	events = Rerole(CONTROLLER).after(BG24_Reward_313_Action(CONTROLLER))
+	events = Rerole(CONTROLLER).after(BG24_Reward_313_Action())
 	pass
 class BG24_Reward_313e:# 
 	""" Wisdom and Wonder
@@ -692,10 +684,9 @@ if BG24_Reward_Menagerie_Mayhem:#
 	BG24_Reward+=['BG24_Reward_331']
 	BG24_Reward+=['BG24_Reward_331e']
 	BG24_Reward_Pool+=['BG24_Reward_331']
-class BG24_Reward_331_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG24_Reward_331_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		targets=[]
 		for race in random_picker.BG_races:
 			if race!=Race.INVALID:
@@ -708,7 +699,7 @@ class BG24_Reward_331_Action(TargetedAction):
 class BG24_Reward_331:# [2467]=150, [2641]=1, 
 	""" Menagerie Mayhem
 	At the end of your turn, give your minions +1 Attack for each friendly minion type. """
-	events = OWN_TURN_END.on(BG24_Reward_331_Action(CONTROLLER))
+	events = OWN_TURN_END.on(BG24_Reward_331_Action())
 	pass
 BG24_Reward_331e=buff(1,0)
 
@@ -753,12 +744,12 @@ class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300,
 if BG24_Reward_Hidden_Treasure_Vault:### OK ###
 	BG24_Reward+=['BG24_Reward_361']
 	BG24_Reward_Pool+=['BG24_Reward_361']
-class BG24_Reward_361_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
+class BG24_Reward_361_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		amount = source.script_data_num_1
 		for repeat in range(amount):
-			Give(player, 'GAME_005').trigger(source)
+			Give(controller, 'GAME_005').trigger(source)
 		source.script_data_num_1 += 1
 		pass
 class BG24_Reward_361:# , 
@@ -766,7 +757,7 @@ class BG24_Reward_361:# ,
 	At the start of your turn, gain @ Gold. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
 	events = [
-		BeginBar(CONTROLLER).on(BG24_Reward_361_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(BG24_Reward_361_Action())
 		]
 	pass
 
@@ -802,9 +793,8 @@ class BG24_Reward_363_Choice(Choice):
 		else:
 			self.source.discard()
 		pass
-class BG24_Reward_363_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
+class BG24_Reward_363_Action(GameAction):
+	def do(self, source):
 		if len(BG24_Reward_Pool)>=2:
 			cards=random.sample(BG24_Reward_Pool, 2)
 			BG24_Reward_363_Choice(source.controller, RandomID(*cards)*2).trigger(source)
@@ -812,10 +802,10 @@ class BG24_Reward_363_Action(TargetedAction):
 class BG24_Reward_363:# , 
 	"""Ethereal Evidence(BG24_Reward_363)
 	At the start of every turn, choose from 2 new Rewards."""
-	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action())
 	pass
 class BG24_Reward_363e:
-	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG24_Reward_363_Action())
 	pass
 
 
@@ -840,18 +830,18 @@ class BG24_Reward_364e:
 if BG24_Reward_Blood_Goblet:### OK ###
 	BG24_Reward+=['BG24_Reward_708','BG24_Reward_708_e']
 	BG24_Reward_Pool+=['BG24_Reward_708']
-class BG24_Reward_708_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
-		if len(player.field):
-			amount=player.hero.damage
-			card=player.field[-1]
+class BG24_Reward_708_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		if len(controller.field):
+			amount=controller.hero.damage
+			card=controller.field[-1]
 			Buff(card, 'BG24_Reward_708_e', atk=amount).trigger(source)
 		pass
 class BG24_Reward_708:# , 
 	"""Blood Goblet BG24_Reward_708 
 	At the end of your turn, give your right-most minion Attack equal to your missing Health."""
-	events = OWN_TURN_END.on(BG24_Reward_708_Action(CONTROLLER))
+	events = OWN_TURN_END.on(BG24_Reward_708_Action())
 	pass
 class BG24_Reward_708_e:
 	""" """
@@ -934,9 +924,9 @@ class BG24_Reward_719t:
 	play = BG24_Reward_719t_Action(TARGET)
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
-class BG24_Reward_719te_Action(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
+class BG24_Reward_719te_Action(GameAction):
+	def do(self, source):
+		player=source.controller
 		target=source.owner
 		cards = [cardId for cardId in player.game.parent.BG_Gold.keys() if player.game.parent.BG_Gold[cardId]==target.id]
 		if len(cards):
@@ -946,5 +936,5 @@ class BG24_Reward_719te_Action(TargetedAction):
 		Destroy_spellcraft(source)
 		pass
 class BG24_Reward_719te:
-	events = BeginBar(CONTROLLER).on(BG24_Reward_719te_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG24_Reward_719te_Action())
 

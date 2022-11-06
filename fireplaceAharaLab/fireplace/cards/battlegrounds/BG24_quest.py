@@ -297,26 +297,25 @@ class BG24_Quest_Bob_Choice(Choice):
 		super().choose(card)
 		CastSecret(card).trigger(self.source)
 	pass
-class BG24_Quest_Bob_Action(TargetedAction):
+class BG24_Quest_Bob_Action(GameAction):
 	TARGET=ActionArg()
-	def do(self, source, target):
+	def do(self, source):
 		## may need to check if target is the controller
-		if getattr(target, 'im_a_player', False):
-			controller=target
-			if Config.QUEST_PRESET=='':
-				quests=BG24_Quest_Pool
-				if len(quests)>3:
-					quests=random.sample(quests,3)
-			else:
-				quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
-			BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
-			choiceAction(controller)
-			Destroy(source).trigger(source)
+		controller=source.controller
+		if Config.QUEST_PRESET=='':
+			quests=BG24_Quest_Pool
+			if len(quests)>3:
+				quests=random.sample(quests,3)
+		else:
+			quests=[Config.QUEST_PRESET]+random.sample(BG24_Quest_Pool,2)
+		BG24_Quest_Bob_Choice(CONTROLLER, RandomID(*quests)*3).trigger(source)
+		choiceAction(controller)
+		Destroy(source).trigger(source)
 		pass
 class BG24_Quest_Bob:# [2732]=1, 
 	""" An Investigation!
 	In @ |4(turn, turns), [Discover] a [Quest]! """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 4, [BG24_Quest_Bob_Action(CONTROLLER)]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 4, [BG24_Quest_Bob_Action()]))
 	pass
 
 if BG24_Quest_Discover_Quest__Reward_DNT:# 

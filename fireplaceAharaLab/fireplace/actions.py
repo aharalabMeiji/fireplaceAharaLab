@@ -2453,6 +2453,8 @@ class SidequestCounter(TargetedAction):
 				for action in targetaction:
 					if isinstance(action, TargetedAction): 
 						action.trigger(source)
+					if isinstance(action, GameAction): 
+						action.trigger(source)
 					if isinstance(action, Choice): 
 						action.trigger(source)
 

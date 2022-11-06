@@ -5,7 +5,7 @@ BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
 BG_Dozy_Whelp=True #(1) new 24.6 ### OK ###
 BG_Glyph_Guardian=True ## ##(2)
 BG_Steward_of_Time=False ####(2) ##banned 24.2
-BG24__Nether_Drake=True# (2) new 24.2
+BG24__Nether_Drake=True# (3) new 24.2 (2)->(3)
 BG_Bronze_Warden=True ##(3)
 BG_Drakonid_Enforcer=True ##(3)
 BG_Twilight_Emissary=True ##(3)
@@ -159,11 +159,13 @@ class TB_BaconUps_107:
 	events = Sell(CONTROLLER, FRIENDLY + ID('TB_BaconUps_107')).on(Buff(ENEMY_MINIONS, 'TB_BaconUps_107e'))
 TB_BaconUps_107e=buff(4,2)
 
+#### TIER 3 #########
 
 
-if BG24__Nether_Drake:# (2)  new 24.2 ### visually OK
+
+if BG24__Nether_Drake:# (3)  new 24.2 ### visually OK
 	BG_Minion_Dragon+=['BG24_003','BG24_003e','BG24_003_G','BG24_003_Ge']
-	BG_PoolSet_Dragon[2].append('BG24_003')
+	BG_PoolSet_Dragon[3].append('BG24_003')
 	BG_Dragon_Gold['BG24_003']='BG24_003_G'
 class BG24_003:# (minion) (2/0/4)
 	""" Nether Drake
@@ -177,8 +179,6 @@ class BG24_003_G:# (minion)
 	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + DRAGON, 'BG24_003_Ge'))
 	pass
 BG24_003_Ge=buff(2,0)
-
-
 
 
 
