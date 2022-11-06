@@ -39,10 +39,9 @@ BG_Hero5_Buddy_Gold['BG20_HERO_282_Buddy']='BG20_HERO_282_Buddy_G'
 class BG20_HERO_282:# <9>[1453]
 	""" Tamsin Roame """
 	pass
-class BG20_HERO_282p_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class BG20_HERO_282p_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		lowesthealth=[]
 		if len(controller.field)<2:
 			return
@@ -69,7 +68,7 @@ class BG20_HERO_282p_Action(TargetedAction):
 class BG20_HERO_282p:# <9>[1453]
 	""" Fragrant Phylactery
 	[Start of Combat:]Destroy your lowest Health minion. Give its stats_to five friendly minions. """
-	events = BeginBattle(CONTROLLER).on(BG20_HERO_282p_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(BG20_HERO_282p_Action())
 	pass
 class BG20_HERO_282pe:# <12>[1453]
 	""" Fragrant
@@ -110,9 +109,8 @@ class BG22_HERO_000p:# <12>[1453]
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1))
 		]
 	pass
-class  BG22_HERO_000p_t1_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class  BG22_HERO_000p_t1_Action(GameAction):
+	def do(self, source):
 		controller=source.controller
 		field=controller.opponent.field
 		if len(field)==0:
@@ -125,13 +123,12 @@ class BG22_HERO_000p_t1:# <12>[1453]
 	""" Aim Left!
 	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
 	events = [
-		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t1_Action(CONTROLLER)),
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t1_Action()),
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
-class  BG22_HERO_000p_t2_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class  BG22_HERO_000p_t2_Action(GameAction):
+	def do(self, source):
 		controller=source.controller
 		field=controller.opponent.field
 		if len(field)==0:
@@ -152,13 +149,12 @@ class BG22_HERO_000p_t2:# <12>[1453]
 	""" Aim Low!
 	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
 	events = [
-		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t2_Action(CONTROLLER)),
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t2_Action()),
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
-class  BG22_HERO_000p_t3_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class  BG22_HERO_000p_t3_Action(GameAction):
+	def do(self, source):
 		controller=source.controller
 		field=controller.opponent.field
 		if len(field)==0:
@@ -179,13 +175,12 @@ class BG22_HERO_000p_t3:# <12>[1453]
 	""" Aim High!
 	[Passive Start of Combat]: Deal@ damage to the highestHealth enemy minion. """
 	events = [
-		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t3_Action(CONTROLLER)),
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t3_Action()),
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
-class  BG22_HERO_000p_t4_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class  BG22_HERO_000p_t4_Action(Action):
+	def do(self, source):
 		controller=source.controller
 		field=controller.opponent.field
 		if len(field)==0:
@@ -198,7 +193,7 @@ class BG22_HERO_000p_t4:# <12>[1453]
 	""" Aim Right!
 	[Passive Start of Combat]: Deal@ damage to the right-most enemy minion. """
 	events = [
-		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t4_Action(CONTROLLER)),
+		BeginBattle(CONTROLLER).on(BG22_HERO_000p_t4_Action()),
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]		
 	pass
@@ -227,10 +222,9 @@ BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_50_Buddy']='TB_BaconShop_HERO_50_Buddy_G'
 class TB_BaconShop_HERO_50:# <12>[1453]
 	""" Tess Greymane """
 	pass
-class TB_BaconShop_HP_077_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_077_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		gamemaster = controller.game.parent
 		bartender = controller.opponent
 
@@ -249,7 +243,7 @@ class TB_BaconShop_HP_077_Action(TargetedAction):
 class TB_BaconShop_HP_077:
 	"""  
 	[Refresh] Bob's Tavern with your last opponent's warband."""
-	activate = TB_BaconShop_HP_077_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_077_Action()
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
@@ -412,10 +406,9 @@ BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_12_Buddy']='TB_BaconShop_HERO_12_Buddy_G'
 class TB_BaconShop_HERO_12:# <12>[1453]
 	""" The Rat King """
 	pass
-class TB_BaconShop_HP_041_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_041_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		new_hp=random.choice([
 			'TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c',
 			'TB_BaconShop_HP_041d','TB_BaconShop_HP_041f',
@@ -427,62 +420,62 @@ class TB_BaconShop_HP_041_Action(TargetedAction):
 class TB_BaconShop_HP_041:
 	"""  
 	[Passive] Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
-	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 	pass	
 class TB_BaconShop_HP_041a:
 	""" beast """
 	events = [
 		Buy(CONTROLLER, BEAST).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041b:
 	""" mech """
 	events = [
 		Buy(CONTROLLER, MECH).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041c:
 	""" murloc """
 	events = [
 		Buy(CONTROLLER, MURLOC).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041d:
 	""" demon """
 	events = [
 		Buy(CONTROLLER, DEMON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 TB_BaconShop_HP_041e=buff(2,2)
 class TB_BaconShop_HP_041f:
 	""" dragon """
 	events = [
 		Buy(CONTROLLER, DRAGON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041g:
 	""" pirate """
 	events = [
 		Buy(CONTROLLER, PIRATE).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041h:
 	""" elemental """
 	events = [
 		Buy(CONTROLLER, ELEMENTAL).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041i:
 	""" quilboar """
 	events = [
 		Buy(CONTROLLER, QUILBOAR).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041j:
 	""" naga """
 	events = [
 		Buy(CONTROLLER, NAGA).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action(CONTROLLER))
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 ######## BUDDY
 class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
@@ -505,24 +498,24 @@ BG_Hero5_Buddy['TB_BaconShop_HERO_94']='TB_BaconShop_HERO_94_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_94_Buddy']='TB_BaconShop_HERO_94_Buddy_G'
 class TB_BaconShop_HERO_94:# <12>[1453]
 	""" Tickatus """
-class TB_BaconShop_HP_106_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class TB_BaconShop_HP_106_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		darkmoon_ticket4=['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018',]#1 #BGS_Treasures_032
 		darkmoon_ticket8=['BGS_Treasures_001','BGS_Treasures_010','BGS_Treasures_013','BGS_Treasures_016','BGS_Treasures_019','BGS_Treasures_022','BGS_Treasures_023','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_029',]#2 ## 'BGS_Treasures_011',
 		darkmoon_ticket12=['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_028','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040']#3
-		source.script_data_num_1 = (103-target.game.turn)%4+1
-		if target.game.turn==4:
+		source.script_data_num_1 = (103-controller.game.turn)%4+1
+		if controller.game.turn==4:
 			Discover(CONTROLLER, RandomID(*darkmoon_ticket4)).trigger(source)
-		elif target.game.turn==8:
+		elif controller.game.turn==8:
 			Discover(CONTROLLER, RandomID(*darkmoon_ticket8)).trigger(source)
-		elif target.game.turn%4==0:
+		elif controller.game.turn%4==0:
 			Discover(CONTROLLER, RandomID(*darkmoon_ticket12)).trigger(source)
 		pass
 class TB_BaconShop_HP_106:
 	""" Prize Wall 
 	[Passive] Every 4 turns, [Discover] a Darkmoon Prize. <i>(@ |4(turn, turns) left!)</i>"""
-	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_106_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_106_Action())
 	pass
 ## darkmoon prize -> BGS_Treasures_000 ~ BGS_Treasures_037
 ############# BUDDY
@@ -827,12 +820,9 @@ BG_Hero5_Buddy['TB_BaconShop_HERO_92']='TB_BaconShop_HERO_92_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_92_Buddy']='TB_BaconShop_HERO_92_Buddy_G'
 class TB_BaconShop_HERO_92:# <12>[1453]
 	""" Y'Shaarj """
-class TB_BaconShop_HP_103_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target # in the battle
-		if controller!=source.controller:
-			return
+class TB_BaconShop_HP_103_Action(GameAction):
+	def do(self, source):
+		controller = source.controller# in the battle
 		gm = controller.game.parent
 		tier = controller.tavern_tier
 		card = random.choice(gm.BG_decks[tier])
@@ -842,7 +832,7 @@ class TB_BaconShop_HP_103_Action(TargetedAction):
 class TB_BaconShop_HP_103:
 	"""  Embrace Your Rage
 	[Start of Combat:] Summon a minion from your Tavern Tier. Add a copy to your hand."""
-	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_103_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_103_Action())
 	pass
 class TB_BaconShop_HERO_92_Buddy:# <12>[1453]
 	""" Baby Y'Shaarj
@@ -883,10 +873,9 @@ BG_Hero5_Buddy['TB_BaconShop_HERO_35']='TB_BaconShop_HERO_35_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_35_Buddy']='TB_BaconShop_HERO_35_Buddy_G'
 class TB_BaconShop_HERO_35:# <12>[1453]
 	""" Yogg-Saron, Hope's End """
-class TB_BaconShop_HP_039_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target # in the bar
+class TB_BaconShop_HP_039_Action(GameAction):
+	def do(self, source):
+		controller = source.controller # in the bar
 		bartender = controller.opponent
 		if len(bartender.field)>0:
 			card = random.choice(bartender.field)
@@ -897,7 +886,7 @@ class TB_BaconShop_HP_039_Action(TargetedAction):
 class TB_BaconShop_HP_039:
 	""" Puzzle Box
 	Add a random minion in Bob's Tavern to your hand. Give it +1/+1."""
-	activate = TB_BaconShop_HP_039_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_039_Action()
 	pass
 TB_BaconShop_HP_039e=buff(1,1)
 class TB_BaconShop_HERO_35_Buddy:
@@ -912,10 +901,10 @@ class TB_BaconShop_HERO_35_Buddy_t1e:# <12>[1453]
 	Your Hero Power triggers an extra time. """
 	#
 	pass
-class TB_BaconShop_HERO_35_Buddy_t2_Action(TargetedAction):
+class TB_BaconShop_HERO_35_Buddy_t2_Action(GameAction):
 	"""Hand of Fate """
-	CONTROLLER = ActionArg()
-	def do(self, source, controller):
+	def do(self, source):
+		controller=source.controller
 		cards=['BGS_Treasures_004', 'BGS_Treasures_006', 'BGS_Treasures_007', 'BGS_Treasures_012', 'BGS_Treasures_015', 'BGS_Treasures_018', 'BGS_Treasures_001', 'BGS_Treasures_010', 'BGS_Treasures_013', 'BGS_Treasures_016', 'BGS_Treasures_019', 'BGS_Treasures_022', 'BGS_Treasures_023', 'BGS_Treasures_025', 'BGS_Treasures_026', 'BGS_Treasures_029', 'BGS_Treasures_000', 'BGS_Treasures_009', 'BGS_Treasures_014', 'BGS_Treasures_020', 'BGS_Treasures_028', 'BGS_Treasures_030', 'BGS_Treasures_033', 'BGS_Treasures_036', 'BGS_Treasures_037', 'BGS_Treasures_040']
 		cards=random.sample(cards, 3)
 		Give(controller, cards[0]).trigger(source)
@@ -924,7 +913,7 @@ class TB_BaconShop_HERO_35_Buddy_t2_Action(TargetedAction):
 class TB_BaconShop_HERO_35_Buddy_t2:# <12>[1453]### OK ##
 	""" Hand of Fate
 	Add 3 random Darkmoon Prizes to your hand. """
-	play = TB_BaconShop_HERO_35_Buddy_t2_Action(CONTROLLER)
+	play = TB_BaconShop_HERO_35_Buddy_t2_Action()
 	pass
 class TB_BaconShop_HERO_35_Buddy_t3_Action(TargetedAction):
 	"""Curse of Flesh """
@@ -1052,11 +1041,10 @@ BG_Hero5_Buddy['TB_BaconShop_HERO_53']='TB_BaconShop_HERO_53_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_53_Buddy']='TB_BaconShop_HERO_53_Buddy_G'
 class TB_BaconShop_HERO_53:# <12>[1453]  ## if dragon is not banned
 	""" Ysera """
-class TB_BaconShop_HP_062_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class TB_BaconShop_HP_062_Action(GameAction):
+	def do(self, source):
 		from fireplace import cards
-		controller = target # in the bar
+		controller = source.controller # in the bar
 		bartender = controller.opponent
 		gm=controller.game.parent
 		tier = controller.tavern_tier
@@ -1073,7 +1061,7 @@ class TB_BaconShop_HP_062_Action(TargetedAction):
 class TB_BaconShop_HP_062:
 	"""  Dream Portal
 	[Passive] Bob always offers an extra Dragon whenever the Tavern is [Refreshed]."""
-	events = Rerole(CONTROLLER).after(TB_BaconShop_HP_062_Action(CONTROLLER))
+	events = Rerole(CONTROLLER).after(TB_BaconShop_HP_062_Action())
 	pass
 class TB_BaconShop_HERO_53_Buddy:
 	""" """
@@ -1097,10 +1085,9 @@ BG_Hero5_Buddy['TB_BaconShop_HERO_91']='TB_BaconShop_HERO_91_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_91_Buddy']='TB_BaconShop_HERO_91_Buddy_G'
 class TB_BaconShop_HERO_91:# <12>[1453]
 	""" Zephrys, the Great """
-class TB_BaconShop_HP_102_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target # in the bar
+class TB_BaconShop_HP_102_Action(GameAction):
+	def do(self, source):
+		controller = source.controller # in the bar
 		bartender = controller.opponent
 		gm=controller.game.parent
 		source.script_data_num_1=source.tags[GameTag.SCORE_VALUE_1]
@@ -1114,7 +1101,7 @@ class TB_BaconShop_HP_102_Action(TargetedAction):
 class TB_BaconShop_HP_102:
 	"""  Three Wishes
 	If you have two copies of a minion, find the third. <i>(@ |4(Wish, Wishes) left!)</i>"""
-	activate = TB_BaconShop_HP_102_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_102_Action()
 	pass
 class TB_BaconShop_HERO_91_Buddy:
 	"""  """
