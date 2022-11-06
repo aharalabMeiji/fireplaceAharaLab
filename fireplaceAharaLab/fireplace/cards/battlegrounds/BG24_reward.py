@@ -235,12 +235,11 @@ if BG24_Reward_Ghastly_Mask:#### OK ###
 	BG24_Reward+=['BG24_Reward_130']
 	BG24_Reward_Pool+=['BG24_Reward_130']
 def BG24_Reward_130_Action1(player, reward):
-	reward_card = RandomBGAdmissible(tech_level=[5,6]).evaluate(player)
+	reward_card = RandomBGAdmissible(tech_level=random.choice([5,6])).evaluate(player)## [5,6]
 	reward.script_data_text_0=reward_card[0]
-class BG24_Reward_130_Action2(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG24_Reward_130_Action2(GameAction):
+	def do(self, source):
+		controller=source.controller
 		controller.game.turn_end_effects_twice=True
 		if source.script_data_text_0!='':
 			Give(controller, source.script_data_text_0).trigger(controller)
@@ -249,7 +248,7 @@ class BG24_Reward_130_Action2(TargetedAction):
 class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1, 
 	""" Ghastly Mask
 	Add '{0}' to your hand. Your end of turn effects trigger twice. """
-	events = BeginBar().on(BG24_Reward_130_Action2(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG24_Reward_130_Action2())
 	pass
 
 

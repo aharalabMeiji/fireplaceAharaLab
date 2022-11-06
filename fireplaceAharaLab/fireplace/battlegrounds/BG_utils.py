@@ -145,6 +145,7 @@ class BG_main:
 		self.BG_darkmoon_tickets=cards.battlegrounds.BG_DarkmoonTicket
 		self.darkmoon_ticket_by_4=False# 24.2 (until 24.0, random.choice([True,False]))
 		self.winners=[] # for Load Barov TB_BaconShop_HERO_72
+		self.drawers=[] # for TB_BaconShop_HP_081
 		self.warbandDeceased=[] # for Bigglesworth TB_BaconShop_HERO_70
 	pass
 	def __str__(self):
