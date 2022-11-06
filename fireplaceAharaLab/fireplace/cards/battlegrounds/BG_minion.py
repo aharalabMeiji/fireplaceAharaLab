@@ -51,7 +51,7 @@ BG_Master_of_Realities=True ##(5)
 BG_Mythrax_the_Unraveler=False ##(5) banned 24.2
 BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
-BG24__Tortollan_Blue_Shell=True ## (5) new 24.2##### OK ###
+BG24__Tortollan_Blue_Shell=True ## (5) new 24.2 ### OK ###
 BG_Interrogator_Whitemane=True ## (5) new 24.6  ### OK ###
 
 BG_Amalgadon=False##(6) banned 22.3
@@ -1334,6 +1334,7 @@ class BG24_018:# (minion, 5)
 	tags={1587:1}
 	events = [
 		LoseGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,5)),
+		TieGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1)),
 		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1))
 	]
 	pass
@@ -1342,6 +1343,7 @@ class BG24_018_G:# (minion)
 	If you lost your last combat, this minion sells for 10 Gold. """
 	events = [
 		LoseGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,10)),
+		TieGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1)),
 		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1))
 	]
 	pass

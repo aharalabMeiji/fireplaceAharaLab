@@ -6,38 +6,38 @@ BG24_Reward_Pool=[]
 
 BG24_Reward_Snicker_Snacks=True ### OK ### 
 BG24_Reward_Stolen_Gold=True### OK ###
-BG24_Reward_Evil_Twin=True#>>>
-BG24_Reward_Ritual_Dagger=True  #>>>
-BG24_Reward_Theotars_Parasol=True ## banned ## renew 24.6 #>>>
+BG24_Reward_Evil_Twin=True#### OK ###
+BG24_Reward_Ritual_Dagger=True  #### OK ###
+BG24_Reward_Theotars_Parasol=True ## banned ## renew 24.6 ### OK ###
 #BG24_Reward_Exquisite_Conch=False # not in service
-BG24_Reward_The_Smoking_Gun=True#>>>
-BG24_Reward_Mirror_Shield=True#>>>
-BG24_Reward_Secret_Sinstone=True#>>>
-BG24_Reward_Ghastly_Mask=True### difficult  >>>
-BG24_Reward_Red_Hand=True#>>>
-BG24_Reward_The_Friends_Along_the_Way=True #>>>
-BG24_Reward_Yogg_tastic_Tasties=True# ### OK ####>>>
-BG24_Reward_Tiny_Henchmen=True #>>>
-BG24_Reward_Victims_Specter=True#>>>
+BG24_Reward_The_Smoking_Gun=True### OK ###
+BG24_Reward_Mirror_Shield=True#### OK ###
+BG24_Reward_Secret_Sinstone=True#### OK ###
+BG24_Reward_Ghastly_Mask=True#### OK ###
+BG24_Reward_Red_Hand=True#### OK ###
+BG24_Reward_The_Friends_Along_the_Way=True #
+BG24_Reward_Yogg_tastic_Tasties=True# ### OK ###
+BG24_Reward_Tiny_Henchmen=True #### OK ###
+BG24_Reward_Victims_Specter=True#### OK ###
 #BG24_Reward_A_Good_Time=False# not in service
 #BG24_Reward_Avatar_of_the_Coin=False# not in service
 BG24_Reward_Anima_Bribe=False ## banned 24.6
-BG24_Reward_Cooked_Book=True#>>>
-BG24_Reward_Teal_Tiger_Sapphire=True#>>>
-BG24_Reward_Devils_in_the_Details=True#>>>
+BG24_Reward_Cooked_Book=True### OK ###
+BG24_Reward_Teal_Tiger_Sapphire=True#### OK ###
+BG24_Reward_Devils_in_the_Details=True#### OK ###
 #BG24_Reward_Partner_in_Crime=False# not in service
-BG24_Reward_Another_Hidden_Body=True## banned 24.2.1 # renew #>>>
-BG24_Reward_Staff_of_Origination=True#>>>
-BG24_Reward_Wondrous_Wisdomball=True# ### #>>>
+BG24_Reward_Another_Hidden_Body=True## banned 24.2.1 # renew ### OK ###
+BG24_Reward_Staff_of_Origination=True#### OK ###
+BG24_Reward_Wondrous_Wisdomball=True# #### OK ###
 #BG24_Reward_To_The_Moon_Almost=False# not in service
-BG24_Reward_Alter_Ego=True #>>>
+BG24_Reward_Alter_Ego=True #### OK ###
 #BG24_Reward_9_Lives=False ### not in service
-BG24_Reward_Menagerie_Mayhem=True #>>>
-BG24_Reward_Pilfered_Lamps=True #>>>
+BG24_Reward_Menagerie_Mayhem=True #### OK ###
+BG24_Reward_Pilfered_Lamps=True ### OK ###
 #BG24_Reward_Totemic_Tavern=False ### not in service
 #BG24_Reward_Purified_Shard=False ### not in service
 #BG24_Reward_Un_Murloc_Your_Potential=False ### not in service
-BG24_Reward_Hidden_Treasure_Vault=True # new 24.6#>>>
+BG24_Reward_Hidden_Treasure_Vault=True # new 24.6### OK ###
 BG24_Reward_Essence_of_Zerus=True # new 24.6 ### OK ###
 BG24_Reward_Ethereal_Evidence=True # new 24.6  ### OK ###
 BG24_Reward_Volatile_Venom=True # new 24.6 ### OK ###
@@ -509,7 +509,7 @@ class BG24_Reward_311:# [2467]=70, [2581]=1, [2641]=1,
 
 
 
-if BG24_Reward_Staff_of_Origination:# ### visually OK ###
+if BG24_Reward_Staff_of_Origination:# ### OK ###
 	BG24_Reward+=['BG24_Reward_312']
 	BG24_Reward+=['BG24_Reward_312e']
 	BG24_Reward_Pool+=['BG24_Reward_312']
@@ -713,13 +713,13 @@ class BG24_Reward_331:# [2467]=150, [2641]=1,
 BG24_Reward_331e=buff(1,0)
 
 
-if BG24_Reward_Pilfered_Lamps:# ###########################################
+if BG24_Reward_Pilfered_Lamps:# ### OK ####
 	BG24_Reward+=['BG24_Reward_350']
 	BG24_Reward_Pool+=['BG24_Reward_350']
 class BG24_Reward_350:# [2467]=250, [2641]=1, [2653]=300, 
 	""" Pilfered Lamps
 	You only need 2 copies of a minion to make it Golden. """
-	#
+	# See BG_bar.py
 	pass
 
 #if BG24_Reward_Totemic_Tavern:# XXXX### not in service

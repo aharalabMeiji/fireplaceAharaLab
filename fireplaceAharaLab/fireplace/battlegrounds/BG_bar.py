@@ -95,6 +95,9 @@ class BG_Bar(Game):
 					#You only need 2 copies of this minion to make it Golden.
 					if id=='BG23_192' and count>=2:#
 						return id
+					# Pilfered Lamps (BG24_Reward_350) (quest-reward)
+					if 'BG24_Reward_350' in [reward.id for reward in self.controller.rewards] and count>=2:#
+						return id
 					elif count>=3:
 						return id
 				pass
