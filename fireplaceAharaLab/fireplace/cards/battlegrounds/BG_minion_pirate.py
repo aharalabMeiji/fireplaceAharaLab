@@ -122,10 +122,12 @@ if BG_Yo_Ho_Ogre:# 2/3/6 24.2.2
 	BG_Minion_Pirate +=['BGS_060','TB_BaconUps_150']
 	BG_PoolSet_Pirate[2].append('BGS_060')
 	BG_Pirate_Gold['BGS_060']='TB_BaconUps_150'
-class BGS_060_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		if len(source.controller.opponent.field)>0 and not target.to_be_destroyed:
+class BGS_060_Action(GameAction):
+	TARGET=ActionArg()# target=source
+	def do(self, source):
+		target=source
+		Deaths().trigger(source)
+		if len(source.controller.opponent.field)>0 and target.health>0:
 			defender=random.choice(source.controller.opponent.field)
 			print("%s attacks %s"%(target,defender))
 			BG_Attack(target, defender).trigger(source.controller)
@@ -133,7 +135,7 @@ class BGS_060_Action(TargetedAction):
 class BGS_060:# <12>[1453]
 	""" Yo-Ho-Ogre
 	[Taunt]After this minion survives being attacked, attack immediately. """
-	events = BG_Attack(ENEMY, SELF).after(BGS_060_Action(SELF))
+	events = BG_Attack(ENEMY, SELF).after(BGS_060_Action())
 	pass
 class TB_BaconUps_150:# <12>[1453]
 	""" Yo-Ho-Ogre (2/6/10)

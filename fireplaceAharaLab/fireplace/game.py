@@ -214,9 +214,8 @@ class BaseGame(Entity):
 			self.action_start(type, self, 0, None)
 			for card in cards:
 				card.zone = Zone.GRAVEYARD
-				actions.append(Death(card))
+				Death(card).trigger(card.controller)
 			self.check_for_end_game()
-			self.trigger(self, actions, event_args=None)
 			self.action_end(type, self)
 
 	def trigger(self, source, actions, event_args):

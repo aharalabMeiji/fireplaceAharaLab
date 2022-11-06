@@ -1238,7 +1238,8 @@ class Destroy(TargetedAction):
 	def do(self, source, target):
 		if not target:
 			return
-		if target.delayed_destruction:
+		#if target.delayed_destruction:
+		if target.zone == Zone.PLAY:
 			#  If the card is in PLAY, it is instead scheduled to be destroyed
 			# It will be moved to the graveyard on the next Death event
 			if Config.LOGINFO:

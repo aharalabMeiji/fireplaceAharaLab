@@ -178,16 +178,17 @@ if StormWind_Touch_of_the_Nathrezim:#
 	StormWind_Warlock+=['SW_090']
 class SW_090_Action(TargetedAction):
 	TARGET=ActionArg()#CONTROLLER
-	CARD=ActionArg()
-	AMOUNT=IntArg()
-	def do(self, source, target, card, amount):
-		if card.health<=amount or card.to_be_destroyed:
-			Heal(target.hero, 3).trigger(source)
+	def do(self, source, target):
+		Hit(target, 2).trigger(source)
+		Deaths().trigger()
+		if target.health<=0:
+			Heal(source.controller.hero, 3).trigger(source)
 		pass
 class SW_090:# <9>[1578]
 	""" Touch of the Nathrezim
 	Deal $2 damage to a minion. If it dies, restore 3 Health to your hero. """
-	play = Hit(TARGET, 2).after(SW_090_Action(CONTROLLER, Hit.TARGET, Hit.AMOUNT))
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	play = SW_090_Action(TARGET)
 	pass
 
 
