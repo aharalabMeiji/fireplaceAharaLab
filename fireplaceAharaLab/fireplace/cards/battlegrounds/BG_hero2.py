@@ -263,10 +263,9 @@ class BG20_HERO_283p:# <12>[1453]#
 	entourage=['BG20_HERO_283p_t1','BG20_HERO_283p_t2','BG20_HERO_283p_t3']
 	activate = BG20_HERO_283p_Choice(CONTROLLER, RandomEntourage()*3)
 	pass
-class BG20_HERO_283p_t1_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class BG20_HERO_283p_t1_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		if controller.field!=[]:
 			Buff(controller.field[0], 'BG20_HERO_283p_t1e').trigger(source)
 		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
@@ -274,7 +273,7 @@ class BG20_HERO_283p_t1_Action(TargetedAction):
 class BG20_HERO_283p_t1:# <12>[1453]
 	""" Westfall
 	[Passive.] In 1 turn, give your left-most minion +2/+1. <i>(@ left!)</i> """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 1, [BG20_HERO_283p_t1_Action(CONTROLLER)]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 1, [BG20_HERO_283p_t1_Action()]))
 	#
 	pass
 BG20_HERO_283p_t1e=buff(2,1)# new 24.2
@@ -301,16 +300,16 @@ class BG20_HERO_283p_t2:# <12>[1453]
 	]))
 	#
 	pass
-class BG20_HERO_283p_t3_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		ReduceTierUpCost(target, 6).trigger(source)
-		ChangeHeroPower(target, 'BG20_HERO_283p').trigger(source)
+class BG20_HERO_283p_t3_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		ReduceTierUpCost(controller, 6).trigger(source)
+		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
 		pass
 class BG20_HERO_283p_t3:# <12>[1453]
 	""" Eastern Plaguelands
 	[Passive.] In 5 turns, your next Tavern Tier upgrade costs (6) less. <i>(@ left!)</i> """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 5, [BG20_HERO_283p_t3_Action(CONTROLLER)]))
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 5, [BG20_HERO_283p_t3_Action()]))
 	pass
 ######## BUDDY
 class BG20_HERO_283_Buddy:# <12>[1453]
@@ -487,9 +486,9 @@ BG_Hero2_Buddy['TB_BaconShop_HERO_08']='TB_BaconShop_HERO_08_Buddy'
 BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_08_Buddy']='TB_BaconShop_HERO_08_Buddy_G'
 class TB_BaconShop_HERO_08:# <12>[1453]
 	""" Illidan Stormrage  """
-class TB_BaconShop_HP_069_Action(TargetedAction):
-	CONTROLLER = ActionArg()
-	def do(self, source, controller):
+class TB_BaconShop_HP_069_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		field = controller.field
 		op_field = controller.opponent.field
 		if len(op_field)==0:
@@ -505,7 +504,7 @@ class TB_BaconShop_HP_069_Action(TargetedAction):
 class TB_BaconShop_HP_069:
 	""" Wingmen
 	[Passive.] [Start of Combat:] Your left and right-most minions gain +2 Attack __and attack immediately. """
-	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_069_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_069_Action())
 	pass
 TB_BaconShop_HP_069e=buff(2,0)
 ######## BUDDY
@@ -535,10 +534,9 @@ BG_Hero2_Buddy['TB_BaconShop_HERO_28']='TB_BaconShop_HERO_28_Buddy'
 BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_28_Buddy']='TB_BaconShop_HERO_28_Buddy_G'
 class TB_BaconShop_HERO_28:# <12>[1453]
 	""" Infinite Toki  """
-class TB_BaconShop_HP_028_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_028_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		bartender = controller.opponent
 		Rerole(controller).trigger(controller)
 		tier=controller.tavern_tier+1## 
@@ -552,7 +550,7 @@ class TB_BaconShop_HP_028_Action(TargetedAction):
 class TB_BaconShop_HP_028:
 	"""  Temporal Tavern
 	[Refresh] Bob's Tavern. Include a minion from a higher Tavern Tier."""
-	activate = TB_BaconShop_HP_028_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_028_Action()
 	pass
 ######## BUDDY
 class TB_BaconShop_HERO_28_Buddy:# <12>[1453]

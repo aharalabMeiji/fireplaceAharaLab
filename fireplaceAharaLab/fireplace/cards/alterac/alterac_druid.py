@@ -56,10 +56,10 @@ class AV_205pb:
 if Alterac_Pathmaker:# ### OK ###
 	Alterac_Druid+=['AV_210']
 	Alterac_Druid+=['AV_210e']
-class AV_210_Action(TargetedAction):
+class AV_210_Action(GameAction):
 	PLAYER=ActionArg()
-	def do(self, source, player):
-		controller=player
+	def do(self, source):
+		controller=source.controller
 		answer=controller.last_choose_one
 		if answer!=[]:
 			card = answer[0]
@@ -82,7 +82,7 @@ class AV_210_Action(TargetedAction):
 class AV_210:##
 	""" Pathmaker (3/3/4) 
 	Battlecry: Cast the other choice from the last [Choose One] spell you've cast.  """
-	play = AV_210_Action(CONTROLLER)
+	play = AV_210_Action()
 	pass
 class AV_210e:
 	""" Path Tracker

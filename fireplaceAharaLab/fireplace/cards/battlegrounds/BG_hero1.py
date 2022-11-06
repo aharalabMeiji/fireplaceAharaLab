@@ -68,11 +68,10 @@ BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_16_Buddy_G'
 class TB_BaconShop_HERO_16:# <12>[1453]
 	""" A. F. Kay	 """
 	pass
-class TB_BaconShop_HP_044_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
-		bar = target.game
+class TB_BaconShop_HP_044_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		bar = controller.game
 		turn = bar.turn
 		if turn==1 or turn==2:
 			SetMaxMana(controller,0).trigger(bar)
@@ -82,7 +81,7 @@ class TB_BaconShop_HP_044_Action(TargetedAction):
 class TB_BaconShop_HP_044:#<12>[1453]
 	""" Procrastinate
 	[Passive] Skip your first two turns.Start with two minions from Tavern Tier 3."""
-	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_044_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_044_Action())
 	pass
 class TB_BaconShop_HERO_16_Buddy:# <12>[1453]
 	""" Snack Vendor
@@ -108,18 +107,18 @@ BG_Hero1_Buddy['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_76_Buddy'
 BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_76_Buddy']='TB_BaconShop_HERO_76_Buddy_G'
 class TB_BaconShop_HERO_76:# <12>[1453]
 	""" Al'Akir	 """
-class TB_BaconShop_HP_086_Action(TargetedAction):
-	TARGET = ActionArg()# controller
-	def do(self, source, target):
-		if len(target.field)>0:
-			card = target.field[0]
+class TB_BaconShop_HP_086_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		if len(controller.field)>0:
+			card = controller.field[0]
 			card.windfury=1
 			card.divine_shield=True
 			card.taunt=True
 class TB_BaconShop_HP_086:
 	""" Swatting Insects
 	[Passive][Start of Combat:] Give yourleft-most minion [Windfury],___[Divine Shield], and [Taunt]."""
-	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action(CONTROLLER))
+	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action())
 	pass
 class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
 	TARGET = ActionArg()# target
@@ -201,11 +200,10 @@ class BG22_HERO_201p_Choice(Choice):
 			pass	
 		if isinstance(cards, LazyValue):
 			self.cards = cards.evaluate(source)
-class BG22_HERO_201p_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
-		bar = target.game
+class BG22_HERO_201p_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		bar = controller.game
 		turn = bar.turn
 		if turn==1:
 			controller.max_mana = 0
@@ -216,7 +214,7 @@ class BG22_HERO_201p_Action(TargetedAction):
 class BG22_HERO_201p:# <12>[1453]
 	""" Expedition Plans
 	[Passive.] Skip your first turn. [Discover] a Tier 2, 4, and 6 minion to get at those Tiers. """
-	events = BeginBar(CONTROLLER).on(BG22_HERO_201p_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(BG22_HERO_201p_Action())
 	pass
 class BG22_HERO_201pe_Action(TargetedAction):
 	TARGET = ActionArg()
@@ -238,7 +236,7 @@ class BG22_HERO_201pe:# <12>[1453]
 		self.owner = target
 		self.owner.cant_play=True
 	#play = SetAttr(OWNER, 'cant_play', True)
-	events = UpgradeTier(CONTROLLER).on(BG22_HERO_201pe_Action(OWNER,Destroy(SELF)))
+	events = UpgradeTier(CONTROLLER).on(BG22_HERO_201pe_Action(OWNER, Destroy(SELF)))
 	pass
 class BG22_HERO_201_Buddy:# <12>[1453]
 	""" Submersible Chef
@@ -309,10 +307,9 @@ BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_45_Buddy']='TB_BaconShop_HERO_45_Buddy_G'
 class TB_BaconShop_HERO_45:# <12>[1453]
 	""" Arch-Villain Rafaam
 	"""
-class TB_BaconShop_HP_053_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_053_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		if controller.first_dead_minion!=None:
 			Give(controller,controller.first_dead_minion).trigger(source)
 			gold_card_id = controller.game.BG_find_triple()##
@@ -322,7 +319,7 @@ class TB_BaconShop_HP_053:
 	""" I'll Take That!
 	Next combat, add a plain copy of the first minion you kill to your hand."""
 	tags={GameTag.HIDE_COST:1}
-	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_053_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_053_Action())
 class TB_BaconShop_HERO_45_Buddy_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -337,10 +334,9 @@ class TB_BaconShop_HERO_45_Buddy:# <12>[1453]
 	After you kill a second minion each combat,get a plain copy of it. """
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_Action(CONTROLLER))
 	pass
-class TB_BaconShop_HERO_45_Buddy_G_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HERO_45_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		if controller.second_dead_minion!=None:
 			Give(controller,controller.second_dead_minion).trigger(source)
 			Give(controller,controller.second_dead_minion).trigger(source)
@@ -350,7 +346,7 @@ class TB_BaconShop_HERO_45_Buddy_G_Action(TargetedAction):
 class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 	""" Loyal Henchman
 	After you kill a second minion each combat,_get 2 plain copies of it. """
-	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_G_Action(CONTROLLER))
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_45_Buddy_G_Action())
 	pass
 
 
@@ -578,10 +574,9 @@ BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_64_Buddy']='TB_BaconShop_HERO_64_Buddy_G'
 class TB_BaconShop_HERO_64:# <12>[1453]
 	""" Captain Eudora
 	"""
-class TB_BaconShop_HP_074_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_074_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		gamemaster=controller.game.parent
 		source.script_data_num_1 -= 1 
 		if source.script_data_num_1== 0:
@@ -597,7 +592,7 @@ class TB_BaconShop_HP_074_Action(TargetedAction):
 class TB_BaconShop_HP_074:
 	""" Buried Treasure
 	_Dig for a Golden minion! <i>(@ |4(Dig, Digs) left.)</i>"""
-	activate = TB_BaconShop_HP_074_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_074_Action()
 ######## BUDDY
 class TB_BaconShop_HERO_64_Buddy:
 	""" Dagwik Stickytoe

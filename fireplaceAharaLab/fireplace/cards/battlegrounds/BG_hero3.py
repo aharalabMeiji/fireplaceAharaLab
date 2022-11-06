@@ -642,10 +642,9 @@ BG_Hero3_Buddy['BG22_HERO_305']='BG22_HERO_305_Buddy'#
 BG_Hero3_Buddy_Gold['BG22_HERO_305_Buddy']='BG22_HERO_305_Buddy_G'#
 class BG22_HERO_305:# <12>[1453]
 	""" Onyxia """
-class BG22_HERO_305p_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class BG22_HERO_305p_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		newcard = Summon(controller, 'BG22_HERO_305t').trigger(source)
 		if newcard[0]==[]:
 			return
@@ -657,7 +656,7 @@ class BG22_HERO_305p_Action(TargetedAction):
 class BG22_HERO_305p:# <12>[1453]
 	""" Broodmother
 	[Passive][Avenge (4):] Summona 3/1 Whelp. It attacks immediately. """
-	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG22_HERO_305p_Action(CONTROLLER)]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG22_HERO_305p_Action()]))
 	pass
 class BG22_HERO_305t:# <12>[1453]
 	""" Onyxian Whelp
@@ -756,11 +755,11 @@ BG_PoolSet_Hero3 +=['BG23_HERO_201',]#
 class BG23_HERO_201:
 	""" Ozumat
 	"""
-class BG23_HERO_201p_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class BG23_HERO_201p_Action(GameAction):
+	def do(self, source):
 		#summon a tentacle with enchantment BG23_HERO_201pte
-		newcard=Summon(target, 'BG23_HERO_201pt').trigger(source)
+		controller=source.controller
+		newcard=Summon(controller, 'BG23_HERO_201pt').trigger(source)
 		if newcard[0]==[]:
 			return
 		newcard=newcard[0][0]
@@ -774,7 +773,7 @@ class BG23_HERO_201p:
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
 	events=[
 		Sell(CONTROLLER).after(AddScriptDataNum1(SELF, 1)),	
-		BeginBattle(CONTROLLER).on(BG23_HERO_201p_Action(CONTROLLER))
+		BeginBattle(CONTROLLER).on(BG23_HERO_201p_Action())
 		]
 class BG23_HERO_201pt:
 	""" Ozumat's Tentacle
@@ -807,12 +806,11 @@ BG_Hero3_Buddy['TB_BaconShop_HERO_18']='TB_BaconShop_HERO_18_Buddy'#
 BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_18_Buddy']='TB_BaconShop_HERO_18_Buddy_G'#
 class TB_BaconShop_HERO_18:# <12>[1453]
 	""" Patches the Pirate """
-class TB_BaconShop_HP_072_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=target
+class TB_BaconShop_HP_072_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
 		Give(controller, RandomBGPirate(tech_level_less=TIER(CONTROLLER))).trigger(source)
-		gold_card_id = controller.game.BG_find_triple()## �g���v���𔻒�
+		gold_card_id = controller.game.BG_find_triple()## 
 		if gold_card_id:
 			controller.game.BG_deal_gold(gold_card_id)
 		for i in range(len(source.buffs)):
@@ -821,7 +819,7 @@ class TB_BaconShop_HP_072_Action(TargetedAction):
 class TB_BaconShop_HP_072:
 	"""Pirate Parrrrty!
 	Get a Pirate. After you buy a Pirate, your next Hero Power costs (1) less."""
-	activate = TB_BaconShop_HP_072_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_072_Action()
 	events = Buy(CONTROLLER, PIRATE).on(Buff(SELF,'TB_BaconShop_HP_072e'))
 @custom_card
 class TB_BaconShop_HP_072e:
@@ -935,24 +933,24 @@ BG_Hero3+=['BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',]
 BG_PoolSet_Hero3.append('BG22_HERO_007')
 class BG22_HERO_007:
 	""" Queen Axshara 	"""
-class BG22_HERO_007p_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		if getattr(target.game,'this_is_tavern',False):
-			amount = sum([card.atk for card in target.field])
+class BG22_HERO_007p_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		if getattr(controller.game,'this_is_tavern',False):
+			amount = sum([card.atk for card in controller.field])
 			source.script_data_text_0=max(30-amount,0)
 			if amount>= 30:#source.script_data_num_2:
-				ChangeHeroPower(target, 'BG22_HERO_007p2').trigger(source)
+				ChangeHeroPower(controller, 'BG22_HERO_007p2').trigger(source)
 		pass
 class BG22_HERO_007p:
 	""" Azshara's Ambition
 	[Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest.@[x][Passive.] When your warband reaches 30 total Attack, begin your Naga Conquest. <i>({0} left!)</i>"""
 	#<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="30"/>
 	events = [
-		Play(CONTROLLER).on(BG22_HERO_007p_Action(CONTROLLER)),
-		Summon(CONTROLLER).on(BG22_HERO_007p_Action(CONTROLLER)),
-		Buff(FRIENDLY_MINIONS).on(BG22_HERO_007p_Action(CONTROLLER)),
-		BeginBar(CONTROLLER).on(BG22_HERO_007p_Action(CONTROLLER))
+		Play(CONTROLLER).on(BG22_HERO_007p_Action()),
+		Summon(CONTROLLER).on(BG22_HERO_007p_Action()),
+		Buff(FRIENDLY_MINIONS).on(BG22_HERO_007p_Action()),
+		BeginBar(CONTROLLER).on(BG22_HERO_007p_Action())
 		]
 	pass
 class BG22_HERO_007p2:
@@ -973,10 +971,9 @@ BG_Hero3_Buddy['TB_BaconShop_HERO_14']='TB_BaconShop_HERO_14_Buddy'#
 BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_14_Buddy']='TB_BaconShop_HERO_14_Buddy_G'#
 class TB_BaconShop_HERO_14:# <12>[1453]
 	""" Queen Wagtoggle """
-class TB_BaconShop_HP_037a_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class TB_BaconShop_HP_037a_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
 		races=[]
 		cards=[]
 		field = copy(controller.field)
@@ -995,7 +992,7 @@ class TB_BaconShop_HP_037a_Action(TargetedAction):
 class TB_BaconShop_HP_037a:
 	""" Wax Warband
 	Give a friendly minion of each minion type +1/+1.""" 
-	activate = TB_BaconShop_HP_037a_Action(CONTROLLER)
+	activate = TB_BaconShop_HP_037a_Action()
 TB_BaconShop_HP_037te=buff(1,1)
 ######## BUDDY
 class TB_BaconShop_HERO_14_Buddy:# <12>[1453]
