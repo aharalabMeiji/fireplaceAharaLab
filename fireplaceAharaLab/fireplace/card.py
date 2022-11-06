@@ -764,6 +764,14 @@ class Hero(Character):
 		yield from self.buffs
 
 	@property
+	def targetable_entities(self):
+		yield self
+		if self.power:
+			yield self.power
+		if self.controller.weapon:
+			yield self.controller.weapon
+
+	@property
 	def windfury(self):
 		ret = super().windfury
 		if self.controller.weapon:

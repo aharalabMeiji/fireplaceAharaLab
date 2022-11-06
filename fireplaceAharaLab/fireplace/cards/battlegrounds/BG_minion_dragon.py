@@ -250,7 +250,7 @@ if BG24__Amber_Guardian:# (3) new 24.2 ##
 class BG24_500:# (minion)
 	""" Amber Guardian
 	[Start of Combat:] Give another friendly Dragon +3/+3 and [Divine Shield]. """
-	events = BeginBattle(CONTROLLER).on(Buff(RANDOM(FRIENDLY_MINIONS + DRAGON - SELF), 'BG24_500e'))
+	events = BeginBattle(CONTROLLER).on(Buff(RANDOM(FRIENDLY + MINION + DRAGON - SELF), 'BG24_500e'))
 	pass
 #BG24_500e=buff(3,3,divine_shield=True)
 class BG24_500e:

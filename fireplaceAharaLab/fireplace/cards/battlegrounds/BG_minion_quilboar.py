@@ -132,7 +132,8 @@ class BG24_707_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	AMOUNT=ActionArg()
 	def do(self, source, controller, amount):
-		assert source.game.this_is_battle==True, "This is a battle."
+		if source.game.this_is_battle==False:
+			return
 		controller=controller.deepcopy_original
 		for repeat in range(amount):
 			Give(controller, 'BG20_GEM').trigger(source)

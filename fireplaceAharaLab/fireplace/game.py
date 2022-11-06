@@ -89,6 +89,10 @@ class BaseGame(Entity):
 		return CardList(chain([self], self.players[0].entities, self.players[1].entities))
 
 	@property
+	def targetable_entities(self):
+		return CardList(chain([self], self.players[0].targetable_entities, self.players[1].targetable_entities))
+
+	@property
 	def broadcast_entities(self):
 		return CardList(chain([self], self.players[0].broadcast_entities, self.players[1].broadcast_entities))
 
@@ -100,6 +104,10 @@ class BaseGame(Entity):
 	@property
 	def allcards(self):
 		return self.entities + self.hands + self.decks
+
+	@property
+	def targetable_allcards(self):
+		return self.targetable_entities + self.hands + self.decks
 
 	@property
 	def minions_killed_this_turn(self):
