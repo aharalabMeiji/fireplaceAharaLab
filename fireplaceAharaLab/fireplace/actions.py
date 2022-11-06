@@ -3105,8 +3105,12 @@ class ChangeHeroPower(TargetedAction):
 	CARD = CardArg()
 	def do(self, source, target, card):
 		oldHeroPower=target.hero.power
-		exh = oldHeroPower.activations_this_turn
-		script_data_num_1 = oldHeroPower.script_data_num_1
+		if oldHeroPower==None:
+			exh=0
+			script_data_num_1=0
+		else:
+			exh = oldHeroPower.activations_this_turn
+			script_data_num_1 = oldHeroPower.script_data_num_1
 		#summon card
 		newHeroPower=Summon(target,card).trigger(source)
 		if newHeroPower[0]==[]:

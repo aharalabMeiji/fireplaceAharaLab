@@ -52,7 +52,7 @@ class Config:# ()is the default value
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']
 	RACE_CHOICE=['pirate']# valid when RANDOM_RACE=0
-	HERO_1='BG23_HERO_306' #第1プレーヤーはヒーローを指定できる
+	HERO_1='' #第1プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

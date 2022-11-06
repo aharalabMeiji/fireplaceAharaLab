@@ -241,9 +241,9 @@ class BG24_Reward_130_Action2(GameAction):
 	def do(self, source):
 		controller=source.controller
 		controller.game.turn_end_effects_twice=True
-		if source.script_data_text_0!=[]:
+		if source.script_data_text_0!=[] and source.script_data_text_0!='':
 			Give(controller, source.script_data_text_0).trigger(controller)
-			source.script_data_text_0=''
+			source.script_data_text_0=[]
 		pass
 class BG24_Reward_130:# [2467]=230, [2641]=1, [2673]=59707, [2677]=1, 
 	""" Ghastly Mask

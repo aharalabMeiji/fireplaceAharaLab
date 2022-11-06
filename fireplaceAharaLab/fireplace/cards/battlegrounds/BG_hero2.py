@@ -712,8 +712,9 @@ class BG20_HERO_280:# <14>[1453]
 class BG20_HERO_280e:# <12>[1453]
 	""" Kurtrus Watcher """
 class BG20_HERO_280p_Action1(TargetedAction):
-	TARGET=ActionArg()
+	TARGET=ActionArg()#Buy.CARD
 	def do(self, source, target):
+		controller=source.controller
 		source.sidequest_list0.append(target)
 		source.script_data_num_1 -= 1
 		if source.script_data_num_1<=0:
@@ -722,7 +723,7 @@ class BG20_HERO_280p_Action1(TargetedAction):
 					Buff(card, 'BG20_HERO_280pe').trigger(source)
 			source.sidequest_list0=[]
 			source.script_data_num_1 = 4
-			ChangeHeroPower(CONTROLLER, 'BG20_HERO_280p2').trigger(source)
+			ChangeHeroPower(controller, 'BG20_HERO_280p2').trigger(source)
 class BG20_HERO_280p_Action0(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):

@@ -211,10 +211,24 @@ AV_244e=buff(1,1)
 
 if Alterac_Revive_Pet:# 
 	Alterac_Hunter+=['AV_333']
+class AV_333_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		if len(self.player.field)<7:
+			card.zone=Zone.PLAY
 class AV_333: ##
 	""" Revive Pet (3) nature
 	Discover a friendly Beast that died this game. Summon it. """
-	play = GenericChoicePlay(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST)*3)# not GenericChoiceBattlecry
+	#play = GenericChoicePlay(CONTROLLER, RANDOM(FRIENDLY_KILLED + BEAST)*3)# not GenericChoiceBattlecry
+	def play(self):
+		controller=self.controller
+		source=self
+		cards=[card.id for card in controller.death_log if card.race==Race.BEAST]
+		if len(cards)>3:
+			cards=random.sample(cards, 3)
+		AV_333_Choice(controller, RandomID(*cards)*3).trigger(source)
+
 	pass
 
 
