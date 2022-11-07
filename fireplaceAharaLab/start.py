@@ -97,7 +97,7 @@ from card_test.simulate_game import card_test
 
 def battleground_main():
 	from fireplace.battlegrounds.BG_utils import  BG_main
-	for repeat in range(10):
+	for repeat in range(100):
 		BG=BG_main()
 		BG.BG_main()
 

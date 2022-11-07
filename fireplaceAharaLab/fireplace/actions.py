@@ -3759,7 +3759,7 @@ class SummonOnce(Summon):
 				Config.log("SummonOnce.do","<><><><><><><><><><><><>")
 			return
 		if Config.LOGINFO:
-			Config.log("SummonOnce.do","%s summons %r", target, cards)
+			Config.log("SummonOnce.do","%s summons %r"%(target, cards))
 
 		if not isinstance(cards, list):
 			cards = [cards]

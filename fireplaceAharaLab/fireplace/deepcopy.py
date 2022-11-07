@@ -239,7 +239,7 @@ def copy_playerattr(oldPlayer, newPlayer):
 	excludeHeroAttrs = [
 		'attack_targets', 'attackable', 'attacking','card_class', 'classes','type','entity_id',
 		'controller', 'data', 'entities', 'game', 'health','id','power','race','target','rarity','manager',
-		'play_counter','tags','uuid','requirements',
+		'play_counter','tags','uuid','requirements','slots'
 		]
 	for attr in oldPlayer.hero.__dict__.keys():
 		if not attr in excludeHeroAttrs:
@@ -250,6 +250,8 @@ def copy_playerattr(oldPlayer, newPlayer):
 				setattr(new_hero, attr, [])
 			elif isinstance(value[0], Enchantment):## 
 				setattr(new_hero, attr, deepcopy_enchantment(value, oldPlayer.hero, new_hero))
+			elif isinstance(value[0], AuraBuff):## 
+				setattr(new_hero, attr, deepcopy_aurabuff(value))
 			else:
 				setattr(new_hero, attr, copy.deepcopy(value))
 			pass

@@ -5,6 +5,8 @@ import random
 from hearthstone.enums import PlayState, Zone
 from fireplace.config import Config
 from fireplace.targeting import is_valid_target
+import sys
+
 
 class BG_Battle(Game):
 	def __init__(self, bars):

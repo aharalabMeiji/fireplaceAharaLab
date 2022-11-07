@@ -905,7 +905,7 @@ class TB_BaconShop_HP_048:
 	""" Battle Brand
 	[Passive.] After you buy 5 [Battlecry] minions, add Brann Bronzebeard to your _hand. <i>(Once per game.)</i>@[x][Passive.] After you buy 5 [Battlecry] minions, add Brann Bronzebeard to your hand. <i>({0} left!)</i>"""
 	events = Buy(CONTROLLER, MINION + BATTLECRY).on(SidequestCounterText0(SELF, 5, \
-		[Give(CONTROLLER,"LOE_077"), SetAttr(SELF,'cant_play',True)]))
+		[Give(CONTROLLER,"BG_LOE_077"), SetAttr(SELF,'cant_play',True)]))
 class TB_BaconShop_HP_048e:
 	""" 	"""
 ######## BUDDY

@@ -580,7 +580,7 @@ class BG24_Reward_313_Action(GameAction):
 			elif choice==6:### OK ###
 				#６．酒場のミニオン全てが厳選中立ミニオン(ザップ、バロン、献身、トンネル爆破、ブラン、15/15/、taunt)となる
 				amount=len(controller.opponent.field)
-				cards=['BGS_022','BG_FP1_031','OG_221','BG_DAL_775','LOE_077','BG23_190','BG_AT_069']
+				cards=['BGS_022','BG_FP1_031','BG_OG_221','BG_DAL_775','BG_LOE_077','BG23_190','BG_AT_069']
 				for card in reversed(controller.opponent.field):
 					card.discard()
 				for repeat in range(amount):

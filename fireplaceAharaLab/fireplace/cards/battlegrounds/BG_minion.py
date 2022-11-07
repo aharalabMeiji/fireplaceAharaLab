@@ -471,7 +471,7 @@ class BG24_715_G:
 ##################### TIER 3 ###################################
 
 if BG_Arm_of_the_Empire:#Arm of the Empire	3	4	4	-		 ### maybe ###
-	BG_Minion += ['BGS_110','BGS_110e','BG24_715_G','TB_BaconUps_302e',]#	
+	BG_Minion += ['BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',]#	
 	BG_PoolSet_Minion[3].append('BGS_110')
 	BG_Minion_Gold['BGS_110']='TB_BaconUps_302'
 	pass
@@ -1080,11 +1080,11 @@ class TB_BaconUps_055:# <12>[1453]
 
 
 if BG_Brann_Bronzebeard:#Brann Bronzebeard	5	2	4		 ### maybe ###
-	BG_Minion += ['LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',]#	
-	BG_PoolSet_Minion[5].append('LOE_077')
-	BG_Minion_Gold['LOE_077']='TB_BaconUps_045'
+	BG_Minion += ['BG_LOE_077','LOE_077e','TB_BaconUps_045','TB_BaconUps_045e',]#	
+	BG_PoolSet_Minion[5].append('BG_LOE_077')
+	BG_Minion_Gold['BG_LOE_077']='TB_BaconUps_045'
 	pass
-class LOE_077:#    ぶらん
+class BG_LOE_077:#    ぶらん
 	""" Brann Bronzebeard
 	Your [Battlecries] trigger twice. """
 	update = Refresh(CONTROLLER, {GameTag.EXTRA_BATTLECRIES_BASE: True})

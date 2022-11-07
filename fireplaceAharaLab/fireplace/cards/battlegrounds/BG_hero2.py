@@ -490,17 +490,14 @@ class TB_BaconShop_HP_069_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
 		field = controller.field
-		op_field = controller.opponent.field
-		if len(op_field)==0:
-			return
-		if len(field)>0:
+		if len(field)>0 and len(controller.opponent.field):
 			left = field[0]
 			right = field[-1]
 			Buff(left, 'TB_BaconShop_HP_069e').trigger(source)
-			BG_Attack(left, random.choice(op_field)).trigger(source)
-			if right!=left:
+			BG_Attack(left, random.choice(controller.opponent.field)).trigger(source)
+			if right!=left and len(controller.opponent.field):
 				Buff(left, 'TB_BaconShop_HP_069e').trigger(source)
-				BG_Attack(right, random.choice(op_field)).trigger(source)
+				BG_Attack(right, random.choice(controller.opponent.field)).trigger(source)
 class TB_BaconShop_HP_069:
 	""" Wingmen
 	[Passive.] [Start of Combat:] Your left and right-most minions gain +2 Attack __and attack immediately. """

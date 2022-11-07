@@ -1,3 +1,4 @@
+from typing_extensions import Self
 from ..utils import *
 
 BG_Rockpool_Hunter=True ##(1) 
@@ -193,15 +194,43 @@ if BG_Primalfin_Lookout:
 	BG_Minion_Murloc+=['BGS_020','TB_BaconUps_089',]
 	BG_PoolSet_Murloc[4].append('BGS_020')
 	BG_Murloc_Gold['BGS_020']='TB_BaconUps_089'
+class BGS_020_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		pass
+class BGS_020_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
+		if len(cards):
+			BGS_020_Choice(controller, RandomBGMurloc()*3).trigger(source)
 class BGS_020:# <12>[1453] 見張り番
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] a_Murloc. """
-	play = Find(FRIENDLY_MINIONS + MURLOC - SELF) & Discover(CONTROLLER, RandomMurloc())
+	play = BGS_020_Action()
 	pass
+class BGS_020_Choice2(Choice):
+	def choose(self, card):
+		card.zone=Zone.HAND
+		self.source._sidequest_counter_+=1
+		if self.source._sidequest_counter_==1:
+			self.next_choice=self
+		else:
+			self.next_choice=None
+		super().choose(card)
+		pass
+class BGS_020_Action2(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
+		if len(cards):
+			BGS_020_Choice2(controller, RandomBGMurloc()*3).trigger(source)
 class TB_BaconUps_089:# <12>[1453]
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] two_Murlocs. """
-	play = Find(FRIENDLY_MINIONS + MURLOC - SELF) & DiscoverTwice(CONTROLLER, RandomMurloc()*3)
+	play = BGS_020_Action2()
 	pass
 
 

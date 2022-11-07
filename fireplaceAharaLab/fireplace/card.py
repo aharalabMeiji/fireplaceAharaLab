@@ -1137,7 +1137,8 @@ class Enchantment(BaseCard):
 				if Config.LOGINFO:
 					Config.log("Enchantment._set_zone","Trying to remove %r which is already gone"%(self))
 				return
-			self.owner.buffs.remove(self)
+			if self in self.owner.buffs:
+				self.owner.buffs.remove(self)
 			if self in self.game.active_aura_buffs:
 				self.game.active_aura_buffs.remove(self)
 		super()._set_zone(zone)
@@ -1150,7 +1151,7 @@ class Enchantment(BaseCard):
 			self.data.scripts.apply(self, target)
 		if hasattr(self.data.scripts, "max_health"):
 			if Config.LOGINFO:
-					Config.log("Enchantment.apply","%r removes all damage from %r"%(self, target))
+				Config.log("Enchantment.apply","%r removes all damage from %r"%(self, target))
 			target.damage = 0
 		self.zone = Zone.PLAY
 		return self

@@ -139,7 +139,7 @@ class BGS_060:# <12>[1453]
 class TB_BaconUps_150:# <12>[1453]
 	""" Yo-Ho-Ogre (2/6/10)
 	[Taunt]After this minion survives being attacked, attack immediately. """
-	events = BG_Attack(ENEMY_MINIONS, SELF).after(BGS_060_Action(SELF)) 
+	events = BG_Attack(ENEMY_MINIONS, SELF).after(BGS_060_Action()) 
 	pass
 
 
@@ -354,7 +354,7 @@ class BG21_031_Action(TargetedAction):
 		for repeat in range(amount):
 			friendly_pirates=[]
 			for card in controller.field:
-				if card.race==Race.PIRATE and card.gold_card != 0 and card != source:
+				if card.race==Race.PIRATE and hasattr(card, 'gold_card') and card.gold_card != 0 and card != source:
 					friendly_pirates.append(card)
 			if len(friendly_pirates)>0:
 				card = random.choice(friendly_pirates)
