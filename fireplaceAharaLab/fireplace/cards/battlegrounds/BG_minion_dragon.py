@@ -103,7 +103,8 @@ class BG24_300_Target(TargetedAction):
 	def do(self, source, card, buff):
 		assert source.game.this_is_battle==True, 'This is a battle.'
 		Buff(card, buff).trigger(source)
-		Buff(card.deepcopy_original, buff).trigger(source)
+		if card.deepcopy_original!=None:
+			Buff(card.deepcopy_original, buff).trigger(source)
 class BG24_300:
 	""" Dozy Whelp (1) (0/3)
 	&lt;b&gt;&lt;b&gt;Taunt&lt;/b&gt;.&lt;/b&gt; Whenever this is attacked, gain +1 Attack permanently."""
@@ -372,13 +373,13 @@ class BG21_015_Action2(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		#target = target[0]
-		for buff in target.sidequest_list0:
+		for buff in target.sidequest_list0 and target.deepcopy_original!=None:
 			buff.apply(target.deepcopy_original)
 class BG21_015_Action3(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		#target = target[0]
-		for buff in target.sidequest_list0:
+		for buff in target.sidequest_list0 and target.deepcopy_original!=None:
 			buff.apply(target.deepcopy_original)
 			buff.apply(target.deepcopy_original)
 #旧：これは戦闘時に受ける付与効果を永続的に維持する。

@@ -314,7 +314,7 @@ class TB_BaconShop_HP_702_Action2(TargetedAction):
 			Config.log("TB_BaconShop_HP_702_Action2.do","Setting Counter on %r -> %i"%(source, (source._sidequest_counter_+1)))
 		if source.game.this_is_battle:
 			original_source=source.deepcopy_original
-			if original_source.cant_play==True:
+			if original_source!=None and original_source.cant_play==True:
 				original_source._sidequest_counter_ += 1
 				original_source.script_data_num_2 = amount - original_source._sidequest_counter_
 				original_source.script_data_text_1 = str(original_source.script_data_num_2)

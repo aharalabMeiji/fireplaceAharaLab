@@ -124,6 +124,18 @@ def deepcopy_aurabuff(oldCard):
 		ret.append(buff)
 	return ret
 
+def deepcopy_slots(oldCard, newCard):
+	for card in oldCard.slots:
+		if isinstance(card,AuraBuff):
+			buff=AuraBuff(card.source, card.entity)
+		else:
+			#print ("Consider how to avoid this trouble!!")
+			buff=copy.deepcopy(card)
+		buff.tick = card.source.controller.game.tick
+		newCard.slots.append(buff)
+	return ret
+
+
 def deepcopy_enchantment(oldCards, oldCard, newCard):
 	"""
 	@oldCards: for example, buffs of oldCard
