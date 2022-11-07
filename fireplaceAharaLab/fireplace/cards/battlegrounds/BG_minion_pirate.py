@@ -125,12 +125,12 @@ class BGS_060_Action(GameAction):
 	TARGET=ActionArg()# target=source
 	def do(self, source):
 		target=source
-		Deaths().trigger(source)
-		if len(source.controller.opponent.field)>0 and target.health>0:
+		##Deaths().trigger(source)## contained in BG_Attack.after
+		if len(source.controller.opponent.field)>0 and target.alive:
 			defender=random.choice(source.controller.opponent.field)
 			print("%s attacks %s"%(target,defender))
 			BG_Attack(target, defender).trigger(source.controller)
-			Deaths().trigger(source.controller)
+			##Deaths().trigger(source.controller)## contained in BG_Attack
 class BGS_060:# <12>[1453]
 	""" Yo-Ho-Ogre
 	[Taunt]After this minion survives being attacked, attack immediately. """

@@ -172,7 +172,7 @@ class BG20_HERO_100_Action(TargetedAction):
 	DEFENDER=ActionArg()
 	BUFF=ActionArg()
 	def do(self, source, attacker, defender, buff):
-		if defender.dead():
+		if defender.dead:
 			BuffPermanently(attacker, buff).trigger(source)
 		pass
 class BG20_HERO_100p:# <10>[1453]

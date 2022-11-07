@@ -591,6 +591,10 @@ class LiveEntity(PlayableCard, Entity):
 		return self.zone == Zone.GRAVEYARD or self.to_be_destroyed
 
 	@property
+	def alive(self):
+		return self.zone != Zone.GRAVEYARD and self.to_be_destroyed==False
+
+	@property
 	def delayed_destruction(self):
 		return self.zone == Zone.PLAY
 
