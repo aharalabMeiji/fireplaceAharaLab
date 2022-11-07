@@ -79,11 +79,11 @@ class TID_711_Deathrattle(TargetedAction):
 		controller = target
 		for card in controller.field:
 			if card.id in ['TID_711t','TID_711t2','TID_711t3','TID_711t4','TID_711t5','TID_711t6']:
-				#alive_minions=[card for card in controller.opponent.field if card._to_be_destroyed==False]
-				alive_minions=[card for card in controller.opponent.field if card.health>0]
+				alive_minions=[card for card in controller.opponent.field if card.dead()==False]
 				if len(alive_minions)>0:
 					target = random.choice(alive_minions)
-					Destroy(target).trigger(self)
+					Destroy(target).trigger(source)
+		Deaths().trigger(source)
 class TID_711:# <12>[1658]
 	""" Ozumat
 	[Colossal +6] [Deathrattle:] For each of Ozumat's Tentacles, destroy a random enemy minion. """

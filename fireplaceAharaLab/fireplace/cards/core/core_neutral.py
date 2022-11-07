@@ -720,13 +720,10 @@ class CORE_GIL_124:# <12>[1637] ## visually OK
 		for card in controller.field:
 			if card != self:
 				if card.type==CardType.MINION and card.atk<=2:
-					#card.to_be_destroyed=True
 					Destroy(card).trigger(self)
 		for card in opponent.field:
 			if card.type==CardType.MINION and card.atk<=2:
-				#card.to_be_destroyed=True
 				Destroy(card).trigger(self)
-		#controller.game.process_deaths()
 		Deaths().trigger(self.source)
 	pass
 

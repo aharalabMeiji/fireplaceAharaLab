@@ -79,9 +79,7 @@ class TID_718_Action(GameAction):
 		controller=source.controller
 		for card in controller.opponent.hand:
 			if 'TID_718e2' in [buff.id for buff in card.buffs]:
-				#card.to_be_destroyed=True
 				Destroy(card).trigger(source)
-		#target.game.process_deaths()
 		Deaths().trigger()
 		pass
 class TID_718e:# <9>[1658]

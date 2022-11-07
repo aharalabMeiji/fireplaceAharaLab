@@ -97,17 +97,13 @@ class TSC_209:# <6>[1658]
 		for c in self.controller.hand + self.controller.opponent.hand:
 			for card in self.controller.field + self.controller.opponent.field:
 				if self.controller.hand[0].id==card.id:
-					#c.to_be_destroyed=True
 					Destroy(c).trigger(self)## no Deathrattle
 		for c in self.controller.deck + self.controller.opponent.deck:
 			for card in self.controller.field + self.controller.opponent.field:
 				if self.controller.hand[0].id==card.id:
-					#c.to_be_destroyed=True
 					Destroy(c).trigger(self)## no Deathrattle
 		for card in self.controller.field + self.controller.opponent.field:
-			#card.to_be_destroyed=True
 			Destroy(c).trigger(self)## with Deathrattle
-		#self.controller.game.process_deaths()
 		Deaths().trigger(self)
 	pass
 

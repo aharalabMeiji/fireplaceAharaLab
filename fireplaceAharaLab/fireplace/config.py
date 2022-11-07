@@ -46,7 +46,7 @@ class Config:# ()is the default value
 	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=0 ## battleground with human player
+	PLAYER1_HUMAN=1 ## battleground with human player
 	CARD_PRESET1=''
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）

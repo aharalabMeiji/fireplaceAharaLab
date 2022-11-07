@@ -357,7 +357,7 @@ class Death(GameAction):
 			Config.log("Death.do","Processing Death for %r"% ( entity))
 		source.game.refresh_auras()
 		entity.controller.add_death_log(entity)
-		source.game.refresh_auras()  # 
+		#source.game.refresh_auras()  # 
 		if entity.type == CardType.MINION:
 			self.broadcast(source, EventListener.ON, entity)
 		if entity.id == 'SW_323'and entity._Asphyxia_=='alive': #The king rat
@@ -948,6 +948,8 @@ class Buff(TargetedAction):
 			source.controller.lost_in_the_park = buff.atk##  SW_428 Lost in the park
 		self.broadcast(source, EventListener.ON, target, buff)
 		ret = buff.apply(target)
+		if Config.LOGINFO:
+			Config.log("Buff.do","Buff %s to %s"%(buff, target))
 		self.broadcast(source, EventListener.AFTER, target, buff)
 		return ret
 
@@ -955,6 +957,8 @@ class BuffPermanently(Buff):
 	def do(self, source, target, buff):
 		ret = super().do(source, target, buff)
 		#buff.apply(target)
+		if Config.LOGINFO:
+			Config.log("BuffPermanently.do","Buff also to the deepcopy original"%())
 		if target.deepcopy_original:
 			buff.apply(target.deepcopy_original)
 		return ret
@@ -1128,7 +1132,8 @@ class Damage(TargetedAction):
 				target.type != CardType.HERO and source.type != CardType.WEAPON):
 				if Config.LOGINFO:
 					Config.log("Damage.do","%r destroys %r by poison"%(source, target))
-				target.destroy()
+				#target.destroy()
+				Destroy(target).trigger(source)
 			Deaths().trigger(source.controller)###ここに追加してみた
 		return amount
 
@@ -1245,6 +1250,7 @@ class Destroy(TargetedAction):
 			if Config.LOGINFO:
 				Config.log("Destroy.do","%r marks %r for imminent death"%(source, target))
 			target.to_be_destroyed = True
+			#Deaths().trigger(source)
 		else:
 			if Config.LOGINFO:
 				Config.log("Destroy.do","%r destroys %r"%(source, target))

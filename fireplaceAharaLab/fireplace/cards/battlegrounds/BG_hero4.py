@@ -12,7 +12,7 @@ BG_Hero4_Buddy_Gold={}
 ##Ragnaros the Firelord TB_BaconShop_HERO_11	
 ##Rakanishu TB_BaconShop_HERO_75
 ##Reno Jackson TB_BaconShop_HERO_41
-##Rokara BG20_HERO_100
+##Rokara BG20_HERO_100 
 ##Scabbs Cutterbutter BG21_HERO_010
 ##Shudderwock TB_BaconShop_HERO_23
 ##Silas Darkmoon TB_BaconShop_HERO_90
@@ -158,7 +158,7 @@ class TB_BaconShop_HERO_41_Buddy_G:# <12>[1453]
 
 
 
-##Rokara #  ### visually OK
+##Rokara #  ### OK ### 221107
 BG_Hero4+=['BG20_HERO_100','BG20_HERO_100_Buddy','BG20_HERO_100_Buddy_e','BG20_HERO_100_Buddy_G','BG20_HERO_100_Buddy_Ge','BG20_HERO_100p','BG20_HERO_100p_e2']
 BG_PoolSet_Hero4.append('BG20_HERO_100')
 BG_Hero4_Buddy['BG20_HERO_100']='BG20_HERO_100_Buddy'
@@ -172,7 +172,7 @@ class BG20_HERO_100_Action(TargetedAction):
 	DEFENDER=ActionArg()
 	BUFF=ActionArg()
 	def do(self, source, attacker, defender, buff):
-		if defender.to_be_destroyed:
+		if defender.dead():
 			BuffPermanently(attacker, buff).trigger(source)
 		pass
 class BG20_HERO_100p:# <10>[1453]
