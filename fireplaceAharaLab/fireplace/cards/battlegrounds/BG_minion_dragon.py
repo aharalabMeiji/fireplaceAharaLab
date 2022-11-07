@@ -79,7 +79,7 @@ class BGS_019_Action(TargetedAction):
 			if len(controller.opponent.field):
 				target = random.choice(controller.opponent.field)
 				Hit(target, count).trigger(source)
-				controller.game.process_deaths()
+				##controller.game.process_deaths()## contained in Hit
 class BGS_019:# <12>[1453]
 	""" Red Whelp
 	[Start of Combat:] Deal1 damage per friendly Dragon to one random enemy minion. """

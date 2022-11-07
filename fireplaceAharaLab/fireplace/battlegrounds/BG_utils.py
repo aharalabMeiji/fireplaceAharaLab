@@ -299,7 +299,7 @@ class BG_main:
 						else:
 							card.frozen=False
 							frozencard += 1
-					bar.process_deaths()
+					bar.process_deaths()### do we need?
 					if bartender.len_bobs_field-frozencard+bartender.extra_len_bobs_field>0:
 						for repeat in range(bartender.len_bobs_field-frozencard+bartender.extra_len_bobs_field):
 							card = self.DealCard(bartender, controller.tavern_tier)

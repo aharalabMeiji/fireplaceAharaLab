@@ -195,7 +195,7 @@ class WC_020:# <8>[1525]
 				Hit(target, 3).trigger(self)
 				return
 			Hit(target, 3).trigger(self)
-			self.controller.game.process_deaths()
+			#self.controller.game.process_deaths()#contained in Hit
 	pass
 
 

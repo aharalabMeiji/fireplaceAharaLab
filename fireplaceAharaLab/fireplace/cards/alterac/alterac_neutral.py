@@ -463,8 +463,8 @@ class AV_222_Action(TargetedAction):
 				if card != source:
 					if card.health==1:
 						cont = True
-					Hit(card,1).trigger(source)##これだけでは死亡処理が行われない。
-					controller.game.process_deaths()
+					Hit(card,1).trigger(source)##
+					#controller.game.process_deaths()#contained in Hit
 			if not cont:
 				return
 	pass
@@ -753,7 +753,7 @@ class ONY_005ta13:# <12>[1626]##################################
 			cost = card.cost+3
 			new_card = RandomMinion(cost=cost)
 			yield Destroy(card)#????????????
-			yield Summon(CONTROLLER, new_card)
+			yield Summon(self.controller, new_card)
 		pass
 	pass
 

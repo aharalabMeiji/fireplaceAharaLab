@@ -59,9 +59,8 @@ class BGS_061_Action(TargetedAction):
 			defenders = [card for card in newcard.attack_targets if card in controller.opponent.field]
 			if len(defenders)>0:
 				defender=random.choice(defenders)
-				#print("%s attacks %s"%(newcard,defender))
 				BG_Attack(newcard, defender).trigger(source)
-				source.game.process_deaths()
+				#source.game.process_deaths()#contained in BG_Attack
 class BGS_061:# <12>[1453]
 	""" Scallywag
 	[Deathrattle:] Summon a 1/1 Pirate. It attacks immediately. """

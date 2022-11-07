@@ -8,7 +8,7 @@ def core_neutral():
 	#if core_neutral.Ice_Rager:##22.6
 	#if core_neutral.Toxicologist=False##22.6
 
-	#	PresetGame(pp_CORE_CFM_120)	#if Mistress_of_Mixtures:## 23.6
+	PresetGame(pp_CORE_CFM_120)	#if Mistress_of_Mixtures:## 23.6
 	#Earthen_Ring_Farseer=False##22.6
 	#River_Crocolisk=False##22.6
 
@@ -146,7 +146,7 @@ class pp_CORE_CFM_120(Preset_Play):# <12>[1637]
 		assert controller.hero.health==30-6, "stop"
 		self.play_card(self.mark1, controller)
 		Hit(self.mark1, 10).trigger(opponent)
-		controller.game.process_deaths()
+		##controller.game.process_deaths()##contained in Hit
 		assert self.mark1.zone == Zone.GRAVEYARD, "stop"
 		pass
 	def result_inspection(self):
