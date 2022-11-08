@@ -38,8 +38,11 @@ def deepcopy_game(game, player, option):
 	oldPlayer1 = game.player1
 	oldPlayer2 = game.player2
 	## create new players
-	newPlayer1 = deep_copy_player(oldPlayer1, 0)##
-	newPlayer2 = deep_copy_player(oldPlayer2, 0)
+	try:
+		newPlayer1 = deep_copy_player(oldPlayer1, 0)##
+		newPlayer2 = deep_copy_player(oldPlayer2, 0)
+	except RuntimeError as e:
+		print (e)
 	## create a new game
 	newGame = Game(players=(newPlayer1, newPlayer2))
 	newGame.manager.start_game()
@@ -276,11 +279,11 @@ def copy_playerattr(oldPlayer, newPlayer):
 	setattr(new_hero, 'play_counter', src)
 	## hero power
 	if oldPlayer.hero.power:
-		card=HeroPower(cards.db[oldPlayer.hero.power.id])#デフォルトから変更されている可能性もある。
+		card=HeroPower(cards.db[oldPlayer.hero.power.id])#
 		card.controller = newPlayer
 		card.zone = Zone.PLAY
 		card.deepcopy_original = oldPlayer.hero.power
-		## もしくはSummon(newPlayer, card),trigger(newPlayer)
+		## or Summon(newPlayer, card).trigger(newPlayer)
 		card.game.manager.new_entity(card)
 		# heropower's attr
 		heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
@@ -432,7 +435,7 @@ def copy_gameattr(oldGame,newGame):
 	gameAttrs =['next_step','turn','tick','zone','state','step',
 			'proposed_attacker','proposed_defender',
 		]
-	#  'active_aura_buffs'のコピーはbuffの追加のところで行っておく。
+	## copying 'active_aura_buffs' will be done at appendin buffs
 	for attr in gameAttrs:
 		if hasattr(oldGame,attr):
 			src = getattr(oldGame, attr)
@@ -456,7 +459,7 @@ def copy_gameattr(oldGame,newGame):
 			pass
 		pass
 	for player in newGame.players:
-		newGame.manager.new_entity(player)#################
+		newGame.manager.new_entity(player)####
 	if newGame.players[0].first_player:
 		newGame.player1 = newGame.players[0]
 		newGame.player2 = newGame.players[1]

@@ -10,8 +10,8 @@ from hearthstone.enums import Zone,State, CardClass, CardType, GameTag, Race
 from .BG_enums import MovePlay
 
 class BG_Agent(object):
-	""" バトルグラウンドのエージェントのクラス
-	エージェントを作るときはこのクラスを継承してください。"""
+	""" class of agent for battlegrounds
+	PLZ ingerit this class to build a new agent. """
 	def __init__(self, myName: str, myOption: list, rating ,E = 0, heroChoiceStrategy=None, moveStrategy = None, choiceStrategy=None):
 		self.name = myName
 		self.option = myOption

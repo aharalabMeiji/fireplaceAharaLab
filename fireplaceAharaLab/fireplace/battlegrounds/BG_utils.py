@@ -21,9 +21,9 @@ BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
 class BG_main:
 	def __init__(self):
-		#使用カードの初期化
+		# initializing pool set
 		cards.db.BG_initialize()
-		#エージェントのリスト
+		# list of agents
 		if Config.PLAYER1_HUMAN:
 			self.Agents=[
 			BG_HumanAgent("Human1"),
@@ -38,7 +38,7 @@ class BG_main:
 			BG_NecoAgent("Random3"),
 			BG_NecoAgent("Random4")
 			]
-		# ヒーローセット
+		# list of heroes
 		self.Heroes = cards.battlegrounds.BG_hero1.BG_PoolSet_Hero1
 		self.Heroes += cards.battlegrounds.BG_hero2.BG_PoolSet_Hero2
 		self.Heroes += cards.battlegrounds.BG_hero3.BG_PoolSet_Hero3
@@ -46,14 +46,14 @@ class BG_main:
 		self.Heroes += cards.battlegrounds.BG_hero5.BG_PoolSet_Hero5
 		#for hero in BG_Exclude_Hero:
 		#	self.Heroes.remove(hero)
-		# デッキを作る新しいゲームの始まり。
+		# begining the deck
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
-			# BAN される raceはここで除外
+			# sample races randomly
 			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar'],5)## 23.2.2
 			#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
 		else:
-			# 特定の種族のみを指定(config.py内で指定)
+			# or specific race set. 
 			self.BG_races = races=Config.RACE_CHOICE
 		random_picker.BG_races=[]
 		random_picker.BG_races.append(Race.INVALID)
@@ -353,12 +353,12 @@ class BG_main:
 				self.BG_Bars[self.matches[i][1]].identifycards()
 				## buddy mechanism, before 23.1
 				#for  player in [battleplayer0, battleplayer1]:
-				#	### バディーゲージが100を超えたらバディーカードを発行する。
+				#	### if buddy gauge turn into the limit, 
 				#	if player.buddy_gauge>=100 and player.got_buddy==0:
 				#		player.got_buddy=1
 				#		buddy = self.BG_Hero_Buddy[player.hero.id]
 				#		Give(player, buddy).trigger(player)
-				#	### バディーゲージが200を超えたらバディーカードを2枚発行する。
+				#	### if buddy gauge turn into the second limit, 
 				#	if player.buddy_gauge>=300 and player.got_buddy==1:
 				#		player.got_buddy=2
 				#		buddy = self.BG_Hero_Buddy[player.hero.id]
@@ -373,7 +373,7 @@ class BG_main:
 					LoseGame(battleplayer0).trigger(battleplayer0)	
 					WinGame(battleplayer1).trigger(battleplayer1)	
 					hero0 = battleplayer0.hero
-					if hero0.armor>0:# armorも加味する
+					if hero0.armor>0:# add armor to health
 						if hero0.armor >= damage0:
 							hero0.armor -= damage0
 						else:
@@ -385,7 +385,7 @@ class BG_main:
 					if hero0.health<=0:
 						hero0.max_health=0
 						hero0.game.hero_is_alive=False
-						#battle時に、Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+						# if dead hero, morph it to Kelse
 						winner = self.refresh_ranks()
 						self.warbandDeceased.append(battleplayer0.field)
 						if winner:
@@ -396,7 +396,7 @@ class BG_main:
 					WinGame(battleplayer0).trigger(battleplayer0)	
 					LoseGame(battleplayer1).trigger(battleplayer1)	
 					hero1 = battleplayer1.hero
-					if hero1.armor>0:# armorも加味する
+					if hero1.armor>0:# armor
 						if hero1.armor >= damage1:
 							hero1.armor -= damage1
 						else:
@@ -408,7 +408,7 @@ class BG_main:
 					if hero1.health<=0:
 						hero1.max_health=0
 						hero1.game.hero_is_alive=False
-						#battle時に、Hero をケルスザード'TB_KTRAF_H_1'に交代して続行する。
+						# if dead hero, morph it to Kelse
 						winner = self.refresh_ranks()
 						self.warbandDeceased.append(battleplayer1.field)
 						if winner:
@@ -420,14 +420,14 @@ class BG_main:
 					TieGame(battleplayer0).trigger(battleplayer0)	
 					TieGame(battleplayer1).trigger(battleplayer1)	
 					pass
-			## 対戦おわり
-			#次のターンへ
+			## end of battle
+			# next turn at tavern
 			for bar in self.BG_Bars:
 				bar.identifycards()
 				controller = bar.controller
-				# グレードアップコストを減らす。
+				# decrease tier-up cost
 				controller.tavern_tierup_cost = max(0, controller.tavern_tierup_cost-1-controller.extra_tavern_tierup_reduce_cost) 
-				#ターン更新に伴うコインの補充。
+				# fill coins 
 				#bar.turn += 1
 				controller.used_mana = 0 
 				controller.prev_field=[]
@@ -437,8 +437,8 @@ class BG_main:
 			self.prevMatches=[]
 			for match in self.matches:
 				self.prevMatches.append(match)
-		# 無限ループ終わり
-		# main おわり
+		# end of infinite loop
+		# end of main
 		pass
 
 	def DealCard(self, bartender, tier):
@@ -542,8 +542,8 @@ class BG_main:
 		else:
 			return None
 
-	#class 終わり
-	pass
+	# end of class 	
+	# pass
 
 def print_hero_stats(hero0, hero1):
 	print("<< %s (%s)<< health=%d+%d"%(hero0, hero0.controller, hero0.health, hero0.armor))
@@ -645,7 +645,7 @@ class Move(object):
 		pass
 
 	def play(self, card, position=-1, targetpos=-1):
-		if card!=None and card.id=='TB_BaconShop_Triples_01':## カードを発見
+		if card!=None and card.id=='TB_BaconShop_Triples_01':## discover a card
 			pass
 		if card.BG_cost>0:
 			if Config.LOGINFO:
@@ -707,7 +707,7 @@ class Move(object):
 		UpgradeTier(self.controller).trigger(self.controller)
 		pass
 
-	def rerole(self):## TargetedActionへ振り替える。
+	def rerole(self):##
 		Rerole(self.controller).trigger(self.controller)
 		pass
 

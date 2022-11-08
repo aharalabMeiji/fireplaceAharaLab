@@ -16,7 +16,7 @@ class BG_VectorAgent(BG_Agent):
 			moveStrategy=self.VectorMoveChoice,
 			choiceStrategy=self.VectorDiscoveryChoice)
 		self. favorites=[
-			['BG21_000','CFM_316','FP1_031',],## ä^ëlÉoÉçÉì
+			['BG21_000','CFM_316','FP1_031',],## frog + baron
 			]
 		self.dummyAgent = BG_NecoAgent("Dummy")
 		self.dummyHero = 'BG22_HERO_007'
