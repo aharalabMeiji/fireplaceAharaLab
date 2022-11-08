@@ -121,12 +121,8 @@ class BaseGame(Entity):
 		self.manager.action_start(type, source, index, target)
 		if Config.LOGINFO:
 			Config.LOGINFO_INDENT+=1
-			assert Config.LOGINFO_INDENT<10, "infinte loop"
-			if hasattr(source,'name'):
-				Config.log("Game.action_start","type=%s, source=%s"%(type,source.name))
-			else:
-				Config.log("Game.action_start","type=%s, source=%s"%(type,source))
-
+			assert Config.LOGINFO_INDENT<20, "infinte loop"
+			Config.log("Game.action_start","type=%s, source=%r, index=%d, target=%r(%d)"%(type, source, index, target, self._action_stack))
 		if type != BlockType.PLAY:
 			self._action_stack += 1
 
@@ -140,17 +136,16 @@ class BaseGame(Entity):
 			return
 		if type != BlockType.PLAY:
 			self._action_stack = max(self._action_stack-1,0)
-		if not self._action_stack:
-			if Config.LOGINFO:
-				Config.log("Game.action_end","Empty stack(self._action_stack=%d, type=%s), refreshing auras and processing deaths."%(self._action_stack,type))
-				#assert Config.LOGINFO_INDENT>0, "Config.LOGINFO_INDENT=%d"%(Config.LOGINFO_INDENT)
-				Config.LOGINFO_INDENT=max(Config.LOGINFO_INDENT-1, 0)
-			#if type ==BlockType.DEATHS:
-			#	#if Config.LOGINFO:
-			#	#	print("this case is annoying us.")
-			#	##return## avoid infinte loop
-			self.refresh_auras()
-			self.process_deaths()
+		#if self._action_stack>0:
+		#	if Config.LOGINFO:
+		#		Config.log("Game.action_end","Empty stack(self._action_stack=%d, type=%s), refreshing auras and processing deaths."%(self._action_stack,type))
+		#		Config.LOGINFO_INDENT=max(Config.LOGINFO_INDENT-1, 0)
+		#	if type ==BlockType.DEATHS:
+		#		if Config.LOGINFO:
+		#			print("this case is annoying us.")
+		#		return ## avoid infinte loop
+		#	self.refresh_auras()
+		#	self.process_deaths()
 		pass
 
 	def action_block(self, source, actions, type, index=-1, target=None, event_args=None):

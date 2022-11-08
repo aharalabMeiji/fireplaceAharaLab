@@ -100,44 +100,90 @@ class BaseCard(BaseEntity):
 		self._set_zone(value)
 
 	def _set_zone(self, value):
-		# TODO
-		# Keep Buff: Deck -> Hand, Hand -> Play, Deck -> Play
-		# Remove Buff: Other case
-		old = self.zone
+		oldzone = self.zone
+		newzone = value
 
-		if old == value:
-			if old==Zone.HAND and not self in self.controller.hand:
+		if Config.LOGINFO:
+			Config.log("BaseCard._set_zone","%r moves from %r to %r"%(self, oldzone, newzone))
+		if oldzone==None:
+			oldzone=Zone.SETASIDE
+
+		if oldzone==Zone.HAND:
+			if newzone==Zone.HAND:
+				if self in self.controller.hand:
+					pass
+				else:
+					self.controller.hand.append(self)
+			elif newzone==Zone.Deck:
+				if self in self.controller.hand:
+					self.controller.hand.remove(self)
+				self.controller.deck.append(self)
+			elif newzone==Zone.SETASIDE:
+				if self in self.controller.hand:
+					self.controller.hand.remove(self)
+				self.game.setaside.append(self)
+			elif newzone==Zone.GRAVEYARD:
+				if self in self.controller.hand:
+					self.controller.hand.remove(self)
+				self.controller.graveyard.append(self)
+		elif oldzone==Zone.Deck:
+			if newzone==Zone.HAND:
+				if self in self.controller.deck:
+					self.controller.deck.remove(self)
 				self.controller.hand.append(self)
-			elif old==Zone.HAND:
-				if Config.LOGINFO:
-					Config.log("BaseCard._set_zone","[warning]%r attempted a same-zone move in %r"% (self, old))
-			return
+			elif newzone==Zone.Deck:
+				if self in self.controller.deck:
+					pass
+				else:
+					self.controller.deck.append(self)
+			elif newzone==Zone.SETASIDE:
+				if self in self.controller.deck:
+					self.controller.deck.remove(self)
+				self.game.setaside.append(self)
+			elif newzone==Zone.GRAVEYARD:
+				if self in self.controller.deck:
+					self.controller.deck.remove(self)
+				self.controller.graveyard.append(self)
+		elif oldzone==Zone.GRAVEYARD:
+			if newzone==Zone.HAND:
+				if self in self.controller.graveyard:
+					self.controller.graveyard.remove(self)
+				self.controller.hand.append(self)
+			elif newzone==Zone.Deck:
+				if self in self.controller.graveyard:
+					self.controller.graveyard.remove(self)
+				self.controller.deck.append(self)
+			elif newzone==Zone.SETASIDE:
+				if self in self.controller.graveyard:
+					self.controller.graveyard.remove(self)
+				self.game.setaside.append(self)
+			elif newzone==Zone.GRAVEYARD:
+				if self in self.controller.graveyard:
+					pass
+				else:
+					self.controller.graveyard.append(self)
+		elif oldzone==Zone.SETASIDE:
+			if newzone==Zone.HAND:
+				if self in self.game.setaside:
+					self.game.setaside.remove(self)
+				self.controller.hand.append(self)
+			elif newzone==Zone.Deck:
+				if self in self.game.setaside:
+					self.game.setaside.remove(self)
+				self.controller.deck.append(self)
+			elif newzone==Zone.SETASIDE:
+				if self in self.game.setaside:
+					pass
+				else:
+					self.game.setaside.append(self)
+			elif newzone==Zone.GRAVEYARD:
+				if self in self.game.setaside:
+					self.game.setaside.remove(self)
+				self.controller.graveyard.append(self)
 
-		if old:
-			if Config.LOGINFO:
-				Config.log("BaseCard._set_zone","%r moves from %r to %r"%(self, old, value))
+		self._zone = newzone
 
-		caches = {
-			Zone.HAND: self.controller.hand,
-			Zone.DECK: self.controller.deck,
-			Zone.GRAVEYARD: self.controller.graveyard,
-			Zone.SETASIDE: self.game.setaside,
-		}
-		if old==Zone.PLAY and self.type==CardType.MINION:
-			if self in self.controller.field:
-				self.controller.field.remove(self)
-		## here no way to 'field(play) -> ***' below
-		if caches.get(old) is not None:
-			if self in caches[old]:# 
-				caches[old].remove(self)
-		if caches.get(value) is not None:
-			if hasattr(self, "_summon_index") and self._summon_index is not None:
-				caches[value].insert(self._summon_index, self)
-			else:
-				caches[value].append(self)
-		self._zone = value
-
-		if value == Zone.PLAY:
+		if newzone == Zone.PLAY:
 			self.play_counter = self.game.play_counter
 			self.game.play_counter += 1
 
@@ -291,17 +337,24 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			return self.controller.hand.index(self) + 1
 		return 0
 	
-	def _set_zone(self, zone):
-		old_zone = self.zone
-		super()._set_zone(zone)
+	def _set_zone(self, value):
+		oldzone = self.zone
+		newzone=value
+
+		super()._set_zone(value)
+
 		if Config.LOGINFO:
-			Config.log("PlayableCard._set_zone","card %s: %s -> %s"%(self, old_zone, zone))
-		if old_zone == Zone.PLAY and zone not in (Zone.GRAVEYARD, Zone.SETASIDE):
+			Config.log("PlayableCard._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+
+		# Keep Buff: Deck -> Hand, Hand -> Play, Deck -> Play
+		# Remove Buff: Other case
+		if not (oldzone, newzone) in [
+		   (Zone.DECK, Zone.Hand), (Zone.HAND, Zone.PLAY), (Zone.DECK, Zone.PLAY)]:
 			self.clear_buffs()
 
-		if self.zone == Zone.HAND:
-			# Create the "Choose One" subcards
-			del self.choose_cards[:]
+		## if data hase choose_cards, then 'self' creates the 'choose one' subcards
+		if isinstance(self.data.choose_cards, list) and len(self.data.choose_cards):
+			del self.choose_cards[:] ## possibly 'self' has had already subcards
 			for id in self.data.choose_cards:
 				card = self.controller.card(id, source=self, parent=self)
 				self.choose_cards.append(card)
@@ -558,14 +611,19 @@ class LiveEntity(PlayableCard, Entity):
 		self.turns_in_play = 0
 		self.turn_killed = -1
 
-	def _set_zone(self, zone):
-		if zone == Zone.GRAVEYARD and self.zone == Zone.PLAY:
-			self.turn_killed = self.game.turn
+	def _set_zone(self, value):
+		oldzone=self.zone
+		newzone=value
+
+		super()._set_zone(value)
+
 		if Config.LOGINFO:
-			Config.log("LiveEntity._set_zone","card %s: %s -> %s"%(self, old_zone, zone))
-		super()._set_zone(zone)
+			Config.log("LiveEntity._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+
+		if oldzone == Zone.PLAY and newzone == Zone.GRAVEYARD:
+			self.turn_killed = self.game.turn
 		# See issue #283 (Malorne, Anub'arak)
-		self._to_be_destroyed = False
+		self._to_be_destroyed = False # this is a live entity.
 
 	@property
 	def immune(self):
@@ -873,6 +931,7 @@ class Minion(Character):
 		self.stop_attack=False## if another minion attacks instead of self, this flag will be True
 		self.killed_in_former_battle=False ## battlegrounds new 24.4
 		self.copied_from_opponent = False
+		self.this_is_minion = True
 		super().__init__(data)
 
 	@property
@@ -939,47 +998,73 @@ class Minion(Character):
 		return False
 	
 	def _set_zone(self, value):
-		if Config.LOGINFO:
-			Config.log("Minion._set_zone","card %s: %s -> %s"%(self, self.zone, value))
-		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
-			if self._summon_index is not None:
-				self.controller.field.insert(self._summon_index, self)
-			else:
-				self.controller.field.append(self)
-		elif value == Zone.GRAVEYARD: ## -> graveyard  
-			if self.zone == Zone.PLAY: ## play -> graveyard
-				self.controller.minions_killed_this_turn += 1
-				self.controller.field.remove(self)
-				if self.damage:
-					self.damage = 0
-			elif self.zone == Zone.HAND:
-				pass
-			elif self.zone == Zone.SETASIDE:
-				pass
-			elif self.zone == Zone.GRAVEYARD:## graveyard -> graveyard ## killed twice
-				if self in self.controller.game.live_entities:
-					if Config.LOGINFO:
-						Config.log("Minion._set_zone","%s must be removed from the field but still left in the list of living entities."%(self.data.name))
-					if self in self.controller.live_entities:
-						player=self.controller
-					elif self in self.controller.opponent.live_entities:
-						player=self.controller.opponent
-					if self in player.field:
-						#for entity in player.field:
-						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
-						player.field.remove(self)
-					elif self in player.hand:
-						#for entity in player.hand:
-						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
-						player.hand.remove(self)
-					elif self in player.game.setaside:
-						#for entity in player.game.setaside:
-						#	print("hand  : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
-						player.game.setaside.remove(self)
-					else:
-						if Config.LOGINFO:
-							Config.log("Minion._set_zone","Extra-ordinary error happens.  Stop here in set_zone()"%())
+		oldzone=self.zone
+		newzone=value
+
 		super()._set_zone(value)
+
+		if Config.LOGINFO:
+			Config.log("Minion._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+
+		if oldzone==Zone.PLAY: ## field ->
+			if newzone==Zone.PLAY: ## field -> field
+				if self in self.controller.field:
+					pass
+				else:
+					if self._summon_index is not None:
+						self.controller.field.insert(self._summon_index, self)
+					else:
+						self.controller.field.append(self)
+			elif newzone == Zone.GRAVEYARD: ## field -> graveyard
+				if self in self.controller.field:
+					self.controller.field.remove(self)
+				self.controller.minions_killed_this_turn += 1
+				if not self in self.controller.graveyard:
+					self.controller.graveyard.append(self)
+				if self.damage>0:
+					self.damage = 0
+			
+		elif oldzone==Zone.HAND: ## hand ->
+			if self in self.controller.hand:
+				self.controller.hand.remove(self)
+			if newzone == Zone.PLAY:## hand -> play,
+				if self._summon_index is not None:
+					self.controller.field.insert(self._summon_index, self)
+				else:
+					self.controller.field.append(self)
+		elif oldzone==Zone.DECK: ## deck ->
+			if self in self.controller.deck:
+				self.controller.deck.remove(self)
+			if newzone == Zone.PLAY:## deck -> play,
+				if self._summon_index is not None:
+					self.controller.field.insert(self._summon_index, self)
+				else:
+					self.controller.field.append(self)
+		elif oldzone==Zone.SETASIED: ## setaside ->
+			if self in self.controller.setaside:
+				self.controller.setaside.remove(self)
+			if newzone == Zone.PLAY:## setaside -> play,
+				if self._summon_index is not None:
+					self.controller.field.insert(self._summon_index, self)
+				else:
+					self.controller.field.append(self)
+		if newzone == Zone.GRAVEYARD:## killed 
+			if self in self.controller.game.live_entities: ## 'self' is a zombie
+				if Config.LOGINFO:
+					Config.log("Minion._set_zone","%s turned into a zonbie and live in the live_entries")
+				if self in self.controller.live_entities:
+					player=self.controller
+				elif self in self.controller.opponent.live_entities:
+					player=self.controller.opponent
+				if not self in player.graveyard:
+					player.graveyard.append(self)
+				if self in player.field:
+					player.field.remove(self)
+				elif self in player.hand:
+					player.hand.remove(self)
+				elif self in player.game.setaside:
+					player.game.setaside.remove(self)
+
 
 	def _hit(self, amount):
 		###  Remove the routine of 'divine shield prevents damages' -> class Damage'
@@ -1134,22 +1219,29 @@ class Enchantment(BaseCard):
 		i += getattr(self, "_" + attr, 0)
 		return getattr(self.data.scripts, attr, lambda s, x: x)(self, i)
 
-	def _set_zone(self, zone):
+	def _set_zone(self, value):
+		oldzone = self.zone
+		newzone = value
+
 		if Config.LOGINFO:
-			Config.log("Enchantment._set_zone","card %s: %s -> %s"%(self, self.zone, zone))
-		if zone == Zone.PLAY:
+			Config.log("Enchantment._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+
+		super()._set_zone(newzone)
+
+		if newzone == Zone.PLAY:
+			if self in self.controller.field:
+				self.controller.field.remove(self)
 			self.owner.buffs.append(self)
-		elif zone == Zone.REMOVEDFROMGAME:
-			if self.zone == zone:
+		elif newzone == Zone.REMOVEDFROMGAME or newzone == Zone.GRAVEYARD:
+			if oldzone == newzone:
 				# Can happen if a Destroy is queued after a bounce, for example
-				if Config.LOGINFO:
-					Config.log("Enchantment._set_zone","Trying to remove %r which is already gone"%(self))
-				return
+				pass
+			if self in self.controller.graveyard:
+				self.controller.graveyard.remove(self)
 			if self in self.owner.buffs:
 				self.owner.buffs.remove(self)
 			if self in self.game.active_aura_buffs:
 				self.game.active_aura_buffs.remove(self)
-		super()._set_zone(zone)
 
 	def apply(self, target):
 		if Config.LOGINFO:

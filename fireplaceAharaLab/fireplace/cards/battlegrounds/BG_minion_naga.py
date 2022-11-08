@@ -171,9 +171,8 @@ class BG23_009_Action(TargetedAction):
 			if source.script_data_num_1<amount:
 				buff.permanent_buff = True
 				source.script_data_num_1+=1
-class BG23_009_Action2(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
+class BG23_009_Action2(GameAction):
+	def do(self, source):
 		source.script_data_num_1=0
 class BG23_009:# <12>[1453]
 	""" Lava Lurker (2)
@@ -181,7 +180,7 @@ class BG23_009:# <12>[1453]
 	## Only in this case, Buff.on activates for spellcraft spellcasts. 
 	events = [
 		Buff(SELF).on(BG23_009_Action(Buff.BUFF, 1)),
-		BeginBar(CONTROLLER).on(BG23_009_Action2(SELF))
+		BeginBar(CONTROLLER).on(BG23_009_Action2())
 	]
 	pass
 class BG23_009_G:# <12>[1453]
@@ -189,7 +188,7 @@ class BG23_009_G:# <12>[1453]
 	The first 2 [Spellcraft] spellscast on this each turnare permanent. """
 	events = [
 		Buff(SELF).on(BG23_009_Action(Buff.BUFF, 2)),
-		BeginBar(CONTROLLER).on(BG23_009_Action2(SELF))
+		BeginBar(CONTROLLER).on(BG23_009_Action2())
 	]
 	pass
 
