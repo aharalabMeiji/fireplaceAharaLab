@@ -103,8 +103,8 @@ class BaseCard(BaseEntity):
 		oldzone = self.zone
 		newzone = value
 
-		if Config.LOGINFO:
-			Config.log("BaseCard._set_zone","%r moves from %r to %r"%(self, oldzone, newzone))
+		#if Config.LOGINFO:
+		#	Config.log("BaseCard._set_zone","%r moves from %r to %r"%(self, oldzone, newzone))
 		if oldzone==None:
 			oldzone=Zone.SETASIDE
 
@@ -114,7 +114,7 @@ class BaseCard(BaseEntity):
 					pass
 				else:
 					self.controller.hand.append(self)
-			elif newzone==Zone.Deck:
+			elif newzone==Zone.DECK:
 				if self in self.controller.hand:
 					self.controller.hand.remove(self)
 				self.controller.deck.append(self)
@@ -126,12 +126,12 @@ class BaseCard(BaseEntity):
 				if self in self.controller.hand:
 					self.controller.hand.remove(self)
 				self.controller.graveyard.append(self)
-		elif oldzone==Zone.Deck:
+		elif oldzone==Zone.DECK:
 			if newzone==Zone.HAND:
 				if self in self.controller.deck:
 					self.controller.deck.remove(self)
 				self.controller.hand.append(self)
-			elif newzone==Zone.Deck:
+			elif newzone==Zone.DECK:
 				if self in self.controller.deck:
 					pass
 				else:
@@ -149,7 +149,7 @@ class BaseCard(BaseEntity):
 				if self in self.controller.graveyard:
 					self.controller.graveyard.remove(self)
 				self.controller.hand.append(self)
-			elif newzone==Zone.Deck:
+			elif newzone==Zone.DECK:
 				if self in self.controller.graveyard:
 					self.controller.graveyard.remove(self)
 				self.controller.deck.append(self)
@@ -167,7 +167,7 @@ class BaseCard(BaseEntity):
 				if self in self.game.setaside:
 					self.game.setaside.remove(self)
 				self.controller.hand.append(self)
-			elif newzone==Zone.Deck:
+			elif newzone==Zone.DECK:
 				if self in self.game.setaside:
 					self.game.setaside.remove(self)
 				self.controller.deck.append(self)
@@ -343,13 +343,13 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 
 		super()._set_zone(value)
 
-		if Config.LOGINFO:
-			Config.log("PlayableCard._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+		#if Config.LOGINFO:
+		#	Config.log("PlayableCard._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
 
 		# Keep Buff: Deck -> Hand, Hand -> Play, Deck -> Play
 		# Remove Buff: Other case
 		if not (oldzone, newzone) in [
-		   (Zone.DECK, Zone.Hand), (Zone.HAND, Zone.PLAY), (Zone.DECK, Zone.PLAY)]:
+		   (Zone.DECK, Zone.HAND), (Zone.HAND, Zone.PLAY), (Zone.DECK, Zone.PLAY)]:
 			self.clear_buffs()
 
 		## if data hase choose_cards, then 'self' creates the 'choose one' subcards
@@ -617,8 +617,8 @@ class LiveEntity(PlayableCard, Entity):
 
 		super()._set_zone(value)
 
-		if Config.LOGINFO:
-			Config.log("LiveEntity._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+		#if Config.LOGINFO:
+		#	Config.log("LiveEntity._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
 
 		if oldzone == Zone.PLAY and newzone == Zone.GRAVEYARD:
 			self.turn_killed = self.game.turn
@@ -1004,8 +1004,17 @@ class Minion(Character):
 		super()._set_zone(value)
 
 		if Config.LOGINFO:
-			Config.log("Minion._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+			Config.log("Minion._set_zone","card %s: %s -> %s (%r)"%(self, oldzone, newzone, self.controller))
 
+		if oldzone==Zone.INVALID: ## invalid ->
+			if newzone==Zone.PLAY: ## invalid -> field
+				if self in self.controller.field:
+					pass
+				else:
+					if self._summon_index is not None:
+						self.controller.field.insert(self._summon_index, self)
+					else:
+						self.controller.field.append(self)
 		if oldzone==Zone.PLAY: ## field ->
 			if newzone==Zone.PLAY: ## field -> field
 				if self in self.controller.field:
@@ -1040,9 +1049,9 @@ class Minion(Character):
 					self.controller.field.insert(self._summon_index, self)
 				else:
 					self.controller.field.append(self)
-		elif oldzone==Zone.SETASIED: ## setaside ->
-			if self in self.controller.setaside:
-				self.controller.setaside.remove(self)
+		elif oldzone==Zone.SETASIDE: ## setaside ->
+			if self in self.controller.game.setaside:
+				self.controller.game.setaside.remove(self)
 			if newzone == Zone.PLAY:## setaside -> play,
 				if self._summon_index is not None:
 					self.controller.field.insert(self._summon_index, self)
