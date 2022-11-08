@@ -557,7 +557,7 @@ class BG23_012_Ge:
 
 
 
-##Tidemistress Athissa (6)  アジッサ  ### OK ###
+##Tidemistress Athissa (6)  繧｢繧ｸ繝�繧ｵ  ### OK ###
 if BG_Tidemistress_Athissa:
 	BG_Minion_Naga+=['BG23_013','BG23_013e','BG23_013_G','BG23_013_Ge', ]#
 BG_PoolSet_Naga[6].append('BG23_013')

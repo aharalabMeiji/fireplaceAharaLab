@@ -92,7 +92,7 @@ class TB_BaconUps_102:# <12>[1453]
 	pass
 
 
-#Dozy Whelpidragon 1j(BG24_300) ### OK ###
+#Dozy Whelpï¼ˆdragon 1ï¼‰(BG24_300) ### OK ###
 if BG_Dozy_Whelp:
 	BG_Minion_Dragon+=['BG24_300','BG24_300e','BG24_300_G','BG24_300_Ge']#
 	BG_PoolSet_Dragon[1].append('BG24_300')
@@ -382,8 +382,8 @@ class BG21_015_Action3(TargetedAction):
 		for buff in target.sidequest_list0 and target.deepcopy_original!=None:
 			buff.apply(target.deepcopy_original)
 			buff.apply(target.deepcopy_original)
-#‹ŒF‚±‚ê‚Íí“¬‚Éó‚¯‚é•t—^Œø‰Ê‚ğ‰i‘±“I‚ÉˆÛ‚·‚éB
-#VF‚±‚ê‚Í©•ª‚ªí“¬‚É•t—^‚µ‚½Œø‰Ê‚ğ‰i‘±“I‚ÉˆÛ‚·‚éB
+#æ—§ï¼šã“ã‚Œã¯æˆ¦é—˜æ™‚ã«å—ã‘ã‚‹ä»˜ä¸åŠ¹æœã‚’æ°¸ç¶šçš„ã«ç¶­æŒã™ã‚‹ã€‚
+#æ–°ï¼šã“ã‚Œã¯è‡ªåˆ†ãŒæˆ¦é—˜æ™‚ã«ä»˜ä¸ã—ãŸåŠ¹æœã‚’æ°¸ç¶šçš„ã«ç¶­æŒã™ã‚‹ã€‚
 class BG21_015:# <12>[1453]
 	""" Tarecgosa
 	This permanently keeps enchantments from combat. """

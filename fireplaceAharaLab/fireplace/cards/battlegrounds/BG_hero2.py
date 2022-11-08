@@ -688,7 +688,7 @@ class TB_BaconShop_HERO_38_Buddy:# <12>[1453]
 	After you feed a minion a Banana, give it +1/+1."""
 	events = ApplyBanana(FRIENDLY + MINION).after(Buff(ApplyBanana.TARGET, 'TB_BaconShop_HERO_38_Buddy_e'))
 	pass
-TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] �o�i�i�̔�
+TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] �ｽo�ｽi�ｽi�ｽﾌ費ｿｽ
 """ Banana Peel,	+1/+1. """
 class TB_BaconShop_HERO_38_Buddy_G:# <12>[1453]
 	""" Crazy Monkey

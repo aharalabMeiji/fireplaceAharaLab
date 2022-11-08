@@ -526,7 +526,7 @@ class BG24_Reward_313_Action(GameAction):
 		if random.choice([0,1]):
 			choice=random.choice(range(9))
 			if choice==0:### OK ###
-				#10Dğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚ªƒOƒŒ[ƒh‚Uƒ~ƒjƒIƒ“‚Æ‚È‚é		
+				#10ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ãŒã‚°ãƒ¬ãƒ¼ãƒ‰ï¼–ãƒŸãƒ‹ã‚ªãƒ³ã¨ãªã‚‹		
 				amount=len(controller.opponent.field)
 				for card in reversed(controller.opponent.field):
 					card.discard()
@@ -534,13 +534,13 @@ class BG24_Reward_313_Action(GameAction):
 					Summon(controller.opponent, RandomBGAdmissible(tech_level=6).evaluate(controller.opponent)).trigger(controller.opponent)
 				pass
 			elif choice==1:### OK ###
-				#‚PDğê‚Ìƒ~ƒjƒIƒ“1‘Ì‚ªƒS[ƒ‹ƒfƒ“‚Æ‚È‚é
+				#ï¼‘ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³1ä½“ãŒã‚´ãƒ¼ãƒ«ãƒ‡ãƒ³ã¨ãªã‚‹
 				if len(controller.opponent.field):
 					card = random.choice(controller.opponent.field)
 					controller.game.BG_morph_gold(card)
 				pass
 			elif choice==2:
-				#‚QDğê‚Ìƒ~ƒjƒIƒ“2‘Ì‚ª©w‚Ìƒ~ƒjƒIƒ“‚Æ‚È‚é
+				#ï¼’ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³2ä½“ãŒè‡ªé™£ã®ãƒŸãƒ‹ã‚ªãƒ³ã¨ãªã‚‹
 				if len(controller.opponent.field)>=2:
 					controller.opponent.field[-1].discard()
 					controller.opponent.field[-1].discard()
@@ -551,7 +551,7 @@ class BG24_Reward_313_Action(GameAction):
 						Summon(controller.opponent, card.id).trigger(controller.opponent)
 				pass
 			elif choice==3:### OK ###
-				#‚RDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚ª©w‚ÅÅ‚à‘½‚¢í‘°‚Ìƒ~ƒjƒIƒ“‚Æ‚È‚é
+				#ï¼“ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ãŒè‡ªé™£ã§æœ€ã‚‚å¤šã„ç¨®æ—ã®ãƒŸãƒ‹ã‚ªãƒ³ã¨ãªã‚‹
 				if len(controller.field):
 					races=[card.race for card in controller.field]
 					race=collections.Counter(races).most_common()[0][0]
@@ -562,7 +562,7 @@ class BG24_Reward_313_Action(GameAction):
 						Summon(controller.opponent, RandomBGAdmissible(race=race)).trigger(controller.opponent)
 				pass
 			elif choice==4:### OK ###
-				#‚SDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚ª©w‚Ìƒ~ƒ‰[‚Æ‚È‚é#
+				#ï¼”ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ãŒè‡ªé™£ã®ãƒŸãƒ©ãƒ¼ã¨ãªã‚‹#
 				if len(controller.field):	
 					for card in reversed(controller.opponent.field):
 						card.discard()
@@ -570,7 +570,7 @@ class BG24_Reward_313_Action(GameAction):
 						Summon(controller.opponent, card.id).trigger(controller.opponent)
 				pass
 			elif choice==5:### OK ###
-				#‚TDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚ª“¯‚¶ƒ~ƒjƒIƒ“‚Æ‚È‚é
+				#ï¼•ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ãŒåŒã˜ãƒŸãƒ‹ã‚ªãƒ³ã¨ãªã‚‹
 				minion_id=controller.opponent.field[0].id
 				for card in reversed(controller.opponent.field):
 					card.discard()
@@ -578,7 +578,7 @@ class BG24_Reward_313_Action(GameAction):
 					Summon(controller.opponent, minion_id).trigger(controller.opponent)
 				pass
 			elif choice==6:### OK ###
-				#‚UDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚ªŒµ‘I’†—§ƒ~ƒjƒIƒ“(ƒUƒbƒvAƒoƒƒ“AŒ£gAƒgƒ“ƒlƒ‹”š”jAƒuƒ‰ƒ“A15/15/Ataunt)‚Æ‚È‚é
+				#ï¼–ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ãŒå³é¸ä¸­ç«‹ãƒŸãƒ‹ã‚ªãƒ³(ã‚¶ãƒƒãƒ—ã€ãƒãƒ­ãƒ³ã€çŒ®èº«ã€ãƒˆãƒ³ãƒãƒ«çˆ†ç ´ã€ãƒ–ãƒ©ãƒ³ã€15/15/ã€taunt)ã¨ãªã‚‹
 				amount=len(controller.opponent.field)
 				cards=['BGS_022','BG_FP1_031','BG_OG_221','BG_DAL_775','BG_LOE_077','BG23_190','BG_AT_069']
 				for card in reversed(controller.opponent.field):
@@ -587,15 +587,15 @@ class BG24_Reward_313_Action(GameAction):
 					Summon(controller.opponent, random.choice(cards)).trigger(controller.opponent)
 				pass
 			#elif choice==7:
-			#	#‚VDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚ªƒŒƒWƒFƒ“ƒhƒ~ƒjƒIƒ“‚Æ‚È‚é
+			#	#ï¼—ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ãŒãƒ¬ã‚¸ã‚§ãƒ³ãƒ‰ãƒŸãƒ‹ã‚ªãƒ³ã¨ãªã‚‹
 			#	pass
 			elif choice==7:### OK ###
-				#‚WDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚É¹‚È‚é‚‚ğ•t—^‚·‚é
+				#ï¼˜ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ã«è–ãªã‚‹ç›¾ã‚’ä»˜ä¸ã™ã‚‹
 				for card in controller.opponent.field:
 					SetDivineShield(card, True).trigger(source)
 				pass
 			elif choice==8:### OK ###
-				#‚XDğê‚Ìƒ~ƒjƒIƒ“‘S‚Ä‚Éğê‚ÌƒOƒŒ[ƒh‚Æ“¯‚¶‚¾‚¯+X/+X•t—^‚·‚é
+				#ï¼™ï¼é…’å ´ã®ãƒŸãƒ‹ã‚ªãƒ³å…¨ã¦ã«é…’å ´ã®ã‚°ãƒ¬ãƒ¼ãƒ‰ã¨åŒã˜ã ã‘+X/+Xä»˜ä¸ã™ã‚‹
 				amount = controller.tavern_tier
 				for card in controller.opponent.field:
 					Buff(card, 'BG24_Reward_313e', atk=amount, max_health=amount).trigger(source)

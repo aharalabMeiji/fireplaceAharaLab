@@ -1092,7 +1092,7 @@ class TB_BaconShop_HP_102_Action(GameAction):
 		gm=controller.game.parent
 		source.script_data_num_1=source.tags[GameTag.SCORE_VALUE_1]
 		if source.script_data_num_1>0:
-			gold_card_id = controller.game.BG_find_double()## ƒ_ƒuƒ‹‚ð”»’è
+			gold_card_id = controller.game.BG_find_double()## ãƒ€ãƒ–ãƒ«ã‚’åˆ¤å®š
 			if gold_card_id:
 				controller.game.BG_deal_gold(gold_card_id)
 				source.script_data_num_1 -= 1
