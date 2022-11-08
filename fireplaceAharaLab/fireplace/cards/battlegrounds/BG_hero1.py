@@ -181,21 +181,21 @@ class BG22_HERO_201:# <12>[1453]
 class BG22_HERO_201p_Choice(Choice):
 	def choose(self, card):
 		source = self.source
-		source._sidequest_counter_ += 1
-		if source._sidequest_counter_>=3:
+		source.sidequest_counter += 1
+		if source.sidequest_counter>=3:
 			self.next_choice=None
 		else:
 			self.next_choice=self
 		super().choose(card)
 		card.zone = Zone.HAND
 		cards = self._args[1]
-		if source._sidequest_counter_==1:
+		if source.sidequest_counter==1:
 			Buff(card, 'BG22_HERO_201pe').trigger(source)		
 			cards = RandomBGAdmissible(tech_level=4)*3
-		elif source._sidequest_counter_==2:
+		elif source.sidequest_counter==2:
 			Buff(card, 'BG22_HERO_201pe').trigger(source)		
 			cards = RandomBGAdmissible(tech_level=6)*3
-		elif source._sidequest_counter_==3:
+		elif source.sidequest_counter==3:
 			Buff(card, 'BG22_HERO_201pe').trigger(source)	
 			pass	
 		if isinstance(cards, LazyValue):

@@ -134,8 +134,8 @@ if StormWind_Goliath_Sneeds_Masterpiece:#
 	StormWind_Neutral+=['DED_525']
 class DED_525Choice(Choice):
 	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=5:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=5:
 			self.next_choice=None
 		else:
 			self.next_choice=self

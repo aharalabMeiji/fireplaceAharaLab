@@ -39,15 +39,15 @@ class DED_504_AddSidequestCounter(TargetedAction):
 	TARGET = ActionArg()
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount=1):
-		if hasattr(target,'_sidequest_counter_'):
-			target._sidequest_counter_ += amount
+		if hasattr(target,'sidequest_counter'):
+			target.sidequest_counter += amount
 		pass
 class DED_504:# <9>[1578]
 	""" Wicked Shipment
 	[Tradeable]Summon @ 1/1 |4(Imp, Imps)(EX1_598).<i>(Upgrades by 2when [Traded]!)</i> """
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
 	def play(self):
-		for i in range(self._sidequest_counter_+1):
+		for i in range(self.sidequest_counter+1):
 			Summon(self.controller, 'EX1_598').trigger(self)
 	class Hand:
 		events = Trade(CONTROLLER).on(DED_504_AddSidequestCounter(SELF, 2))
@@ -212,10 +212,10 @@ class SidequestDamageCounter(TargetedAction):
 	def do(self, source, target, damage, amount, actions):
 		if source.controller==source.controller.game.current_player:
 			if Config.LOGINFO:
-				print("(SidequestDamageCounter.do)Setting Counter on %r is added by %d->%d, %d", target,	target._sidequest_counter_, (target._sidequest_counter_+damage), actions)
-			target._sidequest_counter_ += damage
-			if target._sidequest_counter_>= amount:
-				#target._sidequest_counter_ -= amount
+				print("(SidequestDamageCounter.do)Setting Counter on %r is added by %d->%d, %d", target,	target.sidequest_counter, (target.sidequest_counter+damage), actions)
+			target.sidequest_counter += damage
+			if target.sidequest_counter>= amount:
+				#target.sidequest_counter -= amount
 				if actions!=None:
 					for action in actions:
 						action.trigger(source)

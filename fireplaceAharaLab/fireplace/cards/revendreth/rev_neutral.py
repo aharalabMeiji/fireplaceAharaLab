@@ -466,8 +466,8 @@ class REV_022_Choice(Choice):
 			hand_id=[c.id for c in self.player.opponent.hand]
 			if card.id in hand_id:
 				Give(self.player, card.id).trigger(self.source)
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=3:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=3:
 			self.next_choice=None
 		else:
 			cards=REV_022_Sub(self.player.opponent)
@@ -525,13 +525,13 @@ class REV_238_Choice(Choice):
 	def choose(self, card):
 		source = self.source
 		controller = source.controller
-		source._sidequest_counter_ += 1
-		if source._sidequest_counter_==1:
+		source.sidequest_counter += 1
+		if source.sidequest_counter==1:
 			source.sidequest_list0=[card]
-			self.next_choice = REV_238_Choice(controller, RandomID(*(source._sidequest_list2_))*3)
+			self.next_choice = REV_238_Choice(controller, RandomID(*(source.sidequest_list2))*3)
 			self.next_choice.trigger(self.source)
 			pass
-		elif source._sidequest_counter_==2:
+		elif source.sidequest_counter==2:
 			source.sidequest_list0+=[card]
 			self.next_choice = None
 			## call back
@@ -554,9 +554,9 @@ class REV_238_Choice(Choice):
 class REV_238_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	def do(self, source, controller):
-		source._sidequest_list1_=[card.id for card in controller.hand]
-		source._sidequest_list2_=[card.id for card in controller.opponent.hand]
-		REV_238_Choice(controller, RandomID(*(source._sidequest_list1_))*3).trigger(source)
+		source.sidequest_list1=[card.id for card in controller.hand]
+		source.sidequest_list2=[card.id for card in controller.opponent.hand]
+		REV_238_Choice(controller, RandomID(*(source.sidequest_list1))*3).trigger(source)
 		pass
 class REV_238:# <12>[1691]
 	""" Theotar, the Mad Duke
@@ -821,12 +821,12 @@ class REV_843_Action(TargetedAction):
 		controller=target
 		if option==1 and controller.infuse_in_deck==False:
 			return
-		source._sidequest_list1_.append(entity.atk)
+		source.sidequest_list1.append(entity.atk)
 		newcard=Infuse(controller, 'REV_843t').trigger(source)
 		if isinstance(newcard, list):
 			newcard = newcard[0]
 		if newcard!=None:
-			amount=sum(source._sidequest_list1_)
+			amount=sum(source.sidequest_list1)
 			Buff(newcard, 'REV_843e', atk=amount, max_health=amount).trigger(source)
 		pass
 class REV_843:# <12>[1691]

@@ -320,9 +320,9 @@ class TB_BaconShop_HP_101_Action(TargetedAction):
 		controller = target
 		if card.darkmoon_ticket:
 			card.darkmoon_ticket=False
-			source._sidequest_counter_ += 1 ## this is a counter.
-			if source._sidequest_counter_==3:
-				source._sidequest_counter_=0
+			source.sidequest_counter += 1 ## this is a counter.
+			if source.sidequest_counter==3:
+				source.sidequest_counter=0
 				newcard=Give(controller, 'TB_BaconShop_HP_101t2').trigger(source)
 				if newcard[0]!=[]:
 					newcard[0][0].script_data_num_1=controller.tavern_tier
@@ -432,8 +432,8 @@ class TB_BaconShop_HERO_68:# <12>[1453]
 class TB_BaconShop_HP_076_Action(GameAction):
 	def do(self, source):
 		controller = source.controller
-		source._sidequest_counter_+=1
-		if source._sidequest_counter_<=1:
+		source.sidequest_counter+=1
+		if source.sidequest_counter<=1:
 			for repeat in range(min(source.script_data_num_1,10)):  
 				#Give(controller, 'GAME_005').trigger(controller)
 				ManaThisTurnOnly(CONTROLLER, 1).trigger(controller)

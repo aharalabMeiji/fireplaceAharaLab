@@ -174,11 +174,11 @@ class TSC_087_Action1(TargetedAction):
 		if isinstance(card, list):
 			card = card[0]
 		if Config.LOGINFO:
-			print("(SidequestCounter.do)Setting Counter on %r -> %d/%d"%(target, (source._sidequest_counter_+1), amount))
-		if target._sidequest_counter_ <3:
-			target._sidequest_counter_ += 1
+			print("(SidequestCounter.do)Setting Counter on %r -> %d/%d"%(target, (source.sidequest_counter+1), amount))
+		if target.sidequest_counter <3:
+			target.sidequest_counter += 1
 			target.sidequest_list0.append(card.id)
-			target.script_data_num_1 = amount - target._sidequest_counter_
+			target.script_data_num_1 = amount - target.sidequest_counter
 class TSC_087_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
@@ -200,14 +200,14 @@ if Sunken_Spitelash_Siren:#
 class TSC_620_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self,source,target):
-		if source._sidequest_counter_==0:
+		if source.sidequest_counter==0:
 			if target.type==CardType.MINION and target.race==Race.NAGA:
 				RefreshMana(CONTROLLER,2).trigger(source)
-				source._sidequest_counter_=1
+				source.sidequest_counter=1
 		else:
 			if target.type==CardType.SPELL:
 				RefreshMana(CONTROLLER,2).trigger(source)
-				source._sidequest_counter_=0
+				source.sidequest_counter=0
 class TSC_620:# <4>[1658] #
 	""" Spitelash Siren
 	After you play a Naga,refresh two Mana Crystals.<i>(Then switch to spell!)</i>@After you cast a spell,refresh two Mana Crystals.<i>(Then switch to Naga!)</i> """

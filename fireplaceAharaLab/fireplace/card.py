@@ -190,10 +190,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	SI7_minion = boolean_property("SI7_minion") ## stormwind_rogue 
 
 	sidequest_list0 = []# Sidequest
-	_sidequest_list1_ = []# Sidequest
-	_sidequest_list2_ = []# Sidequest
-	_sidequest_list3_ = []# Sidequest
-	_sidequest_counter_ = 0# Sidequest
+	sidequest_list1 = []# Sidequest
+	sidequest_list2 = []# Sidequest
+	sidequest_list3 = []# Sidequest
+	sidequest_counter = 0# Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	honorable_kill = True
 	honorably_killed = False ##
@@ -1103,7 +1103,7 @@ class Enchantment(BaseCard):
 		self.one_turn_effect = False
 		self.permanent_buff = False ## for spellcraft in battleground 
 		self.additional_deathrattles = []
-		self._sidequest_counter_ = 0# Sidequest
+		self.sidequest_counter = 0# Sidequest
 		self.sidequest_list0=[]# sidequest, #REV_000e
 		self.this_is_enchantment=True
 		super().__init__(data)
@@ -1340,7 +1340,7 @@ class Location(PlayableCard):
 
 
 class QuestReward(PlayableCard):
-	_sidequest_counter_=0
+	sidequest_counter=0
 	quest_progress_total=int_property('quest_progress_total')
 	this_is_questreward=True
 
@@ -1380,7 +1380,7 @@ class QuestReward(PlayableCard):
 	pass
 
 class Sidequest(Spell):
-	_sidequest_counter_=0
+	sidequest_counter=0
 	quest_progress_total=int_property('quest_progress_total')
 	@property
 	def events(self):

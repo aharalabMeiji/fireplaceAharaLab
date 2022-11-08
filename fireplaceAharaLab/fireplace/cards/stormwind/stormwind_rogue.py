@@ -145,8 +145,8 @@ class SW_052_Quest1(TargetedAction):
 		if isinstance(card, list):
 			card = card[0]
 		if card.SI7_minion:
-			source._sidequest_counter_ += 1
-			if source._sidequest_counter_==2:
+			source.sidequest_counter += 1
+			if source.sidequest_counter==2:
 				card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
 				Give(source.controller, card).trigger(source)
 				Summon(source.controller, 'SW_052t')
@@ -163,8 +163,8 @@ class SW_052_Quest2(TargetedAction):
 		if isinstance(card, list):
 			card = card[0]
 		if card.SI7_minion:
-			source._sidequest_counter_ += 1
-			if source._sidequest_counter_==2:
+			source.sidequest_counter += 1
+			if source.sidequest_counter==2:
 				card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
 				Give(source.controller, card).trigger(source)
 				Summon(source.controller, 'SW_052t2')
@@ -181,8 +181,8 @@ class SW_052_Quest3(TargetedAction):
 		if isinstance(card, list):
 			card = card[0]
 		if card.SI7_minion:
-			source._sidequest_counter_ += 1
-			if source._sidequest_counter_==2:
+			source.sidequest_counter += 1
+			if source.sidequest_counter==2:
 				card = random.choice(['SW_052t5','SW_052t4','SW_052t7','SW_052t8_t','SW_052t6'])
 				Summon(source.controller, 'SW_052t3').trigger(source)
 				Destroy(source).trigger(source)

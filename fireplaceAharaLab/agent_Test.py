@@ -96,13 +96,13 @@ class TestHumanAgent(Agent):
 					if character.dormant > 0:
 						print("(dormant:%d)" % (character.dormant), end=" ")
 					elif character.dormant < 0:
-						if character._sidequest_counter_ > 0:
-							print("(dormant:%d)" % (character._sidequest_counter_), end=" ")
+						if character.sidequest_counter > 0:
+							print("(dormant:%d)" % (character.sidequest_counter), end=" ")
 						else:
 							print("(dormant)", end=" ")
-					# if character._sidequest_counter_>0:
+					# if character.sidequest_counter>0:
 					#	if character.dormant==0:
-					#		print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
+					#		print("(sidequest:%d)"%(character.sidequest_counter), end=" ")
 				print("%s" % (adjust_text_bt_spellpower(character.data.description, player.opponent)))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
@@ -115,7 +115,7 @@ class TestHumanAgent(Agent):
 				else:
 					print("(%2d/%2d)" %(character.atk, character.health), end=" ")
 					if character._Asphyxia_ == 'asphyxia':
-						print("(Now Asphyxia %d)" % (character._sidequest_counter_), end=' ')
+						print("(Now Asphyxia %d)" % (character.sidequest_counter), end=' ')
 					if character.silenced:
 						print("(silenced)", end=" ")
 					if character.windfury:
@@ -139,8 +139,8 @@ class TestHumanAgent(Agent):
 					if character.dormant > 0:
 						print("(dormant:%d)" % (character.dormant), end=" ")
 					elif character.dormant < 0:
-						if character._sidequest_counter_ > 0:
-							print("(dormant:%d)" % (character._sidequest_counter_), end=" ")
+						if character.sidequest_counter > 0:
+							print("(dormant:%d)" % (character.sidequest_counter), end=" ")
 						else:
 							print("(dormant)", end=" ")
 					if character.spellpower > 0:
@@ -170,7 +170,7 @@ class TestHumanAgent(Agent):
 			for card in player.secrets:
 				print("%s" % card, end='   : ')
 				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
-					print("(sidequest %d)" % card._sidequest_counter_, end="")
+					print("(sidequest %d)" % card.sidequest_counter, end="")
 				print("%s" %(adjust_text_bt_spellpower(card.data.description, 0)))
 			print("========Your turn : %d/%d mana==(spell damage %d)==="%(player.mana, player.max_mana, player.spellpower))
 			print("[0] ターンを終了する")

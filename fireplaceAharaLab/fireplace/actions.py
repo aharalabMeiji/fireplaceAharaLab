@@ -2448,11 +2448,11 @@ class SidequestCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
-		target._sidequest_counter_ += 1
-		target.script_data_num_1 = amount - target._sidequest_counter_
-		if target._sidequest_counter_== amount:
-			target._sidequest_counter_ = 0
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source.sidequest_counter+1), targetaction))
+		target.sidequest_counter += 1
+		target.script_data_num_1 = amount - target.sidequest_counter
+		if target.sidequest_counter== amount:
+			target.sidequest_counter = 0
 			target.script_data_num_1 = amount
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
@@ -2477,12 +2477,12 @@ class QuestCounter(TargetedAction):
 		amount = target.quest_progress_total
 		targetaction = target.sidequest_list0
 		if Config.LOGINFO:
-			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+step), targetaction))
-		target._sidequest_counter_ += step
-		target.script_data_num_1 = amount - target._sidequest_counter_
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source.sidequest_counter+step), targetaction))
+		target.sidequest_counter += step
+		target.script_data_num_1 = amount - target.sidequest_counter
 		target.script_data_text_0 = str(target.script_data_num_1)
-		if target._sidequest_counter_== amount:
-			target._sidequest_counter_ = 0
+		if target.sidequest_counter== amount:
+			target.sidequest_counter = 0
 			target.script_data_num_1 = amount
 			if targetaction!=None:
 				for action in targetaction:
@@ -2503,12 +2503,12 @@ class SidequestCounterText0(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source._sidequest_counter_+1), targetaction))
-		target._sidequest_counter_ += 1
-		target.script_data_num_1 = amount - target._sidequest_counter_
+			Config.log("SidequestCounter.do","Setting Counter on %r -> %i, %r"%(target, (source.sidequest_counter+1), targetaction))
+		target.sidequest_counter += 1
+		target.script_data_num_1 = amount - target.sidequest_counter
 		target.script_data_text_0 = str(target.script_data_num_1)
-		if target._sidequest_counter_== amount:
-			target._sidequest_counter_ = 0
+		if target.sidequest_counter== amount:
+			target.sidequest_counter = 0
 			target.script_data_num_1 = amount
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
@@ -2526,10 +2526,10 @@ class SidequestCounterEq(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		if target._sidequest_counter_== amount:
+		if target.sidequest_counter== amount:
 			if Config.LOGINFO:
-				Config.log("SidequestCounterEq","Setting Counter on %r :%i== %i, %r", target, target._sidequest_counter_, amount, targetaction)
-			target._sidequest_counter_ = 0
+				Config.log("SidequestCounterEq","Setting Counter on %r :%i== %i, %r", target, target.sidequest_counter, amount, targetaction)
+			target.sidequest_counter = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -2545,10 +2545,10 @@ class SidequestCounterNeq(TargetedAction):
 	AMOUNT = IntArg() #max of call
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
-		if target._sidequest_counter_ != amount:
+		if target.sidequest_counter != amount:
 			if Config.LOGINFO:
-				Config.log("SidequestCounterNeq.do","Setting Counter on %r :%i!= %i, %r", target, target._sidequest_counter_, amount, targetaction)
-			target._sidequest_counter_ = 0
+				Config.log("SidequestCounterNeq.do","Setting Counter on %r :%i!= %i, %r", target, target.sidequest_counter, amount, targetaction)
+			target.sidequest_counter = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -2561,7 +2561,7 @@ class SidequestCounterClear(TargetedAction):
 	def do(self, source, target):
 		if Config.LOGINFO:
 			Config.log("SidequestCounterClear.do","Setting Counter on %r to be 0", target)
-		target._sidequest_counter_ = 0
+		target.sidequest_counter = 0
 
 class SidequestManaCounter(TargetedAction):
 	"""
@@ -2576,9 +2576,9 @@ class SidequestManaCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, card, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("SidequestManaCounter.do","Setting Counter on %r is added by %d->%d, %r"%(target, card.cost, (target._sidequest_counter_+card.cost), targetaction))
-		target._sidequest_counter_ += card.cost
-		if target._sidequest_counter_>= amount:
+			Config.log("SidequestManaCounter.do","Setting Counter on %r is added by %d->%d, %r"%(target, card.cost, (target.sidequest_counter+card.cost), targetaction))
+		target.sidequest_counter += card.cost
+		if target.sidequest_counter>= amount:
 			i=0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
@@ -2594,10 +2594,10 @@ class SidequestLostInTheParkCounter(TargetedAction):##  SW_428 Lost in the park
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("SidequestLostInTheParkCounter.do","Setting Counter on %r rolls by %d->%d, %r"%( target, target.controller.lost_in_the_park, (target._sidequest_counter_+target.controller.lost_in_the_park), targetaction))
-		target._sidequest_counter_ += target.controller.lost_in_the_park
+			Config.log("SidequestLostInTheParkCounter.do","Setting Counter on %r rolls by %d->%d, %r"%( target, target.controller.lost_in_the_park, (target.sidequest_counter+target.controller.lost_in_the_park), targetaction))
+		target.sidequest_counter += target.controller.lost_in_the_park
 		target.controller.lost_in_the_park = 0 # to avoid a double count
-		if target._sidequest_counter_>= amount:
+		if target.sidequest_counter>= amount:
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -2692,11 +2692,11 @@ class Asphyxia(TargetedAction):
 				ret.cant_be_targeted_by_hero_powers = True
 				ret.cant_be_targeted_by_opponents = True
 		elif target._Asphyxia_ == 'asphyxia':
-			target._sidequest_counter_ += 1
+			target.sidequest_counter += 1
 			if Config.LOGINFO:
-				Config.log("Asphyxia.do","The King Rat is under asphyxia. Counter is %i."%(target._sidequest_counter_))
-			if target._sidequest_counter_ == _score_limit:
-				target._sidequest_counter_ = 0
+				Config.log("Asphyxia.do","The King Rat is under asphyxia. Counter is %i."%(target.sidequest_counter))
+			if target.sidequest_counter == _score_limit:
+				target.sidequest_counter = 0
 				target._Asphyxia_= 'alive'
 				target.cant_attack = False
 				target.cant_be_damaged = False
@@ -2772,14 +2772,14 @@ class HoldinHatch(TargetedAction):#DRG_086
 	CARD = ActionArg()
 	def do(self, source, target, card):
 		card = card[0]
-		source._sidequest_list1_=card
+		source.sidequest_list1=card
 		card.zone = Zone.SETASIDE
 		pass
 
 class OpenHatch(TargetedAction):#DRG_086
 	TARGET = ActionArg()#player
 	def do(self, source, target):
-		Summon(target, source._sidequest_list1_).trigger(source)
+		Summon(target, source.sidequest_list1).trigger(source)
 		pass
 
 class DestroyArmor(TargetedAction):
@@ -2985,7 +2985,7 @@ class EducatedElekkMemory(TargetedAction):
 	def do(self,source,target,card):
 		if Config.LOGINFO:
 			Config.log("EducatedElekkMemory","%s remember the card: %s",target,card)
-		target._sidequest_list1_.append(card)
+		target.sidequest_list1.append(card)
 
 class EducatedElekkDeathrattle(TargetedAction):
 	""" Educated Elekk (epic)"""
@@ -2994,7 +2994,7 @@ class EducatedElekkDeathrattle(TargetedAction):
 	def do(self,source,target):
 		if Config.LOGINFO:
 			Config.log("EducatedElekkDeathrattle.do","%s Deathrattle",target)
-		for card in target._sidequest_list1_:
+		for card in target.sidequest_list1:
 			Shuffle(target.controller, card).trigger(source)
 
 class TentacledMenace(TargetedAction):#DRG_084
@@ -3178,12 +3178,12 @@ class BT126TeronGorefiend(TargetedAction):
 	other friendly minions."""
 	TARGET = ActionArg()#card
 	def do(self,source,target):#
-		target._sidequest_list1_=[]
+		target.sidequest_list1=[]
 		for n in range(len(target.controller.field)):
 			card = target.controller.field[0]
 			if card.id != 'BT_126':
 				card.zone = Zone.SETASIDE
-				target._sidequest_list1_.append(card)
+				target.sidequest_list1.append(card)
 		pass
 class BT126TeronGorefiendDeathrattle(TargetedAction):
 	"""Teron Gorefiend	Minion	Legendary
@@ -3191,7 +3191,7 @@ class BT126TeronGorefiendDeathrattle(TargetedAction):
 	them with +1/+1."""
 	TARGET = ActionArg()#card
 	def do(self,source,target):
-		for card in target._sidequest_list1_:
+		for card in target.sidequest_list1:
 			card.zone = Zone.PLAY
 			Buff(card, "BT_126e2").trigger(source)
 		pass
@@ -3449,10 +3449,10 @@ class Avenge(TargetedAction):
 	TARGETACTION=ActionArg()
 	def do(self, source, target, amount, targetaction):
 		if Config.LOGINFO:
-			Config.log("Avenge.do","Avenge Counter on %r -> %i, %r"%(source, (source._sidequest_counter_+1), targetaction))
-		source._sidequest_counter_ += 1
-		if source._sidequest_counter_== amount:
-			source._sidequest_counter_ = 0
+			Config.log("Avenge.do","Avenge Counter on %r -> %i, %r"%(source, (source.sidequest_counter+1), targetaction))
+		source.sidequest_counter += 1
+		if source.sidequest_counter== amount:
+			source.sidequest_counter = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
@@ -3530,8 +3530,8 @@ class Destroy_spellcraft(TargetedAction):
 
 class DiscoverTwice(Choice):
 	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=2:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=2:
 			self.next_choice=None
 		else:
 			self.next_choice=self

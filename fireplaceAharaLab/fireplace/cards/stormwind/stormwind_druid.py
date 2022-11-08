@@ -328,9 +328,9 @@ class SW_447e_Action(TargetedAction):
 		CastSpell(card).trigger(controller)
 		Discard(card).trigger(controller)
 		if Config.LOGINFO:
-			print("Setting Counter on %r -> %i"%(target, (owner._sidequest_counter_+1)))
-		owner._sidequest_counter_ += 1
-		if owner._sidequest_counter_== amount:
+			print("Setting Counter on %r -> %i"%(target, (owner.sidequest_counter+1)))
+		owner.sidequest_counter += 1
+		if owner.sidequest_counter== amount:
 			owner.buffs.remove(target)
 			target.zone = Zone.GRAVEYARD
 		pass

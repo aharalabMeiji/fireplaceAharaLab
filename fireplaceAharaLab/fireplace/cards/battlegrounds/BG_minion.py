@@ -904,12 +904,12 @@ class BG23_016_G_Choice(Choice):
 		if Config.LOGINFO:
 			print("(BG23_016_Choice.choose)%s chooses %r"%(card.controller.name, card))
 		card.zone=Zone.HAND
-		if self.source._sidequest_counter_>=1:
+		if self.source.sidequest_counter>=1:
 			self.next_choice=None
 			self.player.choice=None
 		else:
 			self.player.choice=self.next_choice=self
-			self.source._sidequest_counter_=1
+			self.source.sidequest_counter=1
 class BG23_016_G_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):

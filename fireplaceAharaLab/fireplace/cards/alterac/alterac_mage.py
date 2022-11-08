@@ -320,8 +320,8 @@ if Alterac_Drakefire_Amulet:#
 	Alterac_Mage+=['ONY_029']
 class ONY_029_Choice(Choice):
 	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=2:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=2:
 			self.next_choice=None
 		else:
 			self.next_choice=self

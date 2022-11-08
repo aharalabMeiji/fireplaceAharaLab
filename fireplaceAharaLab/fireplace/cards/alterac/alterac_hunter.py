@@ -35,8 +35,8 @@ if Alterac_Beaststalker_Tavish:#
 	Alterac_Hunter+=['AV_113t9e']
 class AV_113_Choice(Choice):
 	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=2:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=2:
 			self.next_choice=None
 		else:
 			self.next_choice=self

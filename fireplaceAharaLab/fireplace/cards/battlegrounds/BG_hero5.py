@@ -311,15 +311,15 @@ class TB_BaconShop_HP_702_Action2(TargetedAction):
 		controller=player
 		amount = 9
 		if Config.LOGINFO:
-			Config.log("TB_BaconShop_HP_702_Action2.do","Setting Counter on %r -> %i"%(source, (source._sidequest_counter_+1)))
+			Config.log("TB_BaconShop_HP_702_Action2.do","Setting Counter on %r -> %i"%(source, (source.sidequest_counter+1)))
 		if source.game.this_is_battle:
 			original_source=source.deepcopy_original
 			if original_source!=None and original_source.cant_play==True:
-				original_source._sidequest_counter_ += 1
-				original_source.script_data_num_2 = amount - original_source._sidequest_counter_
+				original_source.sidequest_counter += 1
+				original_source.script_data_num_2 = amount - original_source.sidequest_counter
 				original_source.script_data_text_1 = str(original_source.script_data_num_2)
-				if original_source._sidequest_counter_== amount:
-					original_source._sidequest_counter_ = 0
+				if original_source.sidequest_counter== amount:
+					original_source.sidequest_counter = 0
 					original_source.script_data_num_2 = amount
 					original_source.cant_play=False
 		pass
@@ -689,13 +689,13 @@ class ChooseTwice(Choice):
 	card1=None
 	card2=None
 	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=2:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=2:
 			self.next_choice=None
 		else:
 			self.next_choice=self
 		super().choose(card)
-		if self.source._sidequest_counter_==1:
+		if self.source.sidequest_counter==1:
 			self.card1=card
 			#self.cards = self._args[1]
 			self.cards = self.source.controller.field

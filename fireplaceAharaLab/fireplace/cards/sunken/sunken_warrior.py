@@ -105,8 +105,8 @@ if Sunken_Nellie_the_Great_Thresher:#
 	Sunken_Warrior+=['TSC_660t']
 class TSC_660_Choice(Choice):
 	def choose(self, card):
-		self.source._sidequest_counter_ += 1
-		if self.source._sidequest_counter_>=3:
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=3:
 			self.next_choice=None
 		else:
 			self.next_choice=self

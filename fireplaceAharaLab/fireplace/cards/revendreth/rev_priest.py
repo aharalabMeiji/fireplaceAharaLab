@@ -308,8 +308,8 @@ if Rev_Identity_Theft:#
 class REV_253_Choice(Choice):
 	def choose(self, card):
 		controller=self.source.controller
-		self.source._sidequest_counter_+=1
-		if self.source._sidequest_counter_==1:
+		self.source.sidequest_counter+=1
+		if self.source.sidequest_counter==1:
 			cards = [card.id for card in controller.opponent.deck]
 			if len(cards)>3:
 				cards = random.sample(cards, 3)
@@ -317,7 +317,7 @@ class REV_253_Choice(Choice):
 			choice.trigger(self.source)
 			self.next_choice=choice
 			super().choose(card)
-		if self.source._sidequest_counter_==2:
+		if self.source.sidequest_counter==2:
 			self.next_choice=None
 			super().choose(card)
 		pass

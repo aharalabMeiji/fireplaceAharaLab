@@ -71,11 +71,11 @@ class DMF_059:# <2>[1466]
 class DMF_060_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
-		target._sidequest_counter_ = 0
+		target.sidequest_counter = 0
 		playList = target.controller.play_log
 		for card in playList:
 			if card.type == CardType.SPELL:
-				target._sidequest_counter_ += 1
+				target.sidequest_counter += 1
 class DMF_060:##OK <2>[1466] #
 	""" Umbral Owl
 	[Rush]Costs (1) less for each spell you've cast this game. """
@@ -85,7 +85,7 @@ class DMF_060:##OK <2>[1466] #
 	class Hand:
 		events = OWN_SPELL_PLAY.on(DMF_060_Action(SELF))
 		pass
-	cost_mod = -Attr(SELF,'_sidequest_counter_')
+	cost_mod = -Attr(SELF,'sidequest_counter')
 	pass
 
 class DMF_061:#OK <2>[1466] #

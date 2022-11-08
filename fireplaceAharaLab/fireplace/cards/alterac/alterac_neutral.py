@@ -288,11 +288,11 @@ class AV_135_AmountCounter(TargetedAction):
 	TARGETACTION = ActionArg()# sidequest action
 	def do(self, source, target, amount, amountgoal, targetaction):
 		if source.controller.game.current_player == source.controller.opponent:
-			target._sidequest_counter_ += amount
+			target.sidequest_counter += amount
 			if Config.LOGINFO:
-				print("Setting Counter on %r -> %i, %r"%( target, (source._sidequest_counter_), targetaction))
-		if target._sidequest_counter_>= amountgoal:
-			target._sidequest_counter_ = 0
+				print("Setting Counter on %r -> %i, %r"%( target, (source.sidequest_counter), targetaction))
+		if target.sidequest_counter>= amountgoal:
+			target.sidequest_counter = 0
 			if targetaction!=None:
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]

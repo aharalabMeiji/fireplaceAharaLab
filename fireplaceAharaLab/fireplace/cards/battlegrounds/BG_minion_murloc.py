@@ -214,8 +214,8 @@ class BGS_020:# <12>[1453] 見張り番
 class BGS_020_Choice2(Choice):
 	def choose(self, card):
 		card.zone=Zone.HAND
-		self.source._sidequest_counter_+=1
-		if self.source._sidequest_counter_==1:
+		self.source.sidequest_counter+=1
+		if self.source.sidequest_counter==1:
 			self.next_choice=self
 		else:
 			self.next_choice=None

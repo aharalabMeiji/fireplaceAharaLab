@@ -306,19 +306,19 @@ class SidequestFireFrostArcane(TargetedAction):############
 	TARGETEDACTION = ActionArg()
 	def do(self,source,target,card,targetedaction):
 		if card.spell_school == SpellSchool.FIRE:
-			source._sidequest_list1_.append(card)
+			source.sidequest_list1.append(card)
 		elif card.spell_school == SpellSchool.FROST:
-			source._sidequest_list2_.append(card)
+			source.sidequest_list2.append(card)
 		elif card.spell_school == SpellSchool.ARCANE:
-			source._sidequest_list3_.append(card)
-		source._sidequest_counter_ = 0
-		if len(source._sidequest_list1_)>0:
-			source._sidequest_counter_ += 1
-		if len(source._sidequest_list2_)>0:
-			source._sidequest_counter_ += 1
-		if len(source._sidequest_list3_)>0:
-			source._sidequest_counter_ += 1
-		if source._sidequest_counter_==3:
+			source.sidequest_list3.append(card)
+		source.sidequest_counter = 0
+		if len(source.sidequest_list1)>0:
+			source.sidequest_counter += 1
+		if len(source.sidequest_list2)>0:
+			source.sidequest_counter += 1
+		if len(source.sidequest_list3)>0:
+			source.sidequest_counter += 1
+		if source.sidequest_counter==3:
 			for action in targetedaction:
 				action.trigger(source)
 		pass
