@@ -3493,7 +3493,8 @@ class Buy(TargetedAction): ## battlegrounds
 		if controller.mana>=minionprice:
 			for c in bartender.field:
 				if c==card:
-					bartender.field.remove(c)
+					#bartender.field.remove(c)
+					card.zone=Zone.SETASIDE
 					card.controller = controller
 					buffs=[]
 					for buff in card.buffs:

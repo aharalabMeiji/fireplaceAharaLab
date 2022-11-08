@@ -105,8 +105,6 @@ class BaseCard(BaseEntity):
 
 		#if Config.LOGINFO:
 		#	Config.log("BaseCard._set_zone","%r moves from %r to %r"%(self, oldzone, newzone))
-		if oldzone==None:
-			oldzone=Zone.SETASIDE
 
 		if oldzone==Zone.HAND:
 			if newzone==Zone.HAND:
@@ -179,6 +177,15 @@ class BaseCard(BaseEntity):
 			elif newzone==Zone.GRAVEYARD:
 				if self in self.game.setaside:
 					self.game.setaside.remove(self)
+				self.controller.graveyard.append(self)
+		elif oldzone==Zone.INVALID:
+			if newzone==Zone.HAND:
+				self.controller.hand.append(self)
+			elif newzone==Zone.DECK:
+				self.controller.deck.append(self)
+			elif newzone==Zone.SETASIDE:
+				self.game.setaside.append(self)
+			elif newzone==Zone.GRAVEYARD:
 				self.controller.graveyard.append(self)
 
 		self._zone = newzone
@@ -867,9 +874,12 @@ class Hero(Character):
 		return ret
 
 	def _set_zone(self, value):
+		oldzone=self.zone
+		newzone=value
 		if Config.LOGINFO:
 			Config.log("Hero._set_zone","card %s: %s -> %s"%(self, self.zone, value))
-		if value == Zone.PLAY:
+		super()._set_zone(value)
+		if newzone == Zone.PLAY:
 			old_hero = self.controller.hero
 			self.controller.hero = self
 			# if there is an former hero copy hero's health
@@ -879,12 +889,11 @@ class Hero(Character):
 				old_hero.zone = Zone.GRAVEYARD
 			if self.data.hero_power:
 				self.controller.summon(self.data.hero_power)
-		elif value == Zone.GRAVEYARD:
+		elif newzone == Zone.GRAVEYARD:
 			if self.power:
 				self.power.zone = Zone.GRAVEYARD
 			if self.controller.hero is self:
 				self.controller.playstate = PlayState.LOSING
-		super()._set_zone(value)
 
 	def _hit(self, amount):
 		amount = super()._hit(amount)
@@ -1032,6 +1041,11 @@ class Minion(Character):
 					self.controller.graveyard.append(self)
 				if self.damage>0:
 					self.damage = 0
+			if newzone==Zone.SETASIDE: ## field -> setaside
+				if self in self.controller.field:
+					self.controller.field.remove(self)
+				if not self in self.controller.game.setaside:
+					self.controller.game.setaside.append(self)
 			
 		elif oldzone==Zone.HAND: ## hand ->
 			if self in self.controller.hand:
@@ -1327,13 +1341,15 @@ class HeroPower(PlayableCard):
 		return self.activations_this_turn >= 1 + self.additional_activations
 
 	def _set_zone(self, value):
+		oldzone=self.zone
+		newzone=value
 		if Config.LOGINFO:
-			Config.log("HeroPower._set_zone","card %s: %s -> %s"%(self, self.zone, value))
+			Config.log("HeroPower._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+		super()._set_zone(value)
 		if value == Zone.PLAY:
 			if self.controller.hero.power:
 				self.controller.hero.power.destroy()
 			self.controller.hero.power = self
-		super()._set_zone(value)
 
 	def activate(self):
 		return self.game.queue_actions(self.controller, [actions.Activate(self, self.target)])
