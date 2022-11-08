@@ -333,7 +333,7 @@ class BG21_014_Action(TargetedAction):
 			if card.race==Race.DRAGON:
 				count += amount
 		for card in target:
-			Buff(card, buff, atk=count, max_health=count).trigger(target.controller)
+			Buff(card, buff, atk=count, max_health=count).trigger(source)
 class BG21_014:# <12>[1453]
 	""" Prized Promo-Drake
 	[Start of Combat:] Give adjacent minions +1/+1__for each friendly Dragon. """
@@ -373,8 +373,9 @@ class BG21_015_Action2(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		#target = target[0]
-		for buff in target.sidequest_list0 and target.deepcopy_original!=None:
-			buff.apply(target.deepcopy_original)
+		if target.deepcopy_original!=None:
+			for buff in target.sidequest_list0:
+				buff.apply(target.deepcopy_original)
 class BG21_015_Action3(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):

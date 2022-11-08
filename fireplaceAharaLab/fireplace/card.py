@@ -294,6 +294,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def _set_zone(self, zone):
 		old_zone = self.zone
 		super()._set_zone(zone)
+		if Config.LOGINFO:
+			Config.log("PlayableCard._set_zone","card %s: %s -> %s"%(self, old_zone, zone))
 		if old_zone == Zone.PLAY and zone not in (Zone.GRAVEYARD, Zone.SETASIDE):
 			self.clear_buffs()
 
@@ -559,6 +561,8 @@ class LiveEntity(PlayableCard, Entity):
 	def _set_zone(self, zone):
 		if zone == Zone.GRAVEYARD and self.zone == Zone.PLAY:
 			self.turn_killed = self.game.turn
+		if Config.LOGINFO:
+			Config.log("LiveEntity._set_zone","card %s: %s -> %s"%(self, old_zone, zone))
 		super()._set_zone(zone)
 		# See issue #283 (Malorne, Anub'arak)
 		self._to_be_destroyed = False
@@ -805,6 +809,8 @@ class Hero(Character):
 		return ret
 
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("Hero._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:
 			old_hero = self.controller.hero
 			self.controller.hero = self
@@ -933,6 +939,8 @@ class Minion(Character):
 		return False
 	
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("Minion._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
 			if self._summon_index is not None:
 				self.controller.field.insert(self._summon_index, self)
@@ -941,8 +949,6 @@ class Minion(Character):
 		elif value == Zone.GRAVEYARD: ## -> graveyard  
 			if self.zone == Zone.PLAY: ## play -> graveyard
 				self.controller.minions_killed_this_turn += 1
-				if Config.LOGINFO:
-					Config.log("Minion._set_zone","%r is removed from the field"%(self))
 				self.controller.field.remove(self)
 				if self.damage:
 					self.damage = 0
@@ -958,8 +964,6 @@ class Minion(Character):
 						player=self.controller
 					elif self in self.controller.opponent.live_entities:
 						player=self.controller.opponent
-					if Config.LOGINFO:
-						Config.log("Minion._set_zone","Controller is %s"%(player.name))
 					if self in player.field:
 						#for entity in player.field:
 						#	print("field : %s = to_be_destroyed:%s"%(entity.data.name, entity.to_be_destroyed))
@@ -1062,6 +1066,8 @@ class Secret(Spell):
 		return super().zone_position
 
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("Secret._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
@@ -1129,6 +1135,8 @@ class Enchantment(BaseCard):
 		return getattr(self.data.scripts, attr, lambda s, x: x)(self, i)
 
 	def _set_zone(self, zone):
+		if Config.LOGINFO:
+			Config.log("Enchantment._set_zone","card %s: %s -> %s"%(self, self.zone, zone))
 		if zone == Zone.PLAY:
 			self.owner.buffs.append(self)
 		elif zone == Zone.REMOVEDFROMGAME:
@@ -1187,6 +1195,8 @@ class Weapon(rules.WeaponRules, LiveEntity):
 		return self.zone == Zone.PLAY and not self.controller.current_player
 
 	def _set_zone(self, zone):
+		if Config.LOGINFO:
+			Config.log("Weapon._set_zone","card %s: %s -> %s"%(self, self.zone, zone))
 		if zone == Zone.PLAY:
 			if self.controller.weapon:
 				if Config.LOGINFO:
@@ -1216,6 +1226,8 @@ class HeroPower(PlayableCard):
 		return self.activations_this_turn >= 1 + self.additional_activations
 
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("HeroPower._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:
 			if self.controller.hero.power:
 				self.controller.hero.power.destroy()
@@ -1290,6 +1302,8 @@ class Location(PlayableCard):
 		return super().zone_position
 
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("Location._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:## hand -> play, or deck -> play, or setaside -> play
 			if self._summon_index is not None:
 				self.controller.field.insert(self._summon_index, self)
@@ -1345,6 +1359,8 @@ class QuestReward(PlayableCard):
 			return self.controller.secrets.index(self) + 1
 		return super().zone_position
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("QuestReward._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET
@@ -1384,6 +1400,8 @@ class Sidequest(Spell):
 		return super().zone_position
 
 	def _set_zone(self, value):
+		if Config.LOGINFO:
+			Config.log("Sidequest._set_zone","card %s: %s -> %s"%(self, self.zone, value))
 		if value == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
 			value = Zone.SECRET

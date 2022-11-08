@@ -128,10 +128,10 @@ class BG22_202_G:# <12>[1453]
 
 #Coldlight Seer (3)
 if BG_Coldlight_Seer:
-	BG_Minion_Murloc+=['EX1_103','EX1_103e','TB_BaconUps_064','TB_BaconUps_064e',]
-	BG_PoolSet_Murloc[3].append('EX1_103')
-	BG_Murloc_Gold['EX1_103']='TB_BaconUps_064'
-class EX1_103:
+	BG_Minion_Murloc+=['BG_EX1_103','EX1_103e','TB_BaconUps_064','TB_BaconUps_064e',]
+	BG_PoolSet_Murloc[3].append('BG_EX1_103')
+	BG_Murloc_Gold['BG_EX1_103']='TB_BaconUps_064'
+class BG_EX1_103:
 	""" Coldlight Seer
 	[Battlecry:] Give your other Murlocs +2 Health. """
 	play = Buff(FRIENDLY_MINIONS + MURLOC - SELF, 'EX1_103e')
@@ -148,10 +148,10 @@ TB_BaconUps_064e=buff(0,4)
 
 #Felfin Navigator (3) ### maybe ###
 if BG_Felfin_Navigator:
-	BG_Minion_Murloc+=['BT_010','BT_010e','TB_BaconUps_124','TB_BaconUps_124e',]
-	BG_PoolSet_Murloc[3].append('BT_010')
-	BG_Murloc_Gold['BT_010']='TB_BaconUps_124'
-class BT_010:
+	BG_Minion_Murloc+=['BG_BT_010','BT_010e','TB_BaconUps_124','TB_BaconUps_124e',]
+	BG_PoolSet_Murloc[3].append('BG_BT_010')
+	BG_Murloc_Gold['BG_BT_010']='TB_BaconUps_124'
+class BG_BT_010:
 	""" Felfin Navigator
 	[Battlecry:] Give your other Murlocs +1/+1. """
 	play =  Buff(FRIENDLY_MINIONS + MURLOC - SELF, 'BT_010e')

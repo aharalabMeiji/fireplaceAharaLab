@@ -565,11 +565,11 @@ TB_BaconUps_068e=buff(4,4,taunt=True)# <3>[1453]
 
 
 if BG_Khadgar:#Khadgar	3	2	2	-	  	 ### maybe ###
-	BG_Minion += ['DAL_575','TB_BaconUps_034',]#	
-	BG_PoolSet_Minion[3].append('DAL_575')
-	BG_Minion_Gold['DAL_575']='TB_BaconUps_034'
+	BG_Minion += ['BG_DAL_575','TB_BaconUps_034',]#	
+	BG_PoolSet_Minion[3].append('BG_DAL_575')
+	BG_Minion_Gold['BG_DAL_575']='TB_BaconUps_034'
 	pass
-class DAL_575:#カドガー
+class BG_DAL_575:#カドガー
 	""" Khadgar
 	Your cards that summon minions summon twice_as_many. """
 	##############  infinite loop?
@@ -826,11 +826,11 @@ TB_BaconUps_145e=buff(4,4)# <12>[1453]
 
 
 if BG_Strongshell_Scavenger:#Strongshell Scavenger	4	2	3		 ### OK ###
-	BG_Minion += ['ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',]#	
-	BG_PoolSet_Minion[4].append('ICC_807')
-	BG_Minion_Gold['ICC_807']='TB_BaconUps_072'
+	BG_Minion += ['BG_ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',]#	
+	BG_PoolSet_Minion[4].append('BG_ICC_807')
+	BG_Minion_Gold['BG_ICC_807']='TB_BaconUps_072'
 	pass
-class ICC_807:# <2>[1453]  クズ拾い
+class BG_ICC_807:# <2>[1453]  クズ拾い
 	""" Strongshell Scavenger
 	[Battlecry:] Give your [Taunt] minions +2/+2. """
 	play = Buff(FRIENDLY + TAUNT, 'ICC_807e')

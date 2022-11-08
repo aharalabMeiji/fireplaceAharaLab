@@ -394,7 +394,7 @@ BG20_302_Ge=buff(2,2)# <12>[1453]
 if BG_Bristleback_Knight:
 	BG_Minion_Quilboar += [ 'BG20_204','BG20_302e','BG20_302_G','BG20_302_Ge',]#	
 	BG_PoolSet_Quilboar[5].append('BG20_204')
-	BG_Quilboar_Gold['BG20_204']=''
+	BG_Quilboar_Gold['BG20_204']='BG20_302_G'
 class BG20_204:
 	"""Bristleback_Knight
 	[Windfury], [Divine Shield] [Frenzy:] Gain [Divine Shield]."""

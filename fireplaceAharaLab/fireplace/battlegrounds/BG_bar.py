@@ -108,9 +108,9 @@ class BG_Bar(Game):
 	def BG_deal_gold(self, id):
 		if not id:
 			return
-		gold_id = self.parent.BG_Gold[id] ## to find a buf
-		#gold_id = self.parent.BG_Gold.get(id, 0)
-		if not gold_id:
+		#gold_id = self.parent.BG_Gold[id] ## to find a buf
+		gold_id = self.parent.BG_Gold.get(id, 0)
+		if gold_id==0:
 			return
 		buffs = []
 		for card in self.controller.field + self.controller.hand:

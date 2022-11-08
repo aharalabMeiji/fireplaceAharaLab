@@ -369,7 +369,8 @@ class BGS_121_Action(TargetedAction):
 			for repeat in range(amount):
 				newcard_id = random.choice(elemental)
 				Summon(controller,newcard_id).trigger(source)
-				Give(controller.deepcopy_original, newcard_id).trigger(source)
+				if controller.deepcopy_original!=None:
+					Give(controller.deepcopy_original, newcard_id).trigger(source)
 	pass
 class BGS_121:# <12>[1453] ランプの精
 	""" Gentle Djinni
