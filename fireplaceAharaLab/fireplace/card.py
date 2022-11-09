@@ -1499,6 +1499,7 @@ class QuestReward(PlayableCard):
 	sidequest_counter=0
 	quest_progress_total=int_property('quest_progress_total')
 	this_is_questreward=True
+	script_data_num_1=None
 
 	@property
 	def events(self):

@@ -280,8 +280,9 @@ class BG24_Reward_134_Action2(TargetedAction):
 	def do(self, source, target):
 		controller=source.controller
 		tier = controller.tavern_tier
-		Give(controller, RandomBGMinion(race=target.script_data_num_1,tech_level_less=tier)).trigger(source)
-		Give(controller, RandomBGMinion(race=target.script_data_num_1,tech_level_less=tier)).trigger(source)
+		if target!=None and hasattr(target, 'this_is_questreward') and target.script_data_num_1!=None:
+			Give(controller, RandomBGMinion(race=target.script_data_num_1,tech_level_less=tier)).trigger(source)
+			Give(controller, RandomBGMinion(race=target.script_data_num_1,tech_level_less=tier)).trigger(source)
 		pass
 class BG24_Reward_134:# [2467]=140, [2571]=1, [2641]=1, 
 	""" The Friends Along the Way

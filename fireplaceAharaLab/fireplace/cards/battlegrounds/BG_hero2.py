@@ -544,6 +544,12 @@ class TB_BaconShop_HP_028_Action(GameAction):
 		card.controller = bartender
 		card.zone = Zone.PLAY
 		controller.game.parent.BG_decks[tier].remove(cardID)
+		## 24.6
+		cardID = random.choice(controller.game.parent.BG_decks[tier])
+		card = bartender.card(cardID)
+		card.controller = bartender
+		card.zone = Zone.PLAY
+		controller.game.parent.BG_decks[tier].remove(cardID)
 class TB_BaconShop_HP_028:
 	"""  Temporal Tavern
 	[Refresh] Bob's Tavern. Include a minion from a higher Tavern Tier."""
@@ -688,7 +694,7 @@ class TB_BaconShop_HERO_38_Buddy:# <12>[1453]
 	After you feed a minion a Banana, give it +1/+1."""
 	events = ApplyBanana(FRIENDLY + MINION).after(Buff(ApplyBanana.TARGET, 'TB_BaconShop_HERO_38_Buddy_e'))
 	pass
-TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] ï¿ï½½oï¿ï½½iï¿ï½½iï¿ï½½ï¾Œè²»ï½¿ï½½
+TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] EE½oEE½iEE½iEE½EŒè²»E¿E½
 """ Banana Peel,	+1/+1. """
 class TB_BaconShop_HERO_38_Buddy_G:# <12>[1453]
 	""" Crazy Monkey
