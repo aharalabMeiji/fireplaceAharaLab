@@ -32,9 +32,9 @@ def Card(id):
 		CardType.LOCATION: Location,
 		CardType.BATTLEGROUND_QUEST_REWARD: QuestReward,
 	}[data.type]
-	if subclass is Spell and data.secret:
-		subclass = Secret
 	if subclass is Spell:
+		if hasattr(data,'secret') and data.secret:
+			subclass = Secret# 
 		if hasattr(data,'sidequest') and data.sidequest:
 			subclass = Sidequest# 
 		if hasattr(data,'questline') and data.questline:
@@ -356,7 +356,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		# Keep Buff: Deck -> Hand, Hand -> Play, Deck -> Play
 		# Remove Buff: Other case
 		if not (oldzone, newzone) in [
-		   (Zone.DECK, Zone.HAND), (Zone.HAND, Zone.PLAY), (Zone.DECK, Zone.PLAY)]:
+		   (Zone.DECK, Zone.HAND), (Zone.HAND, Zone.PLAY), (Zone.DECK, Zone.PLAY), (Zone.INVALID, Zone.DECK), (Zone.INVALID, Zone.HAND), (Zone.INVALID, Zone.PLAY),(Zone.SETASIDE, Zone.DECK), (Zone.SETASIDE, Zone.HAND), (Zone.SETASIDE, Zone.PLAY)]:
 			self.clear_buffs()
 
 		## if data hase choose_cards, then 'self' creates the 'choose one' subcards
@@ -1151,8 +1151,33 @@ class Spell(PlayableCard):
 			self.controller.times_spell_to_friendly_minion_this_game += 1 #
 		return super().play(target, index, choose)
 
+	def _set_zone(self, value):
+		oldzone=self.zone
+		newzone=value
+		super()._set_zone(value)
+		if Config.LOGINFO:
+			Config.log("Spell._set_zone","card %s: %s -> %s "%(self, oldzone, newzone))
+		if newzone==Zone.PLAY:
+			if oldzone==Zone.HAND and self in self.controller.hand:
+				self.controller.hand.remove(self)
+			if oldzone==Zone.SETASIDE and self in self.controller.game.setaside:
+				self.controller.game.setaside.remove(self)
+			if oldzone==Zone.DECK and self in self.controller.deck:
+				self.controller.deck.remove(self)
+		
 
-class Secret(Spell):
+class Secret(PlayableCard):
+	spell_school = int_property("spell_school") #
+	freeze = boolean_property('freeze') #
+	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
+
+	def __init__(self, data):
+		self.immune_to_spellpower = False
+		self.receives_double_spelldamage_bonus = False
+		self.repeatable=False # TSC_952
+		self.spell_cast_twice=False
+		self.copied_from_opponent = False		
+		super().__init__(data)
 
 	@property
 	def events(self):
@@ -1174,12 +1199,12 @@ class Secret(Spell):
 	def _set_zone(self, value):
 		oldzone=self.zone
 		newzone=value
+		super()._set_zone(value)
 		if Config.LOGINFO:
 			Config.log("Secret._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
-		super()._set_zone(value)
 		if newzone == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
-			newzone = Zone.SECRET
+			self._zone = Zone.SECRET
 		if oldzone == Zone.SECRET:
 			self.controller.secrets.remove(self)
 			if newzone==Zone.GRAVEYARD:
@@ -1490,16 +1515,25 @@ class QuestReward(PlayableCard):
 			return self.controller.secrets.index(self) + 1
 		return super().zone_position
 	def _set_zone(self, value):
+		newzone=value
 		super()._set_zone(value)
 		if Config.LOGINFO:
-			Config.log("QuestReward._set_zone","card %s: %s -> %s"%(self, self.zone, value))
-		if value == Zone.PLAY:
+			Config.log("QuestReward._set_zone","card %s: %s -> %s"%(self, self.zone, newzone))
+		if newzone == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
-			value = Zone.SECRET
-		if self.zone == Zone.SECRET:
-			self.controller.rewards.remove(self)
-		if value == Zone.SECRET:
-			self.controller.rewards.append(self)
+			self.controller.secrets.append(self)
+			self._zone = Zone.SECRET
+		elif newzone == Zone.SECRET:
+			self.controller.secrets.append(self)
+			self._zone = Zone.SECRET
+		elif newzone == Zone.GRAVEYARD:
+			if self in self.controller.rewards:
+				self.controller.rewards.remove(self)
+			if self in self.controller.secrets:
+				self.controller.secrets.remove(self)
+			if self in self.controller.quests:
+				self.controller.quests.remove(self)
+
 	def is_summonable(self):
 		# secrets are all unique
 		if self.controller.secrets.contains(self):
@@ -1510,9 +1544,21 @@ class QuestReward(PlayableCard):
 		return super().play(target, index, choose)
 	pass
 
-class Sidequest(Spell):
-	sidequest_counter=0
+class Sidequest(PlayableCard):
+	spell_school = int_property("spell_school") #
+	freeze = boolean_property('freeze') #
+	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
 	quest_progress_total=int_property('quest_progress_total')
+
+	def __init__(self, data):
+		self.immune_to_spellpower = False
+		self.receives_double_spelldamage_bonus = False
+		self.repeatable=False # TSC_952
+		self.spell_cast_twice=False
+		self.copied_from_opponent = False		
+		self.sidequest_counter=0
+		super().__init__(data)
+
 	@property
 	def events(self):
 		ret = super().events
@@ -1531,16 +1577,29 @@ class Sidequest(Spell):
 		return super().zone_position
 
 	def _set_zone(self, value):
+		oldzone=self.zone
+		newzone=value
 		super()._set_zone(value)
 		if Config.LOGINFO:
-			Config.log("Sidequest._set_zone","card %s: %s -> %s"%(self, self.zone, value))
-		if value == Zone.PLAY:
+			Config.log("Sidequest._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
+		if self.zone == Zone.HAND:
+			self.controller.hand.remove(self)
+		elif self.zone == Zone.DECK:
+			self.controller.deck.remove(self)
+		if newzone == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
-			value = Zone.SECRET
-		if self.zone == Zone.SECRET:
-			self.controller.quests.remove(self)
-		if value == Zone.SECRET:
+			self._zone = Zone.SECRET
 			self.controller.quests.append(self)
+		elif newzone == Zone.SECRET:
+			self._zone = Zone.SECRET
+			self.controller.quests.append(self)
+		elif newzone == Zone.GRAVEYARD:
+			self._zone = Zone.GRAVEYARD
+			self.controller.graveyard.append(self)
+			if self in self.controller.secrets:
+				self.controller.secrets.remove(self)
+			if self in self.controller.quests:
+				self.controller.quests.remove(self)
 
 	def is_summonable(self):
 		# secrets are all unique
