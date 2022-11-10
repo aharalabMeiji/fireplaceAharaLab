@@ -1469,7 +1469,7 @@ class Location(PlayableCard):
 				self.controller.field.insert(self._summon_index, self)
 			else:
 				self.controller.field.append(self)
-
+		
 	def is_summonable(self):
 		return super().is_summonable()
 
@@ -1525,10 +1525,10 @@ class QuestReward(PlayableCard):
 			Config.log("QuestReward._set_zone","card %s: %s -> %s"%(self, self.zone, newzone))
 		if newzone == Zone.PLAY:
 			# Move secrets to the SECRET Zone when played
-			self.controller.secrets.append(self)
+			self.controller.rewards.append(self)
 			self._zone = Zone.SECRET
 		elif newzone == Zone.SECRET:
-			self.controller.secrets.append(self)
+			self.controller.rewards.append(self)
 			self._zone = Zone.SECRET
 		elif newzone == Zone.GRAVEYARD:
 			if self in self.controller.rewards:
