@@ -1208,7 +1208,7 @@ class Secret(PlayableCard):
 		if oldzone == Zone.SECRET:
 			self.controller.secrets.remove(self)
 			if newzone==Zone.GRAVEYARD:
-				self.controller.graveyard.appen(self)
+				self.controller.graveyard.append(self)
 		if newzone == Zone.SECRET:
 			self.controller.secrets.append(self)
 			self._zone = Zone.SECRET
@@ -1285,12 +1285,15 @@ class Enchantment(BaseCard):
 			if oldzone == newzone:
 				# Can happen if a Destroy is queued after a bounce, for example
 				pass
-			if self in self.controller.graveyard:
-				self.controller.graveyard.remove(self)
-			if self in self.owner.buffs:
-				self.owner.buffs.remove(self)
-			if self in self.game.active_aura_buffs:
-				self.game.active_aura_buffs.remove(self)
+			if self.controller!=None:
+				if self in self.controller.graveyard:
+					self.controller.graveyard.remove(self)
+			if getattr(self, 'owner', None)!=None:
+				if self in self.owner.buffs:
+					self.owner.buffs.remove(self)
+			if getattr(self, 'game', None)!=None:
+				if self in self.game.active_aura_buffs:
+					self.game.active_aura_buffs.remove(self)
 
 	def apply(self, target):
 		if Config.LOGINFO:

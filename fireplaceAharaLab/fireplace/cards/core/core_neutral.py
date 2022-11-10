@@ -724,7 +724,7 @@ class CORE_GIL_124:# <12>[1637] ## visually OK
 		for card in opponent.field:
 			if card.type==CardType.MINION and card.atk<=2:
 				Destroy(card).trigger(self)
-		Deaths().trigger(self.source)
+		Deaths().trigger(self)
 	pass
 
 
