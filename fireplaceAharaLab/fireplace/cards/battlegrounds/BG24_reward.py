@@ -43,8 +43,8 @@ BG24_Reward_Ethereal_Evidence=True # new 24.6  ### OK ###
 BG24_Reward_Volatile_Venom=True # new 24.6 ### OK ###
 BG24_Reward_Blood_Goblet=True # new 24.6#### OK ###
 BG24_Reward_Sinfall_Medallion=True # new 24.6  ### OK ###
-BG24_Reward_Kidnap_Sack=True # new 24.6### OK ###
-BG24_Reward_The_Golden_Hammer=True # new 24.6 ### OK ###
+BG24_Reward_Kidnap_Sack=True # new 24.6.2 ### OK ###
+BG24_Reward_The_Golden_Hammer=True # new 24.6.2  ### OK ###
 
 
 if BG24_Reward_Snicker_Snacks:# ### OK ###
@@ -821,7 +821,8 @@ class BG24_Reward_364:#
 	pass
 class BG24_Reward_364e:
 	""" Volatile """
-	tags = {GameTag.ATK:8, GameTag.HEALTH:8, }
+	#tags = {GameTag.ATK:8, GameTag.HEALTH:8, }
+	tags = {GameTag.ATK:7, GameTag.HEALTH:7, } ## 24.6.2
 	events = Attack(OWNER, ENEMY).after(Destroy(OWNER))
 	pass
 

@@ -260,7 +260,7 @@ class BG24_Quest_351_Action(GameAction):
 class BG24_Quest_351:# 
 	""" Hire an Investigator
 	&lt;b&gt;Quest:&lt;/b&gt; End your turn with unspent Gold {0} times. """
-	#{0}=3
+	#{0}=3 -> 2 (24.6.2)
 	events = OWN_TURN_END.on(BG24_Quest_351_Action())
 	pass
 
