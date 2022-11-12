@@ -249,6 +249,36 @@ def print_deck():
 	except FileNotFoundError:
 		pass
 
+def printPool():
+	from hearthstone import cardxml
+	myCardSet=CardSet.VANILLA#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
+	myCardClass=CardClass.NEUTRAL##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	db, xml = cardxml.load(locale='jaJP')
+	classText={
+		CardClass.NEUTRAL:'中立',
+		#CardClass.DEMONHUNTER:'デーモンハンター',
+		CardClass.DRUID:'ドルイド',
+		CardClass.HUNTER:'ハンター',
+		CardClass.MAGE:'メイジ',
+		CardClass.PALADIN:'パラディン',
+		CardClass.PRIEST:'プリースト',
+		CardClass.ROGUE:'ローグ',
+		CardClass.SHAMAN:'シャーマン',
+		CardClass.WARLOCK:'ウォーロック',
+		CardClass.WARRIOR:'ウォリアー',
+		}
+	for card_class in classText.keys():
+		for _id in db.keys():
+			_card = db[_id]
+			if _card.card_set== myCardSet and _card.card_class == card_class: 
+				#if not keyID in _card.id:
+				if (GameTag.COLLECTIBLE in _card.tags.keys()):
+					print("%s,%s,%s,%d,%d,%d,%s"%(_id, _card.name.replace(',',''), classText[card_class], _card.cost, _card.atk,	_card.health, _card.description.replace(',','').replace('\n','')))
+				keyID=_card.id	
+			pass
+		pass
+	pass
+
 
 def parse():
 	deckstring="AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"

@@ -4,7 +4,7 @@ from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
 from fireplace import cards
-from fireplace.debug_utilities import printClasses, printClasses_BG24, parse, parseDeck
+from fireplace.debug_utilities import printClasses, printClasses_BG24, parse, parseDeck, printPool
 from fireplace.config import Config
 sys.path.append("..")
 
@@ -99,12 +99,8 @@ def battleground_main():
 	from fireplace.battlegrounds.BG_utils import  BG_main
 	for repeat in range(100):
 		BG=BG_main()
-		try:
-			BG.BG_main()
-		except UnicodeDecodeError as e:
-			print("dokodayo!")
-		except RuntimeError as e:
-			print("daredayo!")
+		BG.BG_main()
+
 
 
 if __name__ == "__main__":
@@ -115,7 +111,8 @@ if __name__ == "__main__":
 	elif Config.HEARTHSTONE==4:
 		card_test()
 	elif Config.HEARTHSTONE==5:
-		printClasses()
+		printPool()
+		#printClasses()
 	elif Config.HEARTHSTONE==10:
 		parse()
 		#parseDeck("AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA")
