@@ -1597,7 +1597,7 @@ class BG23_190_G:
 	"""
 	[Battlecry:] Set a minion's Attack and Health to 30."""
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
-	play = BG23_190_Action(TARGET, 'BG23_190Ge', 30)
+	play = BG23_190_Action(TARGET, 'BG23_190_Ge', 30)
 class BG23_190_Ge:
 	pass
 

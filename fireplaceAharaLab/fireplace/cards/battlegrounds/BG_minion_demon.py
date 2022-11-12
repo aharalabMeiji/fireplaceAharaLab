@@ -88,7 +88,7 @@ class BG21_006_G:# <12>[1453]
 
 if BG24__Picky_Eater:# (1) #### visually OK###
 	BG_Minion_Demon+=['BG24_009','BG24_009e','BG24_009_G']
-	BG_PoolSet_Demon[2].append('BG24_009')
+	BG_PoolSet_Demon[1].append('BG24_009')
 	BG_Demon_Gold['BG24_009']='BG24_009_G'
 class BG24_009:# (minion)(demon)
 	""" Picky Eater

@@ -202,10 +202,10 @@ class TB_BaconUps_149:# <12>[1453]
 
 
 
-#Drakonid Enforcer(3)  ### OK ##
+#Drakonid Enforcer(4)  ### OK ## (3)->(4)
 if BG_Drakonid_Enforcer:
 	BG_Minion_Dragon+=['BGS_067','BGS_067e','TB_BaconUps_117','TB_BaconUps_117e']#
-	BG_PoolSet_Dragon[3].append('BGS_067')
+	BG_PoolSet_Dragon[4].append('BGS_067')
 	BG_Dragon_Gold['BGS_067']='TB_BaconUps_117' #	
 class BGS_067:# <12>[1453]
 	""" Drakonid Enforcer
@@ -223,10 +223,10 @@ TB_BaconUps_117e=buff(4,4)
 
 
 
-#Twilight Emissary(3)  ### OK ###
+#Twilight Emissary(3)  ### OK ### (3)->(2)
 if BG_Twilight_Emissary:
 	BG_Minion_Dragon+=['BGS_038','BGS_038e','TB_BaconUps_108','TB_BaconUps_108e']#
-	BG_PoolSet_Dragon[3].append('BGS_038')
+	BG_PoolSet_Dragon[2].append('BGS_038')
 	BG_Dragon_Gold['BGS_038']='TB_BaconUps_108' #	
 class BGS_038:# <12>[1453]
 	""" Twilight Emissary

@@ -1,4 +1,5 @@
 from ..utils import *
+import copy
 
 ############# L - Q
 
@@ -417,7 +418,7 @@ class TB_BaconShop_HERO_17_Buddy_G:
 
 
 
-##Mr. Bigglesworth  ### impossible ###
+##Mr. Bigglesworth  ### OK ###
 BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
 ##BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
@@ -426,19 +427,32 @@ class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
 class TB_BaconShop_HP_080_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
+		self.player.choice=None
 		super().choose(card)
 		card.zone=Zone.SETASIDE
 		card.controller=self.player
 		card.zone=Zone.HAND
-		self.next_choice=None
-		self.player.choice=None
+		for cd in self.source.sidequest_list0:
+			if cd[0]==card.id:
+				for bf in cd[1]:
+					bf.apply(card)
 		pass
 	pass
 class TB_BaconShop_HP_080_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
-		for field in controller.game.parent.warbandDeceased:
-			TB_BaconShop_HP_080_Choice(controller, RandomID(*field)*3).trigger(source)
+		if len(controller.game.parent.warbandDeceased):
+			field = random.choice(controller.game.parent.warbandDeceased)
+			amount=len(field)
+			if amount>3:
+				field=random.sample(field, 3)
+				amount=3
+			source.sidequest_list0=[]
+			for card in field:
+				source.sidequest_list0.append([card.id, [copy.deepcopy(bf) for bf in card.buffs]])
+			field=[card.id for card in field]
+			TB_BaconShop_HP_080_Choice(controller, RandomID(*field)*amount).trigger(source)
 			choiceAction(controller)
 		controller.game.parent.warbandDeceased = []
 		pass

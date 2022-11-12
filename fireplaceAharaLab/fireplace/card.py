@@ -1340,10 +1340,11 @@ class Weapon(rules.WeaponRules, LiveEntity):
 			Config.log("Weapon._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
 		if newzone == Zone.PLAY:
 			if self.controller.weapon:
-				if Config.LOGINFO:
-					Config.log("Weapon._set_zone","Destroying old weapon %r"%(self.controller.weapon))
-				#self.game.trigger(self, [actions.Destroy(self.controller.weapon)], event_args=None)
-				self.controller.zone=Zone.GRAVEYARD
+				self.controller.graveyard.append(self.controller.weapon)
+				self.controller.weapon._zone=Zone.GRAVEYARD
+				self.controller.weapon=None
+			if oldzone==Zone.DECK and self in self.controller.deck:
+				self.controller.deck.remove(self)
 			if oldzone==Zone.HAND and self in self.controller.hand:
 				self.controller.hand.remove(self)
 			if oldzone==Zone.SETASIDE and self in self.controller.game.setaside:
@@ -1380,12 +1381,13 @@ class HeroPower(PlayableCard):
 			Config.log("HeroPower._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
 		if newzone == Zone.PLAY:
 			if self.controller.hero.power:
-				self.controller.hero.power.zone=Zone.GRAVEYARD
+				self.controller.graveyard.append(self.controller.hero.power)
+				self.controller.hero.power._zone=Zone.GRAVEYARD
 			self.controller.hero.power = self
-		if newzone==Zone.GRAVEYARD:
+		if oldzone == Zone.PLAY and newzone==Zone.GRAVEYARD:
 			self.controller.graveyard.append(self)
 			self._zone=Zone.GRAVEYARD
-			self.controller.weapon = None
+			self.controller.hero.power = None
 		super()._set_zone(value)
 
 	def activate(self):
