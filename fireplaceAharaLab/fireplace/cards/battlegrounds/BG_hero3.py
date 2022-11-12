@@ -430,7 +430,7 @@ class TB_BaconShop_HP_080_Choice(Choice):
 		self.next_choice=None
 		self.player.choice=None
 		super().choose(card)
-		card.zone=Zone.SETASIDE
+		#card.zone=Zone.SETASIDE
 		card.controller=self.player
 		card.zone=Zone.HAND
 		for cd in self.source.sidequest_list0:
@@ -448,9 +448,18 @@ class TB_BaconShop_HP_080_Action(GameAction):
 			if amount>3:
 				field=random.sample(field, 3)
 				amount=3
+			if Config.LOGINFO:
+				Config.log("TB_BaconShop_HP_080_Action","get 3 samples")
 			source.sidequest_list0=[]
 			for card in field:
-				source.sidequest_list0.append([card.id, [copy.deepcopy(bf) for bf in card.buffs]])
+				bfs=[]
+				for bf in card.buffs:
+					bf._zone=Zone.SETASIDE
+					bf.controller=controller
+					bfs.append(bf)
+				source.sidequest_list0.append([card.id, bfs ])
+			if Config.LOGINFO:
+				Config.log("TB_BaconShop_HP_080_Action","record buffs")
 			field=[card.id for card in field]
 			TB_BaconShop_HP_080_Choice(controller, RandomID(*field)*amount).trigger(source)
 			choiceAction(controller)

@@ -380,9 +380,10 @@ class BG21_015_Action3(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
 		#target = target[0]
-		for buff in target.sidequest_list0 and target.deepcopy_original!=None:
-			buff.apply(target.deepcopy_original)
-			buff.apply(target.deepcopy_original)
+		if target.deepcopy_original!=None:
+			for buff in target.sidequest_list0:
+				buff.apply(target.deepcopy_original)
+				buff.apply(target.deepcopy_original)
 #旧：これは戦闘時に受ける付与効果を永続的に維持する。
 #新：これは自分が戦闘時に付与した効果を永続的に維持する。
 class BG21_015:# <12>[1453]

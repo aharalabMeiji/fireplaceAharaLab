@@ -940,6 +940,8 @@ class Buff(TargetedAction):
 
 	def do(self, source, target, buff):
 		kwargs = self._kwargs.copy()
+		if target==None or target==[]:
+			return
 		for k, v in kwargs.items():
 			if isinstance(v, LazyValue):
 				v = v.evaluate(source)
