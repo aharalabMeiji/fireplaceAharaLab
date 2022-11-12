@@ -432,24 +432,42 @@ class BG24_Reward_306e:#
 
 
 
-if BG24_Reward_Teal_Tiger_Sapphire:# ### OK ###
+if BG24_Reward_Teal_Tiger_Sapphire:# ### OK ###　20221112 OK 
 	BG24_Reward+=['BG24_Reward_308']
 	BG24_Reward+=['BG24_Reward_308e']
 	BG24_Reward_Pool+=['BG24_Reward_308']
-class BG24_Reward_308_Action(TargetedAction):
-	CARD=ActionArg()
-	def do(self, source, card):
-		#controller=target
-		RemoveAllBuff(card).trigger(source)
-		Buff(card, 'BG24_Reward_308e', atk=source.script_data_num_1, max_health=source.script_data_num_1).trigger(source)
+class BG24_Reward_308_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		bartender=controller.opponent
+		tavern=bartender.field
+		if isinstance(source.script_data_num_1, int)==False:
+			source.script_data_num_1=0
+		source.script_data_num_1+=1
+		amount = source.script_data_num_1
+		for card in tavern:
+			Buff(card, 'BG24_Reward_308e', atk=amount, max_health=amount).trigger(source)
+		pass
+class BG24_Reward_308_Action2(GameAction):
+	def do(self, source):
+		controller=source.controller
+		bartender=controller.opponent
+		tavern=bartender.field
+		source.script_data_num_1=1
+		amount=source.script_data_num_1
+		for card in tavern:
+			for bf in card.buffs:
+				if bf.id=='BG24_Reward_308e':
+					card.buffs.remove(bf)
+			Buff(card, 'BG24_Reward_308e', atk=amount, max_health=amount).trigger(source)
 		pass
 class BG24_Reward_308:# [2467]=140, [2641]=1, [2644]=60, 
 	# ->  [2467]=100, [2641]=1, [2644]=70, (24.2.2) 
 	""" Teal Tiger Sapphire
 	Minions in Bob's Tavern have +1/+1 for each time it was [Refreshed] this turn. """
 	events = [
-		Rerole(CONTROLLER).after(BG24_Reward_308_Action(ENEMY_MINIONS),AddScriptDataNum1(SELF, 1)),
-		BeginBar(CONTROLLER).on(RemoveAllBuff(ENEMY_MINIONS),SetScriptDataNum1(SELF, 1))
+		Rerole(CONTROLLER).after(BG24_Reward_308_Action()),
+		BeginBar(CONTROLLER).on(BG24_Reward_308_Action2())
 	]
 	pass
 class BG24_Reward_308e:

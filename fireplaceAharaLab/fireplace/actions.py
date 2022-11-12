@@ -3373,6 +3373,8 @@ class AddScriptDataNum1(TargetedAction):
 	AMOUNT = ActionArg()
 	def do(self, source, target, amount=1):
 		if hasattr(target,'script_data_num_1'):
+			if isinstance(target.script_data_num_1, int)==False:
+				target.script_data_num_1=0
 			target.script_data_num_1 += amount
 		pass
 
