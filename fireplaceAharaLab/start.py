@@ -28,70 +28,29 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
-		
-	# Miyaryo
-	# winner of the 1st competition of the fixed deck
-	#from agent_Miyaryo import MiyaryoAgent
-	#Miyaryo=MiyaryoAgent("Miyaryo",MiyaryoAgent.MiyaryoAI,myClass=CardClass.WARRIOR)
 
-	#from utils import BigDeck
-	##BigDeck.faceHunter, BigDeck.clownDruid, BigDeck.bigWarrior
 
 	####################################################################
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 
+	#MyDeck: DRUID
+	MyDeck=['VAN_CS1_042','VAN_CS1_042','VAN_CS1_069','VAN_CS1_069','VAN_CS2_117','VAN_CS2_117','VAN_CS2_118','VAN_CS2_118','VAN_CS2_119','VAN_CS2_119','VAN_CS2_120','VAN_CS2_120','VAN_CS2_121','VAN_CS2_121','VAN_CS2_122','VAN_CS2_122','VAN_CS2_124','VAN_CS2_124','VAN_CS2_125','VAN_CS2_125','VAN_CS2_127','VAN_CS2_127','VAN_CS2_131','VAN_CS2_131','VAN_CS2_141','VAN_CS2_142','VAN_CS2_146','VAN_CS2_147','VAN_CS2_150','VAN_CS2_151']
 	#beastDruid = "AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
-	#impWarlock = "AAECAf0GBvLtA7CRBOa9BJjUBJvkBIfqBAzX7QOD+wPFgASEoATmoAT+tATcvQTivQT/2QSA2gSB2gSr6gQA"
 	#deck1=parseDeck(beastDruid)
-	#deck2=parseDeck(impWarlock)
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=10, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=MyDeck, deck2=[], gameNumber=10, debugLog=True)
 	
 
 
 	####################################################################
 
-	### その他
-
-	# Maya : モンテカルロによる読み切り
-	#from agent_Maya import MayaAgent
-	#Maya=MayaAgent("Maya",MayaAgent.Maya_MCTS,myClass=CardClass.MAGE)
-	
-	# Takasho001
-	#from agent_takasho001 import takasho001Agent
-	#takasho001=takasho001Agent("Takasho",takasho001Agent.takashoAI)
-
-	# 言葉で戦略を組み立てるエージェント by Ahara
-	#from agent_word_strategy import WordStrategyAgent
-	#WordStrategy = WordStrategyAgent("WS", WordStrategyAgent.agent_word_strategy\
-	#	,myOption=[WS.ミニョンで敵ヒーローの体力を削る, WS.呪文を使えるなら呪文, WS.ランダムにプレー]\
-	#	,myClass=CardClass.PRIEST)
-
-	#from agent_Test import TestHumanAgent
-	#TestHuman=TestHumanAgent("TestHuman",TestHumanAgent.HumanInput,myClass=CardClass.DRUID,choiceStrategy=TestHumanAgent.HumanInputChoice)
-
-	#HunterCat : faceHunter専用のエージェント
-	#from agent_HunterCat import HunterCatAgent
-	#HunterCat=HunterCatAgent("HunterCat", HunterCatAgent.HunterCatAI)
-
-	#レーティングを表示する。
-	#from competition import play_round_robin_competition
-	#play_round_robin_competition([Random,Vector,AngryCat,HunterCat],matchNumber=1)
-
-	#特定の2枚のカードのシナジーを調べる(idea by Maya)
-	#from card_pair import investigate_card_pair, find_card_pair
-	#investigate_card_pair()
-	#シナジーのあるカードの組を漠然と探す
-	#find_card_pair(1)
-	#print("test_branch_yamadamaya")
-	pass
 
 from card_test.simulate_game import card_test
 

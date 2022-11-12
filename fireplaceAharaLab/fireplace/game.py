@@ -122,7 +122,7 @@ class BaseGame(Entity):
 		if Config.LOGINFO:
 			Config.LOGINFO_INDENT+=1
 			assert Config.LOGINFO_INDENT<20, "infinte loop"
-			Config.log("Game.action_start","type=%s, source=%r, index=%d, target=%r(%d)"%(type, source, index, target, self._action_stack))
+			Config.log("Game.action_start","type=%s, source=%r, index=%r, target=%r(%d)"%(type, source, index, target, self._action_stack))
 		if type != BlockType.PLAY:
 			self._action_stack += 1
 
