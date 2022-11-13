@@ -1,7 +1,11 @@
 ## fireplaceAharaLab
 
 This is an application on a AI-platform fireplace for Hearthstone.
-This needs python 3.8, hearthstone 5.23.4, and fireplace 0.1.
+This needs python 3.8+, hearthstone 5.23.4+. Almost all cards are prepared here.
+
+The latest version is 24.4.3 for standard battle, 24.6.2 for battlegrounds.
+
+Classic battle is available [here](https://github.com/aharalabMeiji/fireplaceAharaLab/releases/tag/competition3)
 
 ## card implementations
 {'neutral','hunter','mage','druid','warrior'}.{'aoo','scholomance','darkmoon fair','barrens','stormwind','alterac'} (Dec. 2021)
