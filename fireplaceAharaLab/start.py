@@ -43,8 +43,7 @@ def main():
 
 	#MyDeck: DRUID
 	MyDeck=['VAN_CS1_042','VAN_CS1_042','VAN_CS1_069','VAN_CS1_069','VAN_CS2_117','VAN_CS2_117','VAN_CS2_118','VAN_CS2_118','VAN_CS2_119','VAN_CS2_119','VAN_CS2_120','VAN_CS2_120','VAN_CS2_121','VAN_CS2_121','VAN_CS2_122','VAN_CS2_122','VAN_CS2_124','VAN_CS2_124','VAN_CS2_125','VAN_CS2_125','VAN_CS2_127','VAN_CS2_127','VAN_CS2_131','VAN_CS2_131','VAN_CS2_141','VAN_CS2_142','VAN_CS2_146','VAN_CS2_147','VAN_CS2_150','VAN_CS2_151']
-	#beastDruid = "AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA"
-	#deck1=parseDeck(beastDruid)
+	#空デッキを指定すると、ランダムデッキが構築される
 	a,b,c = play_set_of_games(Vector1, Vector2, deck1=MyDeck, deck2=[], gameNumber=10, debugLog=True)
 	
 
