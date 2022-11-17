@@ -253,8 +253,9 @@ def printPool():
 	from hearthstone import cardxml
 	myCardSet=CardSet.VANILLA#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
 	myCardClass=CardClass.NEUTRAL##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
-	db, xml = cardxml.load(locale='jaJP')
-	classText={
+	#db, xml = cardxml.load(locale='jaJP')
+	db, xml = cardxml.load(locale='enUS')
+	classJText={
 		CardClass.NEUTRAL:'中立',
 		#CardClass.DEMONHUNTER:'デーモンハンター',
 		CardClass.DRUID:'ドルイド',
@@ -267,13 +268,26 @@ def printPool():
 		CardClass.WARLOCK:'ウォーロック',
 		CardClass.WARRIOR:'ウォリアー',
 		}
-	for card_class in classText.keys():
+	classEText={
+		CardClass.NEUTRAL:'Neutral',
+		#CardClass.DEMONHUNTER:'DemonHunter',
+		CardClass.DRUID:'Druid',
+		CardClass.HUNTER:'Hunter',
+		CardClass.MAGE:'Mage',
+		CardClass.PALADIN:'Paladin',
+		CardClass.PRIEST:'Priest',
+		CardClass.ROGUE:'Rogue',
+		CardClass.SHAMAN:'Shaman',
+		CardClass.WARLOCK:'Warlock',
+		CardClass.WARRIOR:'Warrior',
+		}
+	for card_class in classEText.keys():
 		for _id in db.keys():
 			_card = db[_id]
 			if _card.card_set== myCardSet and _card.card_class == card_class: 
 				#if not keyID in _card.id:
 				if (GameTag.COLLECTIBLE in _card.tags.keys()):
-					print("%s,%s,%s,%d,%d,%d,%s"%(_id, _card.name.replace(',',''), classText[card_class], _card.cost, _card.atk,	_card.health, _card.description.replace(',','').replace('\n','')))
+					print("%s,%s,%s,%d,%d,%d,%s"%(_id, _card.name.replace(',',''), classEText[card_class], _card.cost, _card.atk,	_card.health, _card.description.replace(',','').replace('\n','')))
 				keyID=_card.id	
 			pass
 		pass
