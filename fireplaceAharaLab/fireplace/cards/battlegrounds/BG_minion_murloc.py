@@ -116,7 +116,7 @@ if BG_Tad:
 class BG22_202:# <12>[1453]
 	""" Tad
 	When you sell this,add another random Murloc to your hand. """
-	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, RandomMurloc()))
+	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, RandomBGMurloc(tech_level_less=TIER(CONTROLLER))))
 	pass
 class BG22_202_G:# <12>[1453]
 	""" Tad
@@ -205,7 +205,7 @@ class BGS_020_Action(GameAction):
 		controller=source.controller
 		cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
 		if len(cards):
-			BGS_020_Choice(controller, RandomBGMurloc()*3).trigger(source)
+			BGS_020_Choice(controller, RandomBGMurloc(tech_level_less=TIER(CONTROLLER))*3).trigger(source)
 class BGS_020:# <12>[1453] 見張り番
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] a_Murloc. """
@@ -226,7 +226,7 @@ class BGS_020_Action2(GameAction):
 		controller=source.controller
 		cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
 		if len(cards):
-			BGS_020_Choice2(controller, RandomBGMurloc()*3).trigger(source)
+			BGS_020_Choice2(controller, RandomBGMurloc(tech_level_less=TIER(CONTROLLER))*3).trigger(source)
 class TB_BaconUps_089:# <12>[1453]
 	""" Primalfin Lookout
 	[Battlecry:] If you control another Murloc, [Discover] two_Murlocs. """

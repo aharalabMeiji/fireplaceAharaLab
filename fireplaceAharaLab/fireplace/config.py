@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=2
+	HEARTHSTONE=3
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -46,8 +46,8 @@ class Config:# ()is the default value
 	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=0 ## battleground with human player
-	CARD_PRESET1=''
+	PLAYER1_HUMAN=1 ## battleground with human player
+	CARD_PRESET1='BG22_202'
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
 	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']
