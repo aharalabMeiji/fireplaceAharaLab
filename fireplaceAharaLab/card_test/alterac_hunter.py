@@ -1,9 +1,9 @@
-from .simulate_game import Preset_Play,PresetGame
+from .simulate_game import Preset_Play, PresetGame
 from utils import postAction
 from hearthstone.enums import CardClass 
-from fireplace.actions import Summon
+from fireplace.actions import Summon,Hit
 
-#Alterac_Hunter=['AV_113','AV_113p','AV_147','AV_147e','AV_224','AV_226','AV_226e','AV_244','AV_244e','AV_333','AV_334','AV_334e','AV_335','AV_335e','AV_336','AV_336e','AV_337','AV_337t',	]
+
 def alterac_hunter():
 	#PresetGame(pp_AV_113)##OK
 	######### imporoved secret....
@@ -17,7 +17,7 @@ def alterac_hunter():
 	#PresetGame(pp_AV_224)##OK
 	#PresetGame(pp_AV_226)##OK
 	#PresetGame(pp_AV_244)##OK
-	#PresetGame(pp_AV_333)##OK
+	#PresetGame(pp_AV_333)##OK ### OK 22/11/18
 	#PresetGame(pp_AV_334)##OK
 	#PresetGame(pp_AV_335)##OK
 	#PresetGame(pp_AV_336)### OK ###
@@ -443,59 +443,40 @@ class pp_AV_244(Preset_Play):
 		print ("%s : stats : %d/%d <- %d/%d"%(self.mark1,self.mark1.atk,self.mark1.durability,self.mark1.data.atk, self.mark1.data.durability))
 	pass
 		
-#########################
+#############AV_333############
 
 class pp_AV_333(Preset_Play):
 	""" Revive Pet (3) nature
 	Discover a friendly Beast that died this game. Summon it. """
 	mark5=None
 	def preset_deck(self):
-		controller=self.player
-		opponent = controller.opponent
-		self.mark1=self.exchange_card('AV_333',opponent)
-		self.mark2=self.exchange_card('beast',opponent)
-		self.mark3=self.exchange_card('beast',opponent)
-		self.mark4=self.exchange_card('minionH7',controller)
-		self.mark5=self.exchange_card('minionH7',controller)
+		self.mark1=self.exchange_card('AV_333',self.controller)
+		self.mark2=Summon(self.controller, self.card_choice('beast')).trigger(self.controller)
+		self.mark2=self.mark2[0][0]
+		self.mark3=Summon(self.controller, self.card_choice('beast')).trigger(self.controller)
+		self.mark3=self.mark3[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
-		controller = self.player
-		opponent = controller.opponent
-		game = controller.game
 		########## controller
-		self.play_card(self.mark4, controller)
-		self.change_turn(controller)
+		self.change_turn()
 		########## opponent
-		self.play_card(self.mark2, opponent)
-		self.play_card(self.mark3, opponent)
-		self.change_turn(opponent)
+		Hit(self.mark2,20).trigger(self.opponent)
+		Hit(self.mark3,20).trigger(self.opponent)
+		self.change_turn()
 		########## controller
-		self.play_card(self.mark5, controller)
-		self.attack_card(self.mark4,self.mark2, controller)
-		self.change_turn(controller)
-		########## opponent
-		self.change_turn(opponent)
-		########## controller
-		self.attack_card(self.mark5, self.mark3, controller)
-		self.attack_card(self.mark4, self.mark3, controller)
-		self.change_turn(controller)
-		########## opponent
 		print(">>>>>> %s (%s): zone=%s"%(self.mark1, self.mark1.controller, self.mark1.zone))
 		print(">>>>>> %s (%s): zone=%s(candidate of revive)"%(self.mark2, self.mark2.controller, self.mark2.zone))
 		print(">>>>>> %s (%s): zone=%s(candidate of revive)"%(self.mark3, self.mark3.controller, self.mark3.zone))
-		print(">>>>>> %s (%s): zone=%s"%(self.mark4, self.mark4.controller, self.mark4.zone))
-		print(">>>>>> %s (%s): zone=%s"%(self.mark5, self.mark5.controller, self.mark5.zone))
-		self.play_card(self.mark1, opponent)
-		postAction(opponent)
-		self.change_turn(opponent)
+		self.play_card(self.mark1)
+		self.choose_action()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
 		opponent = controller.opponent
-		for card in opponent.field:
+		for card in controller.field:
 			print("%s :  stats %d/%d"%(card, card.atk, card.health))
 	pass
 		

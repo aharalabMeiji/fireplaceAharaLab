@@ -225,9 +225,10 @@ class AV_333: ##
 		controller=self.controller
 		source=self
 		cards=[card.id for card in controller.death_log if card.race==Race.BEAST]
-		if len(cards)>3:
-			cards=random.sample(cards, 3)
-		AV_333_Choice(controller, RandomID(*cards)*3).trigger(source)
+		if len(cards):
+			if len(cards)>3:
+				cards=random.sample(cards, 3)
+			AV_333_Choice(controller, RandomID(*cards)*3).trigger(source)
 
 	pass
 

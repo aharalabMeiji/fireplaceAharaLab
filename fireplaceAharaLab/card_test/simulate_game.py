@@ -19,6 +19,9 @@ def card_test():
 		if Config.CARD_TEST_CLASS=='DRUID':
 			from card_test.alterac_druid import alterac_druid
 			alterac_druid()
+		elif Config.CARD_TEST_CLASS=='HUNTER':
+			from card_test.alterac_hunter import alterac_hunter
+			alterac_hunter()
 		elif Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.alterac_neutral import alterac_neutral
 			alterac_neutral()
