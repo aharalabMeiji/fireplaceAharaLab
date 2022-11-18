@@ -40,6 +40,11 @@ def card_test():
 			from card_test.sunken_warlock import sunken_warlock
 			sunken_warlock()
 		pass
+	elif Config.CARD_TEST_SET=='STORMWIND':
+		if Config.CARD_TEST_CLASS=='WARLOCK':
+			from card_test.stormwind_warlock import stormwind_warlock
+			stormwind_warlock()
+
 	pass
 
 

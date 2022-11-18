@@ -174,14 +174,14 @@ class SW_089:# <9>[1578]
 
 
 
-if StormWind_Touch_of_the_Nathrezim:# 
+if StormWind_Touch_of_the_Nathrezim:# ### OK ###
 	StormWind_Warlock+=['SW_090']
 class SW_090_Action(TargetedAction):
 	TARGET=ActionArg()#CONTROLLER
 	def do(self, source, target):
 		Hit(target, 2).trigger(source)
-		Deaths().trigger()
-		if target.health<=0:
+		Deaths().trigger(source)
+		if target.dead:
 			Heal(source.controller.hero, 3).trigger(source)
 		pass
 class SW_090:# <9>[1578]

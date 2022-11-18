@@ -5,8 +5,8 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 def stormwind_warlock():
 
 	#PresetGame(pp_DED_503)##
-	PresetGame(pp_DED_504_1)## OK
-	PresetGame(pp_DED_504_2)## OK
+	#PresetGame(pp_DED_504_1)## OK
+	#PresetGame(pp_DED_504_2)## OK
 	#PresetGame(pp_DED_505)##
 	#PresetGame(pp_SW_003)##
 	#PresetGame(pp_SW_084)##
@@ -15,7 +15,7 @@ def stormwind_warlock():
 	#PresetGame(pp_SW_087)##
 	#PresetGame(pp_SW_088)##
 	#PresetGame(pp_SW_089)##
-	#PresetGame(pp_SW_090)##
+	PresetGame(pp_SW_090)##
 	#PresetGame(pp_SW_091)##
 	#PresetGame(pp_SW_092)##
 	pass
@@ -310,20 +310,19 @@ class pp_SW_089(Preset_Play):
 
 class pp_SW_090(Preset_Play):
 	""" Touch of the Nathrezim
-	Deal $2 damage to aminion. If it dies, restore3 Health to your hero. """
+	Deal $2 damage to a minion. If it dies, restore3 Health to your hero. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("SW_090", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		Hit(self.controller.hero, 5).trigger(self.controller)
+		self.play_card(self.mark1, target=self.mark4)
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
