@@ -1,5 +1,6 @@
 import os.path
 import random
+import copy
 from bisect import bisect
 from importlib import import_module
 from pkgutil import iter_modules
@@ -186,60 +187,60 @@ def setup_game():
 	return game
 
 
-def play_turn(game):
-	player = game.current_player
+#def play_turn(game):
+#	player = game.current_player
+#
+#	while True:
+#		heropower = player.hero.power
+#		if heropower.is_usable() and random.random() < 0.1:
+#			if heropower.requires_target():
+#				heropower.use(target=random.choice(heropower.targets))
+#			else:
+#				heropower.use()
+#			continue
+#
+#		# iterate over our hand and play whatever is playable
+#		for card in player.hand:
+#			if card.is_playable() and random.random() < 0.5:
+#				target = None
+#				if card.must_choose_one:
+#					card = random.choice(card.choose_cards)
+#				if card.requires_target():
+#					target = random.choice(card.targets)
+#				print("Playing %r on %r" % (card, target))
+#				card.play(target=target)
+#
+#				if player.choice:
+#					choice = random.choice(player.choice.cards)
+#					print("Choosing card %r" % (choice))
+#					player.choice.choose(choice)
+#
+#				continue
+#
+#		# Randomly attack with whatever can attack
+#		for character in player.characters:
+#			if character.can_attack():
+#				character.attack(random.choice(character.targets))
+#
+#		break
+#
+#	game.end_turn()
+#	return game
 
-	while True:
-		heropower = player.hero.power
-		if heropower.is_usable() and random.random() < 0.1:
-			if heropower.requires_target():
-				heropower.use(target=random.choice(heropower.targets))
-			else:
-				heropower.use()
-			continue
 
-		# iterate over our hand and play whatever is playable
-		for card in player.hand:
-			if card.is_playable() and random.random() < 0.5:
-				target = None
-				if card.must_choose_one:
-					card = random.choice(card.choose_cards)
-				if card.requires_target():
-					target = random.choice(card.targets)
-				print("Playing %r on %r" % (card, target))
-				card.play(target=target)
-
-				if player.choice:
-					choice = random.choice(player.choice.cards)
-					print("Choosing card %r" % (choice))
-					player.choice.choose(choice)
-
-				continue
-
-		# Randomly attack with whatever can attack
-		for character in player.characters:
-			if character.can_attack():
-				character.attack(random.choice(character.targets))
-
-		break
-
-	game.end_turn()
-	return game
-
-
-def play_full_game():
-	game = setup_game()
-
-	for player in game.players:
-		print("Can mulligan %r" % (player.choice.cards))
-		mull_count = random.randint(0, len(player.choice.cards))
-		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
-		player.choice.choose(*cards_to_mulligan)
-
-	while True:
-		play_turn(game)
-
-	return game
+#def play_full_game():
+#	game = setup_game()
+#
+#	for player in game.players:
+#		print("Can mulligan %r" % (player.choice.cards))
+#		mull_count = random.randint(0, len(player.choice.cards))
+#		cards_to_mulligan = random.sample(player.choice.cards, mull_count)
+#		player.choice.choose(*cards_to_mulligan)
+#
+#	while True:
+#		play_turn(game)
+#
+#	return game
 
 
 class ActionType(IntEnum):
@@ -248,6 +249,7 @@ class ActionType(IntEnum):
 	POWER=3
 	PASS=4
 	TRADE=14
+	LOCATION=15
 
 
 	def __str__(self):
@@ -262,5 +264,69 @@ class ActionType(IntEnum):
 		else:
 			return ""
 
-
-
+def modify_description(card, text):
+	new_text=copy.deepcopy(text)
+	new_text=new_text.replace('\n','_')
+	new_text=new_text.replace('[x]','')
+	new_text=new_text.replace('[b]','[')
+	new_text=new_text.replace('[/b]',']')
+	new_text=new_text.replace('[','[')
+	new_text=new_text.replace(']',']')
+	if hasattr(card,'script_data_text_0'):
+		if isinstance(card.script_data_text_0, str):
+			new_text=new_text.replace('{0}',card.script_data_text_0)
+		else:
+			new_text=new_text.replace('{0}',str(card.script_data_text_0))
+	if hasattr(card,'script_data_text_1'):
+		new_text=new_text.replace('{1}',card.script_data_text_1)
+	if hasattr(card,'script_data_text_2'):
+		new_text=new_text.replace('{2}',card.script_data_text_2)
+	if hasattr(card,'script_data_text_3'):
+		new_text=new_text.replace('{3}',card.script_data_text_3)
+	if hasattr(card,'script_data_num_1') and '@'in text:
+		new_text=new_text.replace('@',str(card.script_data_num_1))
+	length=len(new_text)
+	for i in range(length-3):
+		if i>=len(new_text):
+			break
+		if '|4('==new_text[i:i+3]:
+			anchor0=i+3
+			for c in range(anchor0,length):
+				if new_text[c]==',':
+					anchor1=c
+					word0=new_text[anchor0:anchor1]
+					break
+			for c in range(anchor1+1,length):
+				if new_text[c]==')':
+					anchor2=c
+					word1=new_text[anchor1+1,anchor2]
+					break
+			if new_text[i-3:i]=='(1 ':
+				new_text=new_text[:i]+word0+new_text[anchor2+1]
+			else:
+				new_text=new_text[:i]+word1+new_text[anchor2+1]
+	length=len(new_text)
+	if hasattr(card,'controller'):
+		player = card.controller
+	else:
+		player=None
+	for i in range(length):
+		if new_text[i]=='$':
+			if i+1<length and new_text[i+1] in ['0','1','2','3','4','5','6','7','8','9']:
+				catch_number = int(new_text[i+1])
+				latter_text = new_text[i+2:]
+				if i+2<length and text[i+2] in ['0','1','2','3','4','5','6','7','8','9']:
+					catch_number *= 10
+					catch_number += int(new_text[i+2])
+					latter_text = new_text[i+3:]
+				if player:
+					if hasattr(card,'spell_school') and card.spell_school == SpellSchool.FIRE:
+						catch_number += player.spellpower_fire
+					elif hasattr(card,'spell_school') and card.spell_school == SpellSchool.NATURE:
+						catch_number += player.spellpower_nature
+					else :
+						catch_number += player.spellpower
+					for repeat in range(player.spellpower_double):
+						catch_number *= 2
+				new_text = new_text[:i] + "*" +str(catch_number) +"*" + latter_text
+	return new_text

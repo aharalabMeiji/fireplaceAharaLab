@@ -105,12 +105,27 @@ RandomDemon = lambda **kw: RandomMinion(race=Race.DEMON)
 RandomDragon = lambda **kw: RandomMinion(race=Race.DRAGON)
 RandomMech = lambda **kw: RandomMinion(race=Race.MECHANICAL)
 RandomMurloc = lambda **kw: RandomMinion(race=Race.MURLOC)
+RandomPirate = lambda **kw: RandomMinion(race=Race.PIRATE)
 RandomSpell = lambda **kw: RandomCollectible(type=CardType.SPELL, **kw)
 RandomTotem = lambda **kw: RandomCardPicker(race=Race.TOTEM)
 RandomWeapon = lambda **kw: RandomCollectible(type=CardType.WEAPON, **kw)
 RandomLegendaryMinion = lambda **kw: RandomMinion(rarity=Rarity.LEGENDARY, **kw)
 RandomSparePart = lambda: RandomCardPicker(spare_part=True)
+RandomDeathrattle = lambda **kw: RandomMinion(deathrattle=True)
+RandomSecret = lambda **kw: RandomSpell(secret=1, **kw)
 
+BG_races=[]
+RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
+RandomBGAdmissible = lambda **kw: RandomBGMinion(admissible=True, **kw)
+RandomBGDemon = lambda **kw: RandomBGMinion(race=Race.DEMON, **kw)
+RandomBGDragon = lambda **kw: RandomBGMinion(race=Race.DRAGON, **kw)
+RandomBGElemental = lambda **kw: RandomBGMinion(race=Race.ELEMENTAL, **kw)
+RandomBGNaga = lambda **kw: RandomBGMinion(race=Race.NAGA, **kw)
+RandomBGMurloc = lambda **kw: RandomBGMinion(race=Race.MURLOC, **kw)
+RandomBGPirate = lambda **kw: RandomBGMinion(race=Race.PIRATE, **kw)
+RandomBGMinion = lambda **kw: RandomBGCollectible(type=CardType.MINION, **kw)
+RandomBGSpellcraft = lambda **kw: RandomBGCollectible(spellcraft=1, **kw)
+RandomBGSpellcraftSpellcard = lambda **kw: RandomCardPicker(spellcraft_spellcard=1, **kw)
 
 
 class RandomEntourage(RandomCardPicker):

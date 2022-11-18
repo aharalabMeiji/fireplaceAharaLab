@@ -5,6 +5,7 @@ from fireplace.actions import Hit
 
 def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_AT_047)#OK
+	#PresetGame(pp_CORE_AT_075)#
 	#PresetGame(pp_CORE_BOT_533)#OK
 	#PresetGame(pp_CORE_CS2_039)#OK
 	#PresetGame(pp_CORE_CS2_042)#OK
@@ -21,7 +22,6 @@ def SimulateGames_Core_Shaman():
 	#PresetGame(pp_CORE_UNG_817)#OK
 	#PresetGame(pp_CS3_007)#OK
 	#PresetGame(pp_CS3_016)#
-	PresetGame(pp_CORE_AT_075)#
 	pass
 
 class pp_CORE_AT_047(Preset_Play):# <8>[1637]

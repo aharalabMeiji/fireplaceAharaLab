@@ -30,7 +30,7 @@ class EX1_006:
 class EX1_009:
 	"""Angry Chicken"""
 	enrage = Refresh(SELF, buff="EX1_009e")
-
+	pass
 
 EX1_009e = buff(atk=5)
 

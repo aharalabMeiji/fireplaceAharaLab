@@ -1,3 +1,4 @@
+from pickle import NONE
 import random
 
 from hearthstone.enums import CardClass, CardType, GameTag, PlayReq, Race, Rarity
@@ -6,6 +7,7 @@ from ..actions import *
 from ..aura import Refresh
 from ..dsl import *
 from ..events import *
+
 
 # For buffs which are removed when the card is moved to play (eg. cost buffs)
 # This needs to be Summon, because of Summon from the hand
@@ -38,8 +40,59 @@ BASIC_HERO_POWERS = [
 	"HERO_01bp", "HERO_02bp", "HERO_03bp",
 	"HERO_04bp", "HERO_05bp", "HERO_06bp",
 	"HERO_07bp", "HERO_08bp", "HERO_09bp",
-	"HERO_10bp",
+	#"HERO_10bp",
 ]
+
+CARDCLASSES=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PALADIN,
+	CardClass.PRIEST,
+	CardClass.ROGUE,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+CLASSES_EXCEPT_ROGUE=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PALADIN,
+	CardClass.PRIEST,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+CLASSES_EXCEPT_PALADIN=[
+	CardClass.DEMONHUNTER,
+	CardClass.DRUID,
+	CardClass.HUNTER,
+	CardClass.MAGE,
+	CardClass.PRIEST,
+	CardClass.ROGUE,
+	CardClass.SHAMAN,
+	CardClass.WARLOCK,
+	CardClass.WARRIOR,
+   ]
+RACES=[
+	Race.INVALID,
+	Race.MURLOC,
+	Race.DEMON,
+	Race.MECHANICAL,
+	Race.ELEMENTAL,
+	Race.BEAST,
+	Race.PIRATE,
+	Race.DRAGON,
+	Race.ALL,
+	Race.QUILBOAR,
+	Race.NAGA 
+]
+
+
+OTHERCLASSES = lambda myclass: CARDCLASSES.remove(myclass)
 
 POTIONS = [
 	"CFM_021",  # Freezing Potion
@@ -160,3 +213,82 @@ def custom_card(cls):
 		GameTag.CARDTEXT_INHAND: {"enUS": ""}
 	}
 	return cls
+
+def choiceAction(player):
+	while True:
+		if player.choice == None:
+			return
+		else:
+			if player.choiceStrategy==None:
+				if len(player.choice.cards)==0:
+					choice = None
+				else:
+					choice = random.choice(player.choice.cards)
+			else:
+				choice = player.choiceStrategy(player,player.choice.cards)
+			if Config.LOGINFO:
+				Config.log("BG_utils.choiceAction","%r Chooses a card %r from %r" % (player, choice, player.choice.cards))
+			#myChoiceStr = str(choice)
+			if 'RandomCardPicker' in str(choice):
+				myCardID =  random.choice(choice.find_cards())
+				Give(player,myCardID).trigger(player)
+				player.choice = None
+			else :
+				if choice == None:
+					player.choice=None##return
+				else:
+					player.choice.choose(choice)
+
+
+def exactCopy(card, source):
+	ret = source.controller.card(card.id, source)
+	ret.zone=Zone.SETASIDE
+	for k in card.silenceable_attributes:
+		v = getattr(card, k)
+		setattr(ret, k, v)
+	ret.silenced = card.silenced
+	ret.damage = card.damage
+	for buff in card.buffs:
+		# Recreate the buff stack
+		card.buff(ret, buff.id)
+	ret.script_data_text_0=card.script_data_text_0
+	return ret
+
+#sample 
+
+class t_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=target
+		pass
+
+class c_Action(GameAction):
+	PLAYER=ActionArg()
+	def do(self, source, player):
+		pass
+
+class c_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		pass
+
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+
+
+
+	def play(self):
+		controller=self.controller
+		source=self
+		target=self.target
+		actions=[action for action in self.controller._targetedaction_log if isinstance(action['class'], Battlecry)]
+		cards=[card for card in self.controller.play_log if card.type==CardType.SPELL]
+@custom_card
+class original_e:
+	tags = {
+		GameTag.CARDNAME: "ZZZZ",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}
+

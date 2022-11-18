@@ -33,6 +33,7 @@ from ..utils import *
 
 #class DMF_075_Choice(GenericChoice):
 #    def choose(self, card):
+#		self.next_choice=None
 #        super().choose(card)
 #        controller = self.player
 #        choiceCard = controller.hand[-1]
@@ -134,10 +135,12 @@ from ..utils import *
 #		if len(_highestCostCards)>0:
 #			_card = random.choice(_highestCostCards)
 #			_cost = _card.cost
-#			log.info("Highest cost spell is %r (cost %d)"%(_card, _cost))
+#			if Config.LOGINFO:
+#				print("Highest cost spell is %r (cost %d)"%(_card, _cost))
 #			Give(target,_card).then(Summon(CONTROLLER,RANDOM(MINION+(COST==Attr(Give.CARD,GameTag.COST))))).trigger(source)
 #		else:
-#			log.info("no spell is in the deck"%())
+#			if Config.LOGINFO:
+#				print("no spell is in the deck"%())
 
 #class BAR_042:###OK barrens-neutral
 #    """Primordial Protector

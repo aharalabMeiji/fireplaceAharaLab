@@ -55,7 +55,7 @@ class LazyNum(LazyValue):
 	def get_entities(self, source):
 		from .selector import Selector
 		if isinstance(self.selector, Selector):
-			entities = self.selector.eval(source.game.allcards, source)
+			entities = self.selector.eval(source.game.targetable_allcards+source.game.graveyard, source)
 		elif isinstance(self.selector, LazyValue):
 			entities = [self.selector.evaluate(source)]
 		else:
@@ -95,6 +95,22 @@ class Count(LazyNum):
 
 	def evaluate(self, source):
 		return self.num(len(self.get_entities(source)))
+
+class TavernTier(LazyNum):
+	"""
+	Lazily count the matches in a selector
+	"""
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
+
+	def __repr__(self):
+		return "%s(%r)" % (self.__class__.__name__, self.selector)
+
+	def evaluate(self, source):
+		controller = self.get_entities(source)[0]
+		return self.num(controller.tavern_tier)
+
 
 
 class OpAttr(LazyNum):
@@ -145,3 +161,5 @@ class RandomNumber(LazyNum):
 
 	def evaluate(self, source):
 		return self.num(random.choice(self.choices))
+
+

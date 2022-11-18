@@ -11,7 +11,7 @@ def SimulateGames_Scholo_Hunter():
 
 class pp_SCH_538(Preset_Play):
 	##Ace Hunter Kreen SCH_538
-	#Your other characters are <b>Immune</b> while attacking.
+	#Your other characters are [Immune] while attacking.
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):
@@ -47,7 +47,7 @@ class pp_SCH_538(Preset_Play):
 
 class pp_SCH_607(Preset_Play):
 	""" Shan'do Wildclaw SCH_607
-	[x]<b>Choose One -</b> Give Beasts in your deck +1/+1; or Transform into a copy of a friendly Beast. """
+	[x][Choose One -] Give Beasts in your deck +1/+1; or Transform into a copy of a friendly Beast. """
 	class1=CardClass.HUNTER
 	class2=CardClass.HUNTER
 	def preset_deck(self):

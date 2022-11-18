@@ -1,6 +1,7 @@
 import uuid
 
 from hearthstone.enums import CardType
+from fireplace.config import Config
 
 from . import logging
 
@@ -83,7 +84,8 @@ class BaseEntity(object):
 		if not hasattr(target,'immune'):#non-minion
 			return 0
 		if target.immune:
-			self.log("%r is immune to %s for %i damage", target, self, amount)
+			if Config.LOGINFO:
+				print("%r is immune to %s for %i damage"%(target, self, amount))
 			return 0
 		return amount
 
@@ -96,17 +98,20 @@ class BuffableEntity(BaseEntity):
 
 	def _getattr(self, attr, i):
 		i += getattr(self, "_" + attr, 0)
-		for buff in self.buffs:
-			i = buff._getattr(attr, i)
-		for slot in self.slots:
-			i = slot._getattr(attr, i)
+		if hasattr(self, 'buffs'):
+			for buff in self.buffs:
+				i = buff._getattr(attr, i)
+		if hasattr(self, 'slots'):
+			for slot in self.slots:
+				i = slot._getattr(attr, i)
 		if self.ignore_scripts:
 			return i
 		return getattr(self.data.scripts, attr, lambda s, x: x)(self, i)
 
 	def clear_buffs(self):
 		if self.buffs:
-			self.log("Clearing buffs from %r", self)
+			if Config.LOGINFO:
+				print("Clearing buffs from %r"% self)
 			for buff in self.buffs[:]:
 				buff.remove()
 

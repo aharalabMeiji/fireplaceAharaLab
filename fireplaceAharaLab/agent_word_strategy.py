@@ -9,7 +9,7 @@ import copy
 
 
 class WS(IntEnum):
-	""" プレーを言葉で説明　"""
+	""" プレーを言葉で説明 """
 	ランダムにプレー=0
 	呪文を使えるなら呪文=1
 	ミニョンで敵ヒーローの体力を削る=2
@@ -44,7 +44,7 @@ class WordStrategyAgent(Agent):
 			for card in player.hand:
 				if card.is_playable():
 					target = None
-					if card.must_choose_one:
+					if card.must_choose_one and len(card.choose_cards):
 						card = random.choice(card.choose_cards)
 					if card.requires_target():
 						for target in card.targets:

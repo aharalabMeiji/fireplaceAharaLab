@@ -28,6 +28,7 @@
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />
     <Compile Include="fireplaceAharaLab\agent_Test.py" />
     <Compile Include="fireplaceAharaLab\card_pair.py" />
+    <Compile Include="fireplaceAharaLab\card_test\simulate_sample.py" />
     <Compile Include="fireplaceAharaLab\card_test\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -36,141 +37,157 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\actions.py" />
     <Compile Include="fireplaceAharaLab\fireplace\aura.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_agent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_bar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_battle.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_enums.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_VectorAgent.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\bg24_quest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\bg24_reward.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero4.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero3.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_hero5.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_demon.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_dragon.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_elemental.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_mecha.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_murloc.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_naga.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_pirate.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_beast.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\BG_utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\demon_hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\druid.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_druid.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\mage.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_mage.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\neutral.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_neutral.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\paladin.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\priest.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\rogue.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\shaman.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warlock.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\warrior.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\demon_hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\druid.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\mage.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\neutral.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_quilboar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\paladin.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\warrior.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\aoo\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\demon_hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\druid.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\mage.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\neutral.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\paladin.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\warrior.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\bigWarrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\warrior.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\hero_dream\dream.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\clownDruid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\demon_hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\druid.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_druid.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\mage.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_mage.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\neutral.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_paladin.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\paladin.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_priest.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\priest.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_rogue.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\rogue.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_shaman.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\shaman.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_warlock.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\warlock.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\core\warrior.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\demon_hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\druid.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\mage.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\neutral.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\paladin.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\darkmoon\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\hunter.py">
@@ -189,52 +206,60 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\cardlist.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\druid.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_demonhunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\hunter.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\mage.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_druid.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\demon_hunter.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_hunter.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\neutral.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\paladin.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_mage.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\warrior.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_neutral.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\scholo\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\ded.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_paladin.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\demon_hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\druid.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\mage.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\neutral.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\paladin.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\warrior.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\stormwind_warrior.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\stormwind\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_demon_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_druid.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_hunter.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_mage.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\sunken_warrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\config.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\debug_utilities.py" />
     <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
     <Compile Include="fireplaceAharaLab\fireplace\deepcopy.py">
       <SubType>Code</SubType>
@@ -270,6 +295,30 @@
     <Compile Include="fireplaceAharaLab\utils.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\demon_hunter.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\demon_hunter.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\druid.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\druid.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\hunter.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\hunter.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\mage.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\mage.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\neutral.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\neutral.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\paladin.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\paladin.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\warrior.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\warrior.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\__init__.cpython-39.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\druid.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\hunter.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\mage.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\neutral.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\sunken_druid.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\sunken_neutral.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\warrior.cpython-38.pyc" />
+    <Content Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\__init__.cpython-38.pyc" />
     <Content Include="fireplaceAharaLab\obj\Any CPU\Debug\fireplaceAhara.pyproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -277,19 +326,24 @@
     <Folder Include="fireplaceAharaLab\fireplace" />
     <Folder Include="fireplaceAharaLab\fireplace\brawls" />
     <Folder Include="fireplaceAharaLab\fireplace\cards" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\aoo" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\bigWarrior\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\alterac\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\clownDruid\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\darkmoon\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\classic\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\revendreth\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\battlegrounds\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\stormwind\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\scholo\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\__pycache__\" />
     <Folder Include="fireplaceAharaLab\fireplace\dsl" />
     <Folder Include="fireplaceAharaLab\card_test\" />
+    <Folder Include="fireplaceAharaLab\fireplace\battlegrounds\" />
     <Folder Include="fireplaceAharaLab\obj\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\" />
     <Folder Include="fireplaceAharaLab\obj\Any CPU\Debug" />

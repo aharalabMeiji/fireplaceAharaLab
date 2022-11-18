@@ -1,7 +1,7 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit
+from fireplace.actions import Hit, Summon
 
-def SimulateGames_Alterac_Neutral():
+def alterac_neutral():
 
 	#PresetGame(pp_AV_100,1)####OK
 	#PresetGame(pp_AV_101,1)####OK###OK(2-10-22)
@@ -14,6 +14,7 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_125,1)####OK
 	#PresetGame(pp_AV_126,1)####OK
 	#PresetGame(pp_AV_127,1)####OK
+	#PresetGame(pp_AV_128)###
 	#PresetGame(pp_AV_129,1)####OK
 	#PresetGame(pp_AV_130,1)####OK
 	#PresetGame(pp_AV_131,1)####OK
@@ -31,7 +32,8 @@ def SimulateGames_Alterac_Neutral():
 	#PresetGame(pp_AV_143,1)####OK
 	#PresetGame(pp_AV_215,2)####OK
 	#PresetGame(pp_AV_219,1)####OK
-	#PresetGame(pp_AV_222,1)####OK
+	#PresetGame(pp_AV_222,1)####OK### OK(22/10/19) 
+	PresetGame(pp_AV_222a)## fail(22/10/28)
 	#PresetGame(pp_AV_223,1)####OK
 	#PresetGame(pp_AV_238,1)####OK
 	#PresetGame(pp_AV_256,1)####OK
@@ -392,6 +394,31 @@ class pp_AV_127(Preset_Play):
 		if self.contains_buff(self.mark1,'AV_127e'):
 			print ("check 1 OK: stats is %d/%d (8/9)"%(self.mark1.atk, self.mark1.health))
 	pass
+
+class pp_AV_128(Preset_Play):
+	""" Frozen Mammoth
+	This is [Frozen] until you cast a Fire spell. """
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.mark1=self.exchange_card('AV_128',controller)
+		self.mark2=self.exchange_card('fire',controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		self.play_card(self.mark1)
+		assert self.mark1.frozen==True, "frozen"
+		self.play_card(self.mark2)
+		assert self.mark1.frozen==False, "not frozen"
+	def result_inspection(self):
+		super().result_inspection()
+		## AV_127eがついているか
+	pass
+
 
 class pp_AV_129(Preset_Play):
 	const = 0
@@ -1083,9 +1110,12 @@ class pp_AV_222(Preset_Play):
 		controller=self.player
 		opponent = controller.opponent
 		self.mark1=self.exchange_card('AV_222',controller)
-		self.mark2=self.exchange_card('vanillaH1',controller)###(1,2,3), (1,2,4), (1,3,4), etc
-		self.mark3=self.exchange_card('vanillaH2',opponent)
-		self.mark4=self.exchange_card('vanillaH3',opponent)
+		self.mark2=Summon(self.opponent, self.card_choice("minionH2")).trigger(self.opponent)
+		self.mark2=self.mark2[0][0]
+		self.mark3=Summon(self.opponent, self.card_choice("minionH1")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.mark4=self.mark4[0][0]
 		#self.mark4=self.exchange_card('minionH4',opponent)
 		super().preset_deck()
 		pass
@@ -1095,14 +1125,11 @@ class pp_AV_222(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		##########start
-		self.play_card(self.mark2, controller)
-		self.change_turn(controller)
+		self.play_card(self.mark1)
+		#self.change_turn(controller)
 		##########
-		self.play_card(self.mark3, opponent)
-		self.play_card(self.mark4, opponent)
-		self.change_turn(controller)
+		#self.change_turn(controller)
 		##########
-		self.play_card(self.mark1, controller)
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1117,6 +1144,40 @@ class pp_AV_222(Preset_Play):
 			print("%s was killed."%(self.mark3))
 		if self.mark4.zone==Zone.GRAVEYARD:##if (1,2,3), (1,2,2) then yes, (1,2,4) then no.
 			print("%s was killed."%(self.mark4))
+class pp_AV_222a(Preset_Play):
+	""" Spammy Arcanist (5/3/4)
+	[Battlecry]: Deal 1 damage to all other minions. If any die, repeat this."""
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		self.con1=self.exchange_card('AV_222',controller)
+		self.con2=self.exchange_card('AV_222',controller)
+		self.con3=self.exchange_card('AV_222',controller)
+		self.mark2=Summon(self.opponent, 'BAR_070').trigger(self.opponent)
+		self.mark2=self.mark2[0][0]
+		#self.mark4=self.exchange_card('minionH4',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		##########start
+		self.play_card(self.con1)
+		self.change_turn(self.controller)
+		##########
+		self.change_turn(self.controller)
+		##########
+		self.play_card(self.con2)
+		self.play_card(self.con3)
+		########## infinite loop occurs!!!
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card)
+		for card in self.opponent.field:
+			self.print_stats("opp.field", card)
+		pass
+
 		
 #########################
 

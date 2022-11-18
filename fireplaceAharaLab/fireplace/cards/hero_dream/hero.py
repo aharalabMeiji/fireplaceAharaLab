@@ -1,5 +1,9 @@
 from ..utils import *
 
+Heroes=[
+	'HERO_01',
+	'HERO_01bp','HERO_01bp2',#Armor Up!
+]
 class HERO_01:
 	""" Garrosh Hellscream
 	"""
@@ -10,11 +14,16 @@ class HERO_01bp:
 	activate = GainArmor(FRIENDLY_HERO, 2)
 class HERO_01bp2:#OK
 	""" Tank Up!
-	<b>Hero Power</b>
+	[Hero Power]
 	Gain 4 Armor."""
 	activate = GainArmor(FRIENDLY_HERO, 4)
 	pass
 
+Heroes+=[
+	'HERO_02',
+	'HERO_02bp','HERO_02bp2',#Totemic Call
+	"CS2_050", "CS2_051", "CS2_052", "NEW1_009",
+	]
 class HERO_02:
 	pass
 class HERO_02bp:
@@ -34,11 +43,11 @@ class CS2_050:
 	pass
 class CS2_051: 
 	""" Stoneclaw Totem
-	&lt;b&gt;Taunt&lt;/b&gt; """
+	[Taunt] """
 	pass
 class CS2_052: 
 	""" Wrath of Air Totem
-	&lt;b&gt;Spell Damage +1&lt;/b&gt; """ 
+	[Spell Damage +1] """ 
 	pass
 class NEW1_009:
 	""" Healing Totem
@@ -47,11 +56,15 @@ class NEW1_009:
 	pass
 class HERO_02bp2:################################# pass, need to modify 
 	""" Totemic Slam
-	<b>Hero Power</b>
+	[Hero Power]
 	Summon a Totem of your choice."""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	choose = ("CS2_050", "CS2_051", "CS2_052", "NEW1_009")
 
+Heroes+=[	'HERO_03',
+	'HERO_03bp','HERO_03bp2',#Dagger Mastery
+	'AT_034','AT_034e','CS2_082','AT_132_ROGUEt',
+]
 class HERO_03:
 	""" Valeera Sanguinar
 	"""
@@ -62,7 +75,7 @@ class HERO_03bp:
 	pass
 class HERO_03bp2:#OK
 	""" Poisoned Daggers
-	<b>Hero Power</b>
+	[Hero Power]
 	Equip a 2/2 Weapon."""
 	activate = Summon(CONTROLLER, "AT_132_ROGUEt")
 	pass
@@ -79,7 +92,9 @@ class AT_132_ROGUEt:
 	""" Poisoned Dagger
 	(weapon) """
 	pass
-
+Heroes+=[	'HERO_04',
+	'HERO_04bp','HERO_04bp2','CS2_101t',#steady shot
+]
 class HERO_04:
 	""" Uther Lightbringer
 	"""
@@ -92,11 +107,14 @@ class CS2_101t:
 	"""
 class HERO_04bp2:#OK
 	""" The Silver Hand
-	<b>Hero Power</b>
+	[Hero Power]
 	Summon two 1/1 Recruits."""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	activate = Summon(CONTROLLER, "CS2_101t") * 2
 
+Heroes+=[	'HERO_05',
+	'HERO_05bp','HERO_05bp2','HERO_05dbp',#Reinforce 
+]
 class HERO_05:
 	""" Garrosh Hellscream
 	"""
@@ -108,8 +126,8 @@ class HERO_05bp:
 	pass
 class HERO_05bp2:#OK
 	"""Ballista Shot
-	<b>Hero Power</b>
-	Deal $3 damage to the enemy hero.@<b>Hero Power</b>
+	[Hero Power]
+	Deal $3 damage to the enemy hero.@[Hero Power]
 	Deal $3 damage."""
 	requirements = {PlayReq.REQ_MINION_OR_ENEMY_HERO: 0, PlayReq.REQ_STEADY_SHOT: 0}
 	activate = Hit(ENEMY_HERO, 3)
@@ -123,25 +141,41 @@ class HERO_05dbp:
 	activate = Hit(TARGET, 2)
 	pass
 
-
+Heroes+=[	'HERO_06',	
+	'HERO_06bp','CS2_017o','HERO_06bp2','AT_132_DRUIDe',#Shapeshift
+]
 class HERO_06:
 	""" Malfurion Stormrage
 	"""
 	pass
 class HERO_06bp:
 	"""Shapeshift"""
-	activate = Buff(FRIENDLY_HERO, "CS2_017o"), GainArmor(FRIENDLY_HERO, 1)
-#HERO_06ebp = buff(atk=1)
-CS2_017o = buff(atk=1)
+	activate = Buff(FRIENDLY_HERO, "HERO_06bpe"), GainArmor(FRIENDLY_HERO, 1)
+@custom_card
+class HERO_06bpe:
+	tags = {
+		GameTag.CARDNAME: "Dire Shapeshift",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: 1,
+		GameTag.TAG_ONE_TURN_EFFECT: 1,}
 class HERO_06bp2:#OK
 	"""Dire Shapeshift
-	<b>Hero Power</b>
+	[Hero Power]
 	+2 Attack this turn.
 	+2 Armor."""
-	activate = Buff(FRIENDLY_HERO, "AT_132_DRUIDe"), GainArmor(FRIENDLY_HERO, 2)
-#HERO_06ebp2 = buff(atk=2)
-AT_132_DRUIDe = buff(atk=2)
+	activate = Buff(FRIENDLY_HERO, "HERO_06bp2e"), GainArmor(FRIENDLY_HERO, 2)
+@custom_card
+class HERO_06bp2e:
+	tags = {
+		GameTag.CARDNAME: "Dire Shapeshift",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.ATK: 2,
+		GameTag.TAG_ONE_TURN_EFFECT: 1,}
 
+
+Heroes+=[	'HERO_07',
+	'HERO_07bp','HERO_07bp2',#Life Tap
+]
 class HERO_07:
 	""" Gul'dan
 	"""
@@ -151,9 +185,12 @@ class HERO_07bp:
 	activate = Hit(FRIENDLY_HERO, 2), Draw(CONTROLLER)
 class HERO_07bp2:#OK
 	"""Soul Tap
-	<b>Hero Power</b>	Draw a card."""
+	[Hero Power]	Draw a card."""
 	activate = Draw(CONTROLLER)
 
+Heroes+=[	'HERO_08',
+	'HERO_08bp','HERO_08bp2',# Fireblast(<4>[1635])
+]
 class HERO_08:
 	"""  Jaina Proudmoore
 	"""
@@ -165,12 +202,15 @@ class HERO_08bp:
 	pass
 class HERO_08bp2:#OK
 	"""Fireblast Rank 2
-	<b>Hero Power</b>
+	[Hero Power]
 	Deal $2 damage."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0, PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_HERO_OR_MINION_TARGET:0}
 	activate = Hit(TARGET, 2)
 	pass
 
+Heroes+=[	'HERO_09',
+	'HERO_09bp','HERO_09bp2',# Lesser Heal
+	]
 class HERO_09:#
 	""" Anduin Wrynn  """
 	pass
@@ -181,7 +221,27 @@ class HERO_09bp:#
 	activate = Heal(TARGET, 2)
 class HERO_09bp2:#OK
 	"""Heal
-	<b>Hero Power</b>
+	[Hero Power]
 	Restore #4 Health."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 	activate = Heal(TARGET, 4)
+
+	
+Heroes+=['HERO_10',
+	'HERO_10bp','HERO_10bpe','HERO_10bp2','HERO_10pe2',##Demon Claws
+	]
+class HERO_10:#
+	""" Illidan Stormrage  """
+	pass
+class HERO_10bp:#
+	"""Demon Claws
+	[x][Hero Power]+1 Attack this turn."""
+	activate = Buff(FRIENDLY_HERO, 'HERO_10bpe')
+HERO_10bpe=buff(1,0)
+#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
+class HERO_10bp2:#OK
+	"""Demon's Bite
+	[Hero Power] +2 Attack this turn."""
+	activate = Buff(FRIENDLY_HERO, 'HERO_10pe2')
+HERO_10pe2=buff(2,0)
+

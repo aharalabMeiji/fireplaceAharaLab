@@ -35,7 +35,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	from fireplace.player import Player
 	import random
 	exclude = []# you may exclude some cards to construct a deck
-	log.info("New game settings")
+	if Config.LOGINFO:
+		print("New game settings")
 	if len(deck1)==0:
 		deck1 = random_draft(P1.myClass,exclude)#random deck wrt its class
 	if len(deck2)==0:
@@ -72,8 +73,24 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 				cards_to_mulligan = P2.mulliganStrategy(P2, player.choice.cards)
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
-	log.info("New game start")
-
+	##
+	if 'REV_018' in [card.id for card in player1.controller.deck]:
+		player1.hero.max_health=40
+		#for repeat in range(10):
+		#	newcard = RandomCollectible().evaluate()
+		#	newcard=newcard[0]
+		#	Shuffle(player1, newcard).trigger(player1)
+	if 'REV_018' in [card.id for card in player2.controller.deck]:
+		player2.hero.max_health=40
+		#for repeat in range(10):
+		#	newcard = RandomCollectible().evaluate()
+		#	newcard=newcard[0]
+		#	Shuffle(player1, newcard).trigger(player1)
+	##
+	if Config.LOGINFO:
+		print("New game start")
+	for player in game.players:
+		BeginGame(player).trigger(player)
 	while True:	
 		#game main loop
 		player = game.current_player
@@ -84,8 +101,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		elif player.name==P2.name:
 			#please make each Agent.func has arguments 'self, game, option, gameLog, debugLog'
 			P2.func(P2, game, option=P2.option, gameLog=game.get_log(), debugLog=debugLog)
-		else:
-			Original_random(game)#random player by fireplace
+		#else:
+		#	Original_random(game)#random player by fireplace
 		#turn end procedure from here
 		if player.choice!=None:
 			player.choice=None#somotimes it comes here
@@ -132,7 +149,7 @@ def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, d
 	return Count1, Count2, (gameNumber-Count1-Count2)
 
 class Candidate(object):
-	"""　アクションの候補手のクラス　
+	""" アクションの候補手のクラス 
 	"""
 	def __init__(self, card, card2=None, type=BlockType.PLAY, target=None, turn=None):
 		#super(myAction, self).__init__()
@@ -158,6 +175,17 @@ class Candidate(object):
 			return "{card}({atk1}/{health1}) -> attacks -> {target}({atk2}/{health2})".format(
 				card=self.card, atk1=atk1, health1=health1, 
 				target=self.target, atk2=atk2, health2=health2)
+		elif self.type==ActionType.LOCATION:
+			health1=self.card.health
+			if self.card.type==CardType.HERO:
+				health1 += self.card.armor
+			atk2=self.target.atk
+			health2=self.target.health
+			if self.target.type==CardType.HERO:
+				health2 += self.target.armor
+			return "{card}(**/{health1}) -> attacks -> {target}({atk2}/{health2})".format(
+				card=self.card, health1=health1, 
+				target=self.target, atk2=atk2, health2=health2)
 		elif self.type==ExceptionPlay.TURNEND:
 			return "Turn end."
 		elif self.type==BlockType.POWER:
@@ -173,17 +201,24 @@ class Candidate(object):
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
 			if self.target==None:
-				return "{card}:{cost} -> plays".format(card=self.card, cost = self.card.cost)
+				return "{card}({id}):{cost} -> plays".format(card=self.card, cost = self.card.cost,id=self.card.id)
 			else :
 				atk2=self.target.atk
 				health2=self.target.health
 				if self.target.type==CardType.HERO:
 					health2 += self.target.armor
-				return "{card}:{cost} -> plays -> {target}({atk2}/{health2})".format(
+				return "{card}({id}):{cost} -> plays -> {target}({atk2}/{health2})".format(
 					card=self.card, cost = self.card.cost,
-					target=self.target, atk2=atk2, health2=health2)
+					target=self.target, atk2=atk2, health2=health2,id=self.card.id)
 		elif self.type==ActionType.TRADE:
 			return "{card} -> trade".format(card=self.card)
+		elif self.type==ActionType.LOCATION:
+			if self.target==None:
+				return "{card}({id}): location".format(card=self.card,id=self.card.id)
+			else:
+				return "{card}({id}): location -> {target}({atk2}/{health2})".format(
+					card=self.card,id=self.card.id,
+					target=self.target, atk2=atk2, health2=health2)
 		return "{card}->{type}(target={target})".format(card=self.card,type=str(self.type),target=self.target)
 		pass
 
@@ -201,9 +236,9 @@ class GameWithLog(Game):
 #  getCandidates
 #
 def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
-	"""　アクションの候補をすべてリスト化して返す　
-	_smartCombat=True,　スマートコンバットなもののみをリストアップする
-	_includeTurnEnd=False　「何もしない」というアクションを候補に入れない
+	""" アクションの候補をすべてリスト化して返す 
+	_smartCombat=True, スマートコンバットなもののみをリストアップする
+	_includeTurnEnd=False 「何もしない」というアクションを候補に入れない
 	"""
 	player = mygame.current_player
 	myCandidate = []
@@ -226,7 +261,14 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 				else:
 					myCandidate.append(Candidate(card, type=BlockType.PLAY, target=None, turn=mygame.turn))
 	for character in player.characters:
-		if character.can_attack():
+		if character.type==CardType.LOCATION:
+			if character.is_playable():
+				if len(character.location_targets)>0:
+					for target in character.location_targets:
+						myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=target, turn=mygame.turn))
+				else:
+					myCandidate.append(Candidate(card, type=ActionType.LOCATION, target=None, turn=mygame.turn))	
+		elif character.can_attack():
 			for target in character.targets:
 				if target.zone==Zone.PLAY and character.can_attack(target) and character != target:
 					myH=character.health
@@ -297,7 +339,7 @@ def identifyTargetCard(card1, card2):
 #  executeAction
 #
 def executeAction(mygame, action: Candidate, debugLog=True):
-	"""　Candidate型のアクションを実行する　"""
+	""" Candidate型のアクションを実行する """
 	mygame.add_log(action)
 	if mygame.ended:
 		return ExceptionPlay.GAMEOVER
@@ -470,10 +512,18 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 			return ExceptionPlay.VALID
 		except GameOver:#まあこれはないと思うけど。
 			return ExceptionPlay.GAMEOVER
+	if action.type==ActionType.LOCATION:
+		if not theCard.is_playable():
+			return ExceptionPlay.INVALID
+		try:
+			theCard.location(target=theTarget)#
+			return ExceptionPlay.VALID
+		except GameOver:
+			return ExceptionPlay.GAMEOVER
 	return ExceptionPlay.INVALID
 
 class ExceptionPlay(IntEnum):
-	""" ゲームの例外処理に使うフラグ　"""
+	""" ゲームの例外処理に使うフラグ """
 	VALID=0
 	GAMEOVER=1
 	INVALID=2
@@ -516,11 +566,12 @@ def postAction(player):
 					choice = random.choice(player.choice.cards)
 			else:
 				choice = player.choiceStrategy(player,player.choice.cards)
-			log.info("%r Chooses a card %r" % (player, choice))
+			if Config.LOGINFO:
+				print("%r Chooses a card %r" % (player, choice))
 			#myChoiceStr = str(choice)
 			if 'RandomCardPicker' in str(choice):
 				myCardID =  random.choice(choice.find_cards())
-				Give(player1,myCardID).trigger(player1)
+				Give(player, myCardID).trigger(player)
 				player.choice = None
 			else :
 				if choice == None:

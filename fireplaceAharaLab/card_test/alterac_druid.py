@@ -6,8 +6,9 @@ from utils import postAction
 
 def alterac_druid():
 	#PresetGame(pp_AV_205)# Hero ####OK
-	#PresetGame(pp_AV_210)#################
-	#PresetGame(pp_AV_211)####OK
+	#PresetGame(pp_AV_210) ### OK
+	#PresetGame(pp_AV_210b) ### OK
+	PresetGame(pp_AV_211)####OK
 	#PresetGame(pp_AV_291)####OK
 	#PresetGame(pp_AV_292)####OK
 	#PresetGame(pp_AV_293)####OK
@@ -16,7 +17,7 @@ def alterac_druid():
 	#PresetGame(pp_AV_296)####OK
 	#PresetGame(pp_AV_360)####OK
 	#PresetGame(pp_ONY_018)####OK
-	PresetGame(pp_ONY_019)####OK
+	#PresetGame(pp_ONY_019)####OK
 	#PresetGame(pp_ONY_021)####OK
 	pass
 
@@ -72,7 +73,10 @@ class pp_AV_210(Preset_Play):
 	def preset_deck(self):
 		controller=self.player
 		opponent = controller.opponent
+		# CORE_AT_037, CORE_EX1_164
 		self.mark1=self.exchange_card('AV_210',opponent)
+		self.mark2=self.exchange_card('CORE_AT_037',opponent)
+		self.mark3=self.exchange_card('CORE_EX1_164',opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -81,7 +85,45 @@ class pp_AV_210(Preset_Play):
 		opponent = controller.opponent
 		game = controller.game
 		########## controller
-		#self.play_card(self.mark1, controller)
+		self.play_card(self.mark2, choose=self.mark2.choose_cards[1])
+		self.play_card(self.mark1)
+		#self.change_turn(controller)
+		########## opponent
+		#self.play_card(self.mark2, opponent)
+		#self.change_turn(opponent)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller=self.player
+		print ("%s（目視）"%(self.mark1))
+	pass
+class pp_AV_210b(Preset_Play):
+	""" Pathmaker (3/3/4) 
+	Battlecry: Cast the other choice from the last [Choose One] spell you've cast.  """
+	class1=CardClass.DRUID
+	class2=CardClass.DRUID
+	def preset_deck(self):
+		controller=self.player
+		opponent = controller.opponent
+		# CORE_AT_037, CORE_EX1_164
+		self.mark1=self.exchange_card('AV_210',opponent)
+		self.mark2=self.exchange_card('CORE_AT_037',opponent)
+		self.mark3=self.exchange_card('CORE_EX1_164',opponent)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		opponent = controller.opponent
+		game = controller.game
+		########## controller
+		self.play_card(self.mark2, choose=self.mark2.choose_cards[1])
+		self.play_card(self.mark3, choose=self.mark3.choose_cards[0])
+		self.change_turn()
+		########## opponent
+		self.change_turn()
+		########## controller
+		self.play_card(self.mark1)
 		#self.change_turn(controller)
 		########## opponent
 		#self.play_card(self.mark2, opponent)
@@ -322,7 +364,7 @@ class pp_AV_295(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+		print("引いたカードは %s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
 		for card in controller.hand:
 			self.print_stats("hand",card, old_cost=True)
 	pass
@@ -362,7 +404,7 @@ class pp_AV_296(Preset_Play):
 	def result_inspection(self):
 		super().result_inspection()
 		controller=self.player
-		print("引いたカードは　%s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
+		print("引いたカードは %s (コスト%d). 目視"%(self.player.hand[-1], self.player.hand[-1].cost))
 	pass
 		
 #########################

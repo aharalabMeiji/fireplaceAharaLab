@@ -2,21 +2,27 @@ from .simulate_game import Preset_Play,PresetGame
 from hearthstone.enums import Zone,CardType, Rarity,CardClass
 from fireplace.actions import Hit, Heal
 
-def SimulateGames_Core_Priest():
+def core_priest():
 	#PresetGame(pp_CORE_AT_055)#OK
+	#PresetGame(pp_CORE_CFM_605)#OK
 	#PresetGame(pp_CORE_CS1_112)#OK
 	#PresetGame(pp_CORE_CS1_130)#OK
+	#PresetGame(pp_CORE_CS2_235)#visuall ok 
+	#PresetGame(pp_CORE_DRG_090) ## OK
 	#PresetGame(pp_CORE_EX1_193)#OK
 	#PresetGame(pp_CORE_EX1_194)#OK
 	#PresetGame(pp_CORE_EX1_195)#OK
 	#PresetGame(pp_CORE_EX1_197)#OK
-	#PresetGame(pp_CORE_EX1_198)#OK
-	#PresetGame(pp_CORE_EX1_335)#OK
+	#PresetGame(pp_CORE_EX1_198)#OK 22.6
+	#PresetGame(pp_CORE_EX1_335)#OK 22.6
 	#PresetGame(pp_CORE_EX1_622)#OK
-	#PresetGame(pp_CORE_EX1_623)#OK
-	#PresetGame(pp_CORE_EX1_625)#OK
+	#PresetGame(pp_CORE_EX1_623)#OK 22.6
+	#PresetGame(pp_CORE_EX1_625)#OK 22.6
+	PresetGame(pp_CORE_GVG_008)#visuall ok
+	PresetGame(pp_CORE_UNG_034)#visuall ok
+	PresetGame(pp_CORE_UNG_963)# visually OK
 	#PresetGame(pp_CS3_013)#OK
-	#PresetGame(pp_CS3_014)#OK
+	#PresetGame(pp_CS3_014)#OK 22.6
 	PresetGame(pp_CS3_027)#
 	pass
 
@@ -61,6 +67,38 @@ class pp_CORE_AT_055(Preset_Play):# <6>[1637]
 		hero = controller.opponent.hero
 		for card in controller.field:
 			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
+		pass
+
+################CORE_CFM_605##################
+
+class pp_CORE_CFM_605(Preset_Play):# <6>[1637]
+	""" Drakonid Operative
+	[Battlecry:] If you're holdinga Dragon, [Discover] a copy of a card in youropponent's deck. """
+	class1=CardClass.PRIEST
+	class2=CardClass.PRIEST
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('CORE_CFM_605',controller)#
+		self.mark2=self.exchange_card('dragon',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark1)
+		assert len(self.player.choice.cards)==3, "choice"
+		decklist = [i.id for i in controller.opponent.deck]
+		for card in self.player.choice.cards:
+			assert card.id in decklist, "deck"
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.hand:
+			self.print_stats("hand", card)
 		pass
 
 ##################################
@@ -153,6 +191,69 @@ class pp_CORE_CS1_130(Preset_Play):# <6>[1637]
 			print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone),end='')
 			print("<-(%d/%d)" % (card.data.atk, card.data.health))
 		pass
+
+################CORE_CS2_235##################
+
+class pp_CORE_CS2_235(Preset_Play):# <6>[1637]
+	""" Northshire Cleric
+	Whenever a minion is healed, draw a card. """
+	class1=CardClass.PRIEST
+	class2=CardClass.PRIEST
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('CORE_CS2_235',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark4)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+		pass
+
+################CORE_DRG_090##################
+
+class pp_CORE_DRG_090(Preset_Play):# <6>[1637]
+	""" Murozond the Infinite
+	[Battlecry:] Play all cards your opponent played last_turn. """
+	class1=CardClass.PRIEST
+	class2=CardClass.PRIEST
+	def preset_deck(self):
+		controller=self.player
+		opponent=controller.opponent
+		self.mark1=self.exchange_card('CORE_DRG_090',controller)#
+		self.mark2=self.exchange_card('minionH1',opponent)#
+		self.mark3=self.exchange_card('spell',opponent)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.change_turn()
+		### opp
+		self.play_card(self.mark2)
+		self.play_card(self.mark3)
+		self.change_turn()
+		### con
+		self.play_card(self.mark1)
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+		### mark2 が Summonされていることと、 mark3 がCastSpellされていることを LOGINFOから目視する。
+		pass
+
 
 ##################################
 
@@ -516,6 +617,89 @@ class pp_CORE_EX1_625(Preset_Play):# <6>[1637]
 		#for card in controller.field:
 		#	print ("op. field: %s: (%d/%d/%d) zone->%s"%(card, card.cost,card.atk, card.health,card.zone))
 		pass
+
+#################CORE_GVG_008
+
+class pp_CORE_GVG_008(Preset_Play):# <6>[1637]
+	""" Lightbomb
+	Deal damage to each minion equal to its Attack. """
+	class1=CardClass.PRIEST
+	class2=CardClass.PRIEST
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('CORE_GVG_008',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark4)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+		pass
+
+
+#################CORE_UNG_034 # not yet
+
+class pp_CORE_UNG_034(Preset_Play):# <6>[1637]
+	""" Radiant Elemental
+	Your spells cost (1) less. """
+	class1=CardClass.PRIEST
+	class2=CardClass.PRIEST
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('CORE_UNG_034',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark4)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+		pass
+
+#################CORE_UNG_963
+
+class pp_CORE_UNG_963(Preset_Play):# <6>[1637]
+	""" Lyra the Sunshard
+	Whenever you cast a spell, add a random Priest spell to your hand. """
+	class1=CardClass.PRIEST
+	class2=CardClass.PRIEST
+	def preset_deck(self):
+		controller=self.player
+		self.mark1=self.exchange_card('CORE_UNG_963',controller)#
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		controller = self.player
+		### con
+		self.play_card(self.mark4)
+		self.change_turn()
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		controller = self.player
+		for card in controller.field:
+			self.print_stats("field", card)
+		pass
+
 ##################################
 
 class pp_CS3_013(Preset_Play):# <6>[1637]

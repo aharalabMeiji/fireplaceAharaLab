@@ -98,6 +98,18 @@ class ChooseBoth(Evaluator):
 			return True
 		return False
 
+class Frozen(Evaluator):
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
+
+	def check(self, source):
+		entity = self.selector.eval(source.game.entities, source)[0]
+		# entity may be Player or PlayableCard
+		if hasattr(entity,'frozen') and entity.frozen:
+			return True
+		return False
+
 
 class CurrentPlayer(Evaluator):
 	"""
@@ -139,7 +151,7 @@ class Find(Evaluator):
 		self.selector = selector
 
 	def check(self, source):
-		return bool(len(self.selector.eval(source.game.allcards, source))) ### game? or game.entities?
+		return bool(len(self.selector.eval(source.game.targetable_allcards, source))) ### game? or game.entities?
 
 
 class FindDuplicates(Evaluator):
@@ -151,7 +163,7 @@ class FindDuplicates(Evaluator):
 		self.selector = selector
 
 	def check(self, source):
-		entities = self.selector.eval(source.game.allcards, source)
+		entities = self.selector.eval(source.game.targetable_allcards, source)
 		return len(set(entities)) < len(entities)
 
 class JoustEvaluator(Evaluator):
@@ -212,4 +224,32 @@ class CostUp(Evaluator):
 			if hasattr(target, 'cost'):
 				if target>self.amount:
 					return True
+		return False
+
+class ScriptConst1True(Evaluator):
+	"""
+	Evaluates to True if script_const_1 is True
+	"""
+	def __init__(self, selector, count=1):
+		super().__init__()
+		self.selector = selector
+
+	def check(self, source):
+		targets = self.selector.eval(source.game.entities, source)
+		if len(targets)>0:
+			return bool(targets[0].controller.script_const_1)
+		return False
+
+class ScriptDataNum1True(Evaluator):
+	"""
+	Evaluates to True if script_const_1 is True
+	"""
+	def __init__(self, selector, count=1):
+		super().__init__()
+		self.selector = selector
+
+	def check(self, source):
+		targets = self.selector.eval(source.game.entities, source)
+		if len(targets)>0:
+			return bool(targets[0].script_data_num_1)
 		return False

@@ -15,7 +15,7 @@ class StandardAgent(Agent):
 		super().__init__(myName, myFunction, myOption, myClass, rating )
 		pass
 
-	def StandardRandom(self, thisgame: ".game.Game", option=[], gameLog=[], debugLog=False):
+	def StandardRandom(self, thisgame: "fireplace.game.Game", option=[], gameLog=[], debugLog=False):
 		player = thisgame.current_player
 		loopCount=0
 		while loopCount<20:
@@ -57,7 +57,8 @@ class StandardVectorAgent(Agent):
 			for myChoice in myCandidate:
 				tmpGame = fireplace_deepcopy(game)
 				#tmpGame = copy.deepcopy(game)
-				log.info("Estimate the score for [%s]"%(myChoice))
+				if debugChoice:
+					("Estimate the score for [%s]"%(myChoice))
 				result = executeAction(tmpGame, myChoice, debugLog=False)
 				postAction(tmpGame.current_player)
 				if result==ExceptionPlay.INVALID:
@@ -115,10 +116,10 @@ class StandardVectorAgent(Agent):
 		#w[4]=myTauntCharA = 0
 		#w[5]=myTauntCharH = 0
 		for char in me.characters:
-			w[2] += char.atk
-			if char.taunt:
-				w[4] += char.atk
 			if char.type == CardType.MINION:
+				w[2] += char.atk
+				if char.taunt:
+					w[4] += char.atk
 				w[3] += char.health
 				if char.taunt:
 					w[5] += char.health
@@ -127,10 +128,10 @@ class StandardVectorAgent(Agent):
 		#w[8]=hisTauntCharA = 0
 		#w[9]=hisTauntCharH = 0
 		for char in he.characters:
-			w[6] += char.atk
-			if char.taunt:
-				w[8] += char.atk
 			if char.type == CardType.MINION:
+				w[6] += char.atk
+				if char.taunt:
+					w[8] += char.atk
 				w[7] += char.health
 				if char.taunt:
 					w[9] += char.health
@@ -237,7 +238,7 @@ class StandardVectorAgent(Agent):
 #
 #   Original random
 #
-def Original_random(game: ".game.Game"):
+def Original_random(game):
 	player = game.current_player
 	while True:
 		for card in player.hand:
@@ -270,7 +271,7 @@ def Original_random(game: ".game.Game"):
 		break
 
 def adjust_text(text):
-	return text.replace('\n','').replace('[x]','').replace('<b>','[').replace('</b>',']')
+	return text.replace('\n','').replace('[x]','').replace('[','[').replace(']',']')
 
 def adjust_text_by_spellpower(text, player, card):
 	_catch_number=-1
@@ -301,6 +302,8 @@ def adjust_text_by_spellpower(text, player, card):
 					_latter_text = _new_text[_i+3:]
 				if hasattr(card,'spell_school') and card.spell_school == SpellSchool.FIRE:
 					_catch_number += player.spellpower_fire
+				elif hasattr(card,'spell_school') and card.spell_school == SpellSchool.NATURE:
+					_catch_number += player.spellpower_nature
 				else :
 					_catch_number += player.spellpower
 				for _repeat in range(player.spellpower_double):
@@ -387,13 +390,13 @@ class HumanAgent(Agent):
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					elif character.dormant<0:
-						if character._sidequest_counter_>0:
-							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+						if character.sidequest_counter>0:
+							print("(dormant:%d)"%(character.sidequest_counter), end=" ")
 						else:
 							print("(dormant)", end=" ")
-					#if character._sidequest_counter_>0:
+					#if character.sidequest_counter>0:
 					#	if character.dormant==0:
-					#		print("(sidequest:%d)"%(character._sidequest_counter_), end=" ")
+					#		print("(sidequest:%d)"%(character.sidequest_counter), end=" ")
 				print("%s"%(adjust_text_by_spellpower(character.data.description, player.opponent, character)))
 			print("========MY PLAYGROUND======")
 			for character in player.characters:
@@ -406,7 +409,7 @@ class HumanAgent(Agent):
 				else :
 					print("(%2d/%2d)"%(character.atk,character.health), end=" ")
 					if character._Asphyxia_ == 'asphyxia':
-						print("(Now Asphyxia %d)"%(character._sidequest_counter_), end=' ')
+						print("(Now Asphyxia %d)"%(character.sidequest_counter), end=' ')
 					if character.charge:
 						print("(charge)", end=" ")
 					if character.divine_shield:
@@ -414,8 +417,8 @@ class HumanAgent(Agent):
 					if character.dormant>0:
 						print("(dormant:%d)"%(character.dormant), end=" ")
 					elif character.dormant<0:
-						if character._sidequest_counter_>0:
-							print("(dormant:%d)"%(character._sidequest_counter_), end=" ")
+						if character.sidequest_counter>0:
+							print("(dormant:%d)"%(character.sidequest_counter), end=" ")
 						else:
 							print("(dormant)", end=" ")
 					if character.frozen:
@@ -460,7 +463,7 @@ class HumanAgent(Agent):
 			for card in player.secrets:
 				print("%s"%card, end='   : ')
 				if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
-					print("(sidequest %d)"%card._sidequest_counter_, end="")
+					print("(sidequest %d)"%card.sidequest_counter, end="")
 				print("%s"%(adjust_text(card.data.description)))
 			print("========Your turn : %d/%d mana==(spell damage %d (fire %d))==="%(player.mana,player.max_mana,player.spellpower,player.spellpower_fire))
 			print("[0] ターンを終了する")
@@ -640,7 +643,7 @@ def debug_player_cards(player,old_player):
 				footer += "(%2d/%2d)"%(old_character.atk, old_character.health)
 				header ='XXX'
 			if character._Asphyxia_ == 'asphyxia':
-				footer +="(Now Asphyxia %d)"%(character._sidequest_counter_)
+				footer +="(Now Asphyxia %d)"%(character.sidequest_counter)
 				if old_character._Asphyxia != 'asphyxia':
 					header ='XXX'
 					footer += 'X'
@@ -695,9 +698,9 @@ def debug_player_cards(player,old_player):
 					header ='XXX'
 					footer += 'X'
 			elif character.dormant<0:
-				if character._sidequest_counter_>0:
-					footer +="(dormant:%d)"%(character._sidequest_counter_)
-					if old_character.dormant>=0 or old_character._sidequest_counter_<=0:
+				if character.sidequest_counter>0:
+					footer +="(dormant:%d)"%(character.sidequest_counter)
+					if old_character.dormant>=0 or old_character.sidequest_counter<=0:
 						header ='XXX'
 						footer += 'X'
 				else:
@@ -724,9 +727,9 @@ def debug_player_cards(player,old_player):
 		header = 'OOO'
 		footer = "%s"%card
 		if hasattr(card, 'sidequest') or hasattr(card, 'questline'):
-			footer += "(sidequest %d)"%(card._sidequest_counter_)
-			if card._sidequest_counter_ != old_card._sidequest_counter_:
-				footer += "(sidequest %d)"%(old_card._sidequest_counter_)
+			footer += "(sidequest %d)"%(card.sidequest_counter)
+			if card.sidequest_counter != old_card.sidequest_counter:
+				footer += "(sidequest %d)"%(old_card.sidequest_counter)
 				header = 'XXX'
 		if card.id != old_card.id:
 			footer += "(%s)"%old_card

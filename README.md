@@ -33,7 +33,7 @@ Classic battle is available [here](https://github.com/aharalabMeiji/fireplaceAha
 
 * ログ表示をやめる方法
 
-> fireplaceフォルダのファイルlogging.py の　line 18あたり
+> fireplaceフォルダのファイルlogging.py の line 18あたり
 >
 >     #logger.addHandler(ch)
 

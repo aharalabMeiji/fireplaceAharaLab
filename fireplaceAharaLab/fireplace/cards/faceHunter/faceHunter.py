@@ -4,7 +4,7 @@ from ..utils import *
 class DRG_252:#OK
 	"""Phase Stalker
 	[x]After you use your Hero
-	Power, cast a <b>Secret</b>
+	Power, cast a [Secret]
 	from your deck."""
 	events = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
 	pass
@@ -26,7 +26,7 @@ class DRG_256:#OK
 
 class ULD_152:#OK
 	"""Pressure Plate	Common
-	<b>Secret:</b> After your opponent casts a spell, destroy a random enemy_minion."""
+	[Secret:] After your opponent casts a spell, destroy a random enemy_minion."""
 	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
 	pass
 
@@ -61,7 +61,7 @@ class EX1_539:
 
 #class SCH_312:
 #	""" School Tour ツアーガイド
-#		<b>雄叫び:</b>自分が次に使うヒーローパワーのコストは（0）
+#		[雄叫び:]自分が次に使うヒーローパワーのコストは（0）
 #	"""
 #	play = Buff(CONTROLLER, "SCH_312e")
 
@@ -74,7 +74,7 @@ class EX1_539:
 
 #class SCH_231:
 #	"""図太い徒弟
-#	[x]<b>魔法活性:</b>攻撃力+2を獲得する。
+#	[x][魔法活性:]攻撃力+2を獲得する。
 #	"""
 #	play = Play(CONTROLLER,SPELL).on(Buff(SELF, "SCH_231e"))##魔法の部分が未チェックOWN_SPELL_PLAY?
 #	pass
@@ -89,6 +89,6 @@ class EX1_539:
 
 #class SCH_428:
 #	""" 伝承守護者ポルケルト 
-#	[x]<b>雄叫び:</b>自分のデッキのカードをコストが高い順に並べ替える。 """
+#	[x][雄叫び:]自分のデッキのカードをコストが高い順に並べ替える。 """
 #	#これは無理
 #	pass
