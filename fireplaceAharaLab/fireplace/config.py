@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=4
+	HEARTHSTONE=1
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -31,9 +31,9 @@ class Config:# ()is the default value
 	DEEPCOPY_LOGINFO=0
 
 	#4: Checking a specific card for debugging
-	CARD_TEST_SET='THE_SUNKEN_CITY'
+	CARD_TEST_SET='VANILLA'
 	## VANILLA,THE_BARRENS,STORMWIND,ALTERAC_VALLEY,THE_SUNKEN_CITY,REVENDRETH, CORE
-	CARD_TEST_CLASS='PRIEST'
+	CARD_TEST_CLASS='NEUTRAL'
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
 
