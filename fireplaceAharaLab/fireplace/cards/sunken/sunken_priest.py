@@ -94,16 +94,16 @@ class TSC_209:# <6>[1658]
 	""" Whirlpool
 	Destroy all minions and all copies of them <i>(wherever they are)</i>. """
 	def play(self):
-		for c in self.controller.hand + self.controller.opponent.hand:
-			for card in self.controller.field + self.controller.opponent.field:
-				if self.controller.hand[0].id==card.id:
-					Destroy(c).trigger(self)## no Deathrattle
-		for c in self.controller.deck + self.controller.opponent.deck:
-			for card in self.controller.field + self.controller.opponent.field:
-				if self.controller.hand[0].id==card.id:
-					Destroy(c).trigger(self)## no Deathrattle
 		for card in self.controller.field + self.controller.opponent.field:
-			Destroy(c).trigger(self)## with Deathrattle
+			for c in reversed(self.controller.hand + self.controller.opponent.hand):
+				if c.id==card.id:
+					c.discard()## no Deathrattle
+			for c in reversed(self.controller.deck + self.controller.opponent.deck):
+				if c.id==card.id:
+					c.discard()## no Deathrattle
+		for card in reversed(self.controller.field + self.controller.opponent.field):
+			if card!=self:
+				Destroy(c).trigger(self)## with Deathrattle
 		Deaths().trigger(self)
 	pass
 

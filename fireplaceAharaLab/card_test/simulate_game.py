@@ -29,7 +29,11 @@ def card_test():
 		if Config.CARD_TEST_CLASS=='ROGUE':
 			from card_test.barrens_rogue import barrens_rogue
 			barrens_rogue()
-
+	elif Config.CARD_TEST_SET=='THE_SUNKEN_CITY':
+		if Config.CARD_TEST_CLASS=='PRIEST':
+			from card_test.sunken_priest import sunken_priest
+			sunken_priest()
+		pass
 	pass
 
 
