@@ -73,17 +73,16 @@ TID_710e=buff(1,1)# <12>[1658]
 if Sunken_Ozumat:# OK
 	Sunken_Neutral+=['TID_711']
 	Sunken_Neutral+=['TID_711t','TID_711t2','TID_711t3','TID_711t4','TID_711t5','TID_711t6']
-class TID_711_Deathrattle(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller = target
+class TID_711_Deathrattle(GameAction):
+	def do(self, source):
+		controller = source.controller
 		for card in controller.field:
 			if card.id in ['TID_711t','TID_711t2','TID_711t3','TID_711t4','TID_711t5','TID_711t6']:
 				alive_minions=[card for card in controller.opponent.field if card.alive]
 				if len(alive_minions)>0:
 					target = random.choice(alive_minions)
 					Destroy(target).trigger(source)
-		Deaths().trigger(source)
+					Deaths().trigger(source)
 class TID_711:# <12>[1658]
 	""" Ozumat
 	[Colossal +6] [Deathrattle:] For each of Ozumat's Tentacles, destroy a random enemy minion. """
@@ -94,7 +93,7 @@ class TID_711:# <12>[1658]
 		Summon(CONTROLLER,'TID_711t4'),
 		Summon(CONTROLLER,'TID_711t5'),
 		Summon(CONTROLLER,'TID_711t6'))
-	deathrattle = TID_711_Deathrattle(CONTROLLER)
+	deathrattle = TID_711_Deathrattle()
 	pass
 class TID_711t:# <12>[1658]
 	""" Ozumat's Tentacle
