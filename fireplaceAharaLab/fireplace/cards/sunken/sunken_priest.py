@@ -88,7 +88,7 @@ class TID_920:# <6>[1658]
 
 
 
-if Sunken_Whirlpool:# 
+if Sunken_Whirlpool:# ### OK ###
 	Sunken_Priest+=['TSC_209']
 class TSC_209:# <6>[1658]
 	""" Whirlpool
@@ -103,7 +103,7 @@ class TSC_209:# <6>[1658]
 					c.discard()## no Deathrattle
 		for card in reversed(self.controller.field + self.controller.opponent.field):
 			if card!=self:
-				Destroy(c).trigger(self)## with Deathrattle
+				Destroy(card).trigger(self)## with Deathrattle
 		Deaths().trigger(self)
 	pass
 
