@@ -65,7 +65,7 @@ class TID_717eb:# <9>[1658]
 
 
 
-if Sunken_Immolate:# 
+if Sunken_Immolate:# ### OK ###
 	Sunken_Warlock+=['TID_718']
 	Sunken_Warlock+=['TID_718e']
 	Sunken_Warlock+=['TID_718e2']
@@ -80,7 +80,7 @@ class TID_718_Action(GameAction):
 		for card in controller.opponent.hand:
 			if 'TID_718e2' in [buff.id for buff in card.buffs]:
 				Destroy(card).trigger(source)
-		Deaths().trigger()
+		Deaths().trigger(source)
 		pass
 class TID_718e:# <9>[1658]
 	""" Engulfed in Flame

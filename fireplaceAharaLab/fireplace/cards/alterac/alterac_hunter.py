@@ -209,7 +209,7 @@ AV_244e=buff(1,1)
 
 
 
-if Alterac_Revive_Pet:# 
+if Alterac_Revive_Pet:# ### OK ###
 	Alterac_Hunter+=['AV_333']
 class AV_333_Choice(Choice):
 	def choose(self, card):

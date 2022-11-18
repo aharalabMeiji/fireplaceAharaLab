@@ -36,6 +36,9 @@ def card_test():
 		if Config.CARD_TEST_CLASS=='PRIEST':
 			from card_test.sunken_priest import sunken_priest
 			sunken_priest()
+		elif Config.CARD_TEST_CLASS=='WARLOCK':
+			from card_test.sunken_warlock import sunken_warlock
+			sunken_warlock()
 		pass
 	pass
 

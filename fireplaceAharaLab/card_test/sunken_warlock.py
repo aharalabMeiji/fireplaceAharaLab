@@ -6,7 +6,7 @@ def sunken_warlock():
 
 
 	#PresetGame(pp_TID_717)### OK ###
-	#PresetGame(pp_TID_718)##
+	PresetGame(pp_TID_718)##
 	#PresetGame(pp_TID_719)##
 	#PresetGame(pp_TSC_039)##
 	#PresetGame(pp_TSC_614)##
@@ -21,214 +21,6 @@ def sunken_warlock():
 	pass
 
 
-##########AIBot_WarlockTrainee_009_hb##########
-
-class pp_AIBot_WarlockTrainee_009_hb(Preset_Play):
-	""" Warlock Trainee
-	 """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("AIBot_WarlockTrainee_009_hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Handmaiden_011hb##########
-
-class pp_Story_11_Handmaiden_011hb(Preset_Play):
-	""" Lady Evenlar
-	 """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Handmaiden_011hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Jailor_013p##########
-
-class pp_Story_11_Jailor_013p(Preset_Play):
-	""" Shackled
-	[Passive Hero Power] Enemy cards cost @ more. Changes at the start of their turn. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Jailor_013p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Murloc_009hb##########
-
-class pp_Story_11_Murloc_009hb(Preset_Play):
-	""" Murgaloc
-	<i>Its level of aggression is concerning... even for a murloc.</i> """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Murloc_009hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Ozumat_007hb##########
-
-class pp_Story_11_Ozumat_007hb(Preset_Play):
-	""" Ozumat
-	<i>This great behemoth lurks beneath the waves, waiting to entrap its unwary prey...</i> """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Ozumat_007hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Ozumat_007p##########
-
-class pp_Story_11_Ozumat_007p(Preset_Play):
-	""" Tentacles of Ozumat
-	[Passive Hero Power] Destroy Ozumat's tentacles to defeat it. """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Ozumat_007p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Ruins_011hb##########
-
-class pp_Story_11_Ruins_011hb(Preset_Play):
-	""" Ruins of House Evenlar
-	<i>After so many long years, it is finally time to let go of the past.</i> """
-	class1=CardClass.WARLOCK
-	class2=CardClass.WARLOCK
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Ruins_011hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
 ##########TID_717##########
@@ -285,11 +77,17 @@ class pp_TID_718(Preset_Play):
 		self.change_turn()
 		### opp
 		self.change_turn()
+		### con
+		self.change_turn()
+		### opp
+		self.change_turn()
+		### con
+		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.hand:
+			self.print_stats("op.hand", card)
 	pass
 
 
