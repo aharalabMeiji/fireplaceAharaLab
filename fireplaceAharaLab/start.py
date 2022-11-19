@@ -50,6 +50,7 @@ def main():
 
 	####################################################################
 
+### #3
 
 from card_test.simulate_game import card_test
 
@@ -59,6 +60,20 @@ def battleground_main():
 		BG=BG_main()
 		BG.BG_main()
 
+
+### #6
+
+def simulation_main():
+	cards.db.initialize()
+	playerA_class=getattr(CardClass, Config.PLAYERA_CLASS)
+	playerB_class=getattr(CardClass, Config.PLAYERB_CLASS)
+	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=playerA_class)
+	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=CardClass.DRUID)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=Config.SIMULATION_NUMBER, debugLog=True)
 
 
 if __name__ == "__main__":
@@ -71,6 +86,8 @@ if __name__ == "__main__":
 	elif Config.HEARTHSTONE==5:
 		printPool()
 		#printClasses()
+	elif Config.HEARTHSTONE==6:
+		simulation_main()
 	elif Config.HEARTHSTONE==10:
 		parse()
 		#parseDeck("AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA")

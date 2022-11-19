@@ -2,10 +2,9 @@ from hearthstone.enums import CardSet, CardClass, SpellSchool, GameTag, CardType
 from hearthstone import cardxml
 from .cards.cardlist import All
 from hearthstone.deckstrings import parse_deckstring
-
+from fireplace import cards
 
 def printClasses():
-	from hearthstone import cardxml
 	myCardSet=CardSet.REVENDRETH#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
 	myCardClass=CardClass.WARRIOR##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	setText={

@@ -1,12 +1,13 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=6
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
 
 	#4: Checking a specific card for debugging
 	#5: List up cards data (to build a new cards file.)
+	#6: Vector Agent, random deck, simulation
 	#10: Decoding from a 'deckcode' to list of cards.
 
 	#ランク戦のオプション
@@ -19,6 +20,7 @@ class Config:# ()is the default value
 	#P2MAXMANA=1 # 後攻マナ(1) 1~10
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
+
 
 	LOGINFO=0# as log.info
 	LOGINFO_INDENT=0
@@ -36,6 +38,11 @@ class Config:# ()is the default value
 	CARD_TEST_CLASS='NEUTRAL'
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
+	#6 option
+	PLAYERA_CLASS='DRUID'
+	PLAYERB_CLASS='WARLOCK'
+	SIMULATION_NUMBER=100
+	## DEMONHUNTER,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
 
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
