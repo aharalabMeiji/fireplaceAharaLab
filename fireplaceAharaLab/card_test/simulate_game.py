@@ -41,7 +41,10 @@ def card_test():
 			sunken_warlock()
 		pass
 	elif Config.CARD_TEST_SET=='STORMWIND':
-		if Config.CARD_TEST_CLASS=='WARLOCK':
+		if Config.CARD_TEST_CLASS=='DRUID':
+			from card_test.stormwind_druid import stormwind_druid
+			stormwind_druid()
+		elif Config.CARD_TEST_CLASS=='WARLOCK':
 			from card_test.stormwind_warlock import stormwind_warlock
 			stormwind_warlock()
 
@@ -118,7 +121,8 @@ class Preset_Play:
 		pass
 	def choose_action(self):
 		if self.current.choice!=None:
-			postAction(self.current)
+			return postAction(self.current)
+		return None
 		pass
 	def change_turn(self, player=None):
 		if player==None:

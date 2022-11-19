@@ -314,6 +314,14 @@ def identifyPlayCard(card1, card2):
 	if cond1 and cond2 and cond3 and cond4:
 		return True
 	return False
+def easyIdentifyPlayCard(card1, card2):
+	if card1==None or card2==None:
+		return False
+	cond2 = card1.id==card2.id
+	cond3 = identifyPlayer(card1.controller.name, card2.controller.name)
+	if cond2 and cond3:
+		return True
+	return False
 def identifyAttackCard(card1, card2):
 	if card1==None or card2==None:
 		return False
@@ -368,7 +376,7 @@ def executeAction(mygame, action: Candidate, debugLog=True):
 					theCard = card
 					if theCard.must_choose_one:
 						for card2 in card.choose_cards:
-							if identifyPlayCard(card2, action.card2):
+							if easyIdentifyPlayCard(card2, action.card2):
 								theCard2 = card2
 								if theCard2.requires_target():
 									for target in theCard2.targets:
@@ -557,7 +565,7 @@ class BigDeck:
 def postAction(player):
 	while True:
 		if player.choice == None:
-			return
+			return None
 		else:
 			if player.choiceStrategy==None:
 				if len(player.choice.cards)==0:
@@ -576,8 +584,10 @@ def postAction(player):
 			else :
 				if choice == None:
 					player.choice=None##return
+					return None
 				else:
 					player.choice.choose(choice)
+					return choice
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""

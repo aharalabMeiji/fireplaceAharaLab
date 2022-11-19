@@ -56,22 +56,46 @@ class DED_001c:# <2>[1578]
 
 
 
-if StormWind_Moonlit_Guidance:# 
+if StormWind_Moonlit_Guidance:# ### OK ###
 	StormWind_Druid+=['DED_002','DED_002e']
+class DED_002_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		assert card.zone==Zone.SETASIDE, "setaside"
+		card.zone=Zone.HAND
+		Buff(card, 'DED_002e').trigger(self.source)
+class DED_002_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[card.id for card in controller.deck]
+		if len(cards)>3:
+			cards=random.sample(cards,3)
+		DED_002_Choice(controller, RandomID(*cards)*3).trigger(source)
 class DED_002:# <2>[1578]####OK
 	""" Moonlit Guidance
 	[Discover] a copy of a card in your deck.If you play it this turn,draw the original. """
-	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK)*3).then(
-		Give(CONTROLLER, Choice.CARD), Buff(Choice.CARD, 'DED_002e')
-		)
-	pass
+	play = DED_002_Action()
+class DED_002e_Action1(GameAction):
+	## draw the original
+	def do(self, source):
+		owner=source.owner
+		cards=[card for card in source.controller.deck if card.id==owner.id]
+		if len(cards):
+			card=random.choice(cards)
+			assert card.zone==Zone.DECK, "deck"
+			card.zone=Zone.HAND
+		source.remove()
+class DED_002e_Action2(GameAction):
+	def do(self, source):
+		source.remove()
 class DED_002e:# <2>[1578]####OK
 	""" Path of the Moon
 	If played this turn, draw the original copy. """
 	# do - shi yo -
 	events = [
-		Play(CONTROLLER, FRIENDLY+OWNER).on(Destroy(SELF), Give(CONTROLLER, ExactCopy(OWNER))),
-		OWN_TURN_END.on(Destroy(SELF), Shuffle(CONTROLLER, ExactCopy(OWNER))),
+		Play(CONTROLLER, FRIENDLY+OWNER).on(DED_002e_Action1()),
+		OWN_TURN_END.on(DED_002e_Action2()),
 		]
 	pass
 
