@@ -3,20 +3,6 @@ from fireplace.actions import Hit, Summon, Give
 from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def sunken_shaman():
-
-	#PresetGame(pp_AIBot_ShamanTrainee_008_hb)##
-	#PresetGame(pp_Story_11_Bioluminescente)##
-	#PresetGame(pp_Story_11_Errgl_009hb)##
-	#PresetGame(pp_Story_11_FireElemental)##
-	#PresetGame(pp_Story_11_FlamewreathedFaceless)##
-	#PresetGame(pp_Story_11_Hurricane_005hb)##
-	#PresetGame(pp_Story_11_Hurricane_005p)##
-	#PresetGame(pp_Story_11_PriestessMemory)##
-	#PresetGame(pp_Story_11_RadianceofAzshara)##
-	#PresetGame(pp_Story_11_ScaldingPuzzle)##
-	#PresetGame(pp_Story_11_Sundering_011hb)##
-	#PresetGame(pp_Story_11_Sundering_011p)##
-	#PresetGame(pp_Story_11_Vortex)##
 	#PresetGame(pp_TID_003)##
 	#PresetGame(pp_TID_004)##
 	#PresetGame(pp_TID_005)##
@@ -27,399 +13,10 @@ def sunken_shaman():
 	#PresetGame(pp_TSC_637)##
 	#PresetGame(pp_TSC_639)##
 	#PresetGame(pp_TSC_648)##
-	#PresetGame(pp_TSC_772)##
+	PresetGame(pp_TSC_772)### OK ###
+	PresetGame(pp_TSC_772b)### OK ###
 	#PresetGame(pp_TSC_922)##
 	#PresetGame(pp_TSC_923)##
-	pass
-
-
-##########AIBot_ShamanTrainee_008_hb##########
-
-class pp_AIBot_ShamanTrainee_008_hb(Preset_Play):
-	""" Shaman Trainee
-	 """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("AIBot_ShamanTrainee_008_hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Bioluminescente##########
-
-class pp_Story_11_Bioluminescente(Preset_Play):
-	""" Bioluminescent
-	[Spell Damage +1]. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Bioluminescente", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Errgl_009hb##########
-
-class pp_Story_11_Errgl_009hb(Preset_Play):
-	""" Cousin Errgl
-	<i>Though an infrequent and rather disruptive visitor, Errgl is always welcome at the Mrrgglton household.</i> """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Errgl_009hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_FireElemental##########
-
-class pp_Story_11_FireElemental(Preset_Play):
-	""" Fire Elemental
-	Whenever your opponent plays a card, deal 4 damage to the enemy hero. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_FireElemental", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_FlamewreathedFaceless##########
-
-class pp_Story_11_FlamewreathedFaceless(Preset_Play):
-	""" Flamewreathed Faceless
-	[[Taunt] Deathrattle:] Give the opposing player 3 Mana Crystals. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_FlamewreathedFaceless", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Hurricane_005hb##########
-
-class pp_Story_11_Hurricane_005hb(Preset_Play):
-	""" Hurricane Elemental
-	<i>The elements themselves seem to have turned against you as they rage across the open sea...</i> """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Hurricane_005hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Hurricane_005p##########
-
-class pp_Story_11_Hurricane_005p(Preset_Play):
-	""" Squall
-	[Hero Power] Deal @ damage to a random enemy. <i>(increases each use)</i> """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Hurricane_005p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_PriestessMemory##########
-
-class pp_Story_11_PriestessMemory(Preset_Play):
-	""" Priestess' Memory
-	Add a Holy spell to your hand. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_PriestessMemory", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_RadianceofAzshara##########
-
-class pp_Story_11_RadianceofAzshara(Preset_Play):
-	""" Radiance of Azshara
-	Can't be targeted by spells. At the end of your turn, deal 1  damage to all enemy minions. [Deathrattle:] Advance fight. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_RadianceofAzshara", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_ScaldingPuzzle##########
-
-class pp_Story_11_ScaldingPuzzle(Preset_Play):
-	""" Scalding Geyser
-	Deal $2 damage. [Dredge]. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_ScaldingPuzzle", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Sundering_011hb##########
-
-class pp_Story_11_Sundering_011hb(Preset_Play):
-	""" The Sundering
-	 """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Sundering_011hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Sundering_011p##########
-
-class pp_Story_11_Sundering_011p(Preset_Play):
-	""" Calamitous Flood
-	[Hero Power] Deal @ damage to all enemy minions. For each    that dies, gain 1 damage. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Sundering_011p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_Vortex##########
-
-class pp_Story_11_Vortex(Preset_Play):
-	""" Vortex
-	Deal $3 damage to a random enemy minion. If it dies, recast this. """
-	class1=CardClass.SHAMAN
-	class2=CardClass.SHAMAN
-	def preset_deck(self):
-		self.con1=self.exchange_card("Story_11_Vortex", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
 	pass
 
 
@@ -732,19 +329,38 @@ class pp_TSC_772(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("TSC_772", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		self.choose_action()
 		### opp
-		self.change_turn()
+		#self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+		self.print_stats("bottom of deck", self.controller.deck[0])
+	pass
+class pp_TSC_772b(Preset_Play):
+	""" Azsharan Scroll
+	[Discover] a Fire, Frost or Nature spell. Put a 'Sunken Scroll' on the bottom of your deck. """
+	class1=CardClass.SHAMAN
+	class2=CardClass.SHAMAN
+	def preset_deck(self):
+		self.con1=self.exchange_card("TSC_772t", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		#self.change_turn()
+		### opp
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()

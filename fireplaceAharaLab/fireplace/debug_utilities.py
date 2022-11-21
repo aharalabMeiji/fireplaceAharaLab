@@ -286,7 +286,7 @@ def printPool():
 			if _card.card_set== myCardSet and _card.card_class == card_class: 
 				#if not keyID in _card.id:
 				if (GameTag.COLLECTIBLE in _card.tags.keys()):
-					print("%s,%s,%s,%d,%d,%d,%s"%(_id, _card.name.replace(',',''), classEText[card_class], _card.cost, _card.atk,	_card.health, _card.description.replace(',','').replace('\n','')))
+					print("%s,%s,%s,%s,%d,%d,%d,%s"%(_id, _card.name.replace(',',''), classEText[card_class], _card.rarity,_card.cost, _card.atk,	_card.health, _card.description.replace(',','').replace('\n','')))
 				keyID=_card.id	
 			pass
 		pass

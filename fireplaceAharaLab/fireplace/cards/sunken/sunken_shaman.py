@@ -191,7 +191,7 @@ class TSC_639t3:# <8>[1658]
 	""" Glugg's Tail 	[Taunt] """
 
 
-if Sunken_Coral_Keeper:# 
+if Sunken_Coral_Keeper:# ### OK ###
 	Sunken_Shaman+=['TSC_648']
 	Sunken_Shaman+=['TSC_648t']
 class TSC_648:# <8>[1658]
@@ -218,17 +218,38 @@ class TSC_772:# <8>[1658]
 	""" Azsharan Scroll
 	[Discover] a Fire, Frost or Nature spell. Put a 'Sunken Scroll'(TSC_772t) on the bottom of your deck. """
 	def play(self):
-		card1 = (RandomSpell(spell_school=SpellSchool.FIRE).evaluate(self))[0]
-		card2 = (RandomSpell(spell_school=SpellSchool.FROST).evaluate(self))[0]
-		card3 = (RandomSpell(spell_school=SpellSchool.NATURE).evaluate(self))[0]
-		cards=(card1, card2, card3)
-		ShuffleBottom(CONTROLLER, 'TSC_772t').trigger(self)
-		Discover(CONTROLLER, RandomID(*cards)).trigger(self)
+		cards=[]
+		card1 = RandomSpell(spell_school=SpellSchool.FIRE).evaluate(self)
+		if len(card1):
+			card1=card1[0]
+			cards.append(card1)
+		card2 = RandomSpell(spell_school=SpellSchool.FROST).evaluate(self)
+		if len(card2):
+			card2=card2[0]
+			cards.append(card2)
+		card3 = RandomSpell(spell_school=SpellSchool.NATURE).evaluate(self)
+		if len(card3):
+			card3=card3[0]
+			cards.append(card3)
+		ShuffleBottom(self.controller, 'TSC_772t').trigger(self)
+		Discover(self.controller, RandomID(*cards)*3).trigger(self)
 	pass
 class TSC_772t:# <8>[1658]
 	""" Sunken Scroll
 	Add a Fire, Frost, and Nature spell from your class to your hand. """
-	#
+	def play(self):
+		card1 = RandomSpell(spell_school=SpellSchool.FIRE).evaluate(self)
+		if len(card1):
+			card1=card1[0]
+			card1.zone=Zone.HAND
+		card2 = RandomSpell(spell_school=SpellSchool.FROST).evaluate(self)
+		if len(card2):
+			card2=card2[0]
+			card2.zone=Zone.HAND
+		card3 = RandomSpell(spell_school=SpellSchool.NATURE).evaluate(self)
+		if len(card3):
+			card3=card3[0]
+			card3.zone=Zone.HAND
 	pass
 
 if Sunken_Anchored_Totem:# 
