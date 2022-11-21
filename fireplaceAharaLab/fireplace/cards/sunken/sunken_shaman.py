@@ -191,7 +191,7 @@ class TSC_639t3:# <8>[1658]
 	""" Glugg's Tail 	[Taunt] """
 
 
-if Sunken_Coral_Keeper:# ### OK ###
+if Sunken_Coral_Keeper:# 
 	Sunken_Shaman+=['TSC_648']
 	Sunken_Shaman+=['TSC_648t']
 class TSC_648:# <8>[1658]
@@ -211,7 +211,7 @@ class TSC_648t:# <8>[1658]
 	""" Coral Elemental 	 """
 	pass
 
-if Sunken_Azsharan_Scroll:# 
+if Sunken_Azsharan_Scroll:# ### OK ###
 	Sunken_Shaman+=['TSC_772']
 	Sunken_Shaman+=['TSC_772t']
 class TSC_772:# <8>[1658]
