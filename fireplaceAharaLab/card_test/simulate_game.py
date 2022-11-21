@@ -50,7 +50,10 @@ def card_test():
 		elif Config.CARD_TEST_CLASS=='WARLOCK':
 			from card_test.stormwind_warlock import stormwind_warlock
 			stormwind_warlock()
-
+	elif Config.CARD_TEST_SET=='REVENDRETH':
+		if Config.CARD_TEST_CLASS=='NEUTRAL':
+			from card_test.t_rev_neutral import rev_neutral
+			rev_neutral()
 	pass
 
 

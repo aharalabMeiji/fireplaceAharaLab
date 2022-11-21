@@ -39,7 +39,7 @@ def rev_neutral():
 	#PresetGame(pp_REV_837)##
 	#PresetGame(pp_REV_839)##
 	#PresetGame(pp_REV_841)##
-	#PresetGame(pp_REV_843)## OK
+	#PresetGame(pp_REV_843)### OK ###
 	#PresetGame(pp_REV_845)##
 	#PresetGame(pp_REV_900)##
 	#PresetGame(pp_REV_901)##
@@ -49,7 +49,7 @@ def rev_neutral():
 	#PresetGame(pp_REV_946)##
 	#PresetGame(pp_REV_956)##
 	#PresetGame(pp_REV_957)##
-	#PresetGame(pp_REV_960)##
+	#PresetGame(pp_REV_960)### OK ###
 	#PresetGame(pp_REV_COIN1)##
 	#PresetGame(pp_REV_COIN2)##
 	pass
@@ -1422,10 +1422,10 @@ class pp_REV_960(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("REV_960", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		#self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		#self.con4=self.con4[0][0]
+		#self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		#self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -1438,8 +1438,8 @@ class pp_REV_960(Preset_Play):
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.hand:
+			self.print_stats("opponent_hand", card)
 	pass
 
 
