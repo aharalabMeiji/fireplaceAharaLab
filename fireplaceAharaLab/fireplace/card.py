@@ -756,6 +756,8 @@ class Character(LiveEntity):
 			return False
 		if target is not None and target not in self.attack_targets:
 			return False
+		if self.should_exit_combat:
+			return False
 		return True
 
 	def can_BG_attack(self, target=None):

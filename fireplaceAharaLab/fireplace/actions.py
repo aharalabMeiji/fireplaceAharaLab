@@ -362,7 +362,7 @@ class Death(GameAction):
 			self.broadcast(source, EventListener.ON, entity)
 		if entity.id == 'SW_323'and entity._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(entity)])
-		if entity.deathrattles and entity.deathrattle_valid:
+		if hasattr(entity, "deathrattles") and hasattr(entity, "deathrattle_valid") and entity.deathrattles and entity.deathrattle_valid:
 			source.game.queue_actions(source, [Deathrattle(entity)])
 		if entity.reborn:# 
 			source.game.queue_actions(source, [Reborn(entity)])
