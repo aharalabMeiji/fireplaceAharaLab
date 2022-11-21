@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=6
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -22,7 +22,7 @@ class Config:# ()is the default value
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
 
 
-	LOGINFO=0# as log.info
+	LOGINFO=1 # as log.info
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
