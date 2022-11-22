@@ -301,12 +301,16 @@ class VAN_HERO_05bp2:# <3>[1646]
 
 if Classic_Animal_Companion:# 
 	Classic_Hunter+=['VAN_NEW1_031']
+class VAN_NEW1_031_Action(GameAction):
+	def do(self, source):
+		cards=["VAN_NEW1_032", "VAN_NEW1_033", "VAN_NEW1_034"]
+		Summon(source.controller, random.choice(cards)).trigger(source)
 class VAN_NEW1_031:# <3>[1646]
 	""" Animal Companion
 	Summon a random Beast Companion. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	entourage = ["VAN_NEW1_032", "VAN_NEW1_033", "VAN_NEW1_034"]
-	play = Summon(CONTROLLER, RandomEntourage())
+	play = VAN_NEW1_031_Action()
 	pass
 
 if Classic_Misha:# 

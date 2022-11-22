@@ -652,12 +652,13 @@ class VAN_DS1_055:# <12>[1646]
 	pass
 
 if Classic_Lightwarden:# OK
-	Classic_Neutral+=['VAN_EX1_001']
+	Classic_Neutral+=['VAN_EX1_001','EX1_001e']
 class VAN_EX1_001:# <12>[1646]
 	""" Lightwarden
 	Whenever a character is healed, gain +2 Attack. """
 	events = Heal().on(Buff(SELF, "EX1_001e"))	#
 	pass
+EX1_001e = buff(atk=2)
 
 if Classic_The_Black_Knight:# OK
 	Classic_Neutral+=['VAN_EX1_002']
@@ -1845,12 +1846,17 @@ class VAN_NEW1_041:# <12>[1646]
 	pass
 
 if Classic_Elite_Tauren_Chieftain:# OK
-	Classic_Neutral+=['VAN_PRO_001','PRO_001a','PRO_001b']
+	Classic_Neutral+=['VAN_PRO_001','PRO_001a','PRO_001b','VAN_PRO_001c']
+class VAN_PRO_001_Action(GameAction):
+	def do(self, source):
+		cards = ["PRO_001a", "PRO_001b", "VAN_PRO_001c"]
+		controller = source.controller
+		Give(controller, random.choice(cards)).trigger(source)
+		Give(controller.opponent, random.choice(cards)).trigger(source)
 class VAN_PRO_001:# <12>[1646]
 	""" Elite Tauren Chieftain
 	[Battlecry:] Give both players the power to ROCK! (with a Power Chord card) """
-	entourage = ["PRO_001a", "PRO_001b", "VAN_PRO_001c"]
-	play = Give(ALL_PLAYERS, RandomEntourage())	#
+	play = VAN_PRO_001_Action()	#
 	pass
 class PRO_001a:
 	"""I Am Murloc"""
@@ -1864,12 +1870,16 @@ class PRO_001b:
 
 if Classic_Power_of_the_Horde:# OK
 	Classic_Neutral+=['VAN_PRO_001c']
+class VAN_PRO_001c_Action(GameAction):
+	def do(self, source):
+		cards = ["VAN_CS2_121", "VAN_EX1_021", "VAN_EX1_023", "VAN_EX1_110", "VAN_EX1_390", "VAN_CS2_179"]
+		controller = source.controller
+		Summon(controller, random.choice(cards)).trigger(source)
 class VAN_PRO_001c:# <12>[1646]
 	""" Power of the Horde
 	Summon a random Horde Warrior. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["VAN_CS2_121", "VAN_EX1_021", "VAN_EX1_023", "VAN_EX1_110", "VAN_EX1_390", "VAN_CS2_179"]
-	play = Summon(CONTROLLER, RandomEntourage())	#
+	play = VAN_PRO_001c_Action()#
 	pass
 
 if Classic_Skeleton:# OK

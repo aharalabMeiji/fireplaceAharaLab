@@ -391,7 +391,7 @@ class pp_VAN_CS2_122(Preset_Play):
 		self.change_turn()
 		### opp
 		Hit(self.mark1, 10).trigger(self.opponent)
-		assert self.mark4.atk==3, 'atk 4'
+		assert self.mark4.atk==3, 'atk 3'
 		#self.change_turn()
 		pass
 	def result_inspection(self):
