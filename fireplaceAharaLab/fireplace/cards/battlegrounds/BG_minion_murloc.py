@@ -1,4 +1,3 @@
-from typing_extensions import Self
 from ..utils import *
 
 BG_Rockpool_Hunter=True ##(1) 
