@@ -118,7 +118,7 @@ class VAN_EX1_154:# <2>[1646]
 	""" Wrath
 	[Choose One -]Deal $3 damage to a minion; or $1 damageand draw a card. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	choose = ("EX1_154a", "EX1_154b")
+	choose = ("VAN_EX1_154a", "VAN_EX1_154b")
 	play = ChooseBoth(CONTROLLER) & (Hit(TARGET, 3), Hit(TARGET, 1), Draw(CONTROLLER))
 	pass
 
@@ -144,7 +144,7 @@ class VAN_EX1_155:# <2>[1646]
 	""" Mark of Nature
 	[Choose One -] Give a minion +4 Attack; or +4 Health and [Taunt]. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	choose = ("EX1_155a", "EX1_155b")
+	choose = ("VAN_EX1_155a", "VAN_EX1_155b")
 	play = ChooseBoth(CONTROLLER) & (
 		Buff(TARGET, "EX1_155ae"), Buff(TARGET, "EX1_155be")
 	)
@@ -186,12 +186,12 @@ class EX1_158t:
 
 if Classic_Power_of_the_Wild:# 
 	Classic_Druid+=['VAN_EX1_160']
-	Classic_Druid+=['VAN_EX1_160a']
+	Classic_Druid+=['VAN_EX1_160a',"EX1_160t"]
 	Classic_Druid+=['VAN_EX1_160b','EX1_160be']
 class VAN_EX1_160:# <2>[1646]
 	""" Power of the Wild
 	[Choose One -] Give your minions +1/+1; or Summon a 3/2 Panther. """
-	choose = ("EX1_160a", "EX1_160b")
+	choose = ("VAN_EX1_160a", "VAN_EX1_160b")
 	play = ChooseBoth(CONTROLLER) & (
 		Buff(FRIENDLY_MINIONS, "EX1_160be"), Summon(CONTROLLER, "EX1_160t")
 	)
@@ -202,6 +202,10 @@ class VAN_EX1_160a:# <2>[1646]
 	Summon a 3/2 Panther. """
 	play = Summon(CONTROLLER, "EX1_160t")
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	pass
+class EX1_160t:
+	""" Panther
+	""" 
 	pass
 
 class VAN_EX1_160b:# <2>[1646]
@@ -374,7 +378,7 @@ if Classic_Cenarius:#
 class VAN_EX1_573:# <2>[1646]
 	""" Cenarius
 	[Choose One -] Give your other minions +2/+2; or Summon two 2/2 Treants with [Taunt]. """
-	choose = ("EX1_573a", "EX1_573b")
+	choose = ("VAN_EX1_573a", "VAN_EX1_573b")
 	play = ChooseBoth(CONTROLLER) & (
 		Buff(FRIENDLY_MINIONS - SELF, "EX1_573ae"),
 		Summon(CONTROLLER, "EX1_573t") * 2

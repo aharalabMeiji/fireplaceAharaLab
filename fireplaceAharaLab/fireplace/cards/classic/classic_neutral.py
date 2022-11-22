@@ -1140,8 +1140,10 @@ if Classic_Gelbin_Mekkatorque:# OK
 class VAN_EX1_112:# <12>[1646]
 	""" Gelbin Mekkatorque
 	[Battlecry:] Summon an AWESOME invention. """
-	entourage = ["Mekka1", "Mekka2", "Mekka3", "Mekka4"]
-	play = Summon(CONTROLLER, RandomEntourage())	#
+	def play(self):
+		cards = ["Mekka1", "Mekka2", "Mekka3", "Mekka4"]
+		card = random.choice(cards)
+		Summon(self.controller, card).trigger(self)	#
 	pass
 class Mekka1:
 	"""Homing Chicken"""

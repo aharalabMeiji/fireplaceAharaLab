@@ -8,11 +8,11 @@ def core_neutral():
 	#if core_neutral.Ice_Rager:##22.6
 	#if core_neutral.Toxicologist=False##22.6
 
-	PresetGame(pp_CORE_CFM_120)	#if Mistress_of_Mixtures:## 23.6
+	#PresetGame(pp_CORE_CFM_120)	#if Mistress_of_Mixtures:## 23.6
 	#Earthen_Ring_Farseer=False##22.6
 	#River_Crocolisk=False##22.6
 
-	#	PresetGame(pp_CORE_CS2_122)	#if Raid_Leader:##22.6## 23.6
+	PresetGame(pp_CORE_CS2_122)	#if Raid_Leader:##22.6## 23.6
 
 	#	PresetGame(pp_CORE_CS2_142)	#if Kobold_Geomancer:##22.6## 23.6
 

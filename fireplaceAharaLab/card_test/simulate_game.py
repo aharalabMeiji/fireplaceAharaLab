@@ -11,7 +11,11 @@ from utils import postAction
 
 
 def card_test():
-	if Config.CARD_TEST_SET=='CORE':
+	if Config.CARD_TEST_SET=='VANILLA':
+		if Config.CARD_TEST_CLASS=='NEUTRAL':
+			from card_test.t_classic_neutral import classic_neutral
+			classic_neutral()
+	elif Config.CARD_TEST_SET=='CORE':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.core_neutral import core_neutral
 			core_neutral()
@@ -489,7 +493,10 @@ class Preset_Play:
 
 def PresetGame(pp, testNr=1):
 	from fireplace import cards
-	cards.db.initialize()
+	if Config.CARD_TEST_SET!='VANILLA':	
+		cards.db.initialize()
+	else:
+		cards.db.classic_initialize()
 	for test in range(testNr):
 		class1=pp.class1
 		class2=pp.class2

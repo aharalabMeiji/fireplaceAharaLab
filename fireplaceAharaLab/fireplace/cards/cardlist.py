@@ -1,4 +1,5 @@
 from fireplace.cards import core
+from fireplace.config import Config
 
 # CORE <12><3><4>[1637]
 from fireplace.cards.core import core_demon_hunter,core_druid,core_hunter,core_mage,core_neutral,core_paladin,core_priest,core_rogue,core_shaman,core_warrior,core_warlock
@@ -150,7 +151,6 @@ clownDruid = [
 	#'CORE_EX1_169','CORE_CS2_013','CS2_013t',
 	#'BAR_042',	
 ]
-All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]\
 
 
 #+Classic_Cards\
@@ -171,4 +171,8 @@ Classic_Warrior=classic_warrior.Classic_Warrior
 
 Classic_Cards=[Classic_DemonHunter, Classic_Druid, Classic_Hunter, Classic_Mage, Classic_Neutral, Classic_Paladin, Classic_Priest, Classic_Rogue, Classic_Shaman, Classic_Warlock, Classic_Warrior, Heroes, Dream]
 
+if Config.HEARTHSTONE!=4 or Config.CARD_TEST_SET!="VANILLA":
+	All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]
+else:
+	All=Classic_Cards
 

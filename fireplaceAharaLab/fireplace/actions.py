@@ -2116,7 +2116,7 @@ class Steal(TargetedAction):
 
 	def do(self, source, target, controller):
 		if Config.LOGINFO:
-			Config.log("Steal.do","%s takes control of %r", controller, target)
+			Config.log("Steal.do","%s takes control of %r"%(controller, target))
 		zone = target.zone
 		target.zone = Zone.SETASIDE
 		target.controller = controller
@@ -2130,7 +2130,7 @@ class UnlockOverload(TargetedAction):
 	"""
 	def do(self, source, target):
 		if Config.LOGINFO:
-			Config.log("UnlockOverload.do","%s overload gets cleared", target)
+			Config.log("UnlockOverload.do","%s overload gets cleared"%(target))
 		target.overloaded = 0
 		target.overload_locked = 0
 
@@ -2148,7 +2148,7 @@ class SummonJadeGolem(TargetedAction):
 
 	def do(self, source, target, card):
 		if Config.LOGINFO:
-			Config.log("SummonJadeGolem.do","%s summons a Jade Golem for %s", source, target)
+			Config.log("SummonJadeGolem.do","%s summons a Jade Golem for %s"%(source, target))
 		target.jade_golem = target.jade_golem + 1 if target.jade_golem <= 29 else 30
 		if card.is_summonable():
 			source.game.queue_actions(source, [Summon(target, card)])
