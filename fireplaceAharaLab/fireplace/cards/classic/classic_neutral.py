@@ -1848,7 +1848,7 @@ class VAN_NEW1_041:# <12>[1646]
 	pass
 
 if Classic_Elite_Tauren_Chieftain:# OK
-	Classic_Neutral+=['VAN_PRO_001','PRO_001a','PRO_001b','VAN_PRO_001c']
+	Classic_Neutral+=['VAN_PRO_001','PRO_001a','PRO_001at','PRO_001b','VAN_PRO_001c']
 class VAN_PRO_001_Action(GameAction):
 	def do(self, source):
 		cards = ["PRO_001a", "PRO_001b", "VAN_PRO_001c"]
@@ -1864,6 +1864,8 @@ class PRO_001a:
 	"""I Am Murloc"""
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	play = Summon(CONTROLLER, "PRO_001at") * RandomNumber(3, 4, 5)
+class PRO_001at:
+	pass
 class PRO_001b:
 	"""Rogues Do It..."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
