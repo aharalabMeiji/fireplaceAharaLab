@@ -222,15 +222,15 @@ class TSC_772:# <8>[1658]
 		card1 = RandomSpell(spell_school=SpellSchool.FIRE).evaluate(self)
 		if len(card1):
 			card1=card1[0]
-			cards.append(card1)
+			cards.append(card1.id)
 		card2 = RandomSpell(spell_school=SpellSchool.FROST).evaluate(self)
 		if len(card2):
 			card2=card2[0]
-			cards.append(card2)
+			cards.append(card2.id)
 		card3 = RandomSpell(spell_school=SpellSchool.NATURE).evaluate(self)
 		if len(card3):
 			card3=card3[0]
-			cards.append(card3)
+			cards.append(card3.id)
 		ShuffleBottom(self.controller, 'TSC_772t').trigger(self)
 		Discover(self.controller, RandomID(*cards)*3).trigger(self)
 	pass

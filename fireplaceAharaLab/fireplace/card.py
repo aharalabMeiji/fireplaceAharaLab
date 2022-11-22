@@ -156,9 +156,7 @@ class BaseCard(BaseEntity):
 					self.controller.graveyard.remove(self)
 				self.game.setaside.append(self)
 			elif newzone==Zone.GRAVEYARD:
-				if self in self.controller.graveyard:
-					pass
-				else:
+				if not self in self.controller.graveyard:
 					self.controller.graveyard.append(self)
 		elif oldzone==Zone.SETASIDE:
 			if newzone==Zone.HAND:
@@ -170,9 +168,7 @@ class BaseCard(BaseEntity):
 					self.game.setaside.remove(self)
 				self.controller.deck.append(self)
 			elif newzone==Zone.SETASIDE:
-				if self in self.game.setaside:
-					pass
-				else:
+				if not self in self.game.setaside:
 					self.game.setaside.append(self)
 			elif newzone==Zone.GRAVEYARD:
 				if self in self.game.setaside:
@@ -180,13 +176,17 @@ class BaseCard(BaseEntity):
 				self.controller.graveyard.append(self)
 		elif oldzone==Zone.INVALID:
 			if newzone==Zone.HAND:
-				self.controller.hand.append(self)
+				if not self in self.controller.hand:
+					self.controller.hand.append(self)
 			elif newzone==Zone.DECK:
-				self.controller.deck.append(self)
+				if not self in self.controller.deck:
+					self.controller.deck.append(self)
 			elif newzone==Zone.SETASIDE:
-				self.game.setaside.append(self)
+				if not self in self.game.setaside:
+					self.game.setaside.append(self)
 			elif newzone==Zone.GRAVEYARD:
-				self.controller.graveyard.append(self)
+				if not self in self.controller.graveyard:
+					self.controller.graveyard.append(self)
 
 		self._zone = newzone
 
@@ -1353,9 +1353,10 @@ class Weapon(rules.WeaponRules, LiveEntity):
 				self.controller.game.setaside.remove(self)
 			self.controller.weapon = self
 		elif newzone==Zone.GRAVEYARD:
-			self.controller.graveyard.append(self)
-			self._zone=Zone.GRAVEYARD
-			self.controller.weapon = None
+			if not self in self.controller.graveyard:
+				self.controller.graveyard.append(self)
+				self._zone=Zone.GRAVEYARD
+				self.controller.weapon = None
 		super()._set_zone(value)
 
 

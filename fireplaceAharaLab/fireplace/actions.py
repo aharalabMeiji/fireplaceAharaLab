@@ -1517,6 +1517,8 @@ class Hit(TargetedAction):
 	AMOUNT = ActionArg()
 
 	def do(self, source, target, amount):
+		if target.type==CardType.LOCATION:
+			return
 		if Config.LOGINFO:
 			Config.log("Hit.do","%s hits %s by %d"%(source, target, amount))
 		amount = source.get_damage(amount, target)

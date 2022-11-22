@@ -200,7 +200,7 @@ class Candidate(object):
 			else:
 				return "{card} -> heropower".format(card=self.card)
 		elif self.type==BlockType.PLAY:
-			if self.target==None:
+			if self.target==None or self.type==ActionType.LOCATION:
 				return "{card}({id}):{cost} -> plays".format(card=self.card, cost = self.card.cost,id=self.card.id)
 			else :
 				atk2=self.target.atk

@@ -1051,7 +1051,7 @@ class REV_957t:# <12>[1691]
 	# The cost of this card is zero.
 	pass
 
-if Rev_Ashen_Elemental:# 
+if Rev_Ashen_Elemental:# ### OK ###
 	Rev_Neutral+=['REV_960']
 	Rev_Neutral+=['REV_960e']
 class REV_960e_Action(TargetedAction):
@@ -1068,7 +1068,7 @@ class REV_960e:# <12>[1691]
 	""" Ashy
 	Whenever your opponent draws a card next turn, they take 2 damage. """
 	events = [
-		Draw(OPPONENT).on(REV_960e_Action(Draw.CARD)),
+		Draw(OPPONENT).after(REV_960e_Action(Draw.CARD)),
 		BeginTurn(CONTROLLER).on(Destroy(SELF))
 	]
 	pass

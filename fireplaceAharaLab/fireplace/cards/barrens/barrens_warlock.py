@@ -79,8 +79,10 @@ class BAR_913:# <9>[1525]
 	Destroy the top 3 cards of each deck. """
 	def play(self):
 		for i in range(3):
-			Destroy(self.controller.deck[-1]).trigger(self)
-			Destroy(self.controller.opponent.deck[-1]).trigger(self)
+			if len(self.controller.deck):
+				Destroy(self.controller.deck[-1]).trigger(self)
+			if len(self.controller.opponent.deck):
+				Destroy(self.controller.opponent.deck[-1]).trigger(self)
 	pass
 
 
