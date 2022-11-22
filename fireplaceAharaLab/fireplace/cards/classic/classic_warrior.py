@@ -182,7 +182,7 @@ class VAN_EX1_408:# <10>[1646]
 	pass
 
 if Classic_Upgrade:# 
-	Classic_Warrior+=['VAN_EX1_409','EX1_409e']
+	Classic_Warrior+=['VAN_EX1_409','EX1_409e','EX1_409t']
 class VAN_EX1_409:# <10>[1646]
 	""" Upgrade!
 	If you have a weapon, give it +1/+1. Otherwise equip a 1/3 weapon. """
