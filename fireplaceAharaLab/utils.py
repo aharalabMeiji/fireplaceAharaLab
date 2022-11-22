@@ -275,7 +275,7 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 					hisA=target.atk
 					if (myH > hisA) or (not _smartCombat):
 						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target, turn=mygame.turn))
-	if player.hero.power.is_usable():
+	if player.hero.power and player.hero.power.is_usable():
 		if len(player.hero.power.targets)>0:
 			for target in player.hero.power.targets:
 				if target.zone==Zone.PLAY:
