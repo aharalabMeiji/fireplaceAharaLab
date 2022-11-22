@@ -85,7 +85,7 @@ class VAN_CS2_027:# <4>[1646]
 	""" Mirror Image
 	Summon two 0/2 minions with [Taunt]. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	play = Summon(CONTROLLER, "CS2_mirror") * 2
+	play = Summon(CONTROLLER, "VAN_CS2_mirror") * 2
 	pass
 
 if Classic_Blizzard:# 

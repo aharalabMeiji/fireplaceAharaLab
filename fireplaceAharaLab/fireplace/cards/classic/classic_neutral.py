@@ -1377,11 +1377,13 @@ class EX1_561e:
 	max_health = SET(15)
 
 if Classic_Onyxia:# OK
-	Classic_Neutral+=['VAN_EX1_562']
+	Classic_Neutral+=['VAN_EX1_562','ds1_whelptoken']
 class VAN_EX1_562:# <12>[1646]
 	""" Onyxia
 	[Battlecry:] Summon 1/1 Whelps until your side of the battlefield is full. """
 	play = Summon(CONTROLLER, "ds1_whelptoken") * 7	#
+	pass
+class ds1_whelptoken:
 	pass
 
 if Classic_Malygos:# OK
