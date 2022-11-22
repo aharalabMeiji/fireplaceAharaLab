@@ -217,7 +217,7 @@ class EX1_316e:
 	}
 
 if Classic_Sense_Demons:# 
-	Classic_Warlock+=['VAN_EX1_317']
+	Classic_Warlock+=['VAN_EX1_317','EX1_317t']
 class VAN_EX1_317:# <9>[1646]
 	""" Sense Demons
 	Draw 2 Demonsfrom your deck. """
@@ -226,6 +226,8 @@ class VAN_EX1_317:# <9>[1646]
 		ForceDraw(RANDOM(FRIENDLY_DECK + DEMON)) |
 		Give(CONTROLLER, "EX1_317t"),
 	) * 2
+	pass
+class EX1_317t:
 	pass
 
 if Classic_Flame_Imp:# 
