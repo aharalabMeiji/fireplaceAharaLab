@@ -128,7 +128,7 @@ class VAN_EX1_303:# <9>[1646]
 	pass
 
 if Classic_Void_Terror:# 
-	Classic_Warlock+=['VAN_EX1_304']
+	Classic_Warlock+=['VAN_EX1_304', "EX1_304e"]
 class VAN_EX1_304:# <9>[1646]
 	""" Void Terror
 	[Battlecry:] Destroy bothadjacent minions and gain their Attack and Health. """
@@ -136,6 +136,8 @@ class VAN_EX1_304:# <9>[1646]
 		Buff(SELF, "EX1_304e", atk=ATK(SELF_ADJACENT), max_health=CURRENT_HEALTH(SELF_ADJACENT)),
 		Destroy(SELF_ADJACENT)
 	)
+	pass
+class EX1_304e:
 	pass
 
 if Classic_Felstalker:# 
