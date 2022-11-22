@@ -41,7 +41,7 @@ class VAN_CS2_103:# <10>[1646]
 		PlayReq.REQ_FRIENDLY_TARGET: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "CS2_103e2")
+	play = Buff(TARGET, "VAN_CS2_103e2")
 	pass
 VAN_CS2_103e2 = buff(atk=2, charge=True)
 
