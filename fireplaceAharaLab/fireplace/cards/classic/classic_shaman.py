@@ -244,7 +244,7 @@ class VAN_EX1_259:# <8>[1646]
 	play = Hit(ENEMY_MINIONS, RandomNumber(2, 3))
 	pass
 
-if Classic_Flametongue_Totem:# 
+if Classic_Flametongue_Totem:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_565','EX1_565o']
 class VAN_EX1_565:# <8>[1646]
 	""" Flametongue Totem

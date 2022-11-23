@@ -11,7 +11,7 @@ def classic_neutral():
 	#PresetGame(pp_VAN_CS2_119)##
 	#PresetGame(pp_VAN_CS2_120)##
 	#PresetGame(pp_VAN_CS2_121)##
-	PresetGame(pp_VAN_CS2_122)##
+	#PresetGame(pp_VAN_CS2_122)## OK ##
 	#PresetGame(pp_VAN_CS2_124)##
 	#PresetGame(pp_VAN_CS2_125)##
 	#PresetGame(pp_VAN_CS2_127)##
@@ -187,9 +187,12 @@ def classic_neutral():
 	#PresetGame(pp_VAN_NEW1_030)##
 	#PresetGame(pp_VAN_NEW1_037)##
 	#PresetGame(pp_VAN_NEW1_038)##
-	#PresetGame(pp_VAN_NEW1_040)##
+	PresetGame(pp_VAN_NEW1_040)##
 	#PresetGame(pp_VAN_NEW1_041)##
-	#PresetGame(pp_VAN_PRO_001)##
+	#PresetGame(pp_VAN_PRO_001)## OK
+	#PresetGame(pp_VAN_PRO_001a)## OK
+	#PresetGame(pp_VAN_PRO_001b)## OK
+	#PresetGame(pp_VAN_PRO_001c)## OK
 	#PresetGame(pp_VAN_skele11)##
 	#PresetGame(pp_VAN_skele21)##
 	#PresetGame(pp_VAN_tt_004)##
@@ -4953,7 +4956,7 @@ class pp_VAN_NEW1_038(Preset_Play):
 
 ##########VAN_NEW1_040##########
 
-class pp_VAN_NEW1_040(Preset_Play):
+class pp_VAN_NEW1_040(Preset_Play): ## legendary
 	""" Hogger
 	At the end of your turn, summon a 2/2 Gnoll with_[Taunt]. """
 	def preset_deck(self):
@@ -5005,27 +5008,79 @@ class pp_VAN_NEW1_041(Preset_Play):
 
 ##########VAN_PRO_001##########
 
-class pp_VAN_PRO_001(Preset_Play):
+class pp_VAN_PRO_001(Preset_Play):## legendary
 	""" Elite Tauren Chieftain
 	[Battlecry:] Give both players the power to ROCK! (with a Power Chord card) """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_PRO_001", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		for card in self.opponent.hand:
+			self.print_stats("opp.hand", card)
+	pass
+class pp_VAN_PRO_001a(Preset_Play):## legendary
+	""" Elite Tauren Chieftain
+	[Battlecry:] Give both players the power to ROCK! (with a Power Chord card) """
+	def preset_deck(self):
+		self.mark1=self.exchange_card("PRO_001a", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1)
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card)
+	pass
+class pp_VAN_PRO_001b(Preset_Play):## legendary
+	""" Elite Tauren Chieftain
+	[Battlecry:] Give both players the power to ROCK! (with a Power Chord card) """
+	def preset_deck(self):
+		self.mark1=self.exchange_card("PRO_001b", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1, target=self.opponent.hero)
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_VAN_PRO_001c(Preset_Play):## legendary
+	""" Elite Tauren Chieftain
+	[Battlecry:] Give both players the power to ROCK! (with a Power Chord card) """
+	def preset_deck(self):
+		self.mark1=self.exchange_card("VAN_PRO_001c", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.mark1)
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("controller.hand", card)
 	pass
 
 

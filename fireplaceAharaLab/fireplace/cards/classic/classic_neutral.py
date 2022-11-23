@@ -1840,6 +1840,8 @@ class VAN_NEW1_040:# <12>[1646]
 	pass
 class NEW1_040t:
 	""" Gnoll  """
+	#<Tag enumID="190" name="TAUNT" type="Int" value="1"/>
+	pass
 
 if Classic_Stampeding_Kodo:# OK
 	Classic_Neutral+=['VAN_NEW1_041']
