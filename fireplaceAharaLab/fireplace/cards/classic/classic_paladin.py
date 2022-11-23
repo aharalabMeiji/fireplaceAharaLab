@@ -287,7 +287,7 @@ class VAN_EX1_384:# <5>[1646]
 	pass
 
 if Classic_Equality:# 
-	Classic_Paladin+=['VAN_EX1_619']
+	Classic_Paladin+=['VAN_EX1_619','EX1_619e']
 class VAN_EX1_619:# <5>[1646]
 	""" Equality
 	Change the Health of ALL minions to 1. """
@@ -297,15 +297,15 @@ class EX1_619e:
 	max_health = SET(1)
 
 if Classic_Reinforce:# 
-	Classic_Paladin+=['VAN_HERO_04bp']
+	Classic_Paladin+=['VAN_HERO_04bp','VAN_CS2_101t']
+	Classic_Paladin+=['VAN_HERO_04bp2']
 class VAN_HERO_04bp:# <5>[1646]
 	""" Reinforce
 	[Hero Power]Summon a 1/1 Silver Hand Recruit. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	activate = Summon(CONTROLLER, "CS2_101t")
+	activate = Summon(CONTROLLER, "VAN_CS2_101t")
 	pass
 
-	Classic_Paladin+=['VAN_HERO_04bp2']
 class VAN_HERO_04bp2:# <5>[1646]
 	""" The Silver Hand
 	[Hero Power]Summon two 1/1 Recruits. """
