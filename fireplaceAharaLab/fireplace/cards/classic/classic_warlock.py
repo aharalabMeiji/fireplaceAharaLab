@@ -26,8 +26,8 @@ Classic_Flame_Imp=True
 Classic_Bane_of_Doom=True
 Classic_Lord_Jaraxxus=True
 Classic_Demonfire=True
-Classic_INFERNO=True
-Classic_Infernal=True
+Classic_INFERNO=False
+Classic_Infernal=False
 Classic_Life_Tap=False ## HP
 Classic_Sacrificial_Pact=True
 
@@ -250,7 +250,7 @@ class VAN_EX1_320:# <9>[1646]
 	pass
 
 if Classic_Lord_Jaraxxus:# 
-	Classic_Warlock+=['VAN_EX1_323']
+	Classic_Warlock+=['VAN_EX1_323','EX1_323h','EX1_tk33','EX1_tk34','EX1_323w']
 class VAN_EX1_323:# <9>[1646]
 	""" Lord Jaraxxus
 	[Battlecry:] Destroy your hero and replace it with Lord Jaraxxus. """
@@ -258,6 +258,21 @@ class VAN_EX1_323:# <9>[1646]
 		Summon(CONTROLLER, "EX1_323h").then(Morph(SELF, Summon.CARD)),
 		Summon(CONTROLLER, "EX1_323w")
 	)
+	pass
+class EX1_323h: ## Hero (9/*/5) ##22.6
+	""" Lord Jaraxxus
+	"""
+	pass
+class EX1_tk33: ## heropower  ##22.6
+	"""INFERNO!"""
+	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+	activate = Summon(CONTROLLER, "EX1_tk34")
+class EX1_tk34: ##(6/6/6)
+	""" Infernal """
+	## vanilla 
+class EX1_323w: ## weapon (3/3/8)
+	""" Blood Fury
+	"""
 	pass
 
 if Classic_Demonfire:# 
@@ -271,22 +286,22 @@ class VAN_EX1_596:# <9>[1646]
 EX1_596e = buff(+2, +2)
 
 
-if Classic_INFERNO:# 
-	Classic_Warlock+=['VAN_EX1_tk33']
-class VAN_EX1_tk33:# <9>[1646]
-	""" INFERNO!
-	[Hero Power]Summon a 6/6 Infernal. """
-	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	activate = Summon(CONTROLLER, "EX1_tk34")
-	pass
+#if Classic_INFERNO:# 
+#	Classic_Warlock+=['VAN_EX1_tk33']
+#class VAN_EX1_tk33:# <9>[1646]
+#	""" INFERNO!
+#	[Hero Power]Summon a 6/6 Infernal. """
+#	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
+#	activate = Summon(CONTROLLER, "EX1_tk34")
+#	pass
 
-if Classic_Infernal:# 
-	Classic_Warlock+=['VAN_EX1_tk34']
-class VAN_EX1_tk34:# <9>[1646]
-	""" Infernal
-	 """
-	#
-	pass
+#if Classic_Infernal:# 
+#	Classic_Warlock+=['VAN_EX1_tk34']
+#class VAN_EX1_tk34:# <9>[1646]
+#	""" Infernal
+#	 """
+#	#
+#	pass
 
 if Classic_Life_Tap:# 
 	Classic_Warlock+=['VAN_HERO_07bp']

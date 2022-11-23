@@ -122,7 +122,7 @@ class CORE_EX1_319:# <9>[1637] ##23.6 ## OK
 	pass
 
 if Core_Lord_Jaraxxus:# 
-	Core_Warlock+=['CORE_EX1_323']
+	Core_Warlock+=['CORE_EX1_323','EX1_323h','EX1_tk33','EX1_tk34','EX1_323w']
 class CORE_EX1_323:# <9>[1637] ##23.6 ## OK 
 	""" Lord Jaraxxus
 	[Battlecry:] Equip a 3/8 Blood Fury. """
