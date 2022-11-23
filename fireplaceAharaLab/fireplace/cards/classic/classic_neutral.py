@@ -1137,7 +1137,7 @@ class VAN_EX1_110t:# <12>[1646]
 	pass
 
 if Classic_Gelbin_Mekkatorque:# OK
-	Classic_Neutral+=['VAN_EX1_112',"Mekka1", "Mekka2", "Mekka3", "Mekka3e", "Mekka4"]
+	Classic_Neutral+=['VAN_EX1_112',"Mekka1", "Mekka2", "Mekka3", "Mekka3e", "Mekka4","Mekka4t"]
 class VAN_EX1_112:# <12>[1646]
 	""" Gelbin Mekkatorque
 	[Battlecry:] Summon an AWESOME invention. """
