@@ -1539,7 +1539,9 @@ class Hit(TargetedAction):
 			#self.broadcast(source, EventListener.ON, target, amount)
 			target.attacker=source ## 
 			if hasattr(source, 'honorable_kill') and source.honorable_kill:
-				if target.type==CardType.WEAPON and target==source:## when decreasing durability
+				if target.type==CardType.WEAPON and target==source:## when decreasing his durability
+					pass
+				elif target.type==CardType.WEAPON:## when decreasing other's durability
 					pass
 				else:
 					target_health = target.health
