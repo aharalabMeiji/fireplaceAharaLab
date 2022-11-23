@@ -374,7 +374,7 @@ class VAN_EX1_571:# <2>[1646]
 if Classic_Cenarius:# 
 	Classic_Druid+=['VAN_EX1_573']
 	Classic_Druid+=['VAN_EX1_573a','EX1_573ae']
-	Classic_Druid+=['VAN_EX1_573b']
+	Classic_Druid+=['VAN_EX1_573b','EX1_573t']
 class VAN_EX1_573:# <2>[1646]
 	""" Cenarius
 	[Choose One -] Give your other minions +2/+2; or Summon two 2/2 Treants with [Taunt]. """
@@ -396,6 +396,10 @@ class VAN_EX1_573b:# <2>[1646]
 	""" Shan'do's Lesson
 	Summon two 2/2 Treants with [Taunt]. """
 	play = Summon(CONTROLLER, "EX1_573t") * 2
+	pass
+class EX1_573t:
+	""" 2/2 Treants """
+	#<Tag enumID="190" name="TAUNT" type="Int" value="1"/>
 	pass
 
 if Classic_Savagery:# 
