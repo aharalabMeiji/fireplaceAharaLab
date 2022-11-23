@@ -181,13 +181,16 @@ class VAN_EX1_245:# <8>[1646] ##
 	pass
 
 if Classic_Hex:# 
-	Classic_Shaman+=['VAN_EX1_246']
+	Classic_Shaman+=['VAN_EX1_246','hexfrog']
 class VAN_EX1_246:# <8>[1646]
 	""" Hex
 	Transform a minion into a 0/1 Frog with [Taunt]. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Morph(TARGET, "hexfrog")
 	pass
+class hexfrog:
+	""" Frog
+	[Taunt] """
 
 if Classic_Stormforged_Axe:# 
 	Classic_Shaman+=['VAN_EX1_247']
