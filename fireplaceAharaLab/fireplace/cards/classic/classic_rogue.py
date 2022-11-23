@@ -196,11 +196,11 @@ class VAN_EX1_137:# <7>[1646]
 	""" Headcrack
 	Deal $2 damage to the enemy hero. [Combo:] Return this to your hand next turn. """
 	play = Hit(ENEMY_HERO, 2)
-	combo = (play, TURN_END.on(Give(CONTROLLER, "EX1_137")))
+	combo = (play, TURN_END.on(Give(CONTROLLER, "VAN_EX1_137")))
 	pass
 
 if Classic_Shadowstep:# 
-	Classic_Rogue+=['VAN_EX1_144']
+	Classic_Rogue+=['VAN_EX1_144','EX1_144e']
 class VAN_EX1_144:# <7>[1646]
 	""" Shadowstep
 	Return a friendly minion to your hand. It_costs (2) less. """
@@ -225,7 +225,7 @@ if Classic_Preparation:#
 class VAN_EX1_145:# <7>[1646]
 	""" Preparation
 	The next spell you cast this turn costs (3) less. """
-	play = Buff(CONTROLLER, "EX1_145o")
+	play = Buff(CONTROLLER, "VAN_EX1_145o")
 	pass
 class VAN_EX1_145o:# <7>[1646]
 	""" Preparation
