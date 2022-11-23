@@ -283,7 +283,7 @@ class VAN_EX1_624:# <6>[1646]
 	pass
 
 if Classic_Shadowform:# 
-	Classic_Priest+=['VAN_EX1_625','EX1_625t2']
+	Classic_Priest+=['VAN_EX1_625','EX1_625t','EX1_625t2']
 class VAN_EX1_625:# <6>[1646]
 	""" Shadowform
 	Your Hero Power becomes 'Deal 2 damage.' If already in Shadowform: 3 damage. """
