@@ -114,12 +114,14 @@ class VAN_CS2_235:# <6>[1646]
 	pass
 
 if Classic_Divine_Spirit:# 
-	Classic_Priest+=['VAN_CS2_236']
+	Classic_Priest+=['VAN_CS2_236','CS2_236e']
 class VAN_CS2_236:# <6>[1646]
 	""" Divine Spirit
 	Double a minion's Health. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "CS2_236e", max_health=CURRENT_HEALTH(TARGET))
+	pass
+class CS2_236e:
 	pass
 
 if Classic_Mind_Blast:# 
