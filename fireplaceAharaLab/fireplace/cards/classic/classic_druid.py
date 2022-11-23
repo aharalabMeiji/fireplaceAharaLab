@@ -66,7 +66,7 @@ class VAN_CS2_009:# <2>[1646]
 	""" Mark of the Wild
 	Give a minion [Taunt] and +2/+2.<i>(+2 Attack/+2 Health)</i> """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Buff(TARGET, "CS2_009e")
+	play = Buff(TARGET, "VAN_CS2_009e")
 	pass
 VAN_CS2_009e = buff(+2, +2, taunt=True)
 
