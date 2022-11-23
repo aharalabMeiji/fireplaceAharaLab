@@ -200,7 +200,7 @@ class VAN_EX1_137:# <7>[1646]
 	pass
 
 if Classic_Shadowstep:# 
-	Classic_Rogue+=['VAN_EX1_144','EX1_144e']
+	Classic_Rogue+=['VAN_EX1_144']
 class VAN_EX1_144:# <7>[1646]
 	""" Shadowstep
 	Return a friendly minion to your hand. It_costs (2) less. """

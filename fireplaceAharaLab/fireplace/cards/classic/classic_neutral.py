@@ -1159,6 +1159,8 @@ Mekka3e = buff(+1, +1)
 class Mekka4:
 	"""Poultryizer"""
 	events = OWN_TURN_BEGIN.on(Morph(RANDOM_MINION, "Mekka4t"))
+class Mekka4t:
+	pass
 
 if Classic_Leeroy_Jenkins:# 
 	Classic_Neutral+=['VAN_EX1_116','EX1_116t']
