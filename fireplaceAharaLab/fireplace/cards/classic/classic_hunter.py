@@ -140,11 +140,14 @@ class VAN_EX1_533:# <3>[1646]
 	pass
 
 if Classic_Savannah_Highmane:# 
-	Classic_Hunter+=['VAN_EX1_534']
+	Classic_Hunter+=['VAN_EX1_534','EX1_534t']
 class VAN_EX1_534:# <3>[1646]
 	""" Savannah Highmane
 	[Deathrattle:] Summon two 2/2 Hyenas. """
 	deathrattle = Summon(CONTROLLER, "EX1_534t") * 2
+	pass
+class EX1_534t:
+	""" 2/2 Hyena """
 	pass
 
 if Classic_Eaglehorn_Bow:# 
