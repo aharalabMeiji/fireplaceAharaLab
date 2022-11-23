@@ -89,7 +89,7 @@ class VAN_CS2_012:# <2>[1646]
 	pass
 
 if Classic_Wild_Growth:# 
-	Classic_Druid+=['VAN_CS2_013']
+	Classic_Druid+=['VAN_CS2_013','CS2_013t']
 class VAN_CS2_013:# <2>[1646]
 	""" Wild Growth
 	Gain an empty Mana Crystal. """
@@ -168,7 +168,7 @@ EX1_155be = buff(health=4, taunt=True)
 
 if Classic_Soul_of_the_Forest:# 
 	Classic_Druid+=['VAN_EX1_158']
-	Classic_Druid+=['VAN_EX1_158e']
+	Classic_Druid+=['VAN_EX1_158e','EX1_158t']
 class VAN_EX1_158:# <2>[1646]
 	""" Soul of the Forest
 	Give your minions "[Deathrattle:] Summon a 2/2 Treant." """
