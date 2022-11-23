@@ -206,7 +206,7 @@ class VAN_EX1_248:# <8>[1646]
 	""" Feral Spirit
 	Summon two 2/3 Spirit Wolves with [Taunt]. [Overload:] (2) """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	play = Summon(CONTROLLER, "EX1_tk11") * 2
+	play = Summon(CONTROLLER, "VAN_EX1_tk11") * 2
 	pass
 
 if Classic_Earth_Elemental:# 
