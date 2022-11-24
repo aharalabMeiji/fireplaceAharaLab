@@ -14,7 +14,7 @@ def classic_druid():
 	#PresetGame(pp_VAN_CS2_232)##
 	#PresetGame(pp_VAN_EX1_154)##
 	#PresetGame(pp_VAN_EX1_155)##
-	PresetGame(pp_VAN_EX1_158)##
+	#PresetGame(pp_VAN_EX1_158)## OK ## 20221124
 	#PresetGame(pp_VAN_EX1_160)##
 	#PresetGame(pp_VAN_EX1_161)##
 	#PresetGame(pp_VAN_EX1_164)##
@@ -312,6 +312,8 @@ class pp_VAN_EX1_158(Preset_Play):
 		self.play_card(self.mark2)
 		self.play_card(self.mark4)
 		self.play_card(self.mark1)
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
 		self.change_turn()
 		### opp
 		Hit(self.mark2,3).trigger(self.opponent)

@@ -208,8 +208,8 @@ class BaseGame(Entity):
 				Config.log("game.process_deaths","The game manager begins a process of death."%())
 			self.action_start(type, self, 0, None)
 			for card in cards:
-				card.zone = Zone.GRAVEYARD
 				Death(card).trigger(card.controller)
+				card.zone = Zone.GRAVEYARD
 			self.check_for_end_game()
 			self.action_end(type, self)
 

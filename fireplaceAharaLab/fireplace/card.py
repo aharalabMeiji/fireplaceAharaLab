@@ -1018,7 +1018,7 @@ class Minion(Character):
 						self.controller.field.insert(self._summon_index, self)
 					else:
 						self.controller.field.append(self)
-		if oldzone==Zone.PLAY: ## field ->
+		elif oldzone==Zone.PLAY: ## field ->
 			if newzone==Zone.PLAY: ## field -> field
 				if self in self.controller.field:
 					pass
@@ -1035,7 +1035,7 @@ class Minion(Character):
 					self.controller.graveyard.append(self)
 				if self.damage>0:
 					self.damage = 0
-			if newzone==Zone.SETASIDE: ## field -> setaside
+			elif newzone==Zone.SETASIDE: ## field -> setaside
 				if self in self.controller.field:
 					self.controller.field.remove(self)
 				if not self in self.controller.game.setaside:

@@ -12,6 +12,9 @@ from utils import postAction
 
 def card_test():
 	if Config.CARD_TEST_SET=='VANILLA':
+		if Config.CARD_TEST_CLASS=='DRUID':
+			from card_test.t_classic_druid import classic_druid
+			classic_druid()
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.t_classic_neutral import classic_neutral
 			classic_neutral()
