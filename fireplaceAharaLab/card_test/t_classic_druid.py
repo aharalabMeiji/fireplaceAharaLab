@@ -14,11 +14,11 @@ def classic_druid():
 	#PresetGame(pp_VAN_CS2_232)##
 	#PresetGame(pp_VAN_EX1_154)##
 	#PresetGame(pp_VAN_EX1_155)##
-	#PresetGame(pp_VAN_EX1_158)##
+	PresetGame(pp_VAN_EX1_158)##
 	#PresetGame(pp_VAN_EX1_160)##
 	#PresetGame(pp_VAN_EX1_161)##
 	#PresetGame(pp_VAN_EX1_164)##
-	#PresetGame(pp_VAN_EX1_165)##
+	PresetGame(pp_VAN_EX1_165)##
 	#PresetGame(pp_VAN_EX1_166)##
 	#PresetGame(pp_VAN_EX1_169)##
 	#PresetGame(pp_VAN_EX1_173)##
@@ -300,22 +300,28 @@ class pp_VAN_EX1_158(Preset_Play):
 	Give your minions "[Deathrattle:] Summon a 2/2 Treant." """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_158", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=Summon(self.controller, self.card_choice("minionH2")).trigger(self.controller)
+		self.mark2=self.mark2[0][0]
+		self.mark4=Summon(self.controller, self.card_choice("minionH2")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.play_card(self.mark2)
+		self.play_card(self.mark4)
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		Hit(self.mark2,3).trigger(self.opponent)
+		Hit(self.mark4,3).trigger(self.opponent)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -404,22 +410,20 @@ class pp_VAN_EX1_165(Preset_Play):
 	[Choose One -] [Charge]; or +2 Health and [Taunt]. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_165", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, choose=self.mark1.choose_cards[0])## or [1]
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

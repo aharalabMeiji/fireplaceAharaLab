@@ -32,16 +32,16 @@ Classic_Dire_Shapeshift=True  ###
 Classic_Starfall=True  ###
 Classic_Ancient_of_Lore=True  ###
 
-if Classic_Claw:# 
+if Classic_Claw:### OK ###
 	Classic_Druid+=['VAN_CS2_005','CS2_005o']
 class VAN_CS2_005:# <2>[1646]
 	""" Claw
 	Give your hero +2_Attack this turn. Gain 2 Armor. """
 	play = Buff(FRIENDLY_HERO, "CS2_005o"), GainArmor(FRIENDLY_HERO, 2)
 	pass
-CS2_005o = buff(atk=2)
+CS2_005o = buff(atk=2)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Healing_Touch:# 
+if Classic_Healing_Touch:# ### OK ###
 	Classic_Druid+=['VAN_CS2_007']
 class VAN_CS2_007:# <2>[1646]
 	""" Healing Touch
@@ -50,7 +50,7 @@ class VAN_CS2_007:# <2>[1646]
 	play = Heal(TARGET, 8)
 	pass
 
-if Classic_Moonfire:# 
+if Classic_Moonfire:# ### OK ###
 	Classic_Druid+=['VAN_CS2_008']
 class VAN_CS2_008:# <2>[1646]
 	""" Moonfire
@@ -59,7 +59,7 @@ class VAN_CS2_008:# <2>[1646]
 	play = Hit(TARGET, 1)
 	pass
 
-if Classic_Mark_of_the_Wild:# 
+if Classic_Mark_of_the_Wild:# ### OK ###
 	Classic_Druid+=['VAN_CS2_009']
 	Classic_Druid+=['VAN_CS2_009e']
 class VAN_CS2_009:# <2>[1646]
@@ -70,16 +70,16 @@ class VAN_CS2_009:# <2>[1646]
 	pass
 VAN_CS2_009e = buff(+2, +2, taunt=True)
 
-if Classic_Savage_Roar:# 
+if Classic_Savage_Roar:# ### OK ###
 	Classic_Druid+=['VAN_CS2_011','CS2_011o']
 class VAN_CS2_011:# <2>[1646]
 	""" Savage Roar
 	Give your characters +2_Attack this turn. """
 	play = Buff(FRIENDLY_CHARACTERS, "CS2_011o")
 	pass
-CS2_011o = buff(atk=2)
+CS2_011o = buff(atk=2)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Swipe:# 
+if Classic_Swipe:# ### OK ###
 	Classic_Druid+=['VAN_CS2_012']
 class VAN_CS2_012:# <2>[1646]
 	""" Swipe
@@ -88,21 +88,22 @@ class VAN_CS2_012:# <2>[1646]
 	play = Hit(TARGET, 4), Hit(ENEMY_CHARACTERS - TARGET, 1)
 	pass
 
-if Classic_Wild_Growth:# 
+if Classic_Wild_Growth:# ### OK ###
 	Classic_Druid+=['VAN_CS2_013','CS2_013t']
 class VAN_CS2_013:# <2>[1646]
 	""" Wild Growth
 	Gain an empty Mana Crystal. """
-	play = (
-		AT_MAX_MANA(CONTROLLER) &
-		Give(CONTROLLER, "CS2_013t") |
-		GainEmptyMana(CONTROLLER, 1)
-	)
+	play = GainEmptyMana(CONTROLLER, 1)
+	#play = (
+	#	AT_MAX_MANA(CONTROLLER) &
+	#	Give(CONTROLLER, "CS2_013t") |
+	#	GainEmptyMana(CONTROLLER, 1)
+	#)
 	pass
 class CS2_013t:
 	play = Draw(CONTROLLER)
 
-if Classic_Ironbark_Protector:# 
+if Classic_Ironbark_Protector:# ### OK ###
 	Classic_Druid+=['VAN_CS2_232']
 class VAN_CS2_232:# <2>[1646]
 	""" Ironbark Protector
@@ -110,33 +111,33 @@ class VAN_CS2_232:# <2>[1646]
 	#
 	pass
 
-if Classic_Wrath:# 
+if Classic_Wrath:# ### OK ###
 	Classic_Druid+=['VAN_EX1_154']
 	Classic_Druid+=['VAN_EX1_154a']
 	Classic_Druid+=['VAN_EX1_154b']
 class VAN_EX1_154:# <2>[1646]
 	""" Wrath
-	[Choose One -]Deal $3 damage to a minion; or $1 damageand draw a card. """
+	[Choose One -]Deal $3 damage to a minion; or $1 damage and draw a card. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	choose = ("VAN_EX1_154a", "VAN_EX1_154b")
 	play = ChooseBoth(CONTROLLER) & (Hit(TARGET, 3), Hit(TARGET, 1), Draw(CONTROLLER))
 	pass
 
-class VAN_EX1_154a:# <2>[1646]
+class VAN_EX1_154a:# <2>[1646]### OK ###
 	""" Solar Wrath
 	Deal $3 damage to a minion. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 3)
 	pass
 
-class VAN_EX1_154b:# <2>[1646]
+class VAN_EX1_154b:# <2>[1646]### OK ###
 	""" Nature's Wrath
 	Deal $1 damage to a minion. Draw a card. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 1), Draw(CONTROLLER)
 	pass
 
-if Classic_Mark_of_Nature:# 
+if Classic_Mark_of_Nature:# ### OK ###
 	Classic_Druid+=['VAN_EX1_155']
 	Classic_Druid+=['VAN_EX1_155a','EX1_155ae']
 	Classic_Druid+=['VAN_EX1_155b','EX1_155be']
@@ -150,7 +151,7 @@ class VAN_EX1_155:# <2>[1646]
 	)
 	pass
 
-class VAN_EX1_155a:# <2>[1646]
+class VAN_EX1_155a:# <2>[1646]### OK ###
 	""" Tiger's Fury
 	+4 Attack. """
 	play = Buff(TARGET, "EX1_155ae")
@@ -158,7 +159,7 @@ class VAN_EX1_155a:# <2>[1646]
 	pass
 EX1_155ae = buff(atk=4)
 
-class VAN_EX1_155b:# <2>[1646]
+class VAN_EX1_155b:# <2>[1646]### OK ###
 	""" Thick Hide
 	+4 Health and [Taunt]. """
 	play = Buff(TARGET, "EX1_155be")
@@ -166,7 +167,7 @@ class VAN_EX1_155b:# <2>[1646]
 	pass
 EX1_155be = buff(health=4, taunt=True)
 
-if Classic_Soul_of_the_Forest:# 
+if Classic_Soul_of_the_Forest:# ### checking
 	Classic_Druid+=['VAN_EX1_158']
 	Classic_Druid+=['VAN_EX1_158e','EX1_158t']
 class VAN_EX1_158:# <2>[1646]
@@ -182,9 +183,9 @@ class VAN_EX1_158e:# <2>[1646]
 	tags = {GameTag.DEATHRATTLE: True}
 	pass
 class EX1_158t:
-	"""   """
+	""" 2/2 Treant  """
 
-if Classic_Power_of_the_Wild:# 
+if Classic_Power_of_the_Wild:# ### OK ###
 	Classic_Druid+=['VAN_EX1_160']
 	Classic_Druid+=['VAN_EX1_160a',"EX1_160t"]
 	Classic_Druid+=['VAN_EX1_160b','EX1_160be']
@@ -197,7 +198,7 @@ class VAN_EX1_160:# <2>[1646]
 	)
 	pass
 
-class VAN_EX1_160a:# <2>[1646]
+class VAN_EX1_160a:# <2>[1646]### OK ###
 	""" Summon a Panther
 	Summon a 3/2 Panther. """
 	play = Summon(CONTROLLER, "EX1_160t")
@@ -208,14 +209,14 @@ class EX1_160t:
 	""" 
 	pass
 
-class VAN_EX1_160b:# <2>[1646]
+class VAN_EX1_160b:# <2>[1646]### OK ###
 	""" Leader of the Pack
 	Give your minions +1/+1. """
 	play = Buff(FRIENDLY_MINIONS, "EX1_160be")
 	pass
 EX1_160be = buff(+1, +1)
 
-if Classic_Naturalize:# 
+if Classic_Naturalize:# ### OK ###
 	Classic_Druid+=['VAN_EX1_161']
 class VAN_EX1_161:# <2>[1646]
 	""" Naturalize
@@ -224,7 +225,7 @@ class VAN_EX1_161:# <2>[1646]
 	play = Destroy(TARGET), Draw(OPPONENT) * 2
 	pass
 
-if Classic_Nourish:# 
+if Classic_Nourish:# ### OK ###
 	Classic_Druid+=['VAN_EX1_164']
 	Classic_Druid+=['VAN_EX1_164a']
 	Classic_Druid+=['VAN_EX1_164b']
@@ -235,31 +236,34 @@ class VAN_EX1_164:# <2>[1646]
 	play = ChooseBoth(CONTROLLER) & (GainMana(CONTROLLER, 2), Draw(CONTROLLER) * 3)
 	pass
 
-class VAN_EX1_164a:# <2>[1646]
+class VAN_EX1_164a:# <2>[1646]### OK ###
 	""" Rampant Growth
 	Gain 2 Mana Crystals. """
 	play = GainMana(CONTROLLER, 2)
 	pass
 
-class VAN_EX1_164b:# <2>[1646]
+class VAN_EX1_164b:# <2>[1646]### OK ###
 	""" Enrich
 	Draw 3 cards. """
 	play = Draw(CONTROLLER) * 3
 	pass
 
-if Classic_Druid_of_the_Claw:# 
+if Classic_Druid_of_the_Claw:# ### checking
 	Classic_Druid+=['VAN_EX1_165','OG_044a']
 	Classic_Druid+=['VAN_EX1_165a']
 	Classic_Druid+=['VAN_EX1_165b']
 	Classic_Druid+=['VAN_EX1_165t1']
 	Classic_Druid+=['VAN_EX1_165t2']
 class VAN_EX1_165:# <2>[1646]
-	""" Druid of the Claw
+	""" Druid of the Claw (5/4/4)
 	[Choose One -] [Charge]; or +2 Health and [Taunt]. """
 	choose = ("VAN_EX1_165a", "VAN_EX1_165b")
 	play = ChooseBoth(CONTROLLER) & Morph(SELF, "OG_044a")
 	pass
-#OG_044a
+class OG_044a:
+	""" Druid of the Claw (5/4/6)
+	[Charge][Taunt]"""
+	pass
 class VAN_EX1_165a:# <2>[1646]
 	""" Cat Form
 	[Charge] """
@@ -273,18 +277,18 @@ class VAN_EX1_165b:# <2>[1646]
 	pass
 
 class VAN_EX1_165t1:# <2>[1646]
-	""" Druid of the Claw
+	""" Druid of the Claw (5/4/4)
 	[Charge] """
 	#
 	pass
 
 class VAN_EX1_165t2:# <2>[1646]
-	""" Druid of the Claw
+	""" Druid of the Claw (5/4/6)
 	[Taunt] """
 	#
 	pass
 
-if Classic_Keeper_of_the_Grove:# 
+if Classic_Keeper_of_the_Grove:# ### OK ###
 	Classic_Druid+=['VAN_EX1_166']
 	Classic_Druid+=['VAN_EX1_166a']
 	Classic_Druid+=['VAN_EX1_166b']
@@ -311,15 +315,15 @@ class VAN_EX1_166b:# <2>[1646]
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	pass
 
-if Classic_Innervate:# 
+if Classic_Innervate:# ### OK ###
 	Classic_Druid+=['VAN_EX1_169']
 class VAN_EX1_169:# <2>[1646]
 	""" Innervate
 	Gain 2 Mana Crystals this turn only. """
-	play = ManaThisTurn(CONTROLLER, 1)
+	play = ManaThisTurn(CONTROLLER, 2)## 1->2
 	pass
 
-if Classic_Starfire:# 
+if Classic_Starfire:# ### OK ###
 	Classic_Druid+=['VAN_EX1_173']
 class VAN_EX1_173:# <2>[1646]
 	""" Starfire
@@ -328,7 +332,7 @@ class VAN_EX1_173:# <2>[1646]
 	play = Hit(TARGET, 5), Draw(CONTROLLER)
 	pass
 
-if Classic_Ancient_of_War:# 
+if Classic_Ancient_of_War:# ### OK ###
 	Classic_Druid+=['VAN_EX1_178']
 	Classic_Druid+=['VAN_EX1_178a','EX1_178ae']
 	Classic_Druid+=['VAN_EX1_178b','EX1_178be']
