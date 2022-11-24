@@ -27,8 +27,8 @@ Classic_Force_of_Nature=True  ###
 Classic_Cenarius=True  ###
 Classic_Savagery=True  ###
 Classic_Treant=True  ###
-Classic_Shapeshift=True  ###
-Classic_Dire_Shapeshift=True  ###
+Classic_Shapeshift=False  ###
+Classic_Dire_Shapeshift=False  ###
 Classic_Starfall=True  ###
 Classic_Ancient_of_Lore=True  ###
 
@@ -357,7 +357,7 @@ class VAN_EX1_178b:# <2>[1646]
 	pass
 EX1_178be = buff(atk=5)
 
-if Classic_Bite:# 
+if Classic_Bite:# ### OK ###
 	Classic_Druid+=['VAN_EX1_570','EX1_570e']
 class VAN_EX1_570:# <2>[1646]
 	""" Bite
@@ -366,16 +366,16 @@ class VAN_EX1_570:# <2>[1646]
 	pass
 EX1_570e = buff(atk=4)
 
-if Classic_Force_of_Nature:# 
+if Classic_Force_of_Nature:# ### OK ###
 	Classic_Druid+=['VAN_EX1_571']
 class VAN_EX1_571:# <2>[1646]
 	""" Force of Nature
 	Summon three 2/2 Treants with[Charge] that die at the end of the turn. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	play = Summon(CONTROLLER, "VAN_EX1_tk9") * 3
+	play = Summon(CONTROLLER, "VAN_EX1_tk9b") * 3
 	pass
 
-if Classic_Cenarius:# 
+if Classic_Cenarius:# ### OK ###
 	Classic_Druid+=['VAN_EX1_573']
 	Classic_Druid+=['VAN_EX1_573a','EX1_573ae']
 	Classic_Druid+=['VAN_EX1_573b','EX1_573t']
@@ -389,24 +389,24 @@ class VAN_EX1_573:# <2>[1646]
 	)
 	pass
 
-class VAN_EX1_573a:# <2>[1646]
+class VAN_EX1_573a:# <2>[1646] ### OK ###
 	""" Demigod's Favor
 	Give your other minions +2/+2. """
 	play = Buff(FRIENDLY_MINIONS - SELF, "EX1_573ae")
 	pass
 EX1_573ae = buff(+2, +2)
 
-class VAN_EX1_573b:# <2>[1646]
+class VAN_EX1_573b:# <2>[1646] ### OK ###
 	""" Shan'do's Lesson
 	Summon two 2/2 Treants with [Taunt]. """
 	play = Summon(CONTROLLER, "EX1_573t") * 2
 	pass
 class EX1_573t:
-	""" 2/2 Treants """
+	""" 2/2 Treant """
 	#<Tag enumID="190" name="TAUNT" type="Int" value="1"/>
 	pass
 
-if Classic_Savagery:# 
+if Classic_Savagery:# ### OK ###
 	Classic_Druid+=['VAN_EX1_578']
 class VAN_EX1_578:# <2>[1646]
 	""" Savagery
@@ -415,7 +415,7 @@ class VAN_EX1_578:# <2>[1646]
 	play = Hit(TARGET, ATK(FRIENDLY_HERO))
 	pass
 
-if Classic_Treant:# 
+if Classic_Treant:# ### OK ###
 	Classic_Druid+=['VAN_EX1_tk9']
 class VAN_EX1_tk9:# <2>[1646]
 	""" Treant
@@ -423,12 +423,13 @@ class VAN_EX1_tk9:# <2>[1646]
 	#
 	pass
 
-if Classic_Treant:# 
+if Classic_Treant:# ### OK ###
 	Classic_Druid+=['VAN_EX1_tk9b']
 class VAN_EX1_tk9b:# <2>[1646]
 	""" Treant
 	[Charge]. At the end of the turn, destroy this minion. """
 	events = OWN_TURN_END.on(Destroy(SELF))
+	#<Tag enumID="197" name="CHARGE" type="Int" value="1"/>
 	pass
 
 if Classic_Shapeshift:# 
@@ -464,7 +465,7 @@ class HERO_06bp2e:
 		GameTag.TAG_ONE_TURN_EFFECT: 1,}
 
 
-if Classic_Starfall:# 
+if Classic_Starfall:# ### OK ###
 	Classic_Druid+=['VAN_NEW1_007']
 	Classic_Druid+=['VAN_NEW1_007a']
 	Classic_Druid+=['VAN_NEW1_007b']
@@ -489,7 +490,7 @@ class VAN_NEW1_007b:# <2>[1646]
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	pass
 
-if Classic_Ancient_of_Lore:# 
+if Classic_Ancient_of_Lore:# ### OK ###
 	Classic_Druid+=['VAN_NEW1_008']
 	Classic_Druid+=['VAN_NEW1_008a']
 	Classic_Druid+=['VAN_NEW1_008b']
@@ -498,13 +499,13 @@ class VAN_NEW1_008:# <2>[1646]
 	[Choose One -] Draw 2 cards; or Restore #5 Health. """
 	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	choose = ("VAN_NEW1_008a", "VAN_NEW1_008b")
-	play = ChooseBoth(CONTROLLER) & (Draw(CONTROLLER), Heal(TARGET, 5))
+	play = ChooseBoth(CONTROLLER) & (Draw(CONTROLLER), Draw(CONTROLLER), Heal(TARGET, 5))
 	pass
 
 class VAN_NEW1_008a:# <2>[1646]
 	""" Ancient Teachings
 	Draw 2 cards. """
-	play = Draw(CONTROLLER)
+	play = Draw(CONTROLLER) * 2
 	pass
 
 class VAN_NEW1_008b:# <2>[1646]
