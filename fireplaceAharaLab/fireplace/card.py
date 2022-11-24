@@ -258,7 +258,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self.attacker=None
 		self.cant_play = False
 		self.choose_both = False
-		self.choose_cards = CardList()
+		self._choose_cards = CardList()
 		self.entourage = CardList(data.entourage)
 		self.get_extra_damage = 0
 		self.has_combo = False
@@ -278,6 +278,15 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			self.tradeable = True## because of CardDefs's bug
 		super().__init__(data)
 
+	@property
+	def choose_cards(self):
+		if self._choose_cards==[] and self.has_choose_one:
+			for id in self.data.choose_cards:
+				card = self.controller.card(id, source=self, parent=self)
+				self._choose_cards.append(card)
+		return self._choose_cards
+
+	
 	@property
 	def events(self):
 		if self.zone == Zone.HAND:
@@ -313,10 +322,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		"""
 		if self.controller.choose_both and self.has_choose_one:
 			self.choose_cards = []
-		elif self.has_choose_one and self.choose_cards==[]:
-			for id in self.data.choose_cards:
-				card = self.controller.card(id, source=self, parent=self)
-				self.choose_cards.append(card)
+		#elif self.has_choose_one and self.choose_cards==[]: -> def choose_cards
+		#	for id in self.data.choose_cards:
+		#		card = self.controller.card(id, source=self, parent=self)
+		#		self._choose_cards.append(card)
 		return bool(self.data.choose_cards)
 
 	@property
@@ -356,11 +365,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		   (Zone.DECK, Zone.HAND), (Zone.HAND, Zone.PLAY), (Zone.DECK, Zone.PLAY), (Zone.INVALID, Zone.DECK), (Zone.INVALID, Zone.HAND), (Zone.INVALID, Zone.PLAY),(Zone.SETASIDE, Zone.DECK), (Zone.SETASIDE, Zone.HAND), (Zone.SETASIDE, Zone.PLAY)]:
 			self.clear_buffs()
 		## if data hase choose_cards, then 'self' creates the 'choose one' subcards
-		if isinstance(self.data.choose_cards, list) and len(self.data.choose_cards):
-			del self.choose_cards[:] ## possibly 'self' has had already subcards
-			for id in self.data.choose_cards:
-				card = self.controller.card(id, source=self, parent=self)
-				self.choose_cards.append(card)
+		#if isinstance(self.data.choose_cards, list) and len(self.data.choose_cards): -> def choose_cards
+		#	del self.choose_cards[:] ## possibly 'self' has had already subcards
+		#	for id in self.data.choose_cards:
+		#		card = self.controller.card(id, source=self, parent=self)
+		#		self._choose_cards.append(card)
 		super()._set_zone(value)
 
 

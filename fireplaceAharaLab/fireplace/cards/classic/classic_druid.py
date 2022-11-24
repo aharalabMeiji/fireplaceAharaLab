@@ -248,7 +248,7 @@ class VAN_EX1_164b:# <2>[1646]### OK ###
 	play = Draw(CONTROLLER) * 3
 	pass
 
-if Classic_Druid_of_the_Claw:# ### checking
+if Classic_Druid_of_the_Claw:# ### OK ###
 	Classic_Druid+=['VAN_EX1_165','OG_044a']
 	Classic_Druid+=['VAN_EX1_165a']
 	Classic_Druid+=['VAN_EX1_165b']
