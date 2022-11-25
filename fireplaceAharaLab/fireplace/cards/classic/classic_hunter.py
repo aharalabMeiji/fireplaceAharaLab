@@ -27,8 +27,8 @@ Classic_Snipe=True
 Classic_Explosive_Trap=True
 Classic_Freezing_Trap=True
 Classic_Deadly_Shot=True
-Classic_Steady_Shot=True
-Classic_Ballista_Shot=True
+Classic_Steady_Shot=False # HP
+Classic_Ballista_Shot=False # HP
 Classic_Animal_Companion=True
 Classic_Misha=True
 Classic_Leokk=True
@@ -184,7 +184,7 @@ class VAN_EX1_536:# <3>[1646]
 	pass
 EX1_536e = buff(health=1)
 
-if Classic_Explosive_Shot:# 
+if Classic_Explosive_Shot:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_537']
 class VAN_EX1_537:# <3>[1646]
 	""" Explosive Shot
@@ -193,7 +193,7 @@ class VAN_EX1_537:# <3>[1646]
 	play = Hit(TARGET, 5), Hit(TARGET_ADJACENT, 2)
 	pass
 
-if Classic_Unleash_the_Hounds:# 
+if Classic_Unleash_the_Hounds:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_538','EX1_538t']
 class VAN_EX1_538:# <3>[1646]
 	""" Unleash the Hounds
@@ -205,7 +205,7 @@ class EX1_538t:
 	""" 1/1 Hound with [Charge]"""
 	pass
 
-if Classic_Kill_Command:# 
+if Classic_Kill_Command:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_539']
 class VAN_EX1_539:# <3>[1646]
 	""" Kill Command
@@ -215,7 +215,7 @@ class VAN_EX1_539:# <3>[1646]
 	play = powered_up & Hit(TARGET, 5) | Hit(TARGET, 3)
 	pass
 
-if Classic_King_Krush:# 
+if Classic_King_Krush:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_543']
 class VAN_EX1_543:# <3>[1646]
 	""" King Krush
@@ -223,7 +223,7 @@ class VAN_EX1_543:# <3>[1646]
 	#
 	pass
 
-if Classic_Flare:# 
+if Classic_Flare:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_544']
 class VAN_EX1_544:# <3>[1646]
 	""" Flare
@@ -235,7 +235,7 @@ class VAN_EX1_544:# <3>[1646]
 	)
 	pass
 
-if Classic_Bestial_Wrath:# 
+if Classic_Bestial_Wrath:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_549','EX1_549o']
 class VAN_EX1_549:# <3>[1646]
 	""" Bestial Wrath
@@ -246,15 +246,18 @@ class VAN_EX1_549:# <3>[1646]
 		PlayReq.REQ_TARGET_WITH_RACE: 20}
 	play = Buff(TARGET, "EX1_549o")
 	pass
-EX1_549o = buff(atk=2, immune=True)
+EX1_549o = buff(atk=2, immune=True)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Snake_Trap:# 
+if Classic_Snake_Trap:# checking
 	Classic_Hunter+=['VAN_EX1_554']
 class VAN_EX1_554:# <3>[1646]
 	""" Snake Trap
 	[Secret:] When one of your minions is attacked, summon three 1/1 Snakes. """
-	secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
-		Reveal(SELF), Summon(CONTROLLER, "VAN_EX1_554t") * 3
+	#secret = Attack(ALL_MINIONS, FRIENDLY_MINIONS).on(FULL_BOARD | (
+	secret = Attack(ENEMY + MINION, FRIENDLY + MINION).on(FULL_BOARD | (
+		Reveal(SELF), Summon(CONTROLLER, "VAN_EX1_554t"),
+		Summon(CONTROLLER, "VAN_EX1_554t"), 
+		Summon(CONTROLLER, "VAN_EX1_554t")
 	))
 	pass
 
@@ -266,7 +269,7 @@ class VAN_EX1_554t:# <3>[1646]
 	#
 	pass
 
-if Classic_Snipe:# 
+if Classic_Snipe:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_609']
 class VAN_EX1_609:# <3>[1646]
 	""" Snipe
@@ -276,7 +279,7 @@ class VAN_EX1_609:# <3>[1646]
 	)
 	pass
 
-if Classic_Explosive_Trap:# 
+if Classic_Explosive_Trap:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_610']
 class VAN_EX1_610:# <3>[1646]
 	""" Explosive Trap
@@ -286,7 +289,7 @@ class VAN_EX1_610:# <3>[1646]
 	)
 	pass
 
-if Classic_Freezing_Trap:# 
+if Classic_Freezing_Trap:# checking
 	Classic_Hunter+=['VAN_EX1_611','EX1_611e']
 class VAN_EX1_611:# <3>[1646]
 	""" Freezing Trap
@@ -301,7 +304,7 @@ class EX1_611e:
 	events = REMOVED_IN_PLAY
 	tags = {GameTag.COST: +2}
 
-if Classic_Deadly_Shot:# 
+if Classic_Deadly_Shot:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_617']
 class VAN_EX1_617:# <3>[1646]
 	""" Deadly Shot
@@ -310,7 +313,7 @@ class VAN_EX1_617:# <3>[1646]
 	play = Destroy(RANDOM_ENEMY_MINION)
 	pass
 
-if Classic_Steady_Shot:# 
+if Classic_Steady_Shot:# ### OK ###
 	Classic_Hunter+=['VAN_HERO_05bp']
 class VAN_HERO_05bp:# <3>[1646]
 	""" Steady Shot
@@ -327,7 +330,7 @@ class VAN_HERO_05bp2:# <3>[1646]
 	#
 	pass
 
-if Classic_Animal_Companion:# 
+if Classic_Animal_Companion:# checking
 	Classic_Hunter+=['VAN_NEW1_031']
 class VAN_NEW1_031_Action(GameAction):
 	def do(self, source):
@@ -337,11 +340,11 @@ class VAN_NEW1_031:# <3>[1646]
 	""" Animal Companion
 	Summon a random Beast Companion. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
-	entourage = ["VAN_NEW1_032", "VAN_NEW1_033", "VAN_NEW1_034"]
+	#entourage = ["VAN_NEW1_032", "VAN_NEW1_033", "VAN_NEW1_034"]
 	play = VAN_NEW1_031_Action()
 	pass
 
-if Classic_Misha:# 
+if Classic_Misha:# ### OK ###
 	Classic_Hunter+=['VAN_NEW1_032']
 class VAN_NEW1_032:# <3>[1646]
 	""" Misha
@@ -349,7 +352,7 @@ class VAN_NEW1_032:# <3>[1646]
 	#
 	pass
 
-if Classic_Leokk:# 
+if Classic_Leokk:# ### OK ###
 	Classic_Hunter+=['VAN_NEW1_033','NEW1_033o']
 class VAN_NEW1_033:# <3>[1646]
 	""" Leokk
@@ -358,7 +361,7 @@ class VAN_NEW1_033:# <3>[1646]
 	pass
 NEW1_033o = buff(atk=1)
 
-if Classic_Huffer:# 
+if Classic_Huffer:# ### OK ###
 	Classic_Hunter+=['VAN_NEW1_034']
 class VAN_NEW1_034:# <3>[1646]
 	""" Huffer
