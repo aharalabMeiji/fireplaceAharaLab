@@ -12,13 +12,13 @@ def classic_druid():
 	#PresetGame(pp_VAN_CS2_012)##
 	#PresetGame(pp_VAN_CS2_013)##
 	#PresetGame(pp_VAN_CS2_232)##
-	#PresetGame(pp_VAN_EX1_154)##
+	#PresetGame(pp_VAN_EX1_154)## OK 
 	#PresetGame(pp_VAN_EX1_155)##
 	#PresetGame(pp_VAN_EX1_158)## OK ## 20221124
 	#PresetGame(pp_VAN_EX1_160)##
 	#PresetGame(pp_VAN_EX1_161)##
 	#PresetGame(pp_VAN_EX1_164)##
-	PresetGame(pp_VAN_EX1_165)##
+	#PresetGame(pp_VAN_EX1_165)## OK 20221125
 	#PresetGame(pp_VAN_EX1_166)##
 	#PresetGame(pp_VAN_EX1_169)##
 	#PresetGame(pp_VAN_EX1_173)##
@@ -248,17 +248,17 @@ class pp_VAN_EX1_154(Preset_Play):
 	[Choose One -]Deal $3 damage to a minion; or $1 damageand draw a card. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_154", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, choose=self.mark1.choose_cards[1], target=self.mark4)
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
