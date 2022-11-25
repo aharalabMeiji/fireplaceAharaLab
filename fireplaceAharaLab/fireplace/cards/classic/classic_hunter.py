@@ -34,7 +34,7 @@ Classic_Misha=True
 Classic_Leokk=True
 Classic_Huffer=True
 
-if Classic_Hunters_Mark:# 
+if Classic_Hunters_Mark:# ### OK ###
 	Classic_Hunter+=['VAN_CS2_084','CS2_084e']
 class VAN_CS2_084:# <3>[1646]
 	""" Hunter's Mark
@@ -45,7 +45,7 @@ class VAN_CS2_084:# <3>[1646]
 class CS2_084e:
 	max_health = SET(1)
 
-if Classic_Starving_Buzzard:# 
+if Classic_Starving_Buzzard:# ### OK ###
 	Classic_Hunter+=['VAN_CS2_237']
 class VAN_CS2_237:# <3>[1646]
 	""" Starving Buzzard
@@ -53,21 +53,27 @@ class VAN_CS2_237:# <3>[1646]
 	events = Summon(CONTROLLER, BEAST).on(Draw(CONTROLLER))
 	pass
 
-if Classic_Houndmaster:# 
+if Classic_Houndmaster:# ### checking
 	Classic_Hunter+=['VAN_DS1_070','DS1_070o']
+class VAN_DS1_070_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if target!=None:
+			if target.type==CardType.MINION and target.race==Race.BEAST:
+				Buff(target, 'DS1_070o').trigger(source)
 class VAN_DS1_070:# <3>[1646]
 	""" Houndmaster
 	[Battlecry:] Give a friendly Beast +2/+2 and [Taunt]. """
 	requirements = {
 		PlayReq.REQ_FRIENDLY_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0,
-		PlayReq.REQ_TARGET_WITH_RACE: 20}
+		PlayReq.REQ_TARGET_WITH_RACE: Race.BEAST}
 	powered_up = Find(FRIENDLY_MINIONS + BEAST)
-	play = Buff(TARGET, "DS1_070o")
+	play = VAN_DS1_070_Action(TARGET)#Buff(TARGET, "DS1_070o")
 	pass
 DS1_070o = buff(+2, +2, taunt=True)
 
-if Classic_Timber_Wolf:# 
+if Classic_Timber_Wolf:# ### OK ###
 	Classic_Hunter+=['VAN_DS1_175','DS1_175o']
 class VAN_DS1_175:# <3>[1646]
 	""" Timber Wolf
@@ -85,24 +91,43 @@ class VAN_DS1_178:# <3>[1646]
 	pass
 DS1_178e = buff(charge=True)
 
-if Classic_Multi_Shot:# 
+if Classic_Multi_Shot:# ### checking
 	Classic_Hunter+=['VAN_DS1_183']
+class VAN_DS1_183_Action(GameAction):
+	def do(self, source):
+		cards=[card for card in source.controller.opponent.field if card.type==CardType.MINION]
+		if len(cards)>2:
+			cards=random.sample(cards, 2)
+		for card in cards:
+			Hit(card, 3).trigger(source)
 class VAN_DS1_183:# <3>[1646]
 	""" Multi-Shot
 	Deal $3 damage to two random enemy minions. """
 	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1}
-	play = Hit(RANDOM_ENEMY_MINION * 2, 3)
+	play = VAN_DS1_183_Action()#Hit(RANDOM_ENEMY_MINION * 2, 3)
 	pass
 
-if Classic_Tracking:# 
+if Classic_Tracking:# ### checking
 	Classic_Hunter+=['VAN_DS1_184']
+class VAN_DS1_184_Choice(Choice):
+	def choose(self, card):
+		for c in self.source.controller.deck[:3]:
+			if c.id==card.id:
+				c.zone=Zone.HAND
+			else:
+				c.discard()
+		card.discard()
+class VAN_DS1_184_Action(GameAction):
+	def do(self, source):
+		cards=[card.id for card in source.controller.deck[:3]]
+		VAN_DS1_184_Choice(source.controller, RandomID(*cards)*3).trigger(source)
 class VAN_DS1_184:# <3>[1646]
 	""" Tracking
 	Look at the top 3 cards of your deck. Draw one and discard the others. """
-	play = GenericChoice(CONTROLLER, FRIENDLY_DECK[:3])
+	play = VAN_DS1_184_Action()#GenericChoice(CONTROLLER, FRIENDLY_DECK[:3])
 	pass
 
-if Classic_Arcane_Shot:# 
+if Classic_Arcane_Shot:# ### OK ###
 	Classic_Hunter+=['VAN_DS1_185']
 class VAN_DS1_185:# <3>[1646]
 	""" Arcane Shot
@@ -111,7 +136,7 @@ class VAN_DS1_185:# <3>[1646]
 	play = Hit(TARGET, 2)
 	pass
 
-if Classic_Gladiators_Longbow:# 
+if Classic_Gladiators_Longbow:# ### OK ###
 	Classic_Hunter+=['VAN_DS1_188']
 class VAN_DS1_188:# <3>[1646]
 	""" Gladiator's Longbow
@@ -119,7 +144,7 @@ class VAN_DS1_188:# <3>[1646]
 	update = Refresh(FRIENDLY_HERO, {GameTag.IMMUNE_WHILE_ATTACKING: True})
 	pass
 
-if Classic_Scavenging_Hyena:# 
+if Classic_Scavenging_Hyena:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_531','EX1_531e']
 class VAN_EX1_531:# <3>[1646]
 	""" Scavenging Hyena
@@ -128,7 +153,7 @@ class VAN_EX1_531:# <3>[1646]
 	pass
 EX1_531e = buff(+2, +1)
 
-if Classic_Misdirection:# 
+if Classic_Misdirection:# MAYBE
 	Classic_Hunter+=['VAN_EX1_533']
 class VAN_EX1_533:# <3>[1646]
 	""" Misdirection
@@ -139,7 +164,7 @@ class VAN_EX1_533:# <3>[1646]
 	)
 	pass
 
-if Classic_Savannah_Highmane:# 
+if Classic_Savannah_Highmane:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_534','EX1_534t']
 class VAN_EX1_534:# <3>[1646]
 	""" Savannah Highmane
@@ -150,7 +175,7 @@ class EX1_534t:
 	""" 2/2 Hyena """
 	pass
 
-if Classic_Eaglehorn_Bow:# 
+if Classic_Eaglehorn_Bow:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_536','EX1_536e']
 class VAN_EX1_536:# <3>[1646]
 	""" Eaglehorn Bow

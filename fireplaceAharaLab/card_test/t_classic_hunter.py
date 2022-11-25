@@ -6,11 +6,11 @@ def classic_hunter():
 
 	#PresetGame(pp_VAN_CS2_084)##
 	#PresetGame(pp_VAN_CS2_237)##
-	#PresetGame(pp_VAN_DS1_070)##
+	PresetGame(pp_VAN_DS1_070)##
 	#PresetGame(pp_VAN_DS1_175)##
 	#PresetGame(pp_VAN_DS1_178)##
-	#PresetGame(pp_VAN_DS1_183)##
-	#PresetGame(pp_VAN_DS1_184)##
+	PresetGame(pp_VAN_DS1_183)##
+	PresetGame(pp_VAN_DS1_184)##
 	#PresetGame(pp_VAN_DS1_185)##
 	#PresetGame(pp_VAN_DS1_188)##
 	#PresetGame(pp_VAN_EX1_531)##

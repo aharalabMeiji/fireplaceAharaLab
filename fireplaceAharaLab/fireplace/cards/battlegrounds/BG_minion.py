@@ -547,7 +547,7 @@ class DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
 	[Battlecry:] Give a friendly Beast +2/+2 and [Taunt]."""
 	requirements = {
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
+		PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
 		PlayReq.REQ_TARGET_WITH_RACE:Race.BEAST }
 	play = Buff(TARGET, 'DS1_070o')
 	pass
