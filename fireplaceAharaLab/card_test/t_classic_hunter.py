@@ -6,11 +6,11 @@ def classic_hunter():
 
 	#PresetGame(pp_VAN_CS2_084)##
 	#PresetGame(pp_VAN_CS2_237)##
-	PresetGame(pp_VAN_DS1_070)##
+	#PresetGame(pp_VAN_DS1_070)##
 	#PresetGame(pp_VAN_DS1_175)##
 	#PresetGame(pp_VAN_DS1_178)##
-	PresetGame(pp_VAN_DS1_183)##
-	PresetGame(pp_VAN_DS1_184)##
+	#PresetGame(pp_VAN_DS1_183)##
+	#PresetGame(pp_VAN_DS1_184)##
 	#PresetGame(pp_VAN_DS1_185)##
 	#PresetGame(pp_VAN_DS1_188)##
 	#PresetGame(pp_VAN_EX1_531)##
@@ -94,22 +94,24 @@ class pp_VAN_DS1_070(Preset_Play):
 	[Battlecry:] Give a friendly Beast +2/+2 and [Taunt]. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_DS1_070", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.controller, self.card_choice("beast")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark4)
+		self.play_card(self.mark1, target=self.mark4)
 		self.change_turn()
 		### opp
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		assert self.mark4.taunt==True, "True"
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
 	pass
 
 
@@ -172,7 +174,11 @@ class pp_VAN_DS1_183(Preset_Play):
 	Deal $3 damage to two random enemy minions. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_DS1_183", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=Summon(self.opponent, self.card_choice("minionH4")).trigger(self.opponent)
+		self.mark2=self.mark2[0][0]
+		self.mark3=Summon(self.opponent, self.card_choice("minionH4")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH4")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
@@ -180,14 +186,14 @@ class pp_VAN_DS1_183(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		#self.change_turn()
 		### opp
-		self.change_turn()
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.field:
+			self.print_stats("enemy field", card)
 	pass
 
 
@@ -198,17 +204,14 @@ class pp_VAN_DS1_184(Preset_Play):
 	Look at the top 3 cards of your deck. Draw one and discard the others. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_DS1_184", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.choose_action()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -536,6 +539,8 @@ class pp_VAN_EX1_554(Preset_Play):
 	[Secret:] When one of your minions is attacked, summon three 1/1 Snakes. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_554", self.controller)
+		self.mark2=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=self.mark2[0][0]
 		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
@@ -543,15 +548,16 @@ class pp_VAN_EX1_554(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.cast_secret(self.mark1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.attack_card(self.mark2, self.mark4)
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

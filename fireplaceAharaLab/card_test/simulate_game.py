@@ -15,7 +15,10 @@ def card_test():
 		if Config.CARD_TEST_CLASS=='DRUID':
 			from card_test.t_classic_druid import classic_druid
 			classic_druid()
-		if Config.CARD_TEST_CLASS=='NEUTRAL':
+		elif Config.CARD_TEST_CLASS=='HUNTER':
+			from card_test.t_classic_hunter import classic_hunter
+			classic_hunter()
+		elif Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.t_classic_neutral import classic_neutral
 			classic_neutral()
 	elif Config.CARD_TEST_SET=='CORE':
@@ -465,6 +468,12 @@ class Preset_Play:
 			player=card.controller
 		if card.type==CardType.SPELL:
 			CastSpell(card).trigger(player)
+		pass
+	def cast_secret(self, card, player=None):
+		if player==None:
+			player=card.controller
+		if card.type==CardType.SPELL:
+			CastSecret(card).trigger(player)
 		pass
 	def contains_buff(self, card, buffID):
 		for buff in card.buffs:

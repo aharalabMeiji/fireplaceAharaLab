@@ -53,7 +53,7 @@ class VAN_CS2_237:# <3>[1646]
 	events = Summon(CONTROLLER, BEAST).on(Draw(CONTROLLER))
 	pass
 
-if Classic_Houndmaster:# ### checking
+if Classic_Houndmaster:# ### OK ###
 	Classic_Hunter+=['VAN_DS1_070','DS1_070o']
 class VAN_DS1_070_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -111,7 +111,7 @@ if Classic_Tracking:# ### checking
 	Classic_Hunter+=['VAN_DS1_184']
 class VAN_DS1_184_Choice(Choice):
 	def choose(self, card):
-		for c in self.source.controller.deck[:3]:
+		for c in reversed(self.source.controller.deck[:3]):
 			if c.id==card.id:
 				c.zone=Zone.HAND
 			else:
