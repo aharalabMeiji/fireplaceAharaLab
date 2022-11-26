@@ -1148,6 +1148,7 @@ class Deathrattle(TargetedAction):
 	"""
 	TARGET = ActionArg()
 	def do(self, source, target):
+		target.deathrattle_valid=False
 		for deathrattle in target.deathrattles:
 			if callable(deathrattle):
 				actions = deathrattle(target)

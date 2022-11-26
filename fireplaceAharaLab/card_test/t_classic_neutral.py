@@ -79,7 +79,7 @@ def classic_neutral():
 	#PresetGame(pp_VAN_EX1_023)##
 	#PresetGame(pp_VAN_EX1_025)##
 	#PresetGame(pp_VAN_EX1_028)##
-	#PresetGame(pp_VAN_EX1_029)##
+	#PresetGame(pp_VAN_EX1_029)## OK ##
 	#PresetGame(pp_VAN_EX1_032)##
 	#PresetGame(pp_VAN_EX1_033)##
 	#PresetGame(pp_VAN_EX1_043)##
@@ -2153,7 +2153,7 @@ class pp_VAN_EX1_029(Preset_Play):
 	[Deathrattle:] Deal 2 damage to the enemy_hero. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_029", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.opponent, self.card_choice("minionA3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
@@ -2163,7 +2163,8 @@ class pp_VAN_EX1_029(Preset_Play):
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.attack_card(self.mark4, self.mark1)
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
