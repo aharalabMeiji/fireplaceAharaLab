@@ -153,12 +153,12 @@ class VAN_EX1_531:# <3>[1646]
 	pass
 EX1_531e = buff(+2, +1)
 
-if Classic_Misdirection:# MAYBE
+if Classic_Misdirection:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_533']
 class VAN_EX1_533:# <3>[1646]
 	""" Misdirection
 	[Secret:] When an enemy attacks your hero, instead it attacks another random character. """
-	secret = Attack(ALL_CHARACTERS, FRIENDLY_HERO).on(
+	secret = Attack(ENEMY + CHARACTER, FRIENDLY_HERO).on(
 		Reveal(SELF),
 		Retarget(Attack.ATTACKER, RANDOM(ALL_CHARACTERS - FRIENDLY_HERO - Attack.ATTACKER))
 	)

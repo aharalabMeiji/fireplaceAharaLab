@@ -1188,7 +1188,7 @@ class Secret(PlayableCard):
 	@property
 	def events(self):
 		ret = super().events
-		if self.zone == Zone.SECRET and not self.exhausted:
+		if (self.zone == Zone.SECRET or self.zone == Zone.PLAY) and not self.exhausted:
 			ret += self.data.scripts.secret
 		return ret
 
@@ -1207,16 +1207,15 @@ class Secret(PlayableCard):
 		newzone=value
 		if Config.LOGINFO:
 			Config.log("Secret._set_zone","card %s: %s -> %s"%(self, oldzone, newzone))
-		if newzone == Zone.PLAY:
+		if newzone == Zone.PLAY or newzone == Zone.SECRET:
 			# Move secrets to the SECRET Zone when played
 			self._zone = Zone.SECRET
+			if not self in self.controller.secrets:
+				self.controller.secrets.append(self)
 		if oldzone == Zone.SECRET:
 			self.controller.secrets.remove(self)
 			if newzone==Zone.GRAVEYARD:
 				self.controller.graveyard.append(self)
-		if newzone == Zone.SECRET:
-			self.controller.secrets.append(self)
-			self._zone = Zone.SECRET
 		super()._set_zone(value)
 
 	def is_summonable(self):
@@ -1516,7 +1515,7 @@ class QuestReward(PlayableCard):
 	@property
 	def events(self):
 		ret = super().events
-		if self.zone == Zone.SECRET and hasattr(self.data.scripts, 'reward'):
+		if (self.zone == Zone.SECRET or self.zone == Zone.PLAY) and hasattr(self.data.scripts, 'reward'):
 			ret += self.data.scripts.reward
 		return ret
 	@property

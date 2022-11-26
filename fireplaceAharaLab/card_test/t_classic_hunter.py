@@ -15,7 +15,7 @@ def classic_hunter():
 	#PresetGame(pp_VAN_DS1_185)##
 	#PresetGame(pp_VAN_DS1_188)##
 	#PresetGame(pp_VAN_EX1_531)##
-	#PresetGame(pp_VAN_EX1_533)##
+	#PresetGame(pp_VAN_EX1_533)## OK ##
 	#PresetGame(pp_VAN_EX1_534)##
 	#PresetGame(pp_VAN_EX1_536)##
 	#PresetGame(pp_VAN_EX1_537)##
@@ -306,7 +306,9 @@ class pp_VAN_EX1_533(Preset_Play):
 	[Secret:] When an enemy attacks your hero, instead it attacks another random character. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_533", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=self.mark2[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
@@ -317,11 +319,14 @@ class pp_VAN_EX1_533(Preset_Play):
 		self.change_turn()
 		### opp
 		self.change_turn()
+		self.change_turn()
+		self.attack_card(self.mark4, self.controller.hero)
+		#self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

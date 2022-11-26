@@ -35,18 +35,18 @@ Classic_Spellbender=True
 Classic_Spellbender=True
 
 
-if Classic_Polymorph:# 
+if Classic_Polymorph:# ### OK ###
 	Classic_Mage+=['VAN_CS2_022','CS2_tk1']
 class VAN_CS2_022:# <4>[1646]
 	""" Polymorph
-	Transform a minioninto a 1/1 Sheep. """
+	Transform a minion into a 1/1 Sheep. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Morph(TARGET, "CS2_tk1")
 	pass
 class CS2_tk1:
 	pass
 
-if Classic_Arcane_Intellect:# 
+if Classic_Arcane_Intellect:# ### OK ###
 	Classic_Mage+=['VAN_CS2_023']
 class VAN_CS2_023:# <4>[1646]
 	""" Arcane Intellect
@@ -54,7 +54,7 @@ class VAN_CS2_023:# <4>[1646]
 	play = Draw(CONTROLLER) * 2
 	pass
 
-if Classic_Frostbolt:# 
+if Classic_Frostbolt:# ### OK ###
 	Classic_Mage+=['VAN_CS2_024']
 class VAN_CS2_024:# <4>[1646]
 	""" Frostbolt
@@ -63,7 +63,7 @@ class VAN_CS2_024:# <4>[1646]
 	play = Hit(TARGET, 3), Freeze(TARGET)
 	pass
 
-if Classic_Arcane_Explosion:# 
+if Classic_Arcane_Explosion:# ### OK ###
 	Classic_Mage+=['VAN_CS2_025']
 class VAN_CS2_025:# <4>[1646]
 	""" Arcane Explosion
@@ -71,7 +71,7 @@ class VAN_CS2_025:# <4>[1646]
 	play = Hit(ENEMY_MINIONS, 1)
 	pass
 
-if Classic_Frost_Nova:# 
+if Classic_Frost_Nova:# ### OK ###
 	Classic_Mage+=['VAN_CS2_026']
 class VAN_CS2_026:# <4>[1646]
 	""" Frost Nova
@@ -79,7 +79,7 @@ class VAN_CS2_026:# <4>[1646]
 	play = Freeze(ENEMY_MINIONS)
 	pass
 
-if Classic_Mirror_Image:# 
+if Classic_Mirror_Image:# ### OK ###
 	Classic_Mage+=['VAN_CS2_027']
 class VAN_CS2_027:# <4>[1646]
 	""" Mirror Image
@@ -87,8 +87,16 @@ class VAN_CS2_027:# <4>[1646]
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	play = Summon(CONTROLLER, "VAN_CS2_mirror") * 2
 	pass
+if Classic_Mirror_Image:# 
+	Classic_Mage+=['VAN_CS2_mirror']
+class VAN_CS2_mirror:# <4>[1646]
+	""" Mirror Image
+	[Taunt] """
+	#
+	pass
 
-if Classic_Blizzard:# 
+
+if Classic_Blizzard:# ### OK ###
 	Classic_Mage+=['VAN_CS2_028']
 class VAN_CS2_028:# <4>[1646]
 	""" Blizzard
@@ -96,7 +104,7 @@ class VAN_CS2_028:# <4>[1646]
 	play = Hit(ENEMY_MINIONS, 2), Freeze(ENEMY_MINIONS)
 	pass
 
-if Classic_Fireball:# 
+if Classic_Fireball:# ### OK ###
 	Classic_Mage+=['VAN_CS2_029']
 class VAN_CS2_029:# <4>[1646]
 	""" Fireball
@@ -105,7 +113,7 @@ class VAN_CS2_029:# <4>[1646]
 	play = Hit(TARGET, 6)
 	pass
 
-if Classic_Ice_Lance:# 
+if Classic_Ice_Lance:# ### OK ###
 	Classic_Mage+=['VAN_CS2_031']
 class VAN_CS2_031:# <4>[1646]
 	""" Ice Lance
@@ -114,7 +122,7 @@ class VAN_CS2_031:# <4>[1646]
 	play = Find(TARGET + FROZEN) & Hit(TARGET, 4) | Freeze(TARGET)
 	pass
 
-if Classic_Flamestrike:# 
+if Classic_Flamestrike:# ### OK ###
 	Classic_Mage+=['VAN_CS2_032']
 class VAN_CS2_032:# <4>[1646]
 	""" Flamestrike
@@ -130,13 +138,6 @@ class VAN_CS2_033:# <4>[1646]
 	events = Damage(CHARACTER, None, SELF).on(Freeze(Damage.TARGET))
 	pass
 
-if Classic_Mirror_Image:# 
-	Classic_Mage+=['VAN_CS2_mirror']
-class VAN_CS2_mirror:# <4>[1646]
-	""" Mirror Image
-	[Taunt] """
-	#
-	pass
 
 if Classic_Ethereal_Arcanist:# 
 	Classic_Mage+=['VAN_EX1_274','EX1_274e']
