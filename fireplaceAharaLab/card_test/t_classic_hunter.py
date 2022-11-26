@@ -1,6 +1,7 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit, Summon, Give
 from hearthstone.enums import Zone, CardType, Rarity
+import random
 
 def classic_hunter():
 
@@ -23,17 +24,17 @@ def classic_hunter():
 	#PresetGame(pp_VAN_EX1_543)##
 	#PresetGame(pp_VAN_EX1_544)##
 	#PresetGame(pp_VAN_EX1_549)##
-	PresetGame(pp_VAN_EX1_554)##
-	PresetGame(pp_VAN_EX1_609)##
+	#PresetGame(pp_VAN_EX1_554)## OK ##
+	#PresetGame(pp_VAN_EX1_609)## OK ##
 	#PresetGame(pp_VAN_EX1_610)##
-	PresetGame(pp_VAN_EX1_611)##
+	#PresetGame(pp_VAN_EX1_611)## OK ##
 	#PresetGame(pp_VAN_EX1_617)##
 	#PresetGame(pp_VAN_HERO_05bp)##
 	#PresetGame(pp_VAN_NEW1_031)##
 	#PresetGame(pp_VAN_NEW1_032)##
 	#PresetGame(pp_VAN_NEW1_033)##
 	#PresetGame(pp_VAN_NEW1_034)##
-
+	pass
 
 ##########VAN_CS2_084##########
 
@@ -549,9 +550,14 @@ class pp_VAN_EX1_554(Preset_Play):
 		super().preset_play()
 		### con
 		self.cast_secret(self.mark1)
+		for card in self.controller.secrets:
+			self.print_stats("secerts", card)
 		self.change_turn()
 		### opp
 		self.attack_card(self.mark2, self.mark4)
+		print("Show secrets ----->")
+		for card in self.controller.secrets:
+			self.print_stats("----> secerts", card)
 		#self.change_turn()
 		pass
 	def result_inspection(self):
@@ -575,15 +581,18 @@ class pp_VAN_EX1_609(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.cast_secret(self.mark1)
 		self.change_turn()
 		### opp
+		cards=[card for card in self.opponent.hand if card.type==CardType.MINION]
+		if len(cards):
+			self.mark2=random.choice(cards)
+		self.play_card(self.mark2)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		self.print_stats("mark2", self.mark2)
 	pass
 
 
@@ -620,22 +629,25 @@ class pp_VAN_EX1_611(Preset_Play):
 	[Secret:] When an enemy minion attacks, return it to its owner's hand. It costs (2) more. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_611", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=self.mark2[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.cast_secret(self.mark1)
 		self.change_turn()
 		### opp
+		self.attack_card(self.mark4, self.mark2)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		self.print_stats("mark2", self.mark2)
+		self.print_stats("mark4", self.mark4, show_buff=True, old_cost=True)
 	pass
 
 

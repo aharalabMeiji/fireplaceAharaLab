@@ -248,7 +248,7 @@ class VAN_EX1_549:# <3>[1646]
 	pass
 EX1_549o = buff(atk=2, immune=True)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Snake_Trap:# checking
+if Classic_Snake_Trap:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_554']
 class VAN_EX1_554:# <3>[1646]
 	""" Snake Trap
@@ -289,7 +289,7 @@ class VAN_EX1_610:# <3>[1646]
 	)
 	pass
 
-if Classic_Freezing_Trap:# checking
+if Classic_Freezing_Trap:# ### OK ###
 	Classic_Hunter+=['VAN_EX1_611','EX1_611e']
 class VAN_EX1_611:# <3>[1646]
 	""" Freezing Trap
