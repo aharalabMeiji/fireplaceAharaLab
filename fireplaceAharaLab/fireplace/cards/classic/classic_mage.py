@@ -130,7 +130,7 @@ class VAN_CS2_032:# <4>[1646]
 	play = Hit(ENEMY_MINIONS, 4)
 	pass
 
-if Classic_Water_Elemental:# 
+if Classic_Water_Elemental:# ### checking
 	Classic_Mage+=['VAN_CS2_033']
 class VAN_CS2_033:# <4>[1646]
 	""" Water Elemental
@@ -139,7 +139,7 @@ class VAN_CS2_033:# <4>[1646]
 	pass
 
 
-if Classic_Ethereal_Arcanist:# 
+if Classic_Ethereal_Arcanist:# ### OK ###
 	Classic_Mage+=['VAN_EX1_274','EX1_274e']
 class VAN_EX1_274:# <4>[1646]
 	""" Ethereal Arcanist
@@ -148,7 +148,7 @@ class VAN_EX1_274:# <4>[1646]
 	pass
 EX1_274e = buff(+2, +2)
 
-if Classic_Cone_of_Cold:# 
+if Classic_Cone_of_Cold:# ### OK ###
 	Classic_Mage+=['VAN_EX1_275']
 class VAN_EX1_275:# <4>[1646]
 	""" Cone of Cold
@@ -157,17 +157,17 @@ class VAN_EX1_275:# <4>[1646]
 	play = Hit(TARGET | TARGET_ADJACENT, 1), Freeze(TARGET | TARGET_ADJACENT)
 	pass
 
-if Classic_Arcane_Missiles:# 
+if Classic_Arcane_Missiles:# ### OK ###
 	Classic_Mage+=['VAN_EX1_277']
 class VAN_EX1_277:# <4>[1646]
 	""" Arcane Missiles
 	Deal $3 damage randomly split among all enemy characters. """
 	def play(self):
 		count = self.controller.get_spell_damage(3)
-		yield Hit(RANDOM_ENEMY_CHARACTER, 1) * count
+		yield SplitHit(CONTROLLER, RANDOM_ENEMY_CHARACTER, count)
 	pass
 
-if Classic_Pyroblast:# 
+if Classic_Pyroblast:# ### OK ###
 	Classic_Mage+=['VAN_EX1_279']
 class VAN_EX1_279:# <4>[1646]
 	""" Pyroblast
@@ -176,7 +176,7 @@ class VAN_EX1_279:# <4>[1646]
 	play = Hit(TARGET, 10)
 	pass
 
-if Classic_Counterspell:# 
+if Classic_Counterspell:# ### OK ###
 	Classic_Mage+=['VAN_EX1_287']
 class VAN_EX1_287:# <4>[1646]
 	""" Counterspell
@@ -186,32 +186,30 @@ class VAN_EX1_287:# <4>[1646]
 	)
 	pass
 
-if Classic_Ice_Barrier:# 
+if Classic_Ice_Barrier:# ### OK ###
 	Classic_Mage+=['VAN_EX1_289']
 class VAN_EX1_289:# <4>[1646]
 	""" Ice Barrier
-	[Secret:] As soon as yourhero is attacked, gain8 Armor. """
+	[Secret:] As soon as your hero is attacked, gain 8 Armor. """
 	secret = Attack(CHARACTER, FRIENDLY_HERO).on(
 		Reveal(SELF), GainArmor(FRIENDLY_HERO, 8)
 	)
 	pass
 
-if Classic_Mirror_Entity:# 
+if Classic_Mirror_Entity:# ### OK ###
 	Classic_Mage+=['VAN_EX1_294']
 class VAN_EX1_294:# <4>[1646]
 	""" Mirror Entity
-	[Secret:] Whenyour opponent plays aminion, summon a copy of it. """
-	secret = [
-		Play(OPPONENT, MINION).after(
+	[Secret:] Whenyour opponent plays a minion, summon a copy of it. """
+	secret = Play(OPPONENT, MINION).after(
 			Reveal(SELF), Summon(CONTROLLER, ExactCopy(Play.CARD))
-		),
-		#Play(OPPONENT, ID("EX1_323h")).after(
-		#	Reveal(SELF), Summon(CONTROLLER, "EX1_323")
-		#)  # :-)
-	]
+		)
+	#Play(OPPONENT, ID("EX1_323h")).after(
+	#	Reveal(SELF), Summon(CONTROLLER, "EX1_323")
+	#)  # :-)
 	pass
 
-if Classic_Ice_Block:# 
+if Classic_Ice_Block:# ### checking
 	Classic_Mage+=['VAN_EX1_295','EX1_295o']
 class VAN_EX1_295:# <4>[1646]
 	""" Ice Block
@@ -226,7 +224,7 @@ class VAN_EX1_295:# <4>[1646]
 	pass
 EX1_295o = buff(immune=True)
 
-if Classic_Archmage_Antonidas:# 
+if Classic_Archmage_Antonidas:# ### OK ###
 	Classic_Mage+=['VAN_EX1_559']
 class VAN_EX1_559:# <4>[1646]
 	""" Archmage Antonidas
@@ -234,7 +232,7 @@ class VAN_EX1_559:# <4>[1646]
 	events = OWN_SPELL_PLAY.on(Give(CONTROLLER, "VAN_CS2_029"))
 	pass
 
-if Classic_Vaporize:# 
+if Classic_Vaporize:# ### OK ###
 	Classic_Mage+=['VAN_EX1_594']
 class VAN_EX1_594:# <4>[1646]
 	""" Vaporize
@@ -244,7 +242,7 @@ class VAN_EX1_594:# <4>[1646]
 	)
 	pass
 
-if Classic_Sorcerers_Apprentice:# 
+if Classic_Sorcerers_Apprentice:# ### OK ###
 	Classic_Mage+=['VAN_EX1_608']
 class VAN_EX1_608:# <4>[1646]
 	""" Sorcerer's Apprentice
@@ -252,7 +250,7 @@ class VAN_EX1_608:# <4>[1646]
 	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.COST: -1})
 	pass
 
-if Classic_Kirin_Tor_Mage:# 
+if Classic_Kirin_Tor_Mage:# ### checking
 	Classic_Mage+=['VAN_EX1_612','EX1_612o']
 class VAN_EX1_612:# <4>[1646]
 	""" Kirin Tor Mage
@@ -263,7 +261,7 @@ class EX1_612o:
 	update = Refresh(FRIENDLY_HAND + SECRET, {GameTag.COST: SET(0)})
 	events = Play(CONTROLLER, SECRET).on(Destroy(SELF))
 
-if Classic_Mana_Wyrm:# 
+if Classic_Mana_Wyrm:# ### OK ###
 	Classic_Mage+=['VAN_NEW1_012','NEW1_012o']
 class VAN_NEW1_012:# <4>[1646]
 	""" Mana Wyrm
@@ -272,13 +270,13 @@ class VAN_NEW1_012:# <4>[1646]
 	pass
 NEW1_012o = buff(atk=1)
 
-if Classic_Spellbender:# 
+if Classic_Spellbender:# ### checking
 	Classic_Mage+=['VAN_tt_010']
 class VAN_tt_010:# <4>[1646]
 	""" Spellbender
 	[Secret:] When an enemy casts a spell on a minion, summon a 1/3 as the new target. """
 	secret = Play(OPPONENT, SPELL, MINION).on(FULL_BOARD | (
-		Reveal(SELF), Retarget(Play.CARD, Summon(CONTROLLER, "tt_010a"))
+		Reveal(SELF), Retarget(Play.CARD, Summon(CONTROLLER, "VAN_tt_010a"))
 	))
 	pass
 

@@ -4,8 +4,6 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def classic_mage():
 
-	#PresetGame(pp_Story_11_Frostbolt)##
-	#PresetGame(pp_Story_11_PyroblastPuzzle)##
 	#PresetGame(pp_VAN_CS2_022)##
 	#PresetGame(pp_VAN_CS2_023)##
 	#PresetGame(pp_VAN_CS2_024)##
@@ -16,75 +14,25 @@ def classic_mage():
 	#PresetGame(pp_VAN_CS2_029)##
 	#PresetGame(pp_VAN_CS2_031)##
 	#PresetGame(pp_VAN_CS2_032)##
-	#PresetGame(pp_VAN_CS2_033)##
+	PresetGame(pp_VAN_CS2_033)##
 	#PresetGame(pp_VAN_CS2_mirror)##
 	#PresetGame(pp_VAN_EX1_274)##
-	#PresetGame(pp_VAN_EX1_275)##
-	#PresetGame(pp_VAN_EX1_277)##
+	PresetGame(pp_VAN_EX1_275)##
+	PresetGame(pp_VAN_EX1_277)##
 	#PresetGame(pp_VAN_EX1_279)##
 	#PresetGame(pp_VAN_EX1_287)##
-	#PresetGame(pp_VAN_EX1_289)##
-	#PresetGame(pp_VAN_EX1_294)##
-	#PresetGame(pp_VAN_EX1_295)##
+	PresetGame(pp_VAN_EX1_289)##
+	PresetGame(pp_VAN_EX1_294)##
+	PresetGame(pp_VAN_EX1_295)##
 	#PresetGame(pp_VAN_EX1_559)##
 	#PresetGame(pp_VAN_EX1_594)##
-	#PresetGame(pp_VAN_EX1_608)##
+	PresetGame(pp_VAN_EX1_608)##
 	#PresetGame(pp_VAN_EX1_612)##
 	#PresetGame(pp_VAN_HERO_08bp)##
 	#PresetGame(pp_VAN_NEW1_012)##
-	#PresetGame(pp_VAN_tt_010)##
+	PresetGame(pp_VAN_tt_010)##
 
 
-##########Story_11_Frostbolt##########
-
-class pp_Story_11_Frostbolt(Preset_Play):
-	""" Frostbolt
-	Deal $3 damage to a_character and [Freeze] it. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_11_Frostbolt", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_11_PyroblastPuzzle##########
-
-class pp_Story_11_PyroblastPuzzle(Preset_Play):
-	""" Pyroblast
-	Deal $10 damage. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_11_PyroblastPuzzle", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
 ##########VAN_CS2_022##########
