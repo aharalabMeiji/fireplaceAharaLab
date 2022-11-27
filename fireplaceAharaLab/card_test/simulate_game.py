@@ -18,6 +18,9 @@ def card_test():
 		elif Config.CARD_TEST_CLASS=='HUNTER':
 			from card_test.t_classic_hunter import classic_hunter
 			classic_hunter()
+		elif Config.CARD_TEST_CLASS=='MAGE':
+			from card_test.t_classic_mage import classic_mage
+			classic_mage()
 		elif Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.t_classic_neutral import classic_neutral
 			classic_neutral()

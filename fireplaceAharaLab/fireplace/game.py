@@ -210,6 +210,7 @@ class BaseGame(Entity):
 			for card in cards:
 				Death(card).trigger(card.controller)
 				card.zone = Zone.GRAVEYARD
+				self.refresh_auras()
 			self.check_for_end_game()
 			self.action_end(type, self)
 

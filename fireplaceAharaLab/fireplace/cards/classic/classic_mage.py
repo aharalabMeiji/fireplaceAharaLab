@@ -150,11 +150,24 @@ EX1_274e = buff(+2, +2)
 
 if Classic_Cone_of_Cold:# ### OK ###
 	Classic_Mage+=['VAN_EX1_275']
+class VAN_EX1_275_Action(TargetedAction):
+	def do(self,source,target):
+		cards = [target]
+		if target in source.controller.opponent.field:
+			index = source.controller.opponent.field.index(target)
+			if index-1>=0:
+				cards.append(source.controller.opponent.field[index-1])
+			if index+1<len(source.controller.opponent.field):
+				cards.append(source.controller.opponent.field[index+1])
+			for card in cards:
+				Hit(card, 1).trigger(source)
+				Freeze(card).trigger(source)
+		pass
 class VAN_EX1_275:# <4>[1646]
 	""" Cone of Cold
 	[Freeze] a minion and the minions next to it, and deal $1 damage to them. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(TARGET | TARGET_ADJACENT, 1), Freeze(TARGET | TARGET_ADJACENT)
+	play = VAN_EX1_275_Action(TARGET)#Hit(TARGET, 1), Hit(TARGET_ADJACENT, 1), Freeze(TARGET), Freeze(TARGET_ADJACENT)
 	pass
 
 if Classic_Arcane_Missiles:# ### OK ###
@@ -164,7 +177,7 @@ class VAN_EX1_277:# <4>[1646]
 	Deal $3 damage randomly split among all enemy characters. """
 	def play(self):
 		count = self.controller.get_spell_damage(3)
-		yield SplitHit(CONTROLLER, RANDOM_ENEMY_CHARACTER, count)
+		yield SplitHit(CONTROLLER, ENEMY_CHARACTERS, count)
 	pass
 
 if Classic_Pyroblast:# ### OK ###
@@ -191,7 +204,7 @@ if Classic_Ice_Barrier:# ### OK ###
 class VAN_EX1_289:# <4>[1646]
 	""" Ice Barrier
 	[Secret:] As soon as your hero is attacked, gain 8 Armor. """
-	secret = Attack(CHARACTER, FRIENDLY_HERO).on(
+	secret = Attack(CHARACTER, FRIENDLY_HERO).after(
 		Reveal(SELF), GainArmor(FRIENDLY_HERO, 8)
 	)
 	pass
@@ -223,6 +236,10 @@ class VAN_EX1_295:# <4>[1646]
 	)
 	pass
 EX1_295o = buff(immune=True)
+#class EX1_295o:
+#	tags={GameTag.CANT_BE_DAMAGED:1}
+#	#def apply(self, target):
+#	#	target.cant_be_damaged=True
 
 if Classic_Archmage_Antonidas:# ### OK ###
 	Classic_Mage+=['VAN_EX1_559']

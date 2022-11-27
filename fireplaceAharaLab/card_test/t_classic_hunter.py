@@ -23,7 +23,7 @@ def classic_hunter():
 	#PresetGame(pp_VAN_EX1_539)##
 	#PresetGame(pp_VAN_EX1_543)##
 	#PresetGame(pp_VAN_EX1_544)##
-	#PresetGame(pp_VAN_EX1_549)##
+	PresetGame(pp_VAN_EX1_549)##
 	#PresetGame(pp_VAN_EX1_554)## OK ##
 	#PresetGame(pp_VAN_EX1_609)## OK ##
 	#PresetGame(pp_VAN_EX1_610)##
@@ -519,22 +519,26 @@ class pp_VAN_EX1_549(Preset_Play):
 	Give a Beast +2 Attack and [Immune] this turn. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_549", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark4=Summon(self.controller, self.card_choice("beast")).trigger(self.controller)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.mark4)
+		assert self.mark4.immune==True, "immune"
+		assert self.mark4.atk==self.mark4.data.atk+2, "atk"
 		self.change_turn()
 		### opp
+		assert self.mark4.immune==False, "immune"
+		assert self.mark4.atk==self.mark4.data.atk, "atk"
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

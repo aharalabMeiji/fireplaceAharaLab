@@ -641,6 +641,9 @@ class LiveEntity(PlayableCard, Entity):
 	def immune(self):
 		if self.immune_while_attacking and self.attacking:
 			return True
+		for bf in self.buffs:
+			if bf.cant_be_damaged:
+				return True
 		return self.cant_be_damaged
 
 	@property
