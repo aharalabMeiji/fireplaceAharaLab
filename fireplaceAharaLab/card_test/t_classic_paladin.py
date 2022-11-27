@@ -15,8 +15,8 @@ def classic_paladin():
 	#PresetGame(pp_VAN_CS2_101t)##
 	#PresetGame(pp_VAN_EX1_130)##
 	#PresetGame(pp_VAN_EX1_132)##
-	#PresetGame(pp_VAN_EX1_136)##
-	#PresetGame(pp_VAN_EX1_349)##
+	PresetGame(pp_VAN_EX1_136)##
+	PresetGame(pp_VAN_EX1_349)##
 	#PresetGame(pp_VAN_EX1_354)##
 	#PresetGame(pp_VAN_EX1_355)##
 	#PresetGame(pp_VAN_EX1_360)##

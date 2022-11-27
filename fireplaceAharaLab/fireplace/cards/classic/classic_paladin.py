@@ -28,7 +28,7 @@ Classic_Aldor_Peacekeeper=True
 Classic_Tirion_Fordring=True
 Classic_Avenging_Wrath=True
 Classic_Equality=True
-Classic_Reinforce=True
+Classic_Reinforce=False# HP
 
 
 if Classic_Blessing_of_Might:# ### OK ###
@@ -109,7 +109,7 @@ class VAN_CS2_101t:# <5>[1646]
 	#
 	pass
 
-if Classic_Noble_Sacrifice:# 
+if Classic_Noble_Sacrifice:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_130']
 	Classic_Paladin+=['VAN_EX1_130a']
 class VAN_EX1_130:# <5>[1646]
@@ -126,7 +126,7 @@ class VAN_EX1_130a:# <5>[1646]
 	#
 	pass
 
-if Classic_Eye_for_an_Eye:# 
+if Classic_Eye_for_an_Eye:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_132']
 class VAN_EX1_132:# <5>[1646]
 	""" Eye for an Eye
@@ -136,18 +136,26 @@ class VAN_EX1_132:# <5>[1646]
 	)
 	pass
 
-if Classic_Redemption:# 
+if Classic_Redemption:# checking
 	Classic_Paladin+=['VAN_EX1_136']
+class VAN_EX1_136_Action(TargetedAction):
+	## Summon(CONTROLLER, Copy(Death.ENTITY)).then(SetCurrentHealth(Summon.CARD, 1))
+	def do(self, source, target):
+		if isinstance(target, list):
+			target=target[0]
+		newcard=Summon(source.controller, target.id).trigger(source)
+		newcard=newcard[0][0];
+		newcard.max_health=1
 class VAN_EX1_136:# <5>[1646]
 	""" Redemption
 	[Secret:] When a friendly minion dies, return it to life with 1 Health. """
-	secret = Death(FRIENDLY + MINION).on(FULL_BOARD | (
+	secret = Death(FRIENDLY + MINION).on(
 		Reveal(SELF),
-		Summon(CONTROLLER, Copy(Death.ENTITY)).then(SetCurrentHealth(Summon.CARD, 1))
-	))
+		VAN_EX1_136_Action(Death.ENTITY)
+	)
 	pass
 
-if Classic_Divine_Favor:# 
+if Classic_Divine_Favor:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_349']
 class VAN_EX1_349:# <5>[1646]
 	""" Divine Favor
@@ -155,7 +163,7 @@ class VAN_EX1_349:# <5>[1646]
 	play = DrawUntil(CONTROLLER, Count(ENEMY_HAND))
 	pass
 
-if Classic_Lay_on_Hands:# 
+if Classic_Lay_on_Hands:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_354']
 class VAN_EX1_354:# <5>[1646]
 	""" Lay on Hands
@@ -164,7 +172,7 @@ class VAN_EX1_354:# <5>[1646]
 	play = Heal(TARGET, 8), Draw(CONTROLLER) * 3
 	pass
 
-if Classic_Blessed_Champion:# 
+if Classic_Blessed_Champion:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_355','EX1_355e']
 class VAN_EX1_355:# <5>[1646]
 	""" Blessed Champion
@@ -175,7 +183,7 @@ class VAN_EX1_355:# <5>[1646]
 class EX1_355e:
 	atk = lambda self, i: i * 2
 
-if Classic_Humility:# 
+if Classic_Humility:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_360','EX1_360e']
 class VAN_EX1_360:# <5>[1646]
 	""" Humility
