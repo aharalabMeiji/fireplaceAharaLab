@@ -194,7 +194,7 @@ class VAN_EX1_360:# <5>[1646]
 class EX1_360e:
 	atk = SET(1)
 
-if Classic_Argent_Protector:# 
+if Classic_Argent_Protector:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_362']
 class VAN_EX1_362:# <5>[1646]
 	""" Argent Protector
@@ -207,7 +207,7 @@ class VAN_EX1_362:# <5>[1646]
 	play = GiveDivineShield(TARGET)
 	pass
 
-if Classic_Blessing_of_Wisdom:# 
+if Classic_Blessing_of_Wisdom:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_363','EX1_363e']
 class VAN_EX1_363:# <5>[1646]
 	""" Blessing of Wisdom
@@ -218,7 +218,7 @@ class VAN_EX1_363:# <5>[1646]
 class EX1_363e:
 	events = Attack(OWNER).on(Draw(CONTROLLER))
 
-if Classic_Holy_Wrath:# 
+if Classic_Holy_Wrath:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_365']
 class VAN_EX1_365:# <5>[1646]
 	""" Holy Wrath
