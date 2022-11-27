@@ -31,7 +31,7 @@ Classic_Equality=True
 Classic_Reinforce=True
 
 
-if Classic_Blessing_of_Might:# 
+if Classic_Blessing_of_Might:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_087','CS2_087e']
 class VAN_CS2_087:# <5>[1646]
 	""" Blessing of Might
@@ -41,7 +41,7 @@ class VAN_CS2_087:# <5>[1646]
 	pass
 CS2_087e = buff(atk=3)
 
-if Classic_Guardian_of_Kings:# 
+if Classic_Guardian_of_Kings:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_088']
 class VAN_CS2_088:# <5>[1646]
 	""" Guardian of Kings
@@ -49,7 +49,7 @@ class VAN_CS2_088:# <5>[1646]
 	play = Heal(FRIENDLY_HERO, 6)
 	pass
 
-if Classic_Holy_Light:# 
+if Classic_Holy_Light:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_089']
 class VAN_CS2_089:# <5>[1646]
 	""" Holy Light
@@ -58,7 +58,7 @@ class VAN_CS2_089:# <5>[1646]
 	play = Heal(TARGET, 6)
 	pass
 
-if Classic_Lights_Justice:# 
+if Classic_Lights_Justice:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_091']
 class VAN_CS2_091:# <5>[1646]
 	""" Light's Justice
@@ -66,7 +66,7 @@ class VAN_CS2_091:# <5>[1646]
 	#
 	pass
 
-if Classic_Blessing_of_Kings:# 
+if Classic_Blessing_of_Kings:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_092','CS2_092e']
 class VAN_CS2_092:# <5>[1646]
 	""" Blessing of Kings
@@ -76,7 +76,7 @@ class VAN_CS2_092:# <5>[1646]
 	pass
 CS2_092e = buff(+4, +4)
 
-if Classic_Consecration:# 
+if Classic_Consecration:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_093']
 class VAN_CS2_093:# <5>[1646]
 	""" Consecration
@@ -84,7 +84,7 @@ class VAN_CS2_093:# <5>[1646]
 	play = Hit(ENEMY_CHARACTERS, 2)
 	pass
 
-if Classic_Hammer_of_Wrath:# 
+if Classic_Hammer_of_Wrath:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_094']
 class VAN_CS2_094:# <5>[1646]
 	""" Hammer of Wrath
@@ -93,7 +93,7 @@ class VAN_CS2_094:# <5>[1646]
 	play = Hit(TARGET, 3), Draw(CONTROLLER)
 	pass
 
-if Classic_Truesilver_Champion:# 
+if Classic_Truesilver_Champion:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_097']
 class VAN_CS2_097:# <5>[1646]
 	""" Truesilver Champion
@@ -101,7 +101,7 @@ class VAN_CS2_097:# <5>[1646]
 	events = Attack(FRIENDLY_HERO).on(Heal(FRIENDLY_HERO, 2))
 	pass
 
-if Classic_Silver_Hand_Recruit:# 
+if Classic_Silver_Hand_Recruit:# ### OK ###
 	Classic_Paladin+=['VAN_CS2_101t']
 class VAN_CS2_101t:# <5>[1646]
 	""" Silver Hand Recruit
