@@ -32,7 +32,7 @@ Classic_Lesser_Heal=False # heropower
 Classic_Lesser_Fortitude=False # heropower
 
 
-if Classic_Holy_Nova:# 
+if Classic_Holy_Nova:# ### OK ###
 	Classic_Priest+=['VAN_CS1_112']
 class VAN_CS1_112:# <6>[1646]
 	""" Holy Nova
@@ -40,7 +40,7 @@ class VAN_CS1_112:# <6>[1646]
 	play = Hit(ENEMY_MINIONS, 2), Heal(FRIENDLY_CHARACTERS, 2)
 	pass
 
-if Classic_Mind_Control:# 
+if Classic_Mind_Control:# ### OK ###
 	Classic_Priest+=['VAN_CS1_113']
 class VAN_CS1_113:# <6>[1646]
 	""" Mind Control
@@ -53,7 +53,7 @@ class VAN_CS1_113:# <6>[1646]
 	play = Steal(TARGET)
 	pass
 
-if Classic_Inner_Fire:# 
+if Classic_Inner_Fire:# ### OK ###
 	Classic_Priest+=['VAN_CS1_129','CS1_129e']
 class VAN_CS1_129:# <6>[1646]
 	""" Inner Fire
@@ -66,7 +66,7 @@ class CS1_129e:
 	def apply(self, target):
 		self._xatk = target.health
 
-if Classic_Holy_Smite:# 
+if Classic_Holy_Smite:# ### OK ###
 	Classic_Priest+=['VAN_CS1_130']
 class VAN_CS1_130:# <6>[1646]
 	""" Holy Smite
@@ -75,7 +75,7 @@ class VAN_CS1_130:# <6>[1646]
 	play = Hit(TARGET, 2)
 	pass
 
-if Classic_Mind_Vision:# 
+if Classic_Mind_Vision:# ### OK ###
 	Classic_Priest+=['VAN_CS2_003']
 class VAN_CS2_003:# <6>[1646]
 	""" Mind Vision
@@ -83,7 +83,7 @@ class VAN_CS2_003:# <6>[1646]
 	play = Give(CONTROLLER, Copy(RANDOM(ENEMY_HAND)))
 	pass
 
-if Classic_Power_Word_Shield:# 
+if Classic_Power_Word_Shield:# ### OK ###
 	Classic_Priest+=['VAN_CS2_004','CS2_004e']
 class VAN_CS2_004:# <6>[1646]
 	""" Power Word: Shield
@@ -93,7 +93,7 @@ class VAN_CS2_004:# <6>[1646]
 	pass
 CS2_004e = buff(health=2)
 
-if Classic_Shadow_Word_Pain:# 
+if Classic_Shadow_Word_Pain:# ### OK ###
 	Classic_Priest+=['VAN_CS2_234']
 class VAN_CS2_234:# <6>[1646]
 	""" Shadow Word: Pain
@@ -105,7 +105,7 @@ class VAN_CS2_234:# <6>[1646]
 	play = Destroy(TARGET)
 	pass
 
-if Classic_Northshire_Cleric:# 
+if Classic_Northshire_Cleric:# ### OK ###
 	Classic_Priest+=['VAN_CS2_235']
 class VAN_CS2_235:# <6>[1646]
 	""" Northshire Cleric
@@ -113,7 +113,7 @@ class VAN_CS2_235:# <6>[1646]
 	events = Heal(ALL_MINIONS).on(Draw(CONTROLLER))
 	pass
 
-if Classic_Divine_Spirit:# 
+if Classic_Divine_Spirit:# ### checking
 	Classic_Priest+=['VAN_CS2_236','CS2_236e']
 class VAN_CS2_236:# <6>[1646]
 	""" Divine Spirit
@@ -124,7 +124,7 @@ class VAN_CS2_236:# <6>[1646]
 class CS2_236e:
 	pass
 
-if Classic_Mind_Blast:# 
+if Classic_Mind_Blast:# ### OK ###
 	Classic_Priest+=['VAN_DS1_233']
 class VAN_DS1_233:# <6>[1646]
 	""" Mind Blast
@@ -132,7 +132,7 @@ class VAN_DS1_233:# <6>[1646]
 	play = Hit(ENEMY_HERO, 5)
 	pass
 
-if Classic_Cabal_Shadow_Priest:# 
+if Classic_Cabal_Shadow_Priest:# ### OK ###
 	Classic_Priest+=['VAN_EX1_091']
 class VAN_EX1_091:# <6>[1646]
 	""" Cabal Shadow Priest
