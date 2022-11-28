@@ -300,7 +300,7 @@ class VAN_EX1_384:# <5>[1646]
 	Deal $8 damage randomly split among all enemy characters. """
 	#def play(self):
 	#count = self.controller.get_spell_damage(8)
-	play = SplitHit(ENEMY_CHARACTERS, 8)
+	play = SplitHit(CONTROLLER, ENEMY_CHARACTERS, 8)
 	pass
 
 if Classic_Equality:# ### OK ###

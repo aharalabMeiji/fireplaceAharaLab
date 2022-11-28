@@ -9,29 +9,29 @@ def classic_paladin():
 	#PresetGame(pp_VAN_CS2_089)##
 	#PresetGame(pp_VAN_CS2_091)##
 	#PresetGame(pp_VAN_CS2_092)##
-	#PresetGame(pp_VAN_CS2_093)##
+	#PresetGame(pp_VAN_CS2_093)## OK
 	#PresetGame(pp_VAN_CS2_094)##
 	#PresetGame(pp_VAN_CS2_097)##
 	#PresetGame(pp_VAN_CS2_101t)##
 	#PresetGame(pp_VAN_EX1_130)##
 	#PresetGame(pp_VAN_EX1_132)##
-	PresetGame(pp_VAN_EX1_136)##
-	PresetGame(pp_VAN_EX1_349)##
+	#PresetGame(pp_VAN_EX1_136)## OK
+	#PresetGame(pp_VAN_EX1_349)## OK
 	#PresetGame(pp_VAN_EX1_354)##
 	#PresetGame(pp_VAN_EX1_355)##
 	#PresetGame(pp_VAN_EX1_360)##
 	#PresetGame(pp_VAN_EX1_362)##
 	#PresetGame(pp_VAN_EX1_363)##
 	#PresetGame(pp_VAN_EX1_365)##
-	PresetGame(pp_VAN_EX1_366)##
-	PresetGame(pp_VAN_EX1_371)##
+	#PresetGame(pp_VAN_EX1_366)## OK
+	#PresetGame(pp_VAN_EX1_371)##
 	#PresetGame(pp_VAN_EX1_379)##
 	#PresetGame(pp_VAN_EX1_382)##
 	#PresetGame(pp_VAN_EX1_383)##
-	#PresetGame(pp_VAN_EX1_384)##
+	#PresetGame(pp_VAN_EX1_384)## OK
 	#PresetGame(pp_VAN_EX1_619)##
 	#PresetGame(pp_VAN_HERO_04bp)##
-
+	pass
 
 ##########VAN_CS2_087##########
 
@@ -170,7 +170,11 @@ class pp_VAN_CS2_093(Preset_Play):
 	Deal $2 damage to all enemies. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS2_093", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark2=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.mark2=self.mark2[0][0]
+		self.mark3=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
@@ -178,14 +182,12 @@ class pp_VAN_CS2_093(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.field:
+			self.print_stats("opponent.field", card)
 	pass
 
 
@@ -336,12 +338,13 @@ class pp_VAN_EX1_136(Preset_Play):
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
+		Hit(self.mark4, 4).trigger(self.opponent)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("controller.field", card)
 	pass
 
 
@@ -352,20 +355,17 @@ class pp_VAN_EX1_349(Preset_Play):
 	Draw cards until you have as many in hand as your opponent. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_349", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
+		print("opponent hand number = %d"%(len(self.opponent.hand)))
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
 	pass
@@ -463,10 +463,9 @@ class pp_VAN_EX1_362(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark4)
+		self.asserting(self.mark4.divine_shield==True, "self.mark4.divine_shield==True")
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -534,17 +533,18 @@ class pp_VAN_EX1_366(Preset_Play):
 	After you summon a minion, give it +1/+1 and this loses 1_Durability. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_366", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card(self.card_choice("minionH3"), self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.asserting(self.mark1.durability==5,"self.mark1.durability==5")
+		self.play_card(self.mark2)
+		self.asserting(self.mark1.durability==4,"self.mark1.durability==4")
+		self.print_stats("self.mark2",self.mark2)
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -664,7 +664,9 @@ class pp_VAN_EX1_384(Preset_Play):
 	Deal $8 damage randomly split among all enemy characters. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_384", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark3=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
@@ -672,9 +674,7 @@ class pp_VAN_EX1_384(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
