@@ -227,19 +227,28 @@ class VAN_EX1_365:# <5>[1646]
 	play = Draw(CONTROLLER).then(Hit(TARGET, COST(Draw.CARD)))
 	pass
 
-if Classic_Sword_of_Justice:# 
+if Classic_Sword_of_Justice:# checking
 	Classic_Paladin+=['VAN_EX1_366','EX1_366e']
+class VAN_EX1_366_Action(TargetedAction):
+	def do(self, source, target):
+		if target:
+			if isinstance(target,list):
+				target=target[0]
+			Buff(target, 'EX1_366e').trigger(source)
+			source.damage += 1
+		pass
 class VAN_EX1_366:# <5>[1646]
 	""" Sword of Justice
 	After you summon a minion, give it +1/+1 and this loses 1_Durability. """
 	events = Summon(CONTROLLER, MINION).after(
+		#VAN_EX1_366_Action(Summon.CARD)
 		Buff(Summon.CARD, "EX1_366e"),
 		Hit(SELF, 1)
 	)
 	pass
 EX1_366e = buff(+1, +1)
 
-if Classic_Hand_of_Protection:# 
+if Classic_Hand_of_Protection:# checking
 	Classic_Paladin+=['VAN_EX1_371']
 class VAN_EX1_371:# <5>[1646]
 	""" Hand of Protection
@@ -248,7 +257,7 @@ class VAN_EX1_371:# <5>[1646]
 	play = GiveDivineShield(TARGET)
 	pass
 
-if Classic_Repentance:# 
+if Classic_Repentance:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_379','EX1_379e']
 class VAN_EX1_379:# <5>[1646]
 	""" Repentance
@@ -260,7 +269,7 @@ class VAN_EX1_379:# <5>[1646]
 class EX1_379e:
 	max_health = SET(1)
 
-if Classic_Aldor_Peacekeeper:# 
+if Classic_Aldor_Peacekeeper:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_382','EX1_382e']
 class VAN_EX1_382:# <5>[1646]
 	""" Aldor Peacekeeper
@@ -274,7 +283,7 @@ class VAN_EX1_382:# <5>[1646]
 class EX1_382e:
 	atk = SET(1)
 
-if Classic_Tirion_Fordring:# 
+if Classic_Tirion_Fordring:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_383','EX1_383t']
 class VAN_EX1_383:# <5>[1646]
 	""" Tirion Fordring
@@ -284,17 +293,17 @@ class VAN_EX1_383:# <5>[1646]
 class EX1_383t:
 	pass
 
-if Classic_Avenging_Wrath:# 
+if Classic_Avenging_Wrath:# checking
 	Classic_Paladin+=['VAN_EX1_384']
 class VAN_EX1_384:# <5>[1646]
 	""" Avenging Wrath
 	Deal $8 damage randomly split among all enemy characters. """
-	def play(self):
-		count = self.controller.get_spell_damage(8)
-		yield Hit(RANDOM_ENEMY_CHARACTER, 1) * count
+	#def play(self):
+	#count = self.controller.get_spell_damage(8)
+	play = SplitHit(ENEMY_CHARACTERS, 8)
 	pass
 
-if Classic_Equality:# 
+if Classic_Equality:# ### OK ###
 	Classic_Paladin+=['VAN_EX1_619','EX1_619e']
 class VAN_EX1_619:# <5>[1646]
 	""" Equality
