@@ -218,7 +218,7 @@ class VAN_EX1_345t:# <6>[1646]
 	#
 	pass
 
-if Classic_Prophet_Velen:# 
+if Classic_Prophet_Velen:# ### OK ###
 	Classic_Priest+=['VAN_EX1_350']
 class VAN_EX1_350:# <6>[1646]
 	""" Prophet Velen
@@ -230,7 +230,7 @@ class VAN_EX1_350:# <6>[1646]
 	})
 	pass
 
-if Classic_Auchenai_Soulpriest:# 
+if Classic_Auchenai_Soulpriest:# ### OK ###
 	Classic_Priest+=['VAN_EX1_591']
 class VAN_EX1_591:# <6>[1646]
 	""" Auchenai Soulpriest
@@ -240,7 +240,7 @@ class VAN_EX1_591:# <6>[1646]
 	})
 	pass
 
-if Classic_Circle_of_Healing:# 
+if Classic_Circle_of_Healing:# ### OK ###
 	Classic_Priest+=['VAN_EX1_621']
 class VAN_EX1_621:# <6>[1646]
 	""" Circle of Healing
@@ -248,7 +248,7 @@ class VAN_EX1_621:# <6>[1646]
 	play = Heal(ALL_MINIONS, 4)
 	pass
 
-if Classic_Shadow_Word_Death:# 
+if Classic_Shadow_Word_Death:# ### OK ###
 	Classic_Priest+=['VAN_EX1_622']
 class VAN_EX1_622:# <6>[1646]
 	""" Shadow Word: Death
@@ -260,7 +260,7 @@ class VAN_EX1_622:# <6>[1646]
 	play = Destroy(TARGET)
 	pass
 
-if Classic_Temple_Enforcer:# 
+if Classic_Temple_Enforcer:# ### OK ###
 	Classic_Priest+=['VAN_EX1_623','EX1_623e']
 class VAN_EX1_623:# <6>[1646]
 	""" Temple Enforcer
@@ -271,9 +271,9 @@ class VAN_EX1_623:# <6>[1646]
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = Buff(TARGET, "EX1_623e")
 	pass
-EX1_623e = buff(health=3)
+EX1_623e = buff(0,3)
 
-if Classic_Holy_Fire:# 
+if Classic_Holy_Fire:# ### OK ###
 	Classic_Priest+=['VAN_EX1_624']
 class VAN_EX1_624:# <6>[1646]
 	""" Holy Fire
@@ -282,7 +282,7 @@ class VAN_EX1_624:# <6>[1646]
 	play = Hit(TARGET, 5), Heal(FRIENDLY_HERO, 5)
 	pass
 
-if Classic_Shadowform:# 
+if Classic_Shadowform:# checking
 	Classic_Priest+=['VAN_EX1_625','EX1_625t','EX1_625t2']
 class VAN_EX1_625:# <6>[1646]
 	""" Shadowform
@@ -305,7 +305,7 @@ class EX1_625t2:
 	update = Refresh(CONTROLLER, {GameTag.SHADOWFORM: True})
 
 
-if Classic_Mass_Dispel:# 
+if Classic_Mass_Dispel:# ### OK ###
 	Classic_Priest+=['VAN_EX1_626']
 class VAN_EX1_626:# <6>[1646]
 	""" Mass Dispel
@@ -313,7 +313,7 @@ class VAN_EX1_626:# <6>[1646]
 	play = Silence(ENEMY_MINIONS), Draw(CONTROLLER)
 	pass
 
-if Classic_Mind_Controlling:# 
+if Classic_Mind_Controlling:# ### OK ###
 	Classic_Priest+=['VAN_EX1_tk31']
 class VAN_EX1_tk31:# <6>[1646]
 	""" Mind Controlling

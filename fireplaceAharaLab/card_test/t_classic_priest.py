@@ -27,11 +27,10 @@ def classic_priest():
 	#PresetGame(pp_VAN_EX1_622)##
 	#PresetGame(pp_VAN_EX1_623)##
 	#PresetGame(pp_VAN_EX1_624)##
-	#PresetGame(pp_VAN_EX1_625)##
+	PresetGame(pp_VAN_EX1_625)##
 	#PresetGame(pp_VAN_EX1_626)##
 	#PresetGame(pp_VAN_EX1_tk31)##
-	#PresetGame(pp_VAN_HERO_09bp)##
-	#PresetGame(pp_VAN_HERO_09e1)##
+
 	pass
 
 ##########VAN_CS1_112##########
@@ -735,55 +734,8 @@ class pp_VAN_EX1_tk31(Preset_Play):
 	pass
 
 
-##########VAN_HERO_09bp##########
-
-class pp_VAN_HERO_09bp(Preset_Play):
-	""" Lesser Heal
-	[Hero Power]Restore #2 Health. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("VAN_HERO_09bp", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
-##########VAN_HERO_09e1##########
 
-class pp_VAN_HERO_09e1(Preset_Play):
-	""" Lesser Fortitude
-	+1 Health. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("VAN_HERO_09e1", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
