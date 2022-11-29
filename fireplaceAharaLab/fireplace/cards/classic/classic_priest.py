@@ -113,7 +113,7 @@ class VAN_CS2_235:# <6>[1646]
 	events = Heal(ALL_MINIONS).on(Draw(CONTROLLER))
 	pass
 
-if Classic_Divine_Spirit:# ### checking
+if Classic_Divine_Spirit:# ### OK ### 
 	Classic_Priest+=['VAN_CS2_236','CS2_236e']
 class VAN_CS2_236:# <6>[1646]
 	""" Divine Spirit
@@ -145,7 +145,7 @@ class VAN_EX1_091:# <6>[1646]
 	play = Steal(TARGET)
 	pass
 
-if Classic_Silence:# 
+if Classic_Silence:# ### OK ###
 	Classic_Priest+=['VAN_EX1_332']
 class VAN_EX1_332:# <6>[1646]
 	""" Silence
@@ -154,7 +154,7 @@ class VAN_EX1_332:# <6>[1646]
 	play = Silence(TARGET)
 	pass
 
-if Classic_Shadow_Madness:# 
+if Classic_Shadow_Madness:# ### OK ###
 	Classic_Priest+=['VAN_EX1_334','EX1_334e']
 class VAN_EX1_334:# <6>[1646]
 	""" Shadow Madness
@@ -175,7 +175,7 @@ class EX1_334e:
 	tags = {GameTag.CHARGE: True}
 
 
-if Classic_Lightspawn:# 
+if Classic_Lightspawn:# ### OK ###
 	Classic_Priest+=['VAN_EX1_335']
 class VAN_EX1_335:# <6>[1646]
 	""" Lightspawn
@@ -183,7 +183,7 @@ class VAN_EX1_335:# <6>[1646]
 	update = Refresh(SELF, {GameTag.ATK: lambda self, i: self.health}, priority=100)
 	pass
 
-if Classic_Thoughtsteal:# 
+if Classic_Thoughtsteal:# ### OK ###
 	Classic_Priest+=['VAN_EX1_339']
 class VAN_EX1_339:# <6>[1646]
 	""" Thoughtsteal
@@ -191,7 +191,7 @@ class VAN_EX1_339:# <6>[1646]
 	play = Give(CONTROLLER, Copy(RANDOM(ENEMY_DECK) * 2))
 	pass
 
-if Classic_Lightwell:# 
+if Classic_Lightwell:# ### OK ###
 	Classic_Priest+=['VAN_EX1_341']
 class VAN_EX1_341:# <6>[1646]
 	""" Lightwell
@@ -199,12 +199,12 @@ class VAN_EX1_341:# <6>[1646]
 	events = OWN_TURN_BEGIN.on(Heal(RANDOM(FRIENDLY + DAMAGED_CHARACTERS), 3))
 	pass
 
-if Classic_Mindgames:# 
+if Classic_Mindgames:# ### OK ###
 	Classic_Priest+=['VAN_EX1_345']
 	Classic_Priest+=['VAN_EX1_345t']
 class VAN_EX1_345:# <6>[1646]
 	""" Mindgames
-	Put a copy ofa random minion fromyour opponent's deck into the battlefield. """
+	Put a copy of a random minion from your opponent's deck into the battlefield. """
 	requirements = {PlayReq.REQ_NUM_MINION_SLOTS: 1}
 	play = (
 		Find(ENEMY_DECK + MINION) &
@@ -282,7 +282,7 @@ class VAN_EX1_624:# <6>[1646]
 	play = Hit(TARGET, 5), Heal(FRIENDLY_HERO, 5)
 	pass
 
-if Classic_Shadowform:# checking
+if Classic_Shadowform:# ### OK ###
 	Classic_Priest+=['VAN_EX1_625','EX1_625t','EX1_625t2']
 class VAN_EX1_625:# <6>[1646]
 	""" Shadowform

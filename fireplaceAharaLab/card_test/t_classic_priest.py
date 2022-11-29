@@ -16,11 +16,11 @@ def classic_priest():
 	#PresetGame(pp_VAN_DS1_233)##
 	#PresetGame(pp_VAN_EX1_091)##
 	#PresetGame(pp_VAN_EX1_332)##
-	#PresetGame(pp_VAN_EX1_334)##
+	#PresetGame(pp_VAN_EX1_334)## OK
 	#PresetGame(pp_VAN_EX1_335)##
-	#PresetGame(pp_VAN_EX1_339)##
+	#PresetGame(pp_VAN_EX1_339)## OK
 	#PresetGame(pp_VAN_EX1_341)##
-	#PresetGame(pp_VAN_EX1_345)##
+	#PresetGame(pp_VAN_EX1_345)## OK
 	#PresetGame(pp_VAN_EX1_350)##
 	#PresetGame(pp_VAN_EX1_591)##
 	#PresetGame(pp_VAN_EX1_621)##
@@ -377,22 +377,24 @@ class pp_VAN_EX1_334(Preset_Play):
 	Gain control of an enemy minion with 3 or less Attack until end of turn. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_334", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.mark3=Summon(self.opponent, self.card_choice("minionA2")).trigger(self.opponent)
+		self.mark3=self.mark3[0][0]
+		self.mark4=Summon(self.opponent, self.card_choice("minionA4")).trigger(self.opponent)
 		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark3)#if mark4, nothing happens
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
+		self.asserting(len(self.controller.field)>0,'len(self.controller.field)>0')
+		self.asserting(self.controller.field[0].atk<=3,'self.controller.field[0].atk<=3')
 	pass
 
 
@@ -429,22 +431,21 @@ class pp_VAN_EX1_339(Preset_Play):
 	Copy 2 cards in your opponent's deck and add them to your hand. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_339", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		opp_deck=[card.id for card in self.opponent.deck]
+		self.asserting(self.controller.hand[-1].id in opp_deck,"self.controller.hand[-1].id in opp_deck")
+		self.asserting(self.controller.hand[-2].id in opp_deck,"self.controller.hand[-2].id in opp_deck")
 	pass
 
 
@@ -478,25 +479,24 @@ class pp_VAN_EX1_341(Preset_Play):
 
 class pp_VAN_EX1_345(Preset_Play):
 	""" Mindgames
-	Put a copy ofa random minion fromyour opponent's deck into the battlefield. """
+	Put a copy of a random minion from your opponent's deck into the battlefield. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_345", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
+		opp_deck=[card.id for card in self.opponent.deck]
+		self.asserting(len(self.controller.field)>0,"len(self.controller.field)>0")
+		self.asserting(self.controller.field[0].id in opp_deck, "self.controller.field[0].id in opp_deck")
 	pass
 
 
@@ -663,17 +663,19 @@ class pp_VAN_EX1_625(Preset_Play):
 	Your Hero Power becomes 'Deal 2 damage.' If already in Shadowform: 3 damage. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_625", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card("VAN_EX1_625", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.activate_heropower(target=self.opponent.hero)
+		self.asserting(self.opponent.hero.damage==2,"self.opponent.hero.damage==2")
+		self.play_card(self.mark2)
+		self.activate_heropower(target=self.opponent.hero)
+		self.asserting(self.opponent.hero.damage==2+3,"self.opponent.hero.damage==2+3")
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()

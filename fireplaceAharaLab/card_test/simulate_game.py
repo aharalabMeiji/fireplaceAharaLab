@@ -27,6 +27,9 @@ def card_test():
 		elif Config.CARD_TEST_CLASS=='PALADIN':
 			from card_test.t_classic_paladin import classic_paladin
 			classic_paladin()
+		elif Config.CARD_TEST_CLASS=='PRIEST':
+			from card_test.t_classic_priest import classic_priest
+			classic_priest()
 	elif Config.CARD_TEST_SET=='CORE':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.core_neutral import core_neutral
