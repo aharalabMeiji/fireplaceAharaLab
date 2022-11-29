@@ -35,7 +35,11 @@ class Config:# ()is the default value
 	#4: Checking a specific card for debugging
 	CARD_TEST_SET='VANILLA'
 	## VANILLA,THE_BARRENS,STORMWIND,ALTERAC_VALLEY,THE_SUNKEN_CITY,REVENDRETH, CORE
+<<<<<<< Updated upstream
 	CARD_TEST_CLASS='DRUID'
+=======
+	CARD_TEST_CLASS='PALADIN'
+>>>>>>> Stashed changes
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
 	#6 option
