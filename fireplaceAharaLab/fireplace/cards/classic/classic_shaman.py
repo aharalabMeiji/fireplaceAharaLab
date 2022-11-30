@@ -35,7 +35,7 @@ Classic_Healing_Totem=True
 Classic_AlAkir_the_Windlord=True
 
 
-if Classic_Frost_Shock:# 
+if Classic_Frost_Shock:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_037']
 class VAN_CS2_037:# <8>[1646]
 	""" Frost Shock
@@ -44,7 +44,7 @@ class VAN_CS2_037:# <8>[1646]
 	play = Hit(TARGET, 1), Freeze(TARGET)
 	pass
 
-if Classic_Ancestral_Spirit:# 
+if Classic_Ancestral_Spirit:# checking
 	Classic_Shaman+=['VAN_CS2_038','CS2_038e']
 class VAN_CS2_038:# <8>[1646]
 	""" Ancestral Spirit
@@ -56,7 +56,7 @@ class CS2_038e:
 	deathrattle = Summon(CONTROLLER, Copy(SELF))
 	tags = {GameTag.DEATHRATTLE: True}
 
-if Classic_Windfury:# 
+if Classic_Windfury:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_039']
 class VAN_CS2_039:# <8>[1646]
 	""" Windfury
@@ -65,17 +65,17 @@ class VAN_CS2_039:# <8>[1646]
 	play = GiveWindfury(TARGET - WINDFURY)
 	pass
 
-if Classic_Ancestral_Healing:# 
+if Classic_Ancestral_Healing:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_041','CS2_041e']
 class VAN_CS2_041:# <8>[1646]
 	""" Ancestral Healing
-	Restore a minionto full Health andgive it [Taunt]. """
+	Restore a minion to full Health and give it [Taunt]. """
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = FullHeal(TARGET), Buff(TARGET, "CS2_041e")
 	pass
 CS2_041e = buff(taunt=True)
 
-if Classic_Fire_Elemental:# 
+if Classic_Fire_Elemental:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_042']
 class VAN_CS2_042:# <8>[1646]
 	""" Fire Elemental
@@ -84,7 +84,7 @@ class VAN_CS2_042:# <8>[1646]
 	play = Hit(TARGET, 3)
 	pass
 
-if Classic_Rockbiter_Weapon:# 
+if Classic_Rockbiter_Weapon:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_045','CS2_045e']
 class VAN_CS2_045:# <8>[1646]
 	""" Rockbiter Weapon
@@ -92,18 +92,18 @@ class VAN_CS2_045:# <8>[1646]
 	requirements = {PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "CS2_045e")
 	pass
-CS2_045e = buff(atk=3)
+CS2_045e = buff(atk=3)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Bloodlust:# 
+if Classic_Bloodlust:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_046','CS2_046e']
 class VAN_CS2_046:# <8>[1646]
 	""" Bloodlust
 	Give your minions +3_Attack this turn. """
 	play = Buff(FRIENDLY_MINIONS, "CS2_046e")
 	pass
-CS2_046e = buff(atk=3)
+CS2_046e = buff(atk=3)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Searing_Totem:# 
+if Classic_Searing_Totem:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_050']
 class VAN_CS2_050:# <8>[1646]
 	""" Searing Totem
@@ -111,7 +111,7 @@ class VAN_CS2_050:# <8>[1646]
 	#
 	pass
 
-if Classic_Stoneclaw_Totem:# 
+if Classic_Stoneclaw_Totem:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_051']
 class VAN_CS2_051:# <8>[1646]
 	""" Stoneclaw Totem
@@ -119,7 +119,7 @@ class VAN_CS2_051:# <8>[1646]
 	#
 	pass
 
-if Classic_Wrath_of_Air_Totem:# 
+if Classic_Wrath_of_Air_Totem:# ### OK ###
 	Classic_Shaman+=['VAN_CS2_052']
 class VAN_CS2_052:# <8>[1646]
 	""" Wrath of Air Totem
@@ -127,25 +127,32 @@ class VAN_CS2_052:# <8>[1646]
 	#
 	pass
 
-if Classic_Far_Sight:# 
+if Classic_Far_Sight:# checking
 	Classic_Shaman+=['VAN_CS2_053','CS2_053e']
+class VAN_CS2_053_Action(GameAction):
+	def do(self, source):
+		card = Draw(source.controller).trigger(source)
+		card = card[0]
+		Buff(card, 'CS2_053e').trigger(source)
+		pass
 class VAN_CS2_053:# <8>[1646]
 	""" Far Sight
 	Draw a card. That card costs (3) less. """
-	play = Draw(CONTROLLER).then(Buff(Draw.CARD, "CS2_053e"))
+	play = VAN_CS2_053_Action()#Draw(CONTROLLER).then(Buff(Draw.CARD, "CS2_053e"))
 	pass
 CS2_053e = buff(cost=-3)
 
-if Classic_Lightning_Bolt:# 
+if Classic_Lightning_Bolt:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_238']
 class VAN_EX1_238:# <8>[1646]
 	""" Lightning Bolt
 	Deal $3 damage. [Overload:] (1) """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET, 3)
+	#<Tag enumID="215" name="OVERLOAD" type="Int" value="1"/>
 	pass
 
-if Classic_Lava_Burst:# 
+if Classic_Lava_Burst:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_241']
 class VAN_EX1_241:# <8>[1646]
 	""" Lava Burst
@@ -154,7 +161,7 @@ class VAN_EX1_241:# <8>[1646]
 	play = Hit(TARGET, 5)
 	pass
 
-if Classic_Dust_Devil:# 
+if Classic_Dust_Devil:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_243']
 class VAN_EX1_243:# <8>[1646]
 	""" Dust Devil
@@ -162,7 +169,7 @@ class VAN_EX1_243:# <8>[1646]
 	#
 	pass
 
-if Classic_Totemic_Might:# 
+if Classic_Totemic_Might:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_244','EX1_244e']
 class VAN_EX1_244:# <8>[1646]
 	""" Totemic Might
@@ -171,7 +178,7 @@ class VAN_EX1_244:# <8>[1646]
 	pass
 EX1_244e = buff(health=2)
 
-if Classic_Earth_Shock:# 
+if Classic_Earth_Shock:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_245']
 class VAN_EX1_245:# <8>[1646] ##
 	""" Earth Shock
@@ -180,7 +187,7 @@ class VAN_EX1_245:# <8>[1646] ##
 	play = Silence(TARGET), Hit(TARGET, 1)
 	pass
 
-if Classic_Hex:# 
+if Classic_Hex:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_246','hexfrog']
 class VAN_EX1_246:# <8>[1646]
 	""" Hex
@@ -188,11 +195,11 @@ class VAN_EX1_246:# <8>[1646]
 	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Morph(TARGET, "hexfrog")
 	pass
-class hexfrog:
+class hexfrog:### OK ###
 	""" Frog
 	[Taunt] """
 
-if Classic_Stormforged_Axe:# 
+if Classic_Stormforged_Axe:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_247']
 class VAN_EX1_247:# <8>[1646]
 	""" Stormforged Axe
@@ -200,7 +207,7 @@ class VAN_EX1_247:# <8>[1646]
 	#
 	pass
 
-if Classic_Feral_Spirit:# 
+if Classic_Feral_Spirit:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_248']
 class VAN_EX1_248:# <8>[1646]
 	""" Feral Spirit
@@ -209,7 +216,15 @@ class VAN_EX1_248:# <8>[1646]
 	play = Summon(CONTROLLER, "VAN_EX1_tk11") * 2
 	pass
 
-if Classic_Earth_Elemental:# 
+if Classic_Spirit_Wolf:# ### OK ###
+	Classic_Shaman+=['VAN_EX1_tk11']
+class VAN_EX1_tk11:# <8>[1646]
+	""" Spirit Wolf
+	[Taunt] """
+	#
+	pass
+
+if Classic_Earth_Elemental:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_250']
 class VAN_EX1_250:# <8>[1646]
 	""" Earth Elemental
@@ -217,16 +232,25 @@ class VAN_EX1_250:# <8>[1646]
 	#
 	pass
 
-if Classic_Forked_Lightning:# 
+if Classic_Forked_Lightning:# checking
 	Classic_Shaman+=['VAN_EX1_251']
+class VAN_EX1_251_Action(GameAction):
+	def do(self, source):
+		cards=[card for card in source.controller.opponent.field if card.type==CardType.MINION]
+		if len(cards):
+			if len(cards)>2:
+				cards=random.sample(cards, 2)
+			for card in cards:
+				Hit(card, 2).trigger(source)
+		pass
 class VAN_EX1_251:# <8>[1646]
 	""" Forked Lightning
 	Deal $2 damage to 2_random enemy minions. [Overload:] (2) """
 	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1}
-	play = Hit(RANDOM_ENEMY_MINION * 2, 2)
+	play = VAN_EX1_251_Action()#Hit(RANDOM_ENEMY_MINION * 2, 2)
 	pass
 
-if Classic_Unbound_Elemental:# 
+if Classic_Unbound_Elemental:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_258','EX1_258e']
 class VAN_EX1_258:# <8>[1646]
 	""" Unbound Elemental
@@ -236,7 +260,7 @@ class VAN_EX1_258:# <8>[1646]
 EX1_258e = buff(+1, +1)
 
 
-if Classic_Lightning_Storm:# 
+if Classic_Lightning_Storm:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_259']
 class VAN_EX1_259:# <8>[1646]
 	""" Lightning Storm
@@ -253,7 +277,7 @@ class VAN_EX1_565:# <8>[1646]
 	pass
 EX1_565o = buff(atk=2)
 
-if Classic_Doomhammer:# 
+if Classic_Doomhammer:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_567']
 class VAN_EX1_567:# <8>[1646]
 	""" Doomhammer
@@ -261,7 +285,7 @@ class VAN_EX1_567:# <8>[1646]
 	#
 	pass
 
-if Classic_Mana_Tide_Totem:# 
+if Classic_Mana_Tide_Totem:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_575']
 class VAN_EX1_575:# <8>[1646]
 	""" Mana Tide Totem
@@ -269,7 +293,7 @@ class VAN_EX1_575:# <8>[1646]
 	events = OWN_TURN_END.on(Draw(CONTROLLER))
 	pass
 
-if Classic_Windspeaker:# 
+if Classic_Windspeaker:# ### OK ###
 	Classic_Shaman+=['VAN_EX1_587']
 class VAN_EX1_587:# <8>[1646]
 	""" Windspeaker
@@ -279,14 +303,6 @@ class VAN_EX1_587:# <8>[1646]
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
 	play = GiveWindfury(TARGET - WINDFURY)
-	pass
-
-if Classic_Spirit_Wolf:# 
-	Classic_Shaman+=['VAN_EX1_tk11']
-class VAN_EX1_tk11:# <8>[1646]
-	""" Spirit Wolf
-	[Taunt] """
-	#
 	pass
 
 if Classic_Totemic_Call:# 
@@ -309,7 +325,7 @@ class VAN_HERO_02e2:# <8>[1646]
 	#
 	pass
 
-if Classic_Healing_Totem:# 
+if Classic_Healing_Totem:# ### OK ###
 	Classic_Shaman+=['VAN_NEW1_009']
 class VAN_NEW1_009:# <8>[1646]
 	""" Healing Totem
@@ -317,7 +333,7 @@ class VAN_NEW1_009:# <8>[1646]
 	events = OWN_TURN_END.on(Heal(FRIENDLY_MINIONS, 1))
 	pass
 
-if Classic_AlAkir_the_Windlord:# 
+if Classic_AlAkir_the_Windlord:# ### OK ###
 	Classic_Shaman+=['VAN_NEW1_010']
 class VAN_NEW1_010:# <8>[1646]
 	""" Al'Akir the Windlord

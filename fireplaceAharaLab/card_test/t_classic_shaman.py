@@ -5,7 +5,7 @@ from hearthstone.enums import Zone, CardType, Rarity
 def classic_shaman():
 
 	#PresetGame(pp_VAN_CS2_037)##
-	#PresetGame(pp_VAN_CS2_038)##
+	PresetGame(pp_VAN_CS2_038)##
 	#PresetGame(pp_VAN_CS2_039)##
 	#PresetGame(pp_VAN_CS2_041)##
 	#PresetGame(pp_VAN_CS2_042)##
@@ -13,7 +13,7 @@ def classic_shaman():
 	#PresetGame(pp_VAN_CS2_046)##
 	#PresetGame(pp_VAN_CS2_050)##
 	#PresetGame(pp_VAN_CS2_051)##
-	#PresetGame(pp_VAN_CS2_052)##
+	PresetGame(pp_VAN_CS2_052)##
 	#PresetGame(pp_VAN_CS2_053)##
 	#PresetGame(pp_VAN_EX1_238)##
 	#PresetGame(pp_VAN_EX1_241)##
@@ -24,9 +24,9 @@ def classic_shaman():
 	#PresetGame(pp_VAN_EX1_247)##
 	#PresetGame(pp_VAN_EX1_248)##
 	#PresetGame(pp_VAN_EX1_250)##
-	#PresetGame(pp_VAN_EX1_251)##
+	PresetGame(pp_VAN_EX1_251)##
 	#PresetGame(pp_VAN_EX1_258)##
-	#PresetGame(pp_VAN_EX1_259)##
+	PresetGame(pp_VAN_EX1_259)##
 	#PresetGame(pp_VAN_EX1_565)##
 	#PresetGame(pp_VAN_EX1_567)##
 	#PresetGame(pp_VAN_EX1_575)##
