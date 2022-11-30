@@ -128,7 +128,7 @@ class VAN_EX1_124:# <7>[1646]
 	combo = Hit(TARGET, 4)
 	pass
 
-if Classic_Betrayal:# checking
+if Classic_Betrayal:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_126']
 class VAN_EX1_126_Action(TargetedAction):
 	def do(self, source, target):
@@ -148,7 +148,7 @@ class VAN_EX1_126:# <7>[1646]
 	play = VAN_EX1_126_Action(TARGET)#Hit(SELF_ADJACENT, ATK(SELF), source=TARGET)
 	pass
 
-if Classic_Conceal:# checking
+if Classic_Conceal:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_128','EX1_128e']
 class VAN_EX1_128:# <7>[1646]
 	""" Conceal
@@ -227,7 +227,7 @@ class EX1_144e:
 	}
 	events = REMOVED_IN_PLAY
 
-if Classic_Preparation:# checking
+if Classic_Preparation:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_145']
 	Classic_Rogue+=['VAN_EX1_145o']
 class VAN_EX1_145:# <7>[1646]
@@ -251,7 +251,7 @@ class VAN_EX1_278:# <7>[1646]
 	play = Hit(TARGET, 1), Draw(CONTROLLER)
 	pass
 
-if Classic_Patient_Assassin:# ### checking
+if Classic_Patient_Assassin:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_522']
 class VAN_EX1_522:# <7>[1646]
 	""" Patient Assassin
@@ -273,7 +273,7 @@ class VAN_EX1_581:# <7>[1646]
 	play = Bounce(TARGET)
 	pass
 
-if Classic_Edwin_VanCleef:# checking
+if Classic_Edwin_VanCleef:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_613','EX1_613e']
 class VAN_EX1_613:# <7>[1646]
 	""" Edwin VanCleef

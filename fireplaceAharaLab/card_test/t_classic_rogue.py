@@ -24,9 +24,9 @@ def classic_rogue():
 	#PresetGame(pp_VAN_EX1_144)##
 	#PresetGame(pp_VAN_EX1_145)## OK
 	#PresetGame(pp_VAN_EX1_278)##
-	#PresetGame(pp_VAN_EX1_522)##
+	#PresetGame(pp_VAN_EX1_522)## OK
 	#PresetGame(pp_VAN_EX1_581)##
-	#PresetGame(pp_VAN_EX1_613)##
+	#PresetGame(pp_VAN_EX1_613)## OK
 	#PresetGame(pp_VAN_HERO_03bp)## HP
 	#PresetGame(pp_VAN_NEW1_004)##
 	#PresetGame(pp_VAN_NEW1_005)##
@@ -567,18 +567,18 @@ class pp_VAN_EX1_522(Preset_Play):
 	""" Patient Assassin
 	[Stealth]. Destroy any minion damaged by this minion. """
 	def preset_deck(self):
-		self.mark1=self.exchange_card("VAN_EX1_522", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark1=self.summon_card(self.controller, "VAN_EX1_522")
+		self.mark4=self.summon_card(self.opponent, self.card_choice("minionH6"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
 		self.change_turn()
+		self.change_turn()
+		### con
+		self.attack_card(self.mark1, self.mark4)
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -620,22 +620,20 @@ class pp_VAN_EX1_613(Preset_Play):
 	[Combo:] Gain +2/+2 for each card played earlier this turn. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_613", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card(self.card_choice("minionH1"), self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.play_card(self.mark2)
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("controller.field", card)
 	pass
 
 
