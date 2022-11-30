@@ -31,7 +31,7 @@ Classic_Kidnapper=True
 Classic_Master_of_Disguise=True
 
 
-if Classic_Backstab:# 
+if Classic_Backstab:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_072']
 class VAN_CS2_072:# <7>[1646]
 	""" Backstab
@@ -43,7 +43,7 @@ class VAN_CS2_072:# <7>[1646]
 	play = Hit(TARGET, 2)
 	pass
 
-if Classic_Cold_Blood:# 
+if Classic_Cold_Blood:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_073','CS2_073e','CS2_073e2']
 class VAN_CS2_073:# <7>[1646]
 	""" Cold Blood
@@ -55,7 +55,7 @@ class VAN_CS2_073:# <7>[1646]
 CS2_073e = buff(atk=2)
 CS2_073e2 = buff(atk=4)
 
-if Classic_Deadly_Poison:# 
+if Classic_Deadly_Poison:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_074','CS2_074e']
 class VAN_CS2_074:# <7>[1646]
 	""" Deadly Poison
@@ -65,7 +65,7 @@ class VAN_CS2_074:# <7>[1646]
 	pass
 CS2_074e = buff(atk=2)
 
-if Classic_Sinister_Strike:# 
+if Classic_Sinister_Strike:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_075']
 class VAN_CS2_075:# <7>[1646]
 	""" Sinister Strike
@@ -73,7 +73,7 @@ class VAN_CS2_075:# <7>[1646]
 	play = Hit(ENEMY_HERO, 3)
 	pass
 
-if Classic_Assassinate:# 
+if Classic_Assassinate:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_076']
 class VAN_CS2_076:# <7>[1646]
 	""" Assassinate
@@ -85,7 +85,7 @@ class VAN_CS2_076:# <7>[1646]
 	play = Destroy(TARGET)
 	pass
 
-if Classic_Sprint:# 
+if Classic_Sprint:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_077']
 class VAN_CS2_077:# <7>[1646]
 	""" Sprint
@@ -93,7 +93,7 @@ class VAN_CS2_077:# <7>[1646]
 	play = Draw(CONTROLLER) * 4
 	pass
 
-if Classic_Assassins_Blade:# 
+if Classic_Assassins_Blade:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_080']
 class VAN_CS2_080:# <7>[1646]
 	""" Assassin's Blade
@@ -101,7 +101,7 @@ class VAN_CS2_080:# <7>[1646]
 	#
 	pass
 
-if Classic_Wicked_Knife:# 
+if Classic_Wicked_Knife:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_082']
 class VAN_CS2_082:# <7>[1646]
 	""" Wicked Knife
@@ -109,7 +109,7 @@ class VAN_CS2_082:# <7>[1646]
 	#
 	pass
 
-if Classic_Blade_Flurry:# 
+if Classic_Blade_Flurry:# ### OK ###
 	Classic_Rogue+=['VAN_CS2_233']
 class VAN_CS2_233:# <7>[1646]
 	""" Blade Flurry
@@ -118,7 +118,7 @@ class VAN_CS2_233:# <7>[1646]
 	play = Hit(ENEMY_MINIONS, ATK(FRIENDLY_WEAPON)), Destroy(FRIENDLY_WEAPON)
 	pass
 
-if Classic_Eviscerate:# 
+if Classic_Eviscerate:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_124']
 class VAN_EX1_124:# <7>[1646]
 	""" Eviscerate
@@ -128,32 +128,40 @@ class VAN_EX1_124:# <7>[1646]
 	combo = Hit(TARGET, 4)
 	pass
 
-if Classic_Betrayal:# 
+if Classic_Betrayal:# checking
 	Classic_Rogue+=['VAN_EX1_126']
+class VAN_EX1_126_Action(TargetedAction):
+	def do(self, source, target):
+		if target in source.controller.opponent.field:
+			index=source.controller.opponent.field.index(target)
+			if index-1>=0:
+				Hit(source.controller.opponent.field[index-1], target.atk).trigger(target)
+			if index+1<len(source.controller.opponent.field):
+				Hit(source.controller.opponent.field[index+1], target.atk).trigger(target)
 class VAN_EX1_126:# <7>[1646]
-	""" Betrayal
+	""" Betrayal (cost 2, spell)
 	Force an enemy minion to deal its damage to the minions next to it. """
 	requirements = {
 		PlayReq.REQ_ENEMY_TARGET: 0,
 		PlayReq.REQ_MINION_TARGET: 0,
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
-	play = Hit(SELF_ADJACENT, ATK(SELF), source=TARGET)
+	play = VAN_EX1_126_Action(TARGET)#Hit(SELF_ADJACENT, ATK(SELF), source=TARGET)
 	pass
 
-if Classic_Conceal:# 
+if Classic_Conceal:# checking
 	Classic_Rogue+=['VAN_EX1_128','EX1_128e']
 class VAN_EX1_128:# <7>[1646]
 	""" Conceal
 	Give your minions [Stealth] until your next_turn. """
 	play = (
 		Buff(FRIENDLY_MINIONS - STEALTH, "EX1_128e"),
-		Stealth(FRIENDLY_MINIONS),
+		Stealth(FRIENDLY_MINIONS - STEALTH),
 	)
 	pass
 class EX1_128e:
 	events = OWN_TURN_BEGIN.on(Unstealth(OWNER), Destroy(SELF))
 
-if Classic_Fan_of_Knives:# 
+if Classic_Fan_of_Knives:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_129']
 class VAN_EX1_129:# <7>[1646]
 	""" Fan of Knives

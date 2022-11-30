@@ -14,8 +14,8 @@ def classic_rogue():
 	#PresetGame(pp_VAN_CS2_082)##
 	#PresetGame(pp_VAN_CS2_233)##
 	#PresetGame(pp_VAN_EX1_124)##
-	#PresetGame(pp_VAN_EX1_126)##
-	#PresetGame(pp_VAN_EX1_128)##
+	PresetGame(pp_VAN_EX1_126)##
+	PresetGame(pp_VAN_EX1_128)##
 	#PresetGame(pp_VAN_EX1_129)##
 	#PresetGame(pp_VAN_EX1_131)##
 	#PresetGame(pp_VAN_EX1_133)##
@@ -27,7 +27,7 @@ def classic_rogue():
 	#PresetGame(pp_VAN_EX1_522)##
 	#PresetGame(pp_VAN_EX1_581)##
 	#PresetGame(pp_VAN_EX1_613)##
-	#PresetGame(pp_VAN_HERO_03bp)##
+	#PresetGame(pp_VAN_HERO_03bp)## HP
 	#PresetGame(pp_VAN_NEW1_004)##
 	#PresetGame(pp_VAN_NEW1_005)##
 	#PresetGame(pp_VAN_NEW1_014)##
