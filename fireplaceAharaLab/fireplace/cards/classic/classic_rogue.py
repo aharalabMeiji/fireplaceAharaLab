@@ -169,7 +169,7 @@ class VAN_EX1_129:# <7>[1646]
 	play = Hit(ENEMY_MINIONS, 1), Draw(CONTROLLER)
 	pass
 
-if Classic_Defias_Ringleader:# 
+if Classic_Defias_Ringleader:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_131','EX1_131t']
 class VAN_EX1_131:# <7>[1646]
 	""" Defias Ringleader
@@ -179,7 +179,7 @@ class VAN_EX1_131:# <7>[1646]
 class EX1_131t:
 	pass
 
-if Classic_Perditions_Blade:# 
+if Classic_Perditions_Blade:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_133']
 class VAN_EX1_133:# <7>[1646]
 	""" Perdition's Blade
@@ -189,7 +189,7 @@ class VAN_EX1_133:# <7>[1646]
 	combo = Hit(TARGET, 2)
 	pass
 
-if Classic_SI7_Agent:# 
+if Classic_SI7_Agent:# ## OK ###
 	Classic_Rogue+=['VAN_EX1_134']
 class VAN_EX1_134:# <7>[1646]
 	""" SI:7 Agent
@@ -198,7 +198,7 @@ class VAN_EX1_134:# <7>[1646]
 	combo = Hit(TARGET, 2)
 	pass
 
-if Classic_Headcrack:# 
+if Classic_Headcrack:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_137']
 class VAN_EX1_137:# <7>[1646]
 	""" Headcrack
@@ -207,7 +207,7 @@ class VAN_EX1_137:# <7>[1646]
 	combo = (play, TURN_END.on(Give(CONTROLLER, "VAN_EX1_137")))
 	pass
 
-if Classic_Shadowstep:# 
+if Classic_Shadowstep:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_144']
 class VAN_EX1_144:# <7>[1646]
 	""" Shadowstep
@@ -227,7 +227,7 @@ class EX1_144e:
 	}
 	events = REMOVED_IN_PLAY
 
-if Classic_Preparation:# 
+if Classic_Preparation:# checking
 	Classic_Rogue+=['VAN_EX1_145']
 	Classic_Rogue+=['VAN_EX1_145o']
 class VAN_EX1_145:# <7>[1646]
@@ -238,11 +238,11 @@ class VAN_EX1_145:# <7>[1646]
 class VAN_EX1_145o:# <7>[1646]
 	""" Preparation
 	The next spell you cast this turn costs (3) less. """
-	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.COST: -2})
+	update = Refresh(FRIENDLY_HAND + SPELL, {GameTag.COST: -3})
 	events = OWN_SPELL_PLAY.on(Destroy(SELF))
 	pass
 
-if Classic_Shiv:# 
+if Classic_Shiv:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_278']
 class VAN_EX1_278:# <7>[1646]
 	""" Shiv
@@ -251,16 +251,17 @@ class VAN_EX1_278:# <7>[1646]
 	play = Hit(TARGET, 1), Draw(CONTROLLER)
 	pass
 
-if Classic_Patient_Assassin:# 
+if Classic_Patient_Assassin:# ### checking
 	Classic_Rogue+=['VAN_EX1_522']
 class VAN_EX1_522:# <7>[1646]
 	""" Patient Assassin
 	[Stealth]. Destroy any minion damaged by this minion. """
 	#[Stealth] [Poisonous] # old card
-	events = Attack(SELF, ENEMY_MINIONS).on(Destroy(Attack.DEFENDER))
+	#events = Attack(SELF, ENEMY_MINIONS).on(Destroy(Attack.DEFENDER))
+	events = Damage(CHARACTER, None, SELF).on(Destroy(Damage.TARGET))
 	pass
 
-if Classic_Sap:# 
+if Classic_Sap:# ### OK ###
 	Classic_Rogue+=['VAN_EX1_581']
 class VAN_EX1_581:# <7>[1646]
 	""" Sap
@@ -272,7 +273,7 @@ class VAN_EX1_581:# <7>[1646]
 	play = Bounce(TARGET)
 	pass
 
-if Classic_Edwin_VanCleef:# 
+if Classic_Edwin_VanCleef:# checking
 	Classic_Rogue+=['VAN_EX1_613','EX1_613e']
 class VAN_EX1_613:# <7>[1646]
 	""" Edwin VanCleef
@@ -295,7 +296,7 @@ class VAN_HERO_03bp2:# <7>[1646]
 	#
 	pass
 
-if Classic_Vanish:# 
+if Classic_Vanish:# ### OK ###
 	Classic_Rogue+=['VAN_NEW1_004']
 class VAN_NEW1_004:# <7>[1646]
 	""" Vanish
@@ -303,7 +304,7 @@ class VAN_NEW1_004:# <7>[1646]
 	play = Bounce(ALL_MINIONS)
 	pass
 
-if Classic_Kidnapper:# 
+if Classic_Kidnapper:# ### OK ###
 	Classic_Rogue+=['VAN_NEW1_005']
 class VAN_NEW1_005:# <7>[1646]
 	""" Kidnapper
@@ -312,7 +313,7 @@ class VAN_NEW1_005:# <7>[1646]
 	combo = Bounce(TARGET)
 	pass
 
-if Classic_Master_of_Disguise:# 
+if Classic_Master_of_Disguise:# ### OK ###
 	Classic_Rogue+=['VAN_NEW1_014','NEW1_014e']
 class VAN_NEW1_014:# <7>[1646]
 	""" Master of Disguise

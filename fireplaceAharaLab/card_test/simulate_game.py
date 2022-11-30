@@ -30,6 +30,9 @@ def card_test():
 		elif Config.CARD_TEST_CLASS=='PRIEST':
 			from card_test.t_classic_priest import classic_priest
 			classic_priest()
+		elif Config.CARD_TEST_CLASS=='ROGUE':
+			from card_test.t_classic_rogue import classic_rogue
+			classic_rogue()
 	elif Config.CARD_TEST_SET=='CORE':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.core_neutral import core_neutral
@@ -510,6 +513,9 @@ class Preset_Play:
 			player=card.controller
 		card.location(target=target)
 		pass
+	def summon_card(self, player, cardID):
+		ret=Summon(player, cardID).trigger(player)
+		return ret[0][0]
 	def asserting(self, condition, message):
 		if Config.LOGINFO:
 			Config.log("assert",message)

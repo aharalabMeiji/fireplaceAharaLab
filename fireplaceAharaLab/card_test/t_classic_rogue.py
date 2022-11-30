@@ -14,15 +14,15 @@ def classic_rogue():
 	#PresetGame(pp_VAN_CS2_082)##
 	#PresetGame(pp_VAN_CS2_233)##
 	#PresetGame(pp_VAN_EX1_124)##
-	PresetGame(pp_VAN_EX1_126)##
-	PresetGame(pp_VAN_EX1_128)##
+	#PresetGame(pp_VAN_EX1_126)## OK
+	#PresetGame(pp_VAN_EX1_128)## OK
 	#PresetGame(pp_VAN_EX1_129)##
 	#PresetGame(pp_VAN_EX1_131)##
 	#PresetGame(pp_VAN_EX1_133)##
 	#PresetGame(pp_VAN_EX1_134)##
-	#PresetGame(pp_VAN_EX1_137)##
+	#PresetGame(pp_VAN_EX1_137)## OK
 	#PresetGame(pp_VAN_EX1_144)##
-	#PresetGame(pp_VAN_EX1_145)##
+	#PresetGame(pp_VAN_EX1_145)## OK
 	#PresetGame(pp_VAN_EX1_278)##
 	#PresetGame(pp_VAN_EX1_522)##
 	#PresetGame(pp_VAN_EX1_581)##
@@ -31,7 +31,7 @@ def classic_rogue():
 	#PresetGame(pp_VAN_NEW1_004)##
 	#PresetGame(pp_VAN_NEW1_005)##
 	#PresetGame(pp_VAN_NEW1_014)##
-
+	pass
 
 ##########VAN_CS2_072##########
 
@@ -300,22 +300,23 @@ class pp_VAN_EX1_126(Preset_Play):
 	Force an enemy minion to deal its damage to the minions next to it. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_126", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.summon_card(self.opponent, self.card_choice("minionH3"))
+		self.mark3=self.summon_card(self.opponent, self.card_choice("minionA2"))
+		self.mark4=self.summon_card(self.opponent, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.mark3)
 		self.change_turn()
 		### opp
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.field:
+			self.print_stats("opponent.field", card)
 	pass
 
 
@@ -326,17 +327,20 @@ class pp_VAN_EX1_128(Preset_Play):
 	Give your minions [Stealth] until your next_turn. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_128", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark4=self.summon_card(self.controller, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		self.asserting(self.mark4.stealthed==True,"self.mark4.stealthed==True")
 		self.change_turn()
 		### opp
+		self.asserting(self.mark4.stealthed==True,"self.mark4.stealthed==True")
 		self.change_turn()
+		### con
+		self.asserting(self.mark4.stealthed==False,"self.mark4.stealthed==False")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -456,17 +460,20 @@ class pp_VAN_EX1_137(Preset_Play):
 	Deal $2 damage to the enemy hero. [Combo:] Return this to your hand next turn. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_137", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark4=self.exchange_card(self.card_choice("minionH3"), self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.play_card(self.mark4)
 		self.play_card(self.mark1)
+		self.asserting(self.opponent.hero.damage==2, "self.opponent.hero.damage==2")
 		self.change_turn()
 		### opp
 		self.change_turn()
+		cards=[card.id for card in self.controller.hand]
+		self.asserting('VAN_EX1_137' in cards, "'VAN_EX1_137' in cards")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -508,17 +515,18 @@ class pp_VAN_EX1_145(Preset_Play):
 	The next spell you cast this turn costs (3) less. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_145", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card("spell", self.controller)
+		self.mark3=self.exchange_card("spell", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.asserting(self.mark2.cost==max(self.mark2.data.cost-3,0),"self.mark2.cost==max(self.mark2.data.cost-3,0)") 
+		self.play_card(self.mark2)
+		self.asserting(self.mark3.cost==max(self.mark3.data.cost,0),"self.mark3.cost==max(self.mark3.data.cost,0)") 
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
