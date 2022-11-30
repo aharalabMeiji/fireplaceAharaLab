@@ -33,6 +33,15 @@ def card_test():
 		elif Config.CARD_TEST_CLASS=='ROGUE':
 			from card_test.t_classic_rogue import classic_rogue
 			classic_rogue()
+		elif Config.CARD_TEST_CLASS=='SHAMAN':
+			from card_test.t_classic_shaman import classic_shaman
+			classic_shaman()
+		elif Config.CARD_TEST_CLASS=='WARLOCK':
+			from card_test.t_classic_warlock import classic_warlock
+			classic_warlock()
+		elif Config.CARD_TEST_CLASS=='WARRIOR':
+			from card_test.t_classic_warrior import classic_warrior
+			classic_warrior()
 	elif Config.CARD_TEST_SET=='CORE':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.core_neutral import core_neutral

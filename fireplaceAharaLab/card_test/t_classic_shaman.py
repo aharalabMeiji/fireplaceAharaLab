@@ -5,7 +5,7 @@ from hearthstone.enums import Zone, CardType, Rarity
 def classic_shaman():
 
 	#PresetGame(pp_VAN_CS2_037)##
-	PresetGame(pp_VAN_CS2_038)##
+	#PresetGame(pp_VAN_CS2_038)## OK
 	#PresetGame(pp_VAN_CS2_039)##
 	#PresetGame(pp_VAN_CS2_041)##
 	#PresetGame(pp_VAN_CS2_042)##
@@ -13,7 +13,7 @@ def classic_shaman():
 	#PresetGame(pp_VAN_CS2_046)##
 	#PresetGame(pp_VAN_CS2_050)##
 	#PresetGame(pp_VAN_CS2_051)##
-	PresetGame(pp_VAN_CS2_052)##
+	#PresetGame(pp_VAN_CS2_052)## OK
 	#PresetGame(pp_VAN_CS2_053)##
 	#PresetGame(pp_VAN_EX1_238)##
 	#PresetGame(pp_VAN_EX1_241)##
@@ -24,9 +24,9 @@ def classic_shaman():
 	#PresetGame(pp_VAN_EX1_247)##
 	#PresetGame(pp_VAN_EX1_248)##
 	#PresetGame(pp_VAN_EX1_250)##
-	PresetGame(pp_VAN_EX1_251)##
-	#PresetGame(pp_VAN_EX1_258)##
-	PresetGame(pp_VAN_EX1_259)##
+	#PresetGame(pp_VAN_EX1_251)## OK 
+	#PresetGame(pp_VAN_EX1_258)## OK
+	#PresetGame(pp_VAN_EX1_259)## OK
 	#PresetGame(pp_VAN_EX1_565)##
 	#PresetGame(pp_VAN_EX1_567)##
 	#PresetGame(pp_VAN_EX1_575)##
@@ -36,7 +36,7 @@ def classic_shaman():
 	#PresetGame(pp_VAN_HERO_02e2)##
 	#PresetGame(pp_VAN_NEW1_009)##
 	#PresetGame(pp_VAN_NEW1_010)##
-
+	pass
 
 ##########VAN_CS2_037##########
 
@@ -71,22 +71,24 @@ class pp_VAN_CS2_038(Preset_Play):
 	Choose a minion. When that minion is destroyed, return it to the battlefield. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS2_038", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark4=self.summon_card(self.controller, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.mark4)
 		self.change_turn()
 		### opp
+		Hit(self.mark4, 10).trigger(self.opponent)
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("controller.field", card)
+		cards=[card.id for card in self.controller.field]
+		self.asserting(self.mark4.id in cards,"self.mark4.id in cards")
 	pass
 
 
@@ -279,22 +281,22 @@ class pp_VAN_CS2_052(Preset_Play):
 	[Spell Damage +1] """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS2_052", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card("VAN_CS2_037", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark2, target=self.opponent.hero)
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		self.asserting(self.opponent.hero.frozen==True,"self.opponent.hero.frozen==True")
+		self.asserting(self.opponent.hero.damage==2,"self.opponent.hero.damage==2")
 	pass
 
 
@@ -565,22 +567,25 @@ class pp_VAN_EX1_251(Preset_Play):
 	Deal $2 damage to 2_random enemy minions. [Overload:] (2) """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_251", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.summon_card(self.opponent, self.card_choice("minionH3"))
+		self.mark3=self.summon_card(self.opponent, self.card_choice("minionH3"))
+		self.mark4=self.summon_card(self.opponent, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		self.asserting(self.controller.overloaded==2,"self.controller.overloaded==2")
 		self.change_turn()
 		### opp
 		self.change_turn()
+		self.asserting(self.controller.overload_locked==2,"self.controller.overload_locked==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.field:
+			self.print_stats("opponent.field", card)
 	pass
 
 
@@ -591,22 +596,24 @@ class pp_VAN_EX1_258(Preset_Play):
 	Whenever you play a card_with [Overload], gain_+1/+1. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_258", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.exchange_card("VAN_EX1_251", self.controller)
+		self.mark3=self.summon_card(self.opponent, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		self.play_card(self.mark2)
 		self.change_turn()
 		### opp
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card, show_buff=True)
+		self.asserting(self.mark1.atk==self.mark1.data.atk+1,"self.mark1.atk==self.mark1.data.atk+1")
 	pass
 
 
@@ -617,22 +624,21 @@ class pp_VAN_EX1_259(Preset_Play):
 	Deal $2-$3 damage to all enemy minions. [Overload:] (2) """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_259", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark3=self.summon_card(self.opponent, self.card_choice("minionH4"))
+		self.mark4=self.summon_card(self.opponent, self.card_choice("minionH4"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.field:
+			self.print_stats("opponent.field", card)
+		self.asserting(self.controller.overloaded==2,"self.controller.overloaded==2")
 	pass
 
 
