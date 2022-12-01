@@ -209,7 +209,7 @@ class VAN_EX1_345:# <6>[1646]
 	play = (
 		Find(ENEMY_DECK + MINION) &
 		Summon(CONTROLLER, Copy(RANDOM(ENEMY_DECK + MINION))) |
-		Summon(CONTROLLER, "EX1_345t")
+		Summon(CONTROLLER, "VAN_EX1_345t")
 	)
 	pass
 class VAN_EX1_345t:# <6>[1646]

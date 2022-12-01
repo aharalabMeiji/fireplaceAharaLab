@@ -1254,6 +1254,7 @@ class Destroy(TargetedAction):
 			if Config.LOGINFO:
 				Config.log("Destroy.do","%r marks %r for imminent death"%(source, target))
 			target.to_be_destroyed = True
+			source.game.process_deaths()
 			#Deaths().trigger(source)
 		else:
 			if Config.LOGINFO:

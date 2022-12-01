@@ -1,9 +1,8 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit, Summon, Give
-from hearthstone.enums import Zone, CardType, Rarity
+from hearthstone.enums import Zone, CardType, Rarity, Race
 
 def classic_warlock():
-
 
 	#PresetGame(pp_VAN_CS2_057)##
 	#PresetGame(pp_VAN_CS2_059)##
@@ -13,27 +12,27 @@ def classic_warlock():
 	#PresetGame(pp_VAN_CS2_064)##
 	#PresetGame(pp_VAN_CS2_065)##
 	#PresetGame(pp_VAN_EX1_301)##
-	PresetGame(pp_VAN_EX1_302)##
+	#PresetGame(pp_VAN_EX1_302)##
 	#PresetGame(pp_VAN_EX1_303)##
-	PresetGame(pp_VAN_EX1_304)##
+	#PresetGame(pp_VAN_EX1_304)## OK 
 	#PresetGame(pp_VAN_EX1_306)##
 	#PresetGame(pp_VAN_EX1_308)##
 	#PresetGame(pp_VAN_EX1_309)##
-	PresetGame(pp_VAN_EX1_310)##
+	#PresetGame(pp_VAN_EX1_310)## OK
 	#PresetGame(pp_VAN_EX1_312)##
 	#PresetGame(pp_VAN_EX1_313)##
 	#PresetGame(pp_VAN_EX1_315)##
-	PresetGame(pp_VAN_EX1_316)##
-	PresetGame(pp_VAN_EX1_317)##
+	#PresetGame(pp_VAN_EX1_316)## OK
+	##PresetGame(pp_VAN_EX1_317)## OK
 	#PresetGame(pp_VAN_EX1_319)##
-	PresetGame(pp_VAN_EX1_320)##
-	PresetGame(pp_VAN_EX1_323)##
+	#PresetGame(pp_VAN_EX1_320)## OK
+	#PresetGame(pp_VAN_EX1_323)## OK
 	#PresetGame(pp_VAN_EX1_596)##
 	#PresetGame(pp_VAN_EX1_tk33)##
 	#PresetGame(pp_VAN_EX1_tk34)##
 	#PresetGame(pp_VAN_HERO_07bp)##
 	#PresetGame(pp_VAN_NEW1_003)##
-
+	pass
 
 
 ##########VAN_CS2_057##########
@@ -251,17 +250,14 @@ class pp_VAN_EX1_302(Preset_Play):
 	Deal $1 damage to a minion. If that kills it, draw a card. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_302", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark4=self.summon_card(self.controller, self.card_choice("minionH1"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark1, target=self.mark4)
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -300,11 +296,11 @@ class pp_VAN_EX1_303(Preset_Play):
 
 class pp_VAN_EX1_304(Preset_Play):
 	""" Void Terror
-	[Battlecry:] Destroy bothadjacent minions and gain their Attack and Health. """
+	[Battlecry:] Destroy both adjacent minions and gain their Attack and Health. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_304", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.summon_card(self.controller, self.card_choice("minionH3"))
+		#self.mark3=self.summon_card(self.controller, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -313,12 +309,11 @@ class pp_VAN_EX1_304(Preset_Play):
 		self.play_card(self.mark1)
 		self.change_turn()
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("controller.field", card)
 	pass
 
 
@@ -407,17 +402,15 @@ class pp_VAN_EX1_310(Preset_Play):
 	[Charge]. [Battlecry:] Discard two random cards. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_310", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.attack_card(self.mark1, self.opponent.hero)
+		self.asserting(self.opponent.hero.damage>0,"self.opponent.hero.damage>0")
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -511,16 +504,17 @@ class pp_VAN_EX1_316(Preset_Play):
 	Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_316", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark4=self.summon_card(self.controller, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.mark4)
+		self.asserting(self.mark4.atk==self.mark4.data.atk+4,"self.mark4.atk==self.mark4.data.atk+4")
 		self.change_turn()
 		### opp
+		self.asserting(self.mark4.zone==Zone.GRAVEYARD,"self.mark4.zone==Zone.GRAVEYARD")
 		self.change_turn()
 		pass
 	def result_inspection(self):
@@ -534,7 +528,7 @@ class pp_VAN_EX1_316(Preset_Play):
 
 class pp_VAN_EX1_317(Preset_Play):
 	""" Sense Demons
-	Draw 2 Demonsfrom your deck. """
+	Draw 2 Demons from your deck. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_317", self.controller)
 		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
@@ -544,10 +538,11 @@ class pp_VAN_EX1_317(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
+		deck_demons=[card.id for card in self.controller.deck if card.type==CardType.MINION and card.race==Race.DEMON]
 		self.play_card(self.mark1)
-		self.change_turn()
+		card = self.controller.hand[-1]
+		#self.asserting(card.race==Race.DEMON and card in deck_demons,"card.race==Race.DEMON and card.id in deck_demons")
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -589,22 +584,21 @@ class pp_VAN_EX1_320(Preset_Play):
 	Deal $2 damage to_a character. If that kills it, summon a random Demon. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_320", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark4=self.summon_card(self.opponent, self.card_choice("minionH2"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.mark1)
+		self.play_card(self.mark1, target=self.mark4)
 		self.change_turn()
 		### opp
 		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -615,22 +609,26 @@ class pp_VAN_EX1_323(Preset_Play):
 	[Battlecry:] Destroy your hero and replace it with Lord Jaraxxus. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_323", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		self.asserting(self.controller.hero.id=='EX1_323h',"self.controller.hero.id=='EX1_323h'")
+		self.asserting(self.controller.hero.power.id=='EX1_tk33',"self.controller.hero.power.id=='EX1_tk33'")
 		self.change_turn()
 		### opp
 		self.change_turn()
+		### con
+		self.activate_heropower()
+		### opp
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		self.asserting('EX1_tk34' in [card.id for card in self.controller.field],"'EX1_tk34' in [card.id for card in self.controller.field]")
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -638,7 +636,7 @@ class pp_VAN_EX1_323(Preset_Play):
 
 class pp_VAN_EX1_596(Preset_Play):
 	""" Demonfire
-	Deal $2 damage to a minion. If itÅfs a friendly Demon, give it +2/+2 instead. """
+	Deal $2 damage to a minion. If it's a friendly Demon, give it +2/+2 instead. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_596", self.controller)
 		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
