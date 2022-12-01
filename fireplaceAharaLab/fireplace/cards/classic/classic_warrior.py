@@ -31,7 +31,7 @@ Classic_Commanding_Shout=True
 
 
 
-if Classic_Charge:# 
+if Classic_Charge:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_103']
 	Classic_Warrior+=['VAN_CS2_103e2']
 class VAN_CS2_103:# <10>[1646]
@@ -45,7 +45,7 @@ class VAN_CS2_103:# <10>[1646]
 	pass
 VAN_CS2_103e2 = buff(atk=2, charge=True)
 
-if Classic_Rampage:# 
+if Classic_Rampage:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_104','CS2_104e']
 class VAN_CS2_104:# <10>[1646]
 	""" Rampage
@@ -58,16 +58,16 @@ class VAN_CS2_104:# <10>[1646]
 	pass
 CS2_104e = buff(+3, +3)
 
-if Classic_Heroic_Strike:# 
+if Classic_Heroic_Strike:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_105','CS2_105e']
 class VAN_CS2_105:# <10>[1646]
 	""" Heroic Strike
 	Give your hero +4_Attack this turn. """
 	play = Buff(FRIENDLY_HERO, "CS2_105e")
 	pass
-CS2_105e = buff(atk=4)
+CS2_105e = buff(atk=4)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 
-if Classic_Fiery_War_Axe:# 
+if Classic_Fiery_War_Axe:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_106']
 class VAN_CS2_106:# <10>[1646]
 	""" Fiery War Axe
@@ -75,7 +75,7 @@ class VAN_CS2_106:# <10>[1646]
 	#
 	pass
 
-if Classic_Execute:# 
+if Classic_Execute:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_108']
 class VAN_CS2_108:# <10>[1646]
 	""" Execute
@@ -88,7 +88,7 @@ class VAN_CS2_108:# <10>[1646]
 	play = Destroy(TARGET)
 	pass
 
-if Classic_Arcanite_Reaper:# 
+if Classic_Arcanite_Reaper:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_112']
 class VAN_CS2_112:# <10>[1646]
 	""" Arcanite Reaper
@@ -96,25 +96,34 @@ class VAN_CS2_112:# <10>[1646]
 	#
 	pass
 
-if Classic_Cleave:# 
+if Classic_Cleave:# ### OK ###
 	Classic_Warrior+=['VAN_CS2_114']
 class VAN_CS2_114:# <10>[1646]
 	""" Cleave
-	Deal $2 damage totwo random enemyminions. """
+	Deal $2 damage to two random enemy minions. """
 	requirements = {PlayReq.REQ_MINIMUM_ENEMY_MINIONS: 1}
 	play = Hit(RANDOM_ENEMY_MINION * 2, 2)
 	pass
 
-if Classic_Warsong_Commander:# 
+if Classic_Warsong_Commander:# ### checking ###
 	Classic_Warrior+=['VAN_EX1_084','EX1_084e']
+class VAN_EX1_084_Action(TargetedAction):
+	def do(self, source, target):
+		if target:
+			if isinstance(target, list):
+				target=target[0]
+			if target.atk<=3:
+				Buff(target, 'EX1_084e').trigger(source)
 class VAN_EX1_084:# <10>[1646]
 	""" Warsong Commander
 	Whenever you summon a minion with 3 or less Attack, give it [Charge]. """
-	update = Refresh(FRIENDLY_MINIONS + CHARGE, buff="EX1_084e")
+	#update = Refresh(FRIENDLY_MINIONS + CHARGE, buff="EX1_084e")
+	events = Play(CONTROLLER, MINION).on(VAN_EX1_084_Action(Play.CARD))
 	pass
-EX1_084e = buff(atk=1)
+#EX1_084e = buff(atk=1)
+EX1_084e = buff(charge=True)
 
-if Classic_Slam:# 
+if Classic_Slam:# EX1_084e
 	Classic_Warrior+=['VAN_EX1_391']
 class VAN_EX1_391:# <10>[1646]
 	""" Slam

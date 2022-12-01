@@ -12,7 +12,7 @@ def classic_warrior():
 	#PresetGame(pp_VAN_CS2_108)##
 	#PresetGame(pp_VAN_CS2_112)##
 	#PresetGame(pp_VAN_CS2_114)##
-	#PresetGame(pp_VAN_EX1_084)##
+	PresetGame(pp_VAN_EX1_084)##
 	#PresetGame(pp_VAN_EX1_391)##
 	#PresetGame(pp_VAN_EX1_392)##
 	#PresetGame(pp_VAN_EX1_398)##
