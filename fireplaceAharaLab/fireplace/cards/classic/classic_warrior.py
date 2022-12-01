@@ -123,7 +123,7 @@ class VAN_EX1_084:# <10>[1646]
 #EX1_084e = buff(atk=1)
 EX1_084e = buff(charge=True)
 
-if Classic_Slam:# EX1_084e
+if Classic_Slam:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_391']
 class VAN_EX1_391:# <10>[1646]
 	""" Slam
@@ -132,7 +132,7 @@ class VAN_EX1_391:# <10>[1646]
 	play = Hit(TARGET, 2), Dead(TARGET) | Draw(CONTROLLER)
 	pass
 
-if Classic_Battle_Rage:# 
+if Classic_Battle_Rage:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_392']
 class VAN_EX1_392:# <10>[1646]
 	""" Battle Rage
@@ -141,7 +141,7 @@ class VAN_EX1_392:# <10>[1646]
 	play = Draw(CONTROLLER) * Count(FRIENDLY_CHARACTERS + DAMAGED)
 	pass
 
-if Classic_Arathi_Weaponsmith:# 
+if Classic_Arathi_Weaponsmith:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_398','EX1_398t']
 class VAN_EX1_398:# <10>[1646]
 	""" Arathi Weaponsmith
@@ -151,7 +151,7 @@ class VAN_EX1_398:# <10>[1646]
 class EX1_398t:
 	pass
 
-if Classic_Whirlwind:# 
+if Classic_Whirlwind:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_400']
 class VAN_EX1_400:# <10>[1646]
 	""" Whirlwind
@@ -159,7 +159,7 @@ class VAN_EX1_400:# <10>[1646]
 	play = Hit(ALL_MINIONS, 1)
 	pass
 
-if Classic_Armorsmith:# 
+if Classic_Armorsmith:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_402']
 class VAN_EX1_402:# <10>[1646]
 	""" Armorsmith
@@ -167,20 +167,16 @@ class VAN_EX1_402:# <10>[1646]
 	events = Damage(FRIENDLY_MINIONS).on(GainArmor(FRIENDLY_HERO, 1))
 	pass
 
-if Classic_Brawl:# 
+if Classic_Brawl:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_407']
 class VAN_EX1_407:# <10>[1646]
 	""" Brawl
 	Destroy all minions except one. <i>(chosen randomly)</i> """
 	requirements = {PlayReq.REQ_MINIMUM_TOTAL_MINIONS: 2}
-	play = (
-		Find(ALL_MINIONS + ALWAYS_WINS_BRAWLS) &
-		Destroy(ALL_MINIONS - RANDOM(ALL_MINIONS + ALWAYS_WINS_BRAWLS)) |
-		Destroy(ALL_MINIONS - RANDOM_MINION)
-	)
+	play = Destroy(ALL_MINIONS - RANDOM_MINION)
 	pass
 
-if Classic_Mortal_Strike:# 
+if Classic_Mortal_Strike:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_408']
 class VAN_EX1_408:# <10>[1646]
 	""" Mortal Strike
@@ -190,7 +186,7 @@ class VAN_EX1_408:# <10>[1646]
 	play = powered_up & Hit(TARGET, 6) | Hit(TARGET, 4)
 	pass
 
-if Classic_Upgrade:# 
+if Classic_Upgrade:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_409','EX1_409e','EX1_409t']
 class VAN_EX1_409:# <10>[1646]
 	""" Upgrade!
@@ -202,8 +198,11 @@ class VAN_EX1_409:# <10>[1646]
 	)
 	pass
 EX1_409e = buff(+1, +1)
+class EX1_409t:
+	""" 1/3 weapon """
+	pass
 
-if Classic_Shield_Slam:# 
+if Classic_Shield_Slam:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_410']
 class VAN_EX1_410:# <10>[1646]
 	""" Shield Slam
@@ -212,15 +211,29 @@ class VAN_EX1_410:# <10>[1646]
 	play = Hit(TARGET, ARMOR(FRIENDLY_HERO))
 	pass
 
-if Classic_Gorehowl:# 
+if Classic_Gorehowl:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_411']
+class VAN_EX1_411_Action1(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		#target = this weapon
+		target.max_durability += 1
+		pass
+class VAN_EX1_411_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		#target = this weapon
+		target.atk -= 1
+		if target.atk==0:
+			Destroy(target).trigger(source)
+		pass
 class VAN_EX1_411:# <10>[1646]
 	""" Gorehowl
 	Attacking a minion costs 1 Attack instead of 1 Durability. """
-	#
+	events = [Attack(FRIENDLY_HERO).on(VAN_EX1_411_Action1(SELF)), Attack(FRIENDLY_HERO).after(VAN_EX1_411_Action2(SELF))]	#
 	pass
 
-if Classic_Grommash_Hellscream:# 
+if Classic_Grommash_Hellscream:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_414','EX1_414e']
 class VAN_EX1_414:# <10>[1646]
 	""" Grommash Hellscream
@@ -229,7 +242,7 @@ class VAN_EX1_414:# <10>[1646]
 	pass
 EX1_414e = buff(atk=6)
 
-if Classic_Cruel_Taskmaster:# 
+if Classic_Cruel_Taskmaster:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_603','EX1_603e']
 class VAN_EX1_603:# <10>[1646]
 	""" Cruel Taskmaster
@@ -242,7 +255,7 @@ class VAN_EX1_603:# <10>[1646]
 	pass
 EX1_603e = buff(atk=2)
 
-if Classic_Frothing_Berserker:# 
+if Classic_Frothing_Berserker:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_604','EX1_604o']
 class VAN_EX1_604:# <10>[1646]
 	""" Frothing Berserker
@@ -251,7 +264,7 @@ class VAN_EX1_604:# <10>[1646]
 	pass
 EX1_604o = buff(atk=1)
 
-if Classic_Shield_Block:# 
+if Classic_Shield_Block:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_606']
 class VAN_EX1_606:# <10>[1646]
 	""" Shield Block
@@ -259,7 +272,7 @@ class VAN_EX1_606:# <10>[1646]
 	play = GainArmor(FRIENDLY_HERO, 5), Draw(CONTROLLER)
 	pass
 
-if Classic_Inner_Rage:# 
+if Classic_Inner_Rage:# ### OK ###
 	Classic_Warrior+=['VAN_EX1_607','EX1_607e']
 class VAN_EX1_607:# <10>[1646]
 	""" Inner Rage
@@ -283,7 +296,7 @@ class VAN_HERO_01bp2:# <10>[1646]
 	#
 	pass
 
-if Classic_Korkron_Elite:# 
+if Classic_Korkron_Elite:# ### OK ###
 	Classic_Warrior+=['VAN_NEW1_011']
 class VAN_NEW1_011:# <10>[1646]
 	""" Kor'kron Elite
@@ -291,14 +304,14 @@ class VAN_NEW1_011:# <10>[1646]
 	#
 	pass
 
-if Classic_Commanding_Shout:# 
+if Classic_Commanding_Shout:# ### checking ###
 	Classic_Warrior+=['VAN_NEW1_036','NEW1_036e','NEW1_036e2']
 class VAN_NEW1_036:# <10>[1646]
 	""" Commanding Shout
 	Your minions can't be reduced below 1 Health this turn. Draw a card. """
-	play = Buff(FRIENDLY_MINIONS, "NEW1_036e"), Buff(CONTROLLER, "NEW1_036e2")
+	play = Buff(FRIENDLY_MINIONS, "NEW1_036e"), Buff(CONTROLLER, "NEW1_036e2"), Draw(CONTROLLER)
 	pass
-NEW1_036e = buff(health_minimum=1)
+NEW1_036e = buff(health_minimum=1)#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 class NEW1_036e2:
 	events = Summon(CONTROLLER, MINION).on(Buff(Summon.CARD, "NEW1_036e"))
 
