@@ -32,7 +32,7 @@ Classic_Life_Tap=False ## HP
 Classic_Sacrificial_Pact=True
 
 
-if Classic_Shadow_Bolt:# 
+if Classic_Shadow_Bolt:# ### OK ###
 	Classic_Warlock+=['VAN_CS2_057']
 class VAN_CS2_057:# <9>[1646]
 	""" Shadow Bolt
@@ -41,8 +41,8 @@ class VAN_CS2_057:# <9>[1646]
 	play = Hit(TARGET, 4)
 	pass
 
-if Classic_Blood_Imp:# 
-	Classic_Warlock+=['VAN_CS2_059','CS2_059o']
+if Classic_Blood_Imp:# ### OK ###
+	Classic_Warlock+=['VAN_CS2_059', 'CS2_059o']
 class VAN_CS2_059:# <9>[1646]
 	""" Blood Imp
 	  [Stealth]. At the end of your  turn, give another random friendly minion +1 Health. """
@@ -51,7 +51,7 @@ class VAN_CS2_059:# <9>[1646]
 CS2_059o = buff(health=1)
 
 
-if Classic_Drain_Life:# 
+if Classic_Drain_Life:# ### OK ###
 	Classic_Warlock+=['VAN_CS2_061']
 class VAN_CS2_061:# <9>[1646]
 	""" Drain Life
@@ -60,7 +60,7 @@ class VAN_CS2_061:# <9>[1646]
 	play = Hit(TARGET, 2), Heal(FRIENDLY_HERO, 2)
 	pass
 
-if Classic_Hellfire:# 
+if Classic_Hellfire:# ### OK ###
 	Classic_Warlock+=['VAN_CS2_062']
 class VAN_CS2_062:# <9>[1646]
 	""" Hellfire
@@ -68,7 +68,7 @@ class VAN_CS2_062:# <9>[1646]
 	play = Hit(ALL_CHARACTERS, 3)
 	pass
 
-if Classic_Corruption:# 
+if Classic_Corruption:# ### OK ###
 	Classic_Warlock+=['VAN_CS2_063','CS2_063e']
 class VAN_CS2_063:# <9>[1646]
 	""" Corruption
@@ -82,7 +82,7 @@ class VAN_CS2_063:# <9>[1646]
 class CS2_063e:
 	events = OWN_TURN_BEGIN.on(Destroy(OWNER))
 
-if Classic_Dread_Infernal:# 
+if Classic_Dread_Infernal:# ### OK ###
 	Classic_Warlock+=['VAN_CS2_064']
 class VAN_CS2_064:# <9>[1646]
 	""" Dread Infernal
@@ -90,7 +90,7 @@ class VAN_CS2_064:# <9>[1646]
 	play = Hit(ALL_CHARACTERS - SELF, 1)
 	pass
 
-if Classic_Voidwalker:# 
+if Classic_Voidwalker:# ### OK ###
 	Classic_Warlock+=['VAN_CS2_065']
 class VAN_CS2_065:# <9>[1646]
 	""" Voidwalker
@@ -98,7 +98,7 @@ class VAN_CS2_065:# <9>[1646]
 	#
 	pass
 
-if Classic_Felguard:# 
+if Classic_Felguard:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_301']
 class VAN_EX1_301:# <9>[1646]
 	""" Felguard
@@ -106,7 +106,7 @@ class VAN_EX1_301:# <9>[1646]
 	play = GainEmptyMana(CONTROLLER, -1)
 	pass
 
-if Classic_Mortal_Coil:# 
+if Classic_Mortal_Coil:# checking
 	Classic_Warlock+=['VAN_EX1_302']
 class VAN_EX1_302:# <9>[1646]
 	""" Mortal Coil
@@ -115,7 +115,7 @@ class VAN_EX1_302:# <9>[1646]
 	play = Hit(TARGET, 1), Dead(TARGET) & Draw(CONTROLLER)
 	pass
 
-if Classic_Shadowflame:# 
+if Classic_Shadowflame:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_303']
 class VAN_EX1_303:# <9>[1646]
 	""" Shadowflame
@@ -127,11 +127,11 @@ class VAN_EX1_303:# <9>[1646]
 	play = Hit(ENEMY_MINIONS, ATK(TARGET)), Destroy(TARGET)
 	pass
 
-if Classic_Void_Terror:# 
+if Classic_Void_Terror:# checking
 	Classic_Warlock+=['VAN_EX1_304', "EX1_304e"]
 class VAN_EX1_304:# <9>[1646]
 	""" Void Terror
-	[Battlecry:] Destroy bothadjacent minions and gain their Attack and Health. """
+	[Battlecry:] Destroy both adjacent minions and gain their Attack and Health. """
 	play = (
 		Buff(SELF, "EX1_304e", atk=ATK(SELF_ADJACENT), max_health=CURRENT_HEALTH(SELF_ADJACENT)),
 		Destroy(SELF_ADJACENT)
@@ -140,7 +140,7 @@ class VAN_EX1_304:# <9>[1646]
 class EX1_304e:
 	pass
 
-if Classic_Felstalker:# 
+if Classic_Felstalker:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_306']
 class VAN_EX1_306:# <9>[1646]
 	""" Felstalker
@@ -148,7 +148,7 @@ class VAN_EX1_306:# <9>[1646]
 	play = Discard(RANDOM(FRIENDLY_HAND))
 	pass
 
-if Classic_Soulfire:# 
+if Classic_Soulfire:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_308']
 class VAN_EX1_308:# <9>[1646]
 	""" Soulfire
@@ -157,7 +157,7 @@ class VAN_EX1_308:# <9>[1646]
 	play = Hit(TARGET, 4), Discard(RANDOM(FRIENDLY_HAND))
 	pass
 
-if Classic_Siphon_Soul:# 
+if Classic_Siphon_Soul:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_309']
 class VAN_EX1_309:# <9>[1646]
 	""" Siphon Soul
@@ -166,7 +166,7 @@ class VAN_EX1_309:# <9>[1646]
 	play = Destroy(TARGET), Heal(FRIENDLY_HERO, 3)
 	pass
 
-if Classic_Doomguard:# 
+if Classic_Doomguard:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_310']
 class VAN_EX1_310:# <9>[1646]
 	""" Doomguard
@@ -174,7 +174,7 @@ class VAN_EX1_310:# <9>[1646]
 	play = Discard(RANDOM(FRIENDLY_HAND) * 2)
 	pass
 
-if Classic_Twisting_Nether:# 
+if Classic_Twisting_Nether:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_312']
 class VAN_EX1_312:# <9>[1646]
 	""" Twisting Nether
@@ -182,7 +182,7 @@ class VAN_EX1_312:# <9>[1646]
 	play = Destroy(ALL_MINIONS)
 	pass
 
-if Classic_Pit_Lord:# 
+if Classic_Pit_Lord:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_313']
 class VAN_EX1_313:# <9>[1646]
 	""" Pit Lord
@@ -190,7 +190,7 @@ class VAN_EX1_313:# <9>[1646]
 	play = Hit(FRIENDLY_HERO, 5)
 	pass
 
-if Classic_Summoning_Portal:# 
+if Classic_Summoning_Portal:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_315']
 class VAN_EX1_315:# <9>[1646]
 	""" Summoning Portal
@@ -200,7 +200,7 @@ class VAN_EX1_315:# <9>[1646]
 	})
 	pass
 
-if Classic_Power_Overwhelming:# 
+if Classic_Power_Overwhelming:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_316','EX1_316e']
 class VAN_EX1_316:# <9>[1646]
 	""" Power Overwhelming
@@ -211,18 +211,18 @@ class VAN_EX1_316:# <9>[1646]
 		PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Buff(TARGET, "EX1_316e")
 	pass
-class EX1_316e:
+class EX1_316e:##<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	events = TURN_END.on(Destroy(OWNER))
 	tags = {
 		GameTag.ATK: +4,
 		GameTag.HEALTH: +4,
 	}
 
-if Classic_Sense_Demons:# 
+if Classic_Sense_Demons:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_317','EX1_317t']
 class VAN_EX1_317:# <9>[1646]
 	""" Sense Demons
-	Draw 2 Demonsfrom your deck. """
+	Draw 2 Demons from your deck. """
 	play = (
 		Find(FRIENDLY_DECK + DEMON) &
 		ForceDraw(RANDOM(FRIENDLY_DECK + DEMON)) |
@@ -232,7 +232,7 @@ class VAN_EX1_317:# <9>[1646]
 class EX1_317t:
 	pass
 
-if Classic_Flame_Imp:# 
+if Classic_Flame_Imp:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_319']
 class VAN_EX1_319:# <9>[1646]
 	""" Flame Imp
@@ -240,7 +240,7 @@ class VAN_EX1_319:# <9>[1646]
 	play = Hit(FRIENDLY_HERO, 3)
 	pass
 
-if Classic_Bane_of_Doom:# 
+if Classic_Bane_of_Doom:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_320']
 class VAN_EX1_320:# <9>[1646]
 	""" Bane of Doom
@@ -249,7 +249,7 @@ class VAN_EX1_320:# <9>[1646]
 	play = Hit(TARGET, 2), Dead(TARGET) & Summon(CONTROLLER, RandomMinion(race=Race.DEMON))
 	pass
 
-if Classic_Lord_Jaraxxus:# 
+if Classic_Lord_Jaraxxus:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_323','EX1_323h','EX1_tk33','EX1_tk34','EX1_323w']
 class VAN_EX1_323:# <9>[1646]
 	""" Lord Jaraxxus
@@ -275,7 +275,7 @@ class EX1_323w: ## weapon (3/3/8)
 	"""
 	pass
 
-if Classic_Demonfire:# 
+if Classic_Demonfire:# ### OK ###
 	Classic_Warlock+=['VAN_EX1_596','EX1_596e']
 class VAN_EX1_596:# <9>[1646]
 	""" Demonfire
@@ -317,7 +317,7 @@ class VAN_HERO_07bp2:# <9>[1646]
 	#
 	pass
 
-if Classic_Sacrificial_Pact:# 
+if Classic_Sacrificial_Pact:# ### OK ###
 	Classic_Warlock+=['VAN_NEW1_003']
 class VAN_NEW1_003:# <9>[1646]
 	""" Sacrificial Pact

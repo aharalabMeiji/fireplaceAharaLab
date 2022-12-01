@@ -4,10 +4,7 @@ from hearthstone.enums import Zone, CardType, Rarity
 
 def classic_warlock():
 
-	#PresetGame(pp_Story_09_DemonfirePuzzle)##
-	#PresetGame(pp_Story_09_DoomguardPuzzle)##
-	#PresetGame(pp_Story_09_SenseDemons)##
-	#PresetGame(pp_Story_09_Shadowbolt)##
+
 	#PresetGame(pp_VAN_CS2_057)##
 	#PresetGame(pp_VAN_CS2_059)##
 	#PresetGame(pp_VAN_CS2_061)##
@@ -16,130 +13,27 @@ def classic_warlock():
 	#PresetGame(pp_VAN_CS2_064)##
 	#PresetGame(pp_VAN_CS2_065)##
 	#PresetGame(pp_VAN_EX1_301)##
-	#PresetGame(pp_VAN_EX1_302)##
+	PresetGame(pp_VAN_EX1_302)##
 	#PresetGame(pp_VAN_EX1_303)##
-	#PresetGame(pp_VAN_EX1_304)##
+	PresetGame(pp_VAN_EX1_304)##
 	#PresetGame(pp_VAN_EX1_306)##
 	#PresetGame(pp_VAN_EX1_308)##
 	#PresetGame(pp_VAN_EX1_309)##
-	#PresetGame(pp_VAN_EX1_310)##
+	PresetGame(pp_VAN_EX1_310)##
 	#PresetGame(pp_VAN_EX1_312)##
 	#PresetGame(pp_VAN_EX1_313)##
 	#PresetGame(pp_VAN_EX1_315)##
-	#PresetGame(pp_VAN_EX1_316)##
-	#PresetGame(pp_VAN_EX1_317)##
+	PresetGame(pp_VAN_EX1_316)##
+	PresetGame(pp_VAN_EX1_317)##
 	#PresetGame(pp_VAN_EX1_319)##
-	#PresetGame(pp_VAN_EX1_320)##
-	#PresetGame(pp_VAN_EX1_323)##
+	PresetGame(pp_VAN_EX1_320)##
+	PresetGame(pp_VAN_EX1_323)##
 	#PresetGame(pp_VAN_EX1_596)##
 	#PresetGame(pp_VAN_EX1_tk33)##
 	#PresetGame(pp_VAN_EX1_tk34)##
 	#PresetGame(pp_VAN_HERO_07bp)##
 	#PresetGame(pp_VAN_NEW1_003)##
 
-
-##########Story_09_DemonfirePuzzle##########
-
-class pp_Story_09_DemonfirePuzzle(Preset_Play):
-	""" Demonfire
-	Deal $2 damage to a minion. If itÅfs a friendly Demon, give it +2/+2 instead. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_09_DemonfirePuzzle", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_09_DoomguardPuzzle##########
-
-class pp_Story_09_DoomguardPuzzle(Preset_Play):
-	""" Doomguard
-	[Charge]. [Battlecry:] Discard two random cards. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_09_DoomguardPuzzle", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_09_SenseDemons##########
-
-class pp_Story_09_SenseDemons(Preset_Play):
-	""" Sense Demons
-	Draw 2 Demonsfrom your deck. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_09_SenseDemons", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########Story_09_Shadowbolt##########
-
-class pp_Story_09_Shadowbolt(Preset_Play):
-	""" Shadow Bolt
-	Deal $4 damageto a minion. """
-	def preset_deck(self):
-		self.mark1=self.exchange_card("Story_09_Shadowbolt", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.mark1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
 ##########VAN_CS2_057##########
