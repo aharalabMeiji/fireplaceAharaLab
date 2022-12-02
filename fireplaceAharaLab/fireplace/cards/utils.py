@@ -254,6 +254,19 @@ def exactCopy(card, source):
 	ret.script_data_text_0=card.script_data_text_0
 	return ret
 
+def get00(card):
+	if isinstance(card, list) or isinstance(card, tuple):
+		if len(card)>0:
+			card=card[0]
+		else:
+			card=None
+	if isinstance(card, list) or isinstance(card, tuple):
+		if len(card)>0:
+			card=card[0]
+		else:
+			card=None
+	return card
+
 #sample 
 
 class t_Action(TargetedAction):

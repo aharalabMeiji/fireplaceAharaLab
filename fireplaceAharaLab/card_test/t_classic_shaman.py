@@ -14,7 +14,7 @@ def classic_shaman():
 	#PresetGame(pp_VAN_CS2_050)##
 	#PresetGame(pp_VAN_CS2_051)##
 	#PresetGame(pp_VAN_CS2_052)## OK
-	#PresetGame(pp_VAN_CS2_053)##
+	PresetGame(pp_VAN_CS2_053)##
 	#PresetGame(pp_VAN_EX1_238)##
 	#PresetGame(pp_VAN_EX1_241)##
 	#PresetGame(pp_VAN_EX1_243)##
@@ -307,17 +307,15 @@ class pp_VAN_CS2_053(Preset_Play):
 	Draw a card. That card costs (3) less. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_CS2_053", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		newcard=self.controller.hand[-1]
+		self.asserting(newcard.cost==max(0,newcard.data.cost-3),"newcard.cost==max(0,newcard.data.cost-3)")
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()

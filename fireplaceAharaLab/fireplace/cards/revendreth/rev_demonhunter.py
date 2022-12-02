@@ -168,10 +168,10 @@ class REV_508_Action(TargetedAction):
 		amount=controller.relic_improvision
 		source.script_data_num_1=amount
 		card1=Draw(controller).trigger(source)
-		card1=card1[0]
+		card1=get00(card1)
 		Buff(card1, 'REV_508e', cost = -amount)
 		card2=Draw(controller).trigger(source)
-		card2=card2[0]
+		card2=get00(card2)
 		Buff(card2, 'REV_508e', cost = -amount)
 		controller.relic_improvision+=1
 		pass
