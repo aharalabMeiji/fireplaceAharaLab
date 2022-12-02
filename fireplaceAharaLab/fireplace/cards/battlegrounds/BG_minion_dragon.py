@@ -107,7 +107,7 @@ class BG24_300_Target(TargetedAction):
 			Buff(card.deepcopy_original, buff).trigger(source)
 class BG24_300:
 	""" Dozy Whelp (1) (0/3)
-	&lt;b&gt;&lt;b&gt;Taunt&lt;/b&gt;.&lt;/b&gt; Whenever this is attacked, gain +1 Attack permanently."""
+	[[Taunt].] Whenever this is attacked, gain +1 Attack permanently."""
 	events = Attack(ENEMY, SELF).on(BG24_300_Target(SELF, 'BG24_300e'))
 	pass
 BG24_300e=buff(1,0)

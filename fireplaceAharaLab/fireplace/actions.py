@@ -1104,6 +1104,10 @@ class Damage(TargetedAction):
  
 		if hasattr(target, 'divine_shield') and target.divine_shield:
 			target.game.trigger_actions(source, [LoseDivineShield(target)])
+			cards=[card for card in target.buffs if card.divine_shield==1]
+			for card in cards:
+				#card.data.tags[GameTag.DIVINE_SHIELD]=False
+				card.divine_shield=False
 			target.divine_shield = False
 			if Config.LOGINFO:
 				Config.log("Damage.do","%r's divine shield prevents %i damage."%( target, amount))

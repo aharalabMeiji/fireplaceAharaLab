@@ -216,7 +216,7 @@ class BG20_203_Action(TargetedAction):
 		#controller.once_per_turn=1
 class BG20_203:# <12>[1453]
 	""" Prophet of the Boar # renew 24.6
-	&lt;b&gt;Taunt&lt;/b&gt; After you play a Quilboar, get a &lt;b&gt;Blood Gem&lt;/b&gt;. """
+	[Taunt] After you play a Quilboar, get a [Blood Gem]. """
 	##[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """ # 
 	events = [
 		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
@@ -225,7 +225,7 @@ class BG20_203:# <12>[1453]
 	pass
 class BG20_203_G:# <12>[1453]
 	""" Prophet of the Boar # renew 24.6
-	&lt;b&gt;Taunt&lt;/b&gt; After you play a Quilboar, get 2 &lt;b&gt;Blood Gems&lt;/b&gt;."""
+	[Taunt] After you play a Quilboar, get 2 [Blood Gems]."""
 	#[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
 	events = [
 		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
@@ -437,7 +437,7 @@ class BG24_715_Action2(TargetedAction):
 		pass
 class BG24_715:##
 	""" Patient Scout
-	When you sell this, &lt;b&gt;Discover&lt;/b&gt; a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	When you sell this, [Discover] a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
 	# @ = self.script_data_num_1
 	events = [
 		Sell(CONTROLLER, SELF).on(BG24_715_Action(SELF)),
@@ -460,7 +460,7 @@ class BG24_715_G_Action(TargetedAction):
 		pass
 class BG24_715_G:
 	""" Patient Scout
-	When you sell this, &lt;b&gt;Discover&lt;/b&gt; two Tier @ minions. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	When you sell this, [Discover] two Tier @ minions. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
 	events = [
 		Sell(CONTROLLER, SELF).on(BG24_715_G_Action(SELF)),
 		BeginTurn(CONTROLLER).on(BG24_715_Action2(SELF))
@@ -671,7 +671,7 @@ class BG24_719_Target(TargetedAction):
 		pass
 class BG24_719:
 	""" Faceless Disciple
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Transform a minion into one from a Tavern Tier higher."""
+	#[Battlecry:] Transform a minion into one from a Tavern Tier higher."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
 	play = BG24_719_Target(TARGET)
 class BG24_719_G_Target(TargetedAction):
@@ -684,7 +684,7 @@ class BG24_719_G_Target(TargetedAction):
 		pass
 class BG24_719_G:
 	""" Faceless Disciple
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Transform a minion into one from 2 Tavern Tiers higher."""
+	#[Battlecry:] Transform a minion into one from 2 Tavern Tiers higher."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
 	play = BG24_719_G_Target(TARGET)
 
@@ -1016,13 +1016,13 @@ if BG_Vigilant_Stoneborn:#Vigilant Stoneborn	4	2	6
 	BG_Minion_Gold['BG24_023']='BG24_023_G'
 class BG24_023:
 	""" Vigilant Stoneborn
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +6 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
+	#[Battlecry:] Give a minion +6 Health and [Taunt]."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
 	play = Buff(TARGET, 'BG24_023e')
 BG24_023e=buff(0,6, taunt=True)
 class BG24_023_G:
 	""" Vigilant Stoneborn
-	#&lt;b&gt;Battlecry:&lt;/b&gt; Give a minion +12 Health and &lt;b&gt;Taunt&lt;/b&gt;."""
+	#[Battlecry:] Give a minion +12 Health and [Taunt]."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	# 
 	play = Buff(TARGET, 'BG24_023_Ge')
 BG24_023_Ge=buff(0,12, taunt=True)
@@ -1371,7 +1371,7 @@ class BG24_704_Action1(TargetedAction):
 		pass
 class BG24_704:
 	""" Interrogator Whitemane
-	#[x]&lt;b&gt;Start of Combat:&lt;/b&gt; Give the enemies opposite this &lt;b&gt;Taunt&lt;/b&gt;. They take double damage."""
+	#[x][Start of Combat:] Give the enemies opposite this [Taunt]. They take double damage."""
 	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e'))
 class BG24_704_e:
 	def apply(self, target):
@@ -1384,7 +1384,7 @@ class BG24_704_e:
 
 class BG24_704_G:
 	""" Interrogator Whitemane
-	#&lt;b&gt;Start of Combat:&lt;/b&gt; Give the enemies opposite this &lt;b&gt;Taunt&lt;/b&gt;. They take triple damage."""
+	#[Start of Combat:] Give the enemies opposite this [Taunt]. They take triple damage."""
 	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e_G'))
 class BG24_704_e_G:
 	def apply(self, target):
@@ -1654,13 +1654,13 @@ class BG24_712_Action(TargetedAction):
 		pass
 class BG24_712:
 	""" The Walking Fort(BG24_712) 4/6
-	At the end of your turn, give 4 friendly &lt;b&gt;Taunt&lt;/b&gt; minions +4/+4. """
+	At the end of your turn, give 4 friendly [Taunt] minions +4/+4. """
 	events = OWN_TURN_END.on(BG24_712_Action(CONTROLLER, 'BG24_712e'))
 	pass
 BG24_712e=buff(4,4)
 class BG24_712_G:
 	"""
-	At the end of your turn, give 4 friendly &lt;b&gt;Taunt&lt;/b&gt; minions +8/+8."""
+	At the end of your turn, give 4 friendly [Taunt] minions +8/+8."""
 	events = OWN_TURN_END.on(BG24_712_Action(CONTROLLER, 'BG24_712e_G'))
 	pass
 BG24_712e_G=buff(8,8)

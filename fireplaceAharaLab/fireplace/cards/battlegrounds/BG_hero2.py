@@ -1,4 +1,4 @@
-from ..utils import *
+Ôªøfrom ..utils import *
 
 
 BG_Hero2=[]
@@ -11,6 +11,7 @@ BG_Hero2_Buddy_Gold={}
 #  E - K
 ##Edwin VanCleef TB_BaconShop_HERO_01
 ##Elise Starseeker TB_BaconShop_HERO_42
+##Enhance-o Mechano BG24_HERO_204 ## new 25.0
 ##Forest Warden Omu TB_BaconShop_HERO_74
 ##Fungalmancer Flurgl TB_BaconShop_HERO_55
 ##Galakrond TB_BaconShop_HERO_02
@@ -142,6 +143,34 @@ class TB_BaconShop_HERO_42_Buddy_G:# <12>[1453]
 TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
 """ In The Distance, 	Costs (2) less. """
 
+
+
+##Enhance-o Mechano BG24_HERO_204 ## new 25.0
+BG_Hero2+=['BG24_HERO_204','BG24_HERO_204p']
+BG_PoolSet_Hero2+=['BG24_HERO_204']
+class BG24_HERO_204:
+	""" Enhance-o Mechano """
+class BG24_HERO_204p_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		exts=['taunt','windfury','reborn','divine_shield']
+		ext=random.choice(exts)
+		card=random.choice(controller.opponent.field)
+		if getattr(card, ext, False):
+			exts.remove(ext)
+			ext=random.choice(exts)
+		if ext=='taunt':
+			card.data.tags[GameTag.TAUNT]=True
+		elif ext=='windfury':
+			card.data.tags[GameTag.WINDFURY]=1
+		elif ext=='reborn':
+			card.data.tags[GameTag.REBORN]=True
+		elif ext=='divine_shield':
+			card.data.tags[GameTag.DIVINE_SHIELD]=True
+class BG24_HERO_204p:
+	""" Enhancification
+	[x][Passive.]¬†After each¬†[Refresh], give a minion in Bob's Tavern [Taunt], [Windfury], _[Reborn], or [Divine Shield]."""
+	events = Rerole(CONTROLLER).after(BG24_HERO_204p_Action())
 
 
 ##Forest Warden Omu #### HP OK ###
@@ -694,7 +723,7 @@ class TB_BaconShop_HERO_38_Buddy:# <12>[1453]
 	After you feed a minion a Banana, give it +1/+1."""
 	events = ApplyBanana(FRIENDLY + MINION).after(Buff(ApplyBanana.TARGET, 'TB_BaconShop_HERO_38_Buddy_e'))
 	pass
-TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] ÅEÅEΩoÅEÅEΩiÅEÅEΩiÅEÅEΩÅEåË≤ªÅEøÅEΩ
+TB_BaconShop_HERO_38_Buddy_e=buff(1,1)# <12>[1453] „Éª„ÉªÔΩΩo„Éª„ÉªÔΩΩi„Éª„ÉªÔΩΩi„Éª„ÉªÔΩΩ„ÉªÁëöÔΩ≤ÔΩª„ÉªÔΩø„ÉªÔΩΩ
 """ Banana Peel,	+1/+1. """
 class TB_BaconShop_HERO_38_Buddy_G:# <12>[1453]
 	""" Crazy Monkey

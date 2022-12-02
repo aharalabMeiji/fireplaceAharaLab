@@ -140,12 +140,12 @@ class BG24_707_Action(TargetedAction):
 		pass
 class BG24_707:
 	""" Bristlemane Scrapsmith (quilboar 3) (4/4)
-	After a friendly &lt;b&gt;Taunt&lt;/b&gt; minion dies, get a &lt;b&gt;Blood Gem&lt;/b&gt;."""
+	After a friendly [Taunt] minion dies, get a [Blood Gem]."""
 	events = Death(FRIENDLY + TAUNT).on(BG24_707_Action(CONTROLLER, 1))
 	pass
 class BG24_707_G:
 	"""
-	After a friendly &lt;b&gt;Taunt&lt;/b&gt; minion dies,get 2 &lt;b&gt; Blood Gems&lt;/b&gt;."""
+	After a friendly [Taunt] minion dies,get 2 [ Blood Gems]."""
 	events = Death(FRIENDLY + TAUNT).on(BG24_707_Action(CONTROLLER, 2))
 	pass
 

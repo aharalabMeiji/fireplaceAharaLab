@@ -43,6 +43,7 @@ BG24_Reward_Ethereal_Evidence=True # new 24.6  ### OK ###
 BG24_Reward_Volatile_Venom=True # new 24.6 ### OK ###
 BG24_Reward_Blood_Goblet=True # new 24.6#### OK ###
 BG24_Reward_Sinfall_Medallion=True # new 24.6  ### OK ###
+BG24_Enhance_a_matic=True # new 25.0 ### OK ###
 BG24_Reward_Kidnap_Sack=True # new 24.6.2 ### OK ###
 BG24_Reward_The_Golden_Hammer=True # new 24.6.2  ### OK ###
 
@@ -890,6 +891,48 @@ class BG24_Reward_712:# ,
 BG24_Reward_712e=buff(2,2)
 
 
+if BG24_Enhance_a_matic:
+	BG24_Reward+=['BG24_Reward_715','BG24_Reward_715e','BG24_Reward_715e2','BG24_Reward_715e3','BG24_Reward_715e4','BG24_Reward_715t','BG24_Reward_715t2','BG24_Reward_715t3','BG24_Reward_715t4']
+	BG24_Reward_Pool+=['BG24_Reward_715']
+class BG24_Reward_715_Action(GameAction):
+	def do(self, source):
+		card = random.choice(['BG24_Reward_715t','BG24_Reward_715t2','BG24_Reward_715t3','BG24_Reward_715t4'])
+		Give(CONTROLLER, card).trigger(source)
+class BG24_Reward_715:#
+	""" >Enhance-a-matic
+	At the start of your turn, get an Enhanced Part that gives +5/+5 and a random bonus."""
+	events = BeginBar(CONTROLLER).on(BG24_Reward_715_Action())
+	pass
+class BG24_Reward_715t:
+	""" Mega Horn
+	Give a minion +5/+5 and &lt;b&gt;Taunt&lt;/b&gt;. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
+	play=Buff(TARGET, 'BG24_Reward_715e')
+BG24_Reward_715e=buff(5, 5, taunt=True)
+class BG24_Reward_715t2:
+	""" Blazing Blades
+	Give a minion +5/+5 and &lt;b&gt;Windfury&lt;/b&gt;."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
+	play=Buff(TARGET, 'BG24_Reward_715e2')
+class BG24_Reward_715e2:
+	def apply(self, target):
+		target.windfury=1
+	tags={GameTag.ATK:5, GameTag.HEALTH:5, } 
+class BG24_Reward_715t3:
+	""" Bunker Plating
+	Give a minion +5/+5 and &lt;b&gt;Divine Shield&lt;/b&gt;. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
+	play=Buff(TARGET, 'BG24_Reward_715e3')
+class BG24_Reward_715e3:
+	tags={GameTag.ATK:5, GameTag.HEALTH:5, GameTag.DIVINE_SHIELD:1 } 
+class BG24_Reward_715t4:
+	""" BG24_Reward_715t4
+	Give a minion +5/+5 and &lt;b&gt;Reborn&lt;/b&gt;. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
+	play=Buff(TARGET, 'BG24_Reward_715e4')
+BG24_Reward_715e4=buff(5, 5, reborn=True)
+
+
 
 
 #
@@ -923,7 +966,7 @@ if BG24_Reward_The_Golden_Hammer:### OK #####
 	BG24_Reward_Pool+=['BG24_Reward_719']
 class BG24_Reward_719:# , 
 	"""The Golden Hammer(BG24_Reward_719)
-	&lt;b&gt;Spellcraft:&lt;/b&gt; Make a friendly minion Golden until next turn."""
+	[Spellcraft:] Make a friendly minion Golden until next turn."""
 	play = Spellcraft(CONTROLLER,'BG24_Reward_719t')
 	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG24_Reward_719t'))
 	tags={2359:'BG24_Reward_719t'}		

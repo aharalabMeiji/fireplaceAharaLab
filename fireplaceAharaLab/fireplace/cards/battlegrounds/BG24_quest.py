@@ -259,7 +259,7 @@ class BG24_Quest_351_Action(GameAction):
 			QuestCounter(source).trigger(source)
 class BG24_Quest_351:# 
 	""" Hire an Investigator
-	&lt;b&gt;Quest:&lt;/b&gt; End your turn with unspent Gold {0} times. """
+	[Quest:] End your turn with unspent Gold {0} times. """
 	#{0}=3 -> 2 (24.6.2)
 	events = OWN_TURN_END.on(BG24_Quest_351_Action())
 	pass
@@ -272,7 +272,7 @@ if BG24_Quest_Crack_the_Case:### OK ###
 	BG24_Quest_Pool+=['BG24_Quest_352']
 class BG24_Quest_352:#
 	""" Crack the Case
-	&lt;b&gt;Quest:&lt;/b&gt; Have friendly minions attack {0} times."""
+	[Quest:] Have friendly minions attack {0} times."""
 	## {0}=11
 	#<Tag enumID="535" name="QUEST_PROGRESS_TOTAL" type="Int" value="11"/>
 	events = BG_Attack(FRIENDLY + MINION).on(QuestCounter(SELF))
