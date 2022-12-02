@@ -12,7 +12,7 @@ def classic_warrior():
 	#PresetGame(pp_VAN_CS2_108)##
 	#PresetGame(pp_VAN_CS2_112)##
 	#PresetGame(pp_VAN_CS2_114)##
-	PresetGame(pp_VAN_EX1_084)##
+	#PresetGame(pp_VAN_EX1_084)## OK
 	#PresetGame(pp_VAN_EX1_391)##
 	#PresetGame(pp_VAN_EX1_392)##
 	#PresetGame(pp_VAN_EX1_398)##
@@ -248,17 +248,18 @@ class pp_VAN_EX1_084(Preset_Play):
 	Whenever you summon a minion with 3 or less Attack, give it [Charge]. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_EX1_084", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.summon_card(self.controller, self.card_choice("minionA3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
-		self.change_turn()
+		self.play_card(self.mark2)
+		self.asserting(self.mark2.charge==True,"self.mark2.charge==True")
+		self.attack_card(self.mark2, self.opponent.hero)
+		self.asserting(self.opponent.hero.damage>0,"self.opponent.hero.damage>0")
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -716,22 +717,27 @@ class pp_VAN_NEW1_036(Preset_Play):
 	Your minions can't be reduced below 1 Health this turn. Draw a card. """
 	def preset_deck(self):
 		self.mark1=self.exchange_card("VAN_NEW1_036", self.controller)
-		self.mark4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.mark4=self.mark4[0][0]
+		self.mark2=self.summon_card(self.controller, self.card_choice("minionH3"))
+		self.mark3=self.summon_card(self.controller, self.card_choice("minionH3"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.mark1)
+		Hit(self.mark2, 4).trigger(self.opponent)
+		self.asserting(self.mark2.health==1,"self.mark2.health==1")
 		self.change_turn()
 		### opp
-		self.change_turn()
+		Hit(self.mark3, 4).trigger(self.opponent)
+		self.asserting(self.mark3.zone==Zone.GRAVEYARD, "self.mark3.zone==Zone.GRAVEYARD")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
 			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

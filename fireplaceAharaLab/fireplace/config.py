@@ -1,13 +1,14 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=4
+	HEARTHSTONE=7
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
 
 	#4: Checking a specific card for debugging
 	#5: List up cards data (to build a new cards file.)
-	#6: Vector Agent, random deck, simulation
+	#6: Vector Agent, random deck, standard simulation
+	#7: Vector Agent, random deck, classic simulation
 	#10: Decoding from a 'deckcode' to list of cards.
 
 	#ランク戦のオプション
@@ -35,15 +36,11 @@ class Config:# ()is the default value
 	#4: Checking a specific card for debugging
 	CARD_TEST_SET='VANILLA'
 	## VANILLA,THE_BARRENS,STORMWIND,ALTERAC_VALLEY,THE_SUNKEN_CITY,REVENDRETH, CORE
-<<<<<<< Updated upstream
-	CARD_TEST_CLASS='DRUID'
-=======
-	CARD_TEST_CLASS='PALADIN'
->>>>>>> Stashed changes
+	CARD_TEST_CLASS='NEUTRAL'
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
-	#6 option
-	PLAYERA_CLASS='ROGUE'
+	#6 #7 option
+	PLAYERA_CLASS='WARRIOR'
 	PLAYERB_CLASS='SHAMAN'
 	SIMULATION_NUMBER=100
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
