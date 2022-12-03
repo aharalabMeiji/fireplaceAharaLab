@@ -1,29 +1,29 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=8
+	HEARTHSTONE=1
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
 
 	#4: Checking a specific card for debugging
 	#5: List up cards data (to build a new cards file.)
-	#6: Vector Agent, random deck, standard simulation
-	#7: Vector Agent, random deck, classic simulation
+	#6: Vector Agent(fix), random deck, standard battles simulation
+	#7: Vector Agent(fix), random deck, classic battles simulation
 
 	#8: bigDeck games (with classic pool)
 
 	#10: Decoding from a 'deckcode' to list of cards.
 
-	#ランク戦のオプション
-	FSFIXED=0 # fixing first and second YES:>0 NO:0(0) #(先攻と後攻を固定) 
-	COIN=1 # giving a coin to the second  YES:>0 NO:0(1) #(後攻にコインを与えるか)
-	EX_CARD=1 # giving an extra ard to the second  YES:>0 NO:0(1) #(後攻にカードを与えるか)
+	#1 standard battle options
+	FSFIXED=0 # fixing first and second YES:>0 NO:0(0) # 
+	COIN=1 # giving a coin to the second  YES:>0 NO:0(1) #
+	EX_CARD=1 # giving an extra ard to the second  YES:>0 NO:0(1) #
 	# options of play_set_of_games()
 	#HEROHPOPTION=30 #ヒーロー体力(30)
 	#P1MAXMANA=1 # 先攻マナ(1) 1~10
 	#P2MAXMANA=1 # 後攻マナ(1) 1~10
 	#P1HAND=3 # 先攻ハンド枚数(3) 1~9 
-	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 ※コインは含まない
+	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 # the coin is not included
 
 
 	LOGINFO=0 # as log.info
@@ -42,20 +42,22 @@ class Config:# ()is the default value
 	CARD_TEST_CLASS='NEUTRAL'
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
-	#6 #7 option (fixing agents)
+	#6 #7 options (fixing agents, random deck)
 	PLAYERA_CLASS='WARRIOR'
 	PLAYERB_CLASS='SHAMAN'
 	SIMULATION_NUMBER=100
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
-	#8 option
-	PLAYERA_DECK="faceHunter"
-	PLAYERB_DECK="bigWarrior"
+	#8 options (specific agents, specific deck, classic battle pool)
+	PLAYERA_DECK="bigWarrior"
+	PLAYERB_DECK="clownDruid"
+	## faceHunter, bigWarrior, clownDruid
 	PLAYERA_AGENT="Vector"
 	PLAYERB_AGENT="Vector"
-	## faceHunter, bigWarrior, clownDruid
-	#SIMULATION_NUMBER=100 # see above
+	#Vector
+	SIMULATION_BIGDECK_NUMBER=100 # number of matches of simulation
 
+	#3 battlegrounds options
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes

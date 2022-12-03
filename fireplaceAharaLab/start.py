@@ -105,7 +105,7 @@ def simulation_bigDeck_classic_main():
 		,myClass=playerB_class)
 	playerA_deck=getattr(BigDeck,Config.PLAYERA_DECK, [])
 	playerB_deck=getattr(BigDeck,Config.PLAYERB_DECK, [])
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=playerA_deck, deck2=playerB_deck, gameNumber=Config.SIMULATION_NUMBER, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=playerA_deck, deck2=playerB_deck, gameNumber=Config.SIMULATION_BIGDECK_NUMBER, debugLog=True)
 
 if __name__ == "__main__":
 	if Config.HEARTHSTONE==1 or Config.HEARTHSTONE==2:
