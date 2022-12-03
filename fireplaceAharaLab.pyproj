@@ -135,10 +135,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\__init__.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\bigWarrior.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\bigWarrior\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="fireplaceAharaLab\fireplace\cards\bigDecks\bigWarrior.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\bigDecks\faceHunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_hunter.py" />
@@ -155,8 +153,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\hero_dream\dream.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\clownDruid.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\clownDruid\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\bigDecks\clownDruid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\core_demon_hunter.py">
       <SubType>Code</SubType>
     </Compile>
@@ -190,13 +187,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\core\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\hunter.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\neutral_common.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\cards\faceHunter\__init__.py">
+    <Compile Include="fireplaceAharaLab\fireplace\cards\bigDecks\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\hero_dream\hero.py">
@@ -328,10 +319,8 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\bigWarrior\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\alterac\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\clownDruid\" />
-    <Folder Include="fireplaceAharaLab\fireplace\cards\faceHunter\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\bigDecks\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\classic\" />

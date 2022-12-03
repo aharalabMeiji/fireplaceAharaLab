@@ -121,11 +121,11 @@ class EX1_538:
 	play = Summon(CONTROLLER, "EX1_538t") * Count(ENEMY_MINIONS)
 
 
-#class EX1_539:
-#	"""Kill Command"""
-#	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
-#	powered_up = Find(FRIENDLY_MINIONS + BEAST)
-#	play = powered_up & Hit(TARGET, 5) | Hit(TARGET, 3)
+class EX1_539:
+	"""Kill Command"""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY: 0}
+	powered_up = Find(FRIENDLY_MINIONS + BEAST)
+	play = powered_up & Hit(TARGET, 5) | Hit(TARGET, 3)
 
 
 class EX1_544:
@@ -215,9 +215,7 @@ class DS1_188:
 	"""Gladiator's Longbow"""
 	update = Refresh(FRIENDLY_HERO, {GameTag.IMMUNE_WHILE_ATTACKING: True})
 
-#class EX1_536:
-#	"""Eaglehorn Bow"""
-#	events = Reveal(FRIENDLY_SECRETS).on(Buff(SELF, "EX1_536e"))
-#
-#
-#EX1_536e = buff(health=1)
+class EX1_536:
+	"""Eaglehorn Bow"""
+	events = Reveal(FRIENDLY_SECRETS).on(Buff(SELF, "EX1_536e"))
+EX1_536e = buff(health=1)

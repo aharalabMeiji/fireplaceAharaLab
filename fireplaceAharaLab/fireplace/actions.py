@@ -2226,7 +2226,8 @@ class CastSecret(TargetedAction):
 		if not isinstance(cards,list):
 			cards = [cards]
 		for card in cards:
-			card.zone=Zone.SECRET
+			if getattr(card, "this_is_secret", False):
+				card.zone=Zone.SECRET
 
 
 class Evolve(TargetedAction):

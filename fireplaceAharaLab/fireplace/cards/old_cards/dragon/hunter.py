@@ -21,13 +21,14 @@ class DRG_251t:
 	""" Gryphon
 	Rush """
 
-#class DRG_253:#OK!
-#	"""Dwarven Sharpshooter
-#	Your Hero Power can target_minions."""
-#	## deal 2 damage to enemy hero HERO_05bp, HERO_05dbp
-#	## deal 3 damage to enemy hero HERO_05bp2
-#	play = ChangeHeroPower(CONTROLLER, "HERO_05dbp")
-#	# see also fireplace.actions.Death.do
+class DRG_253:#OK!
+	"""Dwarven Sharpshooter
+	Your Hero Power can target_minions."""
+	## deal 2 damage to enemy hero HERO_05bp, HERO_05dbp
+	## deal 3 damage to enemy hero HERO_05bp2
+	play = ChangeHeroPower(CONTROLLER, "HERO_05dbp")
+	# see also fireplace.actions.Death.do
+	pass
 
 #class HERO_05dbp:
 #	"""Steady Shot (Rexxar)"""
@@ -60,12 +61,13 @@ class DRG_006:#OK
 	requirements = {PlayReq.REQ_ENEMY_TARGET: 0, PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_TARGET_TO_PLAY: 0}
 	play = Hit(TARGET,3), HOLDING_DRAGON & Hit(ENEMY_HERO,3)
 
-#class DRG_252:#OK
-#	"""Phase Stalker
-#	[x]After you use your Hero
-#	Power, cast a [Secret]
-#	from your deck."""
-#	events = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
+class DRG_252:#OK
+	"""Phase Stalker
+	[x]After you use your Hero
+	Power, cast a [Secret]
+	from your deck."""
+	events = Activate(CONTROLLER, HERO_POWER).on(Summon(CONTROLLER, RANDOM(FRIENDLY_DECK + SECRET)))
+	pass
 
 class DRG_010:#OK
 	"""Diving Gryphon
@@ -85,10 +87,11 @@ class DRG_007:#OK
 	play = HOLDING_DRAGON & Attack(FRIENDLY_HERO, ENEMY).on(Buff(FRIENDLY_WEAPON,"DRG_007e"))
 DRG_007e = buff(health=+1)# fixing 'durability=health'
 
-#class DRG_256:#OK
-#	"""Dragonbane
-#	After you use your Hero Power, deal 5 damage to a random enemy."""
-#	play = Activate(CONTROLLER, HERO_POWER).on(Hit(RANDOM_ENEMY_CHARACTER, 5))
+class DRG_256:#OK
+	"""Dragonbane
+	After you use your Hero Power, deal 5 damage to a random enemy."""
+	play = Activate(CONTROLLER, HERO_POWER).on(Hit(RANDOM_ENEMY_CHARACTER, 5))
+	pass
 
 class DRG_095:#OK
 	"""Veranus

@@ -1136,7 +1136,8 @@ class Spell(PlayableCard):
 		self.receives_double_spelldamage_bonus = False
 		self.repeatable=False # TSC_952
 		self.spell_cast_twice=False
-		self.copied_from_opponent = False		
+		self.copied_from_opponent = False	
+		self.this_is_spell = True
 		super().__init__(data)
 
 	def get_damage(self, amount, target):
@@ -1186,6 +1187,7 @@ class Secret(PlayableCard):
 		self.repeatable=False # TSC_952
 		self.spell_cast_twice=False
 		self.copied_from_opponent = False		
+		self.this_is_secret=True
 		super().__init__(data)
 
 	@property

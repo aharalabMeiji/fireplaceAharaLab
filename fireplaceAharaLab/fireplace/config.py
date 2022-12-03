@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=2
+	HEARTHSTONE=8
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -9,6 +9,9 @@ class Config:# ()is the default value
 	#5: List up cards data (to build a new cards file.)
 	#6: Vector Agent, random deck, standard simulation
 	#7: Vector Agent, random deck, classic simulation
+
+	#8: bigDeck games (with classic pool)
+
 	#10: Decoding from a 'deckcode' to list of cards.
 
 	#ランク戦のオプション
@@ -39,12 +42,19 @@ class Config:# ()is the default value
 	CARD_TEST_CLASS='NEUTRAL'
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
-	#6 #7 option
+	#6 #7 option (fixing agents)
 	PLAYERA_CLASS='WARRIOR'
 	PLAYERB_CLASS='SHAMAN'
 	SIMULATION_NUMBER=100
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
+	#8 option
+	PLAYERA_DECK="faceHunter"
+	PLAYERB_DECK="bigWarrior"
+	PLAYERA_AGENT="Vector"
+	PLAYERB_AGENT="Vector"
+	## faceHunter, bigWarrior, clownDruid
+	#SIMULATION_NUMBER=100 # see above
 
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime

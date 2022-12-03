@@ -133,17 +133,9 @@ from fireplace.cards.hero_dream import hero, dream
 Heroes=hero.Heroes
 Dream= ['DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']
 Etc = ['SCH_307t']
-faceHunter =[#old faceHunter
-		'DRG_252','DRG_256','DRG_253','ULD_152',# wild
-		'CORE_EX1_610','EX1_536','EX1_536e','EX1_539',# wild
-		]
-bigWarrior = [
-	'CORE_EX1_169','SW_023','SCH_237','SCH_237e','CORE_EX1_410',
-	'BT_124','BT_124e','DMF_522','BT_117','SW_094','BT_781',
-	'BAR_845','BAR_844','YOP_005','YOP_005t','CORE_EX1_407',
-	'SW_021','SCH_533','SW_024','SW_024e','SCH_337','SCH_337t',
-	'SW_068','SCH_621',
-	]
+
+from fireplace.cards.bigDecks.faceHunter import FaceHunter#faceHunter,bigWarrior, clownDruid
+from fireplace.cards.bigDecks.bigWarrior import BigWarrior
 clownDruid = [
 	#'SCH_427','SCH_333','SCH_333e','SCH_610','SCH_616','SCH_609','SCH_609e',
 	#'DMF_075','DMF_075a','DMF_075a2',
@@ -151,7 +143,7 @@ clownDruid = [
 	#'CORE_EX1_169','CORE_CS2_013','CS2_013t',
 	#'BAR_042',	
 ]
-
+bigDecks=[FaceHunter, BigWarrior]
 
 #+Classic_Cards\
 # VANILLA = 1646
@@ -172,7 +164,7 @@ Classic_Warrior=classic_warrior.Classic_Warrior
 Classic_Cards=[Classic_DemonHunter, Classic_Druid, Classic_Hunter, Classic_Mage, Classic_Neutral, Classic_Paladin, Classic_Priest, Classic_Rogue, Classic_Shaman, Classic_Warlock, Classic_Warrior, Heroes, Dream]
 
 if Config.HEARTHSTONE!=4 or Config.CARD_TEST_SET!="VANILLA":
-	All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards + [Heroes,Dream,Etc,faceHunter,bigWarrior,clownDruid]
+	All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards + [Heroes,Dream,Etc]
 else:
-	All=Classic_Cards
+	All=Classic_Cards + bigDecks
 

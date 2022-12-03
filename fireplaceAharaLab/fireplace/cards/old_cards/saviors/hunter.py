@@ -17,10 +17,11 @@ class ULD_155p:#OK
 	Give your minions +2_Attack."""
 	activate = Buff(FRIENDLY_MINIONS, "ULD_155e")
 
-#class ULD_152:#OK
-#	"""Pressure Plate	Common
-#	[Secret:] After your opponent casts a spell, destroy a random enemy_minion."""
-#	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
+class ULD_152:#OK
+	"""Pressure Plate	Common
+	[Secret:] After your opponent casts a spell, destroy a random enemy_minion."""
+	secret = Play(OPPONENT, SPELL).on(Reveal(SELF), Destroy(RANDOM_ENEMY_MINION))
+	pass
 
 class ULD_430:#OK
 	"""Desert Spear	Common
