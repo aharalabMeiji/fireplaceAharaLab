@@ -1,6 +1,6 @@
 from ..utils import *
 
-clownDruid = []
+ClownDruid = []
 #'AV_205'
 #'BT_130','BT_130',
 #'BAR_042','BAR_042',
@@ -20,7 +20,7 @@ clownDruid = []
 
 
 
-
+ClownDruid+=['AV_205','AV_205a','AV_205p','AV_205pb',]
 #class AV_205:##
 #	""" Wildheart Guff ( 5/*/5) Hero
 #	Battlecry: Set your maximum Mana to 20. Gain a Mana Crystal. Draw a card."""
@@ -49,7 +49,7 @@ clownDruid = []
 #	pass
 
 
-
+ClownDruid+=['BT_130',]
 class BT_130: #OK
 	"""Overgrowth
 	Gain two empty Mana Crystals."""
@@ -57,7 +57,7 @@ class BT_130: #OK
 	pass
 
 
-
+ClownDruid+=['BAR_042',]
 #class BAR_042_Action(TargetedAction): 
 #	def do(self, source, target):
 #		_highestCostCards=[]
@@ -74,7 +74,9 @@ class BT_130: #OK
 #			_cost = _card.cost
 #			if Config.LOGINFO:
 #				print("Highest cost spell is %r (cost %d)"%(_card, _cost))
-#			Give(target,_card).then(Summon(CONTROLLER,RANDOM(MINION+(COST==Attr(Give.CARD,GameTag.COST))))).trigger(source)
+#			Give(target,_card).trigger(source)
+#			get00(newcard)
+#			Summon(source.controller, RandomMinion(cost=_cost)).trigger(source)
 #		else:
 #			if Config.LOGINFO:
 #				print("no spell is in the deck"%())
@@ -87,7 +89,7 @@ class BT_130: #OK
 
 
 
-
+ClownDruid+=['BAR_535',]
 class BAR_535:##OK <-barrens.druid
 	"""Thickhide Kodo
 	Taunt: Deathrattle: Gain 5 Armor."""
@@ -96,19 +98,18 @@ class BAR_535:##OK <-barrens.druid
 
 
 
-
+ClownDruid+=['CORE_CS2_013','CS2_013t',]
 #class CORE_CS2_013: # copied from classic #OK
 #	"""Wild Growth
 #	Gain an empty Mana Crystal."""
 #	play = GainEmptyMana(CONTROLLER, 1)
 #	pass
-
 #class CS2_013t:
 #	play = Draw(CONTROLLER)
 
 
 
-
+ClownDruid+=['CORE_EX1_169',]
 #class CORE_EX1_169: #OK core-druid
 #	"""Innervate
 #	Gain 1 Mana Crystal this turn only."""
@@ -116,7 +117,7 @@ class BAR_535:##OK <-barrens.druid
 #	pass
 
 
-
+ClownDruid+=['DMF_075','DMF_075a','DMF_075a2',]
 class DMF_075_Choice(GenericChoice):
 	def choose(self, card):
 		self.next_choice=None
@@ -145,14 +146,14 @@ class DMF_075_Choice(GenericChoice):
 class DMF_075: ###OK  Darkmoon_Druid
 	"""Guess the Weight
 	Draw a card. Guess if your next card costs more or less to draw it."""
-	entourage = ['DMF_075a','DMF_075a2']
+	#entourage = ['DMF_075a','DMF_075a2']
 	def play(self):
 		controller = self.controller
 		new_card=Draw(CONTROLLER,1).trigger(controller)
 		if len(new_card[0])>0:
 			new_card=new_card[0][0]
 			self.choiceText=" %s(%d)より :"%(new_card.data.name, new_card.cost)
-			DMF_075_Choice(CONTROLLER,RandomEntourage()*2).trigger(self)
+			DMF_075_Choice(CONTROLLER, RandomID('DMF_075a','DMF_075a2')*2).trigger(self)
 	pass
 class DMF_075a:
 	pass
@@ -161,6 +162,8 @@ class DMF_075a2:
 
 
 
+
+ClownDruid+=['DMF_078','DMF_078e','DMF_078t']
 class DMF_078: #-> darkmoon.neutral
 	"""Strongman
 	Taunt Corrupt: This costs (0)."""
@@ -169,21 +172,24 @@ DMF_078e=buff(cost=0)
 class DMF_078t:###OK
 	"""Strongman"""
 	##[Corrupted] [Taunt]
+
 	pass
 
 
 
-
+ClownDruid+=['DMF_163','DMF_163t',]
 class DMF_163: # -> darkmoon.neutral
 	"""Carnival Clown
 	Taunt: Battlecry: Summon 2 copies of this. Corrupt: Fill your board with copies."""
+	play = Summon(CONTROLLER, ExactCopy(SELF)) * 2
 	pass
 class DMF_163t:
+	play = Summon(CONTROLLER, ExactCopy(SELF)) * 6
 	pass
 
 
 
-
+ClownDruid+=['SCH_311',]
 class SCH_311: #scholo-neutral
 	"""Animated Broomstick
 	Rush Battlecry: Give your other minions Rush."""
@@ -192,6 +198,8 @@ class SCH_311: #scholo-neutral
 
 
 
+
+ClownDruid+=['SCH_333','SCH_333e',]
 class SCH_333:###OK Scholo_Druid
 	"""Nature Studies
 	Discover a spell. Your next one costs (1) less."""
@@ -206,7 +214,7 @@ class SCH_333e:
 
 
 
-
+ClownDruid+=['SCH_427',]
 class SCH_427: #OK scholo-neutral
 	"""Lightning Bloom
 	Gain 2 Mana Crystals this turn only. Overload: (2)"""
@@ -215,7 +223,7 @@ class SCH_427: #OK scholo-neutral
 
 
 
-
+ClownDruid+=['SCH_605',]
 class SCH_605:#-> scholo.neutral 
 	"""Lake Thresher
 	Also damages the minions next to whomever this attacks."""
@@ -225,7 +233,7 @@ class SCH_605:#-> scholo.neutral
 
 
 
-
+ClownDruid+=['SCH_609','SCH_609e',]
 class SCH_609:###OK scholo-druid
 	"""Survival of the Fittest
 	Give +4/+4 to all minions in your hand, deck, and battlefield."""
@@ -239,7 +247,7 @@ class SCH_609:###OK scholo-druid
 SCH_609e=buff(atk=4,health=4)
 
 
-
+ClownDruid+=['SCH_610',]
 class SCH_610:###OK -> scholo_hunter
 	"""Guardian Animals
 	Summon two Beasts that cost (5) or less from your deck. Give them Rush."""
@@ -251,7 +259,7 @@ class SCH_610:###OK -> scholo_hunter
 
 
 
-
+ClownDruid+=['SCH_616',]
 class SCH_616:###OK  scholo-druid
 	"""Twilight Runner
 	Stealth: Whenever this attacks, draw 2 cards."""

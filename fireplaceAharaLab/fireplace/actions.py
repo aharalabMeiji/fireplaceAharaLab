@@ -1104,7 +1104,7 @@ class Damage(TargetedAction):
  
 		if hasattr(target, 'divine_shield') and target.divine_shield:
 			target.game.trigger_actions(source, [LoseDivineShield(target)])
-			cards=[card for card in target.buffs if card.divine_shield==1]
+			cards=[card for card in target.buffs if getattr(card, 'divine_shield', 0)==1]
 			for card in cards:
 				#card.data.tags[GameTag.DIVINE_SHIELD]=False
 				card.divine_shield=False
