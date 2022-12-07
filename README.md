@@ -31,11 +31,6 @@ Classic battle is available [here](https://github.com/aharalabMeiji/fireplaceAha
 >     def initialize(self, locale="jaJP"):
 >
 
-* ログ表示をやめる方法
-
-> fireplaceフォルダのファイルlogging.py の line 18あたり
->
->     #logger.addHandler(ch)
 
 ## start.pyの見方
 
