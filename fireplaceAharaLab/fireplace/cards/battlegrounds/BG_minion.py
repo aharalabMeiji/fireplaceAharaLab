@@ -556,8 +556,8 @@ class TB_BaconUps_068:# <3>[1453]
 	""" Houndmaster
 	[Battlecry:] Give a friendly Beast +4/+4 and [Taunt]. """
 	requirements = {
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
-		}
+		PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_FRIENDLY_TARGET:0,PlayReq.REQ_MINION_TARGET:0, 
+		PlayReq.REQ_TARGET_WITH_RACE:Race.BEAST }
 	play = Buff(TARGET, 'TB_BaconUps_068e')
 	pass
 TB_BaconUps_068e=buff(4,4,taunt=True)# <3>[1453]

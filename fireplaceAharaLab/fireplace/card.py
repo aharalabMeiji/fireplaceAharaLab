@@ -1515,6 +1515,7 @@ class QuestReward(PlayableCard):
 	sidequest_counter=0
 	quest_progress_total=int_property('quest_progress_total')
 	this_is_questreward=True
+	this_is_secret=True
 	script_data_num_1=None
 
 	@property
@@ -1574,6 +1575,7 @@ class Sidequest(PlayableCard):
 		self.spell_cast_twice=False
 		self.copied_from_opponent = False		
 		self.sidequest_counter=0
+		self.this_is_secret=True
 		super().__init__(data)
 
 	@property
