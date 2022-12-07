@@ -176,7 +176,7 @@ class BG21_021_G:# <12>[1453]
 
 
 
-#Stasis Elemental(3)   ### need check ###
+#Stasis Elemental(3)   ### OK ###
 if BG_Stasis_Elemental: # 
 	BG_Minion_Elemental+=['BGS_122','TB_BaconUps_161']
 	BG_PoolSet_Elemental[3].append('BGS_122')
@@ -188,7 +188,7 @@ class BGS_122:# <12>[1453] ###
 		bartender = self.controller.opponent
 		tier = self.controller.tavern_tier
 		elementals = []
-		for gr in range(1, tier):
+		for gr in range(1, tier+1):
 			elementals += BG_PoolSet_Elemental[gr]
 		if 'BGS_122' in elementals:
 			elementals.remove('BGS_122')

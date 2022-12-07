@@ -543,7 +543,7 @@ if BG_Houndmaster:#Houndmaster	3	4	3	-		 ### maybe ###
 	BG_PoolSet_Minion[3].append('BG_DS1_070')
 	BG_Minion_Gold['BG_DS1_070']='TB_BaconUps_068'
 	pass
-class DS1_070:# <3>[1453] 猟犬使い
+class BG_DS1_070:# <3>[1453] 猟犬使い
 	""" Houndmaster
 	[Battlecry:] Give a friendly Beast +2/+2 and [Taunt]."""
 	requirements = {
