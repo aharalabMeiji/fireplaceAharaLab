@@ -179,7 +179,7 @@ class BG22_HERO_000p_t3:# <12>[1453]
 		BeginBar(CONTROLLER).on(AddScriptDataNum1(SELF,1),ChangeHeroPower(CONTROLLER, 'BG22_HERO_000p'))
 		]
 	pass
-class  BG22_HERO_000p_t4_Action(Action):
+class  BG22_HERO_000p_t4_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
 		field=controller.opponent.field
