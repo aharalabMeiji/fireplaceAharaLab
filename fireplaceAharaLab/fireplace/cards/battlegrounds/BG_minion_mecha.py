@@ -302,15 +302,19 @@ class BG21_023_G:# <12>[1453]
 
 ##  Wargear (4) 23.6  ### OK ###
 if BG_Wargear:
-	BG_Minion_Mecha+=['BG_BOT_563','BG_BOT_563_G',]
+	BG_Minion_Mecha+=['BG_BOT_563','BG_BOT_563e','BG_BOT_563_G','BG_BOT_563_Ge',]
 	BG_PoolSet_Mecha[4].append('BG_BOT_563')
 	BG_Mecha_Gold['BG_BOT_563']='BG_BOT_563_G'
 class BG_BOT_563:
 	""" Wargear
 	[Magnetic]"""
+	play = Magnetic(SELF, ['BG_BOT_563e'])
 	pass
+BG_BOT_563e=buff(5,5)
 class BG_BOT_563_G:
+	play = Magnetic(SELF, ['BG_BOT_563_Ge'])
 	pass
+BG_BOT_563_Ge=buff(10,10)
 
 
 #Holy Mecherel(5)

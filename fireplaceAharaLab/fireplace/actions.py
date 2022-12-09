@@ -3510,11 +3510,11 @@ class Buy(TargetedAction): ## battlegrounds
 			for c in bartender.field:
 				if c==card:
 					#bartender.field.remove(c)
-					card.zone=Zone.SETASIDE
-					card.controller = controller
 					buffs=[]
 					for buff in card.buffs:
 						buffs.append(buff)
+					card.zone=Zone.SETASIDE
+					card.controller = controller
 					card.zone = Zone.HAND
 					for buff in buffs:
 						buff.apply(card)
