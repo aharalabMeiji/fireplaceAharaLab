@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=3
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -69,7 +69,7 @@ class Config:# ()is the default value
 	PLAYER1_HUMAN=0 ## battleground with human player
 	CARD_PRESET1=''
 	CARD_PRESET2=''
-	RANDOM_RACE=1 #プレーする種族をランダムに選ぶ（default:1）
+	RANDOM_RACE=1 #random sampling from races（default:1）
 	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']
 	RACE_CHOICE=['pirate','beast']# valid when RANDOM_RACE=0
 	HERO_1='' #第1プレーヤーはヒーローを指定できる
