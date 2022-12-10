@@ -178,7 +178,7 @@ class BG24_Quest_311:#
 	[Quest:] Play {0} [Battlecry] minions. """
 	# [2466]=1, [2642]=92, [2647]=80, 
 	# 	#{0}=6
-	events = Play(CONTROLLER, FRIENDLY+BATTLECRY).on(QuestCounter(SELF))
+	events = BG_Play(CONTROLLER, FRIENDLY+BATTLECRY).on(QuestCounter(SELF))
 	pass
 
 
