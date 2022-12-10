@@ -324,6 +324,7 @@
     <Folder Include="fireplaceAharaLab\fireplace\cards\core\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\hero_dream\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\classic\" />
+    <Folder Include="fireplaceAharaLab\fireplace\cards\lichking\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\revendreth\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\battlegrounds\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\sunken\" />
