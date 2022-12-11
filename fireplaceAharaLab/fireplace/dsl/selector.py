@@ -527,6 +527,7 @@ PIRATE = EnumSelector(Race.PIRATE) | ALL
 TOTEM = EnumSelector(Race.TOTEM) | ALL
 ELEMENTAL = EnumSelector(Race.ELEMENTAL) | ALL
 QUILBOAR = EnumSelector(Race.QUILBOAR) | ALL
+UNDEAD =  EnumSelector(Race.UNDEAD) | ALL
 
 NATURE = EnumSelector(SpellSchool.NATURE)
 HOLY = EnumSelector(SpellSchool.HOLY)

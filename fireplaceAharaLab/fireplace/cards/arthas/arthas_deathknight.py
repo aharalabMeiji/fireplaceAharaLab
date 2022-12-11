@@ -35,57 +35,78 @@ Arthas_Malignant_Horror=True
 
 if Arthas_Howling_Blast:# 
 	Arthas_DeathKnight+=['RLK_015']
-class RLK__Action(GameAction):
-	def do(self, source):
+class RLK_015_Action(GameAction):
+	def do(self, source, target):
+		Hit(target, 3).trigger(source)
+		Freeze(target).trigger(source)
+		for card in source.controller.opponent.field:
+			if card!=target:
+				Hit(card, 1).trigger(source)
 		pass
 class RLK_015:# <1>[1869]
-	""" Howling Blast
+	""" Howling Blast (spell)
 	Deal $3 damage to an enemy and <b>Freeze</b> it. Deal $1 damage to all other enemies. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	play = RLK_015_Action(TARGET)
 	pass
 
 if Arthas_Plague_Strike:# 
 	Arthas_DeathKnight+=['RLK_018']
-class RLK__Action(GameAction):
-	def do(self, source):
+	Arthas_DeathKnight+=['RLK_018t']
+class RLK_018_Action(GameAction):
+	def do(self, source, target):
+		Hit(target, 3).trigger(source)
+		source.controller.game.process_deaths()
+		if target.zone==Zone.GRAVEYARD:
+			Summon(source.controller, 'RLK_018t').trigger(source)
 		pass
 class RLK_018:# <1>[1869]
-	""" Plague Strike
+	""" Plague Strike (spell)
 	Deal $3 damage to a minion. If that kills it, summon a 2/2 Zombie with <b>Rush</b>. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	play = RLK_018_Action(TARGET)
+	pass
+class RLK_018t:# <12>[1776]
+	""" Rampaging Zombie
+	<b>Rush</b> """
 	#
 	pass
 
 if Arthas_Icy_Touch:# 
 	Arthas_DeathKnight+=['RLK_038']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_038:# <1>[1869]
 	""" Icy Touch
 	Deal $2 damage to an enemy and <b>Freeze</b> it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	play = Hit(TARGET, 2), Freeze(TARGET)
 	pass
 
 if Arthas_Horn_of_Winter:# 
 	Arthas_DeathKnight+=['RLK_042']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_042:# <1>[1869]
 	""" Horn of Winter
 	Refresh 2 Mana Crystals. """
-	#
+	play = RefreshMana(CONTROLLER, 2)
 	pass
 
 if Arthas_Unholy_Frenzy:# 
 	Arthas_DeathKnight+=['RLK_056']
-class RLK__Action(GameAction):
-	def do(self, source):
+class RLK_056_Action(GameAction):
+	def do(self, source, target):
+		killed=[]
+		for card in reversed(source.controller.field):
+			RegularAttack(card, target).trigger(source)
+			source.controller.game.process_deaths()
+			if card.zone==Zone.GRAVEYARD:
+				killed.append(card.id)
+		for cardID in killed:
+			Summon(source.controller, cardID).trigger(source)
 		pass
 class RLK_056:# <1>[1869]
 	""" Unholy Frenzy
 	Choose an enemy minion. Your minions attack it. Resummon any that die. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	play = RLK_056_Action(TARGET)
 	pass
 
 if Arthas_Dark_Transformation:# 

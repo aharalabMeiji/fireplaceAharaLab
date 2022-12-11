@@ -2,7 +2,6 @@ from ..utils import *
 
 Lich_Neutral=[]
 
-#Lich_Rampaging_Zombie=True# ------------------>
 Lich_Shatterskin_Gargoyle=True
 Lich_Infected_Peasant=True
 Lich_Street_Sweeper=True
@@ -43,13 +42,6 @@ Lich_Hawkstrider_Rancher=True
 Lich_Banshee=True
 
 
-if Lich_Rampaging_Zombie:# ------------------>
-	Lich_Neutral+=['RLK_018t']
-class RLK_018t:# <12>[1776]
-	""" Rampaging Zombie
-	<b>Rush</b> """
-	#
-	pass
 
 if Lich_Shatterskin_Gargoyle:# ###
 	Lich_Neutral+=['RLK_029']
@@ -106,24 +98,31 @@ class RLK_117:# <12>[1776]
 
 if Lich_Drakkari_Embalmer:# 
 	Lich_Neutral+=['RLK_119']
-class RLK__Action(GameAction):
-	def do(self, source):
+class RLK_119_Action(GameAction):
+	def do(self, source, target):
+		if target and hasattr(target, 'this_is_minion') and target.race==Race.UNDEAD:
+			target.reborn=True
 		pass
 class RLK_119:# <12>[1776]
 	""" Drakkari Embalmer
 	<b>Battlecry:</b> Give a friendly Undead <b>Reborn</b>. """
-	#
+	requirements = {PlayReq.REQ_TARGET_IF_AVAILABLE:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,
+				PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD }## Race.UNDEAD = 11
+	play = RLK_119_Action(TARGET)
 	pass
 
-if Lich_Bone_Flinger:# 
+if Lich_Bone_Flinger:# #################### deal damage to whom?
 	Lich_Neutral+=['RLK_123']
-class RLK__Action(GameAction):
+class RLK_123_Action(GameAction):
 	def do(self, source):
+		##
+		##
+		##
 		pass
 class RLK_123:# <12>[1776]
 	""" Bone Flinger
 	<b>Battlecry:</b> If a friendly Undead died after your last turn, deal 2 damage. """
-	#
+	play = RLK_123_Action()
 	pass
 
 if Lich_Silvermoon_Arcanist:# 
@@ -137,13 +136,13 @@ class RLK__Action(GameAction):
 class RLK_218:# <12>[1776]
 	""" Silvermoon Arcanist
 	<b>Spell Damage +2</b> <b>Battlecry:</b> Your spells canÅft target heroes this turn. """
-	#
+	#<Tag enumID="192" name="SPELLPOWER" type="Int" value="2"/>
+	play = Buff(CONTROLLER, 'RLK_218e')
 	pass
-
 class RLK_218e:# <12>[1776]
 	""" Insane Arcanity
 	Can't be targeted by spells this turn. """
-	#
+	events = OWN_TURN_END.on(Destroy(SELF))
 	pass
 
 class RLK_218e2:# <12>[1776]
