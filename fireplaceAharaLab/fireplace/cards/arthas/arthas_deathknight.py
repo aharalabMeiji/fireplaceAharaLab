@@ -63,7 +63,7 @@ class RLK_018_Action(GameAction):
 class RLK_018:# <1>[1869]
 	""" Plague Strike (spell)
 	Deal $3 damage to a minion. If that kills it, summon a 2/2 Zombie with <b>Rush</b>. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0}	#
 	play = RLK_018_Action(TARGET)
 	pass
 class RLK_018t:# <12>[1776]
@@ -111,16 +111,16 @@ class RLK_056:# <1>[1869]
 
 if Arthas_Dark_Transformation:# 
 	Arthas_DeathKnight+=['RLK_057']
+	Arthas_DeathKnight+=['RLK_057t']
 class RLK__Action(GameAction):
 	def do(self, source):
 		pass
 class RLK_057:# <1>[1869]
 	""" Dark Transformation
 	Transform an Undead into a 4/5 Undead Monstrosity with <b>Rush</b>. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD }	#
+	play = Morph(TARGET, 'RLK_057t')
 	pass
-
-	Arthas_DeathKnight+=['RLK_057t']
 class RLK_057t:# <1>[1869]
 	""" Undead Monstrosity
 	<b>Rush</b> """
