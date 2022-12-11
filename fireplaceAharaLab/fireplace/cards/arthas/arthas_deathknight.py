@@ -220,6 +220,7 @@ class RLK_110e:# <1>[1869]
 
 if Arthas_Tomb_Guardians:# 
 	Arthas_DeathKnight+=['RLK_118']
+	Arthas_DeathKnight+=['RLK_118t3']
 class RLK__Action(GameAction):
 	def do(self, source):
 		pass
@@ -228,8 +229,6 @@ class RLK_118:# <1>[1869]
 	Summon two 2/2 Zombies with <b>Taunt</b>. Spend 4 <b>Corpses</b> to give them <b>Reborn</b>. """
 	#
 	pass
-
-	Arthas_DeathKnight+=['RLK_118t3']
 class RLK_118t3:# <1>[1869]
 	""" Menacing Zombie
 	<b>Taunt</b> """

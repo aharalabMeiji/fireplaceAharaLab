@@ -115,9 +115,10 @@ if Lich_Bone_Flinger:# #################### deal damage to whom?
 	Lich_Neutral+=['RLK_123']
 class RLK_123_Action(GameAction):
 	def do(self, source):
-		##
-		##
-		##
+		cards=[card for card in source.controller.death_last_opponent_turn+source.controller.death_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		if len(cards):
+			card=random.choice(source.controller.opponent.field + [source.controller.opponent.hero])
+			Hit(card, 2).trigger(source)
 		pass
 class RLK_123:# <12>[1776]
 	""" Bone Flinger
@@ -130,8 +131,10 @@ if Lich_Silvermoon_Arcanist:#
 	Lich_Neutral+=['RLK_218e']
 	Lich_Neutral+=['RLK_218e2']
 	Lich_Neutral+=['RLK_218e3']
-class RLK__Action(GameAction):
+class RLK_218_Action(GameAction):
 	def do(self, source):
+		source.controller.hero.cant_be_targeted_by_spells=False
+		source.discard()
 		pass
 class RLK_218:# <12>[1776]
 	""" Silvermoon Arcanist
@@ -142,15 +145,15 @@ class RLK_218:# <12>[1776]
 class RLK_218e:# <12>[1776]
 	""" Insane Arcanity
 	Can't be targeted by spells this turn. """
-	events = OWN_TURN_END.on(Destroy(SELF))
+	def apply(self, target):
+		target.hero.cant_be_targeted_by_spells=True
+	events = OWN_TURN_END.on(RLK_218_Action())
 	pass
-
 class RLK_218e2:# <12>[1776]
 	""" Arcane Insanity
 	Can't be targeted by spells this turn. """
 	#
 	pass
-
 class RLK_218e3:# <12>[1776]
 	""" Insane Arcane Power
 	Your spells can’t target heroes this turn. """
@@ -165,7 +168,9 @@ class RLK__Action(GameAction):
 class RLK_219:# <12>[1776]
 	""" Sunfury Clergy
 	<b>Battlecry:</b> Restore 3 Health to all friendly characters. <b>Manathirst (6):</b> Restore 6 Health instead. """
-	#
+	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="6"/>
+	#手札から使用する時、マナクリスタルがX個になっていた場合に効果が強化される。
+	play = Manathirst(6, [Heal(FRIENDLY_MINIONS, 6)], [Heal(FRIENDLY_MINIONS, 3)]) 
 	pass
 
 if Lich_Tenacious_Sanlayn:# 
@@ -187,7 +192,7 @@ class RLK__Action(GameAction):
 class RLK_221:# <12>[1776]
 	""" Crystal Broker
 	<b>Manathirst (5):</b> Summon a random 3-Cost minion. <b>Manathirst (10):</b> Summon an 8-Cost minion instead. """
-	#
+	play = Manathirst(10, [Summon(CONTROLLER, RandomMinion(cost=8))], []), Manathirst(5, [Summon(CONTROLLER, RandomMinion(cost=3))], [])
 	pass
 
 if Lich_Astalor_Bloodsworn:# 
@@ -200,19 +205,22 @@ class RLK__Action(GameAction):
 class RLK_222:# <12>[1776]
 	""" Astalor Bloodsworn
 	<b>Battlecry:</b> Add Astalor, the Protector to your hand. <b>Manathirst (@):</b> Deal 2 damage. """
-	#
+	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="4"/>
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="4"/>
+	play = Manathirst(4, [Give(CONTROLLER, 'RLK_222t1'), Hit(RANDOM(ENEMY_CHARACTERS),2)], [Give(CONTROLLER, 'RLK_222t1')])
 	pass
 
 class RLK_222t1:# <12>[1776]
 	""" Astalor, the Protector
 	<b>Battlecry:</b> Add Astalor, the Flamebringer to your hand. <b>Manathirst (@):</b> Gain 5 Armor. """
-	#
+	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="7"/>
+	play = Manathirst(7, [Give(CONTROLLER, 'RLK_222t2'), GainArmor(FRIENDLY_HERO,5)], [Give(CONTROLLER, 'RLK_222t2')])
 	pass
 
 class RLK_222t2:# <12>[1776]
 	""" Astalor, the Flamebringer
 	<b>Battlecry:</b> Deal 8 damage randomly split between all enemies. <b>Manathirst (10):</b> Deal 8 more. """
-	#
+	play = Manathirst(10, [SplitHit(ENEMY_CHARACTERS, 16)], [SplitHit(ENEMY_CHARACTERS, 8)])
 	pass
 
 if Lich_Silvermoon_Sentinel:# 

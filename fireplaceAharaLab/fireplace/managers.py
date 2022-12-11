@@ -223,6 +223,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.INSPIRE: "has_inspire",
 	GameTag.JADE_GOLEM: "jade_golem",
 	GameTag.LIFESTEAL: "lifesteal",
+	GameTag.MANATHIRST: "manathirst",
 	GameTag.MARK_OF_EVIL: "mark_of_evil",# aharalab, 22.12.2020
 	GameTag.MULTI_CLASS_GROUP: "multi_class_group",
 	GameTag.NUM_ATTACKS_THIS_TURN: "num_attacks",

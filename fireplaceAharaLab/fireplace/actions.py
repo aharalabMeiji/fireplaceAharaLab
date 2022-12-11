@@ -1659,6 +1659,26 @@ class ManaThisTurn(TargetedAction):
 			return
 		target.temp_mana += min(target.max_resources - target.mana, amount)
 
+class Manathirst(GameAction):
+	"""
+	"""
+	def do(self, source, amount, action1, action2, target=None):
+		mana = source.controller.mana
+		manathirst=amount
+		#manathirst=getattr(source, 'manathirst', 0)
+		#assert isinstance(action1, list) amd isinstance(action2, list), ""
+		if mana==manathirst:
+			if action1!=[]:
+				for action in action1:
+					if isinstance(action, TargetedAction) or isinstance(action, GameAction) or isinstance(action, Choice):
+						action.trigger(source)
+		else:
+			if action2!=[]:
+				for action in action2:
+					if isinstance(action, TargetedAction) or isinstance(action, GameAction) or isinstance(action, Choice):
+						action.trigger(source)
+		pass
+
 class ManaThisTurnOnly(TargetedAction):
 	"""
 	Give player targets a amount Mana this turn.

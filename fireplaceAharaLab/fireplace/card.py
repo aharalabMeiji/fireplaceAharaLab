@@ -924,6 +924,7 @@ class Minion(Character):
 	frenzy = boolean_property("frenzy")
 	tech_level = int_property("tech_level") # battlegrounds
 	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
+	manathirst = boolean_property("manathirst")
 	imp = boolean_property("imp")
 
 	silenceable_attributes = (

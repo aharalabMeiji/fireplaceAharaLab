@@ -492,6 +492,20 @@ class Player(Entity, TargetableByAuras):
 			if _log[1] == self.game.turn:
 				_ret.append(_log[0])
 		return _ret
+	@property
+	def death_last_opponent_turn(self):
+		_ret = []
+		for _log in self._death_log:
+			if _log[1] == self.game.turn-1:
+				_ret.append(_log[0])
+		return _ret
+	@property
+	def death_last_turn(self):
+		_ret = []
+		for _log in self._death_log:
+			if _log[1] == self.game.turn-2:
+				_ret.append(_log[0])
+		return _ret
 
 
 	##play_log
