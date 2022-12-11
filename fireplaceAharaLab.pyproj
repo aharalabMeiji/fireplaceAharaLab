@@ -54,6 +54,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_rogue.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_shaman.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\arthas\arthas_deathknight.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_hunter.py" />
@@ -197,6 +198,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\cardlist.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_warrior.py" />
