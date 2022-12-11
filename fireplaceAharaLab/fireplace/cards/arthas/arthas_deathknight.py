@@ -10,7 +10,7 @@ Arthas_Unholy_Frenzy=True
 Arthas_Dark_Transformation=True
 Arthas_Nerubian_Swarmguard=True
 Arthas_Frostwyrms_Fury=True
-Arthas_Hematurge=True
+Arthas_Hematurge=False ###################################pending
 Arthas_Deathchiller=True
 Arthas_Frostmourne=True
 Arthas_Asphyxiate=True
@@ -129,34 +129,27 @@ class RLK_057t:# <1>[1869]
 
 if Arthas_Nerubian_Swarmguard:# 
 	Arthas_DeathKnight+=['RLK_062']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_062:# <1>[1869]
 	""" Nerubian Swarmguard
 	<b>Taunt</b> <b>Battlecry:</b> Summon two copies of this minion. """
-	#
+	play = Summon(CONTROLLER, ExactCopy(SELF)) * 2
 	pass
 
 if Arthas_Frostwyrms_Fury:# 
 	Arthas_DeathKnight+=['RLK_063']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_063:# <1>[1869]
 	""" Frostwyrm's Fury
 	Deal $5 damage. <b>Freeze</b> all enemy minions. Summon a 5/5 Frostwyrm. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
+	play = Hit(TARGET, 5), Freeze(ENEMY_MINIONS), Summon(CONTROLLER, 'RLK_063t')
 	pass
-
 	Arthas_DeathKnight+=['RLK_063t']
 class RLK_063t:# <1>[1869]
 	""" Frostwyrm
-	 """
-	#
+	 """	#
 	pass
 
-if Arthas_Hematurge:# 
+if Arthas_Hematurge:# #### i dont know how to Spend a <b>Corpse</b> #################
 	Arthas_DeathKnight+=['RLK_066']
 class RLK__Action(GameAction):
 	def do(self, source):
@@ -164,7 +157,7 @@ class RLK__Action(GameAction):
 class RLK_066:# <1>[1869]
 	""" Hematurge
 	<b>Battlecry:</b> Spend a <b>Corpse</b> to <b>Discover</b> a Blood Rune card. """
-	#
+	#play = 
 	pass
 
 if Arthas_Deathchiller:# 

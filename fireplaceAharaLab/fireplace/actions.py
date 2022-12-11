@@ -3082,7 +3082,7 @@ class CeremonialMaul(TargetedAction):#SCH_523:
 
 class Freeze(TargetedAction):
 	"""
-
+	TARGET = ActionArg()#TARGET
 	"""
 	TARGET = ActionArg()#TARGET
 	def do(self, source, target):
