@@ -12,7 +12,7 @@ Arthas_Nerubian_Swarmguard=True
 Arthas_Frostwyrms_Fury=True
 Arthas_Hematurge=False ###################################pending
 Arthas_Deathchiller=True
-Arthas_Frostmourne=True
+Arthas_Frostmourne=False ###################################pending
 Arthas_Asphyxiate=True
 Arthas_Ymirjar_Frostbreaker=True
 Arthas_Tomb_Guardians=True
@@ -151,7 +151,7 @@ class RLK_063t:# <1>[1869]
 
 if Arthas_Hematurge:# #### i dont know how to Spend a <b>Corpse</b> #################
 	Arthas_DeathKnight+=['RLK_066']
-class RLK__Action(GameAction):
+class RLK_066_Action(GameAction):
 	def do(self, source):
 		pass
 class RLK_066:# <1>[1869]
@@ -162,16 +162,13 @@ class RLK_066:# <1>[1869]
 
 if Arthas_Deathchiller:# 
 	Arthas_DeathKnight+=['RLK_083']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_083:# <1>[1869]
 	""" Deathchiller
 	After you cast a spell, deal 1 damage to two random enemies. """
-	#
+	events = OWN_SPELL_PLAY.after(Hit(RANDOM(ENEMY_MINIONS), 1), Hit(RANDOM(ENEMY_MINIONS), 1))
 	pass
 
-if Arthas_Frostmourne:# 
+if Arthas_Frostmourne:# ### no way to get log killed by this weapon. ###############
 	Arthas_DeathKnight+=['RLK_086']
 class RLK__Action(GameAction):
 	def do(self, source):
@@ -184,34 +181,41 @@ class RLK_086:# <1>[1869]
 
 if Arthas_Asphyxiate:# 
 	Arthas_DeathKnight+=['RLK_087']
-class RLK__Action(GameAction):
+class RLK_087_Action(GameAction):
 	def do(self, source):
+		high=[]
+		for card in source.controller.opponent.field:
+			if card.type==CardType.MINION:
+				if high==[] or high[0].atk<card.atk:
+					high=[card]
+				elif high[0].atk==card.atk:
+					high.append(card)
+		if len(high):
+			card = random.choice(high)
+			Destroy(card).trigger(source)
 		pass
 class RLK_087:# <1>[1869]
 	""" Asphyxiate
 	Destroy the highest Attack enemy minion. """
-	#
+	play = RLK_087_Action()
 	pass
 
 if Arthas_Ymirjar_Frostbreaker:# 
 	Arthas_DeathKnight+=['RLK_110']
-class RLK__Action(GameAction):
+	Arthas_DeathKnight+=['RLK_110e']
+class RLK_110_Action(GameAction):
 	def do(self, source):
+		cards=[card for card in source.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		if len(cards):
+			Buff(source, 'RLK_110e', atk=len(cards)).trigger(source)
 		pass
 class RLK_110:# <1>[1869]
 	""" Ymirjar Frostbreaker
 	<b>Battlecry:</b> Gain +1_Attack for each Frost spell in your hand. """
-	#
+	play = RLK_110_Action()
 	pass
-
-	Arthas_DeathKnight+=['RLK_110e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_110e:# <1>[1869]
-	""" Shattering Strength
-	+1 Attack. """
-	#
+	""" Shattering Strength	+1 Attack. """
 	pass
 
 if Arthas_Tomb_Guardians:# 
