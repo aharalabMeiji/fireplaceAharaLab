@@ -5,7 +5,7 @@ from hearthstone.deckstrings import parse_deckstring
 from fireplace import cards
 
 def printClasses():
-	myCardSet=CardSet.VANILLA#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
+	myCardSet=CardSet.RETURN_OF_THE_LICH_KING#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
 	myCardClass=CardClass.NEUTRAL##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 	setText={
 		CardSet.VANILLA:'Classic_',
@@ -14,6 +14,8 @@ def printClasses():
 		CardSet.ALTERAC_VALLEY:'Alterac_',
 		CardSet.THE_SUNKEN_CITY:'Sunken_',
 		CardSet.REVENDRETH:'Rev_',
+		CardSet.RETURN_OF_THE_LICH_KING:'Lich_',
+		CardSet.PATH_OF_ARTHAS:'Arthas_',
 		}
 	classText={
 		CardClass.DEMONHUNTER:'DemonHunter',
@@ -27,6 +29,8 @@ def printClasses():
 		CardClass.SHAMAN:'Shaman',
 		CardClass.WARLOCK:'Warlock',
 		CardClass.WARRIOR:'Warrior',
+		CardClass.DEATHKNIGHT:'DeathKnight',
+		
 		}
 	mySetText=setText[myCardSet]
 	myClassText=classText[myCardClass]
