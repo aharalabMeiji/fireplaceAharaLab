@@ -482,9 +482,6 @@ class RLK_915:# <12>[1776]
 
 if Lich_Bloodied_Knight:# 
 	Lich_Neutral+=['RLK_926']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_926:# <12>[1776]
 	""" Bloodied Knight
 	At the end of your turn, deal 2 damage to your hero. """
@@ -511,9 +508,6 @@ class RLK_950:# <12>[1776]
 
 if Lich_Coroner:# 
 	Lich_Neutral+=['RLK_951']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_951:# <12>[1776]
 	""" Coroner
 	<b>Battlecry:</b> <b>Freeze</b> an enemy minion. <b>Manathirst (6):</b> <b>Silence</b> it first. """
@@ -523,9 +517,6 @@ class RLK_951:# <12>[1776]
 
 if Lich_Enchanter:# 
 	Lich_Neutral+=['RLK_952']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_952:# <12>[1776]
 	""" Enchanter
 	Enemy minions take double damage during your turn. """
@@ -540,62 +531,44 @@ class RLK_952:# <12>[1776]
 if Lich_Silvermoon_Armorer:# 
 	Lich_Neutral+=['RLK_955']
 	Lich_Neutral+=['RLK_955e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_955:# <12>[1776]
 	""" Silvermoon Armorer
 	<b>Rush</b> <b>Manathirst (@):</b> Gain +2/+2. """
-	#
+	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="7"/>
+	play = Manathirst(7, [Buff(SELF, 'RLK_955e')], [])
 	pass
-
-class RLK_955e:# <12>[1776]
-	""" Supplied
-	+2/+2. """
-	#
-	pass
+RLK_955e=buff(2,2)
+""" Supplied	+2/+2. """
 
 if Lich_Banshee:# 
 	Lich_Neutral+=['RLK_957']
 	Lich_Neutral+=['RLK_957e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_957:# <12>[1776]
 	""" Banshee
 	<b>Deathrattle:</b> Give a random friendly Undead +2/+1. """
-	#
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD), 'RLK_957e')
 	pass
-
-class RLK_957e:# <12>[1776]
-	""" Banshee's Wail
-	+2/+1. """
-	#
-	pass
+RLK_957e=buff(2,1)
+""" Banshee's Wail	+2/+1. """
 
 if Lich_Hawkstrider_Rancher:# 
 	Lich_Neutral+=['RLK_970']
 	Lich_Neutral+=['RLK_970e']
 	Lich_Neutral+=['RLK_970t']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_970:# <12>[1776]
 	""" Hawkstrider Rancher
 	After you play a minion, give it +1/+1 and "<b>Deathrattle:</b> Summon a 1/1 Hawkstrider." """
-	#
+	events = Play(CONTROLLER, MINION).after(Buff(Play.CARD, 'RLK_970e'))
 	pass
-
 class RLK_970e:# <12>[1776]
 	""" Hawkriding
 	+1/+1. <b>Deathrattle:</b> Summon a 1/1 Hawkstrider. """
-	#
+	tags = {GameTag.ATK:1, GameTag.HEALTH:1, GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, 'RLK_970t')
 	pass
-
 class RLK_970t:# <12>[1776]
 	""" Hawkstrider
 	 """
-	#
 	pass
 
 
