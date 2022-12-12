@@ -22,7 +22,7 @@ Lich_Lorthemar_Theron=True
 Lich_Infectious_Ghoul=True
 Lich_Sanctum_Spellbender=True
 Lich_Arms_Dealer=True
-#Lich_Silvermoon_Farstrider_Spellpower=True# ------------------>
+Lich_Silvermoon_Farstrider_Spellpower=False# ------------------>
 Lich_Flesh_Behemoth=True
 Lich_Plaguespreader=True
 Lich_Foul_Egg=True
@@ -93,7 +93,7 @@ if Lich_Incorporeal_Corporal:#
 class RLK_117:# <12>[1776]
 	""" Incorporeal Corporal
 	After this minion attacks, destroy it. """
-	events = Attack(SELF).after(Destroy(Attack.DEFFENDER))
+	events = Attack(SELF).after(Destroy(Attack.DEFENDER))
 	pass
 
 if Lich_Drakkari_Embalmer:# 
@@ -138,7 +138,7 @@ class RLK_218_Action(GameAction):
 		pass
 class RLK_218:# <12>[1776]
 	""" Silvermoon Arcanist
-	<b>Spell Damage +2</b> <b>Battlecry:</b> Your spells canÅft target heroes this turn. """
+	<b>Spell Damage +2</b> <b>Battlecry:</b> Your spells can't target heroes this turn. """
 	#<Tag enumID="192" name="SPELLPOWER" type="Int" value="2"/>
 	play = Buff(CONTROLLER, 'RLK_218e')
 	pass
@@ -156,11 +156,11 @@ class RLK_218e2:# <12>[1776]
 	pass
 class RLK_218e3:# <12>[1776]
 	""" Insane Arcane Power
-	Your spells canÅft target heroes this turn. """
+	Your spells can't target heroes this turn. """
 	#
 	pass
 
-if Lich_Sunfury_Clergy:# 
+if Lich_Sunfury_Clergy:# ### OK ###
 	Lich_Neutral+=['RLK_219']
 class RLK__Action(GameAction):
 	def do(self, source):

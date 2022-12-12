@@ -103,7 +103,7 @@ if Psychic_Conjurer:#
 	Core_Priest+=['CORE_EX1_193']
 class CORE_EX1_193:# <6>[1637]## 23.6 ## OK
 	""" Psychic Conjurer
-	[Battlecry:] Copy a card in your opponent’s deck and add it to your hand. """
+	[Battlecry:] Copy a card in your opponent's deck and add it to your hand. """
 	play= Give(CONTROLLER, Copy(RANDOM(ENEMY_DECK)))
 	pass
 

@@ -1664,7 +1664,7 @@ class Manathirst(GameAction):
 	"""
 	def do(self, source, amount, action1, action2, target=None):
 		mana = source.controller.mana
-		manathirst=amount
+		manathirst=amount-source.cost
 		#manathirst=getattr(source, 'manathirst', 0)
 		#assert isinstance(action1, list) amd isinstance(action2, list), ""
 		if mana==manathirst:

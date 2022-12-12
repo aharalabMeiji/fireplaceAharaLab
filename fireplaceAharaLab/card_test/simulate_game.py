@@ -85,6 +85,10 @@ def card_test():
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
 			from card_test.t_rev_neutral import rev_neutral
 			rev_neutral()
+	elif Config.CARD_TEST_SET=='RETURN_OF_THE_LICH_KING':
+		if Config.CARD_TEST_CLASS=='NEUTRAL':
+			from card_test.t_lich_neutral import lich_neutral
+			lich_neutral()
 	pass
 
 

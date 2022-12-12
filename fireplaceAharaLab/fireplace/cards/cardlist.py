@@ -128,6 +128,11 @@ Revendreth_Cards=[Revendreth_DemonHunter,Revendreth_Druid,Revendreth_Hunter,\
 	Revendreth_Priest,Revendreth_Priest,Revendreth_Rogue,\
 	Revendreth_Shaman,Revendreth_Warlock,Revendreth_Warrior]
 
+from fireplace.cards.lichking import lich_neutral
+Lichking_Neutral=lich_neutral.Lich_Neutral
+
+Lichking_Cards=[Lichking_Neutral]
+
 # Hero
 from fireplace.cards.hero_dream import hero, dream
 Heroes=hero.Heroes
@@ -158,7 +163,8 @@ Classic_Warrior=classic_warrior.Classic_Warrior
 Classic_Cards=[Classic_DemonHunter, Classic_Druid, Classic_Hunter, Classic_Mage, Classic_Neutral, Classic_Paladin, Classic_Priest, Classic_Rogue, Classic_Shaman, Classic_Warlock, Classic_Warrior, Heroes, Dream]
 
 if Config.HEARTHSTONE!=4 or Config.CARD_TEST_SET!="VANILLA":
-	All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards + [Heroes,Dream,Etc]
+	All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + \
+		Revendreth_Cards + Lichking_Cards + [Heroes,Dream,Etc]
 else:
 	All=Classic_Cards + bigDecks
 

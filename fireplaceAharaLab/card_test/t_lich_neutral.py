@@ -13,7 +13,8 @@ def lich_neutral():
 	#PresetGame(pp_RLK_119)##
 	#PresetGame(pp_RLK_123)##
 	#PresetGame(pp_RLK_218)##
-	#PresetGame(pp_RLK_219)##
+	#PresetGame(pp_RLK_219)## OK 
+	PresetGame(pp_RLK_219b)## OK 
 	#PresetGame(pp_RLK_220)##
 	#PresetGame(pp_RLK_221)##
 	#PresetGame(pp_RLK_222)##
@@ -49,8 +50,8 @@ def lich_neutral():
 class pp_RLK_018t(Preset_Play):
 	""" Rampaging Zombie
 	<b>Rush</b> """
-	class1=CardClass.NEUTRAL
-	class2=CardClass.NEUTRAL
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_018t", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
@@ -288,7 +289,7 @@ class pp_RLK_123(Preset_Play):
 
 class pp_RLK_218(Preset_Play):
 	""" Silvermoon Arcanist
-	<b>Spell Damage +2</b> <b>Battlecry:</b> Your spells canÅft target heroes this turn. """
+	<b>Spell Damage +2</b> <b>Battlecry:</b> Your spells can't target heroes this turn. """
 	class1=CardClass.NEUTRAL
 	class2=CardClass.NEUTRAL
 	def preset_deck(self):
@@ -317,30 +318,53 @@ class pp_RLK_218(Preset_Play):
 ##########RLK_219##########
 
 class pp_RLK_219(Preset_Play):
-	""" Sunfury Clergy
+	""" Sunfury Clergy (cost:3)
 	<b>Battlecry:</b> Restore 3 Health to all friendly characters. <b>Manathirst (6):</b> Restore 6 Health instead. """
-	class1=CardClass.NEUTRAL
-	class2=CardClass.NEUTRAL
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_219", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH8")).trigger(self.controller)
 		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
+		Hit(self.con4, 6).trigger(self.opponent)
+		self.play_card(self.con1, target=self.con4)
+		self.asserting(self.con4.health==8-6+3,'self.con4.health==8-6+3') 
 		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
+	pass
+class pp_RLK_219b(Preset_Play):
+	""" Sunfury Clergy (cost:3)
+	<b>Battlecry:</b> Restore 3 Health to all friendly characters. <b>Manathirst (6):</b> Restore 6 Health instead. """
+	class1=CardClass.HUNTER
+	class2=CardClass.HUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_219", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH8")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		Hit(self.con4, 6).trigger(self.opponent)
+		self.controller.max_mana=6
+		self.play_card(self.con1, target=self.con4)
+		self.asserting(self.con4.health==8-6+6,'self.con4.health==8-6+6') 
+		### opp
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 

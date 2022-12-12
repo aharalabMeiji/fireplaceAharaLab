@@ -259,7 +259,7 @@ class pp_CORE_DRG_090(Preset_Play):# <6>[1637]
 
 class pp_CORE_EX1_193(Preset_Play):# <6>[1637]## 
 	""" Psychic Conjurer
-	[Battlecry:] Copy a card in your opponent’s deck and add it to your hand. """
+	[Battlecry:] Copy a card in your opponent's deck and add it to your hand. """
 	class1=CardClass.PRIEST
 	class2=CardClass.PRIEST
 	def preset_deck(self):

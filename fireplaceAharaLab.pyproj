@@ -199,6 +199,7 @@
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\cardlist.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_neutral.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_warrior.py" />

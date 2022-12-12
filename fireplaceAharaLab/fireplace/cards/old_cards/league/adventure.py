@@ -8,7 +8,7 @@ RandomWish = RandomID("LOEA02_03", "LOEA02_04", "LOEA02_05", "LOEA02_06", "LOEA0
 
 
 class LOEA02_02:
-	"""Djinn’s Intuition"""
+	"""Djinn's Intuition"""
 	activate = Draw(CONTROLLER), Give(OPPONENT, RandomWish)
 
 
