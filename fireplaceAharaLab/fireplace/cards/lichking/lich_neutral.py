@@ -396,9 +396,6 @@ class RLK_831:# <12>[1776]
 if Lich_Foul_Egg:# 
 	Lich_Neutral+=['RLK_833']
 	Lich_Neutral+=['RLK_833t']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_833:# <12>[1776]
 	""" Foul Egg
 	<b>Deathrattle:</b> Summon a 3/3 Undead Chicken. """
@@ -439,53 +436,48 @@ class RLK_834e:# <12>[1776]
 
 if Lich_Vrykul_Necrolyte:# 
 	Lich_Neutral+=['RLK_867']
-	Lich_Neutral+=['RLK_867e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
+	Lich_Neutral+=['RLK_867e','RLK_018t']
 class RLK_867:# <12>[1776]
 	""" Vrykul Necrolyte
 	<b>Battlecry:</b> Give a friendly minion "<b>Deathrattle:</b> Summon a 2/2 Zombie with <b>Rush</b>." """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+	play = Buff(TARGET, 'RLK_867e')
 	pass
-
 class RLK_867e:# <12>[1776]
 	""" It's Necro-Lit
 	<b>Deathrattle:</b> Summon a 2/2 Zombie with <b>Rush</b>. """
-	#
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, 'RLK_018t')
 	pass
 
 if Lich_Scourge_Rager:# 
 	Lich_Neutral+=['RLK_900']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_900:# <12>[1776]
 	""" Scourge Rager
 	<b>Reborn</b> <b>Battlecry:</b> Die. """
-	#
+	play = Destroy(SELF)
 	pass
 
 if Lich_Umbral_Geist:# 
 	Lich_Neutral+=['RLK_914']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_914:# <12>[1776]
 	""" Umbral Geist
 	<b>Deathrattle:</b> Add a random Shadow spell to your hand. """
-	#
+	deathrattle = Give(CONTROLLER, RandomSpell(spell_school=SpellSchool.SHADOW))
 	pass
 
 if Lich_Amber_Whelp:# 
 	Lich_Neutral+=['RLK_915']
-class RLK__Action(GameAction):
+class RLK_915_Action(GameAction):
 	def do(self, source):
+		cards=[card for card in source.controller.field if card.type==CardType.MINION and card.race==Race.DRAGON]
+		if len(cards):
+			Hit(random.choice(source.opponent.characters), 3).trigger(source)
 		pass
 class RLK_915:# <12>[1776]
 	""" Amber Whelp
 	<b>Battlecry:</b> If you're holding a Dragon, deal 3 damage. """
-	#
+	play = RLK_915_Action()
 	pass
 
 if Lich_Bloodied_Knight:# 
@@ -496,18 +488,25 @@ class RLK__Action(GameAction):
 class RLK_926:# <12>[1776]
 	""" Bloodied Knight
 	At the end of your turn, deal 2 damage to your hero. """
-	#
+	events = OWN_TURN_END.on(Hit(FRIENDLY_HERO, 2))
 	pass
 
 if Lich_Translocation_Instructor:# 
 	Lich_Neutral+=['RLK_950']
-class RLK__Action(GameAction):
-	def do(self, source):
+class RLK_950_Action(GameAction):
+	def do(self, source, target):
+		if len(source.controller.opponent.deck):
+			card = random.choice(source.controller.opponent.deck)
+			target.zone=Zone.SETASIDE
+			target.zone=Zone.DECK
+			card.zone=Zone.PLAY
+			random.shuffle(source.controller.opponent.deck)
 		pass
 class RLK_950:# <12>[1776]
 	""" Translocation Instructor
 	<b>Battlecry:</b> Choose an enemy minion. Swap it with a random one in their deck. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	play = RLK_950_Action(TARGET)
 	pass
 
 if Lich_Coroner:# 
