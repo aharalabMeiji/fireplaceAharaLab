@@ -1330,6 +1330,7 @@ class Weapon(rules.WeaponRules, LiveEntity):
 		super().__init__(*args)
 		self.damage = 0
 		self.deathrattle_valid = True
+		self.sidequest_list0=[]
 
 	@property
 	def durability(self):

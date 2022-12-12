@@ -168,15 +168,22 @@ class RLK_083:# <1>[1869]
 	events = OWN_SPELL_PLAY.after(Hit(RANDOM(ENEMY_MINIONS), 1), Hit(RANDOM(ENEMY_MINIONS), 1))
 	pass
 
-if Arthas_Frostmourne:# ### no way to get log killed by this weapon. ###############
+if Arthas_Frostmourne:# ### 
 	Arthas_DeathKnight+=['RLK_086']
-class RLK__Action(GameAction):
+class RLK_086_Action1(GameAction):
+	def do(self, source, target):
+		source.sidequest_list0.append(target.id)
+		pass
+class RLK_086_Action2(GameAction):
 	def do(self, source):
+		for card in source.sidequest_list0:
+			Summon(source.controller, card).trigger(source)
 		pass
 class RLK_086:# <1>[1869]
 	""" Frostmourne
 	<b>Deathrattle:</b> Summon every minion killed by this weapon. """
-	#
+	events = Attack(FRIENDLY_HERO).after(RLK_086_Action1(Attack.DEFENDER))
+	deathrattle = RLK_086_Action2()
 	pass
 
 if Arthas_Asphyxiate:# 
