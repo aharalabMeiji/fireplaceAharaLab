@@ -300,48 +300,51 @@ RLK_592e=buff(5,5,taunt=True)# <12>[1776]
 if Lich_Lorthemar_Theron:# 
 	Lich_Neutral+=['RLK_593']
 	Lich_Neutral+=['RLK_593e']
-class RLK__Action(GameAction):
+class RLK_593_Action(GameAction):
 	def do(self, source):
+		for card in source.controller.deck:
+			if card.type==CardType.MINION:
+				atk=card.atk
+				hlth=card.max_health
+				Buff(card, 'RLK_593e', atk=atk, max_health=hlth).trigger(source)
 		pass
 class RLK_593:# <12>[1776]
 	""" Lor'themar Theron
 	<b>Battlecry:</b> Double the stats of all minions in your deck. """
-	#
+	play = RLK_593_Action()
 	pass
-
 class RLK_593e:# <12>[1776]
 	""" Superior Strategy
 	Doubled Attack and Health. """
-	#
 	pass
 
-if Lich_Infectious_Ghoul:# 
+if Lich_Infectious_Ghoul:# = Greybough DMF_734
 	Lich_Neutral+=['RLK_653']
 	Lich_Neutral+=['RLK_653e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_653:# <12>[1776]
 	""" Infectious Ghoul
 	<b>Deathrattle:</b> Give a random friendly minion "<b>Deathrattle:</b> Summon an Infectious Ghoul." """
-	#
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'RLK_653e')
 	pass
-
 class RLK_653e:# <12>[1776]
 	""" Infected
 	<b>Deathrattle:</b> Summon an Infectious Ghoul. """
-	#
+	tags={GameTag.DEATHRATTLE:True}
+	deathrattle = Summon(CONTROLLER, 'RLK_653')
 	pass
 
 if Lich_Sanctum_Spellbender:# 
 	Lich_Neutral+=['RLK_677']
-class RLK__Action(GameAction):
-	def do(self, source):
+class RLK_677_Action(GameAction):
+	def do(self, source, card, target):
+		assert card.type==CardType.SPELL, ""
+		assert target.type==CardType.MINION and target.controller==source.controller, ""
+		card.target = target
 		pass
 class RLK_677:# <12>[1776]
 	""" Sanctum Spellbender
 	Whenever your opponent targets another minion with a spell, redirect it to this. """
-	#
+	events = Play(OPPONENT, SPELL, FRIENDLY+MINION).on(RLK_677_Action(Play.CARD, Play.TARGET))
 	pass
 
 if Lich_Arms_Dealer:# 
@@ -353,16 +356,13 @@ class RLK__Action(GameAction):
 class RLK_824:# <12>[1776]
 	""" Arms Dealer
 	After you summon an Undead, give it +1 Attack. """
-	#
+	events = Summon(CONTROLLER, UNDEAD).after(Buff(Summon.CARD, 'RLK_824e'))
 	pass
+RLK_824e=buff(1,0)
+""" Undead Fortitude	+1 Attack. """
 
-class RLK_824e:# <12>[1776]
-	""" Undead Fortitude
-	+1 Attack. """
-	#
-	pass
 
-if Lich_Silvermoon_Farstrider_Spellpower:# # ------------------>
+if Lich_Silvermoon_Farstrider_Spellpower:# # ------------------> hunter
 	Lich_Neutral+=['RLK_826e']
 class RLK_826e:# <12>[1776]
 	""" Silvermoon Farstrider Spellpower
@@ -372,13 +372,17 @@ class RLK_826e:# <12>[1776]
 
 if Lich_Flesh_Behemoth:# 
 	Lich_Neutral+=['RLK_830']
-class RLK__Action(GameAction):
+class RLK_830_Action(GameAction):
 	def do(self, source):
+		cards=[card for card in source.controller.deck if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		card = random.choice(cards)
+		Draw(source.controller, card).trigger(source)
+		Summon(source.controller, ExactCopy(card)).trigger(source)
 		pass
 class RLK_830:# <12>[1776]
 	""" Flesh Behemoth
 	<b>Taunt</b> <b>Deathrattle:</b> Draw another Undead and summon a copy of it. """
-	#
+	deathrattle = RLK_830_Action()
 	pass
 
 if Lich_Plaguespreader:# 
