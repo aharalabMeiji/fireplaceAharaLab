@@ -387,13 +387,10 @@ class RLK_830:# <12>[1776]
 
 if Lich_Plaguespreader:# 
 	Lich_Neutral+=['RLK_831']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_831:# <12>[1776]
 	""" Plaguespreader
 	<b>Deathrattle:</b> Transform a random minion in your opponent's hand into a Plaguespreader. """
-	#
+	deathrattle = Morph(RANDOM(ENEMY_HAND),'RLK_831')
 	pass
 
 if Lich_Foul_Egg:# 
@@ -405,7 +402,7 @@ class RLK__Action(GameAction):
 class RLK_833:# <12>[1776]
 	""" Foul Egg
 	<b>Deathrattle:</b> Summon a 3/3 Undead Chicken. """
-	#
+	deathrattle = Summon(CONTROLLER, 'RLK_833t')
 	pass
 
 class RLK_833t:# <12>[1776]
@@ -417,13 +414,17 @@ class RLK_833t:# <12>[1776]
 if Lich_Nerubian_Vizier:# 
 	Lich_Neutral+=['RLK_834']
 	Lich_Neutral+=['RLK_834e']
-class RLK__Action(GameAction):
+class RLK_834_Choice(Choice):
+	def choose(self, card):
+		pass
+class RLK_834_Action(GameAction):
 	def do(self, source):
+		RLK_834_Choice(CONTROLLER, RandomSpell()*3).trigger(source)
 		pass
 class RLK_834:# <12>[1776]
 	""" Nerubian Vizier
 	<b>Battlecry:</b> <b>Discover</b> a spell. If a friendly Undead died after your last turn, it costs (2) less. """
-	#
+	play=
 	pass
 
 class RLK_834e:# <12>[1776]
