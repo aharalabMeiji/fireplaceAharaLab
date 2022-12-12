@@ -517,7 +517,8 @@ class RLK__Action(GameAction):
 class RLK_951:# <12>[1776]
 	""" Coroner
 	<b>Battlecry:</b> <b>Freeze</b> an enemy minion. <b>Manathirst (6):</b> <b>Silence</b> it first. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	play = Manathirst(6, [Silence(TARGET), Freeze(TARGET)], [Freeze(TARGET)])	
 	pass
 
 if Lich_Enchanter:# 
@@ -528,7 +529,12 @@ class RLK__Action(GameAction):
 class RLK_952:# <12>[1776]
 	""" Enchanter
 	Enemy minions take double damage during your turn. """
-	#
+	play = SetAttr(ENEMY_MINIONS, 'double_damage', 1)
+	events = [
+		OWN_TURN_END.on(SetAttr(ENEMY_MINIONS, 'double_damage', 0)),
+		OWN_TURN_BEGIN.on(SetAttr(ENEMY_MINIONS, 'double_damage', 1)),
+		Death(SELF).on(SetAttr(ENEMY_MINIONS, 'double_damage', 0))
+		]
 	pass
 
 if Lich_Silvermoon_Armorer:# 
