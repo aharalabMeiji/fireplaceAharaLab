@@ -6,10 +6,10 @@ def lich_neutral():
 	#PresetGame(pp_RLK_029)## OK
 	#PresetGame(pp_RLK_070)## OK
 	#PresetGame(pp_RLK_104)## OK
-	PresetGame(pp_RLK_113)##
-	PresetGame(pp_RLK_117)##
-	PresetGame(pp_RLK_119)##
-	PresetGame(pp_RLK_123)##
+	#PresetGame(pp_RLK_113)##OK
+	#PresetGame(pp_RLK_117)##OK
+	#PresetGame(pp_RLK_119)##OK
+	#PresetGame(pp_RLK_123)##OK
 	PresetGame(pp_RLK_218)##
 	#PresetGame(pp_RLK_219)## OK 
 	#PresetGame(pp_RLK_219b)## OK 
@@ -183,9 +183,9 @@ class pp_RLK_117(Preset_Play):
 		### opp
 		self.change_turn()
 		### con
-		self.attack_card(self.con1,self.opp1)
+		self.attack_card(self.con1,self.opp1)#atk=5
 		self.controller.game.process_deaths()
-		self.asserting(self.opp1.zone==Zone.GRAVEYARD,"self.opp1.zone==Zone.GRAVEYARD")
+		self.asserting(self.con1.zone==Zone.GRAVEYARD,"self.con1.zone==Zone.GRAVEYARD")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -238,14 +238,14 @@ class pp_RLK_123(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
 		self.play_card(self.con4)
 		self.change_turn()
 		### opp
 		Hit(self.con4, 10).trigger(self.opponent)
 		self.change_turn()
 		### con
-		self.asserting(self.opp1.damage==2,"self.opp1.damage==2")
+		self.play_card(self.con1)
+		self.asserting2("self.opp1.damage==2 or self.opponent.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -275,7 +275,7 @@ class pp_RLK_218(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.asserting2("self.opponent.hero.cant_be_targeted_by_spells==True")
-		self.play_card(self.con2, target=self.opponent.hero)
+		self.play_card(self.con2, target=self.opponent.hero)# spelldamage=3
 		self.asserting2("self.opponent.hero.damage==0")
 		self.change_turn()
 		### opp

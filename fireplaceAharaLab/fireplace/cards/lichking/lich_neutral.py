@@ -98,7 +98,7 @@ class RLK_117:# <12>[1776]
 
 if Lich_Drakkari_Embalmer:# 
 	Lich_Neutral+=['RLK_119']
-class RLK_119_Action(GameAction):
+class RLK_119_Action(TargetedAction):
 	def do(self, source, target):
 		if target and hasattr(target, 'this_is_minion') and target.race==Race.UNDEAD:
 			target.reborn=True

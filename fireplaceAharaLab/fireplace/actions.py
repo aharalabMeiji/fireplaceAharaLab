@@ -356,7 +356,8 @@ class Death(GameAction):
 		if Config.LOGINFO:
 			Config.log("Death.do","Processing Death for %r"% ( entity))
 		source.game.refresh_auras()
-		entity.controller.add_death_log(entity)
+		if not entity in entity.controller.death_log:
+			entity.controller.add_death_log(entity)
 		#source.game.refresh_auras()  # 
 		if entity.type == CardType.MINION:
 			self.broadcast(source, EventListener.ON, entity)
