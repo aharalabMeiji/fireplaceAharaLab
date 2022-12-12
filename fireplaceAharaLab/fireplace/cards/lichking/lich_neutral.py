@@ -134,6 +134,7 @@ if Lich_Silvermoon_Arcanist:#
 class RLK_218_Action(GameAction):
 	def do(self, source):
 		source.controller.hero.cant_be_targeted_by_spells=False
+		source.controller.opponent.hero.cant_be_targeted_by_spells=False
 		source.discard()
 		pass
 class RLK_218:# <12>[1776]
@@ -147,6 +148,7 @@ class RLK_218e:# <12>[1776]
 	Can't be targeted by spells this turn. """
 	def apply(self, target):
 		target.hero.cant_be_targeted_by_spells=True
+		target.opponent.hero.cant_be_targeted_by_spells=True
 	events = OWN_TURN_END.on(RLK_218_Action())
 	pass
 class RLK_218e2:# <12>[1776]

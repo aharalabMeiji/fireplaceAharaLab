@@ -274,6 +274,14 @@ class Preset_Play:
 			_card=random.choice(['CS3_022','CORE_NEW1_018','BAR_081'])
 		elif _card=='totem':
 			_card=random.choice(['CORE_EX1_575','SCH_537','SCH_612t','CS2_050','CS2_051','CS2_052','NEW1_009'])
+		elif _card=='undead':
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.race == Race.UNDEAD: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		### spell school
 		elif _card=='arcane':
 			choices=[]
@@ -530,6 +538,11 @@ class Preset_Play:
 		ret=Summon(player, cardID).trigger(player)
 		return ret[0][0]
 	def asserting(self, condition, message):
+		if Config.LOGINFO:
+			Config.log("assert",message)
+		assert condition==True, message
+	def asserting2(self, message):
+		condition=eval(message)
 		if Config.LOGINFO:
 			Config.log("assert",message)
 		assert condition==True, message
