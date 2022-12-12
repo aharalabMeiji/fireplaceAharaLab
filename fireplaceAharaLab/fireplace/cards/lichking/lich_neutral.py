@@ -416,6 +416,11 @@ if Lich_Nerubian_Vizier:#
 	Lich_Neutral+=['RLK_834e']
 class RLK_834_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		cards=[cd for cd in self.player.death_prev_turn + self.player.death_this_turn if cd.type==CardType.MINION and cd.race==Race.UNDEAD]
+		if len(cards):
+			Buff(card,'RLK_834e').trigger(self.source)
 		pass
 class RLK_834_Action(GameAction):
 	def do(self, source):
@@ -424,13 +429,12 @@ class RLK_834_Action(GameAction):
 class RLK_834:# <12>[1776]
 	""" Nerubian Vizier
 	<b>Battlecry:</b> <b>Discover</b> a spell. If a friendly Undead died after your last turn, it costs (2) less. """
-	play=
+	play = RLK_834_Action()
 	pass
-
 class RLK_834e:# <12>[1776]
 	""" Nerubian Vision
 	Costs (2) less. """
-	#
+	cost=lambda self, i:max(i-2,0)
 	pass
 
 if Lich_Vrykul_Necrolyte:# 
