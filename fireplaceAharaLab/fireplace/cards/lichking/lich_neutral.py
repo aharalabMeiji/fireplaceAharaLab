@@ -232,27 +232,30 @@ class RLK__Action(GameAction):
 class RLK_518:# <12>[1776]
 	""" Silvermoon Sentinel
 	<b>Taunt</b> <b>Manathirst (@):</b> Gain +2/+2 and <b>Divine Shield</b>. """
-	#
+	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="8"/>
+	play = Manathirst(8, [Buff(SELF, 'RLK_518e'), SetDivineShield(SELF, True)],[])
 	pass
-
-class RLK_518e:# <12>[1776]
-	""" Silvermoon's Might
-	+2/+2. """
-	#
-	pass
+RLK_518e=buff(2,2)# <12>[1776]
+""" Silvermoon's Might	+2/+2. """
 
 if Lich_The_Sunwell:# 
 	Lich_Neutral+=['RLK_590']
-class RLK__Action(GameAction):
+class RLK_590_Action(GameAction):
 	def do(self, source):
+		amount = 10-len(source.controller.hand)
+		cost_mod = len(source.controller.hand)
+		for repeat in range(amount):
+			newcard=Give(source.controller, RandomSpell()).trigger(source)
+			newcard=get00(newcard)
+			newcard._cost=max(newcard._cost-cost_mod, 0)
 		pass
 class RLK_590:# <12>[1776]
 	""" The Sunwell
 	Fill your hand with random spells. Costs (1) less for each other card in your hand. """
-	#
+	play = RLK_590_Action()
 	pass
 
-if Lich_Bonelord_Frostwhisper:# 
+if Lich_Bonelord_Frostwhisper:# #################### something wrong!! 
 	Lich_Neutral+=['RLK_591']
 	Lich_Neutral+=['RLK_591e']
 	Lich_Neutral+=['RLK_591e2']
@@ -262,19 +265,21 @@ class RLK__Action(GameAction):
 class RLK_591:# <12>[1776]
 	""" Bonelord Frostwhisper
 	<b>Deathrattle:</b> For the rest of the game, your first card each turn costs (0). You die in 3 turns. """
-	#
+	deathrattle = Buff(CONTROLLER, 'RLK_591e'),Buff(FRIENDLY_HAND, 'RLK_591e2')
 	pass
-
 class RLK_591e:# <12>[1776]
 	""" Lich Death Counter
 	Your hero dies in @ turns. """
-	#
+	events = [
+		OWN_TURN_END.on(SidequestCounter(SELF, 3, [Destroy(FRIENDLY_HERO)])),
+		OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND, 'RLK_591e2'))
+	]
 	pass
-
 class RLK_591e2:# <12>[1776]
 	""" Lich's Deathcurse
 	Costs (0). """
-	#
+	cost=lambda self,i:0#SET(0)
+	events = OWN_SPELL_PLAY.after(Destroy(SELF))
 	pass
 
 if Lich_Invincible:# 
@@ -286,14 +291,11 @@ class RLK__Action(GameAction):
 class RLK_592:# <12>[1776]
 	""" Invincible
 	<b>Reborn</b> <b>Battlecry and Deathrattle:</b> Give a random friendly Undead +5/+5 and <b>Taunt</b>. """
-	#
+	play = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD), 'RLK_592e')
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD), 'RLK_592e')
 	pass
-
-class RLK_592e:# <12>[1776]
-	""" Invincible's Reins
-	+5/+5. """
-	#
-	pass
+RLK_592e=buff(5,5,taunt=True)# <12>[1776]
+""" Invincible's Reins	+5/+5. """
 
 if Lich_Lorthemar_Theron:# 
 	Lich_Neutral+=['RLK_593']
