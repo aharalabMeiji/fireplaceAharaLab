@@ -275,7 +275,7 @@ class pp_RLK_218(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.asserting2("self.opponent.hero.cant_be_targeted_by_spells==True")
-		self.play_card(self.con2, target=self.opponent.hero)# spelldamage=3
+		self.play_card(self.con2, target=self.opponent.hero)# spelldamage=3+2
 		self.asserting2("self.opponent.hero.damage==0")
 		self.change_turn()
 		### opp
