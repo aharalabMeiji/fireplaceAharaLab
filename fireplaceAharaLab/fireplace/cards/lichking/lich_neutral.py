@@ -184,7 +184,7 @@ class RLK_220:# <12>[1776]
 	#
 	pass
 
-if Lich_Crystal_Broker:# 
+if Lich_Crystal_Broker:# ### OK ###
 	Lich_Neutral+=['RLK_221']
 class RLK__Action(GameAction):
 	def do(self, source):
