@@ -1583,8 +1583,11 @@ class Honorable_kill(TargetedAction):
 class SplitHit(TargetedAction):
 	"""
 	Hit character targets by  an amount.
+	TARGET = ActionArg()#CONTROLLER
+	TARGETS = ActionArg()
+	AMOUNT = ActionArg()
 	"""
-	TARGET = ActionArg()
+	TARGET = ActionArg()#CONTROLLER
 	TARGETS = ActionArg()
 	AMOUNT = ActionArg()
 

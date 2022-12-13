@@ -135,7 +135,7 @@ class RLK_218_Action(GameAction):
 	def do(self, source):
 		source.controller.hero.cant_be_targeted_by_spells=False
 		source.controller.opponent.hero.cant_be_targeted_by_spells=False
-		source.discard()
+		source.remove()
 		pass
 class RLK_218:# <12>[1776]
 	""" Silvermoon Arcanist
@@ -177,13 +177,11 @@ class RLK_219:# <12>[1776]
 
 if Lich_Tenacious_Sanlayn:# 
 	Lich_Neutral+=['RLK_220']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_220:# <12>[1776]
-	""" Tenacious San'layn
+	""" Tenacious San'layn (5/4/6)
 	<b>Lifesteal</b> Whenever this attacks, deal 2 damage to the enemy hero. """
-	#
+	#<Tag enumID="685" name="LIFESTEAL" type="Int" value="1"/>
+	events = Attack(SELF).on(Hit(ENEMY_HERO,2))
 	pass
 
 if Lich_Crystal_Broker:# ### OK ###
@@ -201,9 +199,6 @@ if Lich_Astalor_Bloodsworn:#
 	Lich_Neutral+=['RLK_222']
 	Lich_Neutral+=['RLK_222t1']
 	Lich_Neutral+=['RLK_222t2']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_222:# <12>[1776]
 	""" Astalor Bloodsworn
 	<b>Battlecry:</b> Add Astalor, the Protector to your hand. <b>Manathirst (@):</b> Deal 2 damage. """
@@ -222,7 +217,7 @@ class RLK_222t1:# <12>[1776]
 class RLK_222t2:# <12>[1776]
 	""" Astalor, the Flamebringer
 	<b>Battlecry:</b> Deal 8 damage randomly split between all enemies. <b>Manathirst (10):</b> Deal 8 more. """
-	play = Manathirst(10, [SplitHit(ENEMY_CHARACTERS, 16)], [SplitHit(ENEMY_CHARACTERS, 8)])
+	play = Manathirst(10, [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 16)], [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 8)])
 	pass
 
 if Lich_Silvermoon_Sentinel:# 
@@ -249,7 +244,7 @@ class RLK_590_Action(GameAction):
 		for repeat in range(amount):
 			newcard=Give(source.controller, RandomSpell()).trigger(source)
 			newcard=get00(newcard)
-			newcard._cost=max(newcard._cost-cost_mod, 0)
+			newcard.cost=max(newcard.cost-cost_mod, 0)
 		pass
 class RLK_590:# <12>[1776]
 	""" The Sunwell
