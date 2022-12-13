@@ -336,16 +336,18 @@ class RLK_653e:# <12>[1776]
 
 if Lich_Sanctum_Spellbender:# 
 	Lich_Neutral+=['RLK_677']
-class RLK_677_Action(GameAction):
-	def do(self, source, card, target):
-		assert card.type==CardType.SPELL, ""
-		assert target.type==CardType.MINION and target.controller==source.controller, ""
-		card.target = target
+class RLK_677_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=ActionArg()
+	def do(self, source, target, card):
+		##assert card.type==CardType.SPELL, ""
+		##assert target.type==CardType.MINION and target.controller==source.controller, ""
+		card.target = source
 		pass
 class RLK_677:# <12>[1776]
 	""" Sanctum Spellbender
 	Whenever your opponent targets another minion with a spell, redirect it to this. """
-	events = Play(OPPONENT, SPELL, FRIENDLY+MINION).on(RLK_677_Action(Play.CARD, Play.TARGET))
+	events = Play(OPPONENT, SPELL, FRIENDLY+MINION).on(RLK_677_Action(Play.TARGET, Play.CARD))
 	pass
 
 if Lich_Arms_Dealer:# 
@@ -376,9 +378,10 @@ if Lich_Flesh_Behemoth:#
 class RLK_830_Action(GameAction):
 	def do(self, source):
 		cards=[card for card in source.controller.deck if card.type==CardType.MINION and card.race==Race.UNDEAD]
-		card = random.choice(cards)
-		Draw(source.controller, card).trigger(source)
-		Summon(source.controller, ExactCopy(card)).trigger(source)
+		if len(cards):
+			card = random.choice(cards)
+			card.zone=Zone.HAND
+			Summon(source.controller, card.id).trigger(source)
 		pass
 class RLK_830:# <12>[1776]
 	""" Flesh Behemoth
@@ -391,7 +394,7 @@ if Lich_Plaguespreader:#
 class RLK_831:# <12>[1776]
 	""" Plaguespreader
 	<b>Deathrattle:</b> Transform a random minion in your opponent's hand into a Plaguespreader. """
-	deathrattle = Morph(RANDOM(ENEMY_HAND),'RLK_831')
+	deathrattle = Morph(RANDOM(ENEMY_HAND + MINION),'RLK_831')
 	pass
 
 if Lich_Foul_Egg:# 
@@ -416,7 +419,8 @@ class RLK_834_Choice(Choice):
 	def choose(self, card):
 		self.next_choice=None
 		super().choose(card)
-		cards=[cd for cd in self.player.death_prev_turn + self.player.death_this_turn if cd.type==CardType.MINION and cd.race==Race.UNDEAD]
+		card.zone=Zone.HAND
+		cards=[cd for cd in self.player.death_last_opponent_turn + self.player.death_this_turn if cd.type==CardType.MINION and cd.race==Race.UNDEAD]
 		if len(cards):
 			Buff(card,'RLK_834e').trigger(self.source)
 		pass

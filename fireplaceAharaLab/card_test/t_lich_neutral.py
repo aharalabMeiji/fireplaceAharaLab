@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit, Summon, Give
+from fireplace.actions import Hit, Summon, Give, Shuffle
 from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_neutral():
@@ -24,11 +24,11 @@ def lich_neutral():
 	#PresetGame(pp_RLK_591)##  OK
 	#PresetGame(pp_RLK_592)##OK
 	#PresetGame(pp_RLK_593)##OK
-	PresetGame(pp_RLK_653)##
-	PresetGame(pp_RLK_677)##
-	PresetGame(pp_RLK_824)##
-	PresetGame(pp_RLK_830)##
-	PresetGame(pp_RLK_831)##
+	#PresetGame(pp_RLK_653)##OK
+	#PresetGame(pp_RLK_677)##OK
+	#PresetGame(pp_RLK_824)##OK
+	#PresetGame(pp_RLK_830)##OK
+	#PresetGame(pp_RLK_831)##OK
 	PresetGame(pp_RLK_833)##
 	PresetGame(pp_RLK_834)##
 	PresetGame(pp_RLK_867)##
@@ -674,9 +674,9 @@ class pp_RLK_653(Preset_Play):
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
 		self.asserting2("self.con4.has_deathrattle")
-		self.asserting2("self.con4.deathrattles[0].id=='RLK_653e'")
+		self.asserting2("self.con4.buffs[0].id=='RLK_653e'")
 		Hit(self.con4, 10).trigger(self.opponent)
-		self.asserting2("'RLK_653' in self.controller.field")
+		self.asserting2("'RLK_653' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -752,6 +752,7 @@ class pp_RLK_830(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_830", self.controller)
+		Shuffle(self.controller, self.card_choice("undead"))
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -786,12 +787,12 @@ class pp_RLK_831(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
-		self.asserting2("'RLK_831' in self.opponent.hand")
+		self.asserting2("'RLK_831' in [card.id for card in self.opponent.hand]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.opponent.hand:
+			self.print_stats("opponent.hand", card)
 	pass
 
 
@@ -804,24 +805,19 @@ class pp_RLK_833(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_833", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		Hit(self.con1, 10).trigger(self.controller)
+		self.asserting2("'RLK_833t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -834,24 +830,27 @@ class pp_RLK_834(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_834", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=Summon(self.controller, self.card_choice("undead")).trigger(self.controller)
 		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
 		self.change_turn()
 		### opp
+		Hit(self.con4, 10).trigger(self.opponent)
 		self.change_turn()
+		### con
+		self.play_card(self.con1)
+		self.choose_action()
+		self.con2=self.controller.hand[-1]
+		self.asserting2("self.con2.cost==max(0,self.con2.data.cost-2)")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
 		for card in self.controller.hand:
-			self.print_stats("hand", card)
+			self.print_stats("hand", card, old_cost=True)
 	pass
 
 
