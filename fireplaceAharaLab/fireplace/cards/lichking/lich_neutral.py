@@ -256,8 +256,12 @@ if Lich_Bonelord_Frostwhisper:# #################### something wrong!!
 	Lich_Neutral+=['RLK_591']
 	Lich_Neutral+=['RLK_591e']
 	Lich_Neutral+=['RLK_591e2']
-class RLK__Action(GameAction):
+class RLK_591_Action(GameAction):
 	def do(self, source):
+		for card in source.controller.hand:
+			for bf in card.buffs:
+				if bf.id=='RLK_591e2':
+					bf.remove()
 		pass
 class RLK_591:# <12>[1776]
 	""" Bonelord Frostwhisper
@@ -268,15 +272,15 @@ class RLK_591e:# <12>[1776]
 	""" Lich Death Counter
 	Your hero dies in @ turns. """
 	events = [
-		OWN_TURN_END.on(SidequestCounter(SELF, 3, [Destroy(FRIENDLY_HERO)])),
-		OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND, 'RLK_591e2'))
+		OWN_TURN_END.on(SidequestCounter(SELF, 3, [Destroy(FRIENDLY_HERO)]), RLK_591_Action()),
+		OWN_TURN_BEGIN.on(Buff(FRIENDLY_HAND, 'RLK_591e2')),
+		Play(CONTROLLER).after(RLK_591_Action())
 	]
 	pass
 class RLK_591e2:# <12>[1776]
 	""" Lich's Deathcurse
 	Costs (0). """
 	cost=lambda self,i:0#SET(0)
-	events = OWN_SPELL_PLAY.after(Destroy(SELF))
 	pass
 
 if Lich_Invincible:# 
@@ -288,8 +292,8 @@ class RLK__Action(GameAction):
 class RLK_592:# <12>[1776]
 	""" Invincible
 	<b>Reborn</b> <b>Battlecry and Deathrattle:</b> Give a random friendly Undead +5/+5 and <b>Taunt</b>. """
-	play = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD), 'RLK_592e')
-	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD), 'RLK_592e')
+	play = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD - SELF), 'RLK_592e')
+	deathrattle = Buff(RANDOM(FRIENDLY_MINIONS + UNDEAD - SELF), 'RLK_592e')
 	pass
 RLK_592e=buff(5,5,taunt=True)# <12>[1776]
 """ Invincible's Reins	+5/+5. """

@@ -21,8 +21,8 @@ def lich_neutral():
 	#PresetGame(pp_RLK_222c)## OK
 	#PresetGame(pp_RLK_518)## OK
 	#PresetGame(pp_RLK_590)## OK
-	PresetGame(pp_RLK_591)##
-	PresetGame(pp_RLK_592)##
+	#PresetGame(pp_RLK_591)##  OK
+	#PresetGame(pp_RLK_592)##OK
 	PresetGame(pp_RLK_593)##
 	PresetGame(pp_RLK_653)##
 	PresetGame(pp_RLK_677)##
@@ -563,19 +563,29 @@ class pp_RLK_591(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_591", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("minionA3", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		Hit(self.con1, 10).trigger(self.controller)
+		self.costs=[card.cost for card in self.controller.hand]
+		self.asserting2("len([c for c in self.costs if c!=0])==0")
+		self.play_card(self.con2)
+		self.costs=[card.cost for card in self.controller.hand]
+		self.asserting2("len([c for c in self.costs if c==0])==0")
+		self.change_turn()		
 		### opp
+		self.change_turn()		
+		### con
+		self.change_turn()		
+		### opp
+		self.change_turn()		
+		### con
 		self.change_turn()
+		self.asserting2("self.controller.hero.alive==False")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -593,16 +603,19 @@ class pp_RLK_592(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_592", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=Summon(self.controller, self.card_choice("undead")).trigger(self.controller)
 		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.asserting2("self.con4.atk==self.con4.data.atk+5")
+		self.asserting2("self.con4.taunt==True")
+		Hit(self.con1, 10).trigger(self.opponent)
+		self.asserting2("self.con1.health==1")
+		self.asserting2("self.con4.atk==self.con4.data.atk+10")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -615,6 +628,7 @@ class pp_RLK_592(Preset_Play):
 
 
 ##########RLK_593##########
+import random
 
 class pp_RLK_593(Preset_Play):
 	""" Lor'themar Theron
@@ -623,24 +637,20 @@ class pp_RLK_593(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_593", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.con2=random.choice([card for card in self.controller.deck if card.type==CardType.MINION])
+		self.asserting2("self.con2.atk==self.con2.data.atk*2")
+		self.asserting2("self.con2.max_health==self.con2.data.health*2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.deck:
+			self.print_stats("deck", card, show_buff=True)
 	pass
 
 
