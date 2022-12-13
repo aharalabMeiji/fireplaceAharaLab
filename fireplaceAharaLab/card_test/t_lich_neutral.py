@@ -786,7 +786,7 @@ class pp_RLK_831(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
-
+		self.asserting2("'RLK_831' in self.opponent.hand")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
