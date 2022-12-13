@@ -23,7 +23,7 @@ def lich_neutral():
 	#PresetGame(pp_RLK_590)## OK
 	#PresetGame(pp_RLK_591)##  OK
 	#PresetGame(pp_RLK_592)##OK
-	PresetGame(pp_RLK_593)##
+	#PresetGame(pp_RLK_593)##OK
 	PresetGame(pp_RLK_653)##
 	PresetGame(pp_RLK_677)##
 	PresetGame(pp_RLK_824)##
