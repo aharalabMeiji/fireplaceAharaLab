@@ -115,7 +115,8 @@ class Player(Entity, TargetableByAuras):
 		self.cant_reveal_secret=False ## new 24.4
 		self.relic_improvision=1 ## new 24.2
 		self.draw_extra_card=False ## new 24.4
-		
+		self.corpse=0 ## new 25.0
+
 		self.tavern_tier=1# battlegrounds
 		self.tavern_tierup_cost=5 # battlegrounds
 		self.extra_tavern_tierup_reduce_cost=0 # battlegrounds

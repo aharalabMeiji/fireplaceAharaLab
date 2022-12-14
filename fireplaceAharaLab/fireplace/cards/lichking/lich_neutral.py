@@ -22,7 +22,7 @@ Lich_Lorthemar_Theron=True
 Lich_Infectious_Ghoul=True
 Lich_Sanctum_Spellbender=True
 Lich_Arms_Dealer=True
-Lich_Silvermoon_Farstrider_Spellpower=False# ------------------>
+Lich_Silvermoon_Farstrider_Spellpower=False# ------------------>hunter
 Lich_Flesh_Behemoth=True
 Lich_Plaguespreader=True
 Lich_Foul_Egg=True
@@ -43,7 +43,7 @@ Lich_Banshee=True
 
 
 
-if Lich_Shatterskin_Gargoyle:# ###
+if Lich_Shatterskin_Gargoyle:# ### OK ###
 	Lich_Neutral+=['RLK_029']
 class RLK_029:# <12>[1776]
 	""" Shatterskin Gargoyle
@@ -51,7 +51,7 @@ class RLK_029:# <12>[1776]
 	deathrattle = Hit(RANDOM(ENEMY_CHARACTERS), 4)
 	pass
 
-if Lich_Infected_Peasant:# ###
+if Lich_Infected_Peasant:# ### OK ###
 	Lich_Neutral+=['RLK_070']
 	Lich_Neutral+=['RLK_070t']
 class RLK_070:# <12>[1776]
@@ -66,7 +66,7 @@ class RLK_070t:# <12>[1776]
 	#
 	pass
 
-if Lich_Street_Sweeper:# 
+if Lich_Street_Sweeper:# ### OK ###
 	Lich_Neutral+=['RLK_104']
 class RLK_104:# <12>[1776]
 	""" Street Sweeper
@@ -74,7 +74,7 @@ class RLK_104:# <12>[1776]
 	play = Hit(ALL_MINIONS - SELF, 2)
 	pass
 
-if Lich_Brittleskin_Zombie:# 
+if Lich_Brittleskin_Zombie:# ### OK ###
 	Lich_Neutral+=['RLK_113']
 class RLK_113_Action(GameAction):
 	def do(self, source):
@@ -88,7 +88,7 @@ class RLK_113:# <12>[1776]
 	deathrattle = RLK_113_Action()
 	pass
 
-if Lich_Incorporeal_Corporal:# 
+if Lich_Incorporeal_Corporal:# ### OK ###
 	Lich_Neutral+=['RLK_117']
 class RLK_117:# <12>[1776]
 	""" Incorporeal Corporal
@@ -96,7 +96,7 @@ class RLK_117:# <12>[1776]
 	events = Attack(SELF).after(Destroy(Attack.DEFENDER))
 	pass
 
-if Lich_Drakkari_Embalmer:# 
+if Lich_Drakkari_Embalmer:# ### OK ###
 	Lich_Neutral+=['RLK_119']
 class RLK_119_Action(TargetedAction):
 	def do(self, source, target):
@@ -111,7 +111,7 @@ class RLK_119:# <12>[1776]
 	play = RLK_119_Action(TARGET)
 	pass
 
-if Lich_Bone_Flinger:# #################### deal damage to whom?
+if Lich_Bone_Flinger:# ### OK ###
 	Lich_Neutral+=['RLK_123']
 class RLK_123_Action(GameAction):
 	def do(self, source):
@@ -126,7 +126,7 @@ class RLK_123:# <12>[1776]
 	play = RLK_123_Action()
 	pass
 
-if Lich_Silvermoon_Arcanist:# 
+if Lich_Silvermoon_Arcanist:# ### OK ###
 	Lich_Neutral+=['RLK_218']
 	Lich_Neutral+=['RLK_218e']
 	Lich_Neutral+=['RLK_218e2']
@@ -175,7 +175,7 @@ class RLK_219:# <12>[1776]
 	play = Manathirst(6, [Heal(FRIENDLY_MINIONS, 6)], [Heal(FRIENDLY_MINIONS, 3)]) 
 	pass
 
-if Lich_Tenacious_Sanlayn:# 
+if Lich_Tenacious_Sanlayn:# ### OK ###
 	Lich_Neutral+=['RLK_220']
 class RLK_220:# <12>[1776]
 	""" Tenacious San'layn (5/4/6)
@@ -195,7 +195,7 @@ class RLK_221:# <12>[1776]
 	play = Manathirst(10, [Summon(CONTROLLER, RandomMinion(cost=8))], []), Manathirst(5, [Summon(CONTROLLER, RandomMinion(cost=3))], [])
 	pass
 
-if Lich_Astalor_Bloodsworn:# 
+if Lich_Astalor_Bloodsworn:# ### OK ###
 	Lich_Neutral+=['RLK_222']
 	Lich_Neutral+=['RLK_222t1']
 	Lich_Neutral+=['RLK_222t2']
@@ -220,7 +220,7 @@ class RLK_222t2:# <12>[1776]
 	play = Manathirst(10, [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 16)], [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 8)])
 	pass
 
-if Lich_Silvermoon_Sentinel:# 
+if Lich_Silvermoon_Sentinel:# ### OK ###
 	Lich_Neutral+=['RLK_518']
 	Lich_Neutral+=['RLK_518e']
 class RLK__Action(GameAction):
@@ -235,7 +235,7 @@ class RLK_518:# <12>[1776]
 RLK_518e=buff(2,2)# <12>[1776]
 """ Silvermoon's Might	+2/+2. """
 
-if Lich_The_Sunwell:# 
+if Lich_The_Sunwell:# ### OK ###
 	Lich_Neutral+=['RLK_590']
 class RLK_590_Action(GameAction):
 	def do(self, source):
@@ -252,7 +252,7 @@ class RLK_590:# <12>[1776]
 	play = RLK_590_Action()
 	pass
 
-if Lich_Bonelord_Frostwhisper:# #################### something wrong!! 
+if Lich_Bonelord_Frostwhisper:# ### OK ### 
 	Lich_Neutral+=['RLK_591']
 	Lich_Neutral+=['RLK_591e']
 	Lich_Neutral+=['RLK_591e2']
@@ -283,7 +283,7 @@ class RLK_591e2:# <12>[1776]
 	cost=lambda self,i:0#SET(0)
 	pass
 
-if Lich_Invincible:# 
+if Lich_Invincible:# ### OK ###
 	Lich_Neutral+=['RLK_592']
 	Lich_Neutral+=['RLK_592e']
 class RLK__Action(GameAction):
@@ -298,7 +298,7 @@ class RLK_592:# <12>[1776]
 RLK_592e=buff(5,5,taunt=True)# <12>[1776]
 """ Invincible's Reins	+5/+5. """
 
-if Lich_Lorthemar_Theron:# 
+if Lich_Lorthemar_Theron:# ### OK ###
 	Lich_Neutral+=['RLK_593']
 	Lich_Neutral+=['RLK_593e']
 class RLK_593_Action(GameAction):
@@ -319,7 +319,7 @@ class RLK_593e:# <12>[1776]
 	Doubled Attack and Health. """
 	pass
 
-if Lich_Infectious_Ghoul:# = Greybough DMF_734
+if Lich_Infectious_Ghoul:# = Greybough DMF_734 ### OK ###
 	Lich_Neutral+=['RLK_653']
 	Lich_Neutral+=['RLK_653e']
 class RLK_653:# <12>[1776]
@@ -334,7 +334,7 @@ class RLK_653e:# <12>[1776]
 	deathrattle = Summon(CONTROLLER, 'RLK_653')
 	pass
 
-if Lich_Sanctum_Spellbender:# 
+if Lich_Sanctum_Spellbender:# ### OK ###
 	Lich_Neutral+=['RLK_677']
 class RLK_677_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -350,7 +350,7 @@ class RLK_677:# <12>[1776]
 	events = Play(OPPONENT, SPELL, FRIENDLY+MINION).on(RLK_677_Action(Play.TARGET, Play.CARD))
 	pass
 
-if Lich_Arms_Dealer:# 
+if Lich_Arms_Dealer:# ### OK ###
 	Lich_Neutral+=['RLK_824']
 	Lich_Neutral+=['RLK_824e']
 class RLK__Action(GameAction):
@@ -373,7 +373,7 @@ class RLK_826e:# <12>[1776]
 	#
 	pass
 
-if Lich_Flesh_Behemoth:# 
+if Lich_Flesh_Behemoth:# ### OK ###
 	Lich_Neutral+=['RLK_830']
 class RLK_830_Action(GameAction):
 	def do(self, source):
@@ -389,7 +389,7 @@ class RLK_830:# <12>[1776]
 	deathrattle = RLK_830_Action()
 	pass
 
-if Lich_Plaguespreader:# 
+if Lich_Plaguespreader:# ### OK ###
 	Lich_Neutral+=['RLK_831']
 class RLK_831:# <12>[1776]
 	""" Plaguespreader
@@ -397,7 +397,7 @@ class RLK_831:# <12>[1776]
 	deathrattle = Morph(RANDOM(ENEMY_HAND + MINION),'RLK_831')
 	pass
 
-if Lich_Foul_Egg:# 
+if Lich_Foul_Egg:# ### OK ###
 	Lich_Neutral+=['RLK_833']
 	Lich_Neutral+=['RLK_833t']
 class RLK_833:# <12>[1776]
@@ -412,7 +412,7 @@ class RLK_833t:# <12>[1776]
 	#
 	pass
 
-if Lich_Nerubian_Vizier:# 
+if Lich_Nerubian_Vizier:# ### OK ###
 	Lich_Neutral+=['RLK_834']
 	Lich_Neutral+=['RLK_834e']
 class RLK_834_Choice(Choice):
@@ -439,7 +439,7 @@ class RLK_834e:# <12>[1776]
 	cost=lambda self, i:max(i-2,0)
 	pass
 
-if Lich_Vrykul_Necrolyte:# 
+if Lich_Vrykul_Necrolyte:# ### OK ###
 	Lich_Neutral+=['RLK_867']
 	Lich_Neutral+=['RLK_867e','RLK_018t']
 class RLK_867:# <12>[1776]
@@ -455,7 +455,7 @@ class RLK_867e:# <12>[1776]
 	deathrattle = Summon(CONTROLLER, 'RLK_018t')
 	pass
 
-if Lich_Scourge_Rager:# 
+if Lich_Scourge_Rager:# ### OK ###
 	Lich_Neutral+=['RLK_900']
 class RLK_900:# <12>[1776]
 	""" Scourge Rager
@@ -463,7 +463,7 @@ class RLK_900:# <12>[1776]
 	play = Destroy(SELF)
 	pass
 
-if Lich_Umbral_Geist:# 
+if Lich_Umbral_Geist:# ### OK ###
 	Lich_Neutral+=['RLK_914']
 class RLK_914:# <12>[1776]
 	""" Umbral Geist
@@ -471,7 +471,7 @@ class RLK_914:# <12>[1776]
 	deathrattle = Give(CONTROLLER, RandomSpell(spell_school=SpellSchool.SHADOW))
 	pass
 
-if Lich_Amber_Whelp:# 
+if Lich_Amber_Whelp:# ### OK ###
 	Lich_Neutral+=['RLK_915']
 class RLK_915_Action(GameAction):
 	def do(self, source):
@@ -486,7 +486,7 @@ class RLK_915:# <12>[1776]
 	play = RLK_915_Action()
 	pass
 
-if Lich_Bloodied_Knight:# 
+if Lich_Bloodied_Knight:# ### OK ###
 	Lich_Neutral+=['RLK_926']
 class RLK_926:# <12>[1776]
 	""" Bloodied Knight
@@ -494,7 +494,7 @@ class RLK_926:# <12>[1776]
 	events = OWN_TURN_END.on(Hit(FRIENDLY_HERO, 2))
 	pass
 
-if Lich_Translocation_Instructor:# 
+if Lich_Translocation_Instructor:# ### OK ###
 	Lich_Neutral+=['RLK_950']
 class RLK_950_Action(TargetedAction):
 	def do(self, source, target):
@@ -512,7 +512,7 @@ class RLK_950:# <12>[1776]
 	play = RLK_950_Action(TARGET)
 	pass
 
-if Lich_Coroner:# 
+if Lich_Coroner:# ### OK ###
 	Lich_Neutral+=['RLK_951']
 class RLK_951:# <12>[1776]
 	""" Coroner
@@ -521,7 +521,7 @@ class RLK_951:# <12>[1776]
 	play = Manathirst(6, [Silence(TARGET), Freeze(TARGET)], [Freeze(TARGET)])	
 	pass
 
-if Lich_Enchanter:# 
+if Lich_Enchanter:# ### OK ###
 	Lich_Neutral+=['RLK_952']
 class RLK_952:# <12>[1776]
 	""" Enchanter
@@ -534,7 +534,7 @@ class RLK_952:# <12>[1776]
 		]
 	pass
 
-if Lich_Silvermoon_Armorer:# 
+if Lich_Silvermoon_Armorer:# ### OK ###
 	Lich_Neutral+=['RLK_955']
 	Lich_Neutral+=['RLK_955e']
 class RLK_955:# <12>[1776]
@@ -546,7 +546,7 @@ class RLK_955:# <12>[1776]
 RLK_955e=buff(2,2)
 """ Supplied	+2/+2. """
 
-if Lich_Banshee:# 
+if Lich_Banshee:# ### OK ###
 	Lich_Neutral+=['RLK_957']
 	Lich_Neutral+=['RLK_957e']
 class RLK_957:# <12>[1776]
@@ -557,7 +557,7 @@ class RLK_957:# <12>[1776]
 RLK_957e=buff(2,1)
 """ Banshee's Wail	+2/+1. """
 
-if Lich_Hawkstrider_Rancher:# 
+if Lich_Hawkstrider_Rancher:# ### OK ###
 	Lich_Neutral+=['RLK_970']
 	Lich_Neutral+=['RLK_970e']
 	Lich_Neutral+=['RLK_970t']

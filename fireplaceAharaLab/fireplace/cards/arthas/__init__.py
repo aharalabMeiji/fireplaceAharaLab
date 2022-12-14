@@ -1,2 +1,2 @@
-#from .arthas_deathknight import *
+from .arthas_deathknight import *
 

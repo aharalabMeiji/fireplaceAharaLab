@@ -55,6 +55,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_shaman.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_warlock.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\arthas\arthas_deathknight.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\arthas\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\barrens_hunter.py" />

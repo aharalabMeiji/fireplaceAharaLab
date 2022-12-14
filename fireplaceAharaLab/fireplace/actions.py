@@ -369,6 +369,8 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Reborn(entity)])
 		if entity.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(entity.controller, "HERO_05bp").trigger(entity)
+		if entity.id!='RLK_506t':# Risen Groom
+			AddCorpse(entity.controller, 1).trigger(entity)
 
 
 class EndTurn(GameAction):
@@ -3857,5 +3859,28 @@ class LoseGame(TargetedAction):
 	def do(self, source, target):
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)		
+		pass
+
+class AddCorpse(TargetedAction):## new 25.0
+	PLAYER = ActionArg()
+	AMOUNT = IntArg()# this may be a negative number
+	def do(self, source, player, amount):
+		if hasattr(player, 'corpse'):
+			if Config.LOGINFO:
+				Config.log("AddCorpse.do","Add %s corpse by %d"%(player, amount))
+			player.corpse = max(0, player.corpse+amount)
+		pass
+
+class SpendCorpse(TargetedAction):## new 25.0
+	PLAYER = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, player, amount):
+		if hasattr(player, 'corpse'):
+			if player.corpse>amount:
+				self.broadcast(source, EventListener.ON, player, amount)
+				if Config.LOGINFO:
+					Config.log("AddCorpse.do","%s spends %d his/her corpses"%(player, amount))
+				player.corpse -= amount
+				self.broadcast(source, EventListener.AFTER, player, amount)		
 		pass
 

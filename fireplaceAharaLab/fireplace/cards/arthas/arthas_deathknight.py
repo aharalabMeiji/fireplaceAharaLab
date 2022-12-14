@@ -149,15 +149,19 @@ class RLK_063t:# <1>[1869]
 	 """	#
 	pass
 
-if Arthas_Hematurge:# #### i dont know how to Spend a <b>Corpse</b> #################
+if Arthas_Hematurge:# what is a Blood Rune card. ################
 	Arthas_DeathKnight+=['RLK_066']
 class RLK_066_Action(GameAction):
 	def do(self, source):
+		controller = source.controller
+		if controller.corpse>0:
+			SpendCorpse(controller, 1).trigger(source)
+			#Discover(controller, RandomMinion()).trigger(source)
 		pass
 class RLK_066:# <1>[1869]
 	""" Hematurge
 	<b>Battlecry:</b> Spend a <b>Corpse</b> to <b>Discover</b> a Blood Rune card. """
-	#play = 
+	play = RLK_066_Action()
 	pass
 
 if Arthas_Deathchiller:# 
@@ -228,13 +232,19 @@ class RLK_110e:# <1>[1869]
 if Arthas_Tomb_Guardians:# 
 	Arthas_DeathKnight+=['RLK_118']
 	Arthas_DeathKnight+=['RLK_118t3']
-class RLK__Action(GameAction):
+class RLK_118_Action(GameAction):
 	def do(self, source):
+		controller = source.controller
+		for repeat in range(2):
+			card = get00(Summon(controller, 'RLK_118t3').trigger(source))
+			if controller.corpse>=4:
+				SpendCorpse(controller, 4).trigger(source)
+				card.reborn = True
 		pass
 class RLK_118:# <1>[1869]
 	""" Tomb Guardians
 	Summon two 2/2 Zombies with <b>Taunt</b>. Spend 4 <b>Corpses</b> to give them <b>Reborn</b>. """
-	#
+	play = RLK_118_Action()
 	pass
 class RLK_118t3:# <1>[1869]
 	""" Menacing Zombie
@@ -254,36 +264,52 @@ class RLK_122:# <1>[1869]
 	pass
 
 if Arthas_Corpse_Bride:# 
-	Arthas_DeathKnight+=['RLK_504']
-class RLK__Action(GameAction):
+	Arthas_DeathKnight+=['RLK_504']#RLK_506t(1/1/1)
+class RLK_504_Action(GameAction):
 	def do(self, source):
+		controller=source.controller
+		amount = min(controller.corpse, 8)
+		SpendCorpse(controller, amount).trigger(source)
+		card = get00(Summon(controller, 'RLK_506t').trigger(source))
+		if amount>1:
+			Buff(card, 'RLK_504_e', atk=amount-1, max_health=amount-1).trigger(source)
 		pass
 class RLK_504:# <1>[1869]
 	""" Corpse Bride
 	<b>Battlecry:</b> Spend up to 8 <b>Corpses</b>. Summon a Risen Groom with stats equal to the amount spent. """
-	#
+	play = RLK_504_Action()
 	pass
+@custom_card
+class RLK_504_e:
+	tags = {
+		GameTag.CARDNAME: "Corpse Bride",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}
 
 if Arthas_Marrow_Manipulator:# 
 	Arthas_DeathKnight+=['RLK_505']
-class RLK__Action(GameAction):
+class RLK_505_Action(GameAction):
 	def do(self, source):
+		controller=source.controller
+		amount = min(5, controller.corpse)
+		SpendCorpse(controller, amount).trigger(source)
+		for repeat in range(amount):
+			target = random.choice(controller.opponent.characters)
+			Hit(target, 2).trigger(source)
 		pass
 class RLK_505:# <1>[1869]
 	""" Marrow Manipulator
 	<b>Battlecry:</b> Spend up to 5 <b>Corpses</b>. Deal 2 damage to a random enemy for each. """
-	#
+	play = RLK_505_Action()
 	pass
 
 if Arthas_Risen_Groom:# 
 	Arthas_DeathKnight+=['RLK_506t']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_506t:# <1>[1869]
 	""" Risen Groom
 	<i>Doesn't leave a <b>Corpse</b>.</i> """
-	#
+	# this is not collectible.
+	# implementation in class Death.
 	pass
 
 if Arthas_Glacial_Advance:# 
@@ -336,21 +362,25 @@ class RLK_711e:# <1>[1869]
 
 if Arthas_Blood_Tap:# 
 	Arthas_DeathKnight+=['RLK_712']
-class RLK__Action(GameAction):
+	Arthas_DeathKnight+=['RLK_712e']
+class RLK_712_Action(GameAction):
 	def do(self, source):
+		controller =source.controller
+		for card in controller.hand:
+			Buff(card, 'RLK_712e').trigger(source)
+		if controller.corpse>=3:
+			SpendCorpse(controller, 3).trigger(source)
+			for card in controller.hand:
+				Buff(card, 'RLK_712e').trigger(source)
 		pass
 class RLK_712:# <1>[1869]
 	""" Blood Tap
 	Give all minions in your hand +1/+1. Spend 3 <b>Corpses</b> to give them +1/+1 more. """
-	#
+	play = RLK_712_Action()
 	pass
+RLK_712e=buff(1,1)
+""" Tapped Blood	+1/+1. """
 
-	Arthas_DeathKnight+=['RLK_712e']
-class RLK_712e:# <1>[1869]
-	""" Tapped Blood
-	+1/+1. """
-	#
-	pass
 
 if Arthas_Lady_Deathwhisper:# 
 	Arthas_DeathKnight+=['RLK_713']
