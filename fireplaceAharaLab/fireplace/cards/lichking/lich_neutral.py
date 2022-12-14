@@ -496,7 +496,7 @@ class RLK_926:# <12>[1776]
 
 if Lich_Translocation_Instructor:# 
 	Lich_Neutral+=['RLK_950']
-class RLK_950_Action(GameAction):
+class RLK_950_Action(TargetedAction):
 	def do(self, source, target):
 		if len(source.controller.opponent.deck):
 			card = random.choice(source.controller.opponent.deck)
