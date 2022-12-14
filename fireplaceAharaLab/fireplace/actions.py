@@ -2691,7 +2691,7 @@ class Reborn(TargetedAction):
 		if Config.LOGINFO:
 			Config.log("Reborn.do","Reborn on %r"%(target))
 		controller = target.controller
-		reborn_minion = Summon(controller, target).trigger(source)
+		reborn_minion = Summon(controller, target.id).trigger(source)
 		if isinstance(reborn_minion,list):
 			reborn_minion = reborn_minion[0]
 		if isinstance(reborn_minion,list):

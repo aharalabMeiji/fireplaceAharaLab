@@ -31,8 +31,8 @@ def lich_neutral():
 	#PresetGame(pp_RLK_831)##OK
 	#PresetGame(pp_RLK_833)##OK
 	#PresetGame(pp_RLK_834)##OK
-	PresetGame(pp_RLK_867)##
-	PresetGame(pp_RLK_900)##
+	#PresetGame(pp_RLK_867)##OK
+	#PresetGame(pp_RLK_900)##OK
 	PresetGame(pp_RLK_914)##
 	PresetGame(pp_RLK_915)##
 	PresetGame(pp_RLK_926)##
@@ -871,11 +871,10 @@ class pp_RLK_867(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.con4)
-		self.asserting("self.con4.has_deathrattle")
-		self.asserting("self.con4.buffs[0].id=='RLK_867e'")
-		Hit(self.con4, 10).trigger(self.trigger)
-		self.con2=self.controller.field[-1]
-		self.asserting("self.con2.id=='RLK_018t'")
+		self.asserting2("self.con4.has_deathrattle")
+		self.asserting2("self.con4.buffs[0].id=='RLK_867e'")
+		Hit(self.con4, 10).trigger(self.controller)
+		self.asserting2("'RLK_018t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -900,7 +899,8 @@ class pp_RLK_900(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		## die and reborn
-		self.asserting2("self.con1.health==1")
+		self.cards = [card for card in self.controller.field if card.id==self.con1.id]
+		self.asserting2("len(self.cards)==1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -924,7 +924,7 @@ class pp_RLK_914(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		Hit(self.con4, 10).trigger(self.trigger)
+		Hit(self.con1, 10).trigger(self.controller)
 		self.con2=self.controller.hand[-1]#new card
 		self.asserting2("self.con2.type==CardType.SPELL")
 		self.asserting2("self.con2.spell_school==SpellSchool.SHADOW")
