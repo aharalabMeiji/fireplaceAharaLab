@@ -33,9 +33,9 @@ def lich_neutral():
 	#PresetGame(pp_RLK_834)##OK
 	#PresetGame(pp_RLK_867)##OK
 	#PresetGame(pp_RLK_900)##OK
-	PresetGame(pp_RLK_914)##
-	PresetGame(pp_RLK_915)##
-	PresetGame(pp_RLK_926)##
+	#PresetGame(pp_RLK_914)##OK
+	#PresetGame(pp_RLK_915)##OK
+	#PresetGame(pp_RLK_926)##OK
 	PresetGame(pp_RLK_950)##
 	PresetGame(pp_RLK_951)##
 	PresetGame(pp_RLK_952)##
@@ -947,7 +947,7 @@ class pp_RLK_915(Preset_Play):
 		self.con1=self.exchange_card("RLK_915", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("dragon")).trigger(self.controller)
 		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH4")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
@@ -979,6 +979,7 @@ class pp_RLK_926(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.asserting2("self.controller.hero.damage==0")
 		self.change_turn()
 		self.asserting2("self.controller.hero.damage==2")
 		pass

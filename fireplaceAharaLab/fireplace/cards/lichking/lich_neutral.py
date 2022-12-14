@@ -477,7 +477,8 @@ class RLK_915_Action(GameAction):
 	def do(self, source):
 		cards=[card for card in source.controller.field if card.type==CardType.MINION and card.race==Race.DRAGON]
 		if len(cards):
-			Hit(random.choice(source.opponent.characters), 3).trigger(source)
+			card = random.choice(source.controller.opponent.characters)
+			Hit(card, 3).trigger(source)
 		pass
 class RLK_915:# <12>[1776]
 	""" Amber Whelp
