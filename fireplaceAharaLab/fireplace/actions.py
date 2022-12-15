@@ -1260,9 +1260,11 @@ class Destroy(TargetedAction):
 			# It will be moved to the graveyard on the next Death event
 			if Config.LOGINFO:
 				Config.log("Destroy.do","%r marks %r for imminent death"%(source, target))
-			target.to_be_destroyed = True
-			source.game.process_deaths()
-			#Deaths().trigger(source)
+			if target.type == CardType.ENCHANTMENT:
+				target.remove()
+			else:
+				target.to_be_destroyed = True
+				source.game.process_deaths()
 		else:
 			if Config.LOGINFO:
 				Config.log("Destroy.do","%r destroys %r"%(source, target))

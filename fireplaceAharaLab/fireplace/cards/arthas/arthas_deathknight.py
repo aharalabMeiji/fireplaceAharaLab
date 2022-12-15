@@ -316,21 +316,24 @@ class RLK_506t:# <1>[1869]
 	pass
 
 if Arthas_Glacial_Advance:# 
-	Arthas_DeathKnight+=['RLK_512']
+	Arthas_DeathKnight+=['RLK_512','DMF_057o']
 class RLK_512:# <1>[1869]
 	""" Glacial Advance
 	Deal $4 damage. Your next spell this turn costs (2) less. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
-	play = Hit(TARGET, 4), Buff(FRIENDLY_HAND, 'RLK_512_e')
+	play = Hit(TARGET, 4), Buff(FRIENDLY_HAND+SPELL, 'DMF_057o')
 	pass
-@custom_card
-class RLK_512_e:
-	tags = {
-		GameTag.CARDNAME: "Glacial Advance",
-		GameTag.CARDTYPE: CardType.ENCHANTMENT,
-	}
-	events = [ OWN_SPELL_PLAY.on(Destroy(SELF)), OWN_TURN_END.on(Destroy(SELF))]
-	cost = lambda self, i:max(i-2,0)
+class DMF_057o:# <2>[1466]#ONE_TURN_EFFECT
+	""" Lunar Empowerment
+	The next spell you cast this turn costs (2) less. """
+	cost = lambda self, i: max(i-2,0)
+	class Hand:
+		events =[
+		   OWN_SPELL_PLAY.on(Destroy(SELF)),
+		   OWN_TURN_END.on(Destroy(SELF)),
+		   ]
+	pass#
+
 
 if Arthas_Bone_Breaker:# 
 	Arthas_DeathKnight+=['RLK_516']
