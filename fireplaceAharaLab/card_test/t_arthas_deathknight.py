@@ -524,19 +524,22 @@ class pp_RLK_505(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_505", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH7")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH7")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=3
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		damage1=self.opp1.damage
+		damage2=self.opp2.damage
+		damage0=self.opponent.hero.damage
+		self.amount=damage0+damage1+damage2
+		self.assertion("self.amount==6")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -554,19 +557,15 @@ class pp_RLK_506t(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_506t", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.assertion("self.controller.corpse==0")
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		Hit(self.con1, 10).trigger(self.controller)
+		self.assertion("self.controller.corpse==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -584,19 +583,21 @@ class pp_RLK_512(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_512", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.con2=self.exchange_card(self.card_choice("spell"), self.controller)
+		self.con3=self.exchange_card(self.card_choice("spell"), self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH7")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.play_card(self.con1, target=self.opp1)
+		self.assertion("self.opp1.damage==4")
+		self.assertion("self.con2.cost==self.con2.data.cost-2")
+		self.assertion("self.con3.cost==self.con3.data.cost-2")
+		self.cast_spell(self.con2)
+		self.assertion("self.con3.cost==self.con3.data.cost")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -614,9 +615,7 @@ class pp_RLK_516(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_516", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH6")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
@@ -624,9 +623,9 @@ class pp_RLK_516(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.attack_card(self.controller.hero, self.opp1)
+		self.assertion("self.opp1.damage==2")
+		self.assertion("self.opponent.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -634,35 +633,6 @@ class pp_RLK_516(Preset_Play):
 			self.print_stats("hand", card)
 	pass
 
-
-##########RLK_710e##########
-
-class pp_RLK_710e(Preset_Play):
-	""" Freezy Breezy
-	Costs (1) less. """
-	class1=CardClass.DEATHKNIGHT
-	class2=CardClass.DEATHKNIGHT
-	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_710e", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
 
 
 ##########RLK_711##########

@@ -321,15 +321,22 @@ class RLK_512:# <1>[1869]
 	""" Glacial Advance
 	Deal $4 damage. Your next spell this turn costs (2) less. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
-	
+	play = Hit(TARGET, 4), Buff(FRIENDLY_HAND, 'RLK_512_e')
 	pass
+class RLK_512_e:
+	tags = {
+		GameTag.CARDNAME: "Glacial Advance",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+	}
+	events = [ OWN_SPELL_PLAY.on(Destroy(SELF)), OWN_TURN_END.on(Destroy(SELF))]
+	cost = lambda self, i:max(i-2,0)
 
 if Arthas_Bone_Breaker:# 
 	Arthas_DeathKnight+=['RLK_516']
 class RLK_516:# <1>[1869]
 	""" Bone Breaker
 	After your hero attacks a minion, deal 2 damage to the enemy hero. """
-	events = Attack(FRIENDLY_HERO).after(Hit(ENEMY_HERO, 2))
+	events = Attack(FRIENDLY_HERO, MINION).after(Hit(ENEMY_HERO, 2))
 	pass
 
 if Arthas_Freezy_Breezy:# 
