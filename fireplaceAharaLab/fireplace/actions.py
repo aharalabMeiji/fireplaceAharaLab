@@ -2893,7 +2893,7 @@ class RegularAttack(TargetedAction):
 			for defcard in other:
 				if Config.LOGINFO:
 					Config.log("RegularAttack.do","%s attacks '%s'"%(attcard, defcard ))
-				if attcard.atk>0:
+				if attcard.can_regular_attack():
 					Hit(defcard, attcard.atk).trigger(attcard)
 				if defcard.atk>0:
 					Hit(attcard, defcard.atk).trigger(defcard)

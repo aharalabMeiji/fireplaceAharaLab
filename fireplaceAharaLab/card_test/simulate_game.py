@@ -545,7 +545,7 @@ class Preset_Play:
 		if Config.LOGINFO:
 			Config.log("assert",message)
 		assert condition==True, message
-	def asserting2(self, message):
+	def assertion(self, message):
 		condition=eval(message)
 		if Config.LOGINFO:
 			Config.log("assert",message)

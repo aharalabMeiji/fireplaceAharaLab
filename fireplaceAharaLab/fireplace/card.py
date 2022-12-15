@@ -753,6 +753,24 @@ class Character(LiveEntity):
 
 		return (taunts or targets).filter(attackable=True)
 
+	def can_regular_attack(self):
+		if self.type==CardType.MINION:
+			if self.dormant:
+				return False
+			elif not self.zone == Zone.PLAY:
+				return False
+			elif self.cant_attack:
+				return False
+			elif self.atk==0:
+				return False
+			elif self.frozen:
+				return False
+			elif self.should_exit_combat:
+				return False
+		else:
+			return False
+		return True
+
 	def can_attack(self, target=None):
 		if self.controller.choice:
 			return False

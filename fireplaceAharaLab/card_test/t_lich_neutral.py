@@ -247,7 +247,7 @@ class pp_RLK_123(Preset_Play):
 		self.change_turn()
 		### con
 		self.play_card(self.con1)
-		self.asserting2("self.opp1.damage==2 or self.opponent.hero.damage==2")
+		self.assertion("self.opp1.damage==2 or self.opponent.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -276,10 +276,10 @@ class pp_RLK_218(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.asserting2("self.opponent.hero.cant_be_targeted_by_spells==True")
-		#self.asserting2("is_valid_target(self.con2, self.opponent.hero)")
+		self.assertion("self.opponent.hero.cant_be_targeted_by_spells==True")
+		#self.assertion("is_valid_target(self.con2, self.opponent.hero)")
 		self.play_card(self.con2, target=self.opponent.hero)# spelldamage=3+2
-		self.asserting2("self.opponent.hero.damage==5")
+		self.assertion("self.opponent.hero.damage==5")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -367,8 +367,8 @@ class pp_RLK_220(Preset_Play):
 		self.change_turn()
 		### con
 		self.attack_card(self.con1, self.opp1)
-		self.asserting2("self.controller.hero.damage==10-4-2")
-		self.asserting2("self.opponent.hero.damage==2")
+		self.assertion("self.controller.hero.damage==10-4-2")
+		self.assertion("self.opponent.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -447,7 +447,7 @@ class pp_RLK_222(Preset_Play):
 		### opp
 		self.print_stats("self.opp1", self.opp1)
 		self.print_stats("self.opponent.hero", self.opponent.hero)
-		self.asserting2("self.opp1.damage==2 or self.opponent.hero.damage==2")
+		self.assertion("self.opp1.damage==2 or self.opponent.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -472,7 +472,7 @@ class pp_RLK_222b(Preset_Play):
 		self.controller.max_mana=7
 		self.play_card(self.con1)
 		### opp
-		self.asserting2("self.controller.hero.armor==5")
+		self.assertion("self.controller.hero.armor==5")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -494,7 +494,7 @@ class pp_RLK_222c(Preset_Play):
 		self.controller.max_mana=10
 		self.play_card(self.con1)
 		### opp
-		self.asserting2("self.opponent.hero.damage==8+8")
+		self.assertion("self.opponent.hero.damage==8+8")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -520,8 +520,8 @@ class pp_RLK_518(Preset_Play):
 		### con
 		self.controller.max_mana=8
 		self.play_card(self.con1)
-		self.asserting2("self.con1.atk==self.con1.data.atk+2")
-		self.asserting2("self.con1.divine_shield==True")
+		self.assertion("self.con1.atk==self.con1.data.atk+2")
+		self.assertion("self.con1.divine_shield==True")
 		### opp
 		pass
 	def result_inspection(self):
@@ -572,10 +572,10 @@ class pp_RLK_591(Preset_Play):
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
 		self.costs=[card.cost for card in self.controller.hand]
-		self.asserting2("len([c for c in self.costs if c!=0])==0")
+		self.assertion("len([c for c in self.costs if c!=0])==0")
 		self.play_card(self.con2)
 		self.costs=[card.cost for card in self.controller.hand]
-		self.asserting2("len([c for c in self.costs if c==0])==0")
+		self.assertion("len([c for c in self.costs if c==0])==0")
 		self.change_turn()		
 		### opp
 		self.change_turn()		
@@ -585,7 +585,7 @@ class pp_RLK_591(Preset_Play):
 		self.change_turn()		
 		### con
 		self.change_turn()
-		self.asserting2("self.controller.hero.alive==False")
+		self.assertion("self.controller.hero.alive==False")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -611,11 +611,11 @@ class pp_RLK_592(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.asserting2("self.con4.atk==self.con4.data.atk+5")
-		self.asserting2("self.con4.taunt==True")
+		self.assertion("self.con4.atk==self.con4.data.atk+5")
+		self.assertion("self.con4.taunt==True")
 		Hit(self.con1, 10).trigger(self.opponent)
-		self.asserting2("self.con1.health==1")
-		self.asserting2("self.con4.atk==self.con4.data.atk+10")
+		self.assertion("self.con1.health==1")
+		self.assertion("self.con4.atk==self.con4.data.atk+10")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -644,8 +644,8 @@ class pp_RLK_593(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.con2=random.choice([card for card in self.controller.deck if card.type==CardType.MINION])
-		self.asserting2("self.con2.atk==self.con2.data.atk*2")
-		self.asserting2("self.con2.max_health==self.con2.data.health*2")
+		self.assertion("self.con2.atk==self.con2.data.atk*2")
+		self.assertion("self.con2.max_health==self.con2.data.health*2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -673,10 +673,10 @@ class pp_RLK_653(Preset_Play):
 		self.play_card(self.con4)
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
-		self.asserting2("self.con4.has_deathrattle")
-		self.asserting2("self.con4.buffs[0].id=='RLK_653e'")
+		self.assertion("self.con4.has_deathrattle")
+		self.assertion("self.con4.buffs[0].id=='RLK_653e'")
 		Hit(self.con4, 10).trigger(self.opponent)
-		self.asserting2("'RLK_653' in [card.id for card in self.controller.field]")
+		self.assertion("'RLK_653' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -705,8 +705,8 @@ class pp_RLK_677(Preset_Play):
 		self.change_turn()
 		### opp
 		self.play_card(self.opp1, target=self.con4)
-		self.asserting2("self.con4.damage==0")
-		self.asserting2("self.con1.damage>0")
+		self.assertion("self.con4.damage==0")
+		self.assertion("self.con1.damage>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -732,7 +732,7 @@ class pp_RLK_824(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.play_card(self.con2)
-		self.asserting2("self.con2.atk==self.con2.data.atk+1")
+		self.assertion("self.con2.atk==self.con2.data.atk+1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -761,8 +761,8 @@ class pp_RLK_830(Preset_Play):
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
 		self.con2=self.controller.field[0]
-		self.asserting2("self.con2.race==Race.UNDEAD")
-		self.asserting2("self.con2.id in [card.id for card in self.controller.hand]")
+		self.assertion("self.con2.race==Race.UNDEAD")
+		self.assertion("self.con2.id in [card.id for card in self.controller.hand]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -787,7 +787,7 @@ class pp_RLK_831(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
-		self.asserting2("'RLK_831' in [card.id for card in self.opponent.hand]")
+		self.assertion("'RLK_831' in [card.id for card in self.opponent.hand]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -812,7 +812,7 @@ class pp_RLK_833(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
-		self.asserting2("'RLK_833t' in [card.id for card in self.controller.field]")
+		self.assertion("'RLK_833t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -845,7 +845,7 @@ class pp_RLK_834(Preset_Play):
 		self.play_card(self.con1)
 		self.choose_action()
 		self.con2=self.controller.hand[-1]
-		self.asserting2("self.con2.cost==max(0,self.con2.data.cost-2)")
+		self.assertion("self.con2.cost==max(0,self.con2.data.cost-2)")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -871,10 +871,10 @@ class pp_RLK_867(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.con4)
-		self.asserting2("self.con4.has_deathrattle")
-		self.asserting2("self.con4.buffs[0].id=='RLK_867e'")
+		self.assertion("self.con4.has_deathrattle")
+		self.assertion("self.con4.buffs[0].id=='RLK_867e'")
 		Hit(self.con4, 10).trigger(self.controller)
-		self.asserting2("'RLK_018t' in [card.id for card in self.controller.field]")
+		self.assertion("'RLK_018t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -900,7 +900,7 @@ class pp_RLK_900(Preset_Play):
 		self.play_card(self.con1)
 		## die and reborn
 		self.cards = [card for card in self.controller.field if card.id==self.con1.id]
-		self.asserting2("len(self.cards)==1")
+		self.assertion("len(self.cards)==1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -926,8 +926,8 @@ class pp_RLK_914(Preset_Play):
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.controller)
 		self.con2=self.controller.hand[-1]#new card
-		self.asserting2("self.con2.type==CardType.SPELL")
-		self.asserting2("self.con2.spell_school==SpellSchool.SHADOW")
+		self.assertion("self.con2.type==CardType.SPELL")
+		self.assertion("self.con2.spell_school==SpellSchool.SHADOW")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -955,7 +955,7 @@ class pp_RLK_915(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.asserting2("self.opp1.damage==3 or self.opponent.hero.damage==3")
+		self.assertion("self.opp1.damage==3 or self.opponent.hero.damage==3")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -979,9 +979,9 @@ class pp_RLK_926(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.asserting2("self.controller.hero.damage==0")
+		self.assertion("self.controller.hero.damage==0")
 		self.change_turn()
-		self.asserting2("self.controller.hero.damage==2")
+		self.assertion("self.controller.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1007,8 +1007,8 @@ class pp_RLK_950(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.opp1)
-		self.asserting2("self.opp1.zone==Zone.DECK")
-		self.asserting2("len(self.opponent.field)==1")
+		self.assertion("self.opp1.zone==Zone.DECK")
+		self.assertion("len(self.opponent.field)==1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1035,8 +1035,8 @@ class pp_RLK_951(Preset_Play):
 		### con
 		self.controller.max_mana=6
 		self.play_card(self.con1, target=self.opp1)
-		self.asserting2("self.opp1.silenced==True")
-		self.asserting2("self.opp1.frozen==True")
+		self.assertion("self.opp1.silenced==True")
+		self.assertion("self.opp1.frozen==True")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1065,11 +1065,11 @@ class pp_RLK_952(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		Hit(self.opp1, 1).trigger(self.con1)
-		self.asserting2("self.opp1.damage==2")
+		self.assertion("self.opp1.damage==2")
 		self.change_turn()
 		### opp
 		Hit(self.opp2, 1).trigger(self.con1)
-		self.asserting2("self.opp2.damage==1")
+		self.assertion("self.opp2.damage==1")
 		self.change_turn()
 		pass
 	def result_inspection(self):
@@ -1096,9 +1096,9 @@ class pp_RLK_955(Preset_Play):
 		### con
 		self.controller.max_mana=7
 		self.play_card(self.con1)
-		self.asserting2("self.con1.buffs!=[]")
-		self.asserting2("self.con1.buffs[0].id=='RLK_955e'")
-		self.asserting2("self.con1.max_health==self.con1.data.health+2")
+		self.assertion("self.con1.buffs!=[]")
+		self.assertion("self.con1.buffs[0].id=='RLK_955e'")
+		self.assertion("self.con1.max_health==self.con1.data.health+2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1125,9 +1125,9 @@ class pp_RLK_957(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		Hit(self.con1, 10).trigger(self.opponent)
-		self.asserting2("self.con4.buffs!=[]")
-		self.asserting2("self.con4.buffs[0].id=='RLK_957e'")
-		self.asserting2("self.con4.max_health==self.con4.data.health+1")
+		self.assertion("self.con4.buffs!=[]")
+		self.assertion("self.con4.buffs[0].id=='RLK_957e'")
+		self.assertion("self.con4.max_health==self.con4.data.health+1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -1153,11 +1153,11 @@ class pp_RLK_970(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.play_card(self.con2)
-		self.asserting2("self.con2.buffs[0].id=='RLK_970e'")
-		self.asserting2("self.con2.has_deathrattle==True")
-		self.asserting2("self.con2.atk==self.con2.data.atk+1")
+		self.assertion("self.con2.buffs[0].id=='RLK_970e'")
+		self.assertion("self.con2.has_deathrattle==True")
+		self.assertion("self.con2.atk==self.con2.data.atk+1")
 		Hit(self.con2, 10).trigger(self.opponent)
-		self.asserting2("self.controller.field[-1].id=='RLK_970t'")
+		self.assertion("self.controller.field[-1].id=='RLK_970t'")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

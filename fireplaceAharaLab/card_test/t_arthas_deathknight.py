@@ -1,6 +1,6 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit, Summon, Give
-from hearthstone.enums import CardClass, Zone, CardType, Rarity
+from hearthstone.enums import CardClass, Zone, CardType, Rarity, SpellSchool
 
 def arthas_deathknight():
 
@@ -18,6 +18,7 @@ def arthas_deathknight():
 	PresetGame(pp_RLK_087)##
 	PresetGame(pp_RLK_110)##
 	PresetGame(pp_RLK_118)##
+	PresetGame(pp_RLK_118b)##
 	PresetGame(pp_RLK_122)##
 	PresetGame(pp_RLK_504)##
 	PresetGame(pp_RLK_505)##
@@ -52,10 +53,10 @@ class pp_RLK_015(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1,target=self.opp1)
-		self.asserting2("self.opp1.damage==3")
-		self.asserting2("self.opp1.frozen==True")
-		self.asserting2("self.opp2.damage==1")
-		self.asserting2("self.opponent.hero.damage==1")
+		self.assertion("self.opp1.damage==3")
+		self.assertion("self.opp1.frozen==True")
+		self.assertion("self.opp2.damage==1")
+		self.assertion("self.opponent.hero.damage==1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -81,8 +82,8 @@ class pp_RLK_018(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.opp1)
-		self.asserting2("self.opp1.dead==True")
-		self.asserting2("'RLK_018t' in [card.id for card in self.controller.field]")
+		self.assertion("self.opp1.dead==True")
+		self.assertion("'RLK_018t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -108,8 +109,8 @@ class pp_RLK_038(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.opp1)
-		self.asserting2("self.opp1.damage==2")
-		self.asserting2("self.opp1.frozen==True")
+		self.assertion("self.opp1.damage==2")
+		self.assertion("self.opp1.frozen==True")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -134,7 +135,7 @@ class pp_RLK_042(Preset_Play):
 		### con
 		self.controller.used_mana=3
 		self.play_card(self.con1)
-		self.asserting2("self.controller.used_mana==1")
+		self.assertion("self.controller.used_mana==1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -164,9 +165,9 @@ class pp_RLK_056(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.opp1)
-		self.asserting2("self.opp1.damage==2+3")
-		self.asserting2("self.con3.id in [card.id for card in self.controller.field]")
-		self.asserting2("self.con4.id in [card.id for card in self.controller.field]")
+		self.assertion("self.opp1.damage==2+3")
+		self.assertion("self.con3.id in [card.id for card in self.controller.field]")
+		self.assertion("self.con4.id in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -192,8 +193,8 @@ class pp_RLK_057(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.con4)
-		self.asserting2("not self.con4.id in [card.id for card in self.controller.field]")
-		self.asserting2("'RLK_057t' in [card.id for card in self.controller.field]")
+		self.assertion("not self.con4.id in [card.id for card in self.controller.field]")
+		self.assertion("'RLK_057t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -217,7 +218,7 @@ class pp_RLK_062(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.asserting2("len([card for card in self.controller.field if card.id=='RLK_062'])==3")
+		self.assertion("len([card for card in self.controller.field if card.id=='RLK_062'])==3")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -248,10 +249,10 @@ class pp_RLK_063(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.opp1)
-		self.asserting2("self.opp1.damage==5")
-		self.asserting2("self.opp1.frozen==True")
-		self.asserting2("self.opp2.frozen==True")
-		self.asserting2("'RLK_063t' in [card.id for card in self.controller.field]")
+		self.assertion("self.opp1.damage==5")
+		self.assertion("self.opp1.frozen==True")
+		self.assertion("self.opp2.frozen==True")
+		self.assertion("'RLK_063t' in [card.id for card in self.controller.field]")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -277,7 +278,7 @@ class pp_RLK_066(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.con2=self.choose_action()
-		self.asserting2("self.con2.cost_blood>0")
+		self.assertion("self.con2.cost_blood>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -355,19 +356,18 @@ class pp_RLK_087(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_087", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionA4")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionA3")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("self.opp1.dead==True")
+		self.assertion("self.opp2.dead==False")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -385,6 +385,7 @@ class pp_RLK_110(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_110", self.controller)
+		self.con2=self.exchange_card(self.card_choice("frost"), self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
@@ -395,9 +396,8 @@ class pp_RLK_110(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.new_atk=len([card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST])
+		self.assertion("self.con1.atk==self.con1.data.atk+self.new_atk") 
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -415,19 +415,41 @@ class pp_RLK_118(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_118", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=5#3
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.cards=[card for card in self.controller.field if card.id=='RLK_118t3']
+		self.assertion("len(self.cards)==2")
+		self.assertion("self.cards[0].reborn==True")
+		self.assertion("self.controller.corpse==1")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_118b(Preset_Play):
+	""" Tomb Guardians
+	Summon two 2/2 Zombies with <b>Taunt</b>. Spend 4 <b>Corpses</b> to give them <b>Reborn</b>. """
+	class1=CardClass.DEATHKNIGHT
+	class2=CardClass.DEATHKNIGHT
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_118", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.controller.corpse=3#5
+		self.play_card(self.con1)
+		self.cards=[card for card in self.controller.field if card.id=='RLK_118t3']
+		self.assertion("len(self.cards)==2")
+		self.assertion("self.cards[0].reborn==False")
+		self.assertion("self.controller.corpse==3")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -445,24 +467,21 @@ class pp_RLK_122(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_122", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("len(self.controller.field)==7")
+		self.assertion("self.controller.field[1].race==Race.UNDEAD")
+		self.assertion("self.controller.field[3].race==Race.UNDEAD")
+		self.assertion("self.controller.field[5].race==Race.UNDEAD")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
+		for card in self.controller.field:
+			self.print_stats("field", card)
 	pass
 
 
@@ -475,19 +494,19 @@ class pp_RLK_504(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_504", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=5
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.cards=[card for card in self.controller.field if card.id=='RLK_506t']
+		self.assertion("len(self.cards)==1")
+		self.con2=self.cards[0]
+		self.assertion("self.con2.atk==6")
+		self.assertion("self.con2.max_health==6")
+		self.assertion("self.controller.corpse==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
