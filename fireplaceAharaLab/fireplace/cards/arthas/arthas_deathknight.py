@@ -323,6 +323,7 @@ class RLK_512:# <1>[1869]
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
 	play = Hit(TARGET, 4), Buff(FRIENDLY_HAND, 'RLK_512_e')
 	pass
+@custom_card
 class RLK_512_e:
 	tags = {
 		GameTag.CARDNAME: "Glacial Advance",

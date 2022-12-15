@@ -3878,7 +3878,7 @@ class SpendCorpse(TargetedAction):## new 25.0
 	AMOUNT = IntArg()
 	def do(self, source, player, amount):
 		if hasattr(player, 'corpse'):
-			if player.corpse>amount:
+			if player.corpse>=amount:
 				self.broadcast(source, EventListener.ON, player, amount)
 				if Config.LOGINFO:
 					Config.log("AddCorpse.do","%s spends %d his/her corpses"%(player, amount))

@@ -13,16 +13,16 @@ def arthas_deathknight():
 	#PresetGame(pp_RLK_062)##OK
 	#PresetGame(pp_RLK_063)##OK
 	#PresetGame(pp_RLK_066)##OK
-	PresetGame(pp_RLK_083)##
-	PresetGame(pp_RLK_086)##
-	PresetGame(pp_RLK_087)##
-	PresetGame(pp_RLK_110)##
-	PresetGame(pp_RLK_118)##
-	PresetGame(pp_RLK_118b)##
-	PresetGame(pp_RLK_122)##
-	PresetGame(pp_RLK_504)##
-	PresetGame(pp_RLK_505)##
-	PresetGame(pp_RLK_506t)##
+	#PresetGame(pp_RLK_083)##OK
+	#PresetGame(pp_RLK_086)##OK
+	#PresetGame(pp_RLK_087)##OK
+	#PresetGame(pp_RLK_110)##OK
+	#PresetGame(pp_RLK_118)##OK
+	#PresetGame(pp_RLK_118b)##OK
+	#PresetGame(pp_RLK_122)##OK
+	#PresetGame(pp_RLK_504)##OK
+	#PresetGame(pp_RLK_505)##OK
+	#PresetGame(pp_RLK_506t)##OK
 	PresetGame(pp_RLK_512)##
 	PresetGame(pp_RLK_516)##
 	PresetGame(pp_RLK_711)##
@@ -504,8 +504,8 @@ class pp_RLK_504(Preset_Play):
 		self.cards=[card for card in self.controller.field if card.id=='RLK_506t']
 		self.assertion("len(self.cards)==1")
 		self.con2=self.cards[0]
-		self.assertion("self.con2.atk==6")
-		self.assertion("self.con2.max_health==6")
+		self.assertion("self.con2.atk==5")
+		self.assertion("self.con2.max_health==5")
 		self.assertion("self.controller.corpse==0")
 		pass
 	def result_inspection(self):
@@ -594,9 +594,11 @@ class pp_RLK_512(Preset_Play):
 		### con
 		self.play_card(self.con1, target=self.opp1)
 		self.assertion("self.opp1.damage==4")
-		self.assertion("self.con2.cost==self.con2.data.cost-2")
-		self.assertion("self.con3.cost==self.con3.data.cost-2")
+		self.assertion("'RLK_512_e' in [card.id for card in self.con2.buffs]")
+		self.assertion("self.con2.cost==max(0,self.con2.data.cost-2)")
+		self.assertion("self.con3.cost==max(0,self.con3.data.cost-2)")
 		self.cast_spell(self.con2)
+		self.assertion("not 'RLK_512_e' in [card.id for card in self.con3.buffs]")
 		self.assertion("self.con3.cost==self.con3.data.cost")
 		pass
 	def result_inspection(self):
