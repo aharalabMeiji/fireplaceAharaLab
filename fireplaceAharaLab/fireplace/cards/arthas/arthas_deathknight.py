@@ -10,7 +10,7 @@ Arthas_Unholy_Frenzy=True
 Arthas_Dark_Transformation=True
 Arthas_Nerubian_Swarmguard=True
 Arthas_Frostwyrms_Fury=True
-Arthas_Hematurge=False ###################################pending
+Arthas_Hematurge=True #
 Arthas_Deathchiller=True
 Arthas_Frostmourne=False ###################################pending
 Arthas_Asphyxiate=True
@@ -149,14 +149,14 @@ class RLK_063t:# <1>[1869]
 	 """	#
 	pass
 
-if Arthas_Hematurge:# what is a Blood Rune card. ################
+if Arthas_Hematurge:# ### OK ###
 	Arthas_DeathKnight+=['RLK_066']
 class RLK_066_Action(GameAction):
 	def do(self, source):
 		controller = source.controller
 		if controller.corpse>0:
 			SpendCorpse(controller, 1).trigger(source)
-			#Discover(controller, RandomMinion()).trigger(source)
+			Discover(controller, RandomBloodRune()).trigger(source)# COST_BLOOD
 		pass
 class RLK_066:# <1>[1869]
 	""" Hematurge
@@ -174,8 +174,9 @@ class RLK_083:# <1>[1869]
 
 if Arthas_Frostmourne:# ### 
 	Arthas_DeathKnight+=['RLK_086']
-class RLK_086_Action1(GameAction):
+class RLK_086_Action1(TargetedAction):
 	def do(self, source, target):
+		# if it is killed
 		source.sidequest_list0.append(target.id)
 		pass
 class RLK_086_Action2(GameAction):
@@ -413,41 +414,56 @@ class RLK_730e:# <1>[1869]
 
 if Arthas_Darkfallen_Neophyte:# 
 	Arthas_DeathKnight+=['RLK_731']
-class RLK__Action(GameAction):
+	Arthas_DeathKnight+=['RLK_731e']
+class RLK_731_Action(GameAction):
 	def do(self, source):
+		controller=source.controller
+		if controller.corpse>=2:
+			SpendCorpse(controller, 2).trigger(source)
+			for card in controller.hand:
+				if card.type==CardType.MINION:
+					Buff(card, 'RLK_731e').trigger(source)
 		pass
 class RLK_731:# <1>[1869]
 	""" Darkfallen Neophyte
 	<b>Battlecry:</b> Spend 2 <b>Corpses</b> to give all minions in your hand +2 Attack. """
-	#
+	play = RLK_731_Action()
 	pass
+RLK_731e=buff(2,0)
+""" Fallen to Dark	+2 Attack. """
 
-	Arthas_DeathKnight+=['RLK_731e']
-class RLK_731e:# <1>[1869]
-	""" Fallen to Dark
-	+2 Attack. """
-	#
-	pass
 
 if Arthas_Might_of_Menethil:# 
 	Arthas_DeathKnight+=['RLK_740']
-class RLK__Action(GameAction):
+class RLK_740_Action(GameAction):
 	def do(self, source):
+		controller=source.controller
+		amount = min(3,controller.corpse)
+		cards = [card for card in controller.opponent.field if card.type==CardType.MINION]
+		amount = min(amount, len(cards))
+		if len(cards)>amount:
+			cards = random.sample(cards, amount)
+		for card in cards:
+			Freeze(card).trigger(source)
 		pass
 class RLK_740:# <1>[1869]
 	""" Might of Menethil
 	<b>Battlecry:</b> Spend up to 3 <b>Corpses</b>. <b>Freeze</b> that many enemy minions. """
-	#
+	play = RLK_740_Action()
 	pass
 
 if Arthas_Malignant_Horror:# 
 	Arthas_DeathKnight+=['RLK_745']
-class RLK__Action(GameAction):
+class RLK_745_Action(GameAction):
 	def do(self, source):
+		controller=source.controller
+		if controller.corpse>=5:
+			SpendCorpse(controller, 5).trigger(source)
+			Summon(controller,'RLK_745').trigger(source)
 		pass
 class RLK_745:# <1>[1869]
 	""" Malignant Horror
 	<b>Reborn</b> At the end of your turn, spend 5 <b>Corpses</b> to summon a copy of this minion. """
-	#
+	events = OWN_TURN_END.on(RLK_745_Action())
 	pass
 

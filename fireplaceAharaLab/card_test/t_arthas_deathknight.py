@@ -12,7 +12,7 @@ def arthas_deathknight():
 	#PresetGame(pp_RLK_057)##
 	#PresetGame(pp_RLK_062)##
 	#PresetGame(pp_RLK_063)##
-	#PresetGame(pp_RLK_066)##
+	PresetGame(pp_RLK_066)##OK
 	#PresetGame(pp_RLK_083)##
 	#PresetGame(pp_RLK_086)##
 	#PresetGame(pp_RLK_087)##
@@ -285,19 +285,15 @@ class pp_RLK_066(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_066", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.controller.corpse=1
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.con2=self.choose_action()
+		self.asserting2("self.con2.cost_blood>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

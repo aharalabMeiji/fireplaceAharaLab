@@ -241,6 +241,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	windfury = int_property("windfury")
 	colossal = boolean_property("colossal")##sunken
 	SI7_minion = boolean_property("SI7_minion") ## stormwind_rogue 
+	cost_blood = int_property("cost_blood") ## new 25.0
+	cost_frost = int_property("cost_frost") ## new 25.0
+	cost_death = int_property("cost_death") ## new 25.0
+	cost_unholy = int_property("cost_unholy") ## new 25.0
 
 	sidequest_list0 = []# Sidequest
 	sidequest_list1 = []# Sidequest

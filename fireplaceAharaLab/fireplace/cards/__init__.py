@@ -234,6 +234,14 @@ class CardDB(dict):
 					cards = [card for card in cards if card.tags.get(GameTag.STEALTH,0)==1 ]
 				elif attr == 'admissible':
 					cards = [card for card in cards if card.race in random_picker.BG_races ]
+				elif attr == 'cost_blood':
+					cards = [card for card in cards if card.tags.get(GameTag.COST_BLOOD,0)>0 ]
+				elif attr == 'cost_frost':
+					cards = [card for card in cards if card.tags.get(GameTag.COST_FROST,0)>0 ]
+				elif attr == 'cost_death':
+					cards = [card for card in cards if card.tags.get(GameTag.COST_DEATH,0)>0 ]
+				elif attr == 'cost_unholy':
+					cards = [card for card in cards if card.tags.get(GameTag.COST_UNHOLY,0)>0 ]
 				else:
 					cards = [
 						card for card in cards if (

@@ -182,6 +182,10 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CORRUPT: 'corrupt',
 	GameTag.CORRUPTEDCARD: 'corruptedcard',
 	GameTag.COST: "cost",
+	GameTag.COST_BLOOD: "cost_blood", ## new 25.0
+	GameTag.COST_FROST: "cost_frost", ## new 25.0
+	GameTag.COST_DEATH: "cost_death", ## new 25.0
+	GameTag.COST_UNHOLY: "cost_unholy", ## new 25.0
 	GameTag.CREATOR: "creator",
 	GameTag.DAMAGE: "damage",
 	2044: "darkmoon_ticket_tier", 

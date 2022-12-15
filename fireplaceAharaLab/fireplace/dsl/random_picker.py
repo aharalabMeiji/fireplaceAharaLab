@@ -113,6 +113,10 @@ RandomLegendaryMinion = lambda **kw: RandomMinion(rarity=Rarity.LEGENDARY, **kw)
 RandomSparePart = lambda: RandomCardPicker(spare_part=True)
 RandomDeathrattle = lambda **kw: RandomMinion(deathrattle=True)
 RandomSecret = lambda **kw: RandomSpell(secret=1, **kw)
+RandomBloodRune = lambda **kw: RandomCollectible(cost_blood=True, **kw)
+RandomFrostRune = lambda **kw: RandomCollectible(cost_frost=True, **kw)
+RandomDeathRune = lambda **kw: RandomCollectible(cost_death=True, **kw)
+RandomUnholyRune = lambda **kw: RandomCollectible(cost_unholy=True, **kw)
 
 BG_races=[]
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
