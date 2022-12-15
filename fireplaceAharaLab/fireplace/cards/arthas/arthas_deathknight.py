@@ -12,7 +12,7 @@ Arthas_Nerubian_Swarmguard=True
 Arthas_Frostwyrms_Fury=True
 Arthas_Hematurge=True #
 Arthas_Deathchiller=True
-Arthas_Frostmourne=False ###################################pending
+Arthas_Frostmourne=True
 Arthas_Asphyxiate=True
 Arthas_Ymirjar_Frostbreaker=True
 Arthas_Tomb_Guardians=True
@@ -22,7 +22,7 @@ Arthas_Marrow_Manipulator=True
 Arthas_Risen_Groom=True
 Arthas_Glacial_Advance=True
 Arthas_Bone_Breaker=True
-Arthas_Freezy_Breezy=True
+Arthas_Freezy_Breezy=False #----->
 Arthas_Vicious_Bloodworm=True
 Arthas_Blood_Tap=True
 Arthas_Lady_Deathwhisper=True
@@ -255,13 +255,18 @@ class RLK_118t3:# <1>[1869]
 
 if Arthas_The_Scourge:# 
 	Arthas_DeathKnight+=['RLK_122']
-class RLK__Action(GameAction):
+class RLK_122_Action(GameAction):
 	def do(self, source):
+		controller=source.controller
+		amount=7-len(controller.field)
+		for repeat in range(amount):
+			card = get00(RandomMinion(race=Race.UNDEAD).evaluate(source))
+			card.zone=Zone.PLAY
 		pass
 class RLK_122:# <1>[1869]
 	""" The Scourge
 	Fill your board with random Undead. """
-	#
+	play = RLK_122_Action()
 	pass
 
 if Arthas_Corpse_Bride:# 
@@ -321,7 +326,8 @@ class RLK__Action(GameAction):
 class RLK_512:# <1>[1869]
 	""" Glacial Advance
 	Deal $4 damage. Your next spell this turn costs (2) less. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
+	
 	pass
 
 if Arthas_Bone_Breaker:# 
@@ -332,7 +338,7 @@ class RLK__Action(GameAction):
 class RLK_516:# <1>[1869]
 	""" Bone Breaker
 	After your hero attacks a minion, deal 2 damage to the enemy hero. """
-	#
+	events = Attack(FRIENDLY_HERO).after(Hit(ENEMY_HERO, 2))
 	pass
 
 if Arthas_Freezy_Breezy:# 
@@ -345,21 +351,22 @@ class RLK_710e:# <1>[1869]
 
 if Arthas_Vicious_Bloodworm:# 
 	Arthas_DeathKnight+=['RLK_711']
-class RLK__Action(GameAction):
+	Arthas_DeathKnight+=['RLK_711e']
+class RLK_711_Action(GameAction):
 	def do(self, source):
+		controller = source.controller
+		if len(controller.hand):
+			card = random.choice(controller.hand)
+			Buff(card, 'RLK_711e', atk=source.atk).trigger(source)
 		pass
 class RLK_711:# <1>[1869]
 	""" Vicious Bloodworm
 	<b>Battlecry:</b> Give a minion in your hand Attack equal to this minion's Attack. """
-	#
+	play = RLK_711_Action()
 	pass
-
-	Arthas_DeathKnight+=['RLK_711e']
 class RLK_711e:# <1>[1869]
 	""" Blood Gift
 	Increased Attack. """
-	#
-	pass
 
 if Arthas_Blood_Tap:# 
 	Arthas_DeathKnight+=['RLK_712']
@@ -385,31 +392,34 @@ RLK_712e=buff(1,1)
 
 if Arthas_Lady_Deathwhisper:# 
 	Arthas_DeathKnight+=['RLK_713']
-class RLK__Action(GameAction):
+class RLK_713_Action(GameAction):
 	def do(self, source):
+		controller = source.controller
+		cards=[card.id for card in controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		for cardID in cards:
+			Give(controller, cardID).trigger(source)
 		pass
 class RLK_713:# <1>[1869]
 	""" Lady Deathwhisper
 	<b>Deathrattle:</b> Copy all Frost spells in your hand. """
-	#
+	deathrattle = RLK_713_Action()
 	pass
 
 if Arthas_Blood_Boil:# 
 	Arthas_DeathKnight+=['RLK_730']
+	Arthas_DeathKnight+=['RLK_730e']
 class RLK__Action(GameAction):
 	def do(self, source):
 		pass
 class RLK_730:# <1>[1869]
 	""" Blood Boil
 	<b>Lifesteal</b> Infect all enemy minions. At the end of your turns, they take 2 damage. """
-	#
+	play = Buff(ENEMY_MINIONS, 'RLK_730e')
 	pass
-
-	Arthas_DeathKnight+=['RLK_730e']
 class RLK_730e:# <1>[1869]
 	""" Boiling Blood
 	At the end of your opponent's turns, take 2 damage. """
-	#
+	events = EndTurn(CONTROLLER).on(Hit(OWNER, 2))
 	pass
 
 if Arthas_Darkfallen_Neophyte:# 
