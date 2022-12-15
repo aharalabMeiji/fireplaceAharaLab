@@ -35,11 +35,11 @@ Arthas_Malignant_Horror=True
 
 if Arthas_Howling_Blast:# 
 	Arthas_DeathKnight+=['RLK_015']
-class RLK_015_Action(GameAction):
+class RLK_015_Action(TargetedAction):
 	def do(self, source, target):
 		Hit(target, 3).trigger(source)
 		Freeze(target).trigger(source)
-		for card in source.controller.opponent.field:
+		for card in source.controller.opponent.characters:
 			if card!=target:
 				Hit(card, 1).trigger(source)
 		pass
@@ -53,11 +53,11 @@ class RLK_015:# <1>[1869]
 if Arthas_Plague_Strike:# 
 	Arthas_DeathKnight+=['RLK_018']
 	Arthas_DeathKnight+=['RLK_018t']
-class RLK_018_Action(GameAction):
+class RLK_018_Action(TargetedAction):
 	def do(self, source, target):
 		Hit(target, 3).trigger(source)
 		source.controller.game.process_deaths()
-		if target.zone==Zone.GRAVEYARD:
+		if target.dead:
 			Summon(source.controller, 'RLK_018t').trigger(source)
 		pass
 class RLK_018:# <1>[1869]
@@ -91,13 +91,13 @@ class RLK_042:# <1>[1869]
 
 if Arthas_Unholy_Frenzy:# 
 	Arthas_DeathKnight+=['RLK_056']
-class RLK_056_Action(GameAction):
+class RLK_056_Action(TargetedAction):
 	def do(self, source, target):
 		killed=[]
 		for card in reversed(source.controller.field):
 			RegularAttack(card, target).trigger(source)
 			source.controller.game.process_deaths()
-			if card.zone==Zone.GRAVEYARD:
+			if card.dead:
 				killed.append(card.id)
 		for cardID in killed:
 			Summon(source.controller, cardID).trigger(source)
@@ -112,13 +112,10 @@ class RLK_056:# <1>[1869]
 if Arthas_Dark_Transformation:# 
 	Arthas_DeathKnight+=['RLK_057']
 	Arthas_DeathKnight+=['RLK_057t']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_057:# <1>[1869]
 	""" Dark Transformation
 	Transform an Undead into a 4/5 Undead Monstrosity with <b>Rush</b>. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD }	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD }	#
 	play = Morph(TARGET, 'RLK_057t')
 	pass
 class RLK_057t:# <1>[1869]
@@ -137,13 +134,13 @@ class RLK_062:# <1>[1869]
 
 if Arthas_Frostwyrms_Fury:# 
 	Arthas_DeathKnight+=['RLK_063']
+	Arthas_DeathKnight+=['RLK_063t']
 class RLK_063:# <1>[1869]
 	""" Frostwyrm's Fury
 	Deal $5 damage. <b>Freeze</b> all enemy minions. Summon a 5/5 Frostwyrm. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	#
 	play = Hit(TARGET, 5), Freeze(ENEMY_MINIONS), Summon(CONTROLLER, 'RLK_063t')
 	pass
-	Arthas_DeathKnight+=['RLK_063t']
 class RLK_063t:# <1>[1869]
 	""" Frostwyrm
 	 """	#
@@ -320,9 +317,6 @@ class RLK_506t:# <1>[1869]
 
 if Arthas_Glacial_Advance:# 
 	Arthas_DeathKnight+=['RLK_512']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_512:# <1>[1869]
 	""" Glacial Advance
 	Deal $4 damage. Your next spell this turn costs (2) less. """
@@ -332,9 +326,6 @@ class RLK_512:# <1>[1869]
 
 if Arthas_Bone_Breaker:# 
 	Arthas_DeathKnight+=['RLK_516']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_516:# <1>[1869]
 	""" Bone Breaker
 	After your hero attacks a minion, deal 2 damage to the enemy hero. """
@@ -408,9 +399,6 @@ class RLK_713:# <1>[1869]
 if Arthas_Blood_Boil:# 
 	Arthas_DeathKnight+=['RLK_730']
 	Arthas_DeathKnight+=['RLK_730e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_730:# <1>[1869]
 	""" Blood Boil
 	<b>Lifesteal</b> Infect all enemy minions. At the end of your turns, they take 2 damage. """

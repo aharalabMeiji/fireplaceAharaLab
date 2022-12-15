@@ -164,9 +164,6 @@ class RLK_218e3:# <12>[1776]
 
 if Lich_Sunfury_Clergy:# ### OK ###
 	Lich_Neutral+=['RLK_219']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_219:# <12>[1776]
 	""" Sunfury Clergy
 	<b>Battlecry:</b> Restore 3 Health to all friendly characters. <b>Manathirst (6):</b> Restore 6 Health instead. """
@@ -186,9 +183,6 @@ class RLK_220:# <12>[1776]
 
 if Lich_Crystal_Broker:# ### OK ###
 	Lich_Neutral+=['RLK_221']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_221:# <12>[1776]
 	""" Crystal Broker
 	<b>Manathirst (5):</b> Summon a random 3-Cost minion. <b>Manathirst (10):</b> Summon an 8-Cost minion instead. """
@@ -223,9 +217,6 @@ class RLK_222t2:# <12>[1776]
 if Lich_Silvermoon_Sentinel:# ### OK ###
 	Lich_Neutral+=['RLK_518']
 	Lich_Neutral+=['RLK_518e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_518:# <12>[1776]
 	""" Silvermoon Sentinel
 	<b>Taunt</b> <b>Manathirst (@):</b> Gain +2/+2 and <b>Divine Shield</b>. """
@@ -286,9 +277,6 @@ class RLK_591e2:# <12>[1776]
 if Lich_Invincible:# ### OK ###
 	Lich_Neutral+=['RLK_592']
 	Lich_Neutral+=['RLK_592e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_592:# <12>[1776]
 	""" Invincible
 	<b>Reborn</b> <b>Battlecry and Deathrattle:</b> Give a random friendly Undead +5/+5 and <b>Taunt</b>. """
@@ -353,9 +341,6 @@ class RLK_677:# <12>[1776]
 if Lich_Arms_Dealer:# ### OK ###
 	Lich_Neutral+=['RLK_824']
 	Lich_Neutral+=['RLK_824e']
-class RLK__Action(GameAction):
-	def do(self, source):
-		pass
 class RLK_824:# <12>[1776]
 	""" Arms Dealer
 	After you summon an Undead, give it +1 Attack. """

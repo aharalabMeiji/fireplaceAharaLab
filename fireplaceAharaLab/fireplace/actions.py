@@ -2891,7 +2891,9 @@ class RegularAttack(TargetedAction):
 		self.broadcast(source, EventListener.ON, target[0], other[0])
 		for attcard in target:
 			for defcard in other:
-				if attcard.can_attack(defcard):
+				if Config.LOGINFO:
+					Config.log("RegularAttack.do","%s attacks '%s'"%(attcard, defcard ))
+				if attcard.atk>0:
 					Hit(defcard, attcard.atk).trigger(attcard)
 				if defcard.atk>0:
 					Hit(attcard, defcard.atk).trigger(defcard)
