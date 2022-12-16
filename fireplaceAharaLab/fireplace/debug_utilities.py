@@ -6,7 +6,7 @@ from fireplace import cards
 
 def printClasses():
 	myCardSet=CardSet.RETURN_OF_THE_LICH_KING#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.NEUTRAL##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	myCardClass=CardClass.DEATHKNIGHT##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,DEATHKNIGHT
 	setText={
 		CardSet.VANILLA:'Classic_',
 		CardSet.THE_BARRENS:'Barrens_',
@@ -60,8 +60,16 @@ def printClasses():
 				f.write('if %s%s:# \n'%(mySetText,_card.name.replace(' ','_').replace('-','_').replace("'",'').replace(':','').replace('!','').replace('=','')))
 				keyID=_card.id		
 			f.write("\t%s+=['%s']\n"%(mySetClass, _card.id))
+			f.write('class %s_Action(GameAction):# \n'%(_card.id))
+			f.write('\tdef do(self, source):# \n'%())
+			f.write('\t\tpass\n'%())
 			f.write('class %s:# <%d>[%d]\n'%(_card.id, _card.card_class, _card.card_set))
-			f.write('\t""" %s\n'%(_card.name))
+			if _card.type==CardType.MINION:
+				f.write('\t""" %s (minion:%d/%d/%d)\n'%(_card.name,_card.cost,_card.atk,_card.health))
+			elif _card.type==CardType.SPELL:
+				f.write('\t""" %s (spell:%d)\n'%(_card.name,_card.cost,))
+			else:
+				f.write('\t""" %s (%d)\n'%(_card.name,_card.cost))
 			f.write('\t%s """\n'%(_card.description.replace('\n',' ').replace('[x]','').replace('[','[').replace(']',']')))
 			f.write('\t#\n'%())
 			f.write('\tpass\n'%())
