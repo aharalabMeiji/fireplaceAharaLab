@@ -63,22 +63,38 @@ if Lich_Corpse_Explosion:#
 	Lich_DeathKnight+=['RLK_035']
 class RLK_035_Action(GameAction):# 
 	def do(self, source):# 
+		controller=source.controller
+		if controller.corpse>=1:
+			SpendCorpse(controller, 1).trigger(source)
+			for repeat in range(10):
+				for card in controller.field+controller.opponent.field:
+					Hit(card, 1).trigger(source)
+				if len([card for card in controller.field+controller.opponent.field if card.dead==True])>0:
+					controller.game.process_deaths()
+					break
+				controller.game.process_deaths()
 		pass
 class RLK_035:# <1>[1776]
 	""" Corpse Explosion (spell:5)
 	Detonate a <b>Corpse</b> to deal $1 damage to all minions. If any are still alive, repeat this. """
-	#
+	play = RLK_035_Action()
 	pass
 
 if Lich_Vampiric_Blood:# 
 	Lich_DeathKnight+=['RLK_051']
 class RLK_051_Action(GameAction):# 
 	def do(self, source):# 
+		controller=source.controller
+		Heal(controller.hero, 5).trigger(source)
+		if controller.corpse>=3:
+			SpendCorpse(controller, 3).trigger(source)
+			Heal(controller.hero, 5).trigger(source)
+			Draw(controller).trigger(source)
 		pass
 class RLK_051:# <1>[1776]
 	""" Vampiric Blood (spell:2)
 	Give your hero +5 Health. Spend 3 <b>Corpses</b> to gain 5 more and draw a card. """
-	#
+	play = RLK_051_Action()
 	pass
 
 if Lich_Winters_Gift:# 
