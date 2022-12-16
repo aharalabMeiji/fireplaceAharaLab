@@ -358,7 +358,7 @@ class RLK_711_Action(GameAction):
 	def do(self, source):
 		controller = source.controller
 		if len(controller.hand):
-			card = random.choice(controller.hand)
+			card = random.choice([card for card in controller.hand if card.type==CardType.MINION])
 			Buff(card, 'RLK_711e', atk=source.atk).trigger(source)
 		pass
 class RLK_711:# <1>[1869]

@@ -24,14 +24,14 @@ def arthas_deathknight():
 	#PresetGame(pp_RLK_505)##OK
 	#PresetGame(pp_RLK_506t)##OK
 	#PresetGame(pp_RLK_512)##OK
-	PresetGame(pp_RLK_516)##OK
-	PresetGame(pp_RLK_711)##
-	PresetGame(pp_RLK_712)##
-	PresetGame(pp_RLK_713)##
-	PresetGame(pp_RLK_730)##
-	PresetGame(pp_RLK_731)##
-	PresetGame(pp_RLK_740)##
-	PresetGame(pp_RLK_745)##
+	#PresetGame(pp_RLK_516)##OK
+	#PresetGame(pp_RLK_711)##OK
+	#PresetGame(pp_RLK_712)##OK
+	#PresetGame(pp_RLK_713)##OK
+	#PresetGame(pp_RLK_730)##OK
+	#PresetGame(pp_RLK_731)##OK
+	#PresetGame(pp_RLK_740)##OK
+	#PresetGame(pp_RLK_745)##OK
 
 	pass
 
@@ -647,19 +647,16 @@ class pp_RLK_711(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_711", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.cards=[card for card in self.controller.hand if len(card.buffs)>0 and card.buffs[0].id=='RLK_711e']
+		self.assertion("len(self.cards)>0")
+		self.con2=self.cards[0]
+		self.assertion("self.con2.atk==self.con2.data.atk+self.con1.atk")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -677,19 +674,17 @@ class pp_RLK_712(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_712", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=3
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		for card in self.controller.hand:
+			self.con2=card
+			self.assertion("self.con2.atk==self.con2.data.atk+2")
+			self.assertion("self.con2.max_health==self.con2.data.health+2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -707,19 +702,17 @@ class pp_RLK_713(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_713", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card(self.card_choice("frost"), self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.amount=len([card for card in self.controller.hand if card.id==self.con2.id])
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		Hit(self.con1, 10).trigger(self.controller)
+		self.cards=[card for card in self.controller.hand if card.id==self.con2.id]
+		self.assertion("len(self.cards)==2*self.amount")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -737,19 +730,22 @@ class pp_RLK_730(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_730", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		Hit(self.controller.hero, 10).trigger(self.controller)
 		self.play_card(self.con1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.assertion("self.opp1.damage==2")
+		self.assertion("self.opp2.damage==2")
+		self.assertion("self.controller.hero.damage==10-4")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -767,19 +763,18 @@ class pp_RLK_731(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_731", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=3
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		for card in self.controller.hand:
+			if card.type==CardType.MINION:
+				self.con2=card
+				self.assertion("self.con2.buffs!=[]")
+				self.assertion("self.con2.atk==self.con2.data.atk+2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -797,19 +792,18 @@ class pp_RLK_740(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_740", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.opp1=(Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent))[0][0]
+		self.opp2=(Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent))[0][0]
+		self.opp3=(Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent))[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=2
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.cards=[card for card in self.opponent.field if card.frozen==True]
+		self.assertion("len(self.cards)==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -827,17 +821,16 @@ class pp_RLK_745(Preset_Play):
 	class2=CardClass.DEATHKNIGHT
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_745", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.corpse=6
 		self.play_card(self.con1)
 		self.change_turn()
+		self.assertion("len([card for card in self.controller.field if card.id=='RLK_745'])==2")
+		self.assertion("self.controller.corpse==1")
 		### opp
 		self.change_turn()
 		pass
