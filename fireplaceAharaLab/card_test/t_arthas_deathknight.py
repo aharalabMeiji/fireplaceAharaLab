@@ -25,8 +25,8 @@ def arthas_deathknight():
 	#PresetGame(pp_RLK_506t)##OK
 	#PresetGame(pp_RLK_512)##OK
 	PresetGame(pp_RLK_516)##OK
-	PresetGame(pp_RLK_711)##OK
-	PresetGame(pp_RLK_712)##OK
+	PresetGame(pp_RLK_711)##
+	PresetGame(pp_RLK_712)##
 	PresetGame(pp_RLK_713)##
 	PresetGame(pp_RLK_730)##
 	PresetGame(pp_RLK_731)##
