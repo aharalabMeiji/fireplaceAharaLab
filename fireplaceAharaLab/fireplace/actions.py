@@ -1134,6 +1134,8 @@ class Damage(TargetedAction):
 				source.controller.spell_and_damage=False
 			# check hasattr: some sources of damage are game or player (like fatigue)
 			# weapon damage itself after hero attack, but does not trigger lifesteal
+			if hasattr(source, "lifesteal") and source.lifesteal and source.type == CardType.ENCHANTMENT:
+				source.owner.heal(source.controller.hero, amount)
 			if hasattr(source, "lifesteal") and source.lifesteal and source.type != CardType.WEAPON:
 				source.heal(source.controller.hero, amount)
 			self.broadcast(source, EventListener.ON, target, amount, source)

@@ -327,10 +327,11 @@ class DMF_057o:# <2>[1466]#ONE_TURN_EFFECT
 	""" Lunar Empowerment
 	The next spell you cast this turn costs (2) less. """
 	cost = lambda self, i: max(i-2,0)
-	events =[
-	   OWN_SPELL_PLAY.on(Destroy(SELF)),
-	   OWN_TURN_END.on(Destroy(SELF)),
-	]
+	class Hand:
+		events =[
+		   OWN_SPELL_PLAY.on(Destroy(SELF)),
+		   OWN_TURN_END.on(Destroy(SELF)),
+		]
 	pass#
 
 
