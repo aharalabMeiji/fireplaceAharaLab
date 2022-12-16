@@ -597,7 +597,7 @@ class pp_RLK_512(Preset_Play):
 		self.assertion("'DMF_057o' in [card.id for card in self.con2.buffs]")
 		self.assertion("self.con2.cost==max(0,self.con2.data.cost-2)")
 		self.assertion("self.con3.cost==max(0,self.con3.data.cost-2)")
-		self.cast_spell(self.con2)
+		self.play_card(self.con2)
 		#self.change_turn()		
 		self.assertion("not 'DMF_057o' in [card.id for card in self.con3.buffs]")
 		self.assertion("self.con3.cost==self.con3.data.cost")

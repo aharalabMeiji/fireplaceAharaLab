@@ -245,6 +245,20 @@ class Player(Entity, TargetableByAuras):
 		for entity in self.rewards:
 			yield from entity.entities
 		yield from self.buffs
+		for entity in self.hand:
+			yield from entity.buffs
+		if self.hero:
+			yield from self.hero.entities
+		yield self
+
+	def hand_broadcast_entities(self):
+		for entity in self.field:
+			yield from entity.entities
+		yield from self.secrets
+		yield from self.quests
+		for entity in self.rewards:
+			yield from entity.entities
+		yield from self.buffs
 		if self.hero:
 			yield from self.hero.entities
 		yield self
