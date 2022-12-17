@@ -6,7 +6,7 @@ from fireplace import cards
 
 def printClasses():
 	myCardSet=CardSet.RETURN_OF_THE_LICH_KING#STORMWIND#ALTERAC_VALLEY#THE_SUNKEN_CITY#REVENDRETH#VANILLA
-	myCardClass=CardClass.DEATHKNIGHT##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,DEATHKNIGHT
+	myCardClass=CardClass.DEMONHUNTER##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,DEATHKNIGHT
 	setText={
 		CardSet.VANILLA:'Classic_',
 		CardSet.THE_BARRENS:'Barrens_',
@@ -62,6 +62,7 @@ def printClasses():
 			f.write("\t%s+=['%s']\n"%(mySetClass, _card.id))
 			f.write('class %s_Action(GameAction):# \n'%(_card.id))
 			f.write('\tdef do(self, source):# \n'%())
+			f.write('\t\tcontroller=source.controller\n'%())
 			f.write('\t\tpass\n'%())
 			f.write('class %s:# <%d>[%d]\n'%(_card.id, _card.card_class, _card.card_set))
 			if _card.type==CardType.MINION:
