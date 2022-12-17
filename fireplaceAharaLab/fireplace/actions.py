@@ -369,7 +369,7 @@ class Death(GameAction):
 			source.game.queue_actions(source, [Reborn(entity)])
 		if entity.id== 'DRG_253':#  Dwarven Sharpshooter
 			ChangeHeroPower(entity.controller, "HERO_05bp").trigger(entity)
-		if entity.id!='RLK_506t':# Risen Groom
+		if entity.id!='RLK_506t' and entity.id!='RLK_061t':# Risen Groom, Risen Footmen
 			AddCorpse(entity.controller, 1).trigger(entity)
 
 
