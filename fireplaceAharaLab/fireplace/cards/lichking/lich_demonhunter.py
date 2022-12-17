@@ -80,11 +80,16 @@ if Lich_Unleash_Fel:#
 class RLK_209_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		tmp=controller.lifesteal
+		controller.lifesteal=True
+		for card in controller.opponent.characters:
+			Hit(card, 1).trigger(source)
+		controller.lifesteal=tmp
 		pass
 class RLK_209:# <14>[1776]
 	""" Unleash Fel (spell:1)
 	Deal $1 damage to all enemies. <b>Manathirst_(4):</b> With <b>Lifesteal</b>. """
-	#
+	play = Manathirst(4, [RLK_209_Action()], [Hit(ENEMY_CHARACTERS, 1)]) 
 	pass
 
 if Lich_Wretched_Exile:# 
@@ -96,7 +101,7 @@ class RLK_210_Action(GameAction):#
 class RLK_210:# <14>[1776]
 	""" Wretched Exile (minion:2/2/3)
 	After you play an <b>Outcast</b> card, add a random <b>Outcast</b> card to your hand. """
-	#
+	events = Play(CONTROLLER, OUTCAST).after(Give(CONTROLLER, RandomCollectible(outcast=True)))
 	pass
 
 if Lich_Deal_with_a_Devil:# 
@@ -105,21 +110,20 @@ if Lich_Deal_with_a_Devil:#
 class RLK_211_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		amount=2
+		if len([card for card in controller.deck if card.type==CardType.MINION])==0:
+			amount+=1
+		for count in range(amount):
+			Summon(controller,'RLK_211t').trigger(source)
 		pass
 class RLK_211:# <14>[1776]
 	""" Deal with a Devil (spell:5)
 	Summon two 3/3 Felfiends with <b>Lifesteal</b>. If your deck has no minions, summon another. """
-	#
+	play = RLK_211_Action()
 	pass
-
-class RLK_211t_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_211t:# <14>[1776]
 	""" Felfiend (minion:3/3/3)
 	<b>Lifesteal</b> """
-	#
 	pass
 
 if Lich_Brutal_Annihilan:# 

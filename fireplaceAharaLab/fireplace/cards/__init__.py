@@ -228,10 +228,11 @@ class CardDB(dict):
 				elif attr == 'has_battlecry':
 					cards = [card for card in cards if card.tags.get(GameTag.BATTLECRY,0)==1 ]
 				elif attr == 'spellcraft_spellcard':
-					cards = [card for card in cards 
-								if card.tags.get(2423, 0)==1]
+					cards = [card for card in cards if card.tags.get(2423, 0)==1]
 				elif attr == 'stealthed':
 					cards = [card for card in cards if card.tags.get(GameTag.STEALTH,0)==1 ]
+				elif attr == 'outcast':
+					cards = [card for card in cards if card.tags.get(GameTag.OUTCAST,0)>0 ]
 				elif attr == 'admissible':
 					cards = [card for card in cards if card.race in random_picker.BG_races ]
 				elif attr == 'cost_blood':
