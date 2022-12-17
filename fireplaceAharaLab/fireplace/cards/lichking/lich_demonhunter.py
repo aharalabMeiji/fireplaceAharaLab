@@ -57,15 +57,22 @@ class RLK_207e:# <14>[1776]
 	pass
 
 if Lich_Feldorei_Warband:# 
-	Lich_DemonHunter+=['RLK_208']
-class RLK_208_Action(GameAction):# 
-	def do(self, source):# 
+	Lich_DemonHunter+=['RLK_208', 'BT_036t']
+class RLK_208_Action(TargetedAction):# 
+	def do(self, source, target):# 
 		controller=source.controller
+		cards = [card for card in controller.deck if card.type==CardType.MINION]
+		if len(cards)==0:
+			Summon(controller, 'BT_036t').trigger(source)
+			Summon(controller, 'BT_036t').trigger(source)
+			Summon(controller, 'BT_036t').trigger(source)
+			Summon(controller, 'BT_036t').trigger(source)
 		pass
 class RLK_208:# <14>[1776]
 	""" Fel'dorei Warband (spell:4)
 	Deal $4 damage. If your deck has no minions, summon four 1/1 Illidari with <b>Rush</b>. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+	play = RLK_208_Action(TARGET)
 	pass
 
 if Lich_Unleash_Fel:# 
