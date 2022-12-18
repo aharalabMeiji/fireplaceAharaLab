@@ -8,7 +8,7 @@ Lich_Ricochet_Shot=True
 Lich_Eversong_Portal=True
 Lich_Halduron_Brightwing=True
 Lich_Scourge_Tamer=True
-Lich_Shockspitter=True
+Lich_Shockspitter=False### Resurrect ICC_828t
 Lich_Silvermoon_Farstrider=True
 Lich_Keeneye_Spotter=True
 Lich_Hope_of_QuelThalas=True
@@ -29,14 +29,28 @@ class RLK_804:# <3>[1776]
 
 if Lich_Arcane_Quiver:# 
 	Lich_Hunter+=['RLK_817']
+class RLK_817_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		if getattr(card, 'spell_school', None)==SpellSchool.ARCANE:
+			card.spellpower+=1
 class RLK_817_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		cards=[card for card in controller.deck if card.type==CardType.SPELL]
+		if len(cards)>4:
+			cards=random.sample(cards,3)
+		cardsID=[card.id for card in cards]
+		for card in reversed(cards):
+			card.discard()
+		RLK_817_Choice(controller, RandomID(*cardsID)).trigger(source)
 		pass
 class RLK_817:# <3>[1776]
 	""" Arcane Quiver (spell:2)
 	<b>Discover</b> a spell from your deck. If it's Arcane, give it <b>Spell Damage +1</b>. """
-	#
+	play = RLK_817_Action()
 	pass
 
 if Lich_Ricochet_Shot:# 
@@ -44,11 +58,14 @@ if Lich_Ricochet_Shot:#
 class RLK_818_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		for count in range(3):
+			card=random.choice(controller.opponent.characters)
+			Hit(card, 1).trigger(source)
 		pass
 class RLK_818:# <3>[1776]
 	""" Ricochet Shot (spell:1)
 	Deal $1 damage to three random enemies. """
-	#
+	play = RLK_818_Action()
 	pass
 
 if Lich_Eversong_Portal:# 
@@ -57,21 +74,18 @@ if Lich_Eversong_Portal:#
 class RLK_819_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		amount = 1+controller.spellpower
+		for count in range(amount):
+			Summon(controller, 'RLK_819t').trigger(source)
 		pass
 class RLK_819:# <3>[1776]
 	""" Eversong Portal (spell:4)
 	Summon $1 4/4 |4(Lynx, Lynxes) with <b>Rush</b> <i>(improved by <b>Spell Damage</b>)</i>. """
-	#
+	play = RLK_819_Action()
 	pass
-
-class RLK_819t_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_819t:# <3>[1776]
 	""" Eversong Lynx (minion:4/4/4)
 	<b>Rush</b> """
-	#
 	pass
 
 if Lich_Halduron_Brightwing:# 
@@ -79,14 +93,17 @@ if Lich_Halduron_Brightwing:#
 class RLK_820_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		for card in controller.deck:
+			if card.type==CardType.SPELL and getattr(card, 'spell_school',None)==SpellSchool.ARCANE:
+				card.spellpower += 1
 		pass
 class RLK_820:# <3>[1776]
 	""" Halduron Brightwing (minion:3/3/4)
 	<b>Battlecry:</b> Give all Arcane spells in your deck <b>Spell Damage +1</b>. """
-	#
+	play = RLK_820_Action()
 	pass
 
-if Lich_Scourge_Tamer:# 
+if Lich_Scourge_Tamer:# Resurrect ICC_828t. using ICC828t2~ICC_828t8, TSC_069, BAR_030, TID_710
 	Lich_Hunter+=['RLK_821']
 class RLK_821_Action(GameAction):# 
 	def do(self, source):# 
@@ -103,11 +120,14 @@ if Lich_Shockspitter:#
 class RLK_825_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		actions=[action for action in controller.targetedaction_log]
+		################################
 		pass
 class RLK_825:# <3>[1776]
 	""" Shockspitter (minion:2/2/2)
 	<b>Battlecry:</b> Deal @ damage. <i>(Improved by your hero attacks this game!)</i> """
-	#
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
+	play = RLK_825_Action()
 	pass
 
 if Lich_Silvermoon_Farstrider:# 
