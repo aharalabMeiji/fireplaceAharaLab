@@ -128,26 +128,31 @@ class RLK_211t:# <14>[1776]
 
 if Lich_Brutal_Annihilan:# 
 	Lich_DemonHunter+=['RLK_212']
-class RLK_212_Action(GameAction):# 
-	def do(self, source):# 
+class RLK_212_Action(TargetedAction):# 
+	def do(self, source, target, amount):# 
 		controller=source.controller
+		Hit(controller.opponent.hero, amount).trigger(source)
 		pass
 class RLK_212:# <14>[1776]
 	""" Brutal Annihilan (minion:9/9/9)
 	<b>Taunt</b>, <b>Rush</b> After this minion survives damage, deal that amount to the enemy hero. """
-	#
+	events = Damage(SELF).after(RLK_212_Action(Damage.TARGET, Damage.AMOUNT))
 	pass
 
 if Lich_Vengeful_Walloper:# 
 	Lich_DemonHunter+=['RLK_213']
-class RLK_213_Action(GameAction):# 
-	def do(self, source):# 
+class RLK_213_Count(LazyNum):# 
+	def __init__(self, selector):
+		super().__init__()
+		self.selector = selector
+	def evaluate(self, source):
 		controller=source.controller
-		pass
+		amount = len(controller.outcast_play_log)
+		return self.num(amount)
 class RLK_213:# <14>[1776]
 	""" Vengeful Walloper (minion:7/5/5)
 	<b>Rush</b>. Costs (1) less for each <b>Outcast</b> card you've played this game. """
-	#
+	cost_mod = RLK_213_Count(CONTROLLER)
 	pass
 
 if Lich_Souleaters_Scythe:# 
@@ -156,21 +161,27 @@ if Lich_Souleaters_Scythe:#
 class RLK_214_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		card = controller.card("RLK_214t")
+		minions=[cd for cd in controller.deck if cd.type==CardType.MINION]
+		if len(minions)>3:
+			minions=random.sample(minions, 3)
+		card.entourage=[cd.id for cd in minions]
+		for cd in reversed(minions):
+			cd.zone==Zone.SETASIDE
+			cd.zone==Zone.GRAVEYARD
 		pass
 class RLK_214:# <14>[1776]
 	""" Souleater's Scythe (4)
 	<b>Start of Game:</b> Consume 3 different minions in your deck. Leave behind Souls that <b>Discover</b> them. """
-	#
+	class Hand:
+		events = BeginGame(CONTROLLER).on(RLK_214_Action())
+	class Deck:
+		events = BeginGame(CONTROLLER).on(RLK_214_Action())#
 	pass
-
-class RLK_214t_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_214t:# <14>[1776]
 	""" Bound Soul (spell:1)
 	<b>Discover</b> a minion consumed by Souleater's Scythe. """
-	#
+	play = Discover(CONTROLLER, RandomEntourage())
 	pass
 
 if Lich_Felerin_the_Forgotten:# 
@@ -178,11 +189,15 @@ if Lich_Felerin_the_Forgotten:#
 class RLK_215_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		card = get00(RandomOutcast().evaluate(source))
+		card.controller=controller
+		card.zone==Zone.HAND
+		card._cost=max(0, card._cost-2)
 		pass
 class RLK_215:# <14>[1776]
 	""" Felerin, the Forgotten (minion:4/3/3)
 	<b>Battlecry:</b> Add a random <b>Outcast</b> card to the left and right sides of your hand. They cost (2) less. """
-	#
+	play = RLK_215_Action()
 	pass
 
 

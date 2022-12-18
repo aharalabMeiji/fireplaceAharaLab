@@ -668,6 +668,7 @@ class Play(GameAction):
 			#corrupt:
 			Corrupt(player, card).trigger(player)
 			if trigger_outcast and card.get_actions("outcast"):
+				player.add_outcast_play_log(card)
 				source.game.trigger(card, card.get_actions("outcast"), event_args=None)
 			elif trigger_battlecry:
 				source.game.queue_actions(card, [Battlecry(battlecry_card, card.target)])
@@ -2258,6 +2259,7 @@ class CastSecret(TargetedAction):
 		for card in cards:
 			if getattr(card, "this_is_secret", False):
 				card.zone=Zone.SECRET
+		player.add_play_log(card)
 
 
 class Evolve(TargetedAction):

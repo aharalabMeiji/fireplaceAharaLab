@@ -289,10 +289,11 @@ class SW_446e:# <6>[1578]
 
 if StormWind_Darkbishop_Benedictus:# 
 	StormWind_Priest+=['SW_448']
-class SW_448_Action(TargetedAction):
+class SW_448_Action(GameAction):
 	TARGET=ActionArg()
-	def do(self, source, target):
-		cards = [card for card in target.deck if card.type==CardType.SPELL and card.spell_school!=SpellSchool.SHADOW]
+	def do(self, source):
+		controller=source.controller
+		cards = [card for card in controller.deck if card.type==CardType.SPELL and card.spell_school!=SpellSchool.SHADOW]
 		if len(cards)==0:
 			Morph(source, 'CORE_EX1_625')
 
@@ -300,9 +301,9 @@ class SW_448:# <6>[1578]
 	""" Darkbishop Benedictus
 	[Start of Game:] If the spells in your deck are all Shadow, enter Shadowform(CORE_EX1_625). """
 	class Hand:
-		events = BeginGame(CONTROLLER).on(SW_448_Action(CONTROLLER))
+		events = BeginGame(CONTROLLER).on(SW_448_Action())
 	class Deck:
-		events = BeginGame(CONTROLLER).on(SW_448_Action(CONTROLLER))
+		events = BeginGame(CONTROLLER).on(SW_448_Action())
 	pass
 
 #####################################

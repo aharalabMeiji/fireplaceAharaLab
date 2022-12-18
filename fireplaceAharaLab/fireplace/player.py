@@ -571,6 +571,16 @@ class Player(Entity, TargetableByAuras):
 
 
 
+	##outcast_play_log
+	def add_outcast_play_log(self, card, card2=None):
+		self._play_log.append(PlayLog(card, card.game.turn, card.cost, card2=card2))
+	@property
+	def outcast_play_log(self):
+		_ret = []
+		for _log in self._play_log:
+			_ret.append(_log.card)
+		return _ret
+
 
 	##activate_log
 	def add_activate_log(self, card, amount):
