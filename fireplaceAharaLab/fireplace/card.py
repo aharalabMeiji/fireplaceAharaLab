@@ -223,7 +223,8 @@ class BaseCard(BaseEntity):
 
 class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cant_be_frozen = boolean_property("cant_be_frozen")# 
-	cards_cost_health = boolean_property("cards_cost_health") #### <---- spells_cost_health
+	card_costs_health = boolean_property("card_costs_health") #### <---- spells_cost_health
+	card_costs_armor = boolean_property("card_costs_armor") # new 25.0
 	corrupt = boolean_property('corrupt')# darkmoon
 	corruptedcard = boolean_property('corruptedcard')#darkmoon
 	has_choose_one = boolean_property("has_choose_one")

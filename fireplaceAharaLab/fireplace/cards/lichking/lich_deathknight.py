@@ -153,12 +153,12 @@ class RLK_225_Action(GameAction):#
 		pass
 class RLK_225:# <1>[1776]
 	""" Blightfang (minion:3/3/3)
-	<b>Battlecry:</b> Infect all enemy minions. When they die, you summon a 2/2 Zombie with <b>Taunt</b>. """
+	<b>Battlecry:</b> Infect all enemy minions. When they die, you summon a 2/2 Zombie (RLK_118t3) with <b>Taunt</b>. """
 	play = Buff(ENEMY_MINIONS, 'RLK_225e')
 	pass
 class RLK_225e:# <1>[1776]
 	""" Plagued (0)
-	<b>Deathrattle:</b> Summon a 2/2 Zombie with <b>Taunt</b> for your opponent. """
+	<b>Deathrattle:</b> Summon a 2/2 Zombie (RLK_118t3) with <b>Taunt</b> for your opponent. """
 	tags={GameTag.DEATHRATTLE:True, }
 	deathrattle = Summon(OPPONENT, 'RLK_118t3')
 	pass

@@ -255,6 +255,6 @@ class WC_023e:
 	"""
 	Costs Health instead of Mana."""
 	def apply(self,target):
-		target.cards_cost_health=True
+		target.card_costs_health=True
 		pass
-	tags = {9000: 1}#9000=GameTag.CARDS_COST_HEALTH
+	tags = {GameTag.CARD_COSTS_HEALTH: 1}#

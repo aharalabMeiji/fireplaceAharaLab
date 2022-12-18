@@ -385,8 +385,10 @@ class Player(Entity, TargetableByAuras):
 		"""
 		Returns whether the player can pay the resource cost of a card.
 		"""
-		if card.cards_cost_health:# and card.type == CardType.SPELL: <---diversion for WC_023e
+		if card.card_costs_health:# and card.type == CardType.SPELL: <---diversion for WC_023e
 			return self.hero.health > card.cost
+		if card.card_costs_armor:# RLK_659 new 25.0
+			return self.hero.armor > card.cost
 		if self.murlocs_cost_health:
 			if card.type == CardType.MINION and card.race == Race.MURLOC:
 				return self.hero.health > card.cost
@@ -400,9 +402,14 @@ class Player(Entity, TargetableByAuras):
 
 		#strictly, if buff = OG_121e then the source must be a SPELL, if buff = WC_023e, no condition here.
 		## OG_121 is very old card and more, not a classic card nor a core card.
-		if source.cards_cost_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
+		if source.card_costs_health:# and source.type == CardType.SPELL: <--- diversion for WC_023e
 			if Config.LOGINFO:
-				Config.log("Player.pay_cost","%s spells cost %i health"%(self, amount))
+				Config.log("Player.pay_cost","%s costs %i health"%(self, amount))
+			self.game.queue_actions(self, [Hit(self.hero, amount)])
+			return amount
+		if source.card_costs_armor:# new 25.0  RLK_659
+			if Config.LOGINFO:
+				Config.log("Player.pay_cost","%s costs %i armor"%(self, amount))
 			self.game.queue_actions(self, [Hit(self.hero, amount)])
 			return amount
 		if self.murlocs_cost_health:

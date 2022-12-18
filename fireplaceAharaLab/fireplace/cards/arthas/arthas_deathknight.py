@@ -245,7 +245,7 @@ class RLK_118:# <1>[1869]
 	play = RLK_118_Action()
 	pass
 class RLK_118t3:# <1>[1869]
-	""" Menacing Zombie
+	""" Menacing Zombie (2/2)
 	<b>Taunt</b> """
 	#
 	pass

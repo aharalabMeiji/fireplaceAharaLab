@@ -25,8 +25,8 @@ class pp_WC_023(Preset_Play):#
 		self.change_turn()
 		### con
 		self.mark2 = self.controller.hand[-1]
-		assert hasattr(self.mark2, 'cards_cost_health')==True, "buff"
-		assert self.mark2.cards_cost_health==True, "card_cost_health"
+		assert hasattr(self.mark2, 'card_costs_health')==True, "buff"
+		assert self.mark2.card_costs_health==True, "card_cost_health"
 		assert self.controller.hero.health == 30, "hero_health"
 		mana= self.controller.mana
 		self.play_card(self.mark2)

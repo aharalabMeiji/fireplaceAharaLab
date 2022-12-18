@@ -169,7 +169,8 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CARD_TARGET: "target",
 	GameTag.CARDNAME: "name",
 	GameTag.CARDRACE: "race",
-	9000:"cards_cost_health", ## <---- instead of spells_cost_health
+	GameTag.CARD_COSTS_ARMOR:"card_costs_armor", ## new 25.0
+	GameTag.CARD_COSTS_HEALTH:"card_costs_health", ## <---- instead of spells_cost_health
 	GameTag.CARDTYPE: "type",
 	GameTag.CASTSWHENDRAWN: "casts_when_drawn",   #
 	GameTag.CHARGE: "charge",
