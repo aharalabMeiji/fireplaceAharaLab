@@ -154,7 +154,7 @@ class RLK_225_Action(GameAction):#
 class RLK_225:# <1>[1776]
 	""" Blightfang (minion:3/3/3)
 	<b>Battlecry:</b> Infect all enemy minions. When they die, you summon a 2/2 Zombie with <b>Taunt</b>. """
-	play = Buff(ENEMY_MINIONS, 'RLK_225e').trigger(source)
+	play = Buff(ENEMY_MINIONS, 'RLK_225e')
 	pass
 class RLK_225e:# <1>[1776]
 	""" Plagued (0)
