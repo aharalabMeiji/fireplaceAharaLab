@@ -12,13 +12,6 @@ Lich_Shockspitter=True
 Lich_Silvermoon_Farstrider=True
 Lich_Keeneye_Spotter=True
 Lich_Hope_of_QuelThalas=True
-Lich_Conjured_Arrow=True
-Lich_Windrunners_Bow=True
-Lich_Arcane_Quiver=True
-Lich_Silvermoon_Farstrider=True
-Lich_Sylvanas_Windrunner=True
-Lich_Quick_Fire=True
-Lich_Sylvanas_Windrunner=True
 
 
 if Lich_Conjured_Arrow:# 
@@ -30,7 +23,8 @@ class RLK_804_Action(GameAction):#
 class RLK_804:# <3>[1776]
 	""" Conjured Arrow (spell:2)
 	Deal $2 damage to a minion. <b>Manathirst (6):</b> Draw that many cards. """
-	#
+	requirements = REQUIRE_ENEMY_MINION_TARGET
+	play = Manathirst(6, [Hit(TARGET, 2)], [Draw(CONTROLLER), Draw(CONTROLLER)])
 	pass
 
 if Lich_Arcane_Quiver:# 
@@ -59,6 +53,7 @@ class RLK_818:# <3>[1776]
 
 if Lich_Eversong_Portal:# 
 	Lich_Hunter+=['RLK_819']
+	Lich_Hunter+=['RLK_819t']
 class RLK_819_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -69,7 +64,6 @@ class RLK_819:# <3>[1776]
 	#
 	pass
 
-	Lich_Hunter+=['RLK_819t']
 class RLK_819t_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -130,6 +124,7 @@ class RLK_826:# <3>[1776]
 
 if Lich_Keeneye_Spotter:# 
 	Lich_Hunter+=['RLK_827']
+	Lich_Hunter+=['RLK_827e']
 class RLK_827_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -140,7 +135,6 @@ class RLK_827:# <3>[1776]
 	#
 	pass
 
-	Lich_Hunter+=['RLK_827e']
 class RLK_827e_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -153,6 +147,7 @@ class RLK_827e:# <3>[1776]
 
 if Lich_Hope_of_QuelThalas:# 
 	Lich_Hunter+=['RLK_828']
+	Lich_Hunter+=['RLK_828e']
 class RLK_828_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -163,7 +158,6 @@ class RLK_828:# <3>[1776]
 	#
 	pass
 
-	Lich_Hunter+=['RLK_828e']
 class RLK_828e_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -171,90 +165,6 @@ class RLK_828e_Action(GameAction):#
 class RLK_828e:# <3>[1776]
 	""" Light of the Sunwell (0)
 	+1/+1 """
-	#
-	pass
-
-if Lich_Conjured_Arrow:# 
-	Lich_Hunter+=['RLK_Prologue_804']
-class RLK_Prologue_804_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_804:# <3>[1776]
-	""" Conjured Arrow (spell:4)
-	Deal $2 damage to a minion and draw 2 cards. """
-	#
-	pass
-
-if Lich_Windrunners_Bow:# 
-	Lich_Hunter+=['RLK_Prologue_Bow_003w']
-class RLK_Prologue_Bow_003w_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Bow_003w:# <3>[1776]
-	""" Windrunner's Bow (5)
-	After your hero attacks, summon two Silvermoon Sentinels. """
-	#
-	pass
-
-if Lich_Arcane_Quiver:# 
-	Lich_Hunter+=['RLK_Prologue_RLK_817']
-class RLK_Prologue_RLK_817_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_RLK_817:# <3>[1776]
-	""" Arcane Quiver (spell:2)
-	<b>Discover</b> a spell from your deck. If it's Arcane, give it <b>Spell Damage +1</b>. """
-	#
-	pass
-
-if Lich_Silvermoon_Farstrider:# 
-	Lich_Hunter+=['RLK_Prologue_RLK_826']
-class RLK_Prologue_RLK_826_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_RLK_826:# <3>[1776]
-	""" Silvermoon Farstrider (minion:2/2/3)
-	<b>Battlecry:</b> Give all Arcane spells in your hand <b>Spell Damage +1</b>. """
-	#
-	pass
-
-if Lich_Sylvanas_Windrunner:# 
-	Lich_Hunter+=['RLK_Prologue_Sylvanas_003hb']
-class RLK_Prologue_Sylvanas_003hb_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Sylvanas_003hb:# <3>[1776]
-	""" Sylvanas Windrunner (0)
-	 """
-	#
-	pass
-
-if Lich_Quick_Fire:# 
-	Lich_Hunter+=['RLK_Prologue_Sylvanas_003p']
-class RLK_Prologue_Sylvanas_003p_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Sylvanas_003p:# <3>[1776]
-	""" Quick Fire (1)
-	<b>Hero Power</b> Deal $1 damage to two random enemy minions. """
-	#
-	pass
-
-if Lich_Sylvanas_Windrunner:# 
-	Lich_Hunter+=['RLK_Prologue_SylvanasB_003hb2']
-class RLK_Prologue_SylvanasB_003hb2_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_SylvanasB_003hb2:# <3>[1776]
-	""" Sylvanas Windrunner (0)
-	 """
 	#
 	pass
 
