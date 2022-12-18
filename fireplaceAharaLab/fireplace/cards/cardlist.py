@@ -128,11 +128,13 @@ Revendreth_Cards=[Revendreth_DemonHunter,Revendreth_Druid,Revendreth_Hunter,\
 	Revendreth_Priest,Revendreth_Priest,Revendreth_Rogue,\
 	Revendreth_Shaman,Revendreth_Warlock,Revendreth_Warrior]
 
-from fireplace.cards.lichking import lich_neutral
+from fireplace.cards.lichking import lich_deathknight,lich_demonhunter,lich_neutral
 from fireplace.cards.arthas import arthas_deathknight
-Lichking_Neutral=lich_neutral.Lich_Neutral
 Arthas_Deathknight=arthas_deathknight.Arthas_DeathKnight
-Lichking_Cards=[Lichking_Neutral, Arthas_Deathknight]
+Lichking_DeathKnight=lich_deathknight.Lich_DeathKnight
+Lichking_DemonHunter=lich_demonhunter.Lich_DemonHunter
+Lichking_Neutral=lich_neutral.Lich_Neutral
+Lichking_Cards=[Lichking_DeathKnight, Lichking_DemonHunter, Lichking_Neutral, Arthas_Deathknight]
 
 # Hero
 from fireplace.cards.hero_dream import hero, dream

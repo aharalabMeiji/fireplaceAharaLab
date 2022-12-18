@@ -80,11 +80,11 @@ if Lich_Unleash_Fel:#
 class RLK_209_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		tmp=controller.lifesteal
-		controller.lifesteal=True
+		tmp=source.lifesteal
+		source.lifesteal=True
 		for card in controller.opponent.characters:
 			Hit(card, 1).trigger(source)
-		controller.lifesteal=tmp
+		source.lifesteal=tmp
 		pass
 class RLK_209:# <14>[1776]
 	""" Unleash Fel (spell:1)
