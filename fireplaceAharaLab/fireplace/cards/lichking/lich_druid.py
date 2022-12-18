@@ -161,7 +161,7 @@ class RLK_658_Action(TargetedAction):#
 class RLK_658:# <2>[1776]
 	""" Elder Nadox (minion:5/5/4)
 	<b>Battlecry:</b> Destroy a friendly Undead. Your minions gain its Attack. """
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIEND_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD}
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD}
 	play = RLK_658_Action(TARGET)
 	pass
 class RLK_658e:# <2>[1776]

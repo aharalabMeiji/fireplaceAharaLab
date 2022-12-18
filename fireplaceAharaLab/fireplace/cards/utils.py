@@ -267,6 +267,12 @@ def get00(card):
 			card=None
 	return card
 
+
+REQUIRE_ENEMY_MINION_TARGET={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
+
+REQUIRE_FRIEND_MINION_TARGET={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }
+
+
 #sample 
 
 class t_Action(TargetedAction):
@@ -286,10 +292,6 @@ class c_Choice(Choice):
 		super().choose(card)
 		card.zone=Zone.HAND
 		pass
-
-REQUIRE_ENEMY_MINION_TARGET={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }
-
-REQUIRE_FRIEND_MINION_TARGET={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIEND_TARGET:0 }
 
 
 
