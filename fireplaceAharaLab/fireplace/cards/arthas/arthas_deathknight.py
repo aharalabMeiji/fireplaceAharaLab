@@ -160,6 +160,12 @@ class RLK_066:# <1>[1869]
 	<b>Battlecry:</b> Spend a <b>Corpse</b> to <b>Discover</b> a Blood Rune card. """
 	play = RLK_066_Action()
 	pass
+#class RLK_066e:# <1>[1776]
+#	""" Winter's Gift (0)
+#	Increased Health. """
+#	#
+#	pass
+
 
 if Arthas_Deathchiller:# 
 	Arthas_DeathKnight+=['RLK_083']

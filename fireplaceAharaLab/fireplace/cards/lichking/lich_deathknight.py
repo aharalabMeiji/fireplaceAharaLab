@@ -85,14 +85,6 @@ class RLK_051:# <1>[1776]
 	play = RLK_051_Action()
 	pass
 
-#class RLK_066e_Action(GameAction):# 
-#	def do(self, source):# 
-#		pass
-#class RLK_066e:# <1>[1776]
-#	""" Winter's Gift (0)
-#	Increased Health. """
-#	#
-#	pass
 
 #class RLK_085e_Action(GameAction):# 
 #	def do(self, source):# 

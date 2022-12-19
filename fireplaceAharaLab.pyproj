@@ -206,6 +206,11 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_mage.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_neutral.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_paladin.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_priest.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_rogue.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_shaman.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_warlock.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\lich_warrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\lichking\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_druid.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\revendreth\rev_hunter.py" />

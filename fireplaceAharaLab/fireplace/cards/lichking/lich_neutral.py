@@ -350,14 +350,6 @@ RLK_824e=buff(1,0)
 """ Undead Fortitude	+1 Attack. """
 
 
-if Lich_Silvermoon_Farstrider_Spellpower:# # ------------------> hunter
-	Lich_Neutral+=['RLK_826e']
-class RLK_826e:# <12>[1776]
-	""" Silvermoon Farstrider Spellpower
-	<b>Spell Damage +1</b>. """
-	#
-	pass
-
 if Lich_Flesh_Behemoth:# ### OK ###
 	Lich_Neutral+=['RLK_830']
 class RLK_830_Action(GameAction):

@@ -206,7 +206,7 @@ class RLK_825:# <3>[1776]
 	pass
 
 if Lich_Silvermoon_Farstrider:# 
-	Lich_Hunter+=['RLK_826']
+	Lich_Hunter+=['RLK_826','RLK_826e']
 class RLK_826_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -218,6 +218,11 @@ class RLK_826:# <3>[1776]
 	""" Silvermoon Farstrider (minion:2/2/3)
 	<b>Battlecry:</b> Give all Arcane spells in your hand <b>Spell Damage +1</b>. """
 	play = RLK_826_Action()
+	pass
+class RLK_826e:# <12>[1776]
+	""" Silvermoon Farstrider Spellpower
+	<b>Spell Damage +1</b>. """
+	#	
 	pass
 
 if Lich_Keeneye_Spotter:# 
