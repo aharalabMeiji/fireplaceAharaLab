@@ -10,91 +10,106 @@ from agent_Standard import *
 from utils import postAction
 
 
-def card_test():
+def ():
 	if Config.CARD_TEST_SET=='VANILLA':
 		if Config.CARD_TEST_CLASS=='DRUID':
-			from card_test.t_classic_druid import classic_druid
+			from .t_classic_druid import classic_druid
 			classic_druid()
 		elif Config.CARD_TEST_CLASS=='HUNTER':
-			from card_test.t_classic_hunter import classic_hunter
+			from .t_classic_hunter import classic_hunter
 			classic_hunter()
 		elif Config.CARD_TEST_CLASS=='MAGE':
-			from card_test.t_classic_mage import classic_mage
+			from .t_classic_mage import classic_mage
 			classic_mage()
 		elif Config.CARD_TEST_CLASS=='NEUTRAL':
-			from card_test.t_classic_neutral import classic_neutral
+			from .t_classic_neutral import classic_neutral
 			classic_neutral()
 		elif Config.CARD_TEST_CLASS=='PALADIN':
-			from card_test.t_classic_paladin import classic_paladin
+			from .t_classic_paladin import classic_paladin
 			classic_paladin()
 		elif Config.CARD_TEST_CLASS=='PRIEST':
-			from card_test.t_classic_priest import classic_priest
+			from .t_classic_priest import classic_priest
 			classic_priest()
 		elif Config.CARD_TEST_CLASS=='ROGUE':
-			from card_test.t_classic_rogue import classic_rogue
+			from .t_classic_rogue import classic_rogue
 			classic_rogue()
 		elif Config.CARD_TEST_CLASS=='SHAMAN':
-			from card_test.t_classic_shaman import classic_shaman
+			from .t_classic_shaman import classic_shaman
 			classic_shaman()
 		elif Config.CARD_TEST_CLASS=='WARLOCK':
-			from card_test.t_classic_warlock import classic_warlock
+			from .t_classic_warlock import classic_warlock
 			classic_warlock()
 		elif Config.CARD_TEST_CLASS=='WARRIOR':
-			from card_test.t_classic_warrior import classic_warrior
+			from .t_classic_warrior import classic_warrior
 			classic_warrior()
 	elif Config.CARD_TEST_SET=='CORE':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
-			from card_test.core_neutral import core_neutral
+			from .core_neutral import core_neutral
 			core_neutral()
 	elif Config.CARD_TEST_SET=='ALTERAC_VALLEY':
 		if Config.CARD_TEST_CLASS=='DRUID':
-			from card_test.alterac_druid import alterac_druid
+			from .alterac_druid import alterac_druid
 			alterac_druid()
 		elif Config.CARD_TEST_CLASS=='HUNTER':
-			from card_test.alterac_hunter import alterac_hunter
+			from .alterac_hunter import alterac_hunter
 			alterac_hunter()
 		elif Config.CARD_TEST_CLASS=='NEUTRAL':
-			from card_test.alterac_neutral import alterac_neutral
+			from .alterac_neutral import alterac_neutral
 			alterac_neutral()
 		elif Config.CARD_TEST_CLASS=='ROGUE':
-			from card_test.alterac_rogue import alterac_rogue
+			from .alterac_rogue import alterac_rogue
 			alterac_rogue()
 	elif Config.CARD_TEST_SET=='THE_BARRENS':
 		if Config.CARD_TEST_CLASS=='ROGUE':
-			from card_test.barrens_rogue import barrens_rogue
+			from .barrens_rogue import barrens_rogue
 			barrens_rogue()
 	elif Config.CARD_TEST_SET=='THE_SUNKEN_CITY':
 		if Config.CARD_TEST_CLASS=='PRIEST':
-			from card_test.sunken_priest import sunken_priest
+			from .sunken_priest import sunken_priest
 			sunken_priest()
 		elif Config.CARD_TEST_CLASS=='SHAMAN':
-			from card_test.sunken_shaman import sunken_shaman
+			from .sunken_shaman import sunken_shaman
 			sunken_shaman()
 		elif Config.CARD_TEST_CLASS=='WARLOCK':
-			from card_test.sunken_warlock import sunken_warlock
+			from .sunken_warlock import sunken_warlock
 			sunken_warlock()
 		pass
 	elif Config.CARD_TEST_SET=='STORMWIND':
 		if Config.CARD_TEST_CLASS=='DRUID':
-			from card_test.stormwind_druid import stormwind_druid
+			from .stormwind_druid import stormwind_druid
 			stormwind_druid()
 		elif Config.CARD_TEST_CLASS=='WARLOCK':
-			from card_test.stormwind_warlock import stormwind_warlock
+			from .stormwind_warlock import stormwind_warlock
 			stormwind_warlock()
 	elif Config.CARD_TEST_SET=='REVENDRETH':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
-			from card_test.t_rev_neutral import rev_neutral
+			from t_rev_neutral import rev_neutral
 			rev_neutral()
 	elif Config.CARD_TEST_SET=='RETURN_OF_THE_LICH_KING':
-		if Config.CARD_TEST_CLASS=='HUNTER':
-			from card_test.t_lich_hunter import lich_hunter
+		if Config.CARD_TEST_CLASS=='DEATHKNIGHT':
+			from t_lich_deathknight import lich_deathknight
+			lich_deathknight()
+		elif Config.CARD_TEST_CLASS=='DEMONHUNTER':
+			from .t_lich_demonhunter import lich_demonhunter
+			lich_demonhunter()
+		elif Config.CARD_TEST_CLASS=='DRUID':
+			from .t_lich_druid import lich_druid
+			lich_druid()
+		elif Config.CARD_TEST_CLASS=='HUNTER':
+			from .t_lich_hunter import lich_hunter
 			lich_hunter()
+		elif Config.CARD_TEST_CLASS=='MAGE':
+			from .t_lich_mage import lich_mage
+			lich_mage()
 		elif Config.CARD_TEST_CLASS=='NEUTRAL':
-			from card_test.t_lich_neutral import lich_neutral
+			from .t_lich_neutral import lich_neutral
 			lich_neutral()
+		elif Config.CARD_TEST_CLASS=='PALADIN':
+			from .t_lich_paladin import lich_paladin
+			lich_paladin()
 	elif Config.CARD_TEST_SET=='PATH_OF_ARTHAS':
 		if Config.CARD_TEST_CLASS=='DEATHKNIGHT':
-			from card_test.t_arthas_deathknight import arthas_deathknight
+			from .t_arthas_deathknight import arthas_deathknight
 			arthas_deathknight()
 	pass
 

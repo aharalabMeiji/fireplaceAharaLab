@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=5
+	HEARTHSTONE=4
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
