@@ -12,14 +12,7 @@ Lich_Seal_of_Blood=True
 Lich_Feast_and_Famine=True
 Lich_Blood_Matriarch_Liadrin=True
 Lich_Blood_Crusader=True
-Lich_Anasterian_Sunstrider=True
-Lich_Arthas=True
-Lich_Reinforce=True
-Lich_Gavinrad_the_Dire=True
-Lich_Blessed_by_Lightbringer=True
-Lich_Hammer_of_the_Lightbringer=True
-Lich_Uther_Lightbringer=True
-Lich_Equip_Lightbringer=True
+
 
 
 if Lich_Timewarden:# 
@@ -263,121 +256,5 @@ class RLK_927e:# <5>[1776]
 	#
 	pass
 
-if Lich_Anasterian_Sunstrider:# 
-	Lich_Paladin+=['RLK_Prologue_Anasterian_003t']
-class RLK_Prologue_Anasterian_003t_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Anasterian_003t:# <5>[1776]
-	""" Anasterian Sunstrider (minion:5/5/12)
-	<b>Rush</b>. Also damages the minions next to whomever he attacks. """
-	#
-	pass
 
-if Lich_Arthas:# 
-	Lich_Paladin+=['RLK_Prologue_Arthas_001hp']
-class RLK_Prologue_Arthas_001hp_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Arthas_001hp:# <5>[1776]
-	""" Arthas (0)
-	 """
-	#
-	pass
-
-	Lich_Paladin+=['RLK_Prologue_Arthas_001hp2']
-class RLK_Prologue_Arthas_001hp2_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Arthas_001hp2:# <5>[1776]
-	""" Arthas (0)
-	 """
-	#
-	pass
-
-if Lich_Reinforce:# 
-	Lich_Paladin+=['RLK_Prologue_Arthas_001p']
-class RLK_Prologue_Arthas_001p_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Arthas_001p:# <5>[1776]
-	""" Reinforce (2)
-	<b>Hero Power</b> Summon a 1/1 Silver  Hand Recruit. """
-	#
-	pass
-
-if Lich_Gavinrad_the_Dire:# 
-	Lich_Paladin+=['RLK_Prologue_Gavinrad_002t']
-class RLK_Prologue_Gavinrad_002t_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Gavinrad_002t:# <5>[1776]
-	""" Gavinrad the Dire (minion:3/2/6)
-	Your Silver Hand Recruits have +1/+1. """
-	#
-	pass
-
-	Lich_Paladin+=['RLK_Prologue_Gavinrad_002te1']
-class RLK_Prologue_Gavinrad_002te1_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Gavinrad_002te1:# <5>[1776]
-	""" Inspiring Presence (0)
-	+1/+1. """
-	#
-	pass
-
-if Lich_Blessed_by_Lightbringer:# 
-	Lich_Paladin+=['RLK_Prologue_Lightbringer_003e']
-class RLK_Prologue_Lightbringer_003e_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Lightbringer_003e:# <5>[1776]
-	""" Blessed by Lightbringer (0)
-	<b>Divine Shield</b>. """
-	#
-	pass
-
-if Lich_Hammer_of_the_Lightbringer:# 
-	Lich_Paladin+=['RLK_Prologue_Lightbringer_003w']
-class RLK_Prologue_Lightbringer_003w_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Lightbringer_003w:# <5>[1776]
-	""" Hammer of the Lightbringer (4)
-	 """
-	#
-	pass
-
-if Lich_Uther_Lightbringer:# 
-	Lich_Paladin+=['RLK_Prologue_Uther_002hb']
-class RLK_Prologue_Uther_002hb_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Uther_002hb:# <5>[1776]
-	""" Uther Lightbringer (0)
-	 """
-	#
-	pass
-
-if Lich_Equip_Lightbringer:# 
-	Lich_Paladin+=['RLK_Prologue_Uther_002p']
-class RLK_Prologue_Uther_002p_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
-class RLK_Prologue_Uther_002p:# <5>[1776]
-	""" Equip Lightbringer (4)
-	<b>Hero Power</b> Equip a 3/4 Lightbringer. """
-	#
-	pass
 
