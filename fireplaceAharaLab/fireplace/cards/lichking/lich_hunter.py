@@ -8,7 +8,7 @@ Lich_Ricochet_Shot=True
 Lich_Eversong_Portal=True
 Lich_Halduron_Brightwing=True
 Lich_Scourge_Tamer=True
-Lich_Shockspitter=False### Resurrect ICC_828t
+Lich_Shockspitter=True### Resurrect ICC_828t
 Lich_Silvermoon_Farstrider=True
 Lich_Keeneye_Spotter=True
 Lich_Hope_of_QuelThalas=True
@@ -90,8 +90,9 @@ class RLK_820_Action(GameAction):#
 	def do(self, source):# 
 		controller=source.controller
 		for card in controller.deck:
-			if card.type==CardType.SPELL and getattr(card, 'spell_school',None)==SpellSchool.ARCANE:
-				card.spellpower += 1
+			#if card.type==CardType.SPELL and getattr(card, 'spell_school',None)==SpellSchool.ARCANE:
+			#	card.spellpower += 1
+			pass
 		pass
 class RLK_820:# <3>[1776]
 	""" Halduron Brightwing (minion:3/3/4)

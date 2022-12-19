@@ -9,8 +9,7 @@ import random
 from agent_Standard import *
 from utils import postAction
 
-
-def ():
+def card_test():
 	if Config.CARD_TEST_SET=='VANILLA':
 		if Config.CARD_TEST_CLASS=='DRUID':
 			from .t_classic_druid import classic_druid
