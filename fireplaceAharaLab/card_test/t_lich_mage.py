@@ -4,15 +4,15 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_mage():
 
-	#PresetGame(pp_RLK_541)##
+	PresetGame(pp_RLK_541)##
 	#PresetGame(pp_RLK_542)##
 	#PresetGame(pp_RLK_543)##
-	#PresetGame(pp_RLK_544)##
-	#PresetGame(pp_RLK_545)##
-	#PresetGame(pp_RLK_546)##
-	#PresetGame(pp_RLK_547)##
+	PresetGame(pp_RLK_544)##
+	PresetGame(pp_RLK_545)##
+	PresetGame(pp_RLK_546)##
+	PresetGame(pp_RLK_547)##
 	#PresetGame(pp_RLK_548)##
-	#PresetGame(pp_RLK_803)##
+	PresetGame(pp_RLK_803)##
 	#PresetGame(pp_RLK_843)##
 	pass
 
