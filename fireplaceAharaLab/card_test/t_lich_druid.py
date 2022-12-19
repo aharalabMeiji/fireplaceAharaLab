@@ -5,15 +5,15 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 def lich_druid():
 
 	#PresetGame(pp_RLK_650)##
-	#PresetGame(pp_RLK_651)##
-	#PresetGame(pp_RLK_652)##
+	PresetGame(pp_RLK_651)##
+	PresetGame(pp_RLK_652)##
 	#PresetGame(pp_RLK_654)##
-	#PresetGame(pp_RLK_655)##
-	#PresetGame(pp_RLK_656)##
+	PresetGame(pp_RLK_655)##
+	PresetGame(pp_RLK_656)##
 	#PresetGame(pp_RLK_657)##
-	#PresetGame(pp_RLK_658)##
-	#PresetGame(pp_RLK_659)##
-	#PresetGame(pp_RLK_956)##
+	PresetGame(pp_RLK_658)##
+	PresetGame(pp_RLK_659)##
+	PresetGame(pp_RLK_956)##
 	pass
 
 

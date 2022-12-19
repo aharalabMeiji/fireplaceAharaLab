@@ -5,11 +5,11 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 def lich_hunter():
 
 	#PresetGame(pp_RLK_804)##
-	#PresetGame(pp_RLK_817)##
-	#PresetGame(pp_RLK_818)##
-	#PresetGame(pp_RLK_819)##
-	#PresetGame(pp_RLK_820)##
-	##PresetGame(pp_RLK_821)##OK
+	PresetGame(pp_RLK_817)##
+	PresetGame(pp_RLK_818)##
+	PresetGame(pp_RLK_819)##
+	PresetGame(pp_RLK_820)##
+	#PresetGame(pp_RLK_821)##OK
 	PresetGame(pp_RLK_825)##
 	PresetGame(pp_RLK_826)##
 	#PresetGame(pp_RLK_827)##

@@ -28,10 +28,6 @@ class RLK_650t:# <2>[1776]
 	<b>Deathrattle:</b> Summon a 1/1 Zombie. """
 	deathrattle = Summon(CONTROLLER, 'RLK_650t2')
 	pass
-class RLK_650t2_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_650t2:# <2>[1776]
 	""" Unarmed Zombie (minion:1/1/1)
 	 """
@@ -121,10 +117,6 @@ RLK_655e2=buff(1,1)
 if Lich_Chitinous_Plating:# 
 	Lich_Druid+=['RLK_656']
 	Lich_Druid+=['RLK_656e']
-class RLK_656_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_656:# <2>[1776]
 	""" Chitinous Plating (spell:2)
 	Gain 4 Armor. At the start of your next turn, gain 4 more. """
