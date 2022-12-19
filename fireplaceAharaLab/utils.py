@@ -583,7 +583,7 @@ def postAction(player):
 					return None
 				else:
 					player.choice.choose(choice)
-					return choice
+					##return choice
 
 def random_draft_from_implemented_cards(card_class: CardClass, exclude=[]):
 	"""

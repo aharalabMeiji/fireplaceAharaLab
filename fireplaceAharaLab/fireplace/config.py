@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=6
+	HEARTHSTONE=4
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -26,7 +26,7 @@ class Config:# ()is the default value
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 # the coin is not included
 
 
-	LOGINFO=0 # as log.info
+	LOGINFO=1 # as log.info
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
@@ -37,10 +37,10 @@ class Config:# ()is the default value
 	DEEPCOPY_LOGINFO=0
 
 	#4: Checking a specific card for debugging
-	CARD_TEST_SET='PATH_OF_ARTHAS'
+	CARD_TEST_SET='RETURN_OF_THE_LICH_KING'
 	## VANILLA,THE_BARRENS,STORMWIND,ALTERAC_VALLEY,THE_SUNKEN_CITY,REVENDRETH, CORE, 
 	## RETURN_OF_THE_LICH_KING, PATH_OF_ARTHAS
-	CARD_TEST_CLASS='DEATHKNIGHT'
+	CARD_TEST_CLASS='HUNTER'
 	## DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 	## DEATHKNIGHT
 

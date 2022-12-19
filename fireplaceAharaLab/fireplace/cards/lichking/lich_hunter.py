@@ -103,17 +103,90 @@ class RLK_820:# <3>[1776]
 	play = RLK_820_Action()
 	pass
 
-if Lich_Scourge_Tamer:# Resurrect ICC_828t. using ICC828t2~ICC_828t8, TSC_069, BAR_030, TID_710
-	Lich_Hunter+=['RLK_821']
+if Lich_Scourge_Tamer:### OK ###
+	# Resurrect ICC_828t. using ICC828t2~ICC_828t7, TSC_069, BAR_030, TID_710
+	Lich_Hunter+=['RLK_821','ICC_828t','ICC_828t2','ICC_828t3','ICC_828t4','ICC_828t5','ICC_828t6','ICC_828t7']
+	Lich_Hunter+=['TSC_069','BAR_030','TID_710']
+	## TID_710e, 
+class RLK_821_Choice2(Choice):# 
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		source=self.source
+		newcard=self.player.card("ICC_828t")
+		newcard.cost=source.sidequest_list1[0]+card.cost
+		newcard.atk=source.sidequest_list1[1]+card.atk
+		newcard.max_health=source.sidequest_list1[2]+card.max_health
+		if card.id=='ICC_828t2':#Stubborn Gastropod
+			newcard.taunt=True
+			newcard.poisonous=True
+		elif card.id=='ICC_828t3':#Giant Wasp
+			newcard.stealthed=True
+			newcard.poisonous=True
+		elif card.id=='ICC_828t4':#Stoneskin Basilisk
+			newcard.divine_shield=True
+			newcard.poisonous=True
+		elif card.id=='ICC_828t5':#Hunting Mastiff
+			#newcard.echo=True
+			newcard.rush=True
+		elif card.id=='ICC_828t6':#Vilebrood Skitterer
+			newcard.poisonous=True
+			newcard.rush=True
+		elif card.id=='ICC_828t7':#Vicious Scalehide
+			newcard.lifesteal=True
+			newcard.rush=True
+		card0=source.sidequest_list0[0]
+		newcard.sidequest_list0=[card0]
+		if card0=='TSC_069':#
+			newcard.requirements = REQUIRE_FRIEND_MINION_TARGET
+		else:
+			newcard.requirements = {}
+		newcard.zone=Zone.HAND
+		pass
+class RLK_821_Choice1(Choice):# 
+	def choose(self, card):
+		source=self.source
+		source.sidequest_list0=[card.id]
+		source.sidequest_list1=[card.cost, card.atk, card.max_health]
+		cards=['ICC_828t2','ICC_828t3','ICC_828t4','ICC_828t5','ICC_828t6','ICC_828t7']
+		newchoice=RLK_821_Choice2(self.player, RandomID(*cards)*3)
+		newchoice.trigger(self.source)
+		self.next_choice=newchoice
+		super().choose(card)
+		pass
 class RLK_821_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		source.sidequest_list0=[]
+		cards=['TSC_069','BAR_030','TID_710']
+		RLK_821_Choice1(controller, RandomID(*cards)*3).trigger(source)
 		pass
 class RLK_821:# <3>[1776]
 	""" Scourge Tamer (minion:2/2/2)
 	<b>Battlecry:</b> Craft a custom Zombeast. """
-	#
+	play = RLK_821_Action()
 	pass
+class ICC_828t_Action(TargetedAction):
+	def do(self, source, target):
+		controller=source.controller
+		if source.sidequest_list0[0]=='TSC_069':#
+			if target and target.type==CardType.MINION:
+				Discover(controller, RandomMinion(race=target.race)).trigger(source)
+		elif source.sidequest_list0[0]=='BAR_030':#
+			card1=get00(RandomCollectible(race=Race.BEAST).evaluate(source))
+			card2=get00(RandomCollectible(secret=True).evaluate(source))
+			card3=get00(RandomCollectible(type=CardType.WEAPON).evaluate(source))
+			play = Discover(controller, RandomID(card1.id, card2.id, card3.id)).trigger(source)
+		elif source.sidequest_list0[0]=='TID_710':#
+			controller=source.controller
+			for card in controller.deck:
+				if card.has_battlecry:
+					Buff(card, 'TID_710e').trigger(source)
+		pass
+	pass
+class ICC_828t:
+	play = ICC_828t_Action(TARGET)
+#TID_710e=buff(1,1)
 
 if Lich_Shockspitter:# 
 	Lich_Hunter+=['RLK_825']

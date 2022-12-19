@@ -1,6 +1,6 @@
 from .lich_demonhunter import *
 from .lich_druid import *
-#from .lich_hunter import *
+from .lich_hunter import *
 #from .lich_mage import *
 from .lich_neutral import *
 #from .lich_paladin import *
