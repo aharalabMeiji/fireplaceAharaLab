@@ -5,15 +5,15 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 def lich_warrior():
 
 	#PresetGame(pp_RLK_600)##
-	#PresetGame(pp_RLK_601)##
-	#PresetGame(pp_RLK_602)##
-	#PresetGame(pp_RLK_603)##
-	#PresetGame(pp_RLK_604)##
-	#PresetGame(pp_RLK_605)##
+	PresetGame(pp_RLK_601)##
+	PresetGame(pp_RLK_602)##
+	PresetGame(pp_RLK_603)##
+	PresetGame(pp_RLK_604)##
+	PresetGame(pp_RLK_605)##
 	#PresetGame(pp_RLK_607)##
-	#PresetGame(pp_RLK_608)##
+	PresetGame(pp_RLK_608)##
 	#PresetGame(pp_RLK_609)##
-	#PresetGame(pp_RLK_960)##
+	PresetGame(pp_RLK_960)##
 	pass
 
 
