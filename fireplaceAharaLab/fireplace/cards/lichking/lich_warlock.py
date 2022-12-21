@@ -99,13 +99,19 @@ class RLK_536:# <9>[1776]
 
 if Lich_Twisted_Tether:# 
 	Lich_Warlock+=['RLK_537']
-class RLK_537_Action(GameAction):# 
-	def do(self, source):# 
+class RLK_537_Action(TargetedAction):# 
+	def do(self, source, target):# 
 		controller=source.controller
+		atk=target.atk
+		hth=target.max_health
+		Destroy(target).trigger(source)
+
 		pass
 class RLK_537:# <9>[1776]
 	""" Twisted Tether (spell:4)
 	Destroy a minion. Give its stats to a random Undead in your hand. """
+	requirements = REQUIRE_ENEMY_MINION_TARGET
+	play = RLK_537_Action(TARGET)
 	#
 	pass
 

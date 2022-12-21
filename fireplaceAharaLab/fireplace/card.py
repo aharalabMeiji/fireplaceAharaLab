@@ -246,7 +246,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	cost_frost = int_property("cost_frost") ## new 25.0
 	cost_death = int_property("cost_death") ## new 25.0
 	cost_unholy = int_property("cost_unholy") ## new 25.0
-
+	concoction = boolean_property("concoction") ## new 25.0
 	sidequest_list0 = []# Sidequest
 	sidequest_list1 = []# Sidequest
 	sidequest_list2 = []# Sidequest

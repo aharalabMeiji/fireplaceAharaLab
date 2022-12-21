@@ -179,6 +179,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.CLASS: "card_class",
 	GameTag.COLOSSAL:'colossal', #
 	GameTag.COMBO: "has_combo",
+	2500: "concoction", # new 25.0
 	GameTag.CONTROLLER: "controller",
 	GameTag.CORRUPT: 'corrupt',
 	GameTag.CORRUPTEDCARD: 'corruptedcard',

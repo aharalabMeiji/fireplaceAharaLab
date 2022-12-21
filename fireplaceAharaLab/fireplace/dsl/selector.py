@@ -538,6 +538,7 @@ FEL = EnumSelector(SpellSchool.FEL)
 SHADOW = EnumSelector(SpellSchool.SHADOW)
 
 RELIC = EnumSelector(2431)## (GameTag)2431 ?
+CONCOCTION = EnumSelector(2500)## concoctions
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
@@ -545,6 +546,7 @@ EPIC = EnumSelector(Rarity.EPIC)
 LEGENDARY = EnumSelector(Rarity.LEGENDARY)
 
 GOLDEN = FilterSelector(lambda entity, source: getattr(entity, "gold_card", -1)==0 )
+
 
 ALL_PLAYERS = IN_PLAY + PLAYER
 ALL_HEROES = IN_PLAY + HERO
