@@ -4,16 +4,16 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_warlock():
 
-	#PresetGame(pp_RLK_531)##
-	#PresetGame(pp_RLK_532)##
-	#PresetGame(pp_RLK_533)##
+	PresetGame(pp_RLK_531)##
+	PresetGame(pp_RLK_532)##
+	PresetGame(pp_RLK_533)##
 	#PresetGame(pp_RLK_534)##
 	#PresetGame(pp_RLK_535)##
-	#PresetGame(pp_RLK_536)##
-	#PresetGame(pp_RLK_537)##
-	#PresetGame(pp_RLK_538)##
+	PresetGame(pp_RLK_536)##
+	PresetGame(pp_RLK_537)##
+	PresetGame(pp_RLK_538)##
 	#PresetGame(pp_RLK_539)##
-	#PresetGame(pp_RLK_540)##
+	PresetGame(pp_RLK_540)##
 	pass
 
 

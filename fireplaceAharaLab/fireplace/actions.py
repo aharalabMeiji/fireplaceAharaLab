@@ -349,7 +349,7 @@ class Deaths(GameAction):
 class Death(GameAction):
 	"""
 	Move target to the GRAVEYARD Zone.
-	TARGET = ActionArg()
+	ENTITY = ActionArg()
 	"""
 	ENTITY = ActionArg()
 	def do(self, source, entity):

@@ -86,98 +86,97 @@ class RLK_535:# <9>[1776]
 
 if Lich_Shallow_Grave:# 
 	Lich_Warlock+=['RLK_536']
-class RLK_536_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-
-		pass
 class RLK_536:# <9>[1776]
 	""" Shallow Grave (spell:2)
 	Trigger a friendly minion's <b>Deathrattle</b>, then destroy it. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_DEATHRATTLE:0 }
+	play = Destroy(TARGET)
 	pass
 
 if Lich_Twisted_Tether:# 
 	Lich_Warlock+=['RLK_537']
+	Lich_Warlock+=['RLK_537e']
 class RLK_537_Action(TargetedAction):# 
 	def do(self, source, target):# 
 		controller=source.controller
 		atk=target.atk
 		hth=target.max_health
 		Destroy(target).trigger(source)
-
+		cards=[card for card in controller.hand if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		if len(cards):
+			card = random.choice(cards)
+			Buff(card, 'RLK_537e', atk=atk, max_health=hth).trigger(source)
 		pass
 class RLK_537:# <9>[1776]
 	""" Twisted Tether (spell:4)
 	Destroy a minion. Give its stats to a random Undead in your hand. """
 	requirements = REQUIRE_ENEMY_MINION_TARGET
 	play = RLK_537_Action(TARGET)
-	#
 	pass
-
-	Lich_Warlock+=['RLK_537e']
-class RLK_537e_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_537e:# <9>[1776]
 	""" Twisted Tether (0)
 	Increased stats. """
-	#
 	pass
 
 if Lich_Devourer_of_Souls:# 
 	Lich_Warlock+=['RLK_538']
-class RLK_538_Action(GameAction):# 
-	def do(self, source):# 
+	Lich_Warlock+=['RLK_538e']
+class RLK_538_Action(TargetedAction):# 
+	def do(self, source, target):# 
 		controller=source.controller
+		controller.sidequest_list0=target.deathrattles
 		pass
 class RLK_538:# <9>[1776]
 	""" Devourer of Souls (minion:1/1/3)
 	After a friendly minion dies, gain its <b>Deathrattle</b>. """
-	#
+	events = Death(FRIENDLY + MINION).after(RLK_538_Action(Death.ENTITY))
 	pass
-
-	Lich_Warlock+=['RLK_538e']
 class RLK_538e_Action(GameAction):# 
 	def do(self, source):# 
-		controller=source.controller
+		owner=self.owner
+		actions= owner.sidequest_list0
+		for action in actions:
+			action.trigger(owner)
 		pass
 class RLK_538e:# <9>[1776]
 	""" Devoured Soul (0)
 	Copied <b>Deathrattle</b> from {0}. """
-	#
+	tags={GameTag.DEATHRATTLE:1, }
+	deathrattle = RLK_538e_Action()
 	pass
 
 if Lich_DarKhan_Drathir:# 
 	Lich_Warlock+=['RLK_539']
-class RLK_539_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_539:# <9>[1776]
 	""" Dar'Khan Drathir (minion:8/6/6)
 	<b>Lifesteal</b> At the end of your turn, deal 6 damage to the enemy hero. """
-	#
+	events = OWN_TURN_END.on(Hit(ENEMY_HERO, 6))
 	pass
 
 if Lich_Amorphous_Slime:# 
 	Lich_Warlock+=['RLK_540']
-class RLK_540_Action(GameAction):# 
+	Lich_Warlock+=['RLK_540e']
+class RLK_540_Action1(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		cards=[card for card in controller.hand if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		if len(cards):
+			card=random.choice(cards)
+			source.sidequest_list0=[card]
+			Discard(card).trigger(source)
+		pass
+class RLK_540_Action2(GameAction):# 
+	def do(self, source):# 
+		controller=source.controller
+		card=source.sidequest_list0[0]
+		Summon(controller, card.id).trigger(source)
 		pass
 class RLK_540:# <9>[1776]
 	""" Amorphous Slime (minion:5/5/3)
 	<b>Battlecry:</b> Discard a random Undead. <b>Deathrattle:</b> Summon a copy of it. """
-	#
+	play = RLK_540_Action1()
+	deathrattle = RLK_540_Action2()
 	pass
-
-	Lich_Warlock+=['RLK_540e']
-class RLK_540e_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_540e:# <9>[1776]
 	""" Morphing (0)
 	Discarded {0}. """
