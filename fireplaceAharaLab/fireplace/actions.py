@@ -1266,6 +1266,7 @@ class Destroy(TargetedAction):
 			if target.type == CardType.ENCHANTMENT:
 				target.remove()
 			else:
+				self.broadcast(source, EventListener.ON, target)
 				target.to_be_destroyed = True
 				source.game.process_deaths()
 		else:
@@ -1274,6 +1275,7 @@ class Destroy(TargetedAction):
 			if target.type == CardType.ENCHANTMENT:
 				target.remove()
 			else:
+				self.broadcast(source, EventListener.ON, target)				
 				target.zone = Zone.GRAVEYARD
 
 class DestroyOriginal(TargetedAction):

@@ -19,59 +19,69 @@ if Lich_Infantry_Reanimator:#
 class RLK_531_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		cards = [card.id for card in controller.death_log if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		if len(cards):
+			newcard=get00(Summon(controller, random.choice(cards)).trigger(source))
+			newcard.reborn=True
 		pass
 class RLK_531:# <9>[1776]
 	""" Infantry Reanimator (minion:6/4/4)
 	<b>Battlecry:</b> Resurrect a friendly Undead. Give it <b>Reborn</b>. """
-	#
+	play = RLK_531_Action()
 	pass
 
 if Lich_Walking_Dead:# 
 	Lich_Warlock+=['RLK_532']
-class RLK_532_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_532:# <9>[1776]
 	""" Walking Dead (minion:3/2/5)
 	<b>Taunt</b> If you discard this minion, summon it. """
-	#
+	events = [
+		Discard(SELF).on(Summon(CONTROLLER, 'RLK_532'))
+	]
 	pass
 
 if Lich_Scourge_Supplies:# 
 	Lich_Warlock+=['RLK_533']
+class RLK_533_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		Draw(CONTROLLER).trigger(self.source)
+		Draw(CONTROLLER).trigger(self.source)
+		Draw(CONTROLLER).trigger(self.source)
+		for cd in self.player.hand:
+			if cd.id==card.id:
+				Discard(cd).trigger(self.source)
 class RLK_533_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		if len(controller.deck)>=3 and len(controller.hand)<=7:
+			cards=[card.id for card in controller.deck[-3:]]
+			RLK_533_Choice(controller, RandomID(*cards)).trigger()
 		pass
 class RLK_533:# <9>[1776]
 	""" Scourge Supplies (spell:3)
 	Draw 3 cards. Choose one to discard. """
-	#
+	play = RLK_533_Action()
 	pass
 
 if Lich_Soul_Barrage:# 
 	Lich_Warlock+=['RLK_534']
-class RLK_534_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_534:# <9>[1776]
 	""" Soul Barrage (spell:5)
 	When you play or discard this, deal $6 damage randomly split among all enemies. """
-	#
+	events = [
+		Play(CONTROLLER, SELF).on(SplitHit(CONTROLLER, ENEMY_CHARACTERS, 6)),
+		Discard(SELF).on(SplitHit(CONTROLLER, ENEMY_CHARACTERS, 6))
+		]
 	pass
 
 if Lich_Savage_Ymirjar:# 
 	Lich_Warlock+=['RLK_535']
-class RLK_535_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_535:# <9>[1776]
 	""" Savage Ymirjar (minion:5/7/7)
 	<b>Rush</b> <b>Battlecry:</b> Discard 2 cards. """
-	#
+	play = Discard(RANDOM(FRIENDLY_HAND)), Discard(RANDOM(FRIENDLY_HAND))
 	pass
 
 if Lich_Shallow_Grave:# 
@@ -79,6 +89,7 @@ if Lich_Shallow_Grave:#
 class RLK_536_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+
 		pass
 class RLK_536:# <9>[1776]
 	""" Shallow Grave (spell:2)
