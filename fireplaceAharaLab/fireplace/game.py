@@ -6,7 +6,8 @@ from itertools import chain
 from hearthstone.enums import BlockType, CardType, GameTag, PlayState, State, Step, Zone
 
 from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
-	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade, Battlecry
+	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade, Battlecry,\
+	Discard
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
@@ -466,6 +467,54 @@ class BaseGame(Entity):
 
 	def get_log(self):
 		return self._myLog_
+
+	def mixing_concoction(self, player):### RLK_570
+		if getattr(player, 'im_a_player', False)==False:
+			return
+		cards = [card for card in player.hand if getattr(card,'concoction', False)==True ]
+		dict_concoction={
+			'RLK_570tRLK_570t':'RLK_570tt1',#
+			'RLK_570tRLK_570t1':'RLK_570tt1',#
+			'RLK_570tRLK_570t2':'RLK_570tt2',#
+			'RLK_570tRLK_570t3':'RLK_570tt3',#
+			'RLK_570tRLK_570t4':'RLK_570tt4',#
+			'RLK_570tRLK_570t5':'RLK_570tt5',#
+			'RLK_570t1RLK_570t':'RLK_570t1t',#
+			'RLK_570t1RLK_570t1':'RLK_570t1t1',#
+			'RLK_570t1RLK_570t2':'RLK_570t1t2',#
+			'RLK_570t1RLK_570t3':'RLK_570t1t3',#
+			'RLK_570t1RLK_570t4':'RLK_570t1t4',#
+			'RLK_570t1RLK_570t5':'RLK_570t1t4',#
+			'RLK_570t2RLK_570t':'RLK_570t2t2',#
+			'RLK_570t2RLK_570t1':'RLK_570t2t1',#
+			'RLK_570t2RLK_570t2':'RLK_570t2t2',#
+			'RLK_570t2RLK_570t3':'RLK_570t2t1',#
+			'RLK_570t2RLK_570t4':'RLK_570t2t2',#
+			'RLK_570t2RLK_570t5':'RLK_570t2t1',#
+			'RLK_570t3RLK_570t':'RLK_570t3t',#
+			'RLK_570t3RLK_570t1':'RLK_570t3t',#
+			'RLK_570t3RLK_570t2':'RLK_570t3t',#
+			'RLK_570t3RLK_570t3':'RLK_570t3t',#
+			'RLK_570t3RLK_570t4':'RLK_570t3t',#
+			'RLK_570t3RLK_570t5':'RLK_570t3t',#
+			'RLK_570t4RLK_570t':'RLK_570t4t3',#
+			'RLK_570t4RLK_570t1':'RLK_570t4t1',#
+			'RLK_570t4RLK_570t2':'RLK_570t4t2',#
+			'RLK_570t4RLK_570t3':'RLK_570t4t3',#
+			'RLK_570t4RLK_570t4':'RLK_570t4t1',#
+			'RLK_570t4RLK_570t5':'RLK_570t4t2',#
+			'RLK_570t5RLK_570t':'RLK_570tt5',#
+			'RLK_570t5RLK_570t1':'RLK_570tt1',#
+			'RLK_570t5RLK_570t2':'RLK_570tt2',#
+			'RLK_570t5RLK_570t3':'RLK_570tt3',#
+			'RLK_570t5RLK_570t4':'RLK_570tt4',#
+			'RLK_570t5RLK_570t5':'RLK_570tt5',#
+			}
+		if len(cards)>=2:
+			newID=dict_concoction[cards[0].id+cards[1].id]
+			Discard(cards[0]).trigger(player)
+			Discard(cards[1]).trigger(player)
+			Give(player, newID).trigger(player)
 
 class CoinRules:
 	"""
