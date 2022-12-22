@@ -4,16 +4,16 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_priest():
 
-	#PresetGame(pp_RLK_812)##
-	#PresetGame(pp_RLK_813)##
+	PresetGame(pp_RLK_812)##
+	PresetGame(pp_RLK_813)##
 	#PresetGame(pp_RLK_814)##
-	#PresetGame(pp_RLK_815)##
+	PresetGame(pp_RLK_815)##
 	#PresetGame(pp_RLK_816)##
 	#PresetGame(pp_RLK_822)##
-	#PresetGame(pp_RLK_823)##
-	#PresetGame(pp_RLK_829)##
-	#PresetGame(pp_RLK_832)##
-	#PresetGame(pp_RLK_845)##
+	PresetGame(pp_RLK_823)##
+	PresetGame(pp_RLK_829)##
+	PresetGame(pp_RLK_832)##
+	PresetGame(pp_RLK_845)##
 	pass
 
 

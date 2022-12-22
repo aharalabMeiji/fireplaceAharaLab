@@ -62,7 +62,7 @@ if Lich_Shadow_Word_Undeath:#
 class RLK_815_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards=[card.id for card in controller.death_until_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		cards=[card.id for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
 		if len(cards):
 			Hit(ENEMY_CHARACTERS, 2).trigger(source)
 		pass
@@ -91,10 +91,6 @@ if Lich_Haunting_Nightmare:#
 	Lich_Priest+=['RLK_822e']
 	Lich_Priest+=['RLK_822e2']
 	Lich_Priest+=['RLK_822t']
-class RLK_822_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_822:# <6>[1776]
 	""" Haunting Nightmare (minion:3/3/3)
 	<b>Deathrattle:</b> Haunt a card in your hand. When you play it, summon a 3/3 Soldier. """
@@ -116,25 +112,25 @@ class RLK_822t:# <6>[1776]
 
 if Lich_Undying_Allies:# 
 	Lich_Priest+=['RLK_823']
-class RLK_823_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
+	Lich_Priest+=['RLK_823e']
 class RLK_823:# <6>[1776]
 	""" Undying Allies (spell:0)
 	After you play an Undead this turn, give it <b>Reborn</b>. """
-	#
+	play = Buff(CONTROLLER, 'RLK_823e')
 	pass
 
-	Lich_Priest+=['RLK_823e']
-class RLK_823e_Action(GameAction):# 
-	def do(self, source):# 
+class RLK_823e_Action(TargetedAction):# 
+	def do(self, source, target):# 
 		controller=source.controller
+		target.reborn=True
 		pass
 class RLK_823e:# <6>[1776]
 	""" Grave Calling (0)
 	After you play an Undead this turn, give it <b>Reborn</b>. """
-	#
+	events = [
+		Play(CONTROLLER, FRIENDLY + UNDEAD).after(RLK_823e_Action(Play.CARD))
+	]
+	#<Tag enumID="338" name="TAG_ONE_TURN_EFFECT" type="Int" value="1"/>
 	pass
 
 if Lich_Grave_Digging:# 
@@ -142,11 +138,17 @@ if Lich_Grave_Digging:#
 class RLK_829_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		card1 = get00(Draw(controller).trigger(source))
+		card2 = get00(Draw(controller).trigger(source))
+		cards=[card.id for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		if len(cards):
+			card1._cost=1
+			card2._cost=1
 		pass
 class RLK_829:# <6>[1776]
 	""" Grave Digging (spell:4)
 	Draw 2 cards. Costs (1) if a friendly Undead died after your last turn. """
-	#
+	play = RLK_829_Action()
 	pass
 
 if Lich_High_Cultist_Basaleph:# 
@@ -154,11 +156,15 @@ if Lich_High_Cultist_Basaleph:#
 class RLK_832_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		cards=[card.id for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		if len(cards):
+			for card in cards:
+				Summon(controller, card).trigger(source)
 		pass
 class RLK_832:# <6>[1776]
 	""" High Cultist Basaleph (minion:5/3/5)
 	<b>Battlecry:</b> Resurrect all friendly Undead that died after your last turn. """
-	#
+	play = RLK_832_Action()
 	pass
 
 if Lich_Mind_Eater:# 
@@ -166,10 +172,13 @@ if Lich_Mind_Eater:#
 class RLK_845_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		if len(controller.opponent.deck):
+			card = random.choice(controller.opponent.deck)
+			Give(controller, card.id).trigger(source)
 		pass
 class RLK_845:# <6>[1776]
 	""" Mind Eater (minion:2/3/2)
 	<b>Deathrattle:</b> Add a copy of a card in your opponent's deck to your hand. """
-	#
+	deathrattle = RLK_845_Action()
 	pass
 
