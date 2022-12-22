@@ -4,14 +4,14 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_rogue():
 
-	#PresetGame(pp_RLK_216)##
-	#PresetGame(pp_RLK_217)##
-	#PresetGame(pp_RLK_529)##
+	PresetGame(pp_RLK_216)##
+	PresetGame(pp_RLK_217)##
+	PresetGame(pp_RLK_529)##
 	#PresetGame(pp_RLK_567)##
 	#PresetGame(pp_RLK_568)##
-	#PresetGame(pp_RLK_569)##
-	#PresetGame(pp_RLK_570)##
-	#PresetGame(pp_RLK_571)##
+	PresetGame(pp_RLK_569)##
+	PresetGame(pp_RLK_570)##
+	PresetGame(pp_RLK_571)##
 	#PresetGame(pp_RLK_572)##
 	#PresetGame(pp_RLK_573)##
 	pass

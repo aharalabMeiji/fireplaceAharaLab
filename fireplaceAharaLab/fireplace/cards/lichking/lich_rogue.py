@@ -83,10 +83,6 @@ if Lich_Shadow_of_Demise:#
 	Lich_Rogue+=['RLK_567']
 	Lich_Rogue+=['RLK_567e']
 	Lich_Rogue+=['RLK_567e2']
-class RLK_567_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_567:# <7>[1776]
 	""" Shadow of Demise (spell:0)
 	Each time you cast a spell, transform this into a copy of it. """
@@ -182,7 +178,6 @@ class RLK_570t1t:# <7>[1776]
 	pass
 class RLK_570t1t1_Action(GameAction):# 
 	def do(self, source):# 
-		controller=source.controller
 		the_class=random.choice(CLASSES_EXCEPT_ROGUE)
 		newcard=get00(RandomCollectible(card_class=the_class).evaluate(source))
 		Buff(newcard, 'RLK_570e3').trigger(source)
@@ -243,11 +238,6 @@ class RLK_570t4:# <7>[1776]
 	Add a card to your hand from another class. It costs (3) less. <i>Add another Concoction to your hand to mix together!</i> """
 	play = RLK_570t1t1_Action()
 	pass
-
-class RLK_570t4t1_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_570t4t1:# <7>[1776]
 	""" Mixed Concoction (spell:3)
 	Add a card to your hand from another class. It costs (3) less. Destroy a random enemy minion. """
@@ -278,11 +268,6 @@ class RLK_570tt2:# <7>[1776]
 	Deal $3 damage. Draw 2 cards. """
 	play = Hit(ENEMY_HERO, 3), Draw(CONTROLLER), Draw(CONTROLLER)
 	pass
-
-class RLK_570tt3_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_570tt3:# <7>[1776]
 	""" Mixed Concoction (spell:3)
 	Draw 2 cards. Add a card to your hand from another class. It costs (3) less. """
@@ -304,34 +289,30 @@ if Lich_Vile_Apothecary:#
 class RLK_571_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		cards=['RLK_570t', 'RLK_570t1', 'RLK_570t2', 'RLK_570t3', 'RLK_570t4', 'RLK_570t5']
+		card = random.choice(cards)
+		Give(controller, card).trigger(source)
 		pass
 class RLK_571:# <7>[1776]
 	""" Vile Apothecary (minion:3/2/4)
 	At the end of your turn, add a random Concoction to your hand. """
-	#
+	events = OWN_TURN_END.on(RLK_571_Action())
 	pass
 
 if Lich_Potionmaster_Putricide:# 
 	Lich_Rogue+=['RLK_572']
-class RLK_572_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_572:# <7>[1776]
 	""" Potionmaster Putricide (minion:2/1/4)
 	After a minion dies, add a Concoction to your hand. """
-	#
+	events = Death(FRIENDLY + MINION).after(RLK_571_Action())
 	pass
 
 if Lich_Ghostly_Strike:# 
 	Lich_Rogue+=['RLK_573']
-class RLK_573_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_573:# <7>[1776]
 	""" Ghostly Strike (spell:1)
 	Deal $1 damage. <b>Combo:</b> Draw a card. """
-	#
+	play = Hit(ENEMY_HERO, 1)
+	combo = Draw(CONTROLLER)
 	pass
 
