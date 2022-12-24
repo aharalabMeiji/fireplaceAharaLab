@@ -29,6 +29,7 @@ class RLK_541:# <4>[1776]
 	events = OWN_SPELL_PLAY.on(RLK_541_Action(Play.CARD))
 	pass
 
+
 if Lich_Arcsplitter:# 
 	Lich_Mage+=['RLK_542']
 class RLK_542:# <4>[1776]

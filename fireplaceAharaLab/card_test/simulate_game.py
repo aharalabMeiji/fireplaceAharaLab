@@ -106,6 +106,21 @@ def card_test():
 		elif Config.CARD_TEST_CLASS=='PALADIN':
 			from .t_lich_paladin import lich_paladin
 			lich_paladin()
+		elif Config.CARD_TEST_CLASS=='PRIEST':
+			from .t_lich_priest import lich_priest
+			lich_priest()
+		elif Config.CARD_TEST_CLASS=='ROGUE':
+			from .t_lich_rogue import lich_rogue
+			lich_rogue()
+		elif Config.CARD_TEST_CLASS=='SHAMAN':
+			from .t_lich_shaman import lich_shaman
+			lich_shaman()
+		elif Config.CARD_TEST_CLASS=='WARLOCK':
+			from .t_lich_warlock import lich_warlock
+			lich_warlock()
+		elif Config.CARD_TEST_CLASS=='WARRIOR':
+			from .t_lich_warrior import lich_warrior
+			lich_warrior()
 	elif Config.CARD_TEST_SET=='PATH_OF_ARTHAS':
 		if Config.CARD_TEST_CLASS=='DEATHKNIGHT':
 			from .t_arthas_deathknight import arthas_deathknight

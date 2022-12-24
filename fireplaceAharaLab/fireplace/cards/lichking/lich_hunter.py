@@ -31,7 +31,7 @@ class RLK_817_Choice(Choice):
 		super().choose(card)
 		card.zone=Zone.HAND
 		if getattr(card, 'spell_school', None)==SpellSchool.ARCANE:
-			card.spellpower+=1
+			card.spellpower_by_spell+=1
 class RLK_817_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -90,8 +90,8 @@ class RLK_820_Action(GameAction):#
 	def do(self, source):# 
 		controller=source.controller
 		for card in controller.deck:
-			#if card.type==CardType.SPELL and getattr(card, 'spell_school',None)==SpellSchool.ARCANE:
-			#	card.spellpower += 1
+			if card.type==CardType.SPELL and getattr(card, 'spell_school',None)==SpellSchool.ARCANE:
+				controller.spellpower_adjustment += 1
 			pass
 		pass
 class RLK_820:# <3>[1776]
@@ -213,7 +213,7 @@ class RLK_826_Action(GameAction):#
 		controller=source.controller
 		for card in controller.hand:
 			if card.type==CardType.SPELL and card.spell_school==SpellSchool.ARCANE:
-				card.spellpower+=1
+				controller.spellpower_adjustment+=1
 		pass
 class RLK_826:# <3>[1776]
 	""" Silvermoon Farstrider (minion:2/2/3)

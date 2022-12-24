@@ -203,6 +203,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.EXTRA_BATTLECRIES_BASE: "extra_battlecries",
 	GameTag.EXTRA_BATTLECRIES_ADDITIONAL: "extra_extra_battlecry",
 	GameTag.EXTRA_DEATHRATTLES: "extra_deathrattles",
+	GameTag.EXTRA_DEATHRATTLES_BASE: "extra_deathrattles_base",
 	GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: "extra_extra_deathrattles",
 	GameTag.FORGETFUL: "forgetful",
 	GameTag.FREEZE: 'freeze',#

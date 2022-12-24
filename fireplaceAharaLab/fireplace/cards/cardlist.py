@@ -128,7 +128,7 @@ Revendreth_Cards=[Revendreth_DemonHunter,Revendreth_Druid,Revendreth_Hunter,\
 	Revendreth_Priest,Revendreth_Priest,Revendreth_Rogue,\
 	Revendreth_Shaman,Revendreth_Warlock,Revendreth_Warrior]
 
-from fireplace.cards.lichking import lich_deathknight, lich_demonhunter, lich_druid, lich_hunter, lich_mage, lich_neutral,lich_paladin, lich_priest, lich_shaman, lich_warlock, lich_warrior
+from fireplace.cards.lichking import lich_deathknight, lich_demonhunter, lich_druid, lich_hunter, lich_mage, lich_neutral,lich_paladin, lich_priest, lich_rogue, lich_shaman, lich_warlock, lich_warrior
 from fireplace.cards.arthas import arthas_deathknight
 Arthas_Deathknight=arthas_deathknight.Arthas_DeathKnight
 Lichking_DeathKnight=lich_deathknight.Lich_DeathKnight
@@ -139,10 +139,11 @@ Lichking_Mage=lich_mage.Lich_Mage
 Lichking_Neutral=lich_neutral.Lich_Neutral
 Lichking_Paladin=lich_paladin.Lich_Paladin
 Lichking_Priest=lich_priest.Lich_Priest
+Lichking_Rogue=lich_rogue.Lich_Rogue
 Lichking_Shaman=lich_shaman.Lich_Shaman
 Lichking_Warlock=lich_warlock.Lich_Warlock
 Lichking_Warrior=lich_warrior.Lich_Warrior
-Lichking_Cards=[Lichking_DeathKnight, Lichking_DemonHunter, Lichking_Druid, Lichking_Hunter, Lichking_Neutral, Lichking_Paladin, Lichking_Priest, Lichking_Shaman, Lichking_Warlock, Lichking_Warrior, Arthas_Deathknight]
+Lichking_Cards=[Lichking_DeathKnight, Lichking_DemonHunter, Lichking_Druid, Lichking_Hunter, Lichking_Mage, Lichking_Neutral, Lichking_Paladin, Lichking_Priest, Lichking_Rogue, Lichking_Shaman, Lichking_Warlock, Lichking_Warrior, Arthas_Deathknight]
 
 # Hero
 from fireplace.cards.hero_dream import hero, dream

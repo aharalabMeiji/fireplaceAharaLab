@@ -38,7 +38,7 @@ if Lich_Crypt_Keeper:#
 class RLK_651:# <2>[1776]
 	""" Crypt Keeper (minion:8/4/6)
 	<b>Taunt</b>. Costs (1) less for each Armor you have. """
-	cost_mod=-Count(FRIENDLY_HAND + ARMOR)
+	cost_mod = - ARMOR(FRIENDLY_HERO)
 	pass
 
 if Lich_Unending_Swarm:# 

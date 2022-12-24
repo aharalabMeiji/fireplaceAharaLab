@@ -57,7 +57,7 @@ class RLK_533_Action(GameAction):#
 		controller=source.controller
 		if len(controller.deck)>=3 and len(controller.hand)<=7:
 			cards=[card.id for card in controller.deck[-3:]]
-			RLK_533_Choice(controller, RandomID(*cards)).trigger()
+			RLK_533_Choice(controller, RandomID(*cards)).trigger(source)
 		pass
 class RLK_533:# <9>[1776]
 	""" Scourge Supplies (spell:3)

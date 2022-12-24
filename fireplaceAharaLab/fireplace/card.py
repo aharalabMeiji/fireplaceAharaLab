@@ -949,7 +949,8 @@ class Minion(Character):
 	spellcraft_spellcard = boolean_property("spellcraft_spellcard")
 	manathirst = boolean_property("manathirst")
 	imp = boolean_property("imp")
-
+	extra_deathrattles_minion = boolean_property("extra_deathrattles_base") ## RLK_912
+	
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",
 		"cant_be_targeted_by_hero_powers", "cant_be_targeted_by_spells", "charge", 
@@ -1160,7 +1161,8 @@ class Spell(PlayableCard):
 		self.receives_double_spelldamage_bonus = False
 		self.repeatable=False # TSC_952
 		self.spell_cast_twice=False
-		self.copied_from_opponent = False	
+		self.copied_from_opponent = False
+		self.spellpower_by_spell = False
 		self.this_is_spell = True
 		super().__init__(data)
 

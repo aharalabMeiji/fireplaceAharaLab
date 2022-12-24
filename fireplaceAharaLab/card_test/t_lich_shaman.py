@@ -4,16 +4,16 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_shaman():
 
-	#PresetGame(pp_RLK_550)##
+	PresetGame(pp_RLK_550)##
 	#PresetGame(pp_RLK_551)##
-	#PresetGame(pp_RLK_552)##
-	#PresetGame(pp_RLK_553)##
+	PresetGame(pp_RLK_552)##
+	PresetGame(pp_RLK_553)##
 	#PresetGame(pp_RLK_554)##
-	#PresetGame(pp_RLK_909)##
+	PresetGame(pp_RLK_909)##
 	#PresetGame(pp_RLK_910)##
-	#PresetGame(pp_RLK_911)##
-	#PresetGame(pp_RLK_912)##
-	#PresetGame(pp_RLK_913)##
+	PresetGame(pp_RLK_911)##
+	PresetGame(pp_RLK_912)##
+	PresetGame(pp_RLK_913)##
 	pass
 
 

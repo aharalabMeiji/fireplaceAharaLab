@@ -1171,6 +1171,10 @@ class Deathrattle(TargetedAction):
 				if Config.LOGINFO:
 					Config.log("Deathrattle.do","Triggering deathrattles for %r again"%target)
 				source.game.queue_actions(target, actions)
+			if getattr(source, 'extra_deathrattles_minion', False)==True:## RLK_912
+				if Config.LOGINFO:
+					Config.log("Deathrattle.do","Triggering deathrattles for %r again"%target)
+				source.game.queue_actions(target, actions)
 			if target.controller.extra_extra_deathrattles: ## TB_BaconUps_055
 				if Config.LOGINFO:
 					Config.log("Deathrattle.do","Triggering deathrattles for %r again and again"% target)

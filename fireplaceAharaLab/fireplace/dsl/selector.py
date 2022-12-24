@@ -17,7 +17,7 @@ BinaryOp = Callable[[Any, Any], bool]
 
 class ExtendedGameTag(IntEnum):
 	SI7_MINION = 1678
-
+	CONCOCTION = 2500
 
 class Selector:
 	"""
@@ -478,6 +478,7 @@ OUTCAST = EnumSelector(GameTag.OUTCAST)
 COMBO = EnumSelector(GameTag.COMBO)
 POISONOUS = EnumSelector(GameTag.POISONOUS)
 SI7_MINION = EnumSelector(ExtendedGameTag.SI7_MINION)
+CONCOCTION = EnumSelector(ExtendedGameTag.CONCOCTION)## concoctions 25.0
 
 ALWAYS_WINS_BRAWLS = AttrValue(enums.ALWAYS_WINS_BRAWLS) == True  # noqa
 KILLED_THIS_TURN = AttrValue(enums.KILLED_THIS_TURN) == True  # noqa
@@ -538,7 +539,6 @@ FEL = EnumSelector(SpellSchool.FEL)
 SHADOW = EnumSelector(SpellSchool.SHADOW)
 
 RELIC = EnumSelector(2431)## (GameTag)2431 ?
-CONCOCTION = EnumSelector(2500)## concoctions
 
 COMMON = EnumSelector(Rarity.COMMON)
 RARE = EnumSelector(Rarity.RARE)
