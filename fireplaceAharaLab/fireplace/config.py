@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=4
+	HEARTHSTONE=6
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -45,10 +45,10 @@ class Config:# ()is the default value
 	## DEATHKNIGHT
 
 	#6 #7 options (fixing agents, random deck)
-	PLAYERA_CLASS='DEATHKNIGHT'
-	PLAYERB_CLASS='DEMONHUNTER'
-	SIMULATION_NUMBER=10
-	## DEMONHUNTER,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
+	PLAYERA_CLASS='DRUID'
+	PLAYERB_CLASS='HUNTER'
+	SIMULATION_NUMBER=20
+	## DEATHKNIGHT,DEMONHUNTER,DRUID,HUNTER,MAGE,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,
 
 	#8 options (specific agents, specific deck, classic battle pool)
 	PLAYERA_DECK="bigWarrior"

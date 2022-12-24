@@ -60,11 +60,16 @@ class CORE_BT_271:# <14>[1637]##23.6 ####### need check
 
 if Sightless_Watcher:# 
 	Core_DemonHunter+=['CORE_BT_323']
+class CORE_BT_323_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		if len(self.player.deck) >= self.player.max_deck_size: 
+			PutOnTop(self.player, card).trigger(self.source)
 class CORE_BT_323:# <14>[1637]##23.6 # visually OK # may check
 	""" Sightless Watcher
 	[Battlecry:] Look at 3 cards in your deck. Choose one to put on top. """
-	play = Choice(CONTROLLER, RANDOM(FRIENDLY_DECK) * 3).then(
-		PutOnTop(CONTROLLER, Choice.CARD))
+	play = CORE_BT_323_Choice(CONTROLLER, RANDOM(FRIENDLY_DECK) * 3)
 	pass
 
 if Battlefiend:# 

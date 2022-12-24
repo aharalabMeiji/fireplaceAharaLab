@@ -150,10 +150,14 @@ if Alterac_Flanking_Maneuver:#
 	Alterac_DemonHunter+=['AV_269']
 	Alterac_DemonHunter+=['AV_269e']
 	Alterac_DemonHunter+=['AV_269t']
+class AV_269_Action(GameAction):
+	def do(self, source):
+		card=get00(Summon(CONTROLLER, 'AV_269t'))
+		Buff(card, 'AV_269e').trigger(source)
 class AV_269:# <14>[1626]
 	""" Flanking Maneuver
 	Summon a 4/2 Demon with [Rush]. If it dies this turn, summon another. """
-	play = Summon(CONTROLLER, 'AV_269t').then(Buff(Summon.CARD, 'AV_269e'))
+	play = AV_269_Action
 	pass
 class AV_269e:# <14>[1626]
 	""" Woe Is Me

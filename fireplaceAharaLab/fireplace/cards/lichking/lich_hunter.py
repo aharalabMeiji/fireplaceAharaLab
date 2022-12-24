@@ -103,7 +103,7 @@ class RLK_820:# <3>[1776]
 if Lich_Scourge_Tamer:### OK ###
 	# Resurrect ICC_828t. using ICC828t2~ICC_828t7, TSC_069, BAR_030, TID_710
 	Lich_Hunter+=['RLK_821','ICC_828t','ICC_828t2','ICC_828t3','ICC_828t4','ICC_828t5','ICC_828t6','ICC_828t7']
-	Lich_Hunter+=['TSC_069','BAR_030','TID_710']
+	Lich_Hunter+=['TSC_069','BAR_030','TID_710','TID_710e']
 	## TID_710e, 
 class RLK_821_Choice2(Choice):# 
 	def choose(self, card):
@@ -155,7 +155,7 @@ class RLK_821_Action(GameAction):#
 	def do(self, source):# 
 		controller=source.controller
 		source.sidequest_list0=[]
-		cards=['TSC_069','BAR_030','TID_710']
+		cards=['TSC_069','BAR_030','TID_710','TID_710e']
 		RLK_821_Choice1(controller, RandomID(*cards)*3).trigger(source)
 		pass
 class RLK_821:# <3>[1776]
@@ -190,12 +190,12 @@ if Lich_Shockspitter:#
 class RLK_825_Action(TargetedAction):# 
 	def do(self, source, target):# 
 		controller=source.controller
-		Hit(target, controller.script_data_num_1).trigger(source)
+		Hit(target, source.script_data_num_1).trigger(source)
 		pass
 class RLK_825_Action2(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		controller.script_data_num_1+=1
+		source.script_data_num_1+=1
 class RLK_825:# <3>[1776]
 	""" Shockspitter (minion:2/2/2)
 	<b>Battlecry:</b> Deal @ damage. <i>(Improved by your hero attacks this game!)</i> """

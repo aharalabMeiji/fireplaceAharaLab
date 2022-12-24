@@ -368,10 +368,20 @@ class RLK_830:# <12>[1776]
 
 if Lich_Plaguespreader:# ### OK ###
 	Lich_Neutral+=['RLK_831']
+class RLK_831_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		opponent=controller.opponent
+		cards = [card for card in opponent.hand if card.type==CardType.MINION]
+		if len(cards)>0:
+			card = random.choice(cards)
+			##index = opponent.hand.index(card)
+			Give(opponent, 'RLK_831').trigger(source)
+			Destroy(card).trigger(source)
 class RLK_831:# <12>[1776]
 	""" Plaguespreader
 	<b>Deathrattle:</b> Transform a random minion in your opponent's hand into a Plaguespreader. """
-	deathrattle = Morph(RANDOM(ENEMY_HAND + MINION),'RLK_831')
+	deathrattle = RLK_831_Action()
 	pass
 
 if Lich_Foul_Egg:# ### OK ###

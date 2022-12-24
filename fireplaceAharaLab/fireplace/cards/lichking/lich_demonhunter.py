@@ -1,5 +1,4 @@
 from ..utils import *
-from fireplace.cards import utils
 
 Lich_DemonHunter=[]
 
@@ -20,7 +19,7 @@ if Lich_Mark_of_Scorn:#
 class RLK_206_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		card=utils.get99(Draw(controller).trigger(source))
+		card=get00(Draw(controller).trigger(source))
 		if card.type!=CardType.MINION and len(controller.opponent.field):
 			low=[]
 			for ocard in controller.opponent.field:

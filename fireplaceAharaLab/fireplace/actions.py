@@ -1087,7 +1087,7 @@ class PutOnTop(TargetedAction):
 				card.controller = target
 			if len(target.deck) >= target.max_deck_size:
 				if Config.LOGINFO:
-					Config.log("PutOnTop.do","Put (%r) fails because %r's deck is full", card, target)
+					Config.log("PutOnTop.do","Put (%r) fails because %r's deck is full"%(card, target))
 				continue
 			card.zone = Zone.DECK
 			card, card.controller.deck[-1] = card.controller.deck[-1], card
