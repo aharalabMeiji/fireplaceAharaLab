@@ -138,6 +138,7 @@ class Player(Entity, TargetableByAuras):
 		self.prev_field=[] # battlegrounds
 		self.script_const_1=0 ## general use
 		self.gifts=[] # battlegrounds
+		self.spellpower_by_spell=0
 		self.im_a_player=True # battlegrounds
 
 	def __str__(self):
@@ -175,7 +176,7 @@ class Player(Entity, TargetableByAuras):
 
 	@property
 	def spellpower(self):
-		aura_power = self.controller.spellpower_adjustment
+		aura_power = self.controller.spellpower_adjustment + self.controller.spellpower_by_spell
 		minion_power = 0
 		for minion in self.field:
 			if hasattr(minion,'spellpower'):

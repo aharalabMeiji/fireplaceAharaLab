@@ -113,7 +113,7 @@ class RLK_922:# <5>[1776]
 	""" Seal of Blood (spell:3)
 	Give a minion +3/+3 and <b>Divine Shield</b>. Deal $3 damage to your hero. """
 	requirements = REQUIRE_FRIEND_MINION_TARGET
-	play = Buff(TARGET, ''), Hit(FRIENDLY_HERO, 2)
+	play = Buff(TARGET, 'RLK_922e'), Hit(FRIENDLY_HERO, 2)
 	pass
 RLK_922e=buff(divine_shield=True)
 
