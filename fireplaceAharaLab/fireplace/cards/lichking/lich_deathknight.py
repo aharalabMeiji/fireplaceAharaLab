@@ -52,9 +52,9 @@ if Lich_Corpse_Explosion:#
 class RLK_035_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		if controller.corpse>=1:
-			SpendCorpse(controller, 1).trigger(source)
-			for repeat in range(10):
+		for repeat in range(10):
+			if controller.corpse>=1:
+				SpendCorpse(controller, 1).trigger(source)
 				for card in controller.field+controller.opponent.field:
 					Hit(card, 1).trigger(source)
 				if len([card for card in controller.field+controller.opponent.field if card.dead==True])>0:
@@ -191,7 +191,7 @@ class RLK_706:# <1>[1776]
 class RLK_706e3:# <1>[1776]
 	""" Mograine's Migraine (0)
 	For the rest of the game, deal 3 damage to your opponent at the end of your turns. """
-	events = OWN_TURN_END.on(Hit(RANDOM(ENEMY_CHARACTERS), 3))
+	events = OWN_TURN_END.on(Hit(ENEMY_HERO, 3))
 	pass
 
 #class RLK_707e_Action(GameAction):# 

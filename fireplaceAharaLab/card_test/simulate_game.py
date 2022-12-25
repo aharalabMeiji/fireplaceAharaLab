@@ -82,11 +82,11 @@ def card_test():
 			stormwind_warlock()
 	elif Config.CARD_TEST_SET=='REVENDRETH':
 		if Config.CARD_TEST_CLASS=='NEUTRAL':
-			from t_rev_neutral import rev_neutral
+			from .t_rev_neutral import rev_neutral
 			rev_neutral()
 	elif Config.CARD_TEST_SET=='RETURN_OF_THE_LICH_KING':
 		if Config.CARD_TEST_CLASS=='DEATHKNIGHT':
-			from t_lich_deathknight import lich_deathknight
+			from .t_lich_deathknight import lich_deathknight
 			lich_deathknight()
 		elif Config.CARD_TEST_CLASS=='DEMONHUNTER':
 			from .t_lich_demonhunter import lich_demonhunter
@@ -371,7 +371,13 @@ class Preset_Play:
 		### etc
 
 		elif _card=='armor':
-			_card=random.choice(['SW_030','SW_094',])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.ARMOR: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		elif _card=='attackspell':
 			_card=random.choice(['SCH_348','SCH_604','BAR_801','BAR_032'])
 		elif _card=='battlecry':
@@ -461,7 +467,13 @@ class Preset_Play:
 		elif _card=='vanillaA3':
 			_card=random.choice(['CORE_GVG_044','EX1_160t','BT_726t','BT_163t','BAR_721t2','SCH_337t',])
 		elif _card=='weapon':
-			_card=random.choice(['WC_037','DMF_088','DMF_521t'])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.WEAPON: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		return _card
 
 	def exchange_card(self, card, player, health=0):
