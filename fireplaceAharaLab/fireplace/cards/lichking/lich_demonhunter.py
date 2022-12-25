@@ -46,6 +46,7 @@ class RLK_207_Action(GameAction):#
 class RLK_207:# <14>[1776]
 	""" Fierce Outsider (minion:1/2/1)
 	<b>Rush</b> <b>Outcast:</b> Your next <b>Outcast</b> card costs (1) less. """
+	#<Tag enumID="1333" name="OUTCAST" type="Int" value="1"/>
 	outcast = Buff(FRIENDLY_HAND + OUTCAST, 'RLK_207e')
 	pass
 class RLK_207e:# <14>[1776]

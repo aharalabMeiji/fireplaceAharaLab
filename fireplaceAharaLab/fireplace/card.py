@@ -232,6 +232,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	honorable_kill = boolean_property("honorable_kill")
 	lifesteal = boolean_property("lifesteal")
 	mark_of_evil = boolean_property("mark_of_evil")# 
+	outcast = boolean_property("outcast")#
 	piece_of_cthun=int_property("piece_of_cthun")#
 	playable_zone = Zone.HAND
 	reborn = boolean_property("reborn")# 

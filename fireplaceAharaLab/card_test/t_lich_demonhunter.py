@@ -4,21 +4,16 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_demonhunter():
 
-	#PresetGame(pp_RLK_206)##
-	#PresetGame(pp_RLK_207)##
-	#PresetGame(pp_RLK_208)##
-	#PresetGame(pp_RLK_209)##
-	#PresetGame(pp_RLK_210)##
-	#PresetGame(pp_RLK_211)##
-	#PresetGame(pp_RLK_212)##
-	#PresetGame(pp_RLK_213)##
-	#PresetGame(pp_RLK_214)##
-	#PresetGame(pp_RLK_215)##
-	#PresetGame(pp_RLK_Prologue_FroznThrn_004hb3)##
-	#PresetGame(pp_RLK_Prologue_Illidan_004hb)##
-	#PresetGame(pp_RLK_Prologue_Illidan_004p)##
-	#PresetGame(pp_RLK_Prologue_IllidanD_004hb2)##
-	#PresetGame(pp_RLK_Prologue_Sylvanas_003e1)##
+	PresetGame(pp_RLK_206)##
+	PresetGame(pp_RLK_207)##
+	PresetGame(pp_RLK_208)##
+	PresetGame(pp_RLK_209)##
+	PresetGame(pp_RLK_210)##
+	PresetGame(pp_RLK_211)##
+	PresetGame(pp_RLK_212)##
+	PresetGame(pp_RLK_213)##
+	PresetGame(pp_RLK_214)##
+	PresetGame(pp_RLK_215)##
 	pass
 
 
@@ -33,14 +28,25 @@ class pp_RLK_206(Preset_Play):
 		self.con1=self.exchange_card("RLK_206", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH4")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
+		self.opp2=Summon(self.opponent, self.card_choice("minionH5")).trigger(self.opponent)
+		self.opp2=self.opp2[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.lenhand=len(self.controller.hand)
 		self.play_card(self.con1)
+		self.assertion("self.lenhand==len(self.controller.hand)")
+		self.con2=self.controller.hand[-1]
+		if self.con2.type!=CardType.MINION:
+			self.assertion("self.opp1.damage==3")
+			self.assertion("self.opp2.damage==0")
+		else:
+			self.assertion("self.opp1.damage==0")
+			self.assertion("self.opp2.damage==0")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -61,16 +67,23 @@ class pp_RLK_207(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_207", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("CORE_BT_480", self.controller)##outcast
+		self.con3=self.exchange_card("CORE_BT_480", self.controller)##outcast
+		index = self.controller.hand.index(self.con2)
+		self.controller.hand[index], self.controller.hand[0] = self.controller.hand[0], self.controller.hand[index]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.assertion("len(self.con2.buffs)>0")
+		self.assertion("self.con2.cost=self.con2.data.cost-1")
+		self.assertion("len(self.con3.buffs)>0")
+		self.assertion("self.con3.cost=self.con2.data.cost-1")
+		self.play_card(self.con2)
+		self.assertion("len(self.con3.buffs)==0")
+		self.assertion("self.con3.cost=self.con2.data.cost")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -321,154 +334,6 @@ class pp_RLK_215(Preset_Play):
 			self.print_stats("hand", card)
 	pass
 
-
-##########RLK_Prologue_FroznThrn_004hb3##########
-
-class pp_RLK_Prologue_FroznThrn_004hb3(Preset_Play):
-	""" The Frozen Throne
-	 """
-	class1=CardClass.DEMONHUNTER
-	class2=CardClass.DEMONHUNTER
-	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_Prologue_FroznThrn_004hb3", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########RLK_Prologue_Illidan_004hb##########
-
-class pp_RLK_Prologue_Illidan_004hb(Preset_Play):
-	""" Illidan Stormrage
-	 """
-	class1=CardClass.DEMONHUNTER
-	class2=CardClass.DEMONHUNTER
-	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_Prologue_Illidan_004hb", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########RLK_Prologue_Illidan_004p##########
-
-class pp_RLK_Prologue_Illidan_004p(Preset_Play):
-	""" Demon Claws
-	<b>Hero Power</b> +2 Attack this turn. """
-	class1=CardClass.DEMONHUNTER
-	class2=CardClass.DEMONHUNTER
-	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_Prologue_Illidan_004p", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########RLK_Prologue_IllidanD_004hb2##########
-
-class pp_RLK_Prologue_IllidanD_004hb2(Preset_Play):
-	""" Demonic Illidan
-	 """
-	class1=CardClass.DEMONHUNTER
-	class2=CardClass.DEMONHUNTER
-	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_Prologue_IllidanD_004hb2", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
-
-
-##########RLK_Prologue_Sylvanas_003e1##########
-
-class pp_RLK_Prologue_Sylvanas_003e1(Preset_Play):
-	""" Defensive Position
-	Your hero has +2 Attack this turn. """
-	class1=CardClass.DEMONHUNTER
-	class2=CardClass.DEMONHUNTER
-	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_Prologue_Sylvanas_003e1", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
-		super().preset_deck()
-		pass
-	def preset_play(self):
-		super().preset_play()
-		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
-		pass
-	def result_inspection(self):
-		super().result_inspection()
-		for card in self.controller.hand:
-			self.print_stats("hand", card)
-	pass
+#############################################################
 
 
