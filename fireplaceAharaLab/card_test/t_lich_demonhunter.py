@@ -4,7 +4,7 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_demonhunter():
 
-	PresetGame(pp_RLK_206)##
+	#PresetGame(pp_RLK_206)##
 	PresetGame(pp_RLK_207)##
 	PresetGame(pp_RLK_208)##
 	PresetGame(pp_RLK_209)##
@@ -66,11 +66,11 @@ class pp_RLK_207(Preset_Play):
 	class1=CardClass.DEMONHUNTER
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_207", self.controller)
-		self.con2=self.exchange_card("CORE_BT_480", self.controller)##outcast
+		self.con1=self.exchange_card("RLK_207", self.controller)##outcast
+		self.con2=self.exchange_card("CORE_BT_480", self.controller)
 		self.con3=self.exchange_card("CORE_BT_480", self.controller)##outcast
-		index = self.controller.hand.index(self.con2)
-		self.controller.hand[index], self.controller.hand[0] = self.controller.hand[0], self.controller.hand[index]
+		index=self.controller.hand.index(self.con1)
+		self.controller.hand[0],self.controller.hand[index]=self.controller.hand[index],self.controller.hand[0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -80,10 +80,10 @@ class pp_RLK_207(Preset_Play):
 		self.assertion("len(self.con2.buffs)>0")
 		self.assertion("self.con2.cost=self.con2.data.cost-1")
 		self.assertion("len(self.con3.buffs)>0")
-		self.assertion("self.con3.cost=self.con2.data.cost-1")
-		self.play_card(self.con2)
-		self.assertion("len(self.con3.buffs)==0")
-		self.assertion("self.con3.cost=self.con2.data.cost")
+		self.assertion("self.con3.cost=self.con3.data.cost-1")
+		self.play_card(self.con3)
+		self.assertion("len(self.con2.buffs)==0")
+		self.assertion("self.con2.cost=self.con2.data.cost")
 		self.change_turn()
 		### opp
 		self.change_turn()
