@@ -98,15 +98,15 @@ class TSC_630:# <8>[1658]
 	""" Wrathspine Enchanter
 	[Battlecry:] Cast a copy of a Fire, Frost, and Nature spell in your hand <i>(targets chosen randomly).</i> """
 	def play(self):
-		cards=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FIRE]
+		cards=[card for card in self.controller.hand if card.SPELL_SCHOOL(SpellSchool.FIRE)]
 		if len(cards)>0:
 			card=random.choice(cards)
 			CastSpell(card).trigger(self)
-		cards=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		cards=[card for card in self.controller.hand if card.SPELL_SCHOOL(SpellSchool.FROST)]
 		if len(cards)>0:
 			card=random.choice(cards)
 			CastSpell(card).trigger(self)
-		cards=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.NATURE]
+		cards=[card for card in self.controller.hand if card.SPELL_SCHOOL(SpellSchool.NATURE)]
 		if len(cards)>0:
 			card=random.choice(cards)
 			CastSpell(card).trigger(self)

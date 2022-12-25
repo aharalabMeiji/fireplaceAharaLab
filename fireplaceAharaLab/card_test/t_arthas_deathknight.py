@@ -396,7 +396,7 @@ class pp_RLK_110(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.new_atk=len([card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST])
+		self.new_atk=len([card for card in self.controller.hand if card.SPELL_SCHOOL(SpellSchool.FROST)])
 		self.assertion("self.con1.atk==self.con1.data.atk+self.new_atk") 
 		pass
 	def result_inspection(self):

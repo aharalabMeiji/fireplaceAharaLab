@@ -97,7 +97,7 @@ class AV_257:# <8>[1626]
 	""" Bearon Gla'shear
 	[Battlecry:] For each Frost spell you've cast this game, summon a 3/4 Elemental(AV_257t) that [Freezes].@ <i>(@)</i> """
 	def play(self):
-		cards = [card for card in self.controller.play_log if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		cards = [card for card in self.controller.play_log if card.SPELL_SCHOOL(SpellSchool.FROST)]
 		if len(cards)>0:
 			for repeat in range(len(cards)):
 				Summon(self.controller, 'AV_257t').trigger(self)

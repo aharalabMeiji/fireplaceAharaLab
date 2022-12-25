@@ -107,7 +107,7 @@ class TSC_061_Action(TargetedAction):
 	def do(self, source, target):
 		newcost = target.data.cost
 		for card in target.controller.play_log:
-			if card.type==CardType.SPELL and card.spell_school==SpellSchool.HOLY:
+			if card.SPELL_SCHOOL(SpellSchool.HOLY):
 				newcost -= card.cost
 		newcost = max(newcost, 0)
 		target.cost = newcost

@@ -220,7 +220,7 @@ if Arthas_Ymirjar_Frostbreaker:#
 	Arthas_DeathKnight+=['RLK_110e']
 class RLK_110_Action(GameAction):
 	def do(self, source):
-		cards=[card for card in source.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		cards=[card for card in source.controller.hand if card.SPELL_SCHOOL(SpellSchool.FROST)]
 		if len(cards):
 			Buff(source, 'RLK_110e', atk=len(cards)).trigger(source)
 		pass
@@ -403,7 +403,7 @@ if Arthas_Lady_Deathwhisper:#
 class RLK_713_Action(GameAction):
 	def do(self, source):
 		controller = source.controller
-		cards=[card.id for card in controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.FROST]
+		cards=[card.id for card in controller.hand if card.SPELL_SCHOOL(SpellSchool.FROST)]
 		for cardID in cards:
 			Give(controller, cardID).trigger(source)
 		pass

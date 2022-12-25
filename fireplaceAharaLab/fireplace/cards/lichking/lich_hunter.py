@@ -212,7 +212,7 @@ class RLK_826_Action(GameAction):#
 	def do(self, source):# 
 		controller=source.controller
 		for card in controller.hand:
-			if card.type==CardType.SPELL and card.spell_school==SpellSchool.ARCANE:
+			if card.SPELL_SCHOOL(SpellSchool.ARCANE):
 				controller.spellpower_by_spell+=1
 		pass
 class RLK_826:# <3>[1776]

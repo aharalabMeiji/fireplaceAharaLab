@@ -186,7 +186,7 @@ class AV_128_Action2(TargetedAction):
 	CARD=CardArg()
 	def do(self, source, player, card):
 		controller=player
-		if card.type==CardType.SPELL and card.spell_school==SpellSchool.FIRE:
+		if card.SPELL_SCHOOL(SpellSchool.FIRE):
 			source.frozen=False
 		pass
 class AV_128:# <12>[1626]

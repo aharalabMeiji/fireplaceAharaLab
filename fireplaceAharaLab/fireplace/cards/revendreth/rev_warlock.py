@@ -230,7 +230,7 @@ class REV_373:# <9>[1691]
 			shade = Summon(controller, 'REV_373t').trigger(self)
 			if shade[0]!=[]:
 				shade=shade[0][0]
-				shadows=[card for card in controller.play_log if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
+				shadows=[card for card in controller.play_log if card.SPELL_SCHOOL(SpellSchool.SHADOW)]
 				if len(shadows)>0:
 					lastshadow=shadows[-1]
 					buff=Buff(shade,'REV_373e')
@@ -268,7 +268,7 @@ class REV_374:# <9>[1691]
 		controller=self.controller
 		high=[]
 		for card in controller.hand:
-			if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW:
+			if card.SPELL_SCHOOL(SpellSchool.SHADOW):
 				if high==[] or high[0].cost<card.cost:
 					high=[card]
 				elif high[0].cost==card.cost:

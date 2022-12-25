@@ -222,8 +222,8 @@ class ONY_026:# <6>[1626]
 	""" Lightmaw Netherdrake
 	[Battlecry:] If you're holding a Holy and a Shadow spell, deal 3 damage to all other minions. """
 	def play(self):
-		cards1=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.HOLY]
-		cards2=[card for card in self.controller.hand if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
+		cards1=[card for card in self.controller.hand if card.SPELL_SCHOOL(SpellSchool.HOLY)]
+		cards2=[card for card in self.controller.hand if card.SPELL_SCHOOL(SpellSchool.SHADOW)]
 		if cards1!=[] and cards2!=[]:
 			for card in self.controller.field+self.controller.opponent.field:
 				if card!=self:

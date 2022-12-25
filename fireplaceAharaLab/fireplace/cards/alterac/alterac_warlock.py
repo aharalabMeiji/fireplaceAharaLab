@@ -99,7 +99,7 @@ class AV_286:# <9>[1626]
 		if hand!=[]:
 			high=[]
 			for card in hand:
-				if card.type==CardType.SPELL and card.spell_school==SpellSchool.FEL:
+				if card.SPELL_SCHOOL(SpellSchool.FEL):
 					if high==[] or high[0].cost<card.cost:
 						high=[card]
 					elif high[0].cost==card.cost:

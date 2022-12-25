@@ -251,7 +251,7 @@ class SW_444:# <6>[1578]
 		actions = [action for action in controller._targetedaction_log if\
 			isinstance(action['class'],Hit) and action['target'].type==CardType.HERO and action['target_args'][0]>0 and action['turn']==controller.game.turn]
 		if len(actions)>0:
-			cards = [card for card in controller.deck if card.type==CardType.SPELL and card.spell_school==SpellSchool.SHADOW]
+			cards = [card for card in controller.deck if card.SPELL_SCHOOL(SpellSchool.SHADOW)]
 			if len(cards)>0:
 				Give(controller, random.choice(cards)).trigger(self)
 	pass
