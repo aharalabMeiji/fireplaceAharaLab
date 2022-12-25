@@ -68,7 +68,7 @@ class BAR_873:# <5>[1525]
 	[Battlecry:] Draw aHoly spell. """
 	def play(self):
 		controller = self.controller
-		cards=[card for card in controller.deck if card.type==CardType.SPELL and hasattr(card,'spell_school') and card.spell_school==SpellSchool.HOLY]
+		cards=[card for card in controller.deck if card.SPELL_SCHOOL(SpellSchool.HOLY)]
 		if len(cards)>0:
 			Give(controller, random.choice(cards)).trigger(self)
 	pass

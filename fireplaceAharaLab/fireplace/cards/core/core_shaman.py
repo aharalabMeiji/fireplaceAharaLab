@@ -198,7 +198,7 @@ class CORE_TRL_345:# <8>[1637]##23.6 ###########################################
 	""" Krag'wa, the Frog
 	[Battlecry:] Return all spells you played last turn to_your hand. """
 	def play(self):
-		cards = self.controller.play_log_of_last_turn
+		cards = self.controller.play_last_turn
 		for card in cards:
 			if card.type==CardType.SPELL:
 				Give(self.controller, card).trigger(self)

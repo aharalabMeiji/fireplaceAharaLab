@@ -48,7 +48,7 @@ class CountElementalLastTurnAndAction(TargetedAction):
 	ACTION = ActionArg()
 	def do(self, source, target, actions) :
 		_thisPlayer = target.controller
-		_playLogList = _thisPlayer.play_log_of_last_turn
+		_playLogList = _thisPlayer.play_last_turn
 		_count = 0
 		for _card in _playLogList:
 			if hasattr(_card,'race') and _card.race == Race.ELEMENTAL:

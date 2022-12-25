@@ -35,7 +35,7 @@ class AV_281:# <9>[1626]
 		if len(cards)>0:
 			newcard = random.choice(cards)
 			newcard.zone=Zone.HAND
-			if newcard.type==CardType.SPELL and newcard.spell_school==SpellSchool.FEL:
+			if newcard.SPELL_SCHOOL(SpellSchool.FEL):
 				amount=3
 			else:
 				amount=2

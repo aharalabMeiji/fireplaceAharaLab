@@ -30,7 +30,7 @@ class RLK_817_Choice(Choice):
 		self.next_choice=None
 		super().choose(card)
 		card.zone=Zone.HAND
-		if getattr(card, 'spell_school', None)==SpellSchool.ARCANE:
+		if card.SPELL_SCHOOL(SpellSchool.ARCANE):
 			card.spellpower_by_spell+=1
 class RLK_817_Action(GameAction):# 
 	def do(self, source):# 
@@ -90,7 +90,7 @@ class RLK_820_Action(GameAction):#
 	def do(self, source):# 
 		controller=source.controller
 		for card in controller.deck:
-			if card.type==CardType.SPELL and getattr(card, 'spell_school',None)==SpellSchool.ARCANE:
+			if card.SPELL_SCHOOL(SpellSchool.ARCANE):
 				controller.spellpower_by_spell += 1
 			pass
 		pass

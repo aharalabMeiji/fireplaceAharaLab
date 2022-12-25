@@ -195,7 +195,7 @@ class WC_013:# <6>[1525]
 		if len(cards)>0:
 			card = random.choice(cards)
 			Give(self.controller, card).trigger(self)
-			if card.spell_school==SpellSchool.HOLY:
+			if card.SPELL_SCHOOL(SpellSchool.HOLY):
 				Buff(card, 'WC_013e').trigger(self)
 	pass
 @custom_card

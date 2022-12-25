@@ -549,7 +549,7 @@ class Player(Entity, TargetableByAuras):
 			_ret.append(_log.card)
 		return _ret
 	@property
-	def play_log_of_last_turn(self):
+	def play_last_turn(self):
 		_ret = []
 		for _log in self._play_log:
 			if _log.turn == self.game.turn - 2:

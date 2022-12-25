@@ -143,7 +143,7 @@ class BAR_848:# <8>[1525]
 	""" Lilypad Lurker
 	[Battlecry:] If you played an Elemental last turn, transform an enemy minion into a 0/1 Frog with [Taunt]. """
 	def play(self):
-		cards = [card for card in self.controller.play_log_of_last_turn if hasattr(card, 'race') and card.race==Race.ELEMENTAL]
+		cards = [card for card in self.controller.play_last_turn if hasattr(card, 'race') and card.race==Race.ELEMENTAL]
 		if len(cards)>0 and len(self.controller.opponent.field):
 			card = random.choice(self.controller.opponent.field)
 			Morph(card, "hexfrog").trigger(self)
@@ -173,7 +173,7 @@ class WC_005:# <8>[1525]
 		if newcard[0]==[]:
 			return
 		newcard=newcard[0][0]
-		if hasattr(newcard, 'spell_school') and newcard.spell_school==SpellSchool.NATURE:
+		if newcard.SPELL_SCHOOL(SpellSchool.NATURE):
 			Give(CONTROLLER, RANDOM(FRIENDLY_DECK+ELEMENTAL)).trigger(self)
 	pass
 

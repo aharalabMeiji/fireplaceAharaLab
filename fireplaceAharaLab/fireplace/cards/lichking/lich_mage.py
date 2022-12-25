@@ -19,7 +19,7 @@ if Lich_Vexallus:#
 class RLK_541_Action(TargetedAction):# 
 	def do(self, source, target):# 
 		controller=source.controller
-		if getattr(target, 'spell_school', None)==SpellSchool.ARCANE:
+		if target.SPELL_SCHOOL(SpellSchool.ARCANE):
 			#target.spell_cast_twice=True
 			setattr(target,'spell_cast_twice', True)
 		pass

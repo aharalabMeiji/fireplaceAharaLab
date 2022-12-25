@@ -100,7 +100,7 @@ class AV_200:
 		for school in [SpellSchool.ARCANE, SpellSchool.NATURE, SpellSchool.FEL, SpellSchool.FIRE, SpellSchool.FROST, SpellSchool.HOLY, SpellSchool.SHADOW]:
 			cards = []
 			for log in self.controller.play_log:
-				if log.type==CardType.SPELL and log.spell_school==school:
+				if log.SPELL_SCHOOL(school):
 					cards.append(log)
 			if cards != []:
 				card = random.choice(cards)
