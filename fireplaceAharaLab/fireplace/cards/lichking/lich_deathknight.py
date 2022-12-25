@@ -55,12 +55,17 @@ class RLK_035_Action(GameAction):#
 		for repeat in range(10):
 			if controller.corpse>=1:
 				SpendCorpse(controller, 1).trigger(source)
-				for card in controller.field+controller.opponent.field:
+				cards=[]
+				for card in reversed(controller.field+controller.opponent.field):
 					Hit(card, 1).trigger(source)
-				if len([card for card in controller.field+controller.opponent.field if card.dead==True])>0:
+					if card.dead:
+						cards.append(card)
+				if len(cards)>0:
 					controller.game.process_deaths()
-					break
+					return
 				controller.game.process_deaths()
+			else:
+				return
 		pass
 class RLK_035:# <1>[1776]
 	""" Corpse Explosion (spell:5)
@@ -129,9 +134,6 @@ class RLK_120:# <1>[1776]
 
 if Lich_Acolyte_of_Death:# 
 	Lich_DeathKnight+=['RLK_121']
-class RLK_121_Action(GameAction):# 
-	def do(self, source):# 
-		pass
 class RLK_121:# <1>[1776]
 	""" Acolyte of Death (minion:3/3/4)
 	After a friendly Undead dies, draw a card. """

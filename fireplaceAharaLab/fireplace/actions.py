@@ -361,6 +361,7 @@ class Death(GameAction):
 		#source.game.refresh_auras()  # 
 		if entity.type == CardType.MINION:
 			self.broadcast(source, EventListener.ON, entity)
+			self.broadcast(source, EventListener.AFTER, entity)
 		if entity.id == 'SW_323'and entity._Asphyxia_=='alive': #The king rat
 			source.game.queue_actions(source, [Asphyxia(entity)])
 		if hasattr(entity, "deathrattles") and hasattr(entity, "deathrattle_valid") and entity.deathrattles and entity.deathrattle_valid:
