@@ -538,7 +538,7 @@ class pp_VAN_EX1_317(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		deck_demons=[card.id for card in self.controller.deck if card.type==CardType.MINION and card.race==Race.DEMON]
+		deck_demons=[card.id for card in self.controller.deck if card.MINION_RACE(Race.DEMON)]
 		self.play_card(self.mark1)
 		card = self.controller.hand[-1]
 		#self.asserting(card.race==Race.DEMON and card in deck_demons,"card.race==Race.DEMON and card.id in deck_demons")

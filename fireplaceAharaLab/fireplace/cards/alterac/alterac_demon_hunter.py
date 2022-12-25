@@ -96,7 +96,7 @@ class AV_262:# <14>[1626] #
 	""" Warden of Chains
 	[Taunt][Battlecry:] If you're holdinga Demon that costs (5) or more, gain +1/+2. """
 	def play(self):
-		cards=[card for card in self.controller.hand if card.type==CardType.MINION and card.race==Race.DEMON and card.cost>=5]
+		cards=[card for card in self.controller.hand if card.MINION_RACE(Race.DEMON) and card.cost>=5]
 		if len(cards)>0:
 			Buff(SELF, 'AV_262e2').trigger(self)
 	pass

@@ -273,7 +273,7 @@ class AV_336_Action(TargetedAction):
 	PLAYER=ActionArg()
 	def do(self, source, player):
 		controller=player
-		cards = [card for card in controller.deck if card.type==CardType.MINION and card.race==Race.BEAST]
+		cards = [card for card in controller.deck if card.MINION_RACE(Race.BEAST)]
 		if len(cards)>0:
 			card = random.choice(cards)
 			card = Summon(controller, card).trigger(source)
@@ -295,7 +295,7 @@ class AV_336e_Action(TargetedAction):
 		if hasattr(attacker, 'atk') and hasattr(defender,'health'):
 			if attacker.atk>=defender.health:## attacker kills the defender
 				controller = source.controller
-				cards = [card for card in controller.deck if card.type==CardType.MINION and card.race==Race.BEAST]
+				cards = [card for card in controller.deck if card.MINION_RACE(Race.BEAST)]
 				if len(cards)>0:
 					card = random.choice(cards)
 					card = Summon(controller, card).trigger(source)
@@ -353,7 +353,7 @@ class ONY_009:# <3>[1626]
 	def play(self):
 		cards = []
 		for card in self.controller.deck:
-			if card.type==CardType.MINION and card.race==Race.BEAST and card.cost<=5:
+			if card.MINION_RACE(Race.BEAST) and card.cost<=5:
 				cards.append(card)
 		if len(cards)>0:
 			Summon(self.controller, random.choice(cards)).trigger(self.controller)

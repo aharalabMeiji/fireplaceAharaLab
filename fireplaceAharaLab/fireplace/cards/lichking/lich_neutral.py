@@ -115,7 +115,7 @@ if Lich_Bone_Flinger:# ### OK ###
 	Lich_Neutral+=['RLK_123']
 class RLK_123_Action(GameAction):
 	def do(self, source):
-		cards=[card for card in source.controller.death_last_opponent_turn+source.controller.death_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards=[card for card in source.controller.death_last_opponent_turn+source.controller.death_last_turn if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			card=random.choice(source.controller.opponent.field + [source.controller.opponent.hero])
 			Hit(card, 2).trigger(source)
@@ -354,7 +354,7 @@ if Lich_Flesh_Behemoth:# ### OK ###
 	Lich_Neutral+=['RLK_830']
 class RLK_830_Action(GameAction):
 	def do(self, source):
-		cards=[card for card in source.controller.deck if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards=[card for card in source.controller.deck if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			card = random.choice(cards)
 			card.zone=Zone.HAND
@@ -462,7 +462,7 @@ if Lich_Amber_Whelp:# ### OK ###
 	Lich_Neutral+=['RLK_915']
 class RLK_915_Action(GameAction):
 	def do(self, source):
-		cards=[card for card in source.controller.field if card.type==CardType.MINION and card.race==Race.DRAGON]
+		cards=[card for card in source.controller.field if card.MINION_RACE(Race.DRAGON)]
 		if len(cards):
 			card = random.choice(source.controller.opponent.characters)
 			Hit(card, 3).trigger(source)

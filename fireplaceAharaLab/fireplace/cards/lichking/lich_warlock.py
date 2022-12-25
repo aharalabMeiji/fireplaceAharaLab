@@ -19,7 +19,7 @@ if Lich_Infantry_Reanimator:#
 class RLK_531_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards = [card.id for card in controller.death_log if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards = [card.id for card in controller.death_log if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			newcard=get00(Summon(controller, random.choice(cards)).trigger(source))
 			newcard.reborn=True
@@ -102,7 +102,7 @@ class RLK_537_Action(TargetedAction):#
 		atk=target.atk
 		hth=target.max_health
 		Destroy(target).trigger(source)
-		cards=[card for card in controller.hand if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards=[card for card in controller.hand if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			card = random.choice(cards)
 			Buff(card, 'RLK_537e', atk=atk, max_health=hth).trigger(source)
@@ -159,7 +159,7 @@ if Lich_Amorphous_Slime:#
 class RLK_540_Action1(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards=[card for card in controller.hand if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards=[card for card in controller.hand if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			card=random.choice(cards)
 			source.sidequest_list0=[card]
@@ -168,8 +168,9 @@ class RLK_540_Action1(GameAction):#
 class RLK_540_Action2(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		card=source.sidequest_list0[0]
-		Summon(controller, card.id).trigger(source)
+		if len(source.sidequest_list0):
+			card=source.sidequest_list0[0]
+			Summon(controller, card.id).trigger(source)
 		pass
 class RLK_540:# <9>[1776]
 	""" Amorphous Slime (minion:5/5/3)

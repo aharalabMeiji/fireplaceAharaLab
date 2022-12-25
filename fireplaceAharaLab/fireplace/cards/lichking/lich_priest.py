@@ -35,7 +35,7 @@ if Lich_Bonecaller:#
 class RLK_813_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards=[card.id for card in controller.death_log if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		cards=[card.id for card in controller.death_log if card.MINION_RACE(Race.UNDEAD) ]
 		if len(cards):
 			card=random.choice(cards)
 			Summon(controller, card).trigger(source)
@@ -62,7 +62,7 @@ if Lich_Shadow_Word_Undeath:#
 class RLK_815_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards=[card.id for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		cards=[card.id for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD) ]
 		if len(cards):
 			Hit(ENEMY_CHARACTERS, 2).trigger(source)
 		pass
@@ -140,7 +140,7 @@ class RLK_829_Action(GameAction):#
 		controller=source.controller
 		card1 = get00(Draw(controller).trigger(source))
 		card2 = get00(Draw(controller).trigger(source))
-		cards=[card.id for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		cards=[card.id for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD) ]
 		if len(cards):
 			card1._cost=1
 			card2._cost=1
@@ -156,7 +156,7 @@ if Lich_High_Cultist_Basaleph:#
 class RLK_832_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards=[card.id for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD ]
+		cards=[card.id for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD) ]
 		if len(cards):
 			for card in cards:
 				Summon(controller, card).trigger(source)

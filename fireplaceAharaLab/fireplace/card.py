@@ -611,6 +611,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		else:
 			return amount
 
+	def SPELL_SCHOOL(self, spell_school):
+		return (self.type==CardType.SPELL and self.spell_school==spell_school)
+	def MINION_RACE(self, race):
+		return (self.type==CardType.MINION and self.race==race)
 
 class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")

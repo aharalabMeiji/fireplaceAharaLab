@@ -287,7 +287,7 @@ def handCardNumber(player):
 
 def needBeast(player,cost):
 	for card in player.hand:
-		if card.type==CardType.MINION and card.race==Race.BEAST:
+		if card.MINION_RACE(Race.BEAST):
 			if card.cost<=player.mana-player.used_mana-cost:
 				return 2
 			return 1

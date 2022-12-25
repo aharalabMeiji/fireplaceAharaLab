@@ -66,7 +66,7 @@ if Lich_Noxious_Infiltrator:#
 class RLK_529_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards = [card for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards = [card for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD)]
 		targets = [target for target in controller.opponent.field]
 		if len(cards) and len(targets):
 			target=random.choice(targets)

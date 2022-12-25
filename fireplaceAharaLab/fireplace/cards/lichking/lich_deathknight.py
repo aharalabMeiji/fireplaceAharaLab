@@ -100,7 +100,8 @@ if Lich_Necrotic_Mortician:#
 class RLK_116_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards=[card for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		#cards=[card for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards=[card for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards)>0:
 			Discover(controller, RandomUnholyRune()).trigger(source)
 		pass

@@ -89,7 +89,7 @@ if Lich_Wither:#
 class RLK_655_Action(TargetedAction):# 
 	def do(self, source, target):# 
 		controller=source.controller
-		cards=[card for card in controller.field if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards=[card for card in controller.field if card.MINION_RACE(Race.UNDEAD)]
 		amount=len(cards)
 		if amount:
 			for card in cards:
@@ -190,7 +190,7 @@ if Lich_Nerubian_Flyer:#
 class RLK_956_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards = [card for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards = [card for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			Summon(controller, 'RLK_956t').trigger(source)
 		pass

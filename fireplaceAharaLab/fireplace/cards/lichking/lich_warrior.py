@@ -143,7 +143,8 @@ class RLK_608_Action(GameAction):#
 		controller=source.controller
 		cards=[card.id for card in controller.opponent.play_log if card.type==CardType.SPELL]
 		if len(cards):
-			CastSpell(cards[-1]).trigger(source)
+			newcard=controller.card(cards[-1])
+			CastSpell(newcard).trigger(source)
 		pass
 class RLK_608:# <10>[1776]
 	""" Asvedon, the Grandshield (minion:3/3/3)

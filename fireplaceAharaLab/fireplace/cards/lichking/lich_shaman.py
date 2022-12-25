@@ -47,7 +47,7 @@ if Lich_Unliving_Champion:#
 class RLK_552_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		cards = [card for card in controller.death_after_last_turn if card.type==CardType.MINION and card.race==Race.UNDEAD]
+		cards = [card for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			Summon(controller, 'RLK_909t').trigger(source)
 		pass

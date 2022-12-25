@@ -190,7 +190,7 @@ class TSC_934:# <7>[1658]
 	[Battlecry:] If you've summoned 8 other Pirates this game, plunder the enemy!@ <i>({0} left!)</i>@ <i>(Ready!)</i> """
 	entourage = ['TSC_934t','TSC_934t2','TSC_934t3']
 	def play(self):
-		cards=[card for card in self.controller.summon_log if card.type==CardType.MINION and card.race==Race.PIRATE]
+		cards=[card for card in self.controller.summon_log if card.MINION_RACE(Race.PIRATE)]
 		if len(cards)>=8:
 			Discover(self.controller, RandomEntourage()).trigger()
 	pass

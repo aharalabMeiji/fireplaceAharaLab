@@ -48,7 +48,7 @@ class MAW_012_Action(TargetedAction):
 	CONTROLLER=ActionArg()
 	AMOUNT=ActionArg()
 	def do(self, source, controller, amount):
-		killed_demon=[card for card in controller.death_log if card.type==CardType.MINION and card.race==Race.DEMON]
+		killed_demon=[card for card in controller.death_log if card.MINION_RACE(Race.DEMON)]
 		if len(killed_demon)>0:
 			if len(killed_demon)>amount:
 				killed_demon=random.sample(killed_demon,amount)

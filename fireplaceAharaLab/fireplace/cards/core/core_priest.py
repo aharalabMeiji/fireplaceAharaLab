@@ -45,7 +45,7 @@ class CORE_CFM_605:# <6>[1637]## 23.6
 	def play(self):
 		holding_dragon=False
 		for card in self.controller.hand:##  hand
-			if card != self and card.type==CardType.MINION and card.race==Race.DRAGON:
+			if card != self and card.MINION_RACE(Race.DRAGON):
 				holding_dragon=True
 				break
 		decklist = [i.id for i in self.controller.opponent.deck]

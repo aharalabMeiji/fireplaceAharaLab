@@ -125,7 +125,7 @@ class TSC_039t:# <9>[1658]
 	[Battlecry:] Give your other Murlocs +1/+1 <i>(wherever they are)</i>. """
 	def play(self):
 		for card in self.controller.hand + self.controller.field + self.controller.deck:
-			if card.type==CardType.MINION and card.race==Race.MURLOC:
+			if card.MINION_RACE(Race.MURLOC):
 				Buff(card, 'TSC_039te').trigger(self)
 	pass
 TSC_039te=buff(1,1)
@@ -269,9 +269,9 @@ class TSC_957:# <9>[1658]
 	""" Chum Bucket
 	Give all Murlocs in your hand +1/+1. Repeat foreach Murloc you control. """
 	def play(self):
-		amount=len([card for card in self.controller.hand if card.type==CardType.MINION and card.race==Race.MURLOC])+1
+		amount=len([card for card in self.controller.hand if card.MINION_RACE(Race.MURLOC)])+1
 		for card in self.controller.hand:
-			if card.type==CardType.MINION and card.race==Race.MURLOC:
+			if card.MINION_RACE(Race.MURLOC):
 				Buff(card, 'TSC_957e', atk=amount, max_health=amount).trigger(self)
 	pass
 class TSC_957e:# <9>[1658]
