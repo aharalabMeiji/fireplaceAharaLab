@@ -8,10 +8,12 @@ def lich_demonhunter():
 	#PresetGame(pp_RLK_207)##OK
 	#PresetGame(pp_RLK_208)##OK
 	#PresetGame(pp_RLK_208a)##OK
-	PresetGame(pp_RLK_209)##
-	PresetGame(pp_RLK_210)##
+	#PresetGame(pp_RLK_209)##
+	#PresetGame(pp_RLK_210)##
 	PresetGame(pp_RLK_211)##
+	PresetGame(pp_RLK_211a)##
 	PresetGame(pp_RLK_212)##
+	PresetGame(pp_RLK_212a)##
 	PresetGame(pp_RLK_213)##
 	PresetGame(pp_RLK_214)##
 	PresetGame(pp_RLK_215)##
@@ -270,10 +272,40 @@ class pp_RLK_211(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
+		for card in reversed(self.controller.deck):
+			if card.type==CardType.MINION:
+				Destroy(card).trigger(self.controller)
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.RLK_211t_count=len([card for card in self.controller.field if card.id=='RLK_211t'])
+		self.assertion("self.RLK_211t_count==3")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_211a(Preset_Play):
+	""" Deal with a Devil
+	Summon two 3/3 Felfiends with <b>Lifesteal</b>. If your deck has no minions, summon another. """
+	class1=CardClass.DEMONHUNTER
+	class2=CardClass.DEMONHUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_211", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		#for card in reversed(self.controller.deck):
+		#	if card.type==CardType.MINION:
+		#		Destroy(card).trigger(self.controller)
+		self.play_card(self.con1)
+		self.RLK_211t_count=len([card for card in self.controller.field if card.id=='RLK_211t'])
+		self.assertion("self.RLK_211t_count==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -285,15 +317,13 @@ class pp_RLK_211(Preset_Play):
 ##########RLK_212##########
 
 class pp_RLK_212(Preset_Play):
-	""" Brutal Annihilan
+	""" Brutal Annihilan (minion:9/9/9)
 	<b>Taunt</b>, <b>Rush</b> After this minion survives damage, deal that amount to the enemy hero. """
 	class1=CardClass.DEMONHUNTER
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_212", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionA3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
@@ -303,7 +333,31 @@ class pp_RLK_212(Preset_Play):
 		self.play_card(self.con1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.attack_card(self.opp1, self.con1)
+		self.assertion("self.opponent.hero.damage==3")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_212a(Preset_Play):
+	""" Brutal Annihilan (minion:9/9/9)
+	<b>Taunt</b>, <b>Rush</b> After this minion survives damage, deal that amount to the enemy hero. """
+	class1=CardClass.DEMONHUNTER
+	class2=CardClass.DEMONHUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_212", self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("minionA3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		Hit(self.con1, 10).trigger(self.controller)
+		self.assertion("self.opponent.hero.damage==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
