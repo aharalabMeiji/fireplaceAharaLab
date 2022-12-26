@@ -4,22 +4,22 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_deathknight():
 
-	#PresetGame(pp_RLK_012)##
-	#PresetGame(pp_RLK_035)##
-	#PresetGame(pp_RLK_035a)##
-	#PresetGame(pp_RLK_035b)##
-	#PresetGame(pp_RLK_035c)##
-	#PresetGame(pp_RLK_051)##
-	#PresetGame(pp_RLK_051a)##
-	#PresetGame(pp_RLK_116)##
-	#PresetGame(pp_RLK_116a)##
-	#PresetGame(pp_RLK_120)##
-	#PresetGame(pp_RLK_121)##
-	#PresetGame(pp_RLK_121a)##
-	#PresetGame(pp_RLK_225)##
-	#PresetGame(pp_RLK_506)##
-	#PresetGame(pp_RLK_706)##
-	#PresetGame(pp_RLK_741)##
+	#PresetGame(pp_RLK_012)##OK
+	#PresetGame(pp_RLK_035)##OK
+	#PresetGame(pp_RLK_035a)##OK
+	#PresetGame(pp_RLK_035b)##OK
+	#PresetGame(pp_RLK_035c)##OK
+	#PresetGame(pp_RLK_051)##OK
+	#PresetGame(pp_RLK_051a)##OK
+	#PresetGame(pp_RLK_116)##OK
+	#PresetGame(pp_RLK_116a)##OK
+	#PresetGame(pp_RLK_120)##OK
+	#PresetGame(pp_RLK_121)##OK
+	#PresetGame(pp_RLK_121a)##OK
+	#PresetGame(pp_RLK_225)##OK
+	#PresetGame(pp_RLK_506)##OK
+	#PresetGame(pp_RLK_706)##OK
+	#PresetGame(pp_RLK_741)##OK
 	pass
 
 

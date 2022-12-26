@@ -1,12 +1,13 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit, Summon, Give
+from fireplace.actions import Hit, Summon, Give, Destroy
 from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_demonhunter():
 
 	#PresetGame(pp_RLK_206)##OK
 	#PresetGame(pp_RLK_207)##OK
-	PresetGame(pp_RLK_208)##
+	#PresetGame(pp_RLK_208)##OK
+	#PresetGame(pp_RLK_208a)##OK
 	PresetGame(pp_RLK_209)##
 	PresetGame(pp_RLK_210)##
 	PresetGame(pp_RLK_211)##
@@ -106,17 +107,49 @@ class pp_RLK_208(Preset_Play):
 		self.con1=self.exchange_card("RLK_208", self.controller)
 		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
 		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH6")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		for card in reversed(self.controller.deck):
+			if card.type==CardType.MINION:
+				Destroy(card).trigger(self.controller)
+		self.play_card(self.con1, target=self.opp1)
+		self.assertion("self.opp1.damage==4")
+		self.cards = [card for card in self.controller.field if card.id=='BT_036t']
+		self.assertion("len(self.cards)==4")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_208a(Preset_Play):
+	""" Fel'dorei Warband
+	Deal $4 damage. If your deck has no minions, summon four 1/1 Illidari with <b>Rush</b>. """
+	class1=CardClass.DEMONHUNTER
+	class2=CardClass.DEMONHUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_208", self.controller)
+		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
+		self.con4=self.con4[0][0]
+		self.opp1=Summon(self.opponent, self.card_choice("minionH6")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		#for card in reversed(self.controller.deck):
+		#	if card.type==CardType.MINION:
+		#		Destroy(card).trigger(self.controller)
+		self.play_card(self.con1, target=self.opp1)
+		self.assertion("self.opp1.damage==4")
+		self.cards = [card for card in self.controller.field if card.id=='BT_036t']
+		self.assertion("len(self.cards)==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -128,14 +161,12 @@ class pp_RLK_208(Preset_Play):
 ##########RLK_209##########
 
 class pp_RLK_209(Preset_Play):
-	""" Unleash Fel
+	""" Unleash Fel (spell:1)
 	Deal $1 damage to all enemies. <b>Manathirst_(4):</b> With <b>Lifesteal</b>. """
 	class1=CardClass.DEMONHUNTER
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_209", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
@@ -143,7 +174,39 @@ class pp_RLK_209(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
+		Hit(self.controller.hero, 10)
 		self.play_card(self.con1)
+		self.assertion("self.opp1.damage==1")
+		self.assertion("self.opponent.hero.damage==1")
+		self.change_turn()
+		### opp
+		self.change_turn()
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_209a(Preset_Play):
+	""" Unleash Fel (spell:1)
+	Deal $1 damage to all enemies. <b>Manathirst_(4):</b> With <b>Lifesteal</b>. """
+	class1=CardClass.DEMONHUNTER
+	class2=CardClass.DEMONHUNTER
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_209", self.controller)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=self.opp1[0][0]
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		Hit(self.controller.hero, 10)
+		self.controller.max_mana=4
+		self.play_card(self.con1)
+		self.assertion("self.opp1.damage==1")
+		self.assertion("self.opponent.hero.damage==1")
+		self.assertion("self.controller.damage==10-2")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -164,8 +227,7 @@ class pp_RLK_210(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_210", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
+		self.con2=self.exchange_card("RLK_207", self.controller)
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
@@ -174,6 +236,11 @@ class pp_RLK_210(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.lenhand=len(self.controller.hand)
+		self.play_card(self.con2)
+		self.assertion("len(self.controller.hand)==self.lenhand")
+		self.con3=self.controller.hand[-1]
+		self.assertion("getattr(self.con3, 'outcast_card')==1")
 		self.change_turn()
 		### opp
 		self.change_turn()
