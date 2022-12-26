@@ -14,8 +14,8 @@ def lich_demonhunter():
 	#PresetGame(pp_RLK_211a)##OK
 	#PresetGame(pp_RLK_212)##OK
 	#PresetGame(pp_RLK_212a)##OK
-	#PresetGame(pp_RLK_213)##
-	PresetGame(pp_RLK_214)##
+	#PresetGame(pp_RLK_213)##OK
+	#PresetGame(pp_RLK_214)##OK
 	PresetGame(pp_RLK_215)##
 	pass
 
@@ -400,13 +400,13 @@ class pp_RLK_214(Preset_Play):
 	class1=CardClass.DEMONHUNTER
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_214", self.controller)
+		#self.con1=self.exchange_card("RLK_214", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
+		#self.play_card(self.con1)
 		self.cards = [card for card in self.controller.deck if card.id=='RLK_214t']
 		self.assertion("len(self.cards)>0") 
 		self.con2=self.cards[0]
@@ -415,7 +415,7 @@ class pp_RLK_214(Preset_Play):
 		self.amount=len(self.controller.hand)
 		self.play_card(self.con2)
 		self.choose_action()
-		self.assertion("len(self.controller.hand)==self.amount+1")
+		self.assertion("len(self.controller.hand)==self.amount")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -438,7 +438,11 @@ class pp_RLK_215(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.amount=len(self.controller.hand)		
 		self.play_card(self.con1)
+		self.assertion("len(self.controller.hand)==self.amount")
+		self.con2=self.controller.hand[-1]
+		self.assertion("self.con2.cost==self.con2.data.cost-2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
