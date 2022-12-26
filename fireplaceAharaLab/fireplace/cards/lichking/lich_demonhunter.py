@@ -42,18 +42,27 @@ if Lich_Fierce_Outsider:#
 class RLK_207_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
+		cards = [card for card in controller.hand if card.type==CardType.MINION and getattr(card, 'outcast_card',0)==1]
+		for card in cards:
+			Buff(card, 'RLK_207e').trigger(source)
 		pass
 class RLK_207:# <14>[1776]
 	""" Fierce Outsider (minion:1/2/1)
 	<b>Rush</b> <b>Outcast:</b> Your next <b>Outcast</b> card costs (1) less. """
 	#<Tag enumID="1333" name="OUTCAST" type="Int" value="1"/>
-	outcast = Buff(FRIENDLY_HAND + OUTCAST, 'RLK_207e')
+	play = RLK_207_Action()
 	pass
+class RLK_207e_Action(TargetedAction):# 
+	def do(self, source, target):# 
+		controller=source.controller
+		if getattr(target, 'outcast_card',0)==1:
+			source.remove()
 class RLK_207e:# <14>[1776]
 	""" Introverted (0)
 	Your next <b>Outcast</b> card costs (1) less. """
 	cost = lambda self, i: max(0,i-1)
-	events = Play(CONTROLLER, FRIENDLY + OUTCAST).on(Destroy(SELF))
+	class Hand:
+		events = Play(CONTROLLER, FRIENDLY + MINION).on(RLK_207e_Action(Play.CARD))
 	pass
 
 if Lich_Feldorei_Warband:# 

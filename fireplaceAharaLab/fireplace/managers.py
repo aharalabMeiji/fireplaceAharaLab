@@ -236,7 +236,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.NUM_ATTACKS_THIS_TURN: "num_attacks",
 	GameTag.NUM_TURNS_IN_PLAY: "turns_in_play",
 	GameTag.TAG_ONE_TURN_EFFECT: "one_turn_effect",
-	GameTag.OUTCAST:'outcast',
+	GameTag.OUTCAST:'outcast_card',
 	GameTag.OVERLOAD: "overload",
 	GameTag.PARENT_CARD: "parent_card",
 	GameTag.PIECE_OF_CTHUN: "piece_of_cthun",

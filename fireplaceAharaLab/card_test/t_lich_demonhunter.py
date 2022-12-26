@@ -4,8 +4,8 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_demonhunter():
 
-	#PresetGame(pp_RLK_206)##
-	PresetGame(pp_RLK_207)##
+	#PresetGame(pp_RLK_206)##OK
+	#PresetGame(pp_RLK_207)##OK
 	PresetGame(pp_RLK_208)##
 	PresetGame(pp_RLK_209)##
 	PresetGame(pp_RLK_210)##
@@ -78,12 +78,12 @@ class pp_RLK_207(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.assertion("len(self.con2.buffs)>0")
-		self.assertion("self.con2.cost=self.con2.data.cost-1")
+		self.assertion("self.con2.cost==self.con2.data.cost-1")
 		self.assertion("len(self.con3.buffs)>0")
-		self.assertion("self.con3.cost=self.con3.data.cost-1")
+		self.assertion("self.con3.cost==self.con3.data.cost-1")
 		self.play_card(self.con3)
 		self.assertion("len(self.con2.buffs)==0")
-		self.assertion("self.con2.cost=self.con2.data.cost")
+		self.assertion("self.con2.cost==self.con2.data.cost")
 		self.change_turn()
 		### opp
 		self.change_turn()
