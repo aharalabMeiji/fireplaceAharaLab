@@ -412,9 +412,10 @@ class pp_RLK_214(Preset_Play):
 		self.con2=self.cards[0]
 		self.assertion("len(self.con2.entourage)==3")
 		self.con2.zone=Zone.HAND
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.amount=len(self.controller.hand)
+		self.play_card(self.con2)
+		self.choose_action()
+		self.assertion("len(self.controller.hand)==self.amount+1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

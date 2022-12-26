@@ -596,6 +596,15 @@ class Preset_Play:
 		assert condition==True, message
 
 
+def begingame_events(player):
+	deckCardId=[card.id for card in player.controller.deck]
+	if 'REV_018' in deckCardId:
+		player.hero.max_health=40
+	elif 'RLK_214' in deckCardId:
+		RLK_214_Begingame_Action().trigger(player)
+	pass
+
+
 def PresetGame(pp, testNr=1):
 	from fireplace import cards
 	if Config.CARD_TEST_SET!='VANILLA':	
@@ -626,6 +635,8 @@ def PresetGame(pp, testNr=1):
 		player2.choice.choose(*cards_to_mulligan)
 		player1._targetedaction_log=[]
 		player2._targetedaction_log=[]
+		begingame_events(player1)
+		begingame_events(player2)
 		pp(game.current_player).execute(test)
 	pass
 

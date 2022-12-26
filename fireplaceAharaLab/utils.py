@@ -27,6 +27,15 @@ class Agent(object):
 	def __str__(self):
 		return self.name
 
+def begingame_events(player):
+	deckCardId=[card.id for card in player.controller.deck]
+	if 'REV_018' in deckCardId:
+		player.hero.max_health=40
+	elif 'RLK_214' in deckCardId:
+		RLK_214_Begingame_Action().trigger(player)
+	pass
+
+
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" エージェント同士で1回対戦する。
 	実験的に、ヒーローの体力、初期マナ数、初期ハンド枚数をコントロールできます。
@@ -74,18 +83,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		player.choice.choose(*cards_to_mulligan)# includes begin_turn()
 	#mulligan exchange end
 	##
-	if 'REV_018' in [card.id for card in player1.controller.deck]:
-		player1.hero.max_health=40
-		#for repeat in range(10):
-		#	newcard = RandomCollectible().evaluate()
-		#	newcard=newcard[0]
-		#	Shuffle(player1, newcard).trigger(player1)
-	if 'REV_018' in [card.id for card in player2.controller.deck]:
-		player2.hero.max_health=40
-		#for repeat in range(10):
-		#	newcard = RandomCollectible().evaluate()
-		#	newcard=newcard[0]
-		#	Shuffle(player1, newcard).trigger(player1)
+	begingame_events(player1)
+	begingame_events(player2)
 	##
 	if Config.LOGINFO:
 		print("New game start")

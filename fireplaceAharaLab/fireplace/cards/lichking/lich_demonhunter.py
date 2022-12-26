@@ -170,7 +170,7 @@ class RLK_213:# <14>[1776]
 if Lich_Souleaters_Scythe:# 
 	Lich_DemonHunter+=['RLK_214']
 	Lich_DemonHunter+=['RLK_214t']
-class RLK_214_Action(GameAction):# 
+class RLK_214_Begingame_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
 		card = controller.card("RLK_214t")
@@ -186,10 +186,7 @@ class RLK_214_Action(GameAction):#
 class RLK_214:# <14>[1776]
 	""" Souleater's Scythe (4)
 	<b>Start of Game:</b> Consume 3 different minions in your deck. Leave behind Souls that <b>Discover</b> them. """
-	class Hand:
-		events = BeginGame(CONTROLLER).on(RLK_214_Action())
-	class Deck:
-		events = BeginGame(CONTROLLER).on(RLK_214_Action())#
+	## See utils.play_one_game
 	pass
 class RLK_214t:# <14>[1776]
 	""" Bound Soul (spell:1)

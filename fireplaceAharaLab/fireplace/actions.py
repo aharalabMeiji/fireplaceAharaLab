@@ -3533,6 +3533,24 @@ class BeginGame(TargetedAction):
 		self.broadcast(source, EventListener.ON, target)
 		self.broadcast(source, EventListener.AFTER, target)
 
+class RLK_214_Begingame_Action(GameAction):# 
+	def do(self, source):# 
+		controller=source.controller
+		for cd in reversed(controller.deck):
+			if cd.id=='RLK_214':
+				cd.zone==Zone.SETASIDE
+				cd.zone==Zone.GRAVEYARD
+		card = controller.card("RLK_214t")
+		minions=[cd for cd in controller.deck if cd.type==CardType.MINION]
+		if len(minions)>3:
+			minions=random.sample(minions, 3)
+		card.entourage=[cd.id for cd in minions]
+		card.zone=Zone.DECK
+		for cd in reversed(minions):
+			cd.zone==Zone.SETASIDE
+			cd.zone==Zone.GRAVEYARD
+		pass
+
 class Buy(TargetedAction): ## battlegrounds
 	""" Buy a minion 
 	TARGET = ActionArg()# controller
