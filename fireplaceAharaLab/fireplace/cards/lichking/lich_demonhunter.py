@@ -138,14 +138,17 @@ class RLK_211t:# <14>[1776]
 if Lich_Brutal_Annihilan:# 
 	Lich_DemonHunter+=['RLK_212']
 class RLK_212_Action(TargetedAction):# 
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
 	def do(self, source, target, amount):# 
 		controller=source.controller
-		Hit(controller.opponent.hero, amount).trigger(source)
+		if source.alive:
+			Hit(controller.opponent.hero, amount).trigger(source)
 		pass
 class RLK_212:# <14>[1776]
 	""" Brutal Annihilan (minion:9/9/9)
 	<b>Taunt</b>, <b>Rush</b> After this minion survives damage, deal that amount to the enemy hero. """
-	events = Damage(SELF).after(RLK_212_Action(Damage.TARGET, Damage.AMOUNT))
+	events = Damage(SELF).on(RLK_212_Action(Damage.TARGET, Damage.AMOUNT))
 	pass
 
 if Lich_Vengeful_Walloper:# 
@@ -171,6 +174,7 @@ class RLK_214_Action(GameAction):#
 	def do(self, source):# 
 		controller=source.controller
 		card = controller.card("RLK_214t")
+		card.zone=Zone.DECK
 		minions=[cd for cd in controller.deck if cd.type==CardType.MINION]
 		if len(minions)>3:
 			minions=random.sample(minions, 3)

@@ -8,12 +8,12 @@ def lich_demonhunter():
 	#PresetGame(pp_RLK_207)##OK
 	#PresetGame(pp_RLK_208)##OK
 	#PresetGame(pp_RLK_208a)##OK
-	#PresetGame(pp_RLK_209)##
-	#PresetGame(pp_RLK_210)##
-	PresetGame(pp_RLK_211)##
-	PresetGame(pp_RLK_211a)##
-	PresetGame(pp_RLK_212)##
-	PresetGame(pp_RLK_212a)##
+	#PresetGame(pp_RLK_209)##OK
+	#PresetGame(pp_RLK_210)##OK
+	#PresetGame(pp_RLK_211)##OK
+	#PresetGame(pp_RLK_211a)##OK
+	#PresetGame(pp_RLK_212)##OK
+	#PresetGame(pp_RLK_212a)##OK
 	PresetGame(pp_RLK_213)##
 	PresetGame(pp_RLK_214)##
 	PresetGame(pp_RLK_215)##
@@ -333,8 +333,9 @@ class pp_RLK_212(Preset_Play):
 		self.play_card(self.con1)
 		self.change_turn()
 		### opp
-		self.attack_card(self.opp1, self.con1)
-		self.assertion("self.opponent.hero.damage==3")
+		#self.attack_card(self.opp1, self.con1)
+		Hit(self.con1, 4).trigger(self.controller)
+		self.assertion("self.opponent.hero.damage==4")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -369,25 +370,20 @@ class pp_RLK_212a(Preset_Play):
 ##########RLK_213##########
 
 class pp_RLK_213(Preset_Play):
-	""" Vengeful Walloper
+	""" Vengeful Walloper (minion:7/5/5)
 	<b>Rush</b>. Costs (1) less for each <b>Outcast</b> card you've played this game. """
 	class1=CardClass.DEMONHUNTER
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_213", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("RLK_207", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.play_card(self.con2)
+		self.assertion("self.con1.cost==self.con1.data.cost-1")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -405,10 +401,6 @@ class pp_RLK_214(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_214", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -435,19 +427,12 @@ class pp_RLK_215(Preset_Play):
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_215", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
 		pass
 	def result_inspection(self):
 		super().result_inspection()
