@@ -14,7 +14,7 @@ def lich_demonhunter():
 	#PresetGame(pp_RLK_211a)##OK
 	#PresetGame(pp_RLK_212)##OK
 	#PresetGame(pp_RLK_212a)##OK
-	PresetGame(pp_RLK_213)##
+	#PresetGame(pp_RLK_213)##
 	PresetGame(pp_RLK_214)##
 	PresetGame(pp_RLK_215)##
 	pass
@@ -407,6 +407,11 @@ class pp_RLK_214(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.cards = [card for card in self.controller.deck if card.id=='RLK_214t']
+		self.assertion("len(self.cards)>0") 
+		self.con2=self.cards[0]
+		self.assertion("len(self.con2.entourage)==3")
+		self.con2.zone=Zone.HAND
 		self.change_turn()
 		### opp
 		self.change_turn()

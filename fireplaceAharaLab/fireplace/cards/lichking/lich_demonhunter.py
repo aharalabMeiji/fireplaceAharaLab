@@ -50,7 +50,7 @@ class RLK_207:# <14>[1776]
 	""" Fierce Outsider (minion:1/2/1)
 	<b>Rush</b> <b>Outcast:</b> Your next <b>Outcast</b> card costs (1) less. """
 	#<Tag enumID="1333" name="OUTCAST" type="Int" value="1"/>
-	play = RLK_207_Action()
+	outcast = RLK_207_Action()
 	pass
 class RLK_207e_Action(TargetedAction):# 
 	def do(self, source, target):# 
@@ -160,7 +160,7 @@ class RLK_213_Count(LazyNum):#
 	def evaluate(self, source):
 		controller=source.controller
 		amount = len(controller.outcast_play_log)
-		return self.num(amount)
+		return self.num(-amount)
 class RLK_213:# <14>[1776]
 	""" Vengeful Walloper (minion:7/5/5)
 	<b>Rush</b>. Costs (1) less for each <b>Outcast</b> card you've played this game. """
