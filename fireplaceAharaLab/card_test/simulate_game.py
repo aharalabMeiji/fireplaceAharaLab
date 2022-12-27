@@ -618,8 +618,7 @@ def PresetGame(pp, testNr=1):
 		Dummy2=DummyAgent("Dummy2",DummyAgent.DummyAI,myClass=class2)
 		deck1 = random_draft(Dummy1.myClass,[])#random deck wrt its class
 		deck2 = random_draft(Dummy2.myClass,[])#random deck wrt its class
-		deck1.append('RLK_214')
-		deck2.append('RLK_214')
+
 		player1 = Player(Dummy1.name, deck1, Dummy1.myClass.default_hero)
 		player2 = Player(Dummy2.name, deck2, Dummy2.myClass.default_hero)
 		game = Game(players=(player1, player2))

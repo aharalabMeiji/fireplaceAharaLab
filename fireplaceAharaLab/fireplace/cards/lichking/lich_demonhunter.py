@@ -201,7 +201,7 @@ class RLK_215_Action(GameAction):#
 		controller=source.controller
 		card = get00(RandomOutcast().evaluate(source))
 		card.controller=controller
-		card.zone==Zone.HAND
+		card.zone=Zone.HAND
 		card._cost=max(0, card._cost-2)
 		pass
 class RLK_215:# <14>[1776]

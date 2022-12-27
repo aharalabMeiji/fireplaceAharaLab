@@ -16,7 +16,7 @@ def lich_demonhunter():
 	#PresetGame(pp_RLK_212a)##OK
 	#PresetGame(pp_RLK_213)##OK
 	#PresetGame(pp_RLK_214)##OK
-	PresetGame(pp_RLK_215)##
+	#PresetGame(pp_RLK_215)##OK
 	pass
 
 
