@@ -65,7 +65,7 @@ class RLK_654:# <2>[1776]
 	""" Beetlemancy (spell:5)
 	<b>Choose One</b> - Gain 12 Armor; or Summon two 3/3 Beetles with <b>Taunt</b>. """
 	choose=('RLK_654a','RLK_654b')
-	play = ChooseBoth(CONTROLLER) & (GainArmor(FRIENDLY_HERO, 12),Summon(CONTROLLER, 'RLK_654t'))
+	play = ChooseBoth(CONTROLLER) & (GainArmor(FRIENDLY_HERO, 12),Summon(CONTROLLER, 'RLK_654t'), Summon(CONTROLLER, 'RLK_654t'))
 	pass
 class RLK_654a:# <2>[1776]
 	""" Beetle Juice (spell:5)
@@ -75,7 +75,7 @@ class RLK_654a:# <2>[1776]
 class RLK_654b:# <2>[1776]
 	""" Bug Snacks (spell:5)
 	Summon two 3/3 Beetles with <b>Taunt</b>. """
-	play = Summon(CONTROLLER, 'RLK_654t')#
+	play = Summon(CONTROLLER, 'RLK_654t'), Summon(CONTROLLER, 'RLK_654t')#
 	pass
 class RLK_654t:# <2>[1776]
 	""" Beetle (minion:3/3/3)

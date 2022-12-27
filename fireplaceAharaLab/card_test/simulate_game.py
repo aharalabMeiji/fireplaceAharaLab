@@ -245,6 +245,15 @@ class Preset_Play:
 					if _card.type == CardType.MINION and _card.atk==amount: 
 						choices.append(_id)
 			_card=random.choice(choices)
+		elif _card[:-1]=='minionC':
+			amount=int(_card[-1])
+			choices=[]
+			for cardIDlist in All:
+				for _id in cardIDlist:
+					_card = cards.db[_id]
+					if _card.type == CardType.MINION and _card.cost==amount: 
+						choices.append(_id)
+			_card=random.choice(choices)
 		### spell
 		elif _card=='spell':# except secret cards
 			choices=[]
