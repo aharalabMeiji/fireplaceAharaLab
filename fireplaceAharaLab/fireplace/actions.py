@@ -791,6 +791,10 @@ class Activate(GameAction):
 		return (source, ) + super().get_args(source)
 
 	def do(self, source, player, heropower, target=None):
+
+		if target!=None and getattr(target, 'cant_be_targeted_by_hero_powers'):
+			return
+
 		player.pay_cost(heropower, heropower.cost)
 		self.broadcast(source, EventListener.ON, player, heropower, target)
 
@@ -1207,6 +1211,9 @@ class Battlecry(TargetedAction):
 	def do(self, source, card, target):
 		player = card.controller
 
+		if source.type==CardType.SPELL and target!=None and getattr(target, 'cant_be_targeted_by_spells'):
+			return
+
 		if card.has_combo and player.combo:
 			if Config.LOGINFO:
 				Config.log("Battlecry.do","Activating %r combo targeting %r"%(card, target))
@@ -1545,6 +1552,10 @@ class Hit(TargetedAction):
 
 	def do(self, source, target, amount):
 		if target.type==CardType.LOCATION:
+			return
+		if source.type==CardType.SPELL and getattr(target, 'cant_be_targeted_by_spells'):
+			return
+		if source.type==CardType.HERO_POWER and getattr(target, 'cant_be_targeted_by_hero_powers'):
 			return
 		if Config.LOGINFO:
 			Config.log("Hit.do","%s hits %s by %d"%(source, target, amount))

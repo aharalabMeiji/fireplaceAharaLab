@@ -35,7 +35,7 @@ if Lich_Arcsplitter:#
 class RLK_542:# <4>[1776]
 	""" Arcsplitter (minion:3/3/2)
 	<b>Deathrattle:</b> Add 2 Arcane Bolts to your hand. """
-	deathrattle = Give(CONTROLLER, 'RLK_843')
+	deathrattle = Give(CONTROLLER, 'RLK_843'), Give(CONTROLLER, 'RLK_843')
 	pass
 
 if Lich_Magisters_Apprentice:# 
@@ -70,6 +70,7 @@ class RLK_545_Action(GameAction):#
 			if card.type==CardType.SPELL:
 				cost=card.cost+2
 				newcard=get00(RandomSpell(cost=cost).evaluate(source))
+				newcard.cost=newcard.cost-2
 				card.discard()
 				newcard.zone=Zone.HAND
 		pass
