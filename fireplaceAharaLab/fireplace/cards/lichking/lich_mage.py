@@ -87,7 +87,9 @@ class RLK_546_Choice(Choice):#
 	def choose(self, card):
 		self.source.script_data_num_1+=1
 		if self.source.script_data_num_1==1:
-			self.next_choice=self
+			newchoice = RLK_546_Choice(self.player, RandomSpell(cost=[1,2,3])*3)
+			newchoice.trigger(self.source)
+			self.next_choice=newchoice
 			self.source.sidequest_list0=[card]
 		elif self.source.script_data_num_1==2:
 			self.next_choice=None
@@ -103,7 +105,7 @@ class RLK_546_Choice(Choice):#
 class RLK_546_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		RLK_546_Choice(controller, RandomSpell(cost=[1,2,3])).trigger(source)
+		RLK_546_Choice(controller, RandomSpell(cost=[1,2,3])*3).trigger(source)
 		pass
 class RLK_546:# <4>[1776]
 	""" Vast Wisdom (spell:3)
@@ -129,7 +131,8 @@ class RLK_547_Choice(Choice):
 class RLK_547_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
-		RLK_547_Choice(controller, RandomSpell()).trigger(source)
+		the_class=random.choice(CARDCLASSES)
+		RLK_547_Choice(controller, RandomCollectible(card_class=the_class)*3).trigger(source)
 		pass
 class RLK_547:# <4>[1776]
 	""" Prismatic Elemental (minion:2/1/3)
@@ -158,7 +161,7 @@ class RLK_803_Action(GameAction):#
 		cards=[card.id for card in controller.play_log if card.type==CardType.SPELL and not card.id in controller.starting_deck]
 		for cardID in cards:
 			newcard=controller.card(cardID)
-			Play(controller,newcard).trigger(source)
+			CastSpell(newcard).trigger(source)
 		pass
 class RLK_803:# <4>[1776]
 	""" Grand Magister Rommath (minion:9/5/7)

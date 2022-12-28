@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit, Summon, Give
+from fireplace.actions import Hit, Summon, Give, CastSpell
 from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_mage():
@@ -9,12 +9,13 @@ def lich_mage():
 	#PresetGame(pp_RLK_542)##OK
 	#PresetGame(pp_RLK_543)##OK
 	#PresetGame(pp_RLK_544)##OK
-	PresetGame(pp_RLK_545)##
-	PresetGame(pp_RLK_546)##
-	PresetGame(pp_RLK_547)##
-	PresetGame(pp_RLK_548)##
-	PresetGame(pp_RLK_803)##
-	PresetGame(pp_RLK_843)##
+	#PresetGame(pp_RLK_545)##OK
+	#PresetGame(pp_RLK_546)##OK
+	#PresetGame(pp_RLK_547)##OK
+	#PresetGame(pp_RLK_548)##OK
+	#PresetGame(pp_RLK_803)##OK
+	#PresetGame(pp_RLK_843)##OK
+	#PresetGame(pp_RLK_843a)##OK
 	pass
 
 
@@ -162,7 +163,7 @@ class pp_RLK_545(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_545", self.controller)
-		self.con1=self.exchange_card(self.card_choice("spellC4"), self.controller)
+		self.con2=self.exchange_card(self.card_choice("spellC4"), self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -224,8 +225,9 @@ class pp_RLK_547(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.choose_action()
 		self.con2 = self.controller.hand[-1]# the new card
-		self.assertion("self.con2.CardClass!=CardClass.MAGE")
+		self.assertion("self.con2.card_class!=CardClass.MAGE")
 		self.assertion("'RLK_547e' in [card.id for card in self.con2.buffs]")
 		self.assertion("self.con2.cost==self.con2.data.cost-1")
 		pass
@@ -245,19 +247,16 @@ class pp_RLK_548(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_548", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.amount=len(self.controller.hand)
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("len(self.controller.hand)==self.amount")
+		self.con2=self.controller.hand[-1]
+		self.assertion("self.con2.id=='RLK_843'")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -275,19 +274,20 @@ class pp_RLK_803(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_803", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("spell", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
+		self.play_card(self.con2)
 		self.change_turn()
 		### opp
 		self.change_turn()
+		### con
+		self.play_card(self.con1)
+		self.actions=[action for action in self.controller._targetedaction_log if action['turn']==3 and isinstance(action['class'], CastSpell)==True]
+		self.assertion("len(self.actions)>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -305,19 +305,35 @@ class pp_RLK_843(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_843", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.controller.max_mana=8
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("self.opponent.hero.damage==3")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_843a(Preset_Play):
+	""" Arcane Bolt
+	Deal $2 damage. <b>Manathirst (8):</b> Deal $3 damage instead. """
+	class1=CardClass.MAGE
+	class2=CardClass.MAGE
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_843", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.controller.max_mana=6
+		self.play_card(self.con1)
+		self.assertion("self.opponent.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

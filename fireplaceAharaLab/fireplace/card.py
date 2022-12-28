@@ -1196,7 +1196,7 @@ class Spell(PlayableCard):
 		oldzone=self.zone
 		newzone=value
 		if Config.LOGINFO:
-			Config.log("Spell._set_zone","card %s: %s -> %s "%(self, oldzone, newzone))
+			Config.log("Spell._set_zone","card %r: %s -> %s "%(self, oldzone, newzone))
 		if newzone==Zone.PLAY:
 			if oldzone==Zone.HAND and self in self.controller.hand:
 				self.controller.hand.remove(self)

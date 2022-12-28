@@ -44,6 +44,7 @@ BASIC_HERO_POWERS = [
 ]
 
 CARDCLASSES=[
+	CardClass.DEATHKNIGHT,
 	CardClass.DEMONHUNTER,
 	CardClass.DRUID,
 	CardClass.HUNTER,
@@ -56,6 +57,7 @@ CARDCLASSES=[
 	CardClass.WARRIOR,
    ]
 CLASSES_EXCEPT_ROGUE=[
+	CardClass.DEATHKNIGHT,
 	CardClass.DEMONHUNTER,
 	CardClass.DRUID,
 	CardClass.HUNTER,
