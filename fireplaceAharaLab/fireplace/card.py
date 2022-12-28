@@ -1167,7 +1167,7 @@ class Spell(PlayableCard):
 		self.repeatable=False # TSC_952
 		self.spell_cast_twice=False
 		self.copied_from_opponent = False
-		self.spellpower_by_spell = False
+		self.spellpower_by_spell = 0
 		self.this_is_spell = True
 		super().__init__(data)
 

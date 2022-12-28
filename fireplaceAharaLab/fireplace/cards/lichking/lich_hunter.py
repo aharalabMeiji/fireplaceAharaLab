@@ -31,7 +31,7 @@ class RLK_817_Choice(Choice):
 		super().choose(card)
 		card.zone=Zone.HAND
 		if card.SPELL_SCHOOL(SpellSchool.ARCANE):
-			self.player.spellpower_by_spell+=1
+			self.card.spellpower_by_spell+=1
 class RLK_817_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -91,7 +91,7 @@ class RLK_820_Action(GameAction):#
 		controller=source.controller
 		for card in controller.deck:
 			if card.SPELL_SCHOOL(SpellSchool.ARCANE):
-				controller.spellpower_by_spell += 1
+				card.spellpower_by_spell += 1
 			pass
 		pass
 class RLK_820:# <3>[1776]
@@ -187,10 +187,10 @@ class ICC_828t:
 
 if Lich_Shockspitter:# 
 	Lich_Hunter+=['RLK_825']
-class RLK_825_Action(TargetedAction):# 
-	def do(self, source, target):# 
+class RLK_825_Action(GameAction):# 
+	def do(self, source):# 
 		controller=source.controller
-		Hit(target, source.script_data_num_1).trigger(source)
+		Hit(controller.opponent.hero, source.script_data_num_1).trigger(source)
 		pass
 class RLK_825_Action2(GameAction):# 
 	def do(self, source):# 
@@ -200,8 +200,7 @@ class RLK_825:# <3>[1776]
 	""" Shockspitter (minion:2/2/2)
 	<b>Battlecry:</b> Deal @ damage. <i>(Improved by your hero attacks this game!)</i> """
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
-	requirements = REQUIRE_FRIEND_MINION_TARGET
-	play = RLK_825_Action(TARGET)
+	play = RLK_825_Action()
 	class Hand:
 		events = Attack(FRIENDLY_HERO).after(RLK_825_Action2())
 	pass
@@ -213,7 +212,7 @@ class RLK_826_Action(GameAction):#
 		controller=source.controller
 		for card in controller.hand:
 			if card.SPELL_SCHOOL(SpellSchool.ARCANE):
-				controller.spellpower_by_spell+=1
+				card.spellpower_by_spell+=1
 		pass
 class RLK_826:# <3>[1776]
 	""" Silvermoon Farstrider (minion:2/2/3)
@@ -232,25 +231,21 @@ if Lich_Keeneye_Spotter:#
 class RLK_827:# <3>[1776]
 	""" Keeneye Spotter (minion:3/3/4)
 	Whenever your hero attacks a minion, set its Health to 1. """
-	events = Attack(FRIENDLY_HERO, MINION).on(Buff(Attack.DEFENDER, 'RLK_827e'))
+	events = Attack(FRIENDLY_HERO, ENEMY + MINION).on(Buff(Attack.DEFENDER, 'RLK_827e'))
 	pass
 class RLK_827e:# <3>[1776]
 	""" Hunter's Mark (0)
 	This minion has 1 Health. """
-	max_health=SET(1)
+	max_health=lambda self,i: 1
 	pass
 
 if Lich_Hope_of_QuelThalas:# 
 	Lich_Hunter+=['RLK_828']
 	Lich_Hunter+=['RLK_828e']
-class RLK_828_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_828:# <3>[1776]
 	""" Hope of Quel'Thalas (6)
 	After your hero attacks, give your minions +1/+1 <i>(wherever they are).</i> """
-	events = Attack(FRIENDLY_HERO).after(Buff(FRIENDLY_MINIONS, 'RLK_828e'))
+	events = Attack(FRIENDLY_HERO, ENEMY_CHARACTERS).on(Buff(FRIENDLY_MINIONS, 'RLK_828e'))
 	pass
 RLK_828e=buff(1,1)
 

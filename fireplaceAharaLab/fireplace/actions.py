@@ -668,6 +668,10 @@ class Play(GameAction):
 		if not card.cant_play:
 			#corrupt:
 			Corrupt(player, card).trigger(player)
+			#spellpower_by_spell
+			if card.type==CardType.SPELL and getattr(card, 'spellpower_by_spell',0)>0:
+				player.spellpower_by_spell+=getattr(card, 'spellpower_by_spell',0)
+			#outcast
 			if trigger_outcast and card.get_actions("outcast"):
 				player.add_outcast_play_log(card)
 				source.game.trigger(card, card.get_actions("outcast"), event_args=None)
@@ -1092,6 +1096,7 @@ class PutOnTop(TargetedAction):
 				continue
 			card.zone = Zone.DECK
 			card, card.controller.deck[-1] = card.controller.deck[-1], card
+		return cards
 
 
 class Damage(TargetedAction):

@@ -1,7 +1,7 @@
 import random
 from copy import copy, deepcopy
 
-from hearthstone.enums import CardType, Race, Rarity
+from hearthstone.enums import CardType, Race, Rarity, SpellSchool
 
 from .lazynum import LazyValue
 
@@ -118,6 +118,7 @@ RandomBloodRune = lambda **kw: RandomCollectible(cost_blood=True, **kw)
 RandomFrostRune = lambda **kw: RandomCollectible(cost_frost=True, **kw)
 RandomDeathRune = lambda **kw: RandomCollectible(cost_death=True, **kw)
 RandomUnholyRune = lambda **kw: RandomCollectible(cost_unholy=True, **kw)
+RandomArcane = lambda **kw: RandomSpell(spell_school=SpellSchool.ARCANE, **kw)
 
 BG_races=[]
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
