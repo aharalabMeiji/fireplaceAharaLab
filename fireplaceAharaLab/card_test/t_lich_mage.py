@@ -4,16 +4,17 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_mage():
 
-	PresetGame(pp_RLK_541)##
-	#PresetGame(pp_RLK_542)##
-	#PresetGame(pp_RLK_543)##
+	PresetGame(pp_RLK_541)##OK
+	PresetGame(pp_RLK_541a)##OK
+	PresetGame(pp_RLK_542)##
+	PresetGame(pp_RLK_543)##
 	PresetGame(pp_RLK_544)##
 	PresetGame(pp_RLK_545)##
 	PresetGame(pp_RLK_546)##
 	PresetGame(pp_RLK_547)##
-	#PresetGame(pp_RLK_548)##
+	PresetGame(pp_RLK_548)##
 	PresetGame(pp_RLK_803)##
-	#PresetGame(pp_RLK_843)##
+	PresetGame(pp_RLK_843)##
 	pass
 
 
@@ -26,19 +27,39 @@ class pp_RLK_541(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_541", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("RLK_819", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.play_card(self.con2)
+		self.assertion("len(self.controller.field)==3")
+		self.assertion("self.controller.field[1].id=='RLK_819t'")
+		self.assertion("self.controller.field[2].id=='RLK_819t'")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_541a(Preset_Play):
+	""" Vexallus
+	Your Arcane spells cast twice. """
+	class1=CardClass.MAGE
+	class2=CardClass.MAGE
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_541", self.controller)
+		self.con2=self.exchange_card("CORE_EX1_279", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con1)
+		self.play_card(self.con2, target=self.opponent.hero)
+		self.assertion("self.opponent.hero.damage==10")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -56,10 +77,6 @@ class pp_RLK_542(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_542", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -68,7 +85,10 @@ class pp_RLK_542(Preset_Play):
 		self.play_card(self.con1)
 		self.change_turn()
 		### opp
-		self.change_turn()
+		Hit(self.con1, 10).trigger(self.opponent)
+		actions=[action for action in self.controller._targetedaction_log if action['turn']==2 ]
+		self.assertion("len(actions)==2")
+		self.assertion("len([card for card in self.controller.field if card.id=='RLK_843'])")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -86,19 +106,14 @@ class pp_RLK_543(Preset_Play):
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_543", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("RLK_843", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("self.con2.cost==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -110,25 +125,26 @@ class pp_RLK_543(Preset_Play):
 ##########RLK_544##########
 
 class pp_RLK_544(Preset_Play):
-	""" Arcane Defenders
+	""" Arcane Defenders (spell:8)
 	Summon two 5/6 Golems with <b>Taunt</b> and "Can't be targeted by spells or Hero Powers." """
 	class1=CardClass.MAGE
 	class2=CardClass.MAGE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_544", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.opp1=self.exchange_card("CORE_CS2_062", self.opponent)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.assertion("len(self.controller.field)==1")
+		self.assertion("self.controller.field[0].id=='RLK_544t'")
+		self.con2=self.controller.field[0]
 		self.change_turn()
 		### opp
-		self.change_turn()
+		self.play_card(self.opp1)
+		self.assertion("self.con2.damage==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

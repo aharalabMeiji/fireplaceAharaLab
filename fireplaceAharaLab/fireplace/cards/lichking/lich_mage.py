@@ -171,14 +171,9 @@ class RLK_803e:# <4>[1776]
 
 if Lich_Arcane_Bolt:# 
 	Lich_Mage+=['RLK_843']
-class RLK_843_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		pass
 class RLK_843:# <4>[1776]
 	""" Arcane Bolt (spell:1)
 	Deal $2 damage. <b>Manathirst (8):</b> Deal $3 damage instead. """
-	requirements = REQUIRE_ENEMY_MINION_TARGET
-	play = Manathirst(8, [Hit(TARGET, 3)], [Hit(TARGET, 2)])
+	play = Manathirst(8, [Hit(ENEMY_HERO, 3)], [Hit(ENEMY_HERO, 2)])
 	pass
 
