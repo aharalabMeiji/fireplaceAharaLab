@@ -87,22 +87,23 @@ if Lich_Wither:#
 	Lich_Druid+=['RLK_655e']
 	Lich_Druid+=['RLK_655e2']
 class RLK_655_Action(TargetedAction):# 
+	TARGET=ActionArg()
 	def do(self, source, target):# 
 		controller=source.controller
 		cards=[card for card in controller.field if card.MINION_RACE(Race.UNDEAD)]
 		amount=len(cards)
 		if amount:
 			for card in cards:
-				Buff(card, 'RLK_655e2', atk=1, max_health=1).trigger(source)
+				Buff(card, 'RLK_655e2').trigger(source)
 			if target.health<=amount:
 				Destroy(target)
 			else:
-				Buff(target, 'RLK_655e', atk=-min(target.atk, amount), max_health=-amount)
+				Buff(target, 'RLK_655e', atk=-min(target.atk, amount), max_health=-amount).trigger(source)
 		pass
 class RLK_655:# <2>[1776]
 	""" Wither (spell:2)
 	Choose a minion. Each friendly Undead steals 1 Attack and Health from it. """
-	requirements = REQUIRE_ENEMY_MINION_TARGET
+	requirements = REQUIRE_FRIEND_MINION_TARGET
 	play = RLK_655_Action(TARGET)
 	pass
 class RLK_655e:# <2>[1776]

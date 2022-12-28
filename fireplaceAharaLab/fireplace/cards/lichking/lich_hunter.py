@@ -20,7 +20,7 @@ class RLK_804:# <3>[1776]
 	""" Conjured Arrow (spell:2)
 	Deal $2 damage to a minion. <b>Manathirst (6):</b> Draw that many cards. """
 	requirements = REQUIRE_ENEMY_MINION_TARGET
-	play = Manathirst(6, [Hit(TARGET, 2)], [Draw(CONTROLLER), Draw(CONTROLLER)])
+	play = Manathirst(6, [Hit(TARGET, 2), Draw(CONTROLLER), Draw(CONTROLLER)], [Hit(TARGET, 2)])
 	pass
 
 if Lich_Arcane_Quiver:# 
@@ -31,7 +31,7 @@ class RLK_817_Choice(Choice):
 		super().choose(card)
 		card.zone=Zone.HAND
 		if card.SPELL_SCHOOL(SpellSchool.ARCANE):
-			card.spellpower_by_spell+=1
+			self.player.spellpower_by_spell+=1
 class RLK_817_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller

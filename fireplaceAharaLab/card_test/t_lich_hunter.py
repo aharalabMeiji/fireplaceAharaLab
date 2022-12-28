@@ -1,19 +1,19 @@
 from .simulate_game import Preset_Play,PresetGame
 from fireplace.actions import Hit, Summon, Give
-from hearthstone.enums import CardClass, Zone, CardType, Rarity
+from hearthstone.enums import CardClass, Zone, CardType, SpellSchool
 
 def lich_hunter():
 
-	#PresetGame(pp_RLK_804)##
-	PresetGame(pp_RLK_817)##
-	PresetGame(pp_RLK_818)##
+	#PresetGame(pp_RLK_804)##OK
+	#PresetGame(pp_RLK_817)##OK
+	#PresetGame(F)##OK
 	PresetGame(pp_RLK_819)##
 	PresetGame(pp_RLK_820)##
 	#PresetGame(pp_RLK_821)##OK
 	PresetGame(pp_RLK_825)##
 	PresetGame(pp_RLK_826)##
-	#PresetGame(pp_RLK_827)##
-	#PresetGame(pp_RLK_828)##
+	PresetGame(pp_RLK_827)##
+	PresetGame(pp_RLK_828)##
 
 	pass
 
@@ -27,8 +27,6 @@ class pp_RLK_804(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_804", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
 		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
@@ -36,10 +34,12 @@ class pp_RLK_804(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.controller.max_mana=6
+		self.amount=len(self.controller.hand)
+		self.play_card(self.con1, target=self.opp1)
+		self.assertion("self.opp1.damage==2")
+		self.actions=[action['class'] for action in self.controller._targetedaction_log]
+		self.assertion("len(self.controller.hand)==self.amount-1+2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -57,17 +57,19 @@ class pp_RLK_817(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_817", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
+		self.amount=len(self.controller.hand)
+		self.choose_action()
+		self.assertion("len(self.controller.hand)==self.amount+1")
+		self.con2=self.controller.hand[-1]
+		self.assertion("self.con2.type==CardType.SPELL")
+		if self.con2.spell_school==SpellSchool.ARCANE:
+			self.assertion("self.controller.spellpower_by_spell==1")
 		### opp
 		self.change_turn()
 		pass
@@ -87,19 +89,17 @@ class pp_RLK_818(Preset_Play):
 	class2=CardClass.HUNTER
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_818", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.opp1=(Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent))[0][0]
+		self.opp2=(Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent))[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.actions=[action['class'] for action in self.controller._targetedaction_log]
+		self.assertion("len(self.actions)>=3")
+		self.assertion("self.opp1.damage+self.opp2.damage+self.opponent.hero.damage==3")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

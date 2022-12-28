@@ -9,7 +9,7 @@ def lich_druid():
 	#PresetGame(pp_RLK_652)##OK
 	#PresetGame(pp_RLK_654)##OK
 	#PresetGame(pp_RLK_654a)##OK
-	PresetGame(pp_RLK_655)##
+	#PresetGame(pp_RLK_655)##OK
 	#PresetGame(pp_RLK_656)##OK
 	#PresetGame(pp_RLK_657)##OK
 	#PresetGame(pp_RLK_658)##OK
