@@ -4,16 +4,16 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_paladin():
 
-	PresetGame(pp_RLK_527)##
-	PresetGame(pp_RLK_916)##
-	PresetGame(pp_RLK_917)##
-	PresetGame(pp_RLK_918)##
+	#PresetGame(pp_RLK_527)##OK
+	#PresetGame(pp_RLK_916)##OK
+	#PresetGame(pp_RLK_917)##OK
+	#PresetGame(pp_RLK_918)##OK
 	#PresetGame(pp_RLK_919)## pending
-	PresetGame(pp_RLK_921)##
-	PresetGame(pp_RLK_922)##
-	PresetGame(pp_RLK_923)##
-	PresetGame(pp_RLK_924)##
-	PresetGame(pp_RLK_927)##
+	#PresetGame(pp_RLK_921)##OK
+	#PresetGame(pp_RLK_922)##OK
+	#PresetGame(pp_RLK_923)##OK
+	#PresetGame(pp_RLK_924)##OK
+	#PresetGame(pp_RLK_927)##OK
 
 	pass
 
@@ -28,7 +28,6 @@ class pp_RLK_527(Preset_Play):
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_527", self.controller)
 		self.con2=self.exchange_card(self.card_choice("dragon"), self.controller)
-		self.con3=self.exchange_card(self.card_choice("dragon"), self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -36,14 +35,14 @@ class pp_RLK_527(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.play_card(self.con2)
+		self.assertion("'RLK_527e2' in [card.id for card in self.con2.buffs]")
 		self.assertion("self.con2.taunt==True")
 		self.assertion("self.con2.divine_shield==True")
 		self.change_turn()
 		### opp
 		self.change_turn()
-		self.play_card(self.con3)
-		self.assertion("self.con3.taunt==self.con3.data.taunt")
-		self.assertion("self.con3.divine_shield==self.con3.data.divine_shield")
+		self.assertion("self.con2.taunt!=True")
+		self.assertion("self.con2.divine_shield!=True")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -70,8 +69,8 @@ class pp_RLK_916(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.assertion("len(self.con1.buffs)>0")
-		self.assertion("self.con1.buffs[0].ID=='RLK_916e'")
-		self.assertion("self.con1.atk==self.con1.data.atk")
+		self.assertion("'RLK_916e' in [card.id for card in self.con1.buffs]")
+		self.assertion("self.con1.atk==self.con1.data.atk+1")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -163,11 +162,12 @@ class pp_RLK_918(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1, target=self.con4)
-		self.assertion("len(self.con1.buffs)>0")
-		self.assertion("self.con1.buffs[0].id=='RLK_918e'")
+		self.assertion("len(self.con4.buffs)>0")
+		self.assertion("'RLK_918e' in [card.id for card in self.con4.buffs]")
+		self.assertion("self.con4.atk==self.con4.data.atk+3")
 		self.assertion("len(self.controller.hero.buffs)>0")
-		self.assertion("self.controller.hero.buffs[0].id=='RLK_918e2'")
-		self.assertion("self.controller.hero.atk==3")
+		self.assertion("'RLK_918e2' in [card.id for card in self.controller.hero.buffs]")
+		self.assertion("self.controller.hero.atk==2")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -227,7 +227,7 @@ class pp_RLK_921(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.assertion("self.con1.divine_shield==True")
-		self.assertion("self.controller.hero.damge==2")
+		self.assertion("self.controller.hero.damage==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -257,7 +257,7 @@ class pp_RLK_922(Preset_Play):
 		self.assertion("self.con4.buffs[0].id=='RLK_922e'")
 		self.assertion("self.con4.atk==self.con4.data.atk+3")
 		self.assertion("self.con4.divine_shield==True")
-		self.assertion("self.controller.hero.damge==2")
+		self.assertion("self.controller.hero.damage==2")
 		self.change_turn()
 		### opp
 		self.change_turn()
@@ -283,7 +283,7 @@ class pp_RLK_923(Preset_Play):
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.controller.max_mana==4
+		self.controller.max_mana=4
 		self.play_card(self.con1)
 		self.assertion("len(self.controller.hero.buffs)>0")
 		self.assertion("'RLK_923e1' in [card.id for card in self.controller.hero.buffs]")
@@ -318,11 +318,11 @@ class pp_RLK_924(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.play_card(self.con2)
-		self.assertion("len(self.con2.buffs)>0")
-		self.assertion("'RLK_924e' in self.con2.buffs")
-		self.assertion("self.con2.divine_shield==True")
-		self.assertion("self.con2.rush==True")
+		self.play_card(self.con4)
+		self.assertion("len(self.con4.buffs)>0")
+		self.assertion("'RLK_924e' in [card.id for card in self.con4.buffs]")
+		self.assertion("self.con4.divine_shield==True")
+		self.assertion("self.con4.rush==True")
 		self.change_turn()
 		### opp
 		self.change_turn()

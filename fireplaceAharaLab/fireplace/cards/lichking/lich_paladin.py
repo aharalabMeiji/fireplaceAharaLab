@@ -22,7 +22,7 @@ if Lich_Timewarden:#
 class RLK_527:# <5>[1776]
 	""" Timewarden (minion:4/3/5)
 	<b>Battlecry:</b> Until the end of your next turn, Dragons you summon gain <b>Taunt</b> and <b>Divine Shield</b>. """
-	play = Buff(FRIENDLY_MINIONS + DRAGON, 'RLK_527e2')
+	play = Buff(FRIENDLY + MINION + DRAGON, 'RLK_527e2')
 	pass
 class RLK_527e2_Action(TargetedAction):# 
 	def do(self, source, target):# 
@@ -44,7 +44,7 @@ if Lich_Daring_Drake:#
 class RLK_916:# <5>[1776]
 	""" Daring Drake (minion:4/4/4)
 	<b>Rush</b> <b>Battlecry:</b> If you're holding a Dragon, gain +1/+1. """
-	play = Find(FRIENDLY_MINIONS + DRAGON) & Buff(SELF, 'RLK_916e')
+	play = Find(FRIENDLY + MINION + DRAGON) & Buff(SELF, 'RLK_916e')
 	pass
 RLK_916e=buff(1,1)
 
@@ -70,6 +70,7 @@ if Lich_For_QuelThalas:#
 class RLK_918:# <5>[1776]
 	""" For Quel'Thalas! (spell:2)
 	Give a friendly minion +3 Attack. Give your hero +2 Attack this turn. """
+	requirements = REQUIRE_FRIEND_MINION_TARGET
 	play = Buff(TARGET, 'RLK_918e'), Buff(FRIENDLY_HERO, 'RLK_918e2')
 	pass
 RLK_918e=buff(3,0)
