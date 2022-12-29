@@ -115,7 +115,7 @@ class RLK_922:# <5>[1776]
 	requirements = REQUIRE_FRIEND_MINION_TARGET
 	play = Buff(TARGET, 'RLK_922e'), Hit(FRIENDLY_HERO, 2)
 	pass
-RLK_922e=buff(divine_shield=True)
+RLK_922e=buff(3,3, divine_shield=True)
 
 
 if Lich_Feast_and_Famine:# 
