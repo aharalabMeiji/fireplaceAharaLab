@@ -83,7 +83,7 @@ class RLK_816:# <6>[1776]
 class RLK_816t3:# <6>[1776]
 	""" Vision of Darkness (spell:3)
 	<b>Discover</b> a Shadow spell. <i>(This stays in your hand.)</i> """
-	play = Discover(CONTROLLER, RandomSpell()), Give(CONTROLLER, 'RLK_816')
+	play = Discover(CONTROLLER, RandomSpell()), Give(CONTROLLER, 'RLK_816t3')
 	pass
 
 if Lich_Haunting_Nightmare:# 
@@ -94,7 +94,8 @@ if Lich_Haunting_Nightmare:#
 class RLK_822:# <6>[1776]
 	""" Haunting Nightmare (minion:3/3/3)
 	<b>Deathrattle:</b> Haunt a card in your hand. When you play it, summon a 3/3 Soldier. """
-	deathrattle = Buff(RANDOM(FRIENDLY_HAND, 'RLK_822e'))
+	tags = {GameTag.DEATHRATTLE:1, }
+	deathrattle = Buff(RANDOM(FRIENDLY_HAND), 'RLK_822e')
 	pass
 class RLK_822e:# <6>[1776]
 	""" Cold Sweat (0)
