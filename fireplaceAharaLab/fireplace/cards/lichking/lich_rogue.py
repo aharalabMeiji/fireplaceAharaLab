@@ -47,13 +47,16 @@ class RLK_217_Action(GameAction):#
 			card = random.choice(cards)
 			Buff(card, 'RLK_217e').trigger(source)
 			Buff(card, 'RLK_217e2').trigger(source)
+			card.zone=Zone.HAND
 		pass
 class RLK_217:# <7>[1776]
 	""" Scourge Illusionist (minion:4/4/4)
 	<b>Deathrattle:</b> Add a 4/4 copy of another <b>Deathrattle</b> minion in your deck to your hand. It costs (4) less. """
 	deathrattle = RLK_217_Action()
 	pass
-RLK_217e=buff(4,4)
+class RLK_217e:#
+	atk=lambda self, i: 4
+	max_health = lambda self, i:4
 class RLK_217e2:# <7>[1776]
 	""" Illusory (0)
 	Costs (4) less. """
@@ -83,15 +86,31 @@ if Lich_Shadow_of_Demise:#
 	Lich_Rogue+=['RLK_567']
 	Lich_Rogue+=['RLK_567e']
 	Lich_Rogue+=['RLK_567e2']
+class RLK_567_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Destroy(source).trigger(source)
+		newcard=get00(Give(source.controller, target.id))
+		Buff(newcard, 'RLK_567e').trigger(source)
+		pass
 class RLK_567:# <7>[1776]
 	""" Shadow of Demise (spell:0)
 	Each time you cast a spell, transform this into a copy of it. """
 	class HAND:
-		events = Play(CONTROLLER, SPELL).on(Morph(SELF, Play.CARD))
+		events = Play(CONTROLLER, SPELL).on(RLK_567_Action(Play.CARD)) 
 	pass
+class RLK_567e_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Destroy(source.owner).trigger(source)
+		newcard=get00(Give(source.controller, target.id))
+		Buff(newcard, 'RLK_567e').trigger(source)
+		pass
 class RLK_567e:# <7>[1776]
 	""" Death's Reflection (0)
 	Always copy your last played card. """
+	class Hand:
+		events = Play(CONTROLLER, SPELL).on(RLK_567e_Action(Play.CARD))
 	pass
 class RLK_567e2:# <7>[1776]
 	""" Shadow of Death (0)
