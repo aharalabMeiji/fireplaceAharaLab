@@ -512,6 +512,8 @@ class BaseGame(Entity):
 			}
 		if len(cards)>=2:
 			newID=dict_concoction[cards[0].id+cards[1].id]
+			if Config.LOGINFO:
+				Config.log("game.mixing_concoction","make a mixing concoction into %s"%(newID))
 			Discard(cards[0]).trigger(player)
 			Discard(cards[1]).trigger(player)
 			Give(player, newID).trigger(player)

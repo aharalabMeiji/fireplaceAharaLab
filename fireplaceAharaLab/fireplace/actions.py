@@ -1518,6 +1518,7 @@ class Give(TargetedAction):
 			if card.zone != Zone.HAND or not card in target.hand:
 				card.zone = Zone.HAND
 			card.controller.add_give_log(card)
+			card.controller.game.mixing_concoction(card.controller) # 25.0 RLK_570
 
 			# if card is 'casts_when_drawn' then immediately play.  
 			card.game.casts_when_drawn(card, card.controller)

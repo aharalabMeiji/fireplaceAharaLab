@@ -4,16 +4,17 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_rogue():
 
-	#PresetGame(pp_RLK_216)##OK
-	#PresetGame(pp_RLK_217)##OK
-	#PresetGame(pp_RLK_529)##
-	PresetGame(pp_RLK_567)##
-	PresetGame(pp_RLK_568)##
-	PresetGame(pp_RLK_569)##
-	PresetGame(pp_RLK_570)##
-	PresetGame(pp_RLK_571)##
-	PresetGame(pp_RLK_572)##
-	PresetGame(pp_RLK_573)##
+	PresetGame(pp_RLK_216)##OK
+	PresetGame(pp_RLK_217)##OK
+	PresetGame(pp_RLK_529)##OK
+	PresetGame(pp_RLK_567)##OK
+	PresetGame(pp_RLK_568)##OK
+	PresetGame(pp_RLK_569)##OK
+	PresetGame(pp_RLK_570)##OK
+	PresetGame(pp_RLK_571)##OK
+	PresetGame(pp_RLK_572)##OK
+	PresetGame(pp_RLK_573)##OK
+	PresetGame(pp_RLK_573a)##OK
 	pass
 
 
@@ -126,7 +127,6 @@ class pp_RLK_567(Preset_Play):
 		self.play_card(self.con2)
 		self.assertion("not 'RLK_567' in [card.id for card in self.controller.hand]")
 		self.assertion("self.con2.id in [card.id for card in self.controller.hand]")
-		self.assertion("")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -144,19 +144,16 @@ class pp_RLK_568(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_568", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("RLK_568", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("len([card for card in self.controller.hand if getattr(card, 'concoction')])>0")
+		self.play_card(self.con2)
+		self.assertion("len([card for card in self.controller.hand if 'RLK_570' in card.id])>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -174,19 +171,16 @@ class pp_RLK_569(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_569", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.choose_action()
+		cards=[self.controller.hand.index(card) for card in self.controller.hand if 'RLK_570' in card.id]
+		self.assertion("len([card for card in self.controller.hand if 'RLK_570' in card.id])>0")
+		self.con2=self.controller.hand[cards[0]]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -204,19 +198,18 @@ class pp_RLK_570(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_570", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
+		self.con2=self.exchange_card("RLK_569", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.play_card(self.con2)
+		self.choose_action()
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		cards=[self.controller.hand.index(card) for card in self.controller.hand if 'RLK_570' in card.id]
+		self.con2=self.controller.hand[cards[0]]
+		self.assertion("self.con2.cost==0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -234,10 +227,6 @@ class pp_RLK_571(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_571", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -245,8 +234,8 @@ class pp_RLK_571(Preset_Play):
 		### con
 		self.play_card(self.con1)
 		self.change_turn()
-		### opp
-		self.change_turn()
+		cards=[card for card in self.controller.hand if 'RLK_570' in card.id]
+		self.assertion("len([card for card in self.controller.hand if 'RLK_570' in card.id])>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -274,9 +263,9 @@ class pp_RLK_572(Preset_Play):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		Hit(self.con4, 10).trigger(self.controller)
+		cards=[card for card in self.controller.hand if 'RLK_570' in card.id]
+		self.assertion("len([card for card in self.controller.hand if 'RLK_570' in card.id])>0")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -294,19 +283,36 @@ class pp_RLK_573(Preset_Play):
 	class2=CardClass.ROGUE
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_573", self.controller)
-		self.con4=Summon(self.controller, self.card_choice("minionH3")).trigger(self.controller)
-		self.con4=self.con4[0][0]
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
-		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.assertion("self.opponent.hero.damage==1")
+		pass
+	def result_inspection(self):
+		super().result_inspection()
+		for card in self.controller.hand:
+			self.print_stats("hand", card)
+	pass
+class pp_RLK_573a(Preset_Play):
+	""" Ghostly Strike
+	Deal $1 damage. <b>Combo:</b> Draw a card. """
+	class1=CardClass.ROGUE
+	class2=CardClass.ROGUE
+	def preset_deck(self):
+		self.con1=self.exchange_card("RLK_573", self.controller)
+		self.con2=self.exchange_card("RLK_572", self.controller)
+		super().preset_deck()
+		pass
+	def preset_play(self):
+		super().preset_play()
+		### con
+		self.play_card(self.con2)
+		self.amount=len(self.controller.hand)
+		self.play_card(self.con1)
+		self.assertion("len(self.controller.hand)==self.amount")
 		pass
 	def result_inspection(self):
 		super().result_inspection()

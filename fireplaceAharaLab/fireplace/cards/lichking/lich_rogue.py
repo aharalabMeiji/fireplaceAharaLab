@@ -90,21 +90,21 @@ class RLK_567_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		Destroy(source).trigger(source)
-		newcard=get00(Give(source.controller, target.id))
+		newcard=get00(Give(source.controller, target.id).trigger(source))
 		Buff(newcard, 'RLK_567e').trigger(source)
 		pass
 class RLK_567:# <7>[1776]
 	""" Shadow of Demise (spell:0)
 	Each time you cast a spell, transform this into a copy of it. """
-	class HAND:
+	class Hand:
 		events = Play(CONTROLLER, SPELL).on(RLK_567_Action(Play.CARD)) 
 	pass
 class RLK_567e_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		Destroy(source.owner).trigger(source)
-		newcard=get00(Give(source.controller, target.id))
-		Buff(newcard, 'RLK_567e').trigger(source)
+		newcard=get00(Give(source.controller, target.id).trigger(source))
+		#Buff(newcard, 'RLK_567e').trigger(source)
 		pass
 class RLK_567e:# <7>[1776]
 	""" Death's Reflection (0)
@@ -140,13 +140,17 @@ class RLK_569_Choice(Choice):#
 		source=self.source
 		source.script_data_num_1 += 1
 		if source.script_data_num_1==1:
-			self.next_choice=self
+			second = RLK_569_Choice(CONTROLLER, RandomID('RLK_570t', 'RLK_570t1', 'RLK_570t2', 'RLK_570t3', 'RLK_570t4', 'RLK_570t5')*3)
+			second.trigger(self.source)
+			self.next_choice=second
 			super().choose(card)
-			card.zone=Zone.HAND
+			card.zone=Zone.HAND ## instead of Give
+			self.player.game.mixing_concoction(self.player)
 		else:
 			self.next_choice=None
 			super().choose(card)
-			card.zone=Zone.HAND
+			card.zone=Zone.HAND ## instead of Give
+			self.player.game.mixing_concoction(self.player)
 		pass
 class RLK_569:# <7>[1776]
 	""" Potion Belt (spell:2)
