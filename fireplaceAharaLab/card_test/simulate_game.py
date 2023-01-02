@@ -490,6 +490,15 @@ class Preset_Play:
 		Discard(self.player.hand[0]).trigger(player)
 		new_card = Give(player,_card).trigger(player)
 		return new_card[0][0]
+	def summon_card(self, card, player):
+		_card = self.card_choice(card)
+		new_card = Summon(player,_card).trigger(player)
+		return new_card[0][0]
+	def hit_card(self, card, player=None, amount=10):
+		if player==None:
+			player=card.controller
+		Hit(card, amount).trigger(player)
+		return
 	def append_deck_shuffle(self, card, player):
 		_card = self.card_choice(card)
 		new_card=Shuffle(player, _card).trigger(player)
