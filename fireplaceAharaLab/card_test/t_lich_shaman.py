@@ -1,5 +1,5 @@
 from .simulate_game import Preset_Play,PresetGame
-from fireplace.actions import Hit, Summon, Give
+from fireplace.actions import Hit, Summon, Give, RegularAttack, Destroy
 from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_shaman():
@@ -10,10 +10,10 @@ def lich_shaman():
 	PresetGame(pp_RLK_553)##OK
 	PresetGame(pp_RLK_554)##OK
 	PresetGame(pp_RLK_909)##OK
-	PresetGame(pp_RLK_910)##
-	PresetGame(pp_RLK_911)##
-	PresetGame(pp_RLK_912)##
-	PresetGame(pp_RLK_913)##
+	PresetGame(pp_RLK_910)##OK
+	PresetGame(pp_RLK_911)##OK
+	PresetGame(pp_RLK_912)##OK
+	PresetGame(pp_RLK_913)##OK
 	pass
 
 
@@ -211,17 +211,23 @@ class pp_RLK_910(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_910", self.controller)
+		self.con3=self.summon_card(self.controller, "minionH2")
 		self.con4=self.summon_card(self.controller, "minionH3")
-		self.opp1=self.summon_card(self.opponent, "minionH3")
+		self.opp1=self.summon_card(self.opponent, "minionH5")
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
+		self.assertion("'RLK_910e' in [card.id for card in self.con3.buffs]")
+		self.assertion("'RLK_910e' in [card.id for card in self.con4.buffs]")
 		self.change_turn()
 		### opp
-		self.change_turn()
+		if self.opp1.divine_shield==True:
+			Hit(self.opp1, 1).trigger(self.opponent)
+		self.hit_card(self.con3)
+		self.assertion("self.opp1.damage==3 or self.opponent.hero.damage==3")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -239,17 +245,30 @@ class pp_RLK_911(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_911", self.controller)
-		self.con4=self.summon_card(self.controller, "minionH3")
-		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
+		self.con2=self.controller.hand[0]
+		self.con3=self.controller.hand[1]
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.actions=[action for action in self.controller._targetedaction_log if action['source'].type==CardType.SPELL and action['source'].id=='RLK_911']
+		if self.con2.type==CardType.MINION:
+			self.list_summon=[action for action in self.actions if isinstance(action['class'], Summon) and action['target_args'][0][0].id==self.con2.id]
+			self.assertion("len(self.list_summon)>0")
+			self.list_attack=[action for action in self.actions if isinstance(action['class'], RegularAttack) and action['target'].id==self.con2.id]
+			self.assertion("len(self.list_attack)>0")
+			self.list_destroy=[action for action in self.actions if isinstance(action['class'], Destroy) and action['target'].id==self.con2.id]
+			self.assertion("len(self.list_destroy)>0")
+		if self.con3.type==CardType.MINION:
+			self.list_summon=[action for action in self.actions if isinstance(action['class'], Summon) and action['target_args'][0][0].id==self.con3.id]
+			self.assertion("len(self.list_summon)>0")
+			self.list_attack=[action for action in self.actions if isinstance(action['class'], RegularAttack) and action['target'].id==self.con3.id]
+			self.assertion("len(self.list_attack)>0")
+			self.list_destroy=[action for action in self.actions if isinstance(action['class'], Destroy) and action['target'].id==self.con3.id]
+			self.assertion("len(self.list_destroy)>0")
+
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -267,17 +286,17 @@ class pp_RLK_912(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_912", self.controller)
-		self.con4=self.summon_card(self.controller, "minionH3")
-		self.opp1=self.summon_card(self.opponent, "minionH3")
+		self.con2=self.exchange_card("RLK_550", self.controller)
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
 		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		self.play_card(self.con2)# buff to con1
+		self.hit_card(self.con1)
+		self.cards=[card.id for card in self.con2.buffs if card.id=='RLK_550e2']
+		self.assertion("len(self.cards)==2")
 		pass
 	def result_inspection(self):
 		super().result_inspection()
@@ -294,18 +313,17 @@ class pp_RLK_913(Preset_Play):
 	class1=CardClass.SHAMAN
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
-		self.con1=self.exchange_card("RLK_913", self.controller)
-		self.con4=self.summon_card(self.controller, "minionH3")
-		self.opp1=self.summon_card(self.opponent, "minionH3")
+		self.con1=self.summon_card(self.controller, "RLK_913")
+		self.opp1=self.summon_card(self.opponent, "minionH1")
 		super().preset_deck()
 		pass
 	def preset_play(self):
 		super().preset_play()
 		### con
-		self.play_card(self.con1)
-		self.change_turn()
-		### opp
-		self.change_turn()
+		if self.opp1.divine_shield:
+			Hit(self.opp1,1).trigger(self.controller)
+		self.attack_card(self.con1, self.opp1)
+		self.cards=[card.id for card in self.controller.field if card.id==self.opp1.id]
 		pass
 	def result_inspection(self):
 		super().result_inspection()
