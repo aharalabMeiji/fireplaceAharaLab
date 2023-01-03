@@ -50,6 +50,7 @@ class RLK_552_Action(GameAction):#
 		cards = [card for card in controller.death_after_last_turn if card.MINION_RACE(Race.UNDEAD)]
 		if len(cards):
 			Summon(controller, 'RLK_909t').trigger(source)
+			Summon(controller, 'RLK_909t').trigger(source)
 		pass
 class RLK_552:# <8>[1776]
 	""" Unliving Champion (minion:3/3/2)

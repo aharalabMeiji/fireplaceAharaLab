@@ -4,13 +4,13 @@ from hearthstone.enums import CardClass, Zone, CardType, Rarity
 
 def lich_shaman():
 
-	PresetGame(pp_RLK_550)##
-	#PresetGame(pp_RLK_551)##
-	PresetGame(pp_RLK_552)##
-	PresetGame(pp_RLK_553)##
-	#PresetGame(pp_RLK_554)##
-	PresetGame(pp_RLK_909)##
-	#PresetGame(pp_RLK_910)##
+	PresetGame(pp_RLK_550)##OK
+	PresetGame(pp_RLK_551)##OK
+	PresetGame(pp_RLK_552)##OK
+	PresetGame(pp_RLK_553)##OK
+	PresetGame(pp_RLK_554)##OK
+	PresetGame(pp_RLK_909)##OK
+	PresetGame(pp_RLK_910)##
 	PresetGame(pp_RLK_911)##
 	PresetGame(pp_RLK_912)##
 	PresetGame(pp_RLK_913)##
@@ -40,7 +40,7 @@ class pp_RLK_550(Preset_Play):
 		self.assertion("self.con3.buffs[0].id=='RLK_550e'")
 		self.change_turn()
 		### opp
-		Hit(self.con3, 10).trigger(self.opponent)
+		self.hit_card(self.con3)
 		self.assertion("len(self.con4.buffs)>0")
 		self.assertion("'RLK_550e2' in [card.id for card in self.con4.buffs]")
 		pass
@@ -60,7 +60,7 @@ class pp_RLK_551(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_551", self.controller)
-		self.opp1=Summon(self.opponent, self.card_choice("minionH3")).trigger(self.opponent)
+		self.opp1=Summon(self.opponent, self.card_choice("minionH5")).trigger(self.opponent)
 		self.opp1=self.opp1[0][0]
 		super().preset_deck()
 		pass
@@ -72,7 +72,7 @@ class pp_RLK_551(Preset_Play):
 		Hit(self.con1, 10).trigger(self.controller)
 		self.assert1=(self.opp1.damage==3)
 		self.assert2=(self.opponent.hero.damage==3)
-		self.assertrion("self.assert1 or self.assert2")
+		self.assertion("self.assert1 or self.assert2")
 		self.assertion("self.controller.hero.damage==10-3")
 		self.assertion("'RLK_551' in [card.id for card in self.controller.field]")
 		pass
@@ -92,8 +92,8 @@ class pp_RLK_552(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_552", self.controller)
-		self.con4=self.summon_card("undead", self.controller)
-		self.opp1=self.summon_card("minionH3", self.opponent)
+		self.con4=self.summon_card(self.controller, "undead" )
+		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -181,8 +181,8 @@ class pp_RLK_909(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_909", self.controller)
-		self.con4=self.summon_card("minionH3", self.controller)
-		self.opp1=self.summon_card("minionH3", self.opponent)
+		self.con4=self.summon_card(self.controller, "minionH3")
+		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -211,8 +211,8 @@ class pp_RLK_910(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_910", self.controller)
-		self.con4=self.summon_card("minionH3", self.controller)
-		self.opp1=self.summon_card("minionH3", self.opponent)
+		self.con4=self.summon_card(self.controller, "minionH3")
+		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -239,8 +239,8 @@ class pp_RLK_911(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_911", self.controller)
-		self.con4=self.summon_card("minionH3", self.controller)
-		self.opp1=self.summon_card("minionH3", self.opponent)
+		self.con4=self.summon_card(self.controller, "minionH3")
+		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -267,8 +267,8 @@ class pp_RLK_912(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_912", self.controller)
-		self.con4=self.summon_card("minionH3", self.controller)
-		self.opp1=self.summon_card("minionH3", self.opponent)
+		self.con4=self.summon_card(self.controller, "minionH3")
+		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):
@@ -295,8 +295,8 @@ class pp_RLK_913(Preset_Play):
 	class2=CardClass.SHAMAN
 	def preset_deck(self):
 		self.con1=self.exchange_card("RLK_913", self.controller)
-		self.con4=self.summon_card("minionH3", self.controller)
-		self.opp1=self.summon_card("minionH3", self.opponent)
+		self.con4=self.summon_card(self.controller, "minionH3")
+		self.opp1=self.summon_card(self.opponent, "minionH3")
 		super().preset_deck()
 		pass
 	def preset_play(self):

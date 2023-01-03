@@ -490,13 +490,10 @@ class Preset_Play:
 		Discard(self.player.hand[0]).trigger(player)
 		new_card = Give(player,_card).trigger(player)
 		return new_card[0][0]
-	def summon_card(self, card, player):
-		_card = self.card_choice(card)
-		new_card = Summon(player,_card).trigger(player)
-		return new_card[0][0]
 	def hit_card(self, card, player=None, amount=10):
 		if player==None:
 			player=card.controller
+		Hit(card, 1).trigger(player)# avoid divine shield
 		Hit(card, amount).trigger(player)
 		return
 	def append_deck_shuffle(self, card, player):
@@ -601,7 +598,8 @@ class Preset_Play:
 		card.location(target=target)
 		pass
 	def summon_card(self, player, cardID):
-		ret=Summon(player, cardID).trigger(player)
+		_card = self.card_choice(cardID)
+		ret=Summon(player, _card).trigger(player)
 		return ret[0][0]
 	def asserting(self, condition, message):
 		if Config.LOGINFO:
