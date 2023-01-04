@@ -35,9 +35,8 @@ if Lich_Walking_Dead:#
 class RLK_532:# <9>[1776]
 	""" Walking Dead (minion:3/2/5)
 	<b>Taunt</b> If you discard this minion, summon it. """
-	events = [
-		Discard(SELF).on(Summon(CONTROLLER, 'RLK_532'))
-	]
+	class Hand:
+		events = Discard(SELF).on(Summon(CONTROLLER, 'RLK_532'))
 	pass
 
 if Lich_Scourge_Supplies:# 
@@ -70,10 +69,8 @@ if Lich_Soul_Barrage:#
 class RLK_534:# <9>[1776]
 	""" Soul Barrage (spell:5)
 	When you play or discard this, deal $6 damage randomly split among all enemies. """
-	events = [
-		Play(CONTROLLER, SELF).on(SplitHit(CONTROLLER, ENEMY_CHARACTERS, 6)),
-		Discard(SELF).on(SplitHit(CONTROLLER, ENEMY_CHARACTERS, 6))
-		]
+	play = SplitHit(CONTROLLER, ENEMY_CHARACTERS, 6)
+	events =Discard(SELF).on(SplitHit(CONTROLLER, ENEMY_CHARACTERS, 6))
 	pass
 
 if Lich_Savage_Ymirjar:# 
