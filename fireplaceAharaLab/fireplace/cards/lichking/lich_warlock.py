@@ -51,6 +51,7 @@ class RLK_533_Choice(Choice):
 		for cd in self.player.hand:
 			if cd.id==card.id:
 				Discard(cd).trigger(self.source)
+				break
 class RLK_533_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -87,7 +88,7 @@ class RLK_536:# <9>[1776]
 	""" Shallow Grave (spell:2)
 	Trigger a friendly minion's <b>Deathrattle</b>, then destroy it. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_DEATHRATTLE:0 }
-	play = Destroy(TARGET)
+	play = Deathrattle(TARGET), Destroy(TARGET)
 	pass
 
 if Lich_Twisted_Tether:# 
@@ -107,7 +108,7 @@ class RLK_537_Action(TargetedAction):#
 class RLK_537:# <9>[1776]
 	""" Twisted Tether (spell:4)
 	Destroy a minion. Give its stats to a random Undead in your hand. """
-	requirements = REQUIRE_ENEMY_MINION_TARGET
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0}
 	play = RLK_537_Action(TARGET)
 	pass
 class RLK_537e:# <9>[1776]
@@ -121,19 +122,20 @@ if Lich_Devourer_of_Souls:#
 class RLK_538_Action(TargetedAction):# 
 	def do(self, source, target):# 
 		controller=source.controller
-		controller.sidequest_list0=target.deathrattles
+		source.sidequest_list0=target.deathrattles
+		if target.deathrattles!=[]:
+			Buff(source, 'RLK_538e').trigger(source)
 		pass
 class RLK_538:# <9>[1776]
 	""" Devourer of Souls (minion:1/1/3)
 	After a friendly minion dies, gain its <b>Deathrattle</b>. """
-	events = Death(FRIENDLY + MINION).after(RLK_538_Action(Death.ENTITY))
+	events = Death(FRIENDLY + MINION - SELF).after(RLK_538_Action(Death.ENTITY))
 	pass
 class RLK_538e_Action(GameAction):# 
 	def do(self, source):# 
-		owner=self.owner
-		actions= owner.sidequest_list0
-		for action in actions:
-			action.trigger(owner)
+		actions= source.sidequest_list0
+		for action in actions[0]:
+			action.trigger(source)
 		pass
 class RLK_538e:# <9>[1776]
 	""" Devoured Soul (0)
