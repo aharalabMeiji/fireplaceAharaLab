@@ -874,11 +874,29 @@ class CORE_LOE_079:# <12>[1637] ## OK
 	play = Shuffle(CONTROLLER, "LOE_019t")
 	pass
 class LOE_019t:
-	"""Map to the Golden Monkey"""
+	"""Map to the Golden Monkey
+	Shuffle the Golden Monkey into your deck. Draw a card. """
 	play = Shuffle(CONTROLLER, "LOE_019t2"), Draw(CONTROLLER)
+class LOE_019t2_Action(GameAction):
+	def do(self, source):
+		deck_amount=len(source.controller.deck)
+		for card in reversed(source.controller.deck):
+			card.zone==Zone.GRAVEYARD
+		for count in range(deck_amount):
+			newcard=get00(RandomLegendaryMinion().evaluate(source))
+			newcard.zone=Zone.DECK
+		hand_amount=len(source.controller.hand)
+		for card in reversed(source.controller.hand):
+			card.zone==Zone.GRAVEYARD
+		for count in range(hand_amount):
+			newcard=get00(RandomLegendaryMinion().evaluate(source))
+			newcard.zone=Zone.HAND
+		pass
+
 class LOE_019t2:
-	"""Golden Monkey"""
-	play = Morph(FRIENDLY + (IN_HAND | IN_DECK), RandomLegendaryMinion())
+	"""Golden Monkey
+	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Replace your hand and deck with &lt;b&gt;Legendary&lt;/b&gt; minions. """
+	play = LOE_019t2_Action()
 
 
 if Murloc_Tinyfin:

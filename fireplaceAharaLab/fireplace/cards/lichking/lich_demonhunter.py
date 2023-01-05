@@ -170,28 +170,49 @@ class RLK_213:# <14>[1776]
 if Lich_Souleaters_Scythe:# 
 	Lich_DemonHunter+=['RLK_214']
 	Lich_DemonHunter+=['RLK_214t']
-class RLK_214_Begingame_Action(GameAction):# 
-	def do(self, source):# 
-		controller=source.controller
-		card = controller.card("RLK_214t")
-		card.zone=Zone.DECK
-		minions=[cd for cd in controller.deck if cd.type==CardType.MINION]
-		if len(minions)>3:
-			minions=random.sample(minions, 3)
-		card.entourage=[cd.id for cd in minions]
-		for cd in reversed(minions):
-			cd.zone==Zone.SETASIDE
-			cd.zone==Zone.GRAVEYARD
-		pass
+#class RLK_214_Begingame_Action(GameAction):# 
+#	def do(self, source):# 
+#		controller=source.controller
+#		for cd in reversed(controller.deck):
+#			if cd.id=='RLK_214':
+#				cd.zone==Zone.SETASIDE
+#				cd.zone==Zone.GRAVEYARD
+#		card = controller.card("RLK_214t")
+#		minions=[cd for cd in controller.deck if cd.type==CardType.MINION]
+#		if len(minions)>3:
+#			minions=random.sample(minions, 3)
+#		card.sidequest_list0=[cd.id for cd in minions]
+#		card.zone=Zone.DECK
+#		for cd in reversed(minions):
+#			cd.zone==Zone.SETASIDE
+#			cd.zone==Zone.GRAVEYARD
+#		pass
 class RLK_214:# <14>[1776]
 	""" Souleater's Scythe (4)
 	<b>Start of Game:</b> Consume 3 different minions in your deck. Leave behind Souls that <b>Discover</b> them. """
 	## See utils.play_one_game
 	pass
+class RLK_214t_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+		pass
+class RLK_214t_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		if isinstance(source.sidequest_list0[0], str):
+			the_list=source.sidequest_list0
+		elif isinstance(source.sidequest_list0[0], list):
+			the_list=source.sidequest_list0[0]
+		else:
+			the_list=['RLK_220', 'CORE_NEW1_027', 'RLK_221']
+		RLK_214t_Choice(controller, RandomID(*the_list)).trigger(source)
+		pass
 class RLK_214t:# <14>[1776]
 	""" Bound Soul (spell:1)
 	<b>Discover</b> a minion consumed by Souleater's Scythe. """
-	play = Discover(CONTROLLER, RandomEntourage())
+	play = RLK_214t_Action()
 	pass
 
 if Lich_Felerin_the_Forgotten:# 

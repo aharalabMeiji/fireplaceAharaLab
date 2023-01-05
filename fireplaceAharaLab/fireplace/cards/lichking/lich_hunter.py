@@ -31,7 +31,7 @@ class RLK_817_Choice(Choice):
 		super().choose(card)
 		card.zone=Zone.HAND
 		if card.SPELL_SCHOOL(SpellSchool.ARCANE):
-			self.card.spellpower_by_spell+=1
+			card.spellpower_by_spell+=1
 class RLK_817_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller

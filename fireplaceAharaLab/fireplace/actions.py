@@ -3561,7 +3561,7 @@ class RLK_214_Begingame_Action(GameAction):#
 		minions=[cd for cd in controller.deck if cd.type==CardType.MINION]
 		if len(minions)>3:
 			minions=random.sample(minions, 3)
-		card.entourage=[cd.id for cd in minions]
+		card.sidequest_list0=[cd.id for cd in minions]
 		card.zone=Zone.DECK
 		for cd in reversed(minions):
 			cd.zone==Zone.SETASIDE

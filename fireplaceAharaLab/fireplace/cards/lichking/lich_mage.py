@@ -68,7 +68,7 @@ class RLK_545_Action(GameAction):#
 		controller=source.controller
 		for card in reversed(controller.hand):
 			if card.type==CardType.SPELL:
-				cost=card.cost+2
+				cost=min(card.cost+2,10)
 				newcard=get00(RandomSpell(cost=cost).evaluate(source))
 				newcard.cost=newcard.cost-2
 				card.discard()
