@@ -9,7 +9,7 @@ BG_Coldlight_Seer=True ## (3)
 BG_Felfin_Navigator=True ## (3)
 BG_Swolefin=True ## (3)
 BG_Primalfin_Lookout=True ## (4)
-BG_Toxfin=True ##(4) new 24.2
+BG_Toxfin=True ##(4) new 24.2 -> (6)
 BG_King_Bagurgle=True ## (5)
 BG_SI_Sefin=False ## (5) banned 4.2
 BG_Young_Murk_Eye=True ## (6) 
@@ -233,12 +233,12 @@ class TB_BaconUps_089:# <12>[1453]
 	pass
 
 
-if BG_Toxfin: ##(4) new 24.2
+if BG_Toxfin: ##(4) new 24.2 -> (6) 25.0.4
 	BG_Minion_Murloc+=['BG_DAL_077','TB_BaconUps_152']
-	BG_PoolSet_Murloc[4].append('BG_DAL_077')
+	BG_PoolSet_Murloc[6].append('BG_DAL_077')
 	BG_Murloc_Gold['BG_DAL_077']='TB_BaconUps_152'
 class BG_DAL_077:
-	""" Toxfin (4)
+	""" Toxfin (4)-> (6) 25.0.4
 	[Battlecry:] Give a friendly Murloc [Poisonous].""" 
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.MURLOC }	
 	play = SetTag(TARGET, (GameTag.POISONOUS,))

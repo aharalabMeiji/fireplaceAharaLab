@@ -2283,7 +2283,7 @@ class CastSecret(TargetedAction):
 		for card in cards:
 			if getattr(card, "this_is_secret", False):
 				card.zone=Zone.SECRET
-		player.add_play_log(card)
+		source.controller.add_play_log(card)
 
 
 class Evolve(TargetedAction):

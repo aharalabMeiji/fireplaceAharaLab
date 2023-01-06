@@ -17,8 +17,8 @@ BG_Replicating_Menace=True#(3)
 BG_Screwjank_Clunker=False#(3)banned
 BG_Iron_Sensei=True#(3)
 BG_Annoy_o_Module=True#(4)
-BG_Mechano_Eg_g=False#(4) banned
-BG_Mechano_Tank=True#(4)
+BG_Mechano_Eg_g=True#(4) banned  -> renew 25.0.4
+BG_Mechano_Tank=False#(4) -> banned 25.0.4
 BG_Wargear=True#(4) # after 23.6
 BG_Holy_Mecherel=True#(5)
 BG_Foe_Reaper_4000=True#(6)
@@ -262,7 +262,7 @@ class TB_BaconUps_099e:
 
 
 
-#Mechano-Egg(4) ### OK ###
+#Mechano-Egg(4) ### OK ### -> renew 25.0.4
 if BG_Mechano_Eg_g:
 	BG_Minion_Mecha+=['BOT_537', 'BOT_537t','TB_BaconUps_039', 'TB_BaconUps_039t',]
 	BG_PoolSet_Mecha[4].append('BOT_537')
@@ -284,7 +284,7 @@ class TB_BaconUps_039t:
 
 
 
-#Mechano-Tank(4)
+#Mechano-Tank(4)-> banned 25.0.4
 if BG_Mechano_Tank:
 	BG_Minion_Mecha+=['BG21_023', 'BG21_023_G',]
 	BG_PoolSet_Mecha[4].append('BG21_023')

@@ -33,7 +33,7 @@ BG_Impatient_Doomsayer=True##(4)
 BG_Majordomo_Executus=True##(4)
 BG_Menagerie_Jug=True##(4)
 BG_Strongshell_Scavenger=True##(4)
-BG_Witchwing_Nestmatron=False ##(4) banned 24.2
+BG_Witchwing_Nestmatron=True ##(4) banned 24.2 renew 25.0.4
 BG_Reef_Explorer=False##(4)# NEW 23.2 ### banned 24.6
 BG_Treasure_Seeker_Elise=True ##(4) new 24.2
 BG_Tunnel_Blaster=True##(4) new 23.6
@@ -48,16 +48,16 @@ BG_Deadly_Spore=False##(5)banned 23.6
 BG_Kangor_s_Apprentice=True##(5)
 BG_Lightfang_Enforcer=True##(5)
 BG_Master_of_Realities=True ##(5)
-BG_Mythrax_the_Unraveler=False ##(5) banned 24.2
+BG_Mythrax_the_Unraveler=True ##(5) banned 24.2  ## revive 25.0.4
 BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
 BG24__Tortollan_Blue_Shell=True ## (5) new 24.2 ### OK ###
-BG_Interrogator_Whitemane=True ## (5) new 24.6  ### OK ###
+BG_Interrogator_Whitemane=False ## (5) new 24.6  ### OK ###  -> banned 25.0.4
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
 BG_Nadina_the_Red=True##(6)
-BG_Seafood_Slinger=False ##(6) banned
+BG_Seafood_Slinger=True ##(6) banned -> resurrect 25.0.4
 BG_Zapp_Slywick=True##(6)
 BG_Orgozoa_the_Tender=True###(6) NEW 23.2
 BG_Uther_the_Lightbringer=True ##(6) new 23.6
@@ -847,7 +847,7 @@ TB_BaconUps_072e=buff(4,4)# <12>[1453]
 
 
 
-#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2
+#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2 ## renew 25.0.4
 if BG_Witchwing_Nestmatron:#
 	BG_Minion += ['BG21_038','BG21_038_G',]#	
 	BG_PoolSet_Minion[4].append('BG21_038')
@@ -1223,7 +1223,7 @@ BG21_036_Ge=buff(2,2)# <12>[1453]
 
 
 
-if BG_Mythrax_the_Unraveler:#Mythrax the Unraveler	5	4	4		 ### maybe ### banned 24.2
+if BG_Mythrax_the_Unraveler:#Mythrax the Unraveler	5	4	4		 ### maybe ### banned 24.2 ## revive 25.0.4
 	BG_Minion += ['BGS_202','BGS_202e','TB_BaconUps_258','TB_BaconUps_258e',]#	
 	BG_PoolSet_Minion[5].append('BGS_202')
 	BG_Minion_Gold['BG21_036']='TB_BaconUps_258'
@@ -1370,7 +1370,7 @@ class BG24_704_Action1(TargetedAction):
 			Buff(card, buff).trigger(source)
 		pass
 class BG24_704:
-	""" Interrogator Whitemane
+	""" Interrogator Whitemane -> banned 25.0.4
 	#[x][Start of Combat:] Give the enemies opposite this [Taunt]. They take double damage."""
 	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e'))
 class BG24_704_e:
@@ -1491,7 +1491,7 @@ class TB_BaconUps_154:# <12>[1453]
 	pass
 
 
-if BG_Seafood_Slinger:#Seafood Slinger	6	5	5		 ### maybe ### ##banned
+if BG_Seafood_Slinger:#Seafood Slinger	6	5	5		 ### maybe ### ##banned -> resurrect 25.0.4
 	BG_Minion += ['BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',]#	
 	BG_PoolSet_Minion[6].append('BG21_011')
 	BG_Minion_Gold['BG21_011']='BG21_011_G'
