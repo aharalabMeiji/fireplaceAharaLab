@@ -21,11 +21,11 @@ if Lich_Sunfire_Smithing:#
 class RLK_600:# <10>[1776]
 	""" Sunfire Smithing (spell:4)
 	Equip a 4/2 Sword. Give a random minion in your hand +4/+2. """
-	play = Summon(CONTROLLER, 'RLK_600t'), Buff(RANDOM(FRIENDLY_HAND), 'RLK_600e')
+	play = Summon(CONTROLLER, 'RLK_600t'), Buff(RANDOM(FRIENDLY_HAND + MINION), 'RLK_600e')
 	pass
 RLK_600e=buff(4,2)
 class RLK_600t:# <10>[1776]
-	""" Flamberge (weapon: 4/4/0)
+	""" Flamberge (weapon: 4/4/2)
 	 """
 	#
 	pass
@@ -39,7 +39,7 @@ class RLK_601_Action(GameAction):#
 		cards = [card for card in controller.deck if card.type==CardType.MINION and card.taunt==True]
 		if len(cards):
 			card = random.choice(cards)
-			card.zone=Zone.HAND
+			Give(controller, card).trigger(source)
 			atk=card.atk
 			hth=card.max_health
 			Buff(card, 'RLK_601e', atk=atk, max_health=hth).trigger(source)
@@ -60,6 +60,9 @@ class RLK_602:# <10>[1776]
 	""" Silverfury Stalwart (minion:6/4/8)
 	<b><b>Taunt</b>, Rush</b> Can't be targeted by spells or Hero Powers. """
 	tags={GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:0, GameTag.CANT_BE_TARGETED_BY_SPELLS:0 }
+	def play(self):
+		self.cant_be_targeted_by_hero_powers=True
+		self.cant_be_targeted_by_spells=True
 	pass
 
 if Lich_Light_of_the_Phoenix:# 
@@ -70,8 +73,10 @@ class RLK_603_Action(GameAction):#
 		card1=get00(Draw(controller).trigger(source))
 		card2=get00(Draw(controller).trigger(source))
 		amount=len([card for card in controller.field if card.type==CardType.MINION and card.damage>0])
-		card1._cost=max(card1._cost-amount, 0)
-		card2._cost=max(card2._cost-amount, 0)
+		if getattr(card1, '_cost', 0)>0:
+			card1._cost=max(card1._cost-amount, 0)
+		if getattr(card2, '_cost', 0)>0:
+			card2._cost=max(card2._cost-amount, 0)
 		pass
 class RLK_603:# <10>[1776]
 	""" Light of the Phoenix (spell:4)
@@ -119,7 +124,7 @@ class RLK_605:# <10>[1776]
 	""" Blazing Power (spell:2)
 	Give a minion +1/+1. Repeat for each damaged friendly character. """
 	requirements = REQUIRE_FRIEND_MINION_TARGET
-	play = Buff(TARGET, 'RLK_605e') * Count(FRIENDLY + MINION + DAMAGED)
+	play = Buff(TARGET, 'RLK_605e'), Buff(TARGET, 'RLK_605e') * Count(FRIENDLY + MINION + DAMAGED)
 	pass
 RLK_605e=buff(1,1)
 
@@ -129,7 +134,7 @@ if Lich_Disruptive_Spellbreaker:#
 class RLK_607:# <10>[1776]
 	""" Disruptive Spellbreaker (minion:5/4/5)
 	At the end of your turn, your opponent discards a spell. """
-	events = OWN_TURN_END.on(Destroy(RANDOM(ENEMY_HAND + SPELL)))
+	events = OWN_TURN_END.on(Discard(RANDOM(ENEMY_HAND + SPELL)))
 	pass
 class RLK_607e:# <10>[1776]
 	""" Broken Spell (0)
@@ -169,11 +174,13 @@ class RLK_960_Action(GameAction):#
 		controller=source.controller
 		newcard=get00(Summon(controller, 'RLK_960t').trigger(source))
 		Buff(newcard, 'RLK_960e').trigger(source)
+		newcard=get00(Summon(controller, 'RLK_960t').trigger(source))
+		Buff(newcard, 'RLK_960e').trigger(source)
 		pass
 class RLK_960:# <10>[1776]
 	""" Embers of Strength (spell:2)
 	Summon two 1/2 Guards with <b>Taunt</b>. <b>Manathirst (6):</b> Give them +1/+2. """
-	play = Manathirst(6, [Summon(CONTROLLER, 'RLK_960t')], [RLK_960_Action()])
+	play = Manathirst(6, [RLK_960_Action()], [Summon(CONTROLLER, 'RLK_960t'), Summon(CONTROLLER, 'RLK_960t')] )
 	pass
 RLK_960e=buff(1,2)
 """ Empowered Embers (0)	+1/+2. """

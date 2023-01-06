@@ -511,12 +511,13 @@ class BaseGame(Entity):
 			'RLK_570t5RLK_570t5':'RLK_570tt5',#
 			}
 		if len(cards)>=2:
-			newID=dict_concoction[cards[0].id+cards[1].id]
-			if Config.LOGINFO:
-				Config.log("game.mixing_concoction","make a mixing concoction into %s"%(newID))
-			Discard(cards[0]).trigger(player)
-			Discard(cards[1]).trigger(player)
-			Give(player, newID).trigger(player)
+			newID=dict_concoction.get(cards[-2].id+cards[-1].id)
+			if newID!=None:
+				if Config.LOGINFO:
+					Config.log("game.mixing_concoction","make a mixing concoction into %s"%(newID))
+				Discard(cards[0]).trigger(player)
+				Discard(cards[1]).trigger(player)
+				Give(player, newID).trigger(player)
 
 class CoinRules:
 	"""
