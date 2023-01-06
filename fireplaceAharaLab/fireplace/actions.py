@@ -353,6 +353,9 @@ class Death(GameAction):
 	"""
 	ENTITY = ActionArg()
 	def do(self, source, entity):
+		if entity.death_processed:## One entity is killed only once.
+			return
+		entity.death_processed=True
 		if Config.LOGINFO:
 			Config.log("Death.do","Processing Death for %r"% ( entity))
 		source.game.refresh_auras()

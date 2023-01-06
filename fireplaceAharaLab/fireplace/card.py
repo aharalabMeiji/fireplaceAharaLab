@@ -633,6 +633,7 @@ class LiveEntity(PlayableCard, Entity):
 		self.predamage = 0
 		self.turns_in_play = 0
 		self.turn_killed = -1
+		self.death_processed = False
 
 	def _set_zone(self, value):
 		oldzone=self.zone
