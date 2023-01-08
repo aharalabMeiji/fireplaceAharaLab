@@ -10,12 +10,12 @@ def lich_neutral():
 	#PresetGame(pp_RLK_117)##OK
 	#PresetGame(pp_RLK_119)##OK
 	#PresetGame(pp_RLK_123)##OK
-	#PresetGame(pp_RLK_218)##OK
+	PresetGame(pp_RLK_218)##OK
 	#PresetGame(pp_RLK_219)## OK 
 	#PresetGame(pp_RLK_219b)## OK 
 	#PresetGame(pp_RLK_220)##OK
-	#PresetGame(pp_RLK_221a)## OK
-	#PresetGame(pp_RLK_221b)## OK
+	PresetGame(pp_RLK_221a)## OK
+	PresetGame(pp_RLK_221b)## OK
 	#PresetGame(pp_RLK_222)## OK
 	#PresetGame(pp_RLK_222b)## OK
 	#PresetGame(pp_RLK_222c)## OK
@@ -279,7 +279,7 @@ class pp_RLK_218(Preset_Play):
 		self.assertion("self.opponent.hero.cant_be_targeted_by_spells==True")
 		#self.assertion("is_valid_target(self.con2, self.opponent.hero)")
 		self.play_card(self.con2, target=self.opponent.hero)# spelldamage=3+2
-		self.assertion("self.opponent.hero.damage==5")
+		self.assertion("self.opponent.hero.damage==0")
 		self.change_turn()
 		### opp
 		self.change_turn()

@@ -165,6 +165,7 @@ class pp_RLK_208a(Preset_Play):
 class pp_RLK_209(Preset_Play):
 	""" Unleash Fel (spell:1)
 	Deal $1 damage to all enemies. <b>Manathirst_(4):</b> With <b>Lifesteal</b>. """
+	## manathirst 4 -> 6 (25.0.4)
 	class1=CardClass.DEMONHUNTER
 	class2=CardClass.DEMONHUNTER
 	def preset_deck(self):
@@ -204,7 +205,7 @@ class pp_RLK_209a(Preset_Play):
 		super().preset_play()
 		### con
 		Hit(self.controller.hero, 10)
-		self.controller.max_mana=4
+		self.controller.max_mana=6
 		self.play_card(self.con1)
 		self.assertion("self.opp1.damage==1")
 		self.assertion("self.opponent.hero.damage==1")

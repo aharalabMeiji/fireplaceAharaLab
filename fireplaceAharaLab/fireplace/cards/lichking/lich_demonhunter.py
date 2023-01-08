@@ -98,7 +98,8 @@ class RLK_209_Action(GameAction):#
 class RLK_209:# <14>[1776]
 	""" Unleash Fel (spell:1)
 	Deal $1 damage to all enemies. <b>Manathirst_(4):</b> With <b>Lifesteal</b>. """
-	play = Manathirst(4, [RLK_209_Action()], [Hit(ENEMY_CHARACTERS, 1)]) 
+	### manathirst 4 -> 6 (25.0.4)
+	play = Manathirst(6, [RLK_209_Action()], [Hit(ENEMY_CHARACTERS, 1)]) 
 	pass
 
 if Lich_Wretched_Exile:# 
