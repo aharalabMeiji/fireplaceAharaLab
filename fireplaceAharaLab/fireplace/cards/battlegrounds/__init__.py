@@ -14,6 +14,7 @@ from .BG_minion_mecha import *
 from .BG_minion_naga import *
 from .BG_minion_murloc import *
 from .BG_minion_quilboar import *
+#from .BG_minion_undead import *
 
 from .BG24_quest import *
 from .BG24_reward import *

@@ -137,6 +137,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\__init__.py" />
+    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_minion_undead.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigDecks\bigWarrior.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\bigDecks\faceHunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\classic\classic_demon_hunter.py" />
