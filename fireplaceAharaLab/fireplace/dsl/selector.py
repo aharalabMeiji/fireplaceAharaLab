@@ -428,7 +428,8 @@ CardType.test = lambda self, entity, *args: (
 	entity is not None and self == entity.type
 )
 Race.test = lambda self, entity, *args: (
-	entity is not None and self == getattr(entity, "race", Race.INVALID)
+	entity is not None and (self == getattr(entity, "race", Race.INVALID) or 
+		entity.data.tags.get(self.race_tag)==True )
 )
 Rarity.test = lambda self, entity, *args: (
 	entity is not None and self == getattr(entity, "rarity", Rarity.INVALID)
