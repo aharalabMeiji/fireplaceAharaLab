@@ -109,6 +109,8 @@ class RLK_822e2:# <6>[1776]
 class RLK_822t:# <6>[1776]
 	""" Haunted Soldier (minion:3/3/3)
 	 """
+	### 25.2.2
+	### 3/3/3 -> 3/4/3
 	pass
 
 if Lich_Undying_Allies:# 

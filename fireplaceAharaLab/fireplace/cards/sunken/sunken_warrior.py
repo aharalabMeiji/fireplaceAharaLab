@@ -127,7 +127,7 @@ class TSC_660:# <10>[1658]
 		ship=ship[0][0]
 		TSC_660_Choice(self.controller, RandomPirate()*3, ship).trigger(self)
 		pass		
-TSC_660e=buff(cost=-1)
+TSC_660e=buff(cost=-2)
 class TSC_660e2:# <10>[1658]
 	pass
 class TSC_660t_Action(TargetedAction):
@@ -141,6 +141,8 @@ class TSC_660t_Action(TargetedAction):
 class TSC_660t:# <10>[1658]
 	""" Nellie's Pirate Ship
 	[[Taunt].] [Deathrattle:] Add Nellie's Pirate crew to your hand. They cost (1) less. """
+	### 25.2.2 -
+	### &lt;b&gt;&lt;b&gt;Taunt&lt;/b&gt;.&lt;/b&gt; &lt;b&gt;Deathrattle:&lt;/b&gt; Add Nellie's Pirate crew to your hand. They cost (2) less.
 	deathrattle = TSC_660t_Action(CONTROLLER)
 	pass
 

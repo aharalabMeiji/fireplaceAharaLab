@@ -87,12 +87,15 @@ class REV_750_Action(TargetedAction):
 class REV_750:# <7>[1691]
 	""" Sinstone Graveyard
 	Summon a @/@ <b>Stealthed</b> Ghost. <i>(Has +1/+1 for each other card you played this turn!)</i> """
+	# 25.2.2 - 
+	# Summon a @/@ Ghost. <i>(Has +1/+1 for each other card you played this turn!)</i>
 	location = REV_750_Action(CONTROLLER)
 	pass
 class REV_750t2:# <7>[1691]
 	""" Haunted Conscience
 	<b>Stealth</b> """
-	#
+	# 25.2.2
+	# vanilla
 	pass
 
 

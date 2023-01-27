@@ -106,8 +106,10 @@ class SW_039_Action1(TargetedAction):
 class SW_039:# <14>[1578]
 	""" Final Showdown
 	[Questline:] Draw 4 cards in one turn. [Reward:] Reduce the Cost of the cards drawn by (1). """
+	## 25.2.2 -
+	## &lt;b&gt;Questline:&lt;/b&gt; Draw 6 cards in one turn. [Reward:] Reduce the Cost of the cards drawn by (1).
 	tags={GameTag.SIDEQUEST:True, GameTag.QUESTLINE:True}
-	events = Draw(CONTROLLER).on(SW_039_Action1(CONTROLLER,4 ), Summon(CONTROLLER,'SW_039t'),Destroy(SELF))
+	events = Draw(CONTROLLER).on(SW_039_Action1(CONTROLLER,6 ), Summon(CONTROLLER,'SW_039t'),Destroy(SELF))
 	#
 	pass
 class SW_039t:# <14>[1578]

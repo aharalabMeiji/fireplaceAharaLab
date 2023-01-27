@@ -180,7 +180,8 @@ class RLK_061t:
 	&lt;b&gt;Taunt&lt;/b&gt; &lt;i&gt;Doesn't leave a &lt;b&gt;Corpse&lt;/b&gt;.&lt;/i&gt;"""
 	# this is not collectible.
 	# implementation in class Death.
-
+	## 25.2.2
+	## 1/2 -> 1/3
 
 if Lich_Alexandros_Mograine:# 
 	Lich_DeathKnight+=['RLK_706']

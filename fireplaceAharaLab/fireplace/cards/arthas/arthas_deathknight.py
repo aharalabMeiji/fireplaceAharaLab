@@ -326,13 +326,17 @@ if Arthas_Glacial_Advance:#
 class RLK_512:# <1>[1869]
 	""" Glacial Advance
 	Deal $4 damage. Your next spell this turn costs (2) less. """
+	## 25.2.2 -
+	## Deal $4 damage. Your next spell this turn costs (1) less.
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_ENEMY_TARGET:0 }	
 	play = Hit(TARGET, 4), Buff(FRIENDLY_HAND+SPELL, 'DMF_057o')
 	pass
 class DMF_057o:# <2>[1466]#ONE_TURN_EFFECT
 	""" Lunar Empowerment
 	The next spell you cast this turn costs (2) less. """
-	cost = lambda self, i: max(i-2,0)
+	## 25.2.2
+	## The next spell you cast this turn costs (1) less.
+	cost = lambda self, i: max(i-1,0)
 	class Hand:
 		events =[
 		   OWN_SPELL_PLAY.on(Destroy(SELF)),

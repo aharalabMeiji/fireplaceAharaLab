@@ -198,20 +198,27 @@ class RLK_222:# <12>[1776]
 	<b>Battlecry:</b> Add Astalor, the Protector to your hand. <b>Manathirst (@):</b> Deal 2 damage. """
 	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="4"/>
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="4"/>
-	play = Manathirst(4, [Give(CONTROLLER, 'RLK_222t1'), Hit(RANDOM(ENEMY_CHARACTERS),2)], [Give(CONTROLLER, 'RLK_222t1')])
+	## 25.2.2 -
+	## &lt;b&gt;Battlecry:&lt;/b&gt; Add Astalor, the Protector to your hand. &lt;b&gt;Manathirst (@):&lt;/b&gt; Deal 2 damage.
+	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="5"/>
+	play = Manathirst(5, [Give(CONTROLLER, 'RLK_222t1'), Hit(RANDOM(ENEMY_CHARACTERS),2)], [Give(CONTROLLER, 'RLK_222t1')])
 	pass
 
 class RLK_222t1:# <12>[1776]
 	""" Astalor, the Protector
 	<b>Battlecry:</b> Add Astalor, the Flamebringer to your hand. <b>Manathirst (@):</b> Gain 5 Armor. """
 	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="7"/>
-	play = Manathirst(7, [Give(CONTROLLER, 'RLK_222t2'), GainArmor(FRIENDLY_HERO,5)], [Give(CONTROLLER, 'RLK_222t2')])
+	## 25.2.2 -
+	## 7 -> 8
+	play = Manathirst(8, [Give(CONTROLLER, 'RLK_222t2'), GainArmor(FRIENDLY_HERO,5)], [Give(CONTROLLER, 'RLK_222t2')])
 	pass
 
 class RLK_222t2:# <12>[1776]
 	""" Astalor, the Flamebringer
 	<b>Battlecry:</b> Deal 8 damage randomly split between all enemies. <b>Manathirst (10):</b> Deal 8 more. """
-	play = Manathirst(10, [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 16)], [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 8)])
+	## 25.2.2 -
+	## 8 damage -> 7
+	play = Manathirst(10, [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 14)], [SplitHit(CONTROLLER, ENEMY_CHARACTERS, 7)])
 	pass
 
 if Lich_Silvermoon_Sentinel:# ### OK ###

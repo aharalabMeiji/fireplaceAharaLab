@@ -33,6 +33,14 @@ class RLK_600t:# <10>[1776]
 if Lich_Last_Stand:# 
 	Lich_Warrior+=['RLK_601']
 	Lich_Warrior+=['RLK_601e']
+class RLK_601_Action0(GameAction):# 
+	def do(self, source):# 
+		controller=source.controller
+		cards = [card for card in controller.deck if card.type==CardType.MINION and card.taunt==True]
+		if len(cards):
+			card = random.choice(cards)
+			Give(controller, card).trigger(source)
+		pass
 class RLK_601_Action(GameAction):# 
 	def do(self, source):# 
 		controller=source.controller
@@ -47,7 +55,9 @@ class RLK_601_Action(GameAction):#
 class RLK_601:# <10>[1776]
 	""" Last Stand (spell:4)
 	Draw a <b>Taunt</b> minion. Double its stats. """
-	play = RLK_601_Action()
+	## 25.2.2 -
+	## Draw a &lt;b&gt;Taunt&lt;/b&gt; minion. &lt;b&gt;Manathirst (7):&lt;/b&gt; Double its stats.
+	play = play = Manathirst(7, [RLK_601_Action()],[RLK_601_Action0()])
 	pass
 class RLK_601e:# <10>[1776]
 	""" Stalwart Stand (0)
@@ -154,6 +164,8 @@ class RLK_608_Action(GameAction):#
 class RLK_608:# <10>[1776]
 	""" Asvedon, the Grandshield (minion:3/3/3)
 	<b>Battlecry:</b> Cast a copy of the last spell your opponent played. """
+	## 25.2.2 -
+	## &lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Cast a copy of the last spell your opponent played.
 	play = RLK_608_Action()
 	pass
 
