@@ -10,8 +10,11 @@ BG_Salty_Looter=True ##,3
 BG_Southsea_Strongarm=True ##,3,
 BG_First_Mate_Pip=True ##(3) new 24.2
 BG_Goldgrubber=True ##,4
-BG_Peggy_Brittlebone=True ##,4
+BG_Peggy_Brittlebone=False ##,4  banned 25.2.2
+BG25__Peggy_Sturdybone=True ## ,4 new 25.2.2
 BG_Ripsnarl_Captain=True ##,4
+
+
 BG_Cap_n_Hoggarr=True ##,5
 BG_Tony_Two_Tusk=True ##,5
 BG_Vanessa_VanCleef=True ##, 5 ## new 24.6
@@ -305,6 +308,33 @@ class BG21_016_G:# <12>[1453]
 	pass
 BG21_016_Ge=buff(2,2)
 
+if BG25__Peggy_Sturdybone:# 
+	BG_Minion_Pirate+=['BG25_032']
+	BG_Minion_Pirate+=['BG25_032_G']
+	BG_Minion_Pirate+=['BG25_032_Ge']
+	BG_Minion_Pirate+=['BG25_032e']
+	BG_PoolSet_Pirate[4].append('BG25_032')
+	BG_Pirate_Gold['BG25_032']='BG25_032_G'
+class BG25_032:# (minion) 4/6/5
+	""" Peggy Sturdybone
+	After a card is added to your hand, give another friendly Pirate +1/+1. """
+	events = [
+		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG25_032e')),
+		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG25_032e')),
+		]
+	pass
+BG25_032e=buff(1,1)# (enchantment)
+""" Loot Get	+1/+1. """
+class BG25_032_G:# (minion)
+	""" Peggy Sturdybone
+	After a card is added to your hand, give another friendly Pirate +2/+2. """
+	events = [
+		Buy(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG25_032_Ge')),
+		Give(CONTROLLER,MINION).on(Buff(RANDOM(FRIENDLY_MINIONS + PIRATE - SELF), 'BG25_032_Ge')),
+		]
+	pass
+BG25_032_Ge=buff(2,2)# (enchantment)
+""" Loot Get	+2/+2. """
 
 
 #Ripsnarl Captain,4,4,6,Pirate,- ### OK ###

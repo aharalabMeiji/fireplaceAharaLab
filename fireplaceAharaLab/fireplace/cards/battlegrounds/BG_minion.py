@@ -40,6 +40,7 @@ BG_Tunnel_Blaster=True##(4) new 23.6
 BG24__Rendle_the_Mistermind=True ## (4) new 24.2
 BG_Vigilant_Stoneborn=True ## (4) new 24.6 ### OK ###
 BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
+BG25__Sindorei_Straight_Shot=True ## (4) new 25.2.2
 
 
 BG_Baron_Rivendare=True##(5)
@@ -1058,6 +1059,38 @@ class BG24_017_G:
 	When you sell this, give its stats to two random friendly minions.""" 
 	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 2))
 	pass
+
+if BG25__Sindorei_Straight_Shot:# ## (4) new 25.2.2
+	BG_Minion+=['BG25_016']
+	BG_Minion+=['BG25_016_G']
+	BG_Minion+=['BG25_016e']
+	BG_Minion+=['BG25_016e2']
+	BG_PoolSet_Minion[4].append('BG25_016')
+	BG_Minion_Gold['BG25_016']='BG25_016_G'
+class BG25_016:# (minion)
+	""" Sin'dorei Straight Shot
+	<b>Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
+	#
+	pass
+
+class BG25_016_G:# (minion)
+	""" Sin'dorei Straight Shot
+	<b>Mega-Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
+	#
+	pass
+
+class BG25_016e:# (enchantment)
+	""" Deborn
+	No longer has <b>Reborn.</b> """
+	#
+	pass
+
+class BG25_016e2:# (enchantment)
+	""" Tauntn't
+	No longer has <b><b>Taunt</b>.</b> """
+	#
+	pass
+
 
 
 ######## TIER 5 ################

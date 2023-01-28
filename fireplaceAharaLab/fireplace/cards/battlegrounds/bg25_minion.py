@@ -2,8 +2,6 @@ from ..utils import *
 
 BG25_=[]
 
-BG25__Sindorei_Straight_Shot=True
-BG25__Peggy_Sturdybone=True
 BG25__Corpse_Refiner=True
 BG25__Pufferquil=True
 BG25__Blazing_Skyfin=True
@@ -33,66 +31,9 @@ BG25__Yaharr=True
 
 
 
-if BG25__Sindorei_Straight_Shot:# 
-	BG25_+=['BG25_016']
-class BG25_016:# (minion)
-	""" Sin'dorei Straight Shot
-	<b>Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
-	#
-	pass
-
-	BG25_+=['BG25_016_G']
-class BG25_016_G:# (minion)
-	""" Sin'dorei Straight Shot
-	<b>Mega-Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
-	#
-	pass
-
-	BG25_+=['BG25_016e']
-class BG25_016e:# (enchantment)
-	""" Deborn
-	No longer has <b>Reborn.</b> """
-	#
-	pass
-
-	BG25_+=['BG25_016e2']
-class BG25_016e2:# (enchantment)
-	""" Tauntn't
-	No longer has <b><b>Taunt</b>.</b> """
-	#
-	pass
 
 
 
-
-if BG25__Peggy_Sturdybone:# 
-	BG25_+=['BG25_032']
-class BG25_032:# (minion)
-	""" Peggy Sturdybone
-	After a card is added to your hand, give another friendly Pirate +1/+1. """
-	#
-	pass
-
-	BG25_+=['BG25_032_G']
-class BG25_032_G:# (minion)
-	""" Peggy Sturdybone
-	After a card is added to your hand, give another friendly Pirate +2/+2. """
-	#
-	pass
-
-	BG25_+=['BG25_032_Ge']
-class BG25_032_Ge:# (enchantment)
-	""" Loot Get
-	+2/+2. """
-	#
-	pass
-
-	BG25_+=['BG25_032e']
-class BG25_032e:# (enchantment)
-	""" Loot Get
-	+1/+1. """
-	#
-	pass
 
 if BG25__Corpse_Refiner:# 
 	BG25_+=['BG25_033']
