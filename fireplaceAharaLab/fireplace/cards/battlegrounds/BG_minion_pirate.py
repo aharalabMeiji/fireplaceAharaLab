@@ -24,6 +24,10 @@ BG_PoolSet_Pirate=[[],[],[],[],[],[],[]]
 
 BG_Pirate_Gold={}
 
+## 25.2.2-
+#Corpse Refiner 2/2/3/Pirate, Undead	Avenge (X)
+
+
 #Deck Swabbie,1,2,2,Pirate,Battlecry ### OK ###
 if BG_Deck_Swabbie:
 	BG_Minion_Pirate +=['BGS_055','TB_BaconUps_126']

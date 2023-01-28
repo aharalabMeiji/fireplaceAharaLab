@@ -29,6 +29,8 @@ BG_Minion_Mecha =[]
 BG_PoolSet_Mecha=[[],[],[],[],[],[],[]]
 BG_Mecha_Gold={}
 
+#25.2.2 -
+#Micro Mummy 1/1/2/Mech, Undead	Reborn
 #Micro Mummy(1) ### OK ###
 if BG_Micro_Mummy:
 	BG_Minion_Mecha+=['BG_ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',]
