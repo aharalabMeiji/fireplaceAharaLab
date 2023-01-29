@@ -448,114 +448,116 @@ class TB_BaconUps_116:# <9>[1453]
 	pass
 
 
-if BG25__Felstomper:# 6/3/7 demon ## new 25.2.2
-	BG25_+=['BG25_042']
+if BG25__Felstomper:# 6/3/7 demon ## new 25.2.2 ### need check##############
+	BG_Minion_Demon+=['BG25_042']
+	BG_Minion_Demon+=['BG25_042_G']
+	BG_Minion_Demon+=['BG25_042_Ge']
+	BG_Minion_Demon+=['BG25_042e']
+	BG_PoolSet_Demon[6].append('BG25_042')
+	BG_Demon_Gold['BG25_042']='BG25_042_G'
+class BG25_042_Action(GameAction):
+	def do(self,source):
+		if source.controller.game.this_is_battle:
+			for card in source.controller.field:
+				Buff(card, 'BG25_042e').trigger(source)
 class BG25_042:# (minion)(demon)
 	""" Felstomper
 	After you summon a _minion in combat, give ___your minions +3 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY+MINION).on(BG25_042_Action())
 	pass
-
-	BG25_+=['BG25_042_G']
+BG25_042e=buff(3,0)# (enchantment)
+""" Felgorged	+3 Attack. """
+class BG25_042_G_Action(GameAction):
+	def do(self,source):
+		if source.controller.game.this_is_battle:
+			for card in source.controller.field:
+				Buff(card, 'BG25_042_Ge').trigger(source)
 class BG25_042_G:# (minion)(demon)
 	""" Felstomper
 	After you summon a _minion in combat, give ___your minions +6 Attack. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY+MINION).on(BG25_042_G_Action())
 	pass
-
-	BG25_+=['BG25_042_Ge']
-class BG25_042_Ge:# (enchantment)
-	""" Felgorged
-	+6 Attack. """
-	#
-	pass
-
-	BG25_+=['BG25_042e']
-class BG25_042e:# (enchantment)
-	""" Felgorged
-	+3 Attack. """
-	#
-	pass
+BG25_042_Ge=buff(6,0)
+""" Felgorged	+6 Attack. """
 
 
 
-if BG25__Mecha_Jaraxxus:# 6/3/15 DEMON ## new 25.2.2
-	BG25_+=['BG25_807']
+if BG25__Mecha_Jaraxxus:# 6/3/15 DEMON ## new 25.2.2 #########################
+	BG_Minion_Demon+=['BG25_807']
+	BG_Minion_Demon+=['BG25_807_G']
+	BG_Minion_Demon+=['BG25_807e']
+	BG_Minion_Demon+=['BG25_807e2']
+	BG_Minion_Demon+=['BG25_807e3']
+	BG_Minion_Demon+=['BG25_807t']
+	BG_Minion_Demon+=['BG25_807t2']
+	BG_Minion_Demon+=['BG25_807t2_G']
+	BG_Minion_Demon+=['BG25_807t3']
+	BG_Minion_Demon+=['BG25_807t3_G']
+	BG_Minion_Demon+=['BG25_807t_G']
+	BG_PoolSet_Demon[6].append('BG25_807')
+	BG_Demon_Gold['BG25_807']='BG25_807_G'
+	BG_Demon_Gold['BG25_807t']='BG25_807t_G'
+	BG_Demon_Gold['BG25_807t2']='BG25_807t2_G'
+	BG_Demon_Gold['BG25_807t3']='BG25_807t3_G'
+class BG25_807_Action(GameAction):
+	def do(self, source):
+		card = random.choice(['BG25_807t','BG25_807t2','BG25_807t3'])
+		Give(source.controller, card).trigger(source)
 class BG25_807:# (minion)(demon)
 	""" Mecha-Jaraxxus
 	<b>Battlecry:</b> Add a random Mecha-Demon to your hand. """
-	#
+	play = BG25_807_Action()
 	pass
-
-	BG25_+=['BG25_807_G']
+class BG25_807_G_Action(GameAction):
+	def do(self, source):
+		cards = random.sample(['BG25_807t','BG25_807t2','BG25_807t3'],2)
+		Give(source.controller, cards[0]).trigger(source)
+		Give(source.controller, cards[1]).trigger(source)
 class BG25_807_G:# (minion)(demon)
 	""" Mecha-Jaraxxus
 	<b>Battlecry:</b> Add 2 random Mecha-Demons to your hand. """
-	#
+	play = BG25_807_G_Action()
 	pass
-
-	BG25_+=['BG25_807e']
 class BG25_807e:# (enchantment)
 	""" Rusted Reggie
 	<b>Windfury</b> """
-	#
-	pass
-
-	BG25_+=['BG25_807e2']
 class BG25_807e2:# (enchantment)
 	""" Magtheridon Prime
 	<b>Taunt</b> """
-	#
-	pass
-
-	BG25_+=['BG25_807e3']
 class BG25_807e3:# (enchantment)
 	""" Baltharak
 	<b>Reborn</b> """
-	#
-	pass
-
-	BG25_+=['BG25_807t']
 class BG25_807t:# (minion)
 	""" Rusted Reggie
 	<b>Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
 	#
 	pass
-
-	BG25_+=['BG25_807t2']
+class BG25_807t_G:# (minion)
+	""" Rusted Reggie
+	<b>Mega-Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
+	#
+	pass
 class BG25_807t2:# (minion)
 	""" Magtheridon Prime
 	<b>Taunt</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
 	#
 	pass
-
-	BG25_+=['BG25_807t2_G']
 class BG25_807t2_G:# (minion)
 	""" Magtheridon Prime
 	<b>Taunt</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
 	#
 	pass
-
-	BG25_+=['BG25_807t3']
 class BG25_807t3:# (minion)
 	""" Baltharak
 	<b>Reborn</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
 	#
 	pass
-
-	BG25_+=['BG25_807t3_G']
 class BG25_807t3_G:# (minion)
 	""" Baltharak
 	<b>Reborn</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
 	#
 	pass
 
-	BG25_+=['BG25_807t_G']
-class BG25_807t_G:# (minion)
-	""" Rusted Reggie
-	<b>Mega-Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
-	pass
 
 ####################
 

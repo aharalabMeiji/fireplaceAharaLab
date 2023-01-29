@@ -70,7 +70,6 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\barrens\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\bg24_quest.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\bg24_reward.py" />
-    <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\bg25_minion.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\battlegrounds\BG_gems.py">
       <SubType>Code</SubType>
     </Compile>

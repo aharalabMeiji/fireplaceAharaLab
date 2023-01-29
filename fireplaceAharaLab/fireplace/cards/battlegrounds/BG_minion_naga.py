@@ -589,33 +589,35 @@ class BG23_013_G:# <12>[1453]
 BG23_013_Ge=buff(2,2)
 
 
-if BG25__Greta_Gold_Gun:# 6/2/9 naga ## new 25.2.2
-	BG25_+=['BG25_044']
+if BG25__Greta_Gold_Gun:# 6/2/9 naga ## new 25.2.2#########################################
+	BG_Minion_Naga+=['BG25_044']
+	BG_Minion_Naga+=['BG25_044_G']
+	BG_Minion_Naga+=['BG25_044e2']
+	BG_Minion_Naga+=['BG25_044t']
+BG_PoolSet_Naga[6].append('BG25_044')
+BG_Naga_Gold['BG25_044']='BG25_044_G'
 class BG25_044:# (minion)
 	""" Greta Gold-Gun
 	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
-	#
+	play = Spellcraft(CONTROLLER,'BG25_044t')
 	pass
-
-	BG25_+=['BG25_044_G']
 class BG25_044_G:# (minion)
 	""" Greta Gold-Gun
 	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
-	#
+	play = Spellcraft(CONTROLLER,'BG25_044t')
 	pass
-
-	BG25_+=['BG25_044e2']
 class BG25_044e2:# (enchantment)
 	""" Gold-Gunned
 	Golden until next turn. """
 	#
 	pass
-
-	BG25_+=['BG25_044t']
 class BG25_044t:# (spell)
 	""" Gold-Gun
 	Make a friendly Pirate or Naga Golden until next turn <i>(except Greta Gold-Gun)</i>. """
-	#
+	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,
+			   PlayReq.REQ_TARGET_WITH_RACE:Race.NAGA}## or Race.PIRATE
+	play = Buff(TARGET, 'BG25_044e2')
+	tags = {GameTag.TECH_LEVEL:6}
 	pass
 
 ############################
