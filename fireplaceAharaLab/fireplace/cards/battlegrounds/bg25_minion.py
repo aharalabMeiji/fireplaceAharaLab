@@ -2,10 +2,8 @@ from ..utils import *
 
 BG25_=[]
 
-BG25__Corpse_Refiner=True
-BG25__Pufferquil=True
-BG25__Blazing_Skyfin=True
-BG25__Felemental=True
+
+
 BG25__Felstomper=True
 BG25__Cyborg_Drake=True
 BG25__Greta_Gold_Gun=True
@@ -35,107 +33,10 @@ BG25__Yaharr=True
 
 
 
-if BG25__Corpse_Refiner:# 
-	BG25_+=['BG25_033']
-class BG25_033:# (minion)
-	""" Corpse Refiner
-	<b>Avenge (4):</b> This minion sells for 1 more Gold.@<b>Avenge (4):</b> This minion sells for 1 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
-	#
-	pass
 
-	BG25_+=['BG25_033_G']
-class BG25_033_G:# (minion)
-	""" Corpse Refiner
-	<b>Avenge (4):</b> This minion sells for 2 more Gold.@<b>Avenge (4):</b> This minion sells for 2 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
-	#
-	pass
 
-if BG25__Pufferquil:# 
-	BG25_+=['BG25_039']
-class BG25_039:# (minion)
-	""" Pufferquil
-	After a spell is played on this, gain <b>Poisonous</b> until next turn. """
-	#
-	pass
 
-	BG25_+=['BG25_039_G']
-class BG25_039_G:# (minion)
-	""" Pufferquil
-	After a spell is played on this, gain <b>Poisonous</b>. """
-	#
-	pass
 
-	BG25_+=['BG25_039_Ge']
-class BG25_039_Ge:# (enchantment)
-	""" Puffed Full
-	<b>Poisonous</b>. """
-	#
-	pass
-
-	BG25_+=['BG25_039e']
-class BG25_039e:# (enchantment)
-	""" Puffed Up
-	<b>Poisonous</b> until next turn. """
-	#
-	pass
-
-if BG25__Blazing_Skyfin:# 
-	BG25_+=['BG25_040']
-class BG25_040:# (minion)
-	""" Blazing Skyfin
-	After you play a <b>Battlecry</b> minion, gain +1/+1. """
-	#
-	pass
-
-	BG25_+=['BG25_040_G']
-class BG25_040_G:# (minion)
-	""" Blazing Skyfin
-	After you play a <b>Battlecry</b> minion, gain +2/+2. """
-	#
-	pass
-
-	BG25_+=['BG25_040_Ge']
-class BG25_040_Ge:# (enchantment)
-	""" Blaze of Glory
-	+2/+2. """
-	#
-	pass
-
-	BG25_+=['BG25_040e']
-class BG25_040e:# (enchantment)
-	""" Blaze of Glory
-	+1/+1. """
-	#
-	pass
-
-if BG25__Felemental:# 
-	BG25_+=['BG25_041']
-class BG25_041:# (minion)
-	""" Felemental
-	<b>Battlecry:</b> Minions in Bob's Tavern have +1/+1 __for the rest of the game. """
-	#
-	pass
-
-	BG25_+=['BG25_041_G']
-class BG25_041_G:# (minion)
-	""" Felemental
-	<b>Battlecry:</b> Minions in Bob's Tavern have +2/+2 __for the rest of the game. """
-	#
-	pass
-
-	BG25_+=['BG25_041e']
-class BG25_041e:# (enchantment)
-	""" Felfire Player Enchant
-	Increased stats. """
-	#
-	pass
-
-	BG25_+=['BG25_041e2']
-class BG25_041e2:# (enchantment)
-	""" Felementality
-	Increased stats. """
-	#
-	pass
 
 if BG25__Felstomper:# 
 	BG25_+=['BG25_042']

@@ -3,8 +3,11 @@ from ..utils import *
 BG_Red_Whelp=True ## ##(1)
 BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
 BG_Dozy_Whelp=True #(1) new 24.6 ### OK ###
+
 BG_Glyph_Guardian=True ## ##(2)
 BG_Steward_of_Time=False ####(2) ##banned 24.2
+BG25__Blazing_Skyfin=True# 2/1/3 dragon ## new 25.2.2
+
 BG24__Nether_Drake=True# (3) new 24.2 (2)->(3)
 BG_Bronze_Warden=True ##(3)
 BG_Drakonid_Enforcer=True ##(3)
@@ -159,6 +162,36 @@ class TB_BaconUps_107:
 	When you sell this minion, give all minions in Bob's Tavern +4/+2."""
 	events = Sell(CONTROLLER, FRIENDLY + ID('TB_BaconUps_107')).on(Buff(ENEMY_MINIONS, 'TB_BaconUps_107e'))
 TB_BaconUps_107e=buff(4,2)
+
+if BG25__Blazing_Skyfin:# 2/1/3 dragon ## new 25.2.2
+	BG25_+=['BG25_040']
+class BG25_040:# (minion)
+	""" Blazing Skyfin
+	After you play a <b>Battlecry</b> minion, gain +1/+1. """
+	#
+	pass
+
+	BG25_+=['BG25_040_G']
+class BG25_040_G:# (minion)
+	""" Blazing Skyfin
+	After you play a <b>Battlecry</b> minion, gain +2/+2. """
+	#
+	pass
+
+	BG25_+=['BG25_040_Ge']
+class BG25_040_Ge:# (enchantment)
+	""" Blaze of Glory
+	+2/+2. """
+	#
+	pass
+
+	BG25_+=['BG25_040e']
+class BG25_040e:# (enchantment)
+	""" Blaze of Glory
+	+1/+1. """
+	#
+	pass
+
 
 #### TIER 3 #########
 

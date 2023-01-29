@@ -2,23 +2,29 @@ from ..utils import *
 
 
 
-BG25__Risen_Rider=True
-BG25__Rot_Hide_Gnoll=True
-BG25__Eternal_Knight=True
-BG25__Nerubian_Deathswarmer=True
-BG25__Scarlet_Skull=True
-BG25__Ghoul_of_the_Feast=True
-BG25__Jelly_Belly=True
-BG25__Lich_Doctor=True
-BG25__Anubarak_Nerubian_King=True
-BG25__Handless_Forsaken=True
-BG25__Possessive_Banshee=True
-BG25__Hungering_Abomination=True
-BG24__Sinrunner_Blanchy=True
-BG25__Soulsplitter=True
-BG25__Colossus_of_the_Sun=True
-BG25__Eternal_Summoner=True
-BG25__Sister_Deathwhisper=True
+BG25__Risen_Rider=True # 1 ## new 25.2.2
+BG25__Rot_Hide_Gnoll=True # 1 ## new 25.2.2
+
+BG25__Eternal_Knight=True # 2 ## new 25.2.2
+BG25__Nerubian_Deathswarmer=True # 2 ## new 25.2.2
+BG25__Scarlet_Skull=True # 2 ## new 25.2.2
+BG25__Corpse_Refiner=True  # 2 ## new 25.2.2
+
+BG25__Ghoul_of_the_Feast=True # 3 ## new 25.2.2
+BG25__Jelly_Belly=True # 3 ## new 25.2.2
+BG25__Lich_Doctor=True #3 ## new 25.2.2
+
+BG25__Anubarak_Nerubian_King=True # 4 ## new 25.2.2
+BG25__Handless_Forsaken=True # 4 ## new 25.2.2
+BG25__Possessive_Banshee=True # 4 ## new 25.2.2
+
+BG25__Hungering_Abomination=True # 5 ## new 25.2.2
+BG24__Sinrunner_Blanchy=True # 5 ## new 25.2.2
+BG25__Soulsplitter=True # 5 ## new 25.2.2
+
+BG25__Colossus_of_the_Sun=True # 6 ## new 25.2.2
+BG25__Eternal_Summoner=True # 6 ## new 25.2.2
+BG25__Sister_Deathwhisper=True # 6 ## new 25.2.2
 
 BG_Minion_Undead = []
 BG_PoolSet_Undead=[ [],[],[],[],[],[],[]]
@@ -145,6 +151,22 @@ class BG25_022e:# (enchantment)
 	+1/+2. """
 	#
 	pass
+
+## Corpse Refiner
+if BG25__Corpse_Refiner:# (undead, cost 2)
+	BG25_+=['BG25_033']
+	BG25_+=['BG25_033_G']
+class BG25_033:# (minion)
+	""" Corpse Refiner
+	<b>Avenge (4):</b> This minion sells for 1 more Gold.@<b>Avenge (4):</b> This minion sells for 1 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
+	#
+	pass
+class BG25_033_G:# (minion)
+	""" Corpse Refiner
+	<b>Avenge (4):</b> This minion sells for 2 more Gold.@<b>Avenge (4):</b> This minion sells for 2 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
+	#
+	pass
+
 
 #Ghoul of the Feast 3/2/4/Undead	Avenge (X)
 if BG25__Ghoul_of_the_Feast:# 

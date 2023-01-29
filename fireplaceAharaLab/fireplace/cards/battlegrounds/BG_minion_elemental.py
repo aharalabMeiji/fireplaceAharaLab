@@ -6,9 +6,14 @@ BG_Sellemental=True
 BG_Bubblette=False ## new 24.0 banned 24.2
 BG_Molten_Rock=True
 BG_Party_Elemental=True
+
+
+
 BG_Crackling_Cyclone=True
 BG_Smogger=True
 BG_Stasis_Elemental=True
+BG25__Felemental=True# 3/3/1 elemental ## new 25.2.2
+
 BG_Dazzling_Lightspawn=True
 BG_Recycling_Wraith=True
 BG_Wildfire_Elemental=True
@@ -223,7 +228,38 @@ class TB_BaconUps_161:# <12>[1453]
 			newcard[0][0].frozen=True
 	pass
 
+if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2
+	BG25_+=['BG25_041']
+class BG25_041:# (minion)
+	""" Felemental
+	<b>Battlecry:</b> Minions in Bob's Tavern have +1/+1 __for the rest of the game. """
+	#
+	pass
 
+	BG25_+=['BG25_041_G']
+class BG25_041_G:# (minion)
+	""" Felemental
+	<b>Battlecry:</b> Minions in Bob's Tavern have +2/+2 __for the rest of the game. """
+	#
+	pass
+
+	BG25_+=['BG25_041e']
+class BG25_041e:# (enchantment)
+	""" Felfire Player Enchant
+	Increased stats. """
+	#
+	pass
+
+	BG25_+=['BG25_041e2']
+class BG25_041e2:# (enchantment)
+	""" Felementality
+	Increased stats. """
+	#
+	pass
+
+
+
+### TAVERN TIER 4
 
 #Dazzling Lightspawn(4) ### OK ###
 if BG_Dazzling_Lightspawn: # 
