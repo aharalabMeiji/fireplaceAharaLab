@@ -5,6 +5,9 @@ BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
 BG_Dozy_Whelp=True #(1) new 24.6 ### OK ###
 BG_Glyph_Guardian=True ## ##(2)
 BG_Steward_of_Time=False ####(2) ##banned 24.2
+BG25__Blazing_Skyfin=True# 2/1/3 dragon ## new 25.2.2
+
+
 BG24__Nether_Drake=True# (3) new 24.2 (2)->(3)
 BG_Bronze_Warden=True ##(3)
 BG_Drakonid_Enforcer=True ##(3)
@@ -15,8 +18,13 @@ BG_Cobalt_Scalebane=False ##(4) banned 24.2
 BG_Prestor_s_Pyrospawn=False ## (4) banned
 BG_Prized_Promo_Drake=True ##(4)
 BG_Atramedes=True ## (4)  23.6 ##OK##
+BG25__Chronormu=True# 4/4/4 dragon ## 25.2.2
+BG25__General_Drakkisath=True# 4/2/8 DRAGON ## new 25.2.2
+
 BG_Murozond=True ##(5)
 BG_Razorgore_the_Untamed=True ## (5)
+BG25__Cyborg_Drake=True# 5/2/8 dragon ## new 25.2.2
+
 BG_Kalecgos_Arcane_Aspect=True ## (6)
 
 BG_Minion_Dragon =[]
@@ -159,6 +167,38 @@ class TB_BaconUps_107:
 	When you sell this minion, give all minions in Bob's Tavern +4/+2."""
 	events = Sell(CONTROLLER, FRIENDLY + ID('TB_BaconUps_107')).on(Buff(ENEMY_MINIONS, 'TB_BaconUps_107e'))
 TB_BaconUps_107e=buff(4,2)
+
+
+
+if BG25__Blazing_Skyfin:# 2/1/3 dragon ## new 25.2.2
+	BG25_+=['BG25_040']
+class BG25_040:# (minion)
+	""" Blazing Skyfin
+	After you play a <b>Battlecry</b> minion, gain +1/+1. """
+	#
+	pass
+
+	BG25_+=['BG25_040_G']
+class BG25_040_G:# (minion)
+	""" Blazing Skyfin
+	After you play a <b>Battlecry</b> minion, gain +2/+2. """
+	#
+	pass
+
+	BG25_+=['BG25_040_Ge']
+class BG25_040_Ge:# (enchantment)
+	""" Blaze of Glory
+	+2/+2. """
+	#
+	pass
+
+	BG25_+=['BG25_040e']
+class BG25_040e:# (enchantment)
+	""" Blaze of Glory
+	+1/+1. """
+	#
+	pass
+
 
 #### TIER 3 #########
 
@@ -423,6 +463,74 @@ class BG23_362_G:
 
 
 
+if BG25__Chronormu:# 4/4/4 dragon ## 25.2.2
+	BG25_+=['BG25_104']
+class BG25_104:# (minion)
+	""" Chronormu
+	While this is in Bob's Tavern, gain the stats of any minions sold. """
+	#
+	pass
+
+	BG25_+=['BG25_104_G']
+class BG25_104_G:# (minion)
+	""" Chronormu
+	While this is in Bob's Tavern, gain twice the stats of any minions sold. """
+	#
+	pass
+
+	BG25_+=['BG25_104e']
+class BG25_104e:# (enchantment)
+	""" Stats from the Past
+	Increased stats. """
+	#
+	pass
+
+
+if BG25__General_Drakkisath:# 4/2/8 DRAGON ## new 25.2.2
+	BG25_+=['BG25_309']
+class BG25_309:# (minion)
+	""" General Drakkisath
+	<b>Battlecry:</b> Add a 2/1 Smolderwing to your hand that gives another Dragon +5_Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_309_G']
+class BG25_309_G:# (minion)
+	""" General Drakkisath
+	<b>Battlecry:</b> Add two 2/1 Smolderwings to your hand that each give another Dragon +5_Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_309_Ge']
+class BG25_309_Ge:# (enchantment)
+	""" Smoldering
+	+10 Attack """
+	#
+	pass
+
+	BG25_+=['BG25_309_Gt']
+class BG25_309_Gt:# (minion)
+	""" Smolderwing
+	<b>Battlecry:</b> Give a Dragon +10 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_309e']
+class BG25_309e:# (enchantment)
+	""" Smoldering
+	+5 Attack """
+	#
+	pass
+
+	BG25_+=['BG25_309t']
+class BG25_309t:# (minion)
+	""" Smolderwing
+	<b>Battlecry:</b> Give a Dragon +5 Attack. """
+	#
+	pass
+
+
+#### tavern tier 5
 
 #Murozond(5)   ### OK ####
 if BG_Murozond:
@@ -487,6 +595,37 @@ class TB_BaconUps_106:# <12>[1453]
 TB_BaconUps_106e=buff(2,2)
 
 
+
+if BG25__Cyborg_Drake:# 5/2/8 dragon ## new 25.2.2
+	BG25_+=['BG25_043']
+class BG25_043:# (minion)
+	""" Cyborg Drake
+	<b>Divine Shield</b> Your <b>Divine Shield</b> minions have +10 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_043_G']
+class BG25_043_G:# (minion)
+	""" Cyborg Drake
+	<b>Divine Shield</b> Your <b>Divine Shield</b> minions have +20 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_043_Ge']
+class BG25_043_Ge:# (enchantment)
+	""" Cyborg Enhancement
+	+20 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_043e']
+class BG25_043e:# (enchantment)
+	""" Cyborg Enhancement
+	+10 Attack. """
+	#
+	pass
+
+##### tavern tier 6
 
 #Kalecgos, Arcane Aspect (6)  ### maybe ###
 if BG_Kalecgos_Arcane_Aspect:

@@ -14,6 +14,8 @@ BG_Bristleback_Brute=True## Brute	3
 BG_Gemsplitter=False##	3 ### banned 24.6
 BG_Thorncaller=True##	3
 BG_Bristlemane_Scrapsmith=True ## 3 ## new 24.6 ### OK ###
+BG25__Pufferquil=True# 4/2/4 quilboar ## new 25.2.2
+
 BG_Bonker=True##	4
 BG_Dynamic_Duo=True##	4
 BG_Groundshaker=True##	4
@@ -23,6 +25,7 @@ BG_Bristleback_Knight=True## 5 BG20_204
 BG_Captain_Flat_Tusk=False##	6 banned
 BG_Charlga=True##	6
 BG_Darkgaze_Elder=True## NEW 23.2 -> quilboar
+BG25__Thorncaptain=True# 6/4/1 quilboar ## new 25.2.2
 
 
 
@@ -251,6 +254,37 @@ class BG20_105_G:# <12>[1453]
 	pass
 
 
+if BG25__Pufferquil:# 4/2/4 quilboar ## new 25.2.2
+	BG25_+=['BG25_039']
+class BG25_039:# (minion)
+	""" Pufferquil
+	After a spell is played on this, gain <b>Poisonous</b> until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_039_G']
+class BG25_039_G:# (minion)
+	""" Pufferquil
+	After a spell is played on this, gain <b>Poisonous</b>. """
+	#
+	pass
+
+	BG25_+=['BG25_039_Ge']
+class BG25_039_Ge:# (enchantment)
+	""" Puffed Full
+	<b>Poisonous</b>. """
+	#
+	pass
+
+	BG25_+=['BG25_039e']
+class BG25_039e:# (enchantment)
+	""" Puffed Up
+	<b>Poisonous</b> until next turn. """
+	#
+	pass
+
+
+###### tavern tier 4
 
 #Bonker	4  ### OK ###
 if BG_Bonker:
@@ -507,3 +541,35 @@ class BG23_018_G:# <12>[1453]
 	pass
 class BG23_018t:# <12>[1453]
 	pass
+
+
+if BG25__Thorncaptain:# 6/4/1 quilboar ## new 25.2.2
+	BG25_+=['BG25_045']
+class BG25_045:# (minion)
+	""" Thorncaptain
+	After a card is added to your hand, gain +1 Health until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_045_G']
+class BG25_045_G:# (minion)
+	""" Thorncaptain
+	After a card is added to your hand, gain +2 Health until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_045e']
+class BG25_045e:# (enchantment)
+	""" Tis' the Captain
+	+1 Health until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_045e2']
+class BG25_045e2:# (enchantment)
+	""" Tis' the Captain
+	+2 Health until next turn. """
+	#
+	pass
+
+#####################

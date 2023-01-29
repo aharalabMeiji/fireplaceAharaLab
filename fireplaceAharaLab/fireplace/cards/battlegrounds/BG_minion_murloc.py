@@ -12,6 +12,8 @@ BG_Primalfin_Lookout=True ## (4)
 BG_Toxfin=True ##(4) new 24.2 -> (6)
 BG_King_Bagurgle=True ## (5)
 BG_SI_Sefin=False ## (5) banned 4.2
+BG25__Magmaloc=True# 5/1/1 murloc ## new 25.2.2
+
 BG_Young_Murk_Eye=True ## (6) 
 
 
@@ -292,6 +294,37 @@ class BG21_009_G:# <12>[1453]
 	pass
 
 
+
+if BG25__Magmaloc:# 5/1/1 murloc ## new 25.2.2
+	BG25_+=['BG25_046']
+class BG25_046:# (minion)(murloc)
+	""" Magmaloc
+	At the end of your turn, gain +1/+1. Repeat for each minion you played this turn. """
+	#
+	pass
+
+	BG25_+=['BG25_046_G']
+class BG25_046_G:# (minion)(murloc)
+	""" Magmaloc
+	At the end of your turn, gain +2/+2. Repeat for each minion you played this turn. """
+	#
+	pass
+
+	BG25_+=['BG25_046_Ge']
+class BG25_046_Ge:# (enchantment)
+	""" Magma!
+	+2/+2. """
+	#
+	pass
+
+	BG25_+=['BG25_046e']
+class BG25_046e:# (enchantment)
+	""" Magma!
+	+1/+1. """
+	#
+	pass
+
+##### tavern tier 6W
 
 ## Young Murk-Eye (6) 
 if BG_Young_Murk_Eye:

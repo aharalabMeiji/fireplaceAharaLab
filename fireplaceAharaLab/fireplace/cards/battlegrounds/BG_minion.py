@@ -54,6 +54,7 @@ BG_Nomi_Kitchen_Nightmare=True##(5)
 BG_Leeroy_the_Reckless=True##(5) NEW 23.2
 BG24__Tortollan_Blue_Shell=True ## (5) new 24.2 ### OK ###
 BG_Interrogator_Whitemane=False ## (5) new 24.6  ### OK ###  -> banned 25.0.4
+BG25__Titus_Rivendare=True# 5/1/7 neutral ## new 25.2.2
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
@@ -1429,6 +1430,21 @@ class BG24_704_e_G:
 	pass
 
 
+if BG25__Titus_Rivendare:# 5/1/7 neutral ## new 25.2.2
+	BG25_+=['BG25_354']
+class BG25_354:# (minion)
+	""" Titus Rivendare
+	Your <b>Deathrattles</b> trigger an extra time. """
+	#
+	pass
+
+	BG25_+=['BG25_354_G']
+class BG25_354_G:# (minion)
+	""" Titus Rivendare
+	Your <b>Deathrattles</b> trigger 2 extra times. """
+	#
+	pass
+
 
 #############TIER 6######################
 
@@ -1697,3 +1713,33 @@ class BG24_712_G:
 	events = OWN_TURN_END.on(BG24_712_Action(CONTROLLER, 'BG24_712e_G'))
 	pass
 BG24_712e_G=buff(8,8)
+
+#######################
+
+
+
+#if BG25__Cyborg_Enhancement:# 
+#	BG25_+=['BG25_901e']
+#class BG25_901e:# (enchantment)
+#	""" Cyborg Enhancement
+#	+10 Attack. """
+#	#
+#	pass
+#
+#	BG25_+=['BG25_901e2']
+#class BG25_901e2:# (enchantment)
+#	""" Cyborg Enhancement
+#	+20 Attack. """
+#	#
+#	pass
+
+#if BG25__Yaharr:# 
+#	BG25_+=['BG25_910t15e']
+#class BG25_910t15e:# (enchantment)
+#	""" Yaharr!!
+#	+2/+2. """
+#	#
+#	pass
+
+
+########################

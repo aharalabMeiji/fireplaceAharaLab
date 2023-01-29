@@ -7,7 +7,9 @@ BG25__Rot_Hide_Gnoll=True
 BG25__Eternal_Knight=True
 BG25__Nerubian_Deathswarmer=True
 BG25__Scarlet_Skull=True
-BG25__Ghoul_of_the_Feast=True
+BG25__Corpse_Refiner=True# 2/2/3 undead ## new 25.2.2
+
+BG25__Ghoul_of_the_Feast=True # 3
 BG25__Jelly_Belly=True
 BG25__Lich_Doctor=True
 BG25__Anubarak_Nerubian_King=True
@@ -145,6 +147,24 @@ class BG25_022e:# (enchantment)
 	+1/+2. """
 	#
 	pass
+
+
+if BG25__Corpse_Refiner:# 2/2/3 undead ## new 25.2.2
+	BG25_+=['BG25_033']
+class BG25_033:# (minion)
+	""" Corpse Refiner
+	<b>Avenge (4):</b> This minion sells for 1 more Gold.@<b>Avenge (4):</b> This minion sells for 1 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
+	#
+	pass
+
+	BG25_+=['BG25_033_G']
+class BG25_033_G:# (minion)
+	""" Corpse Refiner
+	<b>Avenge (4):</b> This minion sells for 2 more Gold.@<b>Avenge (4):</b> This minion sells for 2 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
+	#
+	pass
+
+###### tavern tier 3
 
 #Ghoul of the Feast 3/2/4/Undead	Avenge (X)
 if BG25__Ghoul_of_the_Feast:# 

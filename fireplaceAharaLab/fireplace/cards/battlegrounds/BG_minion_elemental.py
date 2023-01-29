@@ -5,12 +5,15 @@ BG_Refreshing_Anomaly=True
 BG_Sellemental=True
 BG_Bubblette=False ## new 24.0 banned 24.2
 BG_Molten_Rock=True
-BG_Party_Elemental=True
-BG_Crackling_Cyclone=True
-BG_Smogger=True
+BG_Party_Elemental=True# 2
+
+BG_Crackling_Cyclone=True# 3
+BG_Smogger=True# 3
 BG_Stasis_Elemental=True
 BG_Dazzling_Lightspawn=True
-BG_Recycling_Wraith=True
+BG25__Felemental=True# 3/3/1 elemental ## new 25.2.2
+
+BG_Recycling_Wraith=True# 4
 BG_Wildfire_Elemental=True
 BG_Tavern_Tempest=True
 BG_Gentle_Djinni=True
@@ -258,6 +261,37 @@ class BG21_020_G:# <12>[1453]
 	pass
 
 
+
+if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2
+	BG25_+=['BG25_041']
+class BG25_041:# (minion)
+	""" Felemental
+	<b>Battlecry:</b> Minions in Bob's Tavern have +1/+1 __for the rest of the game. """
+	#
+	pass
+
+	BG25_+=['BG25_041_G']
+class BG25_041_G:# (minion)
+	""" Felemental
+	<b>Battlecry:</b> Minions in Bob's Tavern have +2/+2 __for the rest of the game. """
+	#
+	pass
+
+	BG25_+=['BG25_041e']
+class BG25_041e:# (enchantment)
+	""" Felfire Player Enchant
+	Increased stats. """
+	#
+	pass
+
+	BG25_+=['BG25_041e2']
+class BG25_041e2:# (enchantment)
+	""" Felementality
+	Increased stats. """
+	#
+	pass
+
+#### tavern tier 4
 
 #Recycling Wraith(4)   ### maybe ###
 if BG_Recycling_Wraith: # 

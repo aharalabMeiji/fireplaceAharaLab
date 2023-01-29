@@ -17,6 +17,9 @@ BG_Annihilan_Battlemaster=True ##(5)
 BG_Voidlord=True ##(5)
 BG_Famished_Felbat=True ##(6)
 BG_Imp_Mama=True ##(6)
+BG25__Felstomper=True# 6/3/7 demon ## new 25.2.2
+BG25__Mecha_Jaraxxus=True# 6/3/15 DEMON ## new 25.2.2
+
 
 BG_Minion_Demon =[]
 
@@ -441,6 +444,116 @@ class TB_BaconUps_116:# <9>[1453]
 	""" Imp Mama
 	Whenever this miniontakes damage, summon2 random Demons andgive them [Taunt]. """
 	events = Damage(SELF).on(Summon(CONTROLLER, RandomBGDemon()).then(Buff(Summon.CARD, 'BGS_044e')), Summon(CONTROLLER, RandomBGDemon()).then(Buff(Summon.CARD, 'BGS_044e')))
+	#
+	pass
+
+
+if BG25__Felstomper:# 6/3/7 demon ## new 25.2.2
+	BG25_+=['BG25_042']
+class BG25_042:# (minion)(demon)
+	""" Felstomper
+	After you summon a _minion in combat, give ___your minions +3 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_042_G']
+class BG25_042_G:# (minion)(demon)
+	""" Felstomper
+	After you summon a _minion in combat, give ___your minions +6 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_042_Ge']
+class BG25_042_Ge:# (enchantment)
+	""" Felgorged
+	+6 Attack. """
+	#
+	pass
+
+	BG25_+=['BG25_042e']
+class BG25_042e:# (enchantment)
+	""" Felgorged
+	+3 Attack. """
+	#
+	pass
+
+
+
+if BG25__Mecha_Jaraxxus:# 6/3/15 DEMON ## new 25.2.2
+	BG25_+=['BG25_807']
+class BG25_807:# (minion)(demon)
+	""" Mecha-Jaraxxus
+	<b>Battlecry:</b> Add a random Mecha-Demon to your hand. """
+	#
+	pass
+
+	BG25_+=['BG25_807_G']
+class BG25_807_G:# (minion)(demon)
+	""" Mecha-Jaraxxus
+	<b>Battlecry:</b> Add 2 random Mecha-Demons to your hand. """
+	#
+	pass
+
+	BG25_+=['BG25_807e']
+class BG25_807e:# (enchantment)
+	""" Rusted Reggie
+	<b>Windfury</b> """
+	#
+	pass
+
+	BG25_+=['BG25_807e2']
+class BG25_807e2:# (enchantment)
+	""" Magtheridon Prime
+	<b>Taunt</b> """
+	#
+	pass
+
+	BG25_+=['BG25_807e3']
+class BG25_807e3:# (enchantment)
+	""" Baltharak
+	<b>Reborn</b> """
+	#
+	pass
+
+	BG25_+=['BG25_807t']
+class BG25_807t:# (minion)
+	""" Rusted Reggie
+	<b>Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
+	#
+	pass
+
+	BG25_+=['BG25_807t2']
+class BG25_807t2:# (minion)
+	""" Magtheridon Prime
+	<b>Taunt</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
+	#
+	pass
+
+	BG25_+=['BG25_807t2_G']
+class BG25_807t2_G:# (minion)
+	""" Magtheridon Prime
+	<b>Taunt</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
+	#
+	pass
+
+	BG25_+=['BG25_807t3']
+class BG25_807t3:# (minion)
+	""" Baltharak
+	<b>Reborn</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
+	#
+	pass
+
+	BG25_+=['BG25_807t3_G']
+class BG25_807t3_G:# (minion)
+	""" Baltharak
+	<b>Reborn</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
+	#
+	pass
+
+	BG25_+=['BG25_807t_G']
+class BG25_807t_G:# (minion)
+	""" Rusted Reggie
+	<b>Mega-Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
 	#
 	pass
 

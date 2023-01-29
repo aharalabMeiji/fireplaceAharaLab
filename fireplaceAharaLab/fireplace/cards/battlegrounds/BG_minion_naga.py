@@ -18,6 +18,7 @@ BG_Critter_Wrangler=True##(5)
 BG_Glowscale=True## (5)
 BG_Corrupted_Myrmidon=True## (5)
 BG_Tidemistress_Athissa=True## (6)
+BG25__Greta_Gold_Gun=True# 6/2/9 naga ## new 25.2.2
 
 BG_Minion_Naga=[]
 
@@ -588,5 +589,35 @@ class BG23_013_G:# <12>[1453]
 BG23_013_Ge=buff(2,2)
 
 
+if BG25__Greta_Gold_Gun:# 6/2/9 naga ## new 25.2.2
+	BG25_+=['BG25_044']
+class BG25_044:# (minion)
+	""" Greta Gold-Gun
+	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_044_G']
+class BG25_044_G:# (minion)
+	""" Greta Gold-Gun
+	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_044e2']
+class BG25_044e2:# (enchantment)
+	""" Gold-Gunned
+	Golden until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_044t']
+class BG25_044t:# (spell)
+	""" Gold-Gun
+	Make a friendly Pirate or Naga Golden until next turn <i>(except Greta Gold-Gun)</i>. """
+	#
+	pass
+
+############################
 
 
