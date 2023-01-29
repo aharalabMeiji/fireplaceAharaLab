@@ -20,6 +20,8 @@ BG_Bonker=True##	4
 BG_Dynamic_Duo=True##	4
 BG_Groundshaker=True##	4
 BG_Necrolyte=True##	4
+BG25__Pufferquil=True# 4/2/6, quilbour, new 25.2.2
+
 BG_Aggem_Thorncurse=True##	5
 BG_Bristleback_Knight=True## 5 BG20_204
 BG_Captain_Flat_Tusk=False##	6 banned
@@ -375,6 +377,34 @@ class BG20_202_G:# <12>[1453]
 		StealGem(TARGET, TARGET_ADJACENT)
 	pass
 
+if BG25__Pufferquil:# 4/2/6, quilbour
+	BG25_+=['BG25_039']
+class BG25_039:# (minion)
+	""" Pufferquil
+	After a spell is played on this, gain <b>Poisonous</b> until next turn. """
+	#
+	pass
+
+	BG25_+=['BG25_039_G']
+class BG25_039_G:# (minion)
+	""" Pufferquil
+	After a spell is played on this, gain <b>Poisonous</b>. """
+	#
+	pass
+
+	BG25_+=['BG25_039_Ge']
+class BG25_039_Ge:# (enchantment)
+	""" Puffed Full
+	<b>Poisonous</b>. """
+	#
+	pass
+
+	BG25_+=['BG25_039e']
+class BG25_039e:# (enchantment)
+	""" Puffed Up
+	<b>Poisonous</b> until next turn. """
+	#
+	pass
 
 
 #Aggem Thorncurse	5  ### OK ###
