@@ -461,6 +461,18 @@ class BG_main:
 			for buff in bartender.opponent.buffs:
 				if buff.id == 'BGS_Treasures_013pe':  #(Good stuff, a darkmoon ticket)
 					Buff(card, 'BGS_Treasures_013e1')
+		if card.id=='BG25_008':
+			if bartender.opponent.eternal_knight_powered_up>0: ### Eternal_Knight
+				Buff(card, 'BG25_008pe',
+					atk=bartender.opponent.eternal_knight_powered_up,
+					max_health=bartender.opponent.eternal_knight_powered_up
+					).trigger(bartender)		
+		elif card.id=='BG25_008_G':
+			if bartender.opponent.eternal_knight_powered_up>0: ### Eternal_Knight(gold)
+				Buff(card, 'BG25_008pe',
+					atk=bartender.opponent.eternal_knight_powered_up*2,
+					max_health=bartender.opponent.eternal_knight_powered_up*2
+					).trigger(bartender)		
 		if cardID in self.BG_decks[card.tech_level]:
 			self.BG_decks[card.tech_level].remove(cardID)
 		else:

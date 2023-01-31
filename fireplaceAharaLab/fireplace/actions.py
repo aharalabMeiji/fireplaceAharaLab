@@ -2013,6 +2013,20 @@ class Summon(TargetedAction):
 			self.broadcast(source, EventListener.AFTER, target, card)
 			# if the spells are casted by the power of another spell, we may need this line.
 			#DMF_254t_Action(card).trigger(card.controller)
+			### Eternal_Knight ### new 25.2.2
+			if card.id=='BG25_008':
+				if card.controller.eternal_knight_powered_up>0: ### Eternal_Knight
+					Buff(card, 'BG25_008pe',
+						atk=card.controller.eternal_knight_powered_up,
+						max_health=card.controller.eternal_knight_powered_up
+						).trigger(card.controller)		
+			elif card.id=='BG25_008_G':
+				if card.controller.eternal_knight_powered_up>0: ### Eternal_Knight(gold)
+					Buff(card, 'BG25_008pe',
+						atk=card.controller.eternal_knight_powered_up*2,
+						max_health=card.controller.eternal_knight_powered_up*2
+						).trigger(card.controller)		
+
 		return cards
 
 

@@ -35,56 +35,69 @@ BG_Undead_Gold={}
 if BG25__Risen_Rider:# 
 	BG_Minion_Undead+=['BG25_001']
 	BG_Minion_Undead+=['BG25_001_G']
+	BG_PoolSet_Undead[1]+='BG25_001'
+	BG_Undead_Gold['BG25_001']='BG25_001_G'
 class BG25_001:# (minion)
 	""" Risen Rider
 	<b>Taunt</b> <b>Reborn</b> """
 	#
 	pass
-
 class BG25_001_G:# (minion)
 	""" Risen Rider
 	<b>Taunt</b> <b>Reborn</b> """
 	#
 	pass
 
+
+
 #Rot Hide Gnoll 1/1/4/Undead	- ## new 25.2.2
 if BG25__Rot_Hide_Gnoll:# 
-	BG_Minion_Undead+=['BG25_013']
-	BG_Minion_Undead+=['BG25_013_G']
+	BG_Minion_Undead+=['BG25_013','BG25_013_G']
+	BG_PoolSet_Undead[1]+='BG25_013'
+	BG_Undead_Gold['BG25_013']='BG25_013_G'
+class BG25_013_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			source.atk +=1
 class BG25_013:# (minion)
 	""" Rot Hide Gnoll
 	Has +1 Attack for each friendly minion that died this combat. """
-	#
+	events = Death(FRIENDLY+MINION).on(BG25_013_Action())
 	pass
-
+class BG25_013_G_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			source.atk +=2
 class BG25_013_G:# (minion)
 	""" Rot Hide Gnoll
 	Has +2 Attack for each friendly minion that died this combat. """
-	#
+	events = Death(FRIENDLY+MINION).on(BG25_013_G_Action())
 	pass
+
+
 
 #Eternal Knight 2/3/1/Undead	- ## new 25.2.2
 if BG25__Eternal_Knight:# 
-	BG25_+=['BG25_008']
-	BG25_+=['BG25_008_e']
-	BG25_+=['BG25_008_G']
-	BG25_+=['BG25_008pe']
+	BG_Minion_Undead+=['BG25_008','BG25_008_e','BG25_008_G','BG25_008pe']
+	BG_PoolSet_Undead[1]+='BG25_008'
+	BG_Undead_Gold['BG25_008']='BG25_008_G'
+class BG25_008_Action(GameAction):
+	def do(self, source):
+		source.controller.eternal_knight_powered_up += 1
 class BG25_008:# (minion)
 	""" Eternal Knight
 	Has +1/+1 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	#
+	events = Dead(SELF).after(BG25_008_Action())
 	pass
-
 class BG25_008_e:# (enchantment)
 	""" Eternal Legion
 	+@/+@. """
 	#
 	pass
-
 class BG25_008_G:# (minion)
 	""" Eternal Knight
 	Has +2/+2 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	#
+	events = Dead(SELF).after(BG25_008_Action())
 	pass
 class BG25_008pe:# (enchantment)
 	""" Eternal Knight Player Enchant
@@ -92,42 +105,64 @@ class BG25_008pe:# (enchantment)
 	#
 	pass
 
+
+
 #Nerubian Deathswarmer 2/1/3/Undead	Battlecry  ## new 25.2.2
 if BG25__Nerubian_Deathswarmer:# 
-	BG25_+=['BG25_011']
-	BG25_+=['BG25_011_G']
-	BG25_+=['BG25_011e2']
-	BG25_+=['BG25_011pe']
+	BG_Minion_Undead+=['BG25_011','BG25_011_G','BG25_011e2','BG25_011pe']
+	BG_PoolSet_Undead[1]+='BG25_011'
+	BG_Undead_Gold['BG25_011']='BG25_011_G'
+class BG25_011_Action(GameAction):
+	def do(self, source):
+		source.controller.nerubian_deathswarmer_powered_up += 1
+		## rewrite BG25_011pe for all card in field and opponent.field and hand
+		for card in source.controller.field+source.controller.hand+source.controller.opponent.field:
+			cards=[bf.id for bf in card.buffs]
+			if 'BG25_011e2' in cards:
+				cards[0].atk=source.controller.nerubian_deathswarmer_powered_up
+			else:
+				Buff(card, 'BG25_011e2', atk=1).trigger(source)
 class BG25_011:# (minion)
 	""" Nerubian Deathswarmer
 	<b>Battlecry:</b> Give your Undead +1 Attack for the rest of the game <i>(wherever they are)</i>. """
-	#
+	play = BG25_011_Action()
 	pass
-
+class BG25_011_G_Action(GameAction):
+	def do(self, source):
+		source.controller.nerubian_deathswarmer_powered_up += 2
+		## rewrite BG25_011pe for all card in field and opponent.field and hand
+		for card in source.controller.field+source.controller.hand+source.controller.opponent.field:
+			cards=[bf.id for bf in card.buffs]
+			if 'BG25_011e2' in cards:
+				cards[0].atk=source.controller.nerubian_deathswarmer_powered_up
+			else:
+				Buff(card, 'BG25_011e2', atk=2).trigger(source)
 class BG25_011_G:# (minion)
 	""" Nerubian Deathswarmer
 	<b>Battlecry:</b> Give your Undead +2 Attack for the rest of the game <i>(wherever they are)</i>. """
-	#
+	play = BG25_011_G_Action()
 	pass
-
 class BG25_011e2:# (enchantment)
 	""" Undead Army
 	+@ Attack """
 	#
 	pass
-
 class BG25_011pe:# (enchantment)
 	""" Undead Bonus Attack Player Enchant [DNT]
 	Give Attack to Undead. """
 	#
 	pass
 
+
+
 #Scarlet Skull 2/1/2/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Scarlet_Skull:# 
-	BG25_+=['BG25_022']
-	BG25_+=['BG25_022_G']
-	BG25_+=['BG25_022_Ge']
-	BG25_+=['BG25_022e']
+	BG_Minion_Undead+=['BG25_022']
+	BG_Minion_Undead+=['BG25_022_G']
+	BG_Minion_Undead+=['BG25_022_Ge']
+	BG_Minion_Undead+=['BG25_022e']
+	BG_PoolSet_Undead[1]+='BG25_022'
+	BG_Undead_Gold['BG25_022']='BG25_022_G'
 class BG25_022:# (minion)
 	""" Scarlet Skull
 	<b>Reborn</b> <b>Deathrattle:</b> Give a friendly Undead +1/+2. """
@@ -154,14 +189,16 @@ class BG25_022e:# (enchantment)
 
 
 if BG25__Corpse_Refiner:# 2/2/3 undead ## new 25.2.2
-	BG25_+=['BG25_033']
+	BG_Minion_Undead+=['BG25_033']
+	BG_Minion_Undead+=['BG25_033_G']
+	BG_PoolSet_Undead[1]+='BG25_033'
+	BG_Undead_Gold['BG25_033']='BG25_033_G'
 class BG25_033:# (minion)
 	""" Corpse Refiner
 	<b>Avenge (4):</b> This minion sells for 1 more Gold.@<b>Avenge (4):</b> This minion sells for 1 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
 	#
 	pass
 
-	BG25_+=['BG25_033_G']
 class BG25_033_G:# (minion)
 	""" Corpse Refiner
 	<b>Avenge (4):</b> This minion sells for 2 more Gold.@<b>Avenge (4):</b> This minion sells for 2 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
@@ -172,28 +209,30 @@ class BG25_033_G:# (minion)
 
 #Ghoul of the Feast 3/2/4/Undead	Avenge (X) ## new 25.2.2
 if BG25__Ghoul_of_the_Feast:# 
-	BG25_+=['BG25_002']
+	BG_Minion_Undead+=['BG25_002']
+	BG_Minion_Undead+=['BG25_002e']
+	BG_Minion_Undead+=['BG25_002_G']
+	BG_Minion_Undead+=['BG25_002_Ge']
+	BG_PoolSet_Undead[1]+='BG25_002'
+	BG_Undead_Gold['BG25_002']='BG25_002_G'
 class BG25_002:# (minion)
 	""" Ghoul of the Feast
 	<b>Avenge (1):</b> Give a friendly minion of each minion type +3 Attack. """
 	#
 	pass
 
-	BG25_+=['BG25_002_G']
 class BG25_002_G:# (minion)
 	""" Ghoul of the Feast
 	<b>Avenge (1):</b> Give a friendly minion of each minion type +6 Attack. """
 	#
 	pass
 
-	BG25_+=['BG25_002_Ge']
 class BG25_002_Ge:# (enchantment)
 	""" Tasty Treat
 	+6 Attack. """
 	#
 	pass
 
-	BG25_+=['BG25_002e']
 class BG25_002e:# (enchantment)
 	""" Tasty Treat
 	+3 Attack. """
@@ -202,28 +241,30 @@ class BG25_002e:# (enchantment)
 
 #Jelly Belly 3/3/5/Undead	Reborn ## new 25.2.2
 if BG25__Jelly_Belly:# 
-	BG25_+=['BG25_005']
+	BG_Minion_Undead+=['BG25_005']
+	BG_Minion_Undead+=['BG25_005_G']
+	BG_Minion_Undead+=['BG25_005_Ge']
+	BG_Minion_Undead+=['BG25_005e']
+	BG_PoolSet_Undead[1]+='BG25_005'
+	BG_Undead_Gold['BG25_005']='BG25_005_G'
 class BG25_005:# (minion)
 	""" Jelly Belly
 	After a friendly minion is <b>Reborn</b>, gain +3/+3. """
 	#
 	pass
 
-	BG25_+=['BG25_005_G']
 class BG25_005_G:# (minion)
 	""" Jelly Belly
 	After a friendly minion is <b>Reborn</b>, gain +6/+6. """
 	#
 	pass
 
-	BG25_+=['BG25_005_Ge']
 class BG25_005_Ge:# (enchantment)
 	""" Jellied
 	+6/+6 """
 	#
 	pass
 
-	BG25_+=['BG25_005e']
 class BG25_005e:# (enchantment)
 	""" Jellied
 	+3/+3 """
@@ -232,28 +273,30 @@ class BG25_005e:# (enchantment)
 
 #Lich Doctor 3/3/2/Undead	Taunt ## new 25.2.2
 if BG25__Lich_Doctor:# 
-	BG25_+=['BG25_006']
+	BG_Minion_Undead+=['BG25_006']
+	BG_Minion_Undead+=['BG25_006_G']
+	BG_Minion_Undead+=['BG25_006_Ge']
+	BG_Minion_Undead+=['BG25_006e']
+	BG_PoolSet_Undead[1]+='BG25_006'
+	BG_Undead_Gold['BG25_006']='BG25_006_G'
 class BG25_006:# (minion)
 	""" Lich Doctor
 	<b>Taunt</b>. At the start of your turn, give your minions that _died last combat +1/+1. """
 	#
 	pass
 
-	BG25_+=['BG25_006_G']
 class BG25_006_G:# (minion)
 	""" Lich Doctor
 	<b>Taunt</b>. At the start of your turn, give your minions that _died last combat +2/+2. """
 	#
 	pass
 
-	BG25_+=['BG25_006_Ge']
 class BG25_006_Ge:# (enchantment)
 	""" Just What Was Ordered
 	+2/+2 """
 	#
 	pass
 
-	BG25_+=['BG25_006e']
 class BG25_006e:# (enchantment)
 	""" Just What Was Ordered
 	+1/+1 """
@@ -264,14 +307,16 @@ class BG25_006e:# (enchantment)
 
 #Anub'arak, Nerubian King 4/4/3/Undead	Deathrattle ## new 25.2.2
 if BG25__Anubarak_Nerubian_King:# 
-	BG25_+=['BG25_007']
+	BG_Minion_Undead+=['BG25_007']
+	BG_Minion_Undead+=['BG25_007_G']
+	BG_PoolSet_Undead[1]+='BG25_007'
+	BG_Undead_Gold['BG25_007']='BG25_007_G'
 class BG25_007:# (minion)
 	""" Anub'arak, Nerubian King
 	<b>Deathrattle:</b> Your Undead have +2 Attack for the rest of the game <i>(wherever they are)</i>. """
 	#
 	pass
 
-	BG25_+=['BG25_007_G']
 class BG25_007_G:# (minion)
 	""" Anub'arak, Nerubian King
 	<b>Deathrattle:</b> Your Undead have +4 Attack for the rest of the game <i>(wherever they are)</i>. """
@@ -281,28 +326,30 @@ class BG25_007_G:# (minion)
 
 #Handless Forsaken 4/2/3/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Handless_Forsaken:# 
-	BG25_+=['BG25_010']
+	BG_Minion_Undead+=['BG25_010']
+	BG_Minion_Undead+=['BG25_010t']
+	BG_Minion_Undead+=['BG25_010_G']
+	BG_Minion_Undead+=['BG25_010_Gt']
+	BG_PoolSet_Undead[1]+='BG25_010'
+	BG_Undead_Gold['BG25_010']='BG25_010_G'
 class BG25_010:# (minion)
 	""" Handless Forsaken
 	<b>Deathrattle:</b> Summon a 2/2 Hand with <b>Reborn</b>. """
 	#
 	pass
 
-	BG25_+=['BG25_010_G']
 class BG25_010_G:# (minion)
 	""" Handless Forsaken
 	<b>Deathrattle:</b> Summon a 4/4 Hand with <b>Reborn</b>. """
 	#
 	pass
 
-	BG25_+=['BG25_010_Gt']
 class BG25_010_Gt:# (minion)
 	""" Helping Hand
 	<b>Reborn</b> """
 	#
 	pass
 
-	BG25_+=['BG25_010t']
 class BG25_010t:# (minion)
 	""" Helping Hand
 	<b>Reborn</b> """
@@ -312,28 +359,30 @@ class BG25_010t:# (minion)
 
 #Possessive Banshee 4/2/7/Undead	Battlecry ## new 25.2.2
 if BG25__Possessive_Banshee:# 
-	BG25_+=['BG25_004']
+	BG_Minion_Undead+=['BG25_014_G']
+	BG_Minion_Undead+=['BG25_004e']
+	BG_Minion_Undead+=['BG25_004_G']
+	BG_Minion_Undead+=['BG25_004_Ge']
+	BG_PoolSet_Undead[1]+='BG25_014_G'
+	BG_Undead_Gold['BG25_014_G']='BG25_004_G'
 class BG25_004:# (minion)
 	""" Possessive Banshee
 	<b>Battlecry:</b> Give an Undead +2/+7. """
 	#
 	pass
 
-	BG25_+=['BG25_004_G']
 class BG25_004_G:# (minion)
 	""" Possessive Banshee
 	<b>Battlecry:</b> Give an Undead +4/+14. """
 	#
 	pass
 
-	BG25_+=['BG25_004_Ge']
 class BG25_004_Ge:# (enchantment)
 	""" MINE!!!
 	+4/+14 """
 	#
 	pass
 
-	BG25_+=['BG25_004e']
 class BG25_004e:# (enchantment)
 	""" MINE!!!
 	+2/+7 """
@@ -344,28 +393,30 @@ class BG25_004e:# (enchantment)
 
 #Hungering Abomination 5/3/4/Undead	Avenge (X) ## new 25.2.2
 if BG25__Hungering_Abomination:# 
-	BG25_+=['BG25_014']
+	BG_Minion_Undead+=['BG25_014']
+	BG_Minion_Undead+=['BG25_014e']
+	BG_Minion_Undead+=['BG25_014_G']
+	BG_Minion_Undead+=['BG25_014_Ge']
+	BG_PoolSet_Undead[1]+='BG25_014'
+	BG_Undead_Gold['BG25_014']='BG25_014_G'
 class BG25_014:# (minion)
 	""" Hungering Abomination
 	<b>Avenge (1):</b> Gain +1/+1 permanently. """
 	#
 	pass
 
-	BG25_+=['BG25_014_G']
 class BG25_014_G:# (minion)
 	""" Hungering Abomination
 	<b>Avenge (1):</b> Gain +2/+2 permanently. """
 	#
 	pass
 
-	BG25_+=['BG25_014_Ge']
 class BG25_014_Ge:# (enchantment)
 	""" OM NOM NOM
 	+2/+2 """
 	#
 	pass
 
-	BG25_+=['BG25_014e']
 class BG25_014e:# (enchantment)
 	""" OM NOM NOM
 	+1/+1 """
@@ -375,7 +426,9 @@ class BG25_014e:# (enchantment)
 #Sinrunner Blanchy 5/3/3/Beast, Undead	Reborn ## new 25.2.2
 #BG24_005
 if BG24__Sinrunner_Blanchy:
-	BG_Minion_Undead += []
+	BG_Minion_Undead += ['BG24_005','BG24_005_G']
+	BG_PoolSet_Undead[1]+='BG24_005'
+	BG_Undead_Gold['BG24_005']='BG24_005_G'
 class BG24_005:
 	""" Sinrunner Branky (5/4/4)
 	Reborn """
@@ -385,27 +438,29 @@ class BG24_005:
 class BG24_005_G:
 	""" KIGA-reshimono
 	Avenge (1) Get 1/1 permanently"""
-		events = Death(FRIENDLY).on(Avenge(SELF, 1,[BuffPermanently(SELF, 'BG_UND_534e')]))
+	events = Death(FRIENDLY).on(Avenge(SELF, 1,[BuffPermanently(SELF, 'BG_UND_534e')]))
 BG24_005e=buff(1,1)
 
 
 #Soulsplitter 5/5/2/Undead	Reborn, Start of Combat ## new 25.2.2
 if BG25__Soulsplitter:# 
-	BG25_+=['BG25_023']
+	BG_Minion_Undead+=['BG25_023']
+	BG_Minion_Undead+=['BG25_023e']
+	BG_Minion_Undead+=['BG25_023_G']
+	BG_PoolSet_Undead[1]+='BG25_023'
+	BG_Undead_Gold['BG25_023']='BG25_023_G'
 class BG25_023:# (minion)
 	""" Soulsplitter
 	<b>Reborn</b> <b>Start of Combat:</b> Give a ___friendly Undead <b>Reborn</b>. """
 	#
 	pass
 
-	BG25_+=['BG25_023_G']
 class BG25_023_G:# (minion)
 	""" Soulsplitter
 	<b>Reborn</b> <b>Start of Combat:</b> Give 2 ___friendly Undead <b>Reborn</b>. """
 	#
 	pass
 
-	BG25_+=['BG25_023e']
 class BG25_023e:# (enchantment)
 	""" Soul Doubled
 	<b>Reborn</b> """
@@ -417,14 +472,16 @@ class BG25_023e:# (enchantment)
 
 #Colossus of the Sun 6/6/6/Undead	Divine Shield, Reborn ## new 25.2.2
 if BG25__Colossus_of_the_Sun:# 
-	BG25_+=['BG25_050']
+	BG_Minion_Undead+=['BG25_050']
+	BG_Minion_Undead+=['BG25_050_G']
+	BG_PoolSet_Undead[1]+='BG25_050'
+	BG_Undead_Gold['BG25_050']='BG25_050_G'
 class BG25_050:# (minion)
 	""" Colossus of the Sun
 	<b>Divine Shield</b> <b>Reborn</b> """
 	#
 	pass
 
-	BG25_+=['BG25_050_G']
 class BG25_050_G:# (minion)
 	""" Colossus of the Sun
 	<b>Divine Shield</b> <b>Reborn</b> """
@@ -434,14 +491,16 @@ class BG25_050_G:# (minion)
 
 #Eternal Summoner 6/6/1/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Eternal_Summoner:# 
-	BG25_+=['BG25_009']
+	BG_Minion_Undead+=['BG25_009']
+	BG_Minion_Undead+=['BG25_009_G']
+	BG_PoolSet_Undead[1]+='BG25_009'
+	BG_Undead_Gold['BG25_009']='BG25_009_G'
 class BG25_009:# (minion)
 	""" Eternal Summoner
 	<b>Deathrattle:</b> Summon 2 Eternal Knights. """
 	#
 	pass
 
-	BG25_+=['BG25_009_G']
 class BG25_009_G:# (minion)
 	""" Eternal Summoner
 	<b>Deathrattle:</b> Summon 4 Eternal Knights. """
@@ -451,31 +510,34 @@ class BG25_009_G:# (minion)
 
 #Sister Deathwhisper 6/4/9/Undead	Reborn ## new 25.2.2
 if BG25__Sister_Deathwhisper:# 
-	BG25_+=['BG25_020']
+	BG_Minion_Undead+=['BG25_020']
+	BG_Minion_Undead+=['BG25_020e']
+	BG_Minion_Undead+=['BG25_020_G']
+	BG_Minion_Undead+=['BG25_020_Ge']
+	BG_PoolSet_Undead[1]+='BG25_020'
+	BG_Undead_Gold['BG25_020']='BG25_020_G'
 class BG25_020:# (minion)
 	""" Sister Deathwhisper
 	After a friendly minion is <b>Reborn</b>, give your Undead +1/+3 permanently. """
 	#
 	pass
 
-	BG25_+=['BG25_020_G']
 class BG25_020_G:# (minion)
 	""" Sister Deathwhisper
 	After a friendly minion is <b>Reborn</b>, give your Undead +2/+6  permanently. """
 	#
 	pass
 
-	BG25_+=['BG25_020_Ge']
 class BG25_020_Ge:# (enchantment)
 	""" Dark Whispers
 	+2/+6 """
 	#
 	pass
 
-	BG25_+=['BG25_020e']
 class BG25_020e:# (enchantment)
 	""" Dark Whispers
 	+1/+3 """
 	#
 	pass
 
+#################################

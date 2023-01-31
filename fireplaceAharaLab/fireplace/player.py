@@ -130,6 +130,8 @@ class Player(Entity, TargetableByAuras):
 		self.deepcopy_original=None # battlegrounds
 		self.nomi_powered_up = 0## battlegrounds, Nomi
 		self.lightspawn_powered_up = 0## battlegrounds, lightspoan
+		self.eternal_knight_powered_up = 0## battlegrounds,Eternal_Knight
+		self.nerubian_deathswarmer_powered_up = 0## battlegrounds,Nerubian_Deathswarmer
 		self.spentmoney_in_this_turn=0 ## battlegrounds, #Captain Flat Tusk
 		self.buddy_gauge=0## battlegrounds, # buddy
 		self.got_buddy=0## battlegrounds, # buddy
