@@ -113,6 +113,7 @@ class BG_Bar(Game):
 		if gold_id==0:
 			return
 		buffs = []
+		original_card=None
 		for card in self.controller.field + self.controller.hand:
 			if card.id==id:
 				buffs += card.buffs
@@ -120,11 +121,13 @@ class BG_Bar(Game):
 				#gr = card.tech_level-1
 				#decks[gr].append(card.id) #no need to back to deck
 				card.zone=Zone.GRAVEYARD
+				original_card = card
 		newcard = self.controller.card(gold_id)
 		for buff in buffs:## inferit all buffs
 			buff.apply(newcard)
 		print("Gold card!!! by %s"%(self.controller))
 		newcard.zone = Zone.HAND # do we need this line?
+		newcard.gold_original = original_card
 		return newcard
 
 	def BG_morph_gold(self, card):
@@ -146,6 +149,7 @@ class BG_Bar(Game):
 			buff.apply(newcard)
 		newcard._summon_index=index
 		newcard.zone = Zone.PLAY #something wrong? 
+		newcard.gold_original = card
 		return newcard
 
 	def countcards(self):

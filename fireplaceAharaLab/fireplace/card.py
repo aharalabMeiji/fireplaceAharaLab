@@ -635,6 +635,7 @@ class LiveEntity(PlayableCard, Entity):
 		self.turn_killed = -1
 		self.death_processed = False
 
+
 	def _set_zone(self, value):
 		oldzone=self.zone
 		newzone=value
@@ -982,6 +983,7 @@ class Minion(Character):
 		self.killed_in_former_battle=False ## battlegrounds new 24.4
 		self.copied_from_opponent = False
 		self.this_is_minion = True
+		self.gold_original = None
 		super().__init__(data)
 
 	@property

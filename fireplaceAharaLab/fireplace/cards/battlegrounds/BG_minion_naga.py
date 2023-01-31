@@ -606,16 +606,26 @@ class BG25_044_G:# (minion)
 	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
 	play = Spellcraft(CONTROLLER,'BG25_044t')
 	pass
+class BG25_044e2_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		original_card = target.gold_original
+		if original_card!=None:
+			target.zone=Zone.GRAVEYARD
+			original_card.zone=Zone.PLAY
 class BG25_044e2:# (enchantment)
 	""" Gold-Gunned
 	Golden until next turn. """
-	#
+	def apply(self, target):
+		target.controller.game.BG_morph_gold(target)
+		target.buffs.append(self)
+	events = BeginBar(CONTROLLER).on(BG25_044e2_Action(OWNER))
 	pass
 class BG25_044t:# (spell)
 	""" Gold-Gun
 	Make a friendly Pirate or Naga Golden until next turn <i>(except Greta Gold-Gun)</i>. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,
-			   PlayReq.REQ_TARGET_WITH_RACE:Race.NAGA}## or Race.PIRATE
+			   PlayReq.REQ_TARGET_WITH_RACE:2392}## Race.NAGA or Race.PIRATE
 	play = Buff(TARGET, 'BG25_044e2')
 	tags = {GameTag.TECH_LEVEL:6}
 	pass

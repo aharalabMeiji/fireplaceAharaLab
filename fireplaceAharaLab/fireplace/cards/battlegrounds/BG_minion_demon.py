@@ -483,17 +483,8 @@ BG25_042_Ge=buff(6,0)
 
 
 if BG25__Mecha_Jaraxxus:# 6/3/15 DEMON ## new 25.2.2 #########################
-	BG_Minion_Demon+=['BG25_807']
-	BG_Minion_Demon+=['BG25_807_G']
-	BG_Minion_Demon+=['BG25_807e']
-	BG_Minion_Demon+=['BG25_807e2']
-	BG_Minion_Demon+=['BG25_807e3']
-	BG_Minion_Demon+=['BG25_807t']
-	BG_Minion_Demon+=['BG25_807t2']
-	BG_Minion_Demon+=['BG25_807t2_G']
-	BG_Minion_Demon+=['BG25_807t3']
-	BG_Minion_Demon+=['BG25_807t3_G']
-	BG_Minion_Demon+=['BG25_807t_G']
+	BG_Minion_Demon+=['BG25_807','BG25_807_G','BG25_807e','BG25_807e2','BG25_807e3']
+	BG_Minion_Demon+=['BG25_807t','BG25_807t_G','BG25_807t2','BG25_807t2_G','BG25_807t3','BG25_807t3_G']
 	BG_PoolSet_Demon[6].append('BG25_807')
 	BG_Demon_Gold['BG25_807']='BG25_807_G'
 	BG_Demon_Gold['BG25_807t']='BG25_807t_G'

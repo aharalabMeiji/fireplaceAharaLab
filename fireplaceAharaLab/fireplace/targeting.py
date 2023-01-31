@@ -70,8 +70,14 @@ def is_valid_target(self, target, requirements=None):
 			if target.atk > param or 0:
 				return False
 		elif req == PlayReq.REQ_TARGET_WITH_RACE:
-			if target.type != CardType.MINION or target.race != param:
-				return False
+			if param<=100:
+				if target.type != CardType.MINION or target.race != param:
+					return False
+			else:
+				race1=int(param/100)
+				race2=param%100
+				if target.type != CardType.MINION or (target.race != race1 and target.race != race2):
+					return False
 		elif req == PlayReq.REQ_HERO_TARGET:
 			if target.type != CardType.HERO:
 				return False
