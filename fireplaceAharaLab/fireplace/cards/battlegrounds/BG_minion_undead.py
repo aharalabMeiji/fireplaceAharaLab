@@ -117,8 +117,8 @@ class BG25_011_Action(GameAction):
 		source.controller.nerubian_deathswarmer_powered_up += 1
 		## rewrite BG25_011pe for all card in field and opponent.field and hand
 		for card in source.controller.field+source.controller.hand+source.controller.opponent.field:
-			cards=[bf.id for bf in card.buffs]
-			if 'BG25_011e2' in cards:
+			cards=[bf for bf in card.buffs if bf.id=='BG25_011e2']
+			if cards!=[]:
 				cards[0].atk=source.controller.nerubian_deathswarmer_powered_up
 			else:
 				Buff(card, 'BG25_011e2', atk=1).trigger(source)
@@ -132,8 +132,8 @@ class BG25_011_G_Action(GameAction):
 		source.controller.nerubian_deathswarmer_powered_up += 2
 		## rewrite BG25_011pe for all card in field and opponent.field and hand
 		for card in source.controller.field+source.controller.hand+source.controller.opponent.field:
-			cards=[bf.id for bf in card.buffs]
-			if 'BG25_011e2' in cards:
+			cards=[bf for bf in card.buffs if bf.id=='BG25_011e2']
+			if cards!=[]:
 				cards[0].atk=source.controller.nerubian_deathswarmer_powered_up
 			else:
 				Buff(card, 'BG25_011e2', atk=2).trigger(source)
