@@ -4,19 +4,25 @@ from ..utils import *
 
 BG_Mini_Myrmidon=True##(1)
 BG_Shell_Collector=True##(1)
+
 BG_Snail_Cavalry=True##(2)
 BG_Deep_Sea_Angler=True## (2)
 BG_Lava_Lurker=True## (2)
+
 BG_Stormscale_Siren=False## (3) BANNED!
 BG_Pashmar_the_Vengeful=True## (3)
 BG_Warden_of_Old=True## (3)
 BG_Shoal_Commander=True## (3)
+
 BG_Eelbound_Archer=True## (4)
 BG_Waverider=True## (4)
 BG_Eventide_Brute=True## (4)
+##BG_Pufferquil(4/2/6): quilboar
+
 BG_Critter_Wrangler=True##(5)
 BG_Glowscale=True## (5)
 BG_Corrupted_Myrmidon=True## (5)
+
 BG_Tidemistress_Athissa=True## (6)
 BG25__Greta_Gold_Gun=True# 6/2/9 naga ## new 25.2.2
 
