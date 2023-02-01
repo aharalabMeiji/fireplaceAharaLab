@@ -1,22 +1,27 @@
 from ..utils import *
 
-BG_Alleycat=True
-BG_Scavenging_Hyena=True
+BG_Alleycat=True#1/1/1
+BG_Scavenging_Hyena=True#1/2/2
+
 BG_Silverback_Patriarch=False#new 23.6 banned 24.2 
-BG_Leapfrogger=True
-BG_Rabid_Saurolisk=True
-BG_Sewer_Rat=True
-BG_Monstrous_Macaw=True
-BG_Rat_Pack=True
-BG_Cave_Hydra=True
-BG_Reanimating_Rattler=True
-BG_Savannah_Highmane=True
-BG_Agamaggan_the_Great_Boar=True
-BG_Baby_Krush=True#new 23.2
-BG_Mama_Bear=True
-BG_Palescale_Crocolisk=True
-BG_Ghastcoiler=True
-BG_Goldrinn_the_Great_Wolf=True
+BG_Leapfrogger=True#2/3/3
+BG_Rabid_Saurolisk=True#2/3/2
+BG_Sewer_Rat=True#2/3/2
+
+BG_Monstrous_Macaw=True#3/5/3
+BG_Rat_Pack=True#3/2/2
+
+BG_Cave_Hydra=True#4/2/4
+BG_Reanimating_Rattler=True#4/5/3
+BG_Savannah_Highmane=True#4/6/5
+
+BG_Agamaggan_the_Great_Boar=True#5/6/6
+BG_Baby_Krush=True# 5  #new 23.2
+BG_Mama_Bear=True#5/5/5
+BG_Palescale_Crocolisk=True#5
+
+BG_Ghastcoiler=True#6/7/7
+BG_Goldrinn_the_Great_Wolf=True#6/4/4
 BG_Maexxna=False## banned 23.2
 
 
