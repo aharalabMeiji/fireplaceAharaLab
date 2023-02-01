@@ -7,14 +7,16 @@ from ..utils import *
 
 BG_Razorfen_Geomancer=True##	1
 BG_Sun_Bacon_Relaxer=True##	1
+BG25__Thorncaptain=True# 1/4/2 quilboar ## new 25.2.2
+
 BG_Roadboar=True##	2
 BG_Tough_Tusk=True##	2
+
 BG_Bannerboar=True##	3
 BG_Bristleback_Brute=True## Brute	3
 BG_Gemsplitter=False##	3 ### banned 24.6
 BG_Thorncaller=True##	3
 BG_Bristlemane_Scrapsmith=True ## 3 ## new 24.6 ### OK ###
-BG25__Pufferquil=True# 4/2/4 quilboar ## new 25.2.2
 
 BG_Bonker=True##	4
 BG_Dynamic_Duo=True##	4
@@ -24,10 +26,10 @@ BG25__Pufferquil=True# 4/2/6, quilbour, new 25.2.2
 
 BG_Aggem_Thorncurse=True##	5
 BG_Bristleback_Knight=True## 5 BG20_204
-BG_Captain_Flat_Tusk=False##	6 banned
+
+BG_Captain_Flat_Tusk=False##	6 banned when?
 BG_Charlga=True##	6
 BG_Darkgaze_Elder=True## NEW 23.2 -> quilboar
-BG25__Thorncaptain=True# 6/4/1 quilboar ## new 25.2.2
 
 
 
@@ -72,6 +74,33 @@ class BG20_301_G:# <12>[1453]
 	events = Sell(CONTROLLER, SELF).on(Give(CONTROLLER, 'BG20_GEM') * 4)
 	pass
 
+
+if BG25__Thorncaptain:# 1/4/2 quilboar ## new 25.2.2
+	BG_Minion_Quilboar+=['BG25_045','BG25_045_G','BG25_045e','BG25_045e2']
+	BG_PoolSet_Quilboar[1].append('BG25_045')
+	BG_Quilboar_Gold['BG25_045']='BG25_045_G'
+class BG25_045:# (minion)
+	""" Thorncaptain
+	After a card is added to your hand, gain +1 Health until next turn. """
+	events = [Give(CONTROLLER).after(Buff(SELF, 'BG25_045e')),
+		   Draw(CONTROLLER).after(Buff(SELF, 'BG25_045e'))]
+	pass
+class BG25_045e:# (enchantment)
+	""" Tis' the Captain
+	+1 Health until next turn. """
+	tags = {GameTag.TAG_ONE_TURN_EFFECT:1, GameTag.HEALTH:1 }
+	pass
+class BG25_045_G:# (minion)
+	""" Thorncaptain
+	After a card is added to your hand, gain +2 Health until next turn. """
+	events = [Give(CONTROLLER).after(Buff(SELF, 'BG25_045e2')),
+		   Draw(CONTROLLER).after(Buff(SELF, 'BG25_045e2'))]
+	pass
+class BG25_045e2:# (enchantment)
+	""" Tis' the Captain
+	+2 Health until next turn. """
+	tags = {GameTag.TAG_ONE_TURN_EFFECT:1, GameTag.HEALTH:2 }
+	pass
 
 
 
@@ -256,35 +285,6 @@ class BG20_105_G:# <12>[1453]
 	pass
 
 
-if BG25__Pufferquil:# 4/2/4 quilboar ## new 25.2.2
-	BG25_+=['BG25_039']
-class BG25_039:# (minion)
-	""" Pufferquil
-	After a spell is played on this, gain <b>Poisonous</b> until next turn. """
-	#
-	pass
-
-	BG25_+=['BG25_039_G']
-class BG25_039_G:# (minion)
-	""" Pufferquil
-	After a spell is played on this, gain <b>Poisonous</b>. """
-	#
-	pass
-
-	BG25_+=['BG25_039_Ge']
-class BG25_039_Ge:# (enchantment)
-	""" Puffed Full
-	<b>Poisonous</b>. """
-	#
-	pass
-
-	BG25_+=['BG25_039e']
-class BG25_039e:# (enchantment)
-	""" Puffed Up
-	<b>Poisonous</b> until next turn. """
-	#
-	pass
-
 
 ###### tavern tier 4
 
@@ -377,35 +377,40 @@ class BG20_202_G:# <12>[1453]
 		StealGem(TARGET, TARGET_ADJACENT)
 	pass
 
+
 if BG25__Pufferquil:# 4/2/6, quilbour
-	BG25_+=['BG25_039']
+	BG_Minion_Quilboar+=['BG25_039','BG25_039_G','BG25_039_Ge','BG25_039e']
+	BG_PoolSet_Quilboar[4].append('BG25_039')
+	BG_Quilboar_Gold['BG25_039']='BG25_039_G'
+class BG25_039_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if target==source:
+			Buff(target, 'BG25_039e').trigger(source)
 class BG25_039:# (minion)
 	""" Pufferquil
 	After a spell is played on this, gain <b>Poisonous</b> until next turn. """
-	#
+	events = Play(CONTROLLER).after(BG25_039_Action(Play.TARGET))
 	pass
-
-	BG25_+=['BG25_039_G']
-class BG25_039_G:# (minion)
-	""" Pufferquil
-	After a spell is played on this, gain <b>Poisonous</b>. """
-	#
-	pass
-
-	BG25_+=['BG25_039_Ge']
-class BG25_039_Ge:# (enchantment)
-	""" Puffed Full
-	<b>Poisonous</b>. """
-	#
-	pass
-
-	BG25_+=['BG25_039e']
 class BG25_039e:# (enchantment)
 	""" Puffed Up
 	<b>Poisonous</b> until next turn. """
-	#
+	tags = {GameTag.TAG_ONE_TURN_EFFECT:1, GameTag.POISONOUS:1 }
 	pass
+class BG25_039_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		if target==source:
+			Buff(target, 'BG25_039_Ge').trigger(source)
+class BG25_039_G:# (minion)
+	""" Pufferquil
+	After a spell is played on this, gain <b>Poisonous</b>. """
+	events = Play(CONTROLLER).after(BG25_039_G_Action(Play.TARGET))
+	pass
+BG25_039_Ge=buff(poisonous=True)# (enchantment)
+""" Puffed Full	<b>Poisonous</b>. """
 
+########tavern tier 5
 
 #Aggem Thorncurse	5  ### OK ###
 if BG_Aggem_Thorncurse:
@@ -573,33 +578,5 @@ class BG23_018t:# <12>[1453]
 	pass
 
 
-if BG25__Thorncaptain:# 6/4/1 quilboar ## new 25.2.2
-	BG25_+=['BG25_045']
-class BG25_045:# (minion)
-	""" Thorncaptain
-	After a card is added to your hand, gain +1 Health until next turn. """
-	#
-	pass
-
-	BG25_+=['BG25_045_G']
-class BG25_045_G:# (minion)
-	""" Thorncaptain
-	After a card is added to your hand, gain +2 Health until next turn. """
-	#
-	pass
-
-	BG25_+=['BG25_045e']
-class BG25_045e:# (enchantment)
-	""" Tis' the Captain
-	+1 Health until next turn. """
-	#
-	pass
-
-	BG25_+=['BG25_045e2']
-class BG25_045e2:# (enchantment)
-	""" Tis' the Captain
-	+2 Health until next turn. """
-	#
-	pass
 
 #####################
