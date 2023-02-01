@@ -2,22 +2,25 @@ from ..utils import *
 
 BG_Deck_Swabbie=True ## (1)
 BG_Scallywag=True ##,1
+
 BG_Freedealing_Gambler=True ##,2
 BG_Southsea_Captain=True ##,2
-BG_Yo_Ho_Ogre=True ##,2
+BG_Yo_Ho_Ogre=True ##,2 ## banned 25.2.2
+
 BG_Briny_Bootlegger=False ##,3 banned 24.2
 BG_Salty_Looter=True ##,3
 BG_Southsea_Strongarm=True ##,3,
 BG_First_Mate_Pip=True ##(3) new 24.2
+
 BG_Goldgrubber=True ##,4
 BG_Peggy_Brittlebone=False ##,4  banned 25.2.2
 BG25__Peggy_Sturdybone=True ## ,4 new 25.2.2
 BG_Ripsnarl_Captain=True ##,4
 
-
 BG_Cap_n_Hoggarr=True ##,5
-BG_Tony_Two_Tusk=True ##,5
+BG_Tony_Two_Tusk=True ##,5 ## banned 25.2.2
 BG_Vanessa_VanCleef=True ##, 5 ## new 24.6
+
 BG_Dread_Admiral_Eliza=True ##,6
 BG_Nosy_Looter=False ##,6 ### banned 24.6
 
@@ -309,10 +312,7 @@ class BG21_016_G:# <12>[1453]
 BG21_016_Ge=buff(2,2)
 
 if BG25__Peggy_Sturdybone:# 
-	BG_Minion_Pirate+=['BG25_032']
-	BG_Minion_Pirate+=['BG25_032_G']
-	BG_Minion_Pirate+=['BG25_032_Ge']
-	BG_Minion_Pirate+=['BG25_032e']
+	BG_Minion_Pirate+=['BG25_032','BG25_032_G','BG25_032_Ge','BG25_032e']
 	BG_PoolSet_Pirate[4].append('BG25_032')
 	BG_Pirate_Gold['BG25_032']='BG25_032_G'
 class BG25_032:# (minion) 4/6/5
