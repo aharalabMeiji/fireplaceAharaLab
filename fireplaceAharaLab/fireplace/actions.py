@@ -3714,6 +3714,14 @@ class Magnetic(TargetedAction):#超電磁
 				Buff(other, buff).trigger(target.controller)
 			target.deathrattle_valid=False### deathrattle を止めたい
 			Destroy(target).trigger(target.controller)
+		if 'BG25_807t' in target.id:## 'BG25_807t','BG25_807t_G','BG25_807t2','BG25_807t2_G','BG25_807t3','BG25_807t3_G'
+			if other.race == Race.DEMON:
+				if not isinstance(buffs,list):
+					buffs = [buffs]
+				for buff in buffs:
+					Buff(other, buff).trigger(target.controller)
+				target.deathrattle_valid=False### deathrattle を止めたい
+				Destroy(target).trigger(target.controller)
 		pass
 
 class MakeCardUnplayable(TargetedAction):

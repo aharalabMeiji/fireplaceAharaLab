@@ -512,41 +512,74 @@ class BG25_807_G:# (minion)(demon)
 class BG25_807e:# (enchantment)
 	""" Rusted Reggie
 	<b>Windfury</b> """
+	tags = {GameTag.WINDFURY:1, 
+		GameTag.ATK:5,
+		GameTag.HEALTH:5}
+@custom_card
+class BG25_807t_Ge:
+	tags = {
+		GameTag.CARDNAME: "Rusted Reggie",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.WINDFURY:3, 
+		GameTag.ATK:10,
+		GameTag.HEALTH:10	}
 class BG25_807e2:# (enchantment)
 	""" Magtheridon Prime
 	<b>Taunt</b> """
+	tags = {GameTag.TAUNT:True, 
+		GameTag.ATK:1,
+		GameTag.HEALTH:10}
+@custom_card
+class BG25_807t2_Ge:
+	tags = {
+		GameTag.CARDNAME: "Magtheridon Prime",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.TAUNT:True, 
+		GameTag.ATK:2,
+		GameTag.HEALTH:20	}
 class BG25_807e3:# (enchantment)
 	""" Baltharak
 	<b>Reborn</b> """
+	tags = {GameTag.REBORN:True, 
+		GameTag.ATK:10,
+		GameTag.HEALTH:1}
+@custom_card
+class BG25_807t3_Ge:
+	tags = {
+		GameTag.CARDNAME: "Baltharak",
+		GameTag.CARDTYPE: CardType.ENCHANTMENT,
+		GameTag.REBORN:True, 
+		GameTag.ATK:20,
+		GameTag.HEALTH:2	}
 class BG25_807t:# (minion)
-	""" Rusted Reggie
+	""" Rusted Reggie */5/5
 	<b>Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
+	play = Magnetic(SELF, ['BG25_807e'])
 	pass
 class BG25_807t_G:# (minion)
-	""" Rusted Reggie
+	""" Rusted Reggie */10/10
 	<b>Mega-Windfury</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
+	play = Magnetic(SELF, ['BG25_807t_Ge'])
 	pass
 class BG25_807t2:# (minion)
-	""" Magtheridon Prime
+	""" Magtheridon Prime */1/10
 	<b>Taunt</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
+	play = Magnetic(SELF, ['BG25_807e2'])
 	pass
 class BG25_807t2_G:# (minion)
-	""" Magtheridon Prime
+	""" Magtheridon Prime */2/20
 	<b>Taunt</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
+	play = Magnetic(SELF, ['BG25_807t2_Ge'])
 	pass
 class BG25_807t3:# (minion)
-	""" Baltharak
+	""" Baltharak */10/1
 	<b>Reborn</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
+	play = Magnetic(SELF, ['BG25_807e3'])
 	pass
 class BG25_807t3_G:# (minion)
-	""" Baltharak
+	""" Baltharak */20/2
 	<b>Reborn</b> Can <b>Magnetize</b> to Mechs <i>and</i>__Demons. """
-	#
+	play = Magnetic(SELF, ['BG25_807t3_Ge'])
 	pass
 
 
