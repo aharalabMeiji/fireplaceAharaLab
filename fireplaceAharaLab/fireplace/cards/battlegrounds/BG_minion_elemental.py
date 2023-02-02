@@ -1,24 +1,28 @@
 
 from ..utils import *
 
-BG_Refreshing_Anomaly=True
-BG_Sellemental=True
-BG_Bubblette=False ## new 24.0 banned 24.2
-BG_Molten_Rock=True
-BG_Party_Elemental=True# 2
+BG_Refreshing_Anomaly=True ## (1)
+BG_Sellemental=True ## (1)
+BG_Bubblette=False ## (1) ## new 24.0 banned 24.2
 
-BG_Crackling_Cyclone=True# 3
-BG_Smogger=True# 3
-BG_Stasis_Elemental=True
-BG_Dazzling_Lightspawn=True
+BG_Molten_Rock=True ## (2)
+BG_Party_Elemental=True ## (2)
+
+BG_Crackling_Cyclone=True ## (3)
+BG_Smogger=True ## (3)
+BG_Stasis_Elemental=False ## (3) ## banned when?
 BG25__Felemental=True# 3/3/1 elemental ## new 25.2.2
 
-BG_Recycling_Wraith=True# 4
-BG_Wildfire_Elemental=True
-BG_Tavern_Tempest=True
-BG_Gentle_Djinni=True
-BG_Lil_Rag=True
-BG_Lieutenant_Garr=True
+BG_Dazzling_Lightspawn=True ## (4)
+BG_Recycling_Wraith=True # (4)
+BG_Wildfire_Elemental=True # (4)
+
+BG_Tavern_Tempest=True # (5)
+BG_Lil_Rag=True # (5)
+BG25__Magmaloc=True# (5/1/1) murloc ## new 25.2.2
+
+BG_Gentle_Djinni=True # (6)
+BG_Lieutenant_Garr=True # (6)
 
 
 BG_Minion_Elemental =[]
@@ -76,6 +80,9 @@ class BG_TID_713_G:#あわわわ
 	events = Damage(SELF, 2).on(Destroy(SELF))
 
 
+##### tavern tier 2
+
+
 if BG_Molten_Rock: # 
 #Molten Rock(2)  ### MAYBE ###
 	BG_Minion_Elemental+=['BGS_127','BGS_127e','TB_Baconups_202','TB_Baconups_202e']
@@ -113,6 +120,7 @@ class TB_BaconUps_160:# <12>[1453]
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(Buff(RANDOM(FRIENDLY_MINIONS + ELEMENTAL - SELF), 'BGS_120e') * 2)
 	pass
 
+#### tavern tier 3
 
 
 if BG_Crackling_Cyclone: # 
@@ -227,6 +235,40 @@ class TB_BaconUps_161:# <12>[1453]
 	pass
 
 
+if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2
+	BG25_+=['BG25_041']
+class BG25_041:# (minion)
+	""" Felemental
+	<b>Battlecry:</b> Minions in Bob's Tavern have +1/+1 __for the rest of the game. """
+	#
+	pass
+
+	BG25_+=['BG25_041_G']
+class BG25_041_G:# (minion)
+	""" Felemental
+	<b>Battlecry:</b> Minions in Bob's Tavern have +2/+2 __for the rest of the game. """
+	#
+	pass
+
+	BG25_+=['BG25_041e']
+class BG25_041e:# (enchantment)
+	""" Felfire Player Enchant
+	Increased stats. """
+	#
+	pass
+
+	BG25_+=['BG25_041e2']
+class BG25_041e2:# (enchantment)
+	""" Felementality
+	Increased stats. """
+	#
+	pass
+
+
+
+#### tavern tier 4
+
+
 
 #Dazzling Lightspawn(4) ### OK ###
 if BG_Dazzling_Lightspawn: # 
@@ -260,38 +302,6 @@ class BG21_020_G:# <12>[1453]
 	events = Death(FRIENDLY).on(Avenge(SELF, 2, [BG21_020_Action(CONTROLLER, 2)]))
 	pass
 
-
-
-if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2
-	BG25_+=['BG25_041']
-class BG25_041:# (minion)
-	""" Felemental
-	<b>Battlecry:</b> Minions in Bob's Tavern have +1/+1 __for the rest of the game. """
-	#
-	pass
-
-	BG25_+=['BG25_041_G']
-class BG25_041_G:# (minion)
-	""" Felemental
-	<b>Battlecry:</b> Minions in Bob's Tavern have +2/+2 __for the rest of the game. """
-	#
-	pass
-
-	BG25_+=['BG25_041e']
-class BG25_041e:# (enchantment)
-	""" Felfire Player Enchant
-	Increased stats. """
-	#
-	pass
-
-	BG25_+=['BG25_041e2']
-class BG25_041e2:# (enchantment)
-	""" Felementality
-	Increased stats. """
-	#
-	pass
-
-#### tavern tier 4
 
 #Recycling Wraith(4)   ### maybe ###
 if BG_Recycling_Wraith: # 
@@ -341,7 +351,7 @@ class TB_BaconUps_166:# <12>[1453]
 	events = Attack(SELF, ENEMY_MINIONS).on(BGS_126_Action(Attack.DEFENDER, 2))
 	pass
 
-
+#### tavern tier 5
 
 #Tavern Tempest(5)   ### need check ###
 if BG_Tavern_Tempest: # 
@@ -383,6 +393,73 @@ class TB_BaconUps_162:# <12>[1453]
 
 
 
+#Lil' Rag (6->5, 24.0.3)   ### OK ###
+if BG_Lil_Rag: # 
+	BG_Minion_Elemental+=['BGS_100','BGS_100e','TB_BaconUps_200']
+	BG_PoolSet_Elemental[5].append('BGS_100')
+	BG_Elemental_Gold['BGS_100']='TB_BaconUps_200'
+class BGS_100_Action(TargetedAction):
+	TARGET = ActionArg()
+	CARDS = CardArg()
+	def do(self, source, target, cards):
+		if not isinstance(cards, list):
+			cards = [cards]
+		controller = target
+		tier = cards[0].tech_level
+		if controller.field != []:
+			card = random.choice(controller.field)
+			Buff(card, 'BGS_100e', atk=tier, max_health=tier).trigger(source)
+			pass
+class BGS_100:# <12>[1453] チビラグ
+	""" Lil' Rag
+	After you play an Elemental,give a friendly minion stats equal to the Elemental's Tavern Tier. """
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD))
+	pass
+class BGS_100e:
+	pass
+class TB_BaconUps_200:# <12>[1453]
+	""" Lil' Rag
+	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier twice. """
+	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD)*2)
+	pass
+
+if BG25__Magmaloc:# 5/1/1 murloc ## new 25.2.2
+	BG_Minion_Murloc+=['BG25_046','BG25_046e','BG25_046_G','BG25_046_Ge']
+	BG_PoolSet_Murloc[5].append('BG25_046')
+	BG_Murloc_Gold['BG25_046']='BG25_046_G'
+class BG25_046_Action(GameAction):
+	def do(self, source):
+		amount = len([log for log in  source.controller._play_log if log.type==CardType.MINION and log.turn==source.controller.game.turn ])
+		Buff(source, 'BG25_046e', atk=amount+1, max_health=amount+1).trigger(source)
+class BG25_046:# (minion)(murloc)
+	""" Magmaloc
+	At the end of your turn, gain +1/+1. Repeat for each minion you played this turn. """
+	events = OWN_TURN_END.on(BG25_046_Action())
+	pass
+class BG25_046e:# (enchantment)
+	""" Magma!
+	+1/+1. """
+	#
+	pass
+class BG25_046_G_Action(GameAction):
+	def do(self, source):
+		amount = len([log for log in  source.controller._play_log if log.type==CardType.MINION and log.turn==source.controller.game.turn ])
+		Buff(source, 'BG25_046_Ge', atk=2*amount+2, max_health=2*amount+2).trigger(source)
+class BG25_046_G:# (minion)(murloc)
+	""" Magmaloc
+	At the end of your turn, gain +2/+2. Repeat for each minion you played this turn. """
+	events = OWN_TURN_END.on(BG25_046_G_Action())
+	pass
+class BG25_046_Ge:# (enchantment)
+	""" Magma!
+	+2/+2. """
+	#
+	pass
+
+
+
+#### tavern tier 6
+
 #Gentle Djinni(6)   ### OK ###
 if BG_Gentle_Djinni: # 
 	BG_Minion_Elemental+=['BGS_121','TB_BaconUps_165']
@@ -418,37 +495,6 @@ class TB_BaconUps_165:# <12>[1453]
 	pass
 
 
-
-
-#Lil' Rag (6->5, 24.0.3)   ### OK ###
-if BG_Lil_Rag: # 
-	BG_Minion_Elemental+=['BGS_100','BGS_100e','TB_BaconUps_200']
-	BG_PoolSet_Elemental[5].append('BGS_100')
-	BG_Elemental_Gold['BGS_100']='TB_BaconUps_200'
-class BGS_100_Action(TargetedAction):
-	TARGET = ActionArg()
-	CARDS = CardArg()
-	def do(self, source, target, cards):
-		if not isinstance(cards, list):
-			cards = [cards]
-		controller = target
-		tier = cards[0].tech_level
-		if controller.field != []:
-			card = random.choice(controller.field)
-			Buff(card, 'BGS_100e', atk=tier, max_health=tier).trigger(source)
-			pass
-class BGS_100:# <12>[1453] チビラグ
-	""" Lil' Rag
-	After you play an Elemental,give a friendly minion stats equal to the Elemental's Tavern Tier. """
-	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD))
-	pass
-class BGS_100e:
-	pass
-class TB_BaconUps_200:# <12>[1453]
-	""" Lil' Rag
-	After you play an Elemental,give a friendly minion statsequal to the Elemental'sTavern Tier twice. """
-	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(BGS_100_Action(CONTROLLER, BG_Play.CARD)*2)
-	pass
 
 # Lieutenant Garr (6)(8/8) ### HP OK ###
 if BG_Lieutenant_Garr: # 

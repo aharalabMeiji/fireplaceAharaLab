@@ -16,7 +16,6 @@ BG_Primalfin_Lookout=True ## (4)
 
 BG_King_Bagurgle=True ## (5)
 BG_SI_Sefin=False ## (5) banned 4.2
-BG25__Magmaloc=True# (5/1/1) murloc ## new 25.2.2
 BG_Toxfin=True ##(4) new 24.2 -> (6) ## 25.2.2 (5)
 
 BG_Young_Murk_Eye=True ## (6) 
@@ -319,38 +318,6 @@ class BG21_009_G:# <12>[1453]
 
 
 
-if BG25__Magmaloc:# 5/1/1 murloc ## new 25.2.2
-	BG_Minion_Murloc+=['BG25_046','BG25_046e','BG25_046_G','BG25_046_Ge']
-	BG_PoolSet_Murloc[5].append('BG25_046')
-	BG_Murloc_Gold['BG25_046']='BG25_046_G'
-class BG25_046_Action(GameAction):
-	def do(self, source):
-		amount = len([log for log in  source.controller._play_log if log.type==CardType.MINION and log.turn==source.controller.game.turn ])
-		Buff(source, 'BG25_046e', atk=amount+1, max_health=amount+1).trigger(source)
-class BG25_046:# (minion)(murloc)
-	""" Magmaloc
-	At the end of your turn, gain +1/+1. Repeat for each minion you played this turn. """
-	events = OWN_TURN_END.on(BG25_046_Action())
-	pass
-class BG25_046e:# (enchantment)
-	""" Magma!
-	+1/+1. """
-	#
-	pass
-class BG25_046_G_Action(GameAction):
-	def do(self, source):
-		amount = len([log for log in  source.controller._play_log if log.type==CardType.MINION and log.turn==source.controller.game.turn ])
-		Buff(source, 'BG25_046_Ge', atk=2*amount+2, max_health=2*amount+2).trigger(source)
-class BG25_046_G:# (minion)(murloc)
-	""" Magmaloc
-	At the end of your turn, gain +2/+2. Repeat for each minion you played this turn. """
-	events = OWN_TURN_END.on(BG25_046_G_Action())
-	pass
-class BG25_046_Ge:# (enchantment)
-	""" Magma!
-	+2/+2. """
-	#
-	pass
 
 
 ##### tavern tier 6
