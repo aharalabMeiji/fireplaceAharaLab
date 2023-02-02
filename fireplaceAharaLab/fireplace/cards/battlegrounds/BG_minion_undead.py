@@ -40,12 +40,10 @@ if BG25__Risen_Rider:#
 class BG25_001:# (minion)
 	""" Risen Rider
 	<b>Taunt</b> <b>Reborn</b> """
-	#
 	pass
 class BG25_001_G:# (minion)
 	""" Risen Rider
 	<b>Taunt</b> <b>Reborn</b> """
-	#
 	pass
 
 
@@ -92,7 +90,6 @@ class BG25_008:# (minion)
 class BG25_008_e:# (enchantment)
 	""" Eternal Legion
 	+@/+@. """
-	#
 	pass
 class BG25_008_G:# (minion)
 	""" Eternal Knight
@@ -102,7 +99,6 @@ class BG25_008_G:# (minion)
 class BG25_008pe:# (enchantment)
 	""" Eternal Knight Player Enchant
 	Counts the number of Eternal Knights that died. """
-	#
 	pass
 
 
@@ -157,35 +153,34 @@ class BG25_011pe:# (enchantment)
 
 #Scarlet Skull 2/1/2/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Scarlet_Skull:# 
-	BG_Minion_Undead+=['BG25_022']
-	BG_Minion_Undead+=['BG25_022_G']
-	BG_Minion_Undead+=['BG25_022_Ge']
-	BG_Minion_Undead+=['BG25_022e']
+	BG_Minion_Undead+=['BG25_022','BG25_022_G','BG25_022_Ge','BG25_022e']
 	BG_PoolSet_Undead[1]+='BG25_022'
 	BG_Undead_Gold['BG25_022']='BG25_022_G'
+class BG25_022_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
+			if len(cards):
+				Buff(random.choice(cards), 'BG25_022e')
 class BG25_022:# (minion)
 	""" Scarlet Skull
 	<b>Reborn</b> <b>Deathrattle:</b> Give a friendly Undead +1/+2. """
-	#
+	deathrattle = BG25_022_Action()
 	pass
-
+BG25_022e=buff(1,2)
+class BG25_022_G_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
+			if len(cards):
+				Buff(random.choice(cards), 'BG25_022_Ge')
 class BG25_022_G:# (minion)
 	""" Scarlet Skull
 	<b>Reborn</b> <b>Deathrattle:</b> Give a friendly Undead +2/+4. """
-	#
+	deathrattle = BG25_022_G_Action()
 	pass
+BG25_022_Ge=buff(2,4)
 
-class BG25_022_Ge:# (enchantment)
-	""" Scarlet Fear
-	+2/+4. """
-	#
-	pass
-
-class BG25_022e:# (enchantment)
-	""" Scarlet Fear
-	+1/+2. """
-	#
-	pass
 
 
 if BG25__Corpse_Refiner:# 2/2/3 undead ## new 25.2.2
@@ -193,16 +188,30 @@ if BG25__Corpse_Refiner:# 2/2/3 undead ## new 25.2.2
 	BG_Minion_Undead+=['BG25_033_G']
 	BG_PoolSet_Undead[1]+='BG25_033'
 	BG_Undead_Gold['BG25_033']='BG25_033_G'
+class BG25_033_Action(GameAction):
+	def do(self, source):
+		amount = getattr(source,'gambler_sell_price',0)
+		amount +=1
+		SetAttr(source, 'gambler_sell_price', amount).trigger(source)
+		source.script_data_text_0=str(amount)
 class BG25_033:# (minion)
 	""" Corpse Refiner
 	<b>Avenge (4):</b> This minion sells for 1 more Gold.@<b>Avenge (4):</b> This minion sells for 1 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
-	#
+	## tag 1587 gambler_sell_price
+	tags={1587:1}
+	Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG25_033_Action()]))
 	pass
-
+class BG25_033_G_Action(GameAction):
+	def do(self, source):
+		amount = getattr(source,'gambler_sell_price',0)
+		amount +=2
+		SetAttr(source, 'gambler_sell_price', amount).trigger(source)
+		source.script_data_text_0=str(amount)
 class BG25_033_G:# (minion)
 	""" Corpse Refiner
 	<b>Avenge (4):</b> This minion sells for 2 more Gold.@<b>Avenge (4):</b> This minion sells for 2 more Gold. __<i>(Sells for {0} extra Gold!)</i> """
-	#
+	tags={1587:1}
+	Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG25_033_G_Action()]))
 	pass
 
 ###### tavern tier 3
