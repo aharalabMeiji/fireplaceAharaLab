@@ -5,13 +5,15 @@ BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
 BG_Dozy_Whelp=True #(1) new 24.6 ### OK ###
 
 BG_Glyph_Guardian=True ## ##(2)
+BG_Twilight_Emissary=True ##(2)
 BG_Steward_of_Time=False ####(2) ##banned 24.2
+
 BG24__Nether_Drake=True# (3) new 24.2 (2)->(3)
 BG_Bronze_Warden=True ##(3)
-BG_Drakonid_Enforcer=True ##(3)
-BG_Twilight_Emissary=True ##(3)
 BG_Tarecgosa=True ##(3)
 BG24__Amber_Guardian=True# (3) new 24.2
+BG_Drakonid_Enforcer=False ##(3) ## banned when?
+
 BG_Cobalt_Scalebane=False ##(4) banned 24.2
 BG_Prestor_s_Pyrospawn=False ## (4) banned
 BG_Prized_Promo_Drake=True ##(4)
@@ -20,7 +22,7 @@ BG25__Chronormu=True# 4/4/4 dragon ## 25.2.2
 BG25__General_Drakkisath=True# 4/2/8 DRAGON ## new 25.2.2
 
 BG_Murozond=True ##(5)
-BG_Razorgore_the_Untamed=True ## (5)
+BG_Razorgore_the_Untamed=False ## (5) ## banned when?
 BG25__Cyborg_Drake=True# 5/2/8 dragon ## new 25.2.2
 
 BG_Kalecgos_Arcane_Aspect=True ## (6)
@@ -430,21 +432,29 @@ class BG23_362_G:
 
 
 if BG25__Chronormu:# 4/4/4 dragon ## 25.2.2
-	BG25_+=['BG25_104']
+	BG_Minion_Dragon+=['BG25_104','BG25_104_G','BG25_104e']
+	BG_PoolSet_Dragon[4].append('BG25_104')
+	BG_Dragon_Gold['BG25_104']='BG25_104_G' #
+class BG25_104_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if source.controller==source.controller.game.bartender:
+			Buff(source, 'BG25_104e', atk=target.atk, max_health=target.max_health).trigger(source)
 class BG25_104:# (minion)
 	""" Chronormu
 	While this is in Bob's Tavern, gain the stats of any minions sold. """
-	#
+	events = Sell(CONTROLLER).on(BG25_104_Action(Sell.CARD))
 	pass
-
-	BG25_+=['BG25_104_G']
+class BG25_104_G_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		if source.controller==source.controller.game.bartender:
+			Buff(source, 'BG25_104e', atk=target.atk*2, max_health=target.max_health*2).trigger(source)
 class BG25_104_G:# (minion)
 	""" Chronormu
 	While this is in Bob's Tavern, gain twice the stats of any minions sold. """
-	#
+	events = Sell(CONTROLLER).on(BG25_104_G_Action(Sell.CARD))
 	pass
-
-	BG25_+=['BG25_104e']
 class BG25_104e:# (enchantment)
 	""" Stats from the Past
 	Increased stats. """
@@ -453,47 +463,37 @@ class BG25_104e:# (enchantment)
 
 
 if BG25__General_Drakkisath:# 4/2/8 DRAGON ## new 25.2.2
-	BG25_+=['BG25_309']
+	BG_Minion_Dragon+=['BG25_309','BG25_309e','BG25_309_G','BG25_309_Ge','BG25_309_Gt','BG25_309t']
+	BG_PoolSet_Dragon[4].append('BG25_309')
+	BG_Dragon_Gold['BG25_309']='BG25_309_G' 
+	BG_Dragon_Gold['BG25_309t']='BG25_309_Gt' 
 class BG25_309:# (minion)
 	""" General Drakkisath
 	<b>Battlecry:</b> Add a 2/1 Smolderwing to your hand that gives another Dragon +5_Attack. """
-	#
+	play = Give(CONTROLLER, 'BG25_309t')
 	pass
-
-	BG25_+=['BG25_309_G']
-class BG25_309_G:# (minion)
-	""" General Drakkisath
-	<b>Battlecry:</b> Add two 2/1 Smolderwings to your hand that each give another Dragon +5_Attack. """
-	#
-	pass
-
-	BG25_+=['BG25_309_Ge']
-class BG25_309_Ge:# (enchantment)
-	""" Smoldering
-	+10 Attack """
-	#
-	pass
-
-	BG25_+=['BG25_309_Gt']
-class BG25_309_Gt:# (minion)
-	""" Smolderwing
-	<b>Battlecry:</b> Give a Dragon +10 Attack. """
-	#
-	pass
-
-	BG25_+=['BG25_309e']
-class BG25_309e:# (enchantment)
-	""" Smoldering
-	+5 Attack """
-	#
-	pass
-
-	BG25_+=['BG25_309t']
 class BG25_309t:# (minion)
 	""" Smolderwing
 	<b>Battlecry:</b> Give a Dragon +5 Attack. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DRAGON }
+	play = Buff(TARGET, 'BG25_309e')
 	pass
+BG25_309e=buff(5,0)
+class BG25_309_G:# (minion)
+	""" General Drakkisath
+	<b>Battlecry:</b> Add two 2/1 Smolderwings to your hand that each give another Dragon +5_Attack. """
+	play = Give(CONTROLLER, 'BG25_309t'), Give(CONTROLLER, 'BG25_309t')
+	pass
+class BG25_309_Gt:# (minion)
+	""" Smolderwing
+	<b>Battlecry:</b> Give a Dragon +10 Attack. """
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DRAGON }
+	play = Buff(TARGET, 'BG25_309_Ge')
+	pass
+BG25_309_Ge=buff(10,0)
+
+
+
 
 
 #### tavern tier 5
@@ -563,33 +563,20 @@ TB_BaconUps_106e=buff(2,2)
 
 
 if BG25__Cyborg_Drake:# 5/2/8 dragon ## new 25.2.2
-	BG25_+=['BG25_043']
+	BG_Minion_Dragon+=['BG25_043','BG25_043e','BG25_043_G','BG25_043_Ge']
 class BG25_043:# (minion)
 	""" Cyborg Drake
 	<b>Divine Shield</b> Your <b>Divine Shield</b> minions have +10 Attack. """
-	#
+	update=Refresh(FRIENDLY + MINION + DIVINE_SHIELD, buff='BG25_043e')
 	pass
-
-	BG25_+=['BG25_043_G']
+BG25_043e=buff(10,0)
 class BG25_043_G:# (minion)
 	""" Cyborg Drake
 	<b>Divine Shield</b> Your <b>Divine Shield</b> minions have +20 Attack. """
-	#
+	update=Refresh(FRIENDLY + MINION + DIVINE_SHIELD, buff='BG25_043_Ge')
 	pass
+BG25_043_Ge=buff(20,0)
 
-	BG25_+=['BG25_043_Ge']
-class BG25_043_Ge:# (enchantment)
-	""" Cyborg Enhancement
-	+20 Attack. """
-	#
-	pass
-
-	BG25_+=['BG25_043e']
-class BG25_043e:# (enchantment)
-	""" Cyborg Enhancement
-	+10 Attack. """
-	#
-	pass
 
 ##### tavern tier 6
 
