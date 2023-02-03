@@ -339,7 +339,7 @@ if BG25__Anubarak_Nerubian_King:#
 class BG25_007:# (minion)
 	""" Anub'arak, Nerubian King
 	<b>Deathrattle:</b> Your Undead have +2 Attack for the rest of the game <i>(wherever they are)</i>. """
-	#
+	#anubarak_nerubian_king_powered_up += 2
 	pass
 
 class BG25_007_G:# (minion)

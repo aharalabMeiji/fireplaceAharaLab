@@ -132,6 +132,7 @@ class Player(Entity, TargetableByAuras):
 		self.lightspawn_powered_up = 0## battlegrounds, lightspoan
 		self.eternal_knight_powered_up = 0## battlegrounds,Eternal_Knight
 		self.nerubian_deathswarmer_powered_up = 0## battlegrounds,Nerubian_Deathswarmer
+		self.anubarak_nerubian_king_powered_up=0## battlegrounds, Anub'arak, Nerubian King
 		self.spentmoney_in_this_turn=0 ## battlegrounds, #Captain Flat Tusk
 		self.buddy_gauge=0## battlegrounds, # buddy
 		self.got_buddy=0## battlegrounds, # buddy
