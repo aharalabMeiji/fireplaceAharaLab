@@ -544,7 +544,7 @@ class BG23_HERO_306p:
 	Give +2/+1 to your minions that died last combat."""
 	activate = BG23_HERO_306p_Action1()
 	events=[
-		OWN_TURN_END.on(BG23_HERO_306p_Action0()),
+		OWN_TURN_END.on(BG23_HERO_306p_Action0()),### no need, see BG_Battle.__init__
 		Death(FRIENDLY + MINION).on(BG23_HERO_306p_Action2(Death.ENTITY))
 	]
 	pass

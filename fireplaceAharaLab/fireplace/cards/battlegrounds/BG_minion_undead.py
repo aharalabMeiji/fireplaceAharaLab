@@ -214,7 +214,10 @@ class BG25_033_G:# (minion)
 	Death(FRIENDLY + MINION).on(Avenge(SELF, 4, [BG25_033_G_Action()]))
 	pass
 
+
 ###### tavern tier 3
+
+
 
 #Ghoul of the Feast 3/2/4/Undead	Avenge (X) ## new 25.2.2
 if BG25__Ghoul_of_the_Feast:# 
@@ -224,29 +227,48 @@ if BG25__Ghoul_of_the_Feast:#
 	BG_Minion_Undead+=['BG25_002_Ge']
 	BG_PoolSet_Undead[1]+='BG25_002'
 	BG_Undead_Gold['BG25_002']='BG25_002_G'
+class BG25_002_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			races=[]
+			cards=[]
+			for card in source.controller.field:
+				if card.race in races:
+					index=races.index(card.race)
+					cards[index].append(card)
+				else:
+					races.append(card.race)
+					cards.append([card])
+			for cds in cards:
+				Buff(random.choice(cds), 'BG25_002e').trigger(source)
 class BG25_002:# (minion)
 	""" Ghoul of the Feast
 	<b>Avenge (1):</b> Give a friendly minion of each minion type +3 Attack. """
-	#
+	events = Death(FRIENDLY + MINION - SELF).on(Avenge(SELF, 1, [BG25_002_Action()]))
 	pass
-
+BG25_002e=buff(3,0)
+class BG25_002_G_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			races=[]
+			cards=[]
+			for card in source.controller.field:
+				if card.race in races:
+					index=races.index(card.race)
+					cards[index].append(card)
+				else:
+					races.append(card.race)
+					cards.append([card])
+			for cds in cards:
+				Buff(random.choice(cds), 'BG25_002_Ge').trigger(source)
 class BG25_002_G:# (minion)
 	""" Ghoul of the Feast
 	<b>Avenge (1):</b> Give a friendly minion of each minion type +6 Attack. """
-	#
+	events = Death(FRIENDLY + MINION - SELF).on(Avenge(SELF, 1, [BG25_002_G_Action()]))
 	pass
+BG25_002_Ge=buff(6,0)
 
-class BG25_002_Ge:# (enchantment)
-	""" Tasty Treat
-	+6 Attack. """
-	#
-	pass
 
-class BG25_002e:# (enchantment)
-	""" Tasty Treat
-	+3 Attack. """
-	#
-	pass
 
 #Jelly Belly 3/3/5/Undead	Reborn ## new 25.2.2
 if BG25__Jelly_Belly:# 
@@ -259,26 +281,17 @@ if BG25__Jelly_Belly:#
 class BG25_005:# (minion)
 	""" Jelly Belly
 	After a friendly minion is <b>Reborn</b>, gain +3/+3. """
-	#
+	events = Reborn(FRIENDLY + MINION - SELF).after(Buff(Reborn.TARGET, 'BG25_005e'))
 	pass
-
+BG25_005e=buff(3,3)
 class BG25_005_G:# (minion)
 	""" Jelly Belly
 	After a friendly minion is <b>Reborn</b>, gain +6/+6. """
-	#
+	events = Reborn(FRIENDLY + MINION - SELF).after(Buff(Reborn.TARGET, 'BG25_005_Ge'))
 	pass
+BG25_005_Ge=buff(6,6)
 
-class BG25_005_Ge:# (enchantment)
-	""" Jellied
-	+6/+6 """
-	#
-	pass
 
-class BG25_005e:# (enchantment)
-	""" Jellied
-	+3/+3 """
-	#
-	pass
 
 #Lich Doctor 3/3/2/Undead	Taunt ## new 25.2.2
 if BG25__Lich_Doctor:# 
@@ -288,29 +301,32 @@ if BG25__Lich_Doctor:#
 	BG_Minion_Undead+=['BG25_006e']
 	BG_PoolSet_Undead[1]+='BG25_006'
 	BG_Undead_Gold['BG25_006']='BG25_006_G'
+class BG25_006_Action(GameAction):
+	def do(self, source):
+		for card in source.controller.field:
+			if getattr(card, 'killed_in_former_battle', False):
+				Buff(card, 'BG25_006e').trigger(source)
+		pass
 class BG25_006:# (minion)
 	""" Lich Doctor
 	<b>Taunt</b>. At the start of your turn, give your minions that _died last combat +1/+1. """
-	#
+	events = BeginBar(CONTROLLER).on(BG25_006_Action())
 	pass
-
+BG25_006e=buff(1,1)
+class BG25_006_G_Action(GameAction):
+	def do(self, source):
+		for card in source.controller.field:
+			if getattr(card, 'killed_in_former_battle', False):
+				Buff(card, 'BG25_006e').trigger(source)
+		pass
 class BG25_006_G:# (minion)
 	""" Lich Doctor
 	<b>Taunt</b>. At the start of your turn, give your minions that _died last combat +2/+2. """
-	#
+	events = BeginBar(CONTROLLER).on(BG25_006_G_Action())
 	pass
+BG25_006_Ge=buff(2,2)
 
-class BG25_006_Ge:# (enchantment)
-	""" Just What Was Ordered
-	+2/+2 """
-	#
-	pass
 
-class BG25_006e:# (enchantment)
-	""" Just What Was Ordered
-	+1/+1 """
-	#
-	pass
 
 ##### tavern tier 4
 

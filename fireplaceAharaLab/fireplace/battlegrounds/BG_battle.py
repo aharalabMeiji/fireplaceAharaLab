@@ -13,6 +13,10 @@ class BG_Battle(Game):
 		#we construct the battlefield from the data of players
 		self.bar1=bars[0]
 		self.bar2=bars[1]
+		for card in self.bar1.controller.field:
+			card.killed_in_former_battle=False
+		for card in self.bar2.controller.field:
+			card.killed_in_former_battle=False
 		self.game1=deepcopy_game(bars[0], bars[0].controller, 0)
 		self.game2=deepcopy_game(bars[1], bars[1].controller, 0)
 		self.player1 = self.game1.player1

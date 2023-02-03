@@ -361,7 +361,10 @@ class Death(GameAction):
 		source.game.refresh_auras()
 		if not entity in entity.controller.death_log:
 			entity.controller.add_death_log(entity)
-		#source.game.refresh_auras()  # 
+		if getattr(source.game, 'this_is_battle',False):## battle of battlegrounds
+			if hasattr(entity, 'deepcopy_original'):
+				if hasattr(entity.deepcopy_original,'killed_in_former_battle'):
+					entity.deepcopy_original.killed_in_former_battle=True
 		if entity.type == CardType.MINION:
 			self.broadcast(source, EventListener.ON, entity)
 			self.broadcast(source, EventListener.AFTER, entity)
@@ -2739,6 +2742,7 @@ class Reborn(TargetedAction):
 	def do(self, source, target):
 		if Config.LOGINFO:
 			Config.log("Reborn.do","Reborn on %r"%(target))
+		self.broadcast(self.player, EventListener.ON, target)
 		controller = target.controller
 		reborn_minion = Summon(controller, target.id).trigger(source)
 		if isinstance(reborn_minion,list):
@@ -2747,6 +2751,7 @@ class Reborn(TargetedAction):
 			reborn_minion = reborn_minion[0]
 		reborn_minion.reborn = False
 		reborn_minion.max_health = 1
+		self.broadcast(self.player, EventListener.AFTER, target)
 	pass
 
 class Trade(TargetedAction):
