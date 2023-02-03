@@ -330,89 +330,110 @@ BG25_006_Ge=buff(2,2)
 
 ##### tavern tier 4
 
-#Anub'arak, Nerubian King 4/4/3/Undead	Deathrattle ## new 25.2.2
+#Anub'arak, Nerubian King 4/4/3/Undead	Deathrattle ## new 25.2.2#############################
 if BG25__Anubarak_Nerubian_King:# 
 	BG_Minion_Undead+=['BG25_007']
 	BG_Minion_Undead+=['BG25_007_G']
 	BG_PoolSet_Undead[1]+='BG25_007'
 	BG_Undead_Gold['BG25_007']='BG25_007_G'
+class BG25_007_Action(GameAction):
+	def do(self, source):
+		## cards in battle
+		controller=source.controller
+		for card in controller.field:
+			if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+				card.atk+=2
+		## cards in bar
+		controller=getattr(controller, 'deepcopy_original',None)
+		if controller:
+			for card in controller.field+controller.hand:
+				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+					card.atk+=2
+			for card in controller.opponent.field: ## bartender's cards
+				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+					card.atk+=2
+		pass
 class BG25_007:# (minion)
 	""" Anub'arak, Nerubian King
 	<b>Deathrattle:</b> Your Undead have +2 Attack for the rest of the game <i>(wherever they are)</i>. """
-	#anubarak_nerubian_king_powered_up += 2
+	deathrattle = BG25_007_Action()
 	pass
-
+class BG25_007_G_Action(GameAction):
+	def do(self, source):
+		## cards in battle
+		controller=source.controller
+		for card in controller.field:
+			if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+				card.atk+=2
+		## cards in bar
+		controller=getattr(controller, 'deepcopy_original',None)
+		if controller:
+			for card in controller.field+controller.hand:
+				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+					card.atk+=2
+			for card in controller.opponent.field: ## bartender's cards
+				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+					card.atk+=2
+		pass
 class BG25_007_G:# (minion)
 	""" Anub'arak, Nerubian King
 	<b>Deathrattle:</b> Your Undead have +4 Attack for the rest of the game <i>(wherever they are)</i>. """
-	#
+	deathrattle = BG25_007_G_Action()
 	pass
 
 
 #Handless Forsaken 4/2/3/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Handless_Forsaken:# 
-	BG_Minion_Undead+=['BG25_010']
-	BG_Minion_Undead+=['BG25_010t']
-	BG_Minion_Undead+=['BG25_010_G']
-	BG_Minion_Undead+=['BG25_010_Gt']
+	BG_Minion_Undead+=['BG25_010','BG25_010t','BG25_010_G','BG25_010_Gt']
 	BG_PoolSet_Undead[1]+='BG25_010'
 	BG_Undead_Gold['BG25_010']='BG25_010_G'
+	BG_Undead_Gold['BG25_010t']='BG25_010_Gt'
 class BG25_010:# (minion)
 	""" Handless Forsaken
 	<b>Deathrattle:</b> Summon a 2/2 Hand with <b>Reborn</b>. """
-	#
+	deathrattle = Summon(CONTROLLER, 'BG25_010t')
 	pass
-
-class BG25_010_G:# (minion)
-	""" Handless Forsaken
-	<b>Deathrattle:</b> Summon a 4/4 Hand with <b>Reborn</b>. """
-	#
-	pass
-
-class BG25_010_Gt:# (minion)
-	""" Helping Hand
-	<b>Reborn</b> """
-	#
-	pass
-
 class BG25_010t:# (minion)
 	""" Helping Hand
 	<b>Reborn</b> """
-	#
 	pass
+class BG25_010_G:# (minion)
+	""" Handless Forsaken
+	<b>Deathrattle:</b> Summon a 4/4 Hand with <b>Reborn</b>. """
+	deathrattle = Summon(CONTROLLER, 'BG25_010_Gt')
+	pass
+class BG25_010_Gt:# (minion)
+	""" Helping Hand
+	<b>Reborn</b> """
+	pass
+
 
 
 #Possessive Banshee 4/2/7/Undead	Battlecry ## new 25.2.2
 if BG25__Possessive_Banshee:# 
-	BG_Minion_Undead+=['BG25_014_G']
+	BG_Minion_Undead+=['BG25_004']
 	BG_Minion_Undead+=['BG25_004e']
 	BG_Minion_Undead+=['BG25_004_G']
 	BG_Minion_Undead+=['BG25_004_Ge']
-	BG_PoolSet_Undead[1]+='BG25_014_G'
-	BG_Undead_Gold['BG25_014_G']='BG25_004_G'
+	BG_PoolSet_Undead[1]+='BG25_004'
+	BG_Undead_Gold['BG25_004']='BG25_004_G'
 class BG25_004:# (minion)
 	""" Possessive Banshee
 	<b>Battlecry:</b> Give an Undead +2/+7. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD}
+	play = Buff(TARGET, 'BG25_004e')
 	pass
-
+BG25_004e=buff(2,7)
 class BG25_004_G:# (minion)
 	""" Possessive Banshee
 	<b>Battlecry:</b> Give an Undead +4/+14. """
-	#
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD}
+	play = Buff(TARGET, 'BG25_004_Ge')
 	pass
+BG25_004_Ge=buff(4,14)
 
-class BG25_004_Ge:# (enchantment)
-	""" MINE!!!
-	+4/+14 """
-	#
-	pass
 
-class BG25_004e:# (enchantment)
-	""" MINE!!!
-	+2/+7 """
-	#
-	pass
+
 
 ###### tavern tier 5
 
