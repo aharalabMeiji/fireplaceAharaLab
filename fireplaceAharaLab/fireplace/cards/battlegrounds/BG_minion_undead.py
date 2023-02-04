@@ -417,7 +417,7 @@ if BG25__Possessive_Banshee:#
 	BG_Minion_Undead+=['BG25_004_Ge']
 	BG_PoolSet_Undead[4]+=['BG25_004']
 	BG_Undead_Gold['BG25_004']='BG25_004_G'
-class BG25_004:# (minion)
+class BG25_004:# (minion)###### TARGET_IF_AVAILABLE??
 	""" Possessive Banshee
 	<b>Battlecry:</b> Give an Undead +2/+7. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.UNDEAD}

@@ -39,6 +39,7 @@ if BG_Micro_Mummy:
 class BG_ULD_217:
 	"""
 	[Reborn]At the end of your turn, giveanother random friendlyminion +1 Attack."""
+	##<Tag enumID="2534" name="1" type="Int" value="1"/>(undead)
 	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS - SELF), 'ULD_217e'))
 	pass
 ULD_217e=buff(1,0)

@@ -2,6 +2,7 @@
 Targeting logic
 """
 from hearthstone.enums import CardType, PlayReq, Rarity, Zone
+from hearthstone.utils import CARDRACE_TAG_MAP
 from enum import IntEnum
 
 TARGETING_PREREQUISITES = (
@@ -14,6 +15,15 @@ TARGETING_PREREQUISITES = (
 	PlayReq.REQ_TARGET_IF_AVAILABLE_AND_HERO_ATTACKED_THIS_TURN,
 )
 
+
+def race_identity(target, param):
+	""" def race_identity(target, param): """
+	if target.type==CardType.MINION:
+		if target.race==param:
+			return True
+		if target.data.tags.get(CARDRACE_TAG_MAP[param]):
+			return True
+	return False
 
 # Requirements-based targeting
 def is_valid_target(self, target, requirements=None):
@@ -71,12 +81,15 @@ def is_valid_target(self, target, requirements=None):
 				return False
 		elif req == PlayReq.REQ_TARGET_WITH_RACE:
 			if param<=100:
-				if target.type != CardType.MINION or target.race != param:
+				if target.type == CardType.MINION:
+					if  race_identity(target, param)==False :
+						return False
+				else:
 					return False
 			else:
 				race1=int(param/100)
 				race2=param%100
-				if target.type != CardType.MINION or (target.race != race1 and target.race != race2):
+				if target.type != CardType.MINION or (race_identity(target, race1)==False and race_identity(target, race2)==False):
 					return False
 		elif req == PlayReq.REQ_HERO_TARGET:
 			if target.type != CardType.HERO:

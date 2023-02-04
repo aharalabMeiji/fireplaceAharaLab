@@ -234,7 +234,8 @@ class BG_HumanAgent(BG_Agent):
 		Race.DRAGON:'dragon',
 		Race.ALL:'all',
 		Race.QUILBOAR:'quilboar',
-		Race.NAGA:'naga'
+		Race.NAGA:'naga',
+		Race.UNDEAD:'undead'
 	}
 	def printBar(self, bar, controller, bartender):
 		print("----------------------------------------------")

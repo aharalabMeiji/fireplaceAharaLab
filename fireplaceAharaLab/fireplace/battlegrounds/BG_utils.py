@@ -767,7 +767,10 @@ def GetMoveCandidates(bar, controller, bartender):
 					for pos in range(len(controller.field)+1):
 						if card.requires_target():
 							for target in card.targets:
-								targetpos=controller.field.index(target)
+								if target in controller.field:
+									targetpos=controller.field.index(target)
+								else:
+									targetpos=0
 								ret.append(Move(bar, card, MovePlay.PLAY, param0=pos, param1=targetpos))
 						else:
 							ret.append(Move(bar, card, MovePlay.PLAY, param0=pos))

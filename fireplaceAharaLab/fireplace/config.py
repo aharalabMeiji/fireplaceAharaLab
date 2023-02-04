@@ -68,12 +68,12 @@ class Config:# ()is the default value
 	REWARD_PRESET_FIRST=0 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
-	PLAYER1_HUMAN=0 ## battleground with human player
-	CARD_PRESET1=''
-	CARD_PRESET2=''
+	PLAYER1_HUMAN=1 ## battleground with human player
+	CARD_PRESET1='BG25_004'
+	CARD_PRESET2='BG_ULD_217'
 	RANDOM_RACE=1 #random sampling from races（default:1）
-	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar']
-	RACE_CHOICE=['pirate','beast']# valid when RANDOM_RACE=0
+	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar','undead']
+	RACE_CHOICE=['beast','undead']# valid when RANDOM_RACE=0
 	HERO_1='' #第1プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
