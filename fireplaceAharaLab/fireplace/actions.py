@@ -3829,7 +3829,6 @@ class Sell(TargetedAction):
 				controller.game.refresh_auras()## refresh aura_buff
 				if card.data.tags.get(1587):
 					controller.used_mana -= card.gambler_sell_price
-				elif card
 				else:
 					controller.used_mana -= 1
 				controller.sells_in_this_turn+=1

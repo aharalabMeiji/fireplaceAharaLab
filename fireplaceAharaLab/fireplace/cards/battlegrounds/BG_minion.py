@@ -1,70 +1,71 @@
 from ast import If
 from ..utils import *
 
-BG_Wrath_Weaver=True #(1)
-BG_Tavern_Tipper=True ##(1) new 23.6
+BG_Wrath_Weaver=True #(1/1/3)
+BG_Tavern_Tipper=True ##(1/2/2) new 23.6
 
 BG_Acolyte_of_C_Thun=False## (2) banned 23.6
-BG_Menagerie_Mug=True##(2) banned 23.6 ### renew 24.6
-BG_Prophet_of_the_Boar=True##(2)
-BG_Selfless_Hero=True##(2)
+BG_Menagerie_Mug=True##(2/2/2) banned 23.6 ### renew 24.6
+BG_Prophet_of_the_Boar=True##(2/2/3)
+BG_Selfless_Hero=True##(2/2/1)
 BG_Spawn_of_N_Zoth=False##(2) ### banned 24.6
 BG_Unstable_Ghoul=False##(2) banned 23.6
-BG_Whelp_Smuggler=True##(2)
+BG_Whelp_Smuggler=False##(2) banned when?
 BG_Kooky_Chemist=False##(2) new 23.6 banned 24.2
-BG_Sparring_Partner=True##(2) new 23.6
+BG_Sparring_Partner=True##(2/3/2) new 23.6
 BG_Yrel=False##(2) new 23.6 ### banned 24.6
-BG_Patient_Scout=True ## new 24.6 ### OK ###
+BG_Patient_Scout=True ## (2/1/1) ## new 24.6 ### OK ###
 
-BG_Arm_of_the_Empire=True##(3)
-BG_Bird_Buddy=True##(3)
-BG_Budding_Greenthumb=False##(3) banned 23.6
-BG_Houndmaster=True##(3)
-BG_Khadgar=True##(3)
-BG_Soul_Juggler=True##(3)
+BG_Arm_of_the_Empire=True##(3/4/4)
+BG_Bird_Buddy=True##(3/2/4)
+BG_Budding_Greenthumb=True##(3/1/4) banned 23.6 ## renew 25.2.2
+BG_Houndmaster=True##(3/4/3)
+BG_Khadgar=False##(3) ## banned when? 
+BG_Soul_Juggler=True##(3/3/5)
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
-BG_Shifter_Zerus=True##(3) new 23.6 banned 24.2 ## revive 24.6 ## OK 
-BG_Faceless_Disciple=True ## (3) new 24.6 ### OK ###
+BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6 ## banned when?
+BG_Faceless_Disciple=True ## (3/6/4) new 24.6 ### OK ###
 
 
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
 BG_Defender_of_Argus=False##(4)banned 23.6
-BG_Impatient_Doomsayer=True##(4)
-BG_Majordomo_Executus=True##(4)
-BG_Menagerie_Jug=True##(4)
-BG_Strongshell_Scavenger=True##(4)
-BG_Witchwing_Nestmatron=True ##(4) banned 24.2 renew 25.0.4
+BG_Impatient_Doomsayer=True##(4/2/6)
+BG_Majordomo_Executus=False##(4) banned when?
+BG_Menagerie_Jug=True##(4/3/3)
+BG_Strongshell_Scavenger=True##(4/2/3)
+BG_Witchwing_Nestmatron=False ##(4) banned 24.2 renew 25.0.4 banned when?
 BG_Reef_Explorer=False##(4)# NEW 23.2 ### banned 24.6
-BG_Treasure_Seeker_Elise=True ##(4) new 24.2
-BG_Tunnel_Blaster=True##(4) new 23.6
-BG24__Rendle_the_Mistermind=True ## (4) new 24.2
-BG_Vigilant_Stoneborn=True ## (4) new 24.6 ### OK ###
+BG_Treasure_Seeker_Elise=True ##(4/5/5) new 24.2
+BG_Tunnel_Blaster=True##(4/3/7) new 23.6
+BG24__Rendle_the_Mistermind=True ## (4/4/5) new 24.2
+BG_Vigilant_Stoneborn=True ## (4/2/6) new 24.6 ### OK ###
 BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
-BG25__Sindorei_Straight_Shot=True ## (4) new 25.2.2
+BG25__Sindorei_Straight_Shot=True ## (4/3/4) new 25.2.2
+BG_Master_of_Realities=True ##(5/6/6)->(4/4/4) when?
 
 
-BG_Baron_Rivendare=True##(5)
-BG_Brann_Bronzebeard=True##(5)
+BG_Baron_Rivendare=False##(5) ## banned 25.2.2
+BG_Brann_Bronzebeard=True##(5/2/4)
 BG_Deadly_Spore=False##(5)banned 23.6
-BG_Kangor_s_Apprentice=True##(5)
-BG_Lightfang_Enforcer=True##(5)
-BG_Master_of_Realities=True ##(5)
-BG_Mythrax_the_Unraveler=True ##(5) banned 24.2  ## revive 25.0.4
-BG_Nomi_Kitchen_Nightmare=True##(5)
-BG_Leeroy_the_Reckless=True##(5) NEW 23.2
-BG24__Tortollan_Blue_Shell=True ## (5) new 24.2 ### OK ###
-BG_Interrogator_Whitemane=False ## (5) new 24.6  ### OK ###  -> banned 25.0.4
+BG_Kangor_s_Apprentice=True##(5/3/6)
+BG_Lightfang_Enforcer=True##(5/2/2)
+BG_Mythrax_the_Unraveler=False ##(5) banned 24.2  ## revive 25.0.4 banned 25.2.2
+BG_Nomi_Kitchen_Nightmare=True##(5/4/4)
+BG_Leeroy_the_Reckless=True##(5/6/2) NEW 23.2
+BG24__Tortollan_Blue_Shell=True ## (5/4/7) new 24.2 ### OK ###
+BG_Interrogator_Whitemane=False ## (5) new 24.6  ## banned 25.0.4
 BG25__Titus_Rivendare=True# 5/1/7 neutral ## new 25.2.2
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
-BG_Nadina_the_Red=True##(6)
-BG_Seafood_Slinger=True ##(6) banned -> resurrect 25.0.4
-BG_Zapp_Slywick=True##(6)
-BG_Orgozoa_the_Tender=True###(6) NEW 23.2
-BG_Uther_the_Lightbringer=True ##(6) new 23.6
-BG24__Tea_Master_Theotar=True# (6) new 24.2
-BG24_The_Walking_Fort=True ##(6) new 24.6 ### OK ###
+BG_Nadina_the_Red=True##(6/7/4)
+BG_Seafood_Slinger=True ##(6/5/5) banned -> resurrect 25.0.4
+BG_Zapp_Slywick=True##(6/7/10)
+BG_Orgozoa_the_Tender=True###(6/3/7) NEW 23.2
+BG_Uther_the_Lightbringer=True ##(6/5/6) new 23.6
+BG24__Tea_Master_Theotar=True# (6/6/6) new 24.2
+BG24_The_Walking_Fort=False ##(6) new 24.6 ### banned until 25.2.2 ###
+BG_Mantid_Queen=True ## (6/5/5) ## new when?
 
 
 
@@ -1062,35 +1063,50 @@ class BG24_017_G:
 	pass
 
 if BG25__Sindorei_Straight_Shot:# ## (4) new 25.2.2
-	BG_Minion+=['BG25_016']
-	BG_Minion+=['BG25_016_G']
-	BG_Minion+=['BG25_016e']
-	BG_Minion+=['BG25_016e2']
+	BG_Minion+=['BG25_016','BG25_016_G','BG25_016e','BG25_016e2']
 	BG_PoolSet_Minion[4].append('BG25_016')
 	BG_Minion_Gold['BG25_016']='BG25_016_G'
 class BG25_016:# (minion)
 	""" Sin'dorei Straight Shot
 	<b>Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
-	#
+	events = BG_Attack(SELF, ENEMY+MINION).on(Buff(BG_Attack.OTHER, 'BG25_016e'))
 	pass
-
 class BG25_016_G:# (minion)
 	""" Sin'dorei Straight Shot
 	<b>Mega-Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
-	#
+	events = BG_Attack(SELF, ENEMY+MINION).on(Buff(BG_Attack.OTHER, 'BG25_016e'))
 	pass
+BG25_016e=buff(reborn=False,taunt=False)
+BG25_016e2=buff(taunt=False)
 
-class BG25_016e:# (enchantment)
-	""" Deborn
-	No longer has <b>Reborn.</b> """
-	#
-	pass
 
-class BG25_016e2:# (enchantment)
-	""" Tauntn't
-	No longer has <b><b>Taunt</b>.</b> """
-	#
+#Master of Realities(4)	 ### maybe ###
+if BG_Master_of_Realities:
+	BG_Minion += ['BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',]#	
+	BG_PoolSet_Minion[4].append('BG21_036')
+	BG_Minion_Gold['BG21_036']='BG21_036_G'
 	pass
+# (5/6/6) -> (4/4/4) when?
+class BG21_036_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	TARGETBUFF = ActionArg()
+	def do(self, source, target, buff, targetbuff):
+		if buff.atk>0 or buff.health>0:
+			Buff(target, targetbuff).trigger(target.controller)
+class BG21_036:# <12>[1453] 多重現実の支配者
+	""" Master of Realities
+	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036e'))
+	pass
+BG21_036e=buff(1,1)
+class BG21_036_G:# <12>[1453]
+	""" Master of Realities
+	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036_Ge'))
+	pass
+BG21_036_Ge=buff(2,2)# <12>[1453]
+""" The Elemental Plane, +2/+2. """
 
 
 
@@ -1227,33 +1243,6 @@ class TB_BaconUps_082e:# <7>[1453]
 	Increased stats. """
 
 
-
-#Master of Realities	5	6	6	-		 ### maybe ###
-if BG_Master_of_Realities:
-	BG_Minion += ['BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',]#	
-	BG_PoolSet_Minion[5].append('BG21_036')
-	BG_Minion_Gold['BG21_036']='BG21_036_G'
-	pass
-class BG21_036_Action(TargetedAction):
-	TARGET = ActionArg()
-	BUFF = ActionArg()
-	TARGETBUFF = ActionArg()
-	def do(self, source, target, buff, targetbuff):
-		if buff.atk>0 or buff.health>0:
-			Buff(target, targetbuff).trigger(target.controller)
-class BG21_036:# <12>[1453] 多重現実の支配者
-	""" Master of Realities
-	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036e'))
-	pass
-BG21_036e=buff(1,1)
-class BG21_036_G:# <12>[1453]
-	""" Master of Realities
-	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036_Ge'))
-	pass
-BG21_036_Ge=buff(2,2)# <12>[1453]
-""" The Elemental Plane, +2/+2. """
 
 
 
@@ -1431,18 +1420,19 @@ class BG24_704_e_G:
 
 
 if BG25__Titus_Rivendare:# 5/1/7 neutral ## new 25.2.2
-	BG25_+=['BG25_354']
+	BG_Minion+=['BG25_354','BG25_354_G']
+	BG_PoolSet_Minion[5].append('BG25_354')
+	BG_Minion_Gold['BG25_354']='BG25_354_G'
 class BG25_354:# (minion)
 	""" Titus Rivendare
 	Your <b>Deathrattles</b> trigger an extra time. """
-	#
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
 	pass
 
-	BG25_+=['BG25_354_G']
 class BG25_354_G:# (minion)
 	""" Titus Rivendare
 	Your <b>Deathrattles</b> trigger 2 extra times. """
-	#
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: True})
 	pass
 
 
@@ -1714,6 +1704,25 @@ class BG24_712_G:
 	pass
 BG24_712e_G=buff(8,8)
 
+if BG_Mantid_Queen:##########
+	BG_Minion += ['BG22_402', 'BG22_402_G', 'BG22_402e', 'BG22_402e2', 'BG22_402e3', 'BG22_402e4' ]#	
+	BG_PoolSet_Minion[6].append('BG22_402')
+	BG_Minion_Gold['BG22_402']='BG22_402_G'
+class BG22_402: ###########################################
+	""" Mantid Queen
+	[Poisonous]. [Start of Combat:] For each of your minion types gain +5/+5, [Windfury], ___[Divine Shield], or [Taunt]."""
+	pass
+class BG22_402_G: 
+	""" Mantid Queen
+	[Poisonous]. [Start of Combat:] For each of your minion types gain [Windfury], [Divine Shield], _[Taunt], or +5/+5, twice."""
+	pass
+BG22_402e=buff(5,5)
+BG22_402e2=buff(windfury=True)
+BG22_402e3=buff(divine_shield=True)
+BG22_402e4=buff(taunt=True)
+
+
+
 #######################
 
 
@@ -1740,6 +1749,5 @@ BG24_712e_G=buff(8,8)
 #	+2/+2. """
 #	#
 #	pass
-
 
 ########################

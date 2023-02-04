@@ -472,7 +472,12 @@ class BG_main:
 				Buff(card, 'BG25_008pe',
 					atk=bartender.opponent.eternal_knight_powered_up*2,
 					max_health=bartender.opponent.eternal_knight_powered_up*2
-					).trigger(bartender)		
+					).trigger(bartender)	
+		if bartender.opponent.felemental_powered_up>0:
+			Buff(card, 'BG25_041e',
+				atk=bartender.opponent.felemental_powered_up,
+				max_health=bartender.opponent.felemental_powered_up
+				).trigger(bartender)
 		if cardID in self.BG_decks[card.tech_level]:
 			self.BG_decks[card.tech_level].remove(cardID)
 		else:

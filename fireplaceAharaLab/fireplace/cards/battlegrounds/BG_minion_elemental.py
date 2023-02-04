@@ -235,33 +235,36 @@ class TB_BaconUps_161:# <12>[1453]
 	pass
 
 
-if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2
-	BG25_+=['BG25_041']
+if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2 ##
+	BG_Minion_Elemental+=['BG25_041']
+	BG_Minion_Elemental+=['BG25_041_G']
+	BG_Minion_Elemental+=['BG25_041e']
+	BG_Minion_Elemental+=['BG25_041e2']
+	BG_PoolSet_Elemental[4].append('BG25_041')
+	BG_Elemental_Gold['BG25_041']='BG25_041_G'
+class BG25_041_Action(GameAction):
+	def do(self, source):
+		source.controller.felemental_powered_up+=1
 class BG25_041:# (minion)
 	""" Felemental
 	<b>Battlecry:</b> Minions in Bob's Tavern have +1/+1 __for the rest of the game. """
-	#
+	play = BG25_041_Action()
 	pass
-
-	BG25_+=['BG25_041_G']
+class BG25_041_G_Action(GameAction):
+	def do(self, source):
+		source.controller.felemental_powered_up+=2
 class BG25_041_G:# (minion)
 	""" Felemental
 	<b>Battlecry:</b> Minions in Bob's Tavern have +2/+2 __for the rest of the game. """
-	#
+	play = BG25_041_G_Action()
 	pass
-
-	BG25_+=['BG25_041e']
 class BG25_041e:# (enchantment)
 	""" Felfire Player Enchant
 	Increased stats. """
-	#
 	pass
-
-	BG25_+=['BG25_041e2']
 class BG25_041e2:# (enchantment)
 	""" Felementality
 	Increased stats. """
-	#
 	pass
 
 

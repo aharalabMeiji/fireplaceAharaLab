@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=3
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -63,9 +63,9 @@ class Config:# ()is the default value
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
-	QUEST_REWARD=1 ## quest and reward system（24.2 - ）
+	QUEST_REWARD=0 ## quest and reward system（24.2 - ）
 	QUEST_PRESET=''
-	REWARD_PRESET_FIRST=1 ## preset a reward at the beginning (for debugging)
+	REWARD_PRESET_FIRST=0 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=0 ## battleground with human player
