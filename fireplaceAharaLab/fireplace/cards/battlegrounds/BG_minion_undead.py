@@ -470,11 +470,12 @@ class BG24_005:
 	[Reborn]. This is [Reborn] with full Health and enchantments. """
 	##< when reborn, effects and max_health will be preserved.>
 	pass
-
 class BG24_005_G:
 	""" KIGA-reshimono
 	[Reborn]. This is [Reborn] with full Health and enchantments."""
 	pass
+
+
 
 #Soulsplitter 5/5/2/Undead	Reborn, Start of Combat ## new 25.2.2
 if BG25__Soulsplitter:# 
@@ -483,43 +484,48 @@ if BG25__Soulsplitter:#
 	BG_Minion_Undead+=['BG25_023_G']
 	BG_PoolSet_Undead[1]+='BG25_023'
 	BG_Undead_Gold['BG25_023']='BG25_023_G'
+class BG25_023_Action(GameAction):
+	def do(self, source):
+		cards=[card for card in source.controller.field if card.Race==Race.UNDEAD]
+		if len(cards):
+			Buff(random.choice(cards), 'BG25_023e').trigger(source)
+		pass
 class BG25_023:# (minion)
 	""" Soulsplitter
 	<b>Reborn</b> <b>Start of Combat:</b> Give a ___friendly Undead <b>Reborn</b>. """
-	#
+	events = BeginBattle(CONTROLLER).on(BG25_023_Action())
 	pass
-
+BG25_023e=buff(reborn=True)
+class BG25_023_G_Action(GameAction):
+	def do(self, source):
+		cards=[card for card in source.controller.field if card.Race==Race.UNDEAD]
+		if len(cards)>2:
+			cards = random.sample(cards, 2)
+		for card in cards:
+			Buff(card, 'BG25_023e').trigger(source)
+		pass
 class BG25_023_G:# (minion)
 	""" Soulsplitter
 	<b>Reborn</b> <b>Start of Combat:</b> Give 2 ___friendly Undead <b>Reborn</b>. """
-	#
+	events = BeginBattle(CONTROLLER).on(BG25_023_G_Action())
 	pass
 
-class BG25_023e:# (enchantment)
-	""" Soul Doubled
-	<b>Reborn</b> """
-	#
-	pass
 
 
 ###### tavern tier 6
 
 #Colossus of the Sun 6/6/6/Undead	Divine Shield, Reborn ## new 25.2.2
 if BG25__Colossus_of_the_Sun:# 
-	BG_Minion_Undead+=['BG25_050']
-	BG_Minion_Undead+=['BG25_050_G']
+	BG_Minion_Undead+=['BG25_050','BG25_050_G']
 	BG_PoolSet_Undead[1]+='BG25_050'
 	BG_Undead_Gold['BG25_050']='BG25_050_G'
 class BG25_050:# (minion)
 	""" Colossus of the Sun
 	<b>Divine Shield</b> <b>Reborn</b> """
-	#
 	pass
-
 class BG25_050_G:# (minion)
 	""" Colossus of the Sun
 	<b>Divine Shield</b> <b>Reborn</b> """
-	#
 	pass
 
 
@@ -531,47 +537,34 @@ if BG25__Eternal_Summoner:#
 	BG_Undead_Gold['BG25_009']='BG25_009_G'
 class BG25_009:# (minion)
 	""" Eternal Summoner
-	<b>Deathrattle:</b> Summon 2 Eternal Knights. """
-	#
+	<b>Deathrattle:</b> Summon 2 Eternal Knights(BG25_008). """
+	deathrattle = Summon(CONTROLLER, 'BG25_008')*2
 	pass
-
 class BG25_009_G:# (minion)
 	""" Eternal Summoner
 	<b>Deathrattle:</b> Summon 4 Eternal Knights. """
-	#
+	deathrattle = Summon(CONTROLLER, 'BG25_008')*4
 	pass
 
 
 #Sister Deathwhisper 6/4/9/Undead	Reborn ## new 25.2.2
 if BG25__Sister_Deathwhisper:# 
-	BG_Minion_Undead+=['BG25_020']
-	BG_Minion_Undead+=['BG25_020e']
-	BG_Minion_Undead+=['BG25_020_G']
-	BG_Minion_Undead+=['BG25_020_Ge']
+	BG_Minion_Undead+=['BG25_020','BG25_020e','BG25_020_G','BG25_020_Ge']
 	BG_PoolSet_Undead[1]+='BG25_020'
 	BG_Undead_Gold['BG25_020']='BG25_020_G'
 class BG25_020:# (minion)
 	""" Sister Deathwhisper
 	After a friendly minion is <b>Reborn</b>, give your Undead +1/+3 permanently. """
-	#
+	events = Reborn(FRIENDLY + MINION).after(BuffPermanently(FRIENDLY + MINION + UNDEAD, 'BG25_020e'))
 	pass
-
+BG25_020e=buff(1,3)
 class BG25_020_G:# (minion)
 	""" Sister Deathwhisper
 	After a friendly minion is <b>Reborn</b>, give your Undead +2/+6  permanently. """
-	#
+	events = Reborn(FRIENDLY + MINION).after(BuffPermanently(FRIENDLY + MINION + UNDEAD, 'BG25_020_Ge'))
 	pass
+BG25_020_Ge=buff(2,6)
 
-class BG25_020_Ge:# (enchantment)
-	""" Dark Whispers
-	+2/+6 """
-	#
-	pass
 
-class BG25_020e:# (enchantment)
-	""" Dark Whispers
-	+1/+3 """
-	#
-	pass
 
 #################################
