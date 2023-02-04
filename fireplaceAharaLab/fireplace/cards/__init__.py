@@ -176,6 +176,7 @@ class CardDB(dict):
 			battlegrounds.BG_minion_murloc.BG_Minion_Murloc,
 			battlegrounds.BG_minion_pirate.BG_Minion_Pirate,
 			battlegrounds.BG_minion_quilboar.BG_Minion_Quilboar,
+			battlegrounds.BG_minion_undead.BG_Minion_Undead,## 25.2.2
 			battlegrounds.BG24_quest.BG24_Quest,
 			battlegrounds.BG24_reward.BG24_Reward,
 			]

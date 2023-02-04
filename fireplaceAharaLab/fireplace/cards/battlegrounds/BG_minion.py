@@ -503,9 +503,7 @@ if BG_Bird_Buddy:#Bird Buddy	3	2	4	-		 ### maybe ###
 class BG21_002:# <12>[1453]  愛鳥家
 	""" Bird Buddy
 	[Avenge (1):] Give your Beasts +1/+1. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 1, \
-		[Buff(FRIENDLY_MINIONS + BEAST, 'BG21_002e')]\
-		))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 1, [Buff(FRIENDLY_MINIONS + BEAST, 'BG21_002e')]))
 	pass
 BG21_002e=buff(1,1)
 """ Well Fed, +1/+1. """

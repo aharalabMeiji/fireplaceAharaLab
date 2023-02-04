@@ -427,9 +427,9 @@ class TB_BaconUps_200:# <12>[1453]
 	pass
 
 if BG25__Magmaloc:# 5/1/1 murloc ## new 25.2.2
-	BG_Minion_Murloc+=['BG25_046','BG25_046e','BG25_046_G','BG25_046_Ge']
-	BG_PoolSet_Murloc[5].append('BG25_046')
-	BG_Murloc_Gold['BG25_046']='BG25_046_G'
+	BG_Minion_Elemental+=['BG25_046','BG25_046e','BG25_046_G','BG25_046_Ge']
+	BG_PoolSet_Elemental[5].append('BG25_046')
+	BG_Elemental_Gold['BG25_046']='BG25_046_G'
 class BG25_046_Action(GameAction):
 	def do(self, source):
 		amount = len([log for log in  source.controller._play_log if log.type==CardType.MINION and log.turn==source.controller.game.turn ])

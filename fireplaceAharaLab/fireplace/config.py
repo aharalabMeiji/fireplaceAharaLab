@@ -26,7 +26,7 @@ class Config:# ()is the default value
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 # the coin is not included
 
 
-	LOGINFO=0 # as log.info
+	LOGINFO=1 # as log.info
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
@@ -63,7 +63,7 @@ class Config:# ()is the default value
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
 	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
-	QUEST_REWARD=0 ## quest and reward system（24.2 - ）
+	QUEST_REWARD=0 ## quest and reward system（24.2 - ）(banned 25.2.2-)
 	QUEST_PRESET=''
 	REWARD_PRESET_FIRST=0 ## preset a reward at the beginning (for debugging)
 	REWARD_PRESET=''

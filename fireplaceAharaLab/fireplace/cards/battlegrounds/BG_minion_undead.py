@@ -35,7 +35,7 @@ BG_Undead_Gold={}
 if BG25__Risen_Rider:# 
 	BG_Minion_Undead+=['BG25_001']
 	BG_Minion_Undead+=['BG25_001_G']
-	BG_PoolSet_Undead[1]+='BG25_001'
+	BG_PoolSet_Undead[1]+=['BG25_001']
 	BG_Undead_Gold['BG25_001']='BG25_001_G'
 class BG25_001:# (minion)
 	""" Risen Rider
@@ -51,7 +51,7 @@ class BG25_001_G:# (minion)
 #Rot Hide Gnoll 1/1/4/Undead	- ## new 25.2.2
 if BG25__Rot_Hide_Gnoll:# 
 	BG_Minion_Undead+=['BG25_013','BG25_013_G']
-	BG_PoolSet_Undead[1]+='BG25_013'
+	BG_PoolSet_Undead[1]+=['BG25_013']
 	BG_Undead_Gold['BG25_013']='BG25_013_G'
 class BG25_013_Action(GameAction):
 	def do(self, source):
@@ -72,12 +72,12 @@ class BG25_013_G:# (minion)
 	events = Death(FRIENDLY+MINION).on(BG25_013_G_Action())
 	pass
 
-
+######## tavern tier 2
 
 #Eternal Knight 2/3/1/Undead	- ## new 25.2.2
 if BG25__Eternal_Knight:# 
 	BG_Minion_Undead+=['BG25_008','BG25_008_e','BG25_008_G','BG25_008pe']
-	BG_PoolSet_Undead[1]+='BG25_008'
+	BG_PoolSet_Undead[2]+=['BG25_008']
 	BG_Undead_Gold['BG25_008']='BG25_008_G'
 class BG25_008_Action(GameAction):
 	def do(self, source):
@@ -85,7 +85,7 @@ class BG25_008_Action(GameAction):
 class BG25_008:# (minion)
 	""" Eternal Knight
 	Has +1/+1 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	events = Dead(SELF).after(BG25_008_Action())
+	events = Death(SELF).after(BG25_008_Action())
 	pass
 class BG25_008_e:# (enchantment)
 	""" Eternal Legion
@@ -94,7 +94,7 @@ class BG25_008_e:# (enchantment)
 class BG25_008_G:# (minion)
 	""" Eternal Knight
 	Has +2/+2 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	events = Dead(SELF).after(BG25_008_Action())
+	events = Death(SELF).after(BG25_008_Action())
 	pass
 class BG25_008pe:# (enchantment)
 	""" Eternal Knight Player Enchant
@@ -106,7 +106,7 @@ class BG25_008pe:# (enchantment)
 #Nerubian Deathswarmer 2/1/3/Undead	Battlecry  ## new 25.2.2
 if BG25__Nerubian_Deathswarmer:# 
 	BG_Minion_Undead+=['BG25_011','BG25_011_G','BG25_011e2','BG25_011pe']
-	BG_PoolSet_Undead[1]+='BG25_011'
+	BG_PoolSet_Undead[2]+=['BG25_011']
 	BG_Undead_Gold['BG25_011']='BG25_011_G'
 class BG25_011_Action(GameAction):
 	def do(self, source):
@@ -154,7 +154,7 @@ class BG25_011pe:# (enchantment)
 #Scarlet Skull 2/1/2/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Scarlet_Skull:# 
 	BG_Minion_Undead+=['BG25_022','BG25_022_G','BG25_022_Ge','BG25_022e']
-	BG_PoolSet_Undead[1]+='BG25_022'
+	BG_PoolSet_Undead[2]+=['BG25_022']
 	BG_Undead_Gold['BG25_022']='BG25_022_G'
 class BG25_022_Action(GameAction):
 	def do(self, source):
@@ -186,7 +186,7 @@ BG25_022_Ge=buff(2,4)
 if BG25__Corpse_Refiner:# 2/2/3 undead ## new 25.2.2
 	BG_Minion_Undead+=['BG25_033']
 	BG_Minion_Undead+=['BG25_033_G']
-	BG_PoolSet_Undead[1]+='BG25_033'
+	BG_PoolSet_Undead[2]+=['BG25_033']
 	BG_Undead_Gold['BG25_033']='BG25_033_G'
 class BG25_033_Action(GameAction):
 	def do(self, source):
@@ -225,7 +225,7 @@ if BG25__Ghoul_of_the_Feast:#
 	BG_Minion_Undead+=['BG25_002e']
 	BG_Minion_Undead+=['BG25_002_G']
 	BG_Minion_Undead+=['BG25_002_Ge']
-	BG_PoolSet_Undead[1]+='BG25_002'
+	BG_PoolSet_Undead[3]+=['BG25_002']
 	BG_Undead_Gold['BG25_002']='BG25_002_G'
 class BG25_002_Action(GameAction):
 	def do(self, source):
@@ -276,7 +276,7 @@ if BG25__Jelly_Belly:#
 	BG_Minion_Undead+=['BG25_005_G']
 	BG_Minion_Undead+=['BG25_005_Ge']
 	BG_Minion_Undead+=['BG25_005e']
-	BG_PoolSet_Undead[1]+='BG25_005'
+	BG_PoolSet_Undead[3]+=['BG25_005']
 	BG_Undead_Gold['BG25_005']='BG25_005_G'
 class BG25_005:# (minion)
 	""" Jelly Belly
@@ -299,7 +299,7 @@ if BG25__Lich_Doctor:#
 	BG_Minion_Undead+=['BG25_006_G']
 	BG_Minion_Undead+=['BG25_006_Ge']
 	BG_Minion_Undead+=['BG25_006e']
-	BG_PoolSet_Undead[1]+='BG25_006'
+	BG_PoolSet_Undead[3]+=['BG25_006']
 	BG_Undead_Gold['BG25_006']='BG25_006_G'
 class BG25_006_Action(GameAction):
 	def do(self, source):
@@ -334,7 +334,7 @@ BG25_006_Ge=buff(2,2)
 if BG25__Anubarak_Nerubian_King:# 
 	BG_Minion_Undead+=['BG25_007']
 	BG_Minion_Undead+=['BG25_007_G']
-	BG_PoolSet_Undead[1]+='BG25_007'
+	BG_PoolSet_Undead[4]+=['BG25_007']
 	BG_Undead_Gold['BG25_007']='BG25_007_G'
 class BG25_007_Action(GameAction):
 	def do(self, source):
@@ -385,7 +385,7 @@ class BG25_007_G:# (minion)
 #Handless Forsaken 4/2/3/Undead	Deathrattle, Reborn ## new 25.2.2
 if BG25__Handless_Forsaken:# 
 	BG_Minion_Undead+=['BG25_010','BG25_010t','BG25_010_G','BG25_010_Gt']
-	BG_PoolSet_Undead[1]+='BG25_010'
+	BG_PoolSet_Undead[4]+=['BG25_010']
 	BG_Undead_Gold['BG25_010']='BG25_010_G'
 	BG_Undead_Gold['BG25_010t']='BG25_010_Gt'
 class BG25_010:# (minion)
@@ -415,7 +415,7 @@ if BG25__Possessive_Banshee:#
 	BG_Minion_Undead+=['BG25_004e']
 	BG_Minion_Undead+=['BG25_004_G']
 	BG_Minion_Undead+=['BG25_004_Ge']
-	BG_PoolSet_Undead[1]+='BG25_004'
+	BG_PoolSet_Undead[4]+=['BG25_004']
 	BG_Undead_Gold['BG25_004']='BG25_004_G'
 class BG25_004:# (minion)
 	""" Possessive Banshee
@@ -443,7 +443,7 @@ if BG25__Hungering_Abomination:#
 	BG_Minion_Undead+=['BG25_014e']
 	BG_Minion_Undead+=['BG25_014_G']
 	BG_Minion_Undead+=['BG25_014_Ge']
-	BG_PoolSet_Undead[1]+='BG25_014'
+	BG_PoolSet_Undead[5]+=['BG25_014']
 	BG_Undead_Gold['BG25_014']='BG25_014_G'
 class BG25_014:# (minion)
 	""" Hungering Abomination
@@ -463,7 +463,7 @@ BG25_014_Ge=buff(2,2)
 #BG24_005
 if BG24__Sinrunner_Blanchy:
 	BG_Minion_Undead += ['BG24_005','BG24_005_G']
-	BG_PoolSet_Undead[1]+='BG24_005'
+	BG_PoolSet_Undead[5]+=['BG24_005']
 	BG_Undead_Gold['BG24_005']='BG24_005_G'
 class BG24_005:
 	""" Sinrunner Branky (5/4/4)
@@ -482,7 +482,7 @@ if BG25__Soulsplitter:#
 	BG_Minion_Undead+=['BG25_023']
 	BG_Minion_Undead+=['BG25_023e']
 	BG_Minion_Undead+=['BG25_023_G']
-	BG_PoolSet_Undead[1]+='BG25_023'
+	BG_PoolSet_Undead[5]+=['BG25_023']
 	BG_Undead_Gold['BG25_023']='BG25_023_G'
 class BG25_023_Action(GameAction):
 	def do(self, source):
@@ -517,7 +517,7 @@ class BG25_023_G:# (minion)
 #Colossus of the Sun 6/6/6/Undead	Divine Shield, Reborn ## new 25.2.2
 if BG25__Colossus_of_the_Sun:# 
 	BG_Minion_Undead+=['BG25_050','BG25_050_G']
-	BG_PoolSet_Undead[1]+='BG25_050'
+	BG_PoolSet_Undead[6]+=['BG25_050']
 	BG_Undead_Gold['BG25_050']='BG25_050_G'
 class BG25_050:# (minion)
 	""" Colossus of the Sun
@@ -533,7 +533,7 @@ class BG25_050_G:# (minion)
 if BG25__Eternal_Summoner:# 
 	BG_Minion_Undead+=['BG25_009']
 	BG_Minion_Undead+=['BG25_009_G']
-	BG_PoolSet_Undead[1]+='BG25_009'
+	BG_PoolSet_Undead[6]+=['BG25_009']
 	BG_Undead_Gold['BG25_009']='BG25_009_G'
 class BG25_009:# (minion)
 	""" Eternal Summoner
@@ -550,7 +550,7 @@ class BG25_009_G:# (minion)
 #Sister Deathwhisper 6/4/9/Undead	Reborn ## new 25.2.2
 if BG25__Sister_Deathwhisper:# 
 	BG_Minion_Undead+=['BG25_020','BG25_020e','BG25_020_G','BG25_020_Ge']
-	BG_PoolSet_Undead[1]+='BG25_020'
+	BG_PoolSet_Undead[6]+=['BG25_020']
 	BG_Undead_Gold['BG25_020']='BG25_020_G'
 class BG25_020:# (minion)
 	""" Sister Deathwhisper

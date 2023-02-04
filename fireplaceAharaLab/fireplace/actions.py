@@ -2742,8 +2742,8 @@ class Reborn(TargetedAction):
 	def do(self, source, target):
 		if Config.LOGINFO:
 			Config.log("Reborn.do","Reborn on %r"%(target))
-		self.broadcast(self.player, EventListener.ON, target)
 		controller = target.controller
+		self.broadcast(controller, EventListener.ON, target)
 		reborn_minion = Summon(controller, target.id).trigger(source)
 		if isinstance(reborn_minion,list):
 			reborn_minion = reborn_minion[0]
@@ -2756,7 +2756,7 @@ class Reborn(TargetedAction):
 			pass
 		else:
 			reborn_minion.max_health = 1
-		self.broadcast(self.player, EventListener.AFTER, target)
+		self.broadcast(controller, EventListener.AFTER, target)
 	pass
 
 class Trade(TargetedAction):

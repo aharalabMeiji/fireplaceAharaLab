@@ -50,8 +50,7 @@ class BG_main:
 		self.BG_decks=[[],[],[],[],[],[],[]]
 		if Config.RANDOM_RACE:
 			# sample races randomly
-			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar'],5)## 23.2.2
-			#self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','pirate','quilboar'],5)
+			self.BG_races = races = random.sample(['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar','undead'],5)## add naga 23.2.2 ## add undead 25.2.2
 		else:
 			# or specific race set. 
 			self.BG_races = races=Config.RACE_CHOICE
@@ -75,6 +74,8 @@ class BG_main:
 			random_picker.BG_races.append(Race.PIRATE)
 		if 'quilboar' in self.BG_races:
 			random_picker.BG_races.append(Race.QUILBOAR)
+		if 'undead' in self.BG_races:## new 25.2.2
+			random_picker.BG_races.append(Race.UNDEAD)## new 25.2.2
 		for i in range(6):
 			if i<5:
 				rep=8
@@ -100,6 +101,8 @@ class BG_main:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i+1]
 				if 'quilboar' in races:
 					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i+1]
+				if 'undead' in races:## new 25.2.2
+					self.BG_decks[i+1] += cards.battlegrounds.BG_minion_undead.BG_PoolSet_Undead[i+1]## new 25.2.2
 		if not 'dragon' in self.BG_races and 'TB_BaconShop_HERO_56' in self.Heroes:
 			self.Heroes.remove('TB_BaconShop_HERO_56')#2 dragon ban
 		if not 'elemental' in self.BG_races and 'TB_BaconShop_HERO_78' in self.Heroes:
@@ -128,6 +131,7 @@ class BG_main:
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_murloc.BG_Murloc_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_pirate.BG_Pirate_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_minion_quilboar.BG_Quilboar_Gold)
+		self.BG_Gold.update(cards.battlegrounds.BG_minion_undead.BG_Undead_Gold)## new 25.2.2
 		self.BG_Gold.update(cards.battlegrounds.BG_hero1.BG_Hero1_Buddy_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_hero2.BG_Hero2_Buddy_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_hero3.BG_Hero3_Buddy_Gold)
