@@ -905,13 +905,13 @@ class BG24_Reward_715:#
 	pass
 class BG24_Reward_715t:
 	""" Mega Horn
-	Give a minion +5/+5 and &lt;b&gt;Taunt&lt;/b&gt;. """
+	Give a minion +5/+5 and [Taunt]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
 	play=Buff(TARGET, 'BG24_Reward_715e')
 BG24_Reward_715e=buff(5, 5, taunt=True)
 class BG24_Reward_715t2:
 	""" Blazing Blades
-	Give a minion +5/+5 and &lt;b&gt;Windfury&lt;/b&gt;."""
+	Give a minion +5/+5 and [Windfury]."""
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
 	play=Buff(TARGET, 'BG24_Reward_715e2')
 class BG24_Reward_715e2:
@@ -920,14 +920,14 @@ class BG24_Reward_715e2:
 	tags={GameTag.ATK:5, GameTag.HEALTH:5, } 
 class BG24_Reward_715t3:
 	""" Bunker Plating
-	Give a minion +5/+5 and &lt;b&gt;Divine Shield&lt;/b&gt;. """
+	Give a minion +5/+5 and [Divine Shield]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
 	play=Buff(TARGET, 'BG24_Reward_715e3')
 class BG24_Reward_715e3:
 	tags={GameTag.ATK:5, GameTag.HEALTH:5, GameTag.DIVINE_SHIELD:1 } 
 class BG24_Reward_715t4:
 	""" BG24_Reward_715t4
-	Give a minion +5/+5 and &lt;b&gt;Reborn&lt;/b&gt;. """
+	Give a minion +5/+5 and [Reborn]. """
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0 }	
 	play=Buff(TARGET, 'BG24_Reward_715e4')
 BG24_Reward_715e4=buff(5, 5, reborn=True)

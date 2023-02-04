@@ -137,13 +137,13 @@ if BG_Blazing_Sklyfin:
 	BG_Murloc_Gold['BG25_040']='BG25_040_G'
 class BG25_040:
 	""" Blazing Skyfin (2/1/3)
-	After you play a &lt;b&gt;Battlecry&lt;/b&gt; minion, gain +1/+1."""
+	After you play a [Battlecry] minion, gain +1/+1."""
 	events = Play(CONTROLLER, FRIENDLY + BATTLECRY).after(Buff(SELF, 'BG25_040e'))
 	pass
 BG25_040e=buff(1,1)
 class BG25_040_G:
 	""" Blazing Skyfin (2/2/6)
-	After you play a &lt;b&gt;Battlecry&lt;/b&gt; minion, gain +2/+2."""
+	After you play a [Battlecry] minion, gain +2/+2."""
 	events = Play(CONTROLLER, FRIENDLY + BATTLECRY).after(Buff(SELF, 'BG25_040_Ge'))
 	pass
 BG25_040_Ge=buff(2,2)

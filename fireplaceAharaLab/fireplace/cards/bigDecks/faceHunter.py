@@ -111,7 +111,7 @@ FaceHunter+=['BAR_801','BAR_035t']
 FaceHunter+=['BT_211']
 class BT_211:
 	"""Imprisoned Felmaw
-	&lt;b&gt;Dormant&lt;/b&gt; for 2 turns. When this awakens, __attack a random enemy."""
+	[Dormant] for 2 turns. When this awakens, __attack a random enemy."""
 	dormant = 2
 	awaken = Attack(SELF, RANDOM_ENEMY_CHARACTER)
 	pass

@@ -2750,7 +2750,12 @@ class Reborn(TargetedAction):
 		if isinstance(reborn_minion,list):
 			reborn_minion = reborn_minion[0]
 		reborn_minion.reborn = False
-		reborn_minion.max_health = 1
+		if reborn_minion.id in ['BG24_005','BG24_005_G']:##Sinrunner Branky ## new 25.2.2
+			for buff in target.buffs:
+				buff.apply(reborn_minion)
+			pass
+		else:
+			reborn_minion.max_health = 1
 		self.broadcast(self.player, EventListener.AFTER, target)
 	pass
 

@@ -56,7 +56,7 @@ class RLK_601:# <10>[1776]
 	""" Last Stand (spell:4)
 	Draw a <b>Taunt</b> minion. Double its stats. """
 	## 25.2.2 -
-	## Draw a &lt;b&gt;Taunt&lt;/b&gt; minion. &lt;b&gt;Manathirst (7):&lt;/b&gt; Double its stats.
+	## Draw a [Taunt] minion. [Manathirst (7):] Double its stats.
 	play = play = Manathirst(7, [RLK_601_Action()],[RLK_601_Action0()])
 	pass
 class RLK_601e:# <10>[1776]
@@ -165,7 +165,7 @@ class RLK_608:# <10>[1776]
 	""" Asvedon, the Grandshield (minion:3/3/3)
 	<b>Battlecry:</b> Cast a copy of the last spell your opponent played. """
 	## 25.2.2 -
-	## &lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Cast a copy of the last spell your opponent played.
+	## [Taunt] [Battlecry:] Cast a copy of the last spell your opponent played.
 	play = RLK_608_Action()
 	pass
 

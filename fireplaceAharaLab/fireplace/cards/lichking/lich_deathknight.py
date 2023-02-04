@@ -177,7 +177,7 @@ class RLK_506:# <1>[1776]
 	pass
 class RLK_061t:
 	""" Risen Footmen
-	&lt;b&gt;Taunt&lt;/b&gt; &lt;i&gt;Doesn't leave a &lt;b&gt;Corpse&lt;/b&gt;.&lt;/i&gt;"""
+	[Taunt] &lt;i&gt;Doesn't leave a [Corpse].&lt;/i&gt;"""
 	# this is not collectible.
 	# implementation in class Death.
 	## 25.2.2

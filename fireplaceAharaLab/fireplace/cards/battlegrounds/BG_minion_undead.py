@@ -448,26 +448,16 @@ if BG25__Hungering_Abomination:#
 class BG25_014:# (minion)
 	""" Hungering Abomination
 	<b>Avenge (1):</b> Gain +1/+1 permanently. """
-	#
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 1, [BuffPermanently(SELF, 'BG25_014e')]))
 	pass
-
+BG25_014e=buff(1,1)
 class BG25_014_G:# (minion)
 	""" Hungering Abomination
 	<b>Avenge (1):</b> Gain +2/+2 permanently. """
-	#
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 1, [BuffPermanently(SELF, 'BG25_014_Ge')]))
 	pass
+BG25_014_Ge=buff(2,2)
 
-class BG25_014_Ge:# (enchantment)
-	""" OM NOM NOM
-	+2/+2 """
-	#
-	pass
-
-class BG25_014e:# (enchantment)
-	""" OM NOM NOM
-	+1/+1 """
-	#
-	pass
 
 #Sinrunner Blanchy 5/3/3/Beast, Undead	Reborn ## new 25.2.2
 #BG24_005
@@ -477,16 +467,14 @@ if BG24__Sinrunner_Blanchy:
 	BG_Undead_Gold['BG24_005']='BG24_005_G'
 class BG24_005:
 	""" Sinrunner Branky (5/4/4)
-	Reborn """
+	[Reborn]. This is [Reborn] with full Health and enchantments. """
 	##< when reborn, effects and max_health will be preserved.>
 	pass
 
 class BG24_005_G:
 	""" KIGA-reshimono
-	Avenge (1) Get 1/1 permanently"""
-	events = Death(FRIENDLY).on(Avenge(SELF, 1,[BuffPermanently(SELF, 'BG_UND_534e')]))
-BG24_005e=buff(1,1)
-
+	[Reborn]. This is [Reborn] with full Health and enchantments."""
+	pass
 
 #Soulsplitter 5/5/2/Undead	Reborn, Start of Combat ## new 25.2.2
 if BG25__Soulsplitter:# 

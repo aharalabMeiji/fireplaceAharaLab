@@ -199,7 +199,7 @@ class RLK_222:# <12>[1776]
 	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="4"/>
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="4"/>
 	## 25.2.2 -
-	## &lt;b&gt;Battlecry:&lt;/b&gt; Add Astalor, the Protector to your hand. &lt;b&gt;Manathirst (@):&lt;/b&gt; Deal 2 damage.
+	## [Battlecry:] Add Astalor, the Protector to your hand. [Manathirst (@):] Deal 2 damage.
 	#<Tag enumID="2498" name="MANATHIRST" type="Int" value="5"/>
 	play = Manathirst(5, [Give(CONTROLLER, 'RLK_222t1'), Hit(RANDOM(ENEMY_CHARACTERS),2)], [Give(CONTROLLER, 'RLK_222t1')])
 	pass

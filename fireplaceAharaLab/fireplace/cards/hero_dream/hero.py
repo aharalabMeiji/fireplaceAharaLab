@@ -252,18 +252,18 @@ class HERO_11:
 	pass
 class HERO_11bp:
 	""" Ghoul Charge 
-	&lt;b&gt;Hero Power&lt;/b&gt; Summon a 1/1 Ghoul with &lt;b&gt;Charge&lt;/b&gt;. It dies at end of turn."""
+	[Hero Power] Summon a 1/1 Ghoul with [Charge]. It dies at end of turn."""
 	pass
 class HERO_11bpt:
 	""" Frail Ghoul
-	&lt;b&gt;Charge&lt;/b&gt; At the end of your turn, this minion dies."""
+	[Charge] At the end of your turn, this minion dies."""
 	pass
 class HERO_11bp2:
 	""" Ghoul Frenzy
-	&lt;b&gt;Hero Power&lt;/b&gt; Summon a 2/1 Ghoul with &lt;b&gt;Charge&lt;/b&gt;. It dies at end of turn."""
+	[Hero Power] Summon a 2/1 Ghoul with [Charge]. It dies at end of turn."""
 	pass
 class HERO_11bp2t:
 	""" Frenzied Ghoul
-	&lt;b&gt;Charge&lt;/b&gt; At the end of your turn, this minion dies."""
+	[Charge] At the end of your turn, this minion dies."""
 	pass
 

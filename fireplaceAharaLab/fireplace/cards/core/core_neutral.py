@@ -895,7 +895,7 @@ class LOE_019t2_Action(GameAction):
 
 class LOE_019t2:
 	"""Golden Monkey
-	&lt;b&gt;Taunt&lt;/b&gt; &lt;b&gt;Battlecry:&lt;/b&gt; Replace your hand and deck with &lt;b&gt;Legendary&lt;/b&gt; minions. """
+	[Taunt] [Battlecry:] Replace your hand and deck with [Legendary] minions. """
 	play = LOE_019t2_Action()
 
 
