@@ -221,7 +221,7 @@ class BG20_203:# <12>[1453]
 	[Taunt] After you play a Quilboar, get a [Blood Gem]. """
 	##[Once per Turn:] After you play a Quilboar, gain a [Blood Gem]. """ # 
 	events = [
-		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
+		BG_Play(CONTROLLER, MINION + QUILBOAR).after(BG20_203_Action(CONTROLLER, 1)),
 		#BeginBar(CONTROLLER).on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
@@ -230,7 +230,7 @@ class BG20_203_G:# <12>[1453]
 	[Taunt] After you play a Quilboar, get 2 [Blood Gems]."""
 	#[Once per Turn:] After you play a Quilboar, gain 2 [Blood Gems]. """
 	events = [
-		BG_Play(CONTROLLER, QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
+		BG_Play(CONTROLLER, MINION + QUILBOAR).after(BG20_203_Action(CONTROLLER, 2)),
 		#BeginBar.on(SetAttr(CONTROLLER, 'once_per_turn', 0))
 		]
 	pass
