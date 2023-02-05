@@ -227,7 +227,8 @@ class BGS_020_Choice(Choice):
 class BGS_020_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
-		cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
+		#cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
+		cards=[card for card in controller.field if card!=source and race_identity(card,Race.MURLOC)]
 		if len(cards):
 			BGS_020_Choice(controller, RandomBGMurloc(tech_level_less=TIER(CONTROLLER))*3).trigger(source)
 class BGS_020:# <12>[1453] 見張り番
@@ -248,7 +249,8 @@ class BGS_020_Choice2(Choice):
 class BGS_020_Action2(GameAction):
 	def do(self, source):
 		controller=source.controller
-		cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
+		#cards=[card for card in controller.field if card!=source and card.type==CardType.MINION and card.race==Race.MURLOC]
+		cards=[card for card in controller.field if card!=source and race_identity(card,Race.MURLOC)]
 		if len(cards):
 			BGS_020_Choice2(controller, RandomBGMurloc(tech_level_less=TIER(CONTROLLER))*3).trigger(source)
 class TB_BaconUps_089:# <12>[1453]

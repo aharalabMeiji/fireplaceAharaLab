@@ -509,7 +509,8 @@ class BGS_124_Action(TargetedAction):
 	BUFF = ActionArg()#'BGS_124e'
 	AMOUNT = IntArg()
 	def do(self, source, target, buff, amount):
-		count = len([card for card in source.controller.field if card.race==Race.ELEMENTAL])
+		#count = len([card for card in source.controller.field if card.race==Race.ELEMENTAL])
+		count = len([card for card in source.controller.field if race_identity(card, Race.ELEMENTAL)])
 		Buff(target, buff, max_health=count*amount).trigger(source)
 class BGS_124: #
 	""" Lieutenant Garr

@@ -575,7 +575,8 @@ class BG23_013_Action(TargetedAction):
 		controller = target
 		nagas=[]
 		for card in controller.field:
-			if card.race==Race.NAGA:
+			#if card.race==Race.NAGA:
+			if race_identity(card, Race.NAGA):
 				nagas.append(card)
 		if len(nagas)>3:
 			nagas=random.sample(nagas,3)

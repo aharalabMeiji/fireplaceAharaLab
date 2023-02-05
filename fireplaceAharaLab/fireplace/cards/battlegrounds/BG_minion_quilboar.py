@@ -547,7 +547,8 @@ class BG23_018_Action(TargetedAction):
 		if controller.spentmoney_in_this_turn>=5:
 			quilboars=[]
 			for card in controller.field:
-				if card.race==Race.QUILBOAR:
+				#if card.race==Race.QUILBOAR:
+				if race_identity(card,Race.QUILBOAR):
 					quilboars.append(card)
 			if len(quilboars)>4:
 				quilboars=random.select(quilboars,4)

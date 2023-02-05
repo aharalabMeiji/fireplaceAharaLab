@@ -2,6 +2,7 @@ from pickle import NONE
 import random
 
 from hearthstone.enums import CardClass, CardType, GameTag, PlayReq, Race, Rarity
+from hearthstone.utils import CARDRACE_TAG_MAP
 
 from ..actions import *
 from ..aura import Refresh
@@ -90,11 +91,20 @@ RACES=[
 	Race.DRAGON,
 	Race.ALL,
 	Race.QUILBOAR,
-	Race.NAGA 
+	Race.NAGA,
+	Race.UNDEAD
 ]
 
-
 OTHERCLASSES = lambda myclass: CARDCLASSES.remove(myclass)
+
+def race_identity(target, param):
+	""" def race_identity(target, param): """
+	if target.type==CardType.MINION:
+		if target.race==param:
+			return True
+		if target.data.tags.get(CARDRACE_TAG_MAP[param]):
+			return True
+	return False
 
 POTIONS = [
 	"CFM_021",  # Freezing Potion

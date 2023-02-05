@@ -1,4 +1,3 @@
-from ast import If
 from ..utils import *
 
 BG_Wrath_Weaver=True #(1/1/3)
@@ -770,7 +769,8 @@ class BGS_105_Action(TargetedAction):
 			left_card = controller.field[0]
 			count=1
 			for card in controller.play_this_turn:
-				if card.type==CardType.MINION and card.race==Race.ELEMENTAL:
+				#if card.type==CardType.MINION and card.race==Race.ELEMENTAL:
+				if race_identity(card, Race.ELEMENTAL):
 					count += 1
 			Buff(left_card, 'BGS_105e', atk=count, max_health=count).trigger(source)
 		pass
@@ -792,7 +792,8 @@ class TB_BaconUps_207_Action(TargetedAction):
 			left_card = controller.field[0]
 			count=1
 			for card in controller.play_this_turn:
-				if  card.type==CardType.MINION and card.race==Race.ELEMENTAL:
+				#if card.type==CardType.MINION and card.race==Race.ELEMENTAL:
+				if race_identity(card, Race.ELEMENTAL):
 					count += 1
 			Buff(left_card, 'BGS_105e', atk=count*2, max_health=count*2).trigger(source)
 		pass
@@ -1182,7 +1183,7 @@ class BGS_012_Action(TargetedAction):
 		controller = target
 		cards = []
 		for card in controller.death_log:
-			if card.race == Race.MECHANICAL:
+			if race_identity(card,Race.MECHANICAL):
 				cards.append(card)
 		for repeat in range(amount):
 			if repeat<len(cards):

@@ -45,7 +45,8 @@ class BG21_027_Buff(TargetedAction):
 	def do(self, source, target, buff, amount):
 		count=0#>= 26.0
 		for card in target.controller.field:#>= 24.0
-			if card.race==Race.DRAGON:#>= 24.0
+			#if card.race==Race.DRAGON:#>= 24.0
+			if race_identity(card,Race.DRAGON):#>= 24.0
 				count += 1#>= 24.0
 		Buff(target, buff, atk=count*amount).trigger(source)#>= 24.0.3
 		#Buff(target, buff, atk=count*amount, max_health=count*amount).trigger(source)#>= 24.0
@@ -81,7 +82,8 @@ class BGS_019_Action(TargetedAction):
 			return 
 		count=0
 		for card in controller.field:
-			if card.race==Race.DRAGON:
+			#if card.race==Race.DRAGON:
+			if race_identity(card,Race.DRAGON):
 				count += 1
 		for i in range(amount):
 			if len(controller.opponent.field):
@@ -338,7 +340,8 @@ class BG21_014_Action(TargetedAction):
 			target = [target]
 		count=0
 		for card in source.controller.field:
-			if card.race==Race.DRAGON:
+			#if card.race==Race.DRAGON:
+			if race_identity(card,Race.DRAGON):
 				count += amount
 		for card in target:
 			Buff(card, buff, atk=count, max_health=count).trigger(source)
@@ -541,7 +544,7 @@ class BGS_036_Action(TargetedAction):
 		controller = target.controller
 		count = 0
 		for card in controller.field:
-			if card.race == Race.DRAGON:
+			if race_identity(card,Race.DRAGON):
 				count += amount
 		Buff(target, 'BGS_036e', atk=count, max_health=count).trigger(controller)
 		pass

@@ -166,7 +166,8 @@ class BG21_017_Action(TargetedAction):
 		controller = target.controller#
 		field = controller.field
 		for card in field:
-			if card != target and card.race==Race.PIRATE:
+			#if card != target and card.race==Race.PIRATE:
+			if card != target and race_identity(card,Race.PIRATE):
 				for repeat in range(amount):
 					Give(controller, 'GAME_005').trigger(controller)
 				return
@@ -217,7 +218,7 @@ class BGS_048:# <12>[1453]
 		count=1
 		log = self.controller.buy_this_turn_log()
 		for card in log:
-			if card.race == Race.PIRATE:
+			if race_identity(card,Race.PIRATE):
 				count += 1
 		for repeat in range(count):
 			Buff(self.target, 'BGS_048e').trigger(self.controller)
@@ -231,7 +232,7 @@ class TB_BaconUps_140:# <12>[1453]
 		count=1
 		log = self.controller.buy_this_turn_log()
 		for card in log:
-			if card.race == Race.PIRATE:
+			if race_identity(card,Race.PIRATE):
 				count += 1
 		for repeat in range(count):
 			#yield Buff(TARGET, 'TB_BaconUps_140e')
@@ -388,8 +389,10 @@ class BG21_031_Action(TargetedAction):
 		for repeat in range(amount):
 			friendly_pirates=[]
 			for card in controller.field:
-				if card.race==Race.PIRATE and hasattr(card, 'gold_card') and card.gold_card != 0 and card != source:
-					friendly_pirates.append(card)
+				#if card.race==Race.PIRATE:
+				if race_identity(card,Race.PIRATE):
+					if hasattr(card, 'gold_card') and card.gold_card != 0 and card != source:
+						friendly_pirates.append(card)
 			if len(friendly_pirates)>0:
 				card = random.choice(friendly_pirates)
 				original_card = card.deepcopy_original

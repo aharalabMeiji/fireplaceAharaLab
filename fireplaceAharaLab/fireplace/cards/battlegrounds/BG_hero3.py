@@ -391,7 +391,8 @@ class TB_BaconShop_HP_015_Action(GameAction):
 		if hasattr(controller.game,'this_is_tavern'):
 			bartender = controller.opponent
 			for card in bartender.field:
-				if card.race==Race.MECHANICAL:
+				#if card.race==Race.MECHANICAL:
+				if race_identity(card,Race.MECHANICAL):
 					for buff in card.buffs:
 						if buff.id=='TB_BaconShop_HP_015e':
 							break

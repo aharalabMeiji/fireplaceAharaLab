@@ -134,7 +134,7 @@ def BG24_Quest_151_Initialize(source):
 		source.sidequest_list0=[race for race in random_picker.BG_races if race != Race.INVALID]
 		source.sidequest_list0=random.sample(source.sidequest_list0, 2)
 		names={Race.BEAST:'獣', Race.DEMON:'悪魔', Race.DRAGON:'ドラゴン', Race.ELEMENTAL:'エレメンタル', 
-		Race.MECHANICAL:'メカ', Race.MURLOC:'マーロック', Race.PIRATE:'海賊', Race.NAGA:'ナーガ', Race.QUILBOAR:'キルボア', Race.ALL:'すべて'}
+		Race.MECHANICAL:'メカ', Race.MURLOC:'マーロック', Race.PIRATE:'海賊', Race.NAGA:'ナーガ', Race.QUILBOAR:'キルボア', Race.UNDEAD:'アンデッド',Race.ALL:'すべて'}
 		source.script_data_text_2=names[source.sidequest_list0[0]]
 		source.script_data_text_3=names[source.sidequest_list0[1]]
 	pass
@@ -142,7 +142,8 @@ class BG24_Quest_151_Action2(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		names={Race.BEAST:'獣', Race.DEMON:'悪魔', Race.DRAGON:'ドラゴン', Race.ELEMENTAL:'エレメンタル', 
-		Race.MECHANICAL:'メカ', Race.MURLOC:'マーロック', Race.PIRATE:'海賊', Race.NAGA:'ナーガ', Race.QUILBOAR:'キルボア', Race.INVALID:'なし', Race.ALL:'すべて'}		
+		Race.MECHANICAL:'メカ', Race.MURLOC:'マーロック', Race.PIRATE:'海賊', Race.NAGA:'ナーガ', 
+		Race.QUILBOAR:'キルボア', Race.UNDEAD:'アンデッド', Race.INVALID:'なし', Race.ALL:'すべて'}		
 		if source.sidequest_list0==[]:
 			source.sidequest_list0=[race for race in random_picker.BG_races if race != Race.INVALID]
 			source.sidequest_list0=random.sample(source.sidequest_list0, 2)

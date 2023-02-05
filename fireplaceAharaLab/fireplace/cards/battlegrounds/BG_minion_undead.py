@@ -159,7 +159,8 @@ if BG25__Scarlet_Skull:#
 class BG25_022_Action(GameAction):
 	def do(self, source):
 		if source.controller.game.this_is_battle:
-			cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
+			#cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
+			cards = [card for card in source.controller.field if race_identity(card,Race.UNDEAD)]
 			if len(cards):
 				Buff(random.choice(cards), 'BG25_022e')
 class BG25_022:# (minion)
@@ -171,7 +172,8 @@ BG25_022e=buff(1,2)
 class BG25_022_G_Action(GameAction):
 	def do(self, source):
 		if source.controller.game.this_is_battle:
-			cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
+			#cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
+			cards = [card for card in source.controller.field if race_identity(card,Race.UNDEAD)]
 			if len(cards):
 				Buff(random.choice(cards), 'BG25_022_Ge')
 class BG25_022_G:# (minion)
@@ -341,16 +343,16 @@ class BG25_007_Action(GameAction):
 		## cards in battle
 		controller=source.controller
 		for card in controller.field:
-			if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+			if race_identity(card,Race.UNDEAD):
 				card.atk+=2
 		## cards in bar
 		controller=getattr(controller, 'deepcopy_original',None)
 		if controller:
 			for card in controller.field+controller.hand:
-				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+				if race_identity(card,Race.UNDEAD):
 					card.atk+=2
 			for card in controller.opponent.field: ## bartender's cards
-				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+				if race_identity(card,Race.UNDEAD):
 					card.atk+=2
 		pass
 class BG25_007:# (minion)
@@ -363,16 +365,16 @@ class BG25_007_G_Action(GameAction):
 		## cards in battle
 		controller=source.controller
 		for card in controller.field:
-			if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+			if race_identity(card,Race.UNDEAD):
 				card.atk+=2
 		## cards in bar
 		controller=getattr(controller, 'deepcopy_original',None)
 		if controller:
 			for card in controller.field+controller.hand:
-				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+				if race_identity(card,Race.UNDEAD):
 					card.atk+=2
 			for card in controller.opponent.field: ## bartender's cards
-				if card.type==CardType.MINION and card.Race==Race.UNDEAD:
+				if race_identity(card,Race.UNDEAD):
 					card.atk+=2
 		pass
 class BG25_007_G:# (minion)
@@ -486,7 +488,7 @@ if BG25__Soulsplitter:#
 	BG_Undead_Gold['BG25_023']='BG25_023_G'
 class BG25_023_Action(GameAction):
 	def do(self, source):
-		cards=[card for card in source.controller.field if card.Race==Race.UNDEAD]
+		cards=[card for card in source.controller.field if race_identity(card,Race.UNDEAD)]
 		if len(cards):
 			Buff(random.choice(cards), 'BG25_023e').trigger(source)
 		pass
@@ -498,7 +500,8 @@ class BG25_023:# (minion)
 BG25_023e=buff(reborn=True)
 class BG25_023_G_Action(GameAction):
 	def do(self, source):
-		cards=[card for card in source.controller.field if card.Race==Race.UNDEAD]
+		#cards=[card for card in source.controller.field if card.Race==Race.UNDEAD]
+		cards=[card for card in source.controller.field if race_identity(card,Race.UNDEAD)]
 		if len(cards)>2:
 			cards = random.sample(cards, 2)
 		for card in cards:

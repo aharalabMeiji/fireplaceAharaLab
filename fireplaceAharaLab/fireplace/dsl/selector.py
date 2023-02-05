@@ -427,10 +427,19 @@ ExtendedGameTag.test = lambda self, entity, *args: (
 CardType.test = lambda self, entity, *args: (
 	entity is not None and self == entity.type
 )
+
 from hearthstone.utils import CARDRACE_TAG_MAP
+def race_identity(target, param):
+	""" def race_identity(target, param): """
+	if target.type==CardType.MINION:
+		if target.race==param:
+			return True
+		if target.data.tags.get(CARDRACE_TAG_MAP[param]):
+			return True
+	return False
+
 Race.test = lambda self, entity, *args: (
-	entity is not None and (self == getattr(entity, "race", Race.INVALID) or 
-		(getattr(entity, 'data', None)!=None and entity.data.tags.get(CARDRACE_TAG_MAP[self])==True ))
+	entity is not None and race_identity(entity,self)==False
 )
 Rarity.test = lambda self, entity, *args: (
 	entity is not None and self == getattr(entity, "rarity", Rarity.INVALID)
