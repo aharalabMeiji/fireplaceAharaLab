@@ -11,7 +11,7 @@ BG_Party_Elemental=True ## (2)
 BG_Crackling_Cyclone=True ## (3)
 BG_Smogger=True ## (3)
 BG_Stasis_Elemental=False ## (3) ## banned when?
-BG25__Felemental=True# 3/3/1 elemental ## new 25.2.2
+BG25__Felemental=True# 3/3/1 elemental/demon ## new 25.2.2
 
 BG_Dazzling_Lightspawn=True ## (4)
 BG_Recycling_Wraith=True # (4)
@@ -235,12 +235,9 @@ class TB_BaconUps_161:# <12>[1453]
 	pass
 
 
-if BG25__Felemental:# 3/3/1 elemental ## new 25.2.2 ##
-	BG_Minion_Elemental+=['BG25_041']
-	BG_Minion_Elemental+=['BG25_041_G']
-	BG_Minion_Elemental+=['BG25_041e']
-	BG_Minion_Elemental+=['BG25_041e2']
-	BG_PoolSet_Elemental[4].append('BG25_041')
+if BG25__Felemental:# 3/3/1 elemental/demon ## new 25.2.2 ##
+	BG_Minion_Elemental+=['BG25_041','BG25_041_G','BG25_041e','BG25_041e2']
+	BG_PoolSet_Elemental[3].append('BG25_041')
 	BG_Elemental_Gold['BG25_041']='BG25_041_G'
 class BG25_041_Action(GameAction):
 	def do(self, source):

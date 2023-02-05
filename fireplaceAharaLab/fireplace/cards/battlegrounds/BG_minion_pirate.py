@@ -87,6 +87,7 @@ class TB_BaconUps_141:# <12>[1453]
 class TB_BaconUps_141t:# <7>[1453]
 	""" Sky Pirate,	 """
 
+########## tavern tier 2
 
 #Freedealing Gambler,2,3,3,Pirate,- ### OK ###
 if BG_Freedealing_Gambler:
@@ -153,6 +154,13 @@ class TB_BaconUps_150:# <12>[1453]
 	pass
 
 
+from .BG_minion_undead import BG25__Corpse_Refiner
+if BG25__Corpse_Refiner:# 2/2/3 undead/pirate ## new 25.2.2
+	##BG_Minion_Pirate+=['BG25_033','BG25_033_G']  ## no need
+	BG_PoolSet_Pirate[2]+=['BG25_033']
+	BG_Pirate_Gold['BG25_033']='BG25_033_G'
+
+############ tavern tier 3
 
 #Briny Bootlegger,3,4,4,Pirate,- ### OK ### banned 24.2
 if BG_Briny_Bootlegger:

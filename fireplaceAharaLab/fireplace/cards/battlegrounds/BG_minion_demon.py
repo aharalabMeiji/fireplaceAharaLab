@@ -23,8 +23,8 @@ BG_Voidlord=True ##(5)
 
 BG_Famished_Felbat=True ##(6)
 BG_Imp_Mama=False ##(6) ## banned? 25.2.2
-BG25__Mecha_Jaraxxus=True# 6/3/15 DEMON ## new 25.2.2
-BG25__Felstomper=True# 6/3/7 demon ## new 25.2.2
+BG25__Mecha_Jaraxxus=True# 6/3/15 MECH/DEMON ## new 25.2.2
+BG25__Felstomper=True# 6/3/7 demon/beast ## new 25.2.2
 
 
 BG_Minion_Demon =[]
@@ -297,6 +297,11 @@ class TB_BaconUps_119:# <12>[1453]
 	#play = EatsMinion(SELF, TARGET, 2, 'BGS_059e'),ManaThisTurn(controller, 6)
 	pass
 
+from .BG_minion_elemental import BG25__Felemental
+if BG25__Felemental:# 3/3/1 elemental/demon ## new 25.2.2 ##
+	##BG_Minion_Demon+=['BG25_041','BG25_041_G','BG25_041e','BG25_041e2']## no need
+	BG_PoolSet_Demon[3].append('BG25_041')
+	BG_Demon_Gold['BG25_041']='BG25_041_G'
 
 ############ tavern tier 4
 
@@ -456,7 +461,7 @@ class TB_BaconUps_116:# <9>[1453]
 
 
 
-if BG25__Mecha_Jaraxxus:# 6/3/15 DEMON ## new 25.2.2 #########################
+if BG25__Mecha_Jaraxxus:# 6/3/15 MECH/DEMON ## new 25.2.2 #########################
 	BG_Minion_Demon+=['BG25_807','BG25_807_G','BG25_807e','BG25_807e2','BG25_807e3']
 	BG_Minion_Demon+=['BG25_807t','BG25_807t_G','BG25_807t2','BG25_807t2_G','BG25_807t3','BG25_807t3_G']
 	BG_PoolSet_Demon[6].append('BG25_807')
@@ -558,11 +563,8 @@ class BG25_807t3_G:# (minion)
 
 
 
-if BG25__Felstomper:# 6/3/7 demon ## new 25.2.2 ### need check##############
-	BG_Minion_Demon+=['BG25_042']
-	BG_Minion_Demon+=['BG25_042_G']
-	BG_Minion_Demon+=['BG25_042_Ge']
-	BG_Minion_Demon+=['BG25_042e']
+if BG25__Felstomper:# 6/3/7 demon/beast ## new 25.2.2 ### need check##############
+	BG_Minion_Demon+=['BG25_042','BG25_042_G','BG25_042_Ge','BG25_042e']
 	BG_PoolSet_Demon[6].append('BG25_042')
 	BG_Demon_Gold['BG25_042']='BG25_042_G'
 class BG25_042_Action(GameAction):
@@ -573,7 +575,7 @@ class BG25_042_Action(GameAction):
 class BG25_042:# (minion)(demon)
 	""" Felstomper
 	After you summon a _minion in combat, give ___your minions +3 Attack. """
-	events = Summon(CONTROLLER, FRIENDLY+MINION).on(BG25_042_Action())
+	events = Summon(CONTROLLER, FRIENDLY + MINION).on(BG25_042_Action())
 	pass
 BG25_042e=buff(3,0)# (enchantment)
 """ Felgorged	+3 Attack. """

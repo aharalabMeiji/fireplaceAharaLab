@@ -7,7 +7,7 @@ Omega_Buster=True#Omega Buster(6)
 
 
 
-BG_Micro_Mummy=True#(1)
+BG_Micro_Mummy=True#(1) <-> undead/mecha
 BG_Pupbot=True#(1)
 BG_Harvest_Golem=True#(2)
 BG_Kaboom_Bot=True#(2)
@@ -417,4 +417,12 @@ class BG21_024_G:# <12>[1453]
 BG21_024_Ge=buff(4,4)# 24.0.3
 #BG21_024_Ge=buff(6,4)# until 23.6
 
-
+from .BG_minion_demon import BG25__Mecha_Jaraxxus
+if BG25__Mecha_Jaraxxus:# 6/3/15 MECH/DEMON ## new 25.2.2 ##
+	##BG_Minion_Mecha+=['BG25_807','BG25_807_G','BG25_807e','BG25_807e2','BG25_807e3']
+	##BG_Minion_Mecha+=['BG25_807t','BG25_807t_G','BG25_807t2','BG25_807t2_G','BG25_807t3','BG25_807t3_G']
+	BG_PoolSet_Mecha[6].append('BG25_807')
+	BG_Mecha_Gold['BG25_807']='BG25_807_G'
+	BG_Mecha_Gold['BG25_807t']='BG25_807t_G'
+	BG_Mecha_Gold['BG25_807t2']='BG25_807t2_G'
+	BG_Mecha_Gold['BG25_807t3']='BG25_807t3_G'

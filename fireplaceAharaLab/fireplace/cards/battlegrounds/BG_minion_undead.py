@@ -8,7 +8,7 @@ BG25__Rot_Hide_Gnoll=True#1 undead ## new 25.2.2
 BG25__Eternal_Knight=True#2 undead ## new 25.2.2
 BG25__Nerubian_Deathswarmer=True#2 undead ## new 25.2.2
 BG25__Scarlet_Skull=True#2 undead ## new 25.2.2
-BG25__Corpse_Refiner=True# 2/2/3 undead ## new 25.2.2
+BG25__Corpse_Refiner=True# 2/2/3 undead/pirate ## new 25.2.2 
 
 BG25__Ghoul_of_the_Feast=True # 3 undead ## new 25.2.2
 BG25__Jelly_Belly=True#3 undead ## new 25.2.2
@@ -19,7 +19,7 @@ BG25__Handless_Forsaken=True#4 undead ## new 25.2.2
 BG25__Possessive_Banshee=True#4 undead ## new 25.2.2
 
 BG25__Hungering_Abomination=True#5 undead ## new 25.2.2
-BG24__Sinrunner_Blanchy=True#5 undead ## new 25.2.2
+BG24__Sinrunner_Blanchy=True#5 undead/beast ## new 25.2.2
 BG25__Soulsplitter=True#5 undead ## new 25.2.2
 
 BG25__Colossus_of_the_Sun=True #6 undead ## new 25.2.2
@@ -71,6 +71,13 @@ class BG25_013_G:# (minion)
 	Has +2 Attack for each friendly minion that died this combat. """
 	events = Death(FRIENDLY+MINION).on(BG25_013_G_Action())
 	pass
+
+from .BG_minion_mecha import BG_Micro_Mummy
+if BG_Micro_Mummy:
+	##BG_Minion_Undead+=['BG_ULD_217', 'ULD_217e','TB_BaconUps_250','TB_BaconUps_250e',]## no need
+	BG_PoolSet_Undead[1].append('BG_ULD_217')
+	BG_Undead_Gold['BG_ULD_217']='TB_BaconUps_250'
+
 
 ######## tavern tier 2
 
@@ -151,7 +158,7 @@ class BG25_011pe:# (enchantment)
 
 
 
-#Scarlet Skull 2/1/2/Undead	Deathrattle, Reborn ## new 25.2.2
+#Scarlet Skull 2/1/2/Undead	Deathrattle, Reborn ## new 25.2.2 ## OK ##
 if BG25__Scarlet_Skull:# 
 	BG_Minion_Undead+=['BG25_022','BG25_022_G','BG25_022_Ge','BG25_022e']
 	BG_PoolSet_Undead[2]+=['BG25_022']
@@ -160,10 +167,10 @@ class BG25_022_Action(GameAction):
 	def do(self, source):
 		if source.controller.game.this_is_battle:
 			#cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
-			cards = [card for card in source.controller.field if race_identity(card,Race.UNDEAD)]
+			cards = [card for card in source.controller.field if race_identity(card,Race.UNDEAD) and card!=source]
 			if len(cards):
-				Buff(random.choice(cards), 'BG25_022e')
-class BG25_022:# (minion)
+				Buff(random.choice(cards), 'BG25_022e').trigger(source)
+class BG25_022:# (minion)############
 	""" Scarlet Skull
 	<b>Reborn</b> <b>Deathrattle:</b> Give a friendly Undead +1/+2. """
 	deathrattle = BG25_022_Action()
@@ -173,9 +180,9 @@ class BG25_022_G_Action(GameAction):
 	def do(self, source):
 		if source.controller.game.this_is_battle:
 			#cards = [card for card in source.controller.field if card.race==Race.UNDEAD]
-			cards = [card for card in source.controller.field if race_identity(card,Race.UNDEAD)]
+			cards = [card for card in source.controller.field if race_identity(card,Race.UNDEAD) and card!=source]
 			if len(cards):
-				Buff(random.choice(cards), 'BG25_022_Ge')
+				Buff(random.choice(cards), 'BG25_022_Ge').trigger(source)
 class BG25_022_G:# (minion)
 	""" Scarlet Skull
 	<b>Reborn</b> <b>Deathrattle:</b> Give a friendly Undead +2/+4. """

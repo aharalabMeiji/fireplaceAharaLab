@@ -377,6 +377,15 @@ class BG21_001_G:# <12>[1453]
 BG21_001e2=buff(12,12)
 
 
+#Sinrunner Blanchy 5/3/3  Beast/Undead	Reborn ## new 25.2.2
+from .BG_minion_undead import BG24__Sinrunner_Blanchy
+if BG24__Sinrunner_Blanchy:
+	##BG_Minion_Beast += ['BG24_005','BG24_005_G']## no need
+	BG_PoolSet_Beast[5]+=['BG24_005']
+	BG_Beast_Gold['BG24_005']='BG24_005_G'
+
+
+########### tavern tier 6
 
 #Ghastcoiler (6/7/7) ### maybe OK ###
 if BG_Ghastcoiler:
@@ -428,3 +437,9 @@ class TB_BaconUps_155:
 	""" Maexxna (BAN)
 	[Poisonous] """
 	pass
+
+from .BG_minion_demon import BG25__Felstomper
+if BG25__Felstomper:# 6/3/7 demon/beast ## new 25.2.2 ##
+	##BG_Minion_Beast+=['BG25_042','BG25_042_G','BG25_042_Ge','BG25_042e'] ## no need
+	BG_PoolSet_Beast[6].append('BG25_042')
+	BG_Beast_Gold['BG25_042']='BG25_042_G'
