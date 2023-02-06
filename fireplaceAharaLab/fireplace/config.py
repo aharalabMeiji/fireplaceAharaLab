@@ -69,8 +69,8 @@ class Config:# ()is the default value
 	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=1 ## battleground with human player
-	CARD_PRESET1='BG25_022'
-	CARD_PRESET2='BG_ULD_217'
+	CARD_PRESET1='BG25_008'
+	CARD_PRESET2='BG25_008'
 	RANDOM_RACE=1 #random sampling from races（default:1）
 	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar','undead']
 	RACE_CHOICE=['beast','undead']# valid when RANDOM_RACE=0

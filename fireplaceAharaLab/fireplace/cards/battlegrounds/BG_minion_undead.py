@@ -31,7 +31,7 @@ BG_PoolSet_Undead=[ [],[],[],[],[],[],[]]
 BG_Undead_Gold={}
 
 
-#Risen Rider 1/2/1/Undead	Reborn, Taunt ## new 25.2.2
+#Risen Rider 1/2/1/Undead	Reborn, Taunt ## OK ## new 25.2.2 
 if BG25__Risen_Rider:# 
 	BG_Minion_Undead+=['BG25_001']
 	BG_Minion_Undead+=['BG25_001_G']
@@ -71,6 +71,7 @@ class BG25_013_G:# (minion)
 	Has +2 Attack for each friendly minion that died this combat. """
 	events = Death(FRIENDLY+MINION).on(BG25_013_G_Action())
 	pass
+
 
 from .BG_minion_mecha import BG_Micro_Mummy
 if BG_Micro_Mummy:
