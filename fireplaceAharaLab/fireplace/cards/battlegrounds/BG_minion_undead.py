@@ -87,30 +87,60 @@ if BG25__Eternal_Knight:#
 	BG_Minion_Undead+=['BG25_008','BG25_008_e','BG25_008_G','BG25_008pe']
 	BG_PoolSet_Undead[2]+=['BG25_008']
 	BG_Undead_Gold['BG25_008']='BG25_008_G'
-class BG25_008_Action0(GameAction):
+class BG25_008_Action(GameAction):
 	def do(self, source):
 		if source.controller.game.this_is_battle:
 			source.controller.eternal_knight_powered_up += 1
+			source.controller.deepcopy_original.eternal_knight_powered_up += 1
 			#refresh cards
-class BG25_008_Action1(GameAction):
-	def do(self, source):
-		if source.controller.game.this_is_battle:
-			source.controller.eternal_knight_powered_up += 1
-			#refresh cards
+		elif source.controller.game.this_is_tavern:
+			amount = source.controller.eternal_knight_powered_up
+			for card in source.controller.hand + source.controller.field + source.controller.opponent.field:
+				if card.id=='BG25_008':
+					buffs=[bf for bf in card.buffs if bf.id=='BG25_008_e']
+					if len(buffs)==0:
+						Buff(card, 'BG25_008_e', atk=amount, max_health=amount).trigger(source)
+					else: 
+						buffs[0].atk=amount
+						buffs[0].max_health=amount
 class BG25_008:# (minion)
 	""" Eternal Knight
 	Has +1/+1 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	events = [ Death(SELF).after(BG25_008_Action0()),## while battle
-		Rerole(CONTROLLER).after(BG25_008_Action1()),
-		Buy(CONTROLLER).after(BG25_008_Action1())]
+	events = [ Death(SELF).after(BG25_008_Action()),## while battle
+		Rerole(CONTROLLER).after(BG25_008_Action()),
+		Buy(CONTROLLER, SELF).after(BG25_008_Action()),
+		Play(CONTROLLER, SELF).after(BG25_008_Action()),
+		BeginTurn(CONTROLLER).after(BG25_008_Action())
+		]
 class BG25_008_e:# (enchantment)
 	""" Eternal Legion
 	+@/+@. """
 	pass
+class BG25_008_G_Action(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			source.controller.eternal_knight_powered_up += 1
+			source.controller.deepcopy_original.eternal_knight_powered_up += 1
+			#refresh cards
+		elif source.controller.game.this_is_tavern:
+			amount = source.controller.eternal_knight_powered_up
+			for card in source.controller.hand + source.controller.field + source.controller.opponent.field:
+				if card.id=='BG25_008':
+					buffs=[bf for bf in card.buffs if bf.id=='BG25_008_e']
+					if len(buffs)==0:
+						Buff(card, 'BG25_008_e', atk=amount*2, max_health=amount*2).trigger(source)
+					else: 
+						buffs[0].atk=amount
+						buffs[0].max_health=amount
 class BG25_008_G:# (minion)
 	""" Eternal Knight
 	Has +2/+2 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	events = Death(SELF).after(BG25_008_Action())
+	events = [ Death(SELF).after(BG25_008_G_Action()),## while battle
+		Rerole(CONTROLLER).after(BG25_008_G_Action()),
+		Buy(CONTROLLER, SELF).after(BG25_008_G_Action()),
+		Play(CONTROLLER, SELF).after(BG25_008_G_Action()),
+		BeginTurn(CONTROLLER).after(BG25_008_G_Action())
+		]	
 	pass
 class BG25_008pe:# (enchantment)
 	""" Eternal Knight Player Enchant
