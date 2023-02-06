@@ -87,14 +87,22 @@ if BG25__Eternal_Knight:#
 	BG_Minion_Undead+=['BG25_008','BG25_008_e','BG25_008_G','BG25_008pe']
 	BG_PoolSet_Undead[2]+=['BG25_008']
 	BG_Undead_Gold['BG25_008']='BG25_008_G'
-class BG25_008_Action(GameAction):
+class BG25_008_Action0(GameAction):
 	def do(self, source):
-		source.controller.eternal_knight_powered_up += 1
+		if source.controller.game.this_is_battle:
+			source.controller.eternal_knight_powered_up += 1
+			#refresh cards
+class BG25_008_Action1(GameAction):
+	def do(self, source):
+		if source.controller.game.this_is_battle:
+			source.controller.eternal_knight_powered_up += 1
+			#refresh cards
 class BG25_008:# (minion)
 	""" Eternal Knight
 	Has +1/+1 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
-	events = Death(SELF).after(BG25_008_Action())
-	pass
+	events = [ Death(SELF).after(BG25_008_Action0()),## while battle
+		Rerole(CONTROLLER).after(BG25_008_Action1()),
+		Buy(CONTROLLER).after(BG25_008_Action1())]
 class BG25_008_e:# (enchantment)
 	""" Eternal Legion
 	+@/+@. """
