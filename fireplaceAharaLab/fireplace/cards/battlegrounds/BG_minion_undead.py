@@ -82,7 +82,7 @@ if BG_Micro_Mummy:
 
 ######## tavern tier 2
 
-#Eternal Knight 2/3/1/Undead	- ## new 25.2.2
+#Eternal Knight 2/3/1/Undead	- ## 60% OK  ##new 25.2.2
 if BG25__Eternal_Knight:# 
 	BG_Minion_Undead+=['BG25_008','BG25_008_e','BG25_008_G','BG25_008pe']
 	BG_PoolSet_Undead[2]+=['BG25_008']
@@ -130,8 +130,8 @@ class BG25_008_G_Action(GameAction):
 					if len(buffs)==0:
 						Buff(card, 'BG25_008_e', atk=amount*2, max_health=amount*2).trigger(source)
 					else: 
-						buffs[0].atk=amount
-						buffs[0].max_health=amount
+						buffs[0].atk=amount*2
+						buffs[0].max_health=amount*2
 class BG25_008_G:# (minion)
 	""" Eternal Knight
 	Has +2/+2 for each friendly Eternal Knight that died this __game <i>(wherever this is)</i>. """
