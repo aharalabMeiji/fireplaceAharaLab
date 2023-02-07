@@ -87,9 +87,9 @@ class TB_BaconUps_141:# <12>[1453]
 class TB_BaconUps_141t:# <7>[1453]
 	""" Sky Pirate,	 """
 
-from BG_minion_quilboar import BG25__Thorncaptain
+from .BG_minion_quilboar import BG25__Thorncaptain
 if BG25__Thorncaptain:# 1/4/2 quilboar/pirate ## new 25.2.2
-	BG_Minion_Pirate+=['BG25_045','BG25_045_G','BG25_045e','BG25_045e2']
+	#BG_Minion_Pirate+=['BG25_045','BG25_045_G','BG25_045e','BG25_045e2']
 	BG_PoolSet_Pirate[1].append('BG25_045')
 	BG_Pirate_Gold['BG25_045']='BG25_045_G'
 
@@ -500,9 +500,9 @@ class BG21_019_G:# <12>[1453]
 	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 2, [BG21_019_Action(CONTROLLER,2)]))
 	pass
 
-from BG_minion_naga import BG25__Greta_Gold_Gun
+from .BG_minion_naga import BG25__Greta_Gold_Gun
 if BG25__Greta_Gold_Gun:# 6/2/9 naga/pirate ## new 25.2.2###
-	BG_Minion_Pirate+=['BG25_044','BG25_044_G','BG25_044e2','BG25_044t']
+	#BG_Minion_Pirate+=['BG25_044','BG25_044_G','BG25_044e2','BG25_044t']
 	BG_PoolSet_Pirate[6].append('BG25_044')
 	BG_Pirate_Gold['BG25_044']='BG25_044_G'
 
