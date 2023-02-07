@@ -17,7 +17,7 @@ BG_Shoal_Commander=True## (3)
 BG_Eelbound_Archer=True## (4)
 BG_Waverider=True## (4)
 BG_Eventide_Brute=True## (4)
-##BG_Pufferquil(4/2/6): quilboar
+#BG_Pufferquil=True(4/2/6): quilboar
 
 BG_Critter_Wrangler=True##(5)
 BG_Glowscale=True## (5)
@@ -449,6 +449,13 @@ class BG23_010_G:# <12>[1453]
 BG23_010_Ge=buff(2,2)
 	
 
+from .BG_minion_quilboar import BG25__Pufferquil
+if BG25__Pufferquil:# 4/2/6, quilbour/naga
+	BG_Minion_Naga+=['BG25_039','BG25_039_G','BG25_039_Ge','BG25_039e']
+	BG_PoolSet_Naga[4].append('BG25_039')
+	BG_Naga_Gold['BG25_039']='BG25_039_G'
+
+########### tavern tierr 5
 
 ## Critter Wrangler(5)  ### OK ###
 if BG_Critter_Wrangler:
@@ -596,13 +603,10 @@ class BG23_013_G:# <12>[1453]
 BG23_013_Ge=buff(2,2)
 
 
-if BG25__Greta_Gold_Gun:# 6/2/9 naga ## new 25.2.2#########################################
-	BG_Minion_Naga+=['BG25_044']
-	BG_Minion_Naga+=['BG25_044_G']
-	BG_Minion_Naga+=['BG25_044e2']
-	BG_Minion_Naga+=['BG25_044t']
-BG_PoolSet_Naga[6].append('BG25_044')
-BG_Naga_Gold['BG25_044']='BG25_044_G'
+if BG25__Greta_Gold_Gun:# 6/2/9 naga/pirate ## new 25.2.2#########################################
+	BG_Minion_Naga+=['BG25_044','BG25_044_G','BG25_044e2','BG25_044t']
+	BG_PoolSet_Naga[6].append('BG25_044')
+	BG_Naga_Gold['BG25_044']='BG25_044_G'
 class BG25_044:# (minion)
 	""" Greta Gold-Gun
 	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """

@@ -231,9 +231,8 @@ BG25_022_Ge=buff(2,4)
 
 
 
-if BG25__Corpse_Refiner:# 2/2/3 undead ## new 25.2.2
-	BG_Minion_Undead+=['BG25_033']
-	BG_Minion_Undead+=['BG25_033_G']
+if BG25__Corpse_Refiner:# 2/2/3 undead/pirate ## new 25.2.2
+	BG_Minion_Undead+=['BG25_033','BG25_033_G']
 	BG_PoolSet_Undead[2]+=['BG25_033']
 	BG_Undead_Gold['BG25_033']='BG25_033_G'
 class BG25_033_Action(GameAction):
@@ -380,8 +379,7 @@ BG25_006_Ge=buff(2,2)
 
 #Anub'arak, Nerubian King 4/4/3/Undead	Deathrattle ## new 25.2.2#############################
 if BG25__Anubarak_Nerubian_King:# 
-	BG_Minion_Undead+=['BG25_007']
-	BG_Minion_Undead+=['BG25_007_G']
+	BG_Minion_Undead+=['BG25_007','BG25_007_G']
 	BG_PoolSet_Undead[4]+=['BG25_007']
 	BG_Undead_Gold['BG25_007']='BG25_007_G'
 class BG25_007_Action(GameAction):
@@ -412,16 +410,16 @@ class BG25_007_G_Action(GameAction):
 		controller=source.controller
 		for card in controller.field:
 			if race_identity(card,Race.UNDEAD):
-				card.atk+=2
+				card.atk+=4
 		## cards in bar
 		controller=getattr(controller, 'deepcopy_original',None)
 		if controller:
 			for card in controller.field+controller.hand:
 				if race_identity(card,Race.UNDEAD):
-					card.atk+=2
+					card.atk+=4
 			for card in controller.opponent.field: ## bartender's cards
 				if race_identity(card,Race.UNDEAD):
-					card.atk+=2
+					card.atk+=4
 		pass
 class BG25_007_G:# (minion)
 	""" Anub'arak, Nerubian King

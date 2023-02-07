@@ -22,7 +22,7 @@ BG_Bonker=True##	4
 BG_Dynamic_Duo=True##	4
 BG_Groundshaker=True##	4
 BG_Necrolyte=True##	4
-BG25__Pufferquil=True# 4/2/6, quilbour, new 25.2.2
+BG25__Pufferquil=True# 4/2/6, quilbour/naga, new 25.2.2
 
 BG_Aggem_Thorncurse=True##	5
 BG_Bristleback_Knight=True## 5 BG20_204
@@ -75,7 +75,7 @@ class BG20_301_G:# <12>[1453]
 	pass
 
 
-if BG25__Thorncaptain:# 1/4/2 quilboar ## new 25.2.2
+if BG25__Thorncaptain:# 1/4/2 quilboar/pirate ## new 25.2.2
 	BG_Minion_Quilboar+=['BG25_045','BG25_045_G','BG25_045e','BG25_045e2']
 	BG_PoolSet_Quilboar[1].append('BG25_045')
 	BG_Quilboar_Gold['BG25_045']='BG25_045_G'
@@ -378,7 +378,7 @@ class BG20_202_G:# <12>[1453]
 	pass
 
 
-if BG25__Pufferquil:# 4/2/6, quilbour
+if BG25__Pufferquil:# 4/2/6, quilbour/naga
 	BG_Minion_Quilboar+=['BG25_039','BG25_039_G','BG25_039_Ge','BG25_039e']
 	BG_PoolSet_Quilboar[4].append('BG25_039')
 	BG_Quilboar_Gold['BG25_039']='BG25_039_G'
