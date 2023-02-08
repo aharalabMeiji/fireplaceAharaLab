@@ -235,29 +235,51 @@ if BG_Pashmar_the_Vengeful:
 	BG_Minion_Naga+=['BG23_014','BG23_014_G', ]#
 	BG_PoolSet_Naga[3].append('BG23_014')
 	BG_Naga_Gold['BG23_014']='BG23_014_G'
-class BG23_014_Action(TargetedAction):
+class BG23_014_Action(GameAction):
 	"""
 	Give player targets card \a id. (battleground)
 	"""
-	TARGET = ActionArg()
-	CARD = CardArg()
-	def do(self, source, target, cards):
-		original = target.deepcopy_original
+	def do(self, source):
+		#CONTROLLER, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER))
+		original = source.controller.deepcopy_original#controller
 		if original:
+			cards=RandomBGSpellcraft(tech_level_less=source.controller.tavern_tier).evaluate(source.controller)
+			if not hasattr(cards, "__iter__"):
+				cards = [cards]			
+			for card in cards:
+				if isinstance(card.spellcraft, str):
+					Give(original, card.spellcraft).trigger(source)
+				else:
+					ahara=0
+		pass
+class BG23_014:# <12>[1453]
+	""" Pashmar the Vengeful (3)
+	[Avenge (3):] Get a [Spellcraft] spell of your Tier or lower. """
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [BG23_014_Action()]))
+	pass
+class BG23_014_G_Action(GameAction):
+	"""
+	Give player targets card \a id. (battleground)
+	"""
+	def do(self, source):
+		#CONTROLLER, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER))
+		original = source.controller.deepcopy_original#controller
+		if original:
+			cards=RandomBGSpellcraft(tech_level_less=source.controller.tavern_tier).evaluate(source.controller)
+			if not hasattr(cards, "__iter__"):
+				cards = [cards]			
+			for card in cards:
+				Give(original, card.spellcraft).trigger(source)
+			cards=RandomBGSpellcraft(tech_level_less=source.controller.tavern_tier).evaluate(source.controller)
 			if not hasattr(cards, "__iter__"):
 				cards = [cards]			
 			for card in cards:
 				Give(original, card.spellcraft).trigger(source)
 		pass
-class BG23_014:# <12>[1453]
-	""" Pashmar the Vengeful (3)
-	[Avenge (3):] Get a [Spellcraft] spell of your Tier or lower. """
-	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [BG23_014_Action(CONTROLLER, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER)))]))
-	pass
 class BG23_014_G:# <12>[1453]
 	""" Pashmar the Vengeful
-	[Avenge (3):] Get 2[Spellcraft] spellsof your Tier or lower. """
-	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [BG23_014_Action(CONTROLLER, RandomBGSpellcraft(tech_level_less=TIER(CONTROLLER)))]*2))
+	[Avenge (3):] Get 2[Spellcraft] spells of your Tier or lower. """
+	events = Death(FRIENDLY+MINION).on(Avenge(SELF, 3, [BG23_014_G_Action()]*2))
 	pass
 
 

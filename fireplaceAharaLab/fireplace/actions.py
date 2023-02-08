@@ -3558,7 +3558,7 @@ class Avenge(TargetedAction):
 				if not isinstance(targetaction,list):
 					targetaction = [targetaction]
 				for action in targetaction:
-					if isinstance(action, TargetedAction):
+					if isinstance(action, Action):
 						action.trigger(source)
 
 class BeginBattleTurn(TargetedAction):
