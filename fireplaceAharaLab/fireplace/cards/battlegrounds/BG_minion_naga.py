@@ -24,7 +24,7 @@ BG_Glowscale=True## (5)
 BG_Corrupted_Myrmidon=True## (5)
 
 BG_Tidemistress_Athissa=True## (6)
-BG25__Greta_Gold_Gun=True# 6/2/9 naga ## new 25.2.2
+BG25__Greta_Gold_Gun=True# 6/2/9 naga/pirate ## new 25.2.2
 
 BG_Minion_Naga=[]
 
@@ -250,7 +250,7 @@ class BG23_014_Action(GameAction):
 				if isinstance(card.spellcraft, str):
 					Give(original, card.spellcraft).trigger(source)
 				else:
-					ahara=0
+					pass
 		pass
 class BG23_014:# <12>[1453]
 	""" Pashmar the Vengeful (3)
@@ -633,11 +633,15 @@ class BG25_044:# (minion)
 	""" Greta Gold-Gun
 	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
 	play = Spellcraft(CONTROLLER,'BG25_044t')
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG25_044t'))
+	tags={2359:'BG25_044t'}	
 	pass
 class BG25_044_G:# (minion)
 	""" Greta Gold-Gun
 	<b>Spellcraft:</b> Make a different friendly Pirate or Naga Golden until next turn. """
 	play = Spellcraft(CONTROLLER,'BG25_044t')
+	events = BeginBar(CONTROLLER).on(Spellcraft(CONTROLLER,'BG25_044t'))
+	tags={2359:'BG25_044t'}	
 	pass
 class BG25_044e2_Action(TargetedAction):
 	TARGET = ActionArg()
