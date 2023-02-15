@@ -29,7 +29,7 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.PALADIN)
+		,myClass=CardClass.MAGE)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -45,8 +45,35 @@ def main():
 	#MyDeck: DRUID
 	#MyDeck=['VAN_CS1_042','VAN_CS1_042','VAN_CS1_069','VAN_CS1_069','VAN_CS2_117','VAN_CS2_117','VAN_CS2_118','VAN_CS2_118','VAN_CS2_119','VAN_CS2_119','VAN_CS2_120','VAN_CS2_120','VAN_CS2_121','VAN_CS2_121','VAN_CS2_122','VAN_CS2_122','VAN_CS2_124','VAN_CS2_124','VAN_CS2_125','VAN_CS2_125','VAN_CS2_127','VAN_CS2_127','VAN_CS2_131','VAN_CS2_131','VAN_CS2_141','VAN_CS2_142','VAN_CS2_146','VAN_CS2_147','VAN_CS2_150','VAN_CS2_151']
 	#空デッキを指定すると、ランダムデッキが構築される
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
+	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
+
+	####################################################################
 	
+	#aharalab-build-deck
+	f = open('myfile0.csv', 'r')
+	datalist = f.readlines()
+	f.close()
+
+	mydict ={}
+	for line in datalist:
+		terms = line.split(',')
+		mydict[terms[0]]=int(terms[1])
+
+	for repeat in range(200):
+		winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=[], deck2=[], debugLog=True)
+		if winner=='Vector1':
+			for key in mydict_thisplay:
+				if key in mydict.keys():
+					mydict[key] = mydict[key]+1
+				else:
+					mydict[key] = 1
+
+			f = open('myfile0.csv', 'w')
+			for key,value in mydict.items():
+				f.write(key+','+str(value)+"\n")
+			f.close()
+	pass
+
 
 
 	####################################################################

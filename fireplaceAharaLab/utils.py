@@ -36,6 +36,7 @@ def begingame_events(player):
 	pass
 
 
+
 def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" エージェント同士で1回対戦する。
 	実験的に、ヒーローの体力、初期マナ数、初期ハンド枚数をコントロールできます。
@@ -121,11 +122,14 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			if debugLog:
 				print(">>>>>>>>>>game end >>>>>>>>"%(),end=' ')
 				print("%d : %d"%(player1.hero.health,player2.hero.health))
+			#aharalab-build-deck begin
+			mydict_thisplay = [card.id for card in player1.play_log]
+			#aharalab-build-deck end
 			if game.current_player.playstate == PlayState.WON:
-				return game.current_player.name
+				return game.current_player.name,mydict_thisplay
 			if game.current_player.playstate == PlayState.LOST:
-				return game.current_player.opponent.name
-			return 'DRAW'#Maybe impossible to come here.
+				return game.current_player.opponent.name,mydict_thisplay
+			return 'DRAW',mydict_thisplay#Maybe impossible to come here.
 
 def play_set_of_games(P1: Agent, P2: Agent, deck1=[], deck2=[], gameNumber=15, debugLog=True, HEROHPOPTION=30, P1MAXMANA=1, P2MAXMANA=1, P1HAND=3, P2HAND=3):
 	""" 決まった回数の試合を行い、勝敗数を表示する 
