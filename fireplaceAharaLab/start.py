@@ -33,7 +33,7 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER)
+		,myClass=CardClass.DRUID)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 
@@ -50,19 +50,61 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-hunter.csv'
+	filename='myfile-druid.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
+	MyDeck=[## tier1
+		'VAN_CS2_024','VAN_CS2_024', ## cost=2
+		'VAN_CS2_025','VAN_CS2_025', ## cost=2
+		'VAN_CS2_173','VAN_CS2_173', ## cost=2
+		'VAN_EX1_506','VAN_EX1_506', ## cost=2
+		'VAN_EX1_616','VAN_EX1_616', ## cost=2
+		'VAN_CS2_162','VAN_CS2_162', ## cost=6
+		## tier2
+		'VAN_CS2_027','VAN_CS2_027',##154 ## cost=1
+		'VAN_EX1_029','VAN_EX1_029',##161 ## cost=1
+		'VAN_NEW1_017','VAN_NEW1_017',##153  ## cost=1
+		'VAN_EX1_289','VAN_EX1_289',##178 ## cost=3
+		'VAN_NEW1_027','VAN_NEW1_027',##152 ## cost=3
+
+		#'VAN_EX1_080',##133 ## cost=1
+		#'VAN_EX1_059',##130 ## cost=2
+		#'VAN_EX1_393',##125 ## cost=2
+		#'VAN_CS2_117',##127 ## cost=3
+		#'VAN_EX1_044',##117 ## cost=3
+		#'VAN_EX1_102',##120 ## cost=3
+		#'VAN_EX1_590',##141 ## cost=3
+		#'VAN_EX1_023',##120 ## cost=4
+		#'VAN_EX1_025',##125 ## cost=4
+		#'VAN_CS2_150',##120 ## cost=5
+		#'VAN_EX1_016',##89 ## cost=6
+
+		## tier3
+		'VAN_CS2_147','VAN_CS2_147',##147  ## cost=4
+		'VAN_EX1_062',##136 ## cost=4 legendary
+		'VAN_CS2_029','VAN_CS2_029',##125  ## cost=4
+		'VAN_EX1_023','VAN_EX1_023',##113 ## cost=4
+		'VAN_EX1_584','VAN_EX1_584',##113 ## cost=4
+		'VAN_EX1_096',##104  ## cost=2
+		
+		#'VAN_EX1_116',##77 ## cost=4
+		#'VAN_EX1_067',##65 ## cost=6
+		#'VAN_EX1_559',##44 ## cost=7
+
+		 ]
+
 
 	mydict ={}
 	for line in datalist:
 		terms = line.split(',')
 		mydict[terms[0]]=int(terms[1])
 
-	for repeat in range(500):
-		winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=[], deck2=[], debugLog=True)
+	win_count=0
+	for repeat in range(1000):
+		winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=MyDeck, deck2=[], debugLog=True)
 		if winner=='Vector1':
+			win_count += 1
 			for key in mydict_thisplay:
 				if key in mydict.keys():
 					mydict[key] = mydict[key]+1
@@ -74,7 +116,7 @@ def main():
 				f.write(key+','+str(value)+"\n")
 			f.close()
 	pass
-
+	print("Vector1 wins: %d / 500"%(win_count))
 
 
 	####################################################################

@@ -47,8 +47,8 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	exclude = []# you may exclude some cards to construct a deck
 	if Config.LOGINFO:
 		print("New game settings")
-	if len(deck1)==0:
-		deck1 = random_draft(P1.myClass,exclude)#random deck wrt its class
+	if len(deck1)<30:
+		deck1 = random_draft(P1.myClass,exclude,fixed_cards=deck1)#random deck wrt its class
 	if len(deck2)==0:
 		deck2 = random_draft(P2.myClass,exclude)#random deck wrt its class
 	player1 = Player(P1.name, deck1, P1.myClass.default_hero)
