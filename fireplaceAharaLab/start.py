@@ -33,7 +33,7 @@ def main():
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.PRIEST)
+		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 
@@ -50,7 +50,8 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	f = open('myfile0.csv', 'r')
+	filename='myfile-hunter.csv'
+	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 
@@ -59,7 +60,7 @@ def main():
 		terms = line.split(',')
 		mydict[terms[0]]=int(terms[1])
 
-	for repeat in range(200):
+	for repeat in range(500):
 		winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=[], deck2=[], debugLog=True)
 		if winner=='Vector1':
 			for key in mydict_thisplay:
@@ -68,7 +69,7 @@ def main():
 				else:
 					mydict[key] = 1
 
-			f = open('myfile0.csv', 'w')
+			f = open(filename, 'w')
 			for key,value in mydict.items():
 				f.write(key+','+str(value)+"\n")
 			f.close()

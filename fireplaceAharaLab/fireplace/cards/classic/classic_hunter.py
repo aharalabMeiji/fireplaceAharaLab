@@ -111,6 +111,8 @@ if Classic_Tracking:# ### checking
 	Classic_Hunter+=['VAN_DS1_184']
 class VAN_DS1_184_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
 		for c in reversed(self.source.controller.deck[:3]):
 			if c.id==card.id:
 				c.zone=Zone.HAND
