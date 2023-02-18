@@ -132,7 +132,7 @@ class CardDB(dict):
 		if Config.LOGINFO:
 			Config.log("cards.initialize","Initializing card database")
 		from .cardlist import Classic_Cards, bigDecks
-		for cardIDlist in Classic_Cards+bigDecks:
+		for cardIDlist in Classic_Cards:##+bigDecks:
 			for id in cardIDlist:
 				card = db[id]
 				spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
