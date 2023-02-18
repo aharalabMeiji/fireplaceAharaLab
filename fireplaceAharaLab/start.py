@@ -50,12 +50,12 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-hunter-druid-00.csv'
+	filename='myfile-hunter-druid-01.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
-
+		"VAN_EX1_509","VAN_EX1_509",
 		 ]
 
 
