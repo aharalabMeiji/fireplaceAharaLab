@@ -50,14 +50,14 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-hunter-druid-01.csv'
+	filename='myfile-hunter-druid-E04.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
-		"VAN_EX1_509","VAN_EX1_509",
-		 ]
 
+
+		 ]
 
 	mydict ={}
 	for line in datalist:
