@@ -1,6 +1,7 @@
 import os.path
 import random
 import copy
+import time
 from bisect import bisect
 from importlib import import_module
 from pkgutil import iter_modules
@@ -89,7 +90,7 @@ def random_draft(card_class: CardClass, exclude=[], fixed_cards=[]):
 			# Play with more possibilities
 			continue
 		collection.append(cls)
-
+	random.seed(int(time.time()*100))
 	while len(deck) < Deck.MAX_CARDS:
 		card = random.choice(collection)
 		if deck.count(card.id) < card.max_count_in_deck:

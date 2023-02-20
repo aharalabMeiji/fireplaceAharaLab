@@ -42,44 +42,22 @@ def main():
 
 	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
 
-	#MyDeck: DRUID
-	#MyDeck=['VAN_CS1_042','VAN_CS1_042','VAN_CS1_069','VAN_CS1_069','VAN_CS2_117','VAN_CS2_117','VAN_CS2_118','VAN_CS2_118','VAN_CS2_119','VAN_CS2_119','VAN_CS2_120','VAN_CS2_120','VAN_CS2_121','VAN_CS2_121','VAN_CS2_122','VAN_CS2_122','VAN_CS2_124','VAN_CS2_124','VAN_CS2_125','VAN_CS2_125','VAN_CS2_127','VAN_CS2_127','VAN_CS2_131','VAN_CS2_131','VAN_CS2_141','VAN_CS2_142','VAN_CS2_146','VAN_CS2_147','VAN_CS2_150','VAN_CS2_151']
+	#FaceHunter by Aharalab
+	MyDeck=[
+		"VAN_CS2_162","VAN_CS2_162","VAN_EX1_032","VAN_EX1_032","VAN_EX1_050","VAN_EX1_050","VAN_CS2_226","VAN_CS2_226","VAN_DS1_184","VAN_DS1_184",
+		"VAN_EX1_533","VAN_EX1_533","VAN_EX1_537","VAN_EX1_537","VAN_CS2_187","VAN_CS2_187","VAN_CS2_179","VAN_CS2_179","VAN_CS2_125","VAN_CS2_125",
+		"VAN_CS2_203","VAN_CS2_203","VAN_EX1_049","VAN_EX1_049","VAN_EX1_539","VAN_EX1_539","VAN_EX1_080","VAN_EX1_080","VAN_CS2_181","VAN_CS2_181",]
 	#空デッキを指定すると、ランダムデッキが構築される
 	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
 
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-hunter-warrior-F03.csv'
+	filename='myfile-hunter-warrior-FF00.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
-		### 200/500
-
-		"VAN_CS2_162","VAN_CS2_162",#VAN_CS2_162#,Lord of the Arena,Neutral,Rarity.FREE,6,6,5,<b>Taunt</b>
-		"VAN_EX1_032","VAN_EX1_032",#VAN_EX1_032#,Sunwalker,Neutral,Rarity.RARE,6,4,5,<b>Taunt</b><b>Divine Shield</b>
-		"VAN_EX1_050","VAN_EX1_050",#VAN_EX1_050#,Coldlight Oracle,Neutral,Rarity.RARE,3,2,2,<b>Battlecry:</b> Each player draws 2 cards.
-		"VAN_CS2_226","VAN_CS2_226",#VAN_CS2_226#,Frostwolf Warlord,Neutral,Rarity.FREE,5,4,4,<b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the battlefield.
-		"VAN_DS1_184","VAN_DS1_184",#VAN_DS1_184#,Tracking,Hunter,Rarity.FREE,1,0,0,Look at the top 3 cards of your deck. Draw one and discard the others.
-		
-		### 720/1000
-		
-		"VAN_EX1_533","VAN_EX1_533",#VAN_EX1_533,Misdirection,Hunter,Rarity.RARE,2,0,0,<b>Secret:</b> When an enemy attacks your hero instead it attacks another random character.
-		"VAN_EX1_537","VAN_EX1_537",#VAN_EX1_537,Explosive Shot,Hunter,Rarity.RARE,5,0,0,Deal $5 damage to a minion and $2 damage to adjacent ones.
-		"VAN_CS2_187","VAN_CS2_187",#VAN_CS2_187,Booty Bay Bodyguard,Neutral,Rarity.FREE,5,5,4,<b>Taunt</b>
-		"VAN_CS2_179","VAN_CS2_179",#VAN_CS2_179,Sen'jin Shieldmasta,Neutral,Rarity.FREE,4,3,5,<b>Taunt</b>
-		"VAN_CS2_125","VAN_CS2_125",#VAN_CS2_125,Ironfur Grizzly,Neutral,Rarity.FREE,3,3,3,<b>Taunt</b>
-
-		### 963/1000
-
-		"VAN_CS2_203","VAN_CS2_203",#VAN_CS2_203,Ironbeak Owl,Neutral,Rarity.COMMON,2,2,1,<b>Battlecry:</b> <b>Silence</b> a_minion.
-		"VAN_EX1_049","VAN_EX1_049",#VAN_EX1_049,Youthful Brewmaster,Neutral,Rarity.COMMON,2,3,2,<b>Battlecry:</b> Return a friendly minion from the battlefield to your hand.
-		"VAN_EX1_539","VAN_EX1_539",#VAN_EX1_539,Kill Command,Hunter,Rarity.FREE,3,0,0,Deal $3 damage. If you control a Beast deal$5 damage instead.
-		"VAN_EX1_080","VAN_EX1_080",#VAN_EX1_080,Secretkeeper,Neutral,Rarity.RARE,1,1,2,Whenever a <b>Secret</b> is played gain +1/+1.
-		"VAN_CS2_181","VAN_CS2_181",#VAN_CS2_181,Injured Blademaster,Neutral,Rarity.RARE,3,4,7,<b>Battlecry:</b> Deal 4 damage to HIMSELF.
-
-		### 908/1000
 
 		]
 
