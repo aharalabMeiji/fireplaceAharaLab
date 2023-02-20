@@ -58,7 +58,7 @@ def main():
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
-
+# 708 / 1000
 		]
 
 	mydict ={}
