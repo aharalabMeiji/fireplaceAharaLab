@@ -29,11 +29,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.HUNTER)
+		,myClass=CardClass.PRIEST)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.MAGE)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 
@@ -53,12 +53,28 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-hunter-warrior-FF00.csv'
+	filename='myfile-priest-mage-E03.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
-# 708 / 1000
+		# 129 / 1000
+		#'VAN_NEW1_016','VAN_NEW1_016',#VAN_NEW1_016,Captain's Parrot,Neutral,Rarity.EPIC,2,1,1,<b>Battlecry:</b> Draw a Pirate from your deck.
+		#'VAN_CS2_222','VAN_CS2_222',#VAN_CS2_222,Stormwind Champion,Neutral,Rarity.FREE,7,6,6,Your other minions have +1/+1.
+		#'VAN_EX1_029','VAN_EX1_029',#VAN_EX1_029,Leper Gnome,Neutral,Rarity.COMMON,1,2,1,<b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
+		#  357 / 1000
+		"VAN_EX1_339","VAN_EX1_339",#VAN_EX1_339,Thoughtsteal,Priest,Rarity.COMMON,3,0,0,Copy 2 cards in your opponent's deck and add them to your hand.
+		#"VAN_EX1_561",#VAN_EX1_561,Alexstrasza,Neutral,Rarity.LEGENDARY,9,8,8,<b>Battlecry:</b> Set a hero's remaining Health to 15.
+		#"VAN_CS2_147","VAN_CS2_147",#VAN_CS2_147,Gnomish Inventor,Neutral,Rarity.FREE,4,2,4,<b>Battlecry:</b> Draw a card.
+		#"VAN_EX1_015","VAN_EX1_015",#VAN_EX1_015,Novice Engineer,Neutral,Rarity.FREE,2,1,1,<b>Battlecry:</b> Draw a card.
+		# 256 / 1000
+		"VAN_EX1_004","VAN_EX1_004",#VAN_EX1_004,Young Priestess,Neutral,Rarity.RARE,1,2,1,At the end of your turn give another random friendly minion +1 Health.
+		"VAN_EX1_506","VAN_EX1_506",#VAN_EX1_506,Murloc Tidehunter,Neutral,Rarity.FREE,2,2,1,<b>Battlecry:</b> Summon a 1/1_Murloc Scout.
+		"VAN_EX1_076","VAN_EX1_076",#VAN_EX1_076,Pint-Sized Summoner,Neutral,Rarity.RARE,2,2,2,The first minion you play each turn costs (1) less.
+		"VAN_EX1_029","VAN_EX1_029",#VAN_EX1_029,Leper Gnome,Neutral,Rarity.COMMON,1,2,1,<b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
+		"VAN_CS2_121","VAN_CS2_121",#VAN_CS2_121,Frostwolf Grunt,Neutral,Rarity.FREE,2,2,2,<b>Taunt</b>
+		"VAN_CS2_155","VAN_CS2_155",#VAN_CS2_155,Archmage,Neutral,Rarity.FREE,6,4,7,<b>Spell Damage +1</b>
+
 		]
 
 	mydict ={}
