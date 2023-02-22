@@ -53,7 +53,7 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-priest-mage-E03.csv'
+	filename='myfile-priest-mage-E05.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
@@ -69,12 +69,26 @@ def main():
 		#"VAN_EX1_015","VAN_EX1_015",#VAN_EX1_015,Novice Engineer,Neutral,Rarity.FREE,2,1,1,<b>Battlecry:</b> Draw a card.
 		# 256 / 1000
 		"VAN_EX1_004","VAN_EX1_004",#VAN_EX1_004,Young Priestess,Neutral,Rarity.RARE,1,2,1,At the end of your turn give another random friendly minion +1 Health.
-		"VAN_EX1_506","VAN_EX1_506",#VAN_EX1_506,Murloc Tidehunter,Neutral,Rarity.FREE,2,2,1,<b>Battlecry:</b> Summon a 1/1_Murloc Scout.
-		"VAN_EX1_076","VAN_EX1_076",#VAN_EX1_076,Pint-Sized Summoner,Neutral,Rarity.RARE,2,2,2,The first minion you play each turn costs (1) less.
+		#"VAN_EX1_506","VAN_EX1_506",#VAN_EX1_506,Murloc Tidehunter,Neutral,Rarity.FREE,2,2,1,<b>Battlecry:</b> Summon a 1/1_Murloc Scout.
+		#"VAN_EX1_076","VAN_EX1_076",#VAN_EX1_076,Pint-Sized Summoner,Neutral,Rarity.RARE,2,2,2,The first minion you play each turn costs (1) less.
 		"VAN_EX1_029","VAN_EX1_029",#VAN_EX1_029,Leper Gnome,Neutral,Rarity.COMMON,1,2,1,<b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
 		"VAN_CS2_121","VAN_CS2_121",#VAN_CS2_121,Frostwolf Grunt,Neutral,Rarity.FREE,2,2,2,<b>Taunt</b>
-		"VAN_CS2_155","VAN_CS2_155",#VAN_CS2_155,Archmage,Neutral,Rarity.FREE,6,4,7,<b>Spell Damage +1</b>
-
+		#"VAN_CS2_155","VAN_CS2_155",#VAN_CS2_155,Archmage,Neutral,Rarity.FREE,6,4,7,<b>Spell Damage +1</b>
+		#524 / 1000 (8)
+		"VAN_CS2_187","VAN_CS2_187",#VAN_CS2_187,Booty Bay Bodyguard,Neutral,Rarity.FREE,5,5,4,<b>Taunt</b>
+		"VAN_EX1_507","VAN_EX1_507",#VAN_EX1_507,Murloc Warleader,Neutral,Rarity.EPIC,3,3,3,ALL other murlocs have +2/+1.
+		"VAN_EX1_624","VAN_EX1_624",#VAN_EX1_624,Holy Fire,Priest,Rarity.RARE,6,0,0,Deal $5 damage. Restore #5 Health to your hero.
+		"VAN_EX1_509","VAN_EX1_509",#VAN_EX1_509,Murloc Tidecaller,Neutral,Rarity.RARE,1,1,2,Whenever a Murloc is summoned gain +1 Attack.
+		"VAN_NEW1_020","VAN_NEW1_020",#VAN_NEW1_020,Wild Pyromancer,Neutral,Rarity.RARE,2,3,2,After you cast a spell deal 1 damage to ALL minions.
+		##816 / 1000 (18)
+		"VAN_EX1_062",#VAN_EX1_062,Old Murk-Eye,Neutral,Rarity.LEGENDARY,4,2,4,<b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
+		"VAN_EX1_001","VAN_EX1_001",#VAN_EX1_001,Lightwarden,Neutral,Rarity.RARE,1,1,2,Whenever a character is healed gain +2 Attack.
+		"VAN_CS2_146","VAN_CS2_146",#VAN_CS2_146,Southsea Deckhand,Neutral,Rarity.COMMON,1,2,1,Has <b>Charge</b> while you have a weapon equipped.
+		"VAN_EX1_508","VAN_EX1_508",#VAN_EX1_508,Grimscale Oracle,Neutral,Rarity.FREE,1,1,1,ALL other Murlocs have +1 Attack.
+		"VAN_EX1_396","VAN_EX1_396",#VAN_EX1_396,Mogu'shan Warden,Neutral,Rarity.COMMON,4,1,7,<b>Taunt</b>
+		"VAN_NEW1_027","VAN_NEW1_027",#VAN_NEW1_027,Southsea Captain,Neutral,Rarity.EPIC,3,3,3,Your other Pirates have +1/+1.
+		"VAN_EX1_017",#VAN_EX1_017,Jungle Panther,Neutral,Rarity.COMMON,3,4,2,<b>Stealth</b>
+		#793 / 1000
 		]
 
 	mydict ={}
