@@ -53,12 +53,31 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-hunter-all_E00.csv'
+	filename='myfile-hunter-all_E03.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
 		#593 / 1080
+		"VAN_EX1_610","VAN_EX1_610",#VAN_EX1_610,Explosive Trap,Hunter,Rarity.COMMON,2,0,0,<b>Secret:</b> When your hero is attacked deal $2 damage to all enemies.
+		"VAN_EX1_032","VAN_EX1_032",#VAN_EX1_032,Sunwalker,Neutral,Rarity.RARE,6,4,5,<b>Taunt</b><b>Divine Shield</b>
+		"VAN_NEW1_019","VAN_NEW1_019",#VAN_NEW1_019,Knife Juggler,Neutral,Rarity.RARE,2,3,2,[x]After you summon aminion deal 1 damageto a random enemy.
+		"VAN_DS1_178","VAN_DS1_178",#VAN_DS1_178,Tundra Rhino,Hunter,Rarity.FREE,5,2,5,Your Beasts have <b>Charge</b>.
+		"VAN_CS2_226","VAN_CS2_226",#VAN_CS2_226,Frostwolf Warlord,Neutral,Rarity.FREE,5,4,4,<b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the battlefield.
+		# 804 / 1080
+		"VAN_NEW1_029",#VAN_NEW1_029,Millhouse Manastorm,Neutral,Rarity.LEGENDARY,2,4,4,<b>Battlecry:</b> Enemy spells cost (0) next turn.
+		"VAN_CS2_187","VAN_CS2_187",#VAN_CS2_187,Booty Bay Bodyguard,Neutral,Rarity.FREE,5,5,4,<b>Taunt</b>
+		"VAN_DS1_175","VAN_DS1_175",#VAN_DS1_175,Timber Wolf,Hunter,Rarity.FREE,1,1,1,Your other Beasts have +1_Attack.
+		"VAN_CS1_042","VAN_CS1_042",#VAN_CS1_042,Goldshire Footman,Neutral,Rarity.FREE,1,1,2,<b>Taunt</b>
+		"VAN_CS2_189","VAN_CS2_189",#VAN_CS2_189,Elven Archer,Neutral,Rarity.FREE,1,1,1,<b>Battlecry:</b> Deal 1 damage.
+		# 893 / 1080
+		"VAN_CS2_147","VAN_CS2_147",#VAN_CS2_147,Gnomish Inventor,Neutral,Rarity.FREE,4,2,4,<b>Battlecry:</b> Draw a card.
+		"VAN_EX1_539","VAN_EX1_539",#VAN_EX1_539,Kill Command,Hunter,Rarity.FREE,3,0,0,Deal $3 damage. If you control a Beast deal$5 damage instead.
+		"VAN_EX1_029","VAN_EX1_029",#VAN_EX1_029,Leper Gnome,Neutral,Rarity.COMMON,1,2,1,<b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
+		"VAN_EX1_506","VAN_EX1_506",#VAN_EX1_506,Murloc Tidehunter,Neutral,Rarity.FREE,2,2,1,<b>Battlecry:</b> Summon a 1/1_Murloc Scout.
+		"VAN_DS1_184","VAN_DS1_184",#VAN_DS1_184,Tracking,Hunter,Rarity.FREE,1,0,0,Look at the top 3 cards of your deck. Draw one and discard the others.
+		"VAN_EX1_021",#VAN_EX1_021,Thrallmar Farseer,Neutral,Rarity.COMMON,3,2,3,<b>Windfury</b>
+		## 946 / 1080
 		]
 
 	mydict ={}
