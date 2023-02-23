@@ -29,7 +29,7 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.PRIEST)
+		,myClass=CardClass.HUNTER)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
@@ -53,42 +53,12 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-priest-mage-E05.csv'
+	filename='myfile-hunter-all_E00.csv'
 	f = open(filename, 'r')
 	datalist = f.readlines()
 	f.close()
 	MyDeck=[
-		# 129 / 1000
-		#'VAN_NEW1_016','VAN_NEW1_016',#VAN_NEW1_016,Captain's Parrot,Neutral,Rarity.EPIC,2,1,1,<b>Battlecry:</b> Draw a Pirate from your deck.
-		#'VAN_CS2_222','VAN_CS2_222',#VAN_CS2_222,Stormwind Champion,Neutral,Rarity.FREE,7,6,6,Your other minions have +1/+1.
-		#'VAN_EX1_029','VAN_EX1_029',#VAN_EX1_029,Leper Gnome,Neutral,Rarity.COMMON,1,2,1,<b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
-		#  357 / 1000
-		"VAN_EX1_339","VAN_EX1_339",#VAN_EX1_339,Thoughtsteal,Priest,Rarity.COMMON,3,0,0,Copy 2 cards in your opponent's deck and add them to your hand.
-		#"VAN_EX1_561",#VAN_EX1_561,Alexstrasza,Neutral,Rarity.LEGENDARY,9,8,8,<b>Battlecry:</b> Set a hero's remaining Health to 15.
-		#"VAN_CS2_147","VAN_CS2_147",#VAN_CS2_147,Gnomish Inventor,Neutral,Rarity.FREE,4,2,4,<b>Battlecry:</b> Draw a card.
-		#"VAN_EX1_015","VAN_EX1_015",#VAN_EX1_015,Novice Engineer,Neutral,Rarity.FREE,2,1,1,<b>Battlecry:</b> Draw a card.
-		# 256 / 1000
-		"VAN_EX1_004","VAN_EX1_004",#VAN_EX1_004,Young Priestess,Neutral,Rarity.RARE,1,2,1,At the end of your turn give another random friendly minion +1 Health.
-		#"VAN_EX1_506","VAN_EX1_506",#VAN_EX1_506,Murloc Tidehunter,Neutral,Rarity.FREE,2,2,1,<b>Battlecry:</b> Summon a 1/1_Murloc Scout.
-		#"VAN_EX1_076","VAN_EX1_076",#VAN_EX1_076,Pint-Sized Summoner,Neutral,Rarity.RARE,2,2,2,The first minion you play each turn costs (1) less.
-		"VAN_EX1_029","VAN_EX1_029",#VAN_EX1_029,Leper Gnome,Neutral,Rarity.COMMON,1,2,1,<b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
-		"VAN_CS2_121","VAN_CS2_121",#VAN_CS2_121,Frostwolf Grunt,Neutral,Rarity.FREE,2,2,2,<b>Taunt</b>
-		#"VAN_CS2_155","VAN_CS2_155",#VAN_CS2_155,Archmage,Neutral,Rarity.FREE,6,4,7,<b>Spell Damage +1</b>
-		#524 / 1000 (8)
-		"VAN_CS2_187","VAN_CS2_187",#VAN_CS2_187,Booty Bay Bodyguard,Neutral,Rarity.FREE,5,5,4,<b>Taunt</b>
-		"VAN_EX1_507","VAN_EX1_507",#VAN_EX1_507,Murloc Warleader,Neutral,Rarity.EPIC,3,3,3,ALL other murlocs have +2/+1.
-		"VAN_EX1_624","VAN_EX1_624",#VAN_EX1_624,Holy Fire,Priest,Rarity.RARE,6,0,0,Deal $5 damage. Restore #5 Health to your hero.
-		"VAN_EX1_509","VAN_EX1_509",#VAN_EX1_509,Murloc Tidecaller,Neutral,Rarity.RARE,1,1,2,Whenever a Murloc is summoned gain +1 Attack.
-		"VAN_NEW1_020","VAN_NEW1_020",#VAN_NEW1_020,Wild Pyromancer,Neutral,Rarity.RARE,2,3,2,After you cast a spell deal 1 damage to ALL minions.
-		##816 / 1000 (18)
-		"VAN_EX1_062",#VAN_EX1_062,Old Murk-Eye,Neutral,Rarity.LEGENDARY,4,2,4,<b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
-		"VAN_EX1_001","VAN_EX1_001",#VAN_EX1_001,Lightwarden,Neutral,Rarity.RARE,1,1,2,Whenever a character is healed gain +2 Attack.
-		"VAN_CS2_146","VAN_CS2_146",#VAN_CS2_146,Southsea Deckhand,Neutral,Rarity.COMMON,1,2,1,Has <b>Charge</b> while you have a weapon equipped.
-		"VAN_EX1_508","VAN_EX1_508",#VAN_EX1_508,Grimscale Oracle,Neutral,Rarity.FREE,1,1,1,ALL other Murlocs have +1 Attack.
-		"VAN_EX1_396","VAN_EX1_396",#VAN_EX1_396,Mogu'shan Warden,Neutral,Rarity.COMMON,4,1,7,<b>Taunt</b>
-		"VAN_NEW1_027","VAN_NEW1_027",#VAN_NEW1_027,Southsea Captain,Neutral,Rarity.EPIC,3,3,3,Your other Pirates have +1/+1.
-		"VAN_EX1_017",#VAN_EX1_017,Jungle Panther,Neutral,Rarity.COMMON,3,4,2,<b>Stealth</b>
-		#793 / 1000
+		#593 / 1080
 		]
 
 	mydict ={}
@@ -97,35 +67,39 @@ def main():
 		mydict[terms[0]]=int(terms[1])
 
 	win_count=0
-	total=1000
-	for repeat in range(total):
-		winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=MyDeck, deck2=[], debugLog=True)
-		if winner=='Vector1':
-			win_count += 1
-			for key in mydict_thisplay:
-				if key in mydict.keys():
-					mydict[key] = mydict[key]+1
-				else:
-					mydict[key] = 1
+	total=120
+	for myCardClass in [CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST, CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR]:
+		Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=myCardClass)
+		for repeat in range(total):
+			winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=MyDeck, deck2=[], debugLog=True)
+			if winner=='Vector1':
+				win_count += 1
+				for key in mydict_thisplay:
+					if key in mydict.keys():
+						mydict[key] = mydict[key]+1
+					else:
+						mydict[key] = 1
 
-			f = open(filename, 'w')
-			for key,value in mydict.items():
-				f.write(key+','+str(value)+"\n")
-			f.close()
-		else:
-			for key in mydict_thisplay:
-				if key in mydict.keys():
-					mydict[key] = mydict[key]-1
-				else:
-					mydict[key] = -1
+				f = open(filename, 'w')
+				for key,value in mydict.items():
+					f.write(key+','+str(value)+"\n")
+				f.close()
+			else:
+				for key in mydict_thisplay:
+					if key in mydict.keys():
+						mydict[key] = mydict[key]-1
+					else:
+						mydict[key] = -1
 
-			f = open(filename, 'w')
-			for key,value in mydict.items():
-				f.write(key+','+str(value)+"\n")
-			f.close()
+				f = open(filename, 'w')
+				for key,value in mydict.items():
+					f.write(key+','+str(value)+"\n")
+				f.close()
 
 	pass
-	print("Vector1 wins: %d / %d"%(win_count, total))
+	print("Vector1 wins: %d / %d"%(win_count, total*9))
 
 
 	####################################################################
