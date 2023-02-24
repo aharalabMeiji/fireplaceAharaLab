@@ -29,11 +29,11 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.WARRIOR)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.MAGE)
+		,myClass=CardClass.PRIEST)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
 
@@ -53,17 +53,18 @@ def main():
 	####################################################################
 	
 	#aharalab-build-deck
-	filename='myfile-****-all_E00.csv'
+	filename='myfile-****-****_E00.csv'
 	MyDeck=[
 
 		]
-	f = open(filename, 'r')
-	datalist = f.readlines()
-	f.close()
+	#f = open(filename, 'r')
+	#datalist = f.readlines()
+	#f.close()
 	mydict ={}
-	for line in datalist:
-		terms = line.split(',')
-		mydict[terms[0]]=int(terms[1])
+	mydict['XXXX']=0
+	#for line in datalist:
+	#	terms = line.split(',')
+	#	mydict[terms[0]]=int(terms[1])
 
 	win_count=0
 	total=120
