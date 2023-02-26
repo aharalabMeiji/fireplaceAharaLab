@@ -62,6 +62,7 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 	player1.max_mana=int(P1MAXMANA)-1## this line must be before 'start()'
 	player2.max_mana=int(P2MAXMANA)-1
 	game.start()
+	game.coutLog=debugLog
 	player1.hero.max_health = int(HEROHPOPTION)## this line must be below 'start()'
 	player2.hero.max_health = int(HEROHPOPTION)## 
 

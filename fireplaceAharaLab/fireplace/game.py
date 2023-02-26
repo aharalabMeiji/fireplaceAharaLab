@@ -7,7 +7,7 @@ from hearthstone.enums import BlockType, CardType, GameTag, PlayState, State, St
 
 from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
 	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade, Battlecry,\
-	Discard
+	Discard, Hit
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
@@ -39,6 +39,7 @@ class BaseGame(Entity):
 		self.setaside = CardList()
 		self._action_stack = 0
 		self._myLog_=[]
+		self.coutLog = False
 		self.event_args=None
 		self.zone=Zone.INVALID
 		self.no_drawing_at_turn_begin=False
@@ -455,8 +456,14 @@ class BaseGame(Entity):
 					self.queue_actions(self, [Awaken(minion)])
 		if self.no_drawing_at_turn_begin==False:
 			drawn_card = player.draw()
+			if drawn_card==None:
+				Hit(player.hero, 1).trigger(player)
+			if self.coutLog:
+				print("[[[%s draws %s]]]"%(player, drawn_card))
 			if player.draw_extra_card==True: ## 24.4
 				drawn_card2 = player.draw() ## 24.4
+				if drawn_card2==None:
+					Hit(player.hero, 1).trigger(player)
 
 		self.manager.step(self.next_step, Step.MAIN_END)
 	pass

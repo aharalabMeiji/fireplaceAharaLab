@@ -35,7 +35,7 @@ def main():
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.PRIEST)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
-	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,UNDEAD
 
 
 	####################################################################
@@ -44,16 +44,20 @@ def main():
 
 	#FaceHunter by Aharalab
 	MyDeck=[
-		"VAN_CS2_162","VAN_CS2_162", "VAN_EX1_032","VAN_EX1_032", "VAN_EX1_050","VAN_EX1_050", "VAN_CS2_226","VAN_CS2_226", "VAN_DS1_184","VAN_DS1_184",
-		"VAN_EX1_533","VAN_EX1_533", "VAN_EX1_537","VAN_EX1_537", "VAN_CS2_187","VAN_CS2_187", "VAN_CS2_179","VAN_CS2_179", "VAN_CS2_125","VAN_CS2_125",
-		"VAN_CS2_203","VAN_CS2_203", "VAN_EX1_049","VAN_EX1_049", "VAN_EX1_539","VAN_EX1_539", "VAN_EX1_080","VAN_EX1_080", "VAN_CS2_181","VAN_CS2_181",]
+		"VAN_CS2_162", "VAN_CS2_162", "VAN_EX1_032", "VAN_EX1_032", "VAN_EX1_050", "VAN_EX1_050", "VAN_CS2_226", "VAN_CS2_226", "VAN_DS1_184", "VAN_DS1_184",
+		"VAN_EX1_533", "VAN_EX1_533", "VAN_EX1_537", "VAN_EX1_537", "VAN_CS2_187", "VAN_CS2_187", "VAN_CS2_179", "VAN_CS2_179", "VAN_CS2_125", "VAN_CS2_125",
+		"VAN_CS2_203", "VAN_CS2_203", "VAN_EX1_049", "VAN_EX1_049", "VAN_EX1_539", "VAN_EX1_539", "VAN_EX1_080", "VAN_EX1_080", "VAN_CS2_181", "VAN_CS2_181",]
 	#空デッキを指定すると、ランダムデッキが構築される
-	#a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
+	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
+	pass
 
-	####################################################################
-	
+####################################################################
+
+### competition #3 (classic environment and change decks)
+
+def deckCat():
 	#aharalab-build-deck
-	filename='myfile-****-****_E00.csv'
+	filename='myfile-xxxx-xxxx_D00.csv'
 	MyDeck=[
 
 		]
@@ -67,8 +71,10 @@ def main():
 	#	mydict[terms[0]]=int(terms[1])
 
 	win_count=0
-	total=120
-	for myCardClass in [CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST, CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR]:
+	total=500
+	#total=1000
+	classes=[CardClass.HUNTER, CardClass.DRUID, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST, CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR]
+	for myCardClass in classes:
 		Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 			,myClass=myCardClass)
@@ -99,10 +105,8 @@ def main():
 				f.close()
 
 	pass
-	print("Vector1 wins: %d / %d = %f"%(win_count, total*9, 1.0*win_count/(total*9)))
+	print("Vector1 wins: %d / %d = %f"%(win_count, total*len(classes), 1.0*win_count/(total*len(classes))))
 
-
-	####################################################################
 
 ### #3
 
