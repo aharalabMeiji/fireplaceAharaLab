@@ -142,9 +142,10 @@ def deckCatMain():
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=sourceClass)
 	targetClasses=[CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
+	targetClassName='all'
 	lenTarget=len(targetClasses)
 	poolfilename="classic_pool_en.csv"
-	matchN=2
+	matchN=1
 	myDeck=[]
 	myDeckTexts = []
 	myDeckBlocks = []
@@ -172,10 +173,10 @@ def deckCatMain():
 
 	stepcount=0
 
-	for stepcount in range(1):
-		cardsfilename="deckCatblockdic-%s-all_%d.csv"%(sourceClassName,stepcount)
-		deckfilename="deckCat-%s-all_%d.txt"%(sourceClassName,stepcount)
-		myDeckTexts.append("\t\t%s"%(deckfilename))
+	myDeckTexts.append("\t\t## deckCat-%s-%s"%(sourceClassName,targetClassName))
+	for stepcount in range(2):
+		cardsfilename="deckCatblockdic-%s-%s_%d.csv"%(sourceClassName,targetClassName,stepcount)
+		deckfilename="deckCat-%s-%s_%d.txt"%(sourceClassName,targetClassName,stepcount)
 		win_count=0
 		for myCardClass in targetClasses:
 			Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
@@ -197,7 +198,7 @@ def deckCatMain():
 						else:
 							mydict[key] = -1
 
-		myDeckTexts.append("\t\tWins: %d / %d = %f (%d)"%(win_count, matchN*lenTarget, 1.0*win_count/(matchN*lenTarget), stepcount))
+		myDeckTexts.append("\t\t## Wins: %d / %d = %f (%d)"%(win_count, matchN*lenTarget, 1.0*win_count/(matchN*lenTarget), stepcount))
 
 		totalcardnum = sum([block.number for block in myDeckBlocks])
 		if totalcardnum>=30:
@@ -212,36 +213,60 @@ def deckCatMain():
 		for block in myDeckBlocks:
 			block.active=False
 		blocklinecount=0
+		blockcardcount=0
 		for key, value in blockdic:
 			if blocklinecount>=5 or value<0:
 				break
 			thisblock = [block for block in myDeckBlocks if block.cardId==key] 
 			if len(thisblock)>0:
 				thisblock[0].active=True
+				blockcardcount += thisblock[0].number
+				if blockcardcount>= 30:
+					break
 			else:
-				thisblock = deckCatBlock()
-				thisblock.cardId = key
 				thisblockcard=[card for card in poolcardlist if card.id==key]
 				if len(thisblockcard)==0:
 					continue
+				thisblock = deckCatBlock()
+				thisblock.cardId = key
 				thisblock.card = thisblockcard[0]
 				thisblock.pickupStep=stepcount
 				thisblock.active=True
 				thisblock.number=thisblock.card.max_number
+				myDeckBlocks.append(thisblock)
 				blocklinecount += 1
-				myDeckTexts.append('\t\t"%s","%s",#%s,%s,%s,%s,%d,%d,%d,%s'%(
-					thisblock.card.id,thisblock.card.id,thisblock.card.id,
-					thisblock.card.e_name,
-					thisblock.card.card_class,
-					thisblock.card.rarity,
-					thisblock.card.cost,
-					thisblock.card.atk,
-					thisblock.card.max_health,
-					thisblock.card.description
+				blockcardcount += thisblock.number
+				if blockcardcount> 30:
+					thisblock.number=blockcardcount-30
+				
+		myDeck=[]
+		for block in myDeckBlocks:
+			blockText="\t\t"
+			if block.active==False:
+				blockText+="## "
+			if block.number==2:
+				blockText+='"%s","%s",'%(block.cardId,block.cardId)
+			else:
+				blockText+='"%s",'%(block.cardId)
+			blockText+=('#%s,%s,%s,%s,%d,%d,%d,%s'%(
+					block.card.id,
+					block.card.e_name,
+					block.card.card_class,
+					block.card.rarity,
+					block.card.cost,
+					block.card.atk,
+					block.card.max_health,
+					block.card.description
 					))
+			myDeckTexts.append(blockText)
+			if block.active==True:
+				myDeck.append(block.cardId)
+				if block.number==2:
+					myDeck.append(block.cardId)
+
 		df = open(deckfilename, 'w')
 		for text in myDeckTexts:
-			df.write("\t\t%s\n\n"%(text))
+			df.write("\t\t%s\n"%(text))
 		df.close()
 	pass
 
