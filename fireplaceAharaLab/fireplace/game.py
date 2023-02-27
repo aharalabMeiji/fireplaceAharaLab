@@ -15,6 +15,7 @@ from .managers import GameManager
 from .utils import CardList,ActionType
 from .config import Config 
 from .dsl.random_picker import *
+from .config import Config
 
 from .actions import GradeupByMana
 
@@ -39,7 +40,6 @@ class BaseGame(Entity):
 		self.setaside = CardList()
 		self._action_stack = 0
 		self._myLog_=[]
-		self.coutLog = False
 		self.event_args=None
 		self.zone=Zone.INVALID
 		self.no_drawing_at_turn_begin=False
@@ -456,14 +456,16 @@ class BaseGame(Entity):
 					self.queue_actions(self, [Awaken(minion)])
 		if self.no_drawing_at_turn_begin==False:
 			drawn_card = player.draw()
-			if drawn_card==None:
+			if drawn_card==None:# vacant deck
 				Hit(player.hero, 1).trigger(player)
-			if self.coutLog:
+			if Config.GAMELOG:
 				print("[[[%s draws %s]]]"%(player, drawn_card))
 			if player.draw_extra_card==True: ## 24.4
 				drawn_card2 = player.draw() ## 24.4
-				if drawn_card2==None:
+				if drawn_card==None:# vacant deck
 					Hit(player.hero, 1).trigger(player)
+				if Config.GAMELOG:
+					print("[[[%s draws %s]]]"%(player, drawn_card2))
 
 		self.manager.step(self.next_step, Step.MAIN_END)
 	pass

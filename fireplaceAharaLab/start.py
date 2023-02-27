@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+from base64 import b16decode
+from binascii import a2b_base64
+from re import A
 import sys
 from hearthstone.enums import *
 from utils import *
@@ -29,84 +32,82 @@ def main():
 	#ベクトルプレーヤー。意外と強い。このプレーヤーとサシで勝負して勝てるくらいが一応の目安。
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-		,myClass=CardClass.WARRIOR)
+		,myClass=CardClass.PALADIN)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
 	Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.PRIEST)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
-	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR,UNDEAD
+	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR.UNDEAD
 
 
 	####################################################################
 
-	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
+	#competition #3 stage
 
-	#FaceHunter by Aharalab
-	MyDeck=[
+	######### entries (samples) ############
+
+	#deckCatHunter ## this is a sample
+	deckCatHunter={
+		"deck":[
 		"VAN_CS2_162", "VAN_CS2_162", "VAN_EX1_032", "VAN_EX1_032", "VAN_EX1_050", "VAN_EX1_050", "VAN_CS2_226", "VAN_CS2_226", "VAN_DS1_184", "VAN_DS1_184",
 		"VAN_EX1_533", "VAN_EX1_533", "VAN_EX1_537", "VAN_EX1_537", "VAN_CS2_187", "VAN_CS2_187", "VAN_CS2_179", "VAN_CS2_179", "VAN_CS2_125", "VAN_CS2_125",
-		"VAN_CS2_203", "VAN_CS2_203", "VAN_EX1_049", "VAN_EX1_049", "VAN_EX1_539", "VAN_EX1_539", "VAN_EX1_080", "VAN_EX1_080", "VAN_CS2_181", "VAN_CS2_181",]
-	#空デッキを指定すると、ランダムデッキが構築される
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
-	pass
+		"VAN_CS2_203", "VAN_CS2_203", "VAN_EX1_049", "VAN_EX1_049", "VAN_EX1_539", "VAN_EX1_539", "VAN_EX1_080", "VAN_EX1_080", "VAN_CS2_181", "VAN_CS2_181",],
+		"class":CardClass.HUNTER}
+	#frozenMidrangeMage ## this is a sample
+	frozenMidrangeMage = {
+		"deck":parseDeck("AAEDAf0ECJiiBMSqBNGjBLehBNuhBLWhBM2jBN+VBAvolQTilQS7ogSyoQTDowTVoQTQoQTZlgSTogS5oQSwlgQA"),
+		"class":CardClass.MAGE}
 
-####################################################################
+	competition_round=0
 
-### competition #3 (classic environment and change decks)
+	########## qualifying ##############
 
-def deckCat():
-	#aharalab-build-deck
-	filename='myfile-xxxx-xxxx_D00.csv'
-	MyDeck=[
+	if competition_round==0:
+		theDeck=deckCatHunter
+		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=theDeck["class"])
 
-		]
-	#f = open(filename, 'r')
-	#datalist = f.readlines()
-	#f.close()
-	mydict ={}
-	mydict['XXXX']=0
-	#for line in datalist:
-	#	terms = line.split(',')
-	#	mydict[terms[0]]=int(terms[1])
+		myclasses = [CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
+		win=0
+		lose=0
+		for myclass in myclasses:
+			Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+				,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+				,myClass=myclass)	
+			a,b,c = play_set_of_games(Vector1, Vector2, deck1=theDeck["deck"], deck2=[], gameNumber=10, debugLog=True)		
+			win+=a
+			lose+=b
+		print("#### result ####")
+		print("win : %d, lose : %d"%(win,lose))
+		print("################")
+		input()
+		pass
 
-	win_count=0
-	total=500
-	#total=1000
-	classes=[CardClass.HUNTER, CardClass.DRUID, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST, CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR]
-	for myCardClass in classes:
+
+	########## final #############
+
+	if competition_round==1:
+		theDeck1=deckCatHunter
+		theDeck2=frozenMidrangeMage
+
+		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=theDeck1["class"])
 		Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-			,myClass=myCardClass)
-		for repeat in range(total):
-			winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=MyDeck, deck2=[], debugLog=True)
-			if winner=='Vector1':
-				win_count += 1
-				for key in mydict_thisplay:
-					if key in mydict.keys():
-						mydict[key] = mydict[key]+1
-					else:
-						mydict[key] = 1
+			,myClass=theDeck2["class"])	
+		#空デッキを指定すると、ランダムデッキが構築される
+		a,b,c = play_set_of_games(Vector1, Vector2, deck1=theDeck1["deck"], deck2=theDeck2["deck"], gameNumber=10, debugLog=True)
+		print("#### result ####")
+		print("Player1 wins : %d, player2 wins : %d"%(a,b))
+		print("################")
+		input()
+	
 
-				f = open(filename, 'w')
-				for key,value in mydict.items():
-					f.write(key+','+str(value)+"\n")
-				f.close()
-			else:
-				for key in mydict_thisplay:
-					if key in mydict.keys():
-						mydict[key] = mydict[key]-1
-					else:
-						mydict[key] = -1
 
-				f = open(filename, 'w')
-				for key,value in mydict.items():
-					f.write(key+','+str(value)+"\n")
-				f.close()
-
-	pass
-	print("Vector1 wins: %d / %d = %f"%(win_count, total*len(classes), 1.0*win_count/(total*len(classes))))
-
+	####################################################################
 
 ### #3
 
