@@ -109,6 +109,67 @@ def main():
 
 	####################################################################
 
+### deckCat ###
+
+def deckCatMain():
+	sourceClass=CardClass.HUNTER
+	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+		,myClass=sourceClass)
+	targetClasses=[CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
+	lenTarget=len(targetClasses)
+	cardsfilename="myDeck-%s-all.csv"%sourceClass
+	deckfilename="myDeck-%s-all.csv"%sourceClass
+	poolfilename="classic_pool_en.csv"
+	matchN=100
+	MyDeck=[
+
+	]
+	mydict ={}
+	mydict['XXXX']=0
+	df = open(deckfilename, 'w')
+	df.write("\t\tmyDeck-%s-all\n\n"%sourceClass)
+	df.close()
+	pf = open(poolfilename, 'r')
+	readlines = pf.read()
+	for line in readlines:
+		pass
+	win_count=0
+	for myCardClass in targetClasses:
+		Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=myCardClass)
+		for repeat in range(matchN):
+			winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=MyDeck, deck2=[], debugLog=True)
+			if winner=='Vector1':
+				win_count += 1
+				for key in mydict_thisplay:
+					if key in mydict.keys():
+						mydict[key] = mydict[key]+1
+					else:
+						mydict[key] = 1
+
+				f = open(cardsfilename, 'w')
+				for key,value in mydict.items():
+					f.write(key+','+str(value)+"\n")
+				f.close()
+			else:
+				for key in mydict_thisplay:
+					if key in mydict.keys():
+						mydict[key] = mydict[key]-1
+					else:
+						mydict[key] = -1
+
+				f = open(cardsfilename, 'w')
+				for key,value in mydict.items():
+					f.write(key+','+str(value)+"\n")
+				f.close()
+	df = open(deckfilename, 'w')
+	df.write("\t\tWins: %d / %d = %f\n\n"%(win_count, matchN*lenTarget, 1.0*win_count/(matchN*lenTarget)))
+	df.close()
+	
+	pass
+
 ### #3
 
 from card_test.simulate_game import card_test
