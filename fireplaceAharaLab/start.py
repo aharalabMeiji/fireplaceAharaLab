@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+from base64 import b16decode
+from binascii import a2b_base64
+from re import A
 import sys
 from hearthstone.enums import *
 from utils import *
@@ -35,17 +38,72 @@ def main():
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=CardClass.PRIEST)
 		#,mulliganStrategy=StandardVectorAgent.StandardMulligan) 
-	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR
+	##DEMONHUNTER,DRUID,HUNTER,MAGE,NEUTRAL,PALADIN,PRIEST,ROGUE,SHAMAN,WARLOCK,WARRIOR.UNDEAD
 
 
 	####################################################################
 
-	#ゲームプレイ(きまったゲーム数を対戦し、勝ち数を数える)
+	#competition #3 stage
 
-	#MyDeck: DRUID
-	#MyDeck=['VAN_CS1_042','VAN_CS1_042','VAN_CS1_069','VAN_CS1_069','VAN_CS2_117','VAN_CS2_117','VAN_CS2_118','VAN_CS2_118','VAN_CS2_119','VAN_CS2_119','VAN_CS2_120','VAN_CS2_120','VAN_CS2_121','VAN_CS2_121','VAN_CS2_122','VAN_CS2_122','VAN_CS2_124','VAN_CS2_124','VAN_CS2_125','VAN_CS2_125','VAN_CS2_127','VAN_CS2_127','VAN_CS2_131','VAN_CS2_131','VAN_CS2_141','VAN_CS2_142','VAN_CS2_146','VAN_CS2_147','VAN_CS2_150','VAN_CS2_151']
-	#空デッキを指定すると、ランダムデッキが構築される
-	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=20, debugLog=True)
+	######### entries (samples) ############
+
+	#deckCatHunter ## this is a sample
+	deckCatHunter={
+		"deck":[
+		"VAN_CS2_162", "VAN_CS2_162", "VAN_EX1_032", "VAN_EX1_032", "VAN_EX1_050", "VAN_EX1_050", "VAN_CS2_226", "VAN_CS2_226", "VAN_DS1_184", "VAN_DS1_184",
+		"VAN_EX1_533", "VAN_EX1_533", "VAN_EX1_537", "VAN_EX1_537", "VAN_CS2_187", "VAN_CS2_187", "VAN_CS2_179", "VAN_CS2_179", "VAN_CS2_125", "VAN_CS2_125",
+		"VAN_CS2_203", "VAN_CS2_203", "VAN_EX1_049", "VAN_EX1_049", "VAN_EX1_539", "VAN_EX1_539", "VAN_EX1_080", "VAN_EX1_080", "VAN_CS2_181", "VAN_CS2_181",],
+		"class":CardClass.HUNTER}
+	#frozenMidrangeMage ## this is a sample
+	frozenMidrangeMage = {
+		"deck":parseDeck("AAEDAf0ECJiiBMSqBNGjBLehBNuhBLWhBM2jBN+VBAvolQTilQS7ogSyoQTDowTVoQTQoQTZlgSTogS5oQSwlgQA"),
+		"class":CardClass.MAGE}
+
+	competition_round=0
+
+	########## qualifying ##############
+
+	if competition_round==0:
+		theDeck=deckCatHunter
+		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=theDeck["class"])
+
+		myclasses = [CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
+		win=0
+		lose=0
+		for myclass in myclasses:
+			Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+				,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+				,myClass=myclass)	
+			a,b,c = play_set_of_games(Vector1, Vector2, deck1=theDeck["deck"], deck2=[], gameNumber=10, debugLog=True)		
+			win+=a
+			lose+=b
+		print("#### result ####")
+		print("win : %d, lose : %d"%(win,lose))
+		print("################")
+		input()
+		pass
+
+
+	########## final #############
+
+	if competition_round==1:
+		theDeck1=deckCatHunter
+		theDeck2=frozenMidrangeMage
+
+		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=theDeck1["class"])
+		Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+			,myClass=theDeck2["class"])	
+		#空デッキを指定すると、ランダムデッキが構築される
+		a,b,c = play_set_of_games(Vector1, Vector2, deck1=theDeck1["deck"], deck2=theDeck2["deck"], gameNumber=10, debugLog=True)
+		print("#### result ####")
+		print("Player1 wins : %d, player2 wins : %d"%(a,b))
+		print("################")
+		input()
 	
 
 

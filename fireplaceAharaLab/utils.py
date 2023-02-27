@@ -90,6 +90,11 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 		print("New game start")
 	for player in game.players:
 		BeginGame(player).trigger(player)
+		if debugLog:
+			print("player = %s : hands"%(player))
+			for card in player.hand:
+				print("--- %r"%(card))
+	print("=-=-=-=-=-=-=-=-")
 	while True:	
 		#game main loop
 		player = game.current_player
@@ -107,12 +112,12 @@ def play_one_game(P1: Agent, P2: Agent, deck1=[], deck2=[], debugLog=True, HEROH
 			player.choice=None#somotimes it comes here
 		if game.state!=State.COMPLETE:
 			try:
-				game.end_turn()
+				if game.current_player.choice!=None:
+					postAction(game.current_player)
 				if debugLog:
 					print(">>>>%s>>>>turn change %d[sec]>>>>%s"%(player, time.time()-start_time, player.opponent),end='  ')
 					print("%d : %d"%(player1.hero.health+player1.hero.armor,player2.hero.health+player2.hero.armor))
-				if game.current_player.choice!=None:
-					postAction(game.current_player)
+				game.end_turn()
 			except GameOver:#it rarely occurs
 				gameover=0
 		#ゲーム終了フラグが立っていたらゲーム終了処理を行う
