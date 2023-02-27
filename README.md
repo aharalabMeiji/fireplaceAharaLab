@@ -10,6 +10,7 @@ Classic battle is available [here](https://github.com/aharalabMeiji/fireplaceAha
 ## 第3回ハースストーンAI大会（2023年3月）(3rd Competition for Fireplace AI Agents, Mar. 2023)
 
 [詳細はこちらをご覧ください。](https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/第三回大会要領)
+[問題点の報告](https://github.com/aharalabMeiji/fireplaceAharaLab/wiki/第三回大会要領#問題点)があります。
 
 ## 日本語によるwiki (wiki only in Japanese, sorry!)
 
