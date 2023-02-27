@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from base64 import b16decode
 from binascii import a2b_base64
+from pickle import TRUE
 from re import A
 import sys
 from hearthstone.enums import *
@@ -59,7 +60,7 @@ def main():
 		"deck":parseDeck("AAEDAf0ECJiiBMSqBNGjBLehBNuhBLWhBM2jBN+VBAvolQTilQS7ogSyoQTDowTVoQTQoQTZlgSTogS5oQSwlgQA"),
 		"class":CardClass.MAGE}
 
-	competition_round=0
+	competition_round=2
 
 	########## qualifying ##############
 
@@ -105,69 +106,143 @@ def main():
 		print("################")
 		input()
 	
+	######### goto deckCat #############
 
+	deckCatMain()
 
 	####################################################################
 
 ### deckCat ###
+class deckCatCard:
+	def __init__(self):
+		self.id=''
+		self.e_name="name"
+		self.card_class='CardClass.NEUTRAL'
+		self.rarity='Rarity.FREE'
+		self.cost=1
+		self.atk=0
+		self.max_health=0
+		self.description=""
+		self.max_number=2
+		pass
+
+class deckCatBlock:
+	def __init__(self):
+		self.cardId=''
+		self.card=None
+		self.pickupStep=-1
+		self.active=True
+		self.number=2
+		pass
 
 def deckCatMain():
 	sourceClass=CardClass.HUNTER
+	sourceClassName='HUNTER'
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=sourceClass)
 	targetClasses=[CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
 	lenTarget=len(targetClasses)
-	cardsfilename="myDeck-%s-all.csv"%sourceClass
-	deckfilename="myDeck-%s-all.csv"%sourceClass
 	poolfilename="classic_pool_en.csv"
-	matchN=100
-	MyDeck=[
-
-	]
+	matchN=2
+	myDeck=[]
+	myDeckTexts = []
+	myDeckBlocks = []
 	mydict ={}
 	mydict['XXXX']=0
-	df = open(deckfilename, 'w')
-	df.write("\t\tmyDeck-%s-all\n\n"%sourceClass)
-	df.close()
 	pf = open(poolfilename, 'r')
-	readlines = pf.read()
-	for line in readlines:
+	datalist = pf.readlines()
+	pf.close()
+	poolcardlist = []
+	for line in datalist:
+		terms = line.split(',')
+		newcard = deckCatCard()
+		newcard.id=terms[0]
+		newcard.e_name=terms[1]
+		newcard.card_class=terms[2]
+		newcard.rarity=terms[3]
+		newcard.cost=int(terms[4])
+		newcard.atk=int(terms[5])
+		newcard.max_health=int(terms[6])
+		newcard.description=terms[7]
+		if newcard.rarity=="Rarity.LEGENDARY":
+			newcard.max_number=1
+		poolcardlist.append(newcard)
 		pass
-	win_count=0
-	for myCardClass in targetClasses:
-		Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
-			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-			,myClass=myCardClass)
-		for repeat in range(matchN):
-			winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=MyDeck, deck2=[], debugLog=True)
-			if winner=='Vector1':
-				win_count += 1
-				for key in mydict_thisplay:
-					if key in mydict.keys():
-						mydict[key] = mydict[key]+1
-					else:
-						mydict[key] = 1
 
-				f = open(cardsfilename, 'w')
-				for key,value in mydict.items():
-					f.write(key+','+str(value)+"\n")
-				f.close()
+	stepcount=0
+
+	for stepcount in range(1):
+		cardsfilename="deckCatblockdic-%s-all_%d.csv"%(sourceClassName,stepcount)
+		deckfilename="deckCat-%s-all_%d.txt"%(sourceClassName,stepcount)
+		myDeckTexts.append("\t\t%s"%(deckfilename))
+		win_count=0
+		for myCardClass in targetClasses:
+			Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+				,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
+				,myClass=myCardClass)
+			for repeat in range(matchN):
+				winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=myDeck, deck2=[], debugLog=True)
+				if winner=='Vector1':
+					win_count += 1
+					for key in mydict_thisplay:
+						if key in mydict.keys():
+							mydict[key] = mydict[key]+1
+						else:
+							mydict[key] = 1
+				else:
+					for key in mydict_thisplay:
+						if key in mydict.keys():
+							mydict[key] = mydict[key]-1
+						else:
+							mydict[key] = -1
+
+		myDeckTexts.append("\t\tWins: %d / %d = %f (%d)"%(win_count, matchN*lenTarget, 1.0*win_count/(matchN*lenTarget), stepcount))
+
+		totalcardnum = sum([block.number for block in myDeckBlocks])
+		if totalcardnum>=30:
+			break## end
+
+		blockdic = sorted(mydict.items(), key=lambda x:x[1], reverse=True)
+		cf = open(cardsfilename, 'w')
+		for key,value in blockdic:
+			cf.write(key+','+str(value)+"\n")
+		cf.close()
+
+		for block in myDeckBlocks:
+			block.active=False
+		blocklinecount=0
+		for key, value in blockdic:
+			if blocklinecount>=5 or value<0:
+				break
+			thisblock = [block for block in myDeckBlocks if block.cardId==key] 
+			if len(thisblock)>0:
+				thisblock[0].active=True
 			else:
-				for key in mydict_thisplay:
-					if key in mydict.keys():
-						mydict[key] = mydict[key]-1
-					else:
-						mydict[key] = -1
-
-				f = open(cardsfilename, 'w')
-				for key,value in mydict.items():
-					f.write(key+','+str(value)+"\n")
-				f.close()
-	df = open(deckfilename, 'w')
-	df.write("\t\tWins: %d / %d = %f\n\n"%(win_count, matchN*lenTarget, 1.0*win_count/(matchN*lenTarget)))
-	df.close()
-	
+				thisblock = deckCatBlock()
+				thisblock.cardId = key
+				thisblockcard=[card for card in poolcardlist if card.id==key]
+				if len(thisblockcard)==0:
+					continue
+				thisblock.card = thisblockcard[0]
+				thisblock.pickupStep=stepcount
+				thisblock.active=True
+				thisblock.number=thisblock.card.max_number
+				blocklinecount += 1
+				myDeckTexts.append('\t\t"%s","%s",#%s,%s,%s,%s,%d,%d,%d,%s'%(
+					thisblock.card.id,thisblock.card.id,thisblock.card.id,
+					thisblock.card.e_name,
+					thisblock.card.card_class,
+					thisblock.card.rarity,
+					thisblock.card.cost,
+					thisblock.card.atk,
+					thisblock.card.max_health,
+					thisblock.card.description
+					))
+		df = open(deckfilename, 'w')
+		for text in myDeckTexts:
+			df.write("\t\t%s\n\n"%(text))
+		df.close()
 	pass
 
 ### #3
