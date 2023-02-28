@@ -133,7 +133,8 @@ class VAN_CS2_053_Action(GameAction):
 	def do(self, source):
 		card = Draw(source.controller).trigger(source)
 		card=get00(card)
-		Buff(card, 'CS2_053e').trigger(source)
+		if card!=None:
+			Buff(card, 'CS2_053e').trigger(source)
 		pass
 class VAN_CS2_053:# <8>[1646]
 	""" Far Sight
