@@ -7,7 +7,7 @@ from hearthstone.enums import BlockType, CardType, GameTag, PlayState, State, St
 
 from .actions import Attack, Awaken, BeginTurn, Death, EndTurn, EventListener, \
 	Play,Destroy, Give, Draw, Shuffle, PayCost, Discover, Buff, Trade, Battlecry,\
-	Discard, Hit
+	Discard, Fatigue
 from .card import THE_COIN
 from .entity import Entity
 from .exceptions import GameOver
@@ -457,13 +457,13 @@ class BaseGame(Entity):
 		if self.no_drawing_at_turn_begin==False:
 			drawn_card = player.draw()
 			if drawn_card==None:# vacant deck
-				Hit(player.hero, 1).trigger(player)
+				player.fatigue()
 			if Config.GAMELOG:
 				print("[[[%s draws %s]]]"%(player, drawn_card))
 			if player.draw_extra_card==True: ## 24.4
 				drawn_card2 = player.draw() ## 24.4
 				if drawn_card==None:# vacant deck
-					Hit(player.hero, 1).trigger(player)
+					player.fatigue()
 				if Config.GAMELOG:
 					print("[[[%s draws %s]]]"%(player, drawn_card2))
 
