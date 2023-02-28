@@ -136,16 +136,16 @@ class deckCatBlock:
 		pass
 
 def deckCatMain():
-	sourceClass=CardClass.HUNTER
-	sourceClassName='HUNTER'
+	sourceClass=CardClass.SHAMAN
+	sourceClassName='SHAMAN'
 	Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 		,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 		,myClass=sourceClass)
 	targetClasses=[CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
-	targetClassName='all'
+	targetClassName='ALL'
 	lenTarget=len(targetClasses)
 	poolfilename="classic_pool_en.csv"
-	matchN=10
+	matchN=60
 	myDeck=[]
 	myDeckTexts = []
 	myDeckBlocks = []
@@ -243,7 +243,7 @@ def deckCatMain():
 					print("End point 3")
 					processend=True
 					break
-				if blockcardcount> 30:
+				if blockcardcount==30:
 					print("End point 4")
 					processend=True
 					break
