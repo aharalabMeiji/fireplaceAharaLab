@@ -265,6 +265,7 @@
     <Compile Include="fireplaceAharaLab\fireplace\cards\sunken\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\utils.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\__init__.py" />
+    <Compile Include="fireplaceAharaLab\competition_deckbuilder.py" />
     <Compile Include="fireplaceAharaLab\fireplace\config.py" />
     <Compile Include="fireplaceAharaLab\fireplace\debug_utilities.py" />
     <Compile Include="fireplaceAharaLab\fireplace\deck.py" />
