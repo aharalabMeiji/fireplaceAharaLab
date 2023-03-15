@@ -23,6 +23,7 @@
     <Compile Include="fireplaceAharaLab\agent_Miyaryo.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="fireplaceAharaLab\agent_SatZooLock.py" />
     <Compile Include="fireplaceAharaLab\agent_Standard.py" />
     <Compile Include="fireplaceAharaLab\agent_HunterCat.py" />
     <Compile Include="fireplaceAharaLab\agent_Maya.py" />

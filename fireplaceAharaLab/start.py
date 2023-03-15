@@ -3,11 +3,11 @@ import sys
 from hearthstone.enums import *
 from utils import *
 from agent_Standard import *
+from agent_SatZooLock import deckSatZoo,SatZooAgent
 from fireplace import cards
 from fireplace.debug_utilities import printClasses, printClasses_BG24, parse, parseDeck, printPool
 from fireplace.config import Config
 from competition_deckbuilder import CompetitionDeckbuilding
-
 
 sys.path.append("..")
 
@@ -46,7 +46,7 @@ def main():
 	COMPETITION3_QUALIFY=1
 	COMPETITION3_FINAL=2
 
-	competition_round=3
+	competition_round=COMPETITION3_FINAL
 
 	########## qualifying ##############
 
@@ -75,31 +75,47 @@ def main():
 
 	########## final #############
 
+	# 佐世保高専、佐藤直之先生によるデッキ、エージェント
+	#agent_SatZooLock.deckSatZoo: ## a deck by Naoyuki Sato, Nastional Institute of Technology, Sasebo College
+	#agent_SatZooLock.SatZooAgent: ## an agent for deckSatZoo by Naoyuki Sato
+
+	#classicDruid ## this is a tier1 deck in HSReplay.net
+	classicTier1Druid = {"name":"classicTier1Druid",#win : 699/1000
+		"deck":parseDeck("AAEDAZICArehBNuhBA7ZlQTblQTclQSvlgSwlgTdlgT6oATpoQTwoQTxoQTzoQSTogS9owTFqgQA"),
+		"class":CardClass.DRUID}
+
 	if competition_round==COMPETITION3_FINAL:
 		competitors=[
-			CompetitionDeckbuilding.deckcatDruid0,
-			CompetitionDeckbuilding.deckcatDruid25,
-			CompetitionDeckbuilding.deckcatDruid50,
-			CompetitionDeckbuilding.deckcatDruid100,
-			CompetitionDeckbuilding.deckcatDruid200,
-			CompetitionDeckbuilding.classicTier1Druid
+			deckSatZoo,
+			classicTier1Druid
 		]
 		Ncompetitors=len(competitors)
-		results=[[0 for repeat in range(Ncompetitors)] for repeat in range(Ncompetitors)]
+		results=[[0 for repeat0 in range(Ncompetitors)] for repeat1 in range(Ncompetitors)]
 		for i in range(Ncompetitors):
 			for j in range(Ncompetitors):
 				theDeck1=competitors[i]
 				theDeck2=competitors[j]
 				if i<j:
-
-					Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
+					if theDeck1["name"]=="deckSatZoo":
+						Agent1 = SatZooAgent("SatZoo:deckSatZoo", SatZooAgent.StandardStep1\
+							, myOption = []\
+							, myClass = deckSatZoo["class"]
+							, mulliganStrategy = SatZooAgent.SatZooMulligan)
+					else:
+						Agent1=StandardVectorAgent("Vector:"+theDeck1["name"],StandardVectorAgent.StandardStep1\
 						,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 						,myClass=theDeck1["class"])
-					Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
+					if theDeck2["name"]=="deckSatZoo":
+						Agent2 = SatZooAgent("SatZoo:deckSatZoo", SatZooAgent.StandardStep1\
+							, myOption = []\
+							, myClass = deckSatZoo["class"]
+							, mulliganStrategy = SatZooAgent.SatZooMulligan)
+					else:
+						Agent2=StandardVectorAgent("Vector:"+theDeck1["name"],StandardVectorAgent.StandardStep1\
 						,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 						,myClass=theDeck2["class"])	
 					#空デッキを指定すると、ランダムデッキが構築される
-					a,b,c = play_set_of_games(Vector1, Vector2, deck1=theDeck1["deck"], deck2=theDeck2["deck"], gameNumber=100, debugLog=True)
+					a,b,c = play_set_of_games(Agent1, Agent2, deck1=theDeck1["deck"], deck2=theDeck2["deck"], gameNumber=10, debugLog=True)
 					results[i][j]=a
 					results[j][i]=b
 					rf= open("final_round_results.txt", 'a')

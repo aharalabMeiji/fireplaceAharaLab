@@ -319,9 +319,9 @@ class CompetitionDeckbuilding:
 		"VAN_EX1_014",#(3)VAN_EX1_014,King Mukla,Neutral,Rarity.LEGENDARY,3,5,5,<b>Battlecry:</b> Give your opponent 2 Bananas.
 		],"class":CardClass.DRUID}
 	#classicDruid ## this is a sample
-	classicTier1Druid = {"name":"classicTier1Druid",#win : 699/1000
-		"deck":parseDeck("AAEDAZICArehBNuhBA7ZlQTblQTclQSvlgSwlgTdlgT6oATpoQTwoQTxoQTzoQSTogS9owTFqgQA"),
-		"class":CardClass.DRUID}
+	#classicTier1Druid = {"name":"classicTier1Druid",#win : 699/1000
+	#	"deck":parseDeck("AAEDAZICArehBNuhBA7ZlQTblQTclQSvlgSwlgTdlgT6oATpoQTwoQTxoQTzoQSTogS9owTFqgQA"),
+	#	"class":CardClass.DRUID}
 
 
 
