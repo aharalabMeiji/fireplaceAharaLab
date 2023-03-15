@@ -1079,7 +1079,12 @@ class Predamage(TargetedAction):
 		if amount:
 			target.controller.add_damage_log(target, amount)
 			self.broadcast(source, EventListener.ON, target, amount)
-			return source.game.trigger_actions(source, [Damage(target)])[0][0]
+			amount = source.game.trigger_actions(source, [Damage(target)])
+			if isinstance(amount, list):
+				amount=amount[0]
+			if isinstance(amount, list):
+				amount=amount[0]
+			return amount
 		return 0
 
 
@@ -3304,9 +3309,12 @@ class SummonAdventurerWithBonus(TargetedAction):
 		cards = random.sample(['WC_034', 'WC_034t', 'WC_034t2', 'WC_034t3', 'WC_034t4', 'WC_034t5', 'WC_034t6', 'WC_034t7', 'WC_034t8'],amount)
 		for card in cards:
 			newcard=Summon(target, card).trigger(source)
-			if newcard[0]==[]:
+			if isinstance(newcard, list) and len(newcard):
+				newcard=newcard[0]
+			if isinstance(newcard, list) and len(newcard):
+				newcard=newcard[0]
+			if getattr(newcard, 'this_is_minion', None)==None:
 				return
-			newcard=newcard[0][0]
 			newAtk=random.randint(1,3)
 			newHealth=random.randint(1,3)
 			Buff(newcard, "WC_034e", atk=newAtk, max_health=newHealth)
