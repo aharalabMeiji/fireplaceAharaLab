@@ -46,15 +46,16 @@ def main():
 	COMPETITION3_QUALIFY=1
 	COMPETITION3_FINAL=2
 
-	competition_round=COMPETITION3_FINAL
+	competition_round=3
 
 	########## qualifying ##############
 
 	if competition_round==COMPETITION3_QUALIFY:
-		theDeck=CompetitionDeckbuilding.classicTier1Druid
-		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
-			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-			,myClass=theDeck["class"])
+		theDeck=deckSatZoo
+		Vector1=SatZooAgent("SatZoo:deckSatZoo", SatZooAgent.StandardStep1\
+							, myOption = []\
+							, myClass = deckSatZoo["class"]
+							, mulliganStrategy = SatZooAgent.SatZooMulligan)
 
 		myclasses = [CardClass.DRUID,CardClass.HUNTER,CardClass.MAGE,CardClass.PALADIN,CardClass.PRIEST,CardClass.ROGUE,CardClass.SHAMAN,CardClass.WARLOCK,CardClass.WARRIOR]
 		win=0
@@ -62,7 +63,9 @@ def main():
 		for myclass in myclasses:
 			Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 				,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-				,myClass=myclass)	
+				,myClass=myclass
+			,mulliganStrategy=StandardVectorAgent.StandardMulligan)
+	
 			a,b,c = play_set_of_games(Vector1, Vector2, deck1=theDeck["deck"], deck2=[], gameNumber=100, debugLog=True)		
 			win+=a
 			lose+=b
@@ -75,7 +78,7 @@ def main():
 
 	########## final #############
 
-	# 佐世保高専、佐藤直之先生によるデッキ、エージェント
+	# 佐世保高専、佐藤直之先生によるデッキ、エージェント# win : 862/900=0.957
 	#agent_SatZooLock.deckSatZoo: ## a deck by Naoyuki Sato, Nastional Institute of Technology, Sasebo College
 	#agent_SatZooLock.SatZooAgent: ## an agent for deckSatZoo by Naoyuki Sato
 

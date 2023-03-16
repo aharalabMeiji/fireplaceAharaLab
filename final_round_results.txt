@@ -1,2 +1,0 @@
-################
-Player1 (deckSatZoo) wins : 7, player2 (classicTier1Druid) wins : 3
