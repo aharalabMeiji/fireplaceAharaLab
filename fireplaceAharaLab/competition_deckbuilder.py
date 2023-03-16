@@ -45,7 +45,7 @@ class CompetitionDeckbuilding:
 		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 			,myClass=sourceClass)
-
+		
 		deckcatDruid0={"name":"deckcatDruid0","deck":[## Wins: 819 / 900 = 0.910000 (4)
 			"VAN_EX1_509","VAN_EX1_509",#(0)VAN_EX1_509,Murloc Tidecaller,Neutral,Rarity.RARE,1,1,2,Whenever a Murloc is summoned gain +1 Attack.
 			"VAN_CS2_179","VAN_CS2_179",#(0)VAN_CS2_179,Sen'jin Shieldmasta,Neutral,Rarity.FREE,4,3,5,<b>Taunt</b>
