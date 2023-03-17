@@ -344,8 +344,15 @@ class CompetitionDeckbuilding:
 				block.active=False
 			blocklinecount=0
 			blockcardcount=0
+			positiveblockdic=len([key for key, value in blockdic if value>0])
+			blockdicthreshold=0
+			if positiveblockdic==0:
+				blockdicthreshold=-25
+			elif positiveblockdic<5:
+				blockdicthreshold=-15
+
 			for key, value in blockdic:
-				if blocklinecount>=4 or value<-30:
+				if blocklinecount>=4 or value<blockdicthreshold:
 					break
 				thisblock = [block for block in myDeckBlocks if block.cardId==key] 
 				if len(thisblock)>0:
