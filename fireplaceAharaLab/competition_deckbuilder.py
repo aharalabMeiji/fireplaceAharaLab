@@ -235,7 +235,7 @@ class CompetitionDeckbuilding:
 		targetClasses=[deckcatDruid0, deckcatHunter0, deckcatMage0, deckcatPaladin0, deckcatPriest0, deckcatRogue0, deckcatShaman0, deckcatWarlock0, deckcatWarrior0]
 		#targetClasses=[DruidRandom, HunterRandom, MageRandom, PaladinRandom, PriestRandom, RogueRandom, ShamanRandom, WarlockRandom, WarriorRandom]
 		#targetClasses=[CardClass.SHAMAN]
-		targetClassName='N100k4ALL-2-%d'%(repeat)
+		targetClassName='N100k5ALL-1-%d'%(repeat)
 		lenTarget=len(targetClasses)
 		poolfilename="classic_pool_en.csv"
 		matchN=100
@@ -352,7 +352,7 @@ class CompetitionDeckbuilding:
 				blockdicthreshold=-15
 
 			for key, value in blockdic:
-				if blocklinecount>=4 or value<blockdicthreshold:
+				if blocklinecount>=5 or value<blockdicthreshold:
 					break
 				thisblock = [block for block in myDeckBlocks if block.cardId==key] 
 				if len(thisblock)>0:
