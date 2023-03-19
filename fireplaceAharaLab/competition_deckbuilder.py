@@ -40,11 +40,12 @@ class CompetitionDeckbuilding:
 
 
 	def deckCatMain(repeat=0):
-		sourceClass=CardClass.DRUID
-		sourceClassName='DRUID'
+		sourceClass=CardClass.HUNTER
+		sourceClassName='HUNTER'
 		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-			,myClass=sourceClass)
+			,myClass=sourceClass\
+			,mulliganStrategy=StandardVectorAgent.StandardMulligan)
 		
 
 		DruidRandom={"name":"DruidRandom", "deck":[], "class":CardClass.DRUID}
@@ -105,8 +106,8 @@ class CompetitionDeckbuilding:
 			for myCardClass in targetClasses:
 				Vector2=StandardVectorAgent("Vector2",StandardVectorAgent.StandardStep1\
 					,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
-					,myClass=myCardClass["class"],
-					mulliganStrategy=StandardVectorAgent.StandardMulligan)
+					,myClass=myCardClass["class"]
+					,mulliganStrategy=StandardVectorAgent.StandardMulligan)
 				for repeat in range(matchN):
 					winner , mydict_thisplay = play_one_game(Vector1, Vector2, deck1=myDeck, deck2=myCardClass["deck"], debugLog=True)
 					if winner=='Vector1':
