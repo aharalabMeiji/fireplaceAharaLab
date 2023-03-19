@@ -244,7 +244,7 @@ class GameWithLog(Game):
 #
 #  getCandidates
 #
-def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
+def getCandidates(mygame,_smartCombat=False,_includeTurnEnd=False):
 	""" アクションの候補をすべてリスト化して返す 
 	_smartCombat=True, スマートコンバットなもののみをリストアップする
 	_includeTurnEnd=False 「何もしない」というアクションを候補に入れない

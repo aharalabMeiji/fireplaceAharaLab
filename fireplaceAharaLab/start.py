@@ -61,7 +61,7 @@ def main():
 
 	## ・コントロールウォリアー# 予選 : 757/900 = 0.84
 	shimadaControllWarrior={
-		"name":"shimadaMidrangeDruid",
+		"name":"shimadaControllWarrior",
 		"deck":parseDeck("AAEDAQcG0aMEraEEiqIEmKIE2aIEtqEEDK+WBPGgBL6hBNahBP+WBL6iBMOiBJiWBLCXBLmiBJqWBMSjBAA="),
 		"class":CardClass.WARRIOR}
 	##デッキの作り方（全体）
@@ -145,7 +145,7 @@ def main():
 	COMPETITION3_QUALIFY=1
 	COMPETITION3_FINAL=2
 
-	competition_round=COMPETITION3_FINAL
+	competition_round=3
 
 
 	########## qualifying ##############
@@ -193,11 +193,11 @@ def main():
 	if competition_round==COMPETITION3_FINAL:
 		competitors=[
 			deckSatZoo,
-			shimadaMidrangeDruid,
+			#shimadaMidrangeDruid,
 			shimadaControllWarrior,
-			deckcatDruid1,
-			deckcatHunter1,
-			deckcatDruid2,
+			#deckcatDruid1,
+			#deckcatHunter1,
+			#deckcatDruid2,
 		]
 		Ncompetitors=len(competitors)
 		results=[[0 for repeat0 in range(Ncompetitors)] for repeat1 in range(Ncompetitors)]
@@ -251,11 +251,8 @@ def main():
 	######### goto deckCat #############
 	
 	if competition_round==3:
-		CompetitionDeckbuilding.deckCatMain(1)
-		CompetitionDeckbuilding.deckCatMain(2)
-		CompetitionDeckbuilding.deckCatMain(3)
-		CompetitionDeckbuilding.deckCatMain(4)
-		CompetitionDeckbuilding.deckCatMain(5)
+		for repeat in range(8):
+			CompetitionDeckbuilding.deckCatMain(repeat)
 
 	####################################################################
 
