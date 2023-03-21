@@ -438,7 +438,7 @@ class SatZooAgent(Agent):
 			if debugChoice:
 				print(">>>>>>>>>>>>>>>>>>>")
 
-			myCandidate = getCandidates(game, _smartCombat=False)#「何もしない」選択肢は入れていない
+			myCandidate = getCandidates(game)#「何もしない」選択肢は入れていない
 			myChoices = [Candidate(None,type=ExceptionPlay.TURNEND, turn=game.turn)]#何もしない選択
 			maxScore = self.getStageScore(game,myWeight,debugChoice)#何もしないときのスコア
 

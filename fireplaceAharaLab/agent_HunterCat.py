@@ -34,7 +34,7 @@ class HunterCatAgent(Agent):
 			#scoreVector = HunterCatAgent.HunterCatScore(game)
 			#HunterCatLogLog.loglog.append([game.turn, scoreVector.myMinionPoint, scoreVector.myHeroPoint - scoreVector.hisHeroPoint, scoreVector.hisCharN])
 			player = game.current_player
-			myCandidates = getCandidates(game,_smartCombat=True,_includeTurnEnd=True)
+			myCandidates = getCandidates(game,_includeTurnEnd=True)
 			random.shuffle(myCandidates)
 			for myChoice in myCandidates:
 				cardID=myChoice.card
