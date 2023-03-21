@@ -252,7 +252,7 @@ def main():
 	
 	if competition_round==3:
 		CompetitionDeckbuilding.deckCatMain(
-			repeat=0,sourceClassName='DRUID',matchN=100,pickupSize=4
+			repeat=0,sourceClassName='MAGE',matchN=100,pickupSize=4
 		)
 
 	####################################################################
