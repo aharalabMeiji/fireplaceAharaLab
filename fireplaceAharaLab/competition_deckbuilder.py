@@ -34,14 +34,8 @@ class CompetitionDeckbuilding:
 ######### entries (samples) ############
 
 
-
-	
-
-
-
-	def deckCatMain(repeat=0):
-		sourceClass=CardClass.HUNTER
-		sourceClassName='HUNTER'
+	def deckCatMain(repeat=0,sourceClassName='HUNTER',matchN=100,pickupSize=4):		
+		sourceClass=getattr(CardClass,sourceClassName)
 		Vector1=StandardVectorAgent("Vector1",StandardVectorAgent.StandardStep1\
 			,myOption=[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8]\
 			,myClass=sourceClass\
@@ -61,10 +55,11 @@ class CompetitionDeckbuilding:
 		#targetClasses=[deckcatDruid0, deckcatHunter0, deckcatMage0, deckcatPaladin0, deckcatPriest0, deckcatRogue0, deckcatShaman0, deckcatWarlock0, deckcatWarrior0]
 		targetClasses=[DruidRandom, HunterRandom, MageRandom, PaladinRandom, PriestRandom, RogueRandom, ShamanRandom, WarlockRandom, WarriorRandom]
 		#targetClasses=[CardClass.SHAMAN]
-		targetClassName='N100k5ALL-0-%d'%(repeat)
+		
+		
+		targetClassName='N%dk%dALL-0-%d'%(matchN,pickupSize,repeat)
 		lenTarget=len(targetClasses)
 		poolfilename="classic_pool_en.csv"
-		matchN=100
 		myDeck=[
 			]
 		myDeckTexts = []
@@ -174,7 +169,7 @@ class CompetitionDeckbuilding:
 				blockdicthreshold=-15
 
 			for key, value in blockdic:
-				if blocklinecount>=5 or value<blockdicthreshold:
+				if blocklinecount>=pickupSize or value<blockdicthreshold:
 					break
 				thisblock = [block for block in myDeckBlocks if block.cardId==key] 
 				if len(thisblock)>0:

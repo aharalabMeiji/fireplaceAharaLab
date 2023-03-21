@@ -251,8 +251,7 @@ def main():
 	######### goto deckCat #############
 	
 	if competition_round==3:
-		for repeat in range(8):
-			CompetitionDeckbuilding.deckCatMain(repeat)
+			CompetitionDeckbuilding.deckCatMain(repeat=0,sourceClassName='MAGE',matchN=100,pickupSize=4)
 
 	####################################################################
 
