@@ -236,6 +236,15 @@ class Candidate(object):
 		pass
 	def clearScore(self):
 		self.score = 0
+	def smartCombat(self):
+		if self.type!=BlockType.ATTACK:
+			return True
+		myH=self.card.health
+		hisA=self.target.atk
+		if myH > hisA:
+			return True
+		return False
+
 
 class GameWithLog(Game):
 	""" game with logs  """

@@ -37,7 +37,7 @@ class StandardVectorAgent(Agent):
 		super().__init__(myName, myFunction, myOption, myClass, rating, mulliganStrategy=mulliganStrategy )
 		self.__standard_agent__=StandardAgent("Standard",StandardAgent.StandardRandom, myClass=myClass)
 		pass
-	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):	
+	def StandardStep1(self, game, option=None, gameLog=[], debugLog=True):
 		debugChoice=False###  Display parameters and scores
 		if option==None:
 			print ("StandardStep1 needs an option")
@@ -70,6 +70,8 @@ class StandardVectorAgent(Agent):
 						score=100000
 					else:
 						score = self.getStageScore(tmpGame,myWeight,debugChoice)
+						if not myChoice.smartCombat():## 試しに入れてみた
+							score -= 1000## 試しに入れてみた
 				if debugChoice:
 					print("   %s %d"%(myChoice,score))
 				if score > maxScore:
