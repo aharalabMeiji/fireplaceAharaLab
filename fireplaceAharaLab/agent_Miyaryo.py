@@ -108,7 +108,7 @@ class MiyaryoAgent(Agent):
 			# print(f"elapsed_time:{time.time()-copystart}")
 			# print(total_size(tmpGame,verbose = True))
 			myCandidate = getCandidates(
-				game, _smartCombat=False, _includeTurnEnd=True)  # 実行できることがらをリストで取得
+				game,  _includeTurnEnd=True)  # 実行できることがらをリストで取得
 
 			if len(myCandidate) <= 1:  # 何もしないを選択した時
 				myChoice = random.choice(myCandidate)  # ランダムに一つ選ぶ
@@ -164,7 +164,7 @@ class MiyaryoAgent(Agent):
 					return i
 				while True:
 					tmpCandidates = getCandidates(
-						tmGame, _smartCombat=False, _includeTurnEnd=True)
+						tmGame, _includeTurnEnd=True)
 					index = int(random.random()*len(tmpCandidates))
 					if tmpCandidates[index].type == ExceptionPlay.TURNEND:
 						break

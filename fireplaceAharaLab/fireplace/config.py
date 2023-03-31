@@ -39,6 +39,27 @@ class Config:# ()is the default value
 	#debugLog
 	GAMELOG=1 # as debugLog option
 
+	#3 battlegrounds options
+	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
+	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
+	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
+	QUEST_REWARD=0 ## quest and reward system（24.2 - ）(banned 25.2.2-)
+	QUEST_PRESET=''
+	REWARD_PRESET_FIRST=0 ## preset a reward at the beginning (for debugging)
+	REWARD_PRESET=''
+
+	PLAYER1_HUMAN=0 ## battleground with human player
+	CARD_PRESET1=''
+	CARD_PRESET2=''
+	RANDOM_RACE=1 #random sampling from races（default:1）
+	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar','undead']
+	RACE_CHOICE=['beast','undead']# valid when RANDOM_RACE=0
+	HERO_1='' #第1プレーヤーはヒーローを指定できる
+	HERO_2='' #人間プレーヤーはヒーローを指定できる
+
+	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
+
+
 	#4: Checking a specific card for debugging
 	CARD_TEST_SET='RETURN_OF_THE_LICH_KING'
 	## VANILLA,THE_BARRENS,STORMWIND,ALTERAC_VALLEY,THE_SUNKEN_CITY,REVENDRETH, CORE, 
@@ -62,25 +83,6 @@ class Config:# ()is the default value
 	#Vector
 	SIMULATION_BIGDECK_NUMBER=100 # number of matches of simulation
 
-	#3 battlegrounds options
-	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
-	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
-	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
-	QUEST_REWARD=0 ## quest and reward system（24.2 - ）(banned 25.2.2-)
-	QUEST_PRESET=''
-	REWARD_PRESET_FIRST=0 ## preset a reward at the beginning (for debugging)
-	REWARD_PRESET=''
-
-	PLAYER1_HUMAN=0 ## battleground with human player
-	CARD_PRESET1=''
-	CARD_PRESET2=''
-	RANDOM_RACE=1 #random sampling from races（default:1）
-	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar','undead']
-	RACE_CHOICE=['beast','undead']# valid when RANDOM_RACE=0
-	HERO_1='' #第1プレーヤーはヒーローを指定できる
-	HERO_2='' #人間プレーヤーはヒーローを指定できる
-
-	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 
 
 
 

@@ -239,9 +239,8 @@ class GameWithLog(Game):
 #
 #  getCandidates
 #
-def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
+def getCandidates(mygame,_includeTurnEnd=False):
 	""" アクションの候補をすべてリスト化して返す 
-	_smartCombat=True, スマートコンバットなもののみをリストアップする
 	_includeTurnEnd=False 「何もしない」というアクションを候補に入れない
 	"""
 	player = mygame.current_player
@@ -275,10 +274,10 @@ def getCandidates(mygame,_smartCombat=True,_includeTurnEnd=False):
 		elif character.can_attack():
 			for target in character.targets:
 				if target.zone==Zone.PLAY and character.can_attack(target) and character != target:
-					myH=character.health
-					hisA=target.atk
-					if (myH > hisA) or (not _smartCombat):
-						myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target, turn=mygame.turn))
+					#myH=character.health
+					#hisA=target.atk
+					#if (myH > hisA) or (not _smartCombat):
+					myCandidate.append(Candidate(character, type=BlockType.ATTACK, target=target, turn=mygame.turn))
 	if player.hero.power and player.hero.power.is_usable():
 		if len(player.hero.power.targets)>0:
 			for target in player.hero.power.targets:
