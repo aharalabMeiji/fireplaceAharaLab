@@ -14,7 +14,7 @@ sys.path.append("..")
 #		main()
 #
 def main():
-	if Config.HEARTHSTONE==1:
+	if Config.HEARTHSTONE==3:
 		cards.db.initialize()
 	else:
 		cards.db.classic_initialize()

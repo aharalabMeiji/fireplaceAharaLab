@@ -1,70 +1,72 @@
 from ..utils import *
 
-BG_Wrath_Weaver=True #(1/1/3)
 BG_Tavern_Tipper=True ##(1/2/2) new 23.6
+BG_Wrath_Weaver=True #(1/1/3)
 
 BG_Acolyte_of_C_Thun=False## (2) banned 23.6
+BG_Kooky_Chemist=False##(2) new 23.6 banned 24.2
 BG_Menagerie_Mug=True##(2/2/2) banned 23.6 ### renew 24.6
+BG_Patient_Scout=True ## (2/1/1) ## new 24.6 ### OK ###
+BG_PoeticPenPal=True ## (2/2/4) ## new 25.6 ##
 BG_Prophet_of_the_Boar=True##(2/2/3)
 BG_Selfless_Hero=True##(2/2/1)
+BG_Sparring_Partner=True##(2/3/2) new 23.6
 BG_Spawn_of_N_Zoth=False##(2) ### banned 24.6
 BG_Unstable_Ghoul=False##(2) banned 23.6
-BG_Whelp_Smuggler=False##(2) banned when?
-BG_Kooky_Chemist=False##(2) new 23.6 banned 24.2
-BG_Sparring_Partner=True##(2/3/2) new 23.6
+BG_Whelp_Smuggler=False##(2/2/5) banned when? ## renew 25.? ####
 BG_Yrel=False##(2) new 23.6 ### banned 24.6
-BG_Patient_Scout=True ## (2/1/1) ## new 24.6 ### OK ###
 
 BG_Arm_of_the_Empire=True##(3/4/4)
 BG_Bird_Buddy=True##(3/2/4)
 BG_Budding_Greenthumb=True##(3/1/4) banned 23.6 ## renew 25.2.2
-BG_Houndmaster=True##(3/4/3)
+BG_Faceless_Disciple=True ## (3/6/4) new 24.6 ### OK ###
+BG_Houndmaster=False##(3/4/3) ### banned 25.6?
 BG_Khadgar=False##(3) ## banned when? 
-BG_Soul_Juggler=True##(3/3/5)
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
 BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6 ## banned when?
-BG_Faceless_Disciple=True ## (3/6/4) new 24.6 ### OK ###
+BG_Soul_Juggler=True##(3/3/5)
 
 
+BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
 BG_Defender_of_Argus=False##(4)banned 23.6
+BG_Fireworks_Fanatic=True ##(4/4/3) new 25.6
 BG_Impatient_Doomsayer=True##(4/2/6)
 BG_Majordomo_Executus=False##(4) banned when?
+BG_Master_of_Realities=True ##(5/6/6)->(4/4/4) when?
 BG_Menagerie_Jug=True##(4/3/3)
-BG_Strongshell_Scavenger=True##(4/2/3)
-BG_Witchwing_Nestmatron=False ##(4) banned 24.2 renew 25.0.4 banned when?
 BG_Reef_Explorer=False##(4)# NEW 23.2 ### banned 24.6
+BG24__Rendle_the_Mistermind=False ## (4/4/5) new 24.2 banned 25.6
+BG25__Sindorei_Straight_Shot=True ## (4/3/4) new 25.2.2
+BG_Strongshell_Scavenger=True##(4/2/3)
 BG_Treasure_Seeker_Elise=True ##(4/5/5) new 24.2
 BG_Tunnel_Blaster=True##(4/3/7) new 23.6
-BG24__Rendle_the_Mistermind=True ## (4/4/5) new 24.2
 BG_Vigilant_Stoneborn=True ## (4/2/6) new 24.6 ### OK ###
-BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
-BG25__Sindorei_Straight_Shot=True ## (4/3/4) new 25.2.2
-BG_Master_of_Realities=True ##(5/6/6)->(4/4/4) when?
+BG_Witchwing_Nestmatron=False ##(4) banned 24.2 renew 25.0.4 banned when?
 
 
 BG_Baron_Rivendare=False##(5) ## banned 25.2.2
 BG_Brann_Bronzebeard=True##(5/2/4)
 BG_Deadly_Spore=False##(5)banned 23.6
+BG_Interrogator_Whitemane=False ## (5) new 24.6  ## banned 25.0.4
 BG_Kangor_s_Apprentice=True##(5/3/6)
+BG_Leeroy_the_Reckless=True##(5/6/2) NEW 23.2
 BG_Lightfang_Enforcer=True##(5/2/2)
 BG_Mythrax_the_Unraveler=False ##(5) banned 24.2  ## revive 25.0.4 banned 25.2.2
 BG_Nomi_Kitchen_Nightmare=True##(5/4/4)
-BG_Leeroy_the_Reckless=True##(5/6/2) NEW 23.2
-BG24__Tortollan_Blue_Shell=True ## (5/4/7) new 24.2 ### OK ###
-BG_Interrogator_Whitemane=False ## (5) new 24.6  ## banned 25.0.4
 BG25__Titus_Rivendare=True# 5/1/7 neutral ## new 25.2.2
+BG24__Tortollan_Blue_Shell=True ## (5/4/7) new 24.2 ### OK ###
 
 BG_Amalgadon=False##(6) banned 22.3
 BG_Friend_of_a_Friend=False##(6)  banned 22.3
+BG_Mantid_Queen=True ## (6/5/5) ## new when?
 BG_Nadina_the_Red=True##(6/7/4)
-BG_Seafood_Slinger=True ##(6/5/5) banned -> resurrect 25.0.4
-BG_Zapp_Slywick=True##(6/7/10)
 BG_Orgozoa_the_Tender=True###(6/3/7) NEW 23.2
-BG_Uther_the_Lightbringer=True ##(6/5/6) new 23.6
+BG_Seafood_Slinger=True ##(6/5/5) banned -> resurrect 25.0.4
 BG24__Tea_Master_Theotar=True# (6/6/6) new 24.2
 BG24_The_Walking_Fort=False ##(6) new 24.6 ### banned until 25.2.2 ###
-BG_Mantid_Queen=True ## (6/5/5) ## new when?
+BG_Uther_the_Lightbringer=True ##(6/5/6) new 23.6
+BG_Zapp_Slywick=True##(6/7/10)
 
 
 
@@ -75,31 +77,9 @@ BG_PoolSet_Minion=[
 	[],[],[],[],[],[],[]
 ]
 
-
 BG_Minion_Gold={}
 
-
-if BG_Wrath_Weaver:#Wrath Weaver	1	1	3	-	-
-	BG_Minion += ['BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',]#Wrath Weaver	1
-	BG_PoolSet_Minion[1].append('BGS_004')
-	BG_Minion_Gold['BGS_004']='TB_BaconUps_079'
-	pass
-#Wrath Weaver	1	1	3	 ### maybe ###
-class BGS_004:# <12>[1453] おりや
-	""" Wrath Weaver
-	After you play a Demon, deal 1 damage to your hero and gain +2/+2. """
-	events = BG_Play(CONTROLLER, FRIENDLY + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'BGS_004e'))
-	pass
-BGS_004e=buff(2,2)# <12>[1453]
-""" Wrath Woven, Increased stats. """
-class TB_BaconUps_079:# <12>[1453]
-	""" Wrath Weaver
-	After you play a Demon, deal 1 damage to your hero and gain +4/+4. """
-	events = BG_Play(CONTROLLER, FRIENDLY + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'TB_BaconUps_079e'))
-	pass
-TB_BaconUps_079e=buff(4,4)# <12>[1453]
-""" Wrath Woven,	Increased stats. """
-
+#### TIER 1 ####
 
 
 if BG_Tavern_Tipper:####Tavern Tipper (1) ### OK ### 23.6 new
@@ -129,6 +109,29 @@ class BG23_352_G:
 	pass
 BG23_352_Ge=buff(2,4)
 
+
+if BG_Wrath_Weaver:#Wrath Weaver	1	1	3	-	-
+	BG_Minion += ['BGS_004','BGS_004e','TB_BaconUps_079','TB_BaconUps_079e',]#Wrath Weaver	1
+	BG_PoolSet_Minion[1].append('BGS_004')
+	BG_Minion_Gold['BGS_004']='TB_BaconUps_079'
+	pass
+#Wrath Weaver	1	1	3	 ### maybe ###
+class BGS_004:# <12>[1453] おりや
+	""" Wrath Weaver
+	After you play a Demon, deal 1 damage to your hero and gain +2/+2. """
+	events = BG_Play(CONTROLLER, FRIENDLY + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'BGS_004e'))
+	pass
+BGS_004e=buff(2,2)# <12>[1453]
+""" Wrath Woven, Increased stats. """
+class TB_BaconUps_079:# <12>[1453]
+	""" Wrath Weaver
+	After you play a Demon, deal 1 damage to your hero and gain +4/+4. """
+	events = BG_Play(CONTROLLER, FRIENDLY + DEMON).after(Hit(FRIENDLY_HERO,1),Buff(SELF,'TB_BaconUps_079e'))
+	pass
+TB_BaconUps_079e=buff(4,4)# <12>[1453]
+""" Wrath Woven,	Increased stats. """
+
+
 ########### TIER 2 #################################
 
 if BG_Acolyte_of_C_Thun:#Acolyte of C'Thun	2	2	3
@@ -144,6 +147,31 @@ class BGS_106:# <12>[1453] クトゥーンのじさい
 class TB_BaconUps_255:# <12>[1453]
 	""" Acolyte of C'Thun
 	[Taunt][Reborn] """
+	pass
+
+
+if BG_Kooky_Chemist:## Kooky Chemist (2) ### OK ### ## 23.6 new
+	BG_Minion += ['BG_CFM_063','BG_CFM_063e','BG_CFM_063_G',]#	
+	BG_PoolSet_Minion[2].append('BG_CFM_063')
+	BG_Minion_Gold['BG_CFM_063']='BG_CFM_063_G'
+	## Kooky Chemist (2) >= 23.6
+	pass
+class BG_CFM_063:
+	""" Kooky Chemist (2) >= 23.6
+	Battlecry: Swap the Attack and Health of a minion."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0,
+				 PlayReq.REQ_FRIENDLY_TARGET: 0,
+				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Buff(TARGET, "BG_CFM_063e")
+	pass
+BG_CFM_063e = AttackHealthSwapBuff()
+class BG_CFM_063_G:
+	"""
+	[Battlecry:] Swap the Attack and Health of a minion."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0,
+				 PlayReq.REQ_FRIENDLY_TARGET: 0,
+				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Buff(TARGET, "BG_CFM_063e")
 	pass
 
 
@@ -183,7 +211,6 @@ class BGS_082_Action(TargetedAction):
 			sample = random.sample(ret,3)
 		for c in sample:
 			Buff(c,buff).trigger(source)
-
 class BGS_082:# <12>[1453]
 	""" Menagerie Mug マナジェリ
 	[Battlecry:] Give 3 random friendly minions of different minion types +1/+1. """
@@ -200,8 +227,71 @@ TB_BaconUps_144e=buff(2,2)# <12>[1453]
 """ Sip of Tea, +2/+2. """
 
 
+#Patient Scout(BG24_715) ## new 24.6 ### OK ###
+if BG_Patient_Scout:#Patient Scout	2	1	1	
+	BG_Minion += ['BG24_715','BG24_715_G',]#	
+	BG_PoolSet_Minion[2].append('BG24_715')
+	BG_Minion_Gold['BG24_715']='BG24_715_G'
+class BG24_715_Choice(Choice):
+	def choose(self, card):
+		self.next_choice=None
+		super().choose(card)
+		card.zone=Zone.HAND
+class BG24_715_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		BG24_715_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
+		pass
+class BG24_715_Action2(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		source.script_data_num_1=min(source.script_data_num_1+1, 6)
+		pass
+class BG24_715:##
+	""" Patient Scout
+	When you sell this, [Discover] a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	# @ = self.script_data_num_1
+	events = [
+		Sell(CONTROLLER, SELF).on(BG24_715_Action(SELF)),
+		BeginBar(CONTROLLER).on(BG24_715_Action2(SELF))
+	]
+	pass
+class BG24_715_G_Choice(Choice):
+	def choose(self, card):
+		if self.source.sidequest_counter_1==0:
+			self.next_choice=self
+			self.source.sidequest_counter_1=1
+		else:
+			self.next_choice=None
+		super().chooce(card)
+		card.zone=Zone.HAND
+class BG24_715_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		BG24_715_G_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
+		pass
+class BG24_715_G:
+	""" Patient Scout
+	When you sell this, [Discover] two Tier @ minions. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
+	events = [
+		Sell(CONTROLLER, SELF).on(BG24_715_G_Action(SELF)),
+		BeginTurn(CONTROLLER).on(BG24_715_Action2(SELF))
+	]
+	pass
 
-if BG_Prophet_of_the_Boar:#Prophet of the Boar	2	3	3
+if BG_PoeticPenPal:## Poetic Pen Pal (BG25_105)(2/2/4) new 25.6
+	BG_Minion += ['BG25_105','BG25_105_G',]#	1
+	BG_PoolSet_Minion[2].append('BG25_105')
+	BG_Minion_Gold['BG25_105']='BG25_105_G'
+class BG25_105:##########################################
+	""" Poetic Pen Pal (2/2/4)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of your next Buddy by (2)."""
+class BG25_105_G:
+	""" Poetic Pen Pal (2/4/8)
+	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of your next Buddy by (4)."""
+
+
+if BG_Prophet_of_the_Boar:#(BG20_203)Prophet of the Boar	2	3	3
 	BG_Minion += ['BG20_203','BG20_203_G',]#	1
 	BG_PoolSet_Minion[2].append('BG20_203')
 	BG_Minion_Gold['BG20_203']='BG20_203_G'
@@ -264,6 +354,24 @@ class TB_BaconUps_014:# <5>[1453]
 	deathrattle = BG_OG_221_Action(CONTROLLER, 2)
 	pass
 
+
+
+if BG_Sparring_Partner:#### Sparring Partner (2/3/2) ### OK ####
+	BG_Minion += ['BG_AT_069','BG_AT_069_G',]#	
+	BG_PoolSet_Minion[2].append('BG_AT_069')
+	BG_Minion_Gold['BG_AT_069']='BG_AT_069_G'
+	## Sparring Partner (2) >= 23.6
+	pass
+class BG_AT_069:
+	"""Sparring Partner (2/3/2) >= 23.6
+	Taunt Battlecry: Give a minion Taunt."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Taunt(TARGET)
+class BG_AT_069_G:
+	"""
+	[Taunt] [Battlecry:] Give a minion [Taunt]."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
+	play = Taunt(TARGET)
 
 
 
@@ -332,49 +440,6 @@ class BG21_013_G:# <12>[1453]
 
 
 
-if BG_Kooky_Chemist:## Kooky Chemist (2) ### OK ### ## 23.6 new
-	BG_Minion += ['BG_CFM_063','BG_CFM_063e','BG_CFM_063_G',]#	
-	BG_PoolSet_Minion[2].append('BG_CFM_063')
-	BG_Minion_Gold['BG_CFM_063']='BG_CFM_063_G'
-	## Kooky Chemist (2) >= 23.6
-	pass
-class BG_CFM_063:
-	""" Kooky Chemist (2) >= 23.6
-	Battlecry: Swap the Attack and Health of a minion."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0,
-				 PlayReq.REQ_FRIENDLY_TARGET: 0,
-				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "BG_CFM_063e")
-	pass
-BG_CFM_063e = AttackHealthSwapBuff()
-class BG_CFM_063_G:
-	"""
-	[Battlecry:] Swap the Attack and Health of a minion."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0,
-				 PlayReq.REQ_FRIENDLY_TARGET: 0,
-				 PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Buff(TARGET, "BG_CFM_063e")
-	pass
-
-
-if BG_Sparring_Partner:#### Sparring Partner (2) ### OK ####
-	BG_Minion += ['BG_AT_069','BG_AT_069_G',]#	
-	BG_PoolSet_Minion[2].append('BG_AT_069')
-	BG_Minion_Gold['BG_AT_069']='BG_AT_069_G'
-	## Sparring Partner (2) >= 23.6
-	pass
-class BG_AT_069:
-	"""Sparring Partner (2) >= 23.6
-	Taunt Battlecry: Give a minion Taunt."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Taunt(TARGET)
-class BG_AT_069_G:
-	"""
-	[Taunt] [Battlecry:] Give a minion [Taunt]."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}
-	play = Taunt(TARGET)
-
-
 
 if BG_Yrel:## Yrel (2) ### need check ### banned 24.6
 	BG_Minion += ['BG23_350','BG23_350e','BG23_350_G','BG23_350_Ge',]#	
@@ -417,60 +482,8 @@ class BG23_350_G:
 BG23_350_Ge=buff(2,4)
 
 
-#Patient Scout(BG24_715) ## new 24.6 ### OK ###
-if BG_Patient_Scout:#Patient Scout	2	1	1	
-	BG_Minion += ['BG24_715','BG24_715_G',]#	
-	BG_PoolSet_Minion[2].append('BG24_715')
-	BG_Minion_Gold['BG24_715']='BG24_715_G'
-class BG24_715_Choice(Choice):
-	def choose(self, card):
-		self.next_choice=None
-		super().choose(card)
-		card.zone=Zone.HAND
-class BG24_715_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		BG24_715_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
-		pass
-class BG24_715_Action2(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		source.script_data_num_1=min(source.script_data_num_1+1, 6)
-		pass
-class BG24_715:##
-	""" Patient Scout
-	When you sell this, [Discover] a Tier @ minion. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
-	# @ = self.script_data_num_1
-	events = [
-		Sell(CONTROLLER, SELF).on(BG24_715_Action(SELF)),
-		BeginBar(CONTROLLER).on(BG24_715_Action2(SELF))
-	]
-	pass
-class BG24_715_G_Choice(Choice):
-	def choose(self, card):
-		if self.source.sidequest_counter_1==0:
-			self.next_choice=self
-			self.source.sidequest_counter_1=1
-		else:
-			self.next_choice=None
-		super().chooce(card)
-		card.zone=Zone.HAND
-class BG24_715_G_Action(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		BG24_715_G_Choice(source.controller, RandomBGAdmissible(tech_level=source.script_data_num_1)*3).trigger(source)
-		pass
-class BG24_715_G:
-	""" Patient Scout
-	When you sell this, [Discover] two Tier @ minions. &lt;i&gt;(Upgrades each turn!)&lt;/i&gt;"""
-	events = [
-		Sell(CONTROLLER, SELF).on(BG24_715_G_Action(SELF)),
-		BeginTurn(CONTROLLER).on(BG24_715_Action2(SELF))
-	]
-	pass
-
-
 ##################### TIER 3 ###################################
+
 
 if BG_Arm_of_the_Empire:#Arm of the Empire	3	4	4	-		 ### maybe ###
 	BG_Minion += ['BGS_110','BGS_110e','TB_BaconUps_302','TB_BaconUps_302e',]#	
@@ -537,6 +550,39 @@ class BG21_030_G:# <12>[1453]
 BG21_030_Ge=buff(4,2)
 
 
+#Faceless Disciple(3) (6/4) (BG24_719) ### OK ###
+if BG_Faceless_Disciple:#Faceless Disciple(3) 
+	BG_Minion += ['BG24_719','BG24_719_G',]#	
+	BG_PoolSet_Minion[3].append('BG24_719')
+	BG_Minion_Gold['BG24_719']='BG24_719_G'
+class BG24_719_Target(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		tier=min(controller.tavern_tier+1,6)
+		newcard=RandomBGAdmissible(tech_level=tier).evaluate(controller)
+		Morph(target, newcard[0]).trigger(source)
+		pass
+class BG24_719:
+	""" Faceless Disciple
+	#[Battlecry:] Transform a minion into one from a Tavern Tier higher."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
+	play = BG24_719_Target(TARGET)
+class BG24_719_G_Target(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		controller=source.controller
+		tier=min(controller.tavern_tier+2,6)
+		newcard=RandomBGAdmissible(tech_level=tier).evaluate(controller)
+		Morph(target, newcard[0]).trigger(source)
+		pass
+class BG24_719_G:
+	""" Faceless Disciple
+	#[Battlecry:] Transform a minion into one from 2 Tavern Tiers higher."""
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
+	play = BG24_719_G_Target(TARGET)
+
+
 
 if BG_Houndmaster:#Houndmaster	3	4	3	-		 ### maybe ###
 	BG_Minion += ['BG_DS1_070','DS1_070o','TB_BaconUps_068','TB_BaconUps_068e',]#	
@@ -579,24 +625,6 @@ class TB_BaconUps_034:# <4>[1453]
 	""" Khadgar
 	Your cards that summon minions summon three times as many. """
 	events = Summon(CONTROLLER, FRIENDLY_MINIONS).after(SummonOnce(CONTROLLER, ExactCopy(Summon.CARD))*2)
-	pass
-
-
-
-if BG_Soul_Juggler:#Soul Juggler	3	3	5	-	 	 ### maybe ###
-	BG_Minion += ['BGS_002','TB_BaconUps_075',]#	
-	BG_PoolSet_Minion[3].append('BGS_002')
-	BG_Minion_Gold['BGS_002']='TB_BaconUps_075'
-	pass
-class BGS_002:# <9>[1453] ソールジャグラー
-	""" Soul Juggler
-	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
-	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3))
-	pass
-class TB_BaconUps_075:# <9>[1453]
-	""" Soul Juggler
-	After a friendly Demon dies, deal 3 damage to a random enemy minion twice. """
-	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3) * 2)
 	pass
 
 
@@ -656,41 +684,59 @@ class TB_BaconUps_095:
 	Each turn this is in your hand, transform it into a random Golden minion."""
 
 
-#Faceless Disciple(3) (6/4) (BG24_719) ### OK ###
-if BG_Faceless_Disciple:#Faceless Disciple(3) 
-	BG_Minion += ['BG24_719','BG24_719_G',]#	
-	BG_PoolSet_Minion[3].append('BG24_719')
-	BG_Minion_Gold['BG24_719']='BG24_719_G'
-class BG24_719_Target(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=source.controller
-		tier=min(controller.tavern_tier+1,6)
-		newcard=RandomBGAdmissible(tech_level=tier).evaluate(controller)
-		Morph(target, newcard[0]).trigger(source)
-		pass
-class BG24_719:
-	""" Faceless Disciple
-	#[Battlecry:] Transform a minion into one from a Tavern Tier higher."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
-	play = BG24_719_Target(TARGET)
-class BG24_719_G_Target(TargetedAction):
-	TARGET=ActionArg()
-	def do(self, source, target):
-		controller=source.controller
-		tier=min(controller.tavern_tier+2,6)
-		newcard=RandomBGAdmissible(tech_level=tier).evaluate(controller)
-		Morph(target, newcard[0]).trigger(source)
-		pass
-class BG24_719_G:
-	""" Faceless Disciple
-	#[Battlecry:] Transform a minion into one from 2 Tavern Tiers higher."""
-	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0  }
-	play = BG24_719_G_Target(TARGET)
+
+if BG_Soul_Juggler:#Soul Juggler	3	3	5	-	 	 ### maybe ###
+	BG_Minion += ['BGS_002','TB_BaconUps_075',]#	
+	BG_PoolSet_Minion[3].append('BGS_002')
+	BG_Minion_Gold['BGS_002']='TB_BaconUps_075'
+	pass
+class BGS_002:# <9>[1453] ソールジャグラー
+	""" Soul Juggler
+	After a friendly Demon dies, deal 3 damage to a random enemy minion. """
+	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3))
+	pass
+class TB_BaconUps_075:# <9>[1453]
+	""" Soul Juggler
+	After a friendly Demon dies, deal 3 damage to a random enemy minion twice. """
+	events = Death(FRIENDLY + DEMON).on(Hit(RANDOM(ENEMY_MINIONS), 3) * 2)
+	pass
 
 
 
 #################### TIER 4 ###################################
+
+#regions
+### Ball of Minions(BG24_017) ### OK ###
+if BG_Ball_of_Minions:#Ball of Minions	4	5	5		
+	BG_Minion += ['BG24_017','BG24_017e','BG24_017_G',]#	
+	BG_PoolSet_Minion[4].append('BG24_017')
+	BG_Minion_Gold['BG24_017']='BG24_017_G'
+	pass
+class BG24_017_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=CardArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, card, amount):
+		controller=source.controller
+		if isinstance(card, list):
+			card=card[0]
+		if len(controller.field):
+			for repeat in range(amount):
+				minion = random.choice(controller.field)
+				Buff(minion, 'BG24_017e', atk=card.atk, max_health=card.max_health).trigger(source)
+		pass
+class BG24_017:
+	""" Ball of Minions (4  5  5)
+	When you sell this, give its stats to a random friendly minion."""
+	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 1))
+class BG24_017e:
+	pass
+class BG24_017_G:
+	""" Ball of Minions
+	When you sell this, give its stats to two random friendly minions.""" 
+	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 2))
+	pass
+
 
 
 if BG_Champion_of_Y_Shaarj:#Champion of Y'Shaarj	4	4	4		 ### maybe #####banned 23.6
@@ -734,6 +780,21 @@ class TB_BaconUps_009:# <12>[1453]
 	pass
 TB_BaconUps_009e=buff(2,2,taunt=True)# <12>[1453]
 """ Hand of Argus,  +2/+2 and [Taunt]. """
+
+
+if BG_Fireworks_Fanatic: ##(4/4/3) new 25.6
+	BG_Minion += ['BG25_922','BG25_922e','BG25_922_G','BG25_922_Ge',]#	
+	BG_PoolSet_Minion[4].append('BG25_922')
+	BG_Minion_Gold['BG25_922']='BG25_922_G'
+	pass
+class BG25_922: ######################################################
+	""" Fireworks Fanatic
+	Whenever you get a minion you already have, give your minions +1/+1."""
+BG25_922e=buff(1,1)
+class BG25_922_G:
+	""" Fireworks Fanatic
+	Whenever you get a minion you already have, give your minions +2/+2."""
+BG25_922_Ge=buff(2,2)
 
 
 if BG_Impatient_Doomsayer:#Impatient Doomsayer	4	2	6		 ### maybe ###
@@ -804,6 +865,35 @@ class TB_BaconUps_207:# <12>[1453]
 	events = OWN_TURN_END.on(TB_BaconUps_207_Action(CONTROLLER))
 
 
+#Master of Realities(4)	 ### maybe ###
+if BG_Master_of_Realities:
+	BG_Minion += ['BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',]#	
+	BG_PoolSet_Minion[4].append('BG21_036')
+	BG_Minion_Gold['BG21_036']='BG21_036_G'
+	pass
+# (5/6/6) -> (4/4/4) when?
+class BG21_036_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	TARGETBUFF = ActionArg()
+	def do(self, source, target, buff, targetbuff):
+		if buff.atk>0 or buff.health>0:
+			Buff(target, targetbuff).trigger(target.controller)
+class BG21_036:# <12>[1453] 多重現実の支配者
+	""" Master of Realities
+	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036e'))
+	pass
+BG21_036e=buff(1,1)
+class BG21_036_G:# <12>[1453]
+	""" Master of Realities
+	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036_Ge'))
+	pass
+BG21_036_Ge=buff(2,2)# <12>[1453]
+""" The Elemental Plane, +2/+2. """
+
+
 
 if BG_Menagerie_Jug:#Menagerie Jug	4	3	3	-		 ### maybe ###
 	BG_Minion += ['BGS_083','BGS_083e','TB_BaconUps_145','TB_BaconUps_145e',]#	
@@ -824,48 +914,6 @@ class TB_BaconUps_145:# <12>[1453]
 	pass
 TB_BaconUps_145e=buff(4,4)# <12>[1453]
 """ Gulp of Tea,  +4/+4. """
-
-
-
-if BG_Strongshell_Scavenger:#Strongshell Scavenger	4	2	3		 ### OK ###
-	BG_Minion += ['BG_ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',]#	
-	BG_PoolSet_Minion[4].append('BG_ICC_807')
-	BG_Minion_Gold['BG_ICC_807']='TB_BaconUps_072'
-	pass
-class BG_ICC_807:# <2>[1453]  クズ拾い
-	""" Strongshell Scavenger
-	[Battlecry:] Give your [Taunt] minions +2/+2. """
-	play = Buff(FRIENDLY + TAUNT, 'ICC_807e')
-	pass
-ICC_807e=buff(2,2)# <12>[1453]
-""" Strongshell,  +2/+2. """
-class TB_BaconUps_072:# <2>[1453]
-	""" Strongshell Scavenger
-	[Battlecry:] Give your [Taunt] minions +4/+4. """
-	play = Buff(FRIENDLY + TAUNT, 'TB_BaconUps_072e')
-	pass
-TB_BaconUps_072e=buff(4,4)# <12>[1453]
-""" Strongshell,  +4/+4. """
-
-
-
-#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2 ## renew 25.0.4
-if BG_Witchwing_Nestmatron:#
-	BG_Minion += ['BG21_038','BG21_038_G',]#	
-	BG_PoolSet_Minion[4].append('BG21_038')
-	BG_Minion_Gold['BG21_038']='BG21_038_G'
-	pass
-class BG21_038:# <12>[1453] 巣母
-	""" Witchwing Nestmatron
-	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True))]))
-	pass
-class BG21_038_G:# <12>[1453]
-	""" Witchwing Nestmatron
-	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
-	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
-	pass
-
 
 
 ## Reef Explorer(4) ### OK,  ### NEW 23.2 ### banned 24.6
@@ -978,6 +1026,46 @@ class BG24_022_G:# (minion)
 	pass
 
 
+if BG25__Sindorei_Straight_Shot:# ## (4) new 25.2.2
+	BG_Minion+=['BG25_016','BG25_016_G','BG25_016e','BG25_016e2']
+	BG_PoolSet_Minion[4].append('BG25_016')
+	BG_Minion_Gold['BG25_016']='BG25_016_G'
+class BG25_016:# (minion)
+	""" Sin'dorei Straight Shot
+	<b>Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
+	events = BG_Attack(SELF, ENEMY+MINION).on(Buff(BG_Attack.OTHER, 'BG25_016e'))
+	pass
+class BG25_016_G:# (minion)
+	""" Sin'dorei Straight Shot
+	<b>Mega-Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
+	events = BG_Attack(SELF, ENEMY+MINION).on(Buff(BG_Attack.OTHER, 'BG25_016e'))
+	pass
+BG25_016e=buff(reborn=False,taunt=False)
+BG25_016e2=buff(taunt=False)
+
+
+
+if BG_Strongshell_Scavenger:#Strongshell Scavenger	4	2	3		 ### OK ###
+	BG_Minion += ['BG_ICC_807',  'ICC_807e',  'TB_BaconUps_072', 'TB_BaconUps_072e',]#	
+	BG_PoolSet_Minion[4].append('BG_ICC_807')
+	BG_Minion_Gold['BG_ICC_807']='TB_BaconUps_072'
+	pass
+class BG_ICC_807:# <2>[1453]  クズ拾い
+	""" Strongshell Scavenger
+	[Battlecry:] Give your [Taunt] minions +2/+2. """
+	play = Buff(FRIENDLY + TAUNT, 'ICC_807e')
+	pass
+ICC_807e=buff(2,2)# <12>[1453]
+""" Strongshell,  +2/+2. """
+class TB_BaconUps_072:# <2>[1453]
+	""" Strongshell Scavenger
+	[Battlecry:] Give your [Taunt] minions +4/+4. """
+	play = Buff(FRIENDLY + TAUNT, 'TB_BaconUps_072e')
+	pass
+TB_BaconUps_072e=buff(4,4)# <12>[1453]
+""" Strongshell,  +4/+4. """
+
+
 if BG_Treasure_Seeker_Elise: ##(4) new 24.2
 	BG_Minion += ['BG23_353','BG23_353_G', 'BG23_353_Gt']#	
 	BG_PoolSet_Minion[4].append('BG23_353')
@@ -995,6 +1083,8 @@ class BG23_353_G:
 class BG23_353_Gt:
 	pass
 
+
+
 if BG_Tunnel_Blaster:## Tunnel Blaster (4) ### OK ###
 	BG_Minion += ['BG_DAL_775','BG_DAL_775_G', ]#	
 	BG_PoolSet_Minion[4].append('BG_DAL_775')
@@ -1009,6 +1099,8 @@ class BG_DAL_775_G:
 	"""
 	[Taunt] [Deathrattle:] Deal 3 damage to all minions twice."""
 	deathrattle = Hit(ALL_MINIONS, 3) * 2
+
+
 
 
 #Vigilant Stoneborn(4)(2/6)(BG24_023) ### OK ###
@@ -1030,86 +1122,30 @@ class BG24_023_G:
 BG24_023_Ge=buff(0,12, taunt=True)
 
 
-### Ball of Minions(BG24_017) ### OK ###
-if BG_Ball_of_Minions:#Ball of Minions	4	5	5		
-	BG_Minion += ['BG24_017','BG24_017e','BG24_017_G',]#	
-	BG_PoolSet_Minion[4].append('BG24_017')
-	BG_Minion_Gold['BG24_017']='BG24_017_G'
-	pass
-class BG24_017_Action(TargetedAction):
-	TARGET=ActionArg()
-	CARD=CardArg()
-	AMOUNT=IntArg()
-	def do(self, source, target, card, amount):
-		controller=source.controller
-		if isinstance(card, list):
-			card=card[0]
-		if len(controller.field):
-			for repeat in range(amount):
-				minion = random.choice(controller.field)
-				Buff(minion, 'BG24_017e', atk=card.atk, max_health=card.max_health).trigger(source)
-		pass
-class BG24_017:
-	""" Ball of Minions (4  5  5)
-	When you sell this, give its stats to a random friendly minion."""
-	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 1))
-class BG24_017e:
-	pass
-class BG24_017_G:
-	""" Ball of Minions
-	When you sell this, give its stats to two random friendly minions.""" 
-	events = Sell(CONTROLLER).on(BG24_017_Action(CONTROLLER, Sell.CARD, 2))
-	pass
-
-if BG25__Sindorei_Straight_Shot:# ## (4) new 25.2.2
-	BG_Minion+=['BG25_016','BG25_016_G','BG25_016e','BG25_016e2']
-	BG_PoolSet_Minion[4].append('BG25_016')
-	BG_Minion_Gold['BG25_016']='BG25_016_G'
-class BG25_016:# (minion)
-	""" Sin'dorei Straight Shot
-	<b>Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
-	events = BG_Attack(SELF, ENEMY+MINION).on(Buff(BG_Attack.OTHER, 'BG25_016e'))
-	pass
-class BG25_016_G:# (minion)
-	""" Sin'dorei Straight Shot
-	<b>Mega-Windfury</b>. <b>Divine Shield</b>. Whenever this attacks, remove <b>Reborn</b> and <b>Taunt</b> from the target. """
-	events = BG_Attack(SELF, ENEMY+MINION).on(Buff(BG_Attack.OTHER, 'BG25_016e'))
-	pass
-BG25_016e=buff(reborn=False,taunt=False)
-BG25_016e2=buff(taunt=False)
 
 
-#Master of Realities(4)	 ### maybe ###
-if BG_Master_of_Realities:
-	BG_Minion += ['BG21_036','BG21_036e','BG21_036_G','BG21_036_Ge',]#	
-	BG_PoolSet_Minion[4].append('BG21_036')
-	BG_Minion_Gold['BG21_036']='BG21_036_G'
+#Witchwing Nestmatron	4	3	5### maybe ### banned 24.2 ## renew 25.0.4
+if BG_Witchwing_Nestmatron:#
+	BG_Minion += ['BG21_038','BG21_038_G',]#	
+	BG_PoolSet_Minion[4].append('BG21_038')
+	BG_Minion_Gold['BG21_038']='BG21_038_G'
 	pass
-# (5/6/6) -> (4/4/4) when?
-class BG21_036_Action(TargetedAction):
-	TARGET = ActionArg()
-	BUFF = ActionArg()
-	TARGETBUFF = ActionArg()
-	def do(self, source, target, buff, targetbuff):
-		if buff.atk>0 or buff.health>0:
-			Buff(target, targetbuff).trigger(target.controller)
-class BG21_036:# <12>[1453] 多重現実の支配者
-	""" Master of Realities
-	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036e'))
+class BG21_038:# <12>[1453] 巣母
+	""" Witchwing Nestmatron
+	[Avenge (3):] Add a random [Battlecry] minion to your_hand. """
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True))]))
 	pass
-BG21_036e=buff(1,1)
-class BG21_036_G:# <12>[1453]
-	""" Master of Realities
-	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036_Ge'))
+class BG21_038_G:# <12>[1453]
+	""" Witchwing Nestmatron
+	[Avenge (3):] Add 2 random [Battlecry] minions to your_hand. """
+	events = Death(FRIENDLY).on(Avenge(SELF, 3, [GiveInBattle(CONTROLLER, RandomBGAdmissible(has_battlecry=True)), Give(CONTROLLER, RandomMinion(has_battlecry=True))]))
 	pass
-BG21_036_Ge=buff(2,2)# <12>[1453]
-""" The Elemental Plane, +2/+2. """
+
 
 
 
 ######## TIER 5 ################
+
 
 if BG_Baron_Rivendare:#Baron Rivendare	5	1	7		 ### maybe ###
 	BG_Minion += ['BG_FP1_031','TB_BaconUps_055',]#	
@@ -1170,6 +1206,53 @@ class TB_BaconUps_251:# <12>[1453]
 	pass
 
 
+#Interrogator Whitemane 5  5  8 (BG24_704) ## new 24.6 ### OK ###
+if BG_Interrogator_Whitemane:#Interrogator Whitemane 5  5  8 (BG24_704) 
+	BG_Minion += ['BG24_704','BG24_704_e','BG24_704_e_G','BG24_704_G']#	
+	BG_PoolSet_Minion[5].append('BG24_704')
+	BG_Minion_Gold['BG24_704']='BG24_704_G'
+	pass
+class BG24_704_Action1(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		controller=source.controller
+		opponent=controller.opponent
+		size1=len(controller.field)
+		size2=len(opponent.field)
+		index1 = controller.field.index(source)
+		index2=int(-index1*1.0+(size1-1)*0.5+(size2-1)*0.5)
+		if 0<=index2 and index2<size2:
+			card=opponent.field[index2]
+			Buff(card, buff).trigger(source)
+		pass
+class BG24_704:
+	""" Interrogator Whitemane -> banned 25.0.4
+	#[x][Start of Combat:] Give the enemies opposite this [Taunt]. They take double damage."""
+	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e'))
+class BG24_704_e:
+	def apply(self, target):
+		if target==None:
+			return
+		if hasattr(target, 'double_damage'):
+			target.double_damage=1
+		target.taunt=True
+	pass
+
+class BG24_704_G:
+	""" Interrogator Whitemane
+	#[Start of Combat:] Give the enemies opposite this [Taunt]. They take triple damage."""
+	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e_G'))
+class BG24_704_e_G:
+	def apply(self, target):
+		if target==None:
+			return
+		if hasattr(target, 'double_damage'):
+			target.double_damage=2
+		target.taunt=True
+	pass
+
+
 
 if BG_Kangor_s_Apprentice:#Kangor's Apprentice	5	3	6		 ### maybe ###
 	BG_Minion += ['BGS_012','TB_BaconUps_087',]#	
@@ -1200,6 +1283,31 @@ class TB_BaconUps_087:# <12>[1453]
 	#
 	pass
 
+
+
+if BG_Leeroy_the_Reckless:## Leeroy the Reckless (5)  ### maybe ###
+	BG_Minion += ['BG23_318','BG23_318_G', ]#	
+	BG_PoolSet_Minion[5].append('BG23_318')
+	BG_Minion_Gold['BG23_318']='BG23_318_G'
+	# Leeroy the Reckless 5 NEW 23.2
+	pass
+class BG23_318_Action(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		killer = target.attacker
+		if hasattr(killer,'charge'):# instead of isinstance(killer, Minion)
+			Destroy(killer).trigger(source.controller)
+		pass
+class BG23_318:# <12>[1453]
+	""" Leeroy the Reckless (5)
+	[Deathrattle:] Destroy the minion that killed this."""
+	deathrattle = BG23_318_Action(SELF)
+	pass
+class BG23_318_G:# <12>[1453]
+	"""
+	[Deathrattle:] Destroy the minion that killed this."""
+	deathrattle = BG23_318_Action(SELF)
+	pass
 
 
 
@@ -1313,28 +1421,21 @@ class TB_BaconUps_201:# <12>[1453]
 	pass
 
 
-if BG_Leeroy_the_Reckless:## Leeroy the Reckless (5)  ### maybe ###
-	BG_Minion += ['BG23_318','BG23_318_G', ]#	
-	BG_PoolSet_Minion[5].append('BG23_318')
-	BG_Minion_Gold['BG23_318']='BG23_318_G'
-	# Leeroy the Reckless 5 NEW 23.2
+
+if BG25__Titus_Rivendare:# 5/1/7 neutral ## new 25.2.2
+	BG_Minion+=['BG25_354','BG25_354_G']
+	BG_PoolSet_Minion[5].append('BG25_354')
+	BG_Minion_Gold['BG25_354']='BG25_354_G'
+class BG25_354:# (minion)
+	""" Titus Rivendare
+	Your <b>Deathrattles</b> trigger an extra time. """
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
 	pass
-class BG23_318_Action(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		killer = target.attacker
-		if hasattr(killer,'charge'):# instead of isinstance(killer, Minion)
-			Destroy(killer).trigger(source.controller)
-		pass
-class BG23_318:# <12>[1453]
-	""" Leeroy the Reckless (5)
-	[Deathrattle:] Destroy the minion that killed this."""
-	deathrattle = BG23_318_Action(SELF)
-	pass
-class BG23_318_G:# <12>[1453]
-	"""
-	[Deathrattle:] Destroy the minion that killed this."""
-	deathrattle = BG23_318_Action(SELF)
+
+class BG25_354_G:# (minion)
+	""" Titus Rivendare
+	Your <b>Deathrattles</b> trigger 2 extra times. """
+	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: True})
 	pass
 
 
@@ -1368,70 +1469,6 @@ class BG24_018_G:# (minion)
 		TieGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1)),
 		WinGame(CONTROLLER).on(BG24_018_Action(CONTROLLER,1))
 	]
-	pass
-
-
-#Interrogator Whitemane 5  5  8 (BG24_704) ## new 24.6 ### OK ###
-if BG_Interrogator_Whitemane:#Interrogator Whitemane 5  5  8 (BG24_704) 
-	BG_Minion += ['BG24_704','BG24_704_e','BG24_704_e_G','BG24_704_G']#	
-	BG_PoolSet_Minion[5].append('BG24_704')
-	BG_Minion_Gold['BG24_704']='BG24_704_G'
-	pass
-class BG24_704_Action1(TargetedAction):
-	TARGET=ActionArg()
-	BUFF=ActionArg()
-	def do(self, source, target, buff):
-		controller=source.controller
-		opponent=controller.opponent
-		size1=len(controller.field)
-		size2=len(opponent.field)
-		index1 = controller.field.index(source)
-		index2=int(-index1*1.0+(size1-1)*0.5+(size2-1)*0.5)
-		if 0<=index2 and index2<size2:
-			card=opponent.field[index2]
-			Buff(card, buff).trigger(source)
-		pass
-class BG24_704:
-	""" Interrogator Whitemane -> banned 25.0.4
-	#[x][Start of Combat:] Give the enemies opposite this [Taunt]. They take double damage."""
-	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e'))
-class BG24_704_e:
-	def apply(self, target):
-		if target==None:
-			return
-		if hasattr(target, 'double_damage'):
-			target.double_damage=1
-		target.taunt=True
-	pass
-
-class BG24_704_G:
-	""" Interrogator Whitemane
-	#[Start of Combat:] Give the enemies opposite this [Taunt]. They take triple damage."""
-	events = BeginBattle(CONTROLLER).on(BG24_704_Action1(SELF, 'BG24_704_e_G'))
-class BG24_704_e_G:
-	def apply(self, target):
-		if target==None:
-			return
-		if hasattr(target, 'double_damage'):
-			target.double_damage=2
-		target.taunt=True
-	pass
-
-
-if BG25__Titus_Rivendare:# 5/1/7 neutral ## new 25.2.2
-	BG_Minion+=['BG25_354','BG25_354_G']
-	BG_PoolSet_Minion[5].append('BG25_354')
-	BG_Minion_Gold['BG25_354']='BG25_354_G'
-class BG25_354:# (minion)
-	""" Titus Rivendare
-	Your <b>Deathrattles</b> trigger an extra time. """
-	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES: True})
-	pass
-
-class BG25_354_G:# (minion)
-	""" Titus Rivendare
-	Your <b>Deathrattles</b> trigger 2 extra times. """
-	update = Refresh(CONTROLLER, {GameTag.EXTRA_DEATHRATTLES_ADDITIONAL: True})
 	pass
 
 
@@ -1499,7 +1536,7 @@ if BG_Friend_of_a_Friend:#Friend of a Friend	(BAN)	6	5	6	-	Battlecry   BG22_404 
 	BG_PoolSet_Minion[6].append('BG22_404')
 	BG_Minion_Gold['BG22_404']='BG22_404_G'
 	pass
-class BG22_404:# <12>[1453] 友達の友達 ばん！
+class BG22_404:# <12>[1453] 友達の友達 ばん！##########################
 	""" Friend of a Friend(BAN)
 	[Battlecry: Discover] a Buddy. """
 	#
@@ -1509,6 +1546,25 @@ class BG22_404_G:# <12>[1453]
 	[Battlecry: Discover]two Buddies. """
 	#
 	pass
+
+
+
+if BG_Mantid_Queen:##########
+	BG_Minion += ['BG22_402', 'BG22_402_G', 'BG22_402e', 'BG22_402e2', 'BG22_402e3', 'BG22_402e4' ]#	
+	BG_PoolSet_Minion[6].append('BG22_402')
+	BG_Minion_Gold['BG22_402']='BG22_402_G'
+class BG22_402: ###########################################
+	""" Mantid Queen
+	[Poisonous]. [Start of Combat:] For each of your minion types gain +5/+5, [Windfury], ___[Divine Shield], or [Taunt]."""
+	pass
+class BG22_402_G: 
+	""" Mantid Queen
+	[Poisonous]. [Start of Combat:] For each of your minion types gain [Windfury], [Divine Shield], _[Taunt], or +5/+5, twice."""
+	pass
+BG22_402e=buff(5,5)
+BG22_402e2=buff(windfury=True)
+BG22_402e3=buff(divine_shield=True)
+BG22_402e4=buff(taunt=True)
 
 
 
@@ -1526,52 +1582,6 @@ class TB_BaconUps_154:# <12>[1453]
 	""" Nadina the Red
 	[Deathrattle:] Give your Dragons [Divine Shield]. """
 	deathrattle = GiveDivineShield(FRIENDLY_MINIONS + DRAGON)
-	pass
-
-
-if BG_Seafood_Slinger:#Seafood Slinger	6	5	5		 ### maybe ### ##banned -> resurrect 25.0.4
-	BG_Minion += ['BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',]#	
-	BG_PoolSet_Minion[6].append('BG21_011')
-	BG_Minion_Gold['BG21_011']='BG21_011_G'
-	pass
-class BG21_011:# <12>[1453] 板前
-	""" Seafood Slinger
-	[Battlecry:] Make a Murloc Golden. """
-	requirements={
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	play = MorphGold(TARGET)
-	pass
-BG21_011e=buff(3,3)# <12>[1453] ??????????????
-class BG21_011e2:# <12>[1453]  ??????????????
-	""" Battlecry Self-Trigger [DNT] """
-class BG21_011_G:# <12>[1453]
-	""" Seafood Slinger
-	[Battlecry:] Make a Murloc Golden. """
-	requirements={
-		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
-	play = MorphGold(TARGET)
-	pass
-BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
-
-
-
-
-if BG_Zapp_Slywick:#Zapp Slywick	6	7	10	 	 ### maybe ###
-	BG_Minion += ['BGS_022','TB_BaconUps_091',]#	
-	BG_PoolSet_Minion[6].append('BGS_022')
-	BG_Minion_Gold['BGS_022']='TB_BaconUps_091'
-	pass
-class BGS_022:# <12>[1453] ざっぷ
-	""" Zapp Slywick
-	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """
-	#<ReferencedTag enumID="189" name="WINDFURY" type="Int" value="1"/> ### REF-TAGだ！
-	tags = {GameTag.WINDFURY:1}
-	#本体実装はBG_Battle.pyの80行あたり
-	pass
-class TB_BaconUps_091:# <12>[1453]
-	""" Zapp Slywick
-	[Mega-Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
-	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/> ###これはオケ
 	pass
 
 
@@ -1607,37 +1617,32 @@ class BG23_015_Gt:
 	pass
 
 
-## Uther the Lightbringer (6) ### OK ###
-if BG_Uther_the_Lightbringer: ##(6)
-	BG_Minion += ['BG23_190','BG23_190e','BG23_190_G','BG23_190_Ge', ]#	
-	BG_PoolSet_Minion[6].append('BG23_190')
-	BG_Minion_Gold['BG23_190']='BG23_190_G'
-	## Uther the Lightbringer (6) >= 23.6
+
+
+if BG_Seafood_Slinger:#Seafood Slinger	6	5	5		 ### maybe ### ##banned -> resurrect 25.0.4
+	BG_Minion += ['BG21_011','BG21_011e','BG21_011e2','BG21_011_G','BG21_011_Ge',]#	
+	BG_PoolSet_Minion[6].append('BG21_011')
+	BG_Minion_Gold['BG21_011']='BG21_011_G'
 	pass
-class BG23_190_Action(TargetedAction):
-	TARGET = ActionArg()
-	BUFF = ActionArg()
-	AMOUNT = IntArg()
-	def do(self, source, target, buff, amount):
-		if target:
-			atk_buff = amount - target.atk
-			hlt_buff = amount - target.health
-			Buff(target, buff, atk=atk_buff, max_health=hlt_buff).trigger(source)
-			pass
-class BG23_190:
-	"""Uther the Lightbringer (6) >= 23.6
-	Battlecry: Set a minion's Attack and Health to 15."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
-	play = BG23_190_Action(TARGET, 'BG23_190e', 15)
-class BG23_190e:
+class BG21_011:# <12>[1453] 板前
+	""" Seafood Slinger
+	[Battlecry:] Make a Murloc Golden. """
+	requirements={
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+	play = MorphGold(TARGET)
 	pass
-class BG23_190_G:
-	"""
-	[Battlecry:] Set a minion's Attack and Health to 30."""
-	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
-	play = BG23_190_Action(TARGET, 'BG23_190_Ge', 30)
-class BG23_190_Ge:
+BG21_011e=buff(3,3)# <12>[1453] ??????????????
+class BG21_011e2:# <12>[1453]  ??????????????
+	""" Battlecry Self-Trigger [DNT] """
+class BG21_011_G:# <12>[1453]
+	""" Seafood Slinger
+	[Battlecry:] Make a Murloc Golden. """
+	requirements={
+		PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE: Race.MURLOC }
+	play = MorphGold(TARGET)
 	pass
+BG21_011_Ge=buff(6,6)# <12>[1453]  ????????????
+
 
 if BG24__Tea_Master_Theotar: # (6) new 24.2
 	BG_Minion += ['BG24_020','BG24_020e','BG24_020_G','BG24_020_Ge', ]#	
@@ -1703,22 +1708,60 @@ class BG24_712_G:
 	pass
 BG24_712e_G=buff(8,8)
 
-if BG_Mantid_Queen:##########
-	BG_Minion += ['BG22_402', 'BG22_402_G', 'BG22_402e', 'BG22_402e2', 'BG22_402e3', 'BG22_402e4' ]#	
-	BG_PoolSet_Minion[6].append('BG22_402')
-	BG_Minion_Gold['BG22_402']='BG22_402_G'
-class BG22_402: ###########################################
-	""" Mantid Queen
-	[Poisonous]. [Start of Combat:] For each of your minion types gain +5/+5, [Windfury], ___[Divine Shield], or [Taunt]."""
+
+## Uther the Lightbringer (6) ### OK ###
+if BG_Uther_the_Lightbringer: ##(6)
+	BG_Minion += ['BG23_190','BG23_190e','BG23_190_G','BG23_190_Ge', ]#	
+	BG_PoolSet_Minion[6].append('BG23_190')
+	BG_Minion_Gold['BG23_190']='BG23_190_G'
+	## Uther the Lightbringer (6) >= 23.6
 	pass
-class BG22_402_G: 
-	""" Mantid Queen
-	[Poisonous]. [Start of Combat:] For each of your minion types gain [Windfury], [Divine Shield], _[Taunt], or +5/+5, twice."""
+class BG23_190_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	AMOUNT = IntArg()
+	def do(self, source, target, buff, amount):
+		if target:
+			atk_buff = amount - target.atk
+			hlt_buff = amount - target.health
+			Buff(target, buff, atk=atk_buff, max_health=hlt_buff).trigger(source)
+			pass
+class BG23_190:
+	"""Uther the Lightbringer (6) >= 23.6
+	Battlecry: Set a minion's Attack and Health to 15."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
+	play = BG23_190_Action(TARGET, 'BG23_190e', 15)
+class BG23_190e:
 	pass
-BG22_402e=buff(5,5)
-BG22_402e2=buff(windfury=True)
-BG22_402e3=buff(divine_shield=True)
-BG22_402e4=buff(taunt=True)
+class BG23_190_G:
+	"""
+	[Battlecry:] Set a minion's Attack and Health to 30."""
+	requirements = {PlayReq.REQ_MINION_TARGET: 0, PlayReq.REQ_FRIENDLY_TARGET: 0, PlayReq.REQ_TARGET_IF_AVAILABLE: 0}	
+	play = BG23_190_Action(TARGET, 'BG23_190_Ge', 30)
+class BG23_190_Ge:
+	pass
+
+
+
+
+if BG_Zapp_Slywick:#Zapp Slywick	6	7	10	 	 ### maybe ###
+	BG_Minion += ['BGS_022','TB_BaconUps_091',]#	
+	BG_PoolSet_Minion[6].append('BGS_022')
+	BG_Minion_Gold['BGS_022']='TB_BaconUps_091'
+	pass
+class BGS_022:# <12>[1453] ざっぷ
+	""" Zapp Slywick
+	[Windfury]This minion always attacks the enemy minion with the lowest Attack. """
+	#<ReferencedTag enumID="189" name="WINDFURY" type="Int" value="1"/> ### REF-TAGだ！
+	tags = {GameTag.WINDFURY:1}
+	#本体実装はBG_Battle.pyの80行あたり
+	pass
+class TB_BaconUps_091:# <12>[1453]
+	""" Zapp Slywick
+	[Mega-Windfury]This minion always attacksthe enemy minion withthe lowest Attack. """
+	#<Tag enumID="189" name="WINDFURY" type="Int" value="3"/> ###これはオケ
+	pass
+
 
 
 

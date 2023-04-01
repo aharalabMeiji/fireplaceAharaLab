@@ -1,6 +1,6 @@
 class Config:# ()is the default value
 
-	HEARTHSTONE=1
+	HEARTHSTONE=3
 	#1: Hearthstone standard battle
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
@@ -41,7 +41,8 @@ class Config:# ()is the default value
 
 	#3 battlegrounds options
 	BUDDY_SYSTEM = 0### buddy system (- 23.1) -April 2022
-	DARKMOON_TICKET_FOR_ALL=0 ## ddarkmoon tickets for all player anytime
+	NEW_BUDDY_SYSTEM = 1 ### buddy system 25.6 -
+	DARKMOON_TICKET_FOR_ALL=0 ## darkmoon tickets for all player anytime
 	DARKMOON_TICKET_FOR_ALL_BY_HALF=0 ## darkmoon tickets for all player sometimes
 	QUEST_REWARD=0 ## quest and reward system（24.2 - ）(banned 25.2.2-)
 	QUEST_PRESET=''
