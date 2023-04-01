@@ -83,22 +83,23 @@ class TB_BaconShop_HP_044:#<12>[1453]
 	[Passive] Skip your first two turns.Start with two minions from Tavern Tier 3."""
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_044_Action())
 	pass
-class TB_BaconShop_HERO_16_Buddy:# <12>[1453]
+### buddy ###
+class TB_BaconShop_HERO_16_Buddy:# <12>[1453] #########################
 	""" Snack Vendor
 	At the end of your turn, give your Tavern Tier 3 minions +1/+2. """
 	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + TIER3, 'TB_BaconShop_HERO_16_Buddy_e'))
 	pass
-TB_BaconShop_HERO_16_Buddy_e=buff(1,2)# <12>[1453]
-""" Snack-Filled
-+1/+2. """
-class TB_BaconShop_HERO_16_Buddy_G:# <12>[1453]
+TB_BaconShop_HERO_16_Buddy_e=buff(1,2)# <12>[1453] """ Snack-Filled +1/+2. """
+class TB_BaconShop_HERO_16_Buddy_G:# <12>[1453]##########################
 	""" Snack Vendor
 	At the end of your turn, give your Tavern Tier 3 minions +2/+4. """
 	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + TIER3, 'TB_BaconShop_HERO_16_Buddy_G_e'))
 	pass
-TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453]
-""" Snack-Filled
-+2/+4. """
+TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453] """ Snack-Filled +2/+4. """
+
+
+
+
 
 ##Al'Akir  ### OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',]#01#Al'Akir
@@ -120,6 +121,7 @@ class TB_BaconShop_HP_086:
 	[Passive][Start of Combat:] Give yourleft-most minion [Windfury],___[Divine Shield], and [Taunt]."""
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action())
 	pass
+### buddy ###
 class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
 	TARGET = ActionArg()# target
 	def do(self, source, target):
@@ -129,7 +131,7 @@ class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
 			card.windfury=1
 			card.divine_shield=True
 			card.taunt=True
-class TB_BaconShop_HERO_76_Buddy:
+class TB_BaconShop_HERO_76_Buddy:######################################
 	"""Spirit of Air
 	[Deathrattle:] Give a random friendly minion [Windfury],___[Divine Shield], and [Taunt].___"""
 	deathrattle = TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION)

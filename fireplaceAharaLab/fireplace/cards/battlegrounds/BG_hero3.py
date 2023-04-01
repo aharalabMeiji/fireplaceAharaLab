@@ -1019,14 +1019,16 @@ class TB_BaconShop_HP_037a:
 	activate = TB_BaconShop_HP_037a_Action()
 TB_BaconShop_HP_037te=buff(1,1)
 ######## BUDDY
-class TB_BaconShop_HERO_14_Buddy:# <12>[1453]
+class TB_BaconShop_HERO_14_Buddy:# <12>[1453]################################
 	""" Elder Taggawag
-	Whenever you play a minionof a type you don't control,trigger your Hero Power.<i>(@ left this turn.)</i> """
+	Whenever you play a minionof a type you don't control,trigger your Hero Power.<i>(@ left this turn.)</i> #old buddy
+	&lt;b&gt;Battlecry:&lt;/b&gt; Gain 1 Gold for each minion type you control. """
 	#
 	pass
-class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]
+class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]###################################
 	""" Elder Taggawag
-	Whenever you play a minionof a type you don't control,trigger your Hero Power__twice. <i>(@ left this turn.)</i> """
+	Whenever you play a minionof a type you don't control,trigger your Hero Power__twice. <i>(@ left this turn.)</i> ## old buddy
+	&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 Gold for each minion type you control."""
 	#
 	pass
 
