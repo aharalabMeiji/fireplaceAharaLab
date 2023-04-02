@@ -11,5 +11,6 @@ class MovePlay(IntEnum):
 	REROLE=7
 	FREEZE=8
 	TURNEND=9
+	BUY_BUDDY=11
 	pass
 

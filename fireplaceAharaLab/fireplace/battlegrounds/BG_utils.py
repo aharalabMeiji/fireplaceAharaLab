@@ -138,11 +138,12 @@ class BG_main:
 		self.BG_Gold.update(cards.battlegrounds.BG_hero4.BG_Hero4_Buddy_Gold)
 		self.BG_Gold.update(cards.battlegrounds.BG_hero5.BG_Hero5_Buddy_Gold)
 
-		self.BG_Hero_Buddy=cards.battlegrounds.BG_hero1.BG_Hero1_Buddy
-		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero2.BG_Hero2_Buddy)
-		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero3.BG_Hero3_Buddy)
-		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero4.BG_Hero4_Buddy)
-		self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero5.BG_Hero5_Buddy)
+		if Config.BUDDY_SYSTEM or Config.NEW_BUDDY_SYSTEM:
+			self.BG_Hero_Buddy=cards.battlegrounds.BG_hero1.BG_Hero1_Buddy
+			self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero2.BG_Hero2_Buddy)
+			self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero3.BG_Hero3_Buddy)
+			self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero4.BG_Hero4_Buddy)
+			self.BG_Hero_Buddy.update(cards.battlegrounds.BG_hero5.BG_Hero5_Buddy)
 		self.size = 4
 		self.prevMatches=[[0,1],[2,3]]# previous combination
 		self.matches=[[0,1],[2,3]]
@@ -178,12 +179,16 @@ class BG_main:
 			else:
 				theHero = agent.heroChoiceStrategy(theHeroes)
 			#heroCard=Card(theHero)
+			## create a player
 			thePlayer = Player(agent.name, self.BG_decks[1], theHero)#
 			# building a Tavern
 			bar = BG_Bar(thePlayer)
 			bar.BG_setup()
 			bar.player1 = bar.current_player = bar.controller
-			bar.player1.buddy_gauge = 0
+			theBuddyId = self.BG_Hero_Buddy[theHero]
+			theBuddyTaverntier = cards.db[theBuddyId].tavern_tier
+			bar.player1.buddy_gauge=theBuddyTaverntier*2+11
+			bar.player1.got_buddy = 0
 			bar.player2 = bar.bartender
 			bar.turn=1
 			bar.parent = self
@@ -356,21 +361,22 @@ class BG_main:
 				self.BG_Bars[self.matches[i][0]].identifycards()
 				self.BG_Bars[self.matches[i][1]].identifycards()
 				## buddy mechanism, before 23.1
-				#for  player in [battleplayer0, battleplayer1]:
-				#	### if buddy gauge turn into the limit, 
-				#	if player.buddy_gauge>=100 and player.got_buddy==0:
-				#		player.got_buddy=1
-				#		buddy = self.BG_Hero_Buddy[player.hero.id]
-				#		Give(player, buddy).trigger(player)
-				#	### if buddy gauge turn into the second limit, 
-				#	if player.buddy_gauge>=300 and player.got_buddy==1:
-				#		player.got_buddy=2
-				#		buddy = self.BG_Hero_Buddy[player.hero.id]
-				#		Give(player, buddy).trigger(player)
-				#		Give(player, buddy).trigger(player)
-				#		gold_card_id = player.game.BG_find_triple()## トリプルを判定
-				#		if gold_card_id:
-				#			player.game.BG_deal_gold(gold_card_id)
+				if Config.BUDDY_SYSTEM:
+					for  player in [battleplayer0, battleplayer1]:
+						### if buddy gauge turn into the limit, 
+						if player.buddy_gauge>=100 and player.got_buddy==0:
+							player.got_buddy=1
+							buddy = self.BG_Hero_Buddy[player.hero.id]
+							Give(player, buddy).trigger(player)
+						### if buddy gauge turn into the second limit, 
+						if player.buddy_gauge>=300 and player.got_buddy==1:
+							player.got_buddy=2
+							buddy = self.BG_Hero_Buddy[player.hero.id]
+							Give(player, buddy).trigger(player)
+							Give(player, buddy).trigger(player)
+							gold_card_id = player.game.BG_find_triple()## トリプルを判定
+							if gold_card_id:
+								player.game.BG_deal_gold(gold_card_id)
 				### if agent got a gem card while the battle, we carry it to the bar
 				if damage0>0:
 					self.winners.append(battleplayer1.hero.id)
@@ -618,6 +624,8 @@ class Move(object):
 			return "%s の場所を動かす（位置：%d）"%(self.target, self.param0)
 		elif self.move==MovePlay.BUY:# 
 			return "%s を雇用する"%(self.target)
+		elif self.move==MovePlay.BUY_BUDDY:# 
+			return "バディ %s を雇用する"%(self.target)
 		elif self.move==MovePlay.SELL:# 
 			return "%s を売る"%(self.target)
 		elif self.move==MovePlay.POWER:# 
@@ -645,6 +653,9 @@ class Move(object):
 			pass
 		elif self.move==MovePlay.BUY:# move a card from opponent field to hand
 			self.buy(self.target)
+			pass
+		elif self.move==MovePlay.BUY_BUDDY:# move a card from opponent field to hand
+			self.buy_buddy(self.target)
 			pass
 		elif self.move==MovePlay.SELL:# move a card from field to opponent
 			self.sell(self.target)
@@ -711,6 +722,16 @@ class Move(object):
 	def buy(self, card):
 		Buy(self.controller, card).trigger(self.controller)
 
+	def buy_buddy(self, card):
+		if self.controller.got_buddy==0:
+			Buy(self.controller, card).trigger(self.controller)
+			self.controller.buddy_gauge=card.tavern_tier*2+11
+			self.controller.got_buddy=1
+		elif self.controller.got_buddy==1:
+			Buy(self.controller, card).trigger(self.controller)
+			Buy(self.controller, card).trigger(self.controller)
+			self.controller.buddy_gauge=card.tavern_tier*2+13
+			self.controller.got_buddy=2
 	def sell(self, card):
 		Sell(self.controller, card).trigger(self.controller)
 
@@ -759,6 +780,9 @@ def GetMoveCandidates(bar, controller, bartender):
 	if controller.mana>=bar.minionCost:
 		for card in bartender.field:
 			ret.append(Move(bar, card, MovePlay.BUY))
+	#BUY_BUDDY=11
+	if controller.mana>=controller.buddy_gauge and controller.got_buddy<2:
+		ret.append(Move(bar, card, MovePlay.BUY_BUDDY))
 	#PLAY=1
 	for card in controller.hand:
 		if card.type==CardType.MINION:

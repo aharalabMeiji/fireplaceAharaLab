@@ -114,8 +114,9 @@ class BG_Battle(Game):
 						#print("%s(%s) -> %s(%s) : "%(attacker, attacker.controller, defender, defender.controller))
 						BG_Attack(attacker, defender).trigger(attacker.controller)
 						#move buddy gauge, before 23.1
-						#self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
-						#self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
+						if Config.BUDDY_SYSTEM:
+							self.player1.buddy_gauge += (attacker.atk+defender.atk)*0.5
+							self.player2.buddy_gauge += (attacker.atk+defender.atk)*0.5
 						##procedures of deathrattle
 						#Deaths().trigger(self)
 						if attacker.zone==Zone.GRAVEYARD:
@@ -152,8 +153,12 @@ class BG_Battle(Game):
 		# draw
 		if len(self.first.field)==0 and len(self.second.field)==0:
 			#move buddy gauge
-			self.player1.buddy_gauge += 1
-			self.player2.buddy_gauge += 1
+			if Config.NEW_BUDDY_SYSTEM:
+				self.player1.buddy_gauge = min(self.player1.buddy_gauge-3, 0)
+				self.player2.buddy_gauge = min(self.player2.buddy_gauge-3, 0)
+			if Config.BUDDY_SYSTEM:
+				self.player1.buddy_gauge += 1
+				self.player2.buddy_gauge += 1
 			ret = 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge
 			del self.game1
 			del self.game2
@@ -167,8 +172,12 @@ class BG_Battle(Game):
 				else:
 					damage += card.cost# or 1?
 			# return the damages for heroes
-			self.player1.buddy_gauge += (damage)
-			self.player1.buddy_gauge += 3
+			if Config.NEW_BUDDY_SYSTEM:
+				self.player1.buddy_gauge = min(self.player1.buddy_gauge-2, 0)
+				self.player2.buddy_gauge = min(self.player2.buddy_gauge-3, 0)
+			if Config.BUDDY_SYSTEM:
+				self.player1.buddy_gauge += (damage)
+				self.player1.buddy_gauge += 3
 			ret = damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
 			del self.game1
 			del self.game2
@@ -182,9 +191,13 @@ class BG_Battle(Game):
 				else:
 					damage += card.cost# or 1?
 			# return the damages for heroes
-			self.player2.buddy_gauge += (damage)
-			self.player2.buddy_gauge += 3
-			ret= 0, damage,self.player1.buddy_gauge,self.player2.buddy_gauge
+			if Config.NEW_BUDDY_SYSTEM:
+				self.player1.buddy_gauge = min(self.player1.buddy_gauge-3, 0)
+				self.player2.buddy_gauge = min(self.player2.buddy_gauge-2, 0)
+			if Config.BUDDY_SYSTEM:
+				self.player2.buddy_gauge += (damage)
+				self.player2.buddy_gauge += 3
+			ret= 0, damage, self.player1.buddy_gauge, self.player2.buddy_gauge
 			del self.game1
 			del self.game2
 			return ret #
