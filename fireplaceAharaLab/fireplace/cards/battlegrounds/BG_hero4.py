@@ -7,21 +7,7 @@ BG_PoolSet_Hero4=[]
 BG_Hero4_Buddy={}
 BG_Hero4_Buddy_Gold={}
 
-## R - S
-	
-##Ragnaros the Firelord TB_BaconShop_HERO_11	
-##Rakanishu TB_BaconShop_HERO_75
-##Reno Jackson TB_BaconShop_HERO_41
-##Rokara BG20_HERO_100 
-##Scabbs Cutterbutter BG21_HERO_010
-##Shudderwock TB_BaconShop_HERO_23
-##Silas Darkmoon TB_BaconShop_HERO_90
-##Sindragosa TB_BaconShop_HERO_27
-##Sir Finley Mrrgglton TB_BaconShop_HERO_40
-##Sire Denathrius  BG24_HERO_100 #####difficult#####
-##Skycap'n Kragg TB_BaconShop_HERO_68
-##Sneed BG21_HERO_030
-##Sylvanas Windrunner BG23_HERO_306
+
 
 
 ######## source #################################################################
@@ -409,16 +395,16 @@ class TB_BaconShop_HERO_40_Buddy_G:
 	"""  """
 
 
-### Sire Denathrius ### BG24_HERO_100 ### new 24.2 ####### difficult
+### Sire Denathrius ### BG24_HERO_100 ### new 24.2 ####### banned 25?
 ##BG_Hero4+=['BG24_HERO_100','BG24_HERO_100p',]
 ##BG_PoolSet_Hero4.append('BG24_HERO_100')
-class BG24_HERO_100:
-	""" Sire Denathrius
-	"""
-class BG24_HERO_100p:
-	""" Whodunit?
-	[Passive.] At the start of the game, choose one of two [Quests]."""
-	pass
+#class BG24_HERO_100:
+#	""" Sire Denathrius
+#	"""
+#class BG24_HERO_100p:
+#	""" Whodunit?
+#	[Passive.] At the start of the game, choose one of two [Quests]."""
+#	pass
 
 
 ##Skycap'n Kragg     ### HP OK ###

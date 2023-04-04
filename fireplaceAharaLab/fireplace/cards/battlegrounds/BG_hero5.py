@@ -1,32 +1,10 @@
 from ..utils import *
 
-BG_Heistbaron_Togwaggle=True ## 24.0
 
-##Tamsin Roame
-##Tavish Stormpike
-##Tess Greymane
-##The Curator
-##The Jailer TB_BaconShop_HERO_702 ## new 24.6
-##The Great Akazamzarak
-##The Lich King
-##The Rat King	
-##Tickatus
-##Trade Prince Gallywix TB_BaconShop_HERO_10
-##Vanndar Stormpike BG22_HERO_003
-##Varden Dawngrasp BG22_HERO_004
-##Vol'jin BG20_HERO_201
-##Xyrella BG20_HERO_101
-##Y'Shaarj TB_BaconShop_HERO_92
-##Yogg-Saron, Hope's End TB_BaconShop_HERO_35
-##Ysera TB_BaconShop_HERO_53
-##Zephrys, the Great TB_BaconShop_HERO_91
 
 BG_Hero5=[]
-
 BG_PoolSet_Hero5=[]
-
 BG_Hero5_Buddy={}
-
 BG_Hero5_Buddy_Gold={}
 
 ######## source #################################################################
@@ -212,6 +190,26 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 	pass
 
 
+##Teron Gorefiend BG25_HERO_103
+BG_Hero5+=['BG25_HERO_103','BG25_HERO_103p','BG25_HERO_103_Buddy','BG25_HERO_103_Buddye','BG25_HERO_103_Buddy_G','BG25_HERO_103_Buddy_Ge',]
+BG_PoolSet_Hero5.append('BG25_HERO_103')
+BG_Hero5_Buddy['BG25_HERO_103']='BG25_HERO_103_Buddy'
+BG_Hero5_Buddy_Gold['BG25_HERO_103_Buddy']='TB_BaconShop_HERO_50_Buddy_G'
+class BG25_HERO_103:
+	""" Teron Gorefiend
+	"""
+class BG25_HERO_103p:
+	""" Rapid Reanimation
+	[x]Choose a friendly minion. &lt;b&gt;Start of Combat:&lt;/b&gt; Destroy it. Once you have space, ___resummon an exact copy."""
+class BG25_HERO_103_Buddy:
+	""" Shadowy Construct
+	[x]After a friendly minion dies, give its neighbors +1/+1."""
+BG25_HERO_103_Buddye=buff(1,1)
+class BG25_HERO_103_Buddy_G:
+	""" Shadowy Construct
+	[x]After a friendly minion dies, give its neighbors +2/+2."""
+BG25_HERO_103_Buddy_Ge=buff(2,2)
+
 
 
 ##Tess Greymane ### OK ###
@@ -287,6 +285,37 @@ class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
 	"""  """
 
 
+
+##The Great Akazamzarak  ### OK ###
+BG_Hero5+=['TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',]
+BG_PoolSet_Hero5.append('TB_BaconShop_HERO_21')
+BG_Hero5_Buddy['TB_BaconShop_HERO_21']='TB_BaconShop_HERO_21_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_21_Buddy']='TB_BaconShop_HERO_21_Buddy_G'
+class TB_BaconShop_HERO_21:# <12>[1453]
+	""" The Great Akazamzarak """
+	pass
+class TB_BaconShop_HP_020:
+	"""  [Discover] a [Secret]. Put it into the battlefield."""
+	entourage=[
+		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
+		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
+			#'TB_Bacon_Secrets_10',#'TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
+			#'TB_Bacon_Secrets_13',
+		]
+	activate=GenericChoiceSecret(CONTROLLER, RandomEntourage()*3)
+########  BUDDY
+class TB_BaconShop_HERO_21_Buddy:# <12>[1453]
+	""" Street Magician
+	[Deathrattle:] Put a random [Secret] into the battlefield. """
+	#
+	pass
+class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
+	""" Street Magician
+	[Deathrattle:] Put 2 random[Secrets] into the battlefield. """
+	#
+	pass
+
+
 ##The Jailer TB_BaconShop_HERO_702 ## new 24.6 ### OK ###
 BG_Hero5+=['TB_BaconShop_HERO_702','TB_BaconShop_HP_702',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_702')
@@ -339,37 +368,6 @@ class TB_BaconShop_HP_702e:
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
 	pass
-
-##The Great Akazamzarak  ### OK ###
-BG_Hero5+=['TB_BaconShop_HERO_21','TB_BaconShop_HERO_21_Buddy','TB_BaconShop_HERO_21_Buddy_G','TB_BaconShop_HP_020',]
-BG_PoolSet_Hero5.append('TB_BaconShop_HERO_21')
-BG_Hero5_Buddy['TB_BaconShop_HERO_21']='TB_BaconShop_HERO_21_Buddy'
-BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_21_Buddy']='TB_BaconShop_HERO_21_Buddy_G'
-class TB_BaconShop_HERO_21:# <12>[1453]
-	""" The Great Akazamzarak """
-	pass
-class TB_BaconShop_HP_020:
-	"""  [Discover] a [Secret]. Put it into the battlefield."""
-	entourage=[
-		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
-		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',
-			#'TB_Bacon_Secrets_10',#'TB_Bacon_Secrets_11','TB_Bacon_Secrets_12',
-			#'TB_Bacon_Secrets_13',
-		]
-	activate=GenericChoiceSecret(CONTROLLER, RandomEntourage()*3)
-########  BUDDY
-class TB_BaconShop_HERO_21_Buddy:# <12>[1453]
-	""" Street Magician
-	[Deathrattle:] Put a random [Secret] into the battlefield. """
-	#
-	pass
-class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
-	""" Street Magician
-	[Deathrattle:] Put 2 random[Secrets] into the battlefield. """
-	#
-	pass
-
-
 
 
 

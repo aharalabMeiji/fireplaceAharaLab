@@ -37,7 +37,7 @@ BG_Hero1_Buddy_Gold={}
 
 ########### index 
 
-# A - D
+######HERO1
 
 ##A. F. Kay TB_BaconShop_HERO_16
 ##Al'Akir TB_BaconShop_HERO_76
@@ -57,6 +57,96 @@ BG_Hero1_Buddy_Gold={}
 ##Deathwing TB_BaconShop_HERO_52
 ##Dinotamer Brann TB_BaconShop_HERO_43
 ##Drek'Thar BG22_HERO_002
+
+######HERO2
+
+#  E - K
+## E.T.C., Band Manager BG25_HERO_105
+##Edwin VanCleef TB_BaconShop_HERO_01
+##Elise Starseeker TB_BaconShop_HERO_42
+##Enhance-o Mechano BG24_HERO_204 ## new 25.0
+##Forest Warden Omu TB_BaconShop_HERO_74
+##Fungalmancer Flurgl TB_BaconShop_HERO_55
+##Galakrond TB_BaconShop_HERO_02
+##Galewing BG20_HERO_283
+##George the Fallen TB_BaconShop_HERO_15
+##Greybough TB_BaconShop_HERO_95
+##Guff Runetotem  BG20_HERO_242
+##Heistbaron Togwaggle BG23_HERO_305
+##Illidan Stormrage  TB_BaconShop_HERO_08
+##Infinite Toki  TB_BaconShop_HERO_28
+##Ini Stormcoil BG22_HERO_200
+##Jandice Barov TB_BaconShop_HERO_71
+##Kael'thas Sunstrider  TB_BaconShop_HERO_60
+##King Mukla  TB_BaconShop_HERO_38
+##Kurtrus Ashfallen  BG20_HERO_280
+
+
+###### HERO3 ####### L - Q
+
+##Lady Vashj BG23_HERO_304
+##Lich Baz'hial TB_BaconShop_HERO_25
+##Lord Barov TB_BaconShop_HERO_72 
+##Lord Jaraxxus TB_BaconShop_HERO_37
+##Maiev Shadowsong TB_BaconShop_HERO_62
+##Malygos TB_BaconShop_HERO_58
+##Master Nguyen BG20_HERO_202 
+##Millhouse Manastorm TB_BaconShop_HERO_49
+##Millificent Manastorm TB_BaconShop_HERO_17
+##Mr. Bigglesworth TB_BaconShop_HERO_70 
+##Murloc Holmes BG23_HERO_303 
+##Mutanus the Devourer BG20_HERO_301
+##N'Zoth TB_BaconShop_HERO_93
+##Nozdormu TB_BaconShop_HERO_57
+##Onyxia BG22_HERO_305
+##Overlord Saurfang BG20_HERO_102
+##Ozumat BG23_HERO_201 
+##Patches the Pirate TB_BaconShop_HERO_18
+##Patchwerk TB_BaconShop_HERO_34
+##Professor Putricide BG25_HERO_100
+##Pyramad TB_BaconShop_HERO_39
+##Queen Axshara BG22_HERO_007
+##Queen Wagtoggle  TB_BaconShop_HERO_14
+
+
+######  HERO4 ## R - S
+	
+##Ragnaros the Firelord TB_BaconShop_HERO_11	
+##Rakanishu TB_BaconShop_HERO_75
+##Reno Jackson TB_BaconShop_HERO_41
+##Rokara BG20_HERO_100 
+##Scabbs Cutterbutter BG21_HERO_010
+##Shudderwock TB_BaconShop_HERO_23
+##Silas Darkmoon TB_BaconShop_HERO_90
+##Sindragosa TB_BaconShop_HERO_27
+##Sir Finley Mrrgglton TB_BaconShop_HERO_40
+##Sire Denathrius  BG24_HERO_100 #####difficult##### banned 
+##Skycap'n Kragg TB_BaconShop_HERO_68
+##Sneed BG21_HERO_030
+##Sylvanas Windrunner BG23_HERO_306
+
+
+###### HERO5 ## T-Z
+
+##Tamsin Roame BG20_HERO_282
+##Tavish Stormpike BG22_HERO_000
+##Teron Gorefiend BG25_HERO_103
+##Tess Greymane TB_BaconShop_HERO_50
+##The Curator TB_BaconShop_HERO_33		
+##The Great Akazamzarak TB_BaconShop_HERO_21
+##The Jailer TB_BaconShop_HERO_702 ## new 24.6 
+##The Lich King TB_BaconShop_HERO_22
+##The Rat King TB_BaconShop_HERO_12	
+##Tickatus TB_BaconShop_HERO_94
+##Trade Prince Gallywix TB_BaconShop_HERO_10
+##Vanndar Stormpike BG22_HERO_003
+##Varden Dawngrasp BG22_HERO_004
+##Vol'jin BG20_HERO_201
+##Xyrella BG20_HERO_101
+##Y'Shaarj TB_BaconShop_HERO_92
+##Yogg-Saron, Hope's End TB_BaconShop_HERO_35
+##Ysera TB_BaconShop_HERO_53
+##Zephrys, the Great TB_BaconShop_HERO_91
 
 ########### source
 

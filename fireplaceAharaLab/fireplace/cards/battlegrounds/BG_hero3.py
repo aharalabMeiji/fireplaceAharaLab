@@ -1,30 +1,7 @@
 from ..utils import *
 import copy
 
-############# L - Q
 
-##Lady Vashj BG23_HERO_304
-##Lich Baz'hial TB_BaconShop_HERO_25
-##Lord Barov TB_BaconShop_HERO_72 
-##Lord Jaraxxus TB_BaconShop_HERO_37
-##Maiev Shadowsong TB_BaconShop_HERO_62
-##Malygos TB_BaconShop_HERO_58
-##Master Nguyen BG20_HERO_202 
-##Millhouse Manastorm TB_BaconShop_HERO_49
-##Millificent Manastorm TB_BaconShop_HERO_17
-##Mr. Bigglesworth TB_BaconShop_HERO_70 
-##Murloc Holmes BG23_HERO_303 
-##Mutanus the Devourer BG20_HERO_301
-##N'Zoth TB_BaconShop_HERO_93
-##Nozdormu TB_BaconShop_HERO_57
-##Onyxia BG22_HERO_305
-##Overlord Saurfang BG20_HERO_102
-##Ozumat BG23_HERO_201 
-##Patches the Pirate TB_BaconShop_HERO_18
-##Patchwerk TB_BaconShop_HERO_34
-##Pyramad TB_BaconShop_HERO_39
-##Queen Axshara BG22_HERO_007
-##Queen Wagtoggle  TB_BaconShop_HERO_14
 
 BG_Hero3=[]
 BG_PoolSet_Hero3=[]
@@ -899,6 +876,27 @@ class TB_BaconShop_HERO_34_Buddy_G:# <12>[1453]
 	#
 	pass
 
+
+##Professor Putricide BG25_HERO_100
+BG_Hero3 += ['BG25_HERO_100','BG25_HERO_100p','BG25_HERO_100_Buddy','BG25_HERO_100_Buddy_G','BG25_HERO_100pt',]# 
+BG_PoolSet_Hero3 +=['BG25_HERO_100',]#
+BG_Hero3_Buddy['BG25_HERO_100']='BG25_HERO_100_Buddy'#
+BG_Hero3_Buddy_Gold['BG25_HERO_100_Buddy']='BG25_HERO_100_Buddy_G'#
+class BG25_HERO_100:
+	""" Professor Putricide
+	"""
+class BG25_HERO_100p:
+	""" Build-An-Undead
+	[x]Craft a custom Undead. &lt;i&gt;(@ Creations left!)&lt;/i&gt;"""
+class BG25_HERO_100_Buddy:
+	""" Festergut
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random Undead Creation."""
+class BG25_HERO_100_Buddy_G:
+	""" Festergut
+	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Summon 2 random Undead Creations."""
+class BG25_HERO_100pt:
+	""" Putricide's Creation
+	"""
 
 
 ##Pyramad   ### maybe OK ###

@@ -6,31 +6,27 @@ BG_PoolSet_Hero2=[]
 BG_Hero2_Buddy={}
 BG_Hero2_Buddy_Gold={}
 
-############ index  #################################################
-
-#  E - K
-##Edwin VanCleef TB_BaconShop_HERO_01
-##Elise Starseeker TB_BaconShop_HERO_42
-##Enhance-o Mechano BG24_HERO_204 ## new 25.0
-##Forest Warden Omu TB_BaconShop_HERO_74
-##Fungalmancer Flurgl TB_BaconShop_HERO_55
-##Galakrond TB_BaconShop_HERO_02
-##Galewing BG20_HERO_283
-##George the Fallen TB_BaconShop_HERO_15
-##Greybough TB_BaconShop_HERO_95
-##Guff Runetotem  BG20_HERO_242
-##Heistbaron BG23_HERO_305
-##Illidan Stormrage  TB_BaconShop_HERO_08
-##Infinite Toki  TB_BaconShop_HERO_28
-##Ini Stormcoil ******************
-##Jandice Barov TB_BaconShop_HERO_71
-##Kael'thas Sunstrider  TB_BaconShop_HERO_60
-##King Mukla  TB_BaconShop_HERO_38
-##Kurtrus Ashfallen  BG20_HERO_280
 
 
-############ source ################################################
+############ source ############################
 
+## E.T.C., Band Manager BG25_HERO_105 ##
+BG_Hero2+=['BG25_HERO_105','BG25_HERO_105p','BG25_HERO_105_Buddy','BG25_HERO_105_Buddy_G']
+BG_PoolSet_Hero2+=['BG25_HERO_105']
+BG_Hero2_Buddy['BG25_HERO_105']='BG25_HERO_105_Buddy'
+BG_Hero2_Buddy_Gold['BG25_HERO_105_Buddy']='BG25_HERO_105_Buddy_G'
+class BG25_HERO_105:
+	"""E.T.C., Band Manager
+	"""
+class BG25_HERO_105p:###########################
+	""" Sign a New Artist
+	&lt;b&gt;Discover&lt;/b&gt; a Buddy. &lt;i&gt;(Unlocks at Tier 2.)&lt;/i&gt;"""
+class BG25_HERO_105_Buddy:#####################
+	""" Talent Scout
+	&lt;b&gt;Battlecry:&lt;/b&gt; Make a Buddy Golden."""
+class BG25_HERO_105_Buddy_G:#########################
+	""" Talent Scout
+	&lt;b&gt;Battlecry:&lt;/b&gt; Make a Buddy Golden."""
 
 
 ##Edwin VanCleef ### HP OK ###
@@ -597,8 +593,25 @@ class TB_BaconShop_HERO_28_Buddy_G:# <12>[1453]
 	pass
 
 
-
-
+##Ini Stormcoil BG22_HERO_200 ## once banned, renew 25.6
+BG_Hero2+=["BG22_HERO_200","BG22_HERO_200p","BG22_HERO_200_Buddy","BG22_HERO_200_Buddy_e","BG22_HERO_200_Buddy_G","BG22_HERO_200_Buddy_Ge"]
+BG_PoolSet_Hero2+=['BG22_HERO_200']
+BG_Hero2_Buddy['BG22_HERO_200']='BG22_HERO_200_Buddy'
+BG_Hero2_Buddy_Gold['BG22_HERO_200_Buddy']='BG22_HERO_200_Buddy_G'
+class BG22_HERO_200:
+	""" Ini Stormcoil
+	"""
+class BG22_HERO_200p:
+	""" MechGyver
+	[x]&lt;b&gt;Passive&lt;/b&gt; After 12 friendly minions die, get a random Mech.@[x]&lt;b&gt;Passive&lt;/b&gt; After 12 friendly minions die, get a random Mech. &lt;i&gt;({0} left.)&lt;/i&gt;"""
+class BG22_HERO_200_Buddy:
+	""" Sub Scrubber
+	After you play a Mech, gain +2/+2. """
+BG22_HERO_200_Buddy_e=buff(2,2)
+class BG22_HERO_200_Buddy_G:
+	""" Sub Scrubber
+	After you play a Mech, gain +4/+4."""
+BG22_HERO_200_Buddy_Ge=buff(4,4)
 
 ##Jandice Barov #### OK ####
 BG_Hero2+=['TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',]
