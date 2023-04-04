@@ -18,6 +18,7 @@ BG_Yrel=False##(2) new 23.6 ### banned 24.6
 
 BG_Arm_of_the_Empire=True##(3/4/4)
 BG_Bird_Buddy=True##(3/2/4)
+BG_Boulderfist_Ogre=True##(3/6/7)
 BG_Budding_Greenthumb=True##(3/1/4) banned 23.6 ## renew 25.2.2
 BG_Faceless_Disciple=True ## (3/6/4) new 24.6 ### OK ###
 BG_Houndmaster=False##(3/4/3) ### banned 25.6?
@@ -25,7 +26,6 @@ BG_Khadgar=False##(3) ## banned when?
 BG_Nightmare_Amalgam=False##(3) RENEW  23.2 ## banned 24.6
 BG_Shifter_Zerus=False##(3) new 23.6 banned 24.2 ## revive 24.6 ## banned when?
 BG_Soul_Juggler=True##(3/3/5)
-
 
 BG_Ball_of_Minions=True ##(4) new 24.6  ### OK ###
 BG_Champion_of_Y_Shaarj=False##(4)banned 23.6
@@ -528,6 +528,21 @@ class BG21_002_G:# <12>[1453]
 	pass
 BG21_002_Ge=buff(2,2)# <12>[1453]
 """ Well Fed,  +2/+2. """
+
+
+
+if BG_Boulderfist_Ogre:## Boulderfist Ogre(3/6/7) ### new 25.6
+	BG_Minion += ['BG_CS2_200','BG_CS2_200_G',]#	
+	BG_PoolSet_Minion[3].append('BG_CS2_200')
+	BG_Minion_Gold['BG_CS2_200']='BG_CS2_200_G'
+class BG_CS2_200:
+	""" Boulderfist Ogre
+	"""
+	pass
+class BG_CS2_200_G:
+	""" Boulderfist Ogre
+	"""
+	pass
 
 
 
