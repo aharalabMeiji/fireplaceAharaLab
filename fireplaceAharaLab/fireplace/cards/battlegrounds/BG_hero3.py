@@ -750,9 +750,11 @@ class BG20_HERO_102_Buddy_G:# <12>[1453]
 	pass
 
 
-## Ozumat ######### HP OK #########
-BG_Hero3 += ['BG23_HERO_201','BG23_HERO_201p','BG23_HERO_201pt',]# 
+## Ozumat ######### HP OK ######### need check buddy 23/4/5
+BG_Hero3 += ['BG23_HERO_201','BG23_HERO_201p','BG23_HERO_201pt','BG23_HERO_201_Buddy','BG23_HERO_201_Buddy_G']# 
 BG_PoolSet_Hero3 +=['BG23_HERO_201',]#
+BG_Hero3_Buddy['BG23_HERO_201']='BG23_HERO_201_Buddy'#
+BG_Hero3_Buddy_Gold['BG23_HERO_201_Buddy']='BG23_HERO_201_Buddy_G'#
 class BG23_HERO_201:
 	""" Ozumat
 	"""
@@ -786,17 +788,25 @@ class BG23_HERO_201pte:
 		GameTag.CARDNAME: "Ozumat's Tentacle",
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
-class BG23_HERO_201pt2:
-	pass
-class BG23_HERO_201pt3:
-	pass
-class BG23_HERO_201pt4:
-	pass
-class BG23_HERO_201pt5:
-	pass
-class BG23_HERO_201pt6:
-	pass
-
+###### Buddy ######
+class BG23_HERO_201_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		heropower=controller.hero.power
+		heropower.script_data_num_1 += 1
+class BG23_HERO_201_Buddy:
+	""" Tamuzo
+	&lt;b&gt;Avenge (2):&lt;/b&gt; Upgrade 'Tentacular' by +1/+1. """
+	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG23_HERO_201_Buddy_Action()]))
+class BG23_HERO_201_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		heropower=controller.hero.power
+		heropower.script_data_num_1 += 2
+class BG23_HERO_201_Buddy_G:
+	""" Tamuzo
+	&lt;b&gt;Avenge (2):&lt;/b&gt; Upgrade 'Tentacular' by +2/+2. """
+	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG23_HERO_201_Buddy_G_Action()]))
 
 
 

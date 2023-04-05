@@ -1609,8 +1609,24 @@ class Hit(TargetedAction):
 							if hasattr(buff, 'honorable_kill'):
 								actions = buff.get_actions('honorable_kill')
 								source.game.trigger(source, actions, event_args=event_args)
-			return source.game.queue_actions(source, [Predamage(target, amount)])[0][0]
+			ret = source.game.queue_actions(source, [Predamage(target, amount)])
+			#self.broadcast(source, EventListener.AFTER, target, amount)
+			return ret[0][0]
 		return 0
+
+class ActivateHit(Hit):
+	"""
+	HeroPower hits character targets by an amount.
+	"""
+	TARGET = ActionArg()
+	AMOUNT = ActionArg()
+
+	def do(self, source, target, amount):
+		self.broadcast(source, EventListener.ON, target, amount)
+		ret = super().do(source, target, amount)
+		self.broadcast(source, EventListener.AFTER, target, amount)
+		return ret
+
 
 class Honorable_kill(TargetedAction):
 	TARGET=ActionArg()

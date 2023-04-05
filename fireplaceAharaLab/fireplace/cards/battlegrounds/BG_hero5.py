@@ -9,8 +9,8 @@ BG_Hero5_Buddy_Gold={}
 
 ######## source #################################################################
 
-##Tamsin Roame ### OK ###
-BG_Hero5+=['BG20_HERO_282','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G','BG20_HERO_282p','BG20_HERO_282pe',]
+##Tamsin Roame ### OK ### need check 23/4/5
+BG_Hero5+=['BG20_HERO_282','BG20_HERO_282p','BG20_HERO_282pe','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G',]
 BG_PoolSet_Hero5.append('BG20_HERO_282')
 BG_Hero5_Buddy['BG20_HERO_282']='BG20_HERO_282_Buddy'
 BG_Hero5_Buddy_Gold['BG20_HERO_282_Buddy']='BG20_HERO_282_Buddy_G'
@@ -53,24 +53,40 @@ class BG20_HERO_282pe:# <12>[1453]
 	Increased stats. """
 	pass
 ######## BUDDY
+class BG20_HERO_282_Buddy_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		atk=target.atk
+		hlt=target.max_health
+		Buff(source, 'BG20_HERO_282_Buddye', atk=atk, max_health=hlt).trigger(source.controller)
 class BG20_HERO_282_Buddy:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack. """
+	events = Death(FRIENDLY + MINION).after(BG20_HERO_282_Buddy_Action(Death.ENTITY))
 	pass
 class BG20_HERO_282_Buddye:# <12>[1453]
 	""" Consumed
 	Increased Attack. """
+class BG20_HERO_282_Buddy_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		atk=target.atk*2
+		hlt=target.max_health*2
+		Buff(source, 'BG20_HERO_282_Buddye', atk=atk, max_health=hlt).trigger(source.controller)
 class BG20_HERO_282_Buddy_G:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack twice. """
+	events = Death(FRIENDLY + MINION).after(BG20_HERO_282_Buddy_G_Action(Death.ENTITY))
 	pass
 
 
 
 
 
-###Tavish Stormpike ### OK ###
-BG_Hero5+=['BG22_HERO_000','BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G','BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',]
+###Tavish Stormpike ### OK ### need chekc buddy 23/4/5
+BG_Hero5+=['BG22_HERO_000',
+		'BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',
+		'BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G',]
 BG_PoolSet_Hero5.append('BG22_HERO_000')
 BG_Hero5_Buddy['BG22_HERO_000']='BG22_HERO_000_Buddy'
 BG_Hero5_Buddy_Gold['BG22_HERO_000_Buddy']='BG22_HERO_000_Buddy'
@@ -96,7 +112,7 @@ class  BG22_HERO_000p_t1_Action(GameAction):
 		targetcard=field[0]
 		amount=source.script_data_num_1
 		print("Aim Left! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
-		Hit(targetcard, amount).trigger(source)
+		ActivateHit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t1:# <12>[1453]
 	""" Aim Left!
 	[PassiveStart of Combat]: Deal@ damage to the left-most enemy minion. """
@@ -122,7 +138,7 @@ class  BG22_HERO_000p_t2_Action(GameAction):
 		targetcard = random.choice(targets)
 		amount=source.script_data_num_1
 		print("Aim Low! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
-		Hit(targetcard, amount).trigger(source)
+		ActivateHit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t2:# <12>[1453]
 	""" Aim Low!
 	[PassiveStart of Combat]: Deal@ damage to the lowest Health enemy minion. """
@@ -148,7 +164,7 @@ class  BG22_HERO_000p_t3_Action(GameAction):
 		targetcard = random.choice(targets)
 		amount=source.script_data_num_1
 		print("Aim High! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
-		Hit(targetcard, amount).trigger(source)
+		ActivateHit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t3:# <12>[1453]
 	""" Aim High!
 	[Passive Start of Combat]: Deal@ damage to the highestHealth enemy minion. """
@@ -166,7 +182,7 @@ class  BG22_HERO_000p_t4_Action(GameAction):
 		targetcard=field[-1]
 		amount=source.script_data_num_1
 		print("Aim Right! by Tavish Stormpike(%d damage to %s)"%(amount, targetcard))
-		Hit(targetcard, amount).trigger(source)
+		ActivateHit(targetcard, amount).trigger(source)
 class BG22_HERO_000p_t4:# <12>[1453]
 	""" Aim Right!
 	[Passive Start of Combat]: Deal@ damage to the right-most enemy minion. """
@@ -176,17 +192,37 @@ class BG22_HERO_000p_t4:# <12>[1453]
 		]		
 	pass
 ######## BUDDY
+class BG22_HERO_000_Buddy_Action(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
+		index = source.controller.field(source)
+		if index>0:
+			Buff(source.controller.field[index-1], 'BG22_HERO_000_Buddy_e', atk=amount, max_health=amount).trigger(source)
+		if index<len(source.controller.field)-1:
+			Buff(source.controller.field[index+1], 'BG22_HERO_000_Buddy_e', atk=amount, max_health=amount).trigger(source)
 class BG22_HERO_000_Buddy:# <12>[1453]
 	""" Crabby
 	After your Hero Power fires,give adjacent minions stats__equal to the damage dealt._ """
+	events = ActivateHit(ENEMY + MINION).after(BG22_HERO_000_Buddy_Action(ActivateHit.TARGET, ActivateHit.AMOUNT))
 	pass
 class BG22_HERO_000_Buddy_e:# <12>[1453]
 	""" Crabby
 	Increased stats. """
 	pass
+class BG22_HERO_000_Buddy_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	AMOUNT=IntArg()
+	def do(self, source, target, amount):
+		index = source.controller.field(source)
+		if index>0:
+			Buff(source.controller.field[index-1], 'BG22_HERO_000_Buddy_e', atk=amount*2, max_health=amount*2).trigger(source)
+		if index<len(source.controller.field)-1:
+			Buff(source.controller.field[index+1], 'BG22_HERO_000_Buddy_e', atk=amount*2, max_health=amount*2).trigger(source)
 class BG22_HERO_000_Buddy_G:# <12>[1453]
 	""" Crabby
 	After your Hero Power fires, give adjacent minions stats equal to twice the damage dealt. """
+	events = ActivateHit(ENEMY + MINION).after(BG22_HERO_000_Buddy_G_Action(ActivateHit.TARGET, ActivateHit.AMOUNT))
 	pass
 
 
