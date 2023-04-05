@@ -200,7 +200,7 @@ class BG25_HERO_103:
 	"""
 class BG25_HERO_103p:
 	""" Rapid Reanimation
-	[x]Choose a friendly minion. &lt;b&gt;Start of Combat:&lt;/b&gt; Destroy it. Once you have space, ___resummon an exact copy."""
+	[x]Choose a friendly minion. [Start of Combat:] Destroy it. Once you have space, ___resummon an exact copy."""
 class BG25_HERO_103_Buddy:
 	""" Shadowy Construct
 	[x]After a friendly minion dies, give its neighbors +1/+1."""
