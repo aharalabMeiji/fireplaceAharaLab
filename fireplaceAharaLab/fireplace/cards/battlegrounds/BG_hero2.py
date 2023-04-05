@@ -20,13 +20,13 @@ class BG25_HERO_105:
 	"""
 class BG25_HERO_105p:###########################
 	""" Sign a New Artist
-	&lt;b&gt;Discover&lt;/b&gt; a Buddy. &lt;i&gt;(Unlocks at Tier 2.)&lt;/i&gt;"""
+	[Discover] a Buddy. &lt;i&gt;(Unlocks at Tier 2.)&lt;/i&gt;"""
 class BG25_HERO_105_Buddy:#####################
 	""" Talent Scout
-	&lt;b&gt;Battlecry:&lt;/b&gt; Make a Buddy Golden."""
+	[Battlecry:] Make a Buddy Golden."""
 class BG25_HERO_105_Buddy_G:#########################
 	""" Talent Scout
-	&lt;b&gt;Battlecry:&lt;/b&gt; Make a Buddy Golden."""
+	[Battlecry:] Make a Buddy Golden."""
 
 
 ##Edwin VanCleef ### HP OK ###
@@ -603,7 +603,7 @@ class BG22_HERO_200:
 	"""
 class BG22_HERO_200p:
 	""" MechGyver
-	[x]&lt;b&gt;Passive&lt;/b&gt; After 12 friendly minions die, get a random Mech.@[x]&lt;b&gt;Passive&lt;/b&gt; After 12 friendly minions die, get a random Mech. &lt;i&gt;({0} left.)&lt;/i&gt;"""
+	[x][Passive] After 12 friendly minions die, get a random Mech.@[x][Passive] After 12 friendly minions die, get a random Mech. &lt;i&gt;({0} left.)&lt;/i&gt;"""
 class BG22_HERO_200_Buddy:
 	""" Sub Scrubber
 	After you play a Mech, gain +2/+2. """

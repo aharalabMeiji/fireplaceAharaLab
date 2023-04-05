@@ -285,10 +285,10 @@ if BG_PoeticPenPal:## Poetic Pen Pal (BG25_105)(2/2/4) new 25.6
 	BG_Minion_Gold['BG25_105']='BG25_105_G'
 class BG25_105:##########################################
 	""" Poetic Pen Pal (2/2/4)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of your next Buddy by (2)."""
+	[Battlecry:] Reduce the Cost of your next Buddy by (2)."""
 class BG25_105_G:
 	""" Poetic Pen Pal (2/4/8)
-	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of your next Buddy by (4)."""
+	[Battlecry:] Reduce the Cost of your next Buddy by (4)."""
 
 
 if BG_Prophet_of_the_Boar:#(BG20_203)Prophet of the Boar	2	3	3

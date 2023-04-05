@@ -150,7 +150,7 @@ BG_Hero1_Buddy_Gold={}
 
 ########### source
 
-##A. F. Kay   ### OK ###
+##A. F. Kay   ### visually check 23/4/5 ###
 BG_Hero1 += ['TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',]#00#A. F. Kay 
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_16',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_16']='TB_BaconShop_HERO_16_Buddy'
@@ -174,16 +174,30 @@ class TB_BaconShop_HP_044:#<12>[1453]
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_044_Action())
 	pass
 ### buddy ###
+class TB_BaconShop_HERO_16_Buddy_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		cards = [card for card in controller.field if card.tech_level==3]
+		if len(cards):
+			for card in cards:
+				Buff(card, 'TB_BaconShop_HERO_16_Buddy_e').trigger(controller)
 class TB_BaconShop_HERO_16_Buddy:# <12>[1453] #########################
 	""" Snack Vendor
-	At the end of your turn, give your Tavern Tier 3 minions +1/+2. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + TIER3, 'TB_BaconShop_HERO_16_Buddy_e'))
+	At the end of your turn, give your Tavern Tier 3 minions +1/+2."""
+	events = OWN_TURN_END.on(TB_BaconShop_HERO_16_Buddy_Action())
 	pass
 TB_BaconShop_HERO_16_Buddy_e=buff(1,2)# <12>[1453] """ Snack-Filled +1/+2. """
+class TB_BaconShop_HERO_16_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		cards = [card for card in controller.field if card.tech_level==3]
+		if len(cards):
+			for card in cards:
+				Buff(card, 'TB_BaconShop_HERO_16_Buddy_G_e').trigger(controller)
 class TB_BaconShop_HERO_16_Buddy_G:# <12>[1453]##########################
 	""" Snack Vendor
 	At the end of your turn, give your Tavern Tier 3 minions +2/+4. """
-	events = OWN_TURN_END.on(Buff(FRIENDLY_MINIONS + TIER3, 'TB_BaconShop_HERO_16_Buddy_G_e'))
+	events = OWN_TURN_END.on(TB_BaconShop_HERO_16_Buddy_G_Action())
 	pass
 TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453] """ Snack-Filled +2/+4. """
 
@@ -191,7 +205,7 @@ TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453] """ Snack-Filled +2/+4. """
 
 
 
-##Al'Akir  ### OK ###
+##Al'Akir  ### OK ### visually check 23/4/5
 BG_Hero1 += ['TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',]#01#Al'Akir
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_76',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_76_Buddy'
@@ -212,46 +226,57 @@ class TB_BaconShop_HP_086:
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_086_Action())
 	pass
 ### buddy ###
-class TB_BaconShop_HP_086_BuddyAction(TargetedAction):
-	TARGET = ActionArg()# target
-	def do(self, source, target):
-		if not isinstance(target,list):
-			target = [target]
-		for card in target:
-			card.windfury=1
-			card.divine_shield=True
-			card.taunt=True
+class TB_BaconShop_HP_086_BuddyAction(GameAction):
+	def do(self, source):
+		controller=source.controller
+		card = random.choice(controller.field)
+		card.windfury=1
+		card.divine_shield=True
+		card.taunt=True
 class TB_BaconShop_HERO_76_Buddy:######################################
 	"""Spirit of Air
-	[Deathrattle:] Give a random friendly minion [Windfury],___[Divine Shield], and [Taunt].___"""
-	deathrattle = TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION)
+	[Deathrattle:] Give a random friendly minion [Windfury],___[Divine Shield], and [Taunt].___
+	"""
+	deathrattle = TB_BaconShop_HP_086_BuddyAction()
 	pass
 class TB_BaconShop_HERO_76_Buddy_e:# <12>[1453]
 	""" Blessing of Air,[Windfury], [Divine Shield], and [Taunt]. """
+class TB_BaconShop_HP_086_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[]
+		if len(controller.field)==1 or len(controller.field)==2:
+			cards=controller.field
+		elif len(controller.field)>=3:
+			cards=random.sample(controller.field, 2)
+		for card in cards:
+			card.windfury=1
+			card.divine_shield=True
+			card.taunt=True
 class TB_BaconShop_HERO_76_Buddy_G:
 	""" Spirit of Air
 	[Deathrattle:] Give 2 random friendly minions [Windfury],[Divine Shield], and [Taunt]."""
-	deathrattle =  TB_BaconShop_HP_086_BuddyAction(RANDOM_FRIENDLY_MINION) * 2
+	deathrattle =  TB_BaconShop_HP_086_Buddy_G_Action()
 	pass
 
 
-##Alexstrasza   ### OK ###
-BG_Hero1 += ['TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy',]#02#Alexstrasza]
+##Alexstrasza   ### OK ### visually check 23/4/5
+BG_Hero1 += ['TB_BaconShop_HERO_56','TB_BaconShop_HP_064','TB_BaconShop_HERO_56_Buddy','TB_BaconShop_HERO_56_Buddy_G']#02#Alexstrasza]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_56',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_56']='TB_BaconShop_HERO_56_Buddy'
 BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_56_Buddy']='TB_BaconShop_HERO_56_Buddy_G'
 class TB_BaconShop_HERO_56:# <12>[1453]
 	""" Alexstrasza	"""
-class TB_BaconShop_HP_064_Action(TargetedAction):
+class TB_BaconShop_HP_064_Action(GameAction):
 	TARGET = ActionArg()
-	def do(self, source, target):
-		controller = target
-		if target.tavern_tier==5:
+	def do(self, source):
+		controller=source.controller
+		if controller.tavern_tier==5:
 			DiscoverTwice(controller, RandomBGDragon()*3).trigger(source)
 class TB_BaconShop_HP_064:
 	""" Queen of Dragons
 	[Passive]After you upgrade Bob's Tavern to Tavern Tier 5,_[Discover] two Dragons."""
-	events = UpgradeTier(CONTROLLER).on(TB_BaconShop_HP_064_Action(UpgradeTier.TARGET))
+	events = UpgradeTier(CONTROLLER).on(TB_BaconShop_HP_064_Action())
 	pass
 class TB_BaconShop_HERO_56_Buddy:
 	""" Vaelastrasz
@@ -263,7 +288,8 @@ class TB_BaconShop_HERO_56_Buddy_G:
 	play = Give(CONTROLLER, RandomBGDragon(tech_level=TIER(CONTROLLER))) * 2
 
 
-##Ambassador Faelin ### OK ###
+
+##Ambassador Faelin ### OK ### visually check 23/4/5
 BG_Hero1 += ['BG22_HERO_201','BG22_HERO_201p','BG22_HERO_201pe','BG22_HERO_201_Buddy','BG22_HERO_201_Buddy_G',]#03#Ambassador Faelin]
 BG_PoolSet_Hero1 +=['BG22_HERO_201',]
 BG_Hero1_Buddy['BG22_HERO_201']='BG22_HERO_201_Buddy'
@@ -330,6 +356,7 @@ class BG22_HERO_201pe:# <12>[1453]
 	#play = SetAttr(OWNER, 'cant_play', True)
 	events = UpgradeTier(CONTROLLER).on(BG22_HERO_201pe_Action(OWNER, Destroy(SELF)))
 	pass
+###### buddy ######
 class BG22_HERO_201_Buddy:# <12>[1453]
 	""" Submersible Chef
 	[Battlecry:] Add a random Tier 1, 3, and 5 minion to your hand. """
@@ -351,7 +378,8 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 	pass
 
 
-##Aranna Starseeker # アランナ ### OK ###
+
+##Aranna Starseeker # アランナ ### OK ### visually check 23/4/5
 BG_Hero1 += ['TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',]#04#Aranna Starseeker]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_59',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_59']='TB_BaconShop_HERO_59_Buddy'
@@ -361,8 +389,7 @@ class TB_BaconShop_HERO_59:# <12>[1453]
 	"""
 class TB_BaconShop_HP_065:
 	""" Demon Hunter Training
-	[Passive] After you [Refresh] 5 times, Bob always has 7 minions.
-<i>(@ left!)</i>"""
+	[Passive] After you [Refresh] 5 times, Bob always has 7 minions.<i>(@ left!)</i>"""
 	events = Rerole(CONTROLLER).on(SidequestCounter(SELF, 5, \
 		[ ChangeHeroPower(CONTROLLER, 'TB_BaconShop_HP_065t2'),\
 		SetAttr(CONTROLLER, 'len_bobs_field', 7)]\
@@ -370,6 +397,9 @@ class TB_BaconShop_HP_065:
 	pass
 class TB_BaconShop_HP_065pe:
 	"""  Aranna Watcher
+	"""
+class TB_BaconShop_HERO_59t:# <12>[1453]
+	""" Aranna, Unleashed ヒロパ交代後のヒーロー
 	"""
 class TB_BaconShop_HP_065t2:### 条件が満たされるとヒロパが交代になる
 	""" Spectral Sight
@@ -383,10 +413,6 @@ class TB_BaconShop_HERO_59_Buddy_G:# <12>[1453]
 	""" Sklibb, Demon Hunter
 	After you play a minion, your next two [Refreshes] cost (0). """
 	events = BG_Play(CONTROLLER, MINION).after(GetFreeRerole(CONTROLLER) * 2)
-	pass
-class TB_BaconShop_HERO_59t:# <12>[1453]
-	""" Aranna, Unleashed ヒロパ交代後のヒーロー
-	"""
 	pass
 
 

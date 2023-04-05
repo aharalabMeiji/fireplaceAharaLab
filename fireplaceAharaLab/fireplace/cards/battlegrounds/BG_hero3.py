@@ -900,10 +900,10 @@ class BG25_HERO_100p:
 	[x]Craft a custom Undead. &lt;i&gt;(@ Creations left!)&lt;/i&gt;"""
 class BG25_HERO_100_Buddy:
 	""" Festergut
-	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon a random Undead Creation."""
+	[Deathrattle:] Summon a random Undead Creation."""
 class BG25_HERO_100_Buddy_G:
 	""" Festergut
-	[x]&lt;b&gt;Deathrattle:&lt;/b&gt; Summon 2 random Undead Creations."""
+	[x][Deathrattle:] Summon 2 random Undead Creations."""
 class BG25_HERO_100pt:
 	""" Putricide's Creation
 	"""
@@ -1030,13 +1030,13 @@ TB_BaconShop_HP_037te=buff(1,1)
 class TB_BaconShop_HERO_14_Buddy:# <12>[1453]################################
 	""" Elder Taggawag
 	Whenever you play a minionof a type you don't control,trigger your Hero Power.<i>(@ left this turn.)</i> #old buddy
-	&lt;b&gt;Battlecry:&lt;/b&gt; Gain 1 Gold for each minion type you control. """
+	[Battlecry:] Gain 1 Gold for each minion type you control. """
 	#
 	pass
 class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]###################################
 	""" Elder Taggawag
 	Whenever you play a minionof a type you don't control,trigger your Hero Power__twice. <i>(@ left this turn.)</i> ## old buddy
-	&lt;b&gt;Battlecry:&lt;/b&gt; Gain 2 Gold for each minion type you control."""
+	[Battlecry:] Gain 2 Gold for each minion type you control."""
 	#
 	pass
 
