@@ -1012,7 +1012,10 @@ TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
 ##Dinotamer Brann   ### HP OK ###
-BG_Hero1 += ['TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e','TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',]#16#Dinotamer Brann]
+BG_Hero1 += [
+	'TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e',
+	'TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',
+	]#16#Dinotamer Brann]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_43',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_43']='TB_BaconShop_HERO_43_Buddy'
 BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_43_Buddy']='TB_BaconShop_HERO_43_Buddy_G'
@@ -1052,8 +1055,11 @@ class TB_BaconShop_HERO_43_Buddy_G:# <12>[1453]
 	pass
 
 
-##Drek'Thar #BG22_HERO_002   ### HP OK ###
-BG_Hero1+=['BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe','BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e','BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge']
+##Drek'Thar #BG22_HERO_002   ### HP OK ### visually checked 23/4/6
+BG_Hero1+=['BG22_HERO_002','BG22_HERO_002p','BG22_HERO_002pe',
+		'BG22_HERO_002_Buddy','BG22_HERO_002_Buddy_e',
+		'BG22_HERO_002_Buddy_G','BG22_HERO_002_Buddy_Ge'
+		]
 BG_PoolSet_Hero1+=['BG22_HERO_002']
 BG_Hero1_Buddy['BG22_HERO_002']='BG22_HERO_002_Buddy'
 BG_Hero1_Buddy_Gold['BG22_HERO_002_Buddy']='BG22_HERO_002_Buddy_G'
@@ -1069,12 +1075,9 @@ class BG22_HERO_002p_Action(TargetedAction):
 			if highest_atk <card.atk:
 				highest_atk = card.atk
 		Buff(target, buff, atk=highest_atk-target.atk).trigger(controller)
-class BG22_HERO_002p_Action2(TargetedAction):
-	PLAYER=ActionArg()
-	def do(self, source, player):
-		controller=player
-		if controller!=source.controller:
-			controller=source.controller
+class BG22_HERO_002p_Action2(GameAction):
+	def do(self, source):
+		controller=source.controller
 		cards = [card for card in controller.field if card.type==CardType.MINION]
 		for card in cards:
 			BuffPermanently(card, 'BG22_HERO_002pe').trigger(source)
@@ -1082,7 +1085,7 @@ class BG22_HERO_002p_Action2(TargetedAction):
 class BG22_HERO_002p:# <12>[1453]
 	""" Lead the Frostwolves
 	[Passive] [Avenge (3):] Give your minions +1 Attack permanently.""" ### new 24.2
-	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 3, [BG22_HERO_002p_Action2(CONTROLLER)]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 3, [BG22_HERO_002p_Action2()]))
 	##Choose a friendly minion.It copies the Attack of your highest Attack minion for next combat only. (until 23.4.3)
 	##Choose a minion. It copies the Attack of the highest Attack minion until next turn.(until 24.0.3)
 	#requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, 
@@ -1104,6 +1107,7 @@ class BG22_HERO_002pe3:# <12>[1453]
 	""" Modified Attack Next Combat Only
 	Attack is increased or decreased for next combat only. """
 	pass
+###### Buddy ######
 class BG22_HERO_002_Buddy:# <12>[1453]
 	""" Frostwolf Lieutenant
 	[Avenge (2):] Give your minions +1 Attack permanently. """
