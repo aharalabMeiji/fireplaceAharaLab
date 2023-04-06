@@ -1,5 +1,6 @@
 from ..utils import *
 import copy
+from fireplace.battlegrounds import BG_utils
 
 
 
@@ -996,7 +997,7 @@ class BG22_HERO_007t:
 	pass
 
 
-##Queen Wagtoggle ### HP OK ### 
+##Queen Wagtoggle ### HP OK ### need check buddy 23/4/6
 BG_Hero3 += ['TB_BaconShop_HERO_14','TB_BaconShop_HP_037a','TB_BaconShop_HP_037te','TB_BaconShop_HERO_14_Buddy','TB_BaconShop_HERO_14_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_14',]#
 BG_Hero3_Buddy['TB_BaconShop_HERO_14']='TB_BaconShop_HERO_14_Buddy'#
@@ -1027,12 +1028,28 @@ class TB_BaconShop_HP_037a:
 	activate = TB_BaconShop_HP_037a_Action()
 TB_BaconShop_HP_037te=buff(1,1)
 ######## BUDDY
+class TB_BaconShop_HERO_14_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		count=0
+		races=BG_utils.getRacesInCards(controller.field)
+		count=len(races)
+		for repeat in range(count):
+			Give(controller, 'GAME_005').trigger(source)
 class TB_BaconShop_HERO_14_Buddy:# <12>[1453]################################
 	""" Elder Taggawag
 	Whenever you play a minionof a type you don't control,trigger your Hero Power.<i>(@ left this turn.)</i> #old buddy
 	[Battlecry:] Gain 1 Gold for each minion type you control. """
-	#
+	play = TB_BaconShop_HERO_14_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_14_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		count=0
+		races=BG_utils.getRacesInCards(controller.field)
+		count=len(races)*2
+		for repeat in range(count):
+			Give(controller, 'GAME_005').trigger(source)
 class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]###################################
 	""" Elder Taggawag
 	Whenever you play a minionof a type you don't control,trigger your Hero Power__twice. <i>(@ left this turn.)</i> ## old buddy

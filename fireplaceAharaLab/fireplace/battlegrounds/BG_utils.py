@@ -1,4 +1,3 @@
-from re import I
 from fireplace import cards
 from fireplace.game import Game
 from fireplace.card import Card
@@ -832,6 +831,31 @@ def GetMoveCandidates(bar, controller, bartender):
 	ret.append(Move(bar, None, MovePlay.FREEZE, 0))
 	return ret
 
+def getRacesInCards(cards):
+	for card in cards:
+		count=[]
+		tech_level=card.tech_level
+		if card.id in cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[tech_level]:
+			count.append[Race.BEAST]
+		if card.id in cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[tech_level]:
+			count.append[Race.DEMON]
+		if card.id in cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[tech_level]:
+			count.append[Race.DRAGON]
+		if card.id in cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[tech_level]:
+			count.append[Race.ELEMENTAL]
+		if card.id in cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[tech_level]:
+			count.append[Race.MECHANICAL]
+		if card.id in cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[tech_level]:
+			count.append[Race.MURLOC]
+		if card.id in cards.battlegrounds.BG_minion_naga.BG_PoolSet_Naga[tech_level]:
+			count.append[Race.NAGA]
+		if card.id in cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[tech_level]:
+			count.append[Race.PIRATE]
+		if card.id in cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[tech_level]:
+			count.append[Race.QUILBOAR]
+		if card.id in cards.battlegrounds.BG_minion_undead.BG_PoolSet_Undead[tech_level]:
+			count.append[Race.UNDEAD]
+	return count
 
 
 
