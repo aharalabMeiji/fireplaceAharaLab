@@ -962,8 +962,10 @@ class TB_BaconShop_HERO_39_Buddy_G:# <12>[1453]
 
 
 ## Queen Axshara #### HP OK ####
-BG_Hero3+=['BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t',]#
+BG_Hero3+=['BG22_HERO_007','BG22_HERO_007p','BG22_HERO_007p2','BG22_HERO_007t','BG22_HERO_007_Buddy', 'BG22_HERO_007_Buddy_G',]#
 BG_PoolSet_Hero3.append('BG22_HERO_007')
+BG_Hero3_Buddy['BG22_HERO_007']='BG22_HERO_007_Buddy'#
+BG_Hero3_Buddy_Gold['BG22_HERO_007_Buddy']='BG22_HERO_007_Buddy_G'#
 class BG22_HERO_007:
 	""" Queen Axshara 	"""
 class BG22_HERO_007p_Action(GameAction):
@@ -995,6 +997,19 @@ class BG22_HERO_007t:
 	""" Naga Queen Azshara
 	"""
 	pass
+##### Buddy ######
+class BG22_HERO_007_Buddy_Action(TargetedAction):
+	CARD=ActionArg()
+	TARGET=ActionArg()
+	def do(self, source, card, target)
+class BG22_HERO_007_Buddy:
+	""" Imperial Defender
+	Whenever you cast a &lt;b&gt;Spellcraft&lt;/b&gt; spell on a _different minion, you also cast it on this."""
+	events = Spellcraft(CONTROLLER).on(BG22_HERO_007_Buddy_Action(Spellcraft.SPELLCARD,Spellcraft.TARGET))
+class BG22_HERO_007_Buddy_G:
+	""" Imperial Defender
+	Whenever you cast a &lt;b&gt;Spellcraft&lt;/b&gt; spell on a _different minion, you also cast it on this twice."""
+
 
 
 ##Queen Wagtoggle ### HP OK ### need check buddy 23/4/6
@@ -1054,7 +1069,7 @@ class TB_BaconShop_HERO_14_Buddy_G:# <12>[1453]#################################
 	""" Elder Taggawag
 	Whenever you play a minionof a type you don't control,trigger your Hero Power__twice. <i>(@ left this turn.)</i> ## old buddy
 	[Battlecry:] Gain 2 Gold for each minion type you control."""
-	#
+	play = TB_BaconShop_HERO_14_Buddy_G_Action()
 	pass
 
 

@@ -3873,9 +3873,10 @@ class Spellcraft(TargetedAction):
 class SpellcraftSpell(TargetedAction):
 	CONTROLLER = ActionArg()
 	SPELLCARD = ActionArg()
-	def do(self, source, controller, spellcard):
-		self.broadcast(source, EventListener.ON, controller, spellcard)
-		self.broadcast(source, EventListener.AFTER, controller, spellcard)
+	TARGET = ActionArg()
+	def do(self, source, controller, spellcard, target=None):
+		self.broadcast(source, EventListener.ON, controller, spellcard, target)
+		self.broadcast(source, EventListener.AFTER, controller, spellcard, target)
 		pass
 
 class StealGem(TargetedAction):

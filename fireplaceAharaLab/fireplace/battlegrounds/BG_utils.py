@@ -836,25 +836,35 @@ def getRacesInCards(cards):
 		count=[]
 		tech_level=card.tech_level
 		if card.id in cards.battlegrounds.BG_minion_beast.BG_PoolSet_Beast[tech_level]:
-			count.append[Race.BEAST]
+			if not Race.BEAST in count:
+				count.append[Race.BEAST]
 		if card.id in cards.battlegrounds.BG_minion_demon.BG_PoolSet_Demon[tech_level]:
-			count.append[Race.DEMON]
+			if not Race.DEMON in count:
+				count.append[Race.DEMON]
 		if card.id in cards.battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[tech_level]:
-			count.append[Race.DRAGON]
+			if not Race.DRAGON in count:
+				count.append[Race.DRAGON]
 		if card.id in cards.battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[tech_level]:
-			count.append[Race.ELEMENTAL]
+			if not Race.ELEMENTAL in count:
+				count.append[Race.ELEMENTAL]
 		if card.id in cards.battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[tech_level]:
-			count.append[Race.MECHANICAL]
+			if not Race.MECHANICAL in count:
+				count.append[Race.MECHANICAL]
 		if card.id in cards.battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[tech_level]:
-			count.append[Race.MURLOC]
+			if not Race.MURLOC in count:
+				count.append[Race.MURLOC]
 		if card.id in cards.battlegrounds.BG_minion_naga.BG_PoolSet_Naga[tech_level]:
-			count.append[Race.NAGA]
+			if not Race.NAGA in count:
+				count.append[Race.NAGA]
 		if card.id in cards.battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[tech_level]:
-			count.append[Race.PIRATE]
+			if not Race.PIRATE in count:
+				count.append[Race.PIRATE]
 		if card.id in cards.battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[tech_level]:
-			count.append[Race.QUILBOAR]
+			if not Race.QUILBOAR in count:
+				count.append[Race.QUILBOAR]
 		if card.id in cards.battlegrounds.BG_minion_undead.BG_PoolSet_Undead[tech_level]:
-			count.append[Race.UNDEAD]
+			if not Race.UNDEAD in count:
+				count.append[Race.UNDEAD]
 	return count
 
 

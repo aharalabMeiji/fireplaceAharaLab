@@ -141,7 +141,7 @@ class BG23_004e:
 	pass
 class BG23_004t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_004e')	
+	play = SpellcraftSpell(CONTROLLER, 'BG23_004e', TARGET),Buff(TARGET, 'BG23_004e'), 
 	tags = {GameTag.TECH_LEVEL:2}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
