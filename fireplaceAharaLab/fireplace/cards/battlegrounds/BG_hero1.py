@@ -766,7 +766,11 @@ class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 
 
 ##Cariel Roame ### OK ###
-BG_Hero1 += ['BG21_HERO_000','BG21_HERO_000e','BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3','BG21_HERO_000_Buddy','BG21_HERO_000_Buddy_e','BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_G_e',]#10#Cariel Roame]
+BG_Hero1 += [
+	'BG21_HERO_000','BG21_HERO_000e',
+	'BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3',
+	'BG21_HERO_000_Buddy','BG21_HERO_000_Buddyt','BG21_HERO_000_Buddyt2',
+	'BG21_HERO_000_Buddy_G','BG21_HERO_000_Buddy_Gt','BG21_HERO_000_Buddyt_Gt2']#10#Cariel Roame]
 BG_PoolSet_Hero1 +=['BG21_HERO_000',]
 BG_Hero1_Buddy['BG21_HERO_000']='BG21_HERO_000_Buddy'
 BG_Hero1_Buddy_Gold['BG21_HERO_000_Buddy']='BG21_HERO_000_Buddy_G'
@@ -821,17 +825,24 @@ class BG21_HERO_000p3:
 ######## BUDDY
 class BG21_HERO_000_Buddy:# <12>[1453]
 	""" Captain Fairmount
-	At the end of your turn, give five random friendly minions +1/+1. """
-	events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_e', 5))
+	&lt;b&gt;Choose One&lt;/b&gt; - 'Conviction' gives an additional +2 Attack for the rest of the game; or +2 Health."""
+	### At the end of your turn, give five random friendly minions +1/+1. ### old
+	###events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_e', 5))
 	pass
-BG21_HERO_000_Buddy_e=buff(1,1)
+class BG21_HERO_000_Buddyt:
+	pass
+class BG21_HERO_000_Buddyt2:
+	pass
 class BG21_HERO_000_Buddy_G:# <12>[1453]
 	""" Captain Fairmount
-	At the end of your turn, give five random friendly minions +2/+2. """
-	events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_G_e', 5))
+	&lt;b&gt;Choose One&lt;/b&gt; - 'Conviction' gives an additional +4 Attack for the rest of the game; or +4 Health."""
+	###At the end of your turn, give five random friendly minions +2/+2. 
+	###events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_G_e', 5))
 	pass
-BG21_HERO_000_Buddy_G_e=buff(2,2)
-
+class BG21_HERO_000_Buddy_Gt:
+	pass
+class BG21_HERO_000_Buddy_Gt2:
+	pass
 
 
 ##Chenvaala ### HP OK ###

@@ -76,8 +76,8 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
 ##Lord Barov  #### impossible ###
 BG_Hero3+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
 BG_PoolSet_Hero3+=['TB_BaconShop_HERO_72']
-##BG_Hero3_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
-##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
+BG_Hero3_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_72_Buddy']='TB_BaconShop_HERO_72_Buddy_G'
 class TB_BaconShop_HERO_72:# <12>[1453]
 	""" Lord Barov	 """
 class TB_BaconShop_HP_081_Choice(Choice):
@@ -1001,11 +1001,12 @@ class BG22_HERO_007t:
 class BG22_HERO_007_Buddy_Action(TargetedAction):
 	CARD=ActionArg()
 	TARGET=ActionArg()
-	def do(self, source, card, target)
+	def do(self, source, buff, target):
+		pass
 class BG22_HERO_007_Buddy:
 	""" Imperial Defender
 	Whenever you cast a &lt;b&gt;Spellcraft&lt;/b&gt; spell on a _different minion, you also cast it on this."""
-	events = Spellcraft(CONTROLLER).on(BG22_HERO_007_Buddy_Action(Spellcraft.SPELLCARD,Spellcraft.TARGET))
+	events = Spellcraft(FRIENDLY + MINION - SELF).on(BG22_HERO_007_Buddy_Action(Spellcraft.SPELLCARD,Spellcraft.TARGET))
 class BG22_HERO_007_Buddy_G:
 	""" Imperial Defender
 	Whenever you cast a &lt;b&gt;Spellcraft&lt;/b&gt; spell on a _different minion, you also cast it on this twice."""

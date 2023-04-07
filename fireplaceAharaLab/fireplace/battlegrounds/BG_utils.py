@@ -5,7 +5,7 @@ from fireplace.actions import *
 from fireplace.player import Player
 from fireplace.dsl import random_picker
 import random
-from hearthstone.enums import Zone, State, Race
+from hearthstone.enums import Zone, State, Race, GameTag
 
 
 from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
@@ -184,10 +184,11 @@ class BG_main:
 			bar = BG_Bar(thePlayer)
 			bar.BG_setup()
 			bar.player1 = bar.current_player = bar.controller
-			theBuddyId = self.BG_Hero_Buddy[theHero]
-			theBuddyTaverntier = cards.db[theBuddyId].tavern_tier
-			bar.player1.buddy_gauge=theBuddyTaverntier*2+11
-			bar.player1.got_buddy = 0
+			if Config.NEW_BUDDY_SYSTEM:
+				bar.player1.buddy_id = self.BG_Hero_Buddy[theHero]
+				bar.player1.buddy_taver_tier = cards.db[bar.player1.buddy_id].tags[GameTag.TECH_LEVEL]
+				bar.player1.buddy_gauge=bar.player1.buddy_taver_tier*2+11
+				bar.player1.got_buddy = 0
 			bar.player2 = bar.bartender
 			bar.turn=1
 			bar.parent = self
@@ -781,7 +782,7 @@ def GetMoveCandidates(bar, controller, bartender):
 			ret.append(Move(bar, card, MovePlay.BUY))
 	#BUY_BUDDY=11
 	if controller.mana>=controller.buddy_gauge and controller.got_buddy<2:
-		ret.append(Move(bar, card, MovePlay.BUY_BUDDY))
+		ret.append(Move(bar, controller.buddy_id, MovePlay.BUY_BUDDY))
 	#PLAY=1
 	for card in controller.hand:
 		if card.type==CardType.MINION:

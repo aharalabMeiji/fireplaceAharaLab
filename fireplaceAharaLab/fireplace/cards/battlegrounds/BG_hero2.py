@@ -142,8 +142,12 @@ TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
 
 
 ##Enhance-o Mechano BG24_HERO_204 ## new 25.0
-BG_Hero2+=['BG24_HERO_204','BG24_HERO_204p']
+BG_Hero2+=[
+	'BG24_HERO_204','BG24_HERO_204p',
+	'BG24_HERO_204_Buddy','BG24_HERO_204_Buddye2','BG24_HERO_204_Buddy_G']
 BG_PoolSet_Hero2+=['BG24_HERO_204']
+BG_Hero2_Buddy['BG24_HERO_204']='BG24_HERO_204_Buddy'
+BG_Hero2_Buddy_Gold['BG24_HERO_204_Buddy']='BG24_HERO_204_Buddy_G'
 class BG24_HERO_204:
 	""" Enhance-o Mechano """
 class BG24_HERO_204p_Action(GameAction):
@@ -167,7 +171,11 @@ class BG24_HERO_204p:
 	""" Enhancification
 	[x][Passive.] After each [Refresh], give a minion in Bob's Tavern [Taunt], [Windfury], _[Reborn], or [Divine Shield]."""
 	events = Rerole(CONTROLLER).after(BG24_HERO_204p_Action())
-
+###### Buddy ######
+class BG24_HERO_204_Buddy:
+	pass
+class BG24_HERO_204_Buddy_G:
+	pass
 
 ##Forest Warden Omu #### HP OK ###
 BG_Hero2+=['TB_BaconShop_HERO_74','TB_BaconShop_HP_082','TB_BaconShop_HERO_74_Buddy','TB_BaconShop_HERO_74_Buddy_e','TB_BaconShop_HERO_74_Buddy_G',]
@@ -266,10 +274,14 @@ class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 
 
 ##Galewing   ### HP OK ###
-BG_Hero2+=['BG20_HERO_283','BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3','BG20_HERO_283_Buddy','BG20_HERO_283_Buddy_e','BG20_HERO_283_Buddy_G','BG20_HERO_283_Buddy_G_e',]
+BG_Hero2+=[
+	'BG20_HERO_283',
+	'BG20_HERO_283p','BG20_HERO_283p_t1','BG20_HERO_283p_t1e','BG20_HERO_283p_t2','BG20_HERO_283p_t3',
+	'BG20_HERO_283_Buddy',
+	'BG20_HERO_283_Buddy_G',]
 BG_PoolSet_Hero2+=['BG20_HERO_283']
-##BG_Hero2_Buddy['BG20_HERO_283']='BG20_HERO_283_Buddy'
-##BG_Hero2_Buddy_Gold['BG20_HERO_283_Buddy']='BG20_HERO_283_Buddy_G'
+BG_Hero2_Buddy['BG20_HERO_283']='BG20_HERO_283_Buddy'
+BG_Hero2_Buddy_Gold['BG20_HERO_283_Buddy']='BG20_HERO_283_Buddy_G'
 class BG20_HERO_283:# <12>[1453]
 	""" Galewing """
 class BG20_HERO_283p_Choice(Choice):
@@ -339,22 +351,14 @@ class BG20_HERO_283p_t3:# <12>[1453]
 ######## BUDDY
 class BG20_HERO_283_Buddy:# <12>[1453]
 	""" Flight Trainer
-	At the end of your turn, progress your flight path by_1 turn. """
-	#
-	pass
-class BG20_HERO_283_Buddy_e:# <12>[1453]
-	""" Flight Trainer
-	1 turn less. """
+	Your flightpaths trigger twice."""
+	### At the end of your turn, progress your flight path by_1 turn. ### old one
 	#
 	pass
 class BG20_HERO_283_Buddy_G:# <12>[1453]
 	""" Flight Trainer
-	At the end of your turn, progress your flightpath by_2 turns. """
-	#
-	pass
-class BG20_HERO_283_Buddy_G_e:# <12>[1453]
-	""" Flight Trainer
-	2 turns less. """
+	Your flightpaths trigger three times."""
+	### At the end of your turn, progress your flightpath by_2 turns. ### old one
 	#
 	pass
 

@@ -49,7 +49,7 @@ class BG23_000t:
 	""" Mini-Trident
 	Give a minion +2_Attack until next turn."""
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_000e')
+	play = SpellcraftSpell(TARGET, 'BG23_000e')
 	tags = {GameTag.TECH_LEVEL:1}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
@@ -69,7 +69,7 @@ class BG23_000_Ge:
 class BG23_000_Gt:
 	""" """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_000_Ge')
+	play = SpellcraftSpell(TARGET, 'BG23_000_Ge')
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 
@@ -141,7 +141,7 @@ class BG23_004e:
 	pass
 class BG23_004t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = SpellcraftSpell(CONTROLLER, 'BG23_004e', TARGET),Buff(TARGET, 'BG23_004e'), 
+	play = SpellcraftSpell(TARGET, 'BG23_004e'), 
 	tags = {GameTag.TECH_LEVEL:2}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
@@ -159,7 +159,7 @@ class BG23_004_Ge:
 	pass
 class BG23_004_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_004_Ge')	
+	play = SpellcraftSpell(TARGET, 'BG23_004_Ge')	
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
 	pass
@@ -172,7 +172,7 @@ if BG_Lava_Lurker:#(2/2/5)
 	BG_Naga_Gold['BG23_009']='BG23_009_G'
 class BG23_009_Action(TargetedAction):
 	BUFF=ActionArg()
-	AMOUNT=ActionArg()
+	AMOUNT=IntArg()
 	def do(self, source, buff, amount):
 		if hasattr(buff.source,'spellcraft_spellcard'):
 			if source.script_data_num_1<amount:
@@ -186,7 +186,7 @@ class BG23_009:# <12>[1453]
 	The first [Spellcraft] spellcast on this each turn is permanent. """
 	## Only in this case, Buff.on activates for spellcraft spellcasts. 
 	events = [
-		Buff(SELF).on(BG23_009_Action(Buff.BUFF, 1)),
+		SpellcraftSpell(SELF).on(BG23_009_Action(SpellcraftSpell.SPELLCARD, 1)),
 		BeginBar(CONTROLLER).on(BG23_009_Action2())
 	]
 	pass
@@ -194,7 +194,7 @@ class BG23_009_G:# <12>[1453]
 	""" Lava Lurker
 	The first 2 [Spellcraft] spellscast on this each turnare permanent. """
 	events = [
-		Buff(SELF).on(BG23_009_Action(Buff.BUFF, 2)),
+		SpellcraftSpell(SELF).on(BG23_009_Action(SpellcraftSpell.SPELLCARD, 2)),
 		BeginBar(CONTROLLER).on(BG23_009_Action2())
 	]
 	pass
@@ -335,7 +335,7 @@ class BG23_011e:
 	pass
 class BG23_011t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_011e') * Count(FRIENDLY_MINIONS + NAGA)		
+	play = SpellcraftSpell(TARGET, 'BG23_011e') * Count(FRIENDLY_MINIONS + NAGA)		
 	tags = {GameTag.TECH_LEVEL:3}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
@@ -353,7 +353,7 @@ class BG23_011_Ge:
 	pass
 class BG23_011_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_011_Ge') * Count(FRIENDLY_MINIONS + NAGA)	
+	play = SpellcraftSpell(TARGET, 'BG23_011_Ge') * Count(FRIENDLY_MINIONS + NAGA)	
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))	
 	pass
@@ -379,7 +379,7 @@ class BG23_006e:
 	pass
 class BG23_006t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_006e')	
+	play = SpellcraftSpell(TARGET, 'BG23_006e')	
 	tags = {GameTag.TECH_LEVEL:4}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
@@ -397,7 +397,7 @@ class BG23_006_Ge:
 	pass
 class BG23_006_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_006_Ge')	
+	play = SpellcraftSpell(TARGET, 'BG23_006_Ge')	
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
@@ -424,7 +424,7 @@ class BG23_007e:
 	pass
 class BG23_007t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_007e')	
+	play = SpellcraftSpell(TARGET, 'BG23_007e')	
 	tags = {GameTag.TECH_LEVEL:4}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
@@ -444,7 +444,7 @@ class BG23_007_Ge:
 	pass
 class BG23_007_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_007_Ge')	
+	play = SpellcraftSpell(TARGET, 'BG23_007_Ge')	
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
@@ -531,7 +531,7 @@ class BG23_008e:
 	pass
 class BG23_008t:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_008e')	
+	play = SpellcraftSpell(TARGET, 'BG23_008e')	
 	tags = {GameTag.TECH_LEVEL:5}
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
@@ -551,7 +551,7 @@ class BG23_008_Ge:
 	pass
 class BG23_008_Gt:
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	play = Buff(TARGET, 'BG23_008_Ge')	
+	play = SpellcraftSpell(TARGET, 'BG23_008_Ge')	
 	class Hand:
 		events = EndTurn(CONTROLLER).on(Destroy(SELF))
 	pass
@@ -663,7 +663,7 @@ class BG25_044t:# (spell)
 	Make a friendly Pirate or Naga Golden until next turn <i>(except Greta Gold-Gun)</i>. """
 	requirements={PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0,
 			   PlayReq.REQ_TARGET_WITH_RACE:2392}## Race.NAGA or Race.PIRATE
-	play = Buff(TARGET, 'BG25_044e2')
+	play = SpellcraftSpell(TARGET, 'BG25_044e2')
 	tags = {GameTag.TECH_LEVEL:6}
 	pass
 

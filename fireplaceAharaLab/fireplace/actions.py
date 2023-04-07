@@ -755,8 +755,6 @@ class BG_Play(GameAction):
 		if card.type in (CardType.MINION, CardType.WEAPON):
 			self.queue_broadcast(summon_action, (player, EventListener.ON, player, card))
 		self.broadcast(player, EventListener.ON, player, card, target)
-		#if hasattr(card,'spellcraft_spellcard'):
-		#	self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.ON, player, card))
 		for value in player.game.parent.BG_Gold.values():
 			if card.id==value:
 				triple_bonus = Give(player, 'TB_BaconShop_Triples_01').trigger(source)
@@ -777,8 +775,6 @@ class BG_Play(GameAction):
 			if played_card.type in (CardType.MINION, CardType.WEAPON):
 				summon_action.broadcast(player, EventListener.AFTER, player, played_card)
 			self.broadcast(player, EventListener.AFTER, player, played_card, target)
-			#if hasattr(card,'spellcraft_spellcard'):
-			#	self.queue_broadcast(SpellcraftSpell(player, card), (player, EventListener.AFTER, player, card))
 		player.combo = True
 		player.last_card_played = card
 		#player.cards_played_this_turn += 1
@@ -3871,12 +3867,14 @@ class Spellcraft(TargetedAction):
 		pass
 
 class SpellcraftSpell(TargetedAction):
-	CONTROLLER = ActionArg()
-	SPELLCARD = ActionArg()
 	TARGET = ActionArg()
-	def do(self, source, controller, spellcard, target=None):
-		self.broadcast(source, EventListener.ON, controller, spellcard, target)
-		self.broadcast(source, EventListener.AFTER, controller, spellcard, target)
+	SPELLCARD = ActionArg()
+	def do(self, source, target, spellcard):
+		controller=source.controller
+		if target!=None and target.this_is_minion:
+			self.broadcast(source, EventListener.ON, controller, spellcard, target)
+			Buff(target, spellcard).trigger(controller)
+			self.broadcast(source, EventListener.AFTER, controller, spellcard, target)
 		pass
 
 class StealGem(TargetedAction):
