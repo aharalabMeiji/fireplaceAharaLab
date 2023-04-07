@@ -49,9 +49,10 @@ class BG_Battle(Game):
 		#set their opponents
 		self.player1.opponent=self.player2
 		self.player2.opponent=self.player1
-		# move buddy gauges
-		self.player1.buddy_gauge += (len(self.player1.field)*2+2)
-		self.player2.buddy_gauge += (len(self.player2.field)*2+2)
+		if Config.BUDDY_SYSTEM:
+			# move buddy gauges
+			self.player1.buddy_gauge += (len(self.player1.field)*2+2)
+			self.player2.buddy_gauge += (len(self.player2.field)*2+2)
 		#determing first and second （if they have the same num of cards, random dice will be used.）
 		#self.first  #self.second 
 		if len(self.player1.field)>len(self.player2.field):
@@ -154,9 +155,9 @@ class BG_Battle(Game):
 		if len(self.first.field)==0 and len(self.second.field)==0:
 			#move buddy gauge
 			if Config.NEW_BUDDY_SYSTEM:
-				self.player1.buddy_gauge = min(self.player1.buddy_gauge-3, 0)
-				self.player2.buddy_gauge = min(self.player2.buddy_gauge-3, 0)
-			if Config.BUDDY_SYSTEM:
+				self.player1.buddy_gauge = max(self.player1.buddy_gauge-3, 0)
+				self.player2.buddy_gauge = max(self.player2.buddy_gauge-3, 0)
+			elif Config.BUDDY_SYSTEM:
 				self.player1.buddy_gauge += 1
 				self.player2.buddy_gauge += 1
 			ret = 0,0,self.player1.buddy_gauge,self.player2.buddy_gauge
@@ -173,9 +174,9 @@ class BG_Battle(Game):
 					damage += card.cost# or 1?
 			# return the damages for heroes
 			if Config.NEW_BUDDY_SYSTEM:
-				self.player1.buddy_gauge = min(self.player1.buddy_gauge-2, 0)
-				self.player2.buddy_gauge = min(self.player2.buddy_gauge-3, 0)
-			if Config.BUDDY_SYSTEM:
+				self.player1.buddy_gauge = max(self.player1.buddy_gauge-2, 0)
+				self.player2.buddy_gauge = max(self.player2.buddy_gauge-3, 0)
+			elif Config.BUDDY_SYSTEM:
 				self.player1.buddy_gauge += (damage)
 				self.player1.buddy_gauge += 3
 			ret = damage, 0,self.player1.buddy_gauge,self.player2.buddy_gauge
@@ -192,9 +193,9 @@ class BG_Battle(Game):
 					damage += card.cost# or 1?
 			# return the damages for heroes
 			if Config.NEW_BUDDY_SYSTEM:
-				self.player1.buddy_gauge = min(self.player1.buddy_gauge-3, 0)
-				self.player2.buddy_gauge = min(self.player2.buddy_gauge-2, 0)
-			if Config.BUDDY_SYSTEM:
+				self.player1.buddy_gauge = max(self.player1.buddy_gauge-3, 0)
+				self.player2.buddy_gauge = max(self.player2.buddy_gauge-2, 0)
+			elif Config.BUDDY_SYSTEM:
 				self.player2.buddy_gauge += (damage)
 				self.player2.buddy_gauge += 3
 			ret= 0, damage, self.player1.buddy_gauge, self.player2.buddy_gauge

@@ -96,6 +96,7 @@ class CardDB(dict):
 		else:
 			card.dormant = 0
 
+		card.tags[9090]=card.dbf_id
 
 		return card
 

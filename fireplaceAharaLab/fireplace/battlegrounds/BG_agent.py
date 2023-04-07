@@ -146,6 +146,10 @@ class BG_HumanAgent(BG_Agent):
 				self.inputCandidates.append(count)
 				self.moveDict[count]=move
 				count += 1
+			if move.move==MovePlay.BUY_BUDDY:
+				self.printMove(count, move)
+				self.inputCandidates.append(count)
+				self.moveDict[count]=move
 		count=20
 		for move in candidates:
 			if move.move==MovePlay.SELL:
@@ -263,9 +267,6 @@ class BG_HumanAgent(BG_Agent):
 			print("グレード[%d], グレードアップコスト[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, controller.tavern_tierup_cost, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
 		else:
 			print("グレード[%d], リロールコスト[%d], ゴールド[%d/%d] ターン[%d]"%(controller.tavern_tier, bar.reroleCost, controller.mana, controller.max_mana, bar.turn))
-		buddy = controller.buddy_gauge
-		if buddy>100:
-			buddy = (buddy-100)*0.5
 		print("ヒーロー：%s(%d + %d)"%(controller.hero, controller.hero.health, controller.hero.armor))
 		if controller.hero.power.cant_play:
 			print("パワー ：%s(unplayable) : %s"%(controller.hero.power, modify_description(controller.hero.power,controller.hero.power.data.description)))
@@ -273,6 +274,12 @@ class BG_HumanAgent(BG_Agent):
 			print("パワー ：%s(cost %d) : %s"%(controller.hero.power, controller.hero.power.cost, modify_description(controller.hero.power,controller.hero.power.data.description)))
 		if controller.hero.power.id=='TB_BaconShop_HP_101':
 			print ("ダークムーンチケット (%d/3)"%(controller.hero.power.sidequest_counter))
+		if Config.BUDDY_SYSTEM: 
+			buddy = controller.buddy_gauge
+			if buddy>100:
+				buddy = (buddy-100)*0.5
+		elif Config.NEW_BUDDY_SYSTEM:
+			print("バディ ：%s(%d) : %s"%(cards.db[controller.buddy_id].name, controller.buddy_gauge, modify_description(cards.db[controller.buddy_id], cards.db[controller.buddy_id].description)))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar:(*%d)[%s]%s" %(card.tech_level, self.raceName[card.race], self.card_stats(card)))

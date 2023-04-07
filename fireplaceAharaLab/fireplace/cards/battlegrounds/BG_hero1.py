@@ -208,7 +208,7 @@ TB_BaconShop_HERO_16_Buddy_G_e=buff(2,4)# <12>[1453] """ Snack-Filled +2/+4. """
 ##Al'Akir  ### OK ### visually check 23/4/5
 BG_Hero1 += ['TB_BaconShop_HERO_76','TB_BaconShop_HP_086','TB_BaconShop_HERO_76_Buddy','TB_BaconShop_HERO_76_Buddy_e','TB_BaconShop_HERO_76_Buddy_G',]#01#Al'Akir
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_76',]
-BG_Hero1_Buddy['TB_BaconShop_HERO_16_Buddy']='TB_BaconShop_HERO_76_Buddy'
+BG_Hero1_Buddy['TB_BaconShop_HERO_76']='TB_BaconShop_HERO_76_Buddy'
 BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_76_Buddy']='TB_BaconShop_HERO_76_Buddy_G'
 class TB_BaconShop_HERO_76:# <12>[1453]
 	""" Al'Akir	 """

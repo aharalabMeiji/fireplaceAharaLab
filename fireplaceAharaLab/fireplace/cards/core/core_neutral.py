@@ -1116,7 +1116,7 @@ class CORE_UNG_928:# <12>[1637] ## visually OK
 	events = OWN_TURN_END.on(Buff(SELF, 'UNG_928e'))
 	pass
 @custom_card
-class UNG_928e:
+class WUNG_928e:
 	tags = {
 		GameTag.CARDNAME: "Tar Creeper",
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,

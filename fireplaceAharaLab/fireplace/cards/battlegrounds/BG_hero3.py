@@ -463,9 +463,11 @@ class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 
 from fireplace.cards import db
 
-## Murloc Holmes ###BG23_HERO_303## new 24.2 #### HP OK ##################
-BG_Hero3 += ['BG23_HERO_303','BG23_HERO_303p2','BG23_HERO_303pt']# 
+## Murloc Holmes ###BG23_HERO_303## new 24.2 #### HP OK #####        ###
+BG_Hero3 += ['BG23_HERO_303','BG23_HERO_303p2','BG23_HERO_303pt','BG23_HERO_303_Buddy','BG23_HERO_303_Buddy_G']# 
 BG_PoolSet_Hero3 +=['BG23_HERO_303',]#
+BG_Hero3_Buddy['BG23_HERO_303']='BG23_HERO_303_Buddy'#
+BG_Hero3_Buddy_Gold['BG23_HERO_303_Buddy']='BG23_HERO_303_Buddy_G'#
 class BG23_HERO_303:
 	""" Murloc Holmes
 	"""
@@ -503,6 +505,9 @@ class BG23_HERO_303p2:
 	pass
 class BG23_HERO_303pt:
 	pass
+###### Buddy ######
+
+
 
 
 
