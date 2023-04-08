@@ -353,8 +353,10 @@ class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
 
 
 ##The Jailer TB_BaconShop_HERO_702 ## new 24.6 ### OK ###
-BG_Hero5+=['TB_BaconShop_HERO_702','TB_BaconShop_HP_702',]
+BG_Hero5+=['TB_BaconShop_HERO_702','TB_BaconShop_HP_702','TB_BaconShop_HERO_702_Buddy','TB_BaconShop_HERO_22_Buddy_G']
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_702')
+BG_Hero5_Buddy['TB_BaconShop_HERO_702']='TB_BaconShop_HERO_702_Buddy'
+BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_22_Buddy']='TB_BaconShop_HERO_22_Buddy_G'
 class TB_BaconShop_HERO_702:
 	""" The Jailer """
 class TB_BaconShop_HP_702_Action1(TargetedAction):

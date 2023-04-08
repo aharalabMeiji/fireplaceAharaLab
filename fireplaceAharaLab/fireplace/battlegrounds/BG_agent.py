@@ -219,11 +219,16 @@ class BG_HumanAgent(BG_Agent):
 		print("HeroPower:%s"%(modify_description(hp,hp.description)))
 		## before 23.2 (with buddy)
 		if Config.BUDDY_SYSTEM or Config.NEW_BUDDY_SYSTEM:
-			if getattr(self.player, 'game', None)!=None:
-				gamemaster=self.player.game.parent
-				bdID=self.player.buddygamemaster.BG_Hero_Buddy[cardID]
-				bd=cards.db[bdID]
-				print("Buddy:%s"%(bd.description.replace('\n',' ')))
+			buddy_fid=card.tags.get(GameTag.BACON_COMPANION_ID, -1)
+			buddy_card=[c for c in cards.db.values() if c.tags.get(9090, None)==buddy_fid]
+			if len(buddy_card):
+				buddy=buddy_card[0]
+				print("Buddy:%s"%(modify_description(buddy,buddy.description)))
+			#if getattr(self.player, 'game', None)!=None:
+			#	gamemaster=self.player.game.parent
+			#	bdID=gamemaster.BG_Hero_Buddy[cardID]
+			#	bd=cards.db[bdID]
+			#	print("Buddy:%s"%(bd.description.replace('\n',' ')))
 		pass
 	def printMove(self, count, move):
 		print("[%d] %s"%(count, move))

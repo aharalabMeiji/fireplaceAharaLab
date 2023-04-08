@@ -727,7 +727,7 @@ class Move(object):
 			self.controller.used_mana += self.controller.buddy_gauge
 			newcard=Give(self.controller, card).trigger(self.controller)
 			newcard=get00(newcard)
-			self.controller.buddy_gauge=3##newcard.tech_level*2+11
+			self.controller.buddy_gauge=newcard.tech_level*2+11
 			self.controller.got_buddy=1
 		elif self.controller.got_buddy==1:
 			self.controller.used_mana += self.controller.buddy_gauge

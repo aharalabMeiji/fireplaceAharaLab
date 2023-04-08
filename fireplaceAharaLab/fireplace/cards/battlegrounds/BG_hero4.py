@@ -500,8 +500,10 @@ class BG21_HERO_030_Buddy_G:# <12>[1453]
 
 
 ##Sylvanas Windrunner    ### OK ### new 24.4
-BG_Hero4+=['BG23_HERO_306','BG23_HERO_306p','BG23_HERO_306e']
+BG_Hero4+=['BG23_HERO_306','BG23_HERO_306p','BG23_HERO_306e','BG23_HERO_306_Buddy','BG23_HERO_306_Buddy_G']
 BG_PoolSet_Hero4.append('BG23_HERO_306')
+BG_Hero4_Buddy['BG23_HERO_306']='BG23_HERO_306_Buddy'
+BG_Hero4_Buddy_Gold['BG23_HERO_306_Buddy']='BG23_HERO_306_Buddy_G'
 class BG23_HERO_306:
 	""" Sylvanas Windrunner """
 	pass

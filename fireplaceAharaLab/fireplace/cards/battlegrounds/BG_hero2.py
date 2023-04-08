@@ -480,8 +480,10 @@ class BG20_HERO_242_Buddy_G:
 
 
 ##Heistbaron Togwaggle ### new 24.2  ## visually OK ###
-BG_Hero2 += ['BG23_HERO_305','BG23_HERO_305p',]	 
+BG_Hero2 += ['BG23_HERO_305','BG23_HERO_305p','BG23_HERO_305_Buddy','BG23_HERO_305_Buddy_G']	 
 BG_PoolSet_Hero2.append('BG23_HERO_305') 
+BG_Hero2_Buddy['BG23_HERO_305']='BG23_HERO_305_Buddy'
+BG_Hero2_Buddy_Gold['BG23_HERO_305_Buddy']='BG23_HERO_305_Buddy_G'
 #81#Heistbaron Togwaggle ## 24.0
 class BG23_HERO_305:
 	""" Heistbaron Togwaggle """

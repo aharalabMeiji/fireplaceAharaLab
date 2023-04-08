@@ -379,7 +379,7 @@ class BG22_HERO_201_Buddy_G:# <12>[1453]
 
 
 
-##Aranna Starseeker # アランナ ### OK ### visually check 23/4/5
+##Aranna Starseeker # アランナ ### HP OK ### BUDDY OK ###
 BG_Hero1 += ['TB_BaconShop_HERO_59','TB_BaconShop_HP_065','TB_BaconShop_HP_065pe','TB_BaconShop_HP_065t2','TB_BaconShop_HERO_59_Buddy','TB_BaconShop_HERO_59_Buddy_G','TB_BaconShop_HERO_59t',]#04#Aranna Starseeker]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_59',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_59']='TB_BaconShop_HERO_59_Buddy'
@@ -474,8 +474,8 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 ###Bru'kan   ###### HP OK ############
 BG_Hero1 += ['BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',]#BG22_HERO_001#06#Bru'kan]
 BG_PoolSet_Hero1 +=['BG22_HERO_001',]
-#BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
-#BG_Hero1_Buddy_Gold['BG22_HERO_001_Buddy']='BG22_HERO_001_Buddy_G'
+BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
+BG_Hero1_Buddy_Gold['BG22_HERO_001_Buddy']='BG22_HERO_001_Buddy_G'
 class BG22_HERO_001:# <12>[1453]
 	""" Bru'kan 	"""
 class BG22_HERO_001p_Choice(Choice):
@@ -871,7 +871,7 @@ class TB_BaconShop_HERO_78_Buddy_G:
 
 ##Cookie the Cook  #### difficult ###  
 BG_Hero1 += ['BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',]#12#Cookie the Cook]
-#BG_PoolSet_Hero1 +=['BG21_HERO_020',]
+BG_PoolSet_Hero1 +=['BG21_HERO_020',]
 BG_Hero1_Buddy['BG21_HERO_020']='BG21_HERO_020_Buddy'
 BG_Hero1_Buddy_Gold['BG21_HERO_020_Buddy']='BG21_HERO_020_Buddy_G'
 class BG21_HERO_020:# <12>[1453]

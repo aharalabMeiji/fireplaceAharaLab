@@ -15,6 +15,8 @@ BG_Hero3_Buddy_Gold={}
 ##Lady Vashj ### HP OK ##
 BG_Hero3+=['BG23_HERO_304','BG23_HERO_304p', ]#
 BG_PoolSet_Hero3.append('BG23_HERO_304')
+BG_Hero3_Buddy['BG23_HERO_304']='BG23_HERO_304_Buddy'
+BG_Hero3_Buddy_Gold['BG23_HERO_304_Buddy']='BG23_HERO_304_Buddy_G'
 class BG23_HERO_304:
 	""" Lady Vashj """
 class BG23_HERO_304p_Action(TargetedAction):
@@ -276,8 +278,8 @@ class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 ##Master Nguyen ### same phenomena ###
 BG_Hero3 += ['BG20_HERO_202','BG20_HERO_202p','BG20_HERO_202pe','BG20_HERO_202pt','BG20_HERO_202_Buddy','BG20_HERO_202_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['BG20_HERO_202',]#
-##BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
-##BG_Hero3_Buddy_Gold['BG20_HERO_202_Buddy']='BG20_HERO_202_Buddy_G'#
+BG_Hero3_Buddy['BG20_HERO_202']='BG20_HERO_202_Buddy'#
+BG_Hero3_Buddy_Gold['BG20_HERO_202_Buddy']='BG20_HERO_202_Buddy_G'#
 class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
 class BG20_HERO_202p_Choice(Choice):
@@ -400,8 +402,8 @@ class TB_BaconShop_HERO_17_Buddy_G:
 ##Mr. Bigglesworth  ### OK ###
 BG_Hero3 += ['TB_BaconShop_HERO_70','TB_BaconShop_HP_080','TB_BaconShop_HERO_70_Buddy','TB_BaconShop_HERO_70_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_70',]#
-##BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
-##BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
+BG_Hero3_Buddy['TB_BaconShop_HERO_70']='TB_BaconShop_HERO_70_Buddy'#
+BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_70_Buddy']='TB_BaconShop_HERO_70_Buddy_G'#
 class TB_BaconShop_HERO_70:# <12>[1453]
 	""" Mr. Bigglesworth """
 class TB_BaconShop_HP_080_Choice(Choice):
