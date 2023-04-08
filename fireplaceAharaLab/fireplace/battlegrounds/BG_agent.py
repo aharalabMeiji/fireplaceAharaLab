@@ -279,7 +279,8 @@ class BG_HumanAgent(BG_Agent):
 			if buddy>100:
 				buddy = (buddy-100)*0.5
 		elif Config.NEW_BUDDY_SYSTEM:
-			print("バディ ：%s(%d) : %s"%(cards.db[controller.buddy_id].name, controller.buddy_gauge, modify_description(cards.db[controller.buddy_id], cards.db[controller.buddy_id].description)))
+			if controller.got_buddy<2:
+				print("バディ ：%s(%d) : %s"%(cards.db[controller.buddy_id].name, controller.buddy_gauge, modify_description(cards.db[controller.buddy_id], cards.db[controller.buddy_id].description)))
 		print("----------------------------------------------")
 		for card in bartender.field:
 			print("Bar:(*%d)[%s]%s" %(card.tech_level, self.raceName[card.race], self.card_stats(card)))

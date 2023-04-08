@@ -406,13 +406,15 @@ class TB_BaconShop_HP_065t2:### 条件が満たされるとヒロパが交代に
 	[Passive]Bob's Tavern refreshes with 7 minions."""
 class TB_BaconShop_HERO_59_Buddy:# <12>[1453]
 	""" Sklibb, Demon Hunter
-	After you play a minion,your next [Refresh] costs (0). """
-	events = BG_Play(CONTROLLER, MINION).on(GetFreeRerole(CONTROLLER))
+	After you buy a minion, your next &lt;b&gt;Refresh&lt;/b&gt; costs (0)."""
+	### After you play a minion,your next [Refresh] costs (0). ### old one -25.6
+	events = Buy(CONTROLLER, MINION).on(GetFreeRerole(CONTROLLER))
 	pass
 class TB_BaconShop_HERO_59_Buddy_G:# <12>[1453]
 	""" Sklibb, Demon Hunter
-	After you play a minion, your next two [Refreshes] cost (0). """
-	events = BG_Play(CONTROLLER, MINION).after(GetFreeRerole(CONTROLLER) * 2)
+	After you buy a minion, your next two &lt;b&gt;Refreshes&lt;/b&gt; cost (0)."""
+	### After you play a minion, your next two [Refreshes] cost (0). ### old one -25.6
+	events = Buy(CONTROLLER, MINION).after(GetFreeRerole(CONTROLLER), GetFreeRerole(CONTROLLER))
 	pass
 
 

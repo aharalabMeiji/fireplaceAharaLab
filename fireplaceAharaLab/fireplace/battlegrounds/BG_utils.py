@@ -1,19 +1,19 @@
 from fireplace import cards
-from fireplace.game import Game
-from fireplace.card import Card
-from fireplace.actions import *
+from fireplace.actions import BeginBar, BeginGame, BG_Play, Buff, Buy, CastSecret, EndTurn, EventListener, Give, LoseGame, Rerole, Sell, TieGame, UpgradeTier, WinGame
+#from fireplace.card import Card
+from fireplace.cards.utils import get00
+from fireplace.config import Config
 from fireplace.player import Player
 from fireplace.dsl import random_picker
+#from fireplace.game import Game
 import random
-from hearthstone.enums import Zone, State, Race, GameTag
-
+from hearthstone.enums import Zone, CardType, Race, GameTag
 
 from .BG_agent import BG_HumanAgent,BG_NecoAgent,BG_RandomAgent
 from .BG_bar import BG_Bar
 from .BG_battle import BG_Battle
 from .BG_enums import MovePlay
 
-from fireplace.config import Config
 
 BobsFieldSize={1:3, 2:4, 3:4, 4:5, 5:5, 6:6}
 
@@ -187,7 +187,7 @@ class BG_main:
 			if Config.NEW_BUDDY_SYSTEM:
 				bar.player1.buddy_id = self.BG_Hero_Buddy[theHero]
 				bar.player1.buddy_taver_tier = cards.db[bar.player1.buddy_id].tags[GameTag.TECH_LEVEL]
-				bar.player1.buddy_gauge=bar.player1.buddy_taver_tier*2+11
+				bar.player1.buddy_gauge=bar.player1.buddy_taver_tier*2+9
 				bar.player1.got_buddy = 0
 			bar.player2 = bar.bartender
 			bar.turn=1
@@ -625,7 +625,7 @@ class Move(object):
 		elif self.move==MovePlay.BUY:# 
 			return "%s を雇用する"%(self.target)
 		elif self.move==MovePlay.BUY_BUDDY:# 
-			return "バディ %s を雇用する"%(self.target)
+			return "バディ %s を雇用する"%(cards.db[self.target].name)
 		elif self.move==MovePlay.SELL:# 
 			return "%s を売る"%(self.target)
 		elif self.move==MovePlay.POWER:# 
@@ -724,14 +724,20 @@ class Move(object):
 
 	def buy_buddy(self, card):
 		if self.controller.got_buddy==0:
-			Buy(self.controller, card).trigger(self.controller)
-			self.controller.buddy_gauge=card.tavern_tier*2+11
+			self.controller.used_mana += self.controller.buddy_gauge
+			newcard=Give(self.controller, card).trigger(self.controller)
+			newcard=get00(newcard)
+			self.controller.buddy_gauge=3##newcard.tech_level*2+11
 			self.controller.got_buddy=1
 		elif self.controller.got_buddy==1:
-			Buy(self.controller, card).trigger(self.controller)
-			Buy(self.controller, card).trigger(self.controller)
-			self.controller.buddy_gauge=card.tavern_tier*2+13
+			self.controller.used_mana += self.controller.buddy_gauge
+			Give(self.controller, card).trigger(self.controller)
+			Give(self.controller, card).trigger(self.controller)
+			gold_card_id = self.controller.game.BG_find_triple()## judge a triple
+			if gold_card_id:
+				self.controller.game.BG_deal_gold(gold_card_id) ## deal a gold card
 			self.controller.got_buddy=2
+			self.controller.buddy_gauge=0
 	def sell(self, card):
 		Sell(self.controller, card).trigger(self.controller)
 

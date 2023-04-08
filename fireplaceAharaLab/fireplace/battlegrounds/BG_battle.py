@@ -131,7 +131,9 @@ class BG_Battle(Game):
 							elif attacker.controller.deepcopy_original.second_dead_minion==None:
 								attacker.controller.deepcopy_original.second_dead_minion=defender.id
 						if len(self.first.field)==0 or len(self.second.field)==0:
-							break;
+							break
+						if sum([card.atk for card in self.first.field])==0 and sum([card.atk for card in self.second.field])==0:
+							break
 						if attacker.zone==Zone.GRAVEYARD:
 							self.current_player.attacker_index-=1##adjustion
 							break;
@@ -152,7 +154,7 @@ class BG_Battle(Game):
 		EndBattle(self.first).trigger(player)
 		EndBattle(self.second).trigger(player)
 		# draw
-		if len(self.first.field)==0 and len(self.second.field)==0:
+		if (len(self.first.field)==0 and len(self.second.field)==0) or (sum([card.atk for card in self.first.field])==0 and sum([card.atk for card in self.second.field])==0):
 			#move buddy gauge
 			if Config.NEW_BUDDY_SYSTEM:
 				self.player1.buddy_gauge = max(self.player1.buddy_gauge-3, 0)
@@ -205,13 +207,13 @@ class BG_Battle(Game):
 		pass
 
 	def printField(self):
-		print("--------%s--------"%self.first.name)
+		print("========%s========"%self.first.name)
 		for card in self.first.field:
 			print("%s:%s"%(self.first.name, self.card_stats(card)))
 		print("--------%s--------"%self.second.name)
 		for card in self.second.field:
 			print("%s:%s"%(self.second.name, self.card_stats(card)))
-		print("--------[over]--------")
+		print("========[over]========")
 	
 	def card_stats(self, card):
 		ret = ' %s'%(card)
