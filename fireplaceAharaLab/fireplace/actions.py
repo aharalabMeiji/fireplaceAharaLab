@@ -3625,10 +3625,34 @@ class Buy(TargetedAction): ## battlegrounds
 	def do(self, source, target, card):
 		controller = target
 		minionprice = controller.game.minionCost
+
+
 		if controller.hero.power.id=='TB_BaconShop_HP_054':## Millhouse flag
 			minionprice = 2 ##maybe no need
 			controller.game.minionCost = 2
 		bartender = controller.opponent
+		if card.id in 'BG25_520_G' and controller.hero.health>minionprice:
+			for c in bartender.field:
+				if c==card:
+					#bartender.field.remove(c)
+					buffs=[]
+					for buff in card.buffs:
+						buffs.append(buff)
+					card.zone=Zone.SETASIDE
+					card.controller = controller
+					card.zone = Zone.HAND
+					for buff in buffs:
+						buff.apply(card)
+					card.frozen=False
+					controller.add_buy_log(card)
+					controller.game.refresh_auras()## refresh aura_buff
+					self.broadcast(source, EventListener.ON, controller, card)
+					self.broadcast(source, EventListener.AFTER, controller, card)
+					gold_card_id = controller.game.BG_find_triple()## トリプルを判定
+					if gold_card_id:
+						controller.game.BG_deal_gold(gold_card_id)
+					return
+			pass
 		if controller.mana>=minionprice:
 			for c in bartender.field:
 				if c==card:

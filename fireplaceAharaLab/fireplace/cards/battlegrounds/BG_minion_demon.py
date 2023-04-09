@@ -3,15 +3,16 @@ from ..utils import *
 BG_Icky_Imp=True ##(1) banned 24.2 ## renew 25.2.2
 BG24__Picky_Eater=True ## (1) new 24.2
 
+BG_Imprisoner=False ##(2)->(1)-> banned when? 
 BG_Impulsive_Trickster=True ##(1)->(2)
 BG_Mind_Muck=True #(2) new 24.2
-BG_Piggyback_Imp=True #(2) new 24.2
 BG_Nathrezim_Overseer=False ##(2) banned 24.2
-BG_Imprisoner=False ##(2)->(1)-> banned when? 
+BG_Piggyback_Imp=True #(2) new 24.2
 
-BG_Kathra_natir=True ##(3)
-BG_Legion_Overseer=True## (3) new 24.2 
 #BG_Felemental : -> ELEMENTAL
+BG_Kathra_natir=True ##(3)
+BG_Leeching_Felhound=True ## 3/3/3 new 25.6 #########
+BG_Legion_Overseer=True## (3) new 24.2 
 BG_Soul_Devourer=False ##(3) banned 24.2
 
 BG_Bigfernal=True ##(4)
@@ -23,8 +24,8 @@ BG_Voidlord=True ##(5)
 
 BG_Famished_Felbat=True ##(6)
 BG_Imp_Mama=False ##(6) ## banned? 25.2.2
-BG25__Mecha_Jaraxxus=True# 6/3/15 MECH/DEMON ## new 25.2.2
 BG25__Felstomper=True# 6/3/7 demon/beast ## new 25.2.2
+BG25__Mecha_Jaraxxus=True# 6/3/15 MECH/DEMON ## new 25.2.2
 
 
 BG_Minion_Demon =[]
@@ -230,6 +231,21 @@ class BG21_039_G:# <12>[1453]
 	update = Refresh(FRIENDLY + DEMON, buff='BG21_039_Ge'),Refresh(FRIENDLY_HERO, {GameTag.IMMUNE:True})
 	pass
 BG21_039_Ge=buff(4,0)
+
+
+## Leeching Felhound 3/3/3
+if BG_Leeching_Felhound: ## 3/3/3 new 25.6 #########
+	BG_Minion_Demon +=['BG25_520','BG25_520_G']
+	BG_PoolSet_Demon[3].append('BG25_520')
+	BG_Demon_Gold['BG25_520']='BG25_520_G'
+class BG25_520:
+	""" Leeching Felhound
+	This costs Health instead of Gold to buy."""
+class BG25_520_G:
+	""" Leeching Felhound
+	This costs Health instead of Gold to buy."""
+
+
 
 
 #### BG23_361 #####

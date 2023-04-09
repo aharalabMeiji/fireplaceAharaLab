@@ -1,28 +1,29 @@
 from ..utils import *
 
-BG_Red_Whelp=True ## ##(1)
-BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
 BG_Dozy_Whelp=True #(1) new 24.6 ### OK ###
+BG_Evolving_Chromawing=True##(1) banned 23.6, revive 24.0, revised 24.0.3
+BG_Red_Whelp=True ## ##(1)
 
-BG_Glyph_Guardian=True ## ##(2)
-BG_Twilight_Emissary=True ##(2)
+#BG_Blazing_Sklyfin=True ## (2/1/3) -> murloc
+BG_Glyph_Guardian=False ## ##(2) ###banned 25.?
 BG_Steward_of_Time=False ####(2) ##banned 24.2
+BG_Twilight_Emissary=True ##(2/3/3)
 
-BG24__Nether_Drake=True# (3) new 24.2 (2)->(3)
-BG_Bronze_Warden=True ##(3)
-BG_Tarecgosa=True ##(3)
 BG24__Amber_Guardian=True# (3) new 24.2
+BG_Bronze_Warden=True ##(3)
 BG_Drakonid_Enforcer=False ##(3) ## banned when?
+BG24__Nether_Drake=True# (3) new 24.2 (2)->(3)
 
-BG_Cobalt_Scalebane=False ##(4) banned 24.2
-BG_Prestor_s_Pyrospawn=False ## (4) banned
-BG_Prized_Promo_Drake=True ##(4)
 BG_Atramedes=True ## (4)  23.6 ##OK##
 BG25__Chronormu=True# 4/4/4 dragon ## 25.2.2
+BG_Cobalt_Scalebane=False ##(4) banned 24.2
 BG25__General_Drakkisath=True# 4/2/8 DRAGON ## new 25.2.2
+BG_Prestor_s_Pyrospawn=False ## (4) banned
+BG_Prized_Promo_Drake=True ##(4)
+BG_Tarecgosa=True ##(3)->(4)
 
 BG_Murozond=True ##(5)
-BG_Razorgore_the_Untamed=False ## (5) ## banned when?
+BG_Razorgore_the_Untamed=True ## (5) ## banned when? ## revive 25.?
 BG25__Cyborg_Drake=True# 5/2/8 dragon ## new 25.2.2
 
 BG_Kalecgos_Arcane_Aspect=True ## (6)
@@ -363,58 +364,6 @@ class BG21_014_G:# <12>[1453]
 
 
 
-#Tarecgosa(3)    ## OK ###
-if BG_Tarecgosa:
-	BG_Minion_Dragon+=['BG21_015','BG21_015_G']#
-	BG_PoolSet_Dragon[3].append('BG21_015')
-	BG_Dragon_Gold['BG21_015']='BG21_015_G' #	
-class BG21_015_Action0(TargetedAction):
-	TARGET = ActionArg()# self
-	def do(self, source, target):
-		target.sidequest_list0 = [] 
-class BG21_015_Action1(TargetedAction):
-	TARGET = ActionArg()
-	BUFF = ActionArg()
-	def do(self, source, target, buff):
-		#target = target[0]
-		if not isinstance(buff, list):
-			buff = [buff]
-		target.sidequest_list0 += buff
-class BG21_015_Action2(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		#target = target[0]
-		if target.deepcopy_original!=None:
-			for buff in target.sidequest_list0:
-				buff.apply(target.deepcopy_original)
-class BG21_015_Action3(TargetedAction):
-	TARGET = ActionArg()
-	def do(self, source, target):
-		#target = target[0]
-		if target.deepcopy_original!=None:
-			for buff in target.sidequest_list0:
-				buff.apply(target.deepcopy_original)
-				buff.apply(target.deepcopy_original)
-#旧：これは戦闘時に受ける付与効果を永続的に維持する。
-#新：これは自分が戦闘時に付与した効果を永続的に維持する。
-class BG21_015:# <12>[1453]
-	""" Tarecgosa
-	This permanently keeps enchantments from combat. """
-	events = [
-		BeginBattle(CONTROLLER).on(BG21_015_Action0(SELF)),
-		Buff(SELF).on(BG21_015_Action1(SELF, Buff.BUFF)),
-		EndBattle(CONTROLLER).on(BG21_015_Action2(SELF))
-	]
-	pass
-class BG21_015_G:# <12>[1453]
-	""" Tarecgosa
-	This permanently doubles and keeps enchantments from combat. """
-	events = [
-		BeginBattle(CONTROLLER).on(BG21_015_Action0(SELF)),
-		Buff(SELF).on(BG21_015_Action1(SELF, Buff.BUFF)),
-		EndBattle(CONTROLLER).on(BG21_015_Action3(SELF))
-	]
-	pass
 
 
 #Atramedes (4)   23.6 ### OK ###
@@ -496,6 +445,58 @@ class BG25_309_Gt:# (minion)
 BG25_309_Ge=buff(10,0)
 
 
+#Tarecgosa(3)->(4)    ## OK ###
+if BG_Tarecgosa:
+	BG_Minion_Dragon+=['BG21_015','BG21_015_G']#
+	BG_PoolSet_Dragon[3].append('BG21_015')
+	BG_Dragon_Gold['BG21_015']='BG21_015_G' #	
+class BG21_015_Action0(TargetedAction):
+	TARGET = ActionArg()# self
+	def do(self, source, target):
+		target.sidequest_list0 = [] 
+class BG21_015_Action1(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		#target = target[0]
+		if not isinstance(buff, list):
+			buff = [buff]
+		target.sidequest_list0 += buff
+class BG21_015_Action2(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		#target = target[0]
+		if target.deepcopy_original!=None:
+			for buff in target.sidequest_list0:
+				buff.apply(target.deepcopy_original)
+class BG21_015_Action3(TargetedAction):
+	TARGET = ActionArg()
+	def do(self, source, target):
+		#target = target[0]
+		if target.deepcopy_original!=None:
+			for buff in target.sidequest_list0:
+				buff.apply(target.deepcopy_original)
+				buff.apply(target.deepcopy_original)
+#旧：これは戦闘時に受ける付与効果を永続的に維持する。
+#新：これは自分が戦闘時に付与した効果を永続的に維持する。
+class BG21_015:# <12>[1453]
+	""" Tarecgosa
+	This permanently keeps enchantments from combat. """
+	events = [
+		BeginBattle(CONTROLLER).on(BG21_015_Action0(SELF)),
+		Buff(SELF).on(BG21_015_Action1(SELF, Buff.BUFF)),
+		EndBattle(CONTROLLER).on(BG21_015_Action2(SELF))
+	]
+	pass
+class BG21_015_G:# <12>[1453]
+	""" Tarecgosa
+	This permanently doubles and keeps enchantments from combat. """
+	events = [
+		BeginBattle(CONTROLLER).on(BG21_015_Action0(SELF)),
+		Buff(SELF).on(BG21_015_Action1(SELF, Buff.BUFF)),
+		EndBattle(CONTROLLER).on(BG21_015_Action3(SELF))
+	]
+	pass
 
 
 
