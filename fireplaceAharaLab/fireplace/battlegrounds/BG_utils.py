@@ -185,7 +185,11 @@ class BG_main:
 			bar.BG_setup()
 			bar.player1 = bar.current_player = bar.controller
 			if Config.NEW_BUDDY_SYSTEM:
-				bar.player1.buddy_id = self.BG_Hero_Buddy[theHero]
+				buddy_fid=bar.player1.hero.tags.get(GameTag.BACON_COMPANION_ID, -1)
+				buddy_card=[c for c in cards.db.values() if c.tags.get(9090, None)==buddy_fid]
+				assert len(buddy_card)>0
+
+				bar.player1.buddy_id = buddy_card[0]
 				bar.player1.buddy_taver_tier = cards.db[bar.player1.buddy_id].tags[GameTag.TECH_LEVEL]
 				bar.player1.buddy_gauge=bar.player1.buddy_taver_tier*2+9
 				bar.player1.got_buddy = 0

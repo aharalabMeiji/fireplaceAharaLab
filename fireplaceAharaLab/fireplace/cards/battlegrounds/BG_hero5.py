@@ -226,7 +226,7 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 	pass
 
 
-##Teron Gorefiend BG25_HERO_103
+##Teron Gorefiend BG25_HERO_103 #### ' Once you have space, ___resummon an exact copy.' ##################
 BG_Hero5+=['BG25_HERO_103','BG25_HERO_103p','BG25_HERO_103_Buddy','BG25_HERO_103_Buddye','BG25_HERO_103_Buddy_G','BG25_HERO_103_Buddy_Ge',]
 BG_PoolSet_Hero5.append('BG25_HERO_103')
 BG_Hero5_Buddy['BG25_HERO_103']='BG25_HERO_103_Buddy'
@@ -234,16 +234,37 @@ BG_Hero5_Buddy_Gold['BG25_HERO_103_Buddy']='TB_BaconShop_HERO_50_Buddy_G'
 class BG25_HERO_103:
 	""" Teron Gorefiend
 	"""
+class BG25_HERO_103p_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		index = source.controller.deepcopy_original.field.index(target)
+		card=source.controller.field[target]
+		Destroy(card).trigger(source)
 class BG25_HERO_103p:
 	""" Rapid Reanimation
 	[x]Choose a friendly minion. [Start of Combat:] Destroy it. Once you have space, ___resummon an exact copy."""
+	##### do we need 'activation'? when we determin the target?
+	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
+	events = BeginBattle(CONTROLLER).on(BG25_HERO_103p_Action(TARGET))
+###### Buddy ######
+class BG25_HERO_103_Buddy_Action(TargetedAction):
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		index = source.controller.field.index(target)
+		if index>0:
+			Buff(source.controller.field[index-1], buff).trigger(source)
+		if(index<len(source.controller.field)-1):
+			Buff(source.controller.field[index+1], buff).trigger(source)
 class BG25_HERO_103_Buddy:
 	""" Shadowy Construct
 	[x]After a friendly minion dies, give its neighbors +1/+1."""
+	events = Death(FRIENDLY + MINION).on(BG25_HERO_103_Buddy_Action(Death.ENTITY, 'BG25_HERO_103_Buddye'))
 BG25_HERO_103_Buddye=buff(1,1)
 class BG25_HERO_103_Buddy_G:
 	""" Shadowy Construct
 	[x]After a friendly minion dies, give its neighbors +2/+2."""
+	events = Death(FRIENDLY + MINION).on(BG25_HERO_103_Buddy_Action(Death.ENTITY, 'BG25_HERO_103_Buddy_Ge'))
 BG25_HERO_103_Buddy_Ge=buff(2,2)
 
 

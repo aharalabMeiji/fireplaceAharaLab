@@ -224,11 +224,6 @@ class BG_HumanAgent(BG_Agent):
 			if len(buddy_card):
 				buddy=buddy_card[0]
 				print("Buddy:%s"%(modify_description(buddy,buddy.description)))
-			#if getattr(self.player, 'game', None)!=None:
-			#	gamemaster=self.player.game.parent
-			#	bdID=gamemaster.BG_Hero_Buddy[cardID]
-			#	bd=cards.db[bdID]
-			#	print("Buddy:%s"%(bd.description.replace('\n',' ')))
 		pass
 	def printMove(self, count, move):
 		print("[%d] %s"%(count, move))
