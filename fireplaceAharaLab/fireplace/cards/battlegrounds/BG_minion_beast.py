@@ -13,13 +13,17 @@ BG_Rat_Pack=True#3/2/2
 
 BG_Cave_Hydra=True#4/2/4
 BG_Reanimating_Rattler=True#4/5/3
-BG_Savannah_Highmane=True#4/6/5
+BG_Savannah_Highmane=False#4/6/5 banned 25.6
+BG_Sly_Raptor=True#4/1/3
 
 BG_Agamaggan_the_Great_Boar=True#5/6/6
-BG_Baby_Krush=True# 5  #new 23.2
+BG_Baby_Krush=False# 5  #new 23.2 banned 25.6
+BG_Bonemare=True#5/5/5 #new 25.6
 BG_Mama_Bear=True#5/5/5
-BG_Palescale_Crocolisk=True#5
+BG_Palescale_Crocolisk=False#5 banned 25.6
+#BG_Sinrunner_Blanchy=True # 5/3/3 new 25.2.2 -> undead
 
+#BG25__Felstomper=True ## 6/3/7 -> demon
 BG_Ghastcoiler=True#6/7/7
 BG_Goldrinn_the_Great_Wolf=True#6/4/4
 BG_Maexxna=False## banned 23.2
@@ -281,6 +285,34 @@ class TB_BaconUps_049t:
 	pass
 
 
+# Sly Raptor #4/1/3 ## new 25.6
+if BG_Sly_Raptor:#4/1/3
+	BG_Minion_Beast += ['BG25_806','BG25_806_G',]#
+	BG_PoolSet_Beast[4].append('BG25_806')
+	BG_Beast_Gold['BG25_806']='BG25_806_G'
+class BG25_806_Action(GameAction):
+	def do(self, source):
+		newcard = Summon(source.controller, RandomBGBeast()).trigger(source)
+		newcard = get00(newcard)
+		newcard.atk=7
+		newcard.max_health=7
+class BG25_806:
+	""" Sly Raptor
+	Deathrattle: Summon another random Beast. Set its stats to 7/7."""
+	deathrattle = BG25_806_Action()
+class BG25_806_Action(GameAction):
+	def do(self, source):
+		newcard = Summon(source.controller, RandomBGBeast()).trigger(source)
+		newcard = get00(newcard)
+		newcard.atk=14
+		newcard.max_health=14
+class BG25_806_G:
+	""" Sly Raptor
+	Deathrattle: Summon another random Beast. Set its stats to 14/14."""
+	deathrattle = BG25_806_Action()
+
+
+###### tier 5 ######
 
 #Agamaggan, the Great Boar (5/6/6)   ### maybe ###
 if BG_Agamaggan_the_Great_Boar:
@@ -332,6 +364,28 @@ class BG22_001_G:# <12>[1453]
 	pass
 class BG22_001t2_G:
 	pass
+
+
+
+
+# Bonemare (5/5/5) ### new 25.6 #99164
+if BG_Bonemare:
+	BG_Minion_Beast += ['BG26_ICC_705','BG26_ICC_705e', 'BG26_ICC_705_G','BG26_ICC_705_Ge',]#
+	BG_PoolSet_Beast[5].append('BG26_ICC_705')
+	BG_Beast_Gold['BG26_ICC_705']='BG26_ICC_705_G'
+class BG26_ICC_705:
+	"""
+	Battlecry: Give a friendly minion +4/+4 and Taunt. """
+	requirements = REQUIRE_FRIEND_MINION_TARGET
+	play = Buff(TARGET, 'BG26_ICC_705e') 
+BG26_ICC_705e=buff(4,4,taunt=True)
+class BG26_ICC_705_G:
+	"""
+	Battlecry: Give a friendly minion +8/+8 and Taunt."""
+	requirements = REQUIRE_FRIEND_MINION_TARGET
+	play = Buff(TARGET, 'BG26_ICC_705_Ge') 
+BG26_ICC_705_Ge=buff(8,8,taunt=True)
+
 
 
 #Mama Bear (5/5/5) ### maybe ###
@@ -386,6 +440,15 @@ if BG24__Sinrunner_Blanchy:
 
 
 ########### tavern tier 6
+from .BG_minion_demon import BG25__Felstomper
+#Felstomper
+if BG25__Felstomper:# 6/3/7 demon/beast ## new 25.2.2 ### need check##############
+	##BG_Minion_Beast+=['BG25_042','BG25_042_G','BG25_042_Ge','BG25_042e']
+	BG_PoolSet_Beast[6].append('BG25_042')
+	BG_Beast_Gold['BG25_042']='BG25_042_G'
+
+
+
 
 #Ghastcoiler (6/7/7) ### maybe OK ###
 if BG_Ghastcoiler:

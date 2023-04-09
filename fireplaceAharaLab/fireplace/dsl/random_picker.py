@@ -123,6 +123,7 @@ RandomArcane = lambda **kw: RandomSpell(spell_school=SpellSchool.ARCANE, **kw)
 BG_races=[]
 RandomBGCollectible = lambda **kw: RandomCardPicker(bg_collectible=1, **kw)
 RandomBGAdmissible = lambda **kw: RandomBGMinion(admissible=True, **kw)
+RandomBGBeast = lambda **kw: RandomBGMinion(race=Race.BEAST, **kw)
 RandomBGDemon = lambda **kw: RandomBGMinion(race=Race.DEMON, **kw)
 RandomBGDragon = lambda **kw: RandomBGMinion(race=Race.DRAGON, **kw)
 RandomBGElemental = lambda **kw: RandomBGMinion(race=Race.ELEMENTAL, **kw)
