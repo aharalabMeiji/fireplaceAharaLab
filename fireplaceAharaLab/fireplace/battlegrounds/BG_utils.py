@@ -190,7 +190,7 @@ class BG_main:
 				assert len(buddy_card)>0
 
 				bar.player1.buddy_id = buddy_card[0]
-				bar.player1.buddy_taver_tier = cards.db[bar.player1.buddy_id].tags[GameTag.TECH_LEVEL]
+				bar.player1.buddy_taver_tier = buddy_card[0].tags[GameTag.TECH_LEVEL]
 				bar.player1.buddy_gauge=bar.player1.buddy_taver_tier*2+9
 				bar.player1.got_buddy = 0
 			bar.player2 = bar.bartender
