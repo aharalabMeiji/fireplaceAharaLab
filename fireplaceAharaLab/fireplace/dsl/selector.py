@@ -404,10 +404,14 @@ class Controller(LazyValue):
 class Opponent(Controller):
 	def _get_entity_attr(self, entity):
 		return entity.controller.opponent
+class Bartender(Controller):
+	def _get_entity_attr(self, entity):
+		return getattr(entity.controller.game, 'this_is_tavern', False)==True and entity.controller.opponent
 
 
 FRIENDLY = CONTROLLER == Controller()
 ENEMY = CONTROLLER == Opponent()
+BARTENDER = CONTROLLER == Bartender()
 
 
 def CONTROLLED_BY(selector):

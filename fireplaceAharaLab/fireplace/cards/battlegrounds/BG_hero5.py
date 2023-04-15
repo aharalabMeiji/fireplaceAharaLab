@@ -1091,8 +1091,9 @@ class TB_BaconShop_HERO_35_Buddy_G:
 
 
 
-##Ysera ####### HP OK #####
-BG_Hero5+=['TB_BaconShop_HERO_53','TB_BaconShop_HP_062','TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',]#
+##Ysera ####### HP OK ##### BUDDY OK ###
+BG_Hero5+=['TB_BaconShop_HERO_53','TB_BaconShop_HP_062',
+		   'TB_BaconShop_HERO_53_Buddy','TB_BaconShop_HERO_53_Buddy_e','TB_BaconShop_HERO_53_Buddy_G',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_53')
 BG_Hero5_Buddy['TB_BaconShop_HERO_53']='TB_BaconShop_HERO_53_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_53_Buddy']='TB_BaconShop_HERO_53_Buddy_G'
@@ -1120,16 +1121,33 @@ class TB_BaconShop_HP_062:
 	[Passive] Bob always offers an extra Dragon whenever the Tavern is [Refreshed]."""
 	events = Rerole(CONTROLLER).after(TB_BaconShop_HP_062_Action())
 	pass
+class TB_BaconShop_HERO_53_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[card for card in controller.opponent.field if card.race==Race.DRAGON]
+		if len(cards):
+			for card in cards:
+				Buff(card, "TB_BaconShop_HERO_53_Buddy_e", atk=3, max_health=3).trigger(source)
 class TB_BaconShop_HERO_53_Buddy:
-	""" """
+	""" Valithria Dreamwalker
+	Dragons in Bob's Tavern have +3/+3."""
+	play = TB_BaconShop_HERO_53_Buddy_Action()
+	events = Sell(CONTROLLER, SELF).on(RemoveBuff(ENEMY_MINIONS, "TB_BaconShop_HERO_53_Buddy_e"))
 	pass
 class TB_BaconShop_HERO_53_Buddy_e:# <12>[1453]
-	""" Pleasant Dream
-	Stats increased by Valithria. """
-	#
 	pass
+class TB_BaconShop_HERO_53_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		cards=[card for card in controller.opponent.field if card.race==Race.DRAGON]
+		if len(cards):
+			for card in cards:
+				Buff(card, "TB_BaconShop_HERO_53_Buddy_e", atk=6, max_health=6).trigger(source)
 class TB_BaconShop_HERO_53_Buddy_G:
-	""" """
+	""" Valithria Dreamwalker
+	Dragons in Bob's Tavern have +6/+6."""
+	play = TB_BaconShop_HERO_53_Buddy_G_Action()
+	events = Sell(CONTROLLER, SELF).on(RemoveBuff(ENEMY_MINIONS + DRAGON, "TB_BaconShop_HERO_53_Buddy_e"))
 	pass
 
 
@@ -1160,11 +1178,43 @@ class TB_BaconShop_HP_102:
 	If you have two copies of a minion, find the third. <i>(@ |4(Wish, Wishes) left!)</i>"""
 	activate = TB_BaconShop_HP_102_Action()
 	pass
+class TB_BaconShop_HERO_91_Buddy_Action(GameAction):
+	def isolate(self, card, cards):
+		count=len([cd for cd in cards if cd.id==card.id])
+		return count==1
+	def do(self, source):
+		cardsId=[card.id for card in source.controller.field if self.isolate(card, source.controller.field)==True]
+		Discover(source.controller, RandomID(*cardsId)*3).trigger(source)
+		pass
 class TB_BaconShop_HERO_91_Buddy:
-	"""  """
+	"""  Phyresz
+	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a plain copy of a minion that you have exactly one of."""
+	play = TB_BaconShop_HERO_91_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_91_Buddy_G_Choice(Choice):
+	def choose(self, card):
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=2:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		new_card = self.player.card(card.id)# make a new copy
+		new_card.zone = Zone.HAND
+		pass
+class TB_BaconShop_HERO_91_Buddy_G_Action(GameAction):
+	def isolate(self, card, cards):
+		count=len([cd for cd in cards if cd.id==card.id])
+		return count==1
+	def do(self, source):
+		cardsId=[card.id for card in source.controller.field if self.isolate(card, source.controller.field)==True]
+		self.source.sidequest_counter=0
+		TB_BaconShop_HERO_91_Buddy_G_Choice(source.controller, RandomID(*cardsId)*3).trigger(source)
+		pass
 class TB_BaconShop_HERO_91_Buddy_G:
-	"""  """
+	""" Phyresz 
+	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a plain copy of a minion that you have exactly one of twice."""
+	play = TB_BaconShop_HERO_91_Buddy_G_Action()
 	pass
 
 

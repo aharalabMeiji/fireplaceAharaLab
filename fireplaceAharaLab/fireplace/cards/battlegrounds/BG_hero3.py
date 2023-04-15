@@ -13,7 +13,7 @@ BG_Hero3_Buddy_Gold={}
 
 
 ##Lady Vashj ### HP OK ##
-BG_Hero3+=['BG23_HERO_304','BG23_HERO_304p', ]#
+BG_Hero3+=['BG23_HERO_304','BG23_HERO_304p', 'BG23_HERO_304_Buddy','BG23_HERO_304_Buddy_G']#
 BG_PoolSet_Hero3.append('BG23_HERO_304')
 BG_Hero3_Buddy['BG23_HERO_304']='BG23_HERO_304_Buddy'
 BG_Hero3_Buddy_Gold['BG23_HERO_304_Buddy']='BG23_HERO_304_Buddy_G'
@@ -39,7 +39,15 @@ class BG23_HERO_304p:
 	]
 	activate = Discover(CONTROLLER, RandomBGSpellcraftSpellcard(tech_level_less=TIER(CONTROLLER)))
 	pass
-
+###### buddy #####
+class BG23_HERO_304_Buddy:
+	""" Coilfang Elite
+	After a &lt;b&gt;Spellcraft&lt;/b&gt; minion appears in Bob's Tavern, get a copy of its spell."""
+	pass
+class BG23_HERO_304_Buddy_G:
+	""" Coilfang Elite
+	After a &lt;b&gt;Spellcraft&lt;/b&gt; minion appears in Bob's Tavern, get 2 copies of its spell."""
+	pass
 
 
 
