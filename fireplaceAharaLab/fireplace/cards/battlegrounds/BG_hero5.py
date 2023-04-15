@@ -940,18 +940,38 @@ class TB_BaconShop_HP_039_Action(GameAction):
 			card.controller = controller
 			card.zone=Zone.HAND
 			Buff(card, 'TB_BaconShop_HP_039e').trigger(source)
+			if source.script_data_num_1>0 and len(bartender.field)>0:
+				card = random.choice(bartender.field)
+				bartender.field.remove(card)
+				card.controller = controller
+				card.zone=Zone.HAND
+				Buff(card, 'TB_BaconShop_HP_039e').trigger(source)
 class TB_BaconShop_HP_039:
 	""" Puzzle Box
 	Add a random minion in Bob's Tavern to your hand. Give it +1/+1."""
 	activate = TB_BaconShop_HP_039_Action()
 	pass
 TB_BaconShop_HP_039e=buff(1,1)
+###### buddy ######
+class TB_BaconShop_HERO_35_Buddy_Action(GameAction):
+	def do(self, source):
+		cards=['TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t2','TB_BaconShop_HERO_35_Buddy_t3','TB_BaconShop_HERO_35_Buddy_t4','TB_BaconShop_HERO_35_Buddy_t5','TB_BaconShop_HERO_35_Buddy_t6','TB_BaconShop_HERO_35_Buddy_t7',]
+		card = random.choice(cards)
+		Give(source.controller, card).trigger(source)
+		pass
 class TB_BaconShop_HERO_35_Buddy:
-	""" """
+	""" Acolyte of Yogg-Saron
+	When you sell this, spin the Wheel of Yogg-Saron."""
+	events = Sell(CONTROLLER, SELF).on(TB_BaconShop_HERO_35_Buddy_Action())
 	pass
+class TB_BaconShop_HERO_35_Buddy_t1_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		source.controller.hero.power.script_data_num_1=1
+		pass
 class TB_BaconShop_HERO_35_Buddy_t1:# <12>[1453]
 	""" Mysterybox
 	For the rest of the game,your Hero Power triggers an extra time when used. """
+	play = TB_BaconShop_HERO_35_Buddy_t1_Action()
 	pass
 class TB_BaconShop_HERO_35_Buddy_t1e:# <12>[1453]
 	""" Mysterybox
@@ -969,7 +989,7 @@ class TB_BaconShop_HERO_35_Buddy_t2_Action(GameAction):
 		pass
 class TB_BaconShop_HERO_35_Buddy_t2:# <12>[1453]### OK ##
 	""" Hand of Fate
-	Add 3 random Darkmoon Prizes to your hand. """
+	Add 2 random Darkmoon Prizes to your hand. """
 	play = TB_BaconShop_HERO_35_Buddy_t2_Action()
 	pass
 class TB_BaconShop_HERO_35_Buddy_t3_Action(TargetedAction):
