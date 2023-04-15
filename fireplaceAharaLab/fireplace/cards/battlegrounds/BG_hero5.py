@@ -916,7 +916,7 @@ class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
 
 
 
-##Yogg-Saron, Hope's End #   ### HP OK ###
+##Yogg-Saron, Hope's End #   ### HP OK ### BUDDY OK ###
 BG_Hero5+=['TB_BaconShop_HERO_35','TB_BaconShop_HP_039','TB_BaconShop_HP_039e',
 		   'TB_BaconShop_HERO_35_Buddy','TB_BaconShop_HERO_35_Buddy_t1','TB_BaconShop_HERO_35_Buddy_t1e',
 		   'TB_BaconShop_HERO_35_Buddy_t2',
@@ -936,17 +936,19 @@ class TB_BaconShop_HP_039_Action(GameAction):
 		bartender = controller.opponent
 		if len(bartender.field)>0:
 			card = random.choice(bartender.field)
-			bartender.field.remove(card)
+			card.zone=Zone.SETASIDE
+			#bartender.field.remove(card)
 			card.controller = controller
 			card.zone=Zone.HAND
 			Buff(card, 'TB_BaconShop_HP_039e').trigger(source)
 			if source.script_data_num_1>0 and len(bartender.field)>0:
 				card = random.choice(bartender.field)
-				bartender.field.remove(card)
+				card.zone=Zone.SETASIDE
+				#bartender.field.remove(card)
 				card.controller = controller
 				card.zone=Zone.HAND
 				Buff(card, 'TB_BaconShop_HP_039e').trigger(source)
-class TB_BaconShop_HP_039:
+class TB_BaconShop_HP_039: ### OK ###
 	""" Puzzle Box
 	Add a random minion in Bob's Tavern to your hand. Give it +1/+1."""
 	activate = TB_BaconShop_HP_039_Action()
@@ -959,7 +961,7 @@ class TB_BaconShop_HERO_35_Buddy_Action(GameAction):
 		card = random.choice(cards)
 		Give(source.controller, card).trigger(source)
 		pass
-class TB_BaconShop_HERO_35_Buddy:
+class TB_BaconShop_HERO_35_Buddy:### OK ###
 	""" Acolyte of Yogg-Saron
 	When you sell this, spin the Wheel of Yogg-Saron."""
 	events = Sell(CONTROLLER, SELF).on(TB_BaconShop_HERO_35_Buddy_Action())
@@ -968,7 +970,7 @@ class TB_BaconShop_HERO_35_Buddy_t1_Action(GameAction):# <12>[1453]
 	def do(self, source):
 		source.controller.hero.power.script_data_num_1=1
 		pass
-class TB_BaconShop_HERO_35_Buddy_t1:# <12>[1453]
+class TB_BaconShop_HERO_35_Buddy_t1:# <12>[1453] ### OK ###
 	""" Mysterybox
 	For the rest of the game,your Hero Power triggers an extra time when used. """
 	play = TB_BaconShop_HERO_35_Buddy_t1_Action()
@@ -983,7 +985,7 @@ class TB_BaconShop_HERO_35_Buddy_t2_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
 		cards=['BGS_Treasures_004', 'BGS_Treasures_006', 'BGS_Treasures_007', 'BGS_Treasures_012', 'BGS_Treasures_015', 'BGS_Treasures_018', 'BGS_Treasures_001', 'BGS_Treasures_010', 'BGS_Treasures_013', 'BGS_Treasures_016', 'BGS_Treasures_019', 'BGS_Treasures_022', 'BGS_Treasures_023', 'BGS_Treasures_025', 'BGS_Treasures_026', 'BGS_Treasures_029', 'BGS_Treasures_000', 'BGS_Treasures_009', 'BGS_Treasures_014', 'BGS_Treasures_020', 'BGS_Treasures_028', 'BGS_Treasures_030', 'BGS_Treasures_033', 'BGS_Treasures_036', 'BGS_Treasures_037', 'BGS_Treasures_040']
-		cards=random.sample(cards, 3)
+		cards=random.sample(cards, 2)
 		Give(controller, cards[0]).trigger(source)
 		Give(controller, cards[1]).trigger(source)
 		pass
@@ -1105,7 +1107,9 @@ class TB_BaconShop_HERO_35_Buddy_t7:### OK ###
 	play = TB_BaconShop_HERO_35_Buddy_t7_Action(CONTROLLER)
 	pass
 class TB_BaconShop_HERO_35_Buddy_G:
-	""" """
+	""" Acolyte of Yogg-Saron
+	When you sell this, spin the Wheel of Yogg-Saron twice."""
+	events = Sell(CONTROLLER, SELF).on(TB_BaconShop_HERO_35_Buddy_Action(), TB_BaconShop_HERO_35_Buddy_Action())
 	pass
 
 
