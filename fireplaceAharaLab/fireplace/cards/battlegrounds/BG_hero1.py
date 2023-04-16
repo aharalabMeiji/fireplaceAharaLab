@@ -1131,7 +1131,7 @@ BG22_HERO_002_Buddy_e=buff(1,0)# <12>[1453]
 class BG22_HERO_002_Buddy_G:# <12>[1453]
 	""" Frostwolf Lieutenant
 	[Avenge (2):] Give your minions +2 Attack permanently. """
-	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002_Buddy_Ge')]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_002_Buddy_Ge')]))
 	pass
 BG22_HERO_002_Buddy_Ge=buff(2,0)# <12>[1453]
 """ Lieutenant's Leadership,+2 Attack. """

@@ -492,6 +492,10 @@ class BG_main:
 				atk=bartender.opponent.felemental_powered_up,
 				max_health=bartender.opponent.felemental_powered_up
 				).trigger(bartender)
+		if bartender.opponent.stormpike_powered_up>0:
+			Buff(card, 'BG22_HERO_003_Buddy_e',
+				max_health=bartender.opponent.stormpike_powered_up
+				).trigger(bartender)
 		if cardID in self.BG_decks[card.tech_level]:
 			self.BG_decks[card.tech_level].remove(cardID)
 		else:

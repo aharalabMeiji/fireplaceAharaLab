@@ -632,7 +632,7 @@ class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 
 
 
-##Vanndar Stormpike   ## HP OK ##
+##Vanndar Stormpike   ## HP OK ## BUDDY OK ##
 BG_Hero5+=['BG22_HERO_003','BG22_HERO_003p','BG22_HERO_003pe','BG22_HERO_003pe2','BG22_HERO_003pe3','BG22_HERO_003_Buddy','BG22_HERO_003_Buddy_e','BG22_HERO_003_Buddy_G','BG22_HERO_003_Buddy_Ge',]#
 BG_PoolSet_Hero5.append('BG22_HERO_003')
 BG_Hero5_Buddy['BG22_HERO_003']='BG22_HERO_003_Buddy'
@@ -679,18 +679,29 @@ class BG22_HERO_003pe3:# <12>[1453]
 		]
 	pass
 ###### BUDDY ######
+class BG22_HERO_003_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		if getattr(source.controller, 'deepcopy_original', None)!=None:
+			source.controller.deepcopy_original.stormpike_powered_up += 1
 class BG22_HERO_003_Buddy:# <12>[1453]
 	""" Stormpike Lieutenant
 	&lt;b&gt;Avenge (2):&lt;/b&gt; Minions in Bob's Tavern have +1 Health for the rest of the game."""
 	### [Avenge (2):] Give your minions +1 Health permanently. 
 	###events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_003_Buddy_e')]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG22_HERO_003_Buddy_Action()]))
 	pass
-BG22_HERO_003_Buddy_e=buff(0,1)# <12>[1453]
+class BG22_HERO_003_Buddy_e:# <12>[1453]
+	pass
+class BG22_HERO_003_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		if getattr(source.controller, 'deepcopy_original', None)!=None:
+			source.controller.deepcopy_original.stormpike_powered_up += 2
 class BG22_HERO_003_Buddy_G:# <12>[1453]
 	""" Stormpike Lieutenant
 	&lt;b&gt;Avenge (2):&lt;/b&gt; Minions in Bob's Tavern have +2 Health for the rest of the game."""
 	###[Avenge (2):] Give your minions +2 Health permanently. """
 	###events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_003_Buddy_Ge')]))
+	events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG22_HERO_003_Buddy_G_Action()]))
 	pass
 BG22_HERO_003_Buddy_Ge=buff(0,2)# <12>[1453]
 
