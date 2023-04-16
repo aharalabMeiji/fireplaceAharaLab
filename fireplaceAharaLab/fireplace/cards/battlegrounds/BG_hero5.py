@@ -831,7 +831,7 @@ class BG20_HERO_201_Buddy_G:# <12>[1453]
 
 
 
-##Xyrella  ### HP OK ###
+##Xyrella  ### HP OK ### BUDDY OK ###
 BG_Hero5+=['BG20_HERO_101','BG20_HERO_101p','BG20_HERO_101pe2','BG20_HERO_101_Buddy','BG20_HERO_101_Buddy_e','BG20_HERO_101_Buddy_G','BG20_HERO_101_Buddy_Ge',]#
 BG_PoolSet_Hero5.append('BG20_HERO_101')
 BG_Hero5_Buddy['BG20_HERO_101']='BG20_HERO_101_Buddy'
@@ -842,12 +842,11 @@ class BG20_HERO_101p_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		controller = source.controller
-		controller.opponent.field.remove(target)
+		target.zone=Zone.SETASIDE
 		target.controller=controller
 		target.zone=Zone.HAND
 		target.frozen=False
-		buff=controller.card('BG20_HERO_101pe2')
-		buff.apply(target)
+		Buff(target, 'BG20_HERO_101pe2').trigger(source)
 class BG20_HERO_101p:
 	""" See the Light
 	Choose a minion in Bob's Tavern to add to your hand. Set its stats to 2."""
@@ -856,6 +855,8 @@ class BG20_HERO_101p:
 class BG20_HERO_101pe2:
 	max_health = SET(2)
 	atk = SET(2)
+	pass
+###### BUDDY ######
 class BG20_HERO_101_Buddy_Action(TargetedAction):
 	TARGET=ActionArg()
 	BUFF=ActionArg()
@@ -863,7 +864,7 @@ class BG20_HERO_101_Buddy_Action(TargetedAction):
 		if hasattr(target,'atk') and hasattr(target,'max_health'):
 			if target.max_health==target.atk:
 				Buff(source,buff).trigger(source)
-class BG20_HERO_101_Buddy:#
+class BG20_HERO_101_Buddy:### OK ###
 	""" Baby Elekk
 	After you play a minion with Attack equal to its Health, gain +2/+2. """
 	events = BG_Play(CONTROLLER, FRIENDLY + MINION).on(BG20_HERO_101_Buddy_Action(BG_Play.CARD, 'BG20_HERO_101_Buddy_e'))
