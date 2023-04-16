@@ -745,11 +745,16 @@ class BG22_HERO_004_Buddy_G:# <12>[1453]
 
 
 
-##Vol'jin   ### HP OK ###
-BG_Hero5+=['BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3','BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e','BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',]#
+##Vol'jin   ### HP OK ### BUDDY OK###
+BG_Hero5+=[
+	'BG20_HERO_201','BG20_HERO_201e','BG20_HERO_201e2','BG20_HERO_201e3',
+	'BG20_HERO_201p','BG20_HERO_201p2','BG20_HERO_201p2e','BG20_HERO_201p3e',
+	'BG20_HERO_201_Buddy','BG20_HERO_201_Buddy_e','BG20_HERO_201_Buddy_e2','BG20_HERO_201_Buddy_G',]#
 BG_PoolSet_Hero5.append('BG20_HERO_201')
 BG_Hero5_Buddy['BG20_HERO_201']='BG20_HERO_201_Buddy'
 BG_Hero5_Buddy_Gold['BG20_HERO_201_Buddy']='BG20_HERO_201_Buddy_G'
+class BG20_HERO_201:# <12>[1453]
+	""" Vol'jin  """
 class ChooseTwice(Choice):
 	card1=None
 	card2=None
@@ -766,27 +771,12 @@ class ChooseTwice(Choice):
 			self.cards = self.source.controller.field
 		else:
 			self.card2=card
-			buff1 = self.source.controller.card('BG20_HERO_201e')
-			buff2 = self.source.controller.card('BG20_HERO_201e2')
-			buff1.tags[GameTag.ATK]=self.card2.atk-self.card1.atk
-			buff1.tags[GameTag.HEALTH]=self.card2.max_health-self.card1.max_health
-			buff2.tags[GameTag.ATK]=self.card1.atk-self.card2.atk
-			buff2.tags[GameTag.HEALTH]=self.card1.max_health-self.card2.max_health
-			buff1.apply(self.card1)
-			buff2.apply(self.card2)
+			atk_mod=self.card2.atk-self.card1.atk
+			hlt_mod=self.card2.max_health-self.card1.max_health
+			Buff(self.card1, 'BG20_HERO_201e', atk=atk_mod, max_health=hlt_mod).trigger(self.source)
+			Buff(self.card2, 'BG20_HERO_201e2', atk=-atk_mod, max_health=-hlt_mod).trigger(self.source)
 			if Config.LOGINFO:
 				print("(ChooseTwice.choose)Swaping stats between %s and %s"%(self.card1, self.card2))
-class BG20_HERO_201:# <12>[1453]
-	""" Vol'jin  """
-class BG20_HERO_201e:# <12>[1453]
-	""" Modified Attack,	Attack is increased or decreased. """
-	pass
-class BG20_HERO_201e2:# <12>[1453]
-	""" Modified Health,	Health is increased or decreased. """
-	pass
-class BG20_HERO_201e3:# <12>[1453]
-	""" Stats Set	 """
-	pass
 class BG20_HERO_201p:# <12>[1453]
 	""" Spirit Swap
 	Choose two minions. Swap their stats. """
@@ -798,6 +788,15 @@ class BG20_HERO_201p2:# <12>[1453]
 	Choose a minion. Swap its stats with {0}. """
 	#
 	pass
+class BG20_HERO_201e:# <12>[1453]
+	""" Modified Attack,	Attack is increased or decreased. """
+	pass
+class BG20_HERO_201e2:# <12>[1453]
+	""" Modified Health,	Health is increased or decreased. """
+	pass
+class BG20_HERO_201e3:# <12>[1453]
+	""" Stats Set	 """
+	pass
 class BG20_HERO_201p2e:# <12>[1453]
 	""" Spirit Swapped
 	Stats swapped with another minion. """
@@ -808,10 +807,19 @@ class BG20_HERO_201p3e:# <12>[1453]
 	Stats can be swapped. """
 	#
 	pass
+###### BUDDY ######
+class BG20_HERO_201_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		index=source.controller.field.index(source)
+		if index>0:
+			card=source.controller.field[index-1]
+			Buff(card, 'BG20_HERO_201_Buddy_e', atk=(source.atk-card.atk)).trigger(source)
+		pass
 class BG20_HERO_201_Buddy:# <12>[1453]
 	""" Master Gadrin
 	At the end of your turn,the minion to the leftof this copies this minion's Attack. """
-	#
+	#自分のターンの終了時これの左隣のミニオンはこのミニオンの攻撃力をコピーする。
+	events = OWN_TURN_END.on(BG20_HERO_201_Buddy_Action())
 	pass
 class BG20_HERO_201_Buddy_e:# <12>[1453]
 	""" Blessed Hands
@@ -823,10 +831,20 @@ class BG20_HERO_201_Buddy_e2:# <12>[1453]
 	 """
 	#
 	pass
+class BG20_HERO_201_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		index=source.controller.field.index(source)
+		if index>0:
+			card=source.controller.field[index-1]
+			Buff(card, 'BG20_HERO_201_Buddy_e', atk=(source.atk-card.atk)).trigger(source)
+		if index<len(source.controller.field)-1:
+			card=source.controller.field[index+1]
+			Buff(card, 'BG20_HERO_201_Buddy_e', atk=(source.atk-card.atk)).trigger(source)
+		pass
 class BG20_HERO_201_Buddy_G:# <12>[1453]
 	""" Master Gadrin
 	At the end of your turn,adjacent minions copythis minion's Attack. """
-	#
+	events = OWN_TURN_END.on(BG20_HERO_201_Buddy_G_Action())
 	pass
 
 
