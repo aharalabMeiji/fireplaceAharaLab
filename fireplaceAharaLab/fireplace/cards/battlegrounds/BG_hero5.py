@@ -678,29 +678,27 @@ class BG22_HERO_003pe3:# <12>[1453]
 		EndBattle(CONTROLLER).on(Destroy(SELF))
 		]
 	pass
+###### BUDDY ######
 class BG22_HERO_003_Buddy:# <12>[1453]
 	""" Stormpike Lieutenant
-	[Avenge (2):] Give your minions +1 Health permanently. """
-	#
+	&lt;b&gt;Avenge (2):&lt;/b&gt; Minions in Bob's Tavern have +1 Health for the rest of the game."""
+	### [Avenge (2):] Give your minions +1 Health permanently. 
+	###events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_003_Buddy_e')]))
 	pass
-class BG22_HERO_003_Buddy_e:# <12>[1453]
-	""" Lieutenant's Leadership
-	+1 Health. """
-	#
-	pass
+BG22_HERO_003_Buddy_e=buff(0,1)# <12>[1453]
 class BG22_HERO_003_Buddy_G:# <12>[1453]
 	""" Stormpike Lieutenant
-	[Avenge (2):] Give your minions +2 Health permanently. """
-	#
+	&lt;b&gt;Avenge (2):&lt;/b&gt; Minions in Bob's Tavern have +2 Health for the rest of the game."""
+	###[Avenge (2):] Give your minions +2 Health permanently. """
+	###events = Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BuffPermanently(FRIENDLY_MINIONS, 'BG22_HERO_003_Buddy_Ge')]))
 	pass
-class BG22_HERO_003_Buddy_Ge:# <12>[1453]
-	""" Lieutenant's Leadership
-	+2 Health. """
-	#
-	pass
+BG22_HERO_003_Buddy_Ge=buff(0,2)# <12>[1453]
 
 
-##Varden Dawngrasp ## HP OK ##
+
+
+
+##Varden Dawngrasp ## HP OK ## BUDDY OK ###
 BG_Hero5+=['BG22_HERO_004','BG22_HERO_004p','BG22_HERO_004_Buddy','BG22_HERO_004_Buddy_e2','BG22_HERO_004_Buddy_G',]#
 BG_PoolSet_Hero5.append('BG22_HERO_004')
 BG_Hero5_Buddy['BG22_HERO_004']='BG22_HERO_004_Buddy'
@@ -720,25 +718,40 @@ class BG22_HERO_004p_Action(TargetedAction):
 		newcard._summon_index = index+1
 		newcard.zone = Zone.PLAY
 		newcard.frozen = True
+		tavern_tier=source.controller.tavern_tier
+		if source.sidequest_counter>=1:
+			Buff(target, 'BG22_HERO_004_Buddy_e2', atk=tavern_tier*source.sidequest_counter, max_health=tavern_tier*source.sidequest_counter).trigger(source)
+			Buff(newcard, 'BG22_HERO_004_Buddy_e2', atk=tavern_tier*source.sidequest_counter, max_health=tavern_tier*source.sidequest_counter).trigger(source)
 class BG22_HERO_004p:# <12>[1453]
 	""" Twice as Nice
-	[Passive.] After Bob's Tavern is [Refreshed],copy and [Freeze] one of his minions. """
+	[Passive.] After Bob's Tavern is [Refreshed], copy his highest Tier minion _and [Freeze] them both. """
 	events = Rerole(CONTROLLER).after(BG22_HERO_004p_Action(HIGHEST_TIER(ENEMY_MINIONS)))
 	pass
+###### BUDDY ######
+class BG22_HERO_004_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		heropower=source.controller.hero.power
+		heropower.sidequest_counter=1
+		pass
 class BG22_HERO_004_Buddy:# <12>[1453]
 	""" Varden's Aquarrior
 	'Twice as Nice' also gives the copy stats equal to your Tavern Tier. """
-	#
+	play = BG22_HERO_004_Buddy_Action()
 	pass
 class BG22_HERO_004_Buddy_e2:# <12>[1453]
 	""" Frosted
 	Increased stats. """
 	#
 	pass
+class BG22_HERO_004_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		heropower=source.controller.hero.power
+		heropower.sidequest_counter=2
+		pass
 class BG22_HERO_004_Buddy_G:# <12>[1453]
 	""" Varden's Aquarrior
 	'Twice as Nice' also givesthe copy stats equal toyour Tavern Tier twice. """
-	#
+	play = BG22_HERO_004_Buddy_G_Action()
 	pass
 
 
@@ -1250,7 +1263,7 @@ class TB_BaconShop_HERO_91_Buddy_Action(GameAction):
 		pass
 class TB_BaconShop_HERO_91_Buddy:
 	"""  Phyresz
-	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a plain copy of a minion that you have exactly one of."""
+	[Battlecry: Discover] a plain copy of a minion that you have exactly one of."""
 	play = TB_BaconShop_HERO_91_Buddy_Action()
 	pass
 class TB_BaconShop_HERO_91_Buddy_G_Choice(Choice):
@@ -1275,7 +1288,7 @@ class TB_BaconShop_HERO_91_Buddy_G_Action(GameAction):
 		pass
 class TB_BaconShop_HERO_91_Buddy_G:
 	""" Phyresz 
-	&lt;b&gt;Battlecry: Discover&lt;/b&gt; a plain copy of a minion that you have exactly one of twice."""
+	[Battlecry: Discover] a plain copy of a minion that you have exactly one of twice."""
 	play = TB_BaconShop_HERO_91_Buddy_G_Action()
 	pass
 

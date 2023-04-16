@@ -42,11 +42,11 @@ class BG23_HERO_304p:
 ###### buddy #####
 class BG23_HERO_304_Buddy:
 	""" Coilfang Elite
-	After a &lt;b&gt;Spellcraft&lt;/b&gt; minion appears in Bob's Tavern, get a copy of its spell."""
+	After a [Spellcraft] minion appears in Bob's Tavern, get a copy of its spell."""
 	pass
 class BG23_HERO_304_Buddy_G:
 	""" Coilfang Elite
-	After a &lt;b&gt;Spellcraft&lt;/b&gt; minion appears in Bob's Tavern, get 2 copies of its spell."""
+	After a [Spellcraft] minion appears in Bob's Tavern, get 2 copies of its spell."""
 	pass
 
 
@@ -812,7 +812,7 @@ class BG23_HERO_201_Buddy_Action(GameAction):
 		heropower.script_data_num_1 += 1
 class BG23_HERO_201_Buddy:
 	""" Tamuzo
-	&lt;b&gt;Avenge (2):&lt;/b&gt; Upgrade 'Tentacular' by +1/+1. """
+	[Avenge (2):] Upgrade 'Tentacular' by +1/+1. """
 	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG23_HERO_201_Buddy_Action()]))
 class BG23_HERO_201_Buddy_G_Action(GameAction):
 	def do(self, source):
@@ -821,7 +821,7 @@ class BG23_HERO_201_Buddy_G_Action(GameAction):
 		heropower.script_data_num_1 += 2
 class BG23_HERO_201_Buddy_G:
 	""" Tamuzo
-	&lt;b&gt;Avenge (2):&lt;/b&gt; Upgrade 'Tentacular' by +2/+2. """
+	[Avenge (2):] Upgrade 'Tentacular' by +2/+2. """
 	events=Death(FRIENDLY + MINION).on(Avenge(SELF, 2, [BG23_HERO_201_Buddy_G_Action()]))
 
 
@@ -1020,11 +1020,11 @@ class BG22_HERO_007_Buddy_Action(TargetedAction):
 		pass
 class BG22_HERO_007_Buddy:
 	""" Imperial Defender
-	Whenever you cast a &lt;b&gt;Spellcraft&lt;/b&gt; spell on a _different minion, you also cast it on this."""
+	Whenever you cast a [Spellcraft] spell on a _different minion, you also cast it on this."""
 	events = Spellcraft(FRIENDLY + MINION - SELF).on(BG22_HERO_007_Buddy_Action(Spellcraft.SPELLCARD,Spellcraft.TARGET))
 class BG22_HERO_007_Buddy_G:
 	""" Imperial Defender
-	Whenever you cast a &lt;b&gt;Spellcraft&lt;/b&gt; spell on a _different minion, you also cast it on this twice."""
+	Whenever you cast a [Spellcraft] spell on a _different minion, you also cast it on this twice."""
 
 
 
