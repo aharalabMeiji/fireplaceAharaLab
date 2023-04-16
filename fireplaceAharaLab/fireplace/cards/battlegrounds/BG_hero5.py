@@ -234,18 +234,26 @@ BG_Hero5_Buddy_Gold['BG25_HERO_103_Buddy']='TB_BaconShop_HERO_50_Buddy_G'
 class BG25_HERO_103:
 	""" Teron Gorefiend
 	"""
-class BG25_HERO_103p_Action(TargetedAction):
+class BG25_HERO_103p_Activate(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
-		index = source.controller.deepcopy_original.field.index(target)
-		card=source.controller.field[target]
-		Destroy(card).trigger(source)
+		target=get00(target)
+		source.sidequest_list0.append(target)
+		pass
+class BG25_HERO_103p_Action(GameAction):
+	def do(self, source):
+		if len(source.sidequest_list0):
+			target=source.sidequest_list0[0]
+			index = source.controller.deepcopy_original.field.index(target)
+			card=source.controller.field[index]
+			Destroy(card).trigger(source)
 class BG25_HERO_103p:
 	""" Rapid Reanimation
 	[x]Choose a friendly minion. [Start of Combat:] Destroy it. Once you have space, ___resummon an exact copy."""
 	##### do we need 'activation'? when we determin the target?
 	requirements = {PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0}
-	events = BeginBattle(CONTROLLER).on(BG25_HERO_103p_Action(TARGET))
+	activate = BG25_HERO_103p_Activate(TARGET)
+	events = BeginBattle(CONTROLLER).on(BG25_HERO_103p_Action())
 ###### Buddy ######
 class BG25_HERO_103_Buddy_Action(TargetedAction):
 	TARGET=ActionArg()
@@ -870,7 +878,7 @@ BG20_HERO_101_Buddy_Ge=buff(4,4)
 
 
 
-##Y'Shaarj   ### HP OK ###
+##Y'Shaarj   ### HP OK ###　BUDDY OK ###
 BG_Hero5+=['TB_BaconShop_HERO_92','TB_BaconShop_HP_103','TB_BaconShop_HERO_92_Buddy','TB_BaconShop_HERO_92_Buddy_e','TB_BaconShop_HERO_92_Buddy_G','TB_BaconShop_HERO_92_Buddy_G_e',]#
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_92')
 BG_Hero5_Buddy['TB_BaconShop_HERO_92']='TB_BaconShop_HERO_92_Buddy'
@@ -891,26 +899,37 @@ class TB_BaconShop_HP_103:
 	[Start of Combat:] Summon a minion from your Tavern Tier. Add a copy to your hand."""
 	events = BeginBattle(CONTROLLER).on(TB_BaconShop_HP_103_Action())
 	pass
+###### BUDDY ######
+class TB_BaconShop_HERO_92_Buddy_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		card = get00(target)
+		if getattr(card, 'this_is_minion', False)==True:
+			if getattr(source.controller.game, 'this_is_battle', False)==True:
+				if card.tech_level==source.controller.tavern_tier:
+					Buff(card, 'TB_BaconShop_HERO_92_Buddy_e').trigger(source)
+		pass
 class TB_BaconShop_HERO_92_Buddy:# <12>[1453]
 	""" Baby Y'Shaarj
 	Whenever you summon a minion of your current Tavern Tier, give it +4/+4. """
-	#
+	events = Summon(CONTROLLER).on(TB_BaconShop_HERO_92_Buddy_Action(Summon.CARD))
 	pass
-class TB_BaconShop_HERO_92_Buddy_e:# <12>[1453]
-	""" Rage Unbound
-	+4/+4. """
-	#
-	pass
+TB_BaconShop_HERO_92_Buddy_e=buff(4,4)# <12>[1453]
+class TB_BaconShop_HERO_92_Buddy_G_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		card = get00(target)
+		if getattr(card, 'this_is_minion', False)==True:
+			if card.tech_level==source.controller.tavern_tier:
+				if card.tech_level==source.controller.tavern_tier:
+					Buff(card, 'TB_BaconShop_HERO_92_Buddy_G_e').trigger(source)
+		pass
 class TB_BaconShop_HERO_92_Buddy_G:# <12>[1453]
 	""" Baby Y'Shaarj
 	Whenever you summon a minion of your current Tavern Tier, give it +8/+8. """
-	#
+	events = Summon(CONTROLLER).on(TB_BaconShop_HERO_92_Buddy_G_Action(Summon.CARD))
 	pass
-class TB_BaconShop_HERO_92_Buddy_G_e:# <12>[1453]
-	""" Rage Unbound
-	+8/+8. """
-	#
-	pass
+TB_BaconShop_HERO_92_Buddy_G_e=buff(8,8)# <12>[1453]
 
 
 

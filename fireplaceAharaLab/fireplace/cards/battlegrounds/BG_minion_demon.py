@@ -36,13 +36,13 @@ BG_Demon_Gold={}
 
 #################### インプ ### OK ### banned 24.2 ## renew 25.2.2
 if BG_Icky_Imp:
-	BG_Minion_Demon +=['BG21_029','BRM_006t','BG21_029_G','TB_BaconUps_030t']
+	BG_Minion_Demon +=['BG21_029','BG_BRM_006t','BG21_029_G','TB_BaconUps_030t']
 	BG_PoolSet_Demon[1].append('BG21_029')
 	BG_Demon_Gold['BG21_029']='BG21_029_G'
 class BG21_029:# <12>[1453]
 	""" Icky Imp (1)
 	[Deathrattle:] Summon two 1/1 Imps. """
-	deathrattle = Summon(CONTROLLER, 'BRM_006t') * 2
+	deathrattle = Summon(CONTROLLER, 'BG_BRM_006t') * 2
 	pass
 class BRM_006t:#
 	""" imp (1/1)"""
