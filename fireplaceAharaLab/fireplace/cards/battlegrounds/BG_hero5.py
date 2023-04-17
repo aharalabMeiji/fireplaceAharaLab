@@ -9,7 +9,7 @@ BG_Hero5_Buddy_Gold={}
 
 ######## source #################################################################
 
-##Tamsin Roame ### OK ### need check 23/4/5
+##Tamsin Roame ### HP OK ###  MAYBE BUDDY ###
 BG_Hero5+=['BG20_HERO_282','BG20_HERO_282p','BG20_HERO_282pe','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G',]
 BG_PoolSet_Hero5.append('BG20_HERO_282')
 BG_Hero5_Buddy['BG20_HERO_282']='BG20_HERO_282_Buddy'
@@ -57,8 +57,8 @@ class BG20_HERO_282_Buddy_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		atk=target.atk
-		hlt=target.max_health
-		Buff(source, 'BG20_HERO_282_Buddye', atk=atk, max_health=hlt).trigger(source.controller)
+		#hlt=target.max_health
+		Buff(source, 'BG20_HERO_282_Buddye', atk=atk).trigger(source.controller)
 class BG20_HERO_282_Buddy:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack. """
@@ -71,8 +71,8 @@ class BG20_HERO_282_Buddy_G_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, target):
 		atk=target.atk*2
-		hlt=target.max_health*2
-		Buff(source, 'BG20_HERO_282_Buddye', atk=atk, max_health=hlt).trigger(source.controller)
+		##hlt=target.max_health*2
+		Buff(source, 'BG20_HERO_282_Buddye', atk=atk).trigger(source.controller)
 class BG20_HERO_282_Buddy_G:# <12>[1453]
 	""" Monstrosity
 	After a friendly minion dies, gain its Attack twice. """
