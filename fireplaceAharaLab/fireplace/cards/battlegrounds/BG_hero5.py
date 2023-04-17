@@ -1,7 +1,5 @@
 from ..utils import *
 
-
-
 BG_Hero5=[]
 BG_PoolSet_Hero5=[]
 BG_Hero5_Buddy={}
@@ -9,7 +7,7 @@ BG_Hero5_Buddy_Gold={}
 
 ######## source #################################################################
 
-##Tamsin Roame ### HP OK ###  MAYBE BUDDY ###
+##Tamsin Roame ### HP OK ###  BUDDY MAYBE ###
 BG_Hero5+=['BG20_HERO_282','BG20_HERO_282p','BG20_HERO_282pe','BG20_HERO_282_Buddy','BG20_HERO_282_Buddye','BG20_HERO_282_Buddy_G',]
 BG_PoolSet_Hero5.append('BG20_HERO_282')
 BG_Hero5_Buddy['BG20_HERO_282']='BG20_HERO_282_Buddy'
@@ -83,13 +81,13 @@ class BG20_HERO_282_Buddy_G:# <12>[1453]
 
 
 
-###Tavish Stormpike ### OK ### need chekc buddy 23/4/5
+###Tavish Stormpike ### HP OK ### BUDDY OK  ###
 BG_Hero5+=['BG22_HERO_000',
 		'BG22_HERO_000p','BG22_HERO_000p_t1','BG22_HERO_000p_t2','BG22_HERO_000p_t3','BG22_HERO_000p_t4',
 		'BG22_HERO_000_Buddy','BG22_HERO_000_Buddy_e','BG22_HERO_000_Buddy_G',]
 BG_PoolSet_Hero5.append('BG22_HERO_000')
 BG_Hero5_Buddy['BG22_HERO_000']='BG22_HERO_000_Buddy'
-BG_Hero5_Buddy_Gold['BG22_HERO_000_Buddy']='BG22_HERO_000_Buddy'
+BG_Hero5_Buddy_Gold['BG22_HERO_000_Buddy']='BG22_HERO_000_Buddy_G'
 class BG22_HERO_000:# <12>[1453]
 	""" Tavish Stormpike """
 	pass
@@ -196,7 +194,7 @@ class BG22_HERO_000_Buddy_Action(TargetedAction):
 	TARGET=ActionArg()
 	AMOUNT=IntArg()
 	def do(self, source, target, amount):
-		index = source.controller.field(source)
+		index = source.controller.field.index(source)
 		if index>0:
 			Buff(source.controller.field[index-1], 'BG22_HERO_000_Buddy_e', atk=amount, max_health=amount).trigger(source)
 		if index<len(source.controller.field)-1:
