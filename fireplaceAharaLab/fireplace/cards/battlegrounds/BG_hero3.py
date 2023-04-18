@@ -12,8 +12,10 @@ BG_Hero3_Buddy_Gold={}
 #### source ####################################################
 
 
-##Lady Vashj ### HP OK ##
-BG_Hero3+=['BG23_HERO_304','BG23_HERO_304p', 'BG23_HERO_304_Buddy','BG23_HERO_304_Buddy_G']#
+##Lady Vashj ### HP OK ## BUDDY OK ###
+BG_Hero3+=[
+	'BG23_HERO_304','BG23_HERO_304p', 
+	'BG23_HERO_304_Buddy','BG23_HERO_304_Buddy_G']#
 BG_PoolSet_Hero3.append('BG23_HERO_304')
 BG_Hero3_Buddy['BG23_HERO_304']='BG23_HERO_304_Buddy'
 BG_Hero3_Buddy_Gold['BG23_HERO_304_Buddy']='BG23_HERO_304_Buddy_G'
@@ -22,7 +24,7 @@ class BG23_HERO_304:
 class BG23_HERO_304p_Action(TargetedAction):
 	BUFF=ActionArg()
 	def do(self, source, buff):
-		if hasattr(buff.source,'spellcraft_spellcard'):
+		if hasattr(buff.source,'spellcraft_spellcard') or buff.data.tags.get(2594)==1:### 2594 = spellcraft_buff
 			if source.script_data_num_1<1:
 				buff.permanent_buff = True
 				source.script_data_num_1+=1
@@ -40,13 +42,36 @@ class BG23_HERO_304p:
 	activate = Discover(CONTROLLER, RandomBGSpellcraftSpellcard(tech_level_less=TIER(CONTROLLER)))
 	pass
 ###### buddy #####
+class BG23_HERO_304_Buddy_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		cards=[card for card in controller.opponent.field if getattr(card, 'spellcraft', None)!=None]
+		if len(cards):
+			for card in cards:
+				spellcardID=getattr(card, 'spellcraft', None)
+				if spellcardID!=None:
+					Give(controller, spellcardID).trigger(source)
+		pass
 class BG23_HERO_304_Buddy:
 	""" Coilfang Elite
 	After a [Spellcraft] minion appears in Bob's Tavern, get a copy of its spell."""
+	events = Rerole(CONTROLLER).after(BG23_HERO_304_Buddy_Action())
 	pass
+class BG23_HERO_304_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		cards=[card for card in controller.opponent.field if getattr(card, 'spellcraft', None)!=None]
+		if len(cards):
+			for card in cards:
+				spellcardIDD=getattr(card, 'spellcraft', None)
+				if spellcardID!=None:
+					Give(controller, spellcardID).trigger(source)
+					Give(controller, spellcardID).trigger(source)
+		pass
 class BG23_HERO_304_Buddy_G:
 	""" Coilfang Elite
 	After a [Spellcraft] minion appears in Bob's Tavern, get 2 copies of its spell."""
+	events = Rerole(CONTROLLER).after(BG23_HERO_304_Buddy_G_Action())
 	pass
 
 

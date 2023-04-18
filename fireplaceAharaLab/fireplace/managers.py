@@ -262,6 +262,7 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.SPELLS_CAST_TWICE: "spell_cast_twice",
 	GameTag.SPELLCRAFT: "spellcraft",
 	2423: "spellcraft_spellcard",
+	2594: "spellcraft_buff",
 	GameTag.SPELLPOWER: "spellpower",
 	GameTag.SPELLPOWER_DOUBLE: "spellpower_double",
 	GameTag.SPELL_SCHOOL: "spell_school", # 

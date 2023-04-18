@@ -174,7 +174,7 @@ class BG23_009_Action(TargetedAction):
 	BUFF=ActionArg()
 	AMOUNT=IntArg()
 	def do(self, source, buff, amount):
-		if hasattr(buff.source,'spellcraft_spellcard'):
+		if hasattr(buff.source,'spellcraft_spellcard') or  buff.data.tags.get(2594)==1:
 			if source.script_data_num_1<amount:
 				buff.permanent_buff = True
 				source.script_data_num_1+=1
