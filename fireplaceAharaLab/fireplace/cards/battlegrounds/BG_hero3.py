@@ -85,24 +85,31 @@ class TB_BaconShop_HERO_25:# <12>[1453]
 	""" Lich Baz'hial	 """
 class TB_BaconShop_HP_049:
 	""" Graveyard Shift
-	Take $4 damage. Gain 2 Gold this turn only.""" # 24.0.3
+	Take $4 damage. Gain 2 Gold. """ ## 25.?
+	## Take $4 damage. Gain 2 Gold this turn only.""" # 24.0.3
 	## Take $2_damage and add a Gold Coin to your hand. 24.0
 	activate = Hit(FRIENDLY_HERO, 4), Give(CONTROLLER, 'GAME_005')*2
 	pass
 ######## BUDDY
+class TB_BaconShop_HERO_25_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		
+		pass
 class TB_BaconShop_HERO_25_Buddy:# <12>[1453]
 	""" Unearthed Underling
-	Whenever your hero takesdamage, this miniongains +3/+3 instead.<i>(@ left this turn.)</i> """
-	#
+	Whenever your hero takes damage, this minion gains +2/+2 instead.<i>(@ left this turn.)</i> """
+	###Whenever your hero takes damage, this minion gains +3/+3 instead.<i>(@ left this turn.)</i> """
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
+	events = Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_Action())
 	pass
-TB_BaconShop_HERO_25_Buddy_e=buff(3,3)# <12>[1453]
-""" Recovery,+3/+3. """
+TB_BaconShop_HERO_25_Buddy_e=buff(2,2)# <12>[1453]
 class TB_BaconShop_HERO_25_Buddy_G:# <12>[1453]
 	""" Unearthed Underling
-	Whenever your hero takesdamage, this miniongains +6/+6 instead.<i>(@ left this turn.)</i> """
+	Whenever your hero takes damage, this minion gains +4/+4 instead.<i>(@ left this turn.)</i> """
+	##Whenever your hero takesdamage, this miniongains +6/+6 instead.<i>(@ left this turn.)</i> """
 	#
 	pass
-TB_BaconShop_HERO_25_Buddy_Ge=buff(6,6)# <12>[1453]
+TB_BaconShop_HERO_25_Buddy_Ge=buff(4,4)# <12>[1453]
 """ Recovery,+6/+6. """
 
 
