@@ -224,6 +224,7 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 	pass
 
 
+
 ##Teron Gorefiend BG25_HERO_103 #### ' Once you have space, ___resummon an exact copy.' ##################
 BG_Hero5+=['BG25_HERO_103','BG25_HERO_103p','BG25_HERO_103_Buddy','BG25_HERO_103_Buddye','BG25_HERO_103_Buddy_G','BG25_HERO_103_Buddy_Ge',]
 BG_PoolSet_Hero5.append('BG25_HERO_103')
@@ -245,6 +246,13 @@ class BG25_HERO_103p_Action(GameAction):
 			index = source.controller.deepcopy_original.field.index(target)
 			card=source.controller.field[index]
 			Destroy(card).trigger(source)
+			card.zone=Zone.SETASIDE
+			card.damage=0
+			if len(source.controller.field)<7:
+				card.zone=Zone.PLAY
+				source.controller.gorefiend_area=[]
+			else:
+				source.controller.gorefiend_area=[card]
 class BG25_HERO_103p:
 	""" Rapid Reanimation
 	[x]Choose a friendly minion. [Start of Combat:] Destroy it. Once you have space, ___resummon an exact copy."""
@@ -260,7 +268,7 @@ class BG25_HERO_103_Buddy_Action(TargetedAction):
 		index = source.controller.field.index(target)
 		if index>0:
 			Buff(source.controller.field[index-1], buff).trigger(source)
-		if(index<len(source.controller.field)-1):
+		if index<len(source.controller.field)-1:
 			Buff(source.controller.field[index+1], buff).trigger(source)
 class BG25_HERO_103_Buddy:
 	""" Shadowy Construct

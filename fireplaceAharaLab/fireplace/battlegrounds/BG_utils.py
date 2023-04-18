@@ -638,7 +638,7 @@ class Move(object):
 			return "%s を売る"%(self.target)
 		elif self.move==MovePlay.POWER:# 
 			if self.target != None:
-				return "ヒーローパワー （%s）を発動する（コスト%d）"%(self.target, self.controller.hero.power.cost)
+				return "ヒーローパワー （対象：%s）を発動する（コスト%d）"%(self.target, self.controller.hero.power.cost)
 			else:
 				return "ヒーローパワーを発動する（コスト%d）"%(self.controller.hero.power.cost)
 		elif self.move==MovePlay.TIERUP:#
