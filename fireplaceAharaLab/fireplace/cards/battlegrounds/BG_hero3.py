@@ -100,7 +100,9 @@ class TB_BaconShop_HERO_25_Buddy:# <12>[1453]
 	Whenever your hero takes damage, this minion gains +2/+2 instead.<i>(@ left this turn.)</i> """
 	###Whenever your hero takes damage, this minion gains +3/+3 instead.<i>(@ left this turn.)</i> """
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
-	events = Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_Action())
+	events = [Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_Action()),
+		
+		   ]
 	pass
 TB_BaconShop_HERO_25_Buddy_e=buff(2,2)# <12>[1453]
 class TB_BaconShop_HERO_25_Buddy_G:# <12>[1453]
