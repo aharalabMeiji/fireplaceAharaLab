@@ -91,25 +91,31 @@ class TB_BaconShop_HP_049:
 	activate = Hit(FRIENDLY_HERO, 4), Give(CONTROLLER, 'GAME_005')*2
 	pass
 ######## BUDDY
-class TB_BaconShop_HERO_25_Buddy_Action(GameAction):# <12>[1453]
-	def do(self, source):
-		
+class TB_BaconShop_HERO_25_Buddy_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.predamage=0
+		Buff(source, 'TB_BaconShop_HERO_25_Buddy_e').trigger(source)
 		pass
 class TB_BaconShop_HERO_25_Buddy:# <12>[1453]
 	""" Unearthed Underling
 	Whenever your hero takes damage, this minion gains +2/+2 instead.<i>(@ left this turn.)</i> """
 	###Whenever your hero takes damage, this minion gains +3/+3 instead.<i>(@ left this turn.)</i> """
 	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="2"/>
-	events = [Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_Action()),
-		
-		   ]
+	events = Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_Action(Predamage.TARGET))
 	pass
 TB_BaconShop_HERO_25_Buddy_e=buff(2,2)# <12>[1453]
+class TB_BaconShop_HERO_25_Buddy_G_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target.predamage=0
+		Buff(source, 'TB_BaconShop_HERO_25_Buddy_Ge').trigger(source)
+		pass
 class TB_BaconShop_HERO_25_Buddy_G:# <12>[1453]
 	""" Unearthed Underling
 	Whenever your hero takes damage, this minion gains +4/+4 instead.<i>(@ left this turn.)</i> """
 	##Whenever your hero takesdamage, this miniongains +6/+6 instead.<i>(@ left this turn.)</i> """
-	#
+	events = Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_G_Action(Predamage.TARGET)
 	pass
 TB_BaconShop_HERO_25_Buddy_Ge=buff(4,4)# <12>[1453]
 """ Recovery,+6/+6. """
@@ -117,7 +123,7 @@ TB_BaconShop_HERO_25_Buddy_Ge=buff(4,4)# <12>[1453]
 
 
 
-##Lord Barov  #### impossible ###
+##Lord Barov  #### HP OK  ###
 BG_Hero3+=['TB_BaconShop_HERO_72','TB_BaconShop_HP_081','TB_BaconShop_HERO_72_Buddy','TB_BaconShop_HERO_72_Buddy_G',]
 BG_PoolSet_Hero3+=['TB_BaconShop_HERO_72']
 BG_Hero3_Buddy['TB_BaconShop_HERO_72']='TB_BaconShop_HERO_72_Buddy'
@@ -176,12 +182,12 @@ class TB_BaconShop_HP_081: ############# impossible
 class TB_BaconShop_HERO_72_Buddy:# <12>[1453]
 	""" Barov's Apprentice
 	After you play a Gold Coin, gain 1 Gold this turn only. """
-	#
+	BG_Play(CONTROLLER, 'GAME_005').after(ManaThisTurn(CONTROLLER, 1))
 	pass
 class TB_BaconShop_HERO_72_Buddy_G:# <12>[1453]
 	""" Barov's Apprentice
 	After you play a Gold Coin, gain 2 Gold this turn only. """
-	#
+	BG_Play(CONTROLLER, 'GAME_005').after(ManaThisTurn(CONTROLLER, 2))
 	pass
 
 
