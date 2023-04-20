@@ -225,7 +225,7 @@ class BG22_HERO_000_Buddy_G:# <12>[1453]
 
 
 
-##Teron Gorefiend BG25_HERO_103 #### ' Once you have space, ___resummon an exact copy.' ##################
+##Teron Gorefiend BG25_HERO_103 #### HP OK #### BUDDY OK ####
 BG_Hero5+=['BG25_HERO_103','BG25_HERO_103p','BG25_HERO_103_Buddy','BG25_HERO_103_Buddye','BG25_HERO_103_Buddy_G','BG25_HERO_103_Buddy_Ge',]
 BG_PoolSet_Hero5.append('BG25_HERO_103')
 BG_Hero5_Buddy['BG25_HERO_103']='BG25_HERO_103_Buddy'
@@ -283,7 +283,7 @@ BG25_HERO_103_Buddy_Ge=buff(2,2)
 
 
 
-##Tess Greymane ### OK ###
+##Tess Greymane ### HP OK ###
 BG_Hero5+=['TB_BaconShop_HERO_50','TB_BaconShop_HERO_50_Buddy','TB_BaconShop_HERO_50_Buddy_G','TB_BaconShop_HP_077',]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_50')
 BG_Hero5_Buddy['TB_BaconShop_HERO_50']='TB_BaconShop_HERO_50_Buddy'
@@ -315,15 +315,55 @@ class TB_BaconShop_HP_077:
 	activate = TB_BaconShop_HP_077_Action()
 	pass
 ######## BUDDY
+class TB_BaconShop_HERO_50_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		controller = source.controller 
+		my_bar = controller.game
+		gamemaster = my_bar.parent
+		last_matches = gamemaster.prevMatches
+		for match in range(len(last_matches)):
+			the_match = last_matches[match]
+			if my_bar == gamemaster.BG_Bars[the_match[0]]:
+				last_heroID = gamemaster.BG_Bars[the_match[1]].controller.hero.id
+				last_hero_buddyID = gamemaster.BG_Hero_Buddy[last_heroID]
+				Give(controller, last_hero_buddyID).trigger(source)
+				break
+			elif my_bar == gamemaster.BG_Bars[the_match[1]]:
+				last_heroID = gamemaster.BG_Bars[the_match[0]].controller.hero.id
+				last_hero_buddyID = gamemaster.BG_Hero_Buddy[last_heroID]
+				Give(controller, last_hero_buddyID).trigger(source)
+				break
+		pass
 class TB_BaconShop_HERO_50_Buddy:# <12>[1453]
 	""" Hunter of Old
 	At the start of your turn,add your last opponent's Buddy to your hand. """
-	#
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_50_Buddy_Action)
 	pass
+class TB_BaconShop_HERO_50_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		controller = source.controller 
+		my_bar = controller.game
+		gamemaster = my_bar.parent
+		last_matches = gamemaster.prevMatches
+		for match in range(len(last_matches)):
+			the_match = last_matches[match]
+			if my_bar == gamemaster.BG_Bars[the_match[0]]:
+				last_heroID = gamemaster.BG_Bars[the_match[1]].controller.hero.id
+				last_hero_buddyID = gamemaster.BG_Hero_Buddy[last_heroID]
+				Give(controller, last_hero_buddyID).trigger(source)
+				Give(controller, last_hero_buddyID).trigger(source)
+				break
+			elif my_bar == gamemaster.BG_Bars[the_match[1]]:
+				last_heroID = gamemaster.BG_Bars[the_match[0]].controller.hero.id
+				last_hero_buddyID = gamemaster.BG_Hero_Buddy[last_heroID]
+				Give(controller, last_hero_buddyID).trigger(source)
+				Give(controller, last_hero_buddyID).trigger(source)
+				break
+		pass
 class TB_BaconShop_HERO_50_Buddy_G:# <12>[1453]
 	""" Hunter of Old
 	At the start of your turn, add 2 of your last opponent's Buddy to your hand. """
-	#
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_50_Buddy_G_Action())
 	pass
 
 
@@ -345,15 +385,38 @@ class TB_BaconShop_HP_033:
 class TB_BaconShop_HP_033t:
 	"""  2/2 Amalgam """
 ########  BUDDY
+class TB_BaconShop_HERO_33_Buddy_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		target=get00(target)
+		if target.id=='TB_BaconShop_HP_033t':
+			atk=buff.atk
+			hlt=buff.max_health
+			Buff(source, 'TB_BaconShop_HERO_33_Buddy_e', atk=atk, max_health=hlt).trigger(source)
 class TB_BaconShop_HERO_33_Buddy:# <12>[1453]
-	"""  """
+	"""  Mishmash
+	Whenever your Amalgam gains stats, this gains them too."""
+	events = Buff(FRIENDLY + MINION).on(TB_BaconShop_HERO_33_Buddy_Action(Buff.TARGET, Buff.BUFF))
 class TB_BaconShop_HERO_33_Buddy_e:# <12>[1453]
 	""" Amalfam
 	Increased stats. """
 	#
 	pass
+class TB_BaconShop_HERO_33_Buddy_G_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	BUFF=ActionArg()
+	def do(self, source, target, buff):
+		target=get00(target)
+		if target.id=='TB_BaconShop_HP_033t':
+			atk=buff.atk*2
+			hlt=buff.max_health*2
+			Buff(source, 'TB_BaconShop_HERO_33_Buddy_e', atk=atk, max_health=hlt).trigger(source)
 class TB_BaconShop_HERO_33_Buddy_G:# <12>[1453]
-	"""  """
+	"""  Mishmash
+	Whenever your Amalgam gains stats, this gains them twice."""
+	events = Buff(FRIENDLY + MINION).on(TB_BaconShop_HERO_33_Buddy_G_Action(Buff.TARGET, Buff.BUFF))
+
 
 
 
@@ -378,12 +441,18 @@ class TB_BaconShop_HP_020:
 class TB_BaconShop_HERO_21_Buddy:# <12>[1453]
 	""" Street Magician
 	[Deathrattle:] Put a random [Secret] into the battlefield. """
-	#
+	entourage=[
+		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
+		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',]	
+	deathrattle = CastSecret(CONTROLLER, RandomID(*entourage))
 	pass
 class TB_BaconShop_HERO_21_Buddy_G:# <12>[1453]
 	""" Street Magician
 	[Deathrattle:] Put 2 random[Secrets] into the battlefield. """
-	#
+	entourage=[
+		'TB_Bacon_Secrets_01','TB_Bacon_Secrets_02','TB_Bacon_Secrets_04',
+		'TB_Bacon_Secrets_05','TB_Bacon_Secrets_07','TB_Bacon_Secrets_08',]	
+	deathrattle = CastSecret(CONTROLLER, RandomID(*entourage))*2
 	pass
 
 
@@ -441,6 +510,17 @@ class TB_BaconShop_HP_702e:
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 	}
 	pass
+###### buddy ######
+class TB_BaconShop_HERO_702_Buddy:
+	""" Mawsworn Soulkeeper
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon 3 random Tier 1 minions."""
+	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=3))
+class TB_BaconShop_HERO_702_Buddy_G:
+	""" Mawsworn Soulkeeper
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Summon 6 random Tier 1 minions."""
+	deathrattle = Summon(CONTROLLER, RandomBGMinion(tech_level=6))
+	pass
+
 
 
 
@@ -461,16 +541,36 @@ class TB_BaconShop_HP_024e2:
 	tags={GameTag.REBORN:True,}
 	events=BeginBar(CONTROLLER).on(Destroy(SELF))
 ########  BUDDY
+class TB_BaconShop_HERO_22_Buddy_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		atk=target.atk
+		Buff(source, 'TB_BaconShop_HERO_22_Buddye', atk=atk).trigger(source)
 class TB_BaconShop_HERO_22_Buddy:
-	"""  """
+	""" Arfus 
+	After a friendly minion is &lt;b&gt;Reborn&lt;/b&gt;, give it this minion's Attack."""
+	events = Reborn(FRIENDLY + MINION).on(TB_BaconShop_HERO_22_Buddy_Action(Reborn.TARGET))
+class TB_BaconShop_HERO_22_Buddye:
+	pass
+class TB_BaconShop_HERO_22_Buddy_G_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		atk=target.atk*2
+		Buff(source, 'TB_BaconShop_HERO_22_Buddye', atk=atk).trigger(source)
 class TB_BaconShop_HERO_22_Buddy_G:
-	"""  """
+	""" Arfus 
+	After a friendly minion is &lt;b&gt;Reborn&lt;/b&gt;, give it this minion's Attack twice."""
+	events = Reborn(FRIENDLY + MINION).on(TB_BaconShop_HERO_22_Buddy_G_Action(Reborn.TARGET))
 
 
 
 
 ##The Rat King ##   ### OK ###
-BG_Hero5+=['TB_BaconShop_HERO_12','TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G','TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',]
+BG_Hero5+=[
+	'TB_BaconShop_HERO_12',
+	'TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',
+	'TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G',
+	]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_12')
 BG_Hero5_Buddy['TB_BaconShop_HERO_12']='TB_BaconShop_HERO_12_Buddy'
 BG_Hero5_Buddy_Gold['TB_BaconShop_HERO_12_Buddy']='TB_BaconShop_HERO_12_Buddy_G'
@@ -548,14 +648,52 @@ class TB_BaconShop_HP_041j:
 		Buy(CONTROLLER, NAGA).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
+class TB_BaconShop_HP_041j:
+	""" undead """
+	events = [
+		Buy(CONTROLLER, UNDEAD).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
+		]
 ######## BUDDY
+class TB_BaconShop_HERO_12_Buddy_Action(GameAction):
+	def do(self, source):
+		heropowerID=source.controller.hero.power.id
+		if heropowerID=='TB_BaconShop_HP_041a':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.BEAST]
+		elif heropowerID=='TB_BaconShop_HP_041b':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.MECHANICAL]
+		elif heropowerID=='TB_BaconShop_HP_041c':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.MURLOC]
+		elif heropowerID=='TB_BaconShop_HP_041d':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.DEMON]
+		elif heropowerID=='TB_BaconShop_HP_041e':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.DRAGON]
+		elif heropowerID=='TB_BaconShop_HP_041f':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.PIRATE]
+		elif heropowerID=='TB_BaconShop_HP_041g':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.ELEMENTAL]
+		elif heropowerID=='TB_BaconShop_HP_041h':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.QUILBOAR]
+		elif heropowerID=='TB_BaconShop_HP_041i':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.NAGA]
+		elif heropowerID=='TB_BaconShop_HP_041j':
+			cards=[card for card in source.controller.opponent.field if card.race==Race.UNDEAD]
+		if len(cards)==0:
+			source.controller.game.free_rerole = 1
+			source.controller.game.reroleCost = 0
+		else:
+			source.controller.game.free_rerole = 0
+			source.controller.game.reroleCost = 1
+		pass
 class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
 	""" Pigeon Lord
-	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
+	Your [Refreshes] cost (0) while Bob's Tavern doesn't have the minion type of your Hero Power. """
+	events = Rerole(CONTROLLER).on(TB_BaconShop_HERO_12_Buddy_Action())
 	pass
 class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
 	""" Pigeon Lord
-	Your [Refreshes] cost (0)while Bob's Tavern doesn'thave the minion type ofyour Hero Power. """
+	Your [Refreshes] cost (0) while Bob's Tavern doesn't have the minion type of your Hero Power. """
+	events = Rerole(CONTROLLER).on(TB_BaconShop_HERO_12_Buddy_Action())
 	#
 	pass
 
