@@ -246,15 +246,15 @@ class TB_BaconShop_HP_082:
 ######## BUDDY
 class TB_BaconShop_HERO_74_Buddy:# <12>[1453]
 	""" Evergreen Botani
-	At the end of your turn, adda random minion of your_Tavern Tier to your hand. """
-	#
+	At the end of your turn, add a random minion of your_Tavern Tier to your hand. """
+	events = OWN_TURN_END.on(Give(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))))
 	pass
 class TB_BaconShop_HERO_74_Buddy_e:# <10>[1453]
 	""" Evergreen Increased stats. """
 class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
 	""" Evergreen Botani
 	At the end of your turn, add2 random minions of your_Tavern Tier to your hand. """
-	#
+	events = OWN_TURN_END.on(Give(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))), Give(CONTROLLER, RandomBGMinion(tech_level=TIER(CONTROLLER))))
 	pass
 
 
