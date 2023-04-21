@@ -457,6 +457,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 			if not self.controller.graveyard.filter(type=CardType.MINION):
 				return False
 
+		min_tier= self.requirements.get(PlayReq.REQ_MINIMUM_TAVERN_TIER_LEVEL_TO_PLAY, 0)
+		if PlayReq.REQ_MINIMUM_TAVERN_TIER_LEVEL_TO_PLAY in self.requirements:
+			if self.controller.tavern_tier < min_tier:
+				return False
+
 		return self.is_summonable()
 
 	def play(self, target=None, index=None, choose=None):

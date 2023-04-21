@@ -18,15 +18,36 @@ BG_Hero2_Buddy_Gold['BG25_HERO_105_Buddy']='BG25_HERO_105_Buddy_G'
 class BG25_HERO_105:
 	"""E.T.C., Band Manager
 	"""
-class BG25_HERO_105p:###########################
+class BG25_HERO_105p_Action(GameAction):##
+	def do(self, source):
+		gamemaster = source.controller.game.parent
+		buddies=gamemaster.BG_Hero_Buddy.values()
+		buddies.remove('BG25_HERO_105_Buddy')
+		Discover(source.controller, RandomID(*buddies)*3).trigger(source)
+class BG25_HERO_105p:##
 	""" Sign a New Artist
 	[Discover] a Buddy. &lt;i&gt;(Unlocks at Tier 2.)&lt;/i&gt;"""
-class BG25_HERO_105_Buddy:#####################
+	requirements = { PlayReq.REQ_MINIMUM_TAVERN_TIER_LEVEL_TO_PLAY:2, }
+	play = BG25_HERO_105p_Action()
+###### BUDDY ######
+class BG25_HERO_105_Buddy_Action(GameAction):###
+	def do(self, source):
+		gamemaster=source.controller.game.parent
+		cards = [card for card in source.controller.field+source.controller.hand if card.id in gamemaster.BG_HeroBuddy.values()]
+		if len(cards):
+			card = random.choice(cards)
+			source.controller.game.BG_deal_gold(card.id)
+		pass
+class BG25_HERO_105_Buddy:###
 	""" Talent Scout
 	[Battlecry:] Make a Buddy Golden."""
-class BG25_HERO_105_Buddy_G:#########################
+	play = BG25_HERO_105_Buddy_Action()
+class BG25_HERO_105_Buddy_G:###
 	""" Talent Scout
 	[Battlecry:] Make a Buddy Golden."""
+	play = BG25_HERO_105_Buddy_Action()
+	pass
+
 
 
 ##Edwin VanCleef ### HP OK ###
@@ -56,17 +77,18 @@ class TB_BaconShop_HP_001:
 	activate = TB_BaconShop_HP_001_Action(TARGET)
 class TB_BaconShop_HP_001e:
 	pass
+###### BUDDY ######
 class TB_BaconShop_HERO_01_Buddy:# <12>[1453]
 	""" SI:7 Scout
 	After you buy a minion, gain +1/+1. """
-	#
+	events = Buy(CONTROLLER).after(Buff(SELF, 'TB_BaconShop_HERO_01_Buddy_e'))
 	pass
 TB_BaconShop_HERO_01_Buddy_e=buff(1,1)# <12>[1453]
 """ Scouting +1/+1. """
 class TB_BaconShop_HERO_01_Buddy_G:# <12>[1453]
 	""" SI:7 Scout
 	After you buy a minion, gain +2/+2. """
-	#
+	events = Buy(CONTROLLER).after(Buff(SELF, 'TB_BaconShop_HERO_01_Buddy_G_e'))
 	pass
 TB_BaconShop_HERO_01_Buddy_G_e=buff(2,2)# <12>[1453]
 """ Scouting +2/+2. """
@@ -123,8 +145,8 @@ class TB_BaconShop_HP_047e:
 		GameTag.CARDTYPE: CardType.ENCHANTMENT,
 		GameTag.COST: 1,
 	}
-######## BUDDY
-class TB_BaconShop_HERO_42_Buddy:# <12>[1453]
+###### BUDDY ######
+class TB_BaconShop_HERO_42_Buddy:# <12>[1453] ######################################################
 	""" Jr. Navigator
 	At the start of your turn,get a 'Recruitment Map.'Your Maps cost (1). """
 	#
@@ -172,10 +194,43 @@ class BG24_HERO_204p:
 	[x][Passive.] After each [Refresh], give a minion in Bob's Tavern [Taunt], [Windfury], _[Reborn], or [Divine Shield]."""
 	events = Rerole(CONTROLLER).after(BG24_HERO_204p_Action())
 ###### Buddy ######
+class BG24_HERO_204_Buddy_Action(GameAction):
+	def do(self, source):
+		for card in source.controller.opponent.field:
+			if card.taunt:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=2, max_health=2).trigger(source)
+			if card.reborn:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=2, max_health=2).trigger(source)
+			if card.windfury>0:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=2, max_health=2).trigger(source)
+			if card.devine_shield:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=2, max_health=2).trigger(source)
 class BG24_HERO_204_Buddy:
+	""" Enhance-o Medico
+	Minions in Bob's Tavern with &lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Reborn&lt;/b&gt;, &lt;b&gt;Windfury&lt;/b&gt;, or &lt;b&gt;Divine Shield&lt;/b&gt; have +2/+2 for each."""
+	events = Rerole(CONTROLLER).on(BG24_HERO_204_Buddy_Action())
 	pass
+class BG24_HERO_204_Buddye2:
+	pass
+class BG24_HERO_204_Buddy_G_Action(GameAction):
+	def do(self, source):
+		for card in source.controller.opponent.field:
+			if card.taunt:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=4, max_health=4).trigger(source)
+			if card.reborn:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=4, max_health=4).trigger(source)
+			if card.windfury>0:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=4, max_health=4).trigger(source)
+			if card.devine_shield:
+				Buff(card, 'BG24_HERO_204_Buddye2', atk=4, max_health=4).trigger(source)
 class BG24_HERO_204_Buddy_G:
+	""" Enhance-o Medico
+	Minions in Bob's Tavern with &lt;b&gt;Taunt&lt;/b&gt;, &lt;b&gt;Reborn&lt;/b&gt;, &lt;b&gt;Windfury&lt;/b&gt;, or &lt;b&gt;Divine Shield&lt;/b&gt; have +4/+4  for each."""
+	events = Rerole(CONTROLLER).on(BG24_HERO_204_Buddy_G_Action())
 	pass
+
+
+
 
 ##Forest Warden Omu #### HP OK ###
 BG_Hero2+=['TB_BaconShop_HERO_74','TB_BaconShop_HP_082','TB_BaconShop_HERO_74_Buddy','TB_BaconShop_HERO_74_Buddy_e','TB_BaconShop_HERO_74_Buddy_G',]
