@@ -299,6 +299,7 @@ class BG_main:
 						bartender.len_bobs_field=7
 					controller.max_mana = min(10,bar.turn+2)
 					controller.used_mana = 0
+					controller.total_used_mana_this_turn = 0
 					if controller.hero.power.id=='TB_BaconShop_HP_008':
 						controller.used_mana = -controller.sells_in_this_turn
 					controller.sells_in_this_turn=0
@@ -444,6 +445,7 @@ class BG_main:
 				# fill coins 
 				#bar.turn += 1
 				controller.used_mana = 0 
+				controller.total_used_mana_this_turn = 0 
 				controller.prev_field=[]
 				for card in controller.field:
 					controller.prev_field.append(card.id)
@@ -694,6 +696,7 @@ class Move(object):
 				return
 			else:
 				self.controller.used_mana += card.BG_cost
+				self.controller.total_used_mana_this_turn += card.BG_cost
 				card.BG_cost=0
 		# play a spell card (blood gem, banana, coin, spellcraft)
 		if card!=None and card.type==CardType.SPELL:
@@ -733,12 +736,14 @@ class Move(object):
 	def buy_buddy(self, card):
 		if self.controller.got_buddy==0:
 			self.controller.used_mana += self.controller.buddy_gauge
+			self.controller.total_used_mana_this_turn += self.controller.buddy_gauge
 			newcard=Give(self.controller, card).trigger(self.controller)
 			newcard=get00(newcard)
 			self.controller.buddy_gauge=newcard.tech_level*2+11
 			self.controller.got_buddy=1
 		elif self.controller.got_buddy==1:
 			self.controller.used_mana += self.controller.buddy_gauge
+			self.controller.total_used_mana_this_turn += self.controller.buddy_gauge
 			Give(self.controller, card).trigger(self.controller)
 			Give(self.controller, card).trigger(self.controller)
 			gold_card_id = self.controller.game.BG_find_triple()## judge a triple

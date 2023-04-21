@@ -307,7 +307,8 @@ def copy_playerattr(oldPlayer, newPlayer):
 				'choiceStrategy','lost_in_the_park','zone',
 				'piece_of_cthun','_death_log','_play_log','_damage_log',
 				'_activate_log','_summon_log','_reveal_log','carry_cards',
-				'last_card_played','used_mana','overload_locked','temp_mana','times_spell_played_this_game',
+				'last_card_played','used_mana','total_used_mana_this_turn','overload_locked','temp_mana',
+				'times_spell_played_this_game',
 				'times_spells_played_this_turn','spells_played_this_turn',
 				'times_hero_power_used_this_game','times_card_to_play_out_of_deck','tavern_tier',]
 	for attr in playerAttrs:

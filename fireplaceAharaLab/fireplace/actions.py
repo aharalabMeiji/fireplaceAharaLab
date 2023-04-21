@@ -3670,6 +3670,7 @@ class Buy(TargetedAction): ## battlegrounds
 						buff.apply(card)
 					card.frozen=False
 					controller.used_mana += minionprice
+					controller.total_used_mana_this_turn += minionprice
 					controller.spentmoney_in_this_turn += minionprice
 					controller.add_buy_log(card)
 					controller.game.refresh_auras()## refresh aura_buff
@@ -3835,6 +3836,7 @@ class Rerole(TargetedAction): ## battlegrounds
 		if controller.mana>=game.reroleCost:
 			self.broadcast(source, EventListener.ON, target)
 			controller.used_mana += game.reroleCost
+			controller.total_used_mana_this_turn += game.reroleCost
 			controller.spentmoney_in_this_turn += game.reroleCost
 			for i in range(len(bartender.field)):
 				card=bartender.field[0]
@@ -3966,6 +3968,7 @@ class UpgradeTier(TargetedAction):
 		if controller.tavern_tier<=5 and controller.mana >= controller.tavern_tierup_cost:
 			controller.tavern_tier += 1
 			controller.used_mana += controller.tavern_tierup_cost
+			controller.total_used_mana_this_turn += controller.tavern_tierup_cost
 			controller.spentmoney_in_this_turn += controller.tavern_tierup_cost
 			controller.tavern_tierup_cost = tavern_tierup_cost[controller.tavern_tier]
 			controller.game.refresh_auras()## refresh aura_buff

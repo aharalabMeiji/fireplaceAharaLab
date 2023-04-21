@@ -715,11 +715,11 @@ class TB_BaconShop_HP_106_Action(GameAction):
 		darkmoon_ticket12=['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_028','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040']#3
 		source.script_data_num_1 = (103-controller.game.turn)%4+1
 		if controller.game.turn==4:
-			Discover(CONTROLLER, RandomID(*darkmoon_ticket4)).trigger(source)
+			Discover(controller, RandomID(*darkmoon_ticket4)).trigger(source)
 		elif controller.game.turn==8:
-			Discover(CONTROLLER, RandomID(*darkmoon_ticket8)).trigger(source)
+			Discover(controller, RandomID(*darkmoon_ticket8)).trigger(source)
 		elif controller.game.turn%4==0:
-			Discover(CONTROLLER, RandomID(*darkmoon_ticket12)).trigger(source)
+			Discover(controller, RandomID(*darkmoon_ticket12)).trigger(source)
 		pass
 class TB_BaconShop_HP_106:
 	""" Prize Wall 
@@ -727,16 +727,49 @@ class TB_BaconShop_HP_106:
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_106_Action())
 	pass
 ## darkmoon prize -> BGS_Treasures_000 ~ BGS_Treasures_037
-############# BUDDY
+###### BUDDY #######
+class TB_BaconShop_HERO_94_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		darkmoon_ticket4=['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018',]#1 #BGS_Treasures_032
+		darkmoon_ticket8=['BGS_Treasures_001','BGS_Treasures_010','BGS_Treasures_013','BGS_Treasures_016','BGS_Treasures_019','BGS_Treasures_022','BGS_Treasures_023','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_029',]#2 ## 'BGS_Treasures_011',
+		darkmoon_ticket12=['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_028','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040']#3
+		if source.controller.game.turn<4:
+			Discover(source.controller, RandomID(*darkmoon_ticket4)).trigger(source)
+		elif source.controller.game.turn<8:
+			Discover(source.controller, RandomID(*darkmoon_ticket8)).trigger(source)
+		else:
+			Discover(source.controller, RandomID(*darkmoon_ticket12)).trigger(source)
+		pass
 class TB_BaconShop_HERO_94_Buddy:# <12>[1453]
 	""" Ticket Collector
-	[Battlecry:] [Discover] aDarkmoon Prize fromthe next Prize turn. """
-	#
+	[Battlecry:] [Discover] a Darkmoon Prize fromthe next Prize turn. """
+	play = TB_BaconShop_HERO_94_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_94_Buddy_G_Choice(Choice):# <12>[1453]
+	def choose(self, card):
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=2:
+			self.next_choice=None
+		else:
+			self.next_choice=self
+		super().choose(card)
+		card.zone=Zone.HAND
+class TB_BaconShop_HERO_94_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		darkmoon_ticket4=['BGS_Treasures_004','BGS_Treasures_006','BGS_Treasures_007','BGS_Treasures_012','BGS_Treasures_015','BGS_Treasures_018',]#1 #BGS_Treasures_032
+		darkmoon_ticket8=['BGS_Treasures_001','BGS_Treasures_010','BGS_Treasures_013','BGS_Treasures_016','BGS_Treasures_019','BGS_Treasures_022','BGS_Treasures_023','BGS_Treasures_025','BGS_Treasures_026','BGS_Treasures_029',]#2 ## 'BGS_Treasures_011',
+		darkmoon_ticket12=['BGS_Treasures_000','BGS_Treasures_009','BGS_Treasures_014','BGS_Treasures_020','BGS_Treasures_028','BGS_Treasures_030','BGS_Treasures_033','BGS_Treasures_036','BGS_Treasures_037','BGS_Treasures_040']#3
+		if source.controller.game.turn<4:
+			TB_BaconShop_HERO_94_Buddy_G_Choice(source.controller, RandomID(*darkmoon_ticket4)*3).trigger(source)
+		elif source.controller.game.turn<8:
+			TB_BaconShop_HERO_94_Buddy_G_Choice(source.controller, RandomID(*darkmoon_ticket8)*3).trigger(source)
+		else:
+			TB_BaconShop_HERO_94_Buddy_G_Choice(source.controller, RandomID(*darkmoon_ticket12)*3).trigger(source)
+		pass
 class TB_BaconShop_HERO_94_Buddy_G:# <12>[1453]
 	""" Ticket Collector
-	[Battlecry:] [Discover] 2Darkmoon Prizes fromthe next Prize turn. """
-	#
+	[Battlecry:] [Discover] 2 Darkmoon Prizes from the next Prize turn. """
+	play = TB_BaconShop_HERO_94_Buddy_G_Action()
 	pass
 
 
@@ -757,20 +790,31 @@ class TB_BaconShop_HP_008:
 	pass
 class TB_BaconShop_HP_008a:
 	""" """
+###### buddy ######
+class TB_BaconShop_HERO_10_Buddy_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		amount = max(source.controller.total_used_mana_this_turn,0)
+		Buff(target, 'TB_BaconShop_HERO_10_Buddye', atk=amount, max_health=amount).trigger(source)
 class TB_BaconShop_HERO_10_Buddy:# <12>[1453]
 	""" Bilgewater Mogul
 	[Battlecry:] Give a minion +1/+1 for each Gold spent this turn. """
-	#
+	reuqirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0 }
+	play = TB_BaconShop_HERO_10_Buddy_Action(TARGET)
 	pass
 class TB_BaconShop_HERO_10_Buddye:# <12>[1453]
-	""" Brutal Luxury
-	Increased stats. """
-	#
+	""" Brutal Luxury 	Increased stats. """
 	pass
+class TB_BaconShop_HERO_10_Buddy_G_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		amount = max(source.controller.total_used_mana_this_turn,0) * 2
+		Buff(target, 'TB_BaconShop_HERO_10_Buddye', atk=amount, max_health=amount).trigger(source)
 class TB_BaconShop_HERO_10_Buddy_G:# <12>[1453]
 	""" Bilgewater Mogul
 	[Battlecry:] Give a minion +2/+2 for each Gold spent this turn. """
-	#
+	reuqirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_MINION_TARGET:0 }
+	play = TB_BaconShop_HERO_10_Buddy_G_Action(TARGET)
 	pass
 
 

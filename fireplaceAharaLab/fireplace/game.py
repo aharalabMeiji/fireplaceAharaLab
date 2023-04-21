@@ -434,6 +434,7 @@ class BaseGame(Entity):
 		player.combo = False
 		player.max_mana += 1
 		player.used_mana = 0
+		player.total_used_mana_this_turn = 0
 		GradeupByMana(player, player.max_mana).trigger(player)
 		player.overload_locked = player.overloaded
 		player.overloaded = 0
