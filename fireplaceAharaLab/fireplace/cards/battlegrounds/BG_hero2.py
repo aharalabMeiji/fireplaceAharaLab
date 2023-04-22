@@ -336,11 +336,23 @@ class TB_BaconShop_HP_011:
 	activate = TB_BaconShop_HP_011_Action(TARGET)
 	pass
 ######## BUDDY
+class TB_BaconShop_HERO_02_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		for card in reversed(controller.field):
+			tier=min(card.tech_level+1,6)
+			Morph(card, RandomBGMinion(tech_level=tier)).trigger(source)
 class TB_BaconShop_HERO_02_Buddy:# <12>[1453]
 	""" Apostle of Galakrond
 	[Battlecry:] Replace minions in Bob's Tavern with ones of a higher Tavern Tier. """
-	#
+	play = TB_BaconShop_HERO_02_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_02_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		for card in reversed(controller.field):
+			tier=min(card.tech_level+1,6)
+			Morph(card, RandomBGMinion(tech_level=tier)).trigger(source)
 class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 	""" Apostle of Galakrond
 	[Battlecry:] Replaceminions in Bob's Tavernwith ones of a higherTavern Tier twice. """
