@@ -258,6 +258,8 @@ class TB_BaconShop_HERO_74_Buddy_G:# <12>[1453]
 	pass
 
 
+
+
 ##Fungalmancer Flurgl ### OK ###
 BG_Hero2+=['TB_BaconShop_HERO_55','TB_BaconShop_HP_056','TB_BaconShop_HERO_55_Buddy','TB_BaconShop_HERO_55_Buddy_G',]
 BG_PoolSet_Hero2+=['TB_BaconShop_HERO_55']
@@ -276,11 +278,30 @@ class TB_BaconShop_HP_056:
 	#	[Summon(OPPONENT, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))] #
 	#))
 	pass
-######## BUDDY
+###### BUDDY ######
+class TB_BaconShop_HERO_55_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		for card in reversed(controller.field):
+			tier=card.tech_level
+			Morph(card, RandomBGMurloc(tech_level=tier)).trigger(source)
 class TB_BaconShop_HERO_55_Buddy:
+	""" Sparkfin Soothsayer
+	&lt;b&gt;Battlecry:&lt;/b&gt; Transform minions in Bob's Tavern into Murlocs of the same Tavern Tier."""
+	play = TB_BaconShop_HERO_55_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_55_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		for card in reversed(controller.field):
+			tier=min(card.tech_level+1,6)
+			Morph(card, RandomBGMurloc(tech_level=tier)).trigger(source)
 class TB_BaconShop_HERO_55_Buddy_G:
+	""" Sparkfin Soothsayer
+	&lt;b&gt;Battlecry:&lt;/b&gt; Transform minions in Bob's Tavern into Murlocs of a higher Tavern Tier."""
+	play = TB_BaconShop_HERO_55_Buddy_G_Action()
 	pass
+
 
 
 
