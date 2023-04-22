@@ -61,7 +61,7 @@ class Player(Entity, TargetableByAuras):
 		self.choice = None
 		self.choiceText = 'Choose one.'
 		self.max_hand_size = 10
-		self.max_resources = 10
+		self.max_resources = 20
 		self.max_deck_size = 60
 		self.cant_draw = False
 		self.cant_fatigue = False

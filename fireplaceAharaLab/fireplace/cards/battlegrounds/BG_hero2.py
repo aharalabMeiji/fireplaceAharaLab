@@ -347,16 +347,16 @@ class TB_BaconShop_HERO_02_Buddy:# <12>[1453]
 	[Battlecry:] Replace minions in Bob's Tavern with ones of a higher Tavern Tier. """
 	play = TB_BaconShop_HERO_02_Buddy_Action()
 	pass
-class TB_BaconShop_HERO_02_Buddy_Action(GameAction):
+class TB_BaconShop_HERO_02_Buddy_G_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
 		for card in reversed(controller.field):
-			tier=min(card.tech_level+1,6)
+			tier=min(card.tech_level+2,6)
 			Morph(card, RandomBGMinion(tech_level=tier)).trigger(source)
 class TB_BaconShop_HERO_02_Buddy_G:# <12>[1453]
 	""" Apostle of Galakrond
 	[Battlecry:] Replaceminions in Bob's Tavernwith ones of a higherTavern Tier twice. """
-	#
+	play = TB_BaconShop_HERO_02_Buddy_G_Action()
 	pass
 
 
@@ -397,14 +397,45 @@ class BG20_HERO_283p_t1_Action(GameAction):
 		pass
 class BG20_HERO_283p_t1:# <12>[1453]
 	""" Westfall
-	[Passive.] In 1 turn, give your left-most minion +2/+1. <i>(@ left!)</i> """
+	&lt;b&gt;Passive.&lt;/b&gt; In 1 turn, give your left-most minion +2/+2. &lt;i&gt;(@ left!)&lt;/i&gt;"""
+	### [Passive.] In 1 turn, give your left-most minion +2/+1. <i>(@ left!)</i> """
 	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 1, [BG20_HERO_283p_t1_Action()]))
 	#
 	pass
-BG20_HERO_283p_t1e=buff(2,1)# new 24.2
+BG20_HERO_283p_t1e=buff(2,2)# new 25.6
+#BG20_HERO_283p_t1e=buff(2,1)# new 24.2
 #BG20_HERO_283p_t1e=buff(2,0)# 
 """ Westfall,	+2 Attack. """
-class BG20_HERO_283p_t2_Choice(Choice):
+#class BG20_HERO_283p_t2_Choice(Choice):
+#	def do(self, source, player, cards, option=None):
+#		controller = player
+#		super().do(source,player,cards)
+#		choiceAction(controller)
+#		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
+#		pass
+#	def choose(self, card):
+#		self.next_choice=None
+#		super().choose
+#		card.zone=Zone.HAND
+#		self.player.choice=None
+#		pass
+class BG20_HERO_283p_t2_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		ManaThisTurn(controller,2).trigger(source)
+		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
+		pass
+class BG20_HERO_283p_t2:# <12>[1453]
+	""" Ironforge
+	&lt;b&gt;Passive&lt;/b&gt; In 2 turns, gain 2 Gold. &lt;i&gt;(@ left!)&lt;/i&gt;"""
+	## [Passive.] In 3 turns,[Discover] a minion of your Tavern Tier. <i>(@ left!)</i> """
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 2, [\
+		BG20_HERO_283p_t2_Action()
+		##BG20_HERO_283p_t2_Choice(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER))*3)
+	]))
+	#
+	pass
+class BG20_HERO_283p_t3_Choice(Choice):
 	def do(self, source, player, cards, option=None):
 		controller = player
 		super().do(source,player,cards)
@@ -417,24 +448,20 @@ class BG20_HERO_283p_t2_Choice(Choice):
 		card.zone=Zone.HAND
 		self.player.choice=None
 		pass
-class BG20_HERO_283p_t2:# <12>[1453]
-	""" Ironforge
-	[Passive.] In 3 turns,[Discover] a minion of yourTavern Tier. <i>(@ left!)</i> """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 3, [\
-		BG20_HERO_283p_t2_Choice(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER))*3)
-	]))
-	#
-	pass
-class BG20_HERO_283p_t3_Action(GameAction):
-	def do(self, source):
-		controller=source.controller
-		ReduceTierUpCost(controller, 6).trigger(source)
-		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
-		pass
+
+#class BG20_HERO_283p_t3_Action(GameAction):
+#	def do(self, source):
+#		controller=source.controller
+#		ReduceTierUpCost(controller, 6).trigger(source)
+#		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
+#		pass
 class BG20_HERO_283p_t3:# <12>[1453]
 	""" Eastern Plaguelands
-	[Passive.] In 5 turns, your next Tavern Tier upgrade costs (6) less. <i>(@ left!)</i> """
-	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 5, [BG20_HERO_283p_t3_Action()]))
+	&lt;b&gt;Passive.&lt;/b&gt; In 3 turns, &lt;b&gt;Discover&lt;/b&gt; a minion of your Tavern Tier. &lt;i&gt;(@ left!)&lt;/i&gt;"""
+	##[Passive.] In 5 turns, your next Tavern Tier upgrade costs (6) less. <i>(@ left!)</i> """
+	events = BeginBar(CONTROLLER).on(SidequestCounter(SELF, 3, [
+		BG20_HERO_283p_t3_Choice(CONTROLLER, RandomBGAdmissible(tech_level=TIER(CONTROLLER))*3)
+		]))
 	pass
 ######## BUDDY
 class BG20_HERO_283_Buddy:# <12>[1453]
