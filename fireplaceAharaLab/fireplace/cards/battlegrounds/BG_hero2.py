@@ -614,6 +614,8 @@ class BG20_HERO_242_Buddy_G:
 	pass
 
 
+
+
 ##Heistbaron Togwaggle ### new 24.2  ## visually OK ###
 BG_Hero2 += ['BG23_HERO_305','BG23_HERO_305p','BG23_HERO_305_Buddy','BG23_HERO_305_Buddy_G']	 
 BG_PoolSet_Hero2.append('BG23_HERO_305') 
@@ -643,6 +645,48 @@ class BG23_HERO_305p:
 	## cost 9 -> 10 in 24.2.2
 	events = EndTurn(CONTROLLER).on(BG23_HERO_305p_Action1(SELF))
 	activate = BG23_HERO_305p_Action2(CONTROLLER)
+###### BUDDY ######
+class BG23_HERO_305_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		game = controller.game
+		gamemaster = game.parent
+		bartender = game.bartender
+		Rerole(controller).broadcast(source, EventListener.ON, controller)
+		for i in range(len(bartender.field)):
+			card=bartender.field[0]
+			game.parent.ReturnCard(card)
+		if controller.hero.power.id=='TB_BaconShop_HP_065t2':### アランナフラグ
+			bartender.len_bobs_field=7
+		for theBar in gamemaster.BG_Bars:
+			theHero = theBar.controller.hero
+			if theHero.id!=controller.hero:
+				theCards = []
+				for cd in theBar.controeller.field:
+					if cd.type==CardType.MINION:
+						if theCards==[] or theCards[0].tech_level<cd.tech_level:
+							theCards = [cd]
+						elif theCards[0].tech_level==cd.tech_level:
+							theCards.append(cd)
+				if len(theCards):
+					card = random.choice(theCards)
+					cardID = card.id
+					newcard = controller.opponent.card(cardID)
+					newcard.zone=Zone.PLAY
+		game.free_rerole = 0
+		game.reroleCost=1
+		if controller.hero.power.id=='TB_BaconShop_HP_054':## Millhouse flag
+			game.reroleCost=2
+		Rerole(controller).broadcast(source, EventListener.AFTER, controller)
+class BG23_HERO_305_Buddy:
+	""" Waxadred, the Drippy
+	&lt;b&gt;Battlecry: Refresh&lt;/b&gt; Bob's Tavern with the highest Tier minion from each opponent's warband."""
+	play = BG23_HERO_305_Buddy_Action()
+class BG23_HERO_305_Buddy_G:
+	""" Waxadred, the Drippy
+	&lt;b&gt;Battlecry: Refresh&lt;/b&gt; Bob's Tavern with the highest Tier minion from each opponent's warband."""
+	play = BG23_HERO_305_Buddy_Action()
+
 
 
 ##Illidan Stormrage  ### HP, maybe OK ###
