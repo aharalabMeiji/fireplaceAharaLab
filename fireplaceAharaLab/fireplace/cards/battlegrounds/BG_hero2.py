@@ -500,21 +500,20 @@ class TB_BaconShop_HP_010:
 class TB_BaconShop_HERO_15_Buddy:# <12>[1453]
 	""" Karl the Lost
 	After you use your Hero Power, give your [Divine Shield] minions +2_Attack. """
-	#
+	events = Activate(CONTROLLER).on(Buff(Activate.TARGET, 'TB_BaconShop_HERO_15_Buddy_e'))
 	pass
 TB_BaconShop_HERO_15_Buddy_e=buff(2,0)# <12>[1453]
 """ Lost and Found,	+2 Attack. """
 class TB_BaconShop_HERO_15_Buddy_G:# <12>[1453]
 	""" Karl the Lost
 	After you use your Hero Power, give your [Divine Shield] minions +4_Attack. """
-	#
+	events = Activate(CONTROLLER).on(Buff(Activate.TARGET, 'TB_BaconShop_HERO_15_Buddy_G_e'))
 	pass
 TB_BaconShop_HERO_15_Buddy_G_e=buff(4,0)# <12>[1453]
 """ Lost and Found,	+4 Attack. """
 
 
 
-from fireplace.battlegrounds.BG_bar import BG_Bar
 
 ##Greybough  ### HP OK ###
 BG_Hero2+=['TB_BaconShop_HERO_95','TB_BaconShop_HP_107','TB_BaconShop_HP_107e','TB_BaconShop_HERO_95_Buddy','TB_BaconShop_HERO_95_Buddy_e','TB_BaconShop_HERO_95_Buddy_G','TB_BaconShop_HERO_95_Buddy_G_e',]
@@ -527,7 +526,7 @@ class TB_BaconShop_HP_107_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(delf, source, target):
 		controller = source.controller
-		if isinstance(controller.game, BG_Bar):
+		if controller.game.this_is_tavern:
 			return
 		Buff(target, 'TB_BaconShop_HP_107e').trigger(source)
 class TB_BaconShop_HP_107:
@@ -539,23 +538,16 @@ TB_BaconShop_HP_107e=buff(1,2,taunt=True)
 class TB_BaconShop_HERO_95_Buddy:# <12>[1453]
 	""" Wandering Treant
 	Whenever you summon a [Taunt] minion, give it +2/+2. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY + TAUNT).on(Buff(Summon.CARD, 'TB_BaconShop_HERO_95_Buddy_e'))
 	pass
-class TB_BaconShop_HERO_95_Buddy_e:# <12>[1453]
-	""" Happy Little Tree
-	+2/+2. """
-	#
-	pass
+TB_BaconShop_HERO_95_Buddy_e=buff(2,2)# <12>[1453]
 class TB_BaconShop_HERO_95_Buddy_G:# <12>[1453]
 	""" Wandering Treant
 	Whenever you summon a [Taunt] minion, give it +4/+4. """
-	#
+	events = Summon(CONTROLLER, FRIENDLY + TAUNT).on(Buff(Summon.CARD, 'TB_BaconShop_HERO_95_Buddy_G_e'))
 	pass
-class TB_BaconShop_HERO_95_Buddy_G_e:# <12>[1453]
-	""" Happy Little Tree
-	+4/+4. """
-	#
-	pass
+TB_BaconShop_HERO_95_Buddy_G_e=buff(4,4)# <12>[1453]
+
 
 
 
