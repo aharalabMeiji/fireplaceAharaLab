@@ -580,9 +580,37 @@ class BG20_HERO_242p:# <2>[1453]
 BG20_HERO_242pe=buff(2,2)### 24.0.3
 """ Guff's Buff,	+1/+1. """
 ######## BUDDY
+class BG20_HERO_242_Buddy_Action(GameAction):
+	def do(self, source):
+		controller=source.controller
+		game = controller.game
+		bartender = game.bartender
+		Rerole(controller).broadcast(source, EventListener.ON, controller)
+		for i in range(len(bartender.field)):
+			card=bartender.field[0]
+			game.parent.ReturnCard(card)
+		if controller.hero.power.id=='TB_BaconShop_HP_065t2':### アランナフラグ
+			bartender.len_bobs_field=7
+		for tier in range(1,controller.tavern_tier+1):
+			card = game.parent.DealCard(bartender, tier, only_tier=True)
+			if controller.hero.power.id=='TB_BaconShop_HP_101':### サイラスフラグ
+				if random.choice([0,1]):
+					card.darkmoon_ticket = True
+		game.free_rerole = 0
+		game.reroleCost=1
+		if controller.hero.power.id=='TB_BaconShop_HP_054':## Millhouse flag
+			game.reroleCost=2
+		Rerole(controller).broadcast(source, EventListener.AFTER, controller)
+
 class BG20_HERO_242_Buddy:
+	""" Baby Kodo
+	&lt;b&gt;Battlecry: Refresh&lt;/b&gt; Bob's Tavern with a minion of each Tavern Tier. """
+	play = BG20_HERO_242_Buddy_Action()
 	pass
 class BG20_HERO_242_Buddy_G:
+	""" Baby Kodo
+	&lt;b&gt;Battlecry: Refresh&lt;/b&gt; Bob's Tavern with a minion of each Tavern Tier. """
+	play = BG20_HERO_242_Buddy_Action()
 	pass
 
 

@@ -457,10 +457,13 @@ class BG_main:
 		# end of main
 		pass
 
-	def DealCard(self, bartender, tier):
+	def DealCard(self, bartender, tier, only_tier=False):
 		dk=[]
-		for i in range(1,tier+1):
-			dk += self.BG_decks[i]
+		if only_tier:
+			dk += self.BG_decks[tier]
+		else:
+			for i in range(1,tier+1):
+				dk += self.BG_decks[i]
 		cardID = random.choice(dk)
 		card = bartender.card(cardID)
 		if card.race==Race.ELEMENTAL:## 
