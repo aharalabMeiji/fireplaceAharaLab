@@ -689,6 +689,8 @@ class BG23_HERO_305_Buddy_G:
 
 
 
+
+
 ##Illidan Stormrage  ### HP, maybe OK ###
 BG_Hero2+=['TB_BaconShop_HERO_08','TB_BaconShop_HP_069','TB_BaconShop_HP_069e','TB_BaconShop_HERO_08_Buddy','TB_BaconShop_HERO_08_Buddy_e','TB_BaconShop_HERO_08_Buddy_G',]
 BG_PoolSet_Hero2+=['TB_BaconShop_HERO_08']
