@@ -719,18 +719,20 @@ TB_BaconShop_HP_069e=buff(2,0)
 ######## BUDDY
 class TB_BaconShop_HERO_08_Buddy:# <12>[1453]
 	""" Eclipsion Illidari
-	Your first minion thatattacks has "[Immune]while Attacking" for oneattack only. """
-	#
+	Your first minion that attacks has "[Immune]while Attacking" for one attack only. """
+	events =[
+		BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e')),
+		BG_Attack(CONTROLLER).on(RemoveBuff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e'))
+		]
 	pass
-class TB_BaconShop_HERO_08_Buddy_e:# <12>[1453]
-	""" Darkened Heart
-	[Immune] while Attacking. """
-	#
-	pass
+TB_BaconShop_HERO_08_Buddy_e=buff(immune_while_attacking = True)# <12>[1453]
 class TB_BaconShop_HERO_08_Buddy_G:# <12>[1453]
 	""" Eclipsion Illidari
 	Your first two minions thatattack have "[Immune]while Attacking" for oneattack only. """
-	#
+	events =[
+		BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e')),
+		BG_Attack(CONTROLLER).on(SidequestCounter(CONTROLLER, 2, [RemoveBuff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e')]))
+		]	
 	pass
 
 
@@ -791,14 +793,20 @@ class BG22_HERO_200:
 class BG22_HERO_200p:
 	""" MechGyver
 	[x][Passive] After 12 friendly minions die, get a random Mech.@[x][Passive] After 12 friendly minions die, get a random Mech. &lt;i&gt;({0} left.)&lt;/i&gt;"""
+	events = Death(FRIENDLY + MINION).after(SidequestCounter(CONTROLLER, 12, [Give(CONTROLLER, RandomBGMecha())]))
+###### BUDDY ######
 class BG22_HERO_200_Buddy:
 	""" Sub Scrubber
 	After you play a Mech, gain +2/+2. """
+	events = BG_Play(FRIENDLY + MINION + MECH).after(Buff(SELF, "BG22_HERO_200_Buddy_e"))
 BG22_HERO_200_Buddy_e=buff(2,2)
 class BG22_HERO_200_Buddy_G:
 	""" Sub Scrubber
 	After you play a Mech, gain +4/+4."""
+	events = BG_Play(FRIENDLY + MINION + MECH).after(Buff(SELF, "BG22_HERO_200_Buddy_Ge"))
 BG22_HERO_200_Buddy_Ge=buff(4,4)
+
+
 
 ##Jandice Barov #### OK ####
 BG_Hero2+=['TB_BaconShop_HERO_71','TB_BaconShop_HP_084','TB_BaconShop_HERO_71_Buddy','TB_BaconShop_HERO_71_Buddy_e','TB_BaconShop_HERO_71_Buddy_G',]
