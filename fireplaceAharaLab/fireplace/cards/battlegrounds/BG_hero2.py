@@ -838,22 +838,28 @@ class TB_BaconShop_HP_084:
 		card.controller = controller
 		target.zone=Zone.PLAY
 		card.zone=Zone.PLAY
+		if self.script_data_num_1 >= 1:
+			amount = self.controller.tavern_tier*self.script_data_num_1
+			Buff(target, 'TB_BaconShop_HERO_71_Buddy_e', atk=amount, max_health=amount).trigger(self.source)
 	pass
 ######## BUDDY
+class TB_BaconShop_HERO_71_Buddy_Action(GameAction):
+	def do(self, source):
+		source.controller.hero.power.script_data_num_1+=1
 class TB_BaconShop_HERO_71_Buddy:# <12>[1453]
 	""" Jandice's Apprentice
 	After you swap minions, give them stats equal to your Tavern Tier. """
-	#
+	play = TB_BaconShop_HERO_71_Buddy_Action()
 	pass
 class TB_BaconShop_HERO_71_Buddy_e:# <10>[1453]
-	""" Spinning
-	Increased Stats. """
-	#
-	pass
+	""" Spinning	Increased Stats. """
+class TB_BaconShop_HERO_71_Buddy_G_Action(GameAction):
+	def do(self, source):
+		source.controller.hero.power.script_data_num_1+=2
 class TB_BaconShop_HERO_71_Buddy_G:# <12>[1453]
 	""" Jandice's Apprentice
-	After you swap minions,give them stats equal toyour Tavern Tier twice. """
-	#
+	After you swap minions,give them stats equal to your Tavern Tier twice. """
+	play = TB_BaconShop_HERO_71_Buddy_G_Action()
 	pass
 
 
