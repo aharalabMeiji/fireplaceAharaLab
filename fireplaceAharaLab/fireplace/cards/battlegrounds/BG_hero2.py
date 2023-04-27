@@ -838,28 +838,25 @@ class TB_BaconShop_HP_084:
 		card.controller = controller
 		target.zone=Zone.PLAY
 		card.zone=Zone.PLAY
-		if self.script_data_num_1 >= 1:
-			amount = self.controller.tavern_tier*self.script_data_num_1
-			Buff(target, 'TB_BaconShop_HERO_71_Buddy_e', atk=amount, max_health=amount).trigger(self.source)
+		amount=0
+		for card in controller.field:
+			if card.id=='TB_BaconShop_HERO_71_Buddy':
+				amount += 1
+			if card.id=='TB_BaconShop_HERO_71_Buddy_G':
+				amount += 2
+		amount *= controller.tavern_tier
+		Buff(target, 'TB_BaconShop_HERO_71_Buddy_e', atk=amount, max_health=amount).trigger(self.source)
 	pass
 ######## BUDDY
-class TB_BaconShop_HERO_71_Buddy_Action(GameAction):
-	def do(self, source):
-		source.controller.hero.power.script_data_num_1+=1
 class TB_BaconShop_HERO_71_Buddy:# <12>[1453]
 	""" Jandice's Apprentice
 	After you swap minions, give them stats equal to your Tavern Tier. """
-	play = TB_BaconShop_HERO_71_Buddy_Action()
 	pass
 class TB_BaconShop_HERO_71_Buddy_e:# <10>[1453]
 	""" Spinning	Increased Stats. """
-class TB_BaconShop_HERO_71_Buddy_G_Action(GameAction):
-	def do(self, source):
-		source.controller.hero.power.script_data_num_1+=2
 class TB_BaconShop_HERO_71_Buddy_G:# <12>[1453]
 	""" Jandice's Apprentice
 	After you swap minions,give them stats equal to your Tavern Tier twice. """
-	play = TB_BaconShop_HERO_71_Buddy_G_Action()
 	pass
 
 
@@ -871,11 +868,22 @@ BG_Hero2_Buddy['TB_BaconShop_HERO_60']='TB_BaconShop_HERO_60_Buddy'
 BG_Hero2_Buddy_Gold['TB_BaconShop_HERO_60_Buddy']='TB_BaconShop_HERO_60_Buddy_G'
 class TB_BaconShop_HERO_60:# <12>[1453]
 	""" Kael'thas Sunstrider """
+class TB_BaconShop_HP_066_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		Buff(target, 'TB_BaconShop_HP_066e' ).trigger(source)
+		for card in source.controller.field:
+			if card.id=="TB_BaconShop_HERO_60_Buddy":
+				for cd in source.controller.field+source.controller.hand:
+					Buff(cd, "TB_BaconShop_HERO_60_Buddy_e").trigger(source)
+			if card.id=="TB_BaconShop_HERO_60_Buddy_G":
+				for cd in source.controller.field+source.controller.hand:
+					Buff(cd, "TB_BaconShop_HERO_60_Buddy_G_e").trigger(source)
 class TB_BaconShop_HP_066:
 	""" Verdant Spheres
 	[Passive]Every third minion you play gains +2/+2.""" #24.0.3
 	## [Passive] Every third minion you buy gains +2/+2. until 24.0
-	events = BG_Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 3, [Buff(Buy.CARD, 'TB_BaconShop_HP_066e' )]))
+	events = BG_Play(CONTROLLER, MINION).on(SidequestCounter(SELF, 3, [TB_BaconShop_HP_066_Action(Buy.CARD)]))
 TB_BaconShop_HP_066e=buff(2,2)
 ######## BUDDY
 class TB_BaconShop_HERO_60_Buddy:# <12>[1453]
@@ -883,21 +891,13 @@ class TB_BaconShop_HERO_60_Buddy:# <12>[1453]
 	After 'Verdant Spheres' triggers, give your hand and board +1/+1. """
 	#
 	pass
-class TB_BaconShop_HERO_60_Buddy_e:# <12>[1453]
-	""" Verdant
-	+1/+1. """
-	#
-	pass
+TB_BaconShop_HERO_60_Buddy_e=buff(1,1)# <12>[1453]
 class TB_BaconShop_HERO_60_Buddy_G:# <12>[1453]
 	""" Crimson Hand Centurion
 	After 'Verdant Spheres' triggers, give your hand and board +2/+2. """
 	#
 	pass
-class TB_BaconShop_HERO_60_Buddy_G_e:# <12>[1453]
-	""" Verdant
-	+2/+2. """
-	#
-	pass
+TB_BaconShop_HERO_60_Buddy_G_e=buff(2,2)# <12>[1453]
 
 
 
