@@ -730,7 +730,7 @@ class TB_BaconShop_HERO_08_Buddy_G:# <12>[1453]
 	Your first two minions thatattack have "[Immune]while Attacking" for oneattack only. """
 	events =[
 		BeginBattle(CONTROLLER).on(Buff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e')),
-		BG_Attack(CONTROLLER).on(SidequestCounter(CONTROLLER, 2, [RemoveBuff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e')]))
+		BG_Attack(CONTROLLER).on(SidequestCounter(SELF, 2, [RemoveBuff(FRIENDLY_MINIONS, 'TB_BaconShop_HERO_08_Buddy_e')]))
 		]	
 	pass
 
@@ -792,7 +792,7 @@ class BG22_HERO_200:
 class BG22_HERO_200p:
 	""" MechGyver
 	[x][Passive] After 12 friendly minions die, get a random Mech.@[x][Passive] After 12 friendly minions die, get a random Mech. &lt;i&gt;({0} left.)&lt;/i&gt;"""
-	events = Death(FRIENDLY + MINION).after(SidequestCounter(CONTROLLER, 12, [Give(CONTROLLER, RandomBGMecha())]))
+	events = Death(FRIENDLY + MINION).after(SidequestCounter(SELF, 12, [Give(CONTROLLER, RandomBGMecha())]))
 ###### BUDDY ######
 class BG22_HERO_200_Buddy:
 	""" Sub Scrubber

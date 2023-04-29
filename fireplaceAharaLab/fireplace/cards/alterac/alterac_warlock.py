@@ -216,7 +216,7 @@ class AV_657:# <9>[1626]
 	At the end of your turn, destroy your lowest Attack minion to summon a 4/4 Shade. Lasts 3 turns. """
 	events=[
 		OWN_TURN_END.on(Destroy(RANDOM(LOWEST_ATK(FRIENDLY_MINIONS))), Summon(CONTROLLER, 'AV_657t')),
-		OWN_TURN_BEGIN.on(SidequestCounter(CONTROLLER,3,[Destroy(SELF)]))
+		OWN_TURN_BEGIN.on(SidequestCounter(SELF,3,[Destroy(SELF)]))
 	]
 	pass
 class AV_657e:# <9>[1626]
