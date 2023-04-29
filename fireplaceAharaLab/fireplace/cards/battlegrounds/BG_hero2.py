@@ -1,6 +1,5 @@
 ﻿from ..utils import *
 
-
 BG_Hero2=[]
 BG_PoolSet_Hero2=[]
 BG_Hero2_Buddy={}
@@ -1044,22 +1043,30 @@ class BG20_HERO_280p3:# <14>[1453]
 BG20_HERO_280p3e2=buff(2,2)# <12>[1453]
 """ Portal Closure,	+2/+2 """
 ######## BUDDY
+class BG20_HERO_280_Buddy_Action(GameAction):
+	def do(self, source):
+		Buff()
 class BG20_HERO_280_Buddy:# <12>[1453]
 	""" Living Nightmare
-	After you buy a minion,minions in Bob's Tavern have +1/+1 this turn. """
-	#
+	After you buy a minion, minions in Bob's Tavern have +2/+1 this turn."""
+	##After you buy a minion, minions in Bob's Tavern have +1/+1 this turn. 
+	events = [
+		Buy(CONTROLLER).after(Buff(ENEMY_MINIONS, 'BG20_HERO_280_Buddye')),
+		OWN_TURN_END.on(RemoveBuff(ENEMY_MINIONS, 'BG20_HERO_280_Buddye'))
+	]
 	pass
-class BG20_HERO_280_Buddye:# <12>[1453]
-	""" Living Nightmare Player Enchant Increased stats. """
-	pass
+BG20_HERO_280_Buddye=buff(2,1)# <12>[1453]
 class BG20_HERO_280_Buddy_G:# <12>[1453]
 	""" Living Nightmare
-	After you buy a minion,minions in Bob's Tavernhave +2/+2 this turn. """
-	#
+	After you buy a minion, minions in Bob's Tavern have +4/+2 this turn. """
+	##After you buy a minion,minions in Bob's Tavernhave +2/+2 this turn.
+	events = [
+		Buy(CONTROLLER).after(Buff(ENEMY_MINIONS, 'BG20_HERO_280_Buddye2')),
+		OWN_TURN_END.on(RemoveBuff(ENEMY_MINIONS, 'BG20_HERO_280_Buddye2'))
+	]
 	pass
-class BG20_HERO_280_Buddye2:# <12>[1453]
-	""" Nightshot Increased stats. """
-	pass
+BG20_HERO_280_Buddye2=buff(4,2)# <12>[1453]
+
 
 
 
