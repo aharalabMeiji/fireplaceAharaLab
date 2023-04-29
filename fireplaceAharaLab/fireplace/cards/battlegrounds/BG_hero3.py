@@ -115,7 +115,7 @@ class TB_BaconShop_HERO_25_Buddy_G:# <12>[1453]
 	""" Unearthed Underling
 	Whenever your hero takes damage, this minion gains +4/+4 instead.<i>(@ left this turn.)</i> """
 	##Whenever your hero takesdamage, this miniongains +6/+6 instead.<i>(@ left this turn.)</i> """
-	events = Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_G_Action(Predamage.TARGET)
+	events = Predamage(FRIENDLY_HERO).on(TB_BaconShop_HERO_25_Buddy_G_Action(Predamage.TARGET))
 	pass
 TB_BaconShop_HERO_25_Buddy_Ge=buff(4,4)# <12>[1453]
 """ Recovery,+6/+6. """
