@@ -889,13 +889,11 @@ TB_BaconShop_HP_066e=buff(2,2)
 class TB_BaconShop_HERO_60_Buddy:# <12>[1453]
 	""" Crimson Hand Centurion
 	After 'Verdant Spheres' triggers, give your hand and board +1/+1. """
-	#
 	pass
 TB_BaconShop_HERO_60_Buddy_e=buff(1,1)# <12>[1453]
 class TB_BaconShop_HERO_60_Buddy_G:# <12>[1453]
 	""" Crimson Hand Centurion
 	After 'Verdant Spheres' triggers, give your hand and board +2/+2. """
-	#
 	pass
 TB_BaconShop_HERO_60_Buddy_G_e=buff(2,2)# <12>[1453]
 
