@@ -253,6 +253,7 @@ class BG25_HERO_103p_Action(GameAction):
 				source.controller.gorefiend_area=[]
 			else:
 				source.controller.gorefiend_area=[card]
+			source.sidequest_list0=[]
 class BG25_HERO_103p:
 	""" Rapid Reanimation
 	[x]Choose a friendly minion. [Start of Combat:] Destroy it. Once you have space, ___resummon an exact copy."""

@@ -529,7 +529,7 @@ class GenericChoicePlay(GenericChoice):##
 		controller = self.player
 		for new_card in controller.hand:
 			if new_card.id == card.id:
-				Summon(controller, new_card).trigger(controller)
+				Summon(controller, new_card).trigger(self.source)
 				break
 		pass
 

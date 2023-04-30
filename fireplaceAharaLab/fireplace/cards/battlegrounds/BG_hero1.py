@@ -928,13 +928,13 @@ class BG21_HERO_020p_Choice(Choice):
 			cards=[]
 			tier=self.source.controller.tavern_tier
 			for rc in self.source.sidequest_list0:
-				newcard = RandomBGMinion(race=rc, tech_level_less=tier).evaluate(source)
+				newcard = RandomBGMinion(race=rc, tech_level_less=tier).evaluate(self.source)
 				newcard=get00(newcard)
 				cards.append(newcard.id)
 				newcard.discard()
 			self.next_choice=BG21_HERO_020p_Choice(self.player, RandomID(*cards)*3)
 			self.next_choice.trigger(self.source)
-		super().chooce(card)
+		super().choose(card)
 		card.zone=Zone.SETASIDE
 		card.controller=self.player
 		card.zone=Zone.HAND

@@ -892,8 +892,8 @@ class BG21_036_Action(TargetedAction):
 	BUFF = ActionArg()
 	TARGETBUFF = ActionArg()
 	def do(self, source, target, buff, targetbuff):
-		if buff.atk>0 or buff.health>0:
-			Buff(target, targetbuff).trigger(target.controller)
+		if buff.atk>0 or buff.max_health>0:
+			Buff(target, targetbuff).trigger(source)
 class BG21_036:# <12>[1453] 多重現実の支配者
 	""" Master of Realities
 	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
