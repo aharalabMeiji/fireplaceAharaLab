@@ -946,6 +946,8 @@ class Buff(TargetedAction):
 	Buff character targets with Enchantment an id
 	NOTE: Any Card can buff any other Card. The controller of the
 	Card that buffs the target becomes the controller of the buff.
+	TARGET = ActionArg()
+	BUFF = ActionArg()
 	"""
 	TARGET = ActionArg()
 	BUFF = ActionArg()

@@ -150,7 +150,7 @@ BG_Hero1_Buddy_Gold={}
 
 ########### source
 
-##A. F. Kay   ### visually check 23/4/5 ###
+##A. F. Kay   ### visually check 23/4/5 ### 
 BG_Hero1 += ['TB_BaconShop_HERO_16','TB_BaconShop_HP_044','TB_BaconShop_HERO_16_Buddy','TB_BaconShop_HERO_16_Buddy_e','TB_BaconShop_HERO_16_Buddy_G','TB_BaconShop_HERO_16_Buddy_G_e',]#00#A. F. Kay 
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_16',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_16']='TB_BaconShop_HERO_16_Buddy'
@@ -404,6 +404,7 @@ class TB_BaconShop_HERO_59t:# <12>[1453]
 class TB_BaconShop_HP_065t2:### 条件が満たされるとヒロパが交代になる
 	""" Spectral Sight
 	[Passive]Bob's Tavern refreshes with 7 minions."""
+### BUDDY ###
 class TB_BaconShop_HERO_59_Buddy:# <12>[1453]
 	""" Sklibb, Demon Hunter
 	After you buy a minion, your next [Refresh] costs (0)."""
@@ -419,7 +420,7 @@ class TB_BaconShop_HERO_59_Buddy_G:# <12>[1453]
 
 
 
-##Arch-Villain Rafaam ### OK ###
+##Arch-Villain Rafaam ### OK ### # BUDDY MAYBE #
 BG_Hero1 += ['TB_BaconShop_HERO_45','TB_BaconShop_HP_053','TB_BaconShop_HERO_45_Buddy','TB_BaconShop_HERO_45_Buddy_G',]#05#Arch-Villain Rafaam]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_45',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_45']='TB_BaconShop_HERO_45_Buddy'
@@ -440,6 +441,7 @@ class TB_BaconShop_HP_053:
 	Next combat, add a plain copy of the first minion you kill to your hand."""
 	tags={GameTag.HIDE_COST:1}
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_053_Action())
+### BUDDY ###
 class TB_BaconShop_HERO_45_Buddy_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
@@ -471,7 +473,7 @@ class TB_BaconShop_HERO_45_Buddy_G:# <12>[1453]
 
 
 
-###Bru'kan   ###### HP OK ############
+###Bru'kan   ###### HP OK ###### BUDDY MAYBE #
 BG_Hero1 += ['BG22_HERO_001','BG22_HERO_001p','BG22_HERO_001p_t1','BG22_HERO_001p_t1_s','BG22_HERO_001p_t1e','BG22_HERO_001p_t1et','BG22_HERO_001p_t2','BG22_HERO_001p_t2_s','BG22_HERO_001p_t2e','BG22_HERO_001p_t3','BG22_HERO_001p_t3_s','BG22_HERO_001p_t3e','BG22_HERO_001p_t4','BG22_HERO_001p_t4_s','BG22_HERO_001_Buddy','BG22_HERO_001_Buddy_e','BG22_HERO_001_Buddy_e1','BG22_HERO_001_Buddy_e2','BG22_HERO_001_Buddy_e3','BG22_HERO_001_Buddy_e4','BG22_HERO_001_Buddy_G',]#BG22_HERO_001#06#Bru'kan]
 BG_PoolSet_Hero1 +=['BG22_HERO_001',]
 BG_Hero1_Buddy['BG22_HERO_001']='BG22_HERO_001_Buddy'
@@ -634,7 +636,7 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 
 
-##C'Thun   ### HP OK ####
+##C'Thun   ### HP OK ###### BUDDY MAYBE #
 BG_Hero1 += ['TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',]#07#C'Thun]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_29',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_29']='TB_BaconShop_HERO_29_Buddy'
@@ -663,30 +665,40 @@ class TB_BaconShop_HP_104:
 	]
 TB_BaconShop_HP_104e=buff(1,1)
 ######## BUDDY
+class TB_BaconShop_HERO_29_Buddy_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		buff = target
+		if buff.atk>0 or buff.max_health>0:
+			Buff(source, 'TB_BaconShop_HERO_29_Buddy_e').trigger(source)
 class TB_BaconShop_HERO_29_Buddy:# <12>[1453]
 	""" Tentacle of C'Thun
 	After a different friendly minion gains stats, gain_+1/+1 until your next turn. """
-	#
+	events = [
+		Buff(FRIENDLY + MINION - SELF).after(TB_BaconShop_HERO_29_Buddy_Action(Buff.BUFF)),
+		BeginBar(CONTROLLER).on(RemoveBuff(SELF, 'TB_BaconShop_HERO_29_Buddy_e'))
+	]
 	pass
-class TB_BaconShop_HERO_29_Buddy_e:# <12>[1453]
-	""" All Eyes On Me
-	+1/+1. """
-	#
-	pass
+TB_BaconShop_HERO_29_Buddy_e=buff(1,1)# <12>[1453]
+class TB_BaconShop_HERO_29_Buddy_G_Action(TargetedAction):# <12>[1453]
+	TARGET=ActionArg()
+	def do(self, source, target):
+		buff = target
+		if buff.atk>0 or buff.max_health>0:
+			Buff(source, 'TB_BaconShop_HERO_29_Buddy_Ge').trigger(source)
 class TB_BaconShop_HERO_29_Buddy_G:# <12>[1453]
 	""" Tentacle of C'Thun
 	After a different friendly minion gains stats, gain_+2/+2  until your next turn. """
-	#
+	events = [
+		Buff(FRIENDLY + MINION - SELF).after(TB_BaconShop_HERO_29_Buddy_G_Action(Buff.BUFF)),
+		BeginBar(CONTROLLER).on(RemoveBuff(SELF, 'TB_BaconShop_HERO_29_Buddy_Ge'))
+	]
 	pass
-class TB_BaconShop_HERO_29_Buddy_Ge:# <12>[1453]
-	""" All Eyes On Me
-	+2/+2. """
-	#
-	pass
+TB_BaconShop_HERO_29_Buddy_Ge=buff(2,2)# <12>[1453]
 
 
 
-##Captain Eudora   #### OK ####
+##Captain Eudora   #### OK #### BUDDY MAYBE ###
 BG_Hero1 += ['TB_BaconShop_HERO_64','TB_BaconShop_HP_074','TB_BaconShop_HERO_64_Buddy','TB_BaconShop_HERO_64_Buddy_e','TB_BaconShop_HERO_64_Buddy_G','TB_BaconShop_HERO_64_Buddy_G_e',]#08#Captain Eudora
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_64',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_64']='TB_BaconShop_HERO_64_Buddy'
@@ -712,24 +724,23 @@ class TB_BaconShop_HP_074_Action(GameAction):
 class TB_BaconShop_HP_074:
 	""" Buried Treasure
 	_Dig for a Golden minion! <i>(@ |4(Dig, Digs) left.)</i>"""
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="5"/>
 	activate = TB_BaconShop_HP_074_Action()
 ######## BUDDY
 class TB_BaconShop_HERO_64_Buddy:
 	""" Dagwik Stickytoe
 	At the end of your turn, give a random friendly Golden minion +5/+5."""
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS + GOLDEN), 'TB_BaconShop_HERO_64_Buddy_e'))
 TB_BaconShop_HERO_64_Buddy_e=buff(5,5)# <12>[1453]
-""" Gold Abound
-+5/+5. """
 class TB_BaconShop_HERO_64_Buddy_G:
 	""" Dagwik Stickytoe 
 	At the end of your turn, give a random friendly Golden minion +10/+10. """
+	events = OWN_TURN_END.on(Buff(RANDOM(FRIENDLY_MINIONS + GOLDEN), 'TB_BaconShop_HERO_64_Buddy_G_e'))
 TB_BaconShop_HERO_64_Buddy_G_e=buff(10,10)# <12>[1453]
-""" Gold Abound
-+10/+10. """
 
 
 
-##Captain Hooktusk  #### OK ####
+##Captain Hooktusk  #### OK #### BUDDY MAYBE ###
 BG_Hero1 += ['TB_BaconShop_HERO_67','TB_BaconShop_HP_075','TB_BaconShop_HERO_67_Buddy','TB_BaconShop_HERO_67_Buddy_G',]#09#Captain Hooktusk]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_67',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_67']='TB_BaconShop_HERO_67_Buddy'
@@ -742,8 +753,13 @@ class TB_BaconShop_HP_075_Action(TargetedAction):
 	def do(self, source, target):
 		controller = source.controller
 		tier = max(target.tech_level-1, 1)
+		amount=2
+		if len([card for card in controller.field if card.id=='TB_BaconShop_HERO_67_Buddy'])>0:
+			amount=3
+		if len([card for card in controller.field if card.id=='TB_BaconShop_HERO_67_Buddy_G'])>0:
+			amount=4
 		Destroy(target).trigger(source)
-		GenericChoice(controller, RandomBGAdmissible(tech_level=tier)*2).trigger(source)
+		GenericChoice(controller, RandomBGAdmissible(tech_level=tier)*amount).trigger(source)
 class TB_BaconShop_HP_075:
 	""" Trash for Treasure
 	Remove a friendly minion. Choose one of two from a Tavern Tier lower to keep."""
@@ -757,12 +773,10 @@ class TB_BaconShop_HP_075:
 class TB_BaconShop_HERO_67_Buddy:# <12>[1453]
 	""" Raging Contender
 	'Trash for Treasure' offers 3 options instead of 2. """
-	#
 	pass
 class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 	""" Raging Contender
 	'Trash for Treasure' offers 4 options instead of 2. """
-	#
 	pass
 
 
@@ -782,7 +796,7 @@ class BG21_HERO_000:# <5>[1453]
 class BG21_HERO_000e:
 	"""Cariel Watcher	"""
 	pass
-class BuffRandomFriendlyMinion(TargetedAction):
+class BG21_HERO_000p_Action0(TargetedAction):
 	TARGET = ActionArg()#controller
 	BUFF = ActionArg()
 	AMOUNT = IntArg()
@@ -792,12 +806,22 @@ class BuffRandomFriendlyMinion(TargetedAction):
 			samples = controller.field
 		else:
 			samples = random.sample(controller.field, amount)
+		atk=source.script_data_num_1
+		hlt=source.script_data_num_2
+		if len([cd for cd in controller.field if cd.id=='BG21_HERO_000_Buddyt'])>0:
+			atk += 2
+		elif len([cd for cd in controller.field if cd.id=='BG21_HERO_000_Buddyt2'])>0:
+			hlt += 2
+		elif len([cd for cd in controller.field if cd.id=='BG21_HERO_000_Buddy_Gt'])>0:
+			atk += 4
+		elif len([cd for cd in controller.field if cd.id=='BG21_HERO_000_Buddy_Gt2'])>0:
+			hlt += 4
 		for card in samples:
-			Buff(card, buff).trigger(controller)
+			Buff(card, buff, atk=atk, max_health=hlt).trigger(controller)
 		pass
 	pass
 class BG21_HERO_000p_Action(TargetedAction):
-	TARGET = ActionArg()
+	TARGET = ActionArg()#controller
 	AMOUNT = IntArg()
 	NEWPOWER = ActionArg()
 	def do(self, source, target, amount, newpower):
@@ -809,27 +833,31 @@ class BG21_HERO_000p_Action(TargetedAction):
 
 class BG21_HERO_000p:
 	""" Conviction (Rank 1)
-	Give a random friendly minion +1/+1. <i>(Upgrades at Tavern Tier 3.)</i>"""
-	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe',2)## 1 until 23.4.3, 
+	Give two random friendly minions +{0}/+{1}. &lt;i&gt;(Upgrades at Tavern Tier 3.)&lt;/i&gt;"""
+	#Give a random friendly minion +1/+1. <i>(Upgrades at Tavern Tier 3.)</i>""" ### old
+	#<Tag enumID="2" name="TAG_SCRIPT_DATA_NUM_1" type="Int" value="1"/>
+	#<Tag enumID="3" name="TAG_SCRIPT_DATA_NUM_2" type="Int" value="1"/>
+	activate = BG21_HERO_000p_Action0(CONTROLLER,'BG21_HERO_000pe',2)## 1 until 23.4.3, 
 	events = UpgradeTier(CONTROLLER).on(BG21_HERO_000p_Action(CONTROLLER, 3, 'BG21_HERO_000p2')) 
 	pass
 BG21_HERO_000pe=buff(1,1)
 class BG21_HERO_000p2:
 	"""Conviction (Rank 2)
 	Give three random friendly minions +1/+1. <i>(Upgrades at Tavern Tier 5.)</i>"""
-	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 4)## 4 until 23.4.3
+	activate = BG21_HERO_000p_Action0(CONTROLLER,'BG21_HERO_000pe', 4)## 4 until 23.4.3
 	events = UpgradeTier(CONTROLLER).on(BG21_HERO_000p_Action(CONTROLLER, 5, 'BG21_HERO_000p3')) 
 	pass
 class BG21_HERO_000p3:
 	"""Conviction (Rank 3)
 	Give five random _friendly minions +1/+1."""
-	activate = BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000pe', 7)## 5 until 23.4.3
+	activate = BG21_HERO_000p_Action0(CONTROLLER,'BG21_HERO_000pe', 7)## 5 until 23.4.3
 ######## BUDDY
 class BG21_HERO_000_Buddy:# <12>[1453]
 	""" Captain Fairmount
 	[Choose One] - 'Conviction' gives an additional +2 Attack for the rest of the game; or +2 Health."""
 	### At the end of your turn, give five random friendly minions +1/+1. ### old
 	###events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_e', 5))
+	choose = ('BG21_HERO_000_Buddyt', 'BG21_HERO_000_Buddyt2')
 	pass
 class BG21_HERO_000_Buddyt:
 	pass
@@ -840,6 +868,7 @@ class BG21_HERO_000_Buddy_G:# <12>[1453]
 	[Choose One] - 'Conviction' gives an additional +4 Attack for the rest of the game; or +4 Health."""
 	###At the end of your turn, give five random friendly minions +2/+2. 
 	###events = OWN_TURN_END.on(BuffRandomFriendlyMinion(CONTROLLER,'BG21_HERO_000_Buddy_G_e', 5))
+	choose = ('BG21_HERO_000_Buddy_Gt', 'BG21_HERO_000_Buddy_Gt2')
 	pass
 class BG21_HERO_000_Buddy_Gt:
 	pass
@@ -942,7 +971,7 @@ class BG21_HERO_020_Buddy_G:# <12>[1453]
 
 
 
-##Dancin' Deryl ### need check ###
+##Dancin' Deryl ### HP maybe ### ## BUDDY MAYBE #
 BG_Hero1 += ['TB_BaconShop_HERO_36','TB_BaconShop_HP_042','TB_BaconShop_HP_042e','TB_BaconShop_HERO_36_Buddy','TB_BaconShop_HERO_36_Buddy_e','TB_BaconShop_HERO_36_Buddy_G','TB_BaconShop_HERO_36_Buddy_Ge',]#13#Dancin' Deryl]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_36']
 BG_Hero1_Buddy['TB_BaconShop_HERO_36']='TB_BaconShop_HERO_36_Buddy'
@@ -971,7 +1000,7 @@ TB_BaconShop_HERO_36_Buddy_Ge=buff(2,2)# <12>[1453]
 """ Dashing Hat,+2/+2. """
 
 
-##Death Speaker Blackthorn  ### HP OK ###
+##Death Speaker Blackthorn  ### HP OK ### ## BUDDY MAYBE #
 BG_Hero1 += ['BG20_HERO_103','BG20_HERO_103p','BG20_HERO_103_Buddy','BG20_HERO_103_Buddy_G',]#14#Death Speaker Blackthorn]
 BG_PoolSet_Hero1 +=['BG20_HERO_103',]
 BG_Hero1_Buddy['BG20_HERO_103']='BG20_HERO_103_Buddy'
@@ -996,7 +1025,7 @@ class BG20_HERO_103_Buddy_G:
 
 
 
-##Deathwing    ## HP OK
+##Deathwing    ## HP OK ## BUDDY MAYBE #
 BG_Hero1 += ['TB_BaconShop_HERO_52','TB_BaconShop_HP_061','TB_BaconShop_HP_061e','TB_BaconShop_HERO_52_Buddy','TB_BaconShop_HERO_52_Buddy_e','TB_BaconShop_HERO_52_Buddy_G','TB_BaconShop_HERO_52_Buddy_G_e',]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_52',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_52']='TB_BaconShop_HERO_52_Buddy'
