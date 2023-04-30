@@ -876,7 +876,7 @@ class BG21_HERO_000_Buddy_Gt2:
 	pass
 
 
-##Chenvaala ### HP OK ###
+##Chenvaala ### HP OK ### BUDDY MAYBE ###
 BG_Hero1 += ['TB_BaconShop_HERO_78','TB_BaconShop_HP_088','TB_BaconShop_HERO_78_Buddy','TB_BaconShop_HERO_78_Buddy_G',]#11#Chenvaala]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_78',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_78']='TB_BaconShop_HERO_78_Buddy'
@@ -910,7 +910,7 @@ class TB_BaconShop_HERO_78_Buddy_G:
 
 
 
-##Cookie the Cook  #### difficult ###  
+##Cookie the Cook  #### HP NG ###  
 BG_Hero1 += ['BG21_HERO_020','BG21_HERO_020p','BG21_HERO_020_Buddy','BG21_HERO_020_Buddy_G',]#12#Cookie the Cook]
 BG_PoolSet_Hero1 +=['BG21_HERO_020',]
 BG_Hero1_Buddy['BG21_HERO_020']='BG21_HERO_020_Buddy'
@@ -919,46 +919,50 @@ class BG21_HERO_020:# <12>[1453]
 	""" Cookie the Cook
 	 """
 	pass
+class BG21_HERO_020p_Choice(Choice):
+	def choose(self, card):
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=self.source.choice_limit:		
+			self.next_choice=None
+		else:
+			cards=[]
+			tier=self.source.controller.tavern_tier
+			for rc in self.source.sidequest_list0:
+				newcard = RandomBGMinion(race=rc, tech_level_less=tier).evaluate(source)
+				newcard=get00(newcard)
+				cards.append(newcard.id)
+				newcard.discard()
+			self.next_choice=BG21_HERO_020p_Choice(self.player, RandomID(*cards)*3)
+			self.next_choice.trigger(self.source)
+		super().chooce(card)
+		card.zone=Zone.SETASIDE
+		card.controller=self.player
+		card.zone=Zone.HAND
 class BG21_HERO_020p_Action(TargetedAction):
 	TARGET = ActionArg()
 	def do(self, source, target):
-		from fireplace.cards import battlegrounds
 		controller=source.controller
-		race = target.race
 		Destroy(target).trigger(source)
-		gamemaster=controller.game.parent
+		if len(source.sidequest_list0)>=3:
+			source.sidequest_list0=[]
 		source.sidequest_list0.append(target.race)
 		source.script_data_num_1 -= 1 
 		if source.script_data_num_1== 0:
+			source.choice_limit=1
+			if len([cd for cd in controller.field if cd.id=="BG21_HERO_020_Buddy"]):
+				source.choice_limit+=1
+			if len([cd for cd in controller.field if cd.id=="BG21_HERO_020_Buddy_G"]):
+				source.choice_limit+=2
 			source.script_data_num_1 = 3
-			deck=[]
-			entourage=[]
+			cards=[]
 			tier=source.controller.tavern_tier
-			for i in range(1,tier+1):
-				if Race.BEAST in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_beast.BG_PoolSet_Beast[i]
-				if Race.DEMON in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_demon.BG_PoolSet_Demon[i]
-				if Race.DRAGON in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_dragon.BG_PoolSet_Dragon[i]
-				if Race.ELEMENTAL in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_elemental.BG_PoolSet_Elemental[i]
-				if Race.MECHANICAL in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_mecha.BG_PoolSet_Mecha[i]
-				if Race.MURLOC in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_murloc.BG_PoolSet_Murloc[i]
-				if Race.NAGA in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_naga.BG_PoolSet_Naga[i]
-				if Race.PIRATE in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_pirate.BG_PoolSet_Pirate[i]
-				if Race.QUILBOAR in source.sidequest_list0:
-					deck += battlegrounds.BG_minion_quilboar.BG_PoolSet_Quilboar[i]
-			source.sidequest_list0=[]
-			if len(deck)<3:
-				source.entourage = deck
-			else:
-				source.entourage = random.sample(deck,3)
-			Discover(controller, RandomEntourage()).trigger(source)
+			for rc in source.sidequest_list0:
+				newcard = RandomBGMinion(race=rc, tech_level_less=tier).evaluate(source)
+				newcard=get00(newcard)
+				cards.append(newcard.id)
+				newcard.discard()
+			BG21_HERO_020p_Choice(controller, RandomID(*cards)*3).trigger(source)
+
 class BG21_HERO_020p:# <12>[1453] ####### difficult
 	""" Stir the Pot
 	Throw a minion in your pot. When you've gathered 3,[Discover] from their minion types. <i>(@ left!)</i> """
@@ -973,7 +977,6 @@ class BG21_HERO_020p:# <12>[1453] ####### difficult
 class BG21_HERO_020_Buddy:# <12>[1453]
 	""" Sous Chef
 	You can use your Hero Power an extra time each_turn. """
-	#
 	pass
 class BG21_HERO_020_Buddy_G:# <12>[1453]
 	""" Sous Chef
@@ -1065,7 +1068,7 @@ TB_BaconShop_HERO_52_Buddy_G_e=buff(6,0)
 
 
 
-##Dinotamer Brann   ### HP OK ###
+##Dinotamer Brann   ### HP OK ### BUDDY MAYBE ###
 BG_Hero1 += [
 	'TB_BaconShop_HERO_43','TB_BaconShop_HP_048','TB_BaconShop_HP_048e',
 	'TB_BaconShop_HERO_43_Buddy','TB_BaconShop_HERO_43_Buddy_G',
