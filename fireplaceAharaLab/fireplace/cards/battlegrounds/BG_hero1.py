@@ -781,7 +781,7 @@ class TB_BaconShop_HERO_67_Buddy_G:# <12>[1453]
 
 
 
-##Cariel Roame ### OK ###
+##Cariel Roame ### OK ### BUDDY MABY ###
 BG_Hero1 += [
 	'BG21_HERO_000','BG21_HERO_000e',
 	'BG21_HERO_000p','BG21_HERO_000pe','BG21_HERO_000p2','BG21_HERO_000p3',
@@ -889,12 +889,24 @@ class TB_BaconShop_HP_088:
 	[Passive] After you play 3 Elementals, reduce the cost of upgrading Bob's Tavern by (3)."""
 	events = BG_Play(CONTROLLER, FRIENDLY + ELEMENTAL).on(SidequestCounter(SELF, 3, [ReduceTierUpCost(CONTROLLER, 3)]))
 #### BUDDY ####
+class TB_BaconShop_HERO_78_Buddy_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		bartender = controller.opponent
+		newcard = RandomBGElemental().evaluate(source)
+		newcard = get00(newcard)
+		newcard.frozen=True
+		newcard.zone=Zone.SETASIDE
+		newcard.controller=bartender
+		newcard.zone=Zone.PLAY
 class TB_BaconShop_HERO_78_Buddy:
 	""" Snow Elemental
 	Bob always offers an extra [Frozen] Elemental whenever the Tavern is [Refreshed]."""
+	events = Rerole(CONTROLLER).after(TB_BaconShop_HERO_78_Buddy_Action())
 class TB_BaconShop_HERO_78_Buddy_G:
 	""" Snow Elemental
 	Bob always offers 2 extra [Frozen] Elementals whenever the Tavern is [Refreshed]."""
+	events = Rerole(CONTROLLER).after(TB_BaconShop_HERO_78_Buddy_Action(), TB_BaconShop_HERO_78_Buddy_Action())
 
 
 
