@@ -134,7 +134,7 @@ class BG20_101_G:# <12>[1453]
 #Tough Tusk	2 ### OK ###
 if BG_Tough_Tusk:
 	BG_Minion_Quilboar += [ 'BG20_102','BG20_102e','BG20_102_G','BG20_102_Ge',]#	
-	BG_PoolSet_Quilboar[3].append('BG20_102')
+	BG_PoolSet_Quilboar[2].append('BG20_102')
 	BG_Quilboar_Gold['BG20_102']='BG20_102_G'
 class BG20_102:# <12>[1453]
 	""" Tough Tusk

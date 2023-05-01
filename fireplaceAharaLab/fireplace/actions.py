@@ -378,9 +378,10 @@ class Death(GameAction):
 			ChangeHeroPower(entity.controller, "HERO_05bp").trigger(entity)
 		if entity.id!='RLK_506t' and entity.id!='RLK_061t':# Risen Groom, Risen Footmen
 			AddCorpse(entity.controller, 1).trigger(entity)
-		if len(entity.controller.gorefiend_area)>0:
+		if entity.controller.gorefiend_cardID!=None:
 			if len(entity.controller.field)<entity.controller.game.MAX_MINIONS_ON_FIELD:### 7
-				entity.controller.gorefiend_area[0].zone=Zone.PLAY
+				newcard = entity.controller.card(entity.controller.gorefiend_cardID)
+				newcard.zone=Zone.PLAY
 
 
 class EndTurn(GameAction):
