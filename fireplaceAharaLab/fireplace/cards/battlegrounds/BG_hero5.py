@@ -238,10 +238,11 @@ class BG25_HERO_103p_Activate(TargetedAction):
 	def do(self, source, target):
 		target=get00(target)
 		source.sidequest_list0.append(target)
+		source.sidequest_counter=1
 		pass
 class BG25_HERO_103p_Action(GameAction):
 	def do(self, source):
-		if len(source.sidequest_list0):
+		if source.sidequest_counter==1 and len(source.sidequest_list0):
 			target=source.sidequest_list0[0]
 			index = source.controller.deepcopy_original.field.index(target)
 			card=source.controller.field[index]
@@ -254,6 +255,7 @@ class BG25_HERO_103p_Action(GameAction):
 			else:
 				source.controller.gorefiend_area=[card]
 			source.sidequest_list0=[]
+			source.sidequest_counter=0
 class BG25_HERO_103p:
 	""" Rapid Reanimation
 	[x]Choose a friendly minion. [Start of Combat:] Destroy it. Once you have space, ___resummon an exact copy."""

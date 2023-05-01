@@ -890,20 +890,25 @@ if BG_Master_of_Realities:
 class BG21_036_Action(TargetedAction):
 	TARGET = ActionArg()
 	BUFF = ActionArg()
-	TARGETBUFF = ActionArg()
-	def do(self, source, target, buff, targetbuff):
+	def do(self, source, target, buff):
 		if buff.atk>0 or buff.max_health>0:
-			Buff(target, targetbuff).trigger(source)
+			Buff(target, 'BG21_036e').trigger(source)
 class BG21_036:# <12>[1453] 多重現実の支配者
 	""" Master of Realities
 	[[Taunt].] After a friendly Elemental gains stats, gain +1/+1. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036e'))
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF))
 	pass
 BG21_036e=buff(1,1)
+class BG21_036_G_Action(TargetedAction):
+	TARGET = ActionArg()
+	BUFF = ActionArg()
+	def do(self, source, target, buff):
+		if buff.atk>0 or buff.max_health>0:
+			Buff(target, 'BG21_036_Ge').trigger(source)
 class BG21_036_G:# <12>[1453]
 	""" Master of Realities
 	[[Taunt].] After a friendly Elemental gains stats, gain +2/+2. """
-	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_Action(SELF, Buff.BUFF, 'BG21_036_Ge'))
+	events = Buff(FRIENDLY + ELEMENTAL).on(BG21_036_G_Action(SELF, Buff.BUFF))
 	pass
 BG21_036_Ge=buff(2,2)# <12>[1453]
 """ The Elemental Plane, +2/+2. """
