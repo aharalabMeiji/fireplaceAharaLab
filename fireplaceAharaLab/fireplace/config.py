@@ -26,7 +26,7 @@ class Config:# ()is the default value
 	#P2HAND=3 # 後攻ハンド枚数(3) 1~9 # the coin is not included
 
 	#LOGINFO
-	LOGINFO=0 # as log.info
+	LOGINFO=1 # as log.info
 	LOGINFO_INDENT=0
 	def log(function, message):
 		if Config.LOGINFO_INDENT>0:
