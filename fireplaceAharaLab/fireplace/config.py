@@ -14,6 +14,11 @@ class Config:# ()is the default value
 
 	#10: Decoding from a 'deckcode' to list of cards.
 
+	#11: first competition
+	#12: second competition
+	#13: third competition ( 2023/3/19 )
+
+
 	#1 standard battle options
 	FSFIXED=0 # fixing first and second YES:>0 NO:0(0) # 
 	COIN=1 # giving a coin to the second  YES:>0 NO:0(1) #

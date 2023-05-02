@@ -637,7 +637,10 @@ class BG22_HERO_001_Buddy_G:# <12>[1453]
 
 
 ##C'Thun   ### HP OK ###### BUDDY MAYBE #
-BG_Hero1 += ['TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e','TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e','TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',]#07#C'Thun]
+BG_Hero1 += [
+	'TB_BaconShop_HERO_29','TB_BaconShop_HP_104','TB_BaconShop_HP_104e',
+	'TB_BaconShop_HERO_29_Buddy','TB_BaconShop_HERO_29_Buddy_e',
+	'TB_BaconShop_HERO_29_Buddy_G','TB_BaconShop_HERO_29_Buddy_Ge',]#07#C'Thun]
 BG_PoolSet_Hero1 +=['TB_BaconShop_HERO_29',]
 BG_Hero1_Buddy['TB_BaconShop_HERO_29']='TB_BaconShop_HERO_29_Buddy'
 BG_Hero1_Buddy_Gold['TB_BaconShop_HERO_29_Buddy']='TB_BaconShop_HERO_29_Buddy_G'

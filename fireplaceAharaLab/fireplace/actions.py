@@ -508,6 +508,7 @@ class GenericChoice(Choice):
 class GenericChoiceOnDeck(Choice):
 	## choose from Deck 
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if Config.LOGINFO:
 			Config.log("GenericChoiceOnDeck.choose","%s chooses %r"%(card.controller.name, card))
@@ -526,6 +527,7 @@ class GenericChoiceOnDeck(Choice):
 
 class GenericChoicePlay(GenericChoice):## 
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller = self.player
 		for new_card in controller.hand:
@@ -536,6 +538,7 @@ class GenericChoicePlay(GenericChoice):##
 
 class GenericChoiceChangeHeropower(GenericChoice):## 
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller = self.player
 		if card.type != CardType.HERO_POWER:
@@ -546,6 +549,7 @@ class GenericChoiceChangeHeropower(GenericChoice):##
 
 class GenericChoiceBattlecry(GenericChoice):## 
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller = self.player
 		for new_card in controller.hand:
@@ -557,6 +561,7 @@ class GenericChoiceBattlecry(GenericChoice):##
 
 class GenericChoiceSecret(Choice):## 
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		card.zone=Zone.SECRET
 		pass
@@ -565,6 +570,7 @@ class GenericChoiceSecret(Choice):##
 
 class GenericChoicePlayOnDeck(Choice):## callbackで対応可能
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		controller = self.player
 		for _card in self.cards:## cards are from deck

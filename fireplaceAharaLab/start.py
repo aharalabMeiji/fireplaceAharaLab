@@ -5,7 +5,7 @@ from utils import *
 from agent_Standard import *
 from competition import *
 from fireplace import cards
-from fireplace.debug_utilities import printClasses, printClasses_BG24, parse, parseDeck, printPool
+#from fireplace.debug_utilities import printClasses, printClasses_BG24, parse, parseDeck, printPool
 from fireplace.config import Config
 
 sys.path.append("..")
@@ -42,9 +42,6 @@ def main():
 	## a: player1 win, b: plqyer2 win, c: draw
 
 
-	###### competition #3 stage ######
-
-	#competition_3_build_deck.competition_3()
 
 ####################################################################
 
@@ -123,4 +120,7 @@ if __name__ == "__main__":
 	elif Config.HEARTHSTONE==10:
 		parse()
 		#parseDeck("AAECAZICAA+t7AOz7APs9QP09gOsgASwgASHnwThpASIsgSuwASozgSB1ASe1ATW3gTd7QQA")
-	
+	###### competition #3 stage ######
+	elif Config.HEARTHSTONE==13:
+		competition_3_build_deck.competition_3()
+

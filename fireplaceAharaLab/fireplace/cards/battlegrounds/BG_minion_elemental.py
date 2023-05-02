@@ -429,7 +429,7 @@ if BG25__Magmaloc:# 5/1/1 murloc ## new 25.2.2
 	BG_Elemental_Gold['BG25_046']='BG25_046_G'
 class BG25_046_Action(GameAction):
 	def do(self, source):
-		amount = len([log for log in  source.controller._play_log if log.type==CardType.MINION and log.turn==source.controller.game.turn ])
+		amount = len([log for log in  source.controller._play_log if log.card.type==CardType.MINION and log.turn==source.controller.game.turn ])
 		Buff(source, 'BG25_046e', atk=amount+1, max_health=amount+1).trigger(source)
 class BG25_046:# (minion)(murloc)
 	""" Magmaloc
