@@ -192,7 +192,7 @@ class TB_BaconShop_HERO_72_Buddy_G:# <12>[1453]
 
 
 
-##Lord Jaraxxus ### HP OK ###
+##Lord Jaraxxus ### HP OK ### BUDDY maybe ###
 BG_Hero3 += ['TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',	]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_37',]#
 BG_Hero3_Buddy['TB_BaconShop_HERO_37']='TB_BaconShop_HERO_37_Buddy'#
@@ -213,12 +213,23 @@ class TB_Bacon_Secrets_08e:
 		GameTag.HEALTH: 1,
 	}
 ######## BUDDY
+class TB_BaconShop_HERO_37_Buddy_Action(GameAction):
+	def do(self, source):
+		original_controller=source.controller.deepcopy_original
+		Give(original_controller, RandomBGDemon(tech_level_less=source.controller.tavern_tier)).trigger(source)
 class TB_BaconShop_HERO_37_Buddy:
 	"""Kil'rek
 	[Taunt] [Deathrattle:] Add a random Demon to your hand."""
+	deathrattle = TB_BaconShop_HERO_37_Buddy_Action()
+class TB_BaconShop_HERO_37_Buddy_G_Action(GameAction):
+	def do(self, source):
+		original_controller=source.controller.deepcopy_original
+		Give(original_controller, RandomBGDemon(tech_level_less=source.controller.tavern_tier)).trigger(source)
+		Give(original_controller, RandomBGDemon(tech_level_less=source.controller.tavern_tier)).trigger(source)
 class TB_BaconShop_HERO_37_Buddy_G:
 	""" Kil'rek
 	[Taunt] [Deathrattle:] Add 2 random Demons to your hand."""
+	deathrattle = TB_BaconShop_HERO_37_Buddy_G_Action()
 	pass
 
 
