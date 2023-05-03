@@ -193,7 +193,9 @@ class TB_BaconShop_HERO_72_Buddy_G:# <12>[1453]
 
 
 ##Lord Jaraxxus ### HP OK ### BUDDY maybe ###
-BG_Hero3 += ['TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',	]# 
+BG_Hero3 += [
+	'TB_BaconShop_HERO_37','TB_BaconShop_HP_036','TB_BaconShop_HP_036e2',
+	'TB_BaconShop_HERO_37_Buddy','TB_BaconShop_HERO_37_Buddy_G',	]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_37',]#
 BG_Hero3_Buddy['TB_BaconShop_HERO_37']='TB_BaconShop_HERO_37_Buddy'#
 BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_37_Buddy']='TB_BaconShop_HERO_37_Buddy_G'#
@@ -203,15 +205,7 @@ class TB_BaconShop_HP_036:
 	""" Bloodfury
 	Give your Demons +1/+1."""
 	activate = Buff(FRIENDLY_MINIONS + DEMON, 'TB_Bacon_Secrets_08e')
-@custom_card
-class TB_Bacon_Secrets_08e:
-	tags = {
-		GameTag.CARDNAME: "Bloodfury buff",
-		GameTag.CARDTEXT: "",
-		GameTag.CARDTYPE: CardType.ENCHANTMENT,
-		GameTag.ATK: 1,
-		GameTag.HEALTH: 1,
-	}
+TB_BaconShop_HP_036e2=buff(1,1)
 ######## BUDDY
 class TB_BaconShop_HERO_37_Buddy_Action(GameAction):
 	def do(self, source):
