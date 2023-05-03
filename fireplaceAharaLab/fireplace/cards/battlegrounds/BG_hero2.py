@@ -147,18 +147,20 @@ class TB_BaconShop_HP_047e:
 ###### BUDDY ######
 class TB_BaconShop_HERO_42_Buddy:# <12>[1453] ######################################################
 	""" Jr. Navigator
-	At the start of your turn,get a 'Recruitment Map.'Your Maps cost (1). """
-	#
+	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of 'Lead Explorer' by (2)."""
+	###At the start of your turn,get a 'Recruitment Map.'Your Maps cost (1). ### old one
+	play = Buff(FRIENDLY_HERO_POWER, 'TB_BaconShop_HERO_42_Buddy_e')
 	pass
-TB_BaconShop_HERO_42_Buddy_e=buff(cost=-1)# <12>[1453]
-""" In The Distance,	Costs (1) less. """
+TB_BaconShop_HERO_42_Buddy_e=buff(cost=-2)# <12>[1453]
+""" In The Distance,	Costs (2) less. """
 class TB_BaconShop_HERO_42_Buddy_G:# <12>[1453]
 	""" Jr. Navigator
-	At the start of your turn,get 2 'Recruitment Maps.'Your Maps cost (1). """
-	#
+	&lt;b&gt;Battlecry:&lt;/b&gt; Reduce the Cost of 'Lead Explorer' by (4)."""
+	###At the start of your turn,get 2 'Recruitment Maps.'Your Maps cost (1). ###
+	play = Buff(FRIENDLY_HERO_POWER, 'TB_BaconShop_HERO_42_Buddy_G_e')
 	pass
-TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-2)# <12>[1453]
-""" In The Distance, 	Costs (2) less. """
+TB_BaconShop_HERO_42_Buddy_G_e=buff(cost=-4)# <12>[1453]
+""" In The Distance, 	Costs (4) less. """
 
 
 
@@ -392,6 +394,11 @@ class BG20_HERO_283p_t1_Action(GameAction):
 		controller = source.controller
 		if controller.field!=[]:
 			Buff(controller.field[0], 'BG20_HERO_283p_t1e').trigger(source)
+			if len([cd for cd in controller.field if cd.id=='BG20_HERO_283_Buddy']):
+				Buff(controller.field[0], 'BG20_HERO_283p_t1e').trigger(source)
+			if len([cd for cd in controller.field if cd.id=='BG20_HERO_283_Buddy_G']):
+				Buff(controller.field[0], 'BG20_HERO_283p_t1e').trigger(source)
+				Buff(controller.field[0], 'BG20_HERO_283p_t1e').trigger(source)
 		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
 		pass
 class BG20_HERO_283p_t1:# <12>[1453]
@@ -422,6 +429,11 @@ class BG20_HERO_283p_t2_Action(GameAction):
 	def do(self, source):
 		controller = source.controller
 		ManaThisTurn(controller,2).trigger(source)
+		if len([cd for cd in controller.field if cd.id=='BG20_HERO_283_Buddy']):
+			ManaThisTurn(controller,2).trigger(source)
+		if len([cd for cd in controller.field if cd.id=='BG20_HERO_283_Buddy_G']):
+			ManaThisTurn(controller,2).trigger(source)
+			ManaThisTurn(controller,2).trigger(source)
 		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
 		pass
 class BG20_HERO_283p_t2:# <12>[1453]
@@ -442,7 +454,18 @@ class BG20_HERO_283p_t3_Choice(Choice):
 		ChangeHeroPower(controller, 'BG20_HERO_283p').trigger(source)
 		pass
 	def choose(self, card):
-		self.next_choice=None
+		choice_counter=1
+		if len([cd for cd in self.source.controller.field if cd.id=="BG20_HERO_283_Buddy"]):
+			choice_counter+=1
+		if len([cd for cd in self.source.controller.field if cd.id=="BG20_HERO_283_Buddy_G"]):
+			choice_counter+=2
+		self.source.sidequest_counter += 1
+		if self.source.sidequest_counter>=choice_counter:
+			self.next_choice=None
+		else:
+			tier=self.source.controller.tavern_tier
+			self.next_choice=BG20_HERO_283p_t3_Choice(self.source.controller, RandomBGAdmissible(tech_level=tier)*3)
+			self.next_choicea.trigger(self.source)
 		super().choose
 		card.zone=Zone.HAND
 		self.player.choice=None
@@ -737,7 +760,7 @@ class TB_BaconShop_HERO_08_Buddy_G:# <12>[1453]
 
 
 
-##Infinite Toki  ### OK ###
+##Infinite Toki  ### OK ### BUDDY MAYBE ###
 BG_Hero2+=['TB_BaconShop_HERO_28','TB_BaconShop_HP_028','TB_BaconShop_HERO_28_Buddy','TB_BaconShop_HERO_28_Buddy_G',]
 BG_PoolSet_Hero2+=['TB_BaconShop_HERO_28']
 BG_Hero2_Buddy['TB_BaconShop_HERO_28']='TB_BaconShop_HERO_28_Buddy'
@@ -860,7 +883,7 @@ class TB_BaconShop_HERO_71_Buddy_G:# <12>[1453]
 
 
 
-##Kael'thas Sunstrider  ### OK  24.0.3###
+##Kael'thas Sunstrider  ### OK  24.0.3### BUDDY MAYBE ###
 BG_Hero2+=['TB_BaconShop_HERO_60','TB_BaconShop_HP_066','TB_BaconShop_HP_066e','TB_BaconShop_HERO_60_Buddy','TB_BaconShop_HERO_60_Buddy_e','TB_BaconShop_HERO_60_Buddy_G','TB_BaconShop_HERO_60_Buddy_G_e',]
 BG_PoolSet_Hero2+=['TB_BaconShop_HERO_60']
 BG_Hero2_Buddy['TB_BaconShop_HERO_60']='TB_BaconShop_HERO_60_Buddy'

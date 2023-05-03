@@ -1,7 +1,7 @@
 from fireplace.cards import core
 from fireplace.config import Config
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,7,8,10]:
 	# CORE <12><3><4>[1637]
 	from fireplace.cards.core import core_demon_hunter,core_druid,core_hunter,core_mage,core_neutral,core_paladin,core_priest,core_rogue,core_shaman,core_warrior,core_warlock
 	Core_DemonHunter=core_demon_hunter.Core_DemonHunter
@@ -47,7 +47,7 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 ## fireplace.cards.old_cards.darkmoon
 ## druid,hunter,mage,neutral,warrior
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,7,8,10]:
 	# THE_BARRENS = 1525  # Forged in the Barrens
 	from fireplace.cards.barrens import barrens_demon_hunter, barrens_druid, barrens_hunter, barrens_mage, barrens_neutral, barrens_paladin, barrens_priest, barrens_rogue, barrens_shaman, barrens_warlock, barrens_warrior
 	Barrens_DemonHunter=barrens_demon_hunter.Barrens_DemonHunter
@@ -63,7 +63,7 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 	Barrens_Warlock = barrens_warlock.Barrens_Warlock
 	Barrens_Cards=[Barrens_DemonHunter, Barrens_Druid,Barrens_Hunter,Barrens_Mage,Barrens_Neutral, Barrens_Paladin, Barrens_Priest, Barrens_Rogue, Barrens_Shaman, Barrens_Warlock, Barrens_Warrior]
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,7,8,10]:
 	## STORMWIND = 1578  # United in Stormwind
 	from fireplace.cards.stormwind import stormwind_demon_hunter, stormwind_druid, stormwind_hunter, stormwind_mage, stormwind_neutral, stormwind_paladin, stormwind_priest, stormwind_rogue, stormwind_shaman, stormwind_warlock, stormwind_warrior
 	StormWind_Druid=stormwind_druid.StormWind_Druid
@@ -79,7 +79,7 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 	StormWind_Warrior=stormwind_warrior.StormWind_Warrior
 	StormWind_Cards=[StormWind_DemonHunter, StormWind_Druid,StormWind_Hunter,StormWind_Mage,StormWind_Neutral, StormWind_Paladin, StormWind_Priest, StormWind_Rogue, StormWind_Shaman, StormWind_Warlock, StormWind_Warrior]
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,7,8,10]:
 	## ALTERAC_VALLEY = 1626  # Fractured in Alterac Valley
 	from fireplace.cards.alterac import alterac_demon_hunter, alterac_druid, alterac_hunter, alterac_mage, alterac_neutral, alterac_paladin, alterac_priest, alterac_rogue, alterac_shaman, alterac_warlock, alterac_warrior
 	Alterac_DemonHunter=alterac_demon_hunter.Alterac_DemonHunter
@@ -95,7 +95,7 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 	Alterac_Warrior=alterac_warrior.Alterac_Warrior
 	Alterac_Cards=[Alterac_DemonHunter, Alterac_Druid, Alterac_Hunter, Alterac_Mage, Alterac_Neutral, Alterac_Paladin, Alterac_Priest, Alterac_Rogue, Alterac_Shaman, Alterac_Warlock, Alterac_Warrior,]
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,7,8,10]:
 	## THE_SUNKEN_CITY = 1658  # Voyage to the Sunken City
 	from fireplace.cards.sunken import sunken_demon_hunter, sunken_druid, sunken_hunter, sunken_mage, sunken_neutral, sunken_paladin, sunken_priest, sunken_rogue, sunken_shaman, sunken_warlock, sunken_warrior
 	Sunken_DemonHunter=sunken_demon_hunter.Sunken_DemonHunter
@@ -111,7 +111,7 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 	Sunken_Warrior=sunken_warrior.Sunken_Warrior
 	Sunken_Cards=[Sunken_DemonHunter, Sunken_Druid,Sunken_Hunter,Sunken_Mage,Sunken_Neutral, Sunken_Paladin, Sunken_Priest, Sunken_Rogue, Sunken_Shaman, Sunken_Warlock, Sunken_Warrior]
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,8,10]:
 	## REVENDRETH = 1691  # Murder at Castle Nathria
 	from fireplace.cards.revendreth import rev_neutral,\
 		rev_demonhunter, rev_druid, rev_hunter, rev_mage,\
@@ -134,7 +134,7 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 		Revendreth_Priest,Revendreth_Priest,Revendreth_Rogue,\
 		Revendreth_Shaman,Revendreth_Warlock,Revendreth_Warrior]
 
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,4,5,6,8,10]:
 	from fireplace.cards.lichking import lich_deathknight, lich_demonhunter, lich_druid, lich_hunter, lich_mage, lich_neutral,lich_paladin, lich_priest, lich_rogue, lich_shaman, lich_warlock, lich_warrior
 	from fireplace.cards.arthas import arthas_deathknight
 	Arthas_Deathknight=arthas_deathknight.Arthas_DeathKnight
@@ -152,18 +152,12 @@ if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
 	Lichking_Warrior=lich_warrior.Lich_Warrior
 	Lichking_Cards=[Lichking_DeathKnight, Lichking_DemonHunter, Lichking_Druid, Lichking_Hunter, Lichking_Mage, Lichking_Neutral, Lichking_Paladin, Lichking_Priest, Lichking_Rogue, Lichking_Shaman, Lichking_Warlock, Lichking_Warrior, Arthas_Deathknight]
 
-if Config.HEARTHSTONE in [1,2,4,5,6,7,8,10]:
+if Config.HEARTHSTONE in [1,256,2,4,5,6,7,8,10]:
 	# Hero
 	from fireplace.cards.hero_dream import hero, dream
 	Heroes=hero.Heroes
 	Dream= ['DREAM_01','DREAM_02','DREAM_03','DREAM_04','DREAM_05','DREAM_05e']
 	Etc = ['SCH_307t']
-
-if Config.HEARTHSTONE in [1,4,5,6,7,8,10]:
-	from fireplace.cards.bigDecks.faceHunter import FaceHunter#faceHunter,bigWarrior, clownDruid
-	from fireplace.cards.bigDecks.bigWarrior import BigWarrior
-	from fireplace.cards.bigDecks.clownDruid import ClownDruid
-	bigDecks=[FaceHunter, BigWarrior, ClownDruid]
 
 if Config.HEARTHSTONE in [2,4,7,8,10, 13]:
 	#+Classic_Cards\
@@ -173,7 +167,7 @@ if Config.HEARTHSTONE in [2,4,7,8,10, 13]:
 	Classic_DemonHunter=classic_demon_hunter.Classic_DemonHunter
 	Classic_Druid=classic_druid.Classic_Druid
 	Classic_Hunter=classic_hunter.Classic_Hunter
-	Classic_Mage = classic_mage.Classic_Mage
+	Classic_Mage=classic_mage.Classic_Mage
 	Classic_Neutral=classic_neutral.Classic_Neutral
 	Classic_Paladin=classic_paladin.Classic_Paladin
 	Classic_Priest=classic_priest.Classic_Priest
@@ -185,6 +179,10 @@ if Config.HEARTHSTONE in [2,4,7,8,10, 13]:
 	Classic_Cards=[Classic_DemonHunter, Classic_Druid, Classic_Hunter, Classic_Mage, Classic_Neutral, Classic_Paladin, Classic_Priest, Classic_Rogue, Classic_Shaman, Classic_Warlock, Classic_Warrior, Heroes, Dream]
 
 if Config.HEARTHSTONE in [4] and Config.CARD_TEST_SET!="VANILLA":
+	from fireplace.cards.bigDecks.faceHunter import FaceHunter#faceHunter,bigWarrior, clownDruid
+	from fireplace.cards.bigDecks.bigWarrior import BigWarrior
+	from fireplace.cards.bigDecks.clownDruid import ClownDruid
+	bigDecks=[FaceHunter, BigWarrior, ClownDruid]
 	All=Classic_Cards + bigDecks
 elif Config.HEARTHSTONE in [1,2,4,5,6,7,8,10]:
 	All=Core_Cards + Barrens_Cards + StormWind_Cards + Alterac_Cards + Sunken_Cards + Revendreth_Cards +Lichking_Cards + [Heroes,Dream,Etc]

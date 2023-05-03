@@ -51,12 +51,13 @@ from card_test.simulate_game import card_test
 
 def battleground_main():
 	from fireplace.battlegrounds.BG_utils import  BG_main
-	for repeat in range(50):
+	for repeat in range(10):
 		BG=BG_main()
 		BG.BG_main()
 
 
 ### HEARTHSTONE=6
+#6: Vector Agent(fix), random deck, standard battles simulation
 
 def simulation_main():
 	cards.db.initialize()
@@ -70,7 +71,8 @@ def simulation_main():
 		,myClass=playerB_class)
 	a,b,c = play_set_of_games(Vector1, Vector2, deck1=[], deck2=[], gameNumber=Config.SIMULATION_NUMBER, debugLog=True)
 
-### #7
+### HEARTHSTONE=7
+#7: Vector Agent(fix), random deck, classic battles simulation
 
 def simulation_classic_main():
 	cards.db.classic_initialize()

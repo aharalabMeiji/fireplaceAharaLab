@@ -2,6 +2,7 @@ class Config:# ()is the default value
 
 	HEARTHSTONE=3
 	#1: Hearthstone standard battle
+	#256: standard 25.6
 	#2: Hearthstone classic cards
 	#3: Hearthstone battleground
 
