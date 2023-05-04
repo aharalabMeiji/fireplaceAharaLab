@@ -531,6 +531,7 @@ class TB_BaconShop_HERO_17_Buddy_G:
 	[Deathrattle:] Deal 4 damage to a random enemy minion for each of your Mechs that died this combat.""" 
 	deathrattle = TB_BaconShop_HERO_17_Buddy_G_Deathrattle()
 
+from fireplace.cards import db
 
 
 ##Mr. Bigglesworth  ### OK ###
@@ -586,18 +587,63 @@ class TB_BaconShop_HP_080:
 	# controller.game.parent.warbandDeceased : list of the field cards of killed heroes.
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_080_Action())
 ######## BUDDY
+class TB_BaconShop_HERO_70_Buddy_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		gamemaster = controller.game.parent
+		next_warband = gamemaster.next_warband(controller)
+		low=[]
+		low_hlt=9999
+		if len(next_warband):
+			for card in next_warband:
+				hlt = db[card].health
+				if low==[]:
+					low = [card]
+					low_hlt=hlt
+				elif hlt<low_hlt:
+					low = [card]
+					low_hlt=hlt
+				elif hlt==low_hlt:
+					low.append(card)
+			card = random.choice(low)
+			newcard = controller.card(card)
+			newcard.zone=Zone.HAND
+		pass		
 class TB_BaconShop_HERO_70_Buddy:# <12>[1453]
 	""" Lil' K.T.
-	At the start of your turn,get a plain minion fromyour lowest Healthopponent's warband. """
-	#
+	At the start of your turn,get a plain minion from your lowest Health opponent's warband. """
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_70_Buddy_Action())
 	pass
+class TB_BaconShop_HERO_70_Buddy_G_Action(GameAction):
+	def do(self, source):
+		controller = source.controller
+		gamemaster = controller.game.parent
+		next_warband = gamemaster.next_warband(controller)
+		low=[]
+		if len(next_warband):
+			for card in next_warband:
+				hlt = db[card].health
+				if low==[]:
+					low = [card]
+					low_hlt=hlt
+				elif hlt<low_hlt:
+					low = [card]
+					low_hlt=hlt
+				elif hlt==low_hlt:
+					low.append(card)
+			card = random.choice(low)
+			newcard0 = controller.card(card.id)
+			newcard0.zone=Zone.HAND
+			card = random.choice(low)
+			newcard1 = controller.card(card.id)
+			newcard1.zone=Zone.HAND
+		pass		
 class TB_BaconShop_HERO_70_Buddy_G:# <12>[1453]
 	""" Lil' K.T.
 	At the start of your turn,get 2 plain minions fromyour lowest Health opponent's warband. """
-	#
+	events = BeginBar(CONTROLLER).on(TB_BaconShop_HERO_70_Buddy_G_Action())
 	pass
 
-from fireplace.cards import db
 
 ## Murloc Holmes ###BG23_HERO_303## new 24.2 #### HP OK #####        ###
 BG_Hero3 += ['BG23_HERO_303','BG23_HERO_303p2','BG23_HERO_303pt','BG23_HERO_303_Buddy','BG23_HERO_303_Buddy_G']# 
@@ -612,6 +658,11 @@ class BG23_HERO_303p2_Choice(Choice):
 		super().choose(card)
 		if card.id==self.source.sidequest_list0[0]:
 			Give(self.source.controller, 'GAME_005').trigger(self.source)
+			if len([cd for cd in self.source.controller.field if cd.id=='BG23_HERO_303_Buddy']):
+				Give(self.source.controller, card.id).trigger(self.source)
+			if len([cd for cd in self.source.controller.field if cd.id=='BG23_HERO_303_Buddy_G']):
+				Give(self.source.controller, card.id).trigger(self.source)
+				Give(self.source.controller, card.id).trigger(self.source)
 		self.next_choice=None
 		self.player.choice=None
 class BG23_HERO_303p2_Action(GameAction):
@@ -642,7 +693,14 @@ class BG23_HERO_303p2:
 class BG23_HERO_303pt:
 	pass
 ###### Buddy ######
-
+class BG23_HERO_303_Buddy:
+	""" Watfin
+	After you guess correctly with 'Detective for Hire', get a plain copy of the minion. """
+	pass
+class BG23_HERO_303_Buddy_G:
+	""" Watfin
+	After you guess correctly with 'Detective for Hire', get 2 plain copies of the minion. """
+	pass
 
 
 
