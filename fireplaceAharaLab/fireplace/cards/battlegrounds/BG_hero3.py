@@ -356,19 +356,20 @@ class BG20_HERO_202:# <12>[1453]
 	""" Master Nguyen """
 class BG20_HERO_202p_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		ChangeHeroPower(self.player, card.id).trigger(self.source)
 		if not 'BG20_HERO_202pe' in [buff.id for buff in self.source.controller.buffs]:
 			Buff(self.source.controller,'BG20_HERO_202pe').trigger(self.source)
-		self.next_choice=None
 		self.player.choice=None
 class BG20_HERO_202p_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
 		heroes=[hero for hero in controller.game.parent.Heroes if hero!='BG20_HERO_202']
-		if len(heroes)>2:
-			heroes = random.sample(heroes,2)
-		BG20_HERO_202p_Choice(controller, RandomID(*heroes)*2).trigger(source)
+		choice_number=2+source.action_option
+		if len(heroes)>choice_number:
+			heroes = random.sample(heroes,choice_number)
+		BG20_HERO_202p_Choice(controller, RandomID(*heroes)*choice_number).trigger(source)
 		choiceAction(controller)
 		pass
 class BG20_HERO_202p:# <12>[1453]
@@ -388,15 +389,23 @@ class BG20_HERO_202pt:# <12>[1453]
 	#
 	pass
 ######## BUDDY
+class BG20_HERO_202_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		source.controller.hero.power.action_option=1
+		pass
 class BG20_HERO_202_Buddy:# <12>[1453]
 	""" Lei Flamepaw
-	'Power of the Storm' offers3 options instead of 2. """
-	#
+	'Power of the Storm' offers 3 options instead of 2. """
+	play = BG20_HERO_202_Buddy_Action()
 	pass
+class BG20_HERO_202_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		source.controller.hero.power.action_option=2
+		pass
 class BG20_HERO_202_Buddy_G:# <12>[1453]
 	""" Lei Flamepaw
-	'Power of the Storm' offers4 options instead of 2. """
-	#
+	'Power of the Storm' offers 4 options instead of 2. """
+	play = BG20_HERO_202_Buddy_G_Action()
 	pass
 
 
