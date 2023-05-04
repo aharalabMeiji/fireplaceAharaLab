@@ -366,7 +366,10 @@ class BG20_HERO_202p_Action(GameAction):
 	def do(self, source):
 		controller=source.controller
 		heroes=[hero for hero in controller.game.parent.Heroes if hero!='BG20_HERO_202']
-		choice_number=2+source.action_option
+		if getattr(source, 'this_is_enchantment', False):
+			choice_number=2+source.source.action_option
+		else:## this_is_heropower
+			choice_number=2+source.action_option
 		if len(heroes)>choice_number:
 			heroes = random.sample(heroes,choice_number)
 		BG20_HERO_202p_Choice(controller, RandomID(*heroes)*choice_number).trigger(source)
@@ -469,7 +472,7 @@ BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_17_Buddy']='TB_BaconShop_HERO_17_Buddy_G'
 class TB_BaconShop_HERO_17:# <12>[1453]
 	""" Millificent Manastorm """
 	pass
-class TB_BaconShop_HP_015_Action(GameAction):
+class TB_BaconShop_HP_015_Action(GameAction):### old
 	def do(self, source):
 		controller=source.controller
 		if hasattr(controller.game,'this_is_tavern'):
@@ -485,21 +488,48 @@ class TB_BaconShop_HP_015_Action(GameAction):
 		pass
 class TB_BaconShop_HP_015:
 	""" Tinker
-	[Passive]Mechs in Bob's Tavern have +1/+1."""
-	events = [
-		BeginBar(CONTROLLER).on(TB_BaconShop_HP_015_Action()),
-		Rerole(CONTROLLER).on(TB_BaconShop_HP_015_Action()),
-	]
-TB_BaconShop_HP_015e=buff(1,1)
+	&lt;b&gt;Passive&lt;/b&gt; Whenever you summon a Mech, give it +2 Attack."""
+	### [Passive]Mechs in Bob's Tavern have +1/+1.
+	events = Summon(CONTROLLER, FRIENDLY + MINION + MECH).on(Buff(Summon.CARD, 'TB_BaconShop_HP_015e'))
+	#events = [
+	#	BeginBar(CONTROLLER).on(TB_BaconShop_HP_015_Action()),
+	#	Rerole(CONTROLLER).on(TB_BaconShop_HP_015_Action()),
+	#]
+TB_BaconShop_HP_015e=buff(2,0)
+#TB_BaconShop_HP_015e=buff(1,1)
 ######## BUDDY
+class TB_BaconShop_HERO_17_Buddy_Deathrattle(GameAction):
+	def do(self, source):
+		controller = source.controller
+		amount=0
+		for card in controller.death_log:
+			if race_identity(card, Race.MECHANICAL):
+				amount += 1
+		for repeat in range(amount):
+			if len(controller.opponent.field):
+				card = random.choice(controller.opponent.field)
+				Hit(card,2).trigger(source)
 class TB_BaconShop_HERO_17_Buddy:# <12>[1453] 
 	""" Elementium Squirrel Bomb
-	[Deathrattle:] Deal 3 damage to a random enemy minion for each of your Mechs that died this combat. """
-	#
+	&lt;b&gt;Deathrattle:&lt;/b&gt; Deal 2 damage to a random enemy minion for each of your Mechs that died this combat."""
+	###[Deathrattle:] Deal 3 damage to a random enemy minion for each of your Mechs that died this combat. """
+	deathrattle = TB_BaconShop_HERO_17_Buddy_Deathrattle()
 	pass
+class TB_BaconShop_HERO_17_Buddy_G_Deathrattle(GameAction):
+	def do(self, source):
+		controller = source.controller
+		amount=0
+		for card in controller.death_log:
+			if race_identity(card, Race.MECHANICAL):
+				amount += 1
+		for repeat in range(amount):
+			if len(controller.opponent.field):
+				card = random.choice(controller.opponent.field)
+				Hit(card,4).trigger(source)
 class TB_BaconShop_HERO_17_Buddy_G:
 	""" 
-	[Deathrattle:] Deal 6 damage to a random enemy minion for each of your Mechs that died this combat.""" 
+	[Deathrattle:] Deal 4 damage to a random enemy minion for each of your Mechs that died this combat.""" 
+	deathrattle = TB_BaconShop_HERO_17_Buddy_G_Deathrattle()
 
 
 

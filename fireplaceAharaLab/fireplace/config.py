@@ -56,12 +56,12 @@ class Config:# ()is the default value
 	REWARD_PRESET=''
 
 	PLAYER1_HUMAN=0 ## battleground with human player
-	CARD_PRESET1=''
+	CARD_PRESET1='TB_BaconShop_HERO_17_Buddy'
 	CARD_PRESET2=''
 	RANDOM_RACE=1 #random sampling from races（default:1）
 	#sample from ['beast','demon','dragon','elemental','mecha','murloc','naga','pirate','quilboar','undead']
 	RACE_CHOICE=['naga','dragon']# valid when RANDOM_RACE=0
-	HERO_1='' #第1プレーヤーはヒーローを指定できる
+	HERO_1='TB_BaconShop_HERO_17' #第1プレーヤーはヒーローを指定できる
 	HERO_2='' #人間プレーヤーはヒーローを指定できる
 
 	ALL_PLAYERS_LOGINFO = 1 ## すべてのプレーヤーのバーにおけるムーブをテキスト表示する 

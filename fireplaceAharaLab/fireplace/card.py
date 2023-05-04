@@ -1425,6 +1425,7 @@ class HeroPower(PlayableCard):
 		self.activations_this_turn = 0
 		self.old_power = None
 		self.deepcopy_original = None
+		self.this_is_heropower = True
 
 	@property
 	def exhausted(self):
