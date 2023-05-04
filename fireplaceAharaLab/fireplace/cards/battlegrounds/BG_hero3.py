@@ -310,7 +310,8 @@ class TB_BaconShop_HP_052_Action(TargetedAction):
 			target = target[0]
 		target.zone=Zone.GRAVEYARD
 		bartender = controller.opponent
-		tier=target.tech_level
+		option_tier = source.action_option
+		tier = min(target.tech_level+option_tier,6)
 		newcard = RandomBGAdmissible(tech_level=tier).evaluate(bartender)
 		Summon(CONTROLLER, newcard).trigger(bartender)
 		pass
@@ -325,15 +326,23 @@ class TB_BaconShop_HP_052:
 		}
 	activate = TB_BaconShop_HP_052_Action(CONTROLLER, TARGET)
 ######## BUDDY
+class TB_BaconShop_HERO_58_Buddy_Action(GameAction):
+	def do(self, source):
+		source.controller.hero.power.action_option=1
+		pass
 class TB_BaconShop_HERO_58_Buddy:# <12>[1453]
 	""" Nexus Lord
-	'Arcane Alteration'replaces with a minionone Tavern Tier higher. """
-	#
+	'Arcane Alteration'replaces with a minion one Tavern Tier higher. """
+	play = TB_BaconShop_HERO_58_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_58_Buddy_G_Action(GameAction):
+	def do(self, source):
+		source.controller.hero.power.action_option=2
+		pass
 class TB_BaconShop_HERO_58_Buddy_G:# <12>[1453]
 	""" Nexus Lord
-	'Arcane Alteration'replaces with a minion_two Tavern Tiers higher. """
-	#
+	'Arcane Alteration'replaces with a minion two Tavern Tiers higher. """
+	play = TB_BaconShop_HERO_58_Buddy_G_Action()
 	pass
 
 
