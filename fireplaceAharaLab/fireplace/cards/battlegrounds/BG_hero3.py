@@ -721,12 +721,19 @@ class BG20_HERO_301p_Action(TargetedAction):
 		controller=target
 		atk = card.atk
 		health = card.max_health
+		extra_minions=1
+		if len([cd for cd in controller.field if cd.id=='BG20_HERO_301_Buddy']):
+			extra_minions=2
+		if len([cd for cd in controller.field if cd.id=='BG20_HERO_301_G_Buddy']):
+			extra_minions=4
 		if len(controller.field)>=2:
 			Destroy(card).trigger(source)
-			anothercard = random.choice(controller.field)
-			Buff(anothercard, 'BG20_HERO_301pe',
-				atk=atk, max_health=health
-				).trigger(source)
+			if len(controller.field)>extra_minions:
+				othercards = random.sample(controller.field, extra_minions)
+			else:
+				othercards = controller.field
+			for anothercard in othercards:
+				Buff(anothercard, 'BG20_HERO_301pe', atk=atk, max_health=health).trigger(source)
 			Give(controller, 'GAME_005').trigger(source)
 		pass
 class BG20_HERO_301p:
