@@ -253,6 +253,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	sidequest_list3 = []# Sidequest
 	sidequest_counter = 0# Sidequest
 	choice_limit = 1# Sidequest
+	action_option=0 # Sidequest
 	_Asphyxia_ = 'alive' # SW_323 The Rat King
 	honorable_kill = True
 	honorably_killed = False ##

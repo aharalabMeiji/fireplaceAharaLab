@@ -250,7 +250,7 @@ class TB_BaconShop_HP_068pe_Action(TargetedAction):
 	TARGET=ActionArg()
 	def do(self, source, controller, target):
 		bartender = target.controller
-		target.zone=Zone.GRAVEYARD
+		target.zone=Zone.SETASIDE
 		target.controller = controller
 		target.zone = Zone.HAND
 		if target in bartender.field:
@@ -260,27 +260,37 @@ class TB_BaconShop_HP_068pe_Action(TargetedAction):
 class TB_BaconShop_HP_068pe:
 	"""ImprisonedWatcher	"""
 	def apply(self, target):
-		target.dormant=3
+		source=self.owner## TB_BaconShop_HP_068
+		if source.action_option>0:
+			source.action_option -= 1
+			target.dormant=2
+		else:
+			target.dormant=3
 	events = Awaken().on(TB_BaconShop_HP_068pe_Action(CONTROLLER, Awaken.TARGET),Destroy(SELF))
 	pass
 TB_BaconShop_HP_068e=buff(2,2)
 class TB_BaconShop_HP_068e2:
 	pass
 ######## BUDDY
+class TB_BaconShop_HERO_62_Buddy_Action:# <12>[1453]
+	def do(self, source):
+		source.controller.hero.power.action_option=1
 class TB_BaconShop_HERO_62_Buddy:# <12>[1453]
 	""" Shadow Warden
 	[Battlecry:] Your next Hero Power makes the target Golden and awaken 1 turn faster. """
-	#
+	play = TB_BaconShop_HERO_62_Buddy_Action()
 	pass
 class TB_BaconShop_HERO_62_Buddy_e:# <12>[1453]
 	""" Next Hero Power Goldens
 	Your next Hero Power makes the target Golden. """
 	#
-	pass
+class TB_BaconShop_HERO_62_Buddy_G_Action:# <12>[1453]
+	def do(self, source):
+		source.controller.hero.power.action_option=2
 class TB_BaconShop_HERO_62_Buddy_G:# <12>[1453]
 	""" Shadow Warden
 	[Battlecry:] Your next 2 Hero Powers make the target Golden and awaken 1 turn faster. """
-	#
+	play = TB_BaconShop_HERO_62_Buddy_G_Action()
 	pass
 
 
