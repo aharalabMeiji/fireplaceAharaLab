@@ -409,6 +409,7 @@ class BG20_HERO_202_Buddy_G:# <12>[1453]
 	pass
 
 
+
 ##Millhouse Manastorm  ### HP OK ###
 BG_Hero3 += ['TB_BaconShop_HERO_49','TB_BaconShop_HP_054','TB_Baconshop_HP_054e','TB_BaconShop_HERO_49_Buddy','TB_BaconShop_HERO_49_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_49',]#
@@ -423,15 +424,37 @@ class TB_BaconShop_HP_054:
 class TB_Baconshop_HP_054e:
 	""" Costs (1) less."""
 ######## BUDDY
+class TB_BaconShop_HERO_49_Buddy_Action(TargetedAction):# <12>[1453]
+	CARD=CardArg()
+	def do(self, source, card):
+		card=get00(card)
+		tier=card.tech_level
+		newcard=RandomBGMinion(tech_level=tier).evaluate(source)
+		newcard=get00(newcard)
+		newcard.zone=Zone.SETASIDE
+		newcard.controller=source.controller.opponent
+		newcard.zone=Zone.PLAY#Bob's Tavern
 class TB_BaconShop_HERO_49_Buddy:# <12>[1453]
 	""" Magnus Manastorm
 	After you buy a minion,add one of the same TavernTier to Bob's Tavern. """
-	#
+	events = Buy(CONTROLLER).after(TB_BaconShop_HERO_49_Buddy_Action(Buy.CARD))
 	pass
+class TB_BaconShop_HERO_49_Buddy_G_Action(TargetedAction):# <12>[1453]
+	CARD=CardArg()
+	def do(self, source, card):
+		card=get00(card)
+		tier=card.tech_level
+		for repeat in range(2):
+			newcard=RandomBGMinion(tech_level=tier).evaluate(source)
+			newcard=get00(newcard)
+			newcard.zone=Zone.SETASIDE
+			newcard.controller=source.controller.opponent
+			newcard.zone=Zone.PLAY#Bob's Tavern
+		pass
 class TB_BaconShop_HERO_49_Buddy_G:# <12>[1453]
 	""" Magnus Manastorm
 	After you buy a minion,add two of the same TavernTier to Bob's Tavern. """
-	#
+	events = Buy(CONTROLLER).after(TB_BaconShop_HERO_49_Buddy_G_Action(Buy.CARD))
 	pass
 
 
