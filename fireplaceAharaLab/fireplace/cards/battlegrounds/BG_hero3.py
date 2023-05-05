@@ -655,6 +655,7 @@ class BG23_HERO_303:
 	"""
 class BG23_HERO_303p2_Choice(Choice):
 	def choose(self, card):
+		self.next_choice=None
 		super().choose(card)
 		if card.id==self.source.sidequest_list0[0]:
 			Give(self.source.controller, 'GAME_005').trigger(self.source)
@@ -663,7 +664,6 @@ class BG23_HERO_303p2_Choice(Choice):
 			if len([cd for cd in self.source.controller.field if cd.id=='BG23_HERO_303_Buddy_G']):
 				Give(self.source.controller, card.id).trigger(self.source)
 				Give(self.source.controller, card.id).trigger(self.source)
-		self.next_choice=None
 		self.player.choice=None
 class BG23_HERO_303p2_Action(GameAction):
 	def do(self, source):
@@ -677,11 +677,12 @@ class BG23_HERO_303p2_Action(GameAction):
 			for repeat in range(10):
 				card2=RandomBGAdmissible(tech_level=tavern_tier).evaluate(source)
 				card2 = card2[0]
-				if not card2.id in next_warband:
-					cardID2 = card2.id
+				cardID2 = card2.id
+				card2.discard()
+				if not cardID2 in next_warband:
 					break
 			if cardID2!=None:
-				source.sidequest_list0.append(cardID1)
+				source.sidequest_list0=[cardID1]
 				BG23_HERO_303p2_Choice(controller, RandomID(cardID1, cardID2)*2).trigger(source)
 				choiceAction(controller)
 		pass
