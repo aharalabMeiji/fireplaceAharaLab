@@ -571,7 +571,7 @@ class TB_BaconShop_HERO_22_Buddy_G:
 ##The Rat King ##   ### OK ###
 BG_Hero5+=[
 	'TB_BaconShop_HERO_12',
-	'TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',
+	'TB_BaconShop_HP_041','TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c','TB_BaconShop_HP_041d','TB_BaconShop_HP_041e','TB_BaconShop_HP_041f','TB_BaconShop_HP_041g','TB_BaconShop_HP_041h','TB_BaconShop_HP_041i','TB_BaconShop_HP_041j','TB_BaconShop_HP_041k',
 	'TB_BaconShop_HERO_12_Buddy','TB_BaconShop_HERO_12_Buddy_G',
 	]
 BG_PoolSet_Hero5.append('TB_BaconShop_HERO_12')
@@ -583,78 +583,106 @@ class TB_BaconShop_HERO_12:# <12>[1453]
 class TB_BaconShop_HP_041_Action(GameAction):
 	def do(self, source):
 		controller = source.controller
-		new_hp=random.choice([
-			'TB_BaconShop_HP_041a','TB_BaconShop_HP_041b','TB_BaconShop_HP_041c',
-			'TB_BaconShop_HP_041d','TB_BaconShop_HP_041f',
-			'TB_BaconShop_HP_041g','TB_BaconShop_HP_041h',
-			'TB_BaconShop_HP_041i','TB_BaconShop_HP_041j',
-			])
+		races = controller.game.parent.BG_races
+		choices=[]
+		if 'beast' in races:
+			choices.append('TB_BaconShop_HP_041a')
+		if 'demon' in races:
+			choices.append('TB_BaconShop_HP_041d')
+		if 'dragon' in races:
+			choices.append('TB_BaconShop_HP_041f')
+		if 'elemental' in races:
+			choices.append('TB_BaconShop_HP_041h')
+		if 'mecha' in races:
+			choices.append('TB_BaconShop_HP_041b')
+		if 'murloc' in races:
+			choices.append('TB_BaconShop_HP_041c')
+		if 'naga' in races:
+			choices.append('TB_BaconShop_HP_041j')
+		if 'pirate' in races:
+			choices.append('TB_BaconShop_HP_041g')
+		if 'quilboar' in races:
+			choices.append('TB_BaconShop_HP_041i')
+		if 'undead' in races:
+			choices.append('TB_BaconShop_HP_041k')
+		new_hp=random.choice(choices)
 		ChangeHeroPower(controller, new_hp).trigger(source)
 		pass
 class TB_BaconShop_HP_041:
 	"""  
-	[Passive] Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn."""
+	&lt;b&gt;Discover&lt;/b&gt; a minion of a specific minion type. Swaps type each turn."""
+	###[Passive] Whenever you buy a minion of a specific type, give it +2/+2. Swaps type each turn.
 	events = BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 	pass	
 class TB_BaconShop_HP_041a:
 	""" beast """
+	activate = Discover(CONTROLLER, RandomBGBeast(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, BEAST).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, BEAST).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041b:
 	""" mech """
+	activate = Discover(CONTROLLER, RandomBGMecha(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, MECH).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, MECH).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041c:
 	""" murloc """
+	activate = Discover(CONTROLLER, RandomBGMurloc(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, MURLOC).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, MURLOC).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041d:
 	""" demon """
+	activate = Discover(CONTROLLER, RandomBGDemon(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, DEMON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, DEMON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 TB_BaconShop_HP_041e=buff(2,2)
 class TB_BaconShop_HP_041f:
 	""" dragon """
+	activate = Discover(CONTROLLER, RandomBGDragon(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, DRAGON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, DRAGON).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041g:
 	""" pirate """
+	activate = Discover(CONTROLLER, RandomBGPirate(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, PIRATE).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, PIRATE).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041h:
 	""" elemental """
+	activate = Discover(CONTROLLER, RandomBGElemental(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, ELEMENTAL).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, ELEMENTAL).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041i:
 	""" quilboar """
+	activate = Discover(CONTROLLER, RandomBGQuilboar(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, QUILBOAR).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, QUILBOAR).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 class TB_BaconShop_HP_041j:
 	""" naga """
+	activate = Discover(CONTROLLER, RandomBGNaga(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, NAGA).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, NAGA).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
-class TB_BaconShop_HP_041j:
+class TB_BaconShop_HP_041k:
 	""" undead """
+	activate = Discover(CONTROLLER, RandomBGUndead(tech_level_less=TIER(CONTROLLER)))
 	events = [
-		Buy(CONTROLLER, UNDEAD).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
+		#Buy(CONTROLLER, UNDEAD).on(Buff(Buy.CARD,'TB_BaconShop_HP_041e')),
 		BeginBar(CONTROLLER).on(TB_BaconShop_HP_041_Action())
 		]
 ######## BUDDY
@@ -691,12 +719,12 @@ class TB_BaconShop_HERO_12_Buddy_Action(GameAction):
 class TB_BaconShop_HERO_12_Buddy:# <12>[1453]
 	""" Pigeon Lord
 	Your [Refreshes] cost (0) while Bob's Tavern doesn't have the minion type of your Hero Power. """
-	events = Rerole(CONTROLLER).on(TB_BaconShop_HERO_12_Buddy_Action())
+	events = Rerole(CONTROLLER).after(TB_BaconShop_HERO_12_Buddy_Action())
 	pass
 class TB_BaconShop_HERO_12_Buddy_G:# <12>[1453]
 	""" Pigeon Lord
 	Your [Refreshes] cost (0) while Bob's Tavern doesn't have the minion type of your Hero Power. """
-	events = Rerole(CONTROLLER).on(TB_BaconShop_HERO_12_Buddy_Action())
+	events = Rerole(CONTROLLER).after(TB_BaconShop_HERO_12_Buddy_Action())
 	#
 	pass
 
