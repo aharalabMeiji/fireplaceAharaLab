@@ -549,10 +549,12 @@ class TB_BaconShop_HP_080_Choice(Choice):
 		#card.zone=Zone.SETASIDE
 		card.controller=self.player
 		card.zone=Zone.HAND
-		for cd in self.source.sidequest_list0:
-			if cd[0]==card.id:
-				for bf in cd[1]:
-					bf.apply(card)
+		choices=[cd for cd in self.player.game.parent.warbandDeceased[0] if cd.id==card.id]
+		if len(choices)>0:
+			choice=choices[0]
+			for bf in choice.buffs:
+				bf.apply(card)
+		self.player.game.parent.warbandDeceased=[]
 		pass
 	pass
 class TB_BaconShop_HP_080_Action(GameAction):
@@ -560,26 +562,16 @@ class TB_BaconShop_HP_080_Action(GameAction):
 		controller=source.controller
 		if len(controller.game.parent.warbandDeceased):
 			field = random.choice(controller.game.parent.warbandDeceased)
+			controller.game.parent.warbandDeceased=[field]###
 			amount=len(field)
 			if amount>3:
 				field=random.sample(field, 3)
 				amount=3
 			if Config.LOGINFO:
 				Config.log("TB_BaconShop_HP_080_Action","get 3 samples")
-			source.sidequest_list0=[]
-			for card in field:
-				bfs=[]
-				for bf in card.buffs:
-					bf._zone=Zone.SETASIDE
-					bf.controller=controller
-					bfs.append(bf)
-				source.sidequest_list0.append([card.id, bfs ])
-			if Config.LOGINFO:
-				Config.log("TB_BaconShop_HP_080_Action","record buffs")
-			field=[card.id for card in field]
-			TB_BaconShop_HP_080_Choice(controller, RandomID(*field)*amount).trigger(source)
+			fieldIDs=[cd.id for cd in field]
+			TB_BaconShop_HP_080_Choice(controller, RandomID(*fieldIDs)*amount).trigger(source)
 			choiceAction(controller)
-		controller.game.parent.warbandDeceased = []
 		pass
 class TB_BaconShop_HP_080:
 	""" Kel'Thuzad's Kitty
@@ -863,20 +855,42 @@ class TB_BaconShop_HP_063:
 	[Passive] Your first [Refresh] each turn costs (0)"""
 	events = BeginBar(CONTROLLER).on(GetFreeRerole(CONTROLLER))
 ######## BUDDY
+class TB_BaconShop_HERO_57_Buddy_Action0(GameAction):# <12>[1453]
+	def do(self, source):
+		source.action_option=0
+		pass
+class TB_BaconShop_HERO_57_Buddy_Action1(GameAction):# <12>[1453]
+	def do(self, source):
+		source.action_option+=1
+		for cd in source.controller.field:
+			Buff(cd, 'TB_BaconShop_HERO_57_Buddy_e', atk=source.action_option, max_health=source.action_option).trigger(source)
+		pass
 class TB_BaconShop_HERO_57_Buddy:# <12>[1453]
 	""" Chromie
-	Minions in Bob's Tavernhave +1/+1 for each time itwas [Refreshed] this turn. """
-	#
+	Minions in Bob's Tavern have +1/+1 for each time it was [Refreshed] this turn. """
+	events = [
+		BeginBar(CONTROLLER).on(TB_BaconShop_HERO_57_Buddy_Action0()),
+		Rerole(CONTROLLER).on(TB_BaconShop_HERO_57_Buddy_Action1())
+		]
 	pass
 class TB_BaconShop_HERO_57_Buddy_e:# <12>[1453]
 	""" Flow of Time
 	Stats increased by Chromie. """
 	#
 	pass
+class TB_BaconShop_HERO_57_Buddy_Action2(GameAction):# <12>[1453]
+	def do(self, source):
+		source.action_option+=2
+		for cd in source.controller.field:
+			Buff(cd, 'TB_BaconShop_HERO_57_Buddy_e', atk=source.action_option, max_health=source.action_option).trigger(source)
+		pass
 class TB_BaconShop_HERO_57_Buddy_G:# <12>[1453]
 	""" Chromie
 	Minions in Bob's Tavernhave +2/+2 for each time itwas [Refreshed] this turn. """
-	#
+	events = [
+		BeginBar(CONTROLLER).on(TB_BaconShop_HERO_57_Buddy_Action0()),
+		Rerole(CONTROLLER).on(TB_BaconShop_HERO_57_Buddy_Action2())
+		]
 	pass
 
 

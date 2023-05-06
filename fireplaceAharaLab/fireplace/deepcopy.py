@@ -203,11 +203,37 @@ def deepcopy_log(oldLog):
 		ret.append(PlayLog(log.card, log.turn, log.amount))
 	return ret
 
+def deepcopy_HeroPower(oldHeroPower):
+	## hero power
+	ret=[]
+	if oldHeroPower:
+		newPlayer = oldHeroPower.controller
+		card=HeroPower(cards.db[oldHeroPower.id])#
+		card.controller = newPlayer
+		## or Summon(newPlayer, card).trigger(newPlayer)
+		card.game.manager.new_entity(card)
+		# heropower's attr
+		heropowerAttrs=['activations_this_turn','additional_activations','aura','cant_be_frozen',\
+			'cant_play','cast_on_friendly_characters','cost','heropower_damage',\
+			'lifesteal','morphed','old_power','overload','play_counter',\
+			'requirements','reborn','sidequest_counter','script_data_num_1',\
+			'sidequest_list0','target','windfury',
+			]
+		for attr in heropowerAttrs:
+			value = getattr(oldHeroPower,attr)
+			setattr(newPlayer.hero.power,attr, value)
+		for buff in oldHeroPower.buffs:
+			newPlayer.hero.power.buffs.append(Enchantment(cards.db[buff.id]))
+			ret.append(card)
+	return ret
+
+
 def copy_cardattr(oldCard, newCard):
 	""" copy attributes from and to existing cards
 	"""
 	attrList = oldCard.__dict__.keys()
-	excludeList=[		'manager','target','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone','game',
+	excludeList=[		
+		'manager','target','data','tags','uuid','_events','buffs','id','controller','parent_card','aura','entity_id','_zone','game',
 		]
 	for attr in attrList:
 		if not attr in excludeList:
@@ -236,15 +262,19 @@ def copy_cardattr(oldCard, newCard):
 							newSrc += deepcopy_reward([card], oldCard, newCard)
 						elif isinstance(card, PlayLog):
 							newSrc += deepcopy_log([card])
+						elif isinstance(card, HeroPower):
+							newSrc += deepcopy_HeroPower(card)
 						elif isinstance(card, str):##discover,entourage
-							newSrc += [copy.deepcopy(src)]
+							newSrc += [card]
 						else:
-							newSrc += [copy.deepcopy(src)]
+							newSrc += [copy.deepcopy(card)]
 					setattr(newCard, attr, newSrc)
 			pass
 		pass
 
 	pass
+
+
 
 def copy_playerattr(oldPlayer, newPlayer):
 	## hero
