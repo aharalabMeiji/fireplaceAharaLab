@@ -201,16 +201,33 @@ BG_Hero3_Buddy['TB_BaconShop_HERO_37']='TB_BaconShop_HERO_37_Buddy'#
 BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_37_Buddy']='TB_BaconShop_HERO_37_Buddy_G'#
 class TB_BaconShop_HERO_37:# <12>[1453]
 	""" Lord Jaraxxus """
+class TB_BaconShop_HP_036_Action(TargetedAction):
+	TARGET=ActionArg()
+	def do(self, source, target):
+		target=get00(target)
+		if len(source.controller.opponent.field) and target!=None:
+			controller =source.controller
+			card = random.choice(controller.opponent.field)
+			atk=card.atk
+			hlt=card.max_health
+			Destroy(card).trigger(source)
+			Buff(target, 'TB_BaconShop_HP_036e2', atk=atk, max_health=hlt).trigger(source)
 class TB_BaconShop_HP_036:
 	""" Bloodfury
-	Give your Demons +1/+1."""
-	activate = Buff(FRIENDLY_MINIONS + DEMON, 'TB_Bacon_Secrets_08e')
-TB_BaconShop_HP_036e2=buff(1,1)
+	Choose a friendly Demon. It consumes a minion in Bob's Tavern to gain its stats."""
+	###Give your Demons +1/+1."""
+	requirements = { PlayReq.REQ_TARGET_TO_PLAY:0, PlayReq.REQ_MINION_TARGET:0, PlayReq.REQ_FRIENDLY_TARGET:0, PlayReq.REQ_TARGET_WITH_RACE:Race.DEMON}
+	activate = TB_BaconShop_HP_036_Action(TARGET)
+class TB_BaconShop_HP_036e2:
+	pass
 ######## BUDDY
 class TB_BaconShop_HERO_37_Buddy_Action(GameAction):
 	def do(self, source):
 		original_controller=source.controller.deepcopy_original
-		Give(original_controller, RandomBGDemon(tech_level_less=source.controller.tavern_tier)).trigger(source)
+		newcard=RandomBGDemon(tech_level_less=source.controller.tavern_tier).evaluate(source)
+		newcard=get00(newcard)
+		newcard.controller = original_controller
+		newcard.zone=Zone.HAND
 class TB_BaconShop_HERO_37_Buddy:
 	"""Kil'rek
 	[Taunt] [Deathrattle:] Add a random Demon to your hand."""
@@ -218,8 +235,14 @@ class TB_BaconShop_HERO_37_Buddy:
 class TB_BaconShop_HERO_37_Buddy_G_Action(GameAction):
 	def do(self, source):
 		original_controller=source.controller.deepcopy_original
-		Give(original_controller, RandomBGDemon(tech_level_less=source.controller.tavern_tier)).trigger(source)
-		Give(original_controller, RandomBGDemon(tech_level_less=source.controller.tavern_tier)).trigger(source)
+		newcard0=RandomBGDemon(tech_level_less=source.controller.tavern_tier).evaluate(source)
+		newcard0=get00(newcard0)
+		newcard0.controller = original_controller
+		newcard0.zone=Zone.HAND
+		newcard1=RandomBGDemon(tech_level_less=source.controller.tavern_tier).evaluate(source)
+		newcard1=get00(newcard1)
+		newcard1.controller = original_controller
+		newcard1.zone=Zone.HAND
 class TB_BaconShop_HERO_37_Buddy_G:
 	""" Kil'rek
 	[Taunt] [Deathrattle:] Add 2 random Demons to your hand."""
@@ -898,7 +921,9 @@ class TB_BaconShop_HERO_57_Buddy_G:# <12>[1453]
 
 
 ##Onyxia ### HP OK ###
-BG_Hero3 += ['BG22_HERO_305','BG22_HERO_305p','BG22_HERO_305t','BG22_HERO_305_Buddy','BG22_HERO_305_Buddy_e','BG22_HERO_305_Buddy_G','BG22_HERO_305_Buddy_Ge',]# 
+BG_Hero3 += [
+	'BG22_HERO_305','BG22_HERO_305p','BG22_HERO_305t',
+	'BG22_HERO_305_Buddy','BG22_HERO_305_Buddy_e','BG22_HERO_305_Buddy_G','BG22_HERO_305_Buddy_Ge',]# 
 BG_PoolSet_Hero3 +=['BG22_HERO_305',]#
 BG_Hero3_Buddy['BG22_HERO_305']='BG22_HERO_305_Buddy'#
 BG_Hero3_Buddy_Gold['BG22_HERO_305_Buddy']='BG22_HERO_305_Buddy_G'#
