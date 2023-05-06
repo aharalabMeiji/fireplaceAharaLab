@@ -761,7 +761,9 @@ class BG20_HERO_301_Buddy_G:
 
 
 ##N'Zoth  ### HP OK ###
-BG_Hero3 += ['TB_BaconShop_HERO_93','TB_BaconShop_HP_105','TB_BaconShop_HP_105t','TB_BaconShop_HERO_93_Buddy','TB_BaconShop_HERO_93_Buddy_G',]# 
+BG_Hero3 += [
+	'TB_BaconShop_HERO_93','TB_BaconShop_HP_105','TB_BaconShop_HP_105t','TB_BaconUps_307',
+	'TB_BaconShop_HERO_93_Buddy','TB_BaconShop_HERO_93_Buddy_G',]# 
 BG_PoolSet_Hero3 +=['TB_BaconShop_HERO_93',]#
 BG_Hero3_Buddy['TB_BaconShop_HERO_93']='TB_BaconShop_HERO_93_Buddy'#
 BG_Hero3_Buddy_Gold['TB_BaconShop_HERO_93_Buddy']='TB_BaconShop_HERO_93_Buddy_G'#
@@ -778,7 +780,7 @@ class TB_BaconShop_HP_105_Action(TargetedAction):
 			ret.append(deathrattle)
 		ret += new_deathrattles[0]
 		source.data.scripts.deathrattle=tuple(ret)
-		deathrattles = source.deathrattles
+		#deathrattles = source.deathrattles
 		print("%r->%s"%(source.deathrattles,source))
 		pass
 class TB_BaconShop_HP_105_Action2(TargetedAction):
@@ -791,22 +793,59 @@ class TB_BaconShop_HP_105:
 	[Passive] Start the game with a 2/2 Fish that gains all your [Deathrattles] in combat."""
 	events = BeginGame(CONTROLLER).on(Summon(CONTROLLER,'TB_BaconShop_HP_105t'))
 class TB_BaconShop_HP_105t:
-	""" fish """
+	""" Fish of N'Zoth """
 	events = [
 		BeginBattle(CONTROLLER).on(TB_BaconShop_HP_105_Action2(SELF)),
 		Deathrattle(FRIENDLY).on(TB_BaconShop_HP_105_Action(SELF, Deathrattle.TARGET))
 	]
 	tags = {GameTag.DEATHRATTLE:True}
+class TB_BaconUps_307_Action(TargetedAction):
+	TARGET=ActionArg()
+	CARD=ActionArg()
+	def do(self, source, target, card):
+		new_deathrattles = card.deathrattles
+		old_deathrattles = source.data.scripts.deathrattle
+		ret = []
+		for deathrattle in old_deathrattles:
+			ret.append(deathrattle)
+		for deathrattle in old_deathrattles:
+			ret.append(deathrattle)
+		ret += new_deathrattles[0]
+		source.data.scripts.deathrattle=tuple(ret)
+		#deathrattles = source.deathrattles
+		print("%r->%s"%(source.deathrattles,source))
+		pass
+class TB_BaconUps_307:### Gold card
+	""" Fish of N'Zoth 
+	After a friendly &lt;b&gt;Deathrattle&lt;/b&gt; minion dies, gain its &lt;b&gt;Deathrattle&lt;/b&gt; twice."""
+	events = [
+		BeginBattle(CONTROLLER).on(TB_BaconShop_HP_105_Action2(SELF)),
+		Deathrattle(FRIENDLY).on(TB_BaconUps_307_Action(SELF, Deathrattle.TARGET))
+	]
+	tags = {GameTag.DEATHRATTLE:True}
 ######## BUDDY
+class TB_BaconShop_HERO_93_Buddy_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		cards=[cd for cd in source.controller.field if cd.has_deathrattle==True]
+		if len(cards):
+			card = random.choice(cards)
+			source.controller.game.BG_morph_gold(card)### remove AN old card and add a new gold card
+			pass
 class TB_BaconShop_HERO_93_Buddy:# <12>[1453]
 	""" Baby N'Zoth
 	[Battlecry:] Make a friendly[Deathrattle] minion Golden. """
-	#
+	play = TB_BaconShop_HERO_93_Buddy_Action()
 	pass
+class TB_BaconShop_HERO_93_Buddy_G_Action(GameAction):# <12>[1453]
+	def do(self, source):
+		cards=[cd for cd in source.controller.field if cd.has_deathrattle==True]
+		if len(cards):
+			for card in cards:
+				source.controller.game.BG_morph_gold(card)### remove AN old card and add a new gold card
 class TB_BaconShop_HERO_93_Buddy_G:# <12>[1453]
 	""" Baby N'Zoth
 	[Battlecry:] Make all friendly[Deathrattle] minions Golden. """
-	#
+	play = TB_BaconShop_HERO_93_Buddy_G_Action()
 	pass
 
 

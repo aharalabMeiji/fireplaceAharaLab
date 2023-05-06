@@ -33,7 +33,8 @@ BG_Minion_Beast = []
 BG_PoolSet_Beast=[ [],[],[],[],[],[],[]]
 BG_Beast_Gold={}
 
-
+BG_Beast_Gold['TB_BaconShop_HP_105t']='TB_BaconUps_307'
+""" Fish of N'Zoth """
 
 ##Alleycat <beast> (1/1) ###  OK ###
 if BG_Alleycat:
