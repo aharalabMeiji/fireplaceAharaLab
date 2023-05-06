@@ -952,23 +952,15 @@ class BG22_HERO_305t:# <12>[1453]
 class BG22_HERO_305_Buddy:# <12>[1453]
 	""" Many Whelps
 	Whenever you summon a Whelp, gain +2/+2 permanently. """
-	#
+	events = Summon(CONTROLLER, ID('BG22_HERO_305t')).after(BuffPermanently(SELF, 'BG22_HERO_305_Buddy_e'))
 	pass
-class BG22_HERO_305_Buddy_e:# <12>[1453]
-	""" Swarming
-	+2/+2. """
-	#
-	pass
+BG22_HERO_305_Buddy_e=buff(2,2)# <12>[1453]
 class BG22_HERO_305_Buddy_G:# <12>[1453]
 	""" Many Whelps
 	Whenever you summon a Whelp, gain +4/+4 permanently. """
-	#
+	events = Summon(CONTROLLER, ID('BG22_HERO_305t')).after(BuffPermanently(SELF, 'BG22_HERO_305_Buddy_Ge'))
 	pass
-class BG22_HERO_305_Buddy_Ge:# <12>[1453]
-	""" Swarming
-	+4/+4. """
-	#
-	pass
+BG22_HERO_305_Buddy_Ge=buff(4,4)# <12>[1453]
 
 
 
@@ -990,7 +982,12 @@ class BG20_HERO_102pe_Action(TargetedAction):
 		if hasattr(card, '__iter__'):
 			card = card[0]
 		amount = source.source.script_data_num_1
-		Buff(card, 'BG20_HERO_102pe2', atk=amount).trigger(source)
+		if len([cd for cd in source.source.controller.field if cd.id=='BG20_HERO_102_Buddy']):
+			Buff(card, 'BG20_HERO_102pe2', atk=amount, max_health=amount).trigger(source)
+		elif len([cd for cd in source.source.controller.field if cd.id=='BG20_HERO_102_Buddy_G']):
+			Buff(card, 'BG20_HERO_102pe2', atk=amount, max_health=amount*2).trigger(source)
+		else:
+			Buff(card, 'BG20_HERO_102pe2', atk=amount).trigger(source)
 		#source.destroy()
 		pass
 class BG20_HERO_102p:# <10>[1453]
@@ -1022,17 +1019,14 @@ class BG20_HERO_102pe3:# <12>[1453] Why? lol
 class BG20_HERO_102pe_Buddy:# <12>[1453]
 	""" Saurfang Player Enchantment (Buddy)
 	Give extra Health to the next minion you buy this turn. """
-	#
 	pass
 class BG20_HERO_102_Buddy:# <12>[1453]
 	""" Dranosh Saurfang
 	'For the Horde!' also grants Health. """
-	#
 	pass
 class BG20_HERO_102_Buddy_G:# <12>[1453]
 	""" Dranosh Saurfang
 	'For the Horde!' also grants Health twice. """
-	#
 	pass
 
 
