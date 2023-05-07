@@ -100,56 +100,6 @@ class CardDB(dict):
 
 		return card
 
-	def initialize(self, locale="jaJP"):#locale="enUS"):#
-		if Config.LOGINFO:
-			Config.log("cards.initialize","loading card database")
-		self.initialized = True
-		db, xml = cardxml.load(locale=locale)
-		if Config.LOGINFO:
-			Config.log("cards.initialize","Initializing card database")
-		from .cardlist import All
-		for cardIDlist in All:
-			for id in cardIDlist:
-				card = db[id]
-				spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
-				if spellpowervalue is not None:
-					setattr(card, 'spellpower', spellpowervalue)
-				else:
-					setattr(card, 'spellpower', 0)
-				if card.tags.get(GameTag.CHOOSE_ONE) is not None:
-					setattr(card, 'has_choose_one', True)
-				self[id] = self.merge(id, card)
-				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
-				#	print ("%s"%(id))
-				pass
-		if Config.LOGINFO:
-			Config.log("init.initialize","Merged %i cards"%( len(self)))
-
-	def classic_initialize(self, locale="jaJP"):#locale="enUS"):#
-		if Config.LOGINFO:
-			Config.log("cards.initialize","loading card database")
-		self.initialized = True
-		db, xml = cardxml.load(locale=locale)
-		if Config.LOGINFO:
-			Config.log("cards.initialize","Initializing card database")
-		from .cardlist import Classic_Cards, bigDecks
-		for cardIDlist in Classic_Cards+bigDecks:
-			for id in cardIDlist:
-				card = db[id]
-				spellpowervalue = card.tags.get(GameTag.SPELLPOWER)
-				if spellpowervalue is not None:
-					setattr(card, 'spellpower', spellpowervalue)
-				else:
-					setattr(card, 'spellpower', 0)
-				if card.tags.get(GameTag.CHOOSE_ONE) is not None:
-					setattr(card, 'has_choose_one', True)
-				self[id] = self.merge(id, card)
-				#if card.multiple_classes and card.type==CardType.SPELL and card.card_class==CardClass.NEUTRAL:
-				#	print ("%s"%(id))
-				pass
-		if Config.LOGINFO:
-			Config.log("init.initialize","Merged %i cards"%( len(self)))
-
 	def BG_initialize(self):
 		locale = 'jaJP'
 		self.initialized = True
