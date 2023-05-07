@@ -539,6 +539,7 @@ class GenericChoicePlay(GenericChoice):##
 class GenericChoiceChangeHeropower(GenericChoice):## 
 	def choose(self, card):
 		self.next_choice=None
+		self.player.choice = None
 		super().choose(card)
 		controller = self.player
 		if card.type != CardType.HERO_POWER:

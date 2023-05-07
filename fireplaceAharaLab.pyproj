@@ -112,7 +112,6 @@
     <Compile Include="fireplaceAharaLab\fireplace\battlegrounds\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fireplaceAharaLab\fireplace\brawls\__init__.py" />
     <Compile Include="fireplaceAharaLab\fireplace\card.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_demon_hunter.py" />
     <Compile Include="fireplaceAharaLab\fireplace\cards\alterac\alterac_druid.py">
@@ -332,7 +331,6 @@
   <ItemGroup>
     <Folder Include="fireplaceAharaLab" />
     <Folder Include="fireplaceAharaLab\fireplace" />
-    <Folder Include="fireplaceAharaLab\fireplace\brawls" />
     <Folder Include="fireplaceAharaLab\fireplace\cards" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\" />
     <Folder Include="fireplaceAharaLab\fireplace\cards\barrens\__pycache__\" />
